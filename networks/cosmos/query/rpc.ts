@@ -7,7 +7,7 @@ import {
   FeeOptions,
   QueryClient,
 } from "../types";
-import { Status, CometBroadcastResult } from "../types/rpc";
+import { Status, CometBroadcastResponse } from "../types/rpc";
 import {
   accountDecoders,
   broadcast,
@@ -181,13 +181,13 @@ export class RpcClient implements QueryClient {
     const resp = await broadcast(this.endpoint, mode, txBytes);
     switch (mode) {
       case "broadcast_tx_async":
-        const { hash: hash1, ...rest1 } = resp as CometBroadcastResult.Async;
+        const { hash: hash1, ...rest1 } = resp as CometBroadcastResponse.Async;
         return {
           hash: hash1,
           add_tx: rest1,
         };
       case "broadcast_tx_sync":
-        const { hash: hash2, ...rest2 } = resp as CometBroadcastResult.Sync;
+        const { hash: hash2, ...rest2 } = resp as CometBroadcastResponse.Sync;
         return {
           hash: hash2,
           check_tx: rest2,
@@ -199,7 +199,7 @@ export class RpcClient implements QueryClient {
           deliver_tx,
           height,
           hash: hash3,
-        } = resp as CometBroadcastResult.Commit;
+        } = resp as CometBroadcastResponse.Commit;
         return {
           hash: hash3,
           check_tx,

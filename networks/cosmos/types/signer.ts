@@ -1,4 +1,9 @@
-import { HttpEndpoint, Price, BroadcastOptions } from "@uni-sign/types";
+import {
+  HttpEndpoint,
+  Price,
+  BroadcastOptions,
+  BroadcastResponse as GeneralBroadcastResponse,
+} from "@uni-sign/types";
 import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
 import { Coin } from "../codegen/cosmos/base/v1beta1/coin";
 import { Event } from "../codegen/tendermint/abci/types";
@@ -95,8 +100,7 @@ export interface DeliverTxResponse {
   codespace: string;
 }
 
-export interface BroadcastResponse {
-  hash: string;
+export type BroadcastResponse = GeneralBroadcastResponse<{
   add_tx?: {
     code?: number;
     data?: string;
@@ -105,7 +109,7 @@ export interface BroadcastResponse {
   };
   check_tx?: CheckTxResponse;
   deliver_tx?: DeliverTxResponse & { height: string };
-}
+}>;
 
 export interface FeeOptions {
   multiplier?: number;

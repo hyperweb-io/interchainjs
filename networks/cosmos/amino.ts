@@ -16,17 +16,6 @@ import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export function toWallet(
-  auth: Auth,
-  config: SignerConfig = defaultSignerConfig
-): AminoWallet {
-  return {
-    getAccount: async () => getAccountFromAuth(auth, config),
-    sign: async (doc: StdSignDoc) =>
-      SignResponseFromAuth.signAmino(auth, doc, config),
-  };
-}
-
 export class AminoSigner extends BaseSigner<StdSignDoc> {
   readonly converters: AminoConverter[];
 
@@ -58,6 +47,17 @@ export class AminoSigner extends BaseSigner<StdSignDoc> {
     );
     signer.signDoc = wallet.sign;
     return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig
+  ): AminoWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: StdSignDoc) =>
+        SignResponseFromAuth.signAmino(auth, doc, config),
+    };
   }
 
   addConverters = (converters: AminoConverter[]) => {

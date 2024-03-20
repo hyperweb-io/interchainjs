@@ -9,21 +9,10 @@ import {
   StdFee,
   DirectWallet,
 } from "./types";
-import { BaseSigner, getAccountFromAuth, SignResponseFromAuth } from "./utils";
+import { BaseSigner, SignResponseFromAuth, getAccountFromAuth } from "./utils";
 import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
-
-export function toWallet(
-  auth: Auth,
-  config: SignerConfig = defaultSignerConfig
-): DirectWallet {
-  return {
-    getAccount: async () => getAccountFromAuth(auth, config),
-    sign: async (doc: SignDoc) =>
-      SignResponseFromAuth.signDirect(auth, doc, config),
-  };
-}
 
 export class DirectSigner extends BaseSigner<SignDoc> {
   constructor(
@@ -45,6 +34,17 @@ export class DirectSigner extends BaseSigner<SignDoc> {
     const signer = new DirectSigner(auth, encoders, endpoint, config);
     signer.signDoc = wallet.sign;
     return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig
+  ): DirectWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: SignDoc) =>
+        SignResponseFromAuth.signDirect(auth, doc, config),
+    };
   }
 
   async createDoc(

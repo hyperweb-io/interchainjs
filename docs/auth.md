@@ -21,3 +21,29 @@ It's important to note that for a specific cryptographic algorithms, the corresp
 
 - `*Auth` classes differs across algorithms but independent of networks
 - `*Signer` classes differs across networks but independent of algorithms
+
+See [usage example](/docs/signer.md#signer--auth).
+
+## Auth vs. Wallet
+
+Both `Auth` and `Wallet` are interfaces that contains `sign` method. But they differs in the arguments.
+
+```ts
+/** you can import { Auth, Wallet } from "@uni-sign/types" */
+
+export interface Auth {
+  ...,
+  sign: (data: Uint8Array) => Signature;
+}
+
+export interface Wallet<Account, SignDoc> {
+  ...,
+  sign: (doc: SignDoc) => Promise<SignResponse<SignDoc>>;
+}
+```
+
+As we can see above, the signing target of `Wallet` is can be any type (usually we set it as the sign document type) while in `Auth` it's limited to binary data.
+
+For each `Signer` it always has a specific type of sign document type as the signing target to get signature (i.e. for `AminoSigner` it's `StdSignDoc` and for `DirectSigner` it's `SignDoc`). And for some Web3 wallet, they only expose signing methods of the sign document rather than the generalized binary data. Under this circumstanc, users are still abled to construct a `Signer` object via the `fromWallet` static method. This is why `Wallet` interface is created.
+
+See [usage example](/docs/signer.md#signer--wallet).

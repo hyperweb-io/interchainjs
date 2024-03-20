@@ -12,17 +12,6 @@ import { SignResponseFromAuth } from "@uni-sign/cosmos/utils";
 import { DirectWallet } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export function toWallet(
-  auth: Auth,
-  config: SignerConfig = defaultSignerConfig.Cosmos
-): DirectWallet {
-  return {
-    getAccount: async () => getAccountFromAuth(auth, config),
-    sign: async (doc: SignDoc) =>
-      SignResponseFromAuth.signDirect(auth, doc, config),
-  };
-}
-
 export class DirectSigner extends CosmosDirectSigner {
   constructor(
     auth: Auth,
@@ -43,6 +32,17 @@ export class DirectSigner extends CosmosDirectSigner {
     const signer = new DirectSigner(auth, encoders, endpoint, config);
     signer.signDoc = wallet.sign;
     return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig.Cosmos
+  ): DirectWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: SignDoc) =>
+        SignResponseFromAuth.signDirect(auth, doc, config),
+    };
   }
 
   get encodedPublicKey(): EncodedMessage {

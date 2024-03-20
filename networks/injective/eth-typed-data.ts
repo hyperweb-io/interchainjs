@@ -16,17 +16,6 @@ import { EthTypedDataWallet, EthTypedData } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 import { AminoSigner } from "./amino";
 
-export function toWallet(
-  auth: Auth,
-  config: SignerConfig = defaultSignerConfig.Ethereum
-): EthTypedDataWallet {
-  return {
-    getAccount: async () => getAccountFromAuth(auth, config),
-    sign: async (doc: EthTypedData) =>
-      SignResponseFromAuth.signEip712TypedData(auth, doc, config),
-  };
-}
-
 export class EthTypedDataSigner extends BaseSigner<EthTypedData> {
   readonly aminoSigner: AminoSigner;
 
@@ -64,6 +53,17 @@ export class EthTypedDataSigner extends BaseSigner<EthTypedData> {
     );
     signer.signDoc = wallet.sign;
     return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig.Ethereum
+  ): EthTypedDataWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: EthTypedData) =>
+        SignResponseFromAuth.signEip712TypedData(auth, doc, config),
+    };
   }
 
   get converters() {

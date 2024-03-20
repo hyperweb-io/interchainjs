@@ -4,7 +4,7 @@ import {
   SignerConfig,
   BroadcastOptions,
   UniSigner,
-  SignResponse,
+  SignDocResponse,
 } from "@uni-sign/types";
 import {
   BaseSigner as _BaseSigner,
@@ -140,7 +140,7 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
     options?: FeeOptions & SignerOptions & TxBodyOptions
   ): Promise<{ signDoc: SignDoc; txRaw: TxRaw }>;
 
-  abstract signDoc: (doc: SignDoc) => Promise<SignResponse<SignDoc>>;
+  abstract signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
 
   async sign(
     messages: Message[],

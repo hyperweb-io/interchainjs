@@ -12,17 +12,6 @@ import { EthTypedData, EthTypedDataWallet } from "./types";
 import { BaseSigner, constructAuthFromWallet } from "@uni-sign/utils";
 import { _TypedDataEncoder } from "@ethersproject/hash";
 
-export function toWallet(
-  auth: Auth,
-  config: SignerConfig = defaultSignerConfig
-): EthTypedDataWallet {
-  return {
-    getAccount: async () => getAccountFromAuth(auth, config),
-    sign: async (doc: EthTypedData) =>
-      SignResponseFromAuth.signEip712TypedData(auth, doc, config),
-  };
-}
-
 export class EthTypedDataSigner extends BaseSigner
   implements UniSigner<EthTypedData> {
   constructor(
@@ -42,6 +31,17 @@ export class EthTypedDataSigner extends BaseSigner
     const signer = new EthTypedDataSigner(auth, endpoint, config);
     signer.signDoc = wallet.sign;
     return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig
+  ): EthTypedDataWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: EthTypedData) =>
+        SignResponseFromAuth.signEip712TypedData(auth, doc, config),
+    };
   }
 
   async signDoc(doc: EthTypedData) {

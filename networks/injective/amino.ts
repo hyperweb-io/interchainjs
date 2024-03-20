@@ -8,17 +8,6 @@ import { getAccountFromAuth } from "./utils";
 import { AminoWallet } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export function toWallet(
-  auth: Auth,
-  config: SignerConfig = defaultSignerConfig.Cosmos
-): AminoWallet {
-  return {
-    getAccount: async () => getAccountFromAuth(auth, config),
-    sign: async (doc: StdSignDoc) =>
-      SignResponseFromAuth.signAmino(auth, doc, config),
-  };
-}
-
 export class AminoSigner extends CosmosAminoSigner {
   constructor(
     auth: Auth,
@@ -47,6 +36,17 @@ export class AminoSigner extends CosmosAminoSigner {
     );
     signer.signDoc = wallet.sign;
     return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig.Cosmos
+  ): AminoWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: StdSignDoc) =>
+        SignResponseFromAuth.signAmino(auth, doc, config),
+    };
   }
 
   get encodedPublicKey(): EncodedMessage {

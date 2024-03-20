@@ -1,6 +1,6 @@
 import { CheckTxResponse, DeliverTxResponse } from "./signer";
 
-export namespace CometBroadcastResult {
+export namespace CometBroadcastResponse {
   export interface Async {
     hash: string;
     code: number;

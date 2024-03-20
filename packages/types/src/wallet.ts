@@ -5,14 +5,14 @@ export interface BaseWalletAccount {
   publicKey: Key;
 }
 
-export interface SignResponse<Doc> {
+export interface SignDocResponse<SignDoc> {
   signature: Key;
-  signed: Doc;
+  signed: SignDoc;
 }
 
-export interface Wallet<Account extends BaseWalletAccount, Doc> {
+export interface Wallet<Account extends BaseWalletAccount, SignDoc> {
   getAccount: () => Promise<Account>;
-  sign: (doc: Doc) => Promise<SignResponse<Doc>>;
+  sign: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
 }
 
 export type BaseWallet<Doc> = Wallet<BaseWalletAccount, Doc>;

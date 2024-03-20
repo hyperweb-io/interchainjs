@@ -1,4 +1,4 @@
-import { Auth, SignerConfig, SignResponse } from "@uni-sign/types";
+import { Auth, SignerConfig, SignDocResponse } from "@uni-sign/types";
 import { defaultSignerConfig } from "../defaults";
 import { getPrefix } from "./rpc";
 import { CosmosAccount, SignDoc, StdSignDoc } from "../types";
@@ -35,7 +35,7 @@ export class SignResponseFromAuth {
     auth: Auth,
     doc: SignDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignResponse<SignDoc> {
+  ): SignDocResponse<SignDoc> {
     const signDoc = SignDoc.fromPartial(doc);
     const signature = auth.sign(
       config.message.hash(SignDoc.encode(signDoc).finish())
@@ -50,7 +50,7 @@ export class SignResponseFromAuth {
     auth: Auth,
     doc: StdSignDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignResponse<StdSignDoc> {
+  ): SignDocResponse<StdSignDoc> {
     const encoded = encodeStdSignDoc(doc);
     const signature = auth.sign(config.message.hash(encoded));
     return {
