@@ -25,7 +25,7 @@ export interface SignerConfig {
      * - verifyArbitrary
      * - broadcastArbitrary
      */
-    hash(message: Uint8Array): Uint8Array;
+    hash(data: Uint8Array): Uint8Array;
   };
   signature: {
     fromCompact(key: Key, algo: string): Signature;
@@ -69,9 +69,9 @@ export interface UniSigner<SignDoc, Tx> {
   getAddress(): unknown;
   signArbitrary(data: Uint8Array): Key;
   verifyArbitrary(data: Uint8Array, signature: Key): boolean;
-  broadcastArbitrary(data: Uint8Array, options?: BroadcastOptions): Promise<unknown>;
+  broadcastArbitrary(data: Uint8Array, options?: BroadcastOptions): Promise<BroadcastResponse<unknown>>;
   signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
-  sign(messages: any, ...args: any): Promise<SignResponse<SignDoc, Tx>>;
-  signAndBroadcast(messages: any, ...args: any): Promise<BroadcastResponse<unknown>>;
+  sign(messages: unknown, ...args: unknown[]): Promise<SignResponse<SignDoc, Tx>>;
+  signAndBroadcast(messages: unknown, ...args: unknown[]): Promise<BroadcastResponse<unknown>>;
   broadcast: (tx: Tx, options?: BroadcastOptions) => Promise<BroadcastResponse<unknown>>
 }

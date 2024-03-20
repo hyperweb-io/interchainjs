@@ -1,22 +1,27 @@
 # Signer
 
-The main purpose of the `@uni-sign/cosmos`, `@uni-sign/ethereum`, `@uni-sign/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `*Signer`s are implementing `UniSigner` interface and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
+The main purpose of the `@uni-sign/cosmos`, `@uni-sign/ethereum`, `@uni-sign/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing `UniSigner` interface and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
 
 ```ts
 import { UniSigner } from "@uni-signer/types";
 import { BaseSigner } from "@uni-signer/utils";
 ```
 
-All `Signer`s:
+Need to note that there are 2 type parameters for interface `UniSigner`:
 
-```ts
-import { DirectSigner } from "@uni-sign/cosmos/direct";
-import { AminoSigner } from "@uni-sign/cosmos/amino";
-import { DirectSigner } from "@uni-sign/injective/direct";
-import { AminoSigner } from "@uni-sign/injective/amino";
-```
+- `SignDoc` is the document type as the signing target to get signature
+- `Tx` is the transaction to broadcast
+  
+This table displays all `Signer`s and their `SignDoc` and `Tx` type.
 
-The `*Signer` class is a way to sign and broadcast transactions on blockchains with ease. With it, you can just pass a Message that you want to be packed in a transaction and the transaction will be prepared, signed and broadcasted.
+| Signer Class | From | SignDoc Type | Tx Type | From |
+| -- | -- | -- | -- | -- |
+| DirectSigner | `@uni-sign/cosmos/direct` | SignDoc | TxRaw | `@uni-sign/cosmos/types` |
+| AminoSigner | `@uni-sign/cosmos/amino` | StdSignDoc | TxRaw | `@uni-sign/cosmos/types` |
+| DirectSigner | `@uni-sign/injective/direct` | SignDoc | TxRaw | `@uni-sign/cosmos/types` |
+| AminoSigner | `@uni-sign/injective/amino` | StdSignDoc | TxRaw | `@uni-sign/cosmos/types` |
+
+The `Signer` class is a way to sign and broadcast transactions on blockchains with ease. With it, you can just pass a Message that you want to be packed in a transaction and the transaction will be prepared, signed and broadcasted.
 
 ## Signer + Auth
 
@@ -38,7 +43,7 @@ const signer = new DirectSigner(auth, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
 
 As we know, `Wallet` object can be used to sign documents (See [details](/docs/auth.md#auth-vs-wallet)). However, some sign document is still not human-readable (i.e. for `DirectSigner`, the `SignDoc` type is an object with binary data type)
 
-However, combining with the `*Signer` class allows you to sign human-readable messages or transactions using one function call.
+However, combining with the `Signer` class allows you to sign human-readable messages or transactions using one function call.
 
 ### Usage
 

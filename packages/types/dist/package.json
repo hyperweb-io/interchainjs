@@ -1,8 +1,6 @@
 {
-  "name": "@uni-sign/utils",
-  "version": "0.0.1",
-  "main": "index.js",
-  "module": "esm/index.js",
+  "name": "@uni-sign/types",
+  "version": "0.0.2",
   "types": "index.d.ts",
   "author": "liujun93 <ljun8575@gmail.com>",
   "license": "MIT",
@@ -10,7 +8,7 @@
     "pub": "npm version patch && npm publish --access public"
   },
   "dependencies": {
-    "@uni-sign/types": "^0.0.1",
-    "bech32": "^1.1.4"
+    "decimal.js": "^10.4.3",
+    "@uni-sign/utils": "latest"
   }
 }

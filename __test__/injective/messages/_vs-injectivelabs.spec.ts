@@ -52,7 +52,7 @@ describe("Compare with @injectivelabs", () => {
     );
 
     const {
-      txRaw: { bodyBytes, authInfoBytes, signatures },
+      tx: { bodyBytes, authInfoBytes, signatures },
     } = await signer.sign(messages, fee, "", {
       sequence: 3n,
       accountNumber: 5n,
@@ -84,7 +84,7 @@ describe("Compare with @injectivelabs", () => {
     );
 
     const {
-      txRaw: { bodyBytes, authInfoBytes, signatures },
+      tx: { bodyBytes, authInfoBytes, signatures },
     } = await signer.sign(messages, fee, "", {
       sequence: 3n,
       accountNumber: 5n,

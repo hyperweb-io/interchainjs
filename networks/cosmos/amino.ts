@@ -1,4 +1,4 @@
-import { Auth, BaseWallet, HttpEndpoint, SignerConfig } from "@uni-sign/types";
+import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
 import {
   AminoWallet,
   Encoder,
@@ -16,7 +16,7 @@ import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class AminoSigner extends BaseSigner<StdSignDoc> {
+export class AminoSignerBase extends BaseSigner<StdSignDoc> {
   readonly converters: AminoConverter[];
 
   constructor(
@@ -28,36 +28,6 @@ export class AminoSigner extends BaseSigner<StdSignDoc> {
   ) {
     super(auth, encoders, endpoint, config);
     this.converters = converters;
-  }
-
-  static async fromWallet(
-    wallet: BaseWallet<StdSignDoc>,
-    encoders: Encoder[],
-    converters: AminoConverter[],
-    endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
-  ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
-    const signer = new AminoSigner(
-      auth,
-      encoders,
-      converters,
-      endpoint,
-      config
-    );
-    signer.signDoc = wallet.sign;
-    return signer;
-  }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerConfig
-  ): AminoWallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: StdSignDoc) =>
-        SignResponseFromAuth.signAmino(auth, doc, config),
-    };
   }
 
   addConverters = (converters: AminoConverter[]) => {
@@ -120,4 +90,46 @@ export class AminoSigner extends BaseSigner<StdSignDoc> {
   signDoc = async (doc: StdSignDoc) => {
     return SignResponseFromAuth.signAmino(this.auth, doc, this.config);
   };
+}
+
+export class AminoSigner extends AminoSignerBase {
+  constructor(
+    auth: Auth,
+    encoders: Encoder[],
+    converters: AminoConverter[],
+    endpoint?: string | HttpEndpoint,
+    config: SignerConfig = defaultSignerConfig
+  ) {
+    super(auth, encoders, converters, endpoint, config);
+  }
+
+  static async fromWallet(
+    wallet: AminoWallet,
+    encoders: Encoder[],
+    converters: AminoConverter[],
+    endpoint?: string | HttpEndpoint,
+    config: SignerConfig = defaultSignerConfig
+  ) {
+    const auth: Auth = await constructAuthFromWallet(wallet, config);
+    const signer = new AminoSigner(
+      auth,
+      encoders,
+      converters,
+      endpoint,
+      config
+    );
+    signer.signDoc = wallet.sign;
+    return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig
+  ): AminoWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: StdSignDoc) =>
+        SignResponseFromAuth.signAmino(auth, doc, config),
+    };
+  }
 }

@@ -4,5 +4,7 @@ test.ts
 test.ts
 scripts/test.sh
 **/.DS_Store
-**/dist
+**/dist/*
 **/yarn-error.log
+!**/dist/package.json
+lerna-debug.log

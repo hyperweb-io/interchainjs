@@ -6,5 +6,5 @@
     "emitDeclarationOnly": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "src/**/*.spec.*"]
+  "exclude": ["dist", "node_modules", "src/**/*.spec.*"]
 }

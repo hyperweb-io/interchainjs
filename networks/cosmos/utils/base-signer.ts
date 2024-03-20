@@ -5,6 +5,7 @@ import {
   BroadcastOptions,
   UniSigner,
   SignDocResponse,
+  SignResponse,
 } from "@uni-sign/types";
 import {
   BaseSigner as _BaseSigner,
@@ -34,7 +35,7 @@ import {
 import { toFee } from "./amino";
 
 export abstract class BaseSigner<SignDoc> extends _BaseSigner
-  implements UniSigner<SignDoc> {
+  implements UniSigner<SignDoc, TxRaw> {
   protected _queryClient?: QueryClient;
   readonly encoders: Encoder[];
 
@@ -147,7 +148,7 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
     fee?: StdFee,
     memo?: string,
     options?: FeeOptions & SignerOptions & TxBodyOptions
-  ) {
+  ): Promise<SignResponse<SignDoc, TxRaw>> {
     const created = await this.createDoc(messages, fee, memo, options);
     const { signature, signed } = await this.signDoc(created.signDoc);
     const txRawCompleted = TxRaw.fromPartial({
@@ -158,7 +159,7 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
     return {
       signature,
       signed,
-      txRaw: txRawCompleted,
+      tx: txRawCompleted,
       broadcast: async (options?: BroadcastOptions) => {
         return this.broadcast(txRawCompleted, options);
       },

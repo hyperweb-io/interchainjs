@@ -34,17 +34,17 @@ export class BaseSigner {
     this._config = config;
   }
 
-  signArbitrary(message: Uint8Array): Key {
-    const signature = this.auth.sign(this.config.message.hash(message));
+  signArbitrary(data: Uint8Array): Key {
+    const signature = this.auth.sign(this.config.message.hash(data));
     return this.config.signature.toCompact(signature, this.auth.algo);
   }
 
-  verifyArbitrary(message: Uint8Array, signature: Key): boolean {
+  verifyArbitrary(data: Uint8Array, signature: Key): boolean {
     if (!this.auth.verify) {
       throw new Error("verify method is not implemented yet");
     }
     return this.auth.verify(
-      this.config.message.hash(message),
+      this.config.message.hash(data),
       this.config.signature.fromCompact(signature, this.auth.algo)
     );
   }

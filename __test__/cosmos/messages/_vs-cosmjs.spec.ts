@@ -78,7 +78,7 @@ describe("Compare with @cosmjs 1.0", () => {
       memo
     );
     const {
-      txRaw: { bodyBytes, authInfoBytes, signatures },
+      tx: { bodyBytes, authInfoBytes, signatures },
     } = await signer.sign(messages, fee, memo);
 
     expect(toHex(signatures[0])).toBe(toHex(txRaw.signatures[0]));
@@ -102,7 +102,7 @@ describe("Compare with @cosmjs 1.0", () => {
       memo
     );
     const {
-      txRaw: { bodyBytes, authInfoBytes, signatures },
+      tx: { bodyBytes, authInfoBytes, signatures },
     } = await signer.sign(messages, fee, memo);
 
     expect(toHex(signatures[0])).toBe(toHex(txRaw.signatures[0]));
@@ -126,7 +126,7 @@ describe("Compare with @cosmjs 1.0", () => {
       memo
     );
     const {
-      txRaw: { bodyBytes, authInfoBytes, signatures },
+      tx: { bodyBytes, authInfoBytes, signatures },
     } = await signer.sign(messages, fee, memo);
 
     expect(toHex(signatures[0])).toBe(toHex(txRaw.signatures[0]));
@@ -151,7 +151,7 @@ describe("Compare with @cosmjs 1.0", () => {
       memo
     );
     const {
-      txRaw: { bodyBytes, authInfoBytes, signatures },
+      tx: { bodyBytes, authInfoBytes, signatures },
     } = await signer.sign(messages, fee, memo);
 
     expect(toHex(signatures[0])).toBe(toHex(txRaw.signatures[0]));

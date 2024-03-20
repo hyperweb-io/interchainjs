@@ -1,5 +1,5 @@
-import { Auth, BaseWallet, HttpEndpoint, SignerConfig } from "@uni-sign/types";
-import { AminoSigner as CosmosAminoSigner } from "@uni-sign/cosmos/amino";
+import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
+import { AminoSignerBase } from "@uni-sign/cosmos/amino";
 import { Encoder, AminoConverter, StdSignDoc } from "@uni-sign/cosmos/types";
 import { defaultSignerConfig } from "./defaults";
 import { EncodedMessage, Secp256k1PubKey } from "@uni-sign/cosmos/types";
@@ -8,7 +8,7 @@ import { getAccountFromAuth } from "./utils";
 import { AminoWallet } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class AminoSigner extends CosmosAminoSigner {
+export class AminoSigner extends AminoSignerBase {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -20,7 +20,7 @@ export class AminoSigner extends CosmosAminoSigner {
   }
 
   static async fromWallet(
-    wallet: BaseWallet<StdSignDoc>,
+    wallet: AminoWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

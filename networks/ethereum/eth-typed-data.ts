@@ -3,6 +3,7 @@ import {
   BaseWallet,
   BroadcastOptions,
   HttpEndpoint,
+  SignResponse,
   SignerConfig,
   UniSigner,
 } from "@uni-sign/types";
@@ -13,7 +14,7 @@ import { BaseSigner, constructAuthFromWallet } from "@uni-sign/utils";
 import { _TypedDataEncoder } from "@ethersproject/hash";
 
 export class EthTypedDataSigner extends BaseSigner
-  implements UniSigner<EthTypedData> {
+  implements UniSigner<EthTypedData<unknown>, unknown> {
   constructor(
     auth: Auth,
     endpoint?: string | HttpEndpoint,
@@ -52,7 +53,35 @@ export class EthTypedDataSigner extends BaseSigner
     );
   }
 
-  async broadcastArbitrary(message: Uint8Array, options?: BroadcastOptions) {
+  getAddress(): string {
+    return this.publicKeyHash.toPrefixedHex();
+  }
+
+  async sign(
+    messages: any,
+    ...args: any
+  ): Promise<SignResponse<EthTypedData<unknown>, unknown>> {
+    throw new Error("Not implemented yet");
+  }
+
+  async signAndBroadcast(
+    messages: any,
+    ...args: any
+  ): Promise<{ hash: string }> {
+    throw new Error("Not implemented yet");
+  }
+
+  async broadcast(
+    tx: unknown,
+    options?: BroadcastOptions
+  ): Promise<{ hash: string }> {
+    throw new Error("Not implemented yet");
+  }
+
+  async broadcastArbitrary(
+    data: Uint8Array,
+    options?: BroadcastOptions
+  ): Promise<{ hash: string }> {
     throw new Error("Not implemented yet");
   }
 }

@@ -1,6 +1,6 @@
-import { Auth, BaseWallet, HttpEndpoint, SignerConfig } from "@uni-sign/types";
+import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
 import { defaultSignerConfig } from "./defaults";
-import { DirectSigner as CosmosDirectSigner } from "@uni-sign/cosmos/direct";
+import { DirectSignerBase } from "@uni-sign/cosmos/direct";
 import {
   EncodedMessage,
   Encoder,
@@ -12,7 +12,7 @@ import { SignResponseFromAuth } from "@uni-sign/cosmos/utils";
 import { DirectWallet } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class DirectSigner extends CosmosDirectSigner {
+export class DirectSigner extends DirectSignerBase {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -23,7 +23,7 @@ export class DirectSigner extends CosmosDirectSigner {
   }
 
   static async fromWallet(
-    wallet: BaseWallet<SignDoc>,
+    wallet: DirectWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     config: SignerConfig = defaultSignerConfig.Cosmos

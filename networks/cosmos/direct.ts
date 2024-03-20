@@ -1,4 +1,4 @@
-import { Auth, BaseWallet, HttpEndpoint, SignerConfig } from "@uni-sign/types";
+import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
 import { SignDoc } from "./codegen/cosmos/tx/v1beta1/tx";
 import {
   Encoder,
@@ -14,7 +14,7 @@ import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class DirectSigner extends BaseSigner<SignDoc> {
+export class DirectSignerBase extends BaseSigner<SignDoc> {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -22,29 +22,6 @@ export class DirectSigner extends BaseSigner<SignDoc> {
     config: SignerConfig = defaultSignerConfig
   ) {
     super(auth, encoders, endpoint, config);
-  }
-
-  static async fromWallet(
-    wallet: BaseWallet<SignDoc>,
-    encoders: Encoder[],
-    endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
-  ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
-    const signer = new DirectSigner(auth, encoders, endpoint, config);
-    signer.signDoc = wallet.sign;
-    return signer;
-  }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerConfig
-  ): DirectWallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: SignDoc) =>
-        SignResponseFromAuth.signDirect(auth, doc, config),
-    };
   }
 
   async createDoc(
@@ -74,4 +51,38 @@ export class DirectSigner extends BaseSigner<SignDoc> {
   signDoc = async (doc: SignDoc) => {
     return SignResponseFromAuth.signDirect(this.auth, doc, this.config);
   };
+}
+
+export class DirectSigner extends DirectSignerBase {
+  constructor(
+    auth: Auth,
+    encoders: Encoder[],
+    endpoint?: string | HttpEndpoint,
+    config: SignerConfig = defaultSignerConfig
+  ) {
+    super(auth, encoders, endpoint, config);
+  }
+
+  static async fromWallet(
+    wallet: DirectWallet,
+    encoders: Encoder[],
+    endpoint?: string | HttpEndpoint,
+    config: SignerConfig = defaultSignerConfig
+  ) {
+    const auth: Auth = await constructAuthFromWallet(wallet, config);
+    const signer = new DirectSigner(auth, encoders, endpoint, config);
+    signer.signDoc = wallet.sign;
+    return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerConfig
+  ): DirectWallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config),
+      sign: async (doc: SignDoc) =>
+        SignResponseFromAuth.signDirect(auth, doc, config),
+    };
+  }
 }

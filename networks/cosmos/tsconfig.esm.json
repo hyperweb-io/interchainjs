@@ -6,5 +6,5 @@
     "declaration": false
   },
   "include": ["**/*.ts", "data"],
-  "exclude": ["node_modules", "scripts", "**/*.spec.*"]
+  "exclude": ["dist", "node_modules", "scripts", "**/*.spec.*"]
 }
