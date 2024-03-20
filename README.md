@@ -1,4 +1,4 @@
-# unisign
+# uni-sign
 
 A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any web3 network.
 
