@@ -3,6 +3,7 @@ import {
   BaseWallet,
   BroadcastOptions,
   HttpEndpoint,
+  SignDocResponse,
   SignResponse,
   SignerConfig,
   UniSigner,
@@ -45,7 +46,7 @@ export class EthTypedDataSigner extends BaseSigner
     };
   }
 
-  async signDoc(doc: EthTypedData) {
+  async signDoc(doc: EthTypedData): Promise<SignDocResponse<EthTypedData>> {
     return SignResponseFromAuth.signEip712TypedData(
       this.auth,
       doc,
@@ -60,7 +61,7 @@ export class EthTypedDataSigner extends BaseSigner
   async sign(
     messages: any,
     ...args: any
-  ): Promise<SignResponse<EthTypedData<unknown>, unknown>> {
+  ): Promise<SignResponse<EthTypedData, unknown>> {
     throw new Error("Not implemented yet");
   }
 

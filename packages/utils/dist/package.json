@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/utils",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "@uni-sign/types": "latest",
-    "bech32": "^1.1.4"
+    "bech32": "^2.0.0"
   }
 }

@@ -1,3 +1,4 @@
+import { IKey } from "@uni-sign/types";
 import {
   fromBase64,
   fromBigInt,
@@ -6,9 +7,9 @@ import {
   toBigInt,
   toHex,
 } from "./encoding";
-import bech32 from "bech32";
+import { bech32 } from "bech32";
 
-export class Key {
+export class Key implements IKey {
   constructor(public readonly value: Uint8Array) {}
 
   static from(value: Uint8Array) {

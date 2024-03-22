@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/types",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "types": "index.d.ts",
   "author": "liujun93 <ljun8575@gmail.com>",
   "license": "MIT",
@@ -8,7 +8,6 @@
     "pub": "npm version patch && npm publish --access public"
   },
   "dependencies": {
-    "decimal.js": "^10.4.3",
-    "@uni-sign/utils": "latest"
+    "decimal.js": "^10.4.3"
   }
 }

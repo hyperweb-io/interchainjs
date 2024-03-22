@@ -1,6 +1,5 @@
-import { type Key } from "@uni-sign/utils";
 import Decimal from "decimal.js";
-import {  Signature } from "./auth";
+import { IKey, Signature } from "./auth";
 import { SignDocResponse } from "./wallet";
 
 export interface HttpEndpoint {
@@ -16,7 +15,7 @@ export interface Price {
 export interface SignerConfig {
   publicKey: {
     isCompressed: boolean;
-    hash(publicKey: Key): Key;
+    hash(publicKey: IKey): IKey;
   };
   message: {
     /**
@@ -28,8 +27,8 @@ export interface SignerConfig {
     hash(data: Uint8Array): Uint8Array;
   };
   signature: {
-    fromCompact(key: Key, algo: string): Signature;
-    toCompact(signature: Signature, algo: string): Key;
+    fromCompact(key: IKey, algo: string): Signature;
+    toCompact(signature: Signature, algo: string): IKey;
   };
 }
 
@@ -40,13 +39,15 @@ export interface BroadcastOptions {
 
 export type BroadcastResponse<T> = {
   hash: string;
-} & T
+} & T;
 
 export interface SignResponse<SignDoc, Tx> {
-  signature: Key;
+  signature: IKey;
   signed: SignDoc;
-  tx: Tx,
-  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse<unknown>>
+  tx: Tx;
+  broadcast: (
+    options?: BroadcastOptions
+  ) => Promise<BroadcastResponse<unknown>>;
 }
 
 /**
@@ -54,24 +55,36 @@ export interface SignResponse<SignDoc, Tx> {
  * - Tx is the transaction to broadcast
  */
 export interface UniSigner<SignDoc, Tx> {
-  publicKey: Key;
+  publicKey: IKey;
   /**
    * publicKeyHash is usually used to get address.
    * - for cosmos chains: publicKeyHash.toBech32(prefix)
    * - for ethereum chains: publicKeyHash.toPrefixedHex()
    */
-  publicKeyHash: Key;
+  publicKeyHash: IKey;
   /**
    * to get printable address(es)
-   * the return type is unknown because sometimes there are multiple addresses 
+   * the return type is unknown because sometimes there are multiple addresses
    * (i.e. Injective network has both cosmos address and eth address)
    */
   getAddress(): unknown;
-  signArbitrary(data: Uint8Array): Key;
-  verifyArbitrary(data: Uint8Array, signature: Key): boolean;
-  broadcastArbitrary(data: Uint8Array, options?: BroadcastOptions): Promise<BroadcastResponse<unknown>>;
+  signArbitrary(data: Uint8Array): IKey;
+  verifyArbitrary(data: Uint8Array, signature: IKey): boolean;
+  broadcastArbitrary(
+    data: Uint8Array,
+    options?: BroadcastOptions
+  ): Promise<BroadcastResponse<unknown>>;
   signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
-  sign(messages: unknown, ...args: unknown[]): Promise<SignResponse<SignDoc, Tx>>;
-  signAndBroadcast(messages: unknown, ...args: unknown[]): Promise<BroadcastResponse<unknown>>;
-  broadcast: (tx: Tx, options?: BroadcastOptions) => Promise<BroadcastResponse<unknown>>
+  sign(
+    messages: unknown,
+    ...args: unknown[]
+  ): Promise<SignResponse<SignDoc, Tx>>;
+  signAndBroadcast(
+    messages: unknown,
+    ...args: unknown[]
+  ): Promise<BroadcastResponse<unknown>>;
+  broadcast: (
+    tx: Tx,
+    options?: BroadcastOptions
+  ) => Promise<BroadcastResponse<unknown>>;
 }

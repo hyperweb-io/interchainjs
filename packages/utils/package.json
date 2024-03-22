@@ -7,10 +7,10 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md dist",
     "clean": "del dist/** '!dist/package.json'",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "pub": "npm run build && cd dist && npm run pub",
-    "symlink": "yarn link @uni-sign/types"
+    "pub": "npm run build && cd dist && npm run pub"
   },
   "dependencies": {
-    "@uni-sign/types": "latest"
+    "@uni-sign/types": "latest",
+    "bech32": "^2.0.0"
   }
 }

@@ -1,12 +1,12 @@
-import { Key } from "@uni-sign/utils";
+import { IKey } from "./auth";
 
 export interface BaseWalletAccount {
   algo: string;
-  publicKey: Key;
+  publicKey: IKey;
 }
 
 export interface SignDocResponse<SignDoc> {
-  signature: Key;
+  signature: IKey;
   signed: SignDoc;
 }
 

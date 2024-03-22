@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/cosmos-msgs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cosmos message codecs",
   "main": "index.js",
   "module": "esm/index.js",

@@ -1,4 +1,4 @@
-import { SignResponse, SignerConfig } from "@uni-sign/types";
+import { SignDocResponse, SignResponse, SignerConfig } from "@uni-sign/types";
 import { Auth } from "@uni-sign/types";
 import { defaultSignerConfig } from "./defaults";
 import { _TypedDataEncoder } from "@ethersproject/hash";
@@ -23,7 +23,7 @@ export class SignResponseFromAuth {
     auth: Auth,
     doc: EthTypedData,
     config: SignerConfig = defaultSignerConfig
-  ): SignResponse<EthTypedData> {
+  ): SignDocResponse<EthTypedData> {
     const encoded = _TypedDataEncoder.encode(
       doc.domain,
       doc.types,

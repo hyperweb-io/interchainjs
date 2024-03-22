@@ -1,25 +1,8 @@
 {
-  "lerna": "7",
-  "conventionalCommits": true,
-  "npmClient": "yarn",
-  "npmClientArgs": [
-    "--no-lockfile"
-  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "0.0.0",
   "packages": [
     "packages/*",
     "networks/*"
-  ],
-  "version": "0.0.1",
-  "registry": "https://registry.npmjs.org",
-  "command": {
-    "create": {
-      "homepage": "https://github.com/cosmology-tech/unisign",
-      "license": "SEE LICENSE IN LICENSE",
-      "access": "public"
-    },
-    "publish": {
-      "allowBranch": "main",
-      "message": "chore(release): publish"
-    }
-  }
+  ]
 }
