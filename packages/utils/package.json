@@ -1,16 +1,19 @@
 {
   "name": "@uni-sign/utils",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "author": "liujun93 <ljun8575@gmail.com>",
   "license": "MIT",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md dist",
-    "clean": "del dist/** '!dist/package.json'",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "pub": "npm run build && cd dist && npm run pub"
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "del dist/**",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json",
+    "pub": "npm version patch && npm run copy && cd dist && npm publish --access public"
   },
   "dependencies": {
-    "@uni-sign/types": "latest",
+    "@uni-sign/types": "^0",
     "bech32": "^2.0.0"
   }
 }

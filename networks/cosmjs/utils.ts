@@ -1,10 +1,4 @@
-import {
-  AminoWallet,
-  DirectWallet,
-  SignDoc,
-  StdSignDoc,
-} from "@uni-sign/cosmos/types";
-import { Auth } from "@uni-sign/types";
+import { Auth, IDoc, IWallet } from "@uni-sign/types";
 import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
 import { Key } from "@uni-sign/utils";
 
@@ -54,8 +48,8 @@ export const defaultAuth: Auth = {
 export function toAminoWallet(
   offlineSigner: OfflineAminoSigner,
   chainId: string
-): AminoWallet {
-  const wallet: AminoWallet = {
+): IWallet.CosmosAminoWallet {
+  const wallet: IWallet.CosmosAminoWallet = {
     getAccount: async () => {
       const [account, ..._] = await offlineSigner.getAccounts();
       return {
@@ -69,15 +63,15 @@ export function toAminoWallet(
         },
       };
     },
-    sign: async (doc: StdSignDoc) => {
+    sign: async (doc: IDoc.CosmosAminoSignDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
-      const { signature, signed } = await offlineSigner.signAmino(
+      const { signature, signDoc } = await offlineSigner.signAmino(
         account.address,
         doc
       );
       return {
         signature: Key.fromBase64(signature.signature),
-        signed: signed as any,
+        signDoc: signDoc as any,
       };
     },
   };
@@ -87,8 +81,8 @@ export function toAminoWallet(
 export function toDirectWallet(
   offlineSigner: OfflineDirectSigner,
   chainId: string
-): DirectWallet {
-  const wallet: DirectWallet = {
+): IWallet.CosmosDirectWallet {
+  const wallet: IWallet.CosmosDirectWallet = {
     getAccount: async () => {
       const [account, ..._] = await offlineSigner.getAccounts();
       return {
@@ -102,15 +96,15 @@ export function toDirectWallet(
         },
       };
     },
-    sign: async (doc: SignDoc) => {
+    sign: async (doc: IDoc.CosmosDirectSignDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
-      const { signature, signed } = await offlineSigner.signDirect(
+      const { signature, signDoc } = await offlineSigner.signDirect(
         account.address,
         doc
       );
       return {
         signature: Key.fromBase64(signature.signature),
-        signed: signed as any,
+        signDoc: signDoc as any,
       };
     },
   };

@@ -18,7 +18,7 @@ chains:
           params:
             unbonding_time: 9000s
 
-  - name: cosmoshub-1
+  - name: cosmoshub-4
     type: cosmos
     image: ghcr.io/cosmology-tech/starship/gaia:v13.0.0
     numValidators: 1
@@ -43,7 +43,7 @@ relayers:
     replicas: 1
     chains:
       - osmosis-1
-      - cosmoshub-1
+      - cosmoshub-4
     resources:
       cpu: "0.5"
       memory: "500M"
@@ -51,7 +51,7 @@ relayers:
       chains:
         - id: osmosis-1
           trusting_period: 8000s
-        - id: cosmoshub-1
+        - id: cosmoshub-4
           trusting_period: 8000s
 
 registry:

@@ -1,14 +1,22 @@
-import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
+import {
+  Auth,
+  BaseWallet,
+  HttpEndpoint,
+  IDoc,
+  ISigner,
+  IWallet,
+  SignerConfig,
+} from "@uni-sign/types";
 import { AminoSignerBase } from "@uni-sign/cosmos/amino";
-import { Encoder, AminoConverter, StdSignDoc } from "@uni-sign/cosmos/types";
+import { Encoder, AminoConverter } from "@uni-sign/cosmos/types";
 import { defaultSignerConfig } from "./defaults";
 import { EncodedMessage, Secp256k1PubKey } from "@uni-sign/cosmos/types";
 import { SignResponseFromAuth } from "@uni-sign/cosmos/utils";
 import { getAccountFromAuth } from "./utils";
-import { AminoWallet } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class AminoSigner extends AminoSignerBase {
+export class AminoSigner extends AminoSignerBase
+  implements ISigner.InjectiveAminoSigner {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -20,7 +28,7 @@ export class AminoSigner extends AminoSignerBase {
   }
 
   static async fromWallet(
-    wallet: AminoWallet,
+    wallet: BaseWallet<IDoc.InjectiveAminoSignDoc>,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -41,10 +49,10 @@ export class AminoSigner extends AminoSignerBase {
   static toWallet(
     auth: Auth,
     config: SignerConfig = defaultSignerConfig.Cosmos
-  ): AminoWallet {
+  ): IWallet.InjectiveAminoWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: StdSignDoc) =>
+      sign: async (doc: IDoc.CosmosAminoSignDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
   }

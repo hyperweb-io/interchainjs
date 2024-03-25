@@ -41,13 +41,15 @@ export type BroadcastResponse<T> = {
   hash: string;
 } & T;
 
-export interface SignResponse<SignDoc, Tx> {
-  signature: IKey;
-  signed: SignDoc;
+export interface CreateDocResponse<SignDoc, Tx> {
+  signDoc: SignDoc;
   tx: Tx;
-  broadcast: (
-    options?: BroadcastOptions
-  ) => Promise<BroadcastResponse<unknown>>;
+}
+
+export interface SignResponse<SignDoc, Tx>
+  extends CreateDocResponse<SignDoc, Tx> {
+  signature: IKey;
+  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse<any>>;
 }
 
 /**
@@ -75,6 +77,10 @@ export interface UniSigner<SignDoc, Tx> {
     options?: BroadcastOptions
   ): Promise<BroadcastResponse<unknown>>;
   signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
+  createDoc(
+    messages: unknown,
+    ...args: unknown[]
+  ): Promise<CreateDocResponse<SignDoc, Tx>>;
   sign(
     messages: unknown,
     ...args: unknown[]

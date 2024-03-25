@@ -1,13 +1,20 @@
-import { SignerConfig } from "@uni-sign/types";
+import {
+  Eip712Types,
+  IDoc,
+  InjectiveDomain,
+  IWalletAccount,
+  SignerConfig,
+} from "@uni-sign/types";
 import { Auth } from "@uni-sign/types";
 import { defaultSignerConfig } from "./defaults";
-import { EthTypedData, InjectiveAccount } from "./types";
+import { DomainOptions } from "./types";
 import { objectKeysToEip712Types } from "./eth-utils/map";
+import { fromNumber, toPrefixedHex } from "@uni-sign/utils";
 
 export function getAccountFromAuth(
   auth: Auth,
   config: SignerConfig = defaultSignerConfig.Cosmos
-): InjectiveAccount {
+): IWalletAccount.InjectiveAccount {
   const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
   const pubKeyHash = config.publicKey.hash(publicKey);
   return {
@@ -18,9 +25,24 @@ export function getAccountFromAuth(
   };
 }
 
-export function toEthTypes<AminoType>(
-  message: AminoType
-): EthTypedData["types"] {
+export function toEthTypes<AminoType>(message: AminoType): Eip712Types {
   const map = objectKeysToEip712Types({ object: message });
   return Object.fromEntries(map.entries());
+}
+
+export function updateDomain(
+  defaultOptions: Required<DomainOptions>,
+  options?: DomainOptions
+): InjectiveDomain {
+  return {
+    name: options?.name ?? defaultOptions.name,
+    version: options?.version ?? defaultOptions.version,
+    chainId: toPrefixedHex(
+      fromNumber(options?.ethereumChainId ?? defaultOptions.ethereumChainId),
+      true
+    ),
+    salt: options?.salt ?? defaultOptions.salt,
+    verifyingContract:
+      options?.verifyingContract ?? defaultOptions.verifyingContract,
+  };
 }

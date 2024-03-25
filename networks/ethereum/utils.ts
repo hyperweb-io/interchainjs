@@ -1,14 +1,20 @@
-import { SignDocResponse, SignResponse, SignerConfig } from "@uni-sign/types";
+import {
+  Eip712Types,
+  IDoc,
+  IWalletAccount,
+  SignDocResponse,
+  SignerConfig,
+} from "@uni-sign/types";
 import { Auth } from "@uni-sign/types";
 import { defaultSignerConfig } from "./defaults";
 import { _TypedDataEncoder } from "@ethersproject/hash";
-import { EthTypedData, EthereumAccount } from "./types";
 import { fromHex } from "@uni-sign/utils";
+import { hexConcat } from "@ethersproject/bytes";
 
 export function getAccountFromAuth(
   auth: Auth,
   config: SignerConfig = defaultSignerConfig
-): EthereumAccount {
+): IWalletAccount.EthereumAccount {
   const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
   const addrKey = config.publicKey.hash(publicKey);
   return {
@@ -19,20 +25,30 @@ export function getAccountFromAuth(
 }
 
 export class SignResponseFromAuth {
-  static signEip712TypedData(
+  static signEip712Data(
     auth: Auth,
-    doc: EthTypedData,
+    doc: IDoc.Eip712SignDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<EthTypedData> {
-    const encoded = _TypedDataEncoder.encode(
-      doc.domain,
-      doc.types,
-      doc.message
-    );
+  ): SignDocResponse<IDoc.Eip712SignDoc> {
+    const domainTypes: Eip712Types = {};
+    const restTypes: Eip712Types = {};
+    Object.entries(doc.types).forEach(([key, value]) => {
+      if (key === "EIP712Domain") {
+        domainTypes[key] = value;
+      } else {
+        restTypes[key] = value;
+      }
+    });
+    const encoded = hexConcat([
+      "0x1901",
+      _TypedDataEncoder.from(domainTypes).hash(doc.domain),
+      _TypedDataEncoder.from(restTypes).hash(doc.message),
+    ]);
+
     const signature = auth.sign(config.message.hash(fromHex(encoded)));
     return {
       signature: config.signature.toCompact(signature, auth.algo),
-      signed: doc,
+      signDoc: doc,
     };
   }
 }

@@ -1,7 +1,7 @@
 import { MsgSendAmino } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
 import { address } from "../../__test__/data";
 import { toEthTypes } from "./utils";
-import { EthTypedData } from "./types";
+import { Eip712Types } from "@uni-sign/types";
 
 it("should match", () => {
   const message: MsgSendAmino = {
@@ -14,7 +14,7 @@ it("should match", () => {
       },
     ],
   };
-  const expectedTypes: EthTypedData["types"] = {
+  const expectedTypes: Eip712Types = {
     MsgValue: [
       {
         name: "from_address",

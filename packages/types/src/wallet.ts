@@ -7,7 +7,7 @@ export interface BaseWalletAccount {
 
 export interface SignDocResponse<SignDoc> {
   signature: IKey;
-  signed: SignDoc;
+  signDoc: SignDoc;
 }
 
 export interface Wallet<Account extends BaseWalletAccount, SignDoc> {
@@ -15,4 +15,4 @@ export interface Wallet<Account extends BaseWalletAccount, SignDoc> {
   sign: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
 }
 
-export type BaseWallet<Doc> = Wallet<BaseWalletAccount, Doc>;
+export type BaseWallet<SignDoc> = Wallet<BaseWalletAccount, SignDoc>;

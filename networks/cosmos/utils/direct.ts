@@ -4,13 +4,7 @@ import {
   SignerInfo,
   TxBody,
 } from "../codegen/cosmos/tx/v1beta1/tx";
-import {
-  Decoder,
-  EncodedMessage,
-  Encoder,
-  Message,
-  TxBodyOptions,
-} from "../types";
+import { Decoder, EncodedMessage, Encoder, Message, TxOptions } from "../types";
 import { assertEmpty } from "@uni-sign/utils";
 import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
 import { TelescopeGeneratedType } from "../codegen/types";
@@ -19,8 +13,13 @@ export function constructTxBody(
   messages: Message[],
   getEncoder: (typeUrl: string) => Encoder,
   memo?: string,
-  options?: TxBodyOptions
+  options?: TxOptions
 ) {
+  if (options?.timeoutHeight?.type === "relative") {
+    throw new Error(
+      "timeoutHeight type in function `constructTxBody` shouldn't be `relative`. Please update it to `absolute` value before calling this function."
+    );
+  }
   const encoded = messages.map(({ typeUrl, value }) => {
     return {
       typeUrl,
@@ -30,7 +29,7 @@ export function constructTxBody(
   const txBody = TxBody.fromPartial({
     messages: encoded,
     memo,
-    timeoutHeight: options?.timeoutHeight,
+    timeoutHeight: options?.timeoutHeight?.value,
     extensionOptions: options?.extensionOptions,
     nonCriticalExtensionOptions: options?.nonCriticalExtensionOptions,
   });

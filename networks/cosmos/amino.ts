@@ -1,22 +1,24 @@
-import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
 import {
-  AminoWallet,
-  Encoder,
-  FeeOptions,
-  Message,
-  SignerOptions,
-  TxBodyOptions,
-  AminoConverter,
+  Auth,
+  BaseWallet,
+  IDoc,
+  HttpEndpoint,
+  ISigner,
+  SignerConfig,
   StdFee,
-  StdSignDoc,
-} from "./types";
+  IWallet,
+} from "@uni-sign/types";
+import { Encoder, Message, AminoConverter, DocOptions } from "./types";
 import { toAminoMsgs } from "./utils/amino";
 import { BaseSigner, getAccountFromAuth, SignResponseFromAuth } from "./utils";
 import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class AminoSignerBase extends BaseSigner<StdSignDoc> {
+export class AminoSignerBase extends BaseSigner<
+  IDoc.CosmosAminoSignDoc,
+  DocOptions
+> {
   readonly converters: AminoConverter[];
 
   constructor(
@@ -62,17 +64,17 @@ export class AminoSignerBase extends BaseSigner<StdSignDoc> {
     messages: Message[],
     fee?: StdFee,
     memo?: string,
-    options?: FeeOptions & SignerOptions & TxBodyOptions
+    options?: DocOptions
   ) {
     const { txRaw, fee: _fee } = await this.createTxRaw(
       messages,
-      SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
+      options?.signMode ?? SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
       fee,
       memo,
       options
     );
 
-    const signDoc: StdSignDoc = {
+    const signDoc: IDoc.CosmosAminoSignDoc = {
       chain_id: options?.chainId ?? (await this.queryClient.getChainId()),
       account_number: (
         options?.accountNumber ?? (await this.queryClient.getAccountNumber())
@@ -84,15 +86,16 @@ export class AminoSignerBase extends BaseSigner<StdSignDoc> {
       msgs: toAminoMsgs(messages, this.getConverterFromTypeUrl),
       memo: memo ?? "",
     };
-    return { signDoc, txRaw };
+    return { signDoc, tx: txRaw };
   }
 
-  signDoc = async (doc: StdSignDoc) => {
+  signDoc = async (doc: IDoc.CosmosAminoSignDoc) => {
     return SignResponseFromAuth.signAmino(this.auth, doc, this.config);
   };
 }
 
-export class AminoSigner extends AminoSignerBase {
+export class AminoSigner extends AminoSignerBase
+  implements ISigner.CosmosAminoSigner {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -104,7 +107,7 @@ export class AminoSigner extends AminoSignerBase {
   }
 
   static async fromWallet(
-    wallet: AminoWallet,
+    wallet: BaseWallet<IDoc.CosmosAminoSignDoc>,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -125,10 +128,10 @@ export class AminoSigner extends AminoSignerBase {
   static toWallet(
     auth: Auth,
     config: SignerConfig = defaultSignerConfig
-  ): AminoWallet {
+  ): IWallet.CosmosAminoWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: StdSignDoc) =>
+      sign: async (doc: IDoc.CosmosAminoSignDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
   }

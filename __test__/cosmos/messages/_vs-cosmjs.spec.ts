@@ -7,12 +7,12 @@ import { MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
 import { MsgTransfer } from "@uni-sign/cosmos-msgs/ibc/applications/transfer/v1/tx";
 import { messages } from "./send-tokens.spec";
 // import { messages } from "./send-ibc-tokens.spec";
-import { AminoWallet, DirectWallet, StdFee } from "@uni-sign/cosmos/types";
 import { toHex } from "@uni-sign/utils";
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { DirectSigner } from "@uni-sign/cosmos/direct";
 import { auth } from "../constants";
 import { toDirectWallet, toAminoWallet } from "@cosmology/cosmjs/utils";
+import { IWallet, StdFee } from "@uni-sign/types";
 
 async function getDirectClient() {
   return await SigningStargateClient.connectWithSigner(
@@ -44,7 +44,7 @@ export const fee: StdFee = {
 
 export const memo = "for test";
 
-async function getDirectWallet(): Promise<DirectWallet> {
+async function getDirectWallet(): Promise<IWallet.CosmosDirectWallet> {
   return toDirectWallet(
     (await DirectSecp256k1HdWallet.fromMnemonic(seed.genesis, {
       prefix: chain.cosmoshub.prefix,
@@ -53,7 +53,7 @@ async function getDirectWallet(): Promise<DirectWallet> {
   );
 }
 
-async function getAminoWallet(): Promise<AminoWallet> {
+async function getAminoWallet(): Promise<IWallet.CosmosAminoWallet> {
   return toAminoWallet(
     (await Secp256k1HdWallet.fromMnemonic(seed.genesis, {
       prefix: chain.cosmoshub.prefix,

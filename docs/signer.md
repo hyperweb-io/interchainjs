@@ -1,25 +1,16 @@
 # Signer
 
-The main purpose of the `@uni-sign/cosmos`, `@uni-sign/ethereum`, `@uni-sign/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing `UniSigner` interface and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
+The main purpose of the `@uni-sign/cosmos`, `@uni-sign/ethereum`, `@uni-sign/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
 
 ```ts
 import { UniSigner } from "@uni-signer/types";
 import { BaseSigner } from "@uni-signer/utils";
 ```
 
-Need to note that there are 2 type parameters for interface `UniSigner`:
+Need to note that there are 2 type parameters that indicates 2 types of document involved in signing and broadcasting process for interface `UniSigner`:
 
 - `SignDoc` is the document type as the signing target to get signature
-- `Tx` is the transaction to broadcast
-  
-This table displays all `Signer`s and their `SignDoc` and `Tx` type.
-
-| Signer Class | From | SignDoc Type | Tx Type | From |
-| -- | -- | -- | -- | -- |
-| DirectSigner | `@uni-sign/cosmos/direct` | SignDoc | TxRaw | `@uni-sign/cosmos/types` |
-| AminoSigner | `@uni-sign/cosmos/amino` | StdSignDoc | TxRaw | `@uni-sign/cosmos/types` |
-| DirectSigner | `@uni-sign/injective/direct` | SignDoc | TxRaw | `@uni-sign/cosmos/types` |
-| AminoSigner | `@uni-sign/injective/amino` | StdSignDoc | TxRaw | `@uni-sign/cosmos/types` |
+- `Tx` is the transaction type to broadcast
 
 The `Signer` class is a way to sign and broadcast transactions on blockchains with ease. With it, you can just pass a Message that you want to be packed in a transaction and the transaction will be prepared, signed and broadcasted.
 
@@ -60,25 +51,94 @@ const wallet: DirectWallet = {
 const signer = await DirectSigner.fromWallet(wallet, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
 ```
 
-### Easy to Construct Wallet
+> Tips: `uni-sign` also provides helper methods to easily construct `Wallet` for each `Signer`. See [details](/docs/wallet.md#easy-to-construct-wallet).
 
-For each `Signer`, it has corresponding `toWallet` static method to convert `Auth` object to corresponding `Wallet` object.
+## UniSigner Interface
 
-```ts
-import { DirectSigner } from "@uni-sign/cosmos/direct";
-import { DirectWallet } from "@uni-sign/cosmos/types";
-import { Secp256k1Auth } from "@uni-sign/auth/secp256k1";
-
-const auth = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", "cosmos");
-const wallet: DirectWallet = DirectSigner.toWallet(auth);
-```
-
-Moreover, to construct `Wallet` object from `OfflineSigner` (a type from `@cosmjs`), we can utilize the functions as below.
+There are 3 signing methods in `UniSigner`
 
 ```ts
-import { toDirectWallet, toAminoWallet } from "@cosmology/cosmjs";
-import { DirectWallet, AminoWallet } from "@uni-sign/cosmos/types";
-
-const wallet: DirectWallet = toDirectWallet(offlineDirectSigner);
-const wallet: AminoWallet = toAminoWallet(offlineAminoSigner);
+/** you can import { UniSigner } from "@uni-sign/types" */
+export interface UniSigner<SignDoc, Tx> {
+  ...
+  signArbitrary(data: Uint8Array): IKey;
+  signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
+  sign(
+    messages: unknown,
+    ...args: unknown[]
+  ): Promise<SignResponse<SignDoc, Tx>>;
+  ...
+}
 ```
+
+- `signArbitrary`, derived from `Auth` object, is usually used to request signatures that don't need to be efficiently processed on-chain. It's often used for signature challenges that are authenticated on a web server, such as sign-in with Ethereum/Cosmos.
+- `signDoc`, derived from `Wallet` object, is usually used to request signatures that are efficient to process on-chain. The `doc` argument varies among different signing modes and networks.
+- `sign` is used to sign human-readable message, to facilidate signing process with an user interface.
+
+> Tips: These 3 signing methods correspond to 3 levels of signing type: [Auth vs. Wallet vs. Signer](/docs/auth-wallet-signer.md).
+
+
+## Namespaces & Interfaces
+
+`@uni-sign/types` exposes all the types that descirbe all the available signers under `@uni-sign` scope. They are collected in the namespaces below.
+
+```ts
+import { ISigner, ISignDoc, ITransaction, IWallet, IWalletAccount } from "@uni-sign/types";
+```
+
+See details below
+
+> Tips about the headers:
+> - **Class**: the Class implements the Interface
+> - **SignDoc**: document structure for signing
+> - **Transaction**: document structure for broadcasting (abbr. `Tx`)
+> - **Wallet**: interface for web3 wallets
+> - **WalletAccount**: interface for web3 wallets account
+
+### ISigner.CosmosDirectSigner
+
+- **Class**: `import { DirectSigner } from "@uni-sign/cosmos/direct"`
+- **SignDoc**: *ISignDoc.CosmosDirectDoc*
+- **Transaction**: *ITransaction.CosmosTx*
+- **Wallet**: *IWallet.CosmosDirectWallet*
+- **WalletAccount**: *IWalletAccount.CosmosAccount*
+  
+### ISigner.CosmosAminoSigner
+
+- **Class**: `import { AminoSigner } from "@uni-sign/cosmos/amino"`
+- **SignDoc**: *ISignDoc.CosmosAminoDoc*
+- **Transaction**: *ITransaction.CosmosTx*
+- **Wallet**: *IWallet.CosmosAminoWallet*
+- **WalletAccount**: *IWalletAccount.CosmosAccount*
+  
+### ISigner.InjectiveDirectSigner
+
+- **Class**: `import { DirectSigner } from "@uni-sign/injective/direct"`
+- **SignDoc**: *ISignDoc.CosmosDirectDoc*
+- **Transaction**: *ITransaction.CosmosTx*
+- **Wallet**: *IWallet.InjectiveDirectWallet*
+- **WalletAccount**: *IWalletAccount.InjectiveAccount*
+
+### ISigner.InjectiveAminoSigner
+
+- **Class**: `import { AminoSigner } from "@uni-sign/injective/amino"`
+- **SignDoc**: *ISignDoc.CosmosAminoDoc*
+- **Transaction**: *ITransaction.CosmosTx*
+- **Wallet**: *IWallet.InjectiveAminoWallet*
+- **WalletAccount**: *IWalletAccount.InjectiveAccount*
+
+### ISigner.InjectiveEip712Signer
+
+- **Class**: `import { Eip712Signer } from "@uni-sign/injective/eip712"`
+- **SignDoc**: *ISignDoc.InjectiveEip712Doc*
+- **Transaction**: *ITransaction.CosmosTx*
+- **Wallet**: *IWallet.InjectiveEip712Wallet*
+- **WalletAccount**: *IWalletAccount.InjectiveAccount*
+
+### ISigner.Eip712Signer
+
+- **Class**: `import { Eip712Signer } from "@uni-sign/ethereum/eip712"`
+- **SignDoc**: *ISignDoc.Eip712Doc*
+- **Transaction**: *ITransaction.Eip712Tx*
+- **Wallet**: *IWallet.Eip712Wallet*
+- **WalletAccount**: *IWalletAccount.EthereumAccount*

@@ -1,5 +1,5 @@
 import { address, chain } from "../../data";
-import { Message, SignMode, StdFee } from "@uni-sign/cosmos/types";
+import { Message, SignMode } from "@uni-sign/cosmos/types";
 import { MsgSend, createTransaction } from "@injectivelabs/sdk-ts";
 import { auth, isPubKeyCompressed } from "../constants";
 import { toHex } from "@uni-sign/utils";
@@ -7,6 +7,7 @@ import { DirectSigner } from "@uni-sign/injective/direct";
 import { AminoSigner } from "@uni-sign/injective/amino";
 import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
 import { MsgSend as _MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { StdFee } from "@uni-sign/types";
 
 const msg = MsgSend.fromJSON({
   amount: {
@@ -57,7 +58,6 @@ describe("Compare with @injectivelabs", () => {
       sequence: 3n,
       accountNumber: 5n,
       chainId: chain.injective.chainId,
-      timeoutHeight: 10n,
     });
 
     const { txRaw, signDoc } = createTransaction({
@@ -66,7 +66,6 @@ describe("Compare with @injectivelabs", () => {
       fee,
       message: msg,
       sequence: 3,
-      timeoutHeight: 10,
       accountNumber: 5,
     });
 
@@ -89,7 +88,6 @@ describe("Compare with @injectivelabs", () => {
       sequence: 3n,
       accountNumber: 5n,
       chainId: chain.injective.chainId,
-      timeoutHeight: 10n,
     });
 
     const { txRaw, signDoc } = createTransaction({
@@ -98,7 +96,6 @@ describe("Compare with @injectivelabs", () => {
       fee,
       message: msg,
       sequence: 3,
-      timeoutHeight: 10,
       accountNumber: 5,
       signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
     });

@@ -1,6 +1,6 @@
-import { Auth } from "@uni-sign/types";
+import { Auth, StdSignDoc } from "@uni-sign/types";
 import { Secp256k1Auth } from "@uni-sign/auth/secp256k1";
-import { StdSignDoc, SignDoc } from "@uni-sign/cosmos/types";
+import { SignDoc } from "@uni-sign/cosmos/types";
 import { encodeStdSignDoc } from "@uni-sign/cosmos/utils";
 
 import {
@@ -78,7 +78,7 @@ export class Secp256k1Wallet implements Wallet {
       auth.algo
     );
     return {
-      signed: doc,
+      signDoc: doc,
       signature: {
         pub_key: {
           type: "tendermint/PubKeySecp256k1",
@@ -98,7 +98,7 @@ export class Secp256k1Wallet implements Wallet {
       auth.algo
     );
     return {
-      signed: signDoc,
+      signDoc,
       signature: {
         pub_key: {
           type: "tendermint/PubKeySecp256k1",

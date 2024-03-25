@@ -1,4 +1,12 @@
-import { Auth, HttpEndpoint, SignerConfig } from "@uni-sign/types";
+import {
+  Auth,
+  BaseWallet,
+  HttpEndpoint,
+  IDoc,
+  ISigner,
+  IWallet,
+  SignerConfig,
+} from "@uni-sign/types";
 import { defaultSignerConfig } from "./defaults";
 import { DirectSignerBase } from "@uni-sign/cosmos/direct";
 import {
@@ -9,10 +17,10 @@ import {
 } from "@uni-sign/cosmos/types";
 import { getAccountFromAuth } from "./utils";
 import { SignResponseFromAuth } from "@uni-sign/cosmos/utils";
-import { DirectWallet } from "./types";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
-export class DirectSigner extends DirectSignerBase {
+export class DirectSigner extends DirectSignerBase
+  implements ISigner.InjectiveDirectSigner {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -23,7 +31,7 @@ export class DirectSigner extends DirectSignerBase {
   }
 
   static async fromWallet(
-    wallet: DirectWallet,
+    wallet: BaseWallet<IDoc.InjectiveDirectSignDoc>,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     config: SignerConfig = defaultSignerConfig.Cosmos
@@ -37,7 +45,7 @@ export class DirectSigner extends DirectSignerBase {
   static toWallet(
     auth: Auth,
     config: SignerConfig = defaultSignerConfig.Cosmos
-  ): DirectWallet {
+  ): IWallet.InjectiveDirectWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
       sign: async (doc: SignDoc) =>

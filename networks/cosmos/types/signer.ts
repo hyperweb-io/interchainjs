@@ -3,10 +3,12 @@ import {
   Price,
   BroadcastOptions,
   BroadcastResponse as GeneralBroadcastResponse,
+  StdFee,
 } from "@uni-sign/types";
 import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
-import { Coin } from "../codegen/cosmos/base/v1beta1/coin";
 import { Event } from "../codegen/tendermint/abci/types";
+import { Any } from "../codegen/google/protobuf/any";
+import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
 
 /** Direct/Proto message */
 export interface Message<T = any> {
@@ -42,24 +44,6 @@ export interface AminoConverter {
   aminoType: string;
   fromAmino: (data: any) => any;
   toAmino: (data: any) => any;
-}
-
-export interface StdFee {
-  amount: Coin[];
-  gas: string;
-  /** The granter address that is used for paying with feegrants */
-  granter?: string;
-  /** The fee payer address. The payer must have signed the transaction. */
-  payer?: string;
-}
-
-export interface StdSignDoc {
-  chain_id: string;
-  account_number: string;
-  sequence: string;
-  fee: StdFee;
-  msgs: AminoMessage[];
-  memo: string;
 }
 
 export type BroadcastMode =
@@ -111,6 +95,8 @@ export type BroadcastResponse = GeneralBroadcastResponse<{
   deliver_tx?: DeliverTxResponse & { height: string };
 }>;
 
+export type DocOptions = FeeOptions & SignerOptions & TxOptions;
+
 export interface FeeOptions {
   multiplier?: number;
   gasPrice?: Price | string | "average" | "high" | "low";
@@ -120,14 +106,37 @@ export interface SignerOptions {
   chainId?: string;
   accountNumber?: bigint;
   sequence?: bigint;
+  signMode?: SignMode;
 }
 
-export type TxBodyOptions = Partial<
-  Pick<
-    TxBody,
-    "timeoutHeight" | "extensionOptions" | "nonCriticalExtensionOptions"
-  >
->;
+export interface TimeoutHeightOption {
+  type: "relative" | "absolute";
+  value: bigint;
+}
+
+export type TxOptions = {
+  /**
+   * timeout is the block height after which this transaction will not
+   * be processed by the chain.
+   * Note: this value only identical to the `timeoutHeight` field in the `TxBody` structure
+   * when type is `absolute`.
+   * - type `relative`: latestBlockHeight + this.value = TxBody.timeoutHeight
+   * - type `absolute`: this.value = TxBody.timeoutHeight
+   */
+  timeoutHeight?: TimeoutHeightOption;
+  /**
+   * extension_options are arbitrary options that can be added by chains
+   * when the default options are not sufficient. If any of these are present
+   * and can't be handled, the transaction will be rejected
+   */
+  extensionOptions?: Any[];
+  /**
+   * extension_options are arbitrary options that can be added by chains
+   * when the default options are not sufficient. If any of these are present
+   * and can't be handled, they will be ignored
+   */
+  nonCriticalExtensionOptions?: Any[];
+};
 
 export interface QueryClient {
   readonly endpoint: HttpEndpoint;
@@ -135,6 +144,7 @@ export interface QueryClient {
   getAddress: () => Promise<string>;
   getAccountNumber: () => Promise<bigint>;
   getSequence: () => Promise<bigint>;
+  getLatestBlockHeight: () => Promise<bigint>;
   estimateFee: (
     txBody: TxBody,
     signerInfos: SignerInfo[],

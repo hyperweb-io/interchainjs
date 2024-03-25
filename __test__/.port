@@ -1,14 +1,12 @@
 [32mTrying to stop all port-forward, if any....[0m
-Port forwarding for config .starship.injective.yaml
+Port forwarding for config .starship.yaml
 Port forwarding all chains
-[33mchains: forwarded injective-1[0m
+[33mchains: forwarded osmosis-1[0m
 [33m    rpc to http://localhost:26653[0m
 [33m    lcd to http://localhost:1313[0m
-[33m    exposer to http://localhost:38083[0m
 [33mchains: forwarded cosmoshub-4[0m
 [33m    rpc to http://localhost:26657[0m
 [33m    lcd to http://localhost:1317[0m
-[33m    exposer to http://localhost:38087[0m
-[33m    faucet to http://localhost:8007[0m
 Port forward services
 [33mregistry: forwarded registry lcd to grpc http://localhost:8081, to http://localhost:9091[0m
+[32mOpen the explorer to get started.... http://localhost:8080[0m

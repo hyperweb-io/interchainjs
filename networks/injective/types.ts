@@ -1,14 +1,22 @@
-import { SignDoc, StdSignDoc } from "@uni-sign/cosmos/types";
-import { EthTypedData as GeneralEthTypedData } from "@uni-sign/ethereum/types";
-import { BaseWalletAccount, Wallet } from "@uni-sign/types";
+import { DocOptions as CosmosDocOptions } from "@uni-sign/cosmos/types";
 
-export interface InjectiveAccount extends BaseWalletAccount {
-  cosmosAddress: string;
-  ethereumAddress: string;
+export enum EthereumChainId {
+  Mainnet = 1,
+  Ropsten = 3,
+  Rinkeby = 4,
+  Goerli = 5,
+  Kovan = 42,
+  Injective = 888,
+  Ganache = 1337,
+  HardHat = 31337,
 }
 
-export type EthTypedData = GeneralEthTypedData<StdSignDoc>;
+export type DocOptions = CosmosDocOptions & DomainOptions;
 
-export type DirectWallet = Wallet<InjectiveAccount, SignDoc>;
-export type AminoWallet = Wallet<InjectiveAccount, StdSignDoc>;
-export type EthTypedDataWallet = Wallet<InjectiveAccount, EthTypedData>;
+export interface DomainOptions {
+  name?: string;
+  version?: string;
+  ethereumChainId?: EthereumChainId;
+  salt?: string;
+  verifyingContract?: string;
+}

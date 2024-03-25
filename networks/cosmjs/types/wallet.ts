@@ -1,4 +1,4 @@
-import { SignDoc, StdSignDoc } from "@uni-sign/cosmos/types";
+import { SignDoc, StdSignDoc } from "@uni-sign/types";
 
 export type Algo = "secp256k1" | "ed25519" | "sr25519";
 
@@ -21,7 +21,7 @@ export interface StdSignature {
 }
 
 export interface AminoSignResponse {
-  signed: StdSignDoc;
+  signDoc: StdSignDoc;
   signature: StdSignature;
 }
 
@@ -34,7 +34,7 @@ export interface OfflineAminoSigner {
 }
 
 export interface DirectSignResponse {
-  signed: SignDoc;
+  signDoc: SignDoc;
   signature: StdSignature;
 }
 

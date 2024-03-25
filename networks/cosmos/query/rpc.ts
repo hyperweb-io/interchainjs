@@ -81,14 +81,23 @@ export class RpcClient implements QueryClient {
     return baseAccount;
   }
 
+  protected async getStatus(): Promise<Status> {
+    const data = await fetch(`${this.endpoint.url}/status`);
+    const json = await data.json();
+    return json["result"];
+  }
+
   async getChainId() {
     if (isEmpty(this.chainId)) {
-      const data = await fetch(`${this.endpoint.url}/status`);
-      const json = await data.json();
-      const status: Status = json["result"];
+      const status: Status = await this.getStatus();
       this.chainId = status.node_info.network;
     }
     return this.chainId;
+  }
+
+  async getLatestBlockHeight() {
+    const status: Status = await this.getStatus();
+    return BigInt(status.sync_info.latest_block_height);
   }
 
   async getAccountNumber() {

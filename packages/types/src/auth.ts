@@ -4,6 +4,7 @@ export interface IKey {
   toPrefixedHex(): string;
   toBase64(): string;
   toBigInt(): bigint;
+  toNumber(): number;
   toBech32(prefix: string, limit?: number): string;
   slice(start?: number, end?: number): IKey;
   concat(key: IKey): IKey;

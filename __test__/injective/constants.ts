@@ -6,4 +6,4 @@ export const mnemonic = seed.genesis;
 export const auth = Secp256k1Auth.fromMnemonic(mnemonic).derive("injective");
 export const hashPubKey = defaultSignerConfig.Cosmos.publicKey.hash;
 export const isPubKeyCompressed =
-  defaultSignerConfig.Cosmos.publicKey.isCompressed;
+  defaultSignerConfig.Cosmos.publicKey.isCompressed; // same for cosmos and ethereum

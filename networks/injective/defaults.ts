@@ -1,7 +1,8 @@
-import { SignerConfig } from "@uni-sign/types";
+import { IDoc, SignerConfig } from "@uni-sign/types";
 import { defaultSignerConfig as CosmosSignerConfig } from "@uni-sign/cosmos/defaults";
 import { defaultSignerConfig as EthereumSignerConfig } from "@uni-sign/ethereum/defaults";
-import { EthTypedData } from "./types";
+import { DomainOptions, EthereumChainId } from "./types";
+import { TimeoutHeightOption } from "@uni-sign/cosmos/types";
 
 const publicKeyConfig: SignerConfig["publicKey"] = {
   isCompressed: CosmosSignerConfig.publicKey.isCompressed,
@@ -19,15 +20,24 @@ export const defaultSignerConfig: Record<string, SignerConfig> = {
   },
 };
 
-export const defaultEthTypedData: Omit<EthTypedData, "message"> = {
+export const defaultTimeoutHeight: TimeoutHeightOption = {
+  type: "relative",
+  value: 90n,
+};
+
+export const defaultDomainOptions: Required<DomainOptions> = {
+  name: "Injective Web3",
+  version: "1.0.0",
+  ethereumChainId: EthereumChainId.Injective,
+  salt: "0",
+  verifyingContract: "cosmos",
+};
+
+export const defaultEip712Types: Pick<
+  IDoc.Eip712SignDoc,
+  "types" | "primaryType"
+> = {
   primaryType: "Tx",
-  domain: {
-    name: "Injective Web3",
-    version: "1.0.0",
-    chainId: "0x378",
-    salt: "0",
-    verifyingContract: "cosmos",
-  },
   types: {
     EIP712Domain: [
       {

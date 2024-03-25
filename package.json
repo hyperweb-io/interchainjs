@@ -19,11 +19,12 @@
     "starship:restart": "cd __test__ && ./scripts/stop-server.sh && ./scripts/start-server.sh",
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
+    "build": "lerna run build",
     "pub": "lerna run pub"
   },
   "dependencies": {},
   "devDependencies": {
-    "lerna": "^8.1.2",
+    "lerna": "^6",
     "@cosmjs/amino": "^0.32.2",
     "@cosmjs/proto-signing": "^0.32.3",
     "@cosmjs/stargate": "^0.32.2",

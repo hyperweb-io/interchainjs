@@ -6,6 +6,8 @@ import {
   UniSigner,
   SignDocResponse,
   SignResponse,
+  CreateDocResponse,
+  StdFee,
 } from "@uni-sign/types";
 import {
   BaseSigner as _BaseSigner,
@@ -22,8 +24,8 @@ import {
   Secp256k1PubKey,
   SignMode,
   SignerOptions,
-  StdFee,
-  TxBodyOptions,
+  TimeoutHeightOption,
+  TxOptions,
   TxRaw,
 } from "../types";
 import { RpcClient } from "../query/rpc";
@@ -34,8 +36,10 @@ import {
 } from "./direct";
 import { toFee } from "./amino";
 
-export abstract class BaseSigner<SignDoc> extends _BaseSigner
-  implements UniSigner<SignDoc, TxRaw> {
+export abstract class BaseSigner<
+  SignDoc,
+  SignOptions extends FeeOptions & SignerOptions & TxOptions
+> extends _BaseSigner implements UniSigner<SignDoc, TxRaw> {
   protected _queryClient?: QueryClient;
   readonly encoders: Encoder[];
 
@@ -100,6 +104,24 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
   }
 
   /**
+   * convert relative timeoutHeight to absolute timeoutHeight
+   */
+  protected async toAbsoluteTimeoutHeight(
+    timeoutHeight?: TimeoutHeightOption
+  ): Promise<{ type: "absolute"; value: bigint } | undefined> {
+    return isEmpty(timeoutHeight)
+      ? void 0
+      : {
+          type: "absolute",
+          value:
+            timeoutHeight.type === "absolute"
+              ? timeoutHeight.value
+              : (await this.queryClient.getLatestBlockHeight()) +
+                timeoutHeight.value,
+        };
+  }
+
+  /**
    * createTransaction without signing
    */
   async createTxRaw(
@@ -107,13 +129,18 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
     signMode: SignMode,
     fee?: StdFee,
     memo?: string,
-    options?: FeeOptions & SignerOptions & TxBodyOptions
+    options?: SignOptions
   ) {
     const { txBody, encode } = constructTxBody(
       messages,
       this.getEncoder,
       memo,
-      options
+      {
+        ...options,
+        timeoutHeight: await this.toAbsoluteTimeoutHeight(
+          options?.timeoutHeight
+        ),
+      }
     );
 
     const { signerInfo } = constructSignerInfo(
@@ -134,31 +161,30 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
     return { txRaw, fee: stdFee };
   }
 
+  abstract signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
   abstract createDoc(
     messages: Message[],
     fee: StdFee,
     memo?: string,
-    options?: FeeOptions & SignerOptions & TxBodyOptions
-  ): Promise<{ signDoc: SignDoc; txRaw: TxRaw }>;
-
-  abstract signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
+    options?: SignOptions
+  ): Promise<CreateDocResponse<SignDoc, TxRaw>>;
 
   async sign(
     messages: Message[],
     fee?: StdFee,
     memo?: string,
-    options?: FeeOptions & SignerOptions & TxBodyOptions
+    options?: SignOptions
   ): Promise<SignResponse<SignDoc, TxRaw>> {
     const created = await this.createDoc(messages, fee, memo, options);
-    const { signature, signed } = await this.signDoc(created.signDoc);
+    const { signature, signDoc } = await this.signDoc(created.signDoc);
     const txRawCompleted = TxRaw.fromPartial({
-      ...created.txRaw,
+      ...created.tx,
       signatures: [signature.value],
     });
 
     return {
       signature,
-      signed,
+      signDoc,
       tx: txRawCompleted,
       broadcast: async (options?: BroadcastOptions) => {
         return this.broadcast(txRawCompleted, options);
@@ -182,7 +208,7 @@ export abstract class BaseSigner<SignDoc> extends _BaseSigner
     messages: Message[],
     fee?: StdFee,
     memo?: string,
-    options?: FeeOptions & SignerOptions & TxBodyOptions & BroadcastOptions
+    options?: SignOptions & BroadcastOptions
   ) {
     const { broadcast } = await this.sign(messages, fee, memo, options);
     return await broadcast(options);

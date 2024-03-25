@@ -3,9 +3,11 @@ import {
   fromBase64,
   fromBigInt,
   fromHex,
+  fromNumber,
   toBase64,
   toBigInt,
   toHex,
+  toNumber,
 } from "./encoding";
 import { bech32 } from "bech32";
 
@@ -28,12 +30,16 @@ export class Key implements IKey {
     return new Key(fromBigInt(value));
   }
 
-  toHex() {
-    return toHex(this.value);
+  static fromNumber(value: number) {
+    return new Key(fromNumber(value));
   }
 
-  toPrefixedHex() {
-    return `0x${this.toHex()}`;
+  toHex(trimmed: boolean = false) {
+    return toHex(this.value, trimmed);
+  }
+
+  toPrefixedHex(trimmed: boolean = false) {
+    return `0x${this.toHex(trimmed)}`;
   }
 
   toBase64() {
@@ -42,6 +48,10 @@ export class Key implements IKey {
 
   toBigInt() {
     return toBigInt(this.value);
+  }
+
+  toNumber() {
+    return toNumber(this.value);
   }
 
   toBech32(prefix: string, limit?: number) {

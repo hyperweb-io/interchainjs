@@ -1,13 +1,19 @@
-import { Auth, SignerConfig, SignDocResponse } from "@uni-sign/types";
+import {
+  Auth,
+  SignerConfig,
+  SignDocResponse,
+  IWalletAccount,
+  IDoc,
+} from "@uni-sign/types";
 import { defaultSignerConfig } from "../defaults";
 import { getPrefix } from "./rpc";
-import { CosmosAccount, SignDoc, StdSignDoc } from "../types";
+import { SignDoc } from "../types";
 import { encodeStdSignDoc } from "./amino";
 
 export function getAccountFromAuth(
   auth: Auth,
   config: SignerConfig = defaultSignerConfig
-): CosmosAccount {
+): IWalletAccount.CosmosAccount {
   const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
   return {
     algo: auth.algo,
@@ -42,20 +48,20 @@ export class SignResponseFromAuth {
     );
     return {
       signature: config.signature.toCompact(signature, auth.algo),
-      signed: signDoc,
+      signDoc: signDoc,
     };
   }
 
   static signAmino(
     auth: Auth,
-    doc: StdSignDoc,
+    doc: IDoc.CosmosAminoSignDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<StdSignDoc> {
+  ): SignDocResponse<IDoc.CosmosAminoSignDoc> {
     const encoded = encodeStdSignDoc(doc);
     const signature = auth.sign(config.message.hash(encoded));
     return {
       signature: config.signature.toCompact(signature, auth.algo),
-      signed: doc,
+      signDoc: doc,
     };
   }
 }
