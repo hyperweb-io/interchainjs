@@ -12,7 +12,7 @@ A single, universal signing interface for any network. Birthed from the intercha
 Universally applied across different networks
 
 - [@uni-sign/auth](/packages/auth/README.md)
-- [Advanced Docs of `Auth`](/docs/auth-wallet-signer.md)
+- [Advanced Docs: `Auth vs. Wallet vs. Signer`](/docs/auth-wallet-signer.md)
 
 ## Cosmos Network
 
