@@ -12,6 +12,7 @@ A single, universal signing interface for any network. Birthed from the intercha
 Universally applied across different networks
 
 - [@uni-sign/auth](/packages/auth/README.md)
+- [Advanced Docs of `Auth`](/docs/auth-wallet-signer.md)
 
 ## Cosmos Network
 
@@ -24,31 +25,7 @@ Universally applied across different networks
 - [@uni-sign/cosmos](/networks/cosmos/README.md)
 - [@uni-sign/cosmos-msgs](/networks/cosmos-msgs/README.md)
 
-#### Usage
-
-```sh
-npm install @uni-sign/auth @uni-sign/cosmos @uni-sign/cosmos-msgs
-```
-
-```ts
-// use sub-imports, to ensure small app size
-import { DirectSigner } from "@uni-sign/cosmos/direct";
-import { AminoSigner } from "@uni-sign/cosmos/amino";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
-import { Secp256k1Auth } from "@uni-sign/auth/secp256k1";
-import { MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
-
-const auth = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", "cosmos");
-
-// direct signer or amino signer
-const signer = new DirectSigner(auth, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
-const signer = new AminoSigner(auth, [toEncoder(MsgSend)], [toConverter(MsgSend)], <RPC_ENDPOINT>);
-
-const result = await signer.signAndBroadcast(<MESSAGES>);
-console.log(result.hash); // the hash of TxRaw
-```
-
-#### Migration from `@cosmjs`
+### Migration from `@cosmjs`
 
 We created a specific package to make it easy to migrate from `@cosmjs`.
 
@@ -56,8 +33,13 @@ We created a specific package to make it easy to migrate from `@cosmjs`.
 
 ## Injective Network
 
-(on progress)
+### Transactions
+
+- [@uni-sign/injective](/networks/injective/README.md)
+- `@uni-sign/injective-msgs`(on progress)
 
 ## Ethereum Network
 
-(on progress)
+### Transactions
+
+- [@uni-sign/ethereum](/networks/ethereum/README.md)

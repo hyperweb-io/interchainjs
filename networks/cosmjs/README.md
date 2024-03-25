@@ -15,9 +15,9 @@ To sign messages (taking `stargate` signing client as example)
 import { StargateSigningClient } from "@cosmology/cosmjs/stargate";
 
 const client = StargateSigningClient.connectWithSigner(<rpc-endpoint>, <offline signer>);
-const result = await client.signAndBroadcast(<address>, <messages>, "auto");
+const result = await client.signAndBroadcast(<ADDRESS>, <MESSAGE>[], "auto");
 // or you can use helper functions to do `signAndBroadcast`. taking send tokens as example
-const result = await client.helpers.send(<address>, <MsgSend message>, "auto", "");
+const result = await client.helpers.send(<ADDRESS>, <MsgSend message>, "auto", "");
 
 console.log(result.transactionHash); // the hash of TxRaw
 ```

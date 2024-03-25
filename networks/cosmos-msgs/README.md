@@ -18,10 +18,10 @@ import { AminoSigner } from "@uni-sign/cosmos/amino";
 const encoder = toEncoder(MsgSend);
 const converter = toConverter(MsgSend);
 
-const signer = new AminoSigner(<auth>, [encoder], [converter], <rpc-endpoint>);
+const signer = new AminoSigner(<AUTH>, [encoder], [converter], <rpc-endpoint>);
 ```
 
-- See [@uni-sign/auth](/packages/auth/README.md) to construct `<auth>`
+- See [@uni-sign/auth](/packages/auth/README.md) to construct `<AUTH>`
 - See [@uni-sign/cosmos](/packages/cosmos/README.md) to construct different `<signer>`s
 
 ## License

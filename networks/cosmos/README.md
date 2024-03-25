@@ -14,13 +14,13 @@ Taking `direct` signing mode as example.
 // import * from "@uni-sign/cosmos"; // Error: use sub-imports, to ensure small app size
 import { DirectSigner } from "@uni-sign/cosmos/direct";
 
-const signer = new DirectSigner(<auth>, <encoder>[], <rpc-endpoint>); // **ONLY** rpc endpoint is supported for now
-const result = await signer.signAndBroadcast(<messages>);
+const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now
+const result = await signer.signAndBroadcast(<MESSAGE>[]);
 console.log(result.hash); // the hash of TxRaw
 ```
 
-- See [@uni-sign/auth](/packages/auth/README.md) to construct `<auth>`
-- See [@uni-sign/cosmos-msgs](/networks/cosmos-msgs/README.md) to construct `<encoder>`s and `<converter>`s, and also different message types.
+- See [@uni-sign/auth](/packages/auth/README.md) to construct `<AUTH>`
+- See [@uni-sign/cosmos-msgs](/networks/cosmos-msgs/README.md) to construct `<ENCODER>`s and `<CONVERTER>`s, and also different message types.
 
 ## Implementations
 
