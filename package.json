@@ -20,7 +20,7 @@
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "build": "lerna run build",
-    "pub": "lerna run pub"
+    "pub": "lerna run pub --stream"
   },
   "dependencies": {},
   "devDependencies": {

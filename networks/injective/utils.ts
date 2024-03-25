@@ -1,6 +1,5 @@
 import {
   Eip712Types,
-  IDoc,
   InjectiveDomain,
   IWalletAccount,
   SignerConfig,

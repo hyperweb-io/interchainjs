@@ -2,7 +2,7 @@ import {
   Auth,
   BaseWallet,
   HttpEndpoint,
-  IDoc,
+  ISignDoc,
   ISigner,
   IWallet,
   SignerConfig,
@@ -28,7 +28,7 @@ export class AminoSigner extends AminoSignerBase
   }
 
   static async fromWallet(
-    wallet: BaseWallet<IDoc.InjectiveAminoSignDoc>,
+    wallet: BaseWallet<ISignDoc.CosmosAminoDoc>,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -52,7 +52,7 @@ export class AminoSigner extends AminoSignerBase
   ): IWallet.InjectiveAminoWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: IDoc.CosmosAminoSignDoc) =>
+      sign: async (doc: ISignDoc.CosmosAminoDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
   }

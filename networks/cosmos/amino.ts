@@ -1,7 +1,7 @@
 import {
   Auth,
   BaseWallet,
-  IDoc,
+  ISignDoc,
   HttpEndpoint,
   ISigner,
   SignerConfig,
@@ -16,7 +16,7 @@ import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
 export class AminoSignerBase extends BaseSigner<
-  IDoc.CosmosAminoSignDoc,
+  ISignDoc.CosmosAminoDoc,
   DocOptions
 > {
   readonly converters: AminoConverter[];
@@ -74,7 +74,7 @@ export class AminoSignerBase extends BaseSigner<
       options
     );
 
-    const signDoc: IDoc.CosmosAminoSignDoc = {
+    const signDoc: ISignDoc.CosmosAminoDoc = {
       chain_id: options?.chainId ?? (await this.queryClient.getChainId()),
       account_number: (
         options?.accountNumber ?? (await this.queryClient.getAccountNumber())
@@ -89,7 +89,7 @@ export class AminoSignerBase extends BaseSigner<
     return { signDoc, tx: txRaw };
   }
 
-  signDoc = async (doc: IDoc.CosmosAminoSignDoc) => {
+  signDoc = async (doc: ISignDoc.CosmosAminoDoc) => {
     return SignResponseFromAuth.signAmino(this.auth, doc, this.config);
   };
 }
@@ -107,7 +107,7 @@ export class AminoSigner extends AminoSignerBase
   }
 
   static async fromWallet(
-    wallet: BaseWallet<IDoc.CosmosAminoSignDoc>,
+    wallet: BaseWallet<ISignDoc.CosmosAminoDoc>,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -131,7 +131,7 @@ export class AminoSigner extends AminoSignerBase
   ): IWallet.CosmosAminoWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: IDoc.CosmosAminoSignDoc) =>
+      sign: async (doc: ISignDoc.CosmosAminoDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
   }

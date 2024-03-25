@@ -1,4 +1,4 @@
-import { IDoc, SignerConfig } from "@uni-sign/types";
+import { ISignDoc, SignerConfig } from "@uni-sign/types";
 import { defaultSignerConfig as CosmosSignerConfig } from "@uni-sign/cosmos/defaults";
 import { defaultSignerConfig as EthereumSignerConfig } from "@uni-sign/ethereum/defaults";
 import { DomainOptions, EthereumChainId } from "./types";
@@ -34,7 +34,7 @@ export const defaultDomainOptions: Required<DomainOptions> = {
 };
 
 export const defaultEip712Types: Pick<
-  IDoc.Eip712SignDoc,
+  ISignDoc.Eip712Doc,
   "types" | "primaryType"
 > = {
   primaryType: "Tx",

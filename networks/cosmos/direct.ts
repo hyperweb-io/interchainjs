@@ -3,7 +3,7 @@ import {
   HttpEndpoint,
   ISigner,
   SignerConfig,
-  IDoc,
+  ISignDoc,
   StdFee,
   BaseWallet,
   IWallet,
@@ -15,7 +15,7 @@ import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@uni-sign/utils";
 
 export class DirectSignerBase extends BaseSigner<
-  IDoc.CosmosDirectSignDoc,
+  ISignDoc.CosmosDirectDoc,
   DocOptions
 > {
   constructor(
@@ -41,7 +41,7 @@ export class DirectSignerBase extends BaseSigner<
       options
     );
 
-    const signDoc: IDoc.CosmosDirectSignDoc = SignDoc.fromPartial({
+    const signDoc: ISignDoc.CosmosDirectDoc = SignDoc.fromPartial({
       bodyBytes: txRaw.bodyBytes,
       authInfoBytes: txRaw.authInfoBytes,
       chainId: options?.chainId ?? (await this.queryClient.getChainId()),
@@ -51,7 +51,7 @@ export class DirectSignerBase extends BaseSigner<
     return { signDoc, tx: txRaw };
   }
 
-  signDoc = async (doc: IDoc.CosmosDirectSignDoc) => {
+  signDoc = async (doc: ISignDoc.CosmosDirectDoc) => {
     return SignResponseFromAuth.signDirect(this.auth, doc, this.config);
   };
 }
@@ -68,7 +68,7 @@ export class DirectSigner extends DirectSignerBase
   }
 
   static async fromWallet(
-    wallet: BaseWallet<IDoc.CosmosDirectSignDoc>,
+    wallet: BaseWallet<ISignDoc.CosmosDirectDoc>,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     config: SignerConfig = defaultSignerConfig

@@ -3,7 +3,7 @@ import {
   SignerConfig,
   SignDocResponse,
   IWalletAccount,
-  IDoc,
+  ISignDoc,
 } from "@uni-sign/types";
 import { defaultSignerConfig } from "../defaults";
 import { getPrefix } from "./rpc";
@@ -54,9 +54,9 @@ export class SignResponseFromAuth {
 
   static signAmino(
     auth: Auth,
-    doc: IDoc.CosmosAminoSignDoc,
+    doc: ISignDoc.CosmosAminoDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<IDoc.CosmosAminoSignDoc> {
+  ): SignDocResponse<ISignDoc.CosmosAminoDoc> {
     const encoded = encodeStdSignDoc(doc);
     const signature = auth.sign(config.message.hash(encoded));
     return {

@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/auth",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Authentication for web3 accounts",
   "main": "index.js",
   "module": "esm/index.js",

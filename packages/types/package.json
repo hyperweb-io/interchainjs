@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/types",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "types": "index.d.ts",
   "author": "liujun93 <ljun8575@gmail.com>",
   "license": "MIT",

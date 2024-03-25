@@ -1,6 +1,6 @@
 {
   "name": "@cosmology/cosmjs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Wrapper of @uni-sign/auth and @uni-sign/cosmos to fit corresponding interfaces in @cosmjs",
   "main": "index.js",
   "module": "esm/index.js",

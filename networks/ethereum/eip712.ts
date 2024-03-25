@@ -8,7 +8,7 @@ import {
   SignResponse,
   ISigner,
   SignerConfig,
-  IDoc,
+  ISignDoc,
   IWallet,
 } from "@uni-sign/types";
 import { defaultSignerConfig } from "./defaults";
@@ -26,7 +26,7 @@ export class Eip712Signer extends BaseSigner implements ISigner.Eip712Signer {
   }
 
   static async fromWallet(
-    wallet: BaseWallet<IDoc.Eip712SignDoc>,
+    wallet: BaseWallet<ISignDoc.Eip712Doc>,
     endpoint?: string | HttpEndpoint,
     config?: SignerConfig
   ) {
@@ -42,7 +42,7 @@ export class Eip712Signer extends BaseSigner implements ISigner.Eip712Signer {
   ): IWallet.Eip712Wallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: IDoc.Eip712SignDoc) =>
+      sign: async (doc: ISignDoc.Eip712Doc) =>
         SignResponseFromAuth.signEip712Data(auth, doc, config),
     };
   }
@@ -52,22 +52,22 @@ export class Eip712Signer extends BaseSigner implements ISigner.Eip712Signer {
   }
 
   async signDoc(
-    doc: IDoc.Eip712SignDoc
-  ): Promise<SignDocResponse<IDoc.Eip712SignDoc>> {
+    doc: ISignDoc.Eip712Doc
+  ): Promise<SignDocResponse<ISignDoc.Eip712Doc>> {
     return SignResponseFromAuth.signEip712Data(this.auth, doc, this.config);
   }
 
   async createDoc(
     messages: any,
     ...args: any
-  ): Promise<CreateDocResponse<IDoc.Eip712SignDoc, unknown>> {
+  ): Promise<CreateDocResponse<ISignDoc.Eip712Doc, unknown>> {
     throw new Error("Not implemented yet");
   }
 
   async sign(
     messages: any,
     ...args: any
-  ): Promise<SignResponse<IDoc.Eip712SignDoc, unknown>> {
+  ): Promise<SignResponse<ISignDoc.Eip712Doc, unknown>> {
     throw new Error("Not implemented yet");
   }
 

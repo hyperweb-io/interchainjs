@@ -1,6 +1,6 @@
 import {
   Eip712Types,
-  IDoc,
+  ISignDoc,
   IWalletAccount,
   SignDocResponse,
   SignerConfig,
@@ -27,9 +27,9 @@ export function getAccountFromAuth(
 export class SignResponseFromAuth {
   static signEip712Data(
     auth: Auth,
-    doc: IDoc.Eip712SignDoc,
+    doc: ISignDoc.Eip712Doc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<IDoc.Eip712SignDoc> {
+  ): SignDocResponse<ISignDoc.Eip712Doc> {
     const domainTypes: Eip712Types = {};
     const restTypes: Eip712Types = {};
     Object.entries(doc.types).forEach(([key, value]) => {

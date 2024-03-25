@@ -1,4 +1,4 @@
-import { IDoc } from "@uni-sign/types";
+import { ISignDoc } from "@uni-sign/types";
 import { seed as _seed } from "../data";
 
 export const seed = _seed.genesis;
@@ -14,7 +14,7 @@ export const signature =
 export const polygonSignature =
   "0xdafffafeda0111243b639c905ccafd038fd02e011d6012de5436b96dac66fc58364df091661a2ad944dd284ef401fb462b408157665cc2124d524d21d1fa53051c";
 
-export const typedData: IDoc.Eip712SignDoc = {
+export const typedData: ISignDoc.Eip712Doc = {
   types: {
     EIP712Domain: [
       {

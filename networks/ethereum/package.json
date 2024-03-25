@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/ethereum",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Transaction codec and client to communicate with ethereum blockchain",
   "main": "index.js",
   "module": "esm/index.js",

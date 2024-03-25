@@ -1,4 +1,4 @@
-import { Auth, IDoc, IWallet } from "@uni-sign/types";
+import { Auth, ISignDoc, IWallet } from "@uni-sign/types";
 import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
 import { Key } from "@uni-sign/utils";
 
@@ -63,7 +63,7 @@ export function toAminoWallet(
         },
       };
     },
-    sign: async (doc: IDoc.CosmosAminoSignDoc) => {
+    sign: async (doc: ISignDoc.CosmosAminoDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
       const { signature, signDoc } = await offlineSigner.signAmino(
         account.address,
@@ -96,7 +96,7 @@ export function toDirectWallet(
         },
       };
     },
-    sign: async (doc: IDoc.CosmosDirectSignDoc) => {
+    sign: async (doc: ISignDoc.CosmosDirectDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
       const { signature, signDoc } = await offlineSigner.signDirect(
         account.address,

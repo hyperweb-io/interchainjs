@@ -2,7 +2,7 @@ import {
   Auth,
   BaseWallet,
   HttpEndpoint,
-  IDoc,
+  ISignDoc,
   IWallet,
   SignDocResponse,
   SignerConfig,
@@ -28,7 +28,7 @@ import { constructAuthFromWallet } from "@uni-sign/utils";
 import { AminoSigner } from "./amino";
 
 export class Eip712Signer extends BaseSigner<
-  IDoc.InjectiveEip712SignDoc,
+  ISignDoc.InjectiveEip712Doc,
   DocOptions
 > {
   readonly aminoSigner: AminoSigner;
@@ -51,7 +51,7 @@ export class Eip712Signer extends BaseSigner<
   }
 
   static async fromWallet(
-    wallet: BaseWallet<IDoc.InjectiveEip712SignDoc>,
+    wallet: BaseWallet<ISignDoc.InjectiveEip712Doc>,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -75,12 +75,12 @@ export class Eip712Signer extends BaseSigner<
   ): IWallet.InjectiveEip712Wallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: IDoc.InjectiveEip712SignDoc) =>
+      sign: async (doc: ISignDoc.InjectiveEip712Doc) =>
         SignResponseFromAuth.signEip712Data(
           auth,
           doc,
           config
-        ) as SignDocResponse<IDoc.InjectiveEip712SignDoc>,
+        ) as SignDocResponse<ISignDoc.InjectiveEip712Doc>,
     };
   }
 
@@ -120,7 +120,7 @@ export class Eip712Signer extends BaseSigner<
         },
       ],
     });
-    const signDoc: IDoc.InjectiveEip712SignDoc = {
+    const signDoc: ISignDoc.InjectiveEip712Doc = {
       primaryType: defaultEip712Types.primaryType,
       domain: updateDomain(defaultDomainOptions, options),
       types: {
@@ -140,11 +140,11 @@ export class Eip712Signer extends BaseSigner<
     return { signDoc, tx: created.tx };
   }
 
-  signDoc = async (doc: IDoc.InjectiveEip712SignDoc) => {
+  signDoc = async (doc: ISignDoc.InjectiveEip712Doc) => {
     return SignResponseFromAuth.signEip712Data(
       this.auth,
       doc,
       this.config
-    ) as SignDocResponse<IDoc.InjectiveEip712SignDoc>;
+    ) as SignDocResponse<ISignDoc.InjectiveEip712Doc>;
   };
 }

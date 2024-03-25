@@ -1,6 +1,8 @@
 import { chain } from "../data";
+import { address } from "./data";
 import { PrivateKey, getEthereumAddress } from "@injectivelabs/sdk-ts";
 import { auth, isPubKeyCompressed, mnemonic, hashPubKey } from "./constants";
+import { getAccountFromAuth } from "@uni-sign/injective/utils";
 
 describe("vs. Injectivelabs", () => {
   const hisAuth = PrivateKey.fromMnemonic(mnemonic);
@@ -21,11 +23,17 @@ describe("vs. Injectivelabs", () => {
     );
   });
 
-  it("should pass test", () => {
+  it("should get identical address results (2)", () => {
     const myHashedPubKey = hashPubKey(auth.getPublicKey(isPubKeyCompressed));
     const bech32Addr = myHashedPubKey.toBech32("inj");
     expect(myHashedPubKey.toPrefixedHex()).toEqual(
       getEthereumAddress(bech32Addr)
     );
+  });
+
+  it("should get correct account data", () => {
+    const { cosmosAddress, ethereumAddress } = getAccountFromAuth(auth);
+    expect(cosmosAddress).toBe(address.cosmos);
+    expect(ethereumAddress).toBe(address.ethereum);
   });
 });

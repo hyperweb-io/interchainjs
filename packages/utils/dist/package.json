@@ -1,6 +1,6 @@
 {
   "name": "@uni-sign/utils",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "author": "liujun93 <ljun8575@gmail.com>",
   "license": "MIT",
   "main": "index.js",
