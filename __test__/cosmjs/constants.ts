@@ -15,3 +15,12 @@ export const aminoClient = StargateSigningClient.connectWithSigner(
   chain.cosmoshub.rpc,
   wallet.toOfflineAminoSigner()
 );
+
+import {
+  AminoTypes,
+  Coin,
+  GasPrice,
+  SigningStargateClient,
+  calculateFee,
+  createIbcAminoConverters,
+} from "@cosmjs/stargate";
