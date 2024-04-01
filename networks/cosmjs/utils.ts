@@ -65,13 +65,13 @@ export function toAminoWallet(
     },
     sign: async (doc: ISignDoc.CosmosAminoDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
-      const { signature, signDoc } = await offlineSigner.signAmino(
+      const { signature, signed } = await offlineSigner.signAmino(
         account.address,
         doc
       );
       return {
         signature: Key.fromBase64(signature.signature),
-        signDoc: signDoc as any,
+        signDoc: signed as any,
       };
     },
   };
@@ -98,13 +98,13 @@ export function toDirectWallet(
     },
     sign: async (doc: ISignDoc.CosmosDirectDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
-      const { signature, signDoc } = await offlineSigner.signDirect(
+      const { signature, signed } = await offlineSigner.signDirect(
         account.address,
         doc
       );
       return {
         signature: Key.fromBase64(signature.signature),
-        signDoc: signDoc as any,
+        signDoc: signed as any,
       };
     },
   };

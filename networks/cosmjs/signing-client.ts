@@ -187,6 +187,7 @@ export class SigningClient {
     if (explicitSignerData) {
       signerData = explicitSignerData;
     } else {
+      await this.initAuth(signerAddress);
       signerData = {
         accountNumber: await this.getAccountNumber(),
         sequence: await this.getSequence(),
@@ -402,10 +403,10 @@ export class SigningClient {
       chainId,
       accountNumber,
     };
-    const { signature, signDoc } = await this._signDirect(signerAddress, doc);
+    const { signature, signed } = await this._signDirect(signerAddress, doc);
     const txRaw = TxRaw.fromPartial({
-      bodyBytes: signDoc.bodyBytes,
-      authInfoBytes: signDoc.authInfoBytes,
+      bodyBytes: signed.bodyBytes,
+      authInfoBytes: signed.authInfoBytes,
       signatures: [fromBase64(signature.signature)],
     });
     return txRaw;
@@ -429,16 +430,16 @@ export class SigningClient {
       msgs: toAminoMsgs(messages, this.aminoSigner.getConverterFromTypeUrl),
       memo,
     };
-    const { signature, signDoc } = await this._signAmino(signerAddress, doc);
+    const { signature, signed } = await this._signAmino(signerAddress, doc);
     const bodyBytes = constructTxBody(
-      toMessages(signDoc.msgs, this.aminoSigner.getConverter),
+      toMessages(signed.msgs, this.aminoSigner.getConverter),
       this.aminoSigner.getEncoder,
       doc.memo
     ).encode();
 
     const { signerInfo } = constructSignerInfo(
       this.aminoSigner.encodedPublicKey,
-      BigInt(signDoc.sequence),
+      BigInt(signed.sequence),
       this._signDirect
         ? SignMode.SIGN_MODE_DIRECT
         : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
@@ -446,7 +447,7 @@ export class SigningClient {
 
     const authInfoBytes = constructAuthInfo(
       [signerInfo],
-      toFee(signDoc.fee)
+      toFee(signed.fee)
     ).encode();
 
     const txRaw = TxRaw.fromPartial({

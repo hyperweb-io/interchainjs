@@ -78,7 +78,7 @@ export class Secp256k1Wallet implements Wallet {
       auth.algo
     );
     return {
-      signDoc: doc,
+      signed: doc,
       signature: {
         pub_key: {
           type: "tendermint/PubKeySecp256k1",
@@ -98,7 +98,7 @@ export class Secp256k1Wallet implements Wallet {
       auth.algo
     );
     return {
-      signDoc,
+      signed: signDoc,
       signature: {
         pub_key: {
           type: "tendermint/PubKeySecp256k1",

@@ -21,7 +21,7 @@ export interface StdSignature {
 }
 
 export interface AminoSignResponse {
-  signDoc: StdSignDoc;
+  signed: StdSignDoc;
   signature: StdSignature;
 }
 
@@ -34,7 +34,7 @@ export interface OfflineAminoSigner {
 }
 
 export interface DirectSignResponse {
-  signDoc: SignDoc;
+  signed: SignDoc;
   signature: StdSignature;
 }
 
