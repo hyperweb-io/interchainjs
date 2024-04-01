@@ -124,7 +124,7 @@ export class SigningClient {
   }
 
   private async getAccountData(address: string): Promise<AccountData> {
-    const accounts = await this._getAccounts();
+    const accounts = await this.offlineSigner.getAccounts();
     const account = accounts.find((account) => account.address === address);
     if (!account) {
       throw new Error(
