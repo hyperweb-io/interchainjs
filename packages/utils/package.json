@@ -1,8 +1,11 @@
 {
   "name": "@interchainjs/utils",
   "version": "0.0.8",
-  "author": "liujun93 <ljun8575@gmail.com>",
+  "author": "Cosmology <developers@cosmology.zone>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",

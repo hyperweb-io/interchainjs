@@ -2,9 +2,9 @@
   "name": "interchainjs-project",
   "version": "0.0.1",
   "private": true,
-  "description": "sign client for block-chain networks",
-  "repository": "git@github.com:cosmology-tech/sign.git",
-  "author": "liujun93 <ljun8575@gmail.com>",
+  "description": "universal signing client for blockchain networks",
+  "repository": "git@github.com:cosmology-tech/interchainjs.git",
+  "author": "Cosmology <developers@cosmology.zone>",
   "license": "MIT",
   "publishConfig": {
     "access": "restricted"

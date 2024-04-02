@@ -2,8 +2,11 @@
   "name": "@interchainjs/types",
   "version": "0.0.9",
   "types": "index.d.ts",
-  "author": "liujun93 <ljun8575@gmail.com>",
+  "author": "Cosmology <developers@cosmology.zone>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "del dist/**",
