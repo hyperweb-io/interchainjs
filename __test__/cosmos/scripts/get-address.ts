@@ -1,5 +1,5 @@
-import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
+// import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+// import { DirectSigner } from "@interchainjs/cosmos/direct";
 import { Key } from "@interchainjs/utils";
 
 // const auth = Secp256k1Auth.fromMnemonic(
