@@ -1,5 +1,5 @@
-import { SignerConfig, Signature } from "@uni-sign/types";
-import { Key, toHex } from "@uni-sign/utils";
+import { SignerConfig, Signature } from "@interchainjs/types";
+import { Key, toHex } from "@interchainjs/utils";
 import { computeAddress } from "@ethersproject/transactions";
 import { bytes as assertBytes } from "@noble/hashes/_assert";
 import { keccak_256 } from "@noble/hashes/sha3";

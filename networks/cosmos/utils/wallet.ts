@@ -4,7 +4,7 @@ import {
   SignDocResponse,
   IWalletAccount,
   ISignDoc,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import { defaultSignerConfig } from "../defaults";
 import { getPrefix } from "./rpc";
 import { SignDoc } from "../types";

@@ -1,4 +1,4 @@
-import { SignDoc, StdSignDoc } from "@uni-sign/types";
+import { SignDoc, StdSignDoc } from "@interchainjs/types";
 
 export type Algo = "secp256k1" | "ed25519" | "sr25519";
 

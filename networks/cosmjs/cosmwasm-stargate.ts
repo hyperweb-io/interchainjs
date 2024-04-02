@@ -1,12 +1,12 @@
-import { AminoSigner } from "@uni-sign/cosmos/amino";
-import { StargateMsgs } from "@uni-sign/cosmos-msgs/stargate";
-import { CosmWasmMsgs } from "@uni-sign/cosmos-msgs/cosmwasm";
-import { TxImpl } from "@uni-sign/cosmos-msgs/stargate-cosmwasm.tx";
+import { AminoSigner } from "@interchainjs/cosmos/amino";
+import { StargateMsgs } from "@interchainjs/cosmos-msgs/stargate";
+import { CosmWasmMsgs } from "@interchainjs/cosmos-msgs/cosmwasm";
+import { TxImpl } from "@interchainjs/cosmos-msgs/stargate-cosmwasm.tx";
 import { SigningClient } from "./signing-client";
 import { OfflineSigner } from "./types/wallet";
 import { SignerOptions } from "./types/signing-client";
-import { HttpEndpoint } from "@uni-sign/types";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
+import { HttpEndpoint } from "@interchainjs/types";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
 import { defaultAuth } from "./utils";
 
 export class CosmWasmSigningClient extends SigningClient {

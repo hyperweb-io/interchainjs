@@ -7,12 +7,12 @@ import {
   StdFee,
   BaseWallet,
   IWallet,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import { Encoder, Message, DocOptions, SignDoc } from "./types";
 import { BaseSigner, SignResponseFromAuth, getAccountFromAuth } from "./utils";
 import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
-import { constructAuthFromWallet } from "@uni-sign/utils";
+import { constructAuthFromWallet } from "@interchainjs/utils";
 
 export class DirectSignerBase extends BaseSigner<
   ISignDoc.CosmosDirectDoc,

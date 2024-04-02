@@ -1,6 +1,6 @@
-import { Auth, ISignDoc, IWallet } from "@uni-sign/types";
+import { Auth, ISignDoc, IWallet } from "@interchainjs/types";
 import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
-import { Key } from "@uni-sign/utils";
+import { Key } from "@interchainjs/utils";
 
 /**
  * An error when broadcasting the transaction. This contains the CheckTx errors

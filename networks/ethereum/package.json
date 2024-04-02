@@ -1,5 +1,5 @@
 {
-  "name": "@uni-sign/ethereum",
+  "name": "@interchainjs/ethereum",
   "version": "0.0.5",
   "description": "Transaction codec and client to communicate with ethereum blockchain",
   "main": "index.js",
@@ -14,8 +14,8 @@
     "pub": "npm version patch && npm run copy && cd dist && npm publish --access public"
   },
   "dependencies": {
-    "@uni-sign/utils": "^0",
-    "@uni-sign/types": "^0",
+    "@interchainjs/utils": "^0",
+    "@interchainjs/types": "^0",
     "@ethersproject/transactions": "^5.7.0",
     "@ethersproject/bignumber": "^5.7.0",
     "@ethersproject/bytes": "^5.7.0",

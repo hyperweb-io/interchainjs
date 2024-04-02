@@ -17,13 +17,13 @@ import {
   getLowGasPrice,
   getPrefix,
 } from "../utils/rpc";
-import { Key, isEmpty, toHttpEndpoint } from "@uni-sign/utils";
+import { Key, isEmpty, toHttpEndpoint } from "@interchainjs/utils";
 import { TxBody, SignerInfo, Tx, Fee } from "../codegen/cosmos/tx/v1beta1/tx";
 import { constructAuthInfo } from "../utils/direct";
 import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
-import { toPrice } from "@uni-sign/utils";
+import { toPrice } from "@interchainjs/utils";
 import { Decimal } from "decimal.js";
-import { HttpEndpoint, Price, BroadcastOptions } from "@uni-sign/types";
+import { HttpEndpoint, Price, BroadcastOptions } from "@interchainjs/types";
 import { defaultBroadcastOptions, defaultFeeOptions } from "../defaults";
 
 export class RpcClient implements QueryClient {

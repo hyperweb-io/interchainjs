@@ -1,5 +1,5 @@
 {
-  "name": "@uni-sign/types",
+  "name": "@interchainjs/types",
   "version": "0.0.8",
   "types": "index.d.ts",
   "author": "liujun93 <ljun8575@gmail.com>",

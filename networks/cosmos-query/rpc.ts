@@ -1,5 +1,5 @@
-import { HttpEndpoint } from "@uni-sign/types";
-import { fromBase64, randomId, toHex, toHttpEndpoint } from "@uni-sign/utils";
+import { HttpEndpoint } from "@interchainjs/types";
+import { fromBase64, randomId, toHex, toHttpEndpoint } from "@interchainjs/utils";
 import { QueryImpl } from "./service-ops";
 import { TxRpc } from "./types";
 

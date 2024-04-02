@@ -1,4 +1,4 @@
-import { IKey } from "@uni-sign/types";
+import { IKey } from "@interchainjs/types";
 import {
   fromBase64,
   fromBigInt,

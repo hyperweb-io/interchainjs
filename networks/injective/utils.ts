@@ -3,12 +3,12 @@ import {
   InjectiveDomain,
   IWalletAccount,
   SignerConfig,
-} from "@uni-sign/types";
-import { Auth } from "@uni-sign/types";
+} from "@interchainjs/types";
+import { Auth } from "@interchainjs/types";
 import { defaultSignerConfig } from "./defaults";
 import { DomainOptions } from "./types";
 import { objectKeysToEip712Types } from "./eth-utils/map";
-import { fromNumber, toPrefixedHex } from "@uni-sign/utils";
+import { fromNumber, toPrefixedHex } from "@interchainjs/utils";
 
 export function getAccountFromAuth(
   auth: Auth,

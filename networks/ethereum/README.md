@@ -5,12 +5,12 @@ Transaction codec and client to communicate with ethereum blockchain.
 ## Usage
 
 ```sh
-npm install @uni-sign/ethereum
+npm install @interchainjs/ethereum
 ```
 
 ## Implementations
 
-- **eip712 signer** from `@uni-sign/ethereum/eip712` (Not fully implemented yet)
+- **eip712 signer** from `@interchainjs/ethereum/eip712` (Not fully implemented yet)
 
 ## License
 

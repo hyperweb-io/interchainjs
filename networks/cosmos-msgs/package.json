@@ -1,5 +1,5 @@
 {
-  "name": "@uni-sign/cosmos-msgs",
+  "name": "@interchainjs/cosmos-msgs",
   "version": "0.0.6",
   "description": "Cosmos message codecs",
   "main": "index.js",

@@ -1,9 +1,9 @@
-import { DirectSigner } from "@uni-sign/injective/direct";
-import { AminoSigner } from "@uni-sign/injective/amino";
-import { MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { DirectSigner } from "@interchainjs/injective/direct";
+import { AminoSigner } from "@interchainjs/injective/amino";
+import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
 import { address, chain } from "../../data";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
-import { Message } from "@uni-sign/cosmos/types";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
+import { Message } from "@interchainjs/cosmos/types";
 import { auth } from "../constants";
 
 export const messages: Message<MsgSend>[] = [

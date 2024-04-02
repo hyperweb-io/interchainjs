@@ -1,13 +1,13 @@
 import { address, chain } from "../../data";
-import { Message, SignMode } from "@uni-sign/cosmos/types";
+import { Message, SignMode } from "@interchainjs/cosmos/types";
 import { MsgSend, createTransaction } from "@injectivelabs/sdk-ts";
 import { auth, isPubKeyCompressed } from "../constants";
-import { toHex } from "@uni-sign/utils";
-import { DirectSigner } from "@uni-sign/injective/direct";
-import { AminoSigner } from "@uni-sign/injective/amino";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
-import { MsgSend as _MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
-import { StdFee } from "@uni-sign/types";
+import { toHex } from "@interchainjs/utils";
+import { DirectSigner } from "@interchainjs/injective/direct";
+import { AminoSigner } from "@interchainjs/injective/amino";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { StdFee } from "@interchainjs/types";
 
 const msg = MsgSend.fromJSON({
   amount: {

@@ -1,5 +1,5 @@
-import { Key } from "@uni-sign/utils";
-import { Auth, Signature } from "@uni-sign/types";
+import { Key } from "@interchainjs/utils";
+import { Auth, Signature } from "@interchainjs/types";
 
 export class Ed25519Auth implements Auth {
   readonly algo = "ed25519";

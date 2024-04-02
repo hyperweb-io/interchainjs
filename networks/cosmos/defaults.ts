@@ -1,9 +1,9 @@
 import { bytes as assertBytes } from "@noble/hashes/_assert";
 import { sha256 } from "@noble/hashes/sha256";
 import { FeeOptions } from "./types";
-import { SignerConfig, Signature, BroadcastOptions } from "@uni-sign/types";
+import { SignerConfig, Signature, BroadcastOptions } from "@interchainjs/types";
 import { ripemd160 } from "@noble/hashes/ripemd160";
-import { Key } from "@uni-sign/utils";
+import { Key } from "@interchainjs/utils";
 import { secp256k1 } from "@noble/curves/secp256k1";
 
 export const defaultBroadcastOptions: BroadcastOptions = {

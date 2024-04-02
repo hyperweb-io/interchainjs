@@ -1,6 +1,6 @@
 import prefixJson from "../data/prefix.json";
 import feeTokensJson from "../data/fee-tokens.json";
-import { HttpEndpoint, Price } from "@uni-sign/types";
+import { HttpEndpoint, Price } from "@interchainjs/types";
 import { Decimal } from "decimal.js";
 import {
   BaseAccount,
@@ -12,7 +12,7 @@ import {
   DelayedVestingAccount,
   PeriodicVestingAccount,
 } from "../codegen/cosmos/vesting/v1beta1/vesting";
-import { fromBase64, randomId, toBase64, toHex } from "@uni-sign/utils";
+import { fromBase64, randomId, toBase64, toHex } from "@interchainjs/utils";
 import { TxRpc } from "../codegen/types";
 import { BroadcastMode, Decoder } from "../types";
 import { toDecoder } from "./direct";

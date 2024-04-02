@@ -5,15 +5,15 @@ Cosmos message codecs (including Stargate and CosmWasm messages)
 ## Usage
 
 ```sh
-npm install @uni-sign/cosmos-msgs
+npm install @interchainjs/cosmos-msgs
 ```
 
 Make `Encoder` and `Converter` used by `Cosmos` signers (taking `MsgSend` as example)
 
 ```ts
-import { MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
-import { AminoSigner } from "@uni-sign/cosmos/amino";
+import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
+import { AminoSigner } from "@interchainjs/cosmos/amino";
 
 const encoder = toEncoder(MsgSend);
 const converter = toConverter(MsgSend);
@@ -21,8 +21,8 @@ const converter = toConverter(MsgSend);
 const signer = new AminoSigner(<AUTH>, [encoder], [converter], <rpc-endpoint>);
 ```
 
-- See [@uni-sign/auth](/packages/auth/README.md) to construct `<AUTH>`
-- See [@uni-sign/cosmos](/packages/cosmos/README.md) to construct different `<signer>`s
+- See [@interchainjs/auth](/packages/auth/README.md) to construct `<AUTH>`
+- See [@interchainjs/cosmos](/packages/cosmos/README.md) to construct different `<signer>`s
 
 ## License
 

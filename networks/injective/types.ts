@@ -1,4 +1,4 @@
-import { DocOptions as CosmosDocOptions } from "@uni-sign/cosmos/types";
+import { DocOptions as CosmosDocOptions } from "@interchainjs/cosmos/types";
 
 export enum EthereumChainId {
   Mainnet = 1,

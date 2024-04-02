@@ -1,9 +1,9 @@
 import { secp256k1 } from "@noble/curves/secp256k1";
 import { HDKey } from "@scure/bip32";
 
-import { AuthOptions, Auth, Signature, Network } from "@uni-sign/types";
+import { AuthOptions, Auth, Signature, Network } from "@interchainjs/types";
 import { getSeedFromMnemonic } from "./utils";
-import { Key, isEmpty } from "@uni-sign/utils";
+import { Key, isEmpty } from "@interchainjs/utils";
 import { defaultHdPaths } from "./defaults";
 
 const hdPaths = defaultHdPaths.filter(({ algo }) => algo === "secp256k1");

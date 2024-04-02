@@ -1,10 +1,10 @@
 # Signer
 
-The main purpose of the `@uni-sign/cosmos`, `@uni-sign/ethereum`, `@uni-sign/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
+The main purpose of the `@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
 
 ```ts
-import { UniSigner } from "@uni-signer/types";
-import { BaseSigner } from "@uni-signer/utils";
+import { UniSigner } from "@interchainjser/types";
+import { BaseSigner } from "@interchainjser/utils";
 ```
 
 Need to note that there are 2 type parameters that indicates 2 types of document involved in signing and broadcasting process for interface `UniSigner`:
@@ -21,10 +21,10 @@ As we know, `Auth` object can be used to sign any piece of binary data (See [det
 ### Usage
 
 ```ts
-import { DirectSigner } from "@uni-sign/cosmos/direct";
-import { toEncoder } from "@uni-sign/cosmos/utils";
-import { Secp256k1Auth } from "@uni-sign/auth/secp256k1";
-import { MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { toEncoder } from "@interchainjs/cosmos/utils";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
 
 const auth = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", "cosmos");
 const signer = new DirectSigner(auth, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
@@ -39,10 +39,10 @@ However, combining with the `Signer` class allows you to sign human-readable mes
 ### Usage
 
 ```ts
-import { DirectSigner } from "@uni-sign/cosmos/direct";
-import { DirectWallet, SignDoc } from "@uni-sign/cosmos/types";
-import { toEncoder } from "@uni-sign/cosmos/utils";
-import { MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { DirectWallet, SignDoc } from "@interchainjs/cosmos/types";
+import { toEncoder } from "@interchainjs/cosmos/utils";
+import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
 
 const wallet: DirectWallet = {
     async getAccount(){},
@@ -51,14 +51,14 @@ const wallet: DirectWallet = {
 const signer = await DirectSigner.fromWallet(wallet, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
 ```
 
-> Tips: `uni-sign` also provides helper methods to easily construct `Wallet` for each `Signer`. See [details](/docs/wallet.md#easy-to-construct-wallet).
+> Tips: `interchainjs` also provides helper methods to easily construct `Wallet` for each `Signer`. See [details](/docs/wallet.md#easy-to-construct-wallet).
 
 ## UniSigner Interface
 
 There are 3 signing methods in `UniSigner`
 
 ```ts
-/** you can import { UniSigner } from "@uni-sign/types" */
+/** you can import { UniSigner } from "@interchainjs/types" */
 export interface UniSigner<SignDoc, Tx> {
   ...
   signArbitrary(data: Uint8Array): IKey;
@@ -80,10 +80,10 @@ export interface UniSigner<SignDoc, Tx> {
 
 ## Namespaces & Interfaces
 
-`@uni-sign/types` exposes all the types that descirbe all the available signers under `@uni-sign` scope. They are collected in the namespaces below.
+`@interchainjs/types` exposes all the types that descirbe all the available signers under `@interchainjs` scope. They are collected in the namespaces below.
 
 ```ts
-import { ISigner, ISignDoc, ITransaction, IWallet, IWalletAccount } from "@uni-sign/types";
+import { ISigner, ISignDoc, ITransaction, IWallet, IWalletAccount } from "@interchainjs/types";
 ```
 
 See details below
@@ -97,7 +97,7 @@ See details below
 
 ### ISigner.CosmosDirectSigner
 
-- **Class**: `import { DirectSigner } from "@uni-sign/cosmos/direct"`
+- **Class**: `import { DirectSigner } from "@interchainjs/cosmos/direct"`
 - **SignDoc**: *ISignDoc.CosmosDirectDoc*
 - **Transaction**: *ITransaction.CosmosTx*
 - **Wallet**: *IWallet.CosmosDirectWallet*
@@ -105,7 +105,7 @@ See details below
   
 ### ISigner.CosmosAminoSigner
 
-- **Class**: `import { AminoSigner } from "@uni-sign/cosmos/amino"`
+- **Class**: `import { AminoSigner } from "@interchainjs/cosmos/amino"`
 - **SignDoc**: *ISignDoc.CosmosAminoDoc*
 - **Transaction**: *ITransaction.CosmosTx*
 - **Wallet**: *IWallet.CosmosAminoWallet*
@@ -113,7 +113,7 @@ See details below
   
 ### ISigner.InjectiveDirectSigner
 
-- **Class**: `import { DirectSigner } from "@uni-sign/injective/direct"`
+- **Class**: `import { DirectSigner } from "@interchainjs/injective/direct"`
 - **SignDoc**: *ISignDoc.CosmosDirectDoc*
 - **Transaction**: *ITransaction.CosmosTx*
 - **Wallet**: *IWallet.InjectiveDirectWallet*
@@ -121,7 +121,7 @@ See details below
 
 ### ISigner.InjectiveAminoSigner
 
-- **Class**: `import { AminoSigner } from "@uni-sign/injective/amino"`
+- **Class**: `import { AminoSigner } from "@interchainjs/injective/amino"`
 - **SignDoc**: *ISignDoc.CosmosAminoDoc*
 - **Transaction**: *ITransaction.CosmosTx*
 - **Wallet**: *IWallet.InjectiveAminoWallet*
@@ -129,7 +129,7 @@ See details below
 
 ### ISigner.InjectiveEip712Signer
 
-- **Class**: `import { Eip712Signer } from "@uni-sign/injective/eip712"`
+- **Class**: `import { Eip712Signer } from "@interchainjs/injective/eip712"`
 - **SignDoc**: *ISignDoc.InjectiveEip712Doc*
 - **Transaction**: *ITransaction.CosmosTx*
 - **Wallet**: *IWallet.InjectiveEip712Wallet*
@@ -137,7 +137,7 @@ See details below
 
 ### ISigner.Eip712Signer
 
-- **Class**: `import { Eip712Signer } from "@uni-sign/ethereum/eip712"`
+- **Class**: `import { Eip712Signer } from "@interchainjs/ethereum/eip712"`
 - **SignDoc**: *ISignDoc.Eip712Doc*
 - **Transaction**: *ITransaction.Eip712Tx*
 - **Wallet**: *IWallet.Eip712Wallet*

@@ -1,3 +1,3 @@
 throw new Error(
-  "@uni-sign/cosmos have no entry-point: consult README for usage"
+  "@interchainjs/cosmos have no entry-point: consult README for usage"
 );

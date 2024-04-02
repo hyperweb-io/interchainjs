@@ -1,9 +1,9 @@
-import { assertEmpty, fromUtf8 } from "@uni-sign/utils";
+import { assertEmpty, fromUtf8 } from "@interchainjs/utils";
 import { AminoMessage, AminoConverter, Message } from "../types";
 import { Coin } from "../codegen/cosmos/base/v1beta1/coin";
 import { Fee } from "../codegen/cosmos/tx/v1beta1/tx";
 import { TelescopeGeneratedType } from "../codegen/types";
-import { StdFee, StdSignDoc } from "@uni-sign/types";
+import { StdFee, StdSignDoc } from "@interchainjs/types";
 
 function sortKey<T>(target: T): T {
   if (target === null || typeof target !== "object") {

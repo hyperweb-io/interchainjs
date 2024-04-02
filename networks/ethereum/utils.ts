@@ -4,11 +4,11 @@ import {
   IWalletAccount,
   SignDocResponse,
   SignerConfig,
-} from "@uni-sign/types";
-import { Auth } from "@uni-sign/types";
+} from "@interchainjs/types";
+import { Auth } from "@interchainjs/types";
 import { defaultSignerConfig } from "./defaults";
 import { _TypedDataEncoder } from "@ethersproject/hash";
-import { fromHex } from "@uni-sign/utils";
+import { fromHex } from "@interchainjs/utils";
 import { hexConcat } from "@ethersproject/bytes";
 
 export function getAccountFromAuth(

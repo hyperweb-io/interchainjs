@@ -6,14 +6,14 @@ import {
   ISigner,
   IWallet,
   SignerConfig,
-} from "@uni-sign/types";
-import { AminoSignerBase } from "@uni-sign/cosmos/amino";
-import { Encoder, AminoConverter } from "@uni-sign/cosmos/types";
+} from "@interchainjs/types";
+import { AminoSignerBase } from "@interchainjs/cosmos/amino";
+import { Encoder, AminoConverter } from "@interchainjs/cosmos/types";
 import { defaultSignerConfig } from "./defaults";
-import { EncodedMessage, Secp256k1PubKey } from "@uni-sign/cosmos/types";
-import { SignResponseFromAuth } from "@uni-sign/cosmos/utils";
+import { EncodedMessage, Secp256k1PubKey } from "@interchainjs/cosmos/types";
+import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
 import { getAccountFromAuth } from "./utils";
-import { constructAuthFromWallet } from "@uni-sign/utils";
+import { constructAuthFromWallet } from "@interchainjs/utils";
 
 export class AminoSigner extends AminoSignerBase
   implements ISigner.InjectiveAminoSigner {

@@ -1,4 +1,4 @@
-import { Auth, BaseWallet, SignerConfig } from "@uni-sign/types";
+import { Auth, BaseWallet, SignerConfig } from "@interchainjs/types";
 
 export async function constructAuthFromWallet(
   wallet: BaseWallet<any>,

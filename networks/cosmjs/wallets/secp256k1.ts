@@ -1,7 +1,7 @@
-import { Auth, StdSignDoc } from "@uni-sign/types";
-import { Secp256k1Auth } from "@uni-sign/auth/secp256k1";
-import { SignDoc } from "@uni-sign/cosmos/types";
-import { encodeStdSignDoc } from "@uni-sign/cosmos/utils";
+import { Auth, StdSignDoc } from "@interchainjs/types";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { SignDoc } from "@interchainjs/cosmos/types";
+import { encodeStdSignDoc } from "@interchainjs/cosmos/utils";
 
 import {
   AccountData,
@@ -14,8 +14,8 @@ import {
   Bech32Address,
   Algo,
 } from "../types/wallet";
-import { defaultSignerConfig } from "@uni-sign/cosmos/defaults";
-import { defaultHdPaths } from "@uni-sign/auth/defaults";
+import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
+import { defaultHdPaths } from "@interchainjs/auth/defaults";
 
 const isPublicKeyCompressed = defaultSignerConfig.publicKey.isCompressed;
 const toAddress = defaultSignerConfig.publicKey.hash;

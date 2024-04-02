@@ -7,13 +7,13 @@ import {
   SignerConfig,
   StdFee,
   IWallet,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import { Encoder, Message, AminoConverter, DocOptions } from "./types";
 import { toAminoMsgs } from "./utils/amino";
 import { BaseSigner, getAccountFromAuth, SignResponseFromAuth } from "./utils";
 import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
-import { constructAuthFromWallet } from "@uni-sign/utils";
+import { constructAuthFromWallet } from "@interchainjs/utils";
 
 export class AminoSignerBase extends BaseSigner<
   ISignDoc.CosmosAminoDoc,

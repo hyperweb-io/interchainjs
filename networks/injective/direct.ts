@@ -6,18 +6,18 @@ import {
   ISigner,
   IWallet,
   SignerConfig,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import { defaultSignerConfig } from "./defaults";
-import { DirectSignerBase } from "@uni-sign/cosmos/direct";
+import { DirectSignerBase } from "@interchainjs/cosmos/direct";
 import {
   EncodedMessage,
   Encoder,
   Secp256k1PubKey,
   SignDoc,
-} from "@uni-sign/cosmos/types";
+} from "@interchainjs/cosmos/types";
 import { getAccountFromAuth } from "./utils";
-import { SignResponseFromAuth } from "@uni-sign/cosmos/utils";
-import { constructAuthFromWallet } from "@uni-sign/utils";
+import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
+import { constructAuthFromWallet } from "@interchainjs/utils";
 
 export class DirectSigner extends DirectSignerBase
   implements ISigner.InjectiveDirectSigner {

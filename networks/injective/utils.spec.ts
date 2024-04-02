@@ -1,7 +1,7 @@
-import { MsgSendAmino } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSendAmino } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
 import { address } from "../../__test__/data";
 import { toEthTypes } from "./utils";
-import { Eip712Types } from "@uni-sign/types";
+import { Eip712Types } from "@interchainjs/types";
 
 it("should match", () => {
   const message: MsgSendAmino = {

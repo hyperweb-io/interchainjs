@@ -10,13 +10,13 @@ import {
   recoverTypedSignaturePubKey,
 } from "@injectivelabs/sdk-ts";
 import { EthereumChainId } from "@injectivelabs/ts-types";
-import { MsgSend as _MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
-import { Message } from "@uni-sign/cosmos/types";
-import { Eip712Signer } from "@uni-sign/injective/eip712";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { Message } from "@interchainjs/cosmos/types";
+import { Eip712Signer } from "@interchainjs/injective/eip712";
 import { auth, isPubKeyCompressed } from "../constants";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
-import { toHex } from "@uni-sign/utils";
-import { StdFee } from "@uni-sign/types";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
+import { toHex } from "@interchainjs/utils";
+import { StdFee } from "@interchainjs/types";
 
 const msg = MsgSend.fromJSON({
   amount: {

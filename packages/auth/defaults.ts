@@ -1,4 +1,4 @@
-import { HdPathType } from "@uni-sign/types";
+import { HdPathType } from "@interchainjs/types";
 
 /**
  * path: m/purpose'/coin_type'/account'/change/address_index

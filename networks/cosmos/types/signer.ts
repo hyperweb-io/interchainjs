@@ -4,7 +4,7 @@ import {
   BroadcastOptions,
   BroadcastResponse as GeneralBroadcastResponse,
   StdFee,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
 import { Event } from "../codegen/tendermint/abci/types";
 import { Any } from "../codegen/google/protobuf/any";

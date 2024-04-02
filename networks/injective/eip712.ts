@@ -7,7 +7,7 @@ import {
   SignDocResponse,
   SignerConfig,
   StdFee,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import {
   defaultTimeoutHeight,
   defaultSignerConfig,
@@ -19,12 +19,12 @@ import {
   Encoder,
   Message,
   SignMode,
-} from "@uni-sign/cosmos/types";
+} from "@interchainjs/cosmos/types";
 import { getAccountFromAuth, toEthTypes, updateDomain } from "./utils";
-import { SignResponseFromAuth } from "@uni-sign/ethereum/utils";
-import { BaseSigner } from "@uni-sign/cosmos/utils";
+import { SignResponseFromAuth } from "@interchainjs/ethereum/utils";
+import { BaseSigner } from "@interchainjs/cosmos/utils";
 import { DocOptions } from "./types";
-import { constructAuthFromWallet } from "@uni-sign/utils";
+import { constructAuthFromWallet } from "@interchainjs/utils";
 import { AminoSigner } from "./amino";
 
 export class Eip712Signer extends BaseSigner<

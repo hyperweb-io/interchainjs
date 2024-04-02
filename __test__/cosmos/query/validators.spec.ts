@@ -2,7 +2,7 @@ import { address } from "../../data";
 import {
   BondStatus,
   bondStatusToJSON,
-} from "@uni-sign/cosmos-msgs/cosmos/staking/v1beta1/staking";
+} from "@interchainjs/cosmos-msgs/cosmos/staking/v1beta1/staking";
 import { rpcQuery } from "../constants";
 
 it("should query validators", async () => {

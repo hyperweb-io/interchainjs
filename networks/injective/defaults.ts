@@ -1,8 +1,8 @@
-import { ISignDoc, SignerConfig } from "@uni-sign/types";
-import { defaultSignerConfig as CosmosSignerConfig } from "@uni-sign/cosmos/defaults";
-import { defaultSignerConfig as EthereumSignerConfig } from "@uni-sign/ethereum/defaults";
+import { ISignDoc, SignerConfig } from "@interchainjs/types";
+import { defaultSignerConfig as CosmosSignerConfig } from "@interchainjs/cosmos/defaults";
+import { defaultSignerConfig as EthereumSignerConfig } from "@interchainjs/ethereum/defaults";
 import { DomainOptions, EthereumChainId } from "./types";
-import { TimeoutHeightOption } from "@uni-sign/cosmos/types";
+import { TimeoutHeightOption } from "@interchainjs/cosmos/types";
 
 const publicKeyConfig: SignerConfig["publicKey"] = {
   isCompressed: CosmosSignerConfig.publicKey.isCompressed,

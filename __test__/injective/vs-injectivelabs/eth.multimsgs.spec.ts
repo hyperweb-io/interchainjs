@@ -6,12 +6,12 @@ import {
   MsgVote,
 } from "@injectivelabs/sdk-ts";
 import { EthereumChainId } from "@injectivelabs/ts-types";
-import { MsgSend as _MsgSend } from "@uni-sign/cosmos-msgs/cosmos/bank/v1beta1/tx";
-import { VoteOption } from "@uni-sign/cosmos-msgs/cosmos/gov/v1/gov";
-import { Message, StdFee } from "@uni-sign/cosmos/types";
-import { Eip712Signer } from "@uni-sign/injective/eip712";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { VoteOption } from "@interchainjs/cosmos-msgs/cosmos/gov/v1/gov";
+import { Message, StdFee } from "@interchainjs/cosmos/types";
+import { Eip712Signer } from "@interchainjs/injective/eip712";
 import { auth } from "../constants";
-import { toConverter, toEncoder } from "@uni-sign/cosmos/utils";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
 
 const msg = MsgSend.fromJSON({
   amount: {

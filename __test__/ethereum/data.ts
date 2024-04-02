@@ -1,4 +1,4 @@
-import { ISignDoc } from "@uni-sign/types";
+import { ISignDoc } from "@interchainjs/types";
 import { seed as _seed } from "../data";
 
 export const seed = _seed.genesis;

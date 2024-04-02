@@ -1,1 +1,1 @@
-throw new Error("@uni-sign/auth has no entry-point: consult README for usage");
+throw new Error("@interchainjs/auth has no entry-point: consult README for usage");

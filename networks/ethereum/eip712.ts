@@ -10,10 +10,10 @@ import {
   SignerConfig,
   ISignDoc,
   IWallet,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import { defaultSignerConfig } from "./defaults";
 import { SignResponseFromAuth, getAccountFromAuth } from "./utils";
-import { BaseSigner, constructAuthFromWallet } from "@uni-sign/utils";
+import { BaseSigner, constructAuthFromWallet } from "@interchainjs/utils";
 import { _TypedDataEncoder } from "@ethersproject/hash";
 
 export class Eip712Signer extends BaseSigner implements ISigner.Eip712Signer {

@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 
-import { Price } from "@uni-sign/types";
+import { Price } from "@interchainjs/types";
 
 /**
  *

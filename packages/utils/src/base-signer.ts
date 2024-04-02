@@ -1,4 +1,4 @@
-import { Auth, SignerConfig } from "@uni-sign/types";
+import { Auth, SignerConfig } from "@interchainjs/types";
 import { Key } from "./key";
 
 export class BaseSigner {

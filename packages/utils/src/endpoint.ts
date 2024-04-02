@@ -1,4 +1,4 @@
-import { HttpEndpoint } from "@uni-sign/types";
+import { HttpEndpoint } from "@interchainjs/types";
 
 export function toHttpEndpoint(endpoint: string | HttpEndpoint): HttpEndpoint {
   if (typeof endpoint === "string") {

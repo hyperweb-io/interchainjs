@@ -2,7 +2,7 @@ import { chain } from "../data";
 import { address } from "./data";
 import { PrivateKey, getEthereumAddress } from "@injectivelabs/sdk-ts";
 import { auth, isPubKeyCompressed, mnemonic, hashPubKey } from "./constants";
-import { getAccountFromAuth } from "@uni-sign/injective/utils";
+import { getAccountFromAuth } from "@interchainjs/injective/utils";
 
 describe("vs. Injectivelabs", () => {
   const hisAuth = PrivateKey.fromMnemonic(mnemonic);

@@ -1,5 +1,5 @@
-import { Secp256k1Auth } from "@uni-sign/auth/secp256k1";
-import { defaultSignerConfig } from "@uni-sign/injective/defaults";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { defaultSignerConfig } from "@interchainjs/injective/defaults";
 import { seed } from "../data";
 
 export const mnemonic = seed.genesis;

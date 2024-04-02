@@ -8,12 +8,12 @@ import {
   SignResponse,
   CreateDocResponse,
   StdFee,
-} from "@uni-sign/types";
+} from "@interchainjs/types";
 import {
   BaseSigner as _BaseSigner,
   assertEmpty,
   isEmpty,
-} from "@uni-sign/utils";
+} from "@interchainjs/utils";
 import { defaultSignerConfig } from "../defaults";
 import {
   EncodedMessage,
