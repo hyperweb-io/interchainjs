@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/injective",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -13,10 +13,10 @@
     "pub": "npm version patch && npm run copy && cd dist && npm publish --access public"
   },
   "dependencies": {
-    "@interchainjs/utils": "^0",
-    "@interchainjs/types": "^0",
-    "@interchainjs/cosmos": "^0",
-    "@interchainjs/ethereum": "^0",
+    "@interchainjs/cosmos": "^0.0.5",
+    "@interchainjs/ethereum": "^0.0.6",
+    "@interchainjs/types": "^0.0.9",
+    "@interchainjs/utils": "^0.0.8",
     "decimal.js": "^10.4.3"
   },
   "keywords": [

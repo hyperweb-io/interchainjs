@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "liujun93 <ljun8575@gmail.com>",
   "license": "MIT",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "pub": "npm version patch && npm run copy && cd dist && npm publish --access public"
   },
   "dependencies": {
-    "@interchainjs/types": "^0",
+    "@interchainjs/types": "^0.0.9",
     "bech32": "^2.0.0"
   }
 }
