@@ -1,7 +1,7 @@
 import { Slip10, Slip10Curve, Slip10RawIndex } from "@cosmjs/crypto";
-import { fromUtf8, toBase64 } from "@interchainjs/utils";
 import { getSeedFromMnemonic } from "@interchainjs/auth/utils";
 import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
+import { fromUtf8, toBase64 } from "@interchainjs/utils";
 
 import { seed } from "../data";
 import { auth } from "./constants";

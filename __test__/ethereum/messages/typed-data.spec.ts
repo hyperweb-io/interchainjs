@@ -1,6 +1,7 @@
 import { Eip712Signer } from "@interchainjs/ethereum/eip712";
+
 import { auth } from "../constants";
-import { typedData, signature as expectedSignature } from "../data";
+import { signature as expectedSignature,typedData } from "../data";
 
 const signer = new Eip712Signer(auth);
 

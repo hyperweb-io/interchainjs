@@ -1,18 +1,19 @@
 import { Secp256k1HdWallet } from "@cosmjs/amino";
+import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { SigningStargateClient } from "@cosmjs/stargate";
-import { address, chain, seed } from "../../data";
 import { AminoSigner } from "@interchainjs/cosmos/amino";
+import { DirectSigner } from "@interchainjs/cosmos/direct";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
 import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
 import { MsgTransfer } from "@interchainjs/cosmos-msgs/ibc/applications/transfer/v1/tx";
-import { messages } from "./send-tokens.spec";
+import { IWallet, StdFee } from "@interchainjs/types";
 // import { messages } from "./send-ibc-tokens.spec";
 import { toHex } from "@interchainjs/utils";
-import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { toAminoWallet,toDirectWallet } from "interchainjs/utils";
+
+import { address, chain, seed } from "../../data";
 import { auth } from "../constants";
-import { toDirectWallet, toAminoWallet } from "interchainjs/utils";
-import { IWallet, StdFee } from "@interchainjs/types";
+import { messages } from "./send-tokens.spec";
 
 async function getDirectClient() {
   return await SigningStargateClient.connectWithSigner(

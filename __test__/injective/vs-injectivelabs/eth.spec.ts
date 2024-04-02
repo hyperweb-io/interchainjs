@@ -1,22 +1,23 @@
-import { address, chain } from "../../data";
-import { signature as expectedSignature } from "../data";
 import {
-  MsgSend,
   createTransaction,
   createTxRawEIP712,
   createWeb3Extension,
   getEip712TypedData,
   hexToBase64,
+  MsgSend,
   recoverTypedSignaturePubKey,
 } from "@injectivelabs/sdk-ts";
 import { EthereumChainId } from "@injectivelabs/ts-types";
-import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
 import { Message } from "@interchainjs/cosmos/types";
-import { Eip712Signer } from "@interchainjs/injective/eip712";
-import { auth, isPubKeyCompressed } from "../constants";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { toHex } from "@interchainjs/utils";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { Eip712Signer } from "@interchainjs/injective/eip712";
 import { StdFee } from "@interchainjs/types";
+import { toHex } from "@interchainjs/utils";
+
+import { address, chain } from "../../data";
+import { auth, isPubKeyCompressed } from "../constants";
+import { signature as expectedSignature } from "../data";
 
 const msg = MsgSend.fromJSON({
   amount: {

@@ -1,5 +1,6 @@
 import { Wallet } from "ethers";
-import { auth, isPubkeyCompressed, mnemonic, hashPubKey } from "./constants";
+
+import { auth, hashPubKey,isPubkeyCompressed, mnemonic } from "./constants";
 
 describe("vs. Ethers", () => {
   const hisAuth = Wallet.fromMnemonic(mnemonic);

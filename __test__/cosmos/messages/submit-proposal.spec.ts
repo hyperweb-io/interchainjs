@@ -1,11 +1,11 @@
+import { AminoSigner } from "@interchainjs/cosmos/amino";
 import { DirectSigner } from "@interchainjs/cosmos/direct";
-import { MsgSubmitProposal } from "@interchainjs/cosmos-msgs/cosmos/gov/v1beta1/tx";
+import { Message } from "@interchainjs/cosmos/types";
+import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
 import { TextProposal } from "@interchainjs/cosmos-msgs/cosmos/gov/v1beta1/gov";
+import { MsgSubmitProposal } from "@interchainjs/cosmos-msgs/cosmos/gov/v1beta1/tx";
 
 import { address, chain } from "../../data";
-import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { Message } from "@interchainjs/cosmos/types";
-import { AminoSigner } from "@interchainjs/cosmos/amino";
 import { auth } from "../constants";
 
 export const messages: Message<MsgSubmitProposal>[] = [
