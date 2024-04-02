@@ -11,7 +11,8 @@
   },
   "workspaces": [
     "packages/*",
-    "networks/*"
+    "networks/*",
+    "libs/*"
   ],
   "scripts": {
     "starship:start": "cd __test__ && ./scripts/start-server.sh",

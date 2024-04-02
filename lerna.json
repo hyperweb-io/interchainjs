@@ -8,7 +8,8 @@
   "useWorkspaces": true,
   "packages": [
     "packages/*",
-    "networks/*"
+    "networks/*",
+    "libs/*"
   ],
   "version": "independent",
   "registry": "https://registry.npmjs.org",
