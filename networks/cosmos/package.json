@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/cosmos",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Transaction codec and client to communicate with any cosmos blockchain",
   "main": "index.js",
   "module": "esm/index.js",

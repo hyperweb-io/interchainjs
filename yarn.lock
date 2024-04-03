@@ -2976,7 +2976,7 @@
     shx "^0.3.3"
 
 "@interchainjs/auth@file:/Users/pyramation/code/cosmology/products/interchainjs/packages/auth":
-  version "0.0.7"
+  version "0.0.8"
   resolved "file:packages/auth"
   dependencies:
     "@interchainjs/types" "^0"
@@ -2985,18 +2985,18 @@
     "@noble/hashes" "^1.3.1"
 
 "@interchainjs/cosmos-msgs@^0", "@interchainjs/cosmos-msgs@file:/Users/pyramation/code/cosmology/products/interchainjs/libs/cosmos-msgs":
-  version "0.0.10"
+  version "0.0.11"
   resolved "file:libs/cosmos-msgs"
 
 "@interchainjs/cosmos-query@^0", "@interchainjs/cosmos-query@file:/Users/pyramation/code/cosmology/products/interchainjs/libs/cosmos-query":
-  version "0.0.7"
+  version "0.0.8"
   resolved "file:libs/cosmos-query"
   dependencies:
     "@interchainjs/types" "^0"
     "@interchainjs/utils" "^0"
 
 "@interchainjs/cosmos@^0", "@interchainjs/cosmos@file:/Users/pyramation/code/cosmology/products/interchainjs/networks/cosmos":
-  version "0.0.6"
+  version "0.0.7"
   resolved "file:networks/cosmos"
   dependencies:
     "@interchainjs/types" "^0"
@@ -3006,7 +3006,7 @@
     decimal.js "^10.4.3"
 
 "@interchainjs/ethereum@^0", "@interchainjs/ethereum@file:/Users/pyramation/code/cosmology/products/interchainjs/networks/ethereum":
-  version "0.0.7"
+  version "0.0.8"
   resolved "file:networks/ethereum"
   dependencies:
     "@ethersproject/bignumber" "^5.7.0"
@@ -3018,7 +3018,7 @@
     "@noble/hashes" "^1.3.1"
 
 "@interchainjs/injective@file:/Users/pyramation/code/cosmology/products/interchainjs/networks/injective":
-  version "0.0.6"
+  version "0.0.7"
   resolved "file:networks/injective"
   dependencies:
     "@interchainjs/cosmos" "^0"
@@ -3028,13 +3028,13 @@
     decimal.js "^10.4.3"
 
 "@interchainjs/types@^0", "@interchainjs/types@file:/Users/pyramation/code/cosmology/products/interchainjs/packages/types":
-  version "0.0.12"
+  version "0.0.13"
   resolved "file:packages/types"
   dependencies:
     decimal.js "^10.4.3"
 
 "@interchainjs/utils@^0", "@interchainjs/utils@file:/Users/pyramation/code/cosmology/products/interchainjs/packages/utils":
-  version "0.0.9"
+  version "0.0.10"
   resolved "file:packages/utils"
   dependencies:
     "@interchainjs/types" "^0"
@@ -10444,7 +10444,7 @@ int64-buffer@^1.0.1:
   integrity sha512-+3azY4pXrjAupJHU1V9uGERWlhoqNswJNji6aD/02xac7oxol508AsMC5lxKhEqyZeDFy3enq5OGWXF4u75hiw==
 
 "interchainjs@file:/Users/pyramation/code/cosmology/products/interchainjs/libs/interchainjs":
-  version "0.0.8"
+  version "0.0.9"
   resolved "file:libs/interchainjs"
   dependencies:
     "@interchainjs/cosmos" "^0"
