@@ -13,7 +13,7 @@ const json = Object.fromEntries(entries);
 delete json[""];
 
 fs.writeFile(
-  "/Users/june/code/sign/packages/cosmos/src/core/prefix.json",
+  __dirname + "../data/prefix.json",
   JSON.stringify(json, void 0, 2),
   (err) => {
     if (err) {
