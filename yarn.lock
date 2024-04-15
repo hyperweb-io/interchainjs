@@ -2251,6 +2251,19 @@
     long "^5.2.1"
     shx "^0.3.3"
 
+"@interchainjs/cosmos-msgs@^0":
+  version "0.0.11"
+  resolved "https://registry.npmjs.org/@interchainjs/cosmos-msgs/-/cosmos-msgs-0.0.11.tgz#bed516c1592c4985b85b4a1abdac7c9bb3acfdcb"
+  integrity sha512-N1H23idwXXg8EHQiYi3YLzsh7jwgJacU/G2Pwo6T7pv1LuDEDTtT64O7iMZ4xNOmIZiCtlhfFJ6oeurNHQfDWw==
+
+"@interchainjs/cosmos-query@^0":
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/@interchainjs/cosmos-query/-/cosmos-query-0.0.8.tgz#f6104311540893ebb0779d66523575b9f2a8236b"
+  integrity sha512-mmBwQuSze8JhO4TvaNr/7Hiv1cgEw9jH0eM7i29V4ONqvrwzGzrTFGouHNngQJfYFXfucX9zDVs3Kv73kfUIbw==
+  dependencies:
+    "@interchainjs/types" "^0"
+    "@interchainjs/utils" "^0"
+
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.npmjs.org/@isaacs/cliui/-/cliui-8.0.2.tgz"

@@ -4,27 +4,17 @@ import { ServiceClientImpl as TxQuery } from "../codegen/cosmos/tx/v1beta1/servi
 import {
   BroadcastMode,
   BroadcastResponse,
-  FeeOptions,
+  EncodedMessage,
   QueryClient,
 } from "../types";
 import { Status, CometBroadcastResponse } from "../types/rpc";
-import {
-  accountDecoders,
-  broadcast,
-  createTxRpc,
-  getAvgGasPrice,
-  getHighGasPrice,
-  getLowGasPrice,
-  getPrefix,
-} from "../utils/rpc";
+import { broadcast, createTxRpc, getPrefix } from "../utils/rpc";
 import { Key, isEmpty, toHttpEndpoint } from "@interchainjs/utils";
 import { TxBody, SignerInfo, Tx, Fee } from "../codegen/cosmos/tx/v1beta1/tx";
 import { constructAuthInfo } from "../utils/direct";
 import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
-import { toPrice } from "@interchainjs/utils";
-import { Decimal } from "decimal.js";
-import { HttpEndpoint, Price, BroadcastOptions } from "@interchainjs/types";
-import { defaultBroadcastOptions, defaultFeeOptions } from "../defaults";
+import { HttpEndpoint, BroadcastOptions } from "@interchainjs/types";
+import { defaultAccountParser, defaultBroadcastOptions } from "../defaults";
 
 export class RpcClient implements QueryClient {
   readonly endpoint: HttpEndpoint;
@@ -34,6 +24,9 @@ export class RpcClient implements QueryClient {
   protected readonly authQuery: AuthQuery;
   protected readonly txQuery: TxQuery;
   protected readonly publicKeyHash?: Key;
+  protected parseAccount: (
+    encodedAccount: EncodedMessage
+  ) => BaseAccount = defaultAccountParser;
 
   constructor(endpoint: string | HttpEndpoint, publicKeyHash?: Key) {
     this.endpoint = toHttpEndpoint(endpoint);
@@ -41,6 +34,12 @@ export class RpcClient implements QueryClient {
     const txRpc = createTxRpc(this.endpoint);
     this.authQuery = new AuthQuery(txRpc);
     this.txQuery = new TxQuery(txRpc);
+  }
+
+  setAccountParser(
+    parseBaseAccount: (encodedAccount: EncodedMessage) => BaseAccount
+  ) {
+    this.parseAccount = parseBaseAccount;
   }
 
   async getAddress() {
@@ -61,24 +60,7 @@ export class RpcClient implements QueryClient {
       throw new Error(`Account is undefined.`);
     }
 
-    const decoder = accountDecoders.find(
-      (decoder) => decoder.typeUrl === accountResp.account!.typeUrl
-    );
-
-    if (!decoder) {
-      throw new Error(
-        `No corresponding account found for account type ${accountResp.account.typeUrl}.`
-      );
-    }
-
-    const account = decoder.fromPartial(
-      decoder.decode(accountResp.account.value)
-    );
-    const baseAccount =
-      (account as any).baseVestingAccount?.baseAccount ||
-      (account as any).baseAccount ||
-      account;
-    return baseAccount;
+    return this.parseAccount(accountResp.account);
   }
 
   protected async getStatus(): Promise<Status> {
@@ -87,13 +69,13 @@ export class RpcClient implements QueryClient {
     return json["result"];
   }
 
-  async getChainId() {
+  getChainId = async () => {
     if (isEmpty(this.chainId)) {
       const status: Status = await this.getStatus();
       this.chainId = status.node_info.network;
     }
     return this.chainId;
-  }
+  };
 
   async getLatestBlockHeight() {
     const status: Status = await this.getStatus();
@@ -113,12 +95,7 @@ export class RpcClient implements QueryClient {
     return account.sequence;
   }
 
-  async estimateFee(
-    txBody: TxBody,
-    signerInfos: SignerInfo[],
-    options?: FeeOptions
-  ) {
-    // estimate gas
+  async simulate(txBody: TxBody, signerInfos: SignerInfo[]) {
     const tx = Tx.fromPartial({
       body: txBody,
       authInfo: constructAuthInfo(
@@ -132,48 +109,10 @@ export class RpcClient implements QueryClient {
       ).authInfo,
       signatures: [new Uint8Array()],
     });
-    const { gasInfo } = await this.txQuery.simulate({
+    return await this.txQuery.simulate({
       tx: void 0,
       txBytes: Tx.encode(tx).finish(),
     });
-    if (typeof gasInfo === "undefined") {
-      throw new Error("Fail to estimate gas by simulate tx.");
-    }
-
-    // calculate fee
-    const gasLimit = new Decimal(gasInfo.gasUsed.toString())
-      .mul(options?.multiplier || defaultFeeOptions.multiplier)
-      .ceil();
-
-    let price: Price;
-    switch (options?.gasPrice ?? defaultFeeOptions.gasPrice) {
-      case "average":
-        price = getAvgGasPrice(await this.getChainId());
-        break;
-      case "high":
-        price = getHighGasPrice(await this.getChainId());
-        break;
-      case "low":
-        price = getLowGasPrice(await this.getChainId());
-        break;
-      default:
-        price = toPrice(options?.gasPrice);
-        break;
-    }
-
-    if (price.denom.length < 3 || price.denom.length > 128) {
-      throw new Error("Denom must be between 3 and 128 characters");
-    }
-
-    return {
-      amount: [
-        {
-          amount: gasLimit.mul(price.amount).ceil().toString(),
-          denom: price.denom,
-        },
-      ],
-      gas: gasLimit.toString(),
-    };
   }
 
   async broadcast(

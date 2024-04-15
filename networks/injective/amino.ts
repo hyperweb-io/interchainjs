@@ -8,9 +8,12 @@ import {
   SignerConfig,
 } from "@interchainjs/types";
 import { AminoSignerBase } from "@interchainjs/cosmos/amino";
-import { Encoder, AminoConverter } from "@interchainjs/cosmos/types";
-import { defaultSignerConfig } from "./defaults";
-import { EncodedMessage, Secp256k1PubKey } from "@interchainjs/cosmos/types";
+import {
+  Encoder,
+  AminoConverter,
+  SignerOptions,
+} from "@interchainjs/cosmos/types";
+import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
 import { getAccountFromAuth } from "./utils";
 import { constructAuthFromWallet } from "@interchainjs/utils";
@@ -22,9 +25,9 @@ export class AminoSigner extends AminoSignerBase
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig.Cosmos
+    options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
-    super(auth, encoders, converters, endpoint, config);
+    super(auth, encoders, converters, endpoint, options);
   }
 
   static async fromWallet(
@@ -32,15 +35,18 @@ export class AminoSigner extends AminoSignerBase
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig.Cosmos
+    options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
+    );
     const signer = new AminoSigner(
       auth,
       encoders,
       converters,
       endpoint,
-      config
+      options
     );
     signer.signDoc = wallet.sign;
     return signer;
@@ -48,30 +54,12 @@ export class AminoSigner extends AminoSignerBase
 
   static toWallet(
     auth: Auth,
-    config: SignerConfig = defaultSignerConfig.Cosmos
+    config: SignerConfig = defaultSignerOptions.Cosmos
   ): IWallet.InjectiveAminoWallet {
     return {
-      getAccount: async () => getAccountFromAuth(auth, config),
+      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
       sign: async (doc: ISignDoc.CosmosAminoDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
-  }
-
-  get encodedPublicKey(): EncodedMessage {
-    switch (this.auth.algo) {
-      case "secp256k1":
-        return {
-          typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
-          value: Secp256k1PubKey.encode(
-            Secp256k1PubKey.fromPartial({ key: this.publicKey.value })
-          ).finish(),
-        };
-      case "ed25519":
-        throw new Error(
-          "Ed25519 signer info construction is not implemented yet"
-        );
-      default:
-        throw new Error(`Unsupported public key algorithm: ${this.auth.algo}`);
-    }
   }
 }

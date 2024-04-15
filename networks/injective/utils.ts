@@ -5,17 +5,17 @@ import {
   SignerConfig,
 } from "@interchainjs/types";
 import { Auth } from "@interchainjs/types";
-import { defaultSignerConfig } from "./defaults";
+import { defaultPublicKeyConfig } from "./defaults";
 import { DomainOptions } from "./types";
 import { objectKeysToEip712Types } from "./eth-utils/map";
 import { fromNumber, toPrefixedHex } from "@interchainjs/utils";
 
 export function getAccountFromAuth(
   auth: Auth,
-  config: SignerConfig = defaultSignerConfig.Cosmos
+  pubKeyConfig: SignerConfig["publicKey"] = defaultPublicKeyConfig
 ): IWalletAccount.InjectiveAccount {
-  const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
-  const pubKeyHash = config.publicKey.hash(publicKey);
+  const publicKey = auth.getPublicKey(pubKeyConfig.isCompressed);
+  const pubKeyHash = pubKeyConfig.hash(publicKey);
   return {
     algo: auth.algo,
     publicKey,

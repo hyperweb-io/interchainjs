@@ -7,14 +7,26 @@ import {
   StdFee,
   BaseWallet,
   IWallet,
+  IKey,
 } from "@interchainjs/types";
-import { Encoder, Message, DocOptions, SignDoc } from "./types";
-import { BaseSigner, SignResponseFromAuth, getAccountFromAuth } from "./utils";
+import {
+  Encoder,
+  Message,
+  DocOptions,
+  SignDoc,
+  EncodedMessage,
+  SignerOptions,
+} from "./types";
+import {
+  CosmosBaseSigner,
+  SignResponseFromAuth,
+  getAccountFromAuth,
+} from "./utils";
 import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-export class DirectSignerBase extends BaseSigner<
+export class DirectSignerBase extends CosmosBaseSigner<
   ISignDoc.CosmosDirectDoc,
   DocOptions
 > {
@@ -22,9 +34,9 @@ export class DirectSignerBase extends BaseSigner<
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    super(auth, encoders, endpoint, config);
+    super(auth, encoders, endpoint, options);
   }
 
   async createDoc(
@@ -62,19 +74,23 @@ export class DirectSigner extends DirectSignerBase
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    super(auth, encoders, endpoint, config);
+    super(auth, encoders, endpoint, options);
   }
 
   static async fromWallet(
     wallet: BaseWallet<ISignDoc.CosmosDirectDoc>,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
-    const signer = new DirectSigner(auth, encoders, endpoint, config);
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ??
+        defaultSignerConfig.publicKey.isCompressed
+    );
+    const signer = new DirectSigner(auth, encoders, endpoint, options);
     signer.signDoc = wallet.sign;
     return signer;
   }

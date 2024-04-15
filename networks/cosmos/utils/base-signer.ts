@@ -1,32 +1,30 @@
 import {
   Auth,
   HttpEndpoint,
-  SignerConfig,
   BroadcastOptions,
   UniSigner,
   SignDocResponse,
   SignResponse,
   CreateDocResponse,
   StdFee,
+  IKey,
 } from "@interchainjs/types";
-import {
-  BaseSigner as _BaseSigner,
-  assertEmpty,
-  isEmpty,
-} from "@interchainjs/utils";
-import { defaultSignerConfig } from "../defaults";
+import { BaseSigner, assertEmpty, isEmpty } from "@interchainjs/utils";
+import { defaultSignerOptions } from "../defaults";
 import {
   EncodedMessage,
   Encoder,
   FeeOptions,
   Message,
   QueryClient,
-  Secp256k1PubKey,
   SignMode,
-  SignerOptions,
+  SignerInfo,
+  SignOptions,
   TimeoutHeightOption,
+  TxBody,
   TxOptions,
   TxRaw,
+  SignerOptions,
 } from "../types";
 import { RpcClient } from "../query/rpc";
 import {
@@ -35,25 +33,33 @@ import {
   constructTxBody,
 } from "./direct";
 import { toFee } from "./amino";
+import { calculateFee } from "./fee";
+import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 
-export abstract class BaseSigner<
+export abstract class CosmosBaseSigner<
   SignDoc,
-  SignOptions extends FeeOptions & SignerOptions & TxOptions
-> extends _BaseSigner implements UniSigner<SignDoc, TxRaw> {
+  Options extends FeeOptions & SignOptions & TxOptions
+> extends BaseSigner implements UniSigner<SignDoc, TxRaw> {
   protected _queryClient?: QueryClient;
   readonly encoders: Encoder[];
+  readonly encodePublicKey: (key: IKey) => EncodedMessage;
+  readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
 
   constructor(
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    super(auth, config);
+    super(auth, { ...options, ...defaultSignerOptions });
     if (!isEmpty(endpoint)) {
       this.setEndpoint(endpoint);
     }
     this.encoders = encoders;
+    this.parseAccount =
+      options?.parseAccount ?? defaultSignerOptions.parseAccount;
+    this.encodePublicKey =
+      options?.encodePublicKey ?? defaultSignerOptions.encodePublicKey;
   }
 
   addEncoders = (encoders: Encoder[]) => {
@@ -78,29 +84,12 @@ export abstract class BaseSigner<
 
   setEndpoint(endpoint: string | HttpEndpoint) {
     this._queryClient = new RpcClient(endpoint, this.publicKeyHash);
+    (this._queryClient as RpcClient).setAccountParser(this.parseAccount);
   }
 
   get queryClient() {
     assertEmpty(this._queryClient);
     return this._queryClient;
-  }
-
-  get encodedPublicKey(): EncodedMessage {
-    switch (this.auth.algo) {
-      case "secp256k1":
-        return {
-          typeUrl: Secp256k1PubKey.typeUrl,
-          value: Secp256k1PubKey.encode(
-            Secp256k1PubKey.fromPartial({ key: this.publicKey.value })
-          ).finish(),
-        };
-      case "ed25519":
-        throw new Error(
-          "Ed25519 signer info construction is not implemented yet"
-        );
-      default:
-        throw new Error(`Unsupported public key algorithm: ${this.auth.algo}`);
-    }
   }
 
   /**
@@ -129,7 +118,7 @@ export abstract class BaseSigner<
     signMode: SignMode,
     fee?: StdFee,
     memo?: string,
-    options?: SignOptions
+    options?: Options
   ) {
     const { txBody, encode } = constructTxBody(
       messages,
@@ -144,14 +133,19 @@ export abstract class BaseSigner<
     );
 
     const { signerInfo } = constructSignerInfo(
-      this.encodedPublicKey,
+      this.encodePublicKey(this.publicKey),
       options?.sequence ?? (await this.queryClient.getSequence()),
       signMode
     );
 
+    const { gasInfo } = await this.simulate(txBody, [signerInfo]);
+    if (typeof gasInfo === "undefined") {
+      throw new Error("Fail to estimate gas by simulate tx.");
+    }
+
     const stdFee =
       fee ??
-      (await this.queryClient.estimateFee(txBody, [signerInfo], options));
+      (await calculateFee(gasInfo, options, this.queryClient.getChainId));
 
     const txRaw = TxRaw.fromPartial({
       bodyBytes: encode(),
@@ -166,14 +160,14 @@ export abstract class BaseSigner<
     messages: Message[],
     fee: StdFee,
     memo?: string,
-    options?: SignOptions
+    options?: Options
   ): Promise<CreateDocResponse<SignDoc, TxRaw>>;
 
   async sign(
     messages: Message[],
     fee?: StdFee,
     memo?: string,
-    options?: SignOptions
+    options?: Options
   ): Promise<SignResponse<SignDoc, TxRaw>> {
     const created = await this.createDoc(messages, fee, memo, options);
     const { signature, signDoc } = await this.signDoc(created.signDoc);
@@ -208,9 +202,13 @@ export abstract class BaseSigner<
     messages: Message[],
     fee?: StdFee,
     memo?: string,
-    options?: SignOptions & BroadcastOptions
+    options?: Options & BroadcastOptions
   ) {
     const { broadcast } = await this.sign(messages, fee, memo, options);
     return await broadcast(options);
+  }
+
+  async simulate(txBody: TxBody, signerInfos: SignerInfo[]) {
+    return await this.queryClient.simulate(txBody, signerInfos);
   }
 }

@@ -8,14 +8,24 @@ import {
   StdFee,
   IWallet,
 } from "@interchainjs/types";
-import { Encoder, Message, AminoConverter, DocOptions } from "./types";
+import {
+  Encoder,
+  Message,
+  AminoConverter,
+  DocOptions,
+  SignerOptions,
+} from "./types";
 import { toAminoMsgs } from "./utils/amino";
-import { BaseSigner, getAccountFromAuth, SignResponseFromAuth } from "./utils";
+import {
+  CosmosBaseSigner,
+  getAccountFromAuth,
+  SignResponseFromAuth,
+} from "./utils";
 import { SignMode } from "./types";
 import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-export class AminoSignerBase extends BaseSigner<
+export class AminoSignerBase extends CosmosBaseSigner<
   ISignDoc.CosmosAminoDoc,
   DocOptions
 > {
@@ -26,9 +36,9 @@ export class AminoSignerBase extends BaseSigner<
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    super(auth, encoders, endpoint, config);
+    super(auth, encoders, endpoint, options);
     this.converters = converters;
   }
 
@@ -101,9 +111,9 @@ export class AminoSigner extends AminoSignerBase
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    super(auth, encoders, converters, endpoint, config);
+    super(auth, encoders, converters, endpoint, options);
   }
 
   static async fromWallet(
@@ -111,15 +121,19 @@ export class AminoSigner extends AminoSignerBase
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig
+    options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ??
+        defaultSignerConfig.publicKey.isCompressed
+    );
     const signer = new AminoSigner(
       auth,
       encoders,
       converters,
       endpoint,
-      config
+      options
     );
     signer.signDoc = wallet.sign;
     return signer;

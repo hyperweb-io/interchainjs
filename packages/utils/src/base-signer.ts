@@ -1,5 +1,4 @@
-import { Auth, SignerConfig } from "@interchainjs/types";
-import { Key } from "./key";
+import { Auth, IKey, SignerConfig } from "@interchainjs/types";
 
 export class BaseSigner {
   protected _auth: Auth;
@@ -30,16 +29,12 @@ export class BaseSigner {
     this._auth = auth;
   }
 
-  setConfig(config: SignerConfig) {
-    this._config = config;
-  }
-
-  signArbitrary(data: Uint8Array): Key {
+  signArbitrary(data: Uint8Array): IKey {
     const signature = this.auth.sign(this.config.message.hash(data));
     return this.config.signature.toCompact(signature, this.auth.algo);
   }
 
-  verifyArbitrary(data: Uint8Array, signature: Key): boolean {
+  verifyArbitrary(data: Uint8Array, signature: IKey): boolean {
     if (!this.auth.verify) {
       throw new Error("verify method is not implemented yet");
     }

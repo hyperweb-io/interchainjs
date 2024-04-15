@@ -1,22 +1,60 @@
-import { ISignDoc, SignerConfig } from "@interchainjs/types";
-import { defaultSignerConfig as CosmosSignerConfig } from "@interchainjs/cosmos/defaults";
+import { IKey, ISignDoc, SignerConfig } from "@interchainjs/types";
+import {
+  defaultSignerConfig as CosmosSignerConfig,
+  defaultAccountParser as parseCosmosAccount,
+} from "@interchainjs/cosmos/defaults";
 import { defaultSignerConfig as EthereumSignerConfig } from "@interchainjs/ethereum/defaults";
 import { DomainOptions, EthereumChainId } from "./types";
-import { TimeoutHeightOption } from "@interchainjs/cosmos/types";
+import {
+  BaseAccount,
+  EncodedMessage,
+  Secp256k1PubKey,
+  SignerOptions,
+  TimeoutHeightOption,
+} from "@interchainjs/cosmos/types";
+import { toDecoder, toEncoder } from "@interchainjs/cosmos/utils";
+import { EthAccount } from "./codegen/injective/types/v1beta1/account";
 
-const publicKeyConfig: SignerConfig["publicKey"] = {
+export const defaultPublicKeyConfig: SignerConfig["publicKey"] = {
   isCompressed: CosmosSignerConfig.publicKey.isCompressed,
   hash: EthereumSignerConfig.publicKey.hash,
 };
 
-export const defaultSignerConfig: Record<string, SignerConfig> = {
+export const defaultEncodePublicKey = (key: IKey): EncodedMessage => {
+  return {
+    typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
+    value: Secp256k1PubKey.encode(
+      Secp256k1PubKey.fromPartial({ key: key.value })
+    ).finish(),
+  };
+};
+
+export const defaultAccountParser = (
+  encodedAccount: EncodedMessage
+): BaseAccount => {
+  try {
+    return parseCosmosAccount(encodedAccount);
+  } catch (error) {
+    const decoder = toDecoder(EthAccount);
+    const account: EthAccount = decoder.fromPartial(
+      decoder.decode(encodedAccount.value)
+    );
+    return account.baseAccount;
+  }
+};
+
+export const defaultSignerOptions: Record<string, Required<SignerOptions>> = {
   Cosmos: {
     ...CosmosSignerConfig,
-    publicKey: publicKeyConfig,
+    publicKey: defaultPublicKeyConfig,
+    encodePublicKey: defaultEncodePublicKey,
+    parseAccount: defaultAccountParser,
   },
   Ethereum: {
     ...EthereumSignerConfig,
-    publicKey: publicKeyConfig,
+    publicKey: defaultPublicKeyConfig,
+    encodePublicKey: defaultEncodePublicKey,
+    parseAccount: defaultAccountParser,
   },
 };
 

@@ -1,22 +1,12 @@
 import prefixJson from "../data/prefix.json";
-import feeTokensJson from "../data/fee-tokens.json";
-import { HttpEndpoint, Price } from "@interchainjs/types";
-import { Decimal } from "decimal.js";
+import { HttpEndpoint, TxRpc } from "@interchainjs/types";
 import {
   BaseAccount,
   ModuleAccount,
 } from "../codegen/cosmos/auth/v1beta1/auth";
-import {
-  BaseVestingAccount,
-  ContinuousVestingAccount,
-  DelayedVestingAccount,
-  PeriodicVestingAccount,
-} from "../codegen/cosmos/vesting/v1beta1/vesting";
 import { fromBase64, randomId, toBase64, toHex } from "@interchainjs/utils";
-import { TxRpc } from "../codegen/types";
-import { BroadcastMode, Decoder } from "../types";
+import { BroadcastMode } from "../types";
 import { toDecoder } from "./direct";
-import { EthAccount } from "../codegen/injective/types/v1beta1/account";
 
 export const getPrefix = (chainId: string): string => {
   const prefix = (prefixJson as any)[chainId];
@@ -25,49 +15,6 @@ export const getPrefix = (chainId: string): string => {
   }
   return prefix;
 };
-
-export function getAvgGasPrice(chainId: string): Price {
-  const feeToken = (feeTokensJson as any)[chainId]?.[0];
-  if (typeof feeToken?.average_gas_price === "undefined") {
-    throw new Error(`No average_gas_price found for chain ${chainId}`);
-  }
-  return {
-    amount: new Decimal(feeToken.average_gas_price),
-    denom: feeToken.denom,
-  };
-}
-
-export function getHighGasPrice(chainId: string): Price {
-  const feeToken = (feeTokensJson as any)[chainId]?.[0];
-  if (typeof feeToken?.high_gas_price === "undefined") {
-    throw new Error(`No high_gas_price found for chain ${chainId}`);
-  }
-  return {
-    amount: new Decimal(feeToken.high_gas_price),
-    denom: feeToken.denom,
-  };
-}
-
-export function getLowGasPrice(chainId: string): Price {
-  const feeToken = (feeTokensJson as any)[chainId]?.[0];
-  if (typeof feeToken?.low_gas_price === "undefined") {
-    throw new Error(`No low_gas_price found for chain ${chainId}`);
-  }
-  return {
-    amount: new Decimal(feeToken.low_gas_price),
-    denom: feeToken.denom,
-  };
-}
-
-export const accountDecoders = [
-  BaseAccount,
-  ModuleAccount,
-  BaseVestingAccount,
-  ContinuousVestingAccount,
-  DelayedVestingAccount,
-  PeriodicVestingAccount,
-  EthAccount,
-].map((msg) => toDecoder(msg));
 
 export function createTxRpc(endpoint: HttpEndpoint): TxRpc {
   return {

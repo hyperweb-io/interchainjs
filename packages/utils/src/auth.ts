@@ -1,11 +1,10 @@
-import { Auth, BaseWallet, SignerConfig } from "@interchainjs/types";
+import { Auth, BaseWallet } from "@interchainjs/types";
 
 export async function constructAuthFromWallet(
   wallet: BaseWallet<any>,
-  config: SignerConfig
+  isPubkeyCompressed: boolean
 ) {
   const account = await wallet.getAccount();
-  const isPubkeyCompressed = config.publicKey.isCompressed;
   const auth: Auth = {
     algo: account.algo,
     getPublicKey(isCompressed?: boolean) {

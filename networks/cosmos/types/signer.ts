@@ -2,14 +2,22 @@ import {
   BroadcastOptions,
   BroadcastResponse as GeneralBroadcastResponse,
   HttpEndpoint,
+  IKey,
   Price,
-  StdFee,
+  SignerConfig,
 } from "@interchainjs/types";
 
 import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
 import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
 import { Any } from "../codegen/google/protobuf/any";
-import { Event } from "../codegen/tendermint/abci/types";
+import { Event } from "@interchainjs/types";
+import { SimulateResponse } from "../codegen/cosmos/tx/v1beta1/service";
+import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
+
+export interface SignerOptions extends Partial<SignerConfig> {
+  parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
+  encodePublicKey: (key: IKey) => EncodedMessage;
+}
 
 /** Direct/Proto message */
 export interface Message<T = any> {
@@ -96,14 +104,14 @@ export type BroadcastResponse = GeneralBroadcastResponse<{
   deliver_tx?: DeliverTxResponse & { height: string };
 }>;
 
-export type DocOptions = FeeOptions & SignerOptions & TxOptions;
+export type DocOptions = FeeOptions & SignOptions & TxOptions;
 
 export interface FeeOptions {
   multiplier?: number;
   gasPrice?: Price | string | "average" | "high" | "low";
 }
 
-export interface SignerOptions {
+export interface SignOptions {
   chainId?: string;
   accountNumber?: bigint;
   sequence?: bigint;
@@ -146,11 +154,10 @@ export interface QueryClient {
   getAccountNumber: () => Promise<bigint>;
   getSequence: () => Promise<bigint>;
   getLatestBlockHeight: () => Promise<bigint>;
-  estimateFee: (
+  simulate: (
     txBody: TxBody,
-    signerInfos: SignerInfo[],
-    options?: FeeOptions
-  ) => Promise<StdFee>;
+    signerInfos: SignerInfo[]
+  ) => Promise<SimulateResponse>;
   broadcast: (
     txBytes: Uint8Array,
     options?: BroadcastOptions

@@ -1,10 +1,28 @@
 import { bytes as assertBytes } from "@noble/hashes/_assert";
 import { sha256 } from "@noble/hashes/sha256";
-import { FeeOptions } from "./types";
-import { SignerConfig, Signature, BroadcastOptions } from "@interchainjs/types";
+import {
+  EncodedMessage,
+  FeeOptions,
+  Secp256k1PubKey,
+  SignerOptions,
+} from "./types";
+import {
+  SignerConfig,
+  Signature,
+  BroadcastOptions,
+  IKey,
+} from "@interchainjs/types";
 import { ripemd160 } from "@noble/hashes/ripemd160";
 import { Key } from "@interchainjs/utils";
 import { secp256k1 } from "@noble/curves/secp256k1";
+import { BaseAccount, ModuleAccount } from "./codegen/cosmos/auth/v1beta1/auth";
+import {
+  BaseVestingAccount,
+  ContinuousVestingAccount,
+  DelayedVestingAccount,
+  PeriodicVestingAccount,
+} from "./codegen/cosmos/vesting/v1beta1/vesting";
+import { toDecoder } from "./utils";
 
 export const defaultBroadcastOptions: BroadcastOptions = {
   checkTx: true,
@@ -61,4 +79,49 @@ export const defaultSignerConfig: SignerConfig = {
       }
     },
   },
+};
+
+export const defaultPublicKeyEncoder = (key: IKey): EncodedMessage => {
+  return {
+    typeUrl: Secp256k1PubKey.typeUrl,
+    value: Secp256k1PubKey.encode(
+      Secp256k1PubKey.fromPartial({ key: key.value })
+    ).finish(),
+  };
+};
+
+const accountCodecs = [
+  BaseAccount,
+  ModuleAccount,
+  BaseVestingAccount,
+  ContinuousVestingAccount,
+  DelayedVestingAccount,
+  PeriodicVestingAccount,
+];
+
+export const defaultAccountParser = (
+  encodedAccount: EncodedMessage
+): BaseAccount => {
+  const codec = accountCodecs.find(
+    (codec) => codec.typeUrl === encodedAccount.typeUrl
+  );
+
+  if (!codec) {
+    throw new Error(
+      `No corresponding account found for account type ${encodedAccount.typeUrl}.`
+    );
+  }
+  const decoder = toDecoder(codec);
+  const account = decoder.fromPartial(decoder.decode(encodedAccount.value));
+  const baseAccount =
+    (account as any).baseVestingAccount?.baseAccount ||
+    (account as any).baseAccount ||
+    account;
+  return baseAccount;
+};
+
+export const defaultSignerOptions: Required<SignerOptions> = {
+  ...defaultSignerConfig,
+  parseAccount: defaultAccountParser,
+  encodePublicKey: defaultPublicKeyEncoder,
 };

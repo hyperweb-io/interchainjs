@@ -7,14 +7,9 @@ import {
   IWallet,
   SignerConfig,
 } from "@interchainjs/types";
-import { defaultSignerConfig } from "./defaults";
+import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { DirectSignerBase } from "@interchainjs/cosmos/direct";
-import {
-  EncodedMessage,
-  Encoder,
-  Secp256k1PubKey,
-  SignDoc,
-} from "@interchainjs/cosmos/types";
+import { Encoder, SignDoc, SignerOptions } from "@interchainjs/cosmos/types";
 import { getAccountFromAuth } from "./utils";
 import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
 import { constructAuthFromWallet } from "@interchainjs/utils";
@@ -25,49 +20,34 @@ export class DirectSigner extends DirectSignerBase
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig.Cosmos
+    options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
-    super(auth, encoders, endpoint, config);
+    super(auth, encoders, endpoint, options);
   }
 
   static async fromWallet(
     wallet: BaseWallet<ISignDoc.CosmosDirectDoc>,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig.Cosmos
+    options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
-    const signer = new DirectSigner(auth, encoders, endpoint, config);
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
+    );
+    const signer = new DirectSigner(auth, encoders, endpoint, options);
     signer.signDoc = wallet.sign;
     return signer;
   }
 
   static toWallet(
     auth: Auth,
-    config: SignerConfig = defaultSignerConfig.Cosmos
+    config: SignerConfig = defaultSignerOptions.Cosmos
   ): IWallet.InjectiveDirectWallet {
     return {
-      getAccount: async () => getAccountFromAuth(auth, config),
+      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
       sign: async (doc: SignDoc) =>
         SignResponseFromAuth.signDirect(auth, doc, config),
     };
-  }
-
-  get encodedPublicKey(): EncodedMessage {
-    switch (this.auth.algo) {
-      case "secp256k1":
-        return {
-          typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
-          value: Secp256k1PubKey.encode(
-            Secp256k1PubKey.fromPartial({ key: this.publicKey.value })
-          ).finish(),
-        };
-      case "ed25519":
-        throw new Error(
-          "Ed25519 signer info construction is not implemented yet"
-        );
-      default:
-        throw new Error(`Unsupported public key algorithm: ${this.auth.algo}`);
-    }
   }
 }

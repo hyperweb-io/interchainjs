@@ -5,29 +5,31 @@ import {
   ISignDoc,
   IWallet,
   SignDocResponse,
-  SignerConfig,
   StdFee,
+  SignerConfig,
 } from "@interchainjs/types";
 import {
   defaultTimeoutHeight,
-  defaultSignerConfig,
+  defaultSignerOptions,
   defaultEip712Types,
   defaultDomainOptions,
+  defaultPublicKeyConfig,
 } from "./defaults";
 import {
   AminoConverter,
   Encoder,
   Message,
+  SignerOptions,
   SignMode,
 } from "@interchainjs/cosmos/types";
 import { getAccountFromAuth, toEthTypes, updateDomain } from "./utils";
 import { SignResponseFromAuth } from "@interchainjs/ethereum/utils";
-import { BaseSigner } from "@interchainjs/cosmos/utils";
+import { CosmosBaseSigner } from "@interchainjs/cosmos/utils";
 import { DocOptions } from "./types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 import { AminoSigner } from "./amino";
 
-export class Eip712Signer extends BaseSigner<
+export class Eip712Signer extends CosmosBaseSigner<
   ISignDoc.InjectiveEip712Doc,
   DocOptions
 > {
@@ -38,15 +40,15 @@ export class Eip712Signer extends BaseSigner<
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config: SignerConfig = defaultSignerConfig.Ethereum
+    options: SignerOptions = defaultSignerOptions.Ethereum
   ) {
-    super(auth, encoders, endpoint, config);
+    super(auth, encoders, endpoint, options);
     this.aminoSigner = new AminoSigner(
       auth,
       encoders,
       converters,
       endpoint,
-      config
+      options
     );
   }
 
@@ -55,15 +57,18 @@ export class Eip712Signer extends BaseSigner<
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
-    config?: SignerConfig
+    options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
+    );
     const signer = new Eip712Signer(
       auth,
       encoders,
       converters,
       endpoint,
-      config
+      options
     );
     signer.signDoc = wallet.sign;
     return signer;
@@ -71,10 +76,10 @@ export class Eip712Signer extends BaseSigner<
 
   static toWallet(
     auth: Auth,
-    config: SignerConfig = defaultSignerConfig.Ethereum
+    config: SignerConfig = defaultSignerOptions.Ethereum
   ): IWallet.InjectiveEip712Wallet {
     return {
-      getAccount: async () => getAccountFromAuth(auth, config),
+      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
       sign: async (doc: ISignDoc.InjectiveEip712Doc) =>
         SignResponseFromAuth.signEip712Data(
           auth,

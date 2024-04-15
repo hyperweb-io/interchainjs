@@ -3,3 +3,4 @@ export * from "./signer";
 export * from "./wallet";
 export * from "./namespaces";
 export * from "./doc";
+export * from "./telescope";
