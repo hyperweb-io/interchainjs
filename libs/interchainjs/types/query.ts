@@ -1,4 +1,4 @@
-import { Event } from "@interchainjs/cosmos/types";
+import { Event } from "@interchainjs/types";
 
 /** A transaction that is indexed as part of the transaction history */
 export interface IndexedTx {
