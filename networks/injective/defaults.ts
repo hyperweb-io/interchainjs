@@ -12,7 +12,7 @@ import {
   SignerOptions,
   TimeoutHeightOption,
 } from "@interchainjs/cosmos/types";
-import { toDecoder, toEncoder } from "@interchainjs/cosmos/utils";
+import { toDecoder } from "@interchainjs/cosmos/utils";
 import { EthAccount } from "./codegen/injective/types/v1beta1/account";
 
 export const defaultPublicKeyConfig: SignerConfig["publicKey"] = {

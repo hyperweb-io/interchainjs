@@ -62,6 +62,10 @@ export abstract class CosmosBaseSigner<
       options?.encodePublicKey ?? defaultSignerOptions.encodePublicKey;
   }
 
+  get encodedPublicKey() {
+    return this.encodePublicKey(this.publicKeyHash);
+  }
+
   addEncoders = (encoders: Encoder[]) => {
     this.encoders.push(...encoders);
   };
@@ -138,14 +142,16 @@ export abstract class CosmosBaseSigner<
       signMode
     );
 
-    const { gasInfo } = await this.simulate(txBody, [signerInfo]);
-    if (typeof gasInfo === "undefined") {
-      throw new Error("Fail to estimate gas by simulate tx.");
+    let stdFee: StdFee;
+    if (fee) {
+      stdFee = fee;
+    } else {
+      const { gasInfo } = await this.simulate(txBody, [signerInfo]);
+      if (typeof gasInfo === "undefined") {
+        throw new Error("Fail to estimate gas by simulate tx.");
+      }
+      await calculateFee(gasInfo, options, this.queryClient.getChainId);
     }
-
-    const stdFee =
-      fee ??
-      (await calculateFee(gasInfo, options, this.queryClient.getChainId));
 
     const txRaw = TxRaw.fromPartial({
       bodyBytes: encode(),
@@ -210,5 +216,17 @@ export abstract class CosmosBaseSigner<
 
   async simulate(txBody: TxBody, signerInfos: SignerInfo[]) {
     return await this.queryClient.simulate(txBody, signerInfos);
+  }
+
+  async estimateFee(
+    txBody: TxBody,
+    signerInfos: SignerInfo[],
+    options?: FeeOptions
+  ) {
+    const { gasInfo } = await this.simulate(txBody, signerInfos);
+    if (typeof gasInfo === "undefined") {
+      throw new Error("Fail to estimate gas by simulate tx.");
+    }
+    return await calculateFee(gasInfo, options, this.queryClient.getChainId);
   }
 }

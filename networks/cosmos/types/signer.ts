@@ -15,8 +15,8 @@ import { SimulateResponse } from "../codegen/cosmos/tx/v1beta1/service";
 import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 
 export interface SignerOptions extends Partial<SignerConfig> {
-  parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
-  encodePublicKey: (key: IKey) => EncodedMessage;
+  parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
+  encodePublicKey?: (key: IKey) => EncodedMessage;
 }
 
 /** Direct/Proto message */

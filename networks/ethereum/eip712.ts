@@ -30,7 +30,10 @@ export class Eip712Signer extends BaseSigner implements ISigner.Eip712Signer {
     endpoint?: string | HttpEndpoint,
     config?: SignerConfig
   ) {
-    const auth: Auth = await constructAuthFromWallet(wallet, config);
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      config.publicKey.isCompressed
+    );
     const signer = new Eip712Signer(auth, endpoint, config);
     signer.signDoc = wallet.sign;
     return signer;

@@ -1,4 +1,10 @@
-import { Auth, HttpEndpoint, Price, StdFee, StdSignDoc } from "@interchainjs/types";
+import {
+  Auth,
+  HttpEndpoint,
+  Price,
+  StdFee,
+  StdSignDoc,
+} from "@interchainjs/types";
 import { fromBase64, Key } from "@interchainjs/utils";
 
 import {
@@ -54,7 +60,6 @@ export class SigningClient {
   readonly broadcastPollIntervalMs: number | undefined;
 
   readonly aminoSigner: AminoSigner;
-  private readonly _getAccounts: OfflineSigner["getAccounts"];
   private readonly _signAmino?: OfflineAminoSigner["signAmino"];
   private readonly _signDirect?: OfflineDirectSigner["signDirect"];
   private readonly gasPrice?: Price | string;
@@ -73,7 +78,6 @@ export class SigningClient {
     aminoSigner.addConverters(Object.values(options.aminoConverters || {}));
     this.aminoSigner = aminoSigner;
     this.offlineSigner = offlineSigner;
-    this._getAccounts = offlineSigner.getAccounts;
     this._signAmino = (offlineSigner as OfflineAminoSigner).signAmino;
     this._signDirect = (offlineSigner as OfflineDirectSigner).signDirect;
     this.broadcastTimeoutMs = options.broadcastTimeoutMs;
@@ -220,7 +224,7 @@ export class SigningClient {
           ? SignMode.SIGN_MODE_DIRECT
           : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
       );
-      const feeEstimation = await this.queryClient.estimateFee(
+      const feeEstimation = await this.aminoSigner.estimateFee(
         txBody,
         [signerInfo],
         {
@@ -254,7 +258,7 @@ export class SigningClient {
         ? SignMode.SIGN_MODE_DIRECT
         : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
     );
-    const feeEstimation = await this.queryClient.estimateFee(
+    const feeEstimation = await this.aminoSigner.estimateFee(
       txBody,
       [signerInfo],
       { multiplier: 1 }

@@ -7,16 +7,8 @@ import {
   StdFee,
   BaseWallet,
   IWallet,
-  IKey,
 } from "@interchainjs/types";
-import {
-  Encoder,
-  Message,
-  DocOptions,
-  SignDoc,
-  EncodedMessage,
-  SignerOptions,
-} from "./types";
+import { Encoder, Message, DocOptions, SignDoc, SignerOptions } from "./types";
 import {
   CosmosBaseSigner,
   SignResponseFromAuth,
