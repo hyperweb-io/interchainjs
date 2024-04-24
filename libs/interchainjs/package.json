@@ -27,7 +27,14 @@
     "@interchainjs/types": "^0",
     "@interchainjs/utils": "^0",
     "@noble/hashes": "^1.3.1",
-    "decimal.js": "^10.4.3"
+    "decimal.js": "^10.4.3",
+    "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
+    "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
+    "starship": "starship --config ./starship/configs/starship.yaml",
+    "starship:local": "starship --config ./starship/configs/starship.local.yaml",
+    "starship:test": "jest --config ./jest.starship.config.json --verbose --bail",
+    "starship:debug": "jest --config ./jest.starship.config.json --runInBand --verbose --bail",
+    "starship:watch": "jest --watch --config ./jest.starship.config.json"
   },
   "keywords": [
     "cosmos",

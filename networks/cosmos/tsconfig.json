@@ -5,5 +5,5 @@
     "rootDir": "."
   },
   "include": ["**/*.ts", "data"],
-  "exclude": ["dist", "node_modules", "scripts", "**/*.spec.*", "codegen/google/protobuf/descriptor.ts"]
+  "exclude": ["dist", "node_modules", "scripts", "**/*.spec.*", "codegen/google/protobuf/descriptor.ts", "starship"]
 }
