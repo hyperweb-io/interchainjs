@@ -23,8 +23,8 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/types": "^0",
-    "@interchainjs/utils": "^0"
+    "@interchainjs/types": "0.0.1",
+    "@interchainjs/utils": "0.0.1"
   },
   "keywords": [
     "cosmos",

@@ -22,10 +22,10 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "^0",
-    "@interchainjs/ethereum": "^0",
-    "@interchainjs/types": "^0",
-    "@interchainjs/utils": "^0",
+    "@interchainjs/cosmos": "0.0.1",
+    "@interchainjs/ethereum": "0.0.1",
+    "@interchainjs/types": "0.0.1",
+    "@interchainjs/utils": "0.0.1",
     "decimal.js": "^10.4.3"
   },
   "keywords": [
