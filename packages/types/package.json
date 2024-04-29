@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/types",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.0",
   "types": "index.d.ts",
   "author": "Cosmology <developers@cosmology.zone>",
   "homepage": "https://github.com/cosmology-tech/interchainjs",
