@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @interchainjs/utils
 
+## [0.0.1](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/utils@0.0.1...@interchainjs/utils@0.0.1) (2024-04-29)
+
+**Note:** Version bump only for package @interchainjs/utils
+
 ## [0.0.1](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/utils@0.0.8...@interchainjs/utils@0.0.1) (2024-04-29)
 
 **Note:** Version bump only for package @interchainjs/utils

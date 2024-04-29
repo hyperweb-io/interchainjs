@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @interchainjs/injective
 
+## [0.0.1](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/injective@0.0.1...@interchainjs/injective@0.0.1) (2024-04-29)
+
+**Note:** Version bump only for package @interchainjs/injective
+
 ## [0.0.1](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/injective@0.0.5...@interchainjs/injective@0.0.1) (2024-04-29)
 
 **Note:** Version bump only for package @interchainjs/injective

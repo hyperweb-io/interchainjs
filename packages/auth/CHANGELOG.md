@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @interchainjs/auth
 
+## [0.0.1](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/auth@0.0.1...@interchainjs/auth@0.0.1) (2024-04-29)
+
+**Note:** Version bump only for package @interchainjs/auth
+
 ## [0.0.1](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/auth@0.0.6...@interchainjs/auth@0.0.1) (2024-04-29)
 
 **Note:** Version bump only for package @interchainjs/auth
