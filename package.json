@@ -15,14 +15,15 @@
     "libs/*"
   ],
   "scripts": {
+    "symlink": "symlink-workspace",
+    "postinstall": "yarn symlink",
     "starship:start": "cd __test__ && ./scripts/start-server.sh",
     "starship:stop": "cd __test__ && ./scripts/stop-server.sh",
     "starship:restart": "cd __test__ && ./scripts/stop-server.sh && ./scripts/start-server.sh",
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build",
-    "pub": "lerna run pub --stream"
+    "build": "lerna run build"
   },
   "dependencies": {},
   "devDependencies": {
@@ -50,6 +51,7 @@
     "starshipjs": "^1.1.4",
     "strip-ansi": "^6",
     "ts-jest": "^29.1.1",
+    "symlink-workspace": "^1.1.0",
     "typescript": "^5.1.6"
   }
 }
