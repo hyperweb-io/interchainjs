@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.1",
   "author": "Cosmology <developers@cosmology.zone>",
   "homepage": "https://github.com/cosmology-tech/interchainjs",
   "repository": {
@@ -9,7 +9,8 @@
   },
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "main": "index.js",
   "module": "esm/index.js",
@@ -17,11 +18,11 @@
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "del dist/**",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json",
-    "pub": "npm version patch && npm run copy && cd dist && npm publish --access public"
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/types": "^0",
+    "@interchainjs/types": "0.0.1-beta.1",
     "bech32": "^2.0.0"
   }
 }
