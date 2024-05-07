@@ -53,7 +53,7 @@ export class Eip712Signer extends CosmosBaseSigner<
   }
 
   static async fromWallet(
-    wallet: BaseWallet<ISignDoc.InjectiveEip712Doc>,
+    wallet: IWallet.InjectiveEip712Wallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

@@ -124,4 +124,5 @@ export const defaultSignerOptions: Required<SignerOptions> = {
   ...defaultSignerConfig,
   parseAccount: defaultAccountParser,
   encodePublicKey: defaultPublicKeyEncoder,
+  prefix: undefined,
 };

@@ -1,4 +1,4 @@
-import { MsgSendAmino } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSendAmino } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { address } from "../../__test__/data";
 import { toEthTypes } from "./utils";
 import { Eip712Types } from "@interchainjs/types";

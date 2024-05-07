@@ -4,3 +4,4 @@ export * from "./rpc";
 export * from "./base-signer";
 export * from "./wallet";
 export * from "./fee";
+export * from "./asserts";

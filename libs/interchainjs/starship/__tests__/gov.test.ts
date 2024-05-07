@@ -1,24 +1,37 @@
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
-import {
-  cosmos,
-  getSigningCosmosClient,
-  getSigningOsmosisClient,
-} from "../../src/codegen";
 import { useChain } from "starshipjs";
 import { waitUntil } from "../src";
 import "./setup.test";
 import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { StargateSigningClient } from "interchainjs/stargate";
+import { OfflineDirectSigner } from "interchainjs/types";
 import { BigNumber } from "bignumber.js";
+import {
+  BondStatus,
+  bondStatusToJSON,
+} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
+import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
+import {
+  ProposalStatus,
+  TextProposal,
+  VoteOption,
+} from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/gov";
+import {
+  MsgSubmitProposal,
+  MsgVote,
+} from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/tx";
+import { fromBase64, toUtf8 } from "@interchainjs/utils";
 
 describe("Governance tests for osmosis", () => {
-  let protoSigner, aminoSigner, denom, address;
-  let chainInfo, getCoin, getRpcEndpoint, creditFromFaucet;
+  let protoSigner: OfflineDirectSigner, denom: string, address: string;
+  let chainInfo, getCoin, getRpcEndpoint: () => string, creditFromFaucet;
 
   // Variables used accross testcases
-  let queryClient;
-  let proposalId;
-  let validatorAddress;
+  let queryClient: RpcQuery;
+  let proposalId: string;
+  let validatorAddress: string;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
@@ -28,37 +41,31 @@ describe("Governance tests for osmosis", () => {
 
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    protoSigner = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+    const wallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
       prefix: chainInfo.chain.bech32_prefix,
     });
-    aminoSigner = await Secp256k1HdWallet.fromMnemonic(mnemonic, {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    protoSigner = wallet.toOfflineDirectSigner();
     address = (await protoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
-    queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
+    queryClient = new RpcQuery(getRpcEndpoint());
 
     // Transfer osmosis to address
     await creditFromFaucet(address);
   }, 200000);
 
   it("check address has tokens", async () => {
-    const { balance } = await queryClient.cosmos.bank.v1beta1.balance({
+    const { balance } = await queryClient.balance({
       address,
       denom,
     });
 
-    expect(balance.amount).toEqual("10000000000");
+    expect(balance!.amount).toEqual("10000000000");
   }, 10000);
 
   it("query validator address", async () => {
-    const { validators } = await queryClient.cosmos.staking.v1beta1.validators({
-      status: cosmos.staking.v1beta1.bondStatusToJSON(
-        cosmos.staking.v1beta1.BondStatus.BOND_STATUS_BONDED
-      ),
+    const { validators } = await queryClient.validators({
+      status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
     if (validators.length > 1) {
@@ -74,27 +81,30 @@ describe("Governance tests for osmosis", () => {
   });
 
   it("stake tokens to genesis validator", async () => {
-    const signingClient = await getSigningOsmosisClient({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: protoSigner,
-    });
+    const signingClient = StargateSigningClient.connectWithSigner(
+      getRpcEndpoint(),
+      protoSigner
+    );
 
-    const { balance } = await queryClient.cosmos.bank.v1beta1.balance({
+    const { balance } = await queryClient.balance({
       address,
       denom,
     });
 
     // Stake half of the tokens
     // eslint-disable-next-line no-undef
-    const delegationAmount = (BigInt(balance.amount) / BigInt(2)).toString();
-    const msg = cosmos.staking.v1beta1.MessageComposer.fromPartial.delegate({
-      delegatorAddress: address,
-      validatorAddress: validatorAddress,
-      amount: {
-        amount: delegationAmount,
-        denom: balance.denom,
-      },
-    });
+    const delegationAmount = (BigInt(balance!.amount) / BigInt(2)).toString();
+    const msg = {
+      typeUrl: MsgDelegate.typeUrl,
+      value: MsgDelegate.fromPartial({
+        delegatorAddress: address,
+        validatorAddress: validatorAddress,
+        amount: {
+          amount: delegationAmount,
+          denom: balance!.denom,
+        },
+      }),
+    };
 
     const fee = {
       amount: [
@@ -111,30 +121,33 @@ describe("Governance tests for osmosis", () => {
   }, 10000);
 
   it("submit a txt proposal", async () => {
-    const signingClient = await getSigningCosmosClient({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: protoSigner,
-    });
+    const signingClient = StargateSigningClient.connectWithSigner(
+      getRpcEndpoint(),
+      protoSigner
+    );
 
-    const contentMsg = cosmos.gov.v1beta1.TextProposal.fromPartial({
+    const contentMsg = TextProposal.fromPartial({
       title: "Test Proposal",
       description: "Test text proposal for the e2e testing",
     });
 
     // Stake half of the tokens
-    const msg = cosmos.gov.v1beta1.MessageComposer.withTypeUrl.submitProposal({
-      proposer: address,
-      initialDeposit: [
-        {
-          amount: "1000000",
-          denom: denom,
+    const msg = {
+      typeUrl: MsgSubmitProposal.typeUrl,
+      value: MsgSubmitProposal.fromPartial({
+        proposer: address,
+        initialDeposit: [
+          {
+            amount: "1000000",
+            denom: denom,
+          },
+        ],
+        content: {
+          typeUrl: "/cosmos.gov.v1beta1.TextProposal",
+          value: TextProposal.encode(contentMsg).finish(),
         },
-      ],
-      content: {
-        typeUrl: "/cosmos.gov.v1beta1.TextProposal",
-        value: cosmos.gov.v1beta1.TextProposal.encode(contentMsg).finish(),
-      },
-    });
+      }),
+    };
 
     const fee = {
       amount: [
@@ -153,37 +166,39 @@ describe("Governance tests for osmosis", () => {
     const proposalIdEvent = result.events.find(
       (event) => event.type === "submit_proposal"
     );
-    proposalId = proposalIdEvent.attributes.find(
-      (attr) => attr.key === "proposal_id"
-    ).value;
+    const proposalIdEncoded = proposalIdEvent!.attributes.find(
+      (attr) => toUtf8(fromBase64(attr.key)) === "proposal_id"
+    )!.value;
+    proposalId = toUtf8(fromBase64(proposalIdEncoded));
 
     // eslint-disable-next-line no-undef
     expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
   }, 200000);
 
   it("query proposal", async () => {
-    const result = await queryClient.cosmos.gov.v1beta1.proposal({
+    const result = await queryClient.proposal({
       proposalId: BigInt(proposalId),
     });
 
     expect(result.proposal.proposalId.toString()).toEqual(proposalId);
   }, 10000);
 
-  it.todo("vote on proposal using amino");
-
   it("vote on proposal from address", async () => {
     // create genesis address signing client
-    const signingClient = await getSigningCosmosClient({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: protoSigner,
-    });
+    const signingClient = StargateSigningClient.connectWithSigner(
+      getRpcEndpoint(),
+      protoSigner
+    );
 
     // Vote on proposal from genesis mnemonic address
-    const msg = cosmos.gov.v1beta1.MessageComposer.withTypeUrl.vote({
-      proposalId: BigInt(proposalId),
-      voter: address,
-      option: cosmos.gov.v1beta1.VoteOption.VOTE_OPTION_YES,
-    });
+    const msg = {
+      typeUrl: MsgVote.typeUrl,
+      value: MsgVote.fromPartial({
+        proposalId: BigInt(proposalId),
+        voter: address,
+        option: VoteOption.VOTE_OPTION_YES,
+      }),
+    };
 
     const fee = {
       amount: [
@@ -200,19 +215,21 @@ describe("Governance tests for osmosis", () => {
   }, 10000);
 
   it("verify vote", async () => {
-    const { vote } = await queryClient.cosmos.gov.v1beta1.vote({
+    const { vote } = await queryClient.getVote({
       proposalId: BigInt(proposalId),
       voter: address,
     });
 
     expect(vote.proposalId.toString()).toEqual(proposalId);
     expect(vote.voter).toEqual(address);
-    expect(vote.option).toEqual(cosmos.gov.v1beta1.VoteOption.VOTE_OPTION_YES);
+    expect(vote.option).toEqual(VoteOption.VOTE_OPTION_YES);
   }, 10000);
+
+  it.todo("vote on proposal using amino");
 
   it("wait for voting period to end", async () => {
     // wait for the voting period to end
-    const { proposal } = await queryClient.cosmos.gov.v1beta1.proposal({
+    const { proposal } = await queryClient.proposal({
       proposalId: BigInt(proposalId),
     });
 
@@ -220,12 +237,10 @@ describe("Governance tests for osmosis", () => {
   }, 200000);
 
   it("verify proposal passed", async () => {
-    const { proposal } = await queryClient.cosmos.gov.v1beta1.proposal({
+    const { proposal } = await queryClient.proposal({
       proposalId: BigInt(proposalId),
     });
 
-    expect(proposal.status).toEqual(
-      cosmos.gov.v1beta1.ProposalStatus.PROPOSAL_STATUS_PASSED
-    );
+    expect(proposal.status).toEqual(ProposalStatus.PROPOSAL_STATUS_PASSED);
   }, 10000);
 });

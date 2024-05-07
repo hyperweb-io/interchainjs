@@ -19,7 +19,15 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "del dist/**",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "pub": "npm version patch && npm run copy && cd dist && npm publish --access public",
+    "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
+    "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
+    "starship": "starship --config ./starship/configs/starship.yaml",
+    "starship:local": "starship --config ./starship/configs/starship.local.yaml",
+    "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
+    "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
+    "starship:watch": "jest --watch --config ./jest.starship.config.js"
   },
   "dependencies": {
     "@interchainjs/cosmos": "0.0.1-beta.1",

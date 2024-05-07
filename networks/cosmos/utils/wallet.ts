@@ -6,7 +6,6 @@ import {
   ISignDoc,
 } from "@interchainjs/types";
 import { defaultSignerConfig } from "../defaults";
-import { getPrefix } from "./rpc";
 import { SignDoc } from "../types";
 import { encodeStdSignDoc } from "./amino";
 
@@ -18,20 +17,9 @@ export function getAccountFromAuth(
   return {
     algo: auth.algo,
     publicKey,
-    getAddress(chainId?: string) {
+    getAddress(prefix?: string) {
       const addrKey = config.publicKey.hash(publicKey);
-      if (!chainId) {
-        return addrKey;
-      }
-      if (chainId.startsWith("injective-")) {
-        throw new Error("Cannot get Injective address with this method.");
-      }
-      try {
-        const prefix = getPrefix(chainId);
-        return addrKey.toBech32(prefix);
-      } catch (error) {
-        return addrKey;
-      }
+      return addrKey.toBech32(prefix);
     },
   };
 }

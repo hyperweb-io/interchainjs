@@ -27,13 +27,19 @@ export class RpcClient implements QueryClient {
   protected parseAccount: (
     encodedAccount: EncodedMessage
   ) => BaseAccount = defaultAccountParser;
+  protected _prefix?: string;
 
-  constructor(endpoint: string | HttpEndpoint, publicKeyHash?: Key) {
+  constructor(
+    endpoint: string | HttpEndpoint,
+    publicKeyHash?: Key,
+    prefix?: string
+  ) {
     this.endpoint = toHttpEndpoint(endpoint);
     this.publicKeyHash = publicKeyHash;
     const txRpc = createTxRpc(this.endpoint);
     this.authQuery = new AuthQuery(txRpc);
     this.txQuery = new TxQuery(txRpc);
+    this._prefix = prefix;
   }
 
   setAccountParser(
@@ -42,13 +48,17 @@ export class RpcClient implements QueryClient {
     this.parseAccount = parseBaseAccount;
   }
 
+  async getPrefix() {
+    return this._prefix ?? getPrefix(await this.getChainId());
+  }
+
   async getAddress() {
     if (!this.publicKeyHash) {
       throw new Error(
         "publicKeyHash is not provided when constructing RpcClient"
       );
     }
-    return this.publicKeyHash.toBech32(getPrefix(await this.getChainId()));
+    return this.publicKeyHash.toBech32(await this.getPrefix());
   }
 
   async getBaseAccount(): Promise<BaseAccount> {

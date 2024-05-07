@@ -31,7 +31,7 @@ export class AminoSigner extends AminoSignerBase
   }
 
   static async fromWallet(
-    wallet: BaseWallet<ISignDoc.CosmosAminoDoc>,
+    wallet: IWallet.InjectiveAminoWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

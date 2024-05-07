@@ -77,6 +77,12 @@ export function toEncoder(
   };
 }
 
+export function toEncoders(
+  ...generatedArray: TelescopeGeneratedType<any, any, any>[]
+): Encoder[] {
+  return generatedArray.map((generated) => toEncoder(generated));
+}
+
 export function toDecoder(
   generated: TelescopeGeneratedType<any, any, any>
 ): Decoder {
