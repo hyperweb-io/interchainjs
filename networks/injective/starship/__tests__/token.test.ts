@@ -1,10 +1,10 @@
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { DirectSigner } from "@interchainjs/injective/direct";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { useChain } from "starshipjs";
 import "./setup.test";
 import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
-import { defaultSignerOptions } from "@interchainjs/cosmos/defaults";
+import { defaultSignerOptions } from "@interchainjs/injective/defaults";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { ChainInfo } from "@chain-registry/client";
@@ -45,8 +45,10 @@ describe("Token transfers", () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
     const auth2 = Secp256k1Auth.fromMnemonic(mnemonic);
-    const address2 = defaultSignerOptions.publicKey
-      .hash(auth2.getPublicKey(defaultSignerOptions.publicKey.isCompressed))
+    const address2 = defaultSignerOptions.Cosmos.publicKey
+      .hash(
+        auth2.getPublicKey(defaultSignerOptions.Cosmos.publicKey.isCompressed)
+      )
       .toBech32(chainInfo.chain.bech32_prefix);
 
     const fee = {
@@ -94,9 +96,11 @@ describe("Token transfers", () => {
 
     // Initialize wallet address for cosmos chain
     const cosmosAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
-    const cosmosAddress = defaultSignerOptions.publicKey
+    const cosmosAddress = defaultSignerOptions.Cosmos.publicKey
       .hash(
-        cosmosAuth.getPublicKey(defaultSignerOptions.publicKey.isCompressed)
+        cosmosAuth.getPublicKey(
+          defaultSignerOptions.Cosmos.publicKey.isCompressed
+        )
       )
       .toBech32(cosmosChainInfo.chain.bech32_prefix);
 

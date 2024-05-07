@@ -49,12 +49,14 @@ export const defaultSignerOptions: Record<string, Required<SignerOptions>> = {
     publicKey: defaultPublicKeyConfig,
     encodePublicKey: defaultEncodePublicKey,
     parseAccount: defaultAccountParser,
+    prefix: "inj",
   },
   Ethereum: {
     ...EthereumSignerConfig,
     publicKey: defaultPublicKeyConfig,
     encodePublicKey: defaultEncodePublicKey,
     parseAccount: defaultAccountParser,
+    prefix: undefined,
   },
 };
 
