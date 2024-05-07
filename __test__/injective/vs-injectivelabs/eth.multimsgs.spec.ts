@@ -1,13 +1,9 @@
-import {
-  getEip712TypedDataV2,
-  MsgSend,
-  MsgVote,
-} from "@injectivelabs/sdk-ts";
+import { getEip712TypedDataV2, MsgSend, MsgVote } from "@injectivelabs/sdk-ts";
 import { EthereumChainId } from "@injectivelabs/ts-types";
 import { Message } from "@interchainjs/cosmos/types";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
-import { VoteOption } from "@interchainjs/cosmos-msgs/cosmos/gov/v1/gov";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+import { VoteOption } from "@interchainjs/cosmos-types/cosmos/gov/v1/gov";
 import { Eip712Signer } from "@interchainjs/injective/eip712";
 import { StdFee } from "@interchainjs/types";
 

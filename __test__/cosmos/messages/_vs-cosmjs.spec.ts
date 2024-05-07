@@ -4,12 +4,12 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { AminoSigner } from "@interchainjs/cosmos/amino";
 import { DirectSigner } from "@interchainjs/cosmos/direct";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
-import { MsgTransfer } from "@interchainjs/cosmos-msgs/ibc/applications/transfer/v1/tx";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
 import { IWallet, StdFee } from "@interchainjs/types";
 // import { messages } from "./send-ibc-tokens.spec";
 import { toHex } from "@interchainjs/utils";
-import { toAminoWallet,toDirectWallet } from "interchainjs/utils";
+import { toAminoWallet, toDirectWallet } from "interchainjs/utils";
 
 import { address, chain, seed } from "../../data";
 import { auth } from "../constants";

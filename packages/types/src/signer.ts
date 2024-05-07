@@ -37,26 +37,25 @@ export interface BroadcastOptions {
   deliverTx?: boolean;
 }
 
-export type BroadcastResponse<T> = {
-  hash: string;
-} & T;
-
 export interface CreateDocResponse<SignDoc, Tx> {
   signDoc: SignDoc;
   tx: Tx;
 }
 
-export interface SignResponse<SignDoc, Tx>
-  extends CreateDocResponse<SignDoc, Tx> {
+export interface SignResponse<
+  SignDoc,
+  Tx,
+  BroadcastResponse = { hash: string }
+> extends CreateDocResponse<SignDoc, Tx> {
   signature: IKey;
-  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse<any>>;
+  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
 }
 
 /**
  * - SignDoc is the document type as the signing target to get signature
  * - Tx is the transaction to broadcast
  */
-export interface UniSigner<SignDoc, Tx> {
+export interface UniSigner<SignDoc, Tx, BroadcastResponse = { hash: string }> {
   publicKey: IKey;
   /**
    * publicKeyHash is usually used to get address.
@@ -75,7 +74,7 @@ export interface UniSigner<SignDoc, Tx> {
   broadcastArbitrary(
     data: Uint8Array,
     options?: BroadcastOptions
-  ): Promise<BroadcastResponse<unknown>>;
+  ): Promise<BroadcastResponse>;
   signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
   createDoc(
     messages: unknown,
@@ -84,13 +83,10 @@ export interface UniSigner<SignDoc, Tx> {
   sign(
     messages: unknown,
     ...args: unknown[]
-  ): Promise<SignResponse<SignDoc, Tx>>;
+  ): Promise<SignResponse<SignDoc, Tx, BroadcastResponse>>;
   signAndBroadcast(
     messages: unknown,
     ...args: unknown[]
-  ): Promise<BroadcastResponse<unknown>>;
-  broadcast: (
-    tx: Tx,
-    options?: BroadcastOptions
-  ) => Promise<BroadcastResponse<unknown>>;
+  ): Promise<BroadcastResponse>;
+  broadcast: (tx: Tx, options?: BroadcastOptions) => Promise<BroadcastResponse>;
 }

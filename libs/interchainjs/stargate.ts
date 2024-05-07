@@ -1,6 +1,6 @@
 import { AminoSigner } from "@interchainjs/cosmos/amino";
-import { StargateMsgs } from "@interchainjs/cosmos-msgs/stargate";
-import { TxImpl } from "@interchainjs/cosmos-msgs/stargate.tx";
+import { StargateMsgs } from "@interchainjs/cosmos-types/stargate";
+import { TxImpl } from "@interchainjs/cosmos-types/stargate.tx";
 import { SigningClient } from "./signing-client";
 import { OfflineSigner } from "./types/wallet";
 import { SignerOptions } from "./types/signing-client";

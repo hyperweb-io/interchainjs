@@ -10,7 +10,7 @@ import {
 import { EthereumChainId } from "@injectivelabs/ts-types";
 import { Message } from "@interchainjs/cosmos/types";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { Eip712Signer } from "@interchainjs/injective/eip712";
 import { StdFee } from "@interchainjs/types";
 import { toHex } from "@interchainjs/utils";

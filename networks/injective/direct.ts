@@ -26,7 +26,7 @@ export class DirectSigner extends DirectSignerBase
   }
 
   static async fromWallet(
-    wallet: BaseWallet<ISignDoc.CosmosDirectDoc>,
+    wallet: IWallet.InjectiveDirectWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions

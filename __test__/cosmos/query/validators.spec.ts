@@ -1,7 +1,7 @@
 import {
   BondStatus,
   bondStatusToJSON,
-} from "@interchainjs/cosmos-msgs/cosmos/staking/v1beta1/staking";
+} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 
 import { address } from "../../data";
 import { rpcQuery } from "../constants";

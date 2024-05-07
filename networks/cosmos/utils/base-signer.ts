@@ -25,6 +25,7 @@ import {
   TxOptions,
   TxRaw,
   SignerOptions,
+  BroadcastResponse,
 } from "../types";
 import { RpcClient } from "../query/rpc";
 import {
@@ -39,11 +40,12 @@ import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 export abstract class CosmosBaseSigner<
   SignDoc,
   Options extends FeeOptions & SignOptions & TxOptions
-> extends BaseSigner implements UniSigner<SignDoc, TxRaw> {
+> extends BaseSigner implements UniSigner<SignDoc, TxRaw, BroadcastResponse> {
   protected _queryClient?: QueryClient;
   readonly encoders: Encoder[];
   readonly encodePublicKey: (key: IKey) => EncodedMessage;
   readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
+  protected prefix?: string;
 
   constructor(
     auth: Auth,
@@ -52,14 +54,15 @@ export abstract class CosmosBaseSigner<
     options?: SignerOptions
   ) {
     super(auth, { ...options, ...defaultSignerOptions });
-    if (!isEmpty(endpoint)) {
-      this.setEndpoint(endpoint);
-    }
     this.encoders = encoders;
     this.parseAccount =
       options?.parseAccount ?? defaultSignerOptions.parseAccount;
     this.encodePublicKey =
       options?.encodePublicKey ?? defaultSignerOptions.encodePublicKey;
+    this.prefix = options?.prefix;
+    if (!isEmpty(endpoint)) {
+      this.setEndpoint(endpoint);
+    }
   }
 
   get encodedPublicKey() {
@@ -87,7 +90,11 @@ export abstract class CosmosBaseSigner<
   }
 
   setEndpoint(endpoint: string | HttpEndpoint) {
-    this._queryClient = new RpcClient(endpoint, this.publicKeyHash);
+    this._queryClient = new RpcClient(
+      endpoint,
+      this.publicKeyHash,
+      this.prefix
+    );
     (this._queryClient as RpcClient).setAccountParser(this.parseAccount);
   }
 
@@ -174,7 +181,7 @@ export abstract class CosmosBaseSigner<
     fee?: StdFee,
     memo?: string,
     options?: Options
-  ): Promise<SignResponse<SignDoc, TxRaw>> {
+  ): Promise<SignResponse<SignDoc, TxRaw, BroadcastResponse>> {
     const created = await this.createDoc(messages, fee, memo, options);
     const { signature, signDoc } = await this.signDoc(created.signDoc);
     const txRawCompleted = TxRaw.fromPartial({

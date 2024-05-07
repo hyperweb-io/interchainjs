@@ -49,7 +49,7 @@ import {
   BlockResponse,
   TxResponse,
 } from "./types/query";
-import { TxRpc } from "@interchainjs/cosmos-msgs/types";
+import { TxRpc } from "@interchainjs/cosmos-types/types";
 
 /**
  * implement the same methods as what in `cosmjs` signingClient

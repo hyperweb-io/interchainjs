@@ -1,7 +1,7 @@
-import { createTransaction,MsgSend } from "@injectivelabs/sdk-ts";
+import { createTransaction, MsgSend } from "@injectivelabs/sdk-ts";
 import { Message, SignMode } from "@interchainjs/cosmos/types";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend as _MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSend as _MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { AminoSigner } from "@interchainjs/injective/amino";
 import { DirectSigner } from "@interchainjs/injective/direct";
 import { StdFee } from "@interchainjs/types";

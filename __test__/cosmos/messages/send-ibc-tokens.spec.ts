@@ -2,7 +2,7 @@ import { AminoSigner } from "@interchainjs/cosmos/amino";
 import { DirectSigner } from "@interchainjs/cosmos/direct";
 import { Message } from "@interchainjs/cosmos/types";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgTransfer } from "@interchainjs/cosmos-msgs/ibc/applications/transfer/v1/tx";
+import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
 
 import { address, chain } from "../../data";
 import { auth } from "../constants";

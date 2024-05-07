@@ -1,7 +1,12 @@
 import { HttpEndpoint } from "@interchainjs/types";
-import { fromBase64, randomId, toHex, toHttpEndpoint } from "@interchainjs/utils";
-import { QueryImpl } from "./service-ops";
-import { TxRpc } from "./types";
+import {
+  fromBase64,
+  randomId,
+  toHex,
+  toHttpEndpoint,
+} from "@interchainjs/utils";
+import { QueryImpl } from "@interchainjs/cosmos-types/service-ops";
+import { TxRpc } from "@interchainjs/cosmos-types/types";
 
 function createTxRpc(endpoint: HttpEndpoint): TxRpc {
   return {

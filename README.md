@@ -30,14 +30,10 @@ Universally applied across different networks
 
 ## Cosmos Network
 
-### Querying
-
-- [@interchainjs/cosmos-query](/networks/cosmos-query/README.md)
-  
 ### Transactions
 
 - [@interchainjs/cosmos](/networks/cosmos/README.md)
-- [@interchainjs/cosmos-msgs](/networks/cosmos-msgs/README.md)
+- [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md)
 
 ### Migration from `@cosmjs`
 

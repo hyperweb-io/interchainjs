@@ -1,6 +1,5 @@
 import {
   BroadcastOptions,
-  BroadcastResponse as GeneralBroadcastResponse,
   HttpEndpoint,
   IKey,
   Price,
@@ -17,6 +16,7 @@ import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 export interface SignerOptions extends Partial<SignerConfig> {
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
   encodePublicKey?: (key: IKey) => EncodedMessage;
+  prefix?: string;
 }
 
 /** Direct/Proto message */
@@ -93,7 +93,8 @@ export interface DeliverTxResponse {
   codespace: string;
 }
 
-export type BroadcastResponse = GeneralBroadcastResponse<{
+export interface BroadcastResponse {
+  hash: string;
   add_tx?: {
     code?: number;
     data?: string;
@@ -102,7 +103,7 @@ export type BroadcastResponse = GeneralBroadcastResponse<{
   };
   check_tx?: CheckTxResponse;
   deliver_tx?: DeliverTxResponse & { height: string };
-}>;
+}
 
 export type DocOptions = FeeOptions & SignOptions & TxOptions;
 

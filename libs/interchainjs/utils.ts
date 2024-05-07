@@ -1,6 +1,7 @@
 import { Auth, ISignDoc, IWallet } from "@interchainjs/types";
 import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
 import { Key } from "@interchainjs/utils";
+import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
 
 /**
  * An error when broadcasting the transaction. This contains the CheckTx errors
@@ -47,19 +48,21 @@ export const defaultAuth: Auth = {
 
 export function toAminoWallet(
   offlineSigner: OfflineAminoSigner,
-  chainId: string
+  prefix: string
 ): IWallet.CosmosAminoWallet {
   const wallet: IWallet.CosmosAminoWallet = {
     getAccount: async () => {
-      const [account, ..._] = await offlineSigner.getAccounts();
+      const accounts = await offlineSigner.getAccounts();
+      const account = accounts.find((account) =>
+        account.address.startsWith(prefix)
+      );
+      const publicKey = Key.from(account.pubkey);
+      const address = defaultSignerConfig.publicKey.hash(publicKey);
       return {
         algo: account.algo,
-        publicKey: Key.from(account.pubkey),
-        getAddress(_chainId?: string) {
-          if (_chainId === chainId) {
-            return account.address;
-          }
-          throw new Error(`Cannot get address of chain ${_chainId}`);
+        publicKey,
+        getAddress(_prefix?: string) {
+          return _prefix ? address.toBech32(_prefix) : address;
         },
       };
     },
@@ -80,19 +83,21 @@ export function toAminoWallet(
 
 export function toDirectWallet(
   offlineSigner: OfflineDirectSigner,
-  chainId: string
+  prefix: string
 ): IWallet.CosmosDirectWallet {
   const wallet: IWallet.CosmosDirectWallet = {
     getAccount: async () => {
-      const [account, ..._] = await offlineSigner.getAccounts();
+      const accounts = await offlineSigner.getAccounts();
+      const account = accounts.find((account) =>
+        account.address.startsWith(prefix)
+      );
+      const publicKey = Key.from(account.pubkey);
+      const address = defaultSignerConfig.publicKey.hash(publicKey);
       return {
         algo: account.algo,
-        publicKey: Key.from(account.pubkey),
-        getAddress(_chainId?: string) {
-          if (_chainId === chainId) {
-            return account.address;
-          }
-          throw new Error(`Cannot get address of chain ${_chainId}`);
+        publicKey,
+        getAddress(_prefix?: string) {
+          return _prefix ? address.toBech32(_prefix) : address;
         },
       };
     },

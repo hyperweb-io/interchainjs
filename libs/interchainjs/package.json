@@ -24,9 +24,9 @@
     "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
     "starship": "starship --config ./starship/configs/starship.yaml",
     "starship:local": "starship --config ./starship/configs/starship.local.yaml",
-    "starship:test": "jest --config ./jest.starship.config.json --verbose --bail",
-    "starship:debug": "jest --config ./jest.starship.config.json --runInBand --verbose --bail",
-    "starship:watch": "jest --watch --config ./jest.starship.config.json"
+    "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
+    "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
+    "starship:watch": "jest --watch --config ./jest.starship.config.js"
   },
   "dependencies": {
     "@interchainjs/cosmos": "^0",

@@ -26,7 +26,7 @@ export class Eip712Signer extends BaseSigner implements ISigner.Eip712Signer {
   }
 
   static async fromWallet(
-    wallet: BaseWallet<ISignDoc.Eip712Doc>,
+    wallet: IWallet.Eip712Wallet,
     endpoint?: string | HttpEndpoint,
     config?: SignerConfig
   ) {

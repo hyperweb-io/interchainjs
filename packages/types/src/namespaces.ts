@@ -55,7 +55,7 @@ export namespace ITransaction {
 
 export namespace IWalletAccount {
   export interface CosmosAccount extends BaseWalletAccount {
-    getAddress(chainId?: string): IKey | string;
+    getAddress(prefix?: string): IKey | string;
   }
   export interface InjectiveAccount extends BaseWalletAccount {
     cosmosAddress: string;

@@ -1,6 +1,6 @@
 import { Message } from "@interchainjs/cosmos/types";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { AminoSigner } from "@interchainjs/injective/amino";
 import { DirectSigner } from "@interchainjs/injective/direct";
 

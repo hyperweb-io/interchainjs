@@ -1,12 +1,10 @@
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
 import { useChain } from "starshipjs";
 import { waitUntil } from "../src";
 import "./setup.test";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
 import { RpcQuery } from "interchainjs/query/rpc";
-import { StargateSigningClient } from "interchainjs/stargate";
-import { OfflineDirectSigner } from "interchainjs/types";
+import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { BigNumber } from "bignumber.js";
 import {
   BondStatus,
@@ -23,9 +21,13 @@ import {
   MsgVote,
 } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/tx";
 import { fromBase64, toUtf8 } from "@interchainjs/utils";
+import {
+  assertIsDeliverTxSuccess,
+  toEncoders,
+} from "@interchainjs/cosmos/utils";
 
 describe("Governance tests for osmosis", () => {
-  let protoSigner: OfflineDirectSigner, denom: string, address: string;
+  let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo, getCoin, getRpcEndpoint: () => string, creditFromFaucet;
 
   // Variables used accross testcases
@@ -40,12 +42,15 @@ describe("Governance tests for osmosis", () => {
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
-    // Initialize wallet
-    const wallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
-    protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].address;
+    // Initialize auth
+    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
+    directSigner = new DirectSigner(
+      auth,
+      toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
+      getRpcEndpoint(),
+      { prefix: chainInfo.chain.bech32_prefix }
+    );
+    address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -81,11 +86,6 @@ describe("Governance tests for osmosis", () => {
   });
 
   it("stake tokens to genesis validator", async () => {
-    const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
-      protoSigner
-    );
-
     const { balance } = await queryClient.balance({
       address,
       denom,
@@ -116,16 +116,13 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await signingClient.signAndBroadcast(address, [msg], fee);
+    const result = await directSigner.signAndBroadcast([msg], fee, "", {
+      deliverTx: true,
+    });
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
   it("submit a txt proposal", async () => {
-    const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
-      protoSigner
-    );
-
     const contentMsg = TextProposal.fromPartial({
       title: "Test Proposal",
       description: "Test text proposal for the e2e testing",
@@ -159,11 +156,13 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await signingClient.signAndBroadcast(address, [msg], fee);
+    const result = await directSigner.signAndBroadcast([msg], fee, "", {
+      deliverTx: true,
+    });
     assertIsDeliverTxSuccess(result);
 
     // Get proposal id from log events
-    const proposalIdEvent = result.events.find(
+    const proposalIdEvent = result.deliver_tx?.events.find(
       (event) => event.type === "submit_proposal"
     );
     const proposalIdEncoded = proposalIdEvent!.attributes.find(
@@ -184,12 +183,6 @@ describe("Governance tests for osmosis", () => {
   }, 10000);
 
   it("vote on proposal from address", async () => {
-    // create genesis address signing client
-    const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
-      protoSigner
-    );
-
     // Vote on proposal from genesis mnemonic address
     const msg = {
       typeUrl: MsgVote.typeUrl,
@@ -210,7 +203,9 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await signingClient.signAndBroadcast(address, [msg], fee);
+    const result = await directSigner.signAndBroadcast([msg], fee, "", {
+      deliverTx: true,
+    });
     assertIsDeliverTxSuccess(result);
   }, 10000);
 

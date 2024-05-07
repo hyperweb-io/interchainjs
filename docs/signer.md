@@ -24,7 +24,7 @@ As we know, `Auth` object can be used to sign any piece of binary data (See [det
 import { DirectSigner } from "@interchainjs/cosmos/direct";
 import { toEncoder } from "@interchainjs/cosmos/utils";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 
 const auth = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", "cosmos");
 const signer = new DirectSigner(auth, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
@@ -42,7 +42,7 @@ However, combining with the `Signer` class allows you to sign human-readable mes
 import { DirectSigner } from "@interchainjs/cosmos/direct";
 import { DirectWallet, SignDoc } from "@interchainjs/cosmos/types";
 import { toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 
 const wallet: DirectWallet = {
     async getAccount(){},

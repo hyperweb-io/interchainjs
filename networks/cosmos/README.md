@@ -33,7 +33,7 @@ console.log(result.hash); // the hash of TxRaw
 ```
 
 - See [@interchainjs/auth](/packages/auth/README.md) to construct `<AUTH>`
-- See [@interchainjs/cosmos-msgs](/networks/cosmos-msgs/README.md) to construct `<ENCODER>`s and `<CONVERTER>`s, and also different message types.
+- See [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) to construct `<ENCODER>`s and `<CONVERTER>`s, and also different message types.
 
 ## Implementations
 

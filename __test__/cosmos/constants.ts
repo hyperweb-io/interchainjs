@@ -1,5 +1,5 @@
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { RpcQuery } from "@interchainjs/cosmos-query/rpc";
+import { RpcQuery } from "@interchainjs/cosmos-types/rpc";
 
 import { chain, seed } from "../data";
 
