@@ -1,13 +1,14 @@
 // @ts-nocheck
+import "./setup.test";
+
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { OfflineDirectSigner } from "interchainjs/types";
-import { StargateSigningClient } from "interchainjs/stargate";
-import { useChain } from "starshipjs";
-import "./setup.test";
 import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { StargateSigningClient } from "interchainjs/stargate";
+import { OfflineDirectSigner } from "interchainjs/types";
+import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
+import { useChain } from "starshipjs";
 
 describe("Token transfers", () => {
   let protoSigner: OfflineDirectSigner, denom: string, address: string;
@@ -112,8 +113,8 @@ describe("Token transfers", () => {
     } = ibcInfo.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
-    const currentTime = Math.floor(Date.now() / 1000);
-    const timeoutTime = currentTime + 300; // 5 minutes
+    const currentTime = Math.floor(Date.now()) * 1000000;
+    const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
 
     const fee = {
       amount: [

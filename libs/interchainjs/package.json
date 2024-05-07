@@ -27,6 +27,7 @@
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
+    "starship:all": "starship setup; sleep 10; yarn starship deploy; sleep 300; starship get-pods; starship start-ports; starship port-pids",
     "prepare": "npm run build"
   },
   "dependencies": {

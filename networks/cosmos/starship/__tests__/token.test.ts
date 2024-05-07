@@ -1,17 +1,18 @@
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
-import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { useChain } from "starshipjs";
 import "./setup.test";
-import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
-import { defaultSignerOptions } from "@interchainjs/cosmos/defaults";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+
 import { ChainInfo } from "@chain-registry/client";
+import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { defaultSignerOptions } from "@interchainjs/cosmos/defaults";
+import { DirectSigner } from "@interchainjs/cosmos/direct";
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
 } from "@interchainjs/cosmos/utils";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { useChain } from "starshipjs";
 
 describe("Token transfers", () => {
   let directSigner: DirectSigner, denom: string, address: string;
@@ -117,8 +118,8 @@ describe("Token transfers", () => {
     } = ibcInfo!.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
-    const currentTime = Math.floor(Date.now() / 1000);
-    const timeoutTime = currentTime + 300; // 5 minutes
+    const currentTime = Math.floor(Date.now()) * 1000000;
+    const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
 
     const fee = {
       amount: [
