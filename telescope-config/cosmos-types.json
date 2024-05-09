@@ -1,8 +1,8 @@
 {
     "protoDirs": [
-        "./proto"
+        "./protos"
     ],
-    "outPath": "./src/codegen",
+    "outPath": "./libs/cosmos-types",
     "options": {
         "classesUseArrowFunctions": true,
         "env": "v-next",

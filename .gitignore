@@ -7,3 +7,4 @@ scripts/test.sh
 **/dist
 **/yarn-error.log
 lerna-debug.log
+git-modules/
