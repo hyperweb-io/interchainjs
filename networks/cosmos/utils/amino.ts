@@ -95,3 +95,9 @@ export function toConverter(
     },
   };
 }
+
+export function toConverters(
+  ...generatedArray: TelescopeGeneratedType<any, any, any>[]
+): AminoConverter[] {
+  return generatedArray.map((generated) => toConverter(generated));
+}

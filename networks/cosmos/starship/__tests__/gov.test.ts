@@ -23,11 +23,17 @@ import {
 import { fromBase64, toUtf8 } from "@interchainjs/utils";
 import {
   assertIsDeliverTxSuccess,
+  toConverters,
   toEncoders,
 } from "@interchainjs/cosmos/utils";
+import { AminoSigner } from "@interchainjs/cosmos/amino";
 
 describe("Governance tests for osmosis", () => {
-  let directSigner: DirectSigner, denom: string, address: string;
+  let directSigner: DirectSigner,
+    aminoSigner: AminoSigner,
+    denom: string,
+    directAddress: string,
+    aminoAddress: string;
   let chainInfo, getCoin, getRpcEndpoint: () => string, creditFromFaucet;
 
   // Variables used accross testcases
@@ -41,27 +47,45 @@ describe("Governance tests for osmosis", () => {
     ));
     denom = getCoin().base;
 
-    const mnemonic = generateMnemonic();
     // Initialize auth
-    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
+    const directAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
+    const aminoAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
     directSigner = new DirectSigner(
-      auth,
+      directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       getRpcEndpoint(),
       { prefix: chainInfo.chain.bech32_prefix }
     );
-    address = await directSigner.getAddress();
+    aminoSigner = new AminoSigner(
+      aminoAuth,
+      toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
+      toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
+      getRpcEndpoint(),
+      { prefix: chainInfo.chain.bech32_prefix }
+    );
+    directAddress = await directSigner.getAddress();
+    aminoAddress = await aminoSigner.getAddress();
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
 
     // Transfer osmosis to address
-    await creditFromFaucet(address);
+    await creditFromFaucet(directAddress);
+    await creditFromFaucet(aminoAddress);
   }, 200000);
 
-  it("check address has tokens", async () => {
+  it("check direct address has tokens", async () => {
     const { balance } = await queryClient.balance({
-      address,
+      address: directAddress,
+      denom,
+    });
+
+    expect(balance!.amount).toEqual("10000000000");
+  }, 10000);
+
+  it("check amino address has tokens", async () => {
+    const { balance } = await queryClient.balance({
+      address: aminoAddress,
       denom,
     });
 
@@ -87,7 +111,7 @@ describe("Governance tests for osmosis", () => {
 
   it("stake tokens to genesis validator", async () => {
     const { balance } = await queryClient.balance({
-      address,
+      address: directAddress,
       denom,
     });
 
@@ -97,7 +121,7 @@ describe("Governance tests for osmosis", () => {
     const msg = {
       typeUrl: MsgDelegate.typeUrl,
       value: MsgDelegate.fromPartial({
-        delegatorAddress: address,
+        delegatorAddress: directAddress,
         validatorAddress: validatorAddress,
         amount: {
           amount: delegationAmount,
@@ -132,7 +156,7 @@ describe("Governance tests for osmosis", () => {
     const msg = {
       typeUrl: MsgSubmitProposal.typeUrl,
       value: MsgSubmitProposal.fromPartial({
-        proposer: address,
+        proposer: directAddress,
         initialDeposit: [
           {
             amount: "1000000",
@@ -182,13 +206,13 @@ describe("Governance tests for osmosis", () => {
     expect(result.proposal.proposalId.toString()).toEqual(proposalId);
   }, 10000);
 
-  it("vote on proposal from address", async () => {
-    // Vote on proposal from genesis mnemonic address
+  it("vote on proposal using direct", async () => {
+    // Vote on proposal from direct address
     const msg = {
       typeUrl: MsgVote.typeUrl,
       value: MsgVote.fromPartial({
         proposalId: BigInt(proposalId),
-        voter: address,
+        voter: directAddress,
         option: VoteOption.VOTE_OPTION_YES,
       }),
     };
@@ -209,18 +233,54 @@ describe("Governance tests for osmosis", () => {
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
-  it("verify vote", async () => {
+  it("verify direct vote", async () => {
     const { vote } = await queryClient.getVote({
       proposalId: BigInt(proposalId),
-      voter: address,
+      voter: directAddress,
     });
 
     expect(vote.proposalId.toString()).toEqual(proposalId);
-    expect(vote.voter).toEqual(address);
+    expect(vote.voter).toEqual(directAddress);
     expect(vote.option).toEqual(VoteOption.VOTE_OPTION_YES);
   }, 10000);
 
-  it.todo("vote on proposal using amino");
+  it("vote on proposal using amino", async () => {
+    // Vote on proposal from amino address
+    const msg = {
+      typeUrl: MsgVote.typeUrl,
+      value: MsgVote.fromPartial({
+        proposalId: BigInt(proposalId),
+        voter: aminoAddress,
+        option: VoteOption.VOTE_OPTION_NO,
+      }),
+    };
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: "100000",
+        },
+      ],
+      gas: "550000",
+    };
+
+    const result = await aminoSigner.signAndBroadcast([msg], fee, "", {
+      deliverTx: true,
+    });
+    assertIsDeliverTxSuccess(result);
+  }, 10000);
+
+  it("verify amino vote", async () => {
+    const { vote } = await queryClient.getVote({
+      proposalId: BigInt(proposalId),
+      voter: aminoAddress,
+    });
+
+    expect(vote.proposalId.toString()).toEqual(proposalId);
+    expect(vote.voter).toEqual(aminoAddress);
+    expect(vote.option).toEqual(VoteOption.VOTE_OPTION_NO);
+  }, 10000);
 
   it("wait for voting period to end", async () => {
     // wait for the voting period to end
