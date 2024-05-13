@@ -85,7 +85,7 @@ export interface ModuleCredentialAmino {
   derivation_keys: string[];
 }
 export interface ModuleCredentialAminoMsg {
-  type: "cosmos-sdk/ModuleCredential";
+  type: "cosmos-sdk/GroupAccountCredential";
   value: ModuleCredentialAmino;
 }
 /** Params defines the parameters for the auth module. */
@@ -196,10 +196,10 @@ export const BaseAccount = {
   },
   toAmino(message: BaseAccount): BaseAccountAmino {
     const obj: any = {};
-    obj.address = message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     obj.pub_key = message.pubKey ? Any.toAmino(message.pubKey) : undefined;
-    obj.account_number = message.accountNumber ? message.accountNumber.toString() : undefined;
-    obj.sequence = message.sequence ? message.sequence.toString() : undefined;
+    obj.account_number = message.accountNumber !== BigInt(0) ? message.accountNumber.toString() : undefined;
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: BaseAccountAminoMsg): BaseAccount {
@@ -298,11 +298,11 @@ export const ModuleAccount = {
   toAmino(message: ModuleAccount): ModuleAccountAmino {
     const obj: any = {};
     obj.base_account = message.baseAccount ? BaseAccount.toAmino(message.baseAccount) : undefined;
-    obj.name = message.name;
+    obj.name = message.name === "" ? undefined : message.name;
     if (message.permissions) {
       obj.permissions = message.permissions.map(e => e);
     } else {
-      obj.permissions = [];
+      obj.permissions = message.permissions;
     }
     return obj;
   },
@@ -338,7 +338,7 @@ function createBaseModuleCredential(): ModuleCredential {
 }
 export const ModuleCredential = {
   typeUrl: "/cosmos.auth.v1beta1.ModuleCredential",
-  aminoType: "cosmos-sdk/ModuleCredential",
+  aminoType: "cosmos-sdk/GroupAccountCredential",
   is(o: any): o is ModuleCredential {
     return o && (o.$typeUrl === ModuleCredential.typeUrl || typeof o.moduleName === "string" && Array.isArray(o.derivationKeys) && (!o.derivationKeys.length || o.derivationKeys[0] instanceof Uint8Array || typeof o.derivationKeys[0] === "string"));
   },
@@ -390,11 +390,11 @@ export const ModuleCredential = {
   },
   toAmino(message: ModuleCredential): ModuleCredentialAmino {
     const obj: any = {};
-    obj.module_name = message.moduleName;
+    obj.module_name = message.moduleName === "" ? undefined : message.moduleName;
     if (message.derivationKeys) {
       obj.derivation_keys = message.derivationKeys.map(e => base64FromBytes(e));
     } else {
-      obj.derivation_keys = [];
+      obj.derivation_keys = message.derivationKeys;
     }
     return obj;
   },
@@ -403,7 +403,7 @@ export const ModuleCredential = {
   },
   toAminoMsg(message: ModuleCredential): ModuleCredentialAminoMsg {
     return {
-      type: "cosmos-sdk/ModuleCredential",
+      type: "cosmos-sdk/GroupAccountCredential",
       value: ModuleCredential.toAmino(message)
     };
   },
@@ -517,11 +517,11 @@ export const Params = {
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
-    obj.max_memo_characters = message.maxMemoCharacters ? message.maxMemoCharacters.toString() : undefined;
-    obj.tx_sig_limit = message.txSigLimit ? message.txSigLimit.toString() : undefined;
-    obj.tx_size_cost_per_byte = message.txSizeCostPerByte ? message.txSizeCostPerByte.toString() : undefined;
-    obj.sig_verify_cost_ed25519 = message.sigVerifyCostEd25519 ? message.sigVerifyCostEd25519.toString() : undefined;
-    obj.sig_verify_cost_secp256k1 = message.sigVerifyCostSecp256k1 ? message.sigVerifyCostSecp256k1.toString() : undefined;
+    obj.max_memo_characters = message.maxMemoCharacters !== BigInt(0) ? message.maxMemoCharacters.toString() : undefined;
+    obj.tx_sig_limit = message.txSigLimit !== BigInt(0) ? message.txSigLimit.toString() : undefined;
+    obj.tx_size_cost_per_byte = message.txSizeCostPerByte !== BigInt(0) ? message.txSizeCostPerByte.toString() : undefined;
+    obj.sig_verify_cost_ed25519 = message.sigVerifyCostEd25519 !== BigInt(0) ? message.sigVerifyCostEd25519.toString() : undefined;
+    obj.sig_verify_cost_secp256k1 = message.sigVerifyCostSecp256k1 !== BigInt(0) ? message.sigVerifyCostSecp256k1.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

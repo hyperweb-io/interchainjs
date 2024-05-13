@@ -15,14 +15,12 @@
     "libs/*"
   ],
   "scripts": {
-    "starship:start": "cd __test__ && ./scripts/start-server.sh",
-    "starship:stop": "cd __test__ && ./scripts/stop-server.sh",
-    "starship:restart": "cd __test__ && ./scripts/stop-server.sh && ./scripts/start-server.sh",
+    "codegen": "telescope transpile --config telescope-config/cosmos-types.telescope.json",
+    "proto": "telescope download --config ./scripts/.protod.config.json",
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build",
-    "pub": "lerna run pub --stream"
+    "build": "lerna run build --stream"
   },
   "dependencies": {},
   "devDependencies": {
@@ -31,7 +29,7 @@
     "@cosmjs/amino": "^0.32.2",
     "@cosmjs/proto-signing": "^0.32.3",
     "@cosmjs/stargate": "^0.32.2",
-    "@cosmology/telescope": "^1.4.11",
+    "@cosmology/telescope": "^1.5.10",
     "@injectivelabs/sdk-ts": "^1.14.5",
     "@injectivelabs/wallet-ts": "^1.14.7",
     "@noble/hashes": "^1.4.0",

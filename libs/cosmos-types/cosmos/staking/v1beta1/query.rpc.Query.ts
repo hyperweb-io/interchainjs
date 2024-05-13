@@ -76,7 +76,7 @@ export interface Query {
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 /** Query defines the gRPC querier service. */
-export interface StargateImpl {
+export interface QueryImpl {
   /**
    * Validators queries all validators that match the given status.
    * 
