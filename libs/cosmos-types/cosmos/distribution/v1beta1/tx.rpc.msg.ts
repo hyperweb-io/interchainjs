@@ -1,34 +1,34 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
-import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend } from "./tx";
+import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool } from "./tx";
 /** Msg defines the distribution Msg service. */
 export interface Msg {
   /**
    * SetWithdrawAddress defines a method to change the withdraw address
    * for a delegator (or validator self-delegation).
    */
-  setWithdrawAddress(signerAddress: string, message: MsgSetWithdrawAddress, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  setWithdrawAddress(signerAddress: string, message: MsgSetWithdrawAddress, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * WithdrawDelegatorReward defines a method to withdraw rewards of delegator
    * from a single validator.
    */
-  withdrawDelegatorReward(signerAddress: string, message: MsgWithdrawDelegatorReward, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  withdrawDelegatorReward(signerAddress: string, message: MsgWithdrawDelegatorReward, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * WithdrawValidatorCommission defines a method to withdraw the
    * full commission to the validator address.
    */
-  withdrawValidatorCommission(signerAddress: string, message: MsgWithdrawValidatorCommission, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  withdrawValidatorCommission(signerAddress: string, message: MsgWithdrawValidatorCommission, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * FundCommunityPool defines a method to allow an account to directly
    * fund the community pool.
    */
-  fundCommunityPool(signerAddress: string, message: MsgFundCommunityPool, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  fundCommunityPool(signerAddress: string, message: MsgFundCommunityPool, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * UpdateParams defines a governance operation for updating the x/distribution
    * module parameters. The authority is defined in the keeper.
    * 
    * Since: cosmos-sdk 0.47
    */
-  updateParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  updateParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * CommunityPoolSpend defines a governance operation for sending tokens from
    * the community pool in the x/distribution module to another account, which
@@ -37,7 +37,14 @@ export interface Msg {
    * 
    * Since: cosmos-sdk 0.47
    */
-  communityPoolSpend(signerAddress: string, message: MsgCommunityPoolSpend, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  communityPoolSpend(signerAddress: string, message: MsgCommunityPoolSpend, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * DepositValidatorRewardsPool defines a method to provide additional rewards
+   * to delegators to a specific validator.
+   * 
+   * Since: cosmos-sdk 0.50
+   */
+  depositValidatorRewardsPool(signerAddress: string, message: MsgDepositValidatorRewardsPool, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 /** Msg defines the distribution Msg service. */
 export interface StargateImpl {
@@ -45,29 +52,29 @@ export interface StargateImpl {
    * SetWithdrawAddress defines a method to change the withdraw address
    * for a delegator (or validator self-delegation).
    */
-  setWithdrawAddress(signerAddress: string, message: MsgSetWithdrawAddress, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  setWithdrawAddress(signerAddress: string, message: MsgSetWithdrawAddress, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * WithdrawDelegatorReward defines a method to withdraw rewards of delegator
    * from a single validator.
    */
-  withdrawDelegatorReward(signerAddress: string, message: MsgWithdrawDelegatorReward, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  withdrawDelegatorReward(signerAddress: string, message: MsgWithdrawDelegatorReward, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * WithdrawValidatorCommission defines a method to withdraw the
    * full commission to the validator address.
    */
-  withdrawValidatorCommission(signerAddress: string, message: MsgWithdrawValidatorCommission, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  withdrawValidatorCommission(signerAddress: string, message: MsgWithdrawValidatorCommission, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * FundCommunityPool defines a method to allow an account to directly
    * fund the community pool.
    */
-  fundCommunityPool(signerAddress: string, message: MsgFundCommunityPool, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  fundCommunityPool(signerAddress: string, message: MsgFundCommunityPool, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * UpdateParams defines a governance operation for updating the x/distribution
    * module parameters. The authority is defined in the keeper.
    * 
    * Since: cosmos-sdk 0.47
    */
-  updateParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  updateParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * CommunityPoolSpend defines a governance operation for sending tokens from
    * the community pool in the x/distribution module to another account, which
@@ -76,7 +83,60 @@ export interface StargateImpl {
    * 
    * Since: cosmos-sdk 0.47
    */
-  communityPoolSpend(signerAddress: string, message: MsgCommunityPoolSpend, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  communityPoolSpend(signerAddress: string, message: MsgCommunityPoolSpend, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * DepositValidatorRewardsPool defines a method to provide additional rewards
+   * to delegators to a specific validator.
+   * 
+   * Since: cosmos-sdk 0.50
+   */
+  depositValidatorRewardsPool(signerAddress: string, message: MsgDepositValidatorRewardsPool, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+}
+/** Msg defines the distribution Msg service. */
+export interface CosmWasmStargateImpl {
+  /**
+   * SetWithdrawAddress defines a method to change the withdraw address
+   * for a delegator (or validator self-delegation).
+   */
+  setWithdrawAddress(signerAddress: string, message: MsgSetWithdrawAddress, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * WithdrawDelegatorReward defines a method to withdraw rewards of delegator
+   * from a single validator.
+   */
+  withdrawDelegatorReward(signerAddress: string, message: MsgWithdrawDelegatorReward, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * WithdrawValidatorCommission defines a method to withdraw the
+   * full commission to the validator address.
+   */
+  withdrawValidatorCommission(signerAddress: string, message: MsgWithdrawValidatorCommission, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * FundCommunityPool defines a method to allow an account to directly
+   * fund the community pool.
+   */
+  fundCommunityPool(signerAddress: string, message: MsgFundCommunityPool, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * UpdateParams defines a governance operation for updating the x/distribution
+   * module parameters. The authority is defined in the keeper.
+   * 
+   * Since: cosmos-sdk 0.47
+   */
+  updateParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * CommunityPoolSpend defines a governance operation for sending tokens from
+   * the community pool in the x/distribution module to another account, which
+   * could be the governance module itself. The authority is defined in the
+   * keeper.
+   * 
+   * Since: cosmos-sdk 0.47
+   */
+  communityPoolSpend(signerAddress: string, message: MsgCommunityPoolSpend, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /**
+   * DepositValidatorRewardsPool defines a method to provide additional rewards
+   * to delegators to a specific validator.
+   * 
+   * Since: cosmos-sdk 0.50
+   */
+  depositValidatorRewardsPool(signerAddress: string, message: MsgDepositValidatorRewardsPool, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: TxRpc;
@@ -139,6 +199,17 @@ export class MsgClientImpl implements Msg {
   communityPoolSpend = async (signerAddress: string, message: MsgCommunityPoolSpend, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgCommunityPoolSpend.typeUrl,
+      value: message
+    }];
+    return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
+  };
+  /* DepositValidatorRewardsPool defines a method to provide additional rewards
+   to delegators to a specific validator.
+  
+   Since: cosmos-sdk 0.50 */
+  depositValidatorRewardsPool = async (signerAddress: string, message: MsgDepositValidatorRewardsPool, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+    const data = [{
+      typeUrl: MsgDepositValidatorRewardsPool.typeUrl,
       value: message
     }];
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);

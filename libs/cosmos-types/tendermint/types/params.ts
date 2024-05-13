@@ -11,6 +11,7 @@ export interface ConsensusParams {
   evidence?: EvidenceParams;
   validator?: ValidatorParams;
   version?: VersionParams;
+  abci?: ABCIParams;
 }
 export interface ConsensusParamsProtoMsg {
   typeUrl: "/tendermint.types.ConsensusParams";
@@ -25,6 +26,7 @@ export interface ConsensusParamsAmino {
   evidence?: EvidenceParamsAmino;
   validator?: ValidatorParamsAmino;
   version?: VersionParamsAmino;
+  abci?: ABCIParamsAmino;
 }
 export interface ConsensusParamsAminoMsg {
   type: "/tendermint.types.ConsensusParams";
@@ -184,12 +186,51 @@ export interface HashedParamsAminoMsg {
   type: "/tendermint.types.HashedParams";
   value: HashedParamsAmino;
 }
+/** ABCIParams configure functionality specific to the Application Blockchain Interface. */
+export interface ABCIParams {
+  /**
+   * vote_extensions_enable_height configures the first height during which
+   * vote extensions will be enabled. During this specified height, and for all
+   * subsequent heights, precommit messages that do not contain valid extension data
+   * will be considered invalid. Prior to this height, vote extensions will not
+   * be used or accepted by validators on the network.
+   * 
+   * Once enabled, vote extensions will be created by the application in ExtendVote,
+   * passed to the application for validation in VerifyVoteExtension and given
+   * to the application to use when proposing a block during PrepareProposal.
+   */
+  voteExtensionsEnableHeight: bigint;
+}
+export interface ABCIParamsProtoMsg {
+  typeUrl: "/tendermint.types.ABCIParams";
+  value: Uint8Array;
+}
+/** ABCIParams configure functionality specific to the Application Blockchain Interface. */
+export interface ABCIParamsAmino {
+  /**
+   * vote_extensions_enable_height configures the first height during which
+   * vote extensions will be enabled. During this specified height, and for all
+   * subsequent heights, precommit messages that do not contain valid extension data
+   * will be considered invalid. Prior to this height, vote extensions will not
+   * be used or accepted by validators on the network.
+   * 
+   * Once enabled, vote extensions will be created by the application in ExtendVote,
+   * passed to the application for validation in VerifyVoteExtension and given
+   * to the application to use when proposing a block during PrepareProposal.
+   */
+  vote_extensions_enable_height: string;
+}
+export interface ABCIParamsAminoMsg {
+  type: "/tendermint.types.ABCIParams";
+  value: ABCIParamsAmino;
+}
 function createBaseConsensusParams(): ConsensusParams {
   return {
     block: undefined,
     evidence: undefined,
     validator: undefined,
-    version: undefined
+    version: undefined,
+    abci: undefined
   };
 }
 export const ConsensusParams = {
@@ -213,6 +254,9 @@ export const ConsensusParams = {
     if (message.version !== undefined) {
       VersionParams.encode(message.version, writer.uint32(34).fork()).ldelim();
     }
+    if (message.abci !== undefined) {
+      ABCIParams.encode(message.abci, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ConsensusParams {
@@ -234,6 +278,9 @@ export const ConsensusParams = {
         case 4:
           message.version = VersionParams.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.abci = ABCIParams.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -247,6 +294,7 @@ export const ConsensusParams = {
     message.evidence = object.evidence !== undefined && object.evidence !== null ? EvidenceParams.fromPartial(object.evidence) : undefined;
     message.validator = object.validator !== undefined && object.validator !== null ? ValidatorParams.fromPartial(object.validator) : undefined;
     message.version = object.version !== undefined && object.version !== null ? VersionParams.fromPartial(object.version) : undefined;
+    message.abci = object.abci !== undefined && object.abci !== null ? ABCIParams.fromPartial(object.abci) : undefined;
     return message;
   },
   fromAmino(object: ConsensusParamsAmino): ConsensusParams {
@@ -263,6 +311,9 @@ export const ConsensusParams = {
     if (object.version !== undefined && object.version !== null) {
       message.version = VersionParams.fromAmino(object.version);
     }
+    if (object.abci !== undefined && object.abci !== null) {
+      message.abci = ABCIParams.fromAmino(object.abci);
+    }
     return message;
   },
   toAmino(message: ConsensusParams): ConsensusParamsAmino {
@@ -271,6 +322,7 @@ export const ConsensusParams = {
     obj.evidence = message.evidence ? EvidenceParams.toAmino(message.evidence) : undefined;
     obj.validator = message.validator ? ValidatorParams.toAmino(message.validator) : undefined;
     obj.version = message.version ? VersionParams.toAmino(message.version) : undefined;
+    obj.abci = message.abci ? ABCIParams.toAmino(message.abci) : undefined;
     return obj;
   },
   fromAminoMsg(object: ConsensusParamsAminoMsg): ConsensusParams {
@@ -351,8 +403,8 @@ export const BlockParams = {
   },
   toAmino(message: BlockParams): BlockParamsAmino {
     const obj: any = {};
-    obj.max_bytes = message.maxBytes ? message.maxBytes.toString() : undefined;
-    obj.max_gas = message.maxGas ? message.maxGas.toString() : undefined;
+    obj.max_bytes = message.maxBytes !== BigInt(0) ? message.maxBytes.toString() : undefined;
+    obj.max_gas = message.maxGas !== BigInt(0) ? message.maxGas.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: BlockParamsAminoMsg): BlockParams {
@@ -444,9 +496,9 @@ export const EvidenceParams = {
   },
   toAmino(message: EvidenceParams): EvidenceParamsAmino {
     const obj: any = {};
-    obj.max_age_num_blocks = message.maxAgeNumBlocks ? message.maxAgeNumBlocks.toString() : undefined;
+    obj.max_age_num_blocks = message.maxAgeNumBlocks !== BigInt(0) ? message.maxAgeNumBlocks.toString() : undefined;
     obj.max_age_duration = message.maxAgeDuration ? Duration.toAmino(message.maxAgeDuration) : undefined;
-    obj.max_bytes = message.maxBytes ? message.maxBytes.toString() : undefined;
+    obj.max_bytes = message.maxBytes !== BigInt(0) ? message.maxBytes.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: EvidenceParamsAminoMsg): EvidenceParams {
@@ -517,7 +569,7 @@ export const ValidatorParams = {
     if (message.pubKeyTypes) {
       obj.pub_key_types = message.pubKeyTypes.map(e => e);
     } else {
-      obj.pub_key_types = [];
+      obj.pub_key_types = message.pubKeyTypes;
     }
     return obj;
   },
@@ -588,7 +640,7 @@ export const VersionParams = {
   },
   toAmino(message: VersionParams): VersionParamsAmino {
     const obj: any = {};
-    obj.app = message.app ? message.app.toString() : undefined;
+    obj.app = message.app !== BigInt(0) ? message.app.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: VersionParamsAminoMsg): VersionParams {
@@ -669,8 +721,8 @@ export const HashedParams = {
   },
   toAmino(message: HashedParams): HashedParamsAmino {
     const obj: any = {};
-    obj.block_max_bytes = message.blockMaxBytes ? message.blockMaxBytes.toString() : undefined;
-    obj.block_max_gas = message.blockMaxGas ? message.blockMaxGas.toString() : undefined;
+    obj.block_max_bytes = message.blockMaxBytes !== BigInt(0) ? message.blockMaxBytes.toString() : undefined;
+    obj.block_max_gas = message.blockMaxGas !== BigInt(0) ? message.blockMaxGas.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: HashedParamsAminoMsg): HashedParams {
@@ -690,3 +742,73 @@ export const HashedParams = {
   }
 };
 GlobalDecoderRegistry.register(HashedParams.typeUrl, HashedParams);
+function createBaseABCIParams(): ABCIParams {
+  return {
+    voteExtensionsEnableHeight: BigInt(0)
+  };
+}
+export const ABCIParams = {
+  typeUrl: "/tendermint.types.ABCIParams",
+  is(o: any): o is ABCIParams {
+    return o && (o.$typeUrl === ABCIParams.typeUrl || typeof o.voteExtensionsEnableHeight === "bigint");
+  },
+  isAmino(o: any): o is ABCIParamsAmino {
+    return o && (o.$typeUrl === ABCIParams.typeUrl || typeof o.vote_extensions_enable_height === "bigint");
+  },
+  encode(message: ABCIParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.voteExtensionsEnableHeight !== BigInt(0)) {
+      writer.uint32(8).int64(message.voteExtensionsEnableHeight);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): ABCIParams {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseABCIParams();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.voteExtensionsEnableHeight = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<ABCIParams>): ABCIParams {
+    const message = createBaseABCIParams();
+    message.voteExtensionsEnableHeight = object.voteExtensionsEnableHeight !== undefined && object.voteExtensionsEnableHeight !== null ? BigInt(object.voteExtensionsEnableHeight.toString()) : BigInt(0);
+    return message;
+  },
+  fromAmino(object: ABCIParamsAmino): ABCIParams {
+    const message = createBaseABCIParams();
+    if (object.vote_extensions_enable_height !== undefined && object.vote_extensions_enable_height !== null) {
+      message.voteExtensionsEnableHeight = BigInt(object.vote_extensions_enable_height);
+    }
+    return message;
+  },
+  toAmino(message: ABCIParams): ABCIParamsAmino {
+    const obj: any = {};
+    obj.vote_extensions_enable_height = message.voteExtensionsEnableHeight !== BigInt(0) ? message.voteExtensionsEnableHeight.toString() : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: ABCIParamsAminoMsg): ABCIParams {
+    return ABCIParams.fromAmino(object.value);
+  },
+  fromProtoMsg(message: ABCIParamsProtoMsg): ABCIParams {
+    return ABCIParams.decode(message.value);
+  },
+  toProto(message: ABCIParams): Uint8Array {
+    return ABCIParams.encode(message).finish();
+  },
+  toProtoMsg(message: ABCIParams): ABCIParamsProtoMsg {
+    return {
+      typeUrl: "/tendermint.types.ABCIParams",
+      value: ABCIParams.encode(message).finish()
+    };
+  }
+};
+GlobalDecoderRegistry.register(ABCIParams.typeUrl, ABCIParams);

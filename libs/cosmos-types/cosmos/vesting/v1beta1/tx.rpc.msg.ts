@@ -6,21 +6,21 @@ export interface Msg {
    * CreateVestingAccount defines a method that enables creating a vesting
    * account.
    */
-  createVestingAccount(signerAddress: string, message: MsgCreateVestingAccount, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  createVestingAccount(signerAddress: string, message: MsgCreateVestingAccount, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * CreatePermanentLockedAccount defines a method that enables creating a permanent
    * locked account.
    * 
    * Since: cosmos-sdk 0.46
    */
-  createPermanentLockedAccount(signerAddress: string, message: MsgCreatePermanentLockedAccount, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  createPermanentLockedAccount(signerAddress: string, message: MsgCreatePermanentLockedAccount, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * CreatePeriodicVestingAccount defines a method that enables creating a
    * periodic vesting account.
    * 
    * Since: cosmos-sdk 0.46
    */
-  createPeriodicVestingAccount(signerAddress: string, message: MsgCreatePeriodicVestingAccount, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  createPeriodicVestingAccount(signerAddress: string, message: MsgCreatePeriodicVestingAccount, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: TxRpc;
