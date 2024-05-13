@@ -18,6 +18,7 @@ import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
 import { defaultHdPaths } from "@interchainjs/auth/defaults";
 
 const isPublicKeyCompressed = defaultSignerConfig.publicKey.isCompressed;
+const publicKeyHash = defaultSignerConfig.publicKey.hash;
 const toAddress = defaultSignerConfig.publicKey.hash;
 const messageHash = defaultSignerConfig.message.hash;
 const defaultHdPath = defaultHdPaths.find(

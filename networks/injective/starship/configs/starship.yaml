@@ -1,4 +1,4 @@
-helmName: osmojs
+helmName: injective
 helmFile: ./config.yaml
 helmRepo: starship
 helmRepoUrl: https://cosmology-tech.github.io/starship/

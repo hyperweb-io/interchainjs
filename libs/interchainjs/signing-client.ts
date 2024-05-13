@@ -441,13 +441,15 @@ export class SigningClient {
       doc.memo
     ).encode();
 
-    const { signerInfo } = constructSignerInfo(
-      this.aminoSigner.encodedPublicKey,
-      BigInt(signed.sequence),
-      this._signDirect
-        ? SignMode.SIGN_MODE_DIRECT
-        : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
-    );
+    const signerInfo = SignerInfo.fromPartial({
+      publicKey: await this.getPubkey(signerAddress),
+      sequence: BigInt(sequence),
+      modeInfo: {
+        single: {
+          mode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
+        },
+      },
+    });
 
     const authInfoBytes = constructAuthInfo(
       [signerInfo],

@@ -12,17 +12,15 @@ import {
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import { IWallet } from "@interchainjs/types";
 import { ChainInfo } from "@chain-registry/client";
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
 } from "@interchainjs/cosmos/utils";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 
 describe("Staking tokens testing", () => {
-  let directWallet: IWallet.InjectiveDirectWallet,
-    denom: string,
-    address: string;
+  let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
@@ -40,15 +38,17 @@ describe("Staking tokens testing", () => {
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
-    const prefix = chainInfo.chain.bech32_prefix;
-    // Initialize wallet
-    directWallet = toDirectWallet(
-      Secp256k1Wallet.fromMnemonic(mnemonic, {
-        prefix,
-      }).toOfflineDirectSigner(),
-      prefix
+    // Initialize auth
+    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
+    directSigner = new DirectSigner(
+      auth,
+      toEncoders(MsgDelegate),
+      getRpcEndpoint(),
+      {
+        prefix: chainInfo.chain.bech32_prefix,
+      }
     );
-    address = (await directWallet.getAccount()).getAddress(prefix) as string;
+    address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -84,13 +84,6 @@ describe("Staking tokens testing", () => {
   });
 
   it("stake tokens to genesis validator", async () => {
-    const directSigner = await DirectSigner.fromWallet(
-      directWallet,
-      toEncoders(MsgDelegate),
-      getRpcEndpoint(),
-      { prefix: chainInfo.chain.bech32_prefix }
-    );
-
     const { balance } = await queryClient.balance({
       address,
       denom,

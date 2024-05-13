@@ -161,10 +161,13 @@ describe("Token transfers", () => {
 
     assertIsDeliverTxSuccess(resp);
 
+    await new Promise((resolve) => setTimeout(resolve, 6000));
+
     // Check osmos in address on cosmos chain
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
+      resolveDenom: true
     });
 
     // check balances

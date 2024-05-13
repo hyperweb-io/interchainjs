@@ -1,17 +1,18 @@
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { DirectSigner } from "@interchainjs/injective/direct";
-import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { useChain } from "starshipjs";
 import "./setup.test";
-import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
-import { defaultSignerOptions } from "@interchainjs/injective/defaults";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+
 import { ChainInfo } from "@chain-registry/client";
+import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { defaultSignerOptions } from "@interchainjs/cosmos/defaults";
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
 } from "@interchainjs/cosmos/utils";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
+import { DirectSigner } from "@interchainjs/injective/direct";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { useChain } from "starshipjs";
 
 describe("Token transfers", () => {
   let directSigner: DirectSigner, denom: string, address: string;
@@ -45,10 +46,8 @@ describe("Token transfers", () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
     const auth2 = Secp256k1Auth.fromMnemonic(mnemonic);
-    const address2 = defaultSignerOptions.Cosmos.publicKey
-      .hash(
-        auth2.getPublicKey(defaultSignerOptions.Cosmos.publicKey.isCompressed)
-      )
+    const address2 = defaultSignerOptions.publicKey
+      .hash(auth2.getPublicKey(defaultSignerOptions.publicKey.isCompressed))
       .toBech32(chainInfo.chain.bech32_prefix);
 
     const fee = {
@@ -96,11 +95,9 @@ describe("Token transfers", () => {
 
     // Initialize wallet address for cosmos chain
     const cosmosAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
-    const cosmosAddress = defaultSignerOptions.Cosmos.publicKey
+    const cosmosAddress = defaultSignerOptions.publicKey
       .hash(
-        cosmosAuth.getPublicKey(
-          defaultSignerOptions.Cosmos.publicKey.isCompressed
-        )
+        cosmosAuth.getPublicKey(defaultSignerOptions.publicKey.isCompressed)
       )
       .toBech32(cosmosChainInfo.chain.bech32_prefix);
 
@@ -121,8 +118,8 @@ describe("Token transfers", () => {
     } = ibcInfo!.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
-    const currentTime = Math.floor(Date.now() / 1000);
-    const timeoutTime = currentTime + 300; // 5 minutes
+    const currentTime = Math.floor(Date.now()) * 1000000;
+    const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
 
     const fee = {
       amount: [
@@ -164,10 +161,13 @@ describe("Token transfers", () => {
 
     assertIsDeliverTxSuccess(resp);
 
+    await new Promise((resolve) => setTimeout(resolve, 6000));
+
     // Check osmos in address on cosmos chain
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
+      resolveDenom: true
     });
 
     // check balances

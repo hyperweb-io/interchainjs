@@ -13,7 +13,9 @@ yarn starship get-pods
 yarn starship deploy
 
 # wait til STATUS=Running
-yarn starship get-pods
+yarn starship wait-for-pods
+or
+watch yarn starship get-pods
 
 # port forwarding
 yarn starship start-ports
