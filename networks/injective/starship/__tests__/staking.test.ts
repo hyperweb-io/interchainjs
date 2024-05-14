@@ -1,8 +1,6 @@
 // Using `fromWallet` to construct Signer
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
 import { RpcQuery } from "interchainjs/query/rpc";
-import { toDirectWallet } from "interchainjs/utils";
 import { DirectSigner } from "@interchainjs/injective/direct";
 import BigNumber from "bignumber.js";
 import { useChain } from "starshipjs";
