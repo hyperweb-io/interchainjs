@@ -167,6 +167,7 @@ describe("Token transfers", () => {
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
+      resolveDenom: true
     });
 
     // check balances

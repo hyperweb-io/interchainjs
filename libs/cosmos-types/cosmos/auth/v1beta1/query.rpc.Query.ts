@@ -56,7 +56,7 @@ export interface Query {
   accountInfo(request: QueryAccountInfoRequest): Promise<QueryAccountInfoResponse>;
 }
 /** Query defines the gRPC querier service. */
-export interface StargateImpl {
+export interface QueryImpl {
   /**
    * Accounts returns all the existing accounts.
    * 

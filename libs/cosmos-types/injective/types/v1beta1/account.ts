@@ -1,6 +1,7 @@
-import { BaseAccount } from "../../../cosmos/auth/v1beta1/auth";
+import { BaseAccount, BaseAccountAmino } from "../../../cosmos/auth/v1beta1/auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
@@ -8,6 +9,22 @@ import { DeepPartial } from "../../../helpers";
 export interface EthAccount {
   baseAccount?: BaseAccount;
   codeHash: Uint8Array;
+}
+export interface EthAccountProtoMsg {
+  typeUrl: "/injective.types.v1beta1.EthAccount";
+  value: Uint8Array;
+}
+/**
+ * EthAccount implements the authtypes.AccountI interface and embeds an
+ * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
+ */
+export interface EthAccountAmino {
+  base_account?: BaseAccountAmino;
+  code_hash: string;
+}
+export interface EthAccountAminoMsg {
+  type: "/injective.types.v1beta1.EthAccount";
+  value: EthAccountAmino;
 }
 function createBaseEthAccount(): EthAccount {
   return {
@@ -17,6 +34,12 @@ function createBaseEthAccount(): EthAccount {
 }
 export const EthAccount = {
   typeUrl: "/injective.types.v1beta1.EthAccount",
+  is(o: any): o is EthAccount {
+    return o && (o.$typeUrl === EthAccount.typeUrl || o.codeHash instanceof Uint8Array || typeof o.codeHash === "string");
+  },
+  isAmino(o: any): o is EthAccountAmino {
+    return o && (o.$typeUrl === EthAccount.typeUrl || o.code_hash instanceof Uint8Array || typeof o.code_hash === "string");
+  },
   encode(message: EthAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseAccount !== undefined) {
       BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim();
@@ -51,5 +74,37 @@ export const EthAccount = {
     message.baseAccount = object.baseAccount !== undefined && object.baseAccount !== null ? BaseAccount.fromPartial(object.baseAccount) : undefined;
     message.codeHash = object.codeHash ?? new Uint8Array();
     return message;
+  },
+  fromAmino(object: EthAccountAmino): EthAccount {
+    const message = createBaseEthAccount();
+    if (object.base_account !== undefined && object.base_account !== null) {
+      message.baseAccount = BaseAccount.fromAmino(object.base_account);
+    }
+    if (object.code_hash !== undefined && object.code_hash !== null) {
+      message.codeHash = bytesFromBase64(object.code_hash);
+    }
+    return message;
+  },
+  toAmino(message: EthAccount): EthAccountAmino {
+    const obj: any = {};
+    obj.base_account = message.baseAccount ? BaseAccount.toAmino(message.baseAccount) : undefined;
+    obj.code_hash = message.codeHash ? base64FromBytes(message.codeHash) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: EthAccountAminoMsg): EthAccount {
+    return EthAccount.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EthAccountProtoMsg): EthAccount {
+    return EthAccount.decode(message.value);
+  },
+  toProto(message: EthAccount): Uint8Array {
+    return EthAccount.encode(message).finish();
+  },
+  toProtoMsg(message: EthAccount): EthAccountProtoMsg {
+    return {
+      typeUrl: "/injective.types.v1beta1.EthAccount",
+      value: EthAccount.encode(message).finish()
+    };
   }
 };
+GlobalDecoderRegistry.register(EthAccount.typeUrl, EthAccount);

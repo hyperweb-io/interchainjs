@@ -1,4 +1,3 @@
-// @ts-nocheck
 import "./setup.test";
 
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
@@ -154,6 +153,7 @@ describe("Token transfers", () => {
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
+      resolveDenom: true
     });
 
     // check balances

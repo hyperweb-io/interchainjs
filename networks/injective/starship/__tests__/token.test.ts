@@ -4,13 +4,13 @@ import { ChainInfo } from "@chain-registry/client";
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { defaultSignerOptions } from "@interchainjs/cosmos/defaults";
-import { DirectSigner } from "@interchainjs/injective/direct";
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
 } from "@interchainjs/cosmos/utils";
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
+import { DirectSigner } from "@interchainjs/injective/direct";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { useChain } from "starshipjs";
 
@@ -167,6 +167,7 @@ describe("Token transfers", () => {
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
+      resolveDenom: true
     });
 
     // check balances

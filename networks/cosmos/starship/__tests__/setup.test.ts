@@ -1,6 +1,4 @@
-// @ts-nocheck
 import path from "path";
-
 import { ConfigContext, useRegistry } from "starshipjs";
 
 beforeAll(async () => {
