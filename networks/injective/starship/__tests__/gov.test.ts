@@ -1,16 +1,12 @@
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { useChain } from "starshipjs";
-import { waitUntil } from "../src";
 import "./setup.test";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { DirectSigner } from "@interchainjs/injective/direct";
+
+import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { BigNumber } from "bignumber.js";
 import {
-  BondStatus,
-  bondStatusToJSON,
-} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
-import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
+  assertIsDeliverTxSuccess,
+  toConverters,
+  toEncoders,
+} from "@interchainjs/cosmos/utils";
 import {
   ProposalStatus,
   TextProposal,
@@ -20,15 +16,21 @@ import {
   MsgSubmitProposal,
   MsgVote,
 } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/tx";
-import { fromBase64, toUtf8 } from "@interchainjs/utils";
 import {
-  assertIsDeliverTxSuccess,
-  toConverters,
-  toEncoders,
-} from "@interchainjs/cosmos/utils";
+  BondStatus,
+  bondStatusToJSON,
+} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
+import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
 import { AminoSigner } from "@interchainjs/injective/amino";
+import { DirectSigner } from "@interchainjs/injective/direct";
+import { fromBase64, toUtf8 } from "@interchainjs/utils";
+import { BigNumber } from "bignumber.js";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { useChain } from "starshipjs";
 
-describe("Governance tests for osmosis", () => {
+import { waitUntil } from "../src";
+
+describe("Governance tests for injective", () => {
   let directSigner: DirectSigner,
     aminoSigner: AminoSigner,
     denom: string,
@@ -43,7 +45,7 @@ describe("Governance tests for osmosis", () => {
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
+      "injective"
     ));
     denom = getCoin().base;
 
@@ -69,7 +71,7 @@ describe("Governance tests for osmosis", () => {
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
 
-    // Transfer osmosis to address
+    // Transfer injective to address
     await creditFromFaucet(directAddress);
     await creditFromFaucet(aminoAddress);
   }, 200000);

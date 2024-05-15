@@ -1,12 +1,11 @@
 import { MsgSendAmino } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
-import { address } from "../../__test__/data";
 import { toEthTypes } from "./utils";
 import { Eip712Types } from "@interchainjs/types";
 
 it("should match", () => {
   const message: MsgSendAmino = {
-    from_address: address.injective.genesis,
-    to_address: address.injective.test1,
+    from_address: "inj11111",
+    to_address: "inj22222",
     amount: [
       {
         denom: "inj",

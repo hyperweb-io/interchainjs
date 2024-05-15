@@ -1,8 +1,6 @@
 // Using `fromWallet` to construct Signer
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
 import { RpcQuery } from "interchainjs/query/rpc";
-import { toDirectWallet } from "interchainjs/utils";
 import { DirectSigner } from "@interchainjs/injective/direct";
 import BigNumber from "bignumber.js";
 import { useChain } from "starshipjs";
@@ -33,7 +31,7 @@ describe("Staking tokens testing", () => {
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
+      "injective"
     ));
     denom = getCoin().base;
 
@@ -53,7 +51,7 @@ describe("Staking tokens testing", () => {
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
 
-    // Transfer osmosis and ibc tokens to address, send only osmo to address
+    // Transfer injective and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
   }, 200000);
 
