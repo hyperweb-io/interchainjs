@@ -28,7 +28,7 @@ import { BigNumber } from "bignumber.js";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { useChain } from "starshipjs";
 
-import { waitUntil } from "../src";
+import { waitUntil } from "../../../../test-utils";
 
 describe("Governance tests for injective", () => {
   let directSigner: DirectSigner,

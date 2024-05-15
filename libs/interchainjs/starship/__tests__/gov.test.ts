@@ -1,18 +1,7 @@
+import "./setup.test";
+
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
-import { useChain } from "starshipjs";
-import { waitUntil } from "../src";
-import "./setup.test";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { StargateSigningClient } from "interchainjs/stargate";
-import { OfflineAminoSigner, OfflineDirectSigner } from "interchainjs/types";
-import { BigNumber } from "bignumber.js";
-import {
-  BondStatus,
-  bondStatusToJSON,
-} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
-import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
 import {
   ProposalStatus,
   TextProposal,
@@ -22,7 +11,20 @@ import {
   MsgSubmitProposal,
   MsgVote,
 } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/tx";
+import {
+  BondStatus,
+  bondStatusToJSON,
+} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
+import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
 import { fromBase64, toUtf8 } from "@interchainjs/utils";
+import { BigNumber } from "bignumber.js";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { StargateSigningClient } from "interchainjs/stargate";
+import { OfflineAminoSigner, OfflineDirectSigner } from "interchainjs/types";
+import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
+import { useChain } from "starshipjs";
+
+import { waitUntil } from "../../../../test-utils/utils";
 
 describe("Governance tests for osmosis", () => {
   let directSigner: OfflineDirectSigner,
