@@ -31,7 +31,7 @@ describe("Staking tokens testing", () => {
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
+      "injective"
     ));
     denom = getCoin().base;
 
@@ -51,7 +51,7 @@ describe("Staking tokens testing", () => {
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
 
-    // Transfer osmosis and ibc tokens to address, send only osmo to address
+    // Transfer injective and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
   }, 200000);
 
