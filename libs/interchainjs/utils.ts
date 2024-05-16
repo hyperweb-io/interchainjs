@@ -1,7 +1,15 @@
-import { Auth, ISignDoc, IWallet } from "@interchainjs/types";
-import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
-import { Key } from "@interchainjs/utils";
 import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
+import { EncodedMessage, Encoder, Message, SignMode,TxOptions } from "@interchainjs/cosmos/types";
+import {
+  AuthInfo,
+  Fee,
+  SignerInfo,
+  TxBody,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { Auth, ISignDoc, IWallet } from "@interchainjs/types";
+import { Key } from "@interchainjs/utils";
+
+import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
 
 /**
  * An error when broadcasting the transaction. This contains the CheckTx errors
@@ -114,4 +122,59 @@ export function toDirectWallet(
     },
   };
   return wallet;
+}
+
+export function constructTxBody(
+  messages: Message[],
+  getEncoder: (typeUrl: string) => Encoder,
+  memo?: string,
+  options?: TxOptions
+) {
+  if (options?.timeoutHeight?.type === "relative") {
+    throw new Error(
+      "timeoutHeight type in function `constructTxBody` shouldn't be `relative`. Please update it to `absolute` value before calling this function."
+    );
+  }
+  const encoded = messages.map(({ typeUrl, value }) => {
+    return {
+      typeUrl,
+      value: getEncoder(typeUrl).encode(value),
+    };
+  });
+  const txBody = TxBody.fromPartial({
+    messages: encoded,
+    memo,
+    timeoutHeight: options?.timeoutHeight?.value,
+    extensionOptions: options?.extensionOptions,
+    nonCriticalExtensionOptions: options?.nonCriticalExtensionOptions,
+  });
+  return {
+    txBody,
+    encode: () => TxBody.encode(txBody).finish(),
+  };
+}
+
+export function constructSignerInfo(
+  publicKey: EncodedMessage,
+  sequence: bigint,
+  signMode: SignMode
+) {
+  const signerInfo = SignerInfo.fromPartial({
+    publicKey,
+    sequence,
+    modeInfo: { single: { mode: signMode } },
+  });
+
+  return {
+    signerInfo,
+    encode: () => SignerInfo.encode(signerInfo).finish(),
+  };
+}
+
+export function constructAuthInfo(signerInfos: SignerInfo[], fee: Fee) {
+  const authInfo = AuthInfo.fromPartial({ signerInfos, fee });
+  return {
+    authInfo,
+    encode: () => AuthInfo.encode(authInfo).finish(),
+  };
 }

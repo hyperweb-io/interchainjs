@@ -1,68 +1,7 @@
-import {
-  AuthInfo,
-  Fee,
-  SignerInfo,
-  TxBody,
-} from "../codegen/cosmos/tx/v1beta1/tx";
-import { Decoder, EncodedMessage, Encoder, Message, TxOptions } from "../types";
-import { assertEmpty } from "@interchainjs/utils";
-import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
 import { TelescopeGeneratedType } from "@interchainjs/types";
+import { assertEmpty } from "@interchainjs/utils";
 
-export function constructTxBody(
-  messages: Message[],
-  getEncoder: (typeUrl: string) => Encoder,
-  memo?: string,
-  options?: TxOptions
-) {
-  if (options?.timeoutHeight?.type === "relative") {
-    throw new Error(
-      "timeoutHeight type in function `constructTxBody` shouldn't be `relative`. Please update it to `absolute` value before calling this function."
-    );
-  }
-  const encoded = messages.map(({ typeUrl, value }) => {
-    return {
-      typeUrl,
-      value: getEncoder(typeUrl).encode(value),
-    };
-  });
-  const txBody = TxBody.fromPartial({
-    messages: encoded,
-    memo,
-    timeoutHeight: options?.timeoutHeight?.value,
-    extensionOptions: options?.extensionOptions,
-    nonCriticalExtensionOptions: options?.nonCriticalExtensionOptions,
-  });
-  return {
-    txBody,
-    encode: () => TxBody.encode(txBody).finish(),
-  };
-}
-
-export function constructSignerInfo(
-  publicKey: EncodedMessage,
-  sequence: bigint,
-  signMode: SignMode
-) {
-  const signerInfo = SignerInfo.fromPartial({
-    publicKey,
-    sequence,
-    modeInfo: { single: { mode: signMode } },
-  });
-
-  return {
-    signerInfo,
-    encode: () => SignerInfo.encode(signerInfo).finish(),
-  };
-}
-
-export function constructAuthInfo(signerInfos: SignerInfo[], fee: Fee) {
-  const authInfo = AuthInfo.fromPartial({ signerInfos, fee });
-  return {
-    authInfo,
-    encode: () => AuthInfo.encode(authInfo).finish(),
-  };
-}
+import { Decoder, Encoder } from "../types";
 
 export function toEncoder(
   generated: TelescopeGeneratedType<any, any, any>

@@ -1,32 +1,41 @@
 import {
   Auth,
   HttpEndpoint,
-  ISigner,
-  SignerConfig,
   ISignDoc,
-  StdFee,
-  BaseWallet,
+  ISigner,
   IWallet,
+  SignerConfig,
+  StdFee,
 } from "@interchainjs/types";
-import { Encoder, Message, DocOptions, SignDoc, SignerOptions } from "./types";
-import {
-  CosmosBaseSigner,
-  SignResponseFromAuth,
-  getAccountFromAuth,
-} from "./utils";
-import { SignMode } from "./types";
-import { defaultSignerConfig } from "./defaults";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-export class DirectSignerBase extends CosmosBaseSigner<
+import { defaultSignerConfig } from "./defaults";
+import { DocOptions, Encoder, Message, SignDoc, SignerOptions } from "./types";
+import { SignMode } from "./types";
+import {
+  CosmosBaseSigner,
+  getAccountFromAuth,
+  SignResponseFromAuth,
+} from "./utils";
+
+export class DirectSignerBase<
+  TxBody = unknown,
+  SignerInfo = unknown,
+  AuthInfo = unknown,
+  Acct = unknown,
+> extends CosmosBaseSigner<
   ISignDoc.CosmosDirectDoc,
-  DocOptions
+  DocOptions,
+  TxBody,
+  SignerInfo,
+  AuthInfo,
+  Acct
 > {
   constructor(
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions<TxBody, SignerInfo, AuthInfo, Acct>
   ) {
     super(auth, encoders, endpoint, options);
   }
@@ -60,26 +69,33 @@ export class DirectSignerBase extends CosmosBaseSigner<
   };
 }
 
-export class DirectSigner extends DirectSignerBase
-  implements ISigner.CosmosDirectSigner {
+export class DirectSigner<
+    TxBody = unknown,
+    SignerInfo = unknown,
+    AuthInfo = unknown,
+    Acct = unknown,
+  >
+  extends DirectSignerBase<TxBody, SignerInfo, AuthInfo, Acct>
+  implements ISigner.CosmosDirectSigner
+{
   constructor(
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions<TxBody, SignerInfo, AuthInfo, Acct>
   ) {
     super(auth, encoders, endpoint, options);
   }
 
-  static async fromWallet(
+  static async fromWallet<TxBody, SignerInfo, AuthInfo, Acct>(
     wallet: IWallet.CosmosDirectWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions<TxBody, SignerInfo, AuthInfo, Acct>
   ) {
     const auth: Auth = await constructAuthFromWallet(
       wallet,
-      options?.publicKey?.isCompressed ??
+      options?.base.publicKey?.isCompressed ??
         defaultSignerConfig.publicKey.isCompressed
     );
     const signer = new DirectSigner(auth, encoders, endpoint, options);

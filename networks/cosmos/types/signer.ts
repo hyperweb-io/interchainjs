@@ -5,25 +5,70 @@ import {
   Price,
   SignerConfig,
 } from "@interchainjs/types";
-
-import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
-import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
-import { Any } from "../codegen/google/protobuf/any";
 import { Event } from "@interchainjs/types";
-import { SimulateResponse } from "../codegen/cosmos/tx/v1beta1/service";
-import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 
-export interface SignerOptions extends Partial<SignerConfig> {
-  parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
+import { Fee, SignMode } from "../types";
+
+export interface SignerOptions<
+  TxBody = unknown,
+  SignerInfo = unknown,
+  AuthInfo = unknown,
+  Acct = unknown,
+> {
+  base: SignerConfig;
+  constructTxBody: CreateTxBody<TxBody>;
+  constructSignerInfo: CreateSignerInfo<SignerInfo>;
+  constructAuthInfo: CreateAuthInfo<AuthInfo, SignerInfo>;
+  parseQueryClient: (endpoint: string | HttpEndpoint) => QueryClient<TxBody, SignerInfo>;
+  parseAccount: (encodedAccount: EncodedMessage) => Acct;
   encodePublicKey?: (key: IKey) => EncodedMessage;
   prefix?: string;
 }
 
 /** Direct/Proto message */
-export interface Message<T = any> {
+export interface Message<T = unknown> {
   typeUrl: string;
   value: T;
 }
+
+export interface MessageEncoder<T = unknown> {
+  value: T;
+  encode: () => Uint8Array;
+}
+
+export type CreateMesageEncoder<Args, T = unknown> = (
+  arg: Args
+) => MessageEncoder<T>;
+
+export type CreateTxBody<TxBody = unknown> = CreateMesageEncoder<
+  {
+    messages: Message[];
+    getEncoder: (typeUrl: string) => Encoder;
+    memo?: string;
+    options?: TxOptions;
+  },
+  TxBody
+>;
+
+export type CreateSignerInfo<SignerInfo = unknown> = CreateMesageEncoder<
+  {
+    publicKey: EncodedMessage;
+    sequence: bigint;
+    signMode: SignMode;
+  },
+  SignerInfo
+>;
+
+export type CreateAuthInfo<
+  AuthInfo = unknown,
+  SignerInfo = unknown,
+> = CreateMesageEncoder<
+  {
+    signerInfos: SignerInfo[];
+    fee: Fee;
+  },
+  AuthInfo
+>;
 
 export interface EncodedMessage {
   typeUrl: string;
@@ -139,16 +184,16 @@ export type TxOptions = {
    * when the default options are not sufficient. If any of these are present
    * and can't be handled, the transaction will be rejected
    */
-  extensionOptions?: Any[];
+  extensionOptions?: Message<Uint8Array>[];
   /**
    * extension_options are arbitrary options that can be added by chains
    * when the default options are not sufficient. If any of these are present
    * and can't be handled, they will be ignored
    */
-  nonCriticalExtensionOptions?: Any[];
+  nonCriticalExtensionOptions?: Message<Uint8Array>[];
 };
 
-export interface QueryClient {
+export interface QueryClient<TxBody, SignerInfo, Acct = unknown> {
   readonly endpoint: HttpEndpoint;
   getChainId: () => Promise<string>;
   getAddress: () => Promise<string>;
@@ -163,4 +208,26 @@ export interface QueryClient {
     txBytes: Uint8Array,
     options?: BroadcastOptions
   ) => Promise<BroadcastResponse>;
+  setAccountParser: (
+    parseBaseAccount: (encodedAccount: EncodedMessage) => Acct
+  ) => void;
+}
+
+/**
+ * SimulateResponse is the response type for the
+ * Service.SimulateRPC method.
+ */
+export interface SimulateResponse {
+  /** gas_info is the information about gas used in the simulation. */
+  gasInfo?: GasInfo;
+  /** result is the result of the simulation. */
+  result?: any;
+}
+
+/** GasInfo defines tx execution gas context. */
+export interface GasInfo {
+  /** GasWanted is the maximum units of work we allow this tx to perform. */
+  gasWanted: bigint;
+  /** GasUsed is the amount of gas actually consumed. */
+  gasUsed: bigint;
 }
