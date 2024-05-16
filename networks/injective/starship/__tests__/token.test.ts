@@ -24,7 +24,7 @@ describe("Token transfers", () => {
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
+      "injective"
     ));
     denom = getCoin().base;
 
@@ -42,7 +42,7 @@ describe("Token transfers", () => {
     await creditFromFaucet(address);
   });
 
-  it("send osmosis token to address", async () => {
+  it("send injective token to address", async () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
     const auth2 = Secp256k1Auth.fromMnemonic(mnemonic);
@@ -91,7 +91,7 @@ describe("Token transfers", () => {
       getRpcEndpoint: cosmosRpcEndpoint,
     } = useChain("cosmos");
 
-    const { getRpcEndpoint: osmosisRpcEndpoint } = useChain("osmosis");
+    const { getRpcEndpoint: osmosisRpcEndpoint } = useChain("injective");
 
     // Initialize wallet address for cosmos chain
     const cosmosAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
@@ -117,7 +117,7 @@ describe("Token transfers", () => {
       channel_id: sourceChannel,
     } = ibcInfo!.channels[0].chain_1;
 
-    // Transfer osmosis tokens via IBC to cosmos chain
+    // Transfer injective tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
     const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
 
