@@ -16,6 +16,33 @@ export interface Coin {
   amount: string;
 }
 
+/**
+ * Fee includes the amount of coins paid in fees and the maximum
+ * gas to be used by the transaction. The ratio yields an effective "gasprice",
+ * which must be above some miminum to be accepted into the mempool.
+ */
+export interface Fee {
+  /** amount is the amount of coins to be paid as a fee */
+  amount: Coin[];
+  /**
+   * gas_limit is the maximum gas that can be used in transaction processing
+   * before an out of gas error occurs
+   */
+  gasLimit: bigint;
+  /**
+   * if unset, the first signer is responsible for paying the fees. If set, the specified account must pay the fees.
+   * the payer must be a tx signer (and thus have signed this field in AuthInfo).
+   * setting this field does *not* change the ordering of required signers for the transaction.
+   */
+  payer: string;
+  /**
+   * if set, the fee payer (either the first signer or the value of the payer field) requests that a fee grant be used
+   * to pay fees instead of the fee payer's own balance. If an appropriate fee grant does not exist or the chain does
+   * not support fee grants, this will fail
+   */
+  granter: string;
+}
+
 export interface StdFee {
   amount: Coin[];
   gas: string;

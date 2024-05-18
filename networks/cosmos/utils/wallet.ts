@@ -1,12 +1,12 @@
 import {
   Auth,
-  SignerConfig,
-  SignDocResponse,
-  IWalletAccount,
   ISignDoc,
-} from "@interchainjs/types";
+  IWalletAccount,
+  SignDoc,
+  SignDocResponse,
+  SignerConfig} from "@interchainjs/types";
+
 import { defaultSignerConfig } from "../defaults";
-import { SignDoc } from "../types";
 import { encodeStdSignDoc } from "./amino";
 
 export function getAccountFromAuth(

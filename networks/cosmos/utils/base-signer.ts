@@ -2,11 +2,11 @@ import {
   Auth,
   BroadcastOptions,
   CreateDocResponse,
-  HttpEndpoint,
   IKey,
   SignDocResponse,
   SignResponse,
   StdFee,
+  TelescopeGeneratedCodec,
   UniSigner,
 } from "@interchainjs/types";
 import { assertEmpty, BaseSigner, isEmpty } from "@interchainjs/utils";
@@ -18,6 +18,7 @@ import {
   CreateAuthInfo,
   CreateSignerInfo,
   CreateTxBody,
+  CreateTxRaw,
   EncodedMessage,
   Encoder,
   FeeOptions,
@@ -28,7 +29,6 @@ import {
   SignOptions,
   TimeoutHeightOption,
   TxOptions,
-  TxRaw,
 } from "../types";
 import { toFee } from "./amino";
 import { calculateFee } from "./fee";
@@ -36,6 +36,7 @@ import { calculateFee } from "./fee";
 export abstract class CosmosBaseSigner<
     SignDoc,
     Options extends FeeOptions & SignOptions & TxOptions,
+    TxRaw extends TelescopeGeneratedCodec,
     TxBody = unknown,
     SignerInfo = unknown,
     AuthInfo = unknown,
@@ -44,23 +45,21 @@ export abstract class CosmosBaseSigner<
   extends BaseSigner
   implements UniSigner<SignDoc, TxRaw, BroadcastResponse>
 {
-  protected _queryClient?: QueryClient<TxBody, SignerInfo>;
+  protected _queryClient?: QueryClient<TxBody, SignerInfo, Acct>;
   readonly encoders: Encoder[];
   readonly encodePublicKey: (key: IKey) => EncodedMessage;
   readonly parseAccount: (encodedAccount: EncodedMessage) => Acct;
-  readonly parseQueryClient?: (
-    endpoint: string | HttpEndpoint
-  ) => QueryClient<TxBody, SignerInfo>;
   protected prefix?: string;
 
   protected readonly constructTxBody: CreateTxBody<TxBody>;
   protected readonly constructSignerInfo: CreateSignerInfo<SignerInfo>;
   protected readonly constructAuthInfo: CreateAuthInfo<AuthInfo, SignerInfo>;
+  protected readonly constructTxRaw: CreateTxRaw<TxRaw>;
 
   constructor(
     auth: Auth,
     encoders: Encoder[],
-    endpoint?: string | HttpEndpoint,
+    queryClient: QueryClient<TxBody, SignerInfo, Acct>,
     options?: SignerOptions<TxBody, SignerInfo, AuthInfo, Acct>
   ) {
     super(auth, deepmerge(defaultSignerOptions.base, options));
@@ -74,10 +73,9 @@ export abstract class CosmosBaseSigner<
     this.constructTxBody = options.constructTxBody;
     this.constructSignerInfo = options.constructSignerInfo;
     this.constructAuthInfo = options.constructAuthInfo;
-    this.parseQueryClient = options.parseQueryClient;
 
-    if (!isEmpty(endpoint)) {
-      this.setEndpoint(endpoint);
+    if (!isEmpty(queryClient)) {
+      this.setQueryClient(queryClient);
     }
   }
 
@@ -105,8 +103,8 @@ export abstract class CosmosBaseSigner<
     return await this.queryClient.getAddress();
   }
 
-  setEndpoint(endpoint: string | HttpEndpoint) {
-    this._queryClient = this.parseQueryClient(endpoint);
+  setQueryClient(queryClient: QueryClient<TxBody, SignerInfo, Acct>) {
+    this._queryClient = queryClient;
     this._queryClient.setAccountParser(this.parseAccount);
   }
 

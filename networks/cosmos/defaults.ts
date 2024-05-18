@@ -1,6 +1,5 @@
 import {
   BroadcastOptions,
-  IKey,
   Signature,
   SignerConfig,
 } from "@interchainjs/types";
@@ -11,9 +10,7 @@ import { ripemd160 } from "@noble/hashes/ripemd160";
 import { sha256 } from "@noble/hashes/sha256";
 
 import {
-  EncodedMessage,
   FeeOptions,
-  Secp256k1PubKey,
   SignerOptions,
 } from "./types";
 
@@ -74,18 +71,7 @@ export const defaultSignerConfig: SignerConfig = {
   },
 };
 
-export const defaultPublicKeyEncoder = (key: IKey): EncodedMessage => {
-  return {
-    typeUrl: Secp256k1PubKey.typeUrl,
-    value: Secp256k1PubKey.encode(
-      Secp256k1PubKey.fromPartial({ key: key.value })
-    ).finish(),
-  };
-};
-
-
 export const defaultSignerOptions: Partial<SignerOptions> = {
   base: defaultSignerConfig,
-  encodePublicKey: defaultPublicKeyEncoder,
   prefix: undefined,
 };

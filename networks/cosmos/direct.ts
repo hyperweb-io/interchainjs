@@ -4,13 +4,14 @@ import {
   ISignDoc,
   ISigner,
   IWallet,
+  SignDoc,
   SignerConfig,
   StdFee,
 } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
 import { defaultSignerConfig } from "./defaults";
-import { DocOptions, Encoder, Message, SignDoc, SignerOptions } from "./types";
+import { DocOptions, Encoder, Message, SignerOptions } from "./types";
 import { SignMode } from "./types";
 import {
   CosmosBaseSigner,
@@ -54,13 +55,13 @@ export class DirectSignerBase<
       options
     );
 
-    const signDoc: ISignDoc.CosmosDirectDoc = SignDoc.fromPartial({
+    const signDoc: ISignDoc.CosmosDirectDoc = {
       bodyBytes: txRaw.bodyBytes,
       authInfoBytes: txRaw.authInfoBytes,
       chainId: options?.chainId ?? (await this.queryClient.getChainId()),
       accountNumber:
         options?.accountNumber ?? (await this.queryClient.getAccountNumber()),
-    });
+    };
     return { signDoc, tx: txRaw };
   }
 

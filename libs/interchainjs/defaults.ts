@@ -4,13 +4,14 @@ import {
   BaseAccount,
   ModuleAccount,
 } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { PubKey as Secp256k1PubKey } from "@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys";
 import {
   BaseVestingAccount,
   ContinuousVestingAccount,
   DelayedVestingAccount,
   PeriodicVestingAccount,
 } from "@interchainjs/cosmos-types/cosmos/vesting/v1beta1/vesting";
-import { BroadcastOptions } from "@interchainjs/types";
+import { BroadcastOptions, IKey } from "@interchainjs/types";
 
 export const defaultBroadcastOptions: BroadcastOptions = {
   checkTx: true,
@@ -45,4 +46,13 @@ export const defaultAccountParser = (
     (account as any).baseAccount ||
     account;
   return baseAccount;
+};
+
+export const defaultPublicKeyEncoder = (key: IKey): EncodedMessage => {
+  return {
+    typeUrl: Secp256k1PubKey.typeUrl,
+    value: Secp256k1PubKey.encode(
+      Secp256k1PubKey.fromPartial({ key: key.value })
+    ).finish(),
+  };
 };

@@ -1,5 +1,6 @@
 import {
   BroadcastOptions,
+  Fee,
   HttpEndpoint,
   IKey,
   Price,
@@ -7,7 +8,7 @@ import {
 } from "@interchainjs/types";
 import { Event } from "@interchainjs/types";
 
-import { Fee, SignMode } from "../types";
+import { SignMode } from "../types";
 
 export interface SignerOptions<
   TxBody = unknown,
@@ -19,7 +20,6 @@ export interface SignerOptions<
   constructTxBody: CreateTxBody<TxBody>;
   constructSignerInfo: CreateSignerInfo<SignerInfo>;
   constructAuthInfo: CreateAuthInfo<AuthInfo, SignerInfo>;
-  parseQueryClient: (endpoint: string | HttpEndpoint) => QueryClient<TxBody, SignerInfo>;
   parseAccount: (encodedAccount: EncodedMessage) => Acct;
   encodePublicKey?: (key: IKey) => EncodedMessage;
   prefix?: string;
@@ -68,6 +68,15 @@ export type CreateAuthInfo<
     fee: Fee;
   },
   AuthInfo
+>;
+
+export type CreateTxRaw<TxRaw = unknown> = CreateMesageEncoder<
+  {
+    bodyBytes: Uint8Array;
+    authInfoBytes: Uint8Array;
+    signatures: Uint8Array[];
+  },
+  TxRaw
 >;
 
 export interface EncodedMessage {
