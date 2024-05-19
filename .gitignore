@@ -8,3 +8,4 @@ scripts/test.sh
 **/yarn-error.log
 lerna-debug.log
 git-modules/
+**/.env.development
