@@ -1,19 +1,21 @@
-import { IKey, ISignDoc, SignerConfig } from "@interchainjs/types";
 import {
-  defaultSignerConfig as CosmosSignerConfig,
   defaultAccountParser as parseCosmosAccount,
+  defaultSignerConfig as CosmosSignerConfig,
 } from "@interchainjs/cosmos/defaults";
-import { defaultSignerConfig as EthereumSignerConfig } from "@interchainjs/ethereum/defaults";
-import { DomainOptions, EthereumChainId } from "./types";
 import {
-  BaseAccount,
   EncodedMessage,
-  Secp256k1PubKey,
   SignerOptions,
   TimeoutHeightOption,
 } from "@interchainjs/cosmos/types";
 import { toDecoder } from "@interchainjs/cosmos/utils";
-import { EthAccount } from "./codegen/injective/types/v1beta1/account";
+import { BaseAccount } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { PubKey as Secp256k1PubKey } from "@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys";
+import { EthAccount } from "@interchainjs/cosmos-types/injective/types/v1beta1/account";
+import { defaultSignerConfig as EthereumSignerConfig } from "@interchainjs/ethereum/defaults";
+import { Eip712Doc } from "@interchainjs/ethereum/types";
+import { IKey, SignerConfig } from "@interchainjs/types";
+
+import { DomainOptions, EthereumChainId } from "./types";
 
 export const defaultPublicKeyConfig: SignerConfig["publicKey"] = {
   isCompressed: CosmosSignerConfig.publicKey.isCompressed,
@@ -73,10 +75,7 @@ export const defaultDomainOptions: Required<DomainOptions> = {
   verifyingContract: "cosmos",
 };
 
-export const defaultEip712Types: Pick<
-  ISignDoc.Eip712Doc,
-  "types" | "primaryType"
-> = {
+export const defaultEip712Types: Pick<Eip712Doc, "types" | "primaryType"> = {
   primaryType: "Tx",
   types: {
     EIP712Domain: [

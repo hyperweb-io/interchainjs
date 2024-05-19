@@ -1,25 +1,22 @@
-import {
-  Auth,
-  BaseWallet,
-  HttpEndpoint,
-  ISignDoc,
-  ISigner,
-  IWallet,
-  SignerConfig,
-} from "@interchainjs/types";
 import { AminoSignerBase } from "@interchainjs/cosmos/amino";
 import {
-  Encoder,
   AminoConverter,
+  CosmosAminoDoc,
+  Encoder,
   SignerOptions,
 } from "@interchainjs/cosmos/types";
-import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
-import { getAccountFromAuth } from "./utils";
+import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-export class AminoSigner extends AminoSignerBase
-  implements ISigner.InjectiveAminoSigner {
+import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
+import { InjectiveAminoSigner, InjectiveAminoWallet } from "./types";
+import { getAccountFromAuth } from "./utils";
+
+export class AminoSigner
+  extends AminoSignerBase
+  implements InjectiveAminoSigner
+{
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -31,7 +28,7 @@ export class AminoSigner extends AminoSignerBase
   }
 
   static async fromWallet(
-    wallet: IWallet.InjectiveAminoWallet,
+    wallet: InjectiveAminoWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -55,10 +52,10 @@ export class AminoSigner extends AminoSignerBase
   static toWallet(
     auth: Auth,
     config: SignerConfig = defaultSignerOptions.Cosmos
-  ): IWallet.InjectiveAminoWallet {
+  ): InjectiveAminoWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config.publicKey),
-      sign: async (doc: ISignDoc.CosmosAminoDoc) =>
+      sign: async (doc: CosmosAminoDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
   }

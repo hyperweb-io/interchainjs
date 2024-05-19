@@ -183,7 +183,7 @@ export type CosmosSignArgs<Option = DocOptions> = {
 
 export type UniCosmosBaseSigner<SignDoc> = UniSigner<
   CosmosSignArgs,
-  TxRaw,
+  CosmosTx,
   SignDoc,
   Promise<string>,
   BroadcastResponse
@@ -191,14 +191,14 @@ export type UniCosmosBaseSigner<SignDoc> = UniSigner<
 
 export type CosmosDirectSigner = UniSigner<
   CosmosSignArgs,
-  TxRaw,
+  CosmosTx,
   CosmosDirectDoc,
   Promise<string>,
   BroadcastResponse
 >;
 export type CosmosAminoSigner = UniSigner<
   CosmosSignArgs,
-  TxRaw,
+  CosmosTx,
   CosmosAminoDoc,
   Promise<string>,
   BroadcastResponse

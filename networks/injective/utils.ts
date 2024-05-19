@@ -1,19 +1,19 @@
 import {
   Eip712Types,
   InjectiveDomain,
-  IWalletAccount,
   SignerConfig,
 } from "@interchainjs/types";
 import { Auth } from "@interchainjs/types";
-import { defaultPublicKeyConfig } from "./defaults";
-import { DomainOptions } from "./types";
-import { objectKeysToEip712Types } from "./eth-utils/map";
 import { fromNumber, toPrefixedHex } from "@interchainjs/utils";
+
+import { defaultPublicKeyConfig } from "./defaults";
+import { objectKeysToEip712Types } from "./eth-utils/map";
+import { DomainOptions, InjectiveAccount } from "./types";
 
 export function getAccountFromAuth(
   auth: Auth,
   pubKeyConfig: SignerConfig["publicKey"] = defaultPublicKeyConfig
-): IWalletAccount.InjectiveAccount {
+): InjectiveAccount {
   const publicKey = auth.getPublicKey(pubKeyConfig.isCompressed);
   const pubKeyHash = pubKeyConfig.hash(publicKey);
   return {

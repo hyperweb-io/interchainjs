@@ -1,21 +1,17 @@
-import {
-  Auth,
-  BaseWallet,
-  HttpEndpoint,
-  ISignDoc,
-  ISigner,
-  IWallet,
-  SignerConfig,
-} from "@interchainjs/types";
-import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { DirectSignerBase } from "@interchainjs/cosmos/direct";
-import { Encoder, SignDoc, SignerOptions } from "@interchainjs/cosmos/types";
-import { getAccountFromAuth } from "./utils";
+import { Encoder, SignerOptions } from "@interchainjs/cosmos/types";
 import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
+import { Auth, HttpEndpoint, SignDoc, SignerConfig } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-export class DirectSigner extends DirectSignerBase
-  implements ISigner.InjectiveDirectSigner {
+import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
+import { InjectiveDirectSigner, InjectiveDirectWallet } from "./types";
+import { getAccountFromAuth } from "./utils";
+
+export class DirectSigner
+  extends DirectSignerBase
+  implements InjectiveDirectSigner
+{
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -26,7 +22,7 @@ export class DirectSigner extends DirectSignerBase
   }
 
   static async fromWallet(
-    wallet: IWallet.InjectiveDirectWallet,
+    wallet: InjectiveDirectWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -43,7 +39,7 @@ export class DirectSigner extends DirectSignerBase
   static toWallet(
     auth: Auth,
     config: SignerConfig = defaultSignerOptions.Cosmos
-  ): IWallet.InjectiveDirectWallet {
+  ): InjectiveDirectWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config.publicKey),
       sign: async (doc: SignDoc) =>
