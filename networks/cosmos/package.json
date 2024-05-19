@@ -30,6 +30,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@interchainjs/cosmos-types": "0.0.1-beta.1",
     "@interchainjs/types": "0.0.1-beta.1",
     "@interchainjs/utils": "0.0.1-beta.1",
     "@noble/curves": "^1.1.0",

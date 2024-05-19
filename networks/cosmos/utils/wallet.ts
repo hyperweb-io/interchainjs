@@ -1,18 +1,18 @@
+import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import {
   Auth,
-  SignerConfig,
   SignDocResponse,
-  IWalletAccount,
-  ISignDoc,
+  SignerConfig,
 } from "@interchainjs/types";
+
 import { defaultSignerConfig } from "../defaults";
-import { SignDoc } from "../types";
+import { CosmosAccount, CosmosAminoDoc } from "../types";
 import { encodeStdSignDoc } from "./amino";
 
 export function getAccountFromAuth(
   auth: Auth,
   config: SignerConfig = defaultSignerConfig
-): IWalletAccount.CosmosAccount {
+): CosmosAccount {
   const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
   return {
     algo: auth.algo,
@@ -42,9 +42,9 @@ export class SignResponseFromAuth {
 
   static signAmino(
     auth: Auth,
-    doc: ISignDoc.CosmosAminoDoc,
+    doc: CosmosAminoDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<ISignDoc.CosmosAminoDoc> {
+  ): SignDocResponse<CosmosAminoDoc> {
     const encoded = encodeStdSignDoc(doc);
     const signature = auth.sign(config.message.hash(encoded));
     return {

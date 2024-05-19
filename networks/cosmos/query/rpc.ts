@@ -1,20 +1,26 @@
-import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
-import { QueryClientImpl as AuthQuery } from "../codegen/cosmos/auth/v1beta1/query.rpc.Query";
-import { ServiceClientImpl as TxQuery } from "../codegen/cosmos/tx/v1beta1/service.rpc.Service";
+import { BaseAccount } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { QueryClientImpl as AuthQuery } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/query.rpc.Query";
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
+import { ServiceClientImpl as TxQuery } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.Service";
+import {
+  Fee,
+  SignerInfo,
+  Tx,
+  TxBody,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { BroadcastOptions, HttpEndpoint } from "@interchainjs/types";
+import { isEmpty, Key, toHttpEndpoint } from "@interchainjs/utils";
+
+import { defaultAccountParser, defaultBroadcastOptions } from "../defaults";
 import {
   BroadcastMode,
   BroadcastResponse,
   EncodedMessage,
   QueryClient,
 } from "../types";
-import { Status, CometBroadcastResponse } from "../types/rpc";
-import { broadcast, createTxRpc, getPrefix } from "../utils/rpc";
-import { Key, isEmpty, toHttpEndpoint } from "@interchainjs/utils";
-import { TxBody, SignerInfo, Tx, Fee } from "../codegen/cosmos/tx/v1beta1/tx";
+import { CometBroadcastResponse, Status } from "../types/rpc";
 import { constructAuthInfo } from "../utils/direct";
-import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
-import { HttpEndpoint, BroadcastOptions } from "@interchainjs/types";
-import { defaultAccountParser, defaultBroadcastOptions } from "../defaults";
+import { broadcast, createTxRpc, getPrefix } from "../utils/rpc";
 
 export class RpcClient implements QueryClient {
   readonly endpoint: HttpEndpoint;
@@ -24,9 +30,8 @@ export class RpcClient implements QueryClient {
   protected readonly authQuery: AuthQuery;
   protected readonly txQuery: TxQuery;
   protected readonly publicKeyHash?: Key;
-  protected parseAccount: (
-    encodedAccount: EncodedMessage
-  ) => BaseAccount = defaultAccountParser;
+  protected parseAccount: (encodedAccount: EncodedMessage) => BaseAccount =
+    defaultAccountParser;
   protected _prefix?: string;
 
   constructor(
@@ -68,6 +73,10 @@ export class RpcClient implements QueryClient {
 
     if (!accountResp || !accountResp.account) {
       throw new Error(`Account is undefined.`);
+    }
+
+    if (BaseAccount.is(accountResp.account)) {
+      return accountResp.account;
     }
 
     return this.parseAccount(accountResp.account);
@@ -134,8 +143,8 @@ export class RpcClient implements QueryClient {
       checkTx && deliverTx
         ? "broadcast_tx_commit"
         : checkTx
-        ? "broadcast_tx_sync"
-        : "broadcast_tx_async";
+          ? "broadcast_tx_sync"
+          : "broadcast_tx_async";
     const resp = await broadcast(this.endpoint, mode, txBytes);
     switch (mode) {
       case "broadcast_tx_async":

@@ -1,17 +1,26 @@
+import { BaseAccount } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
+import { SimulateResponse } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/service";
 import {
+  SignDoc,
+  SignerInfo,
+  TxBody,
+  TxRaw,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { Any } from "@interchainjs/cosmos-types/google/protobuf/any";
+import {
+  BaseWalletAccount,
   BroadcastOptions,
   HttpEndpoint,
   IKey,
   Price,
   SignerConfig,
+  StdFee,
+  StdSignDoc,
+  UniSigner,
+  Wallet,
 } from "@interchainjs/types";
-
-import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
-import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
-import { Any } from "../codegen/google/protobuf/any";
 import { Event } from "@interchainjs/types";
-import { SimulateResponse } from "../codegen/cosmos/tx/v1beta1/service";
-import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 
 export interface SignerOptions extends Partial<SignerConfig> {
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
@@ -164,3 +173,45 @@ export interface QueryClient {
     options?: BroadcastOptions
   ) => Promise<BroadcastResponse>;
 }
+
+export type CosmosSignArgs<Option = DocOptions> = {
+  messages: Message[];
+  fee?: StdFee;
+  memo?: string;
+  options?: Option;
+};
+
+export type UniCosmosBaseSigner<SignDoc> = UniSigner<
+  CosmosSignArgs,
+  TxRaw,
+  SignDoc,
+  Promise<string>,
+  BroadcastResponse
+>;
+
+export type CosmosDirectSigner = UniSigner<
+  CosmosSignArgs,
+  TxRaw,
+  CosmosDirectDoc,
+  Promise<string>,
+  BroadcastResponse
+>;
+export type CosmosAminoSigner = UniSigner<
+  CosmosSignArgs,
+  TxRaw,
+  CosmosAminoDoc,
+  Promise<string>,
+  BroadcastResponse
+>;
+
+export type CosmosDirectDoc = SignDoc;
+export type CosmosAminoDoc = StdSignDoc;
+
+export type CosmosTx = TxRaw;
+
+export interface CosmosAccount extends BaseWalletAccount {
+  getAddress(prefix?: string): IKey | string;
+}
+
+export type CosmosDirectWallet = Wallet<CosmosAccount, CosmosDirectDoc>;
+export type CosmosAminoWallet = Wallet<CosmosAccount, CosmosAminoDoc>;

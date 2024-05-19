@@ -1,32 +1,24 @@
+import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
+import { constructAuthFromWallet } from "@interchainjs/utils";
+
+import { defaultSignerConfig } from "./defaults";
 import {
-  Auth,
-  BaseWallet,
-  ISignDoc,
-  HttpEndpoint,
-  ISigner,
-  SignerConfig,
-  StdFee,
-  IWallet,
-} from "@interchainjs/types";
-import {
-  Encoder,
-  Message,
   AminoConverter,
+  CosmosAminoDoc,
+  CosmosAminoSigner,
+  CosmosAminoWallet,
   DocOptions,
+  Encoder,
   SignerOptions,
 } from "./types";
-import { toAminoMsgs } from "./utils/amino";
 import {
   CosmosBaseSigner,
   getAccountFromAuth,
   SignResponseFromAuth,
 } from "./utils";
-import { SignMode } from "./types";
-import { defaultSignerConfig } from "./defaults";
-import { constructAuthFromWallet } from "@interchainjs/utils";
 
 export class AminoSignerBase extends CosmosBaseSigner<
-  ISignDoc.CosmosAminoDoc,
+  CosmosAminoDoc,
   DocOptions
 > {
   readonly converters: AminoConverter[];
@@ -70,42 +62,41 @@ export class AminoSignerBase extends CosmosBaseSigner<
     return converter;
   };
 
-  async createDoc(
-    messages: Message[],
-    fee?: StdFee,
-    memo?: string,
-    options?: DocOptions
-  ) {
-    const { txRaw, fee: _fee } = await this.createTxRaw(
-      messages,
-      options?.signMode ?? SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
-      fee,
-      memo,
-      options
-    );
+  // async createDoc(
+  //   messages: Message[],
+  //   fee?: StdFee,
+  //   memo?: string,
+  //   options?: DocOptions
+  // ) {
+  //   const { txRaw, fee: _fee } = await this.createTxRaw(
+  //     messages,
+  //     options?.signMode ?? SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
+  //     fee,
+  //     memo,
+  //     options
+  //   );
 
-    const signDoc: ISignDoc.CosmosAminoDoc = {
-      chain_id: options?.chainId ?? (await this.queryClient.getChainId()),
-      account_number: (
-        options?.accountNumber ?? (await this.queryClient.getAccountNumber())
-      ).toString(),
-      sequence: (
-        options?.sequence ?? (await this.queryClient.getSequence())
-      ).toString(),
-      fee,
-      msgs: toAminoMsgs(messages, this.getConverterFromTypeUrl),
-      memo: memo ?? "",
-    };
-    return { signDoc, tx: txRaw };
-  }
+  //   const signDoc: ISignDoc.CosmosAminoDoc = {
+  //     chain_id: options?.chainId ?? (await this.queryClient.getChainId()),
+  //     account_number: (
+  //       options?.accountNumber ?? (await this.queryClient.getAccountNumber())
+  //     ).toString(),
+  //     sequence: (
+  //       options?.sequence ?? (await this.queryClient.getSequence())
+  //     ).toString(),
+  //     fee,
+  //     msgs: toAminoMsgs(messages, this.getConverterFromTypeUrl),
+  //     memo: memo ?? "",
+  //   };
+  //   return { signDoc, tx: txRaw };
+  // }
 
-  signDoc = async (doc: ISignDoc.CosmosAminoDoc) => {
+  signDoc = async (doc: CosmosAminoDoc) => {
     return SignResponseFromAuth.signAmino(this.auth, doc, this.config);
   };
 }
 
-export class AminoSigner extends AminoSignerBase
-  implements ISigner.CosmosAminoSigner {
+export class AminoSigner extends AminoSignerBase implements CosmosAminoSigner {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -117,7 +108,7 @@ export class AminoSigner extends AminoSignerBase
   }
 
   static async fromWallet(
-    wallet: IWallet.CosmosAminoWallet,
+    wallet: CosmosAminoWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -142,10 +133,10 @@ export class AminoSigner extends AminoSignerBase
   static toWallet(
     auth: Auth,
     config: SignerConfig = defaultSignerConfig
-  ): IWallet.CosmosAminoWallet {
+  ): CosmosAminoWallet {
     return {
       getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: ISignDoc.CosmosAminoDoc) =>
+      sign: async (doc: CosmosAminoDoc) =>
         SignResponseFromAuth.signAmino(auth, doc, config),
     };
   }

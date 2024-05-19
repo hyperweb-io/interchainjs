@@ -1,27 +1,27 @@
-import { bytes as assertBytes } from "@noble/hashes/_assert";
-import { sha256 } from "@noble/hashes/sha256";
 import {
-  EncodedMessage,
-  FeeOptions,
-  Secp256k1PubKey,
-  SignerOptions,
-} from "./types";
-import {
-  SignerConfig,
-  Signature,
-  BroadcastOptions,
-  IKey,
-} from "@interchainjs/types";
-import { ripemd160 } from "@noble/hashes/ripemd160";
-import { Key } from "@interchainjs/utils";
-import { secp256k1 } from "@noble/curves/secp256k1";
-import { BaseAccount, ModuleAccount } from "./codegen/cosmos/auth/v1beta1/auth";
+  BaseAccount,
+  ModuleAccount,
+} from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { PubKey as Secp256k1PubKey } from "@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys";
 import {
   BaseVestingAccount,
   ContinuousVestingAccount,
   DelayedVestingAccount,
   PeriodicVestingAccount,
-} from "./codegen/cosmos/vesting/v1beta1/vesting";
+} from "@interchainjs/cosmos-types/cosmos/vesting/v1beta1/vesting";
+import {
+  BroadcastOptions,
+  IKey,
+  Signature,
+  SignerConfig,
+} from "@interchainjs/types";
+import { Key } from "@interchainjs/utils";
+import { secp256k1 } from "@noble/curves/secp256k1";
+import { bytes as assertBytes } from "@noble/hashes/_assert";
+import { ripemd160 } from "@noble/hashes/ripemd160";
+import { sha256 } from "@noble/hashes/sha256";
+
+import { EncodedMessage, FeeOptions, SignerOptions } from "./types";
 import { toDecoder } from "./utils";
 
 export const defaultBroadcastOptions: BroadcastOptions = {

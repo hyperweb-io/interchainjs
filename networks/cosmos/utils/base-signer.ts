@@ -1,46 +1,48 @@
+import { BaseAccount } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
+import {
+  SignerInfo,
+  TxBody,
+  TxRaw,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import {
   Auth,
-  HttpEndpoint,
+  BaseSigner,
   BroadcastOptions,
-  UniSigner,
-  SignDocResponse,
-  SignResponse,
-  CreateDocResponse,
-  StdFee,
+  HttpEndpoint,
   IKey,
+  SignResponse,
+  StdFee,
 } from "@interchainjs/types";
-import { BaseSigner, assertEmpty, isEmpty } from "@interchainjs/utils";
+import { assertEmpty, isEmpty } from "@interchainjs/utils";
+
 import { defaultSignerOptions } from "../defaults";
+import { RpcClient } from "../query/rpc";
 import {
+  BroadcastResponse,
+  CosmosSignArgs,
+  DocOptions,
   EncodedMessage,
   Encoder,
   FeeOptions,
   Message,
   QueryClient,
-  SignMode,
-  SignerInfo,
-  SignOptions,
-  TimeoutHeightOption,
-  TxBody,
-  TxOptions,
-  TxRaw,
   SignerOptions,
-  BroadcastResponse,
+  TimeoutHeightOption,
+  UniCosmosBaseSigner,
 } from "../types";
-import { RpcClient } from "../query/rpc";
+import { toFee } from "./amino";
 import {
   constructAuthInfo,
   constructSignerInfo,
   constructTxBody,
 } from "./direct";
-import { toFee } from "./amino";
 import { calculateFee } from "./fee";
-import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
 
-export abstract class CosmosBaseSigner<
-  SignDoc,
-  Options extends FeeOptions & SignOptions & TxOptions
-> extends BaseSigner implements UniSigner<SignDoc, TxRaw, BroadcastResponse> {
+export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
+  extends BaseSigner
+  implements UniCosmosBaseSigner<SignDoc>
+{
   protected _queryClient?: QueryClient;
   readonly encoders: Encoder[];
   readonly encodePublicKey: (key: IKey) => EncodedMessage;
@@ -168,35 +170,36 @@ export abstract class CosmosBaseSigner<
     return { txRaw, fee: stdFee };
   }
 
-  abstract signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
-  abstract createDoc(
-    messages: Message[],
-    fee: StdFee,
-    memo?: string,
-    options?: Options
-  ): Promise<CreateDocResponse<SignDoc, TxRaw>>;
+  // abstract signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
+  // abstract createDoc(
+  //   messages: Message[],
+  //   fee: StdFee,
+  //   memo?: string,
+  //   options?: Options
+  // ): Promise<CreateDocResponse<SignDoc, TxRaw>>;
 
-  async sign(
-    messages: Message[],
-    fee?: StdFee,
-    memo?: string,
-    options?: Options
-  ): Promise<SignResponse<SignDoc, TxRaw, BroadcastResponse>> {
-    const created = await this.createDoc(messages, fee, memo, options);
-    const { signature, signDoc } = await this.signDoc(created.signDoc);
-    const txRawCompleted = TxRaw.fromPartial({
-      ...created.tx,
-      signatures: [signature.value],
-    });
+  async sign({
+    messages,
+    fee,
+    memo,
+    options,
+  }: CosmosSignArgs): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
+    // const created = await this.createDoc(messages, fee, memo, options);
+    // const { signature, signDoc } = await this.signDoc(created.signDoc);
+    // const txRawCompleted = TxRaw.fromPartial({
+    //   ...created.tx,
+    //   signatures: [signature.value],
+    // });
+    // return {
+    //   signature,
+    //   signDoc,
+    //   tx: txRawCompleted,
+    //   broadcast: async (options?: BroadcastOptions) => {
+    //     return this.broadcast(txRawCompleted, options);
+    //   },
+    // };
 
-    return {
-      signature,
-      signDoc,
-      tx: txRawCompleted,
-      broadcast: async (options?: BroadcastOptions) => {
-        return this.broadcast(txRawCompleted, options);
-      },
-    };
+    throw new Error("Not implemented yet");
   }
 
   async broadcast(txRaw: TxRaw, options?: BroadcastOptions) {
@@ -212,12 +215,15 @@ export abstract class CosmosBaseSigner<
   }
 
   async signAndBroadcast(
-    messages: Message[],
-    fee?: StdFee,
-    memo?: string,
-    options?: Options & BroadcastOptions
+    { messages, fee, memo, options: signOptions }: CosmosSignArgs,
+    options?: BroadcastOptions
   ) {
-    const { broadcast } = await this.sign(messages, fee, memo, options);
+    const { broadcast } = await this.sign({
+      messages,
+      fee,
+      memo,
+      options: signOptions,
+    });
     return await broadcast(options);
   }
 

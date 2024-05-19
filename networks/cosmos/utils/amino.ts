@@ -1,12 +1,13 @@
-import { assertEmpty, fromUtf8 } from "@interchainjs/utils";
-import { AminoMessage, AminoConverter, Message } from "../types";
-import { Fee } from "../codegen/cosmos/tx/v1beta1/tx";
+import { Coin } from "@interchainjs/cosmos-types/cosmos/base/v1beta1/coin";
+import { Fee } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import {
   StdFee,
   StdSignDoc,
   TelescopeGeneratedType,
 } from "@interchainjs/types";
-import { Coin } from "../codegen/cosmos/base/v1beta1/coin";
+import { assertEmpty, fromUtf8 } from "@interchainjs/utils";
+
+import { AminoConverter, AminoMessage, Message } from "../types";
 
 function sortKey<T>(target: T): T {
   if (target === null || typeof target !== "object") {
