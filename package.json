@@ -15,7 +15,7 @@
     "libs/*"
   ],
   "scripts": {
-    "codegen": "telescope transpile --config telescope-config/cosmos-types.telescope.json",
+    "codegen": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
     "proto": "telescope download --config ./scripts/.protod.config.json",
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
