@@ -1,26 +1,27 @@
 import { DirectSecp256k1Wallet } from "@cosmjs/proto-signing";
-import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import { fromHex } from "@cosmjs/encoding";
+import { getSigningInjectiveClient } from '../../codegen'
 
 import { config } from 'dotenv';
+import { SigningStargateClient } from "@cosmjs/stargate";
 config({ path: '.env.development' });
 
 describe("Injective Chain transfer test", () => {
-  let client: SigningCosmWasmClient;
+  let client: SigningStargateClient;
   let fromAddress: string;
   const toAddress = 'inj1et085dzp9xkrzfx3c75u405u4hk8d0tyfgjxqc' // receive address should exist on chain
   const privkeyUint8Array = fromHex(process.env.TEST_PRIVATE_KEY)
 
   beforeAll(async () => {
     console.log('process.env.TEST_PRIVATE_KEY', process.env.TEST_PRIVATE_KEY)
-    const fromWallet = await DirectSecp256k1Wallet.fromKey(privkeyUint8Array, 'inj');
+    const fromWallet = await DirectSecp256k1Wallet.fromKey(privkeyUint8Array, 'inj')
 
     fromAddress = (await fromWallet.getAccounts())[0].address;
 
-    client = await SigningCosmWasmClient.connectWithSigner(
-      'https://testnet.sentry.tm.injective.network',
-      fromWallet
-    )
+    client = await getSigningInjectiveClient({
+      rpcEndpoint: 'https://testnet.sentry.tm.injective.network',
+      signer: fromWallet
+    })
   });
 
   test("transfer should be successful", async () => {
