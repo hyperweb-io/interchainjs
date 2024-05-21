@@ -2,6 +2,7 @@ import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
+import { CosmosBaseSigner } from "./base";
 import { defaultSignerConfig } from "./defaults";
 import {
   CosmosDirectDoc,
@@ -12,7 +13,6 @@ import {
   SignerOptions,
 } from "./types";
 import {
-  CosmosBaseSigner,
   getAccountFromAuth,
   SignResponseFromAuth,
 } from "./utils";

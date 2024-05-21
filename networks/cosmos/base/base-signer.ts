@@ -31,13 +31,13 @@ import {
   TimeoutHeightOption,
   UniCosmosBaseSigner,
 } from "../types";
-import { toFee } from "./amino";
+import { toFee } from "../utils/amino";
 import {
   constructAuthInfo,
   constructSignerInfo,
   constructTxBody,
-} from "./direct";
-import { calculateFee } from "./fee";
+} from "../utils/direct";
+import { calculateFee } from "../utils/fee";
 
 export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
   extends BaseSigner
@@ -170,13 +170,13 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
     return { txRaw, fee: stdFee };
   }
 
-  // abstract signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
+  // abstract signDoc(doc: SignDoc): void;
   // abstract createDoc(
   //   messages: Message[],
   //   fee: StdFee,
   //   memo?: string,
   //   options?: Options
-  // ): Promise<CreateDocResponse<SignDoc, TxRaw>>;
+  // ): void;
 
   async sign({
     messages,
@@ -184,6 +184,47 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
     memo,
     options,
   }: CosmosSignArgs): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
+    // createDoc
+    // ----
+    // for DirectSignerBase.createDoc()
+    //  CosmosBaseSigner.createTxRaw:
+    //  create a part of the txRaw, which is encoded txBody and encoded authInfo, and fee
+    //    create txBody obj and encoded txBody
+    //    create signerInfo obj and encoded signerInfo
+    //    get Fee from options or simulate(using txBody obj and signerInfo obj)
+    //    create authInfo obj and encoded authInfo(using signerInfo obj and Fee obj)
+    //    return bodyBytes, authInfoBytes, and fee
+    //  DirectSignerBase.signDoc: create a SignDoc obj using bodyBytes, authInfoBytes, chainId and accountNumber
+    //  CosmosBaseSigner.sign: return the SignDoc and bodyBytes, authInfoBytes
+    // --
+    // for AminoSignerBase.createDoc()
+    //  create a part of the txRaw, which is encoded txBody and encoded authInfo, and fee
+    //  create a SignDoc obj using
+    //    - chainId
+    //    - accountNumber
+    //    - sequence
+    //    - fee,
+    //    - msgs,
+    //    - authInfoBytes,
+    //  return the SignDoc and bodyBytes, authInfoBytes
+    // --
+    // for injective Eip712Signer.createDoc()
+    //  get timeoutHeight
+    //  get Amino SignDoc and bodyBytes, authInfoBytes by amino createDoc
+    //  create eip712Doc
+    //    - primaryType: Tx
+    //    - domain
+    //    - types: defaultEip712Types.types + toEthTypes()
+    //    - message: Amino SignDoc, timeout_height, fee
+    //  return the Eip712 SignDoc and bodyBytes, authInfoBytes
+    // ----
+
+    // sign the SignDoc to get the signature
+
+    // create the TxRaw using the signature and bodyBytes, authInfoBytes
+    // return Tx ,SignDoc and a broadcast function
+
+    // ----
     // const created = await this.createDoc(messages, fee, memo, options);
     // const { signature, signDoc } = await this.signDoc(created.signDoc);
     // const txRawCompleted = TxRaw.fromPartial({
@@ -243,3 +284,4 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
     return await calculateFee(gasInfo, options, this.queryClient.getChainId);
   }
 }
+

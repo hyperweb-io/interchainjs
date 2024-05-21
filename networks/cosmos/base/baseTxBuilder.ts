@@ -1,0 +1,185 @@
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
+import { SimulateResponse } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/service";
+import {
+  AuthInfo,
+  Fee,
+  SignerInfo,
+  TxBody,
+  TxRaw,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { IKey, StdFee } from "@interchainjs/types";
+
+import {
+  CosmosCreateDocResponse,
+  CosmosSignArgs,
+  DocOptions,
+  EncodedMessage,
+  Encoder,
+} from "../types";
+import { calculateFee, toFee } from "../utils";
+
+/**
+ * BaseCosmosTxBuilder is a helper class to build the Tx and signDoc
+ */
+export abstract class BaseCosmosTxBuilder<SignDoc>
+  implements
+    IBaseCosmosTxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
+{
+  constructor(
+    public signMode: SignMode,
+    public publicKey: IKey,
+    public chainId: string,
+    protected encoderParser: (typeUrl: string) => Encoder,
+    protected getSequence: () => Promise<bigint>,
+    protected encodePublicKey: (key: IKey) => EncodedMessage,
+    protected simulate: (
+      txBody: TxBody,
+      signerInfos: SignerInfo[]
+    ) => Promise<SimulateResponse>,
+    protected signArbitrary: (data: Uint8Array) => IKey
+  ) {}
+
+  abstract buildDoc(
+    args: CosmosSignArgs,
+    rxRaw: Partial<TxRaw>
+  ): Promise<SignDoc>;
+
+  abstract buildDocBytes(doc: SignDoc): Promise<Uint8Array>;
+
+  async buildTxRaw({
+    messages,
+    fee,
+    memo,
+    options,
+  }: CosmosSignArgs): Promise<Partial<TxRaw> & { fee: StdFee }> {
+    const { txBody, encode: txBodyEncode } = await this.buildTxBody({
+      messages,
+      memo,
+      options,
+    });
+    const { signerInfo } = await this.buildSignerInfo(
+      this.encodePublicKey(this.publicKey),
+      options?.sequence ?? (await this.getSequence()),
+      this.signMode
+    );
+
+    const stdFee = await this.getFee(fee, txBody, [signerInfo], options);
+
+    return {
+      bodyBytes: txBodyEncode(),
+      authInfoBytes: (
+        await this.buildAuthInfo([signerInfo], toFee(stdFee))
+      ).encode(),
+      fee: stdFee,
+    };
+  }
+
+  async buildTxBody({ messages, memo, options }: CosmosSignArgs): Promise<{
+    txBody: TxBody;
+    encode: () => Uint8Array;
+  }> {
+    if (options?.timeoutHeight?.type === "relative") {
+      throw new Error(
+        "timeoutHeight type in function `constructTxBody` shouldn't be `relative`. Please update it to `absolute` value before calling this function."
+      );
+    }
+    const encoded = messages.map(({ typeUrl, value }) => {
+      return {
+        typeUrl,
+        value: this.encoderParser(typeUrl).encode(value),
+      };
+    });
+    const txBody = TxBody.fromPartial({
+      messages: encoded,
+      memo,
+      timeoutHeight: options?.timeoutHeight?.value,
+      extensionOptions: options?.extensionOptions,
+      nonCriticalExtensionOptions: options?.nonCriticalExtensionOptions,
+    });
+    return {
+      txBody,
+      encode: () => TxBody.encode(txBody).finish(),
+    };
+  }
+
+  async buildSignerInfo(
+    publicKey: EncodedMessage,
+    sequence: bigint,
+    signMode: SignMode
+  ): Promise<{
+    signerInfo: SignerInfo;
+    encode: () => Uint8Array;
+  }> {
+    const signerInfo = SignerInfo.fromPartial({
+      publicKey,
+      sequence,
+      modeInfo: { single: { mode: signMode } },
+    });
+
+    return { signerInfo, encode: () => SignerInfo.encode(signerInfo).finish() };
+  }
+
+  async buildAuthInfo(
+    signerInfos: SignerInfo[],
+    fee: Fee
+  ): Promise<{
+    authInfo: AuthInfo;
+    encode: () => Uint8Array;
+  }> {
+    const authInfo = AuthInfo.fromPartial({ signerInfos, fee });
+
+    return { authInfo, encode: () => AuthInfo.encode(authInfo).finish() };
+  }
+
+  async getFee(
+    fee: StdFee,
+    txBody: TxBody,
+    signerInfos: SignerInfo[],
+    options: DocOptions
+  ) {
+    if (fee) {
+      return fee;
+    }
+    const { gasInfo } = await this.simulate(txBody, signerInfos);
+    if (typeof gasInfo === "undefined") {
+      throw new Error("Fail to estimate gas by simulate tx.");
+    }
+    await calculateFee(gasInfo, options, async () => {
+      return this.chainId;
+    });
+  }
+
+  async buildSignedTxDoc({
+    messages,
+    fee,
+    memo,
+    options,
+  }: CosmosSignArgs): Promise<CosmosCreateDocResponse<SignDoc>> {
+    // create partial TxRaw
+    const txRaw = await this.buildTxRaw({ messages, fee, memo, options });
+
+    // buildDoc
+    const doc = await this.buildDoc({ messages, fee, memo, options }, txRaw);
+    // get doc bytes
+    const docBytes = await this.buildDocBytes(doc);
+
+    // sign signature to the doc bytes
+    const signature = this.signArbitrary(docBytes);
+
+    // build TxRaw
+    const signedTxRaw = TxRaw.fromPartial({
+      bodyBytes: txRaw.bodyBytes,
+      authInfoBytes: txRaw.authInfoBytes,
+      signatures: [signature.value],
+    });
+
+    return {
+      tx: signedTxRaw,
+      doc: doc,
+    };
+  }
+}
+
+export interface IBaseCosmosTxBuilder<SignArgs, SignResp> {
+  buildSignedTxDoc(args: SignArgs): Promise<SignResp>;
+}

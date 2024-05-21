@@ -11,6 +11,7 @@ import { Any } from "@interchainjs/cosmos-types/google/protobuf/any";
 import {
   BaseWalletAccount,
   BroadcastOptions,
+  CreateDocResponse,
   HttpEndpoint,
   IKey,
   Price,
@@ -202,6 +203,11 @@ export type CosmosAminoSigner = UniSigner<
   CosmosAminoDoc,
   Promise<string>,
   BroadcastResponse
+>;
+
+export type CosmosCreateDocResponse<SignDoc> = CreateDocResponse<
+  CosmosTx,
+  SignDoc
 >;
 
 export type CosmosDirectDoc = SignDoc;

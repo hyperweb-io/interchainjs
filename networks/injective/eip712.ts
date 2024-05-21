@@ -1,9 +1,9 @@
+import { CosmosBaseSigner } from "@interchainjs/cosmos/base";
 import {
   AminoConverter,
   Encoder,
   SignerOptions,
 } from "@interchainjs/cosmos/types";
-import { CosmosBaseSigner } from "@interchainjs/cosmos/utils";
 import { SignResponseFromAuth } from "@interchainjs/ethereum/utils";
 import {
   Auth,
