@@ -5,3 +5,5 @@
 * Injective testnet swagger: https://testnet.sentry.lcd.injective.network/swagger/#/Query/AllBalances
 
 * Injective send cosmos token example: https://docs.ts.injective.network/transactions/transactions-cosmos#example-prepare--sign--broadcast
+
+* Injective address on cosmos is generated from evm address: https://docs.injective.network/learn/basic-concepts/accounts#deriving-injective-account-from-a-private-keymnemonic
