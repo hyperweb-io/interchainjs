@@ -2206,7 +2206,7 @@
 
 "@injectivelabs/networks@^1.14.6":
   version "1.14.6"
-  resolved "https://registry.npmjs.org/@injectivelabs/networks/-/networks-1.14.6.tgz"
+  resolved "https://registry.yarnpkg.com/@injectivelabs/networks/-/networks-1.14.6.tgz#29be5e81e60d725a0eef2db2c9b6ba0b4588141b"
   integrity sha512-O1IkPFJl8ThNL6N+k/9OimrgCYsSWQ8A1FtVMXSQge+0QRZsDKSpRmQRwE601otXXauO31nOUct5AaiWPffXVQ==
   dependencies:
     "@injectivelabs/exceptions" "^1.14.6"
@@ -2312,7 +2312,7 @@
 
 "@injectivelabs/wallet-ts@^1.14.7":
   version "1.14.7"
-  resolved "https://registry.npmjs.org/@injectivelabs/wallet-ts/-/wallet-ts-1.14.7.tgz"
+  resolved "https://registry.yarnpkg.com/@injectivelabs/wallet-ts/-/wallet-ts-1.14.7.tgz#a7bb284d1d28c2466188e97b08fad11149025514"
   integrity sha512-21S4YUqGhIuBcxpWzTsBiONLg3RYi1dUbJEUh1zaAxupCMkvaVxOjVTpq3Fqtv8iMMOcZLo9MnAvlN7lgspFwQ==
   dependencies:
     "@cosmjs/launchpad" "0.27.1"

@@ -41,6 +41,9 @@
     "injective"
   ],
   "devDependencies": {
+    "@injectivelabs/networks": "^1.14.6",
+    "@injectivelabs/sdk-ts": "^1.14.7",
+    "@injectivelabs/wallet-ts": "^1.14.7",
     "dotenv": "^16.4.5"
   }
 }

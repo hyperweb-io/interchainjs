@@ -2,7 +2,7 @@
   "protoDirs": [
     "./protos"
   ],
-  "outPath": "./libs/cosmos-types",
+  "outPath": "./networks/injective/codegen-injective",
   "options": {
     "classesUseArrowFunctions": true,
     "env": "v-next",

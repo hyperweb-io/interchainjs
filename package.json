@@ -20,7 +20,9 @@
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --stream"
+    "build": "lerna run build --stream",
+    "proto:injective": "telescope download --config ./scripts/.protod.config.injective.json",
+    "codegen:injective": "telescope transpile --config ./scripts/cosmos-types.telescope.injective.json"
   },
   "dependencies": {},
   "devDependencies": {
