@@ -7,7 +7,7 @@ import {
   TxBody,
   TxRaw,
 } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
-import { IKey, StdFee } from "@interchainjs/types";
+import { IKey, ITxBuilder, StdFee } from "@interchainjs/types";
 
 import {
   CosmosCreateDocResponse,
@@ -23,7 +23,7 @@ import { calculateFee, toFee } from "../utils";
  */
 export abstract class BaseCosmosTxBuilder<SignDoc>
   implements
-    IBaseCosmosTxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
+    ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
 {
   constructor(
     public signMode: SignMode,
@@ -180,6 +180,3 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
   }
 }
 
-export interface IBaseCosmosTxBuilder<SignArgs, SignResp> {
-  buildSignedTxDoc(args: SignArgs): Promise<SignResp>;
-}

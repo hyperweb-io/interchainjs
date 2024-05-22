@@ -47,6 +47,10 @@ export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }>
   broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
 }
 
+export interface ITxBuilder<SignArgs, SignResp> {
+  buildSignedTxDoc(args: SignArgs): Promise<SignResp>;
+}
+
 /**
  * UniSigner is a generic interface for signing and broadcasting transactions.
  * It is used to abstract the signing and broadcasting process for different chains.

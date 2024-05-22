@@ -1,5 +1,4 @@
 import { BaseAccount } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
-import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
 import {
   SignerInfo,
   TxBody,
@@ -12,7 +11,6 @@ import {
   HttpEndpoint,
   IKey,
   SignResponse,
-  StdFee,
 } from "@interchainjs/types";
 import { assertEmpty, isEmpty } from "@interchainjs/utils";
 
@@ -25,18 +23,11 @@ import {
   EncodedMessage,
   Encoder,
   FeeOptions,
-  Message,
   QueryClient,
   SignerOptions,
   TimeoutHeightOption,
   UniCosmosBaseSigner,
 } from "../types";
-import { toFee } from "../utils/amino";
-import {
-  constructAuthInfo,
-  constructSignerInfo,
-  constructTxBody,
-} from "../utils/direct";
 import { calculateFee } from "../utils/fee";
 
 export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
@@ -123,123 +114,12 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
         };
   }
 
-  /**
-   * createTransaction without signing
-   */
-  async createTxRaw(
-    messages: Message[],
-    signMode: SignMode,
-    fee?: StdFee,
-    memo?: string,
-    options?: Options
-  ) {
-    const { txBody, encode } = constructTxBody(
-      messages,
-      this.getEncoder,
-      memo,
-      {
-        ...options,
-        timeoutHeight: await this.toAbsoluteTimeoutHeight(
-          options?.timeoutHeight
-        ),
-      }
-    );
-
-    const { signerInfo } = constructSignerInfo(
-      this.encodePublicKey(this.publicKey),
-      options?.sequence ?? (await this.queryClient.getSequence()),
-      signMode
-    );
-
-    let stdFee: StdFee;
-    if (fee) {
-      stdFee = fee;
-    } else {
-      const { gasInfo } = await this.simulate(txBody, [signerInfo]);
-      if (typeof gasInfo === "undefined") {
-        throw new Error("Fail to estimate gas by simulate tx.");
-      }
-      await calculateFee(gasInfo, options, this.queryClient.getChainId);
-    }
-
-    const txRaw = TxRaw.fromPartial({
-      bodyBytes: encode(),
-      authInfoBytes: constructAuthInfo([signerInfo], toFee(stdFee)).encode(),
-      signatures: [],
-    });
-    return { txRaw, fee: stdFee };
-  }
-
-  // abstract signDoc(doc: SignDoc): void;
-  // abstract createDoc(
-  //   messages: Message[],
-  //   fee: StdFee,
-  //   memo?: string,
-  //   options?: Options
-  // ): void;
-
   async sign({
     messages,
     fee,
     memo,
     options,
   }: CosmosSignArgs): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
-    // createDoc
-    // ----
-    // for DirectSignerBase.createDoc()
-    //  CosmosBaseSigner.createTxRaw:
-    //  create a part of the txRaw, which is encoded txBody and encoded authInfo, and fee
-    //    create txBody obj and encoded txBody
-    //    create signerInfo obj and encoded signerInfo
-    //    get Fee from options or simulate(using txBody obj and signerInfo obj)
-    //    create authInfo obj and encoded authInfo(using signerInfo obj and Fee obj)
-    //    return bodyBytes, authInfoBytes, and fee
-    //  DirectSignerBase.signDoc: create a SignDoc obj using bodyBytes, authInfoBytes, chainId and accountNumber
-    //  CosmosBaseSigner.sign: return the SignDoc and bodyBytes, authInfoBytes
-    // --
-    // for AminoSignerBase.createDoc()
-    //  create a part of the txRaw, which is encoded txBody and encoded authInfo, and fee
-    //  create a SignDoc obj using
-    //    - chainId
-    //    - accountNumber
-    //    - sequence
-    //    - fee,
-    //    - msgs,
-    //    - authInfoBytes,
-    //  return the SignDoc and bodyBytes, authInfoBytes
-    // --
-    // for injective Eip712Signer.createDoc()
-    //  get timeoutHeight
-    //  get Amino SignDoc and bodyBytes, authInfoBytes by amino createDoc
-    //  create eip712Doc
-    //    - primaryType: Tx
-    //    - domain
-    //    - types: defaultEip712Types.types + toEthTypes()
-    //    - message: Amino SignDoc, timeout_height, fee
-    //  return the Eip712 SignDoc and bodyBytes, authInfoBytes
-    // ----
-
-    // sign the SignDoc to get the signature
-
-    // create the TxRaw using the signature and bodyBytes, authInfoBytes
-    // return Tx ,SignDoc and a broadcast function
-
-    // ----
-    // const created = await this.createDoc(messages, fee, memo, options);
-    // const { signature, signDoc } = await this.signDoc(created.signDoc);
-    // const txRawCompleted = TxRaw.fromPartial({
-    //   ...created.tx,
-    //   signatures: [signature.value],
-    // });
-    // return {
-    //   signature,
-    //   signDoc,
-    //   tx: txRawCompleted,
-    //   broadcast: async (options?: BroadcastOptions) => {
-    //     return this.broadcast(txRawCompleted, options);
-    //   },
-    // };
-
     throw new Error("Not implemented yet");
   }
 
