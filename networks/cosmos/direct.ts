@@ -2,25 +2,20 @@ import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-import { CosmosBaseSigner } from "./base";
+import { BaseCosmosTxBuilder, CosmosBaseSigner } from "./base";
+import { BaseCosmosTxBuilderContext } from "./base/builder-context";
+import { DirectTxBuilder } from "./builder/direct-tx-builder";
 import { defaultSignerConfig } from "./defaults";
 import {
   CosmosDirectDoc,
   CosmosDirectSigner,
   CosmosDirectWallet,
-  DocOptions,
   Encoder,
   SignerOptions,
 } from "./types";
-import {
-  getAccountFromAuth,
-  SignResponseFromAuth,
-} from "./utils";
+import { getAccountFromAuth, SignResponseFromAuth } from "./utils";
 
-export class DirectSignerBase extends CosmosBaseSigner<
-  CosmosDirectDoc,
-  DocOptions
-> {
+export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -30,33 +25,9 @@ export class DirectSignerBase extends CosmosBaseSigner<
     super(auth, encoders, endpoint, options);
   }
 
-  // async createDoc(
-  //   messages: Message[],
-  //   fee?: StdFee,
-  //   memo?: string,
-  //   options?: DocOptions
-  // ) {
-  //   const { txRaw } = await this.createTxRaw(
-  //     messages,
-  //     options?.signMode ?? SignMode.SIGN_MODE_DIRECT,
-  //     fee,
-  //     memo,
-  //     options
-  //   );
-
-  //   const signDoc: ISignDoc.CosmosDirectDoc = SignDoc.fromPartial({
-  //     bodyBytes: txRaw.bodyBytes,
-  //     authInfoBytes: txRaw.authInfoBytes,
-  //     chainId: options?.chainId ?? (await this.queryClient.getChainId()),
-  //     accountNumber:
-  //       options?.accountNumber ?? (await this.queryClient.getAccountNumber()),
-  //   });
-  //   return { signDoc, tx: txRaw };
-  // }
-
-  signDoc = async (doc: CosmosDirectDoc) => {
-    return SignResponseFromAuth.signDirect(this.auth, doc, this.config);
-  };
+  getTxBuilder(): BaseCosmosTxBuilder<CosmosDirectDoc> {
+    return new DirectTxBuilder(new BaseCosmosTxBuilderContext());
+  }
 }
 
 export class DirectSigner
@@ -84,7 +55,8 @@ export class DirectSigner
         defaultSignerConfig.publicKey.isCompressed
     );
     const signer = new DirectSigner(auth, encoders, endpoint, options);
-    signer.signDoc = wallet.sign;
+    // TODO:: figure out how to set signDoc
+    // signer.signDoc = wallet.sign;
     return signer;
   }
 

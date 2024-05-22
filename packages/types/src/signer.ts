@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 
-import { Auth,IKey, Signature } from "./auth";
+import { Auth, IKey, Signature } from "./auth";
 
 export interface HttpEndpoint {
   url: string;
@@ -47,8 +47,12 @@ export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }>
   broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
 }
 
-export interface ITxBuilder<SignArgs, SignResp> {
+export interface ITxBuilder<SignArgs = unknown, SignResp = unknown> {
   buildSignedTxDoc(args: SignArgs): Promise<SignResp>;
+}
+
+export interface ITxBuilderContext<Signer = unknown> {
+  signer?: Signer;
 }
 
 /**

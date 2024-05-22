@@ -19,7 +19,6 @@ import { RpcClient } from "../query/rpc";
 import {
   BroadcastResponse,
   CosmosSignArgs,
-  DocOptions,
   EncodedMessage,
   Encoder,
   FeeOptions,
@@ -29,16 +28,18 @@ import {
   UniCosmosBaseSigner,
 } from "../types";
 import { calculateFee } from "../utils/fee";
+import { BaseCosmosTxBuilder } from "./tx-builder";
 
-export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
+export abstract class CosmosBaseSigner<SignDoc>
   extends BaseSigner
   implements UniCosmosBaseSigner<SignDoc>
 {
   protected _queryClient?: QueryClient;
   readonly encoders: Encoder[];
-  readonly encodePublicKey: (key: IKey) => EncodedMessage;
+  readonly _encodePublicKey: (key: IKey) => EncodedMessage;
   readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
   protected prefix?: string;
+  protected txBuilder: BaseCosmosTxBuilder<SignDoc>;
 
   constructor(
     auth: Auth,
@@ -50,16 +51,20 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
     this.encoders = encoders;
     this.parseAccount =
       options?.parseAccount ?? defaultSignerOptions.parseAccount;
-    this.encodePublicKey =
+    this._encodePublicKey =
       options?.encodePublicKey ?? defaultSignerOptions.encodePublicKey;
     this.prefix = options?.prefix;
     if (!isEmpty(endpoint)) {
       this.setEndpoint(endpoint);
     }
+
+    this.txBuilder = this.getTxBuilder();
   }
 
-  get encodedPublicKey() {
-    return this.encodePublicKey(this.publicKeyHash);
+  abstract getTxBuilder(): BaseCosmosTxBuilder<SignDoc>;
+
+  public get encodedPublicKey() {
+    return this._encodePublicKey(this.publicKeyHash);
   }
 
   addEncoders = (encoders: Encoder[]) => {
@@ -114,13 +119,17 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
         };
   }
 
-  async sign({
-    messages,
-    fee,
-    memo,
-    options,
-  }: CosmosSignArgs): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
-    throw new Error("Not implemented yet");
+  async sign(
+    args: CosmosSignArgs
+  ): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
+    const signed = await this.txBuilder.buildSignedTxDoc(args);
+
+    return {
+      ...signed,
+      broadcast: async (options?: BroadcastOptions) => {
+        return this.broadcast(signed.tx, options);
+      },
+    };
   }
 
   async broadcast(txRaw: TxRaw, options?: BroadcastOptions) {
@@ -164,4 +173,3 @@ export abstract class CosmosBaseSigner<SignDoc, Options extends DocOptions>
     return await calculateFee(gasInfo, options, this.queryClient.getChainId);
   }
 }
-

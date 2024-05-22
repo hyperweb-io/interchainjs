@@ -1,5 +1,4 @@
 import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
-import { SimulateResponse } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/service";
 import {
   AuthInfo,
   Fee,
@@ -7,36 +6,27 @@ import {
   TxBody,
   TxRaw,
 } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
-import { IKey, ITxBuilder, StdFee } from "@interchainjs/types";
+import { ITxBuilder, StdFee } from "@interchainjs/types";
 
 import {
   CosmosCreateDocResponse,
   CosmosSignArgs,
   DocOptions,
   EncodedMessage,
-  Encoder,
 } from "../types";
 import { calculateFee, toFee } from "../utils";
+import { CosmosBaseSigner } from "./base-signer";
+import { BaseCosmosTxBuilderContext } from "./builder-context";
 
 /**
  * BaseCosmosTxBuilder is a helper class to build the Tx and signDoc
  */
 export abstract class BaseCosmosTxBuilder<SignDoc>
-  implements
-    ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
+  implements ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
 {
   constructor(
     public signMode: SignMode,
-    public publicKey: IKey,
-    public chainId: string,
-    protected encoderParser: (typeUrl: string) => Encoder,
-    protected getSequence: () => Promise<bigint>,
-    protected encodePublicKey: (key: IKey) => EncodedMessage,
-    protected simulate: (
-      txBody: TxBody,
-      signerInfos: SignerInfo[]
-    ) => Promise<SimulateResponse>,
-    protected signArbitrary: (data: Uint8Array) => IKey
+    protected ctx: BaseCosmosTxBuilderContext<CosmosBaseSigner<SignDoc>>
   ) {}
 
   abstract buildDoc(
@@ -58,8 +48,8 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
       options,
     });
     const { signerInfo } = await this.buildSignerInfo(
-      this.encodePublicKey(this.publicKey),
-      options?.sequence ?? (await this.getSequence()),
+      this.ctx.signer.encodedPublicKey,
+      options?.sequence ?? (await this.ctx.signer.queryClient.getSequence()),
       this.signMode
     );
 
@@ -86,7 +76,7 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     const encoded = messages.map(({ typeUrl, value }) => {
       return {
         typeUrl,
-        value: this.encoderParser(typeUrl).encode(value),
+        value: this.ctx.signer.getEncoder(typeUrl).encode(value),
       };
     });
     const txBody = TxBody.fromPartial({
@@ -140,12 +130,12 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     if (fee) {
       return fee;
     }
-    const { gasInfo } = await this.simulate(txBody, signerInfos);
+    const { gasInfo } = await this.ctx.signer.simulate(txBody, signerInfos);
     if (typeof gasInfo === "undefined") {
       throw new Error("Fail to estimate gas by simulate tx.");
     }
     await calculateFee(gasInfo, options, async () => {
-      return this.chainId;
+      return this.ctx.signer.queryClient.getChainId();
     });
   }
 
@@ -164,7 +154,7 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     const docBytes = await this.buildDocBytes(doc);
 
     // sign signature to the doc bytes
-    const signature = this.signArbitrary(docBytes);
+    const signature = this.ctx.signer.signArbitrary(docBytes);
 
     // build TxRaw
     const signedTxRaw = TxRaw.fromPartial({
@@ -179,4 +169,3 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     };
   }
 }
-

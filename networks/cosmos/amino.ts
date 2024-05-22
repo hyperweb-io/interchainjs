@@ -8,19 +8,12 @@ import {
   CosmosAminoDoc,
   CosmosAminoSigner,
   CosmosAminoWallet,
-  DocOptions,
   Encoder,
   SignerOptions,
 } from "./types";
-import {
-  getAccountFromAuth,
-  SignResponseFromAuth,
-} from "./utils";
+import { getAccountFromAuth, SignResponseFromAuth } from "./utils";
 
-export class AminoSignerBase extends CosmosBaseSigner<
-  CosmosAminoDoc,
-  DocOptions
-> {
+export class AminoSignerBase extends CosmosBaseSigner<CosmosAminoDoc> {
   readonly converters: AminoConverter[];
 
   constructor(
