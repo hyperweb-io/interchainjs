@@ -23,6 +23,7 @@ export interface Eip712SignArgs {
   options?: any;
 }
 
+// TODO:: Add the correct type for Eip712Doc
 export type Eip712Doc = Eip712Data<Domain, any>;
 
 export type Eip712Tx = unknown;

@@ -32,7 +32,6 @@ export class DirectSigner
       options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
     const signer = new DirectSigner(auth, encoders, endpoint, options);
-    signer.signDoc = wallet.sign;
     return signer;
   }
 

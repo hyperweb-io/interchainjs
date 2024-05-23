@@ -26,7 +26,7 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   }
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosDirectDoc> {
-    return new DirectTxBuilder(new BaseCosmosTxBuilderContext());
+    return new DirectTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 }
 

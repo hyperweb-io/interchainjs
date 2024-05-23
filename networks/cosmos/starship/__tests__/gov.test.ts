@@ -28,7 +28,7 @@ import { BigNumber } from "bignumber.js";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { useChain } from "starshipjs";
 
-import { waitUntil } from "../../../../test-utils"
+import { waitUntil } from "../../../../test-utils";
 
 describe("Governance tests for osmosis", () => {
   let directSigner: DirectSigner,
@@ -44,9 +44,8 @@ describe("Governance tests for osmosis", () => {
   let validatorAddress: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("osmosis"));
     denom = getCoin().base;
 
     // Initialize auth
@@ -142,9 +141,16 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      {
+        messages: [msg],
+        fee,
+        memo: "",
+      },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
@@ -182,9 +188,16 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      {
+        messages: [msg],
+        fee,
+        memo: "",
+      },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
 
     // Get proposal id from log events
@@ -229,9 +242,16 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      {
+        messages: [msg],
+        fee,
+        memo: "",
+      },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
@@ -267,9 +287,16 @@ describe("Governance tests for osmosis", () => {
       gas: "550000",
     };
 
-    const result = await aminoSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await aminoSigner.signAndBroadcast(
+      {
+        messages: [msg],
+        fee,
+        memo: "",
+      },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 

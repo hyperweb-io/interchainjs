@@ -15,7 +15,9 @@ import {
 } from "./types";
 import { getAccountFromAuth, SignResponseFromAuth } from "./utils";
 
-export class AminoSignerBase extends CosmosBaseSigner<CosmosAminoDoc> {
+export abstract class AminoSignerBase<
+  AminoDoc,
+> extends CosmosBaseSigner<AminoDoc> {
   readonly converters: AminoConverter[];
 
   constructor(
@@ -27,10 +29,6 @@ export class AminoSignerBase extends CosmosBaseSigner<CosmosAminoDoc> {
   ) {
     super(auth, encoders, endpoint, options);
     this.converters = converters;
-  }
-
-  getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
-    return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 
   addConverters = (converters: AminoConverter[]) => {
@@ -62,7 +60,10 @@ export class AminoSignerBase extends CosmosBaseSigner<CosmosAminoDoc> {
   };
 }
 
-export class AminoSigner extends AminoSignerBase implements CosmosAminoSigner {
+export class AminoSigner
+  extends AminoSignerBase<CosmosAminoDoc>
+  implements CosmosAminoSigner
+{
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -71,6 +72,10 @@ export class AminoSigner extends AminoSignerBase implements CosmosAminoSigner {
     options?: SignerOptions
   ) {
     super(auth, encoders, converters, endpoint, options);
+  }
+
+  getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
+    return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 
   static async fromWallet(

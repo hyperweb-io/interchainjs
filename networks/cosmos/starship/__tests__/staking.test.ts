@@ -1,26 +1,28 @@
 // Using `fromWallet` to construct Signer
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { toDirectWallet } from "interchainjs/utils";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
-import BigNumber from "bignumber.js";
-import { useChain } from "starshipjs";
 import "./setup.test";
+
+import { ChainInfo } from "@chain-registry/client";
+import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
+import { DirectSigner } from "@interchainjs/cosmos/direct";
+import {
+  assertIsDeliverTxSuccess,
+  toEncoders,
+} from "@interchainjs/cosmos/utils";
 import {
   BondStatus,
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import { IWallet } from "@interchainjs/types";
-import { ChainInfo } from "@chain-registry/client";
-import {
-  assertIsDeliverTxSuccess,
-  toEncoders,
-} from "@interchainjs/cosmos/utils";
+import BigNumber from "bignumber.js";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { toDirectWallet } from "interchainjs/utils";
+import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
+import { useChain } from "starshipjs";
+
+import { CosmosDirectWallet } from "../../types";
 
 describe("Staking tokens testing", () => {
-  let directWallet: IWallet.CosmosDirectWallet, denom: string, address: string;
+  let directWallet: CosmosDirectWallet, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
@@ -32,9 +34,8 @@ describe("Staking tokens testing", () => {
   let delegationAmount: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("osmosis"));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
@@ -119,9 +120,16 @@ describe("Staking tokens testing", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      {
+        messages: [msg],
+        fee,
+        memo: "",
+      },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   });
 

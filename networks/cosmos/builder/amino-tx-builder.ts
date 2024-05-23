@@ -7,7 +7,9 @@ import { CosmosAminoDoc, CosmosSignArgs } from "../types";
 import { encodeStdSignDoc, toAminoMsgs } from "../utils";
 
 export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
-  constructor(protected ctx: BaseCosmosTxBuilderContext<AminoSignerBase>) {
+  constructor(
+    protected ctx: BaseCosmosTxBuilderContext<AminoSignerBase<CosmosAminoDoc>>
+  ) {
     super(SignMode.SIGN_MODE_LEGACY_AMINO_JSON, ctx);
   }
 

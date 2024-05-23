@@ -34,12 +34,12 @@ export abstract class CosmosBaseSigner<SignDoc>
   extends BaseSigner
   implements UniCosmosBaseSigner<SignDoc>
 {
-  protected _queryClient?: QueryClient;
+  _queryClient?: QueryClient;
   readonly encoders: Encoder[];
   readonly _encodePublicKey: (key: IKey) => EncodedMessage;
   readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
-  protected prefix?: string;
-  protected txBuilder: BaseCosmosTxBuilder<SignDoc>;
+  prefix?: string;
+  txBuilder: BaseCosmosTxBuilder<SignDoc>;
 
   constructor(
     auth: Auth,
@@ -104,7 +104,7 @@ export abstract class CosmosBaseSigner<SignDoc>
   /**
    * convert relative timeoutHeight to absolute timeoutHeight
    */
-  protected async toAbsoluteTimeoutHeight(
+  async toAbsoluteTimeoutHeight(
     timeoutHeight?: TimeoutHeightOption
   ): Promise<{ type: "absolute"; value: bigint } | undefined> {
     return isEmpty(timeoutHeight)

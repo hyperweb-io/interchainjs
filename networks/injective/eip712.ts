@@ -1,4 +1,6 @@
-import { CosmosBaseSigner } from "@interchainjs/cosmos/base";
+import { AminoSignerBase } from "@interchainjs/cosmos/amino";
+import { BaseCosmosTxBuilder } from "@interchainjs/cosmos/base";
+import { BaseCosmosTxBuilderContext } from "@interchainjs/cosmos/base/builder-context";
 import {
   AminoConverter,
   Encoder,
@@ -14,14 +16,12 @@ import {
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
 import { AminoSigner } from "./amino";
+import { Eip712TxBuilder } from "./builder/eip712-tx-builder";
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
-import { DocOptions, InjectiveEip712Doc, InjectiveEip712Wallet } from "./types";
+import { InjectiveEip712Doc, InjectiveEip712Wallet } from "./types";
 import { getAccountFromAuth } from "./utils";
 
-export class Eip712Signer extends CosmosBaseSigner<
-  InjectiveEip712Doc,
-  DocOptions
-> {
+export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
   readonly aminoSigner: AminoSigner;
 
   constructor(
@@ -31,7 +31,7 @@ export class Eip712Signer extends CosmosBaseSigner<
     endpoint?: string | HttpEndpoint,
     options: SignerOptions = defaultSignerOptions.Ethereum
   ) {
-    super(auth, encoders, endpoint, options);
+    super(auth, encoders, converters, endpoint, options);
     this.aminoSigner = new AminoSigner(
       auth,
       encoders,
@@ -41,52 +41,9 @@ export class Eip712Signer extends CosmosBaseSigner<
     );
   }
 
-  static async fromWallet(
-    wallet: InjectiveEip712Wallet,
-    encoders: Encoder[],
-    converters: AminoConverter[],
-    endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
-  ) {
-    const auth: Auth = await constructAuthFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
-    const signer = new Eip712Signer(
-      auth,
-      encoders,
-      converters,
-      endpoint,
-      options
-    );
-    signer.signDoc = wallet.sign;
-    return signer;
+  getTxBuilder(): BaseCosmosTxBuilder<InjectiveEip712Doc> {
+    return new Eip712TxBuilder(new BaseCosmosTxBuilderContext(this));
   }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerOptions.Ethereum
-  ): InjectiveEip712Wallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
-      sign: async (doc: InjectiveEip712Doc) =>
-        SignResponseFromAuth.signEip712Data(
-          auth,
-          doc,
-          config
-        ) as SignDocResponse<InjectiveEip712Doc>,
-    };
-  }
-
-  get converters() {
-    return this.aminoSigner.converters;
-  }
-  addConverters = (converters: AminoConverter[]) =>
-    this.aminoSigner.addConverters(converters);
-  getConverter = (aminoType: string) =>
-    this.aminoSigner.getConverter(aminoType);
-  getConverterFromTypeUrl = (typeUrl: string) =>
-    this.aminoSigner.getConverterFromTypeUrl(typeUrl);
 
   // async createDoc(
   //   messages: Message[],
@@ -134,11 +91,49 @@ export class Eip712Signer extends CosmosBaseSigner<
   //   return { signDoc, tx: created.tx };
   // }
 
-  signDoc = async (doc: InjectiveEip712Doc) => {
-    return SignResponseFromAuth.signEip712Data(
-      this.auth,
-      doc,
-      this.config
-    ) as SignDocResponse<InjectiveEip712Doc>;
-  };
+  // signDoc = async (doc: InjectiveEip712Doc) => {
+  //   return SignResponseFromAuth.signEip712Data(
+  //     this.auth,
+  //     doc,
+  //     this.config
+  //   ) as SignDocResponse<InjectiveEip712Doc>;
+  // };
+}
+
+export class Eip712Signer extends Eip712SignerBase {
+  static async fromWallet(
+    wallet: InjectiveEip712Wallet,
+    encoders: Encoder[],
+    converters: AminoConverter[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auth: Auth = await constructAuthFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
+    );
+    const signer = new Eip712Signer(
+      auth,
+      encoders,
+      converters,
+      endpoint,
+      options
+    );
+    return signer;
+  }
+
+  static toWallet(
+    auth: Auth,
+    config: SignerConfig = defaultSignerOptions.Ethereum
+  ): InjectiveEip712Wallet {
+    return {
+      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
+      sign: async (doc: InjectiveEip712Doc) =>
+        SignResponseFromAuth.signEip712Data(
+          auth,
+          doc,
+          config
+        ) as SignDocResponse<InjectiveEip712Doc>,
+    };
+  }
 }

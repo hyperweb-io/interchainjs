@@ -1,4 +1,7 @@
-import { DocOptions as CosmosDocOptions } from "@interchainjs/cosmos/types";
+import {
+  CosmosSignArgs,
+  DocOptions as CosmosDocOptions,
+} from "@interchainjs/cosmos/types";
 import {
   CosmosAminoDoc,
   CosmosAminoSigner,
@@ -28,13 +31,14 @@ export type InjectiveEip712Doc = Eip712Data<
   InjectiveEip712Message
 >;
 
+export type InjectiveEip712SignArgs = CosmosSignArgs<DocOptions>;
+
 export type InjectiveDirectWallet = Wallet<InjectiveAccount, CosmosDirectDoc>;
 export type InjectiveAminoWallet = Wallet<InjectiveAccount, CosmosAminoDoc>;
 export type InjectiveEip712Wallet = Wallet<
   InjectiveAccount,
   InjectiveEip712Doc
 >;
-
 
 export enum EthereumChainId {
   Mainnet = 1,

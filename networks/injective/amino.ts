@@ -1,4 +1,7 @@
 import { AminoSignerBase } from "@interchainjs/cosmos/amino";
+import { BaseCosmosTxBuilder } from "@interchainjs/cosmos/base";
+import { BaseCosmosTxBuilderContext } from "@interchainjs/cosmos/base/builder-context";
+import { AminoTxBuilder } from "@interchainjs/cosmos/builder/amino-tx-builder";
 import {
   AminoConverter,
   CosmosAminoDoc,
@@ -14,7 +17,7 @@ import { InjectiveAminoSigner, InjectiveAminoWallet } from "./types";
 import { getAccountFromAuth } from "./utils";
 
 export class AminoSigner
-  extends AminoSignerBase
+  extends AminoSignerBase<CosmosAminoDoc>
   implements InjectiveAminoSigner
 {
   constructor(
@@ -25,6 +28,10 @@ export class AminoSigner
     options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
     super(auth, encoders, converters, endpoint, options);
+  }
+
+  getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
+    return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 
   static async fromWallet(
@@ -45,7 +52,6 @@ export class AminoSigner
       endpoint,
       options
     );
-    signer.signDoc = wallet.sign;
     return signer;
   }
 

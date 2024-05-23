@@ -23,9 +23,8 @@ describe("Token transfers", () => {
   let queryClient: RpcQuery;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("osmosis"));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
@@ -68,14 +67,20 @@ describe("Token transfers", () => {
     // Transfer uosmo tokens from faceut
     directSigner.addEncoders(toEncoders(MsgSend));
     await directSigner.signAndBroadcast(
-      [
-        {
-          typeUrl: MsgSend.typeUrl,
-          value: { fromAddress: address, toAddress: address2, amount: [token] },
-        },
-      ],
-      fee,
-      "send tokens test",
+      {
+        messages: [
+          {
+            typeUrl: MsgSend.typeUrl,
+            value: {
+              fromAddress: address,
+              toAddress: address2,
+              amount: [token],
+            },
+          },
+        ],
+        fee,
+        memo: "send tokens test",
+      },
       { deliverTx: true }
     );
 
@@ -86,10 +91,8 @@ describe("Token transfers", () => {
   }, 10000);
 
   it("send ibc osmo tokens to address on cosmos chain", async () => {
-    const {
-      chainInfo: cosmosChainInfo,
-      getRpcEndpoint: cosmosRpcEndpoint,
-    } = useChain("cosmos");
+    const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
+      useChain("cosmos");
 
     const { getRpcEndpoint: osmosisRpcEndpoint } = useChain("osmosis");
 
@@ -112,10 +115,8 @@ describe("Token transfers", () => {
 
     expect(ibcInfo).toBeTruthy();
 
-    const {
-      port_id: sourcePort,
-      channel_id: sourceChannel,
-    } = ibcInfo!.channels[0].chain_1;
+    const { port_id: sourcePort, channel_id: sourceChannel } =
+      ibcInfo!.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
@@ -139,23 +140,25 @@ describe("Token transfers", () => {
     // send ibc tokens
     directSigner.addEncoders(toEncoders(MsgTransfer));
     const resp = await directSigner.signAndBroadcast(
-      [
-        {
-          typeUrl: MsgTransfer.typeUrl,
-          value: MsgTransfer.fromPartial({
-            sourcePort,
-            sourceChannel,
-            token,
-            sender: address,
-            receiver: cosmosAddress,
-            timeoutHeight: undefined,
-            timeoutTimestamp: BigInt(timeoutTime),
-            memo: "test transfer",
-          }),
-        },
-      ],
-      fee,
-      "",
+      {
+        messages: [
+          {
+            typeUrl: MsgTransfer.typeUrl,
+            value: MsgTransfer.fromPartial({
+              sourcePort,
+              sourceChannel,
+              token,
+              sender: address,
+              receiver: cosmosAddress,
+              timeoutHeight: undefined,
+              timeoutTimestamp: BigInt(timeoutTime),
+              memo: "test transfer",
+            }),
+          },
+        ],
+        fee,
+        memo: "",
+      },
       { deliverTx: true }
     );
 
@@ -167,7 +170,7 @@ describe("Token transfers", () => {
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
-      resolveDenom: true
+      resolveDenom: true,
     });
 
     // check balances
