@@ -1,14 +1,13 @@
 import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
 
-import { BaseCosmosTxBuilder, CosmosBaseSigner } from "../base";
+import { type AminoSignerBase } from "../amino";
+import { BaseCosmosTxBuilder } from "../base";
 import { BaseCosmosTxBuilderContext } from "../base/builder-context";
-import { AminoConverter, CosmosAminoDoc, CosmosSignArgs } from "../types";
+import { CosmosAminoDoc, CosmosSignArgs } from "../types";
 import { encodeStdSignDoc, toAminoMsgs } from "../utils";
 
 export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
-  constructor(
-    protected ctx: BaseCosmosTxBuilderContext<CosmosBaseSigner<CosmosAminoDoc>>
-  ) {
+  constructor(protected ctx: BaseCosmosTxBuilderContext<AminoSignerBase>) {
     super(SignMode.SIGN_MODE_LEGACY_AMINO_JSON, ctx);
   }
 
@@ -18,10 +17,6 @@ export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
     memo,
     options,
   }: CosmosSignArgs): Promise<CosmosAminoDoc> {
-    const { getConverterFromTypeUrl } = this.ctx.signer as {
-      getConverterFromTypeUrl: (typeUrl: string) => AminoConverter;
-    };
-
     const signDoc: CosmosAminoDoc = {
       chain_id:
         options?.chainId ?? (await this.ctx.signer.queryClient.getChainId()),
@@ -33,7 +28,7 @@ export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
         options?.sequence ?? (await this.ctx.signer.queryClient.getSequence())
       ).toString(),
       fee,
-      msgs: toAminoMsgs(messages, this.getConverterFromTypeUrl),
+      msgs: toAminoMsgs(messages, this.ctx.signer.getConverterFromTypeUrl),
       memo: memo ?? "",
     };
     return signDoc;

@@ -1,7 +1,9 @@
 import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
-import { CosmosBaseSigner } from "./base";
+import { BaseCosmosTxBuilder, CosmosBaseSigner } from "./base";
+import { BaseCosmosTxBuilderContext } from "./base/builder-context";
+import { AminoTxBuilder } from "./builder/amino-tx-builder";
 import { defaultSignerConfig } from "./defaults";
 import {
   AminoConverter,
@@ -25,6 +27,10 @@ export class AminoSignerBase extends CosmosBaseSigner<CosmosAminoDoc> {
   ) {
     super(auth, encoders, endpoint, options);
     this.converters = converters;
+  }
+
+  getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
+    return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 
   addConverters = (converters: AminoConverter[]) => {
@@ -53,39 +59,6 @@ export class AminoSignerBase extends CosmosBaseSigner<CosmosAminoDoc> {
       );
     }
     return converter;
-  };
-
-  // async createDoc(
-  //   messages: Message[],
-  //   fee?: StdFee,
-  //   memo?: string,
-  //   options?: DocOptions
-  // ) {
-  //   const { txRaw, fee: _fee } = await this.createTxRaw(
-  //     messages,
-  //     options?.signMode ?? SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
-  //     fee,
-  //     memo,
-  //     options
-  //   );
-
-  //   const signDoc: ISignDoc.CosmosAminoDoc = {
-  //     chain_id: options?.chainId ?? (await this.queryClient.getChainId()),
-  //     account_number: (
-  //       options?.accountNumber ?? (await this.queryClient.getAccountNumber())
-  //     ).toString(),
-  //     sequence: (
-  //       options?.sequence ?? (await this.queryClient.getSequence())
-  //     ).toString(),
-  //     fee,
-  //     msgs: toAminoMsgs(messages, this.getConverterFromTypeUrl),
-  //     memo: memo ?? "",
-  //   };
-  //   return { signDoc, tx: txRaw };
-  // }
-
-  signDoc = async (doc: CosmosAminoDoc) => {
-    return SignResponseFromAuth.signAmino(this.auth, doc, this.config);
   };
 }
 
@@ -119,7 +92,8 @@ export class AminoSigner extends AminoSignerBase implements CosmosAminoSigner {
       endpoint,
       options
     );
-    signer.signDoc = wallet.sign;
+    // TODO:: figure out how to set signDoc
+    // signer.signDoc = wallet.sign;
     return signer;
   }
 
