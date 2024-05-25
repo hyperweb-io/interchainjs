@@ -6,8 +6,6 @@ import { assertIsDeliverTxSuccess, SigningStargateClient } from '@cosmjs/stargat
 import BigNumber from 'bignumber.js';
 import { ConfigContext, useChain } from 'starshipjs';
 
-import { getSigningIbcClient } from '../../src';
-
 export function generateMnemonic(): string {
   return Bip39.encode(Random.getBytes(16)).toString();
 }
@@ -69,10 +67,6 @@ const findIbcInfo = (chainInfo: ChainInfo, toChainInfo: ChainInfo) => {
 
 const createTempWallet = async (bech32Prefix: string) => {
   return DirectSecp256k1HdWallet.fromMnemonic(generateMnemonic(), { prefix: bech32Prefix });
-};
-
-const setupIbcClient = async (rpcEndpoint: string, wallet: OfflineSigner): Promise<SigningStargateClient> => {
-  return getSigningIbcClient({ rpcEndpoint, signer: wallet });
 };
 
 const sendIbcTokens = async (client: SigningStargateClient, fromAddress: string, toAddress: string, token: Coin, ibcInfo: any, _amount) => {
