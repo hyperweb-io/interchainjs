@@ -1,7 +1,6 @@
 chains:
   - name: injective-999
     type: injective
-    image: ghcr.io/cosmology-tech/starship/injective:v1.11.6
     numValidators: 1
     ports:
       rest: 1317
