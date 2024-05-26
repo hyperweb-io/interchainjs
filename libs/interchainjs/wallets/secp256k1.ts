@@ -1,21 +1,21 @@
-import { Auth, StdSignDoc } from "@interchainjs/types";
+import { defaultHdPaths } from "@interchainjs/auth/defaults";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { SignDoc } from "@interchainjs/cosmos/types";
+import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
 import { encodeStdSignDoc } from "@interchainjs/cosmos/utils";
+import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { Auth, StdSignDoc } from "@interchainjs/types";
 
 import {
   AccountData,
+  Algo,
   AminoSignResponse,
+  Bech32Address,
   DirectSignResponse,
   OfflineAminoSigner,
   OfflineDirectSigner,
   Wallet,
   WalletOptions,
-  Bech32Address,
-  Algo,
 } from "../types/wallet";
-import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
-import { defaultHdPaths } from "@interchainjs/auth/defaults";
 
 const isPublicKeyCompressed = defaultSignerConfig.publicKey.isCompressed;
 const toAddress = defaultSignerConfig.publicKey.hash;

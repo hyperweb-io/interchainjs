@@ -1,7 +1,14 @@
-import { Auth, ISignDoc, IWallet } from "@interchainjs/types";
-import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
-import { Key } from "@interchainjs/utils";
 import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
+import {
+  CosmosAminoDoc,
+  CosmosAminoWallet,
+  CosmosDirectDoc,
+  CosmosDirectWallet,
+} from "@interchainjs/cosmos/types";
+import { Auth } from "@interchainjs/types";
+import { Key } from "@interchainjs/utils";
+
+import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
 
 /**
  * An error when broadcasting the transaction. This contains the CheckTx errors
@@ -49,8 +56,8 @@ export const defaultAuth: Auth = {
 export function toAminoWallet(
   offlineSigner: OfflineAminoSigner,
   prefix: string
-): IWallet.CosmosAminoWallet {
-  const wallet: IWallet.CosmosAminoWallet = {
+): CosmosAminoWallet {
+  const wallet: CosmosAminoWallet = {
     getAccount: async () => {
       const accounts = await offlineSigner.getAccounts();
       const account = accounts.find((account) =>
@@ -66,7 +73,7 @@ export function toAminoWallet(
         },
       };
     },
-    sign: async (doc: ISignDoc.CosmosAminoDoc) => {
+    sign: async (doc: CosmosAminoDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
       const { signature, signed } = await offlineSigner.signAmino(
         account.address,
@@ -84,8 +91,8 @@ export function toAminoWallet(
 export function toDirectWallet(
   offlineSigner: OfflineDirectSigner,
   prefix: string
-): IWallet.CosmosDirectWallet {
-  const wallet: IWallet.CosmosDirectWallet = {
+): CosmosDirectWallet {
+  const wallet: CosmosDirectWallet = {
     getAccount: async () => {
       const accounts = await offlineSigner.getAccounts();
       const account = accounts.find((account) =>
@@ -101,7 +108,7 @@ export function toDirectWallet(
         },
       };
     },
-    sign: async (doc: ISignDoc.CosmosDirectDoc) => {
+    sign: async (doc: CosmosDirectDoc) => {
       const [account, ..._] = await offlineSigner.getAccounts();
       const { signature, signed } = await offlineSigner.signDirect(
         account.address,
