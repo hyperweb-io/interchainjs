@@ -1,6 +1,4 @@
 import "./setup.test";
-
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import {
   assertIsDeliverTxSuccess,
@@ -29,6 +27,7 @@ import { RpcQuery } from "interchainjs/query/rpc";
 import { useChain } from "starshipjs";
 
 import { waitUntil } from "../../test-utils";
+import { generateMnemonic } from "../src";
 
 describe("Governance tests for injective", () => {
   let directSigner: DirectSigner,

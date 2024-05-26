@@ -1,5 +1,4 @@
 // Using `fromWallet` to construct Signer
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { DirectSigner } from "@interchainjs/injective/direct";
 import BigNumber from "bignumber.js";
@@ -16,6 +15,7 @@ import {
   toEncoders,
 } from "@interchainjs/cosmos/utils";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { generateMnemonic } from "../src";
 
 describe("Staking tokens testing", () => {
   let directSigner: DirectSigner, denom: string, address: string;
