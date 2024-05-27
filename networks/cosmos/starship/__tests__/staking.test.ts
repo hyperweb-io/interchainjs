@@ -1,9 +1,10 @@
 // Using `fromWallet` to construct Signer
-import "./setup.test";
-
 import { ChainInfo } from "@chain-registry/client";
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { DirectSigner } from "@interchainjs/cosmos/direct";
+import {
+  assertIsDeliverTxSuccess,
+  toEncoders,
+} from "@interchainjs/cosmos/utils";
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
@@ -13,13 +14,11 @@ import {
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import BigNumber from "bignumber.js";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { toDirectWallet } from "interchainjs/utils";
 import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { useChain } from "starshipjs";
 
-import { CosmosDirectWallet } from "../../types";
+import { generateMnemonic } from "../src";
 
 describe("Staking tokens testing", () => {
   let directWallet: CosmosDirectWallet, denom: string, address: string;

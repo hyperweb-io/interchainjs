@@ -2206,7 +2206,7 @@
 
 "@injectivelabs/networks@^1.14.6":
   version "1.14.6"
-  resolved "https://registry.npmjs.org/@injectivelabs/networks/-/networks-1.14.6.tgz"
+  resolved "https://registry.yarnpkg.com/@injectivelabs/networks/-/networks-1.14.6.tgz#29be5e81e60d725a0eef2db2c9b6ba0b4588141b"
   integrity sha512-O1IkPFJl8ThNL6N+k/9OimrgCYsSWQ8A1FtVMXSQge+0QRZsDKSpRmQRwE601otXXauO31nOUct5AaiWPffXVQ==
   dependencies:
     "@injectivelabs/exceptions" "^1.14.6"
@@ -2312,7 +2312,7 @@
 
 "@injectivelabs/wallet-ts@^1.14.7":
   version "1.14.7"
-  resolved "https://registry.npmjs.org/@injectivelabs/wallet-ts/-/wallet-ts-1.14.7.tgz"
+  resolved "https://registry.yarnpkg.com/@injectivelabs/wallet-ts/-/wallet-ts-1.14.7.tgz#a7bb284d1d28c2466188e97b08fad11149025514"
   integrity sha512-21S4YUqGhIuBcxpWzTsBiONLg3RYi1dUbJEUh1zaAxupCMkvaVxOjVTpq3Fqtv8iMMOcZLo9MnAvlN7lgspFwQ==
   dependencies:
     "@cosmjs/launchpad" "0.27.1"
@@ -5923,7 +5923,7 @@ bech32@1.1.4, bech32@^1.1.4:
 
 bech32@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npmjs.org/bech32/-/bech32-2.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/bech32/-/bech32-2.0.0.tgz#078d3686535075c8c79709f054b1b226a133b355"
   integrity sha512-LcknSilhIGatDAsY1ak2I8VtGaHNhgMSYVxFrGLXv+xLHytaKZKcaUJJUE7qmBr7h33o5YQwP55pMI0xmkpJwg==
 
 before-after-hook@^2.2.0:
@@ -7315,6 +7315,11 @@ dot-prop@^5.1.0:
   integrity sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
   dependencies:
     is-obj "^2.0.0"
+
+dotenv@^16.4.5:
+  version "16.4.5"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
+  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
 dotenv@~10.0.0:
   version "10.0.0"
