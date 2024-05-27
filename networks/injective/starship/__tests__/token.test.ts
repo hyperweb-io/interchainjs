@@ -1,7 +1,6 @@
 import "./setup.test";
 
 import { ChainInfo } from "@chain-registry/client";
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { defaultSignerOptions } from "@interchainjs/cosmos/defaults";
 import {
@@ -13,6 +12,7 @@ import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfe
 import { DirectSigner } from "@interchainjs/injective/direct";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { useChain } from "starshipjs";
+import { generateMnemonic } from "../src";
 
 describe("Token transfers", () => {
   let directSigner: DirectSigner, denom: string, address: string;
