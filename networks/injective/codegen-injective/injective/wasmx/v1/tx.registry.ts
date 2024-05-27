@@ -1,3 +1,0 @@
-import { TelescopeGeneratedType } from "../../../types";
-import { MsgUpdateContract, MsgActivateContract, MsgDeactivateContract, MsgExecuteContractCompat, MsgUpdateParams, MsgRegisterContract } from "./tx";
-export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [["/injective.wasmx.v1.MsgUpdateContract", MsgUpdateContract], ["/injective.wasmx.v1.MsgActivateContract", MsgActivateContract], ["/injective.wasmx.v1.MsgDeactivateContract", MsgDeactivateContract], ["/injective.wasmx.v1.MsgExecuteContractCompat", MsgExecuteContractCompat], ["/injective.wasmx.v1.MsgUpdateParams", MsgUpdateParams], ["/injective.wasmx.v1.MsgRegisterContract", MsgRegisterContract]];

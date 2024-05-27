@@ -1,3 +1,0 @@
-import { TelescopeGeneratedType } from "../../../types";
-import { MsgCreateInsuranceFund, MsgUnderwrite, MsgRequestRedemption, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [["/injective.insurance.v1beta1.MsgCreateInsuranceFund", MsgCreateInsuranceFund], ["/injective.insurance.v1beta1.MsgUnderwrite", MsgUnderwrite], ["/injective.insurance.v1beta1.MsgRequestRedemption", MsgRequestRedemption], ["/injective.insurance.v1beta1.MsgUpdateParams", MsgUpdateParams]];

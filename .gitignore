@@ -9,3 +9,5 @@ scripts/test.sh
 lerna-debug.log
 git-modules/
 **/.env.development
+.telescope.json
+networks/injective/codegen-injective/
