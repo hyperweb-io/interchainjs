@@ -1,4 +1,4 @@
-import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
+import { Auth, HttpEndpoint } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner } from "./base";
@@ -13,7 +13,6 @@ import {
   Encoder,
   SignerOptions,
 } from "./types";
-import { getAccountFromAuth, SignResponseFromAuth } from "./utils";
 
 export abstract class AminoSignerBase<
   AminoDoc,
@@ -100,16 +99,5 @@ export class AminoSigner
     // TODO:: figure out how to set signDoc
     // signer.signDoc = wallet.sign;
     return signer;
-  }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerConfig
-  ): CosmosAminoWallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: CosmosAminoDoc) =>
-        SignResponseFromAuth.signAmino(auth, doc, config),
-    };
   }
 }

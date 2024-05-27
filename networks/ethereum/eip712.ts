@@ -16,7 +16,7 @@ import {
   Eip712Wallet,
   UniEip712Signer,
 } from "./types";
-import { getAccountFromAuth, SignResponseFromAuth } from "./utils";
+import { SignResponseFromAuth } from "./utils";
 
 export class Eip712Signer<BroadcastResponse extends { hash: string }>
   extends BaseSigner
@@ -42,17 +42,6 @@ export class Eip712Signer<BroadcastResponse extends { hash: string }>
     const signer = new Eip712Signer(auth, endpoint, config);
     signer.signDoc = wallet.sign;
     return signer;
-  }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerConfig
-  ): Eip712Wallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: Eip712Doc) =>
-        SignResponseFromAuth.signEip712Data(auth, doc, config),
-    };
   }
 
   async getAddress(): Promise<string> {

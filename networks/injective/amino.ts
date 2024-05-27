@@ -8,13 +8,11 @@ import {
   Encoder,
   SignerOptions,
 } from "@interchainjs/cosmos/types";
-import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
-import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
+import { Auth, HttpEndpoint } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { InjectiveAminoSigner, InjectiveAminoWallet } from "./types";
-import { getAccountFromAuth } from "./utils";
 
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
@@ -53,16 +51,5 @@ export class AminoSigner
       options
     );
     return signer;
-  }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerOptions.Cosmos
-  ): InjectiveAminoWallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
-      sign: async (doc: CosmosAminoDoc) =>
-        SignResponseFromAuth.signAmino(auth, doc, config),
-    };
   }
 }

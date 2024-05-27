@@ -1,5 +1,4 @@
-import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
-import { Auth, HttpEndpoint, SignerConfig } from "@interchainjs/types";
+import { Auth, HttpEndpoint } from "@interchainjs/types";
 import { constructAuthFromWallet } from "@interchainjs/utils";
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner } from "./base";
@@ -13,7 +12,6 @@ import {
   Encoder,
   SignerOptions,
 } from "./types";
-import { getAccountFromAuth, SignResponseFromAuth } from "./utils";
 
 export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   constructor(
@@ -58,16 +56,5 @@ export class DirectSigner
     // TODO:: figure out how to set signDoc
     // signer.signDoc = wallet.sign;
     return signer;
-  }
-
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerConfig
-  ): CosmosDirectWallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config),
-      sign: async (doc: SignDoc) =>
-        SignResponseFromAuth.signDirect(auth, doc, config),
-    };
   }
 }
