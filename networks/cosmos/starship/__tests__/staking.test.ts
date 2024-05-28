@@ -11,7 +11,6 @@ import {
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
 import { BigNumber } from "bignumber.js";// Using `fromWallet` to construct Signer
 import { RpcQuery } from "interchainjs/query/rpc";
-import { toDirectWallet } from "interchainjs/utils";
 import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
 import { useChain } from "starshipjs";
 
@@ -38,12 +37,17 @@ describe("Staking tokens testing", () => {
     const mnemonic = generateMnemonic();
     const prefix = chainInfo.chain.bech32_prefix;
     // Initialize wallet
-    directWallet = toDirectWallet(
-      Secp256k1Wallet.fromMnemonic(mnemonic, {
-        prefix,
-      }).toOfflineDirectSigner(),
-      prefix
-    );
+    // directWallet = toDirectWallet(
+    //   Secp256k1Wallet.fromMnemonic(mnemonic, {
+    //     prefix,
+    //   }).toOfflineDirectSigner(),
+    //   prefix
+    // );
+
+    directWallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
+      prefix,
+    });
+
     address = (await directWallet.getAccount()).getAddress(prefix) as string;
 
     // Create custom cosmos interchain client

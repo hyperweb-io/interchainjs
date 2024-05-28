@@ -1,4 +1,4 @@
-import { IKey } from "./auth";
+import { Auth, IKey } from "./auth";
 
 export interface BaseWalletAccount {
   algo: string;
@@ -11,7 +11,13 @@ export interface SignDocResponse<SignDoc> {
 }
 
 export interface Wallet<Account extends BaseWalletAccount, SignDoc> {
-  getAccount: () => Promise<Account>;
+  getAccountAuths: () => Promise<
+    {
+      auth: Auth;
+      account: Account;
+    }[]
+  >;
+  getAccounts: () => Promise<Account[]>;
   sign: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
 }
 

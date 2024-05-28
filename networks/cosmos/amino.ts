@@ -1,5 +1,5 @@
 import { Auth, HttpEndpoint } from "@interchainjs/types";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner } from "./base";
 import { BaseCosmosTxBuilderContext } from "./base/builder-context";
@@ -84,20 +84,29 @@ export class AminoSigner
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       options?.publicKey?.isCompressed ??
         defaultSignerConfig.publicKey.isCompressed
     );
-    const signer = new AminoSigner(
-      auth,
-      encoders,
-      converters,
-      endpoint,
-      options
+    return new AminoSigner(auth, encoders, converters, endpoint, options);
+  }
+
+  static async fromWalletToSigners(
+    wallet: CosmosAminoWallet,
+    encoders: Encoder[],
+    converters: AminoConverter[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ??
+        defaultSignerConfig.publicKey.isCompressed
     );
-    // TODO:: figure out how to set signDoc
-    // signer.signDoc = wallet.sign;
-    return signer;
+
+    return auths.map((auth) => {
+      return new AminoSigner(auth, encoders, converters, endpoint, options);
+    });
   }
 }

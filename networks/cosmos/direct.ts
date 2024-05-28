@@ -1,5 +1,5 @@
 import { Auth, HttpEndpoint } from "@interchainjs/types";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner } from "./base";
 import { BaseCosmosTxBuilderContext } from "./base/builder-context";
@@ -47,14 +47,28 @@ export class DirectSigner
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       options?.publicKey?.isCompressed ??
         defaultSignerConfig.publicKey.isCompressed
     );
-    const signer = new DirectSigner(auth, encoders, endpoint, options);
-    // TODO:: figure out how to set signDoc
-    // signer.signDoc = wallet.sign;
-    return signer;
+    return new DirectSigner(auth, encoders, endpoint, options);
+  }
+
+  static async fromWalletToSigners(
+    wallet: CosmosDirectWallet,
+    encoders: Encoder[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ??
+        defaultSignerConfig.publicKey.isCompressed
+    );
+
+    return auths.map((auth) => {
+      return new DirectSigner(auth, encoders, endpoint, options);
+    });
   }
 }

@@ -1,14 +1,7 @@
-import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
-import {
-  CosmosAminoDoc,
-  CosmosAminoWallet,
-  CosmosDirectDoc,
-  CosmosDirectWallet,
-} from "@interchainjs/cosmos/types";
-import { Auth } from "@interchainjs/types";
-import { Key } from "@interchainjs/utils";
 
-import { OfflineAminoSigner, OfflineDirectSigner } from "./types/wallet";
+
+import { Auth } from "@interchainjs/types";
+
 
 /**
  * An error when broadcasting the transaction. This contains the CheckTx errors
@@ -52,73 +45,3 @@ export const defaultAuth: Auth = {
     throw new Error("Not implemented yet");
   },
 };
-
-export function toAminoWallet(
-  offlineSigner: OfflineAminoSigner,
-  prefix: string
-): CosmosAminoWallet {
-  const wallet: CosmosAminoWallet = {
-    getAccount: async () => {
-      const accounts = await offlineSigner.getAccounts();
-      const account = accounts.find((account) =>
-        account.address.startsWith(prefix)
-      );
-      const publicKey = Key.from(account.pubkey);
-      const address = defaultSignerConfig.publicKey.hash(publicKey);
-      return {
-        algo: account.algo,
-        publicKey,
-        getAddress(_prefix?: string) {
-          return _prefix ? address.toBech32(_prefix) : address;
-        },
-      };
-    },
-    sign: async (doc: CosmosAminoDoc) => {
-      const [account, ..._] = await offlineSigner.getAccounts();
-      const { signature, signed } = await offlineSigner.signAmino(
-        account.address,
-        doc
-      );
-      return {
-        signature: Key.fromBase64(signature.signature),
-        signDoc: signed as any,
-      };
-    },
-  };
-  return wallet;
-}
-
-export function toDirectWallet(
-  offlineSigner: OfflineDirectSigner,
-  prefix: string
-): CosmosDirectWallet {
-  const wallet: CosmosDirectWallet = {
-    getAccount: async () => {
-      const accounts = await offlineSigner.getAccounts();
-      const account = accounts.find((account) =>
-        account.address.startsWith(prefix)
-      );
-      const publicKey = Key.from(account.pubkey);
-      const address = defaultSignerConfig.publicKey.hash(publicKey);
-      return {
-        algo: account.algo,
-        publicKey,
-        getAddress(_prefix?: string) {
-          return _prefix ? address.toBech32(_prefix) : address;
-        },
-      };
-    },
-    sign: async (doc: CosmosDirectDoc) => {
-      const [account, ..._] = await offlineSigner.getAccounts();
-      const { signature, signed } = await offlineSigner.signDirect(
-        account.address,
-        doc
-      );
-      return {
-        signature: Key.fromBase64(signature.signature),
-        signDoc: signed as any,
-      };
-    },
-  };
-  return wallet;
-}

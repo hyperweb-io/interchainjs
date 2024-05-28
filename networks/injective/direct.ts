@@ -1,7 +1,7 @@
 import { DirectSignerBase } from "@interchainjs/cosmos/direct";
 import { Encoder, SignerOptions } from "@interchainjs/cosmos/types";
 import { Auth, HttpEndpoint } from "@interchainjs/types";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { InjectiveDirectSigner, InjectiveDirectWallet } from "./types";
@@ -25,11 +25,25 @@ export class DirectSigner
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
-    const signer = new DirectSigner(auth, encoders, endpoint, options);
-    return signer;
+    return new DirectSigner(auth, encoders, endpoint, options);
+  }
+
+  static async fromWalletToSigners(
+    wallet: InjectiveDirectWallet,
+    encoders: Encoder[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
+    );
+    return auths.map((auth) => {
+      return new DirectSigner(auth, encoders, endpoint, options);
+    });
   }
 }

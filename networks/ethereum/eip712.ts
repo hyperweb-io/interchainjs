@@ -6,7 +6,7 @@ import {
   SignerConfig,
   SignResponse,
 } from "@interchainjs/types";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { defaultSignerConfig } from "./defaults";
 import {
@@ -35,13 +35,26 @@ export class Eip712Signer<BroadcastResponse extends { hash: string }>
     endpoint?: string | HttpEndpoint,
     config?: SignerConfig
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       config.publicKey.isCompressed
     );
-    const signer = new Eip712Signer(auth, endpoint, config);
-    signer.signDoc = wallet.sign;
-    return signer;
+    return new Eip712Signer(auth, endpoint, config);
+  }
+
+  static async fromWalletToSigners(
+    wallet: Eip712Wallet,
+    endpoint?: string | HttpEndpoint,
+    config?: SignerConfig
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      config.publicKey.isCompressed
+    );
+
+    return auths.map((auth) => {
+      return new Eip712Signer(auth, endpoint, config);
+    });
   }
 
   async getAddress(): Promise<string> {

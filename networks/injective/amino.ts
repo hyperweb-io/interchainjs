@@ -9,7 +9,7 @@ import {
   SignerOptions,
 } from "@interchainjs/cosmos/types";
 import { Auth, HttpEndpoint } from "@interchainjs/types";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { InjectiveAminoSigner, InjectiveAminoWallet } from "./types";
@@ -39,17 +39,26 @@ export class AminoSigner
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
-    const signer = new AminoSigner(
-      auth,
-      encoders,
-      converters,
-      endpoint,
-      options
+    return new AminoSigner(auth, encoders, converters, endpoint, options);
+  }
+
+  static async fromWalletToSigners(
+    wallet: InjectiveAminoWallet,
+    encoders: Encoder[],
+    converters: AminoConverter[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
-    return signer;
+    return auths.map((auth) => {
+      return new AminoSigner(auth, encoders, converters, endpoint, options);
+    });
   }
 }

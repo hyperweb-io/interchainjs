@@ -7,7 +7,7 @@ import {
   SignerOptions,
 } from "@interchainjs/cosmos/types";
 import { Auth, HttpEndpoint } from "@interchainjs/types";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { AminoSigner } from "./amino";
 import { Eip712TxBuilder } from "./builder/eip712-tx-builder";
@@ -47,17 +47,27 @@ export class Eip712Signer extends Eip712SignerBase {
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
-    const signer = new Eip712Signer(
-      auth,
-      encoders,
-      converters,
-      endpoint,
-      options
+    return new Eip712Signer(auth, encoders, converters, endpoint, options);
+  }
+
+  static async fromWalletToSigning(
+    wallet: InjectiveEip712Wallet,
+    encoders: Encoder[],
+    converters: AminoConverter[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
-    return signer;
+
+    return auths.map((auth) => {
+      return new Eip712Signer(auth, encoders, converters, endpoint, options);
+    });
   }
 }
