@@ -1,7 +1,7 @@
 import { defaultHdPaths } from "@interchainjs/auth/defaults";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
-import { CosmosAccount } from "@interchainjs/cosmos/types";
+import { CosmosAccount, CosmosBaseWallet } from "@interchainjs/cosmos/types";
 import { encodeStdSignDoc } from "@interchainjs/cosmos/utils";
 import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import { Auth, StdSignDoc } from "@interchainjs/types";
@@ -24,7 +24,7 @@ const defaultHdPath = defaultHdPaths.find(
 )!.path;
 
 export class Secp256k1Wallet
-  implements OfflineAminoSigner, OfflineDirectSigner
+  implements CosmosBaseWallet, OfflineAminoSigner, OfflineDirectSigner
 {
   readonly auths: Auth[] = [];
   readonly addrs: Bech32Address[] = [];

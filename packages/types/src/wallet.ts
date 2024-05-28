@@ -10,7 +10,7 @@ export interface SignDocResponse<SignDoc> {
   signDoc: SignDoc;
 }
 
-export interface Wallet<Account extends BaseWalletAccount, SignDoc> {
+export interface Wallet<Account extends BaseWalletAccount> {
   getAccountAuths: () => Promise<
     {
       auth: Auth;
@@ -18,7 +18,6 @@ export interface Wallet<Account extends BaseWalletAccount, SignDoc> {
     }[]
   >;
   getAccounts: () => Promise<Account[]>;
-  sign: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
 }
 
-export type BaseWallet<SignDoc> = Wallet<BaseWalletAccount, SignDoc>;
+export type BaseWallet = Wallet<BaseWalletAccount>;

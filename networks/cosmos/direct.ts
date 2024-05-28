@@ -6,9 +6,9 @@ import { BaseCosmosTxBuilderContext } from "./base/builder-context";
 import { DirectTxBuilder } from "./builder/direct-tx-builder";
 import { defaultSignerConfig } from "./defaults";
 import {
+  CosmosBaseWallet,
   CosmosDirectDoc,
   CosmosDirectSigner,
-  CosmosDirectWallet,
   Encoder,
   SignerOptions,
 } from "./types";
@@ -42,7 +42,7 @@ export class DirectSigner
   }
 
   static async fromWallet(
-    wallet: CosmosDirectWallet,
+    wallet: CosmosBaseWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -56,7 +56,7 @@ export class DirectSigner
   }
 
   static async fromWalletToSigners(
-    wallet: CosmosDirectWallet,
+    wallet: CosmosBaseWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions

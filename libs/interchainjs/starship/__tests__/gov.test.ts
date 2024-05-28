@@ -40,9 +40,8 @@ describe("Governance tests for osmosis", () => {
   let validatorAddress: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("osmosis"));
     denom = getCoin().base;
 
     // Initialize wallet
@@ -54,8 +53,10 @@ describe("Governance tests for osmosis", () => {
     });
     directSigner = directWallet.toOfflineDirectSigner();
     aminoSigner = aminoWallet.toOfflineAminoSigner();
-    directAddress = (await directSigner.getAccounts())[0].address;
-    aminoAddress = (await aminoSigner.getAccounts())[0].address;
+    directAddress = (
+      await directSigner.getAccounts()
+    )[0].getAddress() as string;
+    aminoAddress = (await aminoSigner.getAccounts())[0].getAddress() as string;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());

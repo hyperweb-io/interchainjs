@@ -15,9 +15,8 @@ describe("Token transfers", () => {
   let queryClient: RpcQuery;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("osmosis"));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
@@ -26,7 +25,7 @@ describe("Token transfers", () => {
       prefix: chainInfo.chain.bech32_prefix,
     });
     protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].address;
+    address = (await protoSigner.getAccounts())[0].getAddress() as string;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -82,10 +81,8 @@ describe("Token transfers", () => {
       protoSigner
     );
 
-    const {
-      chainInfo: cosmosChainInfo,
-      getRpcEndpoint: cosmosRpcEndpoint,
-    } = useChain("cosmos");
+    const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
+      useChain("cosmos");
 
     const { getRpcEndpoint: osmosisRpcEndpoint } = useChain("osmosis");
 
@@ -106,10 +103,8 @@ describe("Token transfers", () => {
 
     expect(ibcInfo).toBeTruthy();
 
-    const {
-      port_id: sourcePort,
-      channel_id: sourceChannel,
-    } = ibcInfo.channels[0].chain_1;
+    const { port_id: sourcePort, channel_id: sourceChannel } =
+      ibcInfo.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
@@ -153,7 +148,7 @@ describe("Token transfers", () => {
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
-      resolveDenom: true
+      resolveDenom: true,
     });
 
     // check balances

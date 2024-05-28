@@ -4,7 +4,7 @@ import { Auth, HttpEndpoint } from "@interchainjs/types";
 import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
-import { InjectiveDirectSigner, InjectiveDirectWallet } from "./types";
+import { InjectiveBaseWallet,InjectiveDirectSigner } from "./types";
 
 export class DirectSigner
   extends DirectSignerBase
@@ -20,7 +20,7 @@ export class DirectSigner
   }
 
   static async fromWallet(
-    wallet: InjectiveDirectWallet,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -33,7 +33,7 @@ export class DirectSigner
   }
 
   static async fromWalletToSigners(
-    wallet: InjectiveDirectWallet,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions

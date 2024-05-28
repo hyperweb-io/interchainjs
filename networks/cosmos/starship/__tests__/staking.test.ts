@@ -9,16 +9,16 @@ import {
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import { BigNumber } from "bignumber.js";// Using `fromWallet` to construct Signer
+import { BigNumber } from "bignumber.js"; // Using `fromWallet` to construct Signer
 import { RpcQuery } from "interchainjs/query/rpc";
 import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
 import { useChain } from "starshipjs";
 
-import { CosmosDirectWallet } from "../../types";
+import { CosmosBaseWallet } from "../../types";
 import { generateMnemonic } from "../src";
 
 describe("Staking tokens testing", () => {
-  let directWallet: CosmosDirectWallet, denom: string, address: string;
+  let directWallet: CosmosBaseWallet, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
@@ -48,7 +48,8 @@ describe("Staking tokens testing", () => {
       prefix,
     });
 
-    address = (await directWallet.getAccount()).getAddress(prefix) as string;
+    address = (await directWallet.getAccounts())[0].getAddress(prefix);
+    // (await directWallet.getAccount()).getAddress(prefix) as string;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());

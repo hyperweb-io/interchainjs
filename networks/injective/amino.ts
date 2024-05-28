@@ -12,7 +12,7 @@ import { Auth, HttpEndpoint } from "@interchainjs/types";
 import { constructAuthsFromWallet } from "@interchainjs/utils";
 
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
-import { InjectiveAminoSigner, InjectiveAminoWallet } from "./types";
+import { InjectiveAminoSigner, InjectiveBaseWallet } from "./types";
 
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
@@ -33,7 +33,7 @@ export class AminoSigner
   }
 
   static async fromWallet(
-    wallet: InjectiveAminoWallet,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -47,7 +47,7 @@ export class AminoSigner
   }
 
   static async fromWalletToSigners(
-    wallet: InjectiveAminoWallet,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

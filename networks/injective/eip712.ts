@@ -12,7 +12,7 @@ import { constructAuthsFromWallet } from "@interchainjs/utils";
 import { AminoSigner } from "./amino";
 import { Eip712TxBuilder } from "./builder/eip712-tx-builder";
 import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
-import { InjectiveEip712Doc, InjectiveEip712Wallet } from "./types";
+import { InjectiveBaseWallet,InjectiveEip712Doc } from "./types";
 
 export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
   readonly aminoSigner: AminoSigner;
@@ -41,7 +41,7 @@ export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
 
 export class Eip712Signer extends Eip712SignerBase {
   static async fromWallet(
-    wallet: InjectiveEip712Wallet,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -55,7 +55,7 @@ export class Eip712Signer extends Eip712SignerBase {
   }
 
   static async fromWalletToSigning(
-    wallet: InjectiveEip712Wallet,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

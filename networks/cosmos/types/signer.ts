@@ -226,9 +226,8 @@ export interface AccountData {
 }
 
 export interface CosmosAccount extends BaseWalletAccount {
-  getAddress(prefix?: string): IKey | Bech32Address;
+  getAddress(prefix?: string): Bech32Address;
   toAccountData(): AccountData;
 }
 
-export type CosmosDirectWallet = Wallet<CosmosAccount, CosmosDirectDoc>;
-export type CosmosAminoWallet = Wallet<CosmosAccount, CosmosAminoDoc>;
+export type CosmosBaseWallet = Wallet<CosmosAccount>;

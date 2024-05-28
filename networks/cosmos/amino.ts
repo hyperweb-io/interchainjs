@@ -9,7 +9,7 @@ import {
   AminoConverter,
   CosmosAminoDoc,
   CosmosAminoSigner,
-  CosmosAminoWallet,
+  CosmosBaseWallet,
   Encoder,
   SignerOptions,
 } from "./types";
@@ -78,7 +78,7 @@ export class AminoSigner
   }
 
   static async fromWallet(
-    wallet: CosmosAminoWallet,
+    wallet: CosmosBaseWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -93,7 +93,7 @@ export class AminoSigner
   }
 
   static async fromWalletToSigners(
-    wallet: CosmosAminoWallet,
+    wallet: CosmosBaseWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

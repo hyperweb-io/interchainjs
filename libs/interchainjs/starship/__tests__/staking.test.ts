@@ -1,17 +1,18 @@
+import "./setup.test";
+
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { OfflineDirectSigner } from "interchainjs/types";
-import { StargateSigningClient } from "interchainjs/stargate";
-import BigNumber from "bignumber.js";
-import { useChain } from "starshipjs";
-import "./setup.test";
 import {
   BondStatus,
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
+import BigNumber from "bignumber.js";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { StargateSigningClient } from "interchainjs/stargate";
+import { OfflineDirectSigner } from "interchainjs/types";
+import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
+import { useChain } from "starshipjs";
 
 describe("Staking tokens testing", () => {
   let protoSigner: OfflineDirectSigner, denom: string, address: string;
@@ -23,9 +24,8 @@ describe("Staking tokens testing", () => {
   let delegationAmount: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("osmosis"));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
@@ -34,7 +34,7 @@ describe("Staking tokens testing", () => {
       prefix: chainInfo.chain.bech32_prefix,
     });
     protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].address;
+    address = (await protoSigner.getAccounts())[0].getAddress() as string;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());

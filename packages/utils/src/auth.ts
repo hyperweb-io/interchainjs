@@ -1,7 +1,7 @@
 import { BaseWallet } from "@interchainjs/types";
 
 export async function constructAuthsFromWallet(
-  wallet: BaseWallet<any>,
+  wallet: BaseWallet,
   isPubkeyCompressed: boolean
 ) {
   const accountAuths = await wallet.getAccountAuths();
