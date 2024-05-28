@@ -1,19 +1,18 @@
 import { defaultHdPaths } from "@interchainjs/auth/defaults";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { defaultSignerConfig } from "@interchainjs/cosmos/defaults";
+import { CosmosAccount } from "@interchainjs/cosmos/types";
 import { encodeStdSignDoc } from "@interchainjs/cosmos/utils";
 import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import { Auth, StdSignDoc } from "@interchainjs/types";
 
 import {
-  AccountData,
   Algo,
   AminoSignResponse,
   Bech32Address,
   DirectSignResponse,
   OfflineAminoSigner,
   OfflineDirectSigner,
-  Wallet,
   WalletOptions,
 } from "../types/wallet";
 
@@ -24,7 +23,9 @@ const defaultHdPath = defaultHdPaths.find(
   ({ network, algo }) => network === "cosmos" && algo === "secp256k1"
 )!.path;
 
-export class Secp256k1Wallet implements Wallet {
+export class Secp256k1Wallet
+  implements OfflineAminoSigner, OfflineDirectSigner
+{
   readonly auths: Auth[] = [];
   readonly addrs: Bech32Address[] = [];
 
@@ -50,14 +51,40 @@ export class Secp256k1Wallet implements Wallet {
     return new Secp256k1Wallet(auths, options?.prefix);
   }
 
-  getAccounts(): AccountData[] {
-    const accounts: AccountData[] = [];
+  async getAccountAuths(): Promise<
+    {
+      auth: Auth;
+      account: CosmosAccount;
+    }[]
+  > {
+    const accounts = await this.getAccounts();
+
+    return accounts.map((account, i) => {
+      const auth = this.auths[i];
+      return { auth, account };
+    });
+  }
+
+  async getAccounts(): Promise<CosmosAccount[]> {
+    const accounts: CosmosAccount[] = [];
     this.auths.forEach((auth, i) => {
-      accounts.push({
-        address: this.addrs[i],
+      const address = this.addrs[i];
+      const account = {
+        toAccountData() {
+          return {
+            address: address,
+            algo: auth.algo as Algo,
+            pubkey: auth.getPublicKey(isPublicKeyCompressed).value,
+          };
+        },
+        getAddress() {
+          return address;
+        },
         algo: auth.algo as Algo,
-        pubkey: auth.getPublicKey(isPublicKeyCompressed).value,
-      });
+        publicKey: auth.getPublicKey(isPublicKeyCompressed),
+      };
+
+      accounts.push(account);
     });
     return accounts;
   }
@@ -70,7 +97,10 @@ export class Secp256k1Wallet implements Wallet {
     return this.auths[id];
   }
 
-  signDirect(signerAddress: string, signDoc: SignDoc): DirectSignResponse {
+  async signDirect(
+    signerAddress: string,
+    signDoc: SignDoc
+  ): Promise<DirectSignResponse> {
     const auth = this.getAuthFromBech32Addr(signerAddress);
     const doc = SignDoc.fromPartial(signDoc);
     const signature = defaultSignerConfig.signature.toCompact(
@@ -91,7 +121,10 @@ export class Secp256k1Wallet implements Wallet {
     };
   }
 
-  signAmino(signerAddress: string, signDoc: StdSignDoc): AminoSignResponse {
+  async signAmino(
+    signerAddress: string,
+    signDoc: StdSignDoc
+  ): Promise<AminoSignResponse> {
     const auth = this.getAuthFromBech32Addr(signerAddress);
     const signature = defaultSignerConfig.signature.toCompact(
       auth.sign(messageHash(encodeStdSignDoc(signDoc))),

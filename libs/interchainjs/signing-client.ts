@@ -1,4 +1,5 @@
 import { AminoSigner } from "@interchainjs/cosmos/amino";
+import { AccountData } from "@interchainjs/cosmos/types";
 import {
   constructAuthInfo,
   constructSignerInfo,
@@ -44,7 +45,6 @@ import {
   SignerOptions,
 } from "./types/signing-client";
 import {
-  AccountData,
   OfflineAminoSigner,
   OfflineDirectSigner,
   OfflineSigner,
@@ -129,13 +129,15 @@ export class SigningClient {
 
   private async getAccountData(address: string): Promise<AccountData> {
     const accounts = await this.offlineSigner.getAccounts();
-    const account = accounts.find((account) => account.address === address);
+    const account = accounts.find(
+      (account) => account.getAddress() === address
+    );
     if (!account) {
       throw new Error(
         `No such account found in OfflineSigner for address ${address}`
       );
     }
-    return account;
+    return account.toAccountData();
   }
 
   private async getPubkey(address: string): Promise<Any> {

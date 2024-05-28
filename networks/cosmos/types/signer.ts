@@ -23,6 +23,8 @@ import {
 } from "@interchainjs/types";
 import { Event } from "@interchainjs/types";
 
+export type Algo = "secp256k1" | "ed25519" | "sr25519";
+
 export interface SignerOptions extends Partial<SignerConfig> {
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
   encodePublicKey?: (key: IKey) => EncodedMessage;
@@ -215,8 +217,17 @@ export type CosmosAminoDoc = StdSignDoc;
 
 export type CosmosTx = TxRaw;
 
+export type Bech32Address = string;
+
+export interface AccountData {
+  address: Bech32Address;
+  algo: Algo;
+  pubkey: Uint8Array;
+}
+
 export interface CosmosAccount extends BaseWalletAccount {
-  getAddress(prefix?: string): IKey | string;
+  getAddress(prefix?: string): IKey | Bech32Address;
+  toAccountData(): AccountData;
 }
 
 export type CosmosDirectWallet = Wallet<CosmosAccount, CosmosDirectDoc>;
