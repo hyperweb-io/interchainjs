@@ -32,4 +32,4 @@ export interface EthereumAccount extends BaseWalletAccount {
   address: string;
 }
 
-export type Eip712Wallet = Wallet<EthereumAccount, Eip712Doc>;
+export type Eip712Wallet = Wallet<EthereumAccount>;
