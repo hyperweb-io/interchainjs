@@ -64,7 +64,7 @@ export abstract class CosmosBaseSigner<SignDoc>
   abstract getTxBuilder(): BaseCosmosTxBuilder<SignDoc>;
 
   public get encodedPublicKey() {
-    return this._encodePublicKey(this.publicKeyHash);
+    return this._encodePublicKey(this.publicKey);
   }
 
   addEncoders = (encoders: Encoder[]) => {
