@@ -11,3 +11,4 @@ git-modules/
 **/.env.development
 .telescope.json
 networks/injective/codegen-injective/
+**/launch.json
