@@ -13128,10 +13128,10 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-starshipjs@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-1.2.0.tgz#e59fd69ea82ce6e9a7c856b053aff971fe809948"
-  integrity sha512-k4pVxvNhcqYyiSyU9e+L+6NggjjeYyrnv17aNwKgRPzBMWjZb+yt0m6Tlf3oiAl6bhxF3w9NIScfVKeF+hAagQ==
+starshipjs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-2.0.0.tgz#fff1cb9f20a1a55eb11a14bd3921e7c5f27b95f3"
+  integrity sha512-/HtP54nYaypWyREh1e98vw2YpkNEb2nwVDkwtCxAEY0xYL4xLNqnWyIA1xVju6t/uARNALSQynTR1hMp4QFzNg==
   dependencies:
     "@chain-registry/client" "1.18.1"
     js-yaml "^4.1.0"

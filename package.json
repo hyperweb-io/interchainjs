@@ -50,7 +50,7 @@
     "lerna": "^6",
     "prettier": "^3.0.2",
     "sinon": "^17.0.1",
-    "starshipjs": "^1.2.0",
+    "starshipjs": "^2.0.0",
     "strip-ansi": "^6",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
