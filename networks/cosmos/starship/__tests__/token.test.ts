@@ -12,6 +12,7 @@ import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { MsgTransfer } from "@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx";
 import { RpcQuery } from "interchainjs/query/rpc";
 import { useChain } from "starshipjs";
+
 import { generateMnemonic } from "../src";
 
 describe("Token transfers", () => {
