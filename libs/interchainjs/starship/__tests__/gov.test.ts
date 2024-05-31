@@ -24,7 +24,7 @@ import { OfflineAminoSigner, OfflineDirectSigner } from "interchainjs/types";
 import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
 import { useChain } from "starshipjs";
 
-import { waitUntil } from "../../../../test-utils/utils";
+import { waitUntil } from "../src";
 
 describe("Governance tests for osmosis", () => {
   let directSigner: OfflineDirectSigner,
