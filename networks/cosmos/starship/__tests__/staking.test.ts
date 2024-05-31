@@ -1,3 +1,5 @@
+import "./setup.test";
+
 import { ChainInfo } from "@chain-registry/client";
 import { DirectSigner } from "@interchainjs/cosmos/direct";
 import {
