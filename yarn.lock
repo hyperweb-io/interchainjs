@@ -4414,21 +4414,22 @@
     "@stablelib/random" "^1.0.2"
     "@stablelib/wipe" "^1.0.1"
 
-"@starship-ci/cli@^1.4.5":
-  version "1.4.5"
-  resolved "https://registry.npmjs.org/@starship-ci/cli/-/cli-1.4.5.tgz#06f5904f49fd25d1d25bd3278c8db8d1b6873de8"
-  integrity sha512-jvDxg0OImOq6DOvPINgLjGJOah9qIt3POkaELVwLXi0SkUzQDf2Nha9UYOaSs1mI0KBoZAmUwIocTOcGHISCGw==
+"@starship-ci/cli@^1.6.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-1.9.0.tgz#3bfc5ac2b8734733a747e4d3594ffbf8f738bb21"
+  integrity sha512-354TRwgqtWLq+YwYhxnkOTiGLr4/HEEJdg1+tFKOI4zb2xe4hEpfWeDSJq7YnyzMs33BTUEV14tItp39EsOWew==
   dependencies:
-    "@starship-ci/client" "^1.2.4"
+    "@starship-ci/client" "^1.6.0"
     chalk "^4.1.0"
     deepmerge "^4.3.1"
+    inquirerer "^1.9.0"
     js-yaml "^4.1.0"
     minimist "^1.2.8"
 
-"@starship-ci/client@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/@starship-ci/client/-/client-1.2.4.tgz#aa84383397167c4249395ad0c856ee149e16eefc"
-  integrity sha512-XleLm5gcLdpsJLOn5AmCoZg3rgwKs+dp+ocJRUlOlTeRTn9A91MAD37KVoXmRteKSBiUCBsveD2EVKVhILHUWQ==
+"@starship-ci/client@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-1.6.0.tgz#177afcf7deb9e10ce2f8fa6df919184a04c15abd"
+  integrity sha512-wg+CEl/6v42FGyyUXIVurlOL4jkDL+goGBxR3HP+B+CEJ3Ebyc4HmqAGgO8fOJuJNVkKIoe13aKT+J8NabwD1g==
   dependencies:
     chalk "^4.1.0"
     deepmerge "^4.3.1"
@@ -9037,6 +9038,16 @@ inquirerer@0.1.3:
     inquirer "^6.0.0"
     inquirer-autocomplete-prompt "^0.11.1"
 
+inquirerer@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/inquirerer/-/inquirerer-1.9.0.tgz#108071773a28ea5b950271572ac3051f34e0c92e"
+  integrity sha512-/LAn/F70YvRQZWz9r1q1seoO2oRMiSCSK8xKHGlkNebSibx5FppUKZLEjXgkCy1tgccas933q/Y7qNccFxrYkw==
+  dependencies:
+    chalk "^4.1.0"
+    deepmerge "^4.3.1"
+    js-yaml "^4.1.0"
+    minimist "^1.2.8"
+
 int64-buffer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/int64-buffer/-/int64-buffer-1.0.1.tgz"
@@ -13128,10 +13139,10 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-starshipjs@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-1.2.0.tgz#e59fd69ea82ce6e9a7c856b053aff971fe809948"
-  integrity sha512-k4pVxvNhcqYyiSyU9e+L+6NggjjeYyrnv17aNwKgRPzBMWjZb+yt0m6Tlf3oiAl6bhxF3w9NIScfVKeF+hAagQ==
+starshipjs@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-1.4.0.tgz#6df1230d98ff04e02eb3f25a6c265d4312cb82c5"
+  integrity sha512-GBJlrArYSDxaQ53dFh3g2jJhENp3YWGkTHx+Gy/hWqwnozaTAC5l0nGp5bArTpSyeP+Wy7EwkI/iv4sWwWxfdw==
   dependencies:
     "@chain-registry/client" "1.18.1"
     js-yaml "^4.1.0"
@@ -13178,16 +13189,7 @@ string-length@^4.0.1:
     char-regex "^1.0.2"
     strip-ansi "^6.0.0"
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-"string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0", "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -13241,7 +13243,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -13268,13 +13270,6 @@ strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
-
-strip-ansi@^6, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1:
   version "7.1.0"
@@ -14253,7 +14248,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -14275,15 +14270,6 @@ wrap-ansi@^6.0.1:
   version "6.2.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-6.2.0.tgz"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
-  dependencies:
-    ansi-styles "^4.0.0"
-    string-width "^4.1.0"
-    strip-ansi "^6.0.0"
-
-wrap-ansi@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
-  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
