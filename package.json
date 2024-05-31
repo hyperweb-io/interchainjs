@@ -35,7 +35,7 @@
     "@injectivelabs/sdk-ts": "^1.14.5",
     "@injectivelabs/wallet-ts": "^1.14.7",
     "@noble/hashes": "^1.4.0",
-    "@starship-ci/cli": "^1.4.5",
+    "@starship-ci/cli": "^1.6.0",
     "@types/jest": "^29.5.11",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
@@ -50,7 +50,7 @@
     "lerna": "^6",
     "prettier": "^3.0.2",
     "sinon": "^17.0.1",
-    "starshipjs": "^1.2.0",
+    "starshipjs": "^1.4.0",
     "strip-ansi": "^6",
     "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
