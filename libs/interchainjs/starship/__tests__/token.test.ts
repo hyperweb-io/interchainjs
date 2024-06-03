@@ -39,7 +39,7 @@ describe("Token transfers", () => {
     const wallet2 = Secp256k1Wallet.fromMnemonic(mnemonic, {
       prefix: chainInfo.chain.bech32_prefix,
     });
-    const address2 = wallet2.getAccounts()[0].address;
+    const address2 = (await wallet2.getAccounts())[0].getAddress();
 
     const signingClient = StargateSigningClient.connectWithSigner(
       getRpcEndpoint(),
@@ -90,7 +90,7 @@ describe("Token transfers", () => {
     const cosmosWallet = Secp256k1Wallet.fromMnemonic(generateMnemonic(), {
       prefix: cosmosChainInfo.chain.bech32_prefix,
     });
-    const cosmosAddress = cosmosWallet.getAccounts()[0].address;
+    const cosmosAddress = (await cosmosWallet.getAccounts())[0].getAddress();
 
     const ibcInfos = chainInfo.fetcher.getChainIbcData(
       chainInfo.chain.chain_id
