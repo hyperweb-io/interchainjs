@@ -1,4 +1,5 @@
 import "./setup.test";
+
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import {
   assertIsDeliverTxSuccess,
@@ -43,9 +44,8 @@ describe("Governance tests for injective", () => {
   let validatorAddress: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "injective"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("injective"));
     denom = getCoin().base;
 
     // Initialize auth
@@ -141,9 +141,12 @@ describe("Governance tests for injective", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      { messages: [msg], fee, memo: "" },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
@@ -181,9 +184,12 @@ describe("Governance tests for injective", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      { messages: [msg], fee, memo: "" },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
 
     // Get proposal id from log events
@@ -228,9 +234,12 @@ describe("Governance tests for injective", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      { messages: [msg], fee, memo: "" },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
@@ -266,9 +275,12 @@ describe("Governance tests for injective", () => {
       gas: "550000",
     };
 
-    const result = await aminoSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await aminoSigner.signAndBroadcast(
+      { messages: [msg], fee, memo: "" },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 

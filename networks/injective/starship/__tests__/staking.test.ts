@@ -1,20 +1,22 @@
 // Using `fromWallet` to construct Signer
-import { RpcQuery } from "interchainjs/query/rpc";
-import { DirectSigner } from "@interchainjs/injective/direct";
-import BigNumber from "bignumber.js";
-import { useChain } from "starshipjs";
 import "./setup.test";
+
+import { ChainInfo } from "@chain-registry/client";
+import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import {
+  assertIsDeliverTxSuccess,
+  toEncoders,
+} from "@interchainjs/cosmos/utils";
 import {
   BondStatus,
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import { ChainInfo } from "@chain-registry/client";
-import {
-  assertIsDeliverTxSuccess,
-  toEncoders,
-} from "@interchainjs/cosmos/utils";
-import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+import { DirectSigner } from "@interchainjs/injective/direct";
+import BigNumber from "bignumber.js";
+import { RpcQuery } from "interchainjs/query/rpc";
+import { useChain } from "starshipjs";
+
 import { generateMnemonic } from "../src";
 
 describe("Staking tokens testing", () => {
@@ -30,9 +32,8 @@ describe("Staking tokens testing", () => {
   let delegationAmount: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "injective"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain("injective"));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
@@ -112,9 +113,12 @@ describe("Staking tokens testing", () => {
       gas: "550000",
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      { messages: [msg], fee, memo: "" },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   });
 
