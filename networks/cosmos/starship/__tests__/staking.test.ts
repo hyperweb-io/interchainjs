@@ -38,13 +38,6 @@ describe("Staking tokens testing", () => {
 
     const mnemonic = generateMnemonic();
     const prefix = chainInfo.chain.bech32_prefix;
-    // Initialize wallet
-    // directWallet = toDirectWallet(
-    //   Secp256k1Wallet.fromMnemonic(mnemonic, {
-    //     prefix,
-    //   }).toOfflineDirectSigner(),
-    //   prefix
-    // );
 
     directWallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
       prefix,
