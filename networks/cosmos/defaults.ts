@@ -9,6 +9,7 @@ import {
   DelayedVestingAccount,
   PeriodicVestingAccount,
 } from "@interchainjs/cosmos-types/cosmos/vesting/v1beta1/vesting";
+import { EthAccount } from "@interchainjs/cosmos-types/injective/types/v1beta1/account";
 import {
   BroadcastOptions,
   IKey,
@@ -97,6 +98,7 @@ const accountCodecs = [
   ContinuousVestingAccount,
   DelayedVestingAccount,
   PeriodicVestingAccount,
+  EthAccount,
 ];
 
 export const defaultAccountParser = (
