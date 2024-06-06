@@ -1,20 +1,20 @@
+import { hexConcat } from "@ethersproject/bytes";
+import { _TypedDataEncoder } from "@ethersproject/hash";
 import {
   Eip712Types,
-  ISignDoc,
-  IWalletAccount,
   SignDocResponse,
   SignerConfig,
 } from "@interchainjs/types";
 import { Auth } from "@interchainjs/types";
-import { defaultSignerConfig } from "./defaults";
-import { _TypedDataEncoder } from "@ethersproject/hash";
 import { fromHex } from "@interchainjs/utils";
-import { hexConcat } from "@ethersproject/bytes";
+
+import { defaultSignerConfig } from "./defaults";
+import { Eip712Doc, EthereumAccount } from "./types";
 
 export function getAccountFromAuth(
   auth: Auth,
   config: SignerConfig = defaultSignerConfig
-): IWalletAccount.EthereumAccount {
+): EthereumAccount {
   const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
   const addrKey = config.publicKey.hash(publicKey);
   return {
@@ -27,9 +27,9 @@ export function getAccountFromAuth(
 export class SignResponseFromAuth {
   static signEip712Data(
     auth: Auth,
-    doc: ISignDoc.Eip712Doc,
+    doc: Eip712Doc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<ISignDoc.Eip712Doc> {
+  ): SignDocResponse<Eip712Doc> {
     const domainTypes: Eip712Types = {};
     const restTypes: Eip712Types = {};
     Object.entries(doc.types).forEach(([key, value]) => {

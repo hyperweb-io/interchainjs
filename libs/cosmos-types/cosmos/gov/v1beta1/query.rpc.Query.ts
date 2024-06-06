@@ -13,7 +13,7 @@ export interface Query {
   votes(request: QueryVotesRequest): Promise<QueryVotesResponse>;
   /** Params queries all parameters of the gov module. */
   params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Deposit queries single deposit information based proposalID, depositAddr. */
+  /** Deposit queries single deposit information based on proposalID, depositor address. */
   deposit(request: QueryDepositRequest): Promise<QueryDepositResponse>;
   /** Deposits queries all deposits of a single proposal. */
   deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse>;
@@ -21,7 +21,7 @@ export interface Query {
   tallyResult(request: QueryTallyResultRequest): Promise<QueryTallyResultResponse>;
 }
 /** Query defines the gRPC querier service for gov module */
-export interface StargateImpl {
+export interface QueryImpl {
   /** Proposal queries proposal details based on ProposalID. */
   proposal(request: QueryProposalRequest): Promise<QueryProposalResponse>;
   /** Proposals queries all proposals based on given status. */
@@ -32,7 +32,7 @@ export interface StargateImpl {
   votes(request: QueryVotesRequest): Promise<QueryVotesResponse>;
   /** Params queries all parameters of the gov module. */
   getGovParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Deposit queries single deposit information based proposalID, depositAddr. */
+  /** Deposit queries single deposit information based on proposalID, depositor address. */
   getDeposit(request: QueryDepositRequest): Promise<QueryDepositResponse>;
   /** Deposits queries all deposits of a single proposal. */
   deposits(request: QueryDepositsRequest): Promise<QueryDepositsResponse>;
@@ -74,7 +74,7 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   };
-  /* Deposit queries single deposit information based proposalID, depositAddr. */
+  /* Deposit queries single deposit information based on proposalID, depositor address. */
   deposit = async (request: QueryDepositRequest): Promise<QueryDepositResponse> => {
     const data = QueryDepositRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.gov.v1beta1.Query", "Deposit", data);

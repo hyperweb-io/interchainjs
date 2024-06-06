@@ -1,22 +1,34 @@
+import { BaseAccount } from "@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth";
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
+import { SimulateResponse } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/service";
 import {
+  SignDoc,
+  SignerInfo,
+  TxBody,
+  TxRaw,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { Any } from "@interchainjs/cosmos-types/google/protobuf/any";
+import {
+  BaseWalletAccount,
   BroadcastOptions,
-  BroadcastResponse as GeneralBroadcastResponse,
+  CreateDocResponse,
   HttpEndpoint,
   IKey,
   Price,
   SignerConfig,
+  StdFee,
+  StdSignDoc,
+  UniSigner,
+  Wallet,
 } from "@interchainjs/types";
-
-import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
-import { SignerInfo, TxBody } from "../codegen/cosmos/tx/v1beta1/tx";
-import { Any } from "../codegen/google/protobuf/any";
 import { Event } from "@interchainjs/types";
-import { SimulateResponse } from "../codegen/cosmos/tx/v1beta1/service";
-import { BaseAccount } from "../codegen/cosmos/auth/v1beta1/auth";
+
+export type Algo = "secp256k1" | "ed25519" | "sr25519";
 
 export interface SignerOptions extends Partial<SignerConfig> {
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
   encodePublicKey?: (key: IKey) => EncodedMessage;
+  prefix?: string;
 }
 
 /** Direct/Proto message */
@@ -93,7 +105,8 @@ export interface DeliverTxResponse {
   codespace: string;
 }
 
-export type BroadcastResponse = GeneralBroadcastResponse<{
+export interface BroadcastResponse {
+  hash: string;
   add_tx?: {
     code?: number;
     data?: string;
@@ -102,7 +115,7 @@ export type BroadcastResponse = GeneralBroadcastResponse<{
   };
   check_tx?: CheckTxResponse;
   deliver_tx?: DeliverTxResponse & { height: string };
-}>;
+}
 
 export type DocOptions = FeeOptions & SignOptions & TxOptions;
 
@@ -163,3 +176,58 @@ export interface QueryClient {
     options?: BroadcastOptions
   ) => Promise<BroadcastResponse>;
 }
+
+export type CosmosSignArgs<Option = DocOptions> = {
+  messages: Message[];
+  fee?: StdFee;
+  memo?: string;
+  options?: Option;
+};
+
+export type UniCosmosBaseSigner<SignDoc> = UniSigner<
+  CosmosSignArgs,
+  CosmosTx,
+  SignDoc,
+  Promise<string>,
+  BroadcastResponse
+>;
+
+export type CosmosDirectSigner = UniSigner<
+  CosmosSignArgs,
+  CosmosTx,
+  CosmosDirectDoc,
+  Promise<string>,
+  BroadcastResponse
+>;
+export type CosmosAminoSigner = UniSigner<
+  CosmosSignArgs,
+  CosmosTx,
+  CosmosAminoDoc,
+  Promise<string>,
+  BroadcastResponse
+>;
+
+export type CosmosCreateDocResponse<SignDoc> = CreateDocResponse<
+  CosmosTx,
+  SignDoc
+>;
+
+export type CosmosDirectDoc = SignDoc;
+export type CosmosAminoDoc = StdSignDoc;
+
+export type CosmosTx = TxRaw;
+
+export type Bech32Address = string;
+
+export interface AccountData {
+  address: Bech32Address;
+  algo: Algo;
+  pubkey: Uint8Array;
+}
+
+export interface CosmosAccount extends BaseWalletAccount {
+  getAddress(prefix?: string): Bech32Address;
+  toAccountData(): AccountData;
+}
+
+export type CosmosBaseWallet = Wallet<CosmosAccount>;

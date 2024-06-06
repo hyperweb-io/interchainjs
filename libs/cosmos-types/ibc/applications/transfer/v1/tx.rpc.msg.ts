@@ -1,14 +1,25 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../../types";
-import { MsgTransfer } from "./tx";
+import { MsgTransfer, MsgUpdateParams } from "./tx";
 /** Msg defines the ibc/transfer Msg service. */
 export interface Msg {
   /** Transfer defines a rpc handler method for MsgTransfer. */
-  transfer(signerAddress: string, message: MsgTransfer, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  transfer(signerAddress: string, message: MsgTransfer, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /** UpdateParams defines a rpc handler for MsgUpdateParams. */
+  updateParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 /** Msg defines the ibc/transfer Msg service. */
 export interface StargateImpl {
   /** Transfer defines a rpc handler method for MsgTransfer. */
-  transfer(signerAddress: string, message: MsgTransfer, fee: number | StdFee | "auto", memo: string): Promise<DeliverTxResponse>;
+  transfer(signerAddress: string, message: MsgTransfer, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /** UpdateParams defines a rpc handler for MsgUpdateParams. */
+  updateIBCTransferParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+}
+/** Msg defines the ibc/transfer Msg service. */
+export interface CosmWasmStargateImpl {
+  /** Transfer defines a rpc handler method for MsgTransfer. */
+  transfer(signerAddress: string, message: MsgTransfer, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  /** UpdateParams defines a rpc handler for MsgUpdateParams. */
+  updateIBCTransferParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: TxRpc;
@@ -19,6 +30,14 @@ export class MsgClientImpl implements Msg {
   transfer = async (signerAddress: string, message: MsgTransfer, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgTransfer.typeUrl,
+      value: message
+    }];
+    return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
+  };
+  /* UpdateParams defines a rpc handler for MsgUpdateParams. */
+  updateParams = async (signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+    const data = [{
+      typeUrl: MsgUpdateParams.typeUrl,
       value: message
     }];
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);

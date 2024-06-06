@@ -1,13 +1,14 @@
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
 import {
   AuthInfo,
   Fee,
   SignerInfo,
   TxBody,
-} from "../codegen/cosmos/tx/v1beta1/tx";
-import { Decoder, EncodedMessage, Encoder, Message, TxOptions } from "../types";
-import { assertEmpty } from "@interchainjs/utils";
-import { SignMode } from "../codegen/cosmos/tx/signing/v1beta1/signing";
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
 import { TelescopeGeneratedType } from "@interchainjs/types";
+import { assertEmpty } from "@interchainjs/utils";
+
+import { Decoder, EncodedMessage, Encoder, Message, TxOptions } from "../types";
 
 export function constructTxBody(
   messages: Message[],
@@ -75,6 +76,12 @@ export function toEncoder(
       return generated.encode(generated.fromPartial(data)).finish();
     },
   };
+}
+
+export function toEncoders(
+  ...generatedArray: TelescopeGeneratedType<any, any, any>[]
+): Encoder[] {
+  return generatedArray.map((generated) => toEncoder(generated));
 }
 
 export function toDecoder(

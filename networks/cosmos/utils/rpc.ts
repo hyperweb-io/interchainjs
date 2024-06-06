@@ -1,12 +1,8 @@
-import prefixJson from "../data/prefix.json";
 import { HttpEndpoint, TxRpc } from "@interchainjs/types";
-import {
-  BaseAccount,
-  ModuleAccount,
-} from "../codegen/cosmos/auth/v1beta1/auth";
 import { fromBase64, randomId, toBase64, toHex } from "@interchainjs/utils";
+
+import prefixJson from "../data/prefix.json";
 import { BroadcastMode } from "../types";
-import { toDecoder } from "./direct";
 
 export const getPrefix = (chainId: string): string => {
   const prefix = (prefixJson as any)[chainId];

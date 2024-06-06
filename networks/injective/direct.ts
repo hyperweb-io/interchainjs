@@ -1,21 +1,15 @@
-import {
-  Auth,
-  BaseWallet,
-  HttpEndpoint,
-  ISignDoc,
-  ISigner,
-  IWallet,
-  SignerConfig,
-} from "@interchainjs/types";
-import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
 import { DirectSignerBase } from "@interchainjs/cosmos/direct";
-import { Encoder, SignDoc, SignerOptions } from "@interchainjs/cosmos/types";
-import { getAccountFromAuth } from "./utils";
-import { SignResponseFromAuth } from "@interchainjs/cosmos/utils";
-import { constructAuthFromWallet } from "@interchainjs/utils";
+import { Encoder, SignerOptions } from "@interchainjs/cosmos/types";
+import { Auth, HttpEndpoint } from "@interchainjs/types";
+import { constructAuthsFromWallet } from "@interchainjs/utils";
 
-export class DirectSigner extends DirectSignerBase
-  implements ISigner.InjectiveDirectSigner {
+import { defaultPublicKeyConfig, defaultSignerOptions } from "./defaults";
+import { InjectiveBaseWallet,InjectiveDirectSigner } from "./types";
+
+export class DirectSigner
+  extends DirectSignerBase
+  implements InjectiveDirectSigner
+{
   constructor(
     auth: Auth,
     encoders: Encoder[],
@@ -26,28 +20,30 @@ export class DirectSigner extends DirectSignerBase
   }
 
   static async fromWallet(
-    wallet: BaseWallet<ISignDoc.CosmosDirectDoc>,
+    wallet: InjectiveBaseWallet,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auth: Auth = await constructAuthFromWallet(
+    const [auth] = await constructAuthsFromWallet(
       wallet,
       options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
     );
-    const signer = new DirectSigner(auth, encoders, endpoint, options);
-    signer.signDoc = wallet.sign;
-    return signer;
+    return new DirectSigner(auth, encoders, endpoint, options);
   }
 
-  static toWallet(
-    auth: Auth,
-    config: SignerConfig = defaultSignerOptions.Cosmos
-  ): IWallet.InjectiveDirectWallet {
-    return {
-      getAccount: async () => getAccountFromAuth(auth, config.publicKey),
-      sign: async (doc: SignDoc) =>
-        SignResponseFromAuth.signDirect(auth, doc, config),
-    };
+  static async fromWalletToSigners(
+    wallet: InjectiveBaseWallet,
+    encoders: Encoder[],
+    endpoint?: string | HttpEndpoint,
+    options?: SignerOptions
+  ) {
+    const auths = await constructAuthsFromWallet(
+      wallet,
+      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
+    );
+    return auths.map((auth) => {
+      return new DirectSigner(auth, encoders, endpoint, options);
+    });
   }
 }

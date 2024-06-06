@@ -1,4 +1,4 @@
-# @interchainjs/cosmos-query
+# @interchainjs/cosmos-types
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/545047/188804067-28e67e5e-0214-4449-ab04-2e0c564a6885.svg" width="80">
@@ -26,7 +26,7 @@ npm install @interchainjs/cosmos-types
 Make `Encoder` and `Converter` used by `Cosmos` signers (taking `MsgSend` as example)
 
 ```ts
-import { MsgSend } from "@interchainjs/cosmos-msgs/cosmos/bank/v1beta1/tx";
+import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
 import { AminoSigner } from "@interchainjs/cosmos/amino";
 
@@ -42,8 +42,8 @@ const signer = new AminoSigner(<AUTH>, [encoder], [converter], <rpc-endpoint>);
 Message groups
 
 ```ts
-import { StargateMsgs } from "@interchainjs/cosmos-msgs/stargate";
-import { CosmWasmMsgs } from "@interchainjs/cosmos-msgs/cosmwasm";
+import { StargateMsgs } from "@interchainjs/cosmos-types/stargate";
+import { CosmWasmMsgs } from "@interchainjs/cosmos-types/cosmwasm";
 ```
 
 ### Query
@@ -51,7 +51,7 @@ import { CosmWasmMsgs } from "@interchainjs/cosmos-msgs/cosmwasm";
 Make queries (taking querying `validators` as example)
 
 ```ts
-import { RpcQuery } from "@interchainjs/cosmos-query/rpc";
+import { RpcQuery } from "@interchainjs/cosmos-types/rpc";
 
 const rpcQuery = new RpcQuery(<rpc-endpoint>);
 const { validators } = await rpcQuery.validators({
@@ -62,7 +62,7 @@ const { validators } = await rpcQuery.validators({
 ## Implementations
 
 - **query**
-  - **rpc query client** from `@interchainjs/cosmos-query/rpc`
+  - **rpc query client** from `@interchainjs/cosmos-types/rpc`
 
 ## License
 

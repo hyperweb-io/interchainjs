@@ -1,4 +1,4 @@
-helmName: osmojs
+helmName: interchainjs
 helmFile: ./config.local.yaml
 helmRepo: starship
 helmRepoUrl: https://cosmology-tech.github.io/starship/

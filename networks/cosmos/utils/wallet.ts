@@ -1,39 +1,32 @@
-import {
-  Auth,
-  SignerConfig,
-  SignDocResponse,
-  IWalletAccount,
-  ISignDoc,
-} from "@interchainjs/types";
+import { SignDoc } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { Auth, SignDocResponse, SignerConfig } from "@interchainjs/types";
+
 import { defaultSignerConfig } from "../defaults";
-import { getPrefix } from "./rpc";
-import { SignDoc } from "../types";
+import { Algo, CosmosAccount, CosmosAminoDoc } from "../types";
 import { encodeStdSignDoc } from "./amino";
 
 export function getAccountFromAuth(
   auth: Auth,
   config: SignerConfig = defaultSignerConfig
-): IWalletAccount.CosmosAccount {
+): CosmosAccount {
   const publicKey = auth.getPublicKey(config.publicKey.isCompressed);
-  return {
+  const account = {
     algo: auth.algo,
     publicKey,
-    getAddress(chainId?: string) {
+    getAddress(prefix?: string) {
       const addrKey = config.publicKey.hash(publicKey);
-      if (!chainId) {
-        return addrKey;
-      }
-      if (chainId.startsWith("injective-")) {
-        throw new Error("Cannot get Injective address with this method.");
-      }
-      try {
-        const prefix = getPrefix(chainId);
-        return addrKey.toBech32(prefix);
-      } catch (error) {
-        return addrKey;
-      }
+      return addrKey.toBech32(prefix ?? "");
+    },
+    toAccountData() {
+      return {
+        address: account.getAddress(),
+        algo: auth.algo as Algo,
+        pubkey: publicKey.value,
+      };
     },
   };
+
+  return account;
 }
 
 export class SignResponseFromAuth {
@@ -54,9 +47,9 @@ export class SignResponseFromAuth {
 
   static signAmino(
     auth: Auth,
-    doc: ISignDoc.CosmosAminoDoc,
+    doc: CosmosAminoDoc,
     config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<ISignDoc.CosmosAminoDoc> {
+  ): SignDocResponse<CosmosAminoDoc> {
     const encoded = encodeStdSignDoc(doc);
     const signature = auth.sign(config.message.hash(encoded));
     return {

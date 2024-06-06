@@ -1,15 +1,5 @@
 import { AminoSigner } from "@interchainjs/cosmos/amino";
-import {
-  Any,
-  AuthInfo,
-  IBinaryWriter,
-  Secp256k1PubKey,
-  SignDoc,
-  SignerInfo,
-  SignMode,
-  TxBody,
-  TxRaw,
-} from "@interchainjs/cosmos/types";
+import { AccountData } from "@interchainjs/cosmos/types";
 import {
   constructAuthInfo,
   constructSignerInfo,
@@ -19,6 +9,17 @@ import {
   toFee,
   toMessages,
 } from "@interchainjs/cosmos/utils";
+import { IBinaryWriter } from "@interchainjs/cosmos-types/binary";
+import { PubKey as Secp256k1PubKey } from "@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys";
+import { SignMode } from "@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing";
+import {
+  AuthInfo,
+  SignDoc,
+  SignerInfo,
+  TxBody,
+  TxRaw,
+} from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
+import { Any } from "@interchainjs/cosmos-types/google/protobuf/any";
 import { TxRpc } from "@interchainjs/cosmos-types/types";
 import {
   Auth,
@@ -44,7 +45,6 @@ import {
   SignerOptions,
 } from "./types/signing-client";
 import {
-  AccountData,
   OfflineAminoSigner,
   OfflineDirectSigner,
   OfflineSigner,
@@ -129,13 +129,15 @@ export class SigningClient {
 
   private async getAccountData(address: string): Promise<AccountData> {
     const accounts = await this.offlineSigner.getAccounts();
-    const account = accounts.find((account) => account.address === address);
+    const account = accounts.find(
+      (account) => account.getAddress() === address
+    );
     if (!account) {
       throw new Error(
         `No such account found in OfflineSigner for address ${address}`
       );
     }
-    return account;
+    return account.toAccountData();
   }
 
   private async getPubkey(address: string): Promise<Any> {
@@ -441,13 +443,15 @@ export class SigningClient {
       doc.memo
     ).encode();
 
-    const { signerInfo } = constructSignerInfo(
-      this.aminoSigner.encodedPublicKey,
-      BigInt(signed.sequence),
-      this._signDirect
-        ? SignMode.SIGN_MODE_DIRECT
-        : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
-    );
+    const signerInfo = SignerInfo.fromPartial({
+      publicKey: await this.getPubkey(signerAddress),
+      sequence: BigInt(sequence),
+      modeInfo: {
+        single: {
+          mode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
+        },
+      },
+    });
 
     const authInfoBytes = constructAuthInfo(
       [signerInfo],

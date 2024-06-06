@@ -1,14 +1,9 @@
+import { CosmosAccount } from "@interchainjs/cosmos/types";
 import { SignDoc, StdSignDoc } from "@interchainjs/types";
 
 export type Algo = "secp256k1" | "ed25519" | "sr25519";
 
 export type Bech32Address = string;
-
-export interface AccountData {
-  address: Bech32Address;
-  algo: Algo;
-  pubkey: Uint8Array;
-}
 
 export interface Pubkey {
   type: string;
@@ -26,7 +21,7 @@ export interface AminoSignResponse {
 }
 
 export interface OfflineAminoSigner {
-  getAccounts: () => Promise<AccountData[]>;
+  getAccounts: () => Promise<CosmosAccount[]>;
   signAmino: (
     signerAddress: string,
     signDoc: StdSignDoc
@@ -39,7 +34,7 @@ export interface DirectSignResponse {
 }
 
 export interface OfflineDirectSigner {
-  getAccounts: () => Promise<AccountData[]>;
+  getAccounts: () => Promise<CosmosAccount[]>;
   signDirect: (
     signerAddress: string,
     signDoc: SignDoc
@@ -47,12 +42,6 @@ export interface OfflineDirectSigner {
 }
 
 export type OfflineSigner = OfflineAminoSigner | OfflineDirectSigner;
-
-export interface Wallet {
-  getAccounts: () => AccountData[];
-  signAmino: (signerAddress: string, signDoc: StdSignDoc) => AminoSignResponse;
-  signDirect: (signerAddress: string, signDoc: SignDoc) => DirectSignResponse;
-}
 
 export interface WalletOptions {
   bip39Password?: string;

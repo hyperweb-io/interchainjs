@@ -1,6 +1,6 @@
 import { TxRpc } from "../../../types";
 import { BinaryReader } from "../../../binary";
-import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
+import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Balance queries the balance of a single coin for a single account. */
@@ -48,8 +48,10 @@ export interface Query {
   supplyOf(request: QuerySupplyOfRequest): Promise<QuerySupplyOfResponse>;
   /** Params queries the parameters of x/bank module. */
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** DenomsMetadata queries the client metadata of a given coin denomination. */
+  /** DenomMetadata queries the client metadata of a given coin denomination. */
   denomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
+  /** DenomMetadataByQueryString queries the client metadata of a given coin denomination. */
+  denomMetadataByQueryString(request: QueryDenomMetadataByQueryStringRequest): Promise<QueryDenomMetadataByQueryStringResponse>;
   /**
    * DenomsMetadata queries the client metadata for all registered coin
    * denominations.
@@ -66,6 +68,13 @@ export interface Query {
    */
   denomOwners(request: QueryDenomOwnersRequest): Promise<QueryDenomOwnersResponse>;
   /**
+   * DenomOwnersByQuery queries for all account addresses that own a particular token
+   * denomination.
+   * 
+   * Since: cosmos-sdk 0.50.3
+   */
+  denomOwnersByQuery(request: QueryDenomOwnersByQueryRequest): Promise<QueryDenomOwnersByQueryResponse>;
+  /**
    * SendEnabled queries for SendEnabled entries.
    * 
    * This query only returns denominations that have specific SendEnabled settings.
@@ -77,7 +86,7 @@ export interface Query {
   sendEnabled(request: QuerySendEnabledRequest): Promise<QuerySendEnabledResponse>;
 }
 /** Query defines the gRPC querier service. */
-export interface StargateImpl {
+export interface QueryImpl {
   /** Balance queries the balance of a single coin for a single account. */
   balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
   /**
@@ -123,8 +132,10 @@ export interface StargateImpl {
   supplyOf(request: QuerySupplyOfRequest): Promise<QuerySupplyOfResponse>;
   /** Params queries the parameters of x/bank module. */
   getBankParams(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** DenomsMetadata queries the client metadata of a given coin denomination. */
+  /** DenomMetadata queries the client metadata of a given coin denomination. */
   denomMetadata(request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse>;
+  /** DenomMetadataByQueryString queries the client metadata of a given coin denomination. */
+  denomMetadataByQueryString(request: QueryDenomMetadataByQueryStringRequest): Promise<QueryDenomMetadataByQueryStringResponse>;
   /**
    * DenomsMetadata queries the client metadata for all registered coin
    * denominations.
@@ -140,6 +151,13 @@ export interface StargateImpl {
    * Since: cosmos-sdk 0.46
    */
   denomOwners(request: QueryDenomOwnersRequest): Promise<QueryDenomOwnersResponse>;
+  /**
+   * DenomOwnersByQuery queries for all account addresses that own a particular token
+   * denomination.
+   * 
+   * Since: cosmos-sdk 0.50.3
+   */
+  denomOwnersByQuery(request: QueryDenomOwnersByQueryRequest): Promise<QueryDenomOwnersByQueryResponse>;
   /**
    * SendEnabled queries for SendEnabled entries.
    * 
@@ -221,11 +239,17 @@ export class QueryClientImpl implements Query {
     const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
   };
-  /* DenomsMetadata queries the client metadata of a given coin denomination. */
+  /* DenomMetadata queries the client metadata of a given coin denomination. */
   denomMetadata = async (request: QueryDenomMetadataRequest): Promise<QueryDenomMetadataResponse> => {
     const data = QueryDenomMetadataRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "DenomMetadata", data);
     return promise.then(data => QueryDenomMetadataResponse.decode(new BinaryReader(data)));
+  };
+  /* DenomMetadataByQueryString queries the client metadata of a given coin denomination. */
+  denomMetadataByQueryString = async (request: QueryDenomMetadataByQueryStringRequest): Promise<QueryDenomMetadataByQueryStringResponse> => {
+    const data = QueryDenomMetadataByQueryStringRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "DenomMetadataByQueryString", data);
+    return promise.then(data => QueryDenomMetadataByQueryStringResponse.decode(new BinaryReader(data)));
   };
   /* DenomsMetadata queries the client metadata for all registered coin
    denominations. */
@@ -247,6 +271,15 @@ export class QueryClientImpl implements Query {
     const data = QueryDenomOwnersRequest.encode(request).finish();
     const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "DenomOwners", data);
     return promise.then(data => QueryDenomOwnersResponse.decode(new BinaryReader(data)));
+  };
+  /* DenomOwnersByQuery queries for all account addresses that own a particular token
+   denomination.
+  
+   Since: cosmos-sdk 0.50.3 */
+  denomOwnersByQuery = async (request: QueryDenomOwnersByQueryRequest): Promise<QueryDenomOwnersByQueryResponse> => {
+    const data = QueryDenomOwnersByQueryRequest.encode(request).finish();
+    const promise = this.rpc.request("cosmos.bank.v1beta1.Query", "DenomOwnersByQuery", data);
+    return promise.then(data => QueryDenomOwnersByQueryResponse.decode(new BinaryReader(data)));
   };
   /* SendEnabled queries for SendEnabled entries.
   

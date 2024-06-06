@@ -1,8 +1,8 @@
 import { AminoSigner } from "@interchainjs/cosmos/amino";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
 import { CosmWasmMsgs } from "@interchainjs/cosmos-types/cosmwasm";
+import { CosmWasmStargateImpl as TxImpl } from "@interchainjs/cosmos-types/service-ops";
 import { StargateMsgs } from "@interchainjs/cosmos-types/stargate";
-import { TxImpl } from "@interchainjs/cosmos-types/stargate-cosmwasm.tx";
 import { HttpEndpoint } from "@interchainjs/types";
 
 import { SigningClient } from "./signing-client";

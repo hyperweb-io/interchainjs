@@ -1,28 +1,30 @@
-import { Auth, BaseWallet } from "@interchainjs/types";
+import { BaseWallet } from "@interchainjs/types";
 
-export async function constructAuthFromWallet(
-  wallet: BaseWallet<any>,
+export async function constructAuthsFromWallet(
+  wallet: BaseWallet,
   isPubkeyCompressed: boolean
 ) {
-  const account = await wallet.getAccount();
-  const auth: Auth = {
-    algo: account.algo,
-    getPublicKey(isCompressed?: boolean) {
-      if (isCompressed && isPubkeyCompressed) {
-        return account.publicKey;
-      }
-      if (!isCompressed && !isPubkeyCompressed) {
-        return account.publicKey;
-      }
-      throw new Error(
-        `Failed to get ${
-          isCompressed ? "compressed" : "uncompressed"
-        } public key`
-      );
-    },
-    sign(_data: Uint8Array) {
-      throw new Error("Not implemented yet");
-    },
-  };
-  return auth;
+  const accountAuths = await wallet.getAccountAuths();
+
+  return accountAuths.map(({ account, auth }) => {
+    return {
+      algo: account.algo,
+      getPublicKey(isCompressed?: boolean) {
+        if (isCompressed && isPubkeyCompressed) {
+          return account.publicKey;
+        }
+        if (!isCompressed && !isPubkeyCompressed) {
+          return account.publicKey;
+        }
+        throw new Error(
+          `Failed to get ${
+            isCompressed ? "compressed" : "uncompressed"
+          } public key`
+        );
+      },
+      sign(_data: Uint8Array) {
+        return auth.sign(_data);
+      },
+    };
+  });
 }

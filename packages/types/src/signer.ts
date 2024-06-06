@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
-import { IKey, Signature } from "./auth";
-import { SignDocResponse } from "./wallet";
+
+import { Auth, IKey, Signature } from "./auth";
 
 export interface HttpEndpoint {
   url: string;
@@ -37,26 +37,40 @@ export interface BroadcastOptions {
   deliverTx?: boolean;
 }
 
-export type BroadcastResponse<T> = {
-  hash: string;
-} & T;
-
-export interface CreateDocResponse<SignDoc, Tx> {
-  signDoc: SignDoc;
+export interface CreateDocResponse<Tx, Doc> {
   tx: Tx;
+  doc: Doc;
 }
 
-export interface SignResponse<SignDoc, Tx>
-  extends CreateDocResponse<SignDoc, Tx> {
-  signature: IKey;
-  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse<any>>;
+export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }>
+  extends CreateDocResponse<Tx, Doc> {
+  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
+}
+
+export interface ITxBuilder<SignArgs = unknown, SignResp = unknown> {
+  buildSignedTxDoc(args: SignArgs): Promise<SignResp>;
+}
+
+export interface ITxBuilderContext<Signer = unknown> {
+  signer?: Signer;
 }
 
 /**
- * - SignDoc is the document type as the signing target to get signature
- * - Tx is the transaction to broadcast
+ * UniSigner is a generic interface for signing and broadcasting transactions.
+ * It is used to abstract the signing and broadcasting process for different chains.
+ * @template SignArgs - arguments for sign method
+ * @template Tx - transaction type
+ * @template Doc - sign doc type
+ * @template AddressResponse - address type
+ * @template BroadcastResponse - response type after broadcasting a transaction
  */
-export interface UniSigner<SignDoc, Tx> {
+export interface UniSigner<
+  SignArgs,
+  Tx,
+  Doc,
+  AddressResponse = string,
+  BroadcastResponse = { hash: string },
+> {
   publicKey: IKey;
   /**
    * publicKeyHash is usually used to get address.
@@ -66,31 +80,63 @@ export interface UniSigner<SignDoc, Tx> {
   publicKeyHash: IKey;
   /**
    * to get printable address(es)
-   * the return type is unknown because sometimes there are multiple addresses
-   * (i.e. Injective network has both cosmos address and eth address)
    */
-  getAddress(): unknown;
+  getAddress(): AddressResponse;
   signArbitrary(data: Uint8Array): IKey;
   verifyArbitrary(data: Uint8Array, signature: IKey): boolean;
   broadcastArbitrary(
     data: Uint8Array,
     options?: BroadcastOptions
-  ): Promise<BroadcastResponse<unknown>>;
-  signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
-  createDoc(
-    messages: unknown,
-    ...args: unknown[]
-  ): Promise<CreateDocResponse<SignDoc, Tx>>;
-  sign(
-    messages: unknown,
-    ...args: unknown[]
-  ): Promise<SignResponse<SignDoc, Tx>>;
+  ): Promise<BroadcastResponse>;
+  sign(args: SignArgs): Promise<SignResponse<Tx, Doc, BroadcastResponse>>;
   signAndBroadcast(
-    messages: unknown,
-    ...args: unknown[]
-  ): Promise<BroadcastResponse<unknown>>;
-  broadcast: (
-    tx: Tx,
+    args: SignArgs,
     options?: BroadcastOptions
-  ) => Promise<BroadcastResponse<unknown>>;
+  ): Promise<BroadcastResponse>;
+  broadcast: (tx: Tx, options?: BroadcastOptions) => Promise<BroadcastResponse>;
+}
+
+export class BaseSigner {
+  protected _auth: Auth;
+  protected _config: SignerConfig;
+
+  constructor(auth: Auth, config: SignerConfig) {
+    this._auth = auth;
+    this._config = config;
+  }
+
+  get auth() {
+    return this._auth;
+  }
+
+  get config() {
+    return this._config;
+  }
+
+  get publicKey() {
+    return this.auth.getPublicKey(this.config.publicKey.isCompressed);
+  }
+
+  get publicKeyHash() {
+    return this.config.publicKey.hash(this.publicKey);
+  }
+
+  setAuth(auth: Auth) {
+    this._auth = auth;
+  }
+
+  signArbitrary(data: Uint8Array): IKey {
+    const signature = this.auth.sign(this.config.message.hash(data));
+    return this.config.signature.toCompact(signature, this.auth.algo);
+  }
+
+  verifyArbitrary(data: Uint8Array, signature: IKey): boolean {
+    if (!this.auth.verify) {
+      throw new Error("verify method is not implemented yet");
+    }
+    return this.auth.verify(
+      this.config.message.hash(data),
+      this.config.signature.fromCompact(signature, this.auth.algo)
+    );
+  }
 }
