@@ -1,13 +1,14 @@
-import { Header, HeaderAmino } from "../../../tendermint/types/types";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
-import { Duration, DurationAmino } from "../../../google/protobuf/duration";
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
-import { ValidatorUpdate, ValidatorUpdateAmino } from "../../../tendermint/abci/types";
+import { decodePubkey,encodePubkey } from "@cosmjs/proto-signing";
+
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, isSet } from "../../../helpers";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
+import { Duration, DurationAmino } from "../../../google/protobuf/duration";
+import { Timestamp } from "../../../google/protobuf/timestamp";
+import { DeepPartial, fromTimestamp, isSet,toTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { encodePubkey, decodePubkey } from "@cosmjs/proto-signing";
+import { ValidatorUpdate, ValidatorUpdateAmino } from "../../../tendermint/abci/types";
+import { Header, HeaderAmino } from "../../../tendermint/types/types";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 /** BondStatus is the status of a validator. */
 export enum BondStatus {
   /** BOND_STATUS_UNSPECIFIED - UNSPECIFIED defines an invalid validator status. */
@@ -23,37 +24,37 @@ export enum BondStatus {
 export const BondStatusAmino = BondStatus;
 export function bondStatusFromJSON(object: any): BondStatus {
   switch (object) {
-    case 0:
-    case "BOND_STATUS_UNSPECIFIED":
-      return BondStatus.BOND_STATUS_UNSPECIFIED;
-    case 1:
-    case "BOND_STATUS_UNBONDED":
-      return BondStatus.BOND_STATUS_UNBONDED;
-    case 2:
-    case "BOND_STATUS_UNBONDING":
-      return BondStatus.BOND_STATUS_UNBONDING;
-    case 3:
-    case "BOND_STATUS_BONDED":
-      return BondStatus.BOND_STATUS_BONDED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return BondStatus.UNRECOGNIZED;
+  case 0:
+  case "BOND_STATUS_UNSPECIFIED":
+    return BondStatus.BOND_STATUS_UNSPECIFIED;
+  case 1:
+  case "BOND_STATUS_UNBONDED":
+    return BondStatus.BOND_STATUS_UNBONDED;
+  case 2:
+  case "BOND_STATUS_UNBONDING":
+    return BondStatus.BOND_STATUS_UNBONDING;
+  case 3:
+  case "BOND_STATUS_BONDED":
+    return BondStatus.BOND_STATUS_BONDED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return BondStatus.UNRECOGNIZED;
   }
 }
 export function bondStatusToJSON(object: BondStatus): string {
   switch (object) {
-    case BondStatus.BOND_STATUS_UNSPECIFIED:
-      return "BOND_STATUS_UNSPECIFIED";
-    case BondStatus.BOND_STATUS_UNBONDED:
-      return "BOND_STATUS_UNBONDED";
-    case BondStatus.BOND_STATUS_UNBONDING:
-      return "BOND_STATUS_UNBONDING";
-    case BondStatus.BOND_STATUS_BONDED:
-      return "BOND_STATUS_BONDED";
-    case BondStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case BondStatus.BOND_STATUS_UNSPECIFIED:
+    return "BOND_STATUS_UNSPECIFIED";
+  case BondStatus.BOND_STATUS_UNBONDED:
+    return "BOND_STATUS_UNBONDED";
+  case BondStatus.BOND_STATUS_UNBONDING:
+    return "BOND_STATUS_UNBONDING";
+  case BondStatus.BOND_STATUS_BONDED:
+    return "BOND_STATUS_BONDED";
+  case BondStatus.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** Infraction indicates the infraction a validator commited. */
@@ -69,32 +70,32 @@ export enum Infraction {
 export const InfractionAmino = Infraction;
 export function infractionFromJSON(object: any): Infraction {
   switch (object) {
-    case 0:
-    case "INFRACTION_UNSPECIFIED":
-      return Infraction.INFRACTION_UNSPECIFIED;
-    case 1:
-    case "INFRACTION_DOUBLE_SIGN":
-      return Infraction.INFRACTION_DOUBLE_SIGN;
-    case 2:
-    case "INFRACTION_DOWNTIME":
-      return Infraction.INFRACTION_DOWNTIME;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Infraction.UNRECOGNIZED;
+  case 0:
+  case "INFRACTION_UNSPECIFIED":
+    return Infraction.INFRACTION_UNSPECIFIED;
+  case 1:
+  case "INFRACTION_DOUBLE_SIGN":
+    return Infraction.INFRACTION_DOUBLE_SIGN;
+  case 2:
+  case "INFRACTION_DOWNTIME":
+    return Infraction.INFRACTION_DOWNTIME;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return Infraction.UNRECOGNIZED;
   }
 }
 export function infractionToJSON(object: Infraction): string {
   switch (object) {
-    case Infraction.INFRACTION_UNSPECIFIED:
-      return "INFRACTION_UNSPECIFIED";
-    case Infraction.INFRACTION_DOUBLE_SIGN:
-      return "INFRACTION_DOUBLE_SIGN";
-    case Infraction.INFRACTION_DOWNTIME:
-      return "INFRACTION_DOWNTIME";
-    case Infraction.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case Infraction.INFRACTION_UNSPECIFIED:
+    return "INFRACTION_UNSPECIFIED";
+  case Infraction.INFRACTION_DOUBLE_SIGN:
+    return "INFRACTION_DOUBLE_SIGN";
+  case Infraction.INFRACTION_DOWNTIME:
+    return "INFRACTION_DOWNTIME";
+  case Infraction.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -781,15 +782,15 @@ export const HistoricalInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.header = Header.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.valset.push(Validator.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.header = Header.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.valset.push(Validator.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -877,18 +878,18 @@ export const CommissionRates = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.rate = reader.string();
-          break;
-        case 2:
-          message.maxRate = reader.string();
-          break;
-        case 3:
-          message.maxChangeRate = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.rate = reader.string();
+        break;
+      case 2:
+        message.maxRate = reader.string();
+        break;
+      case 3:
+        message.maxChangeRate = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -975,15 +976,15 @@ export const Commission = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.commissionRates = CommissionRates.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.updateTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.commissionRates = CommissionRates.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.updateTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1077,24 +1078,24 @@ export const Description = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.moniker = reader.string();
-          break;
-        case 2:
-          message.identity = reader.string();
-          break;
-        case 3:
-          message.website = reader.string();
-          break;
-        case 4:
-          message.securityContact = reader.string();
-          break;
-        case 5:
-          message.details = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.moniker = reader.string();
+        break;
+      case 2:
+        message.identity = reader.string();
+        break;
+      case 3:
+        message.website = reader.string();
+        break;
+      case 4:
+        message.securityContact = reader.string();
+        break;
+      case 5:
+        message.details = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1237,55 +1238,55 @@ export const Validator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.operatorAddress = reader.string();
-          break;
-        case 2:
-          message.consensusPubkey = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        case 3:
-          message.jailed = reader.bool();
-          break;
-        case 4:
-          message.status = (reader.int32() as any);
-          break;
-        case 5:
-          message.tokens = reader.string();
-          break;
-        case 6:
-          message.delegatorShares = reader.string();
-          break;
-        case 7:
-          message.description = Description.decode(reader, reader.uint32());
-          break;
-        case 8:
-          message.unbondingHeight = reader.int64();
-          break;
-        case 9:
-          message.unbondingTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 10:
-          message.commission = Commission.decode(reader, reader.uint32());
-          break;
-        case 11:
-          message.minSelfDelegation = reader.string();
-          break;
-        case 12:
-          message.unbondingOnHoldRefCount = reader.int64();
-          break;
-        case 13:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.unbondingIds.push(reader.uint64());
-            }
-          } else {
+      case 1:
+        message.operatorAddress = reader.string();
+        break;
+      case 2:
+        message.consensusPubkey = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      case 3:
+        message.jailed = reader.bool();
+        break;
+      case 4:
+        message.status = (reader.int32() as any);
+        break;
+      case 5:
+        message.tokens = reader.string();
+        break;
+      case 6:
+        message.delegatorShares = reader.string();
+        break;
+      case 7:
+        message.description = Description.decode(reader, reader.uint32());
+        break;
+      case 8:
+        message.unbondingHeight = reader.int64();
+        break;
+      case 9:
+        message.unbondingTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 10:
+        message.commission = Commission.decode(reader, reader.uint32());
+        break;
+      case 11:
+        message.minSelfDelegation = reader.string();
+        break;
+      case 12:
+        message.unbondingOnHoldRefCount = reader.int64();
+        break;
+      case 13:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.unbondingIds.push(reader.uint64());
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.unbondingIds.push(reader.uint64());
+        }
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1420,12 +1421,12 @@ export const ValAddresses = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.addresses.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.addresses.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1504,15 +1505,15 @@ export const DVPair = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.delegatorAddress = reader.string();
-          break;
-        case 2:
-          message.validatorAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.delegatorAddress = reader.string();
+        break;
+      case 2:
+        message.validatorAddress = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1590,12 +1591,12 @@ export const DVPairs = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.pairs.push(DVPair.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.pairs.push(DVPair.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1678,18 +1679,18 @@ export const DVVTriplet = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.delegatorAddress = reader.string();
-          break;
-        case 2:
-          message.validatorSrcAddress = reader.string();
-          break;
-        case 3:
-          message.validatorDstAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.delegatorAddress = reader.string();
+        break;
+      case 2:
+        message.validatorSrcAddress = reader.string();
+        break;
+      case 3:
+        message.validatorDstAddress = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1772,12 +1773,12 @@ export const DVVTriplets = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.triplets.push(DVVTriplet.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.triplets.push(DVVTriplet.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1860,18 +1861,18 @@ export const Delegation = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.delegatorAddress = reader.string();
-          break;
-        case 2:
-          message.validatorAddress = reader.string();
-          break;
-        case 3:
-          message.shares = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.delegatorAddress = reader.string();
+        break;
+      case 2:
+        message.validatorAddress = reader.string();
+        break;
+      case 3:
+        message.shares = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1962,18 +1963,18 @@ export const UnbondingDelegation = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.delegatorAddress = reader.string();
-          break;
-        case 2:
-          message.validatorAddress = reader.string();
-          break;
-        case 3:
-          message.entries.push(UnbondingDelegationEntry.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.delegatorAddress = reader.string();
+        break;
+      case 2:
+        message.validatorAddress = reader.string();
+        break;
+      case 3:
+        message.entries.push(UnbondingDelegationEntry.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2078,27 +2079,27 @@ export const UnbondingDelegationEntry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.creationHeight = reader.int64();
-          break;
-        case 2:
-          message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.initialBalance = reader.string();
-          break;
-        case 4:
-          message.balance = reader.string();
-          break;
-        case 5:
-          message.unbondingId = reader.uint64();
-          break;
-        case 6:
-          message.unbondingOnHoldRefCount = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.creationHeight = reader.int64();
+        break;
+      case 2:
+        message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.initialBalance = reader.string();
+        break;
+      case 4:
+        message.balance = reader.string();
+        break;
+      case 5:
+        message.unbondingId = reader.uint64();
+        break;
+      case 6:
+        message.unbondingOnHoldRefCount = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2216,27 +2217,27 @@ export const RedelegationEntry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.creationHeight = reader.int64();
-          break;
-        case 2:
-          message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.initialBalance = reader.string();
-          break;
-        case 4:
-          message.sharesDst = reader.string();
-          break;
-        case 5:
-          message.unbondingId = reader.uint64();
-          break;
-        case 6:
-          message.unbondingOnHoldRefCount = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.creationHeight = reader.int64();
+        break;
+      case 2:
+        message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.initialBalance = reader.string();
+        break;
+      case 4:
+        message.sharesDst = reader.string();
+        break;
+      case 5:
+        message.unbondingId = reader.uint64();
+        break;
+      case 6:
+        message.unbondingOnHoldRefCount = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2346,21 +2347,21 @@ export const Redelegation = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.delegatorAddress = reader.string();
-          break;
-        case 2:
-          message.validatorSrcAddress = reader.string();
-          break;
-        case 3:
-          message.validatorDstAddress = reader.string();
-          break;
-        case 4:
-          message.entries.push(RedelegationEntry.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.delegatorAddress = reader.string();
+        break;
+      case 2:
+        message.validatorSrcAddress = reader.string();
+        break;
+      case 3:
+        message.validatorDstAddress = reader.string();
+        break;
+      case 4:
+        message.entries.push(RedelegationEntry.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2470,27 +2471,27 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.unbondingTime = Duration.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.maxValidators = reader.uint32();
-          break;
-        case 3:
-          message.maxEntries = reader.uint32();
-          break;
-        case 4:
-          message.historicalEntries = reader.uint32();
-          break;
-        case 5:
-          message.bondDenom = reader.string();
-          break;
-        case 6:
-          message.minCommissionRate = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.unbondingTime = Duration.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.maxValidators = reader.uint32();
+        break;
+      case 3:
+        message.maxEntries = reader.uint32();
+        break;
+      case 4:
+        message.historicalEntries = reader.uint32();
+        break;
+      case 5:
+        message.bondDenom = reader.string();
+        break;
+      case 6:
+        message.minCommissionRate = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2592,15 +2593,15 @@ export const DelegationResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.delegation = Delegation.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.balance = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.delegation = Delegation.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.balance = Coin.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2682,15 +2683,15 @@ export const RedelegationEntryResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.redelegationEntry = RedelegationEntry.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.balance = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.redelegationEntry = RedelegationEntry.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.balance = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2772,15 +2773,15 @@ export const RedelegationResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.redelegation = Redelegation.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.entries.push(RedelegationEntryResponse.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.redelegation = Redelegation.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.entries.push(RedelegationEntryResponse.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2864,15 +2865,15 @@ export const Pool = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.notBondedTokens = reader.string();
-          break;
-        case 2:
-          message.bondedTokens = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.notBondedTokens = reader.string();
+        break;
+      case 2:
+        message.bondedTokens = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2950,12 +2951,12 @@ export const ValidatorUpdates = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.updates.push(ValidatorUpdate.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.updates.push(ValidatorUpdate.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

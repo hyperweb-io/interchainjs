@@ -1,7 +1,7 @@
-import { MerklePrefix, MerklePrefixAmino } from "../../commitment/v1/commitment";
-import { isSet, DeepPartial } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { DeepPartial,isSet } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { MerklePrefix, MerklePrefixAmino } from "../../commitment/v1/commitment";
 /**
  * State defines if a connection is in one of the following states:
  * INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -23,37 +23,37 @@ export enum State {
 export const StateAmino = State;
 export function stateFromJSON(object: any): State {
   switch (object) {
-    case 0:
-    case "STATE_UNINITIALIZED_UNSPECIFIED":
-      return State.STATE_UNINITIALIZED_UNSPECIFIED;
-    case 1:
-    case "STATE_INIT":
-      return State.STATE_INIT;
-    case 2:
-    case "STATE_TRYOPEN":
-      return State.STATE_TRYOPEN;
-    case 3:
-    case "STATE_OPEN":
-      return State.STATE_OPEN;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return State.UNRECOGNIZED;
+  case 0:
+  case "STATE_UNINITIALIZED_UNSPECIFIED":
+    return State.STATE_UNINITIALIZED_UNSPECIFIED;
+  case 1:
+  case "STATE_INIT":
+    return State.STATE_INIT;
+  case 2:
+  case "STATE_TRYOPEN":
+    return State.STATE_TRYOPEN;
+  case 3:
+  case "STATE_OPEN":
+    return State.STATE_OPEN;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return State.UNRECOGNIZED;
   }
 }
 export function stateToJSON(object: State): string {
   switch (object) {
-    case State.STATE_UNINITIALIZED_UNSPECIFIED:
-      return "STATE_UNINITIALIZED_UNSPECIFIED";
-    case State.STATE_INIT:
-      return "STATE_INIT";
-    case State.STATE_TRYOPEN:
-      return "STATE_TRYOPEN";
-    case State.STATE_OPEN:
-      return "STATE_OPEN";
-    case State.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case State.STATE_UNINITIALIZED_UNSPECIFIED:
+    return "STATE_UNINITIALIZED_UNSPECIFIED";
+  case State.STATE_INIT:
+    return "STATE_INIT";
+  case State.STATE_TRYOPEN:
+    return "STATE_TRYOPEN";
+  case State.STATE_OPEN:
+    return "STATE_OPEN";
+  case State.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -339,24 +339,24 @@ export const ConnectionEnd = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.versions.push(Version.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.state = (reader.int32() as any);
-          break;
-        case 4:
-          message.counterparty = Counterparty.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.delayPeriod = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.versions.push(Version.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.state = (reader.int32() as any);
+        break;
+      case 4:
+        message.counterparty = Counterparty.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.delayPeriod = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -471,27 +471,27 @@ export const IdentifiedConnection = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.id = reader.string();
-          break;
-        case 2:
-          message.clientId = reader.string();
-          break;
-        case 3:
-          message.versions.push(Version.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.state = (reader.int32() as any);
-          break;
-        case 5:
-          message.counterparty = Counterparty.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.delayPeriod = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.id = reader.string();
+        break;
+      case 2:
+        message.clientId = reader.string();
+        break;
+      case 3:
+        message.versions.push(Version.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.state = (reader.int32() as any);
+        break;
+      case 5:
+        message.counterparty = Counterparty.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.delayPeriod = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -599,18 +599,18 @@ export const Counterparty = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.connectionId = reader.string();
-          break;
-        case 3:
-          message.prefix = MerklePrefix.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.connectionId = reader.string();
+        break;
+      case 3:
+        message.prefix = MerklePrefix.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -693,12 +693,12 @@ export const ClientPaths = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.paths.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.paths.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -777,15 +777,15 @@ export const ConnectionPaths = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.paths.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.paths.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -869,15 +869,15 @@ export const Version = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.identifier = reader.string();
-          break;
-        case 2:
-          message.features.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.identifier = reader.string();
+        break;
+      case 2:
+        message.features.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -957,12 +957,12 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.maxExpectedTimePerBlock = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.maxExpectedTimePerBlock = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

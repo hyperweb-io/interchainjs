@@ -1,5 +1,5 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
-import { MsgCreateVestingAccount, MsgCreatePermanentLockedAccount, MsgCreatePeriodicVestingAccount } from "./tx";
+import { MsgCreatePeriodicVestingAccount,MsgCreatePermanentLockedAccount, MsgCreateVestingAccount } from "./tx";
 /** Msg defines the bank Msg service. */
 export interface Msg {
   /**

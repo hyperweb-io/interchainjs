@@ -1,5 +1,5 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../../types";
-import { MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelCloseInit, MsgChannelCloseConfirm, MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgAcknowledgement, MsgChannelUpgradeInit, MsgChannelUpgradeTry, MsgChannelUpgradeAck, MsgChannelUpgradeConfirm, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeCancel, MsgUpdateParams, MsgPruneAcknowledgements } from "./tx";
+import { MsgAcknowledgement, MsgChannelCloseConfirm, MsgChannelCloseInit, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelUpgradeAck, MsgChannelUpgradeCancel, MsgChannelUpgradeConfirm, MsgChannelUpgradeInit, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeTry, MsgPruneAcknowledgements,MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgUpdateParams } from "./tx";
 /** Msg defines the ibc/channel Msg service. */
 export interface Msg {
   /** ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit. */

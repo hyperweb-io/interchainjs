@@ -1,8 +1,8 @@
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
-import { Period, PeriodAmino } from "./vesting";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
+import { Period, PeriodAmino } from "./vesting";
 /**
  * MsgCreateVestingAccount defines a message that enables creating a vesting
  * account.
@@ -196,24 +196,24 @@ export const MsgCreateVestingAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.fromAddress = reader.string();
-          break;
-        case 2:
-          message.toAddress = reader.string();
-          break;
-        case 3:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.endTime = reader.int64();
-          break;
-        case 5:
-          message.delayed = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.fromAddress = reader.string();
+        break;
+      case 2:
+        message.toAddress = reader.string();
+        break;
+      case 3:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.endTime = reader.int64();
+        break;
+      case 5:
+        message.delayed = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -303,9 +303,9 @@ export const MsgCreateVestingAccountResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -381,18 +381,18 @@ export const MsgCreatePermanentLockedAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.fromAddress = reader.string();
-          break;
-        case 2:
-          message.toAddress = reader.string();
-          break;
-        case 3:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.fromAddress = reader.string();
+        break;
+      case 2:
+        message.toAddress = reader.string();
+        break;
+      case 3:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -472,9 +472,9 @@ export const MsgCreatePermanentLockedAccountResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -554,21 +554,21 @@ export const MsgCreatePeriodicVestingAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.fromAddress = reader.string();
-          break;
-        case 2:
-          message.toAddress = reader.string();
-          break;
-        case 3:
-          message.startTime = reader.int64();
-          break;
-        case 4:
-          message.vestingPeriods.push(Period.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.fromAddress = reader.string();
+        break;
+      case 2:
+        message.toAddress = reader.string();
+        break;
+      case 3:
+        message.startTime = reader.int64();
+        break;
+      case 4:
+        message.vestingPeriods.push(Period.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -653,9 +653,9 @@ export const MsgCreatePeriodicVestingAccountResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

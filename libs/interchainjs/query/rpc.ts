@@ -1,3 +1,5 @@
+import { QueryImpl } from "@interchainjs/cosmos-types/service-ops";
+import { TxRpc } from "@interchainjs/cosmos-types/types";
 import { HttpEndpoint } from "@interchainjs/types";
 import {
   fromBase64,
@@ -5,8 +7,6 @@ import {
   toHex,
   toHttpEndpoint,
 } from "@interchainjs/utils";
-import { QueryImpl } from "@interchainjs/cosmos-types/service-ops";
-import { TxRpc } from "@interchainjs/cosmos-types/types";
 
 function createTxRpc(endpoint: HttpEndpoint): TxRpc {
   return {

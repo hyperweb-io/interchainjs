@@ -1,6 +1,6 @@
-import { BaseAccount, BaseAccountAmino } from "../../../cosmos/auth/v1beta1/auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { BaseAccount, BaseAccountAmino } from "../../../cosmos/auth/v1beta1/auth";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
@@ -56,15 +56,15 @@ export const EthAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseAccount = BaseAccount.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.codeHash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseAccount = BaseAccount.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.codeHash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

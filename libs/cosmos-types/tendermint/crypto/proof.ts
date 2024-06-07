@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
 export interface Proof {
   total: bigint;
@@ -141,21 +141,21 @@ export const Proof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.total = reader.int64();
-          break;
-        case 2:
-          message.index = reader.int64();
-          break;
-        case 3:
-          message.leafHash = reader.bytes();
-          break;
-        case 4:
-          message.aunts.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.total = reader.int64();
+        break;
+      case 2:
+        message.index = reader.int64();
+        break;
+      case 3:
+        message.leafHash = reader.bytes();
+        break;
+      case 4:
+        message.aunts.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -241,15 +241,15 @@ export const ValueOp = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.proof = Proof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.proof = Proof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -327,18 +327,18 @@ export const DominoOp = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.string();
-          break;
-        case 2:
-          message.input = reader.string();
-          break;
-        case 3:
-          message.output = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.string();
+        break;
+      case 2:
+        message.input = reader.string();
+        break;
+      case 3:
+        message.output = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -421,18 +421,18 @@ export const ProofOp = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.type = reader.string();
-          break;
-        case 2:
-          message.key = reader.bytes();
-          break;
-        case 3:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.type = reader.string();
+        break;
+      case 2:
+        message.key = reader.bytes();
+        break;
+      case 3:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -507,12 +507,12 @@ export const ProofOps = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.ops.push(ProofOp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.ops.push(ProofOp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

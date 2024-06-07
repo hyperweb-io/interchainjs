@@ -1,5 +1,5 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
-import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool } from "./tx";
+import { MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool,MsgFundCommunityPool, MsgSetWithdrawAddress, MsgUpdateParams, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from "./tx";
 /** Msg defines the distribution Msg service. */
 export interface Msg {
   /**

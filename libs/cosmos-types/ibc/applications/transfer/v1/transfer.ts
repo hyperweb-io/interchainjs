@@ -110,15 +110,15 @@ export const DenomTrace = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.path = reader.string();
-          break;
-        case 2:
-          message.baseDenom = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.path = reader.string();
+        break;
+      case 2:
+        message.baseDenom = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -200,15 +200,15 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sendEnabled = reader.bool();
-          break;
-        case 2:
-          message.receiveEnabled = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sendEnabled = reader.bool();
+        break;
+      case 2:
+        message.receiveEnabled = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

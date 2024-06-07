@@ -10,32 +10,32 @@ export enum ScalarType {
 export const ScalarTypeAmino = ScalarType;
 export function scalarTypeFromJSON(object: any): ScalarType {
   switch (object) {
-    case 0:
-    case "SCALAR_TYPE_UNSPECIFIED":
-      return ScalarType.SCALAR_TYPE_UNSPECIFIED;
-    case 1:
-    case "SCALAR_TYPE_STRING":
-      return ScalarType.SCALAR_TYPE_STRING;
-    case 2:
-    case "SCALAR_TYPE_BYTES":
-      return ScalarType.SCALAR_TYPE_BYTES;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ScalarType.UNRECOGNIZED;
+  case 0:
+  case "SCALAR_TYPE_UNSPECIFIED":
+    return ScalarType.SCALAR_TYPE_UNSPECIFIED;
+  case 1:
+  case "SCALAR_TYPE_STRING":
+    return ScalarType.SCALAR_TYPE_STRING;
+  case 2:
+  case "SCALAR_TYPE_BYTES":
+    return ScalarType.SCALAR_TYPE_BYTES;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ScalarType.UNRECOGNIZED;
   }
 }
 export function scalarTypeToJSON(object: ScalarType): string {
   switch (object) {
-    case ScalarType.SCALAR_TYPE_UNSPECIFIED:
-      return "SCALAR_TYPE_UNSPECIFIED";
-    case ScalarType.SCALAR_TYPE_STRING:
-      return "SCALAR_TYPE_STRING";
-    case ScalarType.SCALAR_TYPE_BYTES:
-      return "SCALAR_TYPE_BYTES";
-    case ScalarType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ScalarType.SCALAR_TYPE_UNSPECIFIED:
+    return "SCALAR_TYPE_UNSPECIFIED";
+  case ScalarType.SCALAR_TYPE_STRING:
+    return "SCALAR_TYPE_STRING";
+  case ScalarType.SCALAR_TYPE_BYTES:
+    return "SCALAR_TYPE_BYTES";
+  case ScalarType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -182,15 +182,15 @@ export const InterfaceDescriptor = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.description = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -270,25 +270,25 @@ export const ScalarDescriptor = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.fieldType.push((reader.int32() as any));
-            }
-          } else {
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.description = reader.string();
+        break;
+      case 3:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.fieldType.push((reader.int32() as any));
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.fieldType.push((reader.int32() as any));
+        }
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

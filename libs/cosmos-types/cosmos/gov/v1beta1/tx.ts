@@ -1,12 +1,12 @@
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
-import { VoteOption, WeightedVoteOption, WeightedVoteOptionAmino, TextProposal, TextProposalProtoMsg } from "./gov";
-import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg } from "../../distribution/v1beta1/distribution";
-import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg } from "../../upgrade/v1beta1/upgrade";
-import { ClientUpdateProposal, ClientUpdateProposalProtoMsg, UpgradeProposal, UpgradeProposalProtoMsg } from "../../../ibc/core/client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
 import { DeepPartial, isSet } from "../../../helpers";
+import { ClientUpdateProposal, ClientUpdateProposalProtoMsg, UpgradeProposal, UpgradeProposalProtoMsg } from "../../../ibc/core/client/v1/client";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
+import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg } from "../../distribution/v1beta1/distribution";
+import { CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg,SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg } from "../../upgrade/v1beta1/upgrade";
+import { TextProposal, TextProposalProtoMsg,VoteOption, WeightedVoteOption, WeightedVoteOptionAmino } from "./gov";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
@@ -225,18 +225,18 @@ export const MsgSubmitProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.content = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        case 2:
-          message.initialDeposit.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.proposer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.content = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      case 2:
+        message.initialDeposit.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.proposer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -321,12 +321,12 @@ export const MsgSubmitProposalResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -407,18 +407,18 @@ export const MsgVote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.voter = reader.string();
-          break;
-        case 3:
-          message.option = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.voter = reader.string();
+        break;
+      case 3:
+        message.option = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -496,9 +496,9 @@ export const MsgVoteResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -574,18 +574,18 @@ export const MsgVoteWeighted = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.voter = reader.string();
-          break;
-        case 3:
-          message.options.push(WeightedVoteOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.voter = reader.string();
+        break;
+      case 3:
+        message.options.push(WeightedVoteOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -665,9 +665,9 @@ export const MsgVoteWeightedResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -743,18 +743,18 @@ export const MsgDeposit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.depositor = reader.string();
-          break;
-        case 3:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.depositor = reader.string();
+        break;
+      case 3:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -834,9 +834,9 @@ export const MsgDepositResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

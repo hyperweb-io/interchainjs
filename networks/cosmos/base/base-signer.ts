@@ -110,13 +110,13 @@ export abstract class CosmosBaseSigner<SignDoc>
     return isEmpty(timeoutHeight)
       ? void 0
       : {
-          type: "absolute",
-          value:
+        type: "absolute",
+        value:
             timeoutHeight.type === "absolute"
               ? timeoutHeight.value
               : (await this.queryClient.getLatestBlockHeight()) +
                 timeoutHeight.value,
-        };
+      };
   }
 
   async sign(

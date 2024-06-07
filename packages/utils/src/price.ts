@@ -1,6 +1,5 @@
-import Decimal from "decimal.js";
-
 import { Price } from "@interchainjs/types";
+import Decimal from "decimal.js";
 
 /**
  *

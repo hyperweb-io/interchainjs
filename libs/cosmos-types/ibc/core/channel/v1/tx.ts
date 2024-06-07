@@ -1,9 +1,9 @@
-import { Channel, ChannelAmino, Packet, PacketAmino, State } from "./channel";
-import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
-import { UpgradeFields, UpgradeFieldsAmino, Upgrade, UpgradeAmino, ErrorReceipt, ErrorReceiptAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
+import { base64FromBytes, bytesFromBase64, DeepPartial, isSet } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
+import { Channel, ChannelAmino, Packet, PacketAmino, State } from "./channel";
+import { ErrorReceipt, ErrorReceiptAmino,Upgrade, UpgradeAmino, UpgradeFields, UpgradeFieldsAmino } from "./upgrade";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 export enum ResponseResultType {
   /** RESPONSE_RESULT_TYPE_UNSPECIFIED - Default zero value enumeration */
@@ -19,37 +19,37 @@ export enum ResponseResultType {
 export const ResponseResultTypeAmino = ResponseResultType;
 export function responseResultTypeFromJSON(object: any): ResponseResultType {
   switch (object) {
-    case 0:
-    case "RESPONSE_RESULT_TYPE_UNSPECIFIED":
-      return ResponseResultType.RESPONSE_RESULT_TYPE_UNSPECIFIED;
-    case 1:
-    case "RESPONSE_RESULT_TYPE_NOOP":
-      return ResponseResultType.RESPONSE_RESULT_TYPE_NOOP;
-    case 2:
-    case "RESPONSE_RESULT_TYPE_SUCCESS":
-      return ResponseResultType.RESPONSE_RESULT_TYPE_SUCCESS;
-    case 3:
-    case "RESPONSE_RESULT_TYPE_FAILURE":
-      return ResponseResultType.RESPONSE_RESULT_TYPE_FAILURE;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseResultType.UNRECOGNIZED;
+  case 0:
+  case "RESPONSE_RESULT_TYPE_UNSPECIFIED":
+    return ResponseResultType.RESPONSE_RESULT_TYPE_UNSPECIFIED;
+  case 1:
+  case "RESPONSE_RESULT_TYPE_NOOP":
+    return ResponseResultType.RESPONSE_RESULT_TYPE_NOOP;
+  case 2:
+  case "RESPONSE_RESULT_TYPE_SUCCESS":
+    return ResponseResultType.RESPONSE_RESULT_TYPE_SUCCESS;
+  case 3:
+  case "RESPONSE_RESULT_TYPE_FAILURE":
+    return ResponseResultType.RESPONSE_RESULT_TYPE_FAILURE;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ResponseResultType.UNRECOGNIZED;
   }
 }
 export function responseResultTypeToJSON(object: ResponseResultType): string {
   switch (object) {
-    case ResponseResultType.RESPONSE_RESULT_TYPE_UNSPECIFIED:
-      return "RESPONSE_RESULT_TYPE_UNSPECIFIED";
-    case ResponseResultType.RESPONSE_RESULT_TYPE_NOOP:
-      return "RESPONSE_RESULT_TYPE_NOOP";
-    case ResponseResultType.RESPONSE_RESULT_TYPE_SUCCESS:
-      return "RESPONSE_RESULT_TYPE_SUCCESS";
-    case ResponseResultType.RESPONSE_RESULT_TYPE_FAILURE:
-      return "RESPONSE_RESULT_TYPE_FAILURE";
-    case ResponseResultType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ResponseResultType.RESPONSE_RESULT_TYPE_UNSPECIFIED:
+    return "RESPONSE_RESULT_TYPE_UNSPECIFIED";
+  case ResponseResultType.RESPONSE_RESULT_TYPE_NOOP:
+    return "RESPONSE_RESULT_TYPE_NOOP";
+  case ResponseResultType.RESPONSE_RESULT_TYPE_SUCCESS:
+    return "RESPONSE_RESULT_TYPE_SUCCESS";
+  case ResponseResultType.RESPONSE_RESULT_TYPE_FAILURE:
+    return "RESPONSE_RESULT_TYPE_FAILURE";
+  case ResponseResultType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -933,18 +933,18 @@ export const MsgChannelOpenInit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channel = Channel.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channel = Channel.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1031,15 +1031,15 @@ export const MsgChannelOpenInitResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.channelId = reader.string();
-          break;
-        case 2:
-          message.version = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.channelId = reader.string();
+        break;
+      case 2:
+        message.version = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1141,30 +1141,30 @@ export const MsgChannelOpenTry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.previousChannelId = reader.string();
-          break;
-        case 3:
-          message.channel = Channel.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.counterpartyVersion = reader.string();
-          break;
-        case 5:
-          message.proofInit = reader.bytes();
-          break;
-        case 6:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.previousChannelId = reader.string();
+        break;
+      case 3:
+        message.channel = Channel.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.counterpartyVersion = reader.string();
+        break;
+      case 5:
+        message.proofInit = reader.bytes();
+        break;
+      case 6:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1271,15 +1271,15 @@ export const MsgChannelOpenTryResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.version = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.version = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1381,30 +1381,30 @@ export const MsgChannelOpenAck = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.counterpartyChannelId = reader.string();
-          break;
-        case 4:
-          message.counterpartyVersion = reader.string();
-          break;
-        case 5:
-          message.proofTry = reader.bytes();
-          break;
-        case 6:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.counterpartyChannelId = reader.string();
+        break;
+      case 4:
+        message.counterpartyVersion = reader.string();
+        break;
+      case 5:
+        message.proofTry = reader.bytes();
+        break;
+      case 6:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1502,9 +1502,9 @@ export const MsgChannelOpenAckResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1588,24 +1588,24 @@ export const MsgChannelOpenConfirm = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.proofAck = reader.bytes();
-          break;
-        case 4:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.proofAck = reader.bytes();
+        break;
+      case 4:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1693,9 +1693,9 @@ export const MsgChannelOpenConfirmResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1771,18 +1771,18 @@ export const MsgChannelCloseInit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1860,9 +1860,9 @@ export const MsgChannelCloseInitResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1950,27 +1950,27 @@ export const MsgChannelCloseConfirm = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.proofInit = reader.bytes();
-          break;
-        case 4:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.signer = reader.string();
-          break;
-        case 6:
-          message.counterpartyUpgradeSequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.proofInit = reader.bytes();
+        break;
+      case 4:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.signer = reader.string();
+        break;
+      case 6:
+        message.counterpartyUpgradeSequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2063,9 +2063,9 @@ export const MsgChannelCloseConfirmResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2145,21 +2145,21 @@ export const MsgRecvPacket = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.packet = Packet.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.proofCommitment = reader.bytes();
-          break;
-        case 3:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.packet = Packet.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.proofCommitment = reader.bytes();
+        break;
+      case 3:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2247,12 +2247,12 @@ export const MsgRecvPacketResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2341,24 +2341,24 @@ export const MsgTimeout = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.packet = Packet.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.proofUnreceived = reader.bytes();
-          break;
-        case 3:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.nextSequenceRecv = reader.uint64();
-          break;
-        case 5:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.packet = Packet.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.proofUnreceived = reader.bytes();
+        break;
+      case 3:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.nextSequenceRecv = reader.uint64();
+        break;
+      case 5:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2451,12 +2451,12 @@ export const MsgTimeoutResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2553,30 +2553,30 @@ export const MsgTimeoutOnClose = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.packet = Packet.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.proofUnreceived = reader.bytes();
-          break;
-        case 3:
-          message.proofClose = reader.bytes();
-          break;
-        case 4:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.nextSequenceRecv = reader.uint64();
-          break;
-        case 6:
-          message.signer = reader.string();
-          break;
-        case 7:
-          message.counterpartyUpgradeSequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.packet = Packet.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.proofUnreceived = reader.bytes();
+        break;
+      case 3:
+        message.proofClose = reader.bytes();
+        break;
+      case 4:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.nextSequenceRecv = reader.uint64();
+        break;
+      case 6:
+        message.signer = reader.string();
+        break;
+      case 7:
+        message.counterpartyUpgradeSequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2679,12 +2679,12 @@ export const MsgTimeoutOnCloseResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2773,24 +2773,24 @@ export const MsgAcknowledgement = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.packet = Packet.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.acknowledgement = reader.bytes();
-          break;
-        case 3:
-          message.proofAcked = reader.bytes();
-          break;
-        case 4:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.packet = Packet.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.acknowledgement = reader.bytes();
+        break;
+      case 3:
+        message.proofAcked = reader.bytes();
+        break;
+      case 4:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2883,12 +2883,12 @@ export const MsgAcknowledgementResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2973,21 +2973,21 @@ export const MsgChannelUpgradeInit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.fields = UpgradeFields.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.fields = UpgradeFields.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3079,15 +3079,15 @@ export const MsgChannelUpgradeInitResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.upgrade = Upgrade.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.upgradeSequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.upgrade = Upgrade.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.upgradeSequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3197,36 +3197,36 @@ export const MsgChannelUpgradeTry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.proposedUpgradeConnectionHops.push(reader.string());
-          break;
-        case 4:
-          message.counterpartyUpgradeFields = UpgradeFields.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.counterpartyUpgradeSequence = reader.uint64();
-          break;
-        case 6:
-          message.proofChannel = reader.bytes();
-          break;
-        case 7:
-          message.proofUpgrade = reader.bytes();
-          break;
-        case 8:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 9:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.proposedUpgradeConnectionHops.push(reader.string());
+        break;
+      case 4:
+        message.counterpartyUpgradeFields = UpgradeFields.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.counterpartyUpgradeSequence = reader.uint64();
+        break;
+      case 6:
+        message.proofChannel = reader.bytes();
+        break;
+      case 7:
+        message.proofUpgrade = reader.bytes();
+        break;
+      case 8:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 9:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3349,18 +3349,18 @@ export const MsgChannelUpgradeTryResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.upgrade = Upgrade.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.upgradeSequence = reader.uint64();
-          break;
-        case 3:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.upgrade = Upgrade.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.upgradeSequence = reader.uint64();
+        break;
+      case 3:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3467,30 +3467,30 @@ export const MsgChannelUpgradeAck = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.counterpartyUpgrade = Upgrade.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.proofChannel = reader.bytes();
-          break;
-        case 5:
-          message.proofUpgrade = reader.bytes();
-          break;
-        case 6:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.counterpartyUpgrade = Upgrade.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.proofChannel = reader.bytes();
+        break;
+      case 5:
+        message.proofUpgrade = reader.bytes();
+        break;
+      case 6:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3593,12 +3593,12 @@ export const MsgChannelUpgradeAckResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3699,33 +3699,33 @@ export const MsgChannelUpgradeConfirm = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.counterpartyChannelState = (reader.int32() as any);
-          break;
-        case 4:
-          message.counterpartyUpgrade = Upgrade.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.proofChannel = reader.bytes();
-          break;
-        case 6:
-          message.proofUpgrade = reader.bytes();
-          break;
-        case 7:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 8:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.counterpartyChannelState = (reader.int32() as any);
+        break;
+      case 4:
+        message.counterpartyUpgrade = Upgrade.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.proofChannel = reader.bytes();
+        break;
+      case 6:
+        message.proofUpgrade = reader.bytes();
+        break;
+      case 7:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 8:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3833,12 +3833,12 @@ export const MsgChannelUpgradeConfirmResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3935,30 +3935,30 @@ export const MsgChannelUpgradeOpen = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.counterpartyChannelState = (reader.int32() as any);
-          break;
-        case 4:
-          message.counterpartyUpgradeSequence = reader.uint64();
-          break;
-        case 5:
-          message.proofChannel = reader.bytes();
-          break;
-        case 6:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.counterpartyChannelState = (reader.int32() as any);
+        break;
+      case 4:
+        message.counterpartyUpgradeSequence = reader.uint64();
+        break;
+      case 5:
+        message.proofChannel = reader.bytes();
+        break;
+      case 6:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4056,9 +4056,9 @@ export const MsgChannelUpgradeOpenResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4146,27 +4146,27 @@ export const MsgChannelUpgradeTimeout = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.counterpartyChannel = Channel.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.proofChannel = reader.bytes();
-          break;
-        case 5:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.counterpartyChannel = Channel.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.proofChannel = reader.bytes();
+        break;
+      case 5:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4259,9 +4259,9 @@ export const MsgChannelUpgradeTimeoutResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4349,27 +4349,27 @@ export const MsgChannelUpgradeCancel = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.errorReceipt = ErrorReceipt.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.proofErrorReceipt = reader.bytes();
-          break;
-        case 5:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.errorReceipt = ErrorReceipt.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.proofErrorReceipt = reader.bytes();
+        break;
+      case 5:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4462,9 +4462,9 @@ export const MsgChannelUpgradeCancelResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4536,15 +4536,15 @@ export const MsgUpdateParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        message.params = Params.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4617,9 +4617,9 @@ export const MsgUpdateParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4699,21 +4699,21 @@ export const MsgPruneAcknowledgements = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.limit = reader.uint64();
-          break;
-        case 4:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.limit = reader.uint64();
+        break;
+      case 4:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4805,15 +4805,15 @@ export const MsgPruneAcknowledgementsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.totalPrunedSequences = reader.uint64();
-          break;
-        case 2:
-          message.totalRemainingSequences = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.totalPrunedSequences = reader.uint64();
+        break;
+      case 2:
+        message.totalRemainingSequences = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

@@ -1,9 +1,10 @@
 import { Price } from "@interchainjs/types";
-import Decimal from "decimal.js";
-import { FeeOptions } from "../types";
-import { defaultFeeOptions } from "../defaults";
-import feeTokensJson from "../data/fee-tokens.json";
 import { toPrice } from "@interchainjs/utils";
+import Decimal from "decimal.js";
+
+import feeTokensJson from "../data/fee-tokens.json";
+import { defaultFeeOptions } from "../defaults";
+import { FeeOptions } from "../types";
 
 export function getAvgGasPrice(chainId: string): Price {
   const feeToken = (feeTokensJson as any)[chainId]?.[0];
@@ -49,18 +50,18 @@ export async function calculateFee(
 
   let price: Price;
   switch (options?.gasPrice ?? defaultFeeOptions.gasPrice) {
-    case "average":
-      price = getAvgGasPrice(await getChainId());
-      break;
-    case "high":
-      price = getHighGasPrice(await getChainId());
-      break;
-    case "low":
-      price = getLowGasPrice(await getChainId());
-      break;
-    default:
-      price = toPrice(options?.gasPrice);
-      break;
+  case "average":
+    price = getAvgGasPrice(await getChainId());
+    break;
+  case "high":
+    price = getHighGasPrice(await getChainId());
+    break;
+  case "low":
+    price = getLowGasPrice(await getChainId());
+    break;
+  default:
+    price = toPrice(options?.gasPrice);
+    break;
   }
 
   if (price.denom.length < 3 || price.denom.length > 128) {

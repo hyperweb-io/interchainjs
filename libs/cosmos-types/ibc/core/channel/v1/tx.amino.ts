@@ -1,4 +1,4 @@
-import { MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelCloseInit, MsgChannelCloseConfirm, MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgAcknowledgement, MsgChannelUpgradeInit, MsgChannelUpgradeTry, MsgChannelUpgradeAck, MsgChannelUpgradeConfirm, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeCancel, MsgUpdateParams, MsgPruneAcknowledgements } from "./tx";
+import { MsgAcknowledgement, MsgChannelCloseConfirm, MsgChannelCloseInit, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelUpgradeAck, MsgChannelUpgradeCancel, MsgChannelUpgradeConfirm, MsgChannelUpgradeInit, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeTry, MsgPruneAcknowledgements,MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgUpdateParams } from "./tx";
 export const AminoConverter = {
   "/ibc.core.channel.v1.MsgChannelOpenInit": {
     aminoType: "cosmos-sdk/MsgChannelOpenInit",

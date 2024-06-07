@@ -4,10 +4,11 @@
 * and run the transpile command or npm scripts command that is used to regenerate this bundle.
 */
 
-import { IBinaryReader, IBinaryWriter } from "./binary";
-import { Any } from "./google/protobuf/any";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
+
+import { IBinaryReader, IBinaryWriter } from "./binary";
+import { Any } from "./google/protobuf/any";
 
 export type ProtoMsg = Omit<Any, "typeUrl"> & { typeUrl: any };
 

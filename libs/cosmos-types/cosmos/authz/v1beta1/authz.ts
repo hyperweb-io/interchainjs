@@ -1,7 +1,7 @@
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
-import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
+import { Timestamp } from "../../../google/protobuf/timestamp";
+import { DeepPartial, fromTimestamp,toTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * GenericAuthorization gives the grantee unrestricted permissions to execute
@@ -140,12 +140,12 @@ export const GenericAuthorization = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.msg = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.msg = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -222,15 +222,15 @@ export const Grant = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authorization = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        case 2:
-          message.expiration = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authorization = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      case 2:
+        message.expiration = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -320,21 +320,21 @@ export const GrantAuthorization = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.granter = reader.string();
-          break;
-        case 2:
-          message.grantee = reader.string();
-          break;
-        case 3:
-          message.authorization = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        case 4:
-          message.expiration = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.granter = reader.string();
+        break;
+      case 2:
+        message.grantee = reader.string();
+        break;
+      case 3:
+        message.authorization = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      case 4:
+        message.expiration = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -422,12 +422,12 @@ export const GrantQueueItem = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.msgTypeUrls.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.msgTypeUrls.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

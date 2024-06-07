@@ -177,15 +177,15 @@ export const Duration = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.seconds = reader.int64();
-          break;
-        case 2:
-          message.nanos = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.seconds = reader.int64();
+        break;
+      case 2:
+        message.nanos = reader.int32();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

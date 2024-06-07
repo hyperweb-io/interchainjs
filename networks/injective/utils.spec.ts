@@ -1,6 +1,7 @@
 import { MsgSendAmino } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
-import { toEthTypes } from "./utils";
 import { Eip712Types } from "@interchainjs/types";
+
+import { toEthTypes } from "./utils";
 
 it("should match", () => {
   const message: MsgSendAmino = {

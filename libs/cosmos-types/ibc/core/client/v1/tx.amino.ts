@@ -1,4 +1,4 @@
-import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
+import { MsgCreateClient, MsgIBCSoftwareUpgrade, MsgRecoverClient, MsgSubmitMisbehaviour, MsgUpdateClient, MsgUpdateParams,MsgUpgradeClient } from "./tx";
 export const AminoConverter = {
   "/ibc.core.client.v1.MsgCreateClient": {
     aminoType: "cosmos-sdk/MsgCreateClient",

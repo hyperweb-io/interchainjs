@@ -1,9 +1,9 @@
+import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { Event, EventAmino } from "../../../../tendermint/abci/types";
 import { Block, BlockAmino } from "../../../../tendermint/types/block";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
  * tags are stringified and the log is JSON decoded.
@@ -497,48 +497,48 @@ export const TxResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = reader.int64();
-          break;
-        case 2:
-          message.txhash = reader.string();
-          break;
-        case 3:
-          message.codespace = reader.string();
-          break;
-        case 4:
-          message.code = reader.uint32();
-          break;
-        case 5:
-          message.data = reader.string();
-          break;
-        case 6:
-          message.rawLog = reader.string();
-          break;
-        case 7:
-          message.logs.push(ABCIMessageLog.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.info = reader.string();
-          break;
-        case 9:
-          message.gasWanted = reader.int64();
-          break;
-        case 10:
-          message.gasUsed = reader.int64();
-          break;
-        case 11:
-          message.tx = Any.decode(reader, reader.uint32());
-          break;
-        case 12:
-          message.timestamp = reader.string();
-          break;
-        case 13:
-          message.events.push(Event.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = reader.int64();
+        break;
+      case 2:
+        message.txhash = reader.string();
+        break;
+      case 3:
+        message.codespace = reader.string();
+        break;
+      case 4:
+        message.code = reader.uint32();
+        break;
+      case 5:
+        message.data = reader.string();
+        break;
+      case 6:
+        message.rawLog = reader.string();
+        break;
+      case 7:
+        message.logs.push(ABCIMessageLog.decode(reader, reader.uint32()));
+        break;
+      case 8:
+        message.info = reader.string();
+        break;
+      case 9:
+        message.gasWanted = reader.int64();
+        break;
+      case 10:
+        message.gasUsed = reader.int64();
+        break;
+      case 11:
+        message.tx = Any.decode(reader, reader.uint32());
+        break;
+      case 12:
+        message.timestamp = reader.string();
+        break;
+      case 13:
+        message.events.push(Event.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -683,18 +683,18 @@ export const ABCIMessageLog = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.msgIndex = reader.uint32();
-          break;
-        case 2:
-          message.log = reader.string();
-          break;
-        case 3:
-          message.events.push(StringEvent.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.msgIndex = reader.uint32();
+        break;
+      case 2:
+        message.log = reader.string();
+        break;
+      case 3:
+        message.events.push(StringEvent.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -783,15 +783,15 @@ export const StringEvent = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.type = reader.string();
-          break;
-        case 2:
-          message.attributes.push(Attribute.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.type = reader.string();
+        break;
+      case 2:
+        message.attributes.push(Attribute.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -875,15 +875,15 @@ export const Attribute = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.string();
-          break;
-        case 2:
-          message.value = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.string();
+        break;
+      case 2:
+        message.value = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -965,15 +965,15 @@ export const GasInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.gasWanted = reader.uint64();
-          break;
-        case 2:
-          message.gasUsed = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.gasWanted = reader.uint64();
+        break;
+      case 2:
+        message.gasUsed = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1063,21 +1063,21 @@ export const Result = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data = reader.bytes();
-          break;
-        case 2:
-          message.log = reader.string();
-          break;
-        case 3:
-          message.events.push(Event.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.msgResponses.push(Any.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data = reader.bytes();
+        break;
+      case 2:
+        message.log = reader.string();
+        break;
+      case 3:
+        message.events.push(Event.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.msgResponses.push(Any.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1173,15 +1173,15 @@ export const SimulationResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.gasInfo = GasInfo.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.result = Result.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.gasInfo = GasInfo.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.result = Result.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1263,15 +1263,15 @@ export const MsgData = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.msgType = reader.string();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.msgType = reader.string();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1353,15 +1353,15 @@ export const TxMsgData = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data.push(MsgData.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.msgResponses.push(Any.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data.push(MsgData.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.msgResponses.push(Any.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1463,27 +1463,27 @@ export const SearchTxsResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.totalCount = reader.uint64();
-          break;
-        case 2:
-          message.count = reader.uint64();
-          break;
-        case 3:
-          message.pageNumber = reader.uint64();
-          break;
-        case 4:
-          message.pageTotal = reader.uint64();
-          break;
-        case 5:
-          message.limit = reader.uint64();
-          break;
-        case 6:
-          message.txs.push(TxResponse.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.totalCount = reader.uint64();
+        break;
+      case 2:
+        message.count = reader.uint64();
+        break;
+      case 3:
+        message.pageNumber = reader.uint64();
+        break;
+      case 4:
+        message.pageTotal = reader.uint64();
+        break;
+      case 5:
+        message.limit = reader.uint64();
+        break;
+      case 6:
+        message.txs.push(TxResponse.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1603,27 +1603,27 @@ export const SearchBlocksResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.totalCount = reader.int64();
-          break;
-        case 2:
-          message.count = reader.int64();
-          break;
-        case 3:
-          message.pageNumber = reader.int64();
-          break;
-        case 4:
-          message.pageTotal = reader.int64();
-          break;
-        case 5:
-          message.limit = reader.int64();
-          break;
-        case 6:
-          message.blocks.push(Block.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.totalCount = reader.int64();
+        break;
+      case 2:
+        message.count = reader.int64();
+        break;
+      case 3:
+        message.pageNumber = reader.int64();
+        break;
+      case 4:
+        message.pageTotal = reader.int64();
+        break;
+      case 5:
+        message.limit = reader.int64();
+        break;
+      case 6:
+        message.blocks.push(Block.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

@@ -1,10 +1,10 @@
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
-import { Any, AnyAmino } from "../../../google/protobuf/any";
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Duration, DurationAmino } from "../../../google/protobuf/duration";
-import { isSet, DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Any, AnyAmino } from "../../../google/protobuf/any";
+import { Duration, DurationAmino } from "../../../google/protobuf/duration";
+import { Timestamp } from "../../../google/protobuf/timestamp";
+import { DeepPartial, fromTimestamp,isSet, toTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export enum VoteOption {
   /** VOTE_OPTION_UNSPECIFIED - VOTE_OPTION_UNSPECIFIED defines a no-op vote option. */
@@ -22,42 +22,42 @@ export enum VoteOption {
 export const VoteOptionAmino = VoteOption;
 export function voteOptionFromJSON(object: any): VoteOption {
   switch (object) {
-    case 0:
-    case "VOTE_OPTION_UNSPECIFIED":
-      return VoteOption.VOTE_OPTION_UNSPECIFIED;
-    case 1:
-    case "VOTE_OPTION_YES":
-      return VoteOption.VOTE_OPTION_YES;
-    case 2:
-    case "VOTE_OPTION_ABSTAIN":
-      return VoteOption.VOTE_OPTION_ABSTAIN;
-    case 3:
-    case "VOTE_OPTION_NO":
-      return VoteOption.VOTE_OPTION_NO;
-    case 4:
-    case "VOTE_OPTION_NO_WITH_VETO":
-      return VoteOption.VOTE_OPTION_NO_WITH_VETO;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return VoteOption.UNRECOGNIZED;
+  case 0:
+  case "VOTE_OPTION_UNSPECIFIED":
+    return VoteOption.VOTE_OPTION_UNSPECIFIED;
+  case 1:
+  case "VOTE_OPTION_YES":
+    return VoteOption.VOTE_OPTION_YES;
+  case 2:
+  case "VOTE_OPTION_ABSTAIN":
+    return VoteOption.VOTE_OPTION_ABSTAIN;
+  case 3:
+  case "VOTE_OPTION_NO":
+    return VoteOption.VOTE_OPTION_NO;
+  case 4:
+  case "VOTE_OPTION_NO_WITH_VETO":
+    return VoteOption.VOTE_OPTION_NO_WITH_VETO;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return VoteOption.UNRECOGNIZED;
   }
 }
 export function voteOptionToJSON(object: VoteOption): string {
   switch (object) {
-    case VoteOption.VOTE_OPTION_UNSPECIFIED:
-      return "VOTE_OPTION_UNSPECIFIED";
-    case VoteOption.VOTE_OPTION_YES:
-      return "VOTE_OPTION_YES";
-    case VoteOption.VOTE_OPTION_ABSTAIN:
-      return "VOTE_OPTION_ABSTAIN";
-    case VoteOption.VOTE_OPTION_NO:
-      return "VOTE_OPTION_NO";
-    case VoteOption.VOTE_OPTION_NO_WITH_VETO:
-      return "VOTE_OPTION_NO_WITH_VETO";
-    case VoteOption.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case VoteOption.VOTE_OPTION_UNSPECIFIED:
+    return "VOTE_OPTION_UNSPECIFIED";
+  case VoteOption.VOTE_OPTION_YES:
+    return "VOTE_OPTION_YES";
+  case VoteOption.VOTE_OPTION_ABSTAIN:
+    return "VOTE_OPTION_ABSTAIN";
+  case VoteOption.VOTE_OPTION_NO:
+    return "VOTE_OPTION_NO";
+  case VoteOption.VOTE_OPTION_NO_WITH_VETO:
+    return "VOTE_OPTION_NO_WITH_VETO";
+  case VoteOption.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** ProposalStatus enumerates the valid statuses of a proposal. */
@@ -94,47 +94,47 @@ export enum ProposalStatus {
 export const ProposalStatusAmino = ProposalStatus;
 export function proposalStatusFromJSON(object: any): ProposalStatus {
   switch (object) {
-    case 0:
-    case "PROPOSAL_STATUS_UNSPECIFIED":
-      return ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED;
-    case 1:
-    case "PROPOSAL_STATUS_DEPOSIT_PERIOD":
-      return ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD;
-    case 2:
-    case "PROPOSAL_STATUS_VOTING_PERIOD":
-      return ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD;
-    case 3:
-    case "PROPOSAL_STATUS_PASSED":
-      return ProposalStatus.PROPOSAL_STATUS_PASSED;
-    case 4:
-    case "PROPOSAL_STATUS_REJECTED":
-      return ProposalStatus.PROPOSAL_STATUS_REJECTED;
-    case 5:
-    case "PROPOSAL_STATUS_FAILED":
-      return ProposalStatus.PROPOSAL_STATUS_FAILED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ProposalStatus.UNRECOGNIZED;
+  case 0:
+  case "PROPOSAL_STATUS_UNSPECIFIED":
+    return ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED;
+  case 1:
+  case "PROPOSAL_STATUS_DEPOSIT_PERIOD":
+    return ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD;
+  case 2:
+  case "PROPOSAL_STATUS_VOTING_PERIOD":
+    return ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD;
+  case 3:
+  case "PROPOSAL_STATUS_PASSED":
+    return ProposalStatus.PROPOSAL_STATUS_PASSED;
+  case 4:
+  case "PROPOSAL_STATUS_REJECTED":
+    return ProposalStatus.PROPOSAL_STATUS_REJECTED;
+  case 5:
+  case "PROPOSAL_STATUS_FAILED":
+    return ProposalStatus.PROPOSAL_STATUS_FAILED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ProposalStatus.UNRECOGNIZED;
   }
 }
 export function proposalStatusToJSON(object: ProposalStatus): string {
   switch (object) {
-    case ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED:
-      return "PROPOSAL_STATUS_UNSPECIFIED";
-    case ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD:
-      return "PROPOSAL_STATUS_DEPOSIT_PERIOD";
-    case ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD:
-      return "PROPOSAL_STATUS_VOTING_PERIOD";
-    case ProposalStatus.PROPOSAL_STATUS_PASSED:
-      return "PROPOSAL_STATUS_PASSED";
-    case ProposalStatus.PROPOSAL_STATUS_REJECTED:
-      return "PROPOSAL_STATUS_REJECTED";
-    case ProposalStatus.PROPOSAL_STATUS_FAILED:
-      return "PROPOSAL_STATUS_FAILED";
-    case ProposalStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED:
+    return "PROPOSAL_STATUS_UNSPECIFIED";
+  case ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD:
+    return "PROPOSAL_STATUS_DEPOSIT_PERIOD";
+  case ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD:
+    return "PROPOSAL_STATUS_VOTING_PERIOD";
+  case ProposalStatus.PROPOSAL_STATUS_PASSED:
+    return "PROPOSAL_STATUS_PASSED";
+  case ProposalStatus.PROPOSAL_STATUS_REJECTED:
+    return "PROPOSAL_STATUS_REJECTED";
+  case ProposalStatus.PROPOSAL_STATUS_FAILED:
+    return "PROPOSAL_STATUS_FAILED";
+  case ProposalStatus.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** WeightedVoteOption defines a unit of vote for vote split. */
@@ -664,15 +664,15 @@ export const WeightedVoteOption = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.option = (reader.int32() as any);
-          break;
-        case 2:
-          message.weight = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.option = (reader.int32() as any);
+        break;
+      case 2:
+        message.weight = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -758,18 +758,18 @@ export const Deposit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.depositor = reader.string();
-          break;
-        case 3:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.depositor = reader.string();
+        break;
+      case 3:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -910,54 +910,54 @@ export const Proposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.id = reader.uint64();
-          break;
-        case 2:
-          message.messages.push(Any.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.status = (reader.int32() as any);
-          break;
-        case 4:
-          message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.depositEndTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.totalDeposit.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.votingStartTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 9:
-          message.votingEndTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 10:
-          message.metadata = reader.string();
-          break;
-        case 11:
-          message.title = reader.string();
-          break;
-        case 12:
-          message.summary = reader.string();
-          break;
-        case 13:
-          message.proposer = reader.string();
-          break;
-        case 14:
-          message.expedited = reader.bool();
-          break;
-        case 15:
-          message.failedReason = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.id = reader.uint64();
+        break;
+      case 2:
+        message.messages.push(Any.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.status = (reader.int32() as any);
+        break;
+      case 4:
+        message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 6:
+        message.depositEndTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.totalDeposit.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 8:
+        message.votingStartTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 9:
+        message.votingEndTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 10:
+        message.metadata = reader.string();
+        break;
+      case 11:
+        message.title = reader.string();
+        break;
+      case 12:
+        message.summary = reader.string();
+        break;
+      case 13:
+        message.proposer = reader.string();
+        break;
+      case 14:
+        message.expedited = reader.bool();
+        break;
+      case 15:
+        message.failedReason = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1116,21 +1116,21 @@ export const TallyResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.yesCount = reader.string();
-          break;
-        case 2:
-          message.abstainCount = reader.string();
-          break;
-        case 3:
-          message.noCount = reader.string();
-          break;
-        case 4:
-          message.noWithVetoCount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.yesCount = reader.string();
+        break;
+      case 2:
+        message.abstainCount = reader.string();
+        break;
+      case 3:
+        message.noCount = reader.string();
+        break;
+      case 4:
+        message.noWithVetoCount = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1230,21 +1230,21 @@ export const Vote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.voter = reader.string();
-          break;
-        case 4:
-          message.options.push(WeightedVoteOption.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.metadata = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.voter = reader.string();
+        break;
+      case 4:
+        message.options.push(WeightedVoteOption.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.metadata = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1338,15 +1338,15 @@ export const DepositParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.minDeposit.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.maxDepositPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.minDeposit.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.maxDepositPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1426,12 +1426,12 @@ export const VotingParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.votingPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.votingPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1512,18 +1512,18 @@ export const TallyParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.quorum = reader.string();
-          break;
-        case 2:
-          message.threshold = reader.string();
-          break;
-        case 3:
-          message.vetoThreshold = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.quorum = reader.string();
+        break;
+      case 2:
+        message.threshold = reader.string();
+        break;
+      case 3:
+        message.vetoThreshold = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1666,57 +1666,57 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.minDeposit.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.maxDepositPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.votingPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.quorum = reader.string();
-          break;
-        case 5:
-          message.threshold = reader.string();
-          break;
-        case 6:
-          message.vetoThreshold = reader.string();
-          break;
-        case 7:
-          message.minInitialDepositRatio = reader.string();
-          break;
-        case 8:
-          message.proposalCancelRatio = reader.string();
-          break;
-        case 9:
-          message.proposalCancelDest = reader.string();
-          break;
-        case 10:
-          message.expeditedVotingPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        case 11:
-          message.expeditedThreshold = reader.string();
-          break;
-        case 12:
-          message.expeditedMinDeposit.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 13:
-          message.burnVoteQuorum = reader.bool();
-          break;
-        case 14:
-          message.burnProposalDepositPrevote = reader.bool();
-          break;
-        case 15:
-          message.burnVoteVeto = reader.bool();
-          break;
-        case 16:
-          message.minDepositRatio = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.minDeposit.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.maxDepositPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.votingPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.quorum = reader.string();
+        break;
+      case 5:
+        message.threshold = reader.string();
+        break;
+      case 6:
+        message.vetoThreshold = reader.string();
+        break;
+      case 7:
+        message.minInitialDepositRatio = reader.string();
+        break;
+      case 8:
+        message.proposalCancelRatio = reader.string();
+        break;
+      case 9:
+        message.proposalCancelDest = reader.string();
+        break;
+      case 10:
+        message.expeditedVotingPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      case 11:
+        message.expeditedThreshold = reader.string();
+        break;
+      case 12:
+        message.expeditedMinDeposit.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 13:
+        message.burnVoteQuorum = reader.bool();
+        break;
+      case 14:
+        message.burnProposalDepositPrevote = reader.bool();
+        break;
+      case 15:
+        message.burnVoteVeto = reader.bool();
+        break;
+      case 16:
+        message.minDepositRatio = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

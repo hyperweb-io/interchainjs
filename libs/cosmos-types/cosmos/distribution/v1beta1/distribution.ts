@@ -1,7 +1,7 @@
-import { DecCoin, DecCoinAmino, Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Coin, CoinAmino,DecCoin, DecCoinAmino } from "../../base/v1beta1/coin";
 /** Params defines the set of params for the distribution module. */
 export interface Params {
   communityTax: string;
@@ -387,21 +387,21 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.communityTax = reader.string();
-          break;
-        case 2:
-          message.baseProposerReward = reader.string();
-          break;
-        case 3:
-          message.bonusProposerReward = reader.string();
-          break;
-        case 4:
-          message.withdrawAddrEnabled = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.communityTax = reader.string();
+        break;
+      case 2:
+        message.baseProposerReward = reader.string();
+        break;
+      case 3:
+        message.bonusProposerReward = reader.string();
+        break;
+      case 4:
+        message.withdrawAddrEnabled = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -493,15 +493,15 @@ export const ValidatorHistoricalRewards = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.cumulativeRewardRatio.push(DecCoin.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.referenceCount = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.cumulativeRewardRatio.push(DecCoin.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.referenceCount = reader.uint32();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -585,15 +585,15 @@ export const ValidatorCurrentRewards = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.rewards.push(DecCoin.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.period = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.rewards.push(DecCoin.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.period = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -673,12 +673,12 @@ export const ValidatorAccumulatedCommission = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.commission.push(DecCoin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.commission.push(DecCoin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -753,12 +753,12 @@ export const ValidatorOutstandingRewards = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.rewards.push(DecCoin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.rewards.push(DecCoin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -837,15 +837,15 @@ export const ValidatorSlashEvent = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validatorPeriod = reader.uint64();
-          break;
-        case 2:
-          message.fraction = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validatorPeriod = reader.uint64();
+        break;
+      case 2:
+        message.fraction = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -923,12 +923,12 @@ export const ValidatorSlashEvents = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validatorSlashEvents.push(ValidatorSlashEvent.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validatorSlashEvents.push(ValidatorSlashEvent.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1003,12 +1003,12 @@ export const FeePool = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.communityPool.push(DecCoin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.communityPool.push(DecCoin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1095,21 +1095,21 @@ export const CommunityPoolSpendProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.recipient = reader.string();
-          break;
-        case 4:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.title = reader.string();
+        break;
+      case 2:
+        message.description = reader.string();
+        break;
+      case 3:
+        message.recipient = reader.string();
+        break;
+      case 4:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1207,18 +1207,18 @@ export const DelegatorStartingInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.previousPeriod = reader.uint64();
-          break;
-        case 2:
-          message.stake = reader.string();
-          break;
-        case 3:
-          message.height = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.previousPeriod = reader.uint64();
+        break;
+      case 2:
+        message.stake = reader.string();
+        break;
+      case 3:
+        message.height = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1305,15 +1305,15 @@ export const DelegationDelegatorReward = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validatorAddress = reader.string();
-          break;
-        case 2:
-          message.reward.push(DecCoin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validatorAddress = reader.string();
+        break;
+      case 2:
+        message.reward.push(DecCoin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1409,24 +1409,24 @@ export const CommunityPoolSpendProposalWithDeposit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.recipient = reader.string();
-          break;
-        case 4:
-          message.amount = reader.string();
-          break;
-        case 5:
-          message.deposit = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.title = reader.string();
+        break;
+      case 2:
+        message.description = reader.string();
+        break;
+      case 3:
+        message.recipient = reader.string();
+        break;
+      case 4:
+        message.amount = reader.string();
+        break;
+      case 5:
+        message.deposit = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

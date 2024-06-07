@@ -24,7 +24,7 @@ const defaultHdPath = defaultHdPaths.find(
 )!.path;
 
 export class Secp256k1Wallet
-  implements CosmosBaseWallet, OfflineAminoSigner, OfflineDirectSigner
+implements CosmosBaseWallet, OfflineAminoSigner, OfflineDirectSigner
 {
   readonly auths: Auth[] = [];
   readonly addrs: Bech32Address[] = [];
@@ -56,7 +56,7 @@ export class Secp256k1Wallet
       auth: Auth;
       account: CosmosAccount;
     }[]
-  > {
+    > {
     const accounts = await this.getAccounts();
 
     return accounts.map((account, i) => {

@@ -1,10 +1,10 @@
+import { Auth, AuthOptions, Network,Signature } from "@interchainjs/types";
+import { isEmpty,Key } from "@interchainjs/utils";
 import { secp256k1 } from "@noble/curves/secp256k1";
 import { HDKey } from "@scure/bip32";
 
-import { AuthOptions, Auth, Signature, Network } from "@interchainjs/types";
-import { getSeedFromMnemonic } from "./utils";
-import { Key, isEmpty } from "@interchainjs/utils";
 import { defaultHdPaths } from "./defaults";
+import { getSeedFromMnemonic } from "./utils";
 
 const hdPaths = defaultHdPaths.filter(({ algo }) => algo === "secp256k1");
 
@@ -60,18 +60,18 @@ export class Secp256k1Auth implements Auth {
     }
 
     switch (hdPath) {
-      case "cosmos":
-      case "injective":
-      case "ethereum":
-        const path = hdPaths.find(({ network }) => network === hdPath)?.path;
-        if (isEmpty(path)) {
-          throw new Error(`No such HD Path found for network ${hdPath}`);
-        }
-        this.hdkey = this.seed.derive(path);
-        break;
-      default:
-        this.hdkey = hdPath ? this.seed.derive(hdPath) : this.seed;
-        break;
+    case "cosmos":
+    case "injective":
+    case "ethereum":
+      const path = hdPaths.find(({ network }) => network === hdPath)?.path;
+      if (isEmpty(path)) {
+        throw new Error(`No such HD Path found for network ${hdPath}`);
+      }
+      this.hdkey = this.seed.derive(path);
+      break;
+    default:
+      this.hdkey = hdPath ? this.seed.derive(hdPath) : this.seed;
+      break;
     }
     return this;
   }

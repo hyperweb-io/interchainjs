@@ -767,15 +767,15 @@ export const Http = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.rules.push(HttpRule.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.fullyDecodeReservedExpansion = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.rules.push(HttpRule.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.fullyDecodeReservedExpansion = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -883,39 +883,39 @@ export const HttpRule = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.selector = reader.string();
-          break;
-        case 2:
-          message.get = reader.string();
-          break;
-        case 3:
-          message.put = reader.string();
-          break;
-        case 4:
-          message.post = reader.string();
-          break;
-        case 5:
-          message.delete = reader.string();
-          break;
-        case 6:
-          message.patch = reader.string();
-          break;
-        case 8:
-          message.custom = CustomHttpPattern.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.body = reader.string();
-          break;
-        case 12:
-          message.responseBody = reader.string();
-          break;
-        case 11:
-          message.additionalBindings.push(HttpRule.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.selector = reader.string();
+        break;
+      case 2:
+        message.get = reader.string();
+        break;
+      case 3:
+        message.put = reader.string();
+        break;
+      case 4:
+        message.post = reader.string();
+        break;
+      case 5:
+        message.delete = reader.string();
+        break;
+      case 6:
+        message.patch = reader.string();
+        break;
+      case 8:
+        message.custom = CustomHttpPattern.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.body = reader.string();
+        break;
+      case 12:
+        message.responseBody = reader.string();
+        break;
+      case 11:
+        message.additionalBindings.push(HttpRule.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1031,15 +1031,15 @@ export const CustomHttpPattern = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.kind = reader.string();
-          break;
-        case 2:
-          message.path = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.kind = reader.string();
+        break;
+      case 2:
+        message.path = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

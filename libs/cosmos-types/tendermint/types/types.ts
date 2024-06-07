@@ -1,10 +1,10 @@
+import { BinaryReader, BinaryWriter } from "../../binary";
+import { Timestamp } from "../../google/protobuf/timestamp";
+import { base64FromBytes, bytesFromBase64, DeepPartial, fromTimestamp, isSet,toTimestamp } from "../../helpers";
+import { GlobalDecoderRegistry } from "../../registry";
 import { Proof, ProofAmino } from "../crypto/proof";
 import { Consensus, ConsensusAmino } from "../version/types";
-import { Timestamp } from "../../google/protobuf/timestamp";
 import { BlockIDFlag, ValidatorSet, ValidatorSetAmino } from "./validator";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp, isSet } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 /** SignedMsgType is a type of signed message in the consensus. */
 export enum SignedMsgType {
   SIGNED_MSG_TYPE_UNKNOWN = 0,
@@ -18,37 +18,37 @@ export enum SignedMsgType {
 export const SignedMsgTypeAmino = SignedMsgType;
 export function signedMsgTypeFromJSON(object: any): SignedMsgType {
   switch (object) {
-    case 0:
-    case "SIGNED_MSG_TYPE_UNKNOWN":
-      return SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN;
-    case 1:
-    case "SIGNED_MSG_TYPE_PREVOTE":
-      return SignedMsgType.SIGNED_MSG_TYPE_PREVOTE;
-    case 2:
-    case "SIGNED_MSG_TYPE_PRECOMMIT":
-      return SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT;
-    case 32:
-    case "SIGNED_MSG_TYPE_PROPOSAL":
-      return SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return SignedMsgType.UNRECOGNIZED;
+  case 0:
+  case "SIGNED_MSG_TYPE_UNKNOWN":
+    return SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN;
+  case 1:
+  case "SIGNED_MSG_TYPE_PREVOTE":
+    return SignedMsgType.SIGNED_MSG_TYPE_PREVOTE;
+  case 2:
+  case "SIGNED_MSG_TYPE_PRECOMMIT":
+    return SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT;
+  case 32:
+  case "SIGNED_MSG_TYPE_PROPOSAL":
+    return SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return SignedMsgType.UNRECOGNIZED;
   }
 }
 export function signedMsgTypeToJSON(object: SignedMsgType): string {
   switch (object) {
-    case SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN:
-      return "SIGNED_MSG_TYPE_UNKNOWN";
-    case SignedMsgType.SIGNED_MSG_TYPE_PREVOTE:
-      return "SIGNED_MSG_TYPE_PREVOTE";
-    case SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT:
-      return "SIGNED_MSG_TYPE_PRECOMMIT";
-    case SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL:
-      return "SIGNED_MSG_TYPE_PROPOSAL";
-    case SignedMsgType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case SignedMsgType.SIGNED_MSG_TYPE_UNKNOWN:
+    return "SIGNED_MSG_TYPE_UNKNOWN";
+  case SignedMsgType.SIGNED_MSG_TYPE_PREVOTE:
+    return "SIGNED_MSG_TYPE_PREVOTE";
+  case SignedMsgType.SIGNED_MSG_TYPE_PRECOMMIT:
+    return "SIGNED_MSG_TYPE_PRECOMMIT";
+  case SignedMsgType.SIGNED_MSG_TYPE_PROPOSAL:
+    return "SIGNED_MSG_TYPE_PROPOSAL";
+  case SignedMsgType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** PartsetHeader */
@@ -489,15 +489,15 @@ export const PartSetHeader = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.total = reader.uint32();
-          break;
-        case 2:
-          message.hash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.total = reader.uint32();
+        break;
+      case 2:
+        message.hash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -575,18 +575,18 @@ export const Part = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.index = reader.uint32();
-          break;
-        case 2:
-          message.bytes = reader.bytes();
-          break;
-        case 3:
-          message.proof = Proof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.index = reader.uint32();
+        break;
+      case 2:
+        message.bytes = reader.bytes();
+        break;
+      case 3:
+        message.proof = Proof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -665,15 +665,15 @@ export const BlockID = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.hash = reader.bytes();
-          break;
-        case 2:
-          message.partSetHeader = PartSetHeader.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.hash = reader.bytes();
+        break;
+      case 2:
+        message.partSetHeader = PartSetHeader.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -795,51 +795,51 @@ export const Header = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.version = Consensus.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.chainId = reader.string();
-          break;
-        case 3:
-          message.height = reader.int64();
-          break;
-        case 4:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.lastBlockId = BlockID.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.lastCommitHash = reader.bytes();
-          break;
-        case 7:
-          message.dataHash = reader.bytes();
-          break;
-        case 8:
-          message.validatorsHash = reader.bytes();
-          break;
-        case 9:
-          message.nextValidatorsHash = reader.bytes();
-          break;
-        case 10:
-          message.consensusHash = reader.bytes();
-          break;
-        case 11:
-          message.appHash = reader.bytes();
-          break;
-        case 12:
-          message.lastResultsHash = reader.bytes();
-          break;
-        case 13:
-          message.evidenceHash = reader.bytes();
-          break;
-        case 14:
-          message.proposerAddress = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.version = Consensus.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.chainId = reader.string();
+        break;
+      case 3:
+        message.height = reader.int64();
+        break;
+      case 4:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.lastBlockId = BlockID.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.lastCommitHash = reader.bytes();
+        break;
+      case 7:
+        message.dataHash = reader.bytes();
+        break;
+      case 8:
+        message.validatorsHash = reader.bytes();
+        break;
+      case 9:
+        message.nextValidatorsHash = reader.bytes();
+        break;
+      case 10:
+        message.consensusHash = reader.bytes();
+        break;
+      case 11:
+        message.appHash = reader.bytes();
+        break;
+      case 12:
+        message.lastResultsHash = reader.bytes();
+        break;
+      case 13:
+        message.evidenceHash = reader.bytes();
+        break;
+      case 14:
+        message.proposerAddress = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -969,12 +969,12 @@ export const Data = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.txs.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.txs.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1077,39 +1077,39 @@ export const Vote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.type = (reader.int32() as any);
-          break;
-        case 2:
-          message.height = reader.int64();
-          break;
-        case 3:
-          message.round = reader.int32();
-          break;
-        case 4:
-          message.blockId = BlockID.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.validatorAddress = reader.bytes();
-          break;
-        case 7:
-          message.validatorIndex = reader.int32();
-          break;
-        case 8:
-          message.signature = reader.bytes();
-          break;
-        case 9:
-          message.extension = reader.bytes();
-          break;
-        case 10:
-          message.extensionSignature = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.type = (reader.int32() as any);
+        break;
+      case 2:
+        message.height = reader.int64();
+        break;
+      case 3:
+        message.round = reader.int32();
+        break;
+      case 4:
+        message.blockId = BlockID.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 6:
+        message.validatorAddress = reader.bytes();
+        break;
+      case 7:
+        message.validatorIndex = reader.int32();
+        break;
+      case 8:
+        message.signature = reader.bytes();
+        break;
+      case 9:
+        message.extension = reader.bytes();
+        break;
+      case 10:
+        message.extensionSignature = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1231,21 +1231,21 @@ export const Commit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = reader.int64();
-          break;
-        case 2:
-          message.round = reader.int32();
-          break;
-        case 3:
-          message.blockId = BlockID.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.signatures.push(CommitSig.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = reader.int64();
+        break;
+      case 2:
+        message.round = reader.int32();
+        break;
+      case 3:
+        message.blockId = BlockID.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.signatures.push(CommitSig.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1339,21 +1339,21 @@ export const CommitSig = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.blockIdFlag = (reader.int32() as any);
-          break;
-        case 2:
-          message.validatorAddress = reader.bytes();
-          break;
-        case 3:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.signature = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.blockIdFlag = (reader.int32() as any);
+        break;
+      case 2:
+        message.validatorAddress = reader.bytes();
+        break;
+      case 3:
+        message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.signature = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1445,21 +1445,21 @@ export const ExtendedCommit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = reader.int64();
-          break;
-        case 2:
-          message.round = reader.int32();
-          break;
-        case 3:
-          message.blockId = BlockID.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.extendedSignatures.push(ExtendedCommitSig.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = reader.int64();
+        break;
+      case 2:
+        message.round = reader.int32();
+        break;
+      case 3:
+        message.blockId = BlockID.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.extendedSignatures.push(ExtendedCommitSig.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1561,27 +1561,27 @@ export const ExtendedCommitSig = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.blockIdFlag = (reader.int32() as any);
-          break;
-        case 2:
-          message.validatorAddress = reader.bytes();
-          break;
-        case 3:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.signature = reader.bytes();
-          break;
-        case 5:
-          message.extension = reader.bytes();
-          break;
-        case 6:
-          message.extensionSignature = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.blockIdFlag = (reader.int32() as any);
+        break;
+      case 2:
+        message.validatorAddress = reader.bytes();
+        break;
+      case 3:
+        message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.signature = reader.bytes();
+        break;
+      case 5:
+        message.extension = reader.bytes();
+        break;
+      case 6:
+        message.extensionSignature = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1695,30 +1695,30 @@ export const Proposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.type = (reader.int32() as any);
-          break;
-        case 2:
-          message.height = reader.int64();
-          break;
-        case 3:
-          message.round = reader.int32();
-          break;
-        case 4:
-          message.polRound = reader.int32();
-          break;
-        case 5:
-          message.blockId = BlockID.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.signature = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.type = (reader.int32() as any);
+        break;
+      case 2:
+        message.height = reader.int64();
+        break;
+      case 3:
+        message.round = reader.int32();
+        break;
+      case 4:
+        message.polRound = reader.int32();
+        break;
+      case 5:
+        message.blockId = BlockID.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.signature = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1817,15 +1817,15 @@ export const SignedHeader = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.header = Header.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.commit = Commit.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.header = Header.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.commit = Commit.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1899,15 +1899,15 @@ export const LightBlock = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.signedHeader = SignedHeader.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.validatorSet = ValidatorSet.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.signedHeader = SignedHeader.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.validatorSet = ValidatorSet.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1989,21 +1989,21 @@ export const BlockMeta = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.blockId = BlockID.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.blockSize = reader.int64();
-          break;
-        case 3:
-          message.header = Header.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.numTxs = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.blockId = BlockID.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.blockSize = reader.int64();
+        break;
+      case 3:
+        message.header = Header.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.numTxs = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2091,18 +2091,18 @@ export const TxProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.rootHash = reader.bytes();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        case 3:
-          message.proof = Proof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.rootHash = reader.bytes();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      case 3:
+        message.proof = Proof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

@@ -1,4 +1,6 @@
 import { IKey } from "@interchainjs/types";
+import { bech32 } from "bech32";
+
 import {
   fromBase64,
   fromBigInt,
@@ -9,7 +11,6 @@ import {
   toHex,
   toNumber,
 } from "./encoding";
-import { bech32 } from "bech32";
 
 export class Key implements IKey {
   constructor(public readonly value: Uint8Array) {}

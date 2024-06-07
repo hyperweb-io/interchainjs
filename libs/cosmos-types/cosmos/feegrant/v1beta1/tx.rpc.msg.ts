@@ -1,5 +1,5 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
-import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx";
+import { MsgGrantAllowance, MsgPruneAllowances,MsgRevokeAllowance } from "./tx";
 /** Msg defines the feegrant msg service. */
 export interface Msg {
   /**

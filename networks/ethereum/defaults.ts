@@ -1,6 +1,6 @@
-import { SignerConfig, Signature } from "@interchainjs/types";
-import { Key, toHex } from "@interchainjs/utils";
 import { computeAddress } from "@ethersproject/transactions";
+import { Signature,SignerConfig } from "@interchainjs/types";
+import { Key, toHex } from "@interchainjs/utils";
 import { bytes as assertBytes } from "@noble/hashes/_assert";
 import { keccak_256 } from "@noble/hashes/sha3";
 

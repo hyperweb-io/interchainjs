@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * MultiSignature wraps the signatures from a multisig.LegacyAminoPubKey.
@@ -80,12 +80,12 @@ export const MultiSignature = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.signatures.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.signatures.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -164,15 +164,15 @@ export const CompactBitArray = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.extraBitsStored = reader.uint32();
-          break;
-        case 2:
-          message.elems = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.extraBitsStored = reader.uint32();
+        break;
+      case 2:
+        message.elems = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

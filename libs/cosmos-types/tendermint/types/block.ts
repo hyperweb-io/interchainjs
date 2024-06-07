@@ -1,8 +1,8 @@
-import { Header, HeaderAmino, Data, DataAmino, Commit, CommitAmino } from "./types";
-import { EvidenceList, EvidenceListAmino } from "./evidence";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { EvidenceList, EvidenceListAmino } from "./evidence";
+import { Commit, CommitAmino,Data, DataAmino, Header, HeaderAmino } from "./types";
 export interface Block {
   header: Header;
   data: Data;
@@ -61,21 +61,21 @@ export const Block = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.header = Header.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.data = Data.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.evidence = EvidenceList.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.lastCommit = Commit.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.header = Header.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.data = Data.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.evidence = EvidenceList.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.lastCommit = Commit.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

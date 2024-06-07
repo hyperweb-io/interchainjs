@@ -1,5 +1,6 @@
 import { GeneralException } from "@injectivelabs/exceptions";
 import snakecaseKeys from "snakecase-keys";
+
 import { snakeToPascal } from "./helpers";
 import { isNumber, numberToCosmosSdkDecString } from "./numbers";
 
@@ -171,34 +172,34 @@ export const objectKeysToEip712Types = ({
  */
 export const numberTypeToReflectionNumberType = (property?: string) => {
   switch (property) {
-    case "order_mask":
-      return "int32";
-    case "timeout_timestamp":
-      return "timeout_timestamp";
-    case "revision_number":
-      return "uint64";
-    case "revision_height":
-      return "uint64";
-    case "order_type":
-      return "int32";
-    case "oracle_type":
-      return "int32";
-    case "exponent":
-      return "uint32";
-    case "round":
-      return "uint64";
-    case "oracle_scale_factor":
-      return "uint64";
-    case "expiry":
-      return "int64";
-    case "creation_height":
-      return "int64";
-    case "option":
-      return "int32";
-    case "proposal_id":
-      return "uint64";
-    default:
-      return "uint64";
+  case "order_mask":
+    return "int32";
+  case "timeout_timestamp":
+    return "timeout_timestamp";
+  case "revision_number":
+    return "uint64";
+  case "revision_height":
+    return "uint64";
+  case "order_type":
+    return "int32";
+  case "oracle_type":
+    return "int32";
+  case "exponent":
+    return "uint32";
+  case "round":
+    return "uint64";
+  case "oracle_scale_factor":
+    return "uint64";
+  case "expiry":
+    return "int64";
+  case "creation_height":
+    return "int64";
+  case "option":
+    return "int32";
+  case "proposal_id":
+    return "uint64";
+  default:
+    return "uint64";
   }
 };
 /**
@@ -209,14 +210,14 @@ export const numberTypeToReflectionNumberType = (property?: string) => {
  */
 export const stringTypeToReflectionStringType = (property?: string) => {
   switch (property) {
-    case "timeout_timestamp":
-      return "uint64";
-    case "revision_number":
-      return "uint64";
-    case "revision_height":
-      return "uint64";
-    default:
-      return "uint64";
+  case "timeout_timestamp":
+    return "uint64";
+  case "revision_number":
+    return "uint64";
+  case "revision_height":
+    return "uint64";
+  default:
+    return "uint64";
   }
 };
 
@@ -311,8 +312,8 @@ export const mapValuesToProperValueType = <T extends Record<string, unknown>>(
           [key]: value.every((i) => typeof i === "string")
             ? value
             : value.map((item) =>
-                mapValuesToProperValueType(item as Record<string, unknown>)
-              ),
+              mapValuesToProperValueType(item as Record<string, unknown>)
+            ),
         };
       }
 

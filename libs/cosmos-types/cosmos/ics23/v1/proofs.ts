@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
+import { base64FromBytes, bytesFromBase64, DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 export enum HashOp {
   /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
@@ -19,67 +19,67 @@ export enum HashOp {
 export const HashOpAmino = HashOp;
 export function hashOpFromJSON(object: any): HashOp {
   switch (object) {
-    case 0:
-    case "NO_HASH":
-      return HashOp.NO_HASH;
-    case 1:
-    case "SHA256":
-      return HashOp.SHA256;
-    case 2:
-    case "SHA512":
-      return HashOp.SHA512;
-    case 3:
-    case "KECCAK256":
-      return HashOp.KECCAK256;
-    case 4:
-    case "RIPEMD160":
-      return HashOp.RIPEMD160;
-    case 5:
-    case "BITCOIN":
-      return HashOp.BITCOIN;
-    case 6:
-    case "SHA512_256":
-      return HashOp.SHA512_256;
-    case 7:
-    case "BLAKE2B_512":
-      return HashOp.BLAKE2B_512;
-    case 8:
-    case "BLAKE2S_256":
-      return HashOp.BLAKE2S_256;
-    case 9:
-    case "BLAKE3":
-      return HashOp.BLAKE3;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return HashOp.UNRECOGNIZED;
+  case 0:
+  case "NO_HASH":
+    return HashOp.NO_HASH;
+  case 1:
+  case "SHA256":
+    return HashOp.SHA256;
+  case 2:
+  case "SHA512":
+    return HashOp.SHA512;
+  case 3:
+  case "KECCAK256":
+    return HashOp.KECCAK256;
+  case 4:
+  case "RIPEMD160":
+    return HashOp.RIPEMD160;
+  case 5:
+  case "BITCOIN":
+    return HashOp.BITCOIN;
+  case 6:
+  case "SHA512_256":
+    return HashOp.SHA512_256;
+  case 7:
+  case "BLAKE2B_512":
+    return HashOp.BLAKE2B_512;
+  case 8:
+  case "BLAKE2S_256":
+    return HashOp.BLAKE2S_256;
+  case 9:
+  case "BLAKE3":
+    return HashOp.BLAKE3;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return HashOp.UNRECOGNIZED;
   }
 }
 export function hashOpToJSON(object: HashOp): string {
   switch (object) {
-    case HashOp.NO_HASH:
-      return "NO_HASH";
-    case HashOp.SHA256:
-      return "SHA256";
-    case HashOp.SHA512:
-      return "SHA512";
-    case HashOp.KECCAK256:
-      return "KECCAK256";
-    case HashOp.RIPEMD160:
-      return "RIPEMD160";
-    case HashOp.BITCOIN:
-      return "BITCOIN";
-    case HashOp.SHA512_256:
-      return "SHA512_256";
-    case HashOp.BLAKE2B_512:
-      return "BLAKE2B_512";
-    case HashOp.BLAKE2S_256:
-      return "BLAKE2S_256";
-    case HashOp.BLAKE3:
-      return "BLAKE3";
-    case HashOp.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case HashOp.NO_HASH:
+    return "NO_HASH";
+  case HashOp.SHA256:
+    return "SHA256";
+  case HashOp.SHA512:
+    return "SHA512";
+  case HashOp.KECCAK256:
+    return "KECCAK256";
+  case HashOp.RIPEMD160:
+    return "RIPEMD160";
+  case HashOp.BITCOIN:
+    return "BITCOIN";
+  case HashOp.SHA512_256:
+    return "SHA512_256";
+  case HashOp.BLAKE2B_512:
+    return "BLAKE2B_512";
+  case HashOp.BLAKE2S_256:
+    return "BLAKE2S_256";
+  case HashOp.BLAKE3:
+    return "BLAKE3";
+  case HashOp.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -112,62 +112,62 @@ export enum LengthOp {
 export const LengthOpAmino = LengthOp;
 export function lengthOpFromJSON(object: any): LengthOp {
   switch (object) {
-    case 0:
-    case "NO_PREFIX":
-      return LengthOp.NO_PREFIX;
-    case 1:
-    case "VAR_PROTO":
-      return LengthOp.VAR_PROTO;
-    case 2:
-    case "VAR_RLP":
-      return LengthOp.VAR_RLP;
-    case 3:
-    case "FIXED32_BIG":
-      return LengthOp.FIXED32_BIG;
-    case 4:
-    case "FIXED32_LITTLE":
-      return LengthOp.FIXED32_LITTLE;
-    case 5:
-    case "FIXED64_BIG":
-      return LengthOp.FIXED64_BIG;
-    case 6:
-    case "FIXED64_LITTLE":
-      return LengthOp.FIXED64_LITTLE;
-    case 7:
-    case "REQUIRE_32_BYTES":
-      return LengthOp.REQUIRE_32_BYTES;
-    case 8:
-    case "REQUIRE_64_BYTES":
-      return LengthOp.REQUIRE_64_BYTES;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return LengthOp.UNRECOGNIZED;
+  case 0:
+  case "NO_PREFIX":
+    return LengthOp.NO_PREFIX;
+  case 1:
+  case "VAR_PROTO":
+    return LengthOp.VAR_PROTO;
+  case 2:
+  case "VAR_RLP":
+    return LengthOp.VAR_RLP;
+  case 3:
+  case "FIXED32_BIG":
+    return LengthOp.FIXED32_BIG;
+  case 4:
+  case "FIXED32_LITTLE":
+    return LengthOp.FIXED32_LITTLE;
+  case 5:
+  case "FIXED64_BIG":
+    return LengthOp.FIXED64_BIG;
+  case 6:
+  case "FIXED64_LITTLE":
+    return LengthOp.FIXED64_LITTLE;
+  case 7:
+  case "REQUIRE_32_BYTES":
+    return LengthOp.REQUIRE_32_BYTES;
+  case 8:
+  case "REQUIRE_64_BYTES":
+    return LengthOp.REQUIRE_64_BYTES;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return LengthOp.UNRECOGNIZED;
   }
 }
 export function lengthOpToJSON(object: LengthOp): string {
   switch (object) {
-    case LengthOp.NO_PREFIX:
-      return "NO_PREFIX";
-    case LengthOp.VAR_PROTO:
-      return "VAR_PROTO";
-    case LengthOp.VAR_RLP:
-      return "VAR_RLP";
-    case LengthOp.FIXED32_BIG:
-      return "FIXED32_BIG";
-    case LengthOp.FIXED32_LITTLE:
-      return "FIXED32_LITTLE";
-    case LengthOp.FIXED64_BIG:
-      return "FIXED64_BIG";
-    case LengthOp.FIXED64_LITTLE:
-      return "FIXED64_LITTLE";
-    case LengthOp.REQUIRE_32_BYTES:
-      return "REQUIRE_32_BYTES";
-    case LengthOp.REQUIRE_64_BYTES:
-      return "REQUIRE_64_BYTES";
-    case LengthOp.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case LengthOp.NO_PREFIX:
+    return "NO_PREFIX";
+  case LengthOp.VAR_PROTO:
+    return "VAR_PROTO";
+  case LengthOp.VAR_RLP:
+    return "VAR_RLP";
+  case LengthOp.FIXED32_BIG:
+    return "FIXED32_BIG";
+  case LengthOp.FIXED32_LITTLE:
+    return "FIXED32_LITTLE";
+  case LengthOp.FIXED64_BIG:
+    return "FIXED64_BIG";
+  case LengthOp.FIXED64_LITTLE:
+    return "FIXED64_LITTLE";
+  case LengthOp.REQUIRE_32_BYTES:
+    return "REQUIRE_32_BYTES";
+  case LengthOp.REQUIRE_64_BYTES:
+    return "REQUIRE_64_BYTES";
+  case LengthOp.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -673,21 +673,21 @@ export const ExistenceProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.value = reader.bytes();
-          break;
-        case 3:
-          message.leaf = LeafOp.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.path.push(InnerOp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.value = reader.bytes();
+        break;
+      case 3:
+        message.leaf = LeafOp.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.path.push(InnerOp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -785,18 +785,18 @@ export const NonExistenceProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.left = ExistenceProof.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.right = ExistenceProof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.left = ExistenceProof.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.right = ExistenceProof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -891,21 +891,21 @@ export const CommitmentProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.exist = ExistenceProof.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.nonexist = NonExistenceProof.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.batch = BatchProof.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.compressed = CompressedBatchProof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.exist = ExistenceProof.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.nonexist = NonExistenceProof.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.batch = BatchProof.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.compressed = CompressedBatchProof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1009,24 +1009,24 @@ export const LeafOp = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.hash = (reader.int32() as any);
-          break;
-        case 2:
-          message.prehashKey = (reader.int32() as any);
-          break;
-        case 3:
-          message.prehashValue = (reader.int32() as any);
-          break;
-        case 4:
-          message.length = (reader.int32() as any);
-          break;
-        case 5:
-          message.prefix = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.hash = (reader.int32() as any);
+        break;
+      case 2:
+        message.prehashKey = (reader.int32() as any);
+        break;
+      case 3:
+        message.prehashValue = (reader.int32() as any);
+        break;
+      case 4:
+        message.length = (reader.int32() as any);
+        break;
+      case 5:
+        message.prefix = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1127,18 +1127,18 @@ export const InnerOp = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.hash = (reader.int32() as any);
-          break;
-        case 2:
-          message.prefix = reader.bytes();
-          break;
-        case 3:
-          message.suffix = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.hash = (reader.int32() as any);
+        break;
+      case 2:
+        message.prefix = reader.bytes();
+        break;
+      case 3:
+        message.suffix = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1237,24 +1237,24 @@ export const ProofSpec = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.leafSpec = LeafOp.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.innerSpec = InnerSpec.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.maxDepth = reader.int32();
-          break;
-        case 4:
-          message.minDepth = reader.int32();
-          break;
-        case 5:
-          message.prehashKeyBeforeComparison = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.leafSpec = LeafOp.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.innerSpec = InnerSpec.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.maxDepth = reader.int32();
+        break;
+      case 4:
+        message.minDepth = reader.int32();
+        break;
+      case 5:
+        message.prehashKeyBeforeComparison = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1369,34 +1369,34 @@ export const InnerSpec = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.childOrder.push(reader.int32());
-            }
-          } else {
+      case 1:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.childOrder.push(reader.int32());
           }
-          break;
-        case 2:
-          message.childSize = reader.int32();
-          break;
-        case 3:
-          message.minPrefixLength = reader.int32();
-          break;
-        case 4:
-          message.maxPrefixLength = reader.int32();
-          break;
-        case 5:
-          message.emptyChild = reader.bytes();
-          break;
-        case 6:
-          message.hash = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.childOrder.push(reader.int32());
+        }
+        break;
+      case 2:
+        message.childSize = reader.int32();
+        break;
+      case 3:
+        message.minPrefixLength = reader.int32();
+        break;
+      case 4:
+        message.maxPrefixLength = reader.int32();
+        break;
+      case 5:
+        message.emptyChild = reader.bytes();
+        break;
+      case 6:
+        message.hash = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1496,12 +1496,12 @@ export const BatchProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.entries.push(BatchEntry.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.entries.push(BatchEntry.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1580,15 +1580,15 @@ export const BatchEntry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.exist = ExistenceProof.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.nonexist = NonExistenceProof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.exist = ExistenceProof.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.nonexist = NonExistenceProof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1670,15 +1670,15 @@ export const CompressedBatchProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.entries.push(CompressedBatchEntry.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.lookupInners.push(InnerOp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.entries.push(CompressedBatchEntry.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.lookupInners.push(InnerOp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1764,15 +1764,15 @@ export const CompressedBatchEntry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.exist = CompressedExistenceProof.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.nonexist = CompressedNonExistenceProof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.exist = CompressedExistenceProof.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.nonexist = CompressedNonExistenceProof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1864,28 +1864,28 @@ export const CompressedExistenceProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.value = reader.bytes();
-          break;
-        case 3:
-          message.leaf = LeafOp.decode(reader, reader.uint32());
-          break;
-        case 4:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.path.push(reader.int32());
-            }
-          } else {
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.value = reader.bytes();
+        break;
+      case 3:
+        message.leaf = LeafOp.decode(reader, reader.uint32());
+        break;
+      case 4:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.path.push(reader.int32());
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.path.push(reader.int32());
+        }
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1983,18 +1983,18 @@ export const CompressedNonExistenceProof = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.left = CompressedExistenceProof.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.right = CompressedExistenceProof.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.left = CompressedExistenceProof.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.right = CompressedExistenceProof.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

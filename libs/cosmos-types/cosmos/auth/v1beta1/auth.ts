@@ -1,6 +1,6 @@
-import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Any, AnyAmino } from "../../../google/protobuf/any";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * BaseAccount defines a base account type. It contains all the necessary fields
@@ -151,21 +151,21 @@ export const BaseAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.pubKey = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.accountNumber = reader.uint64();
-          break;
-        case 4:
-          message.sequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.pubKey = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.accountNumber = reader.uint64();
+        break;
+      case 4:
+        message.sequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -261,18 +261,18 @@ export const ModuleAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseAccount = BaseAccount.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.name = reader.string();
-          break;
-        case 3:
-          message.permissions.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseAccount = BaseAccount.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.name = reader.string();
+        break;
+      case 3:
+        message.permissions.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -361,15 +361,15 @@ export const ModuleCredential = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.moduleName = reader.string();
-          break;
-        case 2:
-          message.derivationKeys.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.moduleName = reader.string();
+        break;
+      case 2:
+        message.derivationKeys.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -465,24 +465,24 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.maxMemoCharacters = reader.uint64();
-          break;
-        case 2:
-          message.txSigLimit = reader.uint64();
-          break;
-        case 3:
-          message.txSizeCostPerByte = reader.uint64();
-          break;
-        case 4:
-          message.sigVerifyCostEd25519 = reader.uint64();
-          break;
-        case 5:
-          message.sigVerifyCostSecp256k1 = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.maxMemoCharacters = reader.uint64();
+        break;
+      case 2:
+        message.txSigLimit = reader.uint64();
+        break;
+      case 3:
+        message.txSizeCostPerByte = reader.uint64();
+        break;
+      case 4:
+        message.sigVerifyCostEd25519 = reader.uint64();
+        break;
+      case 5:
+        message.sigVerifyCostSecp256k1 = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

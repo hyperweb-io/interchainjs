@@ -1,5 +1,5 @@
-import { Price } from "@interchainjs/types";
 import { AminoConverter, Message } from "@interchainjs/cosmos/types";
+import { Price } from "@interchainjs/types";
 import { Event, TelescopeGeneratedType } from "@interchainjs/types";
 
 export type EncodeObject = Message;

@@ -1,9 +1,9 @@
-import { Any, AnyAmino } from "../../../../google/protobuf/any";
-import { Plan, PlanAmino } from "../../../../cosmos/upgrade/v1beta1/upgrade";
-import { Params, ParamsAmino } from "./client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Plan, PlanAmino } from "../../../../cosmos/upgrade/v1beta1/upgrade";
+import { Any, AnyAmino } from "../../../../google/protobuf/any";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { Params, ParamsAmino } from "./client";
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {
   /** light client state */
@@ -383,18 +383,18 @@ export const MsgCreateClient = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientState = Any.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.consensusState = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientState = Any.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.consensusState = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -472,9 +472,9 @@ export const MsgCreateClientResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -550,18 +550,18 @@ export const MsgUpdateClient = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.clientMessage = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.clientMessage = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -639,9 +639,9 @@ export const MsgUpdateClientResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -729,27 +729,27 @@ export const MsgUpgradeClient = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.clientState = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.consensusState = Any.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.proofUpgradeClient = reader.bytes();
-          break;
-        case 5:
-          message.proofUpgradeConsensusState = reader.bytes();
-          break;
-        case 6:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.clientState = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.consensusState = Any.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.proofUpgradeClient = reader.bytes();
+        break;
+      case 5:
+        message.proofUpgradeConsensusState = reader.bytes();
+        break;
+      case 6:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -842,9 +842,9 @@ export const MsgUpgradeClientResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -920,18 +920,18 @@ export const MsgSubmitMisbehaviour = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.misbehaviour = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.misbehaviour = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1009,9 +1009,9 @@ export const MsgSubmitMisbehaviourResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1087,18 +1087,18 @@ export const MsgRecoverClient = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.subjectClientId = reader.string();
-          break;
-        case 2:
-          message.substituteClientId = reader.string();
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.subjectClientId = reader.string();
+        break;
+      case 2:
+        message.substituteClientId = reader.string();
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1176,9 +1176,9 @@ export const MsgRecoverClientResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1254,18 +1254,18 @@ export const MsgIBCSoftwareUpgrade = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.plan = Plan.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.upgradedClientState = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.plan = Plan.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.upgradedClientState = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1343,9 +1343,9 @@ export const MsgIBCSoftwareUpgradeResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1417,15 +1417,15 @@ export const MsgUpdateParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.signer = reader.string();
-          break;
-        case 2:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.signer = reader.string();
+        break;
+      case 2:
+        message.params = Params.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1498,9 +1498,9 @@ export const MsgUpdateParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

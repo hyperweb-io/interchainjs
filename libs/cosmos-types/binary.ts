@@ -41,18 +41,18 @@
 
 import { utf8Length, utf8Read, utf8Write } from "./utf8";
 import {
+  int64FromString,
+  int64Length,
   int64ToString,
   readInt32,
   readUInt32,
   uInt64ToString,
   varint32read,
   varint64read,
+  writeByte,
+  writeFixed32,
   writeVarint32,
   writeVarint64,
-  int64FromString,
-  int64Length,
-  writeFixed32,
-  writeByte,
   zzDecode,
   zzEncode,
 } from "./varint";
@@ -135,27 +135,27 @@ export class BinaryReader implements IBinaryReader {
 
   skipType(wireType: number) {
     switch (wireType) {
-      case WireType.Varint:
-        this.skip();
-        break;
-      case WireType.Fixed64:
-        this.skip(8);
-        break;
-      case WireType.Bytes:
-        this.skip(this.uint32());
-        break;
-      case 3:
-        while ((wireType = this.uint32() & 7) !== 4) {
-          this.skipType(wireType);
-        }
-        break;
-      case WireType.Fixed32:
-        this.skip(4);
-        break;
+    case WireType.Varint:
+      this.skip();
+      break;
+    case WireType.Fixed64:
+      this.skip(8);
+      break;
+    case WireType.Bytes:
+      this.skip(this.uint32());
+      break;
+    case 3:
+      while ((wireType = this.uint32() & 7) !== 4) {
+        this.skipType(wireType);
+      }
+      break;
+    case WireType.Fixed32:
+      this.skip(4);
+      break;
 
       /* istanbul ignore next */
-      default:
-        throw Error("invalid wire type " + wireType + " at offset " + this.pos);
+    default:
+      throw Error("invalid wire type " + wireType + " at offset " + this.pos);
     }
     return this;
   }
@@ -410,12 +410,12 @@ export class BinaryWriter implements IBinaryWriter {
         (value = value >>> 0) < 128
           ? 1
           : value < 16384
-          ? 2
-          : value < 2097152
-          ? 3
-          : value < 268435456
-          ? 4
-          : 5,
+            ? 2
+            : value < 2097152
+              ? 3
+              : value < 268435456
+                ? 4
+                : 5,
         value
       )).len;
     return this;

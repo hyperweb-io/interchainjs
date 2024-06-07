@@ -1,9 +1,10 @@
-import { AccessConfig, AccessConfigAmino, Params, ParamsAmino } from "./types";
-import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
+import { fromBase64, fromUtf8,toBase64, toUtf8 } from "@cosmjs/encoding";
+
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@cosmjs/encoding";
+import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { AccessConfig, AccessConfigAmino, Params, ParamsAmino } from "./types";
 /** MsgStoreCode submit Wasm code to the system */
 export interface MsgStoreCode {
   /** Sender is the actor that signed the messages */
@@ -1007,18 +1008,18 @@ export const MsgStoreCode = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.wasmByteCode = reader.bytes();
-          break;
-        case 5:
-          message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.wasmByteCode = reader.bytes();
+        break;
+      case 5:
+        message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1105,15 +1106,15 @@ export const MsgStoreCodeResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.codeId = reader.uint64();
-          break;
-        case 2:
-          message.checksum = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.codeId = reader.uint64();
+        break;
+      case 2:
+        message.checksum = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1211,27 +1212,27 @@ export const MsgInstantiateContract = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.admin = reader.string();
-          break;
-        case 3:
-          message.codeId = reader.uint64();
-          break;
-        case 4:
-          message.label = reader.string();
-          break;
-        case 5:
-          message.msg = reader.bytes();
-          break;
-        case 6:
-          message.funds.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.admin = reader.string();
+        break;
+      case 3:
+        message.codeId = reader.uint64();
+        break;
+      case 4:
+        message.label = reader.string();
+        break;
+      case 5:
+        message.msg = reader.bytes();
+        break;
+      case 6:
+        message.funds.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1335,15 +1336,15 @@ export const MsgInstantiateContractResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1449,33 +1450,33 @@ export const MsgInstantiateContract2 = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.admin = reader.string();
-          break;
-        case 3:
-          message.codeId = reader.uint64();
-          break;
-        case 4:
-          message.label = reader.string();
-          break;
-        case 5:
-          message.msg = reader.bytes();
-          break;
-        case 6:
-          message.funds.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.salt = reader.bytes();
-          break;
-        case 8:
-          message.fixMsg = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.admin = reader.string();
+        break;
+      case 3:
+        message.codeId = reader.uint64();
+        break;
+      case 4:
+        message.label = reader.string();
+        break;
+      case 5:
+        message.msg = reader.bytes();
+        break;
+      case 6:
+        message.funds.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.salt = reader.bytes();
+        break;
+      case 8:
+        message.fixMsg = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1589,15 +1590,15 @@ export const MsgInstantiateContract2Response = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1687,21 +1688,21 @@ export const MsgExecuteContract = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.contract = reader.string();
-          break;
-        case 3:
-          message.msg = reader.bytes();
-          break;
-        case 5:
-          message.funds.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.contract = reader.string();
+        break;
+      case 3:
+        message.msg = reader.bytes();
+        break;
+      case 5:
+        message.funds.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1791,12 +1792,12 @@ export const MsgExecuteContractResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1881,21 +1882,21 @@ export const MsgMigrateContract = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.contract = reader.string();
-          break;
-        case 3:
-          message.codeId = reader.uint64();
-          break;
-        case 4:
-          message.msg = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.contract = reader.string();
+        break;
+      case 3:
+        message.codeId = reader.uint64();
+        break;
+      case 4:
+        message.msg = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1983,12 +1984,12 @@ export const MsgMigrateContractResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2069,18 +2070,18 @@ export const MsgUpdateAdmin = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.newAdmin = reader.string();
-          break;
-        case 3:
-          message.contract = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.newAdmin = reader.string();
+        break;
+      case 3:
+        message.contract = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2158,9 +2159,9 @@ export const MsgUpdateAdminResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2232,15 +2233,15 @@ export const MsgClearAdmin = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 3:
-          message.contract = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 3:
+        message.contract = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2313,9 +2314,9 @@ export const MsgClearAdminResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2391,18 +2392,18 @@ export const MsgUpdateInstantiateConfig = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.codeId = reader.uint64();
-          break;
-        case 3:
-          message.newInstantiatePermission = AccessConfig.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.codeId = reader.uint64();
+        break;
+      case 3:
+        message.newInstantiatePermission = AccessConfig.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2480,9 +2481,9 @@ export const MsgUpdateInstantiateConfigResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2554,15 +2555,15 @@ export const MsgUpdateParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        message.params = Params.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2635,9 +2636,9 @@ export const MsgUpdateParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2713,18 +2714,18 @@ export const MsgSudoContract = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          message.contract = reader.string();
-          break;
-        case 3:
-          message.msg = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        message.contract = reader.string();
+        break;
+      case 3:
+        message.msg = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2807,12 +2808,12 @@ export const MsgSudoContractResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2891,22 +2892,22 @@ export const MsgPinCodes = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.codeIds.push(reader.uint64());
-            }
-          } else {
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.codeIds.push(reader.uint64());
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.codeIds.push(reader.uint64());
+        }
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2981,9 +2982,9 @@ export const MsgPinCodesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3057,22 +3058,22 @@ export const MsgUnpinCodes = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.codeIds.push(reader.uint64());
-            }
-          } else {
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.codeIds.push(reader.uint64());
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.codeIds.push(reader.uint64());
+        }
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3147,9 +3148,9 @@ export const MsgUnpinCodesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3257,42 +3258,42 @@ export const MsgStoreAndInstantiateContract = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 3:
-          message.wasmByteCode = reader.bytes();
-          break;
-        case 4:
-          message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.unpinCode = reader.bool();
-          break;
-        case 6:
-          message.admin = reader.string();
-          break;
-        case 7:
-          message.label = reader.string();
-          break;
-        case 8:
-          message.msg = reader.bytes();
-          break;
-        case 9:
-          message.funds.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 10:
-          message.source = reader.string();
-          break;
-        case 11:
-          message.builder = reader.string();
-          break;
-        case 12:
-          message.codeHash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 3:
+        message.wasmByteCode = reader.bytes();
+        break;
+      case 4:
+        message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.unpinCode = reader.bool();
+        break;
+      case 6:
+        message.admin = reader.string();
+        break;
+      case 7:
+        message.label = reader.string();
+        break;
+      case 8:
+        message.msg = reader.bytes();
+        break;
+      case 9:
+        message.funds.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 10:
+        message.source = reader.string();
+        break;
+      case 11:
+        message.builder = reader.string();
+        break;
+      case 12:
+        message.codeHash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3421,15 +3422,15 @@ export const MsgStoreAndInstantiateContractResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3511,15 +3512,15 @@ export const MsgAddCodeUploadParamsAddresses = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          message.addresses.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        message.addresses.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3594,9 +3595,9 @@ export const MsgAddCodeUploadParamsAddressesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3668,15 +3669,15 @@ export const MsgRemoveCodeUploadParamsAddresses = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          message.addresses.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        message.addresses.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3751,9 +3752,9 @@ export const MsgRemoveCodeUploadParamsAddressesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3837,24 +3838,24 @@ export const MsgStoreAndMigrateContract = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.authority = reader.string();
-          break;
-        case 2:
-          message.wasmByteCode = reader.bytes();
-          break;
-        case 3:
-          message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.contract = reader.string();
-          break;
-        case 5:
-          message.msg = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.authority = reader.string();
+        break;
+      case 2:
+        message.wasmByteCode = reader.bytes();
+        break;
+      case 3:
+        message.instantiatePermission = AccessConfig.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.contract = reader.string();
+        break;
+      case 5:
+        message.msg = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3955,18 +3956,18 @@ export const MsgStoreAndMigrateContractResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.codeId = reader.uint64();
-          break;
-        case 2:
-          message.checksum = reader.bytes();
-          break;
-        case 3:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.codeId = reader.uint64();
+        break;
+      case 2:
+        message.checksum = reader.bytes();
+        break;
+      case 3:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4057,18 +4058,18 @@ export const MsgUpdateContractLabel = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.newLabel = reader.string();
-          break;
-        case 3:
-          message.contract = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sender = reader.string();
+        break;
+      case 2:
+        message.newLabel = reader.string();
+        break;
+      case 3:
+        message.contract = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4146,9 +4147,9 @@ export const MsgUpdateContractLabelResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

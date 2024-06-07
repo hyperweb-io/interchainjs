@@ -1,8 +1,8 @@
-import { MemberRequest, MemberRequestAmino, VoteOption, ProposalExecutorResult, ThresholdDecisionPolicy, ThresholdDecisionPolicyProtoMsg, PercentageDecisionPolicy, PercentageDecisionPolicyProtoMsg } from "./types";
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { MemberRequest, MemberRequestAmino, PercentageDecisionPolicy, PercentageDecisionPolicyProtoMsg,ProposalExecutorResult, ThresholdDecisionPolicy, ThresholdDecisionPolicyProtoMsg, VoteOption } from "./types";
 /** Exec defines modes of execution of a proposal on creation or on new vote. */
 export enum Exec {
   /**
@@ -22,27 +22,27 @@ export enum Exec {
 export const ExecAmino = Exec;
 export function execFromJSON(object: any): Exec {
   switch (object) {
-    case 0:
-    case "EXEC_UNSPECIFIED":
-      return Exec.EXEC_UNSPECIFIED;
-    case 1:
-    case "EXEC_TRY":
-      return Exec.EXEC_TRY;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Exec.UNRECOGNIZED;
+  case 0:
+  case "EXEC_UNSPECIFIED":
+    return Exec.EXEC_UNSPECIFIED;
+  case 1:
+  case "EXEC_TRY":
+    return Exec.EXEC_TRY;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return Exec.UNRECOGNIZED;
   }
 }
 export function execToJSON(object: Exec): string {
   switch (object) {
-    case Exec.EXEC_UNSPECIFIED:
-      return "EXEC_UNSPECIFIED";
-    case Exec.EXEC_TRY:
-      return "EXEC_TRY";
-    case Exec.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case Exec.EXEC_UNSPECIFIED:
+    return "EXEC_UNSPECIFIED";
+  case Exec.EXEC_TRY:
+    return "EXEC_TRY";
+  case Exec.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** MsgCreateGroup is the Msg/CreateGroup request type. */
@@ -731,18 +731,18 @@ export const MsgCreateGroup = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.members.push(MemberRequest.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.members.push(MemberRequest.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -827,12 +827,12 @@ export const MsgCreateGroupResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.groupId = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.groupId = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -913,18 +913,18 @@ export const MsgUpdateGroupMembers = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupId = reader.uint64();
-          break;
-        case 3:
-          message.memberUpdates.push(MemberRequest.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupId = reader.uint64();
+        break;
+      case 3:
+        message.memberUpdates.push(MemberRequest.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1004,9 +1004,9 @@ export const MsgUpdateGroupMembersResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1082,18 +1082,18 @@ export const MsgUpdateGroupAdmin = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupId = reader.uint64();
-          break;
-        case 3:
-          message.newAdmin = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupId = reader.uint64();
+        break;
+      case 3:
+        message.newAdmin = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1171,9 +1171,9 @@ export const MsgUpdateGroupAdminResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1249,18 +1249,18 @@ export const MsgUpdateGroupMetadata = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupId = reader.uint64();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupId = reader.uint64();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1338,9 +1338,9 @@ export const MsgUpdateGroupMetadataResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1420,21 +1420,21 @@ export const MsgCreateGroupPolicy = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupId = reader.uint64();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        case 4:
-          message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupId = reader.uint64();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      case 4:
+        message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1522,12 +1522,12 @@ export const MsgCreateGroupPolicyResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1608,18 +1608,18 @@ export const MsgUpdateGroupPolicyAdmin = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupPolicyAddress = reader.string();
-          break;
-        case 3:
-          message.newAdmin = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupPolicyAddress = reader.string();
+        break;
+      case 3:
+        message.newAdmin = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1697,9 +1697,9 @@ export const MsgUpdateGroupPolicyAdminResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1787,27 +1787,27 @@ export const MsgCreateGroupWithPolicy = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.members.push(MemberRequest.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.groupMetadata = reader.string();
-          break;
-        case 4:
-          message.groupPolicyMetadata = reader.string();
-          break;
-        case 5:
-          message.groupPolicyAsAdmin = reader.bool();
-          break;
-        case 6:
-          message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.members.push(MemberRequest.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.groupMetadata = reader.string();
+        break;
+      case 4:
+        message.groupPolicyMetadata = reader.string();
+        break;
+      case 5:
+        message.groupPolicyAsAdmin = reader.bool();
+        break;
+      case 6:
+        message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1911,15 +1911,15 @@ export const MsgCreateGroupWithPolicyResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.groupId = reader.uint64();
-          break;
-        case 2:
-          message.groupPolicyAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.groupId = reader.uint64();
+        break;
+      case 2:
+        message.groupPolicyAddress = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2005,18 +2005,18 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupPolicyAddress = reader.string();
-          break;
-        case 3:
-          message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupPolicyAddress = reader.string();
+        break;
+      case 3:
+        message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2094,9 +2094,9 @@ export const MsgUpdateGroupPolicyDecisionPolicyResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2172,18 +2172,18 @@ export const MsgUpdateGroupPolicyMetadata = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
-        case 2:
-          message.groupPolicyAddress = reader.string();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.admin = reader.string();
+        break;
+      case 2:
+        message.groupPolicyAddress = reader.string();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2261,9 +2261,9 @@ export const MsgUpdateGroupPolicyMetadataResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2355,30 +2355,30 @@ export const MsgSubmitProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.groupPolicyAddress = reader.string();
-          break;
-        case 2:
-          message.proposers.push(reader.string());
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        case 4:
-          message.messages.push(Any.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.exec = (reader.int32() as any);
-          break;
-        case 6:
-          message.title = reader.string();
-          break;
-        case 7:
-          message.summary = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.groupPolicyAddress = reader.string();
+        break;
+      case 2:
+        message.proposers.push(reader.string());
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      case 4:
+        message.messages.push(Any.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.exec = (reader.int32() as any);
+        break;
+      case 6:
+        message.title = reader.string();
+        break;
+      case 7:
+        message.summary = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2485,12 +2485,12 @@ export const MsgSubmitProposalResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2567,15 +2567,15 @@ export const MsgWithdrawProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.address = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.address = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2648,9 +2648,9 @@ export const MsgWithdrawProposalResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2734,24 +2734,24 @@ export const MsgVote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.voter = reader.string();
-          break;
-        case 3:
-          message.option = (reader.int32() as any);
-          break;
-        case 4:
-          message.metadata = reader.string();
-          break;
-        case 5:
-          message.exec = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.voter = reader.string();
+        break;
+      case 3:
+        message.option = (reader.int32() as any);
+        break;
+      case 4:
+        message.metadata = reader.string();
+        break;
+      case 5:
+        message.exec = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2839,9 +2839,9 @@ export const MsgVoteResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2913,15 +2913,15 @@ export const MsgExec = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.executor = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.executor = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2999,12 +2999,12 @@ export const MsgExecResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 2:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 2:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3081,15 +3081,15 @@ export const MsgLeaveGroup = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.groupId = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.groupId = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3162,9 +3162,9 @@ export const MsgLeaveGroupResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

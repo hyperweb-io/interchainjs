@@ -1,4 +1,4 @@
-import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
+import { MsgMultiSend, MsgSend, MsgSetSendEnabled,MsgUpdateParams } from "./tx";
 export const AminoConverter = {
   "/cosmos.bank.v1beta1.MsgSend": {
     aminoType: "cosmos-sdk/MsgSend",

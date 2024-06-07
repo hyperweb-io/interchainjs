@@ -1,5 +1,5 @@
-import { Duration, DurationAmino } from "../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../binary";
+import { Duration, DurationAmino } from "../../google/protobuf/duration";
 import { DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
 /**
@@ -266,24 +266,24 @@ export const ConsensusParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.block = BlockParams.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.evidence = EvidenceParams.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.validator = ValidatorParams.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.version = VersionParams.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.abci = ABCIParams.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.block = BlockParams.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.evidence = EvidenceParams.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.validator = ValidatorParams.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.version = VersionParams.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.abci = ABCIParams.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -372,15 +372,15 @@ export const BlockParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.maxBytes = reader.int64();
-          break;
-        case 2:
-          message.maxGas = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.maxBytes = reader.int64();
+        break;
+      case 2:
+        message.maxGas = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -458,18 +458,18 @@ export const EvidenceParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.maxAgeNumBlocks = reader.int64();
-          break;
-        case 2:
-          message.maxAgeDuration = Duration.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.maxBytes = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.maxAgeNumBlocks = reader.int64();
+        break;
+      case 2:
+        message.maxAgeDuration = Duration.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.maxBytes = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -544,12 +544,12 @@ export const ValidatorParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.pubKeyTypes.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.pubKeyTypes.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -616,12 +616,12 @@ export const VersionParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.app = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.app = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -690,15 +690,15 @@ export const HashedParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.blockMaxBytes = reader.int64();
-          break;
-        case 2:
-          message.blockMaxGas = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.blockMaxBytes = reader.int64();
+        break;
+      case 2:
+        message.blockMaxGas = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -768,12 +768,12 @@ export const ABCIParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.voteExtensionsEnableHeight = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.voteExtensionsEnableHeight = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

@@ -1,4 +1,4 @@
-import { MsgSubmitProposal, MsgExecLegacyContent, MsgVote, MsgVoteWeighted, MsgDeposit, MsgUpdateParams, MsgCancelProposal } from "./tx";
+import { MsgCancelProposal,MsgDeposit, MsgExecLegacyContent, MsgSubmitProposal, MsgUpdateParams, MsgVote, MsgVoteWeighted } from "./tx";
 export const AminoConverter = {
   "/cosmos.gov.v1.MsgSubmitProposal": {
     aminoType: "cosmos-sdk/v1/MsgSubmitProposal",

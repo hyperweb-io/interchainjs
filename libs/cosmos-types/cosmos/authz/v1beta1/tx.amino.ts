@@ -1,4 +1,4 @@
-import { MsgGrant, MsgExec, MsgRevoke } from "./tx";
+import { MsgExec, MsgGrant, MsgRevoke } from "./tx";
 export const AminoConverter = {
   "/cosmos.authz.v1beta1.MsgGrant": {
     aminoType: "cosmos-sdk/MsgGrant",

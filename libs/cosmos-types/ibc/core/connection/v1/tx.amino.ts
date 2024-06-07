@@ -1,4 +1,4 @@
-import { MsgConnectionOpenInit, MsgConnectionOpenTry, MsgConnectionOpenAck, MsgConnectionOpenConfirm, MsgUpdateParams } from "./tx";
+import { MsgConnectionOpenAck, MsgConnectionOpenConfirm, MsgConnectionOpenInit, MsgConnectionOpenTry, MsgUpdateParams } from "./tx";
 export const AminoConverter = {
   "/ibc.core.connection.v1.MsgConnectionOpenInit": {
     aminoType: "cosmos-sdk/MsgConnectionOpenInit",

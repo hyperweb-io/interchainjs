@@ -1,9 +1,9 @@
-import { Vote, VoteAmino, LightBlock, LightBlockAmino } from "./types";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Validator, ValidatorAmino } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+import { Timestamp } from "../../google/protobuf/timestamp";
+import { DeepPartial, fromTimestamp,toTimestamp } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { LightBlock, LightBlockAmino,Vote, VoteAmino } from "./types";
+import { Validator, ValidatorAmino } from "./validator";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
   lightClientAttackEvidence?: LightClientAttackEvidence;
@@ -112,15 +112,15 @@ export const Evidence = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.duplicateVoteEvidence = DuplicateVoteEvidence.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.lightClientAttackEvidence = LightClientAttackEvidence.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.duplicateVoteEvidence = DuplicateVoteEvidence.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.lightClientAttackEvidence = LightClientAttackEvidence.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -206,24 +206,24 @@ export const DuplicateVoteEvidence = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.voteA = Vote.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.voteB = Vote.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.totalVotingPower = reader.int64();
-          break;
-        case 4:
-          message.validatorPower = reader.int64();
-          break;
-        case 5:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.voteA = Vote.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.voteB = Vote.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.totalVotingPower = reader.int64();
+        break;
+      case 4:
+        message.validatorPower = reader.int64();
+        break;
+      case 5:
+        message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -324,24 +324,24 @@ export const LightClientAttackEvidence = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.conflictingBlock = LightBlock.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.commonHeight = reader.int64();
-          break;
-        case 3:
-          message.byzantineValidators.push(Validator.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.totalVotingPower = reader.int64();
-          break;
-        case 5:
-          message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.conflictingBlock = LightBlock.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.commonHeight = reader.int64();
+        break;
+      case 3:
+        message.byzantineValidators.push(Validator.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.totalVotingPower = reader.int64();
+        break;
+      case 5:
+        message.timestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -428,12 +428,12 @@ export const EvidenceList = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.evidence.push(Evidence.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.evidence.push(Evidence.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

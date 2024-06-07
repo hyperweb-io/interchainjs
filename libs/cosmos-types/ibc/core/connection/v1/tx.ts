@@ -1,9 +1,9 @@
-import { Counterparty, CounterpartyAmino, Version, VersionAmino } from "./connection";
-import { Any, AnyAmino } from "../../../../google/protobuf/any";
-import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { Any, AnyAmino } from "../../../../google/protobuf/any";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
+import { Counterparty, CounterpartyAmino, Version, VersionAmino } from "./connection";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to
  * initialize a connection with Chain B.
@@ -329,24 +329,24 @@ export const MsgConnectionOpenInit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.counterparty = Counterparty.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.version = Version.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.delayPeriod = reader.uint64();
-          break;
-        case 5:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.counterparty = Counterparty.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.version = Version.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.delayPeriod = reader.uint64();
+        break;
+      case 5:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -434,9 +434,9 @@ export const MsgConnectionOpenInitResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -552,48 +552,48 @@ export const MsgConnectionOpenTry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.clientId = reader.string();
-          break;
-        case 2:
-          message.previousConnectionId = reader.string();
-          break;
-        case 3:
-          message.clientState = Any.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.counterparty = Counterparty.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.delayPeriod = reader.uint64();
-          break;
-        case 6:
-          message.counterpartyVersions.push(Version.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 8:
-          message.proofInit = reader.bytes();
-          break;
-        case 9:
-          message.proofClient = reader.bytes();
-          break;
-        case 10:
-          message.proofConsensus = reader.bytes();
-          break;
-        case 11:
-          message.consensusHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 12:
-          message.signer = reader.string();
-          break;
-        case 13:
-          message.hostConsensusStateProof = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.clientId = reader.string();
+        break;
+      case 2:
+        message.previousConnectionId = reader.string();
+        break;
+      case 3:
+        message.clientState = Any.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.counterparty = Counterparty.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.delayPeriod = reader.uint64();
+        break;
+      case 6:
+        message.counterpartyVersions.push(Version.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 8:
+        message.proofInit = reader.bytes();
+        break;
+      case 9:
+        message.proofClient = reader.bytes();
+        break;
+      case 10:
+        message.proofConsensus = reader.bytes();
+        break;
+      case 11:
+        message.consensusHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 12:
+        message.signer = reader.string();
+        break;
+      case 13:
+        message.hostConsensusStateProof = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -723,9 +723,9 @@ export const MsgConnectionOpenTryResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -833,42 +833,42 @@ export const MsgConnectionOpenAck = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.connectionId = reader.string();
-          break;
-        case 2:
-          message.counterpartyConnectionId = reader.string();
-          break;
-        case 3:
-          message.version = Version.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.clientState = Any.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.proofTry = reader.bytes();
-          break;
-        case 7:
-          message.proofClient = reader.bytes();
-          break;
-        case 8:
-          message.proofConsensus = reader.bytes();
-          break;
-        case 9:
-          message.consensusHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 10:
-          message.signer = reader.string();
-          break;
-        case 11:
-          message.hostConsensusStateProof = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.connectionId = reader.string();
+        break;
+      case 2:
+        message.counterpartyConnectionId = reader.string();
+        break;
+      case 3:
+        message.version = Version.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.clientState = Any.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.proofTry = reader.bytes();
+        break;
+      case 7:
+        message.proofClient = reader.bytes();
+        break;
+      case 8:
+        message.proofConsensus = reader.bytes();
+        break;
+      case 9:
+        message.consensusHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 10:
+        message.signer = reader.string();
+        break;
+      case 11:
+        message.hostConsensusStateProof = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -986,9 +986,9 @@ export const MsgConnectionOpenAckResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1068,21 +1068,21 @@ export const MsgConnectionOpenConfirm = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.connectionId = reader.string();
-          break;
-        case 2:
-          message.proofAck = reader.bytes();
-          break;
-        case 3:
-          message.proofHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.signer = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.connectionId = reader.string();
+        break;
+      case 2:
+        message.proofAck = reader.bytes();
+        break;
+      case 3:
+        message.proofHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.signer = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1165,9 +1165,9 @@ export const MsgConnectionOpenConfirmResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1239,15 +1239,15 @@ export const MsgUpdateParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.signer = reader.string();
-          break;
-        case 2:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.signer = reader.string();
+        break;
+      case 2:
+        message.params = Params.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1320,9 +1320,9 @@ export const MsgUpdateParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

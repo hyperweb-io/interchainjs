@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { base64FromBytes,bytesFromBase64, DeepPartial, isSet } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
 /** The full set of known editions. */
 export enum Edition {
@@ -45,77 +45,77 @@ export enum Edition {
 export const EditionAmino = Edition;
 export function editionFromJSON(object: any): Edition {
   switch (object) {
-    case 0:
-    case "EDITION_UNKNOWN":
-      return Edition.EDITION_UNKNOWN;
-    case 900:
-    case "EDITION_LEGACY":
-      return Edition.EDITION_LEGACY;
-    case 998:
-    case "EDITION_PROTO2":
-      return Edition.EDITION_PROTO2;
-    case 999:
-    case "EDITION_PROTO3":
-      return Edition.EDITION_PROTO3;
-    case 1000:
-    case "EDITION_2023":
-      return Edition.EDITION_2023;
-    case 1001:
-    case "EDITION_2024":
-      return Edition.EDITION_2024;
-    case 1:
-    case "EDITION_1_TEST_ONLY":
-      return Edition.EDITION_1_TEST_ONLY;
-    case 2:
-    case "EDITION_2_TEST_ONLY":
-      return Edition.EDITION_2_TEST_ONLY;
-    case 99997:
-    case "EDITION_99997_TEST_ONLY":
-      return Edition.EDITION_99997_TEST_ONLY;
-    case 99998:
-    case "EDITION_99998_TEST_ONLY":
-      return Edition.EDITION_99998_TEST_ONLY;
-    case 99999:
-    case "EDITION_99999_TEST_ONLY":
-      return Edition.EDITION_99999_TEST_ONLY;
-    case 2147483647:
-    case "EDITION_MAX":
-      return Edition.EDITION_MAX;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Edition.UNRECOGNIZED;
+  case 0:
+  case "EDITION_UNKNOWN":
+    return Edition.EDITION_UNKNOWN;
+  case 900:
+  case "EDITION_LEGACY":
+    return Edition.EDITION_LEGACY;
+  case 998:
+  case "EDITION_PROTO2":
+    return Edition.EDITION_PROTO2;
+  case 999:
+  case "EDITION_PROTO3":
+    return Edition.EDITION_PROTO3;
+  case 1000:
+  case "EDITION_2023":
+    return Edition.EDITION_2023;
+  case 1001:
+  case "EDITION_2024":
+    return Edition.EDITION_2024;
+  case 1:
+  case "EDITION_1_TEST_ONLY":
+    return Edition.EDITION_1_TEST_ONLY;
+  case 2:
+  case "EDITION_2_TEST_ONLY":
+    return Edition.EDITION_2_TEST_ONLY;
+  case 99997:
+  case "EDITION_99997_TEST_ONLY":
+    return Edition.EDITION_99997_TEST_ONLY;
+  case 99998:
+  case "EDITION_99998_TEST_ONLY":
+    return Edition.EDITION_99998_TEST_ONLY;
+  case 99999:
+  case "EDITION_99999_TEST_ONLY":
+    return Edition.EDITION_99999_TEST_ONLY;
+  case 2147483647:
+  case "EDITION_MAX":
+    return Edition.EDITION_MAX;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return Edition.UNRECOGNIZED;
   }
 }
 export function editionToJSON(object: Edition): string {
   switch (object) {
-    case Edition.EDITION_UNKNOWN:
-      return "EDITION_UNKNOWN";
-    case Edition.EDITION_LEGACY:
-      return "EDITION_LEGACY";
-    case Edition.EDITION_PROTO2:
-      return "EDITION_PROTO2";
-    case Edition.EDITION_PROTO3:
-      return "EDITION_PROTO3";
-    case Edition.EDITION_2023:
-      return "EDITION_2023";
-    case Edition.EDITION_2024:
-      return "EDITION_2024";
-    case Edition.EDITION_1_TEST_ONLY:
-      return "EDITION_1_TEST_ONLY";
-    case Edition.EDITION_2_TEST_ONLY:
-      return "EDITION_2_TEST_ONLY";
-    case Edition.EDITION_99997_TEST_ONLY:
-      return "EDITION_99997_TEST_ONLY";
-    case Edition.EDITION_99998_TEST_ONLY:
-      return "EDITION_99998_TEST_ONLY";
-    case Edition.EDITION_99999_TEST_ONLY:
-      return "EDITION_99999_TEST_ONLY";
-    case Edition.EDITION_MAX:
-      return "EDITION_MAX";
-    case Edition.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case Edition.EDITION_UNKNOWN:
+    return "EDITION_UNKNOWN";
+  case Edition.EDITION_LEGACY:
+    return "EDITION_LEGACY";
+  case Edition.EDITION_PROTO2:
+    return "EDITION_PROTO2";
+  case Edition.EDITION_PROTO3:
+    return "EDITION_PROTO3";
+  case Edition.EDITION_2023:
+    return "EDITION_2023";
+  case Edition.EDITION_2024:
+    return "EDITION_2024";
+  case Edition.EDITION_1_TEST_ONLY:
+    return "EDITION_1_TEST_ONLY";
+  case Edition.EDITION_2_TEST_ONLY:
+    return "EDITION_2_TEST_ONLY";
+  case Edition.EDITION_99997_TEST_ONLY:
+    return "EDITION_99997_TEST_ONLY";
+  case Edition.EDITION_99998_TEST_ONLY:
+    return "EDITION_99998_TEST_ONLY";
+  case Edition.EDITION_99999_TEST_ONLY:
+    return "EDITION_99999_TEST_ONLY";
+  case Edition.EDITION_MAX:
+    return "EDITION_MAX";
+  case Edition.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** The verification state of the extension range. */
@@ -128,27 +128,27 @@ export enum ExtensionRangeOptions_VerificationState {
 export const ExtensionRangeOptions_VerificationStateAmino = ExtensionRangeOptions_VerificationState;
 export function extensionRangeOptions_VerificationStateFromJSON(object: any): ExtensionRangeOptions_VerificationState {
   switch (object) {
-    case 0:
-    case "DECLARATION":
-      return ExtensionRangeOptions_VerificationState.DECLARATION;
-    case 1:
-    case "UNVERIFIED":
-      return ExtensionRangeOptions_VerificationState.UNVERIFIED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ExtensionRangeOptions_VerificationState.UNRECOGNIZED;
+  case 0:
+  case "DECLARATION":
+    return ExtensionRangeOptions_VerificationState.DECLARATION;
+  case 1:
+  case "UNVERIFIED":
+    return ExtensionRangeOptions_VerificationState.UNVERIFIED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ExtensionRangeOptions_VerificationState.UNRECOGNIZED;
   }
 }
 export function extensionRangeOptions_VerificationStateToJSON(object: ExtensionRangeOptions_VerificationState): string {
   switch (object) {
-    case ExtensionRangeOptions_VerificationState.DECLARATION:
-      return "DECLARATION";
-    case ExtensionRangeOptions_VerificationState.UNVERIFIED:
-      return "UNVERIFIED";
-    case ExtensionRangeOptions_VerificationState.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ExtensionRangeOptions_VerificationState.DECLARATION:
+    return "DECLARATION";
+  case ExtensionRangeOptions_VerificationState.UNVERIFIED:
+    return "UNVERIFIED";
+  case ExtensionRangeOptions_VerificationState.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FieldDescriptorProto_Type {
@@ -197,107 +197,107 @@ export enum FieldDescriptorProto_Type {
 export const FieldDescriptorProto_TypeAmino = FieldDescriptorProto_Type;
 export function fieldDescriptorProto_TypeFromJSON(object: any): FieldDescriptorProto_Type {
   switch (object) {
-    case 1:
-    case "TYPE_DOUBLE":
-      return FieldDescriptorProto_Type.TYPE_DOUBLE;
-    case 2:
-    case "TYPE_FLOAT":
-      return FieldDescriptorProto_Type.TYPE_FLOAT;
-    case 3:
-    case "TYPE_INT64":
-      return FieldDescriptorProto_Type.TYPE_INT64;
-    case 4:
-    case "TYPE_UINT64":
-      return FieldDescriptorProto_Type.TYPE_UINT64;
-    case 5:
-    case "TYPE_INT32":
-      return FieldDescriptorProto_Type.TYPE_INT32;
-    case 6:
-    case "TYPE_FIXED64":
-      return FieldDescriptorProto_Type.TYPE_FIXED64;
-    case 7:
-    case "TYPE_FIXED32":
-      return FieldDescriptorProto_Type.TYPE_FIXED32;
-    case 8:
-    case "TYPE_BOOL":
-      return FieldDescriptorProto_Type.TYPE_BOOL;
-    case 9:
-    case "TYPE_STRING":
-      return FieldDescriptorProto_Type.TYPE_STRING;
-    case 10:
-    case "TYPE_GROUP":
-      return FieldDescriptorProto_Type.TYPE_GROUP;
-    case 11:
-    case "TYPE_MESSAGE":
-      return FieldDescriptorProto_Type.TYPE_MESSAGE;
-    case 12:
-    case "TYPE_BYTES":
-      return FieldDescriptorProto_Type.TYPE_BYTES;
-    case 13:
-    case "TYPE_UINT32":
-      return FieldDescriptorProto_Type.TYPE_UINT32;
-    case 14:
-    case "TYPE_ENUM":
-      return FieldDescriptorProto_Type.TYPE_ENUM;
-    case 15:
-    case "TYPE_SFIXED32":
-      return FieldDescriptorProto_Type.TYPE_SFIXED32;
-    case 16:
-    case "TYPE_SFIXED64":
-      return FieldDescriptorProto_Type.TYPE_SFIXED64;
-    case 17:
-    case "TYPE_SINT32":
-      return FieldDescriptorProto_Type.TYPE_SINT32;
-    case 18:
-    case "TYPE_SINT64":
-      return FieldDescriptorProto_Type.TYPE_SINT64;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FieldDescriptorProto_Type.UNRECOGNIZED;
+  case 1:
+  case "TYPE_DOUBLE":
+    return FieldDescriptorProto_Type.TYPE_DOUBLE;
+  case 2:
+  case "TYPE_FLOAT":
+    return FieldDescriptorProto_Type.TYPE_FLOAT;
+  case 3:
+  case "TYPE_INT64":
+    return FieldDescriptorProto_Type.TYPE_INT64;
+  case 4:
+  case "TYPE_UINT64":
+    return FieldDescriptorProto_Type.TYPE_UINT64;
+  case 5:
+  case "TYPE_INT32":
+    return FieldDescriptorProto_Type.TYPE_INT32;
+  case 6:
+  case "TYPE_FIXED64":
+    return FieldDescriptorProto_Type.TYPE_FIXED64;
+  case 7:
+  case "TYPE_FIXED32":
+    return FieldDescriptorProto_Type.TYPE_FIXED32;
+  case 8:
+  case "TYPE_BOOL":
+    return FieldDescriptorProto_Type.TYPE_BOOL;
+  case 9:
+  case "TYPE_STRING":
+    return FieldDescriptorProto_Type.TYPE_STRING;
+  case 10:
+  case "TYPE_GROUP":
+    return FieldDescriptorProto_Type.TYPE_GROUP;
+  case 11:
+  case "TYPE_MESSAGE":
+    return FieldDescriptorProto_Type.TYPE_MESSAGE;
+  case 12:
+  case "TYPE_BYTES":
+    return FieldDescriptorProto_Type.TYPE_BYTES;
+  case 13:
+  case "TYPE_UINT32":
+    return FieldDescriptorProto_Type.TYPE_UINT32;
+  case 14:
+  case "TYPE_ENUM":
+    return FieldDescriptorProto_Type.TYPE_ENUM;
+  case 15:
+  case "TYPE_SFIXED32":
+    return FieldDescriptorProto_Type.TYPE_SFIXED32;
+  case 16:
+  case "TYPE_SFIXED64":
+    return FieldDescriptorProto_Type.TYPE_SFIXED64;
+  case 17:
+  case "TYPE_SINT32":
+    return FieldDescriptorProto_Type.TYPE_SINT32;
+  case 18:
+  case "TYPE_SINT64":
+    return FieldDescriptorProto_Type.TYPE_SINT64;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FieldDescriptorProto_Type.UNRECOGNIZED;
   }
 }
 export function fieldDescriptorProto_TypeToJSON(object: FieldDescriptorProto_Type): string {
   switch (object) {
-    case FieldDescriptorProto_Type.TYPE_DOUBLE:
-      return "TYPE_DOUBLE";
-    case FieldDescriptorProto_Type.TYPE_FLOAT:
-      return "TYPE_FLOAT";
-    case FieldDescriptorProto_Type.TYPE_INT64:
-      return "TYPE_INT64";
-    case FieldDescriptorProto_Type.TYPE_UINT64:
-      return "TYPE_UINT64";
-    case FieldDescriptorProto_Type.TYPE_INT32:
-      return "TYPE_INT32";
-    case FieldDescriptorProto_Type.TYPE_FIXED64:
-      return "TYPE_FIXED64";
-    case FieldDescriptorProto_Type.TYPE_FIXED32:
-      return "TYPE_FIXED32";
-    case FieldDescriptorProto_Type.TYPE_BOOL:
-      return "TYPE_BOOL";
-    case FieldDescriptorProto_Type.TYPE_STRING:
-      return "TYPE_STRING";
-    case FieldDescriptorProto_Type.TYPE_GROUP:
-      return "TYPE_GROUP";
-    case FieldDescriptorProto_Type.TYPE_MESSAGE:
-      return "TYPE_MESSAGE";
-    case FieldDescriptorProto_Type.TYPE_BYTES:
-      return "TYPE_BYTES";
-    case FieldDescriptorProto_Type.TYPE_UINT32:
-      return "TYPE_UINT32";
-    case FieldDescriptorProto_Type.TYPE_ENUM:
-      return "TYPE_ENUM";
-    case FieldDescriptorProto_Type.TYPE_SFIXED32:
-      return "TYPE_SFIXED32";
-    case FieldDescriptorProto_Type.TYPE_SFIXED64:
-      return "TYPE_SFIXED64";
-    case FieldDescriptorProto_Type.TYPE_SINT32:
-      return "TYPE_SINT32";
-    case FieldDescriptorProto_Type.TYPE_SINT64:
-      return "TYPE_SINT64";
-    case FieldDescriptorProto_Type.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FieldDescriptorProto_Type.TYPE_DOUBLE:
+    return "TYPE_DOUBLE";
+  case FieldDescriptorProto_Type.TYPE_FLOAT:
+    return "TYPE_FLOAT";
+  case FieldDescriptorProto_Type.TYPE_INT64:
+    return "TYPE_INT64";
+  case FieldDescriptorProto_Type.TYPE_UINT64:
+    return "TYPE_UINT64";
+  case FieldDescriptorProto_Type.TYPE_INT32:
+    return "TYPE_INT32";
+  case FieldDescriptorProto_Type.TYPE_FIXED64:
+    return "TYPE_FIXED64";
+  case FieldDescriptorProto_Type.TYPE_FIXED32:
+    return "TYPE_FIXED32";
+  case FieldDescriptorProto_Type.TYPE_BOOL:
+    return "TYPE_BOOL";
+  case FieldDescriptorProto_Type.TYPE_STRING:
+    return "TYPE_STRING";
+  case FieldDescriptorProto_Type.TYPE_GROUP:
+    return "TYPE_GROUP";
+  case FieldDescriptorProto_Type.TYPE_MESSAGE:
+    return "TYPE_MESSAGE";
+  case FieldDescriptorProto_Type.TYPE_BYTES:
+    return "TYPE_BYTES";
+  case FieldDescriptorProto_Type.TYPE_UINT32:
+    return "TYPE_UINT32";
+  case FieldDescriptorProto_Type.TYPE_ENUM:
+    return "TYPE_ENUM";
+  case FieldDescriptorProto_Type.TYPE_SFIXED32:
+    return "TYPE_SFIXED32";
+  case FieldDescriptorProto_Type.TYPE_SFIXED64:
+    return "TYPE_SFIXED64";
+  case FieldDescriptorProto_Type.TYPE_SINT32:
+    return "TYPE_SINT32";
+  case FieldDescriptorProto_Type.TYPE_SINT64:
+    return "TYPE_SINT64";
+  case FieldDescriptorProto_Type.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FieldDescriptorProto_Label {
@@ -315,32 +315,32 @@ export enum FieldDescriptorProto_Label {
 export const FieldDescriptorProto_LabelAmino = FieldDescriptorProto_Label;
 export function fieldDescriptorProto_LabelFromJSON(object: any): FieldDescriptorProto_Label {
   switch (object) {
-    case 1:
-    case "LABEL_OPTIONAL":
-      return FieldDescriptorProto_Label.LABEL_OPTIONAL;
-    case 3:
-    case "LABEL_REPEATED":
-      return FieldDescriptorProto_Label.LABEL_REPEATED;
-    case 2:
-    case "LABEL_REQUIRED":
-      return FieldDescriptorProto_Label.LABEL_REQUIRED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FieldDescriptorProto_Label.UNRECOGNIZED;
+  case 1:
+  case "LABEL_OPTIONAL":
+    return FieldDescriptorProto_Label.LABEL_OPTIONAL;
+  case 3:
+  case "LABEL_REPEATED":
+    return FieldDescriptorProto_Label.LABEL_REPEATED;
+  case 2:
+  case "LABEL_REQUIRED":
+    return FieldDescriptorProto_Label.LABEL_REQUIRED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FieldDescriptorProto_Label.UNRECOGNIZED;
   }
 }
 export function fieldDescriptorProto_LabelToJSON(object: FieldDescriptorProto_Label): string {
   switch (object) {
-    case FieldDescriptorProto_Label.LABEL_OPTIONAL:
-      return "LABEL_OPTIONAL";
-    case FieldDescriptorProto_Label.LABEL_REPEATED:
-      return "LABEL_REPEATED";
-    case FieldDescriptorProto_Label.LABEL_REQUIRED:
-      return "LABEL_REQUIRED";
-    case FieldDescriptorProto_Label.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FieldDescriptorProto_Label.LABEL_OPTIONAL:
+    return "LABEL_OPTIONAL";
+  case FieldDescriptorProto_Label.LABEL_REPEATED:
+    return "LABEL_REPEATED";
+  case FieldDescriptorProto_Label.LABEL_REQUIRED:
+    return "LABEL_REQUIRED";
+  case FieldDescriptorProto_Label.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** Generated classes can be optimized for speed or code size. */
@@ -359,32 +359,32 @@ export enum FileOptions_OptimizeMode {
 export const FileOptions_OptimizeModeAmino = FileOptions_OptimizeMode;
 export function fileOptions_OptimizeModeFromJSON(object: any): FileOptions_OptimizeMode {
   switch (object) {
-    case 1:
-    case "SPEED":
-      return FileOptions_OptimizeMode.SPEED;
-    case 2:
-    case "CODE_SIZE":
-      return FileOptions_OptimizeMode.CODE_SIZE;
-    case 3:
-    case "LITE_RUNTIME":
-      return FileOptions_OptimizeMode.LITE_RUNTIME;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FileOptions_OptimizeMode.UNRECOGNIZED;
+  case 1:
+  case "SPEED":
+    return FileOptions_OptimizeMode.SPEED;
+  case 2:
+  case "CODE_SIZE":
+    return FileOptions_OptimizeMode.CODE_SIZE;
+  case 3:
+  case "LITE_RUNTIME":
+    return FileOptions_OptimizeMode.LITE_RUNTIME;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FileOptions_OptimizeMode.UNRECOGNIZED;
   }
 }
 export function fileOptions_OptimizeModeToJSON(object: FileOptions_OptimizeMode): string {
   switch (object) {
-    case FileOptions_OptimizeMode.SPEED:
-      return "SPEED";
-    case FileOptions_OptimizeMode.CODE_SIZE:
-      return "CODE_SIZE";
-    case FileOptions_OptimizeMode.LITE_RUNTIME:
-      return "LITE_RUNTIME";
-    case FileOptions_OptimizeMode.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FileOptions_OptimizeMode.SPEED:
+    return "SPEED";
+  case FileOptions_OptimizeMode.CODE_SIZE:
+    return "CODE_SIZE";
+  case FileOptions_OptimizeMode.LITE_RUNTIME:
+    return "LITE_RUNTIME";
+  case FileOptions_OptimizeMode.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FieldOptions_CType {
@@ -405,32 +405,32 @@ export enum FieldOptions_CType {
 export const FieldOptions_CTypeAmino = FieldOptions_CType;
 export function fieldOptions_CTypeFromJSON(object: any): FieldOptions_CType {
   switch (object) {
-    case 0:
-    case "STRING":
-      return FieldOptions_CType.STRING;
-    case 1:
-    case "CORD":
-      return FieldOptions_CType.CORD;
-    case 2:
-    case "STRING_PIECE":
-      return FieldOptions_CType.STRING_PIECE;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FieldOptions_CType.UNRECOGNIZED;
+  case 0:
+  case "STRING":
+    return FieldOptions_CType.STRING;
+  case 1:
+  case "CORD":
+    return FieldOptions_CType.CORD;
+  case 2:
+  case "STRING_PIECE":
+    return FieldOptions_CType.STRING_PIECE;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FieldOptions_CType.UNRECOGNIZED;
   }
 }
 export function fieldOptions_CTypeToJSON(object: FieldOptions_CType): string {
   switch (object) {
-    case FieldOptions_CType.STRING:
-      return "STRING";
-    case FieldOptions_CType.CORD:
-      return "CORD";
-    case FieldOptions_CType.STRING_PIECE:
-      return "STRING_PIECE";
-    case FieldOptions_CType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FieldOptions_CType.STRING:
+    return "STRING";
+  case FieldOptions_CType.CORD:
+    return "CORD";
+  case FieldOptions_CType.STRING_PIECE:
+    return "STRING_PIECE";
+  case FieldOptions_CType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FieldOptions_JSType {
@@ -445,32 +445,32 @@ export enum FieldOptions_JSType {
 export const FieldOptions_JSTypeAmino = FieldOptions_JSType;
 export function fieldOptions_JSTypeFromJSON(object: any): FieldOptions_JSType {
   switch (object) {
-    case 0:
-    case "JS_NORMAL":
-      return FieldOptions_JSType.JS_NORMAL;
-    case 1:
-    case "JS_STRING":
-      return FieldOptions_JSType.JS_STRING;
-    case 2:
-    case "JS_NUMBER":
-      return FieldOptions_JSType.JS_NUMBER;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FieldOptions_JSType.UNRECOGNIZED;
+  case 0:
+  case "JS_NORMAL":
+    return FieldOptions_JSType.JS_NORMAL;
+  case 1:
+  case "JS_STRING":
+    return FieldOptions_JSType.JS_STRING;
+  case 2:
+  case "JS_NUMBER":
+    return FieldOptions_JSType.JS_NUMBER;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FieldOptions_JSType.UNRECOGNIZED;
   }
 }
 export function fieldOptions_JSTypeToJSON(object: FieldOptions_JSType): string {
   switch (object) {
-    case FieldOptions_JSType.JS_NORMAL:
-      return "JS_NORMAL";
-    case FieldOptions_JSType.JS_STRING:
-      return "JS_STRING";
-    case FieldOptions_JSType.JS_NUMBER:
-      return "JS_NUMBER";
-    case FieldOptions_JSType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FieldOptions_JSType.JS_NORMAL:
+    return "JS_NORMAL";
+  case FieldOptions_JSType.JS_STRING:
+    return "JS_STRING";
+  case FieldOptions_JSType.JS_NUMBER:
+    return "JS_NUMBER";
+  case FieldOptions_JSType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -487,32 +487,32 @@ export enum FieldOptions_OptionRetention {
 export const FieldOptions_OptionRetentionAmino = FieldOptions_OptionRetention;
 export function fieldOptions_OptionRetentionFromJSON(object: any): FieldOptions_OptionRetention {
   switch (object) {
-    case 0:
-    case "RETENTION_UNKNOWN":
-      return FieldOptions_OptionRetention.RETENTION_UNKNOWN;
-    case 1:
-    case "RETENTION_RUNTIME":
-      return FieldOptions_OptionRetention.RETENTION_RUNTIME;
-    case 2:
-    case "RETENTION_SOURCE":
-      return FieldOptions_OptionRetention.RETENTION_SOURCE;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FieldOptions_OptionRetention.UNRECOGNIZED;
+  case 0:
+  case "RETENTION_UNKNOWN":
+    return FieldOptions_OptionRetention.RETENTION_UNKNOWN;
+  case 1:
+  case "RETENTION_RUNTIME":
+    return FieldOptions_OptionRetention.RETENTION_RUNTIME;
+  case 2:
+  case "RETENTION_SOURCE":
+    return FieldOptions_OptionRetention.RETENTION_SOURCE;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FieldOptions_OptionRetention.UNRECOGNIZED;
   }
 }
 export function fieldOptions_OptionRetentionToJSON(object: FieldOptions_OptionRetention): string {
   switch (object) {
-    case FieldOptions_OptionRetention.RETENTION_UNKNOWN:
-      return "RETENTION_UNKNOWN";
-    case FieldOptions_OptionRetention.RETENTION_RUNTIME:
-      return "RETENTION_RUNTIME";
-    case FieldOptions_OptionRetention.RETENTION_SOURCE:
-      return "RETENTION_SOURCE";
-    case FieldOptions_OptionRetention.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FieldOptions_OptionRetention.RETENTION_UNKNOWN:
+    return "RETENTION_UNKNOWN";
+  case FieldOptions_OptionRetention.RETENTION_RUNTIME:
+    return "RETENTION_RUNTIME";
+  case FieldOptions_OptionRetention.RETENTION_SOURCE:
+    return "RETENTION_SOURCE";
+  case FieldOptions_OptionRetention.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -537,67 +537,67 @@ export enum FieldOptions_OptionTargetType {
 export const FieldOptions_OptionTargetTypeAmino = FieldOptions_OptionTargetType;
 export function fieldOptions_OptionTargetTypeFromJSON(object: any): FieldOptions_OptionTargetType {
   switch (object) {
-    case 0:
-    case "TARGET_TYPE_UNKNOWN":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN;
-    case 1:
-    case "TARGET_TYPE_FILE":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_FILE;
-    case 2:
-    case "TARGET_TYPE_EXTENSION_RANGE":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE;
-    case 3:
-    case "TARGET_TYPE_MESSAGE":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE;
-    case 4:
-    case "TARGET_TYPE_FIELD":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_FIELD;
-    case 5:
-    case "TARGET_TYPE_ONEOF":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF;
-    case 6:
-    case "TARGET_TYPE_ENUM":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_ENUM;
-    case 7:
-    case "TARGET_TYPE_ENUM_ENTRY":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY;
-    case 8:
-    case "TARGET_TYPE_SERVICE":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE;
-    case 9:
-    case "TARGET_TYPE_METHOD":
-      return FieldOptions_OptionTargetType.TARGET_TYPE_METHOD;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FieldOptions_OptionTargetType.UNRECOGNIZED;
+  case 0:
+  case "TARGET_TYPE_UNKNOWN":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN;
+  case 1:
+  case "TARGET_TYPE_FILE":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_FILE;
+  case 2:
+  case "TARGET_TYPE_EXTENSION_RANGE":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE;
+  case 3:
+  case "TARGET_TYPE_MESSAGE":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE;
+  case 4:
+  case "TARGET_TYPE_FIELD":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_FIELD;
+  case 5:
+  case "TARGET_TYPE_ONEOF":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF;
+  case 6:
+  case "TARGET_TYPE_ENUM":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_ENUM;
+  case 7:
+  case "TARGET_TYPE_ENUM_ENTRY":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY;
+  case 8:
+  case "TARGET_TYPE_SERVICE":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE;
+  case 9:
+  case "TARGET_TYPE_METHOD":
+    return FieldOptions_OptionTargetType.TARGET_TYPE_METHOD;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FieldOptions_OptionTargetType.UNRECOGNIZED;
   }
 }
 export function fieldOptions_OptionTargetTypeToJSON(object: FieldOptions_OptionTargetType): string {
   switch (object) {
-    case FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN:
-      return "TARGET_TYPE_UNKNOWN";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_FILE:
-      return "TARGET_TYPE_FILE";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE:
-      return "TARGET_TYPE_EXTENSION_RANGE";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE:
-      return "TARGET_TYPE_MESSAGE";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_FIELD:
-      return "TARGET_TYPE_FIELD";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF:
-      return "TARGET_TYPE_ONEOF";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM:
-      return "TARGET_TYPE_ENUM";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY:
-      return "TARGET_TYPE_ENUM_ENTRY";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE:
-      return "TARGET_TYPE_SERVICE";
-    case FieldOptions_OptionTargetType.TARGET_TYPE_METHOD:
-      return "TARGET_TYPE_METHOD";
-    case FieldOptions_OptionTargetType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_UNKNOWN:
+    return "TARGET_TYPE_UNKNOWN";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_FILE:
+    return "TARGET_TYPE_FILE";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_EXTENSION_RANGE:
+    return "TARGET_TYPE_EXTENSION_RANGE";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_MESSAGE:
+    return "TARGET_TYPE_MESSAGE";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_FIELD:
+    return "TARGET_TYPE_FIELD";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_ONEOF:
+    return "TARGET_TYPE_ONEOF";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM:
+    return "TARGET_TYPE_ENUM";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_ENUM_ENTRY:
+    return "TARGET_TYPE_ENUM_ENTRY";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_SERVICE:
+    return "TARGET_TYPE_SERVICE";
+  case FieldOptions_OptionTargetType.TARGET_TYPE_METHOD:
+    return "TARGET_TYPE_METHOD";
+  case FieldOptions_OptionTargetType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -616,32 +616,32 @@ export enum MethodOptions_IdempotencyLevel {
 export const MethodOptions_IdempotencyLevelAmino = MethodOptions_IdempotencyLevel;
 export function methodOptions_IdempotencyLevelFromJSON(object: any): MethodOptions_IdempotencyLevel {
   switch (object) {
-    case 0:
-    case "IDEMPOTENCY_UNKNOWN":
-      return MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN;
-    case 1:
-    case "NO_SIDE_EFFECTS":
-      return MethodOptions_IdempotencyLevel.NO_SIDE_EFFECTS;
-    case 2:
-    case "IDEMPOTENT":
-      return MethodOptions_IdempotencyLevel.IDEMPOTENT;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return MethodOptions_IdempotencyLevel.UNRECOGNIZED;
+  case 0:
+  case "IDEMPOTENCY_UNKNOWN":
+    return MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN;
+  case 1:
+  case "NO_SIDE_EFFECTS":
+    return MethodOptions_IdempotencyLevel.NO_SIDE_EFFECTS;
+  case 2:
+  case "IDEMPOTENT":
+    return MethodOptions_IdempotencyLevel.IDEMPOTENT;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return MethodOptions_IdempotencyLevel.UNRECOGNIZED;
   }
 }
 export function methodOptions_IdempotencyLevelToJSON(object: MethodOptions_IdempotencyLevel): string {
   switch (object) {
-    case MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN:
-      return "IDEMPOTENCY_UNKNOWN";
-    case MethodOptions_IdempotencyLevel.NO_SIDE_EFFECTS:
-      return "NO_SIDE_EFFECTS";
-    case MethodOptions_IdempotencyLevel.IDEMPOTENT:
-      return "IDEMPOTENT";
-    case MethodOptions_IdempotencyLevel.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case MethodOptions_IdempotencyLevel.IDEMPOTENCY_UNKNOWN:
+    return "IDEMPOTENCY_UNKNOWN";
+  case MethodOptions_IdempotencyLevel.NO_SIDE_EFFECTS:
+    return "NO_SIDE_EFFECTS";
+  case MethodOptions_IdempotencyLevel.IDEMPOTENT:
+    return "IDEMPOTENT";
+  case MethodOptions_IdempotencyLevel.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FeatureSet_FieldPresence {
@@ -654,37 +654,37 @@ export enum FeatureSet_FieldPresence {
 export const FeatureSet_FieldPresenceAmino = FeatureSet_FieldPresence;
 export function featureSet_FieldPresenceFromJSON(object: any): FeatureSet_FieldPresence {
   switch (object) {
-    case 0:
-    case "FIELD_PRESENCE_UNKNOWN":
-      return FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN;
-    case 1:
-    case "EXPLICIT":
-      return FeatureSet_FieldPresence.EXPLICIT;
-    case 2:
-    case "IMPLICIT":
-      return FeatureSet_FieldPresence.IMPLICIT;
-    case 3:
-    case "LEGACY_REQUIRED":
-      return FeatureSet_FieldPresence.LEGACY_REQUIRED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FeatureSet_FieldPresence.UNRECOGNIZED;
+  case 0:
+  case "FIELD_PRESENCE_UNKNOWN":
+    return FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN;
+  case 1:
+  case "EXPLICIT":
+    return FeatureSet_FieldPresence.EXPLICIT;
+  case 2:
+  case "IMPLICIT":
+    return FeatureSet_FieldPresence.IMPLICIT;
+  case 3:
+  case "LEGACY_REQUIRED":
+    return FeatureSet_FieldPresence.LEGACY_REQUIRED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FeatureSet_FieldPresence.UNRECOGNIZED;
   }
 }
 export function featureSet_FieldPresenceToJSON(object: FeatureSet_FieldPresence): string {
   switch (object) {
-    case FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN:
-      return "FIELD_PRESENCE_UNKNOWN";
-    case FeatureSet_FieldPresence.EXPLICIT:
-      return "EXPLICIT";
-    case FeatureSet_FieldPresence.IMPLICIT:
-      return "IMPLICIT";
-    case FeatureSet_FieldPresence.LEGACY_REQUIRED:
-      return "LEGACY_REQUIRED";
-    case FeatureSet_FieldPresence.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FeatureSet_FieldPresence.FIELD_PRESENCE_UNKNOWN:
+    return "FIELD_PRESENCE_UNKNOWN";
+  case FeatureSet_FieldPresence.EXPLICIT:
+    return "EXPLICIT";
+  case FeatureSet_FieldPresence.IMPLICIT:
+    return "IMPLICIT";
+  case FeatureSet_FieldPresence.LEGACY_REQUIRED:
+    return "LEGACY_REQUIRED";
+  case FeatureSet_FieldPresence.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FeatureSet_EnumType {
@@ -696,32 +696,32 @@ export enum FeatureSet_EnumType {
 export const FeatureSet_EnumTypeAmino = FeatureSet_EnumType;
 export function featureSet_EnumTypeFromJSON(object: any): FeatureSet_EnumType {
   switch (object) {
-    case 0:
-    case "ENUM_TYPE_UNKNOWN":
-      return FeatureSet_EnumType.ENUM_TYPE_UNKNOWN;
-    case 1:
-    case "OPEN":
-      return FeatureSet_EnumType.OPEN;
-    case 2:
-    case "CLOSED":
-      return FeatureSet_EnumType.CLOSED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FeatureSet_EnumType.UNRECOGNIZED;
+  case 0:
+  case "ENUM_TYPE_UNKNOWN":
+    return FeatureSet_EnumType.ENUM_TYPE_UNKNOWN;
+  case 1:
+  case "OPEN":
+    return FeatureSet_EnumType.OPEN;
+  case 2:
+  case "CLOSED":
+    return FeatureSet_EnumType.CLOSED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FeatureSet_EnumType.UNRECOGNIZED;
   }
 }
 export function featureSet_EnumTypeToJSON(object: FeatureSet_EnumType): string {
   switch (object) {
-    case FeatureSet_EnumType.ENUM_TYPE_UNKNOWN:
-      return "ENUM_TYPE_UNKNOWN";
-    case FeatureSet_EnumType.OPEN:
-      return "OPEN";
-    case FeatureSet_EnumType.CLOSED:
-      return "CLOSED";
-    case FeatureSet_EnumType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FeatureSet_EnumType.ENUM_TYPE_UNKNOWN:
+    return "ENUM_TYPE_UNKNOWN";
+  case FeatureSet_EnumType.OPEN:
+    return "OPEN";
+  case FeatureSet_EnumType.CLOSED:
+    return "CLOSED";
+  case FeatureSet_EnumType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FeatureSet_RepeatedFieldEncoding {
@@ -733,32 +733,32 @@ export enum FeatureSet_RepeatedFieldEncoding {
 export const FeatureSet_RepeatedFieldEncodingAmino = FeatureSet_RepeatedFieldEncoding;
 export function featureSet_RepeatedFieldEncodingFromJSON(object: any): FeatureSet_RepeatedFieldEncoding {
   switch (object) {
-    case 0:
-    case "REPEATED_FIELD_ENCODING_UNKNOWN":
-      return FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN;
-    case 1:
-    case "PACKED":
-      return FeatureSet_RepeatedFieldEncoding.PACKED;
-    case 2:
-    case "EXPANDED":
-      return FeatureSet_RepeatedFieldEncoding.EXPANDED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FeatureSet_RepeatedFieldEncoding.UNRECOGNIZED;
+  case 0:
+  case "REPEATED_FIELD_ENCODING_UNKNOWN":
+    return FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN;
+  case 1:
+  case "PACKED":
+    return FeatureSet_RepeatedFieldEncoding.PACKED;
+  case 2:
+  case "EXPANDED":
+    return FeatureSet_RepeatedFieldEncoding.EXPANDED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FeatureSet_RepeatedFieldEncoding.UNRECOGNIZED;
   }
 }
 export function featureSet_RepeatedFieldEncodingToJSON(object: FeatureSet_RepeatedFieldEncoding): string {
   switch (object) {
-    case FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN:
-      return "REPEATED_FIELD_ENCODING_UNKNOWN";
-    case FeatureSet_RepeatedFieldEncoding.PACKED:
-      return "PACKED";
-    case FeatureSet_RepeatedFieldEncoding.EXPANDED:
-      return "EXPANDED";
-    case FeatureSet_RepeatedFieldEncoding.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FeatureSet_RepeatedFieldEncoding.REPEATED_FIELD_ENCODING_UNKNOWN:
+    return "REPEATED_FIELD_ENCODING_UNKNOWN";
+  case FeatureSet_RepeatedFieldEncoding.PACKED:
+    return "PACKED";
+  case FeatureSet_RepeatedFieldEncoding.EXPANDED:
+    return "EXPANDED";
+  case FeatureSet_RepeatedFieldEncoding.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FeatureSet_Utf8Validation {
@@ -770,32 +770,32 @@ export enum FeatureSet_Utf8Validation {
 export const FeatureSet_Utf8ValidationAmino = FeatureSet_Utf8Validation;
 export function featureSet_Utf8ValidationFromJSON(object: any): FeatureSet_Utf8Validation {
   switch (object) {
-    case 0:
-    case "UTF8_VALIDATION_UNKNOWN":
-      return FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN;
-    case 2:
-    case "VERIFY":
-      return FeatureSet_Utf8Validation.VERIFY;
-    case 3:
-    case "NONE":
-      return FeatureSet_Utf8Validation.NONE;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FeatureSet_Utf8Validation.UNRECOGNIZED;
+  case 0:
+  case "UTF8_VALIDATION_UNKNOWN":
+    return FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN;
+  case 2:
+  case "VERIFY":
+    return FeatureSet_Utf8Validation.VERIFY;
+  case 3:
+  case "NONE":
+    return FeatureSet_Utf8Validation.NONE;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FeatureSet_Utf8Validation.UNRECOGNIZED;
   }
 }
 export function featureSet_Utf8ValidationToJSON(object: FeatureSet_Utf8Validation): string {
   switch (object) {
-    case FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN:
-      return "UTF8_VALIDATION_UNKNOWN";
-    case FeatureSet_Utf8Validation.VERIFY:
-      return "VERIFY";
-    case FeatureSet_Utf8Validation.NONE:
-      return "NONE";
-    case FeatureSet_Utf8Validation.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FeatureSet_Utf8Validation.UTF8_VALIDATION_UNKNOWN:
+    return "UTF8_VALIDATION_UNKNOWN";
+  case FeatureSet_Utf8Validation.VERIFY:
+    return "VERIFY";
+  case FeatureSet_Utf8Validation.NONE:
+    return "NONE";
+  case FeatureSet_Utf8Validation.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FeatureSet_MessageEncoding {
@@ -807,32 +807,32 @@ export enum FeatureSet_MessageEncoding {
 export const FeatureSet_MessageEncodingAmino = FeatureSet_MessageEncoding;
 export function featureSet_MessageEncodingFromJSON(object: any): FeatureSet_MessageEncoding {
   switch (object) {
-    case 0:
-    case "MESSAGE_ENCODING_UNKNOWN":
-      return FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN;
-    case 1:
-    case "LENGTH_PREFIXED":
-      return FeatureSet_MessageEncoding.LENGTH_PREFIXED;
-    case 2:
-    case "DELIMITED":
-      return FeatureSet_MessageEncoding.DELIMITED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FeatureSet_MessageEncoding.UNRECOGNIZED;
+  case 0:
+  case "MESSAGE_ENCODING_UNKNOWN":
+    return FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN;
+  case 1:
+  case "LENGTH_PREFIXED":
+    return FeatureSet_MessageEncoding.LENGTH_PREFIXED;
+  case 2:
+  case "DELIMITED":
+    return FeatureSet_MessageEncoding.DELIMITED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FeatureSet_MessageEncoding.UNRECOGNIZED;
   }
 }
 export function featureSet_MessageEncodingToJSON(object: FeatureSet_MessageEncoding): string {
   switch (object) {
-    case FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN:
-      return "MESSAGE_ENCODING_UNKNOWN";
-    case FeatureSet_MessageEncoding.LENGTH_PREFIXED:
-      return "LENGTH_PREFIXED";
-    case FeatureSet_MessageEncoding.DELIMITED:
-      return "DELIMITED";
-    case FeatureSet_MessageEncoding.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FeatureSet_MessageEncoding.MESSAGE_ENCODING_UNKNOWN:
+    return "MESSAGE_ENCODING_UNKNOWN";
+  case FeatureSet_MessageEncoding.LENGTH_PREFIXED:
+    return "LENGTH_PREFIXED";
+  case FeatureSet_MessageEncoding.DELIMITED:
+    return "DELIMITED";
+  case FeatureSet_MessageEncoding.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum FeatureSet_JsonFormat {
@@ -844,32 +844,32 @@ export enum FeatureSet_JsonFormat {
 export const FeatureSet_JsonFormatAmino = FeatureSet_JsonFormat;
 export function featureSet_JsonFormatFromJSON(object: any): FeatureSet_JsonFormat {
   switch (object) {
-    case 0:
-    case "JSON_FORMAT_UNKNOWN":
-      return FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN;
-    case 1:
-    case "ALLOW":
-      return FeatureSet_JsonFormat.ALLOW;
-    case 2:
-    case "LEGACY_BEST_EFFORT":
-      return FeatureSet_JsonFormat.LEGACY_BEST_EFFORT;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return FeatureSet_JsonFormat.UNRECOGNIZED;
+  case 0:
+  case "JSON_FORMAT_UNKNOWN":
+    return FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN;
+  case 1:
+  case "ALLOW":
+    return FeatureSet_JsonFormat.ALLOW;
+  case 2:
+  case "LEGACY_BEST_EFFORT":
+    return FeatureSet_JsonFormat.LEGACY_BEST_EFFORT;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return FeatureSet_JsonFormat.UNRECOGNIZED;
   }
 }
 export function featureSet_JsonFormatToJSON(object: FeatureSet_JsonFormat): string {
   switch (object) {
-    case FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN:
-      return "JSON_FORMAT_UNKNOWN";
-    case FeatureSet_JsonFormat.ALLOW:
-      return "ALLOW";
-    case FeatureSet_JsonFormat.LEGACY_BEST_EFFORT:
-      return "LEGACY_BEST_EFFORT";
-    case FeatureSet_JsonFormat.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case FeatureSet_JsonFormat.JSON_FORMAT_UNKNOWN:
+    return "JSON_FORMAT_UNKNOWN";
+  case FeatureSet_JsonFormat.ALLOW:
+    return "ALLOW";
+  case FeatureSet_JsonFormat.LEGACY_BEST_EFFORT:
+    return "LEGACY_BEST_EFFORT";
+  case FeatureSet_JsonFormat.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -888,32 +888,32 @@ export enum GeneratedCodeInfo_Annotation_Semantic {
 export const GeneratedCodeInfo_Annotation_SemanticAmino = GeneratedCodeInfo_Annotation_Semantic;
 export function generatedCodeInfo_Annotation_SemanticFromJSON(object: any): GeneratedCodeInfo_Annotation_Semantic {
   switch (object) {
-    case 0:
-    case "NONE":
-      return GeneratedCodeInfo_Annotation_Semantic.NONE;
-    case 1:
-    case "SET":
-      return GeneratedCodeInfo_Annotation_Semantic.SET;
-    case 2:
-    case "ALIAS":
-      return GeneratedCodeInfo_Annotation_Semantic.ALIAS;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return GeneratedCodeInfo_Annotation_Semantic.UNRECOGNIZED;
+  case 0:
+  case "NONE":
+    return GeneratedCodeInfo_Annotation_Semantic.NONE;
+  case 1:
+  case "SET":
+    return GeneratedCodeInfo_Annotation_Semantic.SET;
+  case 2:
+  case "ALIAS":
+    return GeneratedCodeInfo_Annotation_Semantic.ALIAS;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return GeneratedCodeInfo_Annotation_Semantic.UNRECOGNIZED;
   }
 }
 export function generatedCodeInfo_Annotation_SemanticToJSON(object: GeneratedCodeInfo_Annotation_Semantic): string {
   switch (object) {
-    case GeneratedCodeInfo_Annotation_Semantic.NONE:
-      return "NONE";
-    case GeneratedCodeInfo_Annotation_Semantic.SET:
-      return "SET";
-    case GeneratedCodeInfo_Annotation_Semantic.ALIAS:
-      return "ALIAS";
-    case GeneratedCodeInfo_Annotation_Semantic.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case GeneratedCodeInfo_Annotation_Semantic.NONE:
+    return "NONE";
+  case GeneratedCodeInfo_Annotation_Semantic.SET:
+    return "SET";
+  case GeneratedCodeInfo_Annotation_Semantic.ALIAS:
+    return "ALIAS";
+  case GeneratedCodeInfo_Annotation_Semantic.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -3016,12 +3016,12 @@ export const FileDescriptorSet = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.file.push(FileDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.file.push(FileDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3140,62 +3140,62 @@ export const FileDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.package = reader.string();
-          break;
-        case 3:
-          message.dependency.push(reader.string());
-          break;
-        case 10:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.publicDependency.push(reader.int32());
-            }
-          } else {
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.package = reader.string();
+        break;
+      case 3:
+        message.dependency.push(reader.string());
+        break;
+      case 10:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.publicDependency.push(reader.int32());
           }
-          break;
-        case 11:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.weakDependency.push(reader.int32());
-            }
-          } else {
+        } else {
+          message.publicDependency.push(reader.int32());
+        }
+        break;
+      case 11:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.weakDependency.push(reader.int32());
           }
-          break;
-        case 4:
-          message.messageType.push(DescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.enumType.push(EnumDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.service.push(ServiceDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.extension.push(FieldDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.options = FileOptions.decode(reader, reader.uint32());
-          break;
-        case 9:
-          message.sourceCodeInfo = SourceCodeInfo.decode(reader, reader.uint32());
-          break;
-        case 12:
-          message.syntax = reader.string();
-          break;
-        case 14:
-          message.edition = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.weakDependency.push(reader.int32());
+        }
+        break;
+      case 4:
+        message.messageType.push(DescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.enumType.push(EnumDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 6:
+        message.service.push(ServiceDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.extension.push(FieldDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 8:
+        message.options = FileOptions.decode(reader, reader.uint32());
+        break;
+      case 9:
+        message.sourceCodeInfo = SourceCodeInfo.decode(reader, reader.uint32());
+        break;
+      case 12:
+        message.syntax = reader.string();
+        break;
+      case 14:
+        message.edition = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3370,39 +3370,39 @@ export const DescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.field.push(FieldDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.extension.push(FieldDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.nestedType.push(DescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.enumType.push(EnumDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.extensionRange.push(DescriptorProto_ExtensionRange.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.oneofDecl.push(OneofDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.options = MessageOptions.decode(reader, reader.uint32());
-          break;
-        case 9:
-          message.reservedRange.push(DescriptorProto_ReservedRange.decode(reader, reader.uint32()));
-          break;
-        case 10:
-          message.reservedName.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.field.push(FieldDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 6:
+        message.extension.push(FieldDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.nestedType.push(DescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.enumType.push(EnumDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.extensionRange.push(DescriptorProto_ExtensionRange.decode(reader, reader.uint32()));
+        break;
+      case 8:
+        message.oneofDecl.push(OneofDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.options = MessageOptions.decode(reader, reader.uint32());
+        break;
+      case 9:
+        message.reservedRange.push(DescriptorProto_ReservedRange.decode(reader, reader.uint32()));
+        break;
+      case 10:
+        message.reservedName.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3536,18 +3536,18 @@ export const DescriptorProto_ExtensionRange = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.start = reader.int32();
-          break;
-        case 2:
-          message.end = reader.int32();
-          break;
-        case 3:
-          message.options = ExtensionRangeOptions.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.start = reader.int32();
+        break;
+      case 2:
+        message.end = reader.int32();
+        break;
+      case 3:
+        message.options = ExtensionRangeOptions.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3626,15 +3626,15 @@ export const DescriptorProto_ReservedRange = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.start = reader.int32();
-          break;
-        case 2:
-          message.end = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.start = reader.int32();
+        break;
+      case 2:
+        message.end = reader.int32();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3716,21 +3716,21 @@ export const ExtensionRangeOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.declaration.push(ExtensionRangeOptions_Declaration.decode(reader, reader.uint32()));
-          break;
-        case 50:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.verification = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.declaration.push(ExtensionRangeOptions_Declaration.decode(reader, reader.uint32()));
+        break;
+      case 50:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.verification = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3830,24 +3830,24 @@ export const ExtensionRangeOptions_Declaration = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.number = reader.int32();
-          break;
-        case 2:
-          message.fullName = reader.string();
-          break;
-        case 3:
-          message.type = reader.string();
-          break;
-        case 5:
-          message.reserved = reader.bool();
-          break;
-        case 6:
-          message.repeated = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.number = reader.int32();
+        break;
+      case 2:
+        message.fullName = reader.string();
+        break;
+      case 3:
+        message.type = reader.string();
+        break;
+      case 5:
+        message.reserved = reader.bool();
+        break;
+      case 6:
+        message.repeated = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3972,42 +3972,42 @@ export const FieldDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 3:
-          message.number = reader.int32();
-          break;
-        case 4:
-          message.label = (reader.int32() as any);
-          break;
-        case 5:
-          message.type = (reader.int32() as any);
-          break;
-        case 6:
-          message.typeName = reader.string();
-          break;
-        case 2:
-          message.extendee = reader.string();
-          break;
-        case 7:
-          message.defaultValue = reader.string();
-          break;
-        case 9:
-          message.oneofIndex = reader.int32();
-          break;
-        case 10:
-          message.jsonName = reader.string();
-          break;
-        case 8:
-          message.options = FieldOptions.decode(reader, reader.uint32());
-          break;
-        case 17:
-          message.proto3Optional = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 3:
+        message.number = reader.int32();
+        break;
+      case 4:
+        message.label = (reader.int32() as any);
+        break;
+      case 5:
+        message.type = (reader.int32() as any);
+        break;
+      case 6:
+        message.typeName = reader.string();
+        break;
+      case 2:
+        message.extendee = reader.string();
+        break;
+      case 7:
+        message.defaultValue = reader.string();
+        break;
+      case 9:
+        message.oneofIndex = reader.int32();
+        break;
+      case 10:
+        message.jsonName = reader.string();
+        break;
+      case 8:
+        message.options = FieldOptions.decode(reader, reader.uint32());
+        break;
+      case 17:
+        message.proto3Optional = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4126,15 +4126,15 @@ export const OneofDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.options = OneofOptions.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.options = OneofOptions.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4220,24 +4220,24 @@ export const EnumDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.value.push(EnumValueDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.options = EnumOptions.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.reservedRange.push(EnumDescriptorProto_EnumReservedRange.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.reservedName.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.value.push(EnumValueDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.options = EnumOptions.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.reservedRange.push(EnumDescriptorProto_EnumReservedRange.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.reservedName.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4332,15 +4332,15 @@ export const EnumDescriptorProto_EnumReservedRange = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.start = reader.int32();
-          break;
-        case 2:
-          message.end = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.start = reader.int32();
+        break;
+      case 2:
+        message.end = reader.int32();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4418,18 +4418,18 @@ export const EnumValueDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.number = reader.int32();
-          break;
-        case 3:
-          message.options = EnumValueOptions.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.number = reader.int32();
+        break;
+      case 3:
+        message.options = EnumValueOptions.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4512,18 +4512,18 @@ export const ServiceDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.method.push(MethodDescriptorProto.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.options = ServiceOptions.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.method.push(MethodDescriptorProto.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.options = ServiceOptions.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4620,27 +4620,27 @@ export const MethodDescriptorProto = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.name = reader.string();
-          break;
-        case 2:
-          message.inputType = reader.string();
-          break;
-        case 3:
-          message.outputType = reader.string();
-          break;
-        case 4:
-          message.options = MethodOptions.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.clientStreaming = reader.bool();
-          break;
-        case 6:
-          message.serverStreaming = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.name = reader.string();
+        break;
+      case 2:
+        message.inputType = reader.string();
+        break;
+      case 3:
+        message.outputType = reader.string();
+        break;
+      case 4:
+        message.options = MethodOptions.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.clientStreaming = reader.bool();
+        break;
+      case 6:
+        message.serverStreaming = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4810,72 +4810,72 @@ export const FileOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.javaPackage = reader.string();
-          break;
-        case 8:
-          message.javaOuterClassname = reader.string();
-          break;
-        case 10:
-          message.javaMultipleFiles = reader.bool();
-          break;
-        case 20:
-          message.javaGenerateEqualsAndHash = reader.bool();
-          break;
-        case 27:
-          message.javaStringCheckUtf8 = reader.bool();
-          break;
-        case 9:
-          message.optimizeFor = (reader.int32() as any);
-          break;
-        case 11:
-          message.goPackage = reader.string();
-          break;
-        case 16:
-          message.ccGenericServices = reader.bool();
-          break;
-        case 17:
-          message.javaGenericServices = reader.bool();
-          break;
-        case 18:
-          message.pyGenericServices = reader.bool();
-          break;
-        case 23:
-          message.deprecated = reader.bool();
-          break;
-        case 31:
-          message.ccEnableArenas = reader.bool();
-          break;
-        case 36:
-          message.objcClassPrefix = reader.string();
-          break;
-        case 37:
-          message.csharpNamespace = reader.string();
-          break;
-        case 39:
-          message.swiftPrefix = reader.string();
-          break;
-        case 40:
-          message.phpClassPrefix = reader.string();
-          break;
-        case 41:
-          message.phpNamespace = reader.string();
-          break;
-        case 44:
-          message.phpMetadataNamespace = reader.string();
-          break;
-        case 45:
-          message.rubyPackage = reader.string();
-          break;
-        case 50:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.javaPackage = reader.string();
+        break;
+      case 8:
+        message.javaOuterClassname = reader.string();
+        break;
+      case 10:
+        message.javaMultipleFiles = reader.bool();
+        break;
+      case 20:
+        message.javaGenerateEqualsAndHash = reader.bool();
+        break;
+      case 27:
+        message.javaStringCheckUtf8 = reader.bool();
+        break;
+      case 9:
+        message.optimizeFor = (reader.int32() as any);
+        break;
+      case 11:
+        message.goPackage = reader.string();
+        break;
+      case 16:
+        message.ccGenericServices = reader.bool();
+        break;
+      case 17:
+        message.javaGenericServices = reader.bool();
+        break;
+      case 18:
+        message.pyGenericServices = reader.bool();
+        break;
+      case 23:
+        message.deprecated = reader.bool();
+        break;
+      case 31:
+        message.ccEnableArenas = reader.bool();
+        break;
+      case 36:
+        message.objcClassPrefix = reader.string();
+        break;
+      case 37:
+        message.csharpNamespace = reader.string();
+        break;
+      case 39:
+        message.swiftPrefix = reader.string();
+        break;
+      case 40:
+        message.phpClassPrefix = reader.string();
+        break;
+      case 41:
+        message.phpNamespace = reader.string();
+        break;
+      case 44:
+        message.phpMetadataNamespace = reader.string();
+        break;
+      case 45:
+        message.rubyPackage = reader.string();
+        break;
+      case 50:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5066,30 +5066,30 @@ export const MessageOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.messageSetWireFormat = reader.bool();
-          break;
-        case 2:
-          message.noStandardDescriptorAccessor = reader.bool();
-          break;
-        case 3:
-          message.deprecated = reader.bool();
-          break;
-        case 7:
-          message.mapEntry = reader.bool();
-          break;
-        case 11:
-          message.deprecatedLegacyJsonFieldConflicts = reader.bool();
-          break;
-        case 12:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.messageSetWireFormat = reader.bool();
+        break;
+      case 2:
+        message.noStandardDescriptorAccessor = reader.bool();
+        break;
+      case 3:
+        message.deprecated = reader.bool();
+        break;
+      case 7:
+        message.mapEntry = reader.bool();
+        break;
+      case 11:
+        message.deprecatedLegacyJsonFieldConflicts = reader.bool();
+        break;
+      case 12:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5240,58 +5240,58 @@ export const FieldOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.ctype = (reader.int32() as any);
-          break;
-        case 2:
-          message.packed = reader.bool();
-          break;
-        case 6:
-          message.jstype = (reader.int32() as any);
-          break;
-        case 5:
-          message.lazy = reader.bool();
-          break;
-        case 15:
-          message.unverifiedLazy = reader.bool();
-          break;
-        case 3:
-          message.deprecated = reader.bool();
-          break;
-        case 10:
-          message.weak = reader.bool();
-          break;
-        case 16:
-          message.debugRedact = reader.bool();
-          break;
-        case 17:
-          message.retention = (reader.int32() as any);
-          break;
-        case 19:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.targets.push((reader.int32() as any));
-            }
-          } else {
+      case 1:
+        message.ctype = (reader.int32() as any);
+        break;
+      case 2:
+        message.packed = reader.bool();
+        break;
+      case 6:
+        message.jstype = (reader.int32() as any);
+        break;
+      case 5:
+        message.lazy = reader.bool();
+        break;
+      case 15:
+        message.unverifiedLazy = reader.bool();
+        break;
+      case 3:
+        message.deprecated = reader.bool();
+        break;
+      case 10:
+        message.weak = reader.bool();
+        break;
+      case 16:
+        message.debugRedact = reader.bool();
+        break;
+      case 17:
+        message.retention = (reader.int32() as any);
+        break;
+      case 19:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.targets.push((reader.int32() as any));
           }
-          break;
-        case 20:
-          message.editionDefaults.push(FieldOptions_EditionDefault.decode(reader, reader.uint32()));
-          break;
-        case 21:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 22:
-          message.featureSupport = FieldOptions_FeatureSupport.decode(reader, reader.uint32());
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.targets.push((reader.int32() as any));
+        }
+        break;
+      case 20:
+        message.editionDefaults.push(FieldOptions_EditionDefault.decode(reader, reader.uint32()));
+        break;
+      case 21:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 22:
+        message.featureSupport = FieldOptions_FeatureSupport.decode(reader, reader.uint32());
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5431,15 +5431,15 @@ export const FieldOptions_EditionDefault = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 3:
-          message.edition = (reader.int32() as any);
-          break;
-        case 2:
-          message.value = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 3:
+        message.edition = (reader.int32() as any);
+        break;
+      case 2:
+        message.value = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5521,21 +5521,21 @@ export const FieldOptions_FeatureSupport = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.editionIntroduced = (reader.int32() as any);
-          break;
-        case 2:
-          message.editionDeprecated = (reader.int32() as any);
-          break;
-        case 3:
-          message.deprecationWarning = reader.string();
-          break;
-        case 4:
-          message.editionRemoved = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.editionIntroduced = (reader.int32() as any);
+        break;
+      case 2:
+        message.editionDeprecated = (reader.int32() as any);
+        break;
+      case 3:
+        message.deprecationWarning = reader.string();
+        break;
+      case 4:
+        message.editionRemoved = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5619,15 +5619,15 @@ export const OneofOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5715,24 +5715,24 @@ export const EnumOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 2:
-          message.allowAlias = reader.bool();
-          break;
-        case 3:
-          message.deprecated = reader.bool();
-          break;
-        case 6:
-          message.deprecatedLegacyJsonFieldConflicts = reader.bool();
-          break;
-        case 7:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 2:
+        message.allowAlias = reader.bool();
+        break;
+      case 3:
+        message.deprecated = reader.bool();
+        break;
+      case 6:
+        message.deprecatedLegacyJsonFieldConflicts = reader.bool();
+        break;
+      case 7:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5831,21 +5831,21 @@ export const EnumValueOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.deprecated = reader.bool();
-          break;
-        case 2:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.debugRedact = reader.bool();
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.deprecated = reader.bool();
+        break;
+      case 2:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.debugRedact = reader.bool();
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5935,18 +5935,18 @@ export const ServiceOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 34:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 33:
-          message.deprecated = reader.bool();
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 34:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 33:
+        message.deprecated = reader.bool();
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6035,21 +6035,21 @@ export const MethodOptions = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 33:
-          message.deprecated = reader.bool();
-          break;
-        case 34:
-          message.idempotencyLevel = (reader.int32() as any);
-          break;
-        case 35:
-          message.features = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 999:
-          message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 33:
+        message.deprecated = reader.bool();
+        break;
+      case 34:
+        message.idempotencyLevel = (reader.int32() as any);
+        break;
+      case 35:
+        message.features = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 999:
+        message.uninterpretedOption.push(UninterpretedOption.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6155,30 +6155,30 @@ export const UninterpretedOption = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 2:
-          message.name.push(UninterpretedOption_NamePart.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.identifierValue = reader.string();
-          break;
-        case 4:
-          message.positiveIntValue = reader.uint64();
-          break;
-        case 5:
-          message.negativeIntValue = reader.int64();
-          break;
-        case 6:
-          message.doubleValue = reader.double();
-          break;
-        case 7:
-          message.stringValue = reader.bytes();
-          break;
-        case 8:
-          message.aggregateValue = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 2:
+        message.name.push(UninterpretedOption_NamePart.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.identifierValue = reader.string();
+        break;
+      case 4:
+        message.positiveIntValue = reader.uint64();
+        break;
+      case 5:
+        message.negativeIntValue = reader.int64();
+        break;
+      case 6:
+        message.doubleValue = reader.double();
+        break;
+      case 7:
+        message.stringValue = reader.bytes();
+        break;
+      case 8:
+        message.aggregateValue = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6279,15 +6279,15 @@ export const UninterpretedOption_NamePart = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.namePart = reader.string();
-          break;
-        case 2:
-          message.isExtension = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.namePart = reader.string();
+        break;
+      case 2:
+        message.isExtension = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6377,27 +6377,27 @@ export const FeatureSet = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.fieldPresence = (reader.int32() as any);
-          break;
-        case 2:
-          message.enumType = (reader.int32() as any);
-          break;
-        case 3:
-          message.repeatedFieldEncoding = (reader.int32() as any);
-          break;
-        case 4:
-          message.utf8Validation = (reader.int32() as any);
-          break;
-        case 5:
-          message.messageEncoding = (reader.int32() as any);
-          break;
-        case 6:
-          message.jsonFormat = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.fieldPresence = (reader.int32() as any);
+        break;
+      case 2:
+        message.enumType = (reader.int32() as any);
+        break;
+      case 3:
+        message.repeatedFieldEncoding = (reader.int32() as any);
+        break;
+      case 4:
+        message.utf8Validation = (reader.int32() as any);
+        break;
+      case 5:
+        message.messageEncoding = (reader.int32() as any);
+        break;
+      case 6:
+        message.jsonFormat = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6495,18 +6495,18 @@ export const FeatureSetDefaults = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.defaults.push(FeatureSetDefaults_FeatureSetEditionDefault.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.minimumEdition = (reader.int32() as any);
-          break;
-        case 5:
-          message.maximumEdition = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.defaults.push(FeatureSetDefaults_FeatureSetEditionDefault.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.minimumEdition = (reader.int32() as any);
+        break;
+      case 5:
+        message.maximumEdition = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6591,18 +6591,18 @@ export const FeatureSetDefaults_FeatureSetEditionDefault = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 3:
-          message.edition = (reader.int32() as any);
-          break;
-        case 4:
-          message.overridableFeatures = FeatureSet.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.fixedFeatures = FeatureSet.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 3:
+        message.edition = (reader.int32() as any);
+        break;
+      case 4:
+        message.overridableFeatures = FeatureSet.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.fixedFeatures = FeatureSet.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6677,12 +6677,12 @@ export const SourceCodeInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.location.push(SourceCodeInfo_Location.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.location.push(SourceCodeInfo_Location.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6769,38 +6769,38 @@ export const SourceCodeInfo_Location = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.path.push(reader.int32());
-            }
-          } else {
+      case 1:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.path.push(reader.int32());
           }
-          break;
-        case 2:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.span.push(reader.int32());
-            }
-          } else {
+        } else {
+          message.path.push(reader.int32());
+        }
+        break;
+      case 2:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.span.push(reader.int32());
           }
-          break;
-        case 3:
-          message.leadingComments = reader.string();
-          break;
-        case 4:
-          message.trailingComments = reader.string();
-          break;
-        case 6:
-          message.leadingDetachedComments.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.span.push(reader.int32());
+        }
+        break;
+      case 3:
+        message.leadingComments = reader.string();
+        break;
+      case 4:
+        message.trailingComments = reader.string();
+        break;
+      case 6:
+        message.leadingDetachedComments.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6891,12 +6891,12 @@ export const GeneratedCodeInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.annotation.push(GeneratedCodeInfo_Annotation.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.annotation.push(GeneratedCodeInfo_Annotation.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6981,31 +6981,31 @@ export const GeneratedCodeInfo_Annotation = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.path.push(reader.int32());
-            }
-          } else {
+      case 1:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.path.push(reader.int32());
           }
-          break;
-        case 2:
-          message.sourceFile = reader.string();
-          break;
-        case 3:
-          message.begin = reader.int32();
-          break;
-        case 4:
-          message.end = reader.int32();
-          break;
-        case 5:
-          message.semantic = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.path.push(reader.int32());
+        }
+        break;
+      case 2:
+        message.sourceFile = reader.string();
+        break;
+      case 3:
+        message.begin = reader.int32();
+        break;
+      case 4:
+        message.end = reader.int32();
+        break;
+      case 5:
+        message.semantic = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

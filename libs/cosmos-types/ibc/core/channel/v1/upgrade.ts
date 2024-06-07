@@ -1,7 +1,7 @@
-import { Timeout, TimeoutAmino, Order } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, isSet } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { Order,Timeout, TimeoutAmino } from "./channel";
 /**
  * Upgrade is a verifiable type which contains the relevant information
  * for an attempted upgrade. It provides the proposed changes to the channel
@@ -125,18 +125,18 @@ export const Upgrade = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.fields = UpgradeFields.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.timeout = Timeout.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.nextSequenceSend = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.fields = UpgradeFields.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.timeout = Timeout.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.nextSequenceSend = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -227,18 +227,18 @@ export const UpgradeFields = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.ordering = (reader.int32() as any);
-          break;
-        case 2:
-          message.connectionHops.push(reader.string());
-          break;
-        case 3:
-          message.version = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.ordering = (reader.int32() as any);
+        break;
+      case 2:
+        message.connectionHops.push(reader.string());
+        break;
+      case 3:
+        message.version = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -327,15 +327,15 @@ export const ErrorReceipt = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sequence = reader.uint64();
-          break;
-        case 2:
-          message.message = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sequence = reader.uint64();
+        break;
+      case 2:
+        message.message = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

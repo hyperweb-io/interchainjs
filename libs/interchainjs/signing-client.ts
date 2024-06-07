@@ -150,12 +150,12 @@ export class SigningClient {
       ): IBinaryWriter;
     };
     switch (account.algo) {
-      case "secp256k1":
-        typeUrl = Secp256k1PubKey.typeUrl;
-        PubKey = Secp256k1PubKey;
-        break;
-      default:
-        throw new Error(`${account.algo} not supported.`);
+    case "secp256k1":
+      typeUrl = Secp256k1PubKey.typeUrl;
+      PubKey = Secp256k1PubKey;
+      break;
+    default:
+      throw new Error(`${account.algo} not supported.`);
     }
     const publicKey: Any = {
       typeUrl,
@@ -325,16 +325,16 @@ export class SigningClient {
       const result = await this.getTx(txId);
       return result
         ? {
-            code: result.code,
-            height: result.height,
-            txIndex: result.txIndex,
-            events: result.events,
-            rawLog: result.rawLog,
-            transactionHash: txId,
-            msgResponses: result.msgResponses,
-            gasUsed: result.gasUsed,
-            gasWanted: result.gasWanted,
-          }
+          code: result.code,
+          height: result.height,
+          txIndex: result.txIndex,
+          events: result.events,
+          rawLog: result.rawLog,
+          transactionHash: txId,
+          msgResponses: result.msgResponses,
+          gasUsed: result.gasUsed,
+          gasWanted: result.gasWanted,
+        }
         : pollForTx(txId);
     };
 

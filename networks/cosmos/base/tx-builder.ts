@@ -22,7 +22,7 @@ import { BaseCosmosTxBuilderContext } from "./builder-context";
  * BaseCosmosTxBuilder is a helper class to build the Tx and signDoc
  */
 export abstract class BaseCosmosTxBuilder<SignDoc>
-  implements ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
+implements ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
 {
   constructor(
     public signMode: SignMode,

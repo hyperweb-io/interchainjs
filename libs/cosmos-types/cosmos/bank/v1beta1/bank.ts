@@ -1,7 +1,7 @@
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 /** Params defines the parameters for the bank module. */
 export interface Params {
   /**
@@ -289,15 +289,15 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.defaultSendEnabled = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.defaultSendEnabled = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -381,15 +381,15 @@ export const SendEnabled = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.denom = reader.string();
-          break;
-        case 2:
-          message.enabled = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.denom = reader.string();
+        break;
+      case 2:
+        message.enabled = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -471,15 +471,15 @@ export const Input = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.coins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.coins.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -563,15 +563,15 @@ export const Output = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.coins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.coins.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -651,12 +651,12 @@ export const Supply = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.total.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.total.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -739,18 +739,18 @@ export const DenomUnit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.denom = reader.string();
-          break;
-        case 2:
-          message.exponent = reader.uint32();
-          break;
-        case 3:
-          message.aliases.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.denom = reader.string();
+        break;
+      case 2:
+        message.exponent = reader.uint32();
+        break;
+      case 3:
+        message.aliases.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -863,33 +863,33 @@ export const Metadata = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.description = reader.string();
-          break;
-        case 2:
-          message.denomUnits.push(DenomUnit.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.base = reader.string();
-          break;
-        case 4:
-          message.display = reader.string();
-          break;
-        case 5:
-          message.name = reader.string();
-          break;
-        case 6:
-          message.symbol = reader.string();
-          break;
-        case 7:
-          message.uri = reader.string();
-          break;
-        case 8:
-          message.uriHash = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.description = reader.string();
+        break;
+      case 2:
+        message.denomUnits.push(DenomUnit.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.base = reader.string();
+        break;
+      case 4:
+        message.display = reader.string();
+        break;
+      case 5:
+        message.name = reader.string();
+        break;
+      case 6:
+        message.symbol = reader.string();
+        break;
+      case 7:
+        message.uri = reader.string();
+        break;
+      case 8:
+        message.uriHash = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

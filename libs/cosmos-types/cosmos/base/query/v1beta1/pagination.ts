@@ -1,5 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
@@ -186,24 +186,24 @@ export const PageRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.offset = reader.uint64();
-          break;
-        case 3:
-          message.limit = reader.uint64();
-          break;
-        case 4:
-          message.countTotal = reader.bool();
-          break;
-        case 5:
-          message.reverse = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.offset = reader.uint64();
+        break;
+      case 3:
+        message.limit = reader.uint64();
+        break;
+      case 4:
+        message.countTotal = reader.bool();
+        break;
+      case 5:
+        message.reverse = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -300,15 +300,15 @@ export const PageResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.nextKey = reader.bytes();
-          break;
-        case 2:
-          message.total = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.nextKey = reader.bytes();
+        break;
+      case 2:
+        message.total = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

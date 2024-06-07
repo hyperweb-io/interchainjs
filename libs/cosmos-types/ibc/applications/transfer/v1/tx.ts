@@ -1,8 +1,8 @@
-import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
-import { Height, HeightAmino, Params, ParamsAmino } from "../../../core/client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { Height, HeightAmino, Params, ParamsAmino } from "../../../core/client/v1/client";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
  * ICS20 enabled chains. See ICS Spec here:
@@ -190,33 +190,33 @@ export const MsgTransfer = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sourcePort = reader.string();
-          break;
-        case 2:
-          message.sourceChannel = reader.string();
-          break;
-        case 3:
-          message.token = Coin.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.sender = reader.string();
-          break;
-        case 5:
-          message.receiver = reader.string();
-          break;
-        case 6:
-          message.timeoutHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.timeoutTimestamp = reader.uint64();
-          break;
-        case 8:
-          message.memo = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sourcePort = reader.string();
+        break;
+      case 2:
+        message.sourceChannel = reader.string();
+        break;
+      case 3:
+        message.token = Coin.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.sender = reader.string();
+        break;
+      case 5:
+        message.receiver = reader.string();
+        break;
+      case 6:
+        message.timeoutHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.timeoutTimestamp = reader.uint64();
+        break;
+      case 8:
+        message.memo = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -324,12 +324,12 @@ export const MsgTransferResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -406,15 +406,15 @@ export const MsgUpdateParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.signer = reader.string();
-          break;
-        case 2:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.signer = reader.string();
+        break;
+      case 2:
+        message.params = Params.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -487,9 +487,9 @@ export const MsgUpdateParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

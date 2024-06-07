@@ -1,5 +1,5 @@
 import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
-import { MsgGrant, MsgExec, MsgRevoke } from "./tx";
+import { MsgExec, MsgGrant, MsgRevoke } from "./tx";
 /** Msg defines the authz Msg service. */
 export interface Msg {
   /**

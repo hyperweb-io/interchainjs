@@ -1,4 +1,4 @@
-import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool } from "./tx";
+import { MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool,MsgFundCommunityPool, MsgSetWithdrawAddress, MsgUpdateParams, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission } from "./tx";
 export const AminoConverter = {
   "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress": {
     aminoType: "cosmos-sdk/MsgModifyWithdrawAddress",

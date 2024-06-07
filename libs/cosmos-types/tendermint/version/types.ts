@@ -83,15 +83,15 @@ export const App = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.protocol = reader.uint64();
-          break;
-        case 2:
-          message.software = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.protocol = reader.uint64();
+        break;
+      case 2:
+        message.software = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -165,15 +165,15 @@ export const Consensus = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.block = reader.uint64();
-          break;
-        case 2:
-          message.app = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.block = reader.uint64();
+        break;
+      case 2:
+        message.app = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

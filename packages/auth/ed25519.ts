@@ -1,5 +1,5 @@
-import { Key } from "@interchainjs/utils";
 import { Auth, Signature } from "@interchainjs/types";
+import { Key } from "@interchainjs/utils";
 
 export class Ed25519Auth implements Auth {
   readonly algo = "ed25519";

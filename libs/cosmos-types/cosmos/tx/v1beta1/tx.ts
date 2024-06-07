@@ -1,10 +1,10 @@
-import { Any, AnyAmino } from "../../../google/protobuf/any";
-import { SignMode } from "../signing/v1beta1/signing";
-import { CompactBitArray, CompactBitArrayAmino } from "../../crypto/multisig/v1beta1/multisig";
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
+import { Any, AnyAmino } from "../../../google/protobuf/any";
+import { base64FromBytes, bytesFromBase64, DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
+import { CompactBitArray, CompactBitArrayAmino } from "../../crypto/multisig/v1beta1/multisig";
+import { SignMode } from "../signing/v1beta1/signing";
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {
   /** body is the processable content of the transaction */
@@ -682,18 +682,18 @@ export const Tx = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.body = TxBody.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.authInfo = AuthInfo.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.signatures.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.body = TxBody.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.authInfo = AuthInfo.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.signatures.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -786,18 +786,18 @@ export const TxRaw = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.bodyBytes = reader.bytes();
-          break;
-        case 2:
-          message.authInfoBytes = reader.bytes();
-          break;
-        case 3:
-          message.signatures.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.bodyBytes = reader.bytes();
+        break;
+      case 2:
+        message.authInfoBytes = reader.bytes();
+        break;
+      case 3:
+        message.signatures.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -894,21 +894,21 @@ export const SignDoc = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.bodyBytes = reader.bytes();
-          break;
-        case 2:
-          message.authInfoBytes = reader.bytes();
-          break;
-        case 3:
-          message.chainId = reader.string();
-          break;
-        case 4:
-          message.accountNumber = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.bodyBytes = reader.bytes();
+        break;
+      case 2:
+        message.authInfoBytes = reader.bytes();
+        break;
+      case 3:
+        message.chainId = reader.string();
+        break;
+      case 4:
+        message.accountNumber = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1016,27 +1016,27 @@ export const SignDocDirectAux = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.bodyBytes = reader.bytes();
-          break;
-        case 2:
-          message.publicKey = Any.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.chainId = reader.string();
-          break;
-        case 4:
-          message.accountNumber = reader.uint64();
-          break;
-        case 5:
-          message.sequence = reader.uint64();
-          break;
-        case 6:
-          message.tip = Tip.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.bodyBytes = reader.bytes();
+        break;
+      case 2:
+        message.publicKey = Any.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.chainId = reader.string();
+        break;
+      case 4:
+        message.accountNumber = reader.uint64();
+        break;
+      case 5:
+        message.sequence = reader.uint64();
+        break;
+      case 6:
+        message.tip = Tip.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1150,24 +1150,24 @@ export const TxBody = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.messages.push(Any.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.memo = reader.string();
-          break;
-        case 3:
-          message.timeoutHeight = reader.uint64();
-          break;
-        case 1023:
-          message.extensionOptions.push(Any.decode(reader, reader.uint32()));
-          break;
-        case 2047:
-          message.nonCriticalExtensionOptions.push(Any.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.messages.push(Any.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.memo = reader.string();
+        break;
+      case 3:
+        message.timeoutHeight = reader.uint64();
+        break;
+      case 1023:
+        message.extensionOptions.push(Any.decode(reader, reader.uint32()));
+        break;
+      case 2047:
+        message.nonCriticalExtensionOptions.push(Any.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1274,18 +1274,18 @@ export const AuthInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.signerInfos.push(SignerInfo.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.fee = Fee.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.tip = Tip.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.signerInfos.push(SignerInfo.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.fee = Fee.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.tip = Tip.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1378,18 +1378,18 @@ export const SignerInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.publicKey = Any.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.modeInfo = ModeInfo.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.sequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.publicKey = Any.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.modeInfo = ModeInfo.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.sequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1476,15 +1476,15 @@ export const ModeInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.single = ModeInfo_Single.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.multi = ModeInfo_Multi.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.single = ModeInfo_Single.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.multi = ModeInfo_Multi.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1562,12 +1562,12 @@ export const ModeInfo_Single = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.mode = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.mode = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1644,15 +1644,15 @@ export const ModeInfo_Multi = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.bitarray = CompactBitArray.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.modeInfos.push(ModeInfo.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.bitarray = CompactBitArray.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.modeInfos.push(ModeInfo.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1744,21 +1744,21 @@ export const Fee = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.gasLimit = reader.uint64();
-          break;
-        case 3:
-          message.payer = reader.string();
-          break;
-        case 4:
-          message.granter = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.gasLimit = reader.uint64();
+        break;
+      case 3:
+        message.payer = reader.string();
+        break;
+      case 4:
+        message.granter = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1852,15 +1852,15 @@ export const Tip = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.tipper = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.tipper = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1952,21 +1952,21 @@ export const AuxSignerData = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.signDoc = SignDocDirectAux.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.mode = (reader.int32() as any);
-          break;
-        case 4:
-          message.sig = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.signDoc = SignDocDirectAux.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.mode = (reader.int32() as any);
+        break;
+      case 4:
+        message.sig = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

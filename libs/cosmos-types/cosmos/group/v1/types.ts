@@ -1,8 +1,8 @@
-import { Timestamp } from "../../../google/protobuf/timestamp";
-import { Duration, DurationAmino } from "../../../google/protobuf/duration";
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { toTimestamp, fromTimestamp, DeepPartial, isSet } from "../../../helpers";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
+import { Duration, DurationAmino } from "../../../google/protobuf/duration";
+import { Timestamp } from "../../../google/protobuf/timestamp";
+import { DeepPartial, fromTimestamp, isSet,toTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /** VoteOption enumerates the valid vote options for a given proposal. */
 export enum VoteOption {
@@ -24,42 +24,42 @@ export enum VoteOption {
 export const VoteOptionAmino = VoteOption;
 export function voteOptionFromJSON(object: any): VoteOption {
   switch (object) {
-    case 0:
-    case "VOTE_OPTION_UNSPECIFIED":
-      return VoteOption.VOTE_OPTION_UNSPECIFIED;
-    case 1:
-    case "VOTE_OPTION_YES":
-      return VoteOption.VOTE_OPTION_YES;
-    case 2:
-    case "VOTE_OPTION_ABSTAIN":
-      return VoteOption.VOTE_OPTION_ABSTAIN;
-    case 3:
-    case "VOTE_OPTION_NO":
-      return VoteOption.VOTE_OPTION_NO;
-    case 4:
-    case "VOTE_OPTION_NO_WITH_VETO":
-      return VoteOption.VOTE_OPTION_NO_WITH_VETO;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return VoteOption.UNRECOGNIZED;
+  case 0:
+  case "VOTE_OPTION_UNSPECIFIED":
+    return VoteOption.VOTE_OPTION_UNSPECIFIED;
+  case 1:
+  case "VOTE_OPTION_YES":
+    return VoteOption.VOTE_OPTION_YES;
+  case 2:
+  case "VOTE_OPTION_ABSTAIN":
+    return VoteOption.VOTE_OPTION_ABSTAIN;
+  case 3:
+  case "VOTE_OPTION_NO":
+    return VoteOption.VOTE_OPTION_NO;
+  case 4:
+  case "VOTE_OPTION_NO_WITH_VETO":
+    return VoteOption.VOTE_OPTION_NO_WITH_VETO;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return VoteOption.UNRECOGNIZED;
   }
 }
 export function voteOptionToJSON(object: VoteOption): string {
   switch (object) {
-    case VoteOption.VOTE_OPTION_UNSPECIFIED:
-      return "VOTE_OPTION_UNSPECIFIED";
-    case VoteOption.VOTE_OPTION_YES:
-      return "VOTE_OPTION_YES";
-    case VoteOption.VOTE_OPTION_ABSTAIN:
-      return "VOTE_OPTION_ABSTAIN";
-    case VoteOption.VOTE_OPTION_NO:
-      return "VOTE_OPTION_NO";
-    case VoteOption.VOTE_OPTION_NO_WITH_VETO:
-      return "VOTE_OPTION_NO_WITH_VETO";
-    case VoteOption.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case VoteOption.VOTE_OPTION_UNSPECIFIED:
+    return "VOTE_OPTION_UNSPECIFIED";
+  case VoteOption.VOTE_OPTION_YES:
+    return "VOTE_OPTION_YES";
+  case VoteOption.VOTE_OPTION_ABSTAIN:
+    return "VOTE_OPTION_ABSTAIN";
+  case VoteOption.VOTE_OPTION_NO:
+    return "VOTE_OPTION_NO";
+  case VoteOption.VOTE_OPTION_NO_WITH_VETO:
+    return "VOTE_OPTION_NO_WITH_VETO";
+  case VoteOption.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** ProposalStatus defines proposal statuses. */
@@ -93,47 +93,47 @@ export enum ProposalStatus {
 export const ProposalStatusAmino = ProposalStatus;
 export function proposalStatusFromJSON(object: any): ProposalStatus {
   switch (object) {
-    case 0:
-    case "PROPOSAL_STATUS_UNSPECIFIED":
-      return ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED;
-    case 1:
-    case "PROPOSAL_STATUS_SUBMITTED":
-      return ProposalStatus.PROPOSAL_STATUS_SUBMITTED;
-    case 2:
-    case "PROPOSAL_STATUS_ACCEPTED":
-      return ProposalStatus.PROPOSAL_STATUS_ACCEPTED;
-    case 3:
-    case "PROPOSAL_STATUS_REJECTED":
-      return ProposalStatus.PROPOSAL_STATUS_REJECTED;
-    case 4:
-    case "PROPOSAL_STATUS_ABORTED":
-      return ProposalStatus.PROPOSAL_STATUS_ABORTED;
-    case 5:
-    case "PROPOSAL_STATUS_WITHDRAWN":
-      return ProposalStatus.PROPOSAL_STATUS_WITHDRAWN;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ProposalStatus.UNRECOGNIZED;
+  case 0:
+  case "PROPOSAL_STATUS_UNSPECIFIED":
+    return ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED;
+  case 1:
+  case "PROPOSAL_STATUS_SUBMITTED":
+    return ProposalStatus.PROPOSAL_STATUS_SUBMITTED;
+  case 2:
+  case "PROPOSAL_STATUS_ACCEPTED":
+    return ProposalStatus.PROPOSAL_STATUS_ACCEPTED;
+  case 3:
+  case "PROPOSAL_STATUS_REJECTED":
+    return ProposalStatus.PROPOSAL_STATUS_REJECTED;
+  case 4:
+  case "PROPOSAL_STATUS_ABORTED":
+    return ProposalStatus.PROPOSAL_STATUS_ABORTED;
+  case 5:
+  case "PROPOSAL_STATUS_WITHDRAWN":
+    return ProposalStatus.PROPOSAL_STATUS_WITHDRAWN;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ProposalStatus.UNRECOGNIZED;
   }
 }
 export function proposalStatusToJSON(object: ProposalStatus): string {
   switch (object) {
-    case ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED:
-      return "PROPOSAL_STATUS_UNSPECIFIED";
-    case ProposalStatus.PROPOSAL_STATUS_SUBMITTED:
-      return "PROPOSAL_STATUS_SUBMITTED";
-    case ProposalStatus.PROPOSAL_STATUS_ACCEPTED:
-      return "PROPOSAL_STATUS_ACCEPTED";
-    case ProposalStatus.PROPOSAL_STATUS_REJECTED:
-      return "PROPOSAL_STATUS_REJECTED";
-    case ProposalStatus.PROPOSAL_STATUS_ABORTED:
-      return "PROPOSAL_STATUS_ABORTED";
-    case ProposalStatus.PROPOSAL_STATUS_WITHDRAWN:
-      return "PROPOSAL_STATUS_WITHDRAWN";
-    case ProposalStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED:
+    return "PROPOSAL_STATUS_UNSPECIFIED";
+  case ProposalStatus.PROPOSAL_STATUS_SUBMITTED:
+    return "PROPOSAL_STATUS_SUBMITTED";
+  case ProposalStatus.PROPOSAL_STATUS_ACCEPTED:
+    return "PROPOSAL_STATUS_ACCEPTED";
+  case ProposalStatus.PROPOSAL_STATUS_REJECTED:
+    return "PROPOSAL_STATUS_REJECTED";
+  case ProposalStatus.PROPOSAL_STATUS_ABORTED:
+    return "PROPOSAL_STATUS_ABORTED";
+  case ProposalStatus.PROPOSAL_STATUS_WITHDRAWN:
+    return "PROPOSAL_STATUS_WITHDRAWN";
+  case ProposalStatus.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** ProposalExecutorResult defines types of proposal executor results. */
@@ -151,37 +151,37 @@ export enum ProposalExecutorResult {
 export const ProposalExecutorResultAmino = ProposalExecutorResult;
 export function proposalExecutorResultFromJSON(object: any): ProposalExecutorResult {
   switch (object) {
-    case 0:
-    case "PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED":
-      return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED;
-    case 1:
-    case "PROPOSAL_EXECUTOR_RESULT_NOT_RUN":
-      return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_NOT_RUN;
-    case 2:
-    case "PROPOSAL_EXECUTOR_RESULT_SUCCESS":
-      return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_SUCCESS;
-    case 3:
-    case "PROPOSAL_EXECUTOR_RESULT_FAILURE":
-      return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_FAILURE;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ProposalExecutorResult.UNRECOGNIZED;
+  case 0:
+  case "PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED":
+    return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED;
+  case 1:
+  case "PROPOSAL_EXECUTOR_RESULT_NOT_RUN":
+    return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_NOT_RUN;
+  case 2:
+  case "PROPOSAL_EXECUTOR_RESULT_SUCCESS":
+    return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_SUCCESS;
+  case 3:
+  case "PROPOSAL_EXECUTOR_RESULT_FAILURE":
+    return ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_FAILURE;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ProposalExecutorResult.UNRECOGNIZED;
   }
 }
 export function proposalExecutorResultToJSON(object: ProposalExecutorResult): string {
   switch (object) {
-    case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED:
-      return "PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED";
-    case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_NOT_RUN:
-      return "PROPOSAL_EXECUTOR_RESULT_NOT_RUN";
-    case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_SUCCESS:
-      return "PROPOSAL_EXECUTOR_RESULT_SUCCESS";
-    case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_FAILURE:
-      return "PROPOSAL_EXECUTOR_RESULT_FAILURE";
-    case ProposalExecutorResult.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED:
+    return "PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED";
+  case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_NOT_RUN:
+    return "PROPOSAL_EXECUTOR_RESULT_NOT_RUN";
+  case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_SUCCESS:
+    return "PROPOSAL_EXECUTOR_RESULT_SUCCESS";
+  case ProposalExecutorResult.PROPOSAL_EXECUTOR_RESULT_FAILURE:
+    return "PROPOSAL_EXECUTOR_RESULT_FAILURE";
+  case ProposalExecutorResult.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -776,21 +776,21 @@ export const Member = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.weight = reader.string();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        case 4:
-          message.addedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.weight = reader.string();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      case 4:
+        message.addedAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -886,18 +886,18 @@ export const MemberRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.weight = reader.string();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.weight = reader.string();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -984,15 +984,15 @@ export const ThresholdDecisionPolicy = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.threshold = reader.string();
-          break;
-        case 2:
-          message.windows = DecisionPolicyWindows.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.threshold = reader.string();
+        break;
+      case 2:
+        message.windows = DecisionPolicyWindows.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1074,15 +1074,15 @@ export const PercentageDecisionPolicy = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.percentage = reader.string();
-          break;
-        case 2:
-          message.windows = DecisionPolicyWindows.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.percentage = reader.string();
+        break;
+      case 2:
+        message.windows = DecisionPolicyWindows.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1164,15 +1164,15 @@ export const DecisionPolicyWindows = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.votingPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.minExecutionPeriod = Duration.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.votingPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.minExecutionPeriod = Duration.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1270,27 +1270,27 @@ export const GroupInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.id = reader.uint64();
-          break;
-        case 2:
-          message.admin = reader.string();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        case 4:
-          message.version = reader.uint64();
-          break;
-        case 5:
-          message.totalWeight = reader.string();
-          break;
-        case 6:
-          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.id = reader.uint64();
+        break;
+      case 2:
+        message.admin = reader.string();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      case 4:
+        message.version = reader.uint64();
+        break;
+      case 5:
+        message.totalWeight = reader.string();
+        break;
+      case 6:
+        message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1392,15 +1392,15 @@ export const GroupMember = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.groupId = reader.uint64();
-          break;
-        case 2:
-          message.member = Member.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.groupId = reader.uint64();
+        break;
+      case 2:
+        message.member = Member.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1502,30 +1502,30 @@ export const GroupPolicyInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.groupId = reader.uint64();
-          break;
-        case 3:
-          message.admin = reader.string();
-          break;
-        case 4:
-          message.metadata = reader.string();
-          break;
-        case 5:
-          message.version = reader.uint64();
-          break;
-        case 6:
-          message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        case 7:
-          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.string();
+        break;
+      case 2:
+        message.groupId = reader.uint64();
+        break;
+      case 3:
+        message.admin = reader.string();
+        break;
+      case 4:
+        message.metadata = reader.string();
+        break;
+      case 5:
+        message.version = reader.uint64();
+        break;
+      case 6:
+        message.decisionPolicy = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      case 7:
+        message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1680,51 +1680,51 @@ export const Proposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.id = reader.uint64();
-          break;
-        case 2:
-          message.groupPolicyAddress = reader.string();
-          break;
-        case 3:
-          message.metadata = reader.string();
-          break;
-        case 4:
-          message.proposers.push(reader.string());
-          break;
-        case 5:
-          message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.groupVersion = reader.uint64();
-          break;
-        case 7:
-          message.groupPolicyVersion = reader.uint64();
-          break;
-        case 8:
-          message.status = (reader.int32() as any);
-          break;
-        case 9:
-          message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
-          break;
-        case 10:
-          message.votingPeriodEnd = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 11:
-          message.executorResult = (reader.int32() as any);
-          break;
-        case 12:
-          message.messages.push(Any.decode(reader, reader.uint32()));
-          break;
-        case 13:
-          message.title = reader.string();
-          break;
-        case 14:
-          message.summary = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.id = reader.uint64();
+        break;
+      case 2:
+        message.groupPolicyAddress = reader.string();
+        break;
+      case 3:
+        message.metadata = reader.string();
+        break;
+      case 4:
+        message.proposers.push(reader.string());
+        break;
+      case 5:
+        message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 6:
+        message.groupVersion = reader.uint64();
+        break;
+      case 7:
+        message.groupPolicyVersion = reader.uint64();
+        break;
+      case 8:
+        message.status = (reader.int32() as any);
+        break;
+      case 9:
+        message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
+        break;
+      case 10:
+        message.votingPeriodEnd = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 11:
+        message.executorResult = (reader.int32() as any);
+        break;
+      case 12:
+        message.messages.push(Any.decode(reader, reader.uint32()));
+        break;
+      case 13:
+        message.title = reader.string();
+        break;
+      case 14:
+        message.summary = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1878,21 +1878,21 @@ export const TallyResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.yesCount = reader.string();
-          break;
-        case 2:
-          message.abstainCount = reader.string();
-          break;
-        case 3:
-          message.noCount = reader.string();
-          break;
-        case 4:
-          message.noWithVetoCount = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.yesCount = reader.string();
+        break;
+      case 2:
+        message.abstainCount = reader.string();
+        break;
+      case 3:
+        message.noCount = reader.string();
+        break;
+      case 4:
+        message.noWithVetoCount = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1996,24 +1996,24 @@ export const Vote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.proposalId = reader.uint64();
-          break;
-        case 2:
-          message.voter = reader.string();
-          break;
-        case 3:
-          message.option = (reader.int32() as any);
-          break;
-        case 4:
-          message.metadata = reader.string();
-          break;
-        case 5:
-          message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.proposalId = reader.uint64();
+        break;
+      case 2:
+        message.voter = reader.string();
+        break;
+      case 3:
+        message.option = (reader.int32() as any);
+        break;
+      case 4:
+        message.metadata = reader.string();
+        break;
+      case 5:
+        message.submitTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

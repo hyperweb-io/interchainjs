@@ -1,5 +1,5 @@
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /**
@@ -164,18 +164,18 @@ export const MsgGrantAllowance = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.granter = reader.string();
-          break;
-        case 2:
-          message.grantee = reader.string();
-          break;
-        case 3:
-          message.allowance = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.granter = reader.string();
+        break;
+      case 2:
+        message.grantee = reader.string();
+        break;
+      case 3:
+        message.allowance = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -253,9 +253,9 @@ export const MsgGrantAllowanceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -327,15 +327,15 @@ export const MsgRevokeAllowance = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.granter = reader.string();
-          break;
-        case 2:
-          message.grantee = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.granter = reader.string();
+        break;
+      case 2:
+        message.grantee = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -408,9 +408,9 @@ export const MsgRevokeAllowanceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -478,12 +478,12 @@ export const MsgPruneAllowances = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.pruner = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.pruner = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -551,9 +551,9 @@ export const MsgPruneAllowancesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

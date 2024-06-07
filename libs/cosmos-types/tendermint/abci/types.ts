@@ -1,11 +1,11 @@
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { ConsensusParams, ConsensusParamsAmino } from "../types/params";
-import { ProofOps, ProofOpsAmino } from "../crypto/proof";
-import { PublicKey, PublicKeyAmino } from "../crypto/keys";
-import { BlockIDFlag } from "../types/validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes, isSet } from "../../helpers";
+import { Timestamp } from "../../google/protobuf/timestamp";
+import { base64FromBytes, bytesFromBase64, DeepPartial, fromTimestamp, isSet,toTimestamp } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { PublicKey, PublicKeyAmino } from "../crypto/keys";
+import { ProofOps, ProofOpsAmino } from "../crypto/proof";
+import { ConsensusParams, ConsensusParamsAmino } from "../types/params";
+import { BlockIDFlag } from "../types/validator";
 export enum CheckTxType {
   NEW = 0,
   RECHECK = 1,
@@ -14,27 +14,27 @@ export enum CheckTxType {
 export const CheckTxTypeAmino = CheckTxType;
 export function checkTxTypeFromJSON(object: any): CheckTxType {
   switch (object) {
-    case 0:
-    case "NEW":
-      return CheckTxType.NEW;
-    case 1:
-    case "RECHECK":
-      return CheckTxType.RECHECK;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return CheckTxType.UNRECOGNIZED;
+  case 0:
+  case "NEW":
+    return CheckTxType.NEW;
+  case 1:
+  case "RECHECK":
+    return CheckTxType.RECHECK;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return CheckTxType.UNRECOGNIZED;
   }
 }
 export function checkTxTypeToJSON(object: CheckTxType): string {
   switch (object) {
-    case CheckTxType.NEW:
-      return "NEW";
-    case CheckTxType.RECHECK:
-      return "RECHECK";
-    case CheckTxType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case CheckTxType.NEW:
+    return "NEW";
+  case CheckTxType.RECHECK:
+    return "RECHECK";
+  case CheckTxType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum ResponseOfferSnapshot_Result {
@@ -55,47 +55,47 @@ export enum ResponseOfferSnapshot_Result {
 export const ResponseOfferSnapshot_ResultAmino = ResponseOfferSnapshot_Result;
 export function responseOfferSnapshot_ResultFromJSON(object: any): ResponseOfferSnapshot_Result {
   switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return ResponseOfferSnapshot_Result.UNKNOWN;
-    case 1:
-    case "ACCEPT":
-      return ResponseOfferSnapshot_Result.ACCEPT;
-    case 2:
-    case "ABORT":
-      return ResponseOfferSnapshot_Result.ABORT;
-    case 3:
-    case "REJECT":
-      return ResponseOfferSnapshot_Result.REJECT;
-    case 4:
-    case "REJECT_FORMAT":
-      return ResponseOfferSnapshot_Result.REJECT_FORMAT;
-    case 5:
-    case "REJECT_SENDER":
-      return ResponseOfferSnapshot_Result.REJECT_SENDER;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseOfferSnapshot_Result.UNRECOGNIZED;
+  case 0:
+  case "UNKNOWN":
+    return ResponseOfferSnapshot_Result.UNKNOWN;
+  case 1:
+  case "ACCEPT":
+    return ResponseOfferSnapshot_Result.ACCEPT;
+  case 2:
+  case "ABORT":
+    return ResponseOfferSnapshot_Result.ABORT;
+  case 3:
+  case "REJECT":
+    return ResponseOfferSnapshot_Result.REJECT;
+  case 4:
+  case "REJECT_FORMAT":
+    return ResponseOfferSnapshot_Result.REJECT_FORMAT;
+  case 5:
+  case "REJECT_SENDER":
+    return ResponseOfferSnapshot_Result.REJECT_SENDER;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ResponseOfferSnapshot_Result.UNRECOGNIZED;
   }
 }
 export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot_Result): string {
   switch (object) {
-    case ResponseOfferSnapshot_Result.UNKNOWN:
-      return "UNKNOWN";
-    case ResponseOfferSnapshot_Result.ACCEPT:
-      return "ACCEPT";
-    case ResponseOfferSnapshot_Result.ABORT:
-      return "ABORT";
-    case ResponseOfferSnapshot_Result.REJECT:
-      return "REJECT";
-    case ResponseOfferSnapshot_Result.REJECT_FORMAT:
-      return "REJECT_FORMAT";
-    case ResponseOfferSnapshot_Result.REJECT_SENDER:
-      return "REJECT_SENDER";
-    case ResponseOfferSnapshot_Result.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ResponseOfferSnapshot_Result.UNKNOWN:
+    return "UNKNOWN";
+  case ResponseOfferSnapshot_Result.ACCEPT:
+    return "ACCEPT";
+  case ResponseOfferSnapshot_Result.ABORT:
+    return "ABORT";
+  case ResponseOfferSnapshot_Result.REJECT:
+    return "REJECT";
+  case ResponseOfferSnapshot_Result.REJECT_FORMAT:
+    return "REJECT_FORMAT";
+  case ResponseOfferSnapshot_Result.REJECT_SENDER:
+    return "REJECT_SENDER";
+  case ResponseOfferSnapshot_Result.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum ResponseApplySnapshotChunk_Result {
@@ -116,47 +116,47 @@ export enum ResponseApplySnapshotChunk_Result {
 export const ResponseApplySnapshotChunk_ResultAmino = ResponseApplySnapshotChunk_Result;
 export function responseApplySnapshotChunk_ResultFromJSON(object: any): ResponseApplySnapshotChunk_Result {
   switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return ResponseApplySnapshotChunk_Result.UNKNOWN;
-    case 1:
-    case "ACCEPT":
-      return ResponseApplySnapshotChunk_Result.ACCEPT;
-    case 2:
-    case "ABORT":
-      return ResponseApplySnapshotChunk_Result.ABORT;
-    case 3:
-    case "RETRY":
-      return ResponseApplySnapshotChunk_Result.RETRY;
-    case 4:
-    case "RETRY_SNAPSHOT":
-      return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
-    case 5:
-    case "REJECT_SNAPSHOT":
-      return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
+  case 0:
+  case "UNKNOWN":
+    return ResponseApplySnapshotChunk_Result.UNKNOWN;
+  case 1:
+  case "ACCEPT":
+    return ResponseApplySnapshotChunk_Result.ACCEPT;
+  case 2:
+  case "ABORT":
+    return ResponseApplySnapshotChunk_Result.ABORT;
+  case 3:
+  case "RETRY":
+    return ResponseApplySnapshotChunk_Result.RETRY;
+  case 4:
+  case "RETRY_SNAPSHOT":
+    return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
+  case 5:
+  case "REJECT_SNAPSHOT":
+    return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
   }
 }
 export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySnapshotChunk_Result): string {
   switch (object) {
-    case ResponseApplySnapshotChunk_Result.UNKNOWN:
-      return "UNKNOWN";
-    case ResponseApplySnapshotChunk_Result.ACCEPT:
-      return "ACCEPT";
-    case ResponseApplySnapshotChunk_Result.ABORT:
-      return "ABORT";
-    case ResponseApplySnapshotChunk_Result.RETRY:
-      return "RETRY";
-    case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
-      return "RETRY_SNAPSHOT";
-    case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
-      return "REJECT_SNAPSHOT";
-    case ResponseApplySnapshotChunk_Result.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ResponseApplySnapshotChunk_Result.UNKNOWN:
+    return "UNKNOWN";
+  case ResponseApplySnapshotChunk_Result.ACCEPT:
+    return "ACCEPT";
+  case ResponseApplySnapshotChunk_Result.ABORT:
+    return "ABORT";
+  case ResponseApplySnapshotChunk_Result.RETRY:
+    return "RETRY";
+  case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
+    return "RETRY_SNAPSHOT";
+  case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
+    return "REJECT_SNAPSHOT";
+  case ResponseApplySnapshotChunk_Result.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum ResponseProcessProposal_ProposalStatus {
@@ -168,32 +168,32 @@ export enum ResponseProcessProposal_ProposalStatus {
 export const ResponseProcessProposal_ProposalStatusAmino = ResponseProcessProposal_ProposalStatus;
 export function responseProcessProposal_ProposalStatusFromJSON(object: any): ResponseProcessProposal_ProposalStatus {
   switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return ResponseProcessProposal_ProposalStatus.UNKNOWN;
-    case 1:
-    case "ACCEPT":
-      return ResponseProcessProposal_ProposalStatus.ACCEPT;
-    case 2:
-    case "REJECT":
-      return ResponseProcessProposal_ProposalStatus.REJECT;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseProcessProposal_ProposalStatus.UNRECOGNIZED;
+  case 0:
+  case "UNKNOWN":
+    return ResponseProcessProposal_ProposalStatus.UNKNOWN;
+  case 1:
+  case "ACCEPT":
+    return ResponseProcessProposal_ProposalStatus.ACCEPT;
+  case 2:
+  case "REJECT":
+    return ResponseProcessProposal_ProposalStatus.REJECT;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ResponseProcessProposal_ProposalStatus.UNRECOGNIZED;
   }
 }
 export function responseProcessProposal_ProposalStatusToJSON(object: ResponseProcessProposal_ProposalStatus): string {
   switch (object) {
-    case ResponseProcessProposal_ProposalStatus.UNKNOWN:
-      return "UNKNOWN";
-    case ResponseProcessProposal_ProposalStatus.ACCEPT:
-      return "ACCEPT";
-    case ResponseProcessProposal_ProposalStatus.REJECT:
-      return "REJECT";
-    case ResponseProcessProposal_ProposalStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ResponseProcessProposal_ProposalStatus.UNKNOWN:
+    return "UNKNOWN";
+  case ResponseProcessProposal_ProposalStatus.ACCEPT:
+    return "ACCEPT";
+  case ResponseProcessProposal_ProposalStatus.REJECT:
+    return "REJECT";
+  case ResponseProcessProposal_ProposalStatus.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum ResponseVerifyVoteExtension_VerifyStatus {
@@ -211,32 +211,32 @@ export enum ResponseVerifyVoteExtension_VerifyStatus {
 export const ResponseVerifyVoteExtension_VerifyStatusAmino = ResponseVerifyVoteExtension_VerifyStatus;
 export function responseVerifyVoteExtension_VerifyStatusFromJSON(object: any): ResponseVerifyVoteExtension_VerifyStatus {
   switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN;
-    case 1:
-    case "ACCEPT":
-      return ResponseVerifyVoteExtension_VerifyStatus.ACCEPT;
-    case 2:
-    case "REJECT":
-      return ResponseVerifyVoteExtension_VerifyStatus.REJECT;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED;
+  case 0:
+  case "UNKNOWN":
+    return ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN;
+  case 1:
+  case "ACCEPT":
+    return ResponseVerifyVoteExtension_VerifyStatus.ACCEPT;
+  case 2:
+  case "REJECT":
+    return ResponseVerifyVoteExtension_VerifyStatus.REJECT;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED;
   }
 }
 export function responseVerifyVoteExtension_VerifyStatusToJSON(object: ResponseVerifyVoteExtension_VerifyStatus): string {
   switch (object) {
-    case ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN:
-      return "UNKNOWN";
-    case ResponseVerifyVoteExtension_VerifyStatus.ACCEPT:
-      return "ACCEPT";
-    case ResponseVerifyVoteExtension_VerifyStatus.REJECT:
-      return "REJECT";
-    case ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN:
+    return "UNKNOWN";
+  case ResponseVerifyVoteExtension_VerifyStatus.ACCEPT:
+    return "ACCEPT";
+  case ResponseVerifyVoteExtension_VerifyStatus.REJECT:
+    return "REJECT";
+  case ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export enum MisbehaviorType {
@@ -248,32 +248,32 @@ export enum MisbehaviorType {
 export const MisbehaviorTypeAmino = MisbehaviorType;
 export function misbehaviorTypeFromJSON(object: any): MisbehaviorType {
   switch (object) {
-    case 0:
-    case "UNKNOWN":
-      return MisbehaviorType.UNKNOWN;
-    case 1:
-    case "DUPLICATE_VOTE":
-      return MisbehaviorType.DUPLICATE_VOTE;
-    case 2:
-    case "LIGHT_CLIENT_ATTACK":
-      return MisbehaviorType.LIGHT_CLIENT_ATTACK;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return MisbehaviorType.UNRECOGNIZED;
+  case 0:
+  case "UNKNOWN":
+    return MisbehaviorType.UNKNOWN;
+  case 1:
+  case "DUPLICATE_VOTE":
+    return MisbehaviorType.DUPLICATE_VOTE;
+  case 2:
+  case "LIGHT_CLIENT_ATTACK":
+    return MisbehaviorType.LIGHT_CLIENT_ATTACK;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return MisbehaviorType.UNRECOGNIZED;
   }
 }
 export function misbehaviorTypeToJSON(object: MisbehaviorType): string {
   switch (object) {
-    case MisbehaviorType.UNKNOWN:
-      return "UNKNOWN";
-    case MisbehaviorType.DUPLICATE_VOTE:
-      return "DUPLICATE_VOTE";
-    case MisbehaviorType.LIGHT_CLIENT_ATTACK:
-      return "LIGHT_CLIENT_ATTACK";
-    case MisbehaviorType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case MisbehaviorType.UNKNOWN:
+    return "UNKNOWN";
+  case MisbehaviorType.DUPLICATE_VOTE:
+    return "DUPLICATE_VOTE";
+  case MisbehaviorType.LIGHT_CLIENT_ATTACK:
+    return "LIGHT_CLIENT_ATTACK";
+  case MisbehaviorType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export interface Request {
@@ -1462,57 +1462,57 @@ export const Request = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.echo = RequestEcho.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.flush = RequestFlush.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.info = RequestInfo.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.initChain = RequestInitChain.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.query = RequestQuery.decode(reader, reader.uint32());
-          break;
-        case 8:
-          message.checkTx = RequestCheckTx.decode(reader, reader.uint32());
-          break;
-        case 11:
-          message.commit = RequestCommit.decode(reader, reader.uint32());
-          break;
-        case 12:
-          message.listSnapshots = RequestListSnapshots.decode(reader, reader.uint32());
-          break;
-        case 13:
-          message.offerSnapshot = RequestOfferSnapshot.decode(reader, reader.uint32());
-          break;
-        case 14:
-          message.loadSnapshotChunk = RequestLoadSnapshotChunk.decode(reader, reader.uint32());
-          break;
-        case 15:
-          message.applySnapshotChunk = RequestApplySnapshotChunk.decode(reader, reader.uint32());
-          break;
-        case 16:
-          message.prepareProposal = RequestPrepareProposal.decode(reader, reader.uint32());
-          break;
-        case 17:
-          message.processProposal = RequestProcessProposal.decode(reader, reader.uint32());
-          break;
-        case 18:
-          message.extendVote = RequestExtendVote.decode(reader, reader.uint32());
-          break;
-        case 19:
-          message.verifyVoteExtension = RequestVerifyVoteExtension.decode(reader, reader.uint32());
-          break;
-        case 20:
-          message.finalizeBlock = RequestFinalizeBlock.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.echo = RequestEcho.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.flush = RequestFlush.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.info = RequestInfo.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.initChain = RequestInitChain.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.query = RequestQuery.decode(reader, reader.uint32());
+        break;
+      case 8:
+        message.checkTx = RequestCheckTx.decode(reader, reader.uint32());
+        break;
+      case 11:
+        message.commit = RequestCommit.decode(reader, reader.uint32());
+        break;
+      case 12:
+        message.listSnapshots = RequestListSnapshots.decode(reader, reader.uint32());
+        break;
+      case 13:
+        message.offerSnapshot = RequestOfferSnapshot.decode(reader, reader.uint32());
+        break;
+      case 14:
+        message.loadSnapshotChunk = RequestLoadSnapshotChunk.decode(reader, reader.uint32());
+        break;
+      case 15:
+        message.applySnapshotChunk = RequestApplySnapshotChunk.decode(reader, reader.uint32());
+        break;
+      case 16:
+        message.prepareProposal = RequestPrepareProposal.decode(reader, reader.uint32());
+        break;
+      case 17:
+        message.processProposal = RequestProcessProposal.decode(reader, reader.uint32());
+        break;
+      case 18:
+        message.extendVote = RequestExtendVote.decode(reader, reader.uint32());
+        break;
+      case 19:
+        message.verifyVoteExtension = RequestVerifyVoteExtension.decode(reader, reader.uint32());
+        break;
+      case 20:
+        message.finalizeBlock = RequestFinalizeBlock.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1652,12 +1652,12 @@ export const RequestEcho = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.message = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.message = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1717,9 +1717,9 @@ export const RequestFlush = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1791,21 +1791,21 @@ export const RequestInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.version = reader.string();
-          break;
-        case 2:
-          message.blockVersion = reader.uint64();
-          break;
-        case 3:
-          message.p2pVersion = reader.uint64();
-          break;
-        case 4:
-          message.abciVersion = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.version = reader.string();
+        break;
+      case 2:
+        message.blockVersion = reader.uint64();
+        break;
+      case 3:
+        message.p2pVersion = reader.uint64();
+        break;
+      case 4:
+        message.abciVersion = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1905,27 +1905,27 @@ export const RequestInitChain = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.chainId = reader.string();
-          break;
-        case 3:
-          message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.appStateBytes = reader.bytes();
-          break;
-        case 6:
-          message.initialHeight = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.chainId = reader.string();
+        break;
+      case 3:
+        message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.appStateBytes = reader.bytes();
+        break;
+      case 6:
+        message.initialHeight = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2029,21 +2029,21 @@ export const RequestQuery = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data = reader.bytes();
-          break;
-        case 2:
-          message.path = reader.string();
-          break;
-        case 3:
-          message.height = reader.int64();
-          break;
-        case 4:
-          message.prove = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data = reader.bytes();
+        break;
+      case 2:
+        message.path = reader.string();
+        break;
+      case 3:
+        message.height = reader.int64();
+        break;
+      case 4:
+        message.prove = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2127,15 +2127,15 @@ export const RequestCheckTx = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.tx = reader.bytes();
-          break;
-        case 2:
-          message.type = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.tx = reader.bytes();
+        break;
+      case 2:
+        message.type = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2200,9 +2200,9 @@ export const RequestCommit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2257,9 +2257,9 @@ export const RequestListSnapshots = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2323,15 +2323,15 @@ export const RequestOfferSnapshot = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.snapshot = Snapshot.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.appHash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.snapshot = Snapshot.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.appHash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2409,18 +2409,18 @@ export const RequestLoadSnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = reader.uint64();
-          break;
-        case 2:
-          message.format = reader.uint32();
-          break;
-        case 3:
-          message.chunk = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = reader.uint64();
+        break;
+      case 2:
+        message.format = reader.uint32();
+        break;
+      case 3:
+        message.chunk = reader.uint32();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2503,18 +2503,18 @@ export const RequestApplySnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.index = reader.uint32();
-          break;
-        case 2:
-          message.chunk = reader.bytes();
-          break;
-        case 3:
-          message.sender = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.index = reader.uint32();
+        break;
+      case 2:
+        message.chunk = reader.bytes();
+        break;
+      case 3:
+        message.sender = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2617,33 +2617,33 @@ export const RequestPrepareProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.maxTxBytes = reader.int64();
-          break;
-        case 2:
-          message.txs.push(reader.bytes());
-          break;
-        case 3:
-          message.localLastCommit = ExtendedCommitInfo.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.height = reader.int64();
-          break;
-        case 6:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.nextValidatorsHash = reader.bytes();
-          break;
-        case 8:
-          message.proposerAddress = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.maxTxBytes = reader.int64();
+        break;
+      case 2:
+        message.txs.push(reader.bytes());
+        break;
+      case 3:
+        message.localLastCommit = ExtendedCommitInfo.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.height = reader.int64();
+        break;
+      case 6:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.nextValidatorsHash = reader.bytes();
+        break;
+      case 8:
+        message.proposerAddress = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2775,33 +2775,33 @@ export const RequestProcessProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.txs.push(reader.bytes());
-          break;
-        case 2:
-          message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.hash = reader.bytes();
-          break;
-        case 5:
-          message.height = reader.int64();
-          break;
-        case 6:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.nextValidatorsHash = reader.bytes();
-          break;
-        case 8:
-          message.proposerAddress = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.txs.push(reader.bytes());
+        break;
+      case 2:
+        message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.hash = reader.bytes();
+        break;
+      case 5:
+        message.height = reader.int64();
+        break;
+      case 6:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.nextValidatorsHash = reader.bytes();
+        break;
+      case 8:
+        message.proposerAddress = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -2933,33 +2933,33 @@ export const RequestExtendVote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.hash = reader.bytes();
-          break;
-        case 2:
-          message.height = reader.int64();
-          break;
-        case 3:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.txs.push(reader.bytes());
-          break;
-        case 5:
-          message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.nextValidatorsHash = reader.bytes();
-          break;
-        case 8:
-          message.proposerAddress = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.hash = reader.bytes();
+        break;
+      case 2:
+        message.height = reader.int64();
+        break;
+      case 3:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.txs.push(reader.bytes());
+        break;
+      case 5:
+        message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.nextValidatorsHash = reader.bytes();
+        break;
+      case 8:
+        message.proposerAddress = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3075,21 +3075,21 @@ export const RequestVerifyVoteExtension = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.hash = reader.bytes();
-          break;
-        case 2:
-          message.validatorAddress = reader.bytes();
-          break;
-        case 3:
-          message.height = reader.int64();
-          break;
-        case 4:
-          message.voteExtension = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.hash = reader.bytes();
+        break;
+      case 2:
+        message.validatorAddress = reader.bytes();
+        break;
+      case 3:
+        message.height = reader.int64();
+        break;
+      case 4:
+        message.voteExtension = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3197,33 +3197,33 @@ export const RequestFinalizeBlock = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.txs.push(reader.bytes());
-          break;
-        case 2:
-          message.decidedLastCommit = CommitInfo.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.hash = reader.bytes();
-          break;
-        case 5:
-          message.height = reader.int64();
-          break;
-        case 6:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.nextValidatorsHash = reader.bytes();
-          break;
-        case 8:
-          message.proposerAddress = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.txs.push(reader.bytes());
+        break;
+      case 2:
+        message.decidedLastCommit = CommitInfo.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.hash = reader.bytes();
+        break;
+      case 5:
+        message.height = reader.int64();
+        break;
+      case 6:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 7:
+        message.nextValidatorsHash = reader.bytes();
+        break;
+      case 8:
+        message.proposerAddress = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3391,60 +3391,60 @@ export const Response = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.exception = ResponseException.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.echo = ResponseEcho.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.flush = ResponseFlush.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.info = ResponseInfo.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.initChain = ResponseInitChain.decode(reader, reader.uint32());
-          break;
-        case 7:
-          message.query = ResponseQuery.decode(reader, reader.uint32());
-          break;
-        case 9:
-          message.checkTx = ResponseCheckTx.decode(reader, reader.uint32());
-          break;
-        case 12:
-          message.commit = ResponseCommit.decode(reader, reader.uint32());
-          break;
-        case 13:
-          message.listSnapshots = ResponseListSnapshots.decode(reader, reader.uint32());
-          break;
-        case 14:
-          message.offerSnapshot = ResponseOfferSnapshot.decode(reader, reader.uint32());
-          break;
-        case 15:
-          message.loadSnapshotChunk = ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
-          break;
-        case 16:
-          message.applySnapshotChunk = ResponseApplySnapshotChunk.decode(reader, reader.uint32());
-          break;
-        case 17:
-          message.prepareProposal = ResponsePrepareProposal.decode(reader, reader.uint32());
-          break;
-        case 18:
-          message.processProposal = ResponseProcessProposal.decode(reader, reader.uint32());
-          break;
-        case 19:
-          message.extendVote = ResponseExtendVote.decode(reader, reader.uint32());
-          break;
-        case 20:
-          message.verifyVoteExtension = ResponseVerifyVoteExtension.decode(reader, reader.uint32());
-          break;
-        case 21:
-          message.finalizeBlock = ResponseFinalizeBlock.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.exception = ResponseException.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.echo = ResponseEcho.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.flush = ResponseFlush.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.info = ResponseInfo.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.initChain = ResponseInitChain.decode(reader, reader.uint32());
+        break;
+      case 7:
+        message.query = ResponseQuery.decode(reader, reader.uint32());
+        break;
+      case 9:
+        message.checkTx = ResponseCheckTx.decode(reader, reader.uint32());
+        break;
+      case 12:
+        message.commit = ResponseCommit.decode(reader, reader.uint32());
+        break;
+      case 13:
+        message.listSnapshots = ResponseListSnapshots.decode(reader, reader.uint32());
+        break;
+      case 14:
+        message.offerSnapshot = ResponseOfferSnapshot.decode(reader, reader.uint32());
+        break;
+      case 15:
+        message.loadSnapshotChunk = ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
+        break;
+      case 16:
+        message.applySnapshotChunk = ResponseApplySnapshotChunk.decode(reader, reader.uint32());
+        break;
+      case 17:
+        message.prepareProposal = ResponsePrepareProposal.decode(reader, reader.uint32());
+        break;
+      case 18:
+        message.processProposal = ResponseProcessProposal.decode(reader, reader.uint32());
+        break;
+      case 19:
+        message.extendVote = ResponseExtendVote.decode(reader, reader.uint32());
+        break;
+      case 20:
+        message.verifyVoteExtension = ResponseVerifyVoteExtension.decode(reader, reader.uint32());
+        break;
+      case 21:
+        message.finalizeBlock = ResponseFinalizeBlock.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3589,12 +3589,12 @@ export const ResponseException = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.error = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.error = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3659,12 +3659,12 @@ export const ResponseEcho = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.message = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.message = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3724,9 +3724,9 @@ export const ResponseFlush = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3802,24 +3802,24 @@ export const ResponseInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.data = reader.string();
-          break;
-        case 2:
-          message.version = reader.string();
-          break;
-        case 3:
-          message.appVersion = reader.uint64();
-          break;
-        case 4:
-          message.lastBlockHeight = reader.int64();
-          break;
-        case 5:
-          message.lastBlockAppHash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.data = reader.string();
+        break;
+      case 2:
+        message.version = reader.string();
+        break;
+      case 3:
+        message.appVersion = reader.uint64();
+        break;
+      case 4:
+        message.lastBlockHeight = reader.int64();
+        break;
+      case 5:
+        message.lastBlockAppHash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -3912,18 +3912,18 @@ export const ResponseInitChain = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.appHash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.appHash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4032,36 +4032,36 @@ export const ResponseQuery = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.code = reader.uint32();
-          break;
-        case 3:
-          message.log = reader.string();
-          break;
-        case 4:
-          message.info = reader.string();
-          break;
-        case 5:
-          message.index = reader.int64();
-          break;
-        case 6:
-          message.key = reader.bytes();
-          break;
-        case 7:
-          message.value = reader.bytes();
-          break;
-        case 8:
-          message.proofOps = ProofOps.decode(reader, reader.uint32());
-          break;
-        case 9:
-          message.height = reader.int64();
-          break;
-        case 10:
-          message.codespace = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.code = reader.uint32();
+        break;
+      case 3:
+        message.log = reader.string();
+        break;
+      case 4:
+        message.info = reader.string();
+        break;
+      case 5:
+        message.index = reader.int64();
+        break;
+      case 6:
+        message.key = reader.bytes();
+        break;
+      case 7:
+        message.value = reader.bytes();
+        break;
+      case 8:
+        message.proofOps = ProofOps.decode(reader, reader.uint32());
+        break;
+      case 9:
+        message.height = reader.int64();
+        break;
+      case 10:
+        message.codespace = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4194,33 +4194,33 @@ export const ResponseCheckTx = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.code = reader.uint32();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        case 3:
-          message.log = reader.string();
-          break;
-        case 4:
-          message.info = reader.string();
-          break;
-        case 5:
-          message.gasWanted = reader.int64();
-          break;
-        case 6:
-          message.gasUsed = reader.int64();
-          break;
-        case 7:
-          message.events.push(Event.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.codespace = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.code = reader.uint32();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      case 3:
+        message.log = reader.string();
+        break;
+      case 4:
+        message.info = reader.string();
+        break;
+      case 5:
+        message.gasWanted = reader.int64();
+        break;
+      case 6:
+        message.gasUsed = reader.int64();
+        break;
+      case 7:
+        message.events.push(Event.decode(reader, reader.uint32()));
+        break;
+      case 8:
+        message.codespace = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4322,12 +4322,12 @@ export const ResponseCommit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 3:
-          message.retainHeight = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 3:
+        message.retainHeight = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4392,12 +4392,12 @@ export const ResponseListSnapshots = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.snapshots.push(Snapshot.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.snapshots.push(Snapshot.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4464,12 +4464,12 @@ export const ResponseOfferSnapshot = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4534,12 +4534,12 @@ export const ResponseLoadSnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.chunk = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.chunk = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4614,25 +4614,25 @@ export const ResponseApplySnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.result = (reader.int32() as any);
-          break;
-        case 2:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.refetchChunks.push(reader.uint32());
-            }
-          } else {
+      case 1:
+        message.result = (reader.int32() as any);
+        break;
+      case 2:
+        if ((tag & 7) === 2) {
+          const end2 = reader.uint32() + reader.pos;
+          while (reader.pos < end2) {
             message.refetchChunks.push(reader.uint32());
           }
-          break;
-        case 3:
-          message.rejectSenders.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+        } else {
+          message.refetchChunks.push(reader.uint32());
+        }
+        break;
+      case 3:
+        message.rejectSenders.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4711,12 +4711,12 @@ export const ResponsePrepareProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.txs.push(reader.bytes());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.txs.push(reader.bytes());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4783,12 +4783,12 @@ export const ResponseProcessProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.status = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.status = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4853,12 +4853,12 @@ export const ResponseExtendVote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.voteExtension = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.voteExtension = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -4923,12 +4923,12 @@ export const ResponseVerifyVoteExtension = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.status = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.status = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5009,24 +5009,24 @@ export const ResponseFinalizeBlock = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.events.push(Event.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.txResults.push(ExecTxResult.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.validatorUpdates.push(ValidatorUpdate.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.consensusParamUpdates = ConsensusParams.decode(reader, reader.uint32());
-          break;
-        case 5:
-          message.appHash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.events.push(Event.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.txResults.push(ExecTxResult.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.validatorUpdates.push(ValidatorUpdate.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.consensusParamUpdates = ConsensusParams.decode(reader, reader.uint32());
+        break;
+      case 5:
+        message.appHash = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5121,15 +5121,15 @@ export const CommitInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.round = reader.int32();
-          break;
-        case 2:
-          message.votes.push(VoteInfo.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.round = reader.int32();
+        break;
+      case 2:
+        message.votes.push(VoteInfo.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5205,15 +5205,15 @@ export const ExtendedCommitInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.round = reader.int32();
-          break;
-        case 2:
-          message.votes.push(ExtendedVoteInfo.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.round = reader.int32();
+        break;
+      case 2:
+        message.votes.push(ExtendedVoteInfo.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5289,15 +5289,15 @@ export const Event = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.type = reader.string();
-          break;
-        case 2:
-          message.attributes.push(EventAttribute.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.type = reader.string();
+        break;
+      case 2:
+        message.attributes.push(EventAttribute.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5377,18 +5377,18 @@ export const EventAttribute = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.string();
-          break;
-        case 2:
-          message.value = reader.string();
-          break;
-        case 3:
-          message.index = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.string();
+        break;
+      case 2:
+        message.value = reader.string();
+        break;
+      case 3:
+        message.index = reader.bool();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5491,33 +5491,33 @@ export const ExecTxResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.code = reader.uint32();
-          break;
-        case 2:
-          message.data = reader.bytes();
-          break;
-        case 3:
-          message.log = reader.string();
-          break;
-        case 4:
-          message.info = reader.string();
-          break;
-        case 5:
-          message.gasWanted = reader.int64();
-          break;
-        case 6:
-          message.gasUsed = reader.int64();
-          break;
-        case 7:
-          message.events.push(Event.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.codespace = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.code = reader.uint32();
+        break;
+      case 2:
+        message.data = reader.bytes();
+        break;
+      case 3:
+        message.log = reader.string();
+        break;
+      case 4:
+        message.info = reader.string();
+        break;
+      case 5:
+        message.gasWanted = reader.int64();
+        break;
+      case 6:
+        message.gasUsed = reader.int64();
+        break;
+      case 7:
+        message.events.push(Event.decode(reader, reader.uint32()));
+        break;
+      case 8:
+        message.codespace = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5631,21 +5631,21 @@ export const TxResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = reader.int64();
-          break;
-        case 2:
-          message.index = reader.uint32();
-          break;
-        case 3:
-          message.tx = reader.bytes();
-          break;
-        case 4:
-          message.result = ExecTxResult.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = reader.int64();
+        break;
+      case 2:
+        message.index = reader.uint32();
+        break;
+      case 3:
+        message.tx = reader.bytes();
+        break;
+      case 4:
+        message.result = ExecTxResult.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5729,15 +5729,15 @@ export const Validator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.bytes();
-          break;
-        case 3:
-          message.power = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.bytes();
+        break;
+      case 3:
+        message.power = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5811,15 +5811,15 @@ export const ValidatorUpdate = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.pubKey = PublicKey.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.power = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.pubKey = PublicKey.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.power = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5893,15 +5893,15 @@ export const VoteInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validator = Validator.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.blockIdFlag = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validator = Validator.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.blockIdFlag = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -5983,21 +5983,21 @@ export const ExtendedVoteInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validator = Validator.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.voteExtension = reader.bytes();
-          break;
-        case 4:
-          message.extensionSignature = reader.bytes();
-          break;
-        case 5:
-          message.blockIdFlag = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validator = Validator.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.voteExtension = reader.bytes();
+        break;
+      case 4:
+        message.extensionSignature = reader.bytes();
+        break;
+      case 5:
+        message.blockIdFlag = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6093,24 +6093,24 @@ export const Misbehavior = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.type = (reader.int32() as any);
-          break;
-        case 2:
-          message.validator = Validator.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.height = reader.int64();
-          break;
-        case 4:
-          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.totalVotingPower = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.type = (reader.int32() as any);
+        break;
+      case 2:
+        message.validator = Validator.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.height = reader.int64();
+        break;
+      case 4:
+        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.totalVotingPower = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -6211,24 +6211,24 @@ export const Snapshot = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = reader.uint64();
-          break;
-        case 2:
-          message.format = reader.uint32();
-          break;
-        case 3:
-          message.chunks = reader.uint32();
-          break;
-        case 4:
-          message.hash = reader.bytes();
-          break;
-        case 5:
-          message.metadata = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = reader.uint64();
+        break;
+      case 2:
+        message.format = reader.uint32();
+        break;
+      case 3:
+        message.chunks = reader.uint32();
+        break;
+      case 4:
+        message.hash = reader.bytes();
+        break;
+      case 5:
+        message.metadata = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

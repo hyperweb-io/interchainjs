@@ -147,33 +147,33 @@ export class RpcClient implements QueryClient {
           : "broadcast_tx_async";
     const resp = await broadcast(this.endpoint, mode, txBytes);
     switch (mode) {
-      case "broadcast_tx_async":
-        const { hash: hash1, ...rest1 } = resp as CometBroadcastResponse.Async;
-        return {
-          hash: hash1,
-          add_tx: rest1,
-        };
-      case "broadcast_tx_sync":
-        const { hash: hash2, ...rest2 } = resp as CometBroadcastResponse.Sync;
-        return {
-          hash: hash2,
-          check_tx: rest2,
-        };
-      case "broadcast_tx_commit":
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const {
-          check_tx,
-          deliver_tx,
-          height,
-          hash: hash3,
-        } = resp as CometBroadcastResponse.Commit;
-        return {
-          hash: hash3,
-          check_tx,
-          deliver_tx: { height, ...deliver_tx },
-        };
-      default:
-        throw new Error(`Wrong method: ${mode}`);
+    case "broadcast_tx_async":
+      const { hash: hash1, ...rest1 } = resp as CometBroadcastResponse.Async;
+      return {
+        hash: hash1,
+        add_tx: rest1,
+      };
+    case "broadcast_tx_sync":
+      const { hash: hash2, ...rest2 } = resp as CometBroadcastResponse.Sync;
+      return {
+        hash: hash2,
+        check_tx: rest2,
+      };
+    case "broadcast_tx_commit":
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const {
+        check_tx,
+        deliver_tx,
+        height,
+        hash: hash3,
+      } = resp as CometBroadcastResponse.Commit;
+      return {
+        hash: hash3,
+        check_tx,
+        deliver_tx: { height, ...deliver_tx },
+      };
+    default:
+      throw new Error(`Wrong method: ${mode}`);
     }
   }
 }

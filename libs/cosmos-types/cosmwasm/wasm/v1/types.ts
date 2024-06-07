@@ -1,8 +1,9 @@
-import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
-import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { fromUtf8,toUtf8 } from "@cosmjs/encoding";
+
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Any, AnyAmino,AnyProtoMsg } from "../../../google/protobuf/any";
+import { base64FromBytes,bytesFromBase64, DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
 /** AccessType permission types */
 export enum AccessType {
   /** ACCESS_TYPE_UNSPECIFIED - AccessTypeUnspecified placeholder for empty value */
@@ -18,37 +19,37 @@ export enum AccessType {
 export const AccessTypeAmino = AccessType;
 export function accessTypeFromJSON(object: any): AccessType {
   switch (object) {
-    case 0:
-    case "ACCESS_TYPE_UNSPECIFIED":
-      return AccessType.ACCESS_TYPE_UNSPECIFIED;
-    case 1:
-    case "ACCESS_TYPE_NOBODY":
-      return AccessType.ACCESS_TYPE_NOBODY;
-    case 3:
-    case "ACCESS_TYPE_EVERYBODY":
-      return AccessType.ACCESS_TYPE_EVERYBODY;
-    case 4:
-    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
-      return AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return AccessType.UNRECOGNIZED;
+  case 0:
+  case "ACCESS_TYPE_UNSPECIFIED":
+    return AccessType.ACCESS_TYPE_UNSPECIFIED;
+  case 1:
+  case "ACCESS_TYPE_NOBODY":
+    return AccessType.ACCESS_TYPE_NOBODY;
+  case 3:
+  case "ACCESS_TYPE_EVERYBODY":
+    return AccessType.ACCESS_TYPE_EVERYBODY;
+  case 4:
+  case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+    return AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return AccessType.UNRECOGNIZED;
   }
 }
 export function accessTypeToJSON(object: AccessType): string {
   switch (object) {
-    case AccessType.ACCESS_TYPE_UNSPECIFIED:
-      return "ACCESS_TYPE_UNSPECIFIED";
-    case AccessType.ACCESS_TYPE_NOBODY:
-      return "ACCESS_TYPE_NOBODY";
-    case AccessType.ACCESS_TYPE_EVERYBODY:
-      return "ACCESS_TYPE_EVERYBODY";
-    case AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES:
-      return "ACCESS_TYPE_ANY_OF_ADDRESSES";
-    case AccessType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case AccessType.ACCESS_TYPE_UNSPECIFIED:
+    return "ACCESS_TYPE_UNSPECIFIED";
+  case AccessType.ACCESS_TYPE_NOBODY:
+    return "ACCESS_TYPE_NOBODY";
+  case AccessType.ACCESS_TYPE_EVERYBODY:
+    return "ACCESS_TYPE_EVERYBODY";
+  case AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES:
+    return "ACCESS_TYPE_ANY_OF_ADDRESSES";
+  case AccessType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** ContractCodeHistoryOperationType actions that caused a code change */
@@ -66,37 +67,37 @@ export enum ContractCodeHistoryOperationType {
 export const ContractCodeHistoryOperationTypeAmino = ContractCodeHistoryOperationType;
 export function contractCodeHistoryOperationTypeFromJSON(object: any): ContractCodeHistoryOperationType {
   switch (object) {
-    case 0:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED":
-      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED;
-    case 1:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT":
-      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT;
-    case 2:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE":
-      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE;
-    case 3:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS":
-      return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ContractCodeHistoryOperationType.UNRECOGNIZED;
+  case 0:
+  case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED":
+    return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED;
+  case 1:
+  case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT":
+    return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT;
+  case 2:
+  case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE":
+    return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE;
+  case 3:
+  case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS":
+    return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return ContractCodeHistoryOperationType.UNRECOGNIZED;
   }
 }
 export function contractCodeHistoryOperationTypeToJSON(object: ContractCodeHistoryOperationType): string {
   switch (object) {
-    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED";
-    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT";
-    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE";
-    case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS";
-    case ContractCodeHistoryOperationType.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED:
+    return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED";
+  case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT:
+    return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT";
+  case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE:
+    return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE";
+  case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS:
+    return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS";
+  case ContractCodeHistoryOperationType.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** AccessTypeParam */
@@ -339,12 +340,12 @@ export const AccessTypeParam = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.value = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.value = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -421,15 +422,15 @@ export const AccessConfig = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.permission = (reader.int32() as any);
-          break;
-        case 3:
-          message.addresses.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.permission = (reader.int32() as any);
+        break;
+      case 3:
+        message.addresses.push(reader.string());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -513,15 +514,15 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.codeUploadAccess = AccessConfig.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.instantiateDefaultPermission = (reader.int32() as any);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.codeUploadAccess = AccessConfig.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.instantiateDefaultPermission = (reader.int32() as any);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -607,18 +608,18 @@ export const CodeInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.codeHash = reader.bytes();
-          break;
-        case 2:
-          message.creator = reader.string();
-          break;
-        case 5:
-          message.instantiateConfig = AccessConfig.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.codeHash = reader.bytes();
+        break;
+      case 2:
+        message.creator = reader.string();
+        break;
+      case 5:
+        message.instantiateConfig = AccessConfig.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -725,30 +726,30 @@ export const ContractInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.codeId = reader.uint64();
-          break;
-        case 2:
-          message.creator = reader.string();
-          break;
-        case 3:
-          message.admin = reader.string();
-          break;
-        case 4:
-          message.label = reader.string();
-          break;
-        case 5:
-          message.created = AbsoluteTxPosition.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.ibcPortId = reader.string();
-          break;
-        case 7:
-          message.extension = GlobalDecoderRegistry.unwrapAny(reader);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.codeId = reader.uint64();
+        break;
+      case 2:
+        message.creator = reader.string();
+        break;
+      case 3:
+        message.admin = reader.string();
+        break;
+      case 4:
+        message.label = reader.string();
+        break;
+      case 5:
+        message.created = AbsoluteTxPosition.decode(reader, reader.uint32());
+        break;
+      case 6:
+        message.ibcPortId = reader.string();
+        break;
+      case 7:
+        message.extension = GlobalDecoderRegistry.unwrapAny(reader);
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -863,21 +864,21 @@ export const ContractCodeHistoryEntry = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.operation = (reader.int32() as any);
-          break;
-        case 2:
-          message.codeId = reader.uint64();
-          break;
-        case 3:
-          message.updated = AbsoluteTxPosition.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.msg = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.operation = (reader.int32() as any);
+        break;
+      case 2:
+        message.codeId = reader.uint64();
+        break;
+      case 3:
+        message.updated = AbsoluteTxPosition.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.msg = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -969,15 +970,15 @@ export const AbsoluteTxPosition = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.blockHeight = reader.uint64();
-          break;
-        case 2:
-          message.txIndex = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.blockHeight = reader.uint64();
+        break;
+      case 2:
+        message.txIndex = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1059,15 +1060,15 @@ export const Model = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.key = reader.bytes();
-          break;
-        case 2:
-          message.value = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.key = reader.bytes();
+        break;
+      case 2:
+        message.value = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

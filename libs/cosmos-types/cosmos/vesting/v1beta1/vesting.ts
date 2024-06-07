@@ -1,8 +1,8 @@
-import { BaseAccount, BaseAccountAmino } from "../../auth/v1beta1/auth";
-import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { BaseAccount, BaseAccountAmino } from "../../auth/v1beta1/auth";
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
  * the necessary fields needed for any vesting account implementation.
@@ -202,24 +202,24 @@ export const BaseVestingAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseAccount = BaseAccount.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.originalVesting.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 3:
-          message.delegatedFree.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 4:
-          message.delegatedVesting.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 5:
-          message.endTime = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseAccount = BaseAccount.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.originalVesting.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 3:
+        message.delegatedFree.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 4:
+        message.delegatedVesting.push(Coin.decode(reader, reader.uint32()));
+        break;
+      case 5:
+        message.endTime = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -322,15 +322,15 @@ export const ContinuousVestingAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.startTime = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.startTime = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -408,12 +408,12 @@ export const DelayedVestingAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -490,15 +490,15 @@ export const Period = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.length = reader.int64();
-          break;
-        case 2:
-          message.amount.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.length = reader.int64();
+        break;
+      case 2:
+        message.amount.push(Coin.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -586,18 +586,18 @@ export const PeriodicVestingAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.startTime = reader.int64();
-          break;
-        case 3:
-          message.vestingPeriods.push(Period.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.startTime = reader.int64();
+        break;
+      case 3:
+        message.vestingPeriods.push(Period.decode(reader, reader.uint32()));
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -682,12 +682,12 @@ export const PermanentLockedAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.baseVestingAccount = BaseVestingAccount.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

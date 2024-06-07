@@ -4,7 +4,7 @@
  * and run the transpile command or yarn proto command to regenerate this bundle.
  */
 
-import { Coin, StdFee } from "./doc";
+import { StdFee } from "./doc";
 
 export interface Any {
   typeUrl: string;

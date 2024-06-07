@@ -1,7 +1,7 @@
-import { Height, HeightAmino } from "../../client/v1/client";
-import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { base64FromBytes,bytesFromBase64, DeepPartial, isSet } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { Height, HeightAmino } from "../../client/v1/client";
 /**
  * State defines if a channel is in one of the following states:
  * CLOSED, INIT, TRYOPEN, OPEN, FLUSHING, FLUSHCOMPLETE or UNINITIALIZED.
@@ -32,52 +32,52 @@ export enum State {
 export const StateAmino = State;
 export function stateFromJSON(object: any): State {
   switch (object) {
-    case 0:
-    case "STATE_UNINITIALIZED_UNSPECIFIED":
-      return State.STATE_UNINITIALIZED_UNSPECIFIED;
-    case 1:
-    case "STATE_INIT":
-      return State.STATE_INIT;
-    case 2:
-    case "STATE_TRYOPEN":
-      return State.STATE_TRYOPEN;
-    case 3:
-    case "STATE_OPEN":
-      return State.STATE_OPEN;
-    case 4:
-    case "STATE_CLOSED":
-      return State.STATE_CLOSED;
-    case 5:
-    case "STATE_FLUSHING":
-      return State.STATE_FLUSHING;
-    case 6:
-    case "STATE_FLUSHCOMPLETE":
-      return State.STATE_FLUSHCOMPLETE;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return State.UNRECOGNIZED;
+  case 0:
+  case "STATE_UNINITIALIZED_UNSPECIFIED":
+    return State.STATE_UNINITIALIZED_UNSPECIFIED;
+  case 1:
+  case "STATE_INIT":
+    return State.STATE_INIT;
+  case 2:
+  case "STATE_TRYOPEN":
+    return State.STATE_TRYOPEN;
+  case 3:
+  case "STATE_OPEN":
+    return State.STATE_OPEN;
+  case 4:
+  case "STATE_CLOSED":
+    return State.STATE_CLOSED;
+  case 5:
+  case "STATE_FLUSHING":
+    return State.STATE_FLUSHING;
+  case 6:
+  case "STATE_FLUSHCOMPLETE":
+    return State.STATE_FLUSHCOMPLETE;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return State.UNRECOGNIZED;
   }
 }
 export function stateToJSON(object: State): string {
   switch (object) {
-    case State.STATE_UNINITIALIZED_UNSPECIFIED:
-      return "STATE_UNINITIALIZED_UNSPECIFIED";
-    case State.STATE_INIT:
-      return "STATE_INIT";
-    case State.STATE_TRYOPEN:
-      return "STATE_TRYOPEN";
-    case State.STATE_OPEN:
-      return "STATE_OPEN";
-    case State.STATE_CLOSED:
-      return "STATE_CLOSED";
-    case State.STATE_FLUSHING:
-      return "STATE_FLUSHING";
-    case State.STATE_FLUSHCOMPLETE:
-      return "STATE_FLUSHCOMPLETE";
-    case State.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case State.STATE_UNINITIALIZED_UNSPECIFIED:
+    return "STATE_UNINITIALIZED_UNSPECIFIED";
+  case State.STATE_INIT:
+    return "STATE_INIT";
+  case State.STATE_TRYOPEN:
+    return "STATE_TRYOPEN";
+  case State.STATE_OPEN:
+    return "STATE_OPEN";
+  case State.STATE_CLOSED:
+    return "STATE_CLOSED";
+  case State.STATE_FLUSHING:
+    return "STATE_FLUSHING";
+  case State.STATE_FLUSHCOMPLETE:
+    return "STATE_FLUSHCOMPLETE";
+  case State.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /** Order defines if a channel is ORDERED or UNORDERED */
@@ -96,32 +96,32 @@ export enum Order {
 export const OrderAmino = Order;
 export function orderFromJSON(object: any): Order {
   switch (object) {
-    case 0:
-    case "ORDER_NONE_UNSPECIFIED":
-      return Order.ORDER_NONE_UNSPECIFIED;
-    case 1:
-    case "ORDER_UNORDERED":
-      return Order.ORDER_UNORDERED;
-    case 2:
-    case "ORDER_ORDERED":
-      return Order.ORDER_ORDERED;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Order.UNRECOGNIZED;
+  case 0:
+  case "ORDER_NONE_UNSPECIFIED":
+    return Order.ORDER_NONE_UNSPECIFIED;
+  case 1:
+  case "ORDER_UNORDERED":
+    return Order.ORDER_UNORDERED;
+  case 2:
+  case "ORDER_ORDERED":
+    return Order.ORDER_ORDERED;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return Order.UNRECOGNIZED;
   }
 }
 export function orderToJSON(object: Order): string {
   switch (object) {
-    case Order.ORDER_NONE_UNSPECIFIED:
-      return "ORDER_NONE_UNSPECIFIED";
-    case Order.ORDER_UNORDERED:
-      return "ORDER_UNORDERED";
-    case Order.ORDER_ORDERED:
-      return "ORDER_ORDERED";
-    case Order.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case Order.ORDER_NONE_UNSPECIFIED:
+    return "ORDER_NONE_UNSPECIFIED";
+  case Order.ORDER_UNORDERED:
+    return "ORDER_UNORDERED";
+  case Order.ORDER_ORDERED:
+    return "ORDER_ORDERED";
+  case Order.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 /**
@@ -525,27 +525,27 @@ export const Channel = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.state = (reader.int32() as any);
-          break;
-        case 2:
-          message.ordering = (reader.int32() as any);
-          break;
-        case 3:
-          message.counterparty = Counterparty.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.connectionHops.push(reader.string());
-          break;
-        case 5:
-          message.version = reader.string();
-          break;
-        case 6:
-          message.upgradeSequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.state = (reader.int32() as any);
+        break;
+      case 2:
+        message.ordering = (reader.int32() as any);
+        break;
+      case 3:
+        message.counterparty = Counterparty.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.connectionHops.push(reader.string());
+        break;
+      case 5:
+        message.version = reader.string();
+        break;
+      case 6:
+        message.upgradeSequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -673,33 +673,33 @@ export const IdentifiedChannel = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.state = (reader.int32() as any);
-          break;
-        case 2:
-          message.ordering = (reader.int32() as any);
-          break;
-        case 3:
-          message.counterparty = Counterparty.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.connectionHops.push(reader.string());
-          break;
-        case 5:
-          message.version = reader.string();
-          break;
-        case 6:
-          message.portId = reader.string();
-          break;
-        case 7:
-          message.channelId = reader.string();
-          break;
-        case 8:
-          message.upgradeSequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.state = (reader.int32() as any);
+        break;
+      case 2:
+        message.ordering = (reader.int32() as any);
+        break;
+      case 3:
+        message.counterparty = Counterparty.decode(reader, reader.uint32());
+        break;
+      case 4:
+        message.connectionHops.push(reader.string());
+        break;
+      case 5:
+        message.version = reader.string();
+        break;
+      case 6:
+        message.portId = reader.string();
+        break;
+      case 7:
+        message.channelId = reader.string();
+        break;
+      case 8:
+        message.upgradeSequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -813,15 +813,15 @@ export const Counterparty = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -927,33 +927,33 @@ export const Packet = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.sequence = reader.uint64();
-          break;
-        case 2:
-          message.sourcePort = reader.string();
-          break;
-        case 3:
-          message.sourceChannel = reader.string();
-          break;
-        case 4:
-          message.destinationPort = reader.string();
-          break;
-        case 5:
-          message.destinationChannel = reader.string();
-          break;
-        case 6:
-          message.data = reader.bytes();
-          break;
-        case 7:
-          message.timeoutHeight = Height.decode(reader, reader.uint32());
-          break;
-        case 8:
-          message.timeoutTimestamp = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.sequence = reader.uint64();
+        break;
+      case 2:
+        message.sourcePort = reader.string();
+        break;
+      case 3:
+        message.sourceChannel = reader.string();
+        break;
+      case 4:
+        message.destinationPort = reader.string();
+        break;
+      case 5:
+        message.destinationChannel = reader.string();
+        break;
+      case 6:
+        message.data = reader.bytes();
+        break;
+      case 7:
+        message.timeoutHeight = Height.decode(reader, reader.uint32());
+        break;
+      case 8:
+        message.timeoutTimestamp = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1073,21 +1073,21 @@ export const PacketState = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.sequence = reader.uint64();
-          break;
-        case 4:
-          message.data = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.sequence = reader.uint64();
+        break;
+      case 4:
+        message.data = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1183,18 +1183,18 @@ export const PacketId = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.portId = reader.string();
-          break;
-        case 2:
-          message.channelId = reader.string();
-          break;
-        case 3:
-          message.sequence = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.portId = reader.string();
+        break;
+      case 2:
+        message.channelId = reader.string();
+        break;
+      case 3:
+        message.sequence = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1281,15 +1281,15 @@ export const Acknowledgement = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 21:
-          message.result = reader.bytes();
-          break;
-        case 22:
-          message.error = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 21:
+        message.result = reader.bytes();
+        break;
+      case 22:
+        message.error = reader.string();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1371,15 +1371,15 @@ export const Timeout = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.height = Height.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.timestamp = reader.uint64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.height = Height.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.timestamp = reader.uint64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -1457,12 +1457,12 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.upgradeTimeout = Timeout.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.upgradeTimeout = Timeout.decode(reader, reader.uint32());
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;

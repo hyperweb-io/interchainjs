@@ -1,10 +1,10 @@
 // @ts-nocheck
 import { ChainInfo } from "@chain-registry/client";
 import { Bip39, Random } from "@cosmjs/crypto";
-import { Coin, DirectSecp256k1HdWallet, OfflineSigner } from '@cosmjs/proto-signing';
-import { assertIsDeliverTxSuccess, SigningStargateClient } from '@cosmjs/stargate';
-import BigNumber from 'bignumber.js';
-import { ConfigContext, useChain } from 'starshipjs';
+import { Coin, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import { assertIsDeliverTxSuccess, SigningStargateClient } from "@cosmjs/stargate";
+import BigNumber from "bignumber.js";
+import { ConfigContext, useChain } from "starshipjs";
 
 export function generateMnemonic(): string {
   return Bip39.encode(Random.getBytes(16)).toString();
@@ -30,7 +30,7 @@ export const calcShareOutAmount = (poolInfo, coinsNeeded) => {
 export const waitUntil = (date, timeout = 90000) => {
   const delay = date.getTime() - Date.now();
   if (delay > timeout) {
-    throw new Error('Timeout to wait until date');
+    throw new Error("Timeout to wait until date");
   }
   return new Promise(resolve => setTimeout(resolve, delay + 3000));
 };
@@ -61,7 +61,7 @@ const findIbcInfo = (chainInfo: ChainInfo, toChainInfo: ChainInfo) => {
     i => i.chain_1.chain_name === chainInfo.chain.chain_id &&
       i.chain_2.chain_name === toChainInfo.chain.chain_id
   );
-  if (!found) throw new Error('Cannot find IBC info');
+  if (!found) throw new Error("Cannot find IBC info");
   return found;
 };
 
@@ -72,7 +72,7 @@ const createTempWallet = async (bech32Prefix: string) => {
 const sendIbcTokens = async (client: SigningStargateClient, fromAddress: string, toAddress: string, token: Coin, ibcInfo: any, _amount) => {
   const { port_id: sourcePort, channel_id: sourceChannel } = ibcInfo.channels[0].chain_1;
   const timeoutTime = Math.floor(Date.now() / 1000) + 300; // 5 minutes
-  const fee = { amount: [{ denom: token.denom, amount: '100000' }], gas: '550000' };
+  const fee = { amount: [{ denom: token.denom, amount: "100000" }], gas: "550000" };
 
   return client.sendIbcTokens(fromAddress, toAddress, token, sourcePort, sourceChannel, undefined, timeoutTime, fee);
 };

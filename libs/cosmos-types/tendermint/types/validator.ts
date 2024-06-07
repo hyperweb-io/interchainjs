@@ -1,7 +1,7 @@
-import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { base64FromBytes,bytesFromBase64, DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {
   /** BLOCK_ID_FLAG_UNKNOWN - indicates an error condition */
@@ -16,37 +16,37 @@ export enum BlockIDFlag {
 export const BlockIDFlagAmino = BlockIDFlag;
 export function blockIDFlagFromJSON(object: any): BlockIDFlag {
   switch (object) {
-    case 0:
-    case "BLOCK_ID_FLAG_UNKNOWN":
-      return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
-    case 1:
-    case "BLOCK_ID_FLAG_ABSENT":
-      return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
-    case 2:
-    case "BLOCK_ID_FLAG_COMMIT":
-      return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
-    case 3:
-    case "BLOCK_ID_FLAG_NIL":
-      return BlockIDFlag.BLOCK_ID_FLAG_NIL;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return BlockIDFlag.UNRECOGNIZED;
+  case 0:
+  case "BLOCK_ID_FLAG_UNKNOWN":
+    return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
+  case 1:
+  case "BLOCK_ID_FLAG_ABSENT":
+    return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
+  case 2:
+  case "BLOCK_ID_FLAG_COMMIT":
+    return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
+  case 3:
+  case "BLOCK_ID_FLAG_NIL":
+    return BlockIDFlag.BLOCK_ID_FLAG_NIL;
+  case -1:
+  case "UNRECOGNIZED":
+  default:
+    return BlockIDFlag.UNRECOGNIZED;
   }
 }
 export function blockIDFlagToJSON(object: BlockIDFlag): string {
   switch (object) {
-    case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
-      return "BLOCK_ID_FLAG_UNKNOWN";
-    case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
-      return "BLOCK_ID_FLAG_ABSENT";
-    case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
-      return "BLOCK_ID_FLAG_COMMIT";
-    case BlockIDFlag.BLOCK_ID_FLAG_NIL:
-      return "BLOCK_ID_FLAG_NIL";
-    case BlockIDFlag.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
+    return "BLOCK_ID_FLAG_UNKNOWN";
+  case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
+    return "BLOCK_ID_FLAG_ABSENT";
+  case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
+    return "BLOCK_ID_FLAG_COMMIT";
+  case BlockIDFlag.BLOCK_ID_FLAG_NIL:
+    return "BLOCK_ID_FLAG_NIL";
+  case BlockIDFlag.UNRECOGNIZED:
+  default:
+    return "UNRECOGNIZED";
   }
 }
 export interface ValidatorSet {
@@ -137,18 +137,18 @@ export const ValidatorSet = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validators.push(Validator.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.proposer = Validator.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.totalVotingPower = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validators.push(Validator.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.proposer = Validator.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.totalVotingPower = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -237,21 +237,21 @@ export const Validator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.bytes();
-          break;
-        case 2:
-          message.pubKey = PublicKey.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.votingPower = reader.int64();
-          break;
-        case 4:
-          message.proposerPriority = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.bytes();
+        break;
+      case 2:
+        message.pubKey = PublicKey.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.votingPower = reader.int64();
+        break;
+      case 4:
+        message.proposerPriority = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -335,15 +335,15 @@ export const SimpleValidator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.pubKey = PublicKey.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.votingPower = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.pubKey = PublicKey.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.votingPower = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
