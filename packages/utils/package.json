@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "author": "Cosmology <developers@cosmology.zone>",
   "homepage": "https://github.com/cosmology-tech/interchainjs",
   "repository": {
@@ -22,7 +22,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/types": "0.0.1-beta.1",
+    "@interchainjs/types": "0.0.1-beta.2",
     "bech32": "^2.0.0"
   }
 }
