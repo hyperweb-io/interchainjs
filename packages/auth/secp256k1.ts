@@ -1,86 +1,34 @@
-import { Auth, AuthOptions, Network,Signature } from "@interchainjs/types";
-import { isEmpty,Key } from "@interchainjs/utils";
+import { Auth, AuthOptions, Signature } from "@interchainjs/types";
+import { Key } from "@interchainjs/utils";
 import { secp256k1 } from "@noble/curves/secp256k1";
 import { HDKey } from "@scure/bip32";
 
-import { defaultHdPaths } from "./defaults";
 import { getSeedFromMnemonic } from "./utils";
 
-const hdPaths = defaultHdPaths.filter(({ algo }) => algo === "secp256k1");
-
 export class Secp256k1Auth implements Auth {
-  protected seed: HDKey | null = null;
-  protected hdkey: HDKey | null = null;
+  protected privateKey: Key = null;
 
   readonly algo = "secp256k1";
 
-  constructor(seed: Uint8Array | null, hdPath?: string | Network) {
-    if (seed) {
-      this.seed = HDKey.fromMasterSeed(seed);
-      this.derive(hdPath);
+  constructor(privateKey: Uint8Array | HDKey | Key, public readonly hdPath?: string) {
+    if (privateKey instanceof HDKey) {
+      this.privateKey = Key.from(privateKey.privateKey);
+    } else if (privateKey instanceof Key) {
+      this.privateKey = privateKey;
+    } else if (privateKey) {
+      this.privateKey = Key.from(privateKey);
     }
   }
 
   static fromMnemonic(
     mnemonic: string,
-    hdPath?: string | Network,
+    hdPaths: string[],
     options?: AuthOptions
   ) {
-    const seed = getSeedFromMnemonic(mnemonic, options?.bip39Password);
-    return new Secp256k1Auth(seed, hdPath);
-  }
-
-  static fromPrivateKey(seed: Key, hdPath?: string | Network) {
-    return new Secp256k1Auth(seed.value, hdPath);
-  }
-
-  static fromPublicKey(key: Key, isCompressed?: boolean) {
-    const auth = new Secp256k1Auth(null);
-    const isPubkeyCompressed = isCompressed;
-    auth.getPublicKey = (isCompressed?: boolean) => {
-      if (isCompressed && isPubkeyCompressed) {
-        return key;
-      }
-      if (!isCompressed && !isPubkeyCompressed) {
-        return key;
-      }
-      throw new Error(
-        `Failed to get ${
-          isCompressed ? "compressed" : "uncompressed"
-        } public key`
-      );
-    };
-    return;
-  }
-
-  derive(hdPath?: string | Network) {
-    if (!this.seed) {
-      this.hdkey = null;
-      return this;
-    }
-
-    switch (hdPath) {
-    case "cosmos":
-    case "injective":
-    case "ethereum":
-      const path = hdPaths.find(({ network }) => network === hdPath)?.path;
-      if (isEmpty(path)) {
-        throw new Error(`No such HD Path found for network ${hdPath}`);
-      }
-      this.hdkey = this.seed.derive(path);
-      break;
-    default:
-      this.hdkey = hdPath ? this.seed.derive(hdPath) : this.seed;
-      break;
-    }
-    return this;
-  }
-
-  get privateKey() {
-    if (!this.hdkey || !this.hdkey.privateKey) {
-      throw new Error("privateKey is undefined");
-    }
-    return Key.from(this.hdkey.privateKey);
+    return hdPaths.map((hdPath) => {
+      const seed = getSeedFromMnemonic(mnemonic, options?.bip39Password);
+      return new Secp256k1Auth(seed, hdPath);
+    });
   }
 
   getPublicKey = (isCompressed?: boolean) => {
@@ -93,7 +41,7 @@ export class Secp256k1Auth implements Auth {
     if (!this.privateKey) {
       throw new Error("No privateKey set!");
     }
-    const signature = secp256k1.sign(data, this.privateKey!.toBigInt());
+    const signature = secp256k1.sign(data, this.privateKey.toBigInt());
     return {
       r: Key.fromBigInt(signature.r),
       s: Key.fromBigInt(signature.s),
