@@ -2,13 +2,15 @@
 
 ## Auth
 
-### Data
+### Analysis
+
+#### Data
 
 - algo: string; // algo to get pubkey and sign.
 - hdPath: string; // hdpath used to gen private key for this.
 - privateKey: HDKey
 
-### Ops
+#### Ops
 
 - ctor(privateKey: uint8array | HDKey | Key, hdPath: string)
 
@@ -20,8 +22,14 @@
 
 - getPrivateKey()
 
+// note: pubkey needs to be hashed sometimes
 - getPublicKey(isCompressed?: boolean)
 
-- getAddress(prefix: string)(the way to hash the pubkey?)
+// note: address needs to be hashed sometimes
+- getAddress(prefix: string)
 
-- sign(data: Uint8Array, isCompact: boolean) // data: Uint8Array(the way to hash the data?)
+// note: the data msg needs hash sometimes.
+// note: and the sig needs compress sometimes.
+- sign(data: Uint8Array): Signature // data: Uint8Array
+
+- verify(data: Uint8Array, signature: Signature): Boolean // data: Uint8Array
