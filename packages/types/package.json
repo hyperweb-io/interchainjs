@@ -17,6 +17,7 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "del dist/**",
     "build": "npm run clean; tsc; npm run copy",
+    "lint": "eslint . --fix",
     "prepare": "npm run build"
   },
   "dependencies": {
