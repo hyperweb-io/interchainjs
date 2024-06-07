@@ -40,13 +40,8 @@ implements CosmosBaseWallet, OfflineAminoSigner, OfflineDirectSigner
 
   static fromMnemonic(mnemonic: string, options?: WalletOptions) {
     const hdPaths = options?.hdPaths || [defaultHdPath];
-    const auths: Auth[] = [];
-    hdPaths.forEach((hdPath) => {
-      auths.push(
-        Secp256k1Auth.fromMnemonic(mnemonic, hdPath, {
-          bip39Password: options?.bip39Password,
-        })
-      );
+    const auths: Auth[] = Secp256k1Auth.fromMnemonic(mnemonic, hdPaths, {
+      bip39Password: options?.bip39Password,
     });
     return new Secp256k1Wallet(auths, options?.prefix);
   }
