@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/injective",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -19,8 +19,8 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "del dist/**",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix",
     "prepare": "npm run build",
-    "pub": "npm version patch && npm run copy && cd dist && npm publish --access public",
     "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
     "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
     "starship": "starship --config ./starship/configs/starship.yaml",
@@ -33,10 +33,10 @@
     "injective:test": "jest --config ./jest.testnet.config.js --verbose"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "0.0.1-beta.1",
-    "@interchainjs/ethereum": "0.0.1-beta.1",
-    "@interchainjs/types": "0.0.1-beta.1",
-    "@interchainjs/utils": "0.0.1-beta.1",
+    "@interchainjs/cosmos": "0.0.1-beta.2",
+    "@interchainjs/ethereum": "0.0.1-beta.2",
+    "@interchainjs/types": "0.0.1-beta.2",
+    "@interchainjs/utils": "0.0.1-beta.2",
     "decimal.js": "^10.4.3"
   },
   "keywords": [
@@ -46,8 +46,8 @@
     "@injectivelabs/networks": "^1.14.6",
     "@injectivelabs/sdk-ts": "^1.14.7",
     "@injectivelabs/wallet-ts": "^1.14.7",
+    "@interchainjs/cosmos-types": "0.0.1-beta.2",
     "bech32": "^2.0.0",
-    "dotenv": "^16.4.5",
-    "@interchainjs/cosmos-types": "0.0.1-beta.1"
+    "dotenv": "^16.4.5"
   }
 }
