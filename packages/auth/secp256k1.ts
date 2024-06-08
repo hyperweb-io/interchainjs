@@ -10,7 +10,10 @@ export class Secp256k1Auth implements Auth {
 
   readonly algo = "secp256k1";
 
-  constructor(privateKey: Uint8Array | HDKey | Key, public readonly hdPath?: string) {
+  constructor(
+    privateKey: Uint8Array | HDKey | Key,
+    public readonly hdPath?: string
+  ) {
     if (privateKey instanceof HDKey) {
       this.privateKey = Key.from(privateKey.privateKey);
     } else if (privateKey instanceof Key) {
@@ -42,11 +45,11 @@ export class Secp256k1Auth implements Auth {
       throw new Error("No privateKey set!");
     }
     const signature = secp256k1.sign(data, this.privateKey.toBigInt());
-    return {
-      r: Key.fromBigInt(signature.r),
-      s: Key.fromBigInt(signature.s),
-      recovery: signature.recovery,
-    };
+    return new Secp256k1Signature(
+      Key.fromBigInt(signature.r),
+      Key.fromBigInt(signature.s),
+      signature.recovery
+    );
   }
 
   verify(data: Uint8Array, signature: Signature) {
@@ -54,6 +57,29 @@ export class Secp256k1Auth implements Auth {
       { r: signature.r.toBigInt(), s: signature.s.toBigInt() },
       data,
       this.getPublicKey(true).toHex()
+    );
+  }
+}
+
+export class Secp256k1Signature implements Signature {
+  constructor(
+    public readonly r: Key,
+    public readonly s: Key,
+    public readonly recovery?: number
+  ) {}
+
+  toCompact(): Key {
+    const sig = new secp256k1.Signature(this.r.toBigInt(), this.s.toBigInt());
+
+    return Key.from(sig.toCompactRawBytes());
+  }
+
+  static fromCompact(key: Key): Secp256k1Signature {
+    const sig = secp256k1.Signature.fromCompact(key.toHex());
+    return new Secp256k1Signature(
+      Key.fromBigInt(sig.r),
+      Key.fromBigInt(sig.s),
+      sig.recovery
     );
   }
 }

@@ -28,7 +28,6 @@ export interface SignerConfig {
   };
   signature: {
     fromCompact(key: IKey, algo: string): Signature;
-    toCompact(signature: Signature, algo: string): IKey;
   };
 }
 

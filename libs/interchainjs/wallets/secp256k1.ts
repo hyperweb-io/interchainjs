@@ -98,10 +98,7 @@ implements CosmosBaseWallet, OfflineAminoSigner, OfflineDirectSigner
   ): Promise<DirectSignResponse> {
     const auth = this.getAuthFromBech32Addr(signerAddress);
     const doc = SignDoc.fromPartial(signDoc);
-    const signature = defaultSignerConfig.signature.toCompact(
-      auth.sign(messageHash(SignDoc.encode(doc).finish())),
-      auth.algo
-    );
+    const signature = auth.sign(messageHash(SignDoc.encode(doc).finish())).toCompact();
     return {
       signed: doc,
       signature: {
@@ -121,10 +118,9 @@ implements CosmosBaseWallet, OfflineAminoSigner, OfflineDirectSigner
     signDoc: StdSignDoc
   ): Promise<AminoSignResponse> {
     const auth = this.getAuthFromBech32Addr(signerAddress);
-    const signature = defaultSignerConfig.signature.toCompact(
-      auth.sign(messageHash(encodeStdSignDoc(signDoc))),
-      auth.algo
-    );
+    const signature = auth
+      .sign(messageHash(encodeStdSignDoc(signDoc)))
+      .toCompact();
     return {
       signed: signDoc,
       signature: {

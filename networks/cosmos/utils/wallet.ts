@@ -40,7 +40,7 @@ export class SignResponseFromAuth {
       config.message.hash(SignDoc.encode(signDoc).finish())
     );
     return {
-      signature: config.signature.toCompact(signature, auth.algo),
+      signature: signature.toCompact(),
       signDoc: signDoc,
     };
   }
@@ -53,7 +53,7 @@ export class SignResponseFromAuth {
     const encoded = encodeStdSignDoc(doc);
     const signature = auth.sign(config.message.hash(encoded));
     return {
-      signature: config.signature.toCompact(signature, auth.algo),
+      signature: signature.toCompact(),
       signDoc: doc,
     };
   }

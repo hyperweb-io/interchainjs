@@ -47,7 +47,7 @@ export class SignResponseFromAuth {
 
     const signature = auth.sign(config.message.hash(fromHex(encoded)));
     return {
-      signature: config.signature.toCompact(signature, auth.algo),
+      signature: signature.toCompact(),
       signDoc: doc,
     };
   }

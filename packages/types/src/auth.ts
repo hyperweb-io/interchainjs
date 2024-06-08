@@ -26,6 +26,7 @@ export interface Signature {
   readonly r: IKey;
   readonly s: IKey;
   readonly recovery?: number;
+  toCompact(): IKey;
 }
 
 export type Network = "cosmos" | "injective" | "ethereum";

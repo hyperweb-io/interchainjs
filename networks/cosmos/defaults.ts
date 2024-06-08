@@ -1,3 +1,4 @@
+import { Secp256k1Signature } from "@interchainjs/auth/secp256k1";
 import {
   BaseAccount,
   ModuleAccount,
@@ -10,14 +11,8 @@ import {
   PeriodicVestingAccount,
 } from "@interchainjs/cosmos-types/cosmos/vesting/v1beta1/vesting";
 import { EthAccount } from "@interchainjs/cosmos-types/injective/types/v1beta1/account";
-import {
-  BroadcastOptions,
-  IKey,
-  Signature,
-  SignerConfig,
-} from "@interchainjs/types";
+import { BroadcastOptions, IKey, SignerConfig } from "@interchainjs/types";
 import { Key } from "@interchainjs/utils";
-import { secp256k1 } from "@noble/curves/secp256k1";
 import { bytes as assertBytes } from "@noble/hashes/_assert";
 import { ripemd160 } from "@noble/hashes/ripemd160";
 import { sha256 } from "@noble/hashes/sha256";
@@ -48,31 +43,10 @@ export const defaultSignerConfig: SignerConfig = {
     },
   },
   signature: {
-    toCompact: (signature: Signature, algo: string) => {
-      switch (algo) {
-      case "secp256k1":
-        const sig = new secp256k1.Signature(
-          signature.r.toBigInt(),
-          signature.s.toBigInt(),
-          // @ts-ignore
-          signature.recovery
-        );
-        return Key.from(sig.toCompactRawBytes());
-      case "ed25519":
-        throw new Error("Not implemented yet");
-      default:
-        throw new Error(`Unidentified algorithm: ${algo}`);
-      }
-    },
     fromCompact: (key: Key, algo: string) => {
       switch (algo) {
       case "secp256k1":
-        const sig = secp256k1.Signature.fromCompact(key.toHex());
-        return {
-          r: Key.fromBigInt(sig.r),
-          s: Key.fromBigInt(sig.s),
-          recovery: sig.recovery,
-        };
+        return Secp256k1Signature.fromCompact(key);
       case "ed25519":
         throw new Error("Not implemented yet");
       default:
