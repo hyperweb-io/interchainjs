@@ -49,8 +49,8 @@ describe("Governance tests for injective", () => {
     denom = getCoin().base;
 
     // Initialize auth
-    const directAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
-    const aminoAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
+    const directAuth = Secp256k1Auth.fromMnemonic(generateMnemonic()).derive('injective');
+    const aminoAuth = Secp256k1Auth.fromMnemonic(generateMnemonic()).derive('injective');
     directSigner = new DirectSigner(
       directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
@@ -81,7 +81,7 @@ describe("Governance tests for injective", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000");
+    expect(balance!.amount).toEqual("10000000000000000000000");
   }, 10000);
 
   it("check amino address has tokens", async () => {
@@ -90,7 +90,7 @@ describe("Governance tests for injective", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000");
+    expect(balance!.amount).toEqual("10000000000000000000000");
   }, 10000);
 
   it("query validator address", async () => {
@@ -153,7 +153,6 @@ describe("Governance tests for injective", () => {
       description: "Test text proposal for the e2e testing",
     });
 
-    // Stake half of the tokens
     const msg = {
       typeUrl: MsgSubmitProposal.typeUrl,
       value: MsgSubmitProposal.fromPartial({
