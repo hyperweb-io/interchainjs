@@ -37,7 +37,7 @@ describe("Staking tokens testing", () => {
 
     const mnemonic = generateMnemonic();
     // Initialize auth
-    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
+    const auth = Secp256k1Auth.fromMnemonic(mnemonic).derive("injective");
     directSigner = new DirectSigner(
       auth,
       toEncoders(MsgDelegate),
@@ -51,7 +51,7 @@ describe("Staking tokens testing", () => {
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
 
-    // Transfer injective and ibc tokens to address, send only osmo to address
+    // Transfer injective and ibc tokens to address, send only inj to address
     await creditFromFaucet(address);
   }, 200000);
 
@@ -61,7 +61,7 @@ describe("Staking tokens testing", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000");
+    expect(balance!.amount).toEqual("10000000000000000000000");
   }, 10000);
 
   it("query validator address", async () => {

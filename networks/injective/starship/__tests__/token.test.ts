@@ -30,7 +30,7 @@ describe("Token transfers", () => {
 
     const mnemonic = generateMnemonic();
     // Initialize auth
-    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
+    const auth = Secp256k1Auth.fromMnemonic(mnemonic).derive("injective");
     directSigner = new DirectSigner(auth, [], getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
@@ -45,7 +45,7 @@ describe("Token transfers", () => {
   it("send injective token to address", async () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const auth2 = Secp256k1Auth.fromMnemonic(mnemonic);
+    const auth2 = Secp256k1Auth.fromMnemonic(mnemonic).derive("injective");
     const address2 = defaultSignerOptions.publicKey
       .hash(auth2.getPublicKey(defaultSignerOptions.publicKey.isCompressed))
       .toBech32(chainInfo.chain.bech32_prefix);
@@ -65,7 +65,7 @@ describe("Token transfers", () => {
       denom,
     };
 
-    // Transfer uosmo tokens from faceut
+    // Transfer inj tokens from faceut
     directSigner.addEncoders(toEncoders(MsgSend));
     await directSigner.signAndBroadcast(
       [
@@ -85,13 +85,13 @@ describe("Token transfers", () => {
     expect(balance!.denom).toEqual(denom);
   }, 10000);
 
-  it("send ibc osmo tokens to address on cosmos chain", async () => {
+  it("send ibc inj tokens to address on cosmos chain", async () => {
     const {
       chainInfo: cosmosChainInfo,
       getRpcEndpoint: cosmosRpcEndpoint,
     } = useChain("cosmos");
 
-    const { getRpcEndpoint: osmosisRpcEndpoint } = useChain("injective");
+    // const { getRpcEndpoint: injRpcEndpoint } = useChain("injective");
 
     // Initialize wallet address for cosmos chain
     const cosmosAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
@@ -163,7 +163,7 @@ describe("Token transfers", () => {
 
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
-    // Check osmos in address on cosmos chain
+    // Check injs in address on cosmos chain
     const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
