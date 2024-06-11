@@ -28,9 +28,12 @@ export class Secp256k1Auth implements Auth {
     hdPaths: string[],
     options?: AuthOptions
   ) {
+    const masterSeed = HDKey.fromMasterSeed(
+      getSeedFromMnemonic(mnemonic, options?.bip39Password)
+    );
+
     return hdPaths.map((hdPath) => {
-      const seed = getSeedFromMnemonic(mnemonic, options?.bip39Password);
-      return new Secp256k1Auth(seed, hdPath);
+      return new Secp256k1Auth(masterSeed.derive(hdPath), hdPath);
     });
   }
 

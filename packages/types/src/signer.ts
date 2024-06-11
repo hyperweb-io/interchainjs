@@ -68,7 +68,7 @@ export interface UniSigner<
   Tx,
   Doc,
   AddressResponse = string,
-  BroadcastResponse = { hash: string },
+  BroadcastResponse = { hash: string }
 > {
   publicKey: IKey;
   /**
@@ -126,7 +126,7 @@ export class BaseSigner {
 
   signArbitrary(data: Uint8Array): IKey {
     const signature = this.auth.sign(this.config.message.hash(data));
-    return this.config.signature.toCompact(signature, this.auth.algo);
+    return signature.toCompact();
   }
 
   verifyArbitrary(data: Uint8Array, signature: IKey): boolean {

@@ -29,6 +29,8 @@ import { useChain } from "starshipjs";
 
 import { generateMnemonic, waitUntil } from "../src";
 
+const cosmosHdPath = "m/44'/118'/0'/0/0";
+
 describe("Governance tests for osmosis", () => {
   let directSigner: DirectSigner,
     aminoSigner: AminoSigner,
@@ -48,8 +50,12 @@ describe("Governance tests for osmosis", () => {
     denom = getCoin().base;
 
     // Initialize auth
-    const directAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
-    const aminoAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
+    const [directAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
+      cosmosHdPath,
+    ]);
+    const [aminoAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
+      cosmosHdPath,
+    ]);
     directSigner = new DirectSigner(
       directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
