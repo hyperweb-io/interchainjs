@@ -1,3 +1,3 @@
 throw new Error(
-  '@interchainjs/cosmos have no entry-point: consult README for usage'
+  '@interchainjs/injective have no entry-point: consult README for usage'
 );

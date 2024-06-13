@@ -4,7 +4,7 @@ import {
   assertIsDeliverTxSuccess,
   toConverters,
   toEncoders,
-} from "@interchainjs/cosmos/utils";
+} from "@interchainjs/injective/utils";
 import {
   ProposalStatus,
   TextProposal,
@@ -19,8 +19,8 @@ import {
   bondStatusToJSON,
 } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import { AminoSigner } from '@interchainjs/cosmos/amino';
-import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { AminoSigner } from '@interchainjs/injective/amino';
+import { DirectSigner } from '@interchainjs/injective/direct';
 import { fromBase64, toUtf8 } from "@interchainjs/utils";
 import { BigNumber } from "bignumber.js";
 import { RpcQuery } from "interchainjs/query/rpc";

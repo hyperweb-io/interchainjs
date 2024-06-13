@@ -1,5 +1,5 @@
 {
-  "name": "@interchainjs/cosmos",
+  "name": "@interchainjs/injective",
   "version": "0.0.1-beta.2",
   "description": "Transaction codec and client to communicate with any cosmos blockchain",
   "main": "index.js",
@@ -17,10 +17,8 @@
     "directory": "dist"
   },
   "scripts": {
-
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
-
     "prepare": "npm run build",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",

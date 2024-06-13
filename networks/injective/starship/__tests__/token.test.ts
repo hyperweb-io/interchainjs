@@ -2,12 +2,12 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
-import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { defaultSignerOptions } from '@interchainjs/injective/defaults';
+import { DirectSigner } from '@interchainjs/injective/direct';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
-} from '@interchainjs/cosmos/utils';
+} from '@interchainjs/injective/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
 import { RpcQuery } from 'interchainjs/query/rpc';
