@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /**
  * `Any` contains an arbitrary serialized protocol buffer message along with a
  * URL that describes the type of the serialized message.
@@ -123,7 +123,7 @@ export interface Any {
   value: Uint8Array;
 }
 export interface AnyProtoMsg {
-  typeUrl: "/google.protobuf.Any";
+  typeUrl: '/google.protobuf.Any';
   value: Uint8Array;
 }
 /**
@@ -254,20 +254,20 @@ export interface AnyAminoMsg {
 }
 function createBaseAny(): Any {
   return {
-    typeUrl: "",
+    typeUrl: '',
     value: new Uint8Array()
   };
 }
 export const Any = {
-  typeUrl: "/google.protobuf.Any",
+  typeUrl: '/google.protobuf.Any',
   is(o: any): o is Any {
-    return o && (o.$typeUrl === Any.typeUrl || typeof o.typeUrl === "string" && (o.value instanceof Uint8Array || typeof o.value === "string"));
+    return o && (o.$typeUrl === Any.typeUrl || typeof o.typeUrl === 'string' && (o.value instanceof Uint8Array || typeof o.value === 'string'));
   },
   isAmino(o: any): o is AnyAmino {
-    return o && (o.$typeUrl === Any.typeUrl || typeof o.type === "string" && (o.value instanceof Uint8Array || typeof o.value === "string"));
+    return o && (o.$typeUrl === Any.typeUrl || typeof o.type === 'string' && (o.value instanceof Uint8Array || typeof o.value === 'string'));
   },
   encode(message: Any, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.typeUrl !== "") {
+    if (message.typeUrl !== '') {
       writer.uint32(10).string(message.typeUrl);
     }
     if (message.value.length !== 0) {
@@ -282,22 +282,22 @@ export const Any = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.typeUrl = reader.string();
-          break;
-        case 2:
-          message.value = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.typeUrl = reader.string();
+        break;
+      case 2:
+        message.value = reader.bytes();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<Any>): Any {
     const message = createBaseAny();
-    message.typeUrl = object.typeUrl ?? "";
+    message.typeUrl = object.typeUrl ?? '';
     message.value = object.value ?? new Uint8Array();
     return message;
   },
@@ -324,7 +324,7 @@ export const Any = {
   },
   toProtoMsg(message: Any): AnyProtoMsg {
     return {
-      typeUrl: "/google.protobuf.Any",
+      typeUrl: '/google.protobuf.Any',
       value: Any.encode(message).finish()
     };
   }

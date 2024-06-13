@@ -1,28 +1,28 @@
-import { MsgExec, MsgGrant, MsgRevoke } from "./cosmos/authz/v1beta1/tx";
-import { MsgMultiSend, MsgSend } from "./cosmos/bank/v1beta1/tx";
+import { MsgExec, MsgGrant, MsgRevoke } from './cosmos/authz/v1beta1/tx';
+import { MsgMultiSend, MsgSend } from './cosmos/bank/v1beta1/tx';
 import {
   MsgFundCommunityPool,
   MsgSetWithdrawAddress,
   MsgWithdrawDelegatorReward,
   MsgWithdrawValidatorCommission,
-} from "./cosmos/distribution/v1beta1/tx";
+} from './cosmos/distribution/v1beta1/tx';
 import {
   MsgGrantAllowance,
   MsgRevokeAllowance,
-} from "./cosmos/feegrant/v1beta1/tx";
+} from './cosmos/feegrant/v1beta1/tx';
 import {
   MsgDeposit as MsgDepositV1,
   MsgExecLegacyContent as MsgExecLegacyContentV1,
   MsgSubmitProposal as MsgSubmitProposalV1,
   MsgVote as MsgVoteV1,
   MsgVoteWeighted as MsgVoteWeightedV1,
-} from "./cosmos/gov/v1/tx";
+} from './cosmos/gov/v1/tx';
 import {
   MsgDeposit,
   MsgSubmitProposal,
   MsgVote,
   MsgVoteWeighted,
-} from "./cosmos/gov/v1beta1/tx";
+} from './cosmos/gov/v1beta1/tx';
 import {
   MsgCreateGroup,
   MsgCreateGroupPolicy,
@@ -38,16 +38,16 @@ import {
   MsgUpdateGroupPolicyMetadata,
   MsgVote as MsgGroupVote,
   MsgWithdrawProposal,
-} from "./cosmos/group/v1/tx";
+} from './cosmos/group/v1/tx';
 import {
   MsgBeginRedelegate,
   MsgCreateValidator,
   MsgDelegate,
   MsgEditValidator,
   MsgUndelegate,
-} from "./cosmos/staking/v1beta1/tx";
-import { MsgCreateVestingAccount } from "./cosmos/vesting/v1beta1/tx";
-import { MsgTransfer } from "./ibc/applications/transfer/v1/tx";
+} from './cosmos/staking/v1beta1/tx';
+import { MsgCreateVestingAccount } from './cosmos/vesting/v1beta1/tx';
+import { MsgTransfer } from './ibc/applications/transfer/v1/tx';
 import {
   MsgChannelCloseConfirm,
   MsgChannelCloseInit,
@@ -58,19 +58,19 @@ import {
   MsgRecvPacket,
   MsgTimeout,
   MsgTimeoutOnClose,
-} from "./ibc/core/channel/v1/tx";
+} from './ibc/core/channel/v1/tx';
 import {
   MsgCreateClient,
   MsgSubmitMisbehaviour,
   MsgUpdateClient,
   MsgUpgradeClient,
-} from "./ibc/core/client/v1/tx";
+} from './ibc/core/client/v1/tx';
 import {
   MsgConnectionOpenAck,
   MsgConnectionOpenConfirm,
   MsgConnectionOpenInit,
   MsgConnectionOpenTry,
-} from "./ibc/core/connection/v1/tx";
+} from './ibc/core/connection/v1/tx';
 
 const AuthzMsgs = [MsgGrant, MsgExec, MsgRevoke];
 const BankMsgs = [MsgSend, MsgMultiSend];

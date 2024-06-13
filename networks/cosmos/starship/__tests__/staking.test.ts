@@ -1,26 +1,26 @@
-// Using `fromWallet` to construct Signer
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { toDirectWallet } from "interchainjs/utils";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
-import BigNumber from "bignumber.js";
-import { useChain } from "starshipjs";
-import "./setup.test";
-import {
-  BondStatus,
-  bondStatusToJSON,
-} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
-import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
-import { IWallet } from "@interchainjs/types";
-import { ChainInfo } from "@chain-registry/client";
+import './setup.test';
+
+import { ChainInfo } from '@chain-registry/client';
+import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { CosmosBaseWallet } from '@interchainjs/cosmos/types/signer';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
-} from "@interchainjs/cosmos/utils";
-import { generateMnemonic } from "../src";
+} from '@interchainjs/cosmos/utils';
+import {
+  BondStatus,
+  bondStatusToJSON,
+} from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
+import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Signer
+import { RpcQuery } from 'interchainjs/query/rpc';
+import { Secp256k1Wallet } from 'interchainjs/wallets/secp256k1';
+import { useChain } from 'starshipjs';
 
-describe("Staking tokens testing", () => {
-  let directWallet: IWallet.CosmosDirectWallet, denom: string, address: string;
+import { generateMnemonic } from '../src';
+
+describe('Staking tokens testing', () => {
+  let directWallet: CosmosBaseWallet, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
@@ -32,21 +32,19 @@ describe("Staking tokens testing", () => {
   let delegationAmount: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain('osmosis'));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
     const prefix = chainInfo.chain.bech32_prefix;
-    // Initialize wallet
-    directWallet = toDirectWallet(
-      Secp256k1Wallet.fromMnemonic(mnemonic, {
-        prefix,
-      }).toOfflineDirectSigner(),
-      prefix
-    );
-    address = (await directWallet.getAccount()).getAddress(prefix) as string;
+
+    directWallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
+      prefix,
+    });
+
+    address = (await directWallet.getAccounts())[0].getAddress(prefix);
+    // (await directWallet.getAccount()).getAddress(prefix) as string;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -55,16 +53,16 @@ describe("Staking tokens testing", () => {
     await creditFromFaucet(address);
   }, 200000);
 
-  it("check address has tokens", async () => {
+  it('check address has tokens', async () => {
     const { balance } = await queryClient.balance({
       address,
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000");
+    expect(balance!.amount).toEqual('10000000000');
   }, 10000);
 
-  it("query validator address", async () => {
+  it('query validator address', async () => {
     const { validators } = await queryClient.validators({
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
@@ -81,7 +79,7 @@ describe("Staking tokens testing", () => {
     validatorAddress = allValidators[0].operatorAddress;
   });
 
-  it("stake tokens to genesis validator", async () => {
+  it('stake tokens to genesis validator', async () => {
     const directSigner = await DirectSigner.fromWallet(
       directWallet,
       toEncoders(MsgDelegate),
@@ -113,19 +111,26 @@ describe("Staking tokens testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: '100000',
         },
       ],
-      gas: "550000",
+      gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast([msg], fee, "", {
-      deliverTx: true,
-    });
+    const result = await directSigner.signAndBroadcast(
+      {
+        messages: [msg],
+        fee,
+        memo: '',
+      },
+      {
+        deliverTx: true,
+      }
+    );
     assertIsDeliverTxSuccess(result);
   });
 
-  it("query delegation", async () => {
+  it('query delegation', async () => {
     const { delegationResponse } = await queryClient.delegation({
       delegatorAddr: address,
       validatorAddr: validatorAddress,

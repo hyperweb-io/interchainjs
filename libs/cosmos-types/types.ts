@@ -4,12 +4,13 @@
 * and run the transpile command or npm scripts command that is used to regenerate this bundle.
 */
 
-import { IBinaryReader, IBinaryWriter } from "./binary";
-import { Any } from "./google/protobuf/any";
-import { OfflineSigner } from "@cosmjs/proto-signing";
-import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
+import { OfflineSigner } from '@cosmjs/proto-signing';
+import { HttpEndpoint } from '@cosmjs/tendermint-rpc';
 
-export type ProtoMsg = Omit<Any, "typeUrl"> & { typeUrl: any };
+import { IBinaryReader, IBinaryWriter } from './binary';
+import { Any } from './google/protobuf/any';
+
+export type ProtoMsg = Omit<Any, 'typeUrl'> & { typeUrl: any };
 
 export interface IAminoMsg<Amino> {
   type: any;
@@ -144,7 +145,7 @@ export interface TxRpc {
   signAndBroadcast?(
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | "auto" | number,
+    fee: StdFee | 'auto' | number,
     memo: string
   ): Promise<DeliverTxResponse>;
 }

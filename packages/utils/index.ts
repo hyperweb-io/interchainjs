@@ -1,2 +1,2 @@
 // for dev mode only.
-export * from "./src";
+export * from './src';

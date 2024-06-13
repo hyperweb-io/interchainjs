@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": "src/"
   },
-  "include": ["**/*.ts", "data"],
-  "exclude": ["dist", "node_modules", "scripts", "**/*.spec.*", "codegen/google/protobuf/descriptor.ts", "starship"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules", "**/*.spec.*", "**/*.test.*"]
 }

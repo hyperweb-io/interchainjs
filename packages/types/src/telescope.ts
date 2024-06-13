@@ -4,7 +4,7 @@
  * and run the transpile command or yarn proto command to regenerate this bundle.
  */
 
-import { Coin, StdFee } from "./doc";
+import { StdFee } from './doc';
 
 export interface Any {
   typeUrl: string;
@@ -75,7 +75,7 @@ export interface IBinaryWriter {
   string(value: string): IBinaryWriter;
 }
 
-export type ProtoMsg = Omit<Any, "typeUrl"> & { typeUrl: any };
+export type ProtoMsg = Omit<Any, 'typeUrl'> & { typeUrl: any };
 
 export interface IAminoMsg<Amino> {
   type: any;
@@ -190,7 +190,7 @@ export interface TxRpc {
   signAndBroadcast?(
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | "auto" | number,
+    fee: StdFee | 'auto' | number,
     memo: string
   ): Promise<DeliverTxResponse>;
 }

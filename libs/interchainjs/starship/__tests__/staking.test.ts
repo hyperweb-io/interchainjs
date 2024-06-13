@@ -1,21 +1,27 @@
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
-import { Secp256k1Wallet } from "interchainjs/wallets/secp256k1";
-import { RpcQuery } from "interchainjs/query/rpc";
-import { OfflineDirectSigner } from "interchainjs/types";
-import { StargateSigningClient } from "interchainjs/stargate";
-import BigNumber from "bignumber.js";
-import { useChain } from "starshipjs";
-import "./setup.test";
+import './setup.test';
+
+import { ChainInfo } from '@chain-registry/client';
+import { Asset } from '@chain-registry/types';
+import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
+import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
 import {
   BondStatus,
   bondStatusToJSON,
-} from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking";
-import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
+} from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
+import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+import BigNumber from 'bignumber.js';
+import { RpcQuery } from 'interchainjs/query/rpc';
+import { StargateSigningClient } from 'interchainjs/stargate';
+import { OfflineDirectSigner } from 'interchainjs/types';
+import { Secp256k1Wallet } from 'interchainjs/wallets/secp256k1';
+import { useChain } from 'starshipjs';
 
-describe("Staking tokens testing", () => {
+describe('Staking tokens testing', () => {
   let protoSigner: OfflineDirectSigner, denom: string, address: string;
-  let chainInfo, getCoin, getRpcEndpoint: () => string, creditFromFaucet;
+  let chainInfo: ChainInfo,
+    getCoin: () => Asset,
+    getRpcEndpoint: () => string,
+    creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
 
   // Variables used accross testcases
   let queryClient: RpcQuery;
@@ -23,9 +29,8 @@ describe("Staking tokens testing", () => {
   let delegationAmount: string;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
-      "osmosis"
-    ));
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+      useChain('osmosis'));
     denom = getCoin().base;
 
     const mnemonic = generateMnemonic();
@@ -34,7 +39,7 @@ describe("Staking tokens testing", () => {
       prefix: chainInfo.chain.bech32_prefix,
     });
     protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].address;
+    address = (await protoSigner.getAccounts())[0].getAddress() as string;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -43,16 +48,16 @@ describe("Staking tokens testing", () => {
     await creditFromFaucet(address);
   }, 200000);
 
-  it("check address has tokens", async () => {
+  it('check address has tokens', async () => {
     const { balance } = await queryClient.balance({
       address,
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000");
+    expect(balance!.amount).toEqual('10000000000');
   }, 10000);
 
-  it("query validator address", async () => {
+  it('query validator address', async () => {
     const { validators } = await queryClient.validators({
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
@@ -69,7 +74,7 @@ describe("Staking tokens testing", () => {
     validatorAddress = allValidators[0].operatorAddress;
   });
 
-  it("stake tokens to genesis validator", async () => {
+  it('stake tokens to genesis validator', async () => {
     const signingClient = StargateSigningClient.connectWithSigner(
       getRpcEndpoint(),
       protoSigner
@@ -99,17 +104,17 @@ describe("Staking tokens testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: '100000',
         },
       ],
-      gas: "550000",
+      gas: '550000',
     };
 
     const result = await signingClient.signAndBroadcast(address, [msg], fee);
     assertIsDeliverTxSuccess(result);
   });
 
-  it("query delegation", async () => {
+  it('query delegation', async () => {
     const { delegationResponse } = await queryClient.delegation({
       delegatorAddr: address,
       validatorAddr: validatorAddress,

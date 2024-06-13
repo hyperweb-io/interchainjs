@@ -1,29 +1,29 @@
-import { Buffer } from "buffer";
+import { Buffer } from 'buffer';
 
 export function fromUtf8(str: string): Uint8Array {
-  return Uint8Array.from(Buffer.from(str, "utf-8"));
+  return Uint8Array.from(Buffer.from(str, 'utf-8'));
 }
 
 export function toUtf8(bytes: Uint8Array): string {
-  return Buffer.from(bytes).toString("utf-8");
+  return Buffer.from(bytes).toString('utf-8');
 }
 
 export function fromBase64(str: string): Uint8Array {
-  return Uint8Array.from(Buffer.from(str, "base64"));
+  return Uint8Array.from(Buffer.from(str, 'base64'));
 }
 
 export function toBase64(bytes: Uint8Array): string {
-  return Buffer.from(bytes).toString("base64");
+  return Buffer.from(bytes).toString('base64');
 }
 
 export function fromHex(str: string): Uint8Array {
-  return str.startsWith("0x")
-    ? Uint8Array.from(Buffer.from(str.slice(2), "hex"))
-    : Uint8Array.from(Buffer.from(str, "hex"));
+  return str.startsWith('0x')
+    ? Uint8Array.from(Buffer.from(str.slice(2), 'hex'))
+    : Uint8Array.from(Buffer.from(str, 'hex'));
 }
 
 export function toHex(bytes: Uint8Array, trimmed: boolean = false): string {
-  const hexString = Buffer.from(bytes).toString("hex");
+  const hexString = Buffer.from(bytes).toString('hex');
   if (trimmed) {
     const nonZeroIndex = hexString.match(/[1-9a-f]/i).index;
     const trimmedHexString = hexString.slice(nonZeroIndex);
@@ -46,7 +46,7 @@ export function toBigInt(bytes: Uint8Array): bigint {
 export function fromBigInt(i: bigint): Uint8Array {
   const hexString = i.toString(16);
   const paddedHexString =
-    hexString.length % 2 === 0 ? hexString : "0" + hexString;
+    hexString.length % 2 === 0 ? hexString : '0' + hexString;
   return fromHex(paddedHexString);
 }
 
@@ -64,9 +64,9 @@ export function fromNumber(i: number): Uint8Array {
 }
 
 export function fromAscii(str: string): Uint8Array {
-  return Uint8Array.from(Buffer.from(str, "ascii"));
+  return Uint8Array.from(Buffer.from(str, 'ascii'));
 }
 
 export function toAscii(bytes: Uint8Array): string {
-  return Buffer.from(bytes).toString("ascii");
+  return Buffer.from(bytes).toString('ascii');
 }

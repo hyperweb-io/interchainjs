@@ -1,21 +1,21 @@
-import { DeliverTxResponse, StdFee, TxRpc } from "../../../../types";
-import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
+import { DeliverTxResponse, StdFee, TxRpc } from '../../../../types';
+import { MsgCreateClient, MsgIBCSoftwareUpgrade, MsgRecoverClient, MsgSubmitMisbehaviour, MsgUpdateClient, MsgUpdateParams,MsgUpgradeClient } from './tx';
 /** Msg defines the ibc/client Msg service. */
 export interface Msg {
   /** CreateClient defines a rpc handler method for MsgCreateClient. */
-  createClient(signerAddress: string, message: MsgCreateClient, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  createClient(signerAddress: string, message: MsgCreateClient, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
   /** UpdateClient defines a rpc handler method for MsgUpdateClient. */
-  updateClient(signerAddress: string, message: MsgUpdateClient, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  updateClient(signerAddress: string, message: MsgUpdateClient, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
   /** UpgradeClient defines a rpc handler method for MsgUpgradeClient. */
-  upgradeClient(signerAddress: string, message: MsgUpgradeClient, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  upgradeClient(signerAddress: string, message: MsgUpgradeClient, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
   /** SubmitMisbehaviour defines a rpc handler method for MsgSubmitMisbehaviour. */
-  submitMisbehaviour(signerAddress: string, message: MsgSubmitMisbehaviour, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  submitMisbehaviour(signerAddress: string, message: MsgSubmitMisbehaviour, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
   /** RecoverClient defines a rpc handler method for MsgRecoverClient. */
-  recoverClient(signerAddress: string, message: MsgRecoverClient, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  recoverClient(signerAddress: string, message: MsgRecoverClient, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
   /** IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade. */
-  iBCSoftwareUpgrade(signerAddress: string, message: MsgIBCSoftwareUpgrade, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  iBCSoftwareUpgrade(signerAddress: string, message: MsgIBCSoftwareUpgrade, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
   /** UpdateClientParams defines a rpc handler method for MsgUpdateParams. */
-  updateClientParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
+  updateClientParams(signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: TxRpc;
@@ -23,7 +23,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
   }
   /* CreateClient defines a rpc handler method for MsgCreateClient. */
-  createClient = async (signerAddress: string, message: MsgCreateClient, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  createClient = async (signerAddress: string, message: MsgCreateClient, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgCreateClient.typeUrl,
       value: message
@@ -31,7 +31,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* UpdateClient defines a rpc handler method for MsgUpdateClient. */
-  updateClient = async (signerAddress: string, message: MsgUpdateClient, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  updateClient = async (signerAddress: string, message: MsgUpdateClient, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgUpdateClient.typeUrl,
       value: message
@@ -39,7 +39,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* UpgradeClient defines a rpc handler method for MsgUpgradeClient. */
-  upgradeClient = async (signerAddress: string, message: MsgUpgradeClient, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  upgradeClient = async (signerAddress: string, message: MsgUpgradeClient, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgUpgradeClient.typeUrl,
       value: message
@@ -47,7 +47,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* SubmitMisbehaviour defines a rpc handler method for MsgSubmitMisbehaviour. */
-  submitMisbehaviour = async (signerAddress: string, message: MsgSubmitMisbehaviour, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  submitMisbehaviour = async (signerAddress: string, message: MsgSubmitMisbehaviour, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgSubmitMisbehaviour.typeUrl,
       value: message
@@ -55,7 +55,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* RecoverClient defines a rpc handler method for MsgRecoverClient. */
-  recoverClient = async (signerAddress: string, message: MsgRecoverClient, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  recoverClient = async (signerAddress: string, message: MsgRecoverClient, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgRecoverClient.typeUrl,
       value: message
@@ -63,7 +63,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade. */
-  iBCSoftwareUpgrade = async (signerAddress: string, message: MsgIBCSoftwareUpgrade, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  iBCSoftwareUpgrade = async (signerAddress: string, message: MsgIBCSoftwareUpgrade, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgIBCSoftwareUpgrade.typeUrl,
       value: message
@@ -71,7 +71,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* UpdateClientParams defines a rpc handler method for MsgUpdateParams. */
-  updateClientParams = async (signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
+  updateClientParams = async (signerAddress: string, message: MsgUpdateParams, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgUpdateParams.typeUrl,
       value: message

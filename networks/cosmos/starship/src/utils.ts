@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { ChainInfo } from "@chain-registry/client";
-import { Bip39, Random } from "@cosmjs/crypto";
-import { Coin, DirectSecp256k1HdWallet, OfflineSigner } from '@cosmjs/proto-signing';
+import { ChainInfo } from '@chain-registry/client';
+import { Bip39, Random } from '@cosmjs/crypto';
+import { Coin, DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { assertIsDeliverTxSuccess, SigningStargateClient } from '@cosmjs/stargate';
 import BigNumber from 'bignumber.js';
 import { ConfigContext, useChain } from 'starshipjs';

@@ -32,7 +32,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-"use strict";
+'use strict';
 
 /**
  * Calculates the UTF8 byte length of a string.
@@ -70,7 +70,7 @@ export function utf8Read(
   end: number
 ) {
   const len = end - start;
-  if (len < 1) return "";
+  if (len < 1) return '';
   const chunk = [];
   let parts: string[] = [],
     i = 0, // char offset
@@ -101,7 +101,7 @@ export function utf8Read(
   }
   if (parts) {
     if (i) parts.push(String.fromCharCode(...chunk.slice(0, i)));
-    return parts.join("");
+    return parts.join('');
   }
   return String.fromCharCode(...chunk.slice(0, i));
 }
