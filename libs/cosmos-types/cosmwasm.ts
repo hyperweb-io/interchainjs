@@ -6,7 +6,7 @@ import {
   MsgMigrateContract,
   MsgStoreCode,
   MsgUpdateAdmin,
-} from "./cosmwasm/wasm/v1/tx";
+} from './cosmwasm/wasm/v1/tx';
 
 export const CosmWasmMsgs = [
   MsgClearAdmin,

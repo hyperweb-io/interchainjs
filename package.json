@@ -15,20 +15,21 @@
     "libs/*"
   ],
   "scripts": {
-    "symlink": "symlink-workspace",
-    "postinstall": "yarn symlink",
     "codegen": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
     "proto": "telescope download --config ./scripts/.protod.config.json",
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
+    "build:dev": "lerna run build:dev --stream; yarn symlink",
     "lint": "lerna run lint --parallel",
     "proto:injective": "telescope download --config ./scripts/.protod.config.injective.json",
-    "codegen:injective": "telescope transpile --config ./scripts/cosmos-types.telescope.injective.json"
+    "codegen:injective": "telescope transpile --config ./scripts/cosmos-types.telescope.injective.json",
+    "symlink": "symlink-workspace --logLevel error",
+    "postinstall": "yarn symlink"
   },
-  "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^29.5.11",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
@@ -39,10 +40,11 @@
     "eslint": "^8.56.0",
     "jest": "^29.6.2",
     "lerna": "^6",
-    "prettier": "^2.8.7",
+    "prettier": "^3.0.2",
     "rimraf": "4.4.1",
     "strip-ansi": "^6",
     "symlink-workspace": "^1.9.0",
+    "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.1.6",
     "@chain-registry/client": "1.18.1",
@@ -55,11 +57,9 @@
     "@injectivelabs/wallet-ts": "^1.14.7",
     "@noble/hashes": "^1.4.0",
     "@starship-ci/cli": "^1.6.0",
-    "@types/jest": "^29.5.11",
     "del-cli": "^5.1.0",
     "ethers": "^5.7.2",
     "sinon": "^17.0.1",
-    "starshipjs": "^1.4.0",
-    "ts-jest": "^29.1.1"
+    "starshipjs": "^1.4.0"
   }
 }

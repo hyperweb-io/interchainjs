@@ -18,8 +18,9 @@
   },
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "del dist/**",
+    "clean": "rimraf dist/**",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
     "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",

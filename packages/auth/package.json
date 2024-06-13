@@ -18,10 +18,11 @@
   },
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "del dist/**",
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "lint": "eslint . --fix",
-    "prepare": "npm run build"
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@interchainjs/types": "0.0.1-beta.2",

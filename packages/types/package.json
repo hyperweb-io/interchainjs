@@ -1,6 +1,8 @@
 {
   "name": "@interchainjs/types",
   "version": "0.0.1-beta.2",
+  "main": "index.js",
+  "module": "esm/index.js",
   "types": "index.d.ts",
   "author": "Cosmology <developers@cosmology.zone>",
   "homepage": "https://github.com/cosmology-tech/interchainjs",
@@ -15,10 +17,11 @@
   },
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "del dist/**",
-    "build": "npm run clean; tsc; npm run copy",
-    "lint": "eslint . --fix",
-    "prepare": "npm run build"
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "decimal.js": "^10.4.3"

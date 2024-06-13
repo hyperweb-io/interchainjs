@@ -1,0 +1,52 @@
+{
+  "name": "@interchainjs/ethermint",
+  "version": "0.0.1-beta.2",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "author": "Cosmology <developers@cosmology.zone>",
+  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cosmology-tech/interchainjs"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix",
+    "prepare": "npm run build",
+    "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
+    "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
+    "starship": "starship --config ./starship/configs/starship.yaml",
+    "starship:local": "starship --config ./starship/configs/starship.local.yaml",
+    "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
+    "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
+    "starship:watch": "jest --watch --config ./jest.starship.config.js",
+    "ethermint:test": "jest --config ./jest.testnet.config.js --verbose"
+  },
+  "dependencies": {
+    "@interchainjs/cosmos": "0.0.1-beta.2",
+    "@interchainjs/ethereum": "0.0.1-beta.2",
+    "@interchainjs/types": "0.0.1-beta.2",
+    "@interchainjs/utils": "0.0.1-beta.2",
+    "@interchainjs/cosmos-types": "0.0.1-beta.2",
+    "decimal.js": "^10.4.3"
+  },
+  "keywords": [
+    "ethermint"
+  ],
+  "devDependencies": {
+    "@injectivelabs/networks": "^1.14.6",
+    "@injectivelabs/sdk-ts": "^1.14.7",
+    "@injectivelabs/wallet-ts": "^1.14.7",
+    "bech32": "^2.0.0",
+    "dotenv": "^16.4.5"
+  }
+}

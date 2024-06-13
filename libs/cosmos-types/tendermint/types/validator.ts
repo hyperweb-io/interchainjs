@@ -1,7 +1,7 @@
-import { PublicKey, PublicKeyAmino } from "../crypto/keys";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { base64FromBytes,bytesFromBase64, DeepPartial } from '../../helpers';
+import { GlobalDecoderRegistry } from '../../registry';
+import { PublicKey, PublicKeyAmino } from '../crypto/keys';
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {
   /** BLOCK_ID_FLAG_UNKNOWN - indicates an error condition */
@@ -16,37 +16,37 @@ export enum BlockIDFlag {
 export const BlockIDFlagAmino = BlockIDFlag;
 export function blockIDFlagFromJSON(object: any): BlockIDFlag {
   switch (object) {
-    case 0:
-    case "BLOCK_ID_FLAG_UNKNOWN":
-      return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
-    case 1:
-    case "BLOCK_ID_FLAG_ABSENT":
-      return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
-    case 2:
-    case "BLOCK_ID_FLAG_COMMIT":
-      return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
-    case 3:
-    case "BLOCK_ID_FLAG_NIL":
-      return BlockIDFlag.BLOCK_ID_FLAG_NIL;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return BlockIDFlag.UNRECOGNIZED;
+  case 0:
+  case 'BLOCK_ID_FLAG_UNKNOWN':
+    return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
+  case 1:
+  case 'BLOCK_ID_FLAG_ABSENT':
+    return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
+  case 2:
+  case 'BLOCK_ID_FLAG_COMMIT':
+    return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
+  case 3:
+  case 'BLOCK_ID_FLAG_NIL':
+    return BlockIDFlag.BLOCK_ID_FLAG_NIL;
+  case -1:
+  case 'UNRECOGNIZED':
+  default:
+    return BlockIDFlag.UNRECOGNIZED;
   }
 }
 export function blockIDFlagToJSON(object: BlockIDFlag): string {
   switch (object) {
-    case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
-      return "BLOCK_ID_FLAG_UNKNOWN";
-    case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
-      return "BLOCK_ID_FLAG_ABSENT";
-    case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
-      return "BLOCK_ID_FLAG_COMMIT";
-    case BlockIDFlag.BLOCK_ID_FLAG_NIL:
-      return "BLOCK_ID_FLAG_NIL";
-    case BlockIDFlag.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
+  case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
+    return 'BLOCK_ID_FLAG_UNKNOWN';
+  case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
+    return 'BLOCK_ID_FLAG_ABSENT';
+  case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
+    return 'BLOCK_ID_FLAG_COMMIT';
+  case BlockIDFlag.BLOCK_ID_FLAG_NIL:
+    return 'BLOCK_ID_FLAG_NIL';
+  case BlockIDFlag.UNRECOGNIZED:
+  default:
+    return 'UNRECOGNIZED';
   }
 }
 export interface ValidatorSet {
@@ -55,7 +55,7 @@ export interface ValidatorSet {
   totalVotingPower: bigint;
 }
 export interface ValidatorSetProtoMsg {
-  typeUrl: "/tendermint.types.ValidatorSet";
+  typeUrl: '/tendermint.types.ValidatorSet';
   value: Uint8Array;
 }
 export interface ValidatorSetAmino {
@@ -64,7 +64,7 @@ export interface ValidatorSetAmino {
   total_voting_power: string;
 }
 export interface ValidatorSetAminoMsg {
-  type: "/tendermint.types.ValidatorSet";
+  type: '/tendermint.types.ValidatorSet';
   value: ValidatorSetAmino;
 }
 export interface Validator {
@@ -74,7 +74,7 @@ export interface Validator {
   proposerPriority: bigint;
 }
 export interface ValidatorProtoMsg {
-  typeUrl: "/tendermint.types.Validator";
+  typeUrl: '/tendermint.types.Validator';
   value: Uint8Array;
 }
 export interface ValidatorAmino {
@@ -84,7 +84,7 @@ export interface ValidatorAmino {
   proposer_priority: string;
 }
 export interface ValidatorAminoMsg {
-  type: "/tendermint.types.Validator";
+  type: '/tendermint.types.Validator';
   value: ValidatorAmino;
 }
 export interface SimpleValidator {
@@ -92,7 +92,7 @@ export interface SimpleValidator {
   votingPower: bigint;
 }
 export interface SimpleValidatorProtoMsg {
-  typeUrl: "/tendermint.types.SimpleValidator";
+  typeUrl: '/tendermint.types.SimpleValidator';
   value: Uint8Array;
 }
 export interface SimpleValidatorAmino {
@@ -100,7 +100,7 @@ export interface SimpleValidatorAmino {
   voting_power: string;
 }
 export interface SimpleValidatorAminoMsg {
-  type: "/tendermint.types.SimpleValidator";
+  type: '/tendermint.types.SimpleValidator';
   value: SimpleValidatorAmino;
 }
 function createBaseValidatorSet(): ValidatorSet {
@@ -111,12 +111,12 @@ function createBaseValidatorSet(): ValidatorSet {
   };
 }
 export const ValidatorSet = {
-  typeUrl: "/tendermint.types.ValidatorSet",
+  typeUrl: '/tendermint.types.ValidatorSet',
   is(o: any): o is ValidatorSet {
-    return o && (o.$typeUrl === ValidatorSet.typeUrl || Array.isArray(o.validators) && (!o.validators.length || Validator.is(o.validators[0])) && typeof o.totalVotingPower === "bigint");
+    return o && (o.$typeUrl === ValidatorSet.typeUrl || Array.isArray(o.validators) && (!o.validators.length || Validator.is(o.validators[0])) && typeof o.totalVotingPower === 'bigint');
   },
   isAmino(o: any): o is ValidatorSetAmino {
-    return o && (o.$typeUrl === ValidatorSet.typeUrl || Array.isArray(o.validators) && (!o.validators.length || Validator.isAmino(o.validators[0])) && typeof o.total_voting_power === "bigint");
+    return o && (o.$typeUrl === ValidatorSet.typeUrl || Array.isArray(o.validators) && (!o.validators.length || Validator.isAmino(o.validators[0])) && typeof o.total_voting_power === 'bigint');
   },
   encode(message: ValidatorSet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.validators) {
@@ -137,18 +137,18 @@ export const ValidatorSet = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.validators.push(Validator.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.proposer = Validator.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.totalVotingPower = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.validators.push(Validator.decode(reader, reader.uint32()));
+        break;
+      case 2:
+        message.proposer = Validator.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.totalVotingPower = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -193,7 +193,7 @@ export const ValidatorSet = {
   },
   toProtoMsg(message: ValidatorSet): ValidatorSetProtoMsg {
     return {
-      typeUrl: "/tendermint.types.ValidatorSet",
+      typeUrl: '/tendermint.types.ValidatorSet',
       value: ValidatorSet.encode(message).finish()
     };
   }
@@ -208,12 +208,12 @@ function createBaseValidator(): Validator {
   };
 }
 export const Validator = {
-  typeUrl: "/tendermint.types.Validator",
+  typeUrl: '/tendermint.types.Validator',
   is(o: any): o is Validator {
-    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === "string") && PublicKey.is(o.pubKey) && typeof o.votingPower === "bigint" && typeof o.proposerPriority === "bigint");
+    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === 'string') && PublicKey.is(o.pubKey) && typeof o.votingPower === 'bigint' && typeof o.proposerPriority === 'bigint');
   },
   isAmino(o: any): o is ValidatorAmino {
-    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === "string") && PublicKey.isAmino(o.pub_key) && typeof o.voting_power === "bigint" && typeof o.proposer_priority === "bigint");
+    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === 'string') && PublicKey.isAmino(o.pub_key) && typeof o.voting_power === 'bigint' && typeof o.proposer_priority === 'bigint');
   },
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
@@ -237,21 +237,21 @@ export const Validator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.address = reader.bytes();
-          break;
-        case 2:
-          message.pubKey = PublicKey.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.votingPower = reader.int64();
-          break;
-        case 4:
-          message.proposerPriority = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.address = reader.bytes();
+        break;
+      case 2:
+        message.pubKey = PublicKey.decode(reader, reader.uint32());
+        break;
+      case 3:
+        message.votingPower = reader.int64();
+        break;
+      case 4:
+        message.proposerPriority = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -299,7 +299,7 @@ export const Validator = {
   },
   toProtoMsg(message: Validator): ValidatorProtoMsg {
     return {
-      typeUrl: "/tendermint.types.Validator",
+      typeUrl: '/tendermint.types.Validator',
       value: Validator.encode(message).finish()
     };
   }
@@ -312,12 +312,12 @@ function createBaseSimpleValidator(): SimpleValidator {
   };
 }
 export const SimpleValidator = {
-  typeUrl: "/tendermint.types.SimpleValidator",
+  typeUrl: '/tendermint.types.SimpleValidator',
   is(o: any): o is SimpleValidator {
-    return o && (o.$typeUrl === SimpleValidator.typeUrl || typeof o.votingPower === "bigint");
+    return o && (o.$typeUrl === SimpleValidator.typeUrl || typeof o.votingPower === 'bigint');
   },
   isAmino(o: any): o is SimpleValidatorAmino {
-    return o && (o.$typeUrl === SimpleValidator.typeUrl || typeof o.voting_power === "bigint");
+    return o && (o.$typeUrl === SimpleValidator.typeUrl || typeof o.voting_power === 'bigint');
   },
   encode(message: SimpleValidator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
@@ -335,15 +335,15 @@ export const SimpleValidator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.pubKey = PublicKey.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.votingPower = reader.int64();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+      case 1:
+        message.pubKey = PublicKey.decode(reader, reader.uint32());
+        break;
+      case 2:
+        message.votingPower = reader.int64();
+        break;
+      default:
+        reader.skipType(tag & 7);
+        break;
       }
     }
     return message;
@@ -381,7 +381,7 @@ export const SimpleValidator = {
   },
   toProtoMsg(message: SimpleValidator): SimpleValidatorProtoMsg {
     return {
-      typeUrl: "/tendermint.types.SimpleValidator",
+      typeUrl: '/tendermint.types.SimpleValidator',
       value: SimpleValidator.encode(message).finish()
     };
   }
