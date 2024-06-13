@@ -69,3 +69,33 @@ jobs:
 
       - name: Run E2E Tests
         run: cd ./networks/cosmos && yarn starship:test
+
+  networks-injective:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository 📝
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Set Up Starship Infrastructure
+        id: starship-infra
+        uses: cosmology-tech/starship-action@0.2.19
+        with:
+          values: networks/injective/starship/configs/config.workflow.yaml
+          port-forward: true
+          version: 0.1.48
+
+      - name: Run E2E Tests
+        run: cd ./networks/injective && yarn starship:test
