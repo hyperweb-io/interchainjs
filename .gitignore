@@ -1,5 +1,12 @@
 **/node_modules/
+test-data.ts
+test.ts
+test.ts
+scripts/test.sh
 **/.DS_Store
 **/dist
 **/yarn-error.log
 lerna-debug.log
+**/.env.development
+.telescope.json
+networks/injective/codegen-injective/
