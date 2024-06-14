@@ -7,6 +7,7 @@ scripts/test.sh
 **/dist
 **/yarn-error.log
 lerna-debug.log
+git-modules/
 **/.env.development
 .telescope.json
 networks/injective/codegen-injective/
