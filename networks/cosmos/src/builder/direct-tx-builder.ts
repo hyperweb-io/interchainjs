@@ -4,9 +4,19 @@ import {
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 
-import { BaseCosmosTxBuilder, CosmosBaseSigner } from '../base';
+import {
+  BaseCosmosSigBuilder,
+  BaseCosmosTxBuilder,
+  CosmosBaseSigner,
+} from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosDirectDoc, CosmosSignArgs } from '../types';
+
+export class DirectSigBuilder extends BaseCosmosSigBuilder<CosmosDirectDoc> {
+  async buildDocBytes(doc: CosmosDirectDoc): Promise<Uint8Array> {
+    return SignDoc.encode(doc).finish();
+  }
+}
 
 export class DirectTxBuilder extends BaseCosmosTxBuilder<CosmosDirectDoc> {
   constructor(

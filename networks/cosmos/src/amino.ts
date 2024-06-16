@@ -1,9 +1,9 @@
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 import { constructAuthsFromWallet } from '@interchainjs/utils';
 
-import { BaseCosmosTxBuilder, CosmosBaseSigner } from './base';
+import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from './base';
 import { BaseCosmosTxBuilderContext } from './base/builder-context';
-import { AminoTxBuilder } from './builder/amino-tx-builder';
+import { AminoSigBuilder, AminoTxBuilder } from './builder/amino-tx-builder';
 import { defaultSignerConfig } from './defaults';
 import {
   AminoConverter,
@@ -13,6 +13,12 @@ import {
   Encoder,
   SignerOptions,
 } from './types';
+
+export class AminoDocSigner extends CosmosDocSigner<CosmosAminoDoc> {
+  getTxBuilder(): AminoSigBuilder {
+    return new AminoSigBuilder(new BaseCosmosTxBuilderContext(this));
+  }
+}
 
 export abstract class AminoSignerBase<
   AminoDoc,

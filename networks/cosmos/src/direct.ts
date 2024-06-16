@@ -1,9 +1,9 @@
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 import { constructAuthsFromWallet } from '@interchainjs/utils';
 
-import { BaseCosmosTxBuilder, CosmosBaseSigner } from './base';
+import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from './base';
 import { BaseCosmosTxBuilderContext } from './base/builder-context';
-import { DirectTxBuilder } from './builder/direct-tx-builder';
+import { DirectSigBuilder, DirectTxBuilder } from './builder/direct-tx-builder';
 import { defaultSignerConfig } from './defaults';
 import {
   CosmosBaseWallet,
@@ -12,6 +12,12 @@ import {
   Encoder,
   SignerOptions,
 } from './types';
+
+export class DirectDocSigner extends CosmosDocSigner<CosmosDirectDoc> {
+  getTxBuilder(): DirectSigBuilder {
+    return new DirectSigBuilder(new BaseCosmosTxBuilderContext(this));
+  }
+}
 
 export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   constructor(

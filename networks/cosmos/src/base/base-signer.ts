@@ -10,6 +10,7 @@ import {
   BroadcastOptions,
   HttpEndpoint,
   IKey,
+  SignDocResponse,
   SignResponse,
 } from '@interchainjs/types';
 import { assertEmpty, isEmpty } from '@interchainjs/utils';
@@ -28,10 +29,23 @@ import {
   UniCosmosBaseSigner,
 } from '../types';
 import { calculateFee } from '../utils/fee';
-import { BaseCosmosTxBuilder } from './tx-builder';
+import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from './tx-builder';
+
+export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
+  txBuilder: BaseCosmosSigBuilder<SignDoc>;
+  abstract getTxBuilder(): BaseCosmosSigBuilder<SignDoc>;
+  async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
+    const sig = await this.txBuilder.buildSignature(doc);
+
+    return {
+      signature: sig,
+      signDoc: doc,
+    };
+  }
+}
 
 export abstract class CosmosBaseSigner<SignDoc>
-  extends BaseSigner
+  extends CosmosDocSigner<SignDoc>
   implements UniCosmosBaseSigner<SignDoc>
 {
   _queryClient?: QueryClient;
@@ -39,7 +53,7 @@ export abstract class CosmosBaseSigner<SignDoc>
   readonly _encodePublicKey: (key: IKey) => EncodedMessage;
   readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
   prefix?: string;
-  txBuilder: BaseCosmosTxBuilder<SignDoc>;
+  declare txBuilder: BaseCosmosTxBuilder<SignDoc>;
 
   constructor(
     auth: Auth,
