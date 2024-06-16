@@ -27,6 +27,9 @@ Run Tests
 # test
 yarn starship:test
 
+# test for a specific typescript file
+npx jest starship/__tests__/gov.test.ts --config='{"preset":"ts-jest","testEnvironment":"node","transform":{"^.+\\\\.tsx?$":"ts-jest"}}'
+
 # watch 
 yarn starship:watch
 ```
