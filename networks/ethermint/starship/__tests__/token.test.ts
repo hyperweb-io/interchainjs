@@ -2,18 +2,20 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
+import { defaultSignerOptions } from '@interchainjs/injective/defaults';
+import { DirectSigner } from '@interchainjs/injective/direct';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
-} from '@interchainjs/cosmos/utils';
+} from '@interchainjs/injective/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
-import { DirectSigner } from '@interchainjs/injective/direct';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+
+const hdPath = "m/44'/60'/0'/0/0";
 
 describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string;
@@ -30,7 +32,7 @@ describe('Token transfers', () => {
 
     const mnemonic = generateMnemonic();
     // Initialize auth
-    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
+    const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
     directSigner = new DirectSigner(auth, [], getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
@@ -42,10 +44,10 @@ describe('Token transfers', () => {
     await creditFromFaucet(address);
   });
 
-  it('send injective token to address', async () => {
+  it('send inj token to address', async () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const auth2 = Secp256k1Auth.fromMnemonic(mnemonic);
+    const [auth2] = Secp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
     const address2 = defaultSignerOptions.publicKey
       .hash(auth2.getPublicKey(defaultSignerOptions.publicKey.isCompressed))
       .toBech32(chainInfo.chain.bech32_prefix);
@@ -95,10 +97,10 @@ describe('Token transfers', () => {
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
       useChain('cosmos');
 
-    const { getRpcEndpoint: osmosisRpcEndpoint } = useChain('injective');
-
     // Initialize wallet address for cosmos chain
-    const cosmosAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
+    const [cosmosAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
+      hdPath,
+    ]);
     const cosmosAddress = defaultSignerOptions.publicKey
       .hash(
         cosmosAuth.getPublicKey(defaultSignerOptions.publicKey.isCompressed)
@@ -119,7 +121,7 @@ describe('Token transfers', () => {
     const { port_id: sourcePort, channel_id: sourceChannel } =
       ibcInfo!.channels[0].chain_1;
 
-    // Transfer injective tokens via IBC to cosmos chain
+    // Transfer inj tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
     const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
 
