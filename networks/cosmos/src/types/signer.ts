@@ -39,6 +39,7 @@ export interface Message<T = any> {
 
 export interface EncodedMessage {
   typeUrl: string;
+  '$typeUrl'?: string;
   value: Uint8Array;
 }
 

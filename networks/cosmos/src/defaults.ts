@@ -79,7 +79,7 @@ export const defaultAccountParser = (
   encodedAccount: EncodedMessage
 ): BaseAccount => {
   const codec = accountCodecs.find(
-    (codec) => codec.typeUrl === encodedAccount.typeUrl
+    (codec) => codec.typeUrl === encodedAccount.typeUrl || codec.typeUrl === encodedAccount['$typeUrl']
   );
 
   if (!codec) {

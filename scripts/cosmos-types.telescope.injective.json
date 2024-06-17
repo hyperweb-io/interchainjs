@@ -29,7 +29,7 @@
                 "toAminoMsg": true,
                 "fromAminoMsg": true
             },
-            "addTypeUrlToDecoders": false,
+            "addTypeUrlToDecoders": true,
             "addTypeUrlToObjects": true,
             "addAminoTypeToObjects": true,
             "typingsFormat": {
