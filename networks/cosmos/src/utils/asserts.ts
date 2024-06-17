@@ -1,7 +1,7 @@
 import { BroadcastResponse } from '../types';
 
 export function isDeliverTxFailure(resp: BroadcastResponse) {
-  return resp.deliver_tx?.code !== 0;
+  return (resp.deliver_tx?.code !== 0 || resp.check_tx?.code !== 0)
 }
 
 export function isDeliverTxSuccess(resp: BroadcastResponse) {
