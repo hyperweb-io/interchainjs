@@ -1,6 +1,6 @@
-import { BinaryReader, BinaryWriter } from '../../../../binary';
-import { DeepPartial } from '../../../../helpers';
-import { GlobalDecoderRegistry } from '../../../../registry';
+import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * Params defines the set of IBC transfer parameters.
  * NOTE: To prevent a single token from being transferred, set the
@@ -20,7 +20,7 @@ export interface Params {
   receiveEnabled: boolean;
 }
 export interface ParamsProtoMsg {
-  typeUrl: '/ibc.applications.transfer.v1.Params';
+  typeUrl: "/ibc.applications.transfer.v1.Params";
   value: Uint8Array;
 }
 /**
@@ -42,7 +42,7 @@ export interface ParamsAmino {
   receive_enabled: boolean;
 }
 export interface ParamsAminoMsg {
-  type: 'cosmos-sdk/Params';
+  type: "cosmos-sdk/Params";
   value: ParamsAmino;
 }
 function createBaseParams(): Params {
@@ -52,13 +52,13 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: '/ibc.applications.transfer.v1.Params',
-  aminoType: 'cosmos-sdk/Params',
+  typeUrl: "/ibc.applications.transfer.v1.Params",
+  aminoType: "cosmos-sdk/Params",
   is(o: any): o is Params {
-    return o && (o.$typeUrl === Params.typeUrl || typeof o.sendEnabled === 'boolean' && typeof o.receiveEnabled === 'boolean');
+    return o && (o.$typeUrl === Params.typeUrl || typeof o.sendEnabled === "boolean" && typeof o.receiveEnabled === "boolean");
   },
   isAmino(o: any): o is ParamsAmino {
-    return o && (o.$typeUrl === Params.typeUrl || typeof o.send_enabled === 'boolean' && typeof o.receive_enabled === 'boolean');
+    return o && (o.$typeUrl === Params.typeUrl || typeof o.send_enabled === "boolean" && typeof o.receive_enabled === "boolean");
   },
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sendEnabled === true) {
@@ -76,15 +76,15 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.sendEnabled = reader.bool();
-        break;
-      case 2:
-        message.receiveEnabled = reader.bool();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.sendEnabled = reader.bool();
+          break;
+        case 2:
+          message.receiveEnabled = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -116,7 +116,7 @@ export const Params = {
   },
   toAminoMsg(message: Params): ParamsAminoMsg {
     return {
-      type: 'cosmos-sdk/Params',
+      type: "cosmos-sdk/Params",
       value: Params.toAmino(message)
     };
   },
@@ -128,7 +128,7 @@ export const Params = {
   },
   toProtoMsg(message: Params): ParamsProtoMsg {
     return {
-      typeUrl: '/ibc.applications.transfer.v1.Params',
+      typeUrl: "/ibc.applications.transfer.v1.Params",
       value: Params.encode(message).finish()
     };
   }

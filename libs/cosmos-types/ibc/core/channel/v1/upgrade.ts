@@ -1,7 +1,7 @@
-import { BinaryReader, BinaryWriter } from '../../../../binary';
-import { DeepPartial, isSet } from '../../../../helpers';
-import { GlobalDecoderRegistry } from '../../../../registry';
-import { Order,Timeout, TimeoutAmino } from './channel';
+import { Timeout, TimeoutAmino, Order } from "./channel";
+import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { DeepPartial, isSet } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * Upgrade is a verifiable type which contains the relevant information
  * for an attempted upgrade. It provides the proposed changes to the channel
@@ -15,7 +15,7 @@ export interface Upgrade {
   nextSequenceSend: bigint;
 }
 export interface UpgradeProtoMsg {
-  typeUrl: '/ibc.core.channel.v1.Upgrade';
+  typeUrl: "/ibc.core.channel.v1.Upgrade";
   value: Uint8Array;
 }
 /**
@@ -31,7 +31,7 @@ export interface UpgradeAmino {
   next_sequence_send: string;
 }
 export interface UpgradeAminoMsg {
-  type: 'cosmos-sdk/Upgrade';
+  type: "cosmos-sdk/Upgrade";
   value: UpgradeAmino;
 }
 /**
@@ -44,7 +44,7 @@ export interface UpgradeFields {
   version: string;
 }
 export interface UpgradeFieldsProtoMsg {
-  typeUrl: '/ibc.core.channel.v1.UpgradeFields';
+  typeUrl: "/ibc.core.channel.v1.UpgradeFields";
   value: Uint8Array;
 }
 /**
@@ -57,7 +57,7 @@ export interface UpgradeFieldsAmino {
   version: string;
 }
 export interface UpgradeFieldsAminoMsg {
-  type: 'cosmos-sdk/UpgradeFields';
+  type: "cosmos-sdk/UpgradeFields";
   value: UpgradeFieldsAmino;
 }
 /**
@@ -72,7 +72,7 @@ export interface ErrorReceipt {
   message: string;
 }
 export interface ErrorReceiptProtoMsg {
-  typeUrl: '/ibc.core.channel.v1.ErrorReceipt';
+  typeUrl: "/ibc.core.channel.v1.ErrorReceipt";
   value: Uint8Array;
 }
 /**
@@ -87,7 +87,7 @@ export interface ErrorReceiptAmino {
   message: string;
 }
 export interface ErrorReceiptAminoMsg {
-  type: 'cosmos-sdk/ErrorReceipt';
+  type: "cosmos-sdk/ErrorReceipt";
   value: ErrorReceiptAmino;
 }
 function createBaseUpgrade(): Upgrade {
@@ -98,13 +98,13 @@ function createBaseUpgrade(): Upgrade {
   };
 }
 export const Upgrade = {
-  typeUrl: '/ibc.core.channel.v1.Upgrade',
-  aminoType: 'cosmos-sdk/Upgrade',
+  typeUrl: "/ibc.core.channel.v1.Upgrade",
+  aminoType: "cosmos-sdk/Upgrade",
   is(o: any): o is Upgrade {
-    return o && (o.$typeUrl === Upgrade.typeUrl || UpgradeFields.is(o.fields) && Timeout.is(o.timeout) && typeof o.nextSequenceSend === 'bigint');
+    return o && (o.$typeUrl === Upgrade.typeUrl || UpgradeFields.is(o.fields) && Timeout.is(o.timeout) && typeof o.nextSequenceSend === "bigint");
   },
   isAmino(o: any): o is UpgradeAmino {
-    return o && (o.$typeUrl === Upgrade.typeUrl || UpgradeFields.isAmino(o.fields) && Timeout.isAmino(o.timeout) && typeof o.next_sequence_send === 'bigint');
+    return o && (o.$typeUrl === Upgrade.typeUrl || UpgradeFields.isAmino(o.fields) && Timeout.isAmino(o.timeout) && typeof o.next_sequence_send === "bigint");
   },
   encode(message: Upgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fields !== undefined) {
@@ -125,18 +125,18 @@ export const Upgrade = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.fields = UpgradeFields.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.timeout = Timeout.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.nextSequenceSend = reader.uint64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.fields = UpgradeFields.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.timeout = Timeout.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.nextSequenceSend = reader.uint64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -173,7 +173,7 @@ export const Upgrade = {
   },
   toAminoMsg(message: Upgrade): UpgradeAminoMsg {
     return {
-      type: 'cosmos-sdk/Upgrade',
+      type: "cosmos-sdk/Upgrade",
       value: Upgrade.toAmino(message)
     };
   },
@@ -185,7 +185,7 @@ export const Upgrade = {
   },
   toProtoMsg(message: Upgrade): UpgradeProtoMsg {
     return {
-      typeUrl: '/ibc.core.channel.v1.Upgrade',
+      typeUrl: "/ibc.core.channel.v1.Upgrade",
       value: Upgrade.encode(message).finish()
     };
   }
@@ -196,17 +196,17 @@ function createBaseUpgradeFields(): UpgradeFields {
   return {
     ordering: 0,
     connectionHops: [],
-    version: ''
+    version: ""
   };
 }
 export const UpgradeFields = {
-  typeUrl: '/ibc.core.channel.v1.UpgradeFields',
-  aminoType: 'cosmos-sdk/UpgradeFields',
+  typeUrl: "/ibc.core.channel.v1.UpgradeFields",
+  aminoType: "cosmos-sdk/UpgradeFields",
   is(o: any): o is UpgradeFields {
-    return o && (o.$typeUrl === UpgradeFields.typeUrl || isSet(o.ordering) && Array.isArray(o.connectionHops) && (!o.connectionHops.length || typeof o.connectionHops[0] === 'string') && typeof o.version === 'string');
+    return o && (o.$typeUrl === UpgradeFields.typeUrl || isSet(o.ordering) && Array.isArray(o.connectionHops) && (!o.connectionHops.length || typeof o.connectionHops[0] === "string") && typeof o.version === "string");
   },
   isAmino(o: any): o is UpgradeFieldsAmino {
-    return o && (o.$typeUrl === UpgradeFields.typeUrl || isSet(o.ordering) && Array.isArray(o.connection_hops) && (!o.connection_hops.length || typeof o.connection_hops[0] === 'string') && typeof o.version === 'string');
+    return o && (o.$typeUrl === UpgradeFields.typeUrl || isSet(o.ordering) && Array.isArray(o.connection_hops) && (!o.connection_hops.length || typeof o.connection_hops[0] === "string") && typeof o.version === "string");
   },
   encode(message: UpgradeFields, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ordering !== 0) {
@@ -215,7 +215,7 @@ export const UpgradeFields = {
     for (const v of message.connectionHops) {
       writer.uint32(18).string(v!);
     }
-    if (message.version !== '') {
+    if (message.version !== "") {
       writer.uint32(26).string(message.version);
     }
     return writer;
@@ -227,18 +227,18 @@ export const UpgradeFields = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.ordering = (reader.int32() as any);
-        break;
-      case 2:
-        message.connectionHops.push(reader.string());
-        break;
-      case 3:
-        message.version = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.ordering = (reader.int32() as any);
+          break;
+        case 2:
+          message.connectionHops.push(reader.string());
+          break;
+        case 3:
+          message.version = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -247,7 +247,7 @@ export const UpgradeFields = {
     const message = createBaseUpgradeFields();
     message.ordering = object.ordering ?? 0;
     message.connectionHops = object.connectionHops?.map(e => e) || [];
-    message.version = object.version ?? '';
+    message.version = object.version ?? "";
     return message;
   },
   fromAmino(object: UpgradeFieldsAmino): UpgradeFields {
@@ -269,7 +269,7 @@ export const UpgradeFields = {
     } else {
       obj.connection_hops = message.connectionHops;
     }
-    obj.version = message.version === '' ? undefined : message.version;
+    obj.version = message.version === "" ? undefined : message.version;
     return obj;
   },
   fromAminoMsg(object: UpgradeFieldsAminoMsg): UpgradeFields {
@@ -277,7 +277,7 @@ export const UpgradeFields = {
   },
   toAminoMsg(message: UpgradeFields): UpgradeFieldsAminoMsg {
     return {
-      type: 'cosmos-sdk/UpgradeFields',
+      type: "cosmos-sdk/UpgradeFields",
       value: UpgradeFields.toAmino(message)
     };
   },
@@ -289,7 +289,7 @@ export const UpgradeFields = {
   },
   toProtoMsg(message: UpgradeFields): UpgradeFieldsProtoMsg {
     return {
-      typeUrl: '/ibc.core.channel.v1.UpgradeFields',
+      typeUrl: "/ibc.core.channel.v1.UpgradeFields",
       value: UpgradeFields.encode(message).finish()
     };
   }
@@ -299,23 +299,23 @@ GlobalDecoderRegistry.registerAminoProtoMapping(UpgradeFields.aminoType, Upgrade
 function createBaseErrorReceipt(): ErrorReceipt {
   return {
     sequence: BigInt(0),
-    message: ''
+    message: ""
   };
 }
 export const ErrorReceipt = {
-  typeUrl: '/ibc.core.channel.v1.ErrorReceipt',
-  aminoType: 'cosmos-sdk/ErrorReceipt',
+  typeUrl: "/ibc.core.channel.v1.ErrorReceipt",
+  aminoType: "cosmos-sdk/ErrorReceipt",
   is(o: any): o is ErrorReceipt {
-    return o && (o.$typeUrl === ErrorReceipt.typeUrl || typeof o.sequence === 'bigint' && typeof o.message === 'string');
+    return o && (o.$typeUrl === ErrorReceipt.typeUrl || typeof o.sequence === "bigint" && typeof o.message === "string");
   },
   isAmino(o: any): o is ErrorReceiptAmino {
-    return o && (o.$typeUrl === ErrorReceipt.typeUrl || typeof o.sequence === 'bigint' && typeof o.message === 'string');
+    return o && (o.$typeUrl === ErrorReceipt.typeUrl || typeof o.sequence === "bigint" && typeof o.message === "string");
   },
   encode(message: ErrorReceipt, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sequence !== BigInt(0)) {
       writer.uint32(8).uint64(message.sequence);
     }
-    if (message.message !== '') {
+    if (message.message !== "") {
       writer.uint32(18).string(message.message);
     }
     return writer;
@@ -327,15 +327,15 @@ export const ErrorReceipt = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.sequence = reader.uint64();
-        break;
-      case 2:
-        message.message = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.sequence = reader.uint64();
+          break;
+        case 2:
+          message.message = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -343,7 +343,7 @@ export const ErrorReceipt = {
   fromPartial(object: DeepPartial<ErrorReceipt>): ErrorReceipt {
     const message = createBaseErrorReceipt();
     message.sequence = object.sequence !== undefined && object.sequence !== null ? BigInt(object.sequence.toString()) : BigInt(0);
-    message.message = object.message ?? '';
+    message.message = object.message ?? "";
     return message;
   },
   fromAmino(object: ErrorReceiptAmino): ErrorReceipt {
@@ -359,7 +359,7 @@ export const ErrorReceipt = {
   toAmino(message: ErrorReceipt): ErrorReceiptAmino {
     const obj: any = {};
     obj.sequence = message.sequence !== BigInt(0) ? message.sequence.toString() : undefined;
-    obj.message = message.message === '' ? undefined : message.message;
+    obj.message = message.message === "" ? undefined : message.message;
     return obj;
   },
   fromAminoMsg(object: ErrorReceiptAminoMsg): ErrorReceipt {
@@ -367,7 +367,7 @@ export const ErrorReceipt = {
   },
   toAminoMsg(message: ErrorReceipt): ErrorReceiptAminoMsg {
     return {
-      type: 'cosmos-sdk/ErrorReceipt',
+      type: "cosmos-sdk/ErrorReceipt",
       value: ErrorReceipt.toAmino(message)
     };
   },
@@ -379,7 +379,7 @@ export const ErrorReceipt = {
   },
   toProtoMsg(message: ErrorReceipt): ErrorReceiptProtoMsg {
     return {
-      typeUrl: '/ibc.core.channel.v1.ErrorReceipt',
+      typeUrl: "/ibc.core.channel.v1.ErrorReceipt",
       value: ErrorReceipt.encode(message).finish()
     };
   }

@@ -1,6 +1,6 @@
-import { BinaryReader } from '../../../binary';
-import { TxRpc } from '../../../types';
-import { BroadcastTxRequest, BroadcastTxResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, GetTxRequest, GetTxResponse, GetTxsEventRequest, GetTxsEventResponse, SimulateRequest, SimulateResponse, TxDecodeAminoRequest, TxDecodeAminoResponse,TxDecodeRequest, TxDecodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxEncodeRequest, TxEncodeResponse } from './service';
+import { TxRpc } from "../../../types";
+import { BinaryReader } from "../../../binary";
+import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, BroadcastTxRequest, BroadcastTxResponse, GetTxsEventRequest, GetTxsEventResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeRequest, TxEncodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxDecodeAminoRequest, TxDecodeAminoResponse } from "./service";
 /** Service defines a gRPC service for interacting with transactions. */
 export interface Service {
   /** Simulate simulates executing a transaction for estimating gas usage. */
@@ -50,25 +50,25 @@ export class ServiceClientImpl implements Service {
   /* Simulate simulates executing a transaction for estimating gas usage. */
   simulate = async (request: SimulateRequest): Promise<SimulateResponse> => {
     const data = SimulateRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'Simulate', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "Simulate", data);
     return promise.then(data => SimulateResponse.decode(new BinaryReader(data)));
   };
   /* GetTx fetches a tx by hash. */
   getTx = async (request: GetTxRequest): Promise<GetTxResponse> => {
     const data = GetTxRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'GetTx', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "GetTx", data);
     return promise.then(data => GetTxResponse.decode(new BinaryReader(data)));
   };
   /* BroadcastTx broadcast transaction. */
   broadcastTx = async (request: BroadcastTxRequest): Promise<BroadcastTxResponse> => {
     const data = BroadcastTxRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'BroadcastTx', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "BroadcastTx", data);
     return promise.then(data => BroadcastTxResponse.decode(new BinaryReader(data)));
   };
   /* GetTxsEvent fetches txs by event. */
   getTxsEvent = async (request: GetTxsEventRequest): Promise<GetTxsEventResponse> => {
     const data = GetTxsEventRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'GetTxsEvent', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "GetTxsEvent", data);
     return promise.then(data => GetTxsEventResponse.decode(new BinaryReader(data)));
   };
   /* GetBlockWithTxs fetches a block with decoded txs.
@@ -76,7 +76,7 @@ export class ServiceClientImpl implements Service {
    Since: cosmos-sdk 0.45.2 */
   getBlockWithTxs = async (request: GetBlockWithTxsRequest): Promise<GetBlockWithTxsResponse> => {
     const data = GetBlockWithTxsRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'GetBlockWithTxs', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "GetBlockWithTxs", data);
     return promise.then(data => GetBlockWithTxsResponse.decode(new BinaryReader(data)));
   };
   /* TxDecode decodes the transaction.
@@ -84,7 +84,7 @@ export class ServiceClientImpl implements Service {
    Since: cosmos-sdk 0.47 */
   txDecode = async (request: TxDecodeRequest): Promise<TxDecodeResponse> => {
     const data = TxDecodeRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'TxDecode', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "TxDecode", data);
     return promise.then(data => TxDecodeResponse.decode(new BinaryReader(data)));
   };
   /* TxEncode encodes the transaction.
@@ -92,7 +92,7 @@ export class ServiceClientImpl implements Service {
    Since: cosmos-sdk 0.47 */
   txEncode = async (request: TxEncodeRequest): Promise<TxEncodeResponse> => {
     const data = TxEncodeRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'TxEncode', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "TxEncode", data);
     return promise.then(data => TxEncodeResponse.decode(new BinaryReader(data)));
   };
   /* TxEncodeAmino encodes an Amino transaction from JSON to encoded bytes.
@@ -100,7 +100,7 @@ export class ServiceClientImpl implements Service {
    Since: cosmos-sdk 0.47 */
   txEncodeAmino = async (request: TxEncodeAminoRequest): Promise<TxEncodeAminoResponse> => {
     const data = TxEncodeAminoRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'TxEncodeAmino', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "TxEncodeAmino", data);
     return promise.then(data => TxEncodeAminoResponse.decode(new BinaryReader(data)));
   };
   /* TxDecodeAmino decodes an Amino transaction from encoded bytes to JSON.
@@ -108,7 +108,7 @@ export class ServiceClientImpl implements Service {
    Since: cosmos-sdk 0.47 */
   txDecodeAmino = async (request: TxDecodeAminoRequest): Promise<TxDecodeAminoResponse> => {
     const data = TxDecodeAminoRequest.encode(request).finish();
-    const promise = this.rpc.request('cosmos.tx.v1beta1.Service', 'TxDecodeAmino', data);
+    const promise = this.rpc.request("cosmos.tx.v1beta1.Service", "TxDecodeAmino", data);
     return promise.then(data => TxDecodeAminoResponse.decode(new BinaryReader(data)));
   };
 }

@@ -1,8 +1,8 @@
-import { BinaryReader, BinaryWriter } from '../../../binary';
-import { DeepPartial } from '../../../helpers';
-import { GlobalDecoderRegistry } from '../../../registry';
-import { Coin, CoinAmino } from '../../base/v1beta1/coin';
-import { Input, InputAmino, Output, OutputAmino, Params, ParamsAmino, SendEnabled, SendEnabledAmino } from './bank';
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
+import { Input, InputAmino, Output, OutputAmino, Params, ParamsAmino, SendEnabled, SendEnabledAmino } from "./bank";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
   fromAddress: string;
@@ -10,7 +10,7 @@ export interface MsgSend {
   amount: Coin[];
 }
 export interface MsgSendProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSend';
+  typeUrl: "/cosmos.bank.v1beta1.MsgSend";
   value: Uint8Array;
 }
 /** MsgSend represents a message to send coins from one account to another. */
@@ -20,19 +20,19 @@ export interface MsgSendAmino {
   amount: CoinAmino[];
 }
 export interface MsgSendAminoMsg {
-  type: 'cosmos-sdk/MsgSend';
+  type: "cosmos-sdk/MsgSend";
   value: MsgSendAmino;
 }
 /** MsgSendResponse defines the Msg/Send response type. */
 export interface MsgSendResponse {}
 export interface MsgSendResponseProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSendResponse';
+  typeUrl: "/cosmos.bank.v1beta1.MsgSendResponse";
   value: Uint8Array;
 }
 /** MsgSendResponse defines the Msg/Send response type. */
 export interface MsgSendResponseAmino {}
 export interface MsgSendResponseAminoMsg {
-  type: 'cosmos-sdk/MsgSendResponse';
+  type: "cosmos-sdk/MsgSendResponse";
   value: MsgSendResponseAmino;
 }
 /** MsgMultiSend represents an arbitrary multi-in, multi-out send message. */
@@ -45,7 +45,7 @@ export interface MsgMultiSend {
   outputs: Output[];
 }
 export interface MsgMultiSendProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgMultiSend';
+  typeUrl: "/cosmos.bank.v1beta1.MsgMultiSend";
   value: Uint8Array;
 }
 /** MsgMultiSend represents an arbitrary multi-in, multi-out send message. */
@@ -58,19 +58,19 @@ export interface MsgMultiSendAmino {
   outputs: OutputAmino[];
 }
 export interface MsgMultiSendAminoMsg {
-  type: 'cosmos-sdk/MsgMultiSend';
+  type: "cosmos-sdk/MsgMultiSend";
   value: MsgMultiSendAmino;
 }
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
 export interface MsgMultiSendResponse {}
 export interface MsgMultiSendResponseProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgMultiSendResponse';
+  typeUrl: "/cosmos.bank.v1beta1.MsgMultiSendResponse";
   value: Uint8Array;
 }
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
 export interface MsgMultiSendResponseAmino {}
 export interface MsgMultiSendResponseAminoMsg {
-  type: 'cosmos-sdk/MsgMultiSendResponse';
+  type: "cosmos-sdk/MsgMultiSendResponse";
   value: MsgMultiSendResponseAmino;
 }
 /**
@@ -89,7 +89,7 @@ export interface MsgUpdateParams {
   params: Params;
 }
 export interface MsgUpdateParamsProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgUpdateParams';
+  typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
 /**
@@ -108,7 +108,7 @@ export interface MsgUpdateParamsAmino {
   params: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
-  type: 'cosmos-sdk/x/bank/MsgUpdateParams';
+  type: "cosmos-sdk/x/bank/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
 /**
@@ -119,7 +119,7 @@ export interface MsgUpdateParamsAminoMsg {
  */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgUpdateParamsResponse';
+  typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
 /**
@@ -130,7 +130,7 @@ export interface MsgUpdateParamsResponseProtoMsg {
  */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
-  type: 'cosmos-sdk/MsgUpdateParamsResponse';
+  type: "cosmos-sdk/MsgUpdateParamsResponse";
   value: MsgUpdateParamsResponseAmino;
 }
 /**
@@ -156,7 +156,7 @@ export interface MsgSetSendEnabled {
   useDefaultFor: string[];
 }
 export interface MsgSetSendEnabledProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSetSendEnabled';
+  typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled";
   value: Uint8Array;
 }
 /**
@@ -182,7 +182,7 @@ export interface MsgSetSendEnabledAmino {
   use_default_for: string[];
 }
 export interface MsgSetSendEnabledAminoMsg {
-  type: 'cosmos-sdk/MsgSetSendEnabled';
+  type: "cosmos-sdk/MsgSetSendEnabled";
   value: MsgSetSendEnabledAmino;
 }
 /**
@@ -192,7 +192,7 @@ export interface MsgSetSendEnabledAminoMsg {
  */
 export interface MsgSetSendEnabledResponse {}
 export interface MsgSetSendEnabledResponseProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSetSendEnabledResponse';
+  typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabledResponse";
   value: Uint8Array;
 }
 /**
@@ -202,30 +202,30 @@ export interface MsgSetSendEnabledResponseProtoMsg {
  */
 export interface MsgSetSendEnabledResponseAmino {}
 export interface MsgSetSendEnabledResponseAminoMsg {
-  type: 'cosmos-sdk/MsgSetSendEnabledResponse';
+  type: "cosmos-sdk/MsgSetSendEnabledResponse";
   value: MsgSetSendEnabledResponseAmino;
 }
 function createBaseMsgSend(): MsgSend {
   return {
-    fromAddress: '',
-    toAddress: '',
+    fromAddress: "",
+    toAddress: "",
     amount: []
   };
 }
 export const MsgSend = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSend',
-  aminoType: 'cosmos-sdk/MsgSend',
+  typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+  aminoType: "cosmos-sdk/MsgSend",
   is(o: any): o is MsgSend {
-    return o && (o.$typeUrl === MsgSend.typeUrl || typeof o.fromAddress === 'string' && typeof o.toAddress === 'string' && Array.isArray(o.amount) && (!o.amount.length || Coin.is(o.amount[0])));
+    return o && (o.$typeUrl === MsgSend.typeUrl || typeof o.fromAddress === "string" && typeof o.toAddress === "string" && Array.isArray(o.amount) && (!o.amount.length || Coin.is(o.amount[0])));
   },
   isAmino(o: any): o is MsgSendAmino {
-    return o && (o.$typeUrl === MsgSend.typeUrl || typeof o.from_address === 'string' && typeof o.to_address === 'string' && Array.isArray(o.amount) && (!o.amount.length || Coin.isAmino(o.amount[0])));
+    return o && (o.$typeUrl === MsgSend.typeUrl || typeof o.from_address === "string" && typeof o.to_address === "string" && Array.isArray(o.amount) && (!o.amount.length || Coin.isAmino(o.amount[0])));
   },
   encode(message: MsgSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.fromAddress !== '') {
+    if (message.fromAddress !== "") {
       writer.uint32(10).string(message.fromAddress);
     }
-    if (message.toAddress !== '') {
+    if (message.toAddress !== "") {
       writer.uint32(18).string(message.toAddress);
     }
     for (const v of message.amount) {
@@ -240,26 +240,26 @@ export const MsgSend = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.fromAddress = reader.string();
-        break;
-      case 2:
-        message.toAddress = reader.string();
-        break;
-      case 3:
-        message.amount.push(Coin.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.fromAddress = reader.string();
+          break;
+        case 2:
+          message.toAddress = reader.string();
+          break;
+        case 3:
+          message.amount.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<MsgSend>): MsgSend {
     const message = createBaseMsgSend();
-    message.fromAddress = object.fromAddress ?? '';
-    message.toAddress = object.toAddress ?? '';
+    message.fromAddress = object.fromAddress ?? "";
+    message.toAddress = object.toAddress ?? "";
     message.amount = object.amount?.map(e => Coin.fromPartial(e)) || [];
     return message;
   },
@@ -276,8 +276,8 @@ export const MsgSend = {
   },
   toAmino(message: MsgSend): MsgSendAmino {
     const obj: any = {};
-    obj.from_address = message.fromAddress === '' ? undefined : message.fromAddress;
-    obj.to_address = message.toAddress === '' ? undefined : message.toAddress;
+    obj.from_address = message.fromAddress === "" ? undefined : message.fromAddress;
+    obj.to_address = message.toAddress === "" ? undefined : message.toAddress;
     if (message.amount) {
       obj.amount = message.amount.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -290,7 +290,7 @@ export const MsgSend = {
   },
   toAminoMsg(message: MsgSend): MsgSendAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgSend',
+      type: "cosmos-sdk/MsgSend",
       value: MsgSend.toAmino(message)
     };
   },
@@ -302,7 +302,7 @@ export const MsgSend = {
   },
   toProtoMsg(message: MsgSend): MsgSendProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+      typeUrl: "/cosmos.bank.v1beta1.MsgSend",
       value: MsgSend.encode(message).finish()
     };
   }
@@ -313,8 +313,8 @@ function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
 }
 export const MsgSendResponse = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSendResponse',
-  aminoType: 'cosmos-sdk/MsgSendResponse',
+  typeUrl: "/cosmos.bank.v1beta1.MsgSendResponse",
+  aminoType: "cosmos-sdk/MsgSendResponse",
   is(o: any): o is MsgSendResponse {
     return o && o.$typeUrl === MsgSendResponse.typeUrl;
   },
@@ -331,9 +331,9 @@ export const MsgSendResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -355,7 +355,7 @@ export const MsgSendResponse = {
   },
   toAminoMsg(message: MsgSendResponse): MsgSendResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgSendResponse',
+      type: "cosmos-sdk/MsgSendResponse",
       value: MsgSendResponse.toAmino(message)
     };
   },
@@ -367,7 +367,7 @@ export const MsgSendResponse = {
   },
   toProtoMsg(message: MsgSendResponse): MsgSendResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgSendResponse',
+      typeUrl: "/cosmos.bank.v1beta1.MsgSendResponse",
       value: MsgSendResponse.encode(message).finish()
     };
   }
@@ -381,8 +381,8 @@ function createBaseMsgMultiSend(): MsgMultiSend {
   };
 }
 export const MsgMultiSend = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgMultiSend',
-  aminoType: 'cosmos-sdk/MsgMultiSend',
+  typeUrl: "/cosmos.bank.v1beta1.MsgMultiSend",
+  aminoType: "cosmos-sdk/MsgMultiSend",
   is(o: any): o is MsgMultiSend {
     return o && (o.$typeUrl === MsgMultiSend.typeUrl || Array.isArray(o.inputs) && (!o.inputs.length || Input.is(o.inputs[0])) && Array.isArray(o.outputs) && (!o.outputs.length || Output.is(o.outputs[0])));
   },
@@ -405,15 +405,15 @@ export const MsgMultiSend = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.inputs.push(Input.decode(reader, reader.uint32()));
-        break;
-      case 2:
-        message.outputs.push(Output.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.inputs.push(Input.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.outputs.push(Output.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -449,7 +449,7 @@ export const MsgMultiSend = {
   },
   toAminoMsg(message: MsgMultiSend): MsgMultiSendAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgMultiSend',
+      type: "cosmos-sdk/MsgMultiSend",
       value: MsgMultiSend.toAmino(message)
     };
   },
@@ -461,7 +461,7 @@ export const MsgMultiSend = {
   },
   toProtoMsg(message: MsgMultiSend): MsgMultiSendProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgMultiSend',
+      typeUrl: "/cosmos.bank.v1beta1.MsgMultiSend",
       value: MsgMultiSend.encode(message).finish()
     };
   }
@@ -472,8 +472,8 @@ function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
   return {};
 }
 export const MsgMultiSendResponse = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgMultiSendResponse',
-  aminoType: 'cosmos-sdk/MsgMultiSendResponse',
+  typeUrl: "/cosmos.bank.v1beta1.MsgMultiSendResponse",
+  aminoType: "cosmos-sdk/MsgMultiSendResponse",
   is(o: any): o is MsgMultiSendResponse {
     return o && o.$typeUrl === MsgMultiSendResponse.typeUrl;
   },
@@ -490,9 +490,9 @@ export const MsgMultiSendResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -514,7 +514,7 @@ export const MsgMultiSendResponse = {
   },
   toAminoMsg(message: MsgMultiSendResponse): MsgMultiSendResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgMultiSendResponse',
+      type: "cosmos-sdk/MsgMultiSendResponse",
       value: MsgMultiSendResponse.toAmino(message)
     };
   },
@@ -526,7 +526,7 @@ export const MsgMultiSendResponse = {
   },
   toProtoMsg(message: MsgMultiSendResponse): MsgMultiSendResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgMultiSendResponse',
+      typeUrl: "/cosmos.bank.v1beta1.MsgMultiSendResponse",
       value: MsgMultiSendResponse.encode(message).finish()
     };
   }
@@ -535,21 +535,21 @@ GlobalDecoderRegistry.register(MsgMultiSendResponse.typeUrl, MsgMultiSendRespons
 GlobalDecoderRegistry.registerAminoProtoMapping(MsgMultiSendResponse.aminoType, MsgMultiSendResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
-    authority: '',
+    authority: "",
     params: Params.fromPartial({})
   };
 }
 export const MsgUpdateParams = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgUpdateParams',
-  aminoType: 'cosmos-sdk/x/bank/MsgUpdateParams',
+  typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams",
+  aminoType: "cosmos-sdk/x/bank/MsgUpdateParams",
   is(o: any): o is MsgUpdateParams {
-    return o && (o.$typeUrl === MsgUpdateParams.typeUrl || typeof o.authority === 'string' && Params.is(o.params));
+    return o && (o.$typeUrl === MsgUpdateParams.typeUrl || typeof o.authority === "string" && Params.is(o.params));
   },
   isAmino(o: any): o is MsgUpdateParamsAmino {
-    return o && (o.$typeUrl === MsgUpdateParams.typeUrl || typeof o.authority === 'string' && Params.isAmino(o.params));
+    return o && (o.$typeUrl === MsgUpdateParams.typeUrl || typeof o.authority === "string" && Params.isAmino(o.params));
   },
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== '') {
+    if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
     if (message.params !== undefined) {
@@ -564,22 +564,22 @@ export const MsgUpdateParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.authority = reader.string();
-        break;
-      case 2:
-        message.params = Params.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.authority = reader.string();
+          break;
+        case 2:
+          message.params = Params.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<MsgUpdateParams>): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
-    message.authority = object.authority ?? '';
+    message.authority = object.authority ?? "";
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
@@ -595,7 +595,7 @@ export const MsgUpdateParams = {
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
-    obj.authority = message.authority === '' ? undefined : message.authority;
+    obj.authority = message.authority === "" ? undefined : message.authority;
     obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
     return obj;
   },
@@ -604,7 +604,7 @@ export const MsgUpdateParams = {
   },
   toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
     return {
-      type: 'cosmos-sdk/x/bank/MsgUpdateParams',
+      type: "cosmos-sdk/x/bank/MsgUpdateParams",
       value: MsgUpdateParams.toAmino(message)
     };
   },
@@ -616,7 +616,7 @@ export const MsgUpdateParams = {
   },
   toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgUpdateParams',
+      typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
   }
@@ -627,8 +627,8 @@ function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgUpdateParamsResponse',
-  aminoType: 'cosmos-sdk/MsgUpdateParamsResponse',
+  typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParamsResponse",
+  aminoType: "cosmos-sdk/MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {
     return o && o.$typeUrl === MsgUpdateParamsResponse.typeUrl;
   },
@@ -645,9 +645,9 @@ export const MsgUpdateParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -669,7 +669,7 @@ export const MsgUpdateParamsResponse = {
   },
   toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgUpdateParamsResponse',
+      type: "cosmos-sdk/MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.toAmino(message)
     };
   },
@@ -681,7 +681,7 @@ export const MsgUpdateParamsResponse = {
   },
   toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgUpdateParamsResponse',
+      typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
   }
@@ -690,22 +690,22 @@ GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsR
 GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);
 function createBaseMsgSetSendEnabled(): MsgSetSendEnabled {
   return {
-    authority: '',
+    authority: "",
     sendEnabled: [],
     useDefaultFor: []
   };
 }
 export const MsgSetSendEnabled = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSetSendEnabled',
-  aminoType: 'cosmos-sdk/MsgSetSendEnabled',
+  typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled",
+  aminoType: "cosmos-sdk/MsgSetSendEnabled",
   is(o: any): o is MsgSetSendEnabled {
-    return o && (o.$typeUrl === MsgSetSendEnabled.typeUrl || typeof o.authority === 'string' && Array.isArray(o.sendEnabled) && (!o.sendEnabled.length || SendEnabled.is(o.sendEnabled[0])) && Array.isArray(o.useDefaultFor) && (!o.useDefaultFor.length || typeof o.useDefaultFor[0] === 'string'));
+    return o && (o.$typeUrl === MsgSetSendEnabled.typeUrl || typeof o.authority === "string" && Array.isArray(o.sendEnabled) && (!o.sendEnabled.length || SendEnabled.is(o.sendEnabled[0])) && Array.isArray(o.useDefaultFor) && (!o.useDefaultFor.length || typeof o.useDefaultFor[0] === "string"));
   },
   isAmino(o: any): o is MsgSetSendEnabledAmino {
-    return o && (o.$typeUrl === MsgSetSendEnabled.typeUrl || typeof o.authority === 'string' && Array.isArray(o.send_enabled) && (!o.send_enabled.length || SendEnabled.isAmino(o.send_enabled[0])) && Array.isArray(o.use_default_for) && (!o.use_default_for.length || typeof o.use_default_for[0] === 'string'));
+    return o && (o.$typeUrl === MsgSetSendEnabled.typeUrl || typeof o.authority === "string" && Array.isArray(o.send_enabled) && (!o.send_enabled.length || SendEnabled.isAmino(o.send_enabled[0])) && Array.isArray(o.use_default_for) && (!o.use_default_for.length || typeof o.use_default_for[0] === "string"));
   },
   encode(message: MsgSetSendEnabled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== '') {
+    if (message.authority !== "") {
       writer.uint32(10).string(message.authority);
     }
     for (const v of message.sendEnabled) {
@@ -723,25 +723,25 @@ export const MsgSetSendEnabled = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.authority = reader.string();
-        break;
-      case 2:
-        message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
-        break;
-      case 3:
-        message.useDefaultFor.push(reader.string());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.authority = reader.string();
+          break;
+        case 2:
+          message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.useDefaultFor.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<MsgSetSendEnabled>): MsgSetSendEnabled {
     const message = createBaseMsgSetSendEnabled();
-    message.authority = object.authority ?? '';
+    message.authority = object.authority ?? "";
     message.sendEnabled = object.sendEnabled?.map(e => SendEnabled.fromPartial(e)) || [];
     message.useDefaultFor = object.useDefaultFor?.map(e => e) || [];
     return message;
@@ -757,7 +757,7 @@ export const MsgSetSendEnabled = {
   },
   toAmino(message: MsgSetSendEnabled): MsgSetSendEnabledAmino {
     const obj: any = {};
-    obj.authority = message.authority === '' ? undefined : message.authority;
+    obj.authority = message.authority === "" ? undefined : message.authority;
     if (message.sendEnabled) {
       obj.send_enabled = message.sendEnabled.map(e => e ? SendEnabled.toAmino(e) : undefined);
     } else {
@@ -775,7 +775,7 @@ export const MsgSetSendEnabled = {
   },
   toAminoMsg(message: MsgSetSendEnabled): MsgSetSendEnabledAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgSetSendEnabled',
+      type: "cosmos-sdk/MsgSetSendEnabled",
       value: MsgSetSendEnabled.toAmino(message)
     };
   },
@@ -787,7 +787,7 @@ export const MsgSetSendEnabled = {
   },
   toProtoMsg(message: MsgSetSendEnabled): MsgSetSendEnabledProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgSetSendEnabled',
+      typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled",
       value: MsgSetSendEnabled.encode(message).finish()
     };
   }
@@ -798,8 +798,8 @@ function createBaseMsgSetSendEnabledResponse(): MsgSetSendEnabledResponse {
   return {};
 }
 export const MsgSetSendEnabledResponse = {
-  typeUrl: '/cosmos.bank.v1beta1.MsgSetSendEnabledResponse',
-  aminoType: 'cosmos-sdk/MsgSetSendEnabledResponse',
+  typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabledResponse",
+  aminoType: "cosmos-sdk/MsgSetSendEnabledResponse",
   is(o: any): o is MsgSetSendEnabledResponse {
     return o && o.$typeUrl === MsgSetSendEnabledResponse.typeUrl;
   },
@@ -816,9 +816,9 @@ export const MsgSetSendEnabledResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -840,7 +840,7 @@ export const MsgSetSendEnabledResponse = {
   },
   toAminoMsg(message: MsgSetSendEnabledResponse): MsgSetSendEnabledResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgSetSendEnabledResponse',
+      type: "cosmos-sdk/MsgSetSendEnabledResponse",
       value: MsgSetSendEnabledResponse.toAmino(message)
     };
   },
@@ -852,7 +852,7 @@ export const MsgSetSendEnabledResponse = {
   },
   toProtoMsg(message: MsgSetSendEnabledResponse): MsgSetSendEnabledResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.MsgSetSendEnabledResponse',
+      typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabledResponse",
       value: MsgSetSendEnabledResponse.encode(message).finish()
     };
   }

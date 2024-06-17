@@ -1,7 +1,7 @@
-import { BinaryReader, BinaryWriter } from '../../../binary';
-import { DeepPartial } from '../../../helpers';
-import { GlobalDecoderRegistry } from '../../../registry';
-import { Coin, CoinAmino } from '../../base/v1beta1/coin';
+import { Coin, CoinAmino } from "../../base/v1beta1/coin";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** Params defines the parameters for the bank module. */
 export interface Params {
   /**
@@ -16,7 +16,7 @@ export interface Params {
   defaultSendEnabled: boolean;
 }
 export interface ParamsProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.Params';
+  typeUrl: "/cosmos.bank.v1beta1.Params";
   value: Uint8Array;
 }
 /** Params defines the parameters for the bank module. */
@@ -33,7 +33,7 @@ export interface ParamsAmino {
   default_send_enabled: boolean;
 }
 export interface ParamsAminoMsg {
-  type: 'cosmos-sdk/x/bank/Params';
+  type: "cosmos-sdk/x/bank/Params";
   value: ParamsAmino;
 }
 /**
@@ -45,7 +45,7 @@ export interface SendEnabled {
   enabled: boolean;
 }
 export interface SendEnabledProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.SendEnabled';
+  typeUrl: "/cosmos.bank.v1beta1.SendEnabled";
   value: Uint8Array;
 }
 /**
@@ -57,7 +57,7 @@ export interface SendEnabledAmino {
   enabled: boolean;
 }
 export interface SendEnabledAminoMsg {
-  type: 'cosmos-sdk/SendEnabled';
+  type: "cosmos-sdk/SendEnabled";
   value: SendEnabledAmino;
 }
 /** Input models transaction input. */
@@ -66,7 +66,7 @@ export interface Input {
   coins: Coin[];
 }
 export interface InputProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.Input';
+  typeUrl: "/cosmos.bank.v1beta1.Input";
   value: Uint8Array;
 }
 /** Input models transaction input. */
@@ -75,7 +75,7 @@ export interface InputAmino {
   coins: CoinAmino[];
 }
 export interface InputAminoMsg {
-  type: 'cosmos-sdk/Input';
+  type: "cosmos-sdk/Input";
   value: InputAmino;
 }
 /** Output models transaction outputs. */
@@ -84,7 +84,7 @@ export interface Output {
   coins: Coin[];
 }
 export interface OutputProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.Output';
+  typeUrl: "/cosmos.bank.v1beta1.Output";
   value: Uint8Array;
 }
 /** Output models transaction outputs. */
@@ -93,7 +93,7 @@ export interface OutputAmino {
   coins: CoinAmino[];
 }
 export interface OutputAminoMsg {
-  type: 'cosmos-sdk/Output';
+  type: "cosmos-sdk/Output";
   value: OutputAmino;
 }
 /**
@@ -103,10 +103,11 @@ export interface OutputAminoMsg {
  */
 /** @deprecated */
 export interface Supply {
+  $typeUrl?: "/cosmos.bank.v1beta1.Supply";
   total: Coin[];
 }
 export interface SupplyProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.Supply';
+  typeUrl: "/cosmos.bank.v1beta1.Supply";
   value: Uint8Array;
 }
 /**
@@ -119,7 +120,7 @@ export interface SupplyAmino {
   total: CoinAmino[];
 }
 export interface SupplyAminoMsg {
-  type: 'cosmos-sdk/Supply';
+  type: "cosmos-sdk/Supply";
   value: SupplyAmino;
 }
 /**
@@ -141,7 +142,7 @@ export interface DenomUnit {
   aliases: string[];
 }
 export interface DenomUnitProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.DenomUnit';
+  typeUrl: "/cosmos.bank.v1beta1.DenomUnit";
   value: Uint8Array;
 }
 /**
@@ -163,7 +164,7 @@ export interface DenomUnitAmino {
   aliases: string[];
 }
 export interface DenomUnitAminoMsg {
-  type: 'cosmos-sdk/DenomUnit';
+  type: "cosmos-sdk/DenomUnit";
   value: DenomUnitAmino;
 }
 /**
@@ -209,7 +210,7 @@ export interface Metadata {
   uriHash: string;
 }
 export interface MetadataProtoMsg {
-  typeUrl: '/cosmos.bank.v1beta1.Metadata';
+  typeUrl: "/cosmos.bank.v1beta1.Metadata";
   value: Uint8Array;
 }
 /**
@@ -255,7 +256,7 @@ export interface MetadataAmino {
   uri_hash: string;
 }
 export interface MetadataAminoMsg {
-  type: 'cosmos-sdk/Metadata';
+  type: "cosmos-sdk/Metadata";
   value: MetadataAmino;
 }
 function createBaseParams(): Params {
@@ -265,13 +266,13 @@ function createBaseParams(): Params {
   };
 }
 export const Params = {
-  typeUrl: '/cosmos.bank.v1beta1.Params',
-  aminoType: 'cosmos-sdk/x/bank/Params',
+  typeUrl: "/cosmos.bank.v1beta1.Params",
+  aminoType: "cosmos-sdk/x/bank/Params",
   is(o: any): o is Params {
-    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.sendEnabled) && (!o.sendEnabled.length || SendEnabled.is(o.sendEnabled[0])) && typeof o.defaultSendEnabled === 'boolean');
+    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.sendEnabled) && (!o.sendEnabled.length || SendEnabled.is(o.sendEnabled[0])) && typeof o.defaultSendEnabled === "boolean");
   },
   isAmino(o: any): o is ParamsAmino {
-    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.send_enabled) && (!o.send_enabled.length || SendEnabled.isAmino(o.send_enabled[0])) && typeof o.default_send_enabled === 'boolean');
+    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.send_enabled) && (!o.send_enabled.length || SendEnabled.isAmino(o.send_enabled[0])) && typeof o.default_send_enabled === "boolean");
   },
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.sendEnabled) {
@@ -289,15 +290,15 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
-        break;
-      case 2:
-        message.defaultSendEnabled = reader.bool();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.sendEnabled.push(SendEnabled.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.defaultSendEnabled = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -331,7 +332,7 @@ export const Params = {
   },
   toAminoMsg(message: Params): ParamsAminoMsg {
     return {
-      type: 'cosmos-sdk/x/bank/Params',
+      type: "cosmos-sdk/x/bank/Params",
       value: Params.toAmino(message)
     };
   },
@@ -343,7 +344,7 @@ export const Params = {
   },
   toProtoMsg(message: Params): ParamsProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.Params',
+      typeUrl: "/cosmos.bank.v1beta1.Params",
       value: Params.encode(message).finish()
     };
   }
@@ -352,21 +353,21 @@ GlobalDecoderRegistry.register(Params.typeUrl, Params);
 GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseSendEnabled(): SendEnabled {
   return {
-    denom: '',
+    denom: "",
     enabled: false
   };
 }
 export const SendEnabled = {
-  typeUrl: '/cosmos.bank.v1beta1.SendEnabled',
-  aminoType: 'cosmos-sdk/SendEnabled',
+  typeUrl: "/cosmos.bank.v1beta1.SendEnabled",
+  aminoType: "cosmos-sdk/SendEnabled",
   is(o: any): o is SendEnabled {
-    return o && (o.$typeUrl === SendEnabled.typeUrl || typeof o.denom === 'string' && typeof o.enabled === 'boolean');
+    return o && (o.$typeUrl === SendEnabled.typeUrl || typeof o.denom === "string" && typeof o.enabled === "boolean");
   },
   isAmino(o: any): o is SendEnabledAmino {
-    return o && (o.$typeUrl === SendEnabled.typeUrl || typeof o.denom === 'string' && typeof o.enabled === 'boolean');
+    return o && (o.$typeUrl === SendEnabled.typeUrl || typeof o.denom === "string" && typeof o.enabled === "boolean");
   },
   encode(message: SendEnabled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.denom !== '') {
+    if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
     if (message.enabled === true) {
@@ -381,22 +382,22 @@ export const SendEnabled = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.denom = reader.string();
-        break;
-      case 2:
-        message.enabled = reader.bool();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.denom = reader.string();
+          break;
+        case 2:
+          message.enabled = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<SendEnabled>): SendEnabled {
     const message = createBaseSendEnabled();
-    message.denom = object.denom ?? '';
+    message.denom = object.denom ?? "";
     message.enabled = object.enabled ?? false;
     return message;
   },
@@ -412,7 +413,7 @@ export const SendEnabled = {
   },
   toAmino(message: SendEnabled): SendEnabledAmino {
     const obj: any = {};
-    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     obj.enabled = message.enabled === false ? undefined : message.enabled;
     return obj;
   },
@@ -421,7 +422,7 @@ export const SendEnabled = {
   },
   toAminoMsg(message: SendEnabled): SendEnabledAminoMsg {
     return {
-      type: 'cosmos-sdk/SendEnabled',
+      type: "cosmos-sdk/SendEnabled",
       value: SendEnabled.toAmino(message)
     };
   },
@@ -433,7 +434,7 @@ export const SendEnabled = {
   },
   toProtoMsg(message: SendEnabled): SendEnabledProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.SendEnabled',
+      typeUrl: "/cosmos.bank.v1beta1.SendEnabled",
       value: SendEnabled.encode(message).finish()
     };
   }
@@ -442,21 +443,21 @@ GlobalDecoderRegistry.register(SendEnabled.typeUrl, SendEnabled);
 GlobalDecoderRegistry.registerAminoProtoMapping(SendEnabled.aminoType, SendEnabled.typeUrl);
 function createBaseInput(): Input {
   return {
-    address: '',
+    address: "",
     coins: []
   };
 }
 export const Input = {
-  typeUrl: '/cosmos.bank.v1beta1.Input',
-  aminoType: 'cosmos-sdk/Input',
+  typeUrl: "/cosmos.bank.v1beta1.Input",
+  aminoType: "cosmos-sdk/Input",
   is(o: any): o is Input {
-    return o && (o.$typeUrl === Input.typeUrl || typeof o.address === 'string' && Array.isArray(o.coins) && (!o.coins.length || Coin.is(o.coins[0])));
+    return o && (o.$typeUrl === Input.typeUrl || typeof o.address === "string" && Array.isArray(o.coins) && (!o.coins.length || Coin.is(o.coins[0])));
   },
   isAmino(o: any): o is InputAmino {
-    return o && (o.$typeUrl === Input.typeUrl || typeof o.address === 'string' && Array.isArray(o.coins) && (!o.coins.length || Coin.isAmino(o.coins[0])));
+    return o && (o.$typeUrl === Input.typeUrl || typeof o.address === "string" && Array.isArray(o.coins) && (!o.coins.length || Coin.isAmino(o.coins[0])));
   },
   encode(message: Input, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     for (const v of message.coins) {
@@ -471,22 +472,22 @@ export const Input = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.address = reader.string();
-        break;
-      case 2:
-        message.coins.push(Coin.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.address = reader.string();
+          break;
+        case 2:
+          message.coins.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<Input>): Input {
     const message = createBaseInput();
-    message.address = object.address ?? '';
+    message.address = object.address ?? "";
     message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
     return message;
   },
@@ -500,7 +501,7 @@ export const Input = {
   },
   toAmino(message: Input): InputAmino {
     const obj: any = {};
-    obj.address = message.address === '' ? undefined : message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     if (message.coins) {
       obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -513,7 +514,7 @@ export const Input = {
   },
   toAminoMsg(message: Input): InputAminoMsg {
     return {
-      type: 'cosmos-sdk/Input',
+      type: "cosmos-sdk/Input",
       value: Input.toAmino(message)
     };
   },
@@ -525,7 +526,7 @@ export const Input = {
   },
   toProtoMsg(message: Input): InputProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.Input',
+      typeUrl: "/cosmos.bank.v1beta1.Input",
       value: Input.encode(message).finish()
     };
   }
@@ -534,21 +535,21 @@ GlobalDecoderRegistry.register(Input.typeUrl, Input);
 GlobalDecoderRegistry.registerAminoProtoMapping(Input.aminoType, Input.typeUrl);
 function createBaseOutput(): Output {
   return {
-    address: '',
+    address: "",
     coins: []
   };
 }
 export const Output = {
-  typeUrl: '/cosmos.bank.v1beta1.Output',
-  aminoType: 'cosmos-sdk/Output',
+  typeUrl: "/cosmos.bank.v1beta1.Output",
+  aminoType: "cosmos-sdk/Output",
   is(o: any): o is Output {
-    return o && (o.$typeUrl === Output.typeUrl || typeof o.address === 'string' && Array.isArray(o.coins) && (!o.coins.length || Coin.is(o.coins[0])));
+    return o && (o.$typeUrl === Output.typeUrl || typeof o.address === "string" && Array.isArray(o.coins) && (!o.coins.length || Coin.is(o.coins[0])));
   },
   isAmino(o: any): o is OutputAmino {
-    return o && (o.$typeUrl === Output.typeUrl || typeof o.address === 'string' && Array.isArray(o.coins) && (!o.coins.length || Coin.isAmino(o.coins[0])));
+    return o && (o.$typeUrl === Output.typeUrl || typeof o.address === "string" && Array.isArray(o.coins) && (!o.coins.length || Coin.isAmino(o.coins[0])));
   },
   encode(message: Output, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     for (const v of message.coins) {
@@ -563,22 +564,22 @@ export const Output = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.address = reader.string();
-        break;
-      case 2:
-        message.coins.push(Coin.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.address = reader.string();
+          break;
+        case 2:
+          message.coins.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<Output>): Output {
     const message = createBaseOutput();
-    message.address = object.address ?? '';
+    message.address = object.address ?? "";
     message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
     return message;
   },
@@ -592,7 +593,7 @@ export const Output = {
   },
   toAmino(message: Output): OutputAmino {
     const obj: any = {};
-    obj.address = message.address === '' ? undefined : message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     if (message.coins) {
       obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
     } else {
@@ -605,7 +606,7 @@ export const Output = {
   },
   toAminoMsg(message: Output): OutputAminoMsg {
     return {
-      type: 'cosmos-sdk/Output',
+      type: "cosmos-sdk/Output",
       value: Output.toAmino(message)
     };
   },
@@ -617,7 +618,7 @@ export const Output = {
   },
   toProtoMsg(message: Output): OutputProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.Output',
+      typeUrl: "/cosmos.bank.v1beta1.Output",
       value: Output.encode(message).finish()
     };
   }
@@ -626,12 +627,13 @@ GlobalDecoderRegistry.register(Output.typeUrl, Output);
 GlobalDecoderRegistry.registerAminoProtoMapping(Output.aminoType, Output.typeUrl);
 function createBaseSupply(): Supply {
   return {
+    $typeUrl: "/cosmos.bank.v1beta1.Supply",
     total: []
   };
 }
 export const Supply = {
-  typeUrl: '/cosmos.bank.v1beta1.Supply',
-  aminoType: 'cosmos-sdk/Supply',
+  typeUrl: "/cosmos.bank.v1beta1.Supply",
+  aminoType: "cosmos-sdk/Supply",
   is(o: any): o is Supply {
     return o && (o.$typeUrl === Supply.typeUrl || Array.isArray(o.total) && (!o.total.length || Coin.is(o.total[0])));
   },
@@ -651,12 +653,12 @@ export const Supply = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.total.push(Coin.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.total.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -685,7 +687,7 @@ export const Supply = {
   },
   toAminoMsg(message: Supply): SupplyAminoMsg {
     return {
-      type: 'cosmos-sdk/Supply',
+      type: "cosmos-sdk/Supply",
       value: Supply.toAmino(message)
     };
   },
@@ -697,7 +699,7 @@ export const Supply = {
   },
   toProtoMsg(message: Supply): SupplyProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.Supply',
+      typeUrl: "/cosmos.bank.v1beta1.Supply",
       value: Supply.encode(message).finish()
     };
   }
@@ -706,22 +708,22 @@ GlobalDecoderRegistry.register(Supply.typeUrl, Supply);
 GlobalDecoderRegistry.registerAminoProtoMapping(Supply.aminoType, Supply.typeUrl);
 function createBaseDenomUnit(): DenomUnit {
   return {
-    denom: '',
+    denom: "",
     exponent: 0,
     aliases: []
   };
 }
 export const DenomUnit = {
-  typeUrl: '/cosmos.bank.v1beta1.DenomUnit',
-  aminoType: 'cosmos-sdk/DenomUnit',
+  typeUrl: "/cosmos.bank.v1beta1.DenomUnit",
+  aminoType: "cosmos-sdk/DenomUnit",
   is(o: any): o is DenomUnit {
-    return o && (o.$typeUrl === DenomUnit.typeUrl || typeof o.denom === 'string' && typeof o.exponent === 'number' && Array.isArray(o.aliases) && (!o.aliases.length || typeof o.aliases[0] === 'string'));
+    return o && (o.$typeUrl === DenomUnit.typeUrl || typeof o.denom === "string" && typeof o.exponent === "number" && Array.isArray(o.aliases) && (!o.aliases.length || typeof o.aliases[0] === "string"));
   },
   isAmino(o: any): o is DenomUnitAmino {
-    return o && (o.$typeUrl === DenomUnit.typeUrl || typeof o.denom === 'string' && typeof o.exponent === 'number' && Array.isArray(o.aliases) && (!o.aliases.length || typeof o.aliases[0] === 'string'));
+    return o && (o.$typeUrl === DenomUnit.typeUrl || typeof o.denom === "string" && typeof o.exponent === "number" && Array.isArray(o.aliases) && (!o.aliases.length || typeof o.aliases[0] === "string"));
   },
   encode(message: DenomUnit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.denom !== '') {
+    if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
     if (message.exponent !== 0) {
@@ -739,25 +741,25 @@ export const DenomUnit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.denom = reader.string();
-        break;
-      case 2:
-        message.exponent = reader.uint32();
-        break;
-      case 3:
-        message.aliases.push(reader.string());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.denom = reader.string();
+          break;
+        case 2:
+          message.exponent = reader.uint32();
+          break;
+        case 3:
+          message.aliases.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<DenomUnit>): DenomUnit {
     const message = createBaseDenomUnit();
-    message.denom = object.denom ?? '';
+    message.denom = object.denom ?? "";
     message.exponent = object.exponent ?? 0;
     message.aliases = object.aliases?.map(e => e) || [];
     return message;
@@ -775,7 +777,7 @@ export const DenomUnit = {
   },
   toAmino(message: DenomUnit): DenomUnitAmino {
     const obj: any = {};
-    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.denom = message.denom === "" ? undefined : message.denom;
     obj.exponent = message.exponent === 0 ? undefined : message.exponent;
     if (message.aliases) {
       obj.aliases = message.aliases.map(e => e);
@@ -789,7 +791,7 @@ export const DenomUnit = {
   },
   toAminoMsg(message: DenomUnit): DenomUnitAminoMsg {
     return {
-      type: 'cosmos-sdk/DenomUnit',
+      type: "cosmos-sdk/DenomUnit",
       value: DenomUnit.toAmino(message)
     };
   },
@@ -801,7 +803,7 @@ export const DenomUnit = {
   },
   toProtoMsg(message: DenomUnit): DenomUnitProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.DenomUnit',
+      typeUrl: "/cosmos.bank.v1beta1.DenomUnit",
       value: DenomUnit.encode(message).finish()
     };
   }
@@ -810,48 +812,48 @@ GlobalDecoderRegistry.register(DenomUnit.typeUrl, DenomUnit);
 GlobalDecoderRegistry.registerAminoProtoMapping(DenomUnit.aminoType, DenomUnit.typeUrl);
 function createBaseMetadata(): Metadata {
   return {
-    description: '',
+    description: "",
     denomUnits: [],
-    base: '',
-    display: '',
-    name: '',
-    symbol: '',
-    uri: '',
-    uriHash: ''
+    base: "",
+    display: "",
+    name: "",
+    symbol: "",
+    uri: "",
+    uriHash: ""
   };
 }
 export const Metadata = {
-  typeUrl: '/cosmos.bank.v1beta1.Metadata',
-  aminoType: 'cosmos-sdk/Metadata',
+  typeUrl: "/cosmos.bank.v1beta1.Metadata",
+  aminoType: "cosmos-sdk/Metadata",
   is(o: any): o is Metadata {
-    return o && (o.$typeUrl === Metadata.typeUrl || typeof o.description === 'string' && Array.isArray(o.denomUnits) && (!o.denomUnits.length || DenomUnit.is(o.denomUnits[0])) && typeof o.base === 'string' && typeof o.display === 'string' && typeof o.name === 'string' && typeof o.symbol === 'string' && typeof o.uri === 'string' && typeof o.uriHash === 'string');
+    return o && (o.$typeUrl === Metadata.typeUrl || typeof o.description === "string" && Array.isArray(o.denomUnits) && (!o.denomUnits.length || DenomUnit.is(o.denomUnits[0])) && typeof o.base === "string" && typeof o.display === "string" && typeof o.name === "string" && typeof o.symbol === "string" && typeof o.uri === "string" && typeof o.uriHash === "string");
   },
   isAmino(o: any): o is MetadataAmino {
-    return o && (o.$typeUrl === Metadata.typeUrl || typeof o.description === 'string' && Array.isArray(o.denom_units) && (!o.denom_units.length || DenomUnit.isAmino(o.denom_units[0])) && typeof o.base === 'string' && typeof o.display === 'string' && typeof o.name === 'string' && typeof o.symbol === 'string' && typeof o.uri === 'string' && typeof o.uri_hash === 'string');
+    return o && (o.$typeUrl === Metadata.typeUrl || typeof o.description === "string" && Array.isArray(o.denom_units) && (!o.denom_units.length || DenomUnit.isAmino(o.denom_units[0])) && typeof o.base === "string" && typeof o.display === "string" && typeof o.name === "string" && typeof o.symbol === "string" && typeof o.uri === "string" && typeof o.uri_hash === "string");
   },
   encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.description !== '') {
+    if (message.description !== "") {
       writer.uint32(10).string(message.description);
     }
     for (const v of message.denomUnits) {
       DenomUnit.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.base !== '') {
+    if (message.base !== "") {
       writer.uint32(26).string(message.base);
     }
-    if (message.display !== '') {
+    if (message.display !== "") {
       writer.uint32(34).string(message.display);
     }
-    if (message.name !== '') {
+    if (message.name !== "") {
       writer.uint32(42).string(message.name);
     }
-    if (message.symbol !== '') {
+    if (message.symbol !== "") {
       writer.uint32(50).string(message.symbol);
     }
-    if (message.uri !== '') {
+    if (message.uri !== "") {
       writer.uint32(58).string(message.uri);
     }
-    if (message.uriHash !== '') {
+    if (message.uriHash !== "") {
       writer.uint32(66).string(message.uriHash);
     }
     return writer;
@@ -863,47 +865,47 @@ export const Metadata = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.description = reader.string();
-        break;
-      case 2:
-        message.denomUnits.push(DenomUnit.decode(reader, reader.uint32()));
-        break;
-      case 3:
-        message.base = reader.string();
-        break;
-      case 4:
-        message.display = reader.string();
-        break;
-      case 5:
-        message.name = reader.string();
-        break;
-      case 6:
-        message.symbol = reader.string();
-        break;
-      case 7:
-        message.uri = reader.string();
-        break;
-      case 8:
-        message.uriHash = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.description = reader.string();
+          break;
+        case 2:
+          message.denomUnits.push(DenomUnit.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.base = reader.string();
+          break;
+        case 4:
+          message.display = reader.string();
+          break;
+        case 5:
+          message.name = reader.string();
+          break;
+        case 6:
+          message.symbol = reader.string();
+          break;
+        case 7:
+          message.uri = reader.string();
+          break;
+        case 8:
+          message.uriHash = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<Metadata>): Metadata {
     const message = createBaseMetadata();
-    message.description = object.description ?? '';
+    message.description = object.description ?? "";
     message.denomUnits = object.denomUnits?.map(e => DenomUnit.fromPartial(e)) || [];
-    message.base = object.base ?? '';
-    message.display = object.display ?? '';
-    message.name = object.name ?? '';
-    message.symbol = object.symbol ?? '';
-    message.uri = object.uri ?? '';
-    message.uriHash = object.uriHash ?? '';
+    message.base = object.base ?? "";
+    message.display = object.display ?? "";
+    message.name = object.name ?? "";
+    message.symbol = object.symbol ?? "";
+    message.uri = object.uri ?? "";
+    message.uriHash = object.uriHash ?? "";
     return message;
   },
   fromAmino(object: MetadataAmino): Metadata {
@@ -934,18 +936,18 @@ export const Metadata = {
   },
   toAmino(message: Metadata): MetadataAmino {
     const obj: any = {};
-    obj.description = message.description === '' ? undefined : message.description;
+    obj.description = message.description === "" ? undefined : message.description;
     if (message.denomUnits) {
       obj.denom_units = message.denomUnits.map(e => e ? DenomUnit.toAmino(e) : undefined);
     } else {
       obj.denom_units = message.denomUnits;
     }
-    obj.base = message.base === '' ? undefined : message.base;
-    obj.display = message.display === '' ? undefined : message.display;
-    obj.name = message.name === '' ? undefined : message.name;
-    obj.symbol = message.symbol === '' ? undefined : message.symbol;
-    obj.uri = message.uri === '' ? undefined : message.uri;
-    obj.uri_hash = message.uriHash === '' ? undefined : message.uriHash;
+    obj.base = message.base === "" ? undefined : message.base;
+    obj.display = message.display === "" ? undefined : message.display;
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.symbol = message.symbol === "" ? undefined : message.symbol;
+    obj.uri = message.uri === "" ? undefined : message.uri;
+    obj.uri_hash = message.uriHash === "" ? undefined : message.uriHash;
     return obj;
   },
   fromAminoMsg(object: MetadataAminoMsg): Metadata {
@@ -953,7 +955,7 @@ export const Metadata = {
   },
   toAminoMsg(message: Metadata): MetadataAminoMsg {
     return {
-      type: 'cosmos-sdk/Metadata',
+      type: "cosmos-sdk/Metadata",
       value: Metadata.toAmino(message)
     };
   },
@@ -965,7 +967,7 @@ export const Metadata = {
   },
   toProtoMsg(message: Metadata): MetadataProtoMsg {
     return {
-      typeUrl: '/cosmos.bank.v1beta1.Metadata',
+      typeUrl: "/cosmos.bank.v1beta1.Metadata",
       value: Metadata.encode(message).finish()
     };
   }

@@ -1,7 +1,7 @@
-import { BinaryReader, BinaryWriter } from '../../binary';
-import { Duration, DurationAmino } from '../../google/protobuf/duration';
-import { DeepPartial } from '../../helpers';
-import { GlobalDecoderRegistry } from '../../registry';
+import { Duration, DurationAmino } from "../../google/protobuf/duration";
+import { BinaryReader, BinaryWriter } from "../../binary";
+import { DeepPartial } from "../../helpers";
+import { GlobalDecoderRegistry } from "../../registry";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
  * validity of blocks.
@@ -14,7 +14,7 @@ export interface ConsensusParams {
   abci?: ABCIParams;
 }
 export interface ConsensusParamsProtoMsg {
-  typeUrl: '/tendermint.types.ConsensusParams';
+  typeUrl: "/tendermint.types.ConsensusParams";
   value: Uint8Array;
 }
 /**
@@ -29,7 +29,7 @@ export interface ConsensusParamsAmino {
   abci?: ABCIParamsAmino;
 }
 export interface ConsensusParamsAminoMsg {
-  type: '/tendermint.types.ConsensusParams';
+  type: "/tendermint.types.ConsensusParams";
   value: ConsensusParamsAmino;
 }
 /** BlockParams contains limits on the block size. */
@@ -46,7 +46,7 @@ export interface BlockParams {
   maxGas: bigint;
 }
 export interface BlockParamsProtoMsg {
-  typeUrl: '/tendermint.types.BlockParams';
+  typeUrl: "/tendermint.types.BlockParams";
   value: Uint8Array;
 }
 /** BlockParams contains limits on the block size. */
@@ -63,7 +63,7 @@ export interface BlockParamsAmino {
   max_gas: string;
 }
 export interface BlockParamsAminoMsg {
-  type: '/tendermint.types.BlockParams';
+  type: "/tendermint.types.BlockParams";
   value: BlockParamsAmino;
 }
 /** EvidenceParams determine how we handle evidence of malfeasance. */
@@ -91,7 +91,7 @@ export interface EvidenceParams {
   maxBytes: bigint;
 }
 export interface EvidenceParamsProtoMsg {
-  typeUrl: '/tendermint.types.EvidenceParams';
+  typeUrl: "/tendermint.types.EvidenceParams";
   value: Uint8Array;
 }
 /** EvidenceParams determine how we handle evidence of malfeasance. */
@@ -119,7 +119,7 @@ export interface EvidenceParamsAmino {
   max_bytes: string;
 }
 export interface EvidenceParamsAminoMsg {
-  type: '/tendermint.types.EvidenceParams';
+  type: "/tendermint.types.EvidenceParams";
   value: EvidenceParamsAmino;
 }
 /**
@@ -130,7 +130,7 @@ export interface ValidatorParams {
   pubKeyTypes: string[];
 }
 export interface ValidatorParamsProtoMsg {
-  typeUrl: '/tendermint.types.ValidatorParams';
+  typeUrl: "/tendermint.types.ValidatorParams";
   value: Uint8Array;
 }
 /**
@@ -141,7 +141,7 @@ export interface ValidatorParamsAmino {
   pub_key_types: string[];
 }
 export interface ValidatorParamsAminoMsg {
-  type: '/tendermint.types.ValidatorParams';
+  type: "/tendermint.types.ValidatorParams";
   value: ValidatorParamsAmino;
 }
 /** VersionParams contains the ABCI application version. */
@@ -149,7 +149,7 @@ export interface VersionParams {
   app: bigint;
 }
 export interface VersionParamsProtoMsg {
-  typeUrl: '/tendermint.types.VersionParams';
+  typeUrl: "/tendermint.types.VersionParams";
   value: Uint8Array;
 }
 /** VersionParams contains the ABCI application version. */
@@ -157,7 +157,7 @@ export interface VersionParamsAmino {
   app: string;
 }
 export interface VersionParamsAminoMsg {
-  type: '/tendermint.types.VersionParams';
+  type: "/tendermint.types.VersionParams";
   value: VersionParamsAmino;
 }
 /**
@@ -170,7 +170,7 @@ export interface HashedParams {
   blockMaxGas: bigint;
 }
 export interface HashedParamsProtoMsg {
-  typeUrl: '/tendermint.types.HashedParams';
+  typeUrl: "/tendermint.types.HashedParams";
   value: Uint8Array;
 }
 /**
@@ -183,7 +183,7 @@ export interface HashedParamsAmino {
   block_max_gas: string;
 }
 export interface HashedParamsAminoMsg {
-  type: '/tendermint.types.HashedParams';
+  type: "/tendermint.types.HashedParams";
   value: HashedParamsAmino;
 }
 /** ABCIParams configure functionality specific to the Application Blockchain Interface. */
@@ -202,7 +202,7 @@ export interface ABCIParams {
   voteExtensionsEnableHeight: bigint;
 }
 export interface ABCIParamsProtoMsg {
-  typeUrl: '/tendermint.types.ABCIParams';
+  typeUrl: "/tendermint.types.ABCIParams";
   value: Uint8Array;
 }
 /** ABCIParams configure functionality specific to the Application Blockchain Interface. */
@@ -221,7 +221,7 @@ export interface ABCIParamsAmino {
   vote_extensions_enable_height: string;
 }
 export interface ABCIParamsAminoMsg {
-  type: '/tendermint.types.ABCIParams';
+  type: "/tendermint.types.ABCIParams";
   value: ABCIParamsAmino;
 }
 function createBaseConsensusParams(): ConsensusParams {
@@ -234,7 +234,7 @@ function createBaseConsensusParams(): ConsensusParams {
   };
 }
 export const ConsensusParams = {
-  typeUrl: '/tendermint.types.ConsensusParams',
+  typeUrl: "/tendermint.types.ConsensusParams",
   is(o: any): o is ConsensusParams {
     return o && o.$typeUrl === ConsensusParams.typeUrl;
   },
@@ -266,24 +266,24 @@ export const ConsensusParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.block = BlockParams.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.evidence = EvidenceParams.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.validator = ValidatorParams.decode(reader, reader.uint32());
-        break;
-      case 4:
-        message.version = VersionParams.decode(reader, reader.uint32());
-        break;
-      case 5:
-        message.abci = ABCIParams.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.block = BlockParams.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.evidence = EvidenceParams.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.validator = ValidatorParams.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.version = VersionParams.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.abci = ABCIParams.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -336,7 +336,7 @@ export const ConsensusParams = {
   },
   toProtoMsg(message: ConsensusParams): ConsensusParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.ConsensusParams',
+      typeUrl: "/tendermint.types.ConsensusParams",
       value: ConsensusParams.encode(message).finish()
     };
   }
@@ -349,12 +349,12 @@ function createBaseBlockParams(): BlockParams {
   };
 }
 export const BlockParams = {
-  typeUrl: '/tendermint.types.BlockParams',
+  typeUrl: "/tendermint.types.BlockParams",
   is(o: any): o is BlockParams {
-    return o && (o.$typeUrl === BlockParams.typeUrl || typeof o.maxBytes === 'bigint' && typeof o.maxGas === 'bigint');
+    return o && (o.$typeUrl === BlockParams.typeUrl || typeof o.maxBytes === "bigint" && typeof o.maxGas === "bigint");
   },
   isAmino(o: any): o is BlockParamsAmino {
-    return o && (o.$typeUrl === BlockParams.typeUrl || typeof o.max_bytes === 'bigint' && typeof o.max_gas === 'bigint');
+    return o && (o.$typeUrl === BlockParams.typeUrl || typeof o.max_bytes === "bigint" && typeof o.max_gas === "bigint");
   },
   encode(message: BlockParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxBytes !== BigInt(0)) {
@@ -372,15 +372,15 @@ export const BlockParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.maxBytes = reader.int64();
-        break;
-      case 2:
-        message.maxGas = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.maxBytes = reader.int64();
+          break;
+        case 2:
+          message.maxGas = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -418,7 +418,7 @@ export const BlockParams = {
   },
   toProtoMsg(message: BlockParams): BlockParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.BlockParams',
+      typeUrl: "/tendermint.types.BlockParams",
       value: BlockParams.encode(message).finish()
     };
   }
@@ -432,12 +432,12 @@ function createBaseEvidenceParams(): EvidenceParams {
   };
 }
 export const EvidenceParams = {
-  typeUrl: '/tendermint.types.EvidenceParams',
+  typeUrl: "/tendermint.types.EvidenceParams",
   is(o: any): o is EvidenceParams {
-    return o && (o.$typeUrl === EvidenceParams.typeUrl || typeof o.maxAgeNumBlocks === 'bigint' && Duration.is(o.maxAgeDuration) && typeof o.maxBytes === 'bigint');
+    return o && (o.$typeUrl === EvidenceParams.typeUrl || typeof o.maxAgeNumBlocks === "bigint" && Duration.is(o.maxAgeDuration) && typeof o.maxBytes === "bigint");
   },
   isAmino(o: any): o is EvidenceParamsAmino {
-    return o && (o.$typeUrl === EvidenceParams.typeUrl || typeof o.max_age_num_blocks === 'bigint' && Duration.isAmino(o.max_age_duration) && typeof o.max_bytes === 'bigint');
+    return o && (o.$typeUrl === EvidenceParams.typeUrl || typeof o.max_age_num_blocks === "bigint" && Duration.isAmino(o.max_age_duration) && typeof o.max_bytes === "bigint");
   },
   encode(message: EvidenceParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxAgeNumBlocks !== BigInt(0)) {
@@ -458,18 +458,18 @@ export const EvidenceParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.maxAgeNumBlocks = reader.int64();
-        break;
-      case 2:
-        message.maxAgeDuration = Duration.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.maxBytes = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.maxAgeNumBlocks = reader.int64();
+          break;
+        case 2:
+          message.maxAgeDuration = Duration.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.maxBytes = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -512,7 +512,7 @@ export const EvidenceParams = {
   },
   toProtoMsg(message: EvidenceParams): EvidenceParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.EvidenceParams',
+      typeUrl: "/tendermint.types.EvidenceParams",
       value: EvidenceParams.encode(message).finish()
     };
   }
@@ -524,12 +524,12 @@ function createBaseValidatorParams(): ValidatorParams {
   };
 }
 export const ValidatorParams = {
-  typeUrl: '/tendermint.types.ValidatorParams',
+  typeUrl: "/tendermint.types.ValidatorParams",
   is(o: any): o is ValidatorParams {
-    return o && (o.$typeUrl === ValidatorParams.typeUrl || Array.isArray(o.pubKeyTypes) && (!o.pubKeyTypes.length || typeof o.pubKeyTypes[0] === 'string'));
+    return o && (o.$typeUrl === ValidatorParams.typeUrl || Array.isArray(o.pubKeyTypes) && (!o.pubKeyTypes.length || typeof o.pubKeyTypes[0] === "string"));
   },
   isAmino(o: any): o is ValidatorParamsAmino {
-    return o && (o.$typeUrl === ValidatorParams.typeUrl || Array.isArray(o.pub_key_types) && (!o.pub_key_types.length || typeof o.pub_key_types[0] === 'string'));
+    return o && (o.$typeUrl === ValidatorParams.typeUrl || Array.isArray(o.pub_key_types) && (!o.pub_key_types.length || typeof o.pub_key_types[0] === "string"));
   },
   encode(message: ValidatorParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.pubKeyTypes) {
@@ -544,12 +544,12 @@ export const ValidatorParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.pubKeyTypes.push(reader.string());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.pubKeyTypes.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -584,7 +584,7 @@ export const ValidatorParams = {
   },
   toProtoMsg(message: ValidatorParams): ValidatorParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.ValidatorParams',
+      typeUrl: "/tendermint.types.ValidatorParams",
       value: ValidatorParams.encode(message).finish()
     };
   }
@@ -596,12 +596,12 @@ function createBaseVersionParams(): VersionParams {
   };
 }
 export const VersionParams = {
-  typeUrl: '/tendermint.types.VersionParams',
+  typeUrl: "/tendermint.types.VersionParams",
   is(o: any): o is VersionParams {
-    return o && (o.$typeUrl === VersionParams.typeUrl || typeof o.app === 'bigint');
+    return o && (o.$typeUrl === VersionParams.typeUrl || typeof o.app === "bigint");
   },
   isAmino(o: any): o is VersionParamsAmino {
-    return o && (o.$typeUrl === VersionParams.typeUrl || typeof o.app === 'bigint');
+    return o && (o.$typeUrl === VersionParams.typeUrl || typeof o.app === "bigint");
   },
   encode(message: VersionParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.app !== BigInt(0)) {
@@ -616,12 +616,12 @@ export const VersionParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.app = reader.uint64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.app = reader.uint64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -654,7 +654,7 @@ export const VersionParams = {
   },
   toProtoMsg(message: VersionParams): VersionParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.VersionParams',
+      typeUrl: "/tendermint.types.VersionParams",
       value: VersionParams.encode(message).finish()
     };
   }
@@ -667,12 +667,12 @@ function createBaseHashedParams(): HashedParams {
   };
 }
 export const HashedParams = {
-  typeUrl: '/tendermint.types.HashedParams',
+  typeUrl: "/tendermint.types.HashedParams",
   is(o: any): o is HashedParams {
-    return o && (o.$typeUrl === HashedParams.typeUrl || typeof o.blockMaxBytes === 'bigint' && typeof o.blockMaxGas === 'bigint');
+    return o && (o.$typeUrl === HashedParams.typeUrl || typeof o.blockMaxBytes === "bigint" && typeof o.blockMaxGas === "bigint");
   },
   isAmino(o: any): o is HashedParamsAmino {
-    return o && (o.$typeUrl === HashedParams.typeUrl || typeof o.block_max_bytes === 'bigint' && typeof o.block_max_gas === 'bigint');
+    return o && (o.$typeUrl === HashedParams.typeUrl || typeof o.block_max_bytes === "bigint" && typeof o.block_max_gas === "bigint");
   },
   encode(message: HashedParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockMaxBytes !== BigInt(0)) {
@@ -690,15 +690,15 @@ export const HashedParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.blockMaxBytes = reader.int64();
-        break;
-      case 2:
-        message.blockMaxGas = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.blockMaxBytes = reader.int64();
+          break;
+        case 2:
+          message.blockMaxGas = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -736,7 +736,7 @@ export const HashedParams = {
   },
   toProtoMsg(message: HashedParams): HashedParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.HashedParams',
+      typeUrl: "/tendermint.types.HashedParams",
       value: HashedParams.encode(message).finish()
     };
   }
@@ -748,12 +748,12 @@ function createBaseABCIParams(): ABCIParams {
   };
 }
 export const ABCIParams = {
-  typeUrl: '/tendermint.types.ABCIParams',
+  typeUrl: "/tendermint.types.ABCIParams",
   is(o: any): o is ABCIParams {
-    return o && (o.$typeUrl === ABCIParams.typeUrl || typeof o.voteExtensionsEnableHeight === 'bigint');
+    return o && (o.$typeUrl === ABCIParams.typeUrl || typeof o.voteExtensionsEnableHeight === "bigint");
   },
   isAmino(o: any): o is ABCIParamsAmino {
-    return o && (o.$typeUrl === ABCIParams.typeUrl || typeof o.vote_extensions_enable_height === 'bigint');
+    return o && (o.$typeUrl === ABCIParams.typeUrl || typeof o.vote_extensions_enable_height === "bigint");
   },
   encode(message: ABCIParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.voteExtensionsEnableHeight !== BigInt(0)) {
@@ -768,12 +768,12 @@ export const ABCIParams = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.voteExtensionsEnableHeight = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.voteExtensionsEnableHeight = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -806,7 +806,7 @@ export const ABCIParams = {
   },
   toProtoMsg(message: ABCIParams): ABCIParamsProtoMsg {
     return {
-      typeUrl: '/tendermint.types.ABCIParams',
+      typeUrl: "/tendermint.types.ABCIParams",
       value: ABCIParams.encode(message).finish()
     };
   }

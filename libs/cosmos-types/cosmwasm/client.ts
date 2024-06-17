@@ -1,9 +1,8 @@
-import { GeneratedType, OfflineSigner,Registry } from '@cosmjs/proto-signing';
-import { AminoTypes, defaultRegistryTypes, SigningStargateClient } from '@cosmjs/stargate';
-import { HttpEndpoint } from '@cosmjs/tendermint-rpc';
-
-import * as cosmwasmWasmV1TxAmino from './wasm/v1/tx.amino';
-import * as cosmwasmWasmV1TxRegistry from './wasm/v1/tx.registry';
+import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
+import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
+import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
+import * as cosmwasmWasmV1TxRegistry from "./wasm/v1/tx.registry";
+import * as cosmwasmWasmV1TxAmino from "./wasm/v1/tx.amino";
 export const cosmwasmAminoConverters = {
   ...cosmwasmWasmV1TxAmino.AminoConverter
 };

@@ -1,9 +1,9 @@
-import { BinaryReader, BinaryWriter } from '../../../binary';
-import { Any, AnyAmino,AnyProtoMsg } from '../../../google/protobuf/any';
-import { base64FromBytes,bytesFromBase64, DeepPartial } from '../../../helpers';
-import { GlobalDecoderRegistry } from '../../../registry';
-import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from '../../base/query/v1beta1/pagination';
-import { BaseAccount, BaseAccountAmino, BaseAccountProtoMsg, ModuleAccount, ModuleAccountProtoMsg,Params, ParamsAmino } from './auth';
+import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "../../base/query/v1beta1/pagination";
+import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
+import { Params, ParamsAmino, BaseAccount, BaseAccountProtoMsg, BaseAccountAmino, ModuleAccount, ModuleAccountProtoMsg } from "./auth";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
  * 
@@ -14,7 +14,7 @@ export interface QueryAccountsRequest {
   pagination?: PageRequest;
 }
 export interface QueryAccountsRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountsRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest";
   value: Uint8Array;
 }
 /**
@@ -27,7 +27,7 @@ export interface QueryAccountsRequestAmino {
   pagination?: PageRequestAmino;
 }
 export interface QueryAccountsRequestAminoMsg {
-  type: 'cosmos-sdk/QueryAccountsRequest';
+  type: "cosmos-sdk/QueryAccountsRequest";
   value: QueryAccountsRequestAmino;
 }
 /**
@@ -42,10 +42,10 @@ export interface QueryAccountsResponse {
   pagination?: PageResponse;
 }
 export interface QueryAccountsResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountsResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse";
   value: Uint8Array;
 }
-export type QueryAccountsResponseEncoded = Omit<QueryAccountsResponse, 'accounts'> & {
+export type QueryAccountsResponseEncoded = Omit<QueryAccountsResponse, "accounts"> & {
   /** accounts are the existing accounts */accounts: (BaseAccountProtoMsg | AnyProtoMsg)[];
 };
 /**
@@ -60,7 +60,7 @@ export interface QueryAccountsResponseAmino {
   pagination?: PageResponseAmino;
 }
 export interface QueryAccountsResponseAminoMsg {
-  type: 'cosmos-sdk/QueryAccountsResponse';
+  type: "cosmos-sdk/QueryAccountsResponse";
   value: QueryAccountsResponseAmino;
 }
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
@@ -69,7 +69,7 @@ export interface QueryAccountRequest {
   address: string;
 }
 export interface QueryAccountRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest";
   value: Uint8Array;
 }
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
@@ -78,7 +78,7 @@ export interface QueryAccountRequestAmino {
   address: string;
 }
 export interface QueryAccountRequestAminoMsg {
-  type: 'cosmos-sdk/QueryAccountRequest';
+  type: "cosmos-sdk/QueryAccountRequest";
   value: QueryAccountRequestAmino;
 }
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
@@ -87,10 +87,10 @@ export interface QueryAccountResponse {
   account?: BaseAccount | Any | undefined;
 }
 export interface QueryAccountResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountResponse";
   value: Uint8Array;
 }
-export type QueryAccountResponseEncoded = Omit<QueryAccountResponse, 'account'> & {
+export type QueryAccountResponseEncoded = Omit<QueryAccountResponse, "account"> & {
   /** account defines the account of the corresponding address. */account?: BaseAccountProtoMsg | AnyProtoMsg | undefined;
 };
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
@@ -99,19 +99,19 @@ export interface QueryAccountResponseAmino {
   account?: AnyAmino;
 }
 export interface QueryAccountResponseAminoMsg {
-  type: 'cosmos-sdk/QueryAccountResponse';
+  type: "cosmos-sdk/QueryAccountResponse";
   value: QueryAccountResponseAmino;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryParamsRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest";
   value: Uint8Array;
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
-  type: 'cosmos-sdk/QueryParamsRequest';
+  type: "cosmos-sdk/QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
@@ -120,7 +120,7 @@ export interface QueryParamsResponse {
   params: Params;
 }
 export interface QueryParamsResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryParamsResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse";
   value: Uint8Array;
 }
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
@@ -129,7 +129,7 @@ export interface QueryParamsResponseAmino {
   params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
-  type: 'cosmos-sdk/QueryParamsResponse';
+  type: "cosmos-sdk/QueryParamsResponse";
   value: QueryParamsResponseAmino;
 }
 /**
@@ -139,7 +139,7 @@ export interface QueryParamsResponseAminoMsg {
  */
 export interface QueryModuleAccountsRequest {}
 export interface QueryModuleAccountsRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountsRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsRequest";
   value: Uint8Array;
 }
 /**
@@ -149,7 +149,7 @@ export interface QueryModuleAccountsRequestProtoMsg {
  */
 export interface QueryModuleAccountsRequestAmino {}
 export interface QueryModuleAccountsRequestAminoMsg {
-  type: 'cosmos-sdk/QueryModuleAccountsRequest';
+  type: "cosmos-sdk/QueryModuleAccountsRequest";
   value: QueryModuleAccountsRequestAmino;
 }
 /**
@@ -161,10 +161,10 @@ export interface QueryModuleAccountsResponse {
   accounts: (ModuleAccount | Any)[] | Any[];
 }
 export interface QueryModuleAccountsResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountsResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsResponse";
   value: Uint8Array;
 }
-export type QueryModuleAccountsResponseEncoded = Omit<QueryModuleAccountsResponse, 'accounts'> & {
+export type QueryModuleAccountsResponseEncoded = Omit<QueryModuleAccountsResponse, "accounts"> & {
   accounts: (ModuleAccountProtoMsg | AnyProtoMsg)[];
 };
 /**
@@ -176,7 +176,7 @@ export interface QueryModuleAccountsResponseAmino {
   accounts: AnyAmino[];
 }
 export interface QueryModuleAccountsResponseAminoMsg {
-  type: 'cosmos-sdk/QueryModuleAccountsResponse';
+  type: "cosmos-sdk/QueryModuleAccountsResponse";
   value: QueryModuleAccountsResponseAmino;
 }
 /** QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method. */
@@ -184,7 +184,7 @@ export interface QueryModuleAccountByNameRequest {
   name: string;
 }
 export interface QueryModuleAccountByNameRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest";
   value: Uint8Array;
 }
 /** QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method. */
@@ -192,7 +192,7 @@ export interface QueryModuleAccountByNameRequestAmino {
   name: string;
 }
 export interface QueryModuleAccountByNameRequestAminoMsg {
-  type: 'cosmos-sdk/QueryModuleAccountByNameRequest';
+  type: "cosmos-sdk/QueryModuleAccountByNameRequest";
   value: QueryModuleAccountByNameRequestAmino;
 }
 /** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
@@ -200,10 +200,10 @@ export interface QueryModuleAccountByNameResponse {
   account?: ModuleAccount | Any | undefined;
 }
 export interface QueryModuleAccountByNameResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse";
   value: Uint8Array;
 }
-export type QueryModuleAccountByNameResponseEncoded = Omit<QueryModuleAccountByNameResponse, 'account'> & {
+export type QueryModuleAccountByNameResponseEncoded = Omit<QueryModuleAccountByNameResponse, "account"> & {
   account?: ModuleAccountProtoMsg | AnyProtoMsg | undefined;
 };
 /** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
@@ -211,7 +211,7 @@ export interface QueryModuleAccountByNameResponseAmino {
   account?: AnyAmino;
 }
 export interface QueryModuleAccountByNameResponseAminoMsg {
-  type: 'cosmos-sdk/QueryModuleAccountByNameResponse';
+  type: "cosmos-sdk/QueryModuleAccountByNameResponse";
   value: QueryModuleAccountByNameResponseAmino;
 }
 /**
@@ -221,7 +221,7 @@ export interface QueryModuleAccountByNameResponseAminoMsg {
  */
 export interface Bech32PrefixRequest {}
 export interface Bech32PrefixRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.Bech32PrefixRequest';
+  typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixRequest";
   value: Uint8Array;
 }
 /**
@@ -231,7 +231,7 @@ export interface Bech32PrefixRequestProtoMsg {
  */
 export interface Bech32PrefixRequestAmino {}
 export interface Bech32PrefixRequestAminoMsg {
-  type: 'cosmos-sdk/Bech32PrefixRequest';
+  type: "cosmos-sdk/Bech32PrefixRequest";
   value: Bech32PrefixRequestAmino;
 }
 /**
@@ -243,7 +243,7 @@ export interface Bech32PrefixResponse {
   bech32Prefix: string;
 }
 export interface Bech32PrefixResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.Bech32PrefixResponse';
+  typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixResponse";
   value: Uint8Array;
 }
 /**
@@ -255,7 +255,7 @@ export interface Bech32PrefixResponseAmino {
   bech32_prefix: string;
 }
 export interface Bech32PrefixResponseAminoMsg {
-  type: 'cosmos-sdk/Bech32PrefixResponse';
+  type: "cosmos-sdk/Bech32PrefixResponse";
   value: Bech32PrefixResponseAmino;
 }
 /**
@@ -267,7 +267,7 @@ export interface AddressBytesToStringRequest {
   addressBytes: Uint8Array;
 }
 export interface AddressBytesToStringRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.AddressBytesToStringRequest';
+  typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringRequest";
   value: Uint8Array;
 }
 /**
@@ -279,7 +279,7 @@ export interface AddressBytesToStringRequestAmino {
   address_bytes: string;
 }
 export interface AddressBytesToStringRequestAminoMsg {
-  type: 'cosmos-sdk/AddressBytesToStringRequest';
+  type: "cosmos-sdk/AddressBytesToStringRequest";
   value: AddressBytesToStringRequestAmino;
 }
 /**
@@ -291,7 +291,7 @@ export interface AddressBytesToStringResponse {
   addressString: string;
 }
 export interface AddressBytesToStringResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.AddressBytesToStringResponse';
+  typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringResponse";
   value: Uint8Array;
 }
 /**
@@ -303,7 +303,7 @@ export interface AddressBytesToStringResponseAmino {
   address_string: string;
 }
 export interface AddressBytesToStringResponseAminoMsg {
-  type: 'cosmos-sdk/AddressBytesToStringResponse';
+  type: "cosmos-sdk/AddressBytesToStringResponse";
   value: AddressBytesToStringResponseAmino;
 }
 /**
@@ -315,7 +315,7 @@ export interface AddressStringToBytesRequest {
   addressString: string;
 }
 export interface AddressStringToBytesRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.AddressStringToBytesRequest';
+  typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesRequest";
   value: Uint8Array;
 }
 /**
@@ -327,7 +327,7 @@ export interface AddressStringToBytesRequestAmino {
   address_string: string;
 }
 export interface AddressStringToBytesRequestAminoMsg {
-  type: 'cosmos-sdk/AddressStringToBytesRequest';
+  type: "cosmos-sdk/AddressStringToBytesRequest";
   value: AddressStringToBytesRequestAmino;
 }
 /**
@@ -339,7 +339,7 @@ export interface AddressStringToBytesResponse {
   addressBytes: Uint8Array;
 }
 export interface AddressStringToBytesResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.AddressStringToBytesResponse';
+  typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesResponse";
   value: Uint8Array;
 }
 /**
@@ -351,7 +351,7 @@ export interface AddressStringToBytesResponseAmino {
   address_bytes: string;
 }
 export interface AddressStringToBytesResponseAminoMsg {
-  type: 'cosmos-sdk/AddressStringToBytesResponse';
+  type: "cosmos-sdk/AddressStringToBytesResponse";
   value: AddressStringToBytesResponseAmino;
 }
 /**
@@ -377,7 +377,7 @@ export interface QueryAccountAddressByIDRequest {
   accountId: bigint;
 }
 export interface QueryAccountAddressByIDRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest";
   value: Uint8Array;
 }
 /**
@@ -403,7 +403,7 @@ export interface QueryAccountAddressByIDRequestAmino {
   account_id: string;
 }
 export interface QueryAccountAddressByIDRequestAminoMsg {
-  type: 'cosmos-sdk/QueryAccountAddressByIDRequest';
+  type: "cosmos-sdk/QueryAccountAddressByIDRequest";
   value: QueryAccountAddressByIDRequestAmino;
 }
 /**
@@ -415,7 +415,7 @@ export interface QueryAccountAddressByIDResponse {
   accountAddress: string;
 }
 export interface QueryAccountAddressByIDResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse";
   value: Uint8Array;
 }
 /**
@@ -427,7 +427,7 @@ export interface QueryAccountAddressByIDResponseAmino {
   account_address: string;
 }
 export interface QueryAccountAddressByIDResponseAminoMsg {
-  type: 'cosmos-sdk/QueryAccountAddressByIDResponse';
+  type: "cosmos-sdk/QueryAccountAddressByIDResponse";
   value: QueryAccountAddressByIDResponseAmino;
 }
 /**
@@ -440,7 +440,7 @@ export interface QueryAccountInfoRequest {
   address: string;
 }
 export interface QueryAccountInfoRequestProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountInfoRequest';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoRequest";
   value: Uint8Array;
 }
 /**
@@ -453,7 +453,7 @@ export interface QueryAccountInfoRequestAmino {
   address: string;
 }
 export interface QueryAccountInfoRequestAminoMsg {
-  type: 'cosmos-sdk/QueryAccountInfoRequest';
+  type: "cosmos-sdk/QueryAccountInfoRequest";
   value: QueryAccountInfoRequestAmino;
 }
 /**
@@ -466,7 +466,7 @@ export interface QueryAccountInfoResponse {
   info?: BaseAccount;
 }
 export interface QueryAccountInfoResponseProtoMsg {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountInfoResponse';
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse";
   value: Uint8Array;
 }
 /**
@@ -479,7 +479,7 @@ export interface QueryAccountInfoResponseAmino {
   info?: BaseAccountAmino;
 }
 export interface QueryAccountInfoResponseAminoMsg {
-  type: 'cosmos-sdk/QueryAccountInfoResponse';
+  type: "cosmos-sdk/QueryAccountInfoResponse";
   value: QueryAccountInfoResponseAmino;
 }
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {
@@ -488,8 +488,8 @@ function createBaseQueryAccountsRequest(): QueryAccountsRequest {
   };
 }
 export const QueryAccountsRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountsRequest',
-  aminoType: 'cosmos-sdk/QueryAccountsRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest",
+  aminoType: "cosmos-sdk/QueryAccountsRequest",
   is(o: any): o is QueryAccountsRequest {
     return o && o.$typeUrl === QueryAccountsRequest.typeUrl;
   },
@@ -509,12 +509,12 @@ export const QueryAccountsRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.pagination = PageRequest.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -541,7 +541,7 @@ export const QueryAccountsRequest = {
   },
   toAminoMsg(message: QueryAccountsRequest): QueryAccountsRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountsRequest',
+      type: "cosmos-sdk/QueryAccountsRequest",
       value: QueryAccountsRequest.toAmino(message)
     };
   },
@@ -553,7 +553,7 @@ export const QueryAccountsRequest = {
   },
   toProtoMsg(message: QueryAccountsRequest): QueryAccountsRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountsRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest",
       value: QueryAccountsRequest.encode(message).finish()
     };
   }
@@ -567,8 +567,8 @@ function createBaseQueryAccountsResponse(): QueryAccountsResponse {
   };
 }
 export const QueryAccountsResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountsResponse',
-  aminoType: 'cosmos-sdk/QueryAccountsResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse",
+  aminoType: "cosmos-sdk/QueryAccountsResponse",
   is(o: any): o is QueryAccountsResponse {
     return o && (o.$typeUrl === QueryAccountsResponse.typeUrl || Array.isArray(o.accounts) && (!o.accounts.length || BaseAccount.is(o.accounts[0]) || Any.is(o.accounts[0])));
   },
@@ -591,15 +591,15 @@ export const QueryAccountsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.accounts.push(GlobalDecoderRegistry.unwrapAny(reader));
-        break;
-      case 2:
-        message.pagination = PageResponse.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.accounts.push(GlobalDecoderRegistry.unwrapAny(reader));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -633,7 +633,7 @@ export const QueryAccountsResponse = {
   },
   toAminoMsg(message: QueryAccountsResponse): QueryAccountsResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountsResponse',
+      type: "cosmos-sdk/QueryAccountsResponse",
       value: QueryAccountsResponse.toAmino(message)
     };
   },
@@ -645,7 +645,7 @@ export const QueryAccountsResponse = {
   },
   toProtoMsg(message: QueryAccountsResponse): QueryAccountsResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountsResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse",
       value: QueryAccountsResponse.encode(message).finish()
     };
   }
@@ -654,20 +654,20 @@ GlobalDecoderRegistry.register(QueryAccountsResponse.typeUrl, QueryAccountsRespo
 GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountsResponse.aminoType, QueryAccountsResponse.typeUrl);
 function createBaseQueryAccountRequest(): QueryAccountRequest {
   return {
-    address: ''
+    address: ""
   };
 }
 export const QueryAccountRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountRequest',
-  aminoType: 'cosmos-sdk/QueryAccountRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest",
+  aminoType: "cosmos-sdk/QueryAccountRequest",
   is(o: any): o is QueryAccountRequest {
-    return o && (o.$typeUrl === QueryAccountRequest.typeUrl || typeof o.address === 'string');
+    return o && (o.$typeUrl === QueryAccountRequest.typeUrl || typeof o.address === "string");
   },
   isAmino(o: any): o is QueryAccountRequestAmino {
-    return o && (o.$typeUrl === QueryAccountRequest.typeUrl || typeof o.address === 'string');
+    return o && (o.$typeUrl === QueryAccountRequest.typeUrl || typeof o.address === "string");
   },
   encode(message: QueryAccountRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     return writer;
@@ -679,19 +679,19 @@ export const QueryAccountRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.address = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<QueryAccountRequest>): QueryAccountRequest {
     const message = createBaseQueryAccountRequest();
-    message.address = object.address ?? '';
+    message.address = object.address ?? "";
     return message;
   },
   fromAmino(object: QueryAccountRequestAmino): QueryAccountRequest {
@@ -703,7 +703,7 @@ export const QueryAccountRequest = {
   },
   toAmino(message: QueryAccountRequest): QueryAccountRequestAmino {
     const obj: any = {};
-    obj.address = message.address === '' ? undefined : message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: QueryAccountRequestAminoMsg): QueryAccountRequest {
@@ -711,7 +711,7 @@ export const QueryAccountRequest = {
   },
   toAminoMsg(message: QueryAccountRequest): QueryAccountRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountRequest',
+      type: "cosmos-sdk/QueryAccountRequest",
       value: QueryAccountRequest.toAmino(message)
     };
   },
@@ -723,7 +723,7 @@ export const QueryAccountRequest = {
   },
   toProtoMsg(message: QueryAccountRequest): QueryAccountRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest",
       value: QueryAccountRequest.encode(message).finish()
     };
   }
@@ -736,8 +736,8 @@ function createBaseQueryAccountResponse(): QueryAccountResponse {
   };
 }
 export const QueryAccountResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountResponse',
-  aminoType: 'cosmos-sdk/QueryAccountResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountResponse",
+  aminoType: "cosmos-sdk/QueryAccountResponse",
   is(o: any): o is QueryAccountResponse {
     return o && o.$typeUrl === QueryAccountResponse.typeUrl;
   },
@@ -757,12 +757,12 @@ export const QueryAccountResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.account = GlobalDecoderRegistry.unwrapAny(reader);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.account = GlobalDecoderRegistry.unwrapAny(reader);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -789,7 +789,7 @@ export const QueryAccountResponse = {
   },
   toAminoMsg(message: QueryAccountResponse): QueryAccountResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountResponse',
+      type: "cosmos-sdk/QueryAccountResponse",
       value: QueryAccountResponse.toAmino(message)
     };
   },
@@ -801,7 +801,7 @@ export const QueryAccountResponse = {
   },
   toProtoMsg(message: QueryAccountResponse): QueryAccountResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountResponse",
       value: QueryAccountResponse.encode(message).finish()
     };
   }
@@ -812,8 +812,8 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryParamsRequest',
-  aminoType: 'cosmos-sdk/QueryParamsRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest",
+  aminoType: "cosmos-sdk/QueryParamsRequest",
   is(o: any): o is QueryParamsRequest {
     return o && o.$typeUrl === QueryParamsRequest.typeUrl;
   },
@@ -830,9 +830,9 @@ export const QueryParamsRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -854,7 +854,7 @@ export const QueryParamsRequest = {
   },
   toAminoMsg(message: QueryParamsRequest): QueryParamsRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryParamsRequest',
+      type: "cosmos-sdk/QueryParamsRequest",
       value: QueryParamsRequest.toAmino(message)
     };
   },
@@ -866,7 +866,7 @@ export const QueryParamsRequest = {
   },
   toProtoMsg(message: QueryParamsRequest): QueryParamsRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryParamsRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
   }
@@ -879,8 +879,8 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
   };
 }
 export const QueryParamsResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryParamsResponse',
-  aminoType: 'cosmos-sdk/QueryParamsResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse",
+  aminoType: "cosmos-sdk/QueryParamsResponse",
   is(o: any): o is QueryParamsResponse {
     return o && (o.$typeUrl === QueryParamsResponse.typeUrl || Params.is(o.params));
   },
@@ -900,12 +900,12 @@ export const QueryParamsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.params = Params.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.params = Params.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -932,7 +932,7 @@ export const QueryParamsResponse = {
   },
   toAminoMsg(message: QueryParamsResponse): QueryParamsResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryParamsResponse',
+      type: "cosmos-sdk/QueryParamsResponse",
       value: QueryParamsResponse.toAmino(message)
     };
   },
@@ -944,7 +944,7 @@ export const QueryParamsResponse = {
   },
   toProtoMsg(message: QueryParamsResponse): QueryParamsResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryParamsResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
   }
@@ -955,8 +955,8 @@ function createBaseQueryModuleAccountsRequest(): QueryModuleAccountsRequest {
   return {};
 }
 export const QueryModuleAccountsRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountsRequest',
-  aminoType: 'cosmos-sdk/QueryModuleAccountsRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsRequest",
+  aminoType: "cosmos-sdk/QueryModuleAccountsRequest",
   is(o: any): o is QueryModuleAccountsRequest {
     return o && o.$typeUrl === QueryModuleAccountsRequest.typeUrl;
   },
@@ -973,9 +973,9 @@ export const QueryModuleAccountsRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -997,7 +997,7 @@ export const QueryModuleAccountsRequest = {
   },
   toAminoMsg(message: QueryModuleAccountsRequest): QueryModuleAccountsRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryModuleAccountsRequest',
+      type: "cosmos-sdk/QueryModuleAccountsRequest",
       value: QueryModuleAccountsRequest.toAmino(message)
     };
   },
@@ -1009,7 +1009,7 @@ export const QueryModuleAccountsRequest = {
   },
   toProtoMsg(message: QueryModuleAccountsRequest): QueryModuleAccountsRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountsRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsRequest",
       value: QueryModuleAccountsRequest.encode(message).finish()
     };
   }
@@ -1022,8 +1022,8 @@ function createBaseQueryModuleAccountsResponse(): QueryModuleAccountsResponse {
   };
 }
 export const QueryModuleAccountsResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountsResponse',
-  aminoType: 'cosmos-sdk/QueryModuleAccountsResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsResponse",
+  aminoType: "cosmos-sdk/QueryModuleAccountsResponse",
   is(o: any): o is QueryModuleAccountsResponse {
     return o && (o.$typeUrl === QueryModuleAccountsResponse.typeUrl || Array.isArray(o.accounts) && (!o.accounts.length || ModuleAccount.is(o.accounts[0]) || Any.is(o.accounts[0])));
   },
@@ -1043,12 +1043,12 @@ export const QueryModuleAccountsResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.accounts.push(GlobalDecoderRegistry.unwrapAny(reader));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.accounts.push(GlobalDecoderRegistry.unwrapAny(reader));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1077,7 +1077,7 @@ export const QueryModuleAccountsResponse = {
   },
   toAminoMsg(message: QueryModuleAccountsResponse): QueryModuleAccountsResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryModuleAccountsResponse',
+      type: "cosmos-sdk/QueryModuleAccountsResponse",
       value: QueryModuleAccountsResponse.toAmino(message)
     };
   },
@@ -1089,7 +1089,7 @@ export const QueryModuleAccountsResponse = {
   },
   toProtoMsg(message: QueryModuleAccountsResponse): QueryModuleAccountsResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountsResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsResponse",
       value: QueryModuleAccountsResponse.encode(message).finish()
     };
   }
@@ -1098,20 +1098,20 @@ GlobalDecoderRegistry.register(QueryModuleAccountsResponse.typeUrl, QueryModuleA
 GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleAccountsResponse.aminoType, QueryModuleAccountsResponse.typeUrl);
 function createBaseQueryModuleAccountByNameRequest(): QueryModuleAccountByNameRequest {
   return {
-    name: ''
+    name: ""
   };
 }
 export const QueryModuleAccountByNameRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest',
-  aminoType: 'cosmos-sdk/QueryModuleAccountByNameRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest",
+  aminoType: "cosmos-sdk/QueryModuleAccountByNameRequest",
   is(o: any): o is QueryModuleAccountByNameRequest {
-    return o && (o.$typeUrl === QueryModuleAccountByNameRequest.typeUrl || typeof o.name === 'string');
+    return o && (o.$typeUrl === QueryModuleAccountByNameRequest.typeUrl || typeof o.name === "string");
   },
   isAmino(o: any): o is QueryModuleAccountByNameRequestAmino {
-    return o && (o.$typeUrl === QueryModuleAccountByNameRequest.typeUrl || typeof o.name === 'string');
+    return o && (o.$typeUrl === QueryModuleAccountByNameRequest.typeUrl || typeof o.name === "string");
   },
   encode(message: QueryModuleAccountByNameRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.name !== '') {
+    if (message.name !== "") {
       writer.uint32(10).string(message.name);
     }
     return writer;
@@ -1123,19 +1123,19 @@ export const QueryModuleAccountByNameRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.name = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.name = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<QueryModuleAccountByNameRequest>): QueryModuleAccountByNameRequest {
     const message = createBaseQueryModuleAccountByNameRequest();
-    message.name = object.name ?? '';
+    message.name = object.name ?? "";
     return message;
   },
   fromAmino(object: QueryModuleAccountByNameRequestAmino): QueryModuleAccountByNameRequest {
@@ -1147,7 +1147,7 @@ export const QueryModuleAccountByNameRequest = {
   },
   toAmino(message: QueryModuleAccountByNameRequest): QueryModuleAccountByNameRequestAmino {
     const obj: any = {};
-    obj.name = message.name === '' ? undefined : message.name;
+    obj.name = message.name === "" ? undefined : message.name;
     return obj;
   },
   fromAminoMsg(object: QueryModuleAccountByNameRequestAminoMsg): QueryModuleAccountByNameRequest {
@@ -1155,7 +1155,7 @@ export const QueryModuleAccountByNameRequest = {
   },
   toAminoMsg(message: QueryModuleAccountByNameRequest): QueryModuleAccountByNameRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryModuleAccountByNameRequest',
+      type: "cosmos-sdk/QueryModuleAccountByNameRequest",
       value: QueryModuleAccountByNameRequest.toAmino(message)
     };
   },
@@ -1167,7 +1167,7 @@ export const QueryModuleAccountByNameRequest = {
   },
   toProtoMsg(message: QueryModuleAccountByNameRequest): QueryModuleAccountByNameRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest",
       value: QueryModuleAccountByNameRequest.encode(message).finish()
     };
   }
@@ -1180,8 +1180,8 @@ function createBaseQueryModuleAccountByNameResponse(): QueryModuleAccountByNameR
   };
 }
 export const QueryModuleAccountByNameResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse',
-  aminoType: 'cosmos-sdk/QueryModuleAccountByNameResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse",
+  aminoType: "cosmos-sdk/QueryModuleAccountByNameResponse",
   is(o: any): o is QueryModuleAccountByNameResponse {
     return o && o.$typeUrl === QueryModuleAccountByNameResponse.typeUrl;
   },
@@ -1201,12 +1201,12 @@ export const QueryModuleAccountByNameResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.account = GlobalDecoderRegistry.unwrapAny(reader);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.account = GlobalDecoderRegistry.unwrapAny(reader);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1233,7 +1233,7 @@ export const QueryModuleAccountByNameResponse = {
   },
   toAminoMsg(message: QueryModuleAccountByNameResponse): QueryModuleAccountByNameResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryModuleAccountByNameResponse',
+      type: "cosmos-sdk/QueryModuleAccountByNameResponse",
       value: QueryModuleAccountByNameResponse.toAmino(message)
     };
   },
@@ -1245,7 +1245,7 @@ export const QueryModuleAccountByNameResponse = {
   },
   toProtoMsg(message: QueryModuleAccountByNameResponse): QueryModuleAccountByNameResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse",
       value: QueryModuleAccountByNameResponse.encode(message).finish()
     };
   }
@@ -1256,8 +1256,8 @@ function createBaseBech32PrefixRequest(): Bech32PrefixRequest {
   return {};
 }
 export const Bech32PrefixRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.Bech32PrefixRequest',
-  aminoType: 'cosmos-sdk/Bech32PrefixRequest',
+  typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixRequest",
+  aminoType: "cosmos-sdk/Bech32PrefixRequest",
   is(o: any): o is Bech32PrefixRequest {
     return o && o.$typeUrl === Bech32PrefixRequest.typeUrl;
   },
@@ -1274,9 +1274,9 @@ export const Bech32PrefixRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1298,7 +1298,7 @@ export const Bech32PrefixRequest = {
   },
   toAminoMsg(message: Bech32PrefixRequest): Bech32PrefixRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/Bech32PrefixRequest',
+      type: "cosmos-sdk/Bech32PrefixRequest",
       value: Bech32PrefixRequest.toAmino(message)
     };
   },
@@ -1310,7 +1310,7 @@ export const Bech32PrefixRequest = {
   },
   toProtoMsg(message: Bech32PrefixRequest): Bech32PrefixRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.Bech32PrefixRequest',
+      typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixRequest",
       value: Bech32PrefixRequest.encode(message).finish()
     };
   }
@@ -1319,20 +1319,20 @@ GlobalDecoderRegistry.register(Bech32PrefixRequest.typeUrl, Bech32PrefixRequest)
 GlobalDecoderRegistry.registerAminoProtoMapping(Bech32PrefixRequest.aminoType, Bech32PrefixRequest.typeUrl);
 function createBaseBech32PrefixResponse(): Bech32PrefixResponse {
   return {
-    bech32Prefix: ''
+    bech32Prefix: ""
   };
 }
 export const Bech32PrefixResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.Bech32PrefixResponse',
-  aminoType: 'cosmos-sdk/Bech32PrefixResponse',
+  typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixResponse",
+  aminoType: "cosmos-sdk/Bech32PrefixResponse",
   is(o: any): o is Bech32PrefixResponse {
-    return o && (o.$typeUrl === Bech32PrefixResponse.typeUrl || typeof o.bech32Prefix === 'string');
+    return o && (o.$typeUrl === Bech32PrefixResponse.typeUrl || typeof o.bech32Prefix === "string");
   },
   isAmino(o: any): o is Bech32PrefixResponseAmino {
-    return o && (o.$typeUrl === Bech32PrefixResponse.typeUrl || typeof o.bech32_prefix === 'string');
+    return o && (o.$typeUrl === Bech32PrefixResponse.typeUrl || typeof o.bech32_prefix === "string");
   },
   encode(message: Bech32PrefixResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.bech32Prefix !== '') {
+    if (message.bech32Prefix !== "") {
       writer.uint32(10).string(message.bech32Prefix);
     }
     return writer;
@@ -1344,19 +1344,19 @@ export const Bech32PrefixResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.bech32Prefix = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.bech32Prefix = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<Bech32PrefixResponse>): Bech32PrefixResponse {
     const message = createBaseBech32PrefixResponse();
-    message.bech32Prefix = object.bech32Prefix ?? '';
+    message.bech32Prefix = object.bech32Prefix ?? "";
     return message;
   },
   fromAmino(object: Bech32PrefixResponseAmino): Bech32PrefixResponse {
@@ -1368,7 +1368,7 @@ export const Bech32PrefixResponse = {
   },
   toAmino(message: Bech32PrefixResponse): Bech32PrefixResponseAmino {
     const obj: any = {};
-    obj.bech32_prefix = message.bech32Prefix === '' ? undefined : message.bech32Prefix;
+    obj.bech32_prefix = message.bech32Prefix === "" ? undefined : message.bech32Prefix;
     return obj;
   },
   fromAminoMsg(object: Bech32PrefixResponseAminoMsg): Bech32PrefixResponse {
@@ -1376,7 +1376,7 @@ export const Bech32PrefixResponse = {
   },
   toAminoMsg(message: Bech32PrefixResponse): Bech32PrefixResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/Bech32PrefixResponse',
+      type: "cosmos-sdk/Bech32PrefixResponse",
       value: Bech32PrefixResponse.toAmino(message)
     };
   },
@@ -1388,7 +1388,7 @@ export const Bech32PrefixResponse = {
   },
   toProtoMsg(message: Bech32PrefixResponse): Bech32PrefixResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.Bech32PrefixResponse',
+      typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixResponse",
       value: Bech32PrefixResponse.encode(message).finish()
     };
   }
@@ -1401,13 +1401,13 @@ function createBaseAddressBytesToStringRequest(): AddressBytesToStringRequest {
   };
 }
 export const AddressBytesToStringRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.AddressBytesToStringRequest',
-  aminoType: 'cosmos-sdk/AddressBytesToStringRequest',
+  typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringRequest",
+  aminoType: "cosmos-sdk/AddressBytesToStringRequest",
   is(o: any): o is AddressBytesToStringRequest {
-    return o && (o.$typeUrl === AddressBytesToStringRequest.typeUrl || o.addressBytes instanceof Uint8Array || typeof o.addressBytes === 'string');
+    return o && (o.$typeUrl === AddressBytesToStringRequest.typeUrl || o.addressBytes instanceof Uint8Array || typeof o.addressBytes === "string");
   },
   isAmino(o: any): o is AddressBytesToStringRequestAmino {
-    return o && (o.$typeUrl === AddressBytesToStringRequest.typeUrl || o.address_bytes instanceof Uint8Array || typeof o.address_bytes === 'string');
+    return o && (o.$typeUrl === AddressBytesToStringRequest.typeUrl || o.address_bytes instanceof Uint8Array || typeof o.address_bytes === "string");
   },
   encode(message: AddressBytesToStringRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.addressBytes.length !== 0) {
@@ -1422,12 +1422,12 @@ export const AddressBytesToStringRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.addressBytes = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.addressBytes = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1454,7 +1454,7 @@ export const AddressBytesToStringRequest = {
   },
   toAminoMsg(message: AddressBytesToStringRequest): AddressBytesToStringRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/AddressBytesToStringRequest',
+      type: "cosmos-sdk/AddressBytesToStringRequest",
       value: AddressBytesToStringRequest.toAmino(message)
     };
   },
@@ -1466,7 +1466,7 @@ export const AddressBytesToStringRequest = {
   },
   toProtoMsg(message: AddressBytesToStringRequest): AddressBytesToStringRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.AddressBytesToStringRequest',
+      typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringRequest",
       value: AddressBytesToStringRequest.encode(message).finish()
     };
   }
@@ -1475,20 +1475,20 @@ GlobalDecoderRegistry.register(AddressBytesToStringRequest.typeUrl, AddressBytes
 GlobalDecoderRegistry.registerAminoProtoMapping(AddressBytesToStringRequest.aminoType, AddressBytesToStringRequest.typeUrl);
 function createBaseAddressBytesToStringResponse(): AddressBytesToStringResponse {
   return {
-    addressString: ''
+    addressString: ""
   };
 }
 export const AddressBytesToStringResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.AddressBytesToStringResponse',
-  aminoType: 'cosmos-sdk/AddressBytesToStringResponse',
+  typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringResponse",
+  aminoType: "cosmos-sdk/AddressBytesToStringResponse",
   is(o: any): o is AddressBytesToStringResponse {
-    return o && (o.$typeUrl === AddressBytesToStringResponse.typeUrl || typeof o.addressString === 'string');
+    return o && (o.$typeUrl === AddressBytesToStringResponse.typeUrl || typeof o.addressString === "string");
   },
   isAmino(o: any): o is AddressBytesToStringResponseAmino {
-    return o && (o.$typeUrl === AddressBytesToStringResponse.typeUrl || typeof o.address_string === 'string');
+    return o && (o.$typeUrl === AddressBytesToStringResponse.typeUrl || typeof o.address_string === "string");
   },
   encode(message: AddressBytesToStringResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.addressString !== '') {
+    if (message.addressString !== "") {
       writer.uint32(10).string(message.addressString);
     }
     return writer;
@@ -1500,19 +1500,19 @@ export const AddressBytesToStringResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.addressString = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.addressString = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<AddressBytesToStringResponse>): AddressBytesToStringResponse {
     const message = createBaseAddressBytesToStringResponse();
-    message.addressString = object.addressString ?? '';
+    message.addressString = object.addressString ?? "";
     return message;
   },
   fromAmino(object: AddressBytesToStringResponseAmino): AddressBytesToStringResponse {
@@ -1524,7 +1524,7 @@ export const AddressBytesToStringResponse = {
   },
   toAmino(message: AddressBytesToStringResponse): AddressBytesToStringResponseAmino {
     const obj: any = {};
-    obj.address_string = message.addressString === '' ? undefined : message.addressString;
+    obj.address_string = message.addressString === "" ? undefined : message.addressString;
     return obj;
   },
   fromAminoMsg(object: AddressBytesToStringResponseAminoMsg): AddressBytesToStringResponse {
@@ -1532,7 +1532,7 @@ export const AddressBytesToStringResponse = {
   },
   toAminoMsg(message: AddressBytesToStringResponse): AddressBytesToStringResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/AddressBytesToStringResponse',
+      type: "cosmos-sdk/AddressBytesToStringResponse",
       value: AddressBytesToStringResponse.toAmino(message)
     };
   },
@@ -1544,7 +1544,7 @@ export const AddressBytesToStringResponse = {
   },
   toProtoMsg(message: AddressBytesToStringResponse): AddressBytesToStringResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.AddressBytesToStringResponse',
+      typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringResponse",
       value: AddressBytesToStringResponse.encode(message).finish()
     };
   }
@@ -1553,20 +1553,20 @@ GlobalDecoderRegistry.register(AddressBytesToStringResponse.typeUrl, AddressByte
 GlobalDecoderRegistry.registerAminoProtoMapping(AddressBytesToStringResponse.aminoType, AddressBytesToStringResponse.typeUrl);
 function createBaseAddressStringToBytesRequest(): AddressStringToBytesRequest {
   return {
-    addressString: ''
+    addressString: ""
   };
 }
 export const AddressStringToBytesRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.AddressStringToBytesRequest',
-  aminoType: 'cosmos-sdk/AddressStringToBytesRequest',
+  typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesRequest",
+  aminoType: "cosmos-sdk/AddressStringToBytesRequest",
   is(o: any): o is AddressStringToBytesRequest {
-    return o && (o.$typeUrl === AddressStringToBytesRequest.typeUrl || typeof o.addressString === 'string');
+    return o && (o.$typeUrl === AddressStringToBytesRequest.typeUrl || typeof o.addressString === "string");
   },
   isAmino(o: any): o is AddressStringToBytesRequestAmino {
-    return o && (o.$typeUrl === AddressStringToBytesRequest.typeUrl || typeof o.address_string === 'string');
+    return o && (o.$typeUrl === AddressStringToBytesRequest.typeUrl || typeof o.address_string === "string");
   },
   encode(message: AddressStringToBytesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.addressString !== '') {
+    if (message.addressString !== "") {
       writer.uint32(10).string(message.addressString);
     }
     return writer;
@@ -1578,19 +1578,19 @@ export const AddressStringToBytesRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.addressString = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.addressString = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<AddressStringToBytesRequest>): AddressStringToBytesRequest {
     const message = createBaseAddressStringToBytesRequest();
-    message.addressString = object.addressString ?? '';
+    message.addressString = object.addressString ?? "";
     return message;
   },
   fromAmino(object: AddressStringToBytesRequestAmino): AddressStringToBytesRequest {
@@ -1602,7 +1602,7 @@ export const AddressStringToBytesRequest = {
   },
   toAmino(message: AddressStringToBytesRequest): AddressStringToBytesRequestAmino {
     const obj: any = {};
-    obj.address_string = message.addressString === '' ? undefined : message.addressString;
+    obj.address_string = message.addressString === "" ? undefined : message.addressString;
     return obj;
   },
   fromAminoMsg(object: AddressStringToBytesRequestAminoMsg): AddressStringToBytesRequest {
@@ -1610,7 +1610,7 @@ export const AddressStringToBytesRequest = {
   },
   toAminoMsg(message: AddressStringToBytesRequest): AddressStringToBytesRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/AddressStringToBytesRequest',
+      type: "cosmos-sdk/AddressStringToBytesRequest",
       value: AddressStringToBytesRequest.toAmino(message)
     };
   },
@@ -1622,7 +1622,7 @@ export const AddressStringToBytesRequest = {
   },
   toProtoMsg(message: AddressStringToBytesRequest): AddressStringToBytesRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.AddressStringToBytesRequest',
+      typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesRequest",
       value: AddressStringToBytesRequest.encode(message).finish()
     };
   }
@@ -1635,13 +1635,13 @@ function createBaseAddressStringToBytesResponse(): AddressStringToBytesResponse 
   };
 }
 export const AddressStringToBytesResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.AddressStringToBytesResponse',
-  aminoType: 'cosmos-sdk/AddressStringToBytesResponse',
+  typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesResponse",
+  aminoType: "cosmos-sdk/AddressStringToBytesResponse",
   is(o: any): o is AddressStringToBytesResponse {
-    return o && (o.$typeUrl === AddressStringToBytesResponse.typeUrl || o.addressBytes instanceof Uint8Array || typeof o.addressBytes === 'string');
+    return o && (o.$typeUrl === AddressStringToBytesResponse.typeUrl || o.addressBytes instanceof Uint8Array || typeof o.addressBytes === "string");
   },
   isAmino(o: any): o is AddressStringToBytesResponseAmino {
-    return o && (o.$typeUrl === AddressStringToBytesResponse.typeUrl || o.address_bytes instanceof Uint8Array || typeof o.address_bytes === 'string');
+    return o && (o.$typeUrl === AddressStringToBytesResponse.typeUrl || o.address_bytes instanceof Uint8Array || typeof o.address_bytes === "string");
   },
   encode(message: AddressStringToBytesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.addressBytes.length !== 0) {
@@ -1656,12 +1656,12 @@ export const AddressStringToBytesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.addressBytes = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.addressBytes = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1688,7 +1688,7 @@ export const AddressStringToBytesResponse = {
   },
   toAminoMsg(message: AddressStringToBytesResponse): AddressStringToBytesResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/AddressStringToBytesResponse',
+      type: "cosmos-sdk/AddressStringToBytesResponse",
       value: AddressStringToBytesResponse.toAmino(message)
     };
   },
@@ -1700,7 +1700,7 @@ export const AddressStringToBytesResponse = {
   },
   toProtoMsg(message: AddressStringToBytesResponse): AddressStringToBytesResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.AddressStringToBytesResponse',
+      typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesResponse",
       value: AddressStringToBytesResponse.encode(message).finish()
     };
   }
@@ -1714,13 +1714,13 @@ function createBaseQueryAccountAddressByIDRequest(): QueryAccountAddressByIDRequ
   };
 }
 export const QueryAccountAddressByIDRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest',
-  aminoType: 'cosmos-sdk/QueryAccountAddressByIDRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest",
+  aminoType: "cosmos-sdk/QueryAccountAddressByIDRequest",
   is(o: any): o is QueryAccountAddressByIDRequest {
-    return o && (o.$typeUrl === QueryAccountAddressByIDRequest.typeUrl || typeof o.id === 'bigint' && typeof o.accountId === 'bigint');
+    return o && (o.$typeUrl === QueryAccountAddressByIDRequest.typeUrl || typeof o.id === "bigint" && typeof o.accountId === "bigint");
   },
   isAmino(o: any): o is QueryAccountAddressByIDRequestAmino {
-    return o && (o.$typeUrl === QueryAccountAddressByIDRequest.typeUrl || typeof o.id === 'bigint' && typeof o.account_id === 'bigint');
+    return o && (o.$typeUrl === QueryAccountAddressByIDRequest.typeUrl || typeof o.id === "bigint" && typeof o.account_id === "bigint");
   },
   encode(message: QueryAccountAddressByIDRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== BigInt(0)) {
@@ -1738,15 +1738,15 @@ export const QueryAccountAddressByIDRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.id = reader.int64();
-        break;
-      case 2:
-        message.accountId = reader.uint64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.id = reader.int64();
+          break;
+        case 2:
+          message.accountId = reader.uint64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1778,7 +1778,7 @@ export const QueryAccountAddressByIDRequest = {
   },
   toAminoMsg(message: QueryAccountAddressByIDRequest): QueryAccountAddressByIDRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountAddressByIDRequest',
+      type: "cosmos-sdk/QueryAccountAddressByIDRequest",
       value: QueryAccountAddressByIDRequest.toAmino(message)
     };
   },
@@ -1790,7 +1790,7 @@ export const QueryAccountAddressByIDRequest = {
   },
   toProtoMsg(message: QueryAccountAddressByIDRequest): QueryAccountAddressByIDRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest",
       value: QueryAccountAddressByIDRequest.encode(message).finish()
     };
   }
@@ -1799,20 +1799,20 @@ GlobalDecoderRegistry.register(QueryAccountAddressByIDRequest.typeUrl, QueryAcco
 GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountAddressByIDRequest.aminoType, QueryAccountAddressByIDRequest.typeUrl);
 function createBaseQueryAccountAddressByIDResponse(): QueryAccountAddressByIDResponse {
   return {
-    accountAddress: ''
+    accountAddress: ""
   };
 }
 export const QueryAccountAddressByIDResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse',
-  aminoType: 'cosmos-sdk/QueryAccountAddressByIDResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse",
+  aminoType: "cosmos-sdk/QueryAccountAddressByIDResponse",
   is(o: any): o is QueryAccountAddressByIDResponse {
-    return o && (o.$typeUrl === QueryAccountAddressByIDResponse.typeUrl || typeof o.accountAddress === 'string');
+    return o && (o.$typeUrl === QueryAccountAddressByIDResponse.typeUrl || typeof o.accountAddress === "string");
   },
   isAmino(o: any): o is QueryAccountAddressByIDResponseAmino {
-    return o && (o.$typeUrl === QueryAccountAddressByIDResponse.typeUrl || typeof o.account_address === 'string');
+    return o && (o.$typeUrl === QueryAccountAddressByIDResponse.typeUrl || typeof o.account_address === "string");
   },
   encode(message: QueryAccountAddressByIDResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.accountAddress !== '') {
+    if (message.accountAddress !== "") {
       writer.uint32(10).string(message.accountAddress);
     }
     return writer;
@@ -1824,19 +1824,19 @@ export const QueryAccountAddressByIDResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.accountAddress = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.accountAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<QueryAccountAddressByIDResponse>): QueryAccountAddressByIDResponse {
     const message = createBaseQueryAccountAddressByIDResponse();
-    message.accountAddress = object.accountAddress ?? '';
+    message.accountAddress = object.accountAddress ?? "";
     return message;
   },
   fromAmino(object: QueryAccountAddressByIDResponseAmino): QueryAccountAddressByIDResponse {
@@ -1848,7 +1848,7 @@ export const QueryAccountAddressByIDResponse = {
   },
   toAmino(message: QueryAccountAddressByIDResponse): QueryAccountAddressByIDResponseAmino {
     const obj: any = {};
-    obj.account_address = message.accountAddress === '' ? undefined : message.accountAddress;
+    obj.account_address = message.accountAddress === "" ? undefined : message.accountAddress;
     return obj;
   },
   fromAminoMsg(object: QueryAccountAddressByIDResponseAminoMsg): QueryAccountAddressByIDResponse {
@@ -1856,7 +1856,7 @@ export const QueryAccountAddressByIDResponse = {
   },
   toAminoMsg(message: QueryAccountAddressByIDResponse): QueryAccountAddressByIDResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountAddressByIDResponse',
+      type: "cosmos-sdk/QueryAccountAddressByIDResponse",
       value: QueryAccountAddressByIDResponse.toAmino(message)
     };
   },
@@ -1868,7 +1868,7 @@ export const QueryAccountAddressByIDResponse = {
   },
   toProtoMsg(message: QueryAccountAddressByIDResponse): QueryAccountAddressByIDResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse",
       value: QueryAccountAddressByIDResponse.encode(message).finish()
     };
   }
@@ -1877,20 +1877,20 @@ GlobalDecoderRegistry.register(QueryAccountAddressByIDResponse.typeUrl, QueryAcc
 GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountAddressByIDResponse.aminoType, QueryAccountAddressByIDResponse.typeUrl);
 function createBaseQueryAccountInfoRequest(): QueryAccountInfoRequest {
   return {
-    address: ''
+    address: ""
   };
 }
 export const QueryAccountInfoRequest = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountInfoRequest',
-  aminoType: 'cosmos-sdk/QueryAccountInfoRequest',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoRequest",
+  aminoType: "cosmos-sdk/QueryAccountInfoRequest",
   is(o: any): o is QueryAccountInfoRequest {
-    return o && (o.$typeUrl === QueryAccountInfoRequest.typeUrl || typeof o.address === 'string');
+    return o && (o.$typeUrl === QueryAccountInfoRequest.typeUrl || typeof o.address === "string");
   },
   isAmino(o: any): o is QueryAccountInfoRequestAmino {
-    return o && (o.$typeUrl === QueryAccountInfoRequest.typeUrl || typeof o.address === 'string');
+    return o && (o.$typeUrl === QueryAccountInfoRequest.typeUrl || typeof o.address === "string");
   },
   encode(message: QueryAccountInfoRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     return writer;
@@ -1902,19 +1902,19 @@ export const QueryAccountInfoRequest = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.address = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<QueryAccountInfoRequest>): QueryAccountInfoRequest {
     const message = createBaseQueryAccountInfoRequest();
-    message.address = object.address ?? '';
+    message.address = object.address ?? "";
     return message;
   },
   fromAmino(object: QueryAccountInfoRequestAmino): QueryAccountInfoRequest {
@@ -1926,7 +1926,7 @@ export const QueryAccountInfoRequest = {
   },
   toAmino(message: QueryAccountInfoRequest): QueryAccountInfoRequestAmino {
     const obj: any = {};
-    obj.address = message.address === '' ? undefined : message.address;
+    obj.address = message.address === "" ? undefined : message.address;
     return obj;
   },
   fromAminoMsg(object: QueryAccountInfoRequestAminoMsg): QueryAccountInfoRequest {
@@ -1934,7 +1934,7 @@ export const QueryAccountInfoRequest = {
   },
   toAminoMsg(message: QueryAccountInfoRequest): QueryAccountInfoRequestAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountInfoRequest',
+      type: "cosmos-sdk/QueryAccountInfoRequest",
       value: QueryAccountInfoRequest.toAmino(message)
     };
   },
@@ -1946,7 +1946,7 @@ export const QueryAccountInfoRequest = {
   },
   toProtoMsg(message: QueryAccountInfoRequest): QueryAccountInfoRequestProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountInfoRequest',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoRequest",
       value: QueryAccountInfoRequest.encode(message).finish()
     };
   }
@@ -1959,8 +1959,8 @@ function createBaseQueryAccountInfoResponse(): QueryAccountInfoResponse {
   };
 }
 export const QueryAccountInfoResponse = {
-  typeUrl: '/cosmos.auth.v1beta1.QueryAccountInfoResponse',
-  aminoType: 'cosmos-sdk/QueryAccountInfoResponse',
+  typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse",
+  aminoType: "cosmos-sdk/QueryAccountInfoResponse",
   is(o: any): o is QueryAccountInfoResponse {
     return o && o.$typeUrl === QueryAccountInfoResponse.typeUrl;
   },
@@ -1980,12 +1980,12 @@ export const QueryAccountInfoResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.info = BaseAccount.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.info = BaseAccount.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2012,7 +2012,7 @@ export const QueryAccountInfoResponse = {
   },
   toAminoMsg(message: QueryAccountInfoResponse): QueryAccountInfoResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/QueryAccountInfoResponse',
+      type: "cosmos-sdk/QueryAccountInfoResponse",
       value: QueryAccountInfoResponse.toAmino(message)
     };
   },
@@ -2024,7 +2024,7 @@ export const QueryAccountInfoResponse = {
   },
   toProtoMsg(message: QueryAccountInfoResponse): QueryAccountInfoResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.auth.v1beta1.QueryAccountInfoResponse',
+      typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse",
       value: QueryAccountInfoResponse.encode(message).finish()
     };
   }

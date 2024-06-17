@@ -1,13 +1,13 @@
-import { BinaryReader, BinaryWriter } from '../../binary';
-import { base64FromBytes,bytesFromBase64, DeepPartial } from '../../helpers';
-import { GlobalDecoderRegistry } from '../../registry';
+import { BinaryReader, BinaryWriter } from "../../binary";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { GlobalDecoderRegistry } from "../../registry";
 /** PublicKey defines the keys available for use with Validators */
 export interface PublicKey {
   ed25519?: Uint8Array;
   secp256k1?: Uint8Array;
 }
 export interface PublicKeyProtoMsg {
-  typeUrl: '/tendermint.crypto.PublicKey';
+  typeUrl: "/tendermint.crypto.PublicKey";
   value: Uint8Array;
 }
 /** PublicKey defines the keys available for use with Validators */
@@ -16,7 +16,7 @@ export interface PublicKeyAmino {
   secp256k1?: string;
 }
 export interface PublicKeyAminoMsg {
-  type: '/tendermint.crypto.PublicKey';
+  type: "/tendermint.crypto.PublicKey";
   value: PublicKeyAmino;
 }
 function createBasePublicKey(): PublicKey {
@@ -26,7 +26,7 @@ function createBasePublicKey(): PublicKey {
   };
 }
 export const PublicKey = {
-  typeUrl: '/tendermint.crypto.PublicKey',
+  typeUrl: "/tendermint.crypto.PublicKey",
   is(o: any): o is PublicKey {
     return o && o.$typeUrl === PublicKey.typeUrl;
   },
@@ -49,15 +49,15 @@ export const PublicKey = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.ed25519 = reader.bytes();
-        break;
-      case 2:
-        message.secp256k1 = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.ed25519 = reader.bytes();
+          break;
+        case 2:
+          message.secp256k1 = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -95,7 +95,7 @@ export const PublicKey = {
   },
   toProtoMsg(message: PublicKey): PublicKeyProtoMsg {
     return {
-      typeUrl: '/tendermint.crypto.PublicKey',
+      typeUrl: "/tendermint.crypto.PublicKey",
       value: PublicKey.encode(message).finish()
     };
   }

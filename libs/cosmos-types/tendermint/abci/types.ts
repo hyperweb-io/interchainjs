@@ -1,11 +1,11 @@
-import { BinaryReader, BinaryWriter } from '../../binary';
-import { Timestamp } from '../../google/protobuf/timestamp';
-import { base64FromBytes, bytesFromBase64, DeepPartial, fromTimestamp, isSet,toTimestamp } from '../../helpers';
-import { GlobalDecoderRegistry } from '../../registry';
-import { PublicKey, PublicKeyAmino } from '../crypto/keys';
-import { ProofOps, ProofOpsAmino } from '../crypto/proof';
-import { ConsensusParams, ConsensusParamsAmino } from '../types/params';
-import { BlockIDFlag } from '../types/validator';
+import { Timestamp } from "../../google/protobuf/timestamp";
+import { ConsensusParams, ConsensusParamsAmino } from "../types/params";
+import { ProofOps, ProofOpsAmino } from "../crypto/proof";
+import { PublicKey, PublicKeyAmino } from "../crypto/keys";
+import { BlockIDFlag } from "../types/validator";
+import { BinaryReader, BinaryWriter } from "../../binary";
+import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes, isSet } from "../../helpers";
+import { GlobalDecoderRegistry } from "../../registry";
 export enum CheckTxType {
   NEW = 0,
   RECHECK = 1,
@@ -14,27 +14,27 @@ export enum CheckTxType {
 export const CheckTxTypeAmino = CheckTxType;
 export function checkTxTypeFromJSON(object: any): CheckTxType {
   switch (object) {
-  case 0:
-  case 'NEW':
-    return CheckTxType.NEW;
-  case 1:
-  case 'RECHECK':
-    return CheckTxType.RECHECK;
-  case -1:
-  case 'UNRECOGNIZED':
-  default:
-    return CheckTxType.UNRECOGNIZED;
+    case 0:
+    case "NEW":
+      return CheckTxType.NEW;
+    case 1:
+    case "RECHECK":
+      return CheckTxType.RECHECK;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return CheckTxType.UNRECOGNIZED;
   }
 }
 export function checkTxTypeToJSON(object: CheckTxType): string {
   switch (object) {
-  case CheckTxType.NEW:
-    return 'NEW';
-  case CheckTxType.RECHECK:
-    return 'RECHECK';
-  case CheckTxType.UNRECOGNIZED:
-  default:
-    return 'UNRECOGNIZED';
+    case CheckTxType.NEW:
+      return "NEW";
+    case CheckTxType.RECHECK:
+      return "RECHECK";
+    case CheckTxType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
   }
 }
 export enum ResponseOfferSnapshot_Result {
@@ -55,47 +55,47 @@ export enum ResponseOfferSnapshot_Result {
 export const ResponseOfferSnapshot_ResultAmino = ResponseOfferSnapshot_Result;
 export function responseOfferSnapshot_ResultFromJSON(object: any): ResponseOfferSnapshot_Result {
   switch (object) {
-  case 0:
-  case 'UNKNOWN':
-    return ResponseOfferSnapshot_Result.UNKNOWN;
-  case 1:
-  case 'ACCEPT':
-    return ResponseOfferSnapshot_Result.ACCEPT;
-  case 2:
-  case 'ABORT':
-    return ResponseOfferSnapshot_Result.ABORT;
-  case 3:
-  case 'REJECT':
-    return ResponseOfferSnapshot_Result.REJECT;
-  case 4:
-  case 'REJECT_FORMAT':
-    return ResponseOfferSnapshot_Result.REJECT_FORMAT;
-  case 5:
-  case 'REJECT_SENDER':
-    return ResponseOfferSnapshot_Result.REJECT_SENDER;
-  case -1:
-  case 'UNRECOGNIZED':
-  default:
-    return ResponseOfferSnapshot_Result.UNRECOGNIZED;
+    case 0:
+    case "UNKNOWN":
+      return ResponseOfferSnapshot_Result.UNKNOWN;
+    case 1:
+    case "ACCEPT":
+      return ResponseOfferSnapshot_Result.ACCEPT;
+    case 2:
+    case "ABORT":
+      return ResponseOfferSnapshot_Result.ABORT;
+    case 3:
+    case "REJECT":
+      return ResponseOfferSnapshot_Result.REJECT;
+    case 4:
+    case "REJECT_FORMAT":
+      return ResponseOfferSnapshot_Result.REJECT_FORMAT;
+    case 5:
+    case "REJECT_SENDER":
+      return ResponseOfferSnapshot_Result.REJECT_SENDER;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ResponseOfferSnapshot_Result.UNRECOGNIZED;
   }
 }
 export function responseOfferSnapshot_ResultToJSON(object: ResponseOfferSnapshot_Result): string {
   switch (object) {
-  case ResponseOfferSnapshot_Result.UNKNOWN:
-    return 'UNKNOWN';
-  case ResponseOfferSnapshot_Result.ACCEPT:
-    return 'ACCEPT';
-  case ResponseOfferSnapshot_Result.ABORT:
-    return 'ABORT';
-  case ResponseOfferSnapshot_Result.REJECT:
-    return 'REJECT';
-  case ResponseOfferSnapshot_Result.REJECT_FORMAT:
-    return 'REJECT_FORMAT';
-  case ResponseOfferSnapshot_Result.REJECT_SENDER:
-    return 'REJECT_SENDER';
-  case ResponseOfferSnapshot_Result.UNRECOGNIZED:
-  default:
-    return 'UNRECOGNIZED';
+    case ResponseOfferSnapshot_Result.UNKNOWN:
+      return "UNKNOWN";
+    case ResponseOfferSnapshot_Result.ACCEPT:
+      return "ACCEPT";
+    case ResponseOfferSnapshot_Result.ABORT:
+      return "ABORT";
+    case ResponseOfferSnapshot_Result.REJECT:
+      return "REJECT";
+    case ResponseOfferSnapshot_Result.REJECT_FORMAT:
+      return "REJECT_FORMAT";
+    case ResponseOfferSnapshot_Result.REJECT_SENDER:
+      return "REJECT_SENDER";
+    case ResponseOfferSnapshot_Result.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
   }
 }
 export enum ResponseApplySnapshotChunk_Result {
@@ -116,47 +116,47 @@ export enum ResponseApplySnapshotChunk_Result {
 export const ResponseApplySnapshotChunk_ResultAmino = ResponseApplySnapshotChunk_Result;
 export function responseApplySnapshotChunk_ResultFromJSON(object: any): ResponseApplySnapshotChunk_Result {
   switch (object) {
-  case 0:
-  case 'UNKNOWN':
-    return ResponseApplySnapshotChunk_Result.UNKNOWN;
-  case 1:
-  case 'ACCEPT':
-    return ResponseApplySnapshotChunk_Result.ACCEPT;
-  case 2:
-  case 'ABORT':
-    return ResponseApplySnapshotChunk_Result.ABORT;
-  case 3:
-  case 'RETRY':
-    return ResponseApplySnapshotChunk_Result.RETRY;
-  case 4:
-  case 'RETRY_SNAPSHOT':
-    return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
-  case 5:
-  case 'REJECT_SNAPSHOT':
-    return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
-  case -1:
-  case 'UNRECOGNIZED':
-  default:
-    return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
+    case 0:
+    case "UNKNOWN":
+      return ResponseApplySnapshotChunk_Result.UNKNOWN;
+    case 1:
+    case "ACCEPT":
+      return ResponseApplySnapshotChunk_Result.ACCEPT;
+    case 2:
+    case "ABORT":
+      return ResponseApplySnapshotChunk_Result.ABORT;
+    case 3:
+    case "RETRY":
+      return ResponseApplySnapshotChunk_Result.RETRY;
+    case 4:
+    case "RETRY_SNAPSHOT":
+      return ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT;
+    case 5:
+    case "REJECT_SNAPSHOT":
+      return ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ResponseApplySnapshotChunk_Result.UNRECOGNIZED;
   }
 }
 export function responseApplySnapshotChunk_ResultToJSON(object: ResponseApplySnapshotChunk_Result): string {
   switch (object) {
-  case ResponseApplySnapshotChunk_Result.UNKNOWN:
-    return 'UNKNOWN';
-  case ResponseApplySnapshotChunk_Result.ACCEPT:
-    return 'ACCEPT';
-  case ResponseApplySnapshotChunk_Result.ABORT:
-    return 'ABORT';
-  case ResponseApplySnapshotChunk_Result.RETRY:
-    return 'RETRY';
-  case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
-    return 'RETRY_SNAPSHOT';
-  case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
-    return 'REJECT_SNAPSHOT';
-  case ResponseApplySnapshotChunk_Result.UNRECOGNIZED:
-  default:
-    return 'UNRECOGNIZED';
+    case ResponseApplySnapshotChunk_Result.UNKNOWN:
+      return "UNKNOWN";
+    case ResponseApplySnapshotChunk_Result.ACCEPT:
+      return "ACCEPT";
+    case ResponseApplySnapshotChunk_Result.ABORT:
+      return "ABORT";
+    case ResponseApplySnapshotChunk_Result.RETRY:
+      return "RETRY";
+    case ResponseApplySnapshotChunk_Result.RETRY_SNAPSHOT:
+      return "RETRY_SNAPSHOT";
+    case ResponseApplySnapshotChunk_Result.REJECT_SNAPSHOT:
+      return "REJECT_SNAPSHOT";
+    case ResponseApplySnapshotChunk_Result.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
   }
 }
 export enum ResponseProcessProposal_ProposalStatus {
@@ -168,32 +168,32 @@ export enum ResponseProcessProposal_ProposalStatus {
 export const ResponseProcessProposal_ProposalStatusAmino = ResponseProcessProposal_ProposalStatus;
 export function responseProcessProposal_ProposalStatusFromJSON(object: any): ResponseProcessProposal_ProposalStatus {
   switch (object) {
-  case 0:
-  case 'UNKNOWN':
-    return ResponseProcessProposal_ProposalStatus.UNKNOWN;
-  case 1:
-  case 'ACCEPT':
-    return ResponseProcessProposal_ProposalStatus.ACCEPT;
-  case 2:
-  case 'REJECT':
-    return ResponseProcessProposal_ProposalStatus.REJECT;
-  case -1:
-  case 'UNRECOGNIZED':
-  default:
-    return ResponseProcessProposal_ProposalStatus.UNRECOGNIZED;
+    case 0:
+    case "UNKNOWN":
+      return ResponseProcessProposal_ProposalStatus.UNKNOWN;
+    case 1:
+    case "ACCEPT":
+      return ResponseProcessProposal_ProposalStatus.ACCEPT;
+    case 2:
+    case "REJECT":
+      return ResponseProcessProposal_ProposalStatus.REJECT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ResponseProcessProposal_ProposalStatus.UNRECOGNIZED;
   }
 }
 export function responseProcessProposal_ProposalStatusToJSON(object: ResponseProcessProposal_ProposalStatus): string {
   switch (object) {
-  case ResponseProcessProposal_ProposalStatus.UNKNOWN:
-    return 'UNKNOWN';
-  case ResponseProcessProposal_ProposalStatus.ACCEPT:
-    return 'ACCEPT';
-  case ResponseProcessProposal_ProposalStatus.REJECT:
-    return 'REJECT';
-  case ResponseProcessProposal_ProposalStatus.UNRECOGNIZED:
-  default:
-    return 'UNRECOGNIZED';
+    case ResponseProcessProposal_ProposalStatus.UNKNOWN:
+      return "UNKNOWN";
+    case ResponseProcessProposal_ProposalStatus.ACCEPT:
+      return "ACCEPT";
+    case ResponseProcessProposal_ProposalStatus.REJECT:
+      return "REJECT";
+    case ResponseProcessProposal_ProposalStatus.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
   }
 }
 export enum ResponseVerifyVoteExtension_VerifyStatus {
@@ -211,32 +211,32 @@ export enum ResponseVerifyVoteExtension_VerifyStatus {
 export const ResponseVerifyVoteExtension_VerifyStatusAmino = ResponseVerifyVoteExtension_VerifyStatus;
 export function responseVerifyVoteExtension_VerifyStatusFromJSON(object: any): ResponseVerifyVoteExtension_VerifyStatus {
   switch (object) {
-  case 0:
-  case 'UNKNOWN':
-    return ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN;
-  case 1:
-  case 'ACCEPT':
-    return ResponseVerifyVoteExtension_VerifyStatus.ACCEPT;
-  case 2:
-  case 'REJECT':
-    return ResponseVerifyVoteExtension_VerifyStatus.REJECT;
-  case -1:
-  case 'UNRECOGNIZED':
-  default:
-    return ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED;
+    case 0:
+    case "UNKNOWN":
+      return ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN;
+    case 1:
+    case "ACCEPT":
+      return ResponseVerifyVoteExtension_VerifyStatus.ACCEPT;
+    case 2:
+    case "REJECT":
+      return ResponseVerifyVoteExtension_VerifyStatus.REJECT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED;
   }
 }
 export function responseVerifyVoteExtension_VerifyStatusToJSON(object: ResponseVerifyVoteExtension_VerifyStatus): string {
   switch (object) {
-  case ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN:
-    return 'UNKNOWN';
-  case ResponseVerifyVoteExtension_VerifyStatus.ACCEPT:
-    return 'ACCEPT';
-  case ResponseVerifyVoteExtension_VerifyStatus.REJECT:
-    return 'REJECT';
-  case ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED:
-  default:
-    return 'UNRECOGNIZED';
+    case ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN:
+      return "UNKNOWN";
+    case ResponseVerifyVoteExtension_VerifyStatus.ACCEPT:
+      return "ACCEPT";
+    case ResponseVerifyVoteExtension_VerifyStatus.REJECT:
+      return "REJECT";
+    case ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
   }
 }
 export enum MisbehaviorType {
@@ -248,32 +248,32 @@ export enum MisbehaviorType {
 export const MisbehaviorTypeAmino = MisbehaviorType;
 export function misbehaviorTypeFromJSON(object: any): MisbehaviorType {
   switch (object) {
-  case 0:
-  case 'UNKNOWN':
-    return MisbehaviorType.UNKNOWN;
-  case 1:
-  case 'DUPLICATE_VOTE':
-    return MisbehaviorType.DUPLICATE_VOTE;
-  case 2:
-  case 'LIGHT_CLIENT_ATTACK':
-    return MisbehaviorType.LIGHT_CLIENT_ATTACK;
-  case -1:
-  case 'UNRECOGNIZED':
-  default:
-    return MisbehaviorType.UNRECOGNIZED;
+    case 0:
+    case "UNKNOWN":
+      return MisbehaviorType.UNKNOWN;
+    case 1:
+    case "DUPLICATE_VOTE":
+      return MisbehaviorType.DUPLICATE_VOTE;
+    case 2:
+    case "LIGHT_CLIENT_ATTACK":
+      return MisbehaviorType.LIGHT_CLIENT_ATTACK;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return MisbehaviorType.UNRECOGNIZED;
   }
 }
 export function misbehaviorTypeToJSON(object: MisbehaviorType): string {
   switch (object) {
-  case MisbehaviorType.UNKNOWN:
-    return 'UNKNOWN';
-  case MisbehaviorType.DUPLICATE_VOTE:
-    return 'DUPLICATE_VOTE';
-  case MisbehaviorType.LIGHT_CLIENT_ATTACK:
-    return 'LIGHT_CLIENT_ATTACK';
-  case MisbehaviorType.UNRECOGNIZED:
-  default:
-    return 'UNRECOGNIZED';
+    case MisbehaviorType.UNKNOWN:
+      return "UNKNOWN";
+    case MisbehaviorType.DUPLICATE_VOTE:
+      return "DUPLICATE_VOTE";
+    case MisbehaviorType.LIGHT_CLIENT_ATTACK:
+      return "LIGHT_CLIENT_ATTACK";
+    case MisbehaviorType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
   }
 }
 export interface Request {
@@ -295,7 +295,7 @@ export interface Request {
   finalizeBlock?: RequestFinalizeBlock;
 }
 export interface RequestProtoMsg {
-  typeUrl: '/tendermint.abci.Request';
+  typeUrl: "/tendermint.abci.Request";
   value: Uint8Array;
 }
 export interface RequestAmino {
@@ -317,31 +317,31 @@ export interface RequestAmino {
   finalize_block?: RequestFinalizeBlockAmino;
 }
 export interface RequestAminoMsg {
-  type: '/tendermint.abci.Request';
+  type: "/tendermint.abci.Request";
   value: RequestAmino;
 }
 export interface RequestEcho {
   message: string;
 }
 export interface RequestEchoProtoMsg {
-  typeUrl: '/tendermint.abci.RequestEcho';
+  typeUrl: "/tendermint.abci.RequestEcho";
   value: Uint8Array;
 }
 export interface RequestEchoAmino {
   message: string;
 }
 export interface RequestEchoAminoMsg {
-  type: '/tendermint.abci.RequestEcho';
+  type: "/tendermint.abci.RequestEcho";
   value: RequestEchoAmino;
 }
 export interface RequestFlush {}
 export interface RequestFlushProtoMsg {
-  typeUrl: '/tendermint.abci.RequestFlush';
+  typeUrl: "/tendermint.abci.RequestFlush";
   value: Uint8Array;
 }
 export interface RequestFlushAmino {}
 export interface RequestFlushAminoMsg {
-  type: '/tendermint.abci.RequestFlush';
+  type: "/tendermint.abci.RequestFlush";
   value: RequestFlushAmino;
 }
 export interface RequestInfo {
@@ -351,7 +351,7 @@ export interface RequestInfo {
   abciVersion: string;
 }
 export interface RequestInfoProtoMsg {
-  typeUrl: '/tendermint.abci.RequestInfo';
+  typeUrl: "/tendermint.abci.RequestInfo";
   value: Uint8Array;
 }
 export interface RequestInfoAmino {
@@ -361,7 +361,7 @@ export interface RequestInfoAmino {
   abci_version: string;
 }
 export interface RequestInfoAminoMsg {
-  type: '/tendermint.abci.RequestInfo';
+  type: "/tendermint.abci.RequestInfo";
   value: RequestInfoAmino;
 }
 export interface RequestInitChain {
@@ -373,7 +373,7 @@ export interface RequestInitChain {
   initialHeight: bigint;
 }
 export interface RequestInitChainProtoMsg {
-  typeUrl: '/tendermint.abci.RequestInitChain';
+  typeUrl: "/tendermint.abci.RequestInitChain";
   value: Uint8Array;
 }
 export interface RequestInitChainAmino {
@@ -385,7 +385,7 @@ export interface RequestInitChainAmino {
   initial_height: string;
 }
 export interface RequestInitChainAminoMsg {
-  type: '/tendermint.abci.RequestInitChain';
+  type: "/tendermint.abci.RequestInitChain";
   value: RequestInitChainAmino;
 }
 export interface RequestQuery {
@@ -395,7 +395,7 @@ export interface RequestQuery {
   prove: boolean;
 }
 export interface RequestQueryProtoMsg {
-  typeUrl: '/tendermint.abci.RequestQuery';
+  typeUrl: "/tendermint.abci.RequestQuery";
   value: Uint8Array;
 }
 export interface RequestQueryAmino {
@@ -405,7 +405,7 @@ export interface RequestQueryAmino {
   prove: boolean;
 }
 export interface RequestQueryAminoMsg {
-  type: '/tendermint.abci.RequestQuery';
+  type: "/tendermint.abci.RequestQuery";
   value: RequestQueryAmino;
 }
 export interface RequestCheckTx {
@@ -413,7 +413,7 @@ export interface RequestCheckTx {
   type: CheckTxType;
 }
 export interface RequestCheckTxProtoMsg {
-  typeUrl: '/tendermint.abci.RequestCheckTx';
+  typeUrl: "/tendermint.abci.RequestCheckTx";
   value: Uint8Array;
 }
 export interface RequestCheckTxAmino {
@@ -421,29 +421,29 @@ export interface RequestCheckTxAmino {
   type: CheckTxType;
 }
 export interface RequestCheckTxAminoMsg {
-  type: '/tendermint.abci.RequestCheckTx';
+  type: "/tendermint.abci.RequestCheckTx";
   value: RequestCheckTxAmino;
 }
 export interface RequestCommit {}
 export interface RequestCommitProtoMsg {
-  typeUrl: '/tendermint.abci.RequestCommit';
+  typeUrl: "/tendermint.abci.RequestCommit";
   value: Uint8Array;
 }
 export interface RequestCommitAmino {}
 export interface RequestCommitAminoMsg {
-  type: '/tendermint.abci.RequestCommit';
+  type: "/tendermint.abci.RequestCommit";
   value: RequestCommitAmino;
 }
 /** lists available snapshots */
 export interface RequestListSnapshots {}
 export interface RequestListSnapshotsProtoMsg {
-  typeUrl: '/tendermint.abci.RequestListSnapshots';
+  typeUrl: "/tendermint.abci.RequestListSnapshots";
   value: Uint8Array;
 }
 /** lists available snapshots */
 export interface RequestListSnapshotsAmino {}
 export interface RequestListSnapshotsAminoMsg {
-  type: '/tendermint.abci.RequestListSnapshots';
+  type: "/tendermint.abci.RequestListSnapshots";
   value: RequestListSnapshotsAmino;
 }
 /** offers a snapshot to the application */
@@ -454,7 +454,7 @@ export interface RequestOfferSnapshot {
   appHash: Uint8Array;
 }
 export interface RequestOfferSnapshotProtoMsg {
-  typeUrl: '/tendermint.abci.RequestOfferSnapshot';
+  typeUrl: "/tendermint.abci.RequestOfferSnapshot";
   value: Uint8Array;
 }
 /** offers a snapshot to the application */
@@ -465,7 +465,7 @@ export interface RequestOfferSnapshotAmino {
   app_hash: string;
 }
 export interface RequestOfferSnapshotAminoMsg {
-  type: '/tendermint.abci.RequestOfferSnapshot';
+  type: "/tendermint.abci.RequestOfferSnapshot";
   value: RequestOfferSnapshotAmino;
 }
 /** loads a snapshot chunk */
@@ -475,7 +475,7 @@ export interface RequestLoadSnapshotChunk {
   chunk: number;
 }
 export interface RequestLoadSnapshotChunkProtoMsg {
-  typeUrl: '/tendermint.abci.RequestLoadSnapshotChunk';
+  typeUrl: "/tendermint.abci.RequestLoadSnapshotChunk";
   value: Uint8Array;
 }
 /** loads a snapshot chunk */
@@ -485,7 +485,7 @@ export interface RequestLoadSnapshotChunkAmino {
   chunk: number;
 }
 export interface RequestLoadSnapshotChunkAminoMsg {
-  type: '/tendermint.abci.RequestLoadSnapshotChunk';
+  type: "/tendermint.abci.RequestLoadSnapshotChunk";
   value: RequestLoadSnapshotChunkAmino;
 }
 /** Applies a snapshot chunk */
@@ -495,7 +495,7 @@ export interface RequestApplySnapshotChunk {
   sender: string;
 }
 export interface RequestApplySnapshotChunkProtoMsg {
-  typeUrl: '/tendermint.abci.RequestApplySnapshotChunk';
+  typeUrl: "/tendermint.abci.RequestApplySnapshotChunk";
   value: Uint8Array;
 }
 /** Applies a snapshot chunk */
@@ -505,7 +505,7 @@ export interface RequestApplySnapshotChunkAmino {
   sender: string;
 }
 export interface RequestApplySnapshotChunkAminoMsg {
-  type: '/tendermint.abci.RequestApplySnapshotChunk';
+  type: "/tendermint.abci.RequestApplySnapshotChunk";
   value: RequestApplySnapshotChunkAmino;
 }
 export interface RequestPrepareProposal {
@@ -525,7 +525,7 @@ export interface RequestPrepareProposal {
   proposerAddress: Uint8Array;
 }
 export interface RequestPrepareProposalProtoMsg {
-  typeUrl: '/tendermint.abci.RequestPrepareProposal';
+  typeUrl: "/tendermint.abci.RequestPrepareProposal";
   value: Uint8Array;
 }
 export interface RequestPrepareProposalAmino {
@@ -545,7 +545,7 @@ export interface RequestPrepareProposalAmino {
   proposer_address: string;
 }
 export interface RequestPrepareProposalAminoMsg {
-  type: '/tendermint.abci.RequestPrepareProposal';
+  type: "/tendermint.abci.RequestPrepareProposal";
   value: RequestPrepareProposalAmino;
 }
 export interface RequestProcessProposal {
@@ -561,7 +561,7 @@ export interface RequestProcessProposal {
   proposerAddress: Uint8Array;
 }
 export interface RequestProcessProposalProtoMsg {
-  typeUrl: '/tendermint.abci.RequestProcessProposal';
+  typeUrl: "/tendermint.abci.RequestProcessProposal";
   value: Uint8Array;
 }
 export interface RequestProcessProposalAmino {
@@ -577,7 +577,7 @@ export interface RequestProcessProposalAmino {
   proposer_address: string;
 }
 export interface RequestProcessProposalAminoMsg {
-  type: '/tendermint.abci.RequestProcessProposal';
+  type: "/tendermint.abci.RequestProcessProposal";
   value: RequestProcessProposalAmino;
 }
 /** Extends a vote with application-injected data */
@@ -596,7 +596,7 @@ export interface RequestExtendVote {
   proposerAddress: Uint8Array;
 }
 export interface RequestExtendVoteProtoMsg {
-  typeUrl: '/tendermint.abci.RequestExtendVote';
+  typeUrl: "/tendermint.abci.RequestExtendVote";
   value: Uint8Array;
 }
 /** Extends a vote with application-injected data */
@@ -615,7 +615,7 @@ export interface RequestExtendVoteAmino {
   proposer_address: string;
 }
 export interface RequestExtendVoteAminoMsg {
-  type: '/tendermint.abci.RequestExtendVote';
+  type: "/tendermint.abci.RequestExtendVote";
   value: RequestExtendVoteAmino;
 }
 /** Verify the vote extension */
@@ -628,7 +628,7 @@ export interface RequestVerifyVoteExtension {
   voteExtension: Uint8Array;
 }
 export interface RequestVerifyVoteExtensionProtoMsg {
-  typeUrl: '/tendermint.abci.RequestVerifyVoteExtension';
+  typeUrl: "/tendermint.abci.RequestVerifyVoteExtension";
   value: Uint8Array;
 }
 /** Verify the vote extension */
@@ -641,7 +641,7 @@ export interface RequestVerifyVoteExtensionAmino {
   vote_extension: string;
 }
 export interface RequestVerifyVoteExtensionAminoMsg {
-  type: '/tendermint.abci.RequestVerifyVoteExtension';
+  type: "/tendermint.abci.RequestVerifyVoteExtension";
   value: RequestVerifyVoteExtensionAmino;
 }
 export interface RequestFinalizeBlock {
@@ -657,7 +657,7 @@ export interface RequestFinalizeBlock {
   proposerAddress: Uint8Array;
 }
 export interface RequestFinalizeBlockProtoMsg {
-  typeUrl: '/tendermint.abci.RequestFinalizeBlock';
+  typeUrl: "/tendermint.abci.RequestFinalizeBlock";
   value: Uint8Array;
 }
 export interface RequestFinalizeBlockAmino {
@@ -673,7 +673,7 @@ export interface RequestFinalizeBlockAmino {
   proposer_address: string;
 }
 export interface RequestFinalizeBlockAminoMsg {
-  type: '/tendermint.abci.RequestFinalizeBlock';
+  type: "/tendermint.abci.RequestFinalizeBlock";
   value: RequestFinalizeBlockAmino;
 }
 export interface Response {
@@ -696,7 +696,7 @@ export interface Response {
   finalizeBlock?: ResponseFinalizeBlock;
 }
 export interface ResponseProtoMsg {
-  typeUrl: '/tendermint.abci.Response';
+  typeUrl: "/tendermint.abci.Response";
   value: Uint8Array;
 }
 export interface ResponseAmino {
@@ -719,7 +719,7 @@ export interface ResponseAmino {
   finalize_block?: ResponseFinalizeBlockAmino;
 }
 export interface ResponseAminoMsg {
-  type: '/tendermint.abci.Response';
+  type: "/tendermint.abci.Response";
   value: ResponseAmino;
 }
 /** nondeterministic */
@@ -727,7 +727,7 @@ export interface ResponseException {
   error: string;
 }
 export interface ResponseExceptionProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseException';
+  typeUrl: "/tendermint.abci.ResponseException";
   value: Uint8Array;
 }
 /** nondeterministic */
@@ -735,31 +735,31 @@ export interface ResponseExceptionAmino {
   error: string;
 }
 export interface ResponseExceptionAminoMsg {
-  type: '/tendermint.abci.ResponseException';
+  type: "/tendermint.abci.ResponseException";
   value: ResponseExceptionAmino;
 }
 export interface ResponseEcho {
   message: string;
 }
 export interface ResponseEchoProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseEcho';
+  typeUrl: "/tendermint.abci.ResponseEcho";
   value: Uint8Array;
 }
 export interface ResponseEchoAmino {
   message: string;
 }
 export interface ResponseEchoAminoMsg {
-  type: '/tendermint.abci.ResponseEcho';
+  type: "/tendermint.abci.ResponseEcho";
   value: ResponseEchoAmino;
 }
 export interface ResponseFlush {}
 export interface ResponseFlushProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseFlush';
+  typeUrl: "/tendermint.abci.ResponseFlush";
   value: Uint8Array;
 }
 export interface ResponseFlushAmino {}
 export interface ResponseFlushAminoMsg {
-  type: '/tendermint.abci.ResponseFlush';
+  type: "/tendermint.abci.ResponseFlush";
   value: ResponseFlushAmino;
 }
 export interface ResponseInfo {
@@ -770,7 +770,7 @@ export interface ResponseInfo {
   lastBlockAppHash: Uint8Array;
 }
 export interface ResponseInfoProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseInfo';
+  typeUrl: "/tendermint.abci.ResponseInfo";
   value: Uint8Array;
 }
 export interface ResponseInfoAmino {
@@ -781,7 +781,7 @@ export interface ResponseInfoAmino {
   last_block_app_hash: string;
 }
 export interface ResponseInfoAminoMsg {
-  type: '/tendermint.abci.ResponseInfo';
+  type: "/tendermint.abci.ResponseInfo";
   value: ResponseInfoAmino;
 }
 export interface ResponseInitChain {
@@ -790,7 +790,7 @@ export interface ResponseInitChain {
   appHash: Uint8Array;
 }
 export interface ResponseInitChainProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseInitChain';
+  typeUrl: "/tendermint.abci.ResponseInitChain";
   value: Uint8Array;
 }
 export interface ResponseInitChainAmino {
@@ -799,7 +799,7 @@ export interface ResponseInitChainAmino {
   app_hash: string;
 }
 export interface ResponseInitChainAminoMsg {
-  type: '/tendermint.abci.ResponseInitChain';
+  type: "/tendermint.abci.ResponseInitChain";
   value: ResponseInitChainAmino;
 }
 export interface ResponseQuery {
@@ -816,7 +816,7 @@ export interface ResponseQuery {
   codespace: string;
 }
 export interface ResponseQueryProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseQuery';
+  typeUrl: "/tendermint.abci.ResponseQuery";
   value: Uint8Array;
 }
 export interface ResponseQueryAmino {
@@ -833,7 +833,7 @@ export interface ResponseQueryAmino {
   codespace: string;
 }
 export interface ResponseQueryAminoMsg {
-  type: '/tendermint.abci.ResponseQuery';
+  type: "/tendermint.abci.ResponseQuery";
   value: ResponseQueryAmino;
 }
 export interface ResponseCheckTx {
@@ -849,7 +849,7 @@ export interface ResponseCheckTx {
   codespace: string;
 }
 export interface ResponseCheckTxProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseCheckTx';
+  typeUrl: "/tendermint.abci.ResponseCheckTx";
   value: Uint8Array;
 }
 export interface ResponseCheckTxAmino {
@@ -865,63 +865,63 @@ export interface ResponseCheckTxAmino {
   codespace: string;
 }
 export interface ResponseCheckTxAminoMsg {
-  type: '/tendermint.abci.ResponseCheckTx';
+  type: "/tendermint.abci.ResponseCheckTx";
   value: ResponseCheckTxAmino;
 }
 export interface ResponseCommit {
   retainHeight: bigint;
 }
 export interface ResponseCommitProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseCommit';
+  typeUrl: "/tendermint.abci.ResponseCommit";
   value: Uint8Array;
 }
 export interface ResponseCommitAmino {
   retain_height: string;
 }
 export interface ResponseCommitAminoMsg {
-  type: '/tendermint.abci.ResponseCommit';
+  type: "/tendermint.abci.ResponseCommit";
   value: ResponseCommitAmino;
 }
 export interface ResponseListSnapshots {
   snapshots: Snapshot[];
 }
 export interface ResponseListSnapshotsProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseListSnapshots';
+  typeUrl: "/tendermint.abci.ResponseListSnapshots";
   value: Uint8Array;
 }
 export interface ResponseListSnapshotsAmino {
   snapshots: SnapshotAmino[];
 }
 export interface ResponseListSnapshotsAminoMsg {
-  type: '/tendermint.abci.ResponseListSnapshots';
+  type: "/tendermint.abci.ResponseListSnapshots";
   value: ResponseListSnapshotsAmino;
 }
 export interface ResponseOfferSnapshot {
   result: ResponseOfferSnapshot_Result;
 }
 export interface ResponseOfferSnapshotProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseOfferSnapshot';
+  typeUrl: "/tendermint.abci.ResponseOfferSnapshot";
   value: Uint8Array;
 }
 export interface ResponseOfferSnapshotAmino {
   result: ResponseOfferSnapshot_Result;
 }
 export interface ResponseOfferSnapshotAminoMsg {
-  type: '/tendermint.abci.ResponseOfferSnapshot';
+  type: "/tendermint.abci.ResponseOfferSnapshot";
   value: ResponseOfferSnapshotAmino;
 }
 export interface ResponseLoadSnapshotChunk {
   chunk: Uint8Array;
 }
 export interface ResponseLoadSnapshotChunkProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseLoadSnapshotChunk';
+  typeUrl: "/tendermint.abci.ResponseLoadSnapshotChunk";
   value: Uint8Array;
 }
 export interface ResponseLoadSnapshotChunkAmino {
   chunk: string;
 }
 export interface ResponseLoadSnapshotChunkAminoMsg {
-  type: '/tendermint.abci.ResponseLoadSnapshotChunk';
+  type: "/tendermint.abci.ResponseLoadSnapshotChunk";
   value: ResponseLoadSnapshotChunkAmino;
 }
 export interface ResponseApplySnapshotChunk {
@@ -932,7 +932,7 @@ export interface ResponseApplySnapshotChunk {
   rejectSenders: string[];
 }
 export interface ResponseApplySnapshotChunkProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseApplySnapshotChunk';
+  typeUrl: "/tendermint.abci.ResponseApplySnapshotChunk";
   value: Uint8Array;
 }
 export interface ResponseApplySnapshotChunkAmino {
@@ -943,63 +943,63 @@ export interface ResponseApplySnapshotChunkAmino {
   reject_senders: string[];
 }
 export interface ResponseApplySnapshotChunkAminoMsg {
-  type: '/tendermint.abci.ResponseApplySnapshotChunk';
+  type: "/tendermint.abci.ResponseApplySnapshotChunk";
   value: ResponseApplySnapshotChunkAmino;
 }
 export interface ResponsePrepareProposal {
   txs: Uint8Array[];
 }
 export interface ResponsePrepareProposalProtoMsg {
-  typeUrl: '/tendermint.abci.ResponsePrepareProposal';
+  typeUrl: "/tendermint.abci.ResponsePrepareProposal";
   value: Uint8Array;
 }
 export interface ResponsePrepareProposalAmino {
   txs: string[];
 }
 export interface ResponsePrepareProposalAminoMsg {
-  type: '/tendermint.abci.ResponsePrepareProposal';
+  type: "/tendermint.abci.ResponsePrepareProposal";
   value: ResponsePrepareProposalAmino;
 }
 export interface ResponseProcessProposal {
   status: ResponseProcessProposal_ProposalStatus;
 }
 export interface ResponseProcessProposalProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseProcessProposal';
+  typeUrl: "/tendermint.abci.ResponseProcessProposal";
   value: Uint8Array;
 }
 export interface ResponseProcessProposalAmino {
   status: ResponseProcessProposal_ProposalStatus;
 }
 export interface ResponseProcessProposalAminoMsg {
-  type: '/tendermint.abci.ResponseProcessProposal';
+  type: "/tendermint.abci.ResponseProcessProposal";
   value: ResponseProcessProposalAmino;
 }
 export interface ResponseExtendVote {
   voteExtension: Uint8Array;
 }
 export interface ResponseExtendVoteProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseExtendVote';
+  typeUrl: "/tendermint.abci.ResponseExtendVote";
   value: Uint8Array;
 }
 export interface ResponseExtendVoteAmino {
   vote_extension: string;
 }
 export interface ResponseExtendVoteAminoMsg {
-  type: '/tendermint.abci.ResponseExtendVote';
+  type: "/tendermint.abci.ResponseExtendVote";
   value: ResponseExtendVoteAmino;
 }
 export interface ResponseVerifyVoteExtension {
   status: ResponseVerifyVoteExtension_VerifyStatus;
 }
 export interface ResponseVerifyVoteExtensionProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseVerifyVoteExtension';
+  typeUrl: "/tendermint.abci.ResponseVerifyVoteExtension";
   value: Uint8Array;
 }
 export interface ResponseVerifyVoteExtensionAmino {
   status: ResponseVerifyVoteExtension_VerifyStatus;
 }
 export interface ResponseVerifyVoteExtensionAminoMsg {
-  type: '/tendermint.abci.ResponseVerifyVoteExtension';
+  type: "/tendermint.abci.ResponseVerifyVoteExtension";
   value: ResponseVerifyVoteExtensionAmino;
 }
 export interface ResponseFinalizeBlock {
@@ -1022,7 +1022,7 @@ export interface ResponseFinalizeBlock {
   appHash: Uint8Array;
 }
 export interface ResponseFinalizeBlockProtoMsg {
-  typeUrl: '/tendermint.abci.ResponseFinalizeBlock';
+  typeUrl: "/tendermint.abci.ResponseFinalizeBlock";
   value: Uint8Array;
 }
 export interface ResponseFinalizeBlockAmino {
@@ -1045,7 +1045,7 @@ export interface ResponseFinalizeBlockAmino {
   app_hash: string;
 }
 export interface ResponseFinalizeBlockAminoMsg {
-  type: '/tendermint.abci.ResponseFinalizeBlock';
+  type: "/tendermint.abci.ResponseFinalizeBlock";
   value: ResponseFinalizeBlockAmino;
 }
 export interface CommitInfo {
@@ -1053,7 +1053,7 @@ export interface CommitInfo {
   votes: VoteInfo[];
 }
 export interface CommitInfoProtoMsg {
-  typeUrl: '/tendermint.abci.CommitInfo';
+  typeUrl: "/tendermint.abci.CommitInfo";
   value: Uint8Array;
 }
 export interface CommitInfoAmino {
@@ -1061,7 +1061,7 @@ export interface CommitInfoAmino {
   votes: VoteInfoAmino[];
 }
 export interface CommitInfoAminoMsg {
-  type: '/tendermint.abci.CommitInfo';
+  type: "/tendermint.abci.CommitInfo";
   value: CommitInfoAmino;
 }
 /**
@@ -1079,7 +1079,7 @@ export interface ExtendedCommitInfo {
   votes: ExtendedVoteInfo[];
 }
 export interface ExtendedCommitInfoProtoMsg {
-  typeUrl: '/tendermint.abci.ExtendedCommitInfo';
+  typeUrl: "/tendermint.abci.ExtendedCommitInfo";
   value: Uint8Array;
 }
 /**
@@ -1097,7 +1097,7 @@ export interface ExtendedCommitInfoAmino {
   votes: ExtendedVoteInfoAmino[];
 }
 export interface ExtendedCommitInfoAminoMsg {
-  type: '/tendermint.abci.ExtendedCommitInfo';
+  type: "/tendermint.abci.ExtendedCommitInfo";
   value: ExtendedCommitInfoAmino;
 }
 /**
@@ -1110,7 +1110,7 @@ export interface Event {
   attributes: EventAttribute[];
 }
 export interface EventProtoMsg {
-  typeUrl: '/tendermint.abci.Event';
+  typeUrl: "/tendermint.abci.Event";
   value: Uint8Array;
 }
 /**
@@ -1123,7 +1123,7 @@ export interface EventAmino {
   attributes: EventAttributeAmino[];
 }
 export interface EventAminoMsg {
-  type: '/tendermint.abci.Event';
+  type: "/tendermint.abci.Event";
   value: EventAmino;
 }
 /** EventAttribute is a single key-value pair, associated with an event. */
@@ -1134,7 +1134,7 @@ export interface EventAttribute {
   index: boolean;
 }
 export interface EventAttributeProtoMsg {
-  typeUrl: '/tendermint.abci.EventAttribute';
+  typeUrl: "/tendermint.abci.EventAttribute";
   value: Uint8Array;
 }
 /** EventAttribute is a single key-value pair, associated with an event. */
@@ -1145,7 +1145,7 @@ export interface EventAttributeAmino {
   index: boolean;
 }
 export interface EventAttributeAminoMsg {
-  type: '/tendermint.abci.EventAttribute';
+  type: "/tendermint.abci.EventAttribute";
   value: EventAttributeAmino;
 }
 /**
@@ -1166,7 +1166,7 @@ export interface ExecTxResult {
   codespace: string;
 }
 export interface ExecTxResultProtoMsg {
-  typeUrl: '/tendermint.abci.ExecTxResult';
+  typeUrl: "/tendermint.abci.ExecTxResult";
   value: Uint8Array;
 }
 /**
@@ -1187,7 +1187,7 @@ export interface ExecTxResultAmino {
   codespace: string;
 }
 export interface ExecTxResultAminoMsg {
-  type: '/tendermint.abci.ExecTxResult';
+  type: "/tendermint.abci.ExecTxResult";
   value: ExecTxResultAmino;
 }
 /**
@@ -1202,7 +1202,7 @@ export interface TxResult {
   result: ExecTxResult;
 }
 export interface TxResultProtoMsg {
-  typeUrl: '/tendermint.abci.TxResult';
+  typeUrl: "/tendermint.abci.TxResult";
   value: Uint8Array;
 }
 /**
@@ -1217,7 +1217,7 @@ export interface TxResultAmino {
   result: ExecTxResultAmino;
 }
 export interface TxResultAminoMsg {
-  type: '/tendermint.abci.TxResult';
+  type: "/tendermint.abci.TxResult";
   value: TxResultAmino;
 }
 export interface Validator {
@@ -1230,7 +1230,7 @@ export interface Validator {
   power: bigint;
 }
 export interface ValidatorProtoMsg {
-  typeUrl: '/tendermint.abci.Validator';
+  typeUrl: "/tendermint.abci.Validator";
   value: Uint8Array;
 }
 export interface ValidatorAmino {
@@ -1243,7 +1243,7 @@ export interface ValidatorAmino {
   power: string;
 }
 export interface ValidatorAminoMsg {
-  type: '/tendermint.abci.Validator';
+  type: "/tendermint.abci.Validator";
   value: ValidatorAmino;
 }
 export interface ValidatorUpdate {
@@ -1251,7 +1251,7 @@ export interface ValidatorUpdate {
   power: bigint;
 }
 export interface ValidatorUpdateProtoMsg {
-  typeUrl: '/tendermint.abci.ValidatorUpdate';
+  typeUrl: "/tendermint.abci.ValidatorUpdate";
   value: Uint8Array;
 }
 export interface ValidatorUpdateAmino {
@@ -1259,7 +1259,7 @@ export interface ValidatorUpdateAmino {
   power: string;
 }
 export interface ValidatorUpdateAminoMsg {
-  type: '/tendermint.abci.ValidatorUpdate';
+  type: "/tendermint.abci.ValidatorUpdate";
   value: ValidatorUpdateAmino;
 }
 export interface VoteInfo {
@@ -1267,7 +1267,7 @@ export interface VoteInfo {
   blockIdFlag: BlockIDFlag;
 }
 export interface VoteInfoProtoMsg {
-  typeUrl: '/tendermint.abci.VoteInfo';
+  typeUrl: "/tendermint.abci.VoteInfo";
   value: Uint8Array;
 }
 export interface VoteInfoAmino {
@@ -1275,7 +1275,7 @@ export interface VoteInfoAmino {
   block_id_flag: BlockIDFlag;
 }
 export interface VoteInfoAminoMsg {
-  type: '/tendermint.abci.VoteInfo';
+  type: "/tendermint.abci.VoteInfo";
   value: VoteInfoAmino;
 }
 export interface ExtendedVoteInfo {
@@ -1289,7 +1289,7 @@ export interface ExtendedVoteInfo {
   blockIdFlag: BlockIDFlag;
 }
 export interface ExtendedVoteInfoProtoMsg {
-  typeUrl: '/tendermint.abci.ExtendedVoteInfo';
+  typeUrl: "/tendermint.abci.ExtendedVoteInfo";
   value: Uint8Array;
 }
 export interface ExtendedVoteInfoAmino {
@@ -1303,7 +1303,7 @@ export interface ExtendedVoteInfoAmino {
   block_id_flag: BlockIDFlag;
 }
 export interface ExtendedVoteInfoAminoMsg {
-  type: '/tendermint.abci.ExtendedVoteInfo';
+  type: "/tendermint.abci.ExtendedVoteInfo";
   value: ExtendedVoteInfoAmino;
 }
 export interface Misbehavior {
@@ -1322,7 +1322,7 @@ export interface Misbehavior {
   totalVotingPower: bigint;
 }
 export interface MisbehaviorProtoMsg {
-  typeUrl: '/tendermint.abci.Misbehavior';
+  typeUrl: "/tendermint.abci.Misbehavior";
   value: Uint8Array;
 }
 export interface MisbehaviorAmino {
@@ -1341,7 +1341,7 @@ export interface MisbehaviorAmino {
   total_voting_power: string;
 }
 export interface MisbehaviorAminoMsg {
-  type: '/tendermint.abci.Misbehavior';
+  type: "/tendermint.abci.Misbehavior";
   value: MisbehaviorAmino;
 }
 export interface Snapshot {
@@ -1357,7 +1357,7 @@ export interface Snapshot {
   metadata: Uint8Array;
 }
 export interface SnapshotProtoMsg {
-  typeUrl: '/tendermint.abci.Snapshot';
+  typeUrl: "/tendermint.abci.Snapshot";
   value: Uint8Array;
 }
 export interface SnapshotAmino {
@@ -1373,7 +1373,7 @@ export interface SnapshotAmino {
   metadata: string;
 }
 export interface SnapshotAminoMsg {
-  type: '/tendermint.abci.Snapshot';
+  type: "/tendermint.abci.Snapshot";
   value: SnapshotAmino;
 }
 function createBaseRequest(): Request {
@@ -1397,7 +1397,7 @@ function createBaseRequest(): Request {
   };
 }
 export const Request = {
-  typeUrl: '/tendermint.abci.Request',
+  typeUrl: "/tendermint.abci.Request",
   is(o: any): o is Request {
     return o && o.$typeUrl === Request.typeUrl;
   },
@@ -1462,57 +1462,57 @@ export const Request = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.echo = RequestEcho.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.flush = RequestFlush.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.info = RequestInfo.decode(reader, reader.uint32());
-        break;
-      case 5:
-        message.initChain = RequestInitChain.decode(reader, reader.uint32());
-        break;
-      case 6:
-        message.query = RequestQuery.decode(reader, reader.uint32());
-        break;
-      case 8:
-        message.checkTx = RequestCheckTx.decode(reader, reader.uint32());
-        break;
-      case 11:
-        message.commit = RequestCommit.decode(reader, reader.uint32());
-        break;
-      case 12:
-        message.listSnapshots = RequestListSnapshots.decode(reader, reader.uint32());
-        break;
-      case 13:
-        message.offerSnapshot = RequestOfferSnapshot.decode(reader, reader.uint32());
-        break;
-      case 14:
-        message.loadSnapshotChunk = RequestLoadSnapshotChunk.decode(reader, reader.uint32());
-        break;
-      case 15:
-        message.applySnapshotChunk = RequestApplySnapshotChunk.decode(reader, reader.uint32());
-        break;
-      case 16:
-        message.prepareProposal = RequestPrepareProposal.decode(reader, reader.uint32());
-        break;
-      case 17:
-        message.processProposal = RequestProcessProposal.decode(reader, reader.uint32());
-        break;
-      case 18:
-        message.extendVote = RequestExtendVote.decode(reader, reader.uint32());
-        break;
-      case 19:
-        message.verifyVoteExtension = RequestVerifyVoteExtension.decode(reader, reader.uint32());
-        break;
-      case 20:
-        message.finalizeBlock = RequestFinalizeBlock.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.echo = RequestEcho.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.flush = RequestFlush.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.info = RequestInfo.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.initChain = RequestInitChain.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.query = RequestQuery.decode(reader, reader.uint32());
+          break;
+        case 8:
+          message.checkTx = RequestCheckTx.decode(reader, reader.uint32());
+          break;
+        case 11:
+          message.commit = RequestCommit.decode(reader, reader.uint32());
+          break;
+        case 12:
+          message.listSnapshots = RequestListSnapshots.decode(reader, reader.uint32());
+          break;
+        case 13:
+          message.offerSnapshot = RequestOfferSnapshot.decode(reader, reader.uint32());
+          break;
+        case 14:
+          message.loadSnapshotChunk = RequestLoadSnapshotChunk.decode(reader, reader.uint32());
+          break;
+        case 15:
+          message.applySnapshotChunk = RequestApplySnapshotChunk.decode(reader, reader.uint32());
+          break;
+        case 16:
+          message.prepareProposal = RequestPrepareProposal.decode(reader, reader.uint32());
+          break;
+        case 17:
+          message.processProposal = RequestProcessProposal.decode(reader, reader.uint32());
+          break;
+        case 18:
+          message.extendVote = RequestExtendVote.decode(reader, reader.uint32());
+          break;
+        case 19:
+          message.verifyVoteExtension = RequestVerifyVoteExtension.decode(reader, reader.uint32());
+          break;
+        case 20:
+          message.finalizeBlock = RequestFinalizeBlock.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1620,7 +1620,7 @@ export const Request = {
   },
   toProtoMsg(message: Request): RequestProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.Request',
+      typeUrl: "/tendermint.abci.Request",
       value: Request.encode(message).finish()
     };
   }
@@ -1628,19 +1628,19 @@ export const Request = {
 GlobalDecoderRegistry.register(Request.typeUrl, Request);
 function createBaseRequestEcho(): RequestEcho {
   return {
-    message: ''
+    message: ""
   };
 }
 export const RequestEcho = {
-  typeUrl: '/tendermint.abci.RequestEcho',
+  typeUrl: "/tendermint.abci.RequestEcho",
   is(o: any): o is RequestEcho {
-    return o && (o.$typeUrl === RequestEcho.typeUrl || typeof o.message === 'string');
+    return o && (o.$typeUrl === RequestEcho.typeUrl || typeof o.message === "string");
   },
   isAmino(o: any): o is RequestEchoAmino {
-    return o && (o.$typeUrl === RequestEcho.typeUrl || typeof o.message === 'string');
+    return o && (o.$typeUrl === RequestEcho.typeUrl || typeof o.message === "string");
   },
   encode(message: RequestEcho, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.message !== '') {
+    if (message.message !== "") {
       writer.uint32(10).string(message.message);
     }
     return writer;
@@ -1652,19 +1652,19 @@ export const RequestEcho = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.message = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.message = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<RequestEcho>): RequestEcho {
     const message = createBaseRequestEcho();
-    message.message = object.message ?? '';
+    message.message = object.message ?? "";
     return message;
   },
   fromAmino(object: RequestEchoAmino): RequestEcho {
@@ -1676,7 +1676,7 @@ export const RequestEcho = {
   },
   toAmino(message: RequestEcho): RequestEchoAmino {
     const obj: any = {};
-    obj.message = message.message === '' ? undefined : message.message;
+    obj.message = message.message === "" ? undefined : message.message;
     return obj;
   },
   fromAminoMsg(object: RequestEchoAminoMsg): RequestEcho {
@@ -1690,7 +1690,7 @@ export const RequestEcho = {
   },
   toProtoMsg(message: RequestEcho): RequestEchoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestEcho',
+      typeUrl: "/tendermint.abci.RequestEcho",
       value: RequestEcho.encode(message).finish()
     };
   }
@@ -1700,7 +1700,7 @@ function createBaseRequestFlush(): RequestFlush {
   return {};
 }
 export const RequestFlush = {
-  typeUrl: '/tendermint.abci.RequestFlush',
+  typeUrl: "/tendermint.abci.RequestFlush",
   is(o: any): o is RequestFlush {
     return o && o.$typeUrl === RequestFlush.typeUrl;
   },
@@ -1717,9 +1717,9 @@ export const RequestFlush = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1747,7 +1747,7 @@ export const RequestFlush = {
   },
   toProtoMsg(message: RequestFlush): RequestFlushProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestFlush',
+      typeUrl: "/tendermint.abci.RequestFlush",
       value: RequestFlush.encode(message).finish()
     };
   }
@@ -1755,22 +1755,22 @@ export const RequestFlush = {
 GlobalDecoderRegistry.register(RequestFlush.typeUrl, RequestFlush);
 function createBaseRequestInfo(): RequestInfo {
   return {
-    version: '',
+    version: "",
     blockVersion: BigInt(0),
     p2pVersion: BigInt(0),
-    abciVersion: ''
+    abciVersion: ""
   };
 }
 export const RequestInfo = {
-  typeUrl: '/tendermint.abci.RequestInfo',
+  typeUrl: "/tendermint.abci.RequestInfo",
   is(o: any): o is RequestInfo {
-    return o && (o.$typeUrl === RequestInfo.typeUrl || typeof o.version === 'string' && typeof o.blockVersion === 'bigint' && typeof o.p2pVersion === 'bigint' && typeof o.abciVersion === 'string');
+    return o && (o.$typeUrl === RequestInfo.typeUrl || typeof o.version === "string" && typeof o.blockVersion === "bigint" && typeof o.p2pVersion === "bigint" && typeof o.abciVersion === "string");
   },
   isAmino(o: any): o is RequestInfoAmino {
-    return o && (o.$typeUrl === RequestInfo.typeUrl || typeof o.version === 'string' && typeof o.block_version === 'bigint' && typeof o.p2p_version === 'bigint' && typeof o.abci_version === 'string');
+    return o && (o.$typeUrl === RequestInfo.typeUrl || typeof o.version === "string" && typeof o.block_version === "bigint" && typeof o.p2p_version === "bigint" && typeof o.abci_version === "string");
   },
   encode(message: RequestInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.version !== '') {
+    if (message.version !== "") {
       writer.uint32(10).string(message.version);
     }
     if (message.blockVersion !== BigInt(0)) {
@@ -1779,7 +1779,7 @@ export const RequestInfo = {
     if (message.p2pVersion !== BigInt(0)) {
       writer.uint32(24).uint64(message.p2pVersion);
     }
-    if (message.abciVersion !== '') {
+    if (message.abciVersion !== "") {
       writer.uint32(34).string(message.abciVersion);
     }
     return writer;
@@ -1791,31 +1791,31 @@ export const RequestInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.version = reader.string();
-        break;
-      case 2:
-        message.blockVersion = reader.uint64();
-        break;
-      case 3:
-        message.p2pVersion = reader.uint64();
-        break;
-      case 4:
-        message.abciVersion = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.version = reader.string();
+          break;
+        case 2:
+          message.blockVersion = reader.uint64();
+          break;
+        case 3:
+          message.p2pVersion = reader.uint64();
+          break;
+        case 4:
+          message.abciVersion = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<RequestInfo>): RequestInfo {
     const message = createBaseRequestInfo();
-    message.version = object.version ?? '';
+    message.version = object.version ?? "";
     message.blockVersion = object.blockVersion !== undefined && object.blockVersion !== null ? BigInt(object.blockVersion.toString()) : BigInt(0);
     message.p2pVersion = object.p2pVersion !== undefined && object.p2pVersion !== null ? BigInt(object.p2pVersion.toString()) : BigInt(0);
-    message.abciVersion = object.abciVersion ?? '';
+    message.abciVersion = object.abciVersion ?? "";
     return message;
   },
   fromAmino(object: RequestInfoAmino): RequestInfo {
@@ -1836,10 +1836,10 @@ export const RequestInfo = {
   },
   toAmino(message: RequestInfo): RequestInfoAmino {
     const obj: any = {};
-    obj.version = message.version === '' ? undefined : message.version;
+    obj.version = message.version === "" ? undefined : message.version;
     obj.block_version = message.blockVersion !== BigInt(0) ? message.blockVersion.toString() : undefined;
     obj.p2p_version = message.p2pVersion !== BigInt(0) ? message.p2pVersion.toString() : undefined;
-    obj.abci_version = message.abciVersion === '' ? undefined : message.abciVersion;
+    obj.abci_version = message.abciVersion === "" ? undefined : message.abciVersion;
     return obj;
   },
   fromAminoMsg(object: RequestInfoAminoMsg): RequestInfo {
@@ -1853,7 +1853,7 @@ export const RequestInfo = {
   },
   toProtoMsg(message: RequestInfo): RequestInfoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestInfo',
+      typeUrl: "/tendermint.abci.RequestInfo",
       value: RequestInfo.encode(message).finish()
     };
   }
@@ -1862,7 +1862,7 @@ GlobalDecoderRegistry.register(RequestInfo.typeUrl, RequestInfo);
 function createBaseRequestInitChain(): RequestInitChain {
   return {
     time: new Date(),
-    chainId: '',
+    chainId: "",
     consensusParams: undefined,
     validators: [],
     appStateBytes: new Uint8Array(),
@@ -1870,18 +1870,18 @@ function createBaseRequestInitChain(): RequestInitChain {
   };
 }
 export const RequestInitChain = {
-  typeUrl: '/tendermint.abci.RequestInitChain',
+  typeUrl: "/tendermint.abci.RequestInitChain",
   is(o: any): o is RequestInitChain {
-    return o && (o.$typeUrl === RequestInitChain.typeUrl || Timestamp.is(o.time) && typeof o.chainId === 'string' && Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.is(o.validators[0])) && (o.appStateBytes instanceof Uint8Array || typeof o.appStateBytes === 'string') && typeof o.initialHeight === 'bigint');
+    return o && (o.$typeUrl === RequestInitChain.typeUrl || Timestamp.is(o.time) && typeof o.chainId === "string" && Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.is(o.validators[0])) && (o.appStateBytes instanceof Uint8Array || typeof o.appStateBytes === "string") && typeof o.initialHeight === "bigint");
   },
   isAmino(o: any): o is RequestInitChainAmino {
-    return o && (o.$typeUrl === RequestInitChain.typeUrl || Timestamp.isAmino(o.time) && typeof o.chain_id === 'string' && Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.isAmino(o.validators[0])) && (o.app_state_bytes instanceof Uint8Array || typeof o.app_state_bytes === 'string') && typeof o.initial_height === 'bigint');
+    return o && (o.$typeUrl === RequestInitChain.typeUrl || Timestamp.isAmino(o.time) && typeof o.chain_id === "string" && Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.isAmino(o.validators[0])) && (o.app_state_bytes instanceof Uint8Array || typeof o.app_state_bytes === "string") && typeof o.initial_height === "bigint");
   },
   encode(message: RequestInitChain, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.time !== undefined) {
       Timestamp.encode(toTimestamp(message.time), writer.uint32(10).fork()).ldelim();
     }
-    if (message.chainId !== '') {
+    if (message.chainId !== "") {
       writer.uint32(18).string(message.chainId);
     }
     if (message.consensusParams !== undefined) {
@@ -1905,27 +1905,27 @@ export const RequestInitChain = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-        break;
-      case 2:
-        message.chainId = reader.string();
-        break;
-      case 3:
-        message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
-        break;
-      case 4:
-        message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
-        break;
-      case 5:
-        message.appStateBytes = reader.bytes();
-        break;
-      case 6:
-        message.initialHeight = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.chainId = reader.string();
+          break;
+        case 3:
+          message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.appStateBytes = reader.bytes();
+          break;
+        case 6:
+          message.initialHeight = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -1933,7 +1933,7 @@ export const RequestInitChain = {
   fromPartial(object: DeepPartial<RequestInitChain>): RequestInitChain {
     const message = createBaseRequestInitChain();
     message.time = object.time ?? undefined;
-    message.chainId = object.chainId ?? '';
+    message.chainId = object.chainId ?? "";
     message.consensusParams = object.consensusParams !== undefined && object.consensusParams !== null ? ConsensusParams.fromPartial(object.consensusParams) : undefined;
     message.validators = object.validators?.map(e => ValidatorUpdate.fromPartial(e)) || [];
     message.appStateBytes = object.appStateBytes ?? new Uint8Array();
@@ -1963,7 +1963,7 @@ export const RequestInitChain = {
   toAmino(message: RequestInitChain): RequestInitChainAmino {
     const obj: any = {};
     obj.time = message.time ? Timestamp.toAmino(toTimestamp(message.time)) : undefined;
-    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
+    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
     obj.consensus_params = message.consensusParams ? ConsensusParams.toAmino(message.consensusParams) : undefined;
     if (message.validators) {
       obj.validators = message.validators.map(e => e ? ValidatorUpdate.toAmino(e) : undefined);
@@ -1985,7 +1985,7 @@ export const RequestInitChain = {
   },
   toProtoMsg(message: RequestInitChain): RequestInitChainProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestInitChain',
+      typeUrl: "/tendermint.abci.RequestInitChain",
       value: RequestInitChain.encode(message).finish()
     };
   }
@@ -1994,24 +1994,24 @@ GlobalDecoderRegistry.register(RequestInitChain.typeUrl, RequestInitChain);
 function createBaseRequestQuery(): RequestQuery {
   return {
     data: new Uint8Array(),
-    path: '',
+    path: "",
     height: BigInt(0),
     prove: false
   };
 }
 export const RequestQuery = {
-  typeUrl: '/tendermint.abci.RequestQuery',
+  typeUrl: "/tendermint.abci.RequestQuery",
   is(o: any): o is RequestQuery {
-    return o && (o.$typeUrl === RequestQuery.typeUrl || (o.data instanceof Uint8Array || typeof o.data === 'string') && typeof o.path === 'string' && typeof o.height === 'bigint' && typeof o.prove === 'boolean');
+    return o && (o.$typeUrl === RequestQuery.typeUrl || (o.data instanceof Uint8Array || typeof o.data === "string") && typeof o.path === "string" && typeof o.height === "bigint" && typeof o.prove === "boolean");
   },
   isAmino(o: any): o is RequestQueryAmino {
-    return o && (o.$typeUrl === RequestQuery.typeUrl || (o.data instanceof Uint8Array || typeof o.data === 'string') && typeof o.path === 'string' && typeof o.height === 'bigint' && typeof o.prove === 'boolean');
+    return o && (o.$typeUrl === RequestQuery.typeUrl || (o.data instanceof Uint8Array || typeof o.data === "string") && typeof o.path === "string" && typeof o.height === "bigint" && typeof o.prove === "boolean");
   },
   encode(message: RequestQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
-    if (message.path !== '') {
+    if (message.path !== "") {
       writer.uint32(18).string(message.path);
     }
     if (message.height !== BigInt(0)) {
@@ -2029,21 +2029,21 @@ export const RequestQuery = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.data = reader.bytes();
-        break;
-      case 2:
-        message.path = reader.string();
-        break;
-      case 3:
-        message.height = reader.int64();
-        break;
-      case 4:
-        message.prove = reader.bool();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.data = reader.bytes();
+          break;
+        case 2:
+          message.path = reader.string();
+          break;
+        case 3:
+          message.height = reader.int64();
+          break;
+        case 4:
+          message.prove = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2051,7 +2051,7 @@ export const RequestQuery = {
   fromPartial(object: DeepPartial<RequestQuery>): RequestQuery {
     const message = createBaseRequestQuery();
     message.data = object.data ?? new Uint8Array();
-    message.path = object.path ?? '';
+    message.path = object.path ?? "";
     message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.prove = object.prove ?? false;
     return message;
@@ -2075,7 +2075,7 @@ export const RequestQuery = {
   toAmino(message: RequestQuery): RequestQueryAmino {
     const obj: any = {};
     obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    obj.path = message.path === '' ? undefined : message.path;
+    obj.path = message.path === "" ? undefined : message.path;
     obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     obj.prove = message.prove === false ? undefined : message.prove;
     return obj;
@@ -2091,7 +2091,7 @@ export const RequestQuery = {
   },
   toProtoMsg(message: RequestQuery): RequestQueryProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestQuery',
+      typeUrl: "/tendermint.abci.RequestQuery",
       value: RequestQuery.encode(message).finish()
     };
   }
@@ -2104,12 +2104,12 @@ function createBaseRequestCheckTx(): RequestCheckTx {
   };
 }
 export const RequestCheckTx = {
-  typeUrl: '/tendermint.abci.RequestCheckTx',
+  typeUrl: "/tendermint.abci.RequestCheckTx",
   is(o: any): o is RequestCheckTx {
-    return o && (o.$typeUrl === RequestCheckTx.typeUrl || (o.tx instanceof Uint8Array || typeof o.tx === 'string') && isSet(o.type));
+    return o && (o.$typeUrl === RequestCheckTx.typeUrl || (o.tx instanceof Uint8Array || typeof o.tx === "string") && isSet(o.type));
   },
   isAmino(o: any): o is RequestCheckTxAmino {
-    return o && (o.$typeUrl === RequestCheckTx.typeUrl || (o.tx instanceof Uint8Array || typeof o.tx === 'string') && isSet(o.type));
+    return o && (o.$typeUrl === RequestCheckTx.typeUrl || (o.tx instanceof Uint8Array || typeof o.tx === "string") && isSet(o.type));
   },
   encode(message: RequestCheckTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tx.length !== 0) {
@@ -2127,15 +2127,15 @@ export const RequestCheckTx = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.tx = reader.bytes();
-        break;
-      case 2:
-        message.type = (reader.int32() as any);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.tx = reader.bytes();
+          break;
+        case 2:
+          message.type = (reader.int32() as any);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2173,7 +2173,7 @@ export const RequestCheckTx = {
   },
   toProtoMsg(message: RequestCheckTx): RequestCheckTxProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestCheckTx',
+      typeUrl: "/tendermint.abci.RequestCheckTx",
       value: RequestCheckTx.encode(message).finish()
     };
   }
@@ -2183,7 +2183,7 @@ function createBaseRequestCommit(): RequestCommit {
   return {};
 }
 export const RequestCommit = {
-  typeUrl: '/tendermint.abci.RequestCommit',
+  typeUrl: "/tendermint.abci.RequestCommit",
   is(o: any): o is RequestCommit {
     return o && o.$typeUrl === RequestCommit.typeUrl;
   },
@@ -2200,9 +2200,9 @@ export const RequestCommit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2230,7 +2230,7 @@ export const RequestCommit = {
   },
   toProtoMsg(message: RequestCommit): RequestCommitProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestCommit',
+      typeUrl: "/tendermint.abci.RequestCommit",
       value: RequestCommit.encode(message).finish()
     };
   }
@@ -2240,7 +2240,7 @@ function createBaseRequestListSnapshots(): RequestListSnapshots {
   return {};
 }
 export const RequestListSnapshots = {
-  typeUrl: '/tendermint.abci.RequestListSnapshots',
+  typeUrl: "/tendermint.abci.RequestListSnapshots",
   is(o: any): o is RequestListSnapshots {
     return o && o.$typeUrl === RequestListSnapshots.typeUrl;
   },
@@ -2257,9 +2257,9 @@ export const RequestListSnapshots = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2287,7 +2287,7 @@ export const RequestListSnapshots = {
   },
   toProtoMsg(message: RequestListSnapshots): RequestListSnapshotsProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestListSnapshots',
+      typeUrl: "/tendermint.abci.RequestListSnapshots",
       value: RequestListSnapshots.encode(message).finish()
     };
   }
@@ -2300,12 +2300,12 @@ function createBaseRequestOfferSnapshot(): RequestOfferSnapshot {
   };
 }
 export const RequestOfferSnapshot = {
-  typeUrl: '/tendermint.abci.RequestOfferSnapshot',
+  typeUrl: "/tendermint.abci.RequestOfferSnapshot",
   is(o: any): o is RequestOfferSnapshot {
-    return o && (o.$typeUrl === RequestOfferSnapshot.typeUrl || o.appHash instanceof Uint8Array || typeof o.appHash === 'string');
+    return o && (o.$typeUrl === RequestOfferSnapshot.typeUrl || o.appHash instanceof Uint8Array || typeof o.appHash === "string");
   },
   isAmino(o: any): o is RequestOfferSnapshotAmino {
-    return o && (o.$typeUrl === RequestOfferSnapshot.typeUrl || o.app_hash instanceof Uint8Array || typeof o.app_hash === 'string');
+    return o && (o.$typeUrl === RequestOfferSnapshot.typeUrl || o.app_hash instanceof Uint8Array || typeof o.app_hash === "string");
   },
   encode(message: RequestOfferSnapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.snapshot !== undefined) {
@@ -2323,15 +2323,15 @@ export const RequestOfferSnapshot = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.snapshot = Snapshot.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.appHash = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.snapshot = Snapshot.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.appHash = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2369,7 +2369,7 @@ export const RequestOfferSnapshot = {
   },
   toProtoMsg(message: RequestOfferSnapshot): RequestOfferSnapshotProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestOfferSnapshot',
+      typeUrl: "/tendermint.abci.RequestOfferSnapshot",
       value: RequestOfferSnapshot.encode(message).finish()
     };
   }
@@ -2383,12 +2383,12 @@ function createBaseRequestLoadSnapshotChunk(): RequestLoadSnapshotChunk {
   };
 }
 export const RequestLoadSnapshotChunk = {
-  typeUrl: '/tendermint.abci.RequestLoadSnapshotChunk',
+  typeUrl: "/tendermint.abci.RequestLoadSnapshotChunk",
   is(o: any): o is RequestLoadSnapshotChunk {
-    return o && (o.$typeUrl === RequestLoadSnapshotChunk.typeUrl || typeof o.height === 'bigint' && typeof o.format === 'number' && typeof o.chunk === 'number');
+    return o && (o.$typeUrl === RequestLoadSnapshotChunk.typeUrl || typeof o.height === "bigint" && typeof o.format === "number" && typeof o.chunk === "number");
   },
   isAmino(o: any): o is RequestLoadSnapshotChunkAmino {
-    return o && (o.$typeUrl === RequestLoadSnapshotChunk.typeUrl || typeof o.height === 'bigint' && typeof o.format === 'number' && typeof o.chunk === 'number');
+    return o && (o.$typeUrl === RequestLoadSnapshotChunk.typeUrl || typeof o.height === "bigint" && typeof o.format === "number" && typeof o.chunk === "number");
   },
   encode(message: RequestLoadSnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
@@ -2409,18 +2409,18 @@ export const RequestLoadSnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.height = reader.uint64();
-        break;
-      case 2:
-        message.format = reader.uint32();
-        break;
-      case 3:
-        message.chunk = reader.uint32();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.height = reader.uint64();
+          break;
+        case 2:
+          message.format = reader.uint32();
+          break;
+        case 3:
+          message.chunk = reader.uint32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2463,7 +2463,7 @@ export const RequestLoadSnapshotChunk = {
   },
   toProtoMsg(message: RequestLoadSnapshotChunk): RequestLoadSnapshotChunkProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestLoadSnapshotChunk',
+      typeUrl: "/tendermint.abci.RequestLoadSnapshotChunk",
       value: RequestLoadSnapshotChunk.encode(message).finish()
     };
   }
@@ -2473,16 +2473,16 @@ function createBaseRequestApplySnapshotChunk(): RequestApplySnapshotChunk {
   return {
     index: 0,
     chunk: new Uint8Array(),
-    sender: ''
+    sender: ""
   };
 }
 export const RequestApplySnapshotChunk = {
-  typeUrl: '/tendermint.abci.RequestApplySnapshotChunk',
+  typeUrl: "/tendermint.abci.RequestApplySnapshotChunk",
   is(o: any): o is RequestApplySnapshotChunk {
-    return o && (o.$typeUrl === RequestApplySnapshotChunk.typeUrl || typeof o.index === 'number' && (o.chunk instanceof Uint8Array || typeof o.chunk === 'string') && typeof o.sender === 'string');
+    return o && (o.$typeUrl === RequestApplySnapshotChunk.typeUrl || typeof o.index === "number" && (o.chunk instanceof Uint8Array || typeof o.chunk === "string") && typeof o.sender === "string");
   },
   isAmino(o: any): o is RequestApplySnapshotChunkAmino {
-    return o && (o.$typeUrl === RequestApplySnapshotChunk.typeUrl || typeof o.index === 'number' && (o.chunk instanceof Uint8Array || typeof o.chunk === 'string') && typeof o.sender === 'string');
+    return o && (o.$typeUrl === RequestApplySnapshotChunk.typeUrl || typeof o.index === "number" && (o.chunk instanceof Uint8Array || typeof o.chunk === "string") && typeof o.sender === "string");
   },
   encode(message: RequestApplySnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.index !== 0) {
@@ -2491,7 +2491,7 @@ export const RequestApplySnapshotChunk = {
     if (message.chunk.length !== 0) {
       writer.uint32(18).bytes(message.chunk);
     }
-    if (message.sender !== '') {
+    if (message.sender !== "") {
       writer.uint32(26).string(message.sender);
     }
     return writer;
@@ -2503,18 +2503,18 @@ export const RequestApplySnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.index = reader.uint32();
-        break;
-      case 2:
-        message.chunk = reader.bytes();
-        break;
-      case 3:
-        message.sender = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.index = reader.uint32();
+          break;
+        case 2:
+          message.chunk = reader.bytes();
+          break;
+        case 3:
+          message.sender = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2523,7 +2523,7 @@ export const RequestApplySnapshotChunk = {
     const message = createBaseRequestApplySnapshotChunk();
     message.index = object.index ?? 0;
     message.chunk = object.chunk ?? new Uint8Array();
-    message.sender = object.sender ?? '';
+    message.sender = object.sender ?? "";
     return message;
   },
   fromAmino(object: RequestApplySnapshotChunkAmino): RequestApplySnapshotChunk {
@@ -2543,7 +2543,7 @@ export const RequestApplySnapshotChunk = {
     const obj: any = {};
     obj.index = message.index === 0 ? undefined : message.index;
     obj.chunk = message.chunk ? base64FromBytes(message.chunk) : undefined;
-    obj.sender = message.sender === '' ? undefined : message.sender;
+    obj.sender = message.sender === "" ? undefined : message.sender;
     return obj;
   },
   fromAminoMsg(object: RequestApplySnapshotChunkAminoMsg): RequestApplySnapshotChunk {
@@ -2557,7 +2557,7 @@ export const RequestApplySnapshotChunk = {
   },
   toProtoMsg(message: RequestApplySnapshotChunk): RequestApplySnapshotChunkProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestApplySnapshotChunk',
+      typeUrl: "/tendermint.abci.RequestApplySnapshotChunk",
       value: RequestApplySnapshotChunk.encode(message).finish()
     };
   }
@@ -2576,12 +2576,12 @@ function createBaseRequestPrepareProposal(): RequestPrepareProposal {
   };
 }
 export const RequestPrepareProposal = {
-  typeUrl: '/tendermint.abci.RequestPrepareProposal',
+  typeUrl: "/tendermint.abci.RequestPrepareProposal",
   is(o: any): o is RequestPrepareProposal {
-    return o && (o.$typeUrl === RequestPrepareProposal.typeUrl || typeof o.maxTxBytes === 'bigint' && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && ExtendedCommitInfo.is(o.localLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && typeof o.height === 'bigint' && Timestamp.is(o.time) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === 'string') && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === 'string'));
+    return o && (o.$typeUrl === RequestPrepareProposal.typeUrl || typeof o.maxTxBytes === "bigint" && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && ExtendedCommitInfo.is(o.localLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && typeof o.height === "bigint" && Timestamp.is(o.time) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === "string") && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === "string"));
   },
   isAmino(o: any): o is RequestPrepareProposalAmino {
-    return o && (o.$typeUrl === RequestPrepareProposal.typeUrl || typeof o.max_tx_bytes === 'bigint' && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && ExtendedCommitInfo.isAmino(o.local_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && typeof o.height === 'bigint' && Timestamp.isAmino(o.time) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === 'string') && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === 'string'));
+    return o && (o.$typeUrl === RequestPrepareProposal.typeUrl || typeof o.max_tx_bytes === "bigint" && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && ExtendedCommitInfo.isAmino(o.local_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && typeof o.height === "bigint" && Timestamp.isAmino(o.time) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === "string") && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === "string"));
   },
   encode(message: RequestPrepareProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxTxBytes !== BigInt(0)) {
@@ -2617,33 +2617,33 @@ export const RequestPrepareProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.maxTxBytes = reader.int64();
-        break;
-      case 2:
-        message.txs.push(reader.bytes());
-        break;
-      case 3:
-        message.localLastCommit = ExtendedCommitInfo.decode(reader, reader.uint32());
-        break;
-      case 4:
-        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-        break;
-      case 5:
-        message.height = reader.int64();
-        break;
-      case 6:
-        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-        break;
-      case 7:
-        message.nextValidatorsHash = reader.bytes();
-        break;
-      case 8:
-        message.proposerAddress = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.maxTxBytes = reader.int64();
+          break;
+        case 2:
+          message.txs.push(reader.bytes());
+          break;
+        case 3:
+          message.localLastCommit = ExtendedCommitInfo.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.height = reader.int64();
+          break;
+        case 6:
+          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 7:
+          message.nextValidatorsHash = reader.bytes();
+          break;
+        case 8:
+          message.proposerAddress = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2715,7 +2715,7 @@ export const RequestPrepareProposal = {
   },
   toProtoMsg(message: RequestPrepareProposal): RequestPrepareProposalProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestPrepareProposal',
+      typeUrl: "/tendermint.abci.RequestPrepareProposal",
       value: RequestPrepareProposal.encode(message).finish()
     };
   }
@@ -2734,12 +2734,12 @@ function createBaseRequestProcessProposal(): RequestProcessProposal {
   };
 }
 export const RequestProcessProposal = {
-  typeUrl: '/tendermint.abci.RequestProcessProposal',
+  typeUrl: "/tendermint.abci.RequestProcessProposal",
   is(o: any): o is RequestProcessProposal {
-    return o && (o.$typeUrl === RequestProcessProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && CommitInfo.is(o.proposedLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === 'string') && typeof o.height === 'bigint' && Timestamp.is(o.time) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === 'string') && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === 'string'));
+    return o && (o.$typeUrl === RequestProcessProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && CommitInfo.is(o.proposedLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === "string") && typeof o.height === "bigint" && Timestamp.is(o.time) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === "string") && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === "string"));
   },
   isAmino(o: any): o is RequestProcessProposalAmino {
-    return o && (o.$typeUrl === RequestProcessProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && CommitInfo.isAmino(o.proposed_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === 'string') && typeof o.height === 'bigint' && Timestamp.isAmino(o.time) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === 'string') && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === 'string'));
+    return o && (o.$typeUrl === RequestProcessProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && CommitInfo.isAmino(o.proposed_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === "string") && typeof o.height === "bigint" && Timestamp.isAmino(o.time) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === "string") && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === "string"));
   },
   encode(message: RequestProcessProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txs) {
@@ -2775,33 +2775,33 @@ export const RequestProcessProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.txs.push(reader.bytes());
-        break;
-      case 2:
-        message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-        break;
-      case 4:
-        message.hash = reader.bytes();
-        break;
-      case 5:
-        message.height = reader.int64();
-        break;
-      case 6:
-        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-        break;
-      case 7:
-        message.nextValidatorsHash = reader.bytes();
-        break;
-      case 8:
-        message.proposerAddress = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.txs.push(reader.bytes());
+          break;
+        case 2:
+          message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.hash = reader.bytes();
+          break;
+        case 5:
+          message.height = reader.int64();
+          break;
+        case 6:
+          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 7:
+          message.nextValidatorsHash = reader.bytes();
+          break;
+        case 8:
+          message.proposerAddress = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -2873,7 +2873,7 @@ export const RequestProcessProposal = {
   },
   toProtoMsg(message: RequestProcessProposal): RequestProcessProposalProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestProcessProposal',
+      typeUrl: "/tendermint.abci.RequestProcessProposal",
       value: RequestProcessProposal.encode(message).finish()
     };
   }
@@ -2892,12 +2892,12 @@ function createBaseRequestExtendVote(): RequestExtendVote {
   };
 }
 export const RequestExtendVote = {
-  typeUrl: '/tendermint.abci.RequestExtendVote',
+  typeUrl: "/tendermint.abci.RequestExtendVote",
   is(o: any): o is RequestExtendVote {
-    return o && (o.$typeUrl === RequestExtendVote.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === 'string') && typeof o.height === 'bigint' && Timestamp.is(o.time) && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && CommitInfo.is(o.proposedLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === 'string') && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === 'string'));
+    return o && (o.$typeUrl === RequestExtendVote.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === "string") && typeof o.height === "bigint" && Timestamp.is(o.time) && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && CommitInfo.is(o.proposedLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === "string") && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === "string"));
   },
   isAmino(o: any): o is RequestExtendVoteAmino {
-    return o && (o.$typeUrl === RequestExtendVote.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === 'string') && typeof o.height === 'bigint' && Timestamp.isAmino(o.time) && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && CommitInfo.isAmino(o.proposed_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === 'string') && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === 'string'));
+    return o && (o.$typeUrl === RequestExtendVote.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === "string") && typeof o.height === "bigint" && Timestamp.isAmino(o.time) && Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && CommitInfo.isAmino(o.proposed_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === "string") && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === "string"));
   },
   encode(message: RequestExtendVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash.length !== 0) {
@@ -2933,33 +2933,33 @@ export const RequestExtendVote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.hash = reader.bytes();
-        break;
-      case 2:
-        message.height = reader.int64();
-        break;
-      case 3:
-        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-        break;
-      case 4:
-        message.txs.push(reader.bytes());
-        break;
-      case 5:
-        message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
-        break;
-      case 6:
-        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-        break;
-      case 7:
-        message.nextValidatorsHash = reader.bytes();
-        break;
-      case 8:
-        message.proposerAddress = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.hash = reader.bytes();
+          break;
+        case 2:
+          message.height = reader.int64();
+          break;
+        case 3:
+          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.txs.push(reader.bytes());
+          break;
+        case 5:
+          message.proposedLastCommit = CommitInfo.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+          break;
+        case 7:
+          message.nextValidatorsHash = reader.bytes();
+          break;
+        case 8:
+          message.proposerAddress = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -3031,7 +3031,7 @@ export const RequestExtendVote = {
   },
   toProtoMsg(message: RequestExtendVote): RequestExtendVoteProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestExtendVote',
+      typeUrl: "/tendermint.abci.RequestExtendVote",
       value: RequestExtendVote.encode(message).finish()
     };
   }
@@ -3046,12 +3046,12 @@ function createBaseRequestVerifyVoteExtension(): RequestVerifyVoteExtension {
   };
 }
 export const RequestVerifyVoteExtension = {
-  typeUrl: '/tendermint.abci.RequestVerifyVoteExtension',
+  typeUrl: "/tendermint.abci.RequestVerifyVoteExtension",
   is(o: any): o is RequestVerifyVoteExtension {
-    return o && (o.$typeUrl === RequestVerifyVoteExtension.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === 'string') && (o.validatorAddress instanceof Uint8Array || typeof o.validatorAddress === 'string') && typeof o.height === 'bigint' && (o.voteExtension instanceof Uint8Array || typeof o.voteExtension === 'string'));
+    return o && (o.$typeUrl === RequestVerifyVoteExtension.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === "string") && (o.validatorAddress instanceof Uint8Array || typeof o.validatorAddress === "string") && typeof o.height === "bigint" && (o.voteExtension instanceof Uint8Array || typeof o.voteExtension === "string"));
   },
   isAmino(o: any): o is RequestVerifyVoteExtensionAmino {
-    return o && (o.$typeUrl === RequestVerifyVoteExtension.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === 'string') && (o.validator_address instanceof Uint8Array || typeof o.validator_address === 'string') && typeof o.height === 'bigint' && (o.vote_extension instanceof Uint8Array || typeof o.vote_extension === 'string'));
+    return o && (o.$typeUrl === RequestVerifyVoteExtension.typeUrl || (o.hash instanceof Uint8Array || typeof o.hash === "string") && (o.validator_address instanceof Uint8Array || typeof o.validator_address === "string") && typeof o.height === "bigint" && (o.vote_extension instanceof Uint8Array || typeof o.vote_extension === "string"));
   },
   encode(message: RequestVerifyVoteExtension, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash.length !== 0) {
@@ -3075,21 +3075,21 @@ export const RequestVerifyVoteExtension = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.hash = reader.bytes();
-        break;
-      case 2:
-        message.validatorAddress = reader.bytes();
-        break;
-      case 3:
-        message.height = reader.int64();
-        break;
-      case 4:
-        message.voteExtension = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.hash = reader.bytes();
+          break;
+        case 2:
+          message.validatorAddress = reader.bytes();
+          break;
+        case 3:
+          message.height = reader.int64();
+          break;
+        case 4:
+          message.voteExtension = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -3137,7 +3137,7 @@ export const RequestVerifyVoteExtension = {
   },
   toProtoMsg(message: RequestVerifyVoteExtension): RequestVerifyVoteExtensionProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestVerifyVoteExtension',
+      typeUrl: "/tendermint.abci.RequestVerifyVoteExtension",
       value: RequestVerifyVoteExtension.encode(message).finish()
     };
   }
@@ -3156,12 +3156,12 @@ function createBaseRequestFinalizeBlock(): RequestFinalizeBlock {
   };
 }
 export const RequestFinalizeBlock = {
-  typeUrl: '/tendermint.abci.RequestFinalizeBlock',
+  typeUrl: "/tendermint.abci.RequestFinalizeBlock",
   is(o: any): o is RequestFinalizeBlock {
-    return o && (o.$typeUrl === RequestFinalizeBlock.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && CommitInfo.is(o.decidedLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === 'string') && typeof o.height === 'bigint' && Timestamp.is(o.time) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === 'string') && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === 'string'));
+    return o && (o.$typeUrl === RequestFinalizeBlock.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && CommitInfo.is(o.decidedLastCommit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.is(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === "string") && typeof o.height === "bigint" && Timestamp.is(o.time) && (o.nextValidatorsHash instanceof Uint8Array || typeof o.nextValidatorsHash === "string") && (o.proposerAddress instanceof Uint8Array || typeof o.proposerAddress === "string"));
   },
   isAmino(o: any): o is RequestFinalizeBlockAmino {
-    return o && (o.$typeUrl === RequestFinalizeBlock.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string') && CommitInfo.isAmino(o.decided_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === 'string') && typeof o.height === 'bigint' && Timestamp.isAmino(o.time) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === 'string') && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === 'string'));
+    return o && (o.$typeUrl === RequestFinalizeBlock.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string") && CommitInfo.isAmino(o.decided_last_commit) && Array.isArray(o.misbehavior) && (!o.misbehavior.length || Misbehavior.isAmino(o.misbehavior[0])) && (o.hash instanceof Uint8Array || typeof o.hash === "string") && typeof o.height === "bigint" && Timestamp.isAmino(o.time) && (o.next_validators_hash instanceof Uint8Array || typeof o.next_validators_hash === "string") && (o.proposer_address instanceof Uint8Array || typeof o.proposer_address === "string"));
   },
   encode(message: RequestFinalizeBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txs) {
@@ -3197,33 +3197,33 @@ export const RequestFinalizeBlock = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.txs.push(reader.bytes());
-        break;
-      case 2:
-        message.decidedLastCommit = CommitInfo.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
-        break;
-      case 4:
-        message.hash = reader.bytes();
-        break;
-      case 5:
-        message.height = reader.int64();
-        break;
-      case 6:
-        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-        break;
-      case 7:
-        message.nextValidatorsHash = reader.bytes();
-        break;
-      case 8:
-        message.proposerAddress = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.txs.push(reader.bytes());
+          break;
+        case 2:
+          message.decidedLastCommit = CommitInfo.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.misbehavior.push(Misbehavior.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.hash = reader.bytes();
+          break;
+        case 5:
+          message.height = reader.int64();
+          break;
+        case 6:
+          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 7:
+          message.nextValidatorsHash = reader.bytes();
+          break;
+        case 8:
+          message.proposerAddress = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -3295,7 +3295,7 @@ export const RequestFinalizeBlock = {
   },
   toProtoMsg(message: RequestFinalizeBlock): RequestFinalizeBlockProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.RequestFinalizeBlock',
+      typeUrl: "/tendermint.abci.RequestFinalizeBlock",
       value: RequestFinalizeBlock.encode(message).finish()
     };
   }
@@ -3323,7 +3323,7 @@ function createBaseResponse(): Response {
   };
 }
 export const Response = {
-  typeUrl: '/tendermint.abci.Response',
+  typeUrl: "/tendermint.abci.Response",
   is(o: any): o is Response {
     return o && o.$typeUrl === Response.typeUrl;
   },
@@ -3391,60 +3391,60 @@ export const Response = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.exception = ResponseException.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.echo = ResponseEcho.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.flush = ResponseFlush.decode(reader, reader.uint32());
-        break;
-      case 4:
-        message.info = ResponseInfo.decode(reader, reader.uint32());
-        break;
-      case 6:
-        message.initChain = ResponseInitChain.decode(reader, reader.uint32());
-        break;
-      case 7:
-        message.query = ResponseQuery.decode(reader, reader.uint32());
-        break;
-      case 9:
-        message.checkTx = ResponseCheckTx.decode(reader, reader.uint32());
-        break;
-      case 12:
-        message.commit = ResponseCommit.decode(reader, reader.uint32());
-        break;
-      case 13:
-        message.listSnapshots = ResponseListSnapshots.decode(reader, reader.uint32());
-        break;
-      case 14:
-        message.offerSnapshot = ResponseOfferSnapshot.decode(reader, reader.uint32());
-        break;
-      case 15:
-        message.loadSnapshotChunk = ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
-        break;
-      case 16:
-        message.applySnapshotChunk = ResponseApplySnapshotChunk.decode(reader, reader.uint32());
-        break;
-      case 17:
-        message.prepareProposal = ResponsePrepareProposal.decode(reader, reader.uint32());
-        break;
-      case 18:
-        message.processProposal = ResponseProcessProposal.decode(reader, reader.uint32());
-        break;
-      case 19:
-        message.extendVote = ResponseExtendVote.decode(reader, reader.uint32());
-        break;
-      case 20:
-        message.verifyVoteExtension = ResponseVerifyVoteExtension.decode(reader, reader.uint32());
-        break;
-      case 21:
-        message.finalizeBlock = ResponseFinalizeBlock.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.exception = ResponseException.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.echo = ResponseEcho.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.flush = ResponseFlush.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.info = ResponseInfo.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.initChain = ResponseInitChain.decode(reader, reader.uint32());
+          break;
+        case 7:
+          message.query = ResponseQuery.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.checkTx = ResponseCheckTx.decode(reader, reader.uint32());
+          break;
+        case 12:
+          message.commit = ResponseCommit.decode(reader, reader.uint32());
+          break;
+        case 13:
+          message.listSnapshots = ResponseListSnapshots.decode(reader, reader.uint32());
+          break;
+        case 14:
+          message.offerSnapshot = ResponseOfferSnapshot.decode(reader, reader.uint32());
+          break;
+        case 15:
+          message.loadSnapshotChunk = ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
+          break;
+        case 16:
+          message.applySnapshotChunk = ResponseApplySnapshotChunk.decode(reader, reader.uint32());
+          break;
+        case 17:
+          message.prepareProposal = ResponsePrepareProposal.decode(reader, reader.uint32());
+          break;
+        case 18:
+          message.processProposal = ResponseProcessProposal.decode(reader, reader.uint32());
+          break;
+        case 19:
+          message.extendVote = ResponseExtendVote.decode(reader, reader.uint32());
+          break;
+        case 20:
+          message.verifyVoteExtension = ResponseVerifyVoteExtension.decode(reader, reader.uint32());
+          break;
+        case 21:
+          message.finalizeBlock = ResponseFinalizeBlock.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -3557,7 +3557,7 @@ export const Response = {
   },
   toProtoMsg(message: Response): ResponseProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.Response',
+      typeUrl: "/tendermint.abci.Response",
       value: Response.encode(message).finish()
     };
   }
@@ -3565,19 +3565,19 @@ export const Response = {
 GlobalDecoderRegistry.register(Response.typeUrl, Response);
 function createBaseResponseException(): ResponseException {
   return {
-    error: ''
+    error: ""
   };
 }
 export const ResponseException = {
-  typeUrl: '/tendermint.abci.ResponseException',
+  typeUrl: "/tendermint.abci.ResponseException",
   is(o: any): o is ResponseException {
-    return o && (o.$typeUrl === ResponseException.typeUrl || typeof o.error === 'string');
+    return o && (o.$typeUrl === ResponseException.typeUrl || typeof o.error === "string");
   },
   isAmino(o: any): o is ResponseExceptionAmino {
-    return o && (o.$typeUrl === ResponseException.typeUrl || typeof o.error === 'string');
+    return o && (o.$typeUrl === ResponseException.typeUrl || typeof o.error === "string");
   },
   encode(message: ResponseException, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.error !== '') {
+    if (message.error !== "") {
       writer.uint32(10).string(message.error);
     }
     return writer;
@@ -3589,19 +3589,19 @@ export const ResponseException = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.error = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.error = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<ResponseException>): ResponseException {
     const message = createBaseResponseException();
-    message.error = object.error ?? '';
+    message.error = object.error ?? "";
     return message;
   },
   fromAmino(object: ResponseExceptionAmino): ResponseException {
@@ -3613,7 +3613,7 @@ export const ResponseException = {
   },
   toAmino(message: ResponseException): ResponseExceptionAmino {
     const obj: any = {};
-    obj.error = message.error === '' ? undefined : message.error;
+    obj.error = message.error === "" ? undefined : message.error;
     return obj;
   },
   fromAminoMsg(object: ResponseExceptionAminoMsg): ResponseException {
@@ -3627,7 +3627,7 @@ export const ResponseException = {
   },
   toProtoMsg(message: ResponseException): ResponseExceptionProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseException',
+      typeUrl: "/tendermint.abci.ResponseException",
       value: ResponseException.encode(message).finish()
     };
   }
@@ -3635,19 +3635,19 @@ export const ResponseException = {
 GlobalDecoderRegistry.register(ResponseException.typeUrl, ResponseException);
 function createBaseResponseEcho(): ResponseEcho {
   return {
-    message: ''
+    message: ""
   };
 }
 export const ResponseEcho = {
-  typeUrl: '/tendermint.abci.ResponseEcho',
+  typeUrl: "/tendermint.abci.ResponseEcho",
   is(o: any): o is ResponseEcho {
-    return o && (o.$typeUrl === ResponseEcho.typeUrl || typeof o.message === 'string');
+    return o && (o.$typeUrl === ResponseEcho.typeUrl || typeof o.message === "string");
   },
   isAmino(o: any): o is ResponseEchoAmino {
-    return o && (o.$typeUrl === ResponseEcho.typeUrl || typeof o.message === 'string');
+    return o && (o.$typeUrl === ResponseEcho.typeUrl || typeof o.message === "string");
   },
   encode(message: ResponseEcho, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.message !== '') {
+    if (message.message !== "") {
       writer.uint32(10).string(message.message);
     }
     return writer;
@@ -3659,19 +3659,19 @@ export const ResponseEcho = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.message = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.message = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<ResponseEcho>): ResponseEcho {
     const message = createBaseResponseEcho();
-    message.message = object.message ?? '';
+    message.message = object.message ?? "";
     return message;
   },
   fromAmino(object: ResponseEchoAmino): ResponseEcho {
@@ -3683,7 +3683,7 @@ export const ResponseEcho = {
   },
   toAmino(message: ResponseEcho): ResponseEchoAmino {
     const obj: any = {};
-    obj.message = message.message === '' ? undefined : message.message;
+    obj.message = message.message === "" ? undefined : message.message;
     return obj;
   },
   fromAminoMsg(object: ResponseEchoAminoMsg): ResponseEcho {
@@ -3697,7 +3697,7 @@ export const ResponseEcho = {
   },
   toProtoMsg(message: ResponseEcho): ResponseEchoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseEcho',
+      typeUrl: "/tendermint.abci.ResponseEcho",
       value: ResponseEcho.encode(message).finish()
     };
   }
@@ -3707,7 +3707,7 @@ function createBaseResponseFlush(): ResponseFlush {
   return {};
 }
 export const ResponseFlush = {
-  typeUrl: '/tendermint.abci.ResponseFlush',
+  typeUrl: "/tendermint.abci.ResponseFlush",
   is(o: any): o is ResponseFlush {
     return o && o.$typeUrl === ResponseFlush.typeUrl;
   },
@@ -3724,9 +3724,9 @@ export const ResponseFlush = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -3754,7 +3754,7 @@ export const ResponseFlush = {
   },
   toProtoMsg(message: ResponseFlush): ResponseFlushProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseFlush',
+      typeUrl: "/tendermint.abci.ResponseFlush",
       value: ResponseFlush.encode(message).finish()
     };
   }
@@ -3762,26 +3762,26 @@ export const ResponseFlush = {
 GlobalDecoderRegistry.register(ResponseFlush.typeUrl, ResponseFlush);
 function createBaseResponseInfo(): ResponseInfo {
   return {
-    data: '',
-    version: '',
+    data: "",
+    version: "",
     appVersion: BigInt(0),
     lastBlockHeight: BigInt(0),
     lastBlockAppHash: new Uint8Array()
   };
 }
 export const ResponseInfo = {
-  typeUrl: '/tendermint.abci.ResponseInfo',
+  typeUrl: "/tendermint.abci.ResponseInfo",
   is(o: any): o is ResponseInfo {
-    return o && (o.$typeUrl === ResponseInfo.typeUrl || typeof o.data === 'string' && typeof o.version === 'string' && typeof o.appVersion === 'bigint' && typeof o.lastBlockHeight === 'bigint' && (o.lastBlockAppHash instanceof Uint8Array || typeof o.lastBlockAppHash === 'string'));
+    return o && (o.$typeUrl === ResponseInfo.typeUrl || typeof o.data === "string" && typeof o.version === "string" && typeof o.appVersion === "bigint" && typeof o.lastBlockHeight === "bigint" && (o.lastBlockAppHash instanceof Uint8Array || typeof o.lastBlockAppHash === "string"));
   },
   isAmino(o: any): o is ResponseInfoAmino {
-    return o && (o.$typeUrl === ResponseInfo.typeUrl || typeof o.data === 'string' && typeof o.version === 'string' && typeof o.app_version === 'bigint' && typeof o.last_block_height === 'bigint' && (o.last_block_app_hash instanceof Uint8Array || typeof o.last_block_app_hash === 'string'));
+    return o && (o.$typeUrl === ResponseInfo.typeUrl || typeof o.data === "string" && typeof o.version === "string" && typeof o.app_version === "bigint" && typeof o.last_block_height === "bigint" && (o.last_block_app_hash instanceof Uint8Array || typeof o.last_block_app_hash === "string"));
   },
   encode(message: ResponseInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.data !== '') {
+    if (message.data !== "") {
       writer.uint32(10).string(message.data);
     }
-    if (message.version !== '') {
+    if (message.version !== "") {
       writer.uint32(18).string(message.version);
     }
     if (message.appVersion !== BigInt(0)) {
@@ -3802,32 +3802,32 @@ export const ResponseInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.data = reader.string();
-        break;
-      case 2:
-        message.version = reader.string();
-        break;
-      case 3:
-        message.appVersion = reader.uint64();
-        break;
-      case 4:
-        message.lastBlockHeight = reader.int64();
-        break;
-      case 5:
-        message.lastBlockAppHash = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.data = reader.string();
+          break;
+        case 2:
+          message.version = reader.string();
+          break;
+        case 3:
+          message.appVersion = reader.uint64();
+          break;
+        case 4:
+          message.lastBlockHeight = reader.int64();
+          break;
+        case 5:
+          message.lastBlockAppHash = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<ResponseInfo>): ResponseInfo {
     const message = createBaseResponseInfo();
-    message.data = object.data ?? '';
-    message.version = object.version ?? '';
+    message.data = object.data ?? "";
+    message.version = object.version ?? "";
     message.appVersion = object.appVersion !== undefined && object.appVersion !== null ? BigInt(object.appVersion.toString()) : BigInt(0);
     message.lastBlockHeight = object.lastBlockHeight !== undefined && object.lastBlockHeight !== null ? BigInt(object.lastBlockHeight.toString()) : BigInt(0);
     message.lastBlockAppHash = object.lastBlockAppHash ?? new Uint8Array();
@@ -3854,8 +3854,8 @@ export const ResponseInfo = {
   },
   toAmino(message: ResponseInfo): ResponseInfoAmino {
     const obj: any = {};
-    obj.data = message.data === '' ? undefined : message.data;
-    obj.version = message.version === '' ? undefined : message.version;
+    obj.data = message.data === "" ? undefined : message.data;
+    obj.version = message.version === "" ? undefined : message.version;
     obj.app_version = message.appVersion !== BigInt(0) ? message.appVersion.toString() : undefined;
     obj.last_block_height = message.lastBlockHeight !== BigInt(0) ? message.lastBlockHeight.toString() : undefined;
     obj.last_block_app_hash = message.lastBlockAppHash ? base64FromBytes(message.lastBlockAppHash) : undefined;
@@ -3872,7 +3872,7 @@ export const ResponseInfo = {
   },
   toProtoMsg(message: ResponseInfo): ResponseInfoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseInfo',
+      typeUrl: "/tendermint.abci.ResponseInfo",
       value: ResponseInfo.encode(message).finish()
     };
   }
@@ -3886,12 +3886,12 @@ function createBaseResponseInitChain(): ResponseInitChain {
   };
 }
 export const ResponseInitChain = {
-  typeUrl: '/tendermint.abci.ResponseInitChain',
+  typeUrl: "/tendermint.abci.ResponseInitChain",
   is(o: any): o is ResponseInitChain {
-    return o && (o.$typeUrl === ResponseInitChain.typeUrl || Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.is(o.validators[0])) && (o.appHash instanceof Uint8Array || typeof o.appHash === 'string'));
+    return o && (o.$typeUrl === ResponseInitChain.typeUrl || Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.is(o.validators[0])) && (o.appHash instanceof Uint8Array || typeof o.appHash === "string"));
   },
   isAmino(o: any): o is ResponseInitChainAmino {
-    return o && (o.$typeUrl === ResponseInitChain.typeUrl || Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.isAmino(o.validators[0])) && (o.app_hash instanceof Uint8Array || typeof o.app_hash === 'string'));
+    return o && (o.$typeUrl === ResponseInitChain.typeUrl || Array.isArray(o.validators) && (!o.validators.length || ValidatorUpdate.isAmino(o.validators[0])) && (o.app_hash instanceof Uint8Array || typeof o.app_hash === "string"));
   },
   encode(message: ResponseInitChain, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.consensusParams !== undefined) {
@@ -3912,18 +3912,18 @@ export const ResponseInitChain = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
-        break;
-      case 3:
-        message.appHash = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.consensusParams = ConsensusParams.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.validators.push(ValidatorUpdate.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.appHash = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -3968,7 +3968,7 @@ export const ResponseInitChain = {
   },
   toProtoMsg(message: ResponseInitChain): ResponseInitChainProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseInitChain',
+      typeUrl: "/tendermint.abci.ResponseInitChain",
       value: ResponseInitChain.encode(message).finish()
     };
   }
@@ -3977,32 +3977,32 @@ GlobalDecoderRegistry.register(ResponseInitChain.typeUrl, ResponseInitChain);
 function createBaseResponseQuery(): ResponseQuery {
   return {
     code: 0,
-    log: '',
-    info: '',
+    log: "",
+    info: "",
     index: BigInt(0),
     key: new Uint8Array(),
     value: new Uint8Array(),
     proofOps: undefined,
     height: BigInt(0),
-    codespace: ''
+    codespace: ""
   };
 }
 export const ResponseQuery = {
-  typeUrl: '/tendermint.abci.ResponseQuery',
+  typeUrl: "/tendermint.abci.ResponseQuery",
   is(o: any): o is ResponseQuery {
-    return o && (o.$typeUrl === ResponseQuery.typeUrl || typeof o.code === 'number' && typeof o.log === 'string' && typeof o.info === 'string' && typeof o.index === 'bigint' && (o.key instanceof Uint8Array || typeof o.key === 'string') && (o.value instanceof Uint8Array || typeof o.value === 'string') && typeof o.height === 'bigint' && typeof o.codespace === 'string');
+    return o && (o.$typeUrl === ResponseQuery.typeUrl || typeof o.code === "number" && typeof o.log === "string" && typeof o.info === "string" && typeof o.index === "bigint" && (o.key instanceof Uint8Array || typeof o.key === "string") && (o.value instanceof Uint8Array || typeof o.value === "string") && typeof o.height === "bigint" && typeof o.codespace === "string");
   },
   isAmino(o: any): o is ResponseQueryAmino {
-    return o && (o.$typeUrl === ResponseQuery.typeUrl || typeof o.code === 'number' && typeof o.log === 'string' && typeof o.info === 'string' && typeof o.index === 'bigint' && (o.key instanceof Uint8Array || typeof o.key === 'string') && (o.value instanceof Uint8Array || typeof o.value === 'string') && typeof o.height === 'bigint' && typeof o.codespace === 'string');
+    return o && (o.$typeUrl === ResponseQuery.typeUrl || typeof o.code === "number" && typeof o.log === "string" && typeof o.info === "string" && typeof o.index === "bigint" && (o.key instanceof Uint8Array || typeof o.key === "string") && (o.value instanceof Uint8Array || typeof o.value === "string") && typeof o.height === "bigint" && typeof o.codespace === "string");
   },
   encode(message: ResponseQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
       writer.uint32(8).uint32(message.code);
     }
-    if (message.log !== '') {
+    if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
-    if (message.info !== '') {
+    if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
     if (message.index !== BigInt(0)) {
@@ -4020,7 +4020,7 @@ export const ResponseQuery = {
     if (message.height !== BigInt(0)) {
       writer.uint32(72).int64(message.height);
     }
-    if (message.codespace !== '') {
+    if (message.codespace !== "") {
       writer.uint32(82).string(message.codespace);
     }
     return writer;
@@ -4032,36 +4032,36 @@ export const ResponseQuery = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.code = reader.uint32();
-        break;
-      case 3:
-        message.log = reader.string();
-        break;
-      case 4:
-        message.info = reader.string();
-        break;
-      case 5:
-        message.index = reader.int64();
-        break;
-      case 6:
-        message.key = reader.bytes();
-        break;
-      case 7:
-        message.value = reader.bytes();
-        break;
-      case 8:
-        message.proofOps = ProofOps.decode(reader, reader.uint32());
-        break;
-      case 9:
-        message.height = reader.int64();
-        break;
-      case 10:
-        message.codespace = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.code = reader.uint32();
+          break;
+        case 3:
+          message.log = reader.string();
+          break;
+        case 4:
+          message.info = reader.string();
+          break;
+        case 5:
+          message.index = reader.int64();
+          break;
+        case 6:
+          message.key = reader.bytes();
+          break;
+        case 7:
+          message.value = reader.bytes();
+          break;
+        case 8:
+          message.proofOps = ProofOps.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.height = reader.int64();
+          break;
+        case 10:
+          message.codespace = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4069,14 +4069,14 @@ export const ResponseQuery = {
   fromPartial(object: DeepPartial<ResponseQuery>): ResponseQuery {
     const message = createBaseResponseQuery();
     message.code = object.code ?? 0;
-    message.log = object.log ?? '';
-    message.info = object.info ?? '';
+    message.log = object.log ?? "";
+    message.info = object.info ?? "";
     message.index = object.index !== undefined && object.index !== null ? BigInt(object.index.toString()) : BigInt(0);
     message.key = object.key ?? new Uint8Array();
     message.value = object.value ?? new Uint8Array();
     message.proofOps = object.proofOps !== undefined && object.proofOps !== null ? ProofOps.fromPartial(object.proofOps) : undefined;
     message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
-    message.codespace = object.codespace ?? '';
+    message.codespace = object.codespace ?? "";
     return message;
   },
   fromAmino(object: ResponseQueryAmino): ResponseQuery {
@@ -4113,14 +4113,14 @@ export const ResponseQuery = {
   toAmino(message: ResponseQuery): ResponseQueryAmino {
     const obj: any = {};
     obj.code = message.code === 0 ? undefined : message.code;
-    obj.log = message.log === '' ? undefined : message.log;
-    obj.info = message.info === '' ? undefined : message.info;
+    obj.log = message.log === "" ? undefined : message.log;
+    obj.info = message.info === "" ? undefined : message.info;
     obj.index = message.index !== BigInt(0) ? message.index.toString() : undefined;
     obj.key = message.key ? base64FromBytes(message.key) : undefined;
     obj.value = message.value ? base64FromBytes(message.value) : undefined;
     obj.proof_ops = message.proofOps ? ProofOps.toAmino(message.proofOps) : undefined;
     obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
-    obj.codespace = message.codespace === '' ? undefined : message.codespace;
+    obj.codespace = message.codespace === "" ? undefined : message.codespace;
     return obj;
   },
   fromAminoMsg(object: ResponseQueryAminoMsg): ResponseQuery {
@@ -4134,7 +4134,7 @@ export const ResponseQuery = {
   },
   toProtoMsg(message: ResponseQuery): ResponseQueryProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseQuery',
+      typeUrl: "/tendermint.abci.ResponseQuery",
       value: ResponseQuery.encode(message).finish()
     };
   }
@@ -4144,21 +4144,21 @@ function createBaseResponseCheckTx(): ResponseCheckTx {
   return {
     code: 0,
     data: new Uint8Array(),
-    log: '',
-    info: '',
+    log: "",
+    info: "",
     gasWanted: BigInt(0),
     gasUsed: BigInt(0),
     events: [],
-    codespace: ''
+    codespace: ""
   };
 }
 export const ResponseCheckTx = {
-  typeUrl: '/tendermint.abci.ResponseCheckTx',
+  typeUrl: "/tendermint.abci.ResponseCheckTx",
   is(o: any): o is ResponseCheckTx {
-    return o && (o.$typeUrl === ResponseCheckTx.typeUrl || typeof o.code === 'number' && (o.data instanceof Uint8Array || typeof o.data === 'string') && typeof o.log === 'string' && typeof o.info === 'string' && typeof o.gasWanted === 'bigint' && typeof o.gasUsed === 'bigint' && Array.isArray(o.events) && (!o.events.length || Event.is(o.events[0])) && typeof o.codespace === 'string');
+    return o && (o.$typeUrl === ResponseCheckTx.typeUrl || typeof o.code === "number" && (o.data instanceof Uint8Array || typeof o.data === "string") && typeof o.log === "string" && typeof o.info === "string" && typeof o.gasWanted === "bigint" && typeof o.gasUsed === "bigint" && Array.isArray(o.events) && (!o.events.length || Event.is(o.events[0])) && typeof o.codespace === "string");
   },
   isAmino(o: any): o is ResponseCheckTxAmino {
-    return o && (o.$typeUrl === ResponseCheckTx.typeUrl || typeof o.code === 'number' && (o.data instanceof Uint8Array || typeof o.data === 'string') && typeof o.log === 'string' && typeof o.info === 'string' && typeof o.gas_wanted === 'bigint' && typeof o.gas_used === 'bigint' && Array.isArray(o.events) && (!o.events.length || Event.isAmino(o.events[0])) && typeof o.codespace === 'string');
+    return o && (o.$typeUrl === ResponseCheckTx.typeUrl || typeof o.code === "number" && (o.data instanceof Uint8Array || typeof o.data === "string") && typeof o.log === "string" && typeof o.info === "string" && typeof o.gas_wanted === "bigint" && typeof o.gas_used === "bigint" && Array.isArray(o.events) && (!o.events.length || Event.isAmino(o.events[0])) && typeof o.codespace === "string");
   },
   encode(message: ResponseCheckTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
@@ -4167,10 +4167,10 @@ export const ResponseCheckTx = {
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
-    if (message.log !== '') {
+    if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
-    if (message.info !== '') {
+    if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
     if (message.gasWanted !== BigInt(0)) {
@@ -4182,7 +4182,7 @@ export const ResponseCheckTx = {
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    if (message.codespace !== '') {
+    if (message.codespace !== "") {
       writer.uint32(66).string(message.codespace);
     }
     return writer;
@@ -4194,33 +4194,33 @@ export const ResponseCheckTx = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.code = reader.uint32();
-        break;
-      case 2:
-        message.data = reader.bytes();
-        break;
-      case 3:
-        message.log = reader.string();
-        break;
-      case 4:
-        message.info = reader.string();
-        break;
-      case 5:
-        message.gasWanted = reader.int64();
-        break;
-      case 6:
-        message.gasUsed = reader.int64();
-        break;
-      case 7:
-        message.events.push(Event.decode(reader, reader.uint32()));
-        break;
-      case 8:
-        message.codespace = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.code = reader.uint32();
+          break;
+        case 2:
+          message.data = reader.bytes();
+          break;
+        case 3:
+          message.log = reader.string();
+          break;
+        case 4:
+          message.info = reader.string();
+          break;
+        case 5:
+          message.gasWanted = reader.int64();
+          break;
+        case 6:
+          message.gasUsed = reader.int64();
+          break;
+        case 7:
+          message.events.push(Event.decode(reader, reader.uint32()));
+          break;
+        case 8:
+          message.codespace = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4229,12 +4229,12 @@ export const ResponseCheckTx = {
     const message = createBaseResponseCheckTx();
     message.code = object.code ?? 0;
     message.data = object.data ?? new Uint8Array();
-    message.log = object.log ?? '';
-    message.info = object.info ?? '';
+    message.log = object.log ?? "";
+    message.info = object.info ?? "";
     message.gasWanted = object.gasWanted !== undefined && object.gasWanted !== null ? BigInt(object.gasWanted.toString()) : BigInt(0);
     message.gasUsed = object.gasUsed !== undefined && object.gasUsed !== null ? BigInt(object.gasUsed.toString()) : BigInt(0);
     message.events = object.events?.map(e => Event.fromPartial(e)) || [];
-    message.codespace = object.codespace ?? '';
+    message.codespace = object.codespace ?? "";
     return message;
   },
   fromAmino(object: ResponseCheckTxAmino): ResponseCheckTx {
@@ -4267,8 +4267,8 @@ export const ResponseCheckTx = {
     const obj: any = {};
     obj.code = message.code === 0 ? undefined : message.code;
     obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    obj.log = message.log === '' ? undefined : message.log;
-    obj.info = message.info === '' ? undefined : message.info;
+    obj.log = message.log === "" ? undefined : message.log;
+    obj.info = message.info === "" ? undefined : message.info;
     obj.gas_wanted = message.gasWanted !== BigInt(0) ? message.gasWanted.toString() : undefined;
     obj.gas_used = message.gasUsed !== BigInt(0) ? message.gasUsed.toString() : undefined;
     if (message.events) {
@@ -4276,7 +4276,7 @@ export const ResponseCheckTx = {
     } else {
       obj.events = message.events;
     }
-    obj.codespace = message.codespace === '' ? undefined : message.codespace;
+    obj.codespace = message.codespace === "" ? undefined : message.codespace;
     return obj;
   },
   fromAminoMsg(object: ResponseCheckTxAminoMsg): ResponseCheckTx {
@@ -4290,7 +4290,7 @@ export const ResponseCheckTx = {
   },
   toProtoMsg(message: ResponseCheckTx): ResponseCheckTxProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseCheckTx',
+      typeUrl: "/tendermint.abci.ResponseCheckTx",
       value: ResponseCheckTx.encode(message).finish()
     };
   }
@@ -4302,12 +4302,12 @@ function createBaseResponseCommit(): ResponseCommit {
   };
 }
 export const ResponseCommit = {
-  typeUrl: '/tendermint.abci.ResponseCommit',
+  typeUrl: "/tendermint.abci.ResponseCommit",
   is(o: any): o is ResponseCommit {
-    return o && (o.$typeUrl === ResponseCommit.typeUrl || typeof o.retainHeight === 'bigint');
+    return o && (o.$typeUrl === ResponseCommit.typeUrl || typeof o.retainHeight === "bigint");
   },
   isAmino(o: any): o is ResponseCommitAmino {
-    return o && (o.$typeUrl === ResponseCommit.typeUrl || typeof o.retain_height === 'bigint');
+    return o && (o.$typeUrl === ResponseCommit.typeUrl || typeof o.retain_height === "bigint");
   },
   encode(message: ResponseCommit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.retainHeight !== BigInt(0)) {
@@ -4322,12 +4322,12 @@ export const ResponseCommit = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 3:
-        message.retainHeight = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 3:
+          message.retainHeight = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4360,7 +4360,7 @@ export const ResponseCommit = {
   },
   toProtoMsg(message: ResponseCommit): ResponseCommitProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseCommit',
+      typeUrl: "/tendermint.abci.ResponseCommit",
       value: ResponseCommit.encode(message).finish()
     };
   }
@@ -4372,7 +4372,7 @@ function createBaseResponseListSnapshots(): ResponseListSnapshots {
   };
 }
 export const ResponseListSnapshots = {
-  typeUrl: '/tendermint.abci.ResponseListSnapshots',
+  typeUrl: "/tendermint.abci.ResponseListSnapshots",
   is(o: any): o is ResponseListSnapshots {
     return o && (o.$typeUrl === ResponseListSnapshots.typeUrl || Array.isArray(o.snapshots) && (!o.snapshots.length || Snapshot.is(o.snapshots[0])));
   },
@@ -4392,12 +4392,12 @@ export const ResponseListSnapshots = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.snapshots.push(Snapshot.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.snapshots.push(Snapshot.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4432,7 +4432,7 @@ export const ResponseListSnapshots = {
   },
   toProtoMsg(message: ResponseListSnapshots): ResponseListSnapshotsProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseListSnapshots',
+      typeUrl: "/tendermint.abci.ResponseListSnapshots",
       value: ResponseListSnapshots.encode(message).finish()
     };
   }
@@ -4444,7 +4444,7 @@ function createBaseResponseOfferSnapshot(): ResponseOfferSnapshot {
   };
 }
 export const ResponseOfferSnapshot = {
-  typeUrl: '/tendermint.abci.ResponseOfferSnapshot',
+  typeUrl: "/tendermint.abci.ResponseOfferSnapshot",
   is(o: any): o is ResponseOfferSnapshot {
     return o && (o.$typeUrl === ResponseOfferSnapshot.typeUrl || isSet(o.result));
   },
@@ -4464,12 +4464,12 @@ export const ResponseOfferSnapshot = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.result = (reader.int32() as any);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.result = (reader.int32() as any);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4502,7 +4502,7 @@ export const ResponseOfferSnapshot = {
   },
   toProtoMsg(message: ResponseOfferSnapshot): ResponseOfferSnapshotProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseOfferSnapshot',
+      typeUrl: "/tendermint.abci.ResponseOfferSnapshot",
       value: ResponseOfferSnapshot.encode(message).finish()
     };
   }
@@ -4514,12 +4514,12 @@ function createBaseResponseLoadSnapshotChunk(): ResponseLoadSnapshotChunk {
   };
 }
 export const ResponseLoadSnapshotChunk = {
-  typeUrl: '/tendermint.abci.ResponseLoadSnapshotChunk',
+  typeUrl: "/tendermint.abci.ResponseLoadSnapshotChunk",
   is(o: any): o is ResponseLoadSnapshotChunk {
-    return o && (o.$typeUrl === ResponseLoadSnapshotChunk.typeUrl || o.chunk instanceof Uint8Array || typeof o.chunk === 'string');
+    return o && (o.$typeUrl === ResponseLoadSnapshotChunk.typeUrl || o.chunk instanceof Uint8Array || typeof o.chunk === "string");
   },
   isAmino(o: any): o is ResponseLoadSnapshotChunkAmino {
-    return o && (o.$typeUrl === ResponseLoadSnapshotChunk.typeUrl || o.chunk instanceof Uint8Array || typeof o.chunk === 'string');
+    return o && (o.$typeUrl === ResponseLoadSnapshotChunk.typeUrl || o.chunk instanceof Uint8Array || typeof o.chunk === "string");
   },
   encode(message: ResponseLoadSnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.chunk.length !== 0) {
@@ -4534,12 +4534,12 @@ export const ResponseLoadSnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.chunk = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.chunk = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4572,7 +4572,7 @@ export const ResponseLoadSnapshotChunk = {
   },
   toProtoMsg(message: ResponseLoadSnapshotChunk): ResponseLoadSnapshotChunkProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseLoadSnapshotChunk',
+      typeUrl: "/tendermint.abci.ResponseLoadSnapshotChunk",
       value: ResponseLoadSnapshotChunk.encode(message).finish()
     };
   }
@@ -4586,12 +4586,12 @@ function createBaseResponseApplySnapshotChunk(): ResponseApplySnapshotChunk {
   };
 }
 export const ResponseApplySnapshotChunk = {
-  typeUrl: '/tendermint.abci.ResponseApplySnapshotChunk',
+  typeUrl: "/tendermint.abci.ResponseApplySnapshotChunk",
   is(o: any): o is ResponseApplySnapshotChunk {
-    return o && (o.$typeUrl === ResponseApplySnapshotChunk.typeUrl || isSet(o.result) && Array.isArray(o.refetchChunks) && (!o.refetchChunks.length || typeof o.refetchChunks[0] === 'number') && Array.isArray(o.rejectSenders) && (!o.rejectSenders.length || typeof o.rejectSenders[0] === 'string'));
+    return o && (o.$typeUrl === ResponseApplySnapshotChunk.typeUrl || isSet(o.result) && Array.isArray(o.refetchChunks) && (!o.refetchChunks.length || typeof o.refetchChunks[0] === "number") && Array.isArray(o.rejectSenders) && (!o.rejectSenders.length || typeof o.rejectSenders[0] === "string"));
   },
   isAmino(o: any): o is ResponseApplySnapshotChunkAmino {
-    return o && (o.$typeUrl === ResponseApplySnapshotChunk.typeUrl || isSet(o.result) && Array.isArray(o.refetch_chunks) && (!o.refetch_chunks.length || typeof o.refetch_chunks[0] === 'number') && Array.isArray(o.reject_senders) && (!o.reject_senders.length || typeof o.reject_senders[0] === 'string'));
+    return o && (o.$typeUrl === ResponseApplySnapshotChunk.typeUrl || isSet(o.result) && Array.isArray(o.refetch_chunks) && (!o.refetch_chunks.length || typeof o.refetch_chunks[0] === "number") && Array.isArray(o.reject_senders) && (!o.reject_senders.length || typeof o.reject_senders[0] === "string"));
   },
   encode(message: ResponseApplySnapshotChunk, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== 0) {
@@ -4614,25 +4614,25 @@ export const ResponseApplySnapshotChunk = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.result = (reader.int32() as any);
-        break;
-      case 2:
-        if ((tag & 7) === 2) {
-          const end2 = reader.uint32() + reader.pos;
-          while (reader.pos < end2) {
+        case 1:
+          message.result = (reader.int32() as any);
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.refetchChunks.push(reader.uint32());
+            }
+          } else {
             message.refetchChunks.push(reader.uint32());
           }
-        } else {
-          message.refetchChunks.push(reader.uint32());
-        }
-        break;
-      case 3:
-        message.rejectSenders.push(reader.string());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+          break;
+        case 3:
+          message.rejectSenders.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4679,7 +4679,7 @@ export const ResponseApplySnapshotChunk = {
   },
   toProtoMsg(message: ResponseApplySnapshotChunk): ResponseApplySnapshotChunkProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseApplySnapshotChunk',
+      typeUrl: "/tendermint.abci.ResponseApplySnapshotChunk",
       value: ResponseApplySnapshotChunk.encode(message).finish()
     };
   }
@@ -4691,12 +4691,12 @@ function createBaseResponsePrepareProposal(): ResponsePrepareProposal {
   };
 }
 export const ResponsePrepareProposal = {
-  typeUrl: '/tendermint.abci.ResponsePrepareProposal',
+  typeUrl: "/tendermint.abci.ResponsePrepareProposal",
   is(o: any): o is ResponsePrepareProposal {
-    return o && (o.$typeUrl === ResponsePrepareProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string'));
+    return o && (o.$typeUrl === ResponsePrepareProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string"));
   },
   isAmino(o: any): o is ResponsePrepareProposalAmino {
-    return o && (o.$typeUrl === ResponsePrepareProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === 'string'));
+    return o && (o.$typeUrl === ResponsePrepareProposal.typeUrl || Array.isArray(o.txs) && (!o.txs.length || o.txs[0] instanceof Uint8Array || typeof o.txs[0] === "string"));
   },
   encode(message: ResponsePrepareProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txs) {
@@ -4711,12 +4711,12 @@ export const ResponsePrepareProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.txs.push(reader.bytes());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.txs.push(reader.bytes());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4751,7 +4751,7 @@ export const ResponsePrepareProposal = {
   },
   toProtoMsg(message: ResponsePrepareProposal): ResponsePrepareProposalProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponsePrepareProposal',
+      typeUrl: "/tendermint.abci.ResponsePrepareProposal",
       value: ResponsePrepareProposal.encode(message).finish()
     };
   }
@@ -4763,7 +4763,7 @@ function createBaseResponseProcessProposal(): ResponseProcessProposal {
   };
 }
 export const ResponseProcessProposal = {
-  typeUrl: '/tendermint.abci.ResponseProcessProposal',
+  typeUrl: "/tendermint.abci.ResponseProcessProposal",
   is(o: any): o is ResponseProcessProposal {
     return o && (o.$typeUrl === ResponseProcessProposal.typeUrl || isSet(o.status));
   },
@@ -4783,12 +4783,12 @@ export const ResponseProcessProposal = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.status = (reader.int32() as any);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.status = (reader.int32() as any);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4821,7 +4821,7 @@ export const ResponseProcessProposal = {
   },
   toProtoMsg(message: ResponseProcessProposal): ResponseProcessProposalProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseProcessProposal',
+      typeUrl: "/tendermint.abci.ResponseProcessProposal",
       value: ResponseProcessProposal.encode(message).finish()
     };
   }
@@ -4833,12 +4833,12 @@ function createBaseResponseExtendVote(): ResponseExtendVote {
   };
 }
 export const ResponseExtendVote = {
-  typeUrl: '/tendermint.abci.ResponseExtendVote',
+  typeUrl: "/tendermint.abci.ResponseExtendVote",
   is(o: any): o is ResponseExtendVote {
-    return o && (o.$typeUrl === ResponseExtendVote.typeUrl || o.voteExtension instanceof Uint8Array || typeof o.voteExtension === 'string');
+    return o && (o.$typeUrl === ResponseExtendVote.typeUrl || o.voteExtension instanceof Uint8Array || typeof o.voteExtension === "string");
   },
   isAmino(o: any): o is ResponseExtendVoteAmino {
-    return o && (o.$typeUrl === ResponseExtendVote.typeUrl || o.vote_extension instanceof Uint8Array || typeof o.vote_extension === 'string');
+    return o && (o.$typeUrl === ResponseExtendVote.typeUrl || o.vote_extension instanceof Uint8Array || typeof o.vote_extension === "string");
   },
   encode(message: ResponseExtendVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.voteExtension.length !== 0) {
@@ -4853,12 +4853,12 @@ export const ResponseExtendVote = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.voteExtension = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.voteExtension = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4891,7 +4891,7 @@ export const ResponseExtendVote = {
   },
   toProtoMsg(message: ResponseExtendVote): ResponseExtendVoteProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseExtendVote',
+      typeUrl: "/tendermint.abci.ResponseExtendVote",
       value: ResponseExtendVote.encode(message).finish()
     };
   }
@@ -4903,7 +4903,7 @@ function createBaseResponseVerifyVoteExtension(): ResponseVerifyVoteExtension {
   };
 }
 export const ResponseVerifyVoteExtension = {
-  typeUrl: '/tendermint.abci.ResponseVerifyVoteExtension',
+  typeUrl: "/tendermint.abci.ResponseVerifyVoteExtension",
   is(o: any): o is ResponseVerifyVoteExtension {
     return o && (o.$typeUrl === ResponseVerifyVoteExtension.typeUrl || isSet(o.status));
   },
@@ -4923,12 +4923,12 @@ export const ResponseVerifyVoteExtension = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.status = (reader.int32() as any);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.status = (reader.int32() as any);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -4961,7 +4961,7 @@ export const ResponseVerifyVoteExtension = {
   },
   toProtoMsg(message: ResponseVerifyVoteExtension): ResponseVerifyVoteExtensionProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseVerifyVoteExtension',
+      typeUrl: "/tendermint.abci.ResponseVerifyVoteExtension",
       value: ResponseVerifyVoteExtension.encode(message).finish()
     };
   }
@@ -4977,12 +4977,12 @@ function createBaseResponseFinalizeBlock(): ResponseFinalizeBlock {
   };
 }
 export const ResponseFinalizeBlock = {
-  typeUrl: '/tendermint.abci.ResponseFinalizeBlock',
+  typeUrl: "/tendermint.abci.ResponseFinalizeBlock",
   is(o: any): o is ResponseFinalizeBlock {
-    return o && (o.$typeUrl === ResponseFinalizeBlock.typeUrl || Array.isArray(o.events) && (!o.events.length || Event.is(o.events[0])) && Array.isArray(o.txResults) && (!o.txResults.length || ExecTxResult.is(o.txResults[0])) && Array.isArray(o.validatorUpdates) && (!o.validatorUpdates.length || ValidatorUpdate.is(o.validatorUpdates[0])) && (o.appHash instanceof Uint8Array || typeof o.appHash === 'string'));
+    return o && (o.$typeUrl === ResponseFinalizeBlock.typeUrl || Array.isArray(o.events) && (!o.events.length || Event.is(o.events[0])) && Array.isArray(o.txResults) && (!o.txResults.length || ExecTxResult.is(o.txResults[0])) && Array.isArray(o.validatorUpdates) && (!o.validatorUpdates.length || ValidatorUpdate.is(o.validatorUpdates[0])) && (o.appHash instanceof Uint8Array || typeof o.appHash === "string"));
   },
   isAmino(o: any): o is ResponseFinalizeBlockAmino {
-    return o && (o.$typeUrl === ResponseFinalizeBlock.typeUrl || Array.isArray(o.events) && (!o.events.length || Event.isAmino(o.events[0])) && Array.isArray(o.tx_results) && (!o.tx_results.length || ExecTxResult.isAmino(o.tx_results[0])) && Array.isArray(o.validator_updates) && (!o.validator_updates.length || ValidatorUpdate.isAmino(o.validator_updates[0])) && (o.app_hash instanceof Uint8Array || typeof o.app_hash === 'string'));
+    return o && (o.$typeUrl === ResponseFinalizeBlock.typeUrl || Array.isArray(o.events) && (!o.events.length || Event.isAmino(o.events[0])) && Array.isArray(o.tx_results) && (!o.tx_results.length || ExecTxResult.isAmino(o.tx_results[0])) && Array.isArray(o.validator_updates) && (!o.validator_updates.length || ValidatorUpdate.isAmino(o.validator_updates[0])) && (o.app_hash instanceof Uint8Array || typeof o.app_hash === "string"));
   },
   encode(message: ResponseFinalizeBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.events) {
@@ -5009,24 +5009,24 @@ export const ResponseFinalizeBlock = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.events.push(Event.decode(reader, reader.uint32()));
-        break;
-      case 2:
-        message.txResults.push(ExecTxResult.decode(reader, reader.uint32()));
-        break;
-      case 3:
-        message.validatorUpdates.push(ValidatorUpdate.decode(reader, reader.uint32()));
-        break;
-      case 4:
-        message.consensusParamUpdates = ConsensusParams.decode(reader, reader.uint32());
-        break;
-      case 5:
-        message.appHash = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.events.push(Event.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.txResults.push(ExecTxResult.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.validatorUpdates.push(ValidatorUpdate.decode(reader, reader.uint32()));
+          break;
+        case 4:
+          message.consensusParamUpdates = ConsensusParams.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.appHash = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5085,7 +5085,7 @@ export const ResponseFinalizeBlock = {
   },
   toProtoMsg(message: ResponseFinalizeBlock): ResponseFinalizeBlockProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ResponseFinalizeBlock',
+      typeUrl: "/tendermint.abci.ResponseFinalizeBlock",
       value: ResponseFinalizeBlock.encode(message).finish()
     };
   }
@@ -5098,12 +5098,12 @@ function createBaseCommitInfo(): CommitInfo {
   };
 }
 export const CommitInfo = {
-  typeUrl: '/tendermint.abci.CommitInfo',
+  typeUrl: "/tendermint.abci.CommitInfo",
   is(o: any): o is CommitInfo {
-    return o && (o.$typeUrl === CommitInfo.typeUrl || typeof o.round === 'number' && Array.isArray(o.votes) && (!o.votes.length || VoteInfo.is(o.votes[0])));
+    return o && (o.$typeUrl === CommitInfo.typeUrl || typeof o.round === "number" && Array.isArray(o.votes) && (!o.votes.length || VoteInfo.is(o.votes[0])));
   },
   isAmino(o: any): o is CommitInfoAmino {
-    return o && (o.$typeUrl === CommitInfo.typeUrl || typeof o.round === 'number' && Array.isArray(o.votes) && (!o.votes.length || VoteInfo.isAmino(o.votes[0])));
+    return o && (o.$typeUrl === CommitInfo.typeUrl || typeof o.round === "number" && Array.isArray(o.votes) && (!o.votes.length || VoteInfo.isAmino(o.votes[0])));
   },
   encode(message: CommitInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.round !== 0) {
@@ -5121,15 +5121,15 @@ export const CommitInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.round = reader.int32();
-        break;
-      case 2:
-        message.votes.push(VoteInfo.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.round = reader.int32();
+          break;
+        case 2:
+          message.votes.push(VoteInfo.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5169,7 +5169,7 @@ export const CommitInfo = {
   },
   toProtoMsg(message: CommitInfo): CommitInfoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.CommitInfo',
+      typeUrl: "/tendermint.abci.CommitInfo",
       value: CommitInfo.encode(message).finish()
     };
   }
@@ -5182,12 +5182,12 @@ function createBaseExtendedCommitInfo(): ExtendedCommitInfo {
   };
 }
 export const ExtendedCommitInfo = {
-  typeUrl: '/tendermint.abci.ExtendedCommitInfo',
+  typeUrl: "/tendermint.abci.ExtendedCommitInfo",
   is(o: any): o is ExtendedCommitInfo {
-    return o && (o.$typeUrl === ExtendedCommitInfo.typeUrl || typeof o.round === 'number' && Array.isArray(o.votes) && (!o.votes.length || ExtendedVoteInfo.is(o.votes[0])));
+    return o && (o.$typeUrl === ExtendedCommitInfo.typeUrl || typeof o.round === "number" && Array.isArray(o.votes) && (!o.votes.length || ExtendedVoteInfo.is(o.votes[0])));
   },
   isAmino(o: any): o is ExtendedCommitInfoAmino {
-    return o && (o.$typeUrl === ExtendedCommitInfo.typeUrl || typeof o.round === 'number' && Array.isArray(o.votes) && (!o.votes.length || ExtendedVoteInfo.isAmino(o.votes[0])));
+    return o && (o.$typeUrl === ExtendedCommitInfo.typeUrl || typeof o.round === "number" && Array.isArray(o.votes) && (!o.votes.length || ExtendedVoteInfo.isAmino(o.votes[0])));
   },
   encode(message: ExtendedCommitInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.round !== 0) {
@@ -5205,15 +5205,15 @@ export const ExtendedCommitInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.round = reader.int32();
-        break;
-      case 2:
-        message.votes.push(ExtendedVoteInfo.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.round = reader.int32();
+          break;
+        case 2:
+          message.votes.push(ExtendedVoteInfo.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5253,7 +5253,7 @@ export const ExtendedCommitInfo = {
   },
   toProtoMsg(message: ExtendedCommitInfo): ExtendedCommitInfoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ExtendedCommitInfo',
+      typeUrl: "/tendermint.abci.ExtendedCommitInfo",
       value: ExtendedCommitInfo.encode(message).finish()
     };
   }
@@ -5261,20 +5261,20 @@ export const ExtendedCommitInfo = {
 GlobalDecoderRegistry.register(ExtendedCommitInfo.typeUrl, ExtendedCommitInfo);
 function createBaseEvent(): Event {
   return {
-    type: '',
+    type: "",
     attributes: []
   };
 }
 export const Event = {
-  typeUrl: '/tendermint.abci.Event',
+  typeUrl: "/tendermint.abci.Event",
   is(o: any): o is Event {
-    return o && (o.$typeUrl === Event.typeUrl || typeof o.type === 'string' && Array.isArray(o.attributes) && (!o.attributes.length || EventAttribute.is(o.attributes[0])));
+    return o && (o.$typeUrl === Event.typeUrl || typeof o.type === "string" && Array.isArray(o.attributes) && (!o.attributes.length || EventAttribute.is(o.attributes[0])));
   },
   isAmino(o: any): o is EventAmino {
-    return o && (o.$typeUrl === Event.typeUrl || typeof o.type === 'string' && Array.isArray(o.attributes) && (!o.attributes.length || EventAttribute.isAmino(o.attributes[0])));
+    return o && (o.$typeUrl === Event.typeUrl || typeof o.type === "string" && Array.isArray(o.attributes) && (!o.attributes.length || EventAttribute.isAmino(o.attributes[0])));
   },
   encode(message: Event, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.type !== '') {
+    if (message.type !== "") {
       writer.uint32(10).string(message.type);
     }
     for (const v of message.attributes) {
@@ -5289,22 +5289,22 @@ export const Event = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.type = reader.string();
-        break;
-      case 2:
-        message.attributes.push(EventAttribute.decode(reader, reader.uint32()));
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.type = reader.string();
+          break;
+        case 2:
+          message.attributes.push(EventAttribute.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<Event>): Event {
     const message = createBaseEvent();
-    message.type = object.type ?? '';
+    message.type = object.type ?? "";
     message.attributes = object.attributes?.map(e => EventAttribute.fromPartial(e)) || [];
     return message;
   },
@@ -5318,7 +5318,7 @@ export const Event = {
   },
   toAmino(message: Event): EventAmino {
     const obj: any = {};
-    obj.type = message.type === '' ? undefined : message.type;
+    obj.type = message.type === "" ? undefined : message.type;
     if (message.attributes) {
       obj.attributes = message.attributes.map(e => e ? EventAttribute.toAmino(e) : undefined);
     } else {
@@ -5337,7 +5337,7 @@ export const Event = {
   },
   toProtoMsg(message: Event): EventProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.Event',
+      typeUrl: "/tendermint.abci.Event",
       value: Event.encode(message).finish()
     };
   }
@@ -5345,24 +5345,24 @@ export const Event = {
 GlobalDecoderRegistry.register(Event.typeUrl, Event);
 function createBaseEventAttribute(): EventAttribute {
   return {
-    key: '',
-    value: '',
+    key: "",
+    value: "",
     index: false
   };
 }
 export const EventAttribute = {
-  typeUrl: '/tendermint.abci.EventAttribute',
+  typeUrl: "/tendermint.abci.EventAttribute",
   is(o: any): o is EventAttribute {
-    return o && (o.$typeUrl === EventAttribute.typeUrl || typeof o.key === 'string' && typeof o.value === 'string' && typeof o.index === 'boolean');
+    return o && (o.$typeUrl === EventAttribute.typeUrl || typeof o.key === "string" && typeof o.value === "string" && typeof o.index === "boolean");
   },
   isAmino(o: any): o is EventAttributeAmino {
-    return o && (o.$typeUrl === EventAttribute.typeUrl || typeof o.key === 'string' && typeof o.value === 'string' && typeof o.index === 'boolean');
+    return o && (o.$typeUrl === EventAttribute.typeUrl || typeof o.key === "string" && typeof o.value === "string" && typeof o.index === "boolean");
   },
   encode(message: EventAttribute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.key !== '') {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== '') {
+    if (message.value !== "") {
       writer.uint32(18).string(message.value);
     }
     if (message.index === true) {
@@ -5377,26 +5377,26 @@ export const EventAttribute = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.key = reader.string();
-        break;
-      case 2:
-        message.value = reader.string();
-        break;
-      case 3:
-        message.index = reader.bool();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.key = reader.string();
+          break;
+        case 2:
+          message.value = reader.string();
+          break;
+        case 3:
+          message.index = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<EventAttribute>): EventAttribute {
     const message = createBaseEventAttribute();
-    message.key = object.key ?? '';
-    message.value = object.value ?? '';
+    message.key = object.key ?? "";
+    message.value = object.value ?? "";
     message.index = object.index ?? false;
     return message;
   },
@@ -5415,8 +5415,8 @@ export const EventAttribute = {
   },
   toAmino(message: EventAttribute): EventAttributeAmino {
     const obj: any = {};
-    obj.key = message.key === '' ? undefined : message.key;
-    obj.value = message.value === '' ? undefined : message.value;
+    obj.key = message.key === "" ? undefined : message.key;
+    obj.value = message.value === "" ? undefined : message.value;
     obj.index = message.index === false ? undefined : message.index;
     return obj;
   },
@@ -5431,7 +5431,7 @@ export const EventAttribute = {
   },
   toProtoMsg(message: EventAttribute): EventAttributeProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.EventAttribute',
+      typeUrl: "/tendermint.abci.EventAttribute",
       value: EventAttribute.encode(message).finish()
     };
   }
@@ -5441,21 +5441,21 @@ function createBaseExecTxResult(): ExecTxResult {
   return {
     code: 0,
     data: new Uint8Array(),
-    log: '',
-    info: '',
+    log: "",
+    info: "",
     gasWanted: BigInt(0),
     gasUsed: BigInt(0),
     events: [],
-    codespace: ''
+    codespace: ""
   };
 }
 export const ExecTxResult = {
-  typeUrl: '/tendermint.abci.ExecTxResult',
+  typeUrl: "/tendermint.abci.ExecTxResult",
   is(o: any): o is ExecTxResult {
-    return o && (o.$typeUrl === ExecTxResult.typeUrl || typeof o.code === 'number' && (o.data instanceof Uint8Array || typeof o.data === 'string') && typeof o.log === 'string' && typeof o.info === 'string' && typeof o.gasWanted === 'bigint' && typeof o.gasUsed === 'bigint' && Array.isArray(o.events) && (!o.events.length || Event.is(o.events[0])) && typeof o.codespace === 'string');
+    return o && (o.$typeUrl === ExecTxResult.typeUrl || typeof o.code === "number" && (o.data instanceof Uint8Array || typeof o.data === "string") && typeof o.log === "string" && typeof o.info === "string" && typeof o.gasWanted === "bigint" && typeof o.gasUsed === "bigint" && Array.isArray(o.events) && (!o.events.length || Event.is(o.events[0])) && typeof o.codespace === "string");
   },
   isAmino(o: any): o is ExecTxResultAmino {
-    return o && (o.$typeUrl === ExecTxResult.typeUrl || typeof o.code === 'number' && (o.data instanceof Uint8Array || typeof o.data === 'string') && typeof o.log === 'string' && typeof o.info === 'string' && typeof o.gas_wanted === 'bigint' && typeof o.gas_used === 'bigint' && Array.isArray(o.events) && (!o.events.length || Event.isAmino(o.events[0])) && typeof o.codespace === 'string');
+    return o && (o.$typeUrl === ExecTxResult.typeUrl || typeof o.code === "number" && (o.data instanceof Uint8Array || typeof o.data === "string") && typeof o.log === "string" && typeof o.info === "string" && typeof o.gas_wanted === "bigint" && typeof o.gas_used === "bigint" && Array.isArray(o.events) && (!o.events.length || Event.isAmino(o.events[0])) && typeof o.codespace === "string");
   },
   encode(message: ExecTxResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
@@ -5464,10 +5464,10 @@ export const ExecTxResult = {
     if (message.data.length !== 0) {
       writer.uint32(18).bytes(message.data);
     }
-    if (message.log !== '') {
+    if (message.log !== "") {
       writer.uint32(26).string(message.log);
     }
-    if (message.info !== '') {
+    if (message.info !== "") {
       writer.uint32(34).string(message.info);
     }
     if (message.gasWanted !== BigInt(0)) {
@@ -5479,7 +5479,7 @@ export const ExecTxResult = {
     for (const v of message.events) {
       Event.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    if (message.codespace !== '') {
+    if (message.codespace !== "") {
       writer.uint32(66).string(message.codespace);
     }
     return writer;
@@ -5491,33 +5491,33 @@ export const ExecTxResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.code = reader.uint32();
-        break;
-      case 2:
-        message.data = reader.bytes();
-        break;
-      case 3:
-        message.log = reader.string();
-        break;
-      case 4:
-        message.info = reader.string();
-        break;
-      case 5:
-        message.gasWanted = reader.int64();
-        break;
-      case 6:
-        message.gasUsed = reader.int64();
-        break;
-      case 7:
-        message.events.push(Event.decode(reader, reader.uint32()));
-        break;
-      case 8:
-        message.codespace = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.code = reader.uint32();
+          break;
+        case 2:
+          message.data = reader.bytes();
+          break;
+        case 3:
+          message.log = reader.string();
+          break;
+        case 4:
+          message.info = reader.string();
+          break;
+        case 5:
+          message.gasWanted = reader.int64();
+          break;
+        case 6:
+          message.gasUsed = reader.int64();
+          break;
+        case 7:
+          message.events.push(Event.decode(reader, reader.uint32()));
+          break;
+        case 8:
+          message.codespace = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5526,12 +5526,12 @@ export const ExecTxResult = {
     const message = createBaseExecTxResult();
     message.code = object.code ?? 0;
     message.data = object.data ?? new Uint8Array();
-    message.log = object.log ?? '';
-    message.info = object.info ?? '';
+    message.log = object.log ?? "";
+    message.info = object.info ?? "";
     message.gasWanted = object.gasWanted !== undefined && object.gasWanted !== null ? BigInt(object.gasWanted.toString()) : BigInt(0);
     message.gasUsed = object.gasUsed !== undefined && object.gasUsed !== null ? BigInt(object.gasUsed.toString()) : BigInt(0);
     message.events = object.events?.map(e => Event.fromPartial(e)) || [];
-    message.codespace = object.codespace ?? '';
+    message.codespace = object.codespace ?? "";
     return message;
   },
   fromAmino(object: ExecTxResultAmino): ExecTxResult {
@@ -5564,8 +5564,8 @@ export const ExecTxResult = {
     const obj: any = {};
     obj.code = message.code === 0 ? undefined : message.code;
     obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    obj.log = message.log === '' ? undefined : message.log;
-    obj.info = message.info === '' ? undefined : message.info;
+    obj.log = message.log === "" ? undefined : message.log;
+    obj.info = message.info === "" ? undefined : message.info;
     obj.gas_wanted = message.gasWanted !== BigInt(0) ? message.gasWanted.toString() : undefined;
     obj.gas_used = message.gasUsed !== BigInt(0) ? message.gasUsed.toString() : undefined;
     if (message.events) {
@@ -5573,7 +5573,7 @@ export const ExecTxResult = {
     } else {
       obj.events = message.events;
     }
-    obj.codespace = message.codespace === '' ? undefined : message.codespace;
+    obj.codespace = message.codespace === "" ? undefined : message.codespace;
     return obj;
   },
   fromAminoMsg(object: ExecTxResultAminoMsg): ExecTxResult {
@@ -5587,7 +5587,7 @@ export const ExecTxResult = {
   },
   toProtoMsg(message: ExecTxResult): ExecTxResultProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ExecTxResult',
+      typeUrl: "/tendermint.abci.ExecTxResult",
       value: ExecTxResult.encode(message).finish()
     };
   }
@@ -5602,12 +5602,12 @@ function createBaseTxResult(): TxResult {
   };
 }
 export const TxResult = {
-  typeUrl: '/tendermint.abci.TxResult',
+  typeUrl: "/tendermint.abci.TxResult",
   is(o: any): o is TxResult {
-    return o && (o.$typeUrl === TxResult.typeUrl || typeof o.height === 'bigint' && typeof o.index === 'number' && (o.tx instanceof Uint8Array || typeof o.tx === 'string') && ExecTxResult.is(o.result));
+    return o && (o.$typeUrl === TxResult.typeUrl || typeof o.height === "bigint" && typeof o.index === "number" && (o.tx instanceof Uint8Array || typeof o.tx === "string") && ExecTxResult.is(o.result));
   },
   isAmino(o: any): o is TxResultAmino {
-    return o && (o.$typeUrl === TxResult.typeUrl || typeof o.height === 'bigint' && typeof o.index === 'number' && (o.tx instanceof Uint8Array || typeof o.tx === 'string') && ExecTxResult.isAmino(o.result));
+    return o && (o.$typeUrl === TxResult.typeUrl || typeof o.height === "bigint" && typeof o.index === "number" && (o.tx instanceof Uint8Array || typeof o.tx === "string") && ExecTxResult.isAmino(o.result));
   },
   encode(message: TxResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
@@ -5631,21 +5631,21 @@ export const TxResult = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.height = reader.int64();
-        break;
-      case 2:
-        message.index = reader.uint32();
-        break;
-      case 3:
-        message.tx = reader.bytes();
-        break;
-      case 4:
-        message.result = ExecTxResult.decode(reader, reader.uint32());
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.height = reader.int64();
+          break;
+        case 2:
+          message.index = reader.uint32();
+          break;
+        case 3:
+          message.tx = reader.bytes();
+          break;
+        case 4:
+          message.result = ExecTxResult.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5693,7 +5693,7 @@ export const TxResult = {
   },
   toProtoMsg(message: TxResult): TxResultProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.TxResult',
+      typeUrl: "/tendermint.abci.TxResult",
       value: TxResult.encode(message).finish()
     };
   }
@@ -5706,12 +5706,12 @@ function createBaseValidator(): Validator {
   };
 }
 export const Validator = {
-  typeUrl: '/tendermint.abci.Validator',
+  typeUrl: "/tendermint.abci.Validator",
   is(o: any): o is Validator {
-    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === 'string') && typeof o.power === 'bigint');
+    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === "string") && typeof o.power === "bigint");
   },
   isAmino(o: any): o is ValidatorAmino {
-    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === 'string') && typeof o.power === 'bigint');
+    return o && (o.$typeUrl === Validator.typeUrl || (o.address instanceof Uint8Array || typeof o.address === "string") && typeof o.power === "bigint");
   },
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address.length !== 0) {
@@ -5729,15 +5729,15 @@ export const Validator = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.address = reader.bytes();
-        break;
-      case 3:
-        message.power = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.address = reader.bytes();
+          break;
+        case 3:
+          message.power = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5775,7 +5775,7 @@ export const Validator = {
   },
   toProtoMsg(message: Validator): ValidatorProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.Validator',
+      typeUrl: "/tendermint.abci.Validator",
       value: Validator.encode(message).finish()
     };
   }
@@ -5788,12 +5788,12 @@ function createBaseValidatorUpdate(): ValidatorUpdate {
   };
 }
 export const ValidatorUpdate = {
-  typeUrl: '/tendermint.abci.ValidatorUpdate',
+  typeUrl: "/tendermint.abci.ValidatorUpdate",
   is(o: any): o is ValidatorUpdate {
-    return o && (o.$typeUrl === ValidatorUpdate.typeUrl || PublicKey.is(o.pubKey) && typeof o.power === 'bigint');
+    return o && (o.$typeUrl === ValidatorUpdate.typeUrl || PublicKey.is(o.pubKey) && typeof o.power === "bigint");
   },
   isAmino(o: any): o is ValidatorUpdateAmino {
-    return o && (o.$typeUrl === ValidatorUpdate.typeUrl || PublicKey.isAmino(o.pub_key) && typeof o.power === 'bigint');
+    return o && (o.$typeUrl === ValidatorUpdate.typeUrl || PublicKey.isAmino(o.pub_key) && typeof o.power === "bigint");
   },
   encode(message: ValidatorUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
@@ -5811,15 +5811,15 @@ export const ValidatorUpdate = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.pubKey = PublicKey.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.power = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.pubKey = PublicKey.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.power = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5857,7 +5857,7 @@ export const ValidatorUpdate = {
   },
   toProtoMsg(message: ValidatorUpdate): ValidatorUpdateProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ValidatorUpdate',
+      typeUrl: "/tendermint.abci.ValidatorUpdate",
       value: ValidatorUpdate.encode(message).finish()
     };
   }
@@ -5870,7 +5870,7 @@ function createBaseVoteInfo(): VoteInfo {
   };
 }
 export const VoteInfo = {
-  typeUrl: '/tendermint.abci.VoteInfo',
+  typeUrl: "/tendermint.abci.VoteInfo",
   is(o: any): o is VoteInfo {
     return o && (o.$typeUrl === VoteInfo.typeUrl || Validator.is(o.validator) && isSet(o.blockIdFlag));
   },
@@ -5893,15 +5893,15 @@ export const VoteInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.validator = Validator.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.blockIdFlag = (reader.int32() as any);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.validator = Validator.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.blockIdFlag = (reader.int32() as any);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -5939,7 +5939,7 @@ export const VoteInfo = {
   },
   toProtoMsg(message: VoteInfo): VoteInfoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.VoteInfo',
+      typeUrl: "/tendermint.abci.VoteInfo",
       value: VoteInfo.encode(message).finish()
     };
   }
@@ -5954,12 +5954,12 @@ function createBaseExtendedVoteInfo(): ExtendedVoteInfo {
   };
 }
 export const ExtendedVoteInfo = {
-  typeUrl: '/tendermint.abci.ExtendedVoteInfo',
+  typeUrl: "/tendermint.abci.ExtendedVoteInfo",
   is(o: any): o is ExtendedVoteInfo {
-    return o && (o.$typeUrl === ExtendedVoteInfo.typeUrl || Validator.is(o.validator) && (o.voteExtension instanceof Uint8Array || typeof o.voteExtension === 'string') && (o.extensionSignature instanceof Uint8Array || typeof o.extensionSignature === 'string') && isSet(o.blockIdFlag));
+    return o && (o.$typeUrl === ExtendedVoteInfo.typeUrl || Validator.is(o.validator) && (o.voteExtension instanceof Uint8Array || typeof o.voteExtension === "string") && (o.extensionSignature instanceof Uint8Array || typeof o.extensionSignature === "string") && isSet(o.blockIdFlag));
   },
   isAmino(o: any): o is ExtendedVoteInfoAmino {
-    return o && (o.$typeUrl === ExtendedVoteInfo.typeUrl || Validator.isAmino(o.validator) && (o.vote_extension instanceof Uint8Array || typeof o.vote_extension === 'string') && (o.extension_signature instanceof Uint8Array || typeof o.extension_signature === 'string') && isSet(o.block_id_flag));
+    return o && (o.$typeUrl === ExtendedVoteInfo.typeUrl || Validator.isAmino(o.validator) && (o.vote_extension instanceof Uint8Array || typeof o.vote_extension === "string") && (o.extension_signature instanceof Uint8Array || typeof o.extension_signature === "string") && isSet(o.block_id_flag));
   },
   encode(message: ExtendedVoteInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validator !== undefined) {
@@ -5983,21 +5983,21 @@ export const ExtendedVoteInfo = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.validator = Validator.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.voteExtension = reader.bytes();
-        break;
-      case 4:
-        message.extensionSignature = reader.bytes();
-        break;
-      case 5:
-        message.blockIdFlag = (reader.int32() as any);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.validator = Validator.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.voteExtension = reader.bytes();
+          break;
+        case 4:
+          message.extensionSignature = reader.bytes();
+          break;
+        case 5:
+          message.blockIdFlag = (reader.int32() as any);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -6045,7 +6045,7 @@ export const ExtendedVoteInfo = {
   },
   toProtoMsg(message: ExtendedVoteInfo): ExtendedVoteInfoProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.ExtendedVoteInfo',
+      typeUrl: "/tendermint.abci.ExtendedVoteInfo",
       value: ExtendedVoteInfo.encode(message).finish()
     };
   }
@@ -6061,12 +6061,12 @@ function createBaseMisbehavior(): Misbehavior {
   };
 }
 export const Misbehavior = {
-  typeUrl: '/tendermint.abci.Misbehavior',
+  typeUrl: "/tendermint.abci.Misbehavior",
   is(o: any): o is Misbehavior {
-    return o && (o.$typeUrl === Misbehavior.typeUrl || isSet(o.type) && Validator.is(o.validator) && typeof o.height === 'bigint' && Timestamp.is(o.time) && typeof o.totalVotingPower === 'bigint');
+    return o && (o.$typeUrl === Misbehavior.typeUrl || isSet(o.type) && Validator.is(o.validator) && typeof o.height === "bigint" && Timestamp.is(o.time) && typeof o.totalVotingPower === "bigint");
   },
   isAmino(o: any): o is MisbehaviorAmino {
-    return o && (o.$typeUrl === Misbehavior.typeUrl || isSet(o.type) && Validator.isAmino(o.validator) && typeof o.height === 'bigint' && Timestamp.isAmino(o.time) && typeof o.total_voting_power === 'bigint');
+    return o && (o.$typeUrl === Misbehavior.typeUrl || isSet(o.type) && Validator.isAmino(o.validator) && typeof o.height === "bigint" && Timestamp.isAmino(o.time) && typeof o.total_voting_power === "bigint");
   },
   encode(message: Misbehavior, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== 0) {
@@ -6093,24 +6093,24 @@ export const Misbehavior = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.type = (reader.int32() as any);
-        break;
-      case 2:
-        message.validator = Validator.decode(reader, reader.uint32());
-        break;
-      case 3:
-        message.height = reader.int64();
-        break;
-      case 4:
-        message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-        break;
-      case 5:
-        message.totalVotingPower = reader.int64();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.type = (reader.int32() as any);
+          break;
+        case 2:
+          message.validator = Validator.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.height = reader.int64();
+          break;
+        case 4:
+          message.time = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.totalVotingPower = reader.int64();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -6163,7 +6163,7 @@ export const Misbehavior = {
   },
   toProtoMsg(message: Misbehavior): MisbehaviorProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.Misbehavior',
+      typeUrl: "/tendermint.abci.Misbehavior",
       value: Misbehavior.encode(message).finish()
     };
   }
@@ -6179,12 +6179,12 @@ function createBaseSnapshot(): Snapshot {
   };
 }
 export const Snapshot = {
-  typeUrl: '/tendermint.abci.Snapshot',
+  typeUrl: "/tendermint.abci.Snapshot",
   is(o: any): o is Snapshot {
-    return o && (o.$typeUrl === Snapshot.typeUrl || typeof o.height === 'bigint' && typeof o.format === 'number' && typeof o.chunks === 'number' && (o.hash instanceof Uint8Array || typeof o.hash === 'string') && (o.metadata instanceof Uint8Array || typeof o.metadata === 'string'));
+    return o && (o.$typeUrl === Snapshot.typeUrl || typeof o.height === "bigint" && typeof o.format === "number" && typeof o.chunks === "number" && (o.hash instanceof Uint8Array || typeof o.hash === "string") && (o.metadata instanceof Uint8Array || typeof o.metadata === "string"));
   },
   isAmino(o: any): o is SnapshotAmino {
-    return o && (o.$typeUrl === Snapshot.typeUrl || typeof o.height === 'bigint' && typeof o.format === 'number' && typeof o.chunks === 'number' && (o.hash instanceof Uint8Array || typeof o.hash === 'string') && (o.metadata instanceof Uint8Array || typeof o.metadata === 'string'));
+    return o && (o.$typeUrl === Snapshot.typeUrl || typeof o.height === "bigint" && typeof o.format === "number" && typeof o.chunks === "number" && (o.hash instanceof Uint8Array || typeof o.hash === "string") && (o.metadata instanceof Uint8Array || typeof o.metadata === "string"));
   },
   encode(message: Snapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
@@ -6211,24 +6211,24 @@ export const Snapshot = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.height = reader.uint64();
-        break;
-      case 2:
-        message.format = reader.uint32();
-        break;
-      case 3:
-        message.chunks = reader.uint32();
-        break;
-      case 4:
-        message.hash = reader.bytes();
-        break;
-      case 5:
-        message.metadata = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.height = reader.uint64();
+          break;
+        case 2:
+          message.format = reader.uint32();
+          break;
+        case 3:
+          message.chunks = reader.uint32();
+          break;
+        case 4:
+          message.hash = reader.bytes();
+          break;
+        case 5:
+          message.metadata = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -6281,7 +6281,7 @@ export const Snapshot = {
   },
   toProtoMsg(message: Snapshot): SnapshotProtoMsg {
     return {
-      typeUrl: '/tendermint.abci.Snapshot',
+      typeUrl: "/tendermint.abci.Snapshot",
       value: Snapshot.encode(message).finish()
     };
   }

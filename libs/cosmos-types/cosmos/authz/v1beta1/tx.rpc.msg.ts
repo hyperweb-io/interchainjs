@@ -1,5 +1,5 @@
-import { DeliverTxResponse, StdFee, TxRpc } from '../../../types';
-import { MsgExec, MsgGrant, MsgRevoke } from './tx';
+import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
+import { MsgGrant, MsgExec, MsgRevoke } from "./tx";
 /** Msg defines the authz Msg service. */
 export interface Msg {
   /**
@@ -8,18 +8,18 @@ export interface Msg {
    * for the given (granter, grantee, Authorization) triple, then the grant
    * will be overwritten.
    */
-  grant(signerAddress: string, message: MsgGrant, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  grant(signerAddress: string, message: MsgGrant, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * Exec attempts to execute the provided messages using
    * authorizations granted to the grantee. Each message should have only
    * one signer corresponding to the granter of the authorization.
    */
-  exec(signerAddress: string, message: MsgExec, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  exec(signerAddress: string, message: MsgExec, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * Revoke revokes any authorization corresponding to the provided method name on the
    * granter's account that has been granted to the grantee.
    */
-  revoke(signerAddress: string, message: MsgRevoke, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  revoke(signerAddress: string, message: MsgRevoke, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 /** Msg defines the authz Msg service. */
 export interface StargateImpl {
@@ -29,18 +29,18 @@ export interface StargateImpl {
    * for the given (granter, grantee, Authorization) triple, then the grant
    * will be overwritten.
    */
-  grant(signerAddress: string, message: MsgGrant, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  grant(signerAddress: string, message: MsgGrant, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * Exec attempts to execute the provided messages using
    * authorizations granted to the grantee. Each message should have only
    * one signer corresponding to the granter of the authorization.
    */
-  exec(signerAddress: string, message: MsgExec, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  exec(signerAddress: string, message: MsgExec, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * Revoke revokes any authorization corresponding to the provided method name on the
    * granter's account that has been granted to the grantee.
    */
-  revoke(signerAddress: string, message: MsgRevoke, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  revoke(signerAddress: string, message: MsgRevoke, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 /** Msg defines the authz Msg service. */
 export interface CosmWasmStargateImpl {
@@ -50,18 +50,18 @@ export interface CosmWasmStargateImpl {
    * for the given (granter, grantee, Authorization) triple, then the grant
    * will be overwritten.
    */
-  grant(signerAddress: string, message: MsgGrant, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  grant(signerAddress: string, message: MsgGrant, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * Exec attempts to execute the provided messages using
    * authorizations granted to the grantee. Each message should have only
    * one signer corresponding to the granter of the authorization.
    */
-  exec(signerAddress: string, message: MsgExec, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  exec(signerAddress: string, message: MsgExec, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * Revoke revokes any authorization corresponding to the provided method name on the
    * granter's account that has been granted to the grantee.
    */
-  revoke(signerAddress: string, message: MsgRevoke, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  revoke(signerAddress: string, message: MsgRevoke, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: TxRpc;
@@ -72,7 +72,7 @@ export class MsgClientImpl implements Msg {
    account with the provided expiration time. If there is already a grant
    for the given (granter, grantee, Authorization) triple, then the grant
    will be overwritten. */
-  grant = async (signerAddress: string, message: MsgGrant, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  grant = async (signerAddress: string, message: MsgGrant, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgGrant.typeUrl,
       value: message
@@ -82,7 +82,7 @@ export class MsgClientImpl implements Msg {
   /* Exec attempts to execute the provided messages using
    authorizations granted to the grantee. Each message should have only
    one signer corresponding to the granter of the authorization. */
-  exec = async (signerAddress: string, message: MsgExec, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  exec = async (signerAddress: string, message: MsgExec, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgExec.typeUrl,
       value: message
@@ -91,7 +91,7 @@ export class MsgClientImpl implements Msg {
   };
   /* Revoke revokes any authorization corresponding to the provided method name on the
    granter's account that has been granted to the grantee. */
-  revoke = async (signerAddress: string, message: MsgRevoke, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  revoke = async (signerAddress: string, message: MsgRevoke, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgRevoke.typeUrl,
       value: message

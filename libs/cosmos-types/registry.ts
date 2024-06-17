@@ -4,9 +4,9 @@
 * and run the transpile command or npm scripts command that is used to regenerate this bundle.
 */
 
-import { BinaryReader } from './binary';
-import { Any, AnyAmino } from './google/protobuf/any';
-import { IProtoType, TelescopeGeneratedCodec } from './types';
+import { BinaryReader } from "./binary";
+import { Any, AnyAmino } from "./google/protobuf/any";
+import { IProtoType, TelescopeGeneratedCodec } from "./types";
 
 export class GlobalDecoderRegistry {
   static registry: {

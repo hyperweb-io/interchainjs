@@ -1,17 +1,18 @@
-import { BinaryReader, BinaryWriter } from '../../../binary';
-import { BaseAccount, BaseAccountAmino } from '../../../cosmos/auth/v1beta1/auth';
-import { base64FromBytes,bytesFromBase64, DeepPartial } from '../../../helpers';
-import { GlobalDecoderRegistry } from '../../../registry';
+import { BaseAccount, BaseAccountAmino } from "../../../cosmos/auth/v1beta1/auth";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
  */
 export interface EthAccount {
+  $typeUrl?: "/injective.types.v1beta1.EthAccount";
   baseAccount?: BaseAccount;
   codeHash: Uint8Array;
 }
 export interface EthAccountProtoMsg {
-  typeUrl: '/injective.types.v1beta1.EthAccount';
+  typeUrl: "/injective.types.v1beta1.EthAccount";
   value: Uint8Array;
 }
 /**
@@ -23,22 +24,23 @@ export interface EthAccountAmino {
   code_hash: string;
 }
 export interface EthAccountAminoMsg {
-  type: '/injective.types.v1beta1.EthAccount';
+  type: "/injective.types.v1beta1.EthAccount";
   value: EthAccountAmino;
 }
 function createBaseEthAccount(): EthAccount {
   return {
+    $typeUrl: "/injective.types.v1beta1.EthAccount",
     baseAccount: undefined,
     codeHash: new Uint8Array()
   };
 }
 export const EthAccount = {
-  typeUrl: '/injective.types.v1beta1.EthAccount',
+  typeUrl: "/injective.types.v1beta1.EthAccount",
   is(o: any): o is EthAccount {
-    return o && (o.$typeUrl === EthAccount.typeUrl || o.codeHash instanceof Uint8Array || typeof o.codeHash === 'string');
+    return o && (o.$typeUrl === EthAccount.typeUrl || o.codeHash instanceof Uint8Array || typeof o.codeHash === "string");
   },
   isAmino(o: any): o is EthAccountAmino {
-    return o && (o.$typeUrl === EthAccount.typeUrl || o.code_hash instanceof Uint8Array || typeof o.code_hash === 'string');
+    return o && (o.$typeUrl === EthAccount.typeUrl || o.code_hash instanceof Uint8Array || typeof o.code_hash === "string");
   },
   encode(message: EthAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.baseAccount !== undefined) {
@@ -56,15 +58,15 @@ export const EthAccount = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.baseAccount = BaseAccount.decode(reader, reader.uint32());
-        break;
-      case 2:
-        message.codeHash = reader.bytes();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.baseAccount = BaseAccount.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.codeHash = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -102,7 +104,7 @@ export const EthAccount = {
   },
   toProtoMsg(message: EthAccount): EthAccountProtoMsg {
     return {
-      typeUrl: '/injective.types.v1beta1.EthAccount',
+      typeUrl: "/injective.types.v1beta1.EthAccount",
       value: EthAccount.encode(message).finish()
     };
   }

@@ -1,7 +1,7 @@
-import { BinaryReader, BinaryWriter } from '../../../binary';
-import { Any, AnyAmino,AnyProtoMsg } from '../../../google/protobuf/any';
-import { DeepPartial } from '../../../helpers';
-import { GlobalDecoderRegistry } from '../../../registry';
+import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
+import { BinaryReader, BinaryWriter } from "../../../binary";
+import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgGrantAllowance adds permission for Grantee to spend up to Allowance
  * of fees from the account of Granter.
@@ -15,10 +15,10 @@ export interface MsgGrantAllowance {
   allowance?: Any | undefined;
 }
 export interface MsgGrantAllowanceProtoMsg {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowance';
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance";
   value: Uint8Array;
 }
-export type MsgGrantAllowanceEncoded = Omit<MsgGrantAllowance, 'allowance'> & {
+export type MsgGrantAllowanceEncoded = Omit<MsgGrantAllowance, "allowance"> & {
   /** allowance can be any of basic, periodic, allowed fee allowance. */allowance?: AnyProtoMsg | undefined;
 };
 /**
@@ -34,19 +34,19 @@ export interface MsgGrantAllowanceAmino {
   allowance?: AnyAmino;
 }
 export interface MsgGrantAllowanceAminoMsg {
-  type: 'cosmos-sdk/MsgGrantAllowance';
+  type: "cosmos-sdk/MsgGrantAllowance";
   value: MsgGrantAllowanceAmino;
 }
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
 export interface MsgGrantAllowanceResponse {}
 export interface MsgGrantAllowanceResponseProtoMsg {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse';
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse";
   value: Uint8Array;
 }
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
 export interface MsgGrantAllowanceResponseAmino {}
 export interface MsgGrantAllowanceResponseAminoMsg {
-  type: 'cosmos-sdk/MsgGrantAllowanceResponse';
+  type: "cosmos-sdk/MsgGrantAllowanceResponse";
   value: MsgGrantAllowanceResponseAmino;
 }
 /** MsgRevokeAllowance removes any existing Allowance from Granter to Grantee. */
@@ -57,7 +57,7 @@ export interface MsgRevokeAllowance {
   grantee: string;
 }
 export interface MsgRevokeAllowanceProtoMsg {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowance';
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance";
   value: Uint8Array;
 }
 /** MsgRevokeAllowance removes any existing Allowance from Granter to Grantee. */
@@ -68,19 +68,19 @@ export interface MsgRevokeAllowanceAmino {
   grantee: string;
 }
 export interface MsgRevokeAllowanceAminoMsg {
-  type: 'cosmos-sdk/MsgRevokeAllowance';
+  type: "cosmos-sdk/MsgRevokeAllowance";
   value: MsgRevokeAllowanceAmino;
 }
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
 export interface MsgRevokeAllowanceResponse {}
 export interface MsgRevokeAllowanceResponseProtoMsg {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse';
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse";
   value: Uint8Array;
 }
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
 export interface MsgRevokeAllowanceResponseAmino {}
 export interface MsgRevokeAllowanceResponseAminoMsg {
-  type: 'cosmos-sdk/MsgRevokeAllowanceResponse';
+  type: "cosmos-sdk/MsgRevokeAllowanceResponse";
   value: MsgRevokeAllowanceResponseAmino;
 }
 /**
@@ -93,7 +93,7 @@ export interface MsgPruneAllowances {
   pruner: string;
 }
 export interface MsgPruneAllowancesProtoMsg {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgPruneAllowances';
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowances";
   value: Uint8Array;
 }
 /**
@@ -106,7 +106,7 @@ export interface MsgPruneAllowancesAmino {
   pruner: string;
 }
 export interface MsgPruneAllowancesAminoMsg {
-  type: 'cosmos-sdk/MsgPruneAllowances';
+  type: "cosmos-sdk/MsgPruneAllowances";
   value: MsgPruneAllowancesAmino;
 }
 /**
@@ -116,7 +116,7 @@ export interface MsgPruneAllowancesAminoMsg {
  */
 export interface MsgPruneAllowancesResponse {}
 export interface MsgPruneAllowancesResponseProtoMsg {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse';
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse";
   value: Uint8Array;
 }
 /**
@@ -126,30 +126,30 @@ export interface MsgPruneAllowancesResponseProtoMsg {
  */
 export interface MsgPruneAllowancesResponseAmino {}
 export interface MsgPruneAllowancesResponseAminoMsg {
-  type: 'cosmos-sdk/MsgPruneAllowancesResponse';
+  type: "cosmos-sdk/MsgPruneAllowancesResponse";
   value: MsgPruneAllowancesResponseAmino;
 }
 function createBaseMsgGrantAllowance(): MsgGrantAllowance {
   return {
-    granter: '',
-    grantee: '',
+    granter: "",
+    grantee: "",
     allowance: undefined
   };
 }
 export const MsgGrantAllowance = {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowance',
-  aminoType: 'cosmos-sdk/MsgGrantAllowance',
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance",
+  aminoType: "cosmos-sdk/MsgGrantAllowance",
   is(o: any): o is MsgGrantAllowance {
-    return o && (o.$typeUrl === MsgGrantAllowance.typeUrl || typeof o.granter === 'string' && typeof o.grantee === 'string');
+    return o && (o.$typeUrl === MsgGrantAllowance.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
   },
   isAmino(o: any): o is MsgGrantAllowanceAmino {
-    return o && (o.$typeUrl === MsgGrantAllowance.typeUrl || typeof o.granter === 'string' && typeof o.grantee === 'string');
+    return o && (o.$typeUrl === MsgGrantAllowance.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
   },
   encode(message: MsgGrantAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.granter !== '') {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
-    if (message.grantee !== '') {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
     if (message.allowance !== undefined) {
@@ -164,26 +164,26 @@ export const MsgGrantAllowance = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.granter = reader.string();
-        break;
-      case 2:
-        message.grantee = reader.string();
-        break;
-      case 3:
-        message.allowance = GlobalDecoderRegistry.unwrapAny(reader);
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.granter = reader.string();
+          break;
+        case 2:
+          message.grantee = reader.string();
+          break;
+        case 3:
+          message.allowance = GlobalDecoderRegistry.unwrapAny(reader);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<MsgGrantAllowance>): MsgGrantAllowance {
     const message = createBaseMsgGrantAllowance();
-    message.granter = object.granter ?? '';
-    message.grantee = object.grantee ?? '';
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
     message.allowance = object.allowance !== undefined && object.allowance !== null ? GlobalDecoderRegistry.fromPartial(object.allowance) : undefined;
     return message;
   },
@@ -202,8 +202,8 @@ export const MsgGrantAllowance = {
   },
   toAmino(message: MsgGrantAllowance): MsgGrantAllowanceAmino {
     const obj: any = {};
-    obj.granter = message.granter === '' ? undefined : message.granter;
-    obj.grantee = message.grantee === '' ? undefined : message.grantee;
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
     obj.allowance = message.allowance ? GlobalDecoderRegistry.toAminoMsg(message.allowance) : undefined;
     return obj;
   },
@@ -212,7 +212,7 @@ export const MsgGrantAllowance = {
   },
   toAminoMsg(message: MsgGrantAllowance): MsgGrantAllowanceAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgGrantAllowance',
+      type: "cosmos-sdk/MsgGrantAllowance",
       value: MsgGrantAllowance.toAmino(message)
     };
   },
@@ -224,7 +224,7 @@ export const MsgGrantAllowance = {
   },
   toProtoMsg(message: MsgGrantAllowance): MsgGrantAllowanceProtoMsg {
     return {
-      typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowance',
+      typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance",
       value: MsgGrantAllowance.encode(message).finish()
     };
   }
@@ -235,8 +235,8 @@ function createBaseMsgGrantAllowanceResponse(): MsgGrantAllowanceResponse {
   return {};
 }
 export const MsgGrantAllowanceResponse = {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse',
-  aminoType: 'cosmos-sdk/MsgGrantAllowanceResponse',
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse",
+  aminoType: "cosmos-sdk/MsgGrantAllowanceResponse",
   is(o: any): o is MsgGrantAllowanceResponse {
     return o && o.$typeUrl === MsgGrantAllowanceResponse.typeUrl;
   },
@@ -253,9 +253,9 @@ export const MsgGrantAllowanceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -277,7 +277,7 @@ export const MsgGrantAllowanceResponse = {
   },
   toAminoMsg(message: MsgGrantAllowanceResponse): MsgGrantAllowanceResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgGrantAllowanceResponse',
+      type: "cosmos-sdk/MsgGrantAllowanceResponse",
       value: MsgGrantAllowanceResponse.toAmino(message)
     };
   },
@@ -289,7 +289,7 @@ export const MsgGrantAllowanceResponse = {
   },
   toProtoMsg(message: MsgGrantAllowanceResponse): MsgGrantAllowanceResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse',
+      typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse",
       value: MsgGrantAllowanceResponse.encode(message).finish()
     };
   }
@@ -298,24 +298,24 @@ GlobalDecoderRegistry.register(MsgGrantAllowanceResponse.typeUrl, MsgGrantAllowa
 GlobalDecoderRegistry.registerAminoProtoMapping(MsgGrantAllowanceResponse.aminoType, MsgGrantAllowanceResponse.typeUrl);
 function createBaseMsgRevokeAllowance(): MsgRevokeAllowance {
   return {
-    granter: '',
-    grantee: ''
+    granter: "",
+    grantee: ""
   };
 }
 export const MsgRevokeAllowance = {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowance',
-  aminoType: 'cosmos-sdk/MsgRevokeAllowance',
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance",
+  aminoType: "cosmos-sdk/MsgRevokeAllowance",
   is(o: any): o is MsgRevokeAllowance {
-    return o && (o.$typeUrl === MsgRevokeAllowance.typeUrl || typeof o.granter === 'string' && typeof o.grantee === 'string');
+    return o && (o.$typeUrl === MsgRevokeAllowance.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
   },
   isAmino(o: any): o is MsgRevokeAllowanceAmino {
-    return o && (o.$typeUrl === MsgRevokeAllowance.typeUrl || typeof o.granter === 'string' && typeof o.grantee === 'string');
+    return o && (o.$typeUrl === MsgRevokeAllowance.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
   },
   encode(message: MsgRevokeAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.granter !== '') {
+    if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
     }
-    if (message.grantee !== '') {
+    if (message.grantee !== "") {
       writer.uint32(18).string(message.grantee);
     }
     return writer;
@@ -327,23 +327,23 @@ export const MsgRevokeAllowance = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.granter = reader.string();
-        break;
-      case 2:
-        message.grantee = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.granter = reader.string();
+          break;
+        case 2:
+          message.grantee = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<MsgRevokeAllowance>): MsgRevokeAllowance {
     const message = createBaseMsgRevokeAllowance();
-    message.granter = object.granter ?? '';
-    message.grantee = object.grantee ?? '';
+    message.granter = object.granter ?? "";
+    message.grantee = object.grantee ?? "";
     return message;
   },
   fromAmino(object: MsgRevokeAllowanceAmino): MsgRevokeAllowance {
@@ -358,8 +358,8 @@ export const MsgRevokeAllowance = {
   },
   toAmino(message: MsgRevokeAllowance): MsgRevokeAllowanceAmino {
     const obj: any = {};
-    obj.granter = message.granter === '' ? undefined : message.granter;
-    obj.grantee = message.grantee === '' ? undefined : message.grantee;
+    obj.granter = message.granter === "" ? undefined : message.granter;
+    obj.grantee = message.grantee === "" ? undefined : message.grantee;
     return obj;
   },
   fromAminoMsg(object: MsgRevokeAllowanceAminoMsg): MsgRevokeAllowance {
@@ -367,7 +367,7 @@ export const MsgRevokeAllowance = {
   },
   toAminoMsg(message: MsgRevokeAllowance): MsgRevokeAllowanceAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgRevokeAllowance',
+      type: "cosmos-sdk/MsgRevokeAllowance",
       value: MsgRevokeAllowance.toAmino(message)
     };
   },
@@ -379,7 +379,7 @@ export const MsgRevokeAllowance = {
   },
   toProtoMsg(message: MsgRevokeAllowance): MsgRevokeAllowanceProtoMsg {
     return {
-      typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowance',
+      typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance",
       value: MsgRevokeAllowance.encode(message).finish()
     };
   }
@@ -390,8 +390,8 @@ function createBaseMsgRevokeAllowanceResponse(): MsgRevokeAllowanceResponse {
   return {};
 }
 export const MsgRevokeAllowanceResponse = {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse',
-  aminoType: 'cosmos-sdk/MsgRevokeAllowanceResponse',
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse",
+  aminoType: "cosmos-sdk/MsgRevokeAllowanceResponse",
   is(o: any): o is MsgRevokeAllowanceResponse {
     return o && o.$typeUrl === MsgRevokeAllowanceResponse.typeUrl;
   },
@@ -408,9 +408,9 @@ export const MsgRevokeAllowanceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -432,7 +432,7 @@ export const MsgRevokeAllowanceResponse = {
   },
   toAminoMsg(message: MsgRevokeAllowanceResponse): MsgRevokeAllowanceResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgRevokeAllowanceResponse',
+      type: "cosmos-sdk/MsgRevokeAllowanceResponse",
       value: MsgRevokeAllowanceResponse.toAmino(message)
     };
   },
@@ -444,7 +444,7 @@ export const MsgRevokeAllowanceResponse = {
   },
   toProtoMsg(message: MsgRevokeAllowanceResponse): MsgRevokeAllowanceResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse',
+      typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse",
       value: MsgRevokeAllowanceResponse.encode(message).finish()
     };
   }
@@ -453,20 +453,20 @@ GlobalDecoderRegistry.register(MsgRevokeAllowanceResponse.typeUrl, MsgRevokeAllo
 GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevokeAllowanceResponse.aminoType, MsgRevokeAllowanceResponse.typeUrl);
 function createBaseMsgPruneAllowances(): MsgPruneAllowances {
   return {
-    pruner: ''
+    pruner: ""
   };
 }
 export const MsgPruneAllowances = {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgPruneAllowances',
-  aminoType: 'cosmos-sdk/MsgPruneAllowances',
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowances",
+  aminoType: "cosmos-sdk/MsgPruneAllowances",
   is(o: any): o is MsgPruneAllowances {
-    return o && (o.$typeUrl === MsgPruneAllowances.typeUrl || typeof o.pruner === 'string');
+    return o && (o.$typeUrl === MsgPruneAllowances.typeUrl || typeof o.pruner === "string");
   },
   isAmino(o: any): o is MsgPruneAllowancesAmino {
-    return o && (o.$typeUrl === MsgPruneAllowances.typeUrl || typeof o.pruner === 'string');
+    return o && (o.$typeUrl === MsgPruneAllowances.typeUrl || typeof o.pruner === "string");
   },
   encode(message: MsgPruneAllowances, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.pruner !== '') {
+    if (message.pruner !== "") {
       writer.uint32(10).string(message.pruner);
     }
     return writer;
@@ -478,19 +478,19 @@ export const MsgPruneAllowances = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      case 1:
-        message.pruner = reader.string();
-        break;
-      default:
-        reader.skipType(tag & 7);
-        break;
+        case 1:
+          message.pruner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
   },
   fromPartial(object: DeepPartial<MsgPruneAllowances>): MsgPruneAllowances {
     const message = createBaseMsgPruneAllowances();
-    message.pruner = object.pruner ?? '';
+    message.pruner = object.pruner ?? "";
     return message;
   },
   fromAmino(object: MsgPruneAllowancesAmino): MsgPruneAllowances {
@@ -502,7 +502,7 @@ export const MsgPruneAllowances = {
   },
   toAmino(message: MsgPruneAllowances): MsgPruneAllowancesAmino {
     const obj: any = {};
-    obj.pruner = message.pruner === '' ? undefined : message.pruner;
+    obj.pruner = message.pruner === "" ? undefined : message.pruner;
     return obj;
   },
   fromAminoMsg(object: MsgPruneAllowancesAminoMsg): MsgPruneAllowances {
@@ -510,7 +510,7 @@ export const MsgPruneAllowances = {
   },
   toAminoMsg(message: MsgPruneAllowances): MsgPruneAllowancesAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgPruneAllowances',
+      type: "cosmos-sdk/MsgPruneAllowances",
       value: MsgPruneAllowances.toAmino(message)
     };
   },
@@ -522,7 +522,7 @@ export const MsgPruneAllowances = {
   },
   toProtoMsg(message: MsgPruneAllowances): MsgPruneAllowancesProtoMsg {
     return {
-      typeUrl: '/cosmos.feegrant.v1beta1.MsgPruneAllowances',
+      typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowances",
       value: MsgPruneAllowances.encode(message).finish()
     };
   }
@@ -533,8 +533,8 @@ function createBaseMsgPruneAllowancesResponse(): MsgPruneAllowancesResponse {
   return {};
 }
 export const MsgPruneAllowancesResponse = {
-  typeUrl: '/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse',
-  aminoType: 'cosmos-sdk/MsgPruneAllowancesResponse',
+  typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse",
+  aminoType: "cosmos-sdk/MsgPruneAllowancesResponse",
   is(o: any): o is MsgPruneAllowancesResponse {
     return o && o.$typeUrl === MsgPruneAllowancesResponse.typeUrl;
   },
@@ -551,9 +551,9 @@ export const MsgPruneAllowancesResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-      default:
-        reader.skipType(tag & 7);
-        break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
     return message;
@@ -575,7 +575,7 @@ export const MsgPruneAllowancesResponse = {
   },
   toAminoMsg(message: MsgPruneAllowancesResponse): MsgPruneAllowancesResponseAminoMsg {
     return {
-      type: 'cosmos-sdk/MsgPruneAllowancesResponse',
+      type: "cosmos-sdk/MsgPruneAllowancesResponse",
       value: MsgPruneAllowancesResponse.toAmino(message)
     };
   },
@@ -587,7 +587,7 @@ export const MsgPruneAllowancesResponse = {
   },
   toProtoMsg(message: MsgPruneAllowancesResponse): MsgPruneAllowancesResponseProtoMsg {
     return {
-      typeUrl: '/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse',
+      typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse",
       value: MsgPruneAllowancesResponse.encode(message).finish()
     };
   }

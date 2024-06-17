@@ -1,16 +1,16 @@
-import * as _CosmosAuthV1beta1Queryrpc from './cosmos/auth/v1beta1/query.rpc.Query';
-import * as _CosmosAuthzV1beta1Txrpc from './cosmos/authz/v1beta1/tx.rpc.msg';
-import * as _CosmosBankV1beta1Queryrpc from './cosmos/bank/v1beta1/query.rpc.Query';
-import * as _CosmosBankV1beta1Txrpc from './cosmos/bank/v1beta1/tx.rpc.msg';
-import * as _CosmosDistributionV1beta1Txrpc from './cosmos/distribution/v1beta1/tx.rpc.msg';
-import * as _CosmosGovV1beta1Queryrpc from './cosmos/gov/v1beta1/query.rpc.Query';
-import * as _CosmosGovV1beta1Txrpc from './cosmos/gov/v1beta1/tx.rpc.msg';
-import * as _CosmosStakingV1beta1Queryrpc from './cosmos/staking/v1beta1/query.rpc.Query';
-import * as _CosmosStakingV1beta1Txrpc from './cosmos/staking/v1beta1/tx.rpc.msg';
-import * as _CosmwasmWasmV1Queryrpc from './cosmwasm/wasm/v1/query.rpc.Query';
-import * as _CosmwasmWasmV1Txrpc from './cosmwasm/wasm/v1/tx.rpc.msg';
-import * as _IbcApplicationsTransferV1Txrpc from './ibc/applications/transfer/v1/tx.rpc.msg';
-import { TxRpc } from './types';
+import { TxRpc } from "./types";
+import * as _CosmosAuthV1beta1Queryrpc from "./cosmos/auth/v1beta1/query.rpc.Query";
+import * as _CosmosBankV1beta1Queryrpc from "./cosmos/bank/v1beta1/query.rpc.Query";
+import * as _CosmosGovV1beta1Queryrpc from "./cosmos/gov/v1beta1/query.rpc.Query";
+import * as _CosmosStakingV1beta1Queryrpc from "./cosmos/staking/v1beta1/query.rpc.Query";
+import * as _CosmwasmWasmV1Queryrpc from "./cosmwasm/wasm/v1/query.rpc.Query";
+import * as _CosmosAuthzV1beta1Txrpc from "./cosmos/authz/v1beta1/tx.rpc.msg";
+import * as _CosmosBankV1beta1Txrpc from "./cosmos/bank/v1beta1/tx.rpc.msg";
+import * as _CosmosDistributionV1beta1Txrpc from "./cosmos/distribution/v1beta1/tx.rpc.msg";
+import * as _CosmosGovV1beta1Txrpc from "./cosmos/gov/v1beta1/tx.rpc.msg";
+import * as _CosmosStakingV1beta1Txrpc from "./cosmos/staking/v1beta1/tx.rpc.msg";
+import * as _IbcApplicationsTransferV1Txrpc from "./ibc/applications/transfer/v1/tx.rpc.msg";
+import * as _CosmwasmWasmV1Txrpc from "./cosmwasm/wasm/v1/tx.rpc.msg";
 export interface QueryImpl extends _CosmosAuthV1beta1Queryrpc.QueryImpl, _CosmosBankV1beta1Queryrpc.QueryImpl, _CosmosGovV1beta1Queryrpc.QueryImpl, _CosmosStakingV1beta1Queryrpc.QueryImpl, _CosmwasmWasmV1Queryrpc.QueryImpl {}
 export class QueryImpl {
   rpc: TxRpc;

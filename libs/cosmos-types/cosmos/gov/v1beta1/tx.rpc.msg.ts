@@ -1,49 +1,49 @@
-import { DeliverTxResponse, StdFee, TxRpc } from '../../../types';
-import { MsgDeposit,MsgSubmitProposal, MsgVote, MsgVoteWeighted } from './tx';
+import { DeliverTxResponse, StdFee, TxRpc } from "../../../types";
+import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
 /** Msg defines the gov Msg service. */
 export interface Msg {
   /** SubmitProposal defines a method to create new proposal given a content. */
-  submitProposal(signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  submitProposal(signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /** Vote defines a method to add a vote on a specific proposal. */
-  vote(signerAddress: string, message: MsgVote, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  vote(signerAddress: string, message: MsgVote, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * VoteWeighted defines a method to add a weighted vote on a specific proposal.
    * 
    * Since: cosmos-sdk 0.43
    */
-  voteWeighted(signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  voteWeighted(signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /** Deposit defines a method to add deposit on a specific proposal. */
-  deposit(signerAddress: string, message: MsgDeposit, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  deposit(signerAddress: string, message: MsgDeposit, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 /** Msg defines the gov Msg service. */
 export interface StargateImpl {
   /** SubmitProposal defines a method to create new proposal given a content. */
-  submitProposal(signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  submitProposal(signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /** Vote defines a method to add a vote on a specific proposal. */
-  vote(signerAddress: string, message: MsgVote, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  vote(signerAddress: string, message: MsgVote, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * VoteWeighted defines a method to add a weighted vote on a specific proposal.
    * 
    * Since: cosmos-sdk 0.43
    */
-  voteWeighted(signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  voteWeighted(signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /** Deposit defines a method to add deposit on a specific proposal. */
-  deposit(signerAddress: string, message: MsgDeposit, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  deposit(signerAddress: string, message: MsgDeposit, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 /** Msg defines the gov Msg service. */
 export interface CosmWasmStargateImpl {
   /** SubmitProposal defines a method to create new proposal given a content. */
-  submitProposal(signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  submitProposal(signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /** Vote defines a method to add a vote on a specific proposal. */
-  vote(signerAddress: string, message: MsgVote, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  vote(signerAddress: string, message: MsgVote, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /**
    * VoteWeighted defines a method to add a weighted vote on a specific proposal.
    * 
    * Since: cosmos-sdk 0.43
    */
-  voteWeighted(signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  voteWeighted(signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
   /** Deposit defines a method to add deposit on a specific proposal. */
-  deposit(signerAddress: string, message: MsgDeposit, fee: number | StdFee | 'auto', memo?: string): Promise<DeliverTxResponse>;
+  deposit(signerAddress: string, message: MsgDeposit, fee: number | StdFee | "auto", memo?: string): Promise<DeliverTxResponse>;
 }
 export class MsgClientImpl implements Msg {
   private readonly rpc: TxRpc;
@@ -51,7 +51,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
   }
   /* SubmitProposal defines a method to create new proposal given a content. */
-  submitProposal = async (signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  submitProposal = async (signerAddress: string, message: MsgSubmitProposal, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgSubmitProposal.typeUrl,
       value: message
@@ -59,7 +59,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* Vote defines a method to add a vote on a specific proposal. */
-  vote = async (signerAddress: string, message: MsgVote, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  vote = async (signerAddress: string, message: MsgVote, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgVote.typeUrl,
       value: message
@@ -69,7 +69,7 @@ export class MsgClientImpl implements Msg {
   /* VoteWeighted defines a method to add a weighted vote on a specific proposal.
   
    Since: cosmos-sdk 0.43 */
-  voteWeighted = async (signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  voteWeighted = async (signerAddress: string, message: MsgVoteWeighted, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgVoteWeighted.typeUrl,
       value: message
@@ -77,7 +77,7 @@ export class MsgClientImpl implements Msg {
     return this.rpc.signAndBroadcast!(signerAddress, data, fee, memo);
   };
   /* Deposit defines a method to add deposit on a specific proposal. */
-  deposit = async (signerAddress: string, message: MsgDeposit, fee: number | StdFee | 'auto' = 'auto', memo: string = ''): Promise<DeliverTxResponse> => {
+  deposit = async (signerAddress: string, message: MsgDeposit, fee: number | StdFee | "auto" = "auto", memo: string = ""): Promise<DeliverTxResponse> => {
     const data = [{
       typeUrl: MsgDeposit.typeUrl,
       value: message
