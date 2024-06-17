@@ -18,7 +18,7 @@ import {
   EncodedMessage,
   QueryClient,
 } from '../types';
-import { Status } from '../types/rpc';
+import { AsyncCometBroadcastResponse, CommitCometBroadcastResponse, Status, SyncCometBroadcastResponse } from '../types/rpc';
 import { constructAuthInfo } from '../utils/direct';
 import { broadcast, createTxRpc, getPrefix } from '../utils/rpc';
 
@@ -166,7 +166,7 @@ export class RpcClient implements QueryClient {
         deliver_tx,
         height,
         hash: hash3,
-      } = resp as CometBroadcastResponse.Commit;
+      } = resp as CommitCometBroadcastResponse;
       return {
         hash: hash3,
         check_tx,
