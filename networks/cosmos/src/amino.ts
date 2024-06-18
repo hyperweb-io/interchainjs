@@ -1,16 +1,14 @@
 import { Auth, HttpEndpoint } from '@interchainjs/types';
-import { constructAuthsFromWallet } from '@interchainjs/utils';
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from './base';
 import { BaseCosmosTxBuilderContext } from './base/builder-context';
 import { AminoSigBuilder, AminoTxBuilder } from './builder/amino-tx-builder';
-import { defaultSignerConfig } from './defaults';
 import {
   AminoConverter,
   CosmosAminoDoc,
   CosmosAminoSigner,
-  CosmosBaseWallet,
   Encoder,
+  ICosmosWallet,
   SignerOptions,
 } from './types';
 
@@ -84,32 +82,25 @@ export class AminoSigner
   }
 
   static async fromWallet(
-    wallet: CosmosBaseWallet,
+    wallet: ICosmosWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ??
-        defaultSignerConfig.publicKey.isCompressed
-    );
+    const [auth] = (await wallet.getAccounts()).map((acct) => acct.auth);
+
     return new AminoSigner(auth, encoders, converters, endpoint, options);
   }
 
   static async fromWalletToSigners(
-    wallet: CosmosBaseWallet,
+    wallet: ICosmosWallet,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ??
-        defaultSignerConfig.publicKey.isCompressed
-    );
+    const auths = (await wallet.getAccounts()).map((acct) => acct.auth);
 
     return auths.map((auth) => {
       return new AminoSigner(auth, encoders, converters, endpoint, options);

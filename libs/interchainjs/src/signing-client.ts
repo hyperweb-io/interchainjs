@@ -1,5 +1,10 @@
 import { AminoSigner } from '@interchainjs/cosmos/amino';
-import { AccountData } from '@interchainjs/cosmos/types';
+import { AccountData, isICosmosAccount } from '@interchainjs/cosmos/types';
+import {
+  OfflineAminoSigner,
+  OfflineDirectSigner,
+  OfflineSigner,
+} from '@interchainjs/cosmos/types/wallet';
 import {
   constructAuthInfo,
   constructSignerInfo,
@@ -44,11 +49,6 @@ import {
   SignerData,
   SignerOptions,
 } from './types/signing-client';
-import {
-  OfflineAminoSigner,
-  OfflineDirectSigner,
-  OfflineSigner,
-} from './types/wallet';
 import { BroadcastTxError, defaultAuth, sleep, TimeoutError } from './utils';
 
 /**
@@ -125,15 +125,14 @@ export class SigningClient {
 
   private async getAccountData(address: string): Promise<AccountData> {
     const accounts = await this.offlineSigner.getAccounts();
-    const account = accounts.find(
-      (account) => account.getAddress() === address
-    );
+    const account = accounts.find((account) => account.address === address);
     if (!account) {
       throw new Error(
         `No such account found in OfflineSigner for address ${address}`
       );
     }
-    return account.toAccountData();
+
+    return isICosmosAccount(account) ? account.toAccountData() : account;
   }
 
   private async getPubkey(address: string): Promise<Any> {

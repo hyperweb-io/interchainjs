@@ -61,7 +61,7 @@ export abstract class CosmosBaseSigner<SignDoc>
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    super(auth, { ...options, ...defaultSignerOptions });
+    super(auth, { ...defaultSignerOptions, ...options });
     this.encoders = encoders;
     this.parseAccount =
       options?.parseAccount ?? defaultSignerOptions.parseAccount;
