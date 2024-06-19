@@ -2,6 +2,7 @@ import "./setup.test";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import {
   assertIsDeliverTxSuccess,
+  assertIsCheckTxSuccess,
   toConverters,
   toEncoders,
 } from "@interchainjs/cosmos/utils";
@@ -156,6 +157,7 @@ describe("Governance tests for injective", () => {
       }
     );
     assertIsDeliverTxSuccess(result);
+    assertIsCheckTxSuccess(result);
   }, 10000);
 
   it("submit a txt proposal", async () => {
@@ -202,6 +204,7 @@ describe("Governance tests for injective", () => {
       }
     );
     assertIsDeliverTxSuccess(result);
+    assertIsCheckTxSuccess(result);
 
     // Get proposal id from log events
     const proposalIdEvent = result.deliver_tx?.events.find(
@@ -256,6 +259,7 @@ describe("Governance tests for injective", () => {
       }
     );
     assertIsDeliverTxSuccess(result);
+    assertIsCheckTxSuccess(result);
   }, 10000);
 
   it("verify direct vote", async () => {
@@ -301,6 +305,7 @@ describe("Governance tests for injective", () => {
       }
     );
     assertIsDeliverTxSuccess(result);
+    assertIsCheckTxSuccess(result);
   }, 10000);
 
   it("verify amino vote", async () => {
