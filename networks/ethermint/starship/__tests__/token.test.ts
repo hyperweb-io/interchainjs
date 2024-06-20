@@ -2,8 +2,8 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { defaultSignerOptions } from '@interchainjs/injective/defaults';
-import { DirectSigner } from '@interchainjs/injective/direct';
+import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
+import { DirectSigner } from '@interchainjs/ethermint/direct';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
@@ -67,7 +67,7 @@ describe('Token transfers', () => {
       denom,
     };
 
-    // Transfer uosmo tokens from faceut
+    // Transfer inj tokens
     directSigner.addEncoders(toEncoders(MsgSend));
     await directSigner.signAndBroadcast(
       {
@@ -93,7 +93,7 @@ describe('Token transfers', () => {
     expect(balance!.denom).toEqual(denom);
   }, 10000);
 
-  it('send ibc osmo tokens to address on cosmos chain', async () => {
+  it('send ibc inj tokens to address on cosmos chain', async () => {
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
       useChain('cosmos');
 

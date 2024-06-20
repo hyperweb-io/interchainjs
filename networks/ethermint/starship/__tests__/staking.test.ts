@@ -1,6 +1,6 @@
 // Using `fromWallet` to construct Signer
 import { RpcQuery } from "interchainjs/query/rpc";
-import { DirectSigner } from '@interchainjs/injective/direct';
+import { DirectSigner } from '@interchainjs/ethermint/direct';
 import BigNumber from "bignumber.js";
 import { useChain } from "starshipjs";
 import "./setup.test";
@@ -11,9 +11,10 @@ import {
 import { MsgDelegate } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx";
 import { ChainInfo } from "@chain-registry/client";
 import {
+  assertIsCheckTxSuccess,
   assertIsDeliverTxSuccess,
   toEncoders,
-} from "@interchainjs/injective/utils";
+} from "@interchainjs/cosmos/utils";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { generateMnemonic } from "../src";
 
@@ -126,6 +127,7 @@ describe("Staking tokens testing", () => {
       }
     );
     assertIsDeliverTxSuccess(result);
+    assertIsCheckTxSuccess(result);
   });
 
   it("query delegation", async () => {
