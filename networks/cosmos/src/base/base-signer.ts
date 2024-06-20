@@ -11,6 +11,7 @@ import {
   HttpEndpoint,
   IKey,
   SignDocResponse,
+  SignerConfig,
   SignResponse,
 } from '@interchainjs/types';
 import { assertEmpty, isEmpty } from '@interchainjs/utils';
@@ -32,6 +33,12 @@ import { calculateFee } from '../utils/fee';
 import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from './tx-builder';
 
 export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
+  constructor(auth: Auth, config: SignerConfig) {
+    super(auth, config);
+
+    this.txBuilder = this.getTxBuilder();
+  }
+
   txBuilder: BaseCosmosSigBuilder<SignDoc>;
   abstract getTxBuilder(): BaseCosmosSigBuilder<SignDoc>;
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
