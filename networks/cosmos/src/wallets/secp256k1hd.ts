@@ -45,7 +45,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
       return new CosmosAccount(derivation.prefix, auth);
     });
 
-    return new Secp256k1HDWallet(accounts, options.signerConfig);
+    return new Secp256k1HDWallet(accounts, options?.signerConfig);
   }
 
   async getAccounts(): Promise<ICosmosAccount[]> {

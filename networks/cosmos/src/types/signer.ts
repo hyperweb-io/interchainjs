@@ -234,7 +234,9 @@ export interface ICosmosAccount {
   toAccountData(): AccountData;
 }
 
-export function isICosmosAccount(instance: AccountData | ICosmosAccount): instance is ICosmosAccount {
+export function isICosmosAccount(
+  instance: AccountData | ICosmosAccount
+): instance is ICosmosAccount {
   return (instance as ICosmosAccount).toAccountData !== undefined;
 }
 
@@ -265,5 +267,5 @@ export class CosmosAccount implements ICosmosAccount {
 }
 
 export interface ICosmosWallet {
-  getAccounts(): Promise<ICosmosAccount[]>;
+  getAccounts: () => Promise<ICosmosAccount[]>;
 }

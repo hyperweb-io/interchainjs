@@ -1,11 +1,6 @@
 import { SignerConfig } from '@interchainjs/types';
 
-import {
-  AccountData,
-  CosmosAminoDoc,
-  CosmosDirectDoc,
-  ICosmosAccount,
-} from './signer';
+import { CosmosAminoDoc, CosmosDirectDoc, ICosmosAccount } from './signer';
 
 export interface WalletOptions {
   bip39Password?: string;
@@ -28,7 +23,7 @@ export interface AminoSignResponse {
 }
 
 export interface OfflineAminoSigner {
-  getAccounts: () => Promise<(AccountData | ICosmosAccount)[]>;
+  getAccounts: () => Promise<ICosmosAccount[]>;
   signAmino: (
     signerAddress: string,
     signDoc: CosmosAminoDoc
@@ -41,7 +36,7 @@ export interface DirectSignResponse {
 }
 
 export interface OfflineDirectSigner {
-  getAccounts: () => Promise<(AccountData | ICosmosAccount)[]>;
+  getAccounts: () => Promise<ICosmosAccount[]>;
   signDirect: (
     signerAddress: string,
     signDoc: CosmosDirectDoc
