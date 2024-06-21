@@ -1,4 +1,5 @@
 import { AminoSigner } from '@interchainjs/cosmos/amino';
+import { OfflineSigner } from '@interchainjs/cosmos/types/wallet';
 import { toConverter, toEncoder } from '@interchainjs/cosmos/utils';
 import { StargateImpl as TxImpl } from '@interchainjs/cosmos-types/service-ops';
 import { StargateMsgs } from '@interchainjs/cosmos-types/stargate';
@@ -6,7 +7,6 @@ import { HttpEndpoint } from '@interchainjs/types';
 
 import { SigningClient } from './signing-client';
 import { SignerOptions } from './types/signing-client';
-import { OfflineSigner } from './types/wallet';
 import { defaultAuth } from './utils';
 
 export class StargateSigningClient extends SigningClient {

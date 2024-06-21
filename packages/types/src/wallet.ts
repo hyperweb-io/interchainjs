@@ -21,3 +21,8 @@ export interface Wallet<Account extends BaseWalletAccount> {
 }
 
 export type BaseWallet = Wallet<BaseWalletAccount>;
+
+export interface AddrDerivation {
+  readonly hdPath: string;
+  readonly prefix: string;
+}

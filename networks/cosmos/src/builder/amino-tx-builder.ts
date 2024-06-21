@@ -1,10 +1,16 @@
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
 
 import { type AminoSignerBase } from '../amino';
-import { BaseCosmosTxBuilder } from '../base';
+import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosAminoDoc, CosmosSignArgs } from '../types';
 import { encodeStdSignDoc, toAminoMsgs } from '../utils';
+
+export class AminoSigBuilder extends BaseCosmosSigBuilder<CosmosAminoDoc> {
+  async buildDocBytes(doc: CosmosAminoDoc): Promise<Uint8Array> {
+    return encodeStdSignDoc(doc);
+  }
+}
 
 export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
   constructor(

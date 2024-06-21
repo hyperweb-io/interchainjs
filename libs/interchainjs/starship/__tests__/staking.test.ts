@@ -4,6 +4,8 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
 import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
+import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import {
   BondStatus,
   bondStatusToJSON,
@@ -12,13 +14,14 @@ import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/t
 import BigNumber from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { StargateSigningClient } from 'interchainjs/stargate';
-import { OfflineDirectSigner } from 'interchainjs/types';
-import { Secp256k1Wallet } from 'interchainjs/wallets/secp256k1';
 import { useChain } from 'starshipjs';
+
+const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Staking tokens testing', () => {
   let protoSigner: OfflineDirectSigner, denom: string, address: string;
-  let chainInfo: ChainInfo,
+  let commonPrefix: string,
+    chainInfo: ChainInfo,
     getCoin: () => Asset,
     getRpcEndpoint: () => string,
     creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
@@ -33,13 +36,18 @@ describe('Staking tokens testing', () => {
       useChain('osmosis'));
     denom = getCoin().base;
 
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const wallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    const wallet = Secp256k1HDWallet.fromMnemonic(mnemonic, [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
     protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].getAddress() as string;
+    address = (await protoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());

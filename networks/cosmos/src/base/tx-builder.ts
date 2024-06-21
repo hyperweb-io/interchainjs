@@ -6,7 +6,13 @@ import {
   TxBody,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { ITxBuilder, StdFee } from '@interchainjs/types';
+import {
+  BaseSigner,
+  IKey,
+  ISigBuilder,
+  ITxBuilder,
+  StdFee,
+} from '@interchainjs/types';
 
 import {
   CosmosCreateDocResponse,
@@ -18,16 +24,36 @@ import { calculateFee, toFee } from '../utils';
 import { CosmosBaseSigner } from './base-signer';
 import { BaseCosmosTxBuilderContext } from './builder-context';
 
+export abstract class BaseCosmosSigBuilder<SignDoc>
+implements ISigBuilder<SignDoc, IKey>
+{
+  constructor(protected ctx: BaseCosmosTxBuilderContext<BaseSigner>) {}
+
+  abstract buildDocBytes(doc: SignDoc): Promise<Uint8Array>;
+  async buildSignature(doc: SignDoc): Promise<IKey> {
+    // get doc bytes
+    const docBytes = await this.buildDocBytes(doc);
+
+    // sign signature to the doc bytes
+    return this.ctx.signer.signArbitrary(docBytes);
+  }
+}
+
 /**
  * BaseCosmosTxBuilder is a helper class to build the Tx and signDoc
  */
 export abstract class BaseCosmosTxBuilder<SignDoc>
-implements ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
+  extends BaseCosmosSigBuilder<SignDoc>
+  implements
+    ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>,
+    ISigBuilder<SignDoc, IKey>
 {
   constructor(
     public signMode: SignMode,
     protected ctx: BaseCosmosTxBuilderContext<CosmosBaseSigner<SignDoc>>
-  ) {}
+  ) {
+    super(ctx);
+  }
 
   abstract buildDoc(
     args: CosmosSignArgs,
@@ -150,11 +176,9 @@ implements ITxBuilder<CosmosSignArgs, CosmosCreateDocResponse<SignDoc>>
 
     // buildDoc
     const doc = await this.buildDoc({ messages, fee, memo, options }, txRaw);
-    // get doc bytes
-    const docBytes = await this.buildDocBytes(doc);
 
     // sign signature to the doc bytes
-    const signature = this.ctx.signer.signArbitrary(docBytes);
+    const signature = await this.buildSignature(doc);
 
     // build TxRaw
     const signedTxRaw = TxRaw.fromPartial({

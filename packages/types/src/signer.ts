@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js';
 
 import { Auth, IKey, Signature } from './auth';
+import { SignDocResponse } from './wallet';
 
 export interface HttpEndpoint {
   url: string;
@@ -46,6 +47,10 @@ export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }>
   broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
 }
 
+export interface ISigBuilder<Doc = unknown, Sig = unknown> {
+  buildSignature(doc: Doc): Sig | Promise<Sig>;
+}
+
 export interface ITxBuilder<SignArgs = unknown, SignResp = unknown> {
   buildSignedTxDoc(args: SignArgs): Promise<SignResp>;
 }
@@ -81,8 +86,9 @@ export interface UniSigner<
    * to get printable address(es)
    */
   getAddress(): AddressResponse;
-  signArbitrary(data: Uint8Array): IKey;
-  verifyArbitrary(data: Uint8Array, signature: IKey): boolean;
+  signArbitrary(data: Uint8Array): IKey | Promise<IKey>;
+  signDoc(doc: Doc): SignDocResponse<Doc> | Promise<SignDocResponse<Doc>>;
+  verifyArbitrary(data: Uint8Array, signature: IKey): boolean | Promise<boolean>;
   broadcastArbitrary(
     data: Uint8Array,
     options?: BroadcastOptions

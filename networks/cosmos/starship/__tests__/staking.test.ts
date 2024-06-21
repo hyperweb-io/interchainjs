@@ -2,11 +2,12 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { DirectSigner } from '@interchainjs/cosmos/direct';
-import { CosmosBaseWallet } from '@interchainjs/cosmos/types/signer';
+import { ICosmosWallet } from '@interchainjs/cosmos/types/signer';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import {
   BondStatus,
   bondStatusToJSON,
@@ -14,13 +15,14 @@ import {
 import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
 import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Signer
 import { RpcQuery } from 'interchainjs/query/rpc';
-import { Secp256k1Wallet } from 'interchainjs/wallets/secp256k1';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
 
+const cosmosHdPath = "m/44'/118'/0'/0/0";
+
 describe('Staking tokens testing', () => {
-  let directWallet: CosmosBaseWallet, denom: string, address: string;
+  let directWallet: ICosmosWallet, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
@@ -39,11 +41,14 @@ describe('Staking tokens testing', () => {
     const mnemonic = generateMnemonic();
     const prefix = chainInfo.chain.bech32_prefix;
 
-    directWallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
-      prefix,
-    });
+    directWallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, [
+      {
+        hdPath: cosmosHdPath,
+        prefix,
+      },
+    ]);
 
-    address = (await directWallet.getAccounts())[0].getAddress(prefix);
+    address = (await directWallet.getAccounts())[0].address;
     // (await directWallet.getAccount()).getAddress(prefix) as string;
 
     // Create custom cosmos interchain client
