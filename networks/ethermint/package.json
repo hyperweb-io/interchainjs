@@ -33,10 +33,10 @@
   },
   "dependencies": {
     "@interchainjs/cosmos": "0.0.1-beta.2",
+    "@interchainjs/cosmos-types": "0.0.1-beta.2",
     "@interchainjs/ethereum": "0.0.1-beta.2",
     "@interchainjs/types": "0.0.1-beta.2",
     "@interchainjs/utils": "0.0.1-beta.2",
-    "@interchainjs/cosmos-types": "0.0.1-beta.2",
     "decimal.js": "^10.4.3"
   },
   "keywords": [
@@ -47,6 +47,7 @@
     "@injectivelabs/sdk-ts": "^1.14.7",
     "@injectivelabs/wallet-ts": "^1.14.7",
     "bech32": "^2.0.0",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.1"
   }
 }

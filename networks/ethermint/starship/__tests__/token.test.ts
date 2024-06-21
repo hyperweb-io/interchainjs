@@ -14,6 +14,10 @@ import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import { assertIsCheckTxSuccess } from '@interchainjs/cosmos/utils';
+import { pubToAddress } from 'ethereumjs-util'
+
+let { bech32 } = require('bech32')
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -30,13 +34,26 @@ describe('Token transfers', () => {
       useChain('injective'));
     denom = getCoin().base;
 
-    const mnemonic = generateMnemonic();
+    const mnemonic = 'cry erosion seed shove leisure penalty inspire state describe disease despair beyond' // inj10a64save5u2rpdru50x5kvwe7uyqfmshl9vwy2 // generateMnemonic();
     // Initialize auth
     const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
+    const publicKeyBuffer = Buffer.from(auth.getPublicKey(true).value)
+    const addressBuffer = pubToAddress(publicKeyBuffer, true)
+    const ethAddr = `0x${addressBuffer.toString('hex')}`
+    console.log('ethAddr', ethAddr)
+    // const addressBuffer2 = Buffer.from(ethAddr.slice(2), 'hex')
+    // console.log({addressBuffer, addressBuffer2})
+    const injAddrFromEthAddr = bech32.encode(chainInfo.chain.bech32_prefix, bech32.toWords(addressBuffer))
+    console.log('injAddrFromEthAddr', injAddrFromEthAddr)
+
+    
+
     directSigner = new DirectSigner(auth, [], getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
-    address = await directSigner.getAddress();
+    
+    address = injAddrFromEthAddr // await directSigner.getAddress();
+    console.log('address', address);
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -69,13 +86,13 @@ describe('Token transfers', () => {
 
     // Transfer inj tokens
     directSigner.addEncoders(toEncoders(MsgSend));
-    await directSigner.signAndBroadcast(
+    const broadcastResponse = await directSigner.signAndBroadcast(
       {
         messages: [
           {
             typeUrl: MsgSend.typeUrl,
             value: {
-              fromAddress: address,
+              fromAddress: address, // address,
               toAddress: address2,
               amount: [token],
             },
@@ -86,6 +103,8 @@ describe('Token transfers', () => {
       },
       { deliverTx: true }
     );
+
+    assertIsCheckTxSuccess(broadcastResponse);
 
     const { balance } = await queryClient.balance({ address: address2, denom });
 
