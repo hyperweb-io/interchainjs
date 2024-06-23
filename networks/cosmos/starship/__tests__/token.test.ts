@@ -22,11 +22,12 @@ describe('Token transfers', () => {
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
+    getRestEndpoint: () => string,
     creditFromFaucet;
   let queryClient: RpcQuery;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet, getRestEndpoint } =
       useChain('osmosis'));
     denom = getCoin().base;
 
@@ -142,6 +143,7 @@ describe('Token transfers', () => {
 
     // send ibc tokens
     directSigner.addEncoders(toEncoders(MsgTransfer));
+    const lastBlock = (await (await fetch(`${getRestEndpoint()}/cosmos/base/tendermint/v1beta1/blocks/latest`)).json()).block?.header?.height
     const resp = await directSigner.signAndBroadcast(
       {
         messages: [
@@ -153,8 +155,11 @@ describe('Token transfers', () => {
               token,
               sender: address,
               receiver: cosmosAddress,
-              timeoutHeight: undefined,
-              timeoutTimestamp: BigInt(timeoutTime),
+              timeoutHeight: {
+                revisionNumber: BigInt(lastBlock),
+                revisionHeight: BigInt(lastBlock) + 100n
+              },
+              // timeoutTimestamp: !lastBlock?BigInt(timeoutTime):undefined,
               memo: 'test transfer',
             }),
           },

@@ -7,7 +7,7 @@ import { DirectSigner } from '@interchainjs/ethermint/direct';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
-} from '@interchainjs/injective/utils';
+} from '@interchainjs/cosmos/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
 import { RpcQuery } from 'interchainjs/query/rpc';
@@ -26,11 +26,12 @@ describe('Token transfers', () => {
   let chainInfo: ChainInfo,
     getCoin,
     getRpcEndpoint: () => string,
+    getRestEndpoint: () => string,
     creditFromFaucet;
   let queryClient: RpcQuery;
 
   beforeAll(async () => {
-    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
+    ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet, getRestEndpoint } =
       useChain('injective'));
     denom = getCoin().base;
 
@@ -160,6 +161,7 @@ describe('Token transfers', () => {
     };
 
     // send ibc tokens
+    const lastBlock = (await (await fetch(`${getRestEndpoint()}/cosmos/base/tendermint/v1beta1/blocks/latest`)).json()).block?.header?.height
     directSigner.addEncoders(toEncoders(MsgTransfer));
     const resp = await directSigner.signAndBroadcast(
       {
@@ -172,8 +174,11 @@ describe('Token transfers', () => {
               token,
               sender: address,
               receiver: cosmosAddress,
-              timeoutHeight: undefined,
-              timeoutTimestamp: BigInt(timeoutTime),
+              timeoutHeight: {
+                revisionNumber: BigInt(lastBlock),
+                revisionHeight: BigInt(lastBlock) + 100n
+              },
+              // timeoutTimestamp: BigInt(timeoutTime),
               memo: 'test transfer',
             }),
           },
