@@ -11,7 +11,7 @@ export type SyncCometBroadcastResponse = {
   hash: string;
 } & CheckTxResponse;
 
-export interface Commit {
+export interface CommitCometBroadcastResponse {
   hash: string;
   check_tx: CheckTxResponse;
   deliver_tx: DeliverTxResponse;

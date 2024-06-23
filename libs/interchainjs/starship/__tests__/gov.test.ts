@@ -3,6 +3,11 @@ import './setup.test';
 import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
 import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
 import {
+  OfflineAminoSigner,
+  OfflineDirectSigner,
+} from '@interchainjs/cosmos/types/wallet';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import {
   ProposalStatus,
   TextProposal,
   VoteOption,
@@ -20,11 +25,11 @@ import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { StargateSigningClient } from 'interchainjs/stargate';
-import { OfflineAminoSigner, OfflineDirectSigner } from 'interchainjs/types';
-import { Secp256k1Wallet } from 'interchainjs/wallets/secp256k1';
 import { useChain } from 'starshipjs';
 
 import { waitUntil } from '../src';
+
+const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Governance tests for osmosis', () => {
   let directSigner: OfflineDirectSigner,
@@ -32,7 +37,11 @@ describe('Governance tests for osmosis', () => {
     denom: string,
     directAddress: string,
     aminoAddress: string;
-  let chainInfo, getCoin, getRpcEndpoint: () => string, creditFromFaucet;
+  let commonPrefix: string,
+    chainInfo,
+    getCoin,
+    getRpcEndpoint: () => string,
+    creditFromFaucet;
 
   // Variables used accross testcases
   let queryClient: RpcQuery;
@@ -44,19 +53,25 @@ describe('Governance tests for osmosis', () => {
       useChain('osmosis'));
     denom = getCoin().base;
 
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
     // Initialize wallet
-    const directWallet = Secp256k1Wallet.fromMnemonic(generateMnemonic(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
-    const aminoWallet = Secp256k1Wallet.fromMnemonic(generateMnemonic(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    const directWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
+    const aminoWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
     directSigner = directWallet.toOfflineDirectSigner();
     aminoSigner = aminoWallet.toOfflineAminoSigner();
-    directAddress = (
-      await directSigner.getAccounts()
-    )[0].getAddress() as string;
-    aminoAddress = (await aminoSigner.getAccounts())[0].getAddress() as string;
+    directAddress = (await directSigner.getAccounts())[0].address;
+    aminoAddress = (await aminoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());

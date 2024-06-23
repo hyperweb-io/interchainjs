@@ -4,16 +4,19 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
 import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
+import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { StargateSigningClient } from 'interchainjs/stargate';
-import { OfflineDirectSigner } from 'interchainjs/types';
-import { Secp256k1Wallet } from 'interchainjs/wallets/secp256k1';
 import { useChain } from 'starshipjs';
+
+const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
   let protoSigner: OfflineDirectSigner, denom: string, address: string;
-  let chainInfo: ChainInfo,
+  let commonPrefix: string,
+    chainInfo: ChainInfo,
     getCoin: () => Asset,
     getRpcEndpoint: () => string,
     creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
@@ -24,13 +27,18 @@ describe('Token transfers', () => {
       useChain('osmosis'));
     denom = getCoin().base;
 
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const wallet = Secp256k1Wallet.fromMnemonic(mnemonic, {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    const wallet = Secp256k1HDWallet.fromMnemonic(mnemonic, [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
     protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].getAddress() as string;
+    address = (await protoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(getRpcEndpoint());
@@ -41,10 +49,13 @@ describe('Token transfers', () => {
   it('send osmosis token to address', async () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const wallet2 = Secp256k1Wallet.fromMnemonic(mnemonic, {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
-    const address2 = (await wallet2.getAccounts())[0].getAddress();
+    const wallet2 = Secp256k1HDWallet.fromMnemonic(mnemonic, [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
+    const address2 = (await wallet2.getAccounts())[0].address;
 
     const signingClient = StargateSigningClient.connectWithSigner(
       getRpcEndpoint(),
@@ -90,24 +101,27 @@ describe('Token transfers', () => {
       useChain('cosmos');
 
     // Initialize wallet address for cosmos chain
-    const cosmosWallet = Secp256k1Wallet.fromMnemonic(generateMnemonic(), {
-      prefix: cosmosChainInfo.chain.bech32_prefix,
-    });
-    const cosmosAddress = (await cosmosWallet.getAccounts())[0].getAddress();
+    const cosmosWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: cosmosChainInfo.chain.bech32_prefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
+    const cosmosAddress = (await cosmosWallet.getAccounts())[0].address;
 
     const ibcInfos = chainInfo.fetcher.getChainIbcData(
       chainInfo.chain.chain_id
     );
-    const ibcInfo = ibcInfos.find(
+    const sourceIbcInfo = ibcInfos.find(
       (i) =>
         i.chain_1.chain_name === chainInfo.chain.chain_id &&
         i.chain_2.chain_name === cosmosChainInfo.chain.chain_id
     );
 
-    expect(ibcInfo).toBeTruthy();
+    expect(sourceIbcInfo).toBeTruthy();
 
     const { port_id: sourcePort, channel_id: sourceChannel } =
-      ibcInfo!.channels[0].chain_1;
+      sourceIbcInfo!.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;

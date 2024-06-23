@@ -9,7 +9,7 @@ import {
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import {
-  BaseWalletAccount,
+  Auth,
   BroadcastOptions,
   CreateDocResponse,
   HttpEndpoint,
@@ -19,9 +19,11 @@ import {
   StdFee,
   StdSignDoc,
   UniSigner,
-  Wallet,
 } from '@interchainjs/types';
 import { Event } from '@interchainjs/types';
+import { Key } from '@interchainjs/utils';
+import { ripemd160 } from '@noble/hashes/ripemd160';
+import { sha256 } from '@noble/hashes/sha256';
 
 export type Algo = 'secp256k1' | 'ed25519' | 'sr25519';
 
@@ -226,9 +228,45 @@ export interface AccountData {
   pubkey: Uint8Array;
 }
 
-export interface CosmosAccount extends BaseWalletAccount {
-  getAddress(prefix?: string): Bech32Address;
+export interface ICosmosAccount {
+  publicKey: IKey;
+  address: Bech32Address;
+  auth: Auth;
   toAccountData(): AccountData;
 }
 
-export type CosmosBaseWallet = Wallet<CosmosAccount>;
+export function isICosmosAccount(
+  instance: AccountData | ICosmosAccount
+): instance is ICosmosAccount {
+  return (instance as ICosmosAccount).toAccountData !== undefined;
+}
+
+export class CosmosAccount implements ICosmosAccount {
+  constructor(
+    public prefix: string,
+    public auth: Auth,
+    public isPublicKeyCompressed: boolean = true
+  ) {}
+
+  get publicKey() {
+    return this.auth.getPublicKey(this.isPublicKeyCompressed);
+  }
+
+  get address() {
+    return Key.from(ripemd160(sha256(this.publicKey.value))).toBech32(
+      this.prefix
+    );
+  }
+
+  toAccountData() {
+    return {
+      address: this.address,
+      algo: this.auth.algo as Algo,
+      pubkey: this.publicKey.value,
+    };
+  }
+}
+
+export interface ICosmosWallet {
+  getAccounts: () => Promise<ICosmosAccount[]>;
+}
