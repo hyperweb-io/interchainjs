@@ -1,6 +1,6 @@
 helmName: interchainjs
-helmFile: ./config.yaml
+helmFile: ./config-v0.2.x.yaml
 helmRepo: starship
 helmRepoUrl: https://cosmology-tech.github.io/starship/
 helmChart: devnet
-helmVersion: v0.1.48
+helmVersion: v0.2.3

@@ -1,5 +1,24 @@
 ## TLDR
 
+Usage of starship cli 0.2.x
+```sh
+# sanity check
+yarn starship get-pods
+
+# start the chain
+yarn starship start
+
+# test
+yarn starship:test
+
+# watch 
+yarn starship:watch
+
+# stop ports and delete deployment
+yarn starship stop
+```
+
+
 Deploy
 
 ```sh

@@ -24,7 +24,7 @@
     "prepare": "npm run build",
     "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
     "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
-    "starship": "starship --config ./starship/configs/starship.yaml",
+    "starship": "starship --config ./starship/configs/config-v0.2.x.yaml",
     "starship:local": "starship --config ./starship/configs/starship.local.yaml",
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",

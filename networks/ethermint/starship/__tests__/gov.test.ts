@@ -38,7 +38,10 @@ describe("Governance tests for injective", () => {
     denom: string,
     directAddress: string,
     aminoAddress: string;
-  let chainInfo, getCoin, getRpcEndpoint: () => string, creditFromFaucet;
+  let chainInfo, 
+  getCoin: () => Promise<import("@chain-registry/types").Asset>, 
+  getRpcEndpoint: () => Promise<string>, 
+  creditFromFaucet: (address: string, denom?: string | null) => Promise<void>
 
   // Variables used accross testcases
   let queryClient: RpcQuery;
@@ -49,7 +52,7 @@ describe("Governance tests for injective", () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
       "injective"
     ));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     // Initialize auth
     const [directAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [hdPath])
@@ -57,14 +60,14 @@ describe("Governance tests for injective", () => {
     directSigner = new DirectSigner(
       directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       { prefix: chainInfo.chain.bech32_prefix }
     );
     aminoSigner = new AminoSigner(
       aminoAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       { prefix: chainInfo.chain.bech32_prefix }
     );
     directAddress = await directSigner.getAddress();
@@ -72,7 +75,7 @@ describe("Governance tests for injective", () => {
     console.log({directAddress, aminoAddress})
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     // Transfer inj to address
     
@@ -86,7 +89,7 @@ describe("Governance tests for injective", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000000000000000");
+    expect(balance!.amount).toEqual("100000000000000000");
   }, 10000);
 
   it("check amino address has tokens", async () => {
@@ -95,7 +98,7 @@ describe("Governance tests for injective", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000000000000000");
+    expect(balance!.amount).toEqual("100000000000000000");
   }, 10000);
 
   it("query validator address", async () => {
@@ -208,10 +211,10 @@ describe("Governance tests for injective", () => {
 
     // Get proposal id from log events
     const proposalIdEvent = result.deliver_tx?.events.find(
-      (event) => event.type === "submit_proposal"
+      (event: any) => event.type === "submit_proposal"
     );
     const proposalIdEncoded = proposalIdEvent!.attributes.find(
-      (attr) => toUtf8(fromBase64(attr.key)) === "proposal_id"
+      (attr: any) => toUtf8(fromBase64(attr.key)) === "proposal_id"
     )!.value;
     proposalId = toUtf8(fromBase64(proposalIdEncoded));
 

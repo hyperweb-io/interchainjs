@@ -23,9 +23,9 @@ const hdPath = "m/44'/60'/0'/0/0";
 describe("Staking tokens testing", () => {
   let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
-    getCoin,
-    getRpcEndpoint: () => string,
-    creditFromFaucet;
+    getCoin: () => Promise<import("@chain-registry/types").Asset>, 
+    getRpcEndpoint: () => Promise<string>, 
+    creditFromFaucet: (address: string, denom?: string | null) => Promise<void>
 
   // Variables used accross testcases
   let queryClient: RpcQuery;
@@ -36,7 +36,7 @@ describe("Staking tokens testing", () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } = useChain(
       "injective"
     ));
-    denom = getCoin().base;
+    denom =(await getCoin()).base;
 
     const mnemonic = generateMnemonic();
     // Initialize auth
@@ -44,7 +44,7 @@ describe("Staking tokens testing", () => {
     directSigner = new DirectSigner(
       auth,
       toEncoders(MsgDelegate),
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       {
         prefix: chainInfo.chain.bech32_prefix,
       }
@@ -52,7 +52,7 @@ describe("Staking tokens testing", () => {
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     // Transfer injective and ibc tokens to address, send only inj to address
     await creditFromFaucet(address);

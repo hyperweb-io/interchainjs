@@ -20,27 +20,27 @@ const cosmosHdPath = "m/44'/118'/0'/0/0";
 describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
-    getCoin,
-    getRpcEndpoint: () => string,
-    getRestEndpoint: () => string,
-    creditFromFaucet;
+    getCoin: () => Promise<import("@chain-registry/types").Asset>,
+    getRpcEndpoint: () => Promise<string>,
+    getRestEndpoint: () => Promise<string>,
+    creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
   let queryClient: RpcQuery;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet, getRestEndpoint } =
       useChain('osmosis'));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     const mnemonic = generateMnemonic();
     // Initialize auth
     const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [cosmosHdPath]);
-    directSigner = new DirectSigner(auth, [], getRpcEndpoint(), {
+    directSigner = new DirectSigner(auth, [], await getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     await creditFromFaucet(address);
   });
@@ -175,7 +175,7 @@ describe('Token transfers', () => {
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
     // Check osmos in address on cosmos chain
-    const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
+    const cosmosQueryClient = new RpcQuery(await cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
       resolveDenom: true,

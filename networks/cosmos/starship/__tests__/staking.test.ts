@@ -24,9 +24,9 @@ const cosmosHdPath = "m/44'/118'/0'/0/0";
 describe('Staking tokens testing', () => {
   let directWallet: ICosmosWallet, denom: string, address: string;
   let chainInfo: ChainInfo,
-    getCoin,
-    getRpcEndpoint: () => string,
-    creditFromFaucet;
+    getCoin: () => Promise<import("@chain-registry/types").Asset>,
+    getRpcEndpoint: () => Promise<string>,
+    creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
 
   // Variables used accross testcases
   let queryClient: RpcQuery;
@@ -36,7 +36,7 @@ describe('Staking tokens testing', () => {
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     const mnemonic = generateMnemonic();
     const prefix = chainInfo.chain.bech32_prefix;
@@ -52,7 +52,7 @@ describe('Staking tokens testing', () => {
     // (await directWallet.getAccount()).getAddress(prefix) as string;
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
@@ -88,7 +88,7 @@ describe('Staking tokens testing', () => {
     const directSigner = await DirectSigner.fromWallet(
       directWallet,
       toEncoders(MsgDelegate),
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       { prefix: chainInfo.chain.bech32_prefix }
     );
 

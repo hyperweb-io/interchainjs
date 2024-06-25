@@ -25,8 +25,8 @@ describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin,
-    getRpcEndpoint: () => string,
-    getRestEndpoint: () => string,
+    getRpcEndpoint: () => Promise<string>, 
+    getRestEndpoint: () => Promise<string>, 
     creditFromFaucet;
   let queryClient: RpcQuery;
 
@@ -49,7 +49,7 @@ describe('Token transfers', () => {
 
     
 
-    directSigner = new DirectSigner(auth, [], getRpcEndpoint(), {
+    directSigner = new DirectSigner(auth, [], await getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
     
@@ -57,7 +57,7 @@ describe('Token transfers', () => {
     console.log('address', address);
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     await creditFromFaucet(address);
   });
@@ -194,7 +194,7 @@ describe('Token transfers', () => {
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
     // Check osmos in address on cosmos chain
-    const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
+    const cosmosQueryClient = new RpcQuery(await cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
       resolveDenom: true,

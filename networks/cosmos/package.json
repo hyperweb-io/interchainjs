@@ -17,17 +17,15 @@
     "directory": "dist"
   },
   "scripts": {
-
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
-
     "prepare": "npm run build",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
     "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
-    "starship": "starship --config ./starship/configs/starship.yaml",
+    "starship": "starship --config ./starship/configs/config-v0.2.x.yaml",
     "starship:local": "starship --config ./starship/configs/starship.local.yaml",
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
