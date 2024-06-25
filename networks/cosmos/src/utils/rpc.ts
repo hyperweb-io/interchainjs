@@ -1,16 +1,8 @@
 import { HttpEndpoint, TxRpc } from '@interchainjs/types';
 import { fromBase64, randomId, toBase64, toHex } from '@interchainjs/utils';
 
-import prefixJson from '../data/prefix.json';
 import { BroadcastMode } from '../types';
-
-export const getPrefix = (chainId: string): string => {
-  const prefix = (prefixJson as any)[chainId];
-  if (!prefix) {
-    throw new Error(`Cannot find bech32_prefix for chain ${chainId}.`);
-  }
-  return prefix;
-};
+export { getPrefix } from './chain';
 
 export function createTxRpc(endpoint: HttpEndpoint): TxRpc {
   return {

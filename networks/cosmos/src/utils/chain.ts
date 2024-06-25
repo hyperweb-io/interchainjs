@@ -1,40 +1,53 @@
+import { chains } from '@chain-registry/v2';
+import { Chain } from '@chain-registry/v2-types';
 import { Price } from '@interchainjs/types';
 import { toPrice } from '@interchainjs/utils';
 import Decimal from 'decimal.js';
 
-import feeTokensJson from '../data/fee-tokens.json';
 import { defaultFeeOptions } from '../defaults';
 import { FeeOptions } from '../types';
 
+export function getChainById(chainId: string): Chain {
+  return chains.find((c) => c.chainId === chainId);
+}
+
+export function getPrefix(chainId: string): string {
+  const prefix = getChainById(chainId)?.bech32Prefix;
+  if (!prefix) {
+    throw new Error(`Cannot find bech32_prefix for chain ${chainId}.`);
+  }
+  return prefix;
+}
+
 export function getAvgGasPrice(chainId: string): Price {
-  const feeToken = (feeTokensJson as any)[chainId]?.[0];
-  if (typeof feeToken?.average_gas_price === 'undefined') {
-    throw new Error(`No average_gas_price found for chain ${chainId}`);
+  const feeToken = getChainById(chainId)?.fees?.feeTokens?.[0];
+  if (typeof feeToken?.averageGasPrice === 'undefined') {
+    throw new Error(`No averageGasPrice found for chain ${chainId}`);
   }
   return {
-    amount: new Decimal(feeToken.average_gas_price),
+    amount: new Decimal(feeToken.averageGasPrice),
     denom: feeToken.denom,
   };
 }
 
 export function getHighGasPrice(chainId: string): Price {
-  const feeToken = (feeTokensJson as any)[chainId]?.[0];
-  if (typeof feeToken?.high_gas_price === 'undefined') {
-    throw new Error(`No high_gas_price found for chain ${chainId}`);
+  const feeToken = getChainById(chainId)?.fees?.feeTokens?.[0];
+  if (typeof feeToken?.highGasPrice === 'undefined') {
+    throw new Error(`No highGasPrice found for chain ${chainId}`);
   }
   return {
-    amount: new Decimal(feeToken.high_gas_price),
+    amount: new Decimal(feeToken.highGasPrice),
     denom: feeToken.denom,
   };
 }
 
 export function getLowGasPrice(chainId: string): Price {
-  const feeToken = (feeTokensJson as any)[chainId]?.[0];
-  if (typeof feeToken?.low_gas_price === 'undefined') {
-    throw new Error(`No low_gas_price found for chain ${chainId}`);
+  const feeToken = getChainById(chainId)?.fees?.feeTokens?.[0];
+  if (typeof feeToken?.lowGasPrice === 'undefined') {
+    throw new Error(`No lowGasPrice found for chain ${chainId}`);
   }
   return {
-    amount: new Decimal(feeToken.low_gas_price),
+    amount: new Decimal(feeToken.lowGasPrice),
     denom: feeToken.denom,
   };
 }

@@ -29,7 +29,7 @@ import {
   TimeoutHeightOption,
   UniCosmosBaseSigner,
 } from '../types';
-import { calculateFee } from '../utils/fee';
+import { calculateFee } from '../utils/chain';
 import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from './tx-builder';
 
 export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
