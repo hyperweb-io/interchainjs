@@ -1,7 +1,10 @@
+name: ethermint
+version: v0.2.6
+
 chains:
   - id: injective-1
     name: injective
-    numValidators: 2
+    numValidators: 1
     ports:
       rest: 1313
       rpc: 26653
