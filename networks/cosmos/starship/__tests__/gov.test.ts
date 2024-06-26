@@ -207,10 +207,10 @@ describe('Governance tests for osmosis', () => {
 
     // Get proposal id from log events
     const proposalIdEvent = result.deliver_tx?.events.find(
-      (event) => event.type === 'submit_proposal'
+      (event:any) => event.type === 'submit_proposal'
     );
     const proposalIdEncoded = proposalIdEvent!.attributes.find(
-      (attr) => toUtf8(fromBase64(attr.key)) === 'proposal_id'
+      (attr:any) => toUtf8(fromBase64(attr.key)) === 'proposal_id'
     )!.value;
     proposalId = toUtf8(fromBase64(proposalIdEncoded));
 
