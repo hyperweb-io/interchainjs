@@ -28,6 +28,7 @@ import { StargateSigningClient } from 'interchainjs/stargate';
 import { useChain } from 'starshipjs';
 
 import { waitUntil } from '../src';
+import {Asset} from "@chain-registry/types";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -39,8 +40,8 @@ describe('Governance tests for osmosis', () => {
     aminoAddress: string;
   let commonPrefix: string,
     chainInfo,
-    getCoin,
-    getRpcEndpoint: () => string,
+    getCoin: () => Promise<Asset>,
+    getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
 
   // Variables used accross testcases
@@ -51,7 +52,7 @@ describe('Governance tests for osmosis', () => {
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     commonPrefix = chainInfo?.chain?.bech32_prefix;
 
@@ -74,7 +75,7 @@ describe('Governance tests for osmosis', () => {
     aminoAddress = (await aminoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     // Transfer osmosis to address
     await creditFromFaucet(directAddress);
@@ -109,7 +110,7 @@ describe('Governance tests for osmosis', () => {
 
   it('stake tokens to genesis validator', async () => {
     const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       directSigner
     );
 
@@ -153,7 +154,7 @@ describe('Governance tests for osmosis', () => {
 
   it('submit a txt proposal', async () => {
     const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       directSigner
     );
 
@@ -221,7 +222,7 @@ describe('Governance tests for osmosis', () => {
   it('vote on proposal using direct', async () => {
     // create direct address signing client
     const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       directSigner
     );
 
@@ -267,7 +268,7 @@ describe('Governance tests for osmosis', () => {
   it('vote on proposal using amino', async () => {
     // create amino address signing client
     const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       aminoSigner
     );
 

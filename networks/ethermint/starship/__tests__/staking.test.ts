@@ -18,12 +18,13 @@ import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import {Asset} from "@chain-registry/types";
 
 describe('Staking tokens testing', () => {
   let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
-    getCoin,
-    getRpcEndpoint: () => string,
+    getCoin: () => Promise<Asset>,
+    getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
 
   // Variables used accross testcases
@@ -34,7 +35,7 @@ describe('Staking tokens testing', () => {
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('injective'));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     const mnemonic = generateMnemonic();
     // Initialize auth
@@ -42,7 +43,7 @@ describe('Staking tokens testing', () => {
     directSigner = new DirectSigner(
       auth,
       toEncoders(MsgDelegate),
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       {
         prefix: chainInfo.chain.bech32_prefix,
       }
@@ -50,7 +51,7 @@ describe('Staking tokens testing', () => {
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     // Transfer injective and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);

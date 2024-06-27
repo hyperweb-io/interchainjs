@@ -1,14 +1,17 @@
+name: injective
+version: v0.2.6
+
 chains:
-  - name: injective-999
-    type: injective
+  - id: injective-1
+    name: injective
     numValidators: 1
     ports:
       rest: 1317
       rpc: 26657
       faucet: 8007
 
-  - name: cosmos-2
-    type: cosmos
+  - id: cosmoshub-4
+    name: cosmoshub
     numValidators: 1
     ports:
       rest: 1313
@@ -20,8 +23,8 @@ relayers:
     type: hermes
     replicas: 1
     chains:
-      - injective-999
-      - cosmos-2
+      - injective-1
+      - cosmoshub-4
 
 explorer:
   enabled: true
@@ -32,4 +35,3 @@ registry:
   enabled: true
   ports:
     rest: 8081
-    grpc: 9091

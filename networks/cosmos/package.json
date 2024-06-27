@@ -25,15 +25,13 @@
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
-    "setupKind": "starship setup-kind --config ./starship/configs/starship.yaml",
-    "cleanKind": "starship clean-kind --config ./starship/configs/starship.yaml",
-    "starship": "starship --config ./starship/configs/starship.yaml",
-    "starship:local": "starship --config ./starship/configs/starship.local.yaml",
+    "starship": "starship --config ./starship/configs/config.yaml",
+    "starship:local": "starship --config ./starship/configs/config.local.yaml",
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
-    "starship:all": "yarn starship setup && sleep 10 && yarn starship deploy && yarn starship wait-for-pods && yarn starship get-pods && yarn starship start-ports && yarn starship port-pids",
-    "starship:clean": "yarn starship clean"
+    "starship:all": "yarn starship start",
+    "starship:clean": "yarn starship stop"
   },
   "dependencies": {
     "@interchainjs/cosmos-types": "0.0.1-beta.2",
