@@ -31,6 +31,9 @@ yarn starship:test
 yarn starship:watch
 ```
 
+# test for a specific typescript file
+npx jest starship/__tests__/gov.test.ts --config='{"preset":"ts-jest","testEnvironment":"node","transform":{"^.+\\\\.tsx?$":"ts-jest"}}'
+
 Teardown
 
 ```sh
@@ -39,6 +42,9 @@ Teardown
 
 # stop ports and delete & remove helm chart
 yarn starship clean
+
+# use this at helm 0.2.x
+yarn starship stop
 ```
 
 ## 1. Installation
