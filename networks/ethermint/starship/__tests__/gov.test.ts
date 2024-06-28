@@ -89,7 +89,7 @@ describe("Governance tests for injective", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000000000000000");
+    expect(balance!.amount).toEqual("100000000000000000");
   }, 10000);
 
   it("check amino address has tokens", async () => {
@@ -98,7 +98,7 @@ describe("Governance tests for injective", () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual("10000000000000000000000");
+    expect(balance!.amount).toEqual("100000000000000000");
   }, 10000);
 
   it("query validator address", async () => {
