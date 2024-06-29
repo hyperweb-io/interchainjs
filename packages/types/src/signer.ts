@@ -35,6 +35,8 @@ export interface SignerConfig {
 export interface BroadcastOptions {
   checkTx?: boolean;
   deliverTx?: boolean;
+  timeoutMs?: number;
+  pollIntervalMs?: number;
 }
 
 export interface CreateDocResponse<Tx, Doc> {

@@ -1,3 +1,5 @@
+import { Event } from '@interchainjs/types';
+
 import { CheckTxResponse, DeliverTxResponse } from './signer';
 
 export interface AsyncCometBroadcastResponse {
@@ -61,4 +63,85 @@ export interface Status {
   node_info: NodeInfo;
   sync_info: SyncInfo;
   validator_info: ValidatorInfo;
+}
+
+export class TimeoutError extends Error {
+  public readonly txId: string;
+
+  public constructor(message: string, txId: string) {
+    super(message);
+    this.txId = txId;
+  }
+}
+
+/** A transaction that is indexed as part of the transaction history */
+export interface IndexedTx {
+  height: number;
+  /** The position of the transaction within the block. This is a 0-based index. */
+  txIndex: number;
+  /** Transaction hash (might be used as transaction ID). Guaranteed to be non-empty upper-case hex */
+  hash: string;
+  /** Transaction execution error code. 0 on success. */
+  code: number;
+  events: Event[];
+  /**
+   * A string-based log document.
+   *
+   * This currently seems to merge attributes of multiple events into one event per type
+   * (https://github.com/tendermint/tendermint/issues/9595). You might want to use the `events`
+   * field instead.
+   */
+  rawLog: string;
+  /**
+   * Raw transaction bytes stored in Tendermint.
+   *
+   * If you hash this, you get the transaction hash (= transaction ID):
+   *
+   * ```js
+   * import { sha256 } from "@cosmjs/crypto";
+   * import { toHex } from "@cosmjs/encoding";
+   *
+   * const transactionId = toHex(sha256(indexTx.tx)).toUpperCase();
+   * ```
+   *
+   * Use `decodeTxRaw` from @cosmjs/proto-signing to decode this.
+   */
+  tx: Uint8Array;
+  /**
+   * The message responses of the [TxMsgData](https://github.com/cosmos/cosmos-sdk/blob/v0.46.3/proto/cosmos/base/abci/v1beta1/abci.proto#L128-L140)
+   * as `Any`s.
+   * This field is an empty list for chains running Cosmos SDK < 0.46.
+   */
+  msgResponses: Array<{
+    typeUrl: string;
+    value: Uint8Array;
+  }>;
+  gasUsed: bigint;
+  gasWanted: bigint;
+  data: string;
+  /** nondeterministic */
+  log: string;
+  /** nondeterministic */
+  info: string;
+}
+
+export interface TxResponse {
+  hash: string;
+  height: number;
+  index: number;
+  tx: string; // base64 encoded
+  tx_result: ResponseDeliverTx;
+}
+
+interface ResponseDeliverTx {
+  code: number;
+  data: string;
+  /** nondeterministic */
+  log: string;
+  /** nondeterministic */
+  info: string;
+  gas_wanted: string;
+  gas_used: string;
+  events: Event[];
+  codespace: string;
 }

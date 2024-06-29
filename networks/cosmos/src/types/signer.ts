@@ -96,15 +96,18 @@ export interface CheckTxResponse {
 
 export interface DeliverTxResponse {
   code: number;
-  data: string;
+  data?: string;
+  txIndex: number;
   /** nondeterministic */
-  log: string;
+  log?: string;
   /** nondeterministic */
-  info: string;
+  info?: string;
+  rawLog?: string;
   gas_wanted: string;
   gas_used: string;
   events: Event[];
-  codespace: string;
+  codespace?: string;
+  msgResponses: Array<{ readonly typeUrl: string; readonly value: Uint8Array }>;
 }
 
 export interface BroadcastResponse {
