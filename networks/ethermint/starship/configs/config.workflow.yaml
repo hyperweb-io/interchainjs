@@ -1,6 +1,9 @@
+name: injective
+version: v0.2.6
+
 chains:
-  - name: injective-1
-    type: injective
+  - id: injective-1
+    name: injective
     numValidators: 2
     ports:
       rest: 1313
@@ -9,8 +12,8 @@ chains:
     resources:
       cpu: "0.2"
       memory: "200M"
-  - name: cosmoshub-4
-    type: cosmos
+  - id: cosmoshub-4
+    name: cosmoshub
     numValidators: 1
     ports:
       rest: 1317
@@ -35,7 +38,6 @@ registry:
   enabled: true
   ports:
     rest: 8081
-    grpc: 9091
   resources:
     cpu: "0.1"
     memory: "100M"

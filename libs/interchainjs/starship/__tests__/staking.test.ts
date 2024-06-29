@@ -22,8 +22,8 @@ describe('Staking tokens testing', () => {
   let protoSigner: OfflineDirectSigner, denom: string, address: string;
   let commonPrefix: string,
     chainInfo: ChainInfo,
-    getCoin: () => Asset,
-    getRpcEndpoint: () => string,
+    getCoin: () => Promise<Asset>,
+    getRpcEndpoint: () => Promise<string>,
     creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
 
   // Variables used accross testcases
@@ -34,7 +34,7 @@ describe('Staking tokens testing', () => {
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     commonPrefix = chainInfo?.chain?.bech32_prefix;
 
@@ -50,7 +50,7 @@ describe('Staking tokens testing', () => {
     address = (await protoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
@@ -84,7 +84,7 @@ describe('Staking tokens testing', () => {
 
   it('stake tokens to genesis validator', async () => {
     const signingClient = StargateSigningClient.connectWithSigner(
-      getRpcEndpoint(),
+      await getRpcEndpoint(),
       protoSigner
     );
 

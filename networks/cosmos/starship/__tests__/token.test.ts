@@ -14,32 +14,33 @@ import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import {Asset} from "@chain-registry/types";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
-    getCoin,
-    getRpcEndpoint: () => string,
+    getCoin: () => Promise<Asset>,
+    getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
   let queryClient: RpcQuery;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
-    denom = getCoin().base;
+    denom = (await getCoin()).base;
 
     const mnemonic = generateMnemonic();
     // Initialize auth
     const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [cosmosHdPath]);
-    directSigner = new DirectSigner(auth, [], getRpcEndpoint(), {
+    directSigner = new DirectSigner(auth, [], await getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(getRpcEndpoint());
+    queryClient = new RpcQuery(await getRpcEndpoint());
 
     await creditFromFaucet(address);
   });
@@ -95,7 +96,7 @@ describe('Token transfers', () => {
 
   it('send ibc osmo tokens to address on cosmos chain', async () => {
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
-      useChain('cosmos');
+      useChain('cosmoshub');
 
     // Initialize wallet address for cosmos chain
     const [cosmosAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
@@ -108,12 +109,12 @@ describe('Token transfers', () => {
       .toBech32(cosmosChainInfo.chain.bech32_prefix);
 
     const ibcInfos = chainInfo.fetcher.getChainIbcData(
-      chainInfo.chain.chain_id
+      chainInfo.chain.chain_name
     );
     const ibcInfo = ibcInfos.find(
       (i) =>
-        i.chain_1.chain_name === chainInfo.chain.chain_id &&
-        i.chain_2.chain_name === cosmosChainInfo.chain.chain_id
+        i.chain_1.chain_name === chainInfo.chain.chain_name &&
+        i.chain_2.chain_name === cosmosChainInfo.chain.chain_name
     );
 
     expect(ibcInfo).toBeTruthy();
@@ -170,7 +171,7 @@ describe('Token transfers', () => {
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
     // Check osmos in address on cosmos chain
-    const cosmosQueryClient = new RpcQuery(cosmosRpcEndpoint());
+    const cosmosQueryClient = new RpcQuery(await cosmosRpcEndpoint());
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,
       resolveDenom: true,

@@ -1,6 +1,9 @@
+name: interchainjs
+version: v0.2.6
+
 chains:
-  - name: osmosis-1
-    type: osmosis
+  - id: osmosis-1
+    name: osmosis
     image: pyramation/osmosis:v16.1.0
     numValidators: 1
     ports:
@@ -8,8 +11,8 @@ chains:
       rpc: 26657
       faucet: 8007
 
-  - name: cosmos-2
-    type: cosmos
+  - id: cosmos-2
+    name: cosmoshub
     numValidators: 1
     ports:
       rest: 1313
@@ -33,4 +36,3 @@ registry:
   enabled: true
   ports:
     rest: 8081
-    grpc: 9091
