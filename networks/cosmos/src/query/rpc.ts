@@ -170,7 +170,7 @@ export class RpcClient implements QueryClient {
     txBytes: Uint8Array,
     options?: BroadcastOptions
   ): Promise<BroadcastResponse> {
-    const { checkTx, deliverTx } = { ...options, ...defaultBroadcastOptions };
+    const { checkTx, deliverTx, timeoutMs, pollIntervalMs} = { ...defaultBroadcastOptions, ...options };
 
     const mode: BroadcastMode =
       checkTx && deliverTx
@@ -183,6 +183,7 @@ export class RpcClient implements QueryClient {
       mode === 'broadcast_tx_commit' ? 'broadcast_tx_async' : mode,
       txBytes
     );
+
     switch (mode) {
     case 'broadcast_tx_async':
       const { hash: hash1, ...rest1 } = resp as AsyncCometBroadcastResponse;
@@ -200,21 +201,19 @@ export class RpcClient implements QueryClient {
       let timedOut = false;
       const txPollTimeout = setTimeout(() => {
         timedOut = true;
-      }, options.timeoutMs);
+      }, timeoutMs);
 
       const pollForTx = async (txId: string): Promise<BroadcastResponse> => {
         if (timedOut) {
           throw new TimeoutError(
             `Transaction with ID ${txId} was submitted but was not yet found on the chain. You might want to check later. There was a wait of ${
-              options.timeoutMs / 1000
+              timeoutMs / 1000
             } seconds.`,
             txId
           );
         }
-        await sleep(options.pollIntervalMs);
+        await sleep(pollIntervalMs);
         const result = await this.getTx(txId);
-
-        console.log(result);
 
         return result
           ? {
