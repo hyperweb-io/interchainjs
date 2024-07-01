@@ -14,6 +14,8 @@ yarn starship deploy
 
 # wait til STATUS=Running
 yarn starship get-pods
+# use this at helm 0.2.x
+yarn starship wait-for-pods
 
 # port forwarding
 yarn starship start-ports
