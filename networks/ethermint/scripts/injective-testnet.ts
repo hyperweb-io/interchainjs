@@ -12,14 +12,15 @@ const msg = MsgSend.fromJSON({
   srcInjectiveAddress: injectiveAddress,
   dstInjectiveAddress: injectiveAddress,
 });
+console.log('msg', msg)
 
-(async ()=>{
+;(async ()=>{
   const txResponse = await new MsgBroadcasterWithPk({
     privateKey,
     network: Network.Testnet
   }).broadcast({
-    msgs: msg
+    msgs: msg,
+    // memo: ''
   })
-
   console.log('txResponse', txResponse)
 })()
