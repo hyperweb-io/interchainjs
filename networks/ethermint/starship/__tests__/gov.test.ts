@@ -80,6 +80,7 @@ describe("Governance tests for injective", () => {
     // Transfer inj to address
     
     await creditFromFaucet(directAddress);
+    await new Promise((resolve) => setTimeout(resolve, 6000));
     await creditFromFaucet(aminoAddress);
   }, 200000);
 
