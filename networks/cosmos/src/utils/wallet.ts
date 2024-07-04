@@ -1,5 +1,5 @@
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { Auth, SignDocResponse, SignerConfig } from '@interchainjs/types';
+import { ByteAuth, SignDocResponse, SignerConfig } from '@interchainjs/types';
 
 import { defaultSignerConfig } from '../defaults';
 import { CosmosAminoDoc } from '../types';
@@ -7,7 +7,7 @@ import { encodeStdSignDoc } from './amino';
 
 export class SignResponseFromAuth {
   static signDirect(
-    auth: Auth,
+    auth: ByteAuth,
     doc: SignDoc,
     config: SignerConfig = defaultSignerConfig
   ): SignDocResponse<SignDoc> {
@@ -22,7 +22,7 @@ export class SignResponseFromAuth {
   }
 
   static signAmino(
-    auth: Auth,
+    auth: ByteAuth,
     doc: CosmosAminoDoc,
     config: SignerConfig = defaultSignerConfig
   ): SignDocResponse<CosmosAminoDoc> {

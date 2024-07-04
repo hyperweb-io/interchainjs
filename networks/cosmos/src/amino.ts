@@ -8,9 +8,10 @@ import {
   CosmosAminoDoc,
   CosmosAminoSigner,
   Encoder,
-  ICosmosWallet,
   SignerOptions,
 } from './types';
+import { AminoDocAuth } from './types/docAuth';
+import { OfflineAminoSigner } from './types/wallet';
 
 export class AminoDocSigner extends CosmosDocSigner<CosmosAminoDoc> {
   getTxBuilder(): AminoSigBuilder {
@@ -82,25 +83,25 @@ export class AminoSigner
   }
 
   static async fromWallet(
-    wallet: ICosmosWallet,
+    signer: OfflineAminoSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = (await wallet.getAccounts()).map((acct) => acct.auth);
+    const [auth] = await AminoDocAuth.fromOfflineSigner(signer);
 
     return new AminoSigner(auth, encoders, converters, endpoint, options);
   }
 
   static async fromWalletToSigners(
-    wallet: ICosmosWallet,
+    signer: OfflineAminoSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = (await wallet.getAccounts()).map((acct) => acct.auth);
+    const auths = await AminoDocAuth.fromOfflineSigner(signer);
 
     return auths.map((auth) => {
       return new AminoSigner(auth, encoders, converters, endpoint, options);

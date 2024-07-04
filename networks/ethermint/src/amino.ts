@@ -8,11 +8,12 @@ import {
   Encoder,
   SignerOptions,
 } from '@interchainjs/cosmos/types';
+import { AminoDocAuth } from '@interchainjs/cosmos/types/docAuth';
+import { OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
-import { constructAuthsFromWallet } from '@interchainjs/utils';
 
-import { defaultPublicKeyConfig, defaultSignerOptions } from './defaults';
-import { InjectiveAminoSigner, InjectiveBaseWallet } from './types';
+import { defaultSignerOptions } from './defaults';
+import { InjectiveAminoSigner } from './types';
 
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
@@ -33,30 +34,26 @@ export class AminoSigner
   }
 
   static async fromWallet(
-    wallet: InjectiveBaseWallet,
+    signer: OfflineAminoSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
+    const [auth] = await AminoDocAuth.fromOfflineSigner(signer);
+
     return new AminoSigner(auth, encoders, converters, endpoint, options);
   }
 
   static async fromWalletToSigners(
-    wallet: InjectiveBaseWallet,
+    signer: OfflineAminoSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
+    const auths = await AminoDocAuth.fromOfflineSigner(signer);
+
     return auths.map((auth) => {
       return new AminoSigner(auth, encoders, converters, endpoint, options);
     });

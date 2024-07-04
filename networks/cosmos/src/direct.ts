@@ -7,9 +7,10 @@ import {
   CosmosDirectDoc,
   CosmosDirectSigner,
   Encoder,
-  ICosmosWallet,
   SignerOptions,
 } from './types';
+import { DirectDocAuth } from './types/docAuth';
+import { OfflineDirectSigner } from './types/wallet';
 
 export class DirectDocSigner extends CosmosDocSigner<CosmosDirectDoc> {
   getTxBuilder(): DirectSigBuilder {
@@ -46,22 +47,22 @@ export class DirectSigner
   }
 
   static async fromWallet(
-    wallet: ICosmosWallet,
+    signer: OfflineDirectSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = (await wallet.getAccounts()).map((acct) => acct.auth);
+    const [auth] = await DirectDocAuth.fromOfflineSigner(signer);
     return new DirectSigner(auth, encoders, endpoint, options);
   }
 
   static async fromWalletToSigners(
-    wallet: ICosmosWallet,
+    signer: OfflineDirectSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = (await wallet.getAccounts()).map((acct) => acct.auth);
+    const auths = await DirectDocAuth.fromOfflineSigner(signer);
 
     return auths.map((auth) => {
       return new DirectSigner(auth, encoders, endpoint, options);

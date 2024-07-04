@@ -1,4 +1,4 @@
-import { BaseWallet } from '@interchainjs/types';
+import { BaseWallet, ByteAuth } from '@interchainjs/types';
 
 export async function constructAuthsFromWallet(
   wallet: BaseWallet,
@@ -7,6 +7,7 @@ export async function constructAuthsFromWallet(
   const accountAuths = await wallet.getAccountAuths();
 
   return accountAuths.map(({ account, auth }) => {
+    const byteAuth = auth as ByteAuth;
     return {
       algo: account.algo,
       getPublicKey(isCompressed?: boolean) {
@@ -23,7 +24,7 @@ export async function constructAuthsFromWallet(
         );
       },
       sign(_data: Uint8Array) {
-        return auth.sign(_data);
+        return byteAuth.sign(_data);
       },
     };
   });

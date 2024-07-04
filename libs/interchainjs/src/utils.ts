@@ -1,7 +1,4 @@
-
-
 import { Auth } from '@interchainjs/types';
-
 
 /**
  * An error when broadcasting the transaction. This contains the CheckTx errors
@@ -39,9 +36,6 @@ export async function sleep(ms: number): Promise<void> {
 export const defaultAuth: Auth = {
   algo: 'secp256k1',
   getPublicKey: (_isCompressed?: boolean) => {
-    throw new Error('Not implemented yet');
-  },
-  sign: (_data: Uint8Array) => {
     throw new Error('Not implemented yet');
   },
 };

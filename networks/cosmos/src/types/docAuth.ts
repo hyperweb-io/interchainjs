@@ -36,6 +36,19 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
       signDoc: doc,
     };
   }
+
+  static async fromOfflineSigner(offlineSigner: OfflineAminoSigner) {
+    const accounts = await offlineSigner.getAccounts();
+
+    return accounts.map((account) => {
+      return new AminoDocAuth(
+        account.algo,
+        account.address,
+        account.pubkey,
+        offlineSigner
+      );
+    });
+  }
 }
 
 export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
@@ -46,5 +59,18 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
       signature: Key.fromBase64(resp.signature.signature),
       signDoc: doc,
     };
+  }
+
+  static async fromOfflineSigner(offlineSigner: OfflineDirectSigner) {
+    const accounts = await offlineSigner.getAccounts();
+
+    return accounts.map((account) => {
+      return new DirectDocAuth(
+        account.algo,
+        account.address,
+        account.pubkey,
+        offlineSigner
+      );
+    });
   }
 }

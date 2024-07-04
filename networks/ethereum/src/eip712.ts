@@ -1,6 +1,7 @@
 import {
   Auth,
   BaseSigner,
+  ByteAuth,
   HttpEndpoint,
   SignDocResponse,
   SignerConfig,
@@ -62,7 +63,11 @@ export class Eip712Signer<BroadcastResponse extends { hash: string }>
   }
 
   async signDoc(doc: Eip712Doc): Promise<SignDocResponse<Eip712Doc>> {
-    return SignResponseFromAuth.signEip712Data(this.auth, doc, this.config);
+    return SignResponseFromAuth.signEip712Data(
+      this.auth as ByteAuth,
+      doc,
+      this.config
+    );
   }
 
   async sign(
