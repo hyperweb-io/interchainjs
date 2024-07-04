@@ -270,5 +270,5 @@ export class CosmosAccount implements ICosmosAccount {
 }
 
 export interface ICosmosWallet {
-  getAccounts: () => Promise<ICosmosAccount[]>;
+  getAccounts: () => Promise<AccountData[]>;
 }

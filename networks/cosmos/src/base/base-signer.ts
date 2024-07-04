@@ -10,6 +10,7 @@ import {
   BroadcastOptions,
   HttpEndpoint,
   IKey,
+  isDocAuth,
   SignDocResponse,
   SignerConfig,
   SignResponse,
@@ -42,12 +43,16 @@ export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
   txBuilder: BaseCosmosSigBuilder<SignDoc>;
   abstract getTxBuilder(): BaseCosmosSigBuilder<SignDoc>;
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
-    const sig = await this.txBuilder.buildSignature(doc);
+    if (isDocAuth<SignDoc>(this.auth)) {
+      return await this.auth.signDoc(doc);
+    } else {
+      const sig = await this.txBuilder.buildSignature(doc);
 
-    return {
-      signature: sig,
-      signDoc: doc,
-    };
+      return {
+        signature: sig,
+        signDoc: doc,
+      };
+    }
   }
 }
 

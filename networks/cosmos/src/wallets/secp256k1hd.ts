@@ -5,6 +5,7 @@ import { AminoDocSigner } from '../amino';
 import { defaultSignerConfig } from '../defaults';
 import { DirectDocSigner } from '../direct';
 import {
+  AccountData,
   CosmosAccount,
   CosmosAminoDoc,
   CosmosDirectDoc,
@@ -48,8 +49,10 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     return new Secp256k1HDWallet(accounts, options?.signerConfig);
   }
 
-  async getAccounts(): Promise<ICosmosAccount[]> {
-    return this.accounts;
+  async getAccounts(): Promise<AccountData[]> {
+    return this.accounts.map((acct) => {
+      return acct.toAccountData();
+    });
   }
 
   private getAcctFromBech32Addr(address: string) {
