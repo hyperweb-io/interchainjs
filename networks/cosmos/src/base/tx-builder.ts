@@ -178,13 +178,13 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     const doc = await this.buildDoc({ messages, fee, memo, options }, txRaw);
 
     // sign signature to the doc bytes
-    const signature = await this.buildSignature(doc);
+    const signResp = await this.ctx.signer.signDoc(doc);
 
     // build TxRaw
     const signedTxRaw = TxRaw.fromPartial({
       bodyBytes: txRaw.bodyBytes,
       authInfoBytes: txRaw.authInfoBytes,
-      signatures: [signature.value],
+      signatures: [signResp.signature.value],
     });
 
     return {

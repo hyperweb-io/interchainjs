@@ -1,5 +1,6 @@
 import './setup.test';
 
+import { Asset } from '@chain-registry/types';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
 import { AminoSigner } from '@interchainjs/cosmos/amino';
 import { DirectSigner } from '@interchainjs/cosmos/direct';
@@ -28,7 +29,6 @@ import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic, waitUntil } from '../src';
-import { Asset } from "@chain-registry/types";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
