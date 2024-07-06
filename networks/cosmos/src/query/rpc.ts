@@ -9,7 +9,7 @@ import {
   TxBody,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BroadcastOptions, HttpEndpoint } from '@interchainjs/types';
+import { BroadcastOptions, HttpEndpoint, IKey } from '@interchainjs/types';
 import { fromBase64, isEmpty, Key, toHttpEndpoint } from '@interchainjs/utils';
 
 import { defaultAccountParser, defaultBroadcastOptions } from '../defaults';
@@ -37,14 +37,14 @@ export class RpcClient implements QueryClient {
   protected accountNumber?: bigint;
   protected readonly authQuery: AuthQuery;
   protected readonly txQuery: TxQuery;
-  protected readonly publicKeyHash?: Key;
+  publicKeyHash?: Key;
   protected parseAccount: (encodedAccount: EncodedMessage) => BaseAccount =
     defaultAccountParser;
   protected _prefix?: string;
 
   constructor(
     endpoint: string | HttpEndpoint,
-    publicKeyHash?: Key,
+    publicKeyHash?: IKey,
     prefix?: string
   ) {
     this.endpoint = toHttpEndpoint(endpoint);
@@ -59,6 +59,10 @@ export class RpcClient implements QueryClient {
     parseBaseAccount: (encodedAccount: EncodedMessage) => BaseAccount
   ) {
     this.parseAccount = parseBaseAccount;
+  }
+
+  setHashedPubkey(key: IKey) {
+    this.publicKeyHash = key;
   }
 
   async getPrefix() {
@@ -170,7 +174,10 @@ export class RpcClient implements QueryClient {
     txBytes: Uint8Array,
     options?: BroadcastOptions
   ): Promise<BroadcastResponse> {
-    const { checkTx, deliverTx, timeoutMs, pollIntervalMs} = { ...defaultBroadcastOptions, ...options };
+    const { checkTx, deliverTx, timeoutMs, pollIntervalMs } = {
+      ...defaultBroadcastOptions,
+      ...options,
+    };
 
     const mode: BroadcastMode =
       checkTx && deliverTx

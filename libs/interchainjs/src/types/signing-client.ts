@@ -14,6 +14,7 @@ export interface SignerOptions {
   broadcastTimeoutMs?: number;
   broadcastPollIntervalMs?: number;
   gasPrice?: Price | string;
+  prefix?: string;
 }
 
 export interface SignerData {

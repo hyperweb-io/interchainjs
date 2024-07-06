@@ -167,6 +167,7 @@ export type TxOptions = {
 
 export interface QueryClient {
   readonly endpoint: HttpEndpoint;
+  setHashedPubkey: (key: IKey) => void;
   getChainId: () => Promise<string>;
   getAddress: () => Promise<string>;
   getAccountNumber: () => Promise<bigint>;
