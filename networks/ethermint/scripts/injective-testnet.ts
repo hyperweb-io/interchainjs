@@ -1,5 +1,6 @@
 import { MsgSend, MsgBroadcasterWithPk } from '@injectivelabs/sdk-ts'
 import { Network } from '@injectivelabs/networks'
+import { PublicKey } from '@injectivelabs/sdk-ts'
 
 const privateKey = 'b6627188cc31f4dd3e36445e1e77fe3e1ab085f774ab264ccbc2dd767694b993'
 const injectiveAddress = 'inj10a64save5u2rpdru50x5kvwe7uyqfmshl9vwy2'

@@ -240,9 +240,423 @@ interface TxResponse {
   events?: any[]
 }
 const DEFAULT_BLOCK_TIME_IN_SECONDS = 2
-const DEFAULT_TX_BLOCK_INCLUSION_TIMEOUT_IN_MS =
-  DEFAULT_BLOCK_TIMEOUT_HEIGHT * DEFAULT_BLOCK_TIME_IN_SECONDS * 1000
-export class TxGrpcApi implements TxConcreteApi {
+const DEFAULT_TX_BLOCK_INCLUSION_TIMEOUT_IN_MS = DEFAULT_BLOCK_TIMEOUT_HEIGHT * DEFAULT_BLOCK_TIME_IN_SECONDS * 1000
+
+abstract class ConcreteException extends Error implements Exception {
+  /**
+   * The name of the error class as it the constructor.name might
+   * give a minified class name when we bundle using webpack
+   */
+  public static errorClass = ''
+
+  /**
+   * The type of the Error
+   */
+  public type: ErrorType = ErrorType.Unspecified
+
+  /**
+   * Error specific code (HttpStatus, GrpcStatus, etc)
+   */
+  public code: ErrorCode = UnspecifiedErrorCode
+
+  /**
+   * The name of the error (the name of the instance of the Exception)
+   */
+  public name!: string
+
+  /**
+   * The name of the error (the name of the instance of the Exception)
+   * Needed for reporting reasons, ex: bugsnag
+   */
+  public errorClass!: string
+
+  /**
+   * Providing more context
+   * (ex: endpoint on http request)
+   */
+  public context?: string
+
+  /**
+   * Providing more context as to where the exception was thrown
+   * (ex: on-chain module, etc)
+   */
+  public contextModule?: string
+
+  /**
+   * Providing more context as to why the exception was thrown
+   * (ex: on-chain error code, etc)
+   */
+  public contextCode?: ErrorContextCode
+
+  /**
+   * Parsed message of the exception
+   */
+  public message: string = ''
+
+  /**
+   * The original stack of the error
+   */
+  public stack?: string = ''
+
+  /**
+   * The original message of the error
+   */
+  public originalMessage: string = ''
+
+  constructor(error: Error, context?: ErrorContext) {
+    super(error.message)
+    this.parseError(error)
+    this.parseContext(context)
+    this.parse()
+  }
+
+  public parse(): void {
+    //
+  }
+
+  public parseError(error: Error) {
+    this.setName(this.errorClass || this.constructor.name)
+    this.setStack(error.stack || '')
+    this.setMessage(error.message)
+    this.originalMessage = error.message
+  }
+
+  public parseContext(errorContext?: ErrorContext) {
+    const { contextModule, type, code, context } = errorContext || {
+      contextModule: 'Unknown',
+      context: 'Unknown',
+      code: UnspecifiedErrorCode,
+      type: ErrorType.Unspecified,
+    }
+
+    this.context = context
+    this.contextModule = contextModule
+    this.type = type || ErrorType.Unspecified
+    this.code = code || UnspecifiedErrorCode
+  }
+
+  public setType(type: ErrorType) {
+    this.type = type
+  }
+
+  public setCode(code: ErrorCode) {
+    this.code = code
+  }
+
+  public setContext(context: string) {
+    this.context = context
+  }
+
+  public setOriginalMessage(message: string) {
+    this.originalMessage = message
+  }
+
+  public setStack(stack: string) {
+    try {
+      this.stack = stack
+    } catch (e) {
+      // throw nothing here
+    }
+  }
+
+  public setName(name: string) {
+    super.name = name
+    this.name = name
+    this.errorClass = name
+  }
+
+  public setMessage(message: string) {
+    super.message = message
+    this.message = message
+  }
+
+  public setContextModule(contextModule: string) {
+    this.contextModule = contextModule
+  }
+
+  public setContextCode(code: ErrorContextCode) {
+    this.contextCode = code
+  }
+
+  public toOriginalError(): Error {
+    const error = new Error(this.originalMessage)
+    error.stack = this.stack
+    error.name = this.name || ''
+
+    return error
+  }
+
+  public toError(): Error {
+    const error = new Error(this.message)
+    error.stack = this.stack
+    error.name = this.name || ''
+
+    return error
+  }
+
+  public toCompactError(): Error {
+    const name = this.name || toPascalCase(this.type)
+
+    const error = new Error(
+      `${this.message} | ${JSON.stringify({
+        originalMessage: this.originalMessage,
+        message: this.message,
+        errorClass: name,
+        code: this.code,
+        type: this.type,
+        context: this.context,
+        contextModule: this.contextModule,
+        contextCode: this.contextCode,
+        stack: (this.stack || '').split('\n').map((line) => line.trim()),
+      })}`,
+    )
+    error.stack = this.stack
+    error.name = this.name || toPascalCase(this.type)
+
+    return error
+  }
+
+  public toJson(): string {
+    return JSON.stringify({ error: this.message, stack: this.stack })
+  }
+
+  public toObject() {
+    const name = this.name || toPascalCase(this.type)
+
+    return {
+      message: this.message,
+      originalMessage: this.originalMessage,
+      errorClass: name,
+      code: this.code,
+      type: this.type,
+      context: this.context,
+      contextModule: this.contextModule,
+      contextCode: this.contextCode,
+      stack: (this.stack || '').split('\n').map((line) => line.trim()),
+    }
+  }
+
+  public toString() {
+    return this.message
+  }
+}
+
+interface ErrorContext {
+  code?: ErrorCode
+  type?: ErrorType
+
+  /**
+   * Additional context needed for the exception
+   */
+  context?: string
+
+  /**
+   * Where is the exception thrown
+   */
+  contextModule?: string
+
+  /**
+   * Needed when we get a code error from a Http/Grpc Request
+   * and we need to specify the error code for the particular message
+   * for example why the transaction has failed
+   * */
+  contextCode?: ErrorContextCode
+}
+
+enum ErrorType {
+  Unspecified = 'unspecified',
+  ChainError = 'chain-error',
+  ExecutionError = 'execution-error',
+  NotFoundError = 'not-found-error',
+  ValidationError = 'validation-error',
+  WalletError = 'wallet-error',
+  WalletNotInstalledError = 'wallet-not-installed-error',
+  GrpcUnaryRequest = 'grpc-unary-request',
+  HttpRequest = 'http-request',
+  Web3 = 'web3',
+}
+
+const mapFailedTransactionMessageFromString = (
+  message: string,
+): {
+  message: string
+  code: ErrorContextCode
+  module?: TransactionChainErrorModule
+} => {
+  const parsedMessage = parseErrorMessage(message)
+  const messageInMapKey = (
+    Object.keys(chainErrorMessagesMap) as Array<
+      keyof typeof chainErrorMessagesMap
+    >
+  ).find((key) => parsedMessage.toLowerCase().includes(key.toLowerCase()))
+
+  if (!messageInMapKey) {
+    return {
+      message: parsedMessage,
+      code: UnspecifiedErrorCode,
+      module: undefined,
+    }
+  }
+
+  return chainErrorMessagesMap[messageInMapKey]
+}
+
+const mapFailedTransactionMessage = (
+  message: string,
+  context?: ErrorContext,
+): { message: string; code: ErrorContextCode; contextModule?: string } => {
+  const getWasmErrorFromMessage = (message: string) => {
+    if (!message.includes('execute wasm contract failed')) {
+      return
+    }
+
+    const ReasonPattern = /(.*?)execute wasm contract failed(.*?)/g
+    const reason = ReasonPattern.exec(message)
+
+    if (!reason) {
+      return
+    }
+
+    if (reason.length < 2) {
+      return
+    }
+
+    return reason[1].replace(
+      'failed to execute message; message index: 0: ',
+      '',
+    )
+  }
+
+  const getABCICode = (message: string): number | undefined => {
+    const ABCICodePattern = /{key:"ABCICode"[ \t]+value:"(.*?)"}/g
+
+    const ABCICode = ABCICodePattern.exec(message)
+
+    if (!ABCICode || ABCICode.length < 2) {
+      return
+    }
+
+    return Number(ABCICode[1])
+  }
+
+  const getContextModule = (message: string): string | undefined => {
+    const codespacePattern = /{key:"Codespace"[ \t]+value:"(.*?)"}/g
+
+    const codespace = codespacePattern.exec(message)
+
+    if (!codespace || codespace.length < 2) {
+      return
+    }
+
+    return codespace[1]
+  }
+
+  const getReason = (message: string): string | undefined => {
+    const ReasonPattern = /\[reason:"(.*?)"/g
+
+    const codespace = ReasonPattern.exec(message)
+
+    if (!codespace || codespace.length < 2) {
+      if (message.includes('execute wasm contract failed')) {
+        return getWasmErrorFromMessage(message)
+      }
+
+      return
+    }
+
+    const reason = codespace[1]
+
+    if (reason === 'execute wasm contract failed') {
+      const SubReasonPattern = /(.*?)Generic error:(.*?): execute wasm/g
+      const subReason = SubReasonPattern.exec(message)
+
+      if (!subReason) {
+        return reason
+      }
+
+      return subReason[2] || reason
+    }
+
+    return reason
+  }
+
+  const ABCICode = context && context.code ? context.code : getABCICode(message)
+  const contextModule = context?.contextModule || getContextModule(message)
+  const reason = getReason(message)
+
+  if (!ABCICode || !contextModule) {
+    const failedTxMap = mapFailedTransactionMessageFromString(message)
+
+    return {
+      ...failedTxMap,
+      message: reason || failedTxMap.message,
+    }
+  }
+
+  const codespaceErrorMessages = chainModuleCodeErrorMessagesMap[contextModule]
+
+  if (!codespaceErrorMessages) {
+    return {
+      message: reason || message,
+      code: ABCICode,
+      contextModule,
+    }
+  }
+
+  return {
+    message: codespaceErrorMessages[ABCICode] || reason || message,
+    code: ABCICode,
+    contextModule,
+  }
+}
+
+const parseErrorMessage = (message: string): string => {
+  const firstParse = message.split('message index: 0:')
+
+  if (firstParse.length === 1) {
+    const [firstParseString] = firstParse
+    const secondParse = firstParseString.split(': invalid request')
+    const [secondParseString] = secondParse
+
+    return secondParseString.trim().trimEnd()
+  }
+
+  const [, firstParseString] = firstParse
+  const [actualMessage] = firstParseString.split(': invalid request')
+
+  return actualMessage.trim().trimEnd()
+}
+
+class TransactionException extends ConcreteException {
+  public errorClass: string = 'TransactionException'
+
+  constructor(error: Error, context?: ErrorContext) {
+    super(error, context)
+
+    this.type = ErrorType.ChainError
+  }
+
+  public parse(): void {
+    const { message, context, contextModule, contextCode } = this
+
+    const {
+      code,
+      message: parsedMessage,
+      contextModule: parsedContextModule,
+    } = mapFailedTransactionMessage(message, { contextCode, contextModule })
+
+    this.setContext(context || 'Unknown')
+    this.setMessage(parsedMessage)
+    this.setContextCode(code)
+    this.setOriginalMessage(parseErrorMessage(message))
+
+    if (parsedContextModule) {
+      this.setContextModule(parsedContextModule)
+    }
+  }
+}
+
+class TxGrpcApi implements TxConcreteApi {
   public txService: CosmosTxV1Beta1Service.ServiceClientImpl //
 
   public endpoint: string
@@ -351,7 +765,7 @@ export class TxGrpcApi implements TxConcreteApi {
     const { txService } = this
 
     const txRawClone = CosmosTxV1Beta1Tx.TxRaw.fromPartial({ ...txRaw })
-    const simulateRequest = CosmosTxV1Beta1Service.SimulateRequest.create()
+    const simulateRequest = CosmosTxV1Beta1Service.SimulateRequest.create() //
 
     if (txRawClone.signatures.length === 0) {
       txRawClone.signatures = [new Uint8Array(0)]
