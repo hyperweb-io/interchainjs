@@ -80,8 +80,8 @@ describe("Governance tests for injective", () => {
     // Transfer inj to address
     
     await creditFromFaucet(directAddress);
-    await new Promise((resolve) => setTimeout(resolve, 6000));
     await creditFromFaucet(aminoAddress);
+    await new Promise((resolve) => setTimeout(resolve, 6000)); // required! otherwise balance check will fail
   }, 200000);
 
   it("check direct address has tokens", async () => {
