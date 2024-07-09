@@ -1,6 +1,7 @@
 import { hexConcat } from '@ethersproject/bytes';
 import { _TypedDataEncoder } from '@ethersproject/hash';
 import {
+  ByteAuth,
   Eip712Types,
   SignDocResponse,
   SignerConfig,
@@ -26,7 +27,7 @@ export function getAccountFromAuth(
 
 export class SignResponseFromAuth {
   static signEip712Data(
-    auth: Auth,
+    auth: ByteAuth,
     doc: Eip712Doc,
     config: SignerConfig = defaultSignerConfig
   ): SignDocResponse<Eip712Doc> {

@@ -1,3 +1,5 @@
+import { SignDocResponse } from './wallet';
+
 export interface IKey {
   value: Uint8Array;
   toHex(): string;
@@ -14,8 +16,24 @@ export interface Auth {
   readonly algo: string;
   readonly hdPath?: string;
   getPublicKey: (isCompressed?: boolean) => IKey;
+}
+
+export interface ByteAuth extends Auth {
   sign: (data: Uint8Array) => Signature;
   verify?: (data: Uint8Array, signature: Signature) => boolean;
+}
+
+export function isByteAuth(auth: Auth): auth is ByteAuth {
+  return 'sign' in auth;
+}
+
+export interface DocAuth<Doc> extends Auth {
+  address: string;
+  signDoc(doc: Doc): SignDocResponse<Doc> | Promise<SignDocResponse<Doc>>;
+}
+
+export function isDocAuth<Doc>(auth: Auth): auth is DocAuth<Doc> {
+  return 'signDoc' in auth;
 }
 
 export interface AuthOptions {

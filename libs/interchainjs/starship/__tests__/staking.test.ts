@@ -83,7 +83,7 @@ describe('Staking tokens testing', () => {
   });
 
   it('stake tokens to genesis validator', async () => {
-    const signingClient = StargateSigningClient.connectWithSigner(
+    const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner
     );

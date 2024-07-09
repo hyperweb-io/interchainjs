@@ -21,20 +21,20 @@
       "internalConsoleOptions": "neverOpen"
    },
    {
-    "type": "node",
-    "request": "launch",
-    "name": "Debug Jest Tests in inj",
-    "program": "${workspaceFolder}/node_modules/.bin/jest",
-    "args": [
-       "--config",
-       "./jest.starship.config.js",
-       "--verbose",
-       "--bail",
-       "starship/__tests__/gov.test.ts"
-    ],
-    "console": "integratedTerminal",
-    "cwd": "${workspaceFolder}/networks/injective",
-    "internalConsoleOptions": "neverOpen"
- }
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Jest Tests in Interchainjs",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+         "--config",
+         "./jest.starship.config.js",
+         "--verbose",
+         "--bail",
+         "starship/__tests__/token.test.ts"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/libs/interchainjs",
+      "internalConsoleOptions": "neverOpen"
+   }
   ]
 }

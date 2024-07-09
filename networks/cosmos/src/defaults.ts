@@ -23,6 +23,8 @@ import { toDecoder } from './utils';
 export const defaultBroadcastOptions: BroadcastOptions = {
   checkTx: true,
   deliverTx: false,
+  timeoutMs :60_000,
+  pollIntervalMs :3_000
 };
 
 export const defaultFeeOptions: FeeOptions = {

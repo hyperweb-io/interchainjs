@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 
-import { Auth, IKey, Signature } from './auth';
+import { Auth, IKey, isByteAuth, Signature } from './auth';
 import { SignDocResponse } from './wallet';
 
 export interface HttpEndpoint {
@@ -35,6 +35,8 @@ export interface SignerConfig {
 export interface BroadcastOptions {
   checkTx?: boolean;
   deliverTx?: boolean;
+  timeoutMs?: number;
+  pollIntervalMs?: number;
 }
 
 export interface CreateDocResponse<Tx, Doc> {
@@ -73,7 +75,7 @@ export interface UniSigner<
   Tx,
   Doc,
   AddressResponse = string,
-  BroadcastResponse = { hash: string }
+  BroadcastResponse = { hash: string },
 > {
   publicKey: IKey;
   /**
@@ -88,7 +90,10 @@ export interface UniSigner<
   getAddress(): AddressResponse;
   signArbitrary(data: Uint8Array): IKey | Promise<IKey>;
   signDoc(doc: Doc): SignDocResponse<Doc> | Promise<SignDocResponse<Doc>>;
-  verifyArbitrary(data: Uint8Array, signature: IKey): boolean | Promise<boolean>;
+  verifyArbitrary(
+    data: Uint8Array,
+    signature: IKey
+  ): boolean | Promise<boolean>;
   broadcastArbitrary(
     data: Uint8Array,
     options?: BroadcastOptions
@@ -131,14 +136,23 @@ export class BaseSigner {
   }
 
   signArbitrary(data: Uint8Array): IKey {
+    if (!isByteAuth(this.auth)) {
+      throw new Error('signArbitrary needs ByteAuth implementation');
+    }
+
     const signature = this.auth.sign(this.config.message.hash(data));
     return signature.toCompact();
   }
 
   verifyArbitrary(data: Uint8Array, signature: IKey): boolean {
+    if (!isByteAuth(this.auth)) {
+      throw new Error('verifyArbitrary needs ByteAuth implementation');
+    }
+
     if (!this.auth.verify) {
       throw new Error('verify method is not implemented yet');
     }
+
     return this.auth.verify(
       this.config.message.hash(data),
       this.config.signature.fromCompact(signature, this.auth.algo)

@@ -57,7 +57,7 @@ describe('Token transfers', () => {
     ]);
     const address2 = (await wallet2.getAccounts())[0].address;
 
-    const signingClient = StargateSigningClient.connectWithSigner(
+    const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner
     );
@@ -92,7 +92,7 @@ describe('Token transfers', () => {
   }, 10000);
 
   it('send ibc osmo tokens to address on cosmos chain', async () => {
-    const signingClient = StargateSigningClient.connectWithSigner(
+    const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner
     );

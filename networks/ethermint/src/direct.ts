@@ -1,10 +1,11 @@
 import { DirectSignerBase } from '@interchainjs/cosmos/direct';
 import { Encoder, SignerOptions } from '@interchainjs/cosmos/types';
+import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
+import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
-import { constructAuthsFromWallet } from '@interchainjs/utils';
 
-import { defaultPublicKeyConfig, defaultSignerOptions } from './defaults';
-import { InjectiveBaseWallet,InjectiveDirectSigner } from './types';
+import { defaultSignerOptions } from './defaults';
+import { InjectiveDirectSigner } from './types';
 
 export class DirectSigner
   extends DirectSignerBase
@@ -20,28 +21,23 @@ export class DirectSigner
   }
 
   static async fromWallet(
-    wallet: InjectiveBaseWallet,
+    signer: OfflineDirectSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
+    const [auth] = await DirectDocAuth.fromOfflineSigner(signer);
     return new DirectSigner(auth, encoders, endpoint, options);
   }
 
   static async fromWalletToSigners(
-    wallet: InjectiveBaseWallet,
+    signer: OfflineDirectSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
+    const auths = await DirectDocAuth.fromOfflineSigner(signer);
+
     return auths.map((auth) => {
       return new DirectSigner(auth, encoders, endpoint, options);
     });

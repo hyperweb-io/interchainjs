@@ -156,11 +156,14 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     if (fee) {
       return fee;
     }
-    const { gasInfo } = await this.ctx.signer.simulate(txBody, signerInfos);
+    const { gasInfo } = await this.ctx.signer.simulateByTxBody(
+      txBody,
+      signerInfos
+    );
     if (typeof gasInfo === 'undefined') {
       throw new Error('Fail to estimate gas by simulate tx.');
     }
-    await calculateFee(gasInfo, options, async () => {
+    return await calculateFee(gasInfo, options, async () => {
       return this.ctx.signer.queryClient.getChainId();
     });
   }
@@ -178,13 +181,13 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     const doc = await this.buildDoc({ messages, fee, memo, options }, txRaw);
 
     // sign signature to the doc bytes
-    const signature = await this.buildSignature(doc);
+    const signResp = await this.ctx.signer.signDoc(doc);
 
     // build TxRaw
     const signedTxRaw = TxRaw.fromPartial({
       bodyBytes: txRaw.bodyBytes,
       authInfoBytes: txRaw.authInfoBytes,
-      signatures: [signature.value],
+      signatures: [signResp.signature.value],
     });
 
     return {

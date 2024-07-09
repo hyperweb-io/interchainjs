@@ -7,9 +7,10 @@ import {
   SignerInfo,
   Tx,
   TxBody,
+  TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BroadcastOptions, HttpEndpoint } from '@interchainjs/types';
-import { isEmpty, Key, toHttpEndpoint } from '@interchainjs/utils';
+import { BroadcastOptions, HttpEndpoint, IKey } from '@interchainjs/types';
+import { fromBase64, isEmpty, Key, toHttpEndpoint } from '@interchainjs/utils';
 
 import { defaultAccountParser, defaultBroadcastOptions } from '../defaults';
 import {
@@ -18,9 +19,16 @@ import {
   EncodedMessage,
   QueryClient,
 } from '../types';
-import { AsyncCometBroadcastResponse, CommitCometBroadcastResponse, Status, SyncCometBroadcastResponse } from '../types/rpc';
+import {
+  AsyncCometBroadcastResponse,
+  IndexedTx,
+  Status,
+  SyncCometBroadcastResponse,
+  TimeoutError,
+  TxResponse,
+} from '../types/rpc';
 import { constructAuthInfo } from '../utils/direct';
-import { broadcast, createTxRpc, getPrefix } from '../utils/rpc';
+import { broadcast, createTxRpc, getPrefix, sleep } from '../utils/rpc';
 
 export class RpcClient implements QueryClient {
   readonly endpoint: HttpEndpoint;
@@ -29,14 +37,14 @@ export class RpcClient implements QueryClient {
   protected accountNumber?: bigint;
   protected readonly authQuery: AuthQuery;
   protected readonly txQuery: TxQuery;
-  protected readonly publicKeyHash?: Key;
+  publicKeyHash?: Key;
   protected parseAccount: (encodedAccount: EncodedMessage) => BaseAccount =
     defaultAccountParser;
   protected _prefix?: string;
 
   constructor(
     endpoint: string | HttpEndpoint,
-    publicKeyHash?: Key,
+    publicKeyHash?: IKey,
     prefix?: string
   ) {
     this.endpoint = toHttpEndpoint(endpoint);
@@ -51,6 +59,10 @@ export class RpcClient implements QueryClient {
     parseBaseAccount: (encodedAccount: EncodedMessage) => BaseAccount
   ) {
     this.parseAccount = parseBaseAccount;
+  }
+
+  setHashedPubkey(key: IKey) {
+    this.publicKeyHash = key;
   }
 
   async getPrefix() {
@@ -134,18 +146,51 @@ export class RpcClient implements QueryClient {
     });
   }
 
+  async getTx(id: string): Promise<IndexedTx | null> {
+    const data = await fetch(`${this.endpoint.url}/tx?hash=0x${id}`);
+    const json = await data.json();
+    const tx: TxResponse = json['result'];
+    if (!tx) return null;
+    const txRaw = TxRaw.decode(fromBase64(tx.tx));
+    const txBody = TxBody.decode(txRaw.bodyBytes);
+    return {
+      height: tx.height,
+      txIndex: tx.index,
+      hash: tx.hash,
+      code: tx.tx_result.code,
+      events: tx.tx_result.events,
+      rawLog: tx.tx_result.log,
+      tx: fromBase64(tx.tx),
+      msgResponses: txBody.messages,
+      gasUsed: BigInt(tx.tx_result.gas_used),
+      gasWanted: BigInt(tx.tx_result.gas_wanted),
+      data: tx.tx_result.data,
+      log: tx.tx_result.log,
+      info: tx.tx_result.info,
+    };
+  }
+
   async broadcast(
     txBytes: Uint8Array,
     options?: BroadcastOptions
   ): Promise<BroadcastResponse> {
-    const { checkTx, deliverTx } = { ...defaultBroadcastOptions, ...options };
+    const { checkTx, deliverTx, timeoutMs, pollIntervalMs } = {
+      ...defaultBroadcastOptions,
+      ...options,
+    };
+
     const mode: BroadcastMode =
       checkTx && deliverTx
         ? 'broadcast_tx_commit'
         : checkTx
           ? 'broadcast_tx_sync'
           : 'broadcast_tx_async';
-    const resp = await broadcast(this.endpoint, mode, txBytes);
+    const resp = await broadcast(
+      this.endpoint,
+      mode === 'broadcast_tx_commit' ? 'broadcast_tx_async' : mode,
+      txBytes
+    );
+
     switch (mode) {
     case 'broadcast_tx_async':
       const { hash: hash1, ...rest1 } = resp as AsyncCometBroadcastResponse;
@@ -160,18 +205,57 @@ export class RpcClient implements QueryClient {
         check_tx: rest2,
       };
     case 'broadcast_tx_commit':
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const {
-        check_tx,
-        deliver_tx,
-        height,
-        hash: hash3,
-      } = resp as CommitCometBroadcastResponse;
-      return {
-        hash: hash3,
-        check_tx,
-        deliver_tx: { height, ...deliver_tx },
+      let timedOut = false;
+      const txPollTimeout = setTimeout(() => {
+        timedOut = true;
+      }, timeoutMs);
+
+      const pollForTx = async (txId: string): Promise<BroadcastResponse> => {
+        if (timedOut) {
+          throw new TimeoutError(
+            `Transaction with ID ${txId} was submitted but was not yet found on the chain. You might want to check later. There was a wait of ${
+              timeoutMs / 1000
+            } seconds.`,
+            txId
+          );
+        }
+        await sleep(pollIntervalMs);
+        const result = await this.getTx(txId);
+
+        return result
+          ? {
+            hash: resp.hash,
+            deliver_tx: {
+              code: result.code,
+              height: result.height.toString(),
+              txIndex: result.txIndex,
+              events: result.events,
+              rawLog: result.rawLog,
+              msgResponses: result.msgResponses,
+              gas_used: result.gasUsed.toString(),
+              gas_wanted: result.gasWanted.toString(),
+              data: result.data,
+              log: result.log,
+              info: result.info,
+            },
+          }
+          : pollForTx(txId);
       };
+
+      const transactionId = resp.hash.toUpperCase();
+
+      return new Promise((resolve, reject) =>
+        pollForTx(transactionId).then(
+          (value) => {
+            clearTimeout(txPollTimeout);
+            resolve(value);
+          },
+          (error) => {
+            clearTimeout(txPollTimeout);
+            reject(error);
+          }
+        )
+      );
     default:
       throw new Error(`Wrong method: ${mode}`);
     }

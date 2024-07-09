@@ -1,4 +1,5 @@
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
+import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
 import {
   SignerInfo,
   TxBody,
@@ -10,6 +11,7 @@ import {
   BroadcastOptions,
   HttpEndpoint,
   IKey,
+  isDocAuth,
   SignDocResponse,
   SignerConfig,
   SignResponse,
@@ -29,7 +31,7 @@ import {
   TimeoutHeightOption,
   UniCosmosBaseSigner,
 } from '../types';
-import { calculateFee } from '../utils/fee';
+import { calculateFee } from '../utils/chain';
 import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from './tx-builder';
 
 export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
@@ -42,12 +44,16 @@ export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
   txBuilder: BaseCosmosSigBuilder<SignDoc>;
   abstract getTxBuilder(): BaseCosmosSigBuilder<SignDoc>;
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
-    const sig = await this.txBuilder.buildSignature(doc);
+    if (isDocAuth<SignDoc>(this.auth)) {
+      return await this.auth.signDoc(doc);
+    } else {
+      const sig = await this.txBuilder.buildSignature(doc);
 
-    return {
-      signature: sig,
-      signDoc: doc,
-    };
+      return {
+        signature: sig,
+        signDoc: doc,
+      };
+    }
   }
 }
 
@@ -178,16 +184,39 @@ export abstract class CosmosBaseSigner<SignDoc>
     return await broadcast(options);
   }
 
-  async simulate(txBody: TxBody, signerInfos: SignerInfo[]) {
+  async simulate({ messages, memo, options }: CosmosSignArgs) {
+    const { txBody } = await this.txBuilder.buildTxBody({
+      messages,
+      memo,
+      options,
+    });
+    const { signerInfo } = await this.txBuilder.buildSignerInfo(
+      this.encodedPublicKey,
+      options?.sequence ?? (await this.queryClient.getSequence()),
+      options?.signMode ?? SignMode.SIGN_MODE_DIRECT
+    );
+
+    return await this.simulateByTxBody(txBody, [signerInfo]);
+  }
+
+  async simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]) {
     return await this.queryClient.simulate(txBody, signerInfos);
   }
 
-  async estimateFee(
+  async estimateFee({ messages, memo, options }: CosmosSignArgs) {
+    const { gasInfo } = await this.simulate({ messages, memo, options });
+    if (typeof gasInfo === 'undefined') {
+      throw new Error('Fail to estimate gas by simulate tx.');
+    }
+    return await calculateFee(gasInfo, options, this.queryClient.getChainId);
+  }
+
+  async estimateFeeByTxBody(
     txBody: TxBody,
     signerInfos: SignerInfo[],
     options?: FeeOptions
   ) {
-    const { gasInfo } = await this.simulate(txBody, signerInfos);
+    const { gasInfo } = await this.simulateByTxBody(txBody, signerInfos);
     if (typeof gasInfo === 'undefined') {
       throw new Error('Fail to estimate gas by simulate tx.');
     }

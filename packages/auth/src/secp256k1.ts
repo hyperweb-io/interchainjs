@@ -1,11 +1,11 @@
-import { Auth, AuthOptions, Signature } from '@interchainjs/types';
+import { AuthOptions, ByteAuth, Signature } from '@interchainjs/types';
 import { Key } from '@interchainjs/utils';
 import { secp256k1 } from '@noble/curves/secp256k1';
 import { HDKey } from '@scure/bip32';
 
 import { getSeedFromMnemonic } from './utils';
 
-export class Secp256k1Auth implements Auth {
+export class Secp256k1Auth implements ByteAuth {
   protected privateKey: Key = null;
 
   readonly algo = 'secp256k1';

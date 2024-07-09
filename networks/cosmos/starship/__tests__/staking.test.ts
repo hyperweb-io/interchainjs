@@ -1,8 +1,9 @@
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
+import {Asset} from '@chain-registry/types';
 import { DirectSigner } from '@interchainjs/cosmos/direct';
-import { ICosmosWallet } from '@interchainjs/cosmos/types/signer';
+import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import {
   assertIsDeliverTxSuccess,
   toEncoders,
@@ -18,12 +19,11 @@ import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import {Asset} from "@chain-registry/types";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Staking tokens testing', () => {
-  let directWallet: ICosmosWallet, denom: string, address: string;
+  let directWallet: OfflineDirectSigner, denom: string, address: string;
   let chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,

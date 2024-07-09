@@ -1,39 +1,26 @@
 import { AminoSigner } from '@interchainjs/cosmos/amino';
-import { AccountData, isICosmosAccount } from '@interchainjs/cosmos/types';
+import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { RpcClient } from '@interchainjs/cosmos/query/rpc';
 import {
-  OfflineAminoSigner,
-  OfflineDirectSigner,
+  AccountData,
+  AminoConverter,
+  Encoder,
+  isICosmosAccount,
+  QueryClient,
+} from '@interchainjs/cosmos/types';
+import {
+  isOfflineAminoSigner,
+  isOfflineDirectSigner,
   OfflineSigner,
 } from '@interchainjs/cosmos/types/wallet';
-import {
-  constructAuthInfo,
-  constructSignerInfo,
-  constructTxBody,
-  toAminoMsgs,
-  toEncoder,
-  toFee,
-  toMessages,
-} from '@interchainjs/cosmos/utils';
+import { toEncoder } from '@interchainjs/cosmos/utils';
 import { IBinaryWriter } from '@interchainjs/cosmos-types/binary';
 import { PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys';
-import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import {
-  AuthInfo,
-  SignDoc,
-  SignerInfo,
-  TxBody,
-  TxRaw,
-} from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
-import {
-  Auth,
-  HttpEndpoint,
-  Price,
-  StdFee,
-  StdSignDoc,
-} from '@interchainjs/types';
-import { fromBase64, Key } from '@interchainjs/utils';
+import { HttpEndpoint, IKey, Price, StdFee } from '@interchainjs/types';
+import { fromBase64 } from '@interchainjs/utils';
 
 import {
   Block,
@@ -46,43 +33,44 @@ import {
 import {
   DeliverTxResponse,
   EncodeObject,
-  SignerData,
   SignerOptions,
 } from './types/signing-client';
-import { BroadcastTxError, defaultAuth, sleep, TimeoutError } from './utils';
+import { BroadcastTxError } from './utils';
 
 /**
  * implement the same methods as what in `cosmjs` signingClient
  */
 export class SigningClient {
+  readonly client: QueryClient | null | undefined;
   readonly offlineSigner: OfflineSigner;
-  readonly broadcastTimeoutMs: number | undefined;
-  readonly broadcastPollIntervalMs: number | undefined;
+  readonly options: SignerOptions;
 
-  readonly aminoSigner: AminoSigner;
-  private readonly _signAmino?: OfflineAminoSigner['signAmino'];
-  private readonly _signDirect?: OfflineDirectSigner['signDirect'];
+  readonly aminoSigners: Record<string, AminoSigner> = {};
+  readonly directSigners: Record<string, DirectSigner> = {};
+
+  readonly addresses: string[] = [];
+
+  readonly encoders: Encoder[] = [];
+  readonly converters: AminoConverter[] = [];
+
   private readonly gasPrice?: Price | string;
 
   private _endpoint: string | HttpEndpoint;
   protected txRpc: TxRpc;
 
   constructor(
-    aminoSigner: AminoSigner,
+    client: QueryClient | null | undefined,
     offlineSigner: OfflineSigner,
     options: SignerOptions = {}
   ) {
-    aminoSigner.addEncoders(
-      options.registry?.map(([, g]) => toEncoder(g)) || []
-    );
-    aminoSigner.addConverters(Object.values(options.aminoConverters || {}));
-    this.aminoSigner = aminoSigner;
+    this.client = client;
+
     this.offlineSigner = offlineSigner;
-    this._signAmino = (offlineSigner as OfflineAminoSigner).signAmino;
-    this._signDirect = (offlineSigner as OfflineDirectSigner).signDirect;
-    this.broadcastTimeoutMs = options.broadcastTimeoutMs;
-    this.broadcastPollIntervalMs = options.broadcastPollIntervalMs;
-    this.gasPrice = options.gasPrice;
+    this.encoders = options.registry?.map(([, g]) => toEncoder(g)) || [];
+    this.converters = Object.values(options.aminoConverters || {});
+
+    this.options = options;
+
     this.txRpc = {
       request(): Promise<Uint8Array> {
         throw new Error('Not implemented yet');
@@ -91,36 +79,62 @@ export class SigningClient {
     };
   }
 
-  static connectWithSigner(
+  static async connectWithSigner(
     endpoint: string | HttpEndpoint,
     signer: OfflineSigner,
     options: SignerOptions = {}
-  ): SigningClient {
-    const aminoSigner = new AminoSigner(defaultAuth, [], []);
-    const signingClient = new SigningClient(aminoSigner, signer, options);
-    signingClient.setEndpoint(endpoint);
+  ): Promise<SigningClient> {
+    const signingClient = new SigningClient(
+      new RpcClient(endpoint, undefined, options.prefix),
+      signer,
+      options
+    );
+
+    await signingClient.connect();
+
     return signingClient;
   }
 
-  setEndpoint(endpoint: string | HttpEndpoint) {
-    this._endpoint = endpoint;
-  }
+  async connect() {
+    let firstPubkey: IKey;
+    if (isOfflineAminoSigner(this.offlineSigner)) {
+      const aminoSigners = await AminoSigner.fromWalletToSigners(
+        this.offlineSigner,
+        this.encoders,
+        this.converters,
+        this.endpoint,
+        {
+          prefix: this.options.prefix,
+        }
+      );
 
-  private async initAuth(address: string) {
-    const { pubkey, algo } = await this.getAccountData(address);
-    const getPublicKey = (isCompressed?: boolean) => {
-      if (isCompressed) {
-        return Key.from(pubkey);
+      for (const signer of aminoSigners) {
+        if (!firstPubkey) {
+          firstPubkey = await signer.publicKey;
+        }
+        this.aminoSigners[await signer.getAddress()] = signer;
       }
-      throw new Error('Getting uncompressed public key is not implemented');
-    };
-    const auth: Auth = {
-      ...defaultAuth,
-      algo,
-      getPublicKey,
-    };
-    this.aminoSigner.setAuth(auth);
-    this.aminoSigner.setEndpoint(this._endpoint);
+    }
+
+    if (isOfflineDirectSigner(this.offlineSigner)) {
+      const directSigners = await DirectSigner.fromWalletToSigners(
+        this.offlineSigner,
+        this.encoders,
+        this.endpoint,
+        {
+          prefix: this.options.prefix,
+        }
+      );
+
+      for (const signer of directSigners) {
+        if (!firstPubkey) {
+          firstPubkey = await signer.publicKey;
+        }
+        this.directSigners[await signer.getAddress()] = signer;
+      }
+    }
+
+    this.queryClient.setHashedPubkey(firstPubkey);
   }
 
   private async getAccountData(address: string): Promise<AccountData> {
@@ -162,7 +176,7 @@ export class SigningClient {
   }
 
   private get queryClient() {
-    return this.aminoSigner.queryClient;
+    return this.client;
   }
 
   async getChainId() {
@@ -177,64 +191,42 @@ export class SigningClient {
     return await this.queryClient.getSequence();
   }
 
+  getSinger(signerAddress: string) {
+    const signer =
+      this.aminoSigners[signerAddress] || this.directSigners[signerAddress];
+
+    if (!signer) {
+      throw new Error(`No signer found for address ${signerAddress}`);
+    }
+
+    return signer;
+  }
+
   async sign(
     signerAddress: string,
     messages: EncodeObject[],
     fee: StdFee,
-    memo: string,
-    explicitSignerData?: SignerData
+    memo: string
   ): Promise<TxRaw> {
-    let signerData: SignerData;
-    if (explicitSignerData) {
-      signerData = explicitSignerData;
-    } else {
-      await this.initAuth(signerAddress);
-      signerData = {
-        accountNumber: await this.getAccountNumber(),
-        sequence: await this.getSequence(),
-        chainId: await this.getChainId(),
-      };
-    }
-    return this._signDirect
-      ? this.signDirect(signerAddress, messages, fee, memo, signerData)
-      : this.signAmino(signerAddress, messages, fee, memo, signerData);
+    const signer = this.getSinger(signerAddress);
+
+    const resp = await signer.sign({
+      messages,
+      fee,
+      memo,
+    });
+
+    return resp.tx;
   }
 
   private signWithAutoFee = async (
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | 'auto' | number,
+    fee: StdFee | 'auto',
     memo = ''
   ): Promise<TxRaw> => {
-    let usedFee: StdFee;
-    if (fee == 'auto' || typeof fee === 'number') {
-      await this.initAuth(signerAddress);
-      const { txBody } = constructTxBody(
-        messages,
-        this.aminoSigner.getEncoder,
-        memo
-      );
-      const { signerInfo } = constructSignerInfo(
-        this.aminoSigner.encodedPublicKey,
-        await this.queryClient.getSequence(),
-        this._signDirect
-          ? SignMode.SIGN_MODE_DIRECT
-          : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
-      );
-      const feeEstimation = await this.aminoSigner.estimateFee(
-        txBody,
-        [signerInfo],
-        {
-          multiplier: typeof fee === 'number' ? fee : void 0,
-          gasPrice: this.gasPrice,
-        }
-      );
-      usedFee = feeEstimation;
-    } else {
-      usedFee = fee;
-    }
-    const txRaw = await this.sign(signerAddress, messages, usedFee, memo);
-    return txRaw;
+    const usedFee = fee === 'auto' ? undefined : fee;
+    return await this.sign(signerAddress, messages, usedFee, memo);
   };
 
   async simulate(
@@ -242,29 +234,19 @@ export class SigningClient {
     messages: EncodeObject[],
     memo: string | undefined
   ): Promise<bigint> {
-    await this.initAuth(signerAddress);
-    const { txBody } = constructTxBody(
+    const signer = this.getSinger(signerAddress);
+
+    const resp = await signer.estimateFee({
       messages,
-      this.aminoSigner.getEncoder,
-      memo
-    );
-    const { signerInfo } = constructSignerInfo(
-      this.aminoSigner.encodedPublicKey,
-      await this.queryClient.getSequence(),
-      this._signDirect
-        ? SignMode.SIGN_MODE_DIRECT
-        : SignMode.SIGN_MODE_LEGACY_AMINO_JSON
-    );
-    const feeEstimation = await this.aminoSigner.estimateFee(
-      txBody,
-      [signerInfo],
-      { multiplier: 1 }
-    );
-    return BigInt(feeEstimation.gas);
+      memo,
+      options: this.options,
+    });
+
+    return BigInt(resp.gas);
   }
 
   async broadcastTxSync(tx: Uint8Array): Promise<string> {
-    const broadcasted = await this.aminoSigner.broadcastArbitrary(tx, {
+    const broadcasted = await this.queryClient.broadcast(tx, {
       checkTx: true,
       deliverTx: false,
     });
@@ -284,7 +266,7 @@ export class SigningClient {
   public async signAndBroadcastSync(
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | 'auto' | number,
+    fee: StdFee | 'auto',
     memo = ''
   ): Promise<string> {
     const txRaw = await this.signWithAutoFee(
@@ -302,57 +284,30 @@ export class SigningClient {
     timeoutMs = 60_000,
     pollIntervalMs = 3_000
   ): Promise<DeliverTxResponse> {
-    let timedOut = false;
-    const txPollTimeout = setTimeout(() => {
-      timedOut = true;
-    }, timeoutMs);
+    const resp = await this.queryClient.broadcast(tx, {
+      checkTx: true,
+      deliverTx: true,
+      timeoutMs,
+      pollIntervalMs,
+    });
 
-    const pollForTx = async (txId: string): Promise<DeliverTxResponse> => {
-      if (timedOut) {
-        throw new TimeoutError(
-          `Transaction with ID ${txId} was submitted but was not yet found on the chain. You might want to check later. There was a wait of ${
-            timeoutMs / 1000
-          } seconds.`,
-          txId
-        );
-      }
-      await sleep(pollIntervalMs);
-      const result = await this.getTx(txId);
-      return result
-        ? {
-          code: result.code,
-          height: result.height,
-          txIndex: result.txIndex,
-          events: result.events,
-          rawLog: result.rawLog,
-          transactionHash: txId,
-          msgResponses: result.msgResponses,
-          gasUsed: result.gasUsed,
-          gasWanted: result.gasWanted,
-        }
-        : pollForTx(txId);
+    return {
+      height: Number(resp.deliver_tx.height),
+      txIndex: resp.deliver_tx.txIndex,
+      code: resp.deliver_tx.code,
+      transactionHash: resp.hash,
+      events: resp.deliver_tx.events,
+      rawLog: resp.deliver_tx.rawLog,
+      msgResponses: resp.deliver_tx.msgResponses,
+      gasUsed: BigInt(resp.deliver_tx.gas_used),
+      gasWanted: BigInt(resp.deliver_tx.gas_wanted),
     };
-
-    const transactionId = await this.broadcastTxSync(tx);
-
-    return new Promise((resolve, reject) =>
-      pollForTx(transactionId).then(
-        (value) => {
-          clearTimeout(txPollTimeout);
-          resolve(value);
-        },
-        (error) => {
-          clearTimeout(txPollTimeout);
-          reject(error);
-        }
-      )
-    );
   }
 
   signAndBroadcast = async (
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | 'auto' | number,
+    fee: StdFee | 'auto',
     memo = ''
   ): Promise<DeliverTxResponse> => {
     const txRaw = await this.signWithAutoFee(
@@ -364,102 +319,10 @@ export class SigningClient {
     const txBytes = TxRaw.encode(txRaw).finish();
     return this.broadcastTx(
       txBytes,
-      this.broadcastTimeoutMs,
-      this.broadcastPollIntervalMs
+      this.options.broadcastTimeoutMs,
+      this.options.broadcastPollIntervalMs
     );
   };
-
-  private async signDirect(
-    signerAddress: string,
-    messages: EncodeObject[],
-    fee: StdFee,
-    memo: string,
-    { accountNumber, sequence, chainId }: SignerData
-  ): Promise<TxRaw> {
-    if (!this._signDirect) {
-      throw new Error('`signDirect` not implemented in provided OfflineSigner');
-    }
-    const { txBody } = constructTxBody(
-      messages,
-      this.aminoSigner.getEncoder,
-      memo
-    );
-    const authInfo = AuthInfo.fromPartial({
-      signerInfos: [
-        SignerInfo.fromPartial({
-          publicKey: await this.getPubkey(signerAddress),
-          sequence: BigInt(sequence),
-          modeInfo: {
-            single: {
-              mode: SignMode.SIGN_MODE_DIRECT,
-            },
-          },
-        }),
-      ],
-      fee: toFee(fee),
-    });
-    const doc: SignDoc = {
-      bodyBytes: TxBody.encode(txBody).finish(),
-      authInfoBytes: AuthInfo.encode(authInfo).finish(),
-      chainId,
-      accountNumber,
-    };
-    const { signature, signed } = await this._signDirect(signerAddress, doc);
-    const txRaw = TxRaw.fromPartial({
-      bodyBytes: signed.bodyBytes,
-      authInfoBytes: signed.authInfoBytes,
-      signatures: [fromBase64(signature.signature)],
-    });
-    return txRaw;
-  }
-
-  private async signAmino(
-    signerAddress: string,
-    messages: EncodeObject[],
-    fee: StdFee,
-    memo: string,
-    { accountNumber, sequence, chainId }: SignerData
-  ): Promise<TxRaw> {
-    if (!this._signAmino) {
-      throw new Error('`signAmino` not implemented in provided OfflineSigner');
-    }
-    const doc: StdSignDoc = {
-      chain_id: chainId,
-      account_number: accountNumber.toString(),
-      sequence: sequence.toString(),
-      fee,
-      msgs: toAminoMsgs(messages, this.aminoSigner.getConverterFromTypeUrl),
-      memo,
-    };
-    const { signature, signed } = await this._signAmino(signerAddress, doc);
-    const bodyBytes = constructTxBody(
-      toMessages(signed.msgs, this.aminoSigner.getConverter),
-      this.aminoSigner.getEncoder,
-      doc.memo
-    ).encode();
-
-    const signerInfo = SignerInfo.fromPartial({
-      publicKey: await this.getPubkey(signerAddress),
-      sequence: BigInt(sequence),
-      modeInfo: {
-        single: {
-          mode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
-        },
-      },
-    });
-
-    const authInfoBytes = constructAuthInfo(
-      [signerInfo],
-      toFee(signed.fee)
-    ).encode();
-
-    const txRaw = TxRaw.fromPartial({
-      bodyBytes,
-      authInfoBytes,
-      signatures: [fromBase64(signature.signature)],
-    });
-    return txRaw;
-  }
 
   get endpoint(): HttpEndpoint {
     return this.queryClient.endpoint;

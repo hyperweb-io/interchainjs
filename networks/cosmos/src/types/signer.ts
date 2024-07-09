@@ -96,15 +96,18 @@ export interface CheckTxResponse {
 
 export interface DeliverTxResponse {
   code: number;
-  data: string;
+  data?: string;
+  txIndex: number;
   /** nondeterministic */
-  log: string;
+  log?: string;
   /** nondeterministic */
-  info: string;
+  info?: string;
+  rawLog?: string;
   gas_wanted: string;
   gas_used: string;
   events: Event[];
-  codespace: string;
+  codespace?: string;
+  msgResponses: Array<{ readonly typeUrl: string; readonly value: Uint8Array }>;
 }
 
 export interface BroadcastResponse {
@@ -164,6 +167,7 @@ export type TxOptions = {
 
 export interface QueryClient {
   readonly endpoint: HttpEndpoint;
+  setHashedPubkey: (key: IKey) => void;
   getChainId: () => Promise<string>;
   getAddress: () => Promise<string>;
   getAccountNumber: () => Promise<bigint>;
@@ -267,5 +271,5 @@ export class CosmosAccount implements ICosmosAccount {
 }
 
 export interface ICosmosWallet {
-  getAccounts: () => Promise<ICosmosAccount[]>;
+  getAccounts: () => Promise<AccountData[]>;
 }
