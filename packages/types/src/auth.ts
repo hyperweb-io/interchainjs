@@ -18,12 +18,11 @@ export interface Auth {
   getPublicKey: (isCompressed?: boolean) => IKey;
 }
 
-export interface ByteAuth extends Auth {
-  sign: (data: Uint8Array) => Signature;
-  verify?: (data: Uint8Array, signature: Signature) => boolean;
+export interface ByteAuth<Sig> extends Auth {
+  sign: (data: Uint8Array) => ISignatureWraper<Sig>;
 }
 
-export function isByteAuth(auth: Auth): auth is ByteAuth {
+export function isByteAuth<Sig>(auth: Auth): auth is ByteAuth<Sig> {
   return 'sign' in auth;
 }
 
@@ -40,10 +39,8 @@ export interface AuthOptions {
   bip39Password?: string;
 }
 
-export interface Signature {
-  readonly r: IKey;
-  readonly s: IKey;
-  readonly recovery?: number;
+export interface ISignatureWraper<Sig> {
+  signature: Sig;
   toCompact(): IKey;
 }
 

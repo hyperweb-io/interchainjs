@@ -1,13 +1,13 @@
 import { BaseWallet, ByteAuth } from '@interchainjs/types';
 
-export async function constructAuthsFromWallet(
+export async function constructAuthsFromWallet<Sig>(
   wallet: BaseWallet,
   isPubkeyCompressed: boolean
 ) {
   const accountAuths = await wallet.getAccountAuths();
 
   return accountAuths.map(({ account, auth }) => {
-    const byteAuth = auth as ByteAuth;
+    const byteAuth = auth as ByteAuth<Sig>;
     return {
       algo: account.algo,
       getPublicKey(isCompressed?: boolean) {

@@ -1,4 +1,3 @@
-import { Secp256k1Signature } from '@interchainjs/auth/secp256k1';
 import {
   BaseAccount,
   ModuleAccount,
@@ -42,18 +41,6 @@ export const defaultSignerConfig: SignerConfig = {
       const hashed = sha256(message);
       assertBytes(hashed);
       return hashed;
-    },
-  },
-  signature: {
-    fromCompact: (key: Key, algo: string) => {
-      switch (algo) {
-      case 'secp256k1':
-        return Secp256k1Signature.fromCompact(key);
-      case 'ed25519':
-        throw new Error('Not implemented yet');
-      default:
-        throw new Error(`Unidentified algorithm: ${algo}`);
-      }
     },
   },
 };

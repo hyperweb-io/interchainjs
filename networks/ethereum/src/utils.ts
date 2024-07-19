@@ -1,16 +1,10 @@
-import { hexConcat } from '@ethersproject/bytes';
-import { _TypedDataEncoder } from '@ethersproject/hash';
 import {
-  ByteAuth,
-  Eip712Types,
-  SignDocResponse,
   SignerConfig,
 } from '@interchainjs/types';
 import { Auth } from '@interchainjs/types';
-import { fromHex } from '@interchainjs/utils';
 
 import { defaultSignerConfig } from './defaults';
-import { Eip712Doc, EthereumAccount } from './types';
+import { EthereumAccount } from './types';
 
 export function getAccountFromAuth(
   auth: Auth,
@@ -25,31 +19,31 @@ export function getAccountFromAuth(
   };
 }
 
-export class SignResponseFromAuth {
-  static signEip712Data(
-    auth: ByteAuth,
-    doc: Eip712Doc,
-    config: SignerConfig = defaultSignerConfig
-  ): SignDocResponse<Eip712Doc> {
-    const domainTypes: Eip712Types = {};
-    const restTypes: Eip712Types = {};
-    Object.entries(doc.types).forEach(([key, value]) => {
-      if (key === 'EIP712Domain') {
-        domainTypes[key] = value;
-      } else {
-        restTypes[key] = value;
-      }
-    });
-    const encoded = hexConcat([
-      '0x1901',
-      _TypedDataEncoder.from(domainTypes).hash(doc.domain),
-      _TypedDataEncoder.from(restTypes).hash(doc.message),
-    ]);
+// export class SignResponseFromAuth {
+//   static signEip712Data(
+//     auth: ByteAuth,
+//     doc: Eip712Doc,
+//     config: SignerConfig = defaultSignerConfig
+//   ): SignDocResponse<Eip712Doc> {
+//     const domainTypes: Eip712Types = {};
+//     const restTypes: Eip712Types = {};
+//     Object.entries(doc.types).forEach(([key, value]) => {
+//       if (key === 'EIP712Domain') {
+//         domainTypes[key] = value;
+//       } else {
+//         restTypes[key] = value;
+//       }
+//     });
+//     const encoded = hexConcat([
+//       '0x1901',
+//       _TypedDataEncoder.from(domainTypes).hash(doc.domain),
+//       _TypedDataEncoder.from(restTypes).hash(doc.message),
+//     ]);
 
-    const signature = auth.sign(config.message.hash(fromHex(encoded)));
-    return {
-      signature: signature.toCompact(),
-      signDoc: doc,
-    };
-  }
-}
+//     const signature = auth.sign(config.message.hash(fromHex(encoded)));
+//     return {
+//       signature: signature.toCompact(),
+//       signDoc: doc,
+//     };
+//   }
+// }

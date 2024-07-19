@@ -1,7 +1,6 @@
 import {
   Auth,
   BaseSigner,
-  ByteAuth,
   HttpEndpoint,
   SignDocResponse,
   SignerConfig,
@@ -17,7 +16,6 @@ import {
   Eip712Wallet,
   UniEip712Signer,
 } from './types';
-import { SignResponseFromAuth } from './utils';
 
 export class Eip712Signer<BroadcastResponse extends { hash: string }>
   extends BaseSigner
@@ -63,11 +61,12 @@ export class Eip712Signer<BroadcastResponse extends { hash: string }>
   }
 
   async signDoc(doc: Eip712Doc): Promise<SignDocResponse<Eip712Doc>> {
-    return SignResponseFromAuth.signEip712Data(
-      this.auth as ByteAuth,
-      doc,
-      this.config
-    );
+    // return SignResponseFromAuth.signEip712Data(
+    //   this.auth as ByteAuth,
+    //   doc,
+    //   this.config
+    // );
+    throw new Error('Not implemented yet');
   }
 
   async sign(
