@@ -38,7 +38,7 @@ export class StargateSigningClient extends SigningClient {
     options: SignerOptions = {}
   ): Promise<StargateSigningClient> {
     const signingClient = new StargateSigningClient(
-      new RpcClient(endpoint, undefined, options.prefix),
+      new RpcClient(endpoint, options.prefix),
       signer,
       options
     );

@@ -4,6 +4,7 @@ import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
+import { InjAccount } from './accounts/inj-account';
 import { defaultSignerOptions } from './defaults';
 import { InjectiveDirectSigner } from './types';
 
@@ -18,6 +19,14 @@ export class DirectSigner
     options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
     super(auth, encoders, endpoint, options);
+  }
+
+  async getAccount() {
+    return new InjAccount(
+      await this.getPrefix(),
+      this.auth,
+      this.config.publicKey.isCompressed
+    );
   }
 
   static async fromWallet(

@@ -1,3 +1,4 @@
+export * from './account';
 export * from './auth';
 export * from './doc';
 export * from './signer';

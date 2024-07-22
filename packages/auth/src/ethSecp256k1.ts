@@ -10,7 +10,7 @@ export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
   protected privateKey: Key = null;
   protected ethWallet: Wallet;
 
-  readonly algo = 'EthSecp256k1';
+  readonly algo = 'eth_secp256k1';
 
   constructor(
     privateKey: Uint8Array | HDKey | Key,

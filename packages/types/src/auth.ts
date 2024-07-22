@@ -1,5 +1,7 @@
 import { SignDocResponse } from './wallet';
 
+export type Algo = 'secp256k1' | 'eth_secp256k1';
+
 export interface IKey {
   value: Uint8Array;
   toHex(): string;
@@ -50,4 +52,17 @@ export interface HdPathType {
   network: Network;
   algo: string;
   path: string;
+}
+
+export interface IAccount {
+  publicKey: IKey;
+  address: string;
+  auth: Auth;
+  toAccountData(): AccountData;
+}
+
+export interface AccountData {
+  address: string;
+  algo: Algo;
+  pubkey: Uint8Array;
 }

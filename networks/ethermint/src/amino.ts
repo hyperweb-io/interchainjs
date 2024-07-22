@@ -12,6 +12,7 @@ import { AminoDocAuth } from '@interchainjs/cosmos/types/docAuth';
 import { OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
+import { InjAccount } from './accounts/inj-account';
 import { defaultSignerOptions } from './defaults';
 import { InjectiveAminoSigner } from './types';
 
@@ -27,6 +28,14 @@ export class AminoSigner
     options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
     super(auth, encoders, converters, endpoint, options);
+  }
+
+  async getAccount() {
+    return new InjAccount(
+      await this.getPrefix(),
+      this.auth,
+      this.config.publicKey.isCompressed
+    );
   }
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {

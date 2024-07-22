@@ -4,6 +4,7 @@ import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from './base';
 import { BaseCosmosTxBuilderContext } from './base/builder-context';
 import { DirectSigBuilder, DirectTxBuilder } from './builder/direct-tx-builder';
 import {
+  CosmosAccount,
   CosmosDirectDoc,
   CosmosDirectSigner,
   Encoder,
@@ -26,6 +27,14 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
     options?: SignerOptions
   ) {
     super(auth, encoders, endpoint, options);
+  }
+
+  async getAccount() {
+    return new CosmosAccount(
+      await this.getPrefix(),
+      this.auth,
+      this.config.publicKey.isCompressed
+    );
   }
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosDirectDoc> {

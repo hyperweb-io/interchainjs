@@ -30,10 +30,15 @@ export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
         options?.chainId ?? (await this.ctx.signer.queryClient.getChainId()),
       account_number: (
         options?.accountNumber ??
-        (await this.ctx.signer.queryClient.getAccountNumber())
+        (await this.ctx.signer.queryClient.getAccountNumber(
+          await this.ctx.signer.getAddress()
+        ))
       ).toString(),
       sequence: (
-        options?.sequence ?? (await this.ctx.signer.queryClient.getSequence())
+        options?.sequence ??
+        (await this.ctx.signer.queryClient.getSequence(
+          await this.ctx.signer.getAddress()
+        ))
       ).toString(),
       fee,
       msgs: toAminoMsgs(messages, this.ctx.signer.getConverterFromTypeUrl),

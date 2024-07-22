@@ -9,10 +9,11 @@ import {
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import {
-  Auth,
+  AccountData,
   BroadcastOptions,
   CreateDocResponse,
   HttpEndpoint,
+  IAccount,
   IKey,
   Price,
   SignerConfig,
@@ -21,11 +22,10 @@ import {
   UniSigner,
 } from '@interchainjs/types';
 import { Event } from '@interchainjs/types';
+import { AccountBase } from '@interchainjs/types/account';
 import { Key } from '@interchainjs/utils';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
-
-export type Algo = 'secp256k1' | 'ed25519' | 'sr25519';
 
 export interface SignerOptions extends Partial<SignerConfig> {
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
@@ -167,12 +167,11 @@ export type TxOptions = {
 
 export interface QueryClient {
   readonly endpoint: HttpEndpoint;
-  setHashedPubkey: (key: IKey) => void;
   getChainId: () => Promise<string>;
-  getAddress: () => Promise<string>;
-  getAccountNumber: () => Promise<bigint>;
-  getSequence: () => Promise<bigint>;
+  getAccountNumber: (address: string) => Promise<bigint>;
+  getSequence: (address: string) => Promise<bigint>;
   getLatestBlockHeight: () => Promise<bigint>;
+  getPrefix: () => Promise<string>;
   simulate: (
     txBody: TxBody,
     signerInfos: SignerInfo[]
@@ -225,48 +224,19 @@ export type CosmosTx = TxRaw;
 
 export type Bech32Address = string;
 
-export interface AccountData {
-  address: Bech32Address;
-  algo: Algo;
-  pubkey: Uint8Array;
-}
-
-export interface ICosmosAccount {
-  publicKey: IKey;
-  address: Bech32Address;
-  auth: Auth;
-  toAccountData(): AccountData;
-}
+export interface ICosmosAccount extends IAccount {}
 
 export function isICosmosAccount(
-  instance: AccountData | ICosmosAccount
+  instance: AccountData | ICosmosAccount | IAccount
 ): instance is ICosmosAccount {
   return (instance as ICosmosAccount).toAccountData !== undefined;
 }
 
-export class CosmosAccount implements ICosmosAccount {
-  constructor(
-    public prefix: string,
-    public auth: Auth,
-    public isPublicKeyCompressed: boolean = true
-  ) {}
-
-  get publicKey() {
-    return this.auth.getPublicKey(this.isPublicKeyCompressed);
-  }
-
-  get address() {
+export class CosmosAccount extends AccountBase  {
+  getAddress() {
     return Key.from(ripemd160(sha256(this.publicKey.value))).toBech32(
       this.prefix
     );
-  }
-
-  toAccountData() {
-    return {
-      address: this.address,
-      algo: this.auth.algo as Algo,
-      pubkey: this.publicKey.value,
-    };
   }
 }
 

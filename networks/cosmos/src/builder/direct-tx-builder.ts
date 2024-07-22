@@ -36,7 +36,9 @@ export class DirectTxBuilder extends BaseCosmosTxBuilder<CosmosDirectDoc> {
         options?.chainId ?? (await this.ctx.signer.queryClient.getChainId()),
       accountNumber:
         options?.accountNumber ??
-        (await this.ctx.signer.queryClient.getAccountNumber()),
+        (await this.ctx.signer.queryClient.getAccountNumber(
+          await this.ctx.signer.getAddress()
+        )),
     });
     return signDoc;
   }
