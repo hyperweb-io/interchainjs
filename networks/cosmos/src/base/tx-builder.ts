@@ -75,7 +75,10 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     });
     const { signerInfo } = await this.buildSignerInfo(
       this.ctx.signer.encodedPublicKey,
-      options?.sequence ?? (await this.ctx.signer.queryClient.getSequence()),
+      options?.sequence ??
+        (await this.ctx.signer.queryClient.getSequence(
+          await this.ctx.signer.getAddress()
+        )),
       this.signMode
     );
 

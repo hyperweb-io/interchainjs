@@ -125,9 +125,11 @@ export abstract class CosmosBaseSigner<SignDoc>
   };
 
   async getAddress() {
-    const account = await this.getAccount();
+    if (!this.account) {
+      this.account = await this.getAccount();
+    }
 
-    return account.address;
+    return this.account.address;
   }
 
   abstract getAccount(): Promise<IAccount>;
