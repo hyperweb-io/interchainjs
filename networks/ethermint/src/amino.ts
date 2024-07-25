@@ -27,7 +27,8 @@ export class AminoSigner
     endpoint?: string | HttpEndpoint,
     options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
-    super(auth, encoders, converters, endpoint, options);
+    const opt = { ...defaultSignerOptions.Cosmos, ...options };
+    super(auth, encoders, converters, endpoint, opt);
   }
 
   async getAccount() {

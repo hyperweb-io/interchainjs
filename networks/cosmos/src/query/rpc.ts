@@ -72,6 +72,12 @@ export class RpcClient implements QueryClient {
       return accountResp.account;
     }
 
+    const account: any = accountResp.account;
+
+    if (account.baseAccount && BaseAccount.is(account.baseAccount)){
+      return account.baseAccount;
+    }
+
     return this.parseAccount(accountResp.account);
   }
 

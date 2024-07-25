@@ -76,6 +76,7 @@ export const defaultAccountParser = (
       `No corresponding account found for account type ${encodedAccount.typeUrl}.`
     );
   }
+
   const decoder = toDecoder(codec);
   const account = decoder.fromPartial(decoder.decode(encodedAccount.value));
   const baseAccount =

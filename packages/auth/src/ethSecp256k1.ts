@@ -3,8 +3,7 @@ import { AuthOptions, ByteAuth, ISignatureWraper } from '@interchainjs/types';
 import { Key } from '@interchainjs/utils';
 import { secp256k1 } from '@noble/curves/secp256k1';
 import { HDKey } from '@scure/bip32';
-import { Signature as EthSignature, Wallet } from 'ethers';
-import { HDNode } from 'ethers/lib/utils';
+import { HDNodeWallet, Signature as EthSignature, Wallet } from 'ethers';
 
 export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
   protected privateKey: Key = null;
@@ -34,10 +33,8 @@ export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
     hdPaths: string[],
     options?: AuthOptions
   ) {
-    const node = HDNode.fromMnemonic(mnemonic, options.bip39Password);
-
     return hdPaths.map((hdPath) => {
-      const derived = node.derivePath(hdPath);
+      const derived = HDNodeWallet.fromPhrase(mnemonic, options?.bip39Password, hdPath);
 
       return new EthSecp256k1Auth(Key.fromHex(derived.privateKey), hdPath);
     });

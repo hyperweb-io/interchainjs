@@ -24,6 +24,8 @@
     "prepare": "npm run build",
     "starship": "starship --config ./starship/configs/config.yaml",
     "starship:local": "starship --config ./starship/configs/config.local.yaml",
+    "starship:all": "yarn starship start",
+    "starship:clean": "yarn starship stop",
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
@@ -41,9 +43,6 @@
     "ethermint"
   ],
   "devDependencies": {
-    "@injectivelabs/networks": "^1.14.6",
-    "@injectivelabs/sdk-ts": "^1.14.7",
-    "@injectivelabs/wallet-ts": "^1.14.7",
     "bech32": "^2.0.0",
     "dotenv": "^16.4.5"
   }

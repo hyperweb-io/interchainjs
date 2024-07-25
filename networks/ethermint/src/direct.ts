@@ -18,7 +18,8 @@ export class DirectSigner
     endpoint?: string | HttpEndpoint,
     options: SignerOptions = defaultSignerOptions.Cosmos
   ) {
-    super(auth, encoders, endpoint, options);
+    const opt = { ...defaultSignerOptions.Cosmos, ...options };
+    super(auth, encoders, endpoint, opt);
   }
 
   async getAccount() {
