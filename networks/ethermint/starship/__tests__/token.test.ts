@@ -48,7 +48,7 @@ describe('Token transfers', () => {
 
   it('check address has tokens', async () => {
     const { balance } = await queryClient.balance({
-      address,
+      address: address,
       denom,
     });
 
