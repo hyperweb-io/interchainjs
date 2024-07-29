@@ -133,7 +133,9 @@ export class BaseSigner {
       throw new Error('signArbitrary needs ByteAuth implementation');
     }
 
-    const signature = this.auth.sign(this.config.message.hash(data));
+    const hashedData = this.config.message.hash(data);
+
+    const signature = this.auth.sign(hashedData);
     return signature.toCompact();
   }
 }
