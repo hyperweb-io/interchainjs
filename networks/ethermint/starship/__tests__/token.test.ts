@@ -2,9 +2,6 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { PrivateKey } from '@injectivelabs/sdk-ts';
-import { DirectEthSecp256k1Wallet } from '@injectivelabs/sdk-ts/dist/cjs/core/accounts/signers/DirectEthSecp256k1Wallet';
-import { SigningStargateClient } from '@injectivelabs/sdk-ts/dist/cjs/core/stargate/SigningStargateClient';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
 import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/direct';
@@ -16,7 +13,6 @@ import {
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
 import { DirectSigner } from '@interchainjs/ethermint/direct';
-import { Buffer } from 'buffer';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
@@ -34,9 +30,6 @@ describe('Token transfers', () => {
     creditFromFaucet;
   let queryClient: RpcQuery;
   let injRpcEndpoint: string;
-
-  let injWallet: any;
-  let injClient: SigningStargateClient;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
@@ -58,13 +51,6 @@ describe('Token transfers', () => {
     await creditFromFaucet(address);
 
     await sleep(2000);
-
-    // Initialize inj wallet
-    const privKey = PrivateKey.fromMnemonic(mnemonic);
-    const privKeyBuffer = Buffer.from(privKey.toPrivateKeyHex().substring(2), 'hex');
-    injWallet = await DirectEthSecp256k1Wallet.fromKey(privKeyBuffer);
-
-    injClient = await SigningStargateClient.connectWithSigner(injRpcEndpoint, injWallet);
   });
 
   it('check address has tokens', async () => {
@@ -242,43 +228,5 @@ describe('Token transfers', () => {
     //   hash: ibcBalance!.denom.replace("ibc/", ""),
     // });
     // expect(trace.denomTrace.baseDenom).toEqual(denom);
-  }, 200000);
-
-  it('send injective token to address using inj sdk-ts', async () => {
-    const fee = {
-      amount: [
-        {
-          denom,
-          amount: '100000',
-        },
-      ],
-      gas: '550000',
-    };
-
-    const token = {
-      amount: '10000000',
-      denom,
-    };
-
-    // Transfer uosmo tokens from faceut
-    directSigner.addEncoders(toEncoders(MsgSend));
-    const resp = await injClient.signAndBroadcast(
-      address,
-      [
-        {
-          typeUrl: MsgSend.typeUrl,
-          value: {
-            fromAddress: address,
-            toAddress: address2,
-            amount: [token],
-          },
-        },
-      ],
-      fee,
-      'send tokens test'
-    );
-
-    console.log(resp);
-
   }, 200000);
 });
