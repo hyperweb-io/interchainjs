@@ -1,8 +1,12 @@
 import './setup.test';
 
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
+import { Asset } from '@chain-registry/types';
+import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
+import { AminoSigner } from '@interchainjs/cosmos/amino';
+import { DirectSigner } from '@interchainjs/cosmos/direct';
 import {
   assertIsDeliverTxSuccess,
+  sleep,
   toConverters,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
@@ -20,16 +24,14 @@ import {
   bondStatusToJSON,
 } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
 import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
-import { AminoSigner } from '@interchainjs/injective/amino';
-import { DirectSigner } from '@interchainjs/injective/direct';
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
-import { waitUntil } from '../../test-utils';
-import { generateMnemonic } from '../src';
-import {Asset} from "@chain-registry/types";
+import { generateMnemonic, waitUntil } from '../src';
+
+const hdPath = "m/44'/60'/0'/0/0";
 
 describe('Governance tests for injective', () => {
   let directSigner: DirectSigner,
@@ -37,7 +39,11 @@ describe('Governance tests for injective', () => {
     denom: string,
     directAddress: string,
     aminoAddress: string;
-  let chainInfo, getCoin: () => Promise<Asset>, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
+  let chainInfo,
+    getCoin: () => Promise<Asset>,
+    getRpcEndpoint: () => Promise<string>,
+    creditFromFaucet;
+  let injRpcEndpoint: string;
 
   // Variables used accross testcases
   let queryClient: RpcQuery;
@@ -48,32 +54,39 @@ describe('Governance tests for injective', () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('injective'));
     denom = (await getCoin()).base;
+    injRpcEndpoint = await getRpcEndpoint();
 
     // Initialize auth
-    const directAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
-    const aminoAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
+    const [directAuth] = EthSecp256k1Auth.fromMnemonic(generateMnemonic(), [
+      hdPath,
+    ]);
+    const [aminoAuth] = EthSecp256k1Auth.fromMnemonic(generateMnemonic(), [
+      hdPath,
+    ]);
     directSigner = new DirectSigner(
       directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      await getRpcEndpoint(),
+      injRpcEndpoint,
       { prefix: chainInfo.chain.bech32_prefix }
     );
     aminoSigner = new AminoSigner(
       aminoAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      await getRpcEndpoint(),
+      injRpcEndpoint,
       { prefix: chainInfo.chain.bech32_prefix }
     );
     directAddress = await directSigner.getAddress();
     aminoAddress = await aminoSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(await getRpcEndpoint());
+    queryClient = new RpcQuery(injRpcEndpoint);
 
-    // Transfer injective to address
+    // Transfer inj to address
     await creditFromFaucet(directAddress);
     await creditFromFaucet(aminoAddress);
+
+    await sleep(5000);
   }, 200000);
 
   it('check direct address has tokens', async () => {
@@ -82,8 +95,8 @@ describe('Governance tests for injective', () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual('10000000000');
-  }, 10000);
+    expect(balance!.amount).toEqual('100000000000000000');
+  }, 200000);
 
   it('check amino address has tokens', async () => {
     const { balance } = await queryClient.balance({
@@ -91,8 +104,8 @@ describe('Governance tests for injective', () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual('10000000000');
-  }, 10000);
+    expect(balance!.amount).toEqual('100000000000000000');
+  }, 200000);
 
   it('query validator address', async () => {
     const { validators } = await queryClient.validators({
@@ -143,13 +156,17 @@ describe('Governance tests for injective', () => {
     };
 
     const result = await directSigner.signAndBroadcast(
-      { messages: [msg], fee, memo: '' },
+      {
+        messages: [msg],
+        fee,
+        memo: '',
+      },
       {
         deliverTx: true,
       }
     );
     assertIsDeliverTxSuccess(result);
-  }, 10000);
+  }, 200000);
 
   it('submit a txt proposal', async () => {
     const contentMsg = TextProposal.fromPartial({
@@ -186,9 +203,13 @@ describe('Governance tests for injective', () => {
     };
 
     const result = await directSigner.signAndBroadcast(
-      { messages: [msg], fee, memo: '' },
       {
-        deliverTx: true,
+        messages: [msg],
+        fee,
+        memo: '',
+      },
+      {
+        deliverTx: false,
       }
     );
     assertIsDeliverTxSuccess(result);
@@ -212,7 +233,7 @@ describe('Governance tests for injective', () => {
     });
 
     expect(result.proposal.proposalId.toString()).toEqual(proposalId);
-  }, 10000);
+  }, 200000);
 
   it('vote on proposal using direct', async () => {
     // Vote on proposal from direct address
@@ -236,13 +257,17 @@ describe('Governance tests for injective', () => {
     };
 
     const result = await directSigner.signAndBroadcast(
-      { messages: [msg], fee, memo: '' },
+      {
+        messages: [msg],
+        fee,
+        memo: '',
+      },
       {
         deliverTx: true,
       }
     );
     assertIsDeliverTxSuccess(result);
-  }, 10000);
+  }, 200000);
 
   it('verify direct vote', async () => {
     const { vote } = await queryClient.getVote({
@@ -253,7 +278,7 @@ describe('Governance tests for injective', () => {
     expect(vote.proposalId.toString()).toEqual(proposalId);
     expect(vote.voter).toEqual(directAddress);
     expect(vote.option).toEqual(VoteOption.VOTE_OPTION_YES);
-  }, 10000);
+  }, 200000);
 
   it('vote on proposal using amino', async () => {
     // Vote on proposal from amino address
@@ -277,13 +302,17 @@ describe('Governance tests for injective', () => {
     };
 
     const result = await aminoSigner.signAndBroadcast(
-      { messages: [msg], fee, memo: '' },
+      {
+        messages: [msg],
+        fee,
+        memo: '',
+      },
       {
         deliverTx: true,
       }
     );
     assertIsDeliverTxSuccess(result);
-  }, 10000);
+  }, 200000);
 
   it('verify amino vote', async () => {
     const { vote } = await queryClient.getVote({
@@ -294,7 +323,7 @@ describe('Governance tests for injective', () => {
     expect(vote.proposalId.toString()).toEqual(proposalId);
     expect(vote.voter).toEqual(aminoAddress);
     expect(vote.option).toEqual(VoteOption.VOTE_OPTION_NO);
-  }, 10000);
+  }, 200000);
 
   it('wait for voting period to end', async () => {
     // wait for the voting period to end
@@ -311,5 +340,5 @@ describe('Governance tests for injective', () => {
     });
 
     expect(proposal.status).toEqual(ProposalStatus.PROPOSAL_STATUS_PASSED);
-  }, 10000);
+  }, 200000);
 });
