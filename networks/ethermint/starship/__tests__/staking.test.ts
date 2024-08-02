@@ -60,7 +60,7 @@ describe('Staking tokens testing', () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual('100000000000000000');
+    expect(balance!.amount).toEqual('100000000000000000000');
   }, 10000);
 
   it('query validator address', async () => {

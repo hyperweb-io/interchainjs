@@ -1,5 +1,5 @@
 name: injective
-version: v0.2.11
+version: v0.2.12
 
 chains:
   - id: injective-1

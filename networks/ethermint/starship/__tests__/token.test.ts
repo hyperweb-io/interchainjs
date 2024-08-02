@@ -59,7 +59,7 @@ describe('Token transfers', () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual('100000000000000000');
+    expect(balance!.amount).toEqual('100000000000000000000');
   }, 200000);
 
   it('send injective token to address', async () => {

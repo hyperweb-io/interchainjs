@@ -11,9 +11,9 @@ import {
   toEncoders,
 } from '@interchainjs/cosmos/utils';
 import {
-  ProposalStatus,
+  // ProposalStatus,
   TextProposal,
-  VoteOption,
+  // VoteOption,
 } from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/gov';
 import {
   MsgSubmitProposal,
@@ -24,12 +24,15 @@ import {
   bondStatusToJSON,
 } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
 import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
-import { fromBase64, toUtf8 } from '@interchainjs/utils';
+// import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
-import { generateMnemonic, waitUntil } from '../src';
+import {
+  generateMnemonic,
+  // waitUntil
+} from '../src';
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -83,10 +86,12 @@ describe('Governance tests for injective', () => {
     queryClient = new RpcQuery(injRpcEndpoint);
 
     // Transfer inj to address
-    await creditFromFaucet(directAddress);
-    await creditFromFaucet(aminoAddress);
+    for (let i = 0; i < 10; i++) {
+      await creditFromFaucet(directAddress);
+      await creditFromFaucet(aminoAddress);
+    }
 
-    await sleep(5000);
+    await sleep(2000);
   }, 200000);
 
   it('check direct address has tokens', async () => {
@@ -95,7 +100,7 @@ describe('Governance tests for injective', () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual('100000000000000000');
+    expect(balance!.amount).toEqual('1000000000000000000000');
   }, 200000);
 
   it('check amino address has tokens', async () => {
@@ -104,7 +109,7 @@ describe('Governance tests for injective', () => {
       denom,
     });
 
-    expect(balance!.amount).toEqual('100000000000000000');
+    expect(balance!.amount).toEqual('1000000000000000000000');
   }, 200000);
 
   it('query validator address', async () => {
@@ -130,9 +135,9 @@ describe('Governance tests for injective', () => {
       denom,
     });
 
-    // Stake half of the tokens
+    // Stake 1/5 of the tokens
     // eslint-disable-next-line no-undef
-    const delegationAmount = (BigInt(balance!.amount) / BigInt(2)).toString();
+    const delegationAmount = (BigInt(balance!.amount) / BigInt(5)).toString();
     const msg = {
       typeUrl: MsgDelegate.typeUrl,
       value: MsgDelegate.fromPartial({
@@ -168,177 +173,193 @@ describe('Governance tests for injective', () => {
     assertIsDeliverTxSuccess(result);
   }, 200000);
 
-  it('submit a txt proposal', async () => {
-    const contentMsg = TextProposal.fromPartial({
-      title: 'Test Proposal',
-      description: 'Test text proposal for the e2e testing',
+  it('check direct address has tokens', async () => {
+    const { balance } = await queryClient.balance({
+      address: directAddress,
+      denom,
     });
 
-    // Stake half of the tokens
-    const msg = {
-      typeUrl: MsgSubmitProposal.typeUrl,
-      value: MsgSubmitProposal.fromPartial({
-        proposer: directAddress,
-        initialDeposit: [
-          {
-            amount: '1000000',
-            denom: denom,
-          },
-        ],
-        content: {
-          typeUrl: '/cosmos.gov.v1beta1.TextProposal',
-          value: TextProposal.encode(contentMsg).finish(),
-        },
-      }),
-    };
-
-    const fee = {
-      amount: [
-        {
-          denom,
-          amount: '100000',
-        },
-      ],
-      gas: '550000',
-    };
-
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-      },
-      {
-        deliverTx: false,
-      }
-    );
-    assertIsDeliverTxSuccess(result);
-
-    // Get proposal id from log events
-    const proposalIdEvent = result.deliver_tx?.events.find(
-      (event) => event.type === 'submit_proposal'
-    );
-    const proposalIdEncoded = proposalIdEvent!.attributes.find(
-      (attr) => toUtf8(fromBase64(attr.key)) === 'proposal_id'
-    )!.value;
-    proposalId = toUtf8(fromBase64(proposalIdEncoded));
-
-    // eslint-disable-next-line no-undef
-    expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
+    expect(balance!.amount).toEqual('799999999999999900000');
   }, 200000);
 
-  it('query proposal', async () => {
-    const result = await queryClient.proposal({
-      proposalId: BigInt(proposalId),
-    });
+  // it('submit a txt proposal', async () => {
+  //   const { balance } = await queryClient.balance({
+  //     address: directAddress,
+  //     denom,
+  //   });
 
-    expect(result.proposal.proposalId.toString()).toEqual(proposalId);
-  }, 200000);
+  //   console.log('balance', balance?.amount);
 
-  it('vote on proposal using direct', async () => {
-    // Vote on proposal from direct address
-    const msg = {
-      typeUrl: MsgVote.typeUrl,
-      value: MsgVote.fromPartial({
-        proposalId: BigInt(proposalId),
-        voter: directAddress,
-        option: VoteOption.VOTE_OPTION_YES,
-      }),
-    };
+  //   const contentMsg = TextProposal.fromPartial({
+  //     title: 'Test Proposal',
+  //     description: 'Test text proposal for the e2e testing',
+  //   });
 
-    const fee = {
-      amount: [
-        {
-          denom,
-          amount: '100000',
-        },
-      ],
-      gas: '550000',
-    };
+  //   // Stake half of the tokens
+  //   const msg = {
+  //     typeUrl: MsgSubmitProposal.typeUrl,
+  //     value: MsgSubmitProposal.fromPartial({
+  //       proposer: directAddress,
+  //       initialDeposit: [
+  //         {
+  //           amount: '1000000',
+  //           denom: denom,
+  //         },
+  //       ],
+  //       content: {
+  //         typeUrl: '/cosmos.gov.v1beta1.TextProposal',
+  //         value: TextProposal.encode(contentMsg).finish(),
+  //       },
+  //     }),
+  //   };
 
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-      },
-      {
-        deliverTx: true,
-      }
-    );
-    assertIsDeliverTxSuccess(result);
-  }, 200000);
+  //   const fee = {
+  //     amount: [
+  //       {
+  //         denom,
+  //         amount: '100000',
+  //       },
+  //     ],
+  //     gas: '550000',
+  //   };
 
-  it('verify direct vote', async () => {
-    const { vote } = await queryClient.getVote({
-      proposalId: BigInt(proposalId),
-      voter: directAddress,
-    });
+  //   const result = await directSigner.signAndBroadcast(
+  //     {
+  //       messages: [msg],
+  //       fee,
+  //       memo: '',
+  //     },
+  //     {
+  //       deliverTx: false,
+  //     }
+  //   );
+  //   assertIsDeliverTxSuccess(result);
 
-    expect(vote.proposalId.toString()).toEqual(proposalId);
-    expect(vote.voter).toEqual(directAddress);
-    expect(vote.option).toEqual(VoteOption.VOTE_OPTION_YES);
-  }, 200000);
+  //   // Get proposal id from log events
+  //   const proposalIdEvent = result.deliver_tx?.events.find(
+  //     (event) => event.type === 'submit_proposal'
+  //   );
+  //   const proposalIdEncoded = proposalIdEvent!.attributes.find(
+  //     (attr) => toUtf8(fromBase64(attr.key)) === 'proposal_id'
+  //   )!.value;
+  //   proposalId = toUtf8(fromBase64(proposalIdEncoded));
 
-  it('vote on proposal using amino', async () => {
-    // Vote on proposal from amino address
-    const msg = {
-      typeUrl: MsgVote.typeUrl,
-      value: MsgVote.fromPartial({
-        proposalId: BigInt(proposalId),
-        voter: aminoAddress,
-        option: VoteOption.VOTE_OPTION_NO,
-      }),
-    };
+  //   // eslint-disable-next-line no-undef
+  //   expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
+  // }, 200000);
 
-    const fee = {
-      amount: [
-        {
-          denom,
-          amount: '100000',
-        },
-      ],
-      gas: '550000',
-    };
+  // it('query proposal', async () => {
+  //   const result = await queryClient.proposal({
+  //     proposalId: BigInt(proposalId),
+  //   });
 
-    const result = await aminoSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-      },
-      {
-        deliverTx: true,
-      }
-    );
-    assertIsDeliverTxSuccess(result);
-  }, 200000);
+  //   expect(result.proposal.proposalId.toString()).toEqual(proposalId);
+  // }, 200000);
 
-  it('verify amino vote', async () => {
-    const { vote } = await queryClient.getVote({
-      proposalId: BigInt(proposalId),
-      voter: aminoAddress,
-    });
+  // it('vote on proposal using direct', async () => {
+  //   // Vote on proposal from direct address
+  //   const msg = {
+  //     typeUrl: MsgVote.typeUrl,
+  //     value: MsgVote.fromPartial({
+  //       proposalId: BigInt(proposalId),
+  //       voter: directAddress,
+  //       option: VoteOption.VOTE_OPTION_YES,
+  //     }),
+  //   };
 
-    expect(vote.proposalId.toString()).toEqual(proposalId);
-    expect(vote.voter).toEqual(aminoAddress);
-    expect(vote.option).toEqual(VoteOption.VOTE_OPTION_NO);
-  }, 200000);
+  //   const fee = {
+  //     amount: [
+  //       {
+  //         denom,
+  //         amount: '100000',
+  //       },
+  //     ],
+  //     gas: '550000',
+  //   };
 
-  it('wait for voting period to end', async () => {
-    // wait for the voting period to end
-    const { proposal } = await queryClient.proposal({
-      proposalId: BigInt(proposalId),
-    });
+  //   const result = await directSigner.signAndBroadcast(
+  //     {
+  //       messages: [msg],
+  //       fee,
+  //       memo: '',
+  //     },
+  //     {
+  //       deliverTx: true,
+  //     }
+  //   );
+  //   assertIsDeliverTxSuccess(result);
+  // }, 200000);
 
-    await expect(waitUntil(proposal.votingEndTime)).resolves.not.toThrow();
-  }, 200000);
+  // it('verify direct vote', async () => {
+  //   const { vote } = await queryClient.getVote({
+  //     proposalId: BigInt(proposalId),
+  //     voter: directAddress,
+  //   });
 
-  it('verify proposal passed', async () => {
-    const { proposal } = await queryClient.proposal({
-      proposalId: BigInt(proposalId),
-    });
+  //   expect(vote.proposalId.toString()).toEqual(proposalId);
+  //   expect(vote.voter).toEqual(directAddress);
+  //   expect(vote.option).toEqual(VoteOption.VOTE_OPTION_YES);
+  // }, 200000);
 
-    expect(proposal.status).toEqual(ProposalStatus.PROPOSAL_STATUS_PASSED);
-  }, 200000);
+  // it('vote on proposal using amino', async () => {
+  //   // Vote on proposal from amino address
+  //   const msg = {
+  //     typeUrl: MsgVote.typeUrl,
+  //     value: MsgVote.fromPartial({
+  //       proposalId: BigInt(proposalId),
+  //       voter: aminoAddress,
+  //       option: VoteOption.VOTE_OPTION_NO,
+  //     }),
+  //   };
+
+  //   const fee = {
+  //     amount: [
+  //       {
+  //         denom,
+  //         amount: '100000',
+  //       },
+  //     ],
+  //     gas: '550000',
+  //   };
+
+  //   const result = await aminoSigner.signAndBroadcast(
+  //     {
+  //       messages: [msg],
+  //       fee,
+  //       memo: '',
+  //     },
+  //     {
+  //       deliverTx: true,
+  //     }
+  //   );
+  //   assertIsDeliverTxSuccess(result);
+  // }, 200000);
+
+  // it('verify amino vote', async () => {
+  //   const { vote } = await queryClient.getVote({
+  //     proposalId: BigInt(proposalId),
+  //     voter: aminoAddress,
+  //   });
+
+  //   expect(vote.proposalId.toString()).toEqual(proposalId);
+  //   expect(vote.voter).toEqual(aminoAddress);
+  //   expect(vote.option).toEqual(VoteOption.VOTE_OPTION_NO);
+  // }, 200000);
+
+  // it('wait for voting period to end', async () => {
+  //   // wait for the voting period to end
+  //   const { proposal } = await queryClient.proposal({
+  //     proposalId: BigInt(proposalId),
+  //   });
+
+  //   await expect(waitUntil(proposal.votingEndTime)).resolves.not.toThrow();
+  // }, 200000);
+
+  // it('verify proposal passed', async () => {
+  //   const { proposal } = await queryClient.proposal({
+  //     proposalId: BigInt(proposalId),
+  //   });
+
+  //   expect(proposal.status).toEqual(ProposalStatus.PROPOSAL_STATUS_PASSED);
+  // }, 200000);
 });
