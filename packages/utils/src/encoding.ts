@@ -70,3 +70,11 @@ export function fromAscii(str: string): Uint8Array {
 export function toAscii(bytes: Uint8Array): string {
   return Buffer.from(bytes).toString('ascii');
 }
+
+export function fromBuffer(buffer: Buffer): Uint8Array {
+  return Uint8Array.from(buffer);
+}
+
+export function toBuffer(bytes: Uint8Array): Buffer {
+  return Buffer.from(bytes);
+}

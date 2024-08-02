@@ -1,11 +1,10 @@
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { AddrDerivation, Auth, SignerConfig } from '@interchainjs/types';
+import { AccountData, AddrDerivation, Auth, SignerConfig } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../amino';
 import { defaultSignerConfig } from '../defaults';
 import { DirectDocSigner } from '../direct';
 import {
-  AccountData,
   CosmosAccount,
   CosmosAminoDoc,
   CosmosDirectDoc,

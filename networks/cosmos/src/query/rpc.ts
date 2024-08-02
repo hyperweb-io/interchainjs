@@ -9,8 +9,8 @@ import {
   TxBody,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BroadcastOptions, HttpEndpoint, IKey } from '@interchainjs/types';
-import { fromBase64, isEmpty, Key, toHttpEndpoint } from '@interchainjs/utils';
+import { BroadcastOptions, HttpEndpoint } from '@interchainjs/types';
+import { fromBase64, isEmpty, toHttpEndpoint } from '@interchainjs/utils';
 
 import { defaultAccountParser, defaultBroadcastOptions } from '../defaults';
 import {
@@ -37,18 +37,12 @@ export class RpcClient implements QueryClient {
   protected accountNumber?: bigint;
   protected readonly authQuery: AuthQuery;
   protected readonly txQuery: TxQuery;
-  publicKeyHash?: Key;
   protected parseAccount: (encodedAccount: EncodedMessage) => BaseAccount =
     defaultAccountParser;
   protected _prefix?: string;
 
-  constructor(
-    endpoint: string | HttpEndpoint,
-    publicKeyHash?: IKey,
-    prefix?: string
-  ) {
+  constructor(endpoint: string | HttpEndpoint, prefix?: string) {
     this.endpoint = toHttpEndpoint(endpoint);
-    this.publicKeyHash = publicKeyHash;
     const txRpc = createTxRpc(this.endpoint);
     this.authQuery = new AuthQuery(txRpc);
     this.txQuery = new TxQuery(txRpc);
@@ -61,26 +55,13 @@ export class RpcClient implements QueryClient {
     this.parseAccount = parseBaseAccount;
   }
 
-  setHashedPubkey(key: IKey) {
-    this.publicKeyHash = key;
-  }
-
   async getPrefix() {
     return this._prefix ?? getPrefix(await this.getChainId());
   }
 
-  async getAddress() {
-    if (!this.publicKeyHash) {
-      throw new Error(
-        'publicKeyHash is not provided when constructing RpcClient'
-      );
-    }
-    return this.publicKeyHash.toBech32(await this.getPrefix());
-  }
-
-  async getBaseAccount(): Promise<BaseAccount> {
+  async getBaseAccount(address: string): Promise<BaseAccount> {
     const accountResp = await this.authQuery.account({
-      address: await this.getAddress(),
+      address,
     });
 
     if (!accountResp || !accountResp.account) {
@@ -89,6 +70,12 @@ export class RpcClient implements QueryClient {
 
     if (BaseAccount.is(accountResp.account)) {
       return accountResp.account;
+    }
+
+    const account: any = accountResp.account;
+
+    if (account.baseAccount && BaseAccount.is(account.baseAccount)){
+      return account.baseAccount;
     }
 
     return this.parseAccount(accountResp.account);
@@ -113,16 +100,16 @@ export class RpcClient implements QueryClient {
     return BigInt(status.sync_info.latest_block_height);
   }
 
-  async getAccountNumber() {
+  async getAccountNumber(address: string) {
     if (isEmpty(this.accountNumber)) {
-      const account = await this.getBaseAccount();
+      const account = await this.getBaseAccount(address);
       this.accountNumber = account.accountNumber;
     }
     return this.accountNumber;
   }
 
-  async getSequence() {
-    const account = await this.getBaseAccount();
+  async getSequence(address: string) {
+    const account = await this.getBaseAccount(address);
     return account.sequence;
   }
 

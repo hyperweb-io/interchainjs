@@ -2,7 +2,6 @@ import { AminoSigner } from '@interchainjs/cosmos/amino';
 import { DirectSigner } from '@interchainjs/cosmos/direct';
 import { RpcClient } from '@interchainjs/cosmos/query/rpc';
 import {
-  AccountData,
   AminoConverter,
   Encoder,
   isICosmosAccount,
@@ -19,7 +18,13 @@ import { PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types/cosmos/cry
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
-import { HttpEndpoint, IKey, Price, StdFee } from '@interchainjs/types';
+import {
+  AccountData,
+  HttpEndpoint,
+  IKey,
+  Price,
+  StdFee,
+} from '@interchainjs/types';
 import { fromBase64 } from '@interchainjs/utils';
 
 import {
@@ -85,7 +90,7 @@ export class SigningClient {
     options: SignerOptions = {}
   ): Promise<SigningClient> {
     const signingClient = new SigningClient(
-      new RpcClient(endpoint, undefined, options.prefix),
+      new RpcClient(endpoint, options.prefix),
       signer,
       options
     );
@@ -133,8 +138,6 @@ export class SigningClient {
         this.directSigners[await signer.getAddress()] = signer;
       }
     }
-
-    this.queryClient.setHashedPubkey(firstPubkey);
   }
 
   private async getAccountData(address: string): Promise<AccountData> {
@@ -183,12 +186,12 @@ export class SigningClient {
     return await this.queryClient.getChainId();
   }
 
-  async getAccountNumber() {
-    return await this.queryClient.getAccountNumber();
+  async getAccountNumber(address: string) {
+    return await this.queryClient.getAccountNumber(address);
   }
 
-  async getSequence() {
-    return await this.queryClient.getSequence();
+  async getSequence(address: string) {
+    return await this.queryClient.getSequence(address);
   }
 
   getSinger(signerAddress: string) {

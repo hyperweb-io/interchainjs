@@ -5,6 +5,7 @@ import { BaseCosmosTxBuilderContext } from './base/builder-context';
 import { AminoSigBuilder, AminoTxBuilder } from './builder/amino-tx-builder';
 import {
   AminoConverter,
+  CosmosAccount,
   CosmosAminoDoc,
   CosmosAminoSigner,
   Encoder,
@@ -80,6 +81,14 @@ export class AminoSigner
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
     return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
+  }
+
+  async getAccount() {
+    return new CosmosAccount(
+      await this.getPrefix(),
+      this.auth,
+      this.config.publicKey.isCompressed
+    );
   }
 
   static async fromWallet(

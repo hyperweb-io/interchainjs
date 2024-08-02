@@ -10,6 +10,7 @@ import {
   BaseSigner,
   BroadcastOptions,
   HttpEndpoint,
+  IAccount,
   IKey,
   isDocAuth,
   SignDocResponse,
@@ -66,6 +67,7 @@ export abstract class CosmosBaseSigner<SignDoc>
   readonly _encodePublicKey: (key: IKey) => EncodedMessage;
   readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
   prefix?: string;
+  account?: IAccount;
   declare txBuilder: BaseCosmosTxBuilder<SignDoc>;
 
   constructor(
@@ -98,6 +100,18 @@ export abstract class CosmosBaseSigner<SignDoc>
     this.encoders.push(...encoders);
   };
 
+  getPrefix = async () => {
+    if (this.prefix) {
+      return this.prefix;
+    }
+
+    if (this.queryClient) {
+      return this.queryClient.getPrefix();
+    }
+
+    throw new Error("Can't get prefix because no queryClient is set");
+  };
+
   getEncoder = (typeUrl: string) => {
     const encoder = this.encoders.find(
       (encoder) => encoder.typeUrl === typeUrl
@@ -111,15 +125,17 @@ export abstract class CosmosBaseSigner<SignDoc>
   };
 
   async getAddress() {
-    return await this.queryClient.getAddress();
+    if (!this.account) {
+      this.account = await this.getAccount();
+    }
+
+    return this.account.address;
   }
 
+  abstract getAccount(): Promise<IAccount>;
+
   setEndpoint(endpoint: string | HttpEndpoint) {
-    this._queryClient = new RpcClient(
-      endpoint,
-      this.publicKeyHash,
-      this.prefix
-    );
+    this._queryClient = new RpcClient(endpoint, this.prefix);
     (this._queryClient as RpcClient).setAccountParser(this.parseAccount);
   }
 
@@ -192,7 +208,8 @@ export abstract class CosmosBaseSigner<SignDoc>
     });
     const { signerInfo } = await this.txBuilder.buildSignerInfo(
       this.encodedPublicKey,
-      options?.sequence ?? (await this.queryClient.getSequence()),
+      options?.sequence ??
+        (await this.queryClient.getSequence(await this.getAddress())),
       options?.signMode ?? SignMode.SIGN_MODE_DIRECT
     );
 

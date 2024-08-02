@@ -1,6 +1,5 @@
-
 name: interchainjs
-version: v0.2.6
+version: v0.2.12
 
 chains:
   - id: osmosis-1

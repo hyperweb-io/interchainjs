@@ -38,7 +38,7 @@ export class CosmWasmSigningClient extends SigningClient {
     options: SignerOptions = {}
   ): Promise<CosmWasmSigningClient> {
     const signingClient = new CosmWasmSigningClient(
-      new RpcClient(endpoint, undefined, options.prefix),
+      new RpcClient(endpoint, options.prefix),
       signer,
       options
     );

@@ -1,55 +1,75 @@
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
+import { Asset } from '@chain-registry/types';
+import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
+import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/direct';
 import {
   assertIsDeliverTxSuccess,
+  sleep,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
-import { DirectSigner } from '@interchainjs/injective/direct';
+import { DirectSigner } from '@interchainjs/ethermint/direct';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import {Asset} from "@chain-registry/types";
+
+const hdPath = "m/44'/60'/0'/0/0";
+
+const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
-  let directSigner: DirectSigner, denom: string, address: string;
+  let directSigner: DirectSigner, denom: string, address: string, address2: string;
   let chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
   let queryClient: RpcQuery;
+  let injRpcEndpoint: string;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('injective'));
     denom = (await getCoin()).base;
 
+    injRpcEndpoint = await getRpcEndpoint();
+
     const mnemonic = generateMnemonic();
+
     // Initialize auth
-    const auth = Secp256k1Auth.fromMnemonic(mnemonic);
-    directSigner = new DirectSigner(auth, [], await getRpcEndpoint(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    const [auth] = EthSecp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
+    directSigner = new DirectSigner(auth, [], injRpcEndpoint);
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(await getRpcEndpoint());
+    queryClient = new RpcQuery(injRpcEndpoint);
 
     await creditFromFaucet(address);
+
+    await sleep(2000);
   });
+
+  it('check address has tokens', async () => {
+    const { balance } = await queryClient.balance({
+      address: address,
+      denom,
+    });
+
+    expect(balance!.amount).toEqual('100000000000000000000');
+  }, 200000);
 
   it('send injective token to address', async () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const auth2 = Secp256k1Auth.fromMnemonic(mnemonic);
-    const address2 = defaultSignerOptions.publicKey
-      .hash(auth2.getPublicKey(defaultSignerOptions.publicKey.isCompressed))
-      .toBech32(chainInfo.chain.bech32_prefix);
+    const [auth2] = EthSecp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
+
+    const directSigner2 = new DirectSigner(auth2, [], injRpcEndpoint);
+
+    address2 = await directSigner2.getAddress();
 
     const fee = {
       amount: [
@@ -90,21 +110,20 @@ describe('Token transfers', () => {
 
     expect(balance!.amount).toEqual(token.amount);
     expect(balance!.denom).toEqual(denom);
-  }, 10000);
+  }, 200000);
 
-  it('send ibc osmo tokens to address on cosmos chain', async () => {
+  it('send ibc inj tokens to address on cosmos chain', async () => {
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
-      useChain('cosmoshub');
-
-    const { getRpcEndpoint: osmosisRpcEndpoint } = useChain('injective');
+    useChain('cosmoshub');
 
     // Initialize wallet address for cosmos chain
-    const cosmosAuth = Secp256k1Auth.fromMnemonic(generateMnemonic());
-    const cosmosAddress = defaultSignerOptions.publicKey
-      .hash(
-        cosmosAuth.getPublicKey(defaultSignerOptions.publicKey.isCompressed)
-      )
-      .toBech32(cosmosChainInfo.chain.bech32_prefix);
+    const [cosmosAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
+      cosmosHdPath,
+    ]);
+
+    const cosmosDirectSigner = new CosmosDirectSigner(cosmosAuth, [], await cosmosRpcEndpoint());
+
+    const cosmosAddress = await cosmosDirectSigner.getAddress();
 
     const ibcInfos = chainInfo.fetcher.getChainIbcData(
       chainInfo.chain.chain_name
@@ -116,6 +135,27 @@ describe('Token transfers', () => {
     );
 
     expect(ibcInfo).toBeTruthy();
+
+    // const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
+    //   useChain('cosmoshub');
+
+    // const { getRpcEndpoint: osmosisRpcEndpoint } = useChain('injective');
+
+    // // Initialize wallet address for cosmos chain
+    // const [auth3] = EthSecp256k1Auth.fromMnemonic(generateMnemonic(), [hdPath]);
+    // const signer3 = new DirectSigner(auth3, [], injRpcEndpoint);
+    // const address3 = await signer3.getAddress();
+
+    // const ibcInfos = chainInfo.fetcher.getChainIbcData(
+    //   chainInfo.chain.chain_name
+    // );
+    // const ibcInfo = ibcInfos.find(
+    //   (i) =>
+    //     i.chain_1.chain_name === chainInfo.chain.chain_name &&
+    //     i.chain_2.chain_name === cosmosChainInfo.chain.chain_name
+    // );
+
+    // expect(ibcInfo).toBeTruthy();
 
     const { port_id: sourcePort, channel_id: sourceChannel } =
       ibcInfo!.channels[0].chain_1;
@@ -188,5 +228,5 @@ describe('Token transfers', () => {
     //   hash: ibcBalance!.denom.replace("ibc/", ""),
     // });
     // expect(trace.denomTrace.baseDenom).toEqual(denom);
-  }, 10000);
+  }, 200000);
 });

@@ -1,6 +1,6 @@
-import { SignerConfig } from '@interchainjs/types';
+import { AccountData, SignerConfig } from '@interchainjs/types';
 
-import { AccountData, CosmosAminoDoc, CosmosDirectDoc } from './signer';
+import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
 
 export interface WalletOptions {
   bip39Password?: string;

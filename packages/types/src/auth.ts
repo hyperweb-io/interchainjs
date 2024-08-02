@@ -1,5 +1,7 @@
 import { SignDocResponse } from './wallet';
 
+export type Algo = 'secp256k1' | 'eth_secp256k1';
+
 export interface IKey {
   value: Uint8Array;
   toHex(): string;
@@ -18,12 +20,11 @@ export interface Auth {
   getPublicKey: (isCompressed?: boolean) => IKey;
 }
 
-export interface ByteAuth extends Auth {
-  sign: (data: Uint8Array) => Signature;
-  verify?: (data: Uint8Array, signature: Signature) => boolean;
+export interface ByteAuth<Sig> extends Auth {
+  sign: (data: Uint8Array) => ISignatureWraper<Sig>;
 }
 
-export function isByteAuth(auth: Auth): auth is ByteAuth {
+export function isByteAuth<Sig>(auth: Auth): auth is ByteAuth<Sig> {
   return 'sign' in auth;
 }
 
@@ -40,10 +41,8 @@ export interface AuthOptions {
   bip39Password?: string;
 }
 
-export interface Signature {
-  readonly r: IKey;
-  readonly s: IKey;
-  readonly recovery?: number;
+export interface ISignatureWraper<Sig> {
+  signature: Sig;
   toCompact(): IKey;
 }
 
@@ -53,4 +52,17 @@ export interface HdPathType {
   network: Network;
   algo: string;
   path: string;
+}
+
+export interface IAccount {
+  publicKey: IKey;
+  address: string;
+  auth: Auth;
+  toAccountData(): AccountData;
+}
+
+export interface AccountData {
+  address: string;
+  algo: Algo;
+  pubkey: Uint8Array;
 }

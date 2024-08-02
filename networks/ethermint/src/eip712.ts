@@ -9,6 +9,7 @@ import {
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 import { constructAuthsFromWallet } from '@interchainjs/utils';
 
+import { InjAccount } from './accounts/inj-account';
 import { AminoSigner } from './amino';
 import { Eip712TxBuilder } from './builder/eip712-tx-builder';
 import { defaultPublicKeyConfig, defaultSignerOptions } from './defaults';
@@ -31,6 +32,14 @@ export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
       converters,
       endpoint,
       options
+    );
+  }
+
+  async getAccount() {
+    return new InjAccount(
+      await this.getPrefix(),
+      this.auth,
+      this.config.publicKey.isCompressed
     );
   }
 
