@@ -1,5 +1,8 @@
 import { Algo, Auth, IAccount } from './auth';
 
+/**
+ * AccountBase implements common parts of the IAccount interface.
+ */
 export abstract class AccountBase implements IAccount {
   public address: string;
 

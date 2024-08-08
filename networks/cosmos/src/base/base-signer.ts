@@ -13,6 +13,7 @@ import {
   IAccount,
   IKey,
   isDocAuth,
+  ISigBuilder,
   SignDocResponse,
   SignerConfig,
   SignResponse,
@@ -33,8 +34,13 @@ import {
   UniCosmosBaseSigner,
 } from '../types';
 import { calculateFee } from '../utils/chain';
-import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from './tx-builder';
+import { BaseCosmosTxBuilder } from './tx-builder';
 
+/**
+ * Base class for Cosmos Doc Signer.
+ * It provides the basic methods for signing a document.
+ * @template SignDoc - The type of the document to be signed.
+ */
 export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
   constructor(auth: Auth, config: SignerConfig) {
     super(auth, config);
@@ -42,8 +48,9 @@ export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
     this.txBuilder = this.getTxBuilder();
   }
 
-  txBuilder: BaseCosmosSigBuilder<SignDoc>;
-  abstract getTxBuilder(): BaseCosmosSigBuilder<SignDoc>;
+  txBuilder: ISigBuilder<SignDoc, IKey>;
+
+  abstract getTxBuilder(): ISigBuilder<SignDoc, IKey>;
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
     if (isDocAuth<SignDoc>(this.auth)) {
       return await this.auth.signDoc(doc);

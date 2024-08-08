@@ -3,7 +3,6 @@ import {
   Domain,
   Eip712Data,
   UniSigner,
-  Wallet,
 } from '@interchainjs/types';
 
 export type UniEip712Signer<
@@ -31,5 +30,3 @@ export type Eip712Tx = unknown;
 export interface EthereumAccount extends BaseWalletAccount {
   address: string;
 }
-
-export type Eip712Wallet = Wallet<EthereumAccount>;
