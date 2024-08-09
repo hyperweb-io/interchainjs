@@ -16,6 +16,9 @@ import { InjAccount } from './accounts/inj-account';
 import { defaultSignerOptions } from './defaults';
 import { InjectiveAminoSigner } from './types';
 
+/**
+ * AminoDocSigner is a signer for inj Amino document.
+ */
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
   implements InjectiveAminoSigner
@@ -31,6 +34,9 @@ export class AminoSigner
     super(auth, encoders, converters, endpoint, opt);
   }
 
+  /**
+   * Get inj account from the signer.
+   */
   async getAccount() {
     return new InjAccount(
       await this.getPrefix(),
@@ -43,6 +49,10 @@ export class AminoSigner
     return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 
+  /**
+   * create AminoSigner from wallet.
+   * if there're multiple accounts in the wallet, it will return the first one by default.
+   */
   static async fromWallet(
     signer: OfflineAminoSigner,
     encoders: Encoder[],
@@ -55,6 +65,10 @@ export class AminoSigner
     return new AminoSigner(auth, encoders, converters, endpoint, options);
   }
 
+  /**
+   * create AminoSigners from wallet.
+   * if there're multiple accounts in the wallet, it will return all of the signers.
+   */
   static async fromWalletToSigners(
     signer: OfflineAminoSigner,
     encoders: Encoder[],

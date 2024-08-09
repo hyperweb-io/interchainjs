@@ -2,7 +2,13 @@ import { AccountBase } from '@interchainjs/types/account';
 import { Key } from '@interchainjs/utils';
 import { keccak_256 } from '@noble/hashes/sha3';
 
+/**
+ * Account for Injective chain.
+ */
 export class InjAccount extends AccountBase {
+  /**
+   * Create inj address.
+   */
   getAddress(): string {
     const uncompressedPubKey = this.auth.getPublicKey(false);
 
