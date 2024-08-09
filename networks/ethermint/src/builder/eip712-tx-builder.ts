@@ -23,7 +23,7 @@ export class Eip712TxBuilder extends BaseCosmosTxBuilder<InjectiveEip712Doc> {
 
   async buildDoc(
     { messages, fee, memo, options }: InjectiveEip712SignArgs,
-    rxRaw: Partial<TxRaw>
+    txRaw: Partial<TxRaw>
   ): Promise<InjectiveEip712Doc> {
     messages.forEach((msg) => {
       if (msg.typeUrl !== messages[0].typeUrl) {
@@ -53,7 +53,7 @@ export class Eip712TxBuilder extends BaseCosmosTxBuilder<InjectiveEip712Doc> {
           ],
         },
       },
-      rxRaw
+      txRaw
     );
 
     const signDoc: InjectiveEip712Doc = {

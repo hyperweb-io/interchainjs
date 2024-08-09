@@ -4,7 +4,10 @@ import { fromBase64, randomId, toBase64, toHex } from '@interchainjs/utils';
 import { BroadcastMode } from '../types';
 export { getPrefix } from './chain';
 
-export function createTxRpc(endpoint: HttpEndpoint): TxRpc {
+/**
+ * create rpc client for query
+ */
+export function createQueryRpc(endpoint: HttpEndpoint): TxRpc {
   return {
     request: async (
       service: string,
@@ -16,6 +19,9 @@ export function createTxRpc(endpoint: HttpEndpoint): TxRpc {
   };
 }
 
+/**
+ * helper function for broadcast tx
+ */
 export async function broadcast(
   endpoint: HttpEndpoint,
   method: BroadcastMode,
@@ -47,6 +53,9 @@ export async function broadcast(
   }
 }
 
+/**
+ * helper function for abci query
+ */
 export async function abciQuery(
   endpoint: HttpEndpoint,
   path: string,
@@ -82,6 +91,9 @@ export async function abciQuery(
   }
 }
 
+/**
+ * helper function for sleep milliseconds
+ */
 export async function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

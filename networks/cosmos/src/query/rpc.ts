@@ -28,8 +28,11 @@ import {
   TxResponse,
 } from '../types/rpc';
 import { constructAuthInfo } from '../utils/direct';
-import { broadcast, createTxRpc, getPrefix, sleep } from '../utils/rpc';
+import { broadcast, createQueryRpc, getPrefix, sleep } from '../utils/rpc';
 
+/**
+ * client for cosmos rpc
+ */
 export class RpcClient implements QueryClient {
   readonly endpoint: HttpEndpoint;
 
@@ -43,7 +46,7 @@ export class RpcClient implements QueryClient {
 
   constructor(endpoint: string | HttpEndpoint, prefix?: string) {
     this.endpoint = toHttpEndpoint(endpoint);
-    const txRpc = createTxRpc(this.endpoint);
+    const txRpc = createQueryRpc(this.endpoint);
     this.authQuery = new AuthQuery(txRpc);
     this.txQuery = new TxQuery(txRpc);
     this._prefix = prefix;
@@ -59,6 +62,9 @@ export class RpcClient implements QueryClient {
     return this._prefix ?? getPrefix(await this.getChainId());
   }
 
+  /**
+   * get basic account info by address
+   */
   async getBaseAccount(address: string): Promise<BaseAccount> {
     const accountResp = await this.authQuery.account({
       address,
@@ -68,25 +74,32 @@ export class RpcClient implements QueryClient {
       throw new Error(`Account is undefined.`);
     }
 
+    // if the account is a BaseAccount, return it
     if (BaseAccount.is(accountResp.account)) {
       return accountResp.account;
     }
 
-    const account: any = accountResp.account;
-
-    if (account.baseAccount && BaseAccount.is(account.baseAccount)){
-      return account.baseAccount;
+    // if there's a baseAccount in the account, and it's a BaseAccount, return it
+    if ('baseAccount' in accountResp.account && accountResp.account.baseAccount && BaseAccount.is(accountResp.account.baseAccount)){
+      return accountResp.account.baseAccount;
     }
 
+    // otherwise, parse the account from Any type.
     return this.parseAccount(accountResp.account);
   }
 
+  /**
+   * get status of the chain
+   */
   protected async getStatus(): Promise<Status> {
     const data = await fetch(`${this.endpoint.url}/status`);
     const json = await data.json();
     return json['result'];
   }
 
+  /**
+   * get chain id
+   */
   getChainId = async () => {
     if (isEmpty(this.chainId)) {
       const status: Status = await this.getStatus();
@@ -95,11 +108,17 @@ export class RpcClient implements QueryClient {
     return this.chainId;
   };
 
+  /**
+   * get the latest block height
+   */
   async getLatestBlockHeight() {
     const status: Status = await this.getStatus();
     return BigInt(status.sync_info.latest_block_height);
   }
 
+  /**
+   * get account number by address
+   */
   async getAccountNumber(address: string) {
     if (isEmpty(this.accountNumber)) {
       const account = await this.getBaseAccount(address);
@@ -108,11 +127,17 @@ export class RpcClient implements QueryClient {
     return this.accountNumber;
   }
 
+  /**
+   * get sequence by address
+   */
   async getSequence(address: string) {
     const account = await this.getBaseAccount(address);
     return account.sequence;
   }
 
+  /**
+   * get the account of the current signer
+   */
   async simulate(txBody: TxBody, signerInfos: SignerInfo[]) {
     const tx = Tx.fromPartial({
       body: txBody,
@@ -133,6 +158,9 @@ export class RpcClient implements QueryClient {
     });
   }
 
+  /**
+   * get the transaction by hash(id)
+   */
   async getTx(id: string): Promise<IndexedTx | null> {
     const data = await fetch(`${this.endpoint.url}/tx?hash=0x${id}`);
     const json = await data.json();
@@ -157,6 +185,13 @@ export class RpcClient implements QueryClient {
     };
   }
 
+  /**
+   * broadcast a transaction.
+   * there're three modes:
+   * - 'broadcast_tx_async': broadcast the transaction and return immediately.
+   * - 'broadcast_tx_sync': broadcast the transaction and wait for the response.
+   * - 'broadcast_tx_commit': broadcast the transaction and wait for the response and the transaction to be included in a block.
+   */
   async broadcast(
     txBytes: Uint8Array,
     options?: BroadcastOptions

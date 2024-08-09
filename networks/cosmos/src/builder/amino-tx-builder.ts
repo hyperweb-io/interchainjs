@@ -6,12 +6,18 @@ import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosAminoDoc, CosmosSignArgs } from '../types';
 import { encodeStdSignDoc, toAminoMsgs } from '../utils';
 
+/**
+ * Amino signature builder
+ */
 export class AminoSigBuilder extends BaseCosmosSigBuilder<CosmosAminoDoc> {
   async buildDocBytes(doc: CosmosAminoDoc): Promise<Uint8Array> {
     return encodeStdSignDoc(doc);
   }
 }
 
+/**
+ * Amino transaction builder
+ */
 export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
   constructor(
     protected ctx: BaseCosmosTxBuilderContext<AminoSignerBase<CosmosAminoDoc>>
