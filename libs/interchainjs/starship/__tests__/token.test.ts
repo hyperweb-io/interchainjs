@@ -17,7 +17,7 @@ const cosmosHdPath = "m/44'/118'/0'/0/0";
 describe('Token transfers', () => {
   let protoSigner: OfflineDirectSigner,
     denom: string,
-    address,
+    address: string,
     address2: string;
   let commonPrefix: string,
     chainInfo: ChainInfo,

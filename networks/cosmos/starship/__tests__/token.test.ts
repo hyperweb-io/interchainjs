@@ -20,7 +20,7 @@ import { generateMnemonic } from '../src';
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
-  let directSigner: DirectSigner, denom: string, address, address2: string;
+  let directSigner: DirectSigner, denom: string, address: string, address2: string;
   let chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
