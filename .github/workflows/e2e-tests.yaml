@@ -20,8 +20,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'yarn'
+          node-version: "20.x"
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -48,8 +48,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'yarn'
+          node-version: "20.x"
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -65,3 +65,31 @@ jobs:
 
       - name: Run E2E Tests
         run: cd ./networks/cosmos && yarn starship:test
+
+  networks-ethermint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository 📝
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Set Up Starship Infrastructure
+        id: starship-infra
+        uses: cosmology-tech/starship-action@0.5.5
+        with:
+          config: networks/ethermint/starship/configs/config.workflow.yaml
+
+      - name: Run E2E Tests
+        run: cd ./networks/ethermint && yarn starship:test

@@ -16,6 +16,7 @@
     "directory": "dist"
   },
   "scripts": {
+    "test": "jest --config ./jest.config.js --verbose --bail",
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",

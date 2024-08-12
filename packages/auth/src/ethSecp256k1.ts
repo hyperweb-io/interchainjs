@@ -5,6 +5,9 @@ import { secp256k1 } from '@noble/curves/secp256k1';
 import { HDKey } from '@scure/bip32';
 import { HDNodeWallet, Signature as EthSignature, Wallet } from 'ethers';
 
+/**
+ * secp256k1 Auth for Ethereum
+ */
 export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
   protected privateKey: Key = null;
   protected ethWallet: Wallet;
@@ -28,6 +31,9 @@ export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
     }
   }
 
+  /**
+   * Create new Auths from mnemonic
+   */
   static fromMnemonic(
     mnemonic: string,
     hdPaths: string[],
@@ -40,12 +46,18 @@ export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
     });
   }
 
+  /**
+   * Get public key generated from private key
+   */
   getPublicKey = (isCompressed?: boolean) => {
     return Key.from(
       secp256k1.getPublicKey(this.privateKey!.value, isCompressed)
     );
   };
 
+  /**
+   * Sign data in bytes
+   */
   sign(data: Uint8Array): ISignatureWraper<EthSignature> {
     const { ethWallet } = this;
 
@@ -53,9 +65,15 @@ export class EthSecp256k1Auth implements ByteAuth<EthSignature> {
   }
 }
 
+/**
+ * secp256k1 Signature for Ethereum
+ */
 export class EthSecp256k1Signature implements ISignatureWraper<EthSignature> {
   constructor(public readonly signature: EthSignature) {}
 
+  /**
+   * Convert signature to compact format
+   */
   toCompact(): Key {
     const splitSignature = BytesUtils.splitSignature(this.signature);
 
