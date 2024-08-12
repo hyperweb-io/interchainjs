@@ -7,6 +7,7 @@ import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
+import { HDPath } from '@interchainjs/types';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { StargateSigningClient } from 'interchainjs/stargate';
 import { useChain } from 'starshipjs';
@@ -14,7 +15,10 @@ import { useChain } from 'starshipjs';
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
-  let protoSigner: OfflineDirectSigner, denom: string, address: string;
+  let protoSigner: OfflineDirectSigner,
+    denom: string,
+    address,
+    address2: string;
   let commonPrefix: string,
     chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
@@ -31,14 +35,17 @@ describe('Token transfers', () => {
 
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const wallet = Secp256k1HDWallet.fromMnemonic(mnemonic, [
-      {
+    const wallet = Secp256k1HDWallet.fromMnemonic(
+      mnemonic,
+      [0, 1].map((i) => ({
         prefix: commonPrefix,
-        hdPath: cosmosHdPath,
-      },
-    ]);
+        hdPath: HDPath.cosmos(0, 0, i).toString(),
+      }))
+    );
     protoSigner = wallet.toOfflineDirectSigner();
-    address = (await protoSigner.getAccounts())[0].address;
+    const accounts = await protoSigner.getAccounts();
+    address = accounts[0].address;
+    address2 = accounts[1].address;
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(await getRpcEndpoint());
@@ -47,16 +54,6 @@ describe('Token transfers', () => {
   });
 
   it('send osmosis token to address', async () => {
-    const mnemonic = generateMnemonic();
-    // Initialize wallet
-    const wallet2 = Secp256k1HDWallet.fromMnemonic(mnemonic, [
-      {
-        prefix: commonPrefix,
-        hdPath: cosmosHdPath,
-      },
-    ]);
-    const address2 = (await wallet2.getAccounts())[0].address;
-
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner
