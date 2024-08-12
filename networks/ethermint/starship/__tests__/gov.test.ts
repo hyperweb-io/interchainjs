@@ -87,7 +87,7 @@ describe('Governance tests for injective', () => {
       await creditFromFaucet(aminoAddress);
     }
 
-    await sleep(2000);
+    await sleep(5000);
   }, 200000);
 
   it('check direct address has tokens', async () => {

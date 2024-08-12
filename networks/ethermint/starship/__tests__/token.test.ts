@@ -50,7 +50,7 @@ describe('Token transfers', () => {
 
     await creditFromFaucet(address);
 
-    await sleep(2000);
+    await sleep(5000);
   });
 
   it('check address has tokens', async () => {
