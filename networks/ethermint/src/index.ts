@@ -1,3 +1,3 @@
 throw new Error(
-  '@interchainjs/injective have no entry-point: consult README for usage'
+  '@interchainjs/ethermint have no entry-point: consult README for usage'
 );

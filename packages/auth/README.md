@@ -4,7 +4,6 @@
   <img src="https://user-images.githubusercontent.com/545047/188804067-28e67e5e-0214-4449-ab04-2e0c564a6885.svg" width="80">
 </p>
 
-
 <p align="center" width="100%">
   <!-- <a href="https://github.com/cosmology-tech/interchainjs/actions/workflows/run-tests.yaml">
     <img height="20" src="https://github.com/cosmology-tech/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
@@ -32,20 +31,23 @@ const signature = auth.sign(Uint8Array.from([1, 2, 3]));
 console.log(signature.toHex());
 ```
 
-It's easy to derive *cosmos/injective/ethereum* network HD path (taking `cosmos` as example)
+It's easy to derive _cosmos/injective/ethereum_ network HD path (taking `cosmos` as example)
 
 ```ts
 // derive with Cosmos default HD path "m/44'/118'/0'/0/0"
 const auth = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", "cosmos");
-// is identical to 
-const auth = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", "m/44'/118'/0'/0/0");
+// is identical to
+const auth = Secp256k1Auth.fromMnemonic(
+  "<MNEMONIC_WORDS>",
+  "m/44'/118'/0'/0/0"
+);
 ```
 
 `Auth` objected can be utilized by different signers. See
 
 - [@interchainjs/cosmos](/networks/cosmos/README.md)
 - [@interchainjs/ethereum](/networks/ethereum/README.md)
-- [@interchainjs/injective](/networks/injective/README.md)
+- [@interchainjs/ethermint](/networks/injective/README.md)
 
 ## Implementations
 

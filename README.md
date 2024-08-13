@@ -82,12 +82,12 @@ We created a specific package to make it easy to migrate from `@cosmjs`.
 
 - [interchainjs](/networks/cosmjs/README.md)
 
-## Injective Network
+## ethermint Network
 
 ### Transactions
 
-- [@interchainjs/injective](/networks/injective/README.md)
-- `@interchainjs/injective-msgs`(on progress)
+- [@interchainjs/ethermint](/networks/ethermint/README.md)
+- `@interchainjs/ethermint-msgs`(on progress)
 
 ## Ethereum Network
 
