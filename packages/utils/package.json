@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "author": "Cosmology <developers@cosmology.zone>",
   "main": "index.js",
   "module": "esm/index.js",
@@ -25,7 +25,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/types": "0.0.1-beta.2",
+    "@interchainjs/types": "^0.0.1-beta.3",
     "bech32": "^2.0.0"
   }
 }
