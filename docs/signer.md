@@ -1,6 +1,6 @@
 # Signer
 
-The main purpose of the `@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class  which with `Auth` object being utilized in construction.
+The main purpose of the `@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/ethermint` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class which with `Auth` object being utilized in construction.
 
 ```ts
 import { UniSigner } from "@interchainjser/types";
@@ -77,68 +77,44 @@ export interface UniSigner<SignDoc, Tx> {
 
 > Tips: These 3 signing methods correspond to 3 levels of signing type: [Auth vs. Wallet vs. Signer](/docs/auth-wallet-signer.md).
 
-
-## Namespaces & Interfaces
-
-`@interchainjs/types` exposes all the types that descirbe all the available signers under `@interchainjs` scope. They are collected in the namespaces below.
-
-```ts
-import { ISigner, ISignDoc, ITransaction, IWallet, IWalletAccount } from "@interchainjs/types";
-```
-
-See details below
+## Types
 
 > Tips about the headers:
+>
 > - **Class**: the Class implements the Interface
 > - **SignDoc**: document structure for signing
 > - **Transaction**: document structure for broadcasting (abbr. `Tx`)
 > - **Wallet**: interface for web3 wallets
 > - **WalletAccount**: interface for web3 wallets account
 
-### ISigner.CosmosDirectSigner
+### CosmosDirectSigner
 
 - **Class**: `import { DirectSigner } from "@interchainjs/cosmos/direct"`
-- **SignDoc**: *ISignDoc.CosmosDirectDoc*
-- **Transaction**: *ITransaction.CosmosTx*
-- **Wallet**: *IWallet.CosmosDirectWallet*
-- **WalletAccount**: *IWalletAccount.CosmosAccount*
-  
-### ISigner.CosmosAminoSigner
+- **SignDoc**: CosmosDirectDoc
+- **Transaction**: CosmosTx
+- **Wallet**: Secp256k1HDWallet
+- **WalletAccount**: CosmosAccount
+
+### CosmosAminoSigner
 
 - **Class**: `import { AminoSigner } from "@interchainjs/cosmos/amino"`
-- **SignDoc**: *ISignDoc.CosmosAminoDoc*
-- **Transaction**: *ITransaction.CosmosTx*
-- **Wallet**: *IWallet.CosmosAminoWallet*
-- **WalletAccount**: *IWalletAccount.CosmosAccount*
-  
-### ISigner.InjectiveDirectSigner
+- **SignDoc**: CosmosAminoDoc
+- **Transaction**: CosmosTx
+- **Wallet**: Secp256k1HDWallet
+- **WalletAccount**: CosmosAccount
 
-- **Class**: `import { DirectSigner } from "@interchainjs/injective/direct"`
-- **SignDoc**: *ISignDoc.CosmosDirectDoc*
-- **Transaction**: *ITransaction.CosmosTx*
-- **Wallet**: *IWallet.InjectiveDirectWallet*
-- **WalletAccount**: *IWalletAccount.InjectiveAccount*
+### InjectiveDirectSigner
 
-### ISigner.InjectiveAminoSigner
+- **Class**: `import { DirectSigner } from "@interchainjs/ethermint/direct"`
+- **SignDoc**: CosmosDirectDoc
+- **Transaction**: CosmosTx
+- **Wallet**:
+- **WalletAccount**: InjectiveAccount
 
-- **Class**: `import { AminoSigner } from "@interchainjs/injective/amino"`
-- **SignDoc**: *ISignDoc.CosmosAminoDoc*
-- **Transaction**: *ITransaction.CosmosTx*
-- **Wallet**: *IWallet.InjectiveAminoWallet*
-- **WalletAccount**: *IWalletAccount.InjectiveAccount*
+### InjectiveAminoSigner
 
-### ISigner.InjectiveEip712Signer
-
-- **Class**: `import { Eip712Signer } from "@interchainjs/injective/eip712"`
-- **SignDoc**: *ISignDoc.InjectiveEip712Doc*
-- **Transaction**: *ITransaction.CosmosTx*
-- **Wallet**: *IWallet.InjectiveEip712Wallet*
-- **WalletAccount**: *IWalletAccount.InjectiveAccount*
-
-### ISigner.Eip712Signer
-
-- **Class**: `import { Eip712Signer } from "@interchainjs/ethereum/eip712"`
-- **SignDoc**: *ISignDoc.Eip712Doc*
-- **Transaction**: *ITransaction.Eip712Tx*
-- **Wallet**: *IWallet.Eip712Wallet*
-- **WalletAccount**: *IWalletAccount.EthereumAccount*
+- **Class**: `import { AminoSigner } from "@interchainjs/ethermint/amino"`
+- **SignDoc**: CosmosAminoDoc
+- **Transaction**: CosmosTx
+- **Wallet**:
+- **WalletAccount**: InjectiveAccount
