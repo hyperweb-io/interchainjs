@@ -13,6 +13,7 @@ import {
   IAccount,
   IKey,
   isDocAuth,
+  ISigBuilder,
   SignDocResponse,
   SignerConfig,
   SignResponse,
@@ -33,8 +34,13 @@ import {
   UniCosmosBaseSigner,
 } from '../types';
 import { calculateFee } from '../utils/chain';
-import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from './tx-builder';
+import { BaseCosmosTxBuilder } from './tx-builder';
 
+/**
+ * Base class for Cosmos Doc Signer.
+ * It provides the basic methods for signing a document.
+ * @template SignDoc - The type of the document to be signed.
+ */
 export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
   constructor(auth: Auth, config: SignerConfig) {
     super(auth, config);
@@ -42,8 +48,19 @@ export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
     this.txBuilder = this.getTxBuilder();
   }
 
-  txBuilder: BaseCosmosSigBuilder<SignDoc>;
-  abstract getTxBuilder(): BaseCosmosSigBuilder<SignDoc>;
+  /**
+   * signature builder
+   */
+  txBuilder: ISigBuilder<SignDoc, IKey>;
+
+  /**
+   * abstract method to get the signature builder
+   */
+  abstract getTxBuilder(): ISigBuilder<SignDoc, IKey>;
+
+  /**
+   * Sign a document.
+   */
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
     if (isDocAuth<SignDoc>(this.auth)) {
       return await this.auth.signDoc(doc);
@@ -58,16 +75,49 @@ export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
   }
 }
 
+/**
+ * Base class for Cosmos Signer.
+ */
 export abstract class CosmosBaseSigner<SignDoc>
   extends CosmosDocSigner<SignDoc>
   implements UniCosmosBaseSigner<SignDoc>
 {
+  /**
+   * QueryClient for querying chain data.
+   */
   _queryClient?: QueryClient;
+
+  /**
+   * registered encoders
+   */
   readonly encoders: Encoder[];
+
+  /**
+   * encode public key to EncodedMessage
+   * the method is provided by the config
+   */
   readonly _encodePublicKey: (key: IKey) => EncodedMessage;
+
+  /**
+   * parse account from EncodedMessage
+   * the method is provided by the config
+   */
   readonly parseAccount: (encodedAccount: EncodedMessage) => BaseAccount;
+
+  /**
+   * prefix of the chain.
+   * will get from queryClient if not set.
+   */
   prefix?: string;
+
+  /**
+   * account info of the current signer.
+   */
   account?: IAccount;
+
+  /**
+   * signed document builder
+   */
   declare txBuilder: BaseCosmosTxBuilder<SignDoc>;
 
   constructor(
@@ -90,6 +140,9 @@ export abstract class CosmosBaseSigner<SignDoc>
     this.txBuilder = this.getTxBuilder();
   }
 
+  /**
+   * abstract method to get the signed document builder
+   */
   abstract getTxBuilder(): BaseCosmosTxBuilder<SignDoc>;
 
   public get encodedPublicKey() {
@@ -100,6 +153,10 @@ export abstract class CosmosBaseSigner<SignDoc>
     this.encoders.push(...encoders);
   };
 
+  /**
+   * get prefix of the chain
+   * @returns prefix of the chain
+   */
   getPrefix = async () => {
     if (this.prefix) {
       return this.prefix;
@@ -112,6 +169,9 @@ export abstract class CosmosBaseSigner<SignDoc>
     throw new Error("Can't get prefix because no queryClient is set");
   };
 
+  /**
+   * get encoder by typeUrl
+   */
   getEncoder = (typeUrl: string) => {
     const encoder = this.encoders.find(
       (encoder) => encoder.typeUrl === typeUrl
@@ -124,6 +184,10 @@ export abstract class CosmosBaseSigner<SignDoc>
     return encoder;
   };
 
+  /**
+   * get the address of the current signer
+   * @returns the address of the current signer
+   */
   async getAddress() {
     if (!this.account) {
       this.account = await this.getAccount();
@@ -132,13 +196,22 @@ export abstract class CosmosBaseSigner<SignDoc>
     return this.account.address;
   }
 
+  /**
+   * abstract method to get the account of the current signer
+   */
   abstract getAccount(): Promise<IAccount>;
 
+  /**
+   * set the endpoint of the queryClient
+   */
   setEndpoint(endpoint: string | HttpEndpoint) {
     this._queryClient = new RpcClient(endpoint, this.prefix);
     (this._queryClient as RpcClient).setAccountParser(this.parseAccount);
   }
 
+  /**
+   * get the queryClient
+   */
   get queryClient() {
     assertEmpty(this._queryClient);
     return this._queryClient;
@@ -162,6 +235,11 @@ export abstract class CosmosBaseSigner<SignDoc>
       };
   }
 
+  /**
+   * sign tx messages with fee, memo, etc.
+   * @param args - arguments for signing, e.g. messages, fee, memo, etc.
+   * @returns a response object with the signed document and a broadcast method
+   */
   async sign(
     args: CosmosSignArgs
   ): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
@@ -175,6 +253,12 @@ export abstract class CosmosBaseSigner<SignDoc>
     };
   }
 
+  /**
+   * broadcast a signed document
+   * @param txRaw - the signed document
+   * @param options - options for broadcasting
+   * @returns a broadcast response
+   */
   async broadcast(txRaw: TxRaw, options?: BroadcastOptions) {
     return this.broadcastArbitrary(
       TxRaw.encode(TxRaw.fromPartial(txRaw)).finish(),
@@ -182,11 +266,17 @@ export abstract class CosmosBaseSigner<SignDoc>
     );
   }
 
+  /**
+   * broadcast an arbitrary message in bytes
+   */
   async broadcastArbitrary(message: Uint8Array, options?: BroadcastOptions) {
     const result = await this.queryClient.broadcast(message, options);
     return result;
   }
 
+  /**
+   * sign and broadcast tx messages
+   */
   async signAndBroadcast(
     { messages, fee, memo, options: signOptions }: CosmosSignArgs,
     options?: BroadcastOptions
@@ -200,6 +290,9 @@ export abstract class CosmosBaseSigner<SignDoc>
     return await broadcast(options);
   }
 
+  /**
+   * simulate broadcasting tx messages.
+   */
   async simulate({ messages, memo, options }: CosmosSignArgs) {
     const { txBody } = await this.txBuilder.buildTxBody({
       messages,
@@ -216,10 +309,16 @@ export abstract class CosmosBaseSigner<SignDoc>
     return await this.simulateByTxBody(txBody, [signerInfo]);
   }
 
+  /**
+   * simulate broadcasting txBody.
+   */
   async simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]) {
     return await this.queryClient.simulate(txBody, signerInfos);
   }
 
+  /**
+   * estimate fee for tx messages.
+   */
   async estimateFee({ messages, memo, options }: CosmosSignArgs) {
     const { gasInfo } = await this.simulate({ messages, memo, options });
     if (typeof gasInfo === 'undefined') {
@@ -228,6 +327,9 @@ export abstract class CosmosBaseSigner<SignDoc>
     return await calculateFee(gasInfo, options, this.queryClient.getChainId);
   }
 
+  /**
+   * estimate fee by txBody.
+   */
   async estimateFeeByTxBody(
     txBody: TxBody,
     signerInfos: SignerInfo[],

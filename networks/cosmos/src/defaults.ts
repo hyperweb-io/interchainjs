@@ -31,6 +31,9 @@ export const defaultFeeOptions: FeeOptions = {
   gasPrice: 'average',
 };
 
+/**
+ * Default signer configuration for Cosmos chains.
+ */
 export const defaultSignerConfig: SignerConfig = {
   publicKey: {
     isCompressed: true,

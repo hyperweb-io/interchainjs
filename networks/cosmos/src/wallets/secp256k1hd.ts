@@ -19,6 +19,9 @@ import {
   WalletOptions,
 } from '../types/wallet';
 
+/**
+ * Cosmos HD Wallet for secp256k1
+ */
 export class Secp256k1HDWallet
 implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
 {
@@ -29,6 +32,13 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     this.options = { ...defaultSignerConfig, ...options };
   }
 
+  /**
+   * Create a new HD wallet from mnemonic
+   * @param mnemonic
+   * @param derivations infos for derivate addresses
+   * @param options wallet options
+   * @returns HD wallet
+   */
   static fromMnemonic(
     mnemonic: string,
     derivations: AddrDerivation[],
@@ -48,12 +58,21 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     return new Secp256k1HDWallet(accounts, options?.signerConfig);
   }
 
+  /**
+   * Get account data
+   * @returns account data
+   */
   async getAccounts(): Promise<AccountData[]> {
     return this.accounts.map((acct) => {
       return acct.toAccountData();
     });
   }
 
+  /**
+   * Get one of the accounts using the address.
+   * @param address
+   * @returns
+   */
   private getAcctFromBech32Addr(address: string) {
     const id = this.accounts.findIndex((acct) => acct.address === address);
     if (id === -1) {
@@ -62,6 +81,9 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     return this.accounts[id];
   }
 
+  /**
+   * Sign direct doc for signerAddress
+   */
   async signDirect(
     signerAddress: string,
     signDoc: CosmosDirectDoc
@@ -86,6 +108,9 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     };
   }
 
+  /**
+   * sign amino doc for signerAddress
+   */
   async signAmino(
     signerAddress: string,
     signDoc: CosmosAminoDoc
@@ -110,6 +135,9 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     };
   }
 
+  /**
+   * Convert this to offline direct signer for hiding the private key.
+   */
   toOfflineDirectSigner(): OfflineDirectSigner {
     return {
       getAccounts: async () => this.getAccounts(),
@@ -118,6 +146,9 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     };
   }
 
+  /**
+   * Convert this to offline amino signer for hiding the private key.
+   */
   toOfflineAminoSigner(): OfflineAminoSigner {
     return {
       getAccounts: async () => this.getAccounts(),

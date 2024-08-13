@@ -14,12 +14,18 @@ import {
 import { AminoDocAuth } from './types/docAuth';
 import { OfflineAminoSigner } from './types/wallet';
 
+/**
+ * AminoDocSigner is a signer for Amino document.
+ */
 export class AminoDocSigner extends CosmosDocSigner<CosmosAminoDoc> {
   getTxBuilder(): AminoSigBuilder {
     return new AminoSigBuilder(new BaseCosmosTxBuilderContext(this));
   }
 }
 
+/**
+ * AminoSignerBase is a base signer for Amino document.
+ */
 export abstract class AminoSignerBase<
   AminoDoc,
 > extends CosmosBaseSigner<AminoDoc> {
@@ -36,10 +42,16 @@ export abstract class AminoSignerBase<
     this.converters = converters;
   }
 
+  /**
+   * register converters
+   */
   addConverters = (converters: AminoConverter[]) => {
     this.converters.push(...converters);
   };
 
+  /**
+   * get converter by aminoType
+   */
   getConverter = (aminoType: string) => {
     const converter = this.converters.find(
       (converter) => converter.aminoType === aminoType
@@ -52,6 +64,9 @@ export abstract class AminoSignerBase<
     return converter;
   };
 
+  /**
+   * get converter by typeUrl
+   */
   getConverterFromTypeUrl = (typeUrl: string) => {
     const converter = this.converters.find(
       (converter) => converter.typeUrl === typeUrl
@@ -65,6 +80,10 @@ export abstract class AminoSignerBase<
   };
 }
 
+/**
+ * signer for Amino document.
+ * one signer for one account.
+ */
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
   implements CosmosAminoSigner
@@ -83,6 +102,9 @@ export class AminoSigner
     return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
   }
 
+  /**
+   * get account
+   */
   async getAccount() {
     return new CosmosAccount(
       await this.getPrefix(),
@@ -91,6 +113,10 @@ export class AminoSigner
     );
   }
 
+  /**
+   * create AminoSigner from wallet.
+   * if there're multiple accounts in the wallet, it will return the first one by default.
+   */
   static async fromWallet(
     signer: OfflineAminoSigner,
     encoders: Encoder[],
@@ -103,6 +129,10 @@ export class AminoSigner
     return new AminoSigner(auth, encoders, converters, endpoint, options);
   }
 
+  /**
+   * create AminoSigners from wallet.
+   * if there're multiple accounts in the wallet, it will return all of the signers.
+   */
   static async fromWalletToSigners(
     signer: OfflineAminoSigner,
     encoders: Encoder[],

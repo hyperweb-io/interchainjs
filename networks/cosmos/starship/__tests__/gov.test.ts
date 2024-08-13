@@ -23,6 +23,9 @@ import {
   bondStatusToJSON,
 } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
 import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+import {
+  HDPath
+} from '@interchainjs/types';
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
@@ -55,7 +58,8 @@ describe('Governance tests for osmosis', () => {
       cosmosHdPath,
     ]);
     const [aminoAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
-      cosmosHdPath,
+      // use cosmos hdpath built by HDPath
+      HDPath.cosmos().toString(),
     ]);
     directSigner = new DirectSigner(
       directAuth,

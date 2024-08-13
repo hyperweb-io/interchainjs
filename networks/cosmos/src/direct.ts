@@ -13,12 +13,18 @@ import {
 import { DirectDocAuth } from './types/docAuth';
 import { OfflineDirectSigner } from './types/wallet';
 
+/**
+ * DirectDocSigner is a signer for Direct document.
+ */
 export class DirectDocSigner extends CosmosDocSigner<CosmosDirectDoc> {
   getTxBuilder(): DirectSigBuilder {
     return new DirectSigBuilder(new BaseCosmosTxBuilderContext(this));
   }
 }
 
+/**
+ * DirectSignerBase is a base signer for Direct document.
+ */
 export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   constructor(
     auth: Auth,
@@ -29,6 +35,9 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
     super(auth, encoders, endpoint, options);
   }
 
+  /**
+   * Get account from the signer.
+   */
   async getAccount() {
     return new CosmosAccount(
       await this.getPrefix(),
@@ -42,6 +51,9 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   }
 }
 
+/**
+ * DirectSigner is a signer for Direct document.
+ */
 export class DirectSigner
   extends DirectSignerBase
   implements CosmosDirectSigner
@@ -55,6 +67,10 @@ export class DirectSigner
     super(auth, encoders, endpoint, options);
   }
 
+  /**
+   * Create DirectSigner from wallet.
+   * If there're multiple accounts in the wallet, it will return the first one by default.
+   */
   static async fromWallet(
     signer: OfflineDirectSigner,
     encoders: Encoder[],
@@ -65,6 +81,10 @@ export class DirectSigner
     return new DirectSigner(auth, encoders, endpoint, options);
   }
 
+  /**
+   * Create DirectSigners from wallet.
+   * If there're multiple accounts in the wallet, it will return all of the signers.
+   */
   static async fromWalletToSigners(
     signer: OfflineDirectSigner,
     encoders: Encoder[],

@@ -1,27 +1,26 @@
-import { Auth, IKey } from './auth';
+import { IKey } from './auth';
 
+/**
+ * BaseWalletAccount is a base class for wallet account
+ */
 export interface BaseWalletAccount {
+  // algorithm used to derive the key
   algo: string;
+  // public key
   publicKey: IKey;
 }
 
+/**
+ * SignDocResponse is a response object that contains the signature and the sign doc.
+ */
 export interface SignDocResponse<SignDoc> {
   signature: IKey;
   signDoc: SignDoc;
 }
 
-export interface Wallet<Account extends BaseWalletAccount> {
-  getAccountAuths: () => Promise<
-    {
-      auth: Auth;
-      account: Account;
-    }[]
-  >;
-  getAccounts: () => Promise<Account[]>;
-}
-
-export type BaseWallet = Wallet<BaseWalletAccount>;
-
+/**
+ * properties for deriving address
+ */
 export interface AddrDerivation {
   readonly hdPath: string;
   readonly prefix: string;

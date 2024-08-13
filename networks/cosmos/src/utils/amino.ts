@@ -25,7 +25,10 @@ function sortKey<T>(target: T): T {
   return sortedObj as T;
 }
 
-export function encodeStdSignDoc(doc: StdSignDoc) {
+/**
+ * Encode the StdSignDoc to bytes for amino signing
+ */
+export function encodeStdSignDoc(doc: StdSignDoc): Uint8Array {
   const sorted = sortKey(doc);
   const str = JSON.stringify(sorted);
   const serialized = str
@@ -35,6 +38,9 @@ export function encodeStdSignDoc(doc: StdSignDoc) {
   return fromUtf8(serialized);
 }
 
+/**
+ * from Amino messages to protobuf messages
+ */
 export function toMessages(
   aminoMsgs: AminoMessage[],
   getConverter: (aminoType: string) => AminoConverter
@@ -48,6 +54,9 @@ export function toMessages(
   });
 }
 
+/**
+ * from protobuf messages to Amino messages
+ */
 export function toAminoMsgs(
   messages: Message[],
   getConverter: (typeUrl: string) => AminoConverter
@@ -61,6 +70,9 @@ export function toAminoMsgs(
   });
 }
 
+/**
+ * Convert StdFee to Fee
+ */
 export function toFee(fee: StdFee): Fee {
   return Fee.fromPartial({
     amount: fee.amount.map((coin) => Coin.fromPartial(coin)),
@@ -70,6 +82,9 @@ export function toFee(fee: StdFee): Fee {
   });
 }
 
+/**
+ * Convert Fee to StdFee
+ */
 export function toStdFee(fee: Fee): StdFee {
   return {
     amount: fee.amount,
@@ -79,6 +94,9 @@ export function toStdFee(fee: Fee): StdFee {
   };
 }
 
+/**
+ * from telescope generated codec to AminoConverter
+ */
 export function toConverter(
   generated: TelescopeGeneratedType<any, any, any>
 ): AminoConverter {
@@ -97,6 +115,9 @@ export function toConverter(
   };
 }
 
+/**
+ * from telescope generated codecs to AminoConverters
+ */
 export function toConverters(
   ...generatedArray: TelescopeGeneratedType<any, any, any>[]
 ): AminoConverter[] {

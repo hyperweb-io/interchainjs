@@ -7,13 +7,12 @@ import {
   SignerOptions,
 } from '@interchainjs/cosmos/types';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
-import { constructAuthsFromWallet } from '@interchainjs/utils';
 
 import { InjAccount } from './accounts/inj-account';
 import { AminoSigner } from './amino';
 import { Eip712TxBuilder } from './builder/eip712-tx-builder';
-import { defaultPublicKeyConfig, defaultSignerOptions } from './defaults';
-import { InjectiveBaseWallet,InjectiveEip712Doc } from './types';
+import { defaultSignerOptions } from './defaults';
+import {InjectiveEip712Doc } from './types';
 
 export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
   readonly aminoSigner: AminoSigner;
@@ -50,33 +49,22 @@ export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
 
 export class Eip712Signer extends Eip712SignerBase {
   static async fromWallet(
-    wallet: InjectiveBaseWallet,
+    _wallet: any,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
-    return new Eip712Signer(auth, encoders, converters, endpoint, options);
+    throw new Error('Not implemented yet');
   }
 
   static async fromWalletToSigning(
-    wallet: InjectiveBaseWallet,
+    _wallet: any,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = await constructAuthsFromWallet(
-      wallet,
-      options?.publicKey?.isCompressed ?? defaultPublicKeyConfig.isCompressed
-    );
-
-    return auths.map((auth) => {
-      return new Eip712Signer(auth, encoders, converters, endpoint, options);
-    });
+    throw new Error('Not implemented yet');
   }
 }

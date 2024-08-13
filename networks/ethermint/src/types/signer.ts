@@ -12,7 +12,6 @@ import {
   Eip712Data,
   InjectiveDomain,
   InjectiveEip712Message,
-  Wallet,
 } from '@interchainjs/types';
 
 export type InjectiveDirectSigner = CosmosDirectSigner;
@@ -30,8 +29,6 @@ export type InjectiveEip712Doc = Eip712Data<
 >;
 
 export type InjectiveEip712SignArgs = CosmosSignArgs<DocOptions>;
-
-export type InjectiveBaseWallet = Wallet<InjectiveAccount>;
 
 export enum EthereumChainId {
   Mainnet = 1,

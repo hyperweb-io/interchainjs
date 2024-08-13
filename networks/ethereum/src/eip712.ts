@@ -6,14 +6,12 @@ import {
   SignerConfig,
   SignResponse,
 } from '@interchainjs/types';
-import { constructAuthsFromWallet } from '@interchainjs/utils';
 
 import { defaultSignerConfig } from './defaults';
 import {
   Eip712Doc,
   Eip712SignArgs,
   Eip712Tx,
-  Eip712Wallet,
   UniEip712Signer,
 } from './types';
 
@@ -30,42 +28,26 @@ export class Eip712Signer<BroadcastResponse extends { hash: string }>
   }
 
   static async fromWallet(
-    wallet: Eip712Wallet,
+    _wallet: any,
     endpoint?: string | HttpEndpoint,
     config?: SignerConfig
   ) {
-    const [auth] = await constructAuthsFromWallet(
-      wallet,
-      config.publicKey.isCompressed
-    );
-    return new Eip712Signer(auth, endpoint, config);
+    throw new Error('Not implemented yet');
   }
 
   static async fromWalletToSigners(
-    wallet: Eip712Wallet,
+    _wallet: any,
     endpoint?: string | HttpEndpoint,
     config?: SignerConfig
   ) {
-    const auths = await constructAuthsFromWallet(
-      wallet,
-      config.publicKey.isCompressed
-    );
-
-    return auths.map((auth) => {
-      return new Eip712Signer(auth, endpoint, config);
-    });
+    throw new Error('Not implemented yet');
   }
 
   async getAddress(): Promise<string> {
-    return this.publicKeyHash.toPrefixedHex();
+    throw new Error('Not implemented yet');
   }
 
   async signDoc(doc: Eip712Doc): Promise<SignDocResponse<Eip712Doc>> {
-    // return SignResponseFromAuth.signEip712Data(
-    //   this.auth as ByteAuth,
-    //   doc,
-    //   this.config
-    // );
     throw new Error('Not implemented yet');
   }
 

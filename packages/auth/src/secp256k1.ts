@@ -6,6 +6,9 @@ import { HDKey } from '@scure/bip32';
 
 import { getSeedFromMnemonic } from './utils';
 
+/**
+ * secp256k1 Auth
+ */
 export class Secp256k1Auth implements ByteAuth<RecoveredSignatureType> {
   protected privateKey: Key = null;
 
@@ -24,6 +27,9 @@ export class Secp256k1Auth implements ByteAuth<RecoveredSignatureType> {
     }
   }
 
+  /**
+   * Create new Auths from mnemonic
+   */
   static fromMnemonic(
     mnemonic: string,
     hdPaths: string[],
@@ -38,12 +44,18 @@ export class Secp256k1Auth implements ByteAuth<RecoveredSignatureType> {
     });
   }
 
+  /**
+   * Get public key generated from private key
+   */
   getPublicKey = (isCompressed?: boolean) => {
     return Key.from(
       secp256k1.getPublicKey(this.privateKey!.value, isCompressed)
     );
   };
 
+  /**
+   * Sign data in bytes
+   */
   sign(data: Uint8Array): ISignatureWraper<RecoveredSignatureType> {
     if (!this.privateKey) {
       throw new Error('No privateKey set!');
@@ -53,11 +65,17 @@ export class Secp256k1Auth implements ByteAuth<RecoveredSignatureType> {
   }
 }
 
+/**
+ * secp256k1 Signature wrapper
+ */
 export class Secp256k1Signature
 implements ISignatureWraper<RecoveredSignatureType>
 {
   constructor(public readonly signature: RecoveredSignatureType) {}
 
+  /**
+   * Convert signature to compact form
+   */
   toCompact(): Key {
     return Key.from(this.signature.toCompactRawBytes());
   }

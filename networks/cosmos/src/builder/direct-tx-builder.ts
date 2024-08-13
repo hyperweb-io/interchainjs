@@ -12,12 +12,18 @@ import {
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosDirectDoc, CosmosSignArgs } from '../types';
 
+/**
+ * Direct signature builder
+ */
 export class DirectSigBuilder extends BaseCosmosSigBuilder<CosmosDirectDoc> {
   async buildDocBytes(doc: CosmosDirectDoc): Promise<Uint8Array> {
     return SignDoc.encode(doc).finish();
   }
 }
 
+/**
+ * Direct transaction builder
+ */
 export class DirectTxBuilder extends BaseCosmosTxBuilder<CosmosDirectDoc> {
   constructor(
     protected ctx: BaseCosmosTxBuilderContext<CosmosBaseSigner<SignDoc>>

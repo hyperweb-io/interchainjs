@@ -27,9 +27,23 @@ import { Key } from '@interchainjs/utils';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 
+/**
+ * Signer options for cosmos chains
+ */
 export interface SignerOptions extends Partial<SignerConfig> {
+  /**
+   * parse account from encoded message
+   */
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
+
+  /**
+   * encode public key to encoded message
+   */
   encodePublicKey?: (key: IKey) => EncodedMessage;
+
+  /**
+   * prefix for bech32 address
+   */
   prefix?: string;
 }
 
@@ -39,6 +53,9 @@ export interface Message<T = any> {
   value: T;
 }
 
+/**
+ * Encoded message
+ */
 export interface EncodedMessage {
   typeUrl: string;
   value: Uint8Array;
@@ -165,6 +182,9 @@ export type TxOptions = {
   nonCriticalExtensionOptions?: Any[];
 };
 
+/**
+ * Query client ops for cosmos chains
+ */
 export interface QueryClient {
   readonly endpoint: HttpEndpoint;
   getChainId: () => Promise<string>;
@@ -182,6 +202,9 @@ export interface QueryClient {
   ) => Promise<BroadcastResponse>;
 }
 
+/**
+ * Signer args for cosmos chains
+ */
 export type CosmosSignArgs<Option = DocOptions> = {
   messages: Message[];
   fee?: StdFee;
@@ -189,6 +212,14 @@ export type CosmosSignArgs<Option = DocOptions> = {
   options?: Option;
 };
 
+/**
+ * Base signer type for cosmos chains
+ * @template CosmosSignArgs - Signer args for cosmos chains
+ * @template CosmosTx - Transaction type for cosmos chains
+ * @template SignDoc - Sign document type for cosmos chains
+ * @template addresstype - string address for cosmos chains
+ * @template BroadcastResponse - Broadcast response for cosmos chains
+ */
 export type UniCosmosBaseSigner<SignDoc> = UniSigner<
   CosmosSignArgs,
   CosmosTx,
@@ -197,6 +228,9 @@ export type UniCosmosBaseSigner<SignDoc> = UniSigner<
   BroadcastResponse
 >;
 
+/**
+ * Direct signer for cosmos chains
+ */
 export type CosmosDirectSigner = UniSigner<
   CosmosSignArgs,
   CosmosTx,
@@ -204,6 +238,9 @@ export type CosmosDirectSigner = UniSigner<
   Promise<string>,
   BroadcastResponse
 >;
+/**
+ * Amino signer for cosmos chains
+ */
 export type CosmosAminoSigner = UniSigner<
   CosmosSignArgs,
   CosmosTx,
@@ -212,26 +249,47 @@ export type CosmosAminoSigner = UniSigner<
   BroadcastResponse
 >;
 
+/**
+ * Create doc response for cosmos chains
+ */
 export type CosmosCreateDocResponse<SignDoc> = CreateDocResponse<
   CosmosTx,
   SignDoc
 >;
 
+/**
+ * Sign doc response for cosmos direct chains
+ */
 export type CosmosDirectDoc = SignDoc;
+/**
+ * Sign doc response for cosmos amino chains
+ */
 export type CosmosAminoDoc = StdSignDoc;
 
+/**
+ * Sign doc response for cosmos chains
+ */
 export type CosmosTx = TxRaw;
 
 export type Bech32Address = string;
 
+/**
+ * Base signer for cosmos chains
+ */
 export interface ICosmosAccount extends IAccount {}
 
+/**
+ * Check if instance is cosmos account
+ */
 export function isICosmosAccount(
   instance: AccountData | ICosmosAccount | IAccount
 ): instance is ICosmosAccount {
   return (instance as ICosmosAccount).toAccountData !== undefined;
 }
 
+/**
+ * Cosmos account implementation
+ */
 export class CosmosAccount extends AccountBase  {
   getAddress() {
     return Key.from(ripemd160(sha256(this.publicKey.value))).toBech32(
@@ -240,6 +298,9 @@ export class CosmosAccount extends AccountBase  {
   }
 }
 
+/**
+ * cosmos wallet interface
+ */
 export interface ICosmosWallet {
   getAccounts: () => Promise<AccountData[]>;
 }

@@ -7,10 +7,17 @@ import Decimal from 'decimal.js';
 import { defaultFeeOptions } from '../defaults';
 import { FeeOptions } from '../types';
 
+
+/**
+ * get chain by chain id from chain registry
+ */
 export function getChainById(chainId: string): Chain {
   return chains.find((c) => c.chainId === chainId);
 }
 
+/**
+ * get bech32 prefix by chain id
+ */
 export function getPrefix(chainId: string): string {
   const prefix = getChainById(chainId)?.bech32Prefix;
   if (!prefix) {
@@ -19,6 +26,9 @@ export function getPrefix(chainId: string): string {
   return prefix;
 }
 
+/**
+ * get the average gas price of the chain
+ */
 export function getAvgGasPrice(chainId: string): Price {
   const feeToken = getChainById(chainId)?.fees?.feeTokens?.[0];
   if (typeof feeToken?.averageGasPrice === 'undefined') {
@@ -52,6 +62,9 @@ export function getLowGasPrice(chainId: string): Price {
   };
 }
 
+/**
+ * calculate fee based on gas info
+ */
 export async function calculateFee(
   gasInfo: any,
   options?: FeeOptions,

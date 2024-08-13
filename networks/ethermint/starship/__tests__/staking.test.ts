@@ -51,7 +51,7 @@ describe('Staking tokens testing', () => {
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
-    await sleep(2000);
+    await sleep(5000);
   }, 200000);
 
   it('check address has tokens', async () => {

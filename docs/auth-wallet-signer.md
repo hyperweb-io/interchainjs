@@ -2,6 +2,27 @@
 
 This document aims to provide an overview and comparison of `Auth`, `Wallet`, and `Signer`, three types commonly used for encryption and signing purposes in different networks. Each type serves a specific purpose and has its own characteristics and functionalities.
 
+```mermaid
+graph LR
+    subgraph AuthType[Auth]
+        ByteAuth --> |privateKey| PrivateKey
+        PrivateKey --> |sign| SignedTx
+        OfflineSigner[Hide PrivateKey] --> DocAuth
+        DocAuth --> |signDoc| SignedTx
+    end
+
+    Wallet --> |accounts| IAccount[Account]
+    Wallet --> |toOfflineSigner| OfflineSigner
+
+    Signer --> |prefix| Prefix
+    Signer --> |account| Account
+    Signer --> |encoders| Encoder
+    Signer --> |signAndBroadCast| SignAndBroadCast
+
+    Account --> |auth| Auth
+
+```
+
 ## 1. Auth
 
 `Auth` is a common implementation of an encryption algorithm that can be utilized across different networks. It provides a signing method to sign binary data. The primary features and characteristics of `Auth` are as follows:

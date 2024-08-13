@@ -1,61 +1,11 @@
-import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import {
-  AuthInfo,
-  Fee,
-  SignerInfo,
-  TxBody,
-} from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+
+
+import { AuthInfo, Fee, SignerInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TelescopeGeneratedType } from '@interchainjs/types';
 import { assertEmpty } from '@interchainjs/utils';
 
-import { Decoder, EncodedMessage, Encoder, Message, TxOptions } from '../types';
+import { Decoder, Encoder } from '../types';
 
-export function constructTxBody(
-  messages: Message[],
-  getEncoder: (typeUrl: string) => Encoder,
-  memo?: string,
-  options?: TxOptions
-) {
-  if (options?.timeoutHeight?.type === 'relative') {
-    throw new Error(
-      "timeoutHeight type in function `constructTxBody` shouldn't be `relative`. Please update it to `absolute` value before calling this function."
-    );
-  }
-  const encoded = messages.map(({ typeUrl, value }) => {
-    return {
-      typeUrl,
-      value: getEncoder(typeUrl).encode(value),
-    };
-  });
-  const txBody = TxBody.fromPartial({
-    messages: encoded,
-    memo,
-    timeoutHeight: options?.timeoutHeight?.value,
-    extensionOptions: options?.extensionOptions,
-    nonCriticalExtensionOptions: options?.nonCriticalExtensionOptions,
-  });
-  return {
-    txBody,
-    encode: () => TxBody.encode(txBody).finish(),
-  };
-}
-
-export function constructSignerInfo(
-  publicKey: EncodedMessage,
-  sequence: bigint,
-  signMode: SignMode
-) {
-  const signerInfo = SignerInfo.fromPartial({
-    publicKey,
-    sequence,
-    modeInfo: { single: { mode: signMode } },
-  });
-
-  return {
-    signerInfo,
-    encode: () => SignerInfo.encode(signerInfo).finish(),
-  };
-}
 
 export function constructAuthInfo(signerInfos: SignerInfo[], fee: Fee) {
   const authInfo = AuthInfo.fromPartial({ signerInfos, fee });
@@ -65,6 +15,9 @@ export function constructAuthInfo(signerInfos: SignerInfo[], fee: Fee) {
   };
 }
 
+/**
+ * from telescope generated codec to encoder
+ */
 export function toEncoder(
   generated: TelescopeGeneratedType<any, any, any>
 ): Encoder {
@@ -78,12 +31,18 @@ export function toEncoder(
   };
 }
 
+/**
+ * from telescope generated codecs to encoders
+ */
 export function toEncoders(
   ...generatedArray: TelescopeGeneratedType<any, any, any>[]
 ): Encoder[] {
   return generatedArray.map((generated) => toEncoder(generated));
 }
 
+/**
+ * from telescope generated codec to decoder
+ */
 export function toDecoder(
   generated: TelescopeGeneratedType<any, any, any>
 ): Decoder {

@@ -1,7 +1,7 @@
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
-import {Asset} from '@chain-registry/types';
+import { Asset } from '@chain-registry/types';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
 import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
 import { DirectSigner } from '@interchainjs/cosmos/direct';
@@ -11,6 +11,7 @@ import {
 } from '@interchainjs/cosmos/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
+import { HDPath } from '@interchainjs/types';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
@@ -19,7 +20,7 @@ import { generateMnemonic } from '../src';
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
-  let directSigner: DirectSigner, denom: string, address: string;
+  let directSigner: DirectSigner, denom: string, address: string, address2: string;
   let chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
@@ -33,11 +34,18 @@ describe('Token transfers', () => {
 
     const mnemonic = generateMnemonic();
     // Initialize auth
-    const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [cosmosHdPath]);
+    const [auth, auth2] = Secp256k1Auth.fromMnemonic(
+      mnemonic,
+      [0, 1].map((i) => HDPath.cosmos(0, 0, i).toString())
+    );
     directSigner = new DirectSigner(auth, [], await getRpcEndpoint(), {
       prefix: chainInfo.chain.bech32_prefix,
     });
+    const directSigner2 = new DirectSigner(auth2, [], await getRpcEndpoint(), {
+      prefix: chainInfo.chain.bech32_prefix,
+    });
     address = await directSigner.getAddress();
+    address2 = await directSigner2.getAddress();
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(await getRpcEndpoint());
@@ -46,13 +54,6 @@ describe('Token transfers', () => {
   });
 
   it('send osmosis token to address', async () => {
-    const mnemonic = generateMnemonic();
-    // Initialize wallet
-    const [auth2] = Secp256k1Auth.fromMnemonic(mnemonic, [cosmosHdPath]);
-    const address2 = defaultSignerOptions.publicKey
-      .hash(auth2.getPublicKey(defaultSignerOptions.publicKey.isCompressed))
-      .toBech32(chainInfo.chain.bech32_prefix);
-
     const fee = {
       amount: [
         {

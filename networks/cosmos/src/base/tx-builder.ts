@@ -24,12 +24,24 @@ import { calculateFee, toFee } from '../utils';
 import { CosmosBaseSigner } from './base-signer';
 import { BaseCosmosTxBuilderContext } from './builder-context';
 
+/**
+ * BaseCosmosSigBuilder is a helper class to build the signature from the document
+ */
 export abstract class BaseCosmosSigBuilder<SignDoc>
 implements ISigBuilder<SignDoc, IKey>
 {
   constructor(protected ctx: BaseCosmosTxBuilderContext<BaseSigner>) {}
 
+  /**
+   * abstract method to build the document bytes
+   * @param doc - The document to be signed.
+   */
   abstract buildDocBytes(doc: SignDoc): Promise<Uint8Array>;
+
+  /**
+   * build signature from the document
+   * @param doc - The document to be signed.
+   */
   async buildSignature(doc: SignDoc): Promise<IKey> {
     // get doc bytes
     const docBytes = await this.buildDocBytes(doc);
@@ -55,11 +67,19 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     super(ctx);
   }
 
+  /**
+   * abstract method to build the document
+   * @param args sign arguments, e.g. messages, fee, memo, options
+   * @param txRaw - The partial TxRaw to be signed.
+   */
   abstract buildDoc(
     args: CosmosSignArgs,
-    rxRaw: Partial<TxRaw>
+    txRaw: Partial<TxRaw>
   ): Promise<SignDoc>;
 
+  /**
+   * abstract method to build the document bytes
+   */
   abstract buildDocBytes(doc: SignDoc): Promise<Uint8Array>;
 
   async buildTxRaw({

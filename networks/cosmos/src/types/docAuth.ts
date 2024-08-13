@@ -9,6 +9,9 @@ import { Key } from '@interchainjs/utils';
 
 import { OfflineAminoSigner, OfflineDirectSigner } from './wallet';
 
+/**
+ * Base class for Doc Auth.
+ */
 export abstract class BaseDocAuth<Signer, Doc> implements DocAuth<Doc> {
   constructor(
     public readonly algo: string,
@@ -27,6 +30,9 @@ export abstract class BaseDocAuth<Signer, Doc> implements DocAuth<Doc> {
   abstract signDoc(doc: Doc): Promise<SignDocResponse<Doc>>;
 }
 
+/**
+ * a helper class to sign the StdSignDoc with Amino encoding using offline signer.
+ */
 export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
   async signDoc(doc: StdSignDoc): Promise<SignDocResponse<StdSignDoc>> {
     let resp = await this.offlineSigner.signAmino(this.address, doc);
@@ -51,6 +57,9 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
   }
 }
 
+/**
+ * a helper class to sign the SignDoc with Direct encoding using offline signer.
+ */
 export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
     let resp = await this.offlineSigner.signDirect(this.address, doc);
