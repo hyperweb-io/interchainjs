@@ -12,7 +12,7 @@
    <a href="https://github.com/cosmology-tech/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
-Wrapper of `@interchainjs/auth` and `@interchainjs/cosmos` to fit corresponding interfaces in `@cosmjs` 
+Wrapper of `@interchainjs/auth` and `@interchainjs/cosmos` to fit corresponding interfaces in `@cosmjs`
 
 ## Usage
 
