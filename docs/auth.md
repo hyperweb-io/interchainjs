@@ -65,7 +65,7 @@ To start, you have to make an instance of the `*Auth` (i.e. `Secp256k1Auth`) cla
 
 Usually it can be instantiated from constructor or static methods.
 
-- `fromMnemonic` makes an instance from a mnemonic words string. This instance can both `sign` and `verify`.
+- `fromMnemonic` makes an instance from a mnemonic words string. This instance can both `sign`.
 
 Let's have a look at the properties and methods that `Auth` interface exposes and what they mean:
 
@@ -79,6 +79,16 @@ It's important to note that for a specific cryptographic algorithms, the corresp
 - `*Signer` classes differs across networks but independent of algorithms
 
 See [usage example](/docs/signer.md#signer--auth).
+
+## ByteAuth vs. DocAuth
+
+### ByteAuth
+
+`ByteAuth` is an interface that extends the `Auth` interface and represents an authentication method that can sign arbitrary bytes. It is typically used for signing arbitrary data using specific algorithms like `secp256k1` or `eth_secp256k1`. The `sign` method in `ByteAuth` takes a `Uint8Array` of data and returns a signature wrapped in an `ISignatureWraper`.
+
+### DocAuth
+
+`DocAuth` is an interface that extends the `Auth` interface and represents an authentication method that can sign documents using offline signers. It is a wrapper for offline signers and is usually used by signers built from offline signers. The `signDoc` method in `DocAuth` takes a document of a specific type and returns a `SignDocResponse`. The `DocAuth` interface also includes an `address` property that represents the address associated with the authentication method.
 
 ## Auth vs. Wallet
 
