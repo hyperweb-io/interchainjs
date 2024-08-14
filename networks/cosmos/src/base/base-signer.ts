@@ -217,6 +217,7 @@ export abstract class CosmosBaseSigner<SignDoc>
     return this._queryClient;
   }
 
+
   /**
    * convert relative timeoutHeight to absolute timeoutHeight
    */

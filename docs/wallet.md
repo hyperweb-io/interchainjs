@@ -33,7 +33,7 @@ classDiagram
 
     OfflineDirectSigner <|.. Secp256k1HDWallet
     OfflineAminoSigner <|.. Secp256k1HDWallet
-    Secp256k1HDWallet <|.. ICosmosWallet
+    ICosmosWallet <|.. Secp256k1HDWallet
 
     style OfflineDirectSigner fill:#f9f,stroke:#333,stroke-width:2px
     style OfflineAminoSigner fill:#f9f,stroke:#333,stroke-width:2px
