@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-beta.5](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/ethereum@0.0.1-beta.4...@interchainjs/ethereum@0.0.1-beta.5) (2024-08-14)
+
+**Note:** Version bump only for package @interchainjs/ethereum
+
 ## [0.0.1-beta.4](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/ethereum@0.0.1-beta.3...@interchainjs/ethereum@0.0.1-beta.4) (2024-08-13)
 
 **Note:** Version bump only for package @interchainjs/ethereum
