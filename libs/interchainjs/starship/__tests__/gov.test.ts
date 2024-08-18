@@ -111,7 +111,14 @@ describe('Governance tests for osmosis', () => {
   it('stake tokens to genesis validator', async () => {
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      directSigner
+      directSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
     );
 
     const { balance } = await queryClient.balance({
@@ -155,7 +162,14 @@ describe('Governance tests for osmosis', () => {
   it('submit a txt proposal', async () => {
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      directSigner
+      directSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
     );
 
     const contentMsg = TextProposal.fromPartial({
@@ -223,7 +237,14 @@ describe('Governance tests for osmosis', () => {
     // create direct address signing client
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      directSigner
+      directSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
     );
 
     // Vote on proposal from genesis mnemonic address
@@ -269,7 +290,14 @@ describe('Governance tests for osmosis', () => {
     // create amino address signing client
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      aminoSigner
+      aminoSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
     );
 
     // Vote on proposal from genesis mnemonic address

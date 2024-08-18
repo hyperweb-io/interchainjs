@@ -67,6 +67,11 @@ export interface BroadcastOptions {
    * polling interval in milliseconds for checking broadcast_tx_commit result.
    */
   pollIntervalMs?: number;
+
+  /**
+   * whether to use legacy broadcast_tx_commit result.
+   */
+  useLegacyBroadcastTxCommit?: boolean;
 }
 
 /**

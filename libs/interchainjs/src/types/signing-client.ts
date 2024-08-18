@@ -1,5 +1,5 @@
 import { AminoConverter, Message } from '@interchainjs/cosmos/types';
-import { Price } from '@interchainjs/types';
+import { BroadcastOptions, Price } from '@interchainjs/types';
 import { Event, TelescopeGeneratedType } from '@interchainjs/types';
 
 export type EncodeObject = Message;
@@ -11,10 +11,9 @@ export type Registry = Array<[TypeUrl, TelescopeGeneratedType<any, any, any>]>;
 export interface SignerOptions {
   registry?: Registry;
   aminoConverters?: Record<TypeUrl, AminoConverter>;
-  broadcastTimeoutMs?: number;
-  broadcastPollIntervalMs?: number;
   gasPrice?: Price | string;
   prefix?: string;
+  broadcast?: BroadcastOptions;
 }
 
 export interface SignerData {
