@@ -56,7 +56,13 @@ describe('Token transfers', () => {
   it('send osmosis token to address', async () => {
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      protoSigner
+      protoSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
     );
 
     const fee = {
@@ -91,7 +97,13 @@ describe('Token transfers', () => {
   it('send ibc osmo tokens to address on cosmos chain', async () => {
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      protoSigner
+      protoSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
     );
 
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
