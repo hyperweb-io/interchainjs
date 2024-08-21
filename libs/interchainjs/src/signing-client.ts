@@ -1,25 +1,21 @@
-import { AminoSigner } from "@interchainjs/cosmos/amino";
-import { DirectSigner } from "@interchainjs/cosmos/direct";
-import { RpcClient } from "@interchainjs/cosmos/query/rpc";
+import { AminoSigner } from '@interchainjs/cosmos/amino';
+import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { RpcClient } from '@interchainjs/cosmos/query/rpc';
 import {
   AminoConverter,
   Encoder,
-  isICosmosAccount,
   QueryClient,
-} from "@interchainjs/cosmos/types";
+} from '@interchainjs/cosmos/types';
 import {
   isOfflineAminoSigner,
   isOfflineDirectSigner,
   OfflineSigner,
-} from "@interchainjs/cosmos/types/wallet";
-import { toEncoder } from "@interchainjs/cosmos/utils";
-import { IBinaryWriter } from "@interchainjs/cosmos-types/binary";
-import { PubKey as Secp256k1PubKey } from "@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys";
-import { TxBody, TxRaw } from "@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx";
-import { Any } from "@interchainjs/cosmos-types/google/protobuf/any";
-import { TxRpc } from "@interchainjs/cosmos-types/types";
-import { BroadcastOptions, HttpEndpoint, IKey, StdFee } from "@interchainjs/types";
-import { fromBase64 } from "@interchainjs/utils";
+} from '@interchainjs/cosmos/types/wallet';
+import { toEncoder } from '@interchainjs/cosmos/utils';
+import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { TxRpc } from '@interchainjs/cosmos-types/types';
+import { BroadcastOptions, HttpEndpoint, IKey, StdFee } from '@interchainjs/types';
+import { fromBase64 } from '@interchainjs/utils';
 
 import {
   Block,
@@ -28,13 +24,12 @@ import {
   SearchTxQuery,
   SearchTxResponse,
   TxResponse,
-} from "./types/query";
+} from './types/query';
 import {
   DeliverTxResponse,
   EncodeObject,
   SignerOptions,
-} from "./types/signing-client";
-import { BroadcastTxError } from "./utils";
+} from './types/signing-client';
 
 /**
  * implement the same methods as what in `cosmjs` signingClient
@@ -69,7 +64,7 @@ export class SigningClient {
 
     this.txRpc = {
       request(): Promise<Uint8Array> {
-        throw new Error("Not implemented yet");
+        throw new Error('Not implemented yet');
       },
       signAndBroadcast: this.signAndBroadcast,
     };
@@ -178,10 +173,10 @@ export class SigningClient {
   private signWithAutoFee = async (
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | "auto",
-    memo = ""
+    fee: StdFee | 'auto',
+    memo = ''
   ): Promise<TxRaw> => {
-    const usedFee = fee === "auto" ? undefined : fee;
+    const usedFee = fee === 'auto' ? undefined : fee;
     return await this.sign(signerAddress, messages, usedFee, memo);
   };
 
@@ -201,30 +196,21 @@ export class SigningClient {
     return BigInt(resp.gas);
   }
 
-  async broadcastTxSync(tx: Uint8Array): Promise<string> {
+  async broadcastTxSync(tx: Uint8Array): Promise<DeliverTxResponse> {
     const broadcasted = await this.queryClient.broadcast(tx, {
       checkTx: true,
       deliverTx: false,
     });
-    if (broadcasted.check_tx?.code) {
-      return Promise.reject(
-        new BroadcastTxError(
-          broadcasted.check_tx?.code,
-          broadcasted.check_tx?.codespace ?? "",
-          broadcasted.check_tx?.log
-        )
-      );
-    }
-    const transactionId = broadcasted.hash.toUpperCase();
-    return transactionId;
+
+    return broadcasted.origin;
   }
 
   public async signAndBroadcastSync(
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | "auto",
-    memo = ""
-  ): Promise<string> {
+    fee: StdFee | 'auto',
+    memo = ''
+  ): Promise<DeliverTxResponse> {
     const txRaw = await this.signWithAutoFee(
       signerAddress,
       messages,
@@ -241,24 +227,14 @@ export class SigningClient {
   ): Promise<DeliverTxResponse> {
     const resp = await this.queryClient.broadcast(tx, broadcast);
 
-    return {
-      height: resp?.deliver_tx?.height ? Number(resp.deliver_tx.height) : 0,
-      txIndex: resp?.deliver_tx?.txIndex,
-      code: resp?.deliver_tx?.code,
-      transactionHash: resp?.hash,
-      events: resp?.deliver_tx?.events,
-      rawLog: resp?.deliver_tx?.rawLog,
-      msgResponses: resp?.deliver_tx?.msgResponses,
-      gasUsed: BigInt(resp?.deliver_tx?.gas_used ?? 0),
-      gasWanted: BigInt(resp?.deliver_tx?.gas_wanted ?? 0),
-    };
+    return resp.origin;
   }
 
   signAndBroadcast = async (
     signerAddress: string,
     messages: EncodeObject[],
-    fee: StdFee | "auto",
-    memo = ""
+    fee: StdFee | 'auto',
+    memo = ''
   ): Promise<DeliverTxResponse> => {
     const txRaw = await this.signWithAutoFee(
       signerAddress,
@@ -280,7 +256,7 @@ export class SigningClient {
   async getTx(id: string): Promise<IndexedTx | null> {
     const data = await fetch(`${this.endpoint.url}/tx?hash=0x${id}`);
     const json = await data.json();
-    const tx: TxResponse = json["result"];
+    const tx: TxResponse = json['result'];
     if (!tx) return null;
     const txRaw = TxRaw.decode(fromBase64(tx.tx));
     const txBody = TxBody.decode(txRaw.bodyBytes);
@@ -300,21 +276,21 @@ export class SigningClient {
 
   async searchTx(query: SearchTxQuery): Promise<IndexedTx[]> {
     let rawQuery: string;
-    if (typeof query === "string") {
+    if (typeof query === 'string') {
       rawQuery = query;
     } else if (Array.isArray(query)) {
-      rawQuery = query.map((t) => `${t.key}=${t.value}`).join(" AND ");
+      rawQuery = query.map((t) => `${t.key}=${t.value}`).join(' AND ');
     } else {
-      throw new Error("Got unsupported query type.");
+      throw new Error('Got unsupported query type.');
     }
-    const orderBy: "asc" | "desc" = "asc";
+    const orderBy: 'asc' | 'desc' = 'asc';
     const data = await fetch(
       `${this.endpoint.url}/tx_search?query="${rawQuery}"&order_by="${orderBy}"`
       // `${this.endpoint.url}/tx_search?query="${rawQuery}"&order_by="${orderBy}"&page=1&per_page=100`
     );
     const json = await data.json();
 
-    const { txs }: SearchTxResponse = json["result"];
+    const { txs }: SearchTxResponse = json['result'];
     return txs.map((tx) => {
       return {
         height: Number.parseInt(tx.height),
@@ -323,7 +299,7 @@ export class SigningClient {
         code: 0,
         // events: tx.tx_result.tags,
         events: [],
-        rawLog: tx.tx_result.log || "",
+        rawLog: tx.tx_result.log || '',
         tx: fromBase64(tx.tx),
         msgResponses: [],
         gasUsed:  tx?.tx_result?.gas_used ? BigInt(tx.tx_result.gas_used) : 0n,
@@ -339,7 +315,7 @@ export class SigningClient {
         : `${this.endpoint.url}/block`
     );
     const json = await data.json();
-    const { block_id, block }: BlockResponse = json["result"];
+    const { block_id, block }: BlockResponse = json['result'];
     return {
       id: block_id.hash.toUpperCase(),
       header: {

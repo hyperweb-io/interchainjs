@@ -137,6 +137,7 @@ export interface BroadcastResponse {
   };
   check_tx?: CheckTxResponse;
   deliver_tx?: DeliverTxResponse & { height: string };
+  origin?: any;
 }
 
 export type DocOptions = FeeOptions & SignOptions & TxOptions;
