@@ -5,9 +5,9 @@
 */
 
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
+declare let self: any | undefined;
+declare let window: any | undefined;
+declare let global: any | undefined;
 var globalThis: any = (() => {
   if (typeof globalThis !== 'undefined') return globalThis;
   if (typeof self !== 'undefined') return self;
@@ -57,8 +57,8 @@ export function omitDefault<T extends string | number | bigint | boolean>(
     return input === 0 ? undefined : input;
   }
 
-  if (typeof input === "boolean"){
-      return input === false ? undefined : input;
+  if (typeof input === 'boolean'){
+    return input === false ? undefined : input;
   }
 
   if (typeof input === 'bigint') {

@@ -167,7 +167,6 @@ describe('Governance tests for osmosis', () => {
         broadcast: {
           checkTx: true,
           deliverTx: true,
-          useLegacyBroadcastTxCommit: true,
         },
       }
     );

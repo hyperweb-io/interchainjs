@@ -58,7 +58,7 @@ const findIbcInfo = (chainInfo: ChainInfo, toChainInfo: ChainInfo) => {
   const registry = ConfigContext.registry;
   const ibcInfos = registry!.getChainIbcData(chainInfo.chain.chain_name);
   const found = ibcInfos.find(
-      i => i.chain_1.chain_name === chainInfo.chain.chain_name &&
+    i => i.chain_1.chain_name === chainInfo.chain.chain_name &&
           i.chain_2.chain_name === toChainInfo.chain.chain_name
   );
   if (!found) throw new Error('Cannot find IBC info');
