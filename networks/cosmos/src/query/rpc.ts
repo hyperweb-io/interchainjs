@@ -254,7 +254,7 @@ export class RpcClient implements QueryClient {
           hash: hash3,
           check_tx,
           deliver_tx: { height, ...deliver_tx },
-          origin: resp
+          origin: {hash: hash3, height, ...deliver_tx }
         };
       } else {
         let timedOut = false;
@@ -292,6 +292,7 @@ export class RpcClient implements QueryClient {
                 log: result.log,
                 info: result.info,
               },
+              origin: result
             }
             : pollForTx(txId);
         };

@@ -23,7 +23,7 @@
    {
       "type": "node",
       "request": "launch",
-      "name": "Debug Jest Tests in Interchainjs",
+      "name": "Debug Jest Tests in Interchainjs token",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
       "args": [
          "--config",
