@@ -14,7 +14,7 @@ import {
 import { toEncoder } from '@interchainjs/cosmos/utils';
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
-import { BroadcastOptions, HttpEndpoint, IKey, StdFee } from '@interchainjs/types';
+import { BroadcastOptions, HttpEndpoint, StdFee } from '@interchainjs/types';
 import { fromBase64 } from '@interchainjs/utils';
 
 import {
@@ -87,7 +87,6 @@ export class SigningClient {
   }
 
   async connect() {
-    let firstPubkey: IKey;
     if (isOfflineAminoSigner(this.offlineSigner)) {
       const aminoSigners = await AminoSigner.fromWalletToSigners(
         this.offlineSigner,
@@ -100,9 +99,6 @@ export class SigningClient {
       );
 
       for (const signer of aminoSigners) {
-        if (!firstPubkey) {
-          firstPubkey = await signer.publicKey;
-        }
         this.aminoSigners[await signer.getAddress()] = signer;
       }
     }
@@ -118,9 +114,6 @@ export class SigningClient {
       );
 
       for (const signer of directSigners) {
-        if (!firstPubkey) {
-          firstPubkey = await signer.publicKey;
-        }
         this.directSigners[await signer.getAddress()] = signer;
       }
     }
@@ -143,8 +136,9 @@ export class SigningClient {
   }
 
   getSinger(signerAddress: string) {
-    const signer =
-      this.aminoSigners[signerAddress] || this.directSigners[signerAddress];
+    const signer = this.options.preferredSigningMethod ?
+      this.options.preferredSigningMethod === 'amino' ? this.aminoSigners[signerAddress] : this.directSigners[signerAddress]
+      : this.aminoSigners[signerAddress] || this.directSigners[signerAddress];
 
     if (!signer) {
       throw new Error(`No signer found for address ${signerAddress}`);
