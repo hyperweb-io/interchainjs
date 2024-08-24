@@ -39,6 +39,22 @@
    {
       "type": "node",
       "request": "launch",
+      "name": "Debug Jest Tests in Interchainjs staking",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+         "--config",
+         "./jest.starship.config.js",
+         "--verbose",
+         "--bail",
+         "starship/__tests__/staking.test.ts"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/libs/interchainjs",
+      "internalConsoleOptions": "neverOpen"
+   },
+   {
+      "type": "node",
+      "request": "launch",
       "name": "Debug Jest Tests in Interchainjs gov",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
       "args": [

@@ -19,7 +19,7 @@ import { useChain } from 'starshipjs';
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Staking tokens testing', () => {
-  let protoSigner: OfflineDirectSigner, denom: string, address: string;
+  let wallet: Secp256k1HDWallet, protoSigner: OfflineDirectSigner, denom: string, address: string;
   let commonPrefix: string,
     chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
@@ -30,6 +30,7 @@ describe('Staking tokens testing', () => {
   let queryClient: RpcQuery;
   let validatorAddress: string;
   let delegationAmount: string;
+  let totalDelegationAmount: bigint;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
@@ -40,7 +41,7 @@ describe('Staking tokens testing', () => {
 
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const wallet = Secp256k1HDWallet.fromMnemonic(mnemonic, [
+    wallet = Secp256k1HDWallet.fromMnemonic(mnemonic, [
       {
         prefix: commonPrefix,
         hdPath: cosmosHdPath,
@@ -82,7 +83,7 @@ describe('Staking tokens testing', () => {
     validatorAddress = allValidators[0].operatorAddress;
   });
 
-  it('stake tokens to genesis validator', async () => {
+  it('stake tokens to genesis validator default signing mode', async () => {
     const signingClient = await StargateSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner,
@@ -101,7 +102,104 @@ describe('Staking tokens testing', () => {
 
     // Stake half of the tokens
     // eslint-disable-next-line no-undef
-    delegationAmount = (BigInt(balance!.amount) / BigInt(2)).toString();
+    delegationAmount = (BigInt(balance!.amount) / BigInt(10)).toString();
+    totalDelegationAmount = BigInt(delegationAmount);
+    const msg = {
+      typeUrl: MsgDelegate.typeUrl,
+      value: MsgDelegate.fromPartial({
+        delegatorAddress: address,
+        validatorAddress: validatorAddress,
+        amount: {
+          amount: delegationAmount,
+          denom: balance!.denom,
+        },
+      }),
+    };
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const result = await signingClient.signAndBroadcast(address, [msg], fee);
+    assertIsDeliverTxSuccess(result);
+  });
+
+  it('stake tokens to genesis validator direct signing mode', async () => {
+    const signingClient = await StargateSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      wallet,
+      {
+        preferredSigningMethod: 'direct',
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
+    );
+
+    const { balance } = await queryClient.balance({
+      address,
+      denom,
+    });
+
+    // Stake half of the tokens
+    // eslint-disable-next-line no-undef
+    delegationAmount = (BigInt(balance!.amount) / BigInt(10)).toString();
+    totalDelegationAmount = totalDelegationAmount + BigInt(delegationAmount);
+    const msg = {
+      typeUrl: MsgDelegate.typeUrl,
+      value: MsgDelegate.fromPartial({
+        delegatorAddress: address,
+        validatorAddress: validatorAddress,
+        amount: {
+          amount: delegationAmount,
+          denom: balance!.denom,
+        },
+      }),
+    };
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const result = await signingClient.signAndBroadcast(address, [msg], fee);
+    assertIsDeliverTxSuccess(result);
+  });
+
+  it('stake tokens to genesis validator amino signing mode', async () => {
+    const signingClient = await StargateSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      wallet,
+      {
+        preferredSigningMethod: 'amino',
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
+    );
+
+    const { balance } = await queryClient.balance({
+      address,
+      denom,
+    });
+
+    // Stake half of the tokens
+    // eslint-disable-next-line no-undef
+    delegationAmount = (BigInt(balance!.amount) / BigInt(10)).toString();
+    totalDelegationAmount = totalDelegationAmount + BigInt(delegationAmount);
     const msg = {
       typeUrl: MsgDelegate.typeUrl,
       value: MsgDelegate.fromPartial({
@@ -140,7 +238,7 @@ describe('Staking tokens testing', () => {
       // eslint-disable-next-line no-undef
       BigInt(0)
     );
-    expect(delegationResponse!.balance.amount).toEqual(delegationAmount);
+    expect(delegationResponse!.balance.amount).toEqual(totalDelegationAmount.toString());
     expect(delegationResponse!.balance.denom).toEqual(denom);
   });
 });
