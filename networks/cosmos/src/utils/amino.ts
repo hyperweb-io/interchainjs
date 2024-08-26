@@ -74,12 +74,12 @@ export function toAminoMsgs(
  * Convert StdFee to Fee
  */
 export function toFee(fee: StdFee): Fee {
-  return Fee.fromPartial({
+  return {
     amount: fee.amount.map((coin) => Coin.fromPartial(coin)),
     gasLimit: BigInt(fee.gas),
     payer: fee.payer,
     granter: fee.granter,
-  });
+  };
 }
 
 /**
