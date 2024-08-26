@@ -165,7 +165,7 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     authInfo: AuthInfo;
     encode: () => Uint8Array;
   }> {
-    const authInfo = AuthInfo.fromPartial({ signerInfos, fee });
+    const authInfo = { signerInfos, fee };
 
     return { authInfo, encode: () => AuthInfo.encode(authInfo).finish() };
   }
