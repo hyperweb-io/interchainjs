@@ -156,7 +156,7 @@ export interface SignDocAminoMsg {
 /**
  * SignDocDirectAux is the type used for generating sign bytes for
  * SIGN_MODE_DIRECT_AUX.
- * 
+ *
  * Since: cosmos-sdk 0.46
  */
 export interface SignDocDirectAux {
@@ -188,7 +188,7 @@ export interface SignDocDirectAuxProtoMsg {
 /**
  * SignDocDirectAux is the type used for generating sign bytes for
  * SIGN_MODE_DIRECT_AUX.
- * 
+ *
  * Since: cosmos-sdk 0.46
  */
 export interface SignDocDirectAuxAmino {
@@ -318,10 +318,10 @@ export interface AuthInfo {
   fee?: Fee;
   /**
    * Tip is the optional tip used for transactions fees paid in another denom.
-   * 
+   *
    * This field is ignored if the chain didn't enable tips, i.e. didn't add the
    * `TipDecorator` in its posthandler.
-   * 
+   *
    * Since: cosmos-sdk 0.46
    */
   /** @deprecated */
@@ -352,10 +352,10 @@ export interface AuthInfoAmino {
   fee?: FeeAmino;
   /**
    * Tip is the optional tip used for transactions fees paid in another denom.
-   * 
+   *
    * This field is ignored if the chain didn't enable tips, i.e. didn't add the
    * `TipDecorator` in its posthandler.
-   * 
+   *
    * Since: cosmos-sdk 0.46
    */
   /** @deprecated */
@@ -557,7 +557,7 @@ export interface FeeAminoMsg {
 }
 /**
  * Tip is the tip used for meta-transactions.
- * 
+ *
  * Since: cosmos-sdk 0.46
  */
 /** @deprecated */
@@ -573,7 +573,7 @@ export interface TipProtoMsg {
 }
 /**
  * Tip is the tip used for meta-transactions.
- * 
+ *
  * Since: cosmos-sdk 0.46
  */
 /** @deprecated */
@@ -592,7 +592,7 @@ export interface TipAminoMsg {
  * tipper) builds and sends to the fee payer (who will build and broadcast the
  * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
  * by the node if sent directly as-is.
- * 
+ *
  * Since: cosmos-sdk 0.46
  */
 export interface AuxSignerData {
@@ -622,7 +622,7 @@ export interface AuxSignerDataProtoMsg {
  * tipper) builds and sends to the fee payer (who will build and broadcast the
  * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
  * by the node if sent directly as-is.
- * 
+ *
  * Since: cosmos-sdk 0.46
  */
 export interface AuxSignerDataAmino {
@@ -1729,10 +1729,10 @@ export const Fee = {
     if (message.gasLimit !== BigInt(0)) {
       writer.uint32(16).uint64(message.gasLimit);
     }
-    if (message.payer !== '') {
+    if (message.payer && message.payer !== '') {
       writer.uint32(26).string(message.payer);
     }
-    if (message.granter !== '') {
+    if (message.granter && message.granter !== '') {
       writer.uint32(34).string(message.granter);
     }
     return writer;
