@@ -135,7 +135,7 @@ describe('Staking tokens testing', () => {
       await getRpcEndpoint(),
       wallet,
       {
-        preferredSigningMethod: 'direct',
+        preferredSignType: 'direct',
         broadcast: {
           checkTx: true,
           deliverTx: true,
@@ -183,7 +183,7 @@ describe('Staking tokens testing', () => {
       await getRpcEndpoint(),
       wallet,
       {
-        preferredSigningMethod: 'amino',
+        preferredSignType: 'amino',
         broadcast: {
           checkTx: true,
           deliverTx: true,
