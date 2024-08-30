@@ -136,8 +136,8 @@ export class SigningClient {
   }
 
   getSinger(signerAddress: string) {
-    const signer = this.options.preferredSigningMethod ?
-      this.options.preferredSigningMethod === 'amino' ? this.aminoSigners[signerAddress] : this.directSigners[signerAddress]
+    const signer = this.options.preferredSignType ?
+      this.options.preferredSignType === 'amino' ? this.aminoSigners[signerAddress] : this.directSigners[signerAddress]
       : this.aminoSigners[signerAddress] || this.directSigners[signerAddress];
 
     if (!signer) {

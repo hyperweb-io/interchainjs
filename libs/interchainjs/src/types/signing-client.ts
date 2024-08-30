@@ -14,7 +14,7 @@ export interface SignerOptions {
   gasPrice?: Price | string;
   prefix?: string;
   broadcast?: BroadcastOptions;
-  preferredSigningMethod?: 'amino' | 'direct';
+  preferredSignType?: 'amino' | 'direct';
 }
 
 export interface SignerData {
