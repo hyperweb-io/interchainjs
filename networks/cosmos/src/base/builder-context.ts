@@ -1,3 +1,4 @@
+import { AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { ITxBuilderContext } from '@interchainjs/types';
 
 /**
@@ -6,5 +7,5 @@ import { ITxBuilderContext } from '@interchainjs/types';
 export class BaseCosmosTxBuilderContext<Signer>
 implements ITxBuilderContext<Signer>
 {
-  constructor(public signer: Signer) {}
+  constructor(public signer: Signer, public authInfo?: AuthInfo) {}
 }

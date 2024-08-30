@@ -95,7 +95,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     const resp = await docSigner.signDoc(signDoc);
 
     return {
-      signed: signDoc,
+      signed: resp.signDoc,
       signature: {
         pub_key: {
           type: 'tendermint/PubKeySecp256k1',
@@ -122,7 +122,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
     const resp = await docSigner.signDoc(signDoc);
 
     return {
-      signed: signDoc,
+      signed: resp.signDoc,
       signature: {
         pub_key: {
           type: 'tendermint/PubKeySecp256k1',

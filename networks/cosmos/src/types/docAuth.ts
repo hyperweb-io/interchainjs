@@ -39,7 +39,7 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
 
     return {
       signature: Key.fromBase64(resp.signature.signature),
-      signDoc: doc,
+      signDoc: resp.signed,
     };
   }
 
@@ -66,7 +66,7 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
 
     return {
       signature: Key.fromBase64(resp.signature.signature),
-      signDoc: doc,
+      signDoc: resp.signed,
     };
   }
 
