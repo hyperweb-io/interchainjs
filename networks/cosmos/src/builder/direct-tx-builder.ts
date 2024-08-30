@@ -3,6 +3,7 @@ import {
   SignDoc,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignDocResponse } from '@interchainjs/types';
 
 import {
   BaseCosmosSigBuilder,
@@ -51,5 +52,13 @@ export class DirectTxBuilder extends BaseCosmosTxBuilder<CosmosDirectDoc> {
 
   async buildDocBytes(doc: CosmosDirectDoc): Promise<Uint8Array> {
     return SignDoc.encode(doc).finish();
+  }
+
+  async syncSignedDoc(txRaw: TxRaw, signResp: SignDocResponse<CosmosDirectDoc>): Promise<TxRaw> {
+    return {
+      bodyBytes: signResp.signDoc.bodyBytes,
+      authInfoBytes: signResp.signDoc.authInfoBytes,
+      signatures: [signResp.signature.value],
+    };
   }
 }

@@ -11,6 +11,7 @@ import {
   IKey,
   ISigBuilder,
   ITxBuilder,
+  SignDocResponse,
   StdFee,
 } from '@interchainjs/types';
 
@@ -82,6 +83,12 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
    */
   abstract buildDocBytes(doc: SignDoc): Promise<Uint8Array>;
 
+  /**
+   * abstract method to sync the signed document with the tx raw result
+   * @param doc the signed document
+   */
+  abstract syncSignedDoc(txRaw: TxRaw, signResp: SignDocResponse<SignDoc>): Promise<TxRaw>;
+
   async buildTxRaw({
     messages,
     fee,
@@ -104,11 +111,13 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
 
     const stdFee = await this.getFee(fee, txBody, [signerInfo], options);
 
+    const { authInfo, encode: authEncode} = await this.buildAuthInfo([signerInfo], toFee(stdFee));
+
+    this.ctx.authInfo = authInfo;
+
     return {
       bodyBytes: txBodyEncode(),
-      authInfoBytes: (
-        await this.buildAuthInfo([signerInfo], toFee(stdFee))
-      ).encode(),
+      authInfoBytes: authEncode(),
       fee: stdFee,
     };
   }
@@ -206,12 +215,8 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     // sign signature to the doc bytes
     const signResp = await this.ctx.signer.signDoc(doc);
 
-    // build TxRaw
-    const signedTxRaw = TxRaw.fromPartial({
-      bodyBytes: txRaw.bodyBytes,
-      authInfoBytes: txRaw.authInfoBytes,
-      signatures: [signResp.signature.value],
-    });
+    // build TxRaw and sync with signed doc
+    const signedTxRaw = await this.syncSignedDoc(TxRaw.fromPartial(txRaw), signResp);
 
     return {
       tx: signedTxRaw,

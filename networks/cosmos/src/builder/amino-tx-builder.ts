@@ -1,10 +1,12 @@
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
+import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignDocResponse } from '@interchainjs/types';
 
 import { type AminoSignerBase } from '../amino';
 import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosAminoDoc, CosmosSignArgs } from '../types';
-import { encodeStdSignDoc, toAminoMsgs } from '../utils';
+import { encodeStdSignDoc, toAminoMsgs, toFee } from '../utils';
 
 /**
  * Amino signature builder
@@ -55,5 +57,18 @@ export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
 
   async buildDocBytes(doc: CosmosAminoDoc): Promise<Uint8Array> {
     return encodeStdSignDoc(doc);
+  }
+
+  async syncSignedDoc(txRaw: TxRaw, signResp: SignDocResponse<CosmosAminoDoc>): Promise<TxRaw> {
+    const authFee = toFee(signResp.signDoc.fee);
+
+    const { encode: authEncode } = await this.buildAuthInfo(this.ctx.authInfo.signerInfos, authFee);
+    const authInfoBytes = authEncode();
+
+    return {
+      bodyBytes: txRaw.bodyBytes,
+      authInfoBytes: authInfoBytes,
+      signatures: [ signResp.signature.value ]
+    };
   }
 }

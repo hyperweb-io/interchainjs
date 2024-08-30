@@ -4,7 +4,7 @@ import { BaseCosmosTxBuilder } from '@interchainjs/cosmos/base';
 import { BaseCosmosTxBuilderContext } from '@interchainjs/cosmos/base/builder-context';
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
 import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { Eip712Types } from '@interchainjs/types';
+import { Eip712Types, SignDocResponse } from '@interchainjs/types';
 import { fromHex } from '@interchainjs/utils';
 
 import {
@@ -93,5 +93,9 @@ export class Eip712TxBuilder extends BaseCosmosTxBuilder<InjectiveEip712Doc> {
     ]);
 
     return fromHex(encoded);
+  }
+
+  async syncSignedDoc(txRaw: TxRaw, signResp: SignDocResponse<InjectiveEip712Doc>): Promise<TxRaw> {
+    throw new Error('Method not implemented.');
   }
 }
