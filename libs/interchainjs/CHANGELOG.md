@@ -3,37 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.0.1-beta.11](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.10...interchainjs@0.0.1-beta.11) (2024-08-27)
+## [0.0.1-beta.12](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.11...interchainjs@0.0.1-beta.12) (2024-08-30)
 
 **Note:** Version bump only for package interchainjs
 
+## [0.0.1-beta.11](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.10...interchainjs@0.0.1-beta.11) (2024-08-27)
 
-
-
+**Note:** Version bump only for package interchainjs
 
 ## [0.0.1-beta.10](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.9...interchainjs@0.0.1-beta.10) (2024-08-26)
 
 **Note:** Version bump only for package interchainjs
 
-
-
-
-
 ## [0.0.1-beta.9](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.8...interchainjs@0.0.1-beta.9) (2024-08-24)
 
 **Note:** Version bump only for package interchainjs
 
-
-
-
-
 ## [0.0.1-beta.8](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.7...interchainjs@0.0.1-beta.8) (2024-08-21)
 
 **Note:** Version bump only for package interchainjs
-
-
-
-
 
 ## [0.0.1-beta.7](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.6...interchainjs@0.0.1-beta.7) (2024-08-19)
 

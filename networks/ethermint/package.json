@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/ethermint",
-  "version": "0.0.1-beta.10",
+  "version": "0.0.1-beta.11",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -33,11 +33,11 @@
     "ethermint:test": "jest --config ./jest.testnet.config.js --verbose"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "^0.0.1-beta.10",
-    "@interchainjs/cosmos-types": "^0.0.1-beta.7",
-    "@interchainjs/ethereum": "^0.0.1-beta.7",
-    "@interchainjs/types": "^0.0.1-beta.7",
-    "@interchainjs/utils": "^0.0.1-beta.7",
+    "@interchainjs/cosmos": "^0.0.1-beta.11",
+    "@interchainjs/cosmos-types": "^0.0.1-beta.8",
+    "@interchainjs/ethereum": "^0.0.1-beta.8",
+    "@interchainjs/types": "^0.0.1-beta.8",
+    "@interchainjs/utils": "^0.0.1-beta.8",
     "decimal.js": "^10.4.3"
   },
   "keywords": [
