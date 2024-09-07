@@ -4,9 +4,9 @@ import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
-import { InjAccount } from './accounts/inj-account';
-import { defaultSignerOptions } from './defaults';
-import { InjectiveDirectSigner } from './types';
+import { InjAccount } from '../accounts/inj-account';
+import { defaultSignerOptions } from '../defaults';
+import { InjectiveDirectSigner } from '../types';
 
 /**
  * DirectDocSigner is a signer for inj Direct document.

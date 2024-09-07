@@ -12,7 +12,7 @@ import {
 } from '@interchainjs/cosmos/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
-import { DirectSigner } from '@interchainjs/ethermint/direct';
+import { DirectSigner } from '@interchainjs/injective/signers/direct';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 

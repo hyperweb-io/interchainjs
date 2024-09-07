@@ -12,9 +12,9 @@ import { AminoDocAuth } from '@interchainjs/cosmos/types/docAuth';
 import { OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
-import { InjAccount } from './accounts/inj-account';
-import { defaultSignerOptions } from './defaults';
-import { InjectiveAminoSigner } from './types';
+import { InjAccount } from '../accounts/inj-account';
+import { defaultSignerOptions } from '../defaults';
+import { InjectiveAminoSigner } from '../types';
 
 /**
  * AminoDocSigner is a signer for inj Amino document.
