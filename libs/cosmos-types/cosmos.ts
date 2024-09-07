@@ -141,7 +141,7 @@ const StakingMsgs = [
 
 const VestingMsgs = [MsgCreateVestingAccount];
 
-export const StargateMsgs = [
+export const Msgs = [
   ...AuthzMsgs,
   ...BankMsgs,
   ...DistributionMsgs,

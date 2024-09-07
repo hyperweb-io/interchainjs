@@ -25,7 +25,7 @@ import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/t
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
-import { StargateSigningClient } from 'interchainjs/stargate';
+import { CosmosSigningClient } from 'interchainjs/cosmos';
 import { useChain } from 'starshipjs';
 
 import { waitUntil } from '../src';
@@ -109,7 +109,7 @@ describe('Governance tests for osmosis', () => {
   });
 
   it('stake tokens to genesis validator', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       directSigner,
       {
@@ -160,7 +160,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('submit a txt proposal', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       directSigner,
       {
@@ -234,7 +234,7 @@ describe('Governance tests for osmosis', () => {
 
   it('vote on proposal using direct', async () => {
     // create direct address signing client
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       directSigner,
       {
@@ -287,7 +287,7 @@ describe('Governance tests for osmosis', () => {
 
   it('vote on proposal using amino', async () => {
     // create amino address signing client
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       aminoSigner,
       {

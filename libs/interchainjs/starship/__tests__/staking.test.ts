@@ -13,7 +13,7 @@ import {
 import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
 import BigNumber from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
-import { StargateSigningClient } from 'interchainjs/stargate';
+import { CosmosSigningClient } from 'interchainjs/cosmos';
 import { useChain } from 'starshipjs';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
@@ -84,7 +84,7 @@ describe('Staking tokens testing', () => {
   });
 
   it('stake tokens to genesis validator default signing mode', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner,
       {
@@ -131,7 +131,7 @@ describe('Staking tokens testing', () => {
   });
 
   it('stake tokens to genesis validator direct signing mode', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       wallet,
       {
@@ -179,7 +179,7 @@ describe('Staking tokens testing', () => {
   });
 
   it('stake tokens to genesis validator amino signing mode', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       wallet,
       {

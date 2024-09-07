@@ -1,15 +1,14 @@
 import { RpcClient } from '@interchainjs/cosmos/query/rpc';
 import { QueryClient } from '@interchainjs/cosmos/types';
 import { OfflineSigner } from '@interchainjs/cosmos/types/wallet';
-import { CosmWasmMsgs } from '@interchainjs/cosmos-types/cosmwasm';
-import { CosmWasmStargateImpl as TxImpl } from '@interchainjs/cosmos-types/service-ops';
-import { StargateMsgs } from '@interchainjs/cosmos-types/stargate';
+import { StargateImpl as TxImpl } from '@interchainjs/cosmos-types/service-ops';
+import { Msgs } from '@interchainjs/cosmos-types/cosmos';
 import { HttpEndpoint } from '@interchainjs/types';
 
 import { SigningClient } from './signing-client';
 import { SignerOptions } from './types/signing-client';
 
-export class CosmWasmSigningClient extends SigningClient {
+export class CosmosSigningClient extends SigningClient {
   readonly helpers: TxImpl;
 
   constructor(
@@ -17,13 +16,14 @@ export class CosmWasmSigningClient extends SigningClient {
     offlineSigner: OfflineSigner,
     options: SignerOptions = {}
   ) {
-    const msgs = [...StargateMsgs, ...CosmWasmMsgs];
     options.registry = options.registry || [];
-    options.registry = options.registry.concat(msgs.map((g) => [g.typeUrl, g]));
+    options.registry = options.registry.concat(
+      Msgs.map((g) => [g.typeUrl, g])
+    );
 
     options.aminoConverters = options.aminoConverters || {};
 
-    msgs.forEach((g) => {
+    Msgs.forEach((g) => {
       options.aminoConverters[g.typeUrl] = g;
     });
 
@@ -36,8 +36,8 @@ export class CosmWasmSigningClient extends SigningClient {
     endpoint: string | HttpEndpoint,
     signer: OfflineSigner,
     options: SignerOptions = {}
-  ): Promise<CosmWasmSigningClient> {
-    const signingClient = new CosmWasmSigningClient(
+  ): Promise<CosmosSigningClient> {
+    const signingClient = new CosmosSigningClient(
       new RpcClient(endpoint, options.prefix),
       signer,
       options

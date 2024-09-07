@@ -20,11 +20,11 @@ Wrapper of `@interchainjs/auth` and `@interchainjs/cosmos` to fit corresponding 
 npm install interchainjs
 ```
 
-To sign messages (taking `stargate` signing client as example)
+To sign messages (taking cosmos`stargate` signing client as example)
 
 ```ts
 // import * from "interchainjs"; // Error: use sub-imports, to ensure small app size
-import { StargateSigningClient } from "interchainjs/stargate";
+import { CosmosSigningClient } from "interchainjs/cosmos";
 
 const directWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
   {
@@ -35,7 +35,7 @@ const directWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
 
 const directSigner = directWallet.toOfflineDirectSigner();
 
-const signingClient = await StargateSigningClient.connectWithSigner(
+const signingClient = await CosmosSigningClient.connectWithSigner(
   await getRpcEndpoint(),
   directSigner
 );
@@ -64,8 +64,8 @@ const directSigner = directWallet.toOfflineDirectSigner();
 
 - **signing client**
   - **signing client** from `interchainjs/signing-client`
-  - **stargate signing client** from `interchainjs/stargate`
-  - **cosmwasm signing client** from `interchainjs/cosmwasm-stargate`
+  - **cosmos( stargate ) signing client** from `interchainjs/cosmos`
+  - **cosmwasm signing client** from `interchainjs/cosmwasm`
 - **wallet**
   - **secp256k1 wallet** from `@interchainjs/cosmos/wallets/secp256k1hd`
 
