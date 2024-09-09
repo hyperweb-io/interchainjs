@@ -1,4 +1,4 @@
-import { AminoSignerBase } from '@interchainjs/cosmos/amino';
+import { AminoSignerBase } from '@interchainjs/cosmos/signers/amino';
 import { BaseCosmosTxBuilder } from '@interchainjs/cosmos/base';
 import { BaseCosmosTxBuilderContext } from '@interchainjs/cosmos/base/builder-context';
 import {

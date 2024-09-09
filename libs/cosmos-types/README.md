@@ -27,7 +27,7 @@ Make `Encoder` and `Converter` used by `Cosmos` signers (taking `MsgSend` as exa
 ```ts
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
 import { toConverter, toEncoder } from "@interchainjs/cosmos/utils";
-import { AminoSigner } from "@interchainjs/cosmos/amino";
+import { AminoSigner } from "@interchainjs/cosmos/signers/amino";
 
 const encoder = toEncoder(MsgSend);
 const converter = toConverter(MsgSend);

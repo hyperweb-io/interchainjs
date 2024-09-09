@@ -1,4 +1,4 @@
-import { DirectSignerBase } from '@interchainjs/cosmos/direct';
+import { DirectSignerBase } from '@interchainjs/cosmos/signers/direct';
 import { Encoder, SignerOptions } from '@interchainjs/cosmos/types';
 import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';

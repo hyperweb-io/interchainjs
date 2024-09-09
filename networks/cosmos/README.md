@@ -12,7 +12,6 @@
    <a href="https://github.com/cosmology-tech/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
-
 Transaction codec and client to communicate with any cosmos blockchain.
 
 ## Usage
@@ -25,7 +24,7 @@ Taking `direct` signing mode as example.
 
 ```ts
 // import * from "@interchainjs/cosmos"; // Error: use sub-imports, to ensure small app size
-import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 
 const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now
 const result = await signer.signAndBroadcast(<MESSAGE>[]);
@@ -37,8 +36,8 @@ console.log(result.hash); // the hash of TxRaw
 
 ## Implementations
 
-- **direct signer** from `@interchainjs/cosmos/direct`
-- **amino signer** from `@interchainjs/cosmos/amino`
+- **direct signer** from `@interchainjs/cosmos/signers/direct`
+- **amino signer** from `@interchainjs/cosmos/signers/amino`
 
 ## License
 

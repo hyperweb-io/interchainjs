@@ -2,7 +2,7 @@ import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/s
 import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { SignDocResponse } from '@interchainjs/types';
 
-import { type AminoSignerBase } from '../amino';
+import { type AminoSignerBase } from '../signers/amino';
 import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosAminoDoc, CosmosSignArgs } from '../types';

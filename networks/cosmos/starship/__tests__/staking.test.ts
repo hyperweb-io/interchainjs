@@ -2,7 +2,7 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import {Asset} from '@chain-registry/types';
-import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import {
   assertIsDeliverTxSuccess,

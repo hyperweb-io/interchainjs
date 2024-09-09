@@ -4,7 +4,7 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/direct';
+import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
   sleep,

@@ -141,7 +141,7 @@ As we know, `Auth` object can be used to sign any piece of binary data (See [det
 ### Usage
 
 ```ts
-import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 import { toEncoder } from "@interchainjs/cosmos/utils";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
@@ -161,7 +161,7 @@ However, combining with the `Signer` class allows you to sign human-readable mes
 ### Usage
 
 ```ts
-import { DirectSigner } from "@interchainjs/cosmos/direct";
+import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 import { DirectWallet, SignDoc } from "@interchainjs/cosmos/types";
 import { toEncoder } from "@interchainjs/cosmos/utils";
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
@@ -213,7 +213,7 @@ export interface UniSigner<SignDoc, Tx> {
 
 ### CosmosDirectSigner
 
-- **Class**: `import { DirectSigner } from "@interchainjs/cosmos/direct"`
+- **Class**: `import { DirectSigner } from "@interchainjs/cosmos/signers/direct"`
 - **SignDoc**: CosmosDirectDoc
 - **Transaction**: CosmosTx
 - **Wallet**: Secp256k1HDWallet
@@ -221,7 +221,7 @@ export interface UniSigner<SignDoc, Tx> {
 
 ### CosmosAminoSigner
 
-- **Class**: `import { AminoSigner } from "@interchainjs/cosmos/amino"`
+- **Class**: `import { AminoSigner } from "@interchainjs/cosmos/signers/amino"`
 - **SignDoc**: CosmosAminoDoc
 - **Transaction**: CosmosTx
 - **Wallet**: Secp256k1HDWallet
