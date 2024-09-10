@@ -1,9 +1,13 @@
 import './setup.test';
 
+import { Msgs } from '@interchainjs/cosmos-types/cosmos';
 import { Asset } from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
+import { EthSecp256k1HDWallet } from '@interchainjs/injective/wallets/ethEecp256k1hd';
+import { InjSigningClient } from '@interchainjs/injective/signing-client';
+import { assertIsDeliverTxSuccess as assertIsSigningDeliverTxSuccess} from '@cosmjs/stargate';
 import {
   assertIsDeliverTxSuccess,
   sleep,
@@ -29,15 +33,22 @@ import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 
 const hdPath = "m/44'/60'/0'/0/0";
 
 describe('Governance tests for injective', () => {
   let directSigner: DirectSigner,
     aminoSigner: AminoSigner,
+    signingClient: InjSigningClient,
+    directOfflineSigner: OfflineDirectSigner,
+    aminoOfflineSigner: OfflineAminoSigner,
     denom: string,
+    commonPrefix: string,
     directAddress: string,
-    aminoAddress: string;
+    aminoAddress: string,
+    directOfflineAddress: string,
+    aminoOfflineAddress: string;
   let chainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
@@ -55,6 +66,8 @@ describe('Governance tests for injective', () => {
     denom = (await getCoin()).base;
     injRpcEndpoint = await getRpcEndpoint();
 
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
     // Initialize auth
     const [directAuth] = EthSecp256k1Auth.fromMnemonic(generateMnemonic(), [
       hdPath,
@@ -66,17 +79,49 @@ describe('Governance tests for injective', () => {
       directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       injRpcEndpoint,
-      { prefix: chainInfo.chain.bech32_prefix }
+      { prefix: commonPrefix }
     );
     aminoSigner = new AminoSigner(
       aminoAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       injRpcEndpoint,
-      { prefix: chainInfo.chain.bech32_prefix }
+      { prefix: commonPrefix }
     );
     directAddress = await directSigner.getAddress();
     aminoAddress = await aminoSigner.getAddress();
+
+    // Initialize wallet
+    const directWallet = EthSecp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: hdPath,
+      },
+    ]);
+    const aminoWallet = EthSecp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: hdPath,
+      },
+    ]);
+    directOfflineSigner = directWallet.toOfflineDirectSigner();
+    aminoOfflineSigner = aminoWallet.toOfflineAminoSigner();
+    directOfflineAddress = (await directOfflineSigner.getAccounts())[0].address;
+    aminoOfflineAddress = (await aminoOfflineSigner.getAccounts())[0].address;
+
+    signingClient = await InjSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      directOfflineSigner,
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+        preferredSignType: 'direct',
+        registry: Msgs.map((g) => [g.typeUrl, g])
+      }
+    );
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(injRpcEndpoint);
@@ -85,6 +130,8 @@ describe('Governance tests for injective', () => {
     for (let i = 0; i < 10; i++) {
       await creditFromFaucet(directAddress);
       await creditFromFaucet(aminoAddress);
+      await creditFromFaucet(directOfflineAddress);
+      await creditFromFaucet(aminoOfflineAddress);
     }
 
     await sleep(5000);
@@ -102,6 +149,24 @@ describe('Governance tests for injective', () => {
   it('check amino address has tokens', async () => {
     const { balance } = await queryClient.balance({
       address: aminoAddress,
+      denom,
+    });
+
+    expect(balance!.amount).toEqual('1000000000000000000000');
+  }, 200000);
+
+  it('check direct offline address has tokens', async () => {
+    const { balance } = await queryClient.balance({
+      address: directOfflineAddress,
+      denom,
+    });
+
+    expect(balance!.amount).toEqual('1000000000000000000000');
+  }, 200000);
+
+  it('check amino offline address has tokens', async () => {
+    const { balance } = await queryClient.balance({
+      address: aminoOfflineAddress,
       denom,
     });
 
@@ -127,7 +192,7 @@ describe('Governance tests for injective', () => {
 
   it('stake tokens to genesis validator', async () => {
     const { balance } = await queryClient.balance({
-      address: directAddress,
+      address: directOfflineAddress,
       denom,
     });
 
@@ -137,7 +202,7 @@ describe('Governance tests for injective', () => {
     const msg = {
       typeUrl: MsgDelegate.typeUrl,
       value: MsgDelegate.fromPartial({
-        delegatorAddress: directAddress,
+        delegatorAddress: directOfflineAddress,
         validatorAddress: validatorAddress,
         amount: {
           amount: delegationAmount,
@@ -156,22 +221,17 @@ describe('Governance tests for injective', () => {
       gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-      },
-      {
-        deliverTx: true,
-      }
+    const result = await signingClient.signAndBroadcast(
+      directOfflineAddress,
+      [msg],
+      fee
     );
-    assertIsDeliverTxSuccess(result);
+    assertIsSigningDeliverTxSuccess(result);
   }, 200000);
 
   it('check direct address has tokens', async () => {
     const { balance } = await queryClient.balance({
-      address: directAddress,
+      address: directOfflineAddress,
       denom,
     });
 

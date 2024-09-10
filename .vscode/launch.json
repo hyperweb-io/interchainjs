@@ -81,7 +81,7 @@
          "starship/__tests__/token.test.ts"
       ],
       "console": "integratedTerminal",
-      "cwd": "${workspaceFolder}/networks/ethermint",
+      "cwd": "${workspaceFolder}/networks/injective",
       "internalConsoleOptions": "neverOpen"
    },
    {
@@ -97,7 +97,7 @@
          "starship/__tests__/gov.test.ts"
       ],
       "console": "integratedTerminal",
-      "cwd": "${workspaceFolder}/networks/ethermint",
+      "cwd": "${workspaceFolder}/networks/injective",
       "internalConsoleOptions": "neverOpen"
    }
   ]

@@ -38,6 +38,7 @@
     "@interchainjs/ethereum": "^0.0.1-beta.8",
     "@interchainjs/types": "^0.0.1-beta.8",
     "@interchainjs/utils": "^0.0.1-beta.8",
+    "interchainjs": "^0.0.1-beta.12",
     "decimal.js": "^10.4.3"
   },
   "keywords": [

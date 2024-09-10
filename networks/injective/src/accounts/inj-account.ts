@@ -7,9 +7,9 @@ import { keccak_256 } from '@noble/hashes/sha3';
  */
 export class InjAccount extends AccountBase {
   /**
-   * Create inj address.
+   * Create inj address by pubkey.
    */
-  getAddress(): string {
+  getAddressByPubKey(): string {
     const uncompressedPubKey = this.auth.getPublicKey(false);
 
     const pubkeyHex = uncompressedPubKey.toHex().substring(2);

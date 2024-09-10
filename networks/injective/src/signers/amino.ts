@@ -1,7 +1,7 @@
 import { AminoSignerBase } from '@interchainjs/cosmos/signers/amino';
-import { BaseCosmosTxBuilder } from '@interchainjs/cosmos/base';
+import { BaseCosmosTxBuilder, CosmosDocSigner } from '@interchainjs/cosmos/base';
 import { BaseCosmosTxBuilderContext } from '@interchainjs/cosmos/base/builder-context';
-import { AminoTxBuilder } from '@interchainjs/cosmos/builder/amino-tx-builder';
+import { AminoSigBuilder, AminoTxBuilder } from '@interchainjs/cosmos/builder/amino-tx-builder';
 import {
   AminoConverter,
   CosmosAminoDoc,
@@ -15,6 +15,15 @@ import { Auth, HttpEndpoint } from '@interchainjs/types';
 import { InjAccount } from '../accounts/inj-account';
 import { defaultSignerOptions } from '../defaults';
 import { InjectiveAminoSigner } from '../types';
+
+/**
+ * AminoDocSigner is a signer for Amino document.
+ */
+export class AminoDocSigner extends CosmosDocSigner<CosmosAminoDoc> {
+  getTxBuilder(): AminoSigBuilder {
+    return new AminoSigBuilder(new BaseCosmosTxBuilderContext(this));
+  }
+}
 
 /**
  * AminoDocSigner is a signer for inj Amino document.
