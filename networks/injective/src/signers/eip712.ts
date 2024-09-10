@@ -1,4 +1,4 @@
-import { AminoSignerBase } from '@interchainjs/cosmos/amino';
+import { AminoSignerBase } from '@interchainjs/cosmos/signers/amino';
 import { BaseCosmosTxBuilder } from '@interchainjs/cosmos/base';
 import { BaseCosmosTxBuilderContext } from '@interchainjs/cosmos/base/builder-context';
 import {
@@ -8,11 +8,11 @@ import {
 } from '@interchainjs/cosmos/types';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
-import { InjAccount } from './accounts/inj-account';
+import { InjAccount } from '../accounts/inj-account';
 import { AminoSigner } from './amino';
-import { Eip712TxBuilder } from './builder/eip712-tx-builder';
-import { defaultSignerOptions } from './defaults';
-import {InjectiveEip712Doc } from './types';
+import { Eip712TxBuilder } from '../builder/eip712-tx-builder';
+import { defaultSignerOptions } from '../defaults';
+import {InjectiveEip712Doc } from '../types';
 
 export class Eip712SignerBase extends AminoSignerBase<InjectiveEip712Doc> {
   readonly aminoSigner: AminoSigner;

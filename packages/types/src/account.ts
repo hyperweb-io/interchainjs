@@ -1,4 +1,4 @@
-import { Algo, Auth, IAccount } from './auth';
+import { Algo, Auth, IAccount, isDocAuth } from './auth';
 
 /**
  * AccountBase implements common parts of the IAccount interface.
@@ -18,7 +18,15 @@ export abstract class AccountBase implements IAccount {
     return this.auth.getPublicKey(this.isPublicKeyCompressed);
   }
 
-  abstract getAddress(): string;
+  getAddress(): string {
+    if(isDocAuth(this.auth)){
+      return this.auth.address;
+    } else {
+      return this.getAddressByPubKey();
+    }
+  }
+
+  abstract getAddressByPubKey(): string;
 
   toAccountData() {
     return {

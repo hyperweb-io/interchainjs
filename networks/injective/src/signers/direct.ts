@@ -1,12 +1,25 @@
-import { DirectSignerBase } from '@interchainjs/cosmos/direct';
-import { Encoder, SignerOptions } from '@interchainjs/cosmos/types';
+import { DirectSignerBase } from '@interchainjs/cosmos/signers/direct';
+import { CosmosDirectDoc, Encoder, SignerOptions } from '@interchainjs/cosmos/types';
 import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
-import { InjAccount } from './accounts/inj-account';
-import { defaultSignerOptions } from './defaults';
-import { InjectiveDirectSigner } from './types';
+import { InjAccount } from '../accounts/inj-account';
+import { defaultSignerOptions } from '../defaults';
+import { InjectiveDirectSigner } from '../types';
+import { CosmosDocSigner } from '@interchainjs/cosmos/base';
+import { DirectSigBuilder } from '@interchainjs/cosmos/builder/direct-tx-builder';
+import { BaseCosmosTxBuilderContext } from '@interchainjs/cosmos/base/builder-context';
+
+/**
+ * DirectDocSigner is a signer for Direct document.
+ */
+export class DirectDocSigner extends CosmosDocSigner<CosmosDirectDoc> {
+  getTxBuilder(): DirectSigBuilder {
+    return new DirectSigBuilder(new BaseCosmosTxBuilderContext(this));
+  }
+}
+
 
 /**
  * DirectDocSigner is a signer for inj Direct document.

@@ -1,5 +1,5 @@
 {
-  "name": "@interchainjs/ethermint",
+  "name": "@interchainjs/injective",
   "version": "0.0.1-beta.11",
   "main": "index.js",
   "module": "esm/index.js",
@@ -30,7 +30,7 @@
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
-    "ethermint:test": "jest --config ./jest.testnet.config.js --verbose"
+    "injective:test": "jest --config ./jest.testnet.config.js --verbose"
   },
   "dependencies": {
     "@interchainjs/cosmos": "^0.0.1-beta.11",
@@ -38,10 +38,11 @@
     "@interchainjs/ethereum": "^0.0.1-beta.8",
     "@interchainjs/types": "^0.0.1-beta.8",
     "@interchainjs/utils": "^0.0.1-beta.8",
+    "interchainjs": "^0.0.1-beta.12",
     "decimal.js": "^10.4.3"
   },
   "keywords": [
-    "ethermint"
+    "injective"
   ],
   "devDependencies": {
     "bech32": "^2.0.0",

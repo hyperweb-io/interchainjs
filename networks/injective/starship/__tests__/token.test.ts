@@ -4,7 +4,7 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/direct';
+import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
   sleep,
@@ -12,7 +12,7 @@ import {
 } from '@interchainjs/cosmos/utils';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
-import { DirectSigner } from '@interchainjs/ethermint/direct';
+import { DirectSigner } from '@interchainjs/injective/signers/direct';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 

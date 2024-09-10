@@ -9,7 +9,7 @@ import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
 import { HDPath } from '@interchainjs/types';
 import { RpcQuery } from 'interchainjs/query/rpc';
-import { StargateSigningClient } from 'interchainjs/stargate';
+import { CosmosSigningClient } from 'interchainjs/cosmos';
 import { useChain } from 'starshipjs';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
@@ -54,7 +54,7 @@ describe('Token transfers', () => {
   });
 
   it('send osmosis token to address', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner,
       {
@@ -95,7 +95,7 @@ describe('Token transfers', () => {
   }, 10000);
 
   it('send ibc osmo tokens to address on cosmos chain', async () => {
-    const signingClient = await StargateSigningClient.connectWithSigner(
+    const signingClient = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       protoSigner,
       {

@@ -1,8 +1,8 @@
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
-import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from './base';
-import { BaseCosmosTxBuilderContext } from './base/builder-context';
-import { AminoSigBuilder, AminoTxBuilder } from './builder/amino-tx-builder';
+import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from '../base';
+import { BaseCosmosTxBuilderContext } from '../base/builder-context';
+import { AminoSigBuilder, AminoTxBuilder } from '../builder/amino-tx-builder';
 import {
   AminoConverter,
   CosmosAccount,
@@ -10,9 +10,9 @@ import {
   CosmosAminoSigner,
   Encoder,
   SignerOptions,
-} from './types';
-import { AminoDocAuth } from './types/docAuth';
-import { OfflineAminoSigner } from './types/wallet';
+} from '../types';
+import { AminoDocAuth } from '../types/docAuth';
+import { OfflineAminoSigner } from '../types/wallet';
 
 /**
  * AminoDocSigner is a signer for Amino document.

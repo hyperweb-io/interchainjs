@@ -2,7 +2,7 @@ import './setup.test';
 
 import {Asset} from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
-import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
   sleep,

@@ -2,8 +2,8 @@ import './setup.test';
 
 import { Asset } from '@chain-registry/types';
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { AminoSigner } from '@interchainjs/cosmos/amino';
-import { DirectSigner } from '@interchainjs/cosmos/direct';
+import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
+import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
   toConverters,

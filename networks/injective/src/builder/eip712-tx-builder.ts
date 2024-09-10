@@ -12,7 +12,7 @@ import {
   defaultEip712Types,
   defaultTimeoutHeight,
 } from '../defaults';
-import { type Eip712SignerBase } from '../eip712';
+import { type Eip712SignerBase } from '../signers/eip712';
 import { InjectiveEip712Doc, InjectiveEip712SignArgs } from '../types';
 import { toEthTypes, updateDomain } from '../utils';
 

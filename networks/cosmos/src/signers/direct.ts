@@ -1,17 +1,17 @@
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
-import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from './base';
-import { BaseCosmosTxBuilderContext } from './base/builder-context';
-import { DirectSigBuilder, DirectTxBuilder } from './builder/direct-tx-builder';
+import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from '../base';
+import { BaseCosmosTxBuilderContext } from '../base/builder-context';
+import { DirectSigBuilder, DirectTxBuilder } from '../builder/direct-tx-builder';
 import {
   CosmosAccount,
   CosmosDirectDoc,
   CosmosDirectSigner,
   Encoder,
   SignerOptions,
-} from './types';
-import { DirectDocAuth } from './types/docAuth';
-import { OfflineDirectSigner } from './types/wallet';
+} from '../types';
+import { DirectDocAuth } from '../types/docAuth';
+import { OfflineDirectSigner } from '../types/wallet';
 
 /**
  * DirectDocSigner is a signer for Direct document.
