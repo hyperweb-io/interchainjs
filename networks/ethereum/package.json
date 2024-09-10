@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/ethereum",
-  "version": "0.0.1-beta.8",
+  "version": "0.0.1-beta.9",
   "description": "Transaction codec and client to communicate with ethereum blockchain",
   "main": "index.js",
   "module": "esm/index.js",
@@ -29,8 +29,8 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
     "@ethersproject/transactions": "^5.7.0",
-    "@interchainjs/types": "^0.0.1-beta.8",
-    "@interchainjs/utils": "^0.0.1-beta.8",
+    "@interchainjs/types": "^0.0.1-beta.9",
+    "@interchainjs/utils": "^0.0.1-beta.9",
     "@noble/hashes": "^1.3.1"
   },
   "keywords": [
