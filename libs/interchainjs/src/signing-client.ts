@@ -119,6 +119,20 @@ export class SigningClient {
     }
   }
 
+  /**
+   * register converters
+   */
+  addConverters = (converters: AminoConverter[]) => {
+    this.converters.push(...converters);
+  };
+
+  /**
+   * register encoders
+   */
+  addEncoders = (encoders: Encoder[]) => {
+      this.encoders.push(...encoders);
+  };
+
   private get queryClient() {
     return this.client;
   }

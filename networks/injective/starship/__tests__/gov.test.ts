@@ -1,6 +1,5 @@
 import './setup.test';
 
-import { Msgs } from '@interchainjs/cosmos-types/cosmos';
 import { Asset } from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
@@ -119,9 +118,10 @@ describe('Governance tests for injective', () => {
           useLegacyBroadcastTxCommit: true,
         },
         preferredSignType: 'direct',
-        registry: Msgs.map((g) => [g.typeUrl, g])
       }
     );
+
+    signingClient.addEncoders(toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
 
     // Create custom cosmos interchain client
     queryClient = new RpcQuery(injRpcEndpoint);
