@@ -46,7 +46,14 @@ export abstract class AminoSignerBase<
    * register converters
    */
   addConverters = (converters: AminoConverter[]) => {
-    this.converters.push(...converters);
+    // Create a Set of existing typeUrls for quick lookup
+    const existingTypeUrls = new Set(this.converters.map(c => c.typeUrl));
+
+    // Filter out converters with duplicate typeUrls
+    const newConverters = converters.filter(converter => !existingTypeUrls.has(converter.typeUrl));
+
+    // Add only the unique converters
+    this.converters.push(...newConverters);
   };
 
   /**

@@ -149,8 +149,18 @@ export abstract class CosmosBaseSigner<SignDoc>
     return this._encodePublicKey(this.publicKey);
   }
 
+  /**
+   * register encoders
+   */
   addEncoders = (encoders: Encoder[]) => {
-    this.encoders.push(...encoders);
+    // Create a Set of existing typeUrls for quick lookup
+    const existingTypeUrls = new Set(this.encoders.map(c => c.typeUrl));
+
+    // Filter out converters with duplicate typeUrls
+    const newEncoders = encoders.filter(encoder => !existingTypeUrls.has(encoder.typeUrl));
+
+    // Add only the unique converters
+    this.encoders.push(...newEncoders);
   };
 
   /**
