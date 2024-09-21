@@ -1,6 +1,6 @@
 import { AccountData, SignerConfig } from '@interchainjs/types';
 
-import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
+import { CosmosAminoDoc, CosmosDirectDoc, ICosmosGeneralOfflineSigner } from './signer';
 
 /**
  * Wallet options
@@ -35,7 +35,7 @@ export interface AminoSignResponse {
  * Offline amino signer
  */
 export interface OfflineAminoSigner {
-  getAccounts: () => Promise<AccountData[]>;
+  getAccounts: () => Promise<readonly AccountData[]>;
   signAmino: (
     signerAddress: string,
     signDoc: CosmosAminoDoc
@@ -54,7 +54,7 @@ export interface DirectSignResponse {
  * Offline direct signer
  */
 export interface OfflineDirectSigner {
-  getAccounts: () => Promise<AccountData[]>;
+  getAccounts: () => Promise<readonly AccountData[]>;
   signDirect: (
     signerAddress: string,
     signDoc: CosmosDirectDoc
@@ -82,4 +82,4 @@ export function isOfflineDirectSigner(
 /**
  * Offline signer can be either amino or direct signer or both
  */
-export type OfflineSigner = OfflineAminoSigner | OfflineDirectSigner;
+export type OfflineSigner = OfflineAminoSigner | OfflineDirectSigner | ICosmosGeneralOfflineSigner;

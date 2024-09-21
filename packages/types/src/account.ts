@@ -26,6 +26,9 @@ export abstract class AccountBase implements IAccount {
     }
   }
 
+  /**
+   * Get address by public key(compressed or uncompressed).
+   */
   abstract getAddressByPubKey(): string;
 
   toAccountData() {

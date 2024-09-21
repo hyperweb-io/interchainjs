@@ -6,10 +6,11 @@ import {
   AminoConverter,
   CosmosAminoDoc,
   Encoder,
+  ICosmosGeneralOfflineSigner,
   SignerOptions,
 } from '@interchainjs/cosmos/types';
 import { AminoDocAuth } from '@interchainjs/cosmos/types/docAuth';
-import { OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
+import { isOfflineAminoSigner, OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
 import { InjAccount } from '../accounts/inj-account';
@@ -63,13 +64,19 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineAminoSigner,
+    signer: OfflineAminoSigner | ICosmosGeneralOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = await AminoDocAuth.fromOfflineSigner(signer);
+    let auth: AminoDocAuth;
+
+    if(isOfflineAminoSigner(signer)){
+      [auth] = await AminoDocAuth.fromOfflineSigner(signer);
+    } else {
+      [auth] = await AminoDocAuth.fromGeneralOfflineSigner(signer);
+    }
 
     return new AminoSigner(auth, encoders, converters, endpoint, options);
   }
@@ -79,13 +86,19 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineAminoSigner,
+    signer: OfflineAminoSigner | ICosmosGeneralOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = await AminoDocAuth.fromOfflineSigner(signer);
+    let auths: AminoDocAuth[];
+
+    if(isOfflineAminoSigner(signer)) {
+      auths = await AminoDocAuth.fromOfflineSigner(signer);
+    } else {
+      auths = await AminoDocAuth.fromGeneralOfflineSigner(signer);
+    }
 
     return auths.map((auth) => {
       return new AminoSigner(auth, encoders, converters, endpoint, options);

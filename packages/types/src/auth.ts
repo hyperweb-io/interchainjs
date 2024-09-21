@@ -100,7 +100,7 @@ export interface ISignatureWraper<Sig> {
 /**
  * IAccount is an interface that represents an account based on an authentication object.
  */
-export interface IAccount {
+export interface IAccount<TAddr = string> {
   /**
    * The public key of the account.
    */
@@ -108,7 +108,7 @@ export interface IAccount {
   /**
    * The address of the account.
    */
-  address: string;
+  address: TAddr;
   /**
    * auth is the authentication method of the account.
    */

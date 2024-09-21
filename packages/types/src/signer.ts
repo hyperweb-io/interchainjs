@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 
-import { Auth, IKey, isByteAuth } from './auth';
+import { AccountData, Auth, IKey, isByteAuth } from './auth';
 import { SignDocResponse } from './wallet';
 
 /**
@@ -224,4 +224,36 @@ export class BaseSigner {
     const signature = this.auth.sign(hashedData);
     return signature.toCompact();
   }
+}
+
+export const SIGN_MODE = {
+  SIGN_MODE_DIRECT: 'direct',
+  SIGN_MODE_AMINO: 'amino',
+};
+
+/**
+ * IGeneralOfflineSigner is an interface for offline signers.
+ */
+export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown> {
+  /**
+   * sign mode
+   */
+  signMode: string;
+
+  /**
+   * get accounts
+   * @returns a list of accounts
+   */
+  getAccounts: () => Promise<readonly AccountData[]>;
+
+  /**
+   * sign document
+   * @param signerAddress
+   * @param signDoc
+   * @returns
+   */
+  sign: (
+    signerAddress: TAddr,
+    signDoc: TDoc
+  ) => Promise<TResp>;
 }

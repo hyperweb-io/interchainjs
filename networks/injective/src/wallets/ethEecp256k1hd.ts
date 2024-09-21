@@ -1,5 +1,5 @@
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
-import { AccountData, AddrDerivation, Auth, SignerConfig } from '@interchainjs/types';
+import { AccountData, AddrDerivation, Auth, IGeneralOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
 import { defaultSignerOptions } from '../defaults';
@@ -9,6 +9,7 @@ import {
   CosmosAminoDoc,
   CosmosDirectDoc,
   ICosmosAccount,
+  ICosmosGeneralOfflineSigner,
   ICosmosWallet,
 } from '@interchainjs/cosmos/types';
 import {
@@ -63,7 +64,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
    * Get account data
    * @returns account data
    */
-  async getAccounts(): Promise<AccountData[]> {
+  async getAccounts(): Promise<readonly AccountData[]> {
     return this.accounts.map((acct) => {
       return acct.toAccountData();
     });
@@ -156,5 +157,19 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
       signAmino: async (signerAddress: string, signDoc: CosmosAminoDoc) =>
         this.signAmino(signerAddress, signDoc),
     };
+  }
+
+  /**
+   * Convert this to general offline signer for hiding the private key.
+   * @param signMode sign mode. (direct or amino)
+   * @returns general offline signer for direct or amino
+   */
+  toGeneralOfflineSigner(signMode: 'direct' | 'amino'): ICosmosGeneralOfflineSigner {
+    return {
+      signMode: signMode,
+      getAccounts: async () => this.getAccounts(),
+      sign: async (signerAddress: string, signDoc: CosmosDirectDoc | CosmosAminoDoc) =>
+        signMode === SIGN_MODE.SIGN_MODE_DIRECT ? this.signDirect(signerAddress, signDoc as CosmosDirectDoc) : this.signAmino(signerAddress, signDoc as CosmosAminoDoc),
+    }
   }
 }
