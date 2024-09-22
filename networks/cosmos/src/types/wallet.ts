@@ -1,4 +1,4 @@
-import { AccountData, SignerConfig } from '@interchainjs/types';
+import { AccountData, IGeneralOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { CosmosAminoDoc, CosmosDirectDoc, ICosmosGeneralOfflineSigner } from './signer';
 
@@ -83,3 +83,39 @@ export function isOfflineDirectSigner(
  * Offline signer can be either amino or direct signer or both
  */
 export type OfflineSigner = OfflineAminoSigner | OfflineDirectSigner | ICosmosGeneralOfflineSigner;
+
+/**
+ * Amino general offline signer.
+ * This is a wrapper for offline amino signer.
+ */
+export class AminoGeneralOfflineSigner implements IGeneralOfflineSigner<string, CosmosAminoDoc, AminoSignResponse> {
+  constructor(public offlineSigner: OfflineAminoSigner) {
+
+  }
+
+  signMode: string = SIGN_MODE.SIGN_MODE_AMINO;
+  getAccounts(): Promise<readonly AccountData[]> {
+    return this.offlineSigner.getAccounts();
+  }
+  sign(signerAddress: string, signDoc: CosmosAminoDoc) {
+    return this.offlineSigner.signAmino(signerAddress, signDoc);
+  }
+}
+
+/**
+ * Direct general offline signer.
+ * This is a wrapper for offline direct signer.
+ */
+export class DirectGeneralOfflineSigner implements IGeneralOfflineSigner<string, CosmosDirectDoc, DirectSignResponse> {
+  constructor(public offlineSigner: OfflineDirectSigner) {
+
+  }
+
+  signMode: string = SIGN_MODE.SIGN_MODE_DIRECT;
+  getAccounts(): Promise<readonly AccountData[]> {
+    return this.offlineSigner.getAccounts();
+  }
+  sign(signerAddress: string, signDoc: CosmosDirectDoc) {
+    return this.offlineSigner.signDirect(signerAddress, signDoc);
+  }
+}
