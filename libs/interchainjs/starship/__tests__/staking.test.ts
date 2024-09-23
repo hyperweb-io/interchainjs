@@ -15,6 +15,7 @@ import BigNumber from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { CosmosSigningClient } from 'interchainjs/cosmos';
 import { useChain } from 'starshipjs';
+import { SIGN_MODE } from '@interchainjs/types';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -135,7 +136,7 @@ describe('Staking tokens testing', () => {
       await getRpcEndpoint(),
       wallet,
       {
-        preferredSignType: 'direct',
+        preferredSignType: SIGN_MODE.SIGN_MODE_DIRECT,
         broadcast: {
           checkTx: true,
           deliverTx: true,
@@ -183,7 +184,7 @@ describe('Staking tokens testing', () => {
       await getRpcEndpoint(),
       wallet,
       {
-        preferredSignType: 'amino',
+        preferredSignType: SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON,
         broadcast: {
           checkTx: true,
           deliverTx: true,

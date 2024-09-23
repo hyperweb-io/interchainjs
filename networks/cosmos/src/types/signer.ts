@@ -14,6 +14,7 @@ import {
   CreateDocResponse,
   HttpEndpoint,
   IAccount,
+  IGeneralOfflineSigner,
   IKey,
   Price,
   SignerConfig,
@@ -26,6 +27,7 @@ import { AccountBase } from '@interchainjs/types/account';
 import { Key } from '@interchainjs/utils';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
+import { AminoSignResponse, DirectSignResponse } from './wallet';
 
 /**
  * Signer options for cosmos chains
@@ -292,7 +294,7 @@ export function isICosmosAccount(
  * Cosmos account implementation
  */
 export class CosmosAccount extends AccountBase  {
-  getAddress() {
+  getAddressByPubKey() {
     return Key.from(ripemd160(sha256(this.publicKey.value))).toBech32(
       this.prefix
     );
@@ -303,5 +305,11 @@ export class CosmosAccount extends AccountBase  {
  * cosmos wallet interface
  */
 export interface ICosmosWallet {
-  getAccounts: () => Promise<AccountData[]>;
+  getAccounts: () => Promise<readonly AccountData[]>;
+}
+
+/**
+ * general offline signer for cosmos chains
+ */
+export interface ICosmosGeneralOfflineSigner extends IGeneralOfflineSigner<string, CosmosDirectDoc | CosmosAminoDoc, DirectSignResponse | AminoSignResponse> {
 }

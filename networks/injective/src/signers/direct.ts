@@ -1,7 +1,7 @@
 import { DirectSignerBase } from '@interchainjs/cosmos/signers/direct';
-import { CosmosDirectDoc, Encoder, SignerOptions } from '@interchainjs/cosmos/types';
+import { CosmosDirectDoc, Encoder, ICosmosGeneralOfflineSigner, SignerOptions } from '@interchainjs/cosmos/types';
 import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
-import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { isOfflineDirectSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
 import { InjAccount } from '../accounts/inj-account';
@@ -50,30 +50,43 @@ export class DirectSigner
   }
 
   /**
-   * create DirectSigner from wallet.
-   * if there're multiple accounts in the wallet, it will return the first one by default.
+   * Create DirectSigner from wallet.
+   * If there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineDirectSigner,
+    signer: OfflineDirectSigner | ICosmosGeneralOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const [auth] = await DirectDocAuth.fromOfflineSigner(signer);
+    let auth: DirectDocAuth;
+
+    if(isOfflineDirectSigner(signer)){
+      [auth] = await DirectDocAuth.fromOfflineSigner(signer);
+    } else {
+      [auth] = await DirectDocAuth.fromGeneralOfflineSigner(signer);
+    }
+
     return new DirectSigner(auth, encoders, endpoint, options);
   }
 
   /**
-   * create DirectSigners from wallet.
-   * if there're multiple accounts in the wallet, it will return all of the signers.
+   * Create DirectSigners from wallet.
+   * If there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineDirectSigner,
+    signer: OfflineDirectSigner | ICosmosGeneralOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
-    const auths = await DirectDocAuth.fromOfflineSigner(signer);
+    let auths: DirectDocAuth[];
+
+    if(isOfflineDirectSigner(signer)) {
+      auths = await DirectDocAuth.fromOfflineSigner(signer);
+    } else {
+      auths = await DirectDocAuth.fromGeneralOfflineSigner(signer);
+    }
 
     return auths.map((auth) => {
       return new DirectSigner(auth, encoders, endpoint, options);

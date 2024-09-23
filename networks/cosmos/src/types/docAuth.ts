@@ -1,13 +1,15 @@
 import {
   DocAuth,
   IKey,
+  SIGN_MODE,
   SignDoc,
   SignDocResponse,
   StdSignDoc,
 } from '@interchainjs/types';
 import { Key } from '@interchainjs/utils';
 
-import { OfflineAminoSigner, OfflineDirectSigner } from './wallet';
+import { AminoSignResponse, DirectSignResponse, OfflineAminoSigner, OfflineDirectSigner } from './wallet';
+import { CosmosAminoDoc, CosmosDirectDoc, ICosmosGeneralOfflineSigner } from './signer';
 
 /**
  * Base class for Doc Auth.
@@ -55,6 +57,28 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
       );
     });
   }
+
+  static async fromGeneralOfflineSigner(offlineSigner: ICosmosGeneralOfflineSigner) {
+    if(offlineSigner.signMode !== SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON) {
+      throw new Error('not an amino general offline signer');
+    }
+
+    const accounts = await offlineSigner.getAccounts();
+
+    return accounts.map((account) => {
+      return new AminoDocAuth(
+        account.algo,
+        account.address,
+        account.pubkey,
+        {
+          getAccounts: offlineSigner.getAccounts,
+          signAmino(signerAddress: string, signDoc: CosmosAminoDoc) {
+            return offlineSigner.sign({ signerAddress, signDoc }) as Promise<AminoSignResponse>;
+          }
+        }
+      );
+    });
+  }
 }
 
 /**
@@ -79,6 +103,28 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
         account.address,
         account.pubkey,
         offlineSigner
+      );
+    });
+  }
+
+  static async fromGeneralOfflineSigner(offlineSigner: ICosmosGeneralOfflineSigner) {
+    if(offlineSigner.signMode !== SIGN_MODE.SIGN_MODE_DIRECT) {
+      throw new Error('not a direct general offline signer');
+    }
+
+    const accounts = await offlineSigner.getAccounts();
+
+    return accounts.map((account) => {
+      return new DirectDocAuth(
+        account.algo,
+        account.address,
+        account.pubkey,
+        {
+          getAccounts: offlineSigner.getAccounts,
+          signDirect(signerAddress: string, signDoc: CosmosDirectDoc) {
+            return offlineSigner.sign({ signerAddress, signDoc }) as Promise<DirectSignResponse>;
+          }
+        }
       );
     });
   }
