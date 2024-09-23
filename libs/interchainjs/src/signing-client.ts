@@ -14,7 +14,7 @@ import {
 import { toEncoder } from '@interchainjs/cosmos/utils';
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
-import { BroadcastOptions, HttpEndpoint, StdFee } from '@interchainjs/types';
+import { BroadcastOptions, HttpEndpoint, SIGN_MODE, StdFee } from '@interchainjs/types';
 import { fromBase64 } from '@interchainjs/utils';
 
 import {
@@ -165,7 +165,7 @@ export class SigningClient {
 
   getSinger(signerAddress: string) {
     const signer = this.options.preferredSignType ?
-      this.options.preferredSignType === 'amino' ? this.aminoSigners[signerAddress] : this.directSigners[signerAddress]
+      this.options.preferredSignType === SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON ? this.aminoSigners[signerAddress] : this.directSigners[signerAddress]
       : this.aminoSigners[signerAddress] || this.directSigners[signerAddress];
 
     if (!signer) {

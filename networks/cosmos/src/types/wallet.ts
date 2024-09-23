@@ -1,4 +1,4 @@
-import { AccountData, IGeneralOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
+import { AccountData, IGeneralOfflineSignArgs, IGeneralOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { CosmosAminoDoc, CosmosDirectDoc, ICosmosGeneralOfflineSigner } from './signer';
 
@@ -97,7 +97,7 @@ export class AminoGeneralOfflineSigner implements IGeneralOfflineSigner<string, 
   getAccounts(): Promise<readonly AccountData[]> {
     return this.offlineSigner.getAccounts();
   }
-  sign(signerAddress: string, signDoc: CosmosAminoDoc) {
+  sign({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosAminoDoc>) {
     return this.offlineSigner.signAmino(signerAddress, signDoc);
   }
 }
@@ -115,7 +115,7 @@ export class DirectGeneralOfflineSigner implements IGeneralOfflineSigner<string,
   getAccounts(): Promise<readonly AccountData[]> {
     return this.offlineSigner.getAccounts();
   }
-  sign(signerAddress: string, signDoc: CosmosDirectDoc) {
+  sign({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosDirectDoc>) {
     return this.offlineSigner.signDirect(signerAddress, signDoc);
   }
 }

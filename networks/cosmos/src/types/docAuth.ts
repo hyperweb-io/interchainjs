@@ -1,6 +1,7 @@
 import {
   DocAuth,
   IKey,
+  SIGN_MODE,
   SignDoc,
   SignDocResponse,
   StdSignDoc,
@@ -58,7 +59,7 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
   }
 
   static async fromGeneralOfflineSigner(offlineSigner: ICosmosGeneralOfflineSigner) {
-    if(offlineSigner.signMode !== 'amino') {
+    if(offlineSigner.signMode !== SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON) {
       throw new Error('not an amino general offline signer');
     }
 
@@ -71,7 +72,9 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner, StdSignDoc> {
         account.pubkey,
         {
           getAccounts: offlineSigner.getAccounts,
-          signAmino: offlineSigner.sign as (signerAddress: string, signDoc: CosmosAminoDoc) => Promise<AminoSignResponse>
+          signAmino(signerAddress: string, signDoc: CosmosAminoDoc) {
+            return offlineSigner.sign({ signerAddress, signDoc }) as Promise<AminoSignResponse>;
+          }
         }
       );
     });
@@ -105,7 +108,7 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
   }
 
   static async fromGeneralOfflineSigner(offlineSigner: ICosmosGeneralOfflineSigner) {
-    if(offlineSigner.signMode !== 'direct') {
+    if(offlineSigner.signMode !== SIGN_MODE.SIGN_MODE_DIRECT) {
       throw new Error('not a direct general offline signer');
     }
 
@@ -118,7 +121,9 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner, SignDoc> {
         account.pubkey,
         {
           getAccounts: offlineSigner.getAccounts,
-          signDirect: offlineSigner.sign as (signerAddress: string, signDoc: CosmosDirectDoc) => Promise<DirectSignResponse>
+          signDirect(signerAddress: string, signDoc: CosmosDirectDoc) {
+            return offlineSigner.sign({ signerAddress, signDoc }) as Promise<DirectSignResponse>;
+          }
         }
       );
     });

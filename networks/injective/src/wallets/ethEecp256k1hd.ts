@@ -1,5 +1,5 @@
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
-import { AccountData, AddrDerivation, Auth, IGeneralOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
+import { AccountData, AddrDerivation, Auth, IGeneralOfflineSignArgs, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
 import { defaultSignerOptions } from '../defaults';
@@ -164,11 +164,11 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
    * @param signMode sign mode. (direct or amino)
    * @returns general offline signer for direct or amino
    */
-  toGeneralOfflineSigner(signMode: 'direct' | 'amino'): ICosmosGeneralOfflineSigner {
+  toGeneralOfflineSigner(signMode: string): ICosmosGeneralOfflineSigner {
     return {
       signMode: signMode,
       getAccounts: async () => this.getAccounts(),
-      sign: async (signerAddress: string, signDoc: CosmosDirectDoc | CosmosAminoDoc) =>
+      sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosDirectDoc | CosmosAminoDoc>) =>
         signMode === SIGN_MODE.SIGN_MODE_DIRECT ? this.signDirect(signerAddress, signDoc as CosmosDirectDoc) : this.signAmino(signerAddress, signDoc as CosmosAminoDoc),
     }
   }

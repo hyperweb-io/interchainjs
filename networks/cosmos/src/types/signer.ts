@@ -312,5 +312,4 @@ export interface ICosmosWallet {
  * general offline signer for cosmos chains
  */
 export interface ICosmosGeneralOfflineSigner extends IGeneralOfflineSigner<string, CosmosDirectDoc | CosmosAminoDoc, DirectSignResponse | AminoSignResponse> {
-  signMode: 'direct' | 'amino';
 }

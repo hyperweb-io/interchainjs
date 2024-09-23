@@ -238,7 +238,7 @@ export const SIGN_MODE = {
 /**
  * IGeneralOfflineSigner is an interface for offline signers.
  */
-export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown> {
+export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc> > {
   /**
    * sign mode
    */
@@ -257,7 +257,11 @@ export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = 
    * @returns
    */
   sign: (
-    signerAddress: TAddr,
-    signDoc: TDoc
+    args: TSignArgs,
   ) => Promise<TResp>;
+}
+
+export interface IGeneralOfflineSignArgs<TAddr = unknown, TDoc = unknown> {
+  signerAddress: TAddr;
+  signDoc: TDoc;
 }

@@ -33,6 +33,7 @@ import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
 import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { SIGN_MODE } from '@interchainjs/types';
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -117,7 +118,7 @@ describe('Governance tests for injective', () => {
           deliverTx: true,
           useLegacyBroadcastTxCommit: true,
         },
-        preferredSignType: 'direct',
+        preferredSignType: SIGN_MODE.SIGN_MODE_DIRECT,
       }
     );
 
