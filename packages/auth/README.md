@@ -33,7 +33,7 @@ const signature = auth.sign(Uint8Array.from([1, 2, 3]));
 console.log(signature.toHex());
 ```
 
-It's easy to derive _cosmos/ethermint/ethereum_ network HD path (taking `cosmos` as example)
+It's easy to derive _cosmos/injective/ethereum_ network HD path (taking `cosmos` as example)
 
 ```ts
 // derive with Cosmos default HD path "m/44'/118'/0'/0/0"
@@ -50,7 +50,7 @@ const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
 
 - [@interchainjs/cosmos](/networks/cosmos/README.md)
 - [@interchainjs/ethereum](/networks/ethereum/README.md)
-- [@interchainjs/ethermint](/networks/ethermint/README.md)
+- [@interchainjs/injective](/networks/injective/README.md)
 
 ## Implementations
 

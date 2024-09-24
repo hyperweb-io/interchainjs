@@ -27,7 +27,7 @@ By employing this pattern, InterchainJS ensures compatibility and extensibility,
 ```mermaid
 graph LR
     signers --> cosmos_signer["Cosmos Network"]
-    signers --> ethermint_signer["Ethermint Network"]
+    signers --> injective_signer["Injective Network"]
     signers --> ethereum_signer["Ethereum Network"]
     signers --> implement_signer["ANY Network"]
 
@@ -36,9 +36,9 @@ graph LR
 
     ethereum_signer --> ethereum_eip712["EIP712 Signer"]
 
-    ethermint_signer --> ethermint_amino["Amino Signer"]
-    ethermint_signer --> ethermint_direct["Direct Signer"]
-    ethermint_signer --> ethermint_eip712["EIP712 Signer"]
+    injective_signer --> injective_amino["Amino Signer"]
+    injective_signer --> injective_direct["Direct Signer"]
+    injective_signer --> injective_eip712["EIP712 Signer"]
 
     implement_signer --> any_signer["Any Signer"]
 
@@ -82,12 +82,12 @@ We created a specific package to make it easy to migrate from `@cosmjs`.
 
 - [interchainjs](/networks/cosmjs/README.md)
 
-## ethermint Network
+## injective Network
 
 ### Transactions
 
-- [@interchainjs/ethermint](/networks/ethermint/README.md)
-- `@interchainjs/ethermint-msgs`(on progress)
+- [@interchainjs/injective](/networks/injective/README.md)
+- `@interchainjs/injective-msgs`(on progress)
 
 ## Ethereum Network
 

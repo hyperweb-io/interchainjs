@@ -1,6 +1,6 @@
 # Signer
 
-The main purpose of the `@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/ethermint` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class which with `Auth` object being utilized in construction.
+The main purpose of the `@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class which with `Auth` object being utilized in construction.
 
 Class diagram:
 
@@ -229,7 +229,7 @@ export interface UniSigner<SignDoc, Tx> {
 
 ### InjectiveDirectSigner
 
-- **Class**: `import { DirectSigner } from "@interchainjs/ethermint/direct"`
+- **Class**: `import { DirectSigner } from "@interchainjs/injective/direct"`
 - **SignDoc**: CosmosDirectDoc
 - **Transaction**: CosmosTx
 - **Wallet**:
@@ -237,7 +237,7 @@ export interface UniSigner<SignDoc, Tx> {
 
 ### InjectiveAminoSigner
 
-- **Class**: `import { AminoSigner } from "@interchainjs/ethermint/amino"`
+- **Class**: `import { AminoSigner } from "@interchainjs/injective/amino"`
 - **SignDoc**: CosmosAminoDoc
 - **Transaction**: CosmosTx
 - **Wallet**:
