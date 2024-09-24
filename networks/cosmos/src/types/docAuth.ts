@@ -14,12 +14,12 @@ import { CosmosAminoDoc, CosmosDirectDoc, ICosmosGeneralOfflineSigner } from './
 /**
  * Base class for Doc Auth.
  */
-export abstract class BaseDocAuth<Signer, Doc> implements DocAuth<Doc> {
+export abstract class BaseDocAuth<TSigner, TArgs, TAddr = string> implements DocAuth<TArgs, TAddr> {
   constructor(
     public readonly algo: string,
-    public readonly address: string,
+    public readonly address: TAddr,
     public readonly pubkey: Uint8Array,
-    public readonly offlineSigner: Signer
+    public readonly offlineSigner: TSigner
   ) {
     this.algo = algo;
     this.address = address;
@@ -29,7 +29,7 @@ export abstract class BaseDocAuth<Signer, Doc> implements DocAuth<Doc> {
   getPublicKey(): IKey {
     return Key.from(this.pubkey);
   }
-  abstract signDoc(doc: Doc): Promise<SignDocResponse<Doc>>;
+  abstract signDoc(doc: TArgs): Promise<SignDocResponse<TArgs>>;
 }
 
 /**
