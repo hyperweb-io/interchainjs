@@ -82,7 +82,7 @@ We created a specific package to make it easy to migrate from `@cosmjs`.
 
 - [interchainjs](/networks/cosmjs/README.md)
 
-## injective Network
+## Injective Network
 
 ### Transactions
 
