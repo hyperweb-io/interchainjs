@@ -124,6 +124,20 @@ export interface ITxBuilderContext<Signer = unknown> {
 }
 
 /**
+ * IDocSigner is an interface for signing document.
+ * @template TDoc - document type
+ * @template TArgs - arguments type
+ */
+export interface IDocSigner<TDoc, TArgs = unknown, TResp = SignDocResponse<TDoc>> {
+  /**
+   * sign document.
+   * @param doc - document to be signed
+   * @param args - arguments for signing
+   */
+  signDoc(doc: TDoc, args?: TArgs): Promise<TResp>;
+}
+
+/**
  * UniSigner is a generic interface for signing and broadcasting transactions.
  * It is used to abstract the signing and broadcasting process for different chains.
  * @template SignArgs - arguments for sign method

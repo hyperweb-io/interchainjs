@@ -63,12 +63,13 @@ export function isByteAuth<Sig>(auth: Auth): auth is ByteAuth<Sig> {
  * DocAuth is an interface that represents the authentication method of an account that can sign a document using OfflineSigners.
  * DocAuth is actually a wrapper for offline signers.
  * DocAuth is usually used by signers built from offline signers.
- * @template TArgs The type of the args(type of document or including the type of doc).
+ * @template TDoc The type of the doc.
+ * @template TArgs The type of the args.
  * @template TAddr The type of the address.
  */
-export interface DocAuth<TArgs, TAddr = string> extends Auth {
+export interface DocAuth<TDoc, TArgs = unknown, TAddr = string> extends Auth {
   address: TAddr;
-  signDoc(doc: TArgs): SignDocResponse<TArgs> | Promise<SignDocResponse<TArgs>>;
+  signDoc(doc: TDoc, args?: TArgs): SignDocResponse<TDoc> | Promise<SignDocResponse<TDoc>>;
 }
 
 /**
@@ -76,7 +77,7 @@ export interface DocAuth<TArgs, TAddr = string> extends Auth {
  * @param auth The object to check
  * @returns Whether the object is a DocAuth.
  */
-export function isDocAuth<TArgs>(auth: Auth): auth is DocAuth<TArgs> {
+export function isDocAuth<TDoc, TArgs = unknown, TAddr = string>(auth: Auth): auth is DocAuth<TDoc, TArgs, TAddr> {
   return 'signDoc' in auth;
 }
 

@@ -11,6 +11,7 @@ import {
   BroadcastOptions,
   HttpEndpoint,
   IAccount,
+  IDocSigner,
   IKey,
   isDocAuth,
   ISigBuilder,
@@ -39,9 +40,12 @@ import { BaseCosmosTxBuilder } from './tx-builder';
 /**
  * Base class for Cosmos Doc Signer.
  * It provides the basic methods for signing a document.
- * @template SignDoc - The type of the document to be signed.
+ * @template TDoc - The type of the document to be signed.
+ *  * @template TArgs The type of the args.
  */
-export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
+export abstract class CosmosDocSigner<TDoc, TArgs = unknown> extends BaseSigner
+implements IDocSigner<TDoc, TArgs, SignDocResponse<TDoc>>
+{
   constructor(auth: Auth, config: SignerConfig) {
     super(auth, config);
 
@@ -51,18 +55,18 @@ export abstract class CosmosDocSigner<SignDoc> extends BaseSigner {
   /**
    * signature builder
    */
-  txBuilder: ISigBuilder<SignDoc, IKey>;
+  txBuilder: ISigBuilder<TDoc, IKey>;
 
   /**
    * abstract method to get the signature builder
    */
-  abstract getTxBuilder(): ISigBuilder<SignDoc, IKey>;
+  abstract getTxBuilder(): ISigBuilder<TDoc, IKey>;
 
   /**
    * Sign a document.
    */
-  async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
-    if (isDocAuth<SignDoc>(this.auth)) {
+  async signDoc(doc: TDoc): Promise<SignDocResponse<TDoc>> {
+    if (isDocAuth<TDoc>(this.auth)) {
       return await this.auth.signDoc(doc);
     } else {
       const sig = await this.txBuilder.buildSignature(doc);

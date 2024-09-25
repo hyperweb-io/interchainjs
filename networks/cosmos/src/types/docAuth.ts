@@ -14,7 +14,7 @@ import { CosmosAminoDoc, CosmosDirectDoc, ICosmosGeneralOfflineSigner } from './
 /**
  * Base class for Doc Auth.
  */
-export abstract class BaseDocAuth<TSigner, TArgs, TAddr = string> implements DocAuth<TArgs, TAddr> {
+export abstract class BaseDocAuth<TSigner, TDoc, TArgs = unknown, TAddr = string> implements DocAuth<TDoc, TArgs, TAddr> {
   constructor(
     public readonly algo: string,
     public readonly address: TAddr,
@@ -29,7 +29,7 @@ export abstract class BaseDocAuth<TSigner, TArgs, TAddr = string> implements Doc
   getPublicKey(): IKey {
     return Key.from(this.pubkey);
   }
-  abstract signDoc(doc: TArgs): Promise<SignDocResponse<TArgs>>;
+  abstract signDoc(doc: TDoc, args?: TArgs): Promise<SignDocResponse<TDoc>>;
 }
 
 /**
