@@ -9,6 +9,7 @@ import { InjSigningClient } from '@interchainjs/injective/signing-client';
 import { assertIsDeliverTxSuccess as assertIsSigningDeliverTxSuccess} from '@cosmjs/stargate';
 import {
   assertIsDeliverTxSuccess,
+  createQueryRpc,
   sleep,
   toConverters,
   toEncoders,
@@ -28,12 +29,12 @@ import {
 } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
 import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
 import { BigNumber } from 'bignumber.js';
-import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
 import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { SIGN_MODE } from '@interchainjs/types';
+import { QueryImpl } from 'interchainjs/service-ops';
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -56,7 +57,7 @@ describe('Governance tests for injective', () => {
   let injRpcEndpoint: string;
 
   // Variables used accross testcases
-  let queryClient: RpcQuery;
+  let queryClient: QueryImpl;
   let proposalId: string;
   let validatorAddress: string;
 
@@ -125,7 +126,8 @@ describe('Governance tests for injective', () => {
     signingClient.addEncoders(toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(injRpcEndpoint);
+    queryClient = new QueryImpl();
+    queryClient.init(createQueryRpc(await getRpcEndpoint()));
 
     // Transfer inj to address
     for (let i = 0; i < 10; i++) {

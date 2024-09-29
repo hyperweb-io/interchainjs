@@ -2,7 +2,7 @@
     "protoDirs": [
         "./protos"
     ],
-    "outPath": "./libs/cosmos-types",
+    "outPath": "./libs/interchainjs/src",
     "options": {
         "classesUseArrowFunctions": true,
         "env": "v-next",
@@ -41,7 +41,8 @@
                 "customTypes": {
                     "useCosmosSDKDec": false
                 },
-                "useTelescopeGeneratedType": true
+                "useTelescopeGeneratedType": true,
+                "autoFixUndefinedEnumDefault": true
             }
         },
         "bundle": {
