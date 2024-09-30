@@ -9,8 +9,8 @@ import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import {
   BondStatus,
   bondStatusToJSON,
-} from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+} from 'interchainjs/cosmos/staking/v1beta1/staking';
+import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
 import BigNumber from 'bignumber.js';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { CosmosSigningClient } from 'interchainjs/cosmos';

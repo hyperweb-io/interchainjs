@@ -15,7 +15,8 @@
     "libs/*"
   ],
   "scripts": {
-    "codegen": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
+    "codegen": "telescope transpile --config ./scripts/interchainjs.telescope.json",
+    "codegen:types": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
     "proto": "telescope download --config ./scripts/.protod.config.json",
     "test": "lerna run test --stream",
     "clean": "lerna run clean",
@@ -24,8 +25,6 @@
     "build": "lerna run build --stream",
     "build:dev": "lerna run build:dev --stream; yarn symlink",
     "lint": "lerna run lint --parallel",
-    "proto:injective": "telescope download --config ./scripts/.protod.config.injective.json",
-    "codegen:injective": "telescope transpile --config ./scripts/cosmos-types.telescope.injective.json",
     "symlink": "symlink-workspace --logLevel error",
     "postinstall": "yarn symlink"
   },

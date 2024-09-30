@@ -1,4 +1,4 @@
-import { MsgSendAmino } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
+import { MsgSendAmino } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { Eip712Types } from '@interchainjs/types';
 
 import { toEthTypes } from './utils';

@@ -6,7 +6,7 @@ import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
 import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
-import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
+import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
 import { HDPath } from '@interchainjs/types';
 import { RpcQuery } from 'interchainjs/query/rpc';
 import { CosmosSigningClient } from 'interchainjs/cosmos';

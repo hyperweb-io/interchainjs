@@ -30,6 +30,7 @@ import {
 } from '../types/rpc';
 import { constructAuthInfo } from '../utils/direct';
 import { broadcast, createQueryRpc, getPrefix, sleep } from '../utils/rpc';
+import { isBaseAccount } from '../utils';
 
 /**
  * client for cosmos rpc
@@ -76,7 +77,7 @@ export class RpcClient implements QueryClient {
     }
 
     // if the account is a BaseAccount, return it
-    if (BaseAccount.is(accountResp.account)) {
+    if (isBaseAccount(accountResp.account)) {
       return accountResp.account;
     }
 
@@ -84,7 +85,7 @@ export class RpcClient implements QueryClient {
     if (
       'baseAccount' in accountResp.account &&
       accountResp.account.baseAccount &&
-      BaseAccount.is(accountResp.account.baseAccount)
+      isBaseAccount(accountResp.account.baseAccount)
     ) {
       return accountResp.account.baseAccount;
     }

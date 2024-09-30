@@ -10,8 +10,8 @@ import {
   createQueryRpc,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
-import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
-import { MsgTransfer } from '@interchainjs/cosmos-types/ibc/applications/transfer/v1/tx';
+import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
+import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
 import { HDPath } from '@interchainjs/types';
 import { useChain } from 'starshipjs';
 

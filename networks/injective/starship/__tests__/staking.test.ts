@@ -12,8 +12,8 @@ import {
 import {
   BondStatus,
   bondStatusToJSON,
-} from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+} from 'interchainjs/cosmos/staking/v1beta1/staking';
+import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
 import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Signer
 import { useChain } from 'starshipjs';
 
