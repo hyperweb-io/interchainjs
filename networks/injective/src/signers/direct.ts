@@ -1,7 +1,7 @@
 import { DirectSignerBase } from '@interchainjs/cosmos/signers/direct';
-import { CosmosDirectDoc, Encoder, ICosmosGeneralOfflineSigner, SignerOptions } from '@interchainjs/cosmos/types';
+import { CosmosDirectDoc, Encoder, SignerOptions } from '@interchainjs/cosmos/types';
 import { DirectDocAuth } from '@interchainjs/cosmos/types/docAuth';
-import { isOfflineDirectSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { IDirectGeneralOfflineSigner, isOfflineDirectSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
 import { InjAccount } from '../accounts/inj-account';
@@ -54,7 +54,7 @@ export class DirectSigner
    * If there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineDirectSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineDirectSigner | IDirectGeneralOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -75,7 +75,7 @@ export class DirectSigner
    * If there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineDirectSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineDirectSigner | IDirectGeneralOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions

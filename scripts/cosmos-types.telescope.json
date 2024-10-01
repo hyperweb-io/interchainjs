@@ -2,7 +2,7 @@
     "protoDirs": [
         "./protos"
     ],
-    "outPath": "./libs/cosmos-types",
+    "outPath": "./libs/cosmos-types/src",
     "options": {
         "classesUseArrowFunctions": true,
         "env": "v-next",
@@ -14,20 +14,33 @@
             "parser": {
                 "keepCase": false
             },
+            "includes": {
+              "protos": [
+                "cosmos/vesting/v1beta1/vesting.proto",
+                "cosmos/tx/v1beta1/service.proto",
+                "cosmos/tx/signing/v1beta1/signing.proto",
+                "cosmos/tx/v1beta1/tx.proto",
+                "cosmos/tx/v1beta1/service.proto",
+                "injective/types/v1beta1/account.proto",
+                "cosmos/auth/v1beta1/auth.proto",
+                "cosmos/auth/v1beta1/query.proto",
+                "cosmos/crypto/secp256k1/keys.proto"
+              ]
+            },
             "methods": {
                 "fromJSON": false,
                 "toJSON": false,
                 "encode": true,
                 "decode": true,
                 "fromPartial": true,
-                "toAmino": true,
-                "fromAmino": true,
+                "toAmino": false,
+                "fromAmino": false,
                 "fromProto": false,
                 "toProto": false,
                 "fromProtoMsg": false,
                 "toProtoMsg": false,
-                "toAminoMsg": true,
-                "fromAminoMsg": true
+                "toAminoMsg": false,
+                "fromAminoMsg": false
             },
             "addTypeUrlToDecoders": false,
             "addTypeUrlToObjects": true,
@@ -41,7 +54,8 @@
                 "customTypes": {
                     "useCosmosSDKDec": false
                 },
-                "useTelescopeGeneratedType": true
+                "useTelescopeGeneratedType": true,
+                "autoFixUndefinedEnumDefault": true
             }
         },
         "bundle": {
@@ -60,123 +74,15 @@
             "camelCase": true,
             "enabledServices": [
                 "Query"
-            ],
-            "serviceImplement": {
-                "Msg": {
-                    "type": "Tx"
-                },
-                "Query": {
-                    "type": "Query"
-                }
-            },
-            "instantOps": [
-                {
-                    "className": "QueryImpl",
-                    "include": {
-                        "serviceTypes": ["Query"],
-                        "patterns": [
-                            "cosmos.auth.v1beta1.*",
-                            "cosmos.bank.v1beta1.*",
-                            "cosmos.gov.v1beta1.*",
-                            "cosmos.staking.v1beta1.*",
-                            "cosmwasm.wasm.v1.*"
-                        ]
-                    },
-                    "nameMapping": {
-                        "Msg": {
-                            "updateAuthParams": "cosmos.auth.v1beta1.updateParams",
-                            "updateBankParams": "cosmos.bank.v1beta1.updateParams",
-                            "updateGovParams": "cosmos.gov.v1beta1.updateParams",
-                            "updateStakingParams": "cosmos.staking.v1beta1.updateParams",
-                            "updateWasmParams": "cosmwasm.wasm.v1.updateParams"
-                        },
-                        "Query": {
-                            "getAuthParams": "cosmos.auth.v1beta1.params",
-                            "getBankParams": "cosmos.bank.v1beta1.params",
-                            "getGovParams": "cosmos.gov.v1beta1.params",
-                            "getStakingParams": "cosmos.staking.v1beta1.params",
-                            "getVote": "cosmos.gov.v1beta1.vote",
-                            "getDeposit": "cosmos.gov.v1beta1.deposit",
-                            "getWasmParams": "cosmwasm.wasm.v1.params"
-                        }
-                    }
-                },
-                {
-                  "className": "StargateImpl",
-                  "include": {
-                      "serviceTypes": ["Tx"],
-                      "patterns": [
-                          "cosmos.authz.v1beta1.*",
-                          "cosmos.bank.v1beta1.*",
-                          "cosmos.gov.v1beta1.*",
-                          "cosmos.staking.v1beta1.*",
-                          "cosmos.distribution.v1beta1.*",
-                          "ibc.applications.transfer.v1.*"
-                      ]
-                  },
-                  "nameMapping": {
-                      "Msg": {
-                          "updateAuthParams": "cosmos.auth.v1beta1.updateParams",
-                          "updateBankParams": "cosmos.bank.v1beta1.updateParams",
-                          "updateGovParams": "cosmos.gov.v1beta1.updateParams",
-                          "updateStakingParams": "cosmos.staking.v1beta1.updateParams",
-                          "updateIBCTransferParams": "ibc.applications.transfer.v1.updateParams",
-                          "updateWasmParams": "cosmwasm.wasm.v1.updateParams"
-                      },
-                      "Query": {
-                          "getAuthParams": "cosmos.auth.v1beta1.params",
-                          "getBankParams": "cosmos.bank.v1beta1.params",
-                          "getGovParams": "cosmos.gov.v1beta1.params",
-                          "getStakingParams": "cosmos.staking.v1beta1.params",
-                          "getVote": "cosmos.gov.v1beta1.vote",
-                          "getDeposit": "cosmos.gov.v1beta1.deposit",
-                          "getWasmParams": "cosmwasm.wasm.v1.params"
-                      }
-                  }
-              },
-              {
-                "className": "CosmWasmStargateImpl",
-                "include": {
-                    "serviceTypes": ["Tx"],
-                    "patterns": [
-                        "cosmos.authz.v1beta1.*",
-                        "cosmos.bank.v1beta1.*",
-                        "cosmos.gov.v1beta1.*",
-                        "cosmos.staking.v1beta1.*",
-                        "cosmos.distribution.v1beta1.*",
-                        "ibc.applications.transfer.v1.*",
-                        "cosmwasm.wasm.v1.*"
-                    ]
-                },
-                "nameMapping": {
-                    "Msg": {
-                        "updateAuthParams": "cosmos.auth.v1beta1.updateParams",
-                        "updateBankParams": "cosmos.bank.v1beta1.updateParams",
-                        "updateGovParams": "cosmos.gov.v1beta1.updateParams",
-                        "updateStakingParams": "cosmos.staking.v1beta1.updateParams",
-                        "updateIBCTransferParams": "ibc.applications.transfer.v1.updateParams",
-                        "updateWasmParams": "cosmwasm.wasm.v1.updateParams"
-                    },
-                    "Query": {
-                        "getAuthParams": "cosmos.auth.v1beta1.params",
-                        "getBankParams": "cosmos.bank.v1beta1.params",
-                        "getGovParams": "cosmos.gov.v1beta1.params",
-                        "getStakingParams": "cosmos.staking.v1beta1.params",
-                        "getVote": "cosmos.gov.v1beta1.vote",
-                        "getDeposit": "cosmos.gov.v1beta1.deposit",
-                        "getWasmParams": "cosmwasm.wasm.v1.params"
-                    }
-                }
-              }
             ]
         },
         "interfaces": {
-            "enabled": true,
+            "enabled": false,
             "useGlobalDecoderRegistry": true,
             "useUnionTypes": true
         },
         "aminoEncoding": {
-            "enabled": true,
+            "enabled": false,
             "useLegacyInlineEncoding": false,
             "disableMsgTypes": false,
             "useProtoOptionality": true

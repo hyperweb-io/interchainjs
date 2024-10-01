@@ -6,6 +6,7 @@ import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
+  createQueryRpc,
   toConverters,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
@@ -13,22 +14,22 @@ import {
   ProposalStatus,
   TextProposal,
   VoteOption,
-} from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/gov';
+} from 'interchainjs/cosmos/gov/v1beta1/gov';
 import {
   MsgSubmitProposal,
   MsgVote,
-} from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/tx';
+} from 'interchainjs/cosmos/gov/v1beta1/tx';
 import {
   BondStatus,
   bondStatusToJSON,
-} from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+} from 'interchainjs/cosmos/staking/v1beta1/staking';
+import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
 import {
   HDPath
 } from '@interchainjs/types';
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
-import { RpcQuery } from 'interchainjs/query/rpc';
+import { QueryImpl } from 'interchainjs/service-ops';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic, waitUntil } from '../src';
@@ -44,7 +45,7 @@ describe('Governance tests for osmosis', () => {
   let chainInfo, getCoin: () => Promise<Asset>, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
 
   // Variables used accross testcases
-  let queryClient: RpcQuery;
+  let queryClient: QueryImpl;
   let proposalId: string;
   let validatorAddress: string;
 
@@ -78,7 +79,8 @@ describe('Governance tests for osmosis', () => {
     aminoAddress = await aminoSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(await getRpcEndpoint());
+    queryClient = new QueryImpl();
+    queryClient.init(createQueryRpc(await getRpcEndpoint()));
 
     // Transfer osmosis to address
     await creditFromFaucet(directAddress);

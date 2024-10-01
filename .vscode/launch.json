@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Jest Tests in cosmos",
+      "name": "Debug Jest Tests in cosmos gov",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
       "args": [
          "--config",
@@ -15,6 +15,22 @@
          "--verbose",
          "--bail",
          "starship/__tests__/gov.test.ts"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/networks/cosmos",
+      "internalConsoleOptions": "neverOpen"
+   },
+   {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Jest Tests in cosmos token",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+         "--config",
+         "./jest.starship.config.js",
+         "--verbose",
+         "--bail",
+         "starship/__tests__/token.test.ts"
       ],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/networks/cosmos",

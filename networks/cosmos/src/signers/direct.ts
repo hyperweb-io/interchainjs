@@ -8,11 +8,10 @@ import {
   CosmosDirectDoc,
   CosmosDirectSigner,
   Encoder,
-  ICosmosGeneralOfflineSigner,
   SignerOptions,
 } from '../types';
 import { DirectDocAuth } from '../types/docAuth';
-import { isOfflineDirectSigner, OfflineDirectSigner } from '../types/wallet';
+import { IDirectGeneralOfflineSigner, isOfflineDirectSigner, OfflineDirectSigner } from '../types/wallet';
 
 /**
  * DirectDocSigner is a signer for Direct document.
@@ -73,7 +72,7 @@ export class DirectSigner
    * If there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineDirectSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineDirectSigner | IDirectGeneralOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -94,7 +93,7 @@ export class DirectSigner
    * If there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineDirectSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineDirectSigner | IDirectGeneralOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions

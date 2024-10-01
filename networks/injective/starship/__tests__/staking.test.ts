@@ -5,19 +5,20 @@ import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
+  createQueryRpc,
   sleep,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
 import {
   BondStatus,
   bondStatusToJSON,
-} from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/tx';
+} from 'interchainjs/cosmos/staking/v1beta1/staking';
+import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
 import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Signer
-import { RpcQuery } from 'interchainjs/query/rpc';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import { QueryImpl } from 'interchainjs/service-ops';
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -29,7 +30,7 @@ describe('Staking tokens testing', () => {
   let injRpcEndpoint: string;
 
   // Variables used accross testcases
-  let queryClient: RpcQuery;
+  let queryClient: QueryImpl;
   let validatorAddress: string;
   let delegationAmount: string;
 
@@ -47,7 +48,8 @@ describe('Staking tokens testing', () => {
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new RpcQuery(injRpcEndpoint);
+    queryClient = new QueryImpl();
+    queryClient.init(createQueryRpc(await getRpcEndpoint()));
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);

@@ -9,11 +9,10 @@ import {
   CosmosAminoDoc,
   CosmosAminoSigner,
   Encoder,
-  ICosmosGeneralOfflineSigner,
   SignerOptions,
 } from '../types';
 import { AminoDocAuth } from '../types/docAuth';
-import { isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
+import { IAminoGeneralOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
 
 /**
  * AminoDocSigner is a signer for Amino document.
@@ -126,7 +125,7 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineAminoSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineAminoSigner | IAminoGeneralOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -148,7 +147,7 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineAminoSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineAminoSigner | IAminoGeneralOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
