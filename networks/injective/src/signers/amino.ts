@@ -6,11 +6,10 @@ import {
   AminoConverter,
   CosmosAminoDoc,
   Encoder,
-  ICosmosGeneralOfflineSigner,
   SignerOptions,
 } from '@interchainjs/cosmos/types';
 import { AminoDocAuth } from '@interchainjs/cosmos/types/docAuth';
-import { isOfflineAminoSigner, OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
+import { IAminoGeneralOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '@interchainjs/cosmos/types/wallet';
 import { Auth, HttpEndpoint } from '@interchainjs/types';
 
 import { InjAccount } from '../accounts/inj-account';
@@ -64,7 +63,7 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineAminoSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineAminoSigner | IAminoGeneralOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -86,7 +85,7 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineAminoSigner | ICosmosGeneralOfflineSigner,
+    signer: OfflineAminoSigner | IAminoGeneralOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,

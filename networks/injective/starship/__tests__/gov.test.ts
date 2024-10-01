@@ -4,7 +4,7 @@ import { Asset } from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
-import { EthSecp256k1HDWallet } from '@interchainjs/injective/wallets/ethEecp256k1hd';
+import { EthSecp256k1HDWallet } from '@interchainjs/injective/wallets/ethSecp256k1hd';
 import { InjSigningClient } from '@interchainjs/injective/signing-client';
 import { assertIsDeliverTxSuccess as assertIsSigningDeliverTxSuccess} from '@cosmjs/stargate';
 import {
@@ -32,7 +32,7 @@ import { BigNumber } from 'bignumber.js';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { AminoGeneralOfflineSigner, OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { SIGN_MODE } from '@interchainjs/types';
 import { QueryImpl } from 'interchainjs/service-ops';
 
@@ -49,7 +49,8 @@ describe('Governance tests for injective', () => {
     directAddress: string,
     aminoAddress: string,
     directOfflineAddress: string,
-    aminoOfflineAddress: string;
+    aminoOfflineAddress: string,
+    testingOfflineAddress: string;
   let chainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
@@ -109,21 +110,22 @@ describe('Governance tests for injective', () => {
     aminoOfflineSigner = aminoWallet.toOfflineAminoSigner();
     directOfflineAddress = (await directOfflineSigner.getAccounts())[0].address;
     aminoOfflineAddress = (await aminoOfflineSigner.getAccounts())[0].address;
+    testingOfflineAddress = aminoOfflineAddress;
 
     signingClient = await InjSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      directOfflineSigner,
+      new AminoGeneralOfflineSigner(aminoOfflineSigner),
       {
         broadcast: {
           checkTx: true,
           deliverTx: true,
           useLegacyBroadcastTxCommit: true,
-        },
-        preferredSignType: SIGN_MODE.SIGN_MODE_DIRECT,
+        }
       }
     );
 
     signingClient.addEncoders(toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
+    signingClient.addConverters(toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
 
     // Create custom cosmos interchain client
     queryClient = new QueryImpl();
@@ -195,7 +197,7 @@ describe('Governance tests for injective', () => {
 
   it('stake tokens to genesis validator', async () => {
     const { balance } = await queryClient.balance({
-      address: directOfflineAddress,
+      address: testingOfflineAddress,
       denom,
     });
 
@@ -205,7 +207,7 @@ describe('Governance tests for injective', () => {
     const msg = {
       typeUrl: MsgDelegate.typeUrl,
       value: MsgDelegate.fromPartial({
-        delegatorAddress: directOfflineAddress,
+        delegatorAddress: testingOfflineAddress,
         validatorAddress: validatorAddress,
         amount: {
           amount: delegationAmount,
@@ -225,7 +227,7 @@ describe('Governance tests for injective', () => {
     };
 
     const result = await signingClient.signAndBroadcast(
-      directOfflineAddress,
+      testingOfflineAddress,
       [msg],
       fee
     );
@@ -234,7 +236,7 @@ describe('Governance tests for injective', () => {
 
   it('check direct address has tokens', async () => {
     const { balance } = await queryClient.balance({
-      address: directOfflineAddress,
+      address: testingOfflineAddress,
       denom,
     });
 

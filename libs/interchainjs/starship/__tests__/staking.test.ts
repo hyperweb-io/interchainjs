@@ -12,8 +12,8 @@ import {
 } from 'interchainjs/cosmos/staking/v1beta1/staking';
 import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
 import BigNumber from 'bignumber.js';
-import { RpcQuery } from 'interchainjs/query/rpc';
-import { CosmosSigningClient } from 'interchainjs/cosmos';
+import { QueryImpl } from 'interchainjs/service-ops';
+import { SigningClient } from '@interchainjs/cosmos/signing-client';
 import { useChain } from 'starshipjs';
 import { SIGN_MODE } from '@interchainjs/types';
 
@@ -136,7 +136,6 @@ describe('Staking tokens testing', () => {
       await getRpcEndpoint(),
       wallet,
       {
-        preferredSignType: SIGN_MODE.SIGN_MODE_DIRECT,
         broadcast: {
           checkTx: true,
           deliverTx: true,
@@ -184,7 +183,6 @@ describe('Staking tokens testing', () => {
       await getRpcEndpoint(),
       wallet,
       {
-        preferredSignType: SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON,
         broadcast: {
           checkTx: true,
           deliverTx: true,

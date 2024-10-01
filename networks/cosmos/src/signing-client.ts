@@ -7,6 +7,9 @@ import {
   QueryClient,
 } from './types';
 import {
+  IAminoGeneralOfflineSigner,
+  ICosmosGeneralOfflineSigner,
+  IDirectGeneralOfflineSigner,
   isOfflineAminoSigner,
   isOfflineDirectSigner,
   OfflineSigner,
@@ -36,11 +39,10 @@ import {
  */
 export class SigningClient {
   readonly client: QueryClient | null | undefined;
-  readonly offlineSigner: OfflineSigner;
+  readonly offlineSigner: ICosmosGeneralOfflineSigner;
   readonly options: SignerOptions;
 
-  readonly aminoSigners: Record<string, AminoSigner> = {};
-  readonly directSigners: Record<string, DirectSigner> = {};
+  readonly signers: Record<string, DirectSigner | AminoSigner> = {};
 
   readonly addresses: string[] = [];
 
@@ -51,7 +53,7 @@ export class SigningClient {
 
   constructor(
     client: QueryClient | null | undefined,
-    offlineSigner: OfflineSigner,
+    offlineSigner: ICosmosGeneralOfflineSigner,
     options: SignerOptions = {}
   ) {
     this.client = client;
@@ -72,7 +74,7 @@ export class SigningClient {
 
   static async connectWithSigner(
     endpoint: string | HttpEndpoint,
-    signer: OfflineSigner,
+    signer: ICosmosGeneralOfflineSigner,
     options: SignerOptions = {}
   ): Promise<SigningClient> {
     const signingClient = new SigningClient(
@@ -87,35 +89,38 @@ export class SigningClient {
   }
 
   async connect() {
-    if (isOfflineAminoSigner(this.offlineSigner)) {
-      const aminoSigners = await AminoSigner.fromWalletToSigners(
-        this.offlineSigner,
-        this.encoders,
-        this.converters,
-        this.endpoint,
-        {
-          prefix: this.options.prefix,
-        }
-      );
+    let signers;
 
-      for (const signer of aminoSigners) {
-        this.aminoSigners[await signer.getAddress()] = signer;
-      }
+    switch (this.offlineSigner.signMode) {
+      case SIGN_MODE.SIGN_MODE_DIRECT:
+        signers = await DirectSigner.fromWalletToSigners(
+          this.offlineSigner as IDirectGeneralOfflineSigner,
+          this.encoders,
+          this.endpoint,
+          {
+            prefix: this.options.prefix,
+          }
+        )
+        break;
+
+      case SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON:
+        signers = await AminoSigner.fromWalletToSigners(
+          this.offlineSigner as IAminoGeneralOfflineSigner,
+          this.encoders,
+          this.converters,
+          this.endpoint,
+          {
+            prefix: this.options.prefix,
+          }
+        );
+        break;
+
+      default:
+        break;
     }
 
-    if (isOfflineDirectSigner(this.offlineSigner)) {
-      const directSigners = await DirectSigner.fromWalletToSigners(
-        this.offlineSigner,
-        this.encoders,
-        this.endpoint,
-        {
-          prefix: this.options.prefix,
-        }
-      );
-
-      for (const signer of directSigners) {
-        this.directSigners[await signer.getAddress()] = signer;
-      }
+    for (const signer of signers) {
+      this.signers[await signer.getAddress()] = signer;
     }
   }
 
@@ -164,9 +169,7 @@ export class SigningClient {
   }
 
   getSinger(signerAddress: string) {
-    const signer = this.options.preferredSignType ?
-      this.options.preferredSignType === SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON ? this.aminoSigners[signerAddress] : this.directSigners[signerAddress]
-      : this.aminoSigners[signerAddress] || this.directSigners[signerAddress];
+    const signer = this.signers[signerAddress];
 
     if (!signer) {
       throw new Error(`No signer found for address ${signerAddress}`);

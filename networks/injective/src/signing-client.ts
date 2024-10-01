@@ -1,10 +1,11 @@
-import { isOfflineAminoSigner, isOfflineDirectSigner, OfflineSigner } from "@interchainjs/cosmos/types/wallet";
-import { HttpEndpoint } from "@interchainjs/types";
+import { IAminoGeneralOfflineSigner, IDirectGeneralOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineSigner } from "@interchainjs/cosmos/types/wallet";
+import { HttpEndpoint, IGeneralOfflineSigner, SIGN_MODE } from "@interchainjs/types";
 import { SigningClient } from "@interchainjs/cosmos/signing-client"
 import { SignerOptions } from "@interchainjs/cosmos/types/signing-client";
 import { RpcClient } from '@interchainjs/cosmos/query/rpc';
 import { AminoSigner } from "./signers/amino";
 import { DirectSigner } from "./signers/direct";
+import { ICosmosGeneralOfflineSigner } from "@interchainjs/cosmos/types/wallet";
 
 /**
  * signingClient for inj
@@ -12,7 +13,7 @@ import { DirectSigner } from "./signers/direct";
 export class InjSigningClient extends SigningClient {
   static async connectWithSigner(
     endpoint: string | HttpEndpoint,
-    signer: OfflineSigner,
+    signer: ICosmosGeneralOfflineSigner,
     options: SignerOptions = {}
   ): Promise<InjSigningClient> {
     const signingClient = new InjSigningClient(
@@ -27,35 +28,38 @@ export class InjSigningClient extends SigningClient {
   }
 
   override async connect() {
-    if (isOfflineAminoSigner(this.offlineSigner)) {
-      const aminoSigners = await AminoSigner.fromWalletToSigners(
-        this.offlineSigner,
-        this.encoders,
-        this.converters,
-        this.endpoint,
-        {
-          prefix: this.options.prefix,
-        }
-      );
+    let signers;
 
-      for (const signer of aminoSigners) {
-        this.aminoSigners[await signer.getAddress()] = signer;
-      }
+    switch (this.offlineSigner.signMode) {
+      case SIGN_MODE.SIGN_MODE_DIRECT:
+        signers = await DirectSigner.fromWalletToSigners(
+          this.offlineSigner as IDirectGeneralOfflineSigner,
+          this.encoders,
+          this.endpoint,
+          {
+            prefix: this.options.prefix,
+          }
+        )
+        break;
+
+      case SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON:
+        signers = await AminoSigner.fromWalletToSigners(
+          this.offlineSigner as IAminoGeneralOfflineSigner,
+          this.encoders,
+          this.converters,
+          this.endpoint,
+          {
+            prefix: this.options.prefix,
+          }
+        );
+        break;
+
+      default:
+        break;
     }
 
-    if (isOfflineDirectSigner(this.offlineSigner)) {
-      const directSigners = await DirectSigner.fromWalletToSigners(
-        this.offlineSigner,
-        this.encoders,
-        this.endpoint,
-        {
-          prefix: this.options.prefix,
-        }
-      );
-
-      for (const signer of directSigners) {
-        this.directSigners[await signer.getAddress()] = signer;
-      }
+    for (const signer of signers) {
+      this.signers[await signer.getAddress()] = signer;
     }
   }
 }

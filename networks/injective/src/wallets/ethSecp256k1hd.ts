@@ -1,36 +1,36 @@
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { AddrDerivation, Auth, SignerConfig, SIGN_MODE, IGeneralOfflineSignArgs } from '@interchainjs/types';
+import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
+import { AccountData, AddrDerivation, Auth, IGeneralOfflineSignArgs, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
-import { defaultSignerConfig } from '../defaults';
+import { defaultSignerOptions } from '../defaults';
 import { DirectDocSigner } from '../signers/direct';
 import {
-  CosmosAccount,
   CosmosAminoDoc,
   CosmosDirectDoc,
   ICosmosAccount,
   ICosmosWallet,
-} from '../types';
+} from '@interchainjs/cosmos/types';
+import { ICosmosGeneralOfflineSigner } from "@interchainjs/cosmos/types/wallet";
+import { BaseCosmosWallet } from "@interchainjs/cosmos/base/base-wallet";
 import {
   AminoSignResponse,
   DirectSignResponse,
-  ICosmosGeneralOfflineSigner,
   OfflineAminoSigner,
   OfflineDirectSigner,
   WalletOptions,
-} from '../types/wallet';
-import { BaseCosmosWallet } from '../base/base-wallet';
+} from '@interchainjs/cosmos/types/wallet';
+import { InjAccount } from '../accounts/inj-account';
 
 /**
  * Cosmos HD Wallet for secp256k1
  */
-export class Secp256k1HDWallet extends BaseCosmosWallet<DirectDocSigner, AminoDocSigner>
+export class EthSecp256k1HDWallet extends BaseCosmosWallet<DirectDocSigner, AminoDocSigner>
 {
   constructor(
     accounts: ICosmosAccount[],
     options: SignerConfig
   ) {
-    const opts = { ...defaultSignerConfig, ...options };
+    const opts = { ...defaultSignerOptions.Cosmos, ...options };
     super(accounts, opts);
   }
 
@@ -56,15 +56,15 @@ export class Secp256k1HDWallet extends BaseCosmosWallet<DirectDocSigner, AminoDo
   ) {
     const hdPaths = derivations.map((derivation) => derivation.hdPath);
 
-    const auths: Auth[] = Secp256k1Auth.fromMnemonic(mnemonic, hdPaths, {
+    const auths: Auth[] = EthSecp256k1Auth.fromMnemonic(mnemonic, hdPaths, {
       bip39Password: options?.bip39Password,
     });
 
     const accounts = auths.map((auth, i) => {
       const derivation = derivations[i];
-      return new CosmosAccount(derivation.prefix, auth);
+      return new InjAccount(derivation.prefix, auth);
     });
 
-    return new Secp256k1HDWallet(accounts, options?.signerConfig);
+    return new EthSecp256k1HDWallet(accounts, options?.signerConfig);
   }
 }

@@ -308,8 +308,3 @@ export interface ICosmosWallet {
   getAccounts: () => Promise<readonly AccountData[]>;
 }
 
-/**
- * general offline signer for cosmos chains
- */
-export interface ICosmosGeneralOfflineSigner extends IGeneralOfflineSigner<string, CosmosDirectDoc | CosmosAminoDoc, DirectSignResponse | AminoSignResponse> {
-}

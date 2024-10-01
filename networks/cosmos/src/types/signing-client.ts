@@ -14,7 +14,6 @@ export interface SignerOptions {
   gasPrice?: Price | string;
   prefix?: string;
   broadcast?: BroadcastOptions;
-  preferredSignType?: string;
 }
 
 export interface SignerData {

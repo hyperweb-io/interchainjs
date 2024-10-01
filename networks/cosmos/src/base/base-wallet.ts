@@ -1,64 +1,45 @@
-import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
-import { AccountData, AddrDerivation, Auth, IGeneralOfflineSignArgs, SIGN_MODE, SignerConfig } from '@interchainjs/types';
+import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
+import { AccountData, AddrDerivation, Auth, SignerConfig, SIGN_MODE, IGeneralOfflineSignArgs, IDocSigner } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
-import { defaultSignerOptions } from '../defaults';
+import { defaultSignerConfig } from '../defaults';
 import { DirectDocSigner } from '../signers/direct';
 import {
   CosmosAccount,
   CosmosAminoDoc,
   CosmosDirectDoc,
   ICosmosAccount,
-  ICosmosGeneralOfflineSigner,
   ICosmosWallet,
-} from '@interchainjs/cosmos/types';
+} from '../types';
 import {
   AminoSignResponse,
   DirectSignResponse,
+  ICosmosGeneralOfflineSigner,
   OfflineAminoSigner,
   OfflineDirectSigner,
   WalletOptions,
-} from '@interchainjs/cosmos/types/wallet';
-import { InjAccount } from '../accounts/inj-account';
+} from '../types/wallet';
+import { CosmosDocSigner } from './base-signer';
 
 /**
  * Cosmos HD Wallet for secp256k1
  */
-export class EthSecp256k1HDWallet
+export abstract class BaseCosmosWallet<TDirectDocSigner extends CosmosDocSigner<CosmosDirectDoc>, TAminoDocSigner extends CosmosDocSigner<CosmosAminoDoc>>
 implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
 {
+  public accounts: ICosmosAccount[];
+  public options: SignerConfig;
+
   constructor(
-    public accounts: ICosmosAccount[],
-    public options: SignerConfig
+    accounts: ICosmosAccount[],
+    options: SignerConfig,
   ) {
-    this.options = { ...defaultSignerOptions.Cosmos, ...options };
+    this.options = { ...defaultSignerConfig, ...options };
+    this.accounts = accounts;
   }
 
-  /**
-   * Create a new HD wallet from mnemonic
-   * @param mnemonic
-   * @param derivations infos for derivate addresses
-   * @param options wallet options
-   * @returns HD wallet
-   */
-  static fromMnemonic(
-    mnemonic: string,
-    derivations: AddrDerivation[],
-    options?: WalletOptions
-  ) {
-    const hdPaths = derivations.map((derivation) => derivation.hdPath);
-
-    const auths: Auth[] = EthSecp256k1Auth.fromMnemonic(mnemonic, hdPaths, {
-      bip39Password: options?.bip39Password,
-    });
-
-    const accounts = auths.map((auth, i) => {
-      const derivation = derivations[i];
-      return new InjAccount(derivation.prefix, auth);
-    });
-
-    return new EthSecp256k1HDWallet(accounts, options?.signerConfig);
-  }
+  abstract getDirectDocSigner(auth: Auth, config: SignerConfig): TDirectDocSigner;
+  abstract getAminoDocSigner(auth: Auth, config: SignerConfig): TAminoDocSigner;
 
   /**
    * Get account data
@@ -75,7 +56,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
    * @param address
    * @returns
    */
-  private getAcctFromBech32Addr(address: string) {
+  getAcctFromBech32Addr(address: string) {
     const id = this.accounts.findIndex((acct) => acct.address === address);
     if (id === -1) {
       throw new Error('No such signerAddress been authed.');
@@ -92,7 +73,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
   ): Promise<DirectSignResponse> {
     const account = this.getAcctFromBech32Addr(signerAddress);
 
-    const docSigner = new DirectDocSigner(account.auth, this.options);
+    const docSigner = this.getDirectDocSigner(account.auth, this.options);
 
     const resp = await docSigner.signDoc(signDoc);
 
@@ -119,7 +100,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
   ): Promise<AminoSignResponse> {
     const account = this.getAcctFromBech32Addr(signerAddress);
 
-    const docSigner = new AminoDocSigner(account.auth, this.options);
+    const docSigner = this.getAminoDocSigner(account.auth, this.options);
 
     const resp = await docSigner.signDoc(signDoc);
 
@@ -165,11 +146,24 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
    * @returns general offline signer for direct or amino
    */
   toGeneralOfflineSigner(signMode: string): ICosmosGeneralOfflineSigner {
-    return {
-      signMode: signMode,
-      getAccounts: async () => this.getAccounts(),
-      sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosDirectDoc | CosmosAminoDoc>) =>
-        signMode === SIGN_MODE.SIGN_MODE_DIRECT ? this.signDirect(signerAddress, signDoc as CosmosDirectDoc) : this.signAmino(signerAddress, signDoc as CosmosAminoDoc),
+    switch (signMode) {
+      case SIGN_MODE.SIGN_MODE_DIRECT:
+        return {
+          signMode: signMode,
+          getAccounts: async () => this.getAccounts(),
+          sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosDirectDoc>) =>
+            this.signDirect(signerAddress, signDoc),
+        };
+      case SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON:
+        return {
+          signMode: signMode,
+          getAccounts: async () => this.getAccounts(),
+          sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosAminoDoc>) =>
+            this.signAmino(signerAddress, signDoc),
+        }
+
+      default:
+        throw new Error('Invalid sign mode');
     }
   }
 }
