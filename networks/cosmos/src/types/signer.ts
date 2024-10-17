@@ -63,6 +63,8 @@ export interface EncodedMessage {
   value: Uint8Array;
 }
 
+export type AminoMsg = AminoMessage;
+
 /** Amino message */
 export interface AminoMessage {
   type: string;
