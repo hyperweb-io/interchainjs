@@ -145,10 +145,16 @@ import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 import { toEncoder } from "@interchainjs/cosmos/utils";
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+import {
+  HDPath
+} from '@interchainjs/types';
+
 
 const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
-      HDPath.cosmos().toString(),
-    ]);
+    // use cosmos hdpath built by HDPath
+    // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
+    HDPath.cosmos().toString(),
+]);
 const signer = new DirectSigner(auth, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
 ```
 
@@ -165,11 +171,15 @@ import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 import { DirectWallet, SignDoc } from "@interchainjs/cosmos/types";
 import { toEncoder } from "@interchainjs/cosmos/utils";
 import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
+import { HDPath } from "@interchainjs/types";
 
 const directWallet = Secp256k1HDWallet.fromMnemonic("<MNEMONIC_WORDS>", [
   {
-    prefix: commonPrefix,
-    hdPath: cosmosHdPath,
+    // bech32_prefix
+    prefix: "cosmos",
+    // use cosmos hdpath built by HDPath
+    // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
+    hdPath: HDPath.cosmos().toString(),
   },
 ]);
 const signer = await DirectSigner.fromWallet(wallet, [toEncoder(MsgSend)], <RPC_ENDPOINT>);

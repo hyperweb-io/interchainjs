@@ -60,6 +60,7 @@ describe('Governance tests for osmosis', () => {
     ]);
     const [aminoAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
       // use cosmos hdpath built by HDPath
+      // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
       HDPath.cosmos().toString(),
     ]);
     directSigner = new DirectSigner(
