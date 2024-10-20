@@ -36,8 +36,12 @@ console.log(signature.toHex());
 It's easy to derive _cosmos/injective/ethereum_ network HD path (taking `cosmos` as example)
 
 ```ts
+import { HDPath } from "@interchainjs/types";
+
 // derive with Cosmos default HD path "m/44'/118'/0'/0/0"
 const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
+  // use cosmos hdpath built by HDPath
+  // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
   HDPath.cosmos().toString(),
 ]);
 // is identical to

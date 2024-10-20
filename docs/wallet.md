@@ -51,8 +51,10 @@ import { HDPath } from "@interchainjs/types";
 // init wallet with two accounts using two hd paths
 const wallet = Secp256k1HDWallet.fromMnemonic(
   "<MNEMONIC_WORDS>",
+  // use cosmos hdpath built by HDPath
+  // we can get cosmos hdpath "m/44'/118'/0'/0/0" and "m/44'/118'/0'/0/1" by this:
   [0, 1].map((i) => ({
-    prefix: commonPrefix,
+    prefix: "cosmos",
     hdPath: HDPath.cosmos(0, 0, i).toString(),
   }))
 );
