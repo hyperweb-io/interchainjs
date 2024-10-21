@@ -99,8 +99,6 @@ export async function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-import { QueryImpl } from 'interchainjs/service-ops';
-
 function createTxRpc(endpoint: HttpEndpoint): TxRpc {
   return {
     request: async (
@@ -138,11 +136,4 @@ function createTxRpc(endpoint: HttpEndpoint): TxRpc {
       }
     },
   };
-}
-
-export class RpcQuery extends QueryImpl {
-  constructor(endpoint: string | HttpEndpoint) {
-    super();
-    this.init(createTxRpc(toHttpEndpoint(endpoint)));
-  }
 }

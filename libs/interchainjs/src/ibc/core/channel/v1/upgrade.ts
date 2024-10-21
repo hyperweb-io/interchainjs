@@ -165,7 +165,7 @@ export const Upgrade = {
     const obj: any = {};
     obj.fields = message.fields ? UpgradeFields.toAmino(message.fields) : undefined;
     obj.timeout = message.timeout ? Timeout.toAmino(message.timeout) : undefined;
-    obj.next_sequence_send = message.nextSequenceSend !== BigInt(0) ? message.nextSequenceSend.toString() : undefined;
+    obj.next_sequence_send = message.nextSequenceSend !== BigInt(0) ? message.nextSequenceSend?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: UpgradeAminoMsg): Upgrade {
@@ -358,7 +358,7 @@ export const ErrorReceipt = {
   },
   toAmino(message: ErrorReceipt): ErrorReceiptAmino {
     const obj: any = {};
-    obj.sequence = message.sequence !== BigInt(0) ? message.sequence.toString() : undefined;
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
     obj.message = message.message === "" ? undefined : message.message;
     return obj;
   },

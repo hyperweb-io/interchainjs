@@ -2014,7 +2014,7 @@ export const MsgChannelCloseConfirm = {
     obj.proof_init = message.proofInit ? base64FromBytes(message.proofInit) : undefined;
     obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
     obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence.toString() : undefined;
+    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgChannelCloseConfirmAminoMsg): MsgChannelCloseConfirm {
@@ -2396,7 +2396,7 @@ export const MsgTimeout = {
     obj.packet = message.packet ? Packet.toAmino(message.packet) : undefined;
     obj.proof_unreceived = message.proofUnreceived ? base64FromBytes(message.proofUnreceived) : undefined;
     obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
-    obj.next_sequence_recv = message.nextSequenceRecv !== BigInt(0) ? message.nextSequenceRecv.toString() : undefined;
+    obj.next_sequence_recv = message.nextSequenceRecv !== BigInt(0) ? message.nextSequenceRecv?.toString() : undefined;
     obj.signer = message.signer === "" ? undefined : message.signer;
     return obj;
   },
@@ -2623,9 +2623,9 @@ export const MsgTimeoutOnClose = {
     obj.proof_unreceived = message.proofUnreceived ? base64FromBytes(message.proofUnreceived) : undefined;
     obj.proof_close = message.proofClose ? base64FromBytes(message.proofClose) : undefined;
     obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
-    obj.next_sequence_recv = message.nextSequenceRecv !== BigInt(0) ? message.nextSequenceRecv.toString() : undefined;
+    obj.next_sequence_recv = message.nextSequenceRecv !== BigInt(0) ? message.nextSequenceRecv?.toString() : undefined;
     obj.signer = message.signer === "" ? undefined : message.signer;
-    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence.toString() : undefined;
+    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgTimeoutOnCloseAminoMsg): MsgTimeoutOnClose {
@@ -3111,7 +3111,7 @@ export const MsgChannelUpgradeInitResponse = {
   toAmino(message: MsgChannelUpgradeInitResponse): MsgChannelUpgradeInitResponseAmino {
     const obj: any = {};
     obj.upgrade = message.upgrade ? Upgrade.toAmino(message.upgrade) : undefined;
-    obj.upgrade_sequence = message.upgradeSequence !== BigInt(0) ? message.upgradeSequence.toString() : undefined;
+    obj.upgrade_sequence = message.upgradeSequence !== BigInt(0) ? message.upgradeSequence?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgChannelUpgradeInitResponseAminoMsg): MsgChannelUpgradeInitResponse {
@@ -3283,7 +3283,7 @@ export const MsgChannelUpgradeTry = {
       obj.proposed_upgrade_connection_hops = message.proposedUpgradeConnectionHops;
     }
     obj.counterparty_upgrade_fields = message.counterpartyUpgradeFields ? UpgradeFields.toAmino(message.counterpartyUpgradeFields) : undefined;
-    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence.toString() : undefined;
+    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence?.toString() : undefined;
     obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
     obj.proof_upgrade = message.proofUpgrade ? base64FromBytes(message.proofUpgrade) : undefined;
     obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
@@ -3388,7 +3388,7 @@ export const MsgChannelUpgradeTryResponse = {
   toAmino(message: MsgChannelUpgradeTryResponse): MsgChannelUpgradeTryResponseAmino {
     const obj: any = {};
     obj.upgrade = message.upgrade ? Upgrade.toAmino(message.upgrade) : undefined;
-    obj.upgrade_sequence = message.upgradeSequence !== BigInt(0) ? message.upgradeSequence.toString() : undefined;
+    obj.upgrade_sequence = message.upgradeSequence !== BigInt(0) ? message.upgradeSequence?.toString() : undefined;
     obj.result = message.result === 0 ? undefined : message.result;
     return obj;
   },
@@ -4004,7 +4004,7 @@ export const MsgChannelUpgradeOpen = {
     obj.port_id = message.portId === "" ? undefined : message.portId;
     obj.channel_id = message.channelId === "" ? undefined : message.channelId;
     obj.counterparty_channel_state = message.counterpartyChannelState === 0 ? undefined : message.counterpartyChannelState;
-    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence.toString() : undefined;
+    obj.counterparty_upgrade_sequence = message.counterpartyUpgradeSequence !== BigInt(0) ? message.counterpartyUpgradeSequence?.toString() : undefined;
     obj.proof_channel = message.proofChannel ? base64FromBytes(message.proofChannel) : undefined;
     obj.proof_height = message.proofHeight ? Height.toAmino(message.proofHeight) : {};
     obj.signer = message.signer === "" ? undefined : message.signer;
@@ -4746,7 +4746,7 @@ export const MsgPruneAcknowledgements = {
     const obj: any = {};
     obj.port_id = message.portId === "" ? undefined : message.portId;
     obj.channel_id = message.channelId === "" ? undefined : message.channelId;
-    obj.limit = message.limit !== BigInt(0) ? message.limit.toString() : undefined;
+    obj.limit = message.limit !== BigInt(0) ? message.limit?.toString() : undefined;
     obj.signer = message.signer === "" ? undefined : message.signer;
     return obj;
   },
@@ -4836,8 +4836,8 @@ export const MsgPruneAcknowledgementsResponse = {
   },
   toAmino(message: MsgPruneAcknowledgementsResponse): MsgPruneAcknowledgementsResponseAmino {
     const obj: any = {};
-    obj.total_pruned_sequences = message.totalPrunedSequences !== BigInt(0) ? message.totalPrunedSequences.toString() : undefined;
-    obj.total_remaining_sequences = message.totalRemainingSequences !== BigInt(0) ? message.totalRemainingSequences.toString() : undefined;
+    obj.total_pruned_sequences = message.totalPrunedSequences !== BigInt(0) ? message.totalPrunedSequences?.toString() : undefined;
+    obj.total_remaining_sequences = message.totalRemainingSequences !== BigInt(0) ? message.totalRemainingSequences?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgPruneAcknowledgementsResponseAminoMsg): MsgPruneAcknowledgementsResponse {

@@ -32,6 +32,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@tanstack/react-query": "4.29.1",
     "@interchainjs/cosmos": "^0.0.1-beta.14",
     "@interchainjs/cosmos-types": "^0.0.1-beta.11",
     "@interchainjs/types": "^0.0.1-beta.11",
