@@ -60,7 +60,7 @@ const wallet = Secp256k1HDWallet.fromMnemonic(
 );
 ```
 
-Moreover, to construct `OfflineSigner`(a type from `@cosmjs`) object from `Wallet` to hide private key.
+Moreover, to construct `OfflineSigner` object from `Wallet` to hide private key.
 
 ```ts
 protoSigner = wallet.toOfflineDirectSigner();
