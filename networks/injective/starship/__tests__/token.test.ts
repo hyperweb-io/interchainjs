@@ -17,7 +17,7 @@ import { DirectSigner } from '@interchainjs/injective/signers/direct';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { QueryImpl } from 'interchainjs/service-ops';
+import { QueryClientImpl as BankQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.Query";
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -29,7 +29,8 @@ describe('Token transfers', () => {
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
-  let queryClient: QueryImpl;
+  let queryClient: BankQueryClientImpl;
+
   let injRpcEndpoint: string;
 
   beforeAll(async () => {
@@ -47,8 +48,7 @@ describe('Token transfers', () => {
     address = await directSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new QueryImpl();
-    queryClient.init(createQueryRpc(injRpcEndpoint));
+    queryClient = new BankQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
 
     await creditFromFaucet(address);
 
@@ -211,8 +211,7 @@ describe('Token transfers', () => {
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
     // Check osmos in address on cosmos chain
-    const cosmosQueryClient = new QueryImpl();
-    cosmosQueryClient.init(createQueryRpc(await cosmosRpcEndpoint()));
+    const cosmosQueryClient = new BankQueryClientImpl(createQueryRpc(await cosmosRpcEndpoint()));
 
     const { balances } = await cosmosQueryClient.allBalances({
       address: cosmosAddress,

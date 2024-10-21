@@ -1694,35 +1694,35 @@
   resolved "https://registry.yarnpkg.com/@cosmjs/utils/-/utils-0.32.4.tgz#a9a717c9fd7b1984d9cefdd0ef6c6f254060c671"
   integrity sha512-D1Yc+Zy8oL/hkUkFUL/bwxvuDBzRGpc4cF7/SkdhxX4iHpSLgdOuTt1mhCh9+kl6NQREy9t7SYZ6xeW5gFe60w==
 
-"@cosmology/ast@^1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.5.4.tgz#ea2d6454b69b5bdb2831353942cb820e27940b1d"
-  integrity sha512-Fra9aeJTVAvhfpXz4znBfhabfti2PPVL2SseNLOvbKA6SZ+tO7kOZ7CL/gY1qTP40wjm/7HpNwwQ0PnUYl9sEg==
+"@cosmology/ast@^1.8.6":
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.8.6.tgz#ac8f15173c981714af861b967b029f27a9153ce1"
+  integrity sha512-ZsQ/PmAnGfiY4PqEvQXoH0wa81CK9C/ag4mOtsyC4BuSwNaMGiSTJb+3nXzu9VBThiA5AkcexmUohqSO2ZIn2g==
   dependencies:
-    "@babel/parser" "^7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/types" "^1.5.3"
-    "@cosmology/utils" "^1.5.3"
+    "@cosmology/types" "^1.10.2"
+    "@cosmology/utils" "^1.8.6"
     case "1.6.3"
     dotty "0.1.2"
 
-"@cosmology/proto-parser@^1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.5.3.tgz#26c274742c333ae2d81f94f4838412175746042b"
-  integrity sha512-XZ490j/HZSeYvqN/6HKVP8Hw9lU4/KaxGd4rTccNe9gMDxpVuvOgNGB2tc9Rp/K8zIN4ggkJ8iYvgcRkB4X1fw==
+"@cosmology/proto-parser@^1.8.6":
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.8.6.tgz#41e59e15be2eee5b587af18e8137a2d1dc2e95c6"
+  integrity sha512-n4ytcDpNDZR6zetqpzHr9UbW/CZlo79vjVqvp/6C3rBMEG719QggKHekZxMpO08muP+IbacTOkJW9s9sLSuULg==
   dependencies:
-    "@cosmology/protobufjs" "6.11.6"
-    "@cosmology/types" "^1.5.3"
-    "@cosmology/utils" "^1.5.3"
+    "@cosmology/protobufjs" "7.3.2"
+    "@cosmology/types" "^1.10.2"
+    "@cosmology/utils" "^1.8.6"
     dotty "0.1.2"
+    fast-json-patch "3.1.1"
     glob "8.0.3"
     minimatch "5.1.0"
     mkdirp "3.0.0"
 
-"@cosmology/protobufjs@6.11.6":
-  version "6.11.6"
-  resolved "https://registry.npmjs.org/@cosmology/protobufjs/-/protobufjs-6.11.6.tgz"
-  integrity sha512-k1opGC9CTX5vD2447pUqLmleVv0Kb8RasBUxkZHudVOvuXs2qAAGONmMIEGRCROKTodhTY9fdTnGU2lCZqAwNw==
+"@cosmology/protobufjs@7.3.2":
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/@cosmology/protobufjs/-/protobufjs-7.3.2.tgz#6c2acdaec9e4b7aab4647bb236da1258e7526a87"
+  integrity sha512-zHf/yqGQ7QSjIYvv7kvGKY9yXNjqj55kWdRyntrXwnte/tY8uMTuCFD/EWC48LGhGu3P7nbzTlhyCGMc3xm9bw==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
@@ -1734,23 +1734,23 @@
     "@protobufjs/path" "^1.1.2"
     "@protobufjs/pool" "^1.1.0"
     "@protobufjs/utf8" "^1.1.0"
-    "@types/long" "^4.0.1"
+    "@types/long" "^5.0.0"
     "@types/node" ">=13.7.0"
-    long "^4.0.0"
+    long "^5.0.0"
 
-"@cosmology/telescope@^1.5.10":
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.5.10.tgz#788b42973975e9c55e9505e0cac9ed1418aaae90"
-  integrity sha512-1qkDq9gC97ieXSJ2mitwNqq5Ls3DCVJUf76icIHINf1cwh6iYRThUcgF3mBNIVwYEVBE2Q2BhvD1pSFrKZ4XZQ==
+"@cosmology/telescope@^1.10.3":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.10.3.tgz#b5868e01594a3cbd7fb4fdd9b3ca57de7c76ac06"
+  integrity sha512-/WF9twLtTlUWENZT5YLIqLKjl86NjoluXd/qcUE6DijW2sr8qV8vw47cn2jn0jk3ayCNNpooulXDETFECuh9wg==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.5.4"
-    "@cosmology/proto-parser" "^1.5.3"
-    "@cosmology/types" "^1.5.3"
-    "@cosmology/utils" "^1.5.3"
+    "@cosmology/ast" "^1.8.6"
+    "@cosmology/proto-parser" "^1.8.6"
+    "@cosmology/types" "^1.10.2"
+    "@cosmology/utils" "^1.8.6"
     "@cosmwasm/ts-codegen" "0.35.7"
     "@types/parse-package-name" "0.1.0"
     case "1.6.3"
@@ -1768,19 +1768,20 @@
     rimraf "5.0.0"
     yaml "^2.3.4"
 
-"@cosmology/types@^1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.5.3.tgz#2ee39d049764e4189c447a4f286ae498a1bee0c0"
-  integrity sha512-MTsEzhZCeoKzuJY0pT4mUQSVLBR/Gcbdi2NnF9a+K+xcMN/YJwNjiA11xeQsHLyysbZiyeZiYduGLyOVZo0jqg==
+"@cosmology/types@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.10.2.tgz#3d048860dc8fe0a72a72e06f831d29dbed30af2f"
+  integrity sha512-6L/Q0k/gFtgOjFUDsNdPkgo9xfuF9OHvO13RRh03JK2iN8UstHiCcBXG0NyW4kg+ugMUBkdzo2nEjDs9QZI9WQ==
   dependencies:
     case "1.6.3"
+    fast-json-patch "3.1.1"
 
-"@cosmology/utils@^1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.5.3.tgz#9e993a5837c46bf08aa53da9403435a95990ddd5"
-  integrity sha512-Xx8Cy4e8X/tfYQ6vDvcgGptulU2axkvkPhqb1kOCtUek708XPtW/k5sX9Po+iLyUHAmlv/paVVNnZJ5iWVEXHA==
+"@cosmology/utils@^1.8.6":
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.8.6.tgz#f874ee348d5b721faed2faf122df89d3084386a0"
+  integrity sha512-1+LE4J4EjEbQcwankqkIy6ThyIdkzCNOFyHQHheruyv+Gnak2AWvPL2I2x2kaljZIgjx70z/edsC/OJb5nQ7vw==
   dependencies:
-    "@cosmology/types" "^1.5.3"
+    "@cosmology/types" "^1.10.2"
     dotty "0.1.2"
 
 "@cosmostation/extension-client@^0.1.15":
@@ -4855,6 +4856,19 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@4.29.1":
+  version "4.29.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.29.1.tgz#62a4bc120b85e6bb3c6c0aca96346e643e232248"
+  integrity sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==
+
+"@tanstack/react-query@4.29.1":
+  version "4.29.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.1.tgz#5f166aca63915c52f6eda930a54d6933bfd11d1b"
+  integrity sha512-/crv1v+OeuGG6EOvaQmyeo9GCKtH4jbmuhZkvk9ulufRiHcTr/A9+YP9GevEAZzUTdzXMwenpTbyxBGvG2xXvw==
+  dependencies:
+    "@tanstack/query-core" "4.29.1"
+    use-sync-external-store "^1.2.0"
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
@@ -5494,6 +5508,13 @@
   version "4.0.2"
   resolved "https://registry.npmjs.org/@types/long/-/long-4.0.2.tgz"
   integrity sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==
+
+"@types/long@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/long/-/long-5.0.0.tgz#daaa7b7f74c919c946ff74889d5ca2afe363b2cd"
+  integrity sha512-eQs9RsucA/LNjnMoJvWG/nXa7Pot/RbBzilF/QRIU/xRl+0ApxrSUFsV5lmf01SvSlqMzJ7Zwxe440wmz2SJGA==
+  dependencies:
+    long "*"
 
 "@types/minimatch@*":
   version "5.1.2"
@@ -8813,6 +8834,11 @@ fast-glob@^3.2.9, fast-glob@^3.3.0:
     merge2 "^1.3.0"
     micromatch "^4.0.4"
 
+fast-json-patch@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/fast-json-patch/-/fast-json-patch-3.1.1.tgz#85064ea1b1ebf97a3f7ad01e23f9337e72c66947"
+  integrity sha512-vf6IHUX2SBcA+5/+4883dsIjpBTqmfBjmYiWK1savxQmFk4JfBMLa7ynTYOs1Rolp/T1betJxHiGD3g1Mn8lUQ==
+
 fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0, fast-json-stable-stringify@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz"
@@ -11209,15 +11235,15 @@ loglevel@^1.8.1:
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.9.1.tgz#d63976ac9bcd03c7c873116d41c2a85bafff1be7"
   integrity sha512-hP3I3kCrDIMuRwAwHltphhDM1r8i55H33GgqjXbrisuJhF4kRhW1dNuxsRklp4bXl8DSdLaNLuiL4A/LWRfxvg==
 
+long@*, long@^5.0.0, long@^5.2.0, long@^5.2.1:
+  version "5.2.3"
+  resolved "https://registry.npmjs.org/long/-/long-5.2.3.tgz"
+  integrity sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==
+
 long@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/long/-/long-4.0.0.tgz"
   integrity sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==
-
-long@^5.0.0, long@^5.2.0, long@^5.2.1:
-  version "5.2.3"
-  resolved "https://registry.npmjs.org/long/-/long-5.2.3.tgz"
-  integrity sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
@@ -14946,6 +14972,11 @@ use-sync-external-store@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
+
+use-sync-external-store@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz#c3b6390f3a30eba13200d2302dcdf1e7b57b2ef9"
+  integrity sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==
 
 utf-8-validate@^5.0.2:
   version "5.0.10"

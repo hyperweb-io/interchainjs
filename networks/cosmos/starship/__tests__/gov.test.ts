@@ -29,7 +29,9 @@ import {
 } from '@interchainjs/types';
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
-import { QueryImpl } from 'interchainjs/service-ops';
+import { QueryClientImpl as BankQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.Query";
+import { QueryClientImpl as GovQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.Query";
+import { QueryClientImpl as StakingQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.Query";
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic, waitUntil } from '../src';
@@ -45,7 +47,9 @@ describe('Governance tests for osmosis', () => {
   let chainInfo, getCoin: () => Promise<Asset>, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
 
   // Variables used accross testcases
-  let queryClient: QueryImpl;
+  let queryClient: BankQueryClientImpl;
+  let govQueryClient: GovQueryClientImpl;
+  let stakingQueryClient: StakingQueryClientImpl;
   let proposalId: string;
   let validatorAddress: string;
 
@@ -80,8 +84,9 @@ describe('Governance tests for osmosis', () => {
     aminoAddress = await aminoSigner.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new QueryImpl();
-    queryClient.init(createQueryRpc(await getRpcEndpoint()));
+    queryClient = new BankQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
+    govQueryClient = new GovQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
+    stakingQueryClient = new StakingQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
 
     // Transfer osmosis to address
     await creditFromFaucet(directAddress);
@@ -107,7 +112,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await queryClient.validators({
+    const { validators } = await stakingQueryClient.validators({
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -227,7 +232,7 @@ describe('Governance tests for osmosis', () => {
   }, 200000);
 
   it('query proposal', async () => {
-    const result = await queryClient.proposal({
+    const result = await govQueryClient.proposal({
       proposalId: BigInt(proposalId),
     });
 
@@ -269,7 +274,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('verify direct vote', async () => {
-    const { vote } = await queryClient.getVote({
+    const { vote } = await govQueryClient.vote({
       proposalId: BigInt(proposalId),
       voter: directAddress,
     });
@@ -314,7 +319,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('verify amino vote', async () => {
-    const { vote } = await queryClient.getVote({
+    const { vote } = await govQueryClient.vote({
       proposalId: BigInt(proposalId),
       voter: aminoAddress,
     });
@@ -326,7 +331,7 @@ describe('Governance tests for osmosis', () => {
 
   it('wait for voting period to end', async () => {
     // wait for the voting period to end
-    const { proposal } = await queryClient.proposal({
+    const { proposal } = await govQueryClient.proposal({
       proposalId: BigInt(proposalId),
     });
 
@@ -334,7 +339,7 @@ describe('Governance tests for osmosis', () => {
   }, 200000);
 
   it('verify proposal passed', async () => {
-    const { proposal } = await queryClient.proposal({
+    const { proposal } = await govQueryClient.proposal({
       proposalId: BigInt(proposalId),
     });
 

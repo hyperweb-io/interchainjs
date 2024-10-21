@@ -791,7 +791,7 @@ export const ContractInfo = {
   },
   toAmino(message: ContractInfo): ContractInfoAmino {
     const obj: any = {};
-    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
     obj.creator = message.creator === "" ? undefined : message.creator;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.label = message.label === "" ? undefined : message.label;
@@ -909,7 +909,7 @@ export const ContractCodeHistoryEntry = {
   toAmino(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAmino {
     const obj: any = {};
     obj.operation = message.operation === 0 ? undefined : message.operation;
-    obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
+    obj.code_id = message.codeId !== BigInt(0) ? message.codeId?.toString() : undefined;
     obj.updated = message.updated ? AbsoluteTxPosition.toAmino(message.updated) : undefined;
     obj.msg = message.msg ? JSON.parse(fromUtf8(message.msg)) : undefined;
     return obj;
@@ -1000,8 +1000,8 @@ export const AbsoluteTxPosition = {
   },
   toAmino(message: AbsoluteTxPosition): AbsoluteTxPositionAmino {
     const obj: any = {};
-    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight.toString() : undefined;
-    obj.tx_index = message.txIndex !== BigInt(0) ? message.txIndex.toString() : undefined;
+    obj.block_height = message.blockHeight !== BigInt(0) ? message.blockHeight?.toString() : undefined;
+    obj.tx_index = message.txIndex !== BigInt(0) ? message.txIndex?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: AbsoluteTxPositionAminoMsg): AbsoluteTxPosition {

@@ -284,7 +284,7 @@ export const MsgTransfer = {
     obj.sender = message.sender === "" ? undefined : message.sender;
     obj.receiver = message.receiver === "" ? undefined : message.receiver;
     obj.timeout_height = message.timeoutHeight ? Height.toAmino(message.timeoutHeight) : {};
-    obj.timeout_timestamp = message.timeoutTimestamp !== BigInt(0) ? message.timeoutTimestamp.toString() : undefined;
+    obj.timeout_timestamp = message.timeoutTimestamp !== BigInt(0) ? message.timeoutTimestamp?.toString() : undefined;
     obj.memo = message.memo === "" ? undefined : message.memo;
     if (message.tokens) {
       obj.tokens = message.tokens.map(e => e ? Coin.toAmino(e) : undefined);
@@ -368,7 +368,7 @@ export const MsgTransferResponse = {
   },
   toAmino(message: MsgTransferResponse): MsgTransferResponseAmino {
     const obj: any = {};
-    obj.sequence = message.sequence !== BigInt(0) ? message.sequence.toString() : undefined;
+    obj.sequence = message.sequence !== BigInt(0) ? message.sequence?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgTransferResponseAminoMsg): MsgTransferResponse {
