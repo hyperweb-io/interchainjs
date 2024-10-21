@@ -67,7 +67,7 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
   }
 
   static async fromGeneralOfflineSigner(offlineSigner: IAminoGeneralOfflineSigner) {
-    if(offlineSigner.signMode !== SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON) {
+    if(offlineSigner.signMode !== SIGN_MODE.AMINO) {
       throw new Error('not an amino general offline signer');
     }
 
@@ -126,7 +126,7 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGene
   }
 
   static async fromGeneralOfflineSigner(offlineSigner: IDirectGeneralOfflineSigner) {
-    if(offlineSigner.signMode !== SIGN_MODE.SIGN_MODE_DIRECT) {
+    if(offlineSigner.signMode !== SIGN_MODE.DIRECT) {
       throw new Error('not a direct general offline signer');
     }
 

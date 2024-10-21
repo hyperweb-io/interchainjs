@@ -31,7 +31,7 @@ export class InjSigningClient extends SigningClient {
     let signers;
 
     switch (this.offlineSigner.signMode) {
-      case SIGN_MODE.SIGN_MODE_DIRECT:
+      case SIGN_MODE.DIRECT:
         signers = await DirectSigner.fromWalletToSigners(
           this.offlineSigner as IDirectGeneralOfflineSigner,
           this.encoders,
@@ -42,7 +42,7 @@ export class InjSigningClient extends SigningClient {
         )
         break;
 
-      case SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON:
+      case SIGN_MODE.AMINO:
         signers = await AminoSigner.fromWalletToSigners(
           this.offlineSigner as IAminoGeneralOfflineSigner,
           this.encoders,
