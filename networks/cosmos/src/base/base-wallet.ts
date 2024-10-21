@@ -147,14 +147,14 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
    */
   toGeneralOfflineSigner(signMode: string): ICosmosGeneralOfflineSigner {
     switch (signMode) {
-      case SIGN_MODE.SIGN_MODE_DIRECT:
+      case SIGN_MODE.DIRECT:
         return {
           signMode: signMode,
           getAccounts: async () => this.getAccounts(),
           sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosDirectDoc>) =>
             this.signDirect(signerAddress, signDoc),
         };
-      case SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON:
+      case SIGN_MODE.AMINO:
         return {
           signMode: signMode,
           getAccounts: async () => this.getAccounts(),

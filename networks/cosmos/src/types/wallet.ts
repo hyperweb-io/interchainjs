@@ -115,7 +115,7 @@ export class AminoGeneralOfflineSigner implements IAminoGeneralOfflineSigner {
 
   }
 
-  readonly signMode: string = SIGN_MODE.SIGN_MODE_LEGACY_AMINO_JSON;
+  readonly signMode: string = SIGN_MODE.AMINO;
   getAccounts(): Promise<readonly AccountData[]> {
     return this.offlineSigner.getAccounts();
   }
@@ -133,7 +133,7 @@ export class DirectGeneralOfflineSigner implements IDirectGeneralOfflineSigner {
 
   }
 
-  readonly signMode: string = SIGN_MODE.SIGN_MODE_DIRECT;
+  readonly signMode: string = SIGN_MODE.DIRECT;
   getAccounts(): Promise<readonly AccountData[]> {
     return this.offlineSigner.getAccounts();
   }

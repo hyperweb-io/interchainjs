@@ -244,9 +244,14 @@ export class BaseSigner {
  * SIGN_MODE for IGeneralOfflineSigner
  */
 export const SIGN_MODE = {
-  SIGN_MODE_DIRECT: 'SIGN_MODE_DIRECT',
-  SIGN_MODE_LEGACY_AMINO_JSON: 'SIGN_MODE_LEGACY_AMINO_JSON',
-  SIGN_MODE_EIP712_V2: 'SIGN_MODE_EIP712_V2',
+  /**
+   * SIGN_MODE for (cosmos_)direct
+   */
+  DIRECT: 'direct',
+  /**
+   * SIGN_MODE for (cosmos_)amino
+   */
+  AMINO: 'amino',
 };
 
 /**
