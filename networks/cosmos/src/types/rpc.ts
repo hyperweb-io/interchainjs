@@ -97,14 +97,6 @@ export interface IndexedTx {
    *
    * If you hash this, you get the transaction hash (= transaction ID):
    *
-   * ```js
-   * import { sha256 } from "@cosmjs/crypto";
-   * import { toHex } from "@cosmjs/encoding";
-   *
-   * const transactionId = toHex(sha256(indexTx.tx)).toUpperCase();
-   * ```
-   *
-   * Use `decodeTxRaw` from @cosmjs/proto-signing to decode this.
    */
   tx: Uint8Array;
   /**

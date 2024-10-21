@@ -35,7 +35,7 @@ import {
 } from './types/signing-client';
 
 /**
- * implement the same methods as what in `cosmjs` signingClient
+ * SigningClient is a client that can sign and broadcast transactions.
  */
 export class SigningClient {
   readonly client: QueryClient | null | undefined;

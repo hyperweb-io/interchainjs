@@ -6,7 +6,6 @@ import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import { EthSecp256k1HDWallet } from '@interchainjs/injective/wallets/ethSecp256k1hd';
 import { InjSigningClient } from '@interchainjs/injective/signing-client';
-import { assertIsDeliverTxSuccess as assertIsSigningDeliverTxSuccess} from '@cosmjs/stargate';
 import {
   assertIsDeliverTxSuccess,
   createQueryRpc,
@@ -231,7 +230,7 @@ describe('Governance tests for injective', () => {
       [msg],
       fee
     );
-    assertIsSigningDeliverTxSuccess(result);
+    assertIsDeliverTxSuccess(result);
   }, 200000);
 
   it('check direct address has tokens', async () => {
