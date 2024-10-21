@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-beta.11](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/auth@0.0.1-beta.10...@interchainjs/auth@0.0.1-beta.11) (2024-10-21)
+
+**Note:** Version bump only for package @interchainjs/auth
+
 ## [0.0.1-beta.10](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/auth@0.0.1-beta.9...@interchainjs/auth@0.0.1-beta.10) (2024-09-10)
 
 **Note:** Version bump only for package @interchainjs/auth
