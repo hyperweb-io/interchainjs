@@ -1738,10 +1738,10 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.10.3":
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.10.3.tgz#b5868e01594a3cbd7fb4fdd9b3ca57de7c76ac06"
-  integrity sha512-/WF9twLtTlUWENZT5YLIqLKjl86NjoluXd/qcUE6DijW2sr8qV8vw47cn2jn0jk3ayCNNpooulXDETFECuh9wg==
+"@cosmology/telescope@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.10.4.tgz#95ad3640f051d92887718adf333dce48780bf460"
+  integrity sha512-1zpK0zkptR/Gy7Cnqyi0Z+QAlqO/fbjXIEAdPGwB7TlQzZNf8Oe6uYRrGplUSuKs+/6l1z5vaAtHh5Nchg4OJQ==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
@@ -4855,19 +4855,6 @@
   integrity sha512-KMZNXiGibsW9kvZAO1Pam2JPTDBm+KSHMMHWdsyI/1DbIZjT2A6Gy3hblVXUMEDvUAKq+e0vL0X0o54owWji7g==
   dependencies:
     tslib "^2.4.0"
-
-"@tanstack/query-core@4.29.1":
-  version "4.29.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.29.1.tgz#62a4bc120b85e6bb3c6c0aca96346e643e232248"
-  integrity sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==
-
-"@tanstack/react-query@4.29.1":
-  version "4.29.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.1.tgz#5f166aca63915c52f6eda930a54d6933bfd11d1b"
-  integrity sha512-/crv1v+OeuGG6EOvaQmyeo9GCKtH4jbmuhZkvk9ulufRiHcTr/A9+YP9GevEAZzUTdzXMwenpTbyxBGvG2xXvw==
-  dependencies:
-    "@tanstack/query-core" "4.29.1"
-    use-sync-external-store "^1.2.0"
 
 "@tootallnate/once@2":
   version "2.0.0"
@@ -14972,11 +14959,6 @@ use-sync-external-store@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
-
-use-sync-external-store@^1.2.0:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz#c3b6390f3a30eba13200d2302dcdf1e7b57b2ef9"
-  integrity sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==
 
 utf-8-validate@^5.0.2:
   version "5.0.10"
