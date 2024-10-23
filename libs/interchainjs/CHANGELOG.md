@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-beta.27](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.26...interchainjs@0.0.1-beta.27) (2024-10-23)
+
+**Note:** Version bump only for package interchainjs
+
 ## [0.0.1-beta.26](https://github.com/cosmology-tech/interchainjs/compare/interchainjs@0.0.1-beta.25...interchainjs@0.0.1-beta.26) (2024-10-22)
 
 **Note:** Version bump only for package interchainjs
