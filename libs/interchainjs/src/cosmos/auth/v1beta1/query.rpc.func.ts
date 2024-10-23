@@ -2,9 +2,9 @@ import { RpcResolver, buildQuery } from "../../../helper-func-types";
 import { buildUseQuery } from "../../../react-query";
 import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, QueryAccountInfoRequest, QueryAccountInfoResponse } from "./query";
 export const createGetAccounts = (getRpcInstance: RpcResolver) => buildQuery<QueryAccountsRequest, QueryAccountsResponse>({
-  encoder: QueryAccountsRequest.encode,
-  decoder: QueryAccountsResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryAccountsRequest.encode,
+  decode: QueryAccountsResponse.decode,
+  service: "cosmos.auth.v1beta1.Accounts",
   method: "Accounts",
   getRpcInstance: getRpcInstance
 });
@@ -13,9 +13,9 @@ export const useGetAccounts = buildUseQuery<QueryAccountsRequest, QueryAccountsR
   queryKeyPrefix: "AccountsQuery"
 });
 export const createGetAccount = (getRpcInstance: RpcResolver) => buildQuery<QueryAccountRequest, QueryAccountResponse>({
-  encoder: QueryAccountRequest.encode,
-  decoder: QueryAccountResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryAccountRequest.encode,
+  decode: QueryAccountResponse.decode,
+  service: "cosmos.auth.v1beta1.Account",
   method: "Account",
   getRpcInstance: getRpcInstance
 });
@@ -24,9 +24,9 @@ export const useGetAccount = buildUseQuery<QueryAccountRequest, QueryAccountResp
   queryKeyPrefix: "AccountQuery"
 });
 export const createGetAccountAddressByID = (getRpcInstance: RpcResolver) => buildQuery<QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse>({
-  encoder: QueryAccountAddressByIDRequest.encode,
-  decoder: QueryAccountAddressByIDResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryAccountAddressByIDRequest.encode,
+  decode: QueryAccountAddressByIDResponse.decode,
+  service: "cosmos.auth.v1beta1.AccountAddressByID",
   method: "AccountAddressByID",
   getRpcInstance: getRpcInstance
 });
@@ -35,9 +35,9 @@ export const useGetAccountAddressByID = buildUseQuery<QueryAccountAddressByIDReq
   queryKeyPrefix: "AccountAddressByIDQuery"
 });
 export const createGetParams = (getRpcInstance: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
-  encoder: QueryParamsRequest.encode,
-  decoder: QueryParamsResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryParamsRequest.encode,
+  decode: QueryParamsResponse.decode,
+  service: "cosmos.auth.v1beta1.Params",
   method: "Params",
   getRpcInstance: getRpcInstance
 });
@@ -46,9 +46,9 @@ export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsRespons
   queryKeyPrefix: "ParamsQuery"
 });
 export const createGetModuleAccounts = (getRpcInstance: RpcResolver) => buildQuery<QueryModuleAccountsRequest, QueryModuleAccountsResponse>({
-  encoder: QueryModuleAccountsRequest.encode,
-  decoder: QueryModuleAccountsResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryModuleAccountsRequest.encode,
+  decode: QueryModuleAccountsResponse.decode,
+  service: "cosmos.auth.v1beta1.ModuleAccounts",
   method: "ModuleAccounts",
   getRpcInstance: getRpcInstance
 });
@@ -57,9 +57,9 @@ export const useGetModuleAccounts = buildUseQuery<QueryModuleAccountsRequest, Qu
   queryKeyPrefix: "ModuleAccountsQuery"
 });
 export const createGetModuleAccountByName = (getRpcInstance: RpcResolver) => buildQuery<QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse>({
-  encoder: QueryModuleAccountByNameRequest.encode,
-  decoder: QueryModuleAccountByNameResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryModuleAccountByNameRequest.encode,
+  decode: QueryModuleAccountByNameResponse.decode,
+  service: "cosmos.auth.v1beta1.ModuleAccountByName",
   method: "ModuleAccountByName",
   getRpcInstance: getRpcInstance
 });
@@ -68,9 +68,9 @@ export const useGetModuleAccountByName = buildUseQuery<QueryModuleAccountByNameR
   queryKeyPrefix: "ModuleAccountByNameQuery"
 });
 export const createGetBech32Prefix = (getRpcInstance: RpcResolver) => buildQuery<Bech32PrefixRequest, Bech32PrefixResponse>({
-  encoder: Bech32PrefixRequest.encode,
-  decoder: Bech32PrefixResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: Bech32PrefixRequest.encode,
+  decode: Bech32PrefixResponse.decode,
+  service: "cosmos.auth.v1beta1.Bech32Prefix",
   method: "Bech32Prefix",
   getRpcInstance: getRpcInstance
 });
@@ -79,9 +79,9 @@ export const useGetBech32Prefix = buildUseQuery<Bech32PrefixRequest, Bech32Prefi
   queryKeyPrefix: "Bech32PrefixQuery"
 });
 export const createGetAddressBytesToString = (getRpcInstance: RpcResolver) => buildQuery<AddressBytesToStringRequest, AddressBytesToStringResponse>({
-  encoder: AddressBytesToStringRequest.encode,
-  decoder: AddressBytesToStringResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: AddressBytesToStringRequest.encode,
+  decode: AddressBytesToStringResponse.decode,
+  service: "cosmos.auth.v1beta1.AddressBytesToString",
   method: "AddressBytesToString",
   getRpcInstance: getRpcInstance
 });
@@ -90,9 +90,9 @@ export const useGetAddressBytesToString = buildUseQuery<AddressBytesToStringRequ
   queryKeyPrefix: "AddressBytesToStringQuery"
 });
 export const createGetAddressStringToBytes = (getRpcInstance: RpcResolver) => buildQuery<AddressStringToBytesRequest, AddressStringToBytesResponse>({
-  encoder: AddressStringToBytesRequest.encode,
-  decoder: AddressStringToBytesResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: AddressStringToBytesRequest.encode,
+  decode: AddressStringToBytesResponse.decode,
+  service: "cosmos.auth.v1beta1.AddressStringToBytes",
   method: "AddressStringToBytes",
   getRpcInstance: getRpcInstance
 });
@@ -101,9 +101,9 @@ export const useGetAddressStringToBytes = buildUseQuery<AddressStringToBytesRequ
   queryKeyPrefix: "AddressStringToBytesQuery"
 });
 export const createGetAccountInfo = (getRpcInstance: RpcResolver) => buildQuery<QueryAccountInfoRequest, QueryAccountInfoResponse>({
-  encoder: QueryAccountInfoRequest.encode,
-  decoder: QueryAccountInfoResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
+  encode: QueryAccountInfoRequest.encode,
+  decode: QueryAccountInfoResponse.decode,
+  service: "cosmos.auth.v1beta1.AccountInfo",
   method: "AccountInfo",
   getRpcInstance: getRpcInstance
 });
