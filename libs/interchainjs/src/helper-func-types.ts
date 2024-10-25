@@ -18,7 +18,9 @@ export interface QueryBuilderOptions<TReq, TRes> {
 
 function handleQuery(service: string) {
   // replace the last part after a dot with the word Query
-  return service.replace(/[^.]+$/, "Query");
+  const parts = service.split(".");
+  parts[parts.length - 1] = "Query";
+  return parts.join(".");
 }
 
 export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
