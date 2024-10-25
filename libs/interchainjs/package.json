@@ -1,6 +1,6 @@
 {
   "name": "interchainjs",
-  "version": "0.0.1-beta.28",
+  "version": "0.0.1-beta.29",
   "description": "Wrapper of @interchainjs/auth and @interchainjs/cosmos to fit corresponding interfaces in @cosmjs",
   "main": "index.js",
   "module": "esm/index.js",
