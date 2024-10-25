@@ -16,6 +16,11 @@ export interface QueryBuilderOptions<TReq, TRes> {
   getRpcInstance: () => Rpc | undefined
 }
 
+function handleQuery(service: string) {
+  // replace the last part after a dot with the word Query
+  return service.replace(/[^.]+$/, "Query");
+}
+
 export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
     return async (request: TReq) => {
       const rpc = opts.getRpcInstance();
@@ -23,7 +28,7 @@ export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
       if (!rpc) throw new Error("Query Rpc is not initialized");
 
       const data = opts.encode(request).finish();
-      const response = await rpc.request(opts.service, opts.method, data);
+      const response = await rpc.request(handleQuery( opts.service ), opts.method, data);
       return opts.decode(response);
     };
 }
