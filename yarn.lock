@@ -1694,10 +1694,10 @@
   resolved "https://registry.yarnpkg.com/@cosmjs/utils/-/utils-0.32.4.tgz#a9a717c9fd7b1984d9cefdd0ef6c6f254060c671"
   integrity sha512-D1Yc+Zy8oL/hkUkFUL/bwxvuDBzRGpc4cF7/SkdhxX4iHpSLgdOuTt1mhCh9+kl6NQREy9t7SYZ6xeW5gFe60w==
 
-"@cosmology/ast@^1.8.7":
-  version "1.8.7"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.8.7.tgz#1a7c156af37ec7fba22487042856a8c23eb3319a"
-  integrity sha512-LXurVM04jJIXgOsrPENNyzIP690XG//fe7O2+JazOPTNiQZsB8NkAtua1futTgex94hSKYDfIF6+RA5c89tNSw==
+"@cosmology/ast@^1.8.8":
+  version "1.8.8"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.8.8.tgz#4989811877fd7fdcdd44a78b2d0733a29f95041e"
+  integrity sha512-jFkpiKiE4/xsvnIrMu53SQuVAZeSWUJKrNm1TqY9YwTnxLXT/gQNwjh0r/u6XQX/As4jOTSZ6HmQZO1mEq/rKg==
   dependencies:
     "@babel/types" "7.23.6"
     "@cosmology/types" "^1.10.2"
@@ -1738,16 +1738,16 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.10.5":
-  version "1.10.5"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.10.5.tgz#79e273d2b47afe3f834a886f56a6f8d487157d61"
-  integrity sha512-itdirus53hQY1h46twh/hupaCYSd3zSotgxYArP++8Nz2lnJxFWRRrwzdDZHHtbkCNbUp0bv/OozRkl+BDUchA==
+"@cosmology/telescope@^1.10.6":
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.10.6.tgz#0bcef39e0360f93d7604f3ebdad142456be0ff11"
+  integrity sha512-ZmZTnIbDI/EtQhbi+8+Exu8NiXG/4l1hCVZKJFzQ1Q7Q8vwl1l8bNAocC+Q3Pjx3l7cX36kp6l48EMnmd7MXgw==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.8.7"
+    "@cosmology/ast" "^1.8.8"
     "@cosmology/proto-parser" "^1.8.6"
     "@cosmology/types" "^1.10.2"
     "@cosmology/utils" "^1.8.6"

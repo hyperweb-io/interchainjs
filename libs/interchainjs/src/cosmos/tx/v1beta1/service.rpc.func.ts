@@ -4,7 +4,7 @@ import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, Broadca
 export const createGetSimulate = (getRpcInstance: RpcResolver) => buildQuery<SimulateRequest, SimulateResponse>({
   encode: SimulateRequest.encode,
   decode: SimulateResponse.decode,
-  service: "cosmos.tx.v1beta1.Simulate",
+  service: "cosmos.tx.v1beta1.Service",
   method: "Simulate",
   getRpcInstance: getRpcInstance
 });
@@ -15,7 +15,7 @@ export const useGetSimulate = buildUseQuery<SimulateRequest, SimulateResponse>({
 export const createGetGetTx = (getRpcInstance: RpcResolver) => buildQuery<GetTxRequest, GetTxResponse>({
   encode: GetTxRequest.encode,
   decode: GetTxResponse.decode,
-  service: "cosmos.tx.v1beta1.GetTx",
+  service: "cosmos.tx.v1beta1.Service",
   method: "GetTx",
   getRpcInstance: getRpcInstance
 });
@@ -26,7 +26,7 @@ export const useGetGetTx = buildUseQuery<GetTxRequest, GetTxResponse>({
 export const createGetBroadcastTx = (getRpcInstance: RpcResolver) => buildQuery<BroadcastTxRequest, BroadcastTxResponse>({
   encode: BroadcastTxRequest.encode,
   decode: BroadcastTxResponse.decode,
-  service: "cosmos.tx.v1beta1.BroadcastTx",
+  service: "cosmos.tx.v1beta1.Service",
   method: "BroadcastTx",
   getRpcInstance: getRpcInstance
 });
@@ -37,7 +37,7 @@ export const useGetBroadcastTx = buildUseQuery<BroadcastTxRequest, BroadcastTxRe
 export const createGetGetTxsEvent = (getRpcInstance: RpcResolver) => buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
   encode: GetTxsEventRequest.encode,
   decode: GetTxsEventResponse.decode,
-  service: "cosmos.tx.v1beta1.GetTxsEvent",
+  service: "cosmos.tx.v1beta1.Service",
   method: "GetTxsEvent",
   getRpcInstance: getRpcInstance
 });
@@ -48,7 +48,7 @@ export const useGetGetTxsEvent = buildUseQuery<GetTxsEventRequest, GetTxsEventRe
 export const createGetGetBlockWithTxs = (getRpcInstance: RpcResolver) => buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
   encode: GetBlockWithTxsRequest.encode,
   decode: GetBlockWithTxsResponse.decode,
-  service: "cosmos.tx.v1beta1.GetBlockWithTxs",
+  service: "cosmos.tx.v1beta1.Service",
   method: "GetBlockWithTxs",
   getRpcInstance: getRpcInstance
 });
@@ -59,7 +59,7 @@ export const useGetGetBlockWithTxs = buildUseQuery<GetBlockWithTxsRequest, GetBl
 export const createGetTxDecode = (getRpcInstance: RpcResolver) => buildQuery<TxDecodeRequest, TxDecodeResponse>({
   encode: TxDecodeRequest.encode,
   decode: TxDecodeResponse.decode,
-  service: "cosmos.tx.v1beta1.TxDecode",
+  service: "cosmos.tx.v1beta1.Service",
   method: "TxDecode",
   getRpcInstance: getRpcInstance
 });
@@ -70,7 +70,7 @@ export const useGetTxDecode = buildUseQuery<TxDecodeRequest, TxDecodeResponse>({
 export const createGetTxEncode = (getRpcInstance: RpcResolver) => buildQuery<TxEncodeRequest, TxEncodeResponse>({
   encode: TxEncodeRequest.encode,
   decode: TxEncodeResponse.decode,
-  service: "cosmos.tx.v1beta1.TxEncode",
+  service: "cosmos.tx.v1beta1.Service",
   method: "TxEncode",
   getRpcInstance: getRpcInstance
 });
@@ -81,7 +81,7 @@ export const useGetTxEncode = buildUseQuery<TxEncodeRequest, TxEncodeResponse>({
 export const createGetTxEncodeAmino = (getRpcInstance: RpcResolver) => buildQuery<TxEncodeAminoRequest, TxEncodeAminoResponse>({
   encode: TxEncodeAminoRequest.encode,
   decode: TxEncodeAminoResponse.decode,
-  service: "cosmos.tx.v1beta1.TxEncodeAmino",
+  service: "cosmos.tx.v1beta1.Service",
   method: "TxEncodeAmino",
   getRpcInstance: getRpcInstance
 });
@@ -92,7 +92,7 @@ export const useGetTxEncodeAmino = buildUseQuery<TxEncodeAminoRequest, TxEncodeA
 export const createGetTxDecodeAmino = (getRpcInstance: RpcResolver) => buildQuery<TxDecodeAminoRequest, TxDecodeAminoResponse>({
   encode: TxDecodeAminoRequest.encode,
   decode: TxDecodeAminoResponse.decode,
-  service: "cosmos.tx.v1beta1.TxDecodeAmino",
+  service: "cosmos.tx.v1beta1.Service",
   method: "TxDecodeAmino",
   getRpcInstance: getRpcInstance
 });
