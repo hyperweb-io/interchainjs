@@ -1,6 +1,6 @@
 {
   "name": "interchainjs",
-  "version": "0.0.1-alpha.30",
+  "version": "0.0.1-alpha.31",
   "description": "Wrapper of @interchainjs/auth and @interchainjs/cosmos to fit corresponding interfaces in @cosmjs",
   "main": "index.js",
   "module": "esm/index.js",
@@ -32,10 +32,10 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "0.0.1-alpha.30",
-    "@interchainjs/cosmos-types": "0.0.1-alpha.30",
-    "@interchainjs/types": "0.0.1-alpha.30",
-    "@interchainjs/utils": "0.0.1-alpha.30",
+    "@interchainjs/cosmos": "0.0.1-alpha.31",
+    "@interchainjs/cosmos-types": "0.0.1-alpha.31",
+    "@interchainjs/types": "0.0.1-alpha.31",
+    "@interchainjs/utils": "0.0.1-alpha.31",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3"
   },

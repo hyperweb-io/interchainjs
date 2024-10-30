@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/injective",
-  "version": "0.0.1-alpha.30",
+  "version": "0.0.1-alpha.31",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -33,13 +33,13 @@
     "injective:test": "jest --config ./jest.testnet.config.js --verbose"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "0.0.1-alpha.30",
-    "@interchainjs/cosmos-types": "0.0.1-alpha.30",
-    "@interchainjs/ethereum": "0.0.1-alpha.30",
-    "@interchainjs/types": "0.0.1-alpha.30",
-    "@interchainjs/utils": "0.0.1-alpha.30",
+    "@interchainjs/cosmos": "0.0.1-alpha.31",
+    "@interchainjs/cosmos-types": "0.0.1-alpha.31",
+    "@interchainjs/ethereum": "0.0.1-alpha.31",
+    "@interchainjs/types": "0.0.1-alpha.31",
+    "@interchainjs/utils": "0.0.1-alpha.31",
     "decimal.js": "^10.4.3",
-    "interchainjs": "0.0.1-alpha.30"
+    "interchainjs": "0.0.1-alpha.31"
   },
   "keywords": [
     "injective"

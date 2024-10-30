@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-alpha.31](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/cosmos@0.0.1-alpha.30...@interchainjs/cosmos@0.0.1-alpha.31) (2024-10-30)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
 ## [0.0.1-alpha.30](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/cosmos@0.0.1-beta.20...@interchainjs/cosmos@0.0.1-alpha.30) (2024-10-30)
 
 **Note:** Version bump only for package @interchainjs/cosmos
