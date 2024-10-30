@@ -13,12 +13,19 @@ export interface QueryBuilderOptions<TReq, TRes> {
   decode: (input: BinaryReader | Uint8Array, length?: number) => TRes
   service: string,
   method: string,
-  getRpcInstance: () => Rpc | undefined
+  getRpcInstance: RpcResolver
 }
 
 export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
     return async (request: TReq) => {
-      const rpc = opts.getRpcInstance();
+      let rpc: Rpc;
+
+      // if opts.getRpcInstance is a function, call it to get the Rpc instance
+      if(typeof opts.getRpcInstance === 'function') {
+        rpc = opts.getRpcInstance();
+      } else {
+        rpc = opts.getRpcInstance;
+      }
 
       if (!rpc) throw new Error("Query Rpc is not initialized");
 
@@ -54,7 +61,7 @@ export interface ISigningClient {
 }
 
 export interface TxBuilderOptions {
-  getSigningClient: () => ISigningClient | undefined,
+  getSigningClient: SigningClientResolver,
   typeUrl: string,
   encoders?: Encoder[],
   converters?: AminoConverter[],
@@ -67,7 +74,14 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
     fee: StdFee | 'auto',
     memo: string
   ): Promise<DeliverTxResponse> => {
-    const client = opts.getSigningClient();
+    let client: ISigningClient;
+
+    // if opts.getSigningClient is a function, call it to get the SigningClient instance
+    if(typeof opts.getSigningClient === 'function') {
+      client = opts.getSigningClient();
+    } else {
+      client = opts.getSigningClient;
+    }
 
     if (!client) throw new Error("SigningClient is not initialized");
 
@@ -167,5 +181,5 @@ export interface AminoConverter {
   toAmino: (data: any) => any;
 }
 
-export type SigningClientResolver = () => ISigningClient | undefined;
-export type RpcResolver = () => Rpc | undefined;
+export type SigningClientResolver = ISigningClient | (() => ISigningClient | undefined);
+export type RpcResolver = Rpc | (() => Rpc | undefined);

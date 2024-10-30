@@ -12,7 +12,9 @@ import {
   ITxArgs,
   ISigningClient,
   StdFee,
-  DeliverTxResponse
+  DeliverTxResponse,
+  SigningClientResolver,
+  RpcResolver
 } from './helper-func-types'
 import {
     useQuery,
@@ -82,7 +84,7 @@ export const useRpcClient = <TData = ProtobufRpcClient>({
 };
 
 export interface UseQueryBuilderOptions<TReq, TRes> {
-  builderQueryFn: (getRpcInstance: () => Rpc | undefined) => (request: TReq) => Promise<TRes>,
+  builderQueryFn: (getRpcInstance: RpcResolver) => (request: TReq) => Promise<TRes>,
   queryKeyPrefix: string,
 }
 
@@ -94,16 +96,23 @@ export function buildUseQuery<TReq, TRes>(opts: UseQueryBuilderOptions<TReq, TRe
     rpcEndpoint,
     rpcClientQueryKey,
     customizedQueryKey,
+    getRpcInstance,
   }: UseQueryParams<TReq, TRes, TData>) => {
     const queryClient = useQueryClient({
       context: options?.context
     });
-    const key = rpcClientQueryKey || DEFAULT_RPC_CLIENT_QUERY_KEY;
-    const queryKey = rpcEndpoint ? [key, rpcEndpoint] : [key];
-    const rpc = queryClient.getQueryData<Rpc>(queryKey);
-    const queryFn = opts.builderQueryFn(()=>{
-      return rpc;
-    });
+
+    let rpcResolver: RpcResolver;
+
+    if(!getRpcInstance) {
+      const key = rpcClientQueryKey || DEFAULT_RPC_CLIENT_QUERY_KEY;
+      const queryKey = rpcEndpoint ? [key, rpcEndpoint] : [key];
+      rpcResolver = queryClient.getQueryData<Rpc>(queryKey);
+    } else {
+      rpcResolver = getRpcInstance;
+    }
+
+    const queryFn = opts.builderQueryFn(rpcResolver);
     return useQuery<TRes, Error, TData>(customizedQueryKey || [opts.queryKeyPrefix, request], () => queryFn(request), options);
   };
 }
@@ -111,17 +120,19 @@ export function buildUseQuery<TReq, TRes>(opts: UseQueryBuilderOptions<TReq, TRe
 export interface UseQueryParams<TReq, TRes, TData = TRes> extends ReactQueryParams<TRes, TData> {
   request: TReq;
   customizedQueryKey?: QueryKey
+  getRpcInstance?: RpcResolver;
 }
 
 export interface ReactMutationParams<TData, TError, TVariables, TContext = unknown> {
   options?: UseMutationOptions<TData, TError, TVariables, TContext>;
   rpcEndpoint?: string | HttpEndpoint;
   signingClientQueryKey?: string;
+  getSingingClient?: SigningClientResolver;
 }
 
 
 export interface UseMutationBuilderOptions<TMsg> {
-  builderMutationFn: (getSigningClientInstance: () => ISigningClient | undefined) => (
+  builderMutationFn: (getSigningClientInstance: SigningClientResolver) => (
     signerAddress: string,
     message: TMsg,
     fee: StdFee | 'auto',
@@ -134,18 +145,24 @@ export function buildUseMutation<TMsg, TError>(opts: UseMutationBuilderOptions<T
   return ({
     options,
     rpcEndpoint,
-    signingClientQueryKey
+    signingClientQueryKey,
+    getSingingClient,
   }: ReactMutationParams<DeliverTxResponse, TError, ITxArgs<TMsg>>) => {
     const queryClient = useQueryClient({
       context: options?.context
     });
-    const key = signingClientQueryKey || DEFAULT_SIGNING_CLIENT_QUERY_KEY;
-    const queryKey = rpcEndpoint ? [key, rpcEndpoint] : [DEFAULT_SIGNING_CLIENT_QUERY_KEY];
-    const signingClient = queryClient.getQueryData<ISigningClient>(queryKey);
 
-    const mutationFn = opts.builderMutationFn(() => {
-      return signingClient;
-    });
+    let signingClientResolver: SigningClientResolver;
+
+    if(!getSingingClient) {
+      const key = signingClientQueryKey || DEFAULT_SIGNING_CLIENT_QUERY_KEY;
+      const queryKey = rpcEndpoint ? [key, rpcEndpoint] : [DEFAULT_SIGNING_CLIENT_QUERY_KEY];
+      signingClientResolver = queryClient.getQueryData<ISigningClient>(queryKey);
+    } else {
+      signingClientResolver = getSingingClient;
+    }
+
+    const mutationFn = opts.builderMutationFn(signingClientResolver);
 
     return useMutation<DeliverTxResponse, Error, ITxArgs<TMsg>>(
       (reqData: ITxArgs<TMsg>) => mutationFn(reqData.signerAddress, reqData.message, reqData.fee, reqData.memo),
