@@ -105,9 +105,13 @@ export function buildUseQuery<TReq, TRes>(opts: UseQueryBuilderOptions<TReq, TRe
     let rpcResolver: RpcResolver;
 
     if(!getRpcInstance) {
-      const key = rpcClientQueryKey || DEFAULT_RPC_CLIENT_QUERY_KEY;
-      const queryKey = rpcEndpoint ? [key, rpcEndpoint] : [key];
-      rpcResolver = queryClient.getQueryData<Rpc>(queryKey);
+      if(rpcEndpoint && typeof rpcEndpoint === 'string') {
+        rpcResolver = rpcEndpoint;
+      } else {
+        const key = rpcClientQueryKey || DEFAULT_RPC_CLIENT_QUERY_KEY;
+        const queryKey = rpcEndpoint ? [key, rpcEndpoint] : [key];
+        rpcResolver = queryClient.getQueryData<Rpc>(queryKey);
+      }
     } else {
       rpcResolver = getRpcInstance;
     }

@@ -6,6 +6,7 @@
 
 
 import { BinaryReader, BinaryWriter } from "./binary";
+import { getRpcClient } from "./extern";
 import { Rpc } from "./helpers";
 
 export interface QueryBuilderOptions<TReq, TRes> {
@@ -22,7 +23,9 @@ export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
 
       // if opts.getRpcInstance is a function, call it to get the Rpc instance
       if(typeof opts.getRpcInstance === 'function') {
-        rpc = opts.getRpcInstance();
+        rpc = await opts.getRpcInstance();
+      } else if(typeof opts.getRpcInstance === 'string') {
+        rpc = await getRpcClient(opts.getRpcInstance);
       } else {
         rpc = opts.getRpcInstance;
       }
@@ -78,7 +81,7 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
 
     // if opts.getSigningClient is a function, call it to get the SigningClient instance
     if(typeof opts.getSigningClient === 'function') {
-      client = opts.getSigningClient();
+      client = await opts.getSigningClient();
     } else {
       client = opts.getSigningClient;
     }
@@ -181,5 +184,5 @@ export interface AminoConverter {
   toAmino: (data: any) => any;
 }
 
-export type SigningClientResolver = ISigningClient | (() => ISigningClient | undefined);
-export type RpcResolver = Rpc | (() => Rpc | undefined);
+export type SigningClientResolver = ISigningClient | (() => Promise<ISigningClient> | undefined);
+export type RpcResolver = string | Rpc | (() => Promise<Rpc> | undefined);
