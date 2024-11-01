@@ -41,7 +41,7 @@ export interface CacheResolver {
 }
 
 export function isCacheResolver(resolver: unknown) : resolver is CacheResolver {
-    return (resolver as CacheResolver).rpcEndpoint !== undefined && (resolver as CacheResolver).clientQueryKey !== undefined;
+    return resolver && (resolver as CacheResolver).rpcEndpoint !== undefined && (resolver as CacheResolver).clientQueryKey !== undefined;
 }
 
 export interface ReactQueryParams<TResponse, TData = TResponse> {

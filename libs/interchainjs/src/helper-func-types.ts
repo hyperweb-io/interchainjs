@@ -44,7 +44,8 @@ export interface ITxArgs<TMsg> {
 }
 
 export function isISigningClient(client: unknown): client is ISigningClient {
-  return typeof (client as ISigningClient).signAndBroadcast === 'function'
+  return client
+    && typeof (client as ISigningClient).signAndBroadcast === 'function'
     && typeof (client as ISigningClient).addConverters === 'function'
     && typeof (client as ISigningClient).addEncoders === 'function';
 
