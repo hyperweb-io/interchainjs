@@ -2,8 +2,8 @@ import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { buildUseMutation } from "../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
-export const createSend = (getSigningClient: SigningClientResolver) => buildTx<MsgSend>({
-  getSigningClient: getSigningClient,
+export const createSend = (clientResolver: SigningClientResolver) => buildTx<MsgSend>({
+  clientResolver: clientResolver,
   typeUrl: MsgSend.typeUrl,
   encoders: toEncoders(MsgSend),
   converters: toConverters(MsgSend)
@@ -11,8 +11,8 @@ export const createSend = (getSigningClient: SigningClientResolver) => buildTx<M
 export const useSend = buildUseMutation<MsgSend, Error>({
   builderMutationFn: createSend
 });
-export const createMultiSend = (getSigningClient: SigningClientResolver) => buildTx<MsgMultiSend>({
-  getSigningClient: getSigningClient,
+export const createMultiSend = (clientResolver: SigningClientResolver) => buildTx<MsgMultiSend>({
+  clientResolver,
   typeUrl: MsgMultiSend.typeUrl,
   encoders: toEncoders(MsgMultiSend),
   converters: toConverters(MsgMultiSend)
@@ -20,8 +20,8 @@ export const createMultiSend = (getSigningClient: SigningClientResolver) => buil
 export const useMultiSend = buildUseMutation<MsgMultiSend, Error>({
   builderMutationFn: createMultiSend
 });
-export const createUpdateParams = (getSigningClient: SigningClientResolver) => buildTx<MsgUpdateParams>({
-  getSigningClient: getSigningClient,
+export const createUpdateParams = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateParams>({
+  clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
   converters: toConverters(MsgUpdateParams)
@@ -29,8 +29,8 @@ export const createUpdateParams = (getSigningClient: SigningClientResolver) => b
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: createUpdateParams
 });
-export const createSetSendEnabled = (getSigningClient: SigningClientResolver) => buildTx<MsgSetSendEnabled>({
-  getSigningClient: getSigningClient,
+export const createSetSendEnabled = (clientResolver: SigningClientResolver) => buildTx<MsgSetSendEnabled>({
+  clientResolver,
   typeUrl: MsgSetSendEnabled.typeUrl,
   encoders: toEncoders(MsgSetSendEnabled),
   converters: toConverters(MsgSetSendEnabled)

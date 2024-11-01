@@ -198,6 +198,10 @@ export interface Rpc {
   ): Promise<Uint8Array>;
 }
 
+export function isRpc(rpc: unknown): rpc is Rpc {
+  return rpc && typeof (rpc as Rpc).request === 'function';
+}
+
 interface Timestamp {
   /**
    * Represents seconds of UTC time since Unix epoch

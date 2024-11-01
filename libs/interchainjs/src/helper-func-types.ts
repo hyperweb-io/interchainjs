@@ -5,29 +5,27 @@
 */
 
 
+import { HttpEndpoint } from "@interchainjs/types";
 import { BinaryReader, BinaryWriter } from "./binary";
 import { getRpcClient } from "./extern";
-import { Rpc } from "./helpers";
+import { isRpc, Rpc } from "./helpers";
 
 export interface QueryBuilderOptions<TReq, TRes> {
   encode: (request: TReq, writer?: BinaryWriter) => BinaryWriter
   decode: (input: BinaryReader | Uint8Array, length?: number) => TRes
   service: string,
   method: string,
-  getRpcInstance: RpcResolver
+  clientResolver: RpcResolver
 }
 
 export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
     return async (request: TReq) => {
       let rpc: Rpc;
 
-      // if opts.getRpcInstance is a function, call it to get the Rpc instance
-      if(typeof opts.getRpcInstance === 'function') {
-        rpc = await opts.getRpcInstance();
-      } else if(typeof opts.getRpcInstance === 'string') {
-        rpc = await getRpcClient(opts.getRpcInstance);
+      if(isRpc(opts.clientResolver)) {
+        rpc = opts.clientResolver;
       } else {
-        rpc = opts.getRpcInstance;
+        rpc = await getRpcClient(opts.clientResolver);
       }
 
       if (!rpc) throw new Error("Query Rpc is not initialized");
@@ -43,6 +41,13 @@ export interface ITxArgs<TMsg> {
   message: TMsg;
   fee: StdFee | 'auto';
   memo: string;
+}
+
+export function isISigningClient(client: unknown): client is ISigningClient {
+  return typeof (client as ISigningClient).signAndBroadcast === 'function'
+    && typeof (client as ISigningClient).addConverters === 'function'
+    && typeof (client as ISigningClient).addEncoders === 'function';
+
 }
 
 export interface ISigningClient {
@@ -64,7 +69,7 @@ export interface ISigningClient {
 }
 
 export interface TxBuilderOptions {
-  getSigningClient: SigningClientResolver,
+  clientResolver: SigningClientResolver,
   typeUrl: string,
   encoders?: Encoder[],
   converters?: AminoConverter[],
@@ -80,10 +85,8 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
     let client: ISigningClient;
 
     // if opts.getSigningClient is a function, call it to get the SigningClient instance
-    if(typeof opts.getSigningClient === 'function') {
-      client = await opts.getSigningClient();
-    } else {
-      client = opts.getSigningClient;
+    if(isISigningClient(opts.clientResolver)) {
+      client = opts.clientResolver;
     }
 
     if (!client) throw new Error("SigningClient is not initialized");
@@ -184,5 +187,5 @@ export interface AminoConverter {
   toAmino: (data: any) => any;
 }
 
-export type SigningClientResolver = ISigningClient | (() => Promise<ISigningClient> | undefined);
-export type RpcResolver = string | Rpc | (() => Promise<Rpc> | undefined);
+export type SigningClientResolver = string | HttpEndpoint | ISigningClient;
+export type RpcResolver = string | HttpEndpoint | Rpc ;
