@@ -6,7 +6,7 @@ export const createGetBalance = (clientResolver: RpcResolver) => buildQuery<Quer
   decode: QueryBalanceResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "Balance",
-  clientResolver: clientResolver
+  clientResolver
 });
 export const useGetBalance = buildUseQuery<QueryBalanceRequest, QueryBalanceResponse>({
   builderQueryFn: createGetBalance,

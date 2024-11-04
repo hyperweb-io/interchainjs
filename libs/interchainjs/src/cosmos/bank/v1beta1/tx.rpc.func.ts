@@ -3,7 +3,7 @@ import { buildUseMutation } from "../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
 export const createSend = (clientResolver: SigningClientResolver) => buildTx<MsgSend>({
-  clientResolver: clientResolver,
+  clientResolver,
   typeUrl: MsgSend.typeUrl,
   encoders: toEncoders(MsgSend),
   converters: toConverters(MsgSend)
