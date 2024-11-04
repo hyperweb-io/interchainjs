@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-beta.35](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/injective@0.0.1-beta.34...@interchainjs/injective@0.0.1-beta.35) (2024-11-04)
+
+**Note:** Version bump only for package @interchainjs/injective
+
 ## [0.0.1-beta.34](https://github.com/cosmology-tech/interchainjs/compare/@interchainjs/injective@0.0.1-beta.33...@interchainjs/injective@0.0.1-beta.34) (2024-11-01)
 
 **Note:** Version bump only for package @interchainjs/injective

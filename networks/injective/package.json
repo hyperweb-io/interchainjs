@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/injective",
-  "version": "0.0.1-beta.34",
+  "version": "0.0.1-beta.35",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -39,7 +39,7 @@
     "@interchainjs/types": "^0.0.1-beta.34",
     "@interchainjs/utils": "^0.0.1-beta.34",
     "decimal.js": "^10.4.3",
-    "interchainjs": "^0.0.1-beta.34"
+    "interchainjs": "^0.0.1-beta.35"
   },
   "keywords": [
     "injective"
