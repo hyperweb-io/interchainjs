@@ -1,7 +1,7 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
 import { buildUseQuery } from "../../../react-query";
 import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, BroadcastTxRequest, BroadcastTxResponse, GetTxsEventRequest, GetTxsEventResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeRequest, TxEncodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxDecodeAminoRequest, TxDecodeAminoResponse } from "./service";
-export const createGetSimulate = (clientResolver: RpcResolver) => buildQuery<SimulateRequest, SimulateResponse>({
+export const createGetSimulate = (clientResolver?: RpcResolver) => buildQuery<SimulateRequest, SimulateResponse>({
   encode: SimulateRequest.encode,
   decode: SimulateResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -12,7 +12,7 @@ export const useGetSimulate = buildUseQuery<SimulateRequest, SimulateResponse>({
   builderQueryFn: createGetSimulate,
   queryKeyPrefix: "SimulateQuery"
 });
-export const createGetGetTx = (clientResolver: RpcResolver) => buildQuery<GetTxRequest, GetTxResponse>({
+export const createGetGetTx = (clientResolver?: RpcResolver) => buildQuery<GetTxRequest, GetTxResponse>({
   encode: GetTxRequest.encode,
   decode: GetTxResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -23,7 +23,7 @@ export const useGetGetTx = buildUseQuery<GetTxRequest, GetTxResponse>({
   builderQueryFn: createGetGetTx,
   queryKeyPrefix: "GetTxQuery"
 });
-export const createGetBroadcastTx = (clientResolver: RpcResolver) => buildQuery<BroadcastTxRequest, BroadcastTxResponse>({
+export const createGetBroadcastTx = (clientResolver?: RpcResolver) => buildQuery<BroadcastTxRequest, BroadcastTxResponse>({
   encode: BroadcastTxRequest.encode,
   decode: BroadcastTxResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -34,7 +34,7 @@ export const useGetBroadcastTx = buildUseQuery<BroadcastTxRequest, BroadcastTxRe
   builderQueryFn: createGetBroadcastTx,
   queryKeyPrefix: "BroadcastTxQuery"
 });
-export const createGetGetTxsEvent = (clientResolver: RpcResolver) => buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
+export const createGetGetTxsEvent = (clientResolver?: RpcResolver) => buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
   encode: GetTxsEventRequest.encode,
   decode: GetTxsEventResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -45,7 +45,7 @@ export const useGetGetTxsEvent = buildUseQuery<GetTxsEventRequest, GetTxsEventRe
   builderQueryFn: createGetGetTxsEvent,
   queryKeyPrefix: "GetTxsEventQuery"
 });
-export const createGetGetBlockWithTxs = (clientResolver: RpcResolver) => buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
+export const createGetGetBlockWithTxs = (clientResolver?: RpcResolver) => buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
   encode: GetBlockWithTxsRequest.encode,
   decode: GetBlockWithTxsResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -56,7 +56,7 @@ export const useGetGetBlockWithTxs = buildUseQuery<GetBlockWithTxsRequest, GetBl
   builderQueryFn: createGetGetBlockWithTxs,
   queryKeyPrefix: "GetBlockWithTxsQuery"
 });
-export const createGetTxDecode = (clientResolver: RpcResolver) => buildQuery<TxDecodeRequest, TxDecodeResponse>({
+export const createGetTxDecode = (clientResolver?: RpcResolver) => buildQuery<TxDecodeRequest, TxDecodeResponse>({
   encode: TxDecodeRequest.encode,
   decode: TxDecodeResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -67,7 +67,7 @@ export const useGetTxDecode = buildUseQuery<TxDecodeRequest, TxDecodeResponse>({
   builderQueryFn: createGetTxDecode,
   queryKeyPrefix: "TxDecodeQuery"
 });
-export const createGetTxEncode = (clientResolver: RpcResolver) => buildQuery<TxEncodeRequest, TxEncodeResponse>({
+export const createGetTxEncode = (clientResolver?: RpcResolver) => buildQuery<TxEncodeRequest, TxEncodeResponse>({
   encode: TxEncodeRequest.encode,
   decode: TxEncodeResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -78,7 +78,7 @@ export const useGetTxEncode = buildUseQuery<TxEncodeRequest, TxEncodeResponse>({
   builderQueryFn: createGetTxEncode,
   queryKeyPrefix: "TxEncodeQuery"
 });
-export const createGetTxEncodeAmino = (clientResolver: RpcResolver) => buildQuery<TxEncodeAminoRequest, TxEncodeAminoResponse>({
+export const createGetTxEncodeAmino = (clientResolver?: RpcResolver) => buildQuery<TxEncodeAminoRequest, TxEncodeAminoResponse>({
   encode: TxEncodeAminoRequest.encode,
   decode: TxEncodeAminoResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -89,7 +89,7 @@ export const useGetTxEncodeAmino = buildUseQuery<TxEncodeAminoRequest, TxEncodeA
   builderQueryFn: createGetTxEncodeAmino,
   queryKeyPrefix: "TxEncodeAminoQuery"
 });
-export const createGetTxDecodeAmino = (clientResolver: RpcResolver) => buildQuery<TxDecodeAminoRequest, TxDecodeAminoResponse>({
+export const createGetTxDecodeAmino = (clientResolver?: RpcResolver) => buildQuery<TxDecodeAminoRequest, TxDecodeAminoResponse>({
   encode: TxDecodeAminoRequest.encode,
   decode: TxDecodeAminoResponse.decode,
   service: "cosmos.tx.v1beta1.Service",

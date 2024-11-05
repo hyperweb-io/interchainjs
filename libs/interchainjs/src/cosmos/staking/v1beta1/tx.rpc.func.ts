@@ -2,7 +2,7 @@ import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { buildUseMutation } from "../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
 import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate, MsgCancelUnbondingDelegation, MsgUpdateParams } from "./tx";
-export const createCreateValidator = (clientResolver: SigningClientResolver) => buildTx<MsgCreateValidator>({
+export const createCreateValidator = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateValidator>({
   clientResolver,
   typeUrl: MsgCreateValidator.typeUrl,
   encoders: toEncoders(MsgCreateValidator),
@@ -11,7 +11,7 @@ export const createCreateValidator = (clientResolver: SigningClientResolver) => 
 export const useCreateValidator = buildUseMutation<MsgCreateValidator, Error>({
   builderMutationFn: createCreateValidator
 });
-export const createEditValidator = (clientResolver: SigningClientResolver) => buildTx<MsgEditValidator>({
+export const createEditValidator = (clientResolver?: SigningClientResolver) => buildTx<MsgEditValidator>({
   clientResolver,
   typeUrl: MsgEditValidator.typeUrl,
   encoders: toEncoders(MsgEditValidator),
@@ -20,7 +20,7 @@ export const createEditValidator = (clientResolver: SigningClientResolver) => bu
 export const useEditValidator = buildUseMutation<MsgEditValidator, Error>({
   builderMutationFn: createEditValidator
 });
-export const createDelegate = (clientResolver: SigningClientResolver) => buildTx<MsgDelegate>({
+export const createDelegate = (clientResolver?: SigningClientResolver) => buildTx<MsgDelegate>({
   clientResolver,
   typeUrl: MsgDelegate.typeUrl,
   encoders: toEncoders(MsgDelegate),
@@ -29,7 +29,7 @@ export const createDelegate = (clientResolver: SigningClientResolver) => buildTx
 export const useDelegate = buildUseMutation<MsgDelegate, Error>({
   builderMutationFn: createDelegate
 });
-export const createBeginRedelegate = (clientResolver: SigningClientResolver) => buildTx<MsgBeginRedelegate>({
+export const createBeginRedelegate = (clientResolver?: SigningClientResolver) => buildTx<MsgBeginRedelegate>({
   clientResolver,
   typeUrl: MsgBeginRedelegate.typeUrl,
   encoders: toEncoders(MsgBeginRedelegate),
@@ -38,7 +38,7 @@ export const createBeginRedelegate = (clientResolver: SigningClientResolver) => 
 export const useBeginRedelegate = buildUseMutation<MsgBeginRedelegate, Error>({
   builderMutationFn: createBeginRedelegate
 });
-export const createUndelegate = (clientResolver: SigningClientResolver) => buildTx<MsgUndelegate>({
+export const createUndelegate = (clientResolver?: SigningClientResolver) => buildTx<MsgUndelegate>({
   clientResolver,
   typeUrl: MsgUndelegate.typeUrl,
   encoders: toEncoders(MsgUndelegate),
@@ -47,7 +47,7 @@ export const createUndelegate = (clientResolver: SigningClientResolver) => build
 export const useUndelegate = buildUseMutation<MsgUndelegate, Error>({
   builderMutationFn: createUndelegate
 });
-export const createCancelUnbondingDelegation = (clientResolver: SigningClientResolver) => buildTx<MsgCancelUnbondingDelegation>({
+export const createCancelUnbondingDelegation = (clientResolver?: SigningClientResolver) => buildTx<MsgCancelUnbondingDelegation>({
   clientResolver,
   typeUrl: MsgCancelUnbondingDelegation.typeUrl,
   encoders: toEncoders(MsgCancelUnbondingDelegation),
@@ -56,7 +56,7 @@ export const createCancelUnbondingDelegation = (clientResolver: SigningClientRes
 export const useCancelUnbondingDelegation = buildUseMutation<MsgCancelUnbondingDelegation, Error>({
   builderMutationFn: createCancelUnbondingDelegation
 });
-export const createUpdateParams = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateParams>({
+export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
