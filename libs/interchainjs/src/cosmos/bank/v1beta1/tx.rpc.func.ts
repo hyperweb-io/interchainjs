@@ -2,7 +2,7 @@ import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { buildUseMutation } from "../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
-export const createSend = (clientResolver: SigningClientResolver) => buildTx<MsgSend>({
+export const createSend = (clientResolver?: SigningClientResolver) => buildTx<MsgSend>({
   clientResolver,
   typeUrl: MsgSend.typeUrl,
   encoders: toEncoders(MsgSend),
@@ -11,7 +11,7 @@ export const createSend = (clientResolver: SigningClientResolver) => buildTx<Msg
 export const useSend = buildUseMutation<MsgSend, Error>({
   builderMutationFn: createSend
 });
-export const createMultiSend = (clientResolver: SigningClientResolver) => buildTx<MsgMultiSend>({
+export const createMultiSend = (clientResolver?: SigningClientResolver) => buildTx<MsgMultiSend>({
   clientResolver,
   typeUrl: MsgMultiSend.typeUrl,
   encoders: toEncoders(MsgMultiSend),
@@ -20,7 +20,7 @@ export const createMultiSend = (clientResolver: SigningClientResolver) => buildT
 export const useMultiSend = buildUseMutation<MsgMultiSend, Error>({
   builderMutationFn: createMultiSend
 });
-export const createUpdateParams = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateParams>({
+export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
@@ -29,7 +29,7 @@ export const createUpdateParams = (clientResolver: SigningClientResolver) => bui
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: createUpdateParams
 });
-export const createSetSendEnabled = (clientResolver: SigningClientResolver) => buildTx<MsgSetSendEnabled>({
+export const createSetSendEnabled = (clientResolver?: SigningClientResolver) => buildTx<MsgSetSendEnabled>({
   clientResolver,
   typeUrl: MsgSetSendEnabled.typeUrl,
   encoders: toEncoders(MsgSetSendEnabled),

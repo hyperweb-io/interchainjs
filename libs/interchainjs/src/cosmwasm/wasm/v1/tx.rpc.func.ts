@@ -2,7 +2,7 @@ import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { buildUseMutation } from "../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
 import { MsgStoreCode, MsgInstantiateContract, MsgInstantiateContract2, MsgExecuteContract, MsgMigrateContract, MsgUpdateAdmin, MsgClearAdmin, MsgUpdateInstantiateConfig, MsgUpdateParams, MsgSudoContract, MsgPinCodes, MsgUnpinCodes, MsgStoreAndInstantiateContract, MsgRemoveCodeUploadParamsAddresses, MsgAddCodeUploadParamsAddresses, MsgStoreAndMigrateContract, MsgUpdateContractLabel } from "./tx";
-export const createStoreCode = (clientResolver: SigningClientResolver) => buildTx<MsgStoreCode>({
+export const createStoreCode = (clientResolver?: SigningClientResolver) => buildTx<MsgStoreCode>({
   clientResolver,
   typeUrl: MsgStoreCode.typeUrl,
   encoders: toEncoders(MsgStoreCode),
@@ -11,7 +11,7 @@ export const createStoreCode = (clientResolver: SigningClientResolver) => buildT
 export const useStoreCode = buildUseMutation<MsgStoreCode, Error>({
   builderMutationFn: createStoreCode
 });
-export const createInstantiateContract = (clientResolver: SigningClientResolver) => buildTx<MsgInstantiateContract>({
+export const createInstantiateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantiateContract>({
   clientResolver,
   typeUrl: MsgInstantiateContract.typeUrl,
   encoders: toEncoders(MsgInstantiateContract),
@@ -20,7 +20,7 @@ export const createInstantiateContract = (clientResolver: SigningClientResolver)
 export const useInstantiateContract = buildUseMutation<MsgInstantiateContract, Error>({
   builderMutationFn: createInstantiateContract
 });
-export const createInstantiateContract2 = (clientResolver: SigningClientResolver) => buildTx<MsgInstantiateContract2>({
+export const createInstantiateContract2 = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantiateContract2>({
   clientResolver,
   typeUrl: MsgInstantiateContract2.typeUrl,
   encoders: toEncoders(MsgInstantiateContract2),
@@ -29,7 +29,7 @@ export const createInstantiateContract2 = (clientResolver: SigningClientResolver
 export const useInstantiateContract2 = buildUseMutation<MsgInstantiateContract2, Error>({
   builderMutationFn: createInstantiateContract2
 });
-export const createExecuteContract = (clientResolver: SigningClientResolver) => buildTx<MsgExecuteContract>({
+export const createExecuteContract = (clientResolver?: SigningClientResolver) => buildTx<MsgExecuteContract>({
   clientResolver,
   typeUrl: MsgExecuteContract.typeUrl,
   encoders: toEncoders(MsgExecuteContract),
@@ -38,7 +38,7 @@ export const createExecuteContract = (clientResolver: SigningClientResolver) => 
 export const useExecuteContract = buildUseMutation<MsgExecuteContract, Error>({
   builderMutationFn: createExecuteContract
 });
-export const createMigrateContract = (clientResolver: SigningClientResolver) => buildTx<MsgMigrateContract>({
+export const createMigrateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgMigrateContract>({
   clientResolver,
   typeUrl: MsgMigrateContract.typeUrl,
   encoders: toEncoders(MsgMigrateContract),
@@ -47,7 +47,7 @@ export const createMigrateContract = (clientResolver: SigningClientResolver) => 
 export const useMigrateContract = buildUseMutation<MsgMigrateContract, Error>({
   builderMutationFn: createMigrateContract
 });
-export const createUpdateAdmin = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateAdmin>({
+export const createUpdateAdmin = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateAdmin>({
   clientResolver,
   typeUrl: MsgUpdateAdmin.typeUrl,
   encoders: toEncoders(MsgUpdateAdmin),
@@ -56,7 +56,7 @@ export const createUpdateAdmin = (clientResolver: SigningClientResolver) => buil
 export const useUpdateAdmin = buildUseMutation<MsgUpdateAdmin, Error>({
   builderMutationFn: createUpdateAdmin
 });
-export const createClearAdmin = (clientResolver: SigningClientResolver) => buildTx<MsgClearAdmin>({
+export const createClearAdmin = (clientResolver?: SigningClientResolver) => buildTx<MsgClearAdmin>({
   clientResolver,
   typeUrl: MsgClearAdmin.typeUrl,
   encoders: toEncoders(MsgClearAdmin),
@@ -65,7 +65,7 @@ export const createClearAdmin = (clientResolver: SigningClientResolver) => build
 export const useClearAdmin = buildUseMutation<MsgClearAdmin, Error>({
   builderMutationFn: createClearAdmin
 });
-export const createUpdateInstantiateConfig = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateInstantiateConfig>({
+export const createUpdateInstantiateConfig = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateInstantiateConfig>({
   clientResolver,
   typeUrl: MsgUpdateInstantiateConfig.typeUrl,
   encoders: toEncoders(MsgUpdateInstantiateConfig),
@@ -74,7 +74,7 @@ export const createUpdateInstantiateConfig = (clientResolver: SigningClientResol
 export const useUpdateInstantiateConfig = buildUseMutation<MsgUpdateInstantiateConfig, Error>({
   builderMutationFn: createUpdateInstantiateConfig
 });
-export const createUpdateParams = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateParams>({
+export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
@@ -83,7 +83,7 @@ export const createUpdateParams = (clientResolver: SigningClientResolver) => bui
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: createUpdateParams
 });
-export const createSudoContract = (clientResolver: SigningClientResolver) => buildTx<MsgSudoContract>({
+export const createSudoContract = (clientResolver?: SigningClientResolver) => buildTx<MsgSudoContract>({
   clientResolver,
   typeUrl: MsgSudoContract.typeUrl,
   encoders: toEncoders(MsgSudoContract),
@@ -92,7 +92,7 @@ export const createSudoContract = (clientResolver: SigningClientResolver) => bui
 export const useSudoContract = buildUseMutation<MsgSudoContract, Error>({
   builderMutationFn: createSudoContract
 });
-export const createPinCodes = (clientResolver: SigningClientResolver) => buildTx<MsgPinCodes>({
+export const createPinCodes = (clientResolver?: SigningClientResolver) => buildTx<MsgPinCodes>({
   clientResolver,
   typeUrl: MsgPinCodes.typeUrl,
   encoders: toEncoders(MsgPinCodes),
@@ -101,7 +101,7 @@ export const createPinCodes = (clientResolver: SigningClientResolver) => buildTx
 export const usePinCodes = buildUseMutation<MsgPinCodes, Error>({
   builderMutationFn: createPinCodes
 });
-export const createUnpinCodes = (clientResolver: SigningClientResolver) => buildTx<MsgUnpinCodes>({
+export const createUnpinCodes = (clientResolver?: SigningClientResolver) => buildTx<MsgUnpinCodes>({
   clientResolver,
   typeUrl: MsgUnpinCodes.typeUrl,
   encoders: toEncoders(MsgUnpinCodes),
@@ -110,7 +110,7 @@ export const createUnpinCodes = (clientResolver: SigningClientResolver) => build
 export const useUnpinCodes = buildUseMutation<MsgUnpinCodes, Error>({
   builderMutationFn: createUnpinCodes
 });
-export const createStoreAndInstantiateContract = (clientResolver: SigningClientResolver) => buildTx<MsgStoreAndInstantiateContract>({
+export const createStoreAndInstantiateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgStoreAndInstantiateContract>({
   clientResolver,
   typeUrl: MsgStoreAndInstantiateContract.typeUrl,
   encoders: toEncoders(MsgStoreAndInstantiateContract),
@@ -119,7 +119,7 @@ export const createStoreAndInstantiateContract = (clientResolver: SigningClientR
 export const useStoreAndInstantiateContract = buildUseMutation<MsgStoreAndInstantiateContract, Error>({
   builderMutationFn: createStoreAndInstantiateContract
 });
-export const createRemoveCodeUploadParamsAddresses = (clientResolver: SigningClientResolver) => buildTx<MsgRemoveCodeUploadParamsAddresses>({
+export const createRemoveCodeUploadParamsAddresses = (clientResolver?: SigningClientResolver) => buildTx<MsgRemoveCodeUploadParamsAddresses>({
   clientResolver,
   typeUrl: MsgRemoveCodeUploadParamsAddresses.typeUrl,
   encoders: toEncoders(MsgRemoveCodeUploadParamsAddresses),
@@ -128,7 +128,7 @@ export const createRemoveCodeUploadParamsAddresses = (clientResolver: SigningCli
 export const useRemoveCodeUploadParamsAddresses = buildUseMutation<MsgRemoveCodeUploadParamsAddresses, Error>({
   builderMutationFn: createRemoveCodeUploadParamsAddresses
 });
-export const createAddCodeUploadParamsAddresses = (clientResolver: SigningClientResolver) => buildTx<MsgAddCodeUploadParamsAddresses>({
+export const createAddCodeUploadParamsAddresses = (clientResolver?: SigningClientResolver) => buildTx<MsgAddCodeUploadParamsAddresses>({
   clientResolver,
   typeUrl: MsgAddCodeUploadParamsAddresses.typeUrl,
   encoders: toEncoders(MsgAddCodeUploadParamsAddresses),
@@ -137,7 +137,7 @@ export const createAddCodeUploadParamsAddresses = (clientResolver: SigningClient
 export const useAddCodeUploadParamsAddresses = buildUseMutation<MsgAddCodeUploadParamsAddresses, Error>({
   builderMutationFn: createAddCodeUploadParamsAddresses
 });
-export const createStoreAndMigrateContract = (clientResolver: SigningClientResolver) => buildTx<MsgStoreAndMigrateContract>({
+export const createStoreAndMigrateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgStoreAndMigrateContract>({
   clientResolver,
   typeUrl: MsgStoreAndMigrateContract.typeUrl,
   encoders: toEncoders(MsgStoreAndMigrateContract),
@@ -146,7 +146,7 @@ export const createStoreAndMigrateContract = (clientResolver: SigningClientResol
 export const useStoreAndMigrateContract = buildUseMutation<MsgStoreAndMigrateContract, Error>({
   builderMutationFn: createStoreAndMigrateContract
 });
-export const createUpdateContractLabel = (clientResolver: SigningClientResolver) => buildTx<MsgUpdateContractLabel>({
+export const createUpdateContractLabel = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateContractLabel>({
   clientResolver,
   typeUrl: MsgUpdateContractLabel.typeUrl,
   encoders: toEncoders(MsgUpdateContractLabel),
