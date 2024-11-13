@@ -1,9 +1,10 @@
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
+import { AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { SignDocResponse } from '@interchainjs/types';
 
 import { type AminoSignerBase } from '../signers/amino';
-import { BaseCosmosSigBuilder, BaseCosmosTxBuilder } from '../base';
+import { BaseCosmosSigBuilder, BaseCosmosTxBuilder, STAGING_AUTH_INFO } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
 import { CosmosAminoDoc, CosmosSignArgs } from '../types';
 import { encodeStdSignDoc, toAminoMsgs, toFee } from '../utils';
@@ -61,8 +62,9 @@ export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
 
   async syncSignedDoc(txRaw: TxRaw, signResp: SignDocResponse<CosmosAminoDoc>): Promise<TxRaw> {
     const authFee = toFee(signResp.signDoc.fee);
+    const authInfo = this.ctx.getStagingData<AuthInfo>(STAGING_AUTH_INFO);
 
-    const { encode: authEncode } = await this.buildAuthInfo(this.ctx.authInfo.signerInfos, authFee);
+    const { encode: authEncode } = await this.buildAuthInfo(authInfo.signerInfos, authFee);
     const authInfoBytes = authEncode();
 
     return {

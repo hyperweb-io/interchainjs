@@ -1,11 +1,13 @@
-import { AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { ITxBuilderContext } from '@interchainjs/types';
+import { BaseTxBuilderContext, ITxBuilderContext } from '@interchainjs/types';
 
 /**
  * Context for the transaction builder.
  */
 export class BaseCosmosTxBuilderContext<Signer>
+extends BaseTxBuilderContext<Signer>
 implements ITxBuilderContext<Signer>
 {
-  constructor(public signer: Signer, public authInfo?: AuthInfo) {}
+  constructor(public signer: Signer) {
+    super(signer);
+  }
 }

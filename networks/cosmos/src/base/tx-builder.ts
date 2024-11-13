@@ -25,6 +25,8 @@ import { calculateFee, toFee } from '../utils';
 import { CosmosBaseSigner } from './base-signer';
 import { BaseCosmosTxBuilderContext } from './builder-context';
 
+export const STAGING_AUTH_INFO = 'staging_auth_info';
+
 /**
  * BaseCosmosSigBuilder is a helper class to build the signature from the document
  */
@@ -113,7 +115,7 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
 
     const { authInfo, encode: authEncode} = await this.buildAuthInfo([signerInfo], toFee(stdFee));
 
-    this.ctx.authInfo = authInfo;
+    this.ctx.setStagingData(STAGING_AUTH_INFO, authInfo);
 
     return {
       bodyBytes: txBodyEncode(),
