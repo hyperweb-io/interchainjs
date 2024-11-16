@@ -99,12 +99,12 @@ export interface CreateDocResponse<Tx, Doc> {
 /**
  * the response after signing a document.
  */
-export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }>
+export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }, BroadcastOpts = BroadcastOptions>
   extends CreateDocResponse<Tx, Doc> {
   /**
    * broadcast the transaction.
    */
-  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
+  broadcast: (options?: BroadcastOpts) => Promise<BroadcastResponse>;
 }
 
 /**
@@ -136,13 +136,14 @@ export interface UniSigner<
   Doc,
   AddressResponse = string,
   BroadcastResponse = { hash: string },
+  BroadcastOpts = BroadcastOptions
 > {
   publicKey: IKey;
 
   /**
    * to get printable address(es)
    */
-  getAddress(): AddressResponse;
+  getAddress(): Promise<AddressResponse>;
 
   /**
    * sign arbitrary data in bytes
@@ -158,27 +159,27 @@ export interface UniSigner<
    */
   broadcastArbitrary(
     data: Uint8Array,
-    options?: BroadcastOptions
+    options?: BroadcastOpts
   ): Promise<BroadcastResponse>;
 
   /**
    * build signed transaction document based on sign arguments.
    * @argument args - arguments for signing. e.g. messages, fee, memo, etc.
    */
-  sign(args: SignArgs): Promise<SignResponse<Tx, Doc, BroadcastResponse>>;
+  sign(args: SignArgs): Promise<SignResponse<Tx, Doc, BroadcastResponse, BroadcastOpts>>;
 
   /**
    * sign and broadcast transaction based on sign arguments.
    */
   signAndBroadcast(
     args: SignArgs,
-    options?: BroadcastOptions
+    options?: BroadcastOpts
   ): Promise<BroadcastResponse>;
 
   /**
    * broadcast a signed transaction.
    */
-  broadcast: (tx: Tx, options?: BroadcastOptions) => Promise<BroadcastResponse>;
+  broadcast: (tx: Tx, options?: BroadcastOpts) => Promise<BroadcastResponse>;
 }
 
 /**

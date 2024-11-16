@@ -227,7 +227,7 @@ export type UniCosmosBaseSigner<SignDoc> = UniSigner<
   CosmosSignArgs,
   CosmosTx,
   SignDoc,
-  Promise<string>,
+  string,
   BroadcastResponse
 >;
 
@@ -238,7 +238,7 @@ export type CosmosDirectSigner = UniSigner<
   CosmosSignArgs,
   CosmosTx,
   CosmosDirectDoc,
-  Promise<string>,
+  string,
   BroadcastResponse
 >;
 /**
@@ -248,7 +248,7 @@ export type CosmosAminoSigner = UniSigner<
   CosmosSignArgs,
   CosmosTx,
   CosmosAminoDoc,
-  Promise<string>,
+  string,
   BroadcastResponse
 >;
 

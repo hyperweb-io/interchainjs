@@ -1,71 +1,82 @@
-import {
-  Auth,
-  BaseSigner,
-  HttpEndpoint,
-  SignDocResponse,
-  SignerConfig,
-  SignResponse,
-} from '@interchainjs/types';
+import { IKey, SignDocResponse, SignResponse, BroadcastOptions } from "@interchainjs/types";
+import { TransactionRequest, TransactionResponse } from "ethers";
+import { UniEip712Signer } from "./types";
 
-import { defaultSignerConfig } from './defaults';
-import {
-  Eip712Doc,
-  Eip712SignArgs,
-  Eip712Tx,
-  UniEip712Signer,
-} from './types';
-
-export class Eip712Signer<BroadcastResponse extends { hash: string }>
-  extends BaseSigner
-  implements UniEip712Signer<BroadcastResponse>
-{
-  constructor(
-    auth: Auth,
-    endpoint?: string | HttpEndpoint,
-    config?: SignerConfig
-  ) {
-    super(auth, config ?? defaultSignerConfig);
+export class Eip712Signer implements UniEip712Signer {
+  publicKey: IKey;
+  getAddress(): Promise<string> {
+    throw new Error("Method not implemented.");
   }
-
-  static async fromWallet(
-    _wallet: any,
-    endpoint?: string | HttpEndpoint,
-    config?: SignerConfig
-  ) {
-    throw new Error('Not implemented yet');
+  signArbitrary(data: Uint8Array): IKey | Promise<IKey> {
+    throw new Error("Method not implemented.");
   }
-
-  static async fromWalletToSigners(
-    _wallet: any,
-    endpoint?: string | HttpEndpoint,
-    config?: SignerConfig
-  ) {
-    throw new Error('Not implemented yet');
+  signDoc(doc: TransactionRequest): SignDocResponse<TransactionRequest, IKey> | Promise<SignDocResponse<TransactionRequest, IKey>> {
+    throw new Error("Method not implemented.");
   }
-
-  async getAddress(): Promise<string> {
-    throw new Error('Not implemented yet');
+  broadcastArbitrary(data: Uint8Array, options?: unknown): Promise<TransactionResponse> {
+    throw new Error("Method not implemented.");
   }
-
-  async signDoc(doc: Eip712Doc): Promise<SignDocResponse<Eip712Doc>> {
-    throw new Error('Not implemented yet');
+  sign(args: TransactionRequest): Promise<SignResponse<string, TransactionRequest, TransactionResponse, BroadcastOptions>> {
+    throw new Error("Method not implemented.");
   }
-
-  async sign(
-    _: Eip712SignArgs
-  ): Promise<SignResponse<Eip712Tx, Eip712Doc, BroadcastResponse>> {
-    throw new Error('Not implemented yet');
+  signAndBroadcast(args: TransactionRequest, options?: unknown): Promise<TransactionResponse> {
+    throw new Error("Method not implemented.");
   }
+  broadcast: (tx: string, options?: unknown) => Promise<TransactionResponse>;
 
-  async signAndBroadcast(_: Eip712SignArgs): Promise<BroadcastResponse> {
-    throw new Error('Not implemented yet');
-  }
-
-  async broadcast(_: Eip712Tx): Promise<BroadcastResponse> {
-    throw new Error('Not implemented yet');
-  }
-
-  async broadcastArbitrary(_: Uint8Array): Promise<BroadcastResponse> {
-    throw new Error('Not implemented yet');
-  }
 }
+
+// export class Eip712Signer<BroadcastResponse extends { hash: string }>
+//   extends BaseSigner
+//   implements UniEip712Signer<BroadcastResponse>
+// {
+//   constructor(
+//     auth: Auth,
+//     endpoint?: string | HttpEndpoint,
+//     config?: SignerConfig
+//   ) {
+//     super(auth, config ?? defaultSignerConfig);
+//   }
+
+//   static async fromWallet(
+//     _wallet: any,
+//     endpoint?: string | HttpEndpoint,
+//     config?: SignerConfig
+//   ) {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   static async fromWalletToSigners(
+//     _wallet: any,
+//     endpoint?: string | HttpEndpoint,
+//     config?: SignerConfig
+//   ) {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   async getAddress(): Promise<string> {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   async signDoc(doc: Eip712Doc): Promise<SignDocResponse<Eip712Doc>> {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   async sign(
+//     _: Eip712SignArgs
+//   ): Promise<SignResponse<Eip712Tx, Eip712Doc, BroadcastResponse>> {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   async signAndBroadcast(_: Eip712SignArgs): Promise<BroadcastResponse> {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   async broadcast(_: Eip712Tx): Promise<BroadcastResponse> {
+//     throw new Error('Not implemented yet');
+//   }
+
+//   async broadcastArbitrary(_: Uint8Array): Promise<BroadcastResponse> {
+//     throw new Error('Not implemented yet');
+//   }
+// }
