@@ -13,8 +13,8 @@ export interface BaseWalletAccount {
 /**
  * SignDocResponse is a response object that contains the signature and the sign doc.
  */
-export interface SignDocResponse<SignDoc> {
-  signature: IKey;
+export interface SignDocResponse<SignDoc, TSig = IKey> {
+  signature: TSig;
   signDoc: SignDoc;
 }
 

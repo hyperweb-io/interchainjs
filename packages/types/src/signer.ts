@@ -236,12 +236,17 @@ export const SIGN_MODE = {
    * SIGN_MODE for (cosmos_)amino
    */
   AMINO: 'amino',
+
+  /**
+   * SIGN_MODE for ethereum_tx
+   */
+  ETHEREUM_TX: 'ethereum_tx',
 };
 
 /**
  * IGeneralOfflineSigner is an interface for offline signers.
  */
-export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc> > {
+export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc>, TAcctData = AccountData > {
   /**
    * sign mode
    */
@@ -251,7 +256,7 @@ export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = 
    * get accounts
    * @returns a list of accounts
    */
-  getAccounts: () => Promise<readonly AccountData[]>;
+  getAccounts: () => Promise<readonly TAcctData[]>;
 
   /**
    * sign document

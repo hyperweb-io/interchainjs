@@ -1,5 +1,5 @@
 import {
-  DocAuth,
+  BaseDocAuth,
   IKey,
   SIGN_MODE,
   SignDoc,
@@ -12,30 +12,13 @@ import { AminoSignResponse, DirectSignResponse, IAminoGeneralOfflineSigner, IDir
 import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
 
 /**
- * Base class for Doc Auth.
- */
-export abstract class BaseDocAuth<TSigner, TDoc, TArgs = unknown, TAddr = string> implements DocAuth<TDoc, TArgs, TAddr> {
-  constructor(
-    public readonly algo: string,
-    public readonly address: TAddr,
-    public readonly pubkey: Uint8Array,
-    public readonly offlineSigner: TSigner
-  ) {
-    this.algo = algo;
-    this.address = address;
-    this.pubkey = pubkey;
-  }
-
-  getPublicKey(): IKey {
-    return Key.from(this.pubkey);
-  }
-  abstract signDoc(doc: TDoc, args?: TArgs): Promise<SignDocResponse<TDoc>>;
-}
-
-/**
  * a helper class to sign the StdSignDoc with Amino encoding using offline signer.
  */
 export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneralOfflineSigner, StdSignDoc> {
+  getPublicKey(): IKey {
+    return Key.from(this.pubkey);
+  }
+
   async signDoc(doc: StdSignDoc): Promise<SignDocResponse<StdSignDoc>> {
     let resp;
     if(isOfflineAminoSigner(this.offlineSigner)) {
@@ -93,6 +76,10 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
  * a helper class to sign the SignDoc with Direct encoding using offline signer.
  */
 export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGeneralOfflineSigner, SignDoc> {
+  getPublicKey(): IKey {
+    return Key.from(this.pubkey);
+  }
+
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
     // let resp = await this.offlineSigner.signDirect(this.address, doc);
     let resp;
