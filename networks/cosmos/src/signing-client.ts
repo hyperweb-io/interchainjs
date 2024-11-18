@@ -275,7 +275,9 @@ export class SigningClient {
   };
 
   get endpoint(): HttpEndpoint {
-    return this.queryClient.endpoint;
+    return typeof this.queryClient.endpoint === 'string' ?
+      { url: this.queryClient.endpoint, headers: {} }
+      : this.queryClient.endpoint;
   }
 
   async getTx(id: string): Promise<IndexedTx | null> {

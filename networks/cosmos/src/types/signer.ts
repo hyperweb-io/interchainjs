@@ -21,6 +21,7 @@ import {
   StdFee,
   StdSignDoc,
   UniSigner,
+  IApiClient
 } from '@interchainjs/types';
 import { Event } from '@interchainjs/types';
 import { AccountBase } from '@interchainjs/types/account';
@@ -188,8 +189,8 @@ export type TxOptions = {
 /**
  * Query client ops for cosmos chains
  */
-export interface QueryClient {
-  readonly endpoint: HttpEndpoint;
+export interface QueryClient extends IApiClient<Uint8Array, BroadcastResponse, BroadcastOptions>{
+  readonly endpoint: string | HttpEndpoint;
   getChainId: () => Promise<string>;
   getAccountNumber: (address: string) => Promise<bigint>;
   getSequence: (address: string) => Promise<bigint>;
@@ -199,10 +200,6 @@ export interface QueryClient {
     txBody: TxBody,
     signerInfos: SignerInfo[]
   ) => Promise<SimulateResponse>;
-  broadcast: (
-    txBytes: Uint8Array,
-    options?: BroadcastOptions
-  ) => Promise<BroadcastResponse>;
 }
 
 /**

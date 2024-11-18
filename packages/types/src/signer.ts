@@ -136,9 +136,10 @@ export interface UniSigner<
   Doc,
   AddressResponse = string,
   BroadcastResponse = { hash: string },
-  BroadcastOpts = BroadcastOptions
+  BroadcastOpts = BroadcastOptions,
+  SignDocResp = SignDocResponse<Doc>
 > {
-  publicKey: IKey;
+  publicKey?: IKey;
 
   /**
    * to get printable address(es)
@@ -152,7 +153,7 @@ export interface UniSigner<
   /**
    * sign document
    */
-  signDoc(doc: Doc): SignDocResponse<Doc> | Promise<SignDocResponse<Doc>>;
+  signDoc(doc: Doc): SignDocResp | Promise<SignDocResp>;
 
   /**
    * broadcast arbitrary data in bytes
@@ -179,7 +180,7 @@ export interface UniSigner<
   /**
    * broadcast a signed transaction.
    */
-  broadcast: (tx: Tx, options?: BroadcastOpts) => Promise<BroadcastResponse>;
+  broadcast(tx: Tx, options?: BroadcastOpts): Promise<BroadcastResponse>;
 }
 
 /**

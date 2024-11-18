@@ -13,7 +13,8 @@ export type UniEip712Signer
   TransactionRequest,
   string,
   TransactionResponse,
-  unknown
+  unknown,
+  string
 >;
 
 export type Eip712Doc = Eip712Data<Domain, any>;
