@@ -14,7 +14,7 @@ import {
   CreateDocResponse,
   HttpEndpoint,
   IAccount,
-  IGeneralOfflineSigner,
+  IGenericOfflineSigner,
   IKey,
   Price,
   SignerConfig,

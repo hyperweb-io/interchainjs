@@ -1,11 +1,11 @@
-import { IAminoGeneralOfflineSigner, IDirectGeneralOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineSigner } from "@interchainjs/cosmos/types/wallet";
-import { HttpEndpoint, IGeneralOfflineSigner, SIGN_MODE } from "@interchainjs/types";
+import { IAminoGenericOfflineSigner, IDirectGenericOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineSigner } from "@interchainjs/cosmos/types/wallet";
+import { HttpEndpoint, IGenericOfflineSigner, SIGN_MODE } from "@interchainjs/types";
 import { SigningClient } from "@interchainjs/cosmos/signing-client"
 import { SignerOptions } from "@interchainjs/cosmos/types/signing-client";
 import { RpcClient } from '@interchainjs/cosmos/query/rpc';
 import { AminoSigner } from "./signers/amino";
 import { DirectSigner } from "./signers/direct";
-import { ICosmosGeneralOfflineSigner } from "@interchainjs/cosmos/types/wallet";
+import { ICosmosGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
 
 /**
  * signingClient for inj
@@ -13,7 +13,7 @@ import { ICosmosGeneralOfflineSigner } from "@interchainjs/cosmos/types/wallet";
 export class InjSigningClient extends SigningClient {
   static async connectWithSigner(
     endpoint: string | HttpEndpoint,
-    signer: ICosmosGeneralOfflineSigner,
+    signer: ICosmosGenericOfflineSigner,
     options: SignerOptions = {}
   ): Promise<InjSigningClient> {
     const signingClient = new InjSigningClient(
@@ -33,7 +33,7 @@ export class InjSigningClient extends SigningClient {
     switch (this.offlineSigner.signMode) {
       case SIGN_MODE.DIRECT:
         signers = await DirectSigner.fromWalletToSigners(
-          this.offlineSigner as IDirectGeneralOfflineSigner,
+          this.offlineSigner as IDirectGenericOfflineSigner,
           this.encoders,
           this.endpoint,
           {
@@ -44,7 +44,7 @@ export class InjSigningClient extends SigningClient {
 
       case SIGN_MODE.AMINO:
         signers = await AminoSigner.fromWalletToSigners(
-          this.offlineSigner as IAminoGeneralOfflineSigner,
+          this.offlineSigner as IAminoGenericOfflineSigner,
           this.encoders,
           this.converters,
           this.endpoint,

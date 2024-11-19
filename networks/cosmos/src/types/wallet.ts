@@ -1,4 +1,4 @@
-import { AccountData, IGeneralOfflineSignArgs, IGeneralOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
+import { AccountData, IGeneralOfflineSignArgs, IGenericOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
 
@@ -26,7 +26,7 @@ export interface StdSignature {
 /**
  * general offline signer for cosmos chains
  */
-export type ICosmosGeneralOfflineSigner = IAminoGeneralOfflineSigner | IDirectGeneralOfflineSigner;
+export type ICosmosGenericOfflineSigner = IAminoGenericOfflineSigner | IDirectGenericOfflineSigner;
 
 /**
  * Offline signer response
@@ -87,19 +87,19 @@ export function isOfflineDirectSigner(
 /**
  * Offline signer can be either amino or direct signer or both
  */
-export type OfflineSigner = OfflineAminoSigner | OfflineDirectSigner | ICosmosGeneralOfflineSigner;
+export type OfflineSigner = OfflineAminoSigner | OfflineDirectSigner | ICosmosGenericOfflineSigner;
 
 /**
  * Amino general offline signer.
  */
-export interface IAminoGeneralOfflineSigner extends IGeneralOfflineSigner<string, CosmosAminoDoc, AminoSignResponse> {
+export interface IAminoGenericOfflineSigner extends IGenericOfflineSigner<string, CosmosAminoDoc, AminoSignResponse> {
 
 }
 
 /**
  * Direct general offline signer.
  */
-export interface IDirectGeneralOfflineSigner extends IGeneralOfflineSigner<string, CosmosDirectDoc, DirectSignResponse> {
+export interface IDirectGenericOfflineSigner extends IGenericOfflineSigner<string, CosmosDirectDoc, DirectSignResponse> {
 
 }
 
@@ -110,7 +110,7 @@ export type IDirectGeneralOfflineSignArgs = IGeneralOfflineSignArgs<string, Cosm
  * Amino general offline signer.
  * This is a wrapper for offline amino signer.
  */
-export class AminoGeneralOfflineSigner implements IAminoGeneralOfflineSigner {
+export class AminoGenericOfflineSigner implements IAminoGenericOfflineSigner {
   constructor(public offlineSigner: OfflineAminoSigner) {
 
   }
@@ -128,7 +128,7 @@ export class AminoGeneralOfflineSigner implements IAminoGeneralOfflineSigner {
  * Direct general offline signer.
  * This is a wrapper for offline direct signer.
  */
-export class DirectGeneralOfflineSigner implements IDirectGeneralOfflineSigner {
+export class DirectGenericOfflineSigner implements IDirectGenericOfflineSigner {
   constructor(public offlineSigner: OfflineDirectSigner) {
 
   }

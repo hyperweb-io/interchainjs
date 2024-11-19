@@ -11,7 +11,7 @@ import {
   SignerOptions,
 } from '../types';
 import { DirectDocAuth } from '../types/docAuth';
-import { IDirectGeneralOfflineSigner, isOfflineDirectSigner, OfflineDirectSigner } from '../types/wallet';
+import { IDirectGenericOfflineSigner, isOfflineDirectSigner, OfflineDirectSigner } from '../types/wallet';
 
 /**
  * DirectDocSigner is a signer for Direct document.
@@ -72,7 +72,7 @@ export class DirectSigner
    * If there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineDirectSigner | IDirectGeneralOfflineSigner,
+    signer: OfflineDirectSigner | IDirectGenericOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -82,7 +82,7 @@ export class DirectSigner
     if(isOfflineDirectSigner(signer)){
       [auth] = await DirectDocAuth.fromOfflineSigner(signer);
     } else {
-      [auth] = await DirectDocAuth.fromGeneralOfflineSigner(signer);
+      [auth] = await DirectDocAuth.fromGenericOfflineSigner(signer);
     }
 
     return new DirectSigner(auth, encoders, endpoint, options);
@@ -93,7 +93,7 @@ export class DirectSigner
    * If there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineDirectSigner | IDirectGeneralOfflineSigner,
+    signer: OfflineDirectSigner | IDirectGenericOfflineSigner,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
@@ -103,7 +103,7 @@ export class DirectSigner
     if(isOfflineDirectSigner(signer)) {
       auths = await DirectDocAuth.fromOfflineSigner(signer);
     } else {
-      auths = await DirectDocAuth.fromGeneralOfflineSigner(signer);
+      auths = await DirectDocAuth.fromGenericOfflineSigner(signer);
     }
 
     return auths.map((auth) => {

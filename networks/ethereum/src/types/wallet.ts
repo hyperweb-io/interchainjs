@@ -1,10 +1,10 @@
-import { IGeneralOfflineSigner, SIGN_MODE } from "@interchainjs/types";
+import { IGenericOfflineSigner, SIGN_MODE } from "@interchainjs/types";
 import { Transaction, TransactionRequest, Signer as ethersOfflineSigner } from "ethers";
 
-export interface IEthereumGeneralOfflineSigner extends IGeneralOfflineSigner<string, unknown, string, TransactionRequest, string> {
+export interface IEthereumGenericOfflineSigner extends IGenericOfflineSigner<string, unknown, string, TransactionRequest, string> {
 }
 
-export class EthereumGeneralOfflineSigner implements IEthereumGeneralOfflineSigner {
+export class EthereumGenericOfflineSigner implements IEthereumGenericOfflineSigner {
   constructor(public offlineSigner: ethersOfflineSigner) {
   }
 

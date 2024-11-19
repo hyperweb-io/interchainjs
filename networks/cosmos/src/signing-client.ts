@@ -7,9 +7,9 @@ import {
   QueryClient,
 } from './types';
 import {
-  IAminoGeneralOfflineSigner,
-  ICosmosGeneralOfflineSigner,
-  IDirectGeneralOfflineSigner,
+  IAminoGenericOfflineSigner,
+  ICosmosGenericOfflineSigner,
+  IDirectGenericOfflineSigner,
   isOfflineAminoSigner,
   isOfflineDirectSigner,
   OfflineSigner,
@@ -39,7 +39,7 @@ import {
  */
 export class SigningClient {
   readonly client: QueryClient | null | undefined;
-  readonly offlineSigner: ICosmosGeneralOfflineSigner;
+  readonly offlineSigner: ICosmosGenericOfflineSigner;
   readonly options: SignerOptions;
 
   readonly signers: Record<string, DirectSigner | AminoSigner> = {};
@@ -53,7 +53,7 @@ export class SigningClient {
 
   constructor(
     client: QueryClient | null | undefined,
-    offlineSigner: ICosmosGeneralOfflineSigner,
+    offlineSigner: ICosmosGenericOfflineSigner,
     options: SignerOptions = {}
   ) {
     this.client = client;
@@ -74,7 +74,7 @@ export class SigningClient {
 
   static async connectWithSigner(
     endpoint: string | HttpEndpoint,
-    signer: ICosmosGeneralOfflineSigner,
+    signer: ICosmosGenericOfflineSigner,
     options: SignerOptions = {}
   ): Promise<SigningClient> {
     const signingClient = new SigningClient(
@@ -94,7 +94,7 @@ export class SigningClient {
     switch (this.offlineSigner.signMode) {
       case SIGN_MODE.DIRECT:
         signers = await DirectSigner.fromWalletToSigners(
-          this.offlineSigner as IDirectGeneralOfflineSigner,
+          this.offlineSigner as IDirectGenericOfflineSigner,
           this.encoders,
           this.endpoint,
           {
@@ -105,7 +105,7 @@ export class SigningClient {
 
       case SIGN_MODE.AMINO:
         signers = await AminoSigner.fromWalletToSigners(
-          this.offlineSigner as IAminoGeneralOfflineSigner,
+          this.offlineSigner as IAminoGenericOfflineSigner,
           this.encoders,
           this.converters,
           this.endpoint,

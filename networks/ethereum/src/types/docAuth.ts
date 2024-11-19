@@ -3,19 +3,19 @@ import {
   IKey,
   SignDocResponse,
 } from '@interchainjs/types';
-import { IEthereumGeneralOfflineSigner } from './wallet';
+import { IEthereumGenericOfflineSigner } from './wallet';
 import { TransactionRequest } from 'ethers';
 
-export class Eip712DocAuth extends BaseDocAuth<IEthereumGeneralOfflineSigner, TransactionRequest, unknown, string, string, string> {
+export class Eip712DocAuth extends BaseDocAuth<IEthereumGenericOfflineSigner, TransactionRequest, unknown, string, string, string> {
 
   constructor(
-    offlineSigner: IEthereumGeneralOfflineSigner,
+    offlineSigner: IEthereumGenericOfflineSigner,
     address: string,
   ) {
     super(offlineSigner, address);
   }
 
-  static async fromOfflineSigner(offlineSigner: IEthereumGeneralOfflineSigner) {
+  static async fromOfflineSigner(offlineSigner: IEthereumGenericOfflineSigner) {
     const [account] = await offlineSigner.getAccounts();
 
     return new Eip712DocAuth(

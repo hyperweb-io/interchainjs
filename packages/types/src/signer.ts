@@ -227,7 +227,7 @@ export class BaseSigner {
 }
 
 /**
- * SIGN_MODE for IGeneralOfflineSigner
+ * SIGN_MODE for IGenericOfflineSigner
  */
 export const SIGN_MODE = {
   /**
@@ -246,9 +246,9 @@ export const SIGN_MODE = {
 };
 
 /**
- * IGeneralOfflineSigner is an interface for offline signers.
+ * IGenericOfflineSigner is an interface for offline signers.
  */
-export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc>, TAcctData = AccountData > {
+export interface IGenericOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc>, TAcctData = AccountData > {
   /**
    * sign mode
    */

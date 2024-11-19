@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { EthereumGeneralOfflineSigner, IEthereumGeneralOfflineSigner } from "@interchainjs/ethereum/types/wallet";
+import { EthereumGenericOfflineSigner, IEthereumGenericOfflineSigner } from "@interchainjs/ethereum/types/wallet";
 import { Eip712Signer } from "@interchainjs/ethereum/signers/eip712";
 
 const ENDPOINT = 'http://127.0.0.1:8545';
@@ -9,7 +9,7 @@ describe('ETH Transfer Test', () => {
   let wallet0: ethers.Wallet;
   let wallet1: ethers.Wallet;
 
-  let offlineSigner1: IEthereumGeneralOfflineSigner;
+  let offlineSigner1: IEthereumGenericOfflineSigner;
   let eip712Signer: Eip712Signer;
 
   const privateKey0 = '0x0000000000000000000000000000000000000000000000000000000000000001';
@@ -24,7 +24,7 @@ describe('ETH Transfer Test', () => {
 
     wallet1 = new ethers.Wallet(privateKey1, provider); // only used to receive token
 
-    offlineSigner1 = new EthereumGeneralOfflineSigner(wallet0);
+    offlineSigner1 = new EthereumGenericOfflineSigner(wallet0);
 
     eip712Signer = await Eip712Signer.fromWallet(offlineSigner1, ENDPOINT);
   });

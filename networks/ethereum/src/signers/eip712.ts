@@ -2,7 +2,7 @@ import { IKey, SignDocResponse, SignResponse, BroadcastOptions, Auth, isDocAuth,
 import { JsonRpcProvider, Provider, TransactionRequest, TransactionResponse } from "ethers";
 import { UniEip712Signer } from "../types";
 import { Eip712DocAuth } from "../types/docAuth";
-import { IEthereumGeneralOfflineSigner } from "../types/wallet";
+import { IEthereumGenericOfflineSigner } from "../types/wallet";
 
 export class Eip712Signer implements UniEip712Signer {
   provider: Provider;
@@ -17,7 +17,7 @@ export class Eip712Signer implements UniEip712Signer {
    * if there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: IEthereumGeneralOfflineSigner,
+    signer: IEthereumGenericOfflineSigner,
     endpoint?: string,
   ) {
     const auth = await Eip712DocAuth.fromOfflineSigner(signer);

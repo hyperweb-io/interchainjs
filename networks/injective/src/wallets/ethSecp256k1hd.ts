@@ -10,7 +10,7 @@ import {
   ICosmosAccount,
   ICosmosWallet,
 } from '@interchainjs/cosmos/types';
-import { ICosmosGeneralOfflineSigner } from "@interchainjs/cosmos/types/wallet";
+import { ICosmosGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
 import { BaseCosmosWallet } from "@interchainjs/cosmos/base/base-wallet";
 import {
   AminoSignResponse,

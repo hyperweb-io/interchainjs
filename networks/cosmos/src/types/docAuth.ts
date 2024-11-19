@@ -8,13 +8,13 @@ import {
 } from '@interchainjs/types';
 import { Key } from '@interchainjs/utils';
 
-import { AminoSignResponse, DirectSignResponse, IAminoGeneralOfflineSigner, IDirectGeneralOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineAminoSigner, OfflineDirectSigner } from './wallet';
+import { AminoSignResponse, DirectSignResponse, IAminoGenericOfflineSigner, IDirectGenericOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineAminoSigner, OfflineDirectSigner } from './wallet';
 import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
 
 /**
  * a helper class to sign the StdSignDoc with Amino encoding using offline signer.
  */
-export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneralOfflineSigner, StdSignDoc> {
+export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGenericOfflineSigner, StdSignDoc> {
   getPublicKey(): IKey {
     return Key.from(this.pubkey);
   }
@@ -49,7 +49,7 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
     });
   }
 
-  static async fromGeneralOfflineSigner(offlineSigner: IAminoGeneralOfflineSigner) {
+  static async fromGenericOfflineSigner(offlineSigner: IAminoGenericOfflineSigner) {
     if(offlineSigner.signMode !== SIGN_MODE.AMINO) {
       throw new Error('not an amino general offline signer');
     }
@@ -75,7 +75,7 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
 /**
  * a helper class to sign the SignDoc with Direct encoding using offline signer.
  */
-export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGeneralOfflineSigner, SignDoc> {
+export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGenericOfflineSigner, SignDoc> {
   getPublicKey(): IKey {
     return Key.from(this.pubkey);
   }
@@ -112,7 +112,7 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGene
     });
   }
 
-  static async fromGeneralOfflineSigner(offlineSigner: IDirectGeneralOfflineSigner) {
+  static async fromGenericOfflineSigner(offlineSigner: IDirectGenericOfflineSigner) {
     if(offlineSigner.signMode !== SIGN_MODE.DIRECT) {
       throw new Error('not a direct general offline signer');
     }

@@ -14,7 +14,7 @@ import {
 import {
   AminoSignResponse,
   DirectSignResponse,
-  ICosmosGeneralOfflineSigner,
+  ICosmosGenericOfflineSigner,
   OfflineAminoSigner,
   OfflineDirectSigner,
   WalletOptions,
