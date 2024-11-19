@@ -23,7 +23,7 @@
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
-    "test:devnet": "npx jest --preset ts-jest devnet/__tests__/send.test.ts"
+    "test:devnet": "npx jest --preset ts-jest devnet/__tests__/send.icjs.test.ts"
   },
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",

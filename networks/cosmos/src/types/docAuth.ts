@@ -41,10 +41,10 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
 
     return accounts.map((account) => {
       return new AminoDocAuth(
-        account.algo,
+        offlineSigner,
         account.address,
+        account.algo,
         account.pubkey,
-        offlineSigner
       );
     });
   }
@@ -58,15 +58,15 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
 
     return accounts.map((account) => {
       return new AminoDocAuth(
-        account.algo,
-        account.address,
-        account.pubkey,
         {
           getAccounts: offlineSigner.getAccounts,
           signAmino(signerAddress: string, signDoc: CosmosAminoDoc) {
             return offlineSigner.sign({ signerAddress, signDoc }) as Promise<AminoSignResponse>;
           }
-        }
+        },
+        account.address,
+        account.algo,
+        account.pubkey,
       );
     });
   }
@@ -104,10 +104,10 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGene
 
     return accounts.map((account) => {
       return new DirectDocAuth(
-        account.algo,
+        offlineSigner,
         account.address,
+        account.algo,
         account.pubkey,
-        offlineSigner
       );
     });
   }
@@ -121,15 +121,15 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGene
 
     return accounts.map((account) => {
       return new DirectDocAuth(
-        account.algo,
-        account.address,
-        account.pubkey,
         {
           getAccounts: offlineSigner.getAccounts,
           signDirect(signerAddress: string, signDoc: CosmosDirectDoc) {
             return offlineSigner.sign({ signerAddress, signDoc }) as Promise<DirectSignResponse>;
           }
-        }
+        },
+        account.address,
+        account.algo,
+        account.pubkey,
       );
     });
   }

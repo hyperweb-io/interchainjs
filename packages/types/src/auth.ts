@@ -21,7 +21,7 @@ export interface Auth {
   /**
    * The algorithm of the authentication method.
    */
-  readonly algo: string;
+  readonly algo?: string;
   /**
    * The HD path of the authentication method.
    */
@@ -96,14 +96,11 @@ export interface AuthOptions {
  */
 export abstract class BaseDocAuth<TSigner, TDoc, TArgs = unknown, TAddr = string, TSig = IKey, TResp = SignDocResponse<TDoc, TSig>> implements DocAuth<TDoc, TArgs, TAddr, TSig, TResp> {
   constructor(
-    public readonly algo: string,
+    public readonly offlineSigner: TSigner,
     public readonly address: TAddr,
-    public readonly pubkey: Uint8Array,
-    public readonly offlineSigner: TSigner
+    public readonly algo?: string,
+    public readonly pubkey?: Uint8Array,
   ) {
-    this.algo = algo;
-    this.address = address;
-    this.pubkey = pubkey;
   }
 
   abstract getPublicKey(): IKey;

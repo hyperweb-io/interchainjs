@@ -1,7 +1,8 @@
-import { IKey, SignDocResponse, SignResponse, BroadcastOptions, Auth, isDocAuth } from "@interchainjs/types";
+import { IKey, SignDocResponse, SignResponse, BroadcastOptions, Auth, isDocAuth, HttpEndpoint } from "@interchainjs/types";
 import { JsonRpcProvider, Provider, TransactionRequest, TransactionResponse } from "ethers";
 import { UniEip712Signer } from "../types";
 import { Eip712DocAuth } from "../types/docAuth";
+import { IEthereumGeneralOfflineSigner } from "../types/wallet";
 
 export class Eip712Signer implements UniEip712Signer {
   provider: Provider;
@@ -10,6 +11,18 @@ export class Eip712Signer implements UniEip712Signer {
   constructor(auth: Auth, public endpoint: string) {
     this.provider = new JsonRpcProvider(endpoint);
     this.docAuth = auth as Eip712DocAuth;
+  }
+  /**
+   * create AminoSigner from wallet.
+   * if there're multiple accounts in the wallet, it will return the first one by default.
+   */
+  static async fromWallet(
+    signer: IEthereumGeneralOfflineSigner,
+    endpoint?: string,
+  ) {
+    const auth = await Eip712DocAuth.fromOfflineSigner(signer);
+
+    return new Eip712Signer(auth, endpoint);
   }
 
   async getAddress(): Promise<string> {
