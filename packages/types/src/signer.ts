@@ -99,12 +99,12 @@ export interface CreateDocResponse<Tx, Doc> {
 /**
  * the response after signing a document.
  */
-export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }>
+export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }, BroadcastOpts = BroadcastOptions>
   extends CreateDocResponse<Tx, Doc> {
   /**
    * broadcast the transaction.
    */
-  broadcast: (options?: BroadcastOptions) => Promise<BroadcastResponse>;
+  broadcast: (options?: BroadcastOpts) => Promise<BroadcastResponse>;
 }
 
 /**
@@ -136,13 +136,15 @@ export interface UniSigner<
   Doc,
   AddressResponse = string,
   BroadcastResponse = { hash: string },
+  BroadcastOpts = BroadcastOptions,
+  SignDocResp = SignDocResponse<Doc>
 > {
-  publicKey: IKey;
+  publicKey?: IKey;
 
   /**
    * to get printable address(es)
    */
-  getAddress(): AddressResponse;
+  getAddress(): Promise<AddressResponse>;
 
   /**
    * sign arbitrary data in bytes
@@ -151,34 +153,34 @@ export interface UniSigner<
   /**
    * sign document
    */
-  signDoc(doc: Doc): SignDocResponse<Doc> | Promise<SignDocResponse<Doc>>;
+  signDoc(doc: Doc): SignDocResp | Promise<SignDocResp>;
 
   /**
    * broadcast arbitrary data in bytes
    */
   broadcastArbitrary(
     data: Uint8Array,
-    options?: BroadcastOptions
+    options?: BroadcastOpts
   ): Promise<BroadcastResponse>;
 
   /**
    * build signed transaction document based on sign arguments.
    * @argument args - arguments for signing. e.g. messages, fee, memo, etc.
    */
-  sign(args: SignArgs): Promise<SignResponse<Tx, Doc, BroadcastResponse>>;
+  sign(args: SignArgs): Promise<SignResponse<Tx, Doc, BroadcastResponse, BroadcastOpts>>;
 
   /**
    * sign and broadcast transaction based on sign arguments.
    */
   signAndBroadcast(
     args: SignArgs,
-    options?: BroadcastOptions
+    options?: BroadcastOpts
   ): Promise<BroadcastResponse>;
 
   /**
    * broadcast a signed transaction.
    */
-  broadcast: (tx: Tx, options?: BroadcastOptions) => Promise<BroadcastResponse>;
+  broadcast(tx: Tx, options?: BroadcastOpts): Promise<BroadcastResponse>;
 }
 
 /**
@@ -225,7 +227,7 @@ export class BaseSigner {
 }
 
 /**
- * SIGN_MODE for IGeneralOfflineSigner
+ * SIGN_MODE for IGenericOfflineSigner
  */
 export const SIGN_MODE = {
   /**
@@ -236,12 +238,17 @@ export const SIGN_MODE = {
    * SIGN_MODE for (cosmos_)amino
    */
   AMINO: 'amino',
+
+  /**
+   * SIGN_MODE for ethereum_tx
+   */
+  ETHEREUM_TX: 'ethereum_tx',
 };
 
 /**
- * IGeneralOfflineSigner is an interface for offline signers.
+ * IGenericOfflineSigner is an interface for offline signers.
  */
-export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc> > {
+export interface IGenericOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc>, TAcctData = AccountData > {
   /**
    * sign mode
    */
@@ -251,7 +258,7 @@ export interface IGeneralOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = 
    * get accounts
    * @returns a list of accounts
    */
-  getAccounts: () => Promise<readonly AccountData[]>;
+  getAccounts: () => Promise<readonly TAcctData[]>;
 
   /**
    * sign document

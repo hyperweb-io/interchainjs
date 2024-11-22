@@ -31,7 +31,7 @@ import { BigNumber } from 'bignumber.js';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { AminoGeneralOfflineSigner, OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
+import { AminoGenericOfflineSigner, OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { SIGN_MODE } from '@interchainjs/types';
 import { QueryClientImpl as BankQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.Query";
 import { QueryClientImpl as GovQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.Query";
@@ -117,7 +117,7 @@ describe('Governance tests for injective', () => {
 
     signingClient = await InjSigningClient.connectWithSigner(
       await getRpcEndpoint(),
-      new AminoGeneralOfflineSigner(aminoOfflineSigner),
+      new AminoGenericOfflineSigner(aminoOfflineSigner),
       {
         broadcast: {
           checkTx: true,

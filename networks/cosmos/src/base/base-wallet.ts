@@ -14,7 +14,7 @@ import {
 import {
   AminoSignResponse,
   DirectSignResponse,
-  ICosmosGeneralOfflineSigner,
+  ICosmosGenericOfflineSigner,
   OfflineAminoSigner,
   OfflineDirectSigner,
   WalletOptions,
@@ -145,7 +145,7 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
    * @param signMode sign mode. (direct or amino)
    * @returns general offline signer for direct or amino
    */
-  toGeneralOfflineSigner(signMode: string): ICosmosGeneralOfflineSigner {
+  toGenericOfflineSigner(signMode: string): ICosmosGenericOfflineSigner {
     switch (signMode) {
       case SIGN_MODE.DIRECT:
         return {

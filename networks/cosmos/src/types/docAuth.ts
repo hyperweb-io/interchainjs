@@ -1,5 +1,5 @@
 import {
-  DocAuth,
+  BaseDocAuth,
   IKey,
   SIGN_MODE,
   SignDoc,
@@ -8,34 +8,17 @@ import {
 } from '@interchainjs/types';
 import { Key } from '@interchainjs/utils';
 
-import { AminoSignResponse, DirectSignResponse, IAminoGeneralOfflineSigner, IDirectGeneralOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineAminoSigner, OfflineDirectSigner } from './wallet';
+import { AminoSignResponse, DirectSignResponse, IAminoGenericOfflineSigner, IDirectGenericOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineAminoSigner, OfflineDirectSigner } from './wallet';
 import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
-
-/**
- * Base class for Doc Auth.
- */
-export abstract class BaseDocAuth<TSigner, TDoc, TArgs = unknown, TAddr = string> implements DocAuth<TDoc, TArgs, TAddr> {
-  constructor(
-    public readonly algo: string,
-    public readonly address: TAddr,
-    public readonly pubkey: Uint8Array,
-    public readonly offlineSigner: TSigner
-  ) {
-    this.algo = algo;
-    this.address = address;
-    this.pubkey = pubkey;
-  }
-
-  getPublicKey(): IKey {
-    return Key.from(this.pubkey);
-  }
-  abstract signDoc(doc: TDoc, args?: TArgs): Promise<SignDocResponse<TDoc>>;
-}
 
 /**
  * a helper class to sign the StdSignDoc with Amino encoding using offline signer.
  */
-export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneralOfflineSigner, StdSignDoc> {
+export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGenericOfflineSigner, StdSignDoc> {
+  getPublicKey(): IKey {
+    return Key.from(this.pubkey);
+  }
+
   async signDoc(doc: StdSignDoc): Promise<SignDocResponse<StdSignDoc>> {
     let resp;
     if(isOfflineAminoSigner(this.offlineSigner)) {
@@ -58,15 +41,15 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
 
     return accounts.map((account) => {
       return new AminoDocAuth(
-        account.algo,
+        offlineSigner,
         account.address,
+        account.algo,
         account.pubkey,
-        offlineSigner
       );
     });
   }
 
-  static async fromGeneralOfflineSigner(offlineSigner: IAminoGeneralOfflineSigner) {
+  static async fromGenericOfflineSigner(offlineSigner: IAminoGenericOfflineSigner) {
     if(offlineSigner.signMode !== SIGN_MODE.AMINO) {
       throw new Error('not an amino general offline signer');
     }
@@ -75,15 +58,15 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
 
     return accounts.map((account) => {
       return new AminoDocAuth(
-        account.algo,
-        account.address,
-        account.pubkey,
         {
           getAccounts: offlineSigner.getAccounts,
           signAmino(signerAddress: string, signDoc: CosmosAminoDoc) {
             return offlineSigner.sign({ signerAddress, signDoc }) as Promise<AminoSignResponse>;
           }
-        }
+        },
+        account.address,
+        account.algo,
+        account.pubkey,
       );
     });
   }
@@ -92,7 +75,11 @@ export class AminoDocAuth extends BaseDocAuth<OfflineAminoSigner | IAminoGeneral
 /**
  * a helper class to sign the SignDoc with Direct encoding using offline signer.
  */
-export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGeneralOfflineSigner, SignDoc> {
+export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGenericOfflineSigner, SignDoc> {
+  getPublicKey(): IKey {
+    return Key.from(this.pubkey);
+  }
+
   async signDoc(doc: SignDoc): Promise<SignDocResponse<SignDoc>> {
     // let resp = await this.offlineSigner.signDirect(this.address, doc);
     let resp;
@@ -117,15 +104,15 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGene
 
     return accounts.map((account) => {
       return new DirectDocAuth(
-        account.algo,
+        offlineSigner,
         account.address,
+        account.algo,
         account.pubkey,
-        offlineSigner
       );
     });
   }
 
-  static async fromGeneralOfflineSigner(offlineSigner: IDirectGeneralOfflineSigner) {
+  static async fromGenericOfflineSigner(offlineSigner: IDirectGenericOfflineSigner) {
     if(offlineSigner.signMode !== SIGN_MODE.DIRECT) {
       throw new Error('not a direct general offline signer');
     }
@@ -134,15 +121,15 @@ export class DirectDocAuth extends BaseDocAuth<OfflineDirectSigner | IDirectGene
 
     return accounts.map((account) => {
       return new DirectDocAuth(
-        account.algo,
-        account.address,
-        account.pubkey,
         {
           getAccounts: offlineSigner.getAccounts,
           signDirect(signerAddress: string, signDoc: CosmosDirectDoc) {
             return offlineSigner.sign({ signerAddress, signDoc }) as Promise<DirectSignResponse>;
           }
-        }
+        },
+        account.address,
+        account.algo,
+        account.pubkey,
       );
     });
   }

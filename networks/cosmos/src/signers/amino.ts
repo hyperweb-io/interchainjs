@@ -12,7 +12,7 @@ import {
   SignerOptions,
 } from '../types';
 import { AminoDocAuth } from '../types/docAuth';
-import { IAminoGeneralOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
+import { IAminoGenericOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
 
 /**
  * AminoDocSigner is a signer for Amino document.
@@ -125,7 +125,7 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return the first one by default.
    */
   static async fromWallet(
-    signer: OfflineAminoSigner | IAminoGeneralOfflineSigner,
+    signer: OfflineAminoSigner | IAminoGenericOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -136,7 +136,7 @@ export class AminoSigner
     if(isOfflineAminoSigner(signer)){
       [auth] = await AminoDocAuth.fromOfflineSigner(signer);
     } else {
-      [auth] = await AminoDocAuth.fromGeneralOfflineSigner(signer);
+      [auth] = await AminoDocAuth.fromGenericOfflineSigner(signer);
     }
 
     return new AminoSigner(auth, encoders, converters, endpoint, options);
@@ -147,7 +147,7 @@ export class AminoSigner
    * if there're multiple accounts in the wallet, it will return all of the signers.
    */
   static async fromWalletToSigners(
-    signer: OfflineAminoSigner | IAminoGeneralOfflineSigner,
+    signer: OfflineAminoSigner | IAminoGenericOfflineSigner,
     encoders: Encoder[],
     converters: AminoConverter[],
     endpoint?: string | HttpEndpoint,
@@ -158,7 +158,7 @@ export class AminoSigner
     if(isOfflineAminoSigner(signer)) {
       auths = await AminoDocAuth.fromOfflineSigner(signer);
     } else {
-      auths = await AminoDocAuth.fromGeneralOfflineSigner(signer);
+      auths = await AminoDocAuth.fromGenericOfflineSigner(signer);
     }
 
     return auths.map((auth) => {

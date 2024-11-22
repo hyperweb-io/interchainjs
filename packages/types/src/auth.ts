@@ -21,7 +21,7 @@ export interface Auth {
   /**
    * The algorithm of the authentication method.
    */
-  readonly algo: string;
+  readonly algo?: string;
   /**
    * The HD path of the authentication method.
    */
@@ -67,9 +67,9 @@ export function isByteAuth<Sig>(auth: Auth): auth is ByteAuth<Sig> {
  * @template TArgs The type of the args.
  * @template TAddr The type of the address.
  */
-export interface DocAuth<TDoc, TArgs = unknown, TAddr = string> extends Auth {
+export interface DocAuth<TDoc, TArgs = unknown, TAddr = string, TSig = IKey, TResp = SignDocResponse<TDoc, TSig>> extends Auth {
   address: TAddr;
-  signDoc(doc: TDoc, args?: TArgs): SignDocResponse<TDoc> | Promise<SignDocResponse<TDoc>>;
+  signDoc(doc: TDoc, args?: TArgs): TResp | Promise<TResp>;
 }
 
 /**
@@ -89,6 +89,22 @@ export interface AuthOptions {
    * The password for the BIP39 mnemonic.
    */
   bip39Password?: string;
+}
+
+/**
+ * Base class for Doc Auth.
+ */
+export abstract class BaseDocAuth<TSigner, TDoc, TArgs = unknown, TAddr = string, TSig = IKey, TResp = SignDocResponse<TDoc, TSig>> implements DocAuth<TDoc, TArgs, TAddr, TSig, TResp> {
+  constructor(
+    public readonly offlineSigner: TSigner,
+    public readonly address: TAddr,
+    public readonly algo?: string,
+    public readonly pubkey?: Uint8Array,
+  ) {
+  }
+
+  abstract getPublicKey(): IKey;
+  abstract signDoc(doc: TDoc, args?: TArgs): Promise<TResp>;
 }
 
 /**
@@ -126,6 +142,6 @@ export interface IAccount<TAddr = string> {
  */
 export interface AccountData {
   address: string;
-  algo: Algo;
-  pubkey: Uint8Array;
+  algo?: Algo;
+  pubkey?: Uint8Array;
 }

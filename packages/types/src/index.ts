@@ -6,3 +6,4 @@ export * from './signer';
 export * from './telescope';
 export * from './wallet';
 export * from './tx-builder';
+export * from './rpc';
