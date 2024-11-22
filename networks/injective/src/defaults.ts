@@ -11,15 +11,18 @@ import { toDecoder } from '@interchainjs/cosmos/utils';
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
 import { PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys';
 import { EthAccount } from '@interchainjs/cosmos-types/injective/types/v1beta1/account';
-import { defaultSignerConfig as EthereumSignerConfig } from '@interchainjs/ethereum/defaults';
 import { Eip712Doc } from '@interchainjs/ethereum/types';
 import { IKey, SignerConfig } from '@interchainjs/types';
 
 import { DomainOptions, EthereumChainId } from './types';
+import { bytes as assertBytes } from '@noble/hashes/_assert';
+import { keccak_256 } from '@noble/hashes/sha3';
+import { computeAddress } from '@ethersproject/transactions';
+import { Key } from '@interchainjs/utils';
 
 export const defaultPublicKeyConfig: SignerConfig['publicKey'] = {
   isCompressed: CosmosSignerConfig.publicKey.isCompressed,
-  hash: EthereumSignerConfig.publicKey.hash,
+  hash: (publicKey: Key) => Key.fromHex(computeAddress(publicKey.value))
 };
 
 export const defaultEncodePublicKey = (key: IKey): EncodedMessage => {
@@ -50,7 +53,11 @@ export const defaultSignerOptions: Record<string, Required<SignerOptions>> = {
     ...CosmosSignerConfig,
     message: {
       ...CosmosSignerConfig.message,
-      hash: EthereumSignerConfig.message.hash,
+      hash: (message: Uint8Array) => {
+        const hashed = keccak_256(message);
+        assertBytes(hashed);
+        return hashed;
+      },
     },
     publicKey: defaultPublicKeyConfig,
     encodePublicKey: defaultEncodePublicKey,
@@ -58,7 +65,13 @@ export const defaultSignerOptions: Record<string, Required<SignerOptions>> = {
     prefix: 'inj',
   },
   Ethereum: {
-    ...EthereumSignerConfig,
+    message: {
+      hash: (message: Uint8Array) => {
+        const hashed = keccak_256(message);
+        assertBytes(hashed);
+        return hashed;
+      },
+    },
     publicKey: defaultPublicKeyConfig,
     encodePublicKey: defaultEncodePublicKey,
     parseAccount: defaultAccountParser,
