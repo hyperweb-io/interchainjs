@@ -12,7 +12,6 @@
    <a href="https://github.com/cosmology-tech/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
-
 Transaction codec and client to communicate with ethereum blockchain.
 
 ## Usage
@@ -23,7 +22,7 @@ npm install @interchainjs/ethereum
 
 ## Implementations
 
-- **eip712 signer** from `@interchainjs/ethereum/eip712` (Not fully implemented yet)
+- **eip712 signer** from `@interchainjs/ethereum/eip712`
 
 ## License
 
