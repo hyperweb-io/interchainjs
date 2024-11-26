@@ -59,7 +59,7 @@ const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
 ## Implementations
 
 - **secp256k1 auth** from `@interchainjs/auth/secp256k1`
-- **ethSecp256k1 auth** from `@interchainjs/auth/ethSecp256k1` (`Not fully implemented yet`)
+- **ethSecp256k1 auth** from `@interchainjs/auth/ethSecp256k1`
 
 ## License
 
