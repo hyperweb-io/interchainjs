@@ -1,5 +1,5 @@
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
-import { AccountData, AddrDerivation, Auth, IGeneralOfflineSignArgs, SIGN_MODE, SignerConfig } from '@interchainjs/types';
+import { AccountData, AddrDerivation, Auth, IGenericOfflineSignArgs, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
 import { defaultSignerOptions } from '../defaults';
