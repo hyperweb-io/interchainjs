@@ -15,7 +15,7 @@
     "libs/*"
   ],
   "scripts": {
-    "codegen": "telescope transpile --config ./scripts/interchainjs.telescope.json",
+    "codegen": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-query.telescope.json",
     "codegen:types": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
     "proto": "telescope download --config ./scripts/.protod.config.json",
     "test": "lerna run test --stream",
