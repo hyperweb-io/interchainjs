@@ -38,7 +38,6 @@ graph LR
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
-    injective_signer --> injective_eip712["EIP712 Signer"]
 
     implement_signer --> any_signer["Any Signer"]
 
@@ -61,6 +60,10 @@ graph LR
     style auth fill:#ccf,stroke:#333,stroke-width:2px
     style utils fill:#ccf,stroke:#333,stroke-width:2px
 ```
+
+## Tutorial for building a custom signer
+
+- [Tutorial](/docs/tutorial.md)
 
 ## Auth
 
