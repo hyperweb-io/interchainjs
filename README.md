@@ -14,8 +14,6 @@
 
 A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any web3 network.
 
-⚠️ **This software is currently in a Development Preview Alpha stage.** It is not ready for production use. The features and functionality are subject to change, and there may be significant issues. We welcome feedback and contributions, but please use with caution and at your own risk.
-
 - [Advanced Docs](/docs/)
 
 ## Overview
