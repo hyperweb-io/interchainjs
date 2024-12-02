@@ -60,7 +60,7 @@
         },
         "helperFuncCreators": {
           "enabled": true,
-          "genCustomHooks": true
+          "genCustomHooks": false
         },
         "interfaces": {
             "enabled": true,

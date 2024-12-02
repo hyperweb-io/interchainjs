@@ -2,7 +2,7 @@
   "protoDirs": [
     "./protos"
   ],
-  "outPath": "./libs/interchainjs/src",
+  "outPath": "./libs/interchain-query/src",
   "options": {
     "classesUseArrowFunctions": true,
     "env": "v-next",

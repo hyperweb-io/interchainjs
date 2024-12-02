@@ -1,0 +1,55 @@
+{
+  "name": "interchain-query",
+  "version": "0.0.1-beta.36",
+  "description": "InterchainJS is a JavaScript library providing react query hooks for interacting with Cosmos SDK based blockchains.",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "author": "Cosmology <developers@cosmology.zone>",
+  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cosmology-tech/interchainjs"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix",
+    "starship": "starship --config ./starship/configs/config.yaml",
+    "starship:local": "starship --config ./starship/configs/config.local.yaml",
+    "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
+    "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
+    "starship:watch": "jest --watch --config ./jest.starship.config.js",
+    "starship:all": "yarn starship start",
+    "starship:clean": "yarn starship stop",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@interchainjs/cosmos": "^0.0.1-beta.34",
+    "@interchainjs/cosmos-types": "^0.0.1-beta.34",
+    "@interchainjs/types": "^0.0.1-beta.34",
+    "@interchainjs/utils": "^0.0.1-beta.34",
+    "@noble/hashes": "^1.3.1",
+    "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "4.29.1"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "4.29.1"
+  },
+  "keywords": [
+    "cosmos",
+    "blockchain",
+    "transaction",
+    "cosmjs",
+    "wallet"
+  ]
+}
