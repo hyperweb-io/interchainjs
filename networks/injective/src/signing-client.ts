@@ -1,5 +1,5 @@
 import { IAminoGenericOfflineSigner, IDirectGenericOfflineSigner, isOfflineAminoSigner, isOfflineDirectSigner, OfflineSigner } from "@interchainjs/cosmos/types/wallet";
-import { HttpEndpoint, IGenericOfflineSigner, SIGN_MODE } from "@interchainjs/types";
+import { HttpEndpoint, SIGN_MODE } from "@interchainjs/types";
 import { SigningClient } from "@interchainjs/cosmos/signing-client"
 import { SignerOptions } from "@interchainjs/cosmos/types/signing-client";
 import { RpcClient } from '@interchainjs/cosmos/query/rpc';

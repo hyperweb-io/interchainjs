@@ -1,5 +1,5 @@
 import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { AccountData, AddrDerivation, Auth, SignerConfig, SIGN_MODE, IGeneralOfflineSignArgs, IDocSigner } from '@interchainjs/types';
+import { AccountData, AddrDerivation, Auth, SignerConfig, SIGN_MODE, IGenericOfflineSignArgs, IDocSigner } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
 import { defaultSignerConfig } from '../defaults';
@@ -151,14 +151,14 @@ implements ICosmosWallet, OfflineAminoSigner, OfflineDirectSigner
         return {
           signMode: signMode,
           getAccounts: async () => this.getAccounts(),
-          sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosDirectDoc>) =>
+          sign: async ({ signerAddress, signDoc }: IGenericOfflineSignArgs<string, CosmosDirectDoc>) =>
             this.signDirect(signerAddress, signDoc),
         };
       case SIGN_MODE.AMINO:
         return {
           signMode: signMode,
           getAccounts: async () => this.getAccounts(),
-          sign: async ({ signerAddress, signDoc }: IGeneralOfflineSignArgs<string, CosmosAminoDoc>) =>
+          sign: async ({ signerAddress, signDoc }: IGenericOfflineSignArgs<string, CosmosAminoDoc>) =>
             this.signAmino(signerAddress, signDoc),
         }
 

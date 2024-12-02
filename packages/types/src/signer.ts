@@ -129,6 +129,8 @@ export interface IDocSigner<TDoc, TArgs = unknown, TResp = SignDocResponse<TDoc>
  * @template Doc - sign doc type
  * @template AddressResponse - address type
  * @template BroadcastResponse - response type after broadcasting a transaction
+ * @template BroadcastOpts - options for broadcasting a transaction
+ * @template SignDocResp - response type after signing a document
  */
 export interface UniSigner<
   SignArgs,
@@ -248,7 +250,7 @@ export const SIGN_MODE = {
 /**
  * IGenericOfflineSigner is an interface for offline signers.
  */
-export interface IGenericOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGeneralOfflineSignArgs<TAddr, TDoc>, TAcctData = AccountData > {
+export interface IGenericOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = unknown, TSignArgs = IGenericOfflineSignArgs<TAddr, TDoc>, TAcctData = AccountData > {
   /**
    * sign mode
    */
@@ -271,7 +273,7 @@ export interface IGenericOfflineSigner<TAddr = unknown, TDoc = unknown, TResp = 
   ) => Promise<TResp>;
 }
 
-export interface IGeneralOfflineSignArgs<TAddr = unknown, TDoc = unknown> {
+export interface IGenericOfflineSignArgs<TAddr = unknown, TDoc = unknown> {
   signerAddress: TAddr;
   signDoc: TDoc;
 }
