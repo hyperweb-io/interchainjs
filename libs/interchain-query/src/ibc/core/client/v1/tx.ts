@@ -37,13 +37,17 @@ export interface MsgCreateClientAminoMsg {
   value: MsgCreateClientAmino;
 }
 /** MsgCreateClientResponse defines the Msg/CreateClient response type. */
-export interface MsgCreateClientResponse {}
+export interface MsgCreateClientResponse {
+  clientId: string;
+}
 export interface MsgCreateClientResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgCreateClientResponse";
   value: Uint8Array;
 }
 /** MsgCreateClientResponse defines the Msg/CreateClient response type. */
-export interface MsgCreateClientResponseAmino {}
+export interface MsgCreateClientResponseAmino {
+  client_id: string;
+}
 export interface MsgCreateClientResponseAminoMsg {
   type: "cosmos-sdk/MsgCreateClientResponse";
   value: MsgCreateClientResponseAmino;
@@ -451,18 +455,23 @@ export const MsgCreateClient = {
 GlobalDecoderRegistry.register(MsgCreateClient.typeUrl, MsgCreateClient);
 GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateClient.aminoType, MsgCreateClient.typeUrl);
 function createBaseMsgCreateClientResponse(): MsgCreateClientResponse {
-  return {};
+  return {
+    clientId: ""
+  };
 }
 export const MsgCreateClientResponse = {
   typeUrl: "/ibc.core.client.v1.MsgCreateClientResponse",
   aminoType: "cosmos-sdk/MsgCreateClientResponse",
   is(o: any): o is MsgCreateClientResponse {
-    return o && o.$typeUrl === MsgCreateClientResponse.typeUrl;
+    return o && (o.$typeUrl === MsgCreateClientResponse.typeUrl || typeof o.clientId === "string");
   },
   isAmino(o: any): o is MsgCreateClientResponseAmino {
-    return o && o.$typeUrl === MsgCreateClientResponse.typeUrl;
+    return o && (o.$typeUrl === MsgCreateClientResponse.typeUrl || typeof o.client_id === "string");
   },
-  encode(_: MsgCreateClientResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: MsgCreateClientResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.clientId !== "") {
+      writer.uint32(10).string(message.clientId);
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateClientResponse {
@@ -472,6 +481,9 @@ export const MsgCreateClientResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.clientId = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -479,16 +491,21 @@ export const MsgCreateClientResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgCreateClientResponse>): MsgCreateClientResponse {
+  fromPartial(object: DeepPartial<MsgCreateClientResponse>): MsgCreateClientResponse {
     const message = createBaseMsgCreateClientResponse();
+    message.clientId = object.clientId ?? "";
     return message;
   },
-  fromAmino(_: MsgCreateClientResponseAmino): MsgCreateClientResponse {
+  fromAmino(object: MsgCreateClientResponseAmino): MsgCreateClientResponse {
     const message = createBaseMsgCreateClientResponse();
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
     return message;
   },
-  toAmino(_: MsgCreateClientResponse): MsgCreateClientResponseAmino {
+  toAmino(message: MsgCreateClientResponse): MsgCreateClientResponseAmino {
     const obj: any = {};
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
     return obj;
   },
   fromAminoMsg(object: MsgCreateClientResponseAminoMsg): MsgCreateClientResponse {

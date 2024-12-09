@@ -1,6 +1,6 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
 import { buildUseQuery } from "../../../react-query";
-import { QueryContractInfoRequest, QueryContractInfoResponse, QueryContractHistoryRequest, QueryContractHistoryResponse, QueryContractsByCodeRequest, QueryContractsByCodeResponse, QueryAllContractStateRequest, QueryAllContractStateResponse, QueryRawContractStateRequest, QueryRawContractStateResponse, QuerySmartContractStateRequest, QuerySmartContractStateResponse, QueryCodeRequest, QueryCodeResponse, QueryCodesRequest, QueryCodesResponse, QueryPinnedCodesRequest, QueryPinnedCodesResponse, QueryParamsRequest, QueryParamsResponse, QueryContractsByCreatorRequest, QueryContractsByCreatorResponse, QueryBuildAddressRequest, QueryBuildAddressResponse } from "./query";
+import { QueryContractInfoRequest, QueryContractInfoResponse, QueryContractHistoryRequest, QueryContractHistoryResponse, QueryContractsByCodeRequest, QueryContractsByCodeResponse, QueryAllContractStateRequest, QueryAllContractStateResponse, QueryRawContractStateRequest, QueryRawContractStateResponse, QuerySmartContractStateRequest, QuerySmartContractStateResponse, QueryCodeRequest, QueryCodeResponse, QueryCodesRequest, QueryCodesResponse, QueryCodeInfoRequest, QueryCodeInfoResponse, QueryPinnedCodesRequest, QueryPinnedCodesResponse, QueryParamsRequest, QueryParamsResponse, QueryContractsByCreatorRequest, QueryContractsByCreatorResponse, QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse, QueryBuildAddressRequest, QueryBuildAddressResponse } from "./query";
 export const createGetContractInfo = (clientResolver?: RpcResolver) => buildQuery<QueryContractInfoRequest, QueryContractInfoResponse>({
   encode: QueryContractInfoRequest.encode,
   decode: QueryContractInfoResponse.decode,
@@ -89,6 +89,17 @@ export const useGetCodes = buildUseQuery<QueryCodesRequest, QueryCodesResponse>(
   builderQueryFn: createGetCodes,
   queryKeyPrefix: "CodesQuery"
 });
+export const createGetCodeInfo = (clientResolver?: RpcResolver) => buildQuery<QueryCodeInfoRequest, QueryCodeInfoResponse>({
+  encode: QueryCodeInfoRequest.encode,
+  decode: QueryCodeInfoResponse.decode,
+  service: "cosmwasm.wasm.v1.Query",
+  method: "CodeInfo",
+  clientResolver
+});
+export const useGetCodeInfo = buildUseQuery<QueryCodeInfoRequest, QueryCodeInfoResponse>({
+  builderQueryFn: createGetCodeInfo,
+  queryKeyPrefix: "CodeInfoQuery"
+});
 export const createGetPinnedCodes = (clientResolver?: RpcResolver) => buildQuery<QueryPinnedCodesRequest, QueryPinnedCodesResponse>({
   encode: QueryPinnedCodesRequest.encode,
   decode: QueryPinnedCodesResponse.decode,
@@ -121,6 +132,17 @@ export const createGetContractsByCreator = (clientResolver?: RpcResolver) => bui
 export const useGetContractsByCreator = buildUseQuery<QueryContractsByCreatorRequest, QueryContractsByCreatorResponse>({
   builderQueryFn: createGetContractsByCreator,
   queryKeyPrefix: "ContractsByCreatorQuery"
+});
+export const createGetWasmLimitsConfig = (clientResolver?: RpcResolver) => buildQuery<QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse>({
+  encode: QueryWasmLimitsConfigRequest.encode,
+  decode: QueryWasmLimitsConfigResponse.decode,
+  service: "cosmwasm.wasm.v1.Query",
+  method: "WasmLimitsConfig",
+  clientResolver
+});
+export const useGetWasmLimitsConfig = buildUseQuery<QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse>({
+  builderQueryFn: createGetWasmLimitsConfig,
+  queryKeyPrefix: "WasmLimitsConfigQuery"
 });
 export const createGetBuildAddress = (clientResolver?: RpcResolver) => buildQuery<QueryBuildAddressRequest, QueryBuildAddressResponse>({
   encode: QueryBuildAddressRequest.encode,

@@ -1,5 +1,6 @@
 import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../../core/client/v1/client";
+import { Forwarding, ForwardingAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
@@ -34,6 +35,8 @@ export interface MsgTransfer {
   memo: string;
   /** tokens to be transferred */
   tokens: Coin[];
+  /** optional forwarding information */
+  forwarding?: Forwarding;
 }
 export interface MsgTransferProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.MsgTransfer";
@@ -70,6 +73,8 @@ export interface MsgTransferAmino {
   memo: string;
   /** tokens to be transferred */
   tokens: CoinAmino[];
+  /** optional forwarding information */
+  forwarding?: ForwardingAmino;
 }
 export interface MsgTransferAminoMsg {
   type: "cosmos-sdk/MsgTransfer";
@@ -151,7 +156,8 @@ function createBaseMsgTransfer(): MsgTransfer {
     timeoutHeight: Height.fromPartial({}),
     timeoutTimestamp: BigInt(0),
     memo: "",
-    tokens: []
+    tokens: [],
+    forwarding: undefined
   };
 }
 export const MsgTransfer = {
@@ -191,6 +197,9 @@ export const MsgTransfer = {
     for (const v of message.tokens) {
       Coin.encode(v!, writer.uint32(74).fork()).ldelim();
     }
+    if (message.forwarding !== undefined) {
+      Forwarding.encode(message.forwarding, writer.uint32(82).fork()).ldelim();
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgTransfer {
@@ -227,6 +236,9 @@ export const MsgTransfer = {
         case 9:
           message.tokens.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 10:
+          message.forwarding = Forwarding.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -245,6 +257,7 @@ export const MsgTransfer = {
     message.timeoutTimestamp = object.timeoutTimestamp !== undefined && object.timeoutTimestamp !== null ? BigInt(object.timeoutTimestamp.toString()) : BigInt(0);
     message.memo = object.memo ?? "";
     message.tokens = object.tokens?.map(e => Coin.fromPartial(e)) || [];
+    message.forwarding = object.forwarding !== undefined && object.forwarding !== null ? Forwarding.fromPartial(object.forwarding) : undefined;
     return message;
   },
   fromAmino(object: MsgTransferAmino): MsgTransfer {
@@ -274,6 +287,9 @@ export const MsgTransfer = {
       message.memo = object.memo;
     }
     message.tokens = object.tokens?.map(e => Coin.fromAmino(e)) || [];
+    if (object.forwarding !== undefined && object.forwarding !== null) {
+      message.forwarding = Forwarding.fromAmino(object.forwarding);
+    }
     return message;
   },
   toAmino(message: MsgTransfer): MsgTransferAmino {
@@ -291,6 +307,7 @@ export const MsgTransfer = {
     } else {
       obj.tokens = message.tokens;
     }
+    obj.forwarding = message.forwarding ? Forwarding.toAmino(message.forwarding) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgTransferAminoMsg): MsgTransfer {
