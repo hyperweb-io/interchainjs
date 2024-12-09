@@ -15,9 +15,11 @@
     "libs/*"
   ],
   "scripts": {
-    "codegen": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-query.telescope.json",
+    "codegen": "yarn codegen:ic && yarn codegen:inj",
+    "codegen:ic": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-query.telescope.json",
+    "codegen:inj": "telescope transpile --config ./scripts/inj.telescope.json && telescope transpile --config ./scripts/inj-query.telescope.json",
     "codegen:types": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
-    "proto": "telescope download --config ./scripts/.protod.config.json",
+    "proto": "telescope download --config ./scripts/.protod.config.json && telescope download --config ./scripts/.injective.protod.config.json",
     "test": "lerna run test --stream",
     "clean": "lerna run clean",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
@@ -32,7 +34,7 @@
     "@chain-registry/client": "1.18.1",
     "@confio/relayer": "^0.12.0",
     "@cosmjs/crypto": "^0.32.2",
-    "@cosmology/telescope": "^1.10.8",
+    "@cosmology/telescope": "^1.10.10",
     "@injectivelabs/networks": "^1.14.13",
     "@injectivelabs/sdk-ts": "^1.14.13",
     "@injectivelabs/wallet-ts": "^1.14.13",
