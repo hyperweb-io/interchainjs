@@ -762,13 +762,13 @@ export interface MsgChannelUpgradeTimeoutAminoMsg {
   type: "cosmos-sdk/MsgChannelUpgradeTimeout";
   value: MsgChannelUpgradeTimeoutAmino;
 }
-/** MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type */
+/** MsgChannelUpgradeTimeoutResponse defines the MsgChannelUpgradeTimeout response type */
 export interface MsgChannelUpgradeTimeoutResponse {}
 export interface MsgChannelUpgradeTimeoutResponseProtoMsg {
   typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeTimeoutResponse";
   value: Uint8Array;
 }
-/** MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type */
+/** MsgChannelUpgradeTimeoutResponse defines the MsgChannelUpgradeTimeout response type */
 export interface MsgChannelUpgradeTimeoutResponseAmino {}
 export interface MsgChannelUpgradeTimeoutResponseAminoMsg {
   type: "cosmos-sdk/MsgChannelUpgradeTimeoutResponse";

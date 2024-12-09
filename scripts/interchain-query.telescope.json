@@ -1,6 +1,6 @@
 {
     "protoDirs": [
-        "./protos"
+        "./protos/interchainjs"
     ],
     "outPath": "./libs/interchain-query/src",
     "options": {

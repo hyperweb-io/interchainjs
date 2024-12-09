@@ -61,6 +61,8 @@ export interface MsgConnectionOpenTry {
   /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
   /** @deprecated */
   previousConnectionId: string;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   clientState?: Any;
   counterparty: Counterparty;
   delayPeriod: bigint;
@@ -71,13 +73,18 @@ export interface MsgConnectionOpenTry {
    * INIT`
    */
   proofInit: Uint8Array;
-  /** proof of client state included in message */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proofClient: Uint8Array;
-  /** proof of client consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proofConsensus: Uint8Array;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   consensusHeight: Height;
   signer: string;
-  /** optional proof data for host state machines that are unable to introspect their own consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   hostConsensusStateProof: Uint8Array;
 }
 export interface MsgConnectionOpenTryProtoMsg {
@@ -93,6 +100,8 @@ export interface MsgConnectionOpenTryAmino {
   /** Deprecated: this field is unused. Crossing hellos are no longer supported in core IBC. */
   /** @deprecated */
   previous_connection_id: string;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   client_state?: AnyAmino;
   counterparty: CounterpartyAmino;
   delay_period: string;
@@ -103,13 +112,18 @@ export interface MsgConnectionOpenTryAmino {
    * INIT`
    */
   proof_init: string;
-  /** proof of client state included in message */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proof_client: string;
-  /** proof of client consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proof_consensus: string;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   consensus_height: HeightAmino;
   signer: string;
-  /** optional proof data for host state machines that are unable to introspect their own consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   host_consensus_state_proof: string;
 }
 export interface MsgConnectionOpenTryAminoMsg {
@@ -136,6 +150,8 @@ export interface MsgConnectionOpenAck {
   connectionId: string;
   counterpartyConnectionId: string;
   version?: Version;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   clientState?: Any;
   proofHeight: Height;
   /**
@@ -143,13 +159,18 @@ export interface MsgConnectionOpenAck {
    * TRYOPEN`
    */
   proofTry: Uint8Array;
-  /** proof of client state included in message */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proofClient: Uint8Array;
-  /** proof of client consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proofConsensus: Uint8Array;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   consensusHeight: Height;
   signer: string;
-  /** optional proof data for host state machines that are unable to introspect their own consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   hostConsensusStateProof: Uint8Array;
 }
 export interface MsgConnectionOpenAckProtoMsg {
@@ -164,6 +185,8 @@ export interface MsgConnectionOpenAckAmino {
   connection_id: string;
   counterparty_connection_id: string;
   version?: VersionAmino;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   client_state?: AnyAmino;
   proof_height: HeightAmino;
   /**
@@ -171,13 +194,18 @@ export interface MsgConnectionOpenAckAmino {
    * TRYOPEN`
    */
   proof_try: string;
-  /** proof of client state included in message */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proof_client: string;
-  /** proof of client consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   proof_consensus: string;
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   consensus_height: HeightAmino;
   signer: string;
-  /** optional proof data for host state machines that are unable to introspect their own consensus state */
+  /** Deprecated: this field is unused. */
+  /** @deprecated */
   host_consensus_state_proof: string;
 }
 export interface MsgConnectionOpenAckAminoMsg {

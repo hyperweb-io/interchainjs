@@ -1,8 +1,8 @@
 {
   "protoDirs": [
-    "./protos"
+    "./protos/injectivejs"
   ],
-  "outPath": "./libs/interchain-query/src",
+  "outPath": "./libs/injectivejs/src",
   "options": {
     "classesUseArrowFunctions": true,
     "env": "v-next",
@@ -60,7 +60,7 @@
     },
     "helperFuncCreators": {
       "enabled": true,
-      "genCustomHooks": true
+      "genCustomHooks": false
     },
     "interfaces": {
       "enabled": true,
