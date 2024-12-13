@@ -25,8 +25,7 @@
     "lint": "eslint . --fix",
     "test:devnet": "npx jest --preset ts-jest devnet/__tests__/send.icjs.test.ts",
     "test:ethers": "npx jest --preset ts-jest devnet/__tests__/ethers.test.ts",
-    "run-ganache": "bash devnet/run-ganache.sh",
-    "deploy:usdt": "ts-node contracts/usdt/deploy.ts"
+    "run-ganache": "bash devnet/run-ganache.sh"
   },
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",
