@@ -16,7 +16,8 @@ import { HDPath } from '@interchainjs/types';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { QueryClientImpl as BankQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.Query";
+import { createGetAllBalances, createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -26,7 +27,8 @@ describe('Token transfers', () => {
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
-  let queryClient: BankQueryClientImpl;
+
+  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
@@ -49,7 +51,7 @@ describe('Token transfers', () => {
     address2 = await directSigner2.getAddress();
 
     // Create custom cosmos interchain client
-    queryClient = new BankQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
+    getBalance = createGetBalance(createQueryRpc(await getRpcEndpoint()));
 
     await creditFromFaucet(address);
   });
@@ -90,7 +92,7 @@ describe('Token transfers', () => {
       { deliverTx: true }
     );
 
-    const { balance } = await queryClient.balance({ address: address2, denom });
+    const { balance } = await getBalance({ address: address2, denom });
 
     expect(balance!.amount).toEqual(token.amount);
     expect(balance!.denom).toEqual(denom);
@@ -173,9 +175,9 @@ describe('Token transfers', () => {
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
     // Check osmos in address on cosmos chain
-    const cosmosQueryClient = new BankQueryClientImpl(createQueryRpc(await cosmosRpcEndpoint()));
+    const cosmosGetAllBalances = createGetAllBalances(createQueryRpc(await cosmosRpcEndpoint()));
 
-    const { balances } = await cosmosQueryClient.allBalances({
+    const { balances } = await cosmosGetAllBalances({
       address: cosmosAddress,
       resolveDenom: true,
     });
