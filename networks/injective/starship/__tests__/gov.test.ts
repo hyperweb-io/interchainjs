@@ -33,9 +33,13 @@ import { useChain } from 'starshipjs';
 import { generateMnemonic } from '../src';
 import { AminoGenericOfflineSigner, OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { SIGN_MODE } from '@interchainjs/types';
-import { QueryClientImpl as BankQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.Query";
-import { QueryClientImpl as GovQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.Query";
-import { QueryClientImpl as StakingQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.Query";
+import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { createGetProposal, createGetVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
+import { createGetValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
+import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/query';
+import { QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
+
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -59,9 +63,10 @@ describe('Governance tests for injective', () => {
   let injRpcEndpoint: string;
 
   // Variables used accross testcases
-  let queryClient: BankQueryClientImpl;
-  let govQueryClient: GovQueryClientImpl;
-  let stakingQueryClient: StakingQueryClientImpl;
+  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
+  let getProposal: (request: QueryProposalRequest) => Promise<QueryProposalResponse>;
+  let getVote: (request: QueryVoteRequest) => Promise<QueryVoteResponse>;
+  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
   let proposalId: string;
   let validatorAddress: string;
 
@@ -131,9 +136,10 @@ describe('Governance tests for injective', () => {
     signingClient.addConverters(toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
 
     // Create custom cosmos interchain client
-    queryClient = new BankQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
-    govQueryClient = new GovQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
-    stakingQueryClient = new StakingQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
+    getBalance = createGetBalance(injRpcEndpoint);
+    getProposal = createGetProposal(injRpcEndpoint);
+    getVote = createGetVote(injRpcEndpoint);
+    getValidators = createGetValidators(injRpcEndpoint);
 
     // Transfer inj to address
     for (let i = 0; i < 10; i++) {
@@ -147,7 +153,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check direct address has tokens', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address: directAddress,
       denom,
     });
@@ -156,7 +162,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check amino address has tokens', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address: aminoAddress,
       denom,
     });
@@ -165,7 +171,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check direct offline address has tokens', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address: directOfflineAddress,
       denom,
     });
@@ -174,7 +180,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check amino offline address has tokens', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address: aminoOfflineAddress,
       denom,
     });
@@ -183,7 +189,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('query validator address', async () => {
-    const { validators } = await stakingQueryClient.validators({
+    const { validators } = await getValidators({
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -200,7 +206,7 @@ describe('Governance tests for injective', () => {
   });
 
   it('stake tokens to genesis validator', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address: testingOfflineAddress,
       denom,
     });
@@ -239,7 +245,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check direct address has tokens', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address: testingOfflineAddress,
       denom,
     });
@@ -307,7 +313,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('query proposal', async () => {
-    const result = await govQueryClient.proposal({
+    const result = await getProposal({
       proposalId: BigInt(proposalId),
     });
 
@@ -349,7 +355,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('verify direct vote', async () => {
-    const { vote } = await govQueryClient.vote({
+    const { vote } = await getVote({
       proposalId: BigInt(proposalId),
       voter: directAddress,
     });
@@ -396,7 +402,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('verify amino vote', async () => {
-    const { vote } = await govQueryClient.vote({
+    const { vote } = await getVote({
       proposalId: BigInt(proposalId),
       voter: aminoAddress,
     });
@@ -409,7 +415,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('verify proposal passed', async () => {
-    const { proposal } = await govQueryClient.proposal({
+    const { proposal } = await getProposal({
       proposalId: BigInt(proposalId),
     });
 

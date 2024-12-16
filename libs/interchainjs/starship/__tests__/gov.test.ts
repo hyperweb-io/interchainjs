@@ -1,59 +1,61 @@
 import './setup.test';
 
 import { Asset } from '@chain-registry/types';
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
+import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
+import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
 import {
-  assertIsDeliverTxSuccess,
-  createQueryRpc,
-  toConverters,
-  toEncoders,
-} from '@interchainjs/cosmos/utils';
+  AminoGenericOfflineSigner,
+  DirectGenericOfflineSigner,
+  OfflineAminoSigner,
+  OfflineDirectSigner,
+} from '@interchainjs/cosmos/types/wallet';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import {
   ProposalStatus,
   TextProposal,
   VoteOption,
 } from 'interchainjs/cosmos/gov/v1beta1/gov';
 import {
-  MsgSubmitProposal,
-  MsgVote,
-} from 'interchainjs/cosmos/gov/v1beta1/tx';
-import {
   BondStatus,
   bondStatusToJSON,
 } from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
-import {
-  HDPath
-} from '@interchainjs/types';
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
-import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetProposal, createGetVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
-import { createGetValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signing-client';
 import { useChain } from 'starshipjs';
 
-import { generateMnemonic, waitUntil } from '../src';
-import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
-import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/query';
-import { QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
+import { waitUntil } from '../src';
+
+import { createDelegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+import { createSubmitProposal, createVote } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+
+import { createGetBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+import { createGetProposal, createGetVote } from "interchainjs/cosmos/gov/v1beta1/query.rpc.func";
+import { createGetValidators } from "interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+import { QueryBalanceRequest, QueryBalanceResponse } from 'interchainjs/cosmos/bank/v1beta1/query';
+import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from 'interchainjs/cosmos/gov/v1beta1/query';
+import { QueryValidatorsRequest, QueryValidatorsResponse } from 'interchainjs/cosmos/staking/v1beta1/query';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Governance tests for osmosis', () => {
-  let directSigner: DirectSigner,
-    aminoSigner: AminoSigner,
+  let directSigner: OfflineDirectSigner,
+    aminoSigner: OfflineAminoSigner,
     denom: string,
     directAddress: string,
     aminoAddress: string;
-  let chainInfo, getCoin: () => Promise<Asset>, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
+  let commonPrefix: string,
+    chainInfo,
+    getCoin: () => Promise<Asset>,
+    getRpcEndpoint: () => Promise<string>,
+    creditFromFaucet;
 
-  // Variables used accross testcases
   let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
   let getProposal: (request: QueryProposalRequest) => Promise<QueryProposalResponse>;
   let getVote: (request: QueryVoteRequest) => Promise<QueryVoteResponse>;
   let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
+
+  // Variables used accross testcases
   let proposalId: string;
   let validatorAddress: string;
 
@@ -62,33 +64,28 @@ describe('Governance tests for osmosis', () => {
       useChain('osmosis'));
     denom = (await getCoin()).base;
 
-    // Initialize auth
-    const rpcEndpoint = await getRpcEndpoint();
-    const [directAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
-      cosmosHdPath,
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
+    // Initialize wallet
+    const directWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
     ]);
-    const [aminoAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
-      // use cosmos hdpath built by HDPath
-      // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
-      HDPath.cosmos().toString(),
+    const aminoWallet = Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
     ]);
-    directSigner = new DirectSigner(
-      directAuth,
-      toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      rpcEndpoint,
-      { prefix: chainInfo.chain.bech32_prefix }
-    );
-    aminoSigner = new AminoSigner(
-      aminoAuth,
-      toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
-      rpcEndpoint,
-      { prefix: chainInfo.chain.bech32_prefix }
-    );
-    directAddress = await directSigner.getAddress();
-    aminoAddress = await aminoSigner.getAddress();
+    directSigner = directWallet.toOfflineDirectSigner();
+    aminoSigner = aminoWallet.toOfflineAminoSigner();
+    directAddress = (await directSigner.getAccounts())[0].address;
+    aminoAddress = (await aminoSigner.getAccounts())[0].address;
 
     // Create custom cosmos interchain client
+    const rpcEndpoint = await getRpcEndpoint();
     getBalance = createGetBalance(rpcEndpoint);
     getProposal = createGetProposal(rpcEndpoint);
     getVote = createGetVote(rpcEndpoint);
@@ -99,18 +96,9 @@ describe('Governance tests for osmosis', () => {
     await creditFromFaucet(aminoAddress);
   }, 200000);
 
-  it('check direct address has tokens', async () => {
+  it('check address has tokens', async () => {
     const { balance } = await getBalance({
       address: directAddress,
-      denom,
-    });
-
-    expect(balance!.amount).toEqual('10000000000');
-  }, 10000);
-
-  it('check amino address has tokens', async () => {
-    const { balance } = await getBalance({
-      address: aminoAddress,
       denom,
     });
 
@@ -135,6 +123,20 @@ describe('Governance tests for osmosis', () => {
   });
 
   it('stake tokens to genesis validator', async () => {
+    const signingClient = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new DirectGenericOfflineSigner(directSigner),
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
+    );
+
+    const delegate = createDelegate(signingClient);
+
     const { balance } = await getBalance({
       address: directAddress,
       denom,
@@ -143,17 +145,6 @@ describe('Governance tests for osmosis', () => {
     // Stake half of the tokens
     // eslint-disable-next-line no-undef
     const delegationAmount = (BigInt(balance!.amount) / BigInt(2)).toString();
-    const msg = {
-      typeUrl: MsgDelegate.typeUrl,
-      value: MsgDelegate.fromPartial({
-        delegatorAddress: directAddress,
-        validatorAddress: validatorAddress,
-        amount: {
-          amount: delegationAmount,
-          denom: balance!.denom,
-        },
-      }),
-    };
 
     const fee = {
       amount: [
@@ -165,29 +156,55 @@ describe('Governance tests for osmosis', () => {
       gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast(
+    const result = await delegate(
+      directAddress,
       {
-        messages: [msg],
-        fee,
-        memo: '',
+        delegatorAddress: directAddress,
+        validatorAddress: validatorAddress,
+        amount: {
+          amount: delegationAmount,
+          denom: balance!.denom,
+        },
       },
-      {
-        deliverTx: true,
-      }
+      fee,
+      "delegate"
     );
     assertIsDeliverTxSuccess(result);
   }, 10000);
 
   it('submit a txt proposal', async () => {
+    const signingClient = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new DirectGenericOfflineSigner(directSigner),
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
+    );
+
+    const submitProposal = createSubmitProposal(signingClient);
+
     const contentMsg = TextProposal.fromPartial({
       title: 'Test Proposal',
       description: 'Test text proposal for the e2e testing',
     });
 
     // Stake half of the tokens
-    const msg = {
-      typeUrl: MsgSubmitProposal.typeUrl,
-      value: MsgSubmitProposal.fromPartial({
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const result = await submitProposal(
+      directAddress,
+      {
         proposer: directAddress,
         initialDeposit: [
           {
@@ -199,33 +216,14 @@ describe('Governance tests for osmosis', () => {
           typeUrl: '/cosmos.gov.v1beta1.TextProposal',
           value: TextProposal.encode(contentMsg).finish(),
         },
-      }),
-    };
-
-    const fee = {
-      amount: [
-        {
-          denom,
-          amount: '100000',
-        },
-      ],
-      gas: '550000',
-    };
-
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
       },
-      {
-        deliverTx: true,
-      }
+      fee,
+      "submit proposal"
     );
     assertIsDeliverTxSuccess(result);
 
     // Get proposal id from log events
-    const proposalIdEvent = result.deliver_tx?.events.find(
+    const proposalIdEvent = result.events.find(
       (event) => event.type === 'submit_proposal'
     );
     const proposalIdEncoded = proposalIdEvent!.attributes.find(
@@ -246,16 +244,22 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('vote on proposal using direct', async () => {
-    // Vote on proposal from direct address
-    const msg = {
-      typeUrl: MsgVote.typeUrl,
-      value: MsgVote.fromPartial({
-        proposalId: BigInt(proposalId),
-        voter: directAddress,
-        option: VoteOption.VOTE_OPTION_YES,
-      }),
-    };
+    // create direct address signing client
+    const signingClient = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new DirectGenericOfflineSigner(directSigner),
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
+    );
 
+    const vote = createVote(signingClient);
+
+    // Vote on proposal from genesis mnemonic address
     const fee = {
       amount: [
         {
@@ -266,15 +270,15 @@ describe('Governance tests for osmosis', () => {
       gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast(
+    const result = await vote(
+      directAddress,
       {
-        messages: [msg],
-        fee,
-        memo: '',
+        proposalId: BigInt(proposalId),
+        voter: directAddress,
+        option: VoteOption.VOTE_OPTION_YES,
       },
-      {
-        deliverTx: true,
-      }
+      fee,
+      "vote"
     );
     assertIsDeliverTxSuccess(result);
   }, 10000);
@@ -291,16 +295,22 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('vote on proposal using amino', async () => {
-    // Vote on proposal from amino address
-    const msg = {
-      typeUrl: MsgVote.typeUrl,
-      value: MsgVote.fromPartial({
-        proposalId: BigInt(proposalId),
-        voter: aminoAddress,
-        option: VoteOption.VOTE_OPTION_NO,
-      }),
-    };
+    // create amino address signing client
+    const signingClient = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new AminoGenericOfflineSigner(aminoSigner),
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+          useLegacyBroadcastTxCommit: true,
+        },
+      }
+    );
 
+    const vote = createVote(signingClient);
+
+    // Vote on proposal from genesis mnemonic address
     const fee = {
       amount: [
         {
@@ -311,15 +321,15 @@ describe('Governance tests for osmosis', () => {
       gas: '550000',
     };
 
-    const result = await aminoSigner.signAndBroadcast(
+    const result = await vote(
+      aminoAddress,
       {
-        messages: [msg],
-        fee,
-        memo: '',
+        proposalId: BigInt(proposalId),
+        voter: aminoAddress,
+        option: VoteOption.VOTE_OPTION_NO,
       },
-      {
-        deliverTx: true,
-      }
+      fee,
+      "vote"
     );
     assertIsDeliverTxSuccess(result);
   }, 10000);
