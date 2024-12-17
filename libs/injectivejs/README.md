@@ -1,7 +1,7 @@
-# interchainjs
+# InjectiveJS
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/545047/188804067-28e67e5e-0214-4449-ab04-2e0c564a6885.svg" width="80">
+  <img src="https://user-images.githubusercontent.com/545047/193426489-d5d3c9a9-d738-43a0-a628-b8b4f1a8034b.png" width="80">
 </p>
 
 <p align="center" width="100%">

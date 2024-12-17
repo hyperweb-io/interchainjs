@@ -16,8 +16,8 @@
   ],
   "scripts": {
     "codegen": "yarn codegen:ic && yarn codegen:inj",
-    "codegen:ic": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-query.telescope.json",
-    "codegen:inj": "telescope transpile --config ./scripts/inj.telescope.json && telescope transpile --config ./scripts/inj-query.telescope.json",
+    "codegen:ic": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-react.telescope.json",
+    "codegen:inj": "telescope transpile --config ./scripts/inj.telescope.json && telescope transpile --config ./scripts/inj-react.telescope.json",
     "codegen:types": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
     "proto": "telescope download --config ./scripts/.protod.config.json && telescope download --config ./scripts/.injective.protod.config.json",
     "test": "lerna run test --stream",
