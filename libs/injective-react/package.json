@@ -1,7 +1,7 @@
 {
-  "name": "interchain-query",
+  "name": "injective-react",
   "version": "0.0.1-beta.36",
-  "description": "InterchainJS is a JavaScript library providing react query hooks for interacting with Cosmos SDK based blockchains.",
+  "description": "injective-react is a JavaScript library providing react query hooks for interacting with injective sdk.",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",

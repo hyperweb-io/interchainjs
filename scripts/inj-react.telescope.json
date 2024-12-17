@@ -2,7 +2,7 @@
     "protoDirs": [
         "./protos/injectivejs"
     ],
-    "outPath": "./libs/injective-query/src",
+    "outPath": "./libs/injective-react/src",
     "options": {
         "classesUseArrowFunctions": true,
         "env": "v-next",
