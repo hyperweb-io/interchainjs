@@ -52,8 +52,8 @@ npm install injective-react
 
 ```js
 import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetAllBalances } from "injectivejs/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetExchangeBalances } from "injectivejs/injective/exchange/v1beta1/query.rpc.func";
+import { createGetAllBalances } from "injective-react/cosmos/bank/v1beta1/query.rpc.func";
+import { createGetExchangeBalances } from "injective-react/injective/exchange/v1beta1/query.rpc.func";
 
 { getRpcEndpoint } = useChain("osmosis");
 
@@ -82,13 +82,13 @@ import {
   createDeposit,
   createLiquidatePosition,
   createActivateStakeGrant,
-} from "injectivejs/injective/exchange/v1beta1/tx.rpc.func";
+} from "injective-react/injective/exchange/v1beta1/tx.rpc.func";
 ```
 
 #### Auction Messages
 
 ```js
-import { createBid } from "injectivejs/injective/auction/v1beta1/tx.rpc.func";
+import { createBid } from "injective-react/injective/auction/v1beta1/tx.rpc.func";
 ```
 
 #### Exchange Messages
@@ -130,7 +130,7 @@ import {
   createUpdateParams,
   createUpdateSpotMarket,
   createWithdraw,
-} from "injectivejs/injective/exchange/v1beta1/tx.rpc.func";
+} from "injective-react/injective/exchange/v1beta1/tx.rpc.func";
 ```
 
 #### Insurance Messages
@@ -140,7 +140,7 @@ import {
   createCreateInsuranceFund,
   createRequestRedemption,
   createUnderwrite,
-} from "injectivejs/injective/insurance/v1beta1/tx.rpc.func";
+} from "injective-react/injective/insurance/v1beta1/tx.rpc.func";
 ```
 
 #### OCR Messages
@@ -155,7 +155,7 @@ import {
   createTransmit,
   createUpdateFeed,
   createWithdrawFeedRewardPool,
-} from "injectivejs/injective/ocr/v1beta1/tx.rpc.func";
+} from "injective-react/injective/ocr/v1beta1/tx.rpc.func";
 ```
 
 #### Oracle Messages
@@ -169,7 +169,7 @@ import {
   createRelayPythPrices,
   createRelayStorkMessage,
   createRequestBandIBCRates,
-} from "injectivejs/injective/oracle/v1beta1/tx.rpc.func";
+} from "injective-react/injective/oracle/v1beta1/tx.rpc.func";
 ```
 
 #### Peggy Messages
@@ -189,7 +189,7 @@ import {
   createValsetConfirm,
   createValsetUpdateClaim,
   createWithdrawClaim,
-} from "injectivejs/injective/peggy/v1/msgs.rpc.func";
+} from "injective-react/injective/peggy/v1/msgs.rpc.func";
 ```
 
 #### CosmWasm Messages
@@ -212,13 +212,13 @@ import {
   createUpdateInstantiateConfig,
   createAddCodeUploadParamsAddresses,
   createStoreAndMigrateContract,
-} from "injectivejs/cosmwasm/wasm/v1/tx.rpc.func";
+} from "injective-react/cosmwasm/wasm/v1/tx.rpc.func";
 ```
 
 #### IBC Messages
 
 ```js
-import { createTransfer } from "injectivejs/ibc/applications/transfer/v1/tx.rpc.func";
+import { createTransfer } from "injective-react/ibc/applications/transfer/v1/tx.rpc.func";
 ```
 
 #### Cosmos Messages
@@ -228,26 +228,26 @@ import {
   createFundCommunityPool,
   createCommunityPoolSpend,
   createDepositValidatorRewardsPool,
-} from "injectivejs/cosmos/distribution/v1beta1/tx.rpc.func";
+} from "injective-react/cosmos/distribution/v1beta1/tx.rpc.func";
 
 import {
   createSend,
   createMultiSend,
-} from "injectivejs/cosmos/bank/v1beta1/tx.rpc.func";
+} from "injective-react/cosmos/bank/v1beta1/tx.rpc.func";
 
 import {
   createDelegate,
   createUndelegate,
   createCancelUnbondingDelegation,
   createCreateValidator,
-} from "injectivejs/cosmos/staking/v1beta1/tx.rpc.func";
+} from "injective-react/cosmos/staking/v1beta1/tx.rpc.func";
 
 import {
   createDeposit,
   createSubmitProposal,
   createVote,
   createVoteWeighted,
-} from "injectivejs/cosmos/gov/v1beta1/tx.rpc.func";
+} from "injective-react/cosmos/gov/v1beta1/tx.rpc.func";
 ```
 
 ### Tx Hooks
@@ -255,8 +255,8 @@ import {
 You can use the hooks for every query and tx messages:
 
 ```js
-import { useDelegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-import { useGetValidators } from "interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+import { useDelegate } from "injective-react/cosmos/staking/v1beta1/tx.rpc.func";
+import { useGetValidators } from "injective-react/cosmos/staking/v1beta1/query.rpc.func";
 
 const {
   data,
