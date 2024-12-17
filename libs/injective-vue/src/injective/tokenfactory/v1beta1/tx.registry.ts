@@ -1,0 +1,3 @@
+import { TelescopeGeneratedType } from "../../../types";
+import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin, MsgSetDenomMetadata, MsgUpdateParams } from "./tx";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [["/injective.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom], ["/injective.tokenfactory.v1beta1.MsgMint", MsgMint], ["/injective.tokenfactory.v1beta1.MsgBurn", MsgBurn], ["/injective.tokenfactory.v1beta1.MsgChangeAdmin", MsgChangeAdmin], ["/injective.tokenfactory.v1beta1.MsgSetDenomMetadata", MsgSetDenomMetadata], ["/injective.tokenfactory.v1beta1.MsgUpdateParams", MsgUpdateParams]];
