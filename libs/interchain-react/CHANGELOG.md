@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.1-beta.41](https://github.com/cosmology-tech/interchainjs/compare/interchain-react@0.0.1-beta.40...interchain-react@0.0.1-beta.41) (2024-12-17)
+
+**Note:** Version bump only for package interchain-react
+
 ## [0.0.1-beta.40](https://github.com/cosmology-tech/interchainjs/compare/interchain-react@0.0.1-beta.40...interchain-react@0.0.1-beta.40) (2024-12-17)
 
 **Note:** Version bump only for package interchain-react
