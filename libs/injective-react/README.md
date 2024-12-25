@@ -545,7 +545,7 @@ const response = await stargateClient.signAndBroadcast(address, [msg], fee);
 
 For a comprehensive example of how to use InjectiveJS to send messages, please see the example [here](https://github.com/cosmology-tech/create-cosmos-app/blob/main/examples/injective/components/SendMsg.tsx). This example demonstrates how to:
 
-- Initialize the Stargate client.
+- Initialize the client.
 - Create and sign messages.
 - Broadcast transactions.
 - Handle responses and errors.
