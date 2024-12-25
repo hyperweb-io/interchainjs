@@ -50,6 +50,7 @@ npm install injectivejs
   - [Initializing the Stargate Client](#initializing-the-stargate-client)
   - [Creating Signers](#creating-signers)
   - [Broadcasting Messages](#broadcasting-messages)
+- [All In One Example](#all-in-one-example)
 - [Advanced Usage](#advanced-usage)
 - [Developing](#developing)
   - [Codegen](#codegen)
@@ -499,6 +500,19 @@ const fee: StdFee = {
 };
 const response = await stargateClient.signAndBroadcast(address, [msg], fee);
 ```
+
+### All In One Example
+
+For a comprehensive example of how to use InjectiveJS to send messages, please see the example [here](https://github.com/cosmology-tech/create-cosmos-app/blob/main/examples/injective/components/SendMsg.tsx). This example demonstrates how to:
+
+- Initialize the Stargate client.
+- Create and sign messages.
+- Broadcast transactions.
+- Handle responses and errors.
+
+The example provides a complete walkthrough of setting up the client, creating a message for sending tokens, and broadcasting the transaction to the Injective blockchain.
+
+Follow the [instructions](https://github.com/cosmology-tech/create-cosmos-app/tree/main/examples/injective) in the example to set up your InjectiveJS client and start sending messages to the Injective blockchain.
 
 ## Advanced Usage
 
