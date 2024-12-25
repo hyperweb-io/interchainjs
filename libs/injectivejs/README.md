@@ -22,29 +22,40 @@ npm install injectivejs
 ## Table of contents
 
 - [InjectiveJS](#injectivejs)
-  - [Install](#install)
-  - [Table of contents](#table-of-contents)
+- [Install](#install)
+- [Table of contents](#table-of-contents)
 - [Usage](#usage)
   - [RPC Clients](#rpc-clients)
   - [Tx Helpers](#tx-helpers)
-    - Injective
-      - [Auction](#auction-messages)
-      - [Exchange](#exchange-messages)
-      - [Insurance](#insurance-messages)
-      - [OCR](#ocr-messages)
-      - [Oracle](#oracle-messages)
-      - [Peggy](#peggy-messages)
-    - Cosmos, CosmWasm, and IBC
-      - [CosmWasm](#cosmwasm-messages)
-      - [IBC](#ibc-messages)
-      - [Cosmos](#cosmos-messages)
-- [Wallets and Signers](#connecting-with-wallets-and-signing-messages)
-  - [Stargate Client](#initializing-the-stargate-client)
+    - [Auction](#auction)
+    - [Exchange](#exchange)
+    - [Insurance](#insurance)
+    - [OCR](#ocr)
+    - [Oracle](#oracle)
+    - [Peggy](#peggy)
+    - [CosmWasm](#cosmwasm)
+    - [IBC](#ibc)
+    - [Cosmos](#cosmos)
+  - [Composing Messages](#composing-messages)
+    - [Auction Messages](#auction-messages)
+    - [Exchange Messages](#exchange-messages)
+    - [Insurance Messages](#insurance-messages)
+    - [OCR Messages](#ocr-messages)
+    - [Oracle Messages](#oracle-messages)
+    - [Peggy Messages](#peggy-messages)
+    - [CosmWasm Messages](#cosmwasm-messages)
+    - [IBC Messages](#ibc-messages)
+    - [Cosmos Messages](#cosmos-messages)
+- [Connecting with Wallets and Signing Messages](#connecting-with-wallets-and-signing-messages)
+  - [Initializing the Stargate Client](#initializing-the-stargate-client)
   - [Creating Signers](#creating-signers)
   - [Broadcasting Messages](#broadcasting-messages)
 - [Advanced Usage](#advanced-usage)
 - [Developing](#developing)
+  - [Codegen](#codegen)
+  - [Publishing](#publishing)
 - [Credits](#credits)
+- [License](#license)
 
 ## Usage
 
@@ -77,6 +88,10 @@ const exchangeBalance = await getExchangeBalances({});
 
 For tx messages, there're helper functions to sign and broadcast messages:
 
+For more detailed usage on how to use these functions, please see the starship tests in the [networks/injective repo](https://github.com/cosmology-tech/interchainjs/tree/main/networks/injective/starship/__tests__)
+
+There're also react and vue hooks for helper functions. Please see [injective-react](https://github.com/cosmology-tech/interchainjs/tree/main/libs/injective-react) and [injective-vue](https://github.com/cosmology-tech/interchainjs/tree/main/libs/injective-vue) repos for more information.
+
 ```js
 import {
   createDeposit,
@@ -85,13 +100,13 @@ import {
 } from "injectivejs/injective/exchange/v1beta1/tx.rpc.func";
 ```
 
-#### Auction Messages
+#### Auction
 
 ```js
 import { createBid } from "injectivejs/injective/auction/v1beta1/tx.rpc.func";
 ```
 
-#### Exchange Messages
+#### Exchange
 
 ```js
 import {
@@ -133,7 +148,7 @@ import {
 } from "injectivejs/injective/exchange/v1beta1/tx.rpc.func";
 ```
 
-#### Insurance Messages
+#### Insurance
 
 ```js
 import {
@@ -143,7 +158,7 @@ import {
 } from "injectivejs/injective/insurance/v1beta1/tx.rpc.func";
 ```
 
-#### OCR Messages
+#### OCR
 
 ```js
 import {
@@ -158,7 +173,7 @@ import {
 } from "injectivejs/injective/ocr/v1beta1/tx.rpc.func";
 ```
 
-#### Oracle Messages
+#### Oracle
 
 ```js
 import {
@@ -172,7 +187,7 @@ import {
 } from "injectivejs/injective/oracle/v1beta1/tx.rpc.func";
 ```
 
-#### Peggy Messages
+#### Peggy
 
 ```js
 import {
@@ -192,7 +207,7 @@ import {
 } from "injectivejs/injective/peggy/v1/msgs.rpc.func";
 ```
 
-#### CosmWasm Messages
+#### CosmWasm
 
 ```js
 import {
@@ -215,13 +230,13 @@ import {
 } from "injectivejs/cosmwasm/wasm/v1/tx.rpc.func";
 ```
 
-#### IBC Messages
+#### IBC
 
 ```js
 import { createTransfer } from "injectivejs/ibc/applications/transfer/v1/tx.rpc.func";
 ```
 
-#### Cosmos Messages
+#### Cosmos
 
 ```js
 import {
@@ -248,6 +263,183 @@ import {
   createVote,
   createVoteWeighted,
 } from "injectivejs/cosmos/gov/v1beta1/tx.rpc.func";
+```
+
+### Composing Messages
+
+Import the `injective` object from `injectivejs`.
+
+```js
+import { MessageComposer } from "injectivejs/injective/exchange/v1beta1/tx.registry";
+
+const { createSpotLimitOrder, createSpotMarketOrder, deposit } =
+  MessageComposer.withTypeUrl;
+```
+
+#### Auction Messages
+
+```js
+import { MessageComposer } from "injectivejs/injective/auction/v1beta1/tx.registry";
+
+const { bid } = MessageComposer.withTypeUrl;
+```
+
+#### Exchange Messages
+
+```js
+import { MessageComposer } from "injectivejs/injective/exchange/v1beta1/tx.registry";
+
+const {
+  adminUpdateBinaryOptionsMarket,
+  batchCancelBinaryOptionsOrders,
+  batchCancelDerivativeOrders,
+  batchCancelSpotOrders,
+  batchCreateDerivativeLimitOrders,
+  batchCreateSpotLimitOrders,
+  batchUpdateOrders,
+  cancelBinaryOptionsOrder,
+  cancelDerivativeOrder,
+  cancelSpotOrder,
+  createBinaryOptionsLimitOrder,
+  createBinaryOptionsMarketOrder,
+  createDerivativeLimitOrder,
+  createDerivativeMarketOrder,
+  createSpotLimitOrder,
+  createSpotMarketOrder,
+  deposit,
+  exec,
+  externalTransfer,
+  increasePositionMargin,
+  instantBinaryOptionsMarketLaunch,
+  instantExpiryFuturesMarketLaunch,
+  instantPerpetualMarketLaunch,
+  instantSpotMarketLaunch,
+  liquidatePosition,
+  rewardsOptOut,
+  subaccountTransfer,
+  withdraw,
+} = MessageComposer.withTypeUrl;
+```
+
+#### Insurance Messages
+
+```js
+import { MessageComposer } from "injectivejs/injective/insurance/v1beta1/tx.registry";
+
+const { createInsuranceFund, requestRedemption, underwrite } =
+  MessageComposer.withTypeUrl;
+```
+
+#### OCR Messages
+
+```js
+import { MessageComposer } from "injectivejs/injective/ocr/v1beta1/tx.registry";
+
+const {
+  acceptPayeeship,
+  createFeed,
+  fundFeedRewardPool,
+  setPayees,
+  transferPayeeship,
+  transmit,
+  updateFeed,
+  withdrawFeedRewardPool,
+} = MessageComposer.withTypeUrl;
+```
+
+#### Oracle Messages
+
+```js
+import { MessageComposer } from "injectivejs/injective/oracle/v1beta1/tx.registry";
+
+const {
+  relayBandRates,
+  relayCoinbaseMessages,
+  relayPriceFeedPrice,
+  relayProviderPrices,
+  requestBandIBCRates,
+} = MessageComposer.withTypeUrl;
+```
+
+#### Peggy Messages
+
+```js
+import { MessageComposer } from "injectivejs/injective/peggy/v1/tx.registry";
+
+const {
+  cancelSendToEth,
+  confirmBatch,
+  depositClaim,
+  eRC20DeployedClaim,
+  requestBatch,
+  sendToEth,
+  setOrchestratorAddresses,
+  submitBadSignatureEvidence,
+  valsetConfirm,
+  valsetUpdateClaim,
+  withdrawClaim,
+} = MessageComposer.withTypeUrl;
+```
+
+#### CosmWasm Messages
+
+```js
+import { MessageComposer } from "injectivejs/cosmwasm/wasm/v1/tx.registry";
+
+const {
+  clearAdmin,
+  executeContract,
+  instantiateContract,
+  migrateContract,
+  storeCode,
+  updateAdmin,
+} = MessageComposer.withTypeUrl;
+```
+
+#### IBC Messages
+
+```js
+import { MessageComposer } from "injectivejs/ibc/applications/transfer/v1/tx.registry";
+
+const { transfer } = MessageComposer.withTypeUrl;
+```
+
+#### Cosmos Messages
+
+```js
+import { MessageComposer } from "injectivejs/cosmos/distribution/v1beta1/tx.registry";
+
+const {
+  fundCommunityPool,
+  setWithdrawAddress,
+  withdrawDelegatorReward,
+  withdrawValidatorCommission,
+} = MessageComposer.fromPartial;
+```
+
+```js
+import { MessageComposer } from "injectivejs/cosmos/bank/v1beta1/tx.registry";
+
+const { multiSend, send } = MessageComposer.fromPartial;
+```
+
+```js
+import { MessageComposer } from "injectivejs/cosmos/staking/v1beta1/tx.registry";
+
+const {
+  beginRedelegate,
+  createValidator,
+  delegate,
+  editValidator,
+  undelegate,
+} = MessageComposer.fromPartial;
+```
+
+```js
+import { MessageComposer } from "injectivejs/cosmos/gov/v1beta1/tx.registry";
+
+const { deposit, submitProposal, vote, voteWeighted } =
+  cosmos.gov.v1beta1.MessageComposer.fromPartial;
 ```
 
 ## Connecting with Wallets and Signing Messages
