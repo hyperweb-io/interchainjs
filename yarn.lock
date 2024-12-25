@@ -1763,10 +1763,10 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.11.0":
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.0.tgz#2eb64348c3499a14d0de405dd7c8c301cfa7a319"
-  integrity sha512-kCaD59UYOGtKmHy8qFF2QmhtPErMwrDp/WA4Lzx26FP2eDfxmiafz23MkauJ+c5m3gP4a/ntAZudY3USsoe2tg==
+"@cosmology/telescope@^1.11.1":
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.1.tgz#7f7c73347b488d869aa746a514dd87f7021334b0"
+  integrity sha512-BUunIp+nRGZx+cdz0bYLm2W+qvG9qaPC5u1s2ThL11dvjD65+YhQKhkMCiBN/iJ6FQLDUEyT6CcIOkI/tcUTsw==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
