@@ -1,8 +1,8 @@
 import { Level, LevelAmino, Deposit, DepositAmino, SpotLimitOrder, SpotLimitOrderAmino, DerivativeLimitOrder, DerivativeLimitOrderAmino, PositionDelta, PositionDeltaAmino } from "../../exchange/v1beta1/exchange";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { ComputedRef } from "vue";
 export enum OrderUpdateStatus {
   Unspecified = 0,

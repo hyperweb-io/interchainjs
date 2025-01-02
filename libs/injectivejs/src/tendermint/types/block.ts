@@ -2,7 +2,6 @@ import { Header, HeaderAmino, Data, DataAmino, Commit, CommitAmino } from "./typ
 import { EvidenceList, EvidenceListAmino } from "./evidence";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 export interface Block {
   header: Header;
   data: Data;
@@ -126,6 +125,11 @@ export const Block = {
       typeUrl: "/tendermint.types.Block",
       value: Block.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Header.registerTypeUrl();
+    Data.registerTypeUrl();
+    EvidenceList.registerTypeUrl();
+    Commit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Block.typeUrl, Block);

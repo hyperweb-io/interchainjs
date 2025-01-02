@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 /**
  * App includes the protocol and software version for the application.
  * This information is included in ResponseInfo. The App.Protocol can be
@@ -132,9 +131,9 @@ export const App = {
       typeUrl: "/tendermint.version.App",
       value: App.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(App.typeUrl, App);
 function createBaseConsensus(): Consensus {
   return {
     block: BigInt(0),
@@ -214,6 +213,6 @@ export const Consensus = {
       typeUrl: "/tendermint.version.Consensus",
       value: Consensus.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Consensus.typeUrl, Consensus);

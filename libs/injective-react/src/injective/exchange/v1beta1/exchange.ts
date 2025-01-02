@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { OracleType } from "../../oracle/v1beta1/oracle";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 export enum AtomicMarketOrderAccessLevel {
   Nobody = 0,
   /** BeginBlockerSmartContractsOnly - currently unsupported */
@@ -2391,10 +2390,11 @@ export const Params = {
       typeUrl: "/injective.exchange.v1beta1.Params",
       value: Params.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseMarketFeeMultiplier(): MarketFeeMultiplier {
   return {
     marketId: "",
@@ -2474,9 +2474,9 @@ export const MarketFeeMultiplier = {
       typeUrl: "/injective.exchange.v1beta1.MarketFeeMultiplier",
       value: MarketFeeMultiplier.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MarketFeeMultiplier.typeUrl, MarketFeeMultiplier);
 function createBaseDerivativeMarket(): DerivativeMarket {
   return {
     ticker: "",
@@ -2760,9 +2760,9 @@ export const DerivativeMarket = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeMarket",
       value: DerivativeMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DerivativeMarket.typeUrl, DerivativeMarket);
 function createBaseBinaryOptionsMarket(): BinaryOptionsMarket {
   return {
     ticker: "",
@@ -3046,9 +3046,9 @@ export const BinaryOptionsMarket = {
       typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarket",
       value: BinaryOptionsMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BinaryOptionsMarket.typeUrl, BinaryOptionsMarket);
 function createBaseExpiryFuturesMarketInfo(): ExpiryFuturesMarketInfo {
   return {
     marketId: "",
@@ -3164,9 +3164,9 @@ export const ExpiryFuturesMarketInfo = {
       typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketInfo",
       value: ExpiryFuturesMarketInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ExpiryFuturesMarketInfo.typeUrl, ExpiryFuturesMarketInfo);
 function createBasePerpetualMarketInfo(): PerpetualMarketInfo {
   return {
     marketId: "",
@@ -3282,9 +3282,9 @@ export const PerpetualMarketInfo = {
       typeUrl: "/injective.exchange.v1beta1.PerpetualMarketInfo",
       value: PerpetualMarketInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PerpetualMarketInfo.typeUrl, PerpetualMarketInfo);
 function createBasePerpetualMarketFunding(): PerpetualMarketFunding {
   return {
     cumulativeFunding: "",
@@ -3376,9 +3376,9 @@ export const PerpetualMarketFunding = {
       typeUrl: "/injective.exchange.v1beta1.PerpetualMarketFunding",
       value: PerpetualMarketFunding.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PerpetualMarketFunding.typeUrl, PerpetualMarketFunding);
 function createBaseDerivativeMarketSettlementInfo(): DerivativeMarketSettlementInfo {
   return {
     marketId: "",
@@ -3458,9 +3458,9 @@ export const DerivativeMarketSettlementInfo = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeMarketSettlementInfo",
       value: DerivativeMarketSettlementInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DerivativeMarketSettlementInfo.typeUrl, DerivativeMarketSettlementInfo);
 function createBaseNextFundingTimestamp(): NextFundingTimestamp {
   return {
     nextTimestamp: BigInt(0)
@@ -3528,9 +3528,9 @@ export const NextFundingTimestamp = {
       typeUrl: "/injective.exchange.v1beta1.NextFundingTimestamp",
       value: NextFundingTimestamp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(NextFundingTimestamp.typeUrl, NextFundingTimestamp);
 function createBaseMidPriceAndTOB(): MidPriceAndTOB {
   return {
     midPrice: undefined,
@@ -3622,9 +3622,9 @@ export const MidPriceAndTOB = {
       typeUrl: "/injective.exchange.v1beta1.MidPriceAndTOB",
       value: MidPriceAndTOB.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MidPriceAndTOB.typeUrl, MidPriceAndTOB);
 function createBaseSpotMarket(): SpotMarket {
   return {
     ticker: "",
@@ -3836,9 +3836,9 @@ export const SpotMarket = {
       typeUrl: "/injective.exchange.v1beta1.SpotMarket",
       value: SpotMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SpotMarket.typeUrl, SpotMarket);
 function createBaseDeposit(): Deposit {
   return {
     availableBalance: "",
@@ -3918,9 +3918,9 @@ export const Deposit = {
       typeUrl: "/injective.exchange.v1beta1.Deposit",
       value: Deposit.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Deposit.typeUrl, Deposit);
 function createBaseSubaccountTradeNonce(): SubaccountTradeNonce {
   return {
     nonce: 0
@@ -3988,9 +3988,9 @@ export const SubaccountTradeNonce = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountTradeNonce",
       value: SubaccountTradeNonce.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SubaccountTradeNonce.typeUrl, SubaccountTradeNonce);
 function createBaseOrderInfo(): OrderInfo {
   return {
     subaccountId: "",
@@ -4106,9 +4106,9 @@ export const OrderInfo = {
       typeUrl: "/injective.exchange.v1beta1.OrderInfo",
       value: OrderInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OrderInfo.typeUrl, OrderInfo);
 function createBaseSpotOrder(): SpotOrder {
   return {
     marketId: "",
@@ -4212,9 +4212,11 @@ export const SpotOrder = {
       typeUrl: "/injective.exchange.v1beta1.SpotOrder",
       value: SpotOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotOrder.typeUrl, SpotOrder);
 function createBaseSpotLimitOrder(): SpotLimitOrder {
   return {
     orderInfo: OrderInfo.fromPartial({}),
@@ -4330,9 +4332,11 @@ export const SpotLimitOrder = {
       typeUrl: "/injective.exchange.v1beta1.SpotLimitOrder",
       value: SpotLimitOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotLimitOrder.typeUrl, SpotLimitOrder);
 function createBaseSpotMarketOrder(): SpotMarketOrder {
   return {
     orderInfo: OrderInfo.fromPartial({}),
@@ -4448,9 +4452,11 @@ export const SpotMarketOrder = {
       typeUrl: "/injective.exchange.v1beta1.SpotMarketOrder",
       value: SpotMarketOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotMarketOrder.typeUrl, SpotMarketOrder);
 function createBaseDerivativeOrder(): DerivativeOrder {
   return {
     marketId: "",
@@ -4566,9 +4572,11 @@ export const DerivativeOrder = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeOrder",
       value: DerivativeOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeOrder.typeUrl, DerivativeOrder);
 function createBaseSubaccountOrderbookMetadata(): SubaccountOrderbookMetadata {
   return {
     vanillaLimitOrderCount: 0,
@@ -4696,9 +4704,9 @@ export const SubaccountOrderbookMetadata = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountOrderbookMetadata",
       value: SubaccountOrderbookMetadata.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SubaccountOrderbookMetadata.typeUrl, SubaccountOrderbookMetadata);
 function createBaseSubaccountOrder(): SubaccountOrder {
   return {
     price: "",
@@ -4802,9 +4810,9 @@ export const SubaccountOrder = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountOrder",
       value: SubaccountOrder.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SubaccountOrder.typeUrl, SubaccountOrder);
 function createBaseSubaccountOrderData(): SubaccountOrderData {
   return {
     order: undefined,
@@ -4884,9 +4892,11 @@ export const SubaccountOrderData = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountOrderData",
       value: SubaccountOrderData.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SubaccountOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SubaccountOrderData.typeUrl, SubaccountOrderData);
 function createBaseDerivativeLimitOrder(): DerivativeLimitOrder {
   return {
     orderInfo: OrderInfo.fromPartial({}),
@@ -5014,9 +5024,11 @@ export const DerivativeLimitOrder = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeLimitOrder",
       value: DerivativeLimitOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeLimitOrder.typeUrl, DerivativeLimitOrder);
 function createBaseDerivativeMarketOrder(): DerivativeMarketOrder {
   return {
     orderInfo: OrderInfo.fromPartial({}),
@@ -5144,9 +5156,11 @@ export const DerivativeMarketOrder = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrder",
       value: DerivativeMarketOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeMarketOrder.typeUrl, DerivativeMarketOrder);
 function createBasePosition(): Position {
   return {
     isLong: false,
@@ -5262,9 +5276,9 @@ export const Position = {
       typeUrl: "/injective.exchange.v1beta1.Position",
       value: Position.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Position.typeUrl, Position);
 function createBaseMarketOrderIndicator(): MarketOrderIndicator {
   return {
     marketId: "",
@@ -5344,9 +5358,9 @@ export const MarketOrderIndicator = {
       typeUrl: "/injective.exchange.v1beta1.MarketOrderIndicator",
       value: MarketOrderIndicator.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MarketOrderIndicator.typeUrl, MarketOrderIndicator);
 function createBaseTradeLog(): TradeLog {
   return {
     quantity: "",
@@ -5486,9 +5500,9 @@ export const TradeLog = {
       typeUrl: "/injective.exchange.v1beta1.TradeLog",
       value: TradeLog.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TradeLog.typeUrl, TradeLog);
 function createBasePositionDelta(): PositionDelta {
   return {
     isLong: false,
@@ -5592,9 +5606,9 @@ export const PositionDelta = {
       typeUrl: "/injective.exchange.v1beta1.PositionDelta",
       value: PositionDelta.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PositionDelta.typeUrl, PositionDelta);
 function createBaseDerivativeTradeLog(): DerivativeTradeLog {
   return {
     subaccountId: new Uint8Array(),
@@ -5746,9 +5760,11 @@ export const DerivativeTradeLog = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeTradeLog",
       value: DerivativeTradeLog.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PositionDelta.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeTradeLog.typeUrl, DerivativeTradeLog);
 function createBaseSubaccountPosition(): SubaccountPosition {
   return {
     position: undefined,
@@ -5828,9 +5844,11 @@ export const SubaccountPosition = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountPosition",
       value: SubaccountPosition.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Position.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SubaccountPosition.typeUrl, SubaccountPosition);
 function createBaseSubaccountDeposit(): SubaccountDeposit {
   return {
     subaccountId: new Uint8Array(),
@@ -5910,9 +5928,11 @@ export const SubaccountDeposit = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountDeposit",
       value: SubaccountDeposit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Deposit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SubaccountDeposit.typeUrl, SubaccountDeposit);
 function createBaseDepositUpdate(): DepositUpdate {
   return {
     denom: "",
@@ -5994,9 +6014,11 @@ export const DepositUpdate = {
       typeUrl: "/injective.exchange.v1beta1.DepositUpdate",
       value: DepositUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SubaccountDeposit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DepositUpdate.typeUrl, DepositUpdate);
 function createBasePointsMultiplier(): PointsMultiplier {
   return {
     makerPointsMultiplier: "",
@@ -6076,9 +6098,9 @@ export const PointsMultiplier = {
       typeUrl: "/injective.exchange.v1beta1.PointsMultiplier",
       value: PointsMultiplier.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PointsMultiplier.typeUrl, PointsMultiplier);
 function createBaseTradingRewardCampaignBoostInfo(): TradingRewardCampaignBoostInfo {
   return {
     boostedSpotMarketIds: [],
@@ -6190,9 +6212,11 @@ export const TradingRewardCampaignBoostInfo = {
       typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignBoostInfo",
       value: TradingRewardCampaignBoostInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PointsMultiplier.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TradingRewardCampaignBoostInfo.typeUrl, TradingRewardCampaignBoostInfo);
 function createBaseCampaignRewardPool(): CampaignRewardPool {
   return {
     startTimestamp: BigInt(0),
@@ -6274,9 +6298,11 @@ export const CampaignRewardPool = {
       typeUrl: "/injective.exchange.v1beta1.CampaignRewardPool",
       value: CampaignRewardPool.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CampaignRewardPool.typeUrl, CampaignRewardPool);
 function createBaseTradingRewardCampaignInfo(): TradingRewardCampaignInfo {
   return {
     campaignDurationSeconds: BigInt(0),
@@ -6384,9 +6410,11 @@ export const TradingRewardCampaignInfo = {
       typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignInfo",
       value: TradingRewardCampaignInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TradingRewardCampaignBoostInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TradingRewardCampaignInfo.typeUrl, TradingRewardCampaignInfo);
 function createBaseFeeDiscountTierInfo(): FeeDiscountTierInfo {
   return {
     makerDiscountRate: "",
@@ -6490,9 +6518,9 @@ export const FeeDiscountTierInfo = {
       typeUrl: "/injective.exchange.v1beta1.FeeDiscountTierInfo",
       value: FeeDiscountTierInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FeeDiscountTierInfo.typeUrl, FeeDiscountTierInfo);
 function createBaseFeeDiscountSchedule(): FeeDiscountSchedule {
   return {
     bucketCount: BigInt(0),
@@ -6614,9 +6642,11 @@ export const FeeDiscountSchedule = {
       typeUrl: "/injective.exchange.v1beta1.FeeDiscountSchedule",
       value: FeeDiscountSchedule.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FeeDiscountTierInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FeeDiscountSchedule.typeUrl, FeeDiscountSchedule);
 function createBaseFeeDiscountTierTTL(): FeeDiscountTierTTL {
   return {
     tier: BigInt(0),
@@ -6696,9 +6726,9 @@ export const FeeDiscountTierTTL = {
       typeUrl: "/injective.exchange.v1beta1.FeeDiscountTierTTL",
       value: FeeDiscountTierTTL.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FeeDiscountTierTTL.typeUrl, FeeDiscountTierTTL);
 function createBaseVolumeRecord(): VolumeRecord {
   return {
     makerVolume: "",
@@ -6778,9 +6808,9 @@ export const VolumeRecord = {
       typeUrl: "/injective.exchange.v1beta1.VolumeRecord",
       value: VolumeRecord.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(VolumeRecord.typeUrl, VolumeRecord);
 function createBaseAccountRewards(): AccountRewards {
   return {
     account: "",
@@ -6862,9 +6892,11 @@ export const AccountRewards = {
       typeUrl: "/injective.exchange.v1beta1.AccountRewards",
       value: AccountRewards.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AccountRewards.typeUrl, AccountRewards);
 function createBaseTradeRecords(): TradeRecords {
   return {
     marketId: "",
@@ -6946,9 +6978,11 @@ export const TradeRecords = {
       typeUrl: "/injective.exchange.v1beta1.TradeRecords",
       value: TradeRecords.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TradeRecord.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TradeRecords.typeUrl, TradeRecords);
 function createBaseSubaccountIDs(): SubaccountIDs {
   return {
     subaccountIds: []
@@ -7018,9 +7052,9 @@ export const SubaccountIDs = {
       typeUrl: "/injective.exchange.v1beta1.SubaccountIDs",
       value: SubaccountIDs.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SubaccountIDs.typeUrl, SubaccountIDs);
 function createBaseTradeRecord(): TradeRecord {
   return {
     timestamp: BigInt(0),
@@ -7112,9 +7146,9 @@ export const TradeRecord = {
       typeUrl: "/injective.exchange.v1beta1.TradeRecord",
       value: TradeRecord.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TradeRecord.typeUrl, TradeRecord);
 function createBaseLevel(): Level {
   return {
     p: "",
@@ -7194,9 +7228,9 @@ export const Level = {
       typeUrl: "/injective.exchange.v1beta1.Level",
       value: Level.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Level.typeUrl, Level);
 function createBaseAggregateSubaccountVolumeRecord(): AggregateSubaccountVolumeRecord {
   return {
     subaccountId: "",
@@ -7278,9 +7312,11 @@ export const AggregateSubaccountVolumeRecord = {
       typeUrl: "/injective.exchange.v1beta1.AggregateSubaccountVolumeRecord",
       value: AggregateSubaccountVolumeRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MarketVolume.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AggregateSubaccountVolumeRecord.typeUrl, AggregateSubaccountVolumeRecord);
 function createBaseAggregateAccountVolumeRecord(): AggregateAccountVolumeRecord {
   return {
     account: "",
@@ -7362,9 +7398,11 @@ export const AggregateAccountVolumeRecord = {
       typeUrl: "/injective.exchange.v1beta1.AggregateAccountVolumeRecord",
       value: AggregateAccountVolumeRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MarketVolume.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AggregateAccountVolumeRecord.typeUrl, AggregateAccountVolumeRecord);
 function createBaseMarketVolume(): MarketVolume {
   return {
     marketId: "",
@@ -7444,9 +7482,11 @@ export const MarketVolume = {
       typeUrl: "/injective.exchange.v1beta1.MarketVolume",
       value: MarketVolume.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    VolumeRecord.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MarketVolume.typeUrl, MarketVolume);
 function createBaseDenomDecimals(): DenomDecimals {
   return {
     denom: "",
@@ -7526,9 +7566,9 @@ export const DenomDecimals = {
       typeUrl: "/injective.exchange.v1beta1.DenomDecimals",
       value: DenomDecimals.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DenomDecimals.typeUrl, DenomDecimals);
 function createBaseGrantAuthorization(): GrantAuthorization {
   return {
     grantee: "",
@@ -7608,9 +7648,9 @@ export const GrantAuthorization = {
       typeUrl: "/injective.exchange.v1beta1.GrantAuthorization",
       value: GrantAuthorization.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GrantAuthorization.typeUrl, GrantAuthorization);
 function createBaseActiveGrant(): ActiveGrant {
   return {
     granter: "",
@@ -7690,9 +7730,9 @@ export const ActiveGrant = {
       typeUrl: "/injective.exchange.v1beta1.ActiveGrant",
       value: ActiveGrant.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ActiveGrant.typeUrl, ActiveGrant);
 function createBaseEffectiveGrant(): EffectiveGrant {
   return {
     granter: "",
@@ -7784,6 +7824,6 @@ export const EffectiveGrant = {
       typeUrl: "/injective.exchange.v1beta1.EffectiveGrant",
       value: EffectiveGrant.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EffectiveGrant.typeUrl, EffectiveGrant);

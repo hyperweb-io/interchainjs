@@ -1,5 +1,7 @@
 import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import { SendAuthorization, SendAuthorizationProtoMsg } from "../../bank/v1beta1/authz";
+import { StakeAuthorization, StakeAuthorizationProtoMsg } from "../../staking/v1beta1/authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
@@ -32,7 +34,7 @@ export interface GenericAuthorizationAminoMsg {
  * the provide method with expiration time.
  */
 export interface Grant {
-  authorization?: GenericAuthorization | Any | undefined;
+  authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined;
   /**
    * time when the grant will expire and will be pruned. If null, then the grant
    * doesn't have a time expiration (other conditions  in `authorization`
@@ -45,7 +47,7 @@ export interface GrantProtoMsg {
   value: Uint8Array;
 }
 export type GrantEncoded = Omit<Grant, "authorization"> & {
-  authorization?: GenericAuthorizationProtoMsg | AnyProtoMsg | undefined;
+  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * Grant gives permissions to execute
@@ -71,7 +73,7 @@ export interface GrantAminoMsg {
 export interface GrantAuthorization {
   granter: string;
   grantee: string;
-  authorization?: GenericAuthorization | Any | undefined;
+  authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined;
   expiration?: Date;
 }
 export interface GrantAuthorizationProtoMsg {
@@ -79,7 +81,7 @@ export interface GrantAuthorizationProtoMsg {
   value: Uint8Array;
 }
 export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"> & {
-  authorization?: GenericAuthorizationProtoMsg | AnyProtoMsg | undefined;
+  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
@@ -187,10 +189,12 @@ export const GenericAuthorization = {
       typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
       value: GenericAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(GenericAuthorization.typeUrl, GenericAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(GenericAuthorization.aminoType, GenericAuthorization.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(GenericAuthorization.typeUrl, GenericAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenericAuthorization.aminoType, GenericAuthorization.typeUrl);
 function createBaseGrant(): Grant {
   return {
     authorization: undefined,
@@ -277,10 +281,13 @@ export const Grant = {
       typeUrl: "/cosmos.authz.v1beta1.Grant",
       value: Grant.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenericAuthorization.registerTypeUrl();
+    SendAuthorization.registerTypeUrl();
+    StakeAuthorization.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Grant.typeUrl, Grant);
-GlobalDecoderRegistry.registerAminoProtoMapping(Grant.aminoType, Grant.typeUrl);
 function createBaseGrantAuthorization(): GrantAuthorization {
   return {
     granter: "",
@@ -391,10 +398,13 @@ export const GrantAuthorization = {
       typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization",
       value: GrantAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenericAuthorization.registerTypeUrl();
+    SendAuthorization.registerTypeUrl();
+    StakeAuthorization.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GrantAuthorization.typeUrl, GrantAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantAuthorization.aminoType, GrantAuthorization.typeUrl);
 function createBaseGrantQueueItem(): GrantQueueItem {
   return {
     msgTypeUrls: []
@@ -471,7 +481,6 @@ export const GrantQueueItem = {
       typeUrl: "/cosmos.authz.v1beta1.GrantQueueItem",
       value: GrantQueueItem.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GrantQueueItem.typeUrl, GrantQueueItem);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantQueueItem.aminoType, GrantQueueItem.typeUrl);

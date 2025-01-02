@@ -2,7 +2,6 @@ import { BaseAccount, BaseAccountAmino } from "../../auth/v1beta1/auth";
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
  * the necessary fields needed for any vesting account implementation.
@@ -287,10 +286,12 @@ export const BaseVestingAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.BaseVestingAccount",
       value: BaseVestingAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseAccount.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BaseVestingAccount.typeUrl, BaseVestingAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(BaseVestingAccount.aminoType, BaseVestingAccount.typeUrl);
 function createBaseContinuousVestingAccount(): ContinuousVestingAccount {
   return {
     baseVestingAccount: undefined,
@@ -377,10 +378,11 @@ export const ContinuousVestingAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.ContinuousVestingAccount",
       value: ContinuousVestingAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseVestingAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ContinuousVestingAccount.typeUrl, ContinuousVestingAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContinuousVestingAccount.aminoType, ContinuousVestingAccount.typeUrl);
 function createBaseDelayedVestingAccount(): DelayedVestingAccount {
   return {
     baseVestingAccount: undefined
@@ -455,10 +457,11 @@ export const DelayedVestingAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.DelayedVestingAccount",
       value: DelayedVestingAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseVestingAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DelayedVestingAccount.typeUrl, DelayedVestingAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(DelayedVestingAccount.aminoType, DelayedVestingAccount.typeUrl);
 function createBasePeriod(): Period {
   return {
     length: BigInt(0),
@@ -547,10 +550,11 @@ export const Period = {
       typeUrl: "/cosmos.vesting.v1beta1.Period",
       value: Period.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Period.typeUrl, Period);
-GlobalDecoderRegistry.registerAminoProtoMapping(Period.aminoType, Period.typeUrl);
 function createBasePeriodicVestingAccount(): PeriodicVestingAccount {
   return {
     baseVestingAccount: undefined,
@@ -651,10 +655,12 @@ export const PeriodicVestingAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
       value: PeriodicVestingAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseVestingAccount.registerTypeUrl();
+    Period.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PeriodicVestingAccount.typeUrl, PeriodicVestingAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(PeriodicVestingAccount.aminoType, PeriodicVestingAccount.typeUrl);
 function createBasePermanentLockedAccount(): PermanentLockedAccount {
   return {
     baseVestingAccount: undefined
@@ -729,7 +735,8 @@ export const PermanentLockedAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.PermanentLockedAccount",
       value: PermanentLockedAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseVestingAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PermanentLockedAccount.typeUrl, PermanentLockedAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(PermanentLockedAccount.aminoType, PermanentLockedAccount.typeUrl);

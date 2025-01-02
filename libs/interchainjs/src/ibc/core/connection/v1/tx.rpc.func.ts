@@ -5,29 +5,34 @@ export const createConnectionOpenInit = (clientResolver?: SigningClientResolver)
   clientResolver,
   typeUrl: MsgConnectionOpenInit.typeUrl,
   encoders: toEncoders(MsgConnectionOpenInit),
-  converters: toConverters(MsgConnectionOpenInit)
+  converters: toConverters(MsgConnectionOpenInit),
+  deps: [MsgConnectionOpenInit]
 });
 export const createConnectionOpenTry = (clientResolver?: SigningClientResolver) => buildTx<MsgConnectionOpenTry>({
   clientResolver,
   typeUrl: MsgConnectionOpenTry.typeUrl,
   encoders: toEncoders(MsgConnectionOpenTry),
-  converters: toConverters(MsgConnectionOpenTry)
+  converters: toConverters(MsgConnectionOpenTry),
+  deps: [MsgConnectionOpenTry]
 });
 export const createConnectionOpenAck = (clientResolver?: SigningClientResolver) => buildTx<MsgConnectionOpenAck>({
   clientResolver,
   typeUrl: MsgConnectionOpenAck.typeUrl,
   encoders: toEncoders(MsgConnectionOpenAck),
-  converters: toConverters(MsgConnectionOpenAck)
+  converters: toConverters(MsgConnectionOpenAck),
+  deps: [MsgConnectionOpenAck]
 });
 export const createConnectionOpenConfirm = (clientResolver?: SigningClientResolver) => buildTx<MsgConnectionOpenConfirm>({
   clientResolver,
   typeUrl: MsgConnectionOpenConfirm.typeUrl,
   encoders: toEncoders(MsgConnectionOpenConfirm),
-  converters: toConverters(MsgConnectionOpenConfirm)
+  converters: toConverters(MsgConnectionOpenConfirm),
+  deps: [MsgConnectionOpenConfirm]
 });
 export const createUpdateConnectionParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
-  converters: toConverters(MsgUpdateParams)
+  converters: toConverters(MsgUpdateParams),
+  deps: [MsgUpdateParams]
 });

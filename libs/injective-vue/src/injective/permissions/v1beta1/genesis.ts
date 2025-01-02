@@ -1,8 +1,8 @@
 import { Params, ParamsAmino } from "./params";
 import { Namespace, NamespaceAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial } from "../../../helpers";
 import { ComputedRef } from "vue";
 /** GenesisState defines the permissions module's genesis state. */
 export interface GenesisState {

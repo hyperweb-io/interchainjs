@@ -5,26 +5,30 @@ export const createGetAuctionParams = (clientResolver?: RpcResolver) => buildQue
   decode: QueryAuctionParamsResponse.decode,
   service: "injective.auction.v1beta1.Query",
   method: "AuctionParams",
-  clientResolver
+  clientResolver,
+  deps: [QueryAuctionParamsRequest, QueryAuctionParamsResponse]
 });
 export const createGetCurrentAuctionBasket = (clientResolver?: RpcResolver) => buildQuery<QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse>({
   encode: QueryCurrentAuctionBasketRequest.encode,
   decode: QueryCurrentAuctionBasketResponse.decode,
   service: "injective.auction.v1beta1.Query",
   method: "CurrentAuctionBasket",
-  clientResolver
+  clientResolver,
+  deps: [QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse]
 });
 export const createGetAuctionModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
   service: "injective.auction.v1beta1.Query",
   method: "AuctionModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const createGetLastAuctionResult = (clientResolver?: RpcResolver) => buildQuery<QueryLastAuctionResultRequest, QueryLastAuctionResultResponse>({
   encode: QueryLastAuctionResultRequest.encode,
   decode: QueryLastAuctionResultResponse.decode,
   service: "injective.auction.v1beta1.Query",
   method: "LastAuctionResult",
-  clientResolver
+  clientResolver,
+  deps: [QueryLastAuctionResultRequest, QueryLastAuctionResultResponse]
 });

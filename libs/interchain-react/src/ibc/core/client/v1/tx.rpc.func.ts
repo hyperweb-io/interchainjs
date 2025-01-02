@@ -1,12 +1,13 @@
 import { buildTx, SigningClientResolver } from "../../../../helper-func-types";
-import { buildUseMutation } from "../../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
+import { buildUseMutation } from "../../../../react-query";
 import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
 export const createCreateClient = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateClient>({
   clientResolver,
   typeUrl: MsgCreateClient.typeUrl,
   encoders: toEncoders(MsgCreateClient),
-  converters: toConverters(MsgCreateClient)
+  converters: toConverters(MsgCreateClient),
+  deps: [MsgCreateClient]
 });
 export const useCreateClient = buildUseMutation<MsgCreateClient, Error>({
   builderMutationFn: createCreateClient
@@ -15,7 +16,8 @@ export const createUpdateClient = (clientResolver?: SigningClientResolver) => bu
   clientResolver,
   typeUrl: MsgUpdateClient.typeUrl,
   encoders: toEncoders(MsgUpdateClient),
-  converters: toConverters(MsgUpdateClient)
+  converters: toConverters(MsgUpdateClient),
+  deps: [MsgUpdateClient]
 });
 export const useUpdateClient = buildUseMutation<MsgUpdateClient, Error>({
   builderMutationFn: createUpdateClient
@@ -24,7 +26,8 @@ export const createUpgradeClient = (clientResolver?: SigningClientResolver) => b
   clientResolver,
   typeUrl: MsgUpgradeClient.typeUrl,
   encoders: toEncoders(MsgUpgradeClient),
-  converters: toConverters(MsgUpgradeClient)
+  converters: toConverters(MsgUpgradeClient),
+  deps: [MsgUpgradeClient]
 });
 export const useUpgradeClient = buildUseMutation<MsgUpgradeClient, Error>({
   builderMutationFn: createUpgradeClient
@@ -33,7 +36,8 @@ export const createSubmitMisbehaviour = (clientResolver?: SigningClientResolver)
   clientResolver,
   typeUrl: MsgSubmitMisbehaviour.typeUrl,
   encoders: toEncoders(MsgSubmitMisbehaviour),
-  converters: toConverters(MsgSubmitMisbehaviour)
+  converters: toConverters(MsgSubmitMisbehaviour),
+  deps: [MsgSubmitMisbehaviour]
 });
 export const useSubmitMisbehaviour = buildUseMutation<MsgSubmitMisbehaviour, Error>({
   builderMutationFn: createSubmitMisbehaviour
@@ -42,7 +46,8 @@ export const createRecoverClient = (clientResolver?: SigningClientResolver) => b
   clientResolver,
   typeUrl: MsgRecoverClient.typeUrl,
   encoders: toEncoders(MsgRecoverClient),
-  converters: toConverters(MsgRecoverClient)
+  converters: toConverters(MsgRecoverClient),
+  deps: [MsgRecoverClient]
 });
 export const useRecoverClient = buildUseMutation<MsgRecoverClient, Error>({
   builderMutationFn: createRecoverClient
@@ -51,7 +56,8 @@ export const createIBCSoftwareUpgrade = (clientResolver?: SigningClientResolver)
   clientResolver,
   typeUrl: MsgIBCSoftwareUpgrade.typeUrl,
   encoders: toEncoders(MsgIBCSoftwareUpgrade),
-  converters: toConverters(MsgIBCSoftwareUpgrade)
+  converters: toConverters(MsgIBCSoftwareUpgrade),
+  deps: [MsgIBCSoftwareUpgrade]
 });
 export const useIBCSoftwareUpgrade = buildUseMutation<MsgIBCSoftwareUpgrade, Error>({
   builderMutationFn: createIBCSoftwareUpgrade
@@ -60,7 +66,8 @@ export const createUpdateClientParams = (clientResolver?: SigningClientResolver)
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
-  converters: toConverters(MsgUpdateParams)
+  converters: toConverters(MsgUpdateParams),
+  deps: [MsgUpdateParams]
 });
 export const useUpdateClientParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: createUpdateClientParams

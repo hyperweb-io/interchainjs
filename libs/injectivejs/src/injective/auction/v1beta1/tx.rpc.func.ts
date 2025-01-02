@@ -5,11 +5,13 @@ export const createBid = (clientResolver?: SigningClientResolver) => buildTx<Msg
   clientResolver,
   typeUrl: MsgBid.typeUrl,
   encoders: toEncoders(MsgBid),
-  converters: toConverters(MsgBid)
+  converters: toConverters(MsgBid),
+  deps: [MsgBid]
 });
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
-  converters: toConverters(MsgUpdateParams)
+  converters: toConverters(MsgUpdateParams),
+  deps: [MsgUpdateParams]
 });

@@ -1,7 +1,7 @@
 import { Timeout, TimeoutAmino, Order } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, isSet } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { DeepPartial, isSet } from "../../../../helpers";
 import { ComputedRef } from "vue";
 /**
  * Upgrade is a verifiable type which contains the relevant information

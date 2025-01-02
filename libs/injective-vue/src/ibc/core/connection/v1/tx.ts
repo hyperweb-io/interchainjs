@@ -2,8 +2,8 @@ import { Counterparty, CounterpartyAmino, Version, VersionAmino } from "./connec
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { ComputedRef } from "vue";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to

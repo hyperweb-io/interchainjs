@@ -187,10 +187,12 @@ export const GenericAuthorization = {
       typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
       value: GenericAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(GenericAuthorization.typeUrl, GenericAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(GenericAuthorization.aminoType, GenericAuthorization.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(GenericAuthorization.typeUrl, GenericAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenericAuthorization.aminoType, GenericAuthorization.typeUrl);
 function createBaseGrant(): Grant {
   return {
     authorization: undefined,
@@ -277,10 +279,11 @@ export const Grant = {
       typeUrl: "/cosmos.authz.v1beta1.Grant",
       value: Grant.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenericAuthorization.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Grant.typeUrl, Grant);
-GlobalDecoderRegistry.registerAminoProtoMapping(Grant.aminoType, Grant.typeUrl);
 function createBaseGrantAuthorization(): GrantAuthorization {
   return {
     granter: "",
@@ -391,10 +394,11 @@ export const GrantAuthorization = {
       typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization",
       value: GrantAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenericAuthorization.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GrantAuthorization.typeUrl, GrantAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantAuthorization.aminoType, GrantAuthorization.typeUrl);
 function createBaseGrantQueueItem(): GrantQueueItem {
   return {
     msgTypeUrls: []
@@ -471,7 +475,6 @@ export const GrantQueueItem = {
       typeUrl: "/cosmos.authz.v1beta1.GrantQueueItem",
       value: GrantQueueItem.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GrantQueueItem.typeUrl, GrantQueueItem);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantQueueItem.aminoType, GrantQueueItem.typeUrl);

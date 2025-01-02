@@ -5,7 +5,6 @@ import { OutgoingTxBatch, OutgoingTxBatchAmino, OutgoingTransferTx, OutgoingTran
 import { Attestation, AttestationAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState struct */
 export interface GenesisState {
   params?: Params;
@@ -303,6 +302,16 @@ export const GenesisState = {
       typeUrl: "/injective.peggy.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    Valset.registerTypeUrl();
+    MsgValsetConfirm.registerTypeUrl();
+    OutgoingTxBatch.registerTypeUrl();
+    MsgConfirmBatch.registerTypeUrl();
+    Attestation.registerTypeUrl();
+    MsgSetOrchestratorAddresses.registerTypeUrl();
+    ERC20ToDenom.registerTypeUrl();
+    OutgoingTransferTx.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);

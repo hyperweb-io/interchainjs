@@ -3,7 +3,6 @@ import { Height, HeightAmino, Params, ParamsAmino } from "../../../core/client/v
 import { Forwarding, ForwardingAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
  * ICS20 enabled chains. See ICS Spec here:
@@ -330,10 +329,13 @@ export const MsgTransfer = {
       typeUrl: "/ibc.applications.transfer.v1.MsgTransfer",
       value: MsgTransfer.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
+    Height.registerTypeUrl();
+    Forwarding.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgTransfer.typeUrl, MsgTransfer);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTransfer.aminoType, MsgTransfer.typeUrl);
 function createBaseMsgTransferResponse(): MsgTransferResponse {
   return {
     sequence: BigInt(0)
@@ -408,10 +410,9 @@ export const MsgTransferResponse = {
       typeUrl: "/ibc.applications.transfer.v1.MsgTransferResponse",
       value: MsgTransferResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTransferResponse.typeUrl, MsgTransferResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTransferResponse.aminoType, MsgTransferResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     signer: "",
@@ -498,10 +499,11 @@ export const MsgUpdateParams = {
       typeUrl: "/ibc.applications.transfer.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -563,7 +565,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/ibc.applications.transfer.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);

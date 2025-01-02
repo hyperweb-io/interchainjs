@@ -2,7 +2,6 @@ import { Params, ParamsAmino } from "./params";
 import { DenomAuthorityMetadata, DenomAuthorityMetadataAmino } from "./authorityMetadata";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisState {
   /** params defines the parameters of the module. */
@@ -136,9 +135,12 @@ export const GenesisState = {
       typeUrl: "/injective.tokenfactory.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    GenesisDenom.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
 function createBaseGenesisDenom(): GenesisDenom {
   return {
     denom: "",
@@ -254,6 +256,8 @@ export const GenesisDenom = {
       typeUrl: "/injective.tokenfactory.v1beta1.GenesisDenom",
       value: GenesisDenom.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DenomAuthorityMetadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisDenom.typeUrl, GenesisDenom);

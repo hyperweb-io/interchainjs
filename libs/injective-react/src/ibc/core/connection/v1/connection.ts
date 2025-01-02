@@ -1,7 +1,6 @@
 import { MerklePrefix, MerklePrefixAmino } from "../../commitment/v1/commitment";
 import { isSet, DeepPartial } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * State defines if a connection is in one of the following states:
  * INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -420,10 +419,12 @@ export const ConnectionEnd = {
       typeUrl: "/ibc.core.connection.v1.ConnectionEnd",
       value: ConnectionEnd.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Version.registerTypeUrl();
+    Counterparty.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ConnectionEnd.typeUrl, ConnectionEnd);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConnectionEnd.aminoType, ConnectionEnd.typeUrl);
 function createBaseIdentifiedConnection(): IdentifiedConnection {
   return {
     id: "",
@@ -560,10 +561,12 @@ export const IdentifiedConnection = {
       typeUrl: "/ibc.core.connection.v1.IdentifiedConnection",
       value: IdentifiedConnection.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Version.registerTypeUrl();
+    Counterparty.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(IdentifiedConnection.typeUrl, IdentifiedConnection);
-GlobalDecoderRegistry.registerAminoProtoMapping(IdentifiedConnection.aminoType, IdentifiedConnection.typeUrl);
 function createBaseCounterparty(): Counterparty {
   return {
     clientId: "",
@@ -662,10 +665,11 @@ export const Counterparty = {
       typeUrl: "/ibc.core.connection.v1.Counterparty",
       value: Counterparty.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MerklePrefix.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Counterparty.typeUrl, Counterparty);
-GlobalDecoderRegistry.registerAminoProtoMapping(Counterparty.aminoType, Counterparty.typeUrl);
 function createBaseClientPaths(): ClientPaths {
   return {
     paths: []
@@ -742,10 +746,9 @@ export const ClientPaths = {
       typeUrl: "/ibc.core.connection.v1.ClientPaths",
       value: ClientPaths.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ClientPaths.typeUrl, ClientPaths);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientPaths.aminoType, ClientPaths.typeUrl);
 function createBaseConnectionPaths(): ConnectionPaths {
   return {
     clientId: "",
@@ -834,10 +837,9 @@ export const ConnectionPaths = {
       typeUrl: "/ibc.core.connection.v1.ConnectionPaths",
       value: ConnectionPaths.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConnectionPaths.typeUrl, ConnectionPaths);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConnectionPaths.aminoType, ConnectionPaths.typeUrl);
 function createBaseVersion(): Version {
   return {
     identifier: "",
@@ -926,10 +928,9 @@ export const Version = {
       typeUrl: "/ibc.core.connection.v1.Version",
       value: Version.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Version.typeUrl, Version);
-GlobalDecoderRegistry.registerAminoProtoMapping(Version.aminoType, Version.typeUrl);
 function createBaseParams(): Params {
   return {
     maxExpectedTimePerBlock: BigInt(0)
@@ -1004,7 +1005,6 @@ export const Params = {
       typeUrl: "/ibc.core.connection.v1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);

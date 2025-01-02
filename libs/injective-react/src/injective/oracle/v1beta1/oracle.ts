@@ -1,7 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export enum OracleType {
   Unspecified = 0,
   Band = 1,
@@ -771,10 +770,9 @@ export const Params = {
       typeUrl: "/injective.oracle.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseOracleInfo(): OracleInfo {
   return {
     symbol: "",
@@ -854,9 +852,9 @@ export const OracleInfo = {
       typeUrl: "/injective.oracle.v1beta1.OracleInfo",
       value: OracleInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OracleInfo.typeUrl, OracleInfo);
 function createBaseChainlinkPriceState(): ChainlinkPriceState {
   return {
     feedId: "",
@@ -960,9 +958,11 @@ export const ChainlinkPriceState = {
       typeUrl: "/injective.oracle.v1beta1.ChainlinkPriceState",
       value: ChainlinkPriceState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ChainlinkPriceState.typeUrl, ChainlinkPriceState);
 function createBaseBandPriceState(): BandPriceState {
   return {
     symbol: "",
@@ -1078,9 +1078,11 @@ export const BandPriceState = {
       typeUrl: "/injective.oracle.v1beta1.BandPriceState",
       value: BandPriceState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BandPriceState.typeUrl, BandPriceState);
 function createBasePriceFeedState(): PriceFeedState {
   return {
     base: "",
@@ -1186,9 +1188,11 @@ export const PriceFeedState = {
       typeUrl: "/injective.oracle.v1beta1.PriceFeedState",
       value: PriceFeedState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PriceFeedState.typeUrl, PriceFeedState);
 function createBaseProviderInfo(): ProviderInfo {
   return {
     provider: "",
@@ -1270,9 +1274,9 @@ export const ProviderInfo = {
       typeUrl: "/injective.oracle.v1beta1.ProviderInfo",
       value: ProviderInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ProviderInfo.typeUrl, ProviderInfo);
 function createBaseProviderState(): ProviderState {
   return {
     providerInfo: undefined,
@@ -1354,9 +1358,12 @@ export const ProviderState = {
       typeUrl: "/injective.oracle.v1beta1.ProviderState",
       value: ProviderState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ProviderInfo.registerTypeUrl();
+    ProviderPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ProviderState.typeUrl, ProviderState);
 function createBaseProviderPriceState(): ProviderPriceState {
   return {
     symbol: "",
@@ -1436,9 +1443,11 @@ export const ProviderPriceState = {
       typeUrl: "/injective.oracle.v1beta1.ProviderPriceState",
       value: ProviderPriceState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ProviderPriceState.typeUrl, ProviderPriceState);
 function createBasePriceFeedInfo(): PriceFeedInfo {
   return {
     base: "",
@@ -1518,9 +1527,9 @@ export const PriceFeedInfo = {
       typeUrl: "/injective.oracle.v1beta1.PriceFeedInfo",
       value: PriceFeedInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PriceFeedInfo.typeUrl, PriceFeedInfo);
 function createBasePriceFeedPrice(): PriceFeedPrice {
   return {
     price: ""
@@ -1588,9 +1597,9 @@ export const PriceFeedPrice = {
       typeUrl: "/injective.oracle.v1beta1.PriceFeedPrice",
       value: PriceFeedPrice.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PriceFeedPrice.typeUrl, PriceFeedPrice);
 function createBaseCoinbasePriceState(): CoinbasePriceState {
   return {
     kind: "",
@@ -1706,9 +1715,11 @@ export const CoinbasePriceState = {
       typeUrl: "/injective.oracle.v1beta1.CoinbasePriceState",
       value: CoinbasePriceState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CoinbasePriceState.typeUrl, CoinbasePriceState);
 function createBaseStorkPriceState(): StorkPriceState {
   return {
     timestamp: BigInt(0),
@@ -1812,9 +1823,11 @@ export const StorkPriceState = {
       typeUrl: "/injective.oracle.v1beta1.StorkPriceState",
       value: StorkPriceState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StorkPriceState.typeUrl, StorkPriceState);
 function createBasePriceState(): PriceState {
   return {
     price: "",
@@ -1906,9 +1919,9 @@ export const PriceState = {
       typeUrl: "/injective.oracle.v1beta1.PriceState",
       value: PriceState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PriceState.typeUrl, PriceState);
 function createBasePythPriceState(): PythPriceState {
   return {
     priceId: "",
@@ -2036,9 +2049,11 @@ export const PythPriceState = {
       typeUrl: "/injective.oracle.v1beta1.PythPriceState",
       value: PythPriceState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PythPriceState.typeUrl, PythPriceState);
 function createBaseBandOracleRequest(): BandOracleRequest {
   return {
     requestId: BigInt(0),
@@ -2206,9 +2221,11 @@ export const BandOracleRequest = {
       typeUrl: "/injective.oracle.v1beta1.BandOracleRequest",
       value: BandOracleRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BandOracleRequest.typeUrl, BandOracleRequest);
 function createBaseBandIBCParams(): BandIBCParams {
   return {
     bandIbcEnabled: false,
@@ -2347,9 +2364,9 @@ export const BandIBCParams = {
       typeUrl: "/injective.oracle.v1beta1.BandIBCParams",
       value: BandIBCParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BandIBCParams.typeUrl, BandIBCParams);
 function createBaseSymbolPriceTimestamp(): SymbolPriceTimestamp {
   return {
     oracle: 0,
@@ -2441,9 +2458,9 @@ export const SymbolPriceTimestamp = {
       typeUrl: "/injective.oracle.v1beta1.SymbolPriceTimestamp",
       value: SymbolPriceTimestamp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SymbolPriceTimestamp.typeUrl, SymbolPriceTimestamp);
 function createBaseLastPriceTimestamps(): LastPriceTimestamps {
   return {
     lastPriceTimestamps: []
@@ -2513,9 +2530,11 @@ export const LastPriceTimestamps = {
       typeUrl: "/injective.oracle.v1beta1.LastPriceTimestamps",
       value: LastPriceTimestamps.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SymbolPriceTimestamp.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(LastPriceTimestamps.typeUrl, LastPriceTimestamps);
 function createBasePriceRecords(): PriceRecords {
   return {
     oracle: 0,
@@ -2609,9 +2628,11 @@ export const PriceRecords = {
       typeUrl: "/injective.oracle.v1beta1.PriceRecords",
       value: PriceRecords.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceRecord.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PriceRecords.typeUrl, PriceRecords);
 function createBasePriceRecord(): PriceRecord {
   return {
     timestamp: BigInt(0),
@@ -2691,9 +2712,9 @@ export const PriceRecord = {
       typeUrl: "/injective.oracle.v1beta1.PriceRecord",
       value: PriceRecord.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PriceRecord.typeUrl, PriceRecord);
 function createBaseMetadataStatistics(): MetadataStatistics {
   return {
     groupCount: 0,
@@ -2857,9 +2878,9 @@ export const MetadataStatistics = {
       typeUrl: "/injective.oracle.v1beta1.MetadataStatistics",
       value: MetadataStatistics.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MetadataStatistics.typeUrl, MetadataStatistics);
 function createBasePriceAttestation(): PriceAttestation {
   return {
     priceId: "",
@@ -3011,9 +3032,9 @@ export const PriceAttestation = {
       typeUrl: "/injective.oracle.v1beta1.PriceAttestation",
       value: PriceAttestation.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PriceAttestation.typeUrl, PriceAttestation);
 function createBaseAssetPair(): AssetPair {
   return {
     assetId: "",
@@ -3095,9 +3116,11 @@ export const AssetPair = {
       typeUrl: "/injective.oracle.v1beta1.AssetPair",
       value: AssetPair.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignedPriceOfAssetPair.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AssetPair.typeUrl, AssetPair);
 function createBaseSignedPriceOfAssetPair(): SignedPriceOfAssetPair {
   return {
     publisherKey: "",
@@ -3201,6 +3224,6 @@ export const SignedPriceOfAssetPair = {
       typeUrl: "/injective.oracle.v1beta1.SignedPriceOfAssetPair",
       value: SignedPriceOfAssetPair.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignedPriceOfAssetPair.typeUrl, SignedPriceOfAssetPair);

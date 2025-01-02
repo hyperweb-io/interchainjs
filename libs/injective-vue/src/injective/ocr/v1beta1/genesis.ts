@@ -1,8 +1,8 @@
 import { Params, ParamsAmino, FeedConfig, FeedConfigAmino, Transmission, TransmissionAmino, EpochAndRound, EpochAndRoundAmino } from "./ocr";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial } from "../../../helpers";
 import { ComputedRef } from "vue";
 /** GenesisState defines the OCR module's genesis state. */
 export interface GenesisState {

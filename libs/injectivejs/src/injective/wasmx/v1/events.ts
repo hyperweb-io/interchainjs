@@ -1,7 +1,6 @@
 import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventContractExecution {
   contractAddress: string;
   response: Uint8Array;
@@ -167,9 +166,9 @@ export const EventContractExecution = {
       typeUrl: "/injective.wasmx.v1.EventContractExecution",
       value: EventContractExecution.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventContractExecution.typeUrl, EventContractExecution);
 function createBaseEventContractRegistered(): EventContractRegistered {
   return {
     contractAddress: "",
@@ -321,9 +320,9 @@ export const EventContractRegistered = {
       typeUrl: "/injective.wasmx.v1.EventContractRegistered",
       value: EventContractRegistered.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventContractRegistered.typeUrl, EventContractRegistered);
 function createBaseEventContractDeregistered(): EventContractDeregistered {
   return {
     contractAddress: ""
@@ -391,6 +390,6 @@ export const EventContractDeregistered = {
       typeUrl: "/injective.wasmx.v1.EventContractDeregistered",
       value: EventContractDeregistered.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventContractDeregistered.typeUrl, EventContractDeregistered);

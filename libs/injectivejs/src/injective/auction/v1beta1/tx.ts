@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino } from "./auction";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** Bid defines a SDK message for placing a bid for an auction */
 export interface MsgBid {
   sender: string;
@@ -173,10 +172,11 @@ export const MsgBid = {
       typeUrl: "/injective.auction.v1beta1.MsgBid",
       value: MsgBid.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBid.typeUrl, MsgBid);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBid.aminoType, MsgBid.typeUrl);
 function createBaseMsgBidResponse(): MsgBidResponse {
   return {};
 }
@@ -231,9 +231,9 @@ export const MsgBidResponse = {
       typeUrl: "/injective.auction.v1beta1.MsgBidResponse",
       value: MsgBidResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBidResponse.typeUrl, MsgBidResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -320,10 +320,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.auction.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -378,6 +379,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.auction.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);

@@ -6,7 +6,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -17,7 +18,8 @@ export const createGetCurrentValset = (clientResolver?: RpcResolver) => buildQue
   decode: QueryCurrentValsetResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "CurrentValset",
-  clientResolver
+  clientResolver,
+  deps: [QueryCurrentValsetRequest, QueryCurrentValsetResponse]
 });
 export const useGetCurrentValset = buildUseQuery<QueryCurrentValsetRequest, QueryCurrentValsetResponse>({
   builderQueryFn: createGetCurrentValset,
@@ -28,7 +30,8 @@ export const createGetValsetRequest = (clientResolver?: RpcResolver) => buildQue
   decode: QueryValsetRequestResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "ValsetRequest",
-  clientResolver
+  clientResolver,
+  deps: [QueryValsetRequestRequest, QueryValsetRequestResponse]
 });
 export const useGetValsetRequest = buildUseQuery<QueryValsetRequestRequest, QueryValsetRequestResponse>({
   builderQueryFn: createGetValsetRequest,
@@ -39,7 +42,8 @@ export const createGetValsetConfirm = (clientResolver?: RpcResolver) => buildQue
   decode: QueryValsetConfirmResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "ValsetConfirm",
-  clientResolver
+  clientResolver,
+  deps: [QueryValsetConfirmRequest, QueryValsetConfirmResponse]
 });
 export const useGetValsetConfirm = buildUseQuery<QueryValsetConfirmRequest, QueryValsetConfirmResponse>({
   builderQueryFn: createGetValsetConfirm,
@@ -50,7 +54,8 @@ export const createGetValsetConfirmsByNonce = (clientResolver?: RpcResolver) => 
   decode: QueryValsetConfirmsByNonceResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "ValsetConfirmsByNonce",
-  clientResolver
+  clientResolver,
+  deps: [QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse]
 });
 export const useGetValsetConfirmsByNonce = buildUseQuery<QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse>({
   builderQueryFn: createGetValsetConfirmsByNonce,
@@ -61,7 +66,8 @@ export const createGetLastValsetRequests = (clientResolver?: RpcResolver) => bui
   decode: QueryLastValsetRequestsResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "LastValsetRequests",
-  clientResolver
+  clientResolver,
+  deps: [QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse]
 });
 export const useGetLastValsetRequests = buildUseQuery<QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse>({
   builderQueryFn: createGetLastValsetRequests,
@@ -72,7 +78,8 @@ export const createGetLastPendingValsetRequestByAddr = (clientResolver?: RpcReso
   decode: QueryLastPendingValsetRequestByAddrResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "LastPendingValsetRequestByAddr",
-  clientResolver
+  clientResolver,
+  deps: [QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse]
 });
 export const useGetLastPendingValsetRequestByAddr = buildUseQuery<QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse>({
   builderQueryFn: createGetLastPendingValsetRequestByAddr,
@@ -83,7 +90,8 @@ export const createGetLastEventByAddr = (clientResolver?: RpcResolver) => buildQ
   decode: QueryLastEventByAddrResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "LastEventByAddr",
-  clientResolver
+  clientResolver,
+  deps: [QueryLastEventByAddrRequest, QueryLastEventByAddrResponse]
 });
 export const useGetLastEventByAddr = buildUseQuery<QueryLastEventByAddrRequest, QueryLastEventByAddrResponse>({
   builderQueryFn: createGetLastEventByAddr,
@@ -94,7 +102,8 @@ export const createGetGetPendingSendToEth = (clientResolver?: RpcResolver) => bu
   decode: QueryPendingSendToEthResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "GetPendingSendToEth",
-  clientResolver
+  clientResolver,
+  deps: [QueryPendingSendToEth, QueryPendingSendToEthResponse]
 });
 export const useGetGetPendingSendToEth = buildUseQuery<QueryPendingSendToEth, QueryPendingSendToEthResponse>({
   builderQueryFn: createGetGetPendingSendToEth,
@@ -105,7 +114,8 @@ export const createGetBatchFees = (clientResolver?: RpcResolver) => buildQuery<Q
   decode: QueryBatchFeeResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "BatchFees",
-  clientResolver
+  clientResolver,
+  deps: [QueryBatchFeeRequest, QueryBatchFeeResponse]
 });
 export const useGetBatchFees = buildUseQuery<QueryBatchFeeRequest, QueryBatchFeeResponse>({
   builderQueryFn: createGetBatchFees,
@@ -116,7 +126,8 @@ export const createGetOutgoingTxBatches = (clientResolver?: RpcResolver) => buil
   decode: QueryOutgoingTxBatchesResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "OutgoingTxBatches",
-  clientResolver
+  clientResolver,
+  deps: [QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse]
 });
 export const useGetOutgoingTxBatches = buildUseQuery<QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse>({
   builderQueryFn: createGetOutgoingTxBatches,
@@ -127,7 +138,8 @@ export const createGetLastPendingBatchRequestByAddr = (clientResolver?: RpcResol
   decode: QueryLastPendingBatchRequestByAddrResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "LastPendingBatchRequestByAddr",
-  clientResolver
+  clientResolver,
+  deps: [QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse]
 });
 export const useGetLastPendingBatchRequestByAddr = buildUseQuery<QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse>({
   builderQueryFn: createGetLastPendingBatchRequestByAddr,
@@ -138,7 +150,8 @@ export const createGetBatchRequestByNonce = (clientResolver?: RpcResolver) => bu
   decode: QueryBatchRequestByNonceResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "BatchRequestByNonce",
-  clientResolver
+  clientResolver,
+  deps: [QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse]
 });
 export const useGetBatchRequestByNonce = buildUseQuery<QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse>({
   builderQueryFn: createGetBatchRequestByNonce,
@@ -149,7 +162,8 @@ export const createGetBatchConfirms = (clientResolver?: RpcResolver) => buildQue
   decode: QueryBatchConfirmsResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "BatchConfirms",
-  clientResolver
+  clientResolver,
+  deps: [QueryBatchConfirmsRequest, QueryBatchConfirmsResponse]
 });
 export const useGetBatchConfirms = buildUseQuery<QueryBatchConfirmsRequest, QueryBatchConfirmsResponse>({
   builderQueryFn: createGetBatchConfirms,
@@ -160,7 +174,8 @@ export const createGetERC20ToDenom = (clientResolver?: RpcResolver) => buildQuer
   decode: QueryERC20ToDenomResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "ERC20ToDenom",
-  clientResolver
+  clientResolver,
+  deps: [QueryERC20ToDenomRequest, QueryERC20ToDenomResponse]
 });
 export const useGetERC20ToDenom = buildUseQuery<QueryERC20ToDenomRequest, QueryERC20ToDenomResponse>({
   builderQueryFn: createGetERC20ToDenom,
@@ -171,7 +186,8 @@ export const createGetDenomToERC20 = (clientResolver?: RpcResolver) => buildQuer
   decode: QueryDenomToERC20Response.decode,
   service: "injective.peggy.v1.Query",
   method: "DenomToERC20",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomToERC20Request, QueryDenomToERC20Response]
 });
 export const useGetDenomToERC20 = buildUseQuery<QueryDenomToERC20Request, QueryDenomToERC20Response>({
   builderQueryFn: createGetDenomToERC20,
@@ -182,7 +198,8 @@ export const createGetGetDelegateKeyByValidator = (clientResolver?: RpcResolver)
   decode: QueryDelegateKeysByValidatorAddressResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "GetDelegateKeyByValidator",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse]
 });
 export const useGetGetDelegateKeyByValidator = buildUseQuery<QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse>({
   builderQueryFn: createGetGetDelegateKeyByValidator,
@@ -193,7 +210,8 @@ export const createGetGetDelegateKeyByEth = (clientResolver?: RpcResolver) => bu
   decode: QueryDelegateKeysByEthAddressResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "GetDelegateKeyByEth",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse]
 });
 export const useGetGetDelegateKeyByEth = buildUseQuery<QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse>({
   builderQueryFn: createGetGetDelegateKeyByEth,
@@ -204,7 +222,8 @@ export const createGetGetDelegateKeyByOrchestrator = (clientResolver?: RpcResolv
   decode: QueryDelegateKeysByOrchestratorAddressResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "GetDelegateKeyByOrchestrator",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse]
 });
 export const useGetGetDelegateKeyByOrchestrator = buildUseQuery<QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse>({
   builderQueryFn: createGetGetDelegateKeyByOrchestrator,
@@ -215,7 +234,8 @@ export const createGetPeggyModuleState = (clientResolver?: RpcResolver) => build
   decode: QueryModuleStateResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "PeggyModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const useGetPeggyModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: createGetPeggyModuleState,
@@ -226,7 +246,8 @@ export const createGetMissingPeggoNonces = (clientResolver?: RpcResolver) => bui
   decode: MissingNoncesResponse.decode,
   service: "injective.peggy.v1.Query",
   method: "MissingPeggoNonces",
-  clientResolver
+  clientResolver,
+  deps: [MissingNoncesRequest, MissingNoncesResponse]
 });
 export const useGetMissingPeggoNonces = buildUseQuery<MissingNoncesRequest, MissingNoncesResponse>({
   builderQueryFn: createGetMissingPeggoNonces,

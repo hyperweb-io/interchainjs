@@ -6,7 +6,8 @@ export const createGetBalance = (clientResolver?: RpcResolver) => buildQuery<Que
   decode: QueryBalanceResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "Balance",
-  clientResolver
+  clientResolver,
+  deps: [QueryBalanceRequest, QueryBalanceResponse]
 });
 export const useGetBalance = buildUseQuery<QueryBalanceRequest, QueryBalanceResponse>({
   builderQueryFn: createGetBalance,
@@ -17,7 +18,8 @@ export const createGetAllBalances = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryAllBalancesResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "AllBalances",
-  clientResolver
+  clientResolver,
+  deps: [QueryAllBalancesRequest, QueryAllBalancesResponse]
 });
 export const useGetAllBalances = buildUseQuery<QueryAllBalancesRequest, QueryAllBalancesResponse>({
   builderQueryFn: createGetAllBalances,
@@ -28,7 +30,8 @@ export const createGetSpendableBalances = (clientResolver?: RpcResolver) => buil
   decode: QuerySpendableBalancesResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "SpendableBalances",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpendableBalancesRequest, QuerySpendableBalancesResponse]
 });
 export const useGetSpendableBalances = buildUseQuery<QuerySpendableBalancesRequest, QuerySpendableBalancesResponse>({
   builderQueryFn: createGetSpendableBalances,
@@ -39,7 +42,8 @@ export const createGetSpendableBalanceByDenom = (clientResolver?: RpcResolver) =
   decode: QuerySpendableBalanceByDenomResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "SpendableBalanceByDenom",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse]
 });
 export const useGetSpendableBalanceByDenom = buildUseQuery<QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse>({
   builderQueryFn: createGetSpendableBalanceByDenom,
@@ -50,7 +54,8 @@ export const createGetTotalSupply = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryTotalSupplyResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "TotalSupply",
-  clientResolver
+  clientResolver,
+  deps: [QueryTotalSupplyRequest, QueryTotalSupplyResponse]
 });
 export const useGetTotalSupply = buildUseQuery<QueryTotalSupplyRequest, QueryTotalSupplyResponse>({
   builderQueryFn: createGetTotalSupply,
@@ -61,7 +66,8 @@ export const createGetSupplyOf = (clientResolver?: RpcResolver) => buildQuery<Qu
   decode: QuerySupplyOfResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "SupplyOf",
-  clientResolver
+  clientResolver,
+  deps: [QuerySupplyOfRequest, QuerySupplyOfResponse]
 });
 export const useGetSupplyOf = buildUseQuery<QuerySupplyOfRequest, QuerySupplyOfResponse>({
   builderQueryFn: createGetSupplyOf,
@@ -72,7 +78,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -83,7 +90,8 @@ export const createGetDenomMetadata = (clientResolver?: RpcResolver) => buildQue
   decode: QueryDenomMetadataResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "DenomMetadata",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomMetadataRequest, QueryDenomMetadataResponse]
 });
 export const useGetDenomMetadata = buildUseQuery<QueryDenomMetadataRequest, QueryDenomMetadataResponse>({
   builderQueryFn: createGetDenomMetadata,
@@ -94,7 +102,8 @@ export const createGetDenomMetadataByQueryString = (clientResolver?: RpcResolver
   decode: QueryDenomMetadataByQueryStringResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "DenomMetadataByQueryString",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse]
 });
 export const useGetDenomMetadataByQueryString = buildUseQuery<QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse>({
   builderQueryFn: createGetDenomMetadataByQueryString,
@@ -105,7 +114,8 @@ export const createGetDenomsMetadata = (clientResolver?: RpcResolver) => buildQu
   decode: QueryDenomsMetadataResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "DenomsMetadata",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomsMetadataRequest, QueryDenomsMetadataResponse]
 });
 export const useGetDenomsMetadata = buildUseQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
   builderQueryFn: createGetDenomsMetadata,
@@ -116,7 +126,8 @@ export const createGetDenomOwners = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryDenomOwnersResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "DenomOwners",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomOwnersRequest, QueryDenomOwnersResponse]
 });
 export const useGetDenomOwners = buildUseQuery<QueryDenomOwnersRequest, QueryDenomOwnersResponse>({
   builderQueryFn: createGetDenomOwners,
@@ -127,7 +138,8 @@ export const createGetDenomOwnersByQuery = (clientResolver?: RpcResolver) => bui
   decode: QueryDenomOwnersByQueryResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "DenomOwnersByQuery",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse]
 });
 export const useGetDenomOwnersByQuery = buildUseQuery<QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse>({
   builderQueryFn: createGetDenomOwnersByQuery,
@@ -138,7 +150,8 @@ export const createGetSendEnabled = (clientResolver?: RpcResolver) => buildQuery
   decode: QuerySendEnabledResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
   method: "SendEnabled",
-  clientResolver
+  clientResolver,
+  deps: [QuerySendEnabledRequest, QuerySendEnabledResponse]
 });
 export const useGetSendEnabled = buildUseQuery<QuerySendEnabledRequest, QuerySendEnabledResponse>({
   builderQueryFn: createGetSendEnabled,

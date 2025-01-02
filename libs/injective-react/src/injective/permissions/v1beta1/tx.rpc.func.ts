@@ -1,12 +1,13 @@
 import { buildTx, SigningClientResolver } from "../../../helper-func-types";
-import { buildUseMutation } from "../../../react-query";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
+import { buildUseMutation } from "../../../react-query";
 import { MsgUpdateParams, MsgCreateNamespace, MsgDeleteNamespace, MsgUpdateNamespace, MsgUpdateNamespaceRoles, MsgRevokeNamespaceRoles, MsgClaimVoucher } from "./tx";
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
-  converters: toConverters(MsgUpdateParams)
+  converters: toConverters(MsgUpdateParams),
+  deps: [MsgUpdateParams]
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: createUpdateParams
@@ -15,7 +16,8 @@ export const createCreateNamespace = (clientResolver?: SigningClientResolver) =>
   clientResolver,
   typeUrl: MsgCreateNamespace.typeUrl,
   encoders: toEncoders(MsgCreateNamespace),
-  converters: toConverters(MsgCreateNamespace)
+  converters: toConverters(MsgCreateNamespace),
+  deps: [MsgCreateNamespace]
 });
 export const useCreateNamespace = buildUseMutation<MsgCreateNamespace, Error>({
   builderMutationFn: createCreateNamespace
@@ -24,7 +26,8 @@ export const createDeleteNamespace = (clientResolver?: SigningClientResolver) =>
   clientResolver,
   typeUrl: MsgDeleteNamespace.typeUrl,
   encoders: toEncoders(MsgDeleteNamespace),
-  converters: toConverters(MsgDeleteNamespace)
+  converters: toConverters(MsgDeleteNamespace),
+  deps: [MsgDeleteNamespace]
 });
 export const useDeleteNamespace = buildUseMutation<MsgDeleteNamespace, Error>({
   builderMutationFn: createDeleteNamespace
@@ -33,7 +36,8 @@ export const createUpdateNamespace = (clientResolver?: SigningClientResolver) =>
   clientResolver,
   typeUrl: MsgUpdateNamespace.typeUrl,
   encoders: toEncoders(MsgUpdateNamespace),
-  converters: toConverters(MsgUpdateNamespace)
+  converters: toConverters(MsgUpdateNamespace),
+  deps: [MsgUpdateNamespace]
 });
 export const useUpdateNamespace = buildUseMutation<MsgUpdateNamespace, Error>({
   builderMutationFn: createUpdateNamespace
@@ -42,7 +46,8 @@ export const createUpdateNamespaceRoles = (clientResolver?: SigningClientResolve
   clientResolver,
   typeUrl: MsgUpdateNamespaceRoles.typeUrl,
   encoders: toEncoders(MsgUpdateNamespaceRoles),
-  converters: toConverters(MsgUpdateNamespaceRoles)
+  converters: toConverters(MsgUpdateNamespaceRoles),
+  deps: [MsgUpdateNamespaceRoles]
 });
 export const useUpdateNamespaceRoles = buildUseMutation<MsgUpdateNamespaceRoles, Error>({
   builderMutationFn: createUpdateNamespaceRoles
@@ -51,7 +56,8 @@ export const createRevokeNamespaceRoles = (clientResolver?: SigningClientResolve
   clientResolver,
   typeUrl: MsgRevokeNamespaceRoles.typeUrl,
   encoders: toEncoders(MsgRevokeNamespaceRoles),
-  converters: toConverters(MsgRevokeNamespaceRoles)
+  converters: toConverters(MsgRevokeNamespaceRoles),
+  deps: [MsgRevokeNamespaceRoles]
 });
 export const useRevokeNamespaceRoles = buildUseMutation<MsgRevokeNamespaceRoles, Error>({
   builderMutationFn: createRevokeNamespaceRoles
@@ -60,7 +66,8 @@ export const createClaimVoucher = (clientResolver?: SigningClientResolver) => bu
   clientResolver,
   typeUrl: MsgClaimVoucher.typeUrl,
   encoders: toEncoders(MsgClaimVoucher),
-  converters: toConverters(MsgClaimVoucher)
+  converters: toConverters(MsgClaimVoucher),
+  deps: [MsgClaimVoucher]
 });
 export const useClaimVoucher = buildUseMutation<MsgClaimVoucher, Error>({
   builderMutationFn: createClaimVoucher

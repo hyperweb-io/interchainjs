@@ -2,8 +2,8 @@ import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../../core/client/v1/client";
 import { Forwarding, ForwardingAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { DeepPartial } from "../../../../helpers";
 import { ComputedRef } from "vue";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between

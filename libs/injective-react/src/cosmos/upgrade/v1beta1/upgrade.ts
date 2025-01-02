@@ -303,10 +303,9 @@ export const Plan = {
       typeUrl: "/cosmos.upgrade.v1beta1.Plan",
       value: Plan.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Plan.typeUrl, Plan);
-GlobalDecoderRegistry.registerAminoProtoMapping(Plan.aminoType, Plan.typeUrl);
 function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
   return {
     title: "",
@@ -405,10 +404,13 @@ export const SoftwareUpgradeProposal = {
       typeUrl: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
       value: SoftwareUpgradeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(SoftwareUpgradeProposal.typeUrl, SoftwareUpgradeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(SoftwareUpgradeProposal.aminoType, SoftwareUpgradeProposal.typeUrl);
+    Plan.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SoftwareUpgradeProposal.typeUrl, SoftwareUpgradeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(SoftwareUpgradeProposal.aminoType, SoftwareUpgradeProposal.typeUrl);
 function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposal {
   return {
     title: "",
@@ -495,10 +497,12 @@ export const CancelSoftwareUpgradeProposal = {
       typeUrl: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal",
       value: CancelSoftwareUpgradeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CancelSoftwareUpgradeProposal.typeUrl, CancelSoftwareUpgradeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CancelSoftwareUpgradeProposal.aminoType, CancelSoftwareUpgradeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CancelSoftwareUpgradeProposal.typeUrl, CancelSoftwareUpgradeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(CancelSoftwareUpgradeProposal.aminoType, CancelSoftwareUpgradeProposal.typeUrl);
 function createBaseModuleVersion(): ModuleVersion {
   return {
     name: "",
@@ -585,7 +589,6 @@ export const ModuleVersion = {
       typeUrl: "/cosmos.upgrade.v1beta1.ModuleVersion",
       value: ModuleVersion.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ModuleVersion.typeUrl, ModuleVersion);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleVersion.aminoType, ModuleVersion.typeUrl);

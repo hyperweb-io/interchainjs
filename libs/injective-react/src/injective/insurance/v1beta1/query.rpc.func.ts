@@ -6,7 +6,8 @@ export const createGetInsuranceParams = (clientResolver?: RpcResolver) => buildQ
   decode: QueryInsuranceParamsResponse.decode,
   service: "injective.insurance.v1beta1.Query",
   method: "InsuranceParams",
-  clientResolver
+  clientResolver,
+  deps: [QueryInsuranceParamsRequest, QueryInsuranceParamsResponse]
 });
 export const useGetInsuranceParams = buildUseQuery<QueryInsuranceParamsRequest, QueryInsuranceParamsResponse>({
   builderQueryFn: createGetInsuranceParams,
@@ -17,7 +18,8 @@ export const createGetInsuranceFund = (clientResolver?: RpcResolver) => buildQue
   decode: QueryInsuranceFundResponse.decode,
   service: "injective.insurance.v1beta1.Query",
   method: "InsuranceFund",
-  clientResolver
+  clientResolver,
+  deps: [QueryInsuranceFundRequest, QueryInsuranceFundResponse]
 });
 export const useGetInsuranceFund = buildUseQuery<QueryInsuranceFundRequest, QueryInsuranceFundResponse>({
   builderQueryFn: createGetInsuranceFund,
@@ -28,7 +30,8 @@ export const createGetInsuranceFunds = (clientResolver?: RpcResolver) => buildQu
   decode: QueryInsuranceFundsResponse.decode,
   service: "injective.insurance.v1beta1.Query",
   method: "InsuranceFunds",
-  clientResolver
+  clientResolver,
+  deps: [QueryInsuranceFundsRequest, QueryInsuranceFundsResponse]
 });
 export const useGetInsuranceFunds = buildUseQuery<QueryInsuranceFundsRequest, QueryInsuranceFundsResponse>({
   builderQueryFn: createGetInsuranceFunds,
@@ -39,7 +42,8 @@ export const createGetEstimatedRedemptions = (clientResolver?: RpcResolver) => b
   decode: QueryEstimatedRedemptionsResponse.decode,
   service: "injective.insurance.v1beta1.Query",
   method: "EstimatedRedemptions",
-  clientResolver
+  clientResolver,
+  deps: [QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse]
 });
 export const useGetEstimatedRedemptions = buildUseQuery<QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse>({
   builderQueryFn: createGetEstimatedRedemptions,
@@ -50,7 +54,8 @@ export const createGetPendingRedemptions = (clientResolver?: RpcResolver) => bui
   decode: QueryPendingRedemptionsResponse.decode,
   service: "injective.insurance.v1beta1.Query",
   method: "PendingRedemptions",
-  clientResolver
+  clientResolver,
+  deps: [QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse]
 });
 export const useGetPendingRedemptions = buildUseQuery<QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse>({
   builderQueryFn: createGetPendingRedemptions,
@@ -61,7 +66,8 @@ export const createGetInsuranceModuleState = (clientResolver?: RpcResolver) => b
   decode: QueryModuleStateResponse.decode,
   service: "injective.insurance.v1beta1.Query",
   method: "InsuranceModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const useGetInsuranceModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: createGetInsuranceModuleState,

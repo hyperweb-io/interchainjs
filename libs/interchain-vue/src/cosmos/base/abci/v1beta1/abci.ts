@@ -2,8 +2,8 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Event, EventAmino } from "../../../../tendermint/abci/types";
 import { Block, BlockAmino } from "../../../../tendermint/types/block";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { ComputedRef } from "vue";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The

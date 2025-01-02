@@ -5,19 +5,22 @@ export const createGetWasmxParams = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryWasmxParamsResponse.decode,
   service: "injective.wasmx.v1.Query",
   method: "WasmxParams",
-  clientResolver
+  clientResolver,
+  deps: [QueryWasmxParamsRequest, QueryWasmxParamsResponse]
 });
 export const createGetContractRegistrationInfo = (clientResolver?: RpcResolver) => buildQuery<QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse>({
   encode: QueryContractRegistrationInfoRequest.encode,
   decode: QueryContractRegistrationInfoResponse.decode,
   service: "injective.wasmx.v1.Query",
   method: "ContractRegistrationInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse]
 });
 export const createGetWasmxModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
   service: "injective.wasmx.v1.Query",
   method: "WasmxModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });

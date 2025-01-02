@@ -6,7 +6,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -17,7 +18,8 @@ export const createGetBandRelayers = (clientResolver?: RpcResolver) => buildQuer
   decode: QueryBandRelayersResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "BandRelayers",
-  clientResolver
+  clientResolver,
+  deps: [QueryBandRelayersRequest, QueryBandRelayersResponse]
 });
 export const useGetBandRelayers = buildUseQuery<QueryBandRelayersRequest, QueryBandRelayersResponse>({
   builderQueryFn: createGetBandRelayers,
@@ -28,7 +30,8 @@ export const createGetBandPriceStates = (clientResolver?: RpcResolver) => buildQ
   decode: QueryBandPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "BandPriceStates",
-  clientResolver
+  clientResolver,
+  deps: [QueryBandPriceStatesRequest, QueryBandPriceStatesResponse]
 });
 export const useGetBandPriceStates = buildUseQuery<QueryBandPriceStatesRequest, QueryBandPriceStatesResponse>({
   builderQueryFn: createGetBandPriceStates,
@@ -39,7 +42,8 @@ export const createGetBandIBCPriceStates = (clientResolver?: RpcResolver) => bui
   decode: QueryBandIBCPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "BandIBCPriceStates",
-  clientResolver
+  clientResolver,
+  deps: [QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse]
 });
 export const useGetBandIBCPriceStates = buildUseQuery<QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse>({
   builderQueryFn: createGetBandIBCPriceStates,
@@ -50,7 +54,8 @@ export const createGetPriceFeedPriceStates = (clientResolver?: RpcResolver) => b
   decode: QueryPriceFeedPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "PriceFeedPriceStates",
-  clientResolver
+  clientResolver,
+  deps: [QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse]
 });
 export const useGetPriceFeedPriceStates = buildUseQuery<QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse>({
   builderQueryFn: createGetPriceFeedPriceStates,
@@ -61,7 +66,8 @@ export const createGetCoinbasePriceStates = (clientResolver?: RpcResolver) => bu
   decode: QueryCoinbasePriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "CoinbasePriceStates",
-  clientResolver
+  clientResolver,
+  deps: [QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse]
 });
 export const useGetCoinbasePriceStates = buildUseQuery<QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse>({
   builderQueryFn: createGetCoinbasePriceStates,
@@ -72,7 +78,8 @@ export const createGetPythPriceStates = (clientResolver?: RpcResolver) => buildQ
   decode: QueryPythPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "PythPriceStates",
-  clientResolver
+  clientResolver,
+  deps: [QueryPythPriceStatesRequest, QueryPythPriceStatesResponse]
 });
 export const useGetPythPriceStates = buildUseQuery<QueryPythPriceStatesRequest, QueryPythPriceStatesResponse>({
   builderQueryFn: createGetPythPriceStates,
@@ -83,7 +90,8 @@ export const createGetStorkPriceStates = (clientResolver?: RpcResolver) => build
   decode: QueryStorkPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "StorkPriceStates",
-  clientResolver
+  clientResolver,
+  deps: [QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse]
 });
 export const useGetStorkPriceStates = buildUseQuery<QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse>({
   builderQueryFn: createGetStorkPriceStates,
@@ -94,7 +102,8 @@ export const createGetStorkPublishers = (clientResolver?: RpcResolver) => buildQ
   decode: QueryStorkPublishersResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "StorkPublishers",
-  clientResolver
+  clientResolver,
+  deps: [QueryStorkPublishersRequest, QueryStorkPublishersResponse]
 });
 export const useGetStorkPublishers = buildUseQuery<QueryStorkPublishersRequest, QueryStorkPublishersResponse>({
   builderQueryFn: createGetStorkPublishers,
@@ -105,7 +114,8 @@ export const createGetProviderPriceState = (clientResolver?: RpcResolver) => bui
   decode: QueryProviderPriceStateResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "ProviderPriceState",
-  clientResolver
+  clientResolver,
+  deps: [QueryProviderPriceStateRequest, QueryProviderPriceStateResponse]
 });
 export const useGetProviderPriceState = buildUseQuery<QueryProviderPriceStateRequest, QueryProviderPriceStateResponse>({
   builderQueryFn: createGetProviderPriceState,
@@ -116,7 +126,8 @@ export const createGetOracleModuleState = (clientResolver?: RpcResolver) => buil
   decode: QueryModuleStateResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "OracleModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const useGetOracleModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: createGetOracleModuleState,
@@ -127,7 +138,8 @@ export const createGetHistoricalPriceRecords = (clientResolver?: RpcResolver) =>
   decode: QueryHistoricalPriceRecordsResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "HistoricalPriceRecords",
-  clientResolver
+  clientResolver,
+  deps: [QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse]
 });
 export const useGetHistoricalPriceRecords = buildUseQuery<QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse>({
   builderQueryFn: createGetHistoricalPriceRecords,
@@ -138,7 +150,8 @@ export const createGetOracleVolatility = (clientResolver?: RpcResolver) => build
   decode: QueryOracleVolatilityResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "OracleVolatility",
-  clientResolver
+  clientResolver,
+  deps: [QueryOracleVolatilityRequest, QueryOracleVolatilityResponse]
 });
 export const useGetOracleVolatility = buildUseQuery<QueryOracleVolatilityRequest, QueryOracleVolatilityResponse>({
   builderQueryFn: createGetOracleVolatility,
@@ -149,7 +162,8 @@ export const createGetOracleProvidersInfo = (clientResolver?: RpcResolver) => bu
   decode: QueryOracleProvidersInfoResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "OracleProvidersInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse]
 });
 export const useGetOracleProvidersInfo = buildUseQuery<QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse>({
   builderQueryFn: createGetOracleProvidersInfo,
@@ -160,7 +174,8 @@ export const createGetOracleProviderPrices = (clientResolver?: RpcResolver) => b
   decode: QueryOracleProviderPricesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "OracleProviderPrices",
-  clientResolver
+  clientResolver,
+  deps: [QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse]
 });
 export const useGetOracleProviderPrices = buildUseQuery<QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse>({
   builderQueryFn: createGetOracleProviderPrices,
@@ -171,7 +186,8 @@ export const createGetOraclePrice = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryOraclePriceResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "OraclePrice",
-  clientResolver
+  clientResolver,
+  deps: [QueryOraclePriceRequest, QueryOraclePriceResponse]
 });
 export const useGetOraclePrice = buildUseQuery<QueryOraclePriceRequest, QueryOraclePriceResponse>({
   builderQueryFn: createGetOraclePrice,
@@ -182,7 +198,8 @@ export const createGetPythPrice = (clientResolver?: RpcResolver) => buildQuery<Q
   decode: QueryPythPriceResponse.decode,
   service: "injective.oracle.v1beta1.Query",
   method: "PythPrice",
-  clientResolver
+  clientResolver,
+  deps: [QueryPythPriceRequest, QueryPythPriceResponse]
 });
 export const useGetPythPrice = buildUseQuery<QueryPythPriceRequest, QueryPythPriceResponse>({
   builderQueryFn: createGetPythPrice,

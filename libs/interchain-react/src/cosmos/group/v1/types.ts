@@ -847,10 +847,9 @@ export const Member = {
       typeUrl: "/cosmos.group.v1.Member",
       value: Member.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Member.typeUrl, Member);
-GlobalDecoderRegistry.registerAminoProtoMapping(Member.aminoType, Member.typeUrl);
 function createBaseMemberRequest(): MemberRequest {
   return {
     address: "",
@@ -949,10 +948,9 @@ export const MemberRequest = {
       typeUrl: "/cosmos.group.v1.MemberRequest",
       value: MemberRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MemberRequest.typeUrl, MemberRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(MemberRequest.aminoType, MemberRequest.typeUrl);
 function createBaseThresholdDecisionPolicy(): ThresholdDecisionPolicy {
   return {
     threshold: "",
@@ -1039,10 +1037,13 @@ export const ThresholdDecisionPolicy = {
       typeUrl: "/cosmos.group.v1.ThresholdDecisionPolicy",
       value: ThresholdDecisionPolicy.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ThresholdDecisionPolicy.typeUrl, ThresholdDecisionPolicy);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ThresholdDecisionPolicy.aminoType, ThresholdDecisionPolicy.typeUrl);
+    DecisionPolicyWindows.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ThresholdDecisionPolicy.typeUrl, ThresholdDecisionPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(ThresholdDecisionPolicy.aminoType, ThresholdDecisionPolicy.typeUrl);
 function createBasePercentageDecisionPolicy(): PercentageDecisionPolicy {
   return {
     percentage: "",
@@ -1129,10 +1130,13 @@ export const PercentageDecisionPolicy = {
       typeUrl: "/cosmos.group.v1.PercentageDecisionPolicy",
       value: PercentageDecisionPolicy.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(PercentageDecisionPolicy.typeUrl, PercentageDecisionPolicy);
+    GlobalDecoderRegistry.registerAminoProtoMapping(PercentageDecisionPolicy.aminoType, PercentageDecisionPolicy.typeUrl);
+    DecisionPolicyWindows.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PercentageDecisionPolicy.typeUrl, PercentageDecisionPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(PercentageDecisionPolicy.aminoType, PercentageDecisionPolicy.typeUrl);
 function createBaseDecisionPolicyWindows(): DecisionPolicyWindows {
   return {
     votingPeriod: Duration.fromPartial({}),
@@ -1219,10 +1223,9 @@ export const DecisionPolicyWindows = {
       typeUrl: "/cosmos.group.v1.DecisionPolicyWindows",
       value: DecisionPolicyWindows.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DecisionPolicyWindows.typeUrl, DecisionPolicyWindows);
-GlobalDecoderRegistry.registerAminoProtoMapping(DecisionPolicyWindows.aminoType, DecisionPolicyWindows.typeUrl);
 function createBaseGroupInfo(): GroupInfo {
   return {
     id: BigInt(0),
@@ -1357,10 +1360,9 @@ export const GroupInfo = {
       typeUrl: "/cosmos.group.v1.GroupInfo",
       value: GroupInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GroupInfo.typeUrl, GroupInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(GroupInfo.aminoType, GroupInfo.typeUrl);
 function createBaseGroupMember(): GroupMember {
   return {
     groupId: BigInt(0),
@@ -1447,10 +1449,11 @@ export const GroupMember = {
       typeUrl: "/cosmos.group.v1.GroupMember",
       value: GroupMember.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Member.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GroupMember.typeUrl, GroupMember);
-GlobalDecoderRegistry.registerAminoProtoMapping(GroupMember.aminoType, GroupMember.typeUrl);
 function createBaseGroupPolicyInfo(): GroupPolicyInfo {
   return {
     address: "",
@@ -1597,10 +1600,12 @@ export const GroupPolicyInfo = {
       typeUrl: "/cosmos.group.v1.GroupPolicyInfo",
       value: GroupPolicyInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ThresholdDecisionPolicy.registerTypeUrl();
+    PercentageDecisionPolicy.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GroupPolicyInfo.typeUrl, GroupPolicyInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(GroupPolicyInfo.aminoType, GroupPolicyInfo.typeUrl);
 function createBaseProposal(): Proposal {
   return {
     id: BigInt(0),
@@ -1835,10 +1840,9 @@ export const Proposal = {
       typeUrl: "/cosmos.group.v1.Proposal",
       value: Proposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Proposal.typeUrl, Proposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(Proposal.aminoType, Proposal.typeUrl);
 function createBaseTallyResult(): TallyResult {
   return {
     yesCount: "",
@@ -1949,10 +1953,9 @@ export const TallyResult = {
       typeUrl: "/cosmos.group.v1.TallyResult",
       value: TallyResult.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TallyResult.typeUrl, TallyResult);
-GlobalDecoderRegistry.registerAminoProtoMapping(TallyResult.aminoType, TallyResult.typeUrl);
 function createBaseVote(): Vote {
   return {
     proposalId: BigInt(0),
@@ -2075,7 +2078,6 @@ export const Vote = {
       typeUrl: "/cosmos.group.v1.Vote",
       value: Vote.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Vote.typeUrl, Vote);
-GlobalDecoderRegistry.registerAminoProtoMapping(Vote.aminoType, Vote.typeUrl);

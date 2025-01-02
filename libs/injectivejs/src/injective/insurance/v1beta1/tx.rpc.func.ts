@@ -5,23 +5,27 @@ export const createCreateInsuranceFund = (clientResolver?: SigningClientResolver
   clientResolver,
   typeUrl: MsgCreateInsuranceFund.typeUrl,
   encoders: toEncoders(MsgCreateInsuranceFund),
-  converters: toConverters(MsgCreateInsuranceFund)
+  converters: toConverters(MsgCreateInsuranceFund),
+  deps: [MsgCreateInsuranceFund]
 });
 export const createUnderwrite = (clientResolver?: SigningClientResolver) => buildTx<MsgUnderwrite>({
   clientResolver,
   typeUrl: MsgUnderwrite.typeUrl,
   encoders: toEncoders(MsgUnderwrite),
-  converters: toConverters(MsgUnderwrite)
+  converters: toConverters(MsgUnderwrite),
+  deps: [MsgUnderwrite]
 });
 export const createRequestRedemption = (clientResolver?: SigningClientResolver) => buildTx<MsgRequestRedemption>({
   clientResolver,
   typeUrl: MsgRequestRedemption.typeUrl,
   encoders: toEncoders(MsgRequestRedemption),
-  converters: toConverters(MsgRequestRedemption)
+  converters: toConverters(MsgRequestRedemption),
+  deps: [MsgRequestRedemption]
 });
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
-  converters: toConverters(MsgUpdateParams)
+  converters: toConverters(MsgUpdateParams),
+  deps: [MsgUpdateParams]
 });

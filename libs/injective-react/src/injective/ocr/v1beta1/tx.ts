@@ -2,7 +2,6 @@ import { FeedConfig, FeedConfigAmino, Report, ReportAmino, Params, ParamsAmino }
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface MsgCreateFeed {
   sender: string;
   config?: FeedConfig;
@@ -411,10 +410,11 @@ export const MsgCreateFeed = {
       typeUrl: "/injective.ocr.v1beta1.MsgCreateFeed",
       value: MsgCreateFeed.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FeedConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateFeed.typeUrl, MsgCreateFeed);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateFeed.aminoType, MsgCreateFeed.typeUrl);
 function createBaseMsgCreateFeedResponse(): MsgCreateFeedResponse {
   return {};
 }
@@ -469,9 +469,9 @@ export const MsgCreateFeedResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgCreateFeedResponse",
       value: MsgCreateFeedResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateFeedResponse.typeUrl, MsgCreateFeedResponse);
 function createBaseMsgUpdateFeed(): MsgUpdateFeed {
   return {
     sender: "",
@@ -646,10 +646,9 @@ export const MsgUpdateFeed = {
       typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeed",
       value: MsgUpdateFeed.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateFeed.typeUrl, MsgUpdateFeed);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateFeed.aminoType, MsgUpdateFeed.typeUrl);
 function createBaseMsgUpdateFeedResponse(): MsgUpdateFeedResponse {
   return {};
 }
@@ -704,9 +703,9 @@ export const MsgUpdateFeedResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeedResponse",
       value: MsgUpdateFeedResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateFeedResponse.typeUrl, MsgUpdateFeedResponse);
 function createBaseMsgTransmit(): MsgTransmit {
   return {
     transmitter: "",
@@ -867,10 +866,11 @@ export const MsgTransmit = {
       typeUrl: "/injective.ocr.v1beta1.MsgTransmit",
       value: MsgTransmit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Report.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgTransmit.typeUrl, MsgTransmit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTransmit.aminoType, MsgTransmit.typeUrl);
 function createBaseMsgTransmitResponse(): MsgTransmitResponse {
   return {};
 }
@@ -925,9 +925,9 @@ export const MsgTransmitResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgTransmitResponse",
       value: MsgTransmitResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTransmitResponse.typeUrl, MsgTransmitResponse);
 function createBaseMsgFundFeedRewardPool(): MsgFundFeedRewardPool {
   return {
     sender: "",
@@ -1026,10 +1026,11 @@ export const MsgFundFeedRewardPool = {
       typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPool",
       value: MsgFundFeedRewardPool.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgFundFeedRewardPool.typeUrl, MsgFundFeedRewardPool);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgFundFeedRewardPool.aminoType, MsgFundFeedRewardPool.typeUrl);
 function createBaseMsgFundFeedRewardPoolResponse(): MsgFundFeedRewardPoolResponse {
   return {};
 }
@@ -1084,9 +1085,9 @@ export const MsgFundFeedRewardPoolResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse",
       value: MsgFundFeedRewardPoolResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgFundFeedRewardPoolResponse.typeUrl, MsgFundFeedRewardPoolResponse);
 function createBaseMsgWithdrawFeedRewardPool(): MsgWithdrawFeedRewardPool {
   return {
     sender: "",
@@ -1185,10 +1186,11 @@ export const MsgWithdrawFeedRewardPool = {
       typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPool",
       value: MsgWithdrawFeedRewardPool.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgWithdrawFeedRewardPool.typeUrl, MsgWithdrawFeedRewardPool);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgWithdrawFeedRewardPool.aminoType, MsgWithdrawFeedRewardPool.typeUrl);
 function createBaseMsgWithdrawFeedRewardPoolResponse(): MsgWithdrawFeedRewardPoolResponse {
   return {};
 }
@@ -1243,9 +1245,9 @@ export const MsgWithdrawFeedRewardPoolResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse",
       value: MsgWithdrawFeedRewardPoolResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgWithdrawFeedRewardPoolResponse.typeUrl, MsgWithdrawFeedRewardPoolResponse);
 function createBaseMsgSetPayees(): MsgSetPayees {
   return {
     sender: "",
@@ -1360,10 +1362,9 @@ export const MsgSetPayees = {
       typeUrl: "/injective.ocr.v1beta1.MsgSetPayees",
       value: MsgSetPayees.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSetPayees.typeUrl, MsgSetPayees);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSetPayees.aminoType, MsgSetPayees.typeUrl);
 function createBaseMsgSetPayeesResponse(): MsgSetPayeesResponse {
   return {};
 }
@@ -1418,9 +1419,9 @@ export const MsgSetPayeesResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgSetPayeesResponse",
       value: MsgSetPayeesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSetPayeesResponse.typeUrl, MsgSetPayeesResponse);
 function createBaseMsgTransferPayeeship(): MsgTransferPayeeship {
   return {
     sender: "",
@@ -1531,10 +1532,9 @@ export const MsgTransferPayeeship = {
       typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeship",
       value: MsgTransferPayeeship.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTransferPayeeship.typeUrl, MsgTransferPayeeship);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTransferPayeeship.aminoType, MsgTransferPayeeship.typeUrl);
 function createBaseMsgTransferPayeeshipResponse(): MsgTransferPayeeshipResponse {
   return {};
 }
@@ -1589,9 +1589,9 @@ export const MsgTransferPayeeshipResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeshipResponse",
       value: MsgTransferPayeeshipResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTransferPayeeshipResponse.typeUrl, MsgTransferPayeeshipResponse);
 function createBaseMsgAcceptPayeeship(): MsgAcceptPayeeship {
   return {
     payee: "",
@@ -1690,10 +1690,9 @@ export const MsgAcceptPayeeship = {
       typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeship",
       value: MsgAcceptPayeeship.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAcceptPayeeship.typeUrl, MsgAcceptPayeeship);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAcceptPayeeship.aminoType, MsgAcceptPayeeship.typeUrl);
 function createBaseMsgAcceptPayeeshipResponse(): MsgAcceptPayeeshipResponse {
   return {};
 }
@@ -1748,9 +1747,9 @@ export const MsgAcceptPayeeshipResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeshipResponse",
       value: MsgAcceptPayeeshipResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAcceptPayeeshipResponse.typeUrl, MsgAcceptPayeeshipResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -1837,10 +1836,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.ocr.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -1895,6 +1895,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.ocr.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);

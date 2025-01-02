@@ -1,7 +1,6 @@
 import { AssetPair, AssetPairAmino, PriceAttestation, PriceAttestationAmino, Params, ParamsAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
  * provider oracle.
@@ -400,10 +399,9 @@ export const MsgRelayProviderPrices = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPrices",
       value: MsgRelayProviderPrices.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayProviderPrices.typeUrl, MsgRelayProviderPrices);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRelayProviderPrices.aminoType, MsgRelayProviderPrices.typeUrl);
 function createBaseMsgRelayProviderPricesResponse(): MsgRelayProviderPricesResponse {
   return {};
 }
@@ -458,9 +456,9 @@ export const MsgRelayProviderPricesResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse",
       value: MsgRelayProviderPricesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayProviderPricesResponse.typeUrl, MsgRelayProviderPricesResponse);
 function createBaseMsgRelayPriceFeedPrice(): MsgRelayPriceFeedPrice {
   return {
     sender: "",
@@ -577,10 +575,9 @@ export const MsgRelayPriceFeedPrice = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice",
       value: MsgRelayPriceFeedPrice.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayPriceFeedPrice.typeUrl, MsgRelayPriceFeedPrice);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRelayPriceFeedPrice.aminoType, MsgRelayPriceFeedPrice.typeUrl);
 function createBaseMsgRelayPriceFeedPriceResponse(): MsgRelayPriceFeedPriceResponse {
   return {};
 }
@@ -635,9 +632,9 @@ export const MsgRelayPriceFeedPriceResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse",
       value: MsgRelayPriceFeedPriceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayPriceFeedPriceResponse.typeUrl, MsgRelayPriceFeedPriceResponse);
 function createBaseMsgRelayBandRates(): MsgRelayBandRates {
   return {
     relayer: "",
@@ -795,10 +792,9 @@ export const MsgRelayBandRates = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRates",
       value: MsgRelayBandRates.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayBandRates.typeUrl, MsgRelayBandRates);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRelayBandRates.aminoType, MsgRelayBandRates.typeUrl);
 function createBaseMsgRelayBandRatesResponse(): MsgRelayBandRatesResponse {
   return {};
 }
@@ -853,9 +849,9 @@ export const MsgRelayBandRatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRatesResponse",
       value: MsgRelayBandRatesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayBandRatesResponse.typeUrl, MsgRelayBandRatesResponse);
 function createBaseMsgRelayCoinbaseMessages(): MsgRelayCoinbaseMessages {
   return {
     sender: "",
@@ -958,10 +954,9 @@ export const MsgRelayCoinbaseMessages = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessages",
       value: MsgRelayCoinbaseMessages.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayCoinbaseMessages.typeUrl, MsgRelayCoinbaseMessages);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRelayCoinbaseMessages.aminoType, MsgRelayCoinbaseMessages.typeUrl);
 function createBaseMsgRelayCoinbaseMessagesResponse(): MsgRelayCoinbaseMessagesResponse {
   return {};
 }
@@ -1016,9 +1011,9 @@ export const MsgRelayCoinbaseMessagesResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse",
       value: MsgRelayCoinbaseMessagesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayCoinbaseMessagesResponse.typeUrl, MsgRelayCoinbaseMessagesResponse);
 function createBaseMsgRelayStorkPrices(): MsgRelayStorkPrices {
   return {
     sender: "",
@@ -1100,9 +1095,11 @@ export const MsgRelayStorkPrices = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPrices",
       value: MsgRelayStorkPrices.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AssetPair.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgRelayStorkPrices.typeUrl, MsgRelayStorkPrices);
 function createBaseMsgRelayStorkPricesResponse(): MsgRelayStorkPricesResponse {
   return {};
 }
@@ -1157,9 +1154,9 @@ export const MsgRelayStorkPricesResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPricesResponse",
       value: MsgRelayStorkPricesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayStorkPricesResponse.typeUrl, MsgRelayStorkPricesResponse);
 function createBaseMsgRequestBandIBCRates(): MsgRequestBandIBCRates {
   return {
     sender: "",
@@ -1246,10 +1243,9 @@ export const MsgRequestBandIBCRates = {
       typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRates",
       value: MsgRequestBandIBCRates.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRequestBandIBCRates.typeUrl, MsgRequestBandIBCRates);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRequestBandIBCRates.aminoType, MsgRequestBandIBCRates.typeUrl);
 function createBaseMsgRequestBandIBCRatesResponse(): MsgRequestBandIBCRatesResponse {
   return {};
 }
@@ -1304,9 +1300,9 @@ export const MsgRequestBandIBCRatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse",
       value: MsgRequestBandIBCRatesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRequestBandIBCRatesResponse.typeUrl, MsgRequestBandIBCRatesResponse);
 function createBaseMsgRelayPythPrices(): MsgRelayPythPrices {
   return {
     sender: "",
@@ -1395,10 +1391,11 @@ export const MsgRelayPythPrices = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPrices",
       value: MsgRelayPythPrices.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceAttestation.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgRelayPythPrices.typeUrl, MsgRelayPythPrices);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRelayPythPrices.aminoType, MsgRelayPythPrices.typeUrl);
 function createBaseMsgRelayPythPricesResponse(): MsgRelayPythPricesResponse {
   return {};
 }
@@ -1453,9 +1450,9 @@ export const MsgRelayPythPricesResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPricesResponse",
       value: MsgRelayPythPricesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRelayPythPricesResponse.typeUrl, MsgRelayPythPricesResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -1542,10 +1539,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.oracle.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -1600,6 +1598,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.oracle.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);

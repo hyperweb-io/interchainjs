@@ -10,8 +10,8 @@ import { GrantBandOraclePrivilegeProposal, GrantBandOraclePrivilegeProposalProto
 import { BlacklistEthereumAddressesProposal, BlacklistEthereumAddressesProposalProtoMsg, RevokeEthereumBlacklistProposal, RevokeEthereumBlacklistProposalProtoMsg } from "../../../injective/peggy/v1/proposal";
 import { ContractRegistrationRequestProposal, ContractRegistrationRequestProposalProtoMsg, BatchContractRegistrationRequestProposal, BatchContractRegistrationRequestProposalProtoMsg, BatchContractDeregistrationProposal, BatchContractDeregistrationProposalProtoMsg, ContractRegistrationRequest, ContractRegistrationRequestProtoMsg, BatchStoreCodeProposal, BatchStoreCodeProposalProtoMsg } from "../../../injective/wasmx/v1/proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, isSet } from "../../../helpers";
 import { ComputedRef } from "vue";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
