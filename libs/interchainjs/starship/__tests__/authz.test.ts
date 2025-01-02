@@ -1,8 +1,10 @@
+import "./setup.test";
+
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
 import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import { useChain } from 'starshipjs';
 
-import "./setup.test";
 import {
   GenericAuthorization,
   Grant,
@@ -14,38 +16,95 @@ import {
 } from "interchainjs/cosmos/authz/v1beta1/tx";
 import { SendAuthorization } from "interchainjs/cosmos/bank/v1beta1/authz";
 import { MsgVote } from "interchainjs/cosmos/gov/v1beta1/tx";
-import { QueryGrantsRequest } from "interchainjs/cosmos/authz/v1beta1/query";
+import { QueryGranteeGrantsRequest, QueryGranteeGrantsResponse } from "interchainjs/cosmos/authz/v1beta1/query";
 import { MsgSend } from "interchainjs/cosmos/bank/v1beta1/tx";
+import { Secp256k1HDWallet } from "@interchainjs/cosmos/wallets/secp256k1hd";
+import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signing-client';
+import { QueryBalanceRequest, QueryBalanceResponse } from 'interchainjs/cosmos/bank/v1beta1/query';
+
+import { createGetBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+import { DeliverTxResponse, StdFee } from "@interchainjs/types";
+import { createGrant, createExec, createRevoke } from "interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
+import { createGetGranteeGrants } from "interchainjs/cosmos/authz/v1beta1/query.rpc.func";
+import { DirectGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
+
+const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe("Authz testing", () => {
-  let wallet1, address1, denom;
-  let wallet2, address2;
-  let wallet3, address3;
-  let chainInfo, getCoin, getRpcEndpoint, creditFromFaucet;
-  let expiration;
+  let wallet1: Secp256k1HDWallet, address1: string, denom: string;
+  let wallet2: Secp256k1HDWallet, address2: string;
+  let wallet3: Secp256k1HDWallet, address3: string;
+  let commonPrefix: string, chainInfo, getCoin, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
+  let expiration: Date;
+
+  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
+  let getGranteeGrants: (request: QueryGranteeGrantsRequest) => Promise<QueryGranteeGrantsResponse>;
+
+  let grant1: (signerAddress: string, message: MsgGrant, fee: StdFee | "auto", memo: string) => Promise<DeliverTxResponse>;
+  let exec2: (signerAddress: string, message: MsgExec, fee: StdFee | "auto", memo: string) => Promise<DeliverTxResponse>;
+  let revoke1: (signerAddress: string, message: MsgRevoke, fee: StdFee | "auto", memo: string) => Promise<DeliverTxResponse>;
 
   // Variables used accross testcases
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
-      useChain("cosmos"));
-    denom = getCoin().base;
+      useChain("osmosis"));
+    denom = (await getCoin()).base;
+
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
+    const rpcEndpoint = await getRpcEndpoint();
+    getBalance = createGetBalance(rpcEndpoint);
+    getGranteeGrants = createGetGranteeGrants(rpcEndpoint);
 
     // Initialize wallet
-    wallet1 = await DirectSecp256k1HdWallet.fromMnemonic(generateMnemonic(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    wallet1 = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
     address1 = (await wallet1.getAccounts())[0].address;
+    const signingClient1 = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new DirectGenericOfflineSigner(wallet1),
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
+    );
 
-    wallet2 = await DirectSecp256k1HdWallet.fromMnemonic(generateMnemonic(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    wallet2 = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
     address2 = (await wallet2.getAccounts())[0].address;
+    const signingClient2 = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new DirectGenericOfflineSigner(wallet2),
+      {
+        broadcast: {
+          checkTx: true,
+          deliverTx: true,
+        },
+      }
+    );
 
-    wallet3 = await DirectSecp256k1HdWallet.fromMnemonic(generateMnemonic(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
+    wallet3 = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
+      {
+        prefix: commonPrefix,
+        hdPath: cosmosHdPath,
+      },
+    ]);
     address3 = (await wallet3.getAccounts())[0].address;
+
+    grant1 = createGrant(signingClient1);
+    exec2 = createExec(signingClient2);
+    revoke1 = createRevoke(signingClient1);
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address1);
@@ -59,11 +118,7 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("check address1 has tokens", async () => {
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
-    const { balance } = await queryClient.cosmos.bank.v1beta1.balance({
+    const { balance } = await getBalance({
       address: address1,
       denom,
     });
@@ -72,11 +127,7 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("check address2 has tokens", async () => {
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
-    const { balance } = await queryClient.cosmos.bank.v1beta1.balance({
+    const { balance } = await getBalance({
       address: address2,
       denom,
     });
@@ -85,11 +136,7 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("check address3 has tokens", async () => {
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
-    const { balance } = await queryClient.cosmos.bank.v1beta1.balance({
+    const { balance } = await getBalance({
       address: address3,
       denom,
     });
@@ -98,15 +145,6 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("grant address2 Send Auth with limits", async () => {
-    const msgClient1 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet1,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -133,15 +171,11 @@ describe("Authz testing", () => {
       }),
     });
 
-    const result = await msgClient1.cosmos.authz.v1beta1.grant(
-      address1,
-      msg,
-      fee
-    );
+    const result = await grant1(address1, msg, fee, "grant address2 Send Auth with limits");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await queryClient.cosmos.authz.v1beta1.granteeGrants({
+    const authsResults = await getGranteeGrants({
       grantee: address2,
     });
 
@@ -157,15 +191,6 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("grant address3 Generic Send Auth", async () => {
-    const msgClient1 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet1,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -187,15 +212,16 @@ describe("Authz testing", () => {
       }),
     });
 
-    const result = await msgClient1.cosmos.authz.v1beta1.grant(
+    const result = await grant1(
       address1,
       msg,
-      fee
+      fee,
+      "grant address3 Generic Send Auth"
     );
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await queryClient.cosmos.authz.v1beta1.granteeGrants({
+    const authsResults = await getGranteeGrants({
       grantee: address3,
     });
 
@@ -211,15 +237,6 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("grant address2 Generic Vote Auth", async () => {
-    const msgClient1 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet1,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -241,15 +258,16 @@ describe("Authz testing", () => {
       }),
     });
 
-    const result = await msgClient1.cosmos.authz.v1beta1.grant(
+    const result = await grant1(
       address1,
       msg,
-      fee
+      fee,
+      "grant address2 Generic Vote Auth"
     );
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await queryClient.cosmos.authz.v1beta1.granteeGrants({
+    const authsResults = await getGranteeGrants({
       grantee: address2,
     });
 
@@ -264,34 +282,7 @@ describe("Authz testing", () => {
     }
   }, 200000);
 
-  it("get address2 auths", async () => {
-    await sleep(1000)
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
-    console.log(`granter: ${address1}, grantee: ${address2}, msg: ${MsgVote.typeUrl}`)
-    await sleep(1000)
-    const authsResults = await queryClient.cosmos.authz.v1beta1.grants(QueryGrantsRequest.fromPartial({
-      granter: address1,
-      grantee: address2,
-      msgTypeUrl: MsgVote.typeUrl
-    }));
-
-    console.log(authsResults);
-
-  }, 2000000);
-
   it("exec address2 send", async () => {
-    const msgClient2 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet2,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -320,34 +311,24 @@ describe("Authz testing", () => {
       ],
     });
 
-    const result = await msgClient2.cosmos.authz.v1beta1.exec(
+    const result = await exec2(
       address2,
       msg,
-      fee
+      fee,
+      "exec address2 send"
     );
 
     assertIsDeliverTxSuccess(result);
 
-    const { balance } = await queryClient.cosmos.bank.v1beta1.balance({
+    const { balance } = await getBalance({
       address: address2,
       denom,
     });
-
-    console.log(balance)
 
     expect(balance?.amount).toEqual("9999990000"); // not 10000000000, due to fees deduction
   }, 2000000);
 
   it("revoke address2 vote auth", async () => {
-    const msgClient1 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet1,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -364,15 +345,16 @@ describe("Authz testing", () => {
       msgTypeUrl: MsgVote.typeUrl,
     });
 
-    const result = await msgClient1.cosmos.authz.v1beta1.revoke(
+    const result = await revoke1(
       address1,
       msg,
-      fee
+      fee,
+      "revoke address2 vote auth"
     );
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await queryClient.cosmos.authz.v1beta1.granteeGrants({
+    const authsResults = await getGranteeGrants({
       grantee: address2,
     });
 
@@ -388,15 +370,6 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("revoke address3 generic send auth", async () => {
-    const msgClient1 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet1,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -413,15 +386,16 @@ describe("Authz testing", () => {
       msgTypeUrl: MsgSend.typeUrl,
     });
 
-    const result = await msgClient1.cosmos.authz.v1beta1.revoke(
+    const result = await revoke1(
       address1,
       msg,
-      fee
+      fee,
+      "revoke address3 generic send auth"
     );
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await queryClient.cosmos.authz.v1beta1.granteeGrants({
+    const authsResults = await getGranteeGrants({
       grantee: address3,
     });
 
@@ -429,15 +403,6 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("revoke address2 send auth", async () => {
-    const msgClient1 = await cosmos.ClientFactory.createRPCMsgExtensions({
-      rpcEndpoint: getRpcEndpoint(),
-      signer: wallet1,
-    });
-
-    const queryClient = await cosmos.ClientFactory.createRPCQueryClient({
-      rpcEndpoint: getRpcEndpoint(),
-    });
-
     const fee = {
       amount: [
         {
@@ -454,15 +419,16 @@ describe("Authz testing", () => {
       msgTypeUrl: MsgSend.typeUrl,
     });
 
-    const result = await msgClient1.cosmos.authz.v1beta1.revoke(
+    const result = await revoke1(
       address1,
       msg,
-      fee
+      fee,
+      "revoke address2 send auth"
     );
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await queryClient.cosmos.authz.v1beta1.granteeGrants({
+    const authsResults = await getGranteeGrants({
       grantee: address2,
     });
 
