@@ -3,8 +3,8 @@ import { SignMode } from "../signing/v1beta1/signing";
 import { CompactBitArray, CompactBitArrayAmino } from "../../crypto/multisig/v1beta1/multisig";
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
 import { ComputedRef } from "vue";
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {

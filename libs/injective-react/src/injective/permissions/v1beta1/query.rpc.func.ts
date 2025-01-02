@@ -6,7 +6,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "injective.permissions.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -17,7 +18,8 @@ export const createGetAllNamespaces = (clientResolver?: RpcResolver) => buildQue
   decode: QueryAllNamespacesResponse.decode,
   service: "injective.permissions.v1beta1.Query",
   method: "AllNamespaces",
-  clientResolver
+  clientResolver,
+  deps: [QueryAllNamespacesRequest, QueryAllNamespacesResponse]
 });
 export const useGetAllNamespaces = buildUseQuery<QueryAllNamespacesRequest, QueryAllNamespacesResponse>({
   builderQueryFn: createGetAllNamespaces,
@@ -28,7 +30,8 @@ export const createGetNamespaceByDenom = (clientResolver?: RpcResolver) => build
   decode: QueryNamespaceByDenomResponse.decode,
   service: "injective.permissions.v1beta1.Query",
   method: "NamespaceByDenom",
-  clientResolver
+  clientResolver,
+  deps: [QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse]
 });
 export const useGetNamespaceByDenom = buildUseQuery<QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse>({
   builderQueryFn: createGetNamespaceByDenom,
@@ -39,7 +42,8 @@ export const createGetAddressRoles = (clientResolver?: RpcResolver) => buildQuer
   decode: QueryAddressRolesResponse.decode,
   service: "injective.permissions.v1beta1.Query",
   method: "AddressRoles",
-  clientResolver
+  clientResolver,
+  deps: [QueryAddressRolesRequest, QueryAddressRolesResponse]
 });
 export const useGetAddressRoles = buildUseQuery<QueryAddressRolesRequest, QueryAddressRolesResponse>({
   builderQueryFn: createGetAddressRoles,
@@ -50,7 +54,8 @@ export const createGetAddressesByRole = (clientResolver?: RpcResolver) => buildQ
   decode: QueryAddressesByRoleResponse.decode,
   service: "injective.permissions.v1beta1.Query",
   method: "AddressesByRole",
-  clientResolver
+  clientResolver,
+  deps: [QueryAddressesByRoleRequest, QueryAddressesByRoleResponse]
 });
 export const useGetAddressesByRole = buildUseQuery<QueryAddressesByRoleRequest, QueryAddressesByRoleResponse>({
   builderQueryFn: createGetAddressesByRole,
@@ -61,7 +66,8 @@ export const createGetVouchersForAddress = (clientResolver?: RpcResolver) => bui
   decode: QueryVouchersForAddressResponse.decode,
   service: "injective.permissions.v1beta1.Query",
   method: "VouchersForAddress",
-  clientResolver
+  clientResolver,
+  deps: [QueryVouchersForAddressRequest, QueryVouchersForAddressResponse]
 });
 export const useGetVouchersForAddress = buildUseQuery<QueryVouchersForAddressRequest, QueryVouchersForAddressResponse>({
   builderQueryFn: createGetVouchersForAddress,

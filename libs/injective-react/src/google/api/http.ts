@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 /**
  * Defines the HTTP configuration for an API service. It contains a list of
  * [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
@@ -802,9 +801,11 @@ export const Http = {
       typeUrl: "/google.api.Http",
       value: Http.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    HttpRule.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Http.typeUrl, Http);
 function createBaseHttpRule(): HttpRule {
   return {
     selector: "",
@@ -982,9 +983,12 @@ export const HttpRule = {
       typeUrl: "/google.api.HttpRule",
       value: HttpRule.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CustomHttpPattern.registerTypeUrl();
+    HttpRule.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(HttpRule.typeUrl, HttpRule);
 function createBaseCustomHttpPattern(): CustomHttpPattern {
   return {
     kind: "",
@@ -1064,6 +1068,6 @@ export const CustomHttpPattern = {
       typeUrl: "/google.api.CustomHttpPattern",
       value: CustomHttpPattern.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(CustomHttpPattern.typeUrl, CustomHttpPattern);

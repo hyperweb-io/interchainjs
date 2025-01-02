@@ -1,7 +1,7 @@
 import { BaseAccount, BaseAccountAmino } from "../../../cosmos/auth/v1beta1/auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
@@ -105,6 +105,9 @@ export const EthAccount = {
       typeUrl: "/injective.types.v1beta1.EthAccount",
       value: EthAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(EthAccount.typeUrl, EthAccount);
+    BaseAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EthAccount.typeUrl, EthAccount);

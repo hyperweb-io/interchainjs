@@ -5,17 +5,20 @@ export const createCreateVestingAccount = (clientResolver?: SigningClientResolve
   clientResolver,
   typeUrl: MsgCreateVestingAccount.typeUrl,
   encoders: toEncoders(MsgCreateVestingAccount),
-  converters: toConverters(MsgCreateVestingAccount)
+  converters: toConverters(MsgCreateVestingAccount),
+  deps: [MsgCreateVestingAccount]
 });
 export const createCreatePermanentLockedAccount = (clientResolver?: SigningClientResolver) => buildTx<MsgCreatePermanentLockedAccount>({
   clientResolver,
   typeUrl: MsgCreatePermanentLockedAccount.typeUrl,
   encoders: toEncoders(MsgCreatePermanentLockedAccount),
-  converters: toConverters(MsgCreatePermanentLockedAccount)
+  converters: toConverters(MsgCreatePermanentLockedAccount),
+  deps: [MsgCreatePermanentLockedAccount]
 });
 export const createCreatePeriodicVestingAccount = (clientResolver?: SigningClientResolver) => buildTx<MsgCreatePeriodicVestingAccount>({
   clientResolver,
   typeUrl: MsgCreatePeriodicVestingAccount.typeUrl,
   encoders: toEncoders(MsgCreatePeriodicVestingAccount),
-  converters: toConverters(MsgCreatePeriodicVestingAccount)
+  converters: toConverters(MsgCreatePeriodicVestingAccount),
+  deps: [MsgCreatePeriodicVestingAccount]
 });

@@ -2,7 +2,6 @@ import { InsuranceFund, InsuranceFundAmino, RedemptionSchedule, RedemptionSchedu
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventInsuranceFundUpdate {
   fund?: InsuranceFund;
 }
@@ -164,9 +163,11 @@ export const EventInsuranceFundUpdate = {
       typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate",
       value: EventInsuranceFundUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    InsuranceFund.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventInsuranceFundUpdate.typeUrl, EventInsuranceFundUpdate);
 function createBaseEventRequestRedemption(): EventRequestRedemption {
   return {
     schedule: undefined
@@ -234,9 +235,11 @@ export const EventRequestRedemption = {
       typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption",
       value: EventRequestRedemption.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RedemptionSchedule.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventRequestRedemption.typeUrl, EventRequestRedemption);
 function createBaseEventWithdrawRedemption(): EventWithdrawRedemption {
   return {
     schedule: undefined,
@@ -316,9 +319,12 @@ export const EventWithdrawRedemption = {
       typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption",
       value: EventWithdrawRedemption.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RedemptionSchedule.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventWithdrawRedemption.typeUrl, EventWithdrawRedemption);
 function createBaseEventUnderwrite(): EventUnderwrite {
   return {
     underwriter: "",
@@ -422,9 +428,11 @@ export const EventUnderwrite = {
       typeUrl: "/injective.insurance.v1beta1.EventUnderwrite",
       value: EventUnderwrite.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventUnderwrite.typeUrl, EventUnderwrite);
 function createBaseEventInsuranceWithdraw(): EventInsuranceWithdraw {
   return {
     marketId: "",
@@ -516,6 +524,8 @@ export const EventInsuranceWithdraw = {
       typeUrl: "/injective.insurance.v1beta1.EventInsuranceWithdraw",
       value: EventInsuranceWithdraw.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventInsuranceWithdraw.typeUrl, EventInsuranceWithdraw);

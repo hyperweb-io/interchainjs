@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
@@ -265,10 +264,9 @@ export const PageRequest = {
       typeUrl: "/cosmos.base.query.v1beta1.PageRequest",
       value: PageRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PageRequest.typeUrl, PageRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(PageRequest.aminoType, PageRequest.typeUrl);
 function createBasePageResponse(): PageResponse {
   return {
     nextKey: new Uint8Array(),
@@ -355,7 +353,6 @@ export const PageResponse = {
       typeUrl: "/cosmos.base.query.v1beta1.PageResponse",
       value: PageResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PageResponse.typeUrl, PageResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(PageResponse.aminoType, PageResponse.typeUrl);

@@ -1,7 +1,6 @@
 import { CommitmentProof, CommitmentProofAmino } from "../../../../cosmos/ics23/v1/proofs";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * MerkleRoot defines a merkle root hash.
  * In the Cosmos SDK, the AppHash of a block header becomes the root.
@@ -150,10 +149,9 @@ export const MerkleRoot = {
       typeUrl: "/ibc.core.commitment.v1.MerkleRoot",
       value: MerkleRoot.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MerkleRoot.typeUrl, MerkleRoot);
-GlobalDecoderRegistry.registerAminoProtoMapping(MerkleRoot.aminoType, MerkleRoot.typeUrl);
 function createBaseMerklePrefix(): MerklePrefix {
   return {
     keyPrefix: new Uint8Array()
@@ -228,10 +226,9 @@ export const MerklePrefix = {
       typeUrl: "/ibc.core.commitment.v1.MerklePrefix",
       value: MerklePrefix.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MerklePrefix.typeUrl, MerklePrefix);
-GlobalDecoderRegistry.registerAminoProtoMapping(MerklePrefix.aminoType, MerklePrefix.typeUrl);
 function createBaseMerkleProof(): MerkleProof {
   return {
     proofs: []
@@ -308,7 +305,8 @@ export const MerkleProof = {
       typeUrl: "/ibc.core.commitment.v1.MerkleProof",
       value: MerkleProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CommitmentProof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MerkleProof.typeUrl, MerkleProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(MerkleProof.aminoType, MerkleProof.typeUrl);

@@ -1,8 +1,8 @@
 import { Params, ParamsAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { Namespace, NamespaceAmino, Role, RoleAmino, AddressRoles, AddressRolesAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial } from "../../../helpers";
 import { ComputedRef } from "vue";
 export interface MsgUpdateParams {
   /** authority is the address of the governance account. */

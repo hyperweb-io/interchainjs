@@ -1,7 +1,7 @@
 import { RegisteredContract, RegisteredContractAmino, Params, ParamsAmino } from "./wasmx";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial } from "../../../helpers";
 import { ComputedRef } from "vue";
 export interface RegisteredContractWithAddress {
   address: string;

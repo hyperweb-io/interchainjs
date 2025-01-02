@@ -2,7 +2,6 @@ import { Params, ParamsAmino } from "./params";
 import { Namespace, NamespaceAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the permissions module's genesis state. */
 export interface GenesisState {
   /** params defines the parameters of the module. */
@@ -104,6 +103,9 @@ export const GenesisState = {
       typeUrl: "/injective.permissions.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    Namespace.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);

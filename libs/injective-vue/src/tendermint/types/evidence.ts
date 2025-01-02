@@ -2,8 +2,8 @@ import { Vote, VoteAmino, LightBlock, LightBlockAmino } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Validator, ValidatorAmino } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
 import { ComputedRef } from "vue";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;

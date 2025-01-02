@@ -6,7 +6,8 @@ export const createGetProposal = (clientResolver?: RpcResolver) => buildQuery<Qu
   decode: QueryProposalResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Proposal",
-  clientResolver
+  clientResolver,
+  deps: [QueryProposalRequest, QueryProposalResponse]
 });
 export const useGetProposal = buildUseQuery<QueryProposalRequest, QueryProposalResponse>({
   builderQueryFn: createGetProposal,
@@ -17,7 +18,8 @@ export const createGetProposals = (clientResolver?: RpcResolver) => buildQuery<Q
   decode: QueryProposalsResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Proposals",
-  clientResolver
+  clientResolver,
+  deps: [QueryProposalsRequest, QueryProposalsResponse]
 });
 export const useGetProposals = buildUseQuery<QueryProposalsRequest, QueryProposalsResponse>({
   builderQueryFn: createGetProposals,
@@ -28,7 +30,8 @@ export const createGetVote = (clientResolver?: RpcResolver) => buildQuery<QueryV
   decode: QueryVoteResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Vote",
-  clientResolver
+  clientResolver,
+  deps: [QueryVoteRequest, QueryVoteResponse]
 });
 export const useGetVote = buildUseQuery<QueryVoteRequest, QueryVoteResponse>({
   builderQueryFn: createGetVote,
@@ -39,7 +42,8 @@ export const createGetVotes = (clientResolver?: RpcResolver) => buildQuery<Query
   decode: QueryVotesResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Votes",
-  clientResolver
+  clientResolver,
+  deps: [QueryVotesRequest, QueryVotesResponse]
 });
 export const useGetVotes = buildUseQuery<QueryVotesRequest, QueryVotesResponse>({
   builderQueryFn: createGetVotes,
@@ -50,7 +54,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -61,7 +66,8 @@ export const createGetDeposit = (clientResolver?: RpcResolver) => buildQuery<Que
   decode: QueryDepositResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Deposit",
-  clientResolver
+  clientResolver,
+  deps: [QueryDepositRequest, QueryDepositResponse]
 });
 export const useGetDeposit = buildUseQuery<QueryDepositRequest, QueryDepositResponse>({
   builderQueryFn: createGetDeposit,
@@ -72,7 +78,8 @@ export const createGetDeposits = (clientResolver?: RpcResolver) => buildQuery<Qu
   decode: QueryDepositsResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "Deposits",
-  clientResolver
+  clientResolver,
+  deps: [QueryDepositsRequest, QueryDepositsResponse]
 });
 export const useGetDeposits = buildUseQuery<QueryDepositsRequest, QueryDepositsResponse>({
   builderQueryFn: createGetDeposits,
@@ -83,7 +90,8 @@ export const createGetTallyResult = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryTallyResultResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
   method: "TallyResult",
-  clientResolver
+  clientResolver,
+  deps: [QueryTallyResultRequest, QueryTallyResultResponse]
 });
 export const useGetTallyResult = buildUseQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
   builderQueryFn: createGetTallyResult,

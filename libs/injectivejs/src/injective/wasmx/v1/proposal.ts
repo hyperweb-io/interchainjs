@@ -1,7 +1,7 @@
 import { StoreCodeProposal, StoreCodeProposalAmino } from "../../../cosmwasm/wasm/v1/proposal_legacy";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, isSet } from "../../../helpers";
 export enum FundingMode {
   Unspecified = 0,
   SelfFunded = 1,
@@ -285,10 +285,13 @@ export const ContractRegistrationRequestProposal = {
       typeUrl: "/injective.wasmx.v1.ContractRegistrationRequestProposal",
       value: ContractRegistrationRequestProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ContractRegistrationRequestProposal.typeUrl, ContractRegistrationRequestProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ContractRegistrationRequestProposal.aminoType, ContractRegistrationRequestProposal.typeUrl);
+    ContractRegistrationRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ContractRegistrationRequestProposal.typeUrl, ContractRegistrationRequestProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContractRegistrationRequestProposal.aminoType, ContractRegistrationRequestProposal.typeUrl);
 function createBaseBatchContractRegistrationRequestProposal(): BatchContractRegistrationRequestProposal {
   return {
     title: "",
@@ -389,10 +392,13 @@ export const BatchContractRegistrationRequestProposal = {
       typeUrl: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal",
       value: BatchContractRegistrationRequestProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchContractRegistrationRequestProposal.typeUrl, BatchContractRegistrationRequestProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchContractRegistrationRequestProposal.aminoType, BatchContractRegistrationRequestProposal.typeUrl);
+    ContractRegistrationRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BatchContractRegistrationRequestProposal.typeUrl, BatchContractRegistrationRequestProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchContractRegistrationRequestProposal.aminoType, BatchContractRegistrationRequestProposal.typeUrl);
 function createBaseBatchContractDeregistrationProposal(): BatchContractDeregistrationProposal {
   return {
     title: "",
@@ -493,10 +499,12 @@ export const BatchContractDeregistrationProposal = {
       typeUrl: "/injective.wasmx.v1.BatchContractDeregistrationProposal",
       value: BatchContractDeregistrationProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchContractDeregistrationProposal.typeUrl, BatchContractDeregistrationProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchContractDeregistrationProposal.aminoType, BatchContractDeregistrationProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BatchContractDeregistrationProposal.typeUrl, BatchContractDeregistrationProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchContractDeregistrationProposal.aminoType, BatchContractDeregistrationProposal.typeUrl);
 function createBaseContractRegistrationRequest(): ContractRegistrationRequest {
   return {
     contractAddress: "",
@@ -660,9 +668,11 @@ export const ContractRegistrationRequest = {
       typeUrl: "/injective.wasmx.v1.ContractRegistrationRequest",
       value: ContractRegistrationRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ContractRegistrationRequest.typeUrl, ContractRegistrationRequest);
   }
 };
-GlobalDecoderRegistry.register(ContractRegistrationRequest.typeUrl, ContractRegistrationRequest);
 function createBaseBatchStoreCodeProposal(): BatchStoreCodeProposal {
   return {
     title: "",
@@ -763,7 +773,10 @@ export const BatchStoreCodeProposal = {
       typeUrl: "/injective.wasmx.v1.BatchStoreCodeProposal",
       value: BatchStoreCodeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchStoreCodeProposal.typeUrl, BatchStoreCodeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchStoreCodeProposal.aminoType, BatchStoreCodeProposal.typeUrl);
+    StoreCodeProposal.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BatchStoreCodeProposal.typeUrl, BatchStoreCodeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchStoreCodeProposal.aminoType, BatchStoreCodeProposal.typeUrl);

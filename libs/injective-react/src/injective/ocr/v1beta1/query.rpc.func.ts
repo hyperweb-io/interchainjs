@@ -6,7 +6,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -17,7 +18,8 @@ export const createGetFeedConfig = (clientResolver?: RpcResolver) => buildQuery<
   decode: QueryFeedConfigResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "FeedConfig",
-  clientResolver
+  clientResolver,
+  deps: [QueryFeedConfigRequest, QueryFeedConfigResponse]
 });
 export const useGetFeedConfig = buildUseQuery<QueryFeedConfigRequest, QueryFeedConfigResponse>({
   builderQueryFn: createGetFeedConfig,
@@ -28,7 +30,8 @@ export const createGetFeedConfigInfo = (clientResolver?: RpcResolver) => buildQu
   decode: QueryFeedConfigInfoResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "FeedConfigInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse]
 });
 export const useGetFeedConfigInfo = buildUseQuery<QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse>({
   builderQueryFn: createGetFeedConfigInfo,
@@ -39,7 +42,8 @@ export const createGetLatestRound = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryLatestRoundResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "LatestRound",
-  clientResolver
+  clientResolver,
+  deps: [QueryLatestRoundRequest, QueryLatestRoundResponse]
 });
 export const useGetLatestRound = buildUseQuery<QueryLatestRoundRequest, QueryLatestRoundResponse>({
   builderQueryFn: createGetLatestRound,
@@ -50,7 +54,8 @@ export const createGetLatestTransmissionDetails = (clientResolver?: RpcResolver)
   decode: QueryLatestTransmissionDetailsResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "LatestTransmissionDetails",
-  clientResolver
+  clientResolver,
+  deps: [QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse]
 });
 export const useGetLatestTransmissionDetails = buildUseQuery<QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse>({
   builderQueryFn: createGetLatestTransmissionDetails,
@@ -61,7 +66,8 @@ export const createGetOwedAmount = (clientResolver?: RpcResolver) => buildQuery<
   decode: QueryOwedAmountResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "OwedAmount",
-  clientResolver
+  clientResolver,
+  deps: [QueryOwedAmountRequest, QueryOwedAmountResponse]
 });
 export const useGetOwedAmount = buildUseQuery<QueryOwedAmountRequest, QueryOwedAmountResponse>({
   builderQueryFn: createGetOwedAmount,
@@ -72,7 +78,8 @@ export const createGetOcrModuleState = (clientResolver?: RpcResolver) => buildQu
   decode: QueryModuleStateResponse.decode,
   service: "injective.ocr.v1beta1.Query",
   method: "OcrModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const useGetOcrModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: createGetOcrModuleState,

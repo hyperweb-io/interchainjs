@@ -6,7 +6,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "injective.tokenfactory.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -17,7 +18,8 @@ export const createGetDenomAuthorityMetadata = (clientResolver?: RpcResolver) =>
   decode: QueryDenomAuthorityMetadataResponse.decode,
   service: "injective.tokenfactory.v1beta1.Query",
   method: "DenomAuthorityMetadata",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse]
 });
 export const useGetDenomAuthorityMetadata = buildUseQuery<QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse>({
   builderQueryFn: createGetDenomAuthorityMetadata,
@@ -28,7 +30,8 @@ export const createGetDenomsFromCreator = (clientResolver?: RpcResolver) => buil
   decode: QueryDenomsFromCreatorResponse.decode,
   service: "injective.tokenfactory.v1beta1.Query",
   method: "DenomsFromCreator",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse]
 });
 export const useGetDenomsFromCreator = buildUseQuery<QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse>({
   builderQueryFn: createGetDenomsFromCreator,
@@ -39,7 +42,8 @@ export const createGetTokenfactoryModuleState = (clientResolver?: RpcResolver) =
   decode: QueryModuleStateResponse.decode,
   service: "injective.tokenfactory.v1beta1.Query",
   method: "TokenfactoryModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const useGetTokenfactoryModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: createGetTokenfactoryModuleState,

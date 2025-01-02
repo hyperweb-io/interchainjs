@@ -386,10 +386,9 @@ export const AccessTypeParam = {
       typeUrl: "/cosmwasm.wasm.v1.AccessTypeParam",
       value: AccessTypeParam.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AccessTypeParam.typeUrl, AccessTypeParam);
-GlobalDecoderRegistry.registerAminoProtoMapping(AccessTypeParam.aminoType, AccessTypeParam.typeUrl);
 function createBaseAccessConfig(): AccessConfig {
   return {
     permission: 0,
@@ -478,10 +477,9 @@ export const AccessConfig = {
       typeUrl: "/cosmwasm.wasm.v1.AccessConfig",
       value: AccessConfig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AccessConfig.typeUrl, AccessConfig);
-GlobalDecoderRegistry.registerAminoProtoMapping(AccessConfig.aminoType, AccessConfig.typeUrl);
 function createBaseParams(): Params {
   return {
     codeUploadAccess: AccessConfig.fromPartial({}),
@@ -568,10 +566,11 @@ export const Params = {
       typeUrl: "/cosmwasm.wasm.v1.Params",
       value: Params.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseCodeInfo(): CodeInfo {
   return {
     codeHash: new Uint8Array(),
@@ -670,10 +669,11 @@ export const CodeInfo = {
       typeUrl: "/cosmwasm.wasm.v1.CodeInfo",
       value: CodeInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CodeInfo.typeUrl, CodeInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(CodeInfo.aminoType, CodeInfo.typeUrl);
 function createBaseContractInfo(): ContractInfo {
   return {
     codeId: BigInt(0),
@@ -820,10 +820,9 @@ export const ContractInfo = {
       typeUrl: "/cosmwasm.wasm.v1.ContractInfo",
       value: ContractInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ContractInfo.typeUrl, ContractInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContractInfo.aminoType, ContractInfo.typeUrl);
 function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
   return {
     operation: 0,
@@ -934,10 +933,11 @@ export const ContractCodeHistoryEntry = {
       typeUrl: "/cosmwasm.wasm.v1.ContractCodeHistoryEntry",
       value: ContractCodeHistoryEntry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AbsoluteTxPosition.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ContractCodeHistoryEntry.typeUrl, ContractCodeHistoryEntry);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContractCodeHistoryEntry.aminoType, ContractCodeHistoryEntry.typeUrl);
 function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
   return {
     blockHeight: BigInt(0),
@@ -1024,10 +1024,9 @@ export const AbsoluteTxPosition = {
       typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition",
       value: AbsoluteTxPosition.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AbsoluteTxPosition.typeUrl, AbsoluteTxPosition);
-GlobalDecoderRegistry.registerAminoProtoMapping(AbsoluteTxPosition.aminoType, AbsoluteTxPosition.typeUrl);
 function createBaseModel(): Model {
   return {
     key: new Uint8Array(),
@@ -1114,7 +1113,6 @@ export const Model = {
       typeUrl: "/cosmwasm.wasm.v1.Model",
       value: Model.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Model.typeUrl, Model);
-GlobalDecoderRegistry.registerAminoProtoMapping(Model.aminoType, Model.typeUrl);

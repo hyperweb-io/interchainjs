@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Metadata, MetadataAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventCreateTFDenom {
   account: string;
   denom: string;
@@ -162,9 +161,9 @@ export const EventCreateTFDenom = {
       typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom",
       value: EventCreateTFDenom.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventCreateTFDenom.typeUrl, EventCreateTFDenom);
 function createBaseEventMintTFDenom(): EventMintTFDenom {
   return {
     recipientAddress: "",
@@ -244,9 +243,11 @@ export const EventMintTFDenom = {
       typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom",
       value: EventMintTFDenom.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventMintTFDenom.typeUrl, EventMintTFDenom);
 function createBaseEventBurnDenom(): EventBurnDenom {
   return {
     burnerAddress: "",
@@ -326,9 +327,11 @@ export const EventBurnDenom = {
       typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom",
       value: EventBurnDenom.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventBurnDenom.typeUrl, EventBurnDenom);
 function createBaseEventChangeTFAdmin(): EventChangeTFAdmin {
   return {
     denom: "",
@@ -408,9 +411,9 @@ export const EventChangeTFAdmin = {
       typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin",
       value: EventChangeTFAdmin.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventChangeTFAdmin.typeUrl, EventChangeTFAdmin);
 function createBaseEventSetTFDenomMetadata(): EventSetTFDenomMetadata {
   return {
     denom: "",
@@ -490,6 +493,8 @@ export const EventSetTFDenomMetadata = {
       typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata",
       value: EventSetTFDenomMetadata.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Metadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSetTFDenomMetadata.typeUrl, EventSetTFDenomMetadata);

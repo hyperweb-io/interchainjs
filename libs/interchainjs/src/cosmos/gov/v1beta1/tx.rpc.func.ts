@@ -5,23 +5,27 @@ export const createSubmitProposal = (clientResolver?: SigningClientResolver) => 
   clientResolver,
   typeUrl: MsgSubmitProposal.typeUrl,
   encoders: toEncoders(MsgSubmitProposal),
-  converters: toConverters(MsgSubmitProposal)
+  converters: toConverters(MsgSubmitProposal),
+  deps: [MsgSubmitProposal]
 });
 export const createVote = (clientResolver?: SigningClientResolver) => buildTx<MsgVote>({
   clientResolver,
   typeUrl: MsgVote.typeUrl,
   encoders: toEncoders(MsgVote),
-  converters: toConverters(MsgVote)
+  converters: toConverters(MsgVote),
+  deps: [MsgVote]
 });
 export const createVoteWeighted = (clientResolver?: SigningClientResolver) => buildTx<MsgVoteWeighted>({
   clientResolver,
   typeUrl: MsgVoteWeighted.typeUrl,
   encoders: toEncoders(MsgVoteWeighted),
-  converters: toConverters(MsgVoteWeighted)
+  converters: toConverters(MsgVoteWeighted),
+  deps: [MsgVoteWeighted]
 });
 export const createDeposit = (clientResolver?: SigningClientResolver) => buildTx<MsgDeposit>({
   clientResolver,
   typeUrl: MsgDeposit.typeUrl,
   encoders: toEncoders(MsgDeposit),
-  converters: toConverters(MsgDeposit)
+  converters: toConverters(MsgDeposit),
+  deps: [MsgDeposit]
 });

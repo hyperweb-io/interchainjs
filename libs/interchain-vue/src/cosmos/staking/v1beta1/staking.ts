@@ -5,8 +5,8 @@ import { Duration, DurationAmino } from "../../../google/protobuf/duration";
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { ValidatorUpdate, ValidatorUpdateAmino } from "../../../tendermint/abci/types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, toTimestamp, fromTimestamp, isSet } from "../../../helpers";
 import { encodePubkey, decodePubkey } from "@cosmjs/proto-signing";
 import { ComputedRef } from "vue";
 /** BondStatus is the status of a validator. */

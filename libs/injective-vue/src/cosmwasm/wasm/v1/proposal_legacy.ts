@@ -1,9 +1,9 @@
 import { AccessConfig, AccessConfigAmino } from "./types";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@cosmjs/encoding";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { ComputedRef } from "vue";
 /**
  * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for

@@ -1,7 +1,7 @@
 import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { ComputedRef } from "vue";
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {

@@ -1719,25 +1719,25 @@
   resolved "https://registry.yarnpkg.com/@cosmjs/utils/-/utils-0.32.4.tgz#a9a717c9fd7b1984d9cefdd0ef6c6f254060c671"
   integrity sha512-D1Yc+Zy8oL/hkUkFUL/bwxvuDBzRGpc4cF7/SkdhxX4iHpSLgdOuTt1mhCh9+kl6NQREy9t7SYZ6xeW5gFe60w==
 
-"@cosmology/ast@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.9.1.tgz#29487643ca780d9c3d71088ede693a7935ecc22f"
-  integrity sha512-VROPogZiTPzvmOjXMk9TXHOhgWW1f3Pxakg6QqSj3p/TZzmH+xk06ZMGCVhPDuXMyh3/ILIqsL5X+UPZM3wOpw==
+"@cosmology/ast@^1.9.3":
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.9.3.tgz#682698684fb0d6f6386e968f8973485b586a624d"
+  integrity sha512-9/tNleALWXDeFJNrU11mqfusQ/B6HuibVvtGjjWmBWE9EIoK9MfmnJ0VRvKvfcnHczGkh5zD2cqE8LZ0T9mYYQ==
   dependencies:
     "@babel/types" "7.23.6"
-    "@cosmology/types" "^1.11.1"
-    "@cosmology/utils" "^1.9.1"
+    "@cosmology/types" "^1.11.2"
+    "@cosmology/utils" "^1.9.2"
     case "1.6.3"
     dotty "0.1.2"
 
-"@cosmology/proto-parser@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.9.1.tgz#ce152712e08749b6a8613dd3a6ca986fe864b929"
-  integrity sha512-AgGYGwFEO25EWje+PjIJ0fEPnu/xBi4i0hAR64IukCASG4LX52m+sTQXPgb8VevLsgXqhiG91W4S3yUNOtDifw==
+"@cosmology/proto-parser@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.9.2.tgz#76e7ace6540076a3a29ef4fde18c1c76cfc5e5b8"
+  integrity sha512-ek+OC4QtXr1Jfio43v3B3xrvzspLzs9qe6Igt6tx2OUja4ns3IbeRrwcOA53dHKMxdE1JpDWxCgpwkVEVpMJXQ==
   dependencies:
     "@cosmology/protobufjs" "7.3.2"
-    "@cosmology/types" "^1.11.1"
-    "@cosmology/utils" "^1.9.1"
+    "@cosmology/types" "^1.11.2"
+    "@cosmology/utils" "^1.9.2"
     dotty "0.1.2"
     fast-json-patch "3.1.1"
     glob "8.0.3"
@@ -1763,19 +1763,19 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.11.3":
-  version "1.11.3"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.3.tgz#c7934aee7dcbaa994ebfb9fb1ab02c4fd36162a4"
-  integrity sha512-Fe/PeFsqtizvkthg5Gk5eCE2e0n23/gFDtr1fX3HURFqo0Yvi6F7/ObdJJrDpJZ0fKBT4zxoSNTGAmKfFS0LsA==
+"@cosmology/telescope@^1.11.7":
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.7.tgz#66db4fc7b1bff7811c1620a76ad5d4c874ceb2be"
+  integrity sha512-wBTTypagr2Lgh4onOIWIiQ96iLfL6Qe8uIS0yGosp2r2XPjT3AWCOu5s/9C5X2dzhD1a1Vl6wxTMdyzPF+1hng==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.9.1"
-    "@cosmology/proto-parser" "^1.9.1"
-    "@cosmology/types" "^1.11.1"
-    "@cosmology/utils" "^1.9.1"
+    "@cosmology/ast" "^1.9.3"
+    "@cosmology/proto-parser" "^1.9.2"
+    "@cosmology/types" "^1.11.2"
+    "@cosmology/utils" "^1.9.2"
     "@cosmwasm/ts-codegen" "0.35.7"
     "@types/parse-package-name" "0.1.0"
     case "1.6.3"
@@ -1793,20 +1793,20 @@
     rimraf "5.0.0"
     yaml "^2.3.4"
 
-"@cosmology/types@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.11.1.tgz#9454892b3fc584e23842076b157c41ec5265481e"
-  integrity sha512-WDD1ltC6lwH72xW50iZedoz0CQiUFdrSEAjCK5x7dh7tIX1+ZL8grmbXpSNCDiNOlPD4NTj0Kw0C+WN/urv++A==
+"@cosmology/types@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.11.2.tgz#ec8d451d16bb841fd1f9325dd52f9ef3a61f4f1e"
+  integrity sha512-FyHmHZ0hCb2CyIS95nS7yGQKxIcxm8yWyvupNkSNl6vQm1GmebPJwgRe85nAcRygxTEJ/tT9FiT/Ww9N/mdiqA==
   dependencies:
     case "1.6.3"
     fast-json-patch "3.1.1"
 
-"@cosmology/utils@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.9.1.tgz#3169f0458d40c0dc12b133a179c300902584510e"
-  integrity sha512-Hh3ElEs9bUUaDu74Fppmb39EA1A8mu35OoltA+viteogPvZN7WFJkzVXYVqJVQ8i7xo8GPok3evYe9kfskvJCQ==
+"@cosmology/utils@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.9.2.tgz#265bb1ebf12054ae0a88498e85eab46c4f38f398"
+  integrity sha512-P1Ytn/90FCENtIHrtUIz+TcLpSAf6euSf6nK6OT0AH7Zs5T/ypsWC6Qkb2z2OV785eu0QKHv+V7nvi3tJ1k49w==
   dependencies:
-    "@cosmology/types" "^1.11.1"
+    "@cosmology/types" "^1.11.2"
     dotty "0.1.2"
 
 "@cosmostation/extension-client@^0.1.15":

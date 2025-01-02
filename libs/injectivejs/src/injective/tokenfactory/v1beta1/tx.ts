@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Metadata, MetadataAmino, Params, ParamsAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
  * method. It allows an account to create a new denom. It requires a sender
@@ -385,10 +384,9 @@ export const MsgCreateDenom = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenom",
       value: MsgCreateDenom.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateDenom.typeUrl, MsgCreateDenom);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateDenom.aminoType, MsgCreateDenom.typeUrl);
 function createBaseMsgCreateDenomResponse(): MsgCreateDenomResponse {
   return {
     newTokenDenom: ""
@@ -456,9 +454,9 @@ export const MsgCreateDenomResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenomResponse",
       value: MsgCreateDenomResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateDenomResponse.typeUrl, MsgCreateDenomResponse);
 function createBaseMsgMint(): MsgMint {
   return {
     sender: "",
@@ -545,10 +543,11 @@ export const MsgMint = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgMint",
       value: MsgMint.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgMint.typeUrl, MsgMint);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgMint.aminoType, MsgMint.typeUrl);
 function createBaseMsgMintResponse(): MsgMintResponse {
   return {};
 }
@@ -603,9 +602,9 @@ export const MsgMintResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgMintResponse",
       value: MsgMintResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgMintResponse.typeUrl, MsgMintResponse);
 function createBaseMsgBurn(): MsgBurn {
   return {
     sender: "",
@@ -692,10 +691,11 @@ export const MsgBurn = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgBurn",
       value: MsgBurn.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBurn.typeUrl, MsgBurn);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBurn.aminoType, MsgBurn.typeUrl);
 function createBaseMsgBurnResponse(): MsgBurnResponse {
   return {};
 }
@@ -750,9 +750,9 @@ export const MsgBurnResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgBurnResponse",
       value: MsgBurnResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBurnResponse.typeUrl, MsgBurnResponse);
 function createBaseMsgChangeAdmin(): MsgChangeAdmin {
   return {
     sender: "",
@@ -851,10 +851,9 @@ export const MsgChangeAdmin = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgChangeAdmin",
       value: MsgChangeAdmin.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChangeAdmin.typeUrl, MsgChangeAdmin);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChangeAdmin.aminoType, MsgChangeAdmin.typeUrl);
 function createBaseMsgChangeAdminResponse(): MsgChangeAdminResponse {
   return {};
 }
@@ -909,9 +908,9 @@ export const MsgChangeAdminResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgChangeAdminResponse",
       value: MsgChangeAdminResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChangeAdminResponse.typeUrl, MsgChangeAdminResponse);
 function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
   return {
     sender: "",
@@ -998,10 +997,11 @@ export const MsgSetDenomMetadata = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadata",
       value: MsgSetDenomMetadata.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Metadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSetDenomMetadata.typeUrl, MsgSetDenomMetadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSetDenomMetadata.aminoType, MsgSetDenomMetadata.typeUrl);
 function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
   return {};
 }
@@ -1056,9 +1056,9 @@ export const MsgSetDenomMetadataResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse",
       value: MsgSetDenomMetadataResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSetDenomMetadataResponse.typeUrl, MsgSetDenomMetadataResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -1145,10 +1145,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -1203,6 +1204,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);

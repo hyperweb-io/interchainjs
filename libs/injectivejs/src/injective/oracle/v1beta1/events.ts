@@ -1,7 +1,6 @@
 import { StorkPriceState, StorkPriceStateAmino, PythPriceState, PythPriceStateAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface SetChainlinkPriceEvent {
   feedId: string;
   answer: string;
@@ -293,9 +292,9 @@ export const SetChainlinkPriceEvent = {
       typeUrl: "/injective.oracle.v1beta1.SetChainlinkPriceEvent",
       value: SetChainlinkPriceEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SetChainlinkPriceEvent.typeUrl, SetChainlinkPriceEvent);
 function createBaseSetBandPriceEvent(): SetBandPriceEvent {
   return {
     relayer: "",
@@ -411,9 +410,9 @@ export const SetBandPriceEvent = {
       typeUrl: "/injective.oracle.v1beta1.SetBandPriceEvent",
       value: SetBandPriceEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SetBandPriceEvent.typeUrl, SetBandPriceEvent);
 function createBaseSetBandIBCPriceEvent(): SetBandIBCPriceEvent {
   return {
     relayer: "",
@@ -545,9 +544,9 @@ export const SetBandIBCPriceEvent = {
       typeUrl: "/injective.oracle.v1beta1.SetBandIBCPriceEvent",
       value: SetBandIBCPriceEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SetBandIBCPriceEvent.typeUrl, SetBandIBCPriceEvent);
 function createBaseEventBandIBCAckSuccess(): EventBandIBCAckSuccess {
   return {
     ackResult: "",
@@ -627,9 +626,9 @@ export const EventBandIBCAckSuccess = {
       typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckSuccess",
       value: EventBandIBCAckSuccess.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventBandIBCAckSuccess.typeUrl, EventBandIBCAckSuccess);
 function createBaseEventBandIBCAckError(): EventBandIBCAckError {
   return {
     ackError: "",
@@ -709,9 +708,9 @@ export const EventBandIBCAckError = {
       typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckError",
       value: EventBandIBCAckError.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventBandIBCAckError.typeUrl, EventBandIBCAckError);
 function createBaseEventBandIBCResponseTimeout(): EventBandIBCResponseTimeout {
   return {
     clientId: BigInt(0)
@@ -779,9 +778,9 @@ export const EventBandIBCResponseTimeout = {
       typeUrl: "/injective.oracle.v1beta1.EventBandIBCResponseTimeout",
       value: EventBandIBCResponseTimeout.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventBandIBCResponseTimeout.typeUrl, EventBandIBCResponseTimeout);
 function createBaseSetPriceFeedPriceEvent(): SetPriceFeedPriceEvent {
   return {
     relayer: "",
@@ -885,9 +884,9 @@ export const SetPriceFeedPriceEvent = {
       typeUrl: "/injective.oracle.v1beta1.SetPriceFeedPriceEvent",
       value: SetPriceFeedPriceEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SetPriceFeedPriceEvent.typeUrl, SetPriceFeedPriceEvent);
 function createBaseSetProviderPriceEvent(): SetProviderPriceEvent {
   return {
     provider: "",
@@ -991,9 +990,9 @@ export const SetProviderPriceEvent = {
       typeUrl: "/injective.oracle.v1beta1.SetProviderPriceEvent",
       value: SetProviderPriceEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SetProviderPriceEvent.typeUrl, SetProviderPriceEvent);
 function createBaseSetCoinbasePriceEvent(): SetCoinbasePriceEvent {
   return {
     symbol: "",
@@ -1085,9 +1084,9 @@ export const SetCoinbasePriceEvent = {
       typeUrl: "/injective.oracle.v1beta1.SetCoinbasePriceEvent",
       value: SetCoinbasePriceEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SetCoinbasePriceEvent.typeUrl, SetCoinbasePriceEvent);
 function createBaseEventSetStorkPrices(): EventSetStorkPrices {
   return {
     prices: []
@@ -1157,9 +1156,11 @@ export const EventSetStorkPrices = {
       typeUrl: "/injective.oracle.v1beta1.EventSetStorkPrices",
       value: EventSetStorkPrices.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    StorkPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSetStorkPrices.typeUrl, EventSetStorkPrices);
 function createBaseEventSetPythPrices(): EventSetPythPrices {
   return {
     prices: []
@@ -1229,6 +1230,8 @@ export const EventSetPythPrices = {
       typeUrl: "/injective.oracle.v1beta1.EventSetPythPrices",
       value: EventSetPythPrices.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PythPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSetPythPrices.typeUrl, EventSetPythPrices);

@@ -1,8 +1,8 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino } from "./auction";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial } from "../../../helpers";
 import { ComputedRef } from "vue";
 /** Bid defines a SDK message for placing a bid for an auction */
 export interface MsgBid {

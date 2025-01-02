@@ -6,7 +6,8 @@ export const createGetQueryExchangeParams = (clientResolver?: RpcResolver) => bu
   decode: QueryExchangeParamsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "QueryExchangeParams",
-  clientResolver
+  clientResolver,
+  deps: [QueryExchangeParamsRequest, QueryExchangeParamsResponse]
 });
 export const useGetQueryExchangeParams = buildUseQuery<QueryExchangeParamsRequest, QueryExchangeParamsResponse>({
   builderQueryFn: createGetQueryExchangeParams,
@@ -17,7 +18,8 @@ export const createGetSubaccountDeposits = (clientResolver?: RpcResolver) => bui
   decode: QuerySubaccountDepositsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountDeposits",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountDepositsRequest, QuerySubaccountDepositsResponse]
 });
 export const useGetSubaccountDeposits = buildUseQuery<QuerySubaccountDepositsRequest, QuerySubaccountDepositsResponse>({
   builderQueryFn: createGetSubaccountDeposits,
@@ -28,7 +30,8 @@ export const createGetSubaccountDeposit = (clientResolver?: RpcResolver) => buil
   decode: QuerySubaccountDepositResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountDeposit",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountDepositRequest, QuerySubaccountDepositResponse]
 });
 export const useGetSubaccountDeposit = buildUseQuery<QuerySubaccountDepositRequest, QuerySubaccountDepositResponse>({
   builderQueryFn: createGetSubaccountDeposit,
@@ -39,7 +42,8 @@ export const createGetExchangeBalances = (clientResolver?: RpcResolver) => build
   decode: QueryExchangeBalancesResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "ExchangeBalances",
-  clientResolver
+  clientResolver,
+  deps: [QueryExchangeBalancesRequest, QueryExchangeBalancesResponse]
 });
 export const useGetExchangeBalances = buildUseQuery<QueryExchangeBalancesRequest, QueryExchangeBalancesResponse>({
   builderQueryFn: createGetExchangeBalances,
@@ -50,7 +54,8 @@ export const createGetAggregateVolume = (clientResolver?: RpcResolver) => buildQ
   decode: QueryAggregateVolumeResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "AggregateVolume",
-  clientResolver
+  clientResolver,
+  deps: [QueryAggregateVolumeRequest, QueryAggregateVolumeResponse]
 });
 export const useGetAggregateVolume = buildUseQuery<QueryAggregateVolumeRequest, QueryAggregateVolumeResponse>({
   builderQueryFn: createGetAggregateVolume,
@@ -61,7 +66,8 @@ export const createGetAggregateVolumes = (clientResolver?: RpcResolver) => build
   decode: QueryAggregateVolumesResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "AggregateVolumes",
-  clientResolver
+  clientResolver,
+  deps: [QueryAggregateVolumesRequest, QueryAggregateVolumesResponse]
 });
 export const useGetAggregateVolumes = buildUseQuery<QueryAggregateVolumesRequest, QueryAggregateVolumesResponse>({
   builderQueryFn: createGetAggregateVolumes,
@@ -72,7 +78,8 @@ export const createGetAggregateMarketVolume = (clientResolver?: RpcResolver) => 
   decode: QueryAggregateMarketVolumeResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "AggregateMarketVolume",
-  clientResolver
+  clientResolver,
+  deps: [QueryAggregateMarketVolumeRequest, QueryAggregateMarketVolumeResponse]
 });
 export const useGetAggregateMarketVolume = buildUseQuery<QueryAggregateMarketVolumeRequest, QueryAggregateMarketVolumeResponse>({
   builderQueryFn: createGetAggregateMarketVolume,
@@ -83,7 +90,8 @@ export const createGetAggregateMarketVolumes = (clientResolver?: RpcResolver) =>
   decode: QueryAggregateMarketVolumesResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "AggregateMarketVolumes",
-  clientResolver
+  clientResolver,
+  deps: [QueryAggregateMarketVolumesRequest, QueryAggregateMarketVolumesResponse]
 });
 export const useGetAggregateMarketVolumes = buildUseQuery<QueryAggregateMarketVolumesRequest, QueryAggregateMarketVolumesResponse>({
   builderQueryFn: createGetAggregateMarketVolumes,
@@ -94,7 +102,8 @@ export const createGetDenomDecimal = (clientResolver?: RpcResolver) => buildQuer
   decode: QueryDenomDecimalResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DenomDecimal",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomDecimalRequest, QueryDenomDecimalResponse]
 });
 export const useGetDenomDecimal = buildUseQuery<QueryDenomDecimalRequest, QueryDenomDecimalResponse>({
   builderQueryFn: createGetDenomDecimal,
@@ -105,7 +114,8 @@ export const createGetDenomDecimals = (clientResolver?: RpcResolver) => buildQue
   decode: QueryDenomDecimalsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DenomDecimals",
-  clientResolver
+  clientResolver,
+  deps: [QueryDenomDecimalsRequest, QueryDenomDecimalsResponse]
 });
 export const useGetDenomDecimals = buildUseQuery<QueryDenomDecimalsRequest, QueryDenomDecimalsResponse>({
   builderQueryFn: createGetDenomDecimals,
@@ -116,7 +126,8 @@ export const createGetSpotMarkets = (clientResolver?: RpcResolver) => buildQuery
   decode: QuerySpotMarketsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SpotMarkets",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpotMarketsRequest, QuerySpotMarketsResponse]
 });
 export const useGetSpotMarkets = buildUseQuery<QuerySpotMarketsRequest, QuerySpotMarketsResponse>({
   builderQueryFn: createGetSpotMarkets,
@@ -127,7 +138,8 @@ export const createGetSpotMarket = (clientResolver?: RpcResolver) => buildQuery<
   decode: QuerySpotMarketResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SpotMarket",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpotMarketRequest, QuerySpotMarketResponse]
 });
 export const useGetSpotMarket = buildUseQuery<QuerySpotMarketRequest, QuerySpotMarketResponse>({
   builderQueryFn: createGetSpotMarket,
@@ -138,7 +150,8 @@ export const createGetFullSpotMarkets = (clientResolver?: RpcResolver) => buildQ
   decode: QueryFullSpotMarketsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "FullSpotMarkets",
-  clientResolver
+  clientResolver,
+  deps: [QueryFullSpotMarketsRequest, QueryFullSpotMarketsResponse]
 });
 export const useGetFullSpotMarkets = buildUseQuery<QueryFullSpotMarketsRequest, QueryFullSpotMarketsResponse>({
   builderQueryFn: createGetFullSpotMarkets,
@@ -149,7 +162,8 @@ export const createGetFullSpotMarket = (clientResolver?: RpcResolver) => buildQu
   decode: QueryFullSpotMarketResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "FullSpotMarket",
-  clientResolver
+  clientResolver,
+  deps: [QueryFullSpotMarketRequest, QueryFullSpotMarketResponse]
 });
 export const useGetFullSpotMarket = buildUseQuery<QueryFullSpotMarketRequest, QueryFullSpotMarketResponse>({
   builderQueryFn: createGetFullSpotMarket,
@@ -160,7 +174,8 @@ export const createGetSpotOrderbook = (clientResolver?: RpcResolver) => buildQue
   decode: QuerySpotOrderbookResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SpotOrderbook",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpotOrderbookRequest, QuerySpotOrderbookResponse]
 });
 export const useGetSpotOrderbook = buildUseQuery<QuerySpotOrderbookRequest, QuerySpotOrderbookResponse>({
   builderQueryFn: createGetSpotOrderbook,
@@ -171,7 +186,8 @@ export const createGetTraderSpotOrders = (clientResolver?: RpcResolver) => build
   decode: QueryTraderSpotOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TraderSpotOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryTraderSpotOrdersRequest, QueryTraderSpotOrdersResponse]
 });
 export const useGetTraderSpotOrders = buildUseQuery<QueryTraderSpotOrdersRequest, QueryTraderSpotOrdersResponse>({
   builderQueryFn: createGetTraderSpotOrders,
@@ -182,7 +198,8 @@ export const createGetAccountAddressSpotOrders = (clientResolver?: RpcResolver) 
   decode: QueryAccountAddressSpotOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "AccountAddressSpotOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryAccountAddressSpotOrdersRequest, QueryAccountAddressSpotOrdersResponse]
 });
 export const useGetAccountAddressSpotOrders = buildUseQuery<QueryAccountAddressSpotOrdersRequest, QueryAccountAddressSpotOrdersResponse>({
   builderQueryFn: createGetAccountAddressSpotOrders,
@@ -193,7 +210,8 @@ export const createGetSpotOrdersByHashes = (clientResolver?: RpcResolver) => bui
   decode: QuerySpotOrdersByHashesResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SpotOrdersByHashes",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpotOrdersByHashesRequest, QuerySpotOrdersByHashesResponse]
 });
 export const useGetSpotOrdersByHashes = buildUseQuery<QuerySpotOrdersByHashesRequest, QuerySpotOrdersByHashesResponse>({
   builderQueryFn: createGetSpotOrdersByHashes,
@@ -204,7 +222,8 @@ export const createGetSubaccountOrders = (clientResolver?: RpcResolver) => build
   decode: QuerySubaccountOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountOrders",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountOrdersRequest, QuerySubaccountOrdersResponse]
 });
 export const useGetSubaccountOrders = buildUseQuery<QuerySubaccountOrdersRequest, QuerySubaccountOrdersResponse>({
   builderQueryFn: createGetSubaccountOrders,
@@ -215,7 +234,8 @@ export const createGetTraderSpotTransientOrders = (clientResolver?: RpcResolver)
   decode: QueryTraderSpotOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TraderSpotTransientOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryTraderSpotOrdersRequest, QueryTraderSpotOrdersResponse]
 });
 export const useGetTraderSpotTransientOrders = buildUseQuery<QueryTraderSpotOrdersRequest, QueryTraderSpotOrdersResponse>({
   builderQueryFn: createGetTraderSpotTransientOrders,
@@ -226,7 +246,8 @@ export const createGetSpotMidPriceAndTOB = (clientResolver?: RpcResolver) => bui
   decode: QuerySpotMidPriceAndTOBResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SpotMidPriceAndTOB",
-  clientResolver
+  clientResolver,
+  deps: [QuerySpotMidPriceAndTOBRequest, QuerySpotMidPriceAndTOBResponse]
 });
 export const useGetSpotMidPriceAndTOB = buildUseQuery<QuerySpotMidPriceAndTOBRequest, QuerySpotMidPriceAndTOBResponse>({
   builderQueryFn: createGetSpotMidPriceAndTOB,
@@ -237,7 +258,8 @@ export const createGetDerivativeMidPriceAndTOB = (clientResolver?: RpcResolver) 
   decode: QueryDerivativeMidPriceAndTOBResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DerivativeMidPriceAndTOB",
-  clientResolver
+  clientResolver,
+  deps: [QueryDerivativeMidPriceAndTOBRequest, QueryDerivativeMidPriceAndTOBResponse]
 });
 export const useGetDerivativeMidPriceAndTOB = buildUseQuery<QueryDerivativeMidPriceAndTOBRequest, QueryDerivativeMidPriceAndTOBResponse>({
   builderQueryFn: createGetDerivativeMidPriceAndTOB,
@@ -248,7 +270,8 @@ export const createGetDerivativeOrderbook = (clientResolver?: RpcResolver) => bu
   decode: QueryDerivativeOrderbookResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DerivativeOrderbook",
-  clientResolver
+  clientResolver,
+  deps: [QueryDerivativeOrderbookRequest, QueryDerivativeOrderbookResponse]
 });
 export const useGetDerivativeOrderbook = buildUseQuery<QueryDerivativeOrderbookRequest, QueryDerivativeOrderbookResponse>({
   builderQueryFn: createGetDerivativeOrderbook,
@@ -259,7 +282,8 @@ export const createGetTraderDerivativeOrders = (clientResolver?: RpcResolver) =>
   decode: QueryTraderDerivativeOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TraderDerivativeOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryTraderDerivativeOrdersRequest, QueryTraderDerivativeOrdersResponse]
 });
 export const useGetTraderDerivativeOrders = buildUseQuery<QueryTraderDerivativeOrdersRequest, QueryTraderDerivativeOrdersResponse>({
   builderQueryFn: createGetTraderDerivativeOrders,
@@ -270,7 +294,8 @@ export const createGetAccountAddressDerivativeOrders = (clientResolver?: RpcReso
   decode: QueryAccountAddressDerivativeOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "AccountAddressDerivativeOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryAccountAddressDerivativeOrdersRequest, QueryAccountAddressDerivativeOrdersResponse]
 });
 export const useGetAccountAddressDerivativeOrders = buildUseQuery<QueryAccountAddressDerivativeOrdersRequest, QueryAccountAddressDerivativeOrdersResponse>({
   builderQueryFn: createGetAccountAddressDerivativeOrders,
@@ -281,7 +306,8 @@ export const createGetDerivativeOrdersByHashes = (clientResolver?: RpcResolver) 
   decode: QueryDerivativeOrdersByHashesResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DerivativeOrdersByHashes",
-  clientResolver
+  clientResolver,
+  deps: [QueryDerivativeOrdersByHashesRequest, QueryDerivativeOrdersByHashesResponse]
 });
 export const useGetDerivativeOrdersByHashes = buildUseQuery<QueryDerivativeOrdersByHashesRequest, QueryDerivativeOrdersByHashesResponse>({
   builderQueryFn: createGetDerivativeOrdersByHashes,
@@ -292,7 +318,8 @@ export const createGetTraderDerivativeTransientOrders = (clientResolver?: RpcRes
   decode: QueryTraderDerivativeOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TraderDerivativeTransientOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryTraderDerivativeOrdersRequest, QueryTraderDerivativeOrdersResponse]
 });
 export const useGetTraderDerivativeTransientOrders = buildUseQuery<QueryTraderDerivativeOrdersRequest, QueryTraderDerivativeOrdersResponse>({
   builderQueryFn: createGetTraderDerivativeTransientOrders,
@@ -303,7 +330,8 @@ export const createGetDerivativeMarkets = (clientResolver?: RpcResolver) => buil
   decode: QueryDerivativeMarketsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DerivativeMarkets",
-  clientResolver
+  clientResolver,
+  deps: [QueryDerivativeMarketsRequest, QueryDerivativeMarketsResponse]
 });
 export const useGetDerivativeMarkets = buildUseQuery<QueryDerivativeMarketsRequest, QueryDerivativeMarketsResponse>({
   builderQueryFn: createGetDerivativeMarkets,
@@ -314,7 +342,8 @@ export const createGetDerivativeMarket = (clientResolver?: RpcResolver) => build
   decode: QueryDerivativeMarketResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DerivativeMarket",
-  clientResolver
+  clientResolver,
+  deps: [QueryDerivativeMarketRequest, QueryDerivativeMarketResponse]
 });
 export const useGetDerivativeMarket = buildUseQuery<QueryDerivativeMarketRequest, QueryDerivativeMarketResponse>({
   builderQueryFn: createGetDerivativeMarket,
@@ -325,7 +354,8 @@ export const createGetDerivativeMarketAddress = (clientResolver?: RpcResolver) =
   decode: QueryDerivativeMarketAddressResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "DerivativeMarketAddress",
-  clientResolver
+  clientResolver,
+  deps: [QueryDerivativeMarketAddressRequest, QueryDerivativeMarketAddressResponse]
 });
 export const useGetDerivativeMarketAddress = buildUseQuery<QueryDerivativeMarketAddressRequest, QueryDerivativeMarketAddressResponse>({
   builderQueryFn: createGetDerivativeMarketAddress,
@@ -336,7 +366,8 @@ export const createGetSubaccountTradeNonce = (clientResolver?: RpcResolver) => b
   decode: QuerySubaccountTradeNonceResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountTradeNonce",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountTradeNonceRequest, QuerySubaccountTradeNonceResponse]
 });
 export const useGetSubaccountTradeNonce = buildUseQuery<QuerySubaccountTradeNonceRequest, QuerySubaccountTradeNonceResponse>({
   builderQueryFn: createGetSubaccountTradeNonce,
@@ -347,7 +378,8 @@ export const createGetExchangeModuleState = (clientResolver?: RpcResolver) => bu
   decode: QueryModuleStateResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "ExchangeModuleState",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
 export const useGetExchangeModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: createGetExchangeModuleState,
@@ -358,7 +390,8 @@ export const createGetPositions = (clientResolver?: RpcResolver) => buildQuery<Q
   decode: QueryPositionsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "Positions",
-  clientResolver
+  clientResolver,
+  deps: [QueryPositionsRequest, QueryPositionsResponse]
 });
 export const useGetPositions = buildUseQuery<QueryPositionsRequest, QueryPositionsResponse>({
   builderQueryFn: createGetPositions,
@@ -369,7 +402,8 @@ export const createGetSubaccountPositions = (clientResolver?: RpcResolver) => bu
   decode: QuerySubaccountPositionsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountPositions",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountPositionsRequest, QuerySubaccountPositionsResponse]
 });
 export const useGetSubaccountPositions = buildUseQuery<QuerySubaccountPositionsRequest, QuerySubaccountPositionsResponse>({
   builderQueryFn: createGetSubaccountPositions,
@@ -380,7 +414,8 @@ export const createGetSubaccountPositionInMarket = (clientResolver?: RpcResolver
   decode: QuerySubaccountPositionInMarketResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountPositionInMarket",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountPositionInMarketRequest, QuerySubaccountPositionInMarketResponse]
 });
 export const useGetSubaccountPositionInMarket = buildUseQuery<QuerySubaccountPositionInMarketRequest, QuerySubaccountPositionInMarketResponse>({
   builderQueryFn: createGetSubaccountPositionInMarket,
@@ -391,7 +426,8 @@ export const createGetSubaccountEffectivePositionInMarket = (clientResolver?: Rp
   decode: QuerySubaccountEffectivePositionInMarketResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountEffectivePositionInMarket",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountEffectivePositionInMarketRequest, QuerySubaccountEffectivePositionInMarketResponse]
 });
 export const useGetSubaccountEffectivePositionInMarket = buildUseQuery<QuerySubaccountEffectivePositionInMarketRequest, QuerySubaccountEffectivePositionInMarketResponse>({
   builderQueryFn: createGetSubaccountEffectivePositionInMarket,
@@ -402,7 +438,8 @@ export const createGetPerpetualMarketInfo = (clientResolver?: RpcResolver) => bu
   decode: QueryPerpetualMarketInfoResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "PerpetualMarketInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryPerpetualMarketInfoRequest, QueryPerpetualMarketInfoResponse]
 });
 export const useGetPerpetualMarketInfo = buildUseQuery<QueryPerpetualMarketInfoRequest, QueryPerpetualMarketInfoResponse>({
   builderQueryFn: createGetPerpetualMarketInfo,
@@ -413,7 +450,8 @@ export const createGetExpiryFuturesMarketInfo = (clientResolver?: RpcResolver) =
   decode: QueryExpiryFuturesMarketInfoResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "ExpiryFuturesMarketInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryExpiryFuturesMarketInfoRequest, QueryExpiryFuturesMarketInfoResponse]
 });
 export const useGetExpiryFuturesMarketInfo = buildUseQuery<QueryExpiryFuturesMarketInfoRequest, QueryExpiryFuturesMarketInfoResponse>({
   builderQueryFn: createGetExpiryFuturesMarketInfo,
@@ -424,7 +462,8 @@ export const createGetPerpetualMarketFunding = (clientResolver?: RpcResolver) =>
   decode: QueryPerpetualMarketFundingResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "PerpetualMarketFunding",
-  clientResolver
+  clientResolver,
+  deps: [QueryPerpetualMarketFundingRequest, QueryPerpetualMarketFundingResponse]
 });
 export const useGetPerpetualMarketFunding = buildUseQuery<QueryPerpetualMarketFundingRequest, QueryPerpetualMarketFundingResponse>({
   builderQueryFn: createGetPerpetualMarketFunding,
@@ -435,7 +474,8 @@ export const createGetSubaccountOrderMetadata = (clientResolver?: RpcResolver) =
   decode: QuerySubaccountOrderMetadataResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "SubaccountOrderMetadata",
-  clientResolver
+  clientResolver,
+  deps: [QuerySubaccountOrderMetadataRequest, QuerySubaccountOrderMetadataResponse]
 });
 export const useGetSubaccountOrderMetadata = buildUseQuery<QuerySubaccountOrderMetadataRequest, QuerySubaccountOrderMetadataResponse>({
   builderQueryFn: createGetSubaccountOrderMetadata,
@@ -446,7 +486,8 @@ export const createGetTradeRewardPoints = (clientResolver?: RpcResolver) => buil
   decode: QueryTradeRewardPointsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TradeRewardPoints",
-  clientResolver
+  clientResolver,
+  deps: [QueryTradeRewardPointsRequest, QueryTradeRewardPointsResponse]
 });
 export const useGetTradeRewardPoints = buildUseQuery<QueryTradeRewardPointsRequest, QueryTradeRewardPointsResponse>({
   builderQueryFn: createGetTradeRewardPoints,
@@ -457,7 +498,8 @@ export const createGetPendingTradeRewardPoints = (clientResolver?: RpcResolver) 
   decode: QueryTradeRewardPointsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "PendingTradeRewardPoints",
-  clientResolver
+  clientResolver,
+  deps: [QueryTradeRewardPointsRequest, QueryTradeRewardPointsResponse]
 });
 export const useGetPendingTradeRewardPoints = buildUseQuery<QueryTradeRewardPointsRequest, QueryTradeRewardPointsResponse>({
   builderQueryFn: createGetPendingTradeRewardPoints,
@@ -468,7 +510,8 @@ export const createGetTradeRewardCampaign = (clientResolver?: RpcResolver) => bu
   decode: QueryTradeRewardCampaignResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TradeRewardCampaign",
-  clientResolver
+  clientResolver,
+  deps: [QueryTradeRewardCampaignRequest, QueryTradeRewardCampaignResponse]
 });
 export const useGetTradeRewardCampaign = buildUseQuery<QueryTradeRewardCampaignRequest, QueryTradeRewardCampaignResponse>({
   builderQueryFn: createGetTradeRewardCampaign,
@@ -479,7 +522,8 @@ export const createGetFeeDiscountAccountInfo = (clientResolver?: RpcResolver) =>
   decode: QueryFeeDiscountAccountInfoResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "FeeDiscountAccountInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryFeeDiscountAccountInfoRequest, QueryFeeDiscountAccountInfoResponse]
 });
 export const useGetFeeDiscountAccountInfo = buildUseQuery<QueryFeeDiscountAccountInfoRequest, QueryFeeDiscountAccountInfoResponse>({
   builderQueryFn: createGetFeeDiscountAccountInfo,
@@ -490,7 +534,8 @@ export const createGetFeeDiscountSchedule = (clientResolver?: RpcResolver) => bu
   decode: QueryFeeDiscountScheduleResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "FeeDiscountSchedule",
-  clientResolver
+  clientResolver,
+  deps: [QueryFeeDiscountScheduleRequest, QueryFeeDiscountScheduleResponse]
 });
 export const useGetFeeDiscountSchedule = buildUseQuery<QueryFeeDiscountScheduleRequest, QueryFeeDiscountScheduleResponse>({
   builderQueryFn: createGetFeeDiscountSchedule,
@@ -501,7 +546,8 @@ export const createGetBalanceMismatches = (clientResolver?: RpcResolver) => buil
   decode: QueryBalanceMismatchesResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "BalanceMismatches",
-  clientResolver
+  clientResolver,
+  deps: [QueryBalanceMismatchesRequest, QueryBalanceMismatchesResponse]
 });
 export const useGetBalanceMismatches = buildUseQuery<QueryBalanceMismatchesRequest, QueryBalanceMismatchesResponse>({
   builderQueryFn: createGetBalanceMismatches,
@@ -512,7 +558,8 @@ export const createGetBalanceWithBalanceHolds = (clientResolver?: RpcResolver) =
   decode: QueryBalanceWithBalanceHoldsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "BalanceWithBalanceHolds",
-  clientResolver
+  clientResolver,
+  deps: [QueryBalanceWithBalanceHoldsRequest, QueryBalanceWithBalanceHoldsResponse]
 });
 export const useGetBalanceWithBalanceHolds = buildUseQuery<QueryBalanceWithBalanceHoldsRequest, QueryBalanceWithBalanceHoldsResponse>({
   builderQueryFn: createGetBalanceWithBalanceHolds,
@@ -523,7 +570,8 @@ export const createGetFeeDiscountTierStatistics = (clientResolver?: RpcResolver)
   decode: QueryFeeDiscountTierStatisticsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "FeeDiscountTierStatistics",
-  clientResolver
+  clientResolver,
+  deps: [QueryFeeDiscountTierStatisticsRequest, QueryFeeDiscountTierStatisticsResponse]
 });
 export const useGetFeeDiscountTierStatistics = buildUseQuery<QueryFeeDiscountTierStatisticsRequest, QueryFeeDiscountTierStatisticsResponse>({
   builderQueryFn: createGetFeeDiscountTierStatistics,
@@ -534,7 +582,8 @@ export const createGetMitoVaultInfos = (clientResolver?: RpcResolver) => buildQu
   decode: MitoVaultInfosResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "MitoVaultInfos",
-  clientResolver
+  clientResolver,
+  deps: [MitoVaultInfosRequest, MitoVaultInfosResponse]
 });
 export const useGetMitoVaultInfos = buildUseQuery<MitoVaultInfosRequest, MitoVaultInfosResponse>({
   builderQueryFn: createGetMitoVaultInfos,
@@ -545,7 +594,8 @@ export const createGetQueryMarketIDFromVault = (clientResolver?: RpcResolver) =>
   decode: QueryMarketIDFromVaultResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "QueryMarketIDFromVault",
-  clientResolver
+  clientResolver,
+  deps: [QueryMarketIDFromVaultRequest, QueryMarketIDFromVaultResponse]
 });
 export const useGetQueryMarketIDFromVault = buildUseQuery<QueryMarketIDFromVaultRequest, QueryMarketIDFromVaultResponse>({
   builderQueryFn: createGetQueryMarketIDFromVault,
@@ -556,7 +606,8 @@ export const createGetHistoricalTradeRecords = (clientResolver?: RpcResolver) =>
   decode: QueryHistoricalTradeRecordsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "HistoricalTradeRecords",
-  clientResolver
+  clientResolver,
+  deps: [QueryHistoricalTradeRecordsRequest, QueryHistoricalTradeRecordsResponse]
 });
 export const useGetHistoricalTradeRecords = buildUseQuery<QueryHistoricalTradeRecordsRequest, QueryHistoricalTradeRecordsResponse>({
   builderQueryFn: createGetHistoricalTradeRecords,
@@ -567,7 +618,8 @@ export const createGetIsOptedOutOfRewards = (clientResolver?: RpcResolver) => bu
   decode: QueryIsOptedOutOfRewardsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "IsOptedOutOfRewards",
-  clientResolver
+  clientResolver,
+  deps: [QueryIsOptedOutOfRewardsRequest, QueryIsOptedOutOfRewardsResponse]
 });
 export const useGetIsOptedOutOfRewards = buildUseQuery<QueryIsOptedOutOfRewardsRequest, QueryIsOptedOutOfRewardsResponse>({
   builderQueryFn: createGetIsOptedOutOfRewards,
@@ -578,7 +630,8 @@ export const createGetOptedOutOfRewardsAccounts = (clientResolver?: RpcResolver)
   decode: QueryOptedOutOfRewardsAccountsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "OptedOutOfRewardsAccounts",
-  clientResolver
+  clientResolver,
+  deps: [QueryOptedOutOfRewardsAccountsRequest, QueryOptedOutOfRewardsAccountsResponse]
 });
 export const useGetOptedOutOfRewardsAccounts = buildUseQuery<QueryOptedOutOfRewardsAccountsRequest, QueryOptedOutOfRewardsAccountsResponse>({
   builderQueryFn: createGetOptedOutOfRewardsAccounts,
@@ -589,7 +642,8 @@ export const createGetMarketVolatility = (clientResolver?: RpcResolver) => build
   decode: QueryMarketVolatilityResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "MarketVolatility",
-  clientResolver
+  clientResolver,
+  deps: [QueryMarketVolatilityRequest, QueryMarketVolatilityResponse]
 });
 export const useGetMarketVolatility = buildUseQuery<QueryMarketVolatilityRequest, QueryMarketVolatilityResponse>({
   builderQueryFn: createGetMarketVolatility,
@@ -600,7 +654,8 @@ export const createGetBinaryOptionsMarkets = (clientResolver?: RpcResolver) => b
   decode: QueryBinaryMarketsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "BinaryOptionsMarkets",
-  clientResolver
+  clientResolver,
+  deps: [QueryBinaryMarketsRequest, QueryBinaryMarketsResponse]
 });
 export const useGetBinaryOptionsMarkets = buildUseQuery<QueryBinaryMarketsRequest, QueryBinaryMarketsResponse>({
   builderQueryFn: createGetBinaryOptionsMarkets,
@@ -611,7 +666,8 @@ export const createGetTraderDerivativeConditionalOrders = (clientResolver?: RpcR
   decode: QueryTraderDerivativeConditionalOrdersResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "TraderDerivativeConditionalOrders",
-  clientResolver
+  clientResolver,
+  deps: [QueryTraderDerivativeConditionalOrdersRequest, QueryTraderDerivativeConditionalOrdersResponse]
 });
 export const useGetTraderDerivativeConditionalOrders = buildUseQuery<QueryTraderDerivativeConditionalOrdersRequest, QueryTraderDerivativeConditionalOrdersResponse>({
   builderQueryFn: createGetTraderDerivativeConditionalOrders,
@@ -622,7 +678,8 @@ export const createGetMarketAtomicExecutionFeeMultiplier = (clientResolver?: Rpc
   decode: QueryMarketAtomicExecutionFeeMultiplierResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "MarketAtomicExecutionFeeMultiplier",
-  clientResolver
+  clientResolver,
+  deps: [QueryMarketAtomicExecutionFeeMultiplierRequest, QueryMarketAtomicExecutionFeeMultiplierResponse]
 });
 export const useGetMarketAtomicExecutionFeeMultiplier = buildUseQuery<QueryMarketAtomicExecutionFeeMultiplierRequest, QueryMarketAtomicExecutionFeeMultiplierResponse>({
   builderQueryFn: createGetMarketAtomicExecutionFeeMultiplier,
@@ -633,7 +690,8 @@ export const createGetActiveStakeGrant = (clientResolver?: RpcResolver) => build
   decode: QueryActiveStakeGrantResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "ActiveStakeGrant",
-  clientResolver
+  clientResolver,
+  deps: [QueryActiveStakeGrantRequest, QueryActiveStakeGrantResponse]
 });
 export const useGetActiveStakeGrant = buildUseQuery<QueryActiveStakeGrantRequest, QueryActiveStakeGrantResponse>({
   builderQueryFn: createGetActiveStakeGrant,
@@ -644,7 +702,8 @@ export const createGetGrantAuthorization = (clientResolver?: RpcResolver) => bui
   decode: QueryGrantAuthorizationResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "GrantAuthorization",
-  clientResolver
+  clientResolver,
+  deps: [QueryGrantAuthorizationRequest, QueryGrantAuthorizationResponse]
 });
 export const useGetGrantAuthorization = buildUseQuery<QueryGrantAuthorizationRequest, QueryGrantAuthorizationResponse>({
   builderQueryFn: createGetGrantAuthorization,
@@ -655,7 +714,8 @@ export const createGetGrantAuthorizations = (clientResolver?: RpcResolver) => bu
   decode: QueryGrantAuthorizationsResponse.decode,
   service: "injective.exchange.v1beta1.Query",
   method: "GrantAuthorizations",
-  clientResolver
+  clientResolver,
+  deps: [QueryGrantAuthorizationsRequest, QueryGrantAuthorizationsResponse]
 });
 export const useGetGrantAuthorizations = buildUseQuery<QueryGrantAuthorizationsRequest, QueryGrantAuthorizationsResponse>({
   builderQueryFn: createGetGrantAuthorizations,

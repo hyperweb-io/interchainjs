@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * Params defines the set of IBC transfer parameters.
  * NOTE: To prevent a single token from being transferred, set the
@@ -185,10 +184,9 @@ export const Params = {
       typeUrl: "/ibc.applications.transfer.v1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseForwarding(): Forwarding {
   return {
     unwind: false,
@@ -277,10 +275,11 @@ export const Forwarding = {
       typeUrl: "/ibc.applications.transfer.v1.Forwarding",
       value: Forwarding.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Hop.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Forwarding.typeUrl, Forwarding);
-GlobalDecoderRegistry.registerAminoProtoMapping(Forwarding.aminoType, Forwarding.typeUrl);
 function createBaseHop(): Hop {
   return {
     portId: "",
@@ -367,7 +366,6 @@ export const Hop = {
       typeUrl: "/ibc.applications.transfer.v1.Hop",
       value: Hop.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Hop.typeUrl, Hop);
-GlobalDecoderRegistry.registerAminoProtoMapping(Hop.aminoType, Hop.typeUrl);

@@ -4,7 +4,6 @@ import { Timestamp } from "../../google/protobuf/timestamp";
 import { BlockIDFlag, ValidatorSet, ValidatorSetAmino } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp, isSet } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 /** SignedMsgType is a type of signed message in the consensus. */
 export enum SignedMsgType {
   SIGNED_MSG_TYPE_UNKNOWN = 0,
@@ -542,9 +541,9 @@ export const PartSetHeader = {
       typeUrl: "/tendermint.types.PartSetHeader",
       value: PartSetHeader.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PartSetHeader.typeUrl, PartSetHeader);
 function createBasePart(): Part {
   return {
     index: 0,
@@ -636,9 +635,11 @@ export const Part = {
       typeUrl: "/tendermint.types.Part",
       value: Part.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Proof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Part.typeUrl, Part);
 function createBaseBlockID(): BlockID {
   return {
     hash: new Uint8Array(),
@@ -718,9 +719,11 @@ export const BlockID = {
       typeUrl: "/tendermint.types.BlockID",
       value: BlockID.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PartSetHeader.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BlockID.typeUrl, BlockID);
 function createBaseHeader(): Header {
   return {
     version: Consensus.fromPartial({}),
@@ -944,9 +947,12 @@ export const Header = {
       typeUrl: "/tendermint.types.Header",
       value: Header.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Consensus.registerTypeUrl();
+    BlockID.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Header.typeUrl, Header);
 function createBaseData(): Data {
   return {
     txs: []
@@ -1016,9 +1022,9 @@ export const Data = {
       typeUrl: "/tendermint.types.Data",
       value: Data.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Data.typeUrl, Data);
 function createBaseVote(): Vote {
   return {
     type: 0,
@@ -1194,9 +1200,11 @@ export const Vote = {
       typeUrl: "/tendermint.types.Vote",
       value: Vote.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BlockID.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Vote.typeUrl, Vote);
 function createBaseCommit(): Commit {
   return {
     height: BigInt(0),
@@ -1302,9 +1310,12 @@ export const Commit = {
       typeUrl: "/tendermint.types.Commit",
       value: Commit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BlockID.registerTypeUrl();
+    CommitSig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Commit.typeUrl, Commit);
 function createBaseCommitSig(): CommitSig {
   return {
     blockIdFlag: 0,
@@ -1408,9 +1419,9 @@ export const CommitSig = {
       typeUrl: "/tendermint.types.CommitSig",
       value: CommitSig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(CommitSig.typeUrl, CommitSig);
 function createBaseExtendedCommit(): ExtendedCommit {
   return {
     height: BigInt(0),
@@ -1516,9 +1527,12 @@ export const ExtendedCommit = {
       typeUrl: "/tendermint.types.ExtendedCommit",
       value: ExtendedCommit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BlockID.registerTypeUrl();
+    ExtendedCommitSig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExtendedCommit.typeUrl, ExtendedCommit);
 function createBaseExtendedCommitSig(): ExtendedCommitSig {
   return {
     blockIdFlag: 0,
@@ -1646,9 +1660,9 @@ export const ExtendedCommitSig = {
       typeUrl: "/tendermint.types.ExtendedCommitSig",
       value: ExtendedCommitSig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ExtendedCommitSig.typeUrl, ExtendedCommitSig);
 function createBaseProposal(): Proposal {
   return {
     type: 0,
@@ -1788,9 +1802,11 @@ export const Proposal = {
       typeUrl: "/tendermint.types.Proposal",
       value: Proposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BlockID.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Proposal.typeUrl, Proposal);
 function createBaseSignedHeader(): SignedHeader {
   return {
     header: undefined,
@@ -1870,9 +1886,12 @@ export const SignedHeader = {
       typeUrl: "/tendermint.types.SignedHeader",
       value: SignedHeader.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Header.registerTypeUrl();
+    Commit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignedHeader.typeUrl, SignedHeader);
 function createBaseLightBlock(): LightBlock {
   return {
     signedHeader: undefined,
@@ -1952,9 +1971,12 @@ export const LightBlock = {
       typeUrl: "/tendermint.types.LightBlock",
       value: LightBlock.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignedHeader.registerTypeUrl();
+    ValidatorSet.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(LightBlock.typeUrl, LightBlock);
 function createBaseBlockMeta(): BlockMeta {
   return {
     blockId: BlockID.fromPartial({}),
@@ -2058,9 +2080,12 @@ export const BlockMeta = {
       typeUrl: "/tendermint.types.BlockMeta",
       value: BlockMeta.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BlockID.registerTypeUrl();
+    Header.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BlockMeta.typeUrl, BlockMeta);
 function createBaseTxProof(): TxProof {
   return {
     rootHash: new Uint8Array(),
@@ -2152,6 +2177,8 @@ export const TxProof = {
       typeUrl: "/tendermint.types.TxProof",
       value: TxProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Proof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TxProof.typeUrl, TxProof);

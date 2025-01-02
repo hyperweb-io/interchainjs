@@ -346,10 +346,11 @@ export const Params = {
       typeUrl: "/cosmos.bank.v1beta1.Params",
       value: Params.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SendEnabled.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseSendEnabled(): SendEnabled {
   return {
     denom: "",
@@ -436,10 +437,9 @@ export const SendEnabled = {
       typeUrl: "/cosmos.bank.v1beta1.SendEnabled",
       value: SendEnabled.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SendEnabled.typeUrl, SendEnabled);
-GlobalDecoderRegistry.registerAminoProtoMapping(SendEnabled.aminoType, SendEnabled.typeUrl);
 function createBaseInput(): Input {
   return {
     address: "",
@@ -528,10 +528,11 @@ export const Input = {
       typeUrl: "/cosmos.bank.v1beta1.Input",
       value: Input.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Input.typeUrl, Input);
-GlobalDecoderRegistry.registerAminoProtoMapping(Input.aminoType, Input.typeUrl);
 function createBaseOutput(): Output {
   return {
     address: "",
@@ -620,10 +621,11 @@ export const Output = {
       typeUrl: "/cosmos.bank.v1beta1.Output",
       value: Output.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Output.typeUrl, Output);
-GlobalDecoderRegistry.registerAminoProtoMapping(Output.aminoType, Output.typeUrl);
 function createBaseSupply(): Supply {
   return {
     total: []
@@ -700,10 +702,13 @@ export const Supply = {
       typeUrl: "/cosmos.bank.v1beta1.Supply",
       value: Supply.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(Supply.typeUrl, Supply);
+    GlobalDecoderRegistry.registerAminoProtoMapping(Supply.aminoType, Supply.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Supply.typeUrl, Supply);
-GlobalDecoderRegistry.registerAminoProtoMapping(Supply.aminoType, Supply.typeUrl);
 function createBaseDenomUnit(): DenomUnit {
   return {
     denom: "",
@@ -804,10 +809,9 @@ export const DenomUnit = {
       typeUrl: "/cosmos.bank.v1beta1.DenomUnit",
       value: DenomUnit.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DenomUnit.typeUrl, DenomUnit);
-GlobalDecoderRegistry.registerAminoProtoMapping(DenomUnit.aminoType, DenomUnit.typeUrl);
 function createBaseMetadata(): Metadata {
   return {
     description: "",
@@ -968,7 +972,8 @@ export const Metadata = {
       typeUrl: "/cosmos.bank.v1beta1.Metadata",
       value: Metadata.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DenomUnit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Metadata.typeUrl, Metadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(Metadata.aminoType, Metadata.typeUrl);

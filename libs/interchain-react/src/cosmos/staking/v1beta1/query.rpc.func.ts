@@ -6,7 +6,8 @@ export const createGetValidators = (clientResolver?: RpcResolver) => buildQuery<
   decode: QueryValidatorsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "Validators",
-  clientResolver
+  clientResolver,
+  deps: [QueryValidatorsRequest, QueryValidatorsResponse]
 });
 export const useGetValidators = buildUseQuery<QueryValidatorsRequest, QueryValidatorsResponse>({
   builderQueryFn: createGetValidators,
@@ -17,7 +18,8 @@ export const createGetValidator = (clientResolver?: RpcResolver) => buildQuery<Q
   decode: QueryValidatorResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "Validator",
-  clientResolver
+  clientResolver,
+  deps: [QueryValidatorRequest, QueryValidatorResponse]
 });
 export const useGetValidator = buildUseQuery<QueryValidatorRequest, QueryValidatorResponse>({
   builderQueryFn: createGetValidator,
@@ -28,7 +30,8 @@ export const createGetValidatorDelegations = (clientResolver?: RpcResolver) => b
   decode: QueryValidatorDelegationsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "ValidatorDelegations",
-  clientResolver
+  clientResolver,
+  deps: [QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse]
 });
 export const useGetValidatorDelegations = buildUseQuery<QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse>({
   builderQueryFn: createGetValidatorDelegations,
@@ -39,7 +42,8 @@ export const createGetValidatorUnbondingDelegations = (clientResolver?: RpcResol
   decode: QueryValidatorUnbondingDelegationsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "ValidatorUnbondingDelegations",
-  clientResolver
+  clientResolver,
+  deps: [QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse]
 });
 export const useGetValidatorUnbondingDelegations = buildUseQuery<QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse>({
   builderQueryFn: createGetValidatorUnbondingDelegations,
@@ -50,7 +54,8 @@ export const createGetDelegation = (clientResolver?: RpcResolver) => buildQuery<
   decode: QueryDelegationResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "Delegation",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegationRequest, QueryDelegationResponse]
 });
 export const useGetDelegation = buildUseQuery<QueryDelegationRequest, QueryDelegationResponse>({
   builderQueryFn: createGetDelegation,
@@ -61,7 +66,8 @@ export const createGetUnbondingDelegation = (clientResolver?: RpcResolver) => bu
   decode: QueryUnbondingDelegationResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "UnbondingDelegation",
-  clientResolver
+  clientResolver,
+  deps: [QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse]
 });
 export const useGetUnbondingDelegation = buildUseQuery<QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse>({
   builderQueryFn: createGetUnbondingDelegation,
@@ -72,7 +78,8 @@ export const createGetDelegatorDelegations = (clientResolver?: RpcResolver) => b
   decode: QueryDelegatorDelegationsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "DelegatorDelegations",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse]
 });
 export const useGetDelegatorDelegations = buildUseQuery<QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse>({
   builderQueryFn: createGetDelegatorDelegations,
@@ -83,7 +90,8 @@ export const createGetDelegatorUnbondingDelegations = (clientResolver?: RpcResol
   decode: QueryDelegatorUnbondingDelegationsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "DelegatorUnbondingDelegations",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse]
 });
 export const useGetDelegatorUnbondingDelegations = buildUseQuery<QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse>({
   builderQueryFn: createGetDelegatorUnbondingDelegations,
@@ -94,7 +102,8 @@ export const createGetRedelegations = (clientResolver?: RpcResolver) => buildQue
   decode: QueryRedelegationsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "Redelegations",
-  clientResolver
+  clientResolver,
+  deps: [QueryRedelegationsRequest, QueryRedelegationsResponse]
 });
 export const useGetRedelegations = buildUseQuery<QueryRedelegationsRequest, QueryRedelegationsResponse>({
   builderQueryFn: createGetRedelegations,
@@ -105,7 +114,8 @@ export const createGetDelegatorValidators = (clientResolver?: RpcResolver) => bu
   decode: QueryDelegatorValidatorsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "DelegatorValidators",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse]
 });
 export const useGetDelegatorValidators = buildUseQuery<QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse>({
   builderQueryFn: createGetDelegatorValidators,
@@ -116,7 +126,8 @@ export const createGetDelegatorValidator = (clientResolver?: RpcResolver) => bui
   decode: QueryDelegatorValidatorResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "DelegatorValidator",
-  clientResolver
+  clientResolver,
+  deps: [QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse]
 });
 export const useGetDelegatorValidator = buildUseQuery<QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse>({
   builderQueryFn: createGetDelegatorValidator,
@@ -127,7 +138,8 @@ export const createGetHistoricalInfo = (clientResolver?: RpcResolver) => buildQu
   decode: QueryHistoricalInfoResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "HistoricalInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryHistoricalInfoRequest, QueryHistoricalInfoResponse]
 });
 export const useGetHistoricalInfo = buildUseQuery<QueryHistoricalInfoRequest, QueryHistoricalInfoResponse>({
   builderQueryFn: createGetHistoricalInfo,
@@ -138,7 +150,8 @@ export const createGetPool = (clientResolver?: RpcResolver) => buildQuery<QueryP
   decode: QueryPoolResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "Pool",
-  clientResolver
+  clientResolver,
+  deps: [QueryPoolRequest, QueryPoolResponse]
 });
 export const useGetPool = buildUseQuery<QueryPoolRequest, QueryPoolResponse>({
   builderQueryFn: createGetPool,
@@ -149,7 +162,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "cosmos.staking.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,

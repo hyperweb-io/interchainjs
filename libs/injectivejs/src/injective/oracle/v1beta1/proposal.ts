@@ -314,10 +314,12 @@ export const GrantBandOraclePrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal",
       value: GrantBandOraclePrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(GrantBandOraclePrivilegeProposal.typeUrl, GrantBandOraclePrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(GrantBandOraclePrivilegeProposal.aminoType, GrantBandOraclePrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(GrantBandOraclePrivilegeProposal.typeUrl, GrantBandOraclePrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantBandOraclePrivilegeProposal.aminoType, GrantBandOraclePrivilegeProposal.typeUrl);
 function createBaseRevokeBandOraclePrivilegeProposal(): RevokeBandOraclePrivilegeProposal {
   return {
     title: "",
@@ -418,10 +420,12 @@ export const RevokeBandOraclePrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal",
       value: RevokeBandOraclePrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(RevokeBandOraclePrivilegeProposal.typeUrl, RevokeBandOraclePrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(RevokeBandOraclePrivilegeProposal.aminoType, RevokeBandOraclePrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(RevokeBandOraclePrivilegeProposal.typeUrl, RevokeBandOraclePrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(RevokeBandOraclePrivilegeProposal.aminoType, RevokeBandOraclePrivilegeProposal.typeUrl);
 function createBaseGrantPriceFeederPrivilegeProposal(): GrantPriceFeederPrivilegeProposal {
   return {
     title: "",
@@ -546,10 +550,12 @@ export const GrantPriceFeederPrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal",
       value: GrantPriceFeederPrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(GrantPriceFeederPrivilegeProposal.typeUrl, GrantPriceFeederPrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(GrantPriceFeederPrivilegeProposal.aminoType, GrantPriceFeederPrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(GrantPriceFeederPrivilegeProposal.typeUrl, GrantPriceFeederPrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantPriceFeederPrivilegeProposal.aminoType, GrantPriceFeederPrivilegeProposal.typeUrl);
 function createBaseGrantProviderPrivilegeProposal(): GrantProviderPrivilegeProposal {
   return {
     title: "",
@@ -662,10 +668,12 @@ export const GrantProviderPrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal",
       value: GrantProviderPrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(GrantProviderPrivilegeProposal.typeUrl, GrantProviderPrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(GrantProviderPrivilegeProposal.aminoType, GrantProviderPrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(GrantProviderPrivilegeProposal.typeUrl, GrantProviderPrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantProviderPrivilegeProposal.aminoType, GrantProviderPrivilegeProposal.typeUrl);
 function createBaseRevokeProviderPrivilegeProposal(): RevokeProviderPrivilegeProposal {
   return {
     title: "",
@@ -778,10 +786,12 @@ export const RevokeProviderPrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal",
       value: RevokeProviderPrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(RevokeProviderPrivilegeProposal.typeUrl, RevokeProviderPrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(RevokeProviderPrivilegeProposal.aminoType, RevokeProviderPrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(RevokeProviderPrivilegeProposal.typeUrl, RevokeProviderPrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(RevokeProviderPrivilegeProposal.aminoType, RevokeProviderPrivilegeProposal.typeUrl);
 function createBaseRevokePriceFeederPrivilegeProposal(): RevokePriceFeederPrivilegeProposal {
   return {
     title: "",
@@ -906,10 +916,12 @@ export const RevokePriceFeederPrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal",
       value: RevokePriceFeederPrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(RevokePriceFeederPrivilegeProposal.typeUrl, RevokePriceFeederPrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(RevokePriceFeederPrivilegeProposal.aminoType, RevokePriceFeederPrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(RevokePriceFeederPrivilegeProposal.typeUrl, RevokePriceFeederPrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(RevokePriceFeederPrivilegeProposal.aminoType, RevokePriceFeederPrivilegeProposal.typeUrl);
 function createBaseAuthorizeBandOracleRequestProposal(): AuthorizeBandOracleRequestProposal {
   return {
     title: "",
@@ -1008,10 +1020,13 @@ export const AuthorizeBandOracleRequestProposal = {
       typeUrl: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal",
       value: AuthorizeBandOracleRequestProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(AuthorizeBandOracleRequestProposal.typeUrl, AuthorizeBandOracleRequestProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(AuthorizeBandOracleRequestProposal.aminoType, AuthorizeBandOracleRequestProposal.typeUrl);
+    BandOracleRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AuthorizeBandOracleRequestProposal.typeUrl, AuthorizeBandOracleRequestProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(AuthorizeBandOracleRequestProposal.aminoType, AuthorizeBandOracleRequestProposal.typeUrl);
 function createBaseUpdateBandOracleRequestProposal(): UpdateBandOracleRequestProposal {
   return {
     title: "",
@@ -1133,10 +1148,13 @@ export const UpdateBandOracleRequestProposal = {
       typeUrl: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal",
       value: UpdateBandOracleRequestProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(UpdateBandOracleRequestProposal.typeUrl, UpdateBandOracleRequestProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(UpdateBandOracleRequestProposal.aminoType, UpdateBandOracleRequestProposal.typeUrl);
+    BandOracleRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(UpdateBandOracleRequestProposal.typeUrl, UpdateBandOracleRequestProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(UpdateBandOracleRequestProposal.aminoType, UpdateBandOracleRequestProposal.typeUrl);
 function createBaseEnableBandIBCProposal(): EnableBandIBCProposal {
   return {
     title: "",
@@ -1235,10 +1253,13 @@ export const EnableBandIBCProposal = {
       typeUrl: "/injective.oracle.v1beta1.EnableBandIBCProposal",
       value: EnableBandIBCProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(EnableBandIBCProposal.typeUrl, EnableBandIBCProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(EnableBandIBCProposal.aminoType, EnableBandIBCProposal.typeUrl);
+    BandIBCParams.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EnableBandIBCProposal.typeUrl, EnableBandIBCProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(EnableBandIBCProposal.aminoType, EnableBandIBCProposal.typeUrl);
 function createBaseGrantStorkPublisherPrivilegeProposal(): GrantStorkPublisherPrivilegeProposal {
   return {
     title: "",
@@ -1339,10 +1360,12 @@ export const GrantStorkPublisherPrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal",
       value: GrantStorkPublisherPrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(GrantStorkPublisherPrivilegeProposal.typeUrl, GrantStorkPublisherPrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(GrantStorkPublisherPrivilegeProposal.aminoType, GrantStorkPublisherPrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(GrantStorkPublisherPrivilegeProposal.typeUrl, GrantStorkPublisherPrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(GrantStorkPublisherPrivilegeProposal.aminoType, GrantStorkPublisherPrivilegeProposal.typeUrl);
 function createBaseRevokeStorkPublisherPrivilegeProposal(): RevokeStorkPublisherPrivilegeProposal {
   return {
     title: "",
@@ -1443,7 +1466,9 @@ export const RevokeStorkPublisherPrivilegeProposal = {
       typeUrl: "/injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal",
       value: RevokeStorkPublisherPrivilegeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(RevokeStorkPublisherPrivilegeProposal.typeUrl, RevokeStorkPublisherPrivilegeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(RevokeStorkPublisherPrivilegeProposal.aminoType, RevokeStorkPublisherPrivilegeProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(RevokeStorkPublisherPrivilegeProposal.typeUrl, RevokeStorkPublisherPrivilegeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(RevokeStorkPublisherPrivilegeProposal.aminoType, RevokeStorkPublisherPrivilegeProposal.typeUrl);

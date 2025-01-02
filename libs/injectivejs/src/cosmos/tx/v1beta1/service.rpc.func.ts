@@ -5,61 +5,70 @@ export const createGetSimulate = (clientResolver?: RpcResolver) => buildQuery<Si
   decode: SimulateResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "Simulate",
-  clientResolver
+  clientResolver,
+  deps: [SimulateRequest, SimulateResponse]
 });
 export const createGetGetTx = (clientResolver?: RpcResolver) => buildQuery<GetTxRequest, GetTxResponse>({
   encode: GetTxRequest.encode,
   decode: GetTxResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "GetTx",
-  clientResolver
+  clientResolver,
+  deps: [GetTxRequest, GetTxResponse]
 });
 export const createGetBroadcastTx = (clientResolver?: RpcResolver) => buildQuery<BroadcastTxRequest, BroadcastTxResponse>({
   encode: BroadcastTxRequest.encode,
   decode: BroadcastTxResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "BroadcastTx",
-  clientResolver
+  clientResolver,
+  deps: [BroadcastTxRequest, BroadcastTxResponse]
 });
 export const createGetGetTxsEvent = (clientResolver?: RpcResolver) => buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
   encode: GetTxsEventRequest.encode,
   decode: GetTxsEventResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "GetTxsEvent",
-  clientResolver
+  clientResolver,
+  deps: [GetTxsEventRequest, GetTxsEventResponse]
 });
 export const createGetGetBlockWithTxs = (clientResolver?: RpcResolver) => buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
   encode: GetBlockWithTxsRequest.encode,
   decode: GetBlockWithTxsResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "GetBlockWithTxs",
-  clientResolver
+  clientResolver,
+  deps: [GetBlockWithTxsRequest, GetBlockWithTxsResponse]
 });
 export const createGetTxDecode = (clientResolver?: RpcResolver) => buildQuery<TxDecodeRequest, TxDecodeResponse>({
   encode: TxDecodeRequest.encode,
   decode: TxDecodeResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "TxDecode",
-  clientResolver
+  clientResolver,
+  deps: [TxDecodeRequest, TxDecodeResponse]
 });
 export const createGetTxEncode = (clientResolver?: RpcResolver) => buildQuery<TxEncodeRequest, TxEncodeResponse>({
   encode: TxEncodeRequest.encode,
   decode: TxEncodeResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "TxEncode",
-  clientResolver
+  clientResolver,
+  deps: [TxEncodeRequest, TxEncodeResponse]
 });
 export const createGetTxEncodeAmino = (clientResolver?: RpcResolver) => buildQuery<TxEncodeAminoRequest, TxEncodeAminoResponse>({
   encode: TxEncodeAminoRequest.encode,
   decode: TxEncodeAminoResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "TxEncodeAmino",
-  clientResolver
+  clientResolver,
+  deps: [TxEncodeAminoRequest, TxEncodeAminoResponse]
 });
 export const createGetTxDecodeAmino = (clientResolver?: RpcResolver) => buildQuery<TxDecodeAminoRequest, TxDecodeAminoResponse>({
   encode: TxDecodeAminoRequest.encode,
   decode: TxDecodeAminoResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "TxDecodeAmino",
-  clientResolver
+  clientResolver,
+  deps: [TxDecodeAminoRequest, TxDecodeAminoResponse]
 });

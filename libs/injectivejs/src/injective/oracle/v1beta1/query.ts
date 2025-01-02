@@ -2,7 +2,6 @@ import { OracleType, OracleInfo, OracleInfoAmino, PythPriceState, PythPriceState
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface QueryPythPriceRequest {
   priceId: string;
 }
@@ -824,9 +823,9 @@ export const QueryPythPriceRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryPythPriceRequest",
       value: QueryPythPriceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryPythPriceRequest.typeUrl, QueryPythPriceRequest);
 function createBaseQueryPythPriceResponse(): QueryPythPriceResponse {
   return {
     priceState: undefined
@@ -894,9 +893,11 @@ export const QueryPythPriceResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryPythPriceResponse",
       value: QueryPythPriceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PythPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPythPriceResponse.typeUrl, QueryPythPriceResponse);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -951,9 +952,9 @@ export const QueryParamsRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -1021,9 +1022,11 @@ export const QueryParamsResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
 function createBaseQueryBandRelayersRequest(): QueryBandRelayersRequest {
   return {};
 }
@@ -1078,9 +1081,9 @@ export const QueryBandRelayersRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryBandRelayersRequest",
       value: QueryBandRelayersRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBandRelayersRequest.typeUrl, QueryBandRelayersRequest);
 function createBaseQueryBandRelayersResponse(): QueryBandRelayersResponse {
   return {
     relayers: []
@@ -1150,9 +1153,9 @@ export const QueryBandRelayersResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryBandRelayersResponse",
       value: QueryBandRelayersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBandRelayersResponse.typeUrl, QueryBandRelayersResponse);
 function createBaseQueryBandPriceStatesRequest(): QueryBandPriceStatesRequest {
   return {};
 }
@@ -1207,9 +1210,9 @@ export const QueryBandPriceStatesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryBandPriceStatesRequest",
       value: QueryBandPriceStatesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBandPriceStatesRequest.typeUrl, QueryBandPriceStatesRequest);
 function createBaseQueryBandPriceStatesResponse(): QueryBandPriceStatesResponse {
   return {
     priceStates: []
@@ -1279,9 +1282,11 @@ export const QueryBandPriceStatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryBandPriceStatesResponse",
       value: QueryBandPriceStatesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BandPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryBandPriceStatesResponse.typeUrl, QueryBandPriceStatesResponse);
 function createBaseQueryBandIBCPriceStatesRequest(): QueryBandIBCPriceStatesRequest {
   return {};
 }
@@ -1336,9 +1341,9 @@ export const QueryBandIBCPriceStatesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest",
       value: QueryBandIBCPriceStatesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBandIBCPriceStatesRequest.typeUrl, QueryBandIBCPriceStatesRequest);
 function createBaseQueryBandIBCPriceStatesResponse(): QueryBandIBCPriceStatesResponse {
   return {
     priceStates: []
@@ -1408,9 +1413,11 @@ export const QueryBandIBCPriceStatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse",
       value: QueryBandIBCPriceStatesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BandPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryBandIBCPriceStatesResponse.typeUrl, QueryBandIBCPriceStatesResponse);
 function createBaseQueryPriceFeedPriceStatesRequest(): QueryPriceFeedPriceStatesRequest {
   return {};
 }
@@ -1465,9 +1472,9 @@ export const QueryPriceFeedPriceStatesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest",
       value: QueryPriceFeedPriceStatesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryPriceFeedPriceStatesRequest.typeUrl, QueryPriceFeedPriceStatesRequest);
 function createBaseQueryPriceFeedPriceStatesResponse(): QueryPriceFeedPriceStatesResponse {
   return {
     priceStates: []
@@ -1537,9 +1544,11 @@ export const QueryPriceFeedPriceStatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse",
       value: QueryPriceFeedPriceStatesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceFeedState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPriceFeedPriceStatesResponse.typeUrl, QueryPriceFeedPriceStatesResponse);
 function createBaseQueryCoinbasePriceStatesRequest(): QueryCoinbasePriceStatesRequest {
   return {};
 }
@@ -1594,9 +1603,9 @@ export const QueryCoinbasePriceStatesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest",
       value: QueryCoinbasePriceStatesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCoinbasePriceStatesRequest.typeUrl, QueryCoinbasePriceStatesRequest);
 function createBaseQueryCoinbasePriceStatesResponse(): QueryCoinbasePriceStatesResponse {
   return {
     priceStates: []
@@ -1666,9 +1675,11 @@ export const QueryCoinbasePriceStatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse",
       value: QueryCoinbasePriceStatesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CoinbasePriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCoinbasePriceStatesResponse.typeUrl, QueryCoinbasePriceStatesResponse);
 function createBaseQueryPythPriceStatesRequest(): QueryPythPriceStatesRequest {
   return {};
 }
@@ -1723,9 +1734,9 @@ export const QueryPythPriceStatesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryPythPriceStatesRequest",
       value: QueryPythPriceStatesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryPythPriceStatesRequest.typeUrl, QueryPythPriceStatesRequest);
 function createBaseQueryPythPriceStatesResponse(): QueryPythPriceStatesResponse {
   return {
     priceStates: []
@@ -1795,9 +1806,11 @@ export const QueryPythPriceStatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryPythPriceStatesResponse",
       value: QueryPythPriceStatesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PythPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPythPriceStatesResponse.typeUrl, QueryPythPriceStatesResponse);
 function createBaseQueryStorkPriceStatesRequest(): QueryStorkPriceStatesRequest {
   return {};
 }
@@ -1852,9 +1865,9 @@ export const QueryStorkPriceStatesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryStorkPriceStatesRequest",
       value: QueryStorkPriceStatesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryStorkPriceStatesRequest.typeUrl, QueryStorkPriceStatesRequest);
 function createBaseQueryStorkPriceStatesResponse(): QueryStorkPriceStatesResponse {
   return {
     priceStates: []
@@ -1924,9 +1937,11 @@ export const QueryStorkPriceStatesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryStorkPriceStatesResponse",
       value: QueryStorkPriceStatesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    StorkPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryStorkPriceStatesResponse.typeUrl, QueryStorkPriceStatesResponse);
 function createBaseQueryStorkPublishersRequest(): QueryStorkPublishersRequest {
   return {};
 }
@@ -1981,9 +1996,9 @@ export const QueryStorkPublishersRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryStorkPublishersRequest",
       value: QueryStorkPublishersRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryStorkPublishersRequest.typeUrl, QueryStorkPublishersRequest);
 function createBaseQueryStorkPublishersResponse(): QueryStorkPublishersResponse {
   return {
     publishers: []
@@ -2053,9 +2068,9 @@ export const QueryStorkPublishersResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryStorkPublishersResponse",
       value: QueryStorkPublishersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryStorkPublishersResponse.typeUrl, QueryStorkPublishersResponse);
 function createBaseQueryProviderPriceStateRequest(): QueryProviderPriceStateRequest {
   return {
     provider: "",
@@ -2135,9 +2150,9 @@ export const QueryProviderPriceStateRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryProviderPriceStateRequest",
       value: QueryProviderPriceStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryProviderPriceStateRequest.typeUrl, QueryProviderPriceStateRequest);
 function createBaseQueryProviderPriceStateResponse(): QueryProviderPriceStateResponse {
   return {
     priceState: undefined
@@ -2205,9 +2220,11 @@ export const QueryProviderPriceStateResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryProviderPriceStateResponse",
       value: QueryProviderPriceStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryProviderPriceStateResponse.typeUrl, QueryProviderPriceStateResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -2262,9 +2279,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -2332,9 +2349,11 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);
 function createBaseQueryHistoricalPriceRecordsRequest(): QueryHistoricalPriceRecordsRequest {
   return {
     oracle: 0,
@@ -2414,9 +2433,9 @@ export const QueryHistoricalPriceRecordsRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest",
       value: QueryHistoricalPriceRecordsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryHistoricalPriceRecordsRequest.typeUrl, QueryHistoricalPriceRecordsRequest);
 function createBaseQueryHistoricalPriceRecordsResponse(): QueryHistoricalPriceRecordsResponse {
   return {
     priceRecords: []
@@ -2486,9 +2505,11 @@ export const QueryHistoricalPriceRecordsResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse",
       value: QueryHistoricalPriceRecordsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PriceRecords.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryHistoricalPriceRecordsResponse.typeUrl, QueryHistoricalPriceRecordsResponse);
 function createBaseOracleHistoryOptions(): OracleHistoryOptions {
   return {
     maxAge: BigInt(0),
@@ -2580,9 +2601,9 @@ export const OracleHistoryOptions = {
       typeUrl: "/injective.oracle.v1beta1.OracleHistoryOptions",
       value: OracleHistoryOptions.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OracleHistoryOptions.typeUrl, OracleHistoryOptions);
 function createBaseQueryOracleVolatilityRequest(): QueryOracleVolatilityRequest {
   return {
     baseInfo: undefined,
@@ -2674,9 +2695,12 @@ export const QueryOracleVolatilityRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryOracleVolatilityRequest",
       value: QueryOracleVolatilityRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OracleInfo.registerTypeUrl();
+    OracleHistoryOptions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOracleVolatilityRequest.typeUrl, QueryOracleVolatilityRequest);
 function createBaseQueryOracleVolatilityResponse(): QueryOracleVolatilityResponse {
   return {
     volatility: "",
@@ -2770,9 +2794,12 @@ export const QueryOracleVolatilityResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryOracleVolatilityResponse",
       value: QueryOracleVolatilityResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MetadataStatistics.registerTypeUrl();
+    PriceRecord.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOracleVolatilityResponse.typeUrl, QueryOracleVolatilityResponse);
 function createBaseQueryOracleProvidersInfoRequest(): QueryOracleProvidersInfoRequest {
   return {};
 }
@@ -2827,9 +2854,9 @@ export const QueryOracleProvidersInfoRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoRequest",
       value: QueryOracleProvidersInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryOracleProvidersInfoRequest.typeUrl, QueryOracleProvidersInfoRequest);
 function createBaseQueryOracleProvidersInfoResponse(): QueryOracleProvidersInfoResponse {
   return {
     providers: []
@@ -2899,9 +2926,11 @@ export const QueryOracleProvidersInfoResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoResponse",
       value: QueryOracleProvidersInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ProviderInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOracleProvidersInfoResponse.typeUrl, QueryOracleProvidersInfoResponse);
 function createBaseQueryOracleProviderPricesRequest(): QueryOracleProviderPricesRequest {
   return {
     provider: ""
@@ -2969,9 +2998,9 @@ export const QueryOracleProviderPricesRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesRequest",
       value: QueryOracleProviderPricesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryOracleProviderPricesRequest.typeUrl, QueryOracleProviderPricesRequest);
 function createBaseQueryOracleProviderPricesResponse(): QueryOracleProviderPricesResponse {
   return {
     providerState: []
@@ -3041,9 +3070,11 @@ export const QueryOracleProviderPricesResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesResponse",
       value: QueryOracleProviderPricesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ProviderState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOracleProviderPricesResponse.typeUrl, QueryOracleProviderPricesResponse);
 function createBaseScalingOptions(): ScalingOptions {
   return {
     baseDecimals: 0,
@@ -3123,9 +3154,9 @@ export const ScalingOptions = {
       typeUrl: "/injective.oracle.v1beta1.ScalingOptions",
       value: ScalingOptions.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ScalingOptions.typeUrl, ScalingOptions);
 function createBaseQueryOraclePriceRequest(): QueryOraclePriceRequest {
   return {
     oracleType: 0,
@@ -3229,9 +3260,11 @@ export const QueryOraclePriceRequest = {
       typeUrl: "/injective.oracle.v1beta1.QueryOraclePriceRequest",
       value: QueryOraclePriceRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ScalingOptions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOraclePriceRequest.typeUrl, QueryOraclePriceRequest);
 function createBasePricePairState(): PricePairState {
   return {
     pairPrice: "",
@@ -3371,9 +3404,9 @@ export const PricePairState = {
       typeUrl: "/injective.oracle.v1beta1.PricePairState",
       value: PricePairState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PricePairState.typeUrl, PricePairState);
 function createBaseQueryOraclePriceResponse(): QueryOraclePriceResponse {
   return {
     pricePairState: undefined
@@ -3441,6 +3474,8 @@ export const QueryOraclePriceResponse = {
       typeUrl: "/injective.oracle.v1beta1.QueryOraclePriceResponse",
       value: QueryOraclePriceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PricePairState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOraclePriceResponse.typeUrl, QueryOraclePriceResponse);

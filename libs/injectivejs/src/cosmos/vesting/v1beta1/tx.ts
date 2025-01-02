@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { Period, PeriodAmino } from "./vesting";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateVestingAccount defines a message that enables creating a vesting
  * account.
@@ -277,10 +276,11 @@ export const MsgCreateVestingAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccount",
       value: MsgCreateVestingAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateVestingAccount.typeUrl, MsgCreateVestingAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateVestingAccount.aminoType, MsgCreateVestingAccount.typeUrl);
 function createBaseMsgCreateVestingAccountResponse(): MsgCreateVestingAccountResponse {
   return {};
 }
@@ -342,10 +342,9 @@ export const MsgCreateVestingAccountResponse = {
       typeUrl: "/cosmos.vesting.v1beta1.MsgCreateVestingAccountResponse",
       value: MsgCreateVestingAccountResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateVestingAccountResponse.typeUrl, MsgCreateVestingAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateVestingAccountResponse.aminoType, MsgCreateVestingAccountResponse.typeUrl);
 function createBaseMsgCreatePermanentLockedAccount(): MsgCreatePermanentLockedAccount {
   return {
     fromAddress: "",
@@ -446,10 +445,11 @@ export const MsgCreatePermanentLockedAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccount",
       value: MsgCreatePermanentLockedAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreatePermanentLockedAccount.typeUrl, MsgCreatePermanentLockedAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreatePermanentLockedAccount.aminoType, MsgCreatePermanentLockedAccount.typeUrl);
 function createBaseMsgCreatePermanentLockedAccountResponse(): MsgCreatePermanentLockedAccountResponse {
   return {};
 }
@@ -511,10 +511,9 @@ export const MsgCreatePermanentLockedAccountResponse = {
       typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePermanentLockedAccountResponse",
       value: MsgCreatePermanentLockedAccountResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreatePermanentLockedAccountResponse.typeUrl, MsgCreatePermanentLockedAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreatePermanentLockedAccountResponse.aminoType, MsgCreatePermanentLockedAccountResponse.typeUrl);
 function createBaseMsgCreatePeriodicVestingAccount(): MsgCreatePeriodicVestingAccount {
   return {
     fromAddress: "",
@@ -627,10 +626,11 @@ export const MsgCreatePeriodicVestingAccount = {
       typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccount",
       value: MsgCreatePeriodicVestingAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Period.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreatePeriodicVestingAccount.typeUrl, MsgCreatePeriodicVestingAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreatePeriodicVestingAccount.aminoType, MsgCreatePeriodicVestingAccount.typeUrl);
 function createBaseMsgCreatePeriodicVestingAccountResponse(): MsgCreatePeriodicVestingAccountResponse {
   return {};
 }
@@ -692,7 +692,6 @@ export const MsgCreatePeriodicVestingAccountResponse = {
       typeUrl: "/cosmos.vesting.v1beta1.MsgCreatePeriodicVestingAccountResponse",
       value: MsgCreatePeriodicVestingAccountResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreatePeriodicVestingAccountResponse.typeUrl, MsgCreatePeriodicVestingAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreatePeriodicVestingAccountResponse.aminoType, MsgCreatePeriodicVestingAccountResponse.typeUrl);

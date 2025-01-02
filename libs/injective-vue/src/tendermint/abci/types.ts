@@ -4,8 +4,8 @@ import { ProofOps, ProofOpsAmino } from "../crypto/proof";
 import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BlockIDFlag } from "../types/validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes, isSet } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes, isSet } from "../../helpers";
 import { ComputedRef } from "vue";
 export enum CheckTxType {
   NEW = 0,

@@ -3,7 +3,6 @@ import { DenomAuthorityMetadata, DenomAuthorityMetadataAmino } from "./authority
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -218,9 +217,9 @@ export const QueryParamsRequest = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -288,9 +287,11 @@ export const QueryParamsResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
 function createBaseQueryDenomAuthorityMetadataRequest(): QueryDenomAuthorityMetadataRequest {
   return {
     creator: "",
@@ -370,9 +371,9 @@ export const QueryDenomAuthorityMetadataRequest = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest",
       value: QueryDenomAuthorityMetadataRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomAuthorityMetadataRequest.typeUrl, QueryDenomAuthorityMetadataRequest);
 function createBaseQueryDenomAuthorityMetadataResponse(): QueryDenomAuthorityMetadataResponse {
   return {
     authorityMetadata: DenomAuthorityMetadata.fromPartial({})
@@ -440,9 +441,11 @@ export const QueryDenomAuthorityMetadataResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse",
       value: QueryDenomAuthorityMetadataResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DenomAuthorityMetadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomAuthorityMetadataResponse.typeUrl, QueryDenomAuthorityMetadataResponse);
 function createBaseQueryDenomsFromCreatorRequest(): QueryDenomsFromCreatorRequest {
   return {
     creator: ""
@@ -510,9 +513,9 @@ export const QueryDenomsFromCreatorRequest = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest",
       value: QueryDenomsFromCreatorRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomsFromCreatorRequest.typeUrl, QueryDenomsFromCreatorRequest);
 function createBaseQueryDenomsFromCreatorResponse(): QueryDenomsFromCreatorResponse {
   return {
     denoms: []
@@ -582,9 +585,9 @@ export const QueryDenomsFromCreatorResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse",
       value: QueryDenomsFromCreatorResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomsFromCreatorResponse.typeUrl, QueryDenomsFromCreatorResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -639,9 +642,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -709,6 +712,8 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.tokenfactory.v1beta1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);

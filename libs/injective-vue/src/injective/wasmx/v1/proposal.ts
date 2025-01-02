@@ -1,7 +1,7 @@
 import { StoreCodeProposal, StoreCodeProposalAmino } from "../../../cosmwasm/wasm/v1/proposal_legacy";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { DeepPartial, isSet } from "../../../helpers";
 import { ComputedRef } from "vue";
 export enum FundingMode {
   Unspecified = 0,

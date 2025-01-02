@@ -2,8 +2,8 @@ import { Channel, ChannelAmino, Packet, PacketAmino, State } from "./channel";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { UpgradeFields, UpgradeFieldsAmino, Upgrade, UpgradeAmino, ErrorReceipt, ErrorReceiptAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
+import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
 import { ComputedRef } from "vue";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 export enum ResponseResultType {

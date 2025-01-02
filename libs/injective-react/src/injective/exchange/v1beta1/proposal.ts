@@ -1247,10 +1247,13 @@ export const SpotMarketParamUpdateProposal = {
       typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal",
       value: SpotMarketParamUpdateProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(SpotMarketParamUpdateProposal.typeUrl, SpotMarketParamUpdateProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(SpotMarketParamUpdateProposal.aminoType, SpotMarketParamUpdateProposal.typeUrl);
+    AdminInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotMarketParamUpdateProposal.typeUrl, SpotMarketParamUpdateProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(SpotMarketParamUpdateProposal.aminoType, SpotMarketParamUpdateProposal.typeUrl);
 function createBaseExchangeEnableProposal(): ExchangeEnableProposal {
   return {
     title: "",
@@ -1349,10 +1352,9 @@ export const ExchangeEnableProposal = {
       typeUrl: "/injective.exchange.v1beta1.ExchangeEnableProposal",
       value: ExchangeEnableProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ExchangeEnableProposal.typeUrl, ExchangeEnableProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(ExchangeEnableProposal.aminoType, ExchangeEnableProposal.typeUrl);
 function createBaseBatchExchangeModificationProposal(): BatchExchangeModificationProposal {
   return {
     title: "",
@@ -1587,10 +1589,23 @@ export const BatchExchangeModificationProposal = {
       typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal",
       value: BatchExchangeModificationProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchExchangeModificationProposal.typeUrl, BatchExchangeModificationProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchExchangeModificationProposal.aminoType, BatchExchangeModificationProposal.typeUrl);
+    SpotMarketParamUpdateProposal.registerTypeUrl();
+    DerivativeMarketParamUpdateProposal.registerTypeUrl();
+    SpotMarketLaunchProposal.registerTypeUrl();
+    PerpetualMarketLaunchProposal.registerTypeUrl();
+    ExpiryFuturesMarketLaunchProposal.registerTypeUrl();
+    TradingRewardCampaignUpdateProposal.registerTypeUrl();
+    BinaryOptionsMarketLaunchProposal.registerTypeUrl();
+    BinaryOptionsMarketParamUpdateProposal.registerTypeUrl();
+    UpdateDenomDecimalsProposal.registerTypeUrl();
+    FeeDiscountProposal.registerTypeUrl();
+    MarketForcedSettlementProposal.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BatchExchangeModificationProposal.typeUrl, BatchExchangeModificationProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchExchangeModificationProposal.aminoType, BatchExchangeModificationProposal.typeUrl);
 function createBaseSpotMarketLaunchProposal(): SpotMarketLaunchProposal {
   return {
     title: "",
@@ -1785,10 +1800,13 @@ export const SpotMarketLaunchProposal = {
       typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal",
       value: SpotMarketLaunchProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(SpotMarketLaunchProposal.typeUrl, SpotMarketLaunchProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(SpotMarketLaunchProposal.aminoType, SpotMarketLaunchProposal.typeUrl);
+    AdminInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotMarketLaunchProposal.typeUrl, SpotMarketLaunchProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(SpotMarketLaunchProposal.aminoType, SpotMarketLaunchProposal.typeUrl);
 function createBasePerpetualMarketLaunchProposal(): PerpetualMarketLaunchProposal {
   return {
     title: "",
@@ -2043,10 +2061,13 @@ export const PerpetualMarketLaunchProposal = {
       typeUrl: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal",
       value: PerpetualMarketLaunchProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(PerpetualMarketLaunchProposal.typeUrl, PerpetualMarketLaunchProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(PerpetualMarketLaunchProposal.aminoType, PerpetualMarketLaunchProposal.typeUrl);
+    AdminInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PerpetualMarketLaunchProposal.typeUrl, PerpetualMarketLaunchProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(PerpetualMarketLaunchProposal.aminoType, PerpetualMarketLaunchProposal.typeUrl);
 function createBaseBinaryOptionsMarketLaunchProposal(): BinaryOptionsMarketLaunchProposal {
   return {
     title: "",
@@ -2313,10 +2334,12 @@ export const BinaryOptionsMarketLaunchProposal = {
       typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal",
       value: BinaryOptionsMarketLaunchProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BinaryOptionsMarketLaunchProposal.typeUrl, BinaryOptionsMarketLaunchProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BinaryOptionsMarketLaunchProposal.aminoType, BinaryOptionsMarketLaunchProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BinaryOptionsMarketLaunchProposal.typeUrl, BinaryOptionsMarketLaunchProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BinaryOptionsMarketLaunchProposal.aminoType, BinaryOptionsMarketLaunchProposal.typeUrl);
 function createBaseExpiryFuturesMarketLaunchProposal(): ExpiryFuturesMarketLaunchProposal {
   return {
     title: "",
@@ -2583,10 +2606,13 @@ export const ExpiryFuturesMarketLaunchProposal = {
       typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal",
       value: ExpiryFuturesMarketLaunchProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ExpiryFuturesMarketLaunchProposal.typeUrl, ExpiryFuturesMarketLaunchProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ExpiryFuturesMarketLaunchProposal.aminoType, ExpiryFuturesMarketLaunchProposal.typeUrl);
+    AdminInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExpiryFuturesMarketLaunchProposal.typeUrl, ExpiryFuturesMarketLaunchProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(ExpiryFuturesMarketLaunchProposal.aminoType, ExpiryFuturesMarketLaunchProposal.typeUrl);
 function createBaseDerivativeMarketParamUpdateProposal(): DerivativeMarketParamUpdateProposal {
   return {
     title: "",
@@ -2853,10 +2879,14 @@ export const DerivativeMarketParamUpdateProposal = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal",
       value: DerivativeMarketParamUpdateProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(DerivativeMarketParamUpdateProposal.typeUrl, DerivativeMarketParamUpdateProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(DerivativeMarketParamUpdateProposal.aminoType, DerivativeMarketParamUpdateProposal.typeUrl);
+    OracleParams.registerTypeUrl();
+    AdminInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeMarketParamUpdateProposal.typeUrl, DerivativeMarketParamUpdateProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(DerivativeMarketParamUpdateProposal.aminoType, DerivativeMarketParamUpdateProposal.typeUrl);
 function createBaseAdminInfo(): AdminInfo {
   return {
     admin: "",
@@ -2936,9 +2966,9 @@ export const AdminInfo = {
       typeUrl: "/injective.exchange.v1beta1.AdminInfo",
       value: AdminInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AdminInfo.typeUrl, AdminInfo);
 function createBaseMarketForcedSettlementProposal(): MarketForcedSettlementProposal {
   return {
     title: "",
@@ -3049,10 +3079,12 @@ export const MarketForcedSettlementProposal = {
       typeUrl: "/injective.exchange.v1beta1.MarketForcedSettlementProposal",
       value: MarketForcedSettlementProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(MarketForcedSettlementProposal.typeUrl, MarketForcedSettlementProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(MarketForcedSettlementProposal.aminoType, MarketForcedSettlementProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(MarketForcedSettlementProposal.typeUrl, MarketForcedSettlementProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(MarketForcedSettlementProposal.aminoType, MarketForcedSettlementProposal.typeUrl);
 function createBaseUpdateDenomDecimalsProposal(): UpdateDenomDecimalsProposal {
   return {
     title: "",
@@ -3153,10 +3185,13 @@ export const UpdateDenomDecimalsProposal = {
       typeUrl: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal",
       value: UpdateDenomDecimalsProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(UpdateDenomDecimalsProposal.typeUrl, UpdateDenomDecimalsProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(UpdateDenomDecimalsProposal.aminoType, UpdateDenomDecimalsProposal.typeUrl);
+    DenomDecimals.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(UpdateDenomDecimalsProposal.typeUrl, UpdateDenomDecimalsProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(UpdateDenomDecimalsProposal.aminoType, UpdateDenomDecimalsProposal.typeUrl);
 function createBaseBinaryOptionsMarketParamUpdateProposal(): BinaryOptionsMarketParamUpdateProposal {
   return {
     title: "",
@@ -3411,10 +3446,13 @@ export const BinaryOptionsMarketParamUpdateProposal = {
       typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal",
       value: BinaryOptionsMarketParamUpdateProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BinaryOptionsMarketParamUpdateProposal.typeUrl, BinaryOptionsMarketParamUpdateProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BinaryOptionsMarketParamUpdateProposal.aminoType, BinaryOptionsMarketParamUpdateProposal.typeUrl);
+    ProviderOracleParams.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BinaryOptionsMarketParamUpdateProposal.typeUrl, BinaryOptionsMarketParamUpdateProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BinaryOptionsMarketParamUpdateProposal.aminoType, BinaryOptionsMarketParamUpdateProposal.typeUrl);
 function createBaseProviderOracleParams(): ProviderOracleParams {
   return {
     symbol: "",
@@ -3518,9 +3556,9 @@ export const ProviderOracleParams = {
       typeUrl: "/injective.exchange.v1beta1.ProviderOracleParams",
       value: ProviderOracleParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ProviderOracleParams.typeUrl, ProviderOracleParams);
 function createBaseOracleParams(): OracleParams {
   return {
     oracleBase: "",
@@ -3624,9 +3662,9 @@ export const OracleParams = {
       typeUrl: "/injective.exchange.v1beta1.OracleParams",
       value: OracleParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OracleParams.typeUrl, OracleParams);
 function createBaseTradingRewardCampaignLaunchProposal(): TradingRewardCampaignLaunchProposal {
   return {
     title: "",
@@ -3739,10 +3777,14 @@ export const TradingRewardCampaignLaunchProposal = {
       typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal",
       value: TradingRewardCampaignLaunchProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(TradingRewardCampaignLaunchProposal.typeUrl, TradingRewardCampaignLaunchProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardCampaignLaunchProposal.aminoType, TradingRewardCampaignLaunchProposal.typeUrl);
+    TradingRewardCampaignInfo.registerTypeUrl();
+    CampaignRewardPool.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TradingRewardCampaignLaunchProposal.typeUrl, TradingRewardCampaignLaunchProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardCampaignLaunchProposal.aminoType, TradingRewardCampaignLaunchProposal.typeUrl);
 function createBaseTradingRewardCampaignUpdateProposal(): TradingRewardCampaignUpdateProposal {
   return {
     title: "",
@@ -3869,10 +3911,14 @@ export const TradingRewardCampaignUpdateProposal = {
       typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal",
       value: TradingRewardCampaignUpdateProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(TradingRewardCampaignUpdateProposal.typeUrl, TradingRewardCampaignUpdateProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardCampaignUpdateProposal.aminoType, TradingRewardCampaignUpdateProposal.typeUrl);
+    TradingRewardCampaignInfo.registerTypeUrl();
+    CampaignRewardPool.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TradingRewardCampaignUpdateProposal.typeUrl, TradingRewardCampaignUpdateProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardCampaignUpdateProposal.aminoType, TradingRewardCampaignUpdateProposal.typeUrl);
 function createBaseRewardPointUpdate(): RewardPointUpdate {
   return {
     accountAddress: "",
@@ -3952,9 +3998,9 @@ export const RewardPointUpdate = {
       typeUrl: "/injective.exchange.v1beta1.RewardPointUpdate",
       value: RewardPointUpdate.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RewardPointUpdate.typeUrl, RewardPointUpdate);
 function createBaseTradingRewardPendingPointsUpdateProposal(): TradingRewardPendingPointsUpdateProposal {
   return {
     title: "",
@@ -4067,10 +4113,13 @@ export const TradingRewardPendingPointsUpdateProposal = {
       typeUrl: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal",
       value: TradingRewardPendingPointsUpdateProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(TradingRewardPendingPointsUpdateProposal.typeUrl, TradingRewardPendingPointsUpdateProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardPendingPointsUpdateProposal.aminoType, TradingRewardPendingPointsUpdateProposal.typeUrl);
+    RewardPointUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TradingRewardPendingPointsUpdateProposal.typeUrl, TradingRewardPendingPointsUpdateProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardPendingPointsUpdateProposal.aminoType, TradingRewardPendingPointsUpdateProposal.typeUrl);
 function createBaseFeeDiscountProposal(): FeeDiscountProposal {
   return {
     title: "",
@@ -4169,10 +4218,13 @@ export const FeeDiscountProposal = {
       typeUrl: "/injective.exchange.v1beta1.FeeDiscountProposal",
       value: FeeDiscountProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(FeeDiscountProposal.typeUrl, FeeDiscountProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(FeeDiscountProposal.aminoType, FeeDiscountProposal.typeUrl);
+    FeeDiscountSchedule.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FeeDiscountProposal.typeUrl, FeeDiscountProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(FeeDiscountProposal.aminoType, FeeDiscountProposal.typeUrl);
 function createBaseBatchCommunityPoolSpendProposal(): BatchCommunityPoolSpendProposal {
   return {
     title: "",
@@ -4273,10 +4325,13 @@ export const BatchCommunityPoolSpendProposal = {
       typeUrl: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal",
       value: BatchCommunityPoolSpendProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchCommunityPoolSpendProposal.typeUrl, BatchCommunityPoolSpendProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchCommunityPoolSpendProposal.aminoType, BatchCommunityPoolSpendProposal.typeUrl);
+    CommunityPoolSpendProposal.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BatchCommunityPoolSpendProposal.typeUrl, BatchCommunityPoolSpendProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchCommunityPoolSpendProposal.aminoType, BatchCommunityPoolSpendProposal.typeUrl);
 function createBaseAtomicMarketOrderFeeMultiplierScheduleProposal(): AtomicMarketOrderFeeMultiplierScheduleProposal {
   return {
     title: "",
@@ -4377,7 +4432,10 @@ export const AtomicMarketOrderFeeMultiplierScheduleProposal = {
       typeUrl: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal",
       value: AtomicMarketOrderFeeMultiplierScheduleProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl, AtomicMarketOrderFeeMultiplierScheduleProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(AtomicMarketOrderFeeMultiplierScheduleProposal.aminoType, AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl);
+    MarketFeeMultiplier.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl, AtomicMarketOrderFeeMultiplierScheduleProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(AtomicMarketOrderFeeMultiplierScheduleProposal.aminoType, AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl);

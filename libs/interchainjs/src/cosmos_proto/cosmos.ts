@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../binary";
 import { DeepPartial } from "../helpers";
-import { GlobalDecoderRegistry } from "../registry";
 export enum ScalarType {
   SCALAR_TYPE_UNSPECIFIED = 0,
   SCALAR_TYPE_STRING = 1,
@@ -231,9 +230,9 @@ export const InterfaceDescriptor = {
       typeUrl: "/cosmos_proto.InterfaceDescriptor",
       value: InterfaceDescriptor.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(InterfaceDescriptor.typeUrl, InterfaceDescriptor);
 function createBaseScalarDescriptor(): ScalarDescriptor {
   return {
     name: "",
@@ -336,6 +335,6 @@ export const ScalarDescriptor = {
       typeUrl: "/cosmos_proto.ScalarDescriptor",
       value: ScalarDescriptor.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ScalarDescriptor.typeUrl, ScalarDescriptor);

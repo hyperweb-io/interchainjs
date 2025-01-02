@@ -1,7 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface Params {
   /** auction_period_duration defines the auction period duration */
   auctionPeriod: bigint;
@@ -226,10 +225,9 @@ export const Params = {
       typeUrl: "/injective.auction.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseBid(): Bid {
   return {
     bidder: "",
@@ -309,9 +307,9 @@ export const Bid = {
       typeUrl: "/injective.auction.v1beta1.Bid",
       value: Bid.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Bid.typeUrl, Bid);
 function createBaseLastAuctionResult(): LastAuctionResult {
   return {
     winner: "",
@@ -403,9 +401,9 @@ export const LastAuctionResult = {
       typeUrl: "/injective.auction.v1beta1.LastAuctionResult",
       value: LastAuctionResult.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(LastAuctionResult.typeUrl, LastAuctionResult);
 function createBaseEventBid(): EventBid {
   return {
     bidder: "",
@@ -497,9 +495,9 @@ export const EventBid = {
       typeUrl: "/injective.auction.v1beta1.EventBid",
       value: EventBid.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventBid.typeUrl, EventBid);
 function createBaseEventAuctionResult(): EventAuctionResult {
   return {
     winner: "",
@@ -591,9 +589,9 @@ export const EventAuctionResult = {
       typeUrl: "/injective.auction.v1beta1.EventAuctionResult",
       value: EventAuctionResult.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAuctionResult.typeUrl, EventAuctionResult);
 function createBaseEventAuctionStart(): EventAuctionStart {
   return {
     round: BigInt(0),
@@ -687,6 +685,8 @@ export const EventAuctionStart = {
       typeUrl: "/injective.auction.v1beta1.EventAuctionStart",
       value: EventAuctionStart.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventAuctionStart.typeUrl, EventAuctionStart);

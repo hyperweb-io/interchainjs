@@ -1,8 +1,8 @@
 import { Header, HeaderAmino, Data, DataAmino, Commit, CommitAmino } from "./types";
 import { EvidenceList, EvidenceListAmino } from "./evidence";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+import { DeepPartial } from "../../helpers";
 import { ComputedRef } from "vue";
 export interface Block {
   header: Header;

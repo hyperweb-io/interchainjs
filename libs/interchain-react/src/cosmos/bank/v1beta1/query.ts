@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { Params, ParamsAmino, Metadata, MetadataAmino, SendEnabled, SendEnabledAmino } from "./bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method. */
 export interface QueryBalanceRequest {
   /** address is the address to query balances for. */
@@ -810,10 +809,9 @@ export const QueryBalanceRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryBalanceRequest",
       value: QueryBalanceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBalanceRequest.typeUrl, QueryBalanceRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryBalanceRequest.aminoType, QueryBalanceRequest.typeUrl);
 function createBaseQueryBalanceResponse(): QueryBalanceResponse {
   return {
     balance: undefined
@@ -888,10 +886,11 @@ export const QueryBalanceResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryBalanceResponse",
       value: QueryBalanceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryBalanceResponse.typeUrl, QueryBalanceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryBalanceResponse.aminoType, QueryBalanceResponse.typeUrl);
 function createBaseQueryAllBalancesRequest(): QueryAllBalancesRequest {
   return {
     address: "",
@@ -990,10 +989,11 @@ export const QueryAllBalancesRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryAllBalancesRequest",
       value: QueryAllBalancesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllBalancesRequest.typeUrl, QueryAllBalancesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllBalancesRequest.aminoType, QueryAllBalancesRequest.typeUrl);
 function createBaseQueryAllBalancesResponse(): QueryAllBalancesResponse {
   return {
     balances: [],
@@ -1082,10 +1082,12 @@ export const QueryAllBalancesResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryAllBalancesResponse",
       value: QueryAllBalancesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllBalancesResponse.typeUrl, QueryAllBalancesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllBalancesResponse.aminoType, QueryAllBalancesResponse.typeUrl);
 function createBaseQuerySpendableBalancesRequest(): QuerySpendableBalancesRequest {
   return {
     address: "",
@@ -1172,10 +1174,11 @@ export const QuerySpendableBalancesRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalancesRequest",
       value: QuerySpendableBalancesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySpendableBalancesRequest.typeUrl, QuerySpendableBalancesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySpendableBalancesRequest.aminoType, QuerySpendableBalancesRequest.typeUrl);
 function createBaseQuerySpendableBalancesResponse(): QuerySpendableBalancesResponse {
   return {
     balances: [],
@@ -1264,10 +1267,12 @@ export const QuerySpendableBalancesResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalancesResponse",
       value: QuerySpendableBalancesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySpendableBalancesResponse.typeUrl, QuerySpendableBalancesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySpendableBalancesResponse.aminoType, QuerySpendableBalancesResponse.typeUrl);
 function createBaseQuerySpendableBalanceByDenomRequest(): QuerySpendableBalanceByDenomRequest {
   return {
     address: "",
@@ -1354,10 +1359,9 @@ export const QuerySpendableBalanceByDenomRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalanceByDenomRequest",
       value: QuerySpendableBalanceByDenomRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySpendableBalanceByDenomRequest.typeUrl, QuerySpendableBalanceByDenomRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySpendableBalanceByDenomRequest.aminoType, QuerySpendableBalanceByDenomRequest.typeUrl);
 function createBaseQuerySpendableBalanceByDenomResponse(): QuerySpendableBalanceByDenomResponse {
   return {
     balance: undefined
@@ -1432,10 +1436,11 @@ export const QuerySpendableBalanceByDenomResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySpendableBalanceByDenomResponse",
       value: QuerySpendableBalanceByDenomResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySpendableBalanceByDenomResponse.typeUrl, QuerySpendableBalanceByDenomResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySpendableBalanceByDenomResponse.aminoType, QuerySpendableBalanceByDenomResponse.typeUrl);
 function createBaseQueryTotalSupplyRequest(): QueryTotalSupplyRequest {
   return {
     pagination: undefined
@@ -1510,10 +1515,11 @@ export const QueryTotalSupplyRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryTotalSupplyRequest",
       value: QueryTotalSupplyRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryTotalSupplyRequest.typeUrl, QueryTotalSupplyRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryTotalSupplyRequest.aminoType, QueryTotalSupplyRequest.typeUrl);
 function createBaseQueryTotalSupplyResponse(): QueryTotalSupplyResponse {
   return {
     supply: [],
@@ -1602,10 +1608,12 @@ export const QueryTotalSupplyResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryTotalSupplyResponse",
       value: QueryTotalSupplyResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryTotalSupplyResponse.typeUrl, QueryTotalSupplyResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryTotalSupplyResponse.aminoType, QueryTotalSupplyResponse.typeUrl);
 function createBaseQuerySupplyOfRequest(): QuerySupplyOfRequest {
   return {
     denom: ""
@@ -1680,10 +1688,9 @@ export const QuerySupplyOfRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySupplyOfRequest",
       value: QuerySupplyOfRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySupplyOfRequest.typeUrl, QuerySupplyOfRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySupplyOfRequest.aminoType, QuerySupplyOfRequest.typeUrl);
 function createBaseQuerySupplyOfResponse(): QuerySupplyOfResponse {
   return {
     amount: Coin.fromPartial({})
@@ -1758,10 +1765,11 @@ export const QuerySupplyOfResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySupplyOfResponse",
       value: QuerySupplyOfResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySupplyOfResponse.typeUrl, QuerySupplyOfResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySupplyOfResponse.aminoType, QuerySupplyOfResponse.typeUrl);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -1823,10 +1831,9 @@ export const QueryParamsRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsRequest.aminoType, QueryParamsRequest.typeUrl);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -1901,10 +1908,11 @@ export const QueryParamsResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsResponse.aminoType, QueryParamsResponse.typeUrl);
 function createBaseQueryDenomsMetadataRequest(): QueryDenomsMetadataRequest {
   return {
     pagination: undefined
@@ -1979,10 +1987,11 @@ export const QueryDenomsMetadataRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomsMetadataRequest",
       value: QueryDenomsMetadataRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomsMetadataRequest.typeUrl, QueryDenomsMetadataRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomsMetadataRequest.aminoType, QueryDenomsMetadataRequest.typeUrl);
 function createBaseQueryDenomsMetadataResponse(): QueryDenomsMetadataResponse {
   return {
     metadatas: [],
@@ -2071,10 +2080,12 @@ export const QueryDenomsMetadataResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomsMetadataResponse",
       value: QueryDenomsMetadataResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Metadata.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomsMetadataResponse.typeUrl, QueryDenomsMetadataResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomsMetadataResponse.aminoType, QueryDenomsMetadataResponse.typeUrl);
 function createBaseQueryDenomMetadataRequest(): QueryDenomMetadataRequest {
   return {
     denom: ""
@@ -2149,10 +2160,9 @@ export const QueryDenomMetadataRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomMetadataRequest",
       value: QueryDenomMetadataRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomMetadataRequest.typeUrl, QueryDenomMetadataRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomMetadataRequest.aminoType, QueryDenomMetadataRequest.typeUrl);
 function createBaseQueryDenomMetadataResponse(): QueryDenomMetadataResponse {
   return {
     metadata: Metadata.fromPartial({})
@@ -2227,10 +2237,11 @@ export const QueryDenomMetadataResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomMetadataResponse",
       value: QueryDenomMetadataResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Metadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomMetadataResponse.typeUrl, QueryDenomMetadataResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomMetadataResponse.aminoType, QueryDenomMetadataResponse.typeUrl);
 function createBaseQueryDenomMetadataByQueryStringRequest(): QueryDenomMetadataByQueryStringRequest {
   return {
     denom: ""
@@ -2305,10 +2316,9 @@ export const QueryDenomMetadataByQueryStringRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomMetadataByQueryStringRequest",
       value: QueryDenomMetadataByQueryStringRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomMetadataByQueryStringRequest.typeUrl, QueryDenomMetadataByQueryStringRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomMetadataByQueryStringRequest.aminoType, QueryDenomMetadataByQueryStringRequest.typeUrl);
 function createBaseQueryDenomMetadataByQueryStringResponse(): QueryDenomMetadataByQueryStringResponse {
   return {
     metadata: Metadata.fromPartial({})
@@ -2383,10 +2393,11 @@ export const QueryDenomMetadataByQueryStringResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomMetadataByQueryStringResponse",
       value: QueryDenomMetadataByQueryStringResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Metadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomMetadataByQueryStringResponse.typeUrl, QueryDenomMetadataByQueryStringResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomMetadataByQueryStringResponse.aminoType, QueryDenomMetadataByQueryStringResponse.typeUrl);
 function createBaseQueryDenomOwnersRequest(): QueryDenomOwnersRequest {
   return {
     denom: "",
@@ -2473,10 +2484,11 @@ export const QueryDenomOwnersRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersRequest",
       value: QueryDenomOwnersRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomOwnersRequest.typeUrl, QueryDenomOwnersRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomOwnersRequest.aminoType, QueryDenomOwnersRequest.typeUrl);
 function createBaseDenomOwner(): DenomOwner {
   return {
     address: "",
@@ -2563,10 +2575,11 @@ export const DenomOwner = {
       typeUrl: "/cosmos.bank.v1beta1.DenomOwner",
       value: DenomOwner.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DenomOwner.typeUrl, DenomOwner);
-GlobalDecoderRegistry.registerAminoProtoMapping(DenomOwner.aminoType, DenomOwner.typeUrl);
 function createBaseQueryDenomOwnersResponse(): QueryDenomOwnersResponse {
   return {
     denomOwners: [],
@@ -2655,10 +2668,12 @@ export const QueryDenomOwnersResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersResponse",
       value: QueryDenomOwnersResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DenomOwner.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomOwnersResponse.typeUrl, QueryDenomOwnersResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomOwnersResponse.aminoType, QueryDenomOwnersResponse.typeUrl);
 function createBaseQueryDenomOwnersByQueryRequest(): QueryDenomOwnersByQueryRequest {
   return {
     denom: "",
@@ -2745,10 +2760,11 @@ export const QueryDenomOwnersByQueryRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersByQueryRequest",
       value: QueryDenomOwnersByQueryRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomOwnersByQueryRequest.typeUrl, QueryDenomOwnersByQueryRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomOwnersByQueryRequest.aminoType, QueryDenomOwnersByQueryRequest.typeUrl);
 function createBaseQueryDenomOwnersByQueryResponse(): QueryDenomOwnersByQueryResponse {
   return {
     denomOwners: [],
@@ -2837,10 +2853,12 @@ export const QueryDenomOwnersByQueryResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QueryDenomOwnersByQueryResponse",
       value: QueryDenomOwnersByQueryResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DenomOwner.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomOwnersByQueryResponse.typeUrl, QueryDenomOwnersByQueryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomOwnersByQueryResponse.aminoType, QueryDenomOwnersByQueryResponse.typeUrl);
 function createBaseQuerySendEnabledRequest(): QuerySendEnabledRequest {
   return {
     denoms: [],
@@ -2929,10 +2947,11 @@ export const QuerySendEnabledRequest = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySendEnabledRequest",
       value: QuerySendEnabledRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySendEnabledRequest.typeUrl, QuerySendEnabledRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySendEnabledRequest.aminoType, QuerySendEnabledRequest.typeUrl);
 function createBaseQuerySendEnabledResponse(): QuerySendEnabledResponse {
   return {
     sendEnabled: [],
@@ -3021,7 +3040,9 @@ export const QuerySendEnabledResponse = {
       typeUrl: "/cosmos.bank.v1beta1.QuerySendEnabledResponse",
       value: QuerySendEnabledResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SendEnabled.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySendEnabledResponse.typeUrl, QuerySendEnabledResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySendEnabledResponse.aminoType, QuerySendEnabledResponse.typeUrl);

@@ -1,7 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventSetVoucher {
   addr: string;
   voucher: Coin;
@@ -97,6 +96,8 @@ export const EventSetVoucher = {
       typeUrl: "/injective.permissions.v1beta1.EventSetVoucher",
       value: EventSetVoucher.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSetVoucher.typeUrl, EventSetVoucher);

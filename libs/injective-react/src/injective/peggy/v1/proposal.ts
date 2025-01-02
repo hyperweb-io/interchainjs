@@ -130,9 +130,11 @@ export const BlacklistEthereumAddressesProposal = {
       typeUrl: "/injective.peggy.v1.BlacklistEthereumAddressesProposal",
       value: BlacklistEthereumAddressesProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BlacklistEthereumAddressesProposal.typeUrl, BlacklistEthereumAddressesProposal);
   }
 };
-GlobalDecoderRegistry.register(BlacklistEthereumAddressesProposal.typeUrl, BlacklistEthereumAddressesProposal);
 function createBaseRevokeEthereumBlacklistProposal(): RevokeEthereumBlacklistProposal {
   return {
     title: "",
@@ -226,6 +228,8 @@ export const RevokeEthereumBlacklistProposal = {
       typeUrl: "/injective.peggy.v1.RevokeEthereumBlacklistProposal",
       value: RevokeEthereumBlacklistProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(RevokeEthereumBlacklistProposal.typeUrl, RevokeEthereumBlacklistProposal);
   }
 };
-GlobalDecoderRegistry.register(RevokeEthereumBlacklistProposal.typeUrl, RevokeEthereumBlacklistProposal);

@@ -59,12 +59,14 @@
             "enabled": false
         },
         "helperFuncCreators": {
-          "enabled": true,
-          "genCustomHooks": false
+            "enabled": true,
+            "useGlobalDecoderRegistry": true,
+            "genCustomHooks": false
         },
         "interfaces": {
             "enabled": true,
             "useGlobalDecoderRegistry": true,
+            "registerAllDecodersToGlobal": false,
             "useUnionTypes": true
         },
         "aminoEncoding": {

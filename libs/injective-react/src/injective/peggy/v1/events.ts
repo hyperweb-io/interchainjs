@@ -2,7 +2,6 @@ import { ClaimType } from "./attestation";
 import { BridgeValidator, BridgeValidatorAmino } from "./types";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventAttestationObserved {
   attestationType: ClaimType;
   bridgeContract: string;
@@ -474,9 +473,9 @@ export const EventAttestationObserved = {
       typeUrl: "/injective.peggy.v1.EventAttestationObserved",
       value: EventAttestationObserved.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAttestationObserved.typeUrl, EventAttestationObserved);
 function createBaseEventBridgeWithdrawCanceled(): EventBridgeWithdrawCanceled {
   return {
     bridgeContract: "",
@@ -556,9 +555,9 @@ export const EventBridgeWithdrawCanceled = {
       typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled",
       value: EventBridgeWithdrawCanceled.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventBridgeWithdrawCanceled.typeUrl, EventBridgeWithdrawCanceled);
 function createBaseEventOutgoingBatch(): EventOutgoingBatch {
   return {
     denom: "",
@@ -685,9 +684,9 @@ export const EventOutgoingBatch = {
       typeUrl: "/injective.peggy.v1.EventOutgoingBatch",
       value: EventOutgoingBatch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventOutgoingBatch.typeUrl, EventOutgoingBatch);
 function createBaseEventOutgoingBatchCanceled(): EventOutgoingBatchCanceled {
   return {
     bridgeContract: "",
@@ -791,9 +790,9 @@ export const EventOutgoingBatchCanceled = {
       typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled",
       value: EventOutgoingBatchCanceled.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventOutgoingBatchCanceled.typeUrl, EventOutgoingBatchCanceled);
 function createBaseEventValsetUpdateRequest(): EventValsetUpdateRequest {
   return {
     valsetNonce: BigInt(0),
@@ -911,9 +910,11 @@ export const EventValsetUpdateRequest = {
       typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest",
       value: EventValsetUpdateRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BridgeValidator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventValsetUpdateRequest.typeUrl, EventValsetUpdateRequest);
 function createBaseEventSetOrchestratorAddresses(): EventSetOrchestratorAddresses {
   return {
     validatorAddress: "",
@@ -1005,9 +1006,9 @@ export const EventSetOrchestratorAddresses = {
       typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses",
       value: EventSetOrchestratorAddresses.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventSetOrchestratorAddresses.typeUrl, EventSetOrchestratorAddresses);
 function createBaseEventValsetConfirm(): EventValsetConfirm {
   return {
     valsetNonce: BigInt(0),
@@ -1087,9 +1088,9 @@ export const EventValsetConfirm = {
       typeUrl: "/injective.peggy.v1.EventValsetConfirm",
       value: EventValsetConfirm.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventValsetConfirm.typeUrl, EventValsetConfirm);
 function createBaseEventSendToEth(): EventSendToEth {
   return {
     outgoingTxId: BigInt(0),
@@ -1205,9 +1206,9 @@ export const EventSendToEth = {
       typeUrl: "/injective.peggy.v1.EventSendToEth",
       value: EventSendToEth.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventSendToEth.typeUrl, EventSendToEth);
 function createBaseEventConfirmBatch(): EventConfirmBatch {
   return {
     batchNonce: BigInt(0),
@@ -1287,9 +1288,9 @@ export const EventConfirmBatch = {
       typeUrl: "/injective.peggy.v1.EventConfirmBatch",
       value: EventConfirmBatch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventConfirmBatch.typeUrl, EventConfirmBatch);
 function createBaseEventAttestationVote(): EventAttestationVote {
   return {
     eventNonce: BigInt(0),
@@ -1381,9 +1382,9 @@ export const EventAttestationVote = {
       typeUrl: "/injective.peggy.v1.EventAttestationVote",
       value: EventAttestationVote.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAttestationVote.typeUrl, EventAttestationVote);
 function createBaseEventDepositClaim(): EventDepositClaim {
   return {
     eventNonce: BigInt(0),
@@ -1547,9 +1548,9 @@ export const EventDepositClaim = {
       typeUrl: "/injective.peggy.v1.EventDepositClaim",
       value: EventDepositClaim.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventDepositClaim.typeUrl, EventDepositClaim);
 function createBaseEventWithdrawClaim(): EventWithdrawClaim {
   return {
     eventNonce: BigInt(0),
@@ -1677,9 +1678,9 @@ export const EventWithdrawClaim = {
       typeUrl: "/injective.peggy.v1.EventWithdrawClaim",
       value: EventWithdrawClaim.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventWithdrawClaim.typeUrl, EventWithdrawClaim);
 function createBaseEventERC20DeployedClaim(): EventERC20DeployedClaim {
   return {
     eventNonce: BigInt(0),
@@ -1843,9 +1844,9 @@ export const EventERC20DeployedClaim = {
       typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim",
       value: EventERC20DeployedClaim.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventERC20DeployedClaim.typeUrl, EventERC20DeployedClaim);
 function createBaseEventValsetUpdateClaim(): EventValsetUpdateClaim {
   return {
     eventNonce: BigInt(0),
@@ -1999,9 +2000,11 @@ export const EventValsetUpdateClaim = {
       typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim",
       value: EventValsetUpdateClaim.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BridgeValidator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventValsetUpdateClaim.typeUrl, EventValsetUpdateClaim);
 function createBaseEventCancelSendToEth(): EventCancelSendToEth {
   return {
     outgoingTxId: BigInt(0)
@@ -2069,9 +2072,9 @@ export const EventCancelSendToEth = {
       typeUrl: "/injective.peggy.v1.EventCancelSendToEth",
       value: EventCancelSendToEth.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventCancelSendToEth.typeUrl, EventCancelSendToEth);
 function createBaseEventSubmitBadSignatureEvidence(): EventSubmitBadSignatureEvidence {
   return {
     badEthSignature: "",
@@ -2151,9 +2154,9 @@ export const EventSubmitBadSignatureEvidence = {
       typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence",
       value: EventSubmitBadSignatureEvidence.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventSubmitBadSignatureEvidence.typeUrl, EventSubmitBadSignatureEvidence);
 function createBaseEventValidatorSlash(): EventValidatorSlash {
   return {
     power: BigInt(0),
@@ -2269,6 +2272,6 @@ export const EventValidatorSlash = {
       typeUrl: "/injective.peggy.v1.EventValidatorSlash",
       value: EventValidatorSlash.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventValidatorSlash.typeUrl, EventValidatorSlash);

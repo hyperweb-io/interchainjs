@@ -6,7 +6,8 @@ export const createGetAccounts = (clientResolver?: RpcResolver) => buildQuery<Qu
   decode: QueryAccountsResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "Accounts",
-  clientResolver
+  clientResolver,
+  deps: [QueryAccountsRequest, QueryAccountsResponse]
 });
 export const useGetAccounts = buildUseQuery<QueryAccountsRequest, QueryAccountsResponse>({
   builderQueryFn: createGetAccounts,
@@ -17,7 +18,8 @@ export const createGetAccount = (clientResolver?: RpcResolver) => buildQuery<Que
   decode: QueryAccountResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "Account",
-  clientResolver
+  clientResolver,
+  deps: [QueryAccountRequest, QueryAccountResponse]
 });
 export const useGetAccount = buildUseQuery<QueryAccountRequest, QueryAccountResponse>({
   builderQueryFn: createGetAccount,
@@ -28,7 +30,8 @@ export const createGetAccountAddressByID = (clientResolver?: RpcResolver) => bui
   decode: QueryAccountAddressByIDResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "AccountAddressByID",
-  clientResolver
+  clientResolver,
+  deps: [QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse]
 });
 export const useGetAccountAddressByID = buildUseQuery<QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse>({
   builderQueryFn: createGetAccountAddressByID,
@@ -39,7 +42,8 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   decode: QueryParamsResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "Params",
-  clientResolver
+  clientResolver,
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
@@ -50,7 +54,8 @@ export const createGetModuleAccounts = (clientResolver?: RpcResolver) => buildQu
   decode: QueryModuleAccountsResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "ModuleAccounts",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleAccountsRequest, QueryModuleAccountsResponse]
 });
 export const useGetModuleAccounts = buildUseQuery<QueryModuleAccountsRequest, QueryModuleAccountsResponse>({
   builderQueryFn: createGetModuleAccounts,
@@ -61,7 +66,8 @@ export const createGetModuleAccountByName = (clientResolver?: RpcResolver) => bu
   decode: QueryModuleAccountByNameResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "ModuleAccountByName",
-  clientResolver
+  clientResolver,
+  deps: [QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse]
 });
 export const useGetModuleAccountByName = buildUseQuery<QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse>({
   builderQueryFn: createGetModuleAccountByName,
@@ -72,7 +78,8 @@ export const createGetBech32Prefix = (clientResolver?: RpcResolver) => buildQuer
   decode: Bech32PrefixResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "Bech32Prefix",
-  clientResolver
+  clientResolver,
+  deps: [Bech32PrefixRequest, Bech32PrefixResponse]
 });
 export const useGetBech32Prefix = buildUseQuery<Bech32PrefixRequest, Bech32PrefixResponse>({
   builderQueryFn: createGetBech32Prefix,
@@ -83,7 +90,8 @@ export const createGetAddressBytesToString = (clientResolver?: RpcResolver) => b
   decode: AddressBytesToStringResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "AddressBytesToString",
-  clientResolver
+  clientResolver,
+  deps: [AddressBytesToStringRequest, AddressBytesToStringResponse]
 });
 export const useGetAddressBytesToString = buildUseQuery<AddressBytesToStringRequest, AddressBytesToStringResponse>({
   builderQueryFn: createGetAddressBytesToString,
@@ -94,7 +102,8 @@ export const createGetAddressStringToBytes = (clientResolver?: RpcResolver) => b
   decode: AddressStringToBytesResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "AddressStringToBytes",
-  clientResolver
+  clientResolver,
+  deps: [AddressStringToBytesRequest, AddressStringToBytesResponse]
 });
 export const useGetAddressStringToBytes = buildUseQuery<AddressStringToBytesRequest, AddressStringToBytesResponse>({
   builderQueryFn: createGetAddressStringToBytes,
@@ -105,7 +114,8 @@ export const createGetAccountInfo = (clientResolver?: RpcResolver) => buildQuery
   decode: QueryAccountInfoResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
   method: "AccountInfo",
-  clientResolver
+  clientResolver,
+  deps: [QueryAccountInfoRequest, QueryAccountInfoResponse]
 });
 export const useGetAccountInfo = buildUseQuery<QueryAccountInfoRequest, QueryAccountInfoResponse>({
   builderQueryFn: createGetAccountInfo,
