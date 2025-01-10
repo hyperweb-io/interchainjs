@@ -1,6 +1,8 @@
-import { SignerFromPrivateKey } from '../../src/SignerFromPrivateKey'; 
+import { SignerFromPrivateKey } from '../../src/SignerFromPrivateKey';
 // Adjust the import path as needed
 import axios from 'axios';
+import { computeContractAddress } from '../../src/utils/common';
+import { bytecode } from '../../contracts/usdt/contract.json'
 
 // RPC endpoint for your local/test environment.
 // E.g., Hardhat node: http://127.0.0.1:8545
@@ -15,15 +17,32 @@ const signerSender = new SignerFromPrivateKey(privSender, RPC_URL);
 const signerReceiver = new SignerFromPrivateKey(privReceiver, RPC_URL);
 
 describe('sending Tests', () => {
+  const senderAddress = signerSender.getAddress()
   const receiverAddress = signerReceiver.getAddress()
 
   // Instance to send from privSender
   let transfer: SignerFromPrivateKey;
 
+  let usdtAddress: string
+
   beforeAll(async () => {
     transfer = new SignerFromPrivateKey(privSender, RPC_URL);
     const chainId = await transfer['getChainId']();
     console.log('chainId from node:', chainId);
+
+    const nonce = await transfer.getNonce();
+    try {
+      await transfer.sendLegacyTransactionAutoGasLimit(
+        '', // no receiver while deploying smart contract
+        0n,
+        bytecode
+      );
+      usdtAddress = computeContractAddress(senderAddress, nonce);
+      console.log('Computed usdtAddress:', usdtAddress);
+    } catch (e) {
+      console.error('Error deploying contract:', e);
+    }
+
   });
 
   it('should send ETH from sender to receiver, and check balances', async () => {

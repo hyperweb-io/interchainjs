@@ -62,11 +62,11 @@ export class SignerFromPrivateKey {
   /**
    * Query current nonce from the node.
    */
-  private async getNonce(address: string): Promise<number> {
+  public async getNonce(): Promise<number> {
     const payload: JsonRpcRequest = {
       jsonrpc: '2.0',
       method: 'eth_getTransactionCount',
-      params: [address, 'latest'],
+      params: [this.getAddress(), 'latest'],
       id: 1
     };
     const resp = await axios.post(this.rpcUrl, payload);
@@ -103,7 +103,7 @@ export class SignerFromPrivateKey {
 
   public async getBalance(): Promise<bigint> {
     const address = this.getAddress();
-    
+
     const payload: JsonRpcRequest = {
       jsonrpc: '2.0',
       method: 'eth_getBalance',
@@ -134,15 +134,15 @@ export class SignerFromPrivateKey {
   private signWithRecovery(msgHash: Uint8Array): { r: Uint8Array; s: Uint8Array; recovery: number } {
     // Sign the message hash
     const signature = secp256k1.sign(msgHash, this.privateKey);
-  
+
     // Extract r and s values
     const compactSig = signature.toCompactRawBytes();
     const r = compactSig.slice(0, 32);
     const s = compactSig.slice(32, 64);
-  
+
     // Directly use the recovery parameter from the signature
     const recovery = signature.recovery;
-  
+
     return { r, s, recovery };
   }
 
@@ -158,7 +158,7 @@ export class SignerFromPrivateKey {
   ): Promise<string> {
     const fromAddr = this.getAddress();
     console.log('from address in sendLegacyTransaction:', fromAddr);
-    const nonce = await this.getNonce(fromAddr);
+    const nonce = await this.getNonce();
     console.log('Nonce:', nonce);
     const chainId = await this.getChainId();
 
@@ -205,7 +205,7 @@ export class SignerFromPrivateKey {
 
     const serializedTx = rlp.encode(txSigned);
     const rawTxHex = '0x' + bytesToHex(serializedTx);
-    console.log('Serialized Transaction:', rawTxHex);
+    // console.log('Serialized Transaction:', rawTxHex);
 
     const sendPayload: JsonRpcRequest = {
       jsonrpc: '2.0',
@@ -256,7 +256,7 @@ export class SignerFromPrivateKey {
     data: string = '0x'
   ): Promise<string> {
     const fromAddr = this.getAddress();
-    const nonce = await this.getNonce(fromAddr);
+    const nonce = await this.getNonce();
     const chainId = await this.getChainId();
 
     // Convert fields to padded hex strings
@@ -350,105 +350,109 @@ export class SignerFromPrivateKey {
  * Helper to automatically fetch the gasPrice and estimate gasLimit,
  * then send a legacy transaction with calculated gasLimit (1.5x estimated).
  */
-public async sendLegacyTransactionAutoGasLimit(
-  to: string,
-  valueWei: bigint,
-  dataHex = '0x'
-): Promise<string> {
-  const gasPrice = await this.getGasPrice();
+  public async sendLegacyTransactionAutoGasLimit(
+    to: string,
+    valueWei: bigint,
+    dataHex = '0x'
+  ): Promise<string> {
+    const gasPrice = await this.getGasPrice();
 
-  // Estimate gas limit from the node
-  const estimatedGasLimit = await this.estimateGas(to, valueWei, dataHex);
-  const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
-  console.log('Gas Limit:', gasLimit.toString())
+    // Estimate gas limit from the node
+    const estimatedGasLimit = await this.estimateGas(to, valueWei, dataHex);
+    const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
+    console.log('Gas Limit:', gasLimit.toString())
 
-  console.log('Value:', valueWei.toString());
-  return this.sendLegacyTransaction(to, valueWei, dataHex, gasPrice, gasLimit);
-}
-
-/**
- * Helper to automatically fetch maxPriorityFeePerGas, maxFeePerGas,
- * estimate gasLimit, and then send an EIP-1559 transaction.
- * Accepts only `to`, `valueWei`, and optional `data`.
- */
-public async sendEIP1559TransactionAutoGasLimit(
-  to: string,
-  valueWei: bigint,
-  data: string = '0x'
-): Promise<string> {
-  const maxPriorityFeePerGas = await this.getMaxPriorityFeePerGas();
-  const maxFeePerGas = await this.getMaxFeePerGas(maxPriorityFeePerGas);
-
-  // Estimate gas limit from the node
-  const estimatedGasLimit = await this.estimateGas(to, valueWei, data);
-  const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
-
-  return this.sendEIP1559Transaction(to, valueWei, maxPriorityFeePerGas, maxFeePerGas, gasLimit, data);
-}
-
-/**
- * Estimate gas for a transaction.
- * @param to Recipient address
- * @param valueWei Amount in wei
- * @param data Optional data (default is '0x')
- * @returns Estimated gas as bigint
- */
-private async estimateGas(to: string, valueWei: bigint, data: string): Promise<bigint> {
-  const fromAddr = this.getAddress();
-
-  const payload: JsonRpcRequest = {
-    jsonrpc: '2.0',
-    method: 'eth_estimateGas',
-    params: [
-      {
-        from: fromAddr,
-        to: to,
-        value: this.toHexPadded(valueWei),
-        data: data
-      }
-    ],
-    id: 1
-  };
-
-  const resp = await axios.post(this.rpcUrl, payload);
-
-  if (resp.data.result) {
-    return BigInt(resp.data.result);
-  } else if (resp.data.error) {
-    throw new Error(JSON.stringify(resp.data.error));
-  } else {
-    throw new Error('Unknown error from eth_estimateGas');
+    console.log('Value:', valueWei.toString());
+    return this.sendLegacyTransaction(to, valueWei, dataHex, gasPrice, gasLimit);
   }
-}
 
-/**
- * Get maxPriorityFeePerGas from the node.
- */
-private async getMaxPriorityFeePerGas(): Promise<bigint> {
-  const payload: JsonRpcRequest = {
-    jsonrpc: '2.0',
-    method: 'eth_maxPriorityFeePerGas',
-    params: [],
-    id: 1
-  };
-  const resp = await axios.post(this.rpcUrl, payload);
-  return BigInt(resp.data.result);
-}
+  /**
+   * Helper to automatically fetch maxPriorityFeePerGas, maxFeePerGas,
+   * estimate gasLimit, and then send an EIP-1559 transaction.
+   * Accepts only `to`, `valueWei`, and optional `data`.
+   */
+  public async sendEIP1559TransactionAutoGasLimit(
+    to: string,
+    valueWei: bigint,
+    data: string = '0x'
+  ): Promise<string> {
+    const maxPriorityFeePerGas = await this.getMaxPriorityFeePerGas();
+    const maxFeePerGas = await this.getMaxFeePerGas(maxPriorityFeePerGas);
 
-/**
- * Calculate maxFeePerGas as maxPriorityFeePerGas + baseFee.
- * This uses eth_feeHistory to determine baseFee.
- */
-private async getMaxFeePerGas(maxPriorityFeePerGas: bigint): Promise<bigint> {
-  const payload: JsonRpcRequest = {
-    jsonrpc: '2.0',
-    method: 'eth_feeHistory',
-    params: [1, 'latest', []],
-    id: 1
-  };
-  const resp = await axios.post(this.rpcUrl, payload);
+    // Estimate gas limit from the node
+    const estimatedGasLimit = await this.estimateGas(to, valueWei, data);
+    const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
 
-  const baseFeePerGas = BigInt(resp.data.result.baseFeePerGas);
-  return baseFeePerGas + maxPriorityFeePerGas;
-}
+    return this.sendEIP1559Transaction(to, valueWei, maxPriorityFeePerGas, maxFeePerGas, gasLimit, data);
+  }
+
+  /**
+   * Estimate gas for a transaction.
+   * @param to Recipient address
+   * @param valueWei Amount in wei
+   * @param data Optional data (default is '0x')
+   * @returns Estimated gas as bigint
+   */
+  private async estimateGas(to: string, valueWei: bigint, data: string): Promise<bigint> {
+    const fromAddr = this.getAddress();
+
+    const txParams: any = {
+      from: fromAddr,
+      value: this.toHexPadded(valueWei),
+      data: data
+    };
+
+    // 如果 `to` 不是空字符串，则添加 `to` 字段
+    if (to && to !== '') {
+      txParams.to = to;
+    }
+
+    const payload: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      method: 'eth_estimateGas',
+      params: [txParams],
+      id: 1
+    };
+
+    const resp = await axios.post(this.rpcUrl, payload);
+
+    if (resp.data.result) {
+      return BigInt(resp.data.result);
+    } else if (resp.data.error) {
+      throw new Error(JSON.stringify(resp.data.error));
+    } else {
+      throw new Error('Unknown error from eth_estimateGas');
+    }
+  }
+
+  /**
+   * Get maxPriorityFeePerGas from the node.
+   */
+  private async getMaxPriorityFeePerGas(): Promise<bigint> {
+    const payload: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      method: 'eth_maxPriorityFeePerGas',
+      params: [],
+      id: 1
+    };
+    const resp = await axios.post(this.rpcUrl, payload);
+    return BigInt(resp.data.result);
+  }
+
+  /**
+   * Calculate maxFeePerGas as maxPriorityFeePerGas + baseFee.
+   * This uses eth_feeHistory to determine baseFee.
+   */
+  private async getMaxFeePerGas(maxPriorityFeePerGas: bigint): Promise<bigint> {
+    const payload: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      method: 'eth_feeHistory',
+      params: [1, 'latest', []],
+      id: 1
+    };
+    const resp = await axios.post(this.rpcUrl, payload);
+
+    const baseFeePerGas = BigInt(resp.data.result.baseFeePerGas);
+    return baseFeePerGas + maxPriorityFeePerGas;
+  }
 }
