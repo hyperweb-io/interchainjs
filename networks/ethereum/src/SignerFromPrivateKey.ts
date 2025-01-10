@@ -12,7 +12,7 @@ interface JsonRpcRequest {
   id: number;
 }
 
-export class EthereumTransferNoLibV12 {
+export class SignerFromPrivateKey {
   private rpcUrl: string;
   private privateKey: Uint8Array;
   private publicKeyUncompressed: Uint8Array; // 65 bytes => 0x04 + 64 bytes (x, y)
@@ -52,7 +52,7 @@ export class EthereumTransferNoLibV12 {
   /**
    * Derive Ethereum address from privateKey.
    */
-  private getAddressFromPrivateKey(): string {
+  getAddress(): string {
     const pubNoPrefix = this.publicKeyUncompressed.slice(1); // remove 0x04
     const hash = keccak256(pubNoPrefix);
     const addressBytes = hash.slice(-20);
@@ -101,6 +101,30 @@ export class EthereumTransferNoLibV12 {
     return BigInt(resp.data.result);
   }
 
+  public async getBalance(): Promise<bigint> {
+    const address = this.getAddress();
+    
+    const payload: JsonRpcRequest = {
+      jsonrpc: '2.0',
+      method: 'eth_getBalance',
+      params: [address, 'latest'],
+      id: 1
+    };
+
+    try {
+      const resp = await axios.post(this.rpcUrl, payload);
+      if (resp.data.result) {
+        return BigInt(resp.data.result);
+      } else if (resp.data.error) {
+        throw new Error(JSON.stringify(resp.data.error));
+      } else {
+        throw new Error('Unknown error from eth_getBalance');
+      }
+    } catch (error) {
+      throw new Error(`Failed to fetch balance: ${error}`);
+    }
+  }
+
   /**
    * Sign a given msgHash. 
    * Because @noble/curves@1.2.0 does not allow specifying a recoveryBit,
@@ -108,24 +132,18 @@ export class EthereumTransferNoLibV12 {
    * If they match => recBit=0, else => recBit=1.
    */
   private signWithRecovery(msgHash: Uint8Array): { r: Uint8Array; s: Uint8Array; recovery: number } {
-    // 1) Sign => Signature object
+    // Sign the message hash
     const signature = secp256k1.sign(msgHash, this.privateKey);
-
-    // 2) 64-byte raw => r(32)+s(32)
+  
+    // Extract r and s values
     const compactSig = signature.toCompactRawBytes();
     const r = compactSig.slice(0, 32);
     const s = compactSig.slice(32, 64);
-
-    // 3) Recover public key from signature
-    const recoveredPoint = signature.recoverPublicKey(msgHash);
-    const recoveredPubBytes = recoveredPoint.toRawBytes(false); // uncompressed, 65 bytes
-
-    // 4) Compare
-    if (equalsBytes(recoveredPubBytes, this.publicKeyUncompressed)) {
-      return { r, s, recovery: 0 };
-    } else {
-      return { r, s, recovery: 1 };
-    }
+  
+    // Directly use the recovery parameter from the signature
+    const recovery = signature.recovery;
+  
+    return { r, s, recovery };
   }
 
   /**
@@ -134,12 +152,14 @@ export class EthereumTransferNoLibV12 {
   public async sendLegacyTransaction(
     to: string,
     valueWei: bigint,
+    dataHex = '0x',
     gasPrice: bigint,
     gasLimit: bigint
   ): Promise<string> {
-    const fromAddr = this.getAddressFromPrivateKey();
+    const fromAddr = this.getAddress();
     console.log('from address in sendLegacyTransaction:', fromAddr);
     const nonce = await this.getNonce(fromAddr);
+    console.log('Nonce:', nonce);
     const chainId = await this.getChainId();
 
     // Convert inputs to padded hex strings
@@ -147,7 +167,6 @@ export class EthereumTransferNoLibV12 {
     const gasPriceHex = this.toHexPadded(gasPrice);
     const gasLimitHex = this.toHexPadded(gasLimit);
     const valueHex = this.toHexPadded(valueWei);
-    const dataHex = '0x';
 
     // RLP for signing (chainId in item #7, then 0,0 placeholders)
     const txForSign = [
@@ -186,6 +205,7 @@ export class EthereumTransferNoLibV12 {
 
     const serializedTx = rlp.encode(txSigned);
     const rawTxHex = '0x' + bytesToHex(serializedTx);
+    console.log('Serialized Transaction:', rawTxHex);
 
     const sendPayload: JsonRpcRequest = {
       jsonrpc: '2.0',
@@ -209,10 +229,12 @@ export class EthereumTransferNoLibV12 {
   public async sendLegacyTransactionAutoGas(
     to: string,
     valueWei: bigint,
+    dataHex = '0x',
     gasLimit: bigint
   ): Promise<string> {
     const autoGasPrice = await this.getGasPrice();
-    return this.sendLegacyTransaction(to, valueWei, autoGasPrice, gasLimit);
+    console.log('Auto gas price:', autoGasPrice.toString());
+    return this.sendLegacyTransaction(to, valueWei, dataHex, autoGasPrice, gasLimit);
   }
 
   /**
@@ -227,13 +249,13 @@ export class EthereumTransferNoLibV12 {
    */
   public async sendEIP1559Transaction(
     to: string,
-    valueWei: string,
-    maxPriorityFeePerGas: string,
-    maxFeePerGas: string,
-    gasLimit: string,
+    valueWei: bigint,
+    maxPriorityFeePerGas: bigint,
+    maxFeePerGas: bigint,
+    gasLimit: bigint,
     data: string = '0x'
   ): Promise<string> {
-    const fromAddr = this.getAddressFromPrivateKey();
+    const fromAddr = this.getAddress();
     const nonce = await this.getNonce(fromAddr);
     const chainId = await this.getChainId();
 
@@ -323,4 +345,110 @@ export class EthereumTransferNoLibV12 {
       throw new Error('Unknown error from eth_sendRawTransaction');
     }
   }
+
+  /**
+ * Helper to automatically fetch the gasPrice and estimate gasLimit,
+ * then send a legacy transaction with calculated gasLimit (1.5x estimated).
+ */
+public async sendLegacyTransactionAutoGasLimit(
+  to: string,
+  valueWei: bigint,
+  dataHex = '0x'
+): Promise<string> {
+  const gasPrice = await this.getGasPrice();
+
+  // Estimate gas limit from the node
+  const estimatedGasLimit = await this.estimateGas(to, valueWei, dataHex);
+  const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
+  console.log('Gas Limit:', gasLimit.toString())
+
+  console.log('Value:', valueWei.toString());
+  return this.sendLegacyTransaction(to, valueWei, dataHex, gasPrice, gasLimit);
+}
+
+/**
+ * Helper to automatically fetch maxPriorityFeePerGas, maxFeePerGas,
+ * estimate gasLimit, and then send an EIP-1559 transaction.
+ * Accepts only `to`, `valueWei`, and optional `data`.
+ */
+public async sendEIP1559TransactionAutoGasLimit(
+  to: string,
+  valueWei: bigint,
+  data: string = '0x'
+): Promise<string> {
+  const maxPriorityFeePerGas = await this.getMaxPriorityFeePerGas();
+  const maxFeePerGas = await this.getMaxFeePerGas(maxPriorityFeePerGas);
+
+  // Estimate gas limit from the node
+  const estimatedGasLimit = await this.estimateGas(to, valueWei, data);
+  const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
+
+  return this.sendEIP1559Transaction(to, valueWei, maxPriorityFeePerGas, maxFeePerGas, gasLimit, data);
+}
+
+/**
+ * Estimate gas for a transaction.
+ * @param to Recipient address
+ * @param valueWei Amount in wei
+ * @param data Optional data (default is '0x')
+ * @returns Estimated gas as bigint
+ */
+private async estimateGas(to: string, valueWei: bigint, data: string): Promise<bigint> {
+  const fromAddr = this.getAddress();
+
+  const payload: JsonRpcRequest = {
+    jsonrpc: '2.0',
+    method: 'eth_estimateGas',
+    params: [
+      {
+        from: fromAddr,
+        to: to,
+        value: this.toHexPadded(valueWei),
+        data: data
+      }
+    ],
+    id: 1
+  };
+
+  const resp = await axios.post(this.rpcUrl, payload);
+
+  if (resp.data.result) {
+    return BigInt(resp.data.result);
+  } else if (resp.data.error) {
+    throw new Error(JSON.stringify(resp.data.error));
+  } else {
+    throw new Error('Unknown error from eth_estimateGas');
+  }
+}
+
+/**
+ * Get maxPriorityFeePerGas from the node.
+ */
+private async getMaxPriorityFeePerGas(): Promise<bigint> {
+  const payload: JsonRpcRequest = {
+    jsonrpc: '2.0',
+    method: 'eth_maxPriorityFeePerGas',
+    params: [],
+    id: 1
+  };
+  const resp = await axios.post(this.rpcUrl, payload);
+  return BigInt(resp.data.result);
+}
+
+/**
+ * Calculate maxFeePerGas as maxPriorityFeePerGas + baseFee.
+ * This uses eth_feeHistory to determine baseFee.
+ */
+private async getMaxFeePerGas(maxPriorityFeePerGas: bigint): Promise<bigint> {
+  const payload: JsonRpcRequest = {
+    jsonrpc: '2.0',
+    method: 'eth_feeHistory',
+    params: [1, 'latest', []],
+    id: 1
+  };
+  const resp = await axios.post(this.rpcUrl, payload);
+
+  const baseFeePerGas = BigInt(resp.data.result.baseFeePerGas);
+  return baseFeePerGas + maxPriorityFeePerGas;
+}
 }
