@@ -2,7 +2,8 @@ import { SignerFromPrivateKey } from '../../src/SignerFromPrivateKey';
 // Adjust the import path as needed
 import axios from 'axios';
 import { computeContractAddress } from '../../src/utils/common';
-import { bytecode } from '../../contracts/usdt/contract.json'
+import { bytecode, abi } from '../../contracts/usdt/contract.json'
+import { ContractEncoder, AbiFunctionItem } from '../../src/utils/ContractEncoder';
 
 // RPC endpoint for your local/test environment.
 // E.g., Hardhat node: http://127.0.0.1:8545
@@ -24,6 +25,48 @@ describe('sending Tests', () => {
   let transfer: SignerFromPrivateKey;
 
   let usdtAddress: string
+
+  const usdt = new ContractEncoder(abi as AbiFunctionItem[]);
+
+  async function getUSDTBalance(addr: string): Promise<bigint> {
+    const dataHex = usdt.balanceOf(addr);
+    const callPayload = {
+      jsonrpc: '2.0',
+      method: 'eth_call',
+      params: [
+        {
+          to: usdtAddress,
+          data: dataHex,
+        },
+        'latest',
+      ],
+      id: 1,
+    };
+
+    const resp = await axios.post(RPC_URL, callPayload);
+    const hexBalance = resp.data.result;
+    return BigInt(hexBalance);
+  }
+
+  // For local nodes, this might not be necessary as transactions are mined instantly
+  // For testnets, implement a polling mechanism or use WebSocket subscriptions
+  // Here, we'll poll for the receipt until it's available
+  async function getTransactionReceipt(txHash: string): Promise<any> {
+    while (true) {
+      const receiptPayload = {
+        jsonrpc: '2.0',
+        method: 'eth_getTransactionReceipt',
+        params: [txHash],
+        id: 1,
+      };
+      const receiptResp = await axios.post(RPC_URL, receiptPayload);
+      if (receiptResp.data.result) {
+        return receiptResp.data.result;
+      }
+      // Wait for a short interval before retrying
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
 
   beforeAll(async () => {
     transfer = new SignerFromPrivateKey(privSender, RPC_URL);
@@ -71,27 +114,6 @@ describe('sending Tests', () => {
 
     console.log('sending txHash:', txHash);
 
-    // 5) (Optional) Wait for transaction to be mined
-    // For local nodes, this might not be necessary as transactions are mined instantly
-    // For testnets, implement a polling mechanism or use WebSocket subscriptions
-    // Here, we'll poll for the receipt until it's available
-    async function getTransactionReceipt(txHash: string): Promise<any> {
-      while (true) {
-        const receiptPayload = {
-          jsonrpc: '2.0',
-          method: 'eth_getTransactionReceipt',
-          params: [txHash],
-          id: 1,
-        };
-        const receiptResp = await axios.post(RPC_URL, receiptPayload);
-        if (receiptResp.data.result) {
-          return receiptResp.data.result;
-        }
-        // Wait for a short interval before retrying
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-    }
-
     const receipt = await getTransactionReceipt(txHash);
     expect(receipt.status).toBe('0x1'); // '0x1' indicates success
 
@@ -116,4 +138,31 @@ describe('sending Tests', () => {
     // So, we just check that the sender's lost amount >= valueWei
     expect(senderDelta).toBeGreaterThanOrEqual(BigInt(valueWei));
   }, 60000); // Increased Jest timeout to 60s for potential network delays
+
+  it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
+    const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
+    console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
+
+    const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
+
+    const dataHex = usdt.transfer(receiverAddress, transferAmount);
+
+    const txHash = await transfer.sendLegacyTransactionAutoGasLimit(
+      usdtAddress,
+      0n,
+      dataHex
+    );
+    expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    const receipt = await getTransactionReceipt(txHash);
+    expect(receipt.status).toBe('0x1');
+
+    const afterReceiverBalance = await getUSDTBalance(receiverAddress);
+    console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
+
+    const delta = afterReceiverBalance - beforeReceiverBalance;
+    console.log('Receiver USDT balance delta:', delta.toString());
+    expect(delta).toBe(transferAmount);
+  });
+
 });
