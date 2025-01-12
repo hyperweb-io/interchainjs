@@ -1,4 +1,4 @@
-import { SignerFromPrivateKey } from '../../src/SignerFromPrivateKey';
+import { SignerFromPrivateKey } from '../../src/signers/SignerFromPrivateKey';
 // Adjust the import path as needed
 import axios from 'axios';
 import { computeContractAddress } from '../../src/utils/common';
