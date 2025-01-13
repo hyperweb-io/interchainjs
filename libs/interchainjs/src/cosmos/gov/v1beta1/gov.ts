@@ -3,6 +3,7 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino } from "../../../google/protobuf/duration";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg } from "../../distribution/v1beta1/distribution";
+import { ParameterChangeProposal, ParameterChangeProposalProtoMsg } from "../../params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg } from "../../upgrade/v1beta1/upgrade";
 import { isSet, DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -234,7 +235,7 @@ export interface Proposal {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
   /** content is the proposal's content. */
-  content?: TextProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any | undefined;
+  content?: TextProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any | undefined;
   /** status defines the proposal status. */
   status: ProposalStatus;
   /**
@@ -259,7 +260,7 @@ export interface ProposalProtoMsg {
   value: Uint8Array;
 }
 export type ProposalEncoded = Omit<Proposal, "content"> & {
-  /** content is the proposal's content. */content?: TextProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+  /** content is the proposal's content. */content?: TextProposalProtoMsg | CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /** Proposal defines the core field members of a governance proposal. */
 export interface ProposalAmino {
@@ -921,6 +922,7 @@ export const Proposal = {
     TextProposal.registerTypeUrl();
     CommunityPoolSpendProposal.registerTypeUrl();
     CommunityPoolSpendProposalWithDeposit.registerTypeUrl();
+    ParameterChangeProposal.registerTypeUrl();
     SoftwareUpgradeProposal.registerTypeUrl();
     CancelSoftwareUpgradeProposal.registerTypeUrl();
     TallyResult.registerTypeUrl();

@@ -2,6 +2,7 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { VoteOption, WeightedVoteOption, WeightedVoteOptionAmino, TextProposal, TextProposalProtoMsg } from "./gov";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg } from "../../distribution/v1beta1/distribution";
+import { ParameterChangeProposal, ParameterChangeProposalProtoMsg } from "../../params/v1beta1/params";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg } from "../../upgrade/v1beta1/upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
@@ -12,7 +13,7 @@ import { DeepPartial, isSet } from "../../../helpers";
  */
 export interface MsgSubmitProposal {
   /** content is the proposal's content. */
-  content?: CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any | undefined;
+  content?: CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any | undefined;
   /** initial_deposit is the deposit value that must be paid at proposal submission. */
   initialDeposit: Coin[];
   /** proposer is the account address of the proposer. */
@@ -23,7 +24,7 @@ export interface MsgSubmitProposalProtoMsg {
   value: Uint8Array;
 }
 export type MsgSubmitProposalEncoded = Omit<MsgSubmitProposal, "content"> & {
-  /** content is the proposal's content. */content?: CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
+  /** content is the proposal's content. */content?: CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | ParameterChangeProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
@@ -294,6 +295,7 @@ export const MsgSubmitProposal = {
     CommunityPoolSpendProposal.registerTypeUrl();
     CommunityPoolSpendProposalWithDeposit.registerTypeUrl();
     TextProposal.registerTypeUrl();
+    ParameterChangeProposal.registerTypeUrl();
     SoftwareUpgradeProposal.registerTypeUrl();
     CancelSoftwareUpgradeProposal.registerTypeUrl();
     Coin.registerTypeUrl();
