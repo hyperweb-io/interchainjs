@@ -145,4 +145,53 @@ describe('sending Tests', () => {
     expect(delta).toBe(transferAmount);
   });
 
+  it('should send ETH from sender to receiver via EIP-1559, and check balances', async () => {
+    // 1) 先查询发送方和接收方初始余额
+    const beforeSenderBalance = await signerSender.getBalance();
+    const beforeReceiverBalance = await signerReceiver.getBalance();
+
+    console.log('Sender balance before:', beforeSenderBalance.toString());
+    console.log('Receiver balance before:', beforeReceiverBalance.toString());
+
+    // 2) 准备转账金额 (示例：0.01 ETH)
+    const valueWei = 10000000000000000n; // 0.01 ETH
+
+    // 3) 发送前再次查询发送方余额
+    const currentSenderBalance = await signerSender.getBalance();
+    console.log('Sender balance right before sending:', currentSenderBalance.toString());
+
+    // 4) 使用 EIP-1559 方式发送交易
+    const { txHash, wait } = await transfer.sendEIP1559TransactionAutoGasLimit(
+      receiverAddress,
+      valueWei
+    );
+    expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    console.log('EIP-1559 sending txHash:', txHash);
+
+    // 5) 等待交易上链并获取回执
+    const receipt = await wait();
+    expect(receipt.status).toBe('0x1'); // '0x1' 表示交易成功
+
+    // 6) 检查交易后余额
+    const afterSenderBalance = await signerSender.getBalance();
+    const afterReceiverBalance = await signerReceiver.getBalance();
+
+    console.log('Sender balance after:', afterSenderBalance.toString());
+    console.log('Receiver balance after:', afterReceiverBalance.toString());
+
+    // 7) 验证余额变化
+    const senderDelta = beforeSenderBalance - afterSenderBalance;     // 发送方实际减少的金额
+    const receiverDelta = afterReceiverBalance - beforeReceiverBalance; // 接收方实际增加的金额
+
+    console.log('Sender delta:', senderDelta.toString());
+    console.log('Receiver delta:', receiverDelta.toString());
+
+    // 接收方应增加与转账额相同
+    expect(receiverDelta).toBe(valueWei);
+
+    // 发送方损失的余额应 >= 转账额（多出的部分是 Gas 费）
+    expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
+  }, 60000);
+
 });

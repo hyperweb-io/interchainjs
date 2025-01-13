@@ -320,8 +320,8 @@ export class SignerFromPrivateKey {
 
     const { r, s, recovery } = this.signWithRecovery(msgHash);
 
-    // For typed transactions, v = 27 + recovery
-    const v = 27 + recovery;
+    // For typed transactions, v = recovery
+    const v = recovery;
     const vHex = this.toHexPadded(v);
 
     // RLP( [chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, v, r, s] )
@@ -478,7 +478,18 @@ export class SignerFromPrivateKey {
     };
     const resp = await axios.post(this.rpcUrl, payload);
 
-    const baseFeePerGas = BigInt(resp.data.result.baseFeePerGas);
+    // 1. 先拿到 baseFeePerGas 数组
+    const baseFeeArray = resp.data.result.baseFeePerGas;
+    // （可做个防护，确保确实是数组）
+    if (!Array.isArray(baseFeeArray) || baseFeeArray.length === 0) {
+      throw new Error(`Invalid feeHistory response: ${JSON.stringify(baseFeeArray)}`);
+    }
+
+    // 2. 取数组最后一个元素（对应最新区块），然后转成 BigInt
+    const baseFeeHex = baseFeeArray[baseFeeArray.length - 1];
+    const baseFeePerGas = BigInt(baseFeeHex);
+
+    // 3. 返回 baseFee + tip
     return baseFeePerGas + maxPriorityFeePerGas;
   }
 }
