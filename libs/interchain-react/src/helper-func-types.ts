@@ -22,28 +22,28 @@ export interface QueryBuilderOptions<TReq, TRes> {
 }
 
 export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
-    registerDependencies(opts.deps ?? []);
+  registerDependencies(opts.deps ?? []);
 
-    return async (request: TReq) => {
-      let rpc: Rpc | undefined;
+  return async (request: TReq) => {
+    let rpc: Rpc | undefined;
 
-      if(isRpc(opts.clientResolver)) {
-        rpc = opts.clientResolver;
-      } else {
-        rpc = opts.clientResolver ? await getRpcClient(opts.clientResolver) : undefined;
-      }
+    if (isRpc(opts.clientResolver)) {
+      rpc = opts.clientResolver;
+    } else {
+      rpc = opts.clientResolver ? await getRpcClient(opts.clientResolver) : undefined;
+    }
 
-      if (!rpc) throw new Error("Query Rpc is not initialized");
+    if (!rpc) throw new Error("Query Rpc is not initialized");
 
-      const data = opts.encode(request).finish();
-      const response = await rpc.request(opts.service, opts.method, data);
-      return opts.decode(response);
-    };
+    const data = opts.encode(request).finish();
+    const response = await rpc.request(opts.service, opts.method, data);
+    return opts.decode(response);
+  };
 }
 
 export interface ITxArgs<TMsg> {
   signerAddress: string;
-  message: TMsg;
+  message: TMsg | TMsg[];
   fee: StdFee | 'auto';
   memo: string;
 }
@@ -86,14 +86,14 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
 
   return async (
     signerAddress: string,
-    message: TMsg,
+    message: TMsg | TMsg[],
     fee: StdFee | 'auto',
     memo: string
   ): Promise<DeliverTxResponse> => {
     let client: ISigningClient | undefined;
 
     // if opts.getSigningClient is a function, call it to get the SigningClient instance
-    if(isISigningClient(opts.clientResolver)) {
+    if (isISigningClient(opts.clientResolver)) {
       client = opts.clientResolver;
     }
 
@@ -103,12 +103,21 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
     client.addEncoders(opts.encoders ?? []);
     client.addConverters(opts.converters ?? []);
 
-    const data = [
-      {
-        typeUrl: opts.typeUrl,
-        value: message,
-      },
-    ];
+    const data = Array.isArray(message) ?
+      message.map(msg => {
+        return {
+          typeUrl: opts.typeUrl,
+          value: msg,
+        }
+      }) :
+      [
+        {
+          typeUrl: opts.typeUrl,
+          value: message,
+        },
+      ];
+
+
     return client.signAndBroadcast!(signerAddress, data, fee, memo);
   };
 }
@@ -196,7 +205,7 @@ export interface AminoConverter {
 }
 
 export type SigningClientResolver = string | HttpEndpoint | ISigningClient;
-export type RpcResolver = string | HttpEndpoint | Rpc ;
+export type RpcResolver = string | HttpEndpoint | Rpc;
 
 function registerDependencies(deps: TelescopeGeneratedCodec<any, any, any>[]) {
   for (const dep of deps) {
