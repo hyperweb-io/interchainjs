@@ -59,7 +59,7 @@ describe('ETH Transfer Test', () => {
     const initialSenderBalance = await usdtContract.balanceOf(walletSender.address);
     const initialReceiverBalance = await usdtContract.balanceOf(walletReceiver.address);
 
-    const tx = await (usdtContract as any).connect(walletSender).transfer(walletReceiver.address, amountToSend);
+    const tx = await (usdtContract.connect(walletSender) as ethers.Contract).transfer(walletReceiver.address, amountToSend);
     await tx.wait();
 
     const finalSenderBalance = await usdtContract.balanceOf(walletSender.address);

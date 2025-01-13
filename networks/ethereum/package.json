@@ -25,6 +25,7 @@
     "lint": "eslint . --fix",
     "test:devnet": "npx jest --preset ts-jest devnet/__tests__/send.icjs.test.ts",
     "test:ethers": "npx jest --preset ts-jest devnet/__tests__/ethers.test.ts",
+    "test:noethers": "npx jest --preset ts-jest devnet/__tests__/noethers.test.ts",
     "run-ganache": "bash devnet/run-ganache.sh"
   },
   "dependencies": {
