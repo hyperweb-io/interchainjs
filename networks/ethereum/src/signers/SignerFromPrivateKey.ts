@@ -4,6 +4,7 @@ import { keccak256 } from 'ethereum-cryptography/keccak';
 import { secp256k1 } from '@noble/curves/secp256k1';
 import { bytesToHex, hexToBytes, equalsBytes } from 'ethereum-cryptography/utils';
 import * as rlp from 'rlp'; // Updated import
+import { TransactionReceipt } from '../types/transaction';
 
 interface JsonRpcRequest {
   jsonrpc: '2.0';
@@ -25,6 +26,23 @@ export class SignerFromPrivateKey {
     // Derive uncompressed pubkey (65 bytes, starts with 0x04)
     this.publicKeyUncompressed = secp256k1.getPublicKey(this.privateKey, false);
   }
+
+  private async pollForReceipt(txHash: string): Promise<TransactionReceipt> {
+    while (true) {
+      const payload = {
+        jsonrpc: '2.0',
+        method: 'eth_getTransactionReceipt',
+        params: [txHash],
+        id: 1,
+      };
+      const resp = await axios.post(this.rpcUrl, payload);
+      if (resp.data.result) {
+        return resp.data.result as TransactionReceipt;
+      }
+      await new Promise(resolve => setTimeout(resolve, 3000));
+    }
+  }
+
 
   /**
    * Helper to pad hex strings to even length.
@@ -155,7 +173,10 @@ export class SignerFromPrivateKey {
     dataHex = '0x',
     gasPrice: bigint,
     gasLimit: bigint
-  ): Promise<string> {
+  ): Promise<{
+    txHash: string;
+    wait: () => Promise<TransactionReceipt>;
+  }> {
     const fromAddr = this.getAddress();
     console.log('from address in sendLegacyTransaction:', fromAddr);
     const nonce = await this.getNonce();
@@ -178,7 +199,7 @@ export class SignerFromPrivateKey {
       hexToBytes(dataHex),
       hexToBytes(this.toHexPadded(chainId)),
       new Uint8Array([]),
-      new Uint8Array([])
+      new Uint8Array([]),
     ];
 
     const unsignedTx = rlp.encode(txForSign);
@@ -199,23 +220,26 @@ export class SignerFromPrivateKey {
       hexToBytes(dataHex),
       hexToBytes(vHex),
       r,
-      s
+      s,
     ];
     console.log('txSigned:', txSigned);
 
     const serializedTx = rlp.encode(txSigned);
     const rawTxHex = '0x' + bytesToHex(serializedTx);
-    // console.log('Serialized Transaction:', rawTxHex);
 
     const sendPayload: JsonRpcRequest = {
       jsonrpc: '2.0',
       method: 'eth_sendRawTransaction',
       params: [rawTxHex],
-      id: 1
+      id: 1,
     };
     const resp = await axios.post(this.rpcUrl, sendPayload);
     if (resp.data.result) {
-      return resp.data.result;
+      const txHash = resp.data.result as string;
+      return {
+        txHash,
+        wait: async () => this.pollForReceipt(txHash),
+      };
     } else if (resp.data.error) {
       throw new Error(JSON.stringify(resp.data.error));
     } else {
@@ -231,7 +255,10 @@ export class SignerFromPrivateKey {
     valueWei: bigint,
     dataHex = '0x',
     gasLimit: bigint
-  ): Promise<string> {
+  ): Promise<{
+    txHash: string;
+    wait: () => Promise<TransactionReceipt>;
+  }> {
     const autoGasPrice = await this.getGasPrice();
     console.log('Auto gas price:', autoGasPrice.toString());
     return this.sendLegacyTransaction(to, valueWei, dataHex, autoGasPrice, gasLimit);
@@ -254,7 +281,10 @@ export class SignerFromPrivateKey {
     maxFeePerGas: bigint,
     gasLimit: bigint,
     data: string = '0x'
-  ): Promise<string> {
+  ): Promise<{
+    txHash: string;
+    wait: () => Promise<TransactionReceipt>;
+  }> {
     const fromAddr = this.getAddress();
     const nonce = await this.getNonce();
     const chainId = await this.getChainId();
@@ -267,13 +297,8 @@ export class SignerFromPrivateKey {
     const gasLimitHex = this.toHexPadded(gasLimit);
     const valueHex = this.toHexPadded(valueWei);
 
-    // EIP-1559 typed transaction: 
-    // 0x02 + RLP([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, v, r, s])
-    //
-    // For signing, we omit [v, r, s].
-    // The "accessList" can be empty for simple transfers: [].
-
-    const accessList: any[] = []; // or define a real access list if needed
+    // EIP-1559 typed transaction (0x02)
+    const accessList: any[] = [];
     const txForSign = [
       hexToBytes(chainIdHex),
       hexToBytes(nonceHex),
@@ -286,28 +311,21 @@ export class SignerFromPrivateKey {
       accessList
     ];
 
-    // According to spec, the signed message is keccak256( 0x02 || RLP( txForSign ) )
     const encodedTxForSign = rlp.encode(txForSign);
-
-    // Construct domain separator (type byte 0x02)
     const domainSeparator = new Uint8Array([0x02]);
-
-    // Concatenate domain + RLP-encoded data
     const toBeHashed = new Uint8Array(domainSeparator.length + encodedTxForSign.length);
     toBeHashed.set(domainSeparator, 0);
     toBeHashed.set(encodedTxForSign, domainSeparator.length);
 
     const msgHash = keccak256(toBeHashed);
 
-    // Sign
     const { r, s, recovery } = this.signWithRecovery(msgHash);
 
-    // For typed transactions, v is commonly 27 + recovery (NOT chainId-based as in EIP-155)
+    // For typed transactions, v = 27 + recovery
     const v = 27 + recovery;
     const vHex = this.toHexPadded(v);
 
-    // Now the final transaction for broadcast:
-    // 0x02 + RLP( [chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, v, r, s] )
+    // RLP( [chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, v, r, s] )
     const txSigned = [
       hexToBytes(chainIdHex),
       hexToBytes(nonceHex),
@@ -338,7 +356,11 @@ export class SignerFromPrivateKey {
     const resp = await axios.post(this.rpcUrl, sendPayload);
 
     if (resp.data.result) {
-      return resp.data.result; // Transaction hash
+      const txHash = resp.data.result as string;
+      return {
+        txHash,
+        wait: async () => this.pollForReceipt(txHash),
+      };
     } else if (resp.data.error) {
       throw new Error(JSON.stringify(resp.data.error));
     } else {
@@ -354,7 +376,10 @@ export class SignerFromPrivateKey {
     to: string,
     valueWei: bigint,
     dataHex = '0x'
-  ): Promise<string> {
+  ): Promise<{
+    txHash: string;
+    wait: () => Promise<TransactionReceipt>;
+  }> {
     const gasPrice = await this.getGasPrice();
 
     // Estimate gas limit from the node
@@ -375,7 +400,10 @@ export class SignerFromPrivateKey {
     to: string,
     valueWei: bigint,
     data: string = '0x'
-  ): Promise<string> {
+  ): Promise<{
+    txHash: string;
+    wait: () => Promise<TransactionReceipt>;
+  }> {
     const maxPriorityFeePerGas = await this.getMaxPriorityFeePerGas();
     const maxFeePerGas = await this.getMaxFeePerGas(maxPriorityFeePerGas);
 
@@ -402,7 +430,6 @@ export class SignerFromPrivateKey {
       data: data
     };
 
-    // 如果 `to` 不是空字符串，则添加 `to` 字段
     if (to && to !== '') {
       txParams.to = to;
     }

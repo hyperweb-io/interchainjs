@@ -48,26 +48,6 @@ describe('sending Tests', () => {
     return BigInt(hexBalance);
   }
 
-  // For local nodes, this might not be necessary as transactions are mined instantly
-  // For testnets, implement a polling mechanism or use WebSocket subscriptions
-  // Here, we'll poll for the receipt until it's available
-  async function getTransactionReceipt(txHash: string): Promise<any> {
-    while (true) {
-      const receiptPayload = {
-        jsonrpc: '2.0',
-        method: 'eth_getTransactionReceipt',
-        params: [txHash],
-        id: 1,
-      };
-      const receiptResp = await axios.post(RPC_URL, receiptPayload);
-      if (receiptResp.data.result) {
-        return receiptResp.data.result;
-      }
-      // Wait for a short interval before retrying
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    }
-  }
-
   beforeAll(async () => {
     transfer = new SignerFromPrivateKey(privSender, RPC_URL);
     const chainId = await transfer['getChainId']();
@@ -106,7 +86,7 @@ describe('sending Tests', () => {
     console.log('Sender balance right before sending:', currentSenderBalance.toString());
 
     // 4) Send transaction
-    const txHash = await transfer.sendLegacyTransactionAutoGasLimit(
+    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
       receiverAddress,
       valueWei
     );
@@ -114,7 +94,7 @@ describe('sending Tests', () => {
 
     console.log('sending txHash:', txHash);
 
-    const receipt = await getTransactionReceipt(txHash);
+    const receipt = await wait();
     expect(receipt.status).toBe('0x1'); // '0x1' indicates success
 
     // 6) Check final balances
@@ -147,14 +127,14 @@ describe('sending Tests', () => {
 
     const dataHex = usdt.transfer(receiverAddress, transferAmount);
 
-    const txHash = await transfer.sendLegacyTransactionAutoGasLimit(
+    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
       usdtAddress,
       0n,
       dataHex
     );
     expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
 
-    const receipt = await getTransactionReceipt(txHash);
+    const receipt = await wait();
     expect(receipt.status).toBe('0x1');
 
     const afterReceiverBalance = await getUSDTBalance(receiverAddress);
