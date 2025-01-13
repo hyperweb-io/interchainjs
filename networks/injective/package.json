@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/injective",
-  "version": "1.6.5",
+  "version": "1.7.0",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -34,11 +34,11 @@
   "dependencies": {
     "@interchainjs/cosmos": "1.6.3",
     "@interchainjs/cosmos-types": "1.6.3",
-    "@interchainjs/ethereum": "1.6.3",
+    "@interchainjs/ethereum": "^1.7.0",
     "@interchainjs/types": "1.6.3",
     "@interchainjs/utils": "1.6.3",
     "decimal.js": "^10.4.3",
-    "interchainjs": "^1.6.5"
+    "interchainjs": "^1.7.0"
   },
   "keywords": [
     "injective"

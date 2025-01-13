@@ -1,6 +1,6 @@
 {
   "name": "interchain-vue",
-  "version": "1.6.5",
+  "version": "1.7.0",
   "description": "interchain-vue is a JavaScript library providing vue hooks for interacting with Cosmos SDK based blockchains.",
   "main": "index.js",
   "module": "esm/index.js",

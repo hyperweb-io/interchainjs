@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/cosmology-tech/interchainjs/compare/injective-react@1.6.5...injective-react@1.7.0) (2025-01-13)
+
+**Note:** Version bump only for package injective-react
+
 ## [1.6.5](https://github.com/cosmology-tech/interchainjs/compare/injective-react@1.6.4...injective-react@1.6.5) (2024-12-26)
 
 **Note:** Version bump only for package injective-react
