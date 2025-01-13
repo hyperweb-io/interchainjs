@@ -262,16 +262,13 @@ export class SignerFromBrowser {
     });
 
     const baseFeeArray = feeHistory?.baseFeePerGas;
-    // （可做个防护，确保确实是数组）
     if (!Array.isArray(baseFeeArray) || baseFeeArray.length === 0) {
       throw new Error(`Invalid feeHistory response: ${JSON.stringify(baseFeeArray)}`);
     }
 
-    // 2. 取数组最后一个元素（对应最新区块），然后转成 BigInt
     const baseFeeHex = baseFeeArray[baseFeeArray.length - 1];
     const baseFeePerGas = BigInt(baseFeeHex);
 
-    // 3. 返回 baseFee + tip
     return baseFeePerGas + maxPriorityFeePerGas;
   }
 }
