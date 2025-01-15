@@ -1,6 +1,6 @@
 {
   "name": "injectivejs",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Injectivejs is a JavaScript library for interacting with injective sdk.",
   "main": "index.js",
   "module": "esm/index.js",
