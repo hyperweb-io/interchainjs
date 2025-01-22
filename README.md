@@ -95,3 +95,5 @@ We created a specific package to make it easy to migrate from `@cosmjs`.
 ### Transactions
 
 - [@interchainjs/ethereum](/networks/ethereum/README.md)
+
+Copyright (c) 2024 Copyright (c) 2024 Hyperweb (https://hyperweb.io)

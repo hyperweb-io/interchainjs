@@ -43,4 +43,4 @@ console.log(result.hash); // the hash of TxRaw
 
 MIT License (MIT) & Apache License
 
-Copyright (c) 2024 Cosmology (https://cosmology.zone/)
+Copyright (c) 2024 Copyright (c) 2024 Hyperweb (https://hyperweb.io)
