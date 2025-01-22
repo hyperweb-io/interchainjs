@@ -1,15 +1,15 @@
 {
   "name": "@interchainjs/ethereum",
-  "version": "1.7.0",
+  "version": "1.7.6",
   "description": "Transaction codec and client to communicate with ethereum blockchain",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
-  "author": "Cosmology <developers@cosmology.zone>",
-  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "author": "Hyperweb <developers@hyperweb.io>",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmology-tech/interchainjs"
+    "url": "https://github.com/hyperweb-io/interchainjs"
   },
   "license": "MIT",
   "publishConfig": {
@@ -33,8 +33,8 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
     "@ethersproject/transactions": "^5.7.0",
-    "@interchainjs/types": "1.6.3",
-    "@interchainjs/utils": "1.6.3",
+    "@interchainjs/types": "1.7.6",
+    "@interchainjs/utils": "1.7.6",
     "@noble/hashes": "^1.3.1",
     "ethers": "^6.13.4"
   },

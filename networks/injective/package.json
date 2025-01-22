@@ -1,14 +1,14 @@
 {
   "name": "@interchainjs/injective",
-  "version": "1.7.2",
+  "version": "1.7.6",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
-  "author": "Cosmology <developers@cosmology.zone>",
-  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "author": "Hyperweb <developers@hyperweb.io>",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmology-tech/interchainjs"
+    "url": "https://github.com/hyperweb-io/interchainjs"
   },
   "license": "MIT",
   "publishConfig": {
@@ -32,13 +32,13 @@
     "injective:test": "jest --config ./jest.testnet.config.js --verbose"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "1.6.3",
-    "@interchainjs/cosmos-types": "1.6.3",
-    "@interchainjs/ethereum": "^1.7.0",
-    "@interchainjs/types": "1.6.3",
-    "@interchainjs/utils": "1.6.3",
+    "@interchainjs/cosmos": "1.7.6",
+    "@interchainjs/cosmos-types": "1.7.6",
+    "@interchainjs/ethereum": "1.7.6",
+    "@interchainjs/types": "1.7.6",
+    "@interchainjs/utils": "1.7.6",
     "decimal.js": "^10.4.3",
-    "interchainjs": "^1.7.2"
+    "interchainjs": "1.7.6"
   },
   "keywords": [
     "injective"

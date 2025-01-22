@@ -31,7 +31,7 @@ jobs:
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: cosmology-tech/starship-action@0.5.5
+        uses: hyperweb-io/starship-action@0.5.5
         with:
           config: libs/interchainjs/starship/configs/config.workflow.yaml
 
@@ -59,7 +59,7 @@ jobs:
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: cosmology-tech/starship-action@0.5.5
+        uses: hyperweb-io/starship-action@0.5.5
         with:
           config: networks/cosmos/starship/configs/config.workflow.yaml
 

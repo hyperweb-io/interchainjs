@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "description": "universal signing client for blockchain networks",
-  "repository": "git@github.com:cosmology-tech/interchainjs.git",
-  "author": "Cosmology <developers@cosmology.zone>",
+  "repository": "git@github.com:hyperweb-io/interchainjs.git",
+  "author": "Hyperweb <developers@hyperweb.io>",
   "license": "MIT",
   "publishConfig": {
     "access": "restricted"
