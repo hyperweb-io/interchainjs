@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/auth@1.6.3...@interchainjs/auth@1.6.4) (2025-01-22)
+
+**Note:** Version bump only for package @interchainjs/auth
+
 ## [1.6.3](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/auth@1.6.2...@interchainjs/auth@1.6.3) (2024-12-17)
 
 **Note:** Version bump only for package @interchainjs/auth
