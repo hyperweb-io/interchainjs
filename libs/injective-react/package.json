@@ -5,11 +5,11 @@
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
-  "author": "Cosmology <developers@cosmology.zone>",
-  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "author": "Hyperweb <developers@hyperweb.io>",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmology-tech/interchainjs"
+    "url": "https://github.com/hyperweb-io/interchainjs"
   },
   "license": "MIT",
   "publishConfig": {

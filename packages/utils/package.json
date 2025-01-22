@@ -1,14 +1,14 @@
 {
   "name": "@interchainjs/utils",
   "version": "1.6.3",
-  "author": "Cosmology <developers@cosmology.zone>",
+  "author": "Hyperweb <developers@hyperweb.io>",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
-  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmology-tech/interchainjs"
+    "url": "https://github.com/hyperweb-io/interchainjs"
   },
   "license": "MIT",
   "publishConfig": {
