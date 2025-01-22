@@ -16,7 +16,7 @@ import { bytes as assertBytes } from '@noble/hashes/_assert';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 
-import { EncodedMessage, FeeOptions, SignerOptions } from './types';
+import { CosmosAccount, EncodedMessage, FeeOptions, SignerOptions } from './types';
 import { toDecoder } from './utils';
 
 export const defaultBroadcastOptions: BroadcastOptions = {
@@ -92,6 +92,7 @@ export const defaultAccountParser = (
 export const defaultSignerOptions: Required<SignerOptions> = {
   ...defaultSignerConfig,
   parseAccount: defaultAccountParser,
+  createAccount: CosmosAccount,
   encodePublicKey: defaultPublicKeyEncoder,
   prefix: undefined,
 };

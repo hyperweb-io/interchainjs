@@ -11,6 +11,7 @@ import {
   toEncoders,
 } from '@interchainjs/cosmos/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
+import { MessageComposer } from 'interchainjs/cosmos/bank/v1beta1/tx.registry';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
 import { HDPath } from '@interchainjs/types';
 import { useChain } from 'starshipjs';
@@ -72,19 +73,25 @@ describe('Token transfers', () => {
       denom,
     };
 
+    const {
+      send,
+      multiSend,
+      setSendEnabled,
+      updateParams
+    } = MessageComposer.withTypeUrl;
+
     // Transfer uosmo tokens from faceut
     directSigner.addEncoders(toEncoders(MsgSend));
     await directSigner.signAndBroadcast(
       {
         messages: [
-          {
-            typeUrl: MsgSend.typeUrl,
-            value: {
+          MessageComposer.withTypeUrl.send(
+            {
               fromAddress: address,
               toAddress: address2,
               amount: [token],
-            },
-          },
+            }
+          ),
         ],
         fee,
         memo: 'send tokens test',
@@ -197,3 +204,4 @@ describe('Token transfers', () => {
     // expect(trace.denomTrace.baseDenom).toEqual(denom);
   }, 10000);
 });
+

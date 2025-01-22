@@ -35,17 +35,6 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
     super(auth, encoders, endpoint, options);
   }
 
-  /**
-   * Get account from the signer.
-   */
-  async getAccount() {
-    return new CosmosAccount(
-      await this.getPrefix(),
-      this.auth,
-      this.config.publicKey.isCompressed
-    );
-  }
-
   getTxBuilder(): BaseCosmosTxBuilder<CosmosDirectDoc> {
     return new DirectTxBuilder(new BaseCosmosTxBuilderContext(this));
   }

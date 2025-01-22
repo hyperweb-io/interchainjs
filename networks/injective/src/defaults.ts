@@ -19,6 +19,9 @@ import { bytes as assertBytes } from '@noble/hashes/_assert';
 import { keccak_256 } from '@noble/hashes/sha3';
 import { computeAddress } from '@ethersproject/transactions';
 import { Key } from '@interchainjs/utils';
+import { InjAccount } from './accounts/inj-account';
+import { WalletOptions } from '@interchainjs/cosmos/types/wallet';
+import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 
 export const defaultPublicKeyConfig: SignerConfig['publicKey'] = {
   isCompressed: CosmosSignerConfig.publicKey.isCompressed,
@@ -62,22 +65,16 @@ export const defaultSignerOptions: Record<string, Required<SignerOptions>> = {
     publicKey: defaultPublicKeyConfig,
     encodePublicKey: defaultEncodePublicKey,
     parseAccount: defaultAccountParser,
+    createAccount: InjAccount,
     prefix: 'inj',
   },
-  Ethereum: {
-    message: {
-      hash: (message: Uint8Array) => {
-        const hashed = keccak_256(message);
-        assertBytes(hashed);
-        return hashed;
-      },
-    },
-    publicKey: defaultPublicKeyConfig,
-    encodePublicKey: defaultEncodePublicKey,
-    parseAccount: defaultAccountParser,
-    prefix: undefined,
-  },
 };
+
+export const defaultWalletOptions: WalletOptions = {
+  bip39Password: undefined,
+  createAuthsFromMnemonic: EthSecp256k1Auth.fromMnemonic,
+  signerConfig: defaultSignerOptions.Cosmos,
+}
 
 export const defaultTimeoutHeight: TimeoutHeightOption = {
   type: 'relative',

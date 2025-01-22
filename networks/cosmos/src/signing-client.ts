@@ -31,7 +31,7 @@ import {
 import {
   DeliverTxResponse,
   EncodeObject,
-  SignerOptions,
+  SigningOptions,
 } from './types/signing-client';
 
 /**
@@ -40,7 +40,7 @@ import {
 export class SigningClient {
   readonly client: QueryClient | null | undefined;
   readonly offlineSigner: ICosmosGenericOfflineSigner;
-  readonly options: SignerOptions;
+  readonly options: SigningOptions;
 
   readonly signers: Record<string, DirectSigner | AminoSigner> = {};
 
@@ -54,7 +54,7 @@ export class SigningClient {
   constructor(
     client: QueryClient | null | undefined,
     offlineSigner: ICosmosGenericOfflineSigner,
-    options: SignerOptions = {}
+    options: SigningOptions = {}
   ) {
     this.client = client;
 
@@ -75,10 +75,10 @@ export class SigningClient {
   static async connectWithSigner(
     endpoint: string | HttpEndpoint,
     signer: ICosmosGenericOfflineSigner,
-    options: SignerOptions = {}
+    options: SigningOptions = {}
   ): Promise<SigningClient> {
     const signingClient = new SigningClient(
-      new RpcClient(endpoint, options.prefix),
+      new RpcClient(endpoint, options.signerOptions?.prefix),
       signer,
       options
     );
@@ -97,9 +97,7 @@ export class SigningClient {
           this.offlineSigner as IDirectGenericOfflineSigner,
           this.encoders,
           this.endpoint,
-          {
-            prefix: this.options.prefix,
-          }
+          this.options.signerOptions
         )
         break;
 
@@ -109,9 +107,7 @@ export class SigningClient {
           this.encoders,
           this.converters,
           this.endpoint,
-          {
-            prefix: this.options.prefix,
-          }
+          this.options.signerOptions
         );
         break;
 
