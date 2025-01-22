@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.5](https://github.com/hyperweb-io/interchainjs/compare/injectivejs@1.7.2...injectivejs@1.7.5) (2025-01-22)
+
+**Note:** Version bump only for package injectivejs
+
 ## [1.7.2](https://github.com/hyperweb-io/interchainjs/compare/injectivejs@1.7.1...injectivejs@1.7.2) (2025-01-22)
 
 **Note:** Version bump only for package injectivejs

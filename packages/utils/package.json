@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "1.6.4",
+  "version": "1.7.5",
   "author": "Hyperweb <developers@hyperweb.io>",
   "main": "index.js",
   "module": "esm/index.js",
@@ -25,7 +25,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/types": "^1.6.4",
+    "@interchainjs/types": "1.7.5",
     "bech32": "^2.0.0"
   }
 }
