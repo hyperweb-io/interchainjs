@@ -2,7 +2,7 @@ import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
 import { AddrDerivation, Auth, SignerConfig, SIGN_MODE, IGenericOfflineSignArgs } from '@interchainjs/types';
 
 import { AminoDocSigner } from '../signers/amino';
-import { defaultSignerConfig } from '../defaults';
+import { defaultSignerConfig, defaultWalletOptions } from '../defaults';
 import { DirectDocSigner } from '../signers/direct';
 import {
   CosmosAccount,
@@ -51,24 +51,26 @@ export class HDWallet extends BaseCosmosWallet<DirectDocSigner, AminoDocSigner> 
     derivations: AddrDerivation[],
     options?: WalletOptions
   ) {
+    const walletOpts = { ...defaultWalletOptions, ...options };
+
     const hdPaths = derivations.map((derivation) => derivation.hdPath);
 
     let auths: Auth[];
 
-    if (options?.createAuthsFromMnemonic) {
-      auths = options.createAuthsFromMnemonic(mnemonic, hdPaths, {
-        bip39Password: options?.bip39Password,
+    if (walletOpts?.createAuthsFromMnemonic) {
+      auths = walletOpts.createAuthsFromMnemonic(mnemonic, hdPaths, {
+        bip39Password: walletOpts?.bip39Password,
       });
     } else {
       auths = Secp256k1Auth.fromMnemonic(mnemonic, hdPaths, {
-        bip39Password: options?.bip39Password,
+        bip39Password: walletOpts?.bip39Password,
       });
     }
 
     const accounts = auths.map((auth, i) => {
       const derivation = derivations[i];
 
-      const opts = options.signerConfig as SignerOptions;
+      const opts = walletOpts.signerConfig as SignerOptions;
 
       if (opts?.createAccount) {
         return new opts.createAccount(derivation.prefix, auth, opts.publicKey.isCompressed);
@@ -77,7 +79,7 @@ export class HDWallet extends BaseCosmosWallet<DirectDocSigner, AminoDocSigner> 
       }
     });
 
-    return new HDWallet(accounts, options?.signerConfig);
+    return new HDWallet(accounts, walletOpts?.signerConfig);
   }
 }
 

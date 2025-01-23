@@ -18,6 +18,8 @@ import { sha256 } from '@noble/hashes/sha256';
 
 import { CosmosAccount, EncodedMessage, FeeOptions, SignerOptions } from './types';
 import { toDecoder } from './utils';
+import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
+import { WalletOptions } from './types/wallet';
 
 export const defaultBroadcastOptions: BroadcastOptions = {
   checkTx: true,
@@ -96,3 +98,9 @@ export const defaultSignerOptions: Required<SignerOptions> = {
   encodePublicKey: defaultPublicKeyEncoder,
   prefix: undefined,
 };
+
+export const defaultWalletOptions: WalletOptions = {
+  bip39Password: undefined,
+  createAuthsFromMnemonic: Secp256k1Auth.fromMnemonic,
+  signerConfig: defaultSignerOptions,
+}
