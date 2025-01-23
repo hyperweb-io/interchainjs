@@ -5,7 +5,7 @@ import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import { EthSecp256k1HDWallet } from '@interchainjs/injective/wallets/ethSecp256k1hd';
-import { InjSigningClient } from '@interchainjs/injective/signing-client';
+import { SigningClient } from '@interchainjs/cosmos/signing-client';
 import {
   assertIsDeliverTxSuccess,
   createQueryRpc,
@@ -39,6 +39,7 @@ import { createGetValidators } from "@interchainjs/cosmos-types/cosmos/staking/v
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/query';
 import { QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
+import { defaultSignerOptions } from '@interchainjs/injective/defaults';
 
 
 const hdPath = "m/44'/60'/0'/0/0";
@@ -46,7 +47,7 @@ const hdPath = "m/44'/60'/0'/0/0";
 describe('Governance tests for injective', () => {
   let directSigner: DirectSigner,
     aminoSigner: AminoSigner,
-    signingClient: InjSigningClient,
+    signingClient: SigningClient,
     directOfflineSigner: OfflineDirectSigner,
     aminoOfflineSigner: OfflineAminoSigner,
     denom: string,
@@ -120,10 +121,11 @@ describe('Governance tests for injective', () => {
     aminoOfflineAddress = (await aminoOfflineSigner.getAccounts())[0].address;
     testingOfflineAddress = aminoOfflineAddress;
 
-    signingClient = await InjSigningClient.connectWithSigner(
+    signingClient = await SigningClient.connectWithSigner(
       await getRpcEndpoint(),
       new AminoGenericOfflineSigner(aminoOfflineSigner),
       {
+        signerOptions: defaultSignerOptions.Cosmos,
         broadcast: {
           checkTx: true,
           deliverTx: true,

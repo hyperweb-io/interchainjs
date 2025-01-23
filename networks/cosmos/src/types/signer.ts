@@ -20,7 +20,8 @@ import {
   StdFee,
   StdSignDoc,
   UniSigner,
-  IApiClient
+  IApiClient,
+  Auth
 } from '@interchainjs/types';
 import { Event } from '@interchainjs/types';
 import { AccountBase } from '@interchainjs/types/account';
@@ -37,6 +38,13 @@ export interface SignerOptions extends Partial<SignerConfig> {
    * parse account from encoded message
    */
   parseAccount?: (encodedAccount: EncodedMessage) => BaseAccount;
+
+  /**
+   * the constructor for creating account
+   */
+  createAccount?: new (prefix: string,
+    auth: Auth,
+    isPublicKeyCompressed: boolean) => IAccount;
 
   /**
    * encode public key to encoded message
@@ -188,7 +196,7 @@ export type TxOptions = {
 /**
  * Query client ops for cosmos chains
  */
-export interface QueryClient extends IApiClient<Uint8Array, BroadcastResponse, BroadcastOptions>{
+export interface QueryClient extends IApiClient<Uint8Array, BroadcastResponse, BroadcastOptions> {
   readonly endpoint: string | HttpEndpoint;
   getChainId: () => Promise<string>;
   getAccountNumber: (address: string) => Promise<bigint>;
@@ -275,7 +283,7 @@ export type Bech32Address = string;
 /**
  * Base signer for cosmos chains
  */
-export interface ICosmosAccount extends IAccount {}
+export interface ICosmosAccount extends IAccount { }
 
 /**
  * Check if instance is cosmos account
@@ -289,7 +297,7 @@ export function isICosmosAccount(
 /**
  * Cosmos account implementation
  */
-export class CosmosAccount extends AccountBase  {
+export class CosmosAccount extends AccountBase {
   getAddressByPubKey() {
     return Key.from(ripemd160(sha256(this.publicKey.value))).toBech32(
       this.prefix
