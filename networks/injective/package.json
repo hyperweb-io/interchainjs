@@ -32,13 +32,13 @@
     "injective:test": "jest --config ./jest.testnet.config.js --verbose"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "^1.7.7",
-    "@interchainjs/cosmos-types": "1.7.6",
-    "@interchainjs/ethereum": "1.7.6",
-    "@interchainjs/types": "1.7.6",
-    "@interchainjs/utils": "1.7.6",
+    "@interchainjs/cosmos": "1.7.7",
+    "@interchainjs/cosmos-types": "1.7.7",
+    "@interchainjs/ethereum": "1.7.7",
+    "@interchainjs/types": "1.7.7",
+    "@interchainjs/utils": "1.7.7",
     "decimal.js": "^10.4.3",
-    "interchainjs": "^1.7.7"
+    "interchainjs": "1.7.7"
   },
   "keywords": [
     "injective"
