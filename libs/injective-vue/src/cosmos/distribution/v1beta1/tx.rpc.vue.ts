@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool } from "./tx";
-import { createSetWithdrawAddress, createWithdrawDelegatorReward, createWithdrawValidatorCommission, createFundCommunityPool, createUpdateParams, createCommunityPoolSpend, createDepositValidatorRewardsPool } from "./tx.rpc.func.ts";
+import { createSetWithdrawAddress, createWithdrawDelegatorReward, createWithdrawValidatorCommission, createFundCommunityPool, createUpdateParams, createCommunityPoolSpend, createDepositValidatorRewardsPool } from "./tx.rpc.func";
 export const useSetWithdrawAddress = buildUseVueMutation<MsgSetWithdrawAddress, Error>({
   builderMutationFn: createSetWithdrawAddress
 });

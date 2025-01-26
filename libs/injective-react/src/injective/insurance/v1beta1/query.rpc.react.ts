@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryInsuranceParamsRequest, QueryInsuranceParamsResponse, QueryInsuranceFundRequest, QueryInsuranceFundResponse, QueryInsuranceFundsRequest, QueryInsuranceFundsResponse, QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse, QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-import { createGetInsuranceParams, createGetInsuranceFund, createGetInsuranceFunds, createGetEstimatedRedemptions, createGetPendingRedemptions, createGetInsuranceModuleState } from "./query.rpc.func.ts";
+import { createGetInsuranceParams, createGetInsuranceFund, createGetInsuranceFunds, createGetEstimatedRedemptions, createGetPendingRedemptions, createGetInsuranceModuleState } from "./query.rpc.func";
 export const useGetInsuranceParams = buildUseQuery<QueryInsuranceParamsRequest, QueryInsuranceParamsResponse>({
   builderQueryFn: createGetInsuranceParams,
   queryKeyPrefix: "InsuranceParamsQuery"

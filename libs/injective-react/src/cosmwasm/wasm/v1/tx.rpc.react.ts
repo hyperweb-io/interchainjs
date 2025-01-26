@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgStoreCode, MsgInstantiateContract, MsgInstantiateContract2, MsgExecuteContract, MsgMigrateContract, MsgUpdateAdmin, MsgClearAdmin, MsgUpdateInstantiateConfig, MsgUpdateParams, MsgSudoContract, MsgPinCodes, MsgUnpinCodes, MsgStoreAndInstantiateContract, MsgRemoveCodeUploadParamsAddresses, MsgAddCodeUploadParamsAddresses, MsgStoreAndMigrateContract, MsgUpdateContractLabel } from "./tx";
-import { createStoreCode, createInstantiateContract, createInstantiateContract2, createExecuteContract, createMigrateContract, createUpdateAdmin, createClearAdmin, createUpdateInstantiateConfig, createUpdateParams, createSudoContract, createPinCodes, createUnpinCodes, createStoreAndInstantiateContract, createRemoveCodeUploadParamsAddresses, createAddCodeUploadParamsAddresses, createStoreAndMigrateContract, createUpdateContractLabel } from "./tx.rpc.func.ts";
+import { createStoreCode, createInstantiateContract, createInstantiateContract2, createExecuteContract, createMigrateContract, createUpdateAdmin, createClearAdmin, createUpdateInstantiateConfig, createUpdateParams, createSudoContract, createPinCodes, createUnpinCodes, createStoreAndInstantiateContract, createRemoveCodeUploadParamsAddresses, createAddCodeUploadParamsAddresses, createStoreAndMigrateContract, createUpdateContractLabel } from "./tx.rpc.func";
 export const useStoreCode = buildUseMutation<MsgStoreCode, Error>({
   builderMutationFn: createStoreCode
 });

@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { GetAuthnDescriptorRequest, GetAuthnDescriptorResponse, GetChainDescriptorRequest, GetChainDescriptorResponse, GetCodecDescriptorRequest, GetCodecDescriptorResponse, GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse, GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse, GetTxDescriptorRequest, GetTxDescriptorResponse } from "./reflection";
-import { createGetGetAuthnDescriptor, createGetGetChainDescriptor, createGetGetCodecDescriptor, createGetGetConfigurationDescriptor, createGetGetQueryServicesDescriptor, createGetGetTxDescriptor } from "./reflection.rpc.func.ts";
+import { createGetGetAuthnDescriptor, createGetGetChainDescriptor, createGetGetCodecDescriptor, createGetGetConfigurationDescriptor, createGetGetQueryServicesDescriptor, createGetGetTxDescriptor } from "./reflection.rpc.func";
 export const useGetGetAuthnDescriptor = buildUseVueQuery<GetAuthnDescriptorRequest, GetAuthnDescriptorResponse>({
   builderQueryFn: createGetGetAuthnDescriptor,
   queryKeyPrefix: "GetAuthnDescriptorQuery"

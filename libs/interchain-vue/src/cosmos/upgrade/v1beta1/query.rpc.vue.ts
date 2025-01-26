@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryCurrentPlanRequest, QueryCurrentPlanResponse, QueryAppliedPlanRequest, QueryAppliedPlanResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryModuleVersionsRequest, QueryModuleVersionsResponse, QueryAuthorityRequest, QueryAuthorityResponse } from "./query";
-import { createGetCurrentPlan, createGetAppliedPlan, createGetUpgradedConsensusState, createGetModuleVersions, createGetAuthority } from "./query.rpc.func.ts";
+import { createGetCurrentPlan, createGetAppliedPlan, createGetUpgradedConsensusState, createGetModuleVersions, createGetAuthority } from "./query.rpc.func";
 export const useGetCurrentPlan = buildUseVueQuery<QueryCurrentPlanRequest, QueryCurrentPlanResponse>({
   builderQueryFn: createGetCurrentPlan,
   queryKeyPrefix: "CurrentPlanQuery"

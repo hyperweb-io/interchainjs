@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgCreateInsuranceFund, MsgUnderwrite, MsgRequestRedemption, MsgUpdateParams } from "./tx";
-import { createCreateInsuranceFund, createUnderwrite, createRequestRedemption, createUpdateParams } from "./tx.rpc.func.ts";
+import { createCreateInsuranceFund, createUnderwrite, createRequestRedemption, createUpdateParams } from "./tx.rpc.func";
 export const useCreateInsuranceFund = buildUseMutation<MsgCreateInsuranceFund, Error>({
   builderMutationFn: createCreateInsuranceFund
 });

@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgRelayProviderPrices, MsgRelayPriceFeedPrice, MsgRelayBandRates, MsgRequestBandIBCRates, MsgRelayCoinbaseMessages, MsgRelayStorkPrices, MsgRelayPythPrices, MsgUpdateParams } from "./tx";
-import { createRelayProviderPrices, createRelayPriceFeedPrice, createRelayBandRates, createRequestBandIBCRates, createRelayCoinbaseMessages, createRelayStorkMessage, createRelayPythPrices, createUpdateParams } from "./tx.rpc.func.ts";
+import { createRelayProviderPrices, createRelayPriceFeedPrice, createRelayBandRates, createRequestBandIBCRates, createRelayCoinbaseMessages, createRelayStorkMessage, createRelayPythPrices, createUpdateParams } from "./tx.rpc.func";
 export const useRelayProviderPrices = buildUseMutation<MsgRelayProviderPrices, Error>({
   builderMutationFn: createRelayProviderPrices
 });

@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../../vue-query";
 import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
-import { createCreateClient, createUpdateClient, createUpgradeClient, createSubmitMisbehaviour, createRecoverClient, createIBCSoftwareUpgrade, createUpdateClientParams } from "./tx.rpc.func.ts";
+import { createCreateClient, createUpdateClient, createUpgradeClient, createSubmitMisbehaviour, createRecoverClient, createIBCSoftwareUpgrade, createUpdateClientParams } from "./tx.rpc.func";
 export const useCreateClient = buildUseVueMutation<MsgCreateClient, Error>({
   builderMutationFn: createCreateClient
 });

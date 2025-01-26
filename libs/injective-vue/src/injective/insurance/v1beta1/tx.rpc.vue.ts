@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgCreateInsuranceFund, MsgUnderwrite, MsgRequestRedemption, MsgUpdateParams } from "./tx";
-import { createCreateInsuranceFund, createUnderwrite, createRequestRedemption, createUpdateParams } from "./tx.rpc.func.ts";
+import { createCreateInsuranceFund, createUnderwrite, createRequestRedemption, createUpdateParams } from "./tx.rpc.func";
 export const useCreateInsuranceFund = buildUseVueMutation<MsgCreateInsuranceFund, Error>({
   builderMutationFn: createCreateInsuranceFund
 });

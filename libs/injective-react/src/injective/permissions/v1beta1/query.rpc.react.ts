@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryAllNamespacesRequest, QueryAllNamespacesResponse, QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse, QueryAddressRolesRequest, QueryAddressRolesResponse, QueryAddressesByRoleRequest, QueryAddressesByRoleResponse, QueryVouchersForAddressRequest, QueryVouchersForAddressResponse } from "./query";
-import { createGetParams, createGetAllNamespaces, createGetNamespaceByDenom, createGetAddressRoles, createGetAddressesByRole, createGetVouchersForAddress } from "./query.rpc.func.ts";
+import { createGetParams, createGetAllNamespaces, createGetNamespaceByDenom, createGetAddressRoles, createGetAddressesByRole, createGetVouchersForAddress } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
   queryKeyPrefix: "ParamsQuery"

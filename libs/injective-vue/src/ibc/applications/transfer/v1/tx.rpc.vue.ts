@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../../vue-query";
 import { MsgTransfer, MsgUpdateParams } from "./tx";
-import { createTransfer, createUpdateParams } from "./tx.rpc.func.ts";
+import { createTransfer, createUpdateParams } from "./tx.rpc.func";
 export const useTransfer = buildUseVueMutation<MsgTransfer, Error>({
   builderMutationFn: createTransfer
 });

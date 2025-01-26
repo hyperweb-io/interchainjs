@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate, MsgCancelUnbondingDelegation, MsgUpdateParams } from "./tx";
-import { createCreateValidator, createEditValidator, createDelegate, createBeginRedelegate, createUndelegate, createCancelUnbondingDelegation, createUpdateParams } from "./tx.rpc.func.ts";
+import { createCreateValidator, createEditValidator, createDelegate, createBeginRedelegate, createUndelegate, createCancelUnbondingDelegation, createUpdateParams } from "./tx.rpc.func";
 export const useCreateValidator = buildUseVueMutation<MsgCreateValidator, Error>({
   builderMutationFn: createCreateValidator
 });

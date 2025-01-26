@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QuerySubspacesRequest, QuerySubspacesResponse } from "./query";
-import { createGetParams, createGetSubspaces } from "./query.rpc.func.ts";
+import { createGetParams, createGetSubspaces } from "./query.rpc.func";
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
   queryKeyPrefix: "ParamsQuery"

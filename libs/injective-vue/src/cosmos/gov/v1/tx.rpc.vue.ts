@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgSubmitProposal, MsgExecLegacyContent, MsgVote, MsgVoteWeighted, MsgDeposit, MsgUpdateParams, MsgCancelProposal } from "./tx";
-import { createSubmitProposal, createExecLegacyContent, createVote, createVoteWeighted, createDeposit, createUpdateParams, createCancelProposal } from "./tx.rpc.func.ts";
+import { createSubmitProposal, createExecLegacyContent, createVote, createVoteWeighted, createDeposit, createUpdateParams, createCancelProposal } from "./tx.rpc.func";
 export const useSubmitProposal = buildUseVueMutation<MsgSubmitProposal, Error>({
   builderMutationFn: createSubmitProposal
 });

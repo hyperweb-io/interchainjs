@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgCreateFeed, MsgUpdateFeed, MsgTransmit, MsgFundFeedRewardPool, MsgWithdrawFeedRewardPool, MsgSetPayees, MsgTransferPayeeship, MsgAcceptPayeeship, MsgUpdateParams } from "./tx";
-import { createCreateFeed, createUpdateFeed, createTransmit, createFundFeedRewardPool, createWithdrawFeedRewardPool, createSetPayees, createTransferPayeeship, createAcceptPayeeship, createUpdateParams } from "./tx.rpc.func.ts";
+import { createCreateFeed, createUpdateFeed, createTransmit, createFundFeedRewardPool, createWithdrawFeedRewardPool, createSetPayees, createTransferPayeeship, createAcceptPayeeship, createUpdateParams } from "./tx.rpc.func";
 export const useCreateFeed = buildUseMutation<MsgCreateFeed, Error>({
   builderMutationFn: createCreateFeed
 });

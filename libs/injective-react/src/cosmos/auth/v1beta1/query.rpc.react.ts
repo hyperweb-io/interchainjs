@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, QueryAccountInfoRequest, QueryAccountInfoResponse } from "./query";
-import { createGetAccounts, createGetAccount, createGetAccountAddressByID, createGetParams, createGetModuleAccounts, createGetModuleAccountByName, createGetBech32Prefix, createGetAddressBytesToString, createGetAddressStringToBytes, createGetAccountInfo } from "./query.rpc.func.ts";
+import { createGetAccounts, createGetAccount, createGetAccountAddressByID, createGetParams, createGetModuleAccounts, createGetModuleAccountByName, createGetBech32Prefix, createGetAddressBytesToString, createGetAddressStringToBytes, createGetAccountInfo } from "./query.rpc.func";
 export const useGetAccounts = buildUseQuery<QueryAccountsRequest, QueryAccountsResponse>({
   builderQueryFn: createGetAccounts,
   queryKeyPrefix: "AccountsQuery"

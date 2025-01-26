@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../../vue-query";
 import { MsgConnectionOpenInit, MsgConnectionOpenTry, MsgConnectionOpenAck, MsgConnectionOpenConfirm, MsgUpdateParams } from "./tx";
-import { createConnectionOpenInit, createConnectionOpenTry, createConnectionOpenAck, createConnectionOpenConfirm, createUpdateConnectionParams } from "./tx.rpc.func.ts";
+import { createConnectionOpenInit, createConnectionOpenTry, createConnectionOpenAck, createConnectionOpenConfirm, createUpdateConnectionParams } from "./tx.rpc.func";
 export const useConnectionOpenInit = buildUseVueMutation<MsgConnectionOpenInit, Error>({
   builderMutationFn: createConnectionOpenInit
 });

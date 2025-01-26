@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../../react-query";
 import { GetNodeInfoRequest, GetNodeInfoResponse, GetSyncingRequest, GetSyncingResponse, GetLatestBlockRequest, GetLatestBlockResponse, GetBlockByHeightRequest, GetBlockByHeightResponse, GetLatestValidatorSetRequest, GetLatestValidatorSetResponse, GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse, ABCIQueryRequest, ABCIQueryResponse } from "./query";
-import { createGetGetNodeInfo, createGetGetSyncing, createGetGetLatestBlock, createGetGetBlockByHeight, createGetGetLatestValidatorSet, createGetGetValidatorSetByHeight, createGetABCIQuery } from "./query.rpc.func.ts";
+import { createGetGetNodeInfo, createGetGetSyncing, createGetGetLatestBlock, createGetGetBlockByHeight, createGetGetLatestValidatorSet, createGetGetValidatorSetByHeight, createGetABCIQuery } from "./query.rpc.func";
 export const useGetGetNodeInfo = buildUseQuery<GetNodeInfoRequest, GetNodeInfoResponse>({
   builderQueryFn: createGetGetNodeInfo,
   queryKeyPrefix: "GetNodeInfoQuery"

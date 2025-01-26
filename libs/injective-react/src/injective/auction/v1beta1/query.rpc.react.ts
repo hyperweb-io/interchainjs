@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryAuctionParamsRequest, QueryAuctionParamsResponse, QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryLastAuctionResultRequest, QueryLastAuctionResultResponse } from "./query";
-import { createGetAuctionParams, createGetCurrentAuctionBasket, createGetAuctionModuleState, createGetLastAuctionResult } from "./query.rpc.func.ts";
+import { createGetAuctionParams, createGetCurrentAuctionBasket, createGetAuctionModuleState, createGetLastAuctionResult } from "./query.rpc.func";
 export const useGetAuctionParams = buildUseQuery<QueryAuctionParamsRequest, QueryAuctionParamsResponse>({
   builderQueryFn: createGetAuctionParams,
   queryKeyPrefix: "AuctionParamsQuery"

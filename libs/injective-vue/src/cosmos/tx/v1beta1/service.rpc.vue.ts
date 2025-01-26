@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, BroadcastTxRequest, BroadcastTxResponse, GetTxsEventRequest, GetTxsEventResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeRequest, TxEncodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxDecodeAminoRequest, TxDecodeAminoResponse } from "./service";
-import { createGetSimulate, createGetGetTx, createGetBroadcastTx, createGetGetTxsEvent, createGetGetBlockWithTxs, createGetTxDecode, createGetTxEncode, createGetTxEncodeAmino, createGetTxDecodeAmino } from "./service.rpc.func.ts";
+import { createGetSimulate, createGetGetTx, createGetBroadcastTx, createGetGetTxsEvent, createGetGetBlockWithTxs, createGetTxDecode, createGetTxEncode, createGetTxEncodeAmino, createGetTxDecodeAmino } from "./service.rpc.func";
 export const useGetSimulate = buildUseVueQuery<SimulateRequest, SimulateResponse>({
   builderQueryFn: createGetSimulate,
   queryKeyPrefix: "SimulateQuery"

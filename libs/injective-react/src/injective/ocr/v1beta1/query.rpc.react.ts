@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryFeedConfigRequest, QueryFeedConfigResponse, QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse, QueryLatestRoundRequest, QueryLatestRoundResponse, QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse, QueryOwedAmountRequest, QueryOwedAmountResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-import { createGetParams, createGetFeedConfig, createGetFeedConfigInfo, createGetLatestRound, createGetLatestTransmissionDetails, createGetOwedAmount, createGetOcrModuleState } from "./query.rpc.func.ts";
+import { createGetParams, createGetFeedConfig, createGetFeedConfigInfo, createGetLatestRound, createGetLatestTransmissionDetails, createGetOwedAmount, createGetOcrModuleState } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
   queryKeyPrefix: "ParamsQuery"

@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgCreateVestingAccount, MsgCreatePermanentLockedAccount, MsgCreatePeriodicVestingAccount } from "./tx";
-import { createCreateVestingAccount, createCreatePermanentLockedAccount, createCreatePeriodicVestingAccount } from "./tx.rpc.func.ts";
+import { createCreateVestingAccount, createCreatePermanentLockedAccount, createCreatePeriodicVestingAccount } from "./tx.rpc.func";
 export const useCreateVestingAccount = buildUseVueMutation<MsgCreateVestingAccount, Error>({
   builderMutationFn: createCreateVestingAccount
 });

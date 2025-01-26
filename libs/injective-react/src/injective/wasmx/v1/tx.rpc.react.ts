@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgUpdateContract, MsgActivateContract, MsgDeactivateContract, MsgExecuteContractCompat, MsgUpdateParams, MsgRegisterContract } from "./tx";
-import { createUpdateRegistryContractParams, createActivateRegistryContract, createDeactivateRegistryContract, createExecuteContractCompat, createUpdateParams, createRegisterContract } from "./tx.rpc.func.ts";
+import { createUpdateRegistryContractParams, createActivateRegistryContract, createDeactivateRegistryContract, createExecuteContractCompat, createUpdateParams, createRegisterContract } from "./tx.rpc.func";
 export const useUpdateRegistryContractParams = buildUseMutation<MsgUpdateContract, Error>({
   builderMutationFn: createUpdateRegistryContractParams
 });

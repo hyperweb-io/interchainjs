@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx";
-import { createGrantAllowance, createRevokeAllowance, createPruneAllowances } from "./tx.rpc.func.ts";
+import { createGrantAllowance, createRevokeAllowance, createPruneAllowances } from "./tx.rpc.func";
 export const useGrantAllowance = buildUseVueMutation<MsgGrantAllowance, Error>({
   builderMutationFn: createGrantAllowance
 });

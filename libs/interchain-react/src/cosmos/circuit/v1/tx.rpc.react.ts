@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgAuthorizeCircuitBreaker, MsgTripCircuitBreaker, MsgResetCircuitBreaker } from "./tx";
-import { createAuthorizeCircuitBreaker, createTripCircuitBreaker, createResetCircuitBreaker } from "./tx.rpc.func.ts";
+import { createAuthorizeCircuitBreaker, createTripCircuitBreaker, createResetCircuitBreaker } from "./tx.rpc.func";
 export const useAuthorizeCircuitBreaker = buildUseMutation<MsgAuthorizeCircuitBreaker, Error>({
   builderMutationFn: createAuthorizeCircuitBreaker
 });

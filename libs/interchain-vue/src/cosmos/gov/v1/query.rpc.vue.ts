@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryConstitutionRequest, QueryConstitutionResponse, QueryProposalRequest, QueryProposalResponse, QueryProposalsRequest, QueryProposalsResponse, QueryVoteRequest, QueryVoteResponse, QueryVotesRequest, QueryVotesResponse, QueryParamsRequest, QueryParamsResponse, QueryDepositRequest, QueryDepositResponse, QueryDepositsRequest, QueryDepositsResponse, QueryTallyResultRequest, QueryTallyResultResponse } from "./query";
-import { createGetConstitution, createGetProposal, createGetProposals, createGetVote, createGetVotes, createGetParams, createGetDeposit, createGetDeposits, createGetTallyResult } from "./query.rpc.func.ts";
+import { createGetConstitution, createGetProposal, createGetProposals, createGetVote, createGetVotes, createGetParams, createGetDeposit, createGetDeposits, createGetTallyResult } from "./query.rpc.func";
 export const useGetConstitution = buildUseVueQuery<QueryConstitutionRequest, QueryConstitutionResponse>({
   builderQueryFn: createGetConstitution,
   queryKeyPrefix: "ConstitutionQuery"

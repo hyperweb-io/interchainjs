@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse, QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse, QueryValidatorCommissionRequest, QueryValidatorCommissionResponse, QueryValidatorSlashesRequest, QueryValidatorSlashesResponse, QueryDelegationRewardsRequest, QueryDelegationRewardsResponse, QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse, QueryCommunityPoolRequest, QueryCommunityPoolResponse } from "./query";
-import { createGetParams, createGetValidatorDistributionInfo, createGetValidatorOutstandingRewards, createGetValidatorCommission, createGetValidatorSlashes, createGetDelegationRewards, createGetDelegationTotalRewards, createGetDelegatorValidators, createGetDelegatorWithdrawAddress, createGetCommunityPool } from "./query.rpc.func.ts";
+import { createGetParams, createGetValidatorDistributionInfo, createGetValidatorOutstandingRewards, createGetValidatorCommission, createGetValidatorSlashes, createGetDelegationRewards, createGetDelegationTotalRewards, createGetDelegatorValidators, createGetDelegatorWithdrawAddress, createGetCommunityPool } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: createGetParams,
   queryKeyPrefix: "ParamsQuery"

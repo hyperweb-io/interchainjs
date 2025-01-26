@@ -1,6 +1,6 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgAuthorizeCircuitBreaker, MsgTripCircuitBreaker, MsgResetCircuitBreaker } from "./tx";
-import { createAuthorizeCircuitBreaker, createTripCircuitBreaker, createResetCircuitBreaker } from "./tx.rpc.func.ts";
+import { createAuthorizeCircuitBreaker, createTripCircuitBreaker, createResetCircuitBreaker } from "./tx.rpc.func";
 export const useAuthorizeCircuitBreaker = buildUseVueMutation<MsgAuthorizeCircuitBreaker, Error>({
   builderMutationFn: createAuthorizeCircuitBreaker
 });

@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { ConfigRequest, ConfigResponse, StatusRequest, StatusResponse } from "./query";
-import { createGetConfig, createGetStatus } from "./query.rpc.func.ts";
+import { createGetConfig, createGetStatus } from "./query.rpc.func";
 export const useGetConfig = buildUseVueQuery<ConfigRequest, ConfigResponse>({
   builderQueryFn: createGetConfig,
   queryKeyPrefix: "ConfigQuery"

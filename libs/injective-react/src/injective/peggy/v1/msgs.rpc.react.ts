@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgValsetConfirm, MsgSendToEth, MsgRequestBatch, MsgConfirmBatch, MsgDepositClaim, MsgWithdrawClaim, MsgValsetUpdatedClaim, MsgERC20DeployedClaim, MsgSetOrchestratorAddresses, MsgCancelSendToEth, MsgSubmitBadSignatureEvidence, MsgUpdateParams, MsgBlacklistEthereumAddresses, MsgRevokeEthereumBlacklist } from "./msgs";
-import { createValsetConfirm, createSendToEth, createRequestBatch, createConfirmBatch, createDepositClaim, createWithdrawClaim, createValsetUpdateClaim, createERC20DeployedClaim, createSetOrchestratorAddresses, createCancelSendToEth, createSubmitBadSignatureEvidence, createUpdateParams, createBlacklistEthereumAddresses, createRevokeEthereumBlacklist } from "./msgs.rpc.func.ts";
+import { createValsetConfirm, createSendToEth, createRequestBatch, createConfirmBatch, createDepositClaim, createWithdrawClaim, createValsetUpdateClaim, createERC20DeployedClaim, createSetOrchestratorAddresses, createCancelSendToEth, createSubmitBadSignatureEvidence, createUpdateParams, createBlacklistEthereumAddresses, createRevokeEthereumBlacklist } from "./msgs.rpc.func";
 export const useValsetConfirm = buildUseMutation<MsgValsetConfirm, Error>({
   builderMutationFn: createValsetConfirm
 });
