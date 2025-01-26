@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.7](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/react@1.7.6...@interchainjs/react@1.7.7) (2025-01-26)
+
+**Note:** Version bump only for package @interchainjs/react
+
 ## [1.7.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/react@1.7.5...@interchainjs/react@1.7.6) (2025-01-22)
 
 **Note:** Version bump only for package @interchainjs/react

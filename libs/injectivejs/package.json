@@ -1,6 +1,6 @@
 {
   "name": "injectivejs",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "description": "Injectivejs is a JavaScript library for interacting with injective sdk.",
   "main": "index.js",
   "module": "esm/index.js",
@@ -25,7 +25,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "1.7.6",
+    "@interchainjs/cosmos": "^1.7.7",
     "@interchainjs/cosmos-types": "1.7.6",
     "@interchainjs/types": "1.7.6",
     "@interchainjs/utils": "1.7.6",
