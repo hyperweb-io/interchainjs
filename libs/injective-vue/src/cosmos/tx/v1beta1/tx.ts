@@ -5,7 +5,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {
   /** body is the processable content of the transaction */
@@ -21,11 +20,6 @@ export interface Tx {
    * public key and signing mode by position.
    */
   signatures: Uint8Array[];
-}
-export interface ReactiveTx {
-  body?: ComputedRef<TxBody>;
-  authInfo?: ComputedRef<AuthInfo>;
-  signatures: ComputedRef<Uint8Array[]>;
 }
 export interface TxProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.Tx";
@@ -75,11 +69,6 @@ export interface TxRaw {
    * public key and signing mode by position.
    */
   signatures: Uint8Array[];
-}
-export interface ReactiveTxRaw {
-  bodyBytes: ComputedRef<Uint8Array>;
-  authInfoBytes: ComputedRef<Uint8Array>;
-  signatures: ComputedRef<Uint8Array[]>;
 }
 export interface TxRawProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxRaw";
@@ -134,12 +123,6 @@ export interface SignDoc {
   chainId: string;
   /** account_number is the account number of the account in state */
   accountNumber: bigint;
-}
-export interface ReactiveSignDoc {
-  bodyBytes: ComputedRef<Uint8Array>;
-  authInfoBytes: ComputedRef<Uint8Array>;
-  chainId: ComputedRef<string>;
-  accountNumber: ComputedRef<bigint>;
 }
 export interface SignDocProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.SignDoc";
@@ -197,14 +180,6 @@ export interface SignDocDirectAux {
   /** tips have been depreacted and should not be used */
   /** @deprecated */
   tip?: Tip;
-}
-export interface ReactiveSignDocDirectAux {
-  bodyBytes: ComputedRef<Uint8Array>;
-  publicKey?: ComputedRef<Any>;
-  chainId: ComputedRef<string>;
-  accountNumber: ComputedRef<bigint>;
-  sequence: ComputedRef<bigint>;
-  tip?: ComputedRef<Tip>;
 }
 export interface SignDocDirectAuxProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.SignDocDirectAux";
@@ -277,13 +252,6 @@ export interface TxBody {
    * and can't be handled, they will be ignored
    */
   nonCriticalExtensionOptions: Any[];
-}
-export interface ReactiveTxBody {
-  messages: ComputedRef<Any[]>;
-  memo: ComputedRef<string>;
-  timeoutHeight: ComputedRef<bigint>;
-  extensionOptions: ComputedRef<Any[]>;
-  nonCriticalExtensionOptions: ComputedRef<Any[]>;
 }
 export interface TxBodyProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxBody";
@@ -359,11 +327,6 @@ export interface AuthInfo {
   /** @deprecated */
   tip?: Tip;
 }
-export interface ReactiveAuthInfo {
-  signerInfos: ComputedRef<SignerInfo[]>;
-  fee?: ComputedRef<Fee>;
-  tip?: ComputedRef<Tip>;
-}
 export interface AuthInfoProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.AuthInfo";
   value: Uint8Array;
@@ -425,11 +388,6 @@ export interface SignerInfo {
    */
   sequence: bigint;
 }
-export interface ReactiveSignerInfo {
-  publicKey?: ComputedRef<Any>;
-  modeInfo?: ComputedRef<ModeInfo>;
-  sequence: ComputedRef<bigint>;
-}
 export interface SignerInfoProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.SignerInfo";
   value: Uint8Array;
@@ -468,10 +426,6 @@ export interface ModeInfo {
   /** multi represents a nested multisig signer */
   multi?: ModeInfo_Multi;
 }
-export interface ReactiveModeInfo {
-  single?: ComputedRef<ModeInfo_Single>;
-  multi?: ComputedRef<ModeInfo_Multi>;
-}
 export interface ModeInfoProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.ModeInfo";
   value: Uint8Array;
@@ -495,9 +449,6 @@ export interface ModeInfoAminoMsg {
 export interface ModeInfo_Single {
   /** mode is the signing mode of the single signer */
   mode: SignMode;
-}
-export interface ReactiveModeInfo_Single {
-  mode: ComputedRef<SignMode>;
 }
 export interface ModeInfo_SingleProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.Single";
@@ -525,10 +476,6 @@ export interface ModeInfo_Multi {
    * which could include nested multisig public keys
    */
   modeInfos: ModeInfo[];
-}
-export interface ReactiveModeInfo_Multi {
-  bitarray?: ComputedRef<CompactBitArray>;
-  modeInfos: ComputedRef<ModeInfo[]>;
 }
 export interface ModeInfo_MultiProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.Multi";
@@ -573,12 +520,6 @@ export interface Fee {
    * not support fee grants, this will fail
    */
   granter: string;
-}
-export interface ReactiveFee {
-  amount: ComputedRef<Coin[]>;
-  gasLimit: ComputedRef<bigint>;
-  payer: ComputedRef<string>;
-  granter: ComputedRef<string>;
 }
 export interface FeeProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.Fee";
@@ -626,10 +567,6 @@ export interface Tip {
   /** tipper is the address of the account paying for the tip */
   tipper: string;
 }
-export interface ReactiveTip {
-  amount: ComputedRef<Coin[]>;
-  tipper: ComputedRef<string>;
-}
 export interface TipProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.Tip";
   value: Uint8Array;
@@ -675,12 +612,6 @@ export interface AuxSignerData {
   mode: SignMode;
   /** sig is the signature of the sign doc. */
   sig: Uint8Array;
-}
-export interface ReactiveAuxSignerData {
-  address: ComputedRef<string>;
-  signDoc?: ComputedRef<SignDocDirectAux>;
-  mode: ComputedRef<SignMode>;
-  sig: ComputedRef<Uint8Array>;
 }
 export interface AuxSignerDataProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.AuxSignerData";

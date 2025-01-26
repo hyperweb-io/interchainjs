@@ -1,14 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object of the consensus module. */
 export interface Module {
   /** authority defines the custom module authority. If not set, defaults to the governance module. */
   authority: string;
-}
-export interface ReactiveModule {
-  authority: ComputedRef<string>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.consensus.module.v1.Module";

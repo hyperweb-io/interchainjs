@@ -2,17 +2,12 @@ import { Minter, MinterAmino, Params, ParamsAmino } from "./mint";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisState {
   /** minter is a space for holding current inflation information. */
   minter: Minter;
   /** params defines all the parameters of the module. */
   params: Params;
-}
-export interface ReactiveGenesisState {
-  minter: ComputedRef<Minter>;
-  params: ComputedRef<Params>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.GenesisState";

@@ -3,18 +3,11 @@ import { EvidenceList, EvidenceListAmino } from "./evidence";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial } from "../../helpers";
-import { ComputedRef } from "vue";
 export interface Block {
   header: Header;
   data: Data;
   evidence: EvidenceList;
   lastCommit?: Commit;
-}
-export interface ReactiveBlock {
-  header: ComputedRef<Header>;
-  data: ComputedRef<Data>;
-  evidence: ComputedRef<EvidenceList>;
-  lastCommit?: ComputedRef<Commit>;
 }
 export interface BlockProtoMsg {
   typeUrl: "/tendermint.types.Block";

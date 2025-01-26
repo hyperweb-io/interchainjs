@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object for the runtime module. */
 export interface Module {
   /** app_name is the name of the app. */
@@ -53,17 +52,6 @@ export interface Module {
    * no preparecheckstate function will be registered.
    */
   prepareCheckStaters: string[];
-}
-export interface ReactiveModule {
-  appName: ComputedRef<string>;
-  beginBlockers: ComputedRef<string[]>;
-  endBlockers: ComputedRef<string[]>;
-  initGenesis: ComputedRef<string[]>;
-  exportGenesis: ComputedRef<string[]>;
-  overrideStoreKeys: ComputedRef<StoreKeyConfig[]>;
-  orderMigrations: ComputedRef<string[]>;
-  precommiters: ComputedRef<string[]>;
-  prepareCheckStaters: ComputedRef<string[]>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.app.runtime.v1alpha1.Module";
@@ -134,10 +122,6 @@ export interface StoreKeyConfig {
   moduleName: string;
   /** the kv store key to use instead of the module name. */
   kvStoreKey: string;
-}
-export interface ReactiveStoreKeyConfig {
-  moduleName: ComputedRef<string>;
-  kvStoreKey: ComputedRef<string>;
 }
 export interface StoreKeyConfigProtoMsg {
   typeUrl: "/cosmos.app.runtime.v1alpha1.StoreKeyConfig";

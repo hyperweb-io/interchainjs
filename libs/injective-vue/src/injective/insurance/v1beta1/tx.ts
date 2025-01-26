@@ -4,7 +4,6 @@ import { Params, ParamsAmino } from "./insurance";
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgCreateInsuranceFund a message to create an insurance fund for a derivative
  * market.
@@ -35,16 +34,6 @@ export interface MsgCreateInsuranceFund {
   expiry: bigint;
   /** Initial deposit of the insurance fund */
   initialDeposit: Coin;
-}
-export interface ReactiveMsgCreateInsuranceFund {
-  sender: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  expiry: ComputedRef<bigint>;
-  initialDeposit: ComputedRef<Coin>;
 }
 export interface MsgCreateInsuranceFundProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFund";
@@ -86,7 +75,6 @@ export interface MsgCreateInsuranceFundAminoMsg {
   value: MsgCreateInsuranceFundAmino;
 }
 export interface MsgCreateInsuranceFundResponse {}
-export interface ReactiveMsgCreateInsuranceFundResponse {}
 export interface MsgCreateInsuranceFundResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFundResponse";
   value: Uint8Array;
@@ -107,11 +95,6 @@ export interface MsgUnderwrite {
   marketId: string;
   /** Amount of quote_denom to underwrite the insurance fund. */
   deposit: Coin;
-}
-export interface ReactiveMsgUnderwrite {
-  sender: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  deposit: ComputedRef<Coin>;
 }
 export interface MsgUnderwriteProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUnderwrite";
@@ -134,7 +117,6 @@ export interface MsgUnderwriteAminoMsg {
   value: MsgUnderwriteAmino;
 }
 export interface MsgUnderwriteResponse {}
-export interface ReactiveMsgUnderwriteResponse {}
 export interface MsgUnderwriteResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUnderwriteResponse";
   value: Uint8Array;
@@ -155,11 +137,6 @@ export interface MsgRequestRedemption {
   marketId: string;
   /** Insurance fund share token amount to be redeemed. */
   amount: Coin;
-}
-export interface ReactiveMsgRequestRedemption {
-  sender: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgRequestRedemptionProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemption";
@@ -182,7 +159,6 @@ export interface MsgRequestRedemptionAminoMsg {
   value: MsgRequestRedemptionAmino;
 }
 export interface MsgRequestRedemptionResponse {}
-export interface ReactiveMsgRequestRedemptionResponse {}
 export interface MsgRequestRedemptionResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemptionResponse";
   value: Uint8Array;
@@ -201,10 +177,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUpdateParams";
@@ -225,7 +197,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

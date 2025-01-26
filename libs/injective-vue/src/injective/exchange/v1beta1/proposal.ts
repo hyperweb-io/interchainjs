@@ -4,7 +4,6 @@ import { CommunityPoolSpendProposal, CommunityPoolSpendProposalAmino } from "../
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export enum ExchangeType {
   EXCHANGE_UNSPECIFIED = 0,
   SPOT = 1,
@@ -74,20 +73,6 @@ export interface SpotMarketParamUpdateProposal {
   minNotional?: string;
   adminInfo?: AdminInfo;
 }
-export interface ReactiveSpotMarketParamUpdateProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  makerFeeRate?: ComputedRef<string>;
-  takerFeeRate?: ComputedRef<string>;
-  relayerFeeShareRate?: ComputedRef<string>;
-  minPriceTickSize?: ComputedRef<string>;
-  minQuantityTickSize?: ComputedRef<string>;
-  status: ComputedRef<MarketStatus>;
-  ticker?: ComputedRef<string>;
-  minNotional?: ComputedRef<string>;
-  adminInfo?: ComputedRef<AdminInfo>;
-}
 export interface SpotMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal";
   value: Uint8Array;
@@ -133,11 +118,6 @@ export interface ExchangeEnableProposal {
   description: string;
   exchangeType: ExchangeType;
 }
-export interface ReactiveExchangeEnableProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  exchangeType: ComputedRef<ExchangeType>;
-}
 export interface ExchangeEnableProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ExchangeEnableProposal";
   value: Uint8Array;
@@ -165,21 +145,6 @@ export interface BatchExchangeModificationProposal {
   denomDecimalsUpdateProposal?: UpdateDenomDecimalsProposal;
   feeDiscountProposal?: FeeDiscountProposal;
   marketForcedSettlementProposals: MarketForcedSettlementProposal[];
-}
-export interface ReactiveBatchExchangeModificationProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  spotMarketParamUpdateProposals: ComputedRef<SpotMarketParamUpdateProposal[]>;
-  derivativeMarketParamUpdateProposals: ComputedRef<DerivativeMarketParamUpdateProposal[]>;
-  spotMarketLaunchProposals: ComputedRef<SpotMarketLaunchProposal[]>;
-  perpetualMarketLaunchProposals: ComputedRef<PerpetualMarketLaunchProposal[]>;
-  expiryFuturesMarketLaunchProposals: ComputedRef<ExpiryFuturesMarketLaunchProposal[]>;
-  tradingRewardCampaignUpdateProposal?: ComputedRef<TradingRewardCampaignUpdateProposal>;
-  binaryOptionsMarketLaunchProposals: ComputedRef<BinaryOptionsMarketLaunchProposal[]>;
-  binaryOptionsParamUpdateProposals: ComputedRef<BinaryOptionsMarketParamUpdateProposal[]>;
-  denomDecimalsUpdateProposal?: ComputedRef<UpdateDenomDecimalsProposal>;
-  feeDiscountProposal?: ComputedRef<FeeDiscountProposal>;
-  marketForcedSettlementProposals: ComputedRef<MarketForcedSettlementProposal[]>;
 }
 export interface BatchExchangeModificationProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal";
@@ -231,19 +196,6 @@ export interface SpotMarketLaunchProposal {
   /** min_notional defines the minimum notional for orders in the market */
   minNotional: string;
   adminInfo?: AdminInfo;
-}
-export interface ReactiveSpotMarketLaunchProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  baseDenom: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  makerFeeRate?: ComputedRef<string>;
-  takerFeeRate?: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  adminInfo?: ComputedRef<AdminInfo>;
 }
 export interface SpotMarketLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal";
@@ -336,24 +288,6 @@ export interface PerpetualMarketLaunchProposal {
    */
   minNotional: string;
   adminInfo?: AdminInfo;
-}
-export interface ReactivePerpetualMarketLaunchProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleScaleFactor: ComputedRef<number>;
-  oracleType: ComputedRef<OracleType>;
-  initialMarginRatio: ComputedRef<string>;
-  maintenanceMarginRatio: ComputedRef<string>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  adminInfo?: ComputedRef<AdminInfo>;
 }
 export interface PerpetualMarketLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal";
@@ -460,25 +394,6 @@ export interface BinaryOptionsMarketLaunchProposal {
    */
   minNotional: string;
   adminPermissions: number;
-}
-export interface ReactiveBinaryOptionsMarketLaunchProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  oracleSymbol: ComputedRef<string>;
-  oracleProvider: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  oracleScaleFactor: ComputedRef<number>;
-  expirationTimestamp: ComputedRef<bigint>;
-  settlementTimestamp: ComputedRef<bigint>;
-  admin: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  adminPermissions: ComputedRef<number>;
 }
 export interface BinaryOptionsMarketLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal";
@@ -587,25 +502,6 @@ export interface ExpiryFuturesMarketLaunchProposal {
    */
   minNotional: string;
   adminInfo?: AdminInfo;
-}
-export interface ReactiveExpiryFuturesMarketLaunchProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleScaleFactor: ComputedRef<number>;
-  oracleType: ComputedRef<OracleType>;
-  expiry: ComputedRef<bigint>;
-  initialMarginRatio: ComputedRef<string>;
-  maintenanceMarginRatio: ComputedRef<string>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  adminInfo?: ComputedRef<AdminInfo>;
 }
 export interface ExpiryFuturesMarketLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal";
@@ -729,25 +625,6 @@ export interface DerivativeMarketParamUpdateProposal {
   minNotional?: string;
   adminInfo?: AdminInfo;
 }
-export interface ReactiveDerivativeMarketParamUpdateProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  initialMarginRatio?: ComputedRef<string>;
-  maintenanceMarginRatio?: ComputedRef<string>;
-  makerFeeRate?: ComputedRef<string>;
-  takerFeeRate?: ComputedRef<string>;
-  relayerFeeShareRate?: ComputedRef<string>;
-  minPriceTickSize?: ComputedRef<string>;
-  minQuantityTickSize?: ComputedRef<string>;
-  hourlyInterestRate?: ComputedRef<string>;
-  hourlyFundingRateCap?: ComputedRef<string>;
-  status: ComputedRef<MarketStatus>;
-  oracleParams?: ComputedRef<OracleParams>;
-  ticker?: ComputedRef<string>;
-  minNotional?: ComputedRef<string>;
-  adminInfo?: ComputedRef<AdminInfo>;
-}
 export interface DerivativeMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal";
   value: Uint8Array;
@@ -816,10 +693,6 @@ export interface AdminInfo {
   admin: string;
   adminPermissions: number;
 }
-export interface ReactiveAdminInfo {
-  admin: ComputedRef<string>;
-  adminPermissions: ComputedRef<number>;
-}
 export interface AdminInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AdminInfo";
   value: Uint8Array;
@@ -837,12 +710,6 @@ export interface MarketForcedSettlementProposal {
   description: string;
   marketId: string;
   settlementPrice?: string;
-}
-export interface ReactiveMarketForcedSettlementProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  settlementPrice?: ComputedRef<string>;
 }
 export interface MarketForcedSettlementProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MarketForcedSettlementProposal";
@@ -862,11 +729,6 @@ export interface UpdateDenomDecimalsProposal {
   title: string;
   description: string;
   denomDecimals: DenomDecimals[];
-}
-export interface ReactiveUpdateDenomDecimalsProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  denomDecimals: ComputedRef<DenomDecimals[]>;
 }
 export interface UpdateDenomDecimalsProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal";
@@ -926,24 +788,6 @@ export interface BinaryOptionsMarketParamUpdateProposal {
    * orders in the market
    */
   minNotional?: string;
-}
-export interface ReactiveBinaryOptionsMarketParamUpdateProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  makerFeeRate?: ComputedRef<string>;
-  takerFeeRate?: ComputedRef<string>;
-  relayerFeeShareRate?: ComputedRef<string>;
-  minPriceTickSize?: ComputedRef<string>;
-  minQuantityTickSize?: ComputedRef<string>;
-  expirationTimestamp: ComputedRef<bigint>;
-  settlementTimestamp: ComputedRef<bigint>;
-  settlementPrice?: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  status: ComputedRef<MarketStatus>;
-  oracleParams?: ComputedRef<ProviderOracleParams>;
-  ticker?: ComputedRef<string>;
-  minNotional?: ComputedRef<string>;
 }
 export interface BinaryOptionsMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal";
@@ -1009,12 +853,6 @@ export interface ProviderOracleParams {
   /** Oracle type */
   oracleType: OracleType;
 }
-export interface ReactiveProviderOracleParams {
-  symbol: ComputedRef<string>;
-  provider: ComputedRef<string>;
-  oracleScaleFactor: ComputedRef<number>;
-  oracleType: ComputedRef<OracleType>;
-}
 export interface ProviderOracleParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ProviderOracleParams";
   value: Uint8Array;
@@ -1043,12 +881,6 @@ export interface OracleParams {
   /** Oracle type */
   oracleType: OracleType;
 }
-export interface ReactiveOracleParams {
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleScaleFactor: ComputedRef<number>;
-  oracleType: ComputedRef<OracleType>;
-}
 export interface OracleParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OracleParams";
   value: Uint8Array;
@@ -1073,12 +905,6 @@ export interface TradingRewardCampaignLaunchProposal {
   campaignInfo?: TradingRewardCampaignInfo;
   campaignRewardPools: CampaignRewardPool[];
 }
-export interface ReactiveTradingRewardCampaignLaunchProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  campaignInfo?: ComputedRef<TradingRewardCampaignInfo>;
-  campaignRewardPools: ComputedRef<CampaignRewardPool[]>;
-}
 export interface TradingRewardCampaignLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal";
   value: Uint8Array;
@@ -1100,13 +926,6 @@ export interface TradingRewardCampaignUpdateProposal {
   campaignRewardPoolsAdditions: CampaignRewardPool[];
   campaignRewardPoolsUpdates: CampaignRewardPool[];
 }
-export interface ReactiveTradingRewardCampaignUpdateProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  campaignInfo?: ComputedRef<TradingRewardCampaignInfo>;
-  campaignRewardPoolsAdditions: ComputedRef<CampaignRewardPool[]>;
-  campaignRewardPoolsUpdates: ComputedRef<CampaignRewardPool[]>;
-}
 export interface TradingRewardCampaignUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal";
   value: Uint8Array;
@@ -1127,10 +946,6 @@ export interface RewardPointUpdate {
   /** new_points overwrites the current trading reward points for the account */
   newPoints: string;
 }
-export interface ReactiveRewardPointUpdate {
-  accountAddress: ComputedRef<string>;
-  newPoints: ComputedRef<string>;
-}
 export interface RewardPointUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.RewardPointUpdate";
   value: Uint8Array;
@@ -1149,12 +964,6 @@ export interface TradingRewardPendingPointsUpdateProposal {
   description: string;
   pendingPoolTimestamp: bigint;
   rewardPointUpdates: RewardPointUpdate[];
-}
-export interface ReactiveTradingRewardPendingPointsUpdateProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  pendingPoolTimestamp: ComputedRef<bigint>;
-  rewardPointUpdates: ComputedRef<RewardPointUpdate[]>;
 }
 export interface TradingRewardPendingPointsUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal";
@@ -1175,11 +984,6 @@ export interface FeeDiscountProposal {
   description: string;
   schedule?: FeeDiscountSchedule;
 }
-export interface ReactiveFeeDiscountProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  schedule?: ComputedRef<FeeDiscountSchedule>;
-}
 export interface FeeDiscountProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountProposal";
   value: Uint8Array;
@@ -1197,11 +1001,6 @@ export interface BatchCommunityPoolSpendProposal {
   title: string;
   description: string;
   proposals: CommunityPoolSpendProposal[];
-}
-export interface ReactiveBatchCommunityPoolSpendProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  proposals: ComputedRef<CommunityPoolSpendProposal[]>;
 }
 export interface BatchCommunityPoolSpendProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal";
@@ -1224,11 +1023,6 @@ export interface AtomicMarketOrderFeeMultiplierScheduleProposal {
   title: string;
   description: string;
   marketFeeMultipliers: MarketFeeMultiplier[];
-}
-export interface ReactiveAtomicMarketOrderFeeMultiplierScheduleProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  marketFeeMultipliers: ComputedRef<MarketFeeMultiplier[]>;
 }
 export interface AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal";

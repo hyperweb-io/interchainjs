@@ -2,7 +2,6 @@ import { Permissions, PermissionsAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type. */
 export interface MsgAuthorizeCircuitBreaker {
   /**
@@ -18,11 +17,6 @@ export interface MsgAuthorizeCircuitBreaker {
    * be specified to revoke all permissions.
    */
   permissions?: Permissions;
-}
-export interface ReactiveMsgAuthorizeCircuitBreaker {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  permissions?: ComputedRef<Permissions>;
 }
 export interface MsgAuthorizeCircuitBreakerProtoMsg {
   typeUrl: "/cosmos.circuit.v1.MsgAuthorizeCircuitBreaker";
@@ -52,9 +46,6 @@ export interface MsgAuthorizeCircuitBreakerAminoMsg {
 export interface MsgAuthorizeCircuitBreakerResponse {
   success: boolean;
 }
-export interface ReactiveMsgAuthorizeCircuitBreakerResponse {
-  success: ComputedRef<boolean>;
-}
 export interface MsgAuthorizeCircuitBreakerResponseProtoMsg {
   typeUrl: "/cosmos.circuit.v1.MsgAuthorizeCircuitBreakerResponse";
   value: Uint8Array;
@@ -79,10 +70,6 @@ export interface MsgTripCircuitBreaker {
    * (or all URLs), the operation will fail.
    */
   msgTypeUrls: string[];
-}
-export interface ReactiveMsgTripCircuitBreaker {
-  authority: ComputedRef<string>;
-  msgTypeUrls: ComputedRef<string[]>;
 }
 export interface MsgTripCircuitBreakerProtoMsg {
   typeUrl: "/cosmos.circuit.v1.MsgTripCircuitBreaker";
@@ -109,9 +96,6 @@ export interface MsgTripCircuitBreakerAminoMsg {
 export interface MsgTripCircuitBreakerResponse {
   success: boolean;
 }
-export interface ReactiveMsgTripCircuitBreakerResponse {
-  success: ComputedRef<boolean>;
-}
 export interface MsgTripCircuitBreakerResponseProtoMsg {
   typeUrl: "/cosmos.circuit.v1.MsgTripCircuitBreakerResponse";
   value: Uint8Array;
@@ -135,10 +119,6 @@ export interface MsgResetCircuitBreaker {
    */
   msgTypeUrls: string[];
 }
-export interface ReactiveMsgResetCircuitBreaker {
-  authority: ComputedRef<string>;
-  msgTypeUrls: ComputedRef<string[]>;
-}
 export interface MsgResetCircuitBreakerProtoMsg {
   typeUrl: "/cosmos.circuit.v1.MsgResetCircuitBreaker";
   value: Uint8Array;
@@ -161,9 +141,6 @@ export interface MsgResetCircuitBreakerAminoMsg {
 /** MsgResetCircuitBreakerResponse defines the Msg/ResetCircuitBreaker response type. */
 export interface MsgResetCircuitBreakerResponse {
   success: boolean;
-}
-export interface ReactiveMsgResetCircuitBreakerResponse {
-  success: ComputedRef<boolean>;
 }
 export interface MsgResetCircuitBreakerResponseProtoMsg {
   typeUrl: "/cosmos.circuit.v1.MsgResetCircuitBreakerResponse";

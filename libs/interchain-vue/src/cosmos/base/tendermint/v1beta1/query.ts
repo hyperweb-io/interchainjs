@@ -9,16 +9,11 @@ import { DefaultNodeInfo, DefaultNodeInfoAmino } from "../../../../tendermint/p2
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightRequest {
   height: bigint;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveGetValidatorSetByHeightRequest {
-  height: ComputedRef<bigint>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface GetValidatorSetByHeightRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightRequest";
@@ -41,11 +36,6 @@ export interface GetValidatorSetByHeightResponse {
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveGetValidatorSetByHeightResponse {
-  blockHeight: ComputedRef<bigint>;
-  validators: ComputedRef<Validator[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface GetValidatorSetByHeightResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetValidatorSetByHeightResponse";
   value: Uint8Array;
@@ -66,9 +56,6 @@ export interface GetLatestValidatorSetRequest {
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
 }
-export interface ReactiveGetLatestValidatorSetRequest {
-  pagination?: ComputedRef<PageRequest>;
-}
 export interface GetLatestValidatorSetRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestValidatorSetRequest";
   value: Uint8Array;
@@ -88,11 +75,6 @@ export interface GetLatestValidatorSetResponse {
   validators: Validator[];
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveGetLatestValidatorSetResponse {
-  blockHeight: ComputedRef<bigint>;
-  validators: ComputedRef<Validator[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface GetLatestValidatorSetResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestValidatorSetResponse";
@@ -116,12 +98,6 @@ export interface Validator {
   votingPower: bigint;
   proposerPriority: bigint;
 }
-export interface ReactiveValidator {
-  address: ComputedRef<string>;
-  pubKey?: ComputedRef<Any>;
-  votingPower: ComputedRef<bigint>;
-  proposerPriority: ComputedRef<bigint>;
-}
 export interface ValidatorProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Validator";
   value: Uint8Array;
@@ -140,9 +116,6 @@ export interface ValidatorAminoMsg {
 /** GetBlockByHeightRequest is the request type for the Query/GetBlockByHeight RPC method. */
 export interface GetBlockByHeightRequest {
   height: bigint;
-}
-export interface ReactiveGetBlockByHeightRequest {
-  height: ComputedRef<bigint>;
 }
 export interface GetBlockByHeightRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetBlockByHeightRequest";
@@ -164,11 +137,6 @@ export interface GetBlockByHeightResponse {
   /** Since: cosmos-sdk 0.47 */
   sdkBlock?: Block2;
 }
-export interface ReactiveGetBlockByHeightResponse {
-  blockId?: ComputedRef<BlockID>;
-  block?: ComputedRef<Block1>;
-  sdkBlock?: ComputedRef<Block2>;
-}
 export interface GetBlockByHeightResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetBlockByHeightResponse";
   value: Uint8Array;
@@ -187,7 +155,6 @@ export interface GetBlockByHeightResponseAminoMsg {
 }
 /** GetLatestBlockRequest is the request type for the Query/GetLatestBlock RPC method. */
 export interface GetLatestBlockRequest {}
-export interface ReactiveGetLatestBlockRequest {}
 export interface GetLatestBlockRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestBlockRequest";
   value: Uint8Array;
@@ -205,11 +172,6 @@ export interface GetLatestBlockResponse {
   block?: Block1;
   /** Since: cosmos-sdk 0.47 */
   sdkBlock?: Block2;
-}
-export interface ReactiveGetLatestBlockResponse {
-  blockId?: ComputedRef<BlockID>;
-  block?: ComputedRef<Block1>;
-  sdkBlock?: ComputedRef<Block2>;
 }
 export interface GetLatestBlockResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetLatestBlockResponse";
@@ -229,7 +191,6 @@ export interface GetLatestBlockResponseAminoMsg {
 }
 /** GetSyncingRequest is the request type for the Query/GetSyncing RPC method. */
 export interface GetSyncingRequest {}
-export interface ReactiveGetSyncingRequest {}
 export interface GetSyncingRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetSyncingRequest";
   value: Uint8Array;
@@ -243,9 +204,6 @@ export interface GetSyncingRequestAminoMsg {
 /** GetSyncingResponse is the response type for the Query/GetSyncing RPC method. */
 export interface GetSyncingResponse {
   syncing: boolean;
-}
-export interface ReactiveGetSyncingResponse {
-  syncing: ComputedRef<boolean>;
 }
 export interface GetSyncingResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetSyncingResponse";
@@ -261,7 +219,6 @@ export interface GetSyncingResponseAminoMsg {
 }
 /** GetNodeInfoRequest is the request type for the Query/GetNodeInfo RPC method. */
 export interface GetNodeInfoRequest {}
-export interface ReactiveGetNodeInfoRequest {}
 export interface GetNodeInfoRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetNodeInfoRequest";
   value: Uint8Array;
@@ -276,10 +233,6 @@ export interface GetNodeInfoRequestAminoMsg {
 export interface GetNodeInfoResponse {
   defaultNodeInfo?: DefaultNodeInfo;
   applicationVersion?: VersionInfo;
-}
-export interface ReactiveGetNodeInfoResponse {
-  defaultNodeInfo?: ComputedRef<DefaultNodeInfo>;
-  applicationVersion?: ComputedRef<VersionInfo>;
 }
 export interface GetNodeInfoResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.GetNodeInfoResponse";
@@ -305,16 +258,6 @@ export interface VersionInfo {
   buildDeps: Module[];
   /** Since: cosmos-sdk 0.43 */
   cosmosSdkVersion: string;
-}
-export interface ReactiveVersionInfo {
-  name: ComputedRef<string>;
-  appName: ComputedRef<string>;
-  version: ComputedRef<string>;
-  gitCommit: ComputedRef<string>;
-  buildTags: ComputedRef<string>;
-  goVersion: ComputedRef<string>;
-  buildDeps: ComputedRef<Module[]>;
-  cosmosSdkVersion: ComputedRef<string>;
 }
 export interface VersionInfoProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.VersionInfo";
@@ -345,11 +288,6 @@ export interface Module {
   /** checksum */
   sum: string;
 }
-export interface ReactiveModule {
-  path: ComputedRef<string>;
-  version: ComputedRef<string>;
-  sum: ComputedRef<string>;
-}
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Module";
   value: Uint8Array;
@@ -373,12 +311,6 @@ export interface ABCIQueryRequest {
   path: string;
   height: bigint;
   prove: boolean;
-}
-export interface ReactiveABCIQueryRequest {
-  data: ComputedRef<Uint8Array>;
-  path: ComputedRef<string>;
-  height: ComputedRef<bigint>;
-  prove: ComputedRef<boolean>;
 }
 export interface ABCIQueryRequestProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.ABCIQueryRequest";
@@ -413,17 +345,6 @@ export interface ABCIQueryResponse {
   proofOps?: ProofOps;
   height: bigint;
   codespace: string;
-}
-export interface ReactiveABCIQueryResponse {
-  code: ComputedRef<number>;
-  log: ComputedRef<string>;
-  info: ComputedRef<string>;
-  index: ComputedRef<bigint>;
-  key: ComputedRef<Uint8Array>;
-  value: ComputedRef<Uint8Array>;
-  proofOps?: ComputedRef<ProofOps>;
-  height: ComputedRef<bigint>;
-  codespace: ComputedRef<string>;
 }
 export interface ABCIQueryResponseProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.ABCIQueryResponse";
@@ -464,11 +385,6 @@ export interface ProofOp {
   key: Uint8Array;
   data: Uint8Array;
 }
-export interface ReactiveProofOp {
-  type: ComputedRef<string>;
-  key: ComputedRef<Uint8Array>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface ProofOpProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.ProofOp";
   value: Uint8Array;
@@ -496,9 +412,6 @@ export interface ProofOpAminoMsg {
  */
 export interface ProofOps {
   ops: ProofOp[];
-}
-export interface ReactiveProofOps {
-  ops: ComputedRef<ProofOp[]>;
 }
 export interface ProofOpsProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.ProofOps";

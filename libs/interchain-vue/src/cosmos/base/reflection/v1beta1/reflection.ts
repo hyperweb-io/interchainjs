@@ -1,10 +1,8 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC. */
 export interface ListAllInterfacesRequest {}
-export interface ReactiveListAllInterfacesRequest {}
 export interface ListAllInterfacesRequestProtoMsg {
   typeUrl: "/cosmos.base.reflection.v1beta1.ListAllInterfacesRequest";
   value: Uint8Array;
@@ -19,9 +17,6 @@ export interface ListAllInterfacesRequestAminoMsg {
 export interface ListAllInterfacesResponse {
   /** interface_names is an array of all the registered interfaces. */
   interfaceNames: string[];
-}
-export interface ReactiveListAllInterfacesResponse {
-  interfaceNames: ComputedRef<string[]>;
 }
 export interface ListAllInterfacesResponseProtoMsg {
   typeUrl: "/cosmos.base.reflection.v1beta1.ListAllInterfacesResponse";
@@ -43,9 +38,6 @@ export interface ListAllInterfacesResponseAminoMsg {
 export interface ListImplementationsRequest {
   /** interface_name defines the interface to query the implementations for. */
   interfaceName: string;
-}
-export interface ReactiveListImplementationsRequest {
-  interfaceName: ComputedRef<string>;
 }
 export interface ListImplementationsRequestProtoMsg {
   typeUrl: "/cosmos.base.reflection.v1beta1.ListImplementationsRequest";
@@ -69,9 +61,6 @@ export interface ListImplementationsRequestAminoMsg {
  */
 export interface ListImplementationsResponse {
   implementationMessageNames: string[];
-}
-export interface ReactiveListImplementationsResponse {
-  implementationMessageNames: ComputedRef<string[]>;
 }
 export interface ListImplementationsResponseProtoMsg {
   typeUrl: "/cosmos.base.reflection.v1beta1.ListImplementationsResponse";

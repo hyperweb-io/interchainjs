@@ -2,16 +2,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface Params {
   /** auction_period_duration defines the auction period duration */
   auctionPeriod: bigint;
   /** min_next_bid_increment_rate defines the minimum increment rate for new bids */
   minNextBidIncrementRate: string;
-}
-export interface ReactiveParams {
-  auctionPeriod: ComputedRef<bigint>;
-  minNextBidIncrementRate: ComputedRef<string>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.auction.v1beta1.Params";
@@ -30,10 +25,6 @@ export interface ParamsAminoMsg {
 export interface Bid {
   bidder: string;
   amount: string;
-}
-export interface ReactiveBid {
-  bidder: ComputedRef<string>;
-  amount: ComputedRef<string>;
 }
 export interface BidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.Bid";
@@ -54,11 +45,6 @@ export interface LastAuctionResult {
   amount: string;
   /** round defines the round number of auction */
   round: bigint;
-}
-export interface ReactiveLastAuctionResult {
-  winner: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  round: ComputedRef<bigint>;
 }
 export interface LastAuctionResultProtoMsg {
   typeUrl: "/injective.auction.v1beta1.LastAuctionResult";
@@ -84,11 +70,6 @@ export interface EventBid {
   /** round defines the round number of auction */
   round: bigint;
 }
-export interface ReactiveEventBid {
-  bidder: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  round: ComputedRef<bigint>;
-}
 export interface EventBidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.EventBid";
   value: Uint8Array;
@@ -112,11 +93,6 @@ export interface EventAuctionResult {
   amount: string;
   /** round defines the round number of auction */
   round: bigint;
-}
-export interface ReactiveEventAuctionResult {
-  winner: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  round: ComputedRef<bigint>;
 }
 export interface EventAuctionResultProtoMsg {
   typeUrl: "/injective.auction.v1beta1.EventAuctionResult";
@@ -144,11 +120,6 @@ export interface EventAuctionStart {
    * start
    */
   newBasket: Coin[];
-}
-export interface ReactiveEventAuctionStart {
-  round: ComputedRef<bigint>;
-  endingTimestamp: ComputedRef<bigint>;
-  newBasket: ComputedRef<Coin[]>;
 }
 export interface EventAuctionStartProtoMsg {
   typeUrl: "/injective.auction.v1beta1.EventAuctionStart";

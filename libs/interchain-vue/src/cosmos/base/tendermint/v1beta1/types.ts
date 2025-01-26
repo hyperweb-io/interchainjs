@@ -5,7 +5,6 @@ import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * Block is tendermint type Block, with the Header proposer address
  * field converted to bech32 string.
@@ -15,12 +14,6 @@ export interface Block {
   data: Data;
   evidence: EvidenceList;
   lastCommit?: Commit;
-}
-export interface ReactiveBlock {
-  header: ComputedRef<Header>;
-  data: ComputedRef<Data>;
-  evidence: ComputedRef<EvidenceList>;
-  lastCommit?: ComputedRef<Commit>;
 }
 export interface BlockProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Block";
@@ -71,22 +64,6 @@ export interface Header {
    * for better UX.
    */
   proposerAddress: string;
-}
-export interface ReactiveHeader {
-  version: ComputedRef<Consensus>;
-  chainId: ComputedRef<string>;
-  height: ComputedRef<bigint>;
-  time: ComputedRef<Date>;
-  lastBlockId: ComputedRef<BlockID>;
-  lastCommitHash: ComputedRef<Uint8Array>;
-  dataHash: ComputedRef<Uint8Array>;
-  validatorsHash: ComputedRef<Uint8Array>;
-  nextValidatorsHash: ComputedRef<Uint8Array>;
-  consensusHash: ComputedRef<Uint8Array>;
-  appHash: ComputedRef<Uint8Array>;
-  lastResultsHash: ComputedRef<Uint8Array>;
-  evidenceHash: ComputedRef<Uint8Array>;
-  proposerAddress: ComputedRef<string>;
 }
 export interface HeaderProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Header";

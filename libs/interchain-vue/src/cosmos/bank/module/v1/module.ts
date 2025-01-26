@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object of the bank module. */
 export interface Module {
   /**
@@ -19,11 +18,6 @@ export interface Module {
    * of module names.
    */
   restrictionsOrder: string[];
-}
-export interface ReactiveModule {
-  blockedModuleAccountsOverride: ComputedRef<string[]>;
-  authority: ComputedRef<string>;
-  restrictionsOrder: ComputedRef<string[]>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.bank.module.v1.Module";

@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /**
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
  * Tendermint's PubKey interface. It represents the 33-byte compressed public
@@ -9,9 +8,6 @@ import { ComputedRef } from "vue";
  */
 export interface PubKey {
   key: Uint8Array;
-}
-export interface ReactivePubKey {
-  key: ComputedRef<Uint8Array>;
 }
 export interface PubKeyProtoMsg {
   typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey";
@@ -35,9 +31,6 @@ export interface PubKeyAminoMsg {
  */
 export interface PrivKey {
   key: Uint8Array;
-}
-export interface ReactivePrivKey {
-  key: ComputedRef<Uint8Array>;
 }
 export interface PrivKeyProtoMsg {
   typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey";

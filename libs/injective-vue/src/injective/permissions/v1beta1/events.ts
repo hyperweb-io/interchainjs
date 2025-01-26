@@ -2,14 +2,9 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface EventSetVoucher {
   addr: string;
   voucher: Coin;
-}
-export interface ReactiveEventSetVoucher {
-  addr: ComputedRef<string>;
-  voucher: ComputedRef<Coin>;
 }
 export interface EventSetVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.EventSetVoucher";

@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * base header ak message type, we can cast the bytes into corresponding message
  * response type
@@ -9,10 +8,6 @@ import { ComputedRef } from "vue";
 export interface TxResponseGenericMessage {
   header: string;
   data: Uint8Array;
-}
-export interface ReactiveTxResponseGenericMessage {
-  header: ComputedRef<string>;
-  data: ComputedRef<Uint8Array>;
 }
 export interface TxResponseGenericMessageProtoMsg {
   typeUrl: "/injective.types.v1beta1.TxResponseGenericMessage";
@@ -33,9 +28,6 @@ export interface TxResponseGenericMessageAminoMsg {
 /** improvised message to unpack length prefixed messages in tx response data */
 export interface TxResponseData {
   messages: TxResponseGenericMessage[];
-}
-export interface ReactiveTxResponseData {
-  messages: ComputedRef<TxResponseGenericMessage[]>;
 }
 export interface TxResponseDataProtoMsg {
   typeUrl: "/injective.types.v1beta1.TxResponseData";

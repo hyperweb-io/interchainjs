@@ -2,7 +2,6 @@ import { Params, ParamsAmino, Bid, BidAmino, LastAuctionResult, LastAuctionResul
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to auction. */
@@ -15,13 +14,6 @@ export interface GenesisState {
   auctionEndingTimestamp: bigint;
   /** last auction result */
   lastAuctionResult?: LastAuctionResult;
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  auctionRound: ComputedRef<bigint>;
-  highestBid?: ComputedRef<Bid>;
-  auctionEndingTimestamp: ComputedRef<bigint>;
-  lastAuctionResult?: ComputedRef<LastAuctionResult>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.auction.v1beta1.GenesisState";

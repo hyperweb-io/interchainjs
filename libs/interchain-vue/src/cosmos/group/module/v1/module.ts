@@ -2,7 +2,6 @@ import { Duration, DurationAmino } from "../../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** Module is the config object of the group module. */
 export interface Module {
   /**
@@ -15,10 +14,6 @@ export interface Module {
    * Defaults to 255 if not explicitly set.
    */
   maxMetadataLen: bigint;
-}
-export interface ReactiveModule {
-  maxExecutionPeriod: ComputedRef<Duration>;
-  maxMetadataLen: ComputedRef<bigint>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.group.module.v1.Module";

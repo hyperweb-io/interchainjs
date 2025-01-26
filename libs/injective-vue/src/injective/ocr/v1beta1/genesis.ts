@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the OCR module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to OCR. */
@@ -27,17 +26,6 @@ export interface GenesisState {
   feedTransmissionCounts: FeedCounts[];
   /** pending_payeeships stores the pending payeeships */
   pendingPayeeships: PendingPayeeship[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  feedConfigs: ComputedRef<FeedConfig[]>;
-  latestEpochAndRounds: ComputedRef<FeedEpochAndRound[]>;
-  feedTransmissions: ComputedRef<FeedTransmission[]>;
-  latestAggregatorRoundIds: ComputedRef<FeedLatestAggregatorRoundIDs[]>;
-  rewardPools: ComputedRef<RewardPool[]>;
-  feedObservationCounts: ComputedRef<FeedCounts[]>;
-  feedTransmissionCounts: ComputedRef<FeedCounts[]>;
-  pendingPayeeships: ComputedRef<PendingPayeeship[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.GenesisState";
@@ -75,10 +63,6 @@ export interface FeedTransmission {
   feedId: string;
   transmission?: Transmission;
 }
-export interface ReactiveFeedTransmission {
-  feedId: ComputedRef<string>;
-  transmission?: ComputedRef<Transmission>;
-}
 export interface FeedTransmissionProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedTransmission";
   value: Uint8Array;
@@ -94,10 +78,6 @@ export interface FeedTransmissionAminoMsg {
 export interface FeedEpochAndRound {
   feedId: string;
   epochAndRound?: EpochAndRound;
-}
-export interface ReactiveFeedEpochAndRound {
-  feedId: ComputedRef<string>;
-  epochAndRound?: ComputedRef<EpochAndRound>;
 }
 export interface FeedEpochAndRoundProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound";
@@ -115,10 +95,6 @@ export interface FeedLatestAggregatorRoundIDs {
   feedId: string;
   aggregatorRoundId: bigint;
 }
-export interface ReactiveFeedLatestAggregatorRoundIDs {
-  feedId: ComputedRef<string>;
-  aggregatorRoundId: ComputedRef<bigint>;
-}
 export interface FeedLatestAggregatorRoundIDsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs";
   value: Uint8Array;
@@ -134,10 +110,6 @@ export interface FeedLatestAggregatorRoundIDsAminoMsg {
 export interface RewardPool {
   feedId: string;
   amount: Coin;
-}
-export interface ReactiveRewardPool {
-  feedId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface RewardPoolProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.RewardPool";
@@ -155,10 +127,6 @@ export interface FeedCounts {
   feedId: string;
   counts: Count[];
 }
-export interface ReactiveFeedCounts {
-  feedId: ComputedRef<string>;
-  counts: ComputedRef<Count[]>;
-}
 export interface FeedCountsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedCounts";
   value: Uint8Array;
@@ -174,10 +142,6 @@ export interface FeedCountsAminoMsg {
 export interface Count {
   address: string;
   count: bigint;
-}
-export interface ReactiveCount {
-  address: ComputedRef<string>;
-  count: ComputedRef<bigint>;
 }
 export interface CountProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Count";
@@ -195,11 +159,6 @@ export interface PendingPayeeship {
   feedId: string;
   transmitter: string;
   proposedPayee: string;
-}
-export interface ReactivePendingPayeeship {
-  feedId: ComputedRef<string>;
-  transmitter: ComputedRef<string>;
-  proposedPayee: ComputedRef<string>;
 }
 export interface PendingPayeeshipProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.PendingPayeeship";

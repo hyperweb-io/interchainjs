@@ -3,7 +3,6 @@ import { Params, ParamsAmino } from "./distribution";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgSetWithdrawAddress sets the withdraw address for
  * a delegator (or validator self-delegation).
@@ -11,10 +10,6 @@ import { ComputedRef } from "vue";
 export interface MsgSetWithdrawAddress {
   delegatorAddress: string;
   withdrawAddress: string;
-}
-export interface ReactiveMsgSetWithdrawAddress {
-  delegatorAddress: ComputedRef<string>;
-  withdrawAddress: ComputedRef<string>;
 }
 export interface MsgSetWithdrawAddressProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress";
@@ -37,7 +32,6 @@ export interface MsgSetWithdrawAddressAminoMsg {
  * type.
  */
 export interface MsgSetWithdrawAddressResponse {}
-export interface ReactiveMsgSetWithdrawAddressResponse {}
 export interface MsgSetWithdrawAddressResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgSetWithdrawAddressResponse";
   value: Uint8Array;
@@ -58,10 +52,6 @@ export interface MsgSetWithdrawAddressResponseAminoMsg {
 export interface MsgWithdrawDelegatorReward {
   delegatorAddress: string;
   validatorAddress: string;
-}
-export interface ReactiveMsgWithdrawDelegatorReward {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
 }
 export interface MsgWithdrawDelegatorRewardProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward";
@@ -87,9 +77,6 @@ export interface MsgWithdrawDelegatorRewardResponse {
   /** Since: cosmos-sdk 0.46 */
   amount: Coin[];
 }
-export interface ReactiveMsgWithdrawDelegatorRewardResponse {
-  amount: ComputedRef<Coin[]>;
-}
 export interface MsgWithdrawDelegatorRewardResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorRewardResponse";
   value: Uint8Array;
@@ -113,9 +100,6 @@ export interface MsgWithdrawDelegatorRewardResponseAminoMsg {
 export interface MsgWithdrawValidatorCommission {
   validatorAddress: string;
 }
-export interface ReactiveMsgWithdrawValidatorCommission {
-  validatorAddress: ComputedRef<string>;
-}
 export interface MsgWithdrawValidatorCommissionProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission";
   value: Uint8Array;
@@ -138,9 +122,6 @@ export interface MsgWithdrawValidatorCommissionAminoMsg {
 export interface MsgWithdrawValidatorCommissionResponse {
   /** Since: cosmos-sdk 0.46 */
   amount: Coin[];
-}
-export interface ReactiveMsgWithdrawValidatorCommissionResponse {
-  amount: ComputedRef<Coin[]>;
 }
 export interface MsgWithdrawValidatorCommissionResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommissionResponse";
@@ -166,10 +147,6 @@ export interface MsgFundCommunityPool {
   amount: Coin[];
   depositor: string;
 }
-export interface ReactiveMsgFundCommunityPool {
-  amount: ComputedRef<Coin[]>;
-  depositor: ComputedRef<string>;
-}
 export interface MsgFundCommunityPoolProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgFundCommunityPool";
   value: Uint8Array;
@@ -188,7 +165,6 @@ export interface MsgFundCommunityPoolAminoMsg {
 }
 /** MsgFundCommunityPoolResponse defines the Msg/FundCommunityPool response type. */
 export interface MsgFundCommunityPoolResponse {}
-export interface ReactiveMsgFundCommunityPoolResponse {}
 export interface MsgFundCommunityPoolResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse";
   value: Uint8Array;
@@ -213,10 +189,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgUpdateParams";
@@ -248,7 +220,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -276,11 +247,6 @@ export interface MsgCommunityPoolSpend {
   authority: string;
   recipient: string;
   amount: Coin[];
-}
-export interface ReactiveMsgCommunityPoolSpend {
-  authority: ComputedRef<string>;
-  recipient: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface MsgCommunityPoolSpendProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgCommunityPoolSpend";
@@ -310,7 +276,6 @@ export interface MsgCommunityPoolSpendAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgCommunityPoolSpendResponse {}
-export interface ReactiveMsgCommunityPoolSpendResponse {}
 export interface MsgCommunityPoolSpendResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgCommunityPoolSpendResponse";
   value: Uint8Array;
@@ -336,11 +301,6 @@ export interface MsgDepositValidatorRewardsPool {
   depositor: string;
   validatorAddress: string;
   amount: Coin[];
-}
-export interface ReactiveMsgDepositValidatorRewardsPool {
-  depositor: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface MsgDepositValidatorRewardsPoolProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgDepositValidatorRewardsPool";
@@ -368,7 +328,6 @@ export interface MsgDepositValidatorRewardsPoolAminoMsg {
  * Since: cosmos-sdk 0.50
  */
 export interface MsgDepositValidatorRewardsPoolResponse {}
-export interface ReactiveMsgDepositValidatorRewardsPoolResponse {}
 export interface MsgDepositValidatorRewardsPoolResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.MsgDepositValidatorRewardsPoolResponse";
   value: Uint8Array;

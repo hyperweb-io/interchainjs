@@ -6,7 +6,6 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 import { encodePubkey, decodePubkey } from "@cosmjs/proto-signing";
-import { ComputedRef } from "vue";
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
 export interface MsgCreateValidator {
   description: Description;
@@ -22,15 +21,6 @@ export interface MsgCreateValidator {
   validatorAddress: string;
   pubkey?: Any | undefined;
   value: Coin;
-}
-export interface ReactiveMsgCreateValidator {
-  description: ComputedRef<Description>;
-  commission: ComputedRef<CommissionRates>;
-  minSelfDelegation: ComputedRef<string>;
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  pubkey?: ComputedRef<Any | undefined>;
-  value: ComputedRef<Coin>;
 }
 export interface MsgCreateValidatorProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidator";
@@ -61,7 +51,6 @@ export interface MsgCreateValidatorAminoMsg {
 }
 /** MsgCreateValidatorResponse defines the Msg/CreateValidator response type. */
 export interface MsgCreateValidatorResponse {}
-export interface ReactiveMsgCreateValidatorResponse {}
 export interface MsgCreateValidatorResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidatorResponse";
   value: Uint8Array;
@@ -84,12 +73,6 @@ export interface MsgEditValidator {
    */
   commissionRate: string;
   minSelfDelegation: string;
-}
-export interface ReactiveMsgEditValidator {
-  description: ComputedRef<Description>;
-  validatorAddress: ComputedRef<string>;
-  commissionRate: ComputedRef<string>;
-  minSelfDelegation: ComputedRef<string>;
 }
 export interface MsgEditValidatorProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgEditValidator";
@@ -114,7 +97,6 @@ export interface MsgEditValidatorAminoMsg {
 }
 /** MsgEditValidatorResponse defines the Msg/EditValidator response type. */
 export interface MsgEditValidatorResponse {}
-export interface ReactiveMsgEditValidatorResponse {}
 export interface MsgEditValidatorResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgEditValidatorResponse";
   value: Uint8Array;
@@ -133,11 +115,6 @@ export interface MsgDelegate {
   delegatorAddress: string;
   validatorAddress: string;
   amount: Coin;
-}
-export interface ReactiveMsgDelegate {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgDelegateProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgDelegate";
@@ -158,7 +135,6 @@ export interface MsgDelegateAminoMsg {
 }
 /** MsgDelegateResponse defines the Msg/Delegate response type. */
 export interface MsgDelegateResponse {}
-export interface ReactiveMsgDelegateResponse {}
 export interface MsgDelegateResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgDelegateResponse";
   value: Uint8Array;
@@ -178,12 +154,6 @@ export interface MsgBeginRedelegate {
   validatorSrcAddress: string;
   validatorDstAddress: string;
   amount: Coin;
-}
-export interface ReactiveMsgBeginRedelegate {
-  delegatorAddress: ComputedRef<string>;
-  validatorSrcAddress: ComputedRef<string>;
-  validatorDstAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgBeginRedelegateProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegate";
@@ -207,9 +177,6 @@ export interface MsgBeginRedelegateAminoMsg {
 export interface MsgBeginRedelegateResponse {
   completionTime: Date;
 }
-export interface ReactiveMsgBeginRedelegateResponse {
-  completionTime: ComputedRef<Date>;
-}
 export interface MsgBeginRedelegateResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegateResponse";
   value: Uint8Array;
@@ -230,11 +197,6 @@ export interface MsgUndelegate {
   delegatorAddress: string;
   validatorAddress: string;
   amount: Coin;
-}
-export interface ReactiveMsgUndelegate {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgUndelegateProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate";
@@ -262,10 +224,6 @@ export interface MsgUndelegateResponse {
    * Since: cosmos-sdk 0.50
    */
   amount: Coin;
-}
-export interface ReactiveMsgUndelegateResponse {
-  completionTime: ComputedRef<Date>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgUndelegateResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgUndelegateResponse";
@@ -298,12 +256,6 @@ export interface MsgCancelUnbondingDelegation {
   /** creation_height is the height which the unbonding took place. */
   creationHeight: bigint;
 }
-export interface ReactiveMsgCancelUnbondingDelegation {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-  creationHeight: ComputedRef<bigint>;
-}
 export interface MsgCancelUnbondingDelegationProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation";
   value: Uint8Array;
@@ -331,7 +283,6 @@ export interface MsgCancelUnbondingDelegationAminoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface MsgCancelUnbondingDelegationResponse {}
-export interface ReactiveMsgCancelUnbondingDelegationResponse {}
 export interface MsgCancelUnbondingDelegationResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse";
   value: Uint8Array;
@@ -360,10 +311,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams";
@@ -395,7 +342,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

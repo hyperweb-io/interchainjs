@@ -3,7 +3,6 @@ import { BaseAccount, BaseAccountAmino } from "./auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * QueryLegacyAccount defines a query that can be implemented by an x/account
  * to return an auth understandable representation of an account.
@@ -11,7 +10,6 @@ import { ComputedRef } from "vue";
  * level, the state machine must not make any assumptions around this.
  */
 export interface QueryLegacyAccount {}
-export interface ReactiveQueryLegacyAccount {}
 export interface QueryLegacyAccountProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryLegacyAccount";
   value: Uint8Array;
@@ -44,10 +42,6 @@ export interface QueryLegacyAccountResponse {
    * This is used in the gRPC QueryAccountInfo method.
    */
   base?: BaseAccount;
-}
-export interface ReactiveQueryLegacyAccountResponse {
-  account?: ComputedRef<Any>;
-  base?: ComputedRef<BaseAccount>;
 }
 export interface QueryLegacyAccountResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryLegacyAccountResponse";

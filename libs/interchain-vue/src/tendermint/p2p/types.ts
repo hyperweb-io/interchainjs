@@ -1,16 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 export interface NetAddress {
   id: string;
   ip: string;
   port: number;
-}
-export interface ReactiveNetAddress {
-  id: ComputedRef<string>;
-  ip: ComputedRef<string>;
-  port: ComputedRef<number>;
 }
 export interface NetAddressProtoMsg {
   typeUrl: "/tendermint.p2p.NetAddress";
@@ -29,11 +23,6 @@ export interface ProtocolVersion {
   p2p: bigint;
   block: bigint;
   app: bigint;
-}
-export interface ReactiveProtocolVersion {
-  p2p: ComputedRef<bigint>;
-  block: ComputedRef<bigint>;
-  app: ComputedRef<bigint>;
 }
 export interface ProtocolVersionProtoMsg {
   typeUrl: "/tendermint.p2p.ProtocolVersion";
@@ -58,16 +47,6 @@ export interface DefaultNodeInfo {
   moniker: string;
   other: DefaultNodeInfoOther;
 }
-export interface ReactiveDefaultNodeInfo {
-  protocolVersion: ComputedRef<ProtocolVersion>;
-  defaultNodeId: ComputedRef<string>;
-  listenAddr: ComputedRef<string>;
-  network: ComputedRef<string>;
-  version: ComputedRef<string>;
-  channels: ComputedRef<Uint8Array>;
-  moniker: ComputedRef<string>;
-  other: ComputedRef<DefaultNodeInfoOther>;
-}
 export interface DefaultNodeInfoProtoMsg {
   typeUrl: "/tendermint.p2p.DefaultNodeInfo";
   value: Uint8Array;
@@ -89,10 +68,6 @@ export interface DefaultNodeInfoAminoMsg {
 export interface DefaultNodeInfoOther {
   txIndex: string;
   rpcAddress: string;
-}
-export interface ReactiveDefaultNodeInfoOther {
-  txIndex: ComputedRef<string>;
-  rpcAddress: ComputedRef<string>;
 }
 export interface DefaultNodeInfoOtherProtoMsg {
   typeUrl: "/tendermint.p2p.DefaultNodeInfoOther";

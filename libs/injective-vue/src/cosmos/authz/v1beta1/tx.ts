@@ -3,7 +3,6 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgGrant is a request type for Grant method. It declares authorization to the grantee
  * on behalf of the granter with the provided expiration time.
@@ -12,11 +11,6 @@ export interface MsgGrant {
   granter: string;
   grantee: string;
   grant: Grant;
-}
-export interface ReactiveMsgGrant {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  grant: ComputedRef<Grant>;
 }
 export interface MsgGrantProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgGrant";
@@ -37,7 +31,6 @@ export interface MsgGrantAminoMsg {
 }
 /** MsgGrantResponse defines the Msg/MsgGrant response type. */
 export interface MsgGrantResponse {}
-export interface ReactiveMsgGrantResponse {}
 export interface MsgGrantResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgGrantResponse";
   value: Uint8Array;
@@ -61,10 +54,6 @@ export interface MsgExec {
    * triple and validate it.
    */
   msgs: (Any)[] | Any[];
-}
-export interface ReactiveMsgExec {
-  grantee: ComputedRef<string>;
-  msgs: ComputedRef<(Any)[] | Any[]>;
 }
 export interface MsgExecProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgExec";
@@ -100,9 +89,6 @@ export interface MsgExecAminoMsg {
 export interface MsgExecResponse {
   results: Uint8Array[];
 }
-export interface ReactiveMsgExecResponse {
-  results: ComputedRef<Uint8Array[]>;
-}
 export interface MsgExecResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgExecResponse";
   value: Uint8Array;
@@ -124,11 +110,6 @@ export interface MsgRevoke {
   grantee: string;
   msgTypeUrl: string;
 }
-export interface ReactiveMsgRevoke {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  msgTypeUrl: ComputedRef<string>;
-}
 export interface MsgRevokeProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgRevoke";
   value: Uint8Array;
@@ -148,7 +129,6 @@ export interface MsgRevokeAminoMsg {
 }
 /** MsgRevokeResponse defines the Msg/MsgRevokeResponse response type. */
 export interface MsgRevokeResponse {}
-export interface ReactiveMsgRevokeResponse {}
 export interface MsgRevokeResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.MsgRevokeResponse";
   value: Uint8Array;

@@ -2,7 +2,6 @@ import { AssetPair, AssetPairAmino, PriceAttestation, PriceAttestationAmino, Par
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
  * provider oracle.
@@ -12,12 +11,6 @@ export interface MsgRelayProviderPrices {
   provider: string;
   symbols: string[];
   prices: string[];
-}
-export interface ReactiveMsgRelayProviderPrices {
-  sender: ComputedRef<string>;
-  provider: ComputedRef<string>;
-  symbols: ComputedRef<string[]>;
-  prices: ComputedRef<string[]>;
 }
 export interface MsgRelayProviderPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPrices";
@@ -38,7 +31,6 @@ export interface MsgRelayProviderPricesAminoMsg {
   value: MsgRelayProviderPricesAmino;
 }
 export interface MsgRelayProviderPricesResponse {}
-export interface ReactiveMsgRelayProviderPricesResponse {}
 export interface MsgRelayProviderPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse";
   value: Uint8Array;
@@ -58,12 +50,6 @@ export interface MsgRelayPriceFeedPrice {
   quote: string[];
   /** price defines the price of the oracle base and quote */
   price: string[];
-}
-export interface ReactiveMsgRelayPriceFeedPrice {
-  sender: ComputedRef<string>;
-  base: ComputedRef<string[]>;
-  quote: ComputedRef<string[]>;
-  price: ComputedRef<string[]>;
 }
 export interface MsgRelayPriceFeedPriceProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice";
@@ -85,7 +71,6 @@ export interface MsgRelayPriceFeedPriceAminoMsg {
   value: MsgRelayPriceFeedPriceAmino;
 }
 export interface MsgRelayPriceFeedPriceResponse {}
-export interface ReactiveMsgRelayPriceFeedPriceResponse {}
 export interface MsgRelayPriceFeedPriceResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse";
   value: Uint8Array;
@@ -101,13 +86,6 @@ export interface MsgRelayBandRates {
   rates: bigint[];
   resolveTimes: bigint[];
   requestIDs: bigint[];
-}
-export interface ReactiveMsgRelayBandRates {
-  relayer: ComputedRef<string>;
-  symbols: ComputedRef<string[]>;
-  rates: ComputedRef<bigint[]>;
-  resolveTimes: ComputedRef<bigint[]>;
-  requestIDs: ComputedRef<bigint[]>;
 }
 export interface MsgRelayBandRatesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRates";
@@ -125,7 +103,6 @@ export interface MsgRelayBandRatesAminoMsg {
   value: MsgRelayBandRatesAmino;
 }
 export interface MsgRelayBandRatesResponse {}
-export interface ReactiveMsgRelayBandRatesResponse {}
 export interface MsgRelayBandRatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRatesResponse";
   value: Uint8Array;
@@ -143,11 +120,6 @@ export interface MsgRelayCoinbaseMessages {
   sender: string;
   messages: Uint8Array[];
   signatures: Uint8Array[];
-}
-export interface ReactiveMsgRelayCoinbaseMessages {
-  sender: ComputedRef<string>;
-  messages: ComputedRef<Uint8Array[]>;
-  signatures: ComputedRef<Uint8Array[]>;
 }
 export interface MsgRelayCoinbaseMessagesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessages";
@@ -167,7 +139,6 @@ export interface MsgRelayCoinbaseMessagesAminoMsg {
   value: MsgRelayCoinbaseMessagesAmino;
 }
 export interface MsgRelayCoinbaseMessagesResponse {}
-export interface ReactiveMsgRelayCoinbaseMessagesResponse {}
 export interface MsgRelayCoinbaseMessagesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse";
   value: Uint8Array;
@@ -184,10 +155,6 @@ export interface MsgRelayCoinbaseMessagesResponseAminoMsg {
 export interface MsgRelayStorkPrices {
   sender: string;
   assetPairs: AssetPair[];
-}
-export interface ReactiveMsgRelayStorkPrices {
-  sender: ComputedRef<string>;
-  assetPairs: ComputedRef<AssetPair[]>;
 }
 export interface MsgRelayStorkPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPrices";
@@ -206,7 +173,6 @@ export interface MsgRelayStorkPricesAminoMsg {
   value: MsgRelayStorkPricesAmino;
 }
 export interface MsgRelayStorkPricesResponse {}
-export interface ReactiveMsgRelayStorkPricesResponse {}
 export interface MsgRelayStorkPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPricesResponse";
   value: Uint8Array;
@@ -223,10 +189,6 @@ export interface MsgRelayStorkPricesResponseAminoMsg {
 export interface MsgRequestBandIBCRates {
   sender: string;
   requestId: bigint;
-}
-export interface ReactiveMsgRequestBandIBCRates {
-  sender: ComputedRef<string>;
-  requestId: ComputedRef<bigint>;
 }
 export interface MsgRequestBandIBCRatesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRates";
@@ -246,7 +208,6 @@ export interface MsgRequestBandIBCRatesAminoMsg {
 }
 /** MsgRequestDataResponse defines the Msg/RequestBandIBCRates response type. */
 export interface MsgRequestBandIBCRatesResponse {}
-export interface ReactiveMsgRequestBandIBCRatesResponse {}
 export interface MsgRequestBandIBCRatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse";
   value: Uint8Array;
@@ -261,10 +222,6 @@ export interface MsgRequestBandIBCRatesResponseAminoMsg {
 export interface MsgRelayPythPrices {
   sender: string;
   priceAttestations: PriceAttestation[];
-}
-export interface ReactiveMsgRelayPythPrices {
-  sender: ComputedRef<string>;
-  priceAttestations: ComputedRef<PriceAttestation[]>;
 }
 export interface MsgRelayPythPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPrices";
@@ -281,7 +238,6 @@ export interface MsgRelayPythPricesAminoMsg {
 }
 /** MsgRelayPythPricesResponse defines the Msg/RelayPythPrices response type. */
 export interface MsgRelayPythPricesResponse {}
-export interface ReactiveMsgRelayPythPricesResponse {}
 export interface MsgRelayPythPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPricesResponse";
   value: Uint8Array;
@@ -302,10 +258,6 @@ export interface MsgUpdateParams {
    */
   params: Params;
 }
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
-}
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgUpdateParams";
   value: Uint8Array;
@@ -325,7 +277,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

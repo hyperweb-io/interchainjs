@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * PubKey is an ed25519 public key for handling Tendermint keys in SDK.
  * It's needed for Any serialization and SDK compatibility.
@@ -11,9 +10,6 @@ import { ComputedRef } from "vue";
  */
 export interface PubKey {
   key: Uint8Array;
-}
-export interface ReactivePubKey {
-  key: ComputedRef<Uint8Array>;
 }
 export interface PubKeyProtoMsg {
   typeUrl: "/cosmos.crypto.ed25519.PubKey";
@@ -39,9 +35,6 @@ export interface PubKeyAminoMsg {
  */
 export interface PrivKey {
   key: Uint8Array;
-}
-export interface ReactivePrivKey {
-  key: ComputedRef<Uint8Array>;
 }
 export interface PrivKeyProtoMsg {
   typeUrl: "/cosmos.crypto.ed25519.PrivKey";

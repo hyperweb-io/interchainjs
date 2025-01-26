@@ -7,7 +7,6 @@ import { GlobalDecoderRegistry } from "../../../../registry";
  * services for modules that use the ORM.
  */
 export interface Module {}
-export interface ReactiveModule {}
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.orm.module.v1alpha1.Module";
   value: Uint8Array;

@@ -3,17 +3,11 @@ import { Input, InputAmino, Output, OutputAmino, Params, ParamsAmino, SendEnable
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
   fromAddress: string;
   toAddress: string;
   amount: Coin[];
-}
-export interface ReactiveMsgSend {
-  fromAddress: ComputedRef<string>;
-  toAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface MsgSendProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgSend";
@@ -31,7 +25,6 @@ export interface MsgSendAminoMsg {
 }
 /** MsgSendResponse defines the Msg/Send response type. */
 export interface MsgSendResponse {}
-export interface ReactiveMsgSendResponse {}
 export interface MsgSendResponseProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgSendResponse";
   value: Uint8Array;
@@ -50,10 +43,6 @@ export interface MsgMultiSend {
    */
   inputs: Input[];
   outputs: Output[];
-}
-export interface ReactiveMsgMultiSend {
-  inputs: ComputedRef<Input[]>;
-  outputs: ComputedRef<Output[]>;
 }
 export interface MsgMultiSendProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgMultiSend";
@@ -74,7 +63,6 @@ export interface MsgMultiSendAminoMsg {
 }
 /** MsgMultiSendResponse defines the Msg/MultiSend response type. */
 export interface MsgMultiSendResponse {}
-export interface ReactiveMsgMultiSendResponse {}
 export interface MsgMultiSendResponseProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgMultiSendResponse";
   value: Uint8Array;
@@ -99,10 +87,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams";
@@ -134,7 +118,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -172,11 +155,6 @@ export interface MsgSetSendEnabled {
    */
   useDefaultFor: string[];
 }
-export interface ReactiveMsgSetSendEnabled {
-  authority: ComputedRef<string>;
-  sendEnabled: ComputedRef<SendEnabled[]>;
-  useDefaultFor: ComputedRef<string[]>;
-}
 export interface MsgSetSendEnabledProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled";
   value: Uint8Array;
@@ -213,7 +191,6 @@ export interface MsgSetSendEnabledAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgSetSendEnabledResponse {}
-export interface ReactiveMsgSetSendEnabledResponse {}
 export interface MsgSetSendEnabledResponseProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabledResponse";
   value: Uint8Array;

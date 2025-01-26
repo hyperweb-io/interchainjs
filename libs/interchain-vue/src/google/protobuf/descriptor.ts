@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 /** The full set of known editions. */
 export enum Edition {
   /** EDITION_UNKNOWN - A placeholder for an unknown edition value. */
@@ -917,9 +916,6 @@ export function generatedCodeInfo_Annotation_SemanticToJSON(object: GeneratedCod
 export interface FileDescriptorSet {
   file: FileDescriptorProto[];
 }
-export interface ReactiveFileDescriptorSet {
-  file: ComputedRef<FileDescriptorProto[]>;
-}
 export interface FileDescriptorSetProtoMsg {
   typeUrl: "/google.protobuf.FileDescriptorSet";
   value: Uint8Array;
@@ -980,21 +976,6 @@ export interface FileDescriptorProto {
    * developers should rely on the protoreflect APIs for their client language.
    */
   edition: Edition;
-}
-export interface ReactiveFileDescriptorProto {
-  name: ComputedRef<string>;
-  package: ComputedRef<string>;
-  dependency: ComputedRef<string[]>;
-  publicDependency: ComputedRef<number[]>;
-  weakDependency: ComputedRef<number[]>;
-  messageType: ComputedRef<DescriptorProto[]>;
-  enumType: ComputedRef<EnumDescriptorProto[]>;
-  service: ComputedRef<ServiceDescriptorProto[]>;
-  extension: ComputedRef<FieldDescriptorProto[]>;
-  options?: ComputedRef<FileOptions>;
-  sourceCodeInfo?: ComputedRef<SourceCodeInfo>;
-  syntax: ComputedRef<string>;
-  edition: ComputedRef<Edition>;
 }
 export interface FileDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.FileDescriptorProto";
@@ -1067,18 +1048,6 @@ export interface DescriptorProto {
    */
   reservedName: string[];
 }
-export interface ReactiveDescriptorProto {
-  name: ComputedRef<string>;
-  field: ComputedRef<FieldDescriptorProto[]>;
-  extension: ComputedRef<FieldDescriptorProto[]>;
-  nestedType: ComputedRef<DescriptorProto[]>;
-  enumType: ComputedRef<EnumDescriptorProto[]>;
-  extensionRange: ComputedRef<DescriptorProto_ExtensionRange[]>;
-  oneofDecl: ComputedRef<OneofDescriptorProto[]>;
-  options?: ComputedRef<MessageOptions>;
-  reservedRange: ComputedRef<DescriptorProto_ReservedRange[]>;
-  reservedName: ComputedRef<string[]>;
-}
 export interface DescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.DescriptorProto";
   value: Uint8Array;
@@ -1111,11 +1080,6 @@ export interface DescriptorProto_ExtensionRange {
   end: number;
   options?: ExtensionRangeOptions;
 }
-export interface ReactiveDescriptorProto_ExtensionRange {
-  start: ComputedRef<number>;
-  end: ComputedRef<number>;
-  options?: ComputedRef<ExtensionRangeOptions>;
-}
 export interface DescriptorProto_ExtensionRangeProtoMsg {
   typeUrl: "/google.protobuf.ExtensionRange";
   value: Uint8Array;
@@ -1141,10 +1105,6 @@ export interface DescriptorProto_ReservedRange {
   start: number;
   /** Exclusive. */
   end: number;
-}
-export interface ReactiveDescriptorProto_ReservedRange {
-  start: ComputedRef<number>;
-  end: ComputedRef<number>;
 }
 export interface DescriptorProto_ReservedRangeProtoMsg {
   typeUrl: "/google.protobuf.ReservedRange";
@@ -1182,12 +1142,6 @@ export interface ExtensionRangeOptions {
    * are marked as UNVERIFIED.
    */
   verification: ExtensionRangeOptions_VerificationState;
-}
-export interface ReactiveExtensionRangeOptions {
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
-  declaration: ComputedRef<ExtensionRangeOptions_Declaration[]>;
-  features?: ComputedRef<FeatureSet>;
-  verification: ComputedRef<ExtensionRangeOptions_VerificationState>;
 }
 export interface ExtensionRangeOptionsProtoMsg {
   typeUrl: "/google.protobuf.ExtensionRangeOptions";
@@ -1240,13 +1194,6 @@ export interface ExtensionRangeOptions_Declaration {
    * Otherwise the extension must be defined as optional.
    */
   repeated: boolean;
-}
-export interface ReactiveExtensionRangeOptions_Declaration {
-  number: ComputedRef<number>;
-  fullName: ComputedRef<string>;
-  type: ComputedRef<string>;
-  reserved: ComputedRef<boolean>;
-  repeated: ComputedRef<boolean>;
 }
 export interface ExtensionRangeOptions_DeclarationProtoMsg {
   typeUrl: "/google.protobuf.Declaration";
@@ -1350,19 +1297,6 @@ export interface FieldDescriptorProto {
    */
   proto3Optional: boolean;
 }
-export interface ReactiveFieldDescriptorProto {
-  name: ComputedRef<string>;
-  number: ComputedRef<number>;
-  label: ComputedRef<FieldDescriptorProto_Label>;
-  type: ComputedRef<FieldDescriptorProto_Type>;
-  typeName: ComputedRef<string>;
-  extendee: ComputedRef<string>;
-  defaultValue: ComputedRef<string>;
-  oneofIndex: ComputedRef<number>;
-  jsonName: ComputedRef<string>;
-  options?: ComputedRef<FieldOptions>;
-  proto3Optional: ComputedRef<boolean>;
-}
 export interface FieldDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.FieldDescriptorProto";
   value: Uint8Array;
@@ -1444,10 +1378,6 @@ export interface OneofDescriptorProto {
   name: string;
   options?: OneofOptions;
 }
-export interface ReactiveOneofDescriptorProto {
-  name: ComputedRef<string>;
-  options?: ComputedRef<OneofOptions>;
-}
 export interface OneofDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.OneofDescriptorProto";
   value: Uint8Array;
@@ -1477,13 +1407,6 @@ export interface EnumDescriptorProto {
    * be reserved once.
    */
   reservedName: string[];
-}
-export interface ReactiveEnumDescriptorProto {
-  name: ComputedRef<string>;
-  value: ComputedRef<EnumValueDescriptorProto[]>;
-  options?: ComputedRef<EnumOptions>;
-  reservedRange: ComputedRef<EnumDescriptorProto_EnumReservedRange[]>;
-  reservedName: ComputedRef<string[]>;
 }
 export interface EnumDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.EnumDescriptorProto";
@@ -1524,10 +1447,6 @@ export interface EnumDescriptorProto_EnumReservedRange {
   /** Inclusive. */
   end: number;
 }
-export interface ReactiveEnumDescriptorProto_EnumReservedRange {
-  start: ComputedRef<number>;
-  end: ComputedRef<number>;
-}
 export interface EnumDescriptorProto_EnumReservedRangeProtoMsg {
   typeUrl: "/google.protobuf.EnumReservedRange";
   value: Uint8Array;
@@ -1556,11 +1475,6 @@ export interface EnumValueDescriptorProto {
   number: number;
   options?: EnumValueOptions;
 }
-export interface ReactiveEnumValueDescriptorProto {
-  name: ComputedRef<string>;
-  number: ComputedRef<number>;
-  options?: ComputedRef<EnumValueOptions>;
-}
 export interface EnumValueDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.EnumValueDescriptorProto";
   value: Uint8Array;
@@ -1580,11 +1494,6 @@ export interface ServiceDescriptorProto {
   name: string;
   method: MethodDescriptorProto[];
   options?: ServiceOptions;
-}
-export interface ReactiveServiceDescriptorProto {
-  name: ComputedRef<string>;
-  method: ComputedRef<MethodDescriptorProto[]>;
-  options?: ComputedRef<ServiceOptions>;
 }
 export interface ServiceDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.ServiceDescriptorProto";
@@ -1614,14 +1523,6 @@ export interface MethodDescriptorProto {
   clientStreaming: boolean;
   /** Identifies if server streams multiple server messages */
   serverStreaming: boolean;
-}
-export interface ReactiveMethodDescriptorProto {
-  name: ComputedRef<string>;
-  inputType: ComputedRef<string>;
-  outputType: ComputedRef<string>;
-  options?: ComputedRef<MethodOptions>;
-  clientStreaming: ComputedRef<boolean>;
-  serverStreaming: ComputedRef<boolean>;
 }
 export interface MethodDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.MethodDescriptorProto";
@@ -1772,29 +1673,6 @@ export interface FileOptions {
    * See the documentation for the "Options" section above.
    */
   uninterpretedOption: UninterpretedOption[];
-}
-export interface ReactiveFileOptions {
-  javaPackage: ComputedRef<string>;
-  javaOuterClassname: ComputedRef<string>;
-  javaMultipleFiles: ComputedRef<boolean>;
-  javaGenerateEqualsAndHash: ComputedRef<boolean>;
-  javaStringCheckUtf8: ComputedRef<boolean>;
-  optimizeFor: ComputedRef<FileOptions_OptimizeMode>;
-  goPackage: ComputedRef<string>;
-  ccGenericServices: ComputedRef<boolean>;
-  javaGenericServices: ComputedRef<boolean>;
-  pyGenericServices: ComputedRef<boolean>;
-  deprecated: ComputedRef<boolean>;
-  ccEnableArenas: ComputedRef<boolean>;
-  objcClassPrefix: ComputedRef<string>;
-  csharpNamespace: ComputedRef<string>;
-  swiftPrefix: ComputedRef<string>;
-  phpClassPrefix: ComputedRef<string>;
-  phpNamespace: ComputedRef<string>;
-  phpMetadataNamespace: ComputedRef<string>;
-  rubyPackage: ComputedRef<string>;
-  features?: ComputedRef<FeatureSet>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
 }
 export interface FileOptionsProtoMsg {
   typeUrl: "/google.protobuf.FileOptions";
@@ -2014,15 +1892,6 @@ export interface MessageOptions {
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
-export interface ReactiveMessageOptions {
-  messageSetWireFormat: ComputedRef<boolean>;
-  noStandardDescriptorAccessor: ComputedRef<boolean>;
-  deprecated: ComputedRef<boolean>;
-  mapEntry: ComputedRef<boolean>;
-  deprecatedLegacyJsonFieldConflicts: ComputedRef<boolean>;
-  features?: ComputedRef<FeatureSet>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
-}
 export interface MessageOptionsProtoMsg {
   typeUrl: "/google.protobuf.MessageOptions";
   value: Uint8Array;
@@ -2208,22 +2077,6 @@ export interface FieldOptions {
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
-export interface ReactiveFieldOptions {
-  ctype: ComputedRef<FieldOptions_CType>;
-  packed: ComputedRef<boolean>;
-  jstype: ComputedRef<FieldOptions_JSType>;
-  lazy: ComputedRef<boolean>;
-  unverifiedLazy: ComputedRef<boolean>;
-  deprecated: ComputedRef<boolean>;
-  weak: ComputedRef<boolean>;
-  debugRedact: ComputedRef<boolean>;
-  retention: ComputedRef<FieldOptions_OptionRetention>;
-  targets: ComputedRef<FieldOptions_OptionTargetType[]>;
-  editionDefaults: ComputedRef<FieldOptions_EditionDefault[]>;
-  features?: ComputedRef<FeatureSet>;
-  featureSupport?: ComputedRef<FieldOptions_FeatureSupport>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
-}
 export interface FieldOptionsProtoMsg {
   typeUrl: "/google.protobuf.FieldOptions";
   value: Uint8Array;
@@ -2331,10 +2184,6 @@ export interface FieldOptions_EditionDefault {
   /** Textproto value. */
   value: string;
 }
-export interface ReactiveFieldOptions_EditionDefault {
-  edition: ComputedRef<Edition>;
-  value: ComputedRef<string>;
-}
 export interface FieldOptions_EditionDefaultProtoMsg {
   typeUrl: "/google.protobuf.EditionDefault";
   value: Uint8Array;
@@ -2372,12 +2221,6 @@ export interface FieldOptions_FeatureSupport {
    * not be able to override it.
    */
   editionRemoved: Edition;
-}
-export interface ReactiveFieldOptions_FeatureSupport {
-  editionIntroduced: ComputedRef<Edition>;
-  editionDeprecated: ComputedRef<Edition>;
-  deprecationWarning: ComputedRef<string>;
-  editionRemoved: ComputedRef<Edition>;
 }
 export interface FieldOptions_FeatureSupportProtoMsg {
   typeUrl: "/google.protobuf.FeatureSupport";
@@ -2422,10 +2265,6 @@ export interface OneofOptions {
   features?: FeatureSet;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
-}
-export interface ReactiveOneofOptions {
-  features?: ComputedRef<FeatureSet>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
 }
 export interface OneofOptionsProtoMsg {
   typeUrl: "/google.protobuf.OneofOptions";
@@ -2478,13 +2317,6 @@ export interface EnumOptions {
   features?: FeatureSet;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
-}
-export interface ReactiveEnumOptions {
-  allowAlias: ComputedRef<boolean>;
-  deprecated: ComputedRef<boolean>;
-  deprecatedLegacyJsonFieldConflicts: ComputedRef<boolean>;
-  features?: ComputedRef<FeatureSet>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
 }
 export interface EnumOptionsProtoMsg {
   typeUrl: "/google.protobuf.EnumOptions";
@@ -2553,13 +2385,6 @@ export interface EnumValueOptions {
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
-export interface ReactiveEnumValueOptions {
-  deprecated: ComputedRef<boolean>;
-  features?: ComputedRef<FeatureSet>;
-  debugRedact: ComputedRef<boolean>;
-  featureSupport?: ComputedRef<FieldOptions_FeatureSupport>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
-}
 export interface EnumValueOptionsProtoMsg {
   typeUrl: "/google.protobuf.EnumValueOptions";
   value: Uint8Array;
@@ -2612,11 +2437,6 @@ export interface ServiceOptions {
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
 }
-export interface ReactiveServiceOptions {
-  features?: ComputedRef<FeatureSet>;
-  deprecated: ComputedRef<boolean>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
-}
 export interface ServiceOptionsProtoMsg {
   typeUrl: "/google.protobuf.ServiceOptions";
   value: Uint8Array;
@@ -2661,12 +2481,6 @@ export interface MethodOptions {
   features?: FeatureSet;
   /** The parser stores options it doesn't recognize here. See above. */
   uninterpretedOption: UninterpretedOption[];
-}
-export interface ReactiveMethodOptions {
-  deprecated: ComputedRef<boolean>;
-  idempotencyLevel: ComputedRef<MethodOptions_IdempotencyLevel>;
-  features?: ComputedRef<FeatureSet>;
-  uninterpretedOption: ComputedRef<UninterpretedOption[]>;
 }
 export interface MethodOptionsProtoMsg {
   typeUrl: "/google.protobuf.MethodOptions";
@@ -2716,15 +2530,6 @@ export interface UninterpretedOption {
   stringValue: Uint8Array;
   aggregateValue: string;
 }
-export interface ReactiveUninterpretedOption {
-  name: ComputedRef<UninterpretedOption_NamePart[]>;
-  identifierValue: ComputedRef<string>;
-  positiveIntValue: ComputedRef<bigint>;
-  negativeIntValue: ComputedRef<bigint>;
-  doubleValue: ComputedRef<number>;
-  stringValue: ComputedRef<Uint8Array>;
-  aggregateValue: ComputedRef<string>;
-}
 export interface UninterpretedOptionProtoMsg {
   typeUrl: "/google.protobuf.UninterpretedOption";
   value: Uint8Array;
@@ -2765,10 +2570,6 @@ export interface UninterpretedOption_NamePart {
   namePart: string;
   isExtension: boolean;
 }
-export interface ReactiveUninterpretedOption_NamePart {
-  namePart: ComputedRef<string>;
-  isExtension: ComputedRef<boolean>;
-}
 export interface UninterpretedOption_NamePartProtoMsg {
   typeUrl: "/google.protobuf.NamePart";
   value: Uint8Array;
@@ -2803,14 +2604,6 @@ export interface FeatureSet {
   utf8Validation: FeatureSet_Utf8Validation;
   messageEncoding: FeatureSet_MessageEncoding;
   jsonFormat: FeatureSet_JsonFormat;
-}
-export interface ReactiveFeatureSet {
-  fieldPresence: ComputedRef<FeatureSet_FieldPresence>;
-  enumType: ComputedRef<FeatureSet_EnumType>;
-  repeatedFieldEncoding: ComputedRef<FeatureSet_RepeatedFieldEncoding>;
-  utf8Validation: ComputedRef<FeatureSet_Utf8Validation>;
-  messageEncoding: ComputedRef<FeatureSet_MessageEncoding>;
-  jsonFormat: ComputedRef<FeatureSet_JsonFormat>;
 }
 export interface FeatureSetProtoMsg {
   typeUrl: "/google.protobuf.FeatureSet";
@@ -2855,11 +2648,6 @@ export interface FeatureSetDefaults {
    */
   maximumEdition: Edition;
 }
-export interface ReactiveFeatureSetDefaults {
-  defaults: ComputedRef<FeatureSetDefaults_FeatureSetEditionDefault[]>;
-  minimumEdition: ComputedRef<Edition>;
-  maximumEdition: ComputedRef<Edition>;
-}
 export interface FeatureSetDefaultsProtoMsg {
   typeUrl: "/google.protobuf.FeatureSetDefaults";
   value: Uint8Array;
@@ -2899,11 +2687,6 @@ export interface FeatureSetDefaults_FeatureSetEditionDefault {
   overridableFeatures?: FeatureSet;
   /** Defaults of features that can't be overridden in this edition. */
   fixedFeatures?: FeatureSet;
-}
-export interface ReactiveFeatureSetDefaults_FeatureSetEditionDefault {
-  edition: ComputedRef<Edition>;
-  overridableFeatures?: ComputedRef<FeatureSet>;
-  fixedFeatures?: ComputedRef<FeatureSet>;
 }
 export interface FeatureSetDefaults_FeatureSetEditionDefaultProtoMsg {
   typeUrl: "/google.protobuf.FeatureSetEditionDefault";
@@ -2977,9 +2760,6 @@ export interface SourceCodeInfo {
    *   be recorded in the future.
    */
   location: SourceCodeInfo_Location[];
-}
-export interface ReactiveSourceCodeInfo {
-  location: ComputedRef<SourceCodeInfo_Location[]>;
 }
 export interface SourceCodeInfoProtoMsg {
   typeUrl: "/google.protobuf.SourceCodeInfo";
@@ -3129,13 +2909,6 @@ export interface SourceCodeInfo_Location {
   trailingComments: string;
   leadingDetachedComments: string[];
 }
-export interface ReactiveSourceCodeInfo_Location {
-  path: ComputedRef<number[]>;
-  span: ComputedRef<number[]>;
-  leadingComments: ComputedRef<string>;
-  trailingComments: ComputedRef<string>;
-  leadingDetachedComments: ComputedRef<string[]>;
-}
 export interface SourceCodeInfo_LocationProtoMsg {
   typeUrl: "/google.protobuf.Location";
   value: Uint8Array;
@@ -3244,9 +3017,6 @@ export interface GeneratedCodeInfo {
    */
   annotation: GeneratedCodeInfo_Annotation[];
 }
-export interface ReactiveGeneratedCodeInfo {
-  annotation: ComputedRef<GeneratedCodeInfo_Annotation[]>;
-}
 export interface GeneratedCodeInfoProtoMsg {
   typeUrl: "/google.protobuf.GeneratedCodeInfo";
   value: Uint8Array;
@@ -3287,13 +3057,6 @@ export interface GeneratedCodeInfo_Annotation {
    */
   end: number;
   semantic: GeneratedCodeInfo_Annotation_Semantic;
-}
-export interface ReactiveGeneratedCodeInfo_Annotation {
-  path: ComputedRef<number[]>;
-  sourceFile: ComputedRef<string>;
-  begin: ComputedRef<number>;
-  end: ComputedRef<number>;
-  semantic: ComputedRef<GeneratedCodeInfo_Annotation_Semantic>;
 }
 export interface GeneratedCodeInfo_AnnotationProtoMsg {
   typeUrl: "/google.protobuf.Annotation";

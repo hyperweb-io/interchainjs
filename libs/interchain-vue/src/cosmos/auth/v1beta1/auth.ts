@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * BaseAccount defines a base account type. It contains all the necessary fields
  * for basic account functionality. Any custom account type should extend this
@@ -13,12 +12,6 @@ export interface BaseAccount {
   pubKey?: Any;
   accountNumber: bigint;
   sequence: bigint;
-}
-export interface ReactiveBaseAccount {
-  address: ComputedRef<string>;
-  pubKey?: ComputedRef<Any>;
-  accountNumber: ComputedRef<bigint>;
-  sequence: ComputedRef<bigint>;
 }
 export interface BaseAccountProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.BaseAccount";
@@ -44,11 +37,6 @@ export interface ModuleAccount {
   baseAccount?: BaseAccount;
   name: string;
   permissions: string[];
-}
-export interface ReactiveModuleAccount {
-  baseAccount?: ComputedRef<BaseAccount>;
-  name: ComputedRef<string>;
-  permissions: ComputedRef<string[]>;
 }
 export interface ModuleAccountProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.ModuleAccount";
@@ -77,10 +65,6 @@ export interface ModuleCredential {
    * adding more keys creates sub-account addresses (passed into address.Derive)
    */
   derivationKeys: Uint8Array[];
-}
-export interface ReactiveModuleCredential {
-  moduleName: ComputedRef<string>;
-  derivationKeys: ComputedRef<Uint8Array[]>;
 }
 export interface ModuleCredentialProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.ModuleCredential";
@@ -111,13 +95,6 @@ export interface Params {
   txSizeCostPerByte: bigint;
   sigVerifyCostEd25519: bigint;
   sigVerifyCostSecp256k1: bigint;
-}
-export interface ReactiveParams {
-  maxMemoCharacters: ComputedRef<bigint>;
-  txSigLimit: ComputedRef<bigint>;
-  txSizeCostPerByte: ComputedRef<bigint>;
-  sigVerifyCostEd25519: ComputedRef<bigint>;
-  sigVerifyCostSecp256k1: ComputedRef<bigint>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.Params";

@@ -1,17 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** ParameterChangeProposal defines a proposal to change one or more parameters. */
 export interface ParameterChangeProposal {
   title: string;
   description: string;
   changes: ParamChange[];
-}
-export interface ReactiveParameterChangeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  changes: ComputedRef<ParamChange[]>;
 }
 export interface ParameterChangeProposalProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal";
@@ -35,11 +29,6 @@ export interface ParamChange {
   subspace: string;
   key: string;
   value: string;
-}
-export interface ReactiveParamChange {
-  subspace: ComputedRef<string>;
-  key: ComputedRef<string>;
-  value: ComputedRef<string>;
 }
 export interface ParamChangeProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.ParamChange";

@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** TableDescriptor describes an ORM table. */
 export interface TableDescriptor {
   /** primary_key defines the primary key for the table. */
@@ -14,11 +13,6 @@ export interface TableDescriptor {
    * can be auto-generated.
    */
   id: number;
-}
-export interface ReactiveTableDescriptor {
-  primaryKey?: ComputedRef<PrimaryKeyDescriptor>;
-  index: ComputedRef<SecondaryIndexDescriptor[]>;
-  id: ComputedRef<number>;
 }
 export interface TableDescriptorProtoMsg {
   typeUrl: "/cosmos.orm.v1.TableDescriptor";
@@ -85,10 +79,6 @@ export interface PrimaryKeyDescriptor {
    * contain one field of that is of type uint64.
    */
   autoIncrement: boolean;
-}
-export interface ReactivePrimaryKeyDescriptor {
-  fields: ComputedRef<string>;
-  autoIncrement: ComputedRef<boolean>;
 }
 export interface PrimaryKeyDescriptorProtoMsg {
   typeUrl: "/cosmos.orm.v1.PrimaryKeyDescriptor";
@@ -166,11 +156,6 @@ export interface SecondaryIndexDescriptor {
   /** unique specifies that this an unique index. */
   unique: boolean;
 }
-export interface ReactiveSecondaryIndexDescriptor {
-  fields: ComputedRef<string>;
-  id: ComputedRef<number>;
-  unique: ComputedRef<boolean>;
-}
 export interface SecondaryIndexDescriptorProtoMsg {
   typeUrl: "/cosmos.orm.v1.SecondaryIndexDescriptor";
   value: Uint8Array;
@@ -210,9 +195,6 @@ export interface SingletonDescriptor {
    * can be auto-generated.
    */
   id: number;
-}
-export interface ReactiveSingletonDescriptor {
-  id: ComputedRef<number>;
 }
 export interface SingletonDescriptorProtoMsg {
   typeUrl: "/cosmos.orm.v1.SingletonDescriptor";

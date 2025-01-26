@@ -3,20 +3,12 @@ import { BridgeValidator, BridgeValidatorAmino } from "./types";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface EventAttestationObserved {
   attestationType: ClaimType;
   bridgeContract: string;
   bridgeChainId: bigint;
   attestationId: Uint8Array;
   nonce: bigint;
-}
-export interface ReactiveEventAttestationObserved {
-  attestationType: ComputedRef<ClaimType>;
-  bridgeContract: ComputedRef<string>;
-  bridgeChainId: ComputedRef<bigint>;
-  attestationId: ComputedRef<Uint8Array>;
-  nonce: ComputedRef<bigint>;
 }
 export interface EventAttestationObservedProtoMsg {
   typeUrl: "/injective.peggy.v1.EventAttestationObserved";
@@ -37,10 +29,6 @@ export interface EventBridgeWithdrawCanceled {
   bridgeContract: string;
   bridgeChainId: bigint;
 }
-export interface ReactiveEventBridgeWithdrawCanceled {
-  bridgeContract: ComputedRef<string>;
-  bridgeChainId: ComputedRef<bigint>;
-}
 export interface EventBridgeWithdrawCanceledProtoMsg {
   typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled";
   value: Uint8Array;
@@ -59,13 +47,6 @@ export interface EventOutgoingBatch {
   batchNonce: bigint;
   batchTimeout: bigint;
   batchTxIds: bigint[];
-}
-export interface ReactiveEventOutgoingBatch {
-  denom: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-  batchNonce: ComputedRef<bigint>;
-  batchTimeout: ComputedRef<bigint>;
-  batchTxIds: ComputedRef<bigint[]>;
 }
 export interface EventOutgoingBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.EventOutgoingBatch";
@@ -88,12 +69,6 @@ export interface EventOutgoingBatchCanceled {
   batchId: bigint;
   nonce: bigint;
 }
-export interface ReactiveEventOutgoingBatchCanceled {
-  bridgeContract: ComputedRef<string>;
-  bridgeChainId: ComputedRef<bigint>;
-  batchId: ComputedRef<bigint>;
-  nonce: ComputedRef<bigint>;
-}
 export interface EventOutgoingBatchCanceledProtoMsg {
   typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled";
   value: Uint8Array;
@@ -115,13 +90,6 @@ export interface EventValsetUpdateRequest {
   rewardAmount: string;
   rewardToken: string;
 }
-export interface ReactiveEventValsetUpdateRequest {
-  valsetNonce: ComputedRef<bigint>;
-  valsetHeight: ComputedRef<bigint>;
-  valsetMembers: ComputedRef<BridgeValidator[]>;
-  rewardAmount: ComputedRef<string>;
-  rewardToken: ComputedRef<string>;
-}
 export interface EventValsetUpdateRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest";
   value: Uint8Array;
@@ -142,11 +110,6 @@ export interface EventSetOrchestratorAddresses {
   orchestratorAddress: string;
   operatorEthAddress: string;
 }
-export interface ReactiveEventSetOrchestratorAddresses {
-  validatorAddress: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-  operatorEthAddress: ComputedRef<string>;
-}
 export interface EventSetOrchestratorAddressesProtoMsg {
   typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses";
   value: Uint8Array;
@@ -163,10 +126,6 @@ export interface EventSetOrchestratorAddressesAminoMsg {
 export interface EventValsetConfirm {
   valsetNonce: bigint;
   orchestratorAddress: string;
-}
-export interface ReactiveEventValsetConfirm {
-  valsetNonce: ComputedRef<bigint>;
-  orchestratorAddress: ComputedRef<string>;
 }
 export interface EventValsetConfirmProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValsetConfirm";
@@ -187,13 +146,6 @@ export interface EventSendToEth {
   amount: string;
   bridgeFee: string;
 }
-export interface ReactiveEventSendToEth {
-  outgoingTxId: ComputedRef<bigint>;
-  sender: ComputedRef<string>;
-  receiver: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  bridgeFee: ComputedRef<string>;
-}
 export interface EventSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.EventSendToEth";
   value: Uint8Array;
@@ -213,10 +165,6 @@ export interface EventConfirmBatch {
   batchNonce: bigint;
   orchestratorAddress: string;
 }
-export interface ReactiveEventConfirmBatch {
-  batchNonce: ComputedRef<bigint>;
-  orchestratorAddress: ComputedRef<string>;
-}
 export interface EventConfirmBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.EventConfirmBatch";
   value: Uint8Array;
@@ -233,11 +181,6 @@ export interface EventAttestationVote {
   eventNonce: bigint;
   attestationId: Uint8Array;
   voter: string;
-}
-export interface ReactiveEventAttestationVote {
-  eventNonce: ComputedRef<bigint>;
-  attestationId: ComputedRef<Uint8Array>;
-  voter: ComputedRef<string>;
 }
 export interface EventAttestationVoteProtoMsg {
   typeUrl: "/injective.peggy.v1.EventAttestationVote";
@@ -262,17 +205,6 @@ export interface EventDepositClaim {
   amount: string;
   orchestratorAddress: string;
   data: string;
-}
-export interface ReactiveEventDepositClaim {
-  eventNonce: ComputedRef<bigint>;
-  eventHeight: ComputedRef<bigint>;
-  attestationId: ComputedRef<Uint8Array>;
-  ethereumSender: ComputedRef<string>;
-  cosmosReceiver: ComputedRef<string>;
-  tokenContract: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-  data: ComputedRef<string>;
 }
 export interface EventDepositClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventDepositClaim";
@@ -301,14 +233,6 @@ export interface EventWithdrawClaim {
   tokenContract: string;
   orchestratorAddress: string;
 }
-export interface ReactiveEventWithdrawClaim {
-  eventNonce: ComputedRef<bigint>;
-  eventHeight: ComputedRef<bigint>;
-  attestationId: ComputedRef<Uint8Array>;
-  batchNonce: ComputedRef<bigint>;
-  tokenContract: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-}
 export interface EventWithdrawClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventWithdrawClaim";
   value: Uint8Array;
@@ -335,17 +259,6 @@ export interface EventERC20DeployedClaim {
   symbol: string;
   decimals: bigint;
   orchestratorAddress: string;
-}
-export interface ReactiveEventERC20DeployedClaim {
-  eventNonce: ComputedRef<bigint>;
-  eventHeight: ComputedRef<bigint>;
-  attestationId: ComputedRef<Uint8Array>;
-  cosmosDenom: ComputedRef<string>;
-  tokenContract: ComputedRef<string>;
-  name: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  decimals: ComputedRef<bigint>;
-  orchestratorAddress: ComputedRef<string>;
 }
 export interface EventERC20DeployedClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim";
@@ -376,16 +289,6 @@ export interface EventValsetUpdateClaim {
   rewardToken: string;
   orchestratorAddress: string;
 }
-export interface ReactiveEventValsetUpdateClaim {
-  eventNonce: ComputedRef<bigint>;
-  eventHeight: ComputedRef<bigint>;
-  attestationId: ComputedRef<Uint8Array>;
-  valsetNonce: ComputedRef<bigint>;
-  valsetMembers: ComputedRef<BridgeValidator[]>;
-  rewardAmount: ComputedRef<string>;
-  rewardToken: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-}
 export interface EventValsetUpdateClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim";
   value: Uint8Array;
@@ -407,9 +310,6 @@ export interface EventValsetUpdateClaimAminoMsg {
 export interface EventCancelSendToEth {
   outgoingTxId: bigint;
 }
-export interface ReactiveEventCancelSendToEth {
-  outgoingTxId: ComputedRef<bigint>;
-}
 export interface EventCancelSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.EventCancelSendToEth";
   value: Uint8Array;
@@ -424,10 +324,6 @@ export interface EventCancelSendToEthAminoMsg {
 export interface EventSubmitBadSignatureEvidence {
   badEthSignature: string;
   badEthSignatureSubject: string;
-}
-export interface ReactiveEventSubmitBadSignatureEvidence {
-  badEthSignature: ComputedRef<string>;
-  badEthSignatureSubject: ComputedRef<string>;
 }
 export interface EventSubmitBadSignatureEvidenceProtoMsg {
   typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence";
@@ -447,13 +343,6 @@ export interface EventValidatorSlash {
   consensusAddress: string;
   operatorAddress: string;
   moniker: string;
-}
-export interface ReactiveEventValidatorSlash {
-  power: ComputedRef<bigint>;
-  reason: ComputedRef<string>;
-  consensusAddress: ComputedRef<string>;
-  operatorAddress: ComputedRef<string>;
-  moniker: ComputedRef<string>;
 }
 export interface EventValidatorSlashProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValidatorSlash";

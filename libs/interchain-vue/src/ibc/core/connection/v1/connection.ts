@@ -2,7 +2,6 @@ import { MerklePrefix, MerklePrefixAmino } from "../../commitment/v1/commitment"
 import { isSet, DeepPartial } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /**
  * State defines if a connection is in one of the following states:
  * INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -82,13 +81,6 @@ export interface ConnectionEnd {
    */
   delayPeriod: bigint;
 }
-export interface ReactiveConnectionEnd {
-  clientId: ComputedRef<string>;
-  versions: ComputedRef<Version[]>;
-  state: ComputedRef<State>;
-  counterparty: ComputedRef<Counterparty>;
-  delayPeriod: ComputedRef<bigint>;
-}
 export interface ConnectionEndProtoMsg {
   typeUrl: "/ibc.core.connection.v1.ConnectionEnd";
   value: Uint8Array;
@@ -143,14 +135,6 @@ export interface IdentifiedConnection {
   /** delay period associated with this connection. */
   delayPeriod: bigint;
 }
-export interface ReactiveIdentifiedConnection {
-  id: ComputedRef<string>;
-  clientId: ComputedRef<string>;
-  versions: ComputedRef<Version[]>;
-  state: ComputedRef<State>;
-  counterparty: ComputedRef<Counterparty>;
-  delayPeriod: ComputedRef<bigint>;
-}
 export interface IdentifiedConnectionProtoMsg {
   typeUrl: "/ibc.core.connection.v1.IdentifiedConnection";
   value: Uint8Array;
@@ -195,11 +179,6 @@ export interface Counterparty {
   /** commitment merkle prefix of the counterparty chain. */
   prefix: MerklePrefix;
 }
-export interface ReactiveCounterparty {
-  clientId: ComputedRef<string>;
-  connectionId: ComputedRef<string>;
-  prefix: ComputedRef<MerklePrefix>;
-}
 export interface CounterpartyProtoMsg {
   typeUrl: "/ibc.core.connection.v1.Counterparty";
   value: Uint8Array;
@@ -228,9 +207,6 @@ export interface ClientPaths {
   /** list of connection paths */
   paths: string[];
 }
-export interface ReactiveClientPaths {
-  paths: ComputedRef<string[]>;
-}
 export interface ClientPathsProtoMsg {
   typeUrl: "/ibc.core.connection.v1.ClientPaths";
   value: Uint8Array;
@@ -250,10 +226,6 @@ export interface ConnectionPaths {
   clientId: string;
   /** list of connection paths */
   paths: string[];
-}
-export interface ReactiveConnectionPaths {
-  clientId: ComputedRef<string>;
-  paths: ComputedRef<string[]>;
 }
 export interface ConnectionPathsProtoMsg {
   typeUrl: "/ibc.core.connection.v1.ConnectionPaths";
@@ -279,10 +251,6 @@ export interface Version {
   identifier: string;
   /** list of features compatible with the specified identifier */
   features: string[];
-}
-export interface ReactiveVersion {
-  identifier: ComputedRef<string>;
-  features: ComputedRef<string[]>;
 }
 export interface VersionProtoMsg {
   typeUrl: "/ibc.core.connection.v1.Version";
@@ -310,9 +278,6 @@ export interface Params {
    * conditions. A safe choice is 3-5x the expected time per block.
    */
   maxExpectedTimePerBlock: bigint;
-}
-export interface ReactiveParams {
-  maxExpectedTimePerBlock: ComputedRef<bigint>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/ibc.core.connection.v1.Params";

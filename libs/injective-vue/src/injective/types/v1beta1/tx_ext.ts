@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface ExtensionOptionsWeb3Tx {
   /**
    * typedDataChainID used only in EIP712 Domain and should match
@@ -18,11 +17,6 @@ export interface ExtensionOptionsWeb3Tx {
    * allows to perform fee delegation when using EIP712 Domain.
    */
   feePayerSig: Uint8Array;
-}
-export interface ReactiveExtensionOptionsWeb3Tx {
-  typedDataChainID: ComputedRef<bigint>;
-  feePayer: ComputedRef<string>;
-  feePayerSig: ComputedRef<Uint8Array>;
 }
 export interface ExtensionOptionsWeb3TxProtoMsg {
   typeUrl: "/injective.types.v1beta1.ExtensionOptionsWeb3Tx";

@@ -3,7 +3,6 @@ import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
 /** Module is the config object for the genutil module. */
 export interface Module {}
-export interface ReactiveModule {}
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.genutil.module.v1.Module";
   value: Uint8Array;

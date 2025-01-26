@@ -1,15 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** spot authz messages */
 export interface CreateSpotLimitOrderAuthz {
   subaccountId: string;
   marketIds: string[];
-}
-export interface ReactiveCreateSpotLimitOrderAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
 }
 export interface CreateSpotLimitOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateSpotLimitOrderAuthz";
@@ -28,10 +23,6 @@ export interface CreateSpotMarketOrderAuthz {
   subaccountId: string;
   marketIds: string[];
 }
-export interface ReactiveCreateSpotMarketOrderAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface CreateSpotMarketOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz";
   value: Uint8Array;
@@ -47,10 +38,6 @@ export interface CreateSpotMarketOrderAuthzAminoMsg {
 export interface BatchCreateSpotLimitOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
-}
-export interface ReactiveBatchCreateSpotLimitOrdersAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
 }
 export interface BatchCreateSpotLimitOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz";
@@ -68,10 +55,6 @@ export interface CancelSpotOrderAuthz {
   subaccountId: string;
   marketIds: string[];
 }
-export interface ReactiveCancelSpotOrderAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface CancelSpotOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CancelSpotOrderAuthz";
   value: Uint8Array;
@@ -87,10 +70,6 @@ export interface CancelSpotOrderAuthzAminoMsg {
 export interface BatchCancelSpotOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
-}
-export interface ReactiveBatchCancelSpotOrdersAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
 }
 export interface BatchCancelSpotOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz";
@@ -109,10 +88,6 @@ export interface CreateDerivativeLimitOrderAuthz {
   subaccountId: string;
   marketIds: string[];
 }
-export interface ReactiveCreateDerivativeLimitOrderAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface CreateDerivativeLimitOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz";
   value: Uint8Array;
@@ -130,10 +105,6 @@ export interface CreateDerivativeMarketOrderAuthz {
   subaccountId: string;
   marketIds: string[];
 }
-export interface ReactiveCreateDerivativeMarketOrderAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface CreateDerivativeMarketOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz";
   value: Uint8Array;
@@ -149,10 +120,6 @@ export interface CreateDerivativeMarketOrderAuthzAminoMsg {
 export interface BatchCreateDerivativeLimitOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
-}
-export interface ReactiveBatchCreateDerivativeLimitOrdersAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
 }
 export interface BatchCreateDerivativeLimitOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz";
@@ -170,10 +137,6 @@ export interface CancelDerivativeOrderAuthz {
   subaccountId: string;
   marketIds: string[];
 }
-export interface ReactiveCancelDerivativeOrderAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface CancelDerivativeOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CancelDerivativeOrderAuthz";
   value: Uint8Array;
@@ -189,10 +152,6 @@ export interface CancelDerivativeOrderAuthzAminoMsg {
 export interface BatchCancelDerivativeOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
-}
-export interface ReactiveBatchCancelDerivativeOrdersAuthz {
-  subaccountId: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
 }
 export interface BatchCancelDerivativeOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz";
@@ -211,11 +170,6 @@ export interface BatchUpdateOrdersAuthz {
   subaccountId: string;
   spotMarkets: string[];
   derivativeMarkets: string[];
-}
-export interface ReactiveBatchUpdateOrdersAuthz {
-  subaccountId: ComputedRef<string>;
-  spotMarkets: ComputedRef<string[]>;
-  derivativeMarkets: ComputedRef<string[]>;
 }
 export interface BatchUpdateOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchUpdateOrdersAuthz";

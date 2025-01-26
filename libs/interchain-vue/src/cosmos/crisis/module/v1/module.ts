@@ -1,17 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object of the crisis module. */
 export interface Module {
   /** fee_collector_name is the name of the FeeCollector ModuleAccount. */
   feeCollectorName: string;
   /** authority defines the custom module authority. If not set, defaults to the governance module. */
   authority: string;
-}
-export interface ReactiveModule {
-  feeCollectorName: ComputedRef<string>;
-  authority: ComputedRef<string>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.crisis.module.v1.Module";

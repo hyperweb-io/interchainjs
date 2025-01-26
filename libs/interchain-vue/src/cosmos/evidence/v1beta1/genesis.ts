@@ -2,14 +2,10 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** GenesisState defines the evidence module's genesis state. */
 export interface GenesisState {
   /** evidence defines all the evidence at genesis. */
   evidence: Any[];
-}
-export interface ReactiveGenesisState {
-  evidence: ComputedRef<Any[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.GenesisState";

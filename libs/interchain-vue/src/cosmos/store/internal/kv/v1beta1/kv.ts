@@ -1,13 +1,9 @@
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../../registry";
-import { ComputedRef } from "vue";
 /** Pairs defines a repeated slice of Pair objects. */
 export interface Pairs {
   pairs: Pair[];
-}
-export interface ReactivePairs {
-  pairs: ComputedRef<Pair[]>;
 }
 export interface PairsProtoMsg {
   typeUrl: "/cosmos.store.internal.kv.v1beta1.Pairs";
@@ -25,10 +21,6 @@ export interface PairsAminoMsg {
 export interface Pair {
   key: Uint8Array;
   value: Uint8Array;
-}
-export interface ReactivePair {
-  key: ComputedRef<Uint8Array>;
-  value: ComputedRef<Uint8Array>;
 }
 export interface PairProtoMsg {
   typeUrl: "/cosmos.store.internal.kv.v1beta1.Pair";

@@ -5,7 +5,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, toTimestamp, fromTimestamp } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface Params {
   /**
    * default_redemption_notice_period_duration defines the default minimum
@@ -13,9 +12,6 @@ export interface Params {
    * redemption request before the underwriter can claim his tokens
    */
   defaultRedemptionNoticePeriodDuration: Duration;
-}
-export interface ReactiveParams {
-  defaultRedemptionNoticePeriodDuration: ComputedRef<Duration>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.Params";
@@ -69,19 +65,6 @@ export interface InsuranceFund {
    * for binary options markets.
    */
   expiry: bigint;
-}
-export interface ReactiveInsuranceFund {
-  depositDenom: ComputedRef<string>;
-  insurancePoolTokenDenom: ComputedRef<string>;
-  redemptionNoticePeriodDuration: ComputedRef<Duration>;
-  balance: ComputedRef<string>;
-  totalShare: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  marketTicker: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  expiry: ComputedRef<bigint>;
 }
 export interface InsuranceFundProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.InsuranceFund";
@@ -139,13 +122,6 @@ export interface RedemptionSchedule {
   claimableRedemptionTime: Date;
   /** the insurance_pool_token amount to redeem */
   redemptionAmount: Coin;
-}
-export interface ReactiveRedemptionSchedule {
-  id: ComputedRef<bigint>;
-  marketId: ComputedRef<string>;
-  redeemer: ComputedRef<string>;
-  claimableRedemptionTime: ComputedRef<Date>;
-  redemptionAmount: ComputedRef<Coin>;
 }
 export interface RedemptionScheduleProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule";

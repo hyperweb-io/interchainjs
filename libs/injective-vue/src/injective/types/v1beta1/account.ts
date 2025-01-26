@@ -2,7 +2,6 @@ import { BaseAccount, BaseAccountAmino } from "../../../cosmos/auth/v1beta1/auth
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
@@ -10,10 +9,6 @@ import { ComputedRef } from "vue";
 export interface EthAccount {
   baseAccount?: BaseAccount;
   codeHash: Uint8Array;
-}
-export interface ReactiveEthAccount {
-  baseAccount?: ComputedRef<BaseAccount>;
-  codeHash: ComputedRef<Uint8Array>;
 }
 export interface EthAccountProtoMsg {
   typeUrl: "/injective.types.v1beta1.EthAccount";

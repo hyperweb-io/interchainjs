@@ -3,7 +3,6 @@ import { Duration, DurationAmino } from "../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * ValidatorSigningInfo defines a validator's signing info for monitoring their
  * liveness activity.
@@ -31,14 +30,6 @@ export interface ValidatorSigningInfo {
    * reads in the missed block bitmap.
    */
   missedBlocksCounter: bigint;
-}
-export interface ReactiveValidatorSigningInfo {
-  address: ComputedRef<string>;
-  startHeight: ComputedRef<bigint>;
-  indexOffset: ComputedRef<bigint>;
-  jailedUntil: ComputedRef<Date>;
-  tombstoned: ComputedRef<boolean>;
-  missedBlocksCounter: ComputedRef<bigint>;
 }
 export interface ValidatorSigningInfoProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.ValidatorSigningInfo";
@@ -83,13 +74,6 @@ export interface Params {
   downtimeJailDuration: Duration;
   slashFractionDoubleSign: Uint8Array;
   slashFractionDowntime: Uint8Array;
-}
-export interface ReactiveParams {
-  signedBlocksWindow: ComputedRef<bigint>;
-  minSignedPerWindow: ComputedRef<Uint8Array>;
-  downtimeJailDuration: ComputedRef<Duration>;
-  slashFractionDoubleSign: ComputedRef<Uint8Array>;
-  slashFractionDowntime: ComputedRef<Uint8Array>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.slashing.v1beta1.Params";

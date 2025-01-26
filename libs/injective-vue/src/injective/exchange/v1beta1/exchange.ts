@@ -3,7 +3,6 @@ import { OracleType } from "../../oracle/v1beta1/oracle";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export enum AtomicMarketOrderAccessLevel {
   Nobody = 0,
   /** BeginBlockerSmartContractsOnly - currently unsupported */
@@ -436,36 +435,6 @@ export interface Params {
   /** inj_auction_max_cap defines the maximum cap for INJ sent to auction */
   injAuctionMaxCap: string;
 }
-export interface ReactiveParams {
-  spotMarketInstantListingFee: ComputedRef<Coin>;
-  derivativeMarketInstantListingFee: ComputedRef<Coin>;
-  defaultSpotMakerFeeRate: ComputedRef<string>;
-  defaultSpotTakerFeeRate: ComputedRef<string>;
-  defaultDerivativeMakerFeeRate: ComputedRef<string>;
-  defaultDerivativeTakerFeeRate: ComputedRef<string>;
-  defaultInitialMarginRatio: ComputedRef<string>;
-  defaultMaintenanceMarginRatio: ComputedRef<string>;
-  defaultFundingInterval: ComputedRef<bigint>;
-  fundingMultiple: ComputedRef<bigint>;
-  relayerFeeShareRate: ComputedRef<string>;
-  defaultHourlyFundingRateCap: ComputedRef<string>;
-  defaultHourlyInterestRate: ComputedRef<string>;
-  maxDerivativeOrderSideCount: ComputedRef<number>;
-  injRewardStakedRequirementThreshold: ComputedRef<string>;
-  tradingRewardsVestingDuration: ComputedRef<bigint>;
-  liquidatorRewardShareRate: ComputedRef<string>;
-  binaryOptionsMarketInstantListingFee: ComputedRef<Coin>;
-  atomicMarketOrderAccessLevel: ComputedRef<AtomicMarketOrderAccessLevel>;
-  spotAtomicMarketOrderFeeMultiplier: ComputedRef<string>;
-  derivativeAtomicMarketOrderFeeMultiplier: ComputedRef<string>;
-  binaryOptionsAtomicMarketOrderFeeMultiplier: ComputedRef<string>;
-  minimalProtocolFeeRate: ComputedRef<string>;
-  isInstantDerivativeMarketLaunchEnabled: ComputedRef<boolean>;
-  postOnlyModeHeightThreshold: ComputedRef<bigint>;
-  marginDecreasePriceTimestampThresholdSeconds: ComputedRef<bigint>;
-  exchangeAdmins: ComputedRef<string[]>;
-  injAuctionMaxCap: ComputedRef<string>;
-}
 export interface ParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Params";
   value: Uint8Array;
@@ -604,10 +573,6 @@ export interface MarketFeeMultiplier {
   marketId: string;
   feeMultiplier: string;
 }
-export interface ReactiveMarketFeeMultiplier {
-  marketId: ComputedRef<string>;
-  feeMultiplier: ComputedRef<string>;
-}
 export interface MarketFeeMultiplierProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MarketFeeMultiplier";
   value: Uint8Array;
@@ -681,27 +646,6 @@ export interface DerivativeMarket {
   admin: string;
   /** level of admin permissions */
   adminPermissions: number;
-}
-export interface ReactiveDerivativeMarket {
-  ticker: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  oracleScaleFactor: ComputedRef<number>;
-  quoteDenom: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  initialMarginRatio: ComputedRef<string>;
-  maintenanceMarginRatio: ComputedRef<string>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  relayerFeeShareRate: ComputedRef<string>;
-  isPerpetual: ComputedRef<boolean>;
-  status: ComputedRef<MarketStatus>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  adminPermissions: ComputedRef<number>;
 }
 export interface DerivativeMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarket";
@@ -825,27 +769,6 @@ export interface BinaryOptionsMarket {
   /** level of admin permissions */
   adminPermissions: number;
 }
-export interface ReactiveBinaryOptionsMarket {
-  ticker: ComputedRef<string>;
-  oracleSymbol: ComputedRef<string>;
-  oracleProvider: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  oracleScaleFactor: ComputedRef<number>;
-  expirationTimestamp: ComputedRef<bigint>;
-  settlementTimestamp: ComputedRef<bigint>;
-  admin: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  relayerFeeShareRate: ComputedRef<string>;
-  status: ComputedRef<MarketStatus>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  settlementPrice?: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  adminPermissions: ComputedRef<number>;
-}
 export interface BinaryOptionsMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarket";
   value: Uint8Array;
@@ -930,13 +853,6 @@ export interface ExpiryFuturesMarketInfo {
    */
   settlementPrice: string;
 }
-export interface ReactiveExpiryFuturesMarketInfo {
-  marketId: ComputedRef<string>;
-  expirationTimestamp: ComputedRef<bigint>;
-  twapStartTimestamp: ComputedRef<bigint>;
-  expirationTwapStartPriceCumulative: ComputedRef<string>;
-  settlementPrice: ComputedRef<string>;
-}
 export interface ExpiryFuturesMarketInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketInfo";
   value: Uint8Array;
@@ -990,13 +906,6 @@ export interface PerpetualMarketInfo {
    */
   fundingInterval: bigint;
 }
-export interface ReactivePerpetualMarketInfo {
-  marketId: ComputedRef<string>;
-  hourlyFundingRateCap: ComputedRef<string>;
-  hourlyInterestRate: ComputedRef<string>;
-  nextFundingTimestamp: ComputedRef<bigint>;
-  fundingInterval: ComputedRef<bigint>;
-}
 export interface PerpetualMarketInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketInfo";
   value: Uint8Array;
@@ -1036,11 +945,6 @@ export interface PerpetualMarketFunding {
   cumulativePrice: string;
   lastTimestamp: bigint;
 }
-export interface ReactivePerpetualMarketFunding {
-  cumulativeFunding: ComputedRef<string>;
-  cumulativePrice: ComputedRef<string>;
-  lastTimestamp: ComputedRef<bigint>;
-}
 export interface PerpetualMarketFundingProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketFunding";
   value: Uint8Array;
@@ -1065,10 +969,6 @@ export interface DerivativeMarketSettlementInfo {
   /** settlement_price defines the settlement price */
   settlementPrice: string;
 }
-export interface ReactiveDerivativeMarketSettlementInfo {
-  marketId: ComputedRef<string>;
-  settlementPrice: ComputedRef<string>;
-}
 export interface DerivativeMarketSettlementInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketSettlementInfo";
   value: Uint8Array;
@@ -1085,9 +985,6 @@ export interface DerivativeMarketSettlementInfoAminoMsg {
 }
 export interface NextFundingTimestamp {
   nextTimestamp: bigint;
-}
-export interface ReactiveNextFundingTimestamp {
-  nextTimestamp: ComputedRef<bigint>;
 }
 export interface NextFundingTimestampProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.NextFundingTimestamp";
@@ -1107,11 +1004,6 @@ export interface MidPriceAndTOB {
   bestBuyPrice?: string;
   /** best sell price of the market */
   bestSellPrice?: string;
-}
-export interface ReactiveMidPriceAndTOB {
-  midPrice?: ComputedRef<string>;
-  bestBuyPrice?: ComputedRef<string>;
-  bestSellPrice?: ComputedRef<string>;
 }
 export interface MidPriceAndTOBProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MidPriceAndTOB";
@@ -1173,21 +1065,6 @@ export interface SpotMarket {
   /** level of admin permissions */
   adminPermissions: number;
 }
-export interface ReactiveSpotMarket {
-  ticker: ComputedRef<string>;
-  baseDenom: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  relayerFeeShareRate: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  status: ComputedRef<MarketStatus>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  adminPermissions: ComputedRef<number>;
-}
 export interface SpotMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarket";
   value: Uint8Array;
@@ -1245,10 +1122,6 @@ export interface Deposit {
   availableBalance: string;
   totalBalance: string;
 }
-export interface ReactiveDeposit {
-  availableBalance: ComputedRef<string>;
-  totalBalance: ComputedRef<string>;
-}
 export interface DepositProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Deposit";
   value: Uint8Array;
@@ -1264,9 +1137,6 @@ export interface DepositAminoMsg {
 }
 export interface SubaccountTradeNonce {
   nonce: number;
-}
-export interface ReactiveSubaccountTradeNonce {
-  nonce: ComputedRef<number>;
 }
 export interface SubaccountTradeNonceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountTradeNonce";
@@ -1289,13 +1159,6 @@ export interface OrderInfo {
   /** quantity of the order */
   quantity: string;
   cid: string;
-}
-export interface ReactiveOrderInfo {
-  subaccountId: ComputedRef<string>;
-  feeRecipient: ComputedRef<string>;
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-  cid: ComputedRef<string>;
 }
 export interface OrderInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderInfo";
@@ -1326,12 +1189,6 @@ export interface SpotOrder {
   /** trigger_price is the trigger price used by stop/take orders */
   triggerPrice?: string;
 }
-export interface ReactiveSpotOrder {
-  marketId: ComputedRef<string>;
-  orderInfo: ComputedRef<OrderInfo>;
-  orderType: ComputedRef<OrderType>;
-  triggerPrice?: ComputedRef<string>;
-}
 export interface SpotOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotOrder";
   value: Uint8Array;
@@ -1361,13 +1218,6 @@ export interface SpotLimitOrder {
   /** trigger_price is the trigger price used by stop/take orders */
   triggerPrice?: string;
   orderHash: Uint8Array;
-}
-export interface ReactiveSpotLimitOrder {
-  orderInfo: ComputedRef<OrderInfo>;
-  orderType: ComputedRef<OrderType>;
-  fillable: ComputedRef<string>;
-  triggerPrice?: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
 }
 export interface SpotLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotLimitOrder";
@@ -1400,13 +1250,6 @@ export interface SpotMarketOrder {
   /** trigger_price is the trigger price used by stop/take orders */
   triggerPrice?: string;
 }
-export interface ReactiveSpotMarketOrder {
-  orderInfo: ComputedRef<OrderInfo>;
-  balanceHold: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
-  orderType: ComputedRef<OrderType>;
-  triggerPrice?: ComputedRef<string>;
-}
 export interface SpotMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketOrder";
   value: Uint8Array;
@@ -1437,13 +1280,6 @@ export interface DerivativeOrder {
   margin: string;
   /** trigger_price is the trigger price used by stop/take orders */
   triggerPrice?: string;
-}
-export interface ReactiveDerivativeOrder {
-  marketId: ComputedRef<string>;
-  orderInfo: ComputedRef<OrderInfo>;
-  orderType: ComputedRef<OrderType>;
-  margin: ComputedRef<string>;
-  triggerPrice?: ComputedRef<string>;
 }
 export interface DerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeOrder";
@@ -1481,14 +1317,6 @@ export interface SubaccountOrderbookMetadata {
   vanillaConditionalOrderCount: number;
   reduceOnlyConditionalOrderCount: number;
 }
-export interface ReactiveSubaccountOrderbookMetadata {
-  vanillaLimitOrderCount: ComputedRef<number>;
-  reduceOnlyLimitOrderCount: ComputedRef<number>;
-  aggregateReduceOnlyQuantity: ComputedRef<string>;
-  aggregateVanillaQuantity: ComputedRef<string>;
-  vanillaConditionalOrderCount: ComputedRef<number>;
-  reduceOnlyConditionalOrderCount: ComputedRef<number>;
-}
 export interface SubaccountOrderbookMetadataProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountOrderbookMetadata";
   value: Uint8Array;
@@ -1521,12 +1349,6 @@ export interface SubaccountOrder {
   isReduceOnly: boolean;
   cid: string;
 }
-export interface ReactiveSubaccountOrder {
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-  isReduceOnly: ComputedRef<boolean>;
-  cid: ComputedRef<string>;
-}
 export interface SubaccountOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountOrder";
   value: Uint8Array;
@@ -1546,10 +1368,6 @@ export interface SubaccountOrderAminoMsg {
 export interface SubaccountOrderData {
   order?: SubaccountOrder;
   orderHash: Uint8Array;
-}
-export interface ReactiveSubaccountOrderData {
-  order?: ComputedRef<SubaccountOrder>;
-  orderHash: ComputedRef<Uint8Array>;
 }
 export interface SubaccountOrderDataProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountOrderData";
@@ -1576,14 +1394,6 @@ export interface DerivativeLimitOrder {
   /** trigger_price is the trigger price used by stop/take orders */
   triggerPrice?: string;
   orderHash: Uint8Array;
-}
-export interface ReactiveDerivativeLimitOrder {
-  orderInfo: ComputedRef<OrderInfo>;
-  orderType: ComputedRef<OrderType>;
-  margin: ComputedRef<string>;
-  fillable: ComputedRef<string>;
-  triggerPrice?: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
 }
 export interface DerivativeLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeLimitOrder";
@@ -1619,14 +1429,6 @@ export interface DerivativeMarketOrder {
   triggerPrice?: string;
   orderHash: Uint8Array;
 }
-export interface ReactiveDerivativeMarketOrder {
-  orderInfo: ComputedRef<OrderInfo>;
-  orderType: ComputedRef<OrderType>;
-  margin: ComputedRef<string>;
-  marginHold: ComputedRef<string>;
-  triggerPrice?: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
-}
 export interface DerivativeMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrder";
   value: Uint8Array;
@@ -1654,13 +1456,6 @@ export interface Position {
   margin: string;
   cumulativeFundingEntry: string;
 }
-export interface ReactivePosition {
-  isLong: ComputedRef<boolean>;
-  quantity: ComputedRef<string>;
-  entryPrice: ComputedRef<string>;
-  margin: ComputedRef<string>;
-  cumulativeFundingEntry: ComputedRef<string>;
-}
 export interface PositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Position";
   value: Uint8Array;
@@ -1680,10 +1475,6 @@ export interface MarketOrderIndicator {
   /** market_id represents the unique ID of the market */
   marketId: string;
   isBuy: boolean;
-}
-export interface ReactiveMarketOrderIndicator {
-  marketId: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
 }
 export interface MarketOrderIndicatorProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MarketOrderIndicator";
@@ -1707,15 +1498,6 @@ export interface TradeLog {
   orderHash: Uint8Array;
   feeRecipientAddress?: Uint8Array;
   cid: string;
-}
-export interface ReactiveTradeLog {
-  quantity: ComputedRef<string>;
-  price: ComputedRef<string>;
-  subaccountId: ComputedRef<Uint8Array>;
-  fee: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
-  feeRecipientAddress?: ComputedRef<Uint8Array>;
-  cid: ComputedRef<string>;
 }
 export interface TradeLogProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradeLog";
@@ -1741,12 +1523,6 @@ export interface PositionDelta {
   executionMargin: string;
   executionPrice: string;
 }
-export interface ReactivePositionDelta {
-  isLong: ComputedRef<boolean>;
-  executionQuantity: ComputedRef<string>;
-  executionMargin: ComputedRef<string>;
-  executionPrice: ComputedRef<string>;
-}
 export interface PositionDeltaProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PositionDelta";
   value: Uint8Array;
@@ -1771,16 +1547,6 @@ export interface DerivativeTradeLog {
   cid: string;
   pnl: string;
 }
-export interface ReactiveDerivativeTradeLog {
-  subaccountId: ComputedRef<Uint8Array>;
-  positionDelta?: ComputedRef<PositionDelta>;
-  payout: ComputedRef<string>;
-  fee: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
-  feeRecipientAddress?: ComputedRef<Uint8Array>;
-  cid: ComputedRef<string>;
-  pnl: ComputedRef<string>;
-}
 export interface DerivativeTradeLogProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeTradeLog";
   value: Uint8Array;
@@ -1803,10 +1569,6 @@ export interface SubaccountPosition {
   position?: Position;
   subaccountId: Uint8Array;
 }
-export interface ReactiveSubaccountPosition {
-  position?: ComputedRef<Position>;
-  subaccountId: ComputedRef<Uint8Array>;
-}
 export interface SubaccountPositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountPosition";
   value: Uint8Array;
@@ -1822,10 +1584,6 @@ export interface SubaccountPositionAminoMsg {
 export interface SubaccountDeposit {
   subaccountId: Uint8Array;
   deposit?: Deposit;
-}
-export interface ReactiveSubaccountDeposit {
-  subaccountId: ComputedRef<Uint8Array>;
-  deposit?: ComputedRef<Deposit>;
 }
 export interface SubaccountDepositProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountDeposit";
@@ -1843,10 +1601,6 @@ export interface DepositUpdate {
   denom: string;
   deposits: SubaccountDeposit[];
 }
-export interface ReactiveDepositUpdate {
-  denom: ComputedRef<string>;
-  deposits: ComputedRef<SubaccountDeposit[]>;
-}
 export interface DepositUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DepositUpdate";
   value: Uint8Array;
@@ -1862,10 +1616,6 @@ export interface DepositUpdateAminoMsg {
 export interface PointsMultiplier {
   makerPointsMultiplier: string;
   takerPointsMultiplier: string;
-}
-export interface ReactivePointsMultiplier {
-  makerPointsMultiplier: ComputedRef<string>;
-  takerPointsMultiplier: ComputedRef<string>;
 }
 export interface PointsMultiplierProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PointsMultiplier";
@@ -1884,12 +1634,6 @@ export interface TradingRewardCampaignBoostInfo {
   spotMarketMultipliers: PointsMultiplier[];
   boostedDerivativeMarketIds: string[];
   derivativeMarketMultipliers: PointsMultiplier[];
-}
-export interface ReactiveTradingRewardCampaignBoostInfo {
-  boostedSpotMarketIds: ComputedRef<string[]>;
-  spotMarketMultipliers: ComputedRef<PointsMultiplier[]>;
-  boostedDerivativeMarketIds: ComputedRef<string[]>;
-  derivativeMarketMultipliers: ComputedRef<PointsMultiplier[]>;
 }
 export interface TradingRewardCampaignBoostInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignBoostInfo";
@@ -1912,10 +1656,6 @@ export interface CampaignRewardPool {
    * end of the campaign
    */
   maxCampaignRewards: Coin[];
-}
-export interface ReactiveCampaignRewardPool {
-  startTimestamp: ComputedRef<bigint>;
-  maxCampaignRewards: ComputedRef<Coin[]>;
 }
 export interface CampaignRewardPoolProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CampaignRewardPool";
@@ -1943,12 +1683,6 @@ export interface TradingRewardCampaignInfo {
   /** the marketIDs which are disqualified from being rewarded */
   disqualifiedMarketIds: string[];
 }
-export interface ReactiveTradingRewardCampaignInfo {
-  campaignDurationSeconds: ComputedRef<bigint>;
-  quoteDenoms: ComputedRef<string[]>;
-  tradingRewardBoostInfo?: ComputedRef<TradingRewardCampaignBoostInfo>;
-  disqualifiedMarketIds: ComputedRef<string[]>;
-}
 export interface TradingRewardCampaignInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignInfo";
   value: Uint8Array;
@@ -1972,12 +1706,6 @@ export interface FeeDiscountTierInfo {
   takerDiscountRate: string;
   stakedAmount: string;
   volume: string;
-}
-export interface ReactiveFeeDiscountTierInfo {
-  makerDiscountRate: ComputedRef<string>;
-  takerDiscountRate: ComputedRef<string>;
-  stakedAmount: ComputedRef<string>;
-  volume: ComputedRef<string>;
 }
 export interface FeeDiscountTierInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountTierInfo";
@@ -2009,13 +1737,6 @@ export interface FeeDiscountSchedule {
    */
   disqualifiedMarketIds: string[];
 }
-export interface ReactiveFeeDiscountSchedule {
-  bucketCount: ComputedRef<bigint>;
-  bucketDuration: ComputedRef<bigint>;
-  quoteDenoms: ComputedRef<string[]>;
-  tierInfos: ComputedRef<FeeDiscountTierInfo[]>;
-  disqualifiedMarketIds: ComputedRef<string[]>;
-}
 export interface FeeDiscountScheduleProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountSchedule";
   value: Uint8Array;
@@ -2044,10 +1765,6 @@ export interface FeeDiscountTierTTL {
   tier: bigint;
   ttlTimestamp: bigint;
 }
-export interface ReactiveFeeDiscountTierTTL {
-  tier: ComputedRef<bigint>;
-  ttlTimestamp: ComputedRef<bigint>;
-}
 export interface FeeDiscountTierTTLProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountTierTTL";
   value: Uint8Array;
@@ -2063,10 +1780,6 @@ export interface FeeDiscountTierTTLAminoMsg {
 export interface VolumeRecord {
   makerVolume: string;
   takerVolume: string;
-}
-export interface ReactiveVolumeRecord {
-  makerVolume: ComputedRef<string>;
-  takerVolume: ComputedRef<string>;
 }
 export interface VolumeRecordProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.VolumeRecord";
@@ -2084,10 +1797,6 @@ export interface AccountRewards {
   account: string;
   rewards: Coin[];
 }
-export interface ReactiveAccountRewards {
-  account: ComputedRef<string>;
-  rewards: ComputedRef<Coin[]>;
-}
 export interface AccountRewardsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AccountRewards";
   value: Uint8Array;
@@ -2104,10 +1813,6 @@ export interface TradeRecords {
   marketId: string;
   latestTradeRecords: TradeRecord[];
 }
-export interface ReactiveTradeRecords {
-  marketId: ComputedRef<string>;
-  latestTradeRecords: ComputedRef<TradeRecord[]>;
-}
 export interface TradeRecordsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradeRecords";
   value: Uint8Array;
@@ -2122,9 +1827,6 @@ export interface TradeRecordsAminoMsg {
 }
 export interface SubaccountIDs {
   subaccountIds: Uint8Array[];
-}
-export interface ReactiveSubaccountIDs {
-  subaccountIds: ComputedRef<Uint8Array[]>;
 }
 export interface SubaccountIDsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountIDs";
@@ -2141,11 +1843,6 @@ export interface TradeRecord {
   timestamp: bigint;
   price: string;
   quantity: string;
-}
-export interface ReactiveTradeRecord {
-  timestamp: ComputedRef<bigint>;
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
 }
 export interface TradeRecordProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradeRecord";
@@ -2166,10 +1863,6 @@ export interface Level {
   /** quantity */
   q: string;
 }
-export interface ReactiveLevel {
-  p: ComputedRef<string>;
-  q: ComputedRef<string>;
-}
 export interface LevelProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Level";
   value: Uint8Array;
@@ -2188,10 +1881,6 @@ export interface AggregateSubaccountVolumeRecord {
   subaccountId: string;
   marketVolumes: MarketVolume[];
 }
-export interface ReactiveAggregateSubaccountVolumeRecord {
-  subaccountId: ComputedRef<string>;
-  marketVolumes: ComputedRef<MarketVolume[]>;
-}
 export interface AggregateSubaccountVolumeRecordProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AggregateSubaccountVolumeRecord";
   value: Uint8Array;
@@ -2207,10 +1896,6 @@ export interface AggregateSubaccountVolumeRecordAminoMsg {
 export interface AggregateAccountVolumeRecord {
   account: string;
   marketVolumes: MarketVolume[];
-}
-export interface ReactiveAggregateAccountVolumeRecord {
-  account: ComputedRef<string>;
-  marketVolumes: ComputedRef<MarketVolume[]>;
 }
 export interface AggregateAccountVolumeRecordProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AggregateAccountVolumeRecord";
@@ -2228,10 +1913,6 @@ export interface MarketVolume {
   marketId: string;
   volume: VolumeRecord;
 }
-export interface ReactiveMarketVolume {
-  marketId: ComputedRef<string>;
-  volume: ComputedRef<VolumeRecord>;
-}
 export interface MarketVolumeProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MarketVolume";
   value: Uint8Array;
@@ -2247,10 +1928,6 @@ export interface MarketVolumeAminoMsg {
 export interface DenomDecimals {
   denom: string;
   decimals: bigint;
-}
-export interface ReactiveDenomDecimals {
-  denom: ComputedRef<string>;
-  decimals: ComputedRef<bigint>;
 }
 export interface DenomDecimalsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DenomDecimals";
@@ -2268,10 +1945,6 @@ export interface GrantAuthorization {
   grantee: string;
   amount: string;
 }
-export interface ReactiveGrantAuthorization {
-  grantee: ComputedRef<string>;
-  amount: ComputedRef<string>;
-}
 export interface GrantAuthorizationProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.GrantAuthorization";
   value: Uint8Array;
@@ -2287,10 +1960,6 @@ export interface GrantAuthorizationAminoMsg {
 export interface ActiveGrant {
   granter: string;
   amount: string;
-}
-export interface ReactiveActiveGrant {
-  granter: ComputedRef<string>;
-  amount: ComputedRef<string>;
 }
 export interface ActiveGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ActiveGrant";
@@ -2308,11 +1977,6 @@ export interface EffectiveGrant {
   granter: string;
   netGrantedStake: string;
   isValid: boolean;
-}
-export interface ReactiveEffectiveGrant {
-  granter: ComputedRef<string>;
-  netGrantedStake: ComputedRef<string>;
-  isValid: ComputedRef<boolean>;
 }
 export interface EffectiveGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EffectiveGrant";

@@ -3,7 +3,6 @@ import { ContractRegistrationRequest, ContractRegistrationRequestAmino } from ".
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgExecuteContractCompat submits the given message data to a smart contract,
  * compatible with EIP712
@@ -17,12 +16,6 @@ export interface MsgExecuteContractCompat {
   msg: string;
   /** Funds coins that are transferred to the contract on execution */
   funds: string;
-}
-export interface ReactiveMsgExecuteContractCompat {
-  sender: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  msg: ComputedRef<string>;
-  funds: ComputedRef<string>;
 }
 export interface MsgExecuteContractCompatProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompat";
@@ -51,9 +44,6 @@ export interface MsgExecuteContractCompatResponse {
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
 }
-export interface ReactiveMsgExecuteContractCompatResponse {
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgExecuteContractCompatResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompatResponse";
   value: Uint8Array;
@@ -78,13 +68,6 @@ export interface MsgUpdateContract {
   /** optional - admin account that will be allowed to perform any changes */
   adminAddress?: string;
 }
-export interface ReactiveMsgUpdateContract {
-  sender: ComputedRef<string>;
-  contractAddress: ComputedRef<string>;
-  gasLimit: ComputedRef<bigint>;
-  gasPrice: ComputedRef<bigint>;
-  adminAddress?: ComputedRef<string>;
-}
 export interface MsgUpdateContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateContract";
   value: Uint8Array;
@@ -105,7 +88,6 @@ export interface MsgUpdateContractAminoMsg {
   value: MsgUpdateContractAmino;
 }
 export interface MsgUpdateContractResponse {}
-export interface ReactiveMsgUpdateContractResponse {}
 export interface MsgUpdateContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateContractResponse";
   value: Uint8Array;
@@ -119,10 +101,6 @@ export interface MsgActivateContract {
   sender: string;
   /** Unique Identifier for contract instance to be activated. */
   contractAddress: string;
-}
-export interface ReactiveMsgActivateContract {
-  sender: ComputedRef<string>;
-  contractAddress: ComputedRef<string>;
 }
 export interface MsgActivateContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgActivateContract";
@@ -138,7 +116,6 @@ export interface MsgActivateContractAminoMsg {
   value: MsgActivateContractAmino;
 }
 export interface MsgActivateContractResponse {}
-export interface ReactiveMsgActivateContractResponse {}
 export interface MsgActivateContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgActivateContractResponse";
   value: Uint8Array;
@@ -152,10 +129,6 @@ export interface MsgDeactivateContract {
   sender: string;
   /** Unique Identifier for contract instance to be deactivated. */
   contractAddress: string;
-}
-export interface ReactiveMsgDeactivateContract {
-  sender: ComputedRef<string>;
-  contractAddress: ComputedRef<string>;
 }
 export interface MsgDeactivateContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgDeactivateContract";
@@ -171,7 +144,6 @@ export interface MsgDeactivateContractAminoMsg {
   value: MsgDeactivateContractAmino;
 }
 export interface MsgDeactivateContractResponse {}
-export interface ReactiveMsgDeactivateContractResponse {}
 export interface MsgDeactivateContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgDeactivateContractResponse";
   value: Uint8Array;
@@ -190,10 +162,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateParams";
@@ -214,7 +182,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -227,10 +194,6 @@ export interface MsgUpdateParamsResponseAminoMsg {
 export interface MsgRegisterContract {
   sender: string;
   contractRegistrationRequest: ContractRegistrationRequest;
-}
-export interface ReactiveMsgRegisterContract {
-  sender: ComputedRef<string>;
-  contractRegistrationRequest: ComputedRef<ContractRegistrationRequest>;
 }
 export interface MsgRegisterContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgRegisterContract";
@@ -245,7 +208,6 @@ export interface MsgRegisterContractAminoMsg {
   value: MsgRegisterContractAmino;
 }
 export interface MsgRegisterContractResponse {}
-export interface ReactiveMsgRegisterContractResponse {}
 export interface MsgRegisterContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgRegisterContractResponse";
   value: Uint8Array;

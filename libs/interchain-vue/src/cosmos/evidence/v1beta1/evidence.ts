@@ -2,7 +2,6 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * Equivocation implements the Evidence interface and defines evidence of double
  * signing misbehavior.
@@ -16,12 +15,6 @@ export interface Equivocation {
   power: bigint;
   /** consensus_address is the equivocation validator consensus address. */
   consensusAddress: string;
-}
-export interface ReactiveEquivocation {
-  height: ComputedRef<bigint>;
-  time: ComputedRef<Date>;
-  power: ComputedRef<bigint>;
-  consensusAddress: ComputedRef<string>;
 }
 export interface EquivocationProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.Equivocation";

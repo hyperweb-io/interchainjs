@@ -2,7 +2,6 @@ import { BlockParams, BlockParamsAmino, EvidenceParams, EvidenceParamsAmino, Val
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParams {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
@@ -19,13 +18,6 @@ export interface MsgUpdateParams {
   validator?: ValidatorParams;
   /** Since: cosmos-sdk 0.50 */
   abci?: ABCIParams;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  block?: ComputedRef<BlockParams>;
-  evidence?: ComputedRef<EvidenceParams>;
-  validator?: ComputedRef<ValidatorParams>;
-  abci?: ComputedRef<ABCIParams>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.consensus.v1.MsgUpdateParams";
@@ -57,7 +49,6 @@ export interface MsgUpdateParamsAminoMsg {
  * MsgUpdateParams message.
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.consensus.v1.MsgUpdateParamsResponse";
   value: Uint8Array;

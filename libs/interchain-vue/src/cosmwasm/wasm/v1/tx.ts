@@ -4,7 +4,6 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@cosmjs/encoding";
-import { ComputedRef } from "vue";
 /** MsgStoreCode submit Wasm code to the system */
 export interface MsgStoreCode {
   /** Sender is the actor that signed the messages */
@@ -16,11 +15,6 @@ export interface MsgStoreCode {
    * optional
    */
   instantiatePermission?: AccessConfig;
-}
-export interface ReactiveMsgStoreCode {
-  sender: ComputedRef<string>;
-  wasmByteCode: ComputedRef<Uint8Array>;
-  instantiatePermission?: ComputedRef<AccessConfig>;
 }
 export interface MsgStoreCodeProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreCode";
@@ -48,10 +42,6 @@ export interface MsgStoreCodeResponse {
   codeId: bigint;
   /** Checksum is the sha256 hash of the stored code */
   checksum: Uint8Array;
-}
-export interface ReactiveMsgStoreCodeResponse {
-  codeId: ComputedRef<bigint>;
-  checksum: ComputedRef<Uint8Array>;
 }
 export interface MsgStoreCodeResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreCodeResponse";
@@ -86,14 +76,6 @@ export interface MsgInstantiateContract {
   /** Funds coins that are transferred to the contract on instantiation */
   funds: Coin[];
 }
-export interface ReactiveMsgInstantiateContract {
-  sender: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  label: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-}
 export interface MsgInstantiateContractProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContract";
   value: Uint8Array;
@@ -126,10 +108,6 @@ export interface MsgInstantiateContractResponse {
   address: string;
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
-}
-export interface ReactiveMsgInstantiateContractResponse {
-  address: ComputedRef<string>;
-  data: ComputedRef<Uint8Array>;
 }
 export interface MsgInstantiateContractResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContractResponse";
@@ -171,16 +149,6 @@ export interface MsgInstantiateContract2 {
    */
   fixMsg: boolean;
 }
-export interface ReactiveMsgInstantiateContract2 {
-  sender: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  label: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-  salt: ComputedRef<Uint8Array>;
-  fixMsg: ComputedRef<boolean>;
-}
 export interface MsgInstantiateContract2ProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContract2";
   value: Uint8Array;
@@ -221,10 +189,6 @@ export interface MsgInstantiateContract2Response {
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
 }
-export interface ReactiveMsgInstantiateContract2Response {
-  address: ComputedRef<string>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgInstantiateContract2ResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgInstantiateContract2Response";
   value: Uint8Array;
@@ -251,12 +215,6 @@ export interface MsgExecuteContract {
   /** Funds coins that are transferred to the contract on execution */
   funds: Coin[];
 }
-export interface ReactiveMsgExecuteContract {
-  sender: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-}
 export interface MsgExecuteContractProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract";
   value: Uint8Array;
@@ -281,9 +239,6 @@ export interface MsgExecuteContractResponse {
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
 }
-export interface ReactiveMsgExecuteContractResponse {
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgExecuteContractResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContractResponse";
   value: Uint8Array;
@@ -307,12 +262,6 @@ export interface MsgMigrateContract {
   codeId: bigint;
   /** Msg json encoded message to be passed to the contract on migration */
   msg: Uint8Array;
-}
-export interface ReactiveMsgMigrateContract {
-  sender: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  msg: ComputedRef<Uint8Array>;
 }
 export interface MsgMigrateContractProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgMigrateContract";
@@ -341,9 +290,6 @@ export interface MsgMigrateContractResponse {
    */
   data: Uint8Array;
 }
-export interface ReactiveMsgMigrateContractResponse {
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgMigrateContractResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgMigrateContractResponse";
   value: Uint8Array;
@@ -369,11 +315,6 @@ export interface MsgUpdateAdmin {
   /** Contract is the address of the smart contract */
   contract: string;
 }
-export interface ReactiveMsgUpdateAdmin {
-  sender: ComputedRef<string>;
-  newAdmin: ComputedRef<string>;
-  contract: ComputedRef<string>;
-}
 export interface MsgUpdateAdminProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateAdmin";
   value: Uint8Array;
@@ -393,7 +334,6 @@ export interface MsgUpdateAdminAminoMsg {
 }
 /** MsgUpdateAdminResponse returns empty data */
 export interface MsgUpdateAdminResponse {}
-export interface ReactiveMsgUpdateAdminResponse {}
 export interface MsgUpdateAdminResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateAdminResponse";
   value: Uint8Array;
@@ -410,10 +350,6 @@ export interface MsgClearAdmin {
   sender: string;
   /** Contract is the address of the smart contract */
   contract: string;
-}
-export interface ReactiveMsgClearAdmin {
-  sender: ComputedRef<string>;
-  contract: ComputedRef<string>;
 }
 export interface MsgClearAdminProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgClearAdmin";
@@ -432,7 +368,6 @@ export interface MsgClearAdminAminoMsg {
 }
 /** MsgClearAdminResponse returns empty data */
 export interface MsgClearAdminResponse {}
-export interface ReactiveMsgClearAdminResponse {}
 export interface MsgClearAdminResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgClearAdminResponse";
   value: Uint8Array;
@@ -451,11 +386,6 @@ export interface MsgUpdateInstantiateConfig {
   codeId: bigint;
   /** NewInstantiatePermission is the new access control */
   newInstantiatePermission?: AccessConfig;
-}
-export interface ReactiveMsgUpdateInstantiateConfig {
-  sender: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  newInstantiatePermission?: ComputedRef<AccessConfig>;
 }
 export interface MsgUpdateInstantiateConfigProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateInstantiateConfig";
@@ -476,7 +406,6 @@ export interface MsgUpdateInstantiateConfigAminoMsg {
 }
 /** MsgUpdateInstantiateConfigResponse returns empty data */
 export interface MsgUpdateInstantiateConfigResponse {}
-export interface ReactiveMsgUpdateInstantiateConfigResponse {}
 export interface MsgUpdateInstantiateConfigResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse";
   value: Uint8Array;
@@ -501,10 +430,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateParams";
@@ -536,7 +461,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: 0.40
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -564,11 +488,6 @@ export interface MsgSudoContract {
   contract: string;
   /** Msg json encoded message to be passed to the contract as sudo */
   msg: Uint8Array;
-}
-export interface ReactiveMsgSudoContract {
-  authority: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
 }
 export interface MsgSudoContractProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgSudoContract";
@@ -601,9 +520,6 @@ export interface MsgSudoContractResponse {
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
 }
-export interface ReactiveMsgSudoContractResponse {
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgSudoContractResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgSudoContractResponse";
   value: Uint8Array;
@@ -633,10 +549,6 @@ export interface MsgPinCodes {
   /** CodeIDs references the new WASM codes */
   codeIds: bigint[];
 }
-export interface ReactiveMsgPinCodes {
-  authority: ComputedRef<string>;
-  codeIds: ComputedRef<bigint[]>;
-}
 export interface MsgPinCodesProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgPinCodes";
   value: Uint8Array;
@@ -663,7 +575,6 @@ export interface MsgPinCodesAminoMsg {
  * Since: 0.40
  */
 export interface MsgPinCodesResponse {}
-export interface ReactiveMsgPinCodesResponse {}
 export interface MsgPinCodesResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgPinCodesResponse";
   value: Uint8Array;
@@ -689,10 +600,6 @@ export interface MsgUnpinCodes {
   authority: string;
   /** CodeIDs references the WASM codes */
   codeIds: bigint[];
-}
-export interface ReactiveMsgUnpinCodes {
-  authority: ComputedRef<string>;
-  codeIds: ComputedRef<bigint[]>;
 }
 export interface MsgUnpinCodesProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUnpinCodes";
@@ -720,7 +627,6 @@ export interface MsgUnpinCodesAminoMsg {
  * Since: 0.40
  */
 export interface MsgUnpinCodesResponse {}
-export interface ReactiveMsgUnpinCodesResponse {}
 export interface MsgUnpinCodesResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUnpinCodesResponse";
   value: Uint8Array;
@@ -777,19 +683,6 @@ export interface MsgStoreAndInstantiateContract {
    * contract verification
    */
   codeHash: Uint8Array;
-}
-export interface ReactiveMsgStoreAndInstantiateContract {
-  authority: ComputedRef<string>;
-  wasmByteCode: ComputedRef<Uint8Array>;
-  instantiatePermission?: ComputedRef<AccessConfig>;
-  unpinCode: ComputedRef<boolean>;
-  admin: ComputedRef<string>;
-  label: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-  source: ComputedRef<string>;
-  builder: ComputedRef<string>;
-  codeHash: ComputedRef<Uint8Array>;
 }
 export interface MsgStoreAndInstantiateContractProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndInstantiateContract";
@@ -853,10 +746,6 @@ export interface MsgStoreAndInstantiateContractResponse {
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
 }
-export interface ReactiveMsgStoreAndInstantiateContractResponse {
-  address: ComputedRef<string>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgStoreAndInstantiateContractResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndInstantiateContractResponse";
   value: Uint8Array;
@@ -886,10 +775,6 @@ export interface MsgAddCodeUploadParamsAddresses {
   authority: string;
   addresses: string[];
 }
-export interface ReactiveMsgAddCodeUploadParamsAddresses {
-  authority: ComputedRef<string>;
-  addresses: ComputedRef<string[]>;
-}
 export interface MsgAddCodeUploadParamsAddressesProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddresses";
   value: Uint8Array;
@@ -912,7 +797,6 @@ export interface MsgAddCodeUploadParamsAddressesAminoMsg {
  * structure for executing a MsgAddCodeUploadParamsAddresses message.
  */
 export interface MsgAddCodeUploadParamsAddressesResponse {}
-export interface ReactiveMsgAddCodeUploadParamsAddressesResponse {}
 export interface MsgAddCodeUploadParamsAddressesResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgAddCodeUploadParamsAddressesResponse";
   value: Uint8Array;
@@ -934,10 +818,6 @@ export interface MsgRemoveCodeUploadParamsAddresses {
   /** Authority is the address of the governance account. */
   authority: string;
   addresses: string[];
-}
-export interface ReactiveMsgRemoveCodeUploadParamsAddresses {
-  authority: ComputedRef<string>;
-  addresses: ComputedRef<string[]>;
 }
 export interface MsgRemoveCodeUploadParamsAddressesProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddresses";
@@ -961,7 +841,6 @@ export interface MsgRemoveCodeUploadParamsAddressesAminoMsg {
  * structure for executing a MsgRemoveCodeUploadParamsAddresses message.
  */
 export interface MsgRemoveCodeUploadParamsAddressesResponse {}
-export interface ReactiveMsgRemoveCodeUploadParamsAddressesResponse {}
 export interface MsgRemoveCodeUploadParamsAddressesResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgRemoveCodeUploadParamsAddressesResponse";
   value: Uint8Array;
@@ -992,13 +871,6 @@ export interface MsgStoreAndMigrateContract {
   contract: string;
   /** Msg json encoded message to be passed to the contract on migration */
   msg: Uint8Array;
-}
-export interface ReactiveMsgStoreAndMigrateContract {
-  authority: ComputedRef<string>;
-  wasmByteCode: ComputedRef<Uint8Array>;
-  instantiatePermission?: ComputedRef<AccessConfig>;
-  contract: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
 }
 export interface MsgStoreAndMigrateContractProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndMigrateContract";
@@ -1040,11 +912,6 @@ export interface MsgStoreAndMigrateContractResponse {
   /** Data contains bytes to returned from the contract */
   data: Uint8Array;
 }
-export interface ReactiveMsgStoreAndMigrateContractResponse {
-  codeId: ComputedRef<bigint>;
-  checksum: ComputedRef<Uint8Array>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgStoreAndMigrateContractResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse";
   value: Uint8Array;
@@ -1076,11 +943,6 @@ export interface MsgUpdateContractLabel {
   /** Contract is the address of the smart contract */
   contract: string;
 }
-export interface ReactiveMsgUpdateContractLabel {
-  sender: ComputedRef<string>;
-  newLabel: ComputedRef<string>;
-  contract: ComputedRef<string>;
-}
 export interface MsgUpdateContractLabelProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateContractLabel";
   value: Uint8Array;
@@ -1100,7 +962,6 @@ export interface MsgUpdateContractLabelAminoMsg {
 }
 /** MsgUpdateContractLabelResponse returns empty data */
 export interface MsgUpdateContractLabelResponse {}
-export interface ReactiveMsgUpdateContractLabelResponse {}
 export interface MsgUpdateContractLabelResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgUpdateContractLabelResponse";
   value: Uint8Array;

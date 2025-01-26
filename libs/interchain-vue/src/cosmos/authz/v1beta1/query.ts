@@ -3,7 +3,6 @@ import { Grant, GrantAmino, GrantAuthorization, GrantAuthorizationAmino } from "
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
 export interface QueryGrantsRequest {
   granter: string;
@@ -12,12 +11,6 @@ export interface QueryGrantsRequest {
   msgTypeUrl: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryGrantsRequest {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  msgTypeUrl: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryGrantsRequestProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.QueryGrantsRequest";
@@ -43,10 +36,6 @@ export interface QueryGrantsResponse {
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryGrantsResponse {
-  grants: ComputedRef<Grant[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryGrantsResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.QueryGrantsResponse";
   value: Uint8Array;
@@ -67,10 +56,6 @@ export interface QueryGranterGrantsRequest {
   granter: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryGranterGrantsRequest {
-  granter: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryGranterGrantsRequestProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsRequest";
@@ -93,10 +78,6 @@ export interface QueryGranterGrantsResponse {
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryGranterGrantsResponse {
-  grants: ComputedRef<GrantAuthorization[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryGranterGrantsResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsResponse";
   value: Uint8Array;
@@ -118,10 +99,6 @@ export interface QueryGranteeGrantsRequest {
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
 }
-export interface ReactiveQueryGranteeGrantsRequest {
-  grantee: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
-}
 export interface QueryGranteeGrantsRequestProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsRequest";
   value: Uint8Array;
@@ -142,10 +119,6 @@ export interface QueryGranteeGrantsResponse {
   grants: GrantAuthorization[];
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveQueryGranteeGrantsResponse {
-  grants: ComputedRef<GrantAuthorization[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface QueryGranteeGrantsResponseProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsResponse";

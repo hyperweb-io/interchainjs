@@ -2,7 +2,6 @@ import { Plan, PlanAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
  * 
@@ -13,10 +12,6 @@ export interface MsgSoftwareUpgrade {
   authority: string;
   /** plan is the upgrade plan. */
   plan: Plan;
-}
-export interface ReactiveMsgSoftwareUpgrade {
-  authority: ComputedRef<string>;
-  plan: ComputedRef<Plan>;
 }
 export interface MsgSoftwareUpgradeProtoMsg {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade";
@@ -43,7 +38,6 @@ export interface MsgSoftwareUpgradeAminoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface MsgSoftwareUpgradeResponse {}
-export interface ReactiveMsgSoftwareUpgradeResponse {}
 export interface MsgSoftwareUpgradeResponseProtoMsg {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse";
   value: Uint8Array;
@@ -66,9 +60,6 @@ export interface MsgSoftwareUpgradeResponseAminoMsg {
 export interface MsgCancelUpgrade {
   /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
-}
-export interface ReactiveMsgCancelUpgrade {
-  authority: ComputedRef<string>;
 }
 export interface MsgCancelUpgradeProtoMsg {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgrade";
@@ -93,7 +84,6 @@ export interface MsgCancelUpgradeAminoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface MsgCancelUpgradeResponse {}
-export interface ReactiveMsgCancelUpgradeResponse {}
 export interface MsgCancelUpgradeResponseProtoMsg {
   typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse";
   value: Uint8Array;

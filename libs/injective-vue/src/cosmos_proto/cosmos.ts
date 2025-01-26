@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../binary";
 import { DeepPartial } from "../helpers";
 import { GlobalDecoderRegistry } from "../registry";
-import { ComputedRef } from "vue";
 export enum ScalarType {
   SCALAR_TYPE_UNSPECIFIED = 0,
   SCALAR_TYPE_STRING = 1,
@@ -56,10 +55,6 @@ export interface InterfaceDescriptor {
    * purpose.
    */
   description: string;
-}
-export interface ReactiveInterfaceDescriptor {
-  name: ComputedRef<string>;
-  description: ComputedRef<string>;
 }
 export interface InterfaceDescriptorProtoMsg {
   typeUrl: "/cosmos_proto.InterfaceDescriptor";
@@ -117,11 +112,6 @@ export interface ScalarDescriptor {
    * bytes fields are supported for scalars.
    */
   fieldType: ScalarType[];
-}
-export interface ReactiveScalarDescriptor {
-  name: ComputedRef<string>;
-  description: ComputedRef<string>;
-  fieldType: ComputedRef<ScalarType[]>;
 }
 export interface ScalarDescriptorProtoMsg {
   typeUrl: "/cosmos_proto.ScalarDescriptor";

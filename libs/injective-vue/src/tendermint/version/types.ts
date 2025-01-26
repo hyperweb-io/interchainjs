@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 /**
  * App includes the protocol and software version for the application.
  * This information is included in ResponseInfo. The App.Protocol can be
@@ -10,10 +9,6 @@ import { ComputedRef } from "vue";
 export interface App {
   protocol: bigint;
   software: string;
-}
-export interface ReactiveApp {
-  protocol: ComputedRef<bigint>;
-  software: ComputedRef<string>;
 }
 export interface AppProtoMsg {
   typeUrl: "/tendermint.version.App";
@@ -40,10 +35,6 @@ export interface AppAminoMsg {
 export interface Consensus {
   block: bigint;
   app: bigint;
-}
-export interface ReactiveConsensus {
-  block: ComputedRef<bigint>;
-  app: ComputedRef<bigint>;
 }
 export interface ConsensusProtoMsg {
   typeUrl: "/tendermint.version.Consensus";

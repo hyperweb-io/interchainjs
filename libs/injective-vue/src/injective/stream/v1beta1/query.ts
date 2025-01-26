@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 export enum OrderUpdateStatus {
   Unspecified = 0,
   Booked = 1,
@@ -59,18 +58,6 @@ export interface StreamRequest {
   positionsFilter?: PositionsFilter;
   oraclePriceFilter?: OraclePriceFilter;
 }
-export interface ReactiveStreamRequest {
-  bankBalancesFilter?: ComputedRef<BankBalancesFilter>;
-  subaccountDepositsFilter?: ComputedRef<SubaccountDepositsFilter>;
-  spotTradesFilter?: ComputedRef<TradesFilter>;
-  derivativeTradesFilter?: ComputedRef<TradesFilter>;
-  spotOrdersFilter?: ComputedRef<OrdersFilter>;
-  derivativeOrdersFilter?: ComputedRef<OrdersFilter>;
-  spotOrderbooksFilter?: ComputedRef<OrderbookFilter>;
-  derivativeOrderbooksFilter?: ComputedRef<OrderbookFilter>;
-  positionsFilter?: ComputedRef<PositionsFilter>;
-  oraclePriceFilter?: ComputedRef<OraclePriceFilter>;
-}
 export interface StreamRequestProtoMsg {
   typeUrl: "/injective.stream.v1beta1.StreamRequest";
   value: Uint8Array;
@@ -105,20 +92,6 @@ export interface StreamResponse {
   positions: Position[];
   oraclePrices: OraclePrice[];
 }
-export interface ReactiveStreamResponse {
-  blockHeight: ComputedRef<bigint>;
-  blockTime: ComputedRef<bigint>;
-  bankBalances: ComputedRef<BankBalance[]>;
-  subaccountDeposits: ComputedRef<SubaccountDeposits[]>;
-  spotTrades: ComputedRef<SpotTrade[]>;
-  derivativeTrades: ComputedRef<DerivativeTrade[]>;
-  spotOrders: ComputedRef<SpotOrderUpdate[]>;
-  derivativeOrders: ComputedRef<DerivativeOrderUpdate[]>;
-  spotOrderbookUpdates: ComputedRef<OrderbookUpdate[]>;
-  derivativeOrderbookUpdates: ComputedRef<OrderbookUpdate[]>;
-  positions: ComputedRef<Position[]>;
-  oraclePrices: ComputedRef<OraclePrice[]>;
-}
 export interface StreamResponseProtoMsg {
   typeUrl: "/injective.stream.v1beta1.StreamResponse";
   value: Uint8Array;
@@ -145,10 +118,6 @@ export interface OrderbookUpdate {
   seq: bigint;
   orderbook?: Orderbook;
 }
-export interface ReactiveOrderbookUpdate {
-  seq: ComputedRef<bigint>;
-  orderbook?: ComputedRef<Orderbook>;
-}
 export interface OrderbookUpdateProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OrderbookUpdate";
   value: Uint8Array;
@@ -165,11 +134,6 @@ export interface Orderbook {
   marketId: string;
   buyLevels: Level[];
   sellLevels: Level[];
-}
-export interface ReactiveOrderbook {
-  marketId: ComputedRef<string>;
-  buyLevels: ComputedRef<Level[]>;
-  sellLevels: ComputedRef<Level[]>;
 }
 export interface OrderbookProtoMsg {
   typeUrl: "/injective.stream.v1beta1.Orderbook";
@@ -188,10 +152,6 @@ export interface BankBalance {
   account: string;
   balances: Coin[];
 }
-export interface ReactiveBankBalance {
-  account: ComputedRef<string>;
-  balances: ComputedRef<Coin[]>;
-}
 export interface BankBalanceProtoMsg {
   typeUrl: "/injective.stream.v1beta1.BankBalance";
   value: Uint8Array;
@@ -208,10 +168,6 @@ export interface SubaccountDeposits {
   subaccountId: string;
   deposits: SubaccountDeposit[];
 }
-export interface ReactiveSubaccountDeposits {
-  subaccountId: ComputedRef<string>;
-  deposits: ComputedRef<SubaccountDeposit[]>;
-}
 export interface SubaccountDepositsProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SubaccountDeposits";
   value: Uint8Array;
@@ -227,10 +183,6 @@ export interface SubaccountDepositsAminoMsg {
 export interface SubaccountDeposit {
   denom: string;
   deposit: Deposit;
-}
-export interface ReactiveSubaccountDeposit {
-  denom: ComputedRef<string>;
-  deposit: ComputedRef<Deposit>;
 }
 export interface SubaccountDepositProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SubaccountDeposit";
@@ -250,12 +202,6 @@ export interface SpotOrderUpdate {
   cid: string;
   order?: SpotOrder;
 }
-export interface ReactiveSpotOrderUpdate {
-  status: ComputedRef<OrderUpdateStatus>;
-  orderHash: ComputedRef<Uint8Array>;
-  cid: ComputedRef<string>;
-  order?: ComputedRef<SpotOrder>;
-}
 export interface SpotOrderUpdateProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SpotOrderUpdate";
   value: Uint8Array;
@@ -273,10 +219,6 @@ export interface SpotOrderUpdateAminoMsg {
 export interface SpotOrder {
   marketId: string;
   order: SpotLimitOrder;
-}
-export interface ReactiveSpotOrder {
-  marketId: ComputedRef<string>;
-  order: ComputedRef<SpotLimitOrder>;
 }
 export interface SpotOrderProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SpotOrder";
@@ -296,12 +238,6 @@ export interface DerivativeOrderUpdate {
   cid: string;
   order?: DerivativeOrder;
 }
-export interface ReactiveDerivativeOrderUpdate {
-  status: ComputedRef<OrderUpdateStatus>;
-  orderHash: ComputedRef<Uint8Array>;
-  cid: ComputedRef<string>;
-  order?: ComputedRef<DerivativeOrder>;
-}
 export interface DerivativeOrderUpdateProtoMsg {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrderUpdate";
   value: Uint8Array;
@@ -320,11 +256,6 @@ export interface DerivativeOrder {
   marketId: string;
   order: DerivativeLimitOrder;
   isMarket: boolean;
-}
-export interface ReactiveDerivativeOrder {
-  marketId: ComputedRef<string>;
-  order: ComputedRef<DerivativeLimitOrder>;
-  isMarket: ComputedRef<boolean>;
 }
 export interface DerivativeOrderProtoMsg {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrder";
@@ -348,15 +279,6 @@ export interface Position {
   margin: string;
   cumulativeFundingEntry: string;
 }
-export interface ReactivePosition {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  isLong: ComputedRef<boolean>;
-  quantity: ComputedRef<string>;
-  entryPrice: ComputedRef<string>;
-  margin: ComputedRef<string>;
-  cumulativeFundingEntry: ComputedRef<string>;
-}
 export interface PositionProtoMsg {
   typeUrl: "/injective.stream.v1beta1.Position";
   value: Uint8Array;
@@ -378,11 +300,6 @@ export interface OraclePrice {
   symbol: string;
   price: string;
   type: string;
-}
-export interface ReactiveOraclePrice {
-  symbol: ComputedRef<string>;
-  price: ComputedRef<string>;
-  type: ComputedRef<string>;
 }
 export interface OraclePriceProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OraclePrice";
@@ -410,19 +327,6 @@ export interface SpotTrade {
   feeRecipientAddress?: string;
   cid: string;
   tradeId: string;
-}
-export interface ReactiveSpotTrade {
-  marketId: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  executionType: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-  price: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  fee: ComputedRef<string>;
-  orderHash: ComputedRef<Uint8Array>;
-  feeRecipientAddress?: ComputedRef<string>;
-  cid: ComputedRef<string>;
-  tradeId: ComputedRef<string>;
 }
 export interface SpotTradeProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SpotTrade";
@@ -459,19 +363,6 @@ export interface DerivativeTrade {
   cid: string;
   tradeId: string;
 }
-export interface ReactiveDerivativeTrade {
-  marketId: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  executionType: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  positionDelta?: ComputedRef<PositionDelta>;
-  payout: ComputedRef<string>;
-  fee: ComputedRef<string>;
-  orderHash: ComputedRef<string>;
-  feeRecipientAddress?: ComputedRef<string>;
-  cid: ComputedRef<string>;
-  tradeId: ComputedRef<string>;
-}
 export interface DerivativeTradeProtoMsg {
   typeUrl: "/injective.stream.v1beta1.DerivativeTrade";
   value: Uint8Array;
@@ -497,10 +388,6 @@ export interface TradesFilter {
   subaccountIds: string[];
   marketIds: string[];
 }
-export interface ReactiveTradesFilter {
-  subaccountIds: ComputedRef<string[]>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface TradesFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.TradesFilter";
   value: Uint8Array;
@@ -516,10 +403,6 @@ export interface TradesFilterAminoMsg {
 export interface PositionsFilter {
   subaccountIds: string[];
   marketIds: string[];
-}
-export interface ReactivePositionsFilter {
-  subaccountIds: ComputedRef<string[]>;
-  marketIds: ComputedRef<string[]>;
 }
 export interface PositionsFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.PositionsFilter";
@@ -537,10 +420,6 @@ export interface OrdersFilter {
   subaccountIds: string[];
   marketIds: string[];
 }
-export interface ReactiveOrdersFilter {
-  subaccountIds: ComputedRef<string[]>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface OrdersFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OrdersFilter";
   value: Uint8Array;
@@ -556,9 +435,6 @@ export interface OrdersFilterAminoMsg {
 export interface OrderbookFilter {
   marketIds: string[];
 }
-export interface ReactiveOrderbookFilter {
-  marketIds: ComputedRef<string[]>;
-}
 export interface OrderbookFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OrderbookFilter";
   value: Uint8Array;
@@ -572,9 +448,6 @@ export interface OrderbookFilterAminoMsg {
 }
 export interface BankBalancesFilter {
   accounts: string[];
-}
-export interface ReactiveBankBalancesFilter {
-  accounts: ComputedRef<string[]>;
 }
 export interface BankBalancesFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.BankBalancesFilter";
@@ -590,9 +463,6 @@ export interface BankBalancesFilterAminoMsg {
 export interface SubaccountDepositsFilter {
   subaccountIds: string[];
 }
-export interface ReactiveSubaccountDepositsFilter {
-  subaccountIds: ComputedRef<string[]>;
-}
 export interface SubaccountDepositsFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SubaccountDepositsFilter";
   value: Uint8Array;
@@ -606,9 +476,6 @@ export interface SubaccountDepositsFilterAminoMsg {
 }
 export interface OraclePriceFilter {
   symbol: string[];
-}
-export interface ReactiveOraclePriceFilter {
-  symbol: ComputedRef<string[]>;
 }
 export interface OraclePriceFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OraclePriceFilter";

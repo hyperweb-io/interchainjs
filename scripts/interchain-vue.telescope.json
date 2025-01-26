@@ -56,10 +56,14 @@
             "enabled": false
         },
         "rpcClients": {
-          "enabled": true
+          "enabled": false
         },
-        "vueQuery": {
-          "enabled": true
+        "helperFunctions": {
+            "enabled": true,
+            "hooks": {
+              "react": false,
+              "vue": true
+            }
         },
         "interfaces": {
             "enabled": true,

@@ -2,10 +2,8 @@ import { FileDescriptorProto, FileDescriptorProtoAmino } from "../../../google/p
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** FileDescriptorsRequest is the Query/FileDescriptors request type. */
 export interface FileDescriptorsRequest {}
-export interface ReactiveFileDescriptorsRequest {}
 export interface FileDescriptorsRequestProtoMsg {
   typeUrl: "/cosmos.reflection.v1.FileDescriptorsRequest";
   value: Uint8Array;
@@ -20,9 +18,6 @@ export interface FileDescriptorsRequestAminoMsg {
 export interface FileDescriptorsResponse {
   /** files is the file descriptors. */
   files: FileDescriptorProto[];
-}
-export interface ReactiveFileDescriptorsResponse {
-  files: ComputedRef<FileDescriptorProto[]>;
 }
 export interface FileDescriptorsResponseProtoMsg {
   typeUrl: "/cosmos.reflection.v1.FileDescriptorsResponse";

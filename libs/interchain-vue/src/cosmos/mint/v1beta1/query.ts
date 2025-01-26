@@ -2,10 +2,8 @@ import { Params, ParamsAmino } from "./mint";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -20,9 +18,6 @@ export interface QueryParamsRequestAminoMsg {
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.QueryParamsResponse";
@@ -39,7 +34,6 @@ export interface QueryParamsResponseAminoMsg {
 }
 /** QueryInflationRequest is the request type for the Query/Inflation RPC method. */
 export interface QueryInflationRequest {}
-export interface ReactiveQueryInflationRequest {}
 export interface QueryInflationRequestProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.QueryInflationRequest";
   value: Uint8Array;
@@ -57,9 +51,6 @@ export interface QueryInflationRequestAminoMsg {
 export interface QueryInflationResponse {
   /** inflation is the current minting inflation value. */
   inflation: Uint8Array;
-}
-export interface ReactiveQueryInflationResponse {
-  inflation: ComputedRef<Uint8Array>;
 }
 export interface QueryInflationResponseProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.QueryInflationResponse";
@@ -82,7 +73,6 @@ export interface QueryInflationResponseAminoMsg {
  * Query/AnnualProvisions RPC method.
  */
 export interface QueryAnnualProvisionsRequest {}
-export interface ReactiveQueryAnnualProvisionsRequest {}
 export interface QueryAnnualProvisionsRequestProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.QueryAnnualProvisionsRequest";
   value: Uint8Array;
@@ -103,9 +93,6 @@ export interface QueryAnnualProvisionsRequestAminoMsg {
 export interface QueryAnnualProvisionsResponse {
   /** annual_provisions is the current minting annual provisions value. */
   annualProvisions: Uint8Array;
-}
-export interface ReactiveQueryAnnualProvisionsResponse {
-  annualProvisions: ComputedRef<Uint8Array>;
 }
 export interface QueryAnnualProvisionsResponseProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.QueryAnnualProvisionsResponse";

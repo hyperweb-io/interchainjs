@@ -1,6 +1,5 @@
 import { buildTx, SigningClientResolver } from "../../../../helper-func-types";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
-import { buildUseMutation } from "../../../../react-query";
 import { MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelCloseInit, MsgChannelCloseConfirm, MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgAcknowledgement, MsgChannelUpgradeInit, MsgChannelUpgradeTry, MsgChannelUpgradeAck, MsgChannelUpgradeConfirm, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeCancel, MsgUpdateParams, MsgPruneAcknowledgements } from "./tx";
 export const createChannelOpenInit = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelOpenInit>({
   clientResolver,
@@ -9,18 +8,12 @@ export const createChannelOpenInit = (clientResolver?: SigningClientResolver) =>
   converters: toConverters(MsgChannelOpenInit),
   deps: [MsgChannelOpenInit]
 });
-export const useChannelOpenInit = buildUseMutation<MsgChannelOpenInit, Error>({
-  builderMutationFn: createChannelOpenInit
-});
 export const createChannelOpenTry = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelOpenTry>({
   clientResolver,
   typeUrl: MsgChannelOpenTry.typeUrl,
   encoders: toEncoders(MsgChannelOpenTry),
   converters: toConverters(MsgChannelOpenTry),
   deps: [MsgChannelOpenTry]
-});
-export const useChannelOpenTry = buildUseMutation<MsgChannelOpenTry, Error>({
-  builderMutationFn: createChannelOpenTry
 });
 export const createChannelOpenAck = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelOpenAck>({
   clientResolver,
@@ -29,18 +22,12 @@ export const createChannelOpenAck = (clientResolver?: SigningClientResolver) => 
   converters: toConverters(MsgChannelOpenAck),
   deps: [MsgChannelOpenAck]
 });
-export const useChannelOpenAck = buildUseMutation<MsgChannelOpenAck, Error>({
-  builderMutationFn: createChannelOpenAck
-});
 export const createChannelOpenConfirm = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelOpenConfirm>({
   clientResolver,
   typeUrl: MsgChannelOpenConfirm.typeUrl,
   encoders: toEncoders(MsgChannelOpenConfirm),
   converters: toConverters(MsgChannelOpenConfirm),
   deps: [MsgChannelOpenConfirm]
-});
-export const useChannelOpenConfirm = buildUseMutation<MsgChannelOpenConfirm, Error>({
-  builderMutationFn: createChannelOpenConfirm
 });
 export const createChannelCloseInit = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelCloseInit>({
   clientResolver,
@@ -49,18 +36,12 @@ export const createChannelCloseInit = (clientResolver?: SigningClientResolver) =
   converters: toConverters(MsgChannelCloseInit),
   deps: [MsgChannelCloseInit]
 });
-export const useChannelCloseInit = buildUseMutation<MsgChannelCloseInit, Error>({
-  builderMutationFn: createChannelCloseInit
-});
 export const createChannelCloseConfirm = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelCloseConfirm>({
   clientResolver,
   typeUrl: MsgChannelCloseConfirm.typeUrl,
   encoders: toEncoders(MsgChannelCloseConfirm),
   converters: toConverters(MsgChannelCloseConfirm),
   deps: [MsgChannelCloseConfirm]
-});
-export const useChannelCloseConfirm = buildUseMutation<MsgChannelCloseConfirm, Error>({
-  builderMutationFn: createChannelCloseConfirm
 });
 export const createRecvPacket = (clientResolver?: SigningClientResolver) => buildTx<MsgRecvPacket>({
   clientResolver,
@@ -69,18 +50,12 @@ export const createRecvPacket = (clientResolver?: SigningClientResolver) => buil
   converters: toConverters(MsgRecvPacket),
   deps: [MsgRecvPacket]
 });
-export const useRecvPacket = buildUseMutation<MsgRecvPacket, Error>({
-  builderMutationFn: createRecvPacket
-});
 export const createTimeout = (clientResolver?: SigningClientResolver) => buildTx<MsgTimeout>({
   clientResolver,
   typeUrl: MsgTimeout.typeUrl,
   encoders: toEncoders(MsgTimeout),
   converters: toConverters(MsgTimeout),
   deps: [MsgTimeout]
-});
-export const useTimeout = buildUseMutation<MsgTimeout, Error>({
-  builderMutationFn: createTimeout
 });
 export const createTimeoutOnClose = (clientResolver?: SigningClientResolver) => buildTx<MsgTimeoutOnClose>({
   clientResolver,
@@ -89,18 +64,12 @@ export const createTimeoutOnClose = (clientResolver?: SigningClientResolver) => 
   converters: toConverters(MsgTimeoutOnClose),
   deps: [MsgTimeoutOnClose]
 });
-export const useTimeoutOnClose = buildUseMutation<MsgTimeoutOnClose, Error>({
-  builderMutationFn: createTimeoutOnClose
-});
 export const createAcknowledgement = (clientResolver?: SigningClientResolver) => buildTx<MsgAcknowledgement>({
   clientResolver,
   typeUrl: MsgAcknowledgement.typeUrl,
   encoders: toEncoders(MsgAcknowledgement),
   converters: toConverters(MsgAcknowledgement),
   deps: [MsgAcknowledgement]
-});
-export const useAcknowledgement = buildUseMutation<MsgAcknowledgement, Error>({
-  builderMutationFn: createAcknowledgement
 });
 export const createChannelUpgradeInit = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeInit>({
   clientResolver,
@@ -109,18 +78,12 @@ export const createChannelUpgradeInit = (clientResolver?: SigningClientResolver)
   converters: toConverters(MsgChannelUpgradeInit),
   deps: [MsgChannelUpgradeInit]
 });
-export const useChannelUpgradeInit = buildUseMutation<MsgChannelUpgradeInit, Error>({
-  builderMutationFn: createChannelUpgradeInit
-});
 export const createChannelUpgradeTry = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeTry>({
   clientResolver,
   typeUrl: MsgChannelUpgradeTry.typeUrl,
   encoders: toEncoders(MsgChannelUpgradeTry),
   converters: toConverters(MsgChannelUpgradeTry),
   deps: [MsgChannelUpgradeTry]
-});
-export const useChannelUpgradeTry = buildUseMutation<MsgChannelUpgradeTry, Error>({
-  builderMutationFn: createChannelUpgradeTry
 });
 export const createChannelUpgradeAck = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeAck>({
   clientResolver,
@@ -129,18 +92,12 @@ export const createChannelUpgradeAck = (clientResolver?: SigningClientResolver) 
   converters: toConverters(MsgChannelUpgradeAck),
   deps: [MsgChannelUpgradeAck]
 });
-export const useChannelUpgradeAck = buildUseMutation<MsgChannelUpgradeAck, Error>({
-  builderMutationFn: createChannelUpgradeAck
-});
 export const createChannelUpgradeConfirm = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeConfirm>({
   clientResolver,
   typeUrl: MsgChannelUpgradeConfirm.typeUrl,
   encoders: toEncoders(MsgChannelUpgradeConfirm),
   converters: toConverters(MsgChannelUpgradeConfirm),
   deps: [MsgChannelUpgradeConfirm]
-});
-export const useChannelUpgradeConfirm = buildUseMutation<MsgChannelUpgradeConfirm, Error>({
-  builderMutationFn: createChannelUpgradeConfirm
 });
 export const createChannelUpgradeOpen = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeOpen>({
   clientResolver,
@@ -149,18 +106,12 @@ export const createChannelUpgradeOpen = (clientResolver?: SigningClientResolver)
   converters: toConverters(MsgChannelUpgradeOpen),
   deps: [MsgChannelUpgradeOpen]
 });
-export const useChannelUpgradeOpen = buildUseMutation<MsgChannelUpgradeOpen, Error>({
-  builderMutationFn: createChannelUpgradeOpen
-});
 export const createChannelUpgradeTimeout = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeTimeout>({
   clientResolver,
   typeUrl: MsgChannelUpgradeTimeout.typeUrl,
   encoders: toEncoders(MsgChannelUpgradeTimeout),
   converters: toConverters(MsgChannelUpgradeTimeout),
   deps: [MsgChannelUpgradeTimeout]
-});
-export const useChannelUpgradeTimeout = buildUseMutation<MsgChannelUpgradeTimeout, Error>({
-  builderMutationFn: createChannelUpgradeTimeout
 });
 export const createChannelUpgradeCancel = (clientResolver?: SigningClientResolver) => buildTx<MsgChannelUpgradeCancel>({
   clientResolver,
@@ -169,9 +120,6 @@ export const createChannelUpgradeCancel = (clientResolver?: SigningClientResolve
   converters: toConverters(MsgChannelUpgradeCancel),
   deps: [MsgChannelUpgradeCancel]
 });
-export const useChannelUpgradeCancel = buildUseMutation<MsgChannelUpgradeCancel, Error>({
-  builderMutationFn: createChannelUpgradeCancel
-});
 export const createUpdateChannelParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
@@ -179,16 +127,10 @@ export const createUpdateChannelParams = (clientResolver?: SigningClientResolver
   converters: toConverters(MsgUpdateParams),
   deps: [MsgUpdateParams]
 });
-export const useUpdateChannelParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateChannelParams
-});
 export const createPruneAcknowledgements = (clientResolver?: SigningClientResolver) => buildTx<MsgPruneAcknowledgements>({
   clientResolver,
   typeUrl: MsgPruneAcknowledgements.typeUrl,
   encoders: toEncoders(MsgPruneAcknowledgements),
   converters: toConverters(MsgPruneAcknowledgements),
   deps: [MsgPruneAcknowledgements]
-});
-export const usePruneAcknowledgements = buildUseMutation<MsgPruneAcknowledgements, Error>({
-  builderMutationFn: createPruneAcknowledgements
 });

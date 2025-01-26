@@ -3,13 +3,9 @@ import { Permissions, PermissionsAmino, GenesisAccountPermissions, GenesisAccoun
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
 export interface QueryAccountRequest {
   address: string;
-}
-export interface ReactiveQueryAccountRequest {
-  address: ComputedRef<string>;
 }
 export interface QueryAccountRequestProtoMsg {
   typeUrl: "/cosmos.circuit.v1.QueryAccountRequest";
@@ -27,9 +23,6 @@ export interface QueryAccountRequestAminoMsg {
 export interface AccountResponse {
   permission?: Permissions;
 }
-export interface ReactiveAccountResponse {
-  permission?: ComputedRef<Permissions>;
-}
 export interface AccountResponseProtoMsg {
   typeUrl: "/cosmos.circuit.v1.AccountResponse";
   value: Uint8Array;
@@ -46,9 +39,6 @@ export interface AccountResponseAminoMsg {
 export interface QueryAccountsRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryAccountsRequest {
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryAccountsRequestProtoMsg {
   typeUrl: "/cosmos.circuit.v1.QueryAccountsRequest";
@@ -69,10 +59,6 @@ export interface AccountsResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveAccountsResponse {
-  accounts: ComputedRef<GenesisAccountPermissions[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface AccountsResponseProtoMsg {
   typeUrl: "/cosmos.circuit.v1.AccountsResponse";
   value: Uint8Array;
@@ -89,7 +75,6 @@ export interface AccountsResponseAminoMsg {
 }
 /** QueryDisableListRequest is the request type for the Query/DisabledList RPC method. */
 export interface QueryDisabledListRequest {}
-export interface ReactiveQueryDisabledListRequest {}
 export interface QueryDisabledListRequestProtoMsg {
   typeUrl: "/cosmos.circuit.v1.QueryDisabledListRequest";
   value: Uint8Array;
@@ -103,9 +88,6 @@ export interface QueryDisabledListRequestAminoMsg {
 /** DisabledListResponse is the response type for the Query/DisabledList RPC method. */
 export interface DisabledListResponse {
   disabledList: string[];
-}
-export interface ReactiveDisabledListResponse {
-  disabledList: ComputedRef<string[]>;
 }
 export interface DisabledListResponseProtoMsg {
   typeUrl: "/cosmos.circuit.v1.DisabledListResponse";

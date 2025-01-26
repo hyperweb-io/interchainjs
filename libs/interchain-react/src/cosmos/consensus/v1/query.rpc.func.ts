@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse } from "./query";
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -8,8 +7,4 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   method: "Params",
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
-});
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
 });

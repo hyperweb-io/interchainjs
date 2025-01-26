@@ -6,7 +6,6 @@ import { Block, BlockAmino } from "../../../tendermint/types/block";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** OrderBy defines the sorting order */
 export enum OrderBy {
   /**
@@ -148,14 +147,6 @@ export interface GetTxsEventRequest {
    */
   query: string;
 }
-export interface ReactiveGetTxsEventRequest {
-  events: ComputedRef<string[]>;
-  pagination?: ComputedRef<PageRequest>;
-  orderBy: ComputedRef<OrderBy>;
-  page: ComputedRef<bigint>;
-  limit: ComputedRef<bigint>;
-  query: ComputedRef<string>;
-}
 export interface GetTxsEventRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.GetTxsEventRequest";
   value: Uint8Array;
@@ -219,12 +210,6 @@ export interface GetTxsEventResponse {
   /** total is total number of results available */
   total: bigint;
 }
-export interface ReactiveGetTxsEventResponse {
-  txs: ComputedRef<Tx[]>;
-  txResponses: ComputedRef<TxResponse[]>;
-  pagination?: ComputedRef<PageResponse>;
-  total: ComputedRef<bigint>;
-}
 export interface GetTxsEventResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.GetTxsEventResponse";
   value: Uint8Array;
@@ -260,10 +245,6 @@ export interface BroadcastTxRequest {
   txBytes: Uint8Array;
   mode: BroadcastMode;
 }
-export interface ReactiveBroadcastTxRequest {
-  txBytes: ComputedRef<Uint8Array>;
-  mode: ComputedRef<BroadcastMode>;
-}
 export interface BroadcastTxRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.BroadcastTxRequest";
   value: Uint8Array;
@@ -288,9 +269,6 @@ export interface BroadcastTxRequestAminoMsg {
 export interface BroadcastTxResponse {
   /** tx_response is the queried TxResponses. */
   txResponse?: TxResponse;
-}
-export interface ReactiveBroadcastTxResponse {
-  txResponse?: ComputedRef<TxResponse>;
 }
 export interface BroadcastTxResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.BroadcastTxResponse";
@@ -325,10 +303,6 @@ export interface SimulateRequest {
    * Since: cosmos-sdk 0.43
    */
   txBytes: Uint8Array;
-}
-export interface ReactiveSimulateRequest {
-  tx?: ComputedRef<Tx>;
-  txBytes: ComputedRef<Uint8Array>;
 }
 export interface SimulateRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.SimulateRequest";
@@ -366,10 +340,6 @@ export interface SimulateResponse {
   /** result is the result of the simulation. */
   result?: Result;
 }
-export interface ReactiveSimulateResponse {
-  gasInfo?: ComputedRef<GasInfo>;
-  result?: ComputedRef<Result>;
-}
 export interface SimulateResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.SimulateResponse";
   value: Uint8Array;
@@ -396,9 +366,6 @@ export interface GetTxRequest {
   /** hash is the tx hash to query, encoded as a hex string. */
   hash: string;
 }
-export interface ReactiveGetTxRequest {
-  hash: ComputedRef<string>;
-}
 export interface GetTxRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.GetTxRequest";
   value: Uint8Array;
@@ -421,10 +388,6 @@ export interface GetTxResponse {
   tx?: Tx;
   /** tx_response is the queried TxResponses. */
   txResponse?: TxResponse;
-}
-export interface ReactiveGetTxResponse {
-  tx?: ComputedRef<Tx>;
-  txResponse?: ComputedRef<TxResponse>;
 }
 export interface GetTxResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.GetTxResponse";
@@ -452,10 +415,6 @@ export interface GetBlockWithTxsRequest {
   height: bigint;
   /** pagination defines a pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveGetBlockWithTxsRequest {
-  height: ComputedRef<bigint>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface GetBlockWithTxsRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsRequest";
@@ -491,12 +450,6 @@ export interface GetBlockWithTxsResponse {
   /** pagination defines a pagination for the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveGetBlockWithTxsResponse {
-  txs: ComputedRef<Tx[]>;
-  blockId?: ComputedRef<BlockID>;
-  block?: ComputedRef<Block>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface GetBlockWithTxsResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsResponse";
   value: Uint8Array;
@@ -529,9 +482,6 @@ export interface TxDecodeRequest {
   /** tx_bytes is the raw transaction. */
   txBytes: Uint8Array;
 }
-export interface ReactiveTxDecodeRequest {
-  txBytes: ComputedRef<Uint8Array>;
-}
 export interface TxDecodeRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeRequest";
   value: Uint8Array;
@@ -559,9 +509,6 @@ export interface TxDecodeRequestAminoMsg {
 export interface TxDecodeResponse {
   /** tx is the decoded transaction. */
   tx?: Tx;
-}
-export interface ReactiveTxDecodeResponse {
-  tx?: ComputedRef<Tx>;
 }
 export interface TxDecodeResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeResponse";
@@ -591,9 +538,6 @@ export interface TxEncodeRequest {
   /** tx is the transaction to encode. */
   tx?: Tx;
 }
-export interface ReactiveTxEncodeRequest {
-  tx?: ComputedRef<Tx>;
-}
 export interface TxEncodeRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeRequest";
   value: Uint8Array;
@@ -622,9 +566,6 @@ export interface TxEncodeResponse {
   /** tx_bytes is the encoded transaction bytes. */
   txBytes: Uint8Array;
 }
-export interface ReactiveTxEncodeResponse {
-  txBytes: ComputedRef<Uint8Array>;
-}
 export interface TxEncodeResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeResponse";
   value: Uint8Array;
@@ -652,9 +593,6 @@ export interface TxEncodeResponseAminoMsg {
 export interface TxEncodeAminoRequest {
   aminoJson: string;
 }
-export interface ReactiveTxEncodeAminoRequest {
-  aminoJson: ComputedRef<string>;
-}
 export interface TxEncodeAminoRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeAminoRequest";
   value: Uint8Array;
@@ -680,9 +618,6 @@ export interface TxEncodeAminoRequestAminoMsg {
  */
 export interface TxEncodeAminoResponse {
   aminoBinary: Uint8Array;
-}
-export interface ReactiveTxEncodeAminoResponse {
-  aminoBinary: ComputedRef<Uint8Array>;
 }
 export interface TxEncodeAminoResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxEncodeAminoResponse";
@@ -710,9 +645,6 @@ export interface TxEncodeAminoResponseAminoMsg {
 export interface TxDecodeAminoRequest {
   aminoBinary: Uint8Array;
 }
-export interface ReactiveTxDecodeAminoRequest {
-  aminoBinary: ComputedRef<Uint8Array>;
-}
 export interface TxDecodeAminoRequestProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeAminoRequest";
   value: Uint8Array;
@@ -738,9 +670,6 @@ export interface TxDecodeAminoRequestAminoMsg {
  */
 export interface TxDecodeAminoResponse {
   aminoJson: string;
-}
-export interface ReactiveTxDecodeAminoResponse {
-  aminoJson: ComputedRef<string>;
 }
 export interface TxDecodeAminoResponseProtoMsg {
   typeUrl: "/cosmos.tx.v1beta1.TxDecodeAminoResponse";

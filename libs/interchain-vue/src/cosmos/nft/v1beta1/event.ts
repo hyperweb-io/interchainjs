@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** EventSend is emitted on Msg/Send */
 export interface EventSend {
   /** class_id associated with the nft */
@@ -12,12 +11,6 @@ export interface EventSend {
   sender: string;
   /** receiver is the receiver address of nft */
   receiver: string;
-}
-export interface ReactiveEventSend {
-  classId: ComputedRef<string>;
-  id: ComputedRef<string>;
-  sender: ComputedRef<string>;
-  receiver: ComputedRef<string>;
 }
 export interface EventSendProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.EventSend";
@@ -47,11 +40,6 @@ export interface EventMint {
   /** owner is the owner address of the nft */
   owner: string;
 }
-export interface ReactiveEventMint {
-  classId: ComputedRef<string>;
-  id: ComputedRef<string>;
-  owner: ComputedRef<string>;
-}
 export interface EventMintProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.EventMint";
   value: Uint8Array;
@@ -77,11 +65,6 @@ export interface EventBurn {
   id: string;
   /** owner is the owner address of the nft */
   owner: string;
-}
-export interface ReactiveEventBurn {
-  classId: ComputedRef<string>;
-  id: ComputedRef<string>;
-  owner: ComputedRef<string>;
 }
 export interface EventBurnProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.EventBurn";

@@ -2,10 +2,8 @@ import { Config, ConfigAmino } from "./config";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryConfigRequest is the Query/Config request type. */
 export interface QueryConfigRequest {}
-export interface ReactiveQueryConfigRequest {}
 export interface QueryConfigRequestProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigRequest";
   value: Uint8Array;
@@ -20,9 +18,6 @@ export interface QueryConfigRequestAminoMsg {
 export interface QueryConfigResponse {
   /** config is the current app config. */
   config?: Config;
-}
-export interface ReactiveQueryConfigResponse {
-  config?: ComputedRef<Config>;
 }
 export interface QueryConfigResponseProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.QueryConfigResponse";

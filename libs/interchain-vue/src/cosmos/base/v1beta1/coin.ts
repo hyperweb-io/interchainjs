@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * Coin defines a token with a denomination and an amount.
  * 
@@ -11,10 +10,6 @@ import { ComputedRef } from "vue";
 export interface Coin {
   denom: string;
   amount: string;
-}
-export interface ReactiveCoin {
-  denom: ComputedRef<string>;
-  amount: ComputedRef<string>;
 }
 export interface CoinProtoMsg {
   typeUrl: "/cosmos.base.v1beta1.Coin";
@@ -44,10 +39,6 @@ export interface DecCoin {
   denom: string;
   amount: string;
 }
-export interface ReactiveDecCoin {
-  denom: ComputedRef<string>;
-  amount: ComputedRef<string>;
-}
 export interface DecCoinProtoMsg {
   typeUrl: "/cosmos.base.v1beta1.DecCoin";
   value: Uint8Array;
@@ -73,9 +64,6 @@ export interface DecCoinAminoMsg {
 export interface IntProto {
   int: string;
 }
-export interface ReactiveIntProto {
-  int: ComputedRef<string>;
-}
 export interface IntProtoProtoMsg {
   typeUrl: "/cosmos.base.v1beta1.IntProto";
   value: Uint8Array;
@@ -97,9 +85,6 @@ export interface IntProtoAminoMsg {
  */
 export interface DecProto {
   dec: string;
-}
-export interface ReactiveDecProto {
-  dec: ComputedRef<string>;
 }
 export interface DecProtoProtoMsg {
   typeUrl: "/cosmos.base.v1beta1.DecProto";

@@ -12,7 +12,6 @@ import { ContractRegistrationRequestProposal, ContractRegistrationRequestProposa
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
@@ -24,11 +23,6 @@ export interface MsgSubmitProposal {
   initialDeposit: Coin[];
   /** proposer is the account address of the proposer. */
   proposer: string;
-}
-export interface ReactiveMsgSubmitProposal {
-  content?: ComputedRef<CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | SpotMarketParamUpdateProposal | BatchExchangeModificationProposal | SpotMarketLaunchProposal | PerpetualMarketLaunchProposal | BinaryOptionsMarketLaunchProposal | ExpiryFuturesMarketLaunchProposal | DerivativeMarketParamUpdateProposal | MarketForcedSettlementProposal | UpdateDenomDecimalsProposal | BinaryOptionsMarketParamUpdateProposal | TradingRewardCampaignLaunchProposal | TradingRewardCampaignUpdateProposal | TradingRewardPendingPointsUpdateProposal | FeeDiscountProposal | BatchCommunityPoolSpendProposal | AtomicMarketOrderFeeMultiplierScheduleProposal | SetConfigProposal | SetBatchConfigProposal | GrantBandOraclePrivilegeProposal | RevokeBandOraclePrivilegeProposal | GrantPriceFeederPrivilegeProposal | GrantProviderPrivilegeProposal | RevokeProviderPrivilegeProposal | RevokePriceFeederPrivilegeProposal | AuthorizeBandOracleRequestProposal | UpdateBandOracleRequestProposal | EnableBandIBCProposal | GrantStorkPublisherPrivilegeProposal | RevokeStorkPublisherPrivilegeProposal | BlacklistEthereumAddressesProposal | RevokeEthereumBlacklistProposal | ContractRegistrationRequestProposal | BatchContractRegistrationRequestProposal | BatchContractDeregistrationProposal | ContractRegistrationRequest | BatchStoreCodeProposal | Any | undefined>;
-  initialDeposit: ComputedRef<Coin[]>;
-  proposer: ComputedRef<string>;
 }
 export interface MsgSubmitProposalProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgSubmitProposal";
@@ -58,9 +52,6 @@ export interface MsgSubmitProposalResponse {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
 }
-export interface ReactiveMsgSubmitProposalResponse {
-  proposalId: ComputedRef<bigint>;
-}
 export interface MsgSubmitProposalResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgSubmitProposalResponse";
   value: Uint8Array;
@@ -83,11 +74,6 @@ export interface MsgVote {
   /** option defines the vote option. */
   option: VoteOption;
 }
-export interface ReactiveMsgVote {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  option: ComputedRef<VoteOption>;
-}
 export interface MsgVoteProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgVote";
   value: Uint8Array;
@@ -107,7 +93,6 @@ export interface MsgVoteAminoMsg {
 }
 /** MsgVoteResponse defines the Msg/Vote response type. */
 export interface MsgVoteResponse {}
-export interface ReactiveMsgVoteResponse {}
 export interface MsgVoteResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgVoteResponse";
   value: Uint8Array;
@@ -130,11 +115,6 @@ export interface MsgVoteWeighted {
   voter: string;
   /** options defines the weighted vote options. */
   options: WeightedVoteOption[];
-}
-export interface ReactiveMsgVoteWeighted {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  options: ComputedRef<WeightedVoteOption[]>;
 }
 export interface MsgVoteWeightedProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgVoteWeighted";
@@ -163,7 +143,6 @@ export interface MsgVoteWeightedAminoMsg {
  * Since: cosmos-sdk 0.43
  */
 export interface MsgVoteWeightedResponse {}
-export interface ReactiveMsgVoteWeightedResponse {}
 export interface MsgVoteWeightedResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgVoteWeightedResponse";
   value: Uint8Array;
@@ -187,11 +166,6 @@ export interface MsgDeposit {
   /** amount to be deposited by depositor. */
   amount: Coin[];
 }
-export interface ReactiveMsgDeposit {
-  proposalId: ComputedRef<bigint>;
-  depositor: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
-}
 export interface MsgDepositProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgDeposit";
   value: Uint8Array;
@@ -211,7 +185,6 @@ export interface MsgDepositAminoMsg {
 }
 /** MsgDepositResponse defines the Msg/Deposit response type. */
 export interface MsgDepositResponse {}
-export interface ReactiveMsgDepositResponse {}
 export interface MsgDepositResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.MsgDepositResponse";
   value: Uint8Array;

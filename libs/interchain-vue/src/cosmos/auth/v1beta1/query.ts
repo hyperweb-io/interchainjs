@@ -5,7 +5,6 @@ import { EthAccount, EthAccountProtoMsg } from "../../../injective/types/v1beta1
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
  * 
@@ -14,9 +13,6 @@ import { ComputedRef } from "vue";
 export interface QueryAccountsRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryAccountsRequest {
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryAccountsRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest";
@@ -46,10 +42,6 @@ export interface QueryAccountsResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryAccountsResponse {
-  accounts: ComputedRef<(BaseAccount | EthAccount | Any)[] | Any[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryAccountsResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse";
   value: Uint8Array;
@@ -77,9 +69,6 @@ export interface QueryAccountRequest {
   /** address defines the address to query for. */
   address: string;
 }
-export interface ReactiveQueryAccountRequest {
-  address: ComputedRef<string>;
-}
 export interface QueryAccountRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest";
   value: Uint8Array;
@@ -97,9 +86,6 @@ export interface QueryAccountRequestAminoMsg {
 export interface QueryAccountResponse {
   /** account defines the account of the corresponding address. */
   account?: BaseAccount | EthAccount | Any | undefined;
-}
-export interface ReactiveQueryAccountResponse {
-  account?: ComputedRef<BaseAccount | EthAccount | Any | undefined>;
 }
 export interface QueryAccountResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountResponse";
@@ -119,7 +105,6 @@ export interface QueryAccountResponseAminoMsg {
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -134,9 +119,6 @@ export interface QueryParamsRequestAminoMsg {
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse";
@@ -157,7 +139,6 @@ export interface QueryParamsResponseAminoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface QueryModuleAccountsRequest {}
-export interface ReactiveQueryModuleAccountsRequest {}
 export interface QueryModuleAccountsRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsRequest";
   value: Uint8Array;
@@ -179,9 +160,6 @@ export interface QueryModuleAccountsRequestAminoMsg {
  */
 export interface QueryModuleAccountsResponse {
   accounts: (ModuleAccount | Any)[] | Any[];
-}
-export interface ReactiveQueryModuleAccountsResponse {
-  accounts: ComputedRef<(ModuleAccount | Any)[] | Any[]>;
 }
 export interface QueryModuleAccountsResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsResponse";
@@ -206,9 +184,6 @@ export interface QueryModuleAccountsResponseAminoMsg {
 export interface QueryModuleAccountByNameRequest {
   name: string;
 }
-export interface ReactiveQueryModuleAccountByNameRequest {
-  name: ComputedRef<string>;
-}
 export interface QueryModuleAccountByNameRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest";
   value: Uint8Array;
@@ -224,9 +199,6 @@ export interface QueryModuleAccountByNameRequestAminoMsg {
 /** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
 export interface QueryModuleAccountByNameResponse {
   account?: ModuleAccount | Any | undefined;
-}
-export interface ReactiveQueryModuleAccountByNameResponse {
-  account?: ComputedRef<ModuleAccount | Any | undefined>;
 }
 export interface QueryModuleAccountByNameResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse";
@@ -249,7 +221,6 @@ export interface QueryModuleAccountByNameResponseAminoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface Bech32PrefixRequest {}
-export interface ReactiveBech32PrefixRequest {}
 export interface Bech32PrefixRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixRequest";
   value: Uint8Array;
@@ -271,9 +242,6 @@ export interface Bech32PrefixRequestAminoMsg {
  */
 export interface Bech32PrefixResponse {
   bech32Prefix: string;
-}
-export interface ReactiveBech32PrefixResponse {
-  bech32Prefix: ComputedRef<string>;
 }
 export interface Bech32PrefixResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixResponse";
@@ -299,9 +267,6 @@ export interface Bech32PrefixResponseAminoMsg {
 export interface AddressBytesToStringRequest {
   addressBytes: Uint8Array;
 }
-export interface ReactiveAddressBytesToStringRequest {
-  addressBytes: ComputedRef<Uint8Array>;
-}
 export interface AddressBytesToStringRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringRequest";
   value: Uint8Array;
@@ -325,9 +290,6 @@ export interface AddressBytesToStringRequestAminoMsg {
  */
 export interface AddressBytesToStringResponse {
   addressString: string;
-}
-export interface ReactiveAddressBytesToStringResponse {
-  addressString: ComputedRef<string>;
 }
 export interface AddressBytesToStringResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringResponse";
@@ -353,9 +315,6 @@ export interface AddressBytesToStringResponseAminoMsg {
 export interface AddressStringToBytesRequest {
   addressString: string;
 }
-export interface ReactiveAddressStringToBytesRequest {
-  addressString: ComputedRef<string>;
-}
 export interface AddressStringToBytesRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesRequest";
   value: Uint8Array;
@@ -379,9 +338,6 @@ export interface AddressStringToBytesRequestAminoMsg {
  */
 export interface AddressStringToBytesResponse {
   addressBytes: Uint8Array;
-}
-export interface ReactiveAddressStringToBytesResponse {
-  addressBytes: ComputedRef<Uint8Array>;
 }
 export interface AddressStringToBytesResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesResponse";
@@ -421,10 +377,6 @@ export interface QueryAccountAddressByIDRequest {
    */
   accountId: bigint;
 }
-export interface ReactiveQueryAccountAddressByIDRequest {
-  id: ComputedRef<bigint>;
-  accountId: ComputedRef<bigint>;
-}
 export interface QueryAccountAddressByIDRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest";
   value: Uint8Array;
@@ -463,9 +415,6 @@ export interface QueryAccountAddressByIDRequestAminoMsg {
 export interface QueryAccountAddressByIDResponse {
   accountAddress: string;
 }
-export interface ReactiveQueryAccountAddressByIDResponse {
-  accountAddress: ComputedRef<string>;
-}
 export interface QueryAccountAddressByIDResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse";
   value: Uint8Array;
@@ -490,9 +439,6 @@ export interface QueryAccountAddressByIDResponseAminoMsg {
 export interface QueryAccountInfoRequest {
   /** address is the account address string. */
   address: string;
-}
-export interface ReactiveQueryAccountInfoRequest {
-  address: ComputedRef<string>;
 }
 export interface QueryAccountInfoRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoRequest";
@@ -519,9 +465,6 @@ export interface QueryAccountInfoRequestAminoMsg {
 export interface QueryAccountInfoResponse {
   /** info is the account info which is represented by BaseAccount. */
   info?: BaseAccount;
-}
-export interface ReactiveQueryAccountInfoResponse {
-  info?: ComputedRef<BaseAccount>;
 }
 export interface QueryAccountInfoResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse";

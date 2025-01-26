@@ -1,7 +1,6 @@
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** Level is the permission level. */
 export enum Permissions_Level {
   /**
@@ -78,10 +77,6 @@ export interface Permissions {
    */
   limitTypeUrls: string[];
 }
-export interface ReactivePermissions {
-  level: ComputedRef<Permissions_Level>;
-  limitTypeUrls: ComputedRef<string[]>;
-}
 export interface PermissionsProtoMsg {
   typeUrl: "/cosmos.circuit.v1.Permissions";
   value: Uint8Array;
@@ -109,10 +104,6 @@ export interface GenesisAccountPermissions {
   address: string;
   permissions?: Permissions;
 }
-export interface ReactiveGenesisAccountPermissions {
-  address: ComputedRef<string>;
-  permissions?: ComputedRef<Permissions>;
-}
 export interface GenesisAccountPermissionsProtoMsg {
   typeUrl: "/cosmos.circuit.v1.GenesisAccountPermissions";
   value: Uint8Array;
@@ -130,10 +121,6 @@ export interface GenesisAccountPermissionsAminoMsg {
 export interface GenesisState {
   accountPermissions: GenesisAccountPermissions[];
   disabledTypeUrls: string[];
-}
-export interface ReactiveGenesisState {
-  accountPermissions: ComputedRef<GenesisAccountPermissions[]>;
-  disabledTypeUrls: ComputedRef<string[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.circuit.v1.GenesisState";

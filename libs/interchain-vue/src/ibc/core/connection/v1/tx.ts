@@ -4,7 +4,6 @@ import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to
  * initialize a connection with Chain B.
@@ -15,13 +14,6 @@ export interface MsgConnectionOpenInit {
   version?: Version;
   delayPeriod: bigint;
   signer: string;
-}
-export interface ReactiveMsgConnectionOpenInit {
-  clientId: ComputedRef<string>;
-  counterparty: ComputedRef<Counterparty>;
-  version?: ComputedRef<Version>;
-  delayPeriod: ComputedRef<bigint>;
-  signer: ComputedRef<string>;
 }
 export interface MsgConnectionOpenInitProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInit";
@@ -47,7 +39,6 @@ export interface MsgConnectionOpenInitAminoMsg {
  * type.
  */
 export interface MsgConnectionOpenInitResponse {}
-export interface ReactiveMsgConnectionOpenInitResponse {}
 export interface MsgConnectionOpenInitResponseProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInitResponse";
   value: Uint8Array;
@@ -96,21 +87,6 @@ export interface MsgConnectionOpenTry {
   /** @deprecated */
   hostConsensusStateProof: Uint8Array;
 }
-export interface ReactiveMsgConnectionOpenTry {
-  clientId: ComputedRef<string>;
-  previousConnectionId: ComputedRef<string>;
-  clientState?: ComputedRef<Any>;
-  counterparty: ComputedRef<Counterparty>;
-  delayPeriod: ComputedRef<bigint>;
-  counterpartyVersions: ComputedRef<Version[]>;
-  proofHeight: ComputedRef<Height>;
-  proofInit: ComputedRef<Uint8Array>;
-  proofClient: ComputedRef<Uint8Array>;
-  proofConsensus: ComputedRef<Uint8Array>;
-  consensusHeight: ComputedRef<Height>;
-  signer: ComputedRef<string>;
-  hostConsensusStateProof: ComputedRef<Uint8Array>;
-}
 export interface MsgConnectionOpenTryProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTry";
   value: Uint8Array;
@@ -156,7 +132,6 @@ export interface MsgConnectionOpenTryAminoMsg {
 }
 /** MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type. */
 export interface MsgConnectionOpenTryResponse {}
-export interface ReactiveMsgConnectionOpenTryResponse {}
 export interface MsgConnectionOpenTryResponseProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTryResponse";
   value: Uint8Array;
@@ -197,19 +172,6 @@ export interface MsgConnectionOpenAck {
   /** Deprecated: this field is unused. */
   /** @deprecated */
   hostConsensusStateProof: Uint8Array;
-}
-export interface ReactiveMsgConnectionOpenAck {
-  connectionId: ComputedRef<string>;
-  counterpartyConnectionId: ComputedRef<string>;
-  version?: ComputedRef<Version>;
-  clientState?: ComputedRef<Any>;
-  proofHeight: ComputedRef<Height>;
-  proofTry: ComputedRef<Uint8Array>;
-  proofClient: ComputedRef<Uint8Array>;
-  proofConsensus: ComputedRef<Uint8Array>;
-  consensusHeight: ComputedRef<Height>;
-  signer: ComputedRef<string>;
-  hostConsensusStateProof: ComputedRef<Uint8Array>;
 }
 export interface MsgConnectionOpenAckProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAck";
@@ -252,7 +214,6 @@ export interface MsgConnectionOpenAckAminoMsg {
 }
 /** MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type. */
 export interface MsgConnectionOpenAckResponse {}
-export interface ReactiveMsgConnectionOpenAckResponse {}
 export interface MsgConnectionOpenAckResponseProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAckResponse";
   value: Uint8Array;
@@ -273,12 +234,6 @@ export interface MsgConnectionOpenConfirm {
   proofAck: Uint8Array;
   proofHeight: Height;
   signer: string;
-}
-export interface ReactiveMsgConnectionOpenConfirm {
-  connectionId: ComputedRef<string>;
-  proofAck: ComputedRef<Uint8Array>;
-  proofHeight: ComputedRef<Height>;
-  signer: ComputedRef<string>;
 }
 export interface MsgConnectionOpenConfirmProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirm";
@@ -304,7 +259,6 @@ export interface MsgConnectionOpenConfirmAminoMsg {
  * response type.
  */
 export interface MsgConnectionOpenConfirmResponse {}
-export interface ReactiveMsgConnectionOpenConfirmResponse {}
 export interface MsgConnectionOpenConfirmResponseProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirmResponse";
   value: Uint8Array;
@@ -329,10 +283,6 @@ export interface MsgUpdateParams {
    */
   params: Params;
 }
-export interface ReactiveMsgUpdateParams {
-  signer: ComputedRef<string>;
-  params: ComputedRef<Params>;
-}
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgUpdateParams";
   value: Uint8Array;
@@ -354,7 +304,6 @@ export interface MsgUpdateParamsAminoMsg {
 }
 /** MsgUpdateParamsResponse defines the MsgUpdateParams response type. */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/ibc.core.connection.v1.MsgUpdateParamsResponse";
   value: Uint8Array;

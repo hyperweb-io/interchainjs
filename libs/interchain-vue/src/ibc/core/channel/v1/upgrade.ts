@@ -2,7 +2,6 @@ import { Timeout, TimeoutAmino, Order } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, isSet } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * Upgrade is a verifiable type which contains the relevant information
  * for an attempted upgrade. It provides the proposed changes to the channel
@@ -14,11 +13,6 @@ export interface Upgrade {
   fields: UpgradeFields;
   timeout: Timeout;
   nextSequenceSend: bigint;
-}
-export interface ReactiveUpgrade {
-  fields: ComputedRef<UpgradeFields>;
-  timeout: ComputedRef<Timeout>;
-  nextSequenceSend: ComputedRef<bigint>;
 }
 export interface UpgradeProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Upgrade";
@@ -49,11 +43,6 @@ export interface UpgradeFields {
   connectionHops: string[];
   version: string;
 }
-export interface ReactiveUpgradeFields {
-  ordering: ComputedRef<Order>;
-  connectionHops: ComputedRef<string[]>;
-  version: ComputedRef<string>;
-}
 export interface UpgradeFieldsProtoMsg {
   typeUrl: "/ibc.core.channel.v1.UpgradeFields";
   value: Uint8Array;
@@ -81,10 +70,6 @@ export interface ErrorReceipt {
   sequence: bigint;
   /** the error message detailing the cause of failure */
   message: string;
-}
-export interface ReactiveErrorReceipt {
-  sequence: ComputedRef<bigint>;
-  message: ComputedRef<string>;
 }
 export interface ErrorReceiptProtoMsg {
   typeUrl: "/ibc.core.channel.v1.ErrorReceipt";

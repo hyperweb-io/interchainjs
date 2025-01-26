@@ -1,6 +1,5 @@
 import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
-import { buildUseMutation } from "../../../react-query";
 import { MsgStoreCode, MsgInstantiateContract, MsgInstantiateContract2, MsgExecuteContract, MsgMigrateContract, MsgUpdateAdmin, MsgClearAdmin, MsgUpdateInstantiateConfig, MsgUpdateParams, MsgSudoContract, MsgPinCodes, MsgUnpinCodes, MsgStoreAndInstantiateContract, MsgRemoveCodeUploadParamsAddresses, MsgAddCodeUploadParamsAddresses, MsgStoreAndMigrateContract, MsgUpdateContractLabel } from "./tx";
 export const createStoreCode = (clientResolver?: SigningClientResolver) => buildTx<MsgStoreCode>({
   clientResolver,
@@ -9,18 +8,12 @@ export const createStoreCode = (clientResolver?: SigningClientResolver) => build
   converters: toConverters(MsgStoreCode),
   deps: [MsgStoreCode]
 });
-export const useStoreCode = buildUseMutation<MsgStoreCode, Error>({
-  builderMutationFn: createStoreCode
-});
 export const createInstantiateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantiateContract>({
   clientResolver,
   typeUrl: MsgInstantiateContract.typeUrl,
   encoders: toEncoders(MsgInstantiateContract),
   converters: toConverters(MsgInstantiateContract),
   deps: [MsgInstantiateContract]
-});
-export const useInstantiateContract = buildUseMutation<MsgInstantiateContract, Error>({
-  builderMutationFn: createInstantiateContract
 });
 export const createInstantiateContract2 = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantiateContract2>({
   clientResolver,
@@ -29,18 +22,12 @@ export const createInstantiateContract2 = (clientResolver?: SigningClientResolve
   converters: toConverters(MsgInstantiateContract2),
   deps: [MsgInstantiateContract2]
 });
-export const useInstantiateContract2 = buildUseMutation<MsgInstantiateContract2, Error>({
-  builderMutationFn: createInstantiateContract2
-});
 export const createExecuteContract = (clientResolver?: SigningClientResolver) => buildTx<MsgExecuteContract>({
   clientResolver,
   typeUrl: MsgExecuteContract.typeUrl,
   encoders: toEncoders(MsgExecuteContract),
   converters: toConverters(MsgExecuteContract),
   deps: [MsgExecuteContract]
-});
-export const useExecuteContract = buildUseMutation<MsgExecuteContract, Error>({
-  builderMutationFn: createExecuteContract
 });
 export const createMigrateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgMigrateContract>({
   clientResolver,
@@ -49,18 +36,12 @@ export const createMigrateContract = (clientResolver?: SigningClientResolver) =>
   converters: toConverters(MsgMigrateContract),
   deps: [MsgMigrateContract]
 });
-export const useMigrateContract = buildUseMutation<MsgMigrateContract, Error>({
-  builderMutationFn: createMigrateContract
-});
 export const createUpdateAdmin = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateAdmin>({
   clientResolver,
   typeUrl: MsgUpdateAdmin.typeUrl,
   encoders: toEncoders(MsgUpdateAdmin),
   converters: toConverters(MsgUpdateAdmin),
   deps: [MsgUpdateAdmin]
-});
-export const useUpdateAdmin = buildUseMutation<MsgUpdateAdmin, Error>({
-  builderMutationFn: createUpdateAdmin
 });
 export const createClearAdmin = (clientResolver?: SigningClientResolver) => buildTx<MsgClearAdmin>({
   clientResolver,
@@ -69,18 +50,12 @@ export const createClearAdmin = (clientResolver?: SigningClientResolver) => buil
   converters: toConverters(MsgClearAdmin),
   deps: [MsgClearAdmin]
 });
-export const useClearAdmin = buildUseMutation<MsgClearAdmin, Error>({
-  builderMutationFn: createClearAdmin
-});
 export const createUpdateInstantiateConfig = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateInstantiateConfig>({
   clientResolver,
   typeUrl: MsgUpdateInstantiateConfig.typeUrl,
   encoders: toEncoders(MsgUpdateInstantiateConfig),
   converters: toConverters(MsgUpdateInstantiateConfig),
   deps: [MsgUpdateInstantiateConfig]
-});
-export const useUpdateInstantiateConfig = buildUseMutation<MsgUpdateInstantiateConfig, Error>({
-  builderMutationFn: createUpdateInstantiateConfig
 });
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
@@ -89,18 +64,12 @@ export const createUpdateParams = (clientResolver?: SigningClientResolver) => bu
   converters: toConverters(MsgUpdateParams),
   deps: [MsgUpdateParams]
 });
-export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
-});
 export const createSudoContract = (clientResolver?: SigningClientResolver) => buildTx<MsgSudoContract>({
   clientResolver,
   typeUrl: MsgSudoContract.typeUrl,
   encoders: toEncoders(MsgSudoContract),
   converters: toConverters(MsgSudoContract),
   deps: [MsgSudoContract]
-});
-export const useSudoContract = buildUseMutation<MsgSudoContract, Error>({
-  builderMutationFn: createSudoContract
 });
 export const createPinCodes = (clientResolver?: SigningClientResolver) => buildTx<MsgPinCodes>({
   clientResolver,
@@ -109,18 +78,12 @@ export const createPinCodes = (clientResolver?: SigningClientResolver) => buildT
   converters: toConverters(MsgPinCodes),
   deps: [MsgPinCodes]
 });
-export const usePinCodes = buildUseMutation<MsgPinCodes, Error>({
-  builderMutationFn: createPinCodes
-});
 export const createUnpinCodes = (clientResolver?: SigningClientResolver) => buildTx<MsgUnpinCodes>({
   clientResolver,
   typeUrl: MsgUnpinCodes.typeUrl,
   encoders: toEncoders(MsgUnpinCodes),
   converters: toConverters(MsgUnpinCodes),
   deps: [MsgUnpinCodes]
-});
-export const useUnpinCodes = buildUseMutation<MsgUnpinCodes, Error>({
-  builderMutationFn: createUnpinCodes
 });
 export const createStoreAndInstantiateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgStoreAndInstantiateContract>({
   clientResolver,
@@ -129,18 +92,12 @@ export const createStoreAndInstantiateContract = (clientResolver?: SigningClient
   converters: toConverters(MsgStoreAndInstantiateContract),
   deps: [MsgStoreAndInstantiateContract]
 });
-export const useStoreAndInstantiateContract = buildUseMutation<MsgStoreAndInstantiateContract, Error>({
-  builderMutationFn: createStoreAndInstantiateContract
-});
 export const createRemoveCodeUploadParamsAddresses = (clientResolver?: SigningClientResolver) => buildTx<MsgRemoveCodeUploadParamsAddresses>({
   clientResolver,
   typeUrl: MsgRemoveCodeUploadParamsAddresses.typeUrl,
   encoders: toEncoders(MsgRemoveCodeUploadParamsAddresses),
   converters: toConverters(MsgRemoveCodeUploadParamsAddresses),
   deps: [MsgRemoveCodeUploadParamsAddresses]
-});
-export const useRemoveCodeUploadParamsAddresses = buildUseMutation<MsgRemoveCodeUploadParamsAddresses, Error>({
-  builderMutationFn: createRemoveCodeUploadParamsAddresses
 });
 export const createAddCodeUploadParamsAddresses = (clientResolver?: SigningClientResolver) => buildTx<MsgAddCodeUploadParamsAddresses>({
   clientResolver,
@@ -149,9 +106,6 @@ export const createAddCodeUploadParamsAddresses = (clientResolver?: SigningClien
   converters: toConverters(MsgAddCodeUploadParamsAddresses),
   deps: [MsgAddCodeUploadParamsAddresses]
 });
-export const useAddCodeUploadParamsAddresses = buildUseMutation<MsgAddCodeUploadParamsAddresses, Error>({
-  builderMutationFn: createAddCodeUploadParamsAddresses
-});
 export const createStoreAndMigrateContract = (clientResolver?: SigningClientResolver) => buildTx<MsgStoreAndMigrateContract>({
   clientResolver,
   typeUrl: MsgStoreAndMigrateContract.typeUrl,
@@ -159,16 +113,10 @@ export const createStoreAndMigrateContract = (clientResolver?: SigningClientReso
   converters: toConverters(MsgStoreAndMigrateContract),
   deps: [MsgStoreAndMigrateContract]
 });
-export const useStoreAndMigrateContract = buildUseMutation<MsgStoreAndMigrateContract, Error>({
-  builderMutationFn: createStoreAndMigrateContract
-});
 export const createUpdateContractLabel = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateContractLabel>({
   clientResolver,
   typeUrl: MsgUpdateContractLabel.typeUrl,
   encoders: toEncoders(MsgUpdateContractLabel),
   converters: toConverters(MsgUpdateContractLabel),
   deps: [MsgUpdateContractLabel]
-});
-export const useUpdateContractLabel = buildUseMutation<MsgUpdateContractLabel, Error>({
-  builderMutationFn: createUpdateContractLabel
 });

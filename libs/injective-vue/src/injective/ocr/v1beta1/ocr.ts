@@ -3,7 +3,6 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface Params {
   /** Native denom for LINK coin in the bank keeper */
   linkDenom: string;
@@ -11,11 +10,6 @@ export interface Params {
   payoutBlockInterval: bigint;
   /** The admin for the OCR module */
   moduleAdmin: string;
-}
-export interface ReactiveParams {
-  linkDenom: ComputedRef<string>;
-  payoutBlockInterval: ComputedRef<bigint>;
-  moduleAdmin: ComputedRef<string>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Params";
@@ -60,15 +54,6 @@ export interface FeedConfig {
   offchainConfig: Uint8Array;
   /** feed-specific params for the Cosmos module. */
   moduleParams?: ModuleParams;
-}
-export interface ReactiveFeedConfig {
-  signers: ComputedRef<string[]>;
-  transmitters: ComputedRef<string[]>;
-  f: ComputedRef<number>;
-  onchainConfig: ComputedRef<Uint8Array>;
-  offchainConfigVersion: ComputedRef<bigint>;
-  offchainConfig: ComputedRef<Uint8Array>;
-  moduleParams?: ComputedRef<ModuleParams>;
 }
 export interface FeedConfigProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedConfig";
@@ -117,13 +102,6 @@ export interface FeedConfigInfo {
   configCount: bigint;
   latestConfigBlockNumber: bigint;
 }
-export interface ReactiveFeedConfigInfo {
-  latestConfigDigest: ComputedRef<Uint8Array>;
-  f: ComputedRef<number>;
-  n: ComputedRef<number>;
-  configCount: ComputedRef<bigint>;
-  latestConfigBlockNumber: ComputedRef<bigint>;
-}
 export interface FeedConfigInfoProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedConfigInfo";
   value: Uint8Array;
@@ -167,18 +145,6 @@ export interface ModuleParams {
   feedAdmin: string;
   /** feed billing administrator */
   billingAdmin: string;
-}
-export interface ReactiveModuleParams {
-  feedId: ComputedRef<string>;
-  minAnswer: ComputedRef<string>;
-  maxAnswer: ComputedRef<string>;
-  linkPerObservation: ComputedRef<string>;
-  linkPerTransmission: ComputedRef<string>;
-  linkDenom: ComputedRef<string>;
-  uniqueReports: ComputedRef<boolean>;
-  description: ComputedRef<string>;
-  feedAdmin: ComputedRef<string>;
-  billingAdmin: ComputedRef<string>;
 }
 export interface ModuleParamsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.ModuleParams";
@@ -244,15 +210,6 @@ export interface ContractConfig {
    */
   offchainConfig: Uint8Array;
 }
-export interface ReactiveContractConfig {
-  configCount: ComputedRef<bigint>;
-  signers: ComputedRef<string[]>;
-  transmitters: ComputedRef<string[]>;
-  f: ComputedRef<number>;
-  onchainConfig: ComputedRef<Uint8Array>;
-  offchainConfigVersion: ComputedRef<bigint>;
-  offchainConfig: ComputedRef<Uint8Array>;
-}
 export interface ContractConfigProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.ContractConfig";
   value: Uint8Array;
@@ -296,11 +253,6 @@ export interface SetConfigProposal {
   title: string;
   description: string;
   config?: FeedConfig;
-}
-export interface ReactiveSetConfigProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  config?: ComputedRef<FeedConfig>;
 }
 export interface SetConfigProposalProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.SetConfigProposal";
@@ -350,19 +302,6 @@ export interface FeedProperties {
    * to
    */
   description: string;
-}
-export interface ReactiveFeedProperties {
-  feedId: ComputedRef<string>;
-  f: ComputedRef<number>;
-  onchainConfig: ComputedRef<Uint8Array>;
-  offchainConfigVersion: ComputedRef<bigint>;
-  offchainConfig: ComputedRef<Uint8Array>;
-  minAnswer: ComputedRef<string>;
-  maxAnswer: ComputedRef<string>;
-  linkPerObservation: ComputedRef<string>;
-  linkPerTransmission: ComputedRef<string>;
-  uniqueReports: ComputedRef<boolean>;
-  description: ComputedRef<string>;
 }
 export interface FeedPropertiesProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedProperties";
@@ -423,14 +362,6 @@ export interface SetBatchConfigProposal {
   /** feed properties */
   feedProperties: FeedProperties[];
 }
-export interface ReactiveSetBatchConfigProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  signers: ComputedRef<string[]>;
-  transmitters: ComputedRef<string[]>;
-  linkDenom: ComputedRef<string>;
-  feedProperties: ComputedRef<FeedProperties[]>;
-}
 export interface SetBatchConfigProposalProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.SetBatchConfigProposal";
   value: Uint8Array;
@@ -457,9 +388,6 @@ export interface SetBatchConfigProposalAminoMsg {
 export interface OracleObservationsCounts {
   counts: number[];
 }
-export interface ReactiveOracleObservationsCounts {
-  counts: ComputedRef<number[]>;
-}
 export interface OracleObservationsCountsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.OracleObservationsCounts";
   value: Uint8Array;
@@ -474,9 +402,6 @@ export interface OracleObservationsCountsAminoMsg {
 /** LINK-INJ-denominated reimbursements for gas used by transmitters. */
 export interface GasReimbursements {
   reimbursements: Coin[];
-}
-export interface ReactiveGasReimbursements {
-  reimbursements: ComputedRef<Coin[]>;
 }
 export interface GasReimbursementsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.GasReimbursements";
@@ -493,10 +418,6 @@ export interface GasReimbursementsAminoMsg {
 export interface Payee {
   transmitterAddr: string;
   paymentAddr: string;
-}
-export interface ReactivePayee {
-  transmitterAddr: ComputedRef<string>;
-  paymentAddr: ComputedRef<string>;
 }
 export interface PayeeProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Payee";
@@ -521,11 +442,6 @@ export interface Transmission {
   /** when was report received onchain */
   transmissionTimestamp: bigint;
 }
-export interface ReactiveTransmission {
-  answer: ComputedRef<string>;
-  observationsTimestamp: ComputedRef<bigint>;
-  transmissionTimestamp: ComputedRef<bigint>;
-}
 export interface TransmissionProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Transmission";
   value: Uint8Array;
@@ -549,10 +465,6 @@ export interface EpochAndRound {
   epoch: bigint;
   round: bigint;
 }
-export interface ReactiveEpochAndRound {
-  epoch: ComputedRef<bigint>;
-  round: ComputedRef<bigint>;
-}
 export interface EpochAndRoundProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EpochAndRound";
   value: Uint8Array;
@@ -570,11 +482,6 @@ export interface Report {
   /** ith element is the index of the ith observer */
   observers: Uint8Array;
   observations: string[];
-}
-export interface ReactiveReport {
-  observationsTimestamp: ComputedRef<bigint>;
-  observers: ComputedRef<Uint8Array>;
-  observations: ComputedRef<string[]>;
 }
 export interface ReportProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Report";
@@ -598,13 +505,6 @@ export interface ReportToSign {
   /** Opaque report */
   report: Uint8Array;
 }
-export interface ReactiveReportToSign {
-  configDigest: ComputedRef<Uint8Array>;
-  epoch: ComputedRef<bigint>;
-  round: ComputedRef<bigint>;
-  extraHash: ComputedRef<Uint8Array>;
-  report: ComputedRef<Uint8Array>;
-}
 export interface ReportToSignProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.ReportToSign";
   value: Uint8Array;
@@ -626,11 +526,6 @@ export interface EventOraclePaid {
   payeeAddr: string;
   amount: Coin;
 }
-export interface ReactiveEventOraclePaid {
-  transmitterAddr: ComputedRef<string>;
-  payeeAddr: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-}
 export interface EventOraclePaidProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventOraclePaid";
   value: Uint8Array;
@@ -648,11 +543,6 @@ export interface EventAnswerUpdated {
   current: string;
   roundId: string;
   updatedAt: Date;
-}
-export interface ReactiveEventAnswerUpdated {
-  current: ComputedRef<string>;
-  roundId: ComputedRef<string>;
-  updatedAt: ComputedRef<Date>;
 }
 export interface EventAnswerUpdatedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventAnswerUpdated";
@@ -673,11 +563,6 @@ export interface EventNewRound {
   startedBy: string;
   startedAt: Date;
 }
-export interface ReactiveEventNewRound {
-  roundId: ComputedRef<string>;
-  startedBy: ComputedRef<string>;
-  startedAt: ComputedRef<Date>;
-}
 export interface EventNewRoundProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventNewRound";
   value: Uint8Array;
@@ -695,10 +580,6 @@ export interface EventNewRoundAminoMsg {
 export interface EventTransmitted {
   configDigest: Uint8Array;
   epoch: bigint;
-}
-export interface ReactiveEventTransmitted {
-  configDigest: ComputedRef<Uint8Array>;
-  epoch: ComputedRef<bigint>;
 }
 export interface EventTransmittedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventTransmitted";
@@ -722,17 +603,6 @@ export interface EventNewTransmission {
   observers: Uint8Array;
   configDigest: Uint8Array;
   epochAndRound?: EpochAndRound;
-}
-export interface ReactiveEventNewTransmission {
-  feedId: ComputedRef<string>;
-  aggregatorRoundId: ComputedRef<number>;
-  answer: ComputedRef<string>;
-  transmitter: ComputedRef<string>;
-  observationsTimestamp: ComputedRef<bigint>;
-  observations: ComputedRef<string[]>;
-  observers: ComputedRef<Uint8Array>;
-  configDigest: ComputedRef<Uint8Array>;
-  epochAndRound?: ComputedRef<EpochAndRound>;
 }
 export interface EventNewTransmissionProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventNewTransmission";
@@ -763,12 +633,6 @@ export interface EventConfigSet {
   previousConfigBlockNumber: bigint;
   config?: FeedConfig;
   configInfo?: FeedConfigInfo;
-}
-export interface ReactiveEventConfigSet {
-  configDigest: ComputedRef<Uint8Array>;
-  previousConfigBlockNumber: ComputedRef<bigint>;
-  config?: ComputedRef<FeedConfig>;
-  configInfo?: ComputedRef<FeedConfigInfo>;
 }
 export interface EventConfigSetProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventConfigSet";

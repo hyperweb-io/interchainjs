@@ -3,12 +3,8 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface EventInsuranceFundUpdate {
   fund?: InsuranceFund;
-}
-export interface ReactiveEventInsuranceFundUpdate {
-  fund?: ComputedRef<InsuranceFund>;
 }
 export interface EventInsuranceFundUpdateProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate";
@@ -23,9 +19,6 @@ export interface EventInsuranceFundUpdateAminoMsg {
 }
 export interface EventRequestRedemption {
   schedule?: RedemptionSchedule;
-}
-export interface ReactiveEventRequestRedemption {
-  schedule?: ComputedRef<RedemptionSchedule>;
 }
 export interface EventRequestRedemptionProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption";
@@ -43,10 +36,6 @@ export interface EventWithdrawRedemption {
   schedule?: RedemptionSchedule;
   /** redeem coin amount in base_currency */
   redeemCoin: Coin;
-}
-export interface ReactiveEventWithdrawRedemption {
-  schedule?: ComputedRef<RedemptionSchedule>;
-  redeemCoin: ComputedRef<Coin>;
 }
 export interface EventWithdrawRedemptionProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption";
@@ -72,12 +61,6 @@ export interface EventUnderwrite {
   /** share coin amount */
   shares: Coin;
 }
-export interface ReactiveEventUnderwrite {
-  underwriter: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  deposit: ComputedRef<Coin>;
-  shares: ComputedRef<Coin>;
-}
 export interface EventUnderwriteProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventUnderwrite";
   value: Uint8Array;
@@ -100,11 +83,6 @@ export interface EventInsuranceWithdraw {
   marketId: string;
   marketTicker: string;
   withdrawal: Coin;
-}
-export interface ReactiveEventInsuranceWithdraw {
-  marketId: ComputedRef<string>;
-  marketTicker: ComputedRef<string>;
-  withdrawal: ComputedRef<Coin>;
 }
 export interface EventInsuranceWithdrawProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventInsuranceWithdraw";

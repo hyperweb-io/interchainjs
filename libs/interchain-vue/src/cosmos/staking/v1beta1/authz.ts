@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * AuthorizationType defines the type of staking module authorization type
  * 
@@ -83,12 +82,6 @@ export interface StakeAuthorization {
   /** authorization_type defines one of AuthorizationType. */
   authorizationType: AuthorizationType;
 }
-export interface ReactiveStakeAuthorization {
-  maxTokens?: ComputedRef<Coin>;
-  allowList?: ComputedRef<StakeAuthorization_Validators>;
-  denyList?: ComputedRef<StakeAuthorization_Validators>;
-  authorizationType: ComputedRef<AuthorizationType>;
-}
 export interface StakeAuthorizationProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.StakeAuthorization";
   value: Uint8Array;
@@ -121,9 +114,6 @@ export interface StakeAuthorizationAminoMsg {
 /** Validators defines list of validator addresses. */
 export interface StakeAuthorization_Validators {
   address: string[];
-}
-export interface ReactiveStakeAuthorization_Validators {
-  address: ComputedRef<string[]>;
 }
 export interface StakeAuthorization_ValidatorsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Validators";

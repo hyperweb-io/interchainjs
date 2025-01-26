@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of the module. */
@@ -23,13 +22,6 @@ export interface GenesisState {
    * Since: cosmos-sdk 0.47
    */
   sendEnabled: SendEnabled[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  balances: ComputedRef<Balance[]>;
-  supply: ComputedRef<Coin[]>;
-  denomMetadata: ComputedRef<Metadata[]>;
-  sendEnabled: ComputedRef<SendEnabled[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.GenesisState";
@@ -68,10 +60,6 @@ export interface Balance {
   address: string;
   /** coins defines the different coins this balance holds. */
   coins: Coin[];
-}
-export interface ReactiveBalance {
-  address: ComputedRef<string>;
-  coins: ComputedRef<Coin[]>;
 }
 export interface BalanceProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.Balance";

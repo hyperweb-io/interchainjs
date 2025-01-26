@@ -1,16 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object of the distribution module. */
 export interface Module {
   feeCollectorName: string;
   /** authority defines the custom module authority. If not set, defaults to the governance module. */
   authority: string;
-}
-export interface ReactiveModule {
-  feeCollectorName: ComputedRef<string>;
-  authority: ComputedRef<string>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.distribution.module.v1.Module";

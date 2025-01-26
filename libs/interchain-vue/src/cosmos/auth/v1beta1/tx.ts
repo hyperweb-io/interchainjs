@@ -2,7 +2,6 @@ import { Params, ParamsAmino } from "./auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
  * 
@@ -17,10 +16,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.MsgUpdateParams";
@@ -52,7 +47,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

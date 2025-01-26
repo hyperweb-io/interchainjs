@@ -9,7 +9,6 @@ import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, CancelSoftwar
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
  * proposal Content.
@@ -41,15 +40,6 @@ export interface MsgSubmitProposal {
    * Since: cosmos-sdk 0.50
    */
   expedited: boolean;
-}
-export interface ReactiveMsgSubmitProposal {
-  messages: ComputedRef<Any[]>;
-  initialDeposit: ComputedRef<Coin[]>;
-  proposer: ComputedRef<string>;
-  metadata: ComputedRef<string>;
-  title: ComputedRef<string>;
-  summary: ComputedRef<string>;
-  expedited: ComputedRef<boolean>;
 }
 export interface MsgSubmitProposalProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgSubmitProposal";
@@ -96,9 +86,6 @@ export interface MsgSubmitProposalResponse {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
 }
-export interface ReactiveMsgSubmitProposalResponse {
-  proposalId: ComputedRef<bigint>;
-}
 export interface MsgSubmitProposalResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgSubmitProposalResponse";
   value: Uint8Array;
@@ -121,10 +108,6 @@ export interface MsgExecLegacyContent {
   content?: CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any | undefined;
   /** authority must be the gov module address. */
   authority: string;
-}
-export interface ReactiveMsgExecLegacyContent {
-  content?: ComputedRef<CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | ParameterChangeProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | Any | undefined>;
-  authority: ComputedRef<string>;
 }
 export interface MsgExecLegacyContentProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgExecLegacyContent";
@@ -149,7 +132,6 @@ export interface MsgExecLegacyContentAminoMsg {
 }
 /** MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type. */
 export interface MsgExecLegacyContentResponse {}
-export interface ReactiveMsgExecLegacyContentResponse {}
 export interface MsgExecLegacyContentResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgExecLegacyContentResponse";
   value: Uint8Array;
@@ -170,12 +152,6 @@ export interface MsgVote {
   option: VoteOption;
   /** metadata is any arbitrary metadata attached to the Vote. */
   metadata: string;
-}
-export interface ReactiveMsgVote {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  option: ComputedRef<VoteOption>;
-  metadata: ComputedRef<string>;
 }
 export interface MsgVoteProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgVote";
@@ -198,7 +174,6 @@ export interface MsgVoteAminoMsg {
 }
 /** MsgVoteResponse defines the Msg/Vote response type. */
 export interface MsgVoteResponse {}
-export interface ReactiveMsgVoteResponse {}
 export interface MsgVoteResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgVoteResponse";
   value: Uint8Array;
@@ -219,12 +194,6 @@ export interface MsgVoteWeighted {
   options: WeightedVoteOption[];
   /** metadata is any arbitrary metadata attached to the VoteWeighted. */
   metadata: string;
-}
-export interface ReactiveMsgVoteWeighted {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  options: ComputedRef<WeightedVoteOption[]>;
-  metadata: ComputedRef<string>;
 }
 export interface MsgVoteWeightedProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgVoteWeighted";
@@ -247,7 +216,6 @@ export interface MsgVoteWeightedAminoMsg {
 }
 /** MsgVoteWeightedResponse defines the Msg/VoteWeighted response type. */
 export interface MsgVoteWeightedResponse {}
-export interface ReactiveMsgVoteWeightedResponse {}
 export interface MsgVoteWeightedResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgVoteWeightedResponse";
   value: Uint8Array;
@@ -266,11 +234,6 @@ export interface MsgDeposit {
   depositor: string;
   /** amount to be deposited by depositor. */
   amount: Coin[];
-}
-export interface ReactiveMsgDeposit {
-  proposalId: ComputedRef<bigint>;
-  depositor: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface MsgDepositProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgDeposit";
@@ -291,7 +254,6 @@ export interface MsgDepositAminoMsg {
 }
 /** MsgDepositResponse defines the Msg/Deposit response type. */
 export interface MsgDepositResponse {}
-export interface ReactiveMsgDepositResponse {}
 export interface MsgDepositResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgDepositResponse";
   value: Uint8Array;
@@ -316,10 +278,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgUpdateParams";
@@ -351,7 +309,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -377,10 +334,6 @@ export interface MsgCancelProposal {
   proposalId: bigint;
   /** proposer is the account address of the proposer. */
   proposer: string;
-}
-export interface ReactiveMsgCancelProposal {
-  proposalId: ComputedRef<bigint>;
-  proposer: ComputedRef<string>;
 }
 export interface MsgCancelProposalProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgCancelProposal";
@@ -414,11 +367,6 @@ export interface MsgCancelProposalResponse {
   canceledTime: Date;
   /** canceled_height defines the block height at which the proposal is canceled. */
   canceledHeight: bigint;
-}
-export interface ReactiveMsgCancelProposalResponse {
-  proposalId: ComputedRef<bigint>;
-  canceledTime: ComputedRef<Date>;
-  canceledHeight: ComputedRef<bigint>;
 }
 export interface MsgCancelProposalResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.MsgCancelProposalResponse";

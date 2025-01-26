@@ -1,14 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** GenesisState defines the raw genesis transaction in JSON. */
 export interface GenesisState {
   /** gen_txs defines the genesis transactions. */
   genTxs: Uint8Array[];
-}
-export interface ReactiveGenesisState {
-  genTxs: ComputedRef<Uint8Array[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.genutil.v1beta1.GenesisState";

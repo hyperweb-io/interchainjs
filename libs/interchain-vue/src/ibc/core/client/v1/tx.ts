@@ -4,7 +4,6 @@ import { Params, ParamsAmino } from "./client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {
   /** light client state */
@@ -16,11 +15,6 @@ export interface MsgCreateClient {
   consensusState?: Any;
   /** signer address */
   signer: string;
-}
-export interface ReactiveMsgCreateClient {
-  clientState?: ComputedRef<Any>;
-  consensusState?: ComputedRef<Any>;
-  signer: ComputedRef<string>;
 }
 export interface MsgCreateClientProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgCreateClient";
@@ -46,9 +40,6 @@ export interface MsgCreateClientAminoMsg {
 export interface MsgCreateClientResponse {
   clientId: string;
 }
-export interface ReactiveMsgCreateClientResponse {
-  clientId: ComputedRef<string>;
-}
 export interface MsgCreateClientResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgCreateClientResponse";
   value: Uint8Array;
@@ -73,11 +64,6 @@ export interface MsgUpdateClient {
   /** signer address */
   signer: string;
 }
-export interface ReactiveMsgUpdateClient {
-  clientId: ComputedRef<string>;
-  clientMessage?: ComputedRef<Any>;
-  signer: ComputedRef<string>;
-}
 export interface MsgUpdateClientProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgUpdateClient";
   value: Uint8Array;
@@ -100,7 +86,6 @@ export interface MsgUpdateClientAminoMsg {
 }
 /** MsgUpdateClientResponse defines the Msg/UpdateClient response type. */
 export interface MsgUpdateClientResponse {}
-export interface ReactiveMsgUpdateClientResponse {}
 export interface MsgUpdateClientResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgUpdateClientResponse";
   value: Uint8Array;
@@ -131,14 +116,6 @@ export interface MsgUpgradeClient {
   proofUpgradeConsensusState: Uint8Array;
   /** signer address */
   signer: string;
-}
-export interface ReactiveMsgUpgradeClient {
-  clientId: ComputedRef<string>;
-  clientState?: ComputedRef<Any>;
-  consensusState?: ComputedRef<Any>;
-  proofUpgradeClient: ComputedRef<Uint8Array>;
-  proofUpgradeConsensusState: ComputedRef<Uint8Array>;
-  signer: ComputedRef<string>;
 }
 export interface MsgUpgradeClientProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgUpgradeClient";
@@ -171,7 +148,6 @@ export interface MsgUpgradeClientAminoMsg {
 }
 /** MsgUpgradeClientResponse defines the Msg/UpgradeClient response type. */
 export interface MsgUpgradeClientResponse {}
-export interface ReactiveMsgUpgradeClientResponse {}
 export interface MsgUpgradeClientResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgUpgradeClientResponse";
   value: Uint8Array;
@@ -195,11 +171,6 @@ export interface MsgSubmitMisbehaviour {
   misbehaviour?: Any;
   /** signer address */
   signer: string;
-}
-export interface ReactiveMsgSubmitMisbehaviour {
-  clientId: ComputedRef<string>;
-  misbehaviour?: ComputedRef<Any>;
-  signer: ComputedRef<string>;
 }
 export interface MsgSubmitMisbehaviourProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgSubmitMisbehaviour";
@@ -228,7 +199,6 @@ export interface MsgSubmitMisbehaviourAminoMsg {
  * type.
  */
 export interface MsgSubmitMisbehaviourResponse {}
-export interface ReactiveMsgSubmitMisbehaviourResponse {}
 export interface MsgSubmitMisbehaviourResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgSubmitMisbehaviourResponse";
   value: Uint8Array;
@@ -254,11 +224,6 @@ export interface MsgRecoverClient {
   /** signer address */
   signer: string;
 }
-export interface ReactiveMsgRecoverClient {
-  subjectClientId: ComputedRef<string>;
-  substituteClientId: ComputedRef<string>;
-  signer: ComputedRef<string>;
-}
 export interface MsgRecoverClientProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgRecoverClient";
   value: Uint8Array;
@@ -281,7 +246,6 @@ export interface MsgRecoverClientAminoMsg {
 }
 /** MsgRecoverClientResponse defines the Msg/RecoverClient response type. */
 export interface MsgRecoverClientResponse {}
-export interface ReactiveMsgRecoverClientResponse {}
 export interface MsgRecoverClientResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgRecoverClientResponse";
   value: Uint8Array;
@@ -308,11 +272,6 @@ export interface MsgIBCSoftwareUpgrade {
   upgradedClientState?: Any;
   /** signer address */
   signer: string;
-}
-export interface ReactiveMsgIBCSoftwareUpgrade {
-  plan: ComputedRef<Plan>;
-  upgradedClientState?: ComputedRef<Any>;
-  signer: ComputedRef<string>;
 }
 export interface MsgIBCSoftwareUpgradeProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgIBCSoftwareUpgrade";
@@ -341,7 +300,6 @@ export interface MsgIBCSoftwareUpgradeAminoMsg {
 }
 /** MsgIBCSoftwareUpgradeResponse defines the Msg/IBCSoftwareUpgrade response type. */
 export interface MsgIBCSoftwareUpgradeResponse {}
-export interface ReactiveMsgIBCSoftwareUpgradeResponse {}
 export interface MsgIBCSoftwareUpgradeResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse";
   value: Uint8Array;
@@ -362,10 +320,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  signer: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgUpdateParams";
@@ -388,7 +342,6 @@ export interface MsgUpdateParamsAminoMsg {
 }
 /** MsgUpdateParamsResponse defines the MsgUpdateParams response type. */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/ibc.core.client.v1.MsgUpdateParamsResponse";
   value: Uint8Array;

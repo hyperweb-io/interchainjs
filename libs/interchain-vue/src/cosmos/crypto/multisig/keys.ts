@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * LegacyAminoPubKey specifies a public key type
  * which nests multiple public keys and a threshold,
@@ -11,10 +10,6 @@ import { ComputedRef } from "vue";
 export interface LegacyAminoPubKey {
   threshold: number;
   publicKeys: Any[];
-}
-export interface ReactiveLegacyAminoPubKey {
-  threshold: ComputedRef<number>;
-  publicKeys: ComputedRef<Any[]>;
 }
 export interface LegacyAminoPubKeyProtoMsg {
   typeUrl: "/cosmos.crypto.multisig.LegacyAminoPubKey";

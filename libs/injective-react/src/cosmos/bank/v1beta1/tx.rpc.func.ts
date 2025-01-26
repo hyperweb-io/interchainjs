@@ -1,6 +1,5 @@
 import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
-import { buildUseMutation } from "../../../react-query";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
 export const createSend = (clientResolver?: SigningClientResolver) => buildTx<MsgSend>({
   clientResolver,
@@ -9,18 +8,12 @@ export const createSend = (clientResolver?: SigningClientResolver) => buildTx<Ms
   converters: toConverters(MsgSend),
   deps: [MsgSend]
 });
-export const useSend = buildUseMutation<MsgSend, Error>({
-  builderMutationFn: createSend
-});
 export const createMultiSend = (clientResolver?: SigningClientResolver) => buildTx<MsgMultiSend>({
   clientResolver,
   typeUrl: MsgMultiSend.typeUrl,
   encoders: toEncoders(MsgMultiSend),
   converters: toConverters(MsgMultiSend),
   deps: [MsgMultiSend]
-});
-export const useMultiSend = buildUseMutation<MsgMultiSend, Error>({
-  builderMutationFn: createMultiSend
 });
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
@@ -29,16 +22,10 @@ export const createUpdateParams = (clientResolver?: SigningClientResolver) => bu
   converters: toConverters(MsgUpdateParams),
   deps: [MsgUpdateParams]
 });
-export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
-});
 export const createSetSendEnabled = (clientResolver?: SigningClientResolver) => buildTx<MsgSetSendEnabled>({
   clientResolver,
   typeUrl: MsgSetSendEnabled.typeUrl,
   encoders: toEncoders(MsgSetSendEnabled),
   converters: toConverters(MsgSetSendEnabled),
   deps: [MsgSetSendEnabled]
-});
-export const useSetSendEnabled = buildUseMutation<MsgSetSendEnabled, Error>({
-  builderMutationFn: createSetSendEnabled
 });

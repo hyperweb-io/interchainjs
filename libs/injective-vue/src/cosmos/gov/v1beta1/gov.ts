@@ -13,7 +13,6 @@ import { ContractRegistrationRequestProposal, ContractRegistrationRequestProposa
 import { isSet, DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export enum VoteOption {
   /** VOTE_OPTION_UNSPECIFIED - VOTE_OPTION_UNSPECIFIED defines a no-op vote option. */
@@ -157,10 +156,6 @@ export interface WeightedVoteOption {
   /** weight is the vote weight associated with the vote option. */
   weight: string;
 }
-export interface ReactiveWeightedVoteOption {
-  option: ComputedRef<VoteOption>;
-  weight: ComputedRef<string>;
-}
 export interface WeightedVoteOptionProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.WeightedVoteOption";
   value: Uint8Array;
@@ -189,10 +184,6 @@ export interface TextProposal {
   title: string;
   /** description associated with the proposal. */
   description: string;
-}
-export interface ReactiveTextProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
 }
 export interface TextProposalProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.TextProposal";
@@ -223,11 +214,6 @@ export interface Deposit {
   depositor: string;
   /** amount to be deposited by depositor. */
   amount: Coin[];
-}
-export interface ReactiveDeposit {
-  proposalId: ComputedRef<bigint>;
-  depositor: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface DepositProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.Deposit";
@@ -273,17 +259,6 @@ export interface Proposal {
   votingStartTime: Date;
   /** voting_end_time is the end time of voting on a proposal. */
   votingEndTime: Date;
-}
-export interface ReactiveProposal {
-  proposalId: ComputedRef<bigint>;
-  content?: ComputedRef<TextProposal | CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | SpotMarketParamUpdateProposal | BatchExchangeModificationProposal | SpotMarketLaunchProposal | PerpetualMarketLaunchProposal | BinaryOptionsMarketLaunchProposal | ExpiryFuturesMarketLaunchProposal | DerivativeMarketParamUpdateProposal | MarketForcedSettlementProposal | UpdateDenomDecimalsProposal | BinaryOptionsMarketParamUpdateProposal | TradingRewardCampaignLaunchProposal | TradingRewardCampaignUpdateProposal | TradingRewardPendingPointsUpdateProposal | FeeDiscountProposal | BatchCommunityPoolSpendProposal | AtomicMarketOrderFeeMultiplierScheduleProposal | SetConfigProposal | SetBatchConfigProposal | GrantBandOraclePrivilegeProposal | RevokeBandOraclePrivilegeProposal | GrantPriceFeederPrivilegeProposal | GrantProviderPrivilegeProposal | RevokeProviderPrivilegeProposal | RevokePriceFeederPrivilegeProposal | AuthorizeBandOracleRequestProposal | UpdateBandOracleRequestProposal | EnableBandIBCProposal | GrantStorkPublisherPrivilegeProposal | RevokeStorkPublisherPrivilegeProposal | BlacklistEthereumAddressesProposal | RevokeEthereumBlacklistProposal | ContractRegistrationRequestProposal | BatchContractRegistrationRequestProposal | BatchContractDeregistrationProposal | ContractRegistrationRequest | BatchStoreCodeProposal | Any | undefined>;
-  status: ComputedRef<ProposalStatus>;
-  finalTallyResult: ComputedRef<TallyResult>;
-  submitTime: ComputedRef<Date>;
-  depositEndTime: ComputedRef<Date>;
-  totalDeposit: ComputedRef<Coin[]>;
-  votingStartTime: ComputedRef<Date>;
-  votingEndTime: ComputedRef<Date>;
 }
 export interface ProposalProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.Proposal";
@@ -332,12 +307,6 @@ export interface TallyResult {
   /** no_with_veto is the number of no with veto votes on a proposal. */
   noWithVeto: string;
 }
-export interface ReactiveTallyResult {
-  yes: ComputedRef<string>;
-  abstain: ComputedRef<string>;
-  no: ComputedRef<string>;
-  noWithVeto: ComputedRef<string>;
-}
 export interface TallyResultProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.TallyResult";
   value: Uint8Array;
@@ -380,12 +349,6 @@ export interface Vote {
    */
   options: WeightedVoteOption[];
 }
-export interface ReactiveVote {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  option: ComputedRef<VoteOption>;
-  options: ComputedRef<WeightedVoteOption[]>;
-}
 export interface VoteProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.Vote";
   value: Uint8Array;
@@ -427,10 +390,6 @@ export interface DepositParams {
    */
   maxDepositPeriod: Duration;
 }
-export interface ReactiveDepositParams {
-  minDeposit: ComputedRef<Coin[]>;
-  maxDepositPeriod: ComputedRef<Duration>;
-}
 export interface DepositParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.DepositParams";
   value: Uint8Array;
@@ -453,9 +412,6 @@ export interface DepositParamsAminoMsg {
 export interface VotingParams {
   /** Duration of the voting period. */
   votingPeriod: Duration;
-}
-export interface ReactiveVotingParams {
-  votingPeriod: ComputedRef<Duration>;
 }
 export interface VotingParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.VotingParams";
@@ -484,11 +440,6 @@ export interface TallyParams {
    * vetoed. Default value: 1/3.
    */
   vetoThreshold: Uint8Array;
-}
-export interface ReactiveTallyParams {
-  quorum: ComputedRef<Uint8Array>;
-  threshold: ComputedRef<Uint8Array>;
-  vetoThreshold: ComputedRef<Uint8Array>;
 }
 export interface TallyParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1beta1.TallyParams";

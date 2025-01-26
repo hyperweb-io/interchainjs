@@ -2,7 +2,6 @@ import { DecCoin, DecCoinAmino, Coin, CoinAmino } from "../../base/v1beta1/coin"
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** Params defines the set of params for the distribution module. */
 export interface Params {
   communityTax: string;
@@ -19,12 +18,6 @@ export interface Params {
   /** @deprecated */
   bonusProposerReward: string;
   withdrawAddrEnabled: boolean;
-}
-export interface ReactiveParams {
-  communityTax: ComputedRef<string>;
-  baseProposerReward: ComputedRef<string>;
-  bonusProposerReward: ComputedRef<string>;
-  withdrawAddrEnabled: ComputedRef<boolean>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.Params";
@@ -69,10 +62,6 @@ export interface ValidatorHistoricalRewards {
   cumulativeRewardRatio: DecCoin[];
   referenceCount: number;
 }
-export interface ReactiveValidatorHistoricalRewards {
-  cumulativeRewardRatio: ComputedRef<DecCoin[]>;
-  referenceCount: ComputedRef<number>;
-}
 export interface ValidatorHistoricalRewardsProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorHistoricalRewards";
   value: Uint8Array;
@@ -108,10 +97,6 @@ export interface ValidatorCurrentRewards {
   rewards: DecCoin[];
   period: bigint;
 }
-export interface ReactiveValidatorCurrentRewards {
-  rewards: ComputedRef<DecCoin[]>;
-  period: ComputedRef<bigint>;
-}
 export interface ValidatorCurrentRewardsProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorCurrentRewards";
   value: Uint8Array;
@@ -136,9 +121,6 @@ export interface ValidatorCurrentRewardsAminoMsg {
 export interface ValidatorAccumulatedCommission {
   commission: DecCoin[];
 }
-export interface ReactiveValidatorAccumulatedCommission {
-  commission: ComputedRef<DecCoin[]>;
-}
 export interface ValidatorAccumulatedCommissionProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorAccumulatedCommission";
   value: Uint8Array;
@@ -160,9 +142,6 @@ export interface ValidatorAccumulatedCommissionAminoMsg {
  */
 export interface ValidatorOutstandingRewards {
   rewards: DecCoin[];
-}
-export interface ReactiveValidatorOutstandingRewards {
-  rewards: ComputedRef<DecCoin[]>;
 }
 export interface ValidatorOutstandingRewardsProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorOutstandingRewards";
@@ -189,10 +168,6 @@ export interface ValidatorSlashEvent {
   validatorPeriod: bigint;
   fraction: string;
 }
-export interface ReactiveValidatorSlashEvent {
-  validatorPeriod: ComputedRef<bigint>;
-  fraction: ComputedRef<string>;
-}
 export interface ValidatorSlashEventProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEvent";
   value: Uint8Array;
@@ -215,9 +190,6 @@ export interface ValidatorSlashEventAminoMsg {
 export interface ValidatorSlashEvents {
   validatorSlashEvents: ValidatorSlashEvent[];
 }
-export interface ReactiveValidatorSlashEvents {
-  validatorSlashEvents: ComputedRef<ValidatorSlashEvent[]>;
-}
 export interface ValidatorSlashEventsProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEvents";
   value: Uint8Array;
@@ -233,9 +205,6 @@ export interface ValidatorSlashEventsAminoMsg {
 /** FeePool is the global fee pool for distribution. */
 export interface FeePool {
   communityPool: DecCoin[];
-}
-export interface ReactiveFeePool {
-  communityPool: ComputedRef<DecCoin[]>;
 }
 export interface FeePoolProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.FeePool";
@@ -265,12 +234,6 @@ export interface CommunityPoolSpendProposal {
   description: string;
   recipient: string;
   amount: Coin[];
-}
-export interface ReactiveCommunityPoolSpendProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  recipient: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface CommunityPoolSpendProposalProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal";
@@ -310,11 +273,6 @@ export interface DelegatorStartingInfo {
   stake: string;
   height: bigint;
 }
-export interface ReactiveDelegatorStartingInfo {
-  previousPeriod: ComputedRef<bigint>;
-  stake: ComputedRef<string>;
-  height: ComputedRef<bigint>;
-}
 export interface DelegatorStartingInfoProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.DelegatorStartingInfo";
   value: Uint8Array;
@@ -344,10 +302,6 @@ export interface DelegationDelegatorReward {
   validatorAddress: string;
   reward: DecCoin[];
 }
-export interface ReactiveDelegationDelegatorReward {
-  validatorAddress: ComputedRef<string>;
-  reward: ComputedRef<DecCoin[]>;
-}
 export interface DelegationDelegatorRewardProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.DelegationDelegatorReward";
   value: Uint8Array;
@@ -374,13 +328,6 @@ export interface CommunityPoolSpendProposalWithDeposit {
   recipient: string;
   amount: string;
   deposit: string;
-}
-export interface ReactiveCommunityPoolSpendProposalWithDeposit {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  recipient: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  deposit: ComputedRef<string>;
 }
 export interface CommunityPoolSpendProposalWithDepositProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.CommunityPoolSpendProposalWithDeposit";

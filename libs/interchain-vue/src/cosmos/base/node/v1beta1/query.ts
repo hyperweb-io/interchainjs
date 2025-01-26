@@ -2,10 +2,8 @@ import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** ConfigRequest defines the request structure for the Config gRPC query. */
 export interface ConfigRequest {}
-export interface ReactiveConfigRequest {}
 export interface ConfigRequestProtoMsg {
   typeUrl: "/cosmos.base.node.v1beta1.ConfigRequest";
   value: Uint8Array;
@@ -22,12 +20,6 @@ export interface ConfigResponse {
   pruningKeepRecent: string;
   pruningInterval: string;
   haltHeight: bigint;
-}
-export interface ReactiveConfigResponse {
-  minimumGasPrice: ComputedRef<string>;
-  pruningKeepRecent: ComputedRef<string>;
-  pruningInterval: ComputedRef<string>;
-  haltHeight: ComputedRef<bigint>;
 }
 export interface ConfigResponseProtoMsg {
   typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse";
@@ -46,7 +38,6 @@ export interface ConfigResponseAminoMsg {
 }
 /** StateRequest defines the request structure for the status of a node. */
 export interface StatusRequest {}
-export interface ReactiveStatusRequest {}
 export interface StatusRequestProtoMsg {
   typeUrl: "/cosmos.base.node.v1beta1.StatusRequest";
   value: Uint8Array;
@@ -69,13 +60,6 @@ export interface StatusResponse {
   appHash: Uint8Array;
   /** validator hash provided by the consensus header */
   validatorHash: Uint8Array;
-}
-export interface ReactiveStatusResponse {
-  earliestStoreHeight: ComputedRef<bigint>;
-  height: ComputedRef<bigint>;
-  timestamp?: ComputedRef<Date>;
-  appHash: ComputedRef<Uint8Array>;
-  validatorHash: ComputedRef<Uint8Array>;
 }
 export interface StatusResponseProtoMsg {
   typeUrl: "/cosmos.base.node.v1beta1.StatusResponse";

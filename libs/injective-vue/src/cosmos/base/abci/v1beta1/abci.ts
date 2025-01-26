@@ -4,7 +4,6 @@ import { Block, BlockAmino } from "../../../../tendermint/types/block";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
  * tags are stringified and the log is JSON decoded.
@@ -50,21 +49,6 @@ export interface TxResponse {
    * Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
    */
   events: Event[];
-}
-export interface ReactiveTxResponse {
-  height: ComputedRef<bigint>;
-  txhash: ComputedRef<string>;
-  codespace: ComputedRef<string>;
-  code: ComputedRef<number>;
-  data: ComputedRef<string>;
-  rawLog: ComputedRef<string>;
-  logs: ComputedRef<ABCIMessageLog[]>;
-  info: ComputedRef<string>;
-  gasWanted: ComputedRef<bigint>;
-  gasUsed: ComputedRef<bigint>;
-  tx?: ComputedRef<Any>;
-  timestamp: ComputedRef<string>;
-  events: ComputedRef<Event[]>;
 }
 export interface TxResponseProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.TxResponse";
@@ -130,11 +114,6 @@ export interface ABCIMessageLog {
    */
   events: StringEvent[];
 }
-export interface ReactiveABCIMessageLog {
-  msgIndex: ComputedRef<number>;
-  log: ComputedRef<string>;
-  events: ComputedRef<StringEvent[]>;
-}
 export interface ABCIMessageLogProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog";
   value: Uint8Array;
@@ -161,10 +140,6 @@ export interface StringEvent {
   type: string;
   attributes: Attribute[];
 }
-export interface ReactiveStringEvent {
-  type: ComputedRef<string>;
-  attributes: ComputedRef<Attribute[]>;
-}
 export interface StringEventProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.StringEvent";
   value: Uint8Array;
@@ -189,10 +164,6 @@ export interface Attribute {
   key: string;
   value: string;
 }
-export interface ReactiveAttribute {
-  key: ComputedRef<string>;
-  value: ComputedRef<string>;
-}
 export interface AttributeProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.Attribute";
   value: Uint8Array;
@@ -215,10 +186,6 @@ export interface GasInfo {
   gasWanted: bigint;
   /** GasUsed is the amount of gas actually consumed. */
   gasUsed: bigint;
-}
-export interface ReactiveGasInfo {
-  gasWanted: ComputedRef<bigint>;
-  gasUsed: ComputedRef<bigint>;
 }
 export interface GasInfoProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.GasInfo";
@@ -258,12 +225,6 @@ export interface Result {
    * Since: cosmos-sdk 0.46
    */
   msgResponses: Any[];
-}
-export interface ReactiveResult {
-  data: ComputedRef<Uint8Array>;
-  log: ComputedRef<string>;
-  events: ComputedRef<Event[]>;
-  msgResponses: ComputedRef<Any[]>;
 }
 export interface ResultProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.Result";
@@ -305,10 +266,6 @@ export interface SimulationResponse {
   gasInfo: GasInfo;
   result?: Result;
 }
-export interface ReactiveSimulationResponse {
-  gasInfo: ComputedRef<GasInfo>;
-  result?: ComputedRef<Result>;
-}
 export interface SimulationResponseProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse";
   value: Uint8Array;
@@ -333,10 +290,6 @@ export interface SimulationResponseAminoMsg {
 export interface MsgData {
   msgType: string;
   data: Uint8Array;
-}
-export interface ReactiveMsgData {
-  msgType: ComputedRef<string>;
-  data: ComputedRef<Uint8Array>;
 }
 export interface MsgDataProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.MsgData";
@@ -369,10 +322,6 @@ export interface TxMsgData {
    * Since: cosmos-sdk 0.46
    */
   msgResponses: Any[];
-}
-export interface ReactiveTxMsgData {
-  data: ComputedRef<MsgData[]>;
-  msgResponses: ComputedRef<Any[]>;
 }
 export interface TxMsgDataProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.TxMsgData";
@@ -412,14 +361,6 @@ export interface SearchTxsResult {
   /** List of txs in current page */
   txs: TxResponse[];
 }
-export interface ReactiveSearchTxsResult {
-  totalCount: ComputedRef<bigint>;
-  count: ComputedRef<bigint>;
-  pageNumber: ComputedRef<bigint>;
-  pageTotal: ComputedRef<bigint>;
-  limit: ComputedRef<bigint>;
-  txs: ComputedRef<TxResponse[]>;
-}
 export interface SearchTxsResultProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult";
   value: Uint8Array;
@@ -457,14 +398,6 @@ export interface SearchBlocksResult {
   limit: bigint;
   /** List of blocks in current page */
   blocks: Block[];
-}
-export interface ReactiveSearchBlocksResult {
-  totalCount: ComputedRef<bigint>;
-  count: ComputedRef<bigint>;
-  pageNumber: ComputedRef<bigint>;
-  pageTotal: ComputedRef<bigint>;
-  limit: ComputedRef<bigint>;
-  blocks: ComputedRef<Block[]>;
 }
 export interface SearchBlocksResultProtoMsg {
   typeUrl: "/cosmos.base.abci.v1beta1.SearchBlocksResult";

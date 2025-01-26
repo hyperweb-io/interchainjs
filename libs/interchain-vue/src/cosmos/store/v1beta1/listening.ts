@@ -2,7 +2,6 @@ import { ResponseCommit, ResponseCommitAmino, RequestFinalizeBlock, RequestFinal
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * StoreKVPair is a KVStore KVPair used for listening to state changes (Sets and Deletes)
  * It optionally includes the StoreKey for the originating KVStore and a Boolean flag to distinguish between Sets and
@@ -17,12 +16,6 @@ export interface StoreKVPair {
   delete: boolean;
   key: Uint8Array;
   value: Uint8Array;
-}
-export interface ReactiveStoreKVPair {
-  storeKey: ComputedRef<string>;
-  delete: ComputedRef<boolean>;
-  key: ComputedRef<Uint8Array>;
-  value: ComputedRef<Uint8Array>;
 }
 export interface StoreKVPairProtoMsg {
   typeUrl: "/cosmos.store.v1beta1.StoreKVPair";
@@ -56,11 +49,6 @@ export interface BlockMetadata {
   requestFinalizeBlock?: RequestFinalizeBlock;
   /** TODO: should we renumber this? */
   responseFinalizeBlock?: ResponseFinalizeBlock;
-}
-export interface ReactiveBlockMetadata {
-  responseCommit?: ComputedRef<ResponseCommit>;
-  requestFinalizeBlock?: ComputedRef<RequestFinalizeBlock>;
-  responseFinalizeBlock?: ComputedRef<ResponseFinalizeBlock>;
 }
 export interface BlockMetadataProtoMsg {
   typeUrl: "/cosmos.store.v1beta1.BlockMetadata";

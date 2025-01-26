@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** Module is the config object for the runtime module. */
 export interface Module {
   /** app_name is the name of the app. */
@@ -59,19 +58,6 @@ export interface Module {
    * NOTE: the provided environment variable will have a fake store service.
    */
   skipStoreKeys: string[];
-}
-export interface ReactiveModule {
-  appName: ComputedRef<string>;
-  preBlockers: ComputedRef<string[]>;
-  beginBlockers: ComputedRef<string[]>;
-  endBlockers: ComputedRef<string[]>;
-  txValidators: ComputedRef<string[]>;
-  initGenesis: ComputedRef<string[]>;
-  exportGenesis: ComputedRef<string[]>;
-  orderMigrations: ComputedRef<string[]>;
-  gasConfig?: ComputedRef<GasConfig>;
-  overrideStoreKeys: ComputedRef<StoreKeyConfig[]>;
-  skipStoreKeys: ComputedRef<string[]>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.app.runtime.v2.Module";
@@ -148,11 +134,6 @@ export interface GasConfig {
   /** simulation_gas_limit is the gas limit for simulation. */
   simulationGasLimit: bigint;
 }
-export interface ReactiveGasConfig {
-  validateTxGasLimit: ComputedRef<bigint>;
-  queryGasLimit: ComputedRef<bigint>;
-  simulationGasLimit: ComputedRef<bigint>;
-}
 export interface GasConfigProtoMsg {
   typeUrl: "/cosmos.app.runtime.v2.GasConfig";
   value: Uint8Array;
@@ -179,10 +160,6 @@ export interface StoreKeyConfig {
   moduleName: string;
   /** the kv store key to use instead of the module name. */
   kvStoreKey: string;
-}
-export interface ReactiveStoreKeyConfig {
-  moduleName: ComputedRef<string>;
-  kvStoreKey: ComputedRef<string>;
 }
 export interface StoreKeyConfigProtoMsg {
   typeUrl: "/cosmos.app.runtime.v2.StoreKeyConfig";

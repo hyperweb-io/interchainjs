@@ -2,13 +2,9 @@ import { GrantAuthorization, GrantAuthorizationAmino } from "./authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** GenesisState defines the authz module's genesis state. */
 export interface GenesisState {
   authorization: GrantAuthorization[];
-}
-export interface ReactiveGenesisState {
-  authorization: ComputedRef<GrantAuthorization[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.GenesisState";

@@ -4,7 +4,6 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** VoteOption enumerates the valid vote options for a given proposal. */
 export enum VoteOption {
   /**
@@ -199,12 +198,6 @@ export interface Member {
   /** added_at is a timestamp specifying when a member was added. */
   addedAt: Date;
 }
-export interface ReactiveMember {
-  address: ComputedRef<string>;
-  weight: ComputedRef<string>;
-  metadata: ComputedRef<string>;
-  addedAt: ComputedRef<Date>;
-}
 export interface MemberProtoMsg {
   typeUrl: "/cosmos.group.v1.Member";
   value: Uint8Array;
@@ -239,11 +232,6 @@ export interface MemberRequest {
   weight: string;
   /** metadata is any arbitrary metadata attached to the member. */
   metadata: string;
-}
-export interface ReactiveMemberRequest {
-  address: ComputedRef<string>;
-  weight: ComputedRef<string>;
-  metadata: ComputedRef<string>;
 }
 export interface MemberRequestProtoMsg {
   typeUrl: "/cosmos.group.v1.MemberRequest";
@@ -282,10 +270,6 @@ export interface ThresholdDecisionPolicy {
   threshold: string;
   /** windows defines the different windows for voting and execution. */
   windows?: DecisionPolicyWindows;
-}
-export interface ReactiveThresholdDecisionPolicy {
-  threshold: ComputedRef<string>;
-  windows?: ComputedRef<DecisionPolicyWindows>;
 }
 export interface ThresholdDecisionPolicyProtoMsg {
   typeUrl: "/cosmos.group.v1.ThresholdDecisionPolicy";
@@ -328,10 +312,6 @@ export interface PercentageDecisionPolicy {
   percentage: string;
   /** windows defines the different windows for voting and execution. */
   windows?: DecisionPolicyWindows;
-}
-export interface ReactivePercentageDecisionPolicy {
-  percentage: ComputedRef<string>;
-  windows?: ComputedRef<DecisionPolicyWindows>;
 }
 export interface PercentageDecisionPolicyProtoMsg {
   typeUrl: "/cosmos.group.v1.PercentageDecisionPolicy";
@@ -379,10 +359,6 @@ export interface DecisionPolicyWindows {
    * won't be able to be executed.
    */
   minExecutionPeriod: Duration;
-}
-export interface ReactiveDecisionPolicyWindows {
-  votingPeriod: ComputedRef<Duration>;
-  minExecutionPeriod: ComputedRef<Duration>;
 }
 export interface DecisionPolicyWindowsProtoMsg {
   typeUrl: "/cosmos.group.v1.DecisionPolicyWindows";
@@ -437,14 +413,6 @@ export interface GroupInfo {
   /** created_at is a timestamp specifying when a group was created. */
   createdAt: Date;
 }
-export interface ReactiveGroupInfo {
-  id: ComputedRef<bigint>;
-  admin: ComputedRef<string>;
-  metadata: ComputedRef<string>;
-  version: ComputedRef<bigint>;
-  totalWeight: ComputedRef<string>;
-  createdAt: ComputedRef<Date>;
-}
 export interface GroupInfoProtoMsg {
   typeUrl: "/cosmos.group.v1.GroupInfo";
   value: Uint8Array;
@@ -482,10 +450,6 @@ export interface GroupMember {
   groupId: bigint;
   /** member is the member data. */
   member?: Member;
-}
-export interface ReactiveGroupMember {
-  groupId: ComputedRef<bigint>;
-  member?: ComputedRef<Member>;
 }
 export interface GroupMemberProtoMsg {
   typeUrl: "/cosmos.group.v1.GroupMember";
@@ -525,15 +489,6 @@ export interface GroupPolicyInfo {
   decisionPolicy?: ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined;
   /** created_at is a timestamp specifying when a group policy was created. */
   createdAt: Date;
-}
-export interface ReactiveGroupPolicyInfo {
-  address: ComputedRef<string>;
-  groupId: ComputedRef<bigint>;
-  admin: ComputedRef<string>;
-  metadata: ComputedRef<string>;
-  version: ComputedRef<bigint>;
-  decisionPolicy?: ComputedRef<ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined>;
-  createdAt: ComputedRef<Date>;
 }
 export interface GroupPolicyInfoProtoMsg {
   typeUrl: "/cosmos.group.v1.GroupPolicyInfo";
@@ -637,22 +592,6 @@ export interface Proposal {
    */
   summary: string;
 }
-export interface ReactiveProposal {
-  id: ComputedRef<bigint>;
-  groupPolicyAddress: ComputedRef<string>;
-  metadata: ComputedRef<string>;
-  proposers: ComputedRef<string[]>;
-  submitTime: ComputedRef<Date>;
-  groupVersion: ComputedRef<bigint>;
-  groupPolicyVersion: ComputedRef<bigint>;
-  status: ComputedRef<ProposalStatus>;
-  finalTallyResult: ComputedRef<TallyResult>;
-  votingPeriodEnd: ComputedRef<Date>;
-  executorResult: ComputedRef<ProposalExecutorResult>;
-  messages: ComputedRef<Any[]>;
-  title: ComputedRef<string>;
-  summary: ComputedRef<string>;
-}
 export interface ProposalProtoMsg {
   typeUrl: "/cosmos.group.v1.Proposal";
   value: Uint8Array;
@@ -739,12 +678,6 @@ export interface TallyResult {
   /** no_with_veto_count is the weighted sum of veto. */
   noWithVetoCount: string;
 }
-export interface ReactiveTallyResult {
-  yesCount: ComputedRef<string>;
-  abstainCount: ComputedRef<string>;
-  noCount: ComputedRef<string>;
-  noWithVetoCount: ComputedRef<string>;
-}
 export interface TallyResultProtoMsg {
   typeUrl: "/cosmos.group.v1.TallyResult";
   value: Uint8Array;
@@ -779,13 +712,6 @@ export interface Vote {
   metadata: string;
   /** submit_time is the timestamp when the vote was submitted. */
   submitTime: Date;
-}
-export interface ReactiveVote {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  option: ComputedRef<VoteOption>;
-  metadata: ComputedRef<string>;
-  submitTime: ComputedRef<Date>;
 }
 export interface VoteProtoMsg {
   typeUrl: "/cosmos.group.v1.Vote";

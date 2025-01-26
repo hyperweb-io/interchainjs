@@ -1,6 +1,5 @@
 import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
-import { buildUseMutation } from "../../../react-query";
 import { MsgDeposit, MsgWithdraw, MsgInstantSpotMarketLaunch, MsgInstantPerpetualMarketLaunch, MsgInstantExpiryFuturesMarketLaunch, MsgCreateSpotLimitOrder, MsgBatchCreateSpotLimitOrders, MsgCreateSpotMarketOrder, MsgCancelSpotOrder, MsgBatchCancelSpotOrders, MsgBatchUpdateOrders, MsgPrivilegedExecuteContract, MsgCreateDerivativeLimitOrder, MsgBatchCreateDerivativeLimitOrders, MsgCreateDerivativeMarketOrder, MsgCancelDerivativeOrder, MsgBatchCancelDerivativeOrders, MsgInstantBinaryOptionsMarketLaunch, MsgCreateBinaryOptionsLimitOrder, MsgCreateBinaryOptionsMarketOrder, MsgCancelBinaryOptionsOrder, MsgBatchCancelBinaryOptionsOrders, MsgSubaccountTransfer, MsgExternalTransfer, MsgLiquidatePosition, MsgEmergencySettleMarket, MsgIncreasePositionMargin, MsgDecreasePositionMargin, MsgRewardsOptOut, MsgAdminUpdateBinaryOptionsMarket, MsgUpdateParams, MsgUpdateSpotMarket, MsgUpdateDerivativeMarket, MsgAuthorizeStakeGrants, MsgActivateStakeGrant } from "./tx";
 export const createDeposit = (clientResolver?: SigningClientResolver) => buildTx<MsgDeposit>({
   clientResolver,
@@ -9,18 +8,12 @@ export const createDeposit = (clientResolver?: SigningClientResolver) => buildTx
   converters: toConverters(MsgDeposit),
   deps: [MsgDeposit]
 });
-export const useDeposit = buildUseMutation<MsgDeposit, Error>({
-  builderMutationFn: createDeposit
-});
 export const createWithdraw = (clientResolver?: SigningClientResolver) => buildTx<MsgWithdraw>({
   clientResolver,
   typeUrl: MsgWithdraw.typeUrl,
   encoders: toEncoders(MsgWithdraw),
   converters: toConverters(MsgWithdraw),
   deps: [MsgWithdraw]
-});
-export const useWithdraw = buildUseMutation<MsgWithdraw, Error>({
-  builderMutationFn: createWithdraw
 });
 export const createInstantSpotMarketLaunch = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantSpotMarketLaunch>({
   clientResolver,
@@ -29,18 +22,12 @@ export const createInstantSpotMarketLaunch = (clientResolver?: SigningClientReso
   converters: toConverters(MsgInstantSpotMarketLaunch),
   deps: [MsgInstantSpotMarketLaunch]
 });
-export const useInstantSpotMarketLaunch = buildUseMutation<MsgInstantSpotMarketLaunch, Error>({
-  builderMutationFn: createInstantSpotMarketLaunch
-});
 export const createInstantPerpetualMarketLaunch = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantPerpetualMarketLaunch>({
   clientResolver,
   typeUrl: MsgInstantPerpetualMarketLaunch.typeUrl,
   encoders: toEncoders(MsgInstantPerpetualMarketLaunch),
   converters: toConverters(MsgInstantPerpetualMarketLaunch),
   deps: [MsgInstantPerpetualMarketLaunch]
-});
-export const useInstantPerpetualMarketLaunch = buildUseMutation<MsgInstantPerpetualMarketLaunch, Error>({
-  builderMutationFn: createInstantPerpetualMarketLaunch
 });
 export const createInstantExpiryFuturesMarketLaunch = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantExpiryFuturesMarketLaunch>({
   clientResolver,
@@ -49,18 +36,12 @@ export const createInstantExpiryFuturesMarketLaunch = (clientResolver?: SigningC
   converters: toConverters(MsgInstantExpiryFuturesMarketLaunch),
   deps: [MsgInstantExpiryFuturesMarketLaunch]
 });
-export const useInstantExpiryFuturesMarketLaunch = buildUseMutation<MsgInstantExpiryFuturesMarketLaunch, Error>({
-  builderMutationFn: createInstantExpiryFuturesMarketLaunch
-});
 export const createCreateSpotLimitOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateSpotLimitOrder>({
   clientResolver,
   typeUrl: MsgCreateSpotLimitOrder.typeUrl,
   encoders: toEncoders(MsgCreateSpotLimitOrder),
   converters: toConverters(MsgCreateSpotLimitOrder),
   deps: [MsgCreateSpotLimitOrder]
-});
-export const useCreateSpotLimitOrder = buildUseMutation<MsgCreateSpotLimitOrder, Error>({
-  builderMutationFn: createCreateSpotLimitOrder
 });
 export const createBatchCreateSpotLimitOrders = (clientResolver?: SigningClientResolver) => buildTx<MsgBatchCreateSpotLimitOrders>({
   clientResolver,
@@ -69,18 +50,12 @@ export const createBatchCreateSpotLimitOrders = (clientResolver?: SigningClientR
   converters: toConverters(MsgBatchCreateSpotLimitOrders),
   deps: [MsgBatchCreateSpotLimitOrders]
 });
-export const useBatchCreateSpotLimitOrders = buildUseMutation<MsgBatchCreateSpotLimitOrders, Error>({
-  builderMutationFn: createBatchCreateSpotLimitOrders
-});
 export const createCreateSpotMarketOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateSpotMarketOrder>({
   clientResolver,
   typeUrl: MsgCreateSpotMarketOrder.typeUrl,
   encoders: toEncoders(MsgCreateSpotMarketOrder),
   converters: toConverters(MsgCreateSpotMarketOrder),
   deps: [MsgCreateSpotMarketOrder]
-});
-export const useCreateSpotMarketOrder = buildUseMutation<MsgCreateSpotMarketOrder, Error>({
-  builderMutationFn: createCreateSpotMarketOrder
 });
 export const createCancelSpotOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCancelSpotOrder>({
   clientResolver,
@@ -89,18 +64,12 @@ export const createCancelSpotOrder = (clientResolver?: SigningClientResolver) =>
   converters: toConverters(MsgCancelSpotOrder),
   deps: [MsgCancelSpotOrder]
 });
-export const useCancelSpotOrder = buildUseMutation<MsgCancelSpotOrder, Error>({
-  builderMutationFn: createCancelSpotOrder
-});
 export const createBatchCancelSpotOrders = (clientResolver?: SigningClientResolver) => buildTx<MsgBatchCancelSpotOrders>({
   clientResolver,
   typeUrl: MsgBatchCancelSpotOrders.typeUrl,
   encoders: toEncoders(MsgBatchCancelSpotOrders),
   converters: toConverters(MsgBatchCancelSpotOrders),
   deps: [MsgBatchCancelSpotOrders]
-});
-export const useBatchCancelSpotOrders = buildUseMutation<MsgBatchCancelSpotOrders, Error>({
-  builderMutationFn: createBatchCancelSpotOrders
 });
 export const createBatchUpdateOrders = (clientResolver?: SigningClientResolver) => buildTx<MsgBatchUpdateOrders>({
   clientResolver,
@@ -109,18 +78,12 @@ export const createBatchUpdateOrders = (clientResolver?: SigningClientResolver) 
   converters: toConverters(MsgBatchUpdateOrders),
   deps: [MsgBatchUpdateOrders]
 });
-export const useBatchUpdateOrders = buildUseMutation<MsgBatchUpdateOrders, Error>({
-  builderMutationFn: createBatchUpdateOrders
-});
 export const createPrivilegedExecuteContract = (clientResolver?: SigningClientResolver) => buildTx<MsgPrivilegedExecuteContract>({
   clientResolver,
   typeUrl: MsgPrivilegedExecuteContract.typeUrl,
   encoders: toEncoders(MsgPrivilegedExecuteContract),
   converters: toConverters(MsgPrivilegedExecuteContract),
   deps: [MsgPrivilegedExecuteContract]
-});
-export const usePrivilegedExecuteContract = buildUseMutation<MsgPrivilegedExecuteContract, Error>({
-  builderMutationFn: createPrivilegedExecuteContract
 });
 export const createCreateDerivativeLimitOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateDerivativeLimitOrder>({
   clientResolver,
@@ -129,18 +92,12 @@ export const createCreateDerivativeLimitOrder = (clientResolver?: SigningClientR
   converters: toConverters(MsgCreateDerivativeLimitOrder),
   deps: [MsgCreateDerivativeLimitOrder]
 });
-export const useCreateDerivativeLimitOrder = buildUseMutation<MsgCreateDerivativeLimitOrder, Error>({
-  builderMutationFn: createCreateDerivativeLimitOrder
-});
 export const createBatchCreateDerivativeLimitOrders = (clientResolver?: SigningClientResolver) => buildTx<MsgBatchCreateDerivativeLimitOrders>({
   clientResolver,
   typeUrl: MsgBatchCreateDerivativeLimitOrders.typeUrl,
   encoders: toEncoders(MsgBatchCreateDerivativeLimitOrders),
   converters: toConverters(MsgBatchCreateDerivativeLimitOrders),
   deps: [MsgBatchCreateDerivativeLimitOrders]
-});
-export const useBatchCreateDerivativeLimitOrders = buildUseMutation<MsgBatchCreateDerivativeLimitOrders, Error>({
-  builderMutationFn: createBatchCreateDerivativeLimitOrders
 });
 export const createCreateDerivativeMarketOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateDerivativeMarketOrder>({
   clientResolver,
@@ -149,18 +106,12 @@ export const createCreateDerivativeMarketOrder = (clientResolver?: SigningClient
   converters: toConverters(MsgCreateDerivativeMarketOrder),
   deps: [MsgCreateDerivativeMarketOrder]
 });
-export const useCreateDerivativeMarketOrder = buildUseMutation<MsgCreateDerivativeMarketOrder, Error>({
-  builderMutationFn: createCreateDerivativeMarketOrder
-});
 export const createCancelDerivativeOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCancelDerivativeOrder>({
   clientResolver,
   typeUrl: MsgCancelDerivativeOrder.typeUrl,
   encoders: toEncoders(MsgCancelDerivativeOrder),
   converters: toConverters(MsgCancelDerivativeOrder),
   deps: [MsgCancelDerivativeOrder]
-});
-export const useCancelDerivativeOrder = buildUseMutation<MsgCancelDerivativeOrder, Error>({
-  builderMutationFn: createCancelDerivativeOrder
 });
 export const createBatchCancelDerivativeOrders = (clientResolver?: SigningClientResolver) => buildTx<MsgBatchCancelDerivativeOrders>({
   clientResolver,
@@ -169,18 +120,12 @@ export const createBatchCancelDerivativeOrders = (clientResolver?: SigningClient
   converters: toConverters(MsgBatchCancelDerivativeOrders),
   deps: [MsgBatchCancelDerivativeOrders]
 });
-export const useBatchCancelDerivativeOrders = buildUseMutation<MsgBatchCancelDerivativeOrders, Error>({
-  builderMutationFn: createBatchCancelDerivativeOrders
-});
 export const createInstantBinaryOptionsMarketLaunch = (clientResolver?: SigningClientResolver) => buildTx<MsgInstantBinaryOptionsMarketLaunch>({
   clientResolver,
   typeUrl: MsgInstantBinaryOptionsMarketLaunch.typeUrl,
   encoders: toEncoders(MsgInstantBinaryOptionsMarketLaunch),
   converters: toConverters(MsgInstantBinaryOptionsMarketLaunch),
   deps: [MsgInstantBinaryOptionsMarketLaunch]
-});
-export const useInstantBinaryOptionsMarketLaunch = buildUseMutation<MsgInstantBinaryOptionsMarketLaunch, Error>({
-  builderMutationFn: createInstantBinaryOptionsMarketLaunch
 });
 export const createCreateBinaryOptionsLimitOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateBinaryOptionsLimitOrder>({
   clientResolver,
@@ -189,18 +134,12 @@ export const createCreateBinaryOptionsLimitOrder = (clientResolver?: SigningClie
   converters: toConverters(MsgCreateBinaryOptionsLimitOrder),
   deps: [MsgCreateBinaryOptionsLimitOrder]
 });
-export const useCreateBinaryOptionsLimitOrder = buildUseMutation<MsgCreateBinaryOptionsLimitOrder, Error>({
-  builderMutationFn: createCreateBinaryOptionsLimitOrder
-});
 export const createCreateBinaryOptionsMarketOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateBinaryOptionsMarketOrder>({
   clientResolver,
   typeUrl: MsgCreateBinaryOptionsMarketOrder.typeUrl,
   encoders: toEncoders(MsgCreateBinaryOptionsMarketOrder),
   converters: toConverters(MsgCreateBinaryOptionsMarketOrder),
   deps: [MsgCreateBinaryOptionsMarketOrder]
-});
-export const useCreateBinaryOptionsMarketOrder = buildUseMutation<MsgCreateBinaryOptionsMarketOrder, Error>({
-  builderMutationFn: createCreateBinaryOptionsMarketOrder
 });
 export const createCancelBinaryOptionsOrder = (clientResolver?: SigningClientResolver) => buildTx<MsgCancelBinaryOptionsOrder>({
   clientResolver,
@@ -209,18 +148,12 @@ export const createCancelBinaryOptionsOrder = (clientResolver?: SigningClientRes
   converters: toConverters(MsgCancelBinaryOptionsOrder),
   deps: [MsgCancelBinaryOptionsOrder]
 });
-export const useCancelBinaryOptionsOrder = buildUseMutation<MsgCancelBinaryOptionsOrder, Error>({
-  builderMutationFn: createCancelBinaryOptionsOrder
-});
 export const createBatchCancelBinaryOptionsOrders = (clientResolver?: SigningClientResolver) => buildTx<MsgBatchCancelBinaryOptionsOrders>({
   clientResolver,
   typeUrl: MsgBatchCancelBinaryOptionsOrders.typeUrl,
   encoders: toEncoders(MsgBatchCancelBinaryOptionsOrders),
   converters: toConverters(MsgBatchCancelBinaryOptionsOrders),
   deps: [MsgBatchCancelBinaryOptionsOrders]
-});
-export const useBatchCancelBinaryOptionsOrders = buildUseMutation<MsgBatchCancelBinaryOptionsOrders, Error>({
-  builderMutationFn: createBatchCancelBinaryOptionsOrders
 });
 export const createSubaccountTransfer = (clientResolver?: SigningClientResolver) => buildTx<MsgSubaccountTransfer>({
   clientResolver,
@@ -229,18 +162,12 @@ export const createSubaccountTransfer = (clientResolver?: SigningClientResolver)
   converters: toConverters(MsgSubaccountTransfer),
   deps: [MsgSubaccountTransfer]
 });
-export const useSubaccountTransfer = buildUseMutation<MsgSubaccountTransfer, Error>({
-  builderMutationFn: createSubaccountTransfer
-});
 export const createExternalTransfer = (clientResolver?: SigningClientResolver) => buildTx<MsgExternalTransfer>({
   clientResolver,
   typeUrl: MsgExternalTransfer.typeUrl,
   encoders: toEncoders(MsgExternalTransfer),
   converters: toConverters(MsgExternalTransfer),
   deps: [MsgExternalTransfer]
-});
-export const useExternalTransfer = buildUseMutation<MsgExternalTransfer, Error>({
-  builderMutationFn: createExternalTransfer
 });
 export const createLiquidatePosition = (clientResolver?: SigningClientResolver) => buildTx<MsgLiquidatePosition>({
   clientResolver,
@@ -249,18 +176,12 @@ export const createLiquidatePosition = (clientResolver?: SigningClientResolver) 
   converters: toConverters(MsgLiquidatePosition),
   deps: [MsgLiquidatePosition]
 });
-export const useLiquidatePosition = buildUseMutation<MsgLiquidatePosition, Error>({
-  builderMutationFn: createLiquidatePosition
-});
 export const createEmergencySettleMarket = (clientResolver?: SigningClientResolver) => buildTx<MsgEmergencySettleMarket>({
   clientResolver,
   typeUrl: MsgEmergencySettleMarket.typeUrl,
   encoders: toEncoders(MsgEmergencySettleMarket),
   converters: toConverters(MsgEmergencySettleMarket),
   deps: [MsgEmergencySettleMarket]
-});
-export const useEmergencySettleMarket = buildUseMutation<MsgEmergencySettleMarket, Error>({
-  builderMutationFn: createEmergencySettleMarket
 });
 export const createIncreasePositionMargin = (clientResolver?: SigningClientResolver) => buildTx<MsgIncreasePositionMargin>({
   clientResolver,
@@ -269,18 +190,12 @@ export const createIncreasePositionMargin = (clientResolver?: SigningClientResol
   converters: toConverters(MsgIncreasePositionMargin),
   deps: [MsgIncreasePositionMargin]
 });
-export const useIncreasePositionMargin = buildUseMutation<MsgIncreasePositionMargin, Error>({
-  builderMutationFn: createIncreasePositionMargin
-});
 export const createDecreasePositionMargin = (clientResolver?: SigningClientResolver) => buildTx<MsgDecreasePositionMargin>({
   clientResolver,
   typeUrl: MsgDecreasePositionMargin.typeUrl,
   encoders: toEncoders(MsgDecreasePositionMargin),
   converters: toConverters(MsgDecreasePositionMargin),
   deps: [MsgDecreasePositionMargin]
-});
-export const useDecreasePositionMargin = buildUseMutation<MsgDecreasePositionMargin, Error>({
-  builderMutationFn: createDecreasePositionMargin
 });
 export const createRewardsOptOut = (clientResolver?: SigningClientResolver) => buildTx<MsgRewardsOptOut>({
   clientResolver,
@@ -289,18 +204,12 @@ export const createRewardsOptOut = (clientResolver?: SigningClientResolver) => b
   converters: toConverters(MsgRewardsOptOut),
   deps: [MsgRewardsOptOut]
 });
-export const useRewardsOptOut = buildUseMutation<MsgRewardsOptOut, Error>({
-  builderMutationFn: createRewardsOptOut
-});
 export const createAdminUpdateBinaryOptionsMarket = (clientResolver?: SigningClientResolver) => buildTx<MsgAdminUpdateBinaryOptionsMarket>({
   clientResolver,
   typeUrl: MsgAdminUpdateBinaryOptionsMarket.typeUrl,
   encoders: toEncoders(MsgAdminUpdateBinaryOptionsMarket),
   converters: toConverters(MsgAdminUpdateBinaryOptionsMarket),
   deps: [MsgAdminUpdateBinaryOptionsMarket]
-});
-export const useAdminUpdateBinaryOptionsMarket = buildUseMutation<MsgAdminUpdateBinaryOptionsMarket, Error>({
-  builderMutationFn: createAdminUpdateBinaryOptionsMarket
 });
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
@@ -309,18 +218,12 @@ export const createUpdateParams = (clientResolver?: SigningClientResolver) => bu
   converters: toConverters(MsgUpdateParams),
   deps: [MsgUpdateParams]
 });
-export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
-});
 export const createUpdateSpotMarket = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateSpotMarket>({
   clientResolver,
   typeUrl: MsgUpdateSpotMarket.typeUrl,
   encoders: toEncoders(MsgUpdateSpotMarket),
   converters: toConverters(MsgUpdateSpotMarket),
   deps: [MsgUpdateSpotMarket]
-});
-export const useUpdateSpotMarket = buildUseMutation<MsgUpdateSpotMarket, Error>({
-  builderMutationFn: createUpdateSpotMarket
 });
 export const createUpdateDerivativeMarket = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateDerivativeMarket>({
   clientResolver,
@@ -329,9 +232,6 @@ export const createUpdateDerivativeMarket = (clientResolver?: SigningClientResol
   converters: toConverters(MsgUpdateDerivativeMarket),
   deps: [MsgUpdateDerivativeMarket]
 });
-export const useUpdateDerivativeMarket = buildUseMutation<MsgUpdateDerivativeMarket, Error>({
-  builderMutationFn: createUpdateDerivativeMarket
-});
 export const createAuthorizeStakeGrants = (clientResolver?: SigningClientResolver) => buildTx<MsgAuthorizeStakeGrants>({
   clientResolver,
   typeUrl: MsgAuthorizeStakeGrants.typeUrl,
@@ -339,16 +239,10 @@ export const createAuthorizeStakeGrants = (clientResolver?: SigningClientResolve
   converters: toConverters(MsgAuthorizeStakeGrants),
   deps: [MsgAuthorizeStakeGrants]
 });
-export const useAuthorizeStakeGrants = buildUseMutation<MsgAuthorizeStakeGrants, Error>({
-  builderMutationFn: createAuthorizeStakeGrants
-});
 export const createActivateStakeGrant = (clientResolver?: SigningClientResolver) => buildTx<MsgActivateStakeGrant>({
   clientResolver,
   typeUrl: MsgActivateStakeGrant.typeUrl,
   encoders: toEncoders(MsgActivateStakeGrant),
   converters: toConverters(MsgActivateStakeGrant),
   deps: [MsgActivateStakeGrant]
-});
-export const useActivateStakeGrant = buildUseMutation<MsgActivateStakeGrant, Error>({
-  builderMutationFn: createActivateStakeGrant
 });

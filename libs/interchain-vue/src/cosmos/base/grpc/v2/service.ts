@@ -2,13 +2,9 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** QueryRequest is the request for the Query method */
 export interface QueryRequest {
   request?: Any;
-}
-export interface ReactiveQueryRequest {
-  request?: ComputedRef<Any>;
 }
 export interface QueryRequestProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.QueryRequest";
@@ -26,9 +22,6 @@ export interface QueryRequestAminoMsg {
 export interface QueryResponse {
   response?: Any;
 }
-export interface ReactiveQueryResponse {
-  response?: ComputedRef<Any>;
-}
 export interface QueryResponseProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.QueryResponse";
   value: Uint8Array;
@@ -43,7 +36,6 @@ export interface QueryResponseAminoMsg {
 }
 /** ListQueryHandlersRequest is the request for the ListQueryHandlers method */
 export interface ListQueryHandlersRequest {}
-export interface ReactiveListQueryHandlersRequest {}
 export interface ListQueryHandlersRequestProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersRequest";
   value: Uint8Array;
@@ -57,9 +49,6 @@ export interface ListQueryHandlersRequestAminoMsg {
 /** ListQueryHandlersResponse is the response for the ListQueryHandlers method */
 export interface ListQueryHandlersResponse {
   handlers: Handler[];
-}
-export interface ReactiveListQueryHandlersResponse {
-  handlers: ComputedRef<Handler[]>;
 }
 export interface ListQueryHandlersResponseProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersResponse";
@@ -77,10 +66,6 @@ export interface ListQueryHandlersResponseAminoMsg {
 export interface Handler {
   requestName: string;
   responseName: string;
-}
-export interface ReactiveHandler {
-  requestName: ComputedRef<string>;
-  responseName: ComputedRef<string>;
 }
 export interface HandlerProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.Handler";

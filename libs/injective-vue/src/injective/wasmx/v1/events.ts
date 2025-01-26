@@ -2,18 +2,11 @@ import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface EventContractExecution {
   contractAddress: string;
   response: Uint8Array;
   otherError: string;
   executionError: string;
-}
-export interface ReactiveEventContractExecution {
-  contractAddress: ComputedRef<string>;
-  response: ComputedRef<Uint8Array>;
-  otherError: ComputedRef<string>;
-  executionError: ComputedRef<string>;
 }
 export interface EventContractExecutionProtoMsg {
   typeUrl: "/injective.wasmx.v1.EventContractExecution";
@@ -39,16 +32,6 @@ export interface EventContractRegistered {
   granterAddress: string;
   fundingMode: FundingMode;
 }
-export interface ReactiveEventContractRegistered {
-  contractAddress: ComputedRef<string>;
-  gasPrice: ComputedRef<bigint>;
-  shouldPinContract: ComputedRef<boolean>;
-  isMigrationAllowed: ComputedRef<boolean>;
-  codeId: ComputedRef<bigint>;
-  adminAddress: ComputedRef<string>;
-  granterAddress: ComputedRef<string>;
-  fundingMode: ComputedRef<FundingMode>;
-}
 export interface EventContractRegisteredProtoMsg {
   typeUrl: "/injective.wasmx.v1.EventContractRegistered";
   value: Uint8Array;
@@ -69,9 +52,6 @@ export interface EventContractRegisteredAminoMsg {
 }
 export interface EventContractDeregistered {
   contractAddress: string;
-}
-export interface ReactiveEventContractDeregistered {
-  contractAddress: ComputedRef<string>;
 }
 export interface EventContractDeregisteredProtoMsg {
   typeUrl: "/injective.wasmx.v1.EventContractDeregistered";

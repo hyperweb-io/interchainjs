@@ -3,7 +3,6 @@ import { Params, ParamsAmino } from "./auction";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** Bid defines a SDK message for placing a bid for an auction */
 export interface MsgBid {
   sender: string;
@@ -11,11 +10,6 @@ export interface MsgBid {
   bidAmount: Coin;
   /** the current auction round being bid on */
   round: bigint;
-}
-export interface ReactiveMsgBid {
-  sender: ComputedRef<string>;
-  bidAmount: ComputedRef<Coin>;
-  round: ComputedRef<bigint>;
 }
 export interface MsgBidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgBid";
@@ -34,7 +28,6 @@ export interface MsgBidAminoMsg {
   value: MsgBidAmino;
 }
 export interface MsgBidResponse {}
-export interface ReactiveMsgBidResponse {}
 export interface MsgBidResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgBidResponse";
   value: Uint8Array;
@@ -53,10 +46,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgUpdateParams";
@@ -77,7 +66,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

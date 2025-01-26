@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
  * the necessary fields needed for any vesting account implementation.
@@ -15,13 +14,6 @@ export interface BaseVestingAccount {
   delegatedVesting: Coin[];
   /** Vesting end time, as unix timestamp (in seconds). */
   endTime: bigint;
-}
-export interface ReactiveBaseVestingAccount {
-  baseAccount?: ComputedRef<BaseAccount>;
-  originalVesting: ComputedRef<Coin[]>;
-  delegatedFree: ComputedRef<Coin[]>;
-  delegatedVesting: ComputedRef<Coin[]>;
-  endTime: ComputedRef<bigint>;
 }
 export interface BaseVestingAccountProtoMsg {
   typeUrl: "/cosmos.vesting.v1beta1.BaseVestingAccount";
@@ -52,10 +44,6 @@ export interface ContinuousVestingAccount {
   /** Vesting start time, as unix timestamp (in seconds). */
   startTime: bigint;
 }
-export interface ReactiveContinuousVestingAccount {
-  baseVestingAccount?: ComputedRef<BaseVestingAccount>;
-  startTime: ComputedRef<bigint>;
-}
 export interface ContinuousVestingAccountProtoMsg {
   typeUrl: "/cosmos.vesting.v1beta1.ContinuousVestingAccount";
   value: Uint8Array;
@@ -81,9 +69,6 @@ export interface ContinuousVestingAccountAminoMsg {
 export interface DelayedVestingAccount {
   baseVestingAccount?: BaseVestingAccount;
 }
-export interface ReactiveDelayedVestingAccount {
-  baseVestingAccount?: ComputedRef<BaseVestingAccount>;
-}
 export interface DelayedVestingAccountProtoMsg {
   typeUrl: "/cosmos.vesting.v1beta1.DelayedVestingAccount";
   value: Uint8Array;
@@ -105,10 +90,6 @@ export interface Period {
   /** Period duration in seconds. */
   length: bigint;
   amount: Coin[];
-}
-export interface ReactivePeriod {
-  length: ComputedRef<bigint>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface PeriodProtoMsg {
   typeUrl: "/cosmos.vesting.v1beta1.Period";
@@ -132,11 +113,6 @@ export interface PeriodicVestingAccount {
   baseVestingAccount?: BaseVestingAccount;
   startTime: bigint;
   vestingPeriods: Period[];
-}
-export interface ReactivePeriodicVestingAccount {
-  baseVestingAccount?: ComputedRef<BaseVestingAccount>;
-  startTime: ComputedRef<bigint>;
-  vestingPeriods: ComputedRef<Period[]>;
 }
 export interface PeriodicVestingAccountProtoMsg {
   typeUrl: "/cosmos.vesting.v1beta1.PeriodicVestingAccount";
@@ -164,9 +140,6 @@ export interface PeriodicVestingAccountAminoMsg {
  */
 export interface PermanentLockedAccount {
   baseVestingAccount?: BaseVestingAccount;
-}
-export interface ReactivePermanentLockedAccount {
-  baseVestingAccount?: ComputedRef<BaseVestingAccount>;
 }
 export interface PermanentLockedAccountProtoMsg {
   typeUrl: "/cosmos.vesting.v1beta1.PermanentLockedAccount";

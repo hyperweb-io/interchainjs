@@ -2,7 +2,6 @@ import { Params, ParamsAmino, InsuranceFund, InsuranceFundAmino, RedemptionSched
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the insurance module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to insurance. */
@@ -24,13 +23,6 @@ export interface GenesisState {
    * used for next schedule incremented by 1 per redemption request
    */
   nextRedemptionScheduleId: bigint;
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  insuranceFunds: ComputedRef<InsuranceFund[]>;
-  redemptionSchedule: ComputedRef<RedemptionSchedule[]>;
-  nextShareDenomId: ComputedRef<bigint>;
-  nextRedemptionScheduleId: ComputedRef<bigint>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.GenesisState";

@@ -4,10 +4,8 @@ import { DecCoin, DecCoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -22,9 +20,6 @@ export interface QueryParamsRequestAminoMsg {
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryParamsResponse";
@@ -43,9 +38,6 @@ export interface QueryParamsResponseAminoMsg {
 export interface QueryValidatorDistributionInfoRequest {
   /** validator_address defines the validator address to query for. */
   validatorAddress: string;
-}
-export interface ReactiveQueryValidatorDistributionInfoRequest {
-  validatorAddress: ComputedRef<string>;
 }
 export interface QueryValidatorDistributionInfoRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorDistributionInfoRequest";
@@ -68,11 +60,6 @@ export interface QueryValidatorDistributionInfoResponse {
   selfBondRewards: DecCoin[];
   /** commission defines the commission the validator received. */
   commission: DecCoin[];
-}
-export interface ReactiveQueryValidatorDistributionInfoResponse {
-  operatorAddress: ComputedRef<string>;
-  selfBondRewards: ComputedRef<DecCoin[]>;
-  commission: ComputedRef<DecCoin[]>;
 }
 export interface QueryValidatorDistributionInfoResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorDistributionInfoResponse";
@@ -99,9 +86,6 @@ export interface QueryValidatorOutstandingRewardsRequest {
   /** validator_address defines the validator address to query for. */
   validatorAddress: string;
 }
-export interface ReactiveQueryValidatorOutstandingRewardsRequest {
-  validatorAddress: ComputedRef<string>;
-}
 export interface QueryValidatorOutstandingRewardsRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsRequest";
   value: Uint8Array;
@@ -124,9 +108,6 @@ export interface QueryValidatorOutstandingRewardsRequestAminoMsg {
  */
 export interface QueryValidatorOutstandingRewardsResponse {
   rewards: ValidatorOutstandingRewards;
-}
-export interface ReactiveQueryValidatorOutstandingRewardsResponse {
-  rewards: ComputedRef<ValidatorOutstandingRewards>;
 }
 export interface QueryValidatorOutstandingRewardsResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsResponse";
@@ -151,9 +132,6 @@ export interface QueryValidatorCommissionRequest {
   /** validator_address defines the validator address to query for. */
   validatorAddress: string;
 }
-export interface ReactiveQueryValidatorCommissionRequest {
-  validatorAddress: ComputedRef<string>;
-}
 export interface QueryValidatorCommissionRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorCommissionRequest";
   value: Uint8Array;
@@ -177,9 +155,6 @@ export interface QueryValidatorCommissionRequestAminoMsg {
 export interface QueryValidatorCommissionResponse {
   /** commission defines the commission the validator received. */
   commission: ValidatorAccumulatedCommission;
-}
-export interface ReactiveQueryValidatorCommissionResponse {
-  commission: ComputedRef<ValidatorAccumulatedCommission>;
 }
 export interface QueryValidatorCommissionResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorCommissionResponse";
@@ -210,12 +185,6 @@ export interface QueryValidatorSlashesRequest {
   endingHeight: bigint;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryValidatorSlashesRequest {
-  validatorAddress: ComputedRef<string>;
-  startingHeight: ComputedRef<bigint>;
-  endingHeight: ComputedRef<bigint>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryValidatorSlashesRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorSlashesRequest";
@@ -249,10 +218,6 @@ export interface QueryValidatorSlashesResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryValidatorSlashesResponse {
-  slashes: ComputedRef<ValidatorSlashEvent[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryValidatorSlashesResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorSlashesResponse";
   value: Uint8Array;
@@ -281,10 +246,6 @@ export interface QueryDelegationRewardsRequest {
   /** validator_address defines the validator address to query for. */
   validatorAddress: string;
 }
-export interface ReactiveQueryDelegationRewardsRequest {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-}
 export interface QueryDelegationRewardsRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegationRewardsRequest";
   value: Uint8Array;
@@ -311,9 +272,6 @@ export interface QueryDelegationRewardsResponse {
   /** rewards defines the rewards accrued by a delegation. */
   rewards: DecCoin[];
 }
-export interface ReactiveQueryDelegationRewardsResponse {
-  rewards: ComputedRef<DecCoin[]>;
-}
 export interface QueryDelegationRewardsResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegationRewardsResponse";
   value: Uint8Array;
@@ -337,9 +295,6 @@ export interface QueryDelegationRewardsResponseAminoMsg {
 export interface QueryDelegationTotalRewardsRequest {
   /** delegator_address defines the delegator address to query for. */
   delegatorAddress: string;
-}
-export interface ReactiveQueryDelegationTotalRewardsRequest {
-  delegatorAddress: ComputedRef<string>;
 }
 export interface QueryDelegationTotalRewardsRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegationTotalRewardsRequest";
@@ -367,10 +322,6 @@ export interface QueryDelegationTotalRewardsResponse {
   /** total defines the sum of all the rewards. */
   total: DecCoin[];
 }
-export interface ReactiveQueryDelegationTotalRewardsResponse {
-  rewards: ComputedRef<DelegationDelegatorReward[]>;
-  total: ComputedRef<DecCoin[]>;
-}
 export interface QueryDelegationTotalRewardsResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegationTotalRewardsResponse";
   value: Uint8Array;
@@ -397,9 +348,6 @@ export interface QueryDelegatorValidatorsRequest {
   /** delegator_address defines the delegator address to query for. */
   delegatorAddress: string;
 }
-export interface ReactiveQueryDelegatorValidatorsRequest {
-  delegatorAddress: ComputedRef<string>;
-}
 export interface QueryDelegatorValidatorsRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegatorValidatorsRequest";
   value: Uint8Array;
@@ -423,9 +371,6 @@ export interface QueryDelegatorValidatorsRequestAminoMsg {
 export interface QueryDelegatorValidatorsResponse {
   /** validators defines the validators a delegator is delegating for. */
   validators: string[];
-}
-export interface ReactiveQueryDelegatorValidatorsResponse {
-  validators: ComputedRef<string[]>;
 }
 export interface QueryDelegatorValidatorsResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegatorValidatorsResponse";
@@ -451,9 +396,6 @@ export interface QueryDelegatorWithdrawAddressRequest {
   /** delegator_address defines the delegator address to query for. */
   delegatorAddress: string;
 }
-export interface ReactiveQueryDelegatorWithdrawAddressRequest {
-  delegatorAddress: ComputedRef<string>;
-}
 export interface QueryDelegatorWithdrawAddressRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegatorWithdrawAddressRequest";
   value: Uint8Array;
@@ -478,9 +420,6 @@ export interface QueryDelegatorWithdrawAddressResponse {
   /** withdraw_address defines the delegator address to query for. */
   withdrawAddress: string;
 }
-export interface ReactiveQueryDelegatorWithdrawAddressResponse {
-  withdrawAddress: ComputedRef<string>;
-}
 export interface QueryDelegatorWithdrawAddressResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryDelegatorWithdrawAddressResponse";
   value: Uint8Array;
@@ -502,7 +441,6 @@ export interface QueryDelegatorWithdrawAddressResponseAminoMsg {
  * method.
  */
 export interface QueryCommunityPoolRequest {}
-export interface ReactiveQueryCommunityPoolRequest {}
 export interface QueryCommunityPoolRequestProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryCommunityPoolRequest";
   value: Uint8Array;
@@ -523,9 +461,6 @@ export interface QueryCommunityPoolRequestAminoMsg {
 export interface QueryCommunityPoolResponse {
   /** pool defines community pool's coins. */
   pool: DecCoin[];
-}
-export interface ReactiveQueryCommunityPoolResponse {
-  pool: ComputedRef<DecCoin[]>;
 }
 export interface QueryCommunityPoolResponseProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.QueryCommunityPoolResponse";

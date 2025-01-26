@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse, QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -9,10 +8,6 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
-});
 export const createGetDenomAuthorityMetadata = (clientResolver?: RpcResolver) => buildQuery<QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse>({
   encode: QueryDenomAuthorityMetadataRequest.encode,
   decode: QueryDenomAuthorityMetadataResponse.decode,
@@ -20,10 +15,6 @@ export const createGetDenomAuthorityMetadata = (clientResolver?: RpcResolver) =>
   method: "DenomAuthorityMetadata",
   clientResolver,
   deps: [QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse]
-});
-export const useGetDenomAuthorityMetadata = buildUseQuery<QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse>({
-  builderQueryFn: createGetDenomAuthorityMetadata,
-  queryKeyPrefix: "DenomAuthorityMetadataQuery"
 });
 export const createGetDenomsFromCreator = (clientResolver?: RpcResolver) => buildQuery<QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse>({
   encode: QueryDenomsFromCreatorRequest.encode,
@@ -33,10 +24,6 @@ export const createGetDenomsFromCreator = (clientResolver?: RpcResolver) => buil
   clientResolver,
   deps: [QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse]
 });
-export const useGetDenomsFromCreator = buildUseQuery<QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse>({
-  builderQueryFn: createGetDenomsFromCreator,
-  queryKeyPrefix: "DenomsFromCreatorQuery"
-});
 export const createGetTokenfactoryModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
@@ -44,8 +31,4 @@ export const createGetTokenfactoryModuleState = (clientResolver?: RpcResolver) =
   method: "TokenfactoryModuleState",
   clientResolver,
   deps: [QueryModuleStateRequest, QueryModuleStateResponse]
-});
-export const useGetTokenfactoryModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetTokenfactoryModuleState,
-  queryKeyPrefix: "TokenfactoryModuleStateQuery"
 });

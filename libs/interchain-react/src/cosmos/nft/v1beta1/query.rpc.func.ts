@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryOwnerRequest, QueryOwnerResponse, QuerySupplyRequest, QuerySupplyResponse, QueryNFTsRequest, QueryNFTsResponse, QueryNFTRequest, QueryNFTResponse, QueryClassRequest, QueryClassResponse, QueryClassesRequest, QueryClassesResponse } from "./query";
 export const createGetBalance = (clientResolver?: RpcResolver) => buildQuery<QueryBalanceRequest, QueryBalanceResponse>({
   encode: QueryBalanceRequest.encode,
@@ -9,10 +8,6 @@ export const createGetBalance = (clientResolver?: RpcResolver) => buildQuery<Que
   clientResolver,
   deps: [QueryBalanceRequest, QueryBalanceResponse]
 });
-export const useGetBalance = buildUseQuery<QueryBalanceRequest, QueryBalanceResponse>({
-  builderQueryFn: createGetBalance,
-  queryKeyPrefix: "BalanceQuery"
-});
 export const createGetOwner = (clientResolver?: RpcResolver) => buildQuery<QueryOwnerRequest, QueryOwnerResponse>({
   encode: QueryOwnerRequest.encode,
   decode: QueryOwnerResponse.decode,
@@ -20,10 +15,6 @@ export const createGetOwner = (clientResolver?: RpcResolver) => buildQuery<Query
   method: "Owner",
   clientResolver,
   deps: [QueryOwnerRequest, QueryOwnerResponse]
-});
-export const useGetOwner = buildUseQuery<QueryOwnerRequest, QueryOwnerResponse>({
-  builderQueryFn: createGetOwner,
-  queryKeyPrefix: "OwnerQuery"
 });
 export const createGetSupply = (clientResolver?: RpcResolver) => buildQuery<QuerySupplyRequest, QuerySupplyResponse>({
   encode: QuerySupplyRequest.encode,
@@ -33,10 +24,6 @@ export const createGetSupply = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QuerySupplyRequest, QuerySupplyResponse]
 });
-export const useGetSupply = buildUseQuery<QuerySupplyRequest, QuerySupplyResponse>({
-  builderQueryFn: createGetSupply,
-  queryKeyPrefix: "SupplyQuery"
-});
 export const createGetNFTs = (clientResolver?: RpcResolver) => buildQuery<QueryNFTsRequest, QueryNFTsResponse>({
   encode: QueryNFTsRequest.encode,
   decode: QueryNFTsResponse.decode,
@@ -44,10 +31,6 @@ export const createGetNFTs = (clientResolver?: RpcResolver) => buildQuery<QueryN
   method: "NFTs",
   clientResolver,
   deps: [QueryNFTsRequest, QueryNFTsResponse]
-});
-export const useGetNFTs = buildUseQuery<QueryNFTsRequest, QueryNFTsResponse>({
-  builderQueryFn: createGetNFTs,
-  queryKeyPrefix: "NFTsQuery"
 });
 export const createGetNFT = (clientResolver?: RpcResolver) => buildQuery<QueryNFTRequest, QueryNFTResponse>({
   encode: QueryNFTRequest.encode,
@@ -57,10 +40,6 @@ export const createGetNFT = (clientResolver?: RpcResolver) => buildQuery<QueryNF
   clientResolver,
   deps: [QueryNFTRequest, QueryNFTResponse]
 });
-export const useGetNFT = buildUseQuery<QueryNFTRequest, QueryNFTResponse>({
-  builderQueryFn: createGetNFT,
-  queryKeyPrefix: "NFTQuery"
-});
 export const createGetClass = (clientResolver?: RpcResolver) => buildQuery<QueryClassRequest, QueryClassResponse>({
   encode: QueryClassRequest.encode,
   decode: QueryClassResponse.decode,
@@ -69,10 +48,6 @@ export const createGetClass = (clientResolver?: RpcResolver) => buildQuery<Query
   clientResolver,
   deps: [QueryClassRequest, QueryClassResponse]
 });
-export const useGetClass = buildUseQuery<QueryClassRequest, QueryClassResponse>({
-  builderQueryFn: createGetClass,
-  queryKeyPrefix: "ClassQuery"
-});
 export const createGetClasses = (clientResolver?: RpcResolver) => buildQuery<QueryClassesRequest, QueryClassesResponse>({
   encode: QueryClassesRequest.encode,
   decode: QueryClassesResponse.decode,
@@ -80,8 +55,4 @@ export const createGetClasses = (clientResolver?: RpcResolver) => buildQuery<Que
   method: "Classes",
   clientResolver,
   deps: [QueryClassesRequest, QueryClassesResponse]
-});
-export const useGetClasses = buildUseQuery<QueryClassesRequest, QueryClassesResponse>({
-  builderQueryFn: createGetClasses,
-  queryKeyPrefix: "ClassesQuery"
 });

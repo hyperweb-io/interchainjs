@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export enum OracleType {
   Unspecified = 0,
   Band = 1,
@@ -103,9 +102,6 @@ export function oracleTypeToJSON(object: OracleType): string {
 export interface Params {
   pythContract: string;
 }
-export interface ReactiveParams {
-  pythContract: ComputedRef<string>;
-}
 export interface ParamsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.Params";
   value: Uint8Array;
@@ -120,10 +116,6 @@ export interface ParamsAminoMsg {
 export interface OracleInfo {
   symbol: string;
   oracleType: OracleType;
-}
-export interface ReactiveOracleInfo {
-  symbol: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
 }
 export interface OracleInfoProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.OracleInfo";
@@ -142,12 +134,6 @@ export interface ChainlinkPriceState {
   answer: string;
   timestamp: bigint;
   priceState: PriceState;
-}
-export interface ReactiveChainlinkPriceState {
-  feedId: ComputedRef<string>;
-  answer: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
-  priceState: ComputedRef<PriceState>;
 }
 export interface ChainlinkPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ChainlinkPriceState";
@@ -170,13 +156,6 @@ export interface BandPriceState {
   requestID: bigint;
   priceState: PriceState;
 }
-export interface ReactiveBandPriceState {
-  symbol: ComputedRef<string>;
-  rate: ComputedRef<string>;
-  resolveTime: ComputedRef<bigint>;
-  requestID: ComputedRef<bigint>;
-  priceState: ComputedRef<PriceState>;
-}
 export interface BandPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.BandPriceState";
   value: Uint8Array;
@@ -198,12 +177,6 @@ export interface PriceFeedState {
   priceState?: PriceState;
   relayers: string[];
 }
-export interface ReactivePriceFeedState {
-  base: ComputedRef<string>;
-  quote: ComputedRef<string>;
-  priceState?: ComputedRef<PriceState>;
-  relayers: ComputedRef<string[]>;
-}
 export interface PriceFeedStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedState";
   value: Uint8Array;
@@ -222,10 +195,6 @@ export interface ProviderInfo {
   provider: string;
   relayers: string[];
 }
-export interface ReactiveProviderInfo {
-  provider: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
-}
 export interface ProviderInfoProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ProviderInfo";
   value: Uint8Array;
@@ -241,10 +210,6 @@ export interface ProviderInfoAminoMsg {
 export interface ProviderState {
   providerInfo?: ProviderInfo;
   providerPriceStates: ProviderPriceState[];
-}
-export interface ReactiveProviderState {
-  providerInfo?: ComputedRef<ProviderInfo>;
-  providerPriceStates: ComputedRef<ProviderPriceState[]>;
 }
 export interface ProviderStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ProviderState";
@@ -262,10 +227,6 @@ export interface ProviderPriceState {
   symbol: string;
   state?: PriceState;
 }
-export interface ReactiveProviderPriceState {
-  symbol: ComputedRef<string>;
-  state?: ComputedRef<PriceState>;
-}
 export interface ProviderPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ProviderPriceState";
   value: Uint8Array;
@@ -282,10 +243,6 @@ export interface PriceFeedInfo {
   base: string;
   quote: string;
 }
-export interface ReactivePriceFeedInfo {
-  base: ComputedRef<string>;
-  quote: ComputedRef<string>;
-}
 export interface PriceFeedInfoProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedInfo";
   value: Uint8Array;
@@ -300,9 +257,6 @@ export interface PriceFeedInfoAminoMsg {
 }
 export interface PriceFeedPrice {
   price: string;
-}
-export interface ReactivePriceFeedPrice {
-  price: ComputedRef<string>;
 }
 export interface PriceFeedPriceProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedPrice";
@@ -326,13 +280,6 @@ export interface CoinbasePriceState {
   value: bigint;
   /** the price state */
   priceState: PriceState;
-}
-export interface ReactiveCoinbasePriceState {
-  kind: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
-  key: ComputedRef<string>;
-  value: ComputedRef<bigint>;
-  priceState: ComputedRef<PriceState>;
 }
 export interface CoinbasePriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.CoinbasePriceState";
@@ -364,12 +311,6 @@ export interface StorkPriceState {
   /** the price state */
   priceState: PriceState;
 }
-export interface ReactiveStorkPriceState {
-  timestamp: ComputedRef<bigint>;
-  symbol: ComputedRef<string>;
-  value: ComputedRef<string>;
-  priceState: ComputedRef<PriceState>;
-}
 export interface StorkPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.StorkPriceState";
   value: Uint8Array;
@@ -393,11 +334,6 @@ export interface PriceState {
   cumulativePrice: string;
   timestamp: bigint;
 }
-export interface ReactivePriceState {
-  price: ComputedRef<string>;
-  cumulativePrice: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
-}
 export interface PriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceState";
   value: Uint8Array;
@@ -418,14 +354,6 @@ export interface PythPriceState {
   conf: string;
   publishTime: bigint;
   priceState: PriceState;
-}
-export interface ReactivePythPriceState {
-  priceId: ComputedRef<string>;
-  emaPrice: ComputedRef<string>;
-  emaConf: ComputedRef<string>;
-  conf: ComputedRef<string>;
-  publishTime: ComputedRef<bigint>;
-  priceState: ComputedRef<PriceState>;
 }
 export interface PythPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PythPriceState";
@@ -478,17 +406,6 @@ export interface BandOracleRequest {
    * each validator
    */
   minSourceCount: bigint;
-}
-export interface ReactiveBandOracleRequest {
-  requestId: ComputedRef<bigint>;
-  oracleScriptId: ComputedRef<bigint>;
-  symbols: ComputedRef<string[]>;
-  askCount: ComputedRef<bigint>;
-  minCount: ComputedRef<bigint>;
-  feeLimit: ComputedRef<Coin[]>;
-  prepareGas: ComputedRef<bigint>;
-  executeGas: ComputedRef<bigint>;
-  minSourceCount: ComputedRef<bigint>;
 }
 export interface BandOracleRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.BandOracleRequest";
@@ -548,14 +465,6 @@ export interface BandIBCParams {
   /** legacy oracle scheme ids */
   legacyOracleIds: bigint[];
 }
-export interface ReactiveBandIBCParams {
-  bandIbcEnabled: ComputedRef<boolean>;
-  ibcRequestInterval: ComputedRef<bigint>;
-  ibcSourceChannel: ComputedRef<string>;
-  ibcVersion: ComputedRef<string>;
-  ibcPortId: ComputedRef<string>;
-  legacyOracleIds: ComputedRef<bigint[]>;
-}
 export interface BandIBCParamsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.BandIBCParams";
   value: Uint8Array;
@@ -583,11 +492,6 @@ export interface SymbolPriceTimestamp {
   symbolId: string;
   timestamp: bigint;
 }
-export interface ReactiveSymbolPriceTimestamp {
-  oracle: ComputedRef<OracleType>;
-  symbolId: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
-}
 export interface SymbolPriceTimestampProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SymbolPriceTimestamp";
   value: Uint8Array;
@@ -603,9 +507,6 @@ export interface SymbolPriceTimestampAminoMsg {
 }
 export interface LastPriceTimestamps {
   lastPriceTimestamps: SymbolPriceTimestamp[];
-}
-export interface ReactiveLastPriceTimestamps {
-  lastPriceTimestamps: ComputedRef<SymbolPriceTimestamp[]>;
 }
 export interface LastPriceTimestampsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.LastPriceTimestamps";
@@ -623,11 +524,6 @@ export interface PriceRecords {
   symbolId: string;
   latestPriceRecords: PriceRecord[];
 }
-export interface ReactivePriceRecords {
-  oracle: ComputedRef<OracleType>;
-  symbolId: ComputedRef<string>;
-  latestPriceRecords: ComputedRef<PriceRecord[]>;
-}
 export interface PriceRecordsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceRecords";
   value: Uint8Array;
@@ -644,10 +540,6 @@ export interface PriceRecordsAminoMsg {
 export interface PriceRecord {
   timestamp: bigint;
   price: string;
-}
-export interface ReactivePriceRecord {
-  timestamp: ComputedRef<bigint>;
-  price: ComputedRef<string>;
 }
 export interface PriceRecordProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceRecord";
@@ -695,17 +587,6 @@ export interface MetadataStatistics {
   maxPrice: string;
   /** MedianPrice refers to the median individual raw price considered */
   medianPrice: string;
-}
-export interface ReactiveMetadataStatistics {
-  groupCount: ComputedRef<number>;
-  recordsSampleSize: ComputedRef<number>;
-  mean: ComputedRef<string>;
-  twap: ComputedRef<string>;
-  firstTimestamp: ComputedRef<bigint>;
-  lastTimestamp: ComputedRef<bigint>;
-  minPrice: ComputedRef<string>;
-  maxPrice: ComputedRef<string>;
-  medianPrice: ComputedRef<string>;
 }
 export interface MetadataStatisticsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MetadataStatistics";
@@ -761,16 +642,6 @@ export interface PriceAttestation {
   emaExpo: number;
   publishTime: bigint;
 }
-export interface ReactivePriceAttestation {
-  priceId: ComputedRef<string>;
-  price: ComputedRef<bigint>;
-  conf: ComputedRef<bigint>;
-  expo: ComputedRef<number>;
-  emaPrice: ComputedRef<bigint>;
-  emaConf: ComputedRef<bigint>;
-  emaExpo: ComputedRef<number>;
-  publishTime: ComputedRef<bigint>;
-}
 export interface PriceAttestationProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceAttestation";
   value: Uint8Array;
@@ -794,10 +665,6 @@ export interface AssetPair {
   assetId: string;
   signedPrices: SignedPriceOfAssetPair[];
 }
-export interface ReactiveAssetPair {
-  assetId: ComputedRef<string>;
-  signedPrices: ComputedRef<SignedPriceOfAssetPair[]>;
-}
 export interface AssetPairProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.AssetPair";
   value: Uint8Array;
@@ -815,12 +682,6 @@ export interface SignedPriceOfAssetPair {
   timestamp: bigint;
   price: string;
   signature: Uint8Array;
-}
-export interface ReactiveSignedPriceOfAssetPair {
-  publisherKey: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
-  price: ComputedRef<string>;
-  signature: ComputedRef<Uint8Array>;
 }
 export interface SignedPriceOfAssetPairProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SignedPriceOfAssetPair";

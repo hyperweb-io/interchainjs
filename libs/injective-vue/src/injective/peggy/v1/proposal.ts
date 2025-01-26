@@ -1,16 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface BlacklistEthereumAddressesProposal {
   title: string;
   description: string;
   blacklistAddresses: string[];
-}
-export interface ReactiveBlacklistEthereumAddressesProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  blacklistAddresses: ComputedRef<string[]>;
 }
 export interface BlacklistEthereumAddressesProposalProtoMsg {
   typeUrl: "/injective.peggy.v1.BlacklistEthereumAddressesProposal";
@@ -29,11 +23,6 @@ export interface RevokeEthereumBlacklistProposal {
   title: string;
   description: string;
   blacklistAddresses: string[];
-}
-export interface ReactiveRevokeEthereumBlacklistProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  blacklistAddresses: ComputedRef<string[]>;
 }
 export interface RevokeEthereumBlacklistProposalProtoMsg {
   typeUrl: "/injective.peggy.v1.RevokeEthereumBlacklistProposal";

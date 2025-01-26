@@ -1,13 +1,9 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** IDSet represents a set of IDs */
 export interface IDSet {
   ids: bigint[];
-}
-export interface ReactiveIDSet {
-  ids: ComputedRef<bigint[]>;
 }
 export interface IDSetProtoMsg {
   typeUrl: "/injective.peggy.v1.IDSet";
@@ -24,10 +20,6 @@ export interface IDSetAminoMsg {
 export interface BatchFees {
   token: string;
   totalFees: string;
-}
-export interface ReactiveBatchFees {
-  token: ComputedRef<string>;
-  totalFees: ComputedRef<string>;
 }
 export interface BatchFeesProtoMsg {
   typeUrl: "/injective.peggy.v1.BatchFees";

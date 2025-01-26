@@ -2,7 +2,6 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgGrantAllowance adds permission for Grantee to spend up to Allowance
  * of fees from the account of Granter.
@@ -14,11 +13,6 @@ export interface MsgGrantAllowance {
   grantee: string;
   /** allowance can be any of basic, periodic, allowed fee allowance. */
   allowance?: Any | undefined;
-}
-export interface ReactiveMsgGrantAllowance {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  allowance?: ComputedRef<Any | undefined>;
 }
 export interface MsgGrantAllowanceProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance";
@@ -45,7 +39,6 @@ export interface MsgGrantAllowanceAminoMsg {
 }
 /** MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type. */
 export interface MsgGrantAllowanceResponse {}
-export interface ReactiveMsgGrantAllowanceResponse {}
 export interface MsgGrantAllowanceResponseProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse";
   value: Uint8Array;
@@ -62,10 +55,6 @@ export interface MsgRevokeAllowance {
   granter: string;
   /** grantee is the address of the user being granted an allowance of another user's funds. */
   grantee: string;
-}
-export interface ReactiveMsgRevokeAllowance {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
 }
 export interface MsgRevokeAllowanceProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance";
@@ -84,7 +73,6 @@ export interface MsgRevokeAllowanceAminoMsg {
 }
 /** MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type. */
 export interface MsgRevokeAllowanceResponse {}
-export interface ReactiveMsgRevokeAllowanceResponse {}
 export interface MsgRevokeAllowanceResponseProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse";
   value: Uint8Array;
@@ -103,9 +91,6 @@ export interface MsgRevokeAllowanceResponseAminoMsg {
 export interface MsgPruneAllowances {
   /** pruner is the address of the user pruning expired allowances. */
   pruner: string;
-}
-export interface ReactiveMsgPruneAllowances {
-  pruner: ComputedRef<string>;
 }
 export interface MsgPruneAllowancesProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowances";
@@ -130,7 +115,6 @@ export interface MsgPruneAllowancesAminoMsg {
  * Since cosmos-sdk 0.50
  */
 export interface MsgPruneAllowancesResponse {}
-export interface ReactiveMsgPruneAllowancesResponse {}
 export interface MsgPruneAllowancesResponseProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse";
   value: Uint8Array;

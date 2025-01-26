@@ -2,10 +2,8 @@ import { ConsensusParams, ConsensusParamsAmino } from "../../../tendermint/types
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryParamsRequest defines the request type for querying x/consensus parameters. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.consensus.v1.QueryParamsRequest";
   value: Uint8Array;
@@ -24,9 +22,6 @@ export interface QueryParamsResponse {
    * tracked separately in the x/upgrade module.
    */
   params?: ConsensusParams;
-}
-export interface ReactiveQueryParamsResponse {
-  params?: ComputedRef<ConsensusParams>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.consensus.v1.QueryParamsResponse";

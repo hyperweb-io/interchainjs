@@ -5,7 +5,6 @@ import { Duration, DurationAmino } from "../../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** GetRequest is the Query/Get request type. */
 export interface GetRequest {
   /** message_name is the fully-qualified message name of the ORM table being queried. */
@@ -22,11 +21,6 @@ export interface GetRequest {
    * these values must correspond to the index field types.
    */
   values: IndexValue[];
-}
-export interface ReactiveGetRequest {
-  messageName: ComputedRef<string>;
-  index: ComputedRef<string>;
-  values: ComputedRef<IndexValue[]>;
 }
 export interface GetRequestProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.GetRequest";
@@ -61,9 +55,6 @@ export interface GetResponse {
    */
   result?: Any;
 }
-export interface ReactiveGetResponse {
-  result?: ComputedRef<Any>;
-}
 export interface GetResponseProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.GetResponse";
   value: Uint8Array;
@@ -95,13 +86,6 @@ export interface ListRequest {
   range?: ListRequest_Range;
   /** pagination is the pagination request. */
   pagination?: PageRequest;
-}
-export interface ReactiveListRequest {
-  messageName: ComputedRef<string>;
-  index: ComputedRef<string>;
-  prefix?: ComputedRef<ListRequest_Prefix>;
-  range?: ComputedRef<ListRequest_Range>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface ListRequestProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.ListRequest";
@@ -136,9 +120,6 @@ export interface ListRequest_Prefix {
    */
   values: IndexValue[];
 }
-export interface ReactiveListRequest_Prefix {
-  values: ComputedRef<IndexValue[]>;
-}
 export interface ListRequest_PrefixProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.Prefix";
   value: Uint8Array;
@@ -171,10 +152,6 @@ export interface ListRequest_Range {
    */
   end: IndexValue[];
 }
-export interface ReactiveListRequest_Range {
-  start: ComputedRef<IndexValue[]>;
-  end: ComputedRef<IndexValue[]>;
-}
 export interface ListRequest_RangeProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.Range";
   value: Uint8Array;
@@ -204,10 +181,6 @@ export interface ListResponse {
   results: Any[];
   /** pagination is the pagination response. */
   pagination?: PageResponse;
-}
-export interface ReactiveListResponse {
-  results: ComputedRef<Any[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface ListResponseProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.ListResponse";
@@ -248,16 +221,6 @@ export interface IndexValue {
   timestamp?: Date;
   /** duration specifies a value for a duration index field. */
   duration?: Duration;
-}
-export interface ReactiveIndexValue {
-  uint?: ComputedRef<bigint>;
-  int?: ComputedRef<bigint>;
-  str?: ComputedRef<string>;
-  bytes?: ComputedRef<Uint8Array>;
-  enum?: ComputedRef<string>;
-  bool?: ComputedRef<boolean>;
-  timestamp?: ComputedRef<Date>;
-  duration?: ComputedRef<Duration>;
 }
 export interface IndexValueProtoMsg {
   typeUrl: "/cosmos.orm.query.v1alpha1.IndexValue";

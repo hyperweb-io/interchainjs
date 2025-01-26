@@ -3,16 +3,11 @@ import { DenomAuthorityMetadata, DenomAuthorityMetadataAmino } from "./authority
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisState {
   /** params defines the parameters of the module. */
   params: Params;
   factoryDenoms: GenesisDenom[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  factoryDenoms: ComputedRef<GenesisDenom[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.GenesisState";
@@ -39,13 +34,6 @@ export interface GenesisDenom {
   name: string;
   symbol: string;
   decimals: number;
-}
-export interface ReactiveGenesisDenom {
-  denom: ComputedRef<string>;
-  authorityMetadata: ComputedRef<DenomAuthorityMetadata>;
-  name: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  decimals: ComputedRef<number>;
 }
 export interface GenesisDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.GenesisDenom";

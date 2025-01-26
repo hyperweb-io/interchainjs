@@ -3,7 +3,6 @@ import { Metadata, MetadataAmino, Params, ParamsAmino } from "../../../cosmos/ba
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
  * method. It allows an account to create a new denom. It requires a sender
@@ -22,13 +21,6 @@ export interface MsgCreateDenom {
   name: string;
   symbol: string;
   decimals: number;
-}
-export interface ReactiveMsgCreateDenom {
-  sender: ComputedRef<string>;
-  subdenom: ComputedRef<string>;
-  name: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  decimals: ComputedRef<number>;
 }
 export interface MsgCreateDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenom";
@@ -64,9 +56,6 @@ export interface MsgCreateDenomAminoMsg {
 export interface MsgCreateDenomResponse {
   newTokenDenom: string;
 }
-export interface ReactiveMsgCreateDenomResponse {
-  newTokenDenom: ComputedRef<string>;
-}
 export interface MsgCreateDenomResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenomResponse";
   value: Uint8Array;
@@ -90,10 +79,6 @@ export interface MsgMint {
   sender: string;
   amount: Coin;
 }
-export interface ReactiveMsgMint {
-  sender: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-}
 export interface MsgMintProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMint";
   value: Uint8Array;
@@ -111,7 +96,6 @@ export interface MsgMintAminoMsg {
   value: MsgMintAmino;
 }
 export interface MsgMintResponse {}
-export interface ReactiveMsgMintResponse {}
 export interface MsgMintResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMintResponse";
   value: Uint8Array;
@@ -128,10 +112,6 @@ export interface MsgMintResponseAminoMsg {
 export interface MsgBurn {
   sender: string;
   amount: Coin;
-}
-export interface ReactiveMsgBurn {
-  sender: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgBurnProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurn";
@@ -150,7 +130,6 @@ export interface MsgBurnAminoMsg {
   value: MsgBurnAmino;
 }
 export interface MsgBurnResponse {}
-export interface ReactiveMsgBurnResponse {}
 export interface MsgBurnResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurnResponse";
   value: Uint8Array;
@@ -168,11 +147,6 @@ export interface MsgChangeAdmin {
   sender: string;
   denom: string;
   newAdmin: string;
-}
-export interface ReactiveMsgChangeAdmin {
-  sender: ComputedRef<string>;
-  denom: ComputedRef<string>;
-  newAdmin: ComputedRef<string>;
 }
 export interface MsgChangeAdminProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgChangeAdmin";
@@ -196,7 +170,6 @@ export interface MsgChangeAdminAminoMsg {
  * MsgChangeAdmin message.
  */
 export interface MsgChangeAdminResponse {}
-export interface ReactiveMsgChangeAdminResponse {}
 export interface MsgChangeAdminResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgChangeAdminResponse";
   value: Uint8Array;
@@ -217,10 +190,6 @@ export interface MsgChangeAdminResponseAminoMsg {
 export interface MsgSetDenomMetadata {
   sender: string;
   metadata: Metadata;
-}
-export interface ReactiveMsgSetDenomMetadata {
-  sender: ComputedRef<string>;
-  metadata: ComputedRef<Metadata>;
 }
 export interface MsgSetDenomMetadataProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadata";
@@ -243,7 +212,6 @@ export interface MsgSetDenomMetadataAminoMsg {
  * MsgSetDenomMetadata message.
  */
 export interface MsgSetDenomMetadataResponse {}
-export interface ReactiveMsgSetDenomMetadataResponse {}
 export interface MsgSetDenomMetadataResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse";
   value: Uint8Array;
@@ -267,10 +235,6 @@ export interface MsgUpdateParams {
    */
   params: Params;
 }
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
-}
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParams";
   value: Uint8Array;
@@ -290,7 +254,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

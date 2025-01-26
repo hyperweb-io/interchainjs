@@ -1,15 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 /** PublicKey defines the keys available for use with Validators */
 export interface PublicKey {
   ed25519?: Uint8Array;
   secp256k1?: Uint8Array;
-}
-export interface ReactivePublicKey {
-  ed25519?: ComputedRef<Uint8Array>;
-  secp256k1?: ComputedRef<Uint8Array>;
 }
 export interface PublicKeyProtoMsg {
   typeUrl: "/tendermint.crypto.PublicKey";

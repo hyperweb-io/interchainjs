@@ -4,7 +4,6 @@ import { MetadataStatistics, MetadataStatisticsAmino } from "../../oracle/v1beta
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export enum OrderSide {
   /** Side_Unspecified - will return both */
   Side_Unspecified = 0,
@@ -88,10 +87,6 @@ export interface Subaccount {
   trader: string;
   subaccountNonce: number;
 }
-export interface ReactiveSubaccount {
-  trader: ComputedRef<string>;
-  subaccountNonce: ComputedRef<number>;
-}
 export interface SubaccountProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Subaccount";
   value: Uint8Array;
@@ -107,10 +102,6 @@ export interface SubaccountAminoMsg {
 export interface QuerySubaccountOrdersRequest {
   subaccountId: string;
   marketId: string;
-}
-export interface ReactiveQuerySubaccountOrdersRequest {
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
 }
 export interface QuerySubaccountOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrdersRequest";
@@ -128,10 +119,6 @@ export interface QuerySubaccountOrdersResponse {
   buyOrders: SubaccountOrderData[];
   sellOrders: SubaccountOrderData[];
 }
-export interface ReactiveQuerySubaccountOrdersResponse {
-  buyOrders: ComputedRef<SubaccountOrderData[]>;
-  sellOrders: ComputedRef<SubaccountOrderData[]>;
-}
 export interface QuerySubaccountOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrdersResponse";
   value: Uint8Array;
@@ -148,11 +135,6 @@ export interface SubaccountOrderbookMetadataWithMarket {
   metadata?: SubaccountOrderbookMetadata;
   marketId: string;
   isBuy: boolean;
-}
-export interface ReactiveSubaccountOrderbookMetadataWithMarket {
-  metadata?: ComputedRef<SubaccountOrderbookMetadata>;
-  marketId: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
 }
 export interface SubaccountOrderbookMetadataWithMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarket";
@@ -172,7 +154,6 @@ export interface SubaccountOrderbookMetadataWithMarketAminoMsg {
  * RPC method.
  */
 export interface QueryExchangeParamsRequest {}
-export interface ReactiveQueryExchangeParamsRequest {}
 export interface QueryExchangeParamsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeParamsRequest";
   value: Uint8Array;
@@ -192,9 +173,6 @@ export interface QueryExchangeParamsRequestAminoMsg {
  */
 export interface QueryExchangeParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryExchangeParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryExchangeParamsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeParamsResponse";
@@ -219,10 +197,6 @@ export interface QuerySubaccountDepositsRequest {
   subaccountId: string;
   subaccount?: Subaccount;
 }
-export interface ReactiveQuerySubaccountDepositsRequest {
-  subaccountId: ComputedRef<string>;
-  subaccount?: ComputedRef<Subaccount>;
-}
 export interface QuerySubaccountDepositsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositsRequest";
   value: Uint8Array;
@@ -242,10 +216,6 @@ export interface QuerySubaccountDepositsRequestAminoMsg {
 export interface QuerySubaccountDepositsResponse_DepositsEntry {
   key: string;
   value?: Deposit;
-}
-export interface ReactiveQuerySubaccountDepositsResponse_DepositsEntry {
-  key: ComputedRef<string>;
-  value?: ComputedRef<Deposit>;
 }
 export interface QuerySubaccountDepositsResponse_DepositsEntryProtoMsg {
   typeUrl: string;
@@ -267,11 +237,6 @@ export interface QuerySubaccountDepositsResponse {
   deposits: {
     [key: string]: Deposit;
   };
-}
-export interface ReactiveQuerySubaccountDepositsResponse {
-  deposits: ComputedRef<{
-    [key: string]: Deposit;
-  }>;
 }
 export interface QuerySubaccountDepositsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositsResponse";
@@ -295,7 +260,6 @@ export interface QuerySubaccountDepositsResponseAminoMsg {
  * Query/ExchangeBalances RPC method.
  */
 export interface QueryExchangeBalancesRequest {}
-export interface ReactiveQueryExchangeBalancesRequest {}
 export interface QueryExchangeBalancesRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeBalancesRequest";
   value: Uint8Array;
@@ -315,9 +279,6 @@ export interface QueryExchangeBalancesRequestAminoMsg {
  */
 export interface QueryExchangeBalancesResponse {
   balances: Balance[];
-}
-export interface ReactiveQueryExchangeBalancesResponse {
-  balances: ComputedRef<Balance[]>;
 }
 export interface QueryExchangeBalancesResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeBalancesResponse";
@@ -341,9 +302,6 @@ export interface QueryExchangeBalancesResponseAminoMsg {
 export interface QueryAggregateVolumeRequest {
   /** can either be an address or a subaccount */
   account: string;
-}
-export interface ReactiveQueryAggregateVolumeRequest {
-  account: ComputedRef<string>;
 }
 export interface QueryAggregateVolumeRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumeRequest";
@@ -372,9 +330,6 @@ export interface QueryAggregateVolumeResponse {
    */
   aggregateVolumes: MarketVolume[];
 }
-export interface ReactiveQueryAggregateVolumeResponse {
-  aggregateVolumes: ComputedRef<MarketVolume[]>;
-}
 export interface QueryAggregateVolumeResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumeResponse";
   value: Uint8Array;
@@ -402,10 +357,6 @@ export interface QueryAggregateVolumesRequest {
   accounts: string[];
   marketIds: string[];
 }
-export interface ReactiveQueryAggregateVolumesRequest {
-  accounts: ComputedRef<string[]>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface QueryAggregateVolumesRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumesRequest";
   value: Uint8Array;
@@ -432,10 +383,6 @@ export interface QueryAggregateVolumesResponse {
   /** the aggregate volumes for the markets specified */
   aggregateMarketVolumes: MarketVolume[];
 }
-export interface ReactiveQueryAggregateVolumesResponse {
-  aggregateAccountVolumes: ComputedRef<AggregateAccountVolumeRecord[]>;
-  aggregateMarketVolumes: ComputedRef<MarketVolume[]>;
-}
 export interface QueryAggregateVolumesResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumesResponse";
   value: Uint8Array;
@@ -461,9 +408,6 @@ export interface QueryAggregateVolumesResponseAminoMsg {
 export interface QueryAggregateMarketVolumeRequest {
   marketId: string;
 }
-export interface ReactiveQueryAggregateMarketVolumeRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryAggregateMarketVolumeRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumeRequest";
   value: Uint8Array;
@@ -485,9 +429,6 @@ export interface QueryAggregateMarketVolumeRequestAminoMsg {
  */
 export interface QueryAggregateMarketVolumeResponse {
   volume: VolumeRecord;
-}
-export interface ReactiveQueryAggregateMarketVolumeResponse {
-  volume: ComputedRef<VolumeRecord>;
 }
 export interface QueryAggregateMarketVolumeResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumeResponse";
@@ -511,9 +452,6 @@ export interface QueryAggregateMarketVolumeResponseAminoMsg {
 export interface QueryDenomDecimalRequest {
   denom: string;
 }
-export interface ReactiveQueryDenomDecimalRequest {
-  denom: ComputedRef<string>;
-}
 export interface QueryDenomDecimalRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalRequest";
   value: Uint8Array;
@@ -535,9 +473,6 @@ export interface QueryDenomDecimalRequestAminoMsg {
  */
 export interface QueryDenomDecimalResponse {
   decimal: bigint;
-}
-export interface ReactiveQueryDenomDecimalResponse {
-  decimal: ComputedRef<bigint>;
 }
 export interface QueryDenomDecimalResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalResponse";
@@ -562,9 +497,6 @@ export interface QueryDenomDecimalsRequest {
   /** denoms can be empty to query all denom decimals */
   denoms: string[];
 }
-export interface ReactiveQueryDenomDecimalsRequest {
-  denoms: ComputedRef<string[]>;
-}
 export interface QueryDenomDecimalsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalsRequest";
   value: Uint8Array;
@@ -588,9 +520,6 @@ export interface QueryDenomDecimalsRequestAminoMsg {
 export interface QueryDenomDecimalsResponse {
   denomDecimals: DenomDecimals[];
 }
-export interface ReactiveQueryDenomDecimalsResponse {
-  denomDecimals: ComputedRef<DenomDecimals[]>;
-}
 export interface QueryDenomDecimalsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalsResponse";
   value: Uint8Array;
@@ -612,9 +541,6 @@ export interface QueryDenomDecimalsResponseAminoMsg {
  */
 export interface QueryAggregateMarketVolumesRequest {
   marketIds: string[];
-}
-export interface ReactiveQueryAggregateMarketVolumesRequest {
-  marketIds: ComputedRef<string[]>;
 }
 export interface QueryAggregateMarketVolumesRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumesRequest";
@@ -638,9 +564,6 @@ export interface QueryAggregateMarketVolumesRequestAminoMsg {
 export interface QueryAggregateMarketVolumesResponse {
   /** the aggregate volumes for the entire market */
   volumes: MarketVolume[];
-}
-export interface ReactiveQueryAggregateMarketVolumesResponse {
-  volumes: ComputedRef<MarketVolume[]>;
 }
 export interface QueryAggregateMarketVolumesResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumesResponse";
@@ -666,10 +589,6 @@ export interface QuerySubaccountDepositRequest {
   subaccountId: string;
   denom: string;
 }
-export interface ReactiveQuerySubaccountDepositRequest {
-  subaccountId: ComputedRef<string>;
-  denom: ComputedRef<string>;
-}
 export interface QuerySubaccountDepositRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositRequest";
   value: Uint8Array;
@@ -692,9 +611,6 @@ export interface QuerySubaccountDepositRequestAminoMsg {
  */
 export interface QuerySubaccountDepositResponse {
   deposits?: Deposit;
-}
-export interface ReactiveQuerySubaccountDepositResponse {
-  deposits?: ComputedRef<Deposit>;
 }
 export interface QuerySubaccountDepositResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositResponse";
@@ -721,10 +637,6 @@ export interface QuerySpotMarketsRequest {
   /** Filter by market IDs */
   marketIds: string[];
 }
-export interface ReactiveQuerySpotMarketsRequest {
-  status: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-}
 export interface QuerySpotMarketsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketsRequest";
   value: Uint8Array;
@@ -750,9 +662,6 @@ export interface QuerySpotMarketsRequestAminoMsg {
 export interface QuerySpotMarketsResponse {
   markets: SpotMarket[];
 }
-export interface ReactiveQuerySpotMarketsResponse {
-  markets: ComputedRef<SpotMarket[]>;
-}
 export interface QuerySpotMarketsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketsResponse";
   value: Uint8Array;
@@ -776,9 +685,6 @@ export interface QuerySpotMarketRequest {
   /** Market ID for the market */
   marketId: string;
 }
-export interface ReactiveQuerySpotMarketRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QuerySpotMarketRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketRequest";
   value: Uint8Array;
@@ -801,9 +707,6 @@ export interface QuerySpotMarketRequestAminoMsg {
  */
 export interface QuerySpotMarketResponse {
   market?: SpotMarket;
-}
-export interface ReactiveQuerySpotMarketResponse {
-  market?: ComputedRef<SpotMarket>;
 }
 export interface QuerySpotMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketResponse";
@@ -831,13 +734,6 @@ export interface QuerySpotOrderbookRequest {
   orderSide: OrderSide;
   limitCumulativeNotional?: string;
   limitCumulativeQuantity?: string;
-}
-export interface ReactiveQuerySpotOrderbookRequest {
-  marketId: ComputedRef<string>;
-  limit: ComputedRef<bigint>;
-  orderSide: ComputedRef<OrderSide>;
-  limitCumulativeNotional?: ComputedRef<string>;
-  limitCumulativeQuantity?: ComputedRef<string>;
 }
 export interface QuerySpotOrderbookRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrderbookRequest";
@@ -867,10 +763,6 @@ export interface QuerySpotOrderbookResponse {
   buysPriceLevel: Level[];
   sellsPriceLevel: Level[];
 }
-export interface ReactiveQuerySpotOrderbookResponse {
-  buysPriceLevel: ComputedRef<Level[]>;
-  sellsPriceLevel: ComputedRef<Level[]>;
-}
 export interface QuerySpotOrderbookResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrderbookResponse";
   value: Uint8Array;
@@ -894,10 +786,6 @@ export interface FullSpotMarket {
    * and bid orders
    */
   midPriceAndTob?: MidPriceAndTOB;
-}
-export interface ReactiveFullSpotMarket {
-  market?: ComputedRef<SpotMarket>;
-  midPriceAndTob?: ComputedRef<MidPriceAndTOB>;
 }
 export interface FullSpotMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullSpotMarket";
@@ -930,11 +818,6 @@ export interface QueryFullSpotMarketsRequest {
    */
   withMidPriceAndTob: boolean;
 }
-export interface ReactiveQueryFullSpotMarketsRequest {
-  status: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-  withMidPriceAndTob: ComputedRef<boolean>;
-}
 export interface QueryFullSpotMarketsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketsRequest";
   value: Uint8Array;
@@ -965,9 +848,6 @@ export interface QueryFullSpotMarketsRequestAminoMsg {
 export interface QueryFullSpotMarketsResponse {
   markets: FullSpotMarket[];
 }
-export interface ReactiveQueryFullSpotMarketsResponse {
-  markets: ComputedRef<FullSpotMarket[]>;
-}
 export interface QueryFullSpotMarketsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketsResponse";
   value: Uint8Array;
@@ -995,10 +875,6 @@ export interface QueryFullSpotMarketRequest {
    * orders.
    */
   withMidPriceAndTob: boolean;
-}
-export interface ReactiveQueryFullSpotMarketRequest {
-  marketId: ComputedRef<string>;
-  withMidPriceAndTob: ComputedRef<boolean>;
 }
 export interface QueryFullSpotMarketRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketRequest";
@@ -1028,9 +904,6 @@ export interface QueryFullSpotMarketRequestAminoMsg {
 export interface QueryFullSpotMarketResponse {
   market?: FullSpotMarket;
 }
-export interface ReactiveQueryFullSpotMarketResponse {
-  market?: ComputedRef<FullSpotMarket>;
-}
 export interface QueryFullSpotMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketResponse";
   value: Uint8Array;
@@ -1057,11 +930,6 @@ export interface QuerySpotOrdersByHashesRequest {
   subaccountId: string;
   /** the order hashes */
   orderHashes: string[];
-}
-export interface ReactiveQuerySpotOrdersByHashesRequest {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHashes: ComputedRef<string[]>;
 }
 export interface QuerySpotOrdersByHashesRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrdersByHashesRequest";
@@ -1090,9 +958,6 @@ export interface QuerySpotOrdersByHashesRequestAminoMsg {
 export interface QuerySpotOrdersByHashesResponse {
   orders: TrimmedSpotLimitOrder[];
 }
-export interface ReactiveQuerySpotOrdersByHashesResponse {
-  orders: ComputedRef<TrimmedSpotLimitOrder[]>;
-}
 export interface QuerySpotOrdersByHashesResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrdersByHashesResponse";
   value: Uint8Array;
@@ -1117,10 +982,6 @@ export interface QueryTraderSpotOrdersRequest {
   marketId: string;
   /** SubaccountID of the trader */
   subaccountId: string;
-}
-export interface ReactiveQueryTraderSpotOrdersRequest {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
 }
 export interface QueryTraderSpotOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderSpotOrdersRequest";
@@ -1149,10 +1010,6 @@ export interface QueryAccountAddressSpotOrdersRequest {
   marketId: string;
   /** Account address of the trader */
   accountAddress: string;
-}
-export interface ReactiveQueryAccountAddressSpotOrdersRequest {
-  marketId: ComputedRef<string>;
-  accountAddress: ComputedRef<string>;
 }
 export interface QueryAccountAddressSpotOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressSpotOrdersRequest";
@@ -1184,14 +1041,6 @@ export interface TrimmedSpotLimitOrder {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveTrimmedSpotLimitOrder {
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-  fillable: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface TrimmedSpotLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TrimmedSpotLimitOrder";
   value: Uint8Array;
@@ -1219,9 +1068,6 @@ export interface TrimmedSpotLimitOrderAminoMsg {
 export interface QueryTraderSpotOrdersResponse {
   orders: TrimmedSpotLimitOrder[];
 }
-export interface ReactiveQueryTraderSpotOrdersResponse {
-  orders: ComputedRef<TrimmedSpotLimitOrder[]>;
-}
 export interface QueryTraderSpotOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderSpotOrdersResponse";
   value: Uint8Array;
@@ -1243,9 +1089,6 @@ export interface QueryTraderSpotOrdersResponseAminoMsg {
  */
 export interface QueryAccountAddressSpotOrdersResponse {
   orders: TrimmedSpotLimitOrder[];
-}
-export interface ReactiveQueryAccountAddressSpotOrdersResponse {
-  orders: ComputedRef<TrimmedSpotLimitOrder[]>;
 }
 export interface QueryAccountAddressSpotOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressSpotOrdersResponse";
@@ -1269,9 +1112,6 @@ export interface QueryAccountAddressSpotOrdersResponseAminoMsg {
 export interface QuerySpotMidPriceAndTOBRequest {
   /** Market ID for the market */
   marketId: string;
-}
-export interface ReactiveQuerySpotMidPriceAndTOBRequest {
-  marketId: ComputedRef<string>;
 }
 export interface QuerySpotMidPriceAndTOBRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMidPriceAndTOBRequest";
@@ -1301,11 +1141,6 @@ export interface QuerySpotMidPriceAndTOBResponse {
   /** best sell price of the market */
   bestSellPrice?: string;
 }
-export interface ReactiveQuerySpotMidPriceAndTOBResponse {
-  midPrice?: ComputedRef<string>;
-  bestBuyPrice?: ComputedRef<string>;
-  bestSellPrice?: ComputedRef<string>;
-}
 export interface QuerySpotMidPriceAndTOBResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMidPriceAndTOBResponse";
   value: Uint8Array;
@@ -1334,9 +1169,6 @@ export interface QueryDerivativeMidPriceAndTOBRequest {
   /** Market ID for the market */
   marketId: string;
 }
-export interface ReactiveQueryDerivativeMidPriceAndTOBRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryDerivativeMidPriceAndTOBRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBRequest";
   value: Uint8Array;
@@ -1364,11 +1196,6 @@ export interface QueryDerivativeMidPriceAndTOBResponse {
   bestBuyPrice?: string;
   /** best sell price of the market */
   bestSellPrice?: string;
-}
-export interface ReactiveQueryDerivativeMidPriceAndTOBResponse {
-  midPrice?: ComputedRef<string>;
-  bestBuyPrice?: ComputedRef<string>;
-  bestSellPrice?: ComputedRef<string>;
 }
 export interface QueryDerivativeMidPriceAndTOBResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBResponse";
@@ -1400,11 +1227,6 @@ export interface QueryDerivativeOrderbookRequest {
   limit: bigint;
   limitCumulativeNotional?: string;
 }
-export interface ReactiveQueryDerivativeOrderbookRequest {
-  marketId: ComputedRef<string>;
-  limit: ComputedRef<bigint>;
-  limitCumulativeNotional?: ComputedRef<string>;
-}
 export interface QueryDerivativeOrderbookRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrderbookRequest";
   value: Uint8Array;
@@ -1430,10 +1252,6 @@ export interface QueryDerivativeOrderbookRequestAminoMsg {
 export interface QueryDerivativeOrderbookResponse {
   buysPriceLevel: Level[];
   sellsPriceLevel: Level[];
-}
-export interface ReactiveQueryDerivativeOrderbookResponse {
-  buysPriceLevel: ComputedRef<Level[]>;
-  sellsPriceLevel: ComputedRef<Level[]>;
 }
 export interface QueryDerivativeOrderbookResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrderbookResponse";
@@ -1471,14 +1289,6 @@ export interface QueryTraderSpotOrdersToCancelUpToAmountRequest {
    * price
    */
   referencePrice?: string;
-}
-export interface ReactiveQueryTraderSpotOrdersToCancelUpToAmountRequest {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  baseAmount: ComputedRef<string>;
-  quoteAmount: ComputedRef<string>;
-  strategy: ComputedRef<CancellationStrategy>;
-  referencePrice?: ComputedRef<string>;
 }
 export interface QueryTraderSpotOrdersToCancelUpToAmountRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderSpotOrdersToCancelUpToAmountRequest";
@@ -1528,13 +1338,6 @@ export interface QueryTraderDerivativeOrdersToCancelUpToAmountRequest {
    */
   referencePrice?: string;
 }
-export interface ReactiveQueryTraderDerivativeOrdersToCancelUpToAmountRequest {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  quoteAmount: ComputedRef<string>;
-  strategy: ComputedRef<CancellationStrategy>;
-  referencePrice?: ComputedRef<string>;
-}
 export interface QueryTraderDerivativeOrdersToCancelUpToAmountRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeOrdersToCancelUpToAmountRequest";
   value: Uint8Array;
@@ -1572,10 +1375,6 @@ export interface QueryTraderDerivativeOrdersRequest {
   /** SubaccountID of the trader */
   subaccountId: string;
 }
-export interface ReactiveQueryTraderDerivativeOrdersRequest {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-}
 export interface QueryTraderDerivativeOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest";
   value: Uint8Array;
@@ -1603,10 +1402,6 @@ export interface QueryAccountAddressDerivativeOrdersRequest {
   marketId: string;
   /** Account address of the trader */
   accountAddress: string;
-}
-export interface ReactiveQueryAccountAddressDerivativeOrdersRequest {
-  marketId: ComputedRef<string>;
-  accountAddress: ComputedRef<string>;
 }
 export interface QueryAccountAddressDerivativeOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersRequest";
@@ -1640,15 +1435,6 @@ export interface TrimmedDerivativeLimitOrder {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveTrimmedDerivativeLimitOrder {
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-  margin: ComputedRef<string>;
-  fillable: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface TrimmedDerivativeLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TrimmedDerivativeLimitOrder";
   value: Uint8Array;
@@ -1678,9 +1464,6 @@ export interface TrimmedDerivativeLimitOrderAminoMsg {
 export interface QueryTraderDerivativeOrdersResponse {
   orders: TrimmedDerivativeLimitOrder[];
 }
-export interface ReactiveQueryTraderDerivativeOrdersResponse {
-  orders: ComputedRef<TrimmedDerivativeLimitOrder[]>;
-}
 export interface QueryTraderDerivativeOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse";
   value: Uint8Array;
@@ -1702,9 +1485,6 @@ export interface QueryTraderDerivativeOrdersResponseAminoMsg {
  */
 export interface QueryAccountAddressDerivativeOrdersResponse {
   orders: TrimmedDerivativeLimitOrder[];
-}
-export interface ReactiveQueryAccountAddressDerivativeOrdersResponse {
-  orders: ComputedRef<TrimmedDerivativeLimitOrder[]>;
 }
 export interface QueryAccountAddressDerivativeOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersResponse";
@@ -1733,11 +1513,6 @@ export interface QueryDerivativeOrdersByHashesRequest {
   /** the order hashes */
   orderHashes: string[];
 }
-export interface ReactiveQueryDerivativeOrdersByHashesRequest {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHashes: ComputedRef<string[]>;
-}
 export interface QueryDerivativeOrdersByHashesRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrdersByHashesRequest";
   value: Uint8Array;
@@ -1764,9 +1539,6 @@ export interface QueryDerivativeOrdersByHashesRequestAminoMsg {
  */
 export interface QueryDerivativeOrdersByHashesResponse {
   orders: TrimmedDerivativeLimitOrder[];
-}
-export interface ReactiveQueryDerivativeOrdersByHashesResponse {
-  orders: ComputedRef<TrimmedDerivativeLimitOrder[]>;
 }
 export interface QueryDerivativeOrdersByHashesResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrdersByHashesResponse";
@@ -1798,11 +1570,6 @@ export interface QueryDerivativeMarketsRequest {
    */
   withMidPriceAndTob: boolean;
 }
-export interface ReactiveQueryDerivativeMarketsRequest {
-  status: ComputedRef<string>;
-  marketIds: ComputedRef<string[]>;
-  withMidPriceAndTob: ComputedRef<boolean>;
-}
 export interface QueryDerivativeMarketsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketsRequest";
   value: Uint8Array;
@@ -1831,10 +1598,6 @@ export interface PriceLevel {
   /** quantity */
   quantity: string;
 }
-export interface ReactivePriceLevel {
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-}
 export interface PriceLevelProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PriceLevel";
   value: Uint8Array;
@@ -1851,10 +1614,6 @@ export interface PriceLevelAminoMsg {
 export interface PerpetualMarketState {
   marketInfo?: PerpetualMarketInfo;
   fundingInfo?: PerpetualMarketFunding;
-}
-export interface ReactivePerpetualMarketState {
-  marketInfo?: ComputedRef<PerpetualMarketInfo>;
-  fundingInfo?: ComputedRef<PerpetualMarketFunding>;
 }
 export interface PerpetualMarketStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketState";
@@ -1878,13 +1637,6 @@ export interface FullDerivativeMarket {
    * and bid orders
    */
   midPriceAndTob?: MidPriceAndTOB;
-}
-export interface ReactiveFullDerivativeMarket {
-  market?: ComputedRef<DerivativeMarket>;
-  perpetualInfo?: ComputedRef<PerpetualMarketState>;
-  futuresInfo?: ComputedRef<ExpiryFuturesMarketInfo>;
-  markPrice: ComputedRef<string>;
-  midPriceAndTob?: ComputedRef<MidPriceAndTOB>;
 }
 export interface FullDerivativeMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullDerivativeMarket";
@@ -1912,9 +1664,6 @@ export interface FullDerivativeMarketAminoMsg {
 export interface QueryDerivativeMarketsResponse {
   markets: FullDerivativeMarket[];
 }
-export interface ReactiveQueryDerivativeMarketsResponse {
-  markets: ComputedRef<FullDerivativeMarket[]>;
-}
 export interface QueryDerivativeMarketsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketsResponse";
   value: Uint8Array;
@@ -1937,9 +1686,6 @@ export interface QueryDerivativeMarketsResponseAminoMsg {
 export interface QueryDerivativeMarketRequest {
   /** Market ID for the market */
   marketId: string;
-}
-export interface ReactiveQueryDerivativeMarketRequest {
-  marketId: ComputedRef<string>;
 }
 export interface QueryDerivativeMarketRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketRequest";
@@ -1964,9 +1710,6 @@ export interface QueryDerivativeMarketRequestAminoMsg {
 export interface QueryDerivativeMarketResponse {
   market?: FullDerivativeMarket;
 }
-export interface ReactiveQueryDerivativeMarketResponse {
-  market?: ComputedRef<FullDerivativeMarket>;
-}
 export interface QueryDerivativeMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketResponse";
   value: Uint8Array;
@@ -1989,9 +1732,6 @@ export interface QueryDerivativeMarketResponseAminoMsg {
 export interface QueryDerivativeMarketAddressRequest {
   /** Market ID for the market */
   marketId: string;
-}
-export interface ReactiveQueryDerivativeMarketAddressRequest {
-  marketId: ComputedRef<string>;
 }
 export interface QueryDerivativeMarketAddressRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest";
@@ -2019,10 +1759,6 @@ export interface QueryDerivativeMarketAddressResponse {
   /** subaccountID for the market */
   subaccountId: string;
 }
-export interface ReactiveQueryDerivativeMarketAddressResponse {
-  address: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-}
 export interface QueryDerivativeMarketAddressResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse";
   value: Uint8Array;
@@ -2048,9 +1784,6 @@ export interface QueryDerivativeMarketAddressResponseAminoMsg {
 export interface QuerySubaccountTradeNonceRequest {
   subaccountId: string;
 }
-export interface ReactiveQuerySubaccountTradeNonceRequest {
-  subaccountId: ComputedRef<string>;
-}
 export interface QuerySubaccountTradeNonceRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest";
   value: Uint8Array;
@@ -2072,9 +1805,6 @@ export interface QuerySubaccountTradeNonceRequestAminoMsg {
  */
 export interface QuerySubaccountPositionsRequest {
   subaccountId: string;
-}
-export interface ReactiveQuerySubaccountPositionsRequest {
-  subaccountId: ComputedRef<string>;
 }
 export interface QuerySubaccountPositionsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionsRequest";
@@ -2098,10 +1828,6 @@ export interface QuerySubaccountPositionsRequestAminoMsg {
 export interface QuerySubaccountPositionInMarketRequest {
   subaccountId: string;
   marketId: string;
-}
-export interface ReactiveQuerySubaccountPositionInMarketRequest {
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
 }
 export interface QuerySubaccountPositionInMarketRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionInMarketRequest";
@@ -2127,10 +1853,6 @@ export interface QuerySubaccountEffectivePositionInMarketRequest {
   subaccountId: string;
   marketId: string;
 }
-export interface ReactiveQuerySubaccountEffectivePositionInMarketRequest {
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-}
 export interface QuerySubaccountEffectivePositionInMarketRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketRequest";
   value: Uint8Array;
@@ -2154,9 +1876,6 @@ export interface QuerySubaccountEffectivePositionInMarketRequestAminoMsg {
 export interface QuerySubaccountOrderMetadataRequest {
   subaccountId: string;
 }
-export interface ReactiveQuerySubaccountOrderMetadataRequest {
-  subaccountId: ComputedRef<string>;
-}
 export interface QuerySubaccountOrderMetadataRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest";
   value: Uint8Array;
@@ -2178,9 +1897,6 @@ export interface QuerySubaccountOrderMetadataRequestAminoMsg {
  */
 export interface QuerySubaccountPositionsResponse {
   state: DerivativePosition[];
-}
-export interface ReactiveQuerySubaccountPositionsResponse {
-  state: ComputedRef<DerivativePosition[]>;
 }
 export interface QuerySubaccountPositionsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionsResponse";
@@ -2204,9 +1920,6 @@ export interface QuerySubaccountPositionsResponseAminoMsg {
 export interface QuerySubaccountPositionInMarketResponse {
   state?: Position;
 }
-export interface ReactiveQuerySubaccountPositionInMarketResponse {
-  state?: ComputedRef<Position>;
-}
 export interface QuerySubaccountPositionInMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionInMarketResponse";
   value: Uint8Array;
@@ -2228,12 +1941,6 @@ export interface EffectivePosition {
   entryPrice: string;
   effectiveMargin: string;
 }
-export interface ReactiveEffectivePosition {
-  isLong: ComputedRef<boolean>;
-  quantity: ComputedRef<string>;
-  entryPrice: ComputedRef<string>;
-  effectiveMargin: ComputedRef<string>;
-}
 export interface EffectivePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EffectivePosition";
   value: Uint8Array;
@@ -2254,9 +1961,6 @@ export interface EffectivePositionAminoMsg {
  */
 export interface QuerySubaccountEffectivePositionInMarketResponse {
   state?: EffectivePosition;
-}
-export interface ReactiveQuerySubaccountEffectivePositionInMarketResponse {
-  state?: ComputedRef<EffectivePosition>;
 }
 export interface QuerySubaccountEffectivePositionInMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketResponse";
@@ -2280,9 +1984,6 @@ export interface QuerySubaccountEffectivePositionInMarketResponseAminoMsg {
 export interface QueryPerpetualMarketInfoRequest {
   marketId: string;
 }
-export interface ReactiveQueryPerpetualMarketInfoRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryPerpetualMarketInfoRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketInfoRequest";
   value: Uint8Array;
@@ -2304,9 +2005,6 @@ export interface QueryPerpetualMarketInfoRequestAminoMsg {
  */
 export interface QueryPerpetualMarketInfoResponse {
   info: PerpetualMarketInfo;
-}
-export interface ReactiveQueryPerpetualMarketInfoResponse {
-  info: ComputedRef<PerpetualMarketInfo>;
 }
 export interface QueryPerpetualMarketInfoResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketInfoResponse";
@@ -2330,9 +2028,6 @@ export interface QueryPerpetualMarketInfoResponseAminoMsg {
 export interface QueryExpiryFuturesMarketInfoRequest {
   marketId: string;
 }
-export interface ReactiveQueryExpiryFuturesMarketInfoRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryExpiryFuturesMarketInfoRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoRequest";
   value: Uint8Array;
@@ -2354,9 +2049,6 @@ export interface QueryExpiryFuturesMarketInfoRequestAminoMsg {
  */
 export interface QueryExpiryFuturesMarketInfoResponse {
   info: ExpiryFuturesMarketInfo;
-}
-export interface ReactiveQueryExpiryFuturesMarketInfoResponse {
-  info: ComputedRef<ExpiryFuturesMarketInfo>;
 }
 export interface QueryExpiryFuturesMarketInfoResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoResponse";
@@ -2380,9 +2072,6 @@ export interface QueryExpiryFuturesMarketInfoResponseAminoMsg {
 export interface QueryPerpetualMarketFundingRequest {
   marketId: string;
 }
-export interface ReactiveQueryPerpetualMarketFundingRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryPerpetualMarketFundingRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketFundingRequest";
   value: Uint8Array;
@@ -2404,9 +2093,6 @@ export interface QueryPerpetualMarketFundingRequestAminoMsg {
  */
 export interface QueryPerpetualMarketFundingResponse {
   state: PerpetualMarketFunding;
-}
-export interface ReactiveQueryPerpetualMarketFundingResponse {
-  state: ComputedRef<PerpetualMarketFunding>;
 }
 export interface QueryPerpetualMarketFundingResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketFundingResponse";
@@ -2430,9 +2116,6 @@ export interface QueryPerpetualMarketFundingResponseAminoMsg {
 export interface QuerySubaccountOrderMetadataResponse {
   metadata: SubaccountOrderbookMetadataWithMarket[];
 }
-export interface ReactiveQuerySubaccountOrderMetadataResponse {
-  metadata: ComputedRef<SubaccountOrderbookMetadataWithMarket[]>;
-}
 export interface QuerySubaccountOrderMetadataResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse";
   value: Uint8Array;
@@ -2455,9 +2138,6 @@ export interface QuerySubaccountOrderMetadataResponseAminoMsg {
 export interface QuerySubaccountTradeNonceResponse {
   nonce: number;
 }
-export interface ReactiveQuerySubaccountTradeNonceResponse {
-  nonce: ComputedRef<number>;
-}
 export interface QuerySubaccountTradeNonceResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse";
   value: Uint8Array;
@@ -2478,7 +2158,6 @@ export interface QuerySubaccountTradeNonceResponseAminoMsg {
  * RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -2499,9 +2178,6 @@ export interface QueryModuleStateRequestAminoMsg {
 export interface QueryModuleStateResponse {
   state?: GenesisState;
 }
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
-}
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryModuleStateResponse";
   value: Uint8Array;
@@ -2519,7 +2195,6 @@ export interface QueryModuleStateResponseAminoMsg {
 }
 /** QueryPositionsRequest is the request type for the Query/Positions RPC method. */
 export interface QueryPositionsRequest {}
-export interface ReactiveQueryPositionsRequest {}
 export interface QueryPositionsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPositionsRequest";
   value: Uint8Array;
@@ -2536,9 +2211,6 @@ export interface QueryPositionsRequestAminoMsg {
  */
 export interface QueryPositionsResponse {
   state: DerivativePosition[];
-}
-export interface ReactiveQueryPositionsResponse {
-  state: ComputedRef<DerivativePosition[]>;
 }
 export interface QueryPositionsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPositionsResponse";
@@ -2563,10 +2235,6 @@ export interface QueryTradeRewardPointsRequest {
   accounts: string[];
   pendingPoolTimestamp: bigint;
 }
-export interface ReactiveQueryTradeRewardPointsRequest {
-  accounts: ComputedRef<string[]>;
-  pendingPoolTimestamp: ComputedRef<bigint>;
-}
 export interface QueryTradeRewardPointsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardPointsRequest";
   value: Uint8Array;
@@ -2590,9 +2258,6 @@ export interface QueryTradeRewardPointsRequestAminoMsg {
 export interface QueryTradeRewardPointsResponse {
   accountTradeRewardPoints: string[];
 }
-export interface ReactiveQueryTradeRewardPointsResponse {
-  accountTradeRewardPoints: ComputedRef<string[]>;
-}
 export interface QueryTradeRewardPointsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardPointsResponse";
   value: Uint8Array;
@@ -2613,7 +2278,6 @@ export interface QueryTradeRewardPointsResponseAminoMsg {
  * Query/TradeRewardCampaign RPC method.
  */
 export interface QueryTradeRewardCampaignRequest {}
-export interface ReactiveQueryTradeRewardCampaignRequest {}
 export interface QueryTradeRewardCampaignRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardCampaignRequest";
   value: Uint8Array;
@@ -2637,13 +2301,6 @@ export interface QueryTradeRewardCampaignResponse {
   totalTradeRewardPoints: string;
   pendingTradingRewardPoolCampaignSchedule: CampaignRewardPool[];
   pendingTotalTradeRewardPoints: string[];
-}
-export interface ReactiveQueryTradeRewardCampaignResponse {
-  tradingRewardCampaignInfo?: ComputedRef<TradingRewardCampaignInfo>;
-  tradingRewardPoolCampaignSchedule: ComputedRef<CampaignRewardPool[]>;
-  totalTradeRewardPoints: ComputedRef<string>;
-  pendingTradingRewardPoolCampaignSchedule: ComputedRef<CampaignRewardPool[]>;
-  pendingTotalTradeRewardPoints: ComputedRef<string[]>;
 }
 export interface QueryTradeRewardCampaignResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardCampaignResponse";
@@ -2671,9 +2328,6 @@ export interface QueryTradeRewardCampaignResponseAminoMsg {
 export interface QueryIsOptedOutOfRewardsRequest {
   account: string;
 }
-export interface ReactiveQueryIsOptedOutOfRewardsRequest {
-  account: ComputedRef<string>;
-}
 export interface QueryIsOptedOutOfRewardsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryIsOptedOutOfRewardsRequest";
   value: Uint8Array;
@@ -2696,9 +2350,6 @@ export interface QueryIsOptedOutOfRewardsRequestAminoMsg {
 export interface QueryIsOptedOutOfRewardsResponse {
   isOptedOut: boolean;
 }
-export interface ReactiveQueryIsOptedOutOfRewardsResponse {
-  isOptedOut: ComputedRef<boolean>;
-}
 export interface QueryIsOptedOutOfRewardsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryIsOptedOutOfRewardsResponse";
   value: Uint8Array;
@@ -2719,7 +2370,6 @@ export interface QueryIsOptedOutOfRewardsResponseAminoMsg {
  * RPC method.
  */
 export interface QueryOptedOutOfRewardsAccountsRequest {}
-export interface ReactiveQueryOptedOutOfRewardsAccountsRequest {}
 export interface QueryOptedOutOfRewardsAccountsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsRequest";
   value: Uint8Array;
@@ -2739,9 +2389,6 @@ export interface QueryOptedOutOfRewardsAccountsRequestAminoMsg {
  */
 export interface QueryOptedOutOfRewardsAccountsResponse {
   accounts: string[];
-}
-export interface ReactiveQueryOptedOutOfRewardsAccountsResponse {
-  accounts: ComputedRef<string[]>;
 }
 export interface QueryOptedOutOfRewardsAccountsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsResponse";
@@ -2764,9 +2411,6 @@ export interface QueryOptedOutOfRewardsAccountsResponseAminoMsg {
  */
 export interface QueryFeeDiscountAccountInfoRequest {
   account: string;
-}
-export interface ReactiveQueryFeeDiscountAccountInfoRequest {
-  account: ComputedRef<string>;
 }
 export interface QueryFeeDiscountAccountInfoRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest";
@@ -2792,11 +2436,6 @@ export interface QueryFeeDiscountAccountInfoResponse {
   accountInfo?: FeeDiscountTierInfo;
   accountTtl?: FeeDiscountTierTTL;
 }
-export interface ReactiveQueryFeeDiscountAccountInfoResponse {
-  tierLevel: ComputedRef<bigint>;
-  accountInfo?: ComputedRef<FeeDiscountTierInfo>;
-  accountTtl?: ComputedRef<FeeDiscountTierTTL>;
-}
 export interface QueryFeeDiscountAccountInfoResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse";
   value: Uint8Array;
@@ -2819,7 +2458,6 @@ export interface QueryFeeDiscountAccountInfoResponseAminoMsg {
  * Query/FeeDiscountSchedule RPC method.
  */
 export interface QueryFeeDiscountScheduleRequest {}
-export interface ReactiveQueryFeeDiscountScheduleRequest {}
 export interface QueryFeeDiscountScheduleRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest";
   value: Uint8Array;
@@ -2839,9 +2477,6 @@ export interface QueryFeeDiscountScheduleRequestAminoMsg {
  */
 export interface QueryFeeDiscountScheduleResponse {
   feeDiscountSchedule?: FeeDiscountSchedule;
-}
-export interface ReactiveQueryFeeDiscountScheduleResponse {
-  feeDiscountSchedule?: ComputedRef<FeeDiscountSchedule>;
 }
 export interface QueryFeeDiscountScheduleResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse";
@@ -2864,9 +2499,6 @@ export interface QueryFeeDiscountScheduleResponseAminoMsg {
  */
 export interface QueryBalanceMismatchesRequest {
   dustFactor: bigint;
-}
-export interface ReactiveQueryBalanceMismatchesRequest {
-  dustFactor: ComputedRef<bigint>;
 }
 export interface QueryBalanceMismatchesRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceMismatchesRequest";
@@ -2892,15 +2524,6 @@ export interface BalanceMismatch {
   expectedTotal: string;
   difference: string;
 }
-export interface ReactiveBalanceMismatch {
-  subaccountId: ComputedRef<string>;
-  denom: ComputedRef<string>;
-  available: ComputedRef<string>;
-  total: ComputedRef<string>;
-  balanceHold: ComputedRef<string>;
-  expectedTotal: ComputedRef<string>;
-  difference: ComputedRef<string>;
-}
 export interface BalanceMismatchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BalanceMismatch";
   value: Uint8Array;
@@ -2925,9 +2548,6 @@ export interface BalanceMismatchAminoMsg {
 export interface QueryBalanceMismatchesResponse {
   balanceMismatches: BalanceMismatch[];
 }
-export interface ReactiveQueryBalanceMismatchesResponse {
-  balanceMismatches: ComputedRef<BalanceMismatch[]>;
-}
 export interface QueryBalanceMismatchesResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceMismatchesResponse";
   value: Uint8Array;
@@ -2948,7 +2568,6 @@ export interface QueryBalanceMismatchesResponseAminoMsg {
  * Query/QueryBalanceWithBalanceHolds RPC method.
  */
 export interface QueryBalanceWithBalanceHoldsRequest {}
-export interface ReactiveQueryBalanceWithBalanceHoldsRequest {}
 export interface QueryBalanceWithBalanceHoldsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest";
   value: Uint8Array;
@@ -2968,13 +2587,6 @@ export interface BalanceWithMarginHold {
   available: string;
   total: string;
   balanceHold: string;
-}
-export interface ReactiveBalanceWithMarginHold {
-  subaccountId: ComputedRef<string>;
-  denom: ComputedRef<string>;
-  available: ComputedRef<string>;
-  total: ComputedRef<string>;
-  balanceHold: ComputedRef<string>;
 }
 export interface BalanceWithMarginHoldProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BalanceWithMarginHold";
@@ -2998,9 +2610,6 @@ export interface BalanceWithMarginHoldAminoMsg {
 export interface QueryBalanceWithBalanceHoldsResponse {
   balanceWithBalanceHolds: BalanceWithMarginHold[];
 }
-export interface ReactiveQueryBalanceWithBalanceHoldsResponse {
-  balanceWithBalanceHolds: ComputedRef<BalanceWithMarginHold[]>;
-}
 export interface QueryBalanceWithBalanceHoldsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse";
   value: Uint8Array;
@@ -3021,7 +2630,6 @@ export interface QueryBalanceWithBalanceHoldsResponseAminoMsg {
  * Query/QueryFeeDiscountTierStatistics RPC method.
  */
 export interface QueryFeeDiscountTierStatisticsRequest {}
-export interface ReactiveQueryFeeDiscountTierStatisticsRequest {}
 export interface QueryFeeDiscountTierStatisticsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsRequest";
   value: Uint8Array;
@@ -3038,10 +2646,6 @@ export interface QueryFeeDiscountTierStatisticsRequestAminoMsg {
 export interface TierStatistic {
   tier: bigint;
   count: bigint;
-}
-export interface ReactiveTierStatistic {
-  tier: ComputedRef<bigint>;
-  count: ComputedRef<bigint>;
 }
 export interface TierStatisticProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TierStatistic";
@@ -3061,9 +2665,6 @@ export interface TierStatisticAminoMsg {
  */
 export interface QueryFeeDiscountTierStatisticsResponse {
   statistics: TierStatistic[];
-}
-export interface ReactiveQueryFeeDiscountTierStatisticsResponse {
-  statistics: ComputedRef<TierStatistic[]>;
 }
 export interface QueryFeeDiscountTierStatisticsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsResponse";
@@ -3085,7 +2686,6 @@ export interface QueryFeeDiscountTierStatisticsResponseAminoMsg {
  * method.
  */
 export interface MitoVaultInfosRequest {}
-export interface ReactiveMitoVaultInfosRequest {}
 export interface MitoVaultInfosRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MitoVaultInfosRequest";
   value: Uint8Array;
@@ -3108,12 +2708,6 @@ export interface MitoVaultInfosResponse {
   derivativeAddresses: string[];
   spotAddresses: string[];
   cw20Addresses: string[];
-}
-export interface ReactiveMitoVaultInfosResponse {
-  masterAddresses: ComputedRef<string[]>;
-  derivativeAddresses: ComputedRef<string[]>;
-  spotAddresses: ComputedRef<string[]>;
-  cw20Addresses: ComputedRef<string[]>;
 }
 export interface MitoVaultInfosResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MitoVaultInfosResponse";
@@ -3140,9 +2734,6 @@ export interface MitoVaultInfosResponseAminoMsg {
 export interface QueryMarketIDFromVaultRequest {
   vaultAddress: string;
 }
-export interface ReactiveQueryMarketIDFromVaultRequest {
-  vaultAddress: ComputedRef<string>;
-}
 export interface QueryMarketIDFromVaultRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketIDFromVaultRequest";
   value: Uint8Array;
@@ -3165,9 +2756,6 @@ export interface QueryMarketIDFromVaultRequestAminoMsg {
 export interface QueryMarketIDFromVaultResponse {
   marketId: string;
 }
-export interface ReactiveQueryMarketIDFromVaultResponse {
-  marketId: ComputedRef<string>;
-}
 export interface QueryMarketIDFromVaultResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketIDFromVaultResponse";
   value: Uint8Array;
@@ -3186,9 +2774,6 @@ export interface QueryMarketIDFromVaultResponseAminoMsg {
 export interface QueryHistoricalTradeRecordsRequest {
   marketId: string;
 }
-export interface ReactiveQueryHistoricalTradeRecordsRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryHistoricalTradeRecordsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest";
   value: Uint8Array;
@@ -3202,9 +2787,6 @@ export interface QueryHistoricalTradeRecordsRequestAminoMsg {
 }
 export interface QueryHistoricalTradeRecordsResponse {
   tradeRecords: TradeRecords[];
-}
-export interface ReactiveQueryHistoricalTradeRecordsResponse {
-  tradeRecords: ComputedRef<TradeRecords[]>;
 }
 export interface QueryHistoricalTradeRecordsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsResponse";
@@ -3240,12 +2822,6 @@ export interface TradeHistoryOptions {
    * response
    */
   includeMetadata: boolean;
-}
-export interface ReactiveTradeHistoryOptions {
-  tradeGroupingSec: ComputedRef<bigint>;
-  maxAge: ComputedRef<bigint>;
-  includeRawHistory: ComputedRef<boolean>;
-  includeMetadata: ComputedRef<boolean>;
 }
 export interface TradeHistoryOptionsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradeHistoryOptions";
@@ -3287,10 +2863,6 @@ export interface QueryMarketVolatilityRequest {
   marketId: string;
   tradeHistoryOptions?: TradeHistoryOptions;
 }
-export interface ReactiveQueryMarketVolatilityRequest {
-  marketId: ComputedRef<string>;
-  tradeHistoryOptions?: ComputedRef<TradeHistoryOptions>;
-}
 export interface QueryMarketVolatilityRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketVolatilityRequest";
   value: Uint8Array;
@@ -3315,11 +2887,6 @@ export interface QueryMarketVolatilityResponse {
   volatility: string;
   historyMetadata?: MetadataStatistics;
   rawHistory: TradeRecord[];
-}
-export interface ReactiveQueryMarketVolatilityResponse {
-  volatility: ComputedRef<string>;
-  historyMetadata?: ComputedRef<MetadataStatistics>;
-  rawHistory: ComputedRef<TradeRecord[]>;
 }
 export interface QueryMarketVolatilityResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketVolatilityResponse";
@@ -3346,9 +2913,6 @@ export interface QueryBinaryMarketsRequest {
   /** Status of the market, for convenience it is set to string - not enum */
   status: string;
 }
-export interface ReactiveQueryBinaryMarketsRequest {
-  status: ComputedRef<string>;
-}
 export interface QueryBinaryMarketsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryBinaryMarketsRequest";
   value: Uint8Array;
@@ -3372,9 +2936,6 @@ export interface QueryBinaryMarketsRequestAminoMsg {
 export interface QueryBinaryMarketsResponse {
   markets: BinaryOptionsMarket[];
 }
-export interface ReactiveQueryBinaryMarketsResponse {
-  markets: ComputedRef<BinaryOptionsMarket[]>;
-}
 export interface QueryBinaryMarketsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryBinaryMarketsResponse";
   value: Uint8Array;
@@ -3397,10 +2958,6 @@ export interface QueryBinaryMarketsResponseAminoMsg {
 export interface QueryTraderDerivativeConditionalOrdersRequest {
   subaccountId: string;
   marketId: string;
-}
-export interface ReactiveQueryTraderDerivativeConditionalOrdersRequest {
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
 }
 export interface QueryTraderDerivativeConditionalOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersRequest";
@@ -3433,16 +2990,6 @@ export interface TrimmedDerivativeConditionalOrder {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveTrimmedDerivativeConditionalOrder {
-  price: ComputedRef<string>;
-  quantity: ComputedRef<string>;
-  margin: ComputedRef<string>;
-  triggerPrice: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  isLimit: ComputedRef<boolean>;
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface TrimmedDerivativeConditionalOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TrimmedDerivativeConditionalOrder";
   value: Uint8Array;
@@ -3473,9 +3020,6 @@ export interface TrimmedDerivativeConditionalOrderAminoMsg {
 export interface QueryTraderDerivativeConditionalOrdersResponse {
   orders: TrimmedDerivativeConditionalOrder[];
 }
-export interface ReactiveQueryTraderDerivativeConditionalOrdersResponse {
-  orders: ComputedRef<TrimmedDerivativeConditionalOrder[]>;
-}
 export interface QueryTraderDerivativeConditionalOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersResponse";
   value: Uint8Array;
@@ -3494,9 +3038,6 @@ export interface QueryTraderDerivativeConditionalOrdersResponseAminoMsg {
 export interface QueryMarketAtomicExecutionFeeMultiplierRequest {
   marketId: string;
 }
-export interface ReactiveQueryMarketAtomicExecutionFeeMultiplierRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryMarketAtomicExecutionFeeMultiplierRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest";
   value: Uint8Array;
@@ -3510,9 +3051,6 @@ export interface QueryMarketAtomicExecutionFeeMultiplierRequestAminoMsg {
 }
 export interface QueryMarketAtomicExecutionFeeMultiplierResponse {
   multiplier: string;
-}
-export interface ReactiveQueryMarketAtomicExecutionFeeMultiplierResponse {
-  multiplier: ComputedRef<string>;
 }
 export interface QueryMarketAtomicExecutionFeeMultiplierResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse";
@@ -3528,9 +3066,6 @@ export interface QueryMarketAtomicExecutionFeeMultiplierResponseAminoMsg {
 export interface QueryActiveStakeGrantRequest {
   grantee: string;
 }
-export interface ReactiveQueryActiveStakeGrantRequest {
-  grantee: ComputedRef<string>;
-}
 export interface QueryActiveStakeGrantRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryActiveStakeGrantRequest";
   value: Uint8Array;
@@ -3545,10 +3080,6 @@ export interface QueryActiveStakeGrantRequestAminoMsg {
 export interface QueryActiveStakeGrantResponse {
   grant?: ActiveGrant;
   effectiveGrant?: EffectiveGrant;
-}
-export interface ReactiveQueryActiveStakeGrantResponse {
-  grant?: ComputedRef<ActiveGrant>;
-  effectiveGrant?: ComputedRef<EffectiveGrant>;
 }
 export interface QueryActiveStakeGrantResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryActiveStakeGrantResponse";
@@ -3566,10 +3097,6 @@ export interface QueryGrantAuthorizationRequest {
   granter: string;
   grantee: string;
 }
-export interface ReactiveQueryGrantAuthorizationRequest {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-}
 export interface QueryGrantAuthorizationRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationRequest";
   value: Uint8Array;
@@ -3585,9 +3112,6 @@ export interface QueryGrantAuthorizationRequestAminoMsg {
 export interface QueryGrantAuthorizationResponse {
   amount: string;
 }
-export interface ReactiveQueryGrantAuthorizationResponse {
-  amount: ComputedRef<string>;
-}
 export interface QueryGrantAuthorizationResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationResponse";
   value: Uint8Array;
@@ -3601,9 +3125,6 @@ export interface QueryGrantAuthorizationResponseAminoMsg {
 }
 export interface QueryGrantAuthorizationsRequest {
   granter: string;
-}
-export interface ReactiveQueryGrantAuthorizationsRequest {
-  granter: ComputedRef<string>;
 }
 export interface QueryGrantAuthorizationsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationsRequest";
@@ -3619,10 +3140,6 @@ export interface QueryGrantAuthorizationsRequestAminoMsg {
 export interface QueryGrantAuthorizationsResponse {
   totalGrantAmount: string;
   grants: GrantAuthorization[];
-}
-export interface ReactiveQueryGrantAuthorizationsResponse {
-  totalGrantAmount: ComputedRef<string>;
-  grants: ComputedRef<GrantAuthorization[]>;
 }
 export interface QueryGrantAuthorizationsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationsResponse";

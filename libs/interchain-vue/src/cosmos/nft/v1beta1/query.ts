@@ -3,17 +3,12 @@ import { NFT, NFTAmino, Class, ClassAmino } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method */
 export interface QueryBalanceRequest {
   /** class_id associated with the nft */
   classId: string;
   /** owner is the owner address of the nft */
   owner: string;
-}
-export interface ReactiveQueryBalanceRequest {
-  classId: ComputedRef<string>;
-  owner: ComputedRef<string>;
 }
 export interface QueryBalanceRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryBalanceRequest";
@@ -35,9 +30,6 @@ export interface QueryBalanceResponse {
   /** amount is the number of all NFTs of a given class owned by the owner */
   amount: bigint;
 }
-export interface ReactiveQueryBalanceResponse {
-  amount: ComputedRef<bigint>;
-}
 export interface QueryBalanceResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryBalanceResponse";
   value: Uint8Array;
@@ -57,10 +49,6 @@ export interface QueryOwnerRequest {
   classId: string;
   /** id is a unique identifier of the NFT */
   id: string;
-}
-export interface ReactiveQueryOwnerRequest {
-  classId: ComputedRef<string>;
-  id: ComputedRef<string>;
 }
 export interface QueryOwnerRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryOwnerRequest";
@@ -82,9 +70,6 @@ export interface QueryOwnerResponse {
   /** owner is the owner address of the nft */
   owner: string;
 }
-export interface ReactiveQueryOwnerResponse {
-  owner: ComputedRef<string>;
-}
 export interface QueryOwnerResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryOwnerResponse";
   value: Uint8Array;
@@ -103,9 +88,6 @@ export interface QuerySupplyRequest {
   /** class_id associated with the nft */
   classId: string;
 }
-export interface ReactiveQuerySupplyRequest {
-  classId: ComputedRef<string>;
-}
 export interface QuerySupplyRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QuerySupplyRequest";
   value: Uint8Array;
@@ -123,9 +105,6 @@ export interface QuerySupplyRequestAminoMsg {
 export interface QuerySupplyResponse {
   /** amount is the number of all NFTs from the given class */
   amount: bigint;
-}
-export interface ReactiveQuerySupplyResponse {
-  amount: ComputedRef<bigint>;
 }
 export interface QuerySupplyResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QuerySupplyResponse";
@@ -148,11 +127,6 @@ export interface QueryNFTsRequest {
   owner: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryNFTsRequest {
-  classId: ComputedRef<string>;
-  owner: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryNFTsRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryNFTsRequest";
@@ -178,10 +152,6 @@ export interface QueryNFTsResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryNFTsResponse {
-  nfts: ComputedRef<NFT[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryNFTsResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryNFTsResponse";
   value: Uint8Array;
@@ -204,10 +174,6 @@ export interface QueryNFTRequest {
   /** id is a unique identifier of the NFT */
   id: string;
 }
-export interface ReactiveQueryNFTRequest {
-  classId: ComputedRef<string>;
-  id: ComputedRef<string>;
-}
 export interface QueryNFTRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryNFTRequest";
   value: Uint8Array;
@@ -228,9 +194,6 @@ export interface QueryNFTResponse {
   /** owner is the owner address of the nft */
   nft?: NFT;
 }
-export interface ReactiveQueryNFTResponse {
-  nft?: ComputedRef<NFT>;
-}
 export interface QueryNFTResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryNFTResponse";
   value: Uint8Array;
@@ -248,9 +211,6 @@ export interface QueryNFTResponseAminoMsg {
 export interface QueryClassRequest {
   /** class_id associated with the nft */
   classId: string;
-}
-export interface ReactiveQueryClassRequest {
-  classId: ComputedRef<string>;
 }
 export interface QueryClassRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryClassRequest";
@@ -270,9 +230,6 @@ export interface QueryClassResponse {
   /** class defines the class of the nft type. */
   class?: Class;
 }
-export interface ReactiveQueryClassResponse {
-  class?: ComputedRef<Class>;
-}
 export interface QueryClassResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryClassResponse";
   value: Uint8Array;
@@ -290,9 +247,6 @@ export interface QueryClassResponseAminoMsg {
 export interface QueryClassesRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryClassesRequest {
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryClassesRequestProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryClassesRequest";
@@ -313,10 +267,6 @@ export interface QueryClassesResponse {
   classes: Class[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveQueryClassesResponse {
-  classes: ComputedRef<Class[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface QueryClassesResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.QueryClassesResponse";
