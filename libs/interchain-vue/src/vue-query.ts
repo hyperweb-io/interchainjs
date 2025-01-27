@@ -31,7 +31,6 @@ import {
 } from '@tanstack/vue-query';
 
 import { HttpEndpoint, ProtobufRpcClient } from '@cosmjs/stargate';
-import { Tendermint34Client } from '@cosmjs/tendermint-rpc';
 import {Ref} from 'vue'
 
 export const DEFAULT_RPC_CLIENT_QUERY_KEY = 'rpcClient';
@@ -110,32 +109,6 @@ export function useRpcClient<TData = ProtobufRpcClient>({
   }
   );
 }
-
-interface UseTendermintClient extends VueQueryParams<Tendermint34Client> {
-    rpcEndpoint: string | HttpEndpoint;
-}
-
-/**
- * Function that uses vue-query to cache a connected tendermint client.
- */
-export const useTendermintClient = ({
-    rpcEndpoint,
-    options,
-}: UseTendermintClient) => {
-    const { data: client } = useQuery<Tendermint34Client, Error, Tendermint34Client>({
-        queryKey: ['client', 'tendermint', rpcEndpoint],
-        queryFn: () => Tendermint34Client.connect(rpcEndpoint),
-        ...{
-            // allow overriding
-            onError: (e: any) => {
-                throw new Error(`Failed to connect to ${rpcEndpoint}` + '\n' + e)
-            },
-            ...options,
-        }
-      }
-    );
-    return { client };
-};
 
 export interface UseQueryBuilderOptions<TReq, TRes> {
   builderQueryFn: (
