@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/auth",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "description": "Authentication for web3 accounts",
   "main": "index.js",
   "module": "esm/index.js",
