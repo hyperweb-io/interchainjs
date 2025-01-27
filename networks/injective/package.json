@@ -37,6 +37,7 @@
     "@interchainjs/ethereum": "1.7.8",
     "@interchainjs/types": "1.7.8",
     "@interchainjs/utils": "1.7.8",
+    "@ethersproject/transactions": "^5.7.0",
     "decimal.js": "^10.4.3",
     "interchainjs": "^1.8.1"
   },
