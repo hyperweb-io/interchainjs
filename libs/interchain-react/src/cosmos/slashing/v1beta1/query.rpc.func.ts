@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QuerySigningInfoRequest, QuerySigningInfoResponse, QuerySigningInfosRequest, QuerySigningInfosResponse } from "./query";
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -9,10 +8,6 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
-});
 export const createGetSigningInfo = (clientResolver?: RpcResolver) => buildQuery<QuerySigningInfoRequest, QuerySigningInfoResponse>({
   encode: QuerySigningInfoRequest.encode,
   decode: QuerySigningInfoResponse.decode,
@@ -21,10 +16,6 @@ export const createGetSigningInfo = (clientResolver?: RpcResolver) => buildQuery
   clientResolver,
   deps: [QuerySigningInfoRequest, QuerySigningInfoResponse]
 });
-export const useGetSigningInfo = buildUseQuery<QuerySigningInfoRequest, QuerySigningInfoResponse>({
-  builderQueryFn: createGetSigningInfo,
-  queryKeyPrefix: "SigningInfoQuery"
-});
 export const createGetSigningInfos = (clientResolver?: RpcResolver) => buildQuery<QuerySigningInfosRequest, QuerySigningInfosResponse>({
   encode: QuerySigningInfosRequest.encode,
   decode: QuerySigningInfosResponse.decode,
@@ -32,8 +23,4 @@ export const createGetSigningInfos = (clientResolver?: RpcResolver) => buildQuer
   method: "SigningInfos",
   clientResolver,
   deps: [QuerySigningInfosRequest, QuerySigningInfosResponse]
-});
-export const useGetSigningInfos = buildUseQuery<QuerySigningInfosRequest, QuerySigningInfosResponse>({
-  builderQueryFn: createGetSigningInfos,
-  queryKeyPrefix: "SigningInfosQuery"
 });

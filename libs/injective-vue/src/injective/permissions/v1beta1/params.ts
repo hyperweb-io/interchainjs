@@ -1,13 +1,9 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** Params defines the parameters for the permissions module. */
 export interface Params {
   wasmHookQueryMaxGas: bigint;
-}
-export interface ReactiveParams {
-  wasmHookQueryMaxGas: ComputedRef<bigint>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Params";

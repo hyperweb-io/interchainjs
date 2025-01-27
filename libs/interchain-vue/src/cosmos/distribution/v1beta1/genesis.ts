@@ -3,7 +3,6 @@ import { ValidatorAccumulatedCommission, ValidatorAccumulatedCommissionAmino, Va
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are
  * withdrawn to by default this struct is only used at genesis to feed in
@@ -14,10 +13,6 @@ export interface DelegatorWithdrawInfo {
   delegatorAddress: string;
   /** withdraw_address is the address to withdraw the delegation rewards to. */
   withdrawAddress: string;
-}
-export interface ReactiveDelegatorWithdrawInfo {
-  delegatorAddress: ComputedRef<string>;
-  withdrawAddress: ComputedRef<string>;
 }
 export interface DelegatorWithdrawInfoProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.DelegatorWithdrawInfo";
@@ -45,10 +40,6 @@ export interface ValidatorOutstandingRewardsRecord {
   /** outstanding_rewards represents the outstanding rewards of a validator. */
   outstandingRewards: DecCoin[];
 }
-export interface ReactiveValidatorOutstandingRewardsRecord {
-  validatorAddress: ComputedRef<string>;
-  outstandingRewards: ComputedRef<DecCoin[]>;
-}
 export interface ValidatorOutstandingRewardsRecordProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord";
   value: Uint8Array;
@@ -73,10 +64,6 @@ export interface ValidatorAccumulatedCommissionRecord {
   validatorAddress: string;
   /** accumulated is the accumulated commission of a validator. */
   accumulated: ValidatorAccumulatedCommission;
-}
-export interface ReactiveValidatorAccumulatedCommissionRecord {
-  validatorAddress: ComputedRef<string>;
-  accumulated: ComputedRef<ValidatorAccumulatedCommission>;
 }
 export interface ValidatorAccumulatedCommissionRecordProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord";
@@ -108,11 +95,6 @@ export interface ValidatorHistoricalRewardsRecord {
   /** rewards defines the historical rewards of a validator. */
   rewards: ValidatorHistoricalRewards;
 }
-export interface ReactiveValidatorHistoricalRewardsRecord {
-  validatorAddress: ComputedRef<string>;
-  period: ComputedRef<bigint>;
-  rewards: ComputedRef<ValidatorHistoricalRewards>;
-}
 export interface ValidatorHistoricalRewardsRecordProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord";
   value: Uint8Array;
@@ -140,10 +122,6 @@ export interface ValidatorCurrentRewardsRecord {
   /** rewards defines the current rewards of a validator. */
   rewards: ValidatorCurrentRewards;
 }
-export interface ReactiveValidatorCurrentRewardsRecord {
-  validatorAddress: ComputedRef<string>;
-  rewards: ComputedRef<ValidatorCurrentRewards>;
-}
 export interface ValidatorCurrentRewardsRecordProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord";
   value: Uint8Array;
@@ -167,11 +145,6 @@ export interface DelegatorStartingInfoRecord {
   validatorAddress: string;
   /** starting_info defines the starting info of a delegator. */
   startingInfo: DelegatorStartingInfo;
-}
-export interface ReactiveDelegatorStartingInfoRecord {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  startingInfo: ComputedRef<DelegatorStartingInfo>;
 }
 export interface DelegatorStartingInfoRecordProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.DelegatorStartingInfoRecord";
@@ -200,12 +173,6 @@ export interface ValidatorSlashEventRecord {
   period: bigint;
   /** validator_slash_event describes the slash event. */
   validatorSlashEvent: ValidatorSlashEvent;
-}
-export interface ReactiveValidatorSlashEventRecord {
-  validatorAddress: ComputedRef<string>;
-  height: ComputedRef<bigint>;
-  period: ComputedRef<bigint>;
-  validatorSlashEvent: ComputedRef<ValidatorSlashEvent>;
 }
 export interface ValidatorSlashEventRecordProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEventRecord";
@@ -248,18 +215,6 @@ export interface GenesisState {
   delegatorStartingInfos: DelegatorStartingInfoRecord[];
   /** fee_pool defines the validator slash events at genesis. */
   validatorSlashEvents: ValidatorSlashEventRecord[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  feePool: ComputedRef<FeePool>;
-  delegatorWithdrawInfos: ComputedRef<DelegatorWithdrawInfo[]>;
-  previousProposer: ComputedRef<string>;
-  outstandingRewards: ComputedRef<ValidatorOutstandingRewardsRecord[]>;
-  validatorAccumulatedCommissions: ComputedRef<ValidatorAccumulatedCommissionRecord[]>;
-  validatorHistoricalRewards: ComputedRef<ValidatorHistoricalRewardsRecord[]>;
-  validatorCurrentRewards: ComputedRef<ValidatorCurrentRewardsRecord[]>;
-  delegatorStartingInfos: ComputedRef<DelegatorStartingInfoRecord[]>;
-  validatorSlashEvents: ComputedRef<ValidatorSlashEventRecord[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.distribution.v1beta1.GenesisState";

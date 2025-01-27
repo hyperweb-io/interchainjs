@@ -3,7 +3,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
   /**
@@ -18,10 +17,6 @@ export interface QueryEvidenceRequest {
    * Since: cosmos-sdk 0.47
    */
   hash: string;
-}
-export interface ReactiveQueryEvidenceRequest {
-  evidenceHash: ComputedRef<Uint8Array>;
-  hash: ComputedRef<string>;
 }
 export interface QueryEvidenceRequestProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceRequest";
@@ -51,9 +46,6 @@ export interface QueryEvidenceResponse {
   /** evidence returns the requested evidence. */
   evidence?: Any;
 }
-export interface ReactiveQueryEvidenceResponse {
-  evidence?: ComputedRef<Any>;
-}
 export interface QueryEvidenceResponseProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceResponse";
   value: Uint8Array;
@@ -74,9 +66,6 @@ export interface QueryEvidenceResponseAminoMsg {
 export interface QueryAllEvidenceRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryAllEvidenceRequest {
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryAllEvidenceRequestProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceRequest";
@@ -103,10 +92,6 @@ export interface QueryAllEvidenceResponse {
   evidence: Any[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveQueryAllEvidenceResponse {
-  evidence: ComputedRef<Any[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface QueryAllEvidenceResponseProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceResponse";

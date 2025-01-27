@@ -4,7 +4,6 @@ import { Forwarding, ForwardingAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
  * ICS20 enabled chains. See ICS Spec here:
@@ -38,18 +37,6 @@ export interface MsgTransfer {
   tokens: Coin[];
   /** optional forwarding information */
   forwarding?: Forwarding;
-}
-export interface ReactiveMsgTransfer {
-  sourcePort: ComputedRef<string>;
-  sourceChannel: ComputedRef<string>;
-  token: ComputedRef<Coin>;
-  sender: ComputedRef<string>;
-  receiver: ComputedRef<string>;
-  timeoutHeight: ComputedRef<Height>;
-  timeoutTimestamp: ComputedRef<bigint>;
-  memo: ComputedRef<string>;
-  tokens: ComputedRef<Coin[]>;
-  forwarding?: ComputedRef<Forwarding>;
 }
 export interface MsgTransferProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.MsgTransfer";
@@ -98,9 +85,6 @@ export interface MsgTransferResponse {
   /** sequence number of the transfer packet sent */
   sequence: bigint;
 }
-export interface ReactiveMsgTransferResponse {
-  sequence: ComputedRef<bigint>;
-}
 export interface MsgTransferResponseProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.MsgTransferResponse";
   value: Uint8Array;
@@ -124,10 +108,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  signer: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.MsgUpdateParams";
@@ -153,7 +133,6 @@ export interface MsgUpdateParamsAminoMsg {
  * MsgUpdateParams message.
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.MsgUpdateParamsResponse";
   value: Uint8Array;

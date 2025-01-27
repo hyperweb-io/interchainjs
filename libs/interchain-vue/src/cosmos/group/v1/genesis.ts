@@ -2,7 +2,6 @@ import { GroupInfo, GroupInfoAmino, GroupMember, GroupMemberAmino, GroupPolicyIn
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** GenesisState defines the group module's genesis state. */
 export interface GenesisState {
   /**
@@ -30,16 +29,6 @@ export interface GenesisState {
   proposals: Proposal[];
   /** votes is the list of votes. */
   votes: Vote[];
-}
-export interface ReactiveGenesisState {
-  groupSeq: ComputedRef<bigint>;
-  groups: ComputedRef<GroupInfo[]>;
-  groupMembers: ComputedRef<GroupMember[]>;
-  groupPolicySeq: ComputedRef<bigint>;
-  groupPolicies: ComputedRef<GroupPolicyInfo[]>;
-  proposalSeq: ComputedRef<bigint>;
-  proposals: ComputedRef<Proposal[]>;
-  votes: ComputedRef<Vote[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.group.v1.GenesisState";

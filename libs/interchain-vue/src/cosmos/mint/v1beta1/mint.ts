@@ -1,17 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** Minter represents the minting state. */
 export interface Minter {
   /** current annual inflation rate */
   inflation: string;
   /** current annual expected provisions */
   annualProvisions: string;
-}
-export interface ReactiveMinter {
-  inflation: ComputedRef<string>;
-  annualProvisions: ComputedRef<string>;
 }
 export interface MinterProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.Minter";
@@ -42,14 +37,6 @@ export interface Params {
   goalBonded: string;
   /** expected blocks per year */
   blocksPerYear: bigint;
-}
-export interface ReactiveParams {
-  mintDenom: ComputedRef<string>;
-  inflationRateChange: ComputedRef<string>;
-  inflationMax: ComputedRef<string>;
-  inflationMin: ComputedRef<string>;
-  goalBonded: ComputedRef<string>;
-  blocksPerYear: ComputedRef<bigint>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.mint.v1beta1.Params";

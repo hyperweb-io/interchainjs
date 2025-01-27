@@ -4,13 +4,11 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * QueryAuctionParamsRequest is the request type for the Query/AuctionParams RPC
  * method.
  */
 export interface QueryAuctionParamsRequest {}
-export interface ReactiveQueryAuctionParamsRequest {}
 export interface QueryAuctionParamsRequestProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryAuctionParamsRequest";
   value: Uint8Array;
@@ -30,9 +28,6 @@ export interface QueryAuctionParamsRequestAminoMsg {
  */
 export interface QueryAuctionParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryAuctionParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryAuctionParamsResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryAuctionParamsResponse";
@@ -54,7 +49,6 @@ export interface QueryAuctionParamsResponseAminoMsg {
  * Query/CurrentAuctionBasket RPC method.
  */
 export interface QueryCurrentAuctionBasketRequest {}
-export interface ReactiveQueryCurrentAuctionBasketRequest {}
 export interface QueryCurrentAuctionBasketRequestProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryCurrentAuctionBasketRequest";
   value: Uint8Array;
@@ -83,13 +77,6 @@ export interface QueryCurrentAuctionBasketResponse {
   highestBidder: string;
   /** highestBidAmount describes highest bid amount on current round */
   highestBidAmount: string;
-}
-export interface ReactiveQueryCurrentAuctionBasketResponse {
-  amount: ComputedRef<Coin[]>;
-  auctionRound: ComputedRef<bigint>;
-  auctionClosingTime: ComputedRef<bigint>;
-  highestBidder: ComputedRef<string>;
-  highestBidAmount: ComputedRef<string>;
 }
 export interface QueryCurrentAuctionBasketResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryCurrentAuctionBasketResponse";
@@ -120,7 +107,6 @@ export interface QueryCurrentAuctionBasketResponseAminoMsg {
  * RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -141,9 +127,6 @@ export interface QueryModuleStateRequestAminoMsg {
 export interface QueryModuleStateResponse {
   state?: GenesisState;
 }
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
-}
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryModuleStateResponse";
   value: Uint8Array;
@@ -160,7 +143,6 @@ export interface QueryModuleStateResponseAminoMsg {
   value: QueryModuleStateResponseAmino;
 }
 export interface QueryLastAuctionResultRequest {}
-export interface ReactiveQueryLastAuctionResultRequest {}
 export interface QueryLastAuctionResultRequestProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultRequest";
   value: Uint8Array;
@@ -172,9 +154,6 @@ export interface QueryLastAuctionResultRequestAminoMsg {
 }
 export interface QueryLastAuctionResultResponse {
   lastAuctionResult?: LastAuctionResult;
-}
-export interface ReactiveQueryLastAuctionResultResponse {
-  lastAuctionResult?: ComputedRef<LastAuctionResult>;
 }
 export interface QueryLastAuctionResultResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultResponse";

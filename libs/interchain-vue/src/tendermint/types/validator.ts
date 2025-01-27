@@ -2,7 +2,6 @@ import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { ComputedRef } from "vue";
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {
   /** BLOCK_ID_FLAG_UNKNOWN - indicates an error condition */
@@ -55,11 +54,6 @@ export interface ValidatorSet {
   proposer?: Validator;
   totalVotingPower: bigint;
 }
-export interface ReactiveValidatorSet {
-  validators: ComputedRef<Validator[]>;
-  proposer?: ComputedRef<Validator>;
-  totalVotingPower: ComputedRef<bigint>;
-}
 export interface ValidatorSetProtoMsg {
   typeUrl: "/tendermint.types.ValidatorSet";
   value: Uint8Array;
@@ -79,12 +73,6 @@ export interface Validator {
   votingPower: bigint;
   proposerPriority: bigint;
 }
-export interface ReactiveValidator {
-  address: ComputedRef<Uint8Array>;
-  pubKey: ComputedRef<PublicKey>;
-  votingPower: ComputedRef<bigint>;
-  proposerPriority: ComputedRef<bigint>;
-}
 export interface ValidatorProtoMsg {
   typeUrl: "/tendermint.types.Validator";
   value: Uint8Array;
@@ -102,10 +90,6 @@ export interface ValidatorAminoMsg {
 export interface SimpleValidator {
   pubKey?: PublicKey;
   votingPower: bigint;
-}
-export interface ReactiveSimpleValidator {
-  pubKey?: ComputedRef<PublicKey>;
-  votingPower: ComputedRef<bigint>;
 }
 export interface SimpleValidatorProtoMsg {
   typeUrl: "/tendermint.types.SimpleValidator";

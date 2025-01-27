@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../../helper-func-types";
-import { buildUseQuery } from "../../../../react-query";
 import { QueryRequest, QueryResponse, ListQueryHandlersRequest, ListQueryHandlersResponse } from "./service";
 export const createGetQuery = (clientResolver?: RpcResolver) => buildQuery<QueryRequest, QueryResponse>({
   encode: QueryRequest.encode,
@@ -9,10 +8,6 @@ export const createGetQuery = (clientResolver?: RpcResolver) => buildQuery<Query
   clientResolver,
   deps: [QueryRequest, QueryResponse]
 });
-export const useGetQuery = buildUseQuery<QueryRequest, QueryResponse>({
-  builderQueryFn: createGetQuery,
-  queryKeyPrefix: "QueryQuery"
-});
 export const createGetListQueryHandlers = (clientResolver?: RpcResolver) => buildQuery<ListQueryHandlersRequest, ListQueryHandlersResponse>({
   encode: ListQueryHandlersRequest.encode,
   decode: ListQueryHandlersResponse.decode,
@@ -20,8 +15,4 @@ export const createGetListQueryHandlers = (clientResolver?: RpcResolver) => buil
   method: "ListQueryHandlers",
   clientResolver,
   deps: [ListQueryHandlersRequest, ListQueryHandlersResponse]
-});
-export const useGetListQueryHandlers = buildUseQuery<ListQueryHandlersRequest, ListQueryHandlersResponse>({
-  builderQueryFn: createGetListQueryHandlers,
-  queryKeyPrefix: "ListQueryHandlersQuery"
 });

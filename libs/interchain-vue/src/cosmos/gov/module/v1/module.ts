@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object of the gov module. */
 export interface Module {
   /**
@@ -11,10 +10,6 @@ export interface Module {
   maxMetadataLen: bigint;
   /** authority defines the custom module authority. If not set, defaults to the governance module. */
   authority: string;
-}
-export interface ReactiveModule {
-  maxMetadataLen: ComputedRef<bigint>;
-  authority: ComputedRef<string>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.gov.module.v1.Module";

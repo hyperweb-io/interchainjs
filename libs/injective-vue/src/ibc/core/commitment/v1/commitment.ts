@@ -2,16 +2,12 @@ import { CommitmentProof, CommitmentProofAmino } from "../../../../cosmos/ics23/
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MerkleRoot defines a merkle root hash.
  * In the Cosmos SDK, the AppHash of a block header becomes the root.
  */
 export interface MerkleRoot {
   hash: Uint8Array;
-}
-export interface ReactiveMerkleRoot {
-  hash: ComputedRef<Uint8Array>;
 }
 export interface MerkleRootProtoMsg {
   typeUrl: "/ibc.core.commitment.v1.MerkleRoot";
@@ -35,9 +31,6 @@ export interface MerkleRootAminoMsg {
  */
 export interface MerklePrefix {
   keyPrefix: Uint8Array;
-}
-export interface ReactiveMerklePrefix {
-  keyPrefix: ComputedRef<Uint8Array>;
 }
 export interface MerklePrefixProtoMsg {
   typeUrl: "/ibc.core.commitment.v1.MerklePrefix";
@@ -64,9 +57,6 @@ export interface MerklePrefixAminoMsg {
  */
 export interface MerkleProof {
   proofs: CommitmentProof[];
-}
-export interface ReactiveMerkleProof {
-  proofs: ComputedRef<CommitmentProof[]>;
 }
 export interface MerkleProofProtoMsg {
   typeUrl: "/ibc.core.commitment.v1.MerkleProof";

@@ -2,7 +2,6 @@ import { Deposit, DepositAmino, Vote, VoteAmino, Proposal, ProposalAmino, Deposi
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the gov module's genesis state. */
 export interface GenesisState {
   /** starting_proposal_id is the ID of the starting proposal. */
@@ -46,17 +45,6 @@ export interface GenesisState {
    * Since: cosmos-sdk 0.50
    */
   constitution: string;
-}
-export interface ReactiveGenesisState {
-  startingProposalId: ComputedRef<bigint>;
-  deposits: ComputedRef<Deposit[]>;
-  votes: ComputedRef<Vote[]>;
-  proposals: ComputedRef<Proposal[]>;
-  depositParams?: ComputedRef<DepositParams>;
-  votingParams?: ComputedRef<VotingParams>;
-  tallyParams?: ComputedRef<TallyParams>;
-  params?: ComputedRef<Params>;
-  constitution: ComputedRef<string>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.gov.v1.GenesisState";

@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object of the staking module. */
 export interface Module {
   /**
@@ -16,12 +15,6 @@ export interface Module {
   bech32PrefixValidator: string;
   /** bech32_prefix_consensus is the bech32 consensus node prefix for the app. */
   bech32PrefixConsensus: string;
-}
-export interface ReactiveModule {
-  hooksOrder: ComputedRef<string[]>;
-  authority: ComputedRef<string>;
-  bech32PrefixValidator: ComputedRef<string>;
-  bech32PrefixConsensus: ComputedRef<string>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.staking.module.v1.Module";

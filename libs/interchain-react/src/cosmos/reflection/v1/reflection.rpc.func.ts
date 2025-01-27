@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { FileDescriptorsRequest, FileDescriptorsResponse } from "./reflection";
 export const createGetFileDescriptors = (clientResolver?: RpcResolver) => buildQuery<FileDescriptorsRequest, FileDescriptorsResponse>({
   encode: FileDescriptorsRequest.encode,
@@ -8,8 +7,4 @@ export const createGetFileDescriptors = (clientResolver?: RpcResolver) => buildQ
   method: "FileDescriptors",
   clientResolver,
   deps: [FileDescriptorsRequest, FileDescriptorsResponse]
-});
-export const useGetFileDescriptors = buildUseQuery<FileDescriptorsRequest, FileDescriptorsResponse>({
-  builderQueryFn: createGetFileDescriptors,
-  queryKeyPrefix: "FileDescriptorsQuery"
 });

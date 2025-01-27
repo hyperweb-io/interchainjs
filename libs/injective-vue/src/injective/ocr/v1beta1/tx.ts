@@ -3,14 +3,9 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface MsgCreateFeed {
   sender: string;
   config?: FeedConfig;
-}
-export interface ReactiveMsgCreateFeed {
-  sender: ComputedRef<string>;
-  config?: ComputedRef<FeedConfig>;
 }
 export interface MsgCreateFeedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgCreateFeed";
@@ -25,7 +20,6 @@ export interface MsgCreateFeedAminoMsg {
   value: MsgCreateFeedAmino;
 }
 export interface MsgCreateFeedResponse {}
-export interface ReactiveMsgCreateFeedResponse {}
 export interface MsgCreateFeedResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgCreateFeedResponse";
   value: Uint8Array;
@@ -56,17 +50,6 @@ export interface MsgUpdateFeed {
   feedAdmin: string;
   /** feed billing administrator */
   billingAdmin: string;
-}
-export interface ReactiveMsgUpdateFeed {
-  sender: ComputedRef<string>;
-  feedId: ComputedRef<string>;
-  signers: ComputedRef<string[]>;
-  transmitters: ComputedRef<string[]>;
-  linkPerObservation?: ComputedRef<string>;
-  linkPerTransmission?: ComputedRef<string>;
-  linkDenom: ComputedRef<string>;
-  feedAdmin: ComputedRef<string>;
-  billingAdmin: ComputedRef<string>;
 }
 export interface MsgUpdateFeedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeed";
@@ -99,7 +82,6 @@ export interface MsgUpdateFeedAminoMsg {
   value: MsgUpdateFeedAmino;
 }
 export interface MsgUpdateFeedResponse {}
-export interface ReactiveMsgUpdateFeedResponse {}
 export interface MsgUpdateFeedResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeedResponse";
   value: Uint8Array;
@@ -119,16 +101,6 @@ export interface MsgTransmit {
   extraHash: Uint8Array;
   report?: Report;
   signatures: Uint8Array[];
-}
-export interface ReactiveMsgTransmit {
-  transmitter: ComputedRef<string>;
-  configDigest: ComputedRef<Uint8Array>;
-  feedId: ComputedRef<string>;
-  epoch: ComputedRef<bigint>;
-  round: ComputedRef<bigint>;
-  extraHash: ComputedRef<Uint8Array>;
-  report?: ComputedRef<Report>;
-  signatures: ComputedRef<Uint8Array[]>;
 }
 export interface MsgTransmitProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransmit";
@@ -150,7 +122,6 @@ export interface MsgTransmitAminoMsg {
   value: MsgTransmitAmino;
 }
 export interface MsgTransmitResponse {}
-export interface ReactiveMsgTransmitResponse {}
 export interface MsgTransmitResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransmitResponse";
   value: Uint8Array;
@@ -164,11 +135,6 @@ export interface MsgFundFeedRewardPool {
   sender: string;
   feedId: string;
   amount: Coin;
-}
-export interface ReactiveMsgFundFeedRewardPool {
-  sender: ComputedRef<string>;
-  feedId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgFundFeedRewardPoolProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPool";
@@ -184,7 +150,6 @@ export interface MsgFundFeedRewardPoolAminoMsg {
   value: MsgFundFeedRewardPoolAmino;
 }
 export interface MsgFundFeedRewardPoolResponse {}
-export interface ReactiveMsgFundFeedRewardPoolResponse {}
 export interface MsgFundFeedRewardPoolResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse";
   value: Uint8Array;
@@ -198,11 +163,6 @@ export interface MsgWithdrawFeedRewardPool {
   sender: string;
   feedId: string;
   amount: Coin;
-}
-export interface ReactiveMsgWithdrawFeedRewardPool {
-  sender: ComputedRef<string>;
-  feedId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgWithdrawFeedRewardPoolProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPool";
@@ -218,7 +178,6 @@ export interface MsgWithdrawFeedRewardPoolAminoMsg {
   value: MsgWithdrawFeedRewardPoolAmino;
 }
 export interface MsgWithdrawFeedRewardPoolResponse {}
-export interface ReactiveMsgWithdrawFeedRewardPoolResponse {}
 export interface MsgWithdrawFeedRewardPoolResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse";
   value: Uint8Array;
@@ -235,12 +194,6 @@ export interface MsgSetPayees {
   transmitters: string[];
   /** addresses of payees corresponding to list of transmitters */
   payees: string[];
-}
-export interface ReactiveMsgSetPayees {
-  sender: ComputedRef<string>;
-  feedId: ComputedRef<string>;
-  transmitters: ComputedRef<string[]>;
-  payees: ComputedRef<string[]>;
 }
 export interface MsgSetPayeesProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgSetPayees";
@@ -259,7 +212,6 @@ export interface MsgSetPayeesAminoMsg {
   value: MsgSetPayeesAmino;
 }
 export interface MsgSetPayeesResponse {}
-export interface ReactiveMsgSetPayeesResponse {}
 export interface MsgSetPayeesResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgSetPayeesResponse";
   value: Uint8Array;
@@ -276,12 +228,6 @@ export interface MsgTransferPayeeship {
   feedId: string;
   /** new payee address */
   proposed: string;
-}
-export interface ReactiveMsgTransferPayeeship {
-  sender: ComputedRef<string>;
-  transmitter: ComputedRef<string>;
-  feedId: ComputedRef<string>;
-  proposed: ComputedRef<string>;
 }
 export interface MsgTransferPayeeshipProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeship";
@@ -300,7 +246,6 @@ export interface MsgTransferPayeeshipAminoMsg {
   value: MsgTransferPayeeshipAmino;
 }
 export interface MsgTransferPayeeshipResponse {}
-export interface ReactiveMsgTransferPayeeshipResponse {}
 export interface MsgTransferPayeeshipResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeshipResponse";
   value: Uint8Array;
@@ -316,11 +261,6 @@ export interface MsgAcceptPayeeship {
   /** transmitter address of oracle whose payee is changing */
   transmitter: string;
   feedId: string;
-}
-export interface ReactiveMsgAcceptPayeeship {
-  payee: ComputedRef<string>;
-  transmitter: ComputedRef<string>;
-  feedId: ComputedRef<string>;
 }
 export interface MsgAcceptPayeeshipProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeship";
@@ -338,7 +278,6 @@ export interface MsgAcceptPayeeshipAminoMsg {
   value: MsgAcceptPayeeshipAmino;
 }
 export interface MsgAcceptPayeeshipResponse {}
-export interface ReactiveMsgAcceptPayeeshipResponse {}
 export interface MsgAcceptPayeeshipResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeshipResponse";
   value: Uint8Array;
@@ -357,10 +296,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateParams";
@@ -381,7 +316,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

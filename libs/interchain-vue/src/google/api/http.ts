@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 /**
  * Defines the HTTP configuration for an API service. It contains a list of
  * [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
@@ -23,10 +22,6 @@ export interface Http {
    * segment matches.
    */
   fullyDecodeReservedExpansion: boolean;
-}
-export interface ReactiveHttp {
-  rules: ComputedRef<HttpRule[]>;
-  fullyDecodeReservedExpansion: ComputedRef<boolean>;
 }
 export interface HttpProtoMsg {
   typeUrl: "/google.api.Http";
@@ -377,18 +372,6 @@ export interface HttpRule {
    */
   additionalBindings: HttpRule[];
 }
-export interface ReactiveHttpRule {
-  selector: ComputedRef<string>;
-  get?: ComputedRef<string>;
-  put?: ComputedRef<string>;
-  post?: ComputedRef<string>;
-  delete?: ComputedRef<string>;
-  patch?: ComputedRef<string>;
-  custom?: ComputedRef<CustomHttpPattern>;
-  body: ComputedRef<string>;
-  responseBody: ComputedRef<string>;
-  additionalBindings: ComputedRef<HttpRule[]>;
-}
 export interface HttpRuleProtoMsg {
   typeUrl: "/google.api.HttpRule";
   value: Uint8Array;
@@ -722,10 +705,6 @@ export interface CustomHttpPattern {
   kind: string;
   /** The path matched by this custom verb. */
   path: string;
-}
-export interface ReactiveCustomHttpPattern {
-  kind: ComputedRef<string>;
-  path: ComputedRef<string>;
 }
 export interface CustomHttpPatternProtoMsg {
   typeUrl: "/google.api.CustomHttpPattern";

@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
@@ -42,13 +41,6 @@ export interface PageRequest {
    * Since: cosmos-sdk 0.43
    */
   reverse: boolean;
-}
-export interface ReactivePageRequest {
-  key: ComputedRef<Uint8Array>;
-  offset: ComputedRef<bigint>;
-  limit: ComputedRef<bigint>;
-  countTotal: ComputedRef<boolean>;
-  reverse: ComputedRef<boolean>;
 }
 export interface PageRequestProtoMsg {
   typeUrl: "/cosmos.base.query.v1beta1.PageRequest";
@@ -120,10 +112,6 @@ export interface PageResponse {
    * was set, its value is undefined otherwise
    */
   total: bigint;
-}
-export interface ReactivePageResponse {
-  nextKey: ComputedRef<Uint8Array>;
-  total: ComputedRef<bigint>;
 }
 export interface PageResponseProtoMsg {
   typeUrl: "/cosmos.base.query.v1beta1.PageResponse";

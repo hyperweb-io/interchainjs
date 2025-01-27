@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryBandRelayersRequest, QueryBandRelayersResponse, QueryBandPriceStatesRequest, QueryBandPriceStatesResponse, QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse, QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse, QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse, QueryPythPriceStatesRequest, QueryPythPriceStatesResponse, QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse, QueryStorkPublishersRequest, QueryStorkPublishersResponse, QueryProviderPriceStateRequest, QueryProviderPriceStateResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse, QueryOracleVolatilityRequest, QueryOracleVolatilityResponse, QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse, QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse, QueryOraclePriceRequest, QueryOraclePriceResponse, QueryPythPriceRequest, QueryPythPriceResponse } from "./query";
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -9,10 +8,6 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
-});
 export const createGetBandRelayers = (clientResolver?: RpcResolver) => buildQuery<QueryBandRelayersRequest, QueryBandRelayersResponse>({
   encode: QueryBandRelayersRequest.encode,
   decode: QueryBandRelayersResponse.decode,
@@ -20,10 +15,6 @@ export const createGetBandRelayers = (clientResolver?: RpcResolver) => buildQuer
   method: "BandRelayers",
   clientResolver,
   deps: [QueryBandRelayersRequest, QueryBandRelayersResponse]
-});
-export const useGetBandRelayers = buildUseQuery<QueryBandRelayersRequest, QueryBandRelayersResponse>({
-  builderQueryFn: createGetBandRelayers,
-  queryKeyPrefix: "BandRelayersQuery"
 });
 export const createGetBandPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryBandPriceStatesRequest, QueryBandPriceStatesResponse>({
   encode: QueryBandPriceStatesRequest.encode,
@@ -33,10 +24,6 @@ export const createGetBandPriceStates = (clientResolver?: RpcResolver) => buildQ
   clientResolver,
   deps: [QueryBandPriceStatesRequest, QueryBandPriceStatesResponse]
 });
-export const useGetBandPriceStates = buildUseQuery<QueryBandPriceStatesRequest, QueryBandPriceStatesResponse>({
-  builderQueryFn: createGetBandPriceStates,
-  queryKeyPrefix: "BandPriceStatesQuery"
-});
 export const createGetBandIBCPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse>({
   encode: QueryBandIBCPriceStatesRequest.encode,
   decode: QueryBandIBCPriceStatesResponse.decode,
@@ -44,10 +31,6 @@ export const createGetBandIBCPriceStates = (clientResolver?: RpcResolver) => bui
   method: "BandIBCPriceStates",
   clientResolver,
   deps: [QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse]
-});
-export const useGetBandIBCPriceStates = buildUseQuery<QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse>({
-  builderQueryFn: createGetBandIBCPriceStates,
-  queryKeyPrefix: "BandIBCPriceStatesQuery"
 });
 export const createGetPriceFeedPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse>({
   encode: QueryPriceFeedPriceStatesRequest.encode,
@@ -57,10 +40,6 @@ export const createGetPriceFeedPriceStates = (clientResolver?: RpcResolver) => b
   clientResolver,
   deps: [QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse]
 });
-export const useGetPriceFeedPriceStates = buildUseQuery<QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse>({
-  builderQueryFn: createGetPriceFeedPriceStates,
-  queryKeyPrefix: "PriceFeedPriceStatesQuery"
-});
 export const createGetCoinbasePriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse>({
   encode: QueryCoinbasePriceStatesRequest.encode,
   decode: QueryCoinbasePriceStatesResponse.decode,
@@ -68,10 +47,6 @@ export const createGetCoinbasePriceStates = (clientResolver?: RpcResolver) => bu
   method: "CoinbasePriceStates",
   clientResolver,
   deps: [QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse]
-});
-export const useGetCoinbasePriceStates = buildUseQuery<QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse>({
-  builderQueryFn: createGetCoinbasePriceStates,
-  queryKeyPrefix: "CoinbasePriceStatesQuery"
 });
 export const createGetPythPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryPythPriceStatesRequest, QueryPythPriceStatesResponse>({
   encode: QueryPythPriceStatesRequest.encode,
@@ -81,10 +56,6 @@ export const createGetPythPriceStates = (clientResolver?: RpcResolver) => buildQ
   clientResolver,
   deps: [QueryPythPriceStatesRequest, QueryPythPriceStatesResponse]
 });
-export const useGetPythPriceStates = buildUseQuery<QueryPythPriceStatesRequest, QueryPythPriceStatesResponse>({
-  builderQueryFn: createGetPythPriceStates,
-  queryKeyPrefix: "PythPriceStatesQuery"
-});
 export const createGetStorkPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse>({
   encode: QueryStorkPriceStatesRequest.encode,
   decode: QueryStorkPriceStatesResponse.decode,
@@ -92,10 +63,6 @@ export const createGetStorkPriceStates = (clientResolver?: RpcResolver) => build
   method: "StorkPriceStates",
   clientResolver,
   deps: [QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse]
-});
-export const useGetStorkPriceStates = buildUseQuery<QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse>({
-  builderQueryFn: createGetStorkPriceStates,
-  queryKeyPrefix: "StorkPriceStatesQuery"
 });
 export const createGetStorkPublishers = (clientResolver?: RpcResolver) => buildQuery<QueryStorkPublishersRequest, QueryStorkPublishersResponse>({
   encode: QueryStorkPublishersRequest.encode,
@@ -105,10 +72,6 @@ export const createGetStorkPublishers = (clientResolver?: RpcResolver) => buildQ
   clientResolver,
   deps: [QueryStorkPublishersRequest, QueryStorkPublishersResponse]
 });
-export const useGetStorkPublishers = buildUseQuery<QueryStorkPublishersRequest, QueryStorkPublishersResponse>({
-  builderQueryFn: createGetStorkPublishers,
-  queryKeyPrefix: "StorkPublishersQuery"
-});
 export const createGetProviderPriceState = (clientResolver?: RpcResolver) => buildQuery<QueryProviderPriceStateRequest, QueryProviderPriceStateResponse>({
   encode: QueryProviderPriceStateRequest.encode,
   decode: QueryProviderPriceStateResponse.decode,
@@ -116,10 +79,6 @@ export const createGetProviderPriceState = (clientResolver?: RpcResolver) => bui
   method: "ProviderPriceState",
   clientResolver,
   deps: [QueryProviderPriceStateRequest, QueryProviderPriceStateResponse]
-});
-export const useGetProviderPriceState = buildUseQuery<QueryProviderPriceStateRequest, QueryProviderPriceStateResponse>({
-  builderQueryFn: createGetProviderPriceState,
-  queryKeyPrefix: "ProviderPriceStateQuery"
 });
 export const createGetOracleModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
@@ -129,10 +88,6 @@ export const createGetOracleModuleState = (clientResolver?: RpcResolver) => buil
   clientResolver,
   deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
-export const useGetOracleModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetOracleModuleState,
-  queryKeyPrefix: "OracleModuleStateQuery"
-});
 export const createGetHistoricalPriceRecords = (clientResolver?: RpcResolver) => buildQuery<QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse>({
   encode: QueryHistoricalPriceRecordsRequest.encode,
   decode: QueryHistoricalPriceRecordsResponse.decode,
@@ -140,10 +95,6 @@ export const createGetHistoricalPriceRecords = (clientResolver?: RpcResolver) =>
   method: "HistoricalPriceRecords",
   clientResolver,
   deps: [QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse]
-});
-export const useGetHistoricalPriceRecords = buildUseQuery<QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse>({
-  builderQueryFn: createGetHistoricalPriceRecords,
-  queryKeyPrefix: "HistoricalPriceRecordsQuery"
 });
 export const createGetOracleVolatility = (clientResolver?: RpcResolver) => buildQuery<QueryOracleVolatilityRequest, QueryOracleVolatilityResponse>({
   encode: QueryOracleVolatilityRequest.encode,
@@ -153,10 +104,6 @@ export const createGetOracleVolatility = (clientResolver?: RpcResolver) => build
   clientResolver,
   deps: [QueryOracleVolatilityRequest, QueryOracleVolatilityResponse]
 });
-export const useGetOracleVolatility = buildUseQuery<QueryOracleVolatilityRequest, QueryOracleVolatilityResponse>({
-  builderQueryFn: createGetOracleVolatility,
-  queryKeyPrefix: "OracleVolatilityQuery"
-});
 export const createGetOracleProvidersInfo = (clientResolver?: RpcResolver) => buildQuery<QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse>({
   encode: QueryOracleProvidersInfoRequest.encode,
   decode: QueryOracleProvidersInfoResponse.decode,
@@ -164,10 +111,6 @@ export const createGetOracleProvidersInfo = (clientResolver?: RpcResolver) => bu
   method: "OracleProvidersInfo",
   clientResolver,
   deps: [QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse]
-});
-export const useGetOracleProvidersInfo = buildUseQuery<QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse>({
-  builderQueryFn: createGetOracleProvidersInfo,
-  queryKeyPrefix: "OracleProvidersInfoQuery"
 });
 export const createGetOracleProviderPrices = (clientResolver?: RpcResolver) => buildQuery<QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse>({
   encode: QueryOracleProviderPricesRequest.encode,
@@ -177,10 +120,6 @@ export const createGetOracleProviderPrices = (clientResolver?: RpcResolver) => b
   clientResolver,
   deps: [QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse]
 });
-export const useGetOracleProviderPrices = buildUseQuery<QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse>({
-  builderQueryFn: createGetOracleProviderPrices,
-  queryKeyPrefix: "OracleProviderPricesQuery"
-});
 export const createGetOraclePrice = (clientResolver?: RpcResolver) => buildQuery<QueryOraclePriceRequest, QueryOraclePriceResponse>({
   encode: QueryOraclePriceRequest.encode,
   decode: QueryOraclePriceResponse.decode,
@@ -189,10 +128,6 @@ export const createGetOraclePrice = (clientResolver?: RpcResolver) => buildQuery
   clientResolver,
   deps: [QueryOraclePriceRequest, QueryOraclePriceResponse]
 });
-export const useGetOraclePrice = buildUseQuery<QueryOraclePriceRequest, QueryOraclePriceResponse>({
-  builderQueryFn: createGetOraclePrice,
-  queryKeyPrefix: "OraclePriceQuery"
-});
 export const createGetPythPrice = (clientResolver?: RpcResolver) => buildQuery<QueryPythPriceRequest, QueryPythPriceResponse>({
   encode: QueryPythPriceRequest.encode,
   decode: QueryPythPriceResponse.decode,
@@ -200,8 +135,4 @@ export const createGetPythPrice = (clientResolver?: RpcResolver) => buildQuery<Q
   method: "PythPrice",
   clientResolver,
   deps: [QueryPythPriceRequest, QueryPythPriceResponse]
-});
-export const useGetPythPrice = buildUseQuery<QueryPythPriceRequest, QueryPythPriceResponse>({
-  builderQueryFn: createGetPythPrice,
-  queryKeyPrefix: "PythPriceQuery"
 });

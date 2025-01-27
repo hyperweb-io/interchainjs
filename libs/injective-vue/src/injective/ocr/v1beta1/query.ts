@@ -4,9 +4,7 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -18,9 +16,6 @@ export interface QueryParamsRequestAminoMsg {
 }
 export interface QueryParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsResponse";
@@ -35,9 +30,6 @@ export interface QueryParamsResponseAminoMsg {
 }
 export interface QueryFeedConfigRequest {
   feedId: string;
-}
-export interface ReactiveQueryFeedConfigRequest {
-  feedId: ComputedRef<string>;
 }
 export interface QueryFeedConfigRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigRequest";
@@ -54,10 +46,6 @@ export interface QueryFeedConfigResponse {
   feedConfigInfo?: FeedConfigInfo;
   feedConfig?: FeedConfig;
 }
-export interface ReactiveQueryFeedConfigResponse {
-  feedConfigInfo?: ComputedRef<FeedConfigInfo>;
-  feedConfig?: ComputedRef<FeedConfig>;
-}
 export interface QueryFeedConfigResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigResponse";
   value: Uint8Array;
@@ -72,9 +60,6 @@ export interface QueryFeedConfigResponseAminoMsg {
 }
 export interface QueryFeedConfigInfoRequest {
   feedId: string;
-}
-export interface ReactiveQueryFeedConfigInfoRequest {
-  feedId: ComputedRef<string>;
 }
 export interface QueryFeedConfigInfoRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoRequest";
@@ -91,10 +76,6 @@ export interface QueryFeedConfigInfoResponse {
   feedConfigInfo?: FeedConfigInfo;
   epochAndRound?: EpochAndRound;
 }
-export interface ReactiveQueryFeedConfigInfoResponse {
-  feedConfigInfo?: ComputedRef<FeedConfigInfo>;
-  epochAndRound?: ComputedRef<EpochAndRound>;
-}
 export interface QueryFeedConfigInfoResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoResponse";
   value: Uint8Array;
@@ -109,9 +90,6 @@ export interface QueryFeedConfigInfoResponseAminoMsg {
 }
 export interface QueryLatestRoundRequest {
   feedId: string;
-}
-export interface ReactiveQueryLatestRoundRequest {
-  feedId: ComputedRef<string>;
 }
 export interface QueryLatestRoundRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundRequest";
@@ -128,10 +106,6 @@ export interface QueryLatestRoundResponse {
   latestRoundId: bigint;
   data?: Transmission;
 }
-export interface ReactiveQueryLatestRoundResponse {
-  latestRoundId: ComputedRef<bigint>;
-  data?: ComputedRef<Transmission>;
-}
 export interface QueryLatestRoundResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundResponse";
   value: Uint8Array;
@@ -146,9 +120,6 @@ export interface QueryLatestRoundResponseAminoMsg {
 }
 export interface QueryLatestTransmissionDetailsRequest {
   feedId: string;
-}
-export interface ReactiveQueryLatestTransmissionDetailsRequest {
-  feedId: ComputedRef<string>;
 }
 export interface QueryLatestTransmissionDetailsRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest";
@@ -166,11 +137,6 @@ export interface QueryLatestTransmissionDetailsResponse {
   epochAndRound?: EpochAndRound;
   data?: Transmission;
 }
-export interface ReactiveQueryLatestTransmissionDetailsResponse {
-  configDigest: ComputedRef<Uint8Array>;
-  epochAndRound?: ComputedRef<EpochAndRound>;
-  data?: ComputedRef<Transmission>;
-}
 export interface QueryLatestTransmissionDetailsResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse";
   value: Uint8Array;
@@ -187,9 +153,6 @@ export interface QueryLatestTransmissionDetailsResponseAminoMsg {
 export interface QueryOwedAmountRequest {
   transmitter: string;
 }
-export interface ReactiveQueryOwedAmountRequest {
-  transmitter: ComputedRef<string>;
-}
 export interface QueryOwedAmountRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountRequest";
   value: Uint8Array;
@@ -204,9 +167,6 @@ export interface QueryOwedAmountRequestAminoMsg {
 export interface QueryOwedAmountResponse {
   amount: Coin;
 }
-export interface ReactiveQueryOwedAmountResponse {
-  amount: ComputedRef<Coin>;
-}
 export interface QueryOwedAmountResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountResponse";
   value: Uint8Array;
@@ -219,7 +179,6 @@ export interface QueryOwedAmountResponseAminoMsg {
   value: QueryOwedAmountResponseAmino;
 }
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -231,9 +190,6 @@ export interface QueryModuleStateRequestAminoMsg {
 }
 export interface QueryModuleStateResponse {
   state?: GenesisState;
-}
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
 }
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryModuleStateResponse";

@@ -3,13 +3,11 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * QueryWasmxParamsRequest is the request type for the Query/WasmxParams RPC
  * method.
  */
 export interface QueryWasmxParamsRequest {}
-export interface ReactiveQueryWasmxParamsRequest {}
 export interface QueryWasmxParamsRequestProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryWasmxParamsRequest";
   value: Uint8Array;
@@ -29,9 +27,6 @@ export interface QueryWasmxParamsRequestAminoMsg {
  */
 export interface QueryWasmxParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryWasmxParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryWasmxParamsResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryWasmxParamsResponse";
@@ -53,7 +48,6 @@ export interface QueryWasmxParamsResponseAminoMsg {
  * RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -74,9 +68,6 @@ export interface QueryModuleStateRequestAminoMsg {
 export interface QueryModuleStateResponse {
   state?: GenesisState;
 }
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
-}
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryModuleStateResponse";
   value: Uint8Array;
@@ -96,9 +87,6 @@ export interface QueryModuleStateResponseAminoMsg {
 export interface QueryContractRegistrationInfoRequest {
   contractAddress: string;
 }
-export interface ReactiveQueryContractRegistrationInfoRequest {
-  contractAddress: ComputedRef<string>;
-}
 export interface QueryContractRegistrationInfoRequestProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoRequest";
   value: Uint8Array;
@@ -113,9 +101,6 @@ export interface QueryContractRegistrationInfoRequestAminoMsg {
 }
 export interface QueryContractRegistrationInfoResponse {
   contract?: RegisteredContract;
-}
-export interface ReactiveQueryContractRegistrationInfoResponse {
-  contract?: ComputedRef<RegisteredContract>;
 }
 export interface QueryContractRegistrationInfoResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoResponse";

@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** EventGrant is emitted on Msg/Grant */
 export interface EventGrant {
   /** Msg type URL for which an autorization is granted */
@@ -10,11 +9,6 @@ export interface EventGrant {
   granter: string;
   /** Grantee account address */
   grantee: string;
-}
-export interface ReactiveEventGrant {
-  msgTypeUrl: ComputedRef<string>;
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
 }
 export interface EventGrantProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.EventGrant";
@@ -41,11 +35,6 @@ export interface EventRevoke {
   granter: string;
   /** Grantee account address */
   grantee: string;
-}
-export interface ReactiveEventRevoke {
-  msgTypeUrl: ComputedRef<string>;
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
 }
 export interface EventRevokeProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.EventRevoke";

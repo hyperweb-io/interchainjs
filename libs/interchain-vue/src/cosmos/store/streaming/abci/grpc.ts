@@ -3,15 +3,10 @@ import { StoreKVPair, StoreKVPairAmino } from "../../v1beta1/listening";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** ListenEndBlockRequest is the request type for the ListenEndBlock RPC method */
 export interface ListenFinalizeBlockRequest {
   req?: RequestFinalizeBlock;
   res?: ResponseFinalizeBlock;
-}
-export interface ReactiveListenFinalizeBlockRequest {
-  req?: ComputedRef<RequestFinalizeBlock>;
-  res?: ComputedRef<ResponseFinalizeBlock>;
 }
 export interface ListenFinalizeBlockRequestProtoMsg {
   typeUrl: "/cosmos.store.streaming.abci.ListenFinalizeBlockRequest";
@@ -28,7 +23,6 @@ export interface ListenFinalizeBlockRequestAminoMsg {
 }
 /** ListenEndBlockResponse is the response type for the ListenEndBlock RPC method */
 export interface ListenFinalizeBlockResponse {}
-export interface ReactiveListenFinalizeBlockResponse {}
 export interface ListenFinalizeBlockResponseProtoMsg {
   typeUrl: "/cosmos.store.streaming.abci.ListenFinalizeBlockResponse";
   value: Uint8Array;
@@ -45,11 +39,6 @@ export interface ListenCommitRequest {
   blockHeight: bigint;
   res?: ResponseCommit;
   changeSet: StoreKVPair[];
-}
-export interface ReactiveListenCommitRequest {
-  blockHeight: ComputedRef<bigint>;
-  res?: ComputedRef<ResponseCommit>;
-  changeSet: ComputedRef<StoreKVPair[]>;
 }
 export interface ListenCommitRequestProtoMsg {
   typeUrl: "/cosmos.store.streaming.abci.ListenCommitRequest";
@@ -68,7 +57,6 @@ export interface ListenCommitRequestAminoMsg {
 }
 /** ListenCommitResponse is the response type for the ListenCommit RPC method */
 export interface ListenCommitResponse {}
-export interface ReactiveListenCommitResponse {}
 export interface ListenCommitResponseProtoMsg {
   typeUrl: "/cosmos.store.streaming.abci.ListenCommitResponse";
   value: Uint8Array;

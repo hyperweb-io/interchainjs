@@ -1,15 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** BridgeValidator represents a validator's ETH address and its power */
 export interface BridgeValidator {
   power: bigint;
   ethereumAddress: string;
-}
-export interface ReactiveBridgeValidator {
-  power: ComputedRef<bigint>;
-  ethereumAddress: ComputedRef<string>;
 }
 export interface BridgeValidatorProtoMsg {
   typeUrl: "/injective.peggy.v1.BridgeValidator";
@@ -36,13 +31,6 @@ export interface Valset {
   rewardAmount: string;
   /** the reward token in it's Ethereum hex address representation */
   rewardToken: string;
-}
-export interface ReactiveValset {
-  nonce: ComputedRef<bigint>;
-  members: ComputedRef<BridgeValidator[]>;
-  height: ComputedRef<bigint>;
-  rewardAmount: ComputedRef<string>;
-  rewardToken: ComputedRef<string>;
 }
 export interface ValsetProtoMsg {
   typeUrl: "/injective.peggy.v1.Valset";
@@ -76,10 +64,6 @@ export interface LastObservedEthereumBlockHeight {
   cosmosBlockHeight: bigint;
   ethereumBlockHeight: bigint;
 }
-export interface ReactiveLastObservedEthereumBlockHeight {
-  cosmosBlockHeight: ComputedRef<bigint>;
-  ethereumBlockHeight: ComputedRef<bigint>;
-}
 export interface LastObservedEthereumBlockHeightProtoMsg {
   typeUrl: "/injective.peggy.v1.LastObservedEthereumBlockHeight";
   value: Uint8Array;
@@ -104,10 +88,6 @@ export interface LastClaimEvent {
   ethereumEventNonce: bigint;
   ethereumEventHeight: bigint;
 }
-export interface ReactiveLastClaimEvent {
-  ethereumEventNonce: ComputedRef<bigint>;
-  ethereumEventHeight: ComputedRef<bigint>;
-}
 export interface LastClaimEventProtoMsg {
   typeUrl: "/injective.peggy.v1.LastClaimEvent";
   value: Uint8Array;
@@ -128,10 +108,6 @@ export interface LastClaimEventAminoMsg {
 export interface ERC20ToDenom {
   erc20: string;
   denom: string;
-}
-export interface ReactiveERC20ToDenom {
-  erc20: ComputedRef<string>;
-  denom: ComputedRef<string>;
 }
 export interface ERC20ToDenomProtoMsg {
   typeUrl: "/injective.peggy.v1.ERC20ToDenom";

@@ -2,17 +2,12 @@ import { ParamChange, ParamChangeAmino } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
   /** subspace defines the module to query the parameter for. */
   subspace: string;
   /** key defines the key of the parameter in the subspace. */
   key: string;
-}
-export interface ReactiveQueryParamsRequest {
-  subspace: ComputedRef<string>;
-  key: ComputedRef<string>;
 }
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.QueryParamsRequest";
@@ -34,9 +29,6 @@ export interface QueryParamsResponse {
   /** param defines the queried parameter. */
   param: ParamChange;
 }
-export interface ReactiveQueryParamsResponse {
-  param: ComputedRef<ParamChange>;
-}
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.QueryParamsResponse";
   value: Uint8Array;
@@ -57,7 +49,6 @@ export interface QueryParamsResponseAminoMsg {
  * Since: cosmos-sdk 0.46
  */
 export interface QuerySubspacesRequest {}
-export interface ReactiveQuerySubspacesRequest {}
 export interface QuerySubspacesRequestProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.QuerySubspacesRequest";
   value: Uint8Array;
@@ -81,9 +72,6 @@ export interface QuerySubspacesRequestAminoMsg {
  */
 export interface QuerySubspacesResponse {
   subspaces: Subspace[];
-}
-export interface ReactiveQuerySubspacesResponse {
-  subspaces: ComputedRef<Subspace[]>;
 }
 export interface QuerySubspacesResponseProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.QuerySubspacesResponse";
@@ -111,10 +99,6 @@ export interface QuerySubspacesResponseAminoMsg {
 export interface Subspace {
   subspace: string;
   keys: string[];
-}
-export interface ReactiveSubspace {
-  subspace: ComputedRef<string>;
-  keys: ComputedRef<string[]>;
 }
 export interface SubspaceProtoMsg {
   typeUrl: "/cosmos.params.v1beta1.Subspace";

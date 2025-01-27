@@ -2,10 +2,8 @@ import { ModuleOptions, ModuleOptionsAmino } from "./options";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
 export interface AppOptionsRequest {}
-export interface ReactiveAppOptionsRequest {}
 export interface AppOptionsRequestProtoMsg {
   typeUrl: "/cosmos.autocli.v1.AppOptionsRequest";
   value: Uint8Array;
@@ -19,10 +17,6 @@ export interface AppOptionsRequestAminoMsg {
 export interface AppOptionsResponse_ModuleOptionsEntry {
   key: string;
   value?: ModuleOptions;
-}
-export interface ReactiveAppOptionsResponse_ModuleOptionsEntry {
-  key: ComputedRef<string>;
-  value?: ComputedRef<ModuleOptions>;
 }
 export interface AppOptionsResponse_ModuleOptionsEntryProtoMsg {
   typeUrl: string;
@@ -42,11 +36,6 @@ export interface AppOptionsResponse {
   moduleOptions: {
     [key: string]: ModuleOptions;
   };
-}
-export interface ReactiveAppOptionsResponse {
-  moduleOptions: ComputedRef<{
-    [key: string]: ModuleOptions;
-  }>;
 }
 export interface AppOptionsResponseProtoMsg {
   typeUrl: "/cosmos.autocli.v1.AppOptionsResponse";

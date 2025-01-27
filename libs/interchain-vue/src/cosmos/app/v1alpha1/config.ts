@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * Config represents the configuration for a Cosmos SDK ABCI app.
  * It is intended that all state machine logic including the version of
@@ -21,10 +20,6 @@ export interface Config {
    * field's configuration is global (not module specific).
    */
   golangBindings: GolangBinding[];
-}
-export interface ReactiveConfig {
-  modules: ComputedRef<ModuleConfig[]>;
-  golangBindings: ComputedRef<GolangBinding[]>;
 }
 export interface ConfigProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.Config";
@@ -80,11 +75,6 @@ export interface ModuleConfig {
    */
   golangBindings: GolangBinding[];
 }
-export interface ReactiveModuleConfig {
-  name: ComputedRef<string>;
-  config?: ComputedRef<Any>;
-  golangBindings: ComputedRef<GolangBinding[]>;
-}
 export interface ModuleConfigProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.ModuleConfig";
   value: Uint8Array;
@@ -126,10 +116,6 @@ export interface GolangBinding {
   interfaceType: string;
   /** implementation is the implementing type which will be supplied when an input of type interface is requested */
   implementation: string;
-}
-export interface ReactiveGolangBinding {
-  interfaceType: ComputedRef<string>;
-  implementation: ComputedRef<string>;
 }
 export interface GolangBindingProtoMsg {
   typeUrl: "/cosmos.app.v1alpha1.GolangBinding";

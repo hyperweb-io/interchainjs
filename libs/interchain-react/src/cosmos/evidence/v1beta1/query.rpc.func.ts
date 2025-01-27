@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryEvidenceRequest, QueryEvidenceResponse, QueryAllEvidenceRequest, QueryAllEvidenceResponse } from "./query";
 export const createGetEvidence = (clientResolver?: RpcResolver) => buildQuery<QueryEvidenceRequest, QueryEvidenceResponse>({
   encode: QueryEvidenceRequest.encode,
@@ -9,10 +8,6 @@ export const createGetEvidence = (clientResolver?: RpcResolver) => buildQuery<Qu
   clientResolver,
   deps: [QueryEvidenceRequest, QueryEvidenceResponse]
 });
-export const useGetEvidence = buildUseQuery<QueryEvidenceRequest, QueryEvidenceResponse>({
-  builderQueryFn: createGetEvidence,
-  queryKeyPrefix: "EvidenceQuery"
-});
 export const createGetAllEvidence = (clientResolver?: RpcResolver) => buildQuery<QueryAllEvidenceRequest, QueryAllEvidenceResponse>({
   encode: QueryAllEvidenceRequest.encode,
   decode: QueryAllEvidenceResponse.decode,
@@ -20,8 +15,4 @@ export const createGetAllEvidence = (clientResolver?: RpcResolver) => buildQuery
   method: "AllEvidence",
   clientResolver,
   deps: [QueryAllEvidenceRequest, QueryAllEvidenceResponse]
-});
-export const useGetAllEvidence = buildUseQuery<QueryAllEvidenceRequest, QueryAllEvidenceResponse>({
-  builderQueryFn: createGetAllEvidence,
-  queryKeyPrefix: "AllEvidenceQuery"
 });

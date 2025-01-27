@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../../helper-func-types";
-import { buildUseQuery } from "../../../../react-query";
 import { GetAuthnDescriptorRequest, GetAuthnDescriptorResponse, GetChainDescriptorRequest, GetChainDescriptorResponse, GetCodecDescriptorRequest, GetCodecDescriptorResponse, GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse, GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse, GetTxDescriptorRequest, GetTxDescriptorResponse } from "./reflection";
 export const createGetGetAuthnDescriptor = (clientResolver?: RpcResolver) => buildQuery<GetAuthnDescriptorRequest, GetAuthnDescriptorResponse>({
   encode: GetAuthnDescriptorRequest.encode,
@@ -9,10 +8,6 @@ export const createGetGetAuthnDescriptor = (clientResolver?: RpcResolver) => bui
   clientResolver,
   deps: [GetAuthnDescriptorRequest, GetAuthnDescriptorResponse]
 });
-export const useGetGetAuthnDescriptor = buildUseQuery<GetAuthnDescriptorRequest, GetAuthnDescriptorResponse>({
-  builderQueryFn: createGetGetAuthnDescriptor,
-  queryKeyPrefix: "GetAuthnDescriptorQuery"
-});
 export const createGetGetChainDescriptor = (clientResolver?: RpcResolver) => buildQuery<GetChainDescriptorRequest, GetChainDescriptorResponse>({
   encode: GetChainDescriptorRequest.encode,
   decode: GetChainDescriptorResponse.decode,
@@ -20,10 +15,6 @@ export const createGetGetChainDescriptor = (clientResolver?: RpcResolver) => bui
   method: "GetChainDescriptor",
   clientResolver,
   deps: [GetChainDescriptorRequest, GetChainDescriptorResponse]
-});
-export const useGetGetChainDescriptor = buildUseQuery<GetChainDescriptorRequest, GetChainDescriptorResponse>({
-  builderQueryFn: createGetGetChainDescriptor,
-  queryKeyPrefix: "GetChainDescriptorQuery"
 });
 export const createGetGetCodecDescriptor = (clientResolver?: RpcResolver) => buildQuery<GetCodecDescriptorRequest, GetCodecDescriptorResponse>({
   encode: GetCodecDescriptorRequest.encode,
@@ -33,10 +24,6 @@ export const createGetGetCodecDescriptor = (clientResolver?: RpcResolver) => bui
   clientResolver,
   deps: [GetCodecDescriptorRequest, GetCodecDescriptorResponse]
 });
-export const useGetGetCodecDescriptor = buildUseQuery<GetCodecDescriptorRequest, GetCodecDescriptorResponse>({
-  builderQueryFn: createGetGetCodecDescriptor,
-  queryKeyPrefix: "GetCodecDescriptorQuery"
-});
 export const createGetGetConfigurationDescriptor = (clientResolver?: RpcResolver) => buildQuery<GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse>({
   encode: GetConfigurationDescriptorRequest.encode,
   decode: GetConfigurationDescriptorResponse.decode,
@@ -44,10 +31,6 @@ export const createGetGetConfigurationDescriptor = (clientResolver?: RpcResolver
   method: "GetConfigurationDescriptor",
   clientResolver,
   deps: [GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse]
-});
-export const useGetGetConfigurationDescriptor = buildUseQuery<GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse>({
-  builderQueryFn: createGetGetConfigurationDescriptor,
-  queryKeyPrefix: "GetConfigurationDescriptorQuery"
 });
 export const createGetGetQueryServicesDescriptor = (clientResolver?: RpcResolver) => buildQuery<GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse>({
   encode: GetQueryServicesDescriptorRequest.encode,
@@ -57,10 +40,6 @@ export const createGetGetQueryServicesDescriptor = (clientResolver?: RpcResolver
   clientResolver,
   deps: [GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse]
 });
-export const useGetGetQueryServicesDescriptor = buildUseQuery<GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse>({
-  builderQueryFn: createGetGetQueryServicesDescriptor,
-  queryKeyPrefix: "GetQueryServicesDescriptorQuery"
-});
 export const createGetGetTxDescriptor = (clientResolver?: RpcResolver) => buildQuery<GetTxDescriptorRequest, GetTxDescriptorResponse>({
   encode: GetTxDescriptorRequest.encode,
   decode: GetTxDescriptorResponse.decode,
@@ -68,8 +47,4 @@ export const createGetGetTxDescriptor = (clientResolver?: RpcResolver) => buildQ
   method: "GetTxDescriptor",
   clientResolver,
   deps: [GetTxDescriptorRequest, GetTxDescriptorResponse]
-});
-export const useGetGetTxDescriptor = buildUseQuery<GetTxDescriptorRequest, GetTxDescriptorResponse>({
-  builderQueryFn: createGetGetTxDescriptor,
-  queryKeyPrefix: "GetTxDescriptorQuery"
 });

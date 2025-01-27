@@ -3,14 +3,9 @@ import { Metadata, MetadataAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface EventCreateTFDenom {
   account: string;
   denom: string;
-}
-export interface ReactiveEventCreateTFDenom {
-  account: ComputedRef<string>;
-  denom: ComputedRef<string>;
 }
 export interface EventCreateTFDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom";
@@ -28,10 +23,6 @@ export interface EventMintTFDenom {
   recipientAddress: string;
   amount: Coin;
 }
-export interface ReactiveEventMintTFDenom {
-  recipientAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-}
 export interface EventMintTFDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom";
   value: Uint8Array;
@@ -47,10 +38,6 @@ export interface EventMintTFDenomAminoMsg {
 export interface EventBurnDenom {
   burnerAddress: string;
   amount: Coin;
-}
-export interface ReactiveEventBurnDenom {
-  burnerAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface EventBurnDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom";
@@ -68,10 +55,6 @@ export interface EventChangeTFAdmin {
   denom: string;
   newAdminAddress: string;
 }
-export interface ReactiveEventChangeTFAdmin {
-  denom: ComputedRef<string>;
-  newAdminAddress: ComputedRef<string>;
-}
 export interface EventChangeTFAdminProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin";
   value: Uint8Array;
@@ -87,10 +70,6 @@ export interface EventChangeTFAdminAminoMsg {
 export interface EventSetTFDenomMetadata {
   denom: string;
   metadata: Metadata;
-}
-export interface ReactiveEventSetTFDenomMetadata {
-  denom: ComputedRef<string>;
-  metadata: ComputedRef<Metadata>;
 }
 export interface EventSetTFDenomMetadataProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata";

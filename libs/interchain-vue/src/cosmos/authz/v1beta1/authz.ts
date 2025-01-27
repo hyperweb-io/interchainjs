@@ -5,7 +5,6 @@ import { StakeAuthorization, StakeAuthorizationProtoMsg } from "../../staking/v1
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * GenericAuthorization gives the grantee unrestricted permissions to execute
  * the provided method on behalf of the granter's account.
@@ -13,9 +12,6 @@ import { ComputedRef } from "vue";
 export interface GenericAuthorization {
   /** Msg, identified by it's type URL, to grant unrestricted permissions to execute */
   msg: string;
-}
-export interface ReactiveGenericAuthorization {
-  msg: ComputedRef<string>;
 }
 export interface GenericAuthorizationProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization";
@@ -45,10 +41,6 @@ export interface Grant {
    * may apply to invalidate the grant)
    */
   expiration?: Date;
-}
-export interface ReactiveGrant {
-  authorization?: ComputedRef<GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined>;
-  expiration?: ComputedRef<Date>;
 }
 export interface GrantProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.Grant";
@@ -84,12 +76,6 @@ export interface GrantAuthorization {
   authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined;
   expiration?: Date;
 }
-export interface ReactiveGrantAuthorization {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  authorization?: ComputedRef<GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined>;
-  expiration?: ComputedRef<Date>;
-}
 export interface GrantAuthorizationProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization";
   value: Uint8Array;
@@ -115,9 +101,6 @@ export interface GrantAuthorizationAminoMsg {
 export interface GrantQueueItem {
   /** msg_type_urls contains the list of TypeURL of a sdk.Msg. */
   msgTypeUrls: string[];
-}
-export interface ReactiveGrantQueueItem {
-  msgTypeUrls: ComputedRef<string[]>;
 }
 export interface GrantQueueItemProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.GrantQueueItem";

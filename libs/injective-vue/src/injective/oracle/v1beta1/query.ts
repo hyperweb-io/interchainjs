@@ -3,12 +3,8 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface QueryPythPriceRequest {
   priceId: string;
-}
-export interface ReactiveQueryPythPriceRequest {
-  priceId: ComputedRef<string>;
 }
 export interface QueryPythPriceRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceRequest";
@@ -23,9 +19,6 @@ export interface QueryPythPriceRequestAminoMsg {
 }
 export interface QueryPythPriceResponse {
   priceState?: PythPriceState;
-}
-export interface ReactiveQueryPythPriceResponse {
-  priceState?: ComputedRef<PythPriceState>;
 }
 export interface QueryPythPriceResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceResponse";
@@ -43,7 +36,6 @@ export interface QueryPythPriceResponseAminoMsg {
  * method.
  */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -63,9 +55,6 @@ export interface QueryParamsRequestAminoMsg {
  */
 export interface QueryParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryParamsResponse";
@@ -87,7 +76,6 @@ export interface QueryParamsResponseAminoMsg {
  * method.
  */
 export interface QueryBandRelayersRequest {}
-export interface ReactiveQueryBandRelayersRequest {}
 export interface QueryBandRelayersRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryBandRelayersRequest";
   value: Uint8Array;
@@ -107,9 +95,6 @@ export interface QueryBandRelayersRequestAminoMsg {
  */
 export interface QueryBandRelayersResponse {
   relayers: string[];
-}
-export interface ReactiveQueryBandRelayersResponse {
-  relayers: ComputedRef<string[]>;
 }
 export interface QueryBandRelayersResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryBandRelayersResponse";
@@ -131,7 +116,6 @@ export interface QueryBandRelayersResponseAminoMsg {
  * RPC method.
  */
 export interface QueryBandPriceStatesRequest {}
-export interface ReactiveQueryBandPriceStatesRequest {}
 export interface QueryBandPriceStatesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryBandPriceStatesRequest";
   value: Uint8Array;
@@ -151,9 +135,6 @@ export interface QueryBandPriceStatesRequestAminoMsg {
  */
 export interface QueryBandPriceStatesResponse {
   priceStates: BandPriceState[];
-}
-export interface ReactiveQueryBandPriceStatesResponse {
-  priceStates: ComputedRef<BandPriceState[]>;
 }
 export interface QueryBandPriceStatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryBandPriceStatesResponse";
@@ -175,7 +156,6 @@ export interface QueryBandPriceStatesResponseAminoMsg {
  * Query/BandIBCPriceStates RPC method.
  */
 export interface QueryBandIBCPriceStatesRequest {}
-export interface ReactiveQueryBandIBCPriceStatesRequest {}
 export interface QueryBandIBCPriceStatesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest";
   value: Uint8Array;
@@ -195,9 +175,6 @@ export interface QueryBandIBCPriceStatesRequestAminoMsg {
  */
 export interface QueryBandIBCPriceStatesResponse {
   priceStates: BandPriceState[];
-}
-export interface ReactiveQueryBandIBCPriceStatesResponse {
-  priceStates: ComputedRef<BandPriceState[]>;
 }
 export interface QueryBandIBCPriceStatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse";
@@ -219,7 +196,6 @@ export interface QueryBandIBCPriceStatesResponseAminoMsg {
  * Query/PriceFeedPriceStates RPC method.
  */
 export interface QueryPriceFeedPriceStatesRequest {}
-export interface ReactiveQueryPriceFeedPriceStatesRequest {}
 export interface QueryPriceFeedPriceStatesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest";
   value: Uint8Array;
@@ -239,9 +215,6 @@ export interface QueryPriceFeedPriceStatesRequestAminoMsg {
  */
 export interface QueryPriceFeedPriceStatesResponse {
   priceStates: PriceFeedState[];
-}
-export interface ReactiveQueryPriceFeedPriceStatesResponse {
-  priceStates: ComputedRef<PriceFeedState[]>;
 }
 export interface QueryPriceFeedPriceStatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse";
@@ -263,7 +236,6 @@ export interface QueryPriceFeedPriceStatesResponseAminoMsg {
  * Query/CoinbasePriceStates RPC method.
  */
 export interface QueryCoinbasePriceStatesRequest {}
-export interface ReactiveQueryCoinbasePriceStatesRequest {}
 export interface QueryCoinbasePriceStatesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest";
   value: Uint8Array;
@@ -283,9 +255,6 @@ export interface QueryCoinbasePriceStatesRequestAminoMsg {
  */
 export interface QueryCoinbasePriceStatesResponse {
   priceStates: CoinbasePriceState[];
-}
-export interface ReactiveQueryCoinbasePriceStatesResponse {
-  priceStates: ComputedRef<CoinbasePriceState[]>;
 }
 export interface QueryCoinbasePriceStatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse";
@@ -307,7 +276,6 @@ export interface QueryCoinbasePriceStatesResponseAminoMsg {
  * Query/CoinbasePriceStates RPC method.
  */
 export interface QueryPythPriceStatesRequest {}
-export interface ReactiveQueryPythPriceStatesRequest {}
 export interface QueryPythPriceStatesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceStatesRequest";
   value: Uint8Array;
@@ -327,9 +295,6 @@ export interface QueryPythPriceStatesRequestAminoMsg {
  */
 export interface QueryPythPriceStatesResponse {
   priceStates: PythPriceState[];
-}
-export interface ReactiveQueryPythPriceStatesResponse {
-  priceStates: ComputedRef<PythPriceState[]>;
 }
 export interface QueryPythPriceStatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceStatesResponse";
@@ -351,7 +316,6 @@ export interface QueryPythPriceStatesResponseAminoMsg {
  * Query/StorkPriceStates RPC method.
  */
 export interface QueryStorkPriceStatesRequest {}
-export interface ReactiveQueryStorkPriceStatesRequest {}
 export interface QueryStorkPriceStatesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPriceStatesRequest";
   value: Uint8Array;
@@ -371,9 +335,6 @@ export interface QueryStorkPriceStatesRequestAminoMsg {
  */
 export interface QueryStorkPriceStatesResponse {
   priceStates: StorkPriceState[];
-}
-export interface ReactiveQueryStorkPriceStatesResponse {
-  priceStates: ComputedRef<StorkPriceState[]>;
 }
 export interface QueryStorkPriceStatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPriceStatesResponse";
@@ -395,7 +356,6 @@ export interface QueryStorkPriceStatesResponseAminoMsg {
  * Query/StorkPublishers RPC method.
  */
 export interface QueryStorkPublishersRequest {}
-export interface ReactiveQueryStorkPublishersRequest {}
 export interface QueryStorkPublishersRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPublishersRequest";
   value: Uint8Array;
@@ -415,9 +375,6 @@ export interface QueryStorkPublishersRequestAminoMsg {
  */
 export interface QueryStorkPublishersResponse {
   publishers: string[];
-}
-export interface ReactiveQueryStorkPublishersResponse {
-  publishers: ComputedRef<string[]>;
 }
 export interface QueryStorkPublishersResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPublishersResponse";
@@ -442,10 +399,6 @@ export interface QueryProviderPriceStateRequest {
   provider: string;
   symbol: string;
 }
-export interface ReactiveQueryProviderPriceStateRequest {
-  provider: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-}
 export interface QueryProviderPriceStateRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryProviderPriceStateRequest";
   value: Uint8Array;
@@ -469,9 +422,6 @@ export interface QueryProviderPriceStateRequestAminoMsg {
 export interface QueryProviderPriceStateResponse {
   priceState?: PriceState;
 }
-export interface ReactiveQueryProviderPriceStateResponse {
-  priceState?: ComputedRef<PriceState>;
-}
 export interface QueryProviderPriceStateResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryProviderPriceStateResponse";
   value: Uint8Array;
@@ -492,7 +442,6 @@ export interface QueryProviderPriceStateResponseAminoMsg {
  * RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -513,9 +462,6 @@ export interface QueryModuleStateRequestAminoMsg {
 export interface QueryModuleStateResponse {
   state?: GenesisState;
 }
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
-}
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryModuleStateResponse";
   value: Uint8Array;
@@ -535,10 +481,6 @@ export interface QueryHistoricalPriceRecordsRequest {
   oracle: OracleType;
   symbolId: string;
 }
-export interface ReactiveQueryHistoricalPriceRecordsRequest {
-  oracle: ComputedRef<OracleType>;
-  symbolId: ComputedRef<string>;
-}
 export interface QueryHistoricalPriceRecordsRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest";
   value: Uint8Array;
@@ -553,9 +495,6 @@ export interface QueryHistoricalPriceRecordsRequestAminoMsg {
 }
 export interface QueryHistoricalPriceRecordsResponse {
   priceRecords: PriceRecords[];
-}
-export interface ReactiveQueryHistoricalPriceRecordsResponse {
-  priceRecords: ComputedRef<PriceRecords[]>;
 }
 export interface QueryHistoricalPriceRecordsResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse";
@@ -585,11 +524,6 @@ export interface OracleHistoryOptions {
    * response
    */
   includeMetadata: boolean;
-}
-export interface ReactiveOracleHistoryOptions {
-  maxAge: ComputedRef<bigint>;
-  includeRawHistory: ComputedRef<boolean>;
-  includeMetadata: ComputedRef<boolean>;
 }
 export interface OracleHistoryOptionsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.OracleHistoryOptions";
@@ -626,11 +560,6 @@ export interface QueryOracleVolatilityRequest {
   quoteInfo?: OracleInfo;
   oracleHistoryOptions?: OracleHistoryOptions;
 }
-export interface ReactiveQueryOracleVolatilityRequest {
-  baseInfo?: ComputedRef<OracleInfo>;
-  quoteInfo?: ComputedRef<OracleInfo>;
-  oracleHistoryOptions?: ComputedRef<OracleHistoryOptions>;
-}
 export interface QueryOracleVolatilityRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleVolatilityRequest";
   value: Uint8Array;
@@ -657,11 +586,6 @@ export interface QueryOracleVolatilityResponse {
   historyMetadata?: MetadataStatistics;
   rawHistory: PriceRecord[];
 }
-export interface ReactiveQueryOracleVolatilityResponse {
-  volatility: ComputedRef<string>;
-  historyMetadata?: ComputedRef<MetadataStatistics>;
-  rawHistory: ComputedRef<PriceRecord[]>;
-}
 export interface QueryOracleVolatilityResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleVolatilityResponse";
   value: Uint8Array;
@@ -680,7 +604,6 @@ export interface QueryOracleVolatilityResponseAminoMsg {
   value: QueryOracleVolatilityResponseAmino;
 }
 export interface QueryOracleProvidersInfoRequest {}
-export interface ReactiveQueryOracleProvidersInfoRequest {}
 export interface QueryOracleProvidersInfoRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoRequest";
   value: Uint8Array;
@@ -692,9 +615,6 @@ export interface QueryOracleProvidersInfoRequestAminoMsg {
 }
 export interface QueryOracleProvidersInfoResponse {
   providers: ProviderInfo[];
-}
-export interface ReactiveQueryOracleProvidersInfoResponse {
-  providers: ComputedRef<ProviderInfo[]>;
 }
 export interface QueryOracleProvidersInfoResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoResponse";
@@ -710,9 +630,6 @@ export interface QueryOracleProvidersInfoResponseAminoMsg {
 export interface QueryOracleProviderPricesRequest {
   provider: string;
 }
-export interface ReactiveQueryOracleProviderPricesRequest {
-  provider: ComputedRef<string>;
-}
 export interface QueryOracleProviderPricesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesRequest";
   value: Uint8Array;
@@ -726,9 +643,6 @@ export interface QueryOracleProviderPricesRequestAminoMsg {
 }
 export interface QueryOracleProviderPricesResponse {
   providerState: ProviderState[];
-}
-export interface ReactiveQueryOracleProviderPricesResponse {
-  providerState: ComputedRef<ProviderState[]>;
 }
 export interface QueryOracleProviderPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesResponse";
@@ -749,10 +663,6 @@ export interface QueryOracleProviderPricesResponseAminoMsg {
 export interface ScalingOptions {
   baseDecimals: number;
   quoteDecimals: number;
-}
-export interface ReactiveScalingOptions {
-  baseDecimals: ComputedRef<number>;
-  quoteDecimals: ComputedRef<number>;
 }
 export interface ScalingOptionsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ScalingOptions";
@@ -781,12 +691,6 @@ export interface QueryOraclePriceRequest {
   quote: string;
   scalingOptions?: ScalingOptions;
 }
-export interface ReactiveQueryOraclePriceRequest {
-  oracleType: ComputedRef<OracleType>;
-  base: ComputedRef<string>;
-  quote: ComputedRef<string>;
-  scalingOptions?: ComputedRef<ScalingOptions>;
-}
 export interface QueryOraclePriceRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOraclePriceRequest";
   value: Uint8Array;
@@ -814,15 +718,6 @@ export interface PricePairState {
   baseTimestamp: bigint;
   quoteTimestamp: bigint;
 }
-export interface ReactivePricePairState {
-  pairPrice: ComputedRef<string>;
-  basePrice: ComputedRef<string>;
-  quotePrice: ComputedRef<string>;
-  baseCumulativePrice: ComputedRef<string>;
-  quoteCumulativePrice: ComputedRef<string>;
-  baseTimestamp: ComputedRef<bigint>;
-  quoteTimestamp: ComputedRef<bigint>;
-}
 export interface PricePairStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PricePairState";
   value: Uint8Array;
@@ -846,9 +741,6 @@ export interface PricePairStateAminoMsg {
  */
 export interface QueryOraclePriceResponse {
   pricePairState?: PricePairState;
-}
-export interface ReactiveQueryOraclePriceResponse {
-  pricePairState?: ComputedRef<PricePairState>;
 }
 export interface QueryOraclePriceResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOraclePriceResponse";

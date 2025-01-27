@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
  * capabilities over a token factory denom. Right now there is only one Admin
@@ -10,9 +9,6 @@ import { ComputedRef } from "vue";
 export interface DenomAuthorityMetadata {
   /** Can be empty for no admin, or a valid injective address */
   admin: string;
-}
-export interface ReactiveDenomAuthorityMetadata {
-  admin: ComputedRef<string>;
 }
 export interface DenomAuthorityMetadataProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata";

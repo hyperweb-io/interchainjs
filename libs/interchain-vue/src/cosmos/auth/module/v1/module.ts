@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Module is the config object for the auth module. */
 export interface Module {
   /** bech32_prefix is the bech32 account prefix for the app. */
@@ -10,11 +9,6 @@ export interface Module {
   moduleAccountPermissions: ModuleAccountPermission[];
   /** authority defines the custom module authority. If not set, defaults to the governance module. */
   authority: string;
-}
-export interface ReactiveModule {
-  bech32Prefix: ComputedRef<string>;
-  moduleAccountPermissions: ComputedRef<ModuleAccountPermission[]>;
-  authority: ComputedRef<string>;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.auth.module.v1.Module";
@@ -42,10 +36,6 @@ export interface ModuleAccountPermission {
    * values are minter, burner and staking.
    */
   permissions: string[];
-}
-export interface ReactiveModuleAccountPermission {
-  account: ComputedRef<string>;
-  permissions: ComputedRef<string[]>;
 }
 export interface ModuleAccountPermissionProtoMsg {
   typeUrl: "/cosmos.auth.module.v1.ModuleAccountPermission";

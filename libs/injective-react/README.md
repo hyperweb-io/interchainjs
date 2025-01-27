@@ -93,8 +93,8 @@ injective-react provides hooks for sending transactions. These hooks are built o
 There's also an all in one example of how to use these hooks in the [all in one example](#all-in-one-example) section.
 
 ```js
-import { useDelegate } from "injective-react/cosmos/staking/v1beta1/tx.rpc.func";
-import { useGetValidators } from "injective-react/cosmos/staking/v1beta1/query.rpc.func";
+import { useDelegate } from "injective-react/cosmos/staking/v1beta1/tx.rpc.react";
+import { useGetValidators } from "injective-react/cosmos/staking/v1beta1/query.rpc.react";
 
 const {
   data,

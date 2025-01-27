@@ -2,7 +2,6 @@ import { StoreCodeProposal, StoreCodeProposalAmino } from "../../../cosmwasm/was
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
-import { ComputedRef } from "vue";
 export enum FundingMode {
   Unspecified = 0,
   SelfFunded = 1,
@@ -51,11 +50,6 @@ export interface ContractRegistrationRequestProposal {
   description: string;
   contractRegistrationRequest: ContractRegistrationRequest;
 }
-export interface ReactiveContractRegistrationRequestProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  contractRegistrationRequest: ComputedRef<ContractRegistrationRequest>;
-}
 export interface ContractRegistrationRequestProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.ContractRegistrationRequestProposal";
   value: Uint8Array;
@@ -74,11 +68,6 @@ export interface BatchContractRegistrationRequestProposal {
   description: string;
   contractRegistrationRequests: ContractRegistrationRequest[];
 }
-export interface ReactiveBatchContractRegistrationRequestProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  contractRegistrationRequests: ComputedRef<ContractRegistrationRequest[]>;
-}
 export interface BatchContractRegistrationRequestProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal";
   value: Uint8Array;
@@ -96,11 +85,6 @@ export interface BatchContractDeregistrationProposal {
   title: string;
   description: string;
   contracts: string[];
-}
-export interface ReactiveBatchContractDeregistrationProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  contracts: ComputedRef<string[]>;
 }
 export interface BatchContractDeregistrationProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.BatchContractDeregistrationProposal";
@@ -146,17 +130,6 @@ export interface ContractRegistrationRequest {
   /** Specifies how the contract will fund its execution */
   fundingMode: FundingMode;
 }
-export interface ReactiveContractRegistrationRequest {
-  contractAddress: ComputedRef<string>;
-  gasLimit: ComputedRef<bigint>;
-  gasPrice: ComputedRef<bigint>;
-  shouldPinContract: ComputedRef<boolean>;
-  isMigrationAllowed: ComputedRef<boolean>;
-  codeId: ComputedRef<bigint>;
-  adminAddress: ComputedRef<string>;
-  granterAddress: ComputedRef<string>;
-  fundingMode: ComputedRef<FundingMode>;
-}
 export interface ContractRegistrationRequestProtoMsg {
   typeUrl: "/injective.wasmx.v1.ContractRegistrationRequest";
   value: Uint8Array;
@@ -200,11 +173,6 @@ export interface BatchStoreCodeProposal {
   title: string;
   description: string;
   proposals: StoreCodeProposal[];
-}
-export interface ReactiveBatchStoreCodeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  proposals: ComputedRef<StoreCodeProposal[]>;
 }
 export interface BatchStoreCodeProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.BatchStoreCodeProposal";

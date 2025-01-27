@@ -4,10 +4,8 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -22,9 +20,6 @@ export interface QueryParamsRequestAminoMsg {
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryParamsResponse";
@@ -44,7 +39,6 @@ export interface QueryParamsResponseAminoMsg {
  * method.
  */
 export interface QueryAllNamespacesRequest {}
-export interface ReactiveQueryAllNamespacesRequest {}
 export interface QueryAllNamespacesRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAllNamespacesRequest";
   value: Uint8Array;
@@ -64,9 +58,6 @@ export interface QueryAllNamespacesRequestAminoMsg {
  */
 export interface QueryAllNamespacesResponse {
   namespaces: Namespace[];
-}
-export interface ReactiveQueryAllNamespacesResponse {
-  namespaces: ComputedRef<Namespace[]>;
 }
 export interface QueryAllNamespacesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAllNamespacesResponse";
@@ -91,10 +82,6 @@ export interface QueryNamespaceByDenomRequest {
   denom: string;
   includeRoles: boolean;
 }
-export interface ReactiveQueryNamespaceByDenomRequest {
-  denom: ComputedRef<string>;
-  includeRoles: ComputedRef<boolean>;
-}
 export interface QueryNamespaceByDenomRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryNamespaceByDenomRequest";
   value: Uint8Array;
@@ -117,9 +104,6 @@ export interface QueryNamespaceByDenomRequestAminoMsg {
  */
 export interface QueryNamespaceByDenomResponse {
   namespace?: Namespace;
-}
-export interface ReactiveQueryNamespaceByDenomResponse {
-  namespace?: ComputedRef<Namespace>;
 }
 export interface QueryNamespaceByDenomResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryNamespaceByDenomResponse";
@@ -144,10 +128,6 @@ export interface QueryAddressesByRoleRequest {
   denom: string;
   role: string;
 }
-export interface ReactiveQueryAddressesByRoleRequest {
-  denom: ComputedRef<string>;
-  role: ComputedRef<string>;
-}
 export interface QueryAddressesByRoleRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressesByRoleRequest";
   value: Uint8Array;
@@ -171,9 +151,6 @@ export interface QueryAddressesByRoleRequestAminoMsg {
 export interface QueryAddressesByRoleResponse {
   addresses: string[];
 }
-export interface ReactiveQueryAddressesByRoleResponse {
-  addresses: ComputedRef<string[]>;
-}
 export interface QueryAddressesByRoleResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressesByRoleResponse";
   value: Uint8Array;
@@ -193,10 +170,6 @@ export interface QueryAddressRolesRequest {
   denom: string;
   address: string;
 }
-export interface ReactiveQueryAddressRolesRequest {
-  denom: ComputedRef<string>;
-  address: ComputedRef<string>;
-}
 export interface QueryAddressRolesRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesRequest";
   value: Uint8Array;
@@ -212,9 +185,6 @@ export interface QueryAddressRolesRequestAminoMsg {
 export interface QueryAddressRolesResponse {
   roles: string[];
 }
-export interface ReactiveQueryAddressRolesResponse {
-  roles: ComputedRef<string[]>;
-}
 export interface QueryAddressRolesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesResponse";
   value: Uint8Array;
@@ -229,9 +199,6 @@ export interface QueryAddressRolesResponseAminoMsg {
 export interface QueryVouchersForAddressRequest {
   address: string;
 }
-export interface ReactiveQueryVouchersForAddressRequest {
-  address: ComputedRef<string>;
-}
 export interface QueryVouchersForAddressRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressRequest";
   value: Uint8Array;
@@ -245,9 +212,6 @@ export interface QueryVouchersForAddressRequestAminoMsg {
 }
 export interface QueryVouchersForAddressResponse {
   vouchers: Coin[];
-}
-export interface ReactiveQueryVouchersForAddressResponse {
-  vouchers: ComputedRef<Coin[]>;
 }
 export interface QueryVouchersForAddressResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressResponse";

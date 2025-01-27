@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryProposalRequest, QueryProposalResponse, QueryProposalsRequest, QueryProposalsResponse, QueryVoteRequest, QueryVoteResponse, QueryVotesRequest, QueryVotesResponse, QueryParamsRequest, QueryParamsResponse, QueryDepositRequest, QueryDepositResponse, QueryDepositsRequest, QueryDepositsResponse, QueryTallyResultRequest, QueryTallyResultResponse } from "./query";
 export const createGetProposal = (clientResolver?: RpcResolver) => buildQuery<QueryProposalRequest, QueryProposalResponse>({
   encode: QueryProposalRequest.encode,
@@ -9,10 +8,6 @@ export const createGetProposal = (clientResolver?: RpcResolver) => buildQuery<Qu
   clientResolver,
   deps: [QueryProposalRequest, QueryProposalResponse]
 });
-export const useGetProposal = buildUseQuery<QueryProposalRequest, QueryProposalResponse>({
-  builderQueryFn: createGetProposal,
-  queryKeyPrefix: "ProposalQuery"
-});
 export const createGetProposals = (clientResolver?: RpcResolver) => buildQuery<QueryProposalsRequest, QueryProposalsResponse>({
   encode: QueryProposalsRequest.encode,
   decode: QueryProposalsResponse.decode,
@@ -20,10 +15,6 @@ export const createGetProposals = (clientResolver?: RpcResolver) => buildQuery<Q
   method: "Proposals",
   clientResolver,
   deps: [QueryProposalsRequest, QueryProposalsResponse]
-});
-export const useGetProposals = buildUseQuery<QueryProposalsRequest, QueryProposalsResponse>({
-  builderQueryFn: createGetProposals,
-  queryKeyPrefix: "ProposalsQuery"
 });
 export const createGetVote = (clientResolver?: RpcResolver) => buildQuery<QueryVoteRequest, QueryVoteResponse>({
   encode: QueryVoteRequest.encode,
@@ -33,10 +24,6 @@ export const createGetVote = (clientResolver?: RpcResolver) => buildQuery<QueryV
   clientResolver,
   deps: [QueryVoteRequest, QueryVoteResponse]
 });
-export const useGetVote = buildUseQuery<QueryVoteRequest, QueryVoteResponse>({
-  builderQueryFn: createGetVote,
-  queryKeyPrefix: "VoteQuery"
-});
 export const createGetVotes = (clientResolver?: RpcResolver) => buildQuery<QueryVotesRequest, QueryVotesResponse>({
   encode: QueryVotesRequest.encode,
   decode: QueryVotesResponse.decode,
@@ -44,10 +31,6 @@ export const createGetVotes = (clientResolver?: RpcResolver) => buildQuery<Query
   method: "Votes",
   clientResolver,
   deps: [QueryVotesRequest, QueryVotesResponse]
-});
-export const useGetVotes = buildUseQuery<QueryVotesRequest, QueryVotesResponse>({
-  builderQueryFn: createGetVotes,
-  queryKeyPrefix: "VotesQuery"
 });
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -57,10 +40,6 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
-});
 export const createGetDeposit = (clientResolver?: RpcResolver) => buildQuery<QueryDepositRequest, QueryDepositResponse>({
   encode: QueryDepositRequest.encode,
   decode: QueryDepositResponse.decode,
@@ -68,10 +47,6 @@ export const createGetDeposit = (clientResolver?: RpcResolver) => buildQuery<Que
   method: "Deposit",
   clientResolver,
   deps: [QueryDepositRequest, QueryDepositResponse]
-});
-export const useGetDeposit = buildUseQuery<QueryDepositRequest, QueryDepositResponse>({
-  builderQueryFn: createGetDeposit,
-  queryKeyPrefix: "DepositQuery"
 });
 export const createGetDeposits = (clientResolver?: RpcResolver) => buildQuery<QueryDepositsRequest, QueryDepositsResponse>({
   encode: QueryDepositsRequest.encode,
@@ -81,10 +56,6 @@ export const createGetDeposits = (clientResolver?: RpcResolver) => buildQuery<Qu
   clientResolver,
   deps: [QueryDepositsRequest, QueryDepositsResponse]
 });
-export const useGetDeposits = buildUseQuery<QueryDepositsRequest, QueryDepositsResponse>({
-  builderQueryFn: createGetDeposits,
-  queryKeyPrefix: "DepositsQuery"
-});
 export const createGetTallyResult = (clientResolver?: RpcResolver) => buildQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
   encode: QueryTallyResultRequest.encode,
   decode: QueryTallyResultResponse.decode,
@@ -92,8 +63,4 @@ export const createGetTallyResult = (clientResolver?: RpcResolver) => buildQuery
   method: "TallyResult",
   clientResolver,
   deps: [QueryTallyResultRequest, QueryTallyResultResponse]
-});
-export const useGetTallyResult = buildUseQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
-  builderQueryFn: createGetTallyResult,
-  queryKeyPrefix: "TallyResultQuery"
 });

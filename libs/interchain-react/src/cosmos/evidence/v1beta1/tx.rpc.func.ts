@@ -1,6 +1,5 @@
 import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
-import { buildUseMutation } from "../../../react-query";
 import { MsgSubmitEvidence } from "./tx";
 export const createSubmitEvidence = (clientResolver?: SigningClientResolver) => buildTx<MsgSubmitEvidence>({
   clientResolver,
@@ -8,7 +7,4 @@ export const createSubmitEvidence = (clientResolver?: SigningClientResolver) => 
   encoders: toEncoders(MsgSubmitEvidence),
   converters: toConverters(MsgSubmitEvidence),
   deps: [MsgSubmitEvidence]
-});
-export const useSubmitEvidence = buildUseMutation<MsgSubmitEvidence, Error>({
-  builderMutationFn: createSubmitEvidence
 });

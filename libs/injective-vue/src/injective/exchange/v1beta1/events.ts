@@ -3,18 +3,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface EventBatchSpotExecution {
   marketId: string;
   isBuy: boolean;
   executionType: ExecutionType;
   trades: TradeLog[];
-}
-export interface ReactiveEventBatchSpotExecution {
-  marketId: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  executionType: ComputedRef<ExecutionType>;
-  trades: ComputedRef<TradeLog[]>;
 }
 export interface EventBatchSpotExecutionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchSpotExecution";
@@ -39,14 +32,6 @@ export interface EventBatchDerivativeExecution {
   executionType: ExecutionType;
   trades: DerivativeTradeLog[];
 }
-export interface ReactiveEventBatchDerivativeExecution {
-  marketId: ComputedRef<string>;
-  isBuy: ComputedRef<boolean>;
-  isLiquidation: ComputedRef<boolean>;
-  cumulativeFunding?: ComputedRef<string>;
-  executionType: ComputedRef<ExecutionType>;
-  trades: ComputedRef<DerivativeTradeLog[]>;
-}
 export interface EventBatchDerivativeExecutionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativeExecution";
   value: Uint8Array;
@@ -70,12 +55,6 @@ export interface EventLostFundsFromLiquidation {
   lostFundsFromAvailableDuringPayout: string;
   lostFundsFromOrderCancels: string;
 }
-export interface ReactiveEventLostFundsFromLiquidation {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<Uint8Array>;
-  lostFundsFromAvailableDuringPayout: ComputedRef<string>;
-  lostFundsFromOrderCancels: ComputedRef<string>;
-}
 export interface EventLostFundsFromLiquidationProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventLostFundsFromLiquidation";
   value: Uint8Array;
@@ -94,10 +73,6 @@ export interface EventBatchDerivativePosition {
   marketId: string;
   positions: SubaccountPosition[];
 }
-export interface ReactiveEventBatchDerivativePosition {
-  marketId: ComputedRef<string>;
-  positions: ComputedRef<SubaccountPosition[]>;
-}
 export interface EventBatchDerivativePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativePosition";
   value: Uint8Array;
@@ -115,12 +90,6 @@ export interface EventDerivativeMarketPaused {
   settlePrice: string;
   totalMissingFunds: string;
   missingFundsRate: string;
-}
-export interface ReactiveEventDerivativeMarketPaused {
-  marketId: ComputedRef<string>;
-  settlePrice: ComputedRef<string>;
-  totalMissingFunds: ComputedRef<string>;
-  missingFundsRate: ComputedRef<string>;
 }
 export interface EventDerivativeMarketPausedProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventDerivativeMarketPaused";
@@ -141,11 +110,6 @@ export interface EventMarketBeyondBankruptcy {
   settlePrice: string;
   missingMarketFunds: string;
 }
-export interface ReactiveEventMarketBeyondBankruptcy {
-  marketId: ComputedRef<string>;
-  settlePrice: ComputedRef<string>;
-  missingMarketFunds: ComputedRef<string>;
-}
 export interface EventMarketBeyondBankruptcyProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventMarketBeyondBankruptcy";
   value: Uint8Array;
@@ -164,11 +128,6 @@ export interface EventAllPositionsHaircut {
   settlePrice: string;
   missingFundsRate: string;
 }
-export interface ReactiveEventAllPositionsHaircut {
-  marketId: ComputedRef<string>;
-  settlePrice: ComputedRef<string>;
-  missingFundsRate: ComputedRef<string>;
-}
 export interface EventAllPositionsHaircutProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventAllPositionsHaircut";
   value: Uint8Array;
@@ -185,9 +144,6 @@ export interface EventAllPositionsHaircutAminoMsg {
 export interface EventBinaryOptionsMarketUpdate {
   market: BinaryOptionsMarket;
 }
-export interface ReactiveEventBinaryOptionsMarketUpdate {
-  market: ComputedRef<BinaryOptionsMarket>;
-}
 export interface EventBinaryOptionsMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate";
   value: Uint8Array;
@@ -203,11 +159,6 @@ export interface EventNewSpotOrders {
   marketId: string;
   buyOrders: SpotLimitOrder[];
   sellOrders: SpotLimitOrder[];
-}
-export interface ReactiveEventNewSpotOrders {
-  marketId: ComputedRef<string>;
-  buyOrders: ComputedRef<SpotLimitOrder[]>;
-  sellOrders: ComputedRef<SpotLimitOrder[]>;
 }
 export interface EventNewSpotOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventNewSpotOrders";
@@ -227,11 +178,6 @@ export interface EventNewDerivativeOrders {
   buyOrders: DerivativeLimitOrder[];
   sellOrders: DerivativeLimitOrder[];
 }
-export interface ReactiveEventNewDerivativeOrders {
-  marketId: ComputedRef<string>;
-  buyOrders: ComputedRef<DerivativeLimitOrder[]>;
-  sellOrders: ComputedRef<DerivativeLimitOrder[]>;
-}
 export interface EventNewDerivativeOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventNewDerivativeOrders";
   value: Uint8Array;
@@ -249,10 +195,6 @@ export interface EventCancelSpotOrder {
   marketId: string;
   order: SpotLimitOrder;
 }
-export interface ReactiveEventCancelSpotOrder {
-  marketId: ComputedRef<string>;
-  order: ComputedRef<SpotLimitOrder>;
-}
 export interface EventCancelSpotOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventCancelSpotOrder";
   value: Uint8Array;
@@ -267,9 +209,6 @@ export interface EventCancelSpotOrderAminoMsg {
 }
 export interface EventSpotMarketUpdate {
   market: SpotMarket;
-}
-export interface ReactiveEventSpotMarketUpdate {
-  market: ComputedRef<SpotMarket>;
 }
 export interface EventSpotMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSpotMarketUpdate";
@@ -287,11 +226,6 @@ export interface EventPerpetualMarketUpdate {
   perpetualMarketInfo?: PerpetualMarketInfo;
   funding?: PerpetualMarketFunding;
 }
-export interface ReactiveEventPerpetualMarketUpdate {
-  market: ComputedRef<DerivativeMarket>;
-  perpetualMarketInfo?: ComputedRef<PerpetualMarketInfo>;
-  funding?: ComputedRef<PerpetualMarketFunding>;
-}
 export interface EventPerpetualMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketUpdate";
   value: Uint8Array;
@@ -308,10 +242,6 @@ export interface EventPerpetualMarketUpdateAminoMsg {
 export interface EventExpiryFuturesMarketUpdate {
   market: DerivativeMarket;
   expiryFuturesMarketInfo?: ExpiryFuturesMarketInfo;
-}
-export interface ReactiveEventExpiryFuturesMarketUpdate {
-  market: ComputedRef<DerivativeMarket>;
-  expiryFuturesMarketInfo?: ComputedRef<ExpiryFuturesMarketInfo>;
 }
 export interface EventExpiryFuturesMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate";
@@ -331,13 +261,6 @@ export interface EventPerpetualMarketFundingUpdate {
   isHourlyFunding: boolean;
   fundingRate?: string;
   markPrice?: string;
-}
-export interface ReactiveEventPerpetualMarketFundingUpdate {
-  marketId: ComputedRef<string>;
-  funding: ComputedRef<PerpetualMarketFunding>;
-  isHourlyFunding: ComputedRef<boolean>;
-  fundingRate?: ComputedRef<string>;
-  markPrice?: ComputedRef<string>;
 }
 export interface EventPerpetualMarketFundingUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate";
@@ -359,11 +282,6 @@ export interface EventSubaccountDeposit {
   subaccountId: Uint8Array;
   amount: Coin;
 }
-export interface ReactiveEventSubaccountDeposit {
-  srcAddress: ComputedRef<string>;
-  subaccountId: ComputedRef<Uint8Array>;
-  amount: ComputedRef<Coin>;
-}
 export interface EventSubaccountDepositProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountDeposit";
   value: Uint8Array;
@@ -381,11 +299,6 @@ export interface EventSubaccountWithdraw {
   subaccountId: Uint8Array;
   dstAddress: string;
   amount: Coin;
-}
-export interface ReactiveEventSubaccountWithdraw {
-  subaccountId: ComputedRef<Uint8Array>;
-  dstAddress: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface EventSubaccountWithdrawProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountWithdraw";
@@ -405,11 +318,6 @@ export interface EventSubaccountBalanceTransfer {
   dstSubaccountId: string;
   amount: Coin;
 }
-export interface ReactiveEventSubaccountBalanceTransfer {
-  srcSubaccountId: ComputedRef<string>;
-  dstSubaccountId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-}
 export interface EventSubaccountBalanceTransferProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountBalanceTransfer";
   value: Uint8Array;
@@ -426,9 +334,6 @@ export interface EventSubaccountBalanceTransferAminoMsg {
 export interface EventBatchDepositUpdate {
   depositUpdates: DepositUpdate[];
 }
-export interface ReactiveEventBatchDepositUpdate {
-  depositUpdates: ComputedRef<DepositUpdate[]>;
-}
 export interface EventBatchDepositUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDepositUpdate";
   value: Uint8Array;
@@ -443,10 +348,6 @@ export interface EventBatchDepositUpdateAminoMsg {
 export interface DerivativeMarketOrderCancel {
   marketOrder?: DerivativeMarketOrder;
   cancelQuantity: string;
-}
-export interface ReactiveDerivativeMarketOrderCancel {
-  marketOrder?: ComputedRef<DerivativeMarketOrder>;
-  cancelQuantity: ComputedRef<string>;
 }
 export interface DerivativeMarketOrderCancelProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderCancel";
@@ -466,12 +367,6 @@ export interface EventCancelDerivativeOrder {
   limitOrder?: DerivativeLimitOrder;
   marketOrderCancel?: DerivativeMarketOrderCancel;
 }
-export interface ReactiveEventCancelDerivativeOrder {
-  marketId: ComputedRef<string>;
-  isLimitCancel: ComputedRef<boolean>;
-  limitOrder?: ComputedRef<DerivativeLimitOrder>;
-  marketOrderCancel?: ComputedRef<DerivativeMarketOrderCancel>;
-}
 export interface EventCancelDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventCancelDerivativeOrder";
   value: Uint8Array;
@@ -489,9 +384,6 @@ export interface EventCancelDerivativeOrderAminoMsg {
 export interface EventFeeDiscountSchedule {
   schedule?: FeeDiscountSchedule;
 }
-export interface ReactiveEventFeeDiscountSchedule {
-  schedule?: ComputedRef<FeeDiscountSchedule>;
-}
 export interface EventFeeDiscountScheduleProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventFeeDiscountSchedule";
   value: Uint8Array;
@@ -507,10 +399,6 @@ export interface EventTradingRewardCampaignUpdate {
   campaignInfo?: TradingRewardCampaignInfo;
   campaignRewardPools: CampaignRewardPool[];
 }
-export interface ReactiveEventTradingRewardCampaignUpdate {
-  campaignInfo?: ComputedRef<TradingRewardCampaignInfo>;
-  campaignRewardPools: ComputedRef<CampaignRewardPool[]>;
-}
 export interface EventTradingRewardCampaignUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventTradingRewardCampaignUpdate";
   value: Uint8Array;
@@ -525,9 +413,6 @@ export interface EventTradingRewardCampaignUpdateAminoMsg {
 }
 export interface EventTradingRewardDistribution {
   accountRewards: AccountRewards[];
-}
-export interface ReactiveEventTradingRewardDistribution {
-  accountRewards: ComputedRef<AccountRewards[]>;
 }
 export interface EventTradingRewardDistributionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventTradingRewardDistribution";
@@ -545,12 +430,6 @@ export interface EventNewConditionalDerivativeOrder {
   order?: DerivativeOrder;
   hash: Uint8Array;
   isMarket: boolean;
-}
-export interface ReactiveEventNewConditionalDerivativeOrder {
-  marketId: ComputedRef<string>;
-  order?: ComputedRef<DerivativeOrder>;
-  hash: ComputedRef<Uint8Array>;
-  isMarket: ComputedRef<boolean>;
 }
 export interface EventNewConditionalDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventNewConditionalDerivativeOrder";
@@ -571,12 +450,6 @@ export interface EventCancelConditionalDerivativeOrder {
   isLimitCancel: boolean;
   limitOrder?: DerivativeLimitOrder;
   marketOrder?: DerivativeMarketOrder;
-}
-export interface ReactiveEventCancelConditionalDerivativeOrder {
-  marketId: ComputedRef<string>;
-  isLimitCancel: ComputedRef<boolean>;
-  limitOrder?: ComputedRef<DerivativeLimitOrder>;
-  marketOrder?: ComputedRef<DerivativeMarketOrder>;
 }
 export interface EventCancelConditionalDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder";
@@ -599,13 +472,6 @@ export interface EventConditionalDerivativeOrderTrigger {
   placedOrderHash: Uint8Array;
   triggeredOrderCid: string;
 }
-export interface ReactiveEventConditionalDerivativeOrderTrigger {
-  marketId: ComputedRef<Uint8Array>;
-  isLimitTrigger: ComputedRef<boolean>;
-  triggeredOrderHash: ComputedRef<Uint8Array>;
-  placedOrderHash: ComputedRef<Uint8Array>;
-  triggeredOrderCid: ComputedRef<string>;
-}
 export interface EventConditionalDerivativeOrderTriggerProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger";
   value: Uint8Array;
@@ -627,12 +493,6 @@ export interface EventOrderFail {
   flags: number[];
   cids: string[];
 }
-export interface ReactiveEventOrderFail {
-  account: ComputedRef<Uint8Array>;
-  hashes: ComputedRef<Uint8Array[]>;
-  flags: ComputedRef<number[]>;
-  cids: ComputedRef<string[]>;
-}
 export interface EventOrderFailProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventOrderFail";
   value: Uint8Array;
@@ -650,9 +510,6 @@ export interface EventOrderFailAminoMsg {
 export interface EventAtomicMarketOrderFeeMultipliersUpdated {
   marketFeeMultipliers: MarketFeeMultiplier[];
 }
-export interface ReactiveEventAtomicMarketOrderFeeMultipliersUpdated {
-  marketFeeMultipliers: ComputedRef<MarketFeeMultiplier[]>;
-}
 export interface EventAtomicMarketOrderFeeMultipliersUpdatedProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated";
   value: Uint8Array;
@@ -667,10 +524,6 @@ export interface EventAtomicMarketOrderFeeMultipliersUpdatedAminoMsg {
 export interface EventOrderbookUpdate {
   spotUpdates: OrderbookUpdate[];
   derivativeUpdates: OrderbookUpdate[];
-}
-export interface ReactiveEventOrderbookUpdate {
-  spotUpdates: ComputedRef<OrderbookUpdate[]>;
-  derivativeUpdates: ComputedRef<OrderbookUpdate[]>;
 }
 export interface EventOrderbookUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventOrderbookUpdate";
@@ -687,10 +540,6 @@ export interface EventOrderbookUpdateAminoMsg {
 export interface OrderbookUpdate {
   seq: bigint;
   orderbook?: Orderbook;
-}
-export interface ReactiveOrderbookUpdate {
-  seq: ComputedRef<bigint>;
-  orderbook?: ComputedRef<Orderbook>;
 }
 export interface OrderbookUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderbookUpdate";
@@ -709,11 +558,6 @@ export interface Orderbook {
   buyLevels: Level[];
   sellLevels: Level[];
 }
-export interface ReactiveOrderbook {
-  marketId: ComputedRef<Uint8Array>;
-  buyLevels: ComputedRef<Level[]>;
-  sellLevels: ComputedRef<Level[]>;
-}
 export interface OrderbookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Orderbook";
   value: Uint8Array;
@@ -730,10 +574,6 @@ export interface OrderbookAminoMsg {
 export interface EventGrantAuthorizations {
   granter: string;
   grants: GrantAuthorization[];
-}
-export interface ReactiveEventGrantAuthorizations {
-  granter: ComputedRef<string>;
-  grants: ComputedRef<GrantAuthorization[]>;
 }
 export interface EventGrantAuthorizationsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventGrantAuthorizations";
@@ -752,11 +592,6 @@ export interface EventGrantActivation {
   granter: string;
   amount: string;
 }
-export interface ReactiveEventGrantActivation {
-  grantee: ComputedRef<string>;
-  granter: ComputedRef<string>;
-  amount: ComputedRef<string>;
-}
 export interface EventGrantActivationProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventGrantActivation";
   value: Uint8Array;
@@ -773,10 +608,6 @@ export interface EventGrantActivationAminoMsg {
 export interface EventInvalidGrant {
   grantee: string;
   granter: string;
-}
-export interface ReactiveEventInvalidGrant {
-  grantee: ComputedRef<string>;
-  granter: ComputedRef<string>;
 }
 export interface EventInvalidGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventInvalidGrant";
@@ -796,13 +627,6 @@ export interface EventOrderCancelFail {
   orderHash: string;
   cid: string;
   description: string;
-}
-export interface ReactiveEventOrderCancelFail {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-  description: ComputedRef<string>;
 }
 export interface EventOrderCancelFailProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventOrderCancelFail";

@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the crisis module's genesis state. */
 export interface GenesisState {
   /**
@@ -10,9 +9,6 @@ export interface GenesisState {
    * module.
    */
   constantFee: Coin;
-}
-export interface ReactiveGenesisState {
-  constantFee: ComputedRef<Coin>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.GenesisState";

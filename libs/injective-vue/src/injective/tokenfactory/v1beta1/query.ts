@@ -4,10 +4,8 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsRequest";
   value: Uint8Array;
@@ -22,9 +20,6 @@ export interface QueryParamsRequestAminoMsg {
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsResponse";
@@ -46,10 +41,6 @@ export interface QueryParamsResponseAminoMsg {
 export interface QueryDenomAuthorityMetadataRequest {
   creator: string;
   subDenom: string;
-}
-export interface ReactiveQueryDenomAuthorityMetadataRequest {
-  creator: ComputedRef<string>;
-  subDenom: ComputedRef<string>;
 }
 export interface QueryDenomAuthorityMetadataRequestProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest";
@@ -74,9 +65,6 @@ export interface QueryDenomAuthorityMetadataRequestAminoMsg {
 export interface QueryDenomAuthorityMetadataResponse {
   authorityMetadata: DenomAuthorityMetadata;
 }
-export interface ReactiveQueryDenomAuthorityMetadataResponse {
-  authorityMetadata: ComputedRef<DenomAuthorityMetadata>;
-}
 export interface QueryDenomAuthorityMetadataResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse";
   value: Uint8Array;
@@ -98,9 +86,6 @@ export interface QueryDenomAuthorityMetadataResponseAminoMsg {
  */
 export interface QueryDenomsFromCreatorRequest {
   creator: string;
-}
-export interface ReactiveQueryDenomsFromCreatorRequest {
-  creator: ComputedRef<string>;
 }
 export interface QueryDenomsFromCreatorRequestProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest";
@@ -124,9 +109,6 @@ export interface QueryDenomsFromCreatorRequestAminoMsg {
 export interface QueryDenomsFromCreatorResponse {
   denoms: string[];
 }
-export interface ReactiveQueryDenomsFromCreatorResponse {
-  denoms: ComputedRef<string[]>;
-}
 export interface QueryDenomsFromCreatorResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse";
   value: Uint8Array;
@@ -147,7 +129,6 @@ export interface QueryDenomsFromCreatorResponseAminoMsg {
  * Query/TokenfactoryModuleState RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -167,9 +148,6 @@ export interface QueryModuleStateRequestAminoMsg {
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
-}
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
 }
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryModuleStateResponse";

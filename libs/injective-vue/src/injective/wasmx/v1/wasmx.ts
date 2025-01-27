@@ -3,7 +3,6 @@ import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface Params {
   /**
    * Set the status to active to indicate that contracts can be executed in
@@ -26,13 +25,6 @@ export interface Params {
    */
   minGasPrice: bigint;
   registerContractAccess: AccessConfig;
-}
-export interface ReactiveParams {
-  isExecutionEnabled: ComputedRef<boolean>;
-  maxBeginBlockTotalGas: ComputedRef<bigint>;
-  maxContractGasLimit: ComputedRef<bigint>;
-  minGasPrice: ComputedRef<bigint>;
-  registerContractAccess: ComputedRef<AccessConfig>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.wasmx.v1.Params";
@@ -86,15 +78,6 @@ export interface RegisteredContract {
   granterAddress?: string;
   /** funding mode */
   fundMode: FundingMode;
-}
-export interface ReactiveRegisteredContract {
-  gasLimit: ComputedRef<bigint>;
-  gasPrice: ComputedRef<bigint>;
-  isExecutable: ComputedRef<boolean>;
-  codeId?: ComputedRef<bigint>;
-  adminAddress?: ComputedRef<string>;
-  granterAddress?: ComputedRef<string>;
-  fundMode: ComputedRef<FundingMode>;
 }
 export interface RegisteredContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.RegisteredContract";

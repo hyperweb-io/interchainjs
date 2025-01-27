@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /** Config is the config object of the x/auth/tx package. */
 export interface Config {
   /**
@@ -14,10 +13,6 @@ export interface Config {
    * this functionality.
    */
   skipPostHandler: boolean;
-}
-export interface ReactiveConfig {
-  skipAnteHandler: ComputedRef<boolean>;
-  skipPostHandler: ComputedRef<boolean>;
 }
 export interface ConfigProtoMsg {
   typeUrl: "/cosmos.tx.config.v1.Config";

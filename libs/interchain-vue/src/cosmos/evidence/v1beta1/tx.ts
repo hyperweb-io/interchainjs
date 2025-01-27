@@ -2,7 +2,6 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * MsgSubmitEvidence represents a message that supports submitting arbitrary
  * Evidence of misbehavior such as equivocation or counterfactual signing.
@@ -12,10 +11,6 @@ export interface MsgSubmitEvidence {
   submitter: string;
   /** evidence defines the evidence of misbehavior. */
   evidence?: Any | undefined;
-}
-export interface ReactiveMsgSubmitEvidence {
-  submitter: ComputedRef<string>;
-  evidence?: ComputedRef<Any | undefined>;
 }
 export interface MsgSubmitEvidenceProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence";
@@ -42,9 +37,6 @@ export interface MsgSubmitEvidenceAminoMsg {
 export interface MsgSubmitEvidenceResponse {
   /** hash defines the hash of the evidence. */
   hash: Uint8Array;
-}
-export interface ReactiveMsgSubmitEvidenceResponse {
-  hash: ComputedRef<Uint8Array>;
 }
 export interface MsgSubmitEvidenceResponseProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse";

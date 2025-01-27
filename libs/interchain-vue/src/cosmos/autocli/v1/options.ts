@@ -1,17 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptions {
   /** tx describes the tx commands for the module. */
   tx?: ServiceCommandDescriptor;
   /** query describes the queries commands for the module. */
   query?: ServiceCommandDescriptor;
-}
-export interface ReactiveModuleOptions {
-  tx?: ComputedRef<ServiceCommandDescriptor>;
-  query?: ComputedRef<ServiceCommandDescriptor>;
 }
 export interface ModuleOptionsProtoMsg {
   typeUrl: "/cosmos.autocli.v1.ModuleOptions";
@@ -31,10 +26,6 @@ export interface ModuleOptionsAminoMsg {
 export interface ServiceCommandDescriptor_SubCommandsEntry {
   key: string;
   value?: ServiceCommandDescriptor;
-}
-export interface ReactiveServiceCommandDescriptor_SubCommandsEntry {
-  key: ComputedRef<string>;
-  value?: ComputedRef<ServiceCommandDescriptor>;
 }
 export interface ServiceCommandDescriptor_SubCommandsEntryProtoMsg {
   typeUrl: string;
@@ -71,13 +62,6 @@ export interface ServiceCommandDescriptor {
     [key: string]: ServiceCommandDescriptor;
   };
 }
-export interface ReactiveServiceCommandDescriptor {
-  service: ComputedRef<string>;
-  rpcCommandOptions: ComputedRef<RpcCommandOptions[]>;
-  subCommands: ComputedRef<{
-    [key: string]: ServiceCommandDescriptor;
-  }>;
-}
 export interface ServiceCommandDescriptorProtoMsg {
   typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor";
   value: Uint8Array;
@@ -112,10 +96,6 @@ export interface ServiceCommandDescriptorAminoMsg {
 export interface RpcCommandOptions_FlagOptionsEntry {
   key: string;
   value?: FlagOptions;
-}
-export interface ReactiveRpcCommandOptions_FlagOptionsEntry {
-  key: ComputedRef<string>;
-  value?: ComputedRef<FlagOptions>;
 }
 export interface RpcCommandOptions_FlagOptionsEntryProtoMsg {
   typeUrl: string;
@@ -181,22 +161,6 @@ export interface RpcCommandOptions {
   positionalArgs: PositionalArgDescriptor[];
   /** skip specifies whether to skip this rpc method when generating commands. */
   skip: boolean;
-}
-export interface ReactiveRpcCommandOptions {
-  rpcMethod: ComputedRef<string>;
-  use: ComputedRef<string>;
-  long: ComputedRef<string>;
-  short: ComputedRef<string>;
-  example: ComputedRef<string>;
-  alias: ComputedRef<string[]>;
-  suggestFor: ComputedRef<string[]>;
-  deprecated: ComputedRef<string>;
-  version: ComputedRef<string>;
-  flagOptions: ComputedRef<{
-    [key: string]: FlagOptions;
-  }>;
-  positionalArgs: ComputedRef<PositionalArgDescriptor[]>;
-  skip: ComputedRef<boolean>;
 }
 export interface RpcCommandOptionsProtoMsg {
   typeUrl: "/cosmos.autocli.v1.RpcCommandOptions";
@@ -281,15 +245,6 @@ export interface FlagOptions {
   /** hidden hides the flag from help/usage text */
   hidden: boolean;
 }
-export interface ReactiveFlagOptions {
-  name: ComputedRef<string>;
-  shorthand: ComputedRef<string>;
-  usage: ComputedRef<string>;
-  defaultValue: ComputedRef<string>;
-  deprecated: ComputedRef<string>;
-  shorthandDeprecated: ComputedRef<string>;
-  hidden: ComputedRef<boolean>;
-}
 export interface FlagOptionsProtoMsg {
   typeUrl: "/cosmos.autocli.v1.FlagOptions";
   value: Uint8Array;
@@ -333,10 +288,6 @@ export interface PositionalArgDescriptor {
    * field.
    */
   varargs: boolean;
-}
-export interface ReactivePositionalArgDescriptor {
-  protoField: ComputedRef<string>;
-  varargs: ComputedRef<boolean>;
 }
 export interface PositionalArgDescriptorProtoMsg {
   typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor";

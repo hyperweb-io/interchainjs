@@ -3,7 +3,6 @@ import { Namespace, NamespaceAmino, Role, RoleAmino, AddressRoles, AddressRolesA
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface MsgUpdateParams {
   /** authority is the address of the governance account. */
   authority: string;
@@ -13,10 +12,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateParams";
@@ -37,7 +32,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -50,10 +44,6 @@ export interface MsgUpdateParamsResponseAminoMsg {
 export interface MsgCreateNamespace {
   sender: string;
   namespace: Namespace;
-}
-export interface ReactiveMsgCreateNamespace {
-  sender: ComputedRef<string>;
-  namespace: ComputedRef<Namespace>;
 }
 export interface MsgCreateNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespace";
@@ -68,7 +58,6 @@ export interface MsgCreateNamespaceAminoMsg {
   value: MsgCreateNamespaceAmino;
 }
 export interface MsgCreateNamespaceResponse {}
-export interface ReactiveMsgCreateNamespaceResponse {}
 export interface MsgCreateNamespaceResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespaceResponse";
   value: Uint8Array;
@@ -81,10 +70,6 @@ export interface MsgCreateNamespaceResponseAminoMsg {
 export interface MsgDeleteNamespace {
   sender: string;
   namespaceDenom: string;
-}
-export interface ReactiveMsgDeleteNamespace {
-  sender: ComputedRef<string>;
-  namespaceDenom: ComputedRef<string>;
 }
 export interface MsgDeleteNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace";
@@ -99,7 +84,6 @@ export interface MsgDeleteNamespaceAminoMsg {
   value: MsgDeleteNamespaceAmino;
 }
 export interface MsgDeleteNamespaceResponse {}
-export interface ReactiveMsgDeleteNamespaceResponse {}
 export interface MsgDeleteNamespaceResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse";
   value: Uint8Array;
@@ -118,14 +102,6 @@ export interface MsgUpdateNamespace {
   mintsPaused?: MsgUpdateNamespace_MsgSetMintsPaused;
   sendsPaused?: MsgUpdateNamespace_MsgSetSendsPaused;
   burnsPaused?: MsgUpdateNamespace_MsgSetBurnsPaused;
-}
-export interface ReactiveMsgUpdateNamespace {
-  sender: ComputedRef<string>;
-  namespaceDenom: ComputedRef<string>;
-  wasmHook?: ComputedRef<MsgUpdateNamespace_MsgSetWasmHook>;
-  mintsPaused?: ComputedRef<MsgUpdateNamespace_MsgSetMintsPaused>;
-  sendsPaused?: ComputedRef<MsgUpdateNamespace_MsgSetSendsPaused>;
-  burnsPaused?: ComputedRef<MsgUpdateNamespace_MsgSetBurnsPaused>;
 }
 export interface MsgUpdateNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespace";
@@ -148,9 +124,6 @@ export interface MsgUpdateNamespaceAminoMsg {
 export interface MsgUpdateNamespace_MsgSetWasmHook {
   newValue: string;
 }
-export interface ReactiveMsgUpdateNamespace_MsgSetWasmHook {
-  newValue: ComputedRef<string>;
-}
 export interface MsgUpdateNamespace_MsgSetWasmHookProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook";
   value: Uint8Array;
@@ -164,9 +137,6 @@ export interface MsgUpdateNamespace_MsgSetWasmHookAminoMsg {
 }
 export interface MsgUpdateNamespace_MsgSetMintsPaused {
   newValue: boolean;
-}
-export interface ReactiveMsgUpdateNamespace_MsgSetMintsPaused {
-  newValue: ComputedRef<boolean>;
 }
 export interface MsgUpdateNamespace_MsgSetMintsPausedProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused";
@@ -182,9 +152,6 @@ export interface MsgUpdateNamespace_MsgSetMintsPausedAminoMsg {
 export interface MsgUpdateNamespace_MsgSetSendsPaused {
   newValue: boolean;
 }
-export interface ReactiveMsgUpdateNamespace_MsgSetSendsPaused {
-  newValue: ComputedRef<boolean>;
-}
 export interface MsgUpdateNamespace_MsgSetSendsPausedProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused";
   value: Uint8Array;
@@ -199,9 +166,6 @@ export interface MsgUpdateNamespace_MsgSetSendsPausedAminoMsg {
 export interface MsgUpdateNamespace_MsgSetBurnsPaused {
   newValue: boolean;
 }
-export interface ReactiveMsgUpdateNamespace_MsgSetBurnsPaused {
-  newValue: ComputedRef<boolean>;
-}
 export interface MsgUpdateNamespace_MsgSetBurnsPausedProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused";
   value: Uint8Array;
@@ -214,7 +178,6 @@ export interface MsgUpdateNamespace_MsgSetBurnsPausedAminoMsg {
   value: MsgUpdateNamespace_MsgSetBurnsPausedAmino;
 }
 export interface MsgUpdateNamespaceResponse {}
-export interface ReactiveMsgUpdateNamespaceResponse {}
 export interface MsgUpdateNamespaceResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceResponse";
   value: Uint8Array;
@@ -232,12 +195,6 @@ export interface MsgUpdateNamespaceRoles {
   rolePermissions: Role[];
   /** new addresses to add or new roles for existing addresses to */
   addressRoles: AddressRoles[];
-}
-export interface ReactiveMsgUpdateNamespaceRoles {
-  sender: ComputedRef<string>;
-  namespaceDenom: ComputedRef<string>;
-  rolePermissions: ComputedRef<Role[]>;
-  addressRoles: ComputedRef<AddressRoles[]>;
 }
 export interface MsgUpdateNamespaceRolesProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles";
@@ -257,7 +214,6 @@ export interface MsgUpdateNamespaceRolesAminoMsg {
   value: MsgUpdateNamespaceRolesAmino;
 }
 export interface MsgUpdateNamespaceRolesResponse {}
-export interface ReactiveMsgUpdateNamespaceRolesResponse {}
 export interface MsgUpdateNamespaceRolesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse";
   value: Uint8Array;
@@ -273,11 +229,6 @@ export interface MsgRevokeNamespaceRoles {
   namespaceDenom: string;
   /** {"address" => array of roles to revoke from this address} */
   addressRolesToRevoke: AddressRoles[];
-}
-export interface ReactiveMsgRevokeNamespaceRoles {
-  sender: ComputedRef<string>;
-  namespaceDenom: ComputedRef<string>;
-  addressRolesToRevoke: ComputedRef<AddressRoles[]>;
 }
 export interface MsgRevokeNamespaceRolesProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles";
@@ -295,7 +246,6 @@ export interface MsgRevokeNamespaceRolesAminoMsg {
   value: MsgRevokeNamespaceRolesAmino;
 }
 export interface MsgRevokeNamespaceRolesResponse {}
-export interface ReactiveMsgRevokeNamespaceRolesResponse {}
 export interface MsgRevokeNamespaceRolesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse";
   value: Uint8Array;
@@ -308,10 +258,6 @@ export interface MsgRevokeNamespaceRolesResponseAminoMsg {
 export interface MsgClaimVoucher {
   sender: string;
   denom: string;
-}
-export interface ReactiveMsgClaimVoucher {
-  sender: ComputedRef<string>;
-  denom: ComputedRef<string>;
 }
 export interface MsgClaimVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucher";
@@ -326,7 +272,6 @@ export interface MsgClaimVoucherAminoMsg {
   value: MsgClaimVoucherAmino;
 }
 export interface MsgClaimVoucherResponse {}
-export interface ReactiveMsgClaimVoucherResponse {}
 export interface MsgClaimVoucherResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucherResponse";
   value: Uint8Array;

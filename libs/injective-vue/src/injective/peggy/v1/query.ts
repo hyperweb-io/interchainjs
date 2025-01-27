@@ -7,9 +7,7 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryParamsRequest";
   value: Uint8Array;
@@ -21,9 +19,6 @@ export interface QueryParamsRequestAminoMsg {
 }
 export interface QueryParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryParamsResponse";
@@ -37,7 +32,6 @@ export interface QueryParamsResponseAminoMsg {
   value: QueryParamsResponseAmino;
 }
 export interface QueryCurrentValsetRequest {}
-export interface ReactiveQueryCurrentValsetRequest {}
 export interface QueryCurrentValsetRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryCurrentValsetRequest";
   value: Uint8Array;
@@ -49,9 +43,6 @@ export interface QueryCurrentValsetRequestAminoMsg {
 }
 export interface QueryCurrentValsetResponse {
   valset?: Valset;
-}
-export interface ReactiveQueryCurrentValsetResponse {
-  valset?: ComputedRef<Valset>;
 }
 export interface QueryCurrentValsetResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryCurrentValsetResponse";
@@ -67,9 +58,6 @@ export interface QueryCurrentValsetResponseAminoMsg {
 export interface QueryValsetRequestRequest {
   nonce: bigint;
 }
-export interface ReactiveQueryValsetRequestRequest {
-  nonce: ComputedRef<bigint>;
-}
 export interface QueryValsetRequestRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetRequestRequest";
   value: Uint8Array;
@@ -83,9 +71,6 @@ export interface QueryValsetRequestRequestAminoMsg {
 }
 export interface QueryValsetRequestResponse {
   valset?: Valset;
-}
-export interface ReactiveQueryValsetRequestResponse {
-  valset?: ComputedRef<Valset>;
 }
 export interface QueryValsetRequestResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetRequestResponse";
@@ -102,10 +87,6 @@ export interface QueryValsetConfirmRequest {
   nonce: bigint;
   address: string;
 }
-export interface ReactiveQueryValsetConfirmRequest {
-  nonce: ComputedRef<bigint>;
-  address: ComputedRef<string>;
-}
 export interface QueryValsetConfirmRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmRequest";
   value: Uint8Array;
@@ -121,9 +102,6 @@ export interface QueryValsetConfirmRequestAminoMsg {
 export interface QueryValsetConfirmResponse {
   confirm?: MsgValsetConfirm;
 }
-export interface ReactiveQueryValsetConfirmResponse {
-  confirm?: ComputedRef<MsgValsetConfirm>;
-}
 export interface QueryValsetConfirmResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmResponse";
   value: Uint8Array;
@@ -137,9 +115,6 @@ export interface QueryValsetConfirmResponseAminoMsg {
 }
 export interface QueryValsetConfirmsByNonceRequest {
   nonce: bigint;
-}
-export interface ReactiveQueryValsetConfirmsByNonceRequest {
-  nonce: ComputedRef<bigint>;
 }
 export interface QueryValsetConfirmsByNonceRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceRequest";
@@ -155,9 +130,6 @@ export interface QueryValsetConfirmsByNonceRequestAminoMsg {
 export interface QueryValsetConfirmsByNonceResponse {
   confirms: MsgValsetConfirm[];
 }
-export interface ReactiveQueryValsetConfirmsByNonceResponse {
-  confirms: ComputedRef<MsgValsetConfirm[]>;
-}
 export interface QueryValsetConfirmsByNonceResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceResponse";
   value: Uint8Array;
@@ -170,7 +142,6 @@ export interface QueryValsetConfirmsByNonceResponseAminoMsg {
   value: QueryValsetConfirmsByNonceResponseAmino;
 }
 export interface QueryLastValsetRequestsRequest {}
-export interface ReactiveQueryLastValsetRequestsRequest {}
 export interface QueryLastValsetRequestsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsRequest";
   value: Uint8Array;
@@ -182,9 +153,6 @@ export interface QueryLastValsetRequestsRequestAminoMsg {
 }
 export interface QueryLastValsetRequestsResponse {
   valsets: Valset[];
-}
-export interface ReactiveQueryLastValsetRequestsResponse {
-  valsets: ComputedRef<Valset[]>;
 }
 export interface QueryLastValsetRequestsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsResponse";
@@ -200,9 +168,6 @@ export interface QueryLastValsetRequestsResponseAminoMsg {
 export interface QueryLastPendingValsetRequestByAddrRequest {
   address: string;
 }
-export interface ReactiveQueryLastPendingValsetRequestByAddrRequest {
-  address: ComputedRef<string>;
-}
 export interface QueryLastPendingValsetRequestByAddrRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest";
   value: Uint8Array;
@@ -217,9 +182,6 @@ export interface QueryLastPendingValsetRequestByAddrRequestAminoMsg {
 export interface QueryLastPendingValsetRequestByAddrResponse {
   valsets: Valset[];
 }
-export interface ReactiveQueryLastPendingValsetRequestByAddrResponse {
-  valsets: ComputedRef<Valset[]>;
-}
 export interface QueryLastPendingValsetRequestByAddrResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse";
   value: Uint8Array;
@@ -232,7 +194,6 @@ export interface QueryLastPendingValsetRequestByAddrResponseAminoMsg {
   value: QueryLastPendingValsetRequestByAddrResponseAmino;
 }
 export interface QueryBatchFeeRequest {}
-export interface ReactiveQueryBatchFeeRequest {}
 export interface QueryBatchFeeRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchFeeRequest";
   value: Uint8Array;
@@ -244,9 +205,6 @@ export interface QueryBatchFeeRequestAminoMsg {
 }
 export interface QueryBatchFeeResponse {
   batchFees: BatchFees[];
-}
-export interface ReactiveQueryBatchFeeResponse {
-  batchFees: ComputedRef<BatchFees[]>;
 }
 export interface QueryBatchFeeResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchFeeResponse";
@@ -262,9 +220,6 @@ export interface QueryBatchFeeResponseAminoMsg {
 export interface QueryLastPendingBatchRequestByAddrRequest {
   address: string;
 }
-export interface ReactiveQueryLastPendingBatchRequestByAddrRequest {
-  address: ComputedRef<string>;
-}
 export interface QueryLastPendingBatchRequestByAddrRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest";
   value: Uint8Array;
@@ -279,9 +234,6 @@ export interface QueryLastPendingBatchRequestByAddrRequestAminoMsg {
 export interface QueryLastPendingBatchRequestByAddrResponse {
   batch?: OutgoingTxBatch;
 }
-export interface ReactiveQueryLastPendingBatchRequestByAddrResponse {
-  batch?: ComputedRef<OutgoingTxBatch>;
-}
 export interface QueryLastPendingBatchRequestByAddrResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse";
   value: Uint8Array;
@@ -294,7 +246,6 @@ export interface QueryLastPendingBatchRequestByAddrResponseAminoMsg {
   value: QueryLastPendingBatchRequestByAddrResponseAmino;
 }
 export interface QueryOutgoingTxBatchesRequest {}
-export interface ReactiveQueryOutgoingTxBatchesRequest {}
 export interface QueryOutgoingTxBatchesRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesRequest";
   value: Uint8Array;
@@ -306,9 +257,6 @@ export interface QueryOutgoingTxBatchesRequestAminoMsg {
 }
 export interface QueryOutgoingTxBatchesResponse {
   batches: OutgoingTxBatch[];
-}
-export interface ReactiveQueryOutgoingTxBatchesResponse {
-  batches: ComputedRef<OutgoingTxBatch[]>;
 }
 export interface QueryOutgoingTxBatchesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesResponse";
@@ -325,10 +273,6 @@ export interface QueryBatchRequestByNonceRequest {
   nonce: bigint;
   contractAddress: string;
 }
-export interface ReactiveQueryBatchRequestByNonceRequest {
-  nonce: ComputedRef<bigint>;
-  contractAddress: ComputedRef<string>;
-}
 export interface QueryBatchRequestByNonceRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceRequest";
   value: Uint8Array;
@@ -343,9 +287,6 @@ export interface QueryBatchRequestByNonceRequestAminoMsg {
 }
 export interface QueryBatchRequestByNonceResponse {
   batch?: OutgoingTxBatch;
-}
-export interface ReactiveQueryBatchRequestByNonceResponse {
-  batch?: ComputedRef<OutgoingTxBatch>;
 }
 export interface QueryBatchRequestByNonceResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceResponse";
@@ -362,10 +303,6 @@ export interface QueryBatchConfirmsRequest {
   nonce: bigint;
   contractAddress: string;
 }
-export interface ReactiveQueryBatchConfirmsRequest {
-  nonce: ComputedRef<bigint>;
-  contractAddress: ComputedRef<string>;
-}
 export interface QueryBatchConfirmsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchConfirmsRequest";
   value: Uint8Array;
@@ -381,9 +318,6 @@ export interface QueryBatchConfirmsRequestAminoMsg {
 export interface QueryBatchConfirmsResponse {
   confirms: MsgConfirmBatch[];
 }
-export interface ReactiveQueryBatchConfirmsResponse {
-  confirms: ComputedRef<MsgConfirmBatch[]>;
-}
 export interface QueryBatchConfirmsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchConfirmsResponse";
   value: Uint8Array;
@@ -397,9 +331,6 @@ export interface QueryBatchConfirmsResponseAminoMsg {
 }
 export interface QueryLastEventByAddrRequest {
   address: string;
-}
-export interface ReactiveQueryLastEventByAddrRequest {
-  address: ComputedRef<string>;
 }
 export interface QueryLastEventByAddrRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastEventByAddrRequest";
@@ -415,9 +346,6 @@ export interface QueryLastEventByAddrRequestAminoMsg {
 export interface QueryLastEventByAddrResponse {
   lastClaimEvent?: LastClaimEvent;
 }
-export interface ReactiveQueryLastEventByAddrResponse {
-  lastClaimEvent?: ComputedRef<LastClaimEvent>;
-}
 export interface QueryLastEventByAddrResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastEventByAddrResponse";
   value: Uint8Array;
@@ -431,9 +359,6 @@ export interface QueryLastEventByAddrResponseAminoMsg {
 }
 export interface QueryERC20ToDenomRequest {
   erc20: string;
-}
-export interface ReactiveQueryERC20ToDenomRequest {
-  erc20: ComputedRef<string>;
 }
 export interface QueryERC20ToDenomRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryERC20ToDenomRequest";
@@ -450,10 +375,6 @@ export interface QueryERC20ToDenomResponse {
   denom: string;
   cosmosOriginated: boolean;
 }
-export interface ReactiveQueryERC20ToDenomResponse {
-  denom: ComputedRef<string>;
-  cosmosOriginated: ComputedRef<boolean>;
-}
 export interface QueryERC20ToDenomResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryERC20ToDenomResponse";
   value: Uint8Array;
@@ -468,9 +389,6 @@ export interface QueryERC20ToDenomResponseAminoMsg {
 }
 export interface QueryDenomToERC20Request {
   denom: string;
-}
-export interface ReactiveQueryDenomToERC20Request {
-  denom: ComputedRef<string>;
 }
 export interface QueryDenomToERC20RequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDenomToERC20Request";
@@ -487,10 +405,6 @@ export interface QueryDenomToERC20Response {
   erc20: string;
   cosmosOriginated: boolean;
 }
-export interface ReactiveQueryDenomToERC20Response {
-  erc20: ComputedRef<string>;
-  cosmosOriginated: ComputedRef<boolean>;
-}
 export interface QueryDenomToERC20ResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDenomToERC20Response";
   value: Uint8Array;
@@ -505,9 +419,6 @@ export interface QueryDenomToERC20ResponseAminoMsg {
 }
 export interface QueryDelegateKeysByValidatorAddress {
   validatorAddress: string;
-}
-export interface ReactiveQueryDelegateKeysByValidatorAddress {
-  validatorAddress: ComputedRef<string>;
 }
 export interface QueryDelegateKeysByValidatorAddressProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddress";
@@ -524,10 +435,6 @@ export interface QueryDelegateKeysByValidatorAddressResponse {
   ethAddress: string;
   orchestratorAddress: string;
 }
-export interface ReactiveQueryDelegateKeysByValidatorAddressResponse {
-  ethAddress: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-}
 export interface QueryDelegateKeysByValidatorAddressResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse";
   value: Uint8Array;
@@ -542,9 +449,6 @@ export interface QueryDelegateKeysByValidatorAddressResponseAminoMsg {
 }
 export interface QueryDelegateKeysByEthAddress {
   ethAddress: string;
-}
-export interface ReactiveQueryDelegateKeysByEthAddress {
-  ethAddress: ComputedRef<string>;
 }
 export interface QueryDelegateKeysByEthAddressProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddress";
@@ -561,10 +465,6 @@ export interface QueryDelegateKeysByEthAddressResponse {
   validatorAddress: string;
   orchestratorAddress: string;
 }
-export interface ReactiveQueryDelegateKeysByEthAddressResponse {
-  validatorAddress: ComputedRef<string>;
-  orchestratorAddress: ComputedRef<string>;
-}
 export interface QueryDelegateKeysByEthAddressResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddressResponse";
   value: Uint8Array;
@@ -579,9 +479,6 @@ export interface QueryDelegateKeysByEthAddressResponseAminoMsg {
 }
 export interface QueryDelegateKeysByOrchestratorAddress {
   orchestratorAddress: string;
-}
-export interface ReactiveQueryDelegateKeysByOrchestratorAddress {
-  orchestratorAddress: ComputedRef<string>;
 }
 export interface QueryDelegateKeysByOrchestratorAddressProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress";
@@ -598,10 +495,6 @@ export interface QueryDelegateKeysByOrchestratorAddressResponse {
   validatorAddress: string;
   ethAddress: string;
 }
-export interface ReactiveQueryDelegateKeysByOrchestratorAddressResponse {
-  validatorAddress: ComputedRef<string>;
-  ethAddress: ComputedRef<string>;
-}
 export interface QueryDelegateKeysByOrchestratorAddressResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse";
   value: Uint8Array;
@@ -617,9 +510,6 @@ export interface QueryDelegateKeysByOrchestratorAddressResponseAminoMsg {
 export interface QueryPendingSendToEth {
   senderAddress: string;
 }
-export interface ReactiveQueryPendingSendToEth {
-  senderAddress: ComputedRef<string>;
-}
 export interface QueryPendingSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryPendingSendToEth";
   value: Uint8Array;
@@ -634,10 +524,6 @@ export interface QueryPendingSendToEthAminoMsg {
 export interface QueryPendingSendToEthResponse {
   transfersInBatches: OutgoingTransferTx[];
   unbatchedTransfers: OutgoingTransferTx[];
-}
-export interface ReactiveQueryPendingSendToEthResponse {
-  transfersInBatches: ComputedRef<OutgoingTransferTx[]>;
-  unbatchedTransfers: ComputedRef<OutgoingTransferTx[]>;
 }
 export interface QueryPendingSendToEthResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryPendingSendToEthResponse";
@@ -656,7 +542,6 @@ export interface QueryPendingSendToEthResponseAminoMsg {
  * RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -677,9 +562,6 @@ export interface QueryModuleStateRequestAminoMsg {
 export interface QueryModuleStateResponse {
   state?: GenesisState;
 }
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
-}
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryModuleStateResponse";
   value: Uint8Array;
@@ -696,7 +578,6 @@ export interface QueryModuleStateResponseAminoMsg {
   value: QueryModuleStateResponseAmino;
 }
 export interface MissingNoncesRequest {}
-export interface ReactiveMissingNoncesRequest {}
 export interface MissingNoncesRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.MissingNoncesRequest";
   value: Uint8Array;
@@ -708,9 +589,6 @@ export interface MissingNoncesRequestAminoMsg {
 }
 export interface MissingNoncesResponse {
   operatorAddresses: string[];
-}
-export interface ReactiveMissingNoncesResponse {
-  operatorAddresses: ComputedRef<string[]>;
 }
 export interface MissingNoncesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MissingNoncesResponse";

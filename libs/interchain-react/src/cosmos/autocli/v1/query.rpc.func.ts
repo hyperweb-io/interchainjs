@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { AppOptionsRequest, AppOptionsResponse } from "./query";
 export const createGetAppOptions = (clientResolver?: RpcResolver) => buildQuery<AppOptionsRequest, AppOptionsResponse>({
   encode: AppOptionsRequest.encode,
@@ -8,8 +7,4 @@ export const createGetAppOptions = (clientResolver?: RpcResolver) => buildQuery<
   method: "AppOptions",
   clientResolver,
   deps: [AppOptionsRequest, AppOptionsResponse]
-});
-export const useGetAppOptions = buildUseQuery<AppOptionsRequest, AppOptionsResponse>({
-  builderQueryFn: createGetAppOptions,
-  queryKeyPrefix: "AppOptionsQuery"
 });

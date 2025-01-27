@@ -2,17 +2,12 @@ import { Class, ClassAmino, NFT, NFTAmino } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** GenesisState defines the nft module's genesis state. */
 export interface GenesisState {
   /** class defines the class of the nft type. */
   classes: Class[];
   /** entry defines all nft owned by a person. */
   entries: Entry[];
-}
-export interface ReactiveGenesisState {
-  classes: ComputedRef<Class[]>;
-  entries: ComputedRef<Entry[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.GenesisState";
@@ -35,10 +30,6 @@ export interface Entry {
   owner: string;
   /** nfts is a group of nfts of the same owner */
   nfts: NFT[];
-}
-export interface ReactiveEntry {
-  owner: ComputedRef<string>;
-  nfts: ComputedRef<NFT[]>;
 }
 export interface EntryProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.Entry";

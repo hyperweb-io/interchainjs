@@ -4,13 +4,11 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * QueryInsuranceParamsRequest is the request type for the Query/InsuranceParams
  * RPC method.
  */
 export interface QueryInsuranceParamsRequest {}
-export interface ReactiveQueryInsuranceParamsRequest {}
 export interface QueryInsuranceParamsRequestProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceParamsRequest";
   value: Uint8Array;
@@ -30,9 +28,6 @@ export interface QueryInsuranceParamsRequestAminoMsg {
  */
 export interface QueryInsuranceParamsResponse {
   params: Params;
-}
-export interface ReactiveQueryInsuranceParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryInsuranceParamsResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceParamsResponse";
@@ -57,9 +52,6 @@ export interface QueryInsuranceFundRequest {
   /** Market ID for the market */
   marketId: string;
 }
-export interface ReactiveQueryInsuranceFundRequest {
-  marketId: ComputedRef<string>;
-}
 export interface QueryInsuranceFundRequestProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundRequest";
   value: Uint8Array;
@@ -83,9 +75,6 @@ export interface QueryInsuranceFundRequestAminoMsg {
 export interface QueryInsuranceFundResponse {
   fund?: InsuranceFund;
 }
-export interface ReactiveQueryInsuranceFundResponse {
-  fund?: ComputedRef<InsuranceFund>;
-}
 export interface QueryInsuranceFundResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundResponse";
   value: Uint8Array;
@@ -106,7 +95,6 @@ export interface QueryInsuranceFundResponseAminoMsg {
  * RPC method.
  */
 export interface QueryInsuranceFundsRequest {}
-export interface ReactiveQueryInsuranceFundsRequest {}
 export interface QueryInsuranceFundsRequestProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundsRequest";
   value: Uint8Array;
@@ -126,9 +114,6 @@ export interface QueryInsuranceFundsRequestAminoMsg {
  */
 export interface QueryInsuranceFundsResponse {
   funds: InsuranceFund[];
-}
-export interface ReactiveQueryInsuranceFundsResponse {
-  funds: ComputedRef<InsuranceFund[]>;
 }
 export interface QueryInsuranceFundsResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundsResponse";
@@ -153,10 +138,6 @@ export interface QueryEstimatedRedemptionsRequest {
   marketId: string;
   address: string;
 }
-export interface ReactiveQueryEstimatedRedemptionsRequest {
-  marketId: ComputedRef<string>;
-  address: ComputedRef<string>;
-}
 export interface QueryEstimatedRedemptionsRequestProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest";
   value: Uint8Array;
@@ -179,9 +160,6 @@ export interface QueryEstimatedRedemptionsRequestAminoMsg {
  */
 export interface QueryEstimatedRedemptionsResponse {
   amount: Coin[];
-}
-export interface ReactiveQueryEstimatedRedemptionsResponse {
-  amount: ComputedRef<Coin[]>;
 }
 export interface QueryEstimatedRedemptionsResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse";
@@ -206,10 +184,6 @@ export interface QueryPendingRedemptionsRequest {
   marketId: string;
   address: string;
 }
-export interface ReactiveQueryPendingRedemptionsRequest {
-  marketId: ComputedRef<string>;
-  address: ComputedRef<string>;
-}
 export interface QueryPendingRedemptionsRequestProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryPendingRedemptionsRequest";
   value: Uint8Array;
@@ -233,9 +207,6 @@ export interface QueryPendingRedemptionsRequestAminoMsg {
 export interface QueryPendingRedemptionsResponse {
   amount: Coin[];
 }
-export interface ReactiveQueryPendingRedemptionsResponse {
-  amount: ComputedRef<Coin[]>;
-}
 export interface QueryPendingRedemptionsResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryPendingRedemptionsResponse";
   value: Uint8Array;
@@ -256,7 +227,6 @@ export interface QueryPendingRedemptionsResponseAminoMsg {
  * Query/InsuranceModuleState RPC method.
  */
 export interface QueryModuleStateRequest {}
-export interface ReactiveQueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
@@ -276,9 +246,6 @@ export interface QueryModuleStateRequestAminoMsg {
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
-}
-export interface ReactiveQueryModuleStateResponse {
-  state?: ComputedRef<GenesisState>;
 }
 export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.QueryModuleStateResponse";

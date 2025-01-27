@@ -6,7 +6,6 @@ import { Attestation, AttestationAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState struct */
 export interface GenesisState {
   params?: Params;
@@ -24,23 +23,6 @@ export interface GenesisState {
   lastOutgoingPoolId: bigint;
   lastObservedValset: Valset;
   ethereumBlacklist: string[];
-}
-export interface ReactiveGenesisState {
-  params?: ComputedRef<Params>;
-  lastObservedNonce: ComputedRef<bigint>;
-  valsets: ComputedRef<Valset[]>;
-  valsetConfirms: ComputedRef<MsgValsetConfirm[]>;
-  batches: ComputedRef<OutgoingTxBatch[]>;
-  batchConfirms: ComputedRef<MsgConfirmBatch[]>;
-  attestations: ComputedRef<Attestation[]>;
-  orchestratorAddresses: ComputedRef<MsgSetOrchestratorAddresses[]>;
-  erc20ToDenoms: ComputedRef<ERC20ToDenom[]>;
-  unbatchedTransfers: ComputedRef<OutgoingTransferTx[]>;
-  lastObservedEthereumHeight: ComputedRef<bigint>;
-  lastOutgoingBatchId: ComputedRef<bigint>;
-  lastOutgoingPoolId: ComputedRef<bigint>;
-  lastObservedValset: ComputedRef<Valset>;
-  ethereumBlacklist: ComputedRef<string[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.peggy.v1.GenesisState";

@@ -1,18 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 export interface Proof {
   total: bigint;
   index: bigint;
   leafHash: Uint8Array;
   aunts: Uint8Array[];
-}
-export interface ReactiveProof {
-  total: ComputedRef<bigint>;
-  index: ComputedRef<bigint>;
-  leafHash: ComputedRef<Uint8Array>;
-  aunts: ComputedRef<Uint8Array[]>;
 }
 export interface ProofProtoMsg {
   typeUrl: "/tendermint.crypto.Proof";
@@ -34,10 +27,6 @@ export interface ValueOp {
   /** To encode in ProofOp.Data */
   proof?: Proof;
 }
-export interface ReactiveValueOp {
-  key: ComputedRef<Uint8Array>;
-  proof?: ComputedRef<Proof>;
-}
 export interface ValueOpProtoMsg {
   typeUrl: "/tendermint.crypto.ValueOp";
   value: Uint8Array;
@@ -56,11 +45,6 @@ export interface DominoOp {
   key: string;
   input: string;
   output: string;
-}
-export interface ReactiveDominoOp {
-  key: ComputedRef<string>;
-  input: ComputedRef<string>;
-  output: ComputedRef<string>;
 }
 export interface DominoOpProtoMsg {
   typeUrl: "/tendermint.crypto.DominoOp";
@@ -85,11 +69,6 @@ export interface ProofOp {
   key: Uint8Array;
   data: Uint8Array;
 }
-export interface ReactiveProofOp {
-  type: ComputedRef<string>;
-  key: ComputedRef<Uint8Array>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface ProofOpProtoMsg {
   typeUrl: "/tendermint.crypto.ProofOp";
   value: Uint8Array;
@@ -111,9 +90,6 @@ export interface ProofOpAminoMsg {
 /** ProofOps is Merkle proof defined by the list of ProofOps */
 export interface ProofOps {
   ops: ProofOp[];
-}
-export interface ReactiveProofOps {
-  ops: ComputedRef<ProofOp[]>;
 }
 export interface ProofOpsProtoMsg {
   typeUrl: "/tendermint.crypto.ProofOps";

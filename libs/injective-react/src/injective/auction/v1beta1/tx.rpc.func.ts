@@ -1,6 +1,5 @@
 import { buildTx, SigningClientResolver } from "../../../helper-func-types";
 import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
-import { buildUseMutation } from "../../../react-query";
 import { MsgBid, MsgUpdateParams } from "./tx";
 export const createBid = (clientResolver?: SigningClientResolver) => buildTx<MsgBid>({
   clientResolver,
@@ -9,16 +8,10 @@ export const createBid = (clientResolver?: SigningClientResolver) => buildTx<Msg
   converters: toConverters(MsgBid),
   deps: [MsgBid]
 });
-export const useBid = buildUseMutation<MsgBid, Error>({
-  builderMutationFn: createBid
-});
 export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
   clientResolver,
   typeUrl: MsgUpdateParams.typeUrl,
   encoders: toEncoders(MsgUpdateParams),
   converters: toConverters(MsgUpdateParams),
   deps: [MsgUpdateParams]
-});
-export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
 });

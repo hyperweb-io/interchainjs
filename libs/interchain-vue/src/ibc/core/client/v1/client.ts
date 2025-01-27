@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * IdentifiedClientState defines a client state with an additional client
  * identifier field.
@@ -12,10 +11,6 @@ export interface IdentifiedClientState {
   clientId: string;
   /** client state */
   clientState?: Any;
-}
-export interface ReactiveIdentifiedClientState {
-  clientId: ComputedRef<string>;
-  clientState?: ComputedRef<Any>;
 }
 export interface IdentifiedClientStateProtoMsg {
   typeUrl: "/ibc.core.client.v1.IdentifiedClientState";
@@ -45,10 +40,6 @@ export interface ConsensusStateWithHeight {
   /** consensus state */
   consensusState?: Any;
 }
-export interface ReactiveConsensusStateWithHeight {
-  height: ComputedRef<Height>;
-  consensusState?: ComputedRef<Any>;
-}
 export interface ConsensusStateWithHeightProtoMsg {
   typeUrl: "/ibc.core.client.v1.ConsensusStateWithHeight";
   value: Uint8Array;
@@ -76,10 +67,6 @@ export interface ClientConsensusStates {
   clientId: string;
   /** consensus states and their heights associated with the client */
   consensusStates: ConsensusStateWithHeight[];
-}
-export interface ReactiveClientConsensusStates {
-  clientId: ComputedRef<string>;
-  consensusStates: ComputedRef<ConsensusStateWithHeight[]>;
 }
 export interface ClientConsensusStatesProtoMsg {
   typeUrl: "/ibc.core.client.v1.ClientConsensusStates";
@@ -120,10 +107,6 @@ export interface Height {
   /** the height within the given revision */
   revisionHeight: bigint;
 }
-export interface ReactiveHeight {
-  revisionNumber: ComputedRef<bigint>;
-  revisionHeight: ComputedRef<bigint>;
-}
 export interface HeightProtoMsg {
   typeUrl: "/ibc.core.client.v1.Height";
   value: Uint8Array;
@@ -161,9 +144,6 @@ export interface Params {
    * of this client will be disabled until it is added again to the list.
    */
   allowedClients: string[];
-}
-export interface ReactiveParams {
-  allowedClients: ComputedRef<string[]>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/ibc.core.client.v1.Params";

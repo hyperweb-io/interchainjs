@@ -2,7 +2,6 @@ import { Params, ParamsAmino, SpotMarket, SpotMarketAmino, DerivativeMarket, Der
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the exchange module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to exchange. */
@@ -92,44 +91,6 @@ export interface GenesisState {
   marketVolumes: MarketVolume[];
   grantAuthorizations: FullGrantAuthorizations[];
   activeGrants: FullActiveGrant[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  spotMarkets: ComputedRef<SpotMarket[]>;
-  derivativeMarkets: ComputedRef<DerivativeMarket[]>;
-  spotOrderbook: ComputedRef<SpotOrderBook[]>;
-  derivativeOrderbook: ComputedRef<DerivativeOrderBook[]>;
-  balances: ComputedRef<Balance[]>;
-  positions: ComputedRef<DerivativePosition[]>;
-  subaccountTradeNonces: ComputedRef<SubaccountNonce[]>;
-  expiryFuturesMarketInfoState: ComputedRef<ExpiryFuturesMarketInfoState[]>;
-  perpetualMarketInfo: ComputedRef<PerpetualMarketInfo[]>;
-  perpetualMarketFundingState: ComputedRef<PerpetualMarketFundingState[]>;
-  derivativeMarketSettlementScheduled: ComputedRef<DerivativeMarketSettlementInfo[]>;
-  isSpotExchangeEnabled: ComputedRef<boolean>;
-  isDerivativesExchangeEnabled: ComputedRef<boolean>;
-  tradingRewardCampaignInfo?: ComputedRef<TradingRewardCampaignInfo>;
-  tradingRewardPoolCampaignSchedule: ComputedRef<CampaignRewardPool[]>;
-  tradingRewardCampaignAccountPoints: ComputedRef<TradingRewardCampaignAccountPoints[]>;
-  feeDiscountSchedule?: ComputedRef<FeeDiscountSchedule>;
-  feeDiscountAccountTierTtl: ComputedRef<FeeDiscountAccountTierTTL[]>;
-  feeDiscountBucketVolumeAccounts: ComputedRef<FeeDiscountBucketVolumeAccounts[]>;
-  isFirstFeeCycleFinished: ComputedRef<boolean>;
-  pendingTradingRewardPoolCampaignSchedule: ComputedRef<CampaignRewardPool[]>;
-  pendingTradingRewardCampaignAccountPoints: ComputedRef<TradingRewardCampaignAccountPendingPoints[]>;
-  rewardsOptOutAddresses: ComputedRef<string[]>;
-  historicalTradeRecords: ComputedRef<TradeRecords[]>;
-  binaryOptionsMarkets: ComputedRef<BinaryOptionsMarket[]>;
-  binaryOptionsMarketIdsScheduledForSettlement: ComputedRef<string[]>;
-  spotMarketIdsScheduledToForceClose: ComputedRef<string[]>;
-  denomDecimals: ComputedRef<DenomDecimals[]>;
-  conditionalDerivativeOrderbooks: ComputedRef<ConditionalDerivativeOrderBook[]>;
-  marketFeeMultipliers: ComputedRef<MarketFeeMultiplier[]>;
-  orderbookSequences: ComputedRef<OrderbookSequence[]>;
-  subaccountVolumes: ComputedRef<AggregateSubaccountVolumeRecord[]>;
-  marketVolumes: ComputedRef<MarketVolume[]>;
-  grantAuthorizations: ComputedRef<FullGrantAuthorizations[]>;
-  activeGrants: ComputedRef<FullActiveGrant[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.GenesisState";
@@ -233,10 +194,6 @@ export interface OrderbookSequence {
   sequence: bigint;
   marketId: string;
 }
-export interface ReactiveOrderbookSequence {
-  sequence: ComputedRef<bigint>;
-  marketId: ComputedRef<string>;
-}
 export interface OrderbookSequenceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderbookSequence";
   value: Uint8Array;
@@ -252,10 +209,6 @@ export interface OrderbookSequenceAminoMsg {
 export interface FeeDiscountAccountTierTTL {
   account: string;
   tierTtl?: FeeDiscountTierTTL;
-}
-export interface ReactiveFeeDiscountAccountTierTTL {
-  account: ComputedRef<string>;
-  tierTtl?: ComputedRef<FeeDiscountTierTTL>;
 }
 export interface FeeDiscountAccountTierTTLProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountAccountTierTTL";
@@ -273,10 +226,6 @@ export interface FeeDiscountBucketVolumeAccounts {
   bucketStartTimestamp: bigint;
   accountVolume: AccountVolume[];
 }
-export interface ReactiveFeeDiscountBucketVolumeAccounts {
-  bucketStartTimestamp: ComputedRef<bigint>;
-  accountVolume: ComputedRef<AccountVolume[]>;
-}
 export interface FeeDiscountBucketVolumeAccountsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts";
   value: Uint8Array;
@@ -292,10 +241,6 @@ export interface FeeDiscountBucketVolumeAccountsAminoMsg {
 export interface AccountVolume {
   account: string;
   volume: string;
-}
-export interface ReactiveAccountVolume {
-  account: ComputedRef<string>;
-  volume: ComputedRef<string>;
 }
 export interface AccountVolumeProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AccountVolume";
@@ -313,10 +258,6 @@ export interface TradingRewardCampaignAccountPoints {
   account: string;
   points: string;
 }
-export interface ReactiveTradingRewardCampaignAccountPoints {
-  account: ComputedRef<string>;
-  points: ComputedRef<string>;
-}
 export interface TradingRewardCampaignAccountPointsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPoints";
   value: Uint8Array;
@@ -332,10 +273,6 @@ export interface TradingRewardCampaignAccountPointsAminoMsg {
 export interface TradingRewardCampaignAccountPendingPoints {
   rewardPoolStartTimestamp: bigint;
   accountPoints: TradingRewardCampaignAccountPoints[];
-}
-export interface ReactiveTradingRewardCampaignAccountPendingPoints {
-  rewardPoolStartTimestamp: ComputedRef<bigint>;
-  accountPoints: ComputedRef<TradingRewardCampaignAccountPoints[]>;
 }
 export interface TradingRewardCampaignAccountPendingPointsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints";
@@ -354,11 +291,6 @@ export interface SpotOrderBook {
   marketId: string;
   isBuySide: boolean;
   orders: SpotLimitOrder[];
-}
-export interface ReactiveSpotOrderBook {
-  marketId: ComputedRef<string>;
-  isBuySide: ComputedRef<boolean>;
-  orders: ComputedRef<SpotLimitOrder[]>;
 }
 export interface SpotOrderBookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotOrderBook";
@@ -379,11 +311,6 @@ export interface DerivativeOrderBook {
   marketId: string;
   isBuySide: boolean;
   orders: DerivativeLimitOrder[];
-}
-export interface ReactiveDerivativeOrderBook {
-  marketId: ComputedRef<string>;
-  isBuySide: ComputedRef<boolean>;
-  orders: ComputedRef<DerivativeLimitOrder[]>;
 }
 export interface DerivativeOrderBookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeOrderBook";
@@ -407,13 +334,6 @@ export interface ConditionalDerivativeOrderBook {
   limitSellOrders: DerivativeLimitOrder[];
   marketSellOrders: DerivativeMarketOrder[];
 }
-export interface ReactiveConditionalDerivativeOrderBook {
-  marketId: ComputedRef<string>;
-  limitBuyOrders: ComputedRef<DerivativeLimitOrder[]>;
-  marketBuyOrders: ComputedRef<DerivativeMarketOrder[]>;
-  limitSellOrders: ComputedRef<DerivativeLimitOrder[]>;
-  marketSellOrders: ComputedRef<DerivativeMarketOrder[]>;
-}
 export interface ConditionalDerivativeOrderBookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ConditionalDerivativeOrderBook";
   value: Uint8Array;
@@ -435,11 +355,6 @@ export interface Balance {
   denom: string;
   deposits?: Deposit;
 }
-export interface ReactiveBalance {
-  subaccountId: ComputedRef<string>;
-  denom: ComputedRef<string>;
-  deposits?: ComputedRef<Deposit>;
-}
 export interface BalanceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Balance";
   value: Uint8Array;
@@ -458,11 +373,6 @@ export interface DerivativePosition {
   marketId: string;
   position?: Position;
 }
-export interface ReactiveDerivativePosition {
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  position?: ComputedRef<Position>;
-}
 export interface DerivativePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativePosition";
   value: Uint8Array;
@@ -480,10 +390,6 @@ export interface SubaccountNonce {
   subaccountId: string;
   subaccountTradeNonce: SubaccountTradeNonce;
 }
-export interface ReactiveSubaccountNonce {
-  subaccountId: ComputedRef<string>;
-  subaccountTradeNonce: ComputedRef<SubaccountTradeNonce>;
-}
 export interface SubaccountNonceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountNonce";
   value: Uint8Array;
@@ -500,10 +406,6 @@ export interface ExpiryFuturesMarketInfoState {
   marketId: string;
   marketInfo?: ExpiryFuturesMarketInfo;
 }
-export interface ReactiveExpiryFuturesMarketInfoState {
-  marketId: ComputedRef<string>;
-  marketInfo?: ComputedRef<ExpiryFuturesMarketInfo>;
-}
 export interface ExpiryFuturesMarketInfoStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketInfoState";
   value: Uint8Array;
@@ -519,10 +421,6 @@ export interface ExpiryFuturesMarketInfoStateAminoMsg {
 export interface PerpetualMarketFundingState {
   marketId: string;
   funding?: PerpetualMarketFunding;
-}
-export interface ReactivePerpetualMarketFundingState {
-  marketId: ComputedRef<string>;
-  funding?: ComputedRef<PerpetualMarketFunding>;
 }
 export interface PerpetualMarketFundingStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketFundingState";
@@ -542,12 +440,6 @@ export interface FullGrantAuthorizations {
   lastDelegationsCheckedTime: bigint;
   grants: GrantAuthorization[];
 }
-export interface ReactiveFullGrantAuthorizations {
-  granter: ComputedRef<string>;
-  totalGrantAmount: ComputedRef<string>;
-  lastDelegationsCheckedTime: ComputedRef<bigint>;
-  grants: ComputedRef<GrantAuthorization[]>;
-}
 export interface FullGrantAuthorizationsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullGrantAuthorizations";
   value: Uint8Array;
@@ -565,10 +457,6 @@ export interface FullGrantAuthorizationsAminoMsg {
 export interface FullActiveGrant {
   grantee: string;
   activeGrant?: ActiveGrant;
-}
-export interface ReactiveFullActiveGrant {
-  grantee: ComputedRef<string>;
-  activeGrant?: ComputedRef<ActiveGrant>;
 }
 export interface FullActiveGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullActiveGrant";

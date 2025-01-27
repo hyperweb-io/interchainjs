@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryAccountRequest, AccountResponse, QueryAccountsRequest, AccountsResponse, QueryDisabledListRequest, DisabledListResponse } from "./query";
 export const createGetAccount = (clientResolver?: RpcResolver) => buildQuery<QueryAccountRequest, AccountResponse>({
   encode: QueryAccountRequest.encode,
@@ -9,10 +8,6 @@ export const createGetAccount = (clientResolver?: RpcResolver) => buildQuery<Que
   clientResolver,
   deps: [QueryAccountRequest, AccountResponse]
 });
-export const useGetAccount = buildUseQuery<QueryAccountRequest, AccountResponse>({
-  builderQueryFn: createGetAccount,
-  queryKeyPrefix: "AccountQuery"
-});
 export const createGetAccounts = (clientResolver?: RpcResolver) => buildQuery<QueryAccountsRequest, AccountsResponse>({
   encode: QueryAccountsRequest.encode,
   decode: AccountsResponse.decode,
@@ -21,10 +16,6 @@ export const createGetAccounts = (clientResolver?: RpcResolver) => buildQuery<Qu
   clientResolver,
   deps: [QueryAccountsRequest, AccountsResponse]
 });
-export const useGetAccounts = buildUseQuery<QueryAccountsRequest, AccountsResponse>({
-  builderQueryFn: createGetAccounts,
-  queryKeyPrefix: "AccountsQuery"
-});
 export const createGetDisabledList = (clientResolver?: RpcResolver) => buildQuery<QueryDisabledListRequest, DisabledListResponse>({
   encode: QueryDisabledListRequest.encode,
   decode: DisabledListResponse.decode,
@@ -32,8 +23,4 @@ export const createGetDisabledList = (clientResolver?: RpcResolver) => buildQuer
   method: "DisabledList",
   clientResolver,
   deps: [QueryDisabledListRequest, DisabledListResponse]
-});
-export const useGetDisabledList = buildUseQuery<QueryDisabledListRequest, DisabledListResponse>({
-  builderQueryFn: createGetDisabledList,
-  queryKeyPrefix: "DisabledListQuery"
 });

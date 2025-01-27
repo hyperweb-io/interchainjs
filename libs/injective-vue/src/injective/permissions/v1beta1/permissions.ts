@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** each Action enum value should be a power of two */
 export enum Action {
   UNSPECIFIED = 0,
@@ -60,15 +59,6 @@ export interface Namespace {
   rolePermissions: Role[];
   addressRoles: AddressRoles[];
 }
-export interface ReactiveNamespace {
-  denom: ComputedRef<string>;
-  wasmHook: ComputedRef<string>;
-  mintsPaused: ComputedRef<boolean>;
-  sendsPaused: ComputedRef<boolean>;
-  burnsPaused: ComputedRef<boolean>;
-  rolePermissions: ComputedRef<Role[]>;
-  addressRoles: ComputedRef<AddressRoles[]>;
-}
 export interface NamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Namespace";
   value: Uint8Array;
@@ -94,10 +84,6 @@ export interface AddressRoles {
   address: string;
   roles: string[];
 }
-export interface ReactiveAddressRoles {
-  address: ComputedRef<string>;
-  roles: ComputedRef<string[]>;
-}
 export interface AddressRolesProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.AddressRoles";
   value: Uint8Array;
@@ -114,10 +100,6 @@ export interface AddressRolesAminoMsg {
 export interface Role {
   role: string;
   permissions: number;
-}
-export interface ReactiveRole {
-  role: ComputedRef<string>;
-  permissions: ComputedRef<number>;
 }
 export interface RoleProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Role";
@@ -136,9 +118,6 @@ export interface RoleAminoMsg {
 export interface RoleIDs {
   roleIds: number[];
 }
-export interface ReactiveRoleIDs {
-  roleIds: ComputedRef<number[]>;
-}
 export interface RoleIDsProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.RoleIDs";
   value: Uint8Array;
@@ -154,9 +133,6 @@ export interface RoleIDsAminoMsg {
 export interface Voucher {
   coins: Coin[];
 }
-export interface ReactiveVoucher {
-  coins: ComputedRef<Coin[]>;
-}
 export interface VoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Voucher";
   value: Uint8Array;
@@ -171,10 +147,6 @@ export interface VoucherAminoMsg {
 export interface AddressVoucher {
   address: string;
   voucher?: Voucher;
-}
-export interface ReactiveAddressVoucher {
-  address: ComputedRef<string>;
-  voucher?: ComputedRef<Voucher>;
 }
 export interface AddressVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.AddressVoucher";

@@ -3,7 +3,6 @@ import { BIP44Params, BIP44ParamsAmino } from "../../hd/v1/hd";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-import { ComputedRef } from "vue";
 /** Record is used for representing a key in the keyring. */
 export interface Record {
   /** name represents a name of Record */
@@ -18,14 +17,6 @@ export interface Record {
   multi?: Record_Multi;
   /** Offline does not store any other information. */
   offline?: Record_Offline;
-}
-export interface ReactiveRecord {
-  name: ComputedRef<string>;
-  pubKey?: ComputedRef<Any>;
-  local?: ComputedRef<Record_Local>;
-  ledger?: ComputedRef<Record_Ledger>;
-  multi?: ComputedRef<Record_Multi>;
-  offline?: ComputedRef<Record_Offline>;
 }
 export interface RecordProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Record";
@@ -57,9 +48,6 @@ export interface RecordAminoMsg {
 export interface Record_Local {
   privKey?: Any;
 }
-export interface ReactiveRecord_Local {
-  privKey?: ComputedRef<Any>;
-}
 export interface Record_LocalProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Local";
   value: Uint8Array;
@@ -79,9 +67,6 @@ export interface Record_LocalAminoMsg {
 export interface Record_Ledger {
   path?: BIP44Params;
 }
-export interface ReactiveRecord_Ledger {
-  path?: ComputedRef<BIP44Params>;
-}
 export interface Record_LedgerProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Ledger";
   value: Uint8Array;
@@ -96,7 +81,6 @@ export interface Record_LedgerAminoMsg {
 }
 /** Multi item */
 export interface Record_Multi {}
-export interface ReactiveRecord_Multi {}
 export interface Record_MultiProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Multi";
   value: Uint8Array;
@@ -109,7 +93,6 @@ export interface Record_MultiAminoMsg {
 }
 /** Offline item */
 export interface Record_Offline {}
-export interface ReactiveRecord_Offline {}
 export interface Record_OfflineProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Offline";
   value: Uint8Array;

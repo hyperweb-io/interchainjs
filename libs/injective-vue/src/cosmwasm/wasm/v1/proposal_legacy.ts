@@ -4,7 +4,6 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@cosmjs/encoding";
-import { ComputedRef } from "vue";
 /**
  * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
  * an explicit StoreCodeProposal. To submit WASM code to the system,
@@ -37,17 +36,6 @@ export interface StoreCodeProposal {
    * contract verification
    */
   codeHash: Uint8Array;
-}
-export interface ReactiveStoreCodeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  runAs: ComputedRef<string>;
-  wasmByteCode: ComputedRef<Uint8Array>;
-  instantiatePermission?: ComputedRef<AccessConfig>;
-  unpinCode: ComputedRef<boolean>;
-  source: ComputedRef<string>;
-  builder: ComputedRef<string>;
-  codeHash: ComputedRef<Uint8Array>;
 }
 export interface StoreCodeProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal";
@@ -115,16 +103,6 @@ export interface InstantiateContractProposal {
   /** Funds coins that are transferred to the contract on instantiation */
   funds: Coin[];
 }
-export interface ReactiveInstantiateContractProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  runAs: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  label: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-}
 export interface InstantiateContractProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.InstantiateContractProposal";
   value: Uint8Array;
@@ -190,18 +168,6 @@ export interface InstantiateContract2Proposal {
    */
   fixMsg: boolean;
 }
-export interface ReactiveInstantiateContract2Proposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  runAs: ComputedRef<string>;
-  admin: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  label: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-  salt: ComputedRef<Uint8Array>;
-  fixMsg: ComputedRef<boolean>;
-}
 export interface InstantiateContract2ProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.InstantiateContract2Proposal";
   value: Uint8Array;
@@ -261,13 +227,6 @@ export interface MigrateContractProposal {
   /** Msg json encoded message to be passed to the contract on migration */
   msg: Uint8Array;
 }
-export interface ReactiveMigrateContractProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  codeId: ComputedRef<bigint>;
-  msg: ComputedRef<Uint8Array>;
-}
 export interface MigrateContractProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MigrateContractProposal";
   value: Uint8Array;
@@ -311,12 +270,6 @@ export interface SudoContractProposal {
   contract: string;
   /** Msg json encoded message to be passed to the contract as sudo */
   msg: Uint8Array;
-}
-export interface ReactiveSudoContractProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
 }
 export interface SudoContractProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.SudoContractProposal";
@@ -364,14 +317,6 @@ export interface ExecuteContractProposal {
   /** Funds coins that are transferred to the contract on instantiation */
   funds: Coin[];
 }
-export interface ReactiveExecuteContractProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  runAs: ComputedRef<string>;
-  contract: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-}
 export interface ExecuteContractProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.ExecuteContractProposal";
   value: Uint8Array;
@@ -418,12 +363,6 @@ export interface UpdateAdminProposal {
   /** Contract is the address of the smart contract */
   contract: string;
 }
-export interface ReactiveUpdateAdminProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  newAdmin: ComputedRef<string>;
-  contract: ComputedRef<string>;
-}
 export interface UpdateAdminProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.UpdateAdminProposal";
   value: Uint8Array;
@@ -464,11 +403,6 @@ export interface ClearAdminProposal {
   /** Contract is the address of the smart contract */
   contract: string;
 }
-export interface ReactiveClearAdminProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  contract: ComputedRef<string>;
-}
 export interface ClearAdminProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal";
   value: Uint8Array;
@@ -506,11 +440,6 @@ export interface PinCodesProposal {
   description: string;
   /** CodeIDs references the new WASM codes */
   codeIds: bigint[];
-}
-export interface ReactivePinCodesProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  codeIds: ComputedRef<bigint[]>;
 }
 export interface PinCodesProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal";
@@ -550,11 +479,6 @@ export interface UnpinCodesProposal {
   /** CodeIDs references the WASM codes */
   codeIds: bigint[];
 }
-export interface ReactiveUnpinCodesProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  codeIds: ComputedRef<bigint[]>;
-}
 export interface UnpinCodesProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal";
   value: Uint8Array;
@@ -587,10 +511,6 @@ export interface AccessConfigUpdate {
   codeId: bigint;
   /** InstantiatePermission to apply to the set of code ids */
   instantiatePermission: AccessConfig;
-}
-export interface ReactiveAccessConfigUpdate {
-  codeId: ComputedRef<bigint>;
-  instantiatePermission: ComputedRef<AccessConfig>;
 }
 export interface AccessConfigUpdateProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.AccessConfigUpdate";
@@ -627,11 +547,6 @@ export interface UpdateInstantiateConfigProposal {
    * to be applied.
    */
   accessConfigUpdates: AccessConfigUpdate[];
-}
-export interface ReactiveUpdateInstantiateConfigProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  accessConfigUpdates: ComputedRef<AccessConfigUpdate[]>;
 }
 export interface UpdateInstantiateConfigProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal";
@@ -699,21 +614,6 @@ export interface StoreAndInstantiateContractProposal {
    * contract verification
    */
   codeHash: Uint8Array;
-}
-export interface ReactiveStoreAndInstantiateContractProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  runAs: ComputedRef<string>;
-  wasmByteCode: ComputedRef<Uint8Array>;
-  instantiatePermission?: ComputedRef<AccessConfig>;
-  unpinCode: ComputedRef<boolean>;
-  admin: ComputedRef<string>;
-  label: ComputedRef<string>;
-  msg: ComputedRef<Uint8Array>;
-  funds: ComputedRef<Coin[]>;
-  source: ComputedRef<string>;
-  builder: ComputedRef<string>;
-  codeHash: ComputedRef<Uint8Array>;
 }
 export interface StoreAndInstantiateContractProposalProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal";

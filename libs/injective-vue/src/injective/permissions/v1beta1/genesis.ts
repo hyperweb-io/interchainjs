@@ -3,16 +3,11 @@ import { Namespace, NamespaceAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the permissions module's genesis state. */
 export interface GenesisState {
   /** params defines the parameters of the module. */
   params: Params;
   namespaces: Namespace[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  namespaces: ComputedRef<Namespace[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.GenesisState";

@@ -2,7 +2,6 @@ import { Duration, DurationAmino } from "../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial } from "../../helpers";
-import { ComputedRef } from "vue";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
  * validity of blocks.
@@ -13,13 +12,6 @@ export interface ConsensusParams {
   validator?: ValidatorParams;
   version?: VersionParams;
   abci?: ABCIParams;
-}
-export interface ReactiveConsensusParams {
-  block?: ComputedRef<BlockParams>;
-  evidence?: ComputedRef<EvidenceParams>;
-  validator?: ComputedRef<ValidatorParams>;
-  version?: ComputedRef<VersionParams>;
-  abci?: ComputedRef<ABCIParams>;
 }
 export interface ConsensusParamsProtoMsg {
   typeUrl: "/tendermint.types.ConsensusParams";
@@ -52,10 +44,6 @@ export interface BlockParams {
    * Note: must be greater or equal to -1
    */
   maxGas: bigint;
-}
-export interface ReactiveBlockParams {
-  maxBytes: ComputedRef<bigint>;
-  maxGas: ComputedRef<bigint>;
 }
 export interface BlockParamsProtoMsg {
   typeUrl: "/tendermint.types.BlockParams";
@@ -102,11 +90,6 @@ export interface EvidenceParams {
    */
   maxBytes: bigint;
 }
-export interface ReactiveEvidenceParams {
-  maxAgeNumBlocks: ComputedRef<bigint>;
-  maxAgeDuration: ComputedRef<Duration>;
-  maxBytes: ComputedRef<bigint>;
-}
 export interface EvidenceParamsProtoMsg {
   typeUrl: "/tendermint.types.EvidenceParams";
   value: Uint8Array;
@@ -146,9 +129,6 @@ export interface EvidenceParamsAminoMsg {
 export interface ValidatorParams {
   pubKeyTypes: string[];
 }
-export interface ReactiveValidatorParams {
-  pubKeyTypes: ComputedRef<string[]>;
-}
 export interface ValidatorParamsProtoMsg {
   typeUrl: "/tendermint.types.ValidatorParams";
   value: Uint8Array;
@@ -167,9 +147,6 @@ export interface ValidatorParamsAminoMsg {
 /** VersionParams contains the ABCI application version. */
 export interface VersionParams {
   app: bigint;
-}
-export interface ReactiveVersionParams {
-  app: ComputedRef<bigint>;
 }
 export interface VersionParamsProtoMsg {
   typeUrl: "/tendermint.types.VersionParams";
@@ -191,10 +168,6 @@ export interface VersionParamsAminoMsg {
 export interface HashedParams {
   blockMaxBytes: bigint;
   blockMaxGas: bigint;
-}
-export interface ReactiveHashedParams {
-  blockMaxBytes: ComputedRef<bigint>;
-  blockMaxGas: ComputedRef<bigint>;
 }
 export interface HashedParamsProtoMsg {
   typeUrl: "/tendermint.types.HashedParams";
@@ -227,9 +200,6 @@ export interface ABCIParams {
    * to the application to use when proposing a block during PrepareProposal.
    */
   voteExtensionsEnableHeight: bigint;
-}
-export interface ReactiveABCIParams {
-  voteExtensionsEnableHeight: ComputedRef<bigint>;
 }
 export interface ABCIParamsProtoMsg {
   typeUrl: "/tendermint.types.ABCIParams";

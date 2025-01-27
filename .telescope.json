@@ -58,9 +58,8 @@
     "rpcClients": {
       "enabled": false
     },
-    "helperFuncCreators": {
-      "enabled": true,
-      "genCustomHooks": false
+    "helperFunctions": {
+      "enabled": true
     },
     "interfaces": {
       "enabled": true,

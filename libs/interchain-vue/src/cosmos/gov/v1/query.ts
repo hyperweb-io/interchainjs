@@ -3,10 +3,8 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryConstitutionRequest is the request type for the Query/Constitution RPC method */
 export interface QueryConstitutionRequest {}
-export interface ReactiveQueryConstitutionRequest {}
 export interface QueryConstitutionRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryConstitutionRequest";
   value: Uint8Array;
@@ -20,9 +18,6 @@ export interface QueryConstitutionRequestAminoMsg {
 /** QueryConstitutionResponse is the response type for the Query/Constitution RPC method */
 export interface QueryConstitutionResponse {
   constitution: string;
-}
-export interface ReactiveQueryConstitutionResponse {
-  constitution: ComputedRef<string>;
 }
 export interface QueryConstitutionResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryConstitutionResponse";
@@ -41,9 +36,6 @@ export interface QueryProposalRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
 }
-export interface ReactiveQueryProposalRequest {
-  proposalId: ComputedRef<bigint>;
-}
 export interface QueryProposalRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryProposalRequest";
   value: Uint8Array;
@@ -61,9 +53,6 @@ export interface QueryProposalRequestAminoMsg {
 export interface QueryProposalResponse {
   /** proposal is the requested governance proposal. */
   proposal?: Proposal;
-}
-export interface ReactiveQueryProposalResponse {
-  proposal?: ComputedRef<Proposal>;
 }
 export interface QueryProposalResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryProposalResponse";
@@ -88,12 +77,6 @@ export interface QueryProposalsRequest {
   depositor: string;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryProposalsRequest {
-  proposalStatus: ComputedRef<ProposalStatus>;
-  voter: ComputedRef<string>;
-  depositor: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryProposalsRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryProposalsRequest";
@@ -124,10 +107,6 @@ export interface QueryProposalsResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryProposalsResponse {
-  proposals: ComputedRef<Proposal[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryProposalsResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryProposalsResponse";
   value: Uint8Array;
@@ -153,10 +132,6 @@ export interface QueryVoteRequest {
   /** voter defines the voter address for the proposals. */
   voter: string;
 }
-export interface ReactiveQueryVoteRequest {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-}
 export interface QueryVoteRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryVoteRequest";
   value: Uint8Array;
@@ -177,9 +152,6 @@ export interface QueryVoteResponse {
   /** vote defines the queried vote. */
   vote?: Vote;
 }
-export interface ReactiveQueryVoteResponse {
-  vote?: ComputedRef<Vote>;
-}
 export interface QueryVoteResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryVoteResponse";
   value: Uint8Array;
@@ -199,10 +171,6 @@ export interface QueryVotesRequest {
   proposalId: bigint;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryVotesRequest {
-  proposalId: ComputedRef<bigint>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryVotesRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryVotesRequest";
@@ -226,10 +194,6 @@ export interface QueryVotesResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryVotesResponse {
-  votes: ComputedRef<Vote[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryVotesResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryVotesResponse";
   value: Uint8Array;
@@ -252,9 +216,6 @@ export interface QueryParamsRequest {
    * "tallying" or "deposit".
    */
   paramsType: string;
-}
-export interface ReactiveQueryParamsRequest {
-  paramsType: ComputedRef<string>;
 }
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryParamsRequest";
@@ -299,12 +260,6 @@ export interface QueryParamsResponse {
    */
   params?: Params;
 }
-export interface ReactiveQueryParamsResponse {
-  votingParams?: ComputedRef<VotingParams>;
-  depositParams?: ComputedRef<DepositParams>;
-  tallyParams?: ComputedRef<TallyParams>;
-  params?: ComputedRef<Params>;
-}
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryParamsResponse";
   value: Uint8Array;
@@ -347,10 +302,6 @@ export interface QueryDepositRequest {
   /** depositor defines the deposit addresses from the proposals. */
   depositor: string;
 }
-export interface ReactiveQueryDepositRequest {
-  proposalId: ComputedRef<bigint>;
-  depositor: ComputedRef<string>;
-}
 export interface QueryDepositRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryDepositRequest";
   value: Uint8Array;
@@ -371,9 +322,6 @@ export interface QueryDepositResponse {
   /** deposit defines the requested deposit. */
   deposit?: Deposit;
 }
-export interface ReactiveQueryDepositResponse {
-  deposit?: ComputedRef<Deposit>;
-}
 export interface QueryDepositResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryDepositResponse";
   value: Uint8Array;
@@ -393,10 +341,6 @@ export interface QueryDepositsRequest {
   proposalId: bigint;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryDepositsRequest {
-  proposalId: ComputedRef<bigint>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryDepositsRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryDepositsRequest";
@@ -420,10 +364,6 @@ export interface QueryDepositsResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryDepositsResponse {
-  deposits: ComputedRef<Deposit[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryDepositsResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryDepositsResponse";
   value: Uint8Array;
@@ -444,9 +384,6 @@ export interface QueryTallyResultRequest {
   /** proposal_id defines the unique id of the proposal. */
   proposalId: bigint;
 }
-export interface ReactiveQueryTallyResultRequest {
-  proposalId: ComputedRef<bigint>;
-}
 export interface QueryTallyResultRequestProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryTallyResultRequest";
   value: Uint8Array;
@@ -464,9 +401,6 @@ export interface QueryTallyResultRequestAminoMsg {
 export interface QueryTallyResultResponse {
   /** tally defines the requested tally. */
   tally?: TallyResult;
-}
-export interface ReactiveQueryTallyResultResponse {
-  tally?: ComputedRef<TallyResult>;
 }
 export interface QueryTallyResultResponseProtoMsg {
   typeUrl: "/cosmos.gov.v1.QueryTallyResultResponse";

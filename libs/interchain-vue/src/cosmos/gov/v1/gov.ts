@@ -5,7 +5,6 @@ import { Duration, DurationAmino } from "../../../google/protobuf/duration";
 import { isSet, DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export enum VoteOption {
   /** VOTE_OPTION_UNSPECIFIED - VOTE_OPTION_UNSPECIFIED defines a no-op vote option. */
@@ -145,10 +144,6 @@ export interface WeightedVoteOption {
   /** weight is the vote weight associated with the vote option. */
   weight: string;
 }
-export interface ReactiveWeightedVoteOption {
-  option: ComputedRef<VoteOption>;
-  weight: ComputedRef<string>;
-}
 export interface WeightedVoteOptionProtoMsg {
   typeUrl: "/cosmos.gov.v1.WeightedVoteOption";
   value: Uint8Array;
@@ -175,11 +170,6 @@ export interface Deposit {
   depositor: string;
   /** amount to be deposited by depositor. */
   amount: Coin[];
-}
-export interface ReactiveDeposit {
-  proposalId: ComputedRef<bigint>;
-  depositor: ComputedRef<string>;
-  amount: ComputedRef<Coin[]>;
 }
 export interface DepositProtoMsg {
   typeUrl: "/cosmos.gov.v1.Deposit";
@@ -262,23 +252,6 @@ export interface Proposal {
    */
   failedReason: string;
 }
-export interface ReactiveProposal {
-  id: ComputedRef<bigint>;
-  messages: ComputedRef<Any[]>;
-  status: ComputedRef<ProposalStatus>;
-  finalTallyResult?: ComputedRef<TallyResult>;
-  submitTime?: ComputedRef<Date>;
-  depositEndTime?: ComputedRef<Date>;
-  totalDeposit: ComputedRef<Coin[]>;
-  votingStartTime?: ComputedRef<Date>;
-  votingEndTime?: ComputedRef<Date>;
-  metadata: ComputedRef<string>;
-  title: ComputedRef<string>;
-  summary: ComputedRef<string>;
-  proposer: ComputedRef<string>;
-  expedited: ComputedRef<boolean>;
-  failedReason: ComputedRef<string>;
-}
 export interface ProposalProtoMsg {
   typeUrl: "/cosmos.gov.v1.Proposal";
   value: Uint8Array;
@@ -359,12 +332,6 @@ export interface TallyResult {
   /** no_with_veto_count is the number of no with veto votes on a proposal. */
   noWithVetoCount: string;
 }
-export interface ReactiveTallyResult {
-  yesCount: ComputedRef<string>;
-  abstainCount: ComputedRef<string>;
-  noCount: ComputedRef<string>;
-  noWithVetoCount: ComputedRef<string>;
-}
 export interface TallyResultProtoMsg {
   typeUrl: "/cosmos.gov.v1.TallyResult";
   value: Uint8Array;
@@ -400,12 +367,6 @@ export interface Vote {
    * the recommended format of the metadata is to be found here: https://docs.cosmos.network/v0.47/modules/gov#vote-5
    */
   metadata: string;
-}
-export interface ReactiveVote {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  options: ComputedRef<WeightedVoteOption[]>;
-  metadata: ComputedRef<string>;
 }
 export interface VoteProtoMsg {
   typeUrl: "/cosmos.gov.v1.Vote";
@@ -443,10 +404,6 @@ export interface DepositParams {
    */
   maxDepositPeriod?: Duration;
 }
-export interface ReactiveDepositParams {
-  minDeposit: ComputedRef<Coin[]>;
-  maxDepositPeriod?: ComputedRef<Duration>;
-}
 export interface DepositParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1.DepositParams";
   value: Uint8Array;
@@ -471,9 +428,6 @@ export interface DepositParamsAminoMsg {
 export interface VotingParams {
   /** Duration of the voting period. */
   votingPeriod?: Duration;
-}
-export interface ReactiveVotingParams {
-  votingPeriod?: ComputedRef<Duration>;
 }
 export interface VotingParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1.VotingParams";
@@ -504,11 +458,6 @@ export interface TallyParams {
    * vetoed. Default value: 1/3.
    */
   vetoThreshold: string;
-}
-export interface ReactiveTallyParams {
-  quorum: ComputedRef<string>;
-  threshold: ComputedRef<string>;
-  vetoThreshold: ComputedRef<string>;
 }
 export interface TallyParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1.TallyParams";
@@ -604,24 +553,6 @@ export interface Params {
    * Since: cosmos-sdk 0.50
    */
   minDepositRatio: string;
-}
-export interface ReactiveParams {
-  minDeposit: ComputedRef<Coin[]>;
-  maxDepositPeriod?: ComputedRef<Duration>;
-  votingPeriod?: ComputedRef<Duration>;
-  quorum: ComputedRef<string>;
-  threshold: ComputedRef<string>;
-  vetoThreshold: ComputedRef<string>;
-  minInitialDepositRatio: ComputedRef<string>;
-  proposalCancelRatio: ComputedRef<string>;
-  proposalCancelDest: ComputedRef<string>;
-  expeditedVotingPeriod?: ComputedRef<Duration>;
-  expeditedThreshold: ComputedRef<string>;
-  expeditedMinDeposit: ComputedRef<Coin[]>;
-  burnVoteQuorum: ComputedRef<boolean>;
-  burnProposalDepositPrevote: ComputedRef<boolean>;
-  burnVoteVeto: ComputedRef<boolean>;
-  minDepositRatio: ComputedRef<string>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.gov.v1.Params";

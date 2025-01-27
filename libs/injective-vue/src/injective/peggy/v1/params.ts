@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface Params {
   peggyId: string;
   contractSourceHash: string;
@@ -26,30 +25,6 @@ export interface Params {
   bridgeContractStartHeight: bigint;
   valsetReward: Coin;
   admins: string[];
-}
-export interface ReactiveParams {
-  peggyId: ComputedRef<string>;
-  contractSourceHash: ComputedRef<string>;
-  bridgeEthereumAddress: ComputedRef<string>;
-  bridgeChainId: ComputedRef<bigint>;
-  signedValsetsWindow: ComputedRef<bigint>;
-  signedBatchesWindow: ComputedRef<bigint>;
-  signedClaimsWindow: ComputedRef<bigint>;
-  targetBatchTimeout: ComputedRef<bigint>;
-  averageBlockTime: ComputedRef<bigint>;
-  averageEthereumBlockTime: ComputedRef<bigint>;
-  slashFractionValset: ComputedRef<Uint8Array>;
-  slashFractionBatch: ComputedRef<Uint8Array>;
-  slashFractionClaim: ComputedRef<Uint8Array>;
-  slashFractionConflictingClaim: ComputedRef<Uint8Array>;
-  unbondSlashingValsetsWindow: ComputedRef<bigint>;
-  slashFractionBadEthSignature: ComputedRef<Uint8Array>;
-  cosmosCoinDenom: ComputedRef<string>;
-  cosmosCoinErc20Contract: ComputedRef<string>;
-  claimSlashingEnabled: ComputedRef<boolean>;
-  bridgeContractStartHeight: ComputedRef<bigint>;
-  valsetReward: ComputedRef<Coin>;
-  admins: ComputedRef<string[]>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.peggy.v1.Params";

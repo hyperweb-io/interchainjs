@@ -4,7 +4,6 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
-import { ComputedRef } from "vue";
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
  * method
@@ -12,9 +11,6 @@ import { ComputedRef } from "vue";
 export interface QueryContractInfoRequest {
   /** address is the address of the contract to query */
   address: string;
-}
-export interface ReactiveQueryContractInfoRequest {
-  address: ComputedRef<string>;
 }
 export interface QueryContractInfoRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoRequest";
@@ -40,10 +36,6 @@ export interface QueryContractInfoResponse {
   /** address is the address of the contract */
   address: string;
   contractInfo: ContractInfo;
-}
-export interface ReactiveQueryContractInfoResponse {
-  address: ComputedRef<string>;
-  contractInfo: ComputedRef<ContractInfo>;
 }
 export interface QueryContractInfoResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoResponse";
@@ -72,10 +64,6 @@ export interface QueryContractHistoryRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
-export interface ReactiveQueryContractHistoryRequest {
-  address: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
-}
 export interface QueryContractHistoryRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryRequest";
   value: Uint8Array;
@@ -103,10 +91,6 @@ export interface QueryContractHistoryResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryContractHistoryResponse {
-  entries: ComputedRef<ContractCodeHistoryEntry[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryContractHistoryResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryResponse";
   value: Uint8Array;
@@ -133,10 +117,6 @@ export interface QueryContractsByCodeRequest {
   codeId: bigint;
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryContractsByCodeRequest {
-  codeId: ComputedRef<bigint>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryContractsByCodeRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeRequest";
@@ -166,10 +146,6 @@ export interface QueryContractsByCodeResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryContractsByCodeResponse {
-  contracts: ComputedRef<string[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryContractsByCodeResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeResponse";
   value: Uint8Array;
@@ -198,10 +174,6 @@ export interface QueryAllContractStateRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
 }
-export interface ReactiveQueryAllContractStateRequest {
-  address: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
-}
 export interface QueryAllContractStateRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateRequest";
   value: Uint8Array;
@@ -229,10 +201,6 @@ export interface QueryAllContractStateResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryAllContractStateResponse {
-  models: ComputedRef<Model[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryAllContractStateResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateResponse";
   value: Uint8Array;
@@ -259,10 +227,6 @@ export interface QueryRawContractStateRequest {
   address: string;
   queryData: Uint8Array;
 }
-export interface ReactiveQueryRawContractStateRequest {
-  address: ComputedRef<string>;
-  queryData: ComputedRef<Uint8Array>;
-}
 export interface QueryRawContractStateRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateRequest";
   value: Uint8Array;
@@ -287,9 +251,6 @@ export interface QueryRawContractStateRequestAminoMsg {
 export interface QueryRawContractStateResponse {
   /** Data contains the raw store data */
   data: Uint8Array;
-}
-export interface ReactiveQueryRawContractStateResponse {
-  data: ComputedRef<Uint8Array>;
 }
 export interface QueryRawContractStateResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateResponse";
@@ -317,10 +278,6 @@ export interface QuerySmartContractStateRequest {
   /** QueryData contains the query data passed to the contract */
   queryData: Uint8Array;
 }
-export interface ReactiveQuerySmartContractStateRequest {
-  address: ComputedRef<string>;
-  queryData: ComputedRef<Uint8Array>;
-}
 export interface QuerySmartContractStateRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateRequest";
   value: Uint8Array;
@@ -347,9 +304,6 @@ export interface QuerySmartContractStateResponse {
   /** Data contains the json data returned from the smart contract */
   data: Uint8Array;
 }
-export interface ReactiveQuerySmartContractStateResponse {
-  data: ComputedRef<Uint8Array>;
-}
 export interface QuerySmartContractStateResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateResponse";
   value: Uint8Array;
@@ -371,9 +325,6 @@ export interface QueryCodeRequest {
   /** grpc-gateway_out does not support Go style CodeID */
   codeId: bigint;
 }
-export interface ReactiveQueryCodeRequest {
-  codeId: ComputedRef<bigint>;
-}
 export interface QueryCodeRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeRequest";
   value: Uint8Array;
@@ -391,9 +342,6 @@ export interface QueryCodeRequestAminoMsg {
 export interface QueryCodeInfoRequest {
   /** grpc-gateway_out does not support Go style CodeID */
   codeId: bigint;
-}
-export interface ReactiveQueryCodeInfoRequest {
-  codeId: ComputedRef<bigint>;
 }
 export interface QueryCodeInfoRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoRequest";
@@ -414,12 +362,6 @@ export interface QueryCodeInfoResponse {
   creator: string;
   checksum: Uint8Array;
   instantiatePermission: AccessConfig;
-}
-export interface ReactiveQueryCodeInfoResponse {
-  codeId: ComputedRef<bigint>;
-  creator: ComputedRef<string>;
-  checksum: ComputedRef<Uint8Array>;
-  instantiatePermission: ComputedRef<AccessConfig>;
 }
 export interface QueryCodeInfoResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoResponse";
@@ -443,12 +385,6 @@ export interface CodeInfoResponse {
   dataHash: Uint8Array;
   instantiatePermission: AccessConfig;
 }
-export interface ReactiveCodeInfoResponse {
-  codeId: ComputedRef<bigint>;
-  creator: ComputedRef<string>;
-  dataHash: ComputedRef<Uint8Array>;
-  instantiatePermission: ComputedRef<AccessConfig>;
-}
 export interface CodeInfoResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.CodeInfoResponse";
   value: Uint8Array;
@@ -469,10 +405,6 @@ export interface QueryCodeResponse {
   codeInfo?: CodeInfoResponse;
   data: Uint8Array;
 }
-export interface ReactiveQueryCodeResponse {
-  codeInfo?: ComputedRef<CodeInfoResponse>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface QueryCodeResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodeResponse";
   value: Uint8Array;
@@ -490,9 +422,6 @@ export interface QueryCodeResponseAminoMsg {
 export interface QueryCodesRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryCodesRequest {
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryCodesRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodesRequest";
@@ -512,10 +441,6 @@ export interface QueryCodesResponse {
   codeInfos: CodeInfoResponse[];
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveQueryCodesResponse {
-  codeInfos: ComputedRef<CodeInfoResponse[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface QueryCodesResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryCodesResponse";
@@ -538,9 +463,6 @@ export interface QueryCodesResponseAminoMsg {
 export interface QueryPinnedCodesRequest {
   /** pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryPinnedCodesRequest {
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryPinnedCodesRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesRequest";
@@ -567,10 +489,6 @@ export interface QueryPinnedCodesResponse {
   /** pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryPinnedCodesResponse {
-  codeIds: ComputedRef<bigint[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryPinnedCodesResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesResponse";
   value: Uint8Array;
@@ -590,7 +508,6 @@ export interface QueryPinnedCodesResponseAminoMsg {
 }
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
-export interface ReactiveQueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryParamsRequest";
   value: Uint8Array;
@@ -605,9 +522,6 @@ export interface QueryParamsRequestAminoMsg {
 export interface QueryParamsResponse {
   /** params defines the parameters of the module. */
   params: Params;
-}
-export interface ReactiveQueryParamsResponse {
-  params: ComputedRef<Params>;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryParamsResponse";
@@ -631,10 +545,6 @@ export interface QueryContractsByCreatorRequest {
   creatorAddress: string;
   /** Pagination defines an optional pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryContractsByCreatorRequest {
-  creatorAddress: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryContractsByCreatorRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorRequest";
@@ -664,10 +574,6 @@ export interface QueryContractsByCreatorResponse {
   /** Pagination defines the pagination in the response. */
   pagination?: PageResponse;
 }
-export interface ReactiveQueryContractsByCreatorResponse {
-  contractAddresses: ComputedRef<string[]>;
-  pagination?: ComputedRef<PageResponse>;
-}
 export interface QueryContractsByCreatorResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorResponse";
   value: Uint8Array;
@@ -691,7 +597,6 @@ export interface QueryContractsByCreatorResponseAminoMsg {
  * Query/WasmLimitsConfig RPC method.
  */
 export interface QueryWasmLimitsConfigRequest {}
-export interface ReactiveQueryWasmLimitsConfigRequest {}
 export interface QueryWasmLimitsConfigRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigRequest";
   value: Uint8Array;
@@ -712,9 +617,6 @@ export interface QueryWasmLimitsConfigRequestAminoMsg {
  */
 export interface QueryWasmLimitsConfigResponse {
   config: string;
-}
-export interface ReactiveQueryWasmLimitsConfigResponse {
-  config: ComputedRef<string>;
 }
 export interface QueryWasmLimitsConfigResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigResponse";
@@ -749,12 +651,6 @@ export interface QueryBuildAddressRequest {
    */
   initArgs: Uint8Array;
 }
-export interface ReactiveQueryBuildAddressRequest {
-  codeHash: ComputedRef<string>;
-  creatorAddress: ComputedRef<string>;
-  salt: ComputedRef<string>;
-  initArgs: ComputedRef<Uint8Array>;
-}
 export interface QueryBuildAddressRequestProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryBuildAddressRequest";
   value: Uint8Array;
@@ -787,9 +683,6 @@ export interface QueryBuildAddressRequestAminoMsg {
 export interface QueryBuildAddressResponse {
   /** Address is the contract address */
   address: string;
-}
-export interface ReactiveQueryBuildAddressResponse {
-  address: ComputedRef<string>;
 }
 export interface QueryBuildAddressResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.QueryBuildAddressResponse";

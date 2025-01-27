@@ -5,7 +5,6 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * BasicAllowance implements Allowance with a one-time grant of coins
  * that optionally expires. The grantee can use up to SpendLimit to cover fees.
@@ -19,10 +18,6 @@ export interface BasicAllowance {
   spendLimit: Coin[];
   /** expiration specifies an optional time when this allowance expires */
   expiration?: Date;
-}
-export interface ReactiveBasicAllowance {
-  spendLimit: ComputedRef<Coin[]>;
-  expiration?: ComputedRef<Date>;
 }
 export interface BasicAllowanceProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.BasicAllowance";
@@ -72,13 +67,6 @@ export interface PeriodicAllowance {
    */
   periodReset: Date;
 }
-export interface ReactivePeriodicAllowance {
-  basic: ComputedRef<BasicAllowance>;
-  period: ComputedRef<Duration>;
-  periodSpendLimit: ComputedRef<Coin[]>;
-  periodCanSpend: ComputedRef<Coin[]>;
-  periodReset: ComputedRef<Date>;
-}
 export interface PeriodicAllowanceProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.PeriodicAllowance";
   value: Uint8Array;
@@ -120,10 +108,6 @@ export interface AllowedMsgAllowance {
   /** allowed_messages are the messages for which the grantee has the access. */
   allowedMessages: string[];
 }
-export interface ReactiveAllowedMsgAllowance {
-  allowance?: ComputedRef<BasicAllowance | PeriodicAllowance | AllowedMsgAllowance | Any | undefined>;
-  allowedMessages: ComputedRef<string[]>;
-}
 export interface AllowedMsgAllowanceProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance";
   value: Uint8Array;
@@ -150,11 +134,6 @@ export interface Grant {
   grantee: string;
   /** allowance can be any of basic, periodic, allowed fee allowance. */
   allowance?: BasicAllowance | PeriodicAllowance | AllowedMsgAllowance | Any | undefined;
-}
-export interface ReactiveGrant {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
-  allowance?: ComputedRef<BasicAllowance | PeriodicAllowance | AllowedMsgAllowance | Any | undefined>;
 }
 export interface GrantProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.Grant";

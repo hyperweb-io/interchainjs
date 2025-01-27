@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariant {
   /** sender is the account address of private key to send coins to fee collector account. */
@@ -11,11 +10,6 @@ export interface MsgVerifyInvariant {
   invariantModuleName: string;
   /** invariant_route is the msg's invariant route. */
   invariantRoute: string;
-}
-export interface ReactiveMsgVerifyInvariant {
-  sender: ComputedRef<string>;
-  invariantModuleName: ComputedRef<string>;
-  invariantRoute: ComputedRef<string>;
 }
 export interface MsgVerifyInvariantProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant";
@@ -36,7 +30,6 @@ export interface MsgVerifyInvariantAminoMsg {
 }
 /** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
 export interface MsgVerifyInvariantResponse {}
-export interface ReactiveMsgVerifyInvariantResponse {}
 export interface MsgVerifyInvariantResponseProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse";
   value: Uint8Array;
@@ -57,10 +50,6 @@ export interface MsgUpdateParams {
   authority: string;
   /** constant_fee defines the x/crisis parameter. */
   constantFee: Coin;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  constantFee: ComputedRef<Coin>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParams";
@@ -88,7 +77,6 @@ export interface MsgUpdateParamsAminoMsg {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;

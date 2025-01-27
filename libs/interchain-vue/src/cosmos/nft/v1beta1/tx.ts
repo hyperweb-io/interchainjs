@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** MsgSend represents a message to send a nft from one account to another account. */
 export interface MsgSend {
   /** class_id defines the unique identifier of the nft classification, similar to the contract address of ERC721 */
@@ -12,12 +11,6 @@ export interface MsgSend {
   sender: string;
   /** receiver is the receiver address of nft */
   receiver: string;
-}
-export interface ReactiveMsgSend {
-  classId: ComputedRef<string>;
-  id: ComputedRef<string>;
-  sender: ComputedRef<string>;
-  receiver: ComputedRef<string>;
 }
 export interface MsgSendProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.MsgSend";
@@ -40,7 +33,6 @@ export interface MsgSendAminoMsg {
 }
 /** MsgSendResponse defines the Msg/Send response type. */
 export interface MsgSendResponse {}
-export interface ReactiveMsgSendResponse {}
 export interface MsgSendResponseProtoMsg {
   typeUrl: "/cosmos.nft.v1beta1.MsgSendResponse";
   value: Uint8Array;

@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryAllNamespacesRequest, QueryAllNamespacesResponse, QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse, QueryAddressRolesRequest, QueryAddressRolesResponse, QueryAddressesByRoleRequest, QueryAddressesByRoleResponse, QueryVouchersForAddressRequest, QueryVouchersForAddressResponse } from "./query";
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -9,10 +8,6 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
-});
 export const createGetAllNamespaces = (clientResolver?: RpcResolver) => buildQuery<QueryAllNamespacesRequest, QueryAllNamespacesResponse>({
   encode: QueryAllNamespacesRequest.encode,
   decode: QueryAllNamespacesResponse.decode,
@@ -20,10 +15,6 @@ export const createGetAllNamespaces = (clientResolver?: RpcResolver) => buildQue
   method: "AllNamespaces",
   clientResolver,
   deps: [QueryAllNamespacesRequest, QueryAllNamespacesResponse]
-});
-export const useGetAllNamespaces = buildUseQuery<QueryAllNamespacesRequest, QueryAllNamespacesResponse>({
-  builderQueryFn: createGetAllNamespaces,
-  queryKeyPrefix: "AllNamespacesQuery"
 });
 export const createGetNamespaceByDenom = (clientResolver?: RpcResolver) => buildQuery<QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse>({
   encode: QueryNamespaceByDenomRequest.encode,
@@ -33,10 +24,6 @@ export const createGetNamespaceByDenom = (clientResolver?: RpcResolver) => build
   clientResolver,
   deps: [QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse]
 });
-export const useGetNamespaceByDenom = buildUseQuery<QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse>({
-  builderQueryFn: createGetNamespaceByDenom,
-  queryKeyPrefix: "NamespaceByDenomQuery"
-});
 export const createGetAddressRoles = (clientResolver?: RpcResolver) => buildQuery<QueryAddressRolesRequest, QueryAddressRolesResponse>({
   encode: QueryAddressRolesRequest.encode,
   decode: QueryAddressRolesResponse.decode,
@@ -44,10 +31,6 @@ export const createGetAddressRoles = (clientResolver?: RpcResolver) => buildQuer
   method: "AddressRoles",
   clientResolver,
   deps: [QueryAddressRolesRequest, QueryAddressRolesResponse]
-});
-export const useGetAddressRoles = buildUseQuery<QueryAddressRolesRequest, QueryAddressRolesResponse>({
-  builderQueryFn: createGetAddressRoles,
-  queryKeyPrefix: "AddressRolesQuery"
 });
 export const createGetAddressesByRole = (clientResolver?: RpcResolver) => buildQuery<QueryAddressesByRoleRequest, QueryAddressesByRoleResponse>({
   encode: QueryAddressesByRoleRequest.encode,
@@ -57,10 +40,6 @@ export const createGetAddressesByRole = (clientResolver?: RpcResolver) => buildQ
   clientResolver,
   deps: [QueryAddressesByRoleRequest, QueryAddressesByRoleResponse]
 });
-export const useGetAddressesByRole = buildUseQuery<QueryAddressesByRoleRequest, QueryAddressesByRoleResponse>({
-  builderQueryFn: createGetAddressesByRole,
-  queryKeyPrefix: "AddressesByRoleQuery"
-});
 export const createGetVouchersForAddress = (clientResolver?: RpcResolver) => buildQuery<QueryVouchersForAddressRequest, QueryVouchersForAddressResponse>({
   encode: QueryVouchersForAddressRequest.encode,
   decode: QueryVouchersForAddressResponse.decode,
@@ -68,8 +47,4 @@ export const createGetVouchersForAddress = (clientResolver?: RpcResolver) => bui
   method: "VouchersForAddress",
   clientResolver,
   deps: [QueryVouchersForAddressRequest, QueryVouchersForAddressResponse]
-});
-export const useGetVouchersForAddress = buildUseQuery<QueryVouchersForAddressRequest, QueryVouchersForAddressResponse>({
-  builderQueryFn: createGetVouchersForAddress,
-  queryKeyPrefix: "VouchersForAddressQuery"
 });

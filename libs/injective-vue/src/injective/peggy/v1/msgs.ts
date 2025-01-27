@@ -5,7 +5,6 @@ import { Params, ParamsAmino } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * MsgSetOrchestratorAddresses
  * this message allows validators to delegate their voting responsibilities
@@ -25,11 +24,6 @@ export interface MsgSetOrchestratorAddresses {
   sender: string;
   orchestrator: string;
   ethAddress: string;
-}
-export interface ReactiveMsgSetOrchestratorAddresses {
-  sender: ComputedRef<string>;
-  orchestrator: ComputedRef<string>;
-  ethAddress: ComputedRef<string>;
 }
 export interface MsgSetOrchestratorAddressesProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddresses";
@@ -60,7 +54,6 @@ export interface MsgSetOrchestratorAddressesAminoMsg {
   value: MsgSetOrchestratorAddressesAmino;
 }
 export interface MsgSetOrchestratorAddressesResponse {}
-export interface ReactiveMsgSetOrchestratorAddressesResponse {}
 export interface MsgSetOrchestratorAddressesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddressesResponse";
   value: Uint8Array;
@@ -92,12 +85,6 @@ export interface MsgValsetConfirm {
   orchestrator: string;
   ethAddress: string;
   signature: string;
-}
-export interface ReactiveMsgValsetConfirm {
-  nonce: ComputedRef<bigint>;
-  orchestrator: ComputedRef<string>;
-  ethAddress: ComputedRef<string>;
-  signature: ComputedRef<string>;
 }
 export interface MsgValsetConfirmProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgValsetConfirm";
@@ -131,7 +118,6 @@ export interface MsgValsetConfirmAminoMsg {
   value: MsgValsetConfirmAmino;
 }
 export interface MsgValsetConfirmResponse {}
-export interface ReactiveMsgValsetConfirmResponse {}
 export interface MsgValsetConfirmResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgValsetConfirmResponse";
   value: Uint8Array;
@@ -160,12 +146,6 @@ export interface MsgSendToEth {
   ethDest: string;
   amount: Coin;
   bridgeFee: Coin;
-}
-export interface ReactiveMsgSendToEth {
-  sender: ComputedRef<string>;
-  ethDest: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-  bridgeFee: ComputedRef<Coin>;
 }
 export interface MsgSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSendToEth";
@@ -196,7 +176,6 @@ export interface MsgSendToEthAminoMsg {
   value: MsgSendToEthAmino;
 }
 export interface MsgSendToEthResponse {}
-export interface ReactiveMsgSendToEthResponse {}
 export interface MsgSendToEthResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSendToEthResponse";
   value: Uint8Array;
@@ -220,10 +199,6 @@ export interface MsgSendToEthResponseAminoMsg {
 export interface MsgRequestBatch {
   orchestrator: string;
   denom: string;
-}
-export interface ReactiveMsgRequestBatch {
-  orchestrator: ComputedRef<string>;
-  denom: ComputedRef<string>;
 }
 export interface MsgRequestBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgRequestBatch";
@@ -249,7 +224,6 @@ export interface MsgRequestBatchAminoMsg {
   value: MsgRequestBatchAmino;
 }
 export interface MsgRequestBatchResponse {}
-export interface ReactiveMsgRequestBatchResponse {}
 export interface MsgRequestBatchResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgRequestBatchResponse";
   value: Uint8Array;
@@ -275,13 +249,6 @@ export interface MsgConfirmBatch {
   ethSigner: string;
   orchestrator: string;
   signature: string;
-}
-export interface ReactiveMsgConfirmBatch {
-  nonce: ComputedRef<bigint>;
-  tokenContract: ComputedRef<string>;
-  ethSigner: ComputedRef<string>;
-  orchestrator: ComputedRef<string>;
-  signature: ComputedRef<string>;
 }
 export interface MsgConfirmBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgConfirmBatch";
@@ -309,7 +276,6 @@ export interface MsgConfirmBatchAminoMsg {
   value: MsgConfirmBatchAmino;
 }
 export interface MsgConfirmBatchResponse {}
-export interface ReactiveMsgConfirmBatchResponse {}
 export interface MsgConfirmBatchResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgConfirmBatchResponse";
   value: Uint8Array;
@@ -335,16 +301,6 @@ export interface MsgDepositClaim {
   cosmosReceiver: string;
   orchestrator: string;
   data: string;
-}
-export interface ReactiveMsgDepositClaim {
-  eventNonce: ComputedRef<bigint>;
-  blockHeight: ComputedRef<bigint>;
-  tokenContract: ComputedRef<string>;
-  amount: ComputedRef<string>;
-  ethereumSender: ComputedRef<string>;
-  cosmosReceiver: ComputedRef<string>;
-  orchestrator: ComputedRef<string>;
-  data: ComputedRef<string>;
 }
 export interface MsgDepositClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgDepositClaim";
@@ -372,7 +328,6 @@ export interface MsgDepositClaimAminoMsg {
   value: MsgDepositClaimAmino;
 }
 export interface MsgDepositClaimResponse {}
-export interface ReactiveMsgDepositClaimResponse {}
 export interface MsgDepositClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgDepositClaimResponse";
   value: Uint8Array;
@@ -392,13 +347,6 @@ export interface MsgWithdrawClaim {
   batchNonce: bigint;
   tokenContract: string;
   orchestrator: string;
-}
-export interface ReactiveMsgWithdrawClaim {
-  eventNonce: ComputedRef<bigint>;
-  blockHeight: ComputedRef<bigint>;
-  batchNonce: ComputedRef<bigint>;
-  tokenContract: ComputedRef<string>;
-  orchestrator: ComputedRef<string>;
 }
 export interface MsgWithdrawClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgWithdrawClaim";
@@ -420,7 +368,6 @@ export interface MsgWithdrawClaimAminoMsg {
   value: MsgWithdrawClaimAmino;
 }
 export interface MsgWithdrawClaimResponse {}
-export interface ReactiveMsgWithdrawClaimResponse {}
 export interface MsgWithdrawClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgWithdrawClaimResponse";
   value: Uint8Array;
@@ -444,16 +391,6 @@ export interface MsgERC20DeployedClaim {
   symbol: string;
   decimals: bigint;
   orchestrator: string;
-}
-export interface ReactiveMsgERC20DeployedClaim {
-  eventNonce: ComputedRef<bigint>;
-  blockHeight: ComputedRef<bigint>;
-  cosmosDenom: ComputedRef<string>;
-  tokenContract: ComputedRef<string>;
-  name: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  decimals: ComputedRef<bigint>;
-  orchestrator: ComputedRef<string>;
 }
 export interface MsgERC20DeployedClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaim";
@@ -479,7 +416,6 @@ export interface MsgERC20DeployedClaimAminoMsg {
   value: MsgERC20DeployedClaimAmino;
 }
 export interface MsgERC20DeployedClaimResponse {}
-export interface ReactiveMsgERC20DeployedClaimResponse {}
 export interface MsgERC20DeployedClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaimResponse";
   value: Uint8Array;
@@ -497,10 +433,6 @@ export interface MsgERC20DeployedClaimResponseAminoMsg {
 export interface MsgCancelSendToEth {
   transactionId: bigint;
   sender: string;
-}
-export interface ReactiveMsgCancelSendToEth {
-  transactionId: ComputedRef<bigint>;
-  sender: ComputedRef<string>;
 }
 export interface MsgCancelSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgCancelSendToEth";
@@ -520,7 +452,6 @@ export interface MsgCancelSendToEthAminoMsg {
   value: MsgCancelSendToEthAmino;
 }
 export interface MsgCancelSendToEthResponse {}
-export interface ReactiveMsgCancelSendToEthResponse {}
 export interface MsgCancelSendToEthResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgCancelSendToEthResponse";
   value: Uint8Array;
@@ -539,11 +470,6 @@ export interface MsgSubmitBadSignatureEvidence {
   subject?: Any;
   signature: string;
   sender: string;
-}
-export interface ReactiveMsgSubmitBadSignatureEvidence {
-  subject?: ComputedRef<Any>;
-  signature: ComputedRef<string>;
-  sender: ComputedRef<string>;
 }
 export interface MsgSubmitBadSignatureEvidenceProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidence";
@@ -564,7 +490,6 @@ export interface MsgSubmitBadSignatureEvidenceAminoMsg {
   value: MsgSubmitBadSignatureEvidenceAmino;
 }
 export interface MsgSubmitBadSignatureEvidenceResponse {}
-export interface ReactiveMsgSubmitBadSignatureEvidenceResponse {}
 export interface MsgSubmitBadSignatureEvidenceResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse";
   value: Uint8Array;
@@ -586,15 +511,6 @@ export interface MsgValsetUpdatedClaim {
   rewardAmount: string;
   rewardToken: string;
   orchestrator: string;
-}
-export interface ReactiveMsgValsetUpdatedClaim {
-  eventNonce: ComputedRef<bigint>;
-  valsetNonce: ComputedRef<bigint>;
-  blockHeight: ComputedRef<bigint>;
-  members: ComputedRef<BridgeValidator[]>;
-  rewardAmount: ComputedRef<string>;
-  rewardToken: ComputedRef<string>;
-  orchestrator: ComputedRef<string>;
 }
 export interface MsgValsetUpdatedClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaim";
@@ -618,7 +534,6 @@ export interface MsgValsetUpdatedClaimAminoMsg {
   value: MsgValsetUpdatedClaimAmino;
 }
 export interface MsgValsetUpdatedClaimResponse {}
-export interface ReactiveMsgValsetUpdatedClaimResponse {}
 export interface MsgValsetUpdatedClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaimResponse";
   value: Uint8Array;
@@ -637,10 +552,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgUpdateParams";
@@ -661,7 +572,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -680,10 +590,6 @@ export interface MsgBlacklistEthereumAddresses {
   signer: string;
   /** Ethereum addresses to include in the blacklist */
   blacklistAddresses: string[];
-}
-export interface ReactiveMsgBlacklistEthereumAddresses {
-  signer: ComputedRef<string>;
-  blacklistAddresses: ComputedRef<string[]>;
 }
 export interface MsgBlacklistEthereumAddressesProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgBlacklistEthereumAddresses";
@@ -708,7 +614,6 @@ export interface MsgBlacklistEthereumAddressesAminoMsg {
  * MsgBlacklistEthereumAddresses response type.
  */
 export interface MsgBlacklistEthereumAddressesResponse {}
-export interface ReactiveMsgBlacklistEthereumAddressesResponse {}
 export interface MsgBlacklistEthereumAddressesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgBlacklistEthereumAddressesResponse";
   value: Uint8Array;
@@ -731,10 +636,6 @@ export interface MsgRevokeEthereumBlacklist {
   signer: string;
   /** Ethereum addresses to include in the blacklist */
   blacklistAddresses: string[];
-}
-export interface ReactiveMsgRevokeEthereumBlacklist {
-  signer: ComputedRef<string>;
-  blacklistAddresses: ComputedRef<string[]>;
 }
 export interface MsgRevokeEthereumBlacklistProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgRevokeEthereumBlacklist";
@@ -759,7 +660,6 @@ export interface MsgRevokeEthereumBlacklistAminoMsg {
  * response type.
  */
 export interface MsgRevokeEthereumBlacklistResponse {}
-export interface ReactiveMsgRevokeEthereumBlacklistResponse {}
 export interface MsgRevokeEthereumBlacklistResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgRevokeEthereumBlacklistResponse";
   value: Uint8Array;

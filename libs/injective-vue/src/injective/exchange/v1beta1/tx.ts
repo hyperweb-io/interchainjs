@@ -5,7 +5,6 @@ import { Params, ParamsAmino } from "../../../cosmos/distribution/v1beta1/distri
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface MsgUpdateSpotMarket {
   /** current admin address of the associated market */
   admin: string;
@@ -19,14 +18,6 @@ export interface MsgUpdateSpotMarket {
   newMinQuantityTickSize: string;
   /** (optional) updated min notional */
   newMinNotional: string;
-}
-export interface ReactiveMsgUpdateSpotMarket {
-  admin: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  newTicker: ComputedRef<string>;
-  newMinPriceTickSize: ComputedRef<string>;
-  newMinQuantityTickSize: ComputedRef<string>;
-  newMinNotional: ComputedRef<string>;
 }
 export interface MsgUpdateSpotMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarket";
@@ -51,7 +42,6 @@ export interface MsgUpdateSpotMarketAminoMsg {
   value: MsgUpdateSpotMarketAmino;
 }
 export interface MsgUpdateSpotMarketResponse {}
-export interface ReactiveMsgUpdateSpotMarketResponse {}
 export interface MsgUpdateSpotMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarketResponse";
   value: Uint8Array;
@@ -78,16 +68,6 @@ export interface MsgUpdateDerivativeMarket {
   newInitialMarginRatio: string;
   /** (optional) updated value for maintenance_margin_ratio */
   newMaintenanceMarginRatio: string;
-}
-export interface ReactiveMsgUpdateDerivativeMarket {
-  admin: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  newTicker: ComputedRef<string>;
-  newMinPriceTickSize: ComputedRef<string>;
-  newMinQuantityTickSize: ComputedRef<string>;
-  newMinNotional: ComputedRef<string>;
-  newInitialMarginRatio: ComputedRef<string>;
-  newMaintenanceMarginRatio: ComputedRef<string>;
 }
 export interface MsgUpdateDerivativeMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarket";
@@ -116,7 +96,6 @@ export interface MsgUpdateDerivativeMarketAminoMsg {
   value: MsgUpdateDerivativeMarketAmino;
 }
 export interface MsgUpdateDerivativeMarketResponse {}
-export interface ReactiveMsgUpdateDerivativeMarketResponse {}
 export interface MsgUpdateDerivativeMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse";
   value: Uint8Array;
@@ -135,10 +114,6 @@ export interface MsgUpdateParams {
    * NOTE: All parameters must be supplied.
    */
   params: Params;
-}
-export interface ReactiveMsgUpdateParams {
-  authority: ComputedRef<string>;
-  params: ComputedRef<Params>;
 }
 export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateParams";
@@ -159,7 +134,6 @@ export interface MsgUpdateParamsAminoMsg {
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsResponse {}
-export interface ReactiveMsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
@@ -181,11 +155,6 @@ export interface MsgDeposit {
    */
   subaccountId: string;
   amount: Coin;
-}
-export interface ReactiveMsgDeposit {
-  sender: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgDepositProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgDeposit";
@@ -210,7 +179,6 @@ export interface MsgDepositAminoMsg {
 }
 /** MsgDepositResponse defines the Msg/Deposit response type. */
 export interface MsgDepositResponse {}
-export interface ReactiveMsgDepositResponse {}
 export interface MsgDepositResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgDepositResponse";
   value: Uint8Array;
@@ -230,11 +198,6 @@ export interface MsgWithdraw {
   /** bytes32 subaccount ID to withdraw funds from */
   subaccountId: string;
   amount: Coin;
-}
-export interface ReactiveMsgWithdraw {
-  sender: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
 }
 export interface MsgWithdrawProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgWithdraw";
@@ -256,7 +219,6 @@ export interface MsgWithdrawAminoMsg {
 }
 /** MsgWithdraw defines the Msg/Withdraw response type. */
 export interface MsgWithdrawResponse {}
-export interface ReactiveMsgWithdrawResponse {}
 export interface MsgWithdrawResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgWithdrawResponse";
   value: Uint8Array;
@@ -274,10 +236,6 @@ export interface MsgWithdrawResponseAminoMsg {
 export interface MsgCreateSpotLimitOrder {
   sender: string;
   order: SpotOrder;
-}
-export interface ReactiveMsgCreateSpotLimitOrder {
-  sender: ComputedRef<string>;
-  order: ComputedRef<SpotOrder>;
 }
 export interface MsgCreateSpotLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder";
@@ -303,10 +261,6 @@ export interface MsgCreateSpotLimitOrderResponse {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveMsgCreateSpotLimitOrderResponse {
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface MsgCreateSpotLimitOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse";
   value: Uint8Array;
@@ -330,10 +284,6 @@ export interface MsgCreateSpotLimitOrderResponseAminoMsg {
 export interface MsgBatchCreateSpotLimitOrders {
   sender: string;
   orders: SpotOrder[];
-}
-export interface ReactiveMsgBatchCreateSpotLimitOrders {
-  sender: ComputedRef<string>;
-  orders: ComputedRef<SpotOrder[]>;
 }
 export interface MsgBatchCreateSpotLimitOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders";
@@ -359,11 +309,6 @@ export interface MsgBatchCreateSpotLimitOrdersResponse {
   orderHashes: string[];
   createdOrdersCids: string[];
   failedOrdersCids: string[];
-}
-export interface ReactiveMsgBatchCreateSpotLimitOrdersResponse {
-  orderHashes: ComputedRef<string[]>;
-  createdOrdersCids: ComputedRef<string[]>;
-  failedOrdersCids: ComputedRef<string[]>;
 }
 export interface MsgBatchCreateSpotLimitOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse";
@@ -407,15 +352,6 @@ export interface MsgInstantSpotMarketLaunch {
    */
   minNotional: string;
 }
-export interface ReactiveMsgInstantSpotMarketLaunch {
-  sender: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  baseDenom: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
-}
 export interface MsgInstantSpotMarketLaunchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunch";
   value: Uint8Array;
@@ -454,7 +390,6 @@ export interface MsgInstantSpotMarketLaunchAminoMsg {
  * response type.
  */
 export interface MsgInstantSpotMarketLaunchResponse {}
-export interface ReactiveMsgInstantSpotMarketLaunchResponse {}
 export interface MsgInstantSpotMarketLaunchResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse";
   value: Uint8Array;
@@ -521,22 +456,6 @@ export interface MsgInstantPerpetualMarketLaunch {
    * orders in the market
    */
   minNotional: string;
-}
-export interface ReactiveMsgInstantPerpetualMarketLaunch {
-  sender: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleScaleFactor: ComputedRef<number>;
-  oracleType: ComputedRef<OracleType>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  initialMarginRatio: ComputedRef<string>;
-  maintenanceMarginRatio: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
 }
 export interface MsgInstantPerpetualMarketLaunchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch";
@@ -605,7 +524,6 @@ export interface MsgInstantPerpetualMarketLaunchAminoMsg {
  * Msg/InstantPerpetualMarketLaunchResponse response type.
  */
 export interface MsgInstantPerpetualMarketLaunchResponse {}
-export interface ReactiveMsgInstantPerpetualMarketLaunchResponse {}
 export interface MsgInstantPerpetualMarketLaunchResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse";
   value: Uint8Array;
@@ -668,23 +586,6 @@ export interface MsgInstantBinaryOptionsMarketLaunch {
    * orders in the market
    */
   minNotional: string;
-}
-export interface ReactiveMsgInstantBinaryOptionsMarketLaunch {
-  sender: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  oracleSymbol: ComputedRef<string>;
-  oracleProvider: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  oracleScaleFactor: ComputedRef<number>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  expirationTimestamp: ComputedRef<bigint>;
-  settlementTimestamp: ComputedRef<bigint>;
-  admin: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
 }
 export interface MsgInstantBinaryOptionsMarketLaunchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch";
@@ -749,7 +650,6 @@ export interface MsgInstantBinaryOptionsMarketLaunchAminoMsg {
  * Msg/InstantBinaryOptionsMarketLaunchResponse response type.
  */
 export interface MsgInstantBinaryOptionsMarketLaunchResponse {}
-export interface ReactiveMsgInstantBinaryOptionsMarketLaunchResponse {}
 export interface MsgInstantBinaryOptionsMarketLaunchResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse";
   value: Uint8Array;
@@ -818,23 +718,6 @@ export interface MsgInstantExpiryFuturesMarketLaunch {
    * orders in the market
    */
   minNotional: string;
-}
-export interface ReactiveMsgInstantExpiryFuturesMarketLaunch {
-  sender: ComputedRef<string>;
-  ticker: ComputedRef<string>;
-  quoteDenom: ComputedRef<string>;
-  oracleBase: ComputedRef<string>;
-  oracleQuote: ComputedRef<string>;
-  oracleType: ComputedRef<OracleType>;
-  oracleScaleFactor: ComputedRef<number>;
-  expiry: ComputedRef<bigint>;
-  makerFeeRate: ComputedRef<string>;
-  takerFeeRate: ComputedRef<string>;
-  initialMarginRatio: ComputedRef<string>;
-  maintenanceMarginRatio: ComputedRef<string>;
-  minPriceTickSize: ComputedRef<string>;
-  minQuantityTickSize: ComputedRef<string>;
-  minNotional: ComputedRef<string>;
 }
 export interface MsgInstantExpiryFuturesMarketLaunchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch";
@@ -905,7 +788,6 @@ export interface MsgInstantExpiryFuturesMarketLaunchAminoMsg {
  * Msg/InstantExpiryFuturesMarketLaunch response type.
  */
 export interface MsgInstantExpiryFuturesMarketLaunchResponse {}
-export interface ReactiveMsgInstantExpiryFuturesMarketLaunchResponse {}
 export interface MsgInstantExpiryFuturesMarketLaunchResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse";
   value: Uint8Array;
@@ -926,10 +808,6 @@ export interface MsgInstantExpiryFuturesMarketLaunchResponseAminoMsg {
 export interface MsgCreateSpotMarketOrder {
   sender: string;
   order: SpotOrder;
-}
-export interface ReactiveMsgCreateSpotMarketOrder {
-  sender: ComputedRef<string>;
-  order: ComputedRef<SpotOrder>;
 }
 export interface MsgCreateSpotMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder";
@@ -956,11 +834,6 @@ export interface MsgCreateSpotMarketOrderResponse {
   results?: SpotMarketOrderResults;
   cid: string;
 }
-export interface ReactiveMsgCreateSpotMarketOrderResponse {
-  orderHash: ComputedRef<string>;
-  results?: ComputedRef<SpotMarketOrderResults>;
-  cid: ComputedRef<string>;
-}
 export interface MsgCreateSpotMarketOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse";
   value: Uint8Array;
@@ -983,11 +856,6 @@ export interface SpotMarketOrderResults {
   price: string;
   fee: string;
 }
-export interface ReactiveSpotMarketOrderResults {
-  quantity: ComputedRef<string>;
-  price: ComputedRef<string>;
-  fee: ComputedRef<string>;
-}
 export interface SpotMarketOrderResultsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketOrderResults";
   value: Uint8Array;
@@ -1005,10 +873,6 @@ export interface SpotMarketOrderResultsAminoMsg {
 export interface MsgCreateDerivativeLimitOrder {
   sender: string;
   order: DerivativeOrder;
-}
-export interface ReactiveMsgCreateDerivativeLimitOrder {
-  sender: ComputedRef<string>;
-  order: ComputedRef<DerivativeOrder>;
 }
 export interface MsgCreateDerivativeLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder";
@@ -1031,10 +895,6 @@ export interface MsgCreateDerivativeLimitOrderResponse {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveMsgCreateDerivativeLimitOrderResponse {
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface MsgCreateDerivativeLimitOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse";
   value: Uint8Array;
@@ -1055,10 +915,6 @@ export interface MsgCreateDerivativeLimitOrderResponseAminoMsg {
 export interface MsgCreateBinaryOptionsLimitOrder {
   sender: string;
   order: DerivativeOrder;
-}
-export interface ReactiveMsgCreateBinaryOptionsLimitOrder {
-  sender: ComputedRef<string>;
-  order: ComputedRef<DerivativeOrder>;
 }
 export interface MsgCreateBinaryOptionsLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder";
@@ -1081,10 +937,6 @@ export interface MsgCreateBinaryOptionsLimitOrderResponse {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveMsgCreateBinaryOptionsLimitOrderResponse {
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface MsgCreateBinaryOptionsLimitOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse";
   value: Uint8Array;
@@ -1105,10 +957,6 @@ export interface MsgCreateBinaryOptionsLimitOrderResponseAminoMsg {
 export interface MsgBatchCreateDerivativeLimitOrders {
   sender: string;
   orders: DerivativeOrder[];
-}
-export interface ReactiveMsgBatchCreateDerivativeLimitOrders {
-  sender: ComputedRef<string>;
-  orders: ComputedRef<DerivativeOrder[]>;
 }
 export interface MsgBatchCreateDerivativeLimitOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders";
@@ -1131,11 +979,6 @@ export interface MsgBatchCreateDerivativeLimitOrdersResponse {
   orderHashes: string[];
   createdOrdersCids: string[];
   failedOrdersCids: string[];
-}
-export interface ReactiveMsgBatchCreateDerivativeLimitOrdersResponse {
-  orderHashes: ComputedRef<string[]>;
-  createdOrdersCids: ComputedRef<string[]>;
-  failedOrdersCids: ComputedRef<string[]>;
 }
 export interface MsgBatchCreateDerivativeLimitOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse";
@@ -1162,13 +1005,6 @@ export interface MsgCancelSpotOrder {
   orderHash: string;
   cid: string;
 }
-export interface ReactiveMsgCancelSpotOrder {
-  sender: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHash: ComputedRef<string>;
-  cid: ComputedRef<string>;
-}
 export interface MsgCancelSpotOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrder";
   value: Uint8Array;
@@ -1187,7 +1023,6 @@ export interface MsgCancelSpotOrderAminoMsg {
 }
 /** MsgCancelSpotOrderResponse defines the Msg/CancelSpotOrder response type. */
 export interface MsgCancelSpotOrderResponse {}
-export interface ReactiveMsgCancelSpotOrderResponse {}
 export interface MsgCancelSpotOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrderResponse";
   value: Uint8Array;
@@ -1202,10 +1037,6 @@ export interface MsgCancelSpotOrderResponseAminoMsg {
 export interface MsgBatchCancelSpotOrders {
   sender: string;
   data: OrderData[];
-}
-export interface ReactiveMsgBatchCancelSpotOrders {
-  sender: ComputedRef<string>;
-  data: ComputedRef<OrderData[]>;
 }
 export interface MsgBatchCancelSpotOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders";
@@ -1226,9 +1057,6 @@ export interface MsgBatchCancelSpotOrdersAminoMsg {
  */
 export interface MsgBatchCancelSpotOrdersResponse {
   success: boolean[];
-}
-export interface ReactiveMsgBatchCancelSpotOrdersResponse {
-  success: ComputedRef<boolean[]>;
 }
 export interface MsgBatchCancelSpotOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse";
@@ -1253,10 +1081,6 @@ export interface MsgBatchCancelBinaryOptionsOrders {
   sender: string;
   data: OrderData[];
 }
-export interface ReactiveMsgBatchCancelBinaryOptionsOrders {
-  sender: ComputedRef<string>;
-  data: ComputedRef<OrderData[]>;
-}
 export interface MsgBatchCancelBinaryOptionsOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders";
   value: Uint8Array;
@@ -1279,9 +1103,6 @@ export interface MsgBatchCancelBinaryOptionsOrdersAminoMsg {
  */
 export interface MsgBatchCancelBinaryOptionsOrdersResponse {
   success: boolean[];
-}
-export interface ReactiveMsgBatchCancelBinaryOptionsOrdersResponse {
-  success: ComputedRef<boolean[]>;
 }
 export interface MsgBatchCancelBinaryOptionsOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse";
@@ -1315,19 +1136,6 @@ export interface MsgBatchUpdateOrders {
   binaryOptionsOrdersToCancel?: OrderData[];
   binaryOptionsMarketIdsToCancelAll: string[];
   binaryOptionsOrdersToCreate?: DerivativeOrder[];
-}
-export interface ReactiveMsgBatchUpdateOrders {
-  sender: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  spotMarketIdsToCancelAll: ComputedRef<string[]>;
-  derivativeMarketIdsToCancelAll: ComputedRef<string[]>;
-  spotOrdersToCancel?: ComputedRef<OrderData[]>;
-  derivativeOrdersToCancel?: ComputedRef<OrderData[]>;
-  spotOrdersToCreate?: ComputedRef<SpotOrder[]>;
-  derivativeOrdersToCreate?: ComputedRef<DerivativeOrder[]>;
-  binaryOptionsOrdersToCancel?: ComputedRef<OrderData[]>;
-  binaryOptionsMarketIdsToCancelAll: ComputedRef<string[]>;
-  binaryOptionsOrdersToCreate?: ComputedRef<DerivativeOrder[]>;
 }
 export interface MsgBatchUpdateOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrders";
@@ -1370,20 +1178,6 @@ export interface MsgBatchUpdateOrdersResponse {
   createdBinaryOptionsOrdersCids: string[];
   failedBinaryOptionsOrdersCids: string[];
 }
-export interface ReactiveMsgBatchUpdateOrdersResponse {
-  spotCancelSuccess: ComputedRef<boolean[]>;
-  derivativeCancelSuccess: ComputedRef<boolean[]>;
-  spotOrderHashes: ComputedRef<string[]>;
-  derivativeOrderHashes: ComputedRef<string[]>;
-  binaryOptionsCancelSuccess: ComputedRef<boolean[]>;
-  binaryOptionsOrderHashes: ComputedRef<string[]>;
-  createdSpotOrdersCids: ComputedRef<string[]>;
-  failedSpotOrdersCids: ComputedRef<string[]>;
-  createdDerivativeOrdersCids: ComputedRef<string[]>;
-  failedDerivativeOrdersCids: ComputedRef<string[]>;
-  createdBinaryOptionsOrdersCids: ComputedRef<string[]>;
-  failedBinaryOptionsOrdersCids: ComputedRef<string[]>;
-}
 export interface MsgBatchUpdateOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse";
   value: Uint8Array;
@@ -1412,10 +1206,6 @@ export interface MsgCreateDerivativeMarketOrder {
   sender: string;
   order: DerivativeOrder;
 }
-export interface ReactiveMsgCreateDerivativeMarketOrder {
-  sender: ComputedRef<string>;
-  order: ComputedRef<DerivativeOrder>;
-}
 export interface MsgCreateDerivativeMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder";
   value: Uint8Array;
@@ -1437,11 +1227,6 @@ export interface MsgCreateDerivativeMarketOrderResponse {
   orderHash: string;
   results?: DerivativeMarketOrderResults;
   cid: string;
-}
-export interface ReactiveMsgCreateDerivativeMarketOrderResponse {
-  orderHash: ComputedRef<string>;
-  results?: ComputedRef<DerivativeMarketOrderResults>;
-  cid: ComputedRef<string>;
 }
 export interface MsgCreateDerivativeMarketOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse";
@@ -1467,13 +1252,6 @@ export interface DerivativeMarketOrderResults {
   positionDelta: PositionDelta;
   payout: string;
 }
-export interface ReactiveDerivativeMarketOrderResults {
-  quantity: ComputedRef<string>;
-  price: ComputedRef<string>;
-  fee: ComputedRef<string>;
-  positionDelta: ComputedRef<PositionDelta>;
-  payout: ComputedRef<string>;
-}
 export interface DerivativeMarketOrderResultsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderResults";
   value: Uint8Array;
@@ -1493,10 +1271,6 @@ export interface DerivativeMarketOrderResultsAminoMsg {
 export interface MsgCreateBinaryOptionsMarketOrder {
   sender: string;
   order: DerivativeOrder;
-}
-export interface ReactiveMsgCreateBinaryOptionsMarketOrder {
-  sender: ComputedRef<string>;
-  order: ComputedRef<DerivativeOrder>;
 }
 export interface MsgCreateBinaryOptionsMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder";
@@ -1519,11 +1293,6 @@ export interface MsgCreateBinaryOptionsMarketOrderResponse {
   orderHash: string;
   results?: DerivativeMarketOrderResults;
   cid: string;
-}
-export interface ReactiveMsgCreateBinaryOptionsMarketOrderResponse {
-  orderHash: ComputedRef<string>;
-  results?: ComputedRef<DerivativeMarketOrderResults>;
-  cid: ComputedRef<string>;
 }
 export interface MsgCreateBinaryOptionsMarketOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse";
@@ -1552,14 +1321,6 @@ export interface MsgCancelDerivativeOrder {
   orderMask: number;
   cid: string;
 }
-export interface ReactiveMsgCancelDerivativeOrder {
-  sender: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHash: ComputedRef<string>;
-  orderMask: ComputedRef<number>;
-  cid: ComputedRef<string>;
-}
 export interface MsgCancelDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrder";
   value: Uint8Array;
@@ -1583,7 +1344,6 @@ export interface MsgCancelDerivativeOrderAminoMsg {
  * Msg/CancelDerivativeOrderResponse response type.
  */
 export interface MsgCancelDerivativeOrderResponse {}
-export interface ReactiveMsgCancelDerivativeOrderResponse {}
 export interface MsgCancelDerivativeOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse";
   value: Uint8Array;
@@ -1609,14 +1369,6 @@ export interface MsgCancelBinaryOptionsOrder {
   /** bitwise combination of OrderMask enum values */
   orderMask: number;
   cid: string;
-}
-export interface ReactiveMsgCancelBinaryOptionsOrder {
-  sender: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHash: ComputedRef<string>;
-  orderMask: ComputedRef<number>;
-  cid: ComputedRef<string>;
 }
 export interface MsgCancelBinaryOptionsOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder";
@@ -1644,7 +1396,6 @@ export interface MsgCancelBinaryOptionsOrderAminoMsg {
  * Msg/CancelBinaryOptionsOrderResponse response type.
  */
 export interface MsgCancelBinaryOptionsOrderResponse {}
-export interface ReactiveMsgCancelBinaryOptionsOrderResponse {}
 export interface MsgCancelBinaryOptionsOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse";
   value: Uint8Array;
@@ -1665,13 +1416,6 @@ export interface OrderData {
   /** bitwise combination of OrderMask enum values */
   orderMask: number;
   cid: string;
-}
-export interface ReactiveOrderData {
-  marketId: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  orderHash: ComputedRef<string>;
-  orderMask: ComputedRef<number>;
-  cid: ComputedRef<string>;
 }
 export interface OrderDataProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderData";
@@ -1697,10 +1441,6 @@ export interface MsgBatchCancelDerivativeOrders {
   sender: string;
   data: OrderData[];
 }
-export interface ReactiveMsgBatchCancelDerivativeOrders {
-  sender: ComputedRef<string>;
-  data: ComputedRef<OrderData[]>;
-}
 export interface MsgBatchCancelDerivativeOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders";
   value: Uint8Array;
@@ -1724,9 +1464,6 @@ export interface MsgBatchCancelDerivativeOrdersAminoMsg {
 export interface MsgBatchCancelDerivativeOrdersResponse {
   success: boolean[];
 }
-export interface ReactiveMsgBatchCancelDerivativeOrdersResponse {
-  success: ComputedRef<boolean[]>;
-}
 export interface MsgBatchCancelDerivativeOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse";
   value: Uint8Array;
@@ -1749,12 +1486,6 @@ export interface MsgSubaccountTransfer {
   destinationSubaccountId: string;
   amount: Coin;
 }
-export interface ReactiveMsgSubaccountTransfer {
-  sender: ComputedRef<string>;
-  sourceSubaccountId: ComputedRef<string>;
-  destinationSubaccountId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-}
 export interface MsgSubaccountTransferProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransfer";
   value: Uint8Array;
@@ -1775,7 +1506,6 @@ export interface MsgSubaccountTransferAminoMsg {
  * type.
  */
 export interface MsgSubaccountTransferResponse {}
-export interface ReactiveMsgSubaccountTransferResponse {}
 export interface MsgSubaccountTransferResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransferResponse";
   value: Uint8Array;
@@ -1796,12 +1526,6 @@ export interface MsgExternalTransfer {
   destinationSubaccountId: string;
   amount: Coin;
 }
-export interface ReactiveMsgExternalTransfer {
-  sender: ComputedRef<string>;
-  sourceSubaccountId: ComputedRef<string>;
-  destinationSubaccountId: ComputedRef<string>;
-  amount: ComputedRef<Coin>;
-}
 export interface MsgExternalTransferProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgExternalTransfer";
   value: Uint8Array;
@@ -1819,7 +1543,6 @@ export interface MsgExternalTransferAminoMsg {
 }
 /** MsgExternalTransferResponse defines the Msg/ExternalTransfer response type. */
 export interface MsgExternalTransferResponse {}
-export interface ReactiveMsgExternalTransferResponse {}
 export interface MsgExternalTransferResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgExternalTransferResponse";
   value: Uint8Array;
@@ -1837,12 +1560,6 @@ export interface MsgLiquidatePosition {
   marketId: string;
   /** optional order to provide for liquidation */
   order?: DerivativeOrder;
-}
-export interface ReactiveMsgLiquidatePosition {
-  sender: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  order?: ComputedRef<DerivativeOrder>;
 }
 export interface MsgLiquidatePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePosition";
@@ -1862,7 +1579,6 @@ export interface MsgLiquidatePositionAminoMsg {
 }
 /** MsgLiquidatePositionResponse defines the Msg/LiquidatePosition response type. */
 export interface MsgLiquidatePositionResponse {}
-export interface ReactiveMsgLiquidatePositionResponse {}
 export interface MsgLiquidatePositionResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePositionResponse";
   value: Uint8Array;
@@ -1878,11 +1594,6 @@ export interface MsgEmergencySettleMarket {
   sender: string;
   subaccountId: string;
   marketId: string;
-}
-export interface ReactiveMsgEmergencySettleMarket {
-  sender: ComputedRef<string>;
-  subaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
 }
 export interface MsgEmergencySettleMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarket";
@@ -1903,7 +1614,6 @@ export interface MsgEmergencySettleMarketAminoMsg {
  * response type.
  */
 export interface MsgEmergencySettleMarketResponse {}
-export interface ReactiveMsgEmergencySettleMarketResponse {}
 export interface MsgEmergencySettleMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarketResponse";
   value: Uint8Array;
@@ -1925,13 +1635,6 @@ export interface MsgIncreasePositionMargin {
   marketId: string;
   /** amount defines the amount of margin to add to the position */
   amount: string;
-}
-export interface ReactiveMsgIncreasePositionMargin {
-  sender: ComputedRef<string>;
-  sourceSubaccountId: ComputedRef<string>;
-  destinationSubaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  amount: ComputedRef<string>;
 }
 export interface MsgIncreasePositionMarginProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMargin";
@@ -1955,7 +1658,6 @@ export interface MsgIncreasePositionMarginAminoMsg {
  * response type.
  */
 export interface MsgIncreasePositionMarginResponse {}
-export interface ReactiveMsgIncreasePositionMarginResponse {}
 export interface MsgIncreasePositionMarginResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMarginResponse";
   value: Uint8Array;
@@ -1977,13 +1679,6 @@ export interface MsgDecreasePositionMargin {
   marketId: string;
   /** amount defines the amount of margin to withdraw from the position */
   amount: string;
-}
-export interface ReactiveMsgDecreasePositionMargin {
-  sender: ComputedRef<string>;
-  sourceSubaccountId: ComputedRef<string>;
-  destinationSubaccountId: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  amount: ComputedRef<string>;
 }
 export interface MsgDecreasePositionMarginProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMargin";
@@ -2007,7 +1702,6 @@ export interface MsgDecreasePositionMarginAminoMsg {
  * response type.
  */
 export interface MsgDecreasePositionMarginResponse {}
-export interface ReactiveMsgDecreasePositionMarginResponse {}
 export interface MsgDecreasePositionMarginResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMarginResponse";
   value: Uint8Array;
@@ -2034,12 +1728,6 @@ export interface MsgPrivilegedExecuteContract {
   /** data defines the call data used when executing the contract */
   data: string;
 }
-export interface ReactiveMsgPrivilegedExecuteContract {
-  sender: ComputedRef<string>;
-  funds: ComputedRef<string>;
-  contractAddress: ComputedRef<string>;
-  data: ComputedRef<string>;
-}
 export interface MsgPrivilegedExecuteContractProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContract";
   value: Uint8Array;
@@ -2065,9 +1753,6 @@ export interface MsgPrivilegedExecuteContractAminoMsg {
 export interface MsgPrivilegedExecuteContractResponse {
   fundsDiff: Coin[];
 }
-export interface ReactiveMsgPrivilegedExecuteContractResponse {
-  fundsDiff: ComputedRef<Coin[]>;
-}
 export interface MsgPrivilegedExecuteContractResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse";
   value: Uint8Array;
@@ -2084,9 +1769,6 @@ export interface MsgPrivilegedExecuteContractResponseAminoMsg {
 export interface MsgRewardsOptOut {
   sender: string;
 }
-export interface ReactiveMsgRewardsOptOut {
-  sender: ComputedRef<string>;
-}
 export interface MsgRewardsOptOutProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOut";
   value: Uint8Array;
@@ -2101,7 +1783,6 @@ export interface MsgRewardsOptOutAminoMsg {
 }
 /** MsgRewardsOptOutResponse defines the Msg/RewardsOptOut response type. */
 export interface MsgRewardsOptOutResponse {}
-export interface ReactiveMsgRewardsOptOutResponse {}
 export interface MsgRewardsOptOutResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOutResponse";
   value: Uint8Array;
@@ -2117,11 +1798,6 @@ export interface MsgReclaimLockedFunds {
   sender: string;
   lockedAccountPubKey: Uint8Array;
   signature: Uint8Array;
-}
-export interface ReactiveMsgReclaimLockedFunds {
-  sender: ComputedRef<string>;
-  lockedAccountPubKey: ComputedRef<Uint8Array>;
-  signature: ComputedRef<Uint8Array>;
 }
 export interface MsgReclaimLockedFundsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFunds";
@@ -2142,7 +1818,6 @@ export interface MsgReclaimLockedFundsAminoMsg {
  * type.
  */
 export interface MsgReclaimLockedFundsResponse {}
-export interface ReactiveMsgReclaimLockedFundsResponse {}
 export interface MsgReclaimLockedFundsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFundsResponse";
   value: Uint8Array;
@@ -2166,10 +1841,6 @@ export interface MsgSignData {
    */
   data: Uint8Array;
 }
-export interface ReactiveMsgSignData {
-  signer: ComputedRef<Uint8Array>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface MsgSignDataProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSignData";
   value: Uint8Array;
@@ -2192,10 +1863,6 @@ export interface MsgSignDataAminoMsg {
 export interface MsgSignDoc {
   signType: string;
   value: MsgSignData;
-}
-export interface ReactiveMsgSignDoc {
-  signType: ComputedRef<string>;
-  value: ComputedRef<MsgSignData>;
 }
 export interface MsgSignDocProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSignDoc";
@@ -2226,14 +1893,6 @@ export interface MsgAdminUpdateBinaryOptionsMarket {
   /** Status of the market */
   status: MarketStatus;
 }
-export interface ReactiveMsgAdminUpdateBinaryOptionsMarket {
-  sender: ComputedRef<string>;
-  marketId: ComputedRef<string>;
-  settlementPrice?: ComputedRef<string>;
-  expirationTimestamp: ComputedRef<bigint>;
-  settlementTimestamp: ComputedRef<bigint>;
-  status: ComputedRef<MarketStatus>;
-}
 export interface MsgAdminUpdateBinaryOptionsMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket";
   value: Uint8Array;
@@ -2263,7 +1922,6 @@ export interface MsgAdminUpdateBinaryOptionsMarketAminoMsg {
  * AdminUpdateBinaryOptionsMarket rpc method
  */
 export interface MsgAdminUpdateBinaryOptionsMarketResponse {}
-export interface ReactiveMsgAdminUpdateBinaryOptionsMarketResponse {}
 export interface MsgAdminUpdateBinaryOptionsMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse";
   value: Uint8Array;
@@ -2282,10 +1940,6 @@ export interface MsgAuthorizeStakeGrants {
   sender: string;
   grants: GrantAuthorization[];
 }
-export interface ReactiveMsgAuthorizeStakeGrants {
-  sender: ComputedRef<string>;
-  grants: ComputedRef<GrantAuthorization[]>;
-}
 export interface MsgAuthorizeStakeGrantsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrants";
   value: Uint8Array;
@@ -2300,7 +1954,6 @@ export interface MsgAuthorizeStakeGrantsAminoMsg {
   value: MsgAuthorizeStakeGrantsAmino;
 }
 export interface MsgAuthorizeStakeGrantsResponse {}
-export interface ReactiveMsgAuthorizeStakeGrantsResponse {}
 export interface MsgAuthorizeStakeGrantsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse";
   value: Uint8Array;
@@ -2314,10 +1967,6 @@ export interface MsgAuthorizeStakeGrantsResponseAminoMsg {
 export interface MsgActivateStakeGrant {
   sender: string;
   granter: string;
-}
-export interface ReactiveMsgActivateStakeGrant {
-  sender: ComputedRef<string>;
-  granter: ComputedRef<string>;
 }
 export interface MsgActivateStakeGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrant";
@@ -2333,7 +1982,6 @@ export interface MsgActivateStakeGrantAminoMsg {
   value: MsgActivateStakeGrantAmino;
 }
 export interface MsgActivateStakeGrantResponse {}
-export interface ReactiveMsgActivateStakeGrantResponse {}
 export interface MsgActivateStakeGrantResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse";
   value: Uint8Array;

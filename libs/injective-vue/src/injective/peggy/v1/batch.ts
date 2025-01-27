@@ -2,7 +2,6 @@ import { ERC20Token, ERC20TokenAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** OutgoingTxBatch represents a batch of transactions going from Peggy to ETH */
 export interface OutgoingTxBatch {
   batchNonce: bigint;
@@ -10,13 +9,6 @@ export interface OutgoingTxBatch {
   transactions: OutgoingTransferTx[];
   tokenContract: string;
   block: bigint;
-}
-export interface ReactiveOutgoingTxBatch {
-  batchNonce: ComputedRef<bigint>;
-  batchTimeout: ComputedRef<bigint>;
-  transactions: ComputedRef<OutgoingTransferTx[]>;
-  tokenContract: ComputedRef<string>;
-  block: ComputedRef<bigint>;
 }
 export interface OutgoingTxBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.OutgoingTxBatch";
@@ -41,13 +33,6 @@ export interface OutgoingTransferTx {
   destAddress: string;
   erc20Token?: ERC20Token;
   erc20Fee?: ERC20Token;
-}
-export interface ReactiveOutgoingTransferTx {
-  id: ComputedRef<bigint>;
-  sender: ComputedRef<string>;
-  destAddress: ComputedRef<string>;
-  erc20Token?: ComputedRef<ERC20Token>;
-  erc20Fee?: ComputedRef<ERC20Token>;
 }
 export interface OutgoingTransferTxProtoMsg {
   typeUrl: "/injective.peggy.v1.OutgoingTransferTx";

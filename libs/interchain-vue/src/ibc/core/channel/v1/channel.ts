@@ -2,7 +2,6 @@ import { Height, HeightAmino } from "../../client/v1/client";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /**
  * State defines if a channel is in one of the following states:
  * CLOSED, INIT, TRYOPEN, OPEN, FLUSHING, FLUSHCOMPLETE or UNINITIALIZED.
@@ -150,14 +149,6 @@ export interface Channel {
    */
   upgradeSequence: bigint;
 }
-export interface ReactiveChannel {
-  state: ComputedRef<State>;
-  ordering: ComputedRef<Order>;
-  counterparty: ComputedRef<Counterparty>;
-  connectionHops: ComputedRef<string[]>;
-  version: ComputedRef<string>;
-  upgradeSequence: ComputedRef<bigint>;
-}
 export interface ChannelProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Channel";
   value: Uint8Array;
@@ -219,16 +210,6 @@ export interface IdentifiedChannel {
    */
   upgradeSequence: bigint;
 }
-export interface ReactiveIdentifiedChannel {
-  state: ComputedRef<State>;
-  ordering: ComputedRef<Order>;
-  counterparty: ComputedRef<Counterparty>;
-  connectionHops: ComputedRef<string[]>;
-  version: ComputedRef<string>;
-  portId: ComputedRef<string>;
-  channelId: ComputedRef<string>;
-  upgradeSequence: ComputedRef<bigint>;
-}
 export interface IdentifiedChannelProtoMsg {
   typeUrl: "/ibc.core.channel.v1.IdentifiedChannel";
   value: Uint8Array;
@@ -272,10 +253,6 @@ export interface Counterparty {
   /** channel end on the counterparty chain */
   channelId: string;
 }
-export interface ReactiveCounterparty {
-  portId: ComputedRef<string>;
-  channelId: ComputedRef<string>;
-}
 export interface CounterpartyProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Counterparty";
   value: Uint8Array;
@@ -313,16 +290,6 @@ export interface Packet {
   timeoutHeight: Height;
   /** block timestamp (in nanoseconds) after which the packet times out */
   timeoutTimestamp: bigint;
-}
-export interface ReactivePacket {
-  sequence: ComputedRef<bigint>;
-  sourcePort: ComputedRef<string>;
-  sourceChannel: ComputedRef<string>;
-  destinationPort: ComputedRef<string>;
-  destinationChannel: ComputedRef<string>;
-  data: ComputedRef<Uint8Array>;
-  timeoutHeight: ComputedRef<Height>;
-  timeoutTimestamp: ComputedRef<bigint>;
 }
 export interface PacketProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Packet";
@@ -371,12 +338,6 @@ export interface PacketState {
   /** embedded data that represents packet state. */
   data: Uint8Array;
 }
-export interface ReactivePacketState {
-  portId: ComputedRef<string>;
-  channelId: ComputedRef<string>;
-  sequence: ComputedRef<bigint>;
-  data: ComputedRef<Uint8Array>;
-}
 export interface PacketStateProtoMsg {
   typeUrl: "/ibc.core.channel.v1.PacketState";
   value: Uint8Array;
@@ -414,11 +375,6 @@ export interface PacketId {
   /** packet sequence */
   sequence: bigint;
 }
-export interface ReactivePacketId {
-  portId: ComputedRef<string>;
-  channelId: ComputedRef<string>;
-  sequence: ComputedRef<bigint>;
-}
 export interface PacketIdProtoMsg {
   typeUrl: "/ibc.core.channel.v1.PacketId";
   value: Uint8Array;
@@ -453,10 +409,6 @@ export interface Acknowledgement {
   result?: Uint8Array;
   error?: string;
 }
-export interface ReactiveAcknowledgement {
-  result?: ComputedRef<Uint8Array>;
-  error?: ComputedRef<string>;
-}
 export interface AcknowledgementProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Acknowledgement";
   value: Uint8Array;
@@ -489,10 +441,6 @@ export interface Timeout {
   /** block timestamp (in nanoseconds) after which the packet or upgrade times out */
   timestamp: bigint;
 }
-export interface ReactiveTimeout {
-  height: ComputedRef<Height>;
-  timestamp: ComputedRef<bigint>;
-}
 export interface TimeoutProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Timeout";
   value: Uint8Array;
@@ -516,9 +464,6 @@ export interface TimeoutAminoMsg {
 export interface Params {
   /** the relative timeout after which channel upgrades will time out. */
   upgradeTimeout: Timeout;
-}
-export interface ReactiveParams {
-  upgradeTimeout: ComputedRef<Timeout>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Params";

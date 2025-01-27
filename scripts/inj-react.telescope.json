@@ -58,10 +58,13 @@
         "rpcClients": {
             "enabled": false
         },
-        "helperFuncCreators": {
+        "helperFunctions": {
             "enabled": true,
             "useGlobalDecoderRegistry": true,
-            "genCustomHooks": true
+            "hooks": {
+              "react": true,
+              "vue": false
+            }
         },
         "interfaces": {
             "enabled": true,

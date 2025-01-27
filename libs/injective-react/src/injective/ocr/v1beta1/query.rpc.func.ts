@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../helper-func-types";
-import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryFeedConfigRequest, QueryFeedConfigResponse, QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse, QueryLatestRoundRequest, QueryLatestRoundResponse, QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse, QueryOwedAmountRequest, QueryOwedAmountResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
 export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
@@ -9,10 +8,6 @@ export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<Quer
   clientResolver,
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
-  queryKeyPrefix: "ParamsQuery"
-});
 export const createGetFeedConfig = (clientResolver?: RpcResolver) => buildQuery<QueryFeedConfigRequest, QueryFeedConfigResponse>({
   encode: QueryFeedConfigRequest.encode,
   decode: QueryFeedConfigResponse.decode,
@@ -20,10 +15,6 @@ export const createGetFeedConfig = (clientResolver?: RpcResolver) => buildQuery<
   method: "FeedConfig",
   clientResolver,
   deps: [QueryFeedConfigRequest, QueryFeedConfigResponse]
-});
-export const useGetFeedConfig = buildUseQuery<QueryFeedConfigRequest, QueryFeedConfigResponse>({
-  builderQueryFn: createGetFeedConfig,
-  queryKeyPrefix: "FeedConfigQuery"
 });
 export const createGetFeedConfigInfo = (clientResolver?: RpcResolver) => buildQuery<QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse>({
   encode: QueryFeedConfigInfoRequest.encode,
@@ -33,10 +24,6 @@ export const createGetFeedConfigInfo = (clientResolver?: RpcResolver) => buildQu
   clientResolver,
   deps: [QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse]
 });
-export const useGetFeedConfigInfo = buildUseQuery<QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse>({
-  builderQueryFn: createGetFeedConfigInfo,
-  queryKeyPrefix: "FeedConfigInfoQuery"
-});
 export const createGetLatestRound = (clientResolver?: RpcResolver) => buildQuery<QueryLatestRoundRequest, QueryLatestRoundResponse>({
   encode: QueryLatestRoundRequest.encode,
   decode: QueryLatestRoundResponse.decode,
@@ -44,10 +31,6 @@ export const createGetLatestRound = (clientResolver?: RpcResolver) => buildQuery
   method: "LatestRound",
   clientResolver,
   deps: [QueryLatestRoundRequest, QueryLatestRoundResponse]
-});
-export const useGetLatestRound = buildUseQuery<QueryLatestRoundRequest, QueryLatestRoundResponse>({
-  builderQueryFn: createGetLatestRound,
-  queryKeyPrefix: "LatestRoundQuery"
 });
 export const createGetLatestTransmissionDetails = (clientResolver?: RpcResolver) => buildQuery<QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse>({
   encode: QueryLatestTransmissionDetailsRequest.encode,
@@ -57,10 +40,6 @@ export const createGetLatestTransmissionDetails = (clientResolver?: RpcResolver)
   clientResolver,
   deps: [QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse]
 });
-export const useGetLatestTransmissionDetails = buildUseQuery<QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse>({
-  builderQueryFn: createGetLatestTransmissionDetails,
-  queryKeyPrefix: "LatestTransmissionDetailsQuery"
-});
 export const createGetOwedAmount = (clientResolver?: RpcResolver) => buildQuery<QueryOwedAmountRequest, QueryOwedAmountResponse>({
   encode: QueryOwedAmountRequest.encode,
   decode: QueryOwedAmountResponse.decode,
@@ -69,10 +48,6 @@ export const createGetOwedAmount = (clientResolver?: RpcResolver) => buildQuery<
   clientResolver,
   deps: [QueryOwedAmountRequest, QueryOwedAmountResponse]
 });
-export const useGetOwedAmount = buildUseQuery<QueryOwedAmountRequest, QueryOwedAmountResponse>({
-  builderQueryFn: createGetOwedAmount,
-  queryKeyPrefix: "OwedAmountQuery"
-});
 export const createGetOcrModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
@@ -80,8 +55,4 @@ export const createGetOcrModuleState = (clientResolver?: RpcResolver) => buildQu
   method: "OcrModuleState",
   clientResolver,
   deps: [QueryModuleStateRequest, QueryModuleStateResponse]
-});
-export const useGetOcrModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetOcrModuleState,
-  queryKeyPrefix: "OcrModuleStateQuery"
 });

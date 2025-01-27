@@ -1,5 +1,4 @@
 import { RpcResolver, buildQuery } from "../../../../helper-func-types";
-import { buildUseQuery } from "../../../../react-query";
 import { ListAllInterfacesRequest, ListAllInterfacesResponse, ListImplementationsRequest, ListImplementationsResponse } from "./reflection";
 export const createGetListAllInterfaces = (clientResolver?: RpcResolver) => buildQuery<ListAllInterfacesRequest, ListAllInterfacesResponse>({
   encode: ListAllInterfacesRequest.encode,
@@ -9,10 +8,6 @@ export const createGetListAllInterfaces = (clientResolver?: RpcResolver) => buil
   clientResolver,
   deps: [ListAllInterfacesRequest, ListAllInterfacesResponse]
 });
-export const useGetListAllInterfaces = buildUseQuery<ListAllInterfacesRequest, ListAllInterfacesResponse>({
-  builderQueryFn: createGetListAllInterfaces,
-  queryKeyPrefix: "ListAllInterfacesQuery"
-});
 export const createGetListImplementations = (clientResolver?: RpcResolver) => buildQuery<ListImplementationsRequest, ListImplementationsResponse>({
   encode: ListImplementationsRequest.encode,
   decode: ListImplementationsResponse.decode,
@@ -20,8 +15,4 @@ export const createGetListImplementations = (clientResolver?: RpcResolver) => bu
   method: "ListImplementations",
   clientResolver,
   deps: [ListImplementationsRequest, ListImplementationsResponse]
-});
-export const useGetListImplementations = buildUseQuery<ListImplementationsRequest, ListImplementationsResponse>({
-  builderQueryFn: createGetListImplementations,
-  queryKeyPrefix: "ListImplementationsQuery"
 });

@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 /**
  * ClaimType is the cosmos type of an event from the counterpart chain that can
  * be handled
@@ -79,12 +78,6 @@ export interface Attestation {
   height: bigint;
   claim?: Any;
 }
-export interface ReactiveAttestation {
-  observed: ComputedRef<boolean>;
-  votes: ComputedRef<string[]>;
-  height: ComputedRef<bigint>;
-  claim?: ComputedRef<Any>;
-}
 export interface AttestationProtoMsg {
   typeUrl: "/injective.peggy.v1.Attestation";
   value: Uint8Array;
@@ -127,10 +120,6 @@ export interface AttestationAminoMsg {
 export interface ERC20Token {
   contract: string;
   amount: string;
-}
-export interface ReactiveERC20Token {
-  contract: ComputedRef<string>;
-  amount: ComputedRef<string>;
 }
 export interface ERC20TokenProtoMsg {
   typeUrl: "/injective.peggy.v1.ERC20Token";

@@ -2,13 +2,9 @@ import { Grant, GrantAmino } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** GenesisState contains a set of fee allowances, persisted from the store */
 export interface GenesisState {
   allowances: Grant[];
-}
-export interface ReactiveGenesisState {
-  allowances: ComputedRef<Grant[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.GenesisState";

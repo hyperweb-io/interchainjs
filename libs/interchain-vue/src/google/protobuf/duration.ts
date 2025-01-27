@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 /**
  * A Duration represents a signed, fixed-length span of time represented
  * as a count of seconds and fractions of seconds at nanosecond
@@ -78,10 +77,6 @@ export interface Duration {
    * to +999,999,999 inclusive.
    */
   nanos: number;
-}
-export interface ReactiveDuration {
-  seconds: ComputedRef<bigint>;
-  nanos: ComputedRef<number>;
 }
 export interface DurationProtoMsg {
   typeUrl: "/google.protobuf.Duration";

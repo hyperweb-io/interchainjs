@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** Params defines the parameters for the bank module. */
 export interface Params {
   /**
@@ -15,10 +14,6 @@ export interface Params {
   /** @deprecated */
   sendEnabled: SendEnabled[];
   defaultSendEnabled: boolean;
-}
-export interface ReactiveParams {
-  sendEnabled: ComputedRef<SendEnabled[]>;
-  defaultSendEnabled: ComputedRef<boolean>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.Params";
@@ -49,10 +44,6 @@ export interface SendEnabled {
   denom: string;
   enabled: boolean;
 }
-export interface ReactiveSendEnabled {
-  denom: ComputedRef<string>;
-  enabled: ComputedRef<boolean>;
-}
 export interface SendEnabledProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.SendEnabled";
   value: Uint8Array;
@@ -74,10 +65,6 @@ export interface Input {
   address: string;
   coins: Coin[];
 }
-export interface ReactiveInput {
-  address: ComputedRef<string>;
-  coins: ComputedRef<Coin[]>;
-}
 export interface InputProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.Input";
   value: Uint8Array;
@@ -95,10 +82,6 @@ export interface InputAminoMsg {
 export interface Output {
   address: string;
   coins: Coin[];
-}
-export interface ReactiveOutput {
-  address: ComputedRef<string>;
-  coins: ComputedRef<Coin[]>;
 }
 export interface OutputProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.Output";
@@ -121,9 +104,6 @@ export interface OutputAminoMsg {
 /** @deprecated */
 export interface Supply {
   total: Coin[];
-}
-export interface ReactiveSupply {
-  total: ComputedRef<Coin[]>;
 }
 export interface SupplyProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.Supply";
@@ -159,11 +139,6 @@ export interface DenomUnit {
   exponent: number;
   /** aliases is a list of string aliases for the given denom */
   aliases: string[];
-}
-export interface ReactiveDenomUnit {
-  denom: ComputedRef<string>;
-  exponent: ComputedRef<number>;
-  aliases: ComputedRef<string[]>;
 }
 export interface DenomUnitProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.DenomUnit";
@@ -232,16 +207,6 @@ export interface Metadata {
    * Since: cosmos-sdk 0.46
    */
   uriHash: string;
-}
-export interface ReactiveMetadata {
-  description: ComputedRef<string>;
-  denomUnits: ComputedRef<DenomUnit[]>;
-  base: ComputedRef<string>;
-  display: ComputedRef<string>;
-  name: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  uri: ComputedRef<string>;
-  uriHash: ComputedRef<string>;
 }
 export interface MetadataProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.Metadata";

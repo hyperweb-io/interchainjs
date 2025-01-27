@@ -2,7 +2,6 @@ import { Params, ParamsAmino, BandPriceState, BandPriceStateAmino, PriceFeedStat
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to oracle. */
@@ -23,25 +22,6 @@ export interface GenesisState {
   pythPriceStates: PythPriceState[];
   storkPriceStates: StorkPriceState[];
   storkPublishers: string[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  bandRelayers: ComputedRef<string[]>;
-  bandPriceStates: ComputedRef<BandPriceState[]>;
-  priceFeedPriceStates: ComputedRef<PriceFeedState[]>;
-  coinbasePriceStates: ComputedRef<CoinbasePriceState[]>;
-  bandIbcPriceStates: ComputedRef<BandPriceState[]>;
-  bandIbcOracleRequests: ComputedRef<BandOracleRequest[]>;
-  bandIbcParams: ComputedRef<BandIBCParams>;
-  bandIbcLatestClientId: ComputedRef<bigint>;
-  calldataRecords: ComputedRef<CalldataRecord[]>;
-  bandIbcLatestRequestId: ComputedRef<bigint>;
-  chainlinkPriceStates: ComputedRef<ChainlinkPriceState[]>;
-  historicalPriceRecords: ComputedRef<PriceRecords[]>;
-  providerStates: ComputedRef<ProviderState[]>;
-  pythPriceStates: ComputedRef<PythPriceState[]>;
-  storkPriceStates: ComputedRef<StorkPriceState[]>;
-  storkPublishers: ComputedRef<string[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GenesisState";
@@ -75,10 +55,6 @@ export interface GenesisStateAminoMsg {
 export interface CalldataRecord {
   clientId: bigint;
   calldata: Uint8Array;
-}
-export interface ReactiveCalldataRecord {
-  clientId: ComputedRef<bigint>;
-  calldata: ComputedRef<Uint8Array>;
 }
 export interface CalldataRecordProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.CalldataRecord";

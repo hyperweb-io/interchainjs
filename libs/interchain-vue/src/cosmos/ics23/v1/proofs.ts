@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
-import { ComputedRef } from "vue";
 export enum HashOp {
   /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
   NO_HASH = 0,
@@ -198,12 +197,6 @@ export interface ExistenceProof {
   leaf?: LeafOp;
   path: InnerOp[];
 }
-export interface ReactiveExistenceProof {
-  key: ComputedRef<Uint8Array>;
-  value: ComputedRef<Uint8Array>;
-  leaf?: ComputedRef<LeafOp>;
-  path: ComputedRef<InnerOp[]>;
-}
 export interface ExistenceProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.ExistenceProof";
   value: Uint8Array;
@@ -250,11 +243,6 @@ export interface NonExistenceProof {
   left?: ExistenceProof;
   right?: ExistenceProof;
 }
-export interface ReactiveNonExistenceProof {
-  key: ComputedRef<Uint8Array>;
-  left?: ComputedRef<ExistenceProof>;
-  right?: ComputedRef<ExistenceProof>;
-}
 export interface NonExistenceProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.NonExistenceProof";
   value: Uint8Array;
@@ -280,12 +268,6 @@ export interface CommitmentProof {
   nonexist?: NonExistenceProof;
   batch?: BatchProof;
   compressed?: CompressedBatchProof;
-}
-export interface ReactiveCommitmentProof {
-  exist?: ComputedRef<ExistenceProof>;
-  nonexist?: ComputedRef<NonExistenceProof>;
-  batch?: ComputedRef<BatchProof>;
-  compressed?: ComputedRef<CompressedBatchProof>;
 }
 export interface CommitmentProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.CommitmentProof";
@@ -328,13 +310,6 @@ export interface LeafOp {
    * a leaf node from an inner node.
    */
   prefix: Uint8Array;
-}
-export interface ReactiveLeafOp {
-  hash: ComputedRef<HashOp>;
-  prehashKey: ComputedRef<HashOp>;
-  prehashValue: ComputedRef<HashOp>;
-  length: ComputedRef<LengthOp>;
-  prefix: ComputedRef<Uint8Array>;
 }
 export interface LeafOpProtoMsg {
   typeUrl: "/cosmos.ics23.v1.LeafOp";
@@ -392,11 +367,6 @@ export interface InnerOp {
   hash: HashOp;
   prefix: Uint8Array;
   suffix: Uint8Array;
-}
-export interface ReactiveInnerOp {
-  hash: ComputedRef<HashOp>;
-  prefix: ComputedRef<Uint8Array>;
-  suffix: ComputedRef<Uint8Array>;
 }
 export interface InnerOpProtoMsg {
   typeUrl: "/cosmos.ics23.v1.InnerOp";
@@ -460,13 +430,6 @@ export interface ProofSpec {
    * non-existence proofs.
    */
   prehashKeyBeforeComparison: boolean;
-}
-export interface ReactiveProofSpec {
-  leafSpec?: ComputedRef<LeafOp>;
-  innerSpec?: ComputedRef<InnerSpec>;
-  maxDepth: ComputedRef<number>;
-  minDepth: ComputedRef<number>;
-  prehashKeyBeforeComparison: ComputedRef<boolean>;
 }
 export interface ProofSpecProtoMsg {
   typeUrl: "/cosmos.ics23.v1.ProofSpec";
@@ -535,14 +498,6 @@ export interface InnerSpec {
   /** hash is the algorithm that must be used for each InnerOp */
   hash: HashOp;
 }
-export interface ReactiveInnerSpec {
-  childOrder: ComputedRef<number[]>;
-  childSize: ComputedRef<number>;
-  minPrefixLength: ComputedRef<number>;
-  maxPrefixLength: ComputedRef<number>;
-  emptyChild: ComputedRef<Uint8Array>;
-  hash: ComputedRef<HashOp>;
-}
 export interface InnerSpecProtoMsg {
   typeUrl: "/cosmos.ics23.v1.InnerSpec";
   value: Uint8Array;
@@ -581,9 +536,6 @@ export interface InnerSpecAminoMsg {
 export interface BatchProof {
   entries: BatchEntry[];
 }
-export interface ReactiveBatchProof {
-  entries: ComputedRef<BatchEntry[]>;
-}
 export interface BatchProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.BatchProof";
   value: Uint8Array;
@@ -600,10 +552,6 @@ export interface BatchProofAminoMsg {
 export interface BatchEntry {
   exist?: ExistenceProof;
   nonexist?: NonExistenceProof;
-}
-export interface ReactiveBatchEntry {
-  exist?: ComputedRef<ExistenceProof>;
-  nonexist?: ComputedRef<NonExistenceProof>;
 }
 export interface BatchEntryProtoMsg {
   typeUrl: "/cosmos.ics23.v1.BatchEntry";
@@ -622,10 +570,6 @@ export interface CompressedBatchProof {
   entries: CompressedBatchEntry[];
   lookupInners: InnerOp[];
 }
-export interface ReactiveCompressedBatchProof {
-  entries: ComputedRef<CompressedBatchEntry[]>;
-  lookupInners: ComputedRef<InnerOp[]>;
-}
 export interface CompressedBatchProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.CompressedBatchProof";
   value: Uint8Array;
@@ -642,10 +586,6 @@ export interface CompressedBatchProofAminoMsg {
 export interface CompressedBatchEntry {
   exist?: CompressedExistenceProof;
   nonexist?: CompressedNonExistenceProof;
-}
-export interface ReactiveCompressedBatchEntry {
-  exist?: ComputedRef<CompressedExistenceProof>;
-  nonexist?: ComputedRef<CompressedNonExistenceProof>;
 }
 export interface CompressedBatchEntryProtoMsg {
   typeUrl: "/cosmos.ics23.v1.CompressedBatchEntry";
@@ -667,12 +607,6 @@ export interface CompressedExistenceProof {
   /** these are indexes into the lookup_inners table in CompressedBatchProof */
   path: number[];
 }
-export interface ReactiveCompressedExistenceProof {
-  key: ComputedRef<Uint8Array>;
-  value: ComputedRef<Uint8Array>;
-  leaf?: ComputedRef<LeafOp>;
-  path: ComputedRef<number[]>;
-}
 export interface CompressedExistenceProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.CompressedExistenceProof";
   value: Uint8Array;
@@ -693,11 +627,6 @@ export interface CompressedNonExistenceProof {
   key: Uint8Array;
   left?: CompressedExistenceProof;
   right?: CompressedExistenceProof;
-}
-export interface ReactiveCompressedNonExistenceProof {
-  key: ComputedRef<Uint8Array>;
-  left?: ComputedRef<CompressedExistenceProof>;
-  right?: ComputedRef<CompressedExistenceProof>;
 }
 export interface CompressedNonExistenceProofProtoMsg {
   typeUrl: "/cosmos.ics23.v1.CompressedNonExistenceProof";

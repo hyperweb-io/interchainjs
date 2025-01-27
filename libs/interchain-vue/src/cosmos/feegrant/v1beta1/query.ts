@@ -3,17 +3,12 @@ import { Grant, GrantAmino } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
 export interface QueryAllowanceRequest {
   /** granter is the address of the user granting an allowance of their funds. */
   granter: string;
   /** grantee is the address of the user being granted an allowance of another user's funds. */
   grantee: string;
-}
-export interface ReactiveQueryAllowanceRequest {
-  granter: ComputedRef<string>;
-  grantee: ComputedRef<string>;
 }
 export interface QueryAllowanceRequestProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowanceRequest";
@@ -35,9 +30,6 @@ export interface QueryAllowanceResponse {
   /** allowance is a allowance granted for grantee by granter. */
   allowance?: Grant;
 }
-export interface ReactiveQueryAllowanceResponse {
-  allowance?: ComputedRef<Grant>;
-}
 export interface QueryAllowanceResponseProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowanceResponse";
   value: Uint8Array;
@@ -56,10 +48,6 @@ export interface QueryAllowancesRequest {
   grantee: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryAllowancesRequest {
-  grantee: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryAllowancesRequestProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesRequest";
@@ -81,10 +69,6 @@ export interface QueryAllowancesResponse {
   allowances: Grant[];
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveQueryAllowancesResponse {
-  allowances: ComputedRef<Grant[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface QueryAllowancesResponseProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesResponse";
@@ -110,10 +94,6 @@ export interface QueryAllowancesByGranterRequest {
   granter: string;
   /** pagination defines an pagination for the request. */
   pagination?: PageRequest;
-}
-export interface ReactiveQueryAllowancesByGranterRequest {
-  granter: ComputedRef<string>;
-  pagination?: ComputedRef<PageRequest>;
 }
 export interface QueryAllowancesByGranterRequestProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest";
@@ -143,10 +123,6 @@ export interface QueryAllowancesByGranterResponse {
   allowances: Grant[];
   /** pagination defines an pagination for the response. */
   pagination?: PageResponse;
-}
-export interface ReactiveQueryAllowancesByGranterResponse {
-  allowances: ComputedRef<Grant[]>;
-  pagination?: ComputedRef<PageResponse>;
 }
 export interface QueryAllowancesByGranterResponseProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse";

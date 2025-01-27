@@ -2,7 +2,6 @@ import { Params, ParamsAmino, Validator, ValidatorAmino, Delegation, DelegationA
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { ComputedRef } from "vue";
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to deposit. */
@@ -27,16 +26,6 @@ export interface GenesisState {
   redelegations: Redelegation[];
   /** exported defines a bool to identify whether the chain dealing with exported or initialized genesis. */
   exported: boolean;
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  lastTotalPower: ComputedRef<Uint8Array>;
-  lastValidatorPowers: ComputedRef<LastValidatorPower[]>;
-  validators: ComputedRef<Validator[]>;
-  delegations: ComputedRef<Delegation[]>;
-  unbondingDelegations: ComputedRef<UnbondingDelegation[]>;
-  redelegations: ComputedRef<Redelegation[]>;
-  exported: ComputedRef<boolean>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.GenesisState";
@@ -77,10 +66,6 @@ export interface LastValidatorPower {
   address: string;
   /** power defines the power of the validator. */
   power: bigint;
-}
-export interface ReactiveLastValidatorPower {
-  address: ComputedRef<string>;
-  power: ComputedRef<bigint>;
 }
 export interface LastValidatorPowerProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.LastValidatorPower";

@@ -2,14 +2,9 @@ import { RegisteredContract, RegisteredContractAmino, Params, ParamsAmino } from
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-import { ComputedRef } from "vue";
 export interface RegisteredContractWithAddress {
   address: string;
   registeredContract?: RegisteredContract;
-}
-export interface ReactiveRegisteredContractWithAddress {
-  address: ComputedRef<string>;
-  registeredContract?: ComputedRef<RegisteredContract>;
 }
 export interface RegisteredContractWithAddressProtoMsg {
   typeUrl: "/injective.wasmx.v1.RegisteredContractWithAddress";
@@ -32,10 +27,6 @@ export interface GenesisState {
    * contracts
    */
   registeredContracts: RegisteredContractWithAddress[];
-}
-export interface ReactiveGenesisState {
-  params: ComputedRef<Params>;
-  registeredContracts: ComputedRef<RegisteredContractWithAddress[]>;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.wasmx.v1.GenesisState";

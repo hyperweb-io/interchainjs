@@ -1,19 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method */
 export interface ListenDeliverBlockRequest {
   blockHeight: bigint;
   txs: Uint8Array[];
   events: Event[];
   txResults: ExecTxResult[];
-}
-export interface ReactiveListenDeliverBlockRequest {
-  blockHeight: ComputedRef<bigint>;
-  txs: ComputedRef<Uint8Array[]>;
-  events: ComputedRef<Event[]>;
-  txResults: ComputedRef<ExecTxResult[]>;
 }
 export interface ListenDeliverBlockRequestProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockRequest";
@@ -32,7 +25,6 @@ export interface ListenDeliverBlockRequestAminoMsg {
 }
 /** ListenDeliverBlockResponse is the response type for the ListenDeliverBlock RPC method */
 export interface ListenDeliverBlockResponse {}
-export interface ReactiveListenDeliverBlockResponse {}
 export interface ListenDeliverBlockResponseProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockResponse";
   value: Uint8Array;
@@ -48,11 +40,6 @@ export interface ListenStateChangesRequest {
   blockHeight: bigint;
   changeSet: StoreKVPair[];
   appHash: Uint8Array;
-}
-export interface ReactiveListenStateChangesRequest {
-  blockHeight: ComputedRef<bigint>;
-  changeSet: ComputedRef<StoreKVPair[]>;
-  appHash: ComputedRef<Uint8Array>;
 }
 export interface ListenStateChangesRequestProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenStateChangesRequest";
@@ -70,7 +57,6 @@ export interface ListenStateChangesRequestAminoMsg {
 }
 /** ListenStateChangesResponse is the response type for the ListenStateChanges RPC method */
 export interface ListenStateChangesResponse {}
-export interface ReactiveListenStateChangesResponse {}
 export interface ListenStateChangesResponseProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenStateChangesResponse";
   value: Uint8Array;
@@ -94,12 +80,6 @@ export interface StoreKVPair {
   value: Uint8Array;
   /** delete defines if the key was removed. */
   delete: boolean;
-}
-export interface ReactiveStoreKVPair {
-  address: ComputedRef<Uint8Array>;
-  key: ComputedRef<Uint8Array>;
-  value: ComputedRef<Uint8Array>;
-  delete: ComputedRef<boolean>;
 }
 export interface StoreKVPairProtoMsg {
   typeUrl: "/cosmos.streaming.v1.StoreKVPair";
@@ -128,10 +108,6 @@ export interface Event {
   type: string;
   attributes: EventAttribute[];
 }
-export interface ReactiveEvent {
-  type: ComputedRef<string>;
-  attributes: ComputedRef<EventAttribute[]>;
-}
 export interface EventProtoMsg {
   typeUrl: "/cosmos.streaming.v1.Event";
   value: Uint8Array;
@@ -149,10 +125,6 @@ export interface EventAminoMsg {
 export interface EventAttribute {
   key: string;
   value: string;
-}
-export interface ReactiveEventAttribute {
-  key: ComputedRef<string>;
-  value: ComputedRef<string>;
 }
 export interface EventAttributeProtoMsg {
   typeUrl: "/cosmos.streaming.v1.EventAttribute";
@@ -177,16 +149,6 @@ export interface ExecTxResult {
   gasUsed: bigint;
   events: Event[];
   codespace: string;
-}
-export interface ReactiveExecTxResult {
-  code: ComputedRef<number>;
-  data: ComputedRef<Uint8Array>;
-  log: ComputedRef<string>;
-  info: ComputedRef<string>;
-  gasWanted: ComputedRef<bigint>;
-  gasUsed: ComputedRef<bigint>;
-  events: ComputedRef<Event[]>;
-  codespace: ComputedRef<string>;
 }
 export interface ExecTxResultProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ExecTxResult";

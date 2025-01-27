@@ -2,16 +2,10 @@ import { StorkPriceState, StorkPriceStateAmino, PythPriceState, PythPriceStateAm
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface SetChainlinkPriceEvent {
   feedId: string;
   answer: string;
   timestamp: bigint;
-}
-export interface ReactiveSetChainlinkPriceEvent {
-  feedId: ComputedRef<string>;
-  answer: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
 }
 export interface SetChainlinkPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetChainlinkPriceEvent";
@@ -33,13 +27,6 @@ export interface SetBandPriceEvent {
   price: string;
   resolveTime: bigint;
   requestId: bigint;
-}
-export interface ReactiveSetBandPriceEvent {
-  relayer: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  price: ComputedRef<string>;
-  resolveTime: ComputedRef<bigint>;
-  requestId: ComputedRef<bigint>;
 }
 export interface SetBandPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetBandPriceEvent";
@@ -65,14 +52,6 @@ export interface SetBandIBCPriceEvent {
   requestId: bigint;
   clientId: bigint;
 }
-export interface ReactiveSetBandIBCPriceEvent {
-  relayer: ComputedRef<string>;
-  symbols: ComputedRef<string[]>;
-  prices: ComputedRef<string[]>;
-  resolveTime: ComputedRef<bigint>;
-  requestId: ComputedRef<bigint>;
-  clientId: ComputedRef<bigint>;
-}
 export interface SetBandIBCPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetBandIBCPriceEvent";
   value: Uint8Array;
@@ -93,10 +72,6 @@ export interface EventBandIBCAckSuccess {
   ackResult: string;
   clientId: bigint;
 }
-export interface ReactiveEventBandIBCAckSuccess {
-  ackResult: ComputedRef<string>;
-  clientId: ComputedRef<bigint>;
-}
 export interface EventBandIBCAckSuccessProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckSuccess";
   value: Uint8Array;
@@ -113,10 +88,6 @@ export interface EventBandIBCAckError {
   ackError: string;
   clientId: bigint;
 }
-export interface ReactiveEventBandIBCAckError {
-  ackError: ComputedRef<string>;
-  clientId: ComputedRef<bigint>;
-}
 export interface EventBandIBCAckErrorProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckError";
   value: Uint8Array;
@@ -131,9 +102,6 @@ export interface EventBandIBCAckErrorAminoMsg {
 }
 export interface EventBandIBCResponseTimeout {
   clientId: bigint;
-}
-export interface ReactiveEventBandIBCResponseTimeout {
-  clientId: ComputedRef<bigint>;
 }
 export interface EventBandIBCResponseTimeoutProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCResponseTimeout";
@@ -152,12 +120,6 @@ export interface SetPriceFeedPriceEvent {
   quote: string;
   /** price defines the price of the oracle base and quote */
   price: string;
-}
-export interface ReactiveSetPriceFeedPriceEvent {
-  relayer: ComputedRef<string>;
-  base: ComputedRef<string>;
-  quote: ComputedRef<string>;
-  price: ComputedRef<string>;
 }
 export interface SetPriceFeedPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetPriceFeedPriceEvent";
@@ -180,12 +142,6 @@ export interface SetProviderPriceEvent {
   symbol: string;
   price: string;
 }
-export interface ReactiveSetProviderPriceEvent {
-  provider: ComputedRef<string>;
-  relayer: ComputedRef<string>;
-  symbol: ComputedRef<string>;
-  price: ComputedRef<string>;
-}
 export interface SetProviderPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetProviderPriceEvent";
   value: Uint8Array;
@@ -205,11 +161,6 @@ export interface SetCoinbasePriceEvent {
   price: string;
   timestamp: bigint;
 }
-export interface ReactiveSetCoinbasePriceEvent {
-  symbol: ComputedRef<string>;
-  price: ComputedRef<string>;
-  timestamp: ComputedRef<bigint>;
-}
 export interface SetCoinbasePriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetCoinbasePriceEvent";
   value: Uint8Array;
@@ -226,9 +177,6 @@ export interface SetCoinbasePriceEventAminoMsg {
 export interface EventSetStorkPrices {
   prices: StorkPriceState[];
 }
-export interface ReactiveEventSetStorkPrices {
-  prices: ComputedRef<StorkPriceState[]>;
-}
 export interface EventSetStorkPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventSetStorkPrices";
   value: Uint8Array;
@@ -242,9 +190,6 @@ export interface EventSetStorkPricesAminoMsg {
 }
 export interface EventSetPythPrices {
   prices: PythPriceState[];
-}
-export interface ReactiveEventSetPythPrices {
-  prices: ComputedRef<PythPriceState[]>;
 }
 export interface EventSetPythPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventSetPythPrices";

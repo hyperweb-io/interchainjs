@@ -3,7 +3,6 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /** Exec defines modes of execution of a proposal on creation or on new vote. */
 export enum Exec {
   /**
@@ -55,11 +54,6 @@ export interface MsgCreateGroup {
   /** metadata is any arbitrary metadata to attached to the group. */
   metadata: string;
 }
-export interface ReactiveMsgCreateGroup {
-  admin: ComputedRef<string>;
-  members: ComputedRef<MemberRequest[]>;
-  metadata: ComputedRef<string>;
-}
 export interface MsgCreateGroupProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgCreateGroup";
   value: Uint8Array;
@@ -81,9 +75,6 @@ export interface MsgCreateGroupAminoMsg {
 export interface MsgCreateGroupResponse {
   /** group_id is the unique ID of the newly created group. */
   groupId: bigint;
-}
-export interface ReactiveMsgCreateGroupResponse {
-  groupId: ComputedRef<bigint>;
 }
 export interface MsgCreateGroupResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupResponse";
@@ -110,11 +101,6 @@ export interface MsgUpdateGroupMembers {
    */
   memberUpdates: MemberRequest[];
 }
-export interface ReactiveMsgUpdateGroupMembers {
-  admin: ComputedRef<string>;
-  groupId: ComputedRef<bigint>;
-  memberUpdates: ComputedRef<MemberRequest[]>;
-}
 export interface MsgUpdateGroupMembersProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembers";
   value: Uint8Array;
@@ -137,7 +123,6 @@ export interface MsgUpdateGroupMembersAminoMsg {
 }
 /** MsgUpdateGroupMembersResponse is the Msg/UpdateGroupMembers response type. */
 export interface MsgUpdateGroupMembersResponse {}
-export interface ReactiveMsgUpdateGroupMembersResponse {}
 export interface MsgUpdateGroupMembersResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembersResponse";
   value: Uint8Array;
@@ -156,11 +141,6 @@ export interface MsgUpdateGroupAdmin {
   groupId: bigint;
   /** new_admin is the group new admin account address. */
   newAdmin: string;
-}
-export interface ReactiveMsgUpdateGroupAdmin {
-  admin: ComputedRef<string>;
-  groupId: ComputedRef<bigint>;
-  newAdmin: ComputedRef<string>;
 }
 export interface MsgUpdateGroupAdminProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdmin";
@@ -181,7 +161,6 @@ export interface MsgUpdateGroupAdminAminoMsg {
 }
 /** MsgUpdateGroupAdminResponse is the Msg/UpdateGroupAdmin response type. */
 export interface MsgUpdateGroupAdminResponse {}
-export interface ReactiveMsgUpdateGroupAdminResponse {}
 export interface MsgUpdateGroupAdminResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdminResponse";
   value: Uint8Array;
@@ -200,11 +179,6 @@ export interface MsgUpdateGroupMetadata {
   groupId: bigint;
   /** metadata is the updated group's metadata. */
   metadata: string;
-}
-export interface ReactiveMsgUpdateGroupMetadata {
-  admin: ComputedRef<string>;
-  groupId: ComputedRef<bigint>;
-  metadata: ComputedRef<string>;
 }
 export interface MsgUpdateGroupMetadataProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadata";
@@ -225,7 +199,6 @@ export interface MsgUpdateGroupMetadataAminoMsg {
 }
 /** MsgUpdateGroupMetadataResponse is the Msg/UpdateGroupMetadata response type. */
 export interface MsgUpdateGroupMetadataResponse {}
-export interface ReactiveMsgUpdateGroupMetadataResponse {}
 export interface MsgUpdateGroupMetadataResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadataResponse";
   value: Uint8Array;
@@ -246,12 +219,6 @@ export interface MsgCreateGroupPolicy {
   metadata: string;
   /** decision_policy specifies the group policy's decision policy. */
   decisionPolicy?: ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined;
-}
-export interface ReactiveMsgCreateGroupPolicy {
-  admin: ComputedRef<string>;
-  groupId: ComputedRef<bigint>;
-  metadata: ComputedRef<string>;
-  decisionPolicy?: ComputedRef<ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined>;
 }
 export interface MsgCreateGroupPolicyProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicy";
@@ -280,9 +247,6 @@ export interface MsgCreateGroupPolicyResponse {
   /** address is the account address of the newly created group policy. */
   address: string;
 }
-export interface ReactiveMsgCreateGroupPolicyResponse {
-  address: ComputedRef<string>;
-}
 export interface MsgCreateGroupPolicyResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicyResponse";
   value: Uint8Array;
@@ -305,11 +269,6 @@ export interface MsgUpdateGroupPolicyAdmin {
   /** new_admin is the new group policy admin. */
   newAdmin: string;
 }
-export interface ReactiveMsgUpdateGroupPolicyAdmin {
-  admin: ComputedRef<string>;
-  groupPolicyAddress: ComputedRef<string>;
-  newAdmin: ComputedRef<string>;
-}
 export interface MsgUpdateGroupPolicyAdminProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdmin";
   value: Uint8Array;
@@ -329,7 +288,6 @@ export interface MsgUpdateGroupPolicyAdminAminoMsg {
 }
 /** MsgUpdateGroupPolicyAdminResponse is the Msg/UpdateGroupPolicyAdmin response type. */
 export interface MsgUpdateGroupPolicyAdminResponse {}
-export interface ReactiveMsgUpdateGroupPolicyAdminResponse {}
 export interface MsgUpdateGroupPolicyAdminResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse";
   value: Uint8Array;
@@ -357,14 +315,6 @@ export interface MsgCreateGroupWithPolicy {
   groupPolicyAsAdmin: boolean;
   /** decision_policy specifies the group policy's decision policy. */
   decisionPolicy?: ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined;
-}
-export interface ReactiveMsgCreateGroupWithPolicy {
-  admin: ComputedRef<string>;
-  members: ComputedRef<MemberRequest[]>;
-  groupMetadata: ComputedRef<string>;
-  groupPolicyMetadata: ComputedRef<string>;
-  groupPolicyAsAdmin: ComputedRef<boolean>;
-  decisionPolicy?: ComputedRef<ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined>;
 }
 export interface MsgCreateGroupWithPolicyProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicy";
@@ -402,10 +352,6 @@ export interface MsgCreateGroupWithPolicyResponse {
   /** group_policy_address is the account address of the newly created group policy. */
   groupPolicyAddress: string;
 }
-export interface ReactiveMsgCreateGroupWithPolicyResponse {
-  groupId: ComputedRef<bigint>;
-  groupPolicyAddress: ComputedRef<string>;
-}
 export interface MsgCreateGroupWithPolicyResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicyResponse";
   value: Uint8Array;
@@ -430,11 +376,6 @@ export interface MsgUpdateGroupPolicyDecisionPolicy {
   /** decision_policy is the updated group policy's decision policy. */
   decisionPolicy?: ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined;
 }
-export interface ReactiveMsgUpdateGroupPolicyDecisionPolicy {
-  admin: ComputedRef<string>;
-  groupPolicyAddress: ComputedRef<string>;
-  decisionPolicy?: ComputedRef<ThresholdDecisionPolicy | PercentageDecisionPolicy | Any | undefined>;
-}
 export interface MsgUpdateGroupPolicyDecisionPolicyProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy";
   value: Uint8Array;
@@ -457,7 +398,6 @@ export interface MsgUpdateGroupPolicyDecisionPolicyAminoMsg {
 }
 /** MsgUpdateGroupPolicyDecisionPolicyResponse is the Msg/UpdateGroupPolicyDecisionPolicy response type. */
 export interface MsgUpdateGroupPolicyDecisionPolicyResponse {}
-export interface ReactiveMsgUpdateGroupPolicyDecisionPolicyResponse {}
 export interface MsgUpdateGroupPolicyDecisionPolicyResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse";
   value: Uint8Array;
@@ -476,11 +416,6 @@ export interface MsgUpdateGroupPolicyMetadata {
   groupPolicyAddress: string;
   /** metadata is the group policy metadata to be updated. */
   metadata: string;
-}
-export interface ReactiveMsgUpdateGroupPolicyMetadata {
-  admin: ComputedRef<string>;
-  groupPolicyAddress: ComputedRef<string>;
-  metadata: ComputedRef<string>;
 }
 export interface MsgUpdateGroupPolicyMetadataProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadata";
@@ -501,7 +436,6 @@ export interface MsgUpdateGroupPolicyMetadataAminoMsg {
 }
 /** MsgUpdateGroupPolicyMetadataResponse is the Msg/UpdateGroupPolicyMetadata response type. */
 export interface MsgUpdateGroupPolicyMetadataResponse {}
-export interface ReactiveMsgUpdateGroupPolicyMetadataResponse {}
 export interface MsgUpdateGroupPolicyMetadataResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse";
   value: Uint8Array;
@@ -543,15 +477,6 @@ export interface MsgSubmitProposal {
    * Since: cosmos-sdk 0.47
    */
   summary: string;
-}
-export interface ReactiveMsgSubmitProposal {
-  groupPolicyAddress: ComputedRef<string>;
-  proposers: ComputedRef<string[]>;
-  metadata: ComputedRef<string>;
-  messages: ComputedRef<Any[]>;
-  exec: ComputedRef<Exec>;
-  title: ComputedRef<string>;
-  summary: ComputedRef<string>;
 }
 export interface MsgSubmitProposalProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgSubmitProposal";
@@ -598,9 +523,6 @@ export interface MsgSubmitProposalResponse {
   /** proposal is the unique ID of the proposal. */
   proposalId: bigint;
 }
-export interface ReactiveMsgSubmitProposalResponse {
-  proposalId: ComputedRef<bigint>;
-}
 export interface MsgSubmitProposalResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgSubmitProposalResponse";
   value: Uint8Array;
@@ -621,10 +543,6 @@ export interface MsgWithdrawProposal {
   /** address is the admin of the group policy or one of the proposer of the proposal. */
   address: string;
 }
-export interface ReactiveMsgWithdrawProposal {
-  proposalId: ComputedRef<bigint>;
-  address: ComputedRef<string>;
-}
 export interface MsgWithdrawProposalProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgWithdrawProposal";
   value: Uint8Array;
@@ -642,7 +560,6 @@ export interface MsgWithdrawProposalAminoMsg {
 }
 /** MsgWithdrawProposalResponse is the Msg/WithdrawProposal response type. */
 export interface MsgWithdrawProposalResponse {}
-export interface ReactiveMsgWithdrawProposalResponse {}
 export interface MsgWithdrawProposalResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgWithdrawProposalResponse";
   value: Uint8Array;
@@ -668,13 +585,6 @@ export interface MsgVote {
    * immediately after voting or not.
    */
   exec: Exec;
-}
-export interface ReactiveMsgVote {
-  proposalId: ComputedRef<bigint>;
-  voter: ComputedRef<string>;
-  option: ComputedRef<VoteOption>;
-  metadata: ComputedRef<string>;
-  exec: ComputedRef<Exec>;
 }
 export interface MsgVoteProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgVote";
@@ -702,7 +612,6 @@ export interface MsgVoteAminoMsg {
 }
 /** MsgVoteResponse is the Msg/Vote response type. */
 export interface MsgVoteResponse {}
-export interface ReactiveMsgVoteResponse {}
 export interface MsgVoteResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgVoteResponse";
   value: Uint8Array;
@@ -719,10 +628,6 @@ export interface MsgExec {
   proposalId: bigint;
   /** executor is the account address used to execute the proposal. */
   executor: string;
-}
-export interface ReactiveMsgExec {
-  proposalId: ComputedRef<bigint>;
-  executor: ComputedRef<string>;
 }
 export interface MsgExecProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgExec";
@@ -744,9 +649,6 @@ export interface MsgExecResponse {
   /** result is the final result of the proposal execution. */
   result: ProposalExecutorResult;
 }
-export interface ReactiveMsgExecResponse {
-  result: ComputedRef<ProposalExecutorResult>;
-}
 export interface MsgExecResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgExecResponse";
   value: Uint8Array;
@@ -767,10 +669,6 @@ export interface MsgLeaveGroup {
   /** group_id is the unique ID of the group. */
   groupId: bigint;
 }
-export interface ReactiveMsgLeaveGroup {
-  address: ComputedRef<string>;
-  groupId: ComputedRef<bigint>;
-}
 export interface MsgLeaveGroupProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgLeaveGroup";
   value: Uint8Array;
@@ -788,7 +686,6 @@ export interface MsgLeaveGroupAminoMsg {
 }
 /** MsgLeaveGroupResponse is the Msg/LeaveGroup response type. */
 export interface MsgLeaveGroupResponse {}
-export interface ReactiveMsgLeaveGroupResponse {}
 export interface MsgLeaveGroupResponseProtoMsg {
   typeUrl: "/cosmos.group.v1.MsgLeaveGroupResponse";
   value: Uint8Array;

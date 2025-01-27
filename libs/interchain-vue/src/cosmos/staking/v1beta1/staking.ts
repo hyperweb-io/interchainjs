@@ -8,7 +8,6 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, isSet } from "../../../helpers";
 import { encodePubkey, decodePubkey } from "@cosmjs/proto-signing";
-import { ComputedRef } from "vue";
 /** BondStatus is the status of a validator. */
 export enum BondStatus {
   /** BOND_STATUS_UNSPECIFIED - UNSPECIFIED defines an invalid validator status. */
@@ -108,10 +107,6 @@ export interface HistoricalInfo {
   header: Header;
   valset: Validator[];
 }
-export interface ReactiveHistoricalInfo {
-  header: ComputedRef<Header>;
-  valset: ComputedRef<Validator[]>;
-}
 export interface HistoricalInfoProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.HistoricalInfo";
   value: Uint8Array;
@@ -142,11 +137,6 @@ export interface CommissionRates {
   /** max_change_rate defines the maximum daily increase of the validator commission, as a fraction. */
   maxChangeRate: string;
 }
-export interface ReactiveCommissionRates {
-  rate: ComputedRef<string>;
-  maxRate: ComputedRef<string>;
-  maxChangeRate: ComputedRef<string>;
-}
 export interface CommissionRatesProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.CommissionRates";
   value: Uint8Array;
@@ -173,10 +163,6 @@ export interface Commission {
   commissionRates: CommissionRates;
   /** update_time is the last time the commission rate was changed. */
   updateTime: Date;
-}
-export interface ReactiveCommission {
-  commissionRates: ComputedRef<CommissionRates>;
-  updateTime: ComputedRef<Date>;
 }
 export interface CommissionProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Commission";
@@ -205,13 +191,6 @@ export interface Description {
   securityContact: string;
   /** details define other optional details. */
   details: string;
-}
-export interface ReactiveDescription {
-  moniker: ComputedRef<string>;
-  identity: ComputedRef<string>;
-  website: ComputedRef<string>;
-  securityContact: ComputedRef<string>;
-  details: ComputedRef<string>;
 }
 export interface DescriptionProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Description";
@@ -276,21 +255,6 @@ export interface Validator {
   /** list of unbonding ids, each uniquely identifing an unbonding of this validator */
   unbondingIds: bigint[];
 }
-export interface ReactiveValidator {
-  operatorAddress: ComputedRef<string>;
-  consensusPubkey?: ComputedRef<Any | undefined>;
-  jailed: ComputedRef<boolean>;
-  status: ComputedRef<BondStatus>;
-  tokens: ComputedRef<string>;
-  delegatorShares: ComputedRef<string>;
-  description: ComputedRef<Description>;
-  unbondingHeight: ComputedRef<bigint>;
-  unbondingTime: ComputedRef<Date>;
-  commission: ComputedRef<Commission>;
-  minSelfDelegation: ComputedRef<string>;
-  unbondingOnHoldRefCount: ComputedRef<bigint>;
-  unbondingIds: ComputedRef<bigint[]>;
-}
 export interface ValidatorProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Validator";
   value: Uint8Array;
@@ -348,9 +312,6 @@ export interface ValidatorAminoMsg {
 export interface ValAddresses {
   addresses: string[];
 }
-export interface ReactiveValAddresses {
-  addresses: ComputedRef<string[]>;
-}
 export interface ValAddressesProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.ValAddresses";
   value: Uint8Array;
@@ -372,10 +333,6 @@ export interface DVPair {
   delegatorAddress: string;
   validatorAddress: string;
 }
-export interface ReactiveDVPair {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-}
 export interface DVPairProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DVPair";
   value: Uint8Array;
@@ -396,9 +353,6 @@ export interface DVPairAminoMsg {
 /** DVPairs defines an array of DVPair objects. */
 export interface DVPairs {
   pairs: DVPair[];
-}
-export interface ReactiveDVPairs {
-  pairs: ComputedRef<DVPair[]>;
 }
 export interface DVPairsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DVPairs";
@@ -423,11 +377,6 @@ export interface DVVTriplet {
   validatorSrcAddress: string;
   validatorDstAddress: string;
 }
-export interface ReactiveDVVTriplet {
-  delegatorAddress: ComputedRef<string>;
-  validatorSrcAddress: ComputedRef<string>;
-  validatorDstAddress: ComputedRef<string>;
-}
 export interface DVVTripletProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DVVTriplet";
   value: Uint8Array;
@@ -450,9 +399,6 @@ export interface DVVTripletAminoMsg {
 /** DVVTriplets defines an array of DVVTriplet objects. */
 export interface DVVTriplets {
   triplets: DVVTriplet[];
-}
-export interface ReactiveDVVTriplets {
-  triplets: ComputedRef<DVVTriplet[]>;
 }
 export interface DVVTripletsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DVVTriplets";
@@ -478,11 +424,6 @@ export interface Delegation {
   validatorAddress: string;
   /** shares define the delegation shares received. */
   shares: string;
-}
-export interface ReactiveDelegation {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  shares: ComputedRef<string>;
 }
 export interface DelegationProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Delegation";
@@ -516,11 +457,6 @@ export interface UnbondingDelegation {
   validatorAddress: string;
   /** entries are the unbonding delegation entries. */
   entries: UnbondingDelegationEntry[];
-}
-export interface ReactiveUnbondingDelegation {
-  delegatorAddress: ComputedRef<string>;
-  validatorAddress: ComputedRef<string>;
-  entries: ComputedRef<UnbondingDelegationEntry[]>;
 }
 export interface UnbondingDelegationProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegation";
@@ -556,14 +492,6 @@ export interface UnbondingDelegationEntry {
   unbondingId: bigint;
   /** Strictly positive if this entry's unbonding has been stopped by external modules */
   unbondingOnHoldRefCount: bigint;
-}
-export interface ReactiveUnbondingDelegationEntry {
-  creationHeight: ComputedRef<bigint>;
-  completionTime: ComputedRef<Date>;
-  initialBalance: ComputedRef<string>;
-  balance: ComputedRef<string>;
-  unbondingId: ComputedRef<bigint>;
-  unbondingOnHoldRefCount: ComputedRef<bigint>;
 }
 export interface UnbondingDelegationEntryProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegationEntry";
@@ -603,14 +531,6 @@ export interface RedelegationEntry {
   /** Strictly positive if this entry's unbonding has been stopped by external modules */
   unbondingOnHoldRefCount: bigint;
 }
-export interface ReactiveRedelegationEntry {
-  creationHeight: ComputedRef<bigint>;
-  completionTime: ComputedRef<Date>;
-  initialBalance: ComputedRef<string>;
-  sharesDst: ComputedRef<string>;
-  unbondingId: ComputedRef<bigint>;
-  unbondingOnHoldRefCount: ComputedRef<bigint>;
-}
 export interface RedelegationEntryProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationEntry";
   value: Uint8Array;
@@ -647,12 +567,6 @@ export interface Redelegation {
   validatorDstAddress: string;
   /** entries are the redelegation entries. */
   entries: RedelegationEntry[];
-}
-export interface ReactiveRedelegation {
-  delegatorAddress: ComputedRef<string>;
-  validatorSrcAddress: ComputedRef<string>;
-  validatorDstAddress: ComputedRef<string>;
-  entries: ComputedRef<RedelegationEntry[]>;
 }
 export interface RedelegationProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Redelegation";
@@ -691,14 +605,6 @@ export interface Params {
   /** min_commission_rate is the chain-wide minimum commission rate that a validator can charge their delegators */
   minCommissionRate: string;
 }
-export interface ReactiveParams {
-  unbondingTime: ComputedRef<Duration>;
-  maxValidators: ComputedRef<number>;
-  maxEntries: ComputedRef<number>;
-  historicalEntries: ComputedRef<number>;
-  bondDenom: ComputedRef<string>;
-  minCommissionRate: ComputedRef<string>;
-}
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Params";
   value: Uint8Array;
@@ -730,10 +636,6 @@ export interface DelegationResponse {
   delegation: Delegation;
   balance: Coin;
 }
-export interface ReactiveDelegationResponse {
-  delegation: ComputedRef<Delegation>;
-  balance: ComputedRef<Coin>;
-}
 export interface DelegationResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DelegationResponse";
   value: Uint8Array;
@@ -758,10 +660,6 @@ export interface DelegationResponseAminoMsg {
 export interface RedelegationEntryResponse {
   redelegationEntry: RedelegationEntry;
   balance: string;
-}
-export interface ReactiveRedelegationEntryResponse {
-  redelegationEntry: ComputedRef<RedelegationEntry>;
-  balance: ComputedRef<string>;
 }
 export interface RedelegationEntryResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationEntryResponse";
@@ -789,10 +687,6 @@ export interface RedelegationResponse {
   redelegation: Redelegation;
   entries: RedelegationEntryResponse[];
 }
-export interface ReactiveRedelegationResponse {
-  redelegation: ComputedRef<Redelegation>;
-  entries: ComputedRef<RedelegationEntryResponse[]>;
-}
 export interface RedelegationResponseProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationResponse";
   value: Uint8Array;
@@ -818,10 +712,6 @@ export interface Pool {
   notBondedTokens: string;
   bondedTokens: string;
 }
-export interface ReactivePool {
-  notBondedTokens: ComputedRef<string>;
-  bondedTokens: ComputedRef<string>;
-}
 export interface PoolProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Pool";
   value: Uint8Array;
@@ -844,9 +734,6 @@ export interface PoolAminoMsg {
  */
 export interface ValidatorUpdates {
   updates: ValidatorUpdate[];
-}
-export interface ReactiveValidatorUpdates {
-  updates: ComputedRef<ValidatorUpdate[]>;
 }
 export interface ValidatorUpdatesProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.ValidatorUpdates";

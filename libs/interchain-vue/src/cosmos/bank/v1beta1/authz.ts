@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * SendAuthorization allows the grantee to spend up to spend_limit coins from
  * the granter's account.
@@ -18,10 +17,6 @@ export interface SendAuthorization {
    * Since: cosmos-sdk 0.47
    */
   allowList: string[];
-}
-export interface ReactiveSendAuthorization {
-  spendLimit: ComputedRef<Coin[]>;
-  allowList: ComputedRef<string[]>;
 }
 export interface SendAuthorizationProtoMsg {
   typeUrl: "/cosmos.bank.v1beta1.SendAuthorization";

@@ -2,7 +2,6 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 /**
  * CommitInfo defines commit information used by the multi-store when committing
  * a version/height.
@@ -11,11 +10,6 @@ export interface CommitInfo {
   version: bigint;
   storeInfos: StoreInfo[];
   timestamp: Date;
-}
-export interface ReactiveCommitInfo {
-  version: ComputedRef<bigint>;
-  storeInfos: ComputedRef<StoreInfo[]>;
-  timestamp: ComputedRef<Date>;
 }
 export interface CommitInfoProtoMsg {
   typeUrl: "/cosmos.store.v1beta1.CommitInfo";
@@ -42,10 +36,6 @@ export interface StoreInfo {
   name: string;
   commitId: CommitID;
 }
-export interface ReactiveStoreInfo {
-  name: ComputedRef<string>;
-  commitId: ComputedRef<CommitID>;
-}
 export interface StoreInfoProtoMsg {
   typeUrl: "/cosmos.store.v1beta1.StoreInfo";
   value: Uint8Array;
@@ -69,10 +59,6 @@ export interface StoreInfoAminoMsg {
 export interface CommitID {
   version: bigint;
   hash: Uint8Array;
-}
-export interface ReactiveCommitID {
-  version: ComputedRef<bigint>;
-  hash: ComputedRef<Uint8Array>;
 }
 export interface CommitIDProtoMsg {
   typeUrl: "/cosmos.store.v1beta1.CommitID";

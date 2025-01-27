@@ -2,16 +2,10 @@ import { BandOracleRequest, BandOracleRequestAmino, BandIBCParams, BandIBCParams
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { ComputedRef } from "vue";
 export interface GrantBandOraclePrivilegeProposal {
   title: string;
   description: string;
   relayers: string[];
-}
-export interface ReactiveGrantBandOraclePrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
 }
 export interface GrantBandOraclePrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal";
@@ -30,11 +24,6 @@ export interface RevokeBandOraclePrivilegeProposal {
   title: string;
   description: string;
   relayers: string[];
-}
-export interface ReactiveRevokeBandOraclePrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
 }
 export interface RevokeBandOraclePrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal";
@@ -55,13 +44,6 @@ export interface GrantPriceFeederPrivilegeProposal {
   base: string;
   quote: string;
   relayers: string[];
-}
-export interface ReactiveGrantPriceFeederPrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  base: ComputedRef<string>;
-  quote: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
 }
 export interface GrantPriceFeederPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal";
@@ -84,12 +66,6 @@ export interface GrantProviderPrivilegeProposal {
   provider: string;
   relayers: string[];
 }
-export interface ReactiveGrantProviderPrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  provider: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
-}
 export interface GrantProviderPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal";
   value: Uint8Array;
@@ -109,12 +85,6 @@ export interface RevokeProviderPrivilegeProposal {
   description: string;
   provider: string;
   relayers: string[];
-}
-export interface ReactiveRevokeProviderPrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  provider: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
 }
 export interface RevokeProviderPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal";
@@ -137,13 +107,6 @@ export interface RevokePriceFeederPrivilegeProposal {
   quote: string;
   relayers: string[];
 }
-export interface ReactiveRevokePriceFeederPrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  base: ComputedRef<string>;
-  quote: ComputedRef<string>;
-  relayers: ComputedRef<string[]>;
-}
 export interface RevokePriceFeederPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal";
   value: Uint8Array;
@@ -164,11 +127,6 @@ export interface AuthorizeBandOracleRequestProposal {
   description: string;
   request: BandOracleRequest;
 }
-export interface ReactiveAuthorizeBandOracleRequestProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  request: ComputedRef<BandOracleRequest>;
-}
 export interface AuthorizeBandOracleRequestProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal";
   value: Uint8Array;
@@ -187,12 +145,6 @@ export interface UpdateBandOracleRequestProposal {
   description: string;
   deleteRequestIds: bigint[];
   updateOracleRequest?: BandOracleRequest;
-}
-export interface ReactiveUpdateBandOracleRequestProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  deleteRequestIds: ComputedRef<bigint[]>;
-  updateOracleRequest?: ComputedRef<BandOracleRequest>;
 }
 export interface UpdateBandOracleRequestProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal";
@@ -213,11 +165,6 @@ export interface EnableBandIBCProposal {
   description: string;
   bandIbcParams: BandIBCParams;
 }
-export interface ReactiveEnableBandIBCProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  bandIbcParams: ComputedRef<BandIBCParams>;
-}
 export interface EnableBandIBCProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EnableBandIBCProposal";
   value: Uint8Array;
@@ -236,11 +183,6 @@ export interface GrantStorkPublisherPrivilegeProposal {
   description: string;
   storkPublishers: string[];
 }
-export interface ReactiveGrantStorkPublisherPrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  storkPublishers: ComputedRef<string[]>;
-}
 export interface GrantStorkPublisherPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal";
   value: Uint8Array;
@@ -258,11 +200,6 @@ export interface RevokeStorkPublisherPrivilegeProposal {
   title: string;
   description: string;
   storkPublishers: string[];
-}
-export interface ReactiveRevokeStorkPublisherPrivilegeProposal {
-  title: ComputedRef<string>;
-  description: ComputedRef<string>;
-  storkPublishers: ComputedRef<string[]>;
 }
 export interface RevokeStorkPublisherPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal";

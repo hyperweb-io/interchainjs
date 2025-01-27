@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-import { ComputedRef } from "vue";
 /**
  * Params defines the set of IBC transfer parameters.
  * NOTE: To prevent a single token from being transferred, set the
@@ -19,10 +18,6 @@ export interface Params {
    * chain.
    */
   receiveEnabled: boolean;
-}
-export interface ReactiveParams {
-  sendEnabled: ComputedRef<boolean>;
-  receiveEnabled: ComputedRef<boolean>;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.Params";
@@ -61,10 +56,6 @@ export interface Forwarding {
   /** optional intermediate path through which packet will be forwarded */
   hops: Hop[];
 }
-export interface ReactiveForwarding {
-  unwind: ComputedRef<boolean>;
-  hops: ComputedRef<Hop[]>;
-}
 export interface ForwardingProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.Forwarding";
   value: Uint8Array;
@@ -91,10 +82,6 @@ export interface ForwardingAminoMsg {
 export interface Hop {
   portId: string;
   channelId: string;
-}
-export interface ReactiveHop {
-  portId: ComputedRef<string>;
-  channelId: ComputedRef<string>;
 }
 export interface HopProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.Hop";

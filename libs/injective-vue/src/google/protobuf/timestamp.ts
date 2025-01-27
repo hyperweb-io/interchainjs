@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, fromJsonTimestamp, fromTimestamp } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
-import { ComputedRef } from "vue";
 /**
  * A Timestamp represents a point in time independent of any time zone or local
  * calendar, encoded as a count of seconds and fractions of seconds at
@@ -107,10 +106,6 @@ export interface Timestamp {
    * inclusive.
    */
   nanos: number;
-}
-export interface ReactiveTimestamp {
-  seconds: ComputedRef<bigint>;
-  nanos: ComputedRef<number>;
 }
 export interface TimestampProtoMsg {
   typeUrl: "/google.protobuf.Timestamp";
