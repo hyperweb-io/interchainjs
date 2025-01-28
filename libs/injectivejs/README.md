@@ -6,11 +6,11 @@
 </p>
 
 <p align="center" width="100%">
-  <!-- <a href="https://github.com/cosmology-tech/interchainjs/actions/workflows/run-tests.yaml">
-    <img height="20" src="https://github.com/cosmology-tech/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
+  <!-- <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
+    <img height="20" src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
   </a> -->
-   <a href="https://github.com/cosmology-tech/interchainjs/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-   <a href="https://github.com/cosmology-tech/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
+   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
 ## install
@@ -89,9 +89,9 @@ const exchangeBalance = await getExchangeBalances({});
 
 For tx messages, there're helper functions to sign and broadcast messages:
 
-For more detailed usage on how to use these functions, please see the starship tests in the [networks/injective repo](https://github.com/cosmology-tech/interchainjs/tree/main/networks/injective/starship/__tests__)
+For more detailed usage on how to use these functions, please see the starship tests in the [networks/injective repo](https://github.com/hyperweb-io/interchainjs/tree/main/networks/injective/starship/__tests__)
 
-There're also react and vue hooks for helper functions. Please see [injective-react](https://github.com/cosmology-tech/interchainjs/tree/main/libs/injective-react) and [injective-vue](https://github.com/cosmology-tech/interchainjs/tree/main/libs/injective-vue) repos for more information.
+There're also react and vue hooks for helper functions. Please see [injective-react](https://github.com/hyperweb-io/interchainjs/tree/main/libs/injective-react) and [injective-vue](https://github.com/hyperweb-io/interchainjs/tree/main/libs/injective-vue) repos for more information.
 
 ```js
 import {
@@ -445,9 +445,9 @@ const { deposit, submitProposal, vote, voteWeighted } =
 
 ## Connecting with Wallets and Signing Messages
 
-⚡️ For web interfaces, we recommend using [interchain-kit](https://github.com/cosmology-tech/interchain-kit/). Continue below to see how to manually construct signers and clients.
+⚡️ For web interfaces, we recommend using [interchain-kit](https://github.com/hyperweb-io/interchain-kit/). Continue below to see how to manually construct signers and clients.
 
-Here are the docs on [creating signers](https://github.com/cosmology-tech/interchain-kit/blob/main/packages/core/README.md) in interchain-kit that can be used with Keplr and other wallets.
+Here are the docs on [creating signers](https://github.com/hyperweb-io/interchain-kit/blob/main/packages/core/README.md) in interchain-kit that can be used with Keplr and other wallets.
 
 ### Initializing the Stargate Client
 
@@ -466,7 +466,7 @@ signingClient = await InjSigningClient.connectWithSigner(
 
 To broadcast messages, you can create signers with a variety of options:
 
-- [interchain-kit](https://github.com/cosmology-tech/interchain-kit/) (recommended)
+- [interchain-kit](https://github.com/hyperweb-io/interchain-kit/) (recommended)
 - [keplr](https://docs.keplr.app/api/cosmjs.html)
 - [cosmjs](https://gist.github.com/webmaster128/8444d42a7eceeda2544c8a59fbd7e1d9)
 
@@ -503,7 +503,7 @@ const response = await stargateClient.signAndBroadcast(address, [msg], fee);
 
 ### All In One Example
 
-For a comprehensive example of how to use InjectiveJS to send messages, please see the example [here](https://github.com/cosmology-tech/create-cosmos-app/blob/main/examples/injective/components/SendMsg.tsx). This example demonstrates how to:
+For a comprehensive example of how to use InjectiveJS to send messages, please see the example [here](https://github.com/hyperweb-io/create-cosmos-app/blob/main/examples/injective/components/SendMsg.tsx). This example demonstrates how to:
 
 - Initialize the client.
 - Create and sign messages.
@@ -512,7 +512,7 @@ For a comprehensive example of how to use InjectiveJS to send messages, please s
 
 The example provides a complete walkthrough of setting up the client, creating a message for sending tokens, and broadcasting the transaction to the Injective blockchain.
 
-Follow the [instructions](https://github.com/cosmology-tech/create-cosmos-app/tree/main/examples/injective) in the example to set up your InjectiveJS client and start sending messages to the Injective blockchain.
+Follow the [instructions](https://github.com/hyperweb-io/create-cosmos-app/tree/main/examples/injective) in the example to set up your InjectiveJS client and start sending messages to the Injective blockchain.
 
 ## Advanced Usage
 
@@ -582,17 +582,28 @@ yarn build
 yarn publish
 ```
 
+## Interchain JavaScript Stack 
+
+A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
+
+| Category              | Tools                                                                                                                  | Description                                                                                           |
+|----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Chain Information**   | [**Chain Registry**](https://github.com/hyperweb-io/chain-registry), [**Utils**](https://www.npmjs.com/package/@chain-registry/utils), [**Client**](https://www.npmjs.com/package/@chain-registry/client) | Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application. |
+| **Wallet Connectors**| [**Interchain Kit**](https://github.com/hyperweb-io/interchain-kit)<sup>beta</sup>, [**Cosmos Kit**](https://github.com/cosmology-tech/cosmos-kit) | Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface. |
+| **Signing Clients**          | [**InterchainJS**](https://github.com/hyperweb-io/interchainjs)<sup>beta</sup>, [**CosmJS**](https://github.com/cosmos/cosmjs) | A single, universal signing interface for any network |
+| **SDK Clients**              | [**Telescope**](https://github.com/cosmology-tech/telescope)                                                          | Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules. |
+| **Starter Kits**     | [**Create Interchain App**](https://github.com/hyperweb-io/create-interchain-app)<sup>beta</sup>, [**Create Cosmos App**](https://github.com/cosmology-tech/create-cosmos-app) | Set up a modern Interchain app by running one command. |
+| **UI Kits**          | [**Interchain UI**](https://github.com/cosmology-tech/interchain-ui)                                                   | The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit. |
+| **Testing Frameworks**          | [**Starship**](https://github.com/cosmology-tech/starship)                                                             | Unified Testing and Development for the Interchain. |
+| **TypeScript Smart Contracts** | [**Create Hyperweb App**](https://github.com/hyperweb-io/create-hyperweb-app)                              | Build and deploy full-stack blockchain applications with TypeScript |
+| **CosmWasm Contracts** | [**CosmWasm TS Codegen**](https://github.com/CosmWasm/ts-codegen)                                                   | Convert your CosmWasm smart contracts into dev-friendly TypeScript classes. |
+
 ## Credits
 
-🛠 Built by Cosmology — if you like our tools, please consider delegating to [our validator ⚛️](https://cosmology.tech/validator)
+🛠 Built by Hyperweb (formerly Cosmology) — if you like our tools, please checkout and contribute to [our github ⚛️](https://github.com/hyperweb-io)
 
-Code built with the help of these related projects:
+## Disclaimer
 
-- [@cosmwasm/ts-codegen](https://github.com/CosmWasm/ts-codegen) for generated CosmWasm contract Typescript classes
-- [@cosmology/telescope](https://github.com/cosmology-tech/telescope) a "babel for the Cosmos", Telescope is a TypeScript Transpiler for Cosmos Protobufs.
+AS DESCRIBED IN THE LICENSES, THE SOFTWARE IS PROVIDED “AS IS”, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.
 
-## License
-
-MIT License (MIT) & Apache License
-
-Copyright (c) 2024 Cosmology (https://cosmology.zone/)
+No developer or entity involved in creating this software will be liable for any claims or damages whatsoever associated with your use, inability to use, or your interaction with other users of the code, including any direct, indirect, incidental, special, exemplary, punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
