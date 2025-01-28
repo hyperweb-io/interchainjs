@@ -584,7 +584,7 @@ yarn publish
 
 ## Interchain JavaScript Stack ⚛️
 
-A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
+A unified toolkit for building applications and smart contracts in the Interchain ecosystem
 
 | Category              | Tools                                                                                                                  | Description                                                                                           |
 |----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|

@@ -98,7 +98,7 @@ We created a specific package to make it easy to migrate from `@cosmjs`.
 
 ## Interchain JavaScript Stack ⚛️
 
-A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
+A unified toolkit for building applications and smart contracts in the Interchain ecosystem
 
 | Category              | Tools                                                                                                                  | Description                                                                                           |
 |----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|

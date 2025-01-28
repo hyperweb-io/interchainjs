@@ -42,7 +42,7 @@ console.log(result.hash); // the hash of TxRaw
 
 ## Interchain JavaScript Stack ⚛️
 
-A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
+A unified toolkit for building applications and smart contracts in the Interchain ecosystem
 
 | Category              | Tools                                                                                                                  | Description                                                                                           |
 |----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
