@@ -359,7 +359,7 @@ yarn build
 yarn publish
 ```
 
-## Interchain JavaScript Stack 
+## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
 

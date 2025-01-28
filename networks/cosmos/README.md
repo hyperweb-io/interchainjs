@@ -39,7 +39,7 @@ console.log(result.hash); // the hash of TxRaw
 - **direct signer** from `@interchainjs/cosmos/signers/direct`
 - **amino signer** from `@interchainjs/cosmos/signers/amino`
 
-## Interchain JavaScript Stack 
+## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
 

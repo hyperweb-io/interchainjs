@@ -12,7 +12,7 @@
    <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
-## Interchain JavaScript Stack 
+## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
 

@@ -61,7 +61,7 @@ const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
 - **secp256k1 auth** from `@interchainjs/auth/secp256k1`
 - **ethSecp256k1 auth** from `@interchainjs/auth/ethSecp256k1`
 
-## Interchain JavaScript Stack 
+## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
 
