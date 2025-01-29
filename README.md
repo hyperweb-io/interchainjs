@@ -1,7 +1,7 @@
 # interchainjs
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/545047/188804067-28e67e5e-0214-4449-ab04-2e0c564a6885.svg" width="80">
+  <img src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg" width="80">
 </p>
 
 <p align="center" width="100%">
