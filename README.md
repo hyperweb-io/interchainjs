@@ -1,26 +1,53 @@
-# interchainjs
+# InterchainJS
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg" width="80">
+  <img src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg" width="280">
 </p>
 
 <p align="center" width="100%">
-  <!-- <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
+  <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
     <img height="20" src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
-  </a> -->
+  </a>
    <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
    <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
-A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any web3 network.
+A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any Web3 network.
 
-- [Advanced Docs](/docs/)
+## Table of Contents
+
+- [Introduction](#interchainjs-universal-signing-for-web3)
+- [Overview](#overview)
+- [Tutorial for Building a Custom Signer](#tutorial-for-building-a-custom-signer)
+- [Auth](#auth)
+- [Supported Networks](#supported-networks)
+  - [Cosmos Network](#cosmos-network)
+  - [Injective Network](#injective-network)
+  - [Ethereum Network](#ethereum-network)
+- [Interchain JavaScript Stack ⚛️](#interchain-javascript-stack-⚛️)
+- [Credits](#credits)
+- [Disclaimer](#disclaimer)
+
+## InterchainJS: Universal Signing for Web3
+
+[InterchainJS](https://hyperweb.io/stack/interchainjs) is a **universal signing interface** designed for seamless interoperability across blockchain networks. It is one of the **core libraries of the [Interchain JavaScript Stack](https://hyperweb.io/stack)**, a modular framework that brings Web3 development to millions of JavaScript developers.
+
+At its core, InterchainJS provides a **flexible adapter pattern** that abstracts away blockchain signing complexities, making it easy to integrate new networks, manage accounts, and support diverse authentication protocols and signing algorithms—all in a unified, extensible framework.
 
 ## Overview
 
-InterchainJS is a versatile signing library designed to cater to a variety of blockchain networks through a flexible adapter pattern. This architecture enables seamless integration of new networks, account management modules, authentication protocols, and signing algorithms.
+InterchainJS sits at the foundation of the **[Interchain JavaScript Stack](https://hyperweb.io/stack)**, a set of tools that work together like nested building blocks:
 
-By employing this pattern, InterchainJS ensures compatibility and extensibility, allowing developers to easily plug in and configure components tailored to specific requirements. The graphic below illustrates how different signer types are connected to specific network classes, demonstrating the library's adaptability in handling diverse blockchain environments.
+- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Ethereum (EIP-712), and beyond.
+- **[Interchain Kit](https://hyperweb.io/stack/interchain-kit)** → Wallet adapters that connect dApps to multiple blockchain networks.
+- **[Interchain UI](https://hyperweb.io/stack/interchain-ui)** → A flexible UI component library for seamless app design.
+- **[Create Interchain App](https://hyperweb.io/stack/create-interchain-app)** → A developer-friendly starter kit for cross-chain applications.
+
+This modular architecture ensures **compatibility, extensibility, and ease of use**, allowing developers to compose powerful blockchain applications without deep protocol-specific knowledge.
+
+### Visualizing InterchainJS Components
+
+The diagram below illustrates how InterchainJS connects different signer types to various network classes, showcasing its adaptability for a wide range of blockchain environments.
 
 ```mermaid
 graph LR
@@ -59,42 +86,57 @@ graph LR
     style utils fill:#ccf,stroke:#333,stroke-width:2px
 ```
 
-## Tutorial for building a custom signer
 
-- [Tutorial](/docs/tutorial.md)
+---
+
+
+## Tutorials & Documentation
+
+| Topic                            | Documentation |
+|----------------------------------|--------------|
+| **Building a Custom Signer**     | [Tutorial](/docs/tutorial.md) |
+| **Advanced Documentation**       | [View Docs](/docs/) |
+
+---
 
 ## Auth
 
-Universally applied across different networks
+The authentication module is universally applied across different networks.
 
-- [@interchainjs/auth](/packages/auth/README.md)
-- [Advanced Docs: `Auth vs. Wallet vs. Signer`](/docs/auth-wallet-signer.md)
+| Package | Description |
+|---------|-------------|
+| [@interchainjs/auth](/packages/auth/README.md) | Handles authentication across blockchain networks. |
+| [Advanced Docs: `Auth vs. Wallet vs. Signer`](/docs/auth-wallet-signer.md) | Explanation of the differences between authentication, wallets, and signers. |
 
-## Cosmos Network
+---
 
-### Transactions
+## Supported Networks
 
-- [@interchainjs/cosmos](/networks/cosmos/README.md)
-- [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md)
+### Cosmos Network
 
-### Migration from `@cosmjs`
+| Feature | Package |
+|---------|---------|
+| **Transactions** | [@interchainjs/cosmos](/networks/cosmos/README.md) |
+| **Cosmos Types** | [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) |
+| **Migration from `@cosmjs`** | [interchainjs](/networks/cosmjs/README.md) |
 
-We created a specific package to make it easy to migrate from `@cosmjs`.
+---
 
-- [interchainjs](/networks/cosmjs/README.md)
+### Injective Network
 
-## Injective Network
+| Feature | Package |
+|---------|---------|
+| **Transactions** | [@interchainjs/injective](/networks/injective/README.md) |
 
-### Transactions
+---
 
-- [@interchainjs/injective](/networks/injective/README.md)
-- `@interchainjs/injective-msgs`(on progress)
+### Ethereum Network
 
-## Ethereum Network
+| Feature | Package |
+|---------|---------|
+| **Transactions** | [@interchainjs/ethereum](/networks/ethereum/README.md) |
 
-### Transactions
-
-- [@interchainjs/ethereum](/networks/ethereum/README.md)
+---
 
 ## Interchain JavaScript Stack ⚛️
 
