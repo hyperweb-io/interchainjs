@@ -18,7 +18,7 @@ A single, universal signing interface for any network. Birthed from the intercha
 
 - [Introduction](#interchainjs-universal-signing-for-web3)
 - [Overview](#overview)
-- [Tutorial for Building a Custom Signer](#tutorial-for-building-a-custom-signer)
+- [Tutorials and Docs](#tutorial-for-building-a-custom-signer)
 - [Auth](#auth)
 - [Supported Networks](#supported-networks)
   - [Cosmos Network](#cosmos-network)
