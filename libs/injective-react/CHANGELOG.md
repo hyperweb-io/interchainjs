@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.3](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.2...injective-react@1.9.3) (2025-02-07)
+
+**Note:** Version bump only for package injective-react
+
 ## [1.9.2](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.1...injective-react@1.9.2) (2025-01-29)
 
 **Note:** Version bump only for package injective-react
