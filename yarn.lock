@@ -1719,25 +1719,25 @@
   resolved "https://registry.yarnpkg.com/@cosmjs/utils/-/utils-0.32.4.tgz#a9a717c9fd7b1984d9cefdd0ef6c6f254060c671"
   integrity sha512-D1Yc+Zy8oL/hkUkFUL/bwxvuDBzRGpc4cF7/SkdhxX4iHpSLgdOuTt1mhCh9+kl6NQREy9t7SYZ6xeW5gFe60w==
 
-"@cosmology/ast@^1.9.6":
-  version "1.9.6"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.9.6.tgz#9dafe254a5c778f22b64094787dd87676b3dfcf4"
-  integrity sha512-f+6HTLbcP1oTmFZZaiHaZropb0ci7JXsA19uj03dLaInYqp6ZUmeYQjxONEpmWBgshL2IlJrF08lliqTu7H4cQ==
+"@cosmology/ast@^1.9.8":
+  version "1.9.8"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.9.8.tgz#2326b11616e36e3190ba48b41dbe279391e41927"
+  integrity sha512-/p9QTO6muZ65JtigwanCrTOypnVuE9RAXFsBEJLPBzd1hp0AiWwuS4l21PWOrBfqqNpR2LpohUWUEye55/aCdw==
   dependencies:
     "@babel/types" "7.23.6"
-    "@cosmology/types" "^1.11.5"
-    "@cosmology/utils" "^1.9.5"
+    "@cosmology/types" "^1.11.6"
+    "@cosmology/utils" "^1.9.6"
     case "1.6.3"
     dotty "0.1.2"
 
-"@cosmology/proto-parser@^1.9.5":
-  version "1.9.5"
-  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.9.5.tgz#17e7123e0aef8ec0bdbd59594a6f5f88a38cc239"
-  integrity sha512-659IOXVyArAVc0NH6U8m9r4qX/QbKJVaykUghwctoOYOd8JdIezTLEb505ERUT2UDsa9ir3zKdvlhk+2dKpkog==
+"@cosmology/proto-parser@^1.9.6":
+  version "1.9.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.9.6.tgz#dfcfae863f319f5589d0a106b5e5f9bb53c51b74"
+  integrity sha512-PaqCWqwylOoutH5LOdpdfxVUQNX4rBaIabR9uKdG3iczlNTAWEHi7LywnIvNv2L4QwCpxdhoqU+k7Za5uH2GOQ==
   dependencies:
     "@cosmology/protobufjs" "7.3.2"
-    "@cosmology/types" "^1.11.5"
-    "@cosmology/utils" "^1.9.5"
+    "@cosmology/types" "^1.11.6"
+    "@cosmology/utils" "^1.9.6"
     dotty "0.1.2"
     fast-json-patch "3.1.1"
     glob "8.0.3"
@@ -1763,19 +1763,19 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.11.16":
-  version "1.11.16"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.16.tgz#50a652cf1a6a3edb35b0282cdbf13f2c0eff1576"
-  integrity sha512-5drhVT2/gpPY2bQgYsikUAP5Dy4Hft0eTl5qcvWto0L0xWvI5YREQ9XMA8U9gYegGs1mrvdpDoqZRsaQ5iYjZQ==
+"@cosmology/telescope@^1.11.19":
+  version "1.11.19"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.19.tgz#3777750b2a928ed3cf6a46a770d9828b78a7c9ca"
+  integrity sha512-OTwxe970D9BNSo2mJCneVCzd3IvkCu1fO9kPY/d6CTX9wqI73NH9NK6QSeXfVMazGLt4g5lOCwxr3FCBYBQu5A==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.9.6"
-    "@cosmology/proto-parser" "^1.9.5"
-    "@cosmology/types" "^1.11.5"
-    "@cosmology/utils" "^1.9.5"
+    "@cosmology/ast" "^1.9.8"
+    "@cosmology/proto-parser" "^1.9.6"
+    "@cosmology/types" "^1.11.6"
+    "@cosmology/utils" "^1.9.6"
     "@cosmwasm/ts-codegen" "0.35.7"
     "@types/parse-package-name" "0.1.0"
     case "1.6.3"
@@ -1793,20 +1793,20 @@
     rimraf "5.0.0"
     yaml "^2.3.4"
 
-"@cosmology/types@^1.11.5":
-  version "1.11.5"
-  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.11.5.tgz#e57bd9d4ebd233ae559173c7c763f44700374cd4"
-  integrity sha512-sW8N3m0UNL1SkOTbqm7FtWkEEThGE6g6VGqfnzY6oCSXaWPK5YJodpUgMrTmZ1TloxiwcEPBip+kCuU9nT99vw==
+"@cosmology/types@^1.11.6":
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.11.6.tgz#75d0869719944756d6d36d17020f50406031f4f9"
+  integrity sha512-GZhfARz2bPRp87rmHYa8DRt+0KcQEvzJEgAXFaD26DZ6seMMvl+fEKLQ7WXvqdaltRRjUqQ/hbjOlbZ5nxrixg==
   dependencies:
     case "1.6.3"
     fast-json-patch "3.1.1"
 
-"@cosmology/utils@^1.9.5":
-  version "1.9.5"
-  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.9.5.tgz#90f073cdd5940e498750589491089e870349f878"
-  integrity sha512-w/16F2Sa7+OdAg42J0cHF7h7T1nVOTmOKawcGMt1M6jsOtNNKOl+BBfbiFiR/sD2naHPDTuv/aVSFrkDf9QbNg==
+"@cosmology/utils@^1.9.6":
+  version "1.9.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.9.6.tgz#bc52c4c8572333a56bb71863fbbbbe139cf2b7aa"
+  integrity sha512-6bDUnlnrW4uC7gpxXmXOP8jp6IUh93311divTzsS8r5KPbughrVxAwutxGpPRIXoByfwD9C60osr7ms18PzPQQ==
   dependencies:
-    "@cosmology/types" "^1.11.5"
+    "@cosmology/types" "^1.11.6"
     dotty "0.1.2"
 
 "@cosmostation/extension-client@^0.1.15":
@@ -14339,16 +14339,7 @@ string-length@^4.0.1:
     char-regex "^1.0.2"
     strip-ansi "^6.0.0"
 
-"string-width-cjs@npm:string-width@^4.2.0":
-  version "4.2.3"
-  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
-  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
-  dependencies:
-    emoji-regex "^8.0.0"
-    is-fullwidth-code-point "^3.0.0"
-    strip-ansi "^6.0.1"
-
-"string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0", "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -14402,7 +14393,7 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -14429,13 +14420,6 @@ strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
-
-strip-ansi@^6, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1:
   version "7.1.0"
@@ -15515,7 +15499,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.npmjs.org/wordwrap/-/wordwrap-1.0.0.tgz"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -15537,15 +15521,6 @@ wrap-ansi@^6.0.1, wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-6.2.0.tgz"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
-  dependencies:
-    ansi-styles "^4.0.0"
-    string-width "^4.1.0"
-    strip-ansi "^6.0.0"
-
-wrap-ansi@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
-  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
