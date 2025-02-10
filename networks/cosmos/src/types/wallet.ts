@@ -1,4 +1,4 @@
-import { AccountData, IGenericOfflineSignArgs, IGenericOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
+import { AccountData, Auth, AuthOptions, IGenericOfflineSignArgs, IGenericOfflineSigner, SIGN_MODE, SignerConfig } from '@interchainjs/types';
 
 import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
 
@@ -7,6 +7,11 @@ import { CosmosAminoDoc, CosmosDirectDoc } from './signer';
  */
 export interface WalletOptions {
   bip39Password?: string;
+  createAuthsFromMnemonic?: (
+    mnemonic: string,
+    hdPaths: string[],
+    options?: AuthOptions
+  ) => Auth[];
   signerConfig: SignerConfig;
 }
 

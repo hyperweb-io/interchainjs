@@ -110,17 +110,6 @@ export class AminoSigner
   }
 
   /**
-   * get account
-   */
-  async getAccount() {
-    return new CosmosAccount(
-      await this.getPrefix(),
-      this.auth,
-      this.config.publicKey.isCompressed
-    );
-  }
-
-  /**
    * create AminoSigner from wallet.
    * if there're multiple accounts in the wallet, it will return the first one by default.
    */

@@ -44,8 +44,7 @@ import { BaseCosmosTxBuilder } from './tx-builder';
  *  * @template TArgs The type of the args.
  */
 export abstract class CosmosDocSigner<TDoc, TArgs = unknown> extends BaseSigner
-implements IDocSigner<TDoc, TArgs, SignDocResponse<TDoc>>
-{
+  implements IDocSigner<TDoc, TArgs, SignDocResponse<TDoc>> {
   constructor(auth: Auth, config: SignerConfig) {
     super(auth, config);
 
@@ -84,8 +83,7 @@ implements IDocSigner<TDoc, TArgs, SignDocResponse<TDoc>>
  */
 export abstract class CosmosBaseSigner<SignDoc>
   extends CosmosDocSigner<SignDoc>
-  implements UniCosmosBaseSigner<SignDoc>
-{
+  implements UniCosmosBaseSigner<SignDoc> {
   /**
    * QueryClient for querying chain data.
    */
@@ -211,9 +209,21 @@ export abstract class CosmosBaseSigner<SignDoc>
   }
 
   /**
-   * abstract method to get the account of the current signer
+   * get account by account creator
    */
-  abstract getAccount(): Promise<IAccount>;
+  async getAccount() {
+    const opts = this.config as SignerOptions;
+
+    if (opts.createAccount) {
+      return new opts.createAccount(
+        await this.getPrefix(),
+        this.auth,
+        this.config.publicKey.isCompressed
+      );
+    } else {
+      throw new Error('No account creator is provided, or you can try to override the method `getAccount`');
+    }
+  }
 
   /**
    * set the endpoint of the queryClient
@@ -243,10 +253,10 @@ export abstract class CosmosBaseSigner<SignDoc>
       : {
         type: 'absolute',
         value:
-            timeoutHeight.type === 'absolute'
-              ? timeoutHeight.value
-              : (await this.queryClient.getLatestBlockHeight()) +
-                timeoutHeight.value,
+          timeoutHeight.type === 'absolute'
+            ? timeoutHeight.value
+            : (await this.queryClient.getLatestBlockHeight()) +
+            timeoutHeight.value,
       };
   }
 
@@ -317,7 +327,7 @@ export abstract class CosmosBaseSigner<SignDoc>
     const { signerInfo } = await this.txBuilder.buildSignerInfo(
       this.encodedPublicKey,
       options?.sequence ??
-        (await this.queryClient.getSequence(await this.getAddress())),
+      (await this.queryClient.getSequence(await this.getAddress())),
       options?.signMode ?? SignMode.SIGN_MODE_DIRECT
     );
 

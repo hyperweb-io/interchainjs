@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "description": "universal signing client for blockchain networks",
-  "repository": "git@github.com:cosmology-tech/interchainjs.git",
-  "author": "Cosmology <developers@cosmology.zone>",
+  "repository": "git@github.com:hyperweb-io/interchainjs.git",
+  "author": "Hyperweb <developers@hyperweb.io>",
   "license": "MIT",
   "publishConfig": {
     "access": "restricted"
@@ -15,11 +15,14 @@
     "libs/*"
   ],
   "scripts": {
-    "codegen": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-query.telescope.json",
+    "codegen": "yarn clean:codegen && yarn codegen:types && yarn codegen:ic && yarn codegen:inj",
+    "codegen:ic": "telescope transpile --config ./scripts/interchainjs.telescope.json && telescope transpile --config ./scripts/interchain-react.telescope.json && telescope transpile --config ./scripts/interchain-vue.telescope.json",
+    "codegen:inj": "telescope transpile --config ./scripts/inj.telescope.json && telescope transpile --config ./scripts/inj-react.telescope.json && telescope transpile --config ./scripts/inj-vue.telescope.json",
     "codegen:types": "telescope transpile --config ./scripts/cosmos-types.telescope.json",
-    "proto": "telescope download --config ./scripts/.protod.config.json",
+    "proto": "telescope download --config ./scripts/.protod.config.json && telescope download --config ./scripts/.injective.protod.config.json",
     "test": "lerna run test --stream",
     "clean": "lerna run clean",
+    "clean:codegen": "rimraf libs/*/src",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
@@ -32,7 +35,7 @@
     "@chain-registry/client": "1.18.1",
     "@confio/relayer": "^0.12.0",
     "@cosmjs/crypto": "^0.32.2",
-    "@cosmology/telescope": "^1.10.8",
+    "@cosmology/telescope": "^1.11.19",
     "@injectivelabs/networks": "^1.14.13",
     "@injectivelabs/sdk-ts": "^1.14.13",
     "@injectivelabs/wallet-ts": "^1.14.13",
@@ -60,5 +63,6 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.1.6"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71"
 }

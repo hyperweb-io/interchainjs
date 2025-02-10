@@ -1,8 +1,8 @@
 {
   "protoDirs": [
-    "./protos"
+    "./protos/injectivejs"
   ],
-  "outPath": "./libs/interchain-query/src",
+  "outPath": "./libs/injectivejs/src",
   "options": {
     "classesUseArrowFunctions": true,
     "env": "v-next",
@@ -10,7 +10,7 @@
     "useSDKTypes": false,
     "prototypes": {
       "enableRegistryLoader": false,
-      "enableMessageComposer": false,
+      "enableMessageComposer": true,
       "enabled": true,
       "parser": {
         "keepCase": false
@@ -58,9 +58,8 @@
     "rpcClients": {
       "enabled": false
     },
-    "helperFuncCreators": {
-      "enabled": true,
-      "genCustomHooks": true
+    "helperFunctions": {
+      "enabled": true
     },
     "interfaces": {
       "enabled": true,

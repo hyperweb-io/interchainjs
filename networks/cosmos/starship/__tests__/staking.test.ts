@@ -19,8 +19,11 @@ import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Sig
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { QueryClientImpl as BankQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.Query";
-import { QueryClientImpl as StakingQueryClientImpl } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.Query";
+import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { createGetValidators, createGetDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+
+import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
+import { QueryDelegationRequest, QueryDelegationResponse, QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -32,8 +35,9 @@ describe('Staking tokens testing', () => {
     creditFromFaucet;
 
   // Variables used accross testcases
-  let queryClient: BankQueryClientImpl;
-  let stakingQueryClient: StakingQueryClientImpl;
+  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
+  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
+  let getDelegation: (request: QueryDelegationRequest) => Promise<QueryDelegationResponse>;
   let validatorAddress: string;
   let delegationAmount: string;
 
@@ -56,15 +60,17 @@ describe('Staking tokens testing', () => {
     // (await directWallet.getAccount()).getAddress(prefix) as string;
 
     // Create custom cosmos interchain client
-    queryClient = new BankQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
-    stakingQueryClient = new StakingQueryClientImpl(createQueryRpc(await getRpcEndpoint()));
+    const rpcEndpoint = await getRpcEndpoint();
+    getBalance = createGetBalance(rpcEndpoint);
+    getValidators = createGetValidators(rpcEndpoint);
+    getDelegation = createGetDelegation(rpcEndpoint);
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
   }, 200000);
 
   it('check address has tokens', async () => {
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address,
       denom,
     });
@@ -73,7 +79,7 @@ describe('Staking tokens testing', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await stakingQueryClient.validators({
+    const { validators } = await getValidators({
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -97,7 +103,7 @@ describe('Staking tokens testing', () => {
       { prefix: chainInfo.chain.bech32_prefix }
     );
 
-    const { balance } = await queryClient.balance({
+    const { balance } = await getBalance({
       address,
       denom,
     });
@@ -141,7 +147,7 @@ describe('Staking tokens testing', () => {
   });
 
   it('query delegation', async () => {
-    const { delegationResponse } = await stakingQueryClient.delegation({
+    const { delegationResponse } = await getDelegation({
       delegatorAddr: address,
       validatorAddr: validatorAddress,
     });

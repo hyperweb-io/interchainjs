@@ -1,6 +1,6 @@
 {
     "protoDirs": [
-        "./protos"
+        "./protos/interchainjs"
     ],
     "outPath": "./libs/interchainjs/src",
     "options": {
@@ -10,7 +10,7 @@
         "useSDKTypes": false,
         "prototypes": {
             "enableRegistryLoader": false,
-            "enableMessageComposer": false,
+            "enableMessageComposer": true,
             "enabled": true,
             "parser": {
                 "keepCase": false
@@ -58,13 +58,18 @@
         "rpcClients": {
             "enabled": false
         },
-        "helperFuncCreators": {
-          "enabled": true,
-          "genCustomHooks": false
+        "helperFunctions": {
+            "enabled": true,
+            "useGlobalDecoderRegistry": true,
+            "hooks": {
+              "react": false,
+              "vue": false
+            }
         },
         "interfaces": {
             "enabled": true,
             "useGlobalDecoderRegistry": true,
+            "registerAllDecodersToGlobal": false,
             "useUnionTypes": true
         },
         "aminoEncoding": {

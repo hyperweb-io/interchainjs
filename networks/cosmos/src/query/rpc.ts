@@ -1,7 +1,7 @@
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
-import { QueryClientImpl as AuthQuery } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/query.rpc.Query';
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import { ServiceClientImpl as TxQuery } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.Service';
+import { createGetAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/query.rpc.func';
+import { createGetSimulate } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.func';
 import {
   Fee,
   SignerInfo,
@@ -31,6 +31,8 @@ import {
 import { constructAuthInfo } from '../utils/direct';
 import { broadcast, createQueryRpc, getPrefix, sleep } from '../utils/rpc';
 import { isBaseAccount } from '../utils';
+import { QueryAccountRequest, QueryAccountResponse } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/query';
+import { SimulateRequest, SimulateResponse } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/service';
 
 /**
  * client for cosmos rpc
@@ -40,8 +42,8 @@ export class RpcClient implements QueryClient {
 
   protected chainId?: string;
   protected accountNumber?: bigint;
-  protected readonly authQuery: AuthQuery;
-  protected readonly txQuery: TxQuery;
+  readonly getAccount: (request: QueryAccountRequest) => Promise<QueryAccountResponse>;
+  readonly getSimulate: (request: SimulateRequest) => Promise<SimulateResponse>;
   protected parseAccount: (encodedAccount: EncodedMessage) => BaseAccount =
     defaultAccountParser;
   protected _prefix?: string;
@@ -49,8 +51,8 @@ export class RpcClient implements QueryClient {
   constructor(endpoint: string | HttpEndpoint, prefix?: string) {
     this.endpoint = toHttpEndpoint(endpoint);
     const txRpc = createQueryRpc(this.endpoint);
-    this.authQuery = new AuthQuery(txRpc);
-    this.txQuery = new TxQuery(txRpc);
+    this.getAccount = createGetAccount(txRpc);
+    this.getSimulate = createGetSimulate(txRpc);
     this._prefix = prefix;
   }
 
@@ -68,7 +70,7 @@ export class RpcClient implements QueryClient {
    * get basic account info by address
    */
   async getBaseAccount(address: string): Promise<BaseAccount> {
-    const accountResp = await this.authQuery.account({
+    const accountResp = await this.getAccount({
       address,
     });
 
@@ -158,7 +160,7 @@ export class RpcClient implements QueryClient {
       ).authInfo,
       signatures: [new Uint8Array()],
     });
-    return await this.txQuery.simulate({
+    return await this.getSimulate({
       tx: void 0,
       txBytes: Tx.encode(tx).finish(),
     });

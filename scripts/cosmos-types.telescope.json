@@ -1,6 +1,6 @@
 {
     "protoDirs": [
-        "./protos"
+        "./protos/interchainjs"
     ],
     "outPath": "./libs/cosmos-types/src",
     "options": {
@@ -75,13 +75,10 @@
             "enabled": false
         },
         "rpcClients": {
-            "enabled": true,
-            "inline": false,
-            "extensions": false,
-            "camelCase": true,
-            "enabledServices": [
-                "Query"
-            ]
+            "enabled": false
+        },
+        "helperFunctions": {
+          "enabled": true
         },
         "interfaces": {
             "enabled": false,

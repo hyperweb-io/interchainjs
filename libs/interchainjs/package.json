@@ -1,15 +1,15 @@
 {
   "name": "interchainjs",
-  "version": "0.0.1-beta.36",
+  "version": "1.9.3",
   "description": "InterchainJS is a JavaScript library for interacting with Cosmos SDK based blockchains.",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
-  "author": "Cosmology <developers@cosmology.zone>",
-  "homepage": "https://github.com/cosmology-tech/interchainjs",
+  "author": "Hyperweb <developers@hyperweb.io>",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmology-tech/interchainjs"
+    "url": "https://github.com/hyperweb-io/interchainjs"
   },
   "license": "MIT",
   "publishConfig": {
@@ -32,18 +32,12 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "^0.0.1-beta.34",
-    "@interchainjs/cosmos-types": "^0.0.1-beta.34",
-    "@interchainjs/types": "^0.0.1-beta.34",
-    "@interchainjs/utils": "^0.0.1-beta.34",
+    "@interchainjs/cosmos": "^1.9.3",
+    "@interchainjs/cosmos-types": "^1.9.3",
+    "@interchainjs/types": "^1.8.3",
+    "@interchainjs/utils": "^1.8.3",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3"
-  },
-  "devDependencies": {
-    "@tanstack/react-query": "4.29.1"
-  },
-  "peerDependencies": {
-    "@tanstack/react-query": "4.29.1"
   },
   "keywords": [
     "cosmos",

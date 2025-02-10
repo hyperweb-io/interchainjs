@@ -1,0 +1,80 @@
+{
+    "protoDirs": [
+        "./protos/injectivejs"
+    ],
+    "outPath": "./libs/injective-vue/src",
+    "options": {
+        "classesUseArrowFunctions": true,
+        "env": "v-next",
+        "useInterchainJs": true,
+        "useSDKTypes": false,
+        "prototypes": {
+            "enableRegistryLoader": false,
+            "enableMessageComposer": false,
+            "enabled": true,
+            "parser": {
+                "keepCase": false
+            },
+            "methods": {
+                "fromJSON": false,
+                "toJSON": false,
+                "encode": true,
+                "decode": true,
+                "fromPartial": true,
+                "toAmino": true,
+                "fromAmino": true,
+                "fromProto": false,
+                "toProto": false,
+                "fromProtoMsg": false,
+                "toProtoMsg": false,
+                "toAminoMsg": true,
+                "fromAminoMsg": true
+            },
+            "addTypeUrlToDecoders": false,
+            "addTypeUrlToObjects": true,
+            "addAminoTypeToObjects": true,
+            "typingsFormat": {
+                "duration": "duration",
+                "timestamp": "date",
+                "useExact": false,
+                "useDeepPartial": true,
+                "num64": "bigint",
+                "customTypes": {
+                    "useCosmosSDKDec": false
+                },
+                "useTelescopeGeneratedType": true,
+                "autoFixUndefinedEnumDefault": true
+            }
+        },
+        "bundle": {
+            "enabled": false
+        },
+        "stargateClients": {
+            "enabled": false
+        },
+        "lcdClients": {
+            "enabled": false
+        },
+        "rpcClients": {
+            "enabled": false
+        },
+        "helperFunctions": {
+            "enabled": true,
+            "hooks": {
+              "react": false,
+              "vue": true
+            }
+        },
+        "interfaces": {
+            "enabled": true,
+            "useGlobalDecoderRegistry": true,
+            "useUnionTypes": true
+        },
+        "aminoEncoding": {
+            "enabled": true,
+            "useLegacyInlineEncoding": false,
+            "disableMsgTypes": false,
+            "useProtoOptionality": true
+        }
+    }
+}
