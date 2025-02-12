@@ -14,12 +14,8 @@
   "tempRepoDir": "git-modules",
   "targets": [
     "cosmos/**/*.proto",
-    "cosmwasm/wasm/v1/tx.proto",
-    "cosmwasm/wasm/v1/query.proto",
-    "ibc/applications/transfer/v1/tx.proto",
-    "ibc/core/channel/v1/tx.proto",
-    "ibc/core/client/v1/tx.proto",
-    "ibc/core/connection/v1/tx.proto",
+    "cosmwasm/**/*.proto",
+    "ibc/**/*.proto",
     "injective/types/v1beta1/account.proto"
   ]
 }

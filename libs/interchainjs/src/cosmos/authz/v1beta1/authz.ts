@@ -2,6 +2,8 @@ import { Any, AnyProtoMsg, AnyAmino } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { SendAuthorization, SendAuthorizationProtoMsg } from "../../bank/v1beta1/authz";
 import { StakeAuthorization, StakeAuthorizationProtoMsg } from "../../staking/v1beta1/authz";
+import { StoreCodeAuthorization, StoreCodeAuthorizationProtoMsg, ContractExecutionAuthorization, ContractExecutionAuthorizationProtoMsg, ContractMigrationAuthorization, ContractMigrationAuthorizationProtoMsg } from "../../../cosmwasm/wasm/v1/authz";
+import { TransferAuthorization, TransferAuthorizationProtoMsg } from "../../../ibc/applications/transfer/v1/authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
@@ -34,7 +36,7 @@ export interface GenericAuthorizationAminoMsg {
  * the provide method with expiration time.
  */
 export interface Grant {
-  authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined;
+  authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | StoreCodeAuthorization | ContractExecutionAuthorization | ContractMigrationAuthorization | TransferAuthorization | Any | undefined;
   /**
    * time when the grant will expire and will be pruned. If null, then the grant
    * doesn't have a time expiration (other conditions  in `authorization`
@@ -47,7 +49,7 @@ export interface GrantProtoMsg {
   value: Uint8Array;
 }
 export type GrantEncoded = Omit<Grant, "authorization"> & {
-  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | StoreCodeAuthorizationProtoMsg | ContractExecutionAuthorizationProtoMsg | ContractMigrationAuthorizationProtoMsg | TransferAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * Grant gives permissions to execute
@@ -73,7 +75,7 @@ export interface GrantAminoMsg {
 export interface GrantAuthorization {
   granter: string;
   grantee: string;
-  authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | Any | undefined;
+  authorization?: GenericAuthorization | SendAuthorization | StakeAuthorization | StoreCodeAuthorization | ContractExecutionAuthorization | ContractMigrationAuthorization | TransferAuthorization | Any | undefined;
   expiration?: Date;
 }
 export interface GrantAuthorizationProtoMsg {
@@ -81,7 +83,7 @@ export interface GrantAuthorizationProtoMsg {
   value: Uint8Array;
 }
 export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"> & {
-  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | AnyProtoMsg | undefined;
+  authorization?: GenericAuthorizationProtoMsg | SendAuthorizationProtoMsg | StakeAuthorizationProtoMsg | StoreCodeAuthorizationProtoMsg | ContractExecutionAuthorizationProtoMsg | ContractMigrationAuthorizationProtoMsg | TransferAuthorizationProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * GrantAuthorization extends a grant with both the addresses of the grantee and granter.
@@ -286,6 +288,10 @@ export const Grant = {
     GenericAuthorization.registerTypeUrl();
     SendAuthorization.registerTypeUrl();
     StakeAuthorization.registerTypeUrl();
+    StoreCodeAuthorization.registerTypeUrl();
+    ContractExecutionAuthorization.registerTypeUrl();
+    ContractMigrationAuthorization.registerTypeUrl();
+    TransferAuthorization.registerTypeUrl();
   }
 };
 function createBaseGrantAuthorization(): GrantAuthorization {
@@ -403,6 +409,10 @@ export const GrantAuthorization = {
     GenericAuthorization.registerTypeUrl();
     SendAuthorization.registerTypeUrl();
     StakeAuthorization.registerTypeUrl();
+    StoreCodeAuthorization.registerTypeUrl();
+    ContractExecutionAuthorization.registerTypeUrl();
+    ContractMigrationAuthorization.registerTypeUrl();
+    TransferAuthorization.registerTypeUrl();
   }
 };
 function createBaseGrantQueueItem(): GrantQueueItem {
