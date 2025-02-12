@@ -1,7 +1,7 @@
 import './setup.test';
 
 import { Asset } from '@chain-registry/types';
-import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
+import { generateMnemonic } from '../src/utils';
 import { assertIsDeliverTxSuccess } from '@interchainjs/cosmos/utils';
 import {
   AminoGenericOfflineSigner,

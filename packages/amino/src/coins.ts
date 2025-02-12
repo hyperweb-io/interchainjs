@@ -52,11 +52,7 @@ export function coins(amount: number | string, denom: string): Coin[] {
  * separately in the caller.
  *
  * ```
- * import { parseCoins } from "@cosmjs/proto-signing";
- * // equals
- * import { parseCoins } from "@cosmjs/stargate";
- * // equals
- * import { parseCoins } from "@cosmjs/amino";
+ * import { parseCoins } from "@interchainjs/amino";
  * ```
  *
  * This function is not made for supporting decimal amounts and does not support
