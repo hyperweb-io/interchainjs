@@ -1,4 +1,4 @@
-# @cosmjs/encoding
+# @interchainjs/encoding
 
 [![npm version](https://img.shields.io/npm/v/@cosmjs/encoding.svg)](https://www.npmjs.com/package/@cosmjs/encoding)
 

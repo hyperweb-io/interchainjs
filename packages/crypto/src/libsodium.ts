@@ -3,7 +3,7 @@
 //
 // libsodium.js API: https://gist.github.com/webmaster128/b2dbe6d54d36dd168c9fabf441b9b09c
 
-import { isNonNullObject } from "@cosmjs/utils";
+import { isObjectLike } from "@interchainjs/utils";
 // Using crypto_pwhash requires sumo. Once we migrate to a standalone
 // Argon2 implementation, we can use the normal libsodium-wrappers
 // again: https://github.com/cosmos/cosmjs/issues/1031
@@ -29,7 +29,7 @@ export interface Argon2idOptions {
 }
 
 export function isArgon2idOptions(thing: unknown): thing is Argon2idOptions {
-  if (!isNonNullObject(thing)) return false;
+  if (!isObjectLike(thing)) return false;
   if (typeof (thing as Argon2idOptions).outputLength !== "number") return false;
   if (typeof (thing as Argon2idOptions).opsLimit !== "number") return false;
   if (typeof (thing as Argon2idOptions).memLimitKib !== "number") return false;

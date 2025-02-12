@@ -1,6 +1,6 @@
-import { fromBase64, fromBech32, fromHex, toBase64, toBech32, toHex } from "@cosmjs/encoding";
-import { Uint53 } from "@cosmjs/math";
-import { arrayContentStartsWith } from "@cosmjs/utils";
+import { fromBase64, fromBech32, fromHex, toBase64, toBech32, toHex } from "@interchainjs/encoding";
+import { Uint53 } from "@interchainjs/math";
+import { startsWithArray } from "@interchainjs/utils";
 
 import {
   Ed25519Pubkey,
@@ -54,7 +54,7 @@ const pubkeyAminoPrefixMultisigThreshold = fromHex("22c1f7e2" /* variable length
  * Decodes a pubkey in the Amino binary format to a type/value object.
  */
 export function decodeAminoPubkey(data: Uint8Array): Pubkey {
-  if (arrayContentStartsWith(data, pubkeyAminoPrefixSecp256k1)) {
+  if (startsWithArray(data, pubkeyAminoPrefixSecp256k1)) {
     const rest = data.slice(pubkeyAminoPrefixSecp256k1.length);
     if (rest.length !== 33) {
       throw new Error("Invalid rest data length. Expected 33 bytes (compressed secp256k1 pubkey).");
@@ -63,7 +63,7 @@ export function decodeAminoPubkey(data: Uint8Array): Pubkey {
       type: pubkeyType.secp256k1,
       value: toBase64(rest),
     };
-  } else if (arrayContentStartsWith(data, pubkeyAminoPrefixEd25519)) {
+  } else if (startsWithArray(data, pubkeyAminoPrefixEd25519)) {
     const rest = data.slice(pubkeyAminoPrefixEd25519.length);
     if (rest.length !== 32) {
       throw new Error("Invalid rest data length. Expected 32 bytes (Ed25519 pubkey).");
@@ -72,7 +72,7 @@ export function decodeAminoPubkey(data: Uint8Array): Pubkey {
       type: pubkeyType.ed25519,
       value: toBase64(rest),
     };
-  } else if (arrayContentStartsWith(data, pubkeyAminoPrefixSr25519)) {
+  } else if (startsWithArray(data, pubkeyAminoPrefixSr25519)) {
     const rest = data.slice(pubkeyAminoPrefixSr25519.length);
     if (rest.length !== 32) {
       throw new Error("Invalid rest data length. Expected 32 bytes (Sr25519 pubkey).");
@@ -81,7 +81,7 @@ export function decodeAminoPubkey(data: Uint8Array): Pubkey {
       type: pubkeyType.sr25519,
       value: toBase64(rest),
     };
-  } else if (arrayContentStartsWith(data, pubkeyAminoPrefixMultisigThreshold)) {
+  } else if (startsWithArray(data, pubkeyAminoPrefixMultisigThreshold)) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return decodeMultisigPubkey(data);
   } else {
@@ -128,7 +128,7 @@ function decodeMultisigPubkey(data: Uint8Array): MultisigThresholdPubkey {
 
   // remove multisig amino prefix;
   const prefixFromReader = reader.splice(0, pubkeyAminoPrefixMultisigThreshold.length);
-  if (!arrayContentStartsWith(prefixFromReader, pubkeyAminoPrefixMultisigThreshold)) {
+  if (!startsWithArray(prefixFromReader, pubkeyAminoPrefixMultisigThreshold)) {
     throw new Error("Invalid multisig prefix.");
   }
 

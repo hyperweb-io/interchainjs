@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Random } from "@cosmjs/crypto";
-import { toBech32 } from "@cosmjs/encoding";
+import { Random } from "@interchainjs/crypto";
+import { toBech32 } from "@interchainjs/encoding";
 
 import { AminoMsg, escapeCharacters, makeSignDoc, sortedJsonStringify } from "./signdoc";
 

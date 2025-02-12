@@ -1,4 +1,4 @@
-import { fromAscii, fromBase64, fromHex } from "@cosmjs/encoding";
+import { fromAscii, fromBase64, fromHex } from "@interchainjs/encoding";
 
 import { Bip39, EnglishMnemonic, entropyToMnemonic, mnemonicToEntropy } from "./bip39";
 import { sha256 } from "./sha";

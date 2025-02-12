@@ -35,6 +35,6 @@
     "@interchainjs/crypto": "0.33.0",
     "@interchainjs/encoding": "0.33.0",
     "@interchainjs/math": "0.33.0",
-    "@cosmjs/utils": "0.33.0"
+    "@interchainjs/utils": "1.9.4"
   }
 }

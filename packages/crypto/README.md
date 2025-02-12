@@ -1,4 +1,4 @@
-# @cosmjs/crypto
+# @interchainjs/crypto
 
 [![npm version](https://img.shields.io/npm/v/@cosmjs/crypto.svg)](https://www.npmjs.com/package/@cosmjs/crypto)
 

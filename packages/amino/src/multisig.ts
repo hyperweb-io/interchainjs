@@ -1,5 +1,5 @@
-import { toHex } from "@cosmjs/encoding";
-import { Uint53 } from "@cosmjs/math";
+import { toHex } from "@interchainjs/encoding";
+import { Uint53 } from "@interchainjs/math";
 
 import { pubkeyToRawAddress } from "./addresses";
 import { MultisigThresholdPubkey, SinglePubkey } from "./pubkeys";

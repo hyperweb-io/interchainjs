@@ -1,4 +1,4 @@
-# @cosmjs/math
+# @interchainjs/math
 
 [![npm version](https://img.shields.io/npm/v/@cosmjs/math.svg)](https://www.npmjs.com/package/@cosmjs/math)
 

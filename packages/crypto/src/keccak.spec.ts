@@ -1,4 +1,4 @@
-import { fromHex, toHex } from "@cosmjs/encoding";
+import { fromHex, toHex } from "@interchainjs/encoding";
 
 import { Keccak256, keccak256 } from "./keccak";
 import keccakVectors from "./testdata/keccak.json";
