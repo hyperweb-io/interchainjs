@@ -117,7 +117,7 @@ export class Xchacha20poly1305Ietf {
   public static async encrypt(message: Uint8Array, key: Uint8Array, nonce: Uint8Array): Promise<Uint8Array> {
     await sodium.ready;
 
-    const additionalData = null;
+    const additionalData: string |Uint8Array | null = null;
 
     return sodium.crypto_aead_xchacha20poly1305_ietf_encrypt(
       message,
@@ -135,7 +135,7 @@ export class Xchacha20poly1305Ietf {
   ): Promise<Uint8Array> {
     await sodium.ready;
 
-    const additionalData = null;
+    const additionalData: string |Uint8Array | null = null;
 
     return sodium.crypto_aead_xchacha20poly1305_ietf_decrypt(
       null, // secret nonce: unused and should be null (https://download.libsodium.org/doc/secret-key_cryptography/aead/chacha20-poly1305/xchacha20-poly1305_construction)
