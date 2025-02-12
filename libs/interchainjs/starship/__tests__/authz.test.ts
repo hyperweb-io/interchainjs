@@ -1,8 +1,7 @@
 import "./setup.test";
 
 import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
-import { assertIsDeliverTxSuccess } from "@cosmjs/stargate";
-import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import { assertIsDeliverTxSuccess } from '@interchainjs/cosmos/utils';
 import { useChain } from 'starshipjs';
 
 import {

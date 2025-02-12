@@ -2,7 +2,7 @@ import './setup.test';
 
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
-import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
+import { assertIsDeliverTxSuccess } from '@interchainjs/cosmos/utils';
 import {
   AminoGenericOfflineSigner,
   DirectGenericOfflineSigner,
