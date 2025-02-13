@@ -25,7 +25,6 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "1.9.4",
     "@interchainjs/types": "1.9.4",
     "@interchainjs/utils": "1.9.4"
   },
