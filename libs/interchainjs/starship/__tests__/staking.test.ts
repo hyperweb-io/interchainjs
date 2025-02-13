@@ -243,8 +243,7 @@ describe('Staking tokens testing', () => {
     // Assert that the delegation amount is the set delegation amount
     // eslint-disable-next-line no-undef
     expect(BigInt(delegationResponse!.balance.amount)).toBeGreaterThan(
-      // eslint-disable-next-line no-undef
-      BigInt(0)
+      0
     );
     expect(delegationResponse!.balance.amount).toEqual(totalDelegationAmount.toString());
     expect(delegationResponse!.balance.denom).toEqual(denom);

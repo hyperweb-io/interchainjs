@@ -1,6 +1,6 @@
 import './setup.test';
 
-import {Asset} from '@chain-registry/types';
+import { Asset } from '@chain-registry/types';
 import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
@@ -142,8 +142,7 @@ describe('Staking tokens testing', () => {
     // Assert that the delegation amount is the set delegation amount
     // eslint-disable-next-line no-undef
     expect(BigInt(delegationResponse!.balance.amount)).toBeGreaterThan(
-      // eslint-disable-next-line no-undef
-      BigInt(0)
+      0
     );
     expect(delegationResponse!.balance.amount).toEqual(delegationAmount);
     expect(delegationResponse!.balance.denom).toEqual(denom);

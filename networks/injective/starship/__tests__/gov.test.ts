@@ -311,7 +311,7 @@ describe('Governance tests for injective', () => {
     )!.value;
 
     // eslint-disable-next-line no-undef
-    expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
+    expect(BigInt(proposalId)).toBeGreaterThan(0);
   }, 200000);
 
   it('query proposal', async () => {

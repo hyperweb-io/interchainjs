@@ -1,12 +1,11 @@
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
-import {Asset} from '@chain-registry/types';
+import { Asset } from '@chain-registry/types';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import {
   assertIsDeliverTxSuccess,
-  createQueryRpc,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
@@ -155,8 +154,7 @@ describe('Staking tokens testing', () => {
     // Assert that the delegation amount is the set delegation amount
     // eslint-disable-next-line no-undef
     expect(BigInt(delegationResponse!.balance.amount)).toBeGreaterThan(
-      // eslint-disable-next-line no-undef
-      BigInt(0)
+      0
     );
     expect(delegationResponse!.balance.amount).toEqual(delegationAmount);
     expect(delegationResponse!.balance.denom).toEqual(denom);

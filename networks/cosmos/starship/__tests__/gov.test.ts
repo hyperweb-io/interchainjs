@@ -234,7 +234,7 @@ describe('Governance tests for osmosis', () => {
     proposalId = toUtf8(fromBase64(proposalIdEncoded));
 
     // eslint-disable-next-line no-undef
-    expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
+    expect(BigInt(proposalId)).toBeGreaterThan(0);
   }, 200000);
 
   it('query proposal', async () => {
@@ -341,7 +341,7 @@ describe('Governance tests for osmosis', () => {
       proposalId: BigInt(proposalId),
     });
 
-    await expect(waitUntil(proposal.votingEndTime)).resolves.not.toThrow();
+    await expectAsync(waitUntil(proposal.votingEndTime)).not.toBeRejected();
   }, 200000);
 
   it('verify proposal passed', async () => {
