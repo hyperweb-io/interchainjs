@@ -34,9 +34,10 @@
   "devDependencies": {
     "@chain-registry/client": "1.18.1",
     "@cosmology/telescope": "^1.11.19",
-    "@injectivelabs/networks": "^1.14.13",
-    "@injectivelabs/sdk-ts": "^1.14.13",
-    "@injectivelabs/wallet-ts": "^1.14.13",
+    "@cosmjs/amino": "^0.33.0",
+    "@cosmjs/encoding": "^0.33.0",
+    "@cosmjs/tendermint-rpc": "^0.33.0",
+    "@cosmjs/stargate": "^0.33.0",
     "@noble/hashes": "^1.4.0",
     "@starship-ci/cli": "^2.9.0",
     "@types/jasmine": "^5.1.5",
@@ -67,5 +68,8 @@
     "ses": "^0.11.0",
     "typescript": "^5.1.6"
   },
-  "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71"
+  "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71",
+  "resolutions": {
+    "strip-ansi": "5.2.0"
+  }
 }
