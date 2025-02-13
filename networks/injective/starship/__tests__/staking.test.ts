@@ -7,10 +7,11 @@ import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
-  createQueryRpc,
-  sleep,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
+import {
+  sleep,
+} from '@interchainjs/utils';
 import {
   BondStatus,
   bondStatusToJSON,

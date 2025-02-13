@@ -3,6 +3,11 @@ import Decimal from 'decimal.js';
 import { AccountData, Auth, IKey, isByteAuth } from './auth';
 import { SignDocResponse } from './wallet';
 
+export type BroadcastMode =
+  | 'broadcast_tx_async'
+  | 'broadcast_tx_sync'
+  | 'broadcast_tx_commit';
+
 /**
  * HttpEndpoint is a type that represents an HTTP endpoint.
  */

@@ -10,11 +10,12 @@ import { EthSecp256k1HDWallet } from '@interchainjs/injective/wallets/ethSecp256
 import { SigningClient } from '@interchainjs/cosmos/signing-client';
 import {
   assertIsDeliverTxSuccess,
-  createQueryRpc,
-  sleep,
   toConverters,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
+import {
+  sleep,
+} from '@interchainjs/utils';
 import {
   ProposalStatus,
   TextProposal,

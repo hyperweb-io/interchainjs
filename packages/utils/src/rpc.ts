@@ -1,8 +1,8 @@
-import { HttpEndpoint, TxRpc } from '@interchainjs/types';
-import { toHttpEndpoint } from '@interchainjs/utils';
-import { fromBase64, randomId, toBase64, toHex } from '@interchainjs/utils';
+import { HttpEndpoint, TxRpc, BroadcastMode } from '@interchainjs/types';
+import { toHttpEndpoint } from './endpoint';
+import { fromBase64, toBase64, toHex } from './encoding';
+import { randomId } from './random';
 
-import { BroadcastMode } from '../types';
 export { getPrefix } from './chain';
 
 /**
