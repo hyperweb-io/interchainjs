@@ -1,3 +1,5 @@
+/// <reference types="@types/jest" />
+
 import './setup.test';
 
 import { Asset } from '@chain-registry/types';
@@ -142,7 +144,7 @@ describe('Staking tokens testing', () => {
     // Assert that the delegation amount is the set delegation amount
     // eslint-disable-next-line no-undef
     expect(BigInt(delegationResponse!.balance.amount)).toBeGreaterThan(
-      0
+      BigInt(0)
     );
     expect(delegationResponse!.balance.amount).toEqual(delegationAmount);
     expect(delegationResponse!.balance.denom).toEqual(denom);

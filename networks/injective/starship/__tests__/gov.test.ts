@@ -1,3 +1,5 @@
+/// <reference types="@types/jest" />
+
 import './setup.test';
 
 import { Asset } from '@chain-registry/types';
@@ -311,7 +313,7 @@ describe('Governance tests for injective', () => {
     )!.value;
 
     // eslint-disable-next-line no-undef
-    expect(BigInt(proposalId)).toBeGreaterThan(0);
+    expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
   }, 200000);
 
   it('query proposal', async () => {
