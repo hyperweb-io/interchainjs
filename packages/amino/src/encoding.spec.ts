@@ -82,7 +82,7 @@ describe("encoding", () => {
     });
 
     it("works for sr25519", () => {
-      pending("No test data available");
+      // pending("No test data available");
     });
 
     it("works for multisig", () => {

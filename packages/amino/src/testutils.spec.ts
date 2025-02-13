@@ -74,3 +74,8 @@ export const testgroup4: MultisigThresholdPubkey = {
 };
 export const testgroup4PubkeyBech32 =
   "wasmpub1ytql0csgqgfzd666axrjzq7vjdge6cdksmdx7r5vl72rrc6kk30ezp376mup77wamzvgtzqq7vfzd666axrjzquvkkvwu4qnp5603cyp3emc02sxzwdqutgqym9dke3t2h83dpv6vujvg56k";
+
+describe("testutils", () => {
+  it("testutils passes", () => {
+  });
+});
