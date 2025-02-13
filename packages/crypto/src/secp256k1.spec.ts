@@ -113,7 +113,7 @@ describe("Secp256k1", () => {
     const messageHash = new Uint8Array([]);
     await Secp256k1.createSignature(messageHash, keypair.privkey)
       .then(() => fail("must not resolve"))
-      .catch((error) => expect(error).toMatch(/message hash must not be empty/i));
+      .catch((error) => expect(error.message).toMatch(/message hash must not be empty/i));
   });
 
   it("throws for message hash longer than 32 bytes in signing", async () => {
@@ -122,7 +122,7 @@ describe("Secp256k1", () => {
     const messageHash = fromHex("11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff11");
     await Secp256k1.createSignature(messageHash, keypair.privkey)
       .then(() => fail("must not resolve"))
-      .catch((error) => expect(error).toMatch(/message hash length must not exceed 32 bytes/i));
+      .catch((error) => expect(error.message).toMatch(/message hash length must not exceed 32 bytes/i));
   });
 
   it("verifies signatures", async () => {
@@ -174,7 +174,7 @@ describe("Secp256k1", () => {
     const messageHash = new Uint8Array([]);
     await Secp256k1.verifySignature(dummySignature, messageHash, keypair.pubkey)
       .then(() => fail("must not resolve"))
-      .catch((error) => expect(error).toMatch(/message hash must not be empty/i));
+      .catch((error) => expect(error.message).toMatch(/message hash must not be empty/i));
   });
 
   it("throws for message hash longer than 32 bytes in verification", async () => {
@@ -189,7 +189,7 @@ describe("Secp256k1", () => {
     const messageHash = fromHex("11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff11");
     await Secp256k1.verifySignature(dummySignature, messageHash, keypair.privkey)
       .then(() => fail("must not resolve"))
-      .catch((error) => expect(error).toMatch(/message hash length must not exceed 32 bytes/i));
+      .catch((error) => expect(error.message).toMatch(/message hash length must not exceed 32 bytes/i));
   });
 
   it("verifies unnormalized pyca/cryptography signatures", async () => {
@@ -389,7 +389,7 @@ describe("Secp256k1", () => {
         messageHash,
         pubkey,
       );
-      expect(isValid).withContext(`(index ${index})`).toEqual(true);
+      expect(isValid).toEqual(true);
     }
   });
 
@@ -501,7 +501,7 @@ describe("Secp256k1", () => {
 
       // verify calculated signature
       const ok1 = await Secp256k1.verifySignature(calculatedSignature, messageHash, keypair.pubkey);
-      expect(ok1).withContext(`(index ${index})`).toEqual(true);
+      expect(ok1).toEqual(true);
 
       // verify original signature
       const ok2 = await Secp256k1.verifySignature(
@@ -509,10 +509,10 @@ describe("Secp256k1", () => {
         messageHash,
         keypair.pubkey,
       );
-      expect(ok2).withContext(`(index ${index})`).toEqual(true);
+      expect(ok2).toEqual(true);
 
       // compare signatures
-      expect(calculatedSignature.toDer()).withContext(`(index ${index})`).toEqual(row.signature);
+      expect(calculatedSignature.toDer()).toEqual(row.signature);
     }
   });
 

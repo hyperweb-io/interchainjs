@@ -122,7 +122,7 @@ describe("pbkdf2", () => {
       for (const [index, test] of brycxTests.entries()) {
         const { secret, salt, iterations, keylen, expected } = test;
         const hash = await pbkdf2Sha512(secret, salt, iterations, keylen);
-        expect(hash).withContext(`brycx tests index ${index}`).toEqual(expected);
+        expect(hash).toEqual(expected);
       }
     });
   });
@@ -130,7 +130,7 @@ describe("pbkdf2", () => {
   describe("pbkdf2Sha512Subtle", () => {
     it("works", async () => {
       const subtle = await getSubtle();
-      if (!subtle) pending("Subtle is not available in this environment");
+      if (!subtle) return;
 
       {
         const { secret, salt, iterations, keylen, expected } = botanTest;
@@ -141,7 +141,7 @@ describe("pbkdf2", () => {
       for (const [index, test] of brycxTests.entries()) {
         const { secret, salt, iterations, keylen, expected } = test;
         const hash = await pbkdf2Sha512Subtle(subtle, secret, salt, iterations, keylen);
-        expect(hash).withContext(`brycx tests index ${index}`).toEqual(expected);
+        expect(hash).toEqual(expected);
       }
     });
   });
@@ -160,7 +160,7 @@ describe("pbkdf2", () => {
       for (const [index, test] of brycxTests.entries()) {
         const { secret, salt, iterations, keylen, expected } = test;
         const hash = await pbkdf2Sha512NodeCrypto(nodeCrypto, secret, salt, iterations, keylen);
-        expect(hash).withContext(`brycx tests index ${index}`).toEqual(expected);
+        expect(hash).toEqual(expected);
       }
     });
   });
@@ -176,7 +176,7 @@ describe("pbkdf2", () => {
       for (const [index, test] of brycxTests.entries()) {
         const { secret, salt, iterations, keylen, expected } = test;
         const hash = await pbkdf2Sha512Noble(secret, salt, iterations, keylen);
-        expect(hash).withContext(`brycx tests index ${index}`).toEqual(expected);
+        expect(hash).toEqual(expected);
       }
     }, 120_000);
   });

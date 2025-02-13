@@ -24,18 +24,18 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "test": "yarn node jasmine-testrunner.js",
+    "test": "jest --config ./jest.config.js --verbose --bail",
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; tsc -p tsconfig.test.json; npm run copy",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; tsc -p tsconfig.test.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/utils": "1.9.4",
     "@interchainjs/encoding": "0.33.0",
     "@interchainjs/math": "0.33.0",
+    "@interchainjs/utils": "1.9.4",
     "@noble/hashes": "^1",
     "bn.js": "^5.2.0",
     "elliptic": "^6.5.4",
