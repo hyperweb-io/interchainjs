@@ -687,7 +687,7 @@ export const EventBatchSpotExecution = {
           message.isBuy = reader.bool();
           break;
         case 3:
-          message.executionType = (reader.int32() as any);
+          message.executionType = reader.int32() as any;
           break;
         case 4:
           message.trades.push(TradeLog.decode(reader, reader.uint32()));
@@ -811,7 +811,7 @@ export const EventBatchDerivativeExecution = {
           message.cumulativeFunding = reader.string();
           break;
         case 5:
-          message.executionType = (reader.int32() as any);
+          message.executionType = reader.int32() as any;
           break;
         case 6:
           message.trades.push(DerivativeTradeLog.decode(reader, reader.uint32()));

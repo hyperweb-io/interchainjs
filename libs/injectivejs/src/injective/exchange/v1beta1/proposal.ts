@@ -1137,7 +1137,7 @@ export const SpotMarketParamUpdateProposal = {
           message.minQuantityTickSize = reader.string();
           break;
         case 9:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 10:
           message.ticker = reader.string();
@@ -1296,7 +1296,7 @@ export const ExchangeEnableProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.exchangeType = (reader.int32() as any);
+          message.exchangeType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -1916,7 +1916,7 @@ export const PerpetualMarketLaunchProposal = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 8:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 9:
           message.initialMarginRatio = reader.string();
@@ -2175,7 +2175,7 @@ export const BinaryOptionsMarketLaunchProposal = {
           message.oracleProvider = reader.string();
           break;
         case 6:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 7:
           message.oracleScaleFactor = reader.uint32();
@@ -2453,7 +2453,7 @@ export const ExpiryFuturesMarketLaunchProposal = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 8:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 9:
           message.expiry = reader.int64();
@@ -2741,7 +2741,7 @@ export const DerivativeMarketParamUpdateProposal = {
           message.hourlyFundingRateCap = reader.string();
           break;
         case 13:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 14:
           message.oracleParams = OracleParams.decode(reader, reader.uint32());
@@ -3316,7 +3316,7 @@ export const BinaryOptionsMarketParamUpdateProposal = {
           message.admin = reader.string();
           break;
         case 13:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 14:
           message.oracleParams = ProviderOracleParams.decode(reader, reader.uint32());
@@ -3501,7 +3501,7 @@ export const ProviderOracleParams = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 4:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3607,7 +3607,7 @@ export const OracleParams = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 4:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

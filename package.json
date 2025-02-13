@@ -33,11 +33,7 @@
   },
   "devDependencies": {
     "@chain-registry/client": "1.18.1",
-    "@cosmology/telescope": "^1.11.19",
-    "@cosmjs/amino": "^0.33.0",
-    "@cosmjs/encoding": "^0.33.0",
-    "@cosmjs/tendermint-rpc": "^0.33.0",
-    "@cosmjs/stargate": "^0.33.0",
+    "@cosmology/telescope": "^1.11.20",
     "@noble/hashes": "^1.4.0",
     "@starship-ci/cli": "^2.9.0",
     "@types/jest": "^29.5.11",

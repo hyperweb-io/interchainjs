@@ -3540,7 +3540,7 @@ export const MsgInstantPerpetualMarketLaunch = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 7:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 8:
           message.makerFeeRate = reader.string();
@@ -3828,7 +3828,7 @@ export const MsgInstantBinaryOptionsMarketLaunch = {
           message.oracleProvider = reader.string();
           break;
         case 5:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 6:
           message.oracleScaleFactor = reader.uint32();
@@ -4133,7 +4133,7 @@ export const MsgInstantExpiryFuturesMarketLaunch = {
           message.oracleQuote = reader.string();
           break;
         case 6:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 7:
           message.oracleScaleFactor = reader.uint32();
@@ -9078,7 +9078,7 @@ export const MsgAdminUpdateBinaryOptionsMarket = {
           message.settlementTimestamp = reader.int64();
           break;
         case 6:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

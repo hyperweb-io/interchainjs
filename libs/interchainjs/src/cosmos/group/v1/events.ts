@@ -779,7 +779,7 @@ export const EventExec = {
           message.proposalId = reader.uint64();
           break;
         case 2:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         case 3:
           message.logs = reader.string();
@@ -969,7 +969,7 @@ export const EventProposalPruned = {
           message.proposalId = reader.uint64();
           break;
         case 2:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 3:
           message.tallyResult = TallyResult.decode(reader, reader.uint32());

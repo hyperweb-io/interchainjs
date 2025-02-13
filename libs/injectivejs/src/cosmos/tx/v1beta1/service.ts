@@ -741,7 +741,7 @@ export const GetTxsEventRequest = {
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
         case 3:
-          message.orderBy = (reader.int32() as any);
+          message.orderBy = reader.int32() as any;
           break;
         case 4:
           message.page = reader.uint64();
@@ -984,7 +984,7 @@ export const BroadcastTxRequest = {
           message.txBytes = reader.bytes();
           break;
         case 2:
-          message.mode = (reader.int32() as any);
+          message.mode = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
