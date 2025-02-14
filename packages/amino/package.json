@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/amino",
-  "version": "1.9.5",
+  "version": "1.9.6",
   "description": "Helpers for Amino based signing.",
   "contributors": [
     "Simon Warta <webmaster128@users.noreply.github.com>"
@@ -33,9 +33,9 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/crypto": "1.9.5",
-    "@interchainjs/encoding": "1.9.5",
-    "@interchainjs/math": "1.9.5",
-    "@interchainjs/utils": "1.9.5"
+    "@interchainjs/crypto": "1.9.6",
+    "@interchainjs/encoding": "1.9.6",
+    "@interchainjs/math": "1.9.6",
+    "@interchainjs/utils": "1.9.6"
   }
 }
