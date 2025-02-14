@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/crypto",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "description": "Cryptography resources for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>",
@@ -34,7 +34,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/encoding": "1.9.6",
+    "@interchainjs/encoding": "^1.9.7",
     "@interchainjs/math": "1.9.6",
     "@interchainjs/utils": "1.9.6",
     "@noble/hashes": "^1",
