@@ -6,9 +6,9 @@
     "Simon Warta <webmaster128@users.noreply.github.com>"
   ],
   "license": "Apache-2.0",
-  "main": "dist/index.js",
+  "main": "index.js",
   "module": "esm/index.js",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "files": [
     "dist/",
     "*.md",
@@ -21,8 +21,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "directory": "dist",
-    "registry": "https://registry.npmjs.org"
+    "directory": "dist"
   },
   "scripts": {
     "test": "jest --config ./jest.config.js --verbose --bail",
