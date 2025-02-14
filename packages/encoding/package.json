@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/encoding",
-  "version": "1.9.7",
+  "version": "1.9.11",
   "description": "Encoding helpers for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>"
