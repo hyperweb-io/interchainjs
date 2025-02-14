@@ -12,4 +12,4 @@
    <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
 </p>
 
-Helpers for Amino
+Helpers for Amino based signing.
