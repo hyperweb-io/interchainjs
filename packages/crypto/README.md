@@ -1,15 +1,19 @@
 # @interchainjs/crypto
 
-[![npm version](https://img.shields.io/npm/v/@cosmjs/crypto.svg)](https://www.npmjs.com/package/@cosmjs/crypto)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg" width="280">
+</p>
+
+<p align="center" width="100%">
+  <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
+    <img height="20" src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
+  </a>
+   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
+</p>
 
 This package contains low-level cryptographic functionality used in other
-@cosmjs libraries. Little of it is implemented here, but mainly it is a curation
+`@interchainjs` libraries. Little of it is implemented here, but mainly it is a curation
 of external libraries along with correctness tests. We add type safety, some
 more checks, and a simple API to these libraries. This can also be freely
-imported outside of CosmJS based applications.
-
-## License
-
-This package is originated from the cosmjs repository, licensed under the Apache License
-2.0 (see [NOTICE](https://github.com/cosmos/cosmjs/blob/main/NOTICE) and
-[LICENSE](https://github.com/cosmos/cosmjs/blob/main/LICENSE)).
+imported outside of `@interchainjs` based applications.

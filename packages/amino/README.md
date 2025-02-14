@@ -1,11 +1,15 @@
 # @interchainjs/amino
 
-[![npm version](https://img.shields.io/npm/v/@cosmjs/amino.svg)](https://www.npmjs.com/package/@cosmjs/amino)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg" width="280">
+</p>
+
+<p align="center" width="100%">
+  <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
+    <img height="20" src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
+  </a>
+   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
+</p>
 
 Helpers for Amino
-
-## License
-
-This package is originated from the cosmjs repository, licensed under the Apache License
-2.0 (see [NOTICE](https://github.com/cosmos/cosmjs/blob/main/NOTICE) and
-[LICENSE](https://github.com/cosmos/cosmjs/blob/main/LICENSE)).
