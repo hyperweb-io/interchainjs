@@ -6,21 +6,15 @@
     "IOV SAS <admin@iov.one>"
   ],
   "license": "Apache-2.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/",
-    "*.md",
-    "!*.spec.*",
-    "!**/testdata/"
-  ],
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/math"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org",
     "directory": "dist"
   },
   "scripts": {
