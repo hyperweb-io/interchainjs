@@ -203,7 +203,7 @@ export const AppOptionsResponse = {
   encode(message: AppOptionsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     Object.entries(message.moduleOptions).forEach(([key, value]) => {
       AppOptionsResponse_ModuleOptionsEntry.encode({
-        key: (key as any),
+        key: key as any,
         value
       }, writer.uint32(10).fork()).ldelim();
     });

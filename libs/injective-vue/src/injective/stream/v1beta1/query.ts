@@ -1357,7 +1357,7 @@ export const SpotOrderUpdate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 2:
           message.orderHash = reader.bytes();
@@ -1545,7 +1545,7 @@ export const DerivativeOrderUpdate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 2:
           message.orderHash = reader.bytes();

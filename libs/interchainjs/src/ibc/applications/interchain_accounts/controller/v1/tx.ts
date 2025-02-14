@@ -180,7 +180,7 @@ export const MsgRegisterInterchainAccount = {
           message.version = reader.string();
           break;
         case 4:
-          message.ordering = (reader.int32() as any);
+          message.ordering = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

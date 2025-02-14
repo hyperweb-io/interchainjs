@@ -2248,7 +2248,7 @@ export const MsgRecvPacketResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2452,7 +2452,7 @@ export const MsgTimeoutResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2680,7 +2680,7 @@ export const MsgTimeoutOnCloseResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2884,7 +2884,7 @@ export const MsgAcknowledgementResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3356,7 +3356,7 @@ export const MsgChannelUpgradeTryResponse = {
           message.upgradeSequence = reader.uint64();
           break;
         case 3:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3594,7 +3594,7 @@ export const MsgChannelUpgradeAckResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3706,7 +3706,7 @@ export const MsgChannelUpgradeConfirm = {
           message.channelId = reader.string();
           break;
         case 3:
-          message.counterpartyChannelState = (reader.int32() as any);
+          message.counterpartyChannelState = reader.int32() as any;
           break;
         case 4:
           message.counterpartyUpgrade = Upgrade.decode(reader, reader.uint32());
@@ -3834,7 +3834,7 @@ export const MsgChannelUpgradeConfirmResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3942,7 +3942,7 @@ export const MsgChannelUpgradeOpen = {
           message.channelId = reader.string();
           break;
         case 3:
-          message.counterpartyChannelState = (reader.int32() as any);
+          message.counterpartyChannelState = reader.int32() as any;
           break;
         case 4:
           message.counterpartyUpgradeSequence = reader.uint64();

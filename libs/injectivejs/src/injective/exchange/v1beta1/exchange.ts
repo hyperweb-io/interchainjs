@@ -2180,7 +2180,7 @@ export const Params = {
           message.binaryOptionsMarketInstantListingFee = Coin.decode(reader, reader.uint32());
           break;
         case 19:
-          message.atomicMarketOrderAccessLevel = (reader.int32() as any);
+          message.atomicMarketOrderAccessLevel = reader.int32() as any;
           break;
         case 20:
           message.spotAtomicMarketOrderFeeMultiplier = reader.string();
@@ -2585,7 +2585,7 @@ export const DerivativeMarket = {
           message.oracleQuote = reader.string();
           break;
         case 4:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 5:
           message.oracleScaleFactor = reader.uint32();
@@ -2615,7 +2615,7 @@ export const DerivativeMarket = {
           message.isPerpetual = reader.bool();
           break;
         case 14:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 15:
           message.minPriceTickSize = reader.string();
@@ -2871,7 +2871,7 @@ export const BinaryOptionsMarket = {
           message.oracleProvider = reader.string();
           break;
         case 4:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 5:
           message.oracleScaleFactor = reader.uint32();
@@ -2901,7 +2901,7 @@ export const BinaryOptionsMarket = {
           message.relayerFeeShareRate = reader.string();
           break;
         case 14:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 15:
           message.minPriceTickSize = reader.string();
@@ -3721,7 +3721,7 @@ export const SpotMarket = {
           message.marketId = reader.string();
           break;
         case 8:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 9:
           message.minPriceTickSize = reader.string();
@@ -4154,7 +4154,7 @@ export const SpotOrder = {
           message.orderInfo = OrderInfo.decode(reader, reader.uint32());
           break;
         case 3:
-          message.orderType = (reader.int32() as any);
+          message.orderType = reader.int32() as any;
           break;
         case 4:
           message.triggerPrice = reader.string();
@@ -4263,7 +4263,7 @@ export const SpotLimitOrder = {
           message.orderInfo = OrderInfo.decode(reader, reader.uint32());
           break;
         case 2:
-          message.orderType = (reader.int32() as any);
+          message.orderType = reader.int32() as any;
           break;
         case 3:
           message.fillable = reader.string();
@@ -4389,7 +4389,7 @@ export const SpotMarketOrder = {
           message.orderHash = reader.bytes();
           break;
         case 4:
-          message.orderType = (reader.int32() as any);
+          message.orderType = reader.int32() as any;
           break;
         case 5:
           message.triggerPrice = reader.string();
@@ -4506,7 +4506,7 @@ export const DerivativeOrder = {
           message.orderInfo = OrderInfo.decode(reader, reader.uint32());
           break;
         case 3:
-          message.orderType = (reader.int32() as any);
+          message.orderType = reader.int32() as any;
           break;
         case 4:
           message.margin = reader.string();
@@ -4947,7 +4947,7 @@ export const DerivativeLimitOrder = {
           message.orderInfo = OrderInfo.decode(reader, reader.uint32());
           break;
         case 2:
-          message.orderType = (reader.int32() as any);
+          message.orderType = reader.int32() as any;
           break;
         case 3:
           message.margin = reader.string();
@@ -5079,7 +5079,7 @@ export const DerivativeMarketOrder = {
           message.orderInfo = OrderInfo.decode(reader, reader.uint32());
           break;
         case 2:
-          message.orderType = (reader.int32() as any);
+          message.orderType = reader.int32() as any;
           break;
         case 3:
           message.margin = reader.string();

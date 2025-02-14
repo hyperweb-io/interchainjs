@@ -401,7 +401,7 @@ export const EventAttestationObserved = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.attestationType = (reader.int32() as any);
+          message.attestationType = reader.int32() as any;
           break;
         case 2:
           message.bridgeContract = reader.string();

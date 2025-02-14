@@ -304,7 +304,7 @@ export const RegisteredContract = {
           message.granterAddress = reader.string();
           break;
         case 7:
-          message.fundMode = (reader.int32() as any);
+          message.fundMode = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

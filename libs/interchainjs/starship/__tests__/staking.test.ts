@@ -1,8 +1,10 @@
+/// <reference types="@types/jest" />
+
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
+import { generateMnemonic } from '../src/utils';
 import { assertIsDeliverTxSuccess } from '@interchainjs/cosmos/utils';
 import { DirectGenericOfflineSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
@@ -243,7 +245,6 @@ describe('Staking tokens testing', () => {
     // Assert that the delegation amount is the set delegation amount
     // eslint-disable-next-line no-undef
     expect(BigInt(delegationResponse!.balance.amount)).toBeGreaterThan(
-      // eslint-disable-next-line no-undef
       BigInt(0)
     );
     expect(delegationResponse!.balance.amount).toEqual(totalDelegationAmount.toString());

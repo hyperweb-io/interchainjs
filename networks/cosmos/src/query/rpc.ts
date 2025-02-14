@@ -9,12 +9,11 @@ import {
   TxBody,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BroadcastOptions, HttpEndpoint } from '@interchainjs/types';
+import { BroadcastMode, BroadcastOptions, HttpEndpoint } from '@interchainjs/types';
 import { fromBase64, isEmpty, toHttpEndpoint } from '@interchainjs/utils';
 
 import { defaultAccountParser, defaultBroadcastOptions } from '../defaults';
 import {
-  BroadcastMode,
   BroadcastResponse,
   EncodedMessage,
   QueryClient,
@@ -29,7 +28,7 @@ import {
   TxResponse,
 } from '../types/rpc';
 import { constructAuthInfo } from '../utils/direct';
-import { broadcast, createQueryRpc, getPrefix, sleep } from '../utils/rpc';
+import { broadcast, createQueryRpc, getPrefix, sleep } from '@interchainjs/utils';
 import { isBaseAccount } from '../utils';
 import { QueryAccountRequest, QueryAccountResponse } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/query';
 import { SimulateRequest, SimulateResponse } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/service';

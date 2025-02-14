@@ -246,7 +246,7 @@ export const EventContractRegistered = {
           message.granterAddress = reader.string();
           break;
         case 9:
-          message.fundingMode = (reader.int32() as any);
+          message.fundingMode = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

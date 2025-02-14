@@ -627,7 +627,7 @@ export const Validator = {
           message.jailed = reader.bool();
           break;
         case 4:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 5:
           message.tokens = reader.string();

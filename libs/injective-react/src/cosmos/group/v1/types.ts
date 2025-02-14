@@ -1707,7 +1707,7 @@ export const Proposal = {
           message.groupPolicyVersion = reader.uint64();
           break;
         case 8:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 9:
           message.finalTallyResult = TallyResult.decode(reader, reader.uint32());
@@ -1716,7 +1716,7 @@ export const Proposal = {
           message.votingPeriodEnd = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 11:
-          message.executorResult = (reader.int32() as any);
+          message.executorResult = reader.int32() as any;
           break;
         case 12:
           message.messages.push(Any.decode(reader, reader.uint32()));
@@ -2006,7 +2006,7 @@ export const Vote = {
           message.voter = reader.string();
           break;
         case 3:
-          message.option = (reader.int32() as any);
+          message.option = reader.int32() as any;
           break;
         case 4:
           message.metadata = reader.string();

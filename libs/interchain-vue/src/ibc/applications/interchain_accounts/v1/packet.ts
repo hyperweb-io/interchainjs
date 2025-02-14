@@ -111,7 +111,7 @@ export const InterchainAccountPacketData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.type = (reader.int32() as any);
+          message.type = reader.int32() as any;
           break;
         case 2:
           message.data = reader.bytes();

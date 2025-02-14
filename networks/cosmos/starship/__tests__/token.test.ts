@@ -7,9 +7,11 @@ import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
-  createQueryRpc,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
+import {
+  createQueryRpc,
+} from '@interchainjs/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { MessageComposer } from 'interchainjs/cosmos/bank/v1beta1/tx.registry';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';

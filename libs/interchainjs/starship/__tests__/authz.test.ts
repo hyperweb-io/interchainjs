@@ -1,6 +1,6 @@
 import "./setup.test";
 
-import { generateMnemonic } from "@confio/relayer/build/lib/helpers";
+import { generateMnemonic } from "../src/utils";
 import { assertIsDeliverTxSuccess } from '@interchainjs/cosmos/utils';
 import { useChain } from 'starshipjs';
 

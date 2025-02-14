@@ -4,3 +4,7 @@ export * from './endpoint';
 export * from './key';
 export * from './price';
 export * from './random';
+export * from "./arrays";
+export * from "./typechecks";
+export * from "./chain";
+export * from "./rpc";

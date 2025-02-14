@@ -7,7 +7,7 @@ import { ValidatorUpdate, ValidatorUpdateAmino } from "../../../tendermint/abci/
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, isSet } from "../../../helpers";
-import { encodePubkey, decodePubkey } from "@cosmjs/proto-signing";
+import { encodePubkey, decodePubkey } from "@interchainjs/pubkey";
 /** BondStatus is the status of a validator. */
 export enum BondStatus {
   /** BOND_STATUS_UNSPECIFIED - UNSPECIFIED defines an invalid validator status. */
@@ -1247,7 +1247,7 @@ export const Validator = {
           message.jailed = reader.bool();
           break;
         case 4:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 5:
           message.tokens = reader.string();

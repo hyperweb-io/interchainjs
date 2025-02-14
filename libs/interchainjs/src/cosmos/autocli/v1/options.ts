@@ -497,7 +497,7 @@ export const ServiceCommandDescriptor = {
     }
     Object.entries(message.subCommands).forEach(([key, value]) => {
       ServiceCommandDescriptor_SubCommandsEntry.encode({
-        key: (key as any),
+        key: key as any,
         value
       }, writer.uint32(26).fork()).ldelim();
     });
@@ -727,7 +727,7 @@ export const RpcCommandOptions = {
     }
     Object.entries(message.flagOptions).forEach(([key, value]) => {
       RpcCommandOptions_FlagOptionsEntry.encode({
-        key: (key as any),
+        key: key as any,
         value
       }, writer.uint32(82).fork()).ldelim();
     });

@@ -2385,7 +2385,7 @@ export const QueryHistoricalPriceRecordsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.oracle = (reader.int32() as any);
+          message.oracle = reader.int32() as any;
           break;
         case 2:
           message.symbolId = reader.string();
@@ -3196,7 +3196,7 @@ export const QueryOraclePriceRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 2:
           message.base = reader.string();

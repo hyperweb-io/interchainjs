@@ -3800,7 +3800,7 @@ export const QuerySubaccountDepositsResponse = {
   encode(message: QuerySubaccountDepositsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     Object.entries(message.deposits).forEach(([key, value]) => {
       QuerySubaccountDepositsResponse_DepositsEntry.encode({
-        key: (key as any),
+        key: key as any,
         value
       }, writer.uint32(10).fork()).ldelim();
     });
@@ -5406,7 +5406,7 @@ export const QuerySpotOrderbookRequest = {
           message.limit = reader.uint64();
           break;
         case 3:
-          message.orderSide = (reader.int32() as any);
+          message.orderSide = reader.int32() as any;
           break;
         case 4:
           message.limitCumulativeNotional = reader.string();
@@ -7153,7 +7153,7 @@ export const QueryTraderSpotOrdersToCancelUpToAmountRequest = {
           message.quoteAmount = reader.string();
           break;
         case 5:
-          message.strategy = (reader.int32() as any);
+          message.strategy = reader.int32() as any;
           break;
         case 6:
           message.referencePrice = reader.string();
@@ -7276,7 +7276,7 @@ export const QueryTraderDerivativeOrdersToCancelUpToAmountRequest = {
           message.quoteAmount = reader.string();
           break;
         case 4:
-          message.strategy = (reader.int32() as any);
+          message.strategy = reader.int32() as any;
           break;
         case 5:
           message.referencePrice = reader.string();
