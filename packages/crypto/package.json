@@ -7,21 +7,22 @@
     "Simon Warta"
   ],
   "license": "Apache-2.0",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "build/",
+    "dist/",
     "*.md",
     "!*.spec.*",
     "!**/testdata/"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmos/cosmjs/tree/main/packages/crypto"
+    "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/crypto"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "directory": "dist"
   },
   "scripts": {
     "test": "jest --config ./jest.config.js --verbose --bail",

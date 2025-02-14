@@ -16,11 +16,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hyperweb-io/interchainjs"
+    "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/pubkey"
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "directory": "dist"
   },
   "scripts": {
     "test": "jest --config ./jest.config.js --verbose --bail",
