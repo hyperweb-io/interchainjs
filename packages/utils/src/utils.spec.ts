@@ -1,4 +1,4 @@
-import { fromHex } from "@cosmjs/encoding";
+import { fromHex } from "@interchainjs/encoding";
 
 import { decodeCosmosSdkDecFromProto } from "./utils";
 

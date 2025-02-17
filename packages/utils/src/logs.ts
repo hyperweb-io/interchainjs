@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { isNonNullObject } from "@cosmjs/utils";
+import { isObjectLike } from "@interchainjs/utils";
 
 import { Attribute, Event } from "./events";
 
@@ -10,7 +10,7 @@ export interface Log {
 }
 
 export function parseAttribute(input: unknown): Attribute {
-  if (!isNonNullObject(input)) throw new Error("Attribute must be a non-null object");
+  if (!isObjectLike(input)) throw new Error("Attribute must be a non-null object");
   const { key, value } = input as any;
   if (typeof key !== "string" || !key) throw new Error("Attribute's key must be a non-empty string");
   if (typeof value !== "string" && typeof value !== "undefined") {
@@ -24,7 +24,7 @@ export function parseAttribute(input: unknown): Attribute {
 }
 
 export function parseEvent(input: unknown): Event {
-  if (!isNonNullObject(input)) throw new Error("Event must be a non-null object");
+  if (!isObjectLike(input)) throw new Error("Event must be a non-null object");
   const { type, attributes } = input as any;
   if (typeof type !== "string" || type === "") {
     throw new Error(`Event type must be a non-empty string`);
@@ -37,7 +37,7 @@ export function parseEvent(input: unknown): Event {
 }
 
 export function parseLog(input: unknown): Log {
-  if (!isNonNullObject(input)) throw new Error("Log must be a non-null object");
+  if (!isObjectLike(input)) throw new Error("Log must be a non-null object");
   const { msg_index, log, events } = input as any;
   if (typeof msg_index !== "number") throw new Error("Log's msg_index must be a number");
   if (typeof log !== "string") throw new Error("Log's log must be a string");
