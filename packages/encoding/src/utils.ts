@@ -1,4 +1,5 @@
-import { fromAscii, fromBech32 } from "@interchainjs/encoding";
+import { fromAscii } from "./ascii";
+import { fromBech32 } from "./bech32";
 import { Decimal, Uint64 } from "@interchainjs/math";
 
 /**
