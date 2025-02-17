@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { isObjectLike } from "@interchainjs/utils";
+import { isObjectLike } from "./typechecks";
 
 import { Attribute, Event } from "./events";
 

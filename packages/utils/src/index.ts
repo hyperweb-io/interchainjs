@@ -8,3 +8,6 @@ export * from "./arrays";
 export * from "./typechecks";
 export * from "./chain";
 export * from "./rpc";
+export * from "./utils";
+export * from "./logs";
+export * from "./events";
