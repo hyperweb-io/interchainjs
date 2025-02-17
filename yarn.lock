@@ -1116,6 +1116,18 @@
   resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.68.tgz#83173c3e79c7c89a382c4017e15db71970038847"
   integrity sha512-MCK9RKJ67VYWCJ0HtnDYJIottx4paoo6wKMbH3s6xWFzLVwufJWi0iKMoppVOIXWk+yr+h9W3puaLJPnYNez9A==
 
+"@chain-registry/v2-types@0.53.72", "@chain-registry/v2-types@^0.53.40":
+  version "0.53.72"
+  resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.72.tgz#3621cc1e94cacb430c657c2af63d4825950b880f"
+  integrity sha512-HIbDFK0R1aZTbXdTN7FOZI+z3lHt4ZQWRYDctUk3IwvGxOC04gYCa45SfsHx4YpqALXa0hu9Acj5fUSp4mnZ5w==
+
+"@chain-registry/v2@1.71.71":
+  version "1.71.71"
+  resolved "https://registry.yarnpkg.com/@chain-registry/v2/-/v2-1.71.71.tgz#648eab79a487a2680c77b85fab96d5c5d5fb3eea"
+  integrity sha512-JdzJHRduw58io8ZOKy7mnAt9oFJqWSa5Bn5srWXG5326ztUCe1MLd9yZMMCos57mc4UFrOJm8Gr9V7lKtEZvjQ==
+  dependencies:
+    "@chain-registry/v2-types" "^0.53.40"
+
 "@chain-registry/v2@^1.65.6":
   version "1.71.121"
   resolved "https://registry.yarnpkg.com/@chain-registry/v2/-/v2-1.71.121.tgz#38baa88c2d6eb59e8996a0bc2b754b2f492468d9"
