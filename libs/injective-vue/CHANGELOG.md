@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.13](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.9.12...injective-vue@1.9.13) (2025-02-21)
+
+### Bug Fixes
+
+- update README.md ([590af74](https://github.com/hyperweb-io/interchainjs/commit/590af747c4ce15aece06236ab22cc472c0893607))
+
 ## [1.9.12](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.9.11...injective-vue@1.9.12) (2025-02-17)
 
 **Note:** Version bump only for package injective-vue
