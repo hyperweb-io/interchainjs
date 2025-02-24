@@ -3,9 +3,10 @@
   "version": "1.9.13",
   "description": "injective-react is a JavaScript library providing react query hooks for interacting with injective sdk.",
   "main": "index.js",
-  "module": "esm/index.js",
+  "module": "index.js",
   "types": "index.d.ts",
   "author": "Hyperweb <developers@hyperweb.io>",
+  "sideEffects": false,
   "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",
@@ -19,10 +20,9 @@
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
-    "lint": "eslint . --fix",
-    "prepare": "npm run build"
+    "build": "npm run clean; tsc; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; npm run copy",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@interchainjs/cosmos": "1.9.13",
