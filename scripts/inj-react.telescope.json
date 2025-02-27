@@ -50,13 +50,15 @@
             "enabled": false
         },
         "stargateClients": {
-            "enabled": false
+            "enabled": false,
+            "addGetTxRpc": true
         },
         "lcdClients": {
             "enabled": false
         },
         "rpcClients": {
-            "enabled": false
+            "enabled": true,
+            "extensions": false
         },
         "helperFunctions": {
             "enabled": true,
