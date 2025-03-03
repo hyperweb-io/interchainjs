@@ -1135,10 +1135,10 @@
   dependencies:
     "@chain-registry/v2-types" "^0.53.68"
 
-"@cosmology/ast@^1.9.8":
-  version "1.9.8"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.9.8.tgz#2326b11616e36e3190ba48b41dbe279391e41927"
-  integrity sha512-/p9QTO6muZ65JtigwanCrTOypnVuE9RAXFsBEJLPBzd1hp0AiWwuS4l21PWOrBfqqNpR2LpohUWUEye55/aCdw==
+"@cosmology/ast@^1.9.10":
+  version "1.9.10"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.9.10.tgz#3ef6fb6ef6e523c275e76bc555af67d969979289"
+  integrity sha512-wa4f3X/6snyccbWEskdeQMQkpOg5ljdnr+SSJSf6ZZJKpgNfdSKnMfIbybtP9KaMe1YWnGhpQp9U5IXqamK1IA==
   dependencies:
     "@babel/types" "7.23.6"
     "@cosmology/types" "^1.11.6"
@@ -1146,10 +1146,10 @@
     case "1.6.3"
     dotty "0.1.2"
 
-"@cosmology/proto-parser@^1.9.6":
-  version "1.9.6"
-  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.9.6.tgz#dfcfae863f319f5589d0a106b5e5f9bb53c51b74"
-  integrity sha512-PaqCWqwylOoutH5LOdpdfxVUQNX4rBaIabR9uKdG3iczlNTAWEHi7LywnIvNv2L4QwCpxdhoqU+k7Za5uH2GOQ==
+"@cosmology/proto-parser@^1.9.7":
+  version "1.9.7"
+  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.9.7.tgz#dfff818dd6c67c3127e8af6b18c3d04c36621936"
+  integrity sha512-yOCVMCLOMlKdZYML37CfX8x/5IM0ytAM7HBQY0YdxQhnVuA9T2u57as1sLlkXTHff08YOVve2Ww56+3CWLQNYg==
   dependencies:
     "@cosmology/protobufjs" "7.3.2"
     "@cosmology/types" "^1.11.6"
@@ -1179,17 +1179,17 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.11.20":
-  version "1.11.20"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.20.tgz#f451d01b9fb1144fc6bc97ada3c9d4c3f0033f19"
-  integrity sha512-0w+CH+IOCejaIvl/iNQ9pgO9a9cg5NkzDdA+8kmgsZLkQjlNT6PklEfKpss+K0JkIHdURbYhHYJyZLmwmemVUA==
+"@cosmology/telescope@^1.11.22":
+  version "1.11.22"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.11.22.tgz#b61f8f4c571b5bb17bdff36cc170db0339ebd88d"
+  integrity sha512-IUFtrDGaKW2lzLOD7H6vwWiY+BUCzSuItwROyuQrHIyXGU8VW+LW62isMdTkQ+OTo8RPGjR/s8qmRfTM/dx3KQ==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.9.8"
-    "@cosmology/proto-parser" "^1.9.6"
+    "@cosmology/ast" "^1.9.10"
+    "@cosmology/proto-parser" "^1.9.7"
     "@cosmology/types" "^1.11.6"
     "@cosmology/utils" "^1.9.6"
     "@cosmwasm/ts-codegen" "0.35.7"

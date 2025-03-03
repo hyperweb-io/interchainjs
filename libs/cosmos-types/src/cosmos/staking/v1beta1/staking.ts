@@ -6,7 +6,7 @@ import { Coin } from "../../base/v1beta1/coin";
 import { ValidatorUpdate } from "../../../tendermint/abci/types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 /** BondStatus is the status of a validator. */
 export enum BondStatus {
   /** BOND_STATUS_UNSPECIFIED - UNSPECIFIED defines an invalid validator status. */

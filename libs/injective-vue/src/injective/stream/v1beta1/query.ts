@@ -3,7 +3,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 export enum OrderUpdateStatus {
   Unspecified = 0,
   Booked = 1,
@@ -1826,10 +1826,10 @@ export const Position = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.isLong = message.isLong === false ? undefined : message.isLong;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.entry_price = message.entryPrice === "" ? undefined : message.entryPrice;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.cumulative_funding_entry = message.cumulativeFundingEntry === "" ? undefined : message.cumulativeFundingEntry;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.entry_price = message.entryPrice === "" ? undefined : Decimal.fromUserInput(message.entryPrice, 18).atomics;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.cumulative_funding_entry = message.cumulativeFundingEntry === "" ? undefined : Decimal.fromUserInput(message.cumulativeFundingEntry, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PositionAminoMsg): Position {
@@ -1922,7 +1922,7 @@ export const OraclePrice = {
   toAmino(message: OraclePrice): OraclePriceAmino {
     const obj: any = {};
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.type = message.type === "" ? undefined : message.type;
     return obj;
   },
@@ -2106,10 +2106,10 @@ export const SpotTrade = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.is_buy = message.isBuy === false ? undefined : message.isBuy;
     obj.executionType = message.executionType === "" ? undefined : message.executionType;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     obj.fee_recipient_address = message.feeRecipientAddress === null ? undefined : message.feeRecipientAddress;
     obj.cid = message.cid === "" ? undefined : message.cid;
@@ -2298,8 +2298,8 @@ export const DerivativeTrade = {
     obj.executionType = message.executionType === "" ? undefined : message.executionType;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.position_delta = message.positionDelta ? PositionDelta.toAmino(message.positionDelta) : undefined;
-    obj.payout = message.payout === "" ? undefined : message.payout;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.payout = message.payout === "" ? undefined : Decimal.fromUserInput(message.payout, 18).atomics;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.fee_recipient_address = message.feeRecipientAddress === null ? undefined : message.feeRecipientAddress;
     obj.cid = message.cid === "" ? undefined : message.cid;

@@ -41,7 +41,7 @@
                 "num64": "bigint",
                 "customTypes": {
                     "useCosmosSDKDec": true,
-                    "useEnhancedDecimal": true
+                    "useEnhancedDecimal": false
                 },
                 "useTelescopeGeneratedType": true,
                 "autoFixUndefinedEnumDefault": true
@@ -75,7 +75,10 @@
             "enabled": true,
             "useLegacyInlineEncoding": false,
             "disableMsgTypes": false,
-            "useProtoOptionality": true
+            "useProtoOptionality": true,
+            "customTypes": {
+              "useCosmosSDKDec": true
+            }
         }
     }
 }

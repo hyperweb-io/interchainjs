@@ -1,6 +1,6 @@
 import { AssetPair, AssetPairAmino, PriceAttestation, PriceAttestationAmino, Params, ParamsAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
@@ -374,7 +374,7 @@ export const MsgRelayProviderPrices = {
       obj.symbols = message.symbols;
     }
     if (message.prices) {
-      obj.prices = message.prices.map(e => e);
+      obj.prices = message.prices.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.prices = message.prices;
     }
@@ -550,7 +550,7 @@ export const MsgRelayPriceFeedPrice = {
       obj.quote = message.quote;
     }
     if (message.price) {
-      obj.price = message.price.map(e => e);
+      obj.price = message.price.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.price = message.price;
     }

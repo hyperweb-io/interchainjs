@@ -3,7 +3,7 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 export interface Params {
   /** Native denom for LINK coin in the bank keeper */
   linkDenom: string;
@@ -1171,8 +1171,8 @@ export const ModuleParams = {
   toAmino(message: ModuleParams): ModuleParamsAmino {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
-    obj.min_answer = message.minAnswer === "" ? undefined : message.minAnswer;
-    obj.max_answer = message.maxAnswer === "" ? undefined : message.maxAnswer;
+    obj.min_answer = message.minAnswer === "" ? undefined : Decimal.fromUserInput(message.minAnswer, 18).atomics;
+    obj.max_answer = message.maxAnswer === "" ? undefined : Decimal.fromUserInput(message.maxAnswer, 18).atomics;
     obj.link_per_observation = message.linkPerObservation === "" ? undefined : message.linkPerObservation;
     obj.link_per_transmission = message.linkPerTransmission === "" ? undefined : message.linkPerTransmission;
     obj.link_denom = message.linkDenom === "" ? undefined : message.linkDenom;
@@ -1615,8 +1615,8 @@ export const FeedProperties = {
     obj.onchain_config = message.onchainConfig ? base64FromBytes(message.onchainConfig) : undefined;
     obj.offchain_config_version = message.offchainConfigVersion !== BigInt(0) ? message.offchainConfigVersion?.toString() : undefined;
     obj.offchain_config = message.offchainConfig ? base64FromBytes(message.offchainConfig) : undefined;
-    obj.min_answer = message.minAnswer === "" ? undefined : message.minAnswer;
-    obj.max_answer = message.maxAnswer === "" ? undefined : message.maxAnswer;
+    obj.min_answer = message.minAnswer === "" ? undefined : Decimal.fromUserInput(message.minAnswer, 18).atomics;
+    obj.max_answer = message.maxAnswer === "" ? undefined : Decimal.fromUserInput(message.maxAnswer, 18).atomics;
     obj.link_per_observation = message.linkPerObservation === "" ? undefined : message.linkPerObservation;
     obj.link_per_transmission = message.linkPerTransmission === "" ? undefined : message.linkPerTransmission;
     obj.unique_reports = message.uniqueReports === false ? undefined : message.uniqueReports;
@@ -2096,7 +2096,7 @@ export const Transmission = {
   },
   toAmino(message: Transmission): TransmissionAmino {
     const obj: any = {};
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.observations_timestamp = message.observationsTimestamp !== BigInt(0) ? message.observationsTimestamp?.toString() : undefined;
     obj.transmission_timestamp = message.transmissionTimestamp !== BigInt(0) ? message.transmissionTimestamp?.toString() : undefined;
     return obj;
@@ -2273,7 +2273,7 @@ export const Report = {
     obj.observations_timestamp = message.observationsTimestamp !== BigInt(0) ? message.observationsTimestamp?.toString() : undefined;
     obj.observers = message.observers ? base64FromBytes(message.observers) : undefined;
     if (message.observations) {
-      obj.observations = message.observations.map(e => e);
+      obj.observations = message.observations.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.observations = message.observations;
     }
@@ -2918,11 +2918,11 @@ export const EventNewTransmission = {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
     obj.aggregator_round_id = message.aggregatorRoundId === 0 ? undefined : message.aggregatorRoundId;
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.transmitter = message.transmitter === "" ? undefined : message.transmitter;
     obj.observations_timestamp = message.observationsTimestamp !== BigInt(0) ? message.observationsTimestamp?.toString() : undefined;
     if (message.observations) {
-      obj.observations = message.observations.map(e => e);
+      obj.observations = message.observations.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.observations = message.observations;
     }

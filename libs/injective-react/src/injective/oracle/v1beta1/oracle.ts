@@ -1,7 +1,7 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 export enum OracleType {
   Unspecified = 0,
   Band = 1,
@@ -940,7 +940,7 @@ export const ChainlinkPriceState = {
   toAmino(message: ChainlinkPriceState): ChainlinkPriceStateAmino {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     obj.price_state = message.priceState ? PriceState.toAmino(message.priceState) : undefined;
     return obj;
@@ -1581,7 +1581,7 @@ export const PriceFeedPrice = {
   },
   toAmino(message: PriceFeedPrice): PriceFeedPriceAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PriceFeedPriceAminoMsg): PriceFeedPrice {
@@ -1806,7 +1806,7 @@ export const StorkPriceState = {
     const obj: any = {};
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.value = message.value === "" ? undefined : message.value;
+    obj.value = message.value === "" ? undefined : Decimal.fromUserInput(message.value, 18).atomics;
     obj.price_state = message.priceState ? PriceState.toAmino(message.priceState) : undefined;
     return obj;
   },
@@ -1901,8 +1901,8 @@ export const PriceState = {
   },
   toAmino(message: PriceState): PriceStateAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.cumulative_price = message.cumulativePrice === "" ? undefined : message.cumulativePrice;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.cumulative_price = message.cumulativePrice === "" ? undefined : Decimal.fromUserInput(message.cumulativePrice, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     return obj;
   },
@@ -2029,9 +2029,9 @@ export const PythPriceState = {
   toAmino(message: PythPriceState): PythPriceStateAmino {
     const obj: any = {};
     obj.price_id = message.priceId === "" ? undefined : message.priceId;
-    obj.ema_price = message.emaPrice === "" ? undefined : message.emaPrice;
-    obj.ema_conf = message.emaConf === "" ? undefined : message.emaConf;
-    obj.conf = message.conf === "" ? undefined : message.conf;
+    obj.ema_price = message.emaPrice === "" ? undefined : Decimal.fromUserInput(message.emaPrice, 18).atomics;
+    obj.ema_conf = message.emaConf === "" ? undefined : Decimal.fromUserInput(message.emaConf, 18).atomics;
+    obj.conf = message.conf === "" ? undefined : Decimal.fromUserInput(message.conf, 18).atomics;
     obj.publish_time = message.publishTime !== BigInt(0) ? message.publishTime?.toString() : undefined;
     obj.price_state = message.priceState ? PriceState.toAmino(message.priceState) : undefined;
     return obj;
@@ -2696,7 +2696,7 @@ export const PriceRecord = {
   toAmino(message: PriceRecord): PriceRecordAmino {
     const obj: any = {};
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PriceRecordAminoMsg): PriceRecord {
@@ -2856,13 +2856,13 @@ export const MetadataStatistics = {
     const obj: any = {};
     obj.group_count = message.groupCount === 0 ? undefined : message.groupCount;
     obj.records_sample_size = message.recordsSampleSize === 0 ? undefined : message.recordsSampleSize;
-    obj.mean = message.mean === "" ? undefined : message.mean;
-    obj.twap = message.twap === "" ? undefined : message.twap;
+    obj.mean = message.mean === "" ? undefined : Decimal.fromUserInput(message.mean, 18).atomics;
+    obj.twap = message.twap === "" ? undefined : Decimal.fromUserInput(message.twap, 18).atomics;
     obj.first_timestamp = message.firstTimestamp !== BigInt(0) ? message.firstTimestamp?.toString() : undefined;
     obj.last_timestamp = message.lastTimestamp !== BigInt(0) ? message.lastTimestamp?.toString() : undefined;
-    obj.min_price = message.minPrice === "" ? undefined : message.minPrice;
-    obj.max_price = message.maxPrice === "" ? undefined : message.maxPrice;
-    obj.median_price = message.medianPrice === "" ? undefined : message.medianPrice;
+    obj.min_price = message.minPrice === "" ? undefined : Decimal.fromUserInput(message.minPrice, 18).atomics;
+    obj.max_price = message.maxPrice === "" ? undefined : Decimal.fromUserInput(message.maxPrice, 18).atomics;
+    obj.median_price = message.medianPrice === "" ? undefined : Decimal.fromUserInput(message.medianPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MetadataStatisticsAminoMsg): MetadataStatistics {
@@ -3207,7 +3207,7 @@ export const SignedPriceOfAssetPair = {
     const obj: any = {};
     obj.publisher_key = message.publisherKey === "" ? undefined : message.publisherKey;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
     return obj;
   },

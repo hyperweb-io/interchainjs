@@ -2,7 +2,7 @@ import { OracleType, OracleInfo, OracleInfoAmino, PythPriceState, PythPriceState
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 export interface QueryPythPriceRequest {
   priceId: string;
 }
@@ -2772,7 +2772,7 @@ export const QueryOracleVolatilityResponse = {
   },
   toAmino(message: QueryOracleVolatilityResponse): QueryOracleVolatilityResponseAmino {
     const obj: any = {};
-    obj.volatility = message.volatility === "" ? undefined : message.volatility;
+    obj.volatility = message.volatility === "" ? undefined : Decimal.fromUserInput(message.volatility, 18).atomics;
     obj.history_metadata = message.historyMetadata ? MetadataStatistics.toAmino(message.historyMetadata) : undefined;
     if (message.rawHistory) {
       obj.raw_history = message.rawHistory.map(e => e ? PriceRecord.toAmino(e) : undefined);
@@ -3382,11 +3382,11 @@ export const PricePairState = {
   },
   toAmino(message: PricePairState): PricePairStateAmino {
     const obj: any = {};
-    obj.pair_price = message.pairPrice === "" ? undefined : message.pairPrice;
-    obj.base_price = message.basePrice === "" ? undefined : message.basePrice;
-    obj.quote_price = message.quotePrice === "" ? undefined : message.quotePrice;
-    obj.base_cumulative_price = message.baseCumulativePrice === "" ? undefined : message.baseCumulativePrice;
-    obj.quote_cumulative_price = message.quoteCumulativePrice === "" ? undefined : message.quoteCumulativePrice;
+    obj.pair_price = message.pairPrice === "" ? undefined : Decimal.fromUserInput(message.pairPrice, 18).atomics;
+    obj.base_price = message.basePrice === "" ? undefined : Decimal.fromUserInput(message.basePrice, 18).atomics;
+    obj.quote_price = message.quotePrice === "" ? undefined : Decimal.fromUserInput(message.quotePrice, 18).atomics;
+    obj.base_cumulative_price = message.baseCumulativePrice === "" ? undefined : Decimal.fromUserInput(message.baseCumulativePrice, 18).atomics;
+    obj.quote_cumulative_price = message.quoteCumulativePrice === "" ? undefined : Decimal.fromUserInput(message.quoteCumulativePrice, 18).atomics;
     obj.base_timestamp = message.baseTimestamp !== BigInt(0) ? message.baseTimestamp?.toString() : undefined;
     obj.quote_timestamp = message.quoteTimestamp !== BigInt(0) ? message.quoteTimestamp?.toString() : undefined;
     return obj;
