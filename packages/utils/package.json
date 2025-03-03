@@ -25,10 +25,16 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@chain-registry/v2": "1.71.71",
-    "@chain-registry/v2-types": "0.53.72",
     "@interchainjs/types": "1.9.13",
     "bech32": "^2.0.0",
     "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "@chain-registry/v2": "1.71.71",
+    "@chain-registry/v2-types": "0.53.72"
+  },
+  "peerDependencies": {
+    "@chain-registry/v2": "1.71.71",
+    "@chain-registry/v2-types": "0.53.72"
   }
 }
