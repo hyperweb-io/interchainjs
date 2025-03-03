@@ -40,7 +40,8 @@
                 "useDeepPartial": true,
                 "num64": "bigint",
                 "customTypes": {
-                    "useCosmosSDKDec": false
+                    "useCosmosSDKDec": true,
+                    "useEnhancedDecimal": true
                 },
                 "useTelescopeGeneratedType": true,
                 "autoFixUndefinedEnumDefault": true

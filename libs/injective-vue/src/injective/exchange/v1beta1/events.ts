@@ -3,6 +3,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Decimal } from "../../../decimals";
 export interface EventBatchSpotExecution {
   marketId: string;
   isBuy: boolean;
@@ -780,7 +781,7 @@ export const EventBatchDerivativeExecution = {
       writer.uint32(24).bool(message.isLiquidation);
     }
     if (message.cumulativeFunding !== undefined) {
-      writer.uint32(34).string(message.cumulativeFunding);
+      writer.uint32(34).string(Decimal.fromUserInput(message.cumulativeFunding, 18).atomics);
     }
     if (message.executionType !== 0) {
       writer.uint32(40).int32(message.executionType);
@@ -807,7 +808,7 @@ export const EventBatchDerivativeExecution = {
           message.isLiquidation = reader.bool();
           break;
         case 4:
-          message.cumulativeFunding = reader.string();
+          message.cumulativeFunding = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.executionType = reader.int32() as any;
@@ -907,10 +908,10 @@ export const EventLostFundsFromLiquidation = {
       writer.uint32(18).bytes(message.subaccountId);
     }
     if (message.lostFundsFromAvailableDuringPayout !== "") {
-      writer.uint32(26).string(message.lostFundsFromAvailableDuringPayout);
+      writer.uint32(26).string(Decimal.fromUserInput(message.lostFundsFromAvailableDuringPayout, 18).atomics);
     }
     if (message.lostFundsFromOrderCancels !== "") {
-      writer.uint32(34).string(message.lostFundsFromOrderCancels);
+      writer.uint32(34).string(Decimal.fromUserInput(message.lostFundsFromOrderCancels, 18).atomics);
     }
     return writer;
   },
@@ -928,10 +929,10 @@ export const EventLostFundsFromLiquidation = {
           message.subaccountId = reader.bytes();
           break;
         case 3:
-          message.lostFundsFromAvailableDuringPayout = reader.string();
+          message.lostFundsFromAvailableDuringPayout = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.lostFundsFromOrderCancels = reader.string();
+          message.lostFundsFromOrderCancels = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1989,10 +1990,10 @@ export const EventPerpetualMarketFundingUpdate = {
       writer.uint32(24).bool(message.isHourlyFunding);
     }
     if (message.fundingRate !== undefined) {
-      writer.uint32(34).string(message.fundingRate);
+      writer.uint32(34).string(Decimal.fromUserInput(message.fundingRate, 18).atomics);
     }
     if (message.markPrice !== undefined) {
-      writer.uint32(42).string(message.markPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.markPrice, 18).atomics);
     }
     return writer;
   },
@@ -2013,10 +2014,10 @@ export const EventPerpetualMarketFundingUpdate = {
           message.isHourlyFunding = reader.bool();
           break;
         case 4:
-          message.fundingRate = reader.string();
+          message.fundingRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.markPrice = reader.string();
+          message.markPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2452,7 +2453,7 @@ export const DerivativeMarketOrderCancel = {
       DerivativeMarketOrder.encode(message.marketOrder, writer.uint32(10).fork()).ldelim();
     }
     if (message.cancelQuantity !== "") {
-      writer.uint32(18).string(message.cancelQuantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.cancelQuantity, 18).atomics);
     }
     return writer;
   },
@@ -2467,7 +2468,7 @@ export const DerivativeMarketOrderCancel = {
           message.marketOrder = DerivativeMarketOrder.decode(reader, reader.uint32());
           break;
         case 2:
-          message.cancelQuantity = reader.string();
+          message.cancelQuantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);

@@ -3,6 +3,7 @@ import { Balance, BalanceAmino, DerivativePosition, DerivativePositionAmino, Gen
 import { MetadataStatistics, MetadataStatisticsAmino } from "../../oracle/v1beta1/oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { Decimal } from "../../../decimals";
 export enum OrderSide {
   /** Side_Unspecified - will return both */
   Side_Unspecified = 0,
@@ -5385,10 +5386,10 @@ export const QuerySpotOrderbookRequest = {
       writer.uint32(24).int32(message.orderSide);
     }
     if (message.limitCumulativeNotional !== undefined) {
-      writer.uint32(34).string(message.limitCumulativeNotional);
+      writer.uint32(34).string(Decimal.fromUserInput(message.limitCumulativeNotional, 18).atomics);
     }
     if (message.limitCumulativeQuantity !== undefined) {
-      writer.uint32(42).string(message.limitCumulativeQuantity);
+      writer.uint32(42).string(Decimal.fromUserInput(message.limitCumulativeQuantity, 18).atomics);
     }
     return writer;
   },
@@ -5409,10 +5410,10 @@ export const QuerySpotOrderbookRequest = {
           message.orderSide = reader.int32() as any;
           break;
         case 4:
-          message.limitCumulativeNotional = reader.string();
+          message.limitCumulativeNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.limitCumulativeQuantity = reader.string();
+          message.limitCumulativeQuantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -6326,13 +6327,13 @@ export const TrimmedSpotLimitOrder = {
   },
   encode(message: TrimmedSpotLimitOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.fillable !== "") {
-      writer.uint32(26).string(message.fillable);
+      writer.uint32(26).string(Decimal.fromUserInput(message.fillable, 18).atomics);
     }
     if (message.isBuy === true) {
       writer.uint32(32).bool(message.isBuy);
@@ -6353,13 +6354,13 @@ export const TrimmedSpotLimitOrder = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.fillable = reader.string();
+          message.fillable = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.isBuy = reader.bool();
@@ -6671,13 +6672,13 @@ export const QuerySpotMidPriceAndTOBResponse = {
   },
   encode(message: QuerySpotMidPriceAndTOBResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.midPrice !== undefined) {
-      writer.uint32(10).string(message.midPrice);
+      writer.uint32(10).string(Decimal.fromUserInput(message.midPrice, 18).atomics);
     }
     if (message.bestBuyPrice !== undefined) {
-      writer.uint32(18).string(message.bestBuyPrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.bestBuyPrice, 18).atomics);
     }
     if (message.bestSellPrice !== undefined) {
-      writer.uint32(26).string(message.bestSellPrice);
+      writer.uint32(26).string(Decimal.fromUserInput(message.bestSellPrice, 18).atomics);
     }
     return writer;
   },
@@ -6689,13 +6690,13 @@ export const QuerySpotMidPriceAndTOBResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.midPrice = reader.string();
+          message.midPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.bestBuyPrice = reader.string();
+          message.bestBuyPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.bestSellPrice = reader.string();
+          message.bestSellPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -6835,13 +6836,13 @@ export const QueryDerivativeMidPriceAndTOBResponse = {
   },
   encode(message: QueryDerivativeMidPriceAndTOBResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.midPrice !== undefined) {
-      writer.uint32(10).string(message.midPrice);
+      writer.uint32(10).string(Decimal.fromUserInput(message.midPrice, 18).atomics);
     }
     if (message.bestBuyPrice !== undefined) {
-      writer.uint32(18).string(message.bestBuyPrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.bestBuyPrice, 18).atomics);
     }
     if (message.bestSellPrice !== undefined) {
-      writer.uint32(26).string(message.bestSellPrice);
+      writer.uint32(26).string(Decimal.fromUserInput(message.bestSellPrice, 18).atomics);
     }
     return writer;
   },
@@ -6853,13 +6854,13 @@ export const QueryDerivativeMidPriceAndTOBResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.midPrice = reader.string();
+          message.midPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.bestBuyPrice = reader.string();
+          message.bestBuyPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.bestSellPrice = reader.string();
+          message.bestSellPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -6935,7 +6936,7 @@ export const QueryDerivativeOrderbookRequest = {
       writer.uint32(16).uint64(message.limit);
     }
     if (message.limitCumulativeNotional !== undefined) {
-      writer.uint32(26).string(message.limitCumulativeNotional);
+      writer.uint32(26).string(Decimal.fromUserInput(message.limitCumulativeNotional, 18).atomics);
     }
     return writer;
   },
@@ -6953,7 +6954,7 @@ export const QueryDerivativeOrderbookRequest = {
           message.limit = reader.uint64();
           break;
         case 3:
-          message.limitCumulativeNotional = reader.string();
+          message.limitCumulativeNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -7120,16 +7121,16 @@ export const QueryTraderSpotOrdersToCancelUpToAmountRequest = {
       writer.uint32(18).string(message.subaccountId);
     }
     if (message.baseAmount !== "") {
-      writer.uint32(26).string(message.baseAmount);
+      writer.uint32(26).string(Decimal.fromUserInput(message.baseAmount, 18).atomics);
     }
     if (message.quoteAmount !== "") {
-      writer.uint32(34).string(message.quoteAmount);
+      writer.uint32(34).string(Decimal.fromUserInput(message.quoteAmount, 18).atomics);
     }
     if (message.strategy !== 0) {
       writer.uint32(40).int32(message.strategy);
     }
     if (message.referencePrice !== undefined) {
-      writer.uint32(50).string(message.referencePrice);
+      writer.uint32(50).string(Decimal.fromUserInput(message.referencePrice, 18).atomics);
     }
     return writer;
   },
@@ -7147,16 +7148,16 @@ export const QueryTraderSpotOrdersToCancelUpToAmountRequest = {
           message.subaccountId = reader.string();
           break;
         case 3:
-          message.baseAmount = reader.string();
+          message.baseAmount = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.quoteAmount = reader.string();
+          message.quoteAmount = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.strategy = reader.int32() as any;
           break;
         case 6:
-          message.referencePrice = reader.string();
+          message.referencePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -7249,13 +7250,13 @@ export const QueryTraderDerivativeOrdersToCancelUpToAmountRequest = {
       writer.uint32(18).string(message.subaccountId);
     }
     if (message.quoteAmount !== "") {
-      writer.uint32(26).string(message.quoteAmount);
+      writer.uint32(26).string(Decimal.fromUserInput(message.quoteAmount, 18).atomics);
     }
     if (message.strategy !== 0) {
       writer.uint32(32).int32(message.strategy);
     }
     if (message.referencePrice !== undefined) {
-      writer.uint32(42).string(message.referencePrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.referencePrice, 18).atomics);
     }
     return writer;
   },
@@ -7273,13 +7274,13 @@ export const QueryTraderDerivativeOrdersToCancelUpToAmountRequest = {
           message.subaccountId = reader.string();
           break;
         case 3:
-          message.quoteAmount = reader.string();
+          message.quoteAmount = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.strategy = reader.int32() as any;
           break;
         case 5:
-          message.referencePrice = reader.string();
+          message.referencePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -7527,16 +7528,16 @@ export const TrimmedDerivativeLimitOrder = {
   },
   encode(message: TrimmedDerivativeLimitOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.margin !== "") {
-      writer.uint32(26).string(message.margin);
+      writer.uint32(26).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.fillable !== "") {
-      writer.uint32(34).string(message.fillable);
+      writer.uint32(34).string(Decimal.fromUserInput(message.fillable, 18).atomics);
     }
     if (message.isBuy === true) {
       writer.uint32(40).bool(message.isBuy);
@@ -7557,16 +7558,16 @@ export const TrimmedDerivativeLimitOrder = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.fillable = reader.string();
+          message.fillable = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.isBuy = reader.bool();
@@ -8078,10 +8079,10 @@ export const PriceLevel = {
   },
   encode(message: PriceLevel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     return writer;
   },
@@ -8093,10 +8094,10 @@ export const PriceLevel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -8257,7 +8258,7 @@ export const FullDerivativeMarket = {
       ExpiryFuturesMarketInfo.encode(message.futuresInfo, writer.uint32(26).fork()).ldelim();
     }
     if (message.markPrice !== "") {
-      writer.uint32(34).string(message.markPrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.markPrice, 18).atomics);
     }
     if (message.midPriceAndTob !== undefined) {
       MidPriceAndTOB.encode(message.midPriceAndTob, writer.uint32(42).fork()).ldelim();
@@ -8281,7 +8282,7 @@ export const FullDerivativeMarket = {
           message.futuresInfo = ExpiryFuturesMarketInfo.decode(reader, reader.uint32());
           break;
         case 4:
-          message.markPrice = reader.string();
+          message.markPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.midPriceAndTob = MidPriceAndTOB.decode(reader, reader.uint32());
@@ -9261,13 +9262,13 @@ export const EffectivePosition = {
       writer.uint32(8).bool(message.isLong);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.entryPrice !== "") {
-      writer.uint32(26).string(message.entryPrice);
+      writer.uint32(26).string(Decimal.fromUserInput(message.entryPrice, 18).atomics);
     }
     if (message.effectiveMargin !== "") {
-      writer.uint32(34).string(message.effectiveMargin);
+      writer.uint32(34).string(Decimal.fromUserInput(message.effectiveMargin, 18).atomics);
     }
     return writer;
   },
@@ -9282,13 +9283,13 @@ export const EffectivePosition = {
           message.isLong = reader.bool();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.entryPrice = reader.string();
+          message.entryPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.effectiveMargin = reader.string();
+          message.effectiveMargin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -10347,7 +10348,7 @@ export const QueryTradeRewardPointsResponse = {
   },
   encode(message: QueryTradeRewardPointsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.accountTradeRewardPoints) {
-      writer.uint32(10).string(v!);
+      writer.uint32(10).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -10359,7 +10360,7 @@ export const QueryTradeRewardPointsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.accountTradeRewardPoints.push(reader.string());
+          message.accountTradeRewardPoints.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);
@@ -10486,13 +10487,13 @@ export const QueryTradeRewardCampaignResponse = {
       CampaignRewardPool.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     if (message.totalTradeRewardPoints !== "") {
-      writer.uint32(26).string(message.totalTradeRewardPoints);
+      writer.uint32(26).string(Decimal.fromUserInput(message.totalTradeRewardPoints, 18).atomics);
     }
     for (const v of message.pendingTradingRewardPoolCampaignSchedule) {
       CampaignRewardPool.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     for (const v of message.pendingTotalTradeRewardPoints) {
-      writer.uint32(42).string(v!);
+      writer.uint32(42).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -10510,13 +10511,13 @@ export const QueryTradeRewardCampaignResponse = {
           message.tradingRewardPoolCampaignSchedule.push(CampaignRewardPool.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.totalTradeRewardPoints = reader.string();
+          message.totalTradeRewardPoints = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.pendingTradingRewardPoolCampaignSchedule.push(CampaignRewardPool.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.pendingTotalTradeRewardPoints.push(reader.string());
+          message.pendingTotalTradeRewardPoints.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);
@@ -11250,19 +11251,19 @@ export const BalanceMismatch = {
       writer.uint32(18).string(message.denom);
     }
     if (message.available !== "") {
-      writer.uint32(26).string(message.available);
+      writer.uint32(26).string(Decimal.fromUserInput(message.available, 18).atomics);
     }
     if (message.total !== "") {
-      writer.uint32(34).string(message.total);
+      writer.uint32(34).string(Decimal.fromUserInput(message.total, 18).atomics);
     }
     if (message.balanceHold !== "") {
-      writer.uint32(42).string(message.balanceHold);
+      writer.uint32(42).string(Decimal.fromUserInput(message.balanceHold, 18).atomics);
     }
     if (message.expectedTotal !== "") {
-      writer.uint32(50).string(message.expectedTotal);
+      writer.uint32(50).string(Decimal.fromUserInput(message.expectedTotal, 18).atomics);
     }
     if (message.difference !== "") {
-      writer.uint32(58).string(message.difference);
+      writer.uint32(58).string(Decimal.fromUserInput(message.difference, 18).atomics);
     }
     return writer;
   },
@@ -11280,19 +11281,19 @@ export const BalanceMismatch = {
           message.denom = reader.string();
           break;
         case 3:
-          message.available = reader.string();
+          message.available = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.total = reader.string();
+          message.total = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.balanceHold = reader.string();
+          message.balanceHold = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.expectedTotal = reader.string();
+          message.expectedTotal = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.difference = reader.string();
+          message.difference = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -11521,13 +11522,13 @@ export const BalanceWithMarginHold = {
       writer.uint32(18).string(message.denom);
     }
     if (message.available !== "") {
-      writer.uint32(26).string(message.available);
+      writer.uint32(26).string(Decimal.fromUserInput(message.available, 18).atomics);
     }
     if (message.total !== "") {
-      writer.uint32(34).string(message.total);
+      writer.uint32(34).string(Decimal.fromUserInput(message.total, 18).atomics);
     }
     if (message.balanceHold !== "") {
-      writer.uint32(42).string(message.balanceHold);
+      writer.uint32(42).string(Decimal.fromUserInput(message.balanceHold, 18).atomics);
     }
     return writer;
   },
@@ -11545,13 +11546,13 @@ export const BalanceWithMarginHold = {
           message.denom = reader.string();
           break;
         case 3:
-          message.available = reader.string();
+          message.available = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.total = reader.string();
+          message.total = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.balanceHold = reader.string();
+          message.balanceHold = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -12563,7 +12564,7 @@ export const QueryMarketVolatilityResponse = {
   },
   encode(message: QueryMarketVolatilityResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.volatility !== "") {
-      writer.uint32(10).string(message.volatility);
+      writer.uint32(10).string(Decimal.fromUserInput(message.volatility, 18).atomics);
     }
     if (message.historyMetadata !== undefined) {
       MetadataStatistics.encode(message.historyMetadata, writer.uint32(18).fork()).ldelim();
@@ -12581,7 +12582,7 @@ export const QueryMarketVolatilityResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.volatility = reader.string();
+          message.volatility = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
           message.historyMetadata = MetadataStatistics.decode(reader, reader.uint32());
@@ -12893,16 +12894,16 @@ export const TrimmedDerivativeConditionalOrder = {
   },
   encode(message: TrimmedDerivativeConditionalOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.margin !== "") {
-      writer.uint32(26).string(message.margin);
+      writer.uint32(26).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.triggerPrice !== "") {
-      writer.uint32(34).string(message.triggerPrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     if (message.isBuy === true) {
       writer.uint32(40).bool(message.isBuy);
@@ -12926,16 +12927,16 @@ export const TrimmedDerivativeConditionalOrder = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.isBuy = reader.bool();
@@ -13184,7 +13185,7 @@ export const QueryMarketAtomicExecutionFeeMultiplierResponse = {
   },
   encode(message: QueryMarketAtomicExecutionFeeMultiplierResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.multiplier !== "") {
-      writer.uint32(10).string(message.multiplier);
+      writer.uint32(10).string(Decimal.fromUserInput(message.multiplier, 18).atomics);
     }
     return writer;
   },
@@ -13196,7 +13197,7 @@ export const QueryMarketAtomicExecutionFeeMultiplierResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.multiplier = reader.string();
+          message.multiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
