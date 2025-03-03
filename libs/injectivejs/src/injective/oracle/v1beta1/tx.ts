@@ -1,5 +1,6 @@
 import { AssetPair, AssetPairAmino, PriceAttestation, PriceAttestationAmino, Params, ParamsAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "../../../decimals";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
@@ -313,7 +314,7 @@ export const MsgRelayProviderPrices = {
       writer.uint32(26).string(v!);
     }
     for (const v of message.prices) {
-      writer.uint32(34).string(v!);
+      writer.uint32(34).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -334,7 +335,7 @@ export const MsgRelayProviderPrices = {
           message.symbols.push(reader.string());
           break;
         case 4:
-          message.prices.push(reader.string());
+          message.prices.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);
@@ -487,7 +488,7 @@ export const MsgRelayPriceFeedPrice = {
       writer.uint32(26).string(v!);
     }
     for (const v of message.price) {
-      writer.uint32(34).string(v!);
+      writer.uint32(34).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -508,7 +509,7 @@ export const MsgRelayPriceFeedPrice = {
           message.quote.push(reader.string());
           break;
         case 4:
-          message.price.push(reader.string());
+          message.price.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);

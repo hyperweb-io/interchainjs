@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Decimal } from "../../../decimals";
 export enum OracleType {
   Unspecified = 0,
   Band = 1,
@@ -878,7 +879,7 @@ export const ChainlinkPriceState = {
       writer.uint32(10).string(message.feedId);
     }
     if (message.answer !== "") {
-      writer.uint32(18).string(message.answer);
+      writer.uint32(18).string(Decimal.fromUserInput(message.answer, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).uint64(message.timestamp);
@@ -899,7 +900,7 @@ export const ChainlinkPriceState = {
           message.feedId = reader.string();
           break;
         case 2:
-          message.answer = reader.string();
+          message.answer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.uint64();
@@ -1536,7 +1537,7 @@ export const PriceFeedPrice = {
   },
   encode(message: PriceFeedPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -1548,7 +1549,7 @@ export const PriceFeedPrice = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1733,7 +1734,7 @@ export const StorkPriceState = {
       writer.uint32(18).string(message.symbol);
     }
     if (message.value !== "") {
-      writer.uint32(26).string(message.value);
+      writer.uint32(26).string(Decimal.fromUserInput(message.value, 18).atomics);
     }
     if (message.priceState !== undefined) {
       PriceState.encode(message.priceState, writer.uint32(42).fork()).ldelim();
@@ -1754,7 +1755,7 @@ export const StorkPriceState = {
           message.symbol = reader.string();
           break;
         case 3:
-          message.value = reader.string();
+          message.value = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.priceState = PriceState.decode(reader, reader.uint32());
@@ -1832,10 +1833,10 @@ export const PriceState = {
   },
   encode(message: PriceState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.cumulativePrice !== "") {
-      writer.uint32(18).string(message.cumulativePrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.cumulativePrice, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).int64(message.timestamp);
@@ -1850,10 +1851,10 @@ export const PriceState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.cumulativePrice = reader.string();
+          message.cumulativePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.int64();
@@ -1932,13 +1933,13 @@ export const PythPriceState = {
       writer.uint32(10).string(message.priceId);
     }
     if (message.emaPrice !== "") {
-      writer.uint32(18).string(message.emaPrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.emaPrice, 18).atomics);
     }
     if (message.emaConf !== "") {
-      writer.uint32(26).string(message.emaConf);
+      writer.uint32(26).string(Decimal.fromUserInput(message.emaConf, 18).atomics);
     }
     if (message.conf !== "") {
-      writer.uint32(34).string(message.conf);
+      writer.uint32(34).string(Decimal.fromUserInput(message.conf, 18).atomics);
     }
     if (message.publishTime !== BigInt(0)) {
       writer.uint32(40).uint64(message.publishTime);
@@ -1959,13 +1960,13 @@ export const PythPriceState = {
           message.priceId = reader.string();
           break;
         case 2:
-          message.emaPrice = reader.string();
+          message.emaPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.emaConf = reader.string();
+          message.emaConf = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.conf = reader.string();
+          message.conf = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.publishTime = reader.uint64();
@@ -2631,7 +2632,7 @@ export const PriceRecord = {
       writer.uint32(8).int64(message.timestamp);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -2646,7 +2647,7 @@ export const PriceRecord = {
           message.timestamp = reader.int64();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2723,10 +2724,10 @@ export const MetadataStatistics = {
       writer.uint32(16).uint32(message.recordsSampleSize);
     }
     if (message.mean !== "") {
-      writer.uint32(26).string(message.mean);
+      writer.uint32(26).string(Decimal.fromUserInput(message.mean, 18).atomics);
     }
     if (message.twap !== "") {
-      writer.uint32(34).string(message.twap);
+      writer.uint32(34).string(Decimal.fromUserInput(message.twap, 18).atomics);
     }
     if (message.firstTimestamp !== BigInt(0)) {
       writer.uint32(40).int64(message.firstTimestamp);
@@ -2735,13 +2736,13 @@ export const MetadataStatistics = {
       writer.uint32(48).int64(message.lastTimestamp);
     }
     if (message.minPrice !== "") {
-      writer.uint32(58).string(message.minPrice);
+      writer.uint32(58).string(Decimal.fromUserInput(message.minPrice, 18).atomics);
     }
     if (message.maxPrice !== "") {
-      writer.uint32(66).string(message.maxPrice);
+      writer.uint32(66).string(Decimal.fromUserInput(message.maxPrice, 18).atomics);
     }
     if (message.medianPrice !== "") {
-      writer.uint32(74).string(message.medianPrice);
+      writer.uint32(74).string(Decimal.fromUserInput(message.medianPrice, 18).atomics);
     }
     return writer;
   },
@@ -2759,10 +2760,10 @@ export const MetadataStatistics = {
           message.recordsSampleSize = reader.uint32();
           break;
         case 3:
-          message.mean = reader.string();
+          message.mean = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.twap = reader.string();
+          message.twap = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.firstTimestamp = reader.int64();
@@ -2771,13 +2772,13 @@ export const MetadataStatistics = {
           message.lastTimestamp = reader.int64();
           break;
         case 7:
-          message.minPrice = reader.string();
+          message.minPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.maxPrice = reader.string();
+          message.maxPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
-          message.medianPrice = reader.string();
+          message.medianPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3122,7 +3123,7 @@ export const SignedPriceOfAssetPair = {
       writer.uint32(16).uint64(message.timestamp);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.signature.length !== 0) {
       writer.uint32(34).bytes(message.signature);
@@ -3143,7 +3144,7 @@ export const SignedPriceOfAssetPair = {
           message.timestamp = reader.uint64();
           break;
         case 3:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.signature = reader.bytes();

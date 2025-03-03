@@ -2,6 +2,7 @@ import { OracleType, OracleInfo, OracleInfoAmino, PythPriceState, PythPriceState
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { Decimal } from "../../../decimals";
 export interface QueryPythPriceRequest {
   priceId: string;
 }
@@ -2718,7 +2719,7 @@ export const QueryOracleVolatilityResponse = {
   },
   encode(message: QueryOracleVolatilityResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.volatility !== "") {
-      writer.uint32(10).string(message.volatility);
+      writer.uint32(10).string(Decimal.fromUserInput(message.volatility, 18).atomics);
     }
     if (message.historyMetadata !== undefined) {
       MetadataStatistics.encode(message.historyMetadata, writer.uint32(18).fork()).ldelim();
@@ -2736,7 +2737,7 @@ export const QueryOracleVolatilityResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.volatility = reader.string();
+          message.volatility = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
           message.historyMetadata = MetadataStatistics.decode(reader, reader.uint32());
@@ -3286,19 +3287,19 @@ export const PricePairState = {
   },
   encode(message: PricePairState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pairPrice !== "") {
-      writer.uint32(10).string(message.pairPrice);
+      writer.uint32(10).string(Decimal.fromUserInput(message.pairPrice, 18).atomics);
     }
     if (message.basePrice !== "") {
-      writer.uint32(18).string(message.basePrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.basePrice, 18).atomics);
     }
     if (message.quotePrice !== "") {
-      writer.uint32(26).string(message.quotePrice);
+      writer.uint32(26).string(Decimal.fromUserInput(message.quotePrice, 18).atomics);
     }
     if (message.baseCumulativePrice !== "") {
-      writer.uint32(34).string(message.baseCumulativePrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.baseCumulativePrice, 18).atomics);
     }
     if (message.quoteCumulativePrice !== "") {
-      writer.uint32(42).string(message.quoteCumulativePrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.quoteCumulativePrice, 18).atomics);
     }
     if (message.baseTimestamp !== BigInt(0)) {
       writer.uint32(48).int64(message.baseTimestamp);
@@ -3316,19 +3317,19 @@ export const PricePairState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.pairPrice = reader.string();
+          message.pairPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.basePrice = reader.string();
+          message.basePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.quotePrice = reader.string();
+          message.quotePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.baseCumulativePrice = reader.string();
+          message.baseCumulativePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.quoteCumulativePrice = reader.string();
+          message.quoteCumulativePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
           message.baseTimestamp = reader.int64();

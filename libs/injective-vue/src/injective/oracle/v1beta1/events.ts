@@ -1,5 +1,6 @@
 import { StorkPriceState, StorkPriceStateAmino, PythPriceState, PythPriceStateAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "../../../decimals";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 export interface SetChainlinkPriceEvent {
@@ -222,7 +223,7 @@ export const SetChainlinkPriceEvent = {
       writer.uint32(10).string(message.feedId);
     }
     if (message.answer !== "") {
-      writer.uint32(18).string(message.answer);
+      writer.uint32(18).string(Decimal.fromUserInput(message.answer, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).uint64(message.timestamp);
@@ -240,7 +241,7 @@ export const SetChainlinkPriceEvent = {
           message.feedId = reader.string();
           break;
         case 2:
-          message.answer = reader.string();
+          message.answer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.uint64();
@@ -321,7 +322,7 @@ export const SetBandPriceEvent = {
       writer.uint32(18).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.resolveTime !== BigInt(0)) {
       writer.uint32(32).uint64(message.resolveTime);
@@ -345,7 +346,7 @@ export const SetBandPriceEvent = {
           message.symbol = reader.string();
           break;
         case 3:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.resolveTime = reader.uint64();
@@ -440,7 +441,7 @@ export const SetBandIBCPriceEvent = {
       writer.uint32(18).string(v!);
     }
     for (const v of message.prices) {
-      writer.uint32(26).string(v!);
+      writer.uint32(26).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     if (message.resolveTime !== BigInt(0)) {
       writer.uint32(32).uint64(message.resolveTime);
@@ -467,7 +468,7 @@ export const SetBandIBCPriceEvent = {
           message.symbols.push(reader.string());
           break;
         case 3:
-          message.prices.push(reader.string());
+          message.prices.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         case 4:
           message.resolveTime = reader.uint64();
@@ -809,7 +810,7 @@ export const SetPriceFeedPriceEvent = {
       writer.uint32(26).string(message.quote);
     }
     if (message.price !== "") {
-      writer.uint32(34).string(message.price);
+      writer.uint32(34).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -830,7 +831,7 @@ export const SetPriceFeedPriceEvent = {
           message.quote = reader.string();
           break;
         case 4:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -915,7 +916,7 @@ export const SetProviderPriceEvent = {
       writer.uint32(26).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(34).string(message.price);
+      writer.uint32(34).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -936,7 +937,7 @@ export const SetProviderPriceEvent = {
           message.symbol = reader.string();
           break;
         case 4:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1014,7 +1015,7 @@ export const SetCoinbasePriceEvent = {
       writer.uint32(10).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).uint64(message.timestamp);
@@ -1032,7 +1033,7 @@ export const SetCoinbasePriceEvent = {
           message.symbol = reader.string();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.uint64();

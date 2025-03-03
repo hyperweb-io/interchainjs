@@ -1,6 +1,7 @@
 import { Params, ParamsAmino, SpotMarket, SpotMarketAmino, DerivativeMarket, DerivativeMarketAmino, PerpetualMarketInfo, PerpetualMarketInfoAmino, DerivativeMarketSettlementInfo, DerivativeMarketSettlementInfoAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, TradeRecords, TradeRecordsAmino, BinaryOptionsMarket, BinaryOptionsMarketAmino, DenomDecimals, DenomDecimalsAmino, MarketFeeMultiplier, MarketFeeMultiplierAmino, AggregateSubaccountVolumeRecord, AggregateSubaccountVolumeRecordAmino, MarketVolume, MarketVolumeAmino, FeeDiscountTierTTL, FeeDiscountTierTTLAmino, SpotLimitOrder, SpotLimitOrderAmino, DerivativeLimitOrder, DerivativeLimitOrderAmino, DerivativeMarketOrder, DerivativeMarketOrderAmino, Deposit, DepositAmino, Position, PositionAmino, SubaccountTradeNonce, SubaccountTradeNonceAmino, ExpiryFuturesMarketInfo, ExpiryFuturesMarketInfoAmino, PerpetualMarketFunding, PerpetualMarketFundingAmino, GrantAuthorization, GrantAuthorizationAmino, ActiveGrant, ActiveGrantAmino } from "./exchange";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { Decimal } from "../../../decimals";
 /** GenesisState defines the exchange module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to exchange. */
@@ -1320,7 +1321,7 @@ export const AccountVolume = {
       writer.uint32(10).string(message.account);
     }
     if (message.volume !== "") {
-      writer.uint32(18).string(message.volume);
+      writer.uint32(18).string(Decimal.fromUserInput(message.volume, 18).atomics);
     }
     return writer;
   },
@@ -1335,7 +1336,7 @@ export const AccountVolume = {
           message.account = reader.string();
           break;
         case 2:
-          message.volume = reader.string();
+          message.volume = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1402,7 +1403,7 @@ export const TradingRewardCampaignAccountPoints = {
       writer.uint32(10).string(message.account);
     }
     if (message.points !== "") {
-      writer.uint32(18).string(message.points);
+      writer.uint32(18).string(Decimal.fromUserInput(message.points, 18).atomics);
     }
     return writer;
   },
@@ -1417,7 +1418,7 @@ export const TradingRewardCampaignAccountPoints = {
           message.account = reader.string();
           break;
         case 2:
-          message.points = reader.string();
+          message.points = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
