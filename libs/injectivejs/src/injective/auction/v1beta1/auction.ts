@@ -1,6 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
 export interface Params {
   /** auction_period_duration defines the auction period duration */
@@ -203,7 +203,7 @@ export const Params = {
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
     obj.auction_period = message.auctionPeriod !== BigInt(0) ? message.auctionPeriod?.toString() : undefined;
-    obj.min_next_bid_increment_rate = message.minNextBidIncrementRate === "" ? undefined : message.minNextBidIncrementRate;
+    obj.min_next_bid_increment_rate = message.minNextBidIncrementRate === "" ? undefined : Decimal.fromUserInput(message.minNextBidIncrementRate, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

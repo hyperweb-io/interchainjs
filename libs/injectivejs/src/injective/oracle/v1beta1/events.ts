@@ -1,6 +1,6 @@
 import { StorkPriceState, StorkPriceStateAmino, PythPriceState, PythPriceStateAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
 export interface SetChainlinkPriceEvent {
   feedId: string;
@@ -275,7 +275,7 @@ export const SetChainlinkPriceEvent = {
   toAmino(message: SetChainlinkPriceEvent): SetChainlinkPriceEventAmino {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     return obj;
   },
@@ -392,7 +392,7 @@ export const SetBandPriceEvent = {
     const obj: any = {};
     obj.relayer = message.relayer === "" ? undefined : message.relayer;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.resolve_time = message.resolveTime !== BigInt(0) ? message.resolveTime?.toString() : undefined;
     obj.request_id = message.requestId !== BigInt(0) ? message.requestId?.toString() : undefined;
     return obj;
@@ -522,7 +522,7 @@ export const SetBandIBCPriceEvent = {
       obj.symbols = message.symbols;
     }
     if (message.prices) {
-      obj.prices = message.prices.map(e => e);
+      obj.prices = message.prices.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.prices = message.prices;
     }
@@ -868,7 +868,7 @@ export const SetPriceFeedPriceEvent = {
     obj.relayer = message.relayer === "" ? undefined : message.relayer;
     obj.base = message.base === "" ? undefined : message.base;
     obj.quote = message.quote === "" ? undefined : message.quote;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SetPriceFeedPriceEventAminoMsg): SetPriceFeedPriceEvent {
@@ -974,7 +974,7 @@ export const SetProviderPriceEvent = {
     obj.provider = message.provider === "" ? undefined : message.provider;
     obj.relayer = message.relayer === "" ? undefined : message.relayer;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SetProviderPriceEventAminoMsg): SetProviderPriceEvent {
@@ -1067,7 +1067,7 @@ export const SetCoinbasePriceEvent = {
   toAmino(message: SetCoinbasePriceEvent): SetCoinbasePriceEventAmino {
     const obj: any = {};
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     return obj;
   },

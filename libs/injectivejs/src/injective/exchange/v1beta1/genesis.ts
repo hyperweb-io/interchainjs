@@ -1,7 +1,7 @@
 import { Params, ParamsAmino, SpotMarket, SpotMarketAmino, DerivativeMarket, DerivativeMarketAmino, PerpetualMarketInfo, PerpetualMarketInfoAmino, DerivativeMarketSettlementInfo, DerivativeMarketSettlementInfoAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, TradeRecords, TradeRecordsAmino, BinaryOptionsMarket, BinaryOptionsMarketAmino, DenomDecimals, DenomDecimalsAmino, MarketFeeMultiplier, MarketFeeMultiplierAmino, AggregateSubaccountVolumeRecord, AggregateSubaccountVolumeRecordAmino, MarketVolume, MarketVolumeAmino, FeeDiscountTierTTL, FeeDiscountTierTTLAmino, SpotLimitOrder, SpotLimitOrderAmino, DerivativeLimitOrder, DerivativeLimitOrderAmino, DerivativeMarketOrder, DerivativeMarketOrderAmino, Deposit, DepositAmino, Position, PositionAmino, SubaccountTradeNonce, SubaccountTradeNonceAmino, ExpiryFuturesMarketInfo, ExpiryFuturesMarketInfoAmino, PerpetualMarketFunding, PerpetualMarketFundingAmino, GrantAuthorization, GrantAuthorizationAmino, ActiveGrant, ActiveGrantAmino } from "./exchange";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 /** GenesisState defines the exchange module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to exchange. */
@@ -1364,7 +1364,7 @@ export const AccountVolume = {
   toAmino(message: AccountVolume): AccountVolumeAmino {
     const obj: any = {};
     obj.account = message.account === "" ? undefined : message.account;
-    obj.volume = message.volume === "" ? undefined : message.volume;
+    obj.volume = message.volume === "" ? undefined : Decimal.fromUserInput(message.volume, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: AccountVolumeAminoMsg): AccountVolume {
@@ -1446,7 +1446,7 @@ export const TradingRewardCampaignAccountPoints = {
   toAmino(message: TradingRewardCampaignAccountPoints): TradingRewardCampaignAccountPointsAmino {
     const obj: any = {};
     obj.account = message.account === "" ? undefined : message.account;
-    obj.points = message.points === "" ? undefined : message.points;
+    obj.points = message.points === "" ? undefined : Decimal.fromUserInput(message.points, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: TradingRewardCampaignAccountPointsAminoMsg): TradingRewardCampaignAccountPoints {

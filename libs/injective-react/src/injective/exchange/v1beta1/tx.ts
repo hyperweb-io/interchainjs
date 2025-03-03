@@ -3,7 +3,7 @@ import { OracleType } from "../../oracle/v1beta1/oracle";
 import { SpotOrder, SpotOrderAmino, DerivativeOrder, DerivativeOrderAmino, MarketStatus, GrantAuthorization, GrantAuthorizationAmino, PositionDelta, PositionDeltaAmino } from "./exchange";
 import { Params, ParamsAmino } from "../../../cosmos/distribution/v1beta1/distribution";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface MsgUpdateSpotMarket {
   /** current admin address of the associated market */
@@ -2100,9 +2100,9 @@ export const MsgUpdateSpotMarket = {
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.new_ticker = message.newTicker === "" ? undefined : message.newTicker;
-    obj.new_min_price_tick_size = message.newMinPriceTickSize === "" ? undefined : message.newMinPriceTickSize;
-    obj.new_min_quantity_tick_size = message.newMinQuantityTickSize === "" ? undefined : message.newMinQuantityTickSize;
-    obj.new_min_notional = message.newMinNotional === "" ? undefined : message.newMinNotional;
+    obj.new_min_price_tick_size = message.newMinPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.newMinPriceTickSize, 18).atomics;
+    obj.new_min_quantity_tick_size = message.newMinQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.newMinQuantityTickSize, 18).atomics;
+    obj.new_min_notional = message.newMinNotional === "" ? undefined : Decimal.fromUserInput(message.newMinNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateSpotMarketAminoMsg): MsgUpdateSpotMarket {
@@ -2316,11 +2316,11 @@ export const MsgUpdateDerivativeMarket = {
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.new_ticker = message.newTicker === "" ? undefined : message.newTicker;
-    obj.new_min_price_tick_size = message.newMinPriceTickSize === "" ? undefined : message.newMinPriceTickSize;
-    obj.new_min_quantity_tick_size = message.newMinQuantityTickSize === "" ? undefined : message.newMinQuantityTickSize;
-    obj.new_min_notional = message.newMinNotional === "" ? undefined : message.newMinNotional;
-    obj.new_initial_margin_ratio = message.newInitialMarginRatio === "" ? undefined : message.newInitialMarginRatio;
-    obj.new_maintenance_margin_ratio = message.newMaintenanceMarginRatio === "" ? undefined : message.newMaintenanceMarginRatio;
+    obj.new_min_price_tick_size = message.newMinPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.newMinPriceTickSize, 18).atomics;
+    obj.new_min_quantity_tick_size = message.newMinQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.newMinQuantityTickSize, 18).atomics;
+    obj.new_min_notional = message.newMinNotional === "" ? undefined : Decimal.fromUserInput(message.newMinNotional, 18).atomics;
+    obj.new_initial_margin_ratio = message.newInitialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.newInitialMarginRatio, 18).atomics;
+    obj.new_maintenance_margin_ratio = message.newMaintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.newMaintenanceMarginRatio, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgUpdateDerivativeMarketAminoMsg): MsgUpdateDerivativeMarket {
@@ -3358,9 +3358,9 @@ export const MsgInstantSpotMarketLaunch = {
     obj.ticker = message.ticker === "" ? undefined : message.ticker;
     obj.base_denom = message.baseDenom === "" ? undefined : message.baseDenom;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgInstantSpotMarketLaunchAminoMsg): MsgInstantSpotMarketLaunch {
@@ -3644,13 +3644,13 @@ export const MsgInstantPerpetualMarketLaunch = {
     obj.oracle_quote = message.oracleQuote === "" ? undefined : message.oracleQuote;
     obj.oracle_scale_factor = message.oracleScaleFactor === 0 ? undefined : message.oracleScaleFactor;
     obj.oracle_type = message.oracleType === 0 ? undefined : message.oracleType;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : message.initialMarginRatio;
-    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : message.maintenanceMarginRatio;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.initialMarginRatio, 18).atomics;
+    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgInstantPerpetualMarketLaunchAminoMsg): MsgInstantPerpetualMarketLaunch {
@@ -3944,15 +3944,15 @@ export const MsgInstantBinaryOptionsMarketLaunch = {
     obj.oracle_provider = message.oracleProvider === "" ? undefined : message.oracleProvider;
     obj.oracle_type = message.oracleType === 0 ? undefined : message.oracleType;
     obj.oracle_scale_factor = message.oracleScaleFactor === 0 ? undefined : message.oracleScaleFactor;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
     obj.expiration_timestamp = message.expirationTimestamp !== BigInt(0) ? message.expirationTimestamp?.toString() : undefined;
     obj.settlement_timestamp = message.settlementTimestamp !== BigInt(0) ? message.settlementTimestamp?.toString() : undefined;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgInstantBinaryOptionsMarketLaunchAminoMsg): MsgInstantBinaryOptionsMarketLaunch {
@@ -4248,13 +4248,13 @@ export const MsgInstantExpiryFuturesMarketLaunch = {
     obj.oracle_type = message.oracleType === 0 ? undefined : message.oracleType;
     obj.oracle_scale_factor = message.oracleScaleFactor === 0 ? undefined : message.oracleScaleFactor;
     obj.expiry = message.expiry !== BigInt(0) ? message.expiry?.toString() : undefined;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : message.initialMarginRatio;
-    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : message.maintenanceMarginRatio;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.initialMarginRatio, 18).atomics;
+    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgInstantExpiryFuturesMarketLaunchAminoMsg): MsgInstantExpiryFuturesMarketLaunch {
@@ -4596,9 +4596,9 @@ export const SpotMarketOrderResults = {
   },
   toAmino(message: SpotMarketOrderResults): SpotMarketOrderResultsAmino {
     const obj: any = {};
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SpotMarketOrderResultsAminoMsg): SpotMarketOrderResults {
@@ -6440,11 +6440,11 @@ export const DerivativeMarketOrderResults = {
   },
   toAmino(message: DerivativeMarketOrderResults): DerivativeMarketOrderResultsAmino {
     const obj: any = {};
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.position_delta = message.positionDelta ? PositionDelta.toAmino(message.positionDelta) : undefined;
-    obj.payout = message.payout === "" ? undefined : message.payout;
+    obj.payout = message.payout === "" ? undefined : Decimal.fromUserInput(message.payout, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DerivativeMarketOrderResultsAminoMsg): DerivativeMarketOrderResults {
@@ -8106,7 +8106,7 @@ export const MsgIncreasePositionMargin = {
     obj.source_subaccount_id = message.sourceSubaccountId === "" ? undefined : message.sourceSubaccountId;
     obj.destination_subaccount_id = message.destinationSubaccountId === "" ? undefined : message.destinationSubaccountId;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.amount = message.amount === "" ? undefined : Decimal.fromUserInput(message.amount, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgIncreasePositionMarginAminoMsg): MsgIncreasePositionMargin {
@@ -8288,7 +8288,7 @@ export const MsgDecreasePositionMargin = {
     obj.source_subaccount_id = message.sourceSubaccountId === "" ? undefined : message.sourceSubaccountId;
     obj.destination_subaccount_id = message.destinationSubaccountId === "" ? undefined : message.destinationSubaccountId;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.amount = message.amount === "" ? undefined : Decimal.fromUserInput(message.amount, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MsgDecreasePositionMarginAminoMsg): MsgDecreasePositionMargin {
@@ -9124,7 +9124,7 @@ export const MsgAdminUpdateBinaryOptionsMarket = {
     const obj: any = {};
     obj.sender = message.sender === "" ? undefined : message.sender;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.settlement_price = message.settlementPrice === null ? undefined : message.settlementPrice;
+    obj.settlement_price = message.settlementPrice === null ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
     obj.expiration_timestamp = message.expirationTimestamp !== BigInt(0) ? message.expirationTimestamp?.toString() : undefined;
     obj.settlement_timestamp = message.settlementTimestamp !== BigInt(0) ? message.settlementTimestamp?.toString() : undefined;
     obj.status = message.status === 0 ? undefined : message.status;

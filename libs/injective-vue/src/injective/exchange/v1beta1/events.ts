@@ -3,7 +3,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 export interface EventBatchSpotExecution {
   marketId: string;
   isBuy: boolean;
@@ -858,7 +858,7 @@ export const EventBatchDerivativeExecution = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.is_buy = message.isBuy === false ? undefined : message.isBuy;
     obj.is_liquidation = message.isLiquidation === false ? undefined : message.isLiquidation;
-    obj.cumulative_funding = message.cumulativeFunding === null ? undefined : message.cumulativeFunding;
+    obj.cumulative_funding = message.cumulativeFunding === null ? undefined : Decimal.fromUserInput(message.cumulativeFunding, 18).atomics;
     obj.executionType = message.executionType === 0 ? undefined : message.executionType;
     if (message.trades) {
       obj.trades = message.trades.map(e => e ? DerivativeTradeLog.toAmino(e) : undefined);
@@ -969,8 +969,8 @@ export const EventLostFundsFromLiquidation = {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.subaccount_id = message.subaccountId ? base64FromBytes(message.subaccountId) : undefined;
-    obj.lost_funds_from_available_during_payout = message.lostFundsFromAvailableDuringPayout === "" ? undefined : message.lostFundsFromAvailableDuringPayout;
-    obj.lost_funds_from_order_cancels = message.lostFundsFromOrderCancels === "" ? undefined : message.lostFundsFromOrderCancels;
+    obj.lost_funds_from_available_during_payout = message.lostFundsFromAvailableDuringPayout === "" ? undefined : Decimal.fromUserInput(message.lostFundsFromAvailableDuringPayout, 18).atomics;
+    obj.lost_funds_from_order_cancels = message.lostFundsFromOrderCancels === "" ? undefined : Decimal.fromUserInput(message.lostFundsFromOrderCancels, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: EventLostFundsFromLiquidationAminoMsg): EventLostFundsFromLiquidation {
@@ -2059,8 +2059,8 @@ export const EventPerpetualMarketFundingUpdate = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.funding = message.funding ? PerpetualMarketFunding.toAmino(message.funding) : undefined;
     obj.is_hourly_funding = message.isHourlyFunding === false ? undefined : message.isHourlyFunding;
-    obj.funding_rate = message.fundingRate === null ? undefined : message.fundingRate;
-    obj.mark_price = message.markPrice === null ? undefined : message.markPrice;
+    obj.funding_rate = message.fundingRate === null ? undefined : Decimal.fromUserInput(message.fundingRate, 18).atomics;
+    obj.mark_price = message.markPrice === null ? undefined : Decimal.fromUserInput(message.markPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: EventPerpetualMarketFundingUpdateAminoMsg): EventPerpetualMarketFundingUpdate {
@@ -2496,7 +2496,7 @@ export const DerivativeMarketOrderCancel = {
   toAmino(message: DerivativeMarketOrderCancel): DerivativeMarketOrderCancelAmino {
     const obj: any = {};
     obj.market_order = message.marketOrder ? DerivativeMarketOrder.toAmino(message.marketOrder) : undefined;
-    obj.cancel_quantity = message.cancelQuantity === "" ? undefined : message.cancelQuantity;
+    obj.cancel_quantity = message.cancelQuantity === "" ? undefined : Decimal.fromUserInput(message.cancelQuantity, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DerivativeMarketOrderCancelAminoMsg): DerivativeMarketOrderCancel {

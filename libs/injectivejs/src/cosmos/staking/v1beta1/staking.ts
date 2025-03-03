@@ -7,7 +7,7 @@ import { ValidatorUpdate, ValidatorUpdateAmino } from "../../../tendermint/abci/
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, isSet } from "../../../helpers";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 import { encodePubkey, decodePubkey } from "@interchainjs/pubkey";
 /** BondStatus is the status of a validator. */
 export enum BondStatus {
@@ -918,9 +918,9 @@ export const CommissionRates = {
   },
   toAmino(message: CommissionRates): CommissionRatesAmino {
     const obj: any = {};
-    obj.rate = message.rate ?? "";
-    obj.max_rate = message.maxRate ?? "";
-    obj.max_change_rate = message.maxChangeRate ?? "";
+    obj.rate = Decimal.fromUserInput(message.rate, 18).atomics ?? "";
+    obj.max_rate = Decimal.fromUserInput(message.maxRate, 18).atomics ?? "";
+    obj.max_change_rate = Decimal.fromUserInput(message.maxChangeRate, 18).atomics ?? "";
     return obj;
   },
   fromAminoMsg(object: CommissionRatesAminoMsg): CommissionRates {
@@ -1357,7 +1357,7 @@ export const Validator = {
     obj.jailed = message.jailed === false ? undefined : message.jailed;
     obj.status = message.status === 0 ? undefined : message.status;
     obj.tokens = message.tokens === "" ? undefined : message.tokens;
-    obj.delegator_shares = message.delegatorShares === "" ? undefined : message.delegatorShares;
+    obj.delegator_shares = message.delegatorShares === "" ? undefined : Decimal.fromUserInput(message.delegatorShares, 18).atomics;
     obj.description = message.description ? Description.toAmino(message.description) : Description.toAmino(Description.fromPartial({}));
     obj.unbonding_height = message.unbondingHeight !== BigInt(0) ? message.unbondingHeight?.toString() : undefined;
     obj.unbonding_time = message.unbondingTime ? Timestamp.toAmino(toTimestamp(message.unbondingTime)) : new Date();
@@ -1903,7 +1903,7 @@ export const Delegation = {
     const obj: any = {};
     obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
     obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
-    obj.shares = message.shares === "" ? undefined : message.shares;
+    obj.shares = message.shares === "" ? undefined : Decimal.fromUserInput(message.shares, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DelegationAminoMsg): Delegation {
@@ -2280,7 +2280,7 @@ export const RedelegationEntry = {
     obj.creation_height = message.creationHeight !== BigInt(0) ? message.creationHeight?.toString() : undefined;
     obj.completion_time = message.completionTime ? Timestamp.toAmino(toTimestamp(message.completionTime)) : new Date();
     obj.initial_balance = message.initialBalance === "" ? undefined : message.initialBalance;
-    obj.shares_dst = message.sharesDst === "" ? undefined : message.sharesDst;
+    obj.shares_dst = message.sharesDst === "" ? undefined : Decimal.fromUserInput(message.sharesDst, 18).atomics;
     obj.unbonding_id = message.unbondingId !== BigInt(0) ? message.unbondingId?.toString() : undefined;
     obj.unbonding_on_hold_ref_count = message.unbondingOnHoldRefCount !== BigInt(0) ? message.unbondingOnHoldRefCount?.toString() : undefined;
     return obj;
@@ -2536,7 +2536,7 @@ export const Params = {
     obj.max_entries = message.maxEntries === 0 ? undefined : message.maxEntries;
     obj.historical_entries = message.historicalEntries === 0 ? undefined : message.historicalEntries;
     obj.bond_denom = message.bondDenom === "" ? undefined : message.bondDenom;
-    obj.min_commission_rate = message.minCommissionRate ?? "";
+    obj.min_commission_rate = Decimal.fromUserInput(message.minCommissionRate, 18).atomics ?? "";
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

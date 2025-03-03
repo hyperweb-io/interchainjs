@@ -4,7 +4,7 @@ import { MetadataStatistics, MetadataStatisticsAmino } from "../../oracle/v1beta
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 export enum OrderSide {
   /** Side_Unspecified - will return both */
   Side_Unspecified = 0,
@@ -5424,8 +5424,8 @@ export const QuerySpotOrderbookRequest = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.limit = message.limit !== BigInt(0) ? message.limit?.toString() : undefined;
     obj.order_side = message.orderSide === 0 ? undefined : message.orderSide;
-    obj.limit_cumulative_notional = message.limitCumulativeNotional === null ? undefined : message.limitCumulativeNotional;
-    obj.limit_cumulative_quantity = message.limitCumulativeQuantity === null ? undefined : message.limitCumulativeQuantity;
+    obj.limit_cumulative_notional = message.limitCumulativeNotional === null ? undefined : Decimal.fromUserInput(message.limitCumulativeNotional, 18).atomics;
+    obj.limit_cumulative_quantity = message.limitCumulativeQuantity === null ? undefined : Decimal.fromUserInput(message.limitCumulativeQuantity, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QuerySpotOrderbookRequestAminoMsg): QuerySpotOrderbookRequest {
@@ -6370,9 +6370,9 @@ export const TrimmedSpotLimitOrder = {
   },
   toAmino(message: TrimmedSpotLimitOrder): TrimmedSpotLimitOrderAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.fillable = message.fillable === "" ? undefined : message.fillable;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.fillable = message.fillable === "" ? undefined : Decimal.fromUserInput(message.fillable, 18).atomics;
     obj.isBuy = message.isBuy === false ? undefined : message.isBuy;
     obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.cid = message.cid === "" ? undefined : message.cid;
@@ -6681,9 +6681,9 @@ export const QuerySpotMidPriceAndTOBResponse = {
   },
   toAmino(message: QuerySpotMidPriceAndTOBResponse): QuerySpotMidPriceAndTOBResponseAmino {
     const obj: any = {};
-    obj.mid_price = message.midPrice === null ? undefined : message.midPrice;
-    obj.best_buy_price = message.bestBuyPrice === null ? undefined : message.bestBuyPrice;
-    obj.best_sell_price = message.bestSellPrice === null ? undefined : message.bestSellPrice;
+    obj.mid_price = message.midPrice === null ? undefined : Decimal.fromUserInput(message.midPrice, 18).atomics;
+    obj.best_buy_price = message.bestBuyPrice === null ? undefined : Decimal.fromUserInput(message.bestBuyPrice, 18).atomics;
+    obj.best_sell_price = message.bestSellPrice === null ? undefined : Decimal.fromUserInput(message.bestSellPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QuerySpotMidPriceAndTOBResponseAminoMsg): QuerySpotMidPriceAndTOBResponse {
@@ -6845,9 +6845,9 @@ export const QueryDerivativeMidPriceAndTOBResponse = {
   },
   toAmino(message: QueryDerivativeMidPriceAndTOBResponse): QueryDerivativeMidPriceAndTOBResponseAmino {
     const obj: any = {};
-    obj.mid_price = message.midPrice === null ? undefined : message.midPrice;
-    obj.best_buy_price = message.bestBuyPrice === null ? undefined : message.bestBuyPrice;
-    obj.best_sell_price = message.bestSellPrice === null ? undefined : message.bestSellPrice;
+    obj.mid_price = message.midPrice === null ? undefined : Decimal.fromUserInput(message.midPrice, 18).atomics;
+    obj.best_buy_price = message.bestBuyPrice === null ? undefined : Decimal.fromUserInput(message.bestBuyPrice, 18).atomics;
+    obj.best_sell_price = message.bestSellPrice === null ? undefined : Decimal.fromUserInput(message.bestSellPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QueryDerivativeMidPriceAndTOBResponseAminoMsg): QueryDerivativeMidPriceAndTOBResponse {
@@ -6941,7 +6941,7 @@ export const QueryDerivativeOrderbookRequest = {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.limit = message.limit !== BigInt(0) ? message.limit?.toString() : undefined;
-    obj.limit_cumulative_notional = message.limitCumulativeNotional === null ? undefined : message.limitCumulativeNotional;
+    obj.limit_cumulative_notional = message.limitCumulativeNotional === null ? undefined : Decimal.fromUserInput(message.limitCumulativeNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QueryDerivativeOrderbookRequestAminoMsg): QueryDerivativeOrderbookRequest {
@@ -7154,10 +7154,10 @@ export const QueryTraderSpotOrdersToCancelUpToAmountRequest = {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
-    obj.base_amount = message.baseAmount === "" ? undefined : message.baseAmount;
-    obj.quote_amount = message.quoteAmount === "" ? undefined : message.quoteAmount;
+    obj.base_amount = message.baseAmount === "" ? undefined : Decimal.fromUserInput(message.baseAmount, 18).atomics;
+    obj.quote_amount = message.quoteAmount === "" ? undefined : Decimal.fromUserInput(message.quoteAmount, 18).atomics;
     obj.strategy = message.strategy === 0 ? undefined : message.strategy;
-    obj.reference_price = message.referencePrice === null ? undefined : message.referencePrice;
+    obj.reference_price = message.referencePrice === null ? undefined : Decimal.fromUserInput(message.referencePrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QueryTraderSpotOrdersToCancelUpToAmountRequestAminoMsg): QueryTraderSpotOrdersToCancelUpToAmountRequest {
@@ -7273,9 +7273,9 @@ export const QueryTraderDerivativeOrdersToCancelUpToAmountRequest = {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
-    obj.quote_amount = message.quoteAmount === "" ? undefined : message.quoteAmount;
+    obj.quote_amount = message.quoteAmount === "" ? undefined : Decimal.fromUserInput(message.quoteAmount, 18).atomics;
     obj.strategy = message.strategy === 0 ? undefined : message.strategy;
-    obj.reference_price = message.referencePrice === null ? undefined : message.referencePrice;
+    obj.reference_price = message.referencePrice === null ? undefined : Decimal.fromUserInput(message.referencePrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QueryTraderDerivativeOrdersToCancelUpToAmountRequestAminoMsg): QueryTraderDerivativeOrdersToCancelUpToAmountRequest {
@@ -7575,10 +7575,10 @@ export const TrimmedDerivativeLimitOrder = {
   },
   toAmino(message: TrimmedDerivativeLimitOrder): TrimmedDerivativeLimitOrderAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.fillable = message.fillable === "" ? undefined : message.fillable;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.fillable = message.fillable === "" ? undefined : Decimal.fromUserInput(message.fillable, 18).atomics;
     obj.isBuy = message.isBuy ?? false;
     obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.cid = message.cid === "" ? undefined : message.cid;
@@ -8070,8 +8070,8 @@ export const PriceLevel = {
   },
   toAmino(message: PriceLevel): PriceLevelAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PriceLevelAminoMsg): PriceLevel {
@@ -8270,7 +8270,7 @@ export const FullDerivativeMarket = {
     obj.market = message.market ? DerivativeMarket.toAmino(message.market) : undefined;
     obj.perpetual_info = message.perpetualInfo ? PerpetualMarketState.toAmino(message.perpetualInfo) : undefined;
     obj.futures_info = message.futuresInfo ? ExpiryFuturesMarketInfo.toAmino(message.futuresInfo) : undefined;
-    obj.mark_price = message.markPrice === "" ? undefined : message.markPrice;
+    obj.mark_price = message.markPrice === "" ? undefined : Decimal.fromUserInput(message.markPrice, 18).atomics;
     obj.mid_price_and_tob = message.midPriceAndTob ? MidPriceAndTOB.toAmino(message.midPriceAndTob) : undefined;
     return obj;
   },
@@ -9255,9 +9255,9 @@ export const EffectivePosition = {
   toAmino(message: EffectivePosition): EffectivePositionAmino {
     const obj: any = {};
     obj.is_long = message.isLong === false ? undefined : message.isLong;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.entry_price = message.entryPrice === "" ? undefined : message.entryPrice;
-    obj.effective_margin = message.effectiveMargin === "" ? undefined : message.effectiveMargin;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.entry_price = message.entryPrice === "" ? undefined : Decimal.fromUserInput(message.entryPrice, 18).atomics;
+    obj.effective_margin = message.effectiveMargin === "" ? undefined : Decimal.fromUserInput(message.effectiveMargin, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: EffectivePositionAminoMsg): EffectivePosition {
@@ -10298,7 +10298,7 @@ export const QueryTradeRewardPointsResponse = {
   toAmino(message: QueryTradeRewardPointsResponse): QueryTradeRewardPointsResponseAmino {
     const obj: any = {};
     if (message.accountTradeRewardPoints) {
-      obj.account_trade_reward_points = message.accountTradeRewardPoints.map(e => e);
+      obj.account_trade_reward_points = message.accountTradeRewardPoints.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.account_trade_reward_points = message.accountTradeRewardPoints;
     }
@@ -10472,14 +10472,14 @@ export const QueryTradeRewardCampaignResponse = {
     } else {
       obj.trading_reward_pool_campaign_schedule = message.tradingRewardPoolCampaignSchedule;
     }
-    obj.total_trade_reward_points = message.totalTradeRewardPoints === "" ? undefined : message.totalTradeRewardPoints;
+    obj.total_trade_reward_points = message.totalTradeRewardPoints === "" ? undefined : Decimal.fromUserInput(message.totalTradeRewardPoints, 18).atomics;
     if (message.pendingTradingRewardPoolCampaignSchedule) {
       obj.pending_trading_reward_pool_campaign_schedule = message.pendingTradingRewardPoolCampaignSchedule.map(e => e ? CampaignRewardPool.toAmino(e) : undefined);
     } else {
       obj.pending_trading_reward_pool_campaign_schedule = message.pendingTradingRewardPoolCampaignSchedule;
     }
     if (message.pendingTotalTradeRewardPoints) {
-      obj.pending_total_trade_reward_points = message.pendingTotalTradeRewardPoints.map(e => e);
+      obj.pending_total_trade_reward_points = message.pendingTotalTradeRewardPoints.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.pending_total_trade_reward_points = message.pendingTotalTradeRewardPoints;
     }
@@ -11250,11 +11250,11 @@ export const BalanceMismatch = {
     const obj: any = {};
     obj.subaccountId = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.available = message.available === "" ? undefined : message.available;
-    obj.total = message.total === "" ? undefined : message.total;
-    obj.balance_hold = message.balanceHold === "" ? undefined : message.balanceHold;
-    obj.expected_total = message.expectedTotal === "" ? undefined : message.expectedTotal;
-    obj.difference = message.difference === "" ? undefined : message.difference;
+    obj.available = message.available === "" ? undefined : Decimal.fromUserInput(message.available, 18).atomics;
+    obj.total = message.total === "" ? undefined : Decimal.fromUserInput(message.total, 18).atomics;
+    obj.balance_hold = message.balanceHold === "" ? undefined : Decimal.fromUserInput(message.balanceHold, 18).atomics;
+    obj.expected_total = message.expectedTotal === "" ? undefined : Decimal.fromUserInput(message.expectedTotal, 18).atomics;
+    obj.difference = message.difference === "" ? undefined : Decimal.fromUserInput(message.difference, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: BalanceMismatchAminoMsg): BalanceMismatch {
@@ -11499,9 +11499,9 @@ export const BalanceWithMarginHold = {
     const obj: any = {};
     obj.subaccountId = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.available = message.available === "" ? undefined : message.available;
-    obj.total = message.total === "" ? undefined : message.total;
-    obj.balance_hold = message.balanceHold === "" ? undefined : message.balanceHold;
+    obj.available = message.available === "" ? undefined : Decimal.fromUserInput(message.available, 18).atomics;
+    obj.total = message.total === "" ? undefined : Decimal.fromUserInput(message.total, 18).atomics;
+    obj.balance_hold = message.balanceHold === "" ? undefined : Decimal.fromUserInput(message.balanceHold, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: BalanceWithMarginHoldAminoMsg): BalanceWithMarginHold {
@@ -12515,7 +12515,7 @@ export const QueryMarketVolatilityResponse = {
   },
   toAmino(message: QueryMarketVolatilityResponse): QueryMarketVolatilityResponseAmino {
     const obj: any = {};
-    obj.volatility = message.volatility === "" ? undefined : message.volatility;
+    obj.volatility = message.volatility === "" ? undefined : Decimal.fromUserInput(message.volatility, 18).atomics;
     obj.history_metadata = message.historyMetadata ? MetadataStatistics.toAmino(message.historyMetadata) : undefined;
     if (message.rawHistory) {
       obj.raw_history = message.rawHistory.map(e => e ? TradeRecord.toAmino(e) : undefined);
@@ -12892,10 +12892,10 @@ export const TrimmedDerivativeConditionalOrder = {
   },
   toAmino(message: TrimmedDerivativeConditionalOrder): TrimmedDerivativeConditionalOrderAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.triggerPrice = message.triggerPrice === "" ? undefined : message.triggerPrice;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.triggerPrice = message.triggerPrice === "" ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     obj.isBuy = message.isBuy ?? false;
     obj.isLimit = message.isLimit ?? false;
     obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
@@ -13111,7 +13111,7 @@ export const QueryMarketAtomicExecutionFeeMultiplierResponse = {
   },
   toAmino(message: QueryMarketAtomicExecutionFeeMultiplierResponse): QueryMarketAtomicExecutionFeeMultiplierResponseAmino {
     const obj: any = {};
-    obj.multiplier = message.multiplier === "" ? undefined : message.multiplier;
+    obj.multiplier = message.multiplier === "" ? undefined : Decimal.fromUserInput(message.multiplier, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: QueryMarketAtomicExecutionFeeMultiplierResponseAminoMsg): QueryMarketAtomicExecutionFeeMultiplierResponse {

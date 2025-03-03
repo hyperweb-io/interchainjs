@@ -3,7 +3,7 @@ import { Any } from "../../../google/protobuf/any";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration } from "../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { Decimal } from "../../../decimals";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 /** VoteOption enumerates the valid vote options for a given governance proposal. */
 export enum VoteOption {
