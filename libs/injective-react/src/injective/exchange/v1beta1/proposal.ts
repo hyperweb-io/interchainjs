@@ -3,6 +3,7 @@ import { OracleType } from "../../oracle/v1beta1/oracle";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalAmino } from "../../../cosmos/distribution/v1beta1/distribution";
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@interchainjs/math";
 import { GlobalDecoderRegistry } from "../../../registry";
 export enum ExchangeType {
   EXCHANGE_UNSPECIFIED = 0,
@@ -1077,19 +1078,19 @@ export const SpotMarketParamUpdateProposal = {
       writer.uint32(26).string(message.marketId);
     }
     if (message.makerFeeRate !== undefined) {
-      writer.uint32(34).string(message.makerFeeRate);
+      writer.uint32(34).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== undefined) {
-      writer.uint32(42).string(message.takerFeeRate);
+      writer.uint32(42).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.relayerFeeShareRate !== undefined) {
-      writer.uint32(50).string(message.relayerFeeShareRate);
+      writer.uint32(50).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.minPriceTickSize !== undefined) {
-      writer.uint32(58).string(message.minPriceTickSize);
+      writer.uint32(58).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== undefined) {
-      writer.uint32(66).string(message.minQuantityTickSize);
+      writer.uint32(66).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.status !== 0) {
       writer.uint32(72).int32(message.status);
@@ -1098,7 +1099,7 @@ export const SpotMarketParamUpdateProposal = {
       writer.uint32(82).string(message.ticker);
     }
     if (message.minNotional !== undefined) {
-      writer.uint32(90).string(message.minNotional);
+      writer.uint32(90).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(98).fork()).ldelim();
@@ -1122,28 +1123,28 @@ export const SpotMarketParamUpdateProposal = {
           message.marketId = reader.string();
           break;
         case 4:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 10:
           message.ticker = reader.string();
           break;
         case 11:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
@@ -1216,14 +1217,14 @@ export const SpotMarketParamUpdateProposal = {
     obj.title = message.title === "" ? undefined : message.title;
     obj.description = message.description === "" ? undefined : message.description;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : message.takerFeeRate;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === null ? undefined : message.relayerFeeShareRate;
-    obj.min_price_tick_size = message.minPriceTickSize === null ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === null ? undefined : message.minQuantityTickSize;
+    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === null ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === null ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === null ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
     obj.status = message.status === 0 ? undefined : message.status;
     obj.ticker = message.ticker === null ? undefined : message.ticker;
-    obj.min_notional = message.minNotional === null ? undefined : message.minNotional;
+    obj.min_notional = message.minNotional === null ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
     return obj;
   },
@@ -1296,7 +1297,7 @@ export const ExchangeEnableProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.exchangeType = (reader.int32() as any);
+          message.exchangeType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -1647,19 +1648,19 @@ export const SpotMarketLaunchProposal = {
       writer.uint32(42).string(message.quoteDenom);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(50).string(message.minPriceTickSize);
+      writer.uint32(50).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(58).string(message.minQuantityTickSize);
+      writer.uint32(58).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.makerFeeRate !== undefined) {
-      writer.uint32(66).string(message.makerFeeRate);
+      writer.uint32(66).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== undefined) {
-      writer.uint32(74).string(message.takerFeeRate);
+      writer.uint32(74).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(82).string(message.minNotional);
+      writer.uint32(82).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(90).fork()).ldelim();
@@ -1689,19 +1690,19 @@ export const SpotMarketLaunchProposal = {
           message.quoteDenom = reader.string();
           break;
         case 6:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 10:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 11:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
@@ -1772,11 +1773,11 @@ export const SpotMarketLaunchProposal = {
     obj.ticker = message.ticker === "" ? undefined : message.ticker;
     obj.base_denom = message.baseDenom === "" ? undefined : message.baseDenom;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : message.takerFeeRate;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
     return obj;
   },
@@ -1862,25 +1863,25 @@ export const PerpetualMarketLaunchProposal = {
       writer.uint32(64).int32(message.oracleType);
     }
     if (message.initialMarginRatio !== "") {
-      writer.uint32(74).string(message.initialMarginRatio);
+      writer.uint32(74).string(Decimal.fromUserInput(message.initialMarginRatio, 18).atomics);
     }
     if (message.maintenanceMarginRatio !== "") {
-      writer.uint32(82).string(message.maintenanceMarginRatio);
+      writer.uint32(82).string(Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics);
     }
     if (message.makerFeeRate !== "") {
-      writer.uint32(90).string(message.makerFeeRate);
+      writer.uint32(90).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== "") {
-      writer.uint32(98).string(message.takerFeeRate);
+      writer.uint32(98).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(106).string(message.minPriceTickSize);
+      writer.uint32(106).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(114).string(message.minQuantityTickSize);
+      writer.uint32(114).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(122).string(message.minNotional);
+      writer.uint32(122).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(130).fork()).ldelim();
@@ -1916,28 +1917,28 @@ export const PerpetualMarketLaunchProposal = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 8:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 9:
-          message.initialMarginRatio = reader.string();
+          message.initialMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 10:
-          message.maintenanceMarginRatio = reader.string();
+          message.maintenanceMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 11:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 14:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 15:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 16:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
@@ -2031,13 +2032,13 @@ export const PerpetualMarketLaunchProposal = {
     obj.oracle_quote = message.oracleQuote === "" ? undefined : message.oracleQuote;
     obj.oracle_scale_factor = message.oracleScaleFactor === 0 ? undefined : message.oracleScaleFactor;
     obj.oracle_type = message.oracleType === 0 ? undefined : message.oracleType;
-    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : message.initialMarginRatio;
-    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : message.maintenanceMarginRatio;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.initialMarginRatio, 18).atomics;
+    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
     return obj;
   },
@@ -2133,19 +2134,19 @@ export const BinaryOptionsMarketLaunchProposal = {
       writer.uint32(90).string(message.quoteDenom);
     }
     if (message.makerFeeRate !== "") {
-      writer.uint32(98).string(message.makerFeeRate);
+      writer.uint32(98).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== "") {
-      writer.uint32(106).string(message.takerFeeRate);
+      writer.uint32(106).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(114).string(message.minPriceTickSize);
+      writer.uint32(114).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(122).string(message.minQuantityTickSize);
+      writer.uint32(122).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(130).string(message.minNotional);
+      writer.uint32(130).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminPermissions !== 0) {
       writer.uint32(136).uint32(message.adminPermissions);
@@ -2175,7 +2176,7 @@ export const BinaryOptionsMarketLaunchProposal = {
           message.oracleProvider = reader.string();
           break;
         case 6:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 7:
           message.oracleScaleFactor = reader.uint32();
@@ -2193,19 +2194,19 @@ export const BinaryOptionsMarketLaunchProposal = {
           message.quoteDenom = reader.string();
           break;
         case 12:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 14:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 15:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 16:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 17:
           message.adminPermissions = reader.uint32();
@@ -2306,11 +2307,11 @@ export const BinaryOptionsMarketLaunchProposal = {
     obj.settlement_timestamp = message.settlementTimestamp !== BigInt(0) ? message.settlementTimestamp?.toString() : undefined;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
     return obj;
   },
@@ -2399,25 +2400,25 @@ export const ExpiryFuturesMarketLaunchProposal = {
       writer.uint32(72).int64(message.expiry);
     }
     if (message.initialMarginRatio !== "") {
-      writer.uint32(82).string(message.initialMarginRatio);
+      writer.uint32(82).string(Decimal.fromUserInput(message.initialMarginRatio, 18).atomics);
     }
     if (message.maintenanceMarginRatio !== "") {
-      writer.uint32(90).string(message.maintenanceMarginRatio);
+      writer.uint32(90).string(Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics);
     }
     if (message.makerFeeRate !== "") {
-      writer.uint32(98).string(message.makerFeeRate);
+      writer.uint32(98).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== "") {
-      writer.uint32(106).string(message.takerFeeRate);
+      writer.uint32(106).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(114).string(message.minPriceTickSize);
+      writer.uint32(114).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(122).string(message.minQuantityTickSize);
+      writer.uint32(122).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(130).string(message.minNotional);
+      writer.uint32(130).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(138).fork()).ldelim();
@@ -2453,31 +2454,31 @@ export const ExpiryFuturesMarketLaunchProposal = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 8:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 9:
           message.expiry = reader.int64();
           break;
         case 10:
-          message.initialMarginRatio = reader.string();
+          message.initialMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 11:
-          message.maintenanceMarginRatio = reader.string();
+          message.maintenanceMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 14:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 15:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 16:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 17:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
@@ -2576,13 +2577,13 @@ export const ExpiryFuturesMarketLaunchProposal = {
     obj.oracle_scale_factor = message.oracleScaleFactor === 0 ? undefined : message.oracleScaleFactor;
     obj.oracle_type = message.oracleType === 0 ? undefined : message.oracleType;
     obj.expiry = message.expiry !== BigInt(0) ? message.expiry?.toString() : undefined;
-    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : message.initialMarginRatio;
-    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : message.maintenanceMarginRatio;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.initialMarginRatio, 18).atomics;
+    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
     return obj;
   },
@@ -2654,31 +2655,31 @@ export const DerivativeMarketParamUpdateProposal = {
       writer.uint32(26).string(message.marketId);
     }
     if (message.initialMarginRatio !== undefined) {
-      writer.uint32(34).string(message.initialMarginRatio);
+      writer.uint32(34).string(Decimal.fromUserInput(message.initialMarginRatio, 18).atomics);
     }
     if (message.maintenanceMarginRatio !== undefined) {
-      writer.uint32(42).string(message.maintenanceMarginRatio);
+      writer.uint32(42).string(Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics);
     }
     if (message.makerFeeRate !== undefined) {
-      writer.uint32(50).string(message.makerFeeRate);
+      writer.uint32(50).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== undefined) {
-      writer.uint32(58).string(message.takerFeeRate);
+      writer.uint32(58).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.relayerFeeShareRate !== undefined) {
-      writer.uint32(66).string(message.relayerFeeShareRate);
+      writer.uint32(66).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.minPriceTickSize !== undefined) {
-      writer.uint32(74).string(message.minPriceTickSize);
+      writer.uint32(74).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== undefined) {
-      writer.uint32(82).string(message.minQuantityTickSize);
+      writer.uint32(82).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.hourlyInterestRate !== undefined) {
-      writer.uint32(90).string(message.hourlyInterestRate);
+      writer.uint32(90).string(Decimal.fromUserInput(message.hourlyInterestRate, 18).atomics);
     }
     if (message.hourlyFundingRateCap !== undefined) {
-      writer.uint32(98).string(message.hourlyFundingRateCap);
+      writer.uint32(98).string(Decimal.fromUserInput(message.hourlyFundingRateCap, 18).atomics);
     }
     if (message.status !== 0) {
       writer.uint32(104).int32(message.status);
@@ -2690,7 +2691,7 @@ export const DerivativeMarketParamUpdateProposal = {
       writer.uint32(122).string(message.ticker);
     }
     if (message.minNotional !== undefined) {
-      writer.uint32(130).string(message.minNotional);
+      writer.uint32(130).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(138).fork()).ldelim();
@@ -2714,34 +2715,34 @@ export const DerivativeMarketParamUpdateProposal = {
           message.marketId = reader.string();
           break;
         case 4:
-          message.initialMarginRatio = reader.string();
+          message.initialMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.maintenanceMarginRatio = reader.string();
+          message.maintenanceMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 10:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 11:
-          message.hourlyInterestRate = reader.string();
+          message.hourlyInterestRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
-          message.hourlyFundingRateCap = reader.string();
+          message.hourlyFundingRateCap = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 14:
           message.oracleParams = OracleParams.decode(reader, reader.uint32());
@@ -2750,7 +2751,7 @@ export const DerivativeMarketParamUpdateProposal = {
           message.ticker = reader.string();
           break;
         case 16:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 17:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
@@ -2843,19 +2844,19 @@ export const DerivativeMarketParamUpdateProposal = {
     obj.title = message.title === "" ? undefined : message.title;
     obj.description = message.description === "" ? undefined : message.description;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.initial_margin_ratio = message.initialMarginRatio === null ? undefined : message.initialMarginRatio;
-    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === null ? undefined : message.maintenanceMarginRatio;
-    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : message.takerFeeRate;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === null ? undefined : message.relayerFeeShareRate;
-    obj.min_price_tick_size = message.minPriceTickSize === null ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === null ? undefined : message.minQuantityTickSize;
-    obj.HourlyInterestRate = message.hourlyInterestRate === null ? undefined : message.hourlyInterestRate;
-    obj.HourlyFundingRateCap = message.hourlyFundingRateCap === null ? undefined : message.hourlyFundingRateCap;
+    obj.initial_margin_ratio = message.initialMarginRatio === null ? undefined : Decimal.fromUserInput(message.initialMarginRatio, 18).atomics;
+    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === null ? undefined : Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics;
+    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === null ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === null ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === null ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.HourlyInterestRate = message.hourlyInterestRate === null ? undefined : Decimal.fromUserInput(message.hourlyInterestRate, 18).atomics;
+    obj.HourlyFundingRateCap = message.hourlyFundingRateCap === null ? undefined : Decimal.fromUserInput(message.hourlyFundingRateCap, 18).atomics;
     obj.status = message.status === 0 ? undefined : message.status;
     obj.oracle_params = message.oracleParams ? OracleParams.toAmino(message.oracleParams) : undefined;
     obj.ticker = message.ticker === null ? undefined : message.ticker;
-    obj.min_notional = message.minNotional === null ? undefined : message.minNotional;
+    obj.min_notional = message.minNotional === null ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
     return obj;
   },
@@ -2997,7 +2998,7 @@ export const MarketForcedSettlementProposal = {
       writer.uint32(26).string(message.marketId);
     }
     if (message.settlementPrice !== undefined) {
-      writer.uint32(34).string(message.settlementPrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.settlementPrice, 18).atomics);
     }
     return writer;
   },
@@ -3018,7 +3019,7 @@ export const MarketForcedSettlementProposal = {
           message.marketId = reader.string();
           break;
         case 4:
-          message.settlementPrice = reader.string();
+          message.settlementPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3056,7 +3057,7 @@ export const MarketForcedSettlementProposal = {
     obj.title = message.title === "" ? undefined : message.title;
     obj.description = message.description === "" ? undefined : message.description;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.settlement_price = message.settlementPrice === null ? undefined : message.settlementPrice;
+    obj.settlement_price = message.settlementPrice === null ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MarketForcedSettlementProposalAminoMsg): MarketForcedSettlementProposal {
@@ -3232,19 +3233,19 @@ export const BinaryOptionsMarketParamUpdateProposal = {
       writer.uint32(26).string(message.marketId);
     }
     if (message.makerFeeRate !== undefined) {
-      writer.uint32(34).string(message.makerFeeRate);
+      writer.uint32(34).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== undefined) {
-      writer.uint32(42).string(message.takerFeeRate);
+      writer.uint32(42).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.relayerFeeShareRate !== undefined) {
-      writer.uint32(50).string(message.relayerFeeShareRate);
+      writer.uint32(50).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.minPriceTickSize !== undefined) {
-      writer.uint32(58).string(message.minPriceTickSize);
+      writer.uint32(58).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== undefined) {
-      writer.uint32(66).string(message.minQuantityTickSize);
+      writer.uint32(66).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.expirationTimestamp !== BigInt(0)) {
       writer.uint32(72).int64(message.expirationTimestamp);
@@ -3253,7 +3254,7 @@ export const BinaryOptionsMarketParamUpdateProposal = {
       writer.uint32(80).int64(message.settlementTimestamp);
     }
     if (message.settlementPrice !== undefined) {
-      writer.uint32(90).string(message.settlementPrice);
+      writer.uint32(90).string(Decimal.fromUserInput(message.settlementPrice, 18).atomics);
     }
     if (message.admin !== "") {
       writer.uint32(98).string(message.admin);
@@ -3268,7 +3269,7 @@ export const BinaryOptionsMarketParamUpdateProposal = {
       writer.uint32(122).string(message.ticker);
     }
     if (message.minNotional !== undefined) {
-      writer.uint32(130).string(message.minNotional);
+      writer.uint32(130).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     return writer;
   },
@@ -3289,19 +3290,19 @@ export const BinaryOptionsMarketParamUpdateProposal = {
           message.marketId = reader.string();
           break;
         case 4:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
           message.expirationTimestamp = reader.int64();
@@ -3310,13 +3311,13 @@ export const BinaryOptionsMarketParamUpdateProposal = {
           message.settlementTimestamp = reader.int64();
           break;
         case 11:
-          message.settlementPrice = reader.string();
+          message.settlementPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
           message.admin = reader.string();
           break;
         case 13:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         case 14:
           message.oracleParams = ProviderOracleParams.decode(reader, reader.uint32());
@@ -3325,7 +3326,7 @@ export const BinaryOptionsMarketParamUpdateProposal = {
           message.ticker = reader.string();
           break;
         case 16:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3411,19 +3412,19 @@ export const BinaryOptionsMarketParamUpdateProposal = {
     obj.title = message.title === "" ? undefined : message.title;
     obj.description = message.description === "" ? undefined : message.description;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : message.takerFeeRate;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === null ? undefined : message.relayerFeeShareRate;
-    obj.min_price_tick_size = message.minPriceTickSize === null ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === null ? undefined : message.minQuantityTickSize;
+    obj.maker_fee_rate = message.makerFeeRate === null ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === null ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === null ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
+    obj.min_price_tick_size = message.minPriceTickSize === null ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === null ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
     obj.expiration_timestamp = message.expirationTimestamp !== BigInt(0) ? message.expirationTimestamp?.toString() : undefined;
     obj.settlement_timestamp = message.settlementTimestamp !== BigInt(0) ? message.settlementTimestamp?.toString() : undefined;
-    obj.settlement_price = message.settlementPrice === null ? undefined : message.settlementPrice;
+    obj.settlement_price = message.settlementPrice === null ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.status = message.status === 0 ? undefined : message.status;
     obj.oracle_params = message.oracleParams ? ProviderOracleParams.toAmino(message.oracleParams) : undefined;
     obj.ticker = message.ticker === null ? undefined : message.ticker;
-    obj.min_notional = message.minNotional === null ? undefined : message.minNotional;
+    obj.min_notional = message.minNotional === null ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: BinaryOptionsMarketParamUpdateProposalAminoMsg): BinaryOptionsMarketParamUpdateProposal {
@@ -3501,7 +3502,7 @@ export const ProviderOracleParams = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 4:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3607,7 +3608,7 @@ export const OracleParams = {
           message.oracleScaleFactor = reader.uint32();
           break;
         case 4:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3938,7 +3939,7 @@ export const RewardPointUpdate = {
       writer.uint32(10).string(message.accountAddress);
     }
     if (message.newPoints !== "") {
-      writer.uint32(98).string(message.newPoints);
+      writer.uint32(98).string(Decimal.fromUserInput(message.newPoints, 18).atomics);
     }
     return writer;
   },
@@ -3953,7 +3954,7 @@ export const RewardPointUpdate = {
           message.accountAddress = reader.string();
           break;
         case 12:
-          message.newPoints = reader.string();
+          message.newPoints = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3981,7 +3982,7 @@ export const RewardPointUpdate = {
   toAmino(message: RewardPointUpdate): RewardPointUpdateAmino {
     const obj: any = {};
     obj.account_address = message.accountAddress === "" ? undefined : message.accountAddress;
-    obj.new_points = message.newPoints === "" ? undefined : message.newPoints;
+    obj.new_points = message.newPoints === "" ? undefined : Decimal.fromUserInput(message.newPoints, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: RewardPointUpdateAminoMsg): RewardPointUpdate {

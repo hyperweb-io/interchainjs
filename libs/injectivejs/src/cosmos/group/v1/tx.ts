@@ -2363,7 +2363,7 @@ export const MsgSubmitProposal = {
           message.messages.push(Any.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.exec = (reader.int32() as any);
+          message.exec = reader.int32() as any;
           break;
         case 6:
           message.title = reader.string();
@@ -2732,13 +2732,13 @@ export const MsgVote = {
           message.voter = reader.string();
           break;
         case 3:
-          message.option = (reader.int32() as any);
+          message.option = reader.int32() as any;
           break;
         case 4:
           message.metadata = reader.string();
           break;
         case 5:
-          message.exec = (reader.int32() as any);
+          message.exec = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2988,7 +2988,7 @@ export const MsgExecResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 2:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

@@ -31,7 +31,9 @@
                 "cosmos/gov/v1beta1/query.proto",
                 "cosmos/staking/v1beta1/staking.proto",
                 "cosmos/staking/v1beta1/query.proto",
-                "cosmos/crypto/secp256k1/keys.proto"
+                "cosmos/crypto/secp256k1/keys.proto",
+                "cosmos/crypto/ed25519/keys.proto",
+                "cosmos/crypto/multisig/keys.proto"
               ]
             },
             "methods": {
@@ -59,7 +61,8 @@
                 "useDeepPartial": true,
                 "num64": "bigint",
                 "customTypes": {
-                    "useCosmosSDKDec": false
+                    "useCosmosSDKDec": true,
+                    "useEnhancedDecimal": false
                 },
                 "useTelescopeGeneratedType": true,
                 "autoFixUndefinedEnumDefault": true
@@ -89,7 +92,10 @@
             "enabled": false,
             "useLegacyInlineEncoding": false,
             "disableMsgTypes": false,
-            "useProtoOptionality": true
+            "useProtoOptionality": true,
+            "customTypes": {
+              "useCosmosSDKDec": true
+            }
         }
     }
 }

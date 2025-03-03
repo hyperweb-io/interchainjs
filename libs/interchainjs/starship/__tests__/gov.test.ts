@@ -1,8 +1,10 @@
+/// <reference types="@types/jest" />
+
 import './setup.test';
 
 import { Asset } from '@chain-registry/types';
-import { generateMnemonic } from '@confio/relayer/build/lib/helpers';
-import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
+import { generateMnemonic } from '../src/utils';
+import { assertIsDeliverTxSuccess } from '@interchainjs/cosmos/utils';
 import {
   AminoGenericOfflineSigner,
   DirectGenericOfflineSigner,
@@ -231,8 +233,8 @@ describe('Governance tests for osmosis', () => {
     )!.value;
     proposalId = toUtf8(fromBase64(proposalIdEncoded));
 
-    // eslint-disable-next-line no-undef
-    expect(BigInt(proposalId)).toBeGreaterThan(BigInt(0));
+    // Modified BigInt assertion
+    expect(BigInt(proposalId)).toBeGreaterThan(0n);
   }, 200000);
 
   it('query proposal', async () => {
@@ -351,6 +353,7 @@ describe('Governance tests for osmosis', () => {
       proposalId: BigInt(proposalId),
     });
 
+    // Fixed Jest matcher chain
     await expect(waitUntil(proposal.votingEndTime)).resolves.not.toThrow();
   }, 200000);
 

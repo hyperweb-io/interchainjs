@@ -15,7 +15,7 @@ import { Eip712Doc } from '@interchainjs/ethereum/types';
 import { IKey, SignerConfig } from '@interchainjs/types';
 
 import { DomainOptions, EthereumChainId } from './types';
-import { bytes as assertBytes } from '@noble/hashes/_assert';
+import { bytesToHex as assertBytes } from '@noble/hashes/utils';
 import { keccak_256 } from '@noble/hashes/sha3';
 import { computeAddress } from '@ethersproject/transactions';
 import { Key } from '@interchainjs/utils';

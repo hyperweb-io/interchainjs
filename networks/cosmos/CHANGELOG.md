@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.14](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.13...@interchainjs/cosmos@1.9.14) (2025-03-03)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
+## [1.9.13](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.12...@interchainjs/cosmos@1.9.13) (2025-02-21)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
+## [1.9.12](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.11...@interchainjs/cosmos@1.9.12) (2025-02-17)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
+## [1.9.11](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.6...@interchainjs/cosmos@1.9.11) (2025-02-14)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
+## [1.9.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.5...@interchainjs/cosmos@1.9.6) (2025-02-14)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
+## [1.9.5](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.4...@interchainjs/cosmos@1.9.5) (2025-02-14)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
+## [1.9.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.3...@interchainjs/cosmos@1.9.4) (2025-02-12)
+
+**Note:** Version bump only for package @interchainjs/cosmos
+
 ## [1.9.3](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.9.2...@interchainjs/cosmos@1.9.3) (2025-02-07)
 
 **Note:** Version bump only for package @interchainjs/cosmos

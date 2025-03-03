@@ -12,7 +12,7 @@ import {
 import { EthAccount } from '@interchainjs/cosmos-types/injective/types/v1beta1/account';
 import { BroadcastOptions, IKey, SignerConfig } from '@interchainjs/types';
 import { Key } from '@interchainjs/utils';
-import { bytes as assertBytes } from '@noble/hashes/_assert';
+import { bytesToHex as assertBytes } from '@noble/hashes/utils';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { sha256 } from '@noble/hashes/sha256';
 

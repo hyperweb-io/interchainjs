@@ -1,0 +1,32 @@
+{
+  "name": "@interchainjs/math",
+  "version": "1.9.14",
+  "description": "Math helpers for blockchain projects",
+  "contributors": [
+    "IOV SAS <admin@iov.one>"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/math"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "test": "jest --config ./jest.config.js --verbose --bail",
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "bn.js": "^5.2.0"
+  }
+}

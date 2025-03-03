@@ -1,30 +1,9 @@
-import { chains } from '@chain-registry/v2';
-import { Chain } from '@chain-registry/v2-types';
 import { Price } from '@interchainjs/types';
-import { toPrice } from '@interchainjs/utils';
+import { getChainById, toPrice } from '@interchainjs/utils';
 import Decimal from 'decimal.js';
 
 import { defaultFeeOptions } from '../defaults';
 import { FeeOptions } from '../types';
-
-
-/**
- * get chain by chain id from chain registry
- */
-export function getChainById(chainId: string): Chain {
-  return chains.find((c) => c.chainId === chainId);
-}
-
-/**
- * get bech32 prefix by chain id
- */
-export function getPrefix(chainId: string): string {
-  const prefix = getChainById(chainId)?.bech32Prefix;
-  if (!prefix) {
-    throw new Error(`Cannot find bech32_prefix for chain ${chainId}.`);
-  }
-  return prefix;
-}
 
 /**
  * get the average gas price of the chain

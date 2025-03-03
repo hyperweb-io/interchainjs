@@ -2144,7 +2144,7 @@ export const RequestCheckTx = {
           message.tx = reader.bytes();
           break;
         case 2:
-          message.type = (reader.int32() as any);
+          message.type = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -4519,7 +4519,7 @@ export const ResponseOfferSnapshot = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -4669,7 +4669,7 @@ export const ResponseApplySnapshotChunk = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.result = (reader.int32() as any);
+          message.result = reader.int32() as any;
           break;
         case 2:
           if ((tag & 7) === 2) {
@@ -4838,7 +4838,7 @@ export const ResponseProcessProposal = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -4978,7 +4978,7 @@ export const ResponseVerifyVoteExtension = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.status = (reader.int32() as any);
+          message.status = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -5968,7 +5968,7 @@ export const VoteInfo = {
           message.validator = Validator.decode(reader, reader.uint32());
           break;
         case 3:
-          message.blockIdFlag = (reader.int32() as any);
+          message.blockIdFlag = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -6066,7 +6066,7 @@ export const ExtendedVoteInfo = {
           message.extensionSignature = reader.bytes();
           break;
         case 5:
-          message.blockIdFlag = (reader.int32() as any);
+          message.blockIdFlag = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -6169,7 +6169,7 @@ export const Misbehavior = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.type = (reader.int32() as any);
+          message.type = reader.int32() as any;
           break;
         case 2:
           message.validator = Validator.decode(reader, reader.uint32());

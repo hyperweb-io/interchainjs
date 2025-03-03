@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.14](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.13...injective-react@1.9.14) (2025-03-03)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.13](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.12...injective-react@1.9.13) (2025-02-21)
+
+### Bug Fixes
+
+- update README.md ([590af74](https://github.com/hyperweb-io/interchainjs/commit/590af747c4ce15aece06236ab22cc472c0893607))
+
+## [1.9.12](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.11...injective-react@1.9.12) (2025-02-17)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.11](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.10...injective-react@1.9.11) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.10](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.9...injective-react@1.9.10) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.9](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.8...injective-react@1.9.9) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.8](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.7...injective-react@1.9.8) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.7](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.6...injective-react@1.9.7) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.6](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.5...injective-react@1.9.6) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.5](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.4...injective-react@1.9.5) (2025-02-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.9.4](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.3...injective-react@1.9.4) (2025-02-12)
+
+**Note:** Version bump only for package injective-react
+
 ## [1.9.3](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.9.2...injective-react@1.9.3) (2025-02-07)
 
 **Note:** Version bump only for package injective-react

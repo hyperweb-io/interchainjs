@@ -277,7 +277,7 @@ export const MsgCreateInsuranceFund = {
           message.oracleQuote = reader.string();
           break;
         case 6:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         case 7:
           message.expiry = reader.int64();

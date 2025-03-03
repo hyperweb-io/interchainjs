@@ -1,0 +1,35 @@
+{
+  "name": "@interchainjs/amino",
+  "version": "1.9.14",
+  "description": "Helpers for Amino based signing.",
+  "contributors": [
+    "Simon Warta <webmaster128@users.noreply.github.com>"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/amino"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "test": "jest --config ./jest.config.js --verbose --bail",
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@interchainjs/crypto": "1.9.14",
+    "@interchainjs/encoding": "1.9.14",
+    "@interchainjs/math": "1.9.14",
+    "@interchainjs/utils": "1.9.14"
+  }
+}

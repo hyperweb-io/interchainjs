@@ -96,10 +96,6 @@ export interface AminoConverter {
   toAmino: (data: any) => any;
 }
 
-export type BroadcastMode =
-  | 'broadcast_tx_async'
-  | 'broadcast_tx_sync'
-  | 'broadcast_tx_commit';
 
 export interface CheckTxResponse {
   code: number;

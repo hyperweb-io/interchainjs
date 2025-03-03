@@ -2007,7 +2007,7 @@ export const FileDescriptorProto = {
           message.syntax = reader.string();
           break;
         case 14:
-          message.edition = (reader.int32() as any);
+          message.edition = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2280,7 +2280,7 @@ export const ExtensionRangeOptions = {
           message.features = FeatureSet.decode(reader, reader.uint32());
           break;
         case 3:
-          message.verification = (reader.int32() as any);
+          message.verification = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2433,10 +2433,10 @@ export const FieldDescriptorProto = {
           message.number = reader.int32();
           break;
         case 4:
-          message.label = (reader.int32() as any);
+          message.label = reader.int32() as any;
           break;
         case 5:
-          message.type = (reader.int32() as any);
+          message.type = reader.int32() as any;
           break;
         case 6:
           message.typeName = reader.string();
@@ -2934,7 +2934,7 @@ export const FileOptions = {
           message.javaStringCheckUtf8 = reader.bool();
           break;
         case 9:
-          message.optimizeFor = (reader.int32() as any);
+          message.optimizeFor = reader.int32() as any;
           break;
         case 11:
           message.goPackage = reader.string();
@@ -3173,13 +3173,13 @@ export const FieldOptions = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ctype = (reader.int32() as any);
+          message.ctype = reader.int32() as any;
           break;
         case 2:
           message.packed = reader.bool();
           break;
         case 6:
-          message.jstype = (reader.int32() as any);
+          message.jstype = reader.int32() as any;
           break;
         case 5:
           message.lazy = reader.bool();
@@ -3197,16 +3197,16 @@ export const FieldOptions = {
           message.debugRedact = reader.bool();
           break;
         case 17:
-          message.retention = (reader.int32() as any);
+          message.retention = reader.int32() as any;
           break;
         case 19:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.targets.push((reader.int32() as any));
+              message.targets.push(reader.int32() as any);
             }
           } else {
-            message.targets.push((reader.int32() as any));
+            message.targets.push(reader.int32() as any);
           }
           break;
         case 20:
@@ -3272,7 +3272,7 @@ export const FieldOptions_EditionDefault = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 3:
-          message.edition = (reader.int32() as any);
+          message.edition = reader.int32() as any;
           break;
         case 2:
           message.value = reader.string();
@@ -3324,16 +3324,16 @@ export const FieldOptions_FeatureSupport = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.editionIntroduced = (reader.int32() as any);
+          message.editionIntroduced = reader.int32() as any;
           break;
         case 2:
-          message.editionDeprecated = (reader.int32() as any);
+          message.editionDeprecated = reader.int32() as any;
           break;
         case 3:
           message.deprecationWarning = reader.string();
           break;
         case 4:
-          message.editionRemoved = (reader.int32() as any);
+          message.editionRemoved = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3619,7 +3619,7 @@ export const MethodOptions = {
           message.deprecated = reader.bool();
           break;
         case 34:
-          message.idempotencyLevel = (reader.int32() as any);
+          message.idempotencyLevel = reader.int32() as any;
           break;
         case 35:
           message.features = FeatureSet.decode(reader, reader.uint32());
@@ -3812,22 +3812,22 @@ export const FeatureSet = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.fieldPresence = (reader.int32() as any);
+          message.fieldPresence = reader.int32() as any;
           break;
         case 2:
-          message.enumType = (reader.int32() as any);
+          message.enumType = reader.int32() as any;
           break;
         case 3:
-          message.repeatedFieldEncoding = (reader.int32() as any);
+          message.repeatedFieldEncoding = reader.int32() as any;
           break;
         case 4:
-          message.utf8Validation = (reader.int32() as any);
+          message.utf8Validation = reader.int32() as any;
           break;
         case 5:
-          message.messageEncoding = (reader.int32() as any);
+          message.messageEncoding = reader.int32() as any;
           break;
         case 6:
-          message.jsonFormat = (reader.int32() as any);
+          message.jsonFormat = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3879,10 +3879,10 @@ export const FeatureSetDefaults = {
           message.defaults.push(FeatureSetDefaults_FeatureSetEditionDefault.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.minimumEdition = (reader.int32() as any);
+          message.minimumEdition = reader.int32() as any;
           break;
         case 5:
-          message.maximumEdition = (reader.int32() as any);
+          message.maximumEdition = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -3928,7 +3928,7 @@ export const FeatureSetDefaults_FeatureSetEditionDefault = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 3:
-          message.edition = (reader.int32() as any);
+          message.edition = reader.int32() as any;
           break;
         case 4:
           message.overridableFeatures = FeatureSet.decode(reader, reader.uint32());
@@ -4167,7 +4167,7 @@ export const GeneratedCodeInfo_Annotation = {
           message.end = reader.int32();
           break;
         case 5:
-          message.semantic = (reader.int32() as any);
+          message.semantic = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

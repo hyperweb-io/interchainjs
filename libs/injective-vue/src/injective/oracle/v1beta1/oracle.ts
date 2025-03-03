@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Decimal } from "@interchainjs/math";
 export enum OracleType {
   Unspecified = 0,
   Band = 1,
@@ -809,7 +810,7 @@ export const OracleInfo = {
           message.symbol = reader.string();
           break;
         case 2:
-          message.oracleType = (reader.int32() as any);
+          message.oracleType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -878,7 +879,7 @@ export const ChainlinkPriceState = {
       writer.uint32(10).string(message.feedId);
     }
     if (message.answer !== "") {
-      writer.uint32(18).string(message.answer);
+      writer.uint32(18).string(Decimal.fromUserInput(message.answer, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).uint64(message.timestamp);
@@ -899,7 +900,7 @@ export const ChainlinkPriceState = {
           message.feedId = reader.string();
           break;
         case 2:
-          message.answer = reader.string();
+          message.answer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.uint64();
@@ -941,7 +942,7 @@ export const ChainlinkPriceState = {
   toAmino(message: ChainlinkPriceState): ChainlinkPriceStateAmino {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     obj.price_state = message.priceState ? PriceState.toAmino(message.priceState) : undefined;
     return obj;
@@ -1536,7 +1537,7 @@ export const PriceFeedPrice = {
   },
   encode(message: PriceFeedPrice, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -1548,7 +1549,7 @@ export const PriceFeedPrice = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1571,7 +1572,7 @@ export const PriceFeedPrice = {
   },
   toAmino(message: PriceFeedPrice): PriceFeedPriceAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PriceFeedPriceAminoMsg): PriceFeedPrice {
@@ -1733,7 +1734,7 @@ export const StorkPriceState = {
       writer.uint32(18).string(message.symbol);
     }
     if (message.value !== "") {
-      writer.uint32(26).string(message.value);
+      writer.uint32(26).string(Decimal.fromUserInput(message.value, 18).atomics);
     }
     if (message.priceState !== undefined) {
       PriceState.encode(message.priceState, writer.uint32(42).fork()).ldelim();
@@ -1754,7 +1755,7 @@ export const StorkPriceState = {
           message.symbol = reader.string();
           break;
         case 3:
-          message.value = reader.string();
+          message.value = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.priceState = PriceState.decode(reader, reader.uint32());
@@ -1794,7 +1795,7 @@ export const StorkPriceState = {
     const obj: any = {};
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.value = message.value === "" ? undefined : message.value;
+    obj.value = message.value === "" ? undefined : Decimal.fromUserInput(message.value, 18).atomics;
     obj.price_state = message.priceState ? PriceState.toAmino(message.priceState) : undefined;
     return obj;
   },
@@ -1832,10 +1833,10 @@ export const PriceState = {
   },
   encode(message: PriceState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.cumulativePrice !== "") {
-      writer.uint32(18).string(message.cumulativePrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.cumulativePrice, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).int64(message.timestamp);
@@ -1850,10 +1851,10 @@ export const PriceState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.cumulativePrice = reader.string();
+          message.cumulativePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.int64();
@@ -1887,8 +1888,8 @@ export const PriceState = {
   },
   toAmino(message: PriceState): PriceStateAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.cumulative_price = message.cumulativePrice === "" ? undefined : message.cumulativePrice;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.cumulative_price = message.cumulativePrice === "" ? undefined : Decimal.fromUserInput(message.cumulativePrice, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     return obj;
   },
@@ -1932,13 +1933,13 @@ export const PythPriceState = {
       writer.uint32(10).string(message.priceId);
     }
     if (message.emaPrice !== "") {
-      writer.uint32(18).string(message.emaPrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.emaPrice, 18).atomics);
     }
     if (message.emaConf !== "") {
-      writer.uint32(26).string(message.emaConf);
+      writer.uint32(26).string(Decimal.fromUserInput(message.emaConf, 18).atomics);
     }
     if (message.conf !== "") {
-      writer.uint32(34).string(message.conf);
+      writer.uint32(34).string(Decimal.fromUserInput(message.conf, 18).atomics);
     }
     if (message.publishTime !== BigInt(0)) {
       writer.uint32(40).uint64(message.publishTime);
@@ -1959,13 +1960,13 @@ export const PythPriceState = {
           message.priceId = reader.string();
           break;
         case 2:
-          message.emaPrice = reader.string();
+          message.emaPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.emaConf = reader.string();
+          message.emaConf = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.conf = reader.string();
+          message.conf = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.publishTime = reader.uint64();
@@ -2015,9 +2016,9 @@ export const PythPriceState = {
   toAmino(message: PythPriceState): PythPriceStateAmino {
     const obj: any = {};
     obj.price_id = message.priceId === "" ? undefined : message.priceId;
-    obj.ema_price = message.emaPrice === "" ? undefined : message.emaPrice;
-    obj.ema_conf = message.emaConf === "" ? undefined : message.emaConf;
-    obj.conf = message.conf === "" ? undefined : message.conf;
+    obj.ema_price = message.emaPrice === "" ? undefined : Decimal.fromUserInput(message.emaPrice, 18).atomics;
+    obj.ema_conf = message.emaConf === "" ? undefined : Decimal.fromUserInput(message.emaConf, 18).atomics;
+    obj.conf = message.conf === "" ? undefined : Decimal.fromUserInput(message.conf, 18).atomics;
     obj.publish_time = message.publishTime !== BigInt(0) ? message.publishTime?.toString() : undefined;
     obj.price_state = message.priceState ? PriceState.toAmino(message.priceState) : undefined;
     return obj;
@@ -2385,7 +2386,7 @@ export const SymbolPriceTimestamp = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.oracle = (reader.int32() as any);
+          message.oracle = reader.int32() as any;
           break;
         case 2:
           message.symbolId = reader.string();
@@ -2551,7 +2552,7 @@ export const PriceRecords = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.oracle = (reader.int32() as any);
+          message.oracle = reader.int32() as any;
           break;
         case 2:
           message.symbolId = reader.string();
@@ -2631,7 +2632,7 @@ export const PriceRecord = {
       writer.uint32(8).int64(message.timestamp);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -2646,7 +2647,7 @@ export const PriceRecord = {
           message.timestamp = reader.int64();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2674,7 +2675,7 @@ export const PriceRecord = {
   toAmino(message: PriceRecord): PriceRecordAmino {
     const obj: any = {};
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PriceRecordAminoMsg): PriceRecord {
@@ -2723,10 +2724,10 @@ export const MetadataStatistics = {
       writer.uint32(16).uint32(message.recordsSampleSize);
     }
     if (message.mean !== "") {
-      writer.uint32(26).string(message.mean);
+      writer.uint32(26).string(Decimal.fromUserInput(message.mean, 18).atomics);
     }
     if (message.twap !== "") {
-      writer.uint32(34).string(message.twap);
+      writer.uint32(34).string(Decimal.fromUserInput(message.twap, 18).atomics);
     }
     if (message.firstTimestamp !== BigInt(0)) {
       writer.uint32(40).int64(message.firstTimestamp);
@@ -2735,13 +2736,13 @@ export const MetadataStatistics = {
       writer.uint32(48).int64(message.lastTimestamp);
     }
     if (message.minPrice !== "") {
-      writer.uint32(58).string(message.minPrice);
+      writer.uint32(58).string(Decimal.fromUserInput(message.minPrice, 18).atomics);
     }
     if (message.maxPrice !== "") {
-      writer.uint32(66).string(message.maxPrice);
+      writer.uint32(66).string(Decimal.fromUserInput(message.maxPrice, 18).atomics);
     }
     if (message.medianPrice !== "") {
-      writer.uint32(74).string(message.medianPrice);
+      writer.uint32(74).string(Decimal.fromUserInput(message.medianPrice, 18).atomics);
     }
     return writer;
   },
@@ -2759,10 +2760,10 @@ export const MetadataStatistics = {
           message.recordsSampleSize = reader.uint32();
           break;
         case 3:
-          message.mean = reader.string();
+          message.mean = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.twap = reader.string();
+          message.twap = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.firstTimestamp = reader.int64();
@@ -2771,13 +2772,13 @@ export const MetadataStatistics = {
           message.lastTimestamp = reader.int64();
           break;
         case 7:
-          message.minPrice = reader.string();
+          message.minPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.maxPrice = reader.string();
+          message.maxPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
-          message.medianPrice = reader.string();
+          message.medianPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2834,13 +2835,13 @@ export const MetadataStatistics = {
     const obj: any = {};
     obj.group_count = message.groupCount === 0 ? undefined : message.groupCount;
     obj.records_sample_size = message.recordsSampleSize === 0 ? undefined : message.recordsSampleSize;
-    obj.mean = message.mean === "" ? undefined : message.mean;
-    obj.twap = message.twap === "" ? undefined : message.twap;
+    obj.mean = message.mean === "" ? undefined : Decimal.fromUserInput(message.mean, 18).atomics;
+    obj.twap = message.twap === "" ? undefined : Decimal.fromUserInput(message.twap, 18).atomics;
     obj.first_timestamp = message.firstTimestamp !== BigInt(0) ? message.firstTimestamp?.toString() : undefined;
     obj.last_timestamp = message.lastTimestamp !== BigInt(0) ? message.lastTimestamp?.toString() : undefined;
-    obj.min_price = message.minPrice === "" ? undefined : message.minPrice;
-    obj.max_price = message.maxPrice === "" ? undefined : message.maxPrice;
-    obj.median_price = message.medianPrice === "" ? undefined : message.medianPrice;
+    obj.min_price = message.minPrice === "" ? undefined : Decimal.fromUserInput(message.minPrice, 18).atomics;
+    obj.max_price = message.maxPrice === "" ? undefined : Decimal.fromUserInput(message.maxPrice, 18).atomics;
+    obj.median_price = message.medianPrice === "" ? undefined : Decimal.fromUserInput(message.medianPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MetadataStatisticsAminoMsg): MetadataStatistics {
@@ -3122,7 +3123,7 @@ export const SignedPriceOfAssetPair = {
       writer.uint32(16).uint64(message.timestamp);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.signature.length !== 0) {
       writer.uint32(34).bytes(message.signature);
@@ -3143,7 +3144,7 @@ export const SignedPriceOfAssetPair = {
           message.timestamp = reader.uint64();
           break;
         case 3:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.signature = reader.bytes();
@@ -3183,7 +3184,7 @@ export const SignedPriceOfAssetPair = {
     const obj: any = {};
     obj.publisher_key = message.publisherKey === "" ? undefined : message.publisherKey;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.signature = message.signature ? base64FromBytes(message.signature) : undefined;
     return obj;
   },

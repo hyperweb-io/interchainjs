@@ -1,5 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 export interface Params {
@@ -160,7 +161,7 @@ export const Params = {
       writer.uint32(8).int64(message.auctionPeriod);
     }
     if (message.minNextBidIncrementRate !== "") {
-      writer.uint32(18).string(message.minNextBidIncrementRate);
+      writer.uint32(18).string(Decimal.fromUserInput(message.minNextBidIncrementRate, 18).atomics);
     }
     return writer;
   },
@@ -175,7 +176,7 @@ export const Params = {
           message.auctionPeriod = reader.int64();
           break;
         case 2:
-          message.minNextBidIncrementRate = reader.string();
+          message.minNextBidIncrementRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -203,7 +204,7 @@ export const Params = {
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
     obj.auction_period = message.auctionPeriod !== BigInt(0) ? message.auctionPeriod?.toString() : undefined;
-    obj.min_next_bid_increment_rate = message.minNextBidIncrementRate === "" ? undefined : message.minNextBidIncrementRate;
+    obj.min_next_bid_increment_rate = message.minNextBidIncrementRate === "" ? undefined : Decimal.fromUserInput(message.minNextBidIncrementRate, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.14](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.13...interchainjs@1.9.14) (2025-03-03)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.13](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.12...interchainjs@1.9.13) (2025-02-21)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.12](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.11...interchainjs@1.9.12) (2025-02-17)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.11](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.10...interchainjs@1.9.11) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.10](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.9...interchainjs@1.9.10) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.9](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.8...interchainjs@1.9.9) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.8](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.7...interchainjs@1.9.8) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.7](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.6...interchainjs@1.9.7) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.6](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.5...interchainjs@1.9.6) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.5](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.4...interchainjs@1.9.5) (2025-02-14)
+
+**Note:** Version bump only for package interchainjs
+
+## [1.9.4](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.3...interchainjs@1.9.4) (2025-02-12)
+
+**Note:** Version bump only for package interchainjs
+
 ## [1.9.3](https://github.com/hyperweb-io/interchainjs/compare/interchainjs@1.9.2...interchainjs@1.9.3) (2025-02-07)
 
 **Note:** Version bump only for package interchainjs

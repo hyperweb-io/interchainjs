@@ -7,10 +7,12 @@ import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
 import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
-  createQueryRpc,
-  sleep,
   toEncoders,
 } from '@interchainjs/cosmos/utils';
+import {
+  createQueryRpc,
+  sleep,
+} from '@interchainjs/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
 import { DirectSigner } from '@interchainjs/injective/signers/direct';

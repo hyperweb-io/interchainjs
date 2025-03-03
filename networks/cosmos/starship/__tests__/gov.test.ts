@@ -6,7 +6,6 @@ import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
 import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import {
   assertIsDeliverTxSuccess,
-  createQueryRpc,
   toConverters,
   toEncoders,
 } from '@interchainjs/cosmos/utils';

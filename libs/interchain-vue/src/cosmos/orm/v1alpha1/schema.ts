@@ -263,7 +263,7 @@ export const ModuleSchemaDescriptor_FileEntry = {
           message.protoFileName = reader.string();
           break;
         case 3:
-          message.storageType = (reader.int32() as any);
+          message.storageType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);

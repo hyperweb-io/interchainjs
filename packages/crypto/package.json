@@ -1,0 +1,43 @@
+{
+  "name": "@interchainjs/crypto",
+  "version": "1.9.14",
+  "description": "Cryptography resources for blockchain projects",
+  "contributors": [
+    "IOV SAS <admin@iov.one>",
+    "Simon Warta"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/crypto"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "test": "jest --config ./jest.config.js --verbose --bail",
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@interchainjs/encoding": "1.9.14",
+    "@interchainjs/math": "1.9.14",
+    "@interchainjs/utils": "1.9.14",
+    "@noble/hashes": "^1",
+    "bn.js": "^5.2.0",
+    "elliptic": "^6.5.4",
+    "libsodium-wrappers-sumo": "^0.7.11"
+  },
+  "devDependencies": {
+    "@types/elliptic": "^6.4.18",
+    "@types/libsodium-wrappers-sumo": "^0.7.8"
+  }
+}
