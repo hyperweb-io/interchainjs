@@ -2519,10 +2519,33 @@
     js-yaml "^4.1.0"
     minimist "^1.2.8"
 
+"@starship-ci/cli@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-3.4.0.tgz#c2c4cd83f940a9e73590e198bb4ad18b441f719c"
+  integrity sha512-6EFoB4wjL2rH9b6LaJqMNolS1GxlkaDVzcDWXpoxA7UI3HUS7WzZAHlKZmQAhbtB8+hYn97ESUUjRPeOAWNQdw==
+  dependencies:
+    "@starship-ci/client" "^3.4.0"
+    chalk "^4.1.0"
+    deepmerge "^4.3.1"
+    inquirerer "^1.9.0"
+    js-yaml "^4.1.0"
+    minimist "^1.2.8"
+
 "@starship-ci/client@^2.13.1":
   version "2.13.1"
   resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-2.13.1.tgz#ff75c847adf239a4a1e7534e2d7a7bda8f53255b"
   integrity sha512-YnvZG3j1HuBPlps5DECWBNQgQjfcl2nIa0P5Mh7FYe+OO/LL/isusaUJs5YkeiA1xZg4gdqpR+Az6lJlAxncLw==
+  dependencies:
+    chalk "^4.1.0"
+    deepmerge "^4.3.1"
+    js-yaml "^4.1.0"
+    mkdirp "3.0.1"
+    shelljs "^0.8.5"
+
+"@starship-ci/client@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-3.4.0.tgz#dbd92af5a1dfc6a2c3d69dc2a6038c46052e8476"
+  integrity sha512-6ROk558l0lS2cPAF6UNcJAE0X3KfSnjvx7V2JSUfw9voxLGfbVTHreLjAjl5nv97hglavPHjvfbbW5KM5msRwg==
   dependencies:
     chalk "^4.1.0"
     deepmerge "^4.3.1"
@@ -8503,6 +8526,16 @@ starshipjs@^2.4.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-2.5.1.tgz#148b473c043f75a625299cec93744a7367efc3fe"
   integrity sha512-0rO6KlkLDVgEM4wFkwaK2sgQaTtocLfM8fZDoeBa+dbqQ7RDAkbFV7XdEOF3LCP+QQ6XgUlMnHKm+GPyN5QY5w==
+  dependencies:
+    "@chain-registry/client" "1.18.1"
+    bip39 "^3.1.0"
+    js-yaml "^4.1.0"
+    node-fetch "^2.6.9"
+
+starshipjs@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-3.3.0.tgz#9350fd6af1e89356c5a92a074b53f3f9cdc5a716"
+  integrity sha512-jCZ3AUpcRXk+rEgyKOs6DRwPlNMRjemuY3oUcPlggOScXwvL1sBT91LinVFtFf+R7zfhR2do7cn8z6y6hqxGow==
   dependencies:
     "@chain-registry/client" "1.18.1"
     bip39 "^3.1.0"
