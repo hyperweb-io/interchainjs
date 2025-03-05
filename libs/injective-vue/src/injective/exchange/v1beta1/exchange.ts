@@ -3,6 +3,7 @@ import { OracleType } from "../../oracle/v1beta1/oracle";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Decimal } from "@interchainjs/math";
 export enum AtomicMarketOrderAccessLevel {
   Nobody = 0,
   /** BeginBlockerSmartContractsOnly - currently unsupported */
@@ -2040,22 +2041,22 @@ export const Params = {
       Coin.encode(message.derivativeMarketInstantListingFee, writer.uint32(18).fork()).ldelim();
     }
     if (message.defaultSpotMakerFeeRate !== "") {
-      writer.uint32(26).string(message.defaultSpotMakerFeeRate);
+      writer.uint32(26).string(Decimal.fromUserInput(message.defaultSpotMakerFeeRate, 18).atomics);
     }
     if (message.defaultSpotTakerFeeRate !== "") {
-      writer.uint32(34).string(message.defaultSpotTakerFeeRate);
+      writer.uint32(34).string(Decimal.fromUserInput(message.defaultSpotTakerFeeRate, 18).atomics);
     }
     if (message.defaultDerivativeMakerFeeRate !== "") {
-      writer.uint32(42).string(message.defaultDerivativeMakerFeeRate);
+      writer.uint32(42).string(Decimal.fromUserInput(message.defaultDerivativeMakerFeeRate, 18).atomics);
     }
     if (message.defaultDerivativeTakerFeeRate !== "") {
-      writer.uint32(50).string(message.defaultDerivativeTakerFeeRate);
+      writer.uint32(50).string(Decimal.fromUserInput(message.defaultDerivativeTakerFeeRate, 18).atomics);
     }
     if (message.defaultInitialMarginRatio !== "") {
-      writer.uint32(58).string(message.defaultInitialMarginRatio);
+      writer.uint32(58).string(Decimal.fromUserInput(message.defaultInitialMarginRatio, 18).atomics);
     }
     if (message.defaultMaintenanceMarginRatio !== "") {
-      writer.uint32(66).string(message.defaultMaintenanceMarginRatio);
+      writer.uint32(66).string(Decimal.fromUserInput(message.defaultMaintenanceMarginRatio, 18).atomics);
     }
     if (message.defaultFundingInterval !== BigInt(0)) {
       writer.uint32(72).int64(message.defaultFundingInterval);
@@ -2064,13 +2065,13 @@ export const Params = {
       writer.uint32(80).int64(message.fundingMultiple);
     }
     if (message.relayerFeeShareRate !== "") {
-      writer.uint32(90).string(message.relayerFeeShareRate);
+      writer.uint32(90).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.defaultHourlyFundingRateCap !== "") {
-      writer.uint32(98).string(message.defaultHourlyFundingRateCap);
+      writer.uint32(98).string(Decimal.fromUserInput(message.defaultHourlyFundingRateCap, 18).atomics);
     }
     if (message.defaultHourlyInterestRate !== "") {
-      writer.uint32(106).string(message.defaultHourlyInterestRate);
+      writer.uint32(106).string(Decimal.fromUserInput(message.defaultHourlyInterestRate, 18).atomics);
     }
     if (message.maxDerivativeOrderSideCount !== 0) {
       writer.uint32(112).uint32(message.maxDerivativeOrderSideCount);
@@ -2082,7 +2083,7 @@ export const Params = {
       writer.uint32(128).int64(message.tradingRewardsVestingDuration);
     }
     if (message.liquidatorRewardShareRate !== "") {
-      writer.uint32(138).string(message.liquidatorRewardShareRate);
+      writer.uint32(138).string(Decimal.fromUserInput(message.liquidatorRewardShareRate, 18).atomics);
     }
     if (message.binaryOptionsMarketInstantListingFee !== undefined) {
       Coin.encode(message.binaryOptionsMarketInstantListingFee, writer.uint32(146).fork()).ldelim();
@@ -2091,16 +2092,16 @@ export const Params = {
       writer.uint32(152).int32(message.atomicMarketOrderAccessLevel);
     }
     if (message.spotAtomicMarketOrderFeeMultiplier !== "") {
-      writer.uint32(162).string(message.spotAtomicMarketOrderFeeMultiplier);
+      writer.uint32(162).string(Decimal.fromUserInput(message.spotAtomicMarketOrderFeeMultiplier, 18).atomics);
     }
     if (message.derivativeAtomicMarketOrderFeeMultiplier !== "") {
-      writer.uint32(170).string(message.derivativeAtomicMarketOrderFeeMultiplier);
+      writer.uint32(170).string(Decimal.fromUserInput(message.derivativeAtomicMarketOrderFeeMultiplier, 18).atomics);
     }
     if (message.binaryOptionsAtomicMarketOrderFeeMultiplier !== "") {
-      writer.uint32(178).string(message.binaryOptionsAtomicMarketOrderFeeMultiplier);
+      writer.uint32(178).string(Decimal.fromUserInput(message.binaryOptionsAtomicMarketOrderFeeMultiplier, 18).atomics);
     }
     if (message.minimalProtocolFeeRate !== "") {
-      writer.uint32(186).string(message.minimalProtocolFeeRate);
+      writer.uint32(186).string(Decimal.fromUserInput(message.minimalProtocolFeeRate, 18).atomics);
     }
     if (message.isInstantDerivativeMarketLaunchEnabled === true) {
       writer.uint32(192).bool(message.isInstantDerivativeMarketLaunchEnabled);
@@ -2133,22 +2134,22 @@ export const Params = {
           message.derivativeMarketInstantListingFee = Coin.decode(reader, reader.uint32());
           break;
         case 3:
-          message.defaultSpotMakerFeeRate = reader.string();
+          message.defaultSpotMakerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.defaultSpotTakerFeeRate = reader.string();
+          message.defaultSpotTakerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.defaultDerivativeMakerFeeRate = reader.string();
+          message.defaultDerivativeMakerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.defaultDerivativeTakerFeeRate = reader.string();
+          message.defaultDerivativeTakerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.defaultInitialMarginRatio = reader.string();
+          message.defaultInitialMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.defaultMaintenanceMarginRatio = reader.string();
+          message.defaultMaintenanceMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
           message.defaultFundingInterval = reader.int64();
@@ -2157,13 +2158,13 @@ export const Params = {
           message.fundingMultiple = reader.int64();
           break;
         case 11:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
-          message.defaultHourlyFundingRateCap = reader.string();
+          message.defaultHourlyFundingRateCap = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
-          message.defaultHourlyInterestRate = reader.string();
+          message.defaultHourlyInterestRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 14:
           message.maxDerivativeOrderSideCount = reader.uint32();
@@ -2175,7 +2176,7 @@ export const Params = {
           message.tradingRewardsVestingDuration = reader.int64();
           break;
         case 17:
-          message.liquidatorRewardShareRate = reader.string();
+          message.liquidatorRewardShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 18:
           message.binaryOptionsMarketInstantListingFee = Coin.decode(reader, reader.uint32());
@@ -2184,16 +2185,16 @@ export const Params = {
           message.atomicMarketOrderAccessLevel = reader.int32() as any;
           break;
         case 20:
-          message.spotAtomicMarketOrderFeeMultiplier = reader.string();
+          message.spotAtomicMarketOrderFeeMultiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 21:
-          message.derivativeAtomicMarketOrderFeeMultiplier = reader.string();
+          message.derivativeAtomicMarketOrderFeeMultiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 22:
-          message.binaryOptionsAtomicMarketOrderFeeMultiplier = reader.string();
+          message.binaryOptionsAtomicMarketOrderFeeMultiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 23:
-          message.minimalProtocolFeeRate = reader.string();
+          message.minimalProtocolFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 24:
           message.isInstantDerivativeMarketLaunchEnabled = reader.bool();
@@ -2339,27 +2340,27 @@ export const Params = {
     const obj: any = {};
     obj.spot_market_instant_listing_fee = message.spotMarketInstantListingFee ? Coin.toAmino(message.spotMarketInstantListingFee) : undefined;
     obj.derivative_market_instant_listing_fee = message.derivativeMarketInstantListingFee ? Coin.toAmino(message.derivativeMarketInstantListingFee) : undefined;
-    obj.default_spot_maker_fee_rate = message.defaultSpotMakerFeeRate === "" ? undefined : message.defaultSpotMakerFeeRate;
-    obj.default_spot_taker_fee_rate = message.defaultSpotTakerFeeRate === "" ? undefined : message.defaultSpotTakerFeeRate;
-    obj.default_derivative_maker_fee_rate = message.defaultDerivativeMakerFeeRate === "" ? undefined : message.defaultDerivativeMakerFeeRate;
-    obj.default_derivative_taker_fee_rate = message.defaultDerivativeTakerFeeRate === "" ? undefined : message.defaultDerivativeTakerFeeRate;
-    obj.default_initial_margin_ratio = message.defaultInitialMarginRatio === "" ? undefined : message.defaultInitialMarginRatio;
-    obj.default_maintenance_margin_ratio = message.defaultMaintenanceMarginRatio === "" ? undefined : message.defaultMaintenanceMarginRatio;
+    obj.default_spot_maker_fee_rate = message.defaultSpotMakerFeeRate === "" ? undefined : Decimal.fromUserInput(message.defaultSpotMakerFeeRate, 18).atomics;
+    obj.default_spot_taker_fee_rate = message.defaultSpotTakerFeeRate === "" ? undefined : Decimal.fromUserInput(message.defaultSpotTakerFeeRate, 18).atomics;
+    obj.default_derivative_maker_fee_rate = message.defaultDerivativeMakerFeeRate === "" ? undefined : Decimal.fromUserInput(message.defaultDerivativeMakerFeeRate, 18).atomics;
+    obj.default_derivative_taker_fee_rate = message.defaultDerivativeTakerFeeRate === "" ? undefined : Decimal.fromUserInput(message.defaultDerivativeTakerFeeRate, 18).atomics;
+    obj.default_initial_margin_ratio = message.defaultInitialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.defaultInitialMarginRatio, 18).atomics;
+    obj.default_maintenance_margin_ratio = message.defaultMaintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.defaultMaintenanceMarginRatio, 18).atomics;
     obj.default_funding_interval = message.defaultFundingInterval !== BigInt(0) ? message.defaultFundingInterval?.toString() : undefined;
     obj.funding_multiple = message.fundingMultiple !== BigInt(0) ? message.fundingMultiple?.toString() : undefined;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : message.relayerFeeShareRate;
-    obj.default_hourly_funding_rate_cap = message.defaultHourlyFundingRateCap === "" ? undefined : message.defaultHourlyFundingRateCap;
-    obj.default_hourly_interest_rate = message.defaultHourlyInterestRate === "" ? undefined : message.defaultHourlyInterestRate;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
+    obj.default_hourly_funding_rate_cap = message.defaultHourlyFundingRateCap === "" ? undefined : Decimal.fromUserInput(message.defaultHourlyFundingRateCap, 18).atomics;
+    obj.default_hourly_interest_rate = message.defaultHourlyInterestRate === "" ? undefined : Decimal.fromUserInput(message.defaultHourlyInterestRate, 18).atomics;
     obj.max_derivative_order_side_count = message.maxDerivativeOrderSideCount === 0 ? undefined : message.maxDerivativeOrderSideCount;
     obj.inj_reward_staked_requirement_threshold = message.injRewardStakedRequirementThreshold === "" ? undefined : message.injRewardStakedRequirementThreshold;
     obj.trading_rewards_vesting_duration = message.tradingRewardsVestingDuration !== BigInt(0) ? message.tradingRewardsVestingDuration?.toString() : undefined;
-    obj.liquidator_reward_share_rate = message.liquidatorRewardShareRate === "" ? undefined : message.liquidatorRewardShareRate;
+    obj.liquidator_reward_share_rate = message.liquidatorRewardShareRate === "" ? undefined : Decimal.fromUserInput(message.liquidatorRewardShareRate, 18).atomics;
     obj.binary_options_market_instant_listing_fee = message.binaryOptionsMarketInstantListingFee ? Coin.toAmino(message.binaryOptionsMarketInstantListingFee) : undefined;
     obj.atomic_market_order_access_level = message.atomicMarketOrderAccessLevel === 0 ? undefined : message.atomicMarketOrderAccessLevel;
-    obj.spot_atomic_market_order_fee_multiplier = message.spotAtomicMarketOrderFeeMultiplier === "" ? undefined : message.spotAtomicMarketOrderFeeMultiplier;
-    obj.derivative_atomic_market_order_fee_multiplier = message.derivativeAtomicMarketOrderFeeMultiplier === "" ? undefined : message.derivativeAtomicMarketOrderFeeMultiplier;
-    obj.binary_options_atomic_market_order_fee_multiplier = message.binaryOptionsAtomicMarketOrderFeeMultiplier === "" ? undefined : message.binaryOptionsAtomicMarketOrderFeeMultiplier;
-    obj.minimal_protocol_fee_rate = message.minimalProtocolFeeRate === "" ? undefined : message.minimalProtocolFeeRate;
+    obj.spot_atomic_market_order_fee_multiplier = message.spotAtomicMarketOrderFeeMultiplier === "" ? undefined : Decimal.fromUserInput(message.spotAtomicMarketOrderFeeMultiplier, 18).atomics;
+    obj.derivative_atomic_market_order_fee_multiplier = message.derivativeAtomicMarketOrderFeeMultiplier === "" ? undefined : Decimal.fromUserInput(message.derivativeAtomicMarketOrderFeeMultiplier, 18).atomics;
+    obj.binary_options_atomic_market_order_fee_multiplier = message.binaryOptionsAtomicMarketOrderFeeMultiplier === "" ? undefined : Decimal.fromUserInput(message.binaryOptionsAtomicMarketOrderFeeMultiplier, 18).atomics;
+    obj.minimal_protocol_fee_rate = message.minimalProtocolFeeRate === "" ? undefined : Decimal.fromUserInput(message.minimalProtocolFeeRate, 18).atomics;
     obj.is_instant_derivative_market_launch_enabled = message.isInstantDerivativeMarketLaunchEnabled === false ? undefined : message.isInstantDerivativeMarketLaunchEnabled;
     obj.post_only_mode_height_threshold = message.postOnlyModeHeightThreshold !== BigInt(0) ? message.postOnlyModeHeightThreshold?.toString() : undefined;
     obj.margin_decrease_price_timestamp_threshold_seconds = message.marginDecreasePriceTimestampThresholdSeconds !== BigInt(0) ? message.marginDecreasePriceTimestampThresholdSeconds?.toString() : undefined;
@@ -2414,7 +2415,7 @@ export const MarketFeeMultiplier = {
       writer.uint32(10).string(message.marketId);
     }
     if (message.feeMultiplier !== "") {
-      writer.uint32(18).string(message.feeMultiplier);
+      writer.uint32(18).string(Decimal.fromUserInput(message.feeMultiplier, 18).atomics);
     }
     return writer;
   },
@@ -2429,7 +2430,7 @@ export const MarketFeeMultiplier = {
           message.marketId = reader.string();
           break;
         case 2:
-          message.feeMultiplier = reader.string();
+          message.feeMultiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2457,7 +2458,7 @@ export const MarketFeeMultiplier = {
   toAmino(message: MarketFeeMultiplier): MarketFeeMultiplierAmino {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.fee_multiplier = message.feeMultiplier === "" ? undefined : message.feeMultiplier;
+    obj.fee_multiplier = message.feeMultiplier === "" ? undefined : Decimal.fromUserInput(message.feeMultiplier, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MarketFeeMultiplierAminoMsg): MarketFeeMultiplier {
@@ -2531,19 +2532,19 @@ export const DerivativeMarket = {
       writer.uint32(58).string(message.marketId);
     }
     if (message.initialMarginRatio !== "") {
-      writer.uint32(66).string(message.initialMarginRatio);
+      writer.uint32(66).string(Decimal.fromUserInput(message.initialMarginRatio, 18).atomics);
     }
     if (message.maintenanceMarginRatio !== "") {
-      writer.uint32(74).string(message.maintenanceMarginRatio);
+      writer.uint32(74).string(Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics);
     }
     if (message.makerFeeRate !== "") {
-      writer.uint32(82).string(message.makerFeeRate);
+      writer.uint32(82).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== "") {
-      writer.uint32(90).string(message.takerFeeRate);
+      writer.uint32(90).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.relayerFeeShareRate !== "") {
-      writer.uint32(98).string(message.relayerFeeShareRate);
+      writer.uint32(98).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.isPerpetual === true) {
       writer.uint32(104).bool(message.isPerpetual);
@@ -2552,13 +2553,13 @@ export const DerivativeMarket = {
       writer.uint32(112).int32(message.status);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(122).string(message.minPriceTickSize);
+      writer.uint32(122).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(130).string(message.minQuantityTickSize);
+      writer.uint32(130).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(138).string(message.minNotional);
+      writer.uint32(138).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.admin !== "") {
       writer.uint32(146).string(message.admin);
@@ -2597,19 +2598,19 @@ export const DerivativeMarket = {
           message.marketId = reader.string();
           break;
         case 8:
-          message.initialMarginRatio = reader.string();
+          message.initialMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 9:
-          message.maintenanceMarginRatio = reader.string();
+          message.maintenanceMarginRatio = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 10:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 11:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
           message.isPerpetual = reader.bool();
@@ -2618,13 +2619,13 @@ export const DerivativeMarket = {
           message.status = reader.int32() as any;
           break;
         case 15:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 16:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 17:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 18:
           message.admin = reader.string();
@@ -2732,16 +2733,16 @@ export const DerivativeMarket = {
     obj.oracle_scale_factor = message.oracleScaleFactor === 0 ? undefined : message.oracleScaleFactor;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : message.initialMarginRatio;
-    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : message.maintenanceMarginRatio;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : message.relayerFeeShareRate;
+    obj.initial_margin_ratio = message.initialMarginRatio === "" ? undefined : Decimal.fromUserInput(message.initialMarginRatio, 18).atomics;
+    obj.maintenance_margin_ratio = message.maintenanceMarginRatio === "" ? undefined : Decimal.fromUserInput(message.maintenanceMarginRatio, 18).atomics;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
     obj.isPerpetual = message.isPerpetual === false ? undefined : message.isPerpetual;
     obj.status = message.status === 0 ? undefined : message.status;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
     return obj;
@@ -2826,28 +2827,28 @@ export const BinaryOptionsMarket = {
       writer.uint32(82).string(message.marketId);
     }
     if (message.makerFeeRate !== "") {
-      writer.uint32(90).string(message.makerFeeRate);
+      writer.uint32(90).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== "") {
-      writer.uint32(98).string(message.takerFeeRate);
+      writer.uint32(98).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.relayerFeeShareRate !== "") {
-      writer.uint32(106).string(message.relayerFeeShareRate);
+      writer.uint32(106).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.status !== 0) {
       writer.uint32(112).int32(message.status);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(122).string(message.minPriceTickSize);
+      writer.uint32(122).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(130).string(message.minQuantityTickSize);
+      writer.uint32(130).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.settlementPrice !== undefined) {
-      writer.uint32(138).string(message.settlementPrice);
+      writer.uint32(138).string(Decimal.fromUserInput(message.settlementPrice, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(146).string(message.minNotional);
+      writer.uint32(146).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.adminPermissions !== 0) {
       writer.uint32(152).uint32(message.adminPermissions);
@@ -2892,28 +2893,28 @@ export const BinaryOptionsMarket = {
           message.marketId = reader.string();
           break;
         case 11:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 13:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 14:
           message.status = reader.int32() as any;
           break;
         case 15:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 16:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 17:
-          message.settlementPrice = reader.string();
+          message.settlementPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 18:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 19:
           message.adminPermissions = reader.uint32();
@@ -3021,14 +3022,14 @@ export const BinaryOptionsMarket = {
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : message.relayerFeeShareRate;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
     obj.status = message.status === 0 ? undefined : message.status;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.settlement_price = message.settlementPrice === null ? undefined : message.settlementPrice;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.settlement_price = message.settlementPrice === null ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
     return obj;
   },
@@ -3077,10 +3078,10 @@ export const ExpiryFuturesMarketInfo = {
       writer.uint32(24).int64(message.twapStartTimestamp);
     }
     if (message.expirationTwapStartPriceCumulative !== "") {
-      writer.uint32(34).string(message.expirationTwapStartPriceCumulative);
+      writer.uint32(34).string(Decimal.fromUserInput(message.expirationTwapStartPriceCumulative, 18).atomics);
     }
     if (message.settlementPrice !== "") {
-      writer.uint32(42).string(message.settlementPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.settlementPrice, 18).atomics);
     }
     return writer;
   },
@@ -3101,10 +3102,10 @@ export const ExpiryFuturesMarketInfo = {
           message.twapStartTimestamp = reader.int64();
           break;
         case 4:
-          message.expirationTwapStartPriceCumulative = reader.string();
+          message.expirationTwapStartPriceCumulative = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.settlementPrice = reader.string();
+          message.settlementPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3146,8 +3147,8 @@ export const ExpiryFuturesMarketInfo = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.expiration_timestamp = message.expirationTimestamp !== BigInt(0) ? message.expirationTimestamp?.toString() : undefined;
     obj.twap_start_timestamp = message.twapStartTimestamp !== BigInt(0) ? message.twapStartTimestamp?.toString() : undefined;
-    obj.expiration_twap_start_price_cumulative = message.expirationTwapStartPriceCumulative === "" ? undefined : message.expirationTwapStartPriceCumulative;
-    obj.settlement_price = message.settlementPrice === "" ? undefined : message.settlementPrice;
+    obj.expiration_twap_start_price_cumulative = message.expirationTwapStartPriceCumulative === "" ? undefined : Decimal.fromUserInput(message.expirationTwapStartPriceCumulative, 18).atomics;
+    obj.settlement_price = message.settlementPrice === "" ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: ExpiryFuturesMarketInfoAminoMsg): ExpiryFuturesMarketInfo {
@@ -3189,10 +3190,10 @@ export const PerpetualMarketInfo = {
       writer.uint32(10).string(message.marketId);
     }
     if (message.hourlyFundingRateCap !== "") {
-      writer.uint32(18).string(message.hourlyFundingRateCap);
+      writer.uint32(18).string(Decimal.fromUserInput(message.hourlyFundingRateCap, 18).atomics);
     }
     if (message.hourlyInterestRate !== "") {
-      writer.uint32(26).string(message.hourlyInterestRate);
+      writer.uint32(26).string(Decimal.fromUserInput(message.hourlyInterestRate, 18).atomics);
     }
     if (message.nextFundingTimestamp !== BigInt(0)) {
       writer.uint32(32).int64(message.nextFundingTimestamp);
@@ -3213,10 +3214,10 @@ export const PerpetualMarketInfo = {
           message.marketId = reader.string();
           break;
         case 2:
-          message.hourlyFundingRateCap = reader.string();
+          message.hourlyFundingRateCap = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.hourlyInterestRate = reader.string();
+          message.hourlyInterestRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.nextFundingTimestamp = reader.int64();
@@ -3262,8 +3263,8 @@ export const PerpetualMarketInfo = {
   toAmino(message: PerpetualMarketInfo): PerpetualMarketInfoAmino {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.hourly_funding_rate_cap = message.hourlyFundingRateCap === "" ? undefined : message.hourlyFundingRateCap;
-    obj.hourly_interest_rate = message.hourlyInterestRate === "" ? undefined : message.hourlyInterestRate;
+    obj.hourly_funding_rate_cap = message.hourlyFundingRateCap === "" ? undefined : Decimal.fromUserInput(message.hourlyFundingRateCap, 18).atomics;
+    obj.hourly_interest_rate = message.hourlyInterestRate === "" ? undefined : Decimal.fromUserInput(message.hourlyInterestRate, 18).atomics;
     obj.next_funding_timestamp = message.nextFundingTimestamp !== BigInt(0) ? message.nextFundingTimestamp?.toString() : undefined;
     obj.funding_interval = message.fundingInterval !== BigInt(0) ? message.fundingInterval?.toString() : undefined;
     return obj;
@@ -3302,10 +3303,10 @@ export const PerpetualMarketFunding = {
   },
   encode(message: PerpetualMarketFunding, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.cumulativeFunding !== "") {
-      writer.uint32(10).string(message.cumulativeFunding);
+      writer.uint32(10).string(Decimal.fromUserInput(message.cumulativeFunding, 18).atomics);
     }
     if (message.cumulativePrice !== "") {
-      writer.uint32(18).string(message.cumulativePrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.cumulativePrice, 18).atomics);
     }
     if (message.lastTimestamp !== BigInt(0)) {
       writer.uint32(24).int64(message.lastTimestamp);
@@ -3320,10 +3321,10 @@ export const PerpetualMarketFunding = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cumulativeFunding = reader.string();
+          message.cumulativeFunding = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.cumulativePrice = reader.string();
+          message.cumulativePrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.lastTimestamp = reader.int64();
@@ -3357,8 +3358,8 @@ export const PerpetualMarketFunding = {
   },
   toAmino(message: PerpetualMarketFunding): PerpetualMarketFundingAmino {
     const obj: any = {};
-    obj.cumulative_funding = message.cumulativeFunding === "" ? undefined : message.cumulativeFunding;
-    obj.cumulative_price = message.cumulativePrice === "" ? undefined : message.cumulativePrice;
+    obj.cumulative_funding = message.cumulativeFunding === "" ? undefined : Decimal.fromUserInput(message.cumulativeFunding, 18).atomics;
+    obj.cumulative_price = message.cumulativePrice === "" ? undefined : Decimal.fromUserInput(message.cumulativePrice, 18).atomics;
     obj.last_timestamp = message.lastTimestamp !== BigInt(0) ? message.lastTimestamp?.toString() : undefined;
     return obj;
   },
@@ -3398,7 +3399,7 @@ export const DerivativeMarketSettlementInfo = {
       writer.uint32(10).string(message.marketId);
     }
     if (message.settlementPrice !== "") {
-      writer.uint32(18).string(message.settlementPrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.settlementPrice, 18).atomics);
     }
     return writer;
   },
@@ -3413,7 +3414,7 @@ export const DerivativeMarketSettlementInfo = {
           message.marketId = reader.string();
           break;
         case 2:
-          message.settlementPrice = reader.string();
+          message.settlementPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3441,7 +3442,7 @@ export const DerivativeMarketSettlementInfo = {
   toAmino(message: DerivativeMarketSettlementInfo): DerivativeMarketSettlementInfoAmino {
     const obj: any = {};
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
-    obj.settlement_price = message.settlementPrice === "" ? undefined : message.settlementPrice;
+    obj.settlement_price = message.settlementPrice === "" ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DerivativeMarketSettlementInfoAminoMsg): DerivativeMarketSettlementInfo {
@@ -3548,13 +3549,13 @@ export const MidPriceAndTOB = {
   },
   encode(message: MidPriceAndTOB, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.midPrice !== undefined) {
-      writer.uint32(10).string(message.midPrice);
+      writer.uint32(10).string(Decimal.fromUserInput(message.midPrice, 18).atomics);
     }
     if (message.bestBuyPrice !== undefined) {
-      writer.uint32(18).string(message.bestBuyPrice);
+      writer.uint32(18).string(Decimal.fromUserInput(message.bestBuyPrice, 18).atomics);
     }
     if (message.bestSellPrice !== undefined) {
-      writer.uint32(26).string(message.bestSellPrice);
+      writer.uint32(26).string(Decimal.fromUserInput(message.bestSellPrice, 18).atomics);
     }
     return writer;
   },
@@ -3566,13 +3567,13 @@ export const MidPriceAndTOB = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.midPrice = reader.string();
+          message.midPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.bestBuyPrice = reader.string();
+          message.bestBuyPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.bestSellPrice = reader.string();
+          message.bestSellPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3603,9 +3604,9 @@ export const MidPriceAndTOB = {
   },
   toAmino(message: MidPriceAndTOB): MidPriceAndTOBAmino {
     const obj: any = {};
-    obj.mid_price = message.midPrice === null ? undefined : message.midPrice;
-    obj.best_buy_price = message.bestBuyPrice === null ? undefined : message.bestBuyPrice;
-    obj.best_sell_price = message.bestSellPrice === null ? undefined : message.bestSellPrice;
+    obj.mid_price = message.midPrice === null ? undefined : Decimal.fromUserInput(message.midPrice, 18).atomics;
+    obj.best_buy_price = message.bestBuyPrice === null ? undefined : Decimal.fromUserInput(message.bestBuyPrice, 18).atomics;
+    obj.best_sell_price = message.bestSellPrice === null ? undefined : Decimal.fromUserInput(message.bestSellPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: MidPriceAndTOBAminoMsg): MidPriceAndTOB {
@@ -3661,13 +3662,13 @@ export const SpotMarket = {
       writer.uint32(26).string(message.quoteDenom);
     }
     if (message.makerFeeRate !== "") {
-      writer.uint32(34).string(message.makerFeeRate);
+      writer.uint32(34).string(Decimal.fromUserInput(message.makerFeeRate, 18).atomics);
     }
     if (message.takerFeeRate !== "") {
-      writer.uint32(42).string(message.takerFeeRate);
+      writer.uint32(42).string(Decimal.fromUserInput(message.takerFeeRate, 18).atomics);
     }
     if (message.relayerFeeShareRate !== "") {
-      writer.uint32(50).string(message.relayerFeeShareRate);
+      writer.uint32(50).string(Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics);
     }
     if (message.marketId !== "") {
       writer.uint32(58).string(message.marketId);
@@ -3676,13 +3677,13 @@ export const SpotMarket = {
       writer.uint32(64).int32(message.status);
     }
     if (message.minPriceTickSize !== "") {
-      writer.uint32(74).string(message.minPriceTickSize);
+      writer.uint32(74).string(Decimal.fromUserInput(message.minPriceTickSize, 18).atomics);
     }
     if (message.minQuantityTickSize !== "") {
-      writer.uint32(82).string(message.minQuantityTickSize);
+      writer.uint32(82).string(Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics);
     }
     if (message.minNotional !== "") {
-      writer.uint32(90).string(message.minNotional);
+      writer.uint32(90).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
     }
     if (message.admin !== "") {
       writer.uint32(98).string(message.admin);
@@ -3709,13 +3710,13 @@ export const SpotMarket = {
           message.quoteDenom = reader.string();
           break;
         case 4:
-          message.makerFeeRate = reader.string();
+          message.makerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.takerFeeRate = reader.string();
+          message.takerFeeRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.relayerFeeShareRate = reader.string();
+          message.relayerFeeShareRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
           message.marketId = reader.string();
@@ -3724,13 +3725,13 @@ export const SpotMarket = {
           message.status = reader.int32() as any;
           break;
         case 9:
-          message.minPriceTickSize = reader.string();
+          message.minPriceTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 10:
-          message.minQuantityTickSize = reader.string();
+          message.minQuantityTickSize = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 11:
-          message.minNotional = reader.string();
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 12:
           message.admin = reader.string();
@@ -3810,14 +3811,14 @@ export const SpotMarket = {
     obj.ticker = message.ticker === "" ? undefined : message.ticker;
     obj.base_denom = message.baseDenom === "" ? undefined : message.baseDenom;
     obj.quote_denom = message.quoteDenom === "" ? undefined : message.quoteDenom;
-    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : message.makerFeeRate;
-    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : message.takerFeeRate;
-    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : message.relayerFeeShareRate;
+    obj.maker_fee_rate = message.makerFeeRate === "" ? undefined : Decimal.fromUserInput(message.makerFeeRate, 18).atomics;
+    obj.taker_fee_rate = message.takerFeeRate === "" ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
+    obj.relayer_fee_share_rate = message.relayerFeeShareRate === "" ? undefined : Decimal.fromUserInput(message.relayerFeeShareRate, 18).atomics;
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.status = message.status === 0 ? undefined : message.status;
-    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : message.minPriceTickSize;
-    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : message.minQuantityTickSize;
-    obj.min_notional = message.minNotional === "" ? undefined : message.minNotional;
+    obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
+    obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
     return obj;
@@ -3855,10 +3856,10 @@ export const Deposit = {
   },
   encode(message: Deposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.availableBalance !== "") {
-      writer.uint32(10).string(message.availableBalance);
+      writer.uint32(10).string(Decimal.fromUserInput(message.availableBalance, 18).atomics);
     }
     if (message.totalBalance !== "") {
-      writer.uint32(18).string(message.totalBalance);
+      writer.uint32(18).string(Decimal.fromUserInput(message.totalBalance, 18).atomics);
     }
     return writer;
   },
@@ -3870,10 +3871,10 @@ export const Deposit = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.availableBalance = reader.string();
+          message.availableBalance = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.totalBalance = reader.string();
+          message.totalBalance = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3900,8 +3901,8 @@ export const Deposit = {
   },
   toAmino(message: Deposit): DepositAmino {
     const obj: any = {};
-    obj.available_balance = message.availableBalance === "" ? undefined : message.availableBalance;
-    obj.total_balance = message.totalBalance === "" ? undefined : message.totalBalance;
+    obj.available_balance = message.availableBalance === "" ? undefined : Decimal.fromUserInput(message.availableBalance, 18).atomics;
+    obj.total_balance = message.totalBalance === "" ? undefined : Decimal.fromUserInput(message.totalBalance, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DepositAminoMsg): Deposit {
@@ -4016,10 +4017,10 @@ export const OrderInfo = {
       writer.uint32(18).string(message.feeRecipient);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(34).string(message.quantity);
+      writer.uint32(34).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.cid !== "") {
       writer.uint32(42).string(message.cid);
@@ -4040,10 +4041,10 @@ export const OrderInfo = {
           message.feeRecipient = reader.string();
           break;
         case 3:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.cid = reader.string();
@@ -4087,8 +4088,8 @@ export const OrderInfo = {
     const obj: any = {};
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.fee_recipient = message.feeRecipient === "" ? undefined : message.feeRecipient;
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
     obj.cid = message.cid === "" ? undefined : message.cid;
     return obj;
   },
@@ -4136,7 +4137,7 @@ export const SpotOrder = {
       writer.uint32(24).int32(message.orderType);
     }
     if (message.triggerPrice !== undefined) {
-      writer.uint32(34).string(message.triggerPrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     return writer;
   },
@@ -4157,7 +4158,7 @@ export const SpotOrder = {
           message.orderType = reader.int32() as any;
           break;
         case 4:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -4195,7 +4196,7 @@ export const SpotOrder = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.order_info = message.orderInfo ? OrderInfo.toAmino(message.orderInfo) : undefined;
     obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.trigger_price = message.triggerPrice === null ? undefined : message.triggerPrice;
+    obj.trigger_price = message.triggerPrice === null ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SpotOrderAminoMsg): SpotOrder {
@@ -4240,10 +4241,10 @@ export const SpotLimitOrder = {
       writer.uint32(16).int32(message.orderType);
     }
     if (message.fillable !== "") {
-      writer.uint32(26).string(message.fillable);
+      writer.uint32(26).string(Decimal.fromUserInput(message.fillable, 18).atomics);
     }
     if (message.triggerPrice !== undefined) {
-      writer.uint32(34).string(message.triggerPrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(42).bytes(message.orderHash);
@@ -4264,10 +4265,10 @@ export const SpotLimitOrder = {
           message.orderType = reader.int32() as any;
           break;
         case 3:
-          message.fillable = reader.string();
+          message.fillable = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.orderHash = reader.bytes();
@@ -4311,8 +4312,8 @@ export const SpotLimitOrder = {
     const obj: any = {};
     obj.order_info = message.orderInfo ? OrderInfo.toAmino(message.orderInfo) : undefined;
     obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.fillable = message.fillable === "" ? undefined : message.fillable;
-    obj.trigger_price = message.triggerPrice === null ? undefined : message.triggerPrice;
+    obj.fillable = message.fillable === "" ? undefined : Decimal.fromUserInput(message.fillable, 18).atomics;
+    obj.trigger_price = message.triggerPrice === null ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     return obj;
   },
@@ -4355,7 +4356,7 @@ export const SpotMarketOrder = {
       OrderInfo.encode(message.orderInfo, writer.uint32(10).fork()).ldelim();
     }
     if (message.balanceHold !== "") {
-      writer.uint32(18).string(message.balanceHold);
+      writer.uint32(18).string(Decimal.fromUserInput(message.balanceHold, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(26).bytes(message.orderHash);
@@ -4364,7 +4365,7 @@ export const SpotMarketOrder = {
       writer.uint32(32).int32(message.orderType);
     }
     if (message.triggerPrice !== undefined) {
-      writer.uint32(42).string(message.triggerPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     return writer;
   },
@@ -4379,7 +4380,7 @@ export const SpotMarketOrder = {
           message.orderInfo = OrderInfo.decode(reader, reader.uint32());
           break;
         case 2:
-          message.balanceHold = reader.string();
+          message.balanceHold = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.orderHash = reader.bytes();
@@ -4388,7 +4389,7 @@ export const SpotMarketOrder = {
           message.orderType = reader.int32() as any;
           break;
         case 5:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -4428,10 +4429,10 @@ export const SpotMarketOrder = {
   toAmino(message: SpotMarketOrder): SpotMarketOrderAmino {
     const obj: any = {};
     obj.order_info = message.orderInfo ? OrderInfo.toAmino(message.orderInfo) : undefined;
-    obj.balance_hold = message.balanceHold === "" ? undefined : message.balanceHold;
+    obj.balance_hold = message.balanceHold === "" ? undefined : Decimal.fromUserInput(message.balanceHold, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.trigger_price = message.triggerPrice === null ? undefined : message.triggerPrice;
+    obj.trigger_price = message.triggerPrice === null ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SpotMarketOrderAminoMsg): SpotMarketOrder {
@@ -4479,10 +4480,10 @@ export const DerivativeOrder = {
       writer.uint32(24).int32(message.orderType);
     }
     if (message.margin !== "") {
-      writer.uint32(34).string(message.margin);
+      writer.uint32(34).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.triggerPrice !== undefined) {
-      writer.uint32(42).string(message.triggerPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     return writer;
   },
@@ -4503,10 +4504,10 @@ export const DerivativeOrder = {
           message.orderType = reader.int32() as any;
           break;
         case 4:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -4548,8 +4549,8 @@ export const DerivativeOrder = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.order_info = message.orderInfo ? OrderInfo.toAmino(message.orderInfo) : undefined;
     obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.trigger_price = message.triggerPrice === null ? undefined : message.triggerPrice;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.trigger_price = message.triggerPrice === null ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DerivativeOrderAminoMsg): DerivativeOrder {
@@ -4595,10 +4596,10 @@ export const SubaccountOrderbookMetadata = {
       writer.uint32(16).uint32(message.reduceOnlyLimitOrderCount);
     }
     if (message.aggregateReduceOnlyQuantity !== "") {
-      writer.uint32(26).string(message.aggregateReduceOnlyQuantity);
+      writer.uint32(26).string(Decimal.fromUserInput(message.aggregateReduceOnlyQuantity, 18).atomics);
     }
     if (message.aggregateVanillaQuantity !== "") {
-      writer.uint32(34).string(message.aggregateVanillaQuantity);
+      writer.uint32(34).string(Decimal.fromUserInput(message.aggregateVanillaQuantity, 18).atomics);
     }
     if (message.vanillaConditionalOrderCount !== 0) {
       writer.uint32(40).uint32(message.vanillaConditionalOrderCount);
@@ -4622,10 +4623,10 @@ export const SubaccountOrderbookMetadata = {
           message.reduceOnlyLimitOrderCount = reader.uint32();
           break;
         case 3:
-          message.aggregateReduceOnlyQuantity = reader.string();
+          message.aggregateReduceOnlyQuantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.aggregateVanillaQuantity = reader.string();
+          message.aggregateVanillaQuantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.vanillaConditionalOrderCount = reader.uint32();
@@ -4676,8 +4677,8 @@ export const SubaccountOrderbookMetadata = {
     const obj: any = {};
     obj.vanilla_limit_order_count = message.vanillaLimitOrderCount === 0 ? undefined : message.vanillaLimitOrderCount;
     obj.reduce_only_limit_order_count = message.reduceOnlyLimitOrderCount === 0 ? undefined : message.reduceOnlyLimitOrderCount;
-    obj.aggregate_reduce_only_quantity = message.aggregateReduceOnlyQuantity === "" ? undefined : message.aggregateReduceOnlyQuantity;
-    obj.aggregate_vanilla_quantity = message.aggregateVanillaQuantity === "" ? undefined : message.aggregateVanillaQuantity;
+    obj.aggregate_reduce_only_quantity = message.aggregateReduceOnlyQuantity === "" ? undefined : Decimal.fromUserInput(message.aggregateReduceOnlyQuantity, 18).atomics;
+    obj.aggregate_vanilla_quantity = message.aggregateVanillaQuantity === "" ? undefined : Decimal.fromUserInput(message.aggregateVanillaQuantity, 18).atomics;
     obj.vanilla_conditional_order_count = message.vanillaConditionalOrderCount === 0 ? undefined : message.vanillaConditionalOrderCount;
     obj.reduce_only_conditional_order_count = message.reduceOnlyConditionalOrderCount === 0 ? undefined : message.reduceOnlyConditionalOrderCount;
     return obj;
@@ -4717,10 +4718,10 @@ export const SubaccountOrder = {
   },
   encode(message: SubaccountOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.price !== "") {
-      writer.uint32(10).string(message.price);
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.isReduceOnly === true) {
       writer.uint32(24).bool(message.isReduceOnly);
@@ -4738,10 +4739,10 @@ export const SubaccountOrder = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.isReduceOnly = reader.bool();
@@ -4782,8 +4783,8 @@ export const SubaccountOrder = {
   },
   toAmino(message: SubaccountOrder): SubaccountOrderAmino {
     const obj: any = {};
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
     obj.isReduceOnly = message.isReduceOnly === false ? undefined : message.isReduceOnly;
     obj.cid = message.cid === "" ? undefined : message.cid;
     return obj;
@@ -4913,13 +4914,13 @@ export const DerivativeLimitOrder = {
       writer.uint32(16).int32(message.orderType);
     }
     if (message.margin !== "") {
-      writer.uint32(26).string(message.margin);
+      writer.uint32(26).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.fillable !== "") {
-      writer.uint32(34).string(message.fillable);
+      writer.uint32(34).string(Decimal.fromUserInput(message.fillable, 18).atomics);
     }
     if (message.triggerPrice !== undefined) {
-      writer.uint32(42).string(message.triggerPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(50).bytes(message.orderHash);
@@ -4940,13 +4941,13 @@ export const DerivativeLimitOrder = {
           message.orderType = reader.int32() as any;
           break;
         case 3:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.fillable = reader.string();
+          message.fillable = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
           message.orderHash = reader.bytes();
@@ -4994,9 +4995,9 @@ export const DerivativeLimitOrder = {
     const obj: any = {};
     obj.order_info = message.orderInfo ? OrderInfo.toAmino(message.orderInfo) : undefined;
     obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.fillable = message.fillable === "" ? undefined : message.fillable;
-    obj.trigger_price = message.triggerPrice === null ? undefined : message.triggerPrice;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.fillable = message.fillable === "" ? undefined : Decimal.fromUserInput(message.fillable, 18).atomics;
+    obj.trigger_price = message.triggerPrice === null ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     return obj;
   },
@@ -5043,13 +5044,13 @@ export const DerivativeMarketOrder = {
       writer.uint32(16).int32(message.orderType);
     }
     if (message.margin !== "") {
-      writer.uint32(26).string(message.margin);
+      writer.uint32(26).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.marginHold !== "") {
-      writer.uint32(34).string(message.marginHold);
+      writer.uint32(34).string(Decimal.fromUserInput(message.marginHold, 18).atomics);
     }
     if (message.triggerPrice !== undefined) {
-      writer.uint32(42).string(message.triggerPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.triggerPrice, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(50).bytes(message.orderHash);
@@ -5070,13 +5071,13 @@ export const DerivativeMarketOrder = {
           message.orderType = reader.int32() as any;
           break;
         case 3:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.marginHold = reader.string();
+          message.marginHold = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.triggerPrice = reader.string();
+          message.triggerPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
           message.orderHash = reader.bytes();
@@ -5124,9 +5125,9 @@ export const DerivativeMarketOrder = {
     const obj: any = {};
     obj.order_info = message.orderInfo ? OrderInfo.toAmino(message.orderInfo) : undefined;
     obj.order_type = message.orderType === 0 ? undefined : message.orderType;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.margin_hold = message.marginHold === "" ? undefined : message.marginHold;
-    obj.trigger_price = message.triggerPrice === null ? undefined : message.triggerPrice;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.margin_hold = message.marginHold === "" ? undefined : Decimal.fromUserInput(message.marginHold, 18).atomics;
+    obj.trigger_price = message.triggerPrice === null ? undefined : Decimal.fromUserInput(message.triggerPrice, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     return obj;
   },
@@ -5169,16 +5170,16 @@ export const Position = {
       writer.uint32(8).bool(message.isLong);
     }
     if (message.quantity !== "") {
-      writer.uint32(18).string(message.quantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.entryPrice !== "") {
-      writer.uint32(26).string(message.entryPrice);
+      writer.uint32(26).string(Decimal.fromUserInput(message.entryPrice, 18).atomics);
     }
     if (message.margin !== "") {
-      writer.uint32(34).string(message.margin);
+      writer.uint32(34).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.cumulativeFundingEntry !== "") {
-      writer.uint32(42).string(message.cumulativeFundingEntry);
+      writer.uint32(42).string(Decimal.fromUserInput(message.cumulativeFundingEntry, 18).atomics);
     }
     return writer;
   },
@@ -5193,16 +5194,16 @@ export const Position = {
           message.isLong = reader.bool();
           break;
         case 2:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.entryPrice = reader.string();
+          message.entryPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.cumulativeFundingEntry = reader.string();
+          message.cumulativeFundingEntry = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -5242,10 +5243,10 @@ export const Position = {
   toAmino(message: Position): PositionAmino {
     const obj: any = {};
     obj.isLong = message.isLong === false ? undefined : message.isLong;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.entry_price = message.entryPrice === "" ? undefined : message.entryPrice;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.cumulative_funding_entry = message.cumulativeFundingEntry === "" ? undefined : message.cumulativeFundingEntry;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.entry_price = message.entryPrice === "" ? undefined : Decimal.fromUserInput(message.entryPrice, 18).atomics;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.cumulative_funding_entry = message.cumulativeFundingEntry === "" ? undefined : Decimal.fromUserInput(message.cumulativeFundingEntry, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PositionAminoMsg): Position {
@@ -5368,16 +5369,16 @@ export const TradeLog = {
   },
   encode(message: TradeLog, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.quantity !== "") {
-      writer.uint32(10).string(message.quantity);
+      writer.uint32(10).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.subaccountId.length !== 0) {
       writer.uint32(26).bytes(message.subaccountId);
     }
     if (message.fee !== "") {
-      writer.uint32(34).string(message.fee);
+      writer.uint32(34).string(Decimal.fromUserInput(message.fee, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(42).bytes(message.orderHash);
@@ -5398,16 +5399,16 @@ export const TradeLog = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.subaccountId = reader.bytes();
           break;
         case 4:
-          message.fee = reader.string();
+          message.fee = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.orderHash = reader.bytes();
@@ -5463,10 +5464,10 @@ export const TradeLog = {
   },
   toAmino(message: TradeLog): TradeLogAmino {
     const obj: any = {};
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.subaccount_id = message.subaccountId ? base64FromBytes(message.subaccountId) : undefined;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     obj.fee_recipient_address = message.feeRecipientAddress ? base64FromBytes(message.feeRecipientAddress) : undefined;
     obj.cid = message.cid === "" ? undefined : message.cid;
@@ -5510,13 +5511,13 @@ export const PositionDelta = {
       writer.uint32(8).bool(message.isLong);
     }
     if (message.executionQuantity !== "") {
-      writer.uint32(18).string(message.executionQuantity);
+      writer.uint32(18).string(Decimal.fromUserInput(message.executionQuantity, 18).atomics);
     }
     if (message.executionMargin !== "") {
-      writer.uint32(26).string(message.executionMargin);
+      writer.uint32(26).string(Decimal.fromUserInput(message.executionMargin, 18).atomics);
     }
     if (message.executionPrice !== "") {
-      writer.uint32(34).string(message.executionPrice);
+      writer.uint32(34).string(Decimal.fromUserInput(message.executionPrice, 18).atomics);
     }
     return writer;
   },
@@ -5531,13 +5532,13 @@ export const PositionDelta = {
           message.isLong = reader.bool();
           break;
         case 2:
-          message.executionQuantity = reader.string();
+          message.executionQuantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.executionMargin = reader.string();
+          message.executionMargin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.executionPrice = reader.string();
+          message.executionPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -5573,9 +5574,9 @@ export const PositionDelta = {
   toAmino(message: PositionDelta): PositionDeltaAmino {
     const obj: any = {};
     obj.is_long = message.isLong === false ? undefined : message.isLong;
-    obj.execution_quantity = message.executionQuantity === "" ? undefined : message.executionQuantity;
-    obj.execution_margin = message.executionMargin === "" ? undefined : message.executionMargin;
-    obj.execution_price = message.executionPrice === "" ? undefined : message.executionPrice;
+    obj.execution_quantity = message.executionQuantity === "" ? undefined : Decimal.fromUserInput(message.executionQuantity, 18).atomics;
+    obj.execution_margin = message.executionMargin === "" ? undefined : Decimal.fromUserInput(message.executionMargin, 18).atomics;
+    obj.execution_price = message.executionPrice === "" ? undefined : Decimal.fromUserInput(message.executionPrice, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PositionDeltaAminoMsg): PositionDelta {
@@ -5623,10 +5624,10 @@ export const DerivativeTradeLog = {
       PositionDelta.encode(message.positionDelta, writer.uint32(18).fork()).ldelim();
     }
     if (message.payout !== "") {
-      writer.uint32(26).string(message.payout);
+      writer.uint32(26).string(Decimal.fromUserInput(message.payout, 18).atomics);
     }
     if (message.fee !== "") {
-      writer.uint32(34).string(message.fee);
+      writer.uint32(34).string(Decimal.fromUserInput(message.fee, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(42).bytes(message.orderHash);
@@ -5638,7 +5639,7 @@ export const DerivativeTradeLog = {
       writer.uint32(58).string(message.cid);
     }
     if (message.pnl !== "") {
-      writer.uint32(66).string(message.pnl);
+      writer.uint32(66).string(Decimal.fromUserInput(message.pnl, 18).atomics);
     }
     return writer;
   },
@@ -5656,10 +5657,10 @@ export const DerivativeTradeLog = {
           message.positionDelta = PositionDelta.decode(reader, reader.uint32());
           break;
         case 3:
-          message.payout = reader.string();
+          message.payout = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
-          message.fee = reader.string();
+          message.fee = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
           message.orderHash = reader.bytes();
@@ -5671,7 +5672,7 @@ export const DerivativeTradeLog = {
           message.cid = reader.string();
           break;
         case 8:
-          message.pnl = reader.string();
+          message.pnl = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -5724,12 +5725,12 @@ export const DerivativeTradeLog = {
     const obj: any = {};
     obj.subaccount_id = message.subaccountId ? base64FromBytes(message.subaccountId) : undefined;
     obj.position_delta = message.positionDelta ? PositionDelta.toAmino(message.positionDelta) : undefined;
-    obj.payout = message.payout === "" ? undefined : message.payout;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.payout = message.payout === "" ? undefined : Decimal.fromUserInput(message.payout, 18).atomics;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     obj.fee_recipient_address = message.feeRecipientAddress ? base64FromBytes(message.feeRecipientAddress) : undefined;
     obj.cid = message.cid === "" ? undefined : message.cid;
-    obj.pnl = message.pnl === "" ? undefined : message.pnl;
+    obj.pnl = message.pnl === "" ? undefined : Decimal.fromUserInput(message.pnl, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: DerivativeTradeLogAminoMsg): DerivativeTradeLog {
@@ -6013,10 +6014,10 @@ export const PointsMultiplier = {
   },
   encode(message: PointsMultiplier, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.makerPointsMultiplier !== "") {
-      writer.uint32(10).string(message.makerPointsMultiplier);
+      writer.uint32(10).string(Decimal.fromUserInput(message.makerPointsMultiplier, 18).atomics);
     }
     if (message.takerPointsMultiplier !== "") {
-      writer.uint32(18).string(message.takerPointsMultiplier);
+      writer.uint32(18).string(Decimal.fromUserInput(message.takerPointsMultiplier, 18).atomics);
     }
     return writer;
   },
@@ -6028,10 +6029,10 @@ export const PointsMultiplier = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.makerPointsMultiplier = reader.string();
+          message.makerPointsMultiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.takerPointsMultiplier = reader.string();
+          message.takerPointsMultiplier = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -6058,8 +6059,8 @@ export const PointsMultiplier = {
   },
   toAmino(message: PointsMultiplier): PointsMultiplierAmino {
     const obj: any = {};
-    obj.maker_points_multiplier = message.makerPointsMultiplier === "" ? undefined : message.makerPointsMultiplier;
-    obj.taker_points_multiplier = message.takerPointsMultiplier === "" ? undefined : message.takerPointsMultiplier;
+    obj.maker_points_multiplier = message.makerPointsMultiplier === "" ? undefined : Decimal.fromUserInput(message.makerPointsMultiplier, 18).atomics;
+    obj.taker_points_multiplier = message.takerPointsMultiplier === "" ? undefined : Decimal.fromUserInput(message.takerPointsMultiplier, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PointsMultiplierAminoMsg): PointsMultiplier {
@@ -6405,16 +6406,16 @@ export const FeeDiscountTierInfo = {
   },
   encode(message: FeeDiscountTierInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.makerDiscountRate !== "") {
-      writer.uint32(10).string(message.makerDiscountRate);
+      writer.uint32(10).string(Decimal.fromUserInput(message.makerDiscountRate, 18).atomics);
     }
     if (message.takerDiscountRate !== "") {
-      writer.uint32(18).string(message.takerDiscountRate);
+      writer.uint32(18).string(Decimal.fromUserInput(message.takerDiscountRate, 18).atomics);
     }
     if (message.stakedAmount !== "") {
       writer.uint32(26).string(message.stakedAmount);
     }
     if (message.volume !== "") {
-      writer.uint32(34).string(message.volume);
+      writer.uint32(34).string(Decimal.fromUserInput(message.volume, 18).atomics);
     }
     return writer;
   },
@@ -6426,16 +6427,16 @@ export const FeeDiscountTierInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.makerDiscountRate = reader.string();
+          message.makerDiscountRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.takerDiscountRate = reader.string();
+          message.takerDiscountRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.stakedAmount = reader.string();
           break;
         case 4:
-          message.volume = reader.string();
+          message.volume = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -6470,10 +6471,10 @@ export const FeeDiscountTierInfo = {
   },
   toAmino(message: FeeDiscountTierInfo): FeeDiscountTierInfoAmino {
     const obj: any = {};
-    obj.maker_discount_rate = message.makerDiscountRate === "" ? undefined : message.makerDiscountRate;
-    obj.taker_discount_rate = message.takerDiscountRate === "" ? undefined : message.takerDiscountRate;
+    obj.maker_discount_rate = message.makerDiscountRate === "" ? undefined : Decimal.fromUserInput(message.makerDiscountRate, 18).atomics;
+    obj.taker_discount_rate = message.takerDiscountRate === "" ? undefined : Decimal.fromUserInput(message.takerDiscountRate, 18).atomics;
     obj.staked_amount = message.stakedAmount === "" ? undefined : message.stakedAmount;
-    obj.volume = message.volume === "" ? undefined : message.volume;
+    obj.volume = message.volume === "" ? undefined : Decimal.fromUserInput(message.volume, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: FeeDiscountTierInfoAminoMsg): FeeDiscountTierInfo {
@@ -6715,10 +6716,10 @@ export const VolumeRecord = {
   },
   encode(message: VolumeRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.makerVolume !== "") {
-      writer.uint32(10).string(message.makerVolume);
+      writer.uint32(10).string(Decimal.fromUserInput(message.makerVolume, 18).atomics);
     }
     if (message.takerVolume !== "") {
-      writer.uint32(18).string(message.takerVolume);
+      writer.uint32(18).string(Decimal.fromUserInput(message.takerVolume, 18).atomics);
     }
     return writer;
   },
@@ -6730,10 +6731,10 @@ export const VolumeRecord = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.makerVolume = reader.string();
+          message.makerVolume = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.takerVolume = reader.string();
+          message.takerVolume = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -6760,8 +6761,8 @@ export const VolumeRecord = {
   },
   toAmino(message: VolumeRecord): VolumeRecordAmino {
     const obj: any = {};
-    obj.maker_volume = message.makerVolume === "" ? undefined : message.makerVolume;
-    obj.taker_volume = message.takerVolume === "" ? undefined : message.takerVolume;
+    obj.maker_volume = message.makerVolume === "" ? undefined : Decimal.fromUserInput(message.makerVolume, 18).atomics;
+    obj.taker_volume = message.takerVolume === "" ? undefined : Decimal.fromUserInput(message.takerVolume, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: VolumeRecordAminoMsg): VolumeRecord {
@@ -7041,10 +7042,10 @@ export const TradeRecord = {
       writer.uint32(8).int64(message.timestamp);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.quantity !== "") {
-      writer.uint32(26).string(message.quantity);
+      writer.uint32(26).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     return writer;
   },
@@ -7059,10 +7060,10 @@ export const TradeRecord = {
           message.timestamp = reader.int64();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -7094,8 +7095,8 @@ export const TradeRecord = {
   toAmino(message: TradeRecord): TradeRecordAmino {
     const obj: any = {};
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
-    obj.price = message.price === "" ? undefined : message.price;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: TradeRecordAminoMsg): TradeRecord {
@@ -7131,10 +7132,10 @@ export const Level = {
   },
   encode(message: Level, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.p !== "") {
-      writer.uint32(10).string(message.p);
+      writer.uint32(10).string(Decimal.fromUserInput(message.p, 18).atomics);
     }
     if (message.q !== "") {
-      writer.uint32(18).string(message.q);
+      writer.uint32(18).string(Decimal.fromUserInput(message.q, 18).atomics);
     }
     return writer;
   },
@@ -7146,10 +7147,10 @@ export const Level = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.p = reader.string();
+          message.p = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
-          message.q = reader.string();
+          message.q = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -7176,8 +7177,8 @@ export const Level = {
   },
   toAmino(message: Level): LevelAmino {
     const obj: any = {};
-    obj.p = message.p === "" ? undefined : message.p;
-    obj.q = message.q === "" ? undefined : message.q;
+    obj.p = message.p === "" ? undefined : Decimal.fromUserInput(message.p, 18).atomics;
+    obj.q = message.q === "" ? undefined : Decimal.fromUserInput(message.q, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: LevelAminoMsg): Level {

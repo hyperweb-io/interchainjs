@@ -3,6 +3,7 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+import { Decimal } from "@interchainjs/math";
 export interface Params {
   /** Native denom for LINK coin in the bank keeper */
   linkDenom: string;
@@ -1047,10 +1048,10 @@ export const ModuleParams = {
       writer.uint32(10).string(message.feedId);
     }
     if (message.minAnswer !== "") {
-      writer.uint32(18).string(message.minAnswer);
+      writer.uint32(18).string(Decimal.fromUserInput(message.minAnswer, 18).atomics);
     }
     if (message.maxAnswer !== "") {
-      writer.uint32(26).string(message.maxAnswer);
+      writer.uint32(26).string(Decimal.fromUserInput(message.maxAnswer, 18).atomics);
     }
     if (message.linkPerObservation !== "") {
       writer.uint32(34).string(message.linkPerObservation);
@@ -1086,10 +1087,10 @@ export const ModuleParams = {
           message.feedId = reader.string();
           break;
         case 2:
-          message.minAnswer = reader.string();
+          message.minAnswer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
-          message.maxAnswer = reader.string();
+          message.maxAnswer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.linkPerObservation = reader.string();
@@ -1170,8 +1171,8 @@ export const ModuleParams = {
   toAmino(message: ModuleParams): ModuleParamsAmino {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
-    obj.min_answer = message.minAnswer === "" ? undefined : message.minAnswer;
-    obj.max_answer = message.maxAnswer === "" ? undefined : message.maxAnswer;
+    obj.min_answer = message.minAnswer === "" ? undefined : Decimal.fromUserInput(message.minAnswer, 18).atomics;
+    obj.max_answer = message.maxAnswer === "" ? undefined : Decimal.fromUserInput(message.maxAnswer, 18).atomics;
     obj.link_per_observation = message.linkPerObservation === "" ? undefined : message.linkPerObservation;
     obj.link_per_transmission = message.linkPerTransmission === "" ? undefined : message.linkPerTransmission;
     obj.link_denom = message.linkDenom === "" ? undefined : message.linkDenom;
@@ -1489,10 +1490,10 @@ export const FeedProperties = {
       writer.uint32(42).bytes(message.offchainConfig);
     }
     if (message.minAnswer !== "") {
-      writer.uint32(50).string(message.minAnswer);
+      writer.uint32(50).string(Decimal.fromUserInput(message.minAnswer, 18).atomics);
     }
     if (message.maxAnswer !== "") {
-      writer.uint32(58).string(message.maxAnswer);
+      writer.uint32(58).string(Decimal.fromUserInput(message.maxAnswer, 18).atomics);
     }
     if (message.linkPerObservation !== "") {
       writer.uint32(66).string(message.linkPerObservation);
@@ -1531,10 +1532,10 @@ export const FeedProperties = {
           message.offchainConfig = reader.bytes();
           break;
         case 6:
-          message.minAnswer = reader.string();
+          message.minAnswer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.maxAnswer = reader.string();
+          message.maxAnswer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
           message.linkPerObservation = reader.string();
@@ -1614,8 +1615,8 @@ export const FeedProperties = {
     obj.onchain_config = message.onchainConfig ? base64FromBytes(message.onchainConfig) : undefined;
     obj.offchain_config_version = message.offchainConfigVersion !== BigInt(0) ? message.offchainConfigVersion?.toString() : undefined;
     obj.offchain_config = message.offchainConfig ? base64FromBytes(message.offchainConfig) : undefined;
-    obj.min_answer = message.minAnswer === "" ? undefined : message.minAnswer;
-    obj.max_answer = message.maxAnswer === "" ? undefined : message.maxAnswer;
+    obj.min_answer = message.minAnswer === "" ? undefined : Decimal.fromUserInput(message.minAnswer, 18).atomics;
+    obj.max_answer = message.maxAnswer === "" ? undefined : Decimal.fromUserInput(message.maxAnswer, 18).atomics;
     obj.link_per_observation = message.linkPerObservation === "" ? undefined : message.linkPerObservation;
     obj.link_per_transmission = message.linkPerTransmission === "" ? undefined : message.linkPerTransmission;
     obj.unique_reports = message.uniqueReports === false ? undefined : message.uniqueReports;
@@ -2040,7 +2041,7 @@ export const Transmission = {
   },
   encode(message: Transmission, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.answer !== "") {
-      writer.uint32(10).string(message.answer);
+      writer.uint32(10).string(Decimal.fromUserInput(message.answer, 18).atomics);
     }
     if (message.observationsTimestamp !== BigInt(0)) {
       writer.uint32(16).int64(message.observationsTimestamp);
@@ -2058,7 +2059,7 @@ export const Transmission = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.answer = reader.string();
+          message.answer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 2:
           message.observationsTimestamp = reader.int64();
@@ -2095,7 +2096,7 @@ export const Transmission = {
   },
   toAmino(message: Transmission): TransmissionAmino {
     const obj: any = {};
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.observations_timestamp = message.observationsTimestamp !== BigInt(0) ? message.observationsTimestamp?.toString() : undefined;
     obj.transmission_timestamp = message.transmissionTimestamp !== BigInt(0) ? message.transmissionTimestamp?.toString() : undefined;
     return obj;
@@ -2222,7 +2223,7 @@ export const Report = {
       writer.uint32(18).bytes(message.observers);
     }
     for (const v of message.observations) {
-      writer.uint32(26).string(v!);
+      writer.uint32(26).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -2240,7 +2241,7 @@ export const Report = {
           message.observers = reader.bytes();
           break;
         case 3:
-          message.observations.push(reader.string());
+          message.observations.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2272,7 +2273,7 @@ export const Report = {
     obj.observations_timestamp = message.observationsTimestamp !== BigInt(0) ? message.observationsTimestamp?.toString() : undefined;
     obj.observers = message.observers ? base64FromBytes(message.observers) : undefined;
     if (message.observations) {
-      obj.observations = message.observations.map(e => e);
+      obj.observations = message.observations.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.observations = message.observations;
     }
@@ -2808,7 +2809,7 @@ export const EventNewTransmission = {
       writer.uint32(16).uint32(message.aggregatorRoundId);
     }
     if (message.answer !== "") {
-      writer.uint32(26).string(message.answer);
+      writer.uint32(26).string(Decimal.fromUserInput(message.answer, 18).atomics);
     }
     if (message.transmitter !== "") {
       writer.uint32(34).string(message.transmitter);
@@ -2817,7 +2818,7 @@ export const EventNewTransmission = {
       writer.uint32(40).int64(message.observationsTimestamp);
     }
     for (const v of message.observations) {
-      writer.uint32(50).string(v!);
+      writer.uint32(50).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     if (message.observers.length !== 0) {
       writer.uint32(58).bytes(message.observers);
@@ -2844,7 +2845,7 @@ export const EventNewTransmission = {
           message.aggregatorRoundId = reader.uint32();
           break;
         case 3:
-          message.answer = reader.string();
+          message.answer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.transmitter = reader.string();
@@ -2853,7 +2854,7 @@ export const EventNewTransmission = {
           message.observationsTimestamp = reader.int64();
           break;
         case 6:
-          message.observations.push(reader.string());
+          message.observations.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         case 7:
           message.observers = reader.bytes();
@@ -2917,11 +2918,11 @@ export const EventNewTransmission = {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
     obj.aggregator_round_id = message.aggregatorRoundId === 0 ? undefined : message.aggregatorRoundId;
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.transmitter = message.transmitter === "" ? undefined : message.transmitter;
     obj.observations_timestamp = message.observationsTimestamp !== BigInt(0) ? message.observationsTimestamp?.toString() : undefined;
     if (message.observations) {
-      obj.observations = message.observations.map(e => e);
+      obj.observations = message.observations.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.observations = message.observations;
     }

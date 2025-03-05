@@ -1,5 +1,6 @@
 import { StorkPriceState, StorkPriceStateAmino, PythPriceState, PythPriceStateAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
 export interface SetChainlinkPriceEvent {
   feedId: string;
@@ -221,7 +222,7 @@ export const SetChainlinkPriceEvent = {
       writer.uint32(10).string(message.feedId);
     }
     if (message.answer !== "") {
-      writer.uint32(18).string(message.answer);
+      writer.uint32(18).string(Decimal.fromUserInput(message.answer, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).uint64(message.timestamp);
@@ -239,7 +240,7 @@ export const SetChainlinkPriceEvent = {
           message.feedId = reader.string();
           break;
         case 2:
-          message.answer = reader.string();
+          message.answer = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.uint64();
@@ -274,7 +275,7 @@ export const SetChainlinkPriceEvent = {
   toAmino(message: SetChainlinkPriceEvent): SetChainlinkPriceEventAmino {
     const obj: any = {};
     obj.feed_id = message.feedId === "" ? undefined : message.feedId;
-    obj.answer = message.answer === "" ? undefined : message.answer;
+    obj.answer = message.answer === "" ? undefined : Decimal.fromUserInput(message.answer, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     return obj;
   },
@@ -320,7 +321,7 @@ export const SetBandPriceEvent = {
       writer.uint32(18).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(26).string(message.price);
+      writer.uint32(26).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.resolveTime !== BigInt(0)) {
       writer.uint32(32).uint64(message.resolveTime);
@@ -344,7 +345,7 @@ export const SetBandPriceEvent = {
           message.symbol = reader.string();
           break;
         case 3:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 4:
           message.resolveTime = reader.uint64();
@@ -391,7 +392,7 @@ export const SetBandPriceEvent = {
     const obj: any = {};
     obj.relayer = message.relayer === "" ? undefined : message.relayer;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.resolve_time = message.resolveTime !== BigInt(0) ? message.resolveTime?.toString() : undefined;
     obj.request_id = message.requestId !== BigInt(0) ? message.requestId?.toString() : undefined;
     return obj;
@@ -439,7 +440,7 @@ export const SetBandIBCPriceEvent = {
       writer.uint32(18).string(v!);
     }
     for (const v of message.prices) {
-      writer.uint32(26).string(v!);
+      writer.uint32(26).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     if (message.resolveTime !== BigInt(0)) {
       writer.uint32(32).uint64(message.resolveTime);
@@ -466,7 +467,7 @@ export const SetBandIBCPriceEvent = {
           message.symbols.push(reader.string());
           break;
         case 3:
-          message.prices.push(reader.string());
+          message.prices.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         case 4:
           message.resolveTime = reader.uint64();
@@ -521,7 +522,7 @@ export const SetBandIBCPriceEvent = {
       obj.symbols = message.symbols;
     }
     if (message.prices) {
-      obj.prices = message.prices.map(e => e);
+      obj.prices = message.prices.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.prices = message.prices;
     }
@@ -808,7 +809,7 @@ export const SetPriceFeedPriceEvent = {
       writer.uint32(26).string(message.quote);
     }
     if (message.price !== "") {
-      writer.uint32(34).string(message.price);
+      writer.uint32(34).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -829,7 +830,7 @@ export const SetPriceFeedPriceEvent = {
           message.quote = reader.string();
           break;
         case 4:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -867,7 +868,7 @@ export const SetPriceFeedPriceEvent = {
     obj.relayer = message.relayer === "" ? undefined : message.relayer;
     obj.base = message.base === "" ? undefined : message.base;
     obj.quote = message.quote === "" ? undefined : message.quote;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SetPriceFeedPriceEventAminoMsg): SetPriceFeedPriceEvent {
@@ -914,7 +915,7 @@ export const SetProviderPriceEvent = {
       writer.uint32(26).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(34).string(message.price);
+      writer.uint32(34).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     return writer;
   },
@@ -935,7 +936,7 @@ export const SetProviderPriceEvent = {
           message.symbol = reader.string();
           break;
         case 4:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -973,7 +974,7 @@ export const SetProviderPriceEvent = {
     obj.provider = message.provider === "" ? undefined : message.provider;
     obj.relayer = message.relayer === "" ? undefined : message.relayer;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: SetProviderPriceEventAminoMsg): SetProviderPriceEvent {
@@ -1013,7 +1014,7 @@ export const SetCoinbasePriceEvent = {
       writer.uint32(10).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.timestamp !== BigInt(0)) {
       writer.uint32(24).uint64(message.timestamp);
@@ -1031,7 +1032,7 @@ export const SetCoinbasePriceEvent = {
           message.symbol = reader.string();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.timestamp = reader.uint64();
@@ -1066,7 +1067,7 @@ export const SetCoinbasePriceEvent = {
   toAmino(message: SetCoinbasePriceEvent): SetCoinbasePriceEventAmino {
     const obj: any = {};
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.timestamp = message.timestamp !== BigInt(0) ? message.timestamp?.toString() : undefined;
     return obj;
   },

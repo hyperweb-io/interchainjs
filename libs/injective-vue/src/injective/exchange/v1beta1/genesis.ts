@@ -2,6 +2,7 @@ import { Params, ParamsAmino, SpotMarket, SpotMarketAmino, DerivativeMarket, Der
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
+import { Decimal } from "@interchainjs/math";
 /** GenesisState defines the exchange module's genesis state. */
 export interface GenesisState {
   /** params defines all the parameters of related to exchange. */
@@ -1287,7 +1288,7 @@ export const AccountVolume = {
       writer.uint32(10).string(message.account);
     }
     if (message.volume !== "") {
-      writer.uint32(18).string(message.volume);
+      writer.uint32(18).string(Decimal.fromUserInput(message.volume, 18).atomics);
     }
     return writer;
   },
@@ -1302,7 +1303,7 @@ export const AccountVolume = {
           message.account = reader.string();
           break;
         case 2:
-          message.volume = reader.string();
+          message.volume = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1330,7 +1331,7 @@ export const AccountVolume = {
   toAmino(message: AccountVolume): AccountVolumeAmino {
     const obj: any = {};
     obj.account = message.account === "" ? undefined : message.account;
-    obj.volume = message.volume === "" ? undefined : message.volume;
+    obj.volume = message.volume === "" ? undefined : Decimal.fromUserInput(message.volume, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: AccountVolumeAminoMsg): AccountVolume {
@@ -1369,7 +1370,7 @@ export const TradingRewardCampaignAccountPoints = {
       writer.uint32(10).string(message.account);
     }
     if (message.points !== "") {
-      writer.uint32(18).string(message.points);
+      writer.uint32(18).string(Decimal.fromUserInput(message.points, 18).atomics);
     }
     return writer;
   },
@@ -1384,7 +1385,7 @@ export const TradingRewardCampaignAccountPoints = {
           message.account = reader.string();
           break;
         case 2:
-          message.points = reader.string();
+          message.points = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1412,7 +1413,7 @@ export const TradingRewardCampaignAccountPoints = {
   toAmino(message: TradingRewardCampaignAccountPoints): TradingRewardCampaignAccountPointsAmino {
     const obj: any = {};
     obj.account = message.account === "" ? undefined : message.account;
-    obj.points = message.points === "" ? undefined : message.points;
+    obj.points = message.points === "" ? undefined : Decimal.fromUserInput(message.points, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: TradingRewardCampaignAccountPointsAminoMsg): TradingRewardCampaignAccountPoints {

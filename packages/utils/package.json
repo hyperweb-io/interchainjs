@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "1.9.13",
+  "version": "1.9.14",
   "author": "Hyperweb <developers@hyperweb.io>",
   "main": "index.js",
   "module": "esm/index.js",
@@ -25,10 +25,16 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@chain-registry/v2": "1.71.71",
-    "@chain-registry/v2-types": "0.53.72",
-    "@interchainjs/types": "1.9.13",
+    "@interchainjs/types": "1.9.14",
     "bech32": "^2.0.0",
     "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "@chain-registry/v2": "1.71.71",
+    "@chain-registry/v2-types": "0.53.72"
+  },
+  "peerDependencies": {
+    "@chain-registry/v2": "1.71.71",
+    "@chain-registry/v2-types": "0.53.72"
   }
 }

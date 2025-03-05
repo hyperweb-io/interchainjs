@@ -1,5 +1,6 @@
 import { AssetPair, AssetPairAmino, PriceAttestation, PriceAttestationAmino, Params, ParamsAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { Decimal } from "@interchainjs/math";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /**
@@ -314,7 +315,7 @@ export const MsgRelayProviderPrices = {
       writer.uint32(26).string(v!);
     }
     for (const v of message.prices) {
-      writer.uint32(34).string(v!);
+      writer.uint32(34).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -335,7 +336,7 @@ export const MsgRelayProviderPrices = {
           message.symbols.push(reader.string());
           break;
         case 4:
-          message.prices.push(reader.string());
+          message.prices.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);
@@ -374,7 +375,7 @@ export const MsgRelayProviderPrices = {
       obj.symbols = message.symbols;
     }
     if (message.prices) {
-      obj.prices = message.prices.map(e => e);
+      obj.prices = message.prices.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.prices = message.prices;
     }
@@ -489,7 +490,7 @@ export const MsgRelayPriceFeedPrice = {
       writer.uint32(26).string(v!);
     }
     for (const v of message.price) {
-      writer.uint32(34).string(v!);
+      writer.uint32(34).string(Decimal.fromUserInput(v!, 18).atomics);
     }
     return writer;
   },
@@ -510,7 +511,7 @@ export const MsgRelayPriceFeedPrice = {
           message.quote.push(reader.string());
           break;
         case 4:
-          message.price.push(reader.string());
+          message.price.push(Decimal.fromAtomics(reader.string(), 18).toString());
           break;
         default:
           reader.skipType(tag & 7);
@@ -551,7 +552,7 @@ export const MsgRelayPriceFeedPrice = {
       obj.quote = message.quote;
     }
     if (message.price) {
-      obj.price = message.price.map(e => e);
+      obj.price = message.price.map(e => Decimal.fromUserInput(e, 18).atomics);
     } else {
       obj.price = message.price;
     }

@@ -2,6 +2,7 @@ import { Level, LevelAmino, Deposit, DepositAmino, SpotLimitOrder, SpotLimitOrde
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { Decimal } from "@interchainjs/math";
 export enum OrderUpdateStatus {
   Unspecified = 0,
   Booked = 1,
@@ -1771,16 +1772,16 @@ export const Position = {
       writer.uint32(24).bool(message.isLong);
     }
     if (message.quantity !== "") {
-      writer.uint32(34).string(message.quantity);
+      writer.uint32(34).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.entryPrice !== "") {
-      writer.uint32(42).string(message.entryPrice);
+      writer.uint32(42).string(Decimal.fromUserInput(message.entryPrice, 18).atomics);
     }
     if (message.margin !== "") {
-      writer.uint32(50).string(message.margin);
+      writer.uint32(50).string(Decimal.fromUserInput(message.margin, 18).atomics);
     }
     if (message.cumulativeFundingEntry !== "") {
-      writer.uint32(58).string(message.cumulativeFundingEntry);
+      writer.uint32(58).string(Decimal.fromUserInput(message.cumulativeFundingEntry, 18).atomics);
     }
     return writer;
   },
@@ -1801,16 +1802,16 @@ export const Position = {
           message.isLong = reader.bool();
           break;
         case 4:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.entryPrice = reader.string();
+          message.entryPrice = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
-          message.margin = reader.string();
+          message.margin = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.cumulativeFundingEntry = reader.string();
+          message.cumulativeFundingEntry = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1860,10 +1861,10 @@ export const Position = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.isLong = message.isLong === false ? undefined : message.isLong;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.entry_price = message.entryPrice === "" ? undefined : message.entryPrice;
-    obj.margin = message.margin === "" ? undefined : message.margin;
-    obj.cumulative_funding_entry = message.cumulativeFundingEntry === "" ? undefined : message.cumulativeFundingEntry;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.entry_price = message.entryPrice === "" ? undefined : Decimal.fromUserInput(message.entryPrice, 18).atomics;
+    obj.margin = message.margin === "" ? undefined : Decimal.fromUserInput(message.margin, 18).atomics;
+    obj.cumulative_funding_entry = message.cumulativeFundingEntry === "" ? undefined : Decimal.fromUserInput(message.cumulativeFundingEntry, 18).atomics;
     return obj;
   },
   fromAminoMsg(object: PositionAminoMsg): Position {
@@ -1903,7 +1904,7 @@ export const OraclePrice = {
       writer.uint32(10).string(message.symbol);
     }
     if (message.price !== "") {
-      writer.uint32(18).string(message.price);
+      writer.uint32(18).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.type !== "") {
       writer.uint32(26).string(message.type);
@@ -1921,7 +1922,7 @@ export const OraclePrice = {
           message.symbol = reader.string();
           break;
         case 2:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 3:
           message.type = reader.string();
@@ -1956,7 +1957,7 @@ export const OraclePrice = {
   toAmino(message: OraclePrice): OraclePriceAmino {
     const obj: any = {};
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.type = message.type === "" ? undefined : message.type;
     return obj;
   },
@@ -2011,16 +2012,16 @@ export const SpotTrade = {
       writer.uint32(26).string(message.executionType);
     }
     if (message.quantity !== "") {
-      writer.uint32(34).string(message.quantity);
+      writer.uint32(34).string(Decimal.fromUserInput(message.quantity, 18).atomics);
     }
     if (message.price !== "") {
-      writer.uint32(42).string(message.price);
+      writer.uint32(42).string(Decimal.fromUserInput(message.price, 18).atomics);
     }
     if (message.subaccountId !== "") {
       writer.uint32(50).string(message.subaccountId);
     }
     if (message.fee !== "") {
-      writer.uint32(58).string(message.fee);
+      writer.uint32(58).string(Decimal.fromUserInput(message.fee, 18).atomics);
     }
     if (message.orderHash.length !== 0) {
       writer.uint32(66).bytes(message.orderHash);
@@ -2053,16 +2054,16 @@ export const SpotTrade = {
           message.executionType = reader.string();
           break;
         case 4:
-          message.quantity = reader.string();
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 5:
-          message.price = reader.string();
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 6:
           message.subaccountId = reader.string();
           break;
         case 7:
-          message.fee = reader.string();
+          message.fee = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
           message.orderHash = reader.bytes();
@@ -2140,10 +2141,10 @@ export const SpotTrade = {
     obj.market_id = message.marketId === "" ? undefined : message.marketId;
     obj.is_buy = message.isBuy === false ? undefined : message.isBuy;
     obj.executionType = message.executionType === "" ? undefined : message.executionType;
-    obj.quantity = message.quantity === "" ? undefined : message.quantity;
-    obj.price = message.price === "" ? undefined : message.price;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
     obj.fee_recipient_address = message.feeRecipientAddress === null ? undefined : message.feeRecipientAddress;
     obj.cid = message.cid === "" ? undefined : message.cid;
@@ -2207,10 +2208,10 @@ export const DerivativeTrade = {
       PositionDelta.encode(message.positionDelta, writer.uint32(42).fork()).ldelim();
     }
     if (message.payout !== "") {
-      writer.uint32(50).string(message.payout);
+      writer.uint32(50).string(Decimal.fromUserInput(message.payout, 18).atomics);
     }
     if (message.fee !== "") {
-      writer.uint32(58).string(message.fee);
+      writer.uint32(58).string(Decimal.fromUserInput(message.fee, 18).atomics);
     }
     if (message.orderHash !== "") {
       writer.uint32(66).string(message.orderHash);
@@ -2249,10 +2250,10 @@ export const DerivativeTrade = {
           message.positionDelta = PositionDelta.decode(reader, reader.uint32());
           break;
         case 6:
-          message.payout = reader.string();
+          message.payout = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 7:
-          message.fee = reader.string();
+          message.fee = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
           message.orderHash = reader.string();
@@ -2332,8 +2333,8 @@ export const DerivativeTrade = {
     obj.executionType = message.executionType === "" ? undefined : message.executionType;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.position_delta = message.positionDelta ? PositionDelta.toAmino(message.positionDelta) : undefined;
-    obj.payout = message.payout === "" ? undefined : message.payout;
-    obj.fee = message.fee === "" ? undefined : message.fee;
+    obj.payout = message.payout === "" ? undefined : Decimal.fromUserInput(message.payout, 18).atomics;
+    obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
     obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.fee_recipient_address = message.feeRecipientAddress === null ? undefined : message.feeRecipientAddress;
     obj.cid = message.cid === "" ? undefined : message.cid;
