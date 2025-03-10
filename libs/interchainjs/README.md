@@ -108,6 +108,8 @@ graph LR
 
 ## Tutorials & Documentation
 
+The following resources provide comprehensive guidance for developers working with InterchainJS. Whether you're setting up a new application, implementing custom signers, or exploring advanced features, these tutorials and documentation will help you leverage the full power of InterchainJS across various blockchain networks.
+
 | Topic                        | Documentation                                                                 |
 | ---------------------------- | ----------------------------------------------------------------------------- |
 | **Create Interchain App**    | [Create Interchain App](https://github.com/hyperweb-io/create-interchain-app) |
@@ -115,6 +117,8 @@ graph LR
 | **Advanced Documentation**   | [View Docs](/docs/)                                                           |
 
 ### RPC Clients
+
+RPC (Remote Procedure Call) clients enable communication between your application and blockchain networks. InterchainJS provides a flexible and type-safe way to create these clients, allowing you to query blockchain data with minimal configuration. The following example demonstrates how to create and use an RPC client to query data from a Cosmos-based blockchain.
 
 ```js
 import { createQueryRpc } from "@interchainjs/cosmos/utils";
@@ -136,17 +140,32 @@ const balance = await getAllBalances({
 
 ### Query and Tx Helpers
 
-For tx messages, there're helper functions to sign and broadcast messages:
+InterchainJS provides specialized helper functions that simplify the process of querying blockchain data and submitting transactions. These helpers abstract away the complexity of creating, signing, and broadcasting messages, allowing developers to focus on application logic rather than protocol details.
 
-For more detailed usage on how to use these functions, please see the starship tests in the [libs/interchainjs repo](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchainjs/starship/__tests__)
+#### Transaction Helpers
 
-There're also react and vue hooks for helper functions. Please see [@interchainjs/react](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-react) and [@interchainjs/vue](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-vue) repos for more information.
+Transaction (Tx) helpers streamline the creation and submission of blockchain transactions:
 
 ```js
 import { createSend } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 ```
 
-#### Authz
+#### Framework Integration
+
+InterchainJS seamlessly integrates with popular frontend frameworks:
+
+- **React Hooks**: Available in the [@interchainjs/react](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-react) package
+- **Vue Composables**: Available in the [@interchainjs/vue](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-vue) package
+
+#### Examples and Documentation
+
+For detailed usage examples and implementation patterns, refer to the test suite in the [starship/**tests**](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchainjs/starship/__tests__) directory.
+
+#### Module-Specific Helpers
+
+The following sections provide import examples for various Cosmos SDK modules.
+
+##### Authz
 
 ```js
 // query helpers
@@ -164,7 +183,7 @@ import {
 } from "@interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
 ```
 
-#### Bank
+##### Bank
 
 ```js
 // query helpers
@@ -182,7 +201,7 @@ import {
 } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 ```
 
-#### Circuit
+##### Circuit
 
 ```js
 // query helpers
@@ -200,7 +219,7 @@ import {
 } from "@interchainjs/cosmos/circuit/v1/tx.rpc.func";
 ```
 
-#### Consensus
+##### Consensus
 
 ```js
 // query helpers
@@ -210,7 +229,7 @@ import { createGetParams } from "@interchainjs/cosmos/consensus/v1/query.rpc.fun
 import { createUpdateParams } from "@interchainjs/cosmos/consensus/v1/tx.rpc.func";
 ```
 
-#### Crisis
+##### Crisis
 
 ```js
 // tx helpers
@@ -220,7 +239,7 @@ import {
 } from "@interchainjs/cosmos/crisis/v1beta1/tx.rpc.func";
 ```
 
-#### Distribution
+##### Distribution
 
 ```js
 // query helpers
@@ -245,7 +264,7 @@ import {
 } from "@interchainjs/cosmos/distribution/v1beta1/tx.rpc.func";
 ```
 
-#### Evidence
+##### Evidence
 
 ```js
 // query helpers
@@ -258,7 +277,7 @@ import {
 import { createSubmitEvidence } from "@interchainjs/cosmos/evidence/v1beta1/tx.rpc.func";
 ```
 
-#### Feegrant
+##### Feegrant
 
 ```js
 // query helpers
@@ -276,7 +295,7 @@ import {
 } from "@interchainjs/cosmos/feegrant/v1beta1/tx.rpc.func";
 ```
 
-#### Gov
+##### Gov
 
 ```js
 // query helpers
@@ -300,7 +319,7 @@ import {
 } from "@interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
 ```
 
-#### Group
+##### Group
 
 ```js
 // query helpers
@@ -326,7 +345,7 @@ import {
 } from "@interchainjs/cosmos/group/v1/tx.rpc.func";
 ```
 
-#### Mint
+##### Mint
 
 ```js
 // query helpers
@@ -340,7 +359,7 @@ import {
 import { createUpdateParams } from "@interchainjs/cosmos/mint/v1beta1/tx.rpc.func";
 ```
 
-#### Nft
+##### Nft
 
 ```js
 // query helpers
@@ -357,7 +376,7 @@ import {
 import { createSend } from "@interchainjs/cosmos/nft/v1/tx.rpc.func";
 ```
 
-#### Staking
+##### Staking
 
 ```js
 // query helpers
@@ -380,7 +399,7 @@ import {
 } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 ```
 
-#### Vesting
+##### Vesting
 
 ```js
 // tx helpers
@@ -391,7 +410,7 @@ import {
 } from "@interchainjs/cosmos/vesting/v1beta1/tx.rpc.func";
 ```
 
-#### CosmWasm
+##### CosmWasm
 
 ```js
 // query helpers
@@ -416,7 +435,7 @@ import {
 } from "@interchainjs/cosmwasm/wasm/v1/tx.rpc.func";
 ```
 
-#### IBC
+##### IBC
 
 ```js
 // query helpers
@@ -433,6 +452,74 @@ import {
   createUpdateParams,
 } from "@interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
 ```
+
+## Connecting with Wallets and Signing Messages
+
+⚡️ For web interfaces, we recommend using [interchain-kit](https://github.com/hyperweb-io/interchain-kit/). Continue below to see how to manually construct signers and clients.
+
+Here are the docs on [creating signers](https://github.com/hyperweb-io/interchain-kit/blob/main/packages/core/README.md) in interchain-kit that can be used with Keplr and other wallets.
+
+### Initializing the Signing Client
+
+Use SigningClient.connectWithSigner to get your `SigningClient`:
+
+```js
+import { SigningClient } from "@interchainjs/cosmos/signing-client";
+
+const signingClient = await SigningClient.connectWithSigner(
+  await getRpcEndpoint(),
+  new AminoGenericOfflineSigner(aminoOfflineSigner)
+);
+```
+
+### Creating Signers
+
+To broadcast messages, you can create signers with a variety of options:
+
+- [interchain-kit](https://github.com/hyperweb-io/interchain-kit/) (recommended)
+- [keplr](https://docs.keplr.app/api/cosmjs.html)
+
+### Broadcasting Messages
+
+When you have your `signing client`, you can broadcast messages:
+
+```js
+const msg = {
+  typeUrl: MsgSend.typeUrl,
+  value: MsgSend.fromPartial({
+    amount: [
+      {
+        denom: "uatom",
+        amount: "1000",
+      },
+    ],
+    toAddress: address,
+    fromAddress: address,
+  }),
+};
+
+const fee: StdFee = {
+  amount: [
+    {
+      denom: "uatom",
+      amount: "1000",
+    },
+  ],
+  gas: "86364",
+};
+const response = await signingClient.signAndBroadcast(address, [msg], fee);
+```
+
+### All In One Example
+
+For a comprehensive example of how to use InterchainJS to send messages, please see the example [here](https://github.com/hyperweb-io/create-interchain-app/tree/main/examples/authz). This example demonstrates how to:
+
+- Initialize the client.
+- Create and sign messages.
+- Broadcast transactions.
+- Handle responses and errors.
+
+The example provides a complete walkthrough of setting up the client, creating a message for sending txs, and broadcasting the transaction to the chain.
 
 ---
 
@@ -493,11 +580,11 @@ A unified toolkit for building applications and smart contracts in the Interchai
 
 ## Credits
 
-🛠 Built by Hyperweb (formerly Cosmology) — if you like our tools, please checkout and contribute to [our github ⚛️](https://github.com/hyperweb-io)
+🛠 Built by Hyperweb (formerly Cosmology) — if you like our tools, please checkout and contribute to [our github ⚛️](https://github.com/hyperweb-io)
 
 ## Disclaimer
 
-AS DESCRIBED IN THE LICENSES, THE SOFTWARE IS PROVIDED “AS IS”, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.
+AS DESCRIBED IN THE LICENSES, THE SOFTWARE IS PROVIDED "AS IS", AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.
 
 No developer or entity involved in creating this software will be liable for any claims or damages whatsoever associated with your use, inability to use, or your interaction with other users of the code, including any direct, indirect, incidental, special, exemplary, punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
 
