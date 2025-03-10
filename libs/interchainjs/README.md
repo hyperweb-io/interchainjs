@@ -30,7 +30,7 @@ npm install interchainjs
 - [Tutorials and Docs](#tutorials--documentation)
 
   - [RPC Clients](#rpc-clients)
-  - [Tx Helpers](#tx-helpers)
+  - [Query and Tx Helpers](#query-and-tx-helpers)
 
 - [Amino Helpers](#amino-helpers)
 - [Auth](#auth)
@@ -108,10 +108,331 @@ graph LR
 
 ## Tutorials & Documentation
 
-| Topic                        | Documentation                 |
-| ---------------------------- | ----------------------------- |
-| **Building a Custom Signer** | [Tutorial](/docs/tutorial.md) |
-| **Advanced Documentation**   | [View Docs](/docs/)           |
+| Topic                        | Documentation                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| **Create Interchain App**    | [Create Interchain App](https://github.com/hyperweb-io/create-interchain-app) |
+| **Building a Custom Signer** | [Building a Custom Signer](/docs/building-a-custom-signer.md)                 |
+| **Advanced Documentation**   | [View Docs](/docs/)                                                           |
+
+### RPC Clients
+
+```js
+import { createQueryRpc } from "@interchainjs/cosmos/utils";
+import { createGetAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+
+{ getRpcEndpoint } = useChain("cosmoshub");
+
+const endpoint = await getRpcEndpoint();
+const rpc = createQueryRpc(endpoint);
+
+// get the tree shakable helper functions using the rpc client
+const getAllBalances = createGetAllBalances(rpc);
+
+// now you can query the cosmos modules
+const balance = await getAllBalances({
+  address: "cosmos1addresshere",
+});
+```
+
+### Query and Tx Helpers
+
+For tx messages, there're helper functions to sign and broadcast messages:
+
+For more detailed usage on how to use these functions, please see the starship tests in the [libs/interchainjs repo](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchainjs/starship/__tests__)
+
+There're also react and vue hooks for helper functions. Please see [@interchainjs/react](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-react) and [@interchainjs/vue](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-vue) repos for more information.
+
+```js
+import { createSend } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+```
+
+#### Authz
+
+```js
+// query helpers
+import {
+  createGetGrants,
+  createGetGranterGrants,
+  createGetGranteeGrants,
+} from "@interchainjs/cosmos/authz/v1beta1/query.rpc.func";
+
+// tx helpers
+import {
+  createGrant,
+  createRevoke,
+  createExec,
+} from "@interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
+```
+
+#### Bank
+
+```js
+// query helpers
+import {
+  createGetAllBalances,
+  createGetDenomMetadata,
+  createGetSupply,
+  createGetParams,
+} from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+
+// tx helpers
+import {
+  createSend,
+  createMultiSend,
+} from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+```
+
+#### Circuit
+
+```js
+// query helpers
+import {
+  createGetAccount,
+  createGetAccounts,
+  createGetDisabledList,
+} from "@interchainjs/cosmos/circuit/v1/query.rpc.func";
+
+// tx helpers
+import {
+  createAuthorizeCircuitBreaker,
+  createTripCircuitBreaker,
+  createResetCircuitBreaker,
+} from "@interchainjs/cosmos/circuit/v1/tx.rpc.func";
+```
+
+#### Consensus
+
+```js
+// query helpers
+import { createGetParams } from "@interchainjs/cosmos/consensus/v1/query.rpc.func";
+
+// tx helpers
+import { createUpdateParams } from "@interchainjs/cosmos/consensus/v1/tx.rpc.func";
+```
+
+#### Crisis
+
+```js
+// tx helpers
+import {
+  createVerifyInvariant,
+  createUpdateParams,
+} from "@interchainjs/cosmos/crisis/v1beta1/tx.rpc.func";
+```
+
+#### Distribution
+
+```js
+// query helpers
+import {
+  createGetParams,
+  createGetValidatorDistributionInfo,
+  createGetValidatorOutstandingRewards,
+  createGetValidatorCommission,
+  createGetValidatorSlashes,
+  createGetDelegationRewards,
+  createGetDelegationTotalRewards,
+} from "@interchainjs/cosmos/distribution/v1beta1/query.rpc.func";
+
+// tx helpers
+import {
+  createSetWithdrawAddress,
+  createWithdrawDelegatorReward,
+  createWithdrawValidatorCommission,
+  createFundCommunityPool,
+  createCommunityPoolSpend,
+  createUpdateParams,
+} from "@interchainjs/cosmos/distribution/v1beta1/tx.rpc.func";
+```
+
+#### Evidence
+
+```js
+// query helpers
+import {
+  createGetEvidence,
+  createGetAllEvidence,
+} from "@interchainjs/cosmos/evidence/v1beta1/query.rpc.func";
+
+// tx helpers
+import { createSubmitEvidence } from "@interchainjs/cosmos/evidence/v1beta1/tx.rpc.func";
+```
+
+#### Feegrant
+
+```js
+// query helpers
+import {
+  createGetAllowance,
+  createGetAllowances,
+  createGetAllowancesByGranter,
+} from "@interchainjs/cosmos/feegrant/v1beta1/query.rpc.func";
+
+// tx helpers
+import {
+  createGrantAllowance,
+  createRevokeAllowance,
+  createPruneAllowances,
+} from "@interchainjs/cosmos/feegrant/v1beta1/tx.rpc.func";
+```
+
+#### Gov
+
+```js
+// query helpers
+import {
+  createGetProposal,
+  createGetProposals,
+  createGetVote,
+  createGetVotes,
+  createGetParams,
+  createGetDeposit,
+  createGetDeposits,
+  createGetTallyResult,
+} from "@interchainjs/cosmos/gov/v1beta1/query.rpc.func";
+
+// tx helpers
+import {
+  createSubmitProposal,
+  createDeposit,
+  createVote,
+  createVoteWeighted,
+} from "@interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+```
+
+#### Group
+
+```js
+// query helpers
+import {
+  createGetGroupInfo,
+  createGetGroupPolicyInfo,
+  createGetGroupMembers,
+  createGetGroupsByAdmin,
+  createGetGroupPoliciesByGroup,
+  createGetGroupPoliciesByAdmin,
+} from "@interchainjs/cosmos/group/v1/query.rpc.func";
+
+// tx helpers
+import {
+  createCreateGroup,
+  createUpdateGroupMetadata,
+  createUpdateGroupMembers,
+  createUpdateGroupAdmin,
+  createUpdateGroupPolicyMetadata,
+  createSubmitProposal,
+  createVote,
+  createExec,
+} from "@interchainjs/cosmos/group/v1/tx.rpc.func";
+```
+
+#### Mint
+
+```js
+// query helpers
+import {
+  createGetParams,
+  createGetInflation,
+  createGetAnnualProvisions,
+} from "@interchainjs/cosmos/mint/v1beta1/query.rpc.func";
+
+// tx helpers
+import { createUpdateParams } from "@interchainjs/cosmos/mint/v1beta1/tx.rpc.func";
+```
+
+#### Nft
+
+```js
+// query helpers
+import {
+  createGetBalance,
+  createGetOwner,
+  createGetClass,
+  createGetClasses,
+  createGetNFTs,
+  createGetNFT,
+} from "@interchainjs/cosmos/nft/v1/query.rpc.func";
+
+// tx helpers
+import { createSend } from "@interchainjs/cosmos/nft/v1/tx.rpc.func";
+```
+
+#### Staking
+
+```js
+// query helpers
+import {
+  createGetValidators,
+  createGetValidator,
+  createGetValidatorDelegations,
+  createGetValidatorUnbondingDelegations,
+  createGetDelegation,
+  createGetUnbondingDelegation,
+} from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+
+// tx helpers
+import {
+  createCreateValidator,
+  createEditValidator,
+  createDelegate,
+  createUndelegate,
+  createRedelegate,
+} from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+```
+
+#### Vesting
+
+```js
+// tx helpers
+import {
+  createCreateVestingAccount,
+  createCreatePermanentLockedAccount,
+  createCreatePeriodicVestingAccount,
+} from "@interchainjs/cosmos/vesting/v1beta1/tx.rpc.func";
+```
+
+#### CosmWasm
+
+```js
+// query helpers
+import {
+  createGetContractInfo,
+  createGetContractHistory,
+  createGetContractsByCode,
+  createGetAllContractState,
+  createGetRawContractState,
+  createGetSmartContractState,
+  createGetCode,
+  createGetCodes,
+} from "@interchainjs/cosmwasm/wasm/v1/query.rpc.func";
+
+// tx helpers
+import {
+  createStoreCode,
+  createInstantiateContract,
+  createMigrateContract,
+  createUpdateAdmin,
+  createClearAdmin,
+} from "@interchainjs/cosmwasm/wasm/v1/tx.rpc.func";
+```
+
+#### IBC
+
+```js
+// query helpers
+import {
+  createGetParams,
+  createGetDenomHash,
+  createGetEscrowAddress,
+  createGetTotalEscrowForDenom,
+} from "@interchainjs/ibc/applications/transfer/v1/query.rpc.func";
+
+// tx helpers
+import {
+  createTransfer,
+  createUpdateParams,
+} from "@interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
+```
 
 ---
 
@@ -179,3 +500,11 @@ A unified toolkit for building applications and smart contracts in the Interchai
 AS DESCRIBED IN THE LICENSES, THE SOFTWARE IS PROVIDED “AS IS”, AT YOUR OWN RISK, AND WITHOUT WARRANTIES OF ANY KIND.
 
 No developer or entity involved in creating this software will be liable for any claims or damages whatsoever associated with your use, inability to use, or your interaction with other users of the code, including any direct, indirect, incidental, special, exemplary, punitive or consequential damages, or loss of profits, cryptocurrencies, tokens, or anything else of value.
+
+```
+
+```
+
+```
+
+```
