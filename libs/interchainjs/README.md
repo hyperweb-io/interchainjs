@@ -14,17 +14,35 @@
 
 A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any Web3 network.
 
+## install
+
+```sh
+npm install interchainjs
+```
+
 ## Table of Contents
 
+- [InterchainJS](#interchainjs)
+- [Install](#install)
+- [Table of Contents](#table-of-contents)
 - [Introduction](#interchainjs-universal-signing-for-web3)
 - [Overview](#overview)
-- [Tutorials and Docs](#tutorial-for-building-a-custom-signer)
+- [Tutorials and Docs](#tutorials--documentation)
+
+  - [RPC Clients](#rpc-clients)
+  - [Tx Helpers](#tx-helpers)
+
+- [Amino Helpers](#amino-helpers)
 - [Auth](#auth)
+- [Crypto Helpers](#crypto-helpers)
+- [Encoding Helpers](#encoding-helpers)
+- [Math Helpers](#math-helpers)
+- [Pubkey Helpers](#pubkey-helpers)
 - [Supported Networks](#supported-networks)
   - [Cosmos Network](#cosmos-network)
   - [Injective Network](#injective-network)
   - [Ethereum Network](#ethereum-network)
-- [Interchain JavaScript Stack ⚛️](#interchain-javascript-stack-⚛️)
+- [Interchain JavaScript Stack ⚛️](#interchain-javascript-stack-️)
 - [Credits](#credits)
 - [Disclaimer](#disclaimer)
 
@@ -86,16 +104,14 @@ graph LR
     style utils fill:#ccf,stroke:#333,stroke-width:2px
 ```
 
-
 ---
-
 
 ## Tutorials & Documentation
 
-| Topic                            | Documentation |
-|----------------------------------|--------------|
-| **Building a Custom Signer**     | [Tutorial](/docs/tutorial.md) |
-| **Advanced Documentation**       | [View Docs](/docs/) |
+| Topic                        | Documentation                 |
+| ---------------------------- | ----------------------------- |
+| **Building a Custom Signer** | [Tutorial](/docs/tutorial.md) |
+| **Advanced Documentation**   | [View Docs](/docs/)           |
 
 ---
 
@@ -103,9 +119,9 @@ graph LR
 
 The authentication module is universally applied across different networks.
 
-| Package | Description |
-|---------|-------------|
-| [@interchainjs/auth](/packages/auth/README.md) | Handles authentication across blockchain networks. |
+| Package                                                                    | Description                                                                  |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [@interchainjs/auth](/packages/auth/README.md)                             | Handles authentication across blockchain networks.                           |
 | [Advanced Docs: `Auth vs. Wallet vs. Signer`](/docs/auth-wallet-signer.md) | Explanation of the differences between authentication, wallets, and signers. |
 
 ---
@@ -114,26 +130,26 @@ The authentication module is universally applied across different networks.
 
 ### Cosmos Network
 
-| Feature | Package |
-|---------|---------|
-| **Transactions** | [@interchainjs/cosmos](/networks/cosmos/README.md) |
-| **Cosmos Types** | [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) |
-| **Migration from `@cosmjs`** | [interchainjs](/networks/cosmjs/README.md) |
+| Feature                      | Package                                                       |
+| ---------------------------- | ------------------------------------------------------------- |
+| **Transactions**             | [@interchainjs/cosmos](/networks/cosmos/README.md)            |
+| **Cosmos Types**             | [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) |
+| **Migration from `@cosmjs`** | [interchainjs](/networks/cosmjs/README.md)                    |
 
 ---
 
 ### Injective Network
 
-| Feature | Package |
-|---------|---------|
+| Feature          | Package                                                  |
+| ---------------- | -------------------------------------------------------- |
 | **Transactions** | [@interchainjs/injective](/networks/injective/README.md) |
 
 ---
 
 ### Ethereum Network
 
-| Feature | Package |
-|---------|---------|
+| Feature          | Package                                                |
+| ---------------- | ------------------------------------------------------ |
 | **Transactions** | [@interchainjs/ethereum](/networks/ethereum/README.md) |
 
 ---
@@ -142,17 +158,17 @@ The authentication module is universally applied across different networks.
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem
 
-| Category              | Tools                                                                                                                  | Description                                                                                           |
-|----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Chain Information**   | [**Chain Registry**](https://github.com/hyperweb-io/chain-registry), [**Utils**](https://www.npmjs.com/package/@chain-registry/utils), [**Client**](https://www.npmjs.com/package/@chain-registry/client) | Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application. |
-| **Wallet Connectors**| [**Interchain Kit**](https://github.com/hyperweb-io/interchain-kit)<sup>beta</sup>, [**Cosmos Kit**](https://github.com/hyperweb-io/cosmos-kit) | Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface. |
-| **Signing Clients**          | [**InterchainJS**](https://github.com/hyperweb-io/interchainjs)<sup>beta</sup>, [**CosmJS**](https://github.com/cosmos/cosmjs) | A single, universal signing interface for any network |
-| **SDK Clients**              | [**Telescope**](https://github.com/hyperweb-io/telescope)                                                          | Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules. |
-| **Starter Kits**     | [**Create Interchain App**](https://github.com/hyperweb-io/create-interchain-app)<sup>beta</sup>, [**Create Cosmos App**](https://github.com/hyperweb-io/create-cosmos-app) | Set up a modern Interchain app by running one command. |
-| **UI Kits**          | [**Interchain UI**](https://github.com/hyperweb-io/interchain-ui)                                                   | The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit. |
-| **Testing Frameworks**          | [**Starship**](https://github.com/hyperweb-io/starship)                                                             | Unified Testing and Development for the Interchain. |
-| **TypeScript Smart Contracts** | [**Create Hyperweb App**](https://github.com/hyperweb-io/create-hyperweb-app)                              | Build and deploy full-stack blockchain applications with TypeScript |
-| **CosmWasm Contracts** | [**CosmWasm TS Codegen**](https://github.com/CosmWasm/ts-codegen)                                                   | Convert your CosmWasm smart contracts into dev-friendly TypeScript classes. |
+| Category                       | Tools                                                                                                                                                                                                     | Description                                                                                                         |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Chain Information**          | [**Chain Registry**](https://github.com/hyperweb-io/chain-registry), [**Utils**](https://www.npmjs.com/package/@chain-registry/utils), [**Client**](https://www.npmjs.com/package/@chain-registry/client) | Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application. |
+| **Wallet Connectors**          | [**Interchain Kit**](https://github.com/hyperweb-io/interchain-kit)<sup>beta</sup>, [**Cosmos Kit**](https://github.com/hyperweb-io/cosmos-kit)                                                           | Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.    |
+| **Signing Clients**            | [**InterchainJS**](https://github.com/hyperweb-io/interchainjs)<sup>beta</sup>, [**CosmJS**](https://github.com/cosmos/cosmjs)                                                                            | A single, universal signing interface for any network                                                               |
+| **SDK Clients**                | [**Telescope**](https://github.com/hyperweb-io/telescope)                                                                                                                                                 | Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules.                                       |
+| **Starter Kits**               | [**Create Interchain App**](https://github.com/hyperweb-io/create-interchain-app)<sup>beta</sup>, [**Create Cosmos App**](https://github.com/hyperweb-io/create-cosmos-app)                               | Set up a modern Interchain app by running one command.                                                              |
+| **UI Kits**                    | [**Interchain UI**](https://github.com/hyperweb-io/interchain-ui)                                                                                                                                         | The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit.                            |
+| **Testing Frameworks**         | [**Starship**](https://github.com/hyperweb-io/starship)                                                                                                                                                   | Unified Testing and Development for the Interchain.                                                                 |
+| **TypeScript Smart Contracts** | [**Create Hyperweb App**](https://github.com/hyperweb-io/create-hyperweb-app)                                                                                                                             | Build and deploy full-stack blockchain applications with TypeScript                                                 |
+| **CosmWasm Contracts**         | [**CosmWasm TS Codegen**](https://github.com/CosmWasm/ts-codegen)                                                                                                                                         | Convert your CosmWasm smart contracts into dev-friendly TypeScript classes.                                         |
 
 ## Credits
 
