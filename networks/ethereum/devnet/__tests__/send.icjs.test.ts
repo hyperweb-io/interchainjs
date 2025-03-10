@@ -17,7 +17,7 @@ describe('ETH Transfer Test', () => {
 
   beforeAll(async () => {
     provider = new ethers.JsonRpcProvider(ENDPOINT);
-    // provider = new ethers.BrowserProvider(window.ethereum) // if in browser
+    // provider = new ethers.BrowserProvider(window.keplr.ethereum) // if in browser
 
     wallet0 = new ethers.Wallet(privateKey0, provider);
     // wallet0 = await provider.getSigner() // if in browser. like the offline signer in keplr cosmos

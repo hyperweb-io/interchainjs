@@ -107,13 +107,15 @@ export class SignerFromBrowser {
    * Send a legacy (pre-EIP1559) transaction using the browser wallet.
    * The transaction is signed and broadcast by the wallet.
    */
-  public async sendLegacyTransaction(
+  public async send({
+    to,
+    value,
+    data = '0x' // can be undefined, but wallet will send 0x too
+  }: {
     to: string,
-    valueWei: bigint,
-    dataHex = '0x',
-    gasPrice: bigint,
-    gasLimit: bigint
-  ): Promise<{
+    value: bigint,
+    data?: string,
+  }): Promise<{
     txHash: string;
     wait: () => Promise<TransactionReceipt>;
   }> {
@@ -121,10 +123,8 @@ export class SignerFromBrowser {
     const txParams = {
       from,
       to,
-      data: dataHex,
-      value: '0x' + valueWei.toString(16),
-      gasPrice: '0x' + gasPrice.toString(16),
-      gas: '0x' + gasLimit.toString(16),
+      data,
+      value: '0x' + value.toString(16),
     };
 
     // The browser wallet handles user approval, signing, and broadcasting
@@ -139,30 +139,15 @@ export class SignerFromBrowser {
     };
   }
 
-  /**
-   * Automatically fetch gasPrice, then send a legacy transaction.
-   */
-  public async sendLegacyTransactionAutoGas(
+  public async sendEIP1559({
+    to,
+    value,
+    data = '0x'
+  }: {
     to: string,
-    valueWei: bigint,
-    dataHex = '0x',
-    gasLimit: bigint
-  ) {
-    const autoGasPrice = await this.getGasPrice();
-    return this.sendLegacyTransaction(to, valueWei, dataHex, autoGasPrice, gasLimit);
-  }
-
-  /**
-   * Send an EIP-1559 transaction using the browser wallet.
-   */
-  public async sendEIP1559Transaction(
-    to: string,
-    valueWei: bigint,
-    maxPriorityFeePerGas: bigint,
-    maxFeePerGas: bigint,
-    gasLimit: bigint,
-    data: string = '0x'
-  ): Promise<{
+    value: bigint,
+    data?: string
+  }): Promise<{
     txHash: string;
     wait: () => Promise<TransactionReceipt>;
   }> {
@@ -172,10 +157,7 @@ export class SignerFromBrowser {
       from,
       to,
       data,
-      value: '0x' + valueWei.toString(16),
-      maxPriorityFeePerGas: '0x' + maxPriorityFeePerGas.toString(16),
-      maxFeePerGas: '0x' + maxFeePerGas.toString(16),
-      gas: '0x' + gasLimit.toString(16),
+      value: '0x' + value.toString(16)
     };
 
     const txHash: string = await this.provider.request({
@@ -187,88 +169,5 @@ export class SignerFromBrowser {
       txHash,
       wait: async () => this.pollForReceipt(txHash),
     };
-  }
-
-  /**
-   * Automatically fetch maxPriorityFeePerGas, maxFeePerGas, estimate gasLimit,
-   * then send an EIP-1559 transaction.
-   */
-  public async sendEIP1559TransactionAutoGasLimit(
-    to: string,
-    valueWei: bigint,
-    data: string = '0x'
-  ): Promise<{
-    txHash: string;
-    wait: () => Promise<TransactionReceipt>;
-  }> {
-    const maxPriorityFeePerGas = await this.getMaxPriorityFeePerGas();
-    const maxFeePerGas = await this.getMaxFeePerGas(maxPriorityFeePerGas);
-
-    const estimatedGasLimit = await this.estimateGas(to, valueWei, data);
-    // Increase the estimated gas limit by 1.5x for safety
-    const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5));
-
-    return this.sendEIP1559Transaction(
-      to,
-      valueWei,
-      maxPriorityFeePerGas,
-      maxFeePerGas,
-      gasLimit,
-      data
-    );
-  }
-
-  /**
-   * Estimate the gas limit for a transaction.
-   */
-  private async estimateGas(
-    to: string,
-    valueWei: bigint,
-    data: string
-  ): Promise<bigint> {
-    const from = await this.getAddress();
-    const txParams: any = {
-      from,
-      to,
-      data,
-      value: '0x' + valueWei.toString(16),
-    };
-
-    const gasHex: string = await this.provider.request({
-      method: 'eth_estimateGas',
-      params: [txParams],
-    });
-    return BigInt(gasHex);
-  }
-
-  /**
-   * Fetch maxPriorityFeePerGas from the node via the provider.
-   */
-  private async getMaxPriorityFeePerGas(): Promise<bigint> {
-    const priorityHex: string = await this.provider.request({
-      method: 'eth_maxPriorityFeePerGas',
-      params: [],
-    });
-    return BigInt(priorityHex);
-  }
-
-  /**
-   * Calculate maxFeePerGas by adding baseFeePerGas (from feeHistory) and maxPriorityFeePerGas.
-   */
-  private async getMaxFeePerGas(maxPriorityFeePerGas: bigint): Promise<bigint> {
-    const feeHistory = await this.provider.request({
-      method: 'eth_feeHistory',
-      params: [1, 'latest', []],
-    });
-
-    const baseFeeArray = feeHistory?.baseFeePerGas;
-    if (!Array.isArray(baseFeeArray) || baseFeeArray.length === 0) {
-      throw new Error(`Invalid feeHistory response: ${JSON.stringify(baseFeeArray)}`);
-    }
-
-    const baseFeeHex = baseFeeArray[baseFeeArray.length - 1];
-    const baseFeePerGas = BigInt(baseFeeHex);
-
-    return baseFeePerGas + maxPriorityFeePerGas;
   }
 }
