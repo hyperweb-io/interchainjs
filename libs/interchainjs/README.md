@@ -138,6 +138,106 @@ const balance = await getAllBalances({
 });
 ```
 
+### Tree Shakable Helpers
+
+InterchainJS provides tree shakable helper functions to optimize your application's bundle size. These helpers follow a factory pattern that allows modern JavaScript bundlers to eliminate unused code through tree shaking.
+
+#### How Tree Shakable Helpers Work
+
+Each helper function is individually exported using a `create*` prefix (e.g., `createGetAllBalances`). This pattern enables:
+
+1. **Bundle Size Optimization**: Only the functions you import and use are included in your final bundle
+2. **Lazy Initialization**: Helper functions are only constructed when explicitly called
+3. **Customizable Configuration**: Each helper can be configured with specific parameters
+
+For example, query helpers are functions that return other functions, constructed with specific parameters:
+
+```js
+// Import only what you need
+import { createQueryRpc } from "@interchainjs/cosmos/utils";
+import { createGetAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+
+// Initialize RPC client
+const rpc = createQueryRpc(endpoint);
+
+// Create the specific helper function you need
+const getAllBalances = createGetAllBalances(rpc);
+
+// Now you can query the blockchain
+const balance = await getAllBalances({
+  address: "cosmos1addresshere",
+});
+```
+
+#### Available Helper Types
+
+InterchainJS provides two main types of tree shakable helpers:
+
+1. **Query Helpers**: For retrieving data from the blockchain
+
+   ```js
+   import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+   ```
+
+2. **Transaction Helpers**: For broadcasting transactions
+
+   ```js
+   import { createDelegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+   ```
+
+#### Example: Combining Query and Transaction Helpers
+
+Here's how you might use both types together in a staking scenario:
+
+```js
+// Import helpers
+import { createQueryRpc } from "@interchainjs/cosmos/utils";
+import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+import { createDelegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+
+// Setup query client
+const rpc = createQueryRpc(endpoint);
+const getValidator = createGetValidator(rpc);
+
+// Query validator info
+const { validator } = await getValidator({
+  validatorAddr: "cosmosvaloper1...",
+});
+
+// Setup transaction function
+const delegate = createDelegate(signingClient);
+
+// Execute delegation
+const result = await delegate(
+  signerAddress,
+  {
+    delegatorAddress: signerAddress,
+    validatorAddress: validator.operatorAddress,
+    amount: { denom: "uatom", amount: "1000000" },
+  },
+  fee,
+  "Delegation via InterchainJS"
+);
+```
+
+By importing only the specific helpers you need, you ensure that your application bundle remains as small and efficient as possible.
+
+#### Framework Integration
+
+These tree shakable helpers can be used with framework-specific implementations:
+
+- **React**: Available as hooks in `@interchainjs/react`
+
+  ```js
+  import { useGetAllBalances } from "@interchainjs/react/cosmos/bank/v1beta1/query.rpc.react";
+  ```
+
+- **Vue**: Available as composables in `@interchainjs/vue`
+
+  ```js
+  import { useGetAllBalances } from "@interchainjs/vue/cosmos/bank/v1beta1/query.rpc.vue";
+  ```
+
 ### Query and Tx Helpers
 
 InterchainJS provides specialized helper functions that simplify the process of querying blockchain data and submitting transactions. These helpers abstract away the complexity of creating, signing, and broadcasting messages, allowing developers to focus on application logic rather than protocol details.
@@ -149,13 +249,6 @@ Transaction (Tx) helpers streamline the creation and submission of blockchain tr
 ```js
 import { createSend } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 ```
-
-#### Framework Integration
-
-InterchainJS seamlessly integrates with popular frontend frameworks:
-
-- **React Hooks**: Available in the [@interchainjs/react](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-react) package
-- **Vue Composables**: Available in the [@interchainjs/vue](https://github.com/hyperweb-io/interchainjs/tree/main/libs/interchain-vue) package
 
 #### Examples and Documentation
 
@@ -523,6 +616,14 @@ The example provides a complete walkthrough of setting up the client, creating a
 
 ---
 
+## Amino Helpers
+
+The `@interchainjs/amino` package provides utilities for working with Amino messages and types. It includes functions for encoding and decoding messages, as well as for creating and manipulating Amino types.
+
+| Package                                          | Description                       |
+| ------------------------------------------------ | --------------------------------- |
+| [@interchainjs/amino](/packages/amino/README.md) | Amino message and type utilities. |
+
 ## Auth
 
 The authentication module is universally applied across different networks.
@@ -532,7 +633,37 @@ The authentication module is universally applied across different networks.
 | [@interchainjs/auth](/packages/auth/README.md)                             | Handles authentication across blockchain networks.                           |
 | [Advanced Docs: `Auth vs. Wallet vs. Signer`](/docs/auth-wallet-signer.md) | Explanation of the differences between authentication, wallets, and signers. |
 
----
+## Crypto Helpers
+
+The `@interchainjs/crypto` package provides utilities for working with cryptographic primitives. It includes functions for encoding and decoding messages, as well as for creating and manipulating Amino types.
+
+| Package                                            | Description                        |
+| -------------------------------------------------- | ---------------------------------- |
+| [@interchainjs/crypto](/packages/crypto/README.md) | Crypto message and type utilities. |
+
+## Encoding Helpers
+
+The `@interchainjs/encoding` package provides utilities for working with encoding. It includes functions for encoding and decoding messages, as well as for creating and manipulating encoding types.
+
+| Package                                                | Description                          |
+| ------------------------------------------------------ | ------------------------------------ |
+| [@interchainjs/encoding](/packages/encoding/README.md) | Encoding message and type utilities. |
+
+## Math Helpers
+
+The `@interchainjs/math` package provides utilities for working with math. It includes functions for encoding and decoding messages, as well as for creating and manipulating math types.
+
+| Package                                        | Description                      |
+| ---------------------------------------------- | -------------------------------- |
+| [@interchainjs/math](/packages/math/README.md) | Math message and type utilities. |
+
+## Pubkey Helpers
+
+The `@interchainjs/pubkey` package provides utilities for working with pubkeys. It includes functions for encoding and decoding messages, as well as for creating and manipulating pubkey types.
+
+| Package                                            | Description                        |
+| -------------------------------------------------- | ---------------------------------- |
+| [@interchainjs/pubkey](/packages/pubkey/README.md) | Pubkey message and type utilities. |
 
 ## Supported Networks
 
@@ -561,6 +692,23 @@ The authentication module is universally applied across different networks.
 | **Transactions** | [@interchainjs/ethereum](/networks/ethereum/README.md) |
 
 ---
+
+## Developing
+
+When first cloning the repo:
+
+```shell
+yarn
+yarn build:dev
+```
+
+### Codegen
+
+Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/interchainjs.telescope.json` and configure the settings for bundling your SDK and contracts into `interchainjs`:
+
+```shell
+yarn codegen
+```
 
 ## Interchain JavaScript Stack ⚛️
 
