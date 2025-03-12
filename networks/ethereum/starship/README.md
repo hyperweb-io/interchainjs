@@ -18,6 +18,26 @@ Teardown
 yarn starship:stop
 ```
 
+Port fording manually if needed
+```sh
+kubectl port-forward pods/ethereum-1337-0 8545:8545
+```
+
+Get chain id from node
+```sh
+curl -X POST -H "Content-Type: application/json" \
+  --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' \
+  http://localhost:8545/
+```
+
+Get balance:
+```
+curl -X POST \
+  -H "Content-Type: application/json" \
+  --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x7e5f4552091a69125d5dfcb7b8c2659029395bdf", "latest"],"id":1}' \
+  http://localhost:8545
+```
+
 ## 1. Installation
 
 Inorder to get started with starship, one needs to install the following
@@ -117,8 +137,8 @@ Checkout these related projects:
 - [@cosmology/telescope](https://github.com/hyperweb-io/telescope) Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules.
 - [@cosmwasm/ts-codegen](https://github.com/CosmWasm/ts-codegen) Convert your CosmWasm smart contracts into dev-friendly TypeScript classes.
 - [chain-registry](https://github.com/hyperweb-io/chain-registry) Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application.
-- [cosmos-kit](https://github.com/hyperweb-io/cosmos-kit) Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.
-- [create-cosmos-app](https://github.com/hyperweb-io/create-cosmos-app) Set up a modern Cosmos app by running one command.
+- [interchain-kit](https://github.com/hyperweb-io/interchain-kit) Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.
+- [create-interchain-app](https://github.com/hyperweb-io/create-interchain-app) Set up a modern Cosmos app by running one command.
 - [interchain-ui](https://github.com/hyperweb-io/interchain-ui) The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit.
 - [starship](https://github.com/hyperweb-io/starship) Unified Testing and Development for the Interchain.
 
