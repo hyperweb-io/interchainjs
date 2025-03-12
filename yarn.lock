@@ -2507,24 +2507,24 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.3.tgz#282046f03e886e352b2d5f5da5eb755e01457f3f"
   integrity sha512-DE427ROAphMQzU4ENbliGYrBSYPXF+TtLg9S8vzeA+OF4ZKzoDdzfL8sxuMUGS/lgRhM6j1URSk9ghf7Xo1tyA==
 
-"@starship-ci/cli@^2.9.0":
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-2.14.1.tgz#7ad83508a7865add51bce15473b2cc4f579553fd"
-  integrity sha512-osceNBVmFQSpha08eUiRL+Tm+W4vXD95vzSl5l6m01oflc0ZUTeYa43m06eRcgKW+GHH/vElIX1yhAJQ5FiZhA==
+"@starship-ci/cli@3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-3.5.0.tgz#f8244675c17407851dbe663e1fbac67a10d8def7"
+  integrity sha512-qUQ6JVRf9HZz2nzw3TT4kIL83H6PRvmiED/dqou05uZP+WCcOrQm1qT1rQpxn5XowFPrl1WOGF04/P28ZNIZFA==
   dependencies:
-    "@starship-ci/client" "^2.13.1"
+    "@starship-ci/client" "^3.5.0"
     chalk "^4.1.0"
     deepmerge "^4.3.1"
     inquirerer "^1.9.0"
     js-yaml "^4.1.0"
     minimist "^1.2.8"
 
-"@starship-ci/cli@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-3.4.0.tgz#c2c4cd83f940a9e73590e198bb4ad18b441f719c"
-  integrity sha512-6EFoB4wjL2rH9b6LaJqMNolS1GxlkaDVzcDWXpoxA7UI3HUS7WzZAHlKZmQAhbtB8+hYn97ESUUjRPeOAWNQdw==
+"@starship-ci/cli@^2.9.0":
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-2.14.1.tgz#7ad83508a7865add51bce15473b2cc4f579553fd"
+  integrity sha512-osceNBVmFQSpha08eUiRL+Tm+W4vXD95vzSl5l6m01oflc0ZUTeYa43m06eRcgKW+GHH/vElIX1yhAJQ5FiZhA==
   dependencies:
-    "@starship-ci/client" "^3.4.0"
+    "@starship-ci/client" "^2.13.1"
     chalk "^4.1.0"
     deepmerge "^4.3.1"
     inquirerer "^1.9.0"
@@ -2542,10 +2542,10 @@
     mkdirp "3.0.1"
     shelljs "^0.8.5"
 
-"@starship-ci/client@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-3.4.0.tgz#dbd92af5a1dfc6a2c3d69dc2a6038c46052e8476"
-  integrity sha512-6ROk558l0lS2cPAF6UNcJAE0X3KfSnjvx7V2JSUfw9voxLGfbVTHreLjAjl5nv97hglavPHjvfbbW5KM5msRwg==
+"@starship-ci/client@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-3.5.0.tgz#76249f1713c8d7c9ad7cbb5f551efb3035ec2062"
+  integrity sha512-xLsiLEc2wfdYyNH3IVb4E7PYedyZatel+iGoiFWLGRTQjvSzMWjXENTn+281i2JG1KO9qJwsGKC9AWhL5+b4IQ==
   dependencies:
     chalk "^4.1.0"
     deepmerge "^4.3.1"
