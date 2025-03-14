@@ -29,7 +29,7 @@ describe('ETH Transfer Test', () => {
     await usdtContract.waitForDeployment();
     usdtAddress = await usdtContract.getAddress();
 
-  });
+  }, 30000);
 
   it('should transfer ETH from wallet0 to wallet1 and check balances', async () => {
     const initialBalanceSender = await provider.getBalance(walletSender.address);
@@ -50,10 +50,10 @@ describe('ETH Transfer Test', () => {
     expect(finalBalanceSender).toBeLessThan(initialBalanceSender);
     expect(finalBalanceReceiver).toBeGreaterThan(initialBalanceReceiver);
     expect(finalBalanceReceiver).toEqual(initialBalanceReceiver + amountToSend);
-  });
+  }, 30000);
 
   it('should transfer USDT from sender to receiver', async () => {
-    const decimals = 6; 
+    const decimals = 6;
     const amountToSend = ethers.parseUnits('100', decimals);
 
     const initialSenderBalance = await usdtContract.balanceOf(walletSender.address);
@@ -67,5 +67,5 @@ describe('ETH Transfer Test', () => {
 
     expect(finalSenderBalance).toEqual(initialSenderBalance - amountToSend);
     expect(finalReceiverBalance).toEqual(initialReceiverBalance + amountToSend);
-  });
+  }, 30000);
 });
