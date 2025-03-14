@@ -140,13 +140,12 @@ const balance = await getAllBalances({
 
 ### Tree Shakable Helpers
 
-InterchainJS provides tree shakable helper functions to optimize your application's bundle size. These helpers follow a factory pattern that allows modern JavaScript bundlers to eliminate unused code through tree shaking. These hooks improve modularity and optimize performance by allowing you to import only the functionality you need.
+InterchainJS provides tree shakable helper functions to optimize your application's bundle size. These helpers follow a factory pattern that allows modern JavaScript bundlers to eliminate unused code through tree shaking. These helpers improve modularity and optimize performance by allowing you to import only the functionality you need.
 Tree shakable tutorial video: https://youtu.be/3dRm9HEklMo
 
 #### How Tree Shakable Helpers Work
 
 Each helper function is individually exported using a `create*` prefix (e.g., `createGetAllBalances`).
-Each customized hook is individually exported using a `use*` prefix (e.g., `useGetBalance`)
 This pattern enables:
 
 1. **Bundle Size Optimization**: Only the functions you import and use are included in your final bundle
@@ -172,55 +171,20 @@ const balance = await getAllBalances({
 });
 ```
 
-For example, customized hooks are functions that return the result you want:
-
-```typescript
-// Import only what you need
-import { useQueryHooks } from "../hooks/useQueryHooks";
-import { defaultContext } from "@tanstack/react-query";
-import { useGetBalance } from "codegen/cosmos/bank/v1beta1/query.rpc.react";
-
-// Initialize RPC endpoint
-const { rpcEndpoint } =
-  useQueryHooks(defaultChainName, {
-    context: defaultContext,
-    enabled: !!address,
-  });
-
-//Now you can get balance by tree shakable hooks
-const balanceRes = useGetBalance({
-  request: {
-    address: address || '',
-    denom: 'osmo',
-  },
-  options: {
-    context: defaultContext,
-    enabled: !!address && !!rpcEndpoint,
-    select: ({ balance }) => balance?.amount,
-    staleTime: 0,
-  },
-  clientResolver: rpcEndpoint,
-})
-
-const balance = balanceRes?.data
-```
-
 #### Available Helper Types
 
-InterchainJS provides two main types of tree shakable helpers and customized hooks:
+InterchainJS provides two main types of tree shakable helpers:
 
-1. **Query Helpers/Customized Hooks**: For retrieving data from the blockchain
+1. **Query Helpers**: For retrieving data from the blockchain
 
    ```js
    import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
-   import { useGetValidators } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.react";
    ```
 
-2. **Transaction Helpers/Customized Hooks**: For broadcasting transactions
+2. **Transaction Helpers**: For broadcasting transactions
 
    ```js
    import { createDelegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-   import { useDelegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.react";
    ```
 
 #### Example: Combining Query and Transaction Helpers
