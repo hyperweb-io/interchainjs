@@ -9,6 +9,7 @@ import { ContractEncoder, AbiFunctionItem } from '../../src/utils/ContractEncode
 // E.g., Hardhat node: http://127.0.0.1:8545
 // or a testnet node: https://goerli.infura.io/v3/...
 const RPC_URL = 'http://127.0.0.1:8545';
+// const RPC_URL = 'https://bsc-testnet.bnbchain.org';
 
 // Two example private keys
 const privSender = '0x' + '0'.repeat(63) + '1';
@@ -45,6 +46,9 @@ describe('sending Tests', () => {
 
     const resp = await axios.post(RPC_URL, callPayload);
     const hexBalance = resp.data.result;
+    if (hexBalance === undefined || hexBalance === null) {
+      throw new Error(`eth_call returned invalid result: ${JSON.stringify(resp.data)}`);
+    }
     return BigInt(hexBalance);
   }
 
@@ -119,32 +123,6 @@ describe('sending Tests', () => {
     expect(senderDelta).toBeGreaterThanOrEqual(BigInt(valueWei));
   }, 60000); // Increased Jest timeout to 60s for potential network delays
 
-  it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
-    const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
-    console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
-
-    const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
-
-    const dataHex = usdt.transfer(receiverAddress, transferAmount);
-
-    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
-      usdtAddress,
-      0n,
-      dataHex
-    );
-    expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
-
-    const receipt = await wait();
-    expect(receipt.status).toBe('0x1');
-
-    const afterReceiverBalance = await getUSDTBalance(receiverAddress);
-    console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
-
-    const delta = afterReceiverBalance - beforeReceiverBalance;
-    console.log('Receiver USDT balance delta:', delta.toString());
-    expect(delta).toBe(transferAmount);
-  });
-
   it('should send ETH from sender to receiver via EIP-1559, and check balances', async () => {
     const beforeSenderBalance = await signerSender.getBalance();
     const beforeReceiverBalance = await signerReceiver.getBalance();
@@ -184,5 +162,31 @@ describe('sending Tests', () => {
 
     expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
   }, 60000);
+
+  it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
+    const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
+    console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
+
+    const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
+
+    const dataHex = usdt.transfer(receiverAddress, transferAmount);
+
+    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
+      usdtAddress,
+      0n,
+      dataHex
+    );
+    expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    const receipt = await wait();
+    expect(receipt.status).toBe('0x1');
+
+    const afterReceiverBalance = await getUSDTBalance(receiverAddress);
+    console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
+
+    const delta = afterReceiverBalance - beforeReceiverBalance;
+    console.log('Receiver USDT balance delta:', delta.toString());
+    expect(delta).toBe(transferAmount);
+  });
 
 });
