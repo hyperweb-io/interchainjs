@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { keccak256 } from 'ethereum-cryptography/keccak';
 import { secp256k1 } from '@noble/curves/secp256k1';
-import { bytesToHex, hexToBytes, equalsBytes } from 'ethereum-cryptography/utils';
+import { bytesToHex, hexToBytes } from 'ethereum-cryptography/utils';
 import * as rlp from 'rlp'; // Updated import
 import { TransactionReceipt } from '../types/transaction';
 
@@ -425,7 +425,7 @@ export class SignerFromPrivateKey {
 
     const txParams: any = {
       from: fromAddr,
-      value: this.toHexPadded(valueWei),
+      value: valueWei === 0n ? '0x0' : '0x' + valueWei.toString(16),
       data: data
     };
 
