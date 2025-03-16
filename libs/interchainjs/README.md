@@ -140,11 +140,13 @@ const balance = await getAllBalances({
 
 ### Tree Shakable Helpers
 
-InterchainJS provides tree shakable helper functions to optimize your application's bundle size. These helpers follow a factory pattern that allows modern JavaScript bundlers to eliminate unused code through tree shaking.
+InterchainJS provides tree shakable helper functions to optimize your application's bundle size. These helpers follow a factory pattern that allows modern JavaScript bundlers to eliminate unused code through tree shaking. These helpers improve modularity and optimize performance by allowing you to import only the functionality you need.
+Tree shakable tutorial video: https://youtu.be/3dRm9HEklMo
 
 #### How Tree Shakable Helpers Work
 
-Each helper function is individually exported using a `create*` prefix (e.g., `createGetAllBalances`). This pattern enables:
+Each helper function is individually exported using a `create*` prefix (e.g., `createGetAllBalances`).
+This pattern enables:
 
 1. **Bundle Size Optimization**: Only the functions you import and use are included in your final bundle
 2. **Lazy Initialization**: Helper functions are only constructed when explicitly called
@@ -237,18 +239,6 @@ These tree shakable helpers can be used with framework-specific implementations:
   ```js
   import { useGetAllBalances } from "@interchainjs/vue/cosmos/bank/v1beta1/query.rpc.vue";
   ```
-
-### Query and Tx Helpers
-
-InterchainJS provides specialized helper functions that simplify the process of querying blockchain data and submitting transactions. These helpers abstract away the complexity of creating, signing, and broadcasting messages, allowing developers to focus on application logic rather than protocol details.
-
-#### Transaction Helpers
-
-Transaction (Tx) helpers streamline the creation and submission of blockchain transactions:
-
-```js
-import { createSend } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
-```
 
 #### Examples and Documentation
 
