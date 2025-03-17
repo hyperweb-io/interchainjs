@@ -46,6 +46,10 @@ describe('sending Tests', () => {
 
     const resp = await axios.post(RPC_URL, callPayload);
     const hexBalance = resp.data.result;
+    if (hexBalance === undefined || hexBalance === null) {
+      console.error('Error: eth_call did not return a valid result. Full response:', resp.data);
+      throw new Error('eth_call returned an undefined result');
+    }
     return BigInt(hexBalance);
   }
 
@@ -107,6 +111,7 @@ describe('sending Tests', () => {
   }, 60000); // Increased Jest timeout to 60s for potential network delays
 
   it('should send ETH from sender to receiver via EIP-1559, and check balances', async () => {
+    // return
     const beforeSenderBalance = await signerSender.getBalance();
     const beforeReceiverBalance = await signerReceiver.getBalance();
 
@@ -146,26 +151,28 @@ describe('sending Tests', () => {
     expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
   }, 60000);
 
-  return
+  // return
   it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
-    return
+    // return
     let transfer = new SignerFromPrivateKey(privSender, RPC_URL);
 
-    const nonce = await transfer.getNonce();
     try {
-      await transfer.sendLegacyTransactionAutoGasLimit(
+      const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
         '', // no receiver while deploying smart contract
         0n,
         bytecode
       );
-      usdtAddress = computeContractAddress(senderAddress, nonce);
-      console.log('Computed usdtAddress:', usdtAddress);
+      const receipt = await wait();
+      // console.log('Deployed USDT contract receipt:', receipt);
+      usdtAddress = receipt.contractAddress;
+      // console.log('Deployed USDT contract address:', usdtAddress);
     } catch (e) {
       console.error('Error deploying contract:', e);
+      throw e;
     }
 
     const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
-    console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
+    // console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
 
     const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
 
@@ -182,10 +189,10 @@ describe('sending Tests', () => {
     expect(receipt.status).toBe('0x1');
 
     const afterReceiverBalance = await getUSDTBalance(receiverAddress);
-    console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
+    // console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
 
     const delta = afterReceiverBalance - beforeReceiverBalance;
-    console.log('Receiver USDT balance delta:', delta.toString());
+    // console.log('Receiver USDT balance delta:', delta.toString());
     expect(delta).toBe(transferAmount);
   }, 60000);
 
