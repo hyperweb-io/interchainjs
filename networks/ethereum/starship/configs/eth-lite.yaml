@@ -1,0 +1,16 @@
+version: 1.5.0
+
+chains:
+  - id: 1337
+    name: ethereum
+    image: ghcr.io/hyperweb-io/starship/ethereum/client-go:v1.14.12
+    numValidators: 1
+    ports:
+      rest: 8545
+      rpc: 8551
+    # resources:
+    #   cpu: "200m"
+    #   memory: "200Mi"
+    balances:
+      - address: "0x7e5f4552091a69125d5dfcb7b8c2659029395bdf" # priv key: 0x1
+        amount: "0x3635c9adc5dea00000"
