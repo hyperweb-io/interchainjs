@@ -177,9 +177,9 @@ export class SignerFromPrivateKey {
     wait: () => Promise<TransactionReceipt>;
   }> {
     const fromAddr = this.getAddress();
-    console.log('from address in sendLegacyTransaction:', fromAddr);
+    // console.log('from address in sendLegacyTransaction:', fromAddr);
     const nonce = await this.getNonce();
-    console.log('Nonce:', nonce);
+    // console.log('Nonce:', nonce);
     const chainId = await this.getChainId();
 
     // Convert inputs to padded hex strings
@@ -187,6 +187,7 @@ export class SignerFromPrivateKey {
     const gasPriceHex = this.toHexPadded(gasPrice);
     const gasLimitHex = this.toHexPadded(gasLimit);
     const valueHex = this.toHexPadded(valueWei);
+    const valueBytes = valueWei === 0n ? new Uint8Array([]) : hexToBytes('0x' + valueWei.toString(16));
 
     // RLP for signing (chainId in item #7, then 0,0 placeholders)
     const txForSign = [
@@ -194,7 +195,10 @@ export class SignerFromPrivateKey {
       hexToBytes(gasPriceHex),
       hexToBytes(gasLimitHex),
       hexToBytes(to),
-      hexToBytes(valueHex),
+
+      // hexToBytes(valueHex),
+      valueBytes,
+
       hexToBytes(dataHex),
       hexToBytes(this.toHexPadded(chainId)),
       new Uint8Array([]),
@@ -215,13 +219,16 @@ export class SignerFromPrivateKey {
       hexToBytes(gasPriceHex),
       hexToBytes(gasLimitHex),
       hexToBytes(to),
-      hexToBytes(valueHex),
+
+      // hexToBytes(valueHex),
+      valueBytes,
+
       hexToBytes(dataHex),
       hexToBytes(vHex),
       r,
       s,
     ];
-    console.log('txSigned:', txSigned);
+    // console.log('txSigned:', txSigned);
 
     const serializedTx = rlp.encode(txSigned);
     const rawTxHex = '0x' + bytesToHex(serializedTx);
@@ -384,9 +391,9 @@ export class SignerFromPrivateKey {
     // Estimate gas limit from the node
     const estimatedGasLimit = await this.estimateGas(to, valueWei, dataHex);
     const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
-    console.log('Gas Limit:', gasLimit.toString())
+    // console.log('Gas Limit:', gasLimit.toString())
 
-    console.log('Value:', valueWei.toString());
+    // console.log('Value:', valueWei.toString());
     return this.sendLegacyTransaction(to, valueWei, dataHex, gasPrice, gasLimit);
   }
 
