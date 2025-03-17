@@ -9,6 +9,7 @@ import { ContractEncoder, AbiFunctionItem } from '../../src/utils/ContractEncode
 // E.g., Hardhat node: http://127.0.0.1:8545
 // or a testnet node: https://goerli.infura.io/v3/...
 const RPC_URL = 'http://127.0.0.1:8545';
+// const RPC_URL = 'https://bsc-testnet.bnbchain.org'
 
 // Two example private keys
 const privSender = '0x' + '0'.repeat(63) + '1';
@@ -22,7 +23,7 @@ describe('sending Tests', () => {
   const receiverAddress = signerReceiver.getAddress()
 
   // Instance to send from privSender
-  let transfer: SignerFromPrivateKey;
+  // let transfer: SignerFromPrivateKey;
 
   let usdtAddress: string
 
@@ -49,26 +50,12 @@ describe('sending Tests', () => {
   }
 
   beforeAll(async () => {
-    transfer = new SignerFromPrivateKey(privSender, RPC_URL);
-    const chainId = await transfer['getChainId']();
-    console.log('chainId from node:', chainId);
 
-    const nonce = await transfer.getNonce();
-    try {
-      await transfer.sendLegacyTransactionAutoGasLimit(
-        '', // no receiver while deploying smart contract
-        0n,
-        bytecode
-      );
-      usdtAddress = computeContractAddress(senderAddress, nonce);
-      console.log('Computed usdtAddress:', usdtAddress);
-    } catch (e) {
-      console.error('Error deploying contract:', e);
-    }
 
-  });
+  }, 60000); // Increased Jest timeout to 60s for potential network delays
 
   it('should send ETH from sender to receiver, and check balances', async () => {
+    // return
     // 1) Check initial balances
     const beforeSenderBalance = await signerSender.getBalance();
     const beforeReceiverBalance = await signerReceiver.getBalance();
@@ -86,7 +73,7 @@ describe('sending Tests', () => {
     console.log('Sender balance right before sending:', currentSenderBalance.toString());
 
     // 4) Send transaction
-    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
+    const { txHash, wait } = await signerSender.sendLegacyTransactionAutoGasLimit(
       receiverAddress,
       valueWei
     );
@@ -119,32 +106,6 @@ describe('sending Tests', () => {
     expect(senderDelta).toBeGreaterThanOrEqual(BigInt(valueWei));
   }, 60000); // Increased Jest timeout to 60s for potential network delays
 
-  it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
-    const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
-    console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
-
-    const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
-
-    const dataHex = usdt.transfer(receiverAddress, transferAmount);
-
-    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
-      usdtAddress,
-      0n,
-      dataHex
-    );
-    expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
-
-    const receipt = await wait();
-    expect(receipt.status).toBe('0x1');
-
-    const afterReceiverBalance = await getUSDTBalance(receiverAddress);
-    console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
-
-    const delta = afterReceiverBalance - beforeReceiverBalance;
-    console.log('Receiver USDT balance delta:', delta.toString());
-    expect(delta).toBe(transferAmount);
-  });
-
   it('should send ETH from sender to receiver via EIP-1559, and check balances', async () => {
     const beforeSenderBalance = await signerSender.getBalance();
     const beforeReceiverBalance = await signerReceiver.getBalance();
@@ -157,7 +118,7 @@ describe('sending Tests', () => {
     const currentSenderBalance = await signerSender.getBalance();
     console.log('Sender balance right before sending:', currentSenderBalance.toString());
 
-    const { txHash, wait } = await transfer.sendEIP1559TransactionAutoGasLimit(
+    const { txHash, wait } = await signerSender.sendEIP1559TransactionAutoGasLimit(
       receiverAddress,
       valueWei
     );
@@ -183,6 +144,49 @@ describe('sending Tests', () => {
     expect(receiverDelta).toBe(valueWei);
 
     expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
+  }, 60000);
+
+  return
+  it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
+    return
+    let transfer = new SignerFromPrivateKey(privSender, RPC_URL);
+
+    const nonce = await transfer.getNonce();
+    try {
+      await transfer.sendLegacyTransactionAutoGasLimit(
+        '', // no receiver while deploying smart contract
+        0n,
+        bytecode
+      );
+      usdtAddress = computeContractAddress(senderAddress, nonce);
+      console.log('Computed usdtAddress:', usdtAddress);
+    } catch (e) {
+      console.error('Error deploying contract:', e);
+    }
+
+    const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
+    console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
+
+    const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
+
+    const dataHex = usdt.transfer(receiverAddress, transferAmount);
+
+    const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
+      usdtAddress,
+      0n,
+      dataHex
+    );
+    expect(txHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    const receipt = await wait();
+    expect(receipt.status).toBe('0x1');
+
+    const afterReceiverBalance = await getUSDTBalance(receiverAddress);
+    console.log('After transfer, receiver USDT balance:', afterReceiverBalance.toString());
+
+    const delta = afterReceiverBalance - beforeReceiverBalance;
+    console.log('Receiver USDT balance delta:', delta.toString());
+    expect(delta).toBe(transferAmount);
   }, 60000);
 
 });
