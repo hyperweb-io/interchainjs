@@ -26,7 +26,10 @@
     "test:devnet": "npx jest --preset ts-jest devnet/__tests__/send.icjs.test.ts",
     "test:ethers": "npx jest --preset ts-jest devnet/__tests__/ethers.test.ts",
     "test:noethers": "npx jest --preset ts-jest devnet/__tests__/noethers.test.ts",
-    "run-ganache": "bash devnet/run-ganache.sh"
+    "run-ganache": "bash devnet/run-ganache.sh",
+    "starship": "npx starship start --config ./starship/configs/eth-lite.yaml",
+    "starship:stop": "npx starship stop",
+    "starship:test": "npx jest --preset ts-jest starship/__tests__/token.test.ts"
   },
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",
@@ -44,5 +47,9 @@
     "ethereum",
     "blockchain",
     "transaction"
-  ]
+  ],
+  "devDependencies": {
+    "@starship-ci/cli": "3.5.0",
+    "starshipjs": "^3.3.0"
+  }
 }
