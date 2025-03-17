@@ -320,9 +320,9 @@ export class SignerFromPrivateKey {
 
     const { r, s, recovery } = this.signWithRecovery(msgHash);
 
-    // For typed transactions, v = recovery
+    // For typed transactions, v is simply the recovery value. To ensure canonical RLP encoding (no leading zero bytes), encode 0 as an empty byte array.
     const v = recovery;
-    const vHex = this.toHexPadded(v);
+    const vBytes = v === 0 ? new Uint8Array([]) : hexToBytes(this.toHexPadded(v));
 
     // RLP( [chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, v, r, s] )
     const txSigned = [
@@ -335,7 +335,7 @@ export class SignerFromPrivateKey {
       hexToBytes(valueHex),
       hexToBytes(data),
       accessList,
-      hexToBytes(vHex),
+      vBytes,
       r,
       s
     ];
