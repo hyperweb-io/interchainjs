@@ -67,7 +67,7 @@ import { createQueryRpc } from "@interchainjs/cosmos/utils";
 import { createGetAllBalances } from "injectivejs/cosmos/bank/v1beta1/query.rpc.func";
 import { createGetExchangeBalances } from "injectivejs/injective/exchange/v1beta1/query.rpc.func";
 
-{ getRpcEndpoint } = useChain("osmosis");
+{ getRpcEndpoint } = useChain("injective");
 
 const endpoint = await getRpcEndpoint();
 const rpc = createQueryRpc(endpoint);
