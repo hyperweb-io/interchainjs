@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.16](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/ethereum@1.9.15...@interchainjs/ethereum@1.9.16) (2025-03-18)
+
+### Bug Fixes
+
+- bug of estimateGas ([c5aff4d](https://github.com/hyperweb-io/interchainjs/commit/c5aff4d2156d01bae96b13c7bf461692d29ae402))
+- rlp: non-canonical integer (leading zero bytes) for \*big.Int, decoding into (types.DynamicFeeTx).V ([2e8432f](https://github.com/hyperweb-io/interchainjs/commit/2e8432f8a7514d809b4b9da81dfd94def7b7ab46))
+
 ## [1.9.15](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/ethereum@1.9.14...@interchainjs/ethereum@1.9.15) (2025-03-13)
 
 **Note:** Version bump only for package @interchainjs/ethereum
