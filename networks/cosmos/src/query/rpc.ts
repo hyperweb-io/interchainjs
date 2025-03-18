@@ -101,7 +101,7 @@ export class RpcClient implements QueryClient {
   protected async getStatus(): Promise<Status> {
     const data = await fetch(`${this.endpoint.url}/status`);
     const json = await data.json();
-    return json['result'];
+    return json['result'] ?? json;
   }
 
   /**
