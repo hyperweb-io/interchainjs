@@ -118,7 +118,7 @@ The authentication module is universally applied across different networks.
 |---------|---------|
 | **Transactions** | [@interchainjs/cosmos](/networks/cosmos/README.md) |
 | **Cosmos Types** | [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) |
-| **Migration from `@cosmjs`** | [interchainjs](/networks/cosmjs/README.md) |
+| **Migration from `@cosmjs`** | [Migration Guide](/docs/migration-from-cosmjs.md) |
 
 ---
 
