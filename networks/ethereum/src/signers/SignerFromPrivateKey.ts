@@ -190,8 +190,9 @@ export class SignerFromPrivateKey {
     const valueBytes = valueWei === 0n ? new Uint8Array([]) : hexToBytes('0x' + valueWei.toString(16));
 
     // RLP for signing (chainId in item #7, then 0,0 placeholders)
+    const nonceBytes = nonce === 0 ? new Uint8Array([]) : hexToBytes(this.toHexPadded(nonce));
     const txForSign = [
-      hexToBytes(nonceHex),
+      nonceBytes,
       hexToBytes(gasPriceHex),
       hexToBytes(gasLimitHex),
       hexToBytes(to),
@@ -215,7 +216,7 @@ export class SignerFromPrivateKey {
     const vHex = this.toHexPadded(v);
 
     const txSigned = [
-      hexToBytes(nonceHex),
+      nonceBytes,
       hexToBytes(gasPriceHex),
       hexToBytes(gasLimitHex),
       hexToBytes(to),
@@ -305,9 +306,10 @@ export class SignerFromPrivateKey {
 
     // EIP-1559 typed transaction (0x02)
     const accessList: any[] = [];
+    const nonceBytes = nonce === 0 ? new Uint8Array([]) : hexToBytes(this.toHexPadded(nonce));
     const txForSign = [
       hexToBytes(chainIdHex),
-      hexToBytes(nonceHex),
+      nonceBytes,
       hexToBytes(maxPriorityHex),
       hexToBytes(maxFeeHex),
       hexToBytes(gasLimitHex),
@@ -334,7 +336,7 @@ export class SignerFromPrivateKey {
     // RLP( [chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, v, r, s] )
     const txSigned = [
       hexToBytes(chainIdHex),
-      hexToBytes(nonceHex),
+      nonceBytes,
       hexToBytes(maxPriorityHex),
       hexToBytes(maxFeeHex),
       hexToBytes(gasLimitHex),
