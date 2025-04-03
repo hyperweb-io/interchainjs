@@ -157,6 +157,7 @@ export interface DeliverTxResponse {
   /** Error code. The transaction suceeded if and only if code is 0. */
   code: number;
   transactionHash: string;
+  hash?: string;
   events: Event[];
   /**
    * A string-based log document.
@@ -179,6 +180,8 @@ export interface DeliverTxResponse {
   }>;
   gasUsed: bigint;
   gasWanted: bigint;
+
+  origin?: any;
 }
 
 export interface TxRpc {

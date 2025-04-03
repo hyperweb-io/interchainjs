@@ -1,6 +1,6 @@
-import { Event } from '@interchainjs/types';
+import { Event, DeliverTxResponse, Any } from '@interchainjs/types';
 
-import { CheckTxResponse, DeliverTxResponse } from './signer';
+import { CheckTxResponse } from './signer';
 
 export interface AsyncCometBroadcastResponse {
   hash: string;
