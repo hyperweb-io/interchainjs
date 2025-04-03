@@ -171,6 +171,7 @@ describe('Governance tests for osmosis', () => {
       fee,
       "delegate"
     );
+
     assertIsDeliverTxSuccess(result);
   }, 10000);
 

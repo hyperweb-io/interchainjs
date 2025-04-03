@@ -17,7 +17,7 @@ import {
 import { toEncoder } from './utils';
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
-import { BroadcastOptions, HttpEndpoint, SIGN_MODE, StdFee } from '@interchainjs/types';
+import { BroadcastOptions, DeliverTxResponse, HttpEndpoint, SIGN_MODE, StdFee } from '@interchainjs/types';
 import { fromBase64 } from '@interchainjs/utils';
 
 import {
@@ -29,7 +29,6 @@ import {
   TxResponse,
 } from './types/query';
 import {
-  DeliverTxResponse,
   EncodeObject,
   SigningOptions,
 } from './types/signing-client';
@@ -223,7 +222,7 @@ export class SigningClient {
       deliverTx: false,
     });
 
-    return broadcasted.origin;
+    return broadcasted;
   }
 
   public async signAndBroadcastSync(
@@ -248,7 +247,7 @@ export class SigningClient {
   ): Promise<DeliverTxResponse> {
     const resp = await this.queryClient.broadcast(tx, broadcast);
 
-    return resp.origin;
+    return resp;
   }
 
   signAndBroadcast = async (

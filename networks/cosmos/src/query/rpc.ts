@@ -9,12 +9,11 @@ import {
   TxBody,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BroadcastMode, BroadcastOptions, HttpEndpoint } from '@interchainjs/types';
+import { BroadcastMode, BroadcastOptions, HttpEndpoint, DeliverTxResponse, Event } from '@interchainjs/types';
 import { fromBase64, isEmpty, toHttpEndpoint } from '@interchainjs/utils';
 
 import { defaultAccountParser, defaultBroadcastOptions } from '../defaults';
 import {
-  BroadcastResponse,
   EncodedMessage,
   QueryClient,
 } from '../types';
@@ -167,6 +166,13 @@ export class RpcClient implements QueryClient {
   }
 
   /**
+   * Decode TxMsgData from base64-encoded data
+   */
+  protected decodeTxMsgData(data?: string): TxMsgData {
+    return TxMsgData.decode(fromBase64(data) ?? new Uint8Array());
+  }
+
+  /**
    * get the transaction by hash(id)
    */
   async getTx(id: string): Promise<IndexedTx | null> {
@@ -174,7 +180,8 @@ export class RpcClient implements QueryClient {
     const json = await data.json();
     const tx: TxResponse = json['result'];
     if (!tx) return null;
-    const txMsgData = TxMsgData.decode(fromBase64(tx.tx_result.data) ?? new Uint8Array());
+
+    const txMsgData = this.decodeTxMsgData(tx.tx_result.data);
     return {
       height: tx.height,
       txIndex: tx.index,
@@ -202,7 +209,7 @@ export class RpcClient implements QueryClient {
   async broadcast(
     txBytes: Uint8Array,
     options?: BroadcastOptions
-  ): Promise<BroadcastResponse> {
+  ): Promise<DeliverTxResponse> {
     const {
       checkTx,
       deliverTx,
@@ -230,33 +237,62 @@ export class RpcClient implements QueryClient {
 
     switch (mode) {
       case 'broadcast_tx_async':
-        const { hash: hash1, ...rest1 } = resp as AsyncCometBroadcastResponse;
         return {
-          hash: hash1,
-          add_tx: rest1,
+          transactionHash: resp.hash,
+          hash: resp.hash,
+          code: resp.code,
+          height: 0,
+          txIndex: 0,
+          events: [],
+          msgResponses: [],
+          gasUsed: 0n,
+          gasWanted: 0n,
+          rawLog: resp.log || "",
+          data: [],
+
           origin: resp
         };
       case 'broadcast_tx_sync':
-        const { hash: hash2, ...rest2 } = resp as SyncCometBroadcastResponse;
+
         return {
-          hash: hash2,
-          check_tx: rest2,
+          transactionHash: resp.hash,
+          hash: resp.hash,
+          code: resp.code,
+          height: 0,
+          txIndex: 0,
+          events: [],
+          msgResponses: [],
+          gasUsed: 0n,
+          gasWanted: 0n,
+          rawLog: resp.log || "",
+          data: [],
+
           origin: resp
         };
       case 'broadcast_tx_commit':
         if (useLegacyBroadcastTxCommit) {
-          const {
-            check_tx,
-            deliver_tx,
-            height,
-            hash: hash3,
-          } = resp as CommitCometBroadcastResponse;
+          const msgResponses = this.decodeTxMsgData(resp.deliver_tx.data).msgResponses;
+          const data = msgResponses.map(res => {
+            return {
+              msgType: res.typeUrl,
+              data: res.value
+            }
+          })
 
           return {
-            hash: hash3,
-            check_tx,
-            deliver_tx: { height, ...deliver_tx },
-            origin: { hash: hash3, height, ...deliver_tx }
+            transactionHash: resp.hash,
+            hash: resp.hash,
+            code: resp.deliver_tx.code,
+            height: resp.height,
+            txIndex: 0,
+            events: resp.deliver_tx.events,
+            msgResponses,
+            data,
+            gasUsed: BigInt(resp.deliver_tx.gas_used),
+            gasWanted: BigInt(resp.deliver_tx.gas_wanted),
+            rawLog: resp.deliver_tx.log || "",
+
+            origin: resp
           };
         } else {
           let timedOut = false;
@@ -266,7 +302,7 @@ export class RpcClient implements QueryClient {
 
           const pollForTx = async (
             txId: string
-          ): Promise<BroadcastResponse> => {
+          ): Promise<DeliverTxResponse> => {
             if (timedOut) {
               throw new TimeoutError(
                 `Transaction with ID ${txId} was submitted but was not yet found on the chain. You might want to check later. There was a wait of ${timeoutMs / 1000
@@ -279,20 +315,23 @@ export class RpcClient implements QueryClient {
 
             return result
               ? {
-                hash: resp.hash,
-                deliver_tx: {
-                  code: result.code,
-                  height: result.height.toString(),
-                  txIndex: result.txIndex,
-                  events: result.events,
-                  rawLog: result.rawLog,
-                  msgResponses: result.msgResponses,
-                  gas_used: result.gasUsed.toString(),
-                  gas_wanted: result.gasWanted.toString(),
-                  data: result.data,
-                  log: result.log,
-                  info: result.info,
-                },
+                transactionHash: result.hash,
+                hash: result.hash,
+                code: result.code,
+                height: result.height,
+                txIndex: result.txIndex,
+                events: result.events,
+                msgResponses: result.msgResponses,
+                gasUsed: result.gasUsed,
+                gasWanted: result.gasWanted,
+                rawLog: result.rawLog,
+                data: result.msgResponses.map(res => {
+                  return {
+                    msgType: res.typeUrl,
+                    data: res.value
+                  }
+                }),
+
                 origin: result
               }
               : pollForTx(txId);
