@@ -5,6 +5,7 @@
  */
 
 import { StdFee } from './doc';
+import { DeliverTxResponse } from './rpc';
 
 export interface Any {
   typeUrl: string;
@@ -131,59 +132,6 @@ export interface Message<T> {
   value: T;
 }
 
-export interface MsgData {
-  msgType: string;
-  data: Uint8Array;
-}
-
-export interface Attribute {
-  key: string;
-  value: string;
-  index: boolean;
-}
-export interface Event {
-  type: string;
-  attributes: Attribute[];
-}
-
-/**
- * The response after successfully broadcasting a transaction.
- * Success or failure refer to the execution result.
- */
-export interface DeliverTxResponse {
-  height: number;
-  /** The position of the transaction within the block. This is a 0-based index. */
-  txIndex: number;
-  /** Error code. The transaction suceeded if and only if code is 0. */
-  code: number;
-  transactionHash: string;
-  hash?: string;
-  events: Event[];
-  /**
-   * A string-based log document.
-   *
-   * This currently seems to merge attributes of multiple events into one event per type
-   * (https://github.com/tendermint/tendermint/issues/9595). You might want to use the `events`
-   * field instead.
-   */
-  rawLog?: string;
-  /** @deprecated Use `msgResponses` instead. */
-  data?: MsgData[];
-  /**
-   * The message responses of the [TxMsgData](https://github.com/cosmos/cosmos-sdk/blob/v0.46.3/proto/cosmos/base/abci/v1beta1/abci.proto#L128-L140)
-   * as `Any`s.
-   * This field is an empty list for chains running Cosmos SDK < 0.46.
-   */
-  msgResponses: Array<{
-    typeUrl: string;
-    value: Uint8Array;
-  }>;
-  gasUsed: bigint;
-  gasWanted: bigint;
-
-  origin?: any;
-}
-
 export interface TxRpc {
   request(
     service: string,
@@ -196,21 +144,4 @@ export interface TxRpc {
     fee: StdFee | 'auto' | number,
     memo: string
   ): Promise<DeliverTxResponse>;
-}
-
-/**
- * Event allows application developers to attach additional information to
- * ResponseBeginBlock, ResponseEndBlock, ResponseCheckTx and ResponseDeliverTx.
- * Later, transactions may be queried using these events.
- */
-export interface Event {
-  type: string;
-  attributes: EventAttribute[];
-}
-/** EventAttribute is a single key-value pair, associated with an event. */
-export interface EventAttribute {
-  key: string;
-  value: string;
-  /** nondeterministic */
-  index: boolean;
 }
