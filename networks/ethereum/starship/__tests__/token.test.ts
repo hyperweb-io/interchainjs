@@ -196,4 +196,60 @@ describe('sending Tests', () => {
     expect(delta).toBe(transferAmount);
   }, 60000);
 
+  it('should sign a message using personalSign and verify the signature', async () => {
+    // Plain text message to sign
+    const message = 'Hello, Ethereum!';
+
+    // Sign the message with the sender's private key
+    const signature = signerSender.personalSign(message);
+
+    // Verify the signature should match the sender address
+    const isValidSender = SignerFromPrivateKey.verifyPersonalSignature(
+      message,
+      signature,
+      senderAddress
+    );
+    expect(isValidSender).toBe(true);
+
+    // The signature should NOT be valid for a different address
+    const isValidReceiver = SignerFromPrivateKey.verifyPersonalSignature(
+      message,
+      signature,
+      receiverAddress
+    );
+    expect(isValidReceiver).toBe(false);
+
+    // Test with a hex message
+    const hexMessage = '0x1234abcd';
+    const hexSignature = signerSender.personalSign(hexMessage);
+
+    // Verify the hex message signature
+    const isValidHexMessage = SignerFromPrivateKey.verifyPersonalSignature(
+      hexMessage,
+      hexSignature,
+      senderAddress
+    );
+    expect(isValidHexMessage).toBe(true);
+
+    // Test with a modified message (should fail verification)
+    const isValidModifiedMessage = SignerFromPrivateKey.verifyPersonalSignature(
+      message + '!',  // modified message
+      signature,
+      senderAddress
+    );
+    expect(isValidModifiedMessage).toBe(false);
+
+    // Test with a tampered signature (modify the last byte)
+    const tamperedSig = signature.slice(0, -2) + (signature.slice(-2) === 'ff' ? '00' : 'ff');
+    const isValidTamperedSig = SignerFromPrivateKey.verifyPersonalSignature(
+      message,
+      tamperedSig,
+      senderAddress
+    );
+    expect(isValidTamperedSig).toBe(false);
+
+    console.log('Message:', message);
+    console.log('Signature:', signature);
+    console.log('Verified for signer address:', isValidSender);
+  }, 10000);
 });

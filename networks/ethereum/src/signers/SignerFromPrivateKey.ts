@@ -42,7 +42,6 @@ export class SignerFromPrivateKey {
     }
   }
 
-
   /**
    * Helper to pad hex strings to even length.
    * Accepts string, bigint, or number.
@@ -177,9 +176,7 @@ export class SignerFromPrivateKey {
     wait: () => Promise<TransactionReceipt>;
   }> {
     const fromAddr = this.getAddress();
-    // console.log('from address in sendLegacyTransaction:', fromAddr);
     const nonce = await this.getNonce();
-    // console.log('Nonce:', nonce);
     const chainId = await this.getChainId();
 
     // Convert inputs to padded hex strings
@@ -196,10 +193,7 @@ export class SignerFromPrivateKey {
       hexToBytes(gasPriceHex),
       hexToBytes(gasLimitHex),
       hexToBytes(to),
-
-      // hexToBytes(valueHex),
       valueBytes,
-
       hexToBytes(dataHex),
       hexToBytes(this.toHexPadded(chainId)),
       new Uint8Array([]),
@@ -220,16 +214,12 @@ export class SignerFromPrivateKey {
       hexToBytes(gasPriceHex),
       hexToBytes(gasLimitHex),
       hexToBytes(to),
-
-      // hexToBytes(valueHex),
       valueBytes,
-
       hexToBytes(dataHex),
       hexToBytes(vHex),
       r,
       s,
     ];
-    // console.log('txSigned:', txSigned);
 
     const serializedTx = rlp.encode(txSigned);
     const rawTxHex = '0x' + bytesToHex(serializedTx);
@@ -377,9 +367,9 @@ export class SignerFromPrivateKey {
   }
 
   /**
- * Helper to automatically fetch the gasPrice and estimate gasLimit,
- * then send a legacy transaction with calculated gasLimit (1.5x estimated).
- */
+   * Helper to automatically fetch the gasPrice and estimate gasLimit,
+   * then send a legacy transaction with calculated gasLimit (1.5x estimated).
+   */
   public async sendLegacyTransactionAutoGasLimit(
     to: string,
     valueWei: bigint,
@@ -393,9 +383,7 @@ export class SignerFromPrivateKey {
     // Estimate gas limit from the node
     const estimatedGasLimit = await this.estimateGas(to, valueWei, dataHex);
     const gasLimit = BigInt(Math.ceil(Number(estimatedGasLimit) * 1.5)); // 1.5x estimated
-    // console.log('Gas Limit:', gasLimit.toString())
 
-    // console.log('Value:', valueWei.toString());
     return this.sendLegacyTransaction(to, valueWei, dataHex, gasPrice, gasLimit);
   }
 
@@ -496,5 +484,116 @@ export class SignerFromPrivateKey {
     const baseFeePerGas = BigInt(baseFeeHex);
 
     return baseFeePerGas + maxPriorityFeePerGas;
+  }
+
+  /**
+   * Sign arbitrary data using personal_sign format (similar to window.ethereum.request({ method: 'personal_sign' }))
+   * Prepends the Ethereum signed message prefix before hashing and signing
+   * @param message The message to sign (string or hex)
+   * @returns The signature in hex format with 0x prefix
+   */
+  public personalSign(message: string): string {
+    // Convert message to hex if it's not already
+    let messageHex: string;
+    if (message.startsWith('0x')) {
+      messageHex = message;
+    } else {
+      messageHex = '0x' + Buffer.from(message, 'utf8').toString('hex');
+    }
+
+    // Create the Ethereum signed message
+    // Format: "\x19Ethereum Signed Message:\n" + message.length + message
+    const prefix = '\x19Ethereum Signed Message:\n' + message.length;
+    const prefixBytes = Buffer.from(prefix, 'utf8');
+    const messageBytes = hexToBytes(messageHex.slice(2)); // Remove 0x prefix
+
+    // Concatenate prefix and message
+    const prefixAndMessageBytes = new Uint8Array(prefixBytes.length + messageBytes.length);
+    prefixAndMessageBytes.set(prefixBytes, 0);
+    prefixAndMessageBytes.set(messageBytes, prefixBytes.length);
+
+    // Hash the combined message
+    const msgHash = keccak256(prefixAndMessageBytes);
+
+    // Sign the hash
+    const { r, s, recovery } = this.signWithRecovery(msgHash);
+
+    // Create the signature: r (32 bytes) + s (32 bytes) + v (1 byte)
+    const signature = new Uint8Array(65);
+    signature.set(r, 0);
+    signature.set(s, 32);
+    signature.set([recovery + 27], 64); // v = recovery + 27 (Ethereum standard for personal_sign)
+
+    return '0x' + bytesToHex(signature);
+  }
+
+  /**
+   * Verify if a signature was created by the given address for the given message
+   * @param message The original message that was signed
+   * @param signature The signature to verify (hex string with 0x prefix)
+   * @param address The Ethereum address to check against
+   * @returns True if the signature is valid for the address, false otherwise
+   */
+  public static verifyPersonalSignature(message: string, signature: string, address: string): boolean {
+    try {
+      // Remove 0x prefix from signature
+      const sigBytes = hexToBytes(signature.replace(/^0x/, ''));
+      if (sigBytes.length !== 65) {
+        throw new Error('Invalid signature length');
+      }
+
+      // Extract r, s, v
+      const r = sigBytes.slice(0, 32);
+      const s = sigBytes.slice(32, 64);
+      const v = sigBytes[64];
+
+      // Adjust recovery bit (Ethereum personal_sign uses v = 27 or 28)
+      const recovery = v - 27;
+      if (recovery !== 0 && recovery !== 1) {
+        throw new Error('Invalid recovery value in signature');
+      }
+
+      // Create the Ethereum signed message
+      let messageHex: string;
+      if (message.startsWith('0x')) {
+        messageHex = message;
+      } else {
+        messageHex = '0x' + Buffer.from(message, 'utf8').toString('hex');
+      }
+
+      const prefix = '\x19Ethereum Signed Message:\n' + message.length;
+      const prefixBytes = Buffer.from(prefix, 'utf8');
+      const messageBytes = hexToBytes(messageHex.slice(2)); // Remove 0x prefix
+
+      // Concatenate prefix and message
+      const prefixAndMessageBytes = new Uint8Array(prefixBytes.length + messageBytes.length);
+      prefixAndMessageBytes.set(prefixBytes, 0);
+      prefixAndMessageBytes.set(messageBytes, prefixBytes.length);
+
+      // Hash the combined message
+      const msgHash = keccak256(prefixAndMessageBytes);
+
+      // Recover public key from signature
+      // Fix: Need to create a Signature object with the recovery parameter included
+      const signatureObj = secp256k1.Signature.fromCompact(
+        bytesToHex(r) + bytesToHex(s)
+      ).addRecoveryBit(recovery);
+
+      // Use recoverPublicKey with just the message hash
+      const recoveredPubkey = signatureObj.recoverPublicKey(msgHash);
+      const pubkeyBytes = recoveredPubkey.toRawBytes(false); // Uncompressed format
+
+      // Derive address from public key
+      const pubNoPrefix = pubkeyBytes.slice(1); // Remove 0x04 prefix
+      const hash = keccak256(pubNoPrefix);
+      const addressBytes = hash.slice(-20);
+      const recoveredAddress = '0x' + bytesToHex(addressBytes);
+
+      // Compare addresses (case-insensitive)
+      return recoveredAddress.toLowerCase() === address.toLowerCase();
+    } catch (error) {
+      console.error('Error verifying signature:', error);
+      return false;
+    }
   }
 }
