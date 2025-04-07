@@ -224,7 +224,7 @@ describe('Governance tests for osmosis', () => {
     assertIsDeliverTxSuccess(result);
 
     // Get proposal id from log events
-    const proposalIdEvent = result.deliver_tx?.events.find(
+    const proposalIdEvent = result.events.find(
       (event) => event.type === 'submit_proposal'
     );
     const proposalIdEncoded = proposalIdEvent!.attributes.find(
