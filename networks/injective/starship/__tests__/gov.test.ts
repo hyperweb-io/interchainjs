@@ -305,7 +305,7 @@ describe('Governance tests for injective', () => {
     assertIsDeliverTxSuccess(result);
 
     // Get proposal id from log events
-    const proposalIdEvent = result.deliver_tx?.events.find(
+    const proposalIdEvent = result.events.find(
       (event) => event.type === 'submit_proposal'
     );
 
