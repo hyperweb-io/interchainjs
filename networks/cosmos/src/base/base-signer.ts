@@ -18,13 +18,13 @@ import {
   SignDocResponse,
   SignerConfig,
   SignResponse,
+  DeliverTxResponse
 } from '@interchainjs/types';
 import { assertEmpty, isEmpty } from '@interchainjs/utils';
 
 import { defaultSignerOptions } from '../defaults';
 import { RpcClient } from '../query/rpc';
 import {
-  BroadcastResponse,
   CosmosSignArgs,
   EncodedMessage,
   Encoder,
@@ -267,7 +267,7 @@ export abstract class CosmosBaseSigner<SignDoc>
    */
   async sign(
     args: CosmosSignArgs
-  ): Promise<SignResponse<TxRaw, SignDoc, BroadcastResponse>> {
+  ): Promise<SignResponse<TxRaw, SignDoc, DeliverTxResponse>> {
     const signed = await this.txBuilder.buildSignedTxDoc(args);
 
     return {

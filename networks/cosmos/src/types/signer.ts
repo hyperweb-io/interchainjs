@@ -21,7 +21,8 @@ import {
   StdSignDoc,
   UniSigner,
   IApiClient,
-  Auth
+  Auth,
+  DeliverTxResponse
 } from '@interchainjs/types';
 import { Event } from '@interchainjs/types';
 import { AccountBase } from '@interchainjs/types/account';
@@ -117,35 +118,6 @@ export interface CheckTxResponse {
   mempool_error: string;
 }
 
-export interface DeliverTxResponse {
-  code: number;
-  data?: string;
-  txIndex: number;
-  /** nondeterministic */
-  log?: string;
-  /** nondeterministic */
-  info?: string;
-  rawLog?: string;
-  gas_wanted: string;
-  gas_used: string;
-  events: Event[];
-  codespace?: string;
-  msgResponses: Array<{ readonly typeUrl: string; readonly value: Uint8Array }>;
-}
-
-export interface BroadcastResponse {
-  hash: string;
-  add_tx?: {
-    code?: number;
-    data?: string;
-    log?: string;
-    codespace?: string;
-  };
-  check_tx?: CheckTxResponse;
-  deliver_tx?: DeliverTxResponse & { height: string };
-  origin?: any;
-}
-
 export type DocOptions = FeeOptions & SignOptions & TxOptions;
 
 export interface FeeOptions {
@@ -192,7 +164,7 @@ export type TxOptions = {
 /**
  * Query client ops for cosmos chains
  */
-export interface QueryClient extends IApiClient<Uint8Array, BroadcastResponse, BroadcastOptions> {
+export interface QueryClient extends IApiClient<Uint8Array, DeliverTxResponse, BroadcastOptions> {
   readonly endpoint: string | HttpEndpoint;
   getChainId: () => Promise<string>;
   getAccountNumber: (address: string) => Promise<bigint>;
@@ -221,14 +193,14 @@ export type CosmosSignArgs<Option = DocOptions> = {
  * @template CosmosTx - Transaction type for cosmos chains
  * @template SignDoc - Sign document type for cosmos chains
  * @template addresstype - string address for cosmos chains
- * @template BroadcastResponse - Broadcast response for cosmos chains
+ * @template DeliverTxResponse - Broadcast response for cosmos chains
  */
 export type UniCosmosBaseSigner<SignDoc> = UniSigner<
   CosmosSignArgs,
   CosmosTx,
   SignDoc,
   string,
-  BroadcastResponse
+  DeliverTxResponse
 >;
 
 /**
@@ -239,7 +211,7 @@ export type CosmosDirectSigner = UniSigner<
   CosmosTx,
   CosmosDirectDoc,
   string,
-  BroadcastResponse
+  DeliverTxResponse
 >;
 /**
  * Amino signer for cosmos chains
@@ -249,7 +221,7 @@ export type CosmosAminoSigner = UniSigner<
   CosmosTx,
   CosmosAminoDoc,
   string,
-  BroadcastResponse
+  DeliverTxResponse
 >;
 
 /**

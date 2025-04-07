@@ -104,7 +104,7 @@ export interface CreateDocResponse<Tx, Doc> {
 /**
  * the response after signing a document.
  */
-export interface SignResponse<Tx, Doc, BroadcastResponse = { hash: string }, BroadcastOpts = BroadcastOptions>
+export interface SignResponse<Tx, Doc, BroadcastResponse = { transactionHash: string }, BroadcastOpts = BroadcastOptions>
   extends CreateDocResponse<Tx, Doc> {
   /**
    * broadcast the transaction.
@@ -142,7 +142,7 @@ export interface UniSigner<
   Tx,
   Doc,
   AddressResponse = string,
-  BroadcastResponse = { hash: string },
+  BroadcastResponse = { transactionHash: string },
   BroadcastOpts = BroadcastOptions,
   SignDocResp = SignDocResponse<Doc>
 > {
