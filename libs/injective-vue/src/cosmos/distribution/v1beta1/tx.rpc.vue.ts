@@ -1,24 +1,24 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool } from "./tx";
-import { createSetWithdrawAddress, createWithdrawDelegatorReward, createWithdrawValidatorCommission, createFundCommunityPool, createUpdateParams, createCommunityPoolSpend, createDepositValidatorRewardsPool } from "./tx.rpc.func";
+import { setWithdrawAddress, withdrawDelegatorReward, withdrawValidatorCommission, fundCommunityPool, updateParams, communityPoolSpend, depositValidatorRewardsPool } from "./tx.rpc.func";
 export const useSetWithdrawAddress = buildUseVueMutation<MsgSetWithdrawAddress, Error>({
-  builderMutationFn: createSetWithdrawAddress
+  builderMutationFn: setWithdrawAddress
 });
 export const useWithdrawDelegatorReward = buildUseVueMutation<MsgWithdrawDelegatorReward, Error>({
-  builderMutationFn: createWithdrawDelegatorReward
+  builderMutationFn: withdrawDelegatorReward
 });
 export const useWithdrawValidatorCommission = buildUseVueMutation<MsgWithdrawValidatorCommission, Error>({
-  builderMutationFn: createWithdrawValidatorCommission
+  builderMutationFn: withdrawValidatorCommission
 });
 export const useFundCommunityPool = buildUseVueMutation<MsgFundCommunityPool, Error>({
-  builderMutationFn: createFundCommunityPool
+  builderMutationFn: fundCommunityPool
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useCommunityPoolSpend = buildUseVueMutation<MsgCommunityPoolSpend, Error>({
-  builderMutationFn: createCommunityPoolSpend
+  builderMutationFn: communityPoolSpend
 });
 export const useDepositValidatorRewardsPool = buildUseVueMutation<MsgDepositValidatorRewardsPool, Error>({
-  builderMutationFn: createDepositValidatorRewardsPool
+  builderMutationFn: depositValidatorRewardsPool
 });

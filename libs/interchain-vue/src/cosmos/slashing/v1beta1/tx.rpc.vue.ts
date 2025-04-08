@@ -1,9 +1,9 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgUnjail, MsgUpdateParams } from "./tx";
-import { createUnjail, createUpdateParams } from "./tx.rpc.func";
+import { unjail, updateParams } from "./tx.rpc.func";
 export const useUnjail = buildUseVueMutation<MsgUnjail, Error>({
-  builderMutationFn: createUnjail
+  builderMutationFn: unjail
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

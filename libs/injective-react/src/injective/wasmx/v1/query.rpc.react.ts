@@ -1,15 +1,15 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryWasmxParamsRequest, QueryWasmxParamsResponse, QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-import { createGetWasmxParams, createGetContractRegistrationInfo, createGetWasmxModuleState } from "./query.rpc.func";
+import { getWasmxParams, getContractRegistrationInfo, getWasmxModuleState } from "./query.rpc.func";
 export const useGetWasmxParams = buildUseQuery<QueryWasmxParamsRequest, QueryWasmxParamsResponse>({
-  builderQueryFn: createGetWasmxParams,
+  builderQueryFn: getWasmxParams,
   queryKeyPrefix: "WasmxParamsQuery"
 });
 export const useGetContractRegistrationInfo = buildUseQuery<QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse>({
-  builderQueryFn: createGetContractRegistrationInfo,
+  builderQueryFn: getContractRegistrationInfo,
   queryKeyPrefix: "ContractRegistrationInfoQuery"
 });
 export const useGetWasmxModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetWasmxModuleState,
+  builderQueryFn: getWasmxModuleState,
   queryKeyPrefix: "WasmxModuleStateQuery"
 });

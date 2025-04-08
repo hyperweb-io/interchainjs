@@ -1,27 +1,27 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgRelayProviderPrices, MsgRelayPriceFeedPrice, MsgRelayBandRates, MsgRequestBandIBCRates, MsgRelayCoinbaseMessages, MsgRelayStorkPrices, MsgRelayPythPrices, MsgUpdateParams } from "./tx";
-import { createRelayProviderPrices, createRelayPriceFeedPrice, createRelayBandRates, createRequestBandIBCRates, createRelayCoinbaseMessages, createRelayStorkMessage, createRelayPythPrices, createUpdateParams } from "./tx.rpc.func";
+import { relayProviderPrices, relayPriceFeedPrice, relayBandRates, requestBandIBCRates, relayCoinbaseMessages, relayStorkMessage, relayPythPrices, updateParams } from "./tx.rpc.func";
 export const useRelayProviderPrices = buildUseVueMutation<MsgRelayProviderPrices, Error>({
-  builderMutationFn: createRelayProviderPrices
+  builderMutationFn: relayProviderPrices
 });
 export const useRelayPriceFeedPrice = buildUseVueMutation<MsgRelayPriceFeedPrice, Error>({
-  builderMutationFn: createRelayPriceFeedPrice
+  builderMutationFn: relayPriceFeedPrice
 });
 export const useRelayBandRates = buildUseVueMutation<MsgRelayBandRates, Error>({
-  builderMutationFn: createRelayBandRates
+  builderMutationFn: relayBandRates
 });
 export const useRequestBandIBCRates = buildUseVueMutation<MsgRequestBandIBCRates, Error>({
-  builderMutationFn: createRequestBandIBCRates
+  builderMutationFn: requestBandIBCRates
 });
 export const useRelayCoinbaseMessages = buildUseVueMutation<MsgRelayCoinbaseMessages, Error>({
-  builderMutationFn: createRelayCoinbaseMessages
+  builderMutationFn: relayCoinbaseMessages
 });
 export const useRelayStorkMessage = buildUseVueMutation<MsgRelayStorkPrices, Error>({
-  builderMutationFn: createRelayStorkMessage
+  builderMutationFn: relayStorkMessage
 });
 export const useRelayPythPrices = buildUseVueMutation<MsgRelayPythPrices, Error>({
-  builderMutationFn: createRelayPythPrices
+  builderMutationFn: relayPythPrices
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

@@ -1,55 +1,55 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
-import { createGetBalance, createGetAllBalances, createGetSpendableBalances, createGetSpendableBalanceByDenom, createGetTotalSupply, createGetSupplyOf, createGetParams, createGetDenomMetadata, createGetDenomMetadataByQueryString, createGetDenomsMetadata, createGetDenomOwners, createGetDenomOwnersByQuery, createGetSendEnabled } from "./query.rpc.func";
+import { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceByDenom, getTotalSupply, getSupplyOf, getParams, getDenomMetadata, getDenomMetadataByQueryString, getDenomsMetadata, getDenomOwners, getDenomOwnersByQuery, getSendEnabled } from "./query.rpc.func";
 export const useGetBalance = buildUseQuery<QueryBalanceRequest, QueryBalanceResponse>({
-  builderQueryFn: createGetBalance,
+  builderQueryFn: getBalance,
   queryKeyPrefix: "BalanceQuery"
 });
 export const useGetAllBalances = buildUseQuery<QueryAllBalancesRequest, QueryAllBalancesResponse>({
-  builderQueryFn: createGetAllBalances,
+  builderQueryFn: getAllBalances,
   queryKeyPrefix: "AllBalancesQuery"
 });
 export const useGetSpendableBalances = buildUseQuery<QuerySpendableBalancesRequest, QuerySpendableBalancesResponse>({
-  builderQueryFn: createGetSpendableBalances,
+  builderQueryFn: getSpendableBalances,
   queryKeyPrefix: "SpendableBalancesQuery"
 });
 export const useGetSpendableBalanceByDenom = buildUseQuery<QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse>({
-  builderQueryFn: createGetSpendableBalanceByDenom,
+  builderQueryFn: getSpendableBalanceByDenom,
   queryKeyPrefix: "SpendableBalanceByDenomQuery"
 });
 export const useGetTotalSupply = buildUseQuery<QueryTotalSupplyRequest, QueryTotalSupplyResponse>({
-  builderQueryFn: createGetTotalSupply,
+  builderQueryFn: getTotalSupply,
   queryKeyPrefix: "TotalSupplyQuery"
 });
 export const useGetSupplyOf = buildUseQuery<QuerySupplyOfRequest, QuerySupplyOfResponse>({
-  builderQueryFn: createGetSupplyOf,
+  builderQueryFn: getSupplyOf,
   queryKeyPrefix: "SupplyOfQuery"
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetDenomMetadata = buildUseQuery<QueryDenomMetadataRequest, QueryDenomMetadataResponse>({
-  builderQueryFn: createGetDenomMetadata,
+  builderQueryFn: getDenomMetadata,
   queryKeyPrefix: "DenomMetadataQuery"
 });
 export const useGetDenomMetadataByQueryString = buildUseQuery<QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse>({
-  builderQueryFn: createGetDenomMetadataByQueryString,
+  builderQueryFn: getDenomMetadataByQueryString,
   queryKeyPrefix: "DenomMetadataByQueryStringQuery"
 });
 export const useGetDenomsMetadata = buildUseQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
-  builderQueryFn: createGetDenomsMetadata,
+  builderQueryFn: getDenomsMetadata,
   queryKeyPrefix: "DenomsMetadataQuery"
 });
 export const useGetDenomOwners = buildUseQuery<QueryDenomOwnersRequest, QueryDenomOwnersResponse>({
-  builderQueryFn: createGetDenomOwners,
+  builderQueryFn: getDenomOwners,
   queryKeyPrefix: "DenomOwnersQuery"
 });
 export const useGetDenomOwnersByQuery = buildUseQuery<QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse>({
-  builderQueryFn: createGetDenomOwnersByQuery,
+  builderQueryFn: getDenomOwnersByQuery,
   queryKeyPrefix: "DenomOwnersByQueryQuery"
 });
 export const useGetSendEnabled = buildUseQuery<QuerySendEnabledRequest, QuerySendEnabledResponse>({
-  builderQueryFn: createGetSendEnabled,
+  builderQueryFn: getSendEnabled,
   queryKeyPrefix: "SendEnabledQuery"
 });

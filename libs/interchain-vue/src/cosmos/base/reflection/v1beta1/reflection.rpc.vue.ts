@@ -1,11 +1,11 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { ListAllInterfacesRequest, ListAllInterfacesResponse, ListImplementationsRequest, ListImplementationsResponse } from "./reflection";
-import { createGetListAllInterfaces, createGetListImplementations } from "./reflection.rpc.func";
+import { getListAllInterfaces, getListImplementations } from "./reflection.rpc.func";
 export const useGetListAllInterfaces = buildUseVueQuery<ListAllInterfacesRequest, ListAllInterfacesResponse>({
-  builderQueryFn: createGetListAllInterfaces,
+  builderQueryFn: getListAllInterfaces,
   queryKeyPrefix: "ListAllInterfacesQuery"
 });
 export const useGetListImplementations = buildUseVueQuery<ListImplementationsRequest, ListImplementationsResponse>({
-  builderQueryFn: createGetListImplementations,
+  builderQueryFn: getListImplementations,
   queryKeyPrefix: "ListImplementationsQuery"
 });

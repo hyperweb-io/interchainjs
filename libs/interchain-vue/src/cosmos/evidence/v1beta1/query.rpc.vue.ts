@@ -1,11 +1,11 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryEvidenceRequest, QueryEvidenceResponse, QueryAllEvidenceRequest, QueryAllEvidenceResponse } from "./query";
-import { createGetEvidence, createGetAllEvidence } from "./query.rpc.func";
+import { getEvidence, getAllEvidence } from "./query.rpc.func";
 export const useGetEvidence = buildUseVueQuery<QueryEvidenceRequest, QueryEvidenceResponse>({
-  builderQueryFn: createGetEvidence,
+  builderQueryFn: getEvidence,
   queryKeyPrefix: "EvidenceQuery"
 });
 export const useGetAllEvidence = buildUseVueQuery<QueryAllEvidenceRequest, QueryAllEvidenceResponse>({
-  builderQueryFn: createGetAllEvidence,
+  builderQueryFn: getAllEvidence,
   queryKeyPrefix: "AllEvidenceQuery"
 });

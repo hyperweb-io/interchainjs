@@ -1,58 +1,50 @@
-import { RpcResolver, buildQuery } from "../../../helper-func-types";
+import { buildQuery } from "../../../helper-func-types";
 import { QueryProposalRequest, QueryProposalResponse, QueryProposalsRequest, QueryProposalsResponse, QueryVoteRequest, QueryVoteResponse, QueryVotesRequest, QueryVotesResponse, QueryParamsRequest, QueryParamsResponse, QueryDepositRequest, QueryDepositResponse, QueryDepositsRequest, QueryDepositsResponse, QueryTallyResultRequest, QueryTallyResultResponse } from "./query";
-export const createGetProposal = (clientResolver?: RpcResolver) => buildQuery<QueryProposalRequest, QueryProposalResponse>({
+export const getProposal = buildQuery<QueryProposalRequest, QueryProposalResponse>({
   encode: QueryProposalRequest.encode,
   decode: QueryProposalResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Proposal",
-  clientResolver
+  method: "Proposal"
 });
-export const createGetProposals = (clientResolver?: RpcResolver) => buildQuery<QueryProposalsRequest, QueryProposalsResponse>({
+export const getProposals = buildQuery<QueryProposalsRequest, QueryProposalsResponse>({
   encode: QueryProposalsRequest.encode,
   decode: QueryProposalsResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Proposals",
-  clientResolver
+  method: "Proposals"
 });
-export const createGetVote = (clientResolver?: RpcResolver) => buildQuery<QueryVoteRequest, QueryVoteResponse>({
+export const getVote = buildQuery<QueryVoteRequest, QueryVoteResponse>({
   encode: QueryVoteRequest.encode,
   decode: QueryVoteResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Vote",
-  clientResolver
+  method: "Vote"
 });
-export const createGetVotes = (clientResolver?: RpcResolver) => buildQuery<QueryVotesRequest, QueryVotesResponse>({
+export const getVotes = buildQuery<QueryVotesRequest, QueryVotesResponse>({
   encode: QueryVotesRequest.encode,
   decode: QueryVotesResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Votes",
-  clientResolver
+  method: "Votes"
 });
-export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
+export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Params",
-  clientResolver
+  method: "Params"
 });
-export const createGetDeposit = (clientResolver?: RpcResolver) => buildQuery<QueryDepositRequest, QueryDepositResponse>({
+export const getDeposit = buildQuery<QueryDepositRequest, QueryDepositResponse>({
   encode: QueryDepositRequest.encode,
   decode: QueryDepositResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Deposit",
-  clientResolver
+  method: "Deposit"
 });
-export const createGetDeposits = (clientResolver?: RpcResolver) => buildQuery<QueryDepositsRequest, QueryDepositsResponse>({
+export const getDeposits = buildQuery<QueryDepositsRequest, QueryDepositsResponse>({
   encode: QueryDepositsRequest.encode,
   decode: QueryDepositsResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "Deposits",
-  clientResolver
+  method: "Deposits"
 });
-export const createGetTallyResult = (clientResolver?: RpcResolver) => buildQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
+export const getTallyResult = buildQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
   encode: QueryTallyResultRequest.encode,
   decode: QueryTallyResultResponse.decode,
   service: "cosmos.gov.v1beta1.Query",
-  method: "TallyResult",
-  clientResolver
+  method: "TallyResult"
 });

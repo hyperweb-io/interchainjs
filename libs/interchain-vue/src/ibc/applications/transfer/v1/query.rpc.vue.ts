@@ -1,19 +1,19 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryDenomHashRequest, QueryDenomHashResponse, QueryEscrowAddressRequest, QueryEscrowAddressResponse, QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse } from "./query";
-import { createGetParams, createGetDenomHash, createGetEscrowAddress, createGetTotalEscrowForDenom } from "./query.rpc.func";
+import { getParams, getDenomHash, getEscrowAddress, getTotalEscrowForDenom } from "./query.rpc.func";
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetDenomHash = buildUseVueQuery<QueryDenomHashRequest, QueryDenomHashResponse>({
-  builderQueryFn: createGetDenomHash,
+  builderQueryFn: getDenomHash,
   queryKeyPrefix: "DenomHashQuery"
 });
 export const useGetEscrowAddress = buildUseVueQuery<QueryEscrowAddressRequest, QueryEscrowAddressResponse>({
-  builderQueryFn: createGetEscrowAddress,
+  builderQueryFn: getEscrowAddress,
   queryKeyPrefix: "EscrowAddressQuery"
 });
 export const useGetTotalEscrowForDenom = buildUseVueQuery<QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse>({
-  builderQueryFn: createGetTotalEscrowForDenom,
+  builderQueryFn: getTotalEscrowForDenom,
   queryKeyPrefix: "TotalEscrowForDenomQuery"
 });

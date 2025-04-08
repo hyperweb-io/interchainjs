@@ -1,18 +1,16 @@
-import { RpcResolver, buildQuery } from "../../../../helper-func-types";
+import { buildQuery } from "../../../../helper-func-types";
 import { QueryRequest, QueryResponse, ListQueryHandlersRequest, ListQueryHandlersResponse } from "./service";
-export const createGetQuery = (clientResolver?: RpcResolver) => buildQuery<QueryRequest, QueryResponse>({
+export const getQuery = buildQuery<QueryRequest, QueryResponse>({
   encode: QueryRequest.encode,
   decode: QueryResponse.decode,
   service: "cosmos.base.grpc.v2.Service",
   method: "Query",
-  clientResolver,
   deps: [QueryRequest, QueryResponse]
 });
-export const createGetListQueryHandlers = (clientResolver?: RpcResolver) => buildQuery<ListQueryHandlersRequest, ListQueryHandlersResponse>({
+export const getListQueryHandlers = buildQuery<ListQueryHandlersRequest, ListQueryHandlersResponse>({
   encode: ListQueryHandlersRequest.encode,
   decode: ListQueryHandlersResponse.decode,
   service: "cosmos.base.grpc.v2.Service",
   method: "ListQueryHandlers",
-  clientResolver,
   deps: [ListQueryHandlersRequest, ListQueryHandlersResponse]
 });

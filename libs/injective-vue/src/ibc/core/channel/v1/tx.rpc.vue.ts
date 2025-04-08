@@ -1,60 +1,60 @@
 import { buildUseVueMutation } from "../../../../vue-query";
 import { MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelCloseInit, MsgChannelCloseConfirm, MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgAcknowledgement, MsgChannelUpgradeInit, MsgChannelUpgradeTry, MsgChannelUpgradeAck, MsgChannelUpgradeConfirm, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeCancel, MsgUpdateParams, MsgPruneAcknowledgements } from "./tx";
-import { createChannelOpenInit, createChannelOpenTry, createChannelOpenAck, createChannelOpenConfirm, createChannelCloseInit, createChannelCloseConfirm, createRecvPacket, createTimeout, createTimeoutOnClose, createAcknowledgement, createChannelUpgradeInit, createChannelUpgradeTry, createChannelUpgradeAck, createChannelUpgradeConfirm, createChannelUpgradeOpen, createChannelUpgradeTimeout, createChannelUpgradeCancel, createUpdateChannelParams, createPruneAcknowledgements } from "./tx.rpc.func";
+import { channelOpenInit, channelOpenTry, channelOpenAck, channelOpenConfirm, channelCloseInit, channelCloseConfirm, recvPacket, timeout, timeoutOnClose, acknowledgement, channelUpgradeInit, channelUpgradeTry, channelUpgradeAck, channelUpgradeConfirm, channelUpgradeOpen, channelUpgradeTimeout, channelUpgradeCancel, updateChannelParams, pruneAcknowledgements } from "./tx.rpc.func";
 export const useChannelOpenInit = buildUseVueMutation<MsgChannelOpenInit, Error>({
-  builderMutationFn: createChannelOpenInit
+  builderMutationFn: channelOpenInit
 });
 export const useChannelOpenTry = buildUseVueMutation<MsgChannelOpenTry, Error>({
-  builderMutationFn: createChannelOpenTry
+  builderMutationFn: channelOpenTry
 });
 export const useChannelOpenAck = buildUseVueMutation<MsgChannelOpenAck, Error>({
-  builderMutationFn: createChannelOpenAck
+  builderMutationFn: channelOpenAck
 });
 export const useChannelOpenConfirm = buildUseVueMutation<MsgChannelOpenConfirm, Error>({
-  builderMutationFn: createChannelOpenConfirm
+  builderMutationFn: channelOpenConfirm
 });
 export const useChannelCloseInit = buildUseVueMutation<MsgChannelCloseInit, Error>({
-  builderMutationFn: createChannelCloseInit
+  builderMutationFn: channelCloseInit
 });
 export const useChannelCloseConfirm = buildUseVueMutation<MsgChannelCloseConfirm, Error>({
-  builderMutationFn: createChannelCloseConfirm
+  builderMutationFn: channelCloseConfirm
 });
 export const useRecvPacket = buildUseVueMutation<MsgRecvPacket, Error>({
-  builderMutationFn: createRecvPacket
+  builderMutationFn: recvPacket
 });
 export const useTimeout = buildUseVueMutation<MsgTimeout, Error>({
-  builderMutationFn: createTimeout
+  builderMutationFn: timeout
 });
 export const useTimeoutOnClose = buildUseVueMutation<MsgTimeoutOnClose, Error>({
-  builderMutationFn: createTimeoutOnClose
+  builderMutationFn: timeoutOnClose
 });
 export const useAcknowledgement = buildUseVueMutation<MsgAcknowledgement, Error>({
-  builderMutationFn: createAcknowledgement
+  builderMutationFn: acknowledgement
 });
 export const useChannelUpgradeInit = buildUseVueMutation<MsgChannelUpgradeInit, Error>({
-  builderMutationFn: createChannelUpgradeInit
+  builderMutationFn: channelUpgradeInit
 });
 export const useChannelUpgradeTry = buildUseVueMutation<MsgChannelUpgradeTry, Error>({
-  builderMutationFn: createChannelUpgradeTry
+  builderMutationFn: channelUpgradeTry
 });
 export const useChannelUpgradeAck = buildUseVueMutation<MsgChannelUpgradeAck, Error>({
-  builderMutationFn: createChannelUpgradeAck
+  builderMutationFn: channelUpgradeAck
 });
 export const useChannelUpgradeConfirm = buildUseVueMutation<MsgChannelUpgradeConfirm, Error>({
-  builderMutationFn: createChannelUpgradeConfirm
+  builderMutationFn: channelUpgradeConfirm
 });
 export const useChannelUpgradeOpen = buildUseVueMutation<MsgChannelUpgradeOpen, Error>({
-  builderMutationFn: createChannelUpgradeOpen
+  builderMutationFn: channelUpgradeOpen
 });
 export const useChannelUpgradeTimeout = buildUseVueMutation<MsgChannelUpgradeTimeout, Error>({
-  builderMutationFn: createChannelUpgradeTimeout
+  builderMutationFn: channelUpgradeTimeout
 });
 export const useChannelUpgradeCancel = buildUseVueMutation<MsgChannelUpgradeCancel, Error>({
-  builderMutationFn: createChannelUpgradeCancel
+  builderMutationFn: channelUpgradeCancel
 });
 export const useUpdateChannelParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateChannelParams
+  builderMutationFn: updateChannelParams
 });
 export const usePruneAcknowledgements = buildUseVueMutation<MsgPruneAcknowledgements, Error>({
-  builderMutationFn: createPruneAcknowledgements
+  builderMutationFn: pruneAcknowledgements
 });

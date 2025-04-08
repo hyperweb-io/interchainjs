@@ -1,45 +1,20 @@
-import { buildTx, SigningClientResolver } from "../../../helper-func-types";
-import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
+import { buildTx } from "../../../helper-func-types";
 import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin, MsgSetDenomMetadata, MsgUpdateParams } from "./tx";
-export const createCreateDenom = (clientResolver?: SigningClientResolver) => buildTx<MsgCreateDenom>({
-  clientResolver,
-  typeUrl: MsgCreateDenom.typeUrl,
-  encoders: toEncoders(MsgCreateDenom),
-  converters: toConverters(MsgCreateDenom),
-  deps: [MsgCreateDenom]
+export const createDenom = buildTx<MsgCreateDenom>({
+  msg: MsgCreateDenom
 });
-export const createMint = (clientResolver?: SigningClientResolver) => buildTx<MsgMint>({
-  clientResolver,
-  typeUrl: MsgMint.typeUrl,
-  encoders: toEncoders(MsgMint),
-  converters: toConverters(MsgMint),
-  deps: [MsgMint]
+export const mint = buildTx<MsgMint>({
+  msg: MsgMint
 });
-export const createBurn = (clientResolver?: SigningClientResolver) => buildTx<MsgBurn>({
-  clientResolver,
-  typeUrl: MsgBurn.typeUrl,
-  encoders: toEncoders(MsgBurn),
-  converters: toConverters(MsgBurn),
-  deps: [MsgBurn]
+export const burn = buildTx<MsgBurn>({
+  msg: MsgBurn
 });
-export const createChangeAdmin = (clientResolver?: SigningClientResolver) => buildTx<MsgChangeAdmin>({
-  clientResolver,
-  typeUrl: MsgChangeAdmin.typeUrl,
-  encoders: toEncoders(MsgChangeAdmin),
-  converters: toConverters(MsgChangeAdmin),
-  deps: [MsgChangeAdmin]
+export const changeAdmin = buildTx<MsgChangeAdmin>({
+  msg: MsgChangeAdmin
 });
-export const createSetDenomMetadata = (clientResolver?: SigningClientResolver) => buildTx<MsgSetDenomMetadata>({
-  clientResolver,
-  typeUrl: MsgSetDenomMetadata.typeUrl,
-  encoders: toEncoders(MsgSetDenomMetadata),
-  converters: toConverters(MsgSetDenomMetadata),
-  deps: [MsgSetDenomMetadata]
+export const setDenomMetadata = buildTx<MsgSetDenomMetadata>({
+  msg: MsgSetDenomMetadata
 });
-export const createUpdateParams = (clientResolver?: SigningClientResolver) => buildTx<MsgUpdateParams>({
-  clientResolver,
-  typeUrl: MsgUpdateParams.typeUrl,
-  encoders: toEncoders(MsgUpdateParams),
-  converters: toConverters(MsgUpdateParams),
-  deps: [MsgUpdateParams]
+export const updateParams = buildTx<MsgUpdateParams>({
+  msg: MsgUpdateParams
 });

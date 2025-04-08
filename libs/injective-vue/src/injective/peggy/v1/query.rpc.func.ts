@@ -1,149 +1,128 @@
-import { RpcResolver, buildQuery } from "../../../helper-func-types";
+import { buildQuery } from "../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse, QueryCurrentValsetRequest, QueryCurrentValsetResponse, QueryValsetRequestRequest, QueryValsetRequestResponse, QueryValsetConfirmRequest, QueryValsetConfirmResponse, QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse, QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse, QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse, QueryLastEventByAddrRequest, QueryLastEventByAddrResponse, QueryPendingSendToEth, QueryPendingSendToEthResponse, QueryBatchFeeRequest, QueryBatchFeeResponse, QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse, QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse, QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse, QueryBatchConfirmsRequest, QueryBatchConfirmsResponse, QueryERC20ToDenomRequest, QueryERC20ToDenomResponse, QueryDenomToERC20Request, QueryDenomToERC20Response, QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse, QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse, QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse, QueryModuleStateRequest, QueryModuleStateResponse, MissingNoncesRequest, MissingNoncesResponse } from "./query";
-export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
+export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "Params",
-  clientResolver
+  method: "Params"
 });
-export const createGetCurrentValset = (clientResolver?: RpcResolver) => buildQuery<QueryCurrentValsetRequest, QueryCurrentValsetResponse>({
+export const getCurrentValset = buildQuery<QueryCurrentValsetRequest, QueryCurrentValsetResponse>({
   encode: QueryCurrentValsetRequest.encode,
   decode: QueryCurrentValsetResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "CurrentValset",
-  clientResolver
+  method: "CurrentValset"
 });
-export const createGetValsetRequest = (clientResolver?: RpcResolver) => buildQuery<QueryValsetRequestRequest, QueryValsetRequestResponse>({
+export const getValsetRequest = buildQuery<QueryValsetRequestRequest, QueryValsetRequestResponse>({
   encode: QueryValsetRequestRequest.encode,
   decode: QueryValsetRequestResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "ValsetRequest",
-  clientResolver
+  method: "ValsetRequest"
 });
-export const createGetValsetConfirm = (clientResolver?: RpcResolver) => buildQuery<QueryValsetConfirmRequest, QueryValsetConfirmResponse>({
+export const getValsetConfirm = buildQuery<QueryValsetConfirmRequest, QueryValsetConfirmResponse>({
   encode: QueryValsetConfirmRequest.encode,
   decode: QueryValsetConfirmResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "ValsetConfirm",
-  clientResolver
+  method: "ValsetConfirm"
 });
-export const createGetValsetConfirmsByNonce = (clientResolver?: RpcResolver) => buildQuery<QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse>({
+export const getValsetConfirmsByNonce = buildQuery<QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse>({
   encode: QueryValsetConfirmsByNonceRequest.encode,
   decode: QueryValsetConfirmsByNonceResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "ValsetConfirmsByNonce",
-  clientResolver
+  method: "ValsetConfirmsByNonce"
 });
-export const createGetLastValsetRequests = (clientResolver?: RpcResolver) => buildQuery<QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse>({
+export const getLastValsetRequests = buildQuery<QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse>({
   encode: QueryLastValsetRequestsRequest.encode,
   decode: QueryLastValsetRequestsResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "LastValsetRequests",
-  clientResolver
+  method: "LastValsetRequests"
 });
-export const createGetLastPendingValsetRequestByAddr = (clientResolver?: RpcResolver) => buildQuery<QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse>({
+export const getLastPendingValsetRequestByAddr = buildQuery<QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse>({
   encode: QueryLastPendingValsetRequestByAddrRequest.encode,
   decode: QueryLastPendingValsetRequestByAddrResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "LastPendingValsetRequestByAddr",
-  clientResolver
+  method: "LastPendingValsetRequestByAddr"
 });
-export const createGetLastEventByAddr = (clientResolver?: RpcResolver) => buildQuery<QueryLastEventByAddrRequest, QueryLastEventByAddrResponse>({
+export const getLastEventByAddr = buildQuery<QueryLastEventByAddrRequest, QueryLastEventByAddrResponse>({
   encode: QueryLastEventByAddrRequest.encode,
   decode: QueryLastEventByAddrResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "LastEventByAddr",
-  clientResolver
+  method: "LastEventByAddr"
 });
-export const createGetGetPendingSendToEth = (clientResolver?: RpcResolver) => buildQuery<QueryPendingSendToEth, QueryPendingSendToEthResponse>({
+export const getGetPendingSendToEth = buildQuery<QueryPendingSendToEth, QueryPendingSendToEthResponse>({
   encode: QueryPendingSendToEth.encode,
   decode: QueryPendingSendToEthResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "GetPendingSendToEth",
-  clientResolver
+  method: "GetPendingSendToEth"
 });
-export const createGetBatchFees = (clientResolver?: RpcResolver) => buildQuery<QueryBatchFeeRequest, QueryBatchFeeResponse>({
+export const getBatchFees = buildQuery<QueryBatchFeeRequest, QueryBatchFeeResponse>({
   encode: QueryBatchFeeRequest.encode,
   decode: QueryBatchFeeResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "BatchFees",
-  clientResolver
+  method: "BatchFees"
 });
-export const createGetOutgoingTxBatches = (clientResolver?: RpcResolver) => buildQuery<QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse>({
+export const getOutgoingTxBatches = buildQuery<QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse>({
   encode: QueryOutgoingTxBatchesRequest.encode,
   decode: QueryOutgoingTxBatchesResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "OutgoingTxBatches",
-  clientResolver
+  method: "OutgoingTxBatches"
 });
-export const createGetLastPendingBatchRequestByAddr = (clientResolver?: RpcResolver) => buildQuery<QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse>({
+export const getLastPendingBatchRequestByAddr = buildQuery<QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse>({
   encode: QueryLastPendingBatchRequestByAddrRequest.encode,
   decode: QueryLastPendingBatchRequestByAddrResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "LastPendingBatchRequestByAddr",
-  clientResolver
+  method: "LastPendingBatchRequestByAddr"
 });
-export const createGetBatchRequestByNonce = (clientResolver?: RpcResolver) => buildQuery<QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse>({
+export const getBatchRequestByNonce = buildQuery<QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse>({
   encode: QueryBatchRequestByNonceRequest.encode,
   decode: QueryBatchRequestByNonceResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "BatchRequestByNonce",
-  clientResolver
+  method: "BatchRequestByNonce"
 });
-export const createGetBatchConfirms = (clientResolver?: RpcResolver) => buildQuery<QueryBatchConfirmsRequest, QueryBatchConfirmsResponse>({
+export const getBatchConfirms = buildQuery<QueryBatchConfirmsRequest, QueryBatchConfirmsResponse>({
   encode: QueryBatchConfirmsRequest.encode,
   decode: QueryBatchConfirmsResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "BatchConfirms",
-  clientResolver
+  method: "BatchConfirms"
 });
-export const createGetERC20ToDenom = (clientResolver?: RpcResolver) => buildQuery<QueryERC20ToDenomRequest, QueryERC20ToDenomResponse>({
+export const getERC20ToDenom = buildQuery<QueryERC20ToDenomRequest, QueryERC20ToDenomResponse>({
   encode: QueryERC20ToDenomRequest.encode,
   decode: QueryERC20ToDenomResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "ERC20ToDenom",
-  clientResolver
+  method: "ERC20ToDenom"
 });
-export const createGetDenomToERC20 = (clientResolver?: RpcResolver) => buildQuery<QueryDenomToERC20Request, QueryDenomToERC20Response>({
+export const getDenomToERC20 = buildQuery<QueryDenomToERC20Request, QueryDenomToERC20Response>({
   encode: QueryDenomToERC20Request.encode,
   decode: QueryDenomToERC20Response.decode,
   service: "injective.peggy.v1.Query",
-  method: "DenomToERC20",
-  clientResolver
+  method: "DenomToERC20"
 });
-export const createGetGetDelegateKeyByValidator = (clientResolver?: RpcResolver) => buildQuery<QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse>({
+export const getGetDelegateKeyByValidator = buildQuery<QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse>({
   encode: QueryDelegateKeysByValidatorAddress.encode,
   decode: QueryDelegateKeysByValidatorAddressResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "GetDelegateKeyByValidator",
-  clientResolver
+  method: "GetDelegateKeyByValidator"
 });
-export const createGetGetDelegateKeyByEth = (clientResolver?: RpcResolver) => buildQuery<QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse>({
+export const getGetDelegateKeyByEth = buildQuery<QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse>({
   encode: QueryDelegateKeysByEthAddress.encode,
   decode: QueryDelegateKeysByEthAddressResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "GetDelegateKeyByEth",
-  clientResolver
+  method: "GetDelegateKeyByEth"
 });
-export const createGetGetDelegateKeyByOrchestrator = (clientResolver?: RpcResolver) => buildQuery<QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse>({
+export const getGetDelegateKeyByOrchestrator = buildQuery<QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse>({
   encode: QueryDelegateKeysByOrchestratorAddress.encode,
   decode: QueryDelegateKeysByOrchestratorAddressResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "GetDelegateKeyByOrchestrator",
-  clientResolver
+  method: "GetDelegateKeyByOrchestrator"
 });
-export const createGetPeggyModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
+export const getPeggyModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "PeggyModuleState",
-  clientResolver
+  method: "PeggyModuleState"
 });
-export const createGetMissingPeggoNonces = (clientResolver?: RpcResolver) => buildQuery<MissingNoncesRequest, MissingNoncesResponse>({
+export const getMissingPeggoNonces = buildQuery<MissingNoncesRequest, MissingNoncesResponse>({
   encode: MissingNoncesRequest.encode,
   decode: MissingNoncesResponse.decode,
   service: "injective.peggy.v1.Query",
-  method: "MissingPeggoNonces",
-  clientResolver
+  method: "MissingPeggoNonces"
 });

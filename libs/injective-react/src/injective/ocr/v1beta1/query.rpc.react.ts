@@ -1,31 +1,31 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryFeedConfigRequest, QueryFeedConfigResponse, QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse, QueryLatestRoundRequest, QueryLatestRoundResponse, QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse, QueryOwedAmountRequest, QueryOwedAmountResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-import { createGetParams, createGetFeedConfig, createGetFeedConfigInfo, createGetLatestRound, createGetLatestTransmissionDetails, createGetOwedAmount, createGetOcrModuleState } from "./query.rpc.func";
+import { getParams, getFeedConfig, getFeedConfigInfo, getLatestRound, getLatestTransmissionDetails, getOwedAmount, getOcrModuleState } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetFeedConfig = buildUseQuery<QueryFeedConfigRequest, QueryFeedConfigResponse>({
-  builderQueryFn: createGetFeedConfig,
+  builderQueryFn: getFeedConfig,
   queryKeyPrefix: "FeedConfigQuery"
 });
 export const useGetFeedConfigInfo = buildUseQuery<QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse>({
-  builderQueryFn: createGetFeedConfigInfo,
+  builderQueryFn: getFeedConfigInfo,
   queryKeyPrefix: "FeedConfigInfoQuery"
 });
 export const useGetLatestRound = buildUseQuery<QueryLatestRoundRequest, QueryLatestRoundResponse>({
-  builderQueryFn: createGetLatestRound,
+  builderQueryFn: getLatestRound,
   queryKeyPrefix: "LatestRoundQuery"
 });
 export const useGetLatestTransmissionDetails = buildUseQuery<QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse>({
-  builderQueryFn: createGetLatestTransmissionDetails,
+  builderQueryFn: getLatestTransmissionDetails,
   queryKeyPrefix: "LatestTransmissionDetailsQuery"
 });
 export const useGetOwedAmount = buildUseQuery<QueryOwedAmountRequest, QueryOwedAmountResponse>({
-  builderQueryFn: createGetOwedAmount,
+  builderQueryFn: getOwedAmount,
   queryKeyPrefix: "OwedAmountQuery"
 });
 export const useGetOcrModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetOcrModuleState,
+  builderQueryFn: getOcrModuleState,
   queryKeyPrefix: "OcrModuleStateQuery"
 });

@@ -1,11 +1,11 @@
 import { buildUseQuery } from "../../../../../react-query";
 import { QueryInterchainAccountRequest, QueryInterchainAccountResponse, QueryParamsRequest, QueryParamsResponse } from "./query";
-import { createGetInterchainAccount, createGetParams } from "./query.rpc.func";
+import { getInterchainAccount, getParams } from "./query.rpc.func";
 export const useGetInterchainAccount = buildUseQuery<QueryInterchainAccountRequest, QueryInterchainAccountResponse>({
-  builderQueryFn: createGetInterchainAccount,
+  builderQueryFn: getInterchainAccount,
   queryKeyPrefix: "InterchainAccountQuery"
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });

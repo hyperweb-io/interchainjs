@@ -1,72 +1,62 @@
-import { RpcResolver, buildQuery } from "../../../../helper-func-types";
+import { buildQuery } from "../../../../helper-func-types";
 import { QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryClientParamsRequest, QueryClientParamsResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryVerifyMembershipRequest, QueryVerifyMembershipResponse } from "./query";
-export const createGetClientState = (clientResolver?: RpcResolver) => buildQuery<QueryClientStateRequest, QueryClientStateResponse>({
+export const getClientState = buildQuery<QueryClientStateRequest, QueryClientStateResponse>({
   encode: QueryClientStateRequest.encode,
   decode: QueryClientStateResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ClientState",
-  clientResolver
+  method: "ClientState"
 });
-export const createGetClientStates = (clientResolver?: RpcResolver) => buildQuery<QueryClientStatesRequest, QueryClientStatesResponse>({
+export const getClientStates = buildQuery<QueryClientStatesRequest, QueryClientStatesResponse>({
   encode: QueryClientStatesRequest.encode,
   decode: QueryClientStatesResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ClientStates",
-  clientResolver
+  method: "ClientStates"
 });
-export const createGetConsensusState = (clientResolver?: RpcResolver) => buildQuery<QueryConsensusStateRequest, QueryConsensusStateResponse>({
+export const getConsensusState = buildQuery<QueryConsensusStateRequest, QueryConsensusStateResponse>({
   encode: QueryConsensusStateRequest.encode,
   decode: QueryConsensusStateResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ConsensusState",
-  clientResolver
+  method: "ConsensusState"
 });
-export const createGetConsensusStates = (clientResolver?: RpcResolver) => buildQuery<QueryConsensusStatesRequest, QueryConsensusStatesResponse>({
+export const getConsensusStates = buildQuery<QueryConsensusStatesRequest, QueryConsensusStatesResponse>({
   encode: QueryConsensusStatesRequest.encode,
   decode: QueryConsensusStatesResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ConsensusStates",
-  clientResolver
+  method: "ConsensusStates"
 });
-export const createGetConsensusStateHeights = (clientResolver?: RpcResolver) => buildQuery<QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse>({
+export const getConsensusStateHeights = buildQuery<QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse>({
   encode: QueryConsensusStateHeightsRequest.encode,
   decode: QueryConsensusStateHeightsResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ConsensusStateHeights",
-  clientResolver
+  method: "ConsensusStateHeights"
 });
-export const createGetClientStatus = (clientResolver?: RpcResolver) => buildQuery<QueryClientStatusRequest, QueryClientStatusResponse>({
+export const getClientStatus = buildQuery<QueryClientStatusRequest, QueryClientStatusResponse>({
   encode: QueryClientStatusRequest.encode,
   decode: QueryClientStatusResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ClientStatus",
-  clientResolver
+  method: "ClientStatus"
 });
-export const createGetClientParams = (clientResolver?: RpcResolver) => buildQuery<QueryClientParamsRequest, QueryClientParamsResponse>({
+export const getClientParams = buildQuery<QueryClientParamsRequest, QueryClientParamsResponse>({
   encode: QueryClientParamsRequest.encode,
   decode: QueryClientParamsResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "ClientParams",
-  clientResolver
+  method: "ClientParams"
 });
-export const createGetUpgradedClientState = (clientResolver?: RpcResolver) => buildQuery<QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse>({
+export const getUpgradedClientState = buildQuery<QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse>({
   encode: QueryUpgradedClientStateRequest.encode,
   decode: QueryUpgradedClientStateResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "UpgradedClientState",
-  clientResolver
+  method: "UpgradedClientState"
 });
-export const createGetUpgradedConsensusState = (clientResolver?: RpcResolver) => buildQuery<QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse>({
+export const getUpgradedConsensusState = buildQuery<QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse>({
   encode: QueryUpgradedConsensusStateRequest.encode,
   decode: QueryUpgradedConsensusStateResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "UpgradedConsensusState",
-  clientResolver
+  method: "UpgradedConsensusState"
 });
-export const createGetVerifyMembership = (clientResolver?: RpcResolver) => buildQuery<QueryVerifyMembershipRequest, QueryVerifyMembershipResponse>({
+export const getVerifyMembership = buildQuery<QueryVerifyMembershipRequest, QueryVerifyMembershipResponse>({
   encode: QueryVerifyMembershipRequest.encode,
   decode: QueryVerifyMembershipResponse.decode,
   service: "ibc.core.client.v1.Query",
-  method: "VerifyMembership",
-  clientResolver
+  method: "VerifyMembership"
 });

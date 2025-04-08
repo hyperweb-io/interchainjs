@@ -1,108 +1,108 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgDeposit, MsgWithdraw, MsgInstantSpotMarketLaunch, MsgInstantPerpetualMarketLaunch, MsgInstantExpiryFuturesMarketLaunch, MsgCreateSpotLimitOrder, MsgBatchCreateSpotLimitOrders, MsgCreateSpotMarketOrder, MsgCancelSpotOrder, MsgBatchCancelSpotOrders, MsgBatchUpdateOrders, MsgPrivilegedExecuteContract, MsgCreateDerivativeLimitOrder, MsgBatchCreateDerivativeLimitOrders, MsgCreateDerivativeMarketOrder, MsgCancelDerivativeOrder, MsgBatchCancelDerivativeOrders, MsgInstantBinaryOptionsMarketLaunch, MsgCreateBinaryOptionsLimitOrder, MsgCreateBinaryOptionsMarketOrder, MsgCancelBinaryOptionsOrder, MsgBatchCancelBinaryOptionsOrders, MsgSubaccountTransfer, MsgExternalTransfer, MsgLiquidatePosition, MsgEmergencySettleMarket, MsgIncreasePositionMargin, MsgDecreasePositionMargin, MsgRewardsOptOut, MsgAdminUpdateBinaryOptionsMarket, MsgUpdateParams, MsgUpdateSpotMarket, MsgUpdateDerivativeMarket, MsgAuthorizeStakeGrants, MsgActivateStakeGrant } from "./tx";
-import { createDeposit, createWithdraw, createInstantSpotMarketLaunch, createInstantPerpetualMarketLaunch, createInstantExpiryFuturesMarketLaunch, createCreateSpotLimitOrder, createBatchCreateSpotLimitOrders, createCreateSpotMarketOrder, createCancelSpotOrder, createBatchCancelSpotOrders, createBatchUpdateOrders, createPrivilegedExecuteContract, createCreateDerivativeLimitOrder, createBatchCreateDerivativeLimitOrders, createCreateDerivativeMarketOrder, createCancelDerivativeOrder, createBatchCancelDerivativeOrders, createInstantBinaryOptionsMarketLaunch, createCreateBinaryOptionsLimitOrder, createCreateBinaryOptionsMarketOrder, createCancelBinaryOptionsOrder, createBatchCancelBinaryOptionsOrders, createSubaccountTransfer, createExternalTransfer, createLiquidatePosition, createEmergencySettleMarket, createIncreasePositionMargin, createDecreasePositionMargin, createRewardsOptOut, createAdminUpdateBinaryOptionsMarket, createUpdateParams, createUpdateSpotMarket, createUpdateDerivativeMarket, createAuthorizeStakeGrants, createActivateStakeGrant } from "./tx.rpc.func";
+import { deposit, withdraw, instantSpotMarketLaunch, instantPerpetualMarketLaunch, instantExpiryFuturesMarketLaunch, createSpotLimitOrder, batchCreateSpotLimitOrders, createSpotMarketOrder, cancelSpotOrder, batchCancelSpotOrders, batchUpdateOrders, privilegedExecuteContract, createDerivativeLimitOrder, batchCreateDerivativeLimitOrders, createDerivativeMarketOrder, cancelDerivativeOrder, batchCancelDerivativeOrders, instantBinaryOptionsMarketLaunch, createBinaryOptionsLimitOrder, createBinaryOptionsMarketOrder, cancelBinaryOptionsOrder, batchCancelBinaryOptionsOrders, subaccountTransfer, externalTransfer, liquidatePosition, emergencySettleMarket, increasePositionMargin, decreasePositionMargin, rewardsOptOut, adminUpdateBinaryOptionsMarket, updateParams, updateSpotMarket, updateDerivativeMarket, authorizeStakeGrants, activateStakeGrant } from "./tx.rpc.func";
 export const useDeposit = buildUseVueMutation<MsgDeposit, Error>({
-  builderMutationFn: createDeposit
+  builderMutationFn: deposit
 });
 export const useWithdraw = buildUseVueMutation<MsgWithdraw, Error>({
-  builderMutationFn: createWithdraw
+  builderMutationFn: withdraw
 });
 export const useInstantSpotMarketLaunch = buildUseVueMutation<MsgInstantSpotMarketLaunch, Error>({
-  builderMutationFn: createInstantSpotMarketLaunch
+  builderMutationFn: instantSpotMarketLaunch
 });
 export const useInstantPerpetualMarketLaunch = buildUseVueMutation<MsgInstantPerpetualMarketLaunch, Error>({
-  builderMutationFn: createInstantPerpetualMarketLaunch
+  builderMutationFn: instantPerpetualMarketLaunch
 });
 export const useInstantExpiryFuturesMarketLaunch = buildUseVueMutation<MsgInstantExpiryFuturesMarketLaunch, Error>({
-  builderMutationFn: createInstantExpiryFuturesMarketLaunch
+  builderMutationFn: instantExpiryFuturesMarketLaunch
 });
 export const useCreateSpotLimitOrder = buildUseVueMutation<MsgCreateSpotLimitOrder, Error>({
-  builderMutationFn: createCreateSpotLimitOrder
+  builderMutationFn: createSpotLimitOrder
 });
 export const useBatchCreateSpotLimitOrders = buildUseVueMutation<MsgBatchCreateSpotLimitOrders, Error>({
-  builderMutationFn: createBatchCreateSpotLimitOrders
+  builderMutationFn: batchCreateSpotLimitOrders
 });
 export const useCreateSpotMarketOrder = buildUseVueMutation<MsgCreateSpotMarketOrder, Error>({
-  builderMutationFn: createCreateSpotMarketOrder
+  builderMutationFn: createSpotMarketOrder
 });
 export const useCancelSpotOrder = buildUseVueMutation<MsgCancelSpotOrder, Error>({
-  builderMutationFn: createCancelSpotOrder
+  builderMutationFn: cancelSpotOrder
 });
 export const useBatchCancelSpotOrders = buildUseVueMutation<MsgBatchCancelSpotOrders, Error>({
-  builderMutationFn: createBatchCancelSpotOrders
+  builderMutationFn: batchCancelSpotOrders
 });
 export const useBatchUpdateOrders = buildUseVueMutation<MsgBatchUpdateOrders, Error>({
-  builderMutationFn: createBatchUpdateOrders
+  builderMutationFn: batchUpdateOrders
 });
 export const usePrivilegedExecuteContract = buildUseVueMutation<MsgPrivilegedExecuteContract, Error>({
-  builderMutationFn: createPrivilegedExecuteContract
+  builderMutationFn: privilegedExecuteContract
 });
 export const useCreateDerivativeLimitOrder = buildUseVueMutation<MsgCreateDerivativeLimitOrder, Error>({
-  builderMutationFn: createCreateDerivativeLimitOrder
+  builderMutationFn: createDerivativeLimitOrder
 });
 export const useBatchCreateDerivativeLimitOrders = buildUseVueMutation<MsgBatchCreateDerivativeLimitOrders, Error>({
-  builderMutationFn: createBatchCreateDerivativeLimitOrders
+  builderMutationFn: batchCreateDerivativeLimitOrders
 });
 export const useCreateDerivativeMarketOrder = buildUseVueMutation<MsgCreateDerivativeMarketOrder, Error>({
-  builderMutationFn: createCreateDerivativeMarketOrder
+  builderMutationFn: createDerivativeMarketOrder
 });
 export const useCancelDerivativeOrder = buildUseVueMutation<MsgCancelDerivativeOrder, Error>({
-  builderMutationFn: createCancelDerivativeOrder
+  builderMutationFn: cancelDerivativeOrder
 });
 export const useBatchCancelDerivativeOrders = buildUseVueMutation<MsgBatchCancelDerivativeOrders, Error>({
-  builderMutationFn: createBatchCancelDerivativeOrders
+  builderMutationFn: batchCancelDerivativeOrders
 });
 export const useInstantBinaryOptionsMarketLaunch = buildUseVueMutation<MsgInstantBinaryOptionsMarketLaunch, Error>({
-  builderMutationFn: createInstantBinaryOptionsMarketLaunch
+  builderMutationFn: instantBinaryOptionsMarketLaunch
 });
 export const useCreateBinaryOptionsLimitOrder = buildUseVueMutation<MsgCreateBinaryOptionsLimitOrder, Error>({
-  builderMutationFn: createCreateBinaryOptionsLimitOrder
+  builderMutationFn: createBinaryOptionsLimitOrder
 });
 export const useCreateBinaryOptionsMarketOrder = buildUseVueMutation<MsgCreateBinaryOptionsMarketOrder, Error>({
-  builderMutationFn: createCreateBinaryOptionsMarketOrder
+  builderMutationFn: createBinaryOptionsMarketOrder
 });
 export const useCancelBinaryOptionsOrder = buildUseVueMutation<MsgCancelBinaryOptionsOrder, Error>({
-  builderMutationFn: createCancelBinaryOptionsOrder
+  builderMutationFn: cancelBinaryOptionsOrder
 });
 export const useBatchCancelBinaryOptionsOrders = buildUseVueMutation<MsgBatchCancelBinaryOptionsOrders, Error>({
-  builderMutationFn: createBatchCancelBinaryOptionsOrders
+  builderMutationFn: batchCancelBinaryOptionsOrders
 });
 export const useSubaccountTransfer = buildUseVueMutation<MsgSubaccountTransfer, Error>({
-  builderMutationFn: createSubaccountTransfer
+  builderMutationFn: subaccountTransfer
 });
 export const useExternalTransfer = buildUseVueMutation<MsgExternalTransfer, Error>({
-  builderMutationFn: createExternalTransfer
+  builderMutationFn: externalTransfer
 });
 export const useLiquidatePosition = buildUseVueMutation<MsgLiquidatePosition, Error>({
-  builderMutationFn: createLiquidatePosition
+  builderMutationFn: liquidatePosition
 });
 export const useEmergencySettleMarket = buildUseVueMutation<MsgEmergencySettleMarket, Error>({
-  builderMutationFn: createEmergencySettleMarket
+  builderMutationFn: emergencySettleMarket
 });
 export const useIncreasePositionMargin = buildUseVueMutation<MsgIncreasePositionMargin, Error>({
-  builderMutationFn: createIncreasePositionMargin
+  builderMutationFn: increasePositionMargin
 });
 export const useDecreasePositionMargin = buildUseVueMutation<MsgDecreasePositionMargin, Error>({
-  builderMutationFn: createDecreasePositionMargin
+  builderMutationFn: decreasePositionMargin
 });
 export const useRewardsOptOut = buildUseVueMutation<MsgRewardsOptOut, Error>({
-  builderMutationFn: createRewardsOptOut
+  builderMutationFn: rewardsOptOut
 });
 export const useAdminUpdateBinaryOptionsMarket = buildUseVueMutation<MsgAdminUpdateBinaryOptionsMarket, Error>({
-  builderMutationFn: createAdminUpdateBinaryOptionsMarket
+  builderMutationFn: adminUpdateBinaryOptionsMarket
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useUpdateSpotMarket = buildUseVueMutation<MsgUpdateSpotMarket, Error>({
-  builderMutationFn: createUpdateSpotMarket
+  builderMutationFn: updateSpotMarket
 });
 export const useUpdateDerivativeMarket = buildUseVueMutation<MsgUpdateDerivativeMarket, Error>({
-  builderMutationFn: createUpdateDerivativeMarket
+  builderMutationFn: updateDerivativeMarket
 });
 export const useAuthorizeStakeGrants = buildUseVueMutation<MsgAuthorizeStakeGrants, Error>({
-  builderMutationFn: createAuthorizeStakeGrants
+  builderMutationFn: authorizeStakeGrants
 });
 export const useActivateStakeGrant = buildUseVueMutation<MsgActivateStakeGrant, Error>({
-  builderMutationFn: createActivateStakeGrant
+  builderMutationFn: activateStakeGrant
 });

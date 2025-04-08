@@ -1,71 +1,71 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { QueryChannelRequest, QueryChannelResponse, QueryChannelsRequest, QueryChannelsResponse, QueryConnectionChannelsRequest, QueryConnectionChannelsResponse, QueryChannelClientStateRequest, QueryChannelClientStateResponse, QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse, QueryPacketCommitmentRequest, QueryPacketCommitmentResponse, QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse, QueryPacketReceiptRequest, QueryPacketReceiptResponse, QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse, QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse, QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse, QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse, QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse, QueryNextSequenceSendRequest, QueryNextSequenceSendResponse, QueryUpgradeErrorRequest, QueryUpgradeErrorResponse, QueryUpgradeRequest, QueryUpgradeResponse, QueryChannelParamsRequest, QueryChannelParamsResponse } from "./query";
-import { createGetChannel, createGetChannels, createGetConnectionChannels, createGetChannelClientState, createGetChannelConsensusState, createGetPacketCommitment, createGetPacketCommitments, createGetPacketReceipt, createGetPacketAcknowledgement, createGetPacketAcknowledgements, createGetUnreceivedPackets, createGetUnreceivedAcks, createGetNextSequenceReceive, createGetNextSequenceSend, createGetUpgradeError, createGetUpgrade, createGetChannelParams } from "./query.rpc.func";
+import { getChannel, getChannels, getConnectionChannels, getChannelClientState, getChannelConsensusState, getPacketCommitment, getPacketCommitments, getPacketReceipt, getPacketAcknowledgement, getPacketAcknowledgements, getUnreceivedPackets, getUnreceivedAcks, getNextSequenceReceive, getNextSequenceSend, getUpgradeError, getUpgrade, getChannelParams } from "./query.rpc.func";
 export const useGetChannel = buildUseVueQuery<QueryChannelRequest, QueryChannelResponse>({
-  builderQueryFn: createGetChannel,
+  builderQueryFn: getChannel,
   queryKeyPrefix: "ChannelQuery"
 });
 export const useGetChannels = buildUseVueQuery<QueryChannelsRequest, QueryChannelsResponse>({
-  builderQueryFn: createGetChannels,
+  builderQueryFn: getChannels,
   queryKeyPrefix: "ChannelsQuery"
 });
 export const useGetConnectionChannels = buildUseVueQuery<QueryConnectionChannelsRequest, QueryConnectionChannelsResponse>({
-  builderQueryFn: createGetConnectionChannels,
+  builderQueryFn: getConnectionChannels,
   queryKeyPrefix: "ConnectionChannelsQuery"
 });
 export const useGetChannelClientState = buildUseVueQuery<QueryChannelClientStateRequest, QueryChannelClientStateResponse>({
-  builderQueryFn: createGetChannelClientState,
+  builderQueryFn: getChannelClientState,
   queryKeyPrefix: "ChannelClientStateQuery"
 });
 export const useGetChannelConsensusState = buildUseVueQuery<QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse>({
-  builderQueryFn: createGetChannelConsensusState,
+  builderQueryFn: getChannelConsensusState,
   queryKeyPrefix: "ChannelConsensusStateQuery"
 });
 export const useGetPacketCommitment = buildUseVueQuery<QueryPacketCommitmentRequest, QueryPacketCommitmentResponse>({
-  builderQueryFn: createGetPacketCommitment,
+  builderQueryFn: getPacketCommitment,
   queryKeyPrefix: "PacketCommitmentQuery"
 });
 export const useGetPacketCommitments = buildUseVueQuery<QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse>({
-  builderQueryFn: createGetPacketCommitments,
+  builderQueryFn: getPacketCommitments,
   queryKeyPrefix: "PacketCommitmentsQuery"
 });
 export const useGetPacketReceipt = buildUseVueQuery<QueryPacketReceiptRequest, QueryPacketReceiptResponse>({
-  builderQueryFn: createGetPacketReceipt,
+  builderQueryFn: getPacketReceipt,
   queryKeyPrefix: "PacketReceiptQuery"
 });
 export const useGetPacketAcknowledgement = buildUseVueQuery<QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse>({
-  builderQueryFn: createGetPacketAcknowledgement,
+  builderQueryFn: getPacketAcknowledgement,
   queryKeyPrefix: "PacketAcknowledgementQuery"
 });
 export const useGetPacketAcknowledgements = buildUseVueQuery<QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse>({
-  builderQueryFn: createGetPacketAcknowledgements,
+  builderQueryFn: getPacketAcknowledgements,
   queryKeyPrefix: "PacketAcknowledgementsQuery"
 });
 export const useGetUnreceivedPackets = buildUseVueQuery<QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse>({
-  builderQueryFn: createGetUnreceivedPackets,
+  builderQueryFn: getUnreceivedPackets,
   queryKeyPrefix: "UnreceivedPacketsQuery"
 });
 export const useGetUnreceivedAcks = buildUseVueQuery<QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse>({
-  builderQueryFn: createGetUnreceivedAcks,
+  builderQueryFn: getUnreceivedAcks,
   queryKeyPrefix: "UnreceivedAcksQuery"
 });
 export const useGetNextSequenceReceive = buildUseVueQuery<QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse>({
-  builderQueryFn: createGetNextSequenceReceive,
+  builderQueryFn: getNextSequenceReceive,
   queryKeyPrefix: "NextSequenceReceiveQuery"
 });
 export const useGetNextSequenceSend = buildUseVueQuery<QueryNextSequenceSendRequest, QueryNextSequenceSendResponse>({
-  builderQueryFn: createGetNextSequenceSend,
+  builderQueryFn: getNextSequenceSend,
   queryKeyPrefix: "NextSequenceSendQuery"
 });
 export const useGetUpgradeError = buildUseVueQuery<QueryUpgradeErrorRequest, QueryUpgradeErrorResponse>({
-  builderQueryFn: createGetUpgradeError,
+  builderQueryFn: getUpgradeError,
   queryKeyPrefix: "UpgradeErrorQuery"
 });
 export const useGetUpgrade = buildUseVueQuery<QueryUpgradeRequest, QueryUpgradeResponse>({
-  builderQueryFn: createGetUpgrade,
+  builderQueryFn: getUpgrade,
   queryKeyPrefix: "UpgradeQuery"
 });
 export const useGetChannelParams = buildUseVueQuery<QueryChannelParamsRequest, QueryChannelParamsResponse>({
-  builderQueryFn: createGetChannelParams,
+  builderQueryFn: getChannelParams,
   queryKeyPrefix: "ChannelParamsQuery"
 });

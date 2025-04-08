@@ -1,16 +1,14 @@
-import { RpcResolver, buildQuery } from "../../../../helper-func-types";
+import { buildQuery } from "../../../../helper-func-types";
 import { ConfigRequest, ConfigResponse, StatusRequest, StatusResponse } from "./query";
-export const createGetConfig = (clientResolver?: RpcResolver) => buildQuery<ConfigRequest, ConfigResponse>({
+export const getConfig = buildQuery<ConfigRequest, ConfigResponse>({
   encode: ConfigRequest.encode,
   decode: ConfigResponse.decode,
   service: "cosmos.base.node.v1beta1.Service",
-  method: "Config",
-  clientResolver
+  method: "Config"
 });
-export const createGetStatus = (clientResolver?: RpcResolver) => buildQuery<StatusRequest, StatusResponse>({
+export const getStatus = buildQuery<StatusRequest, StatusResponse>({
   encode: StatusRequest.encode,
   decode: StatusResponse.decode,
   service: "cosmos.base.node.v1beta1.Service",
-  method: "Status",
-  clientResolver
+  method: "Status"
 });

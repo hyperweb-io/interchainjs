@@ -1,15 +1,15 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryAllowanceRequest, QueryAllowanceResponse, QueryAllowancesRequest, QueryAllowancesResponse, QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponse } from "./query";
-import { createGetAllowance, createGetAllowances, createGetAllowancesByGranter } from "./query.rpc.func";
+import { getAllowance, getAllowances, getAllowancesByGranter } from "./query.rpc.func";
 export const useGetAllowance = buildUseVueQuery<QueryAllowanceRequest, QueryAllowanceResponse>({
-  builderQueryFn: createGetAllowance,
+  builderQueryFn: getAllowance,
   queryKeyPrefix: "AllowanceQuery"
 });
 export const useGetAllowances = buildUseVueQuery<QueryAllowancesRequest, QueryAllowancesResponse>({
-  builderQueryFn: createGetAllowances,
+  builderQueryFn: getAllowances,
   queryKeyPrefix: "AllowancesQuery"
 });
 export const useGetAllowancesByGranter = buildUseVueQuery<QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponse>({
-  builderQueryFn: createGetAllowancesByGranter,
+  builderQueryFn: getAllowancesByGranter,
   queryKeyPrefix: "AllowancesByGranterQuery"
 });

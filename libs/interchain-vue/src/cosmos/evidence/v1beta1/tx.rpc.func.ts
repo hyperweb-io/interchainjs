@@ -1,9 +1,5 @@
-import { buildTx, SigningClientResolver } from "../../../helper-func-types";
-import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
+import { buildTx } from "../../../helper-func-types";
 import { MsgSubmitEvidence } from "./tx";
-export const createSubmitEvidence = (clientResolver?: SigningClientResolver) => buildTx<MsgSubmitEvidence>({
-  clientResolver,
-  typeUrl: MsgSubmitEvidence.typeUrl,
-  encoders: toEncoders(MsgSubmitEvidence),
-  converters: toConverters(MsgSubmitEvidence)
+export const submitEvidence = buildTx<MsgSubmitEvidence>({
+  msg: MsgSubmitEvidence
 });

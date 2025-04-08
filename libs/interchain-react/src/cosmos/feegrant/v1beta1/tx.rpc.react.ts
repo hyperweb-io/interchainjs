@@ -1,12 +1,12 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgGrantAllowance, MsgRevokeAllowance, MsgPruneAllowances } from "./tx";
-import { createGrantAllowance, createRevokeAllowance, createPruneAllowances } from "./tx.rpc.func";
+import { grantAllowance, revokeAllowance, pruneAllowances } from "./tx.rpc.func";
 export const useGrantAllowance = buildUseMutation<MsgGrantAllowance, Error>({
-  builderMutationFn: createGrantAllowance
+  builderMutationFn: grantAllowance
 });
 export const useRevokeAllowance = buildUseMutation<MsgRevokeAllowance, Error>({
-  builderMutationFn: createRevokeAllowance
+  builderMutationFn: revokeAllowance
 });
 export const usePruneAllowances = buildUseMutation<MsgPruneAllowances, Error>({
-  builderMutationFn: createPruneAllowances
+  builderMutationFn: pruneAllowances
 });

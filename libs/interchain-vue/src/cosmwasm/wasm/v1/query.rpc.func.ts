@@ -1,100 +1,86 @@
-import { RpcResolver, buildQuery } from "../../../helper-func-types";
+import { buildQuery } from "../../../helper-func-types";
 import { QueryContractInfoRequest, QueryContractInfoResponse, QueryContractHistoryRequest, QueryContractHistoryResponse, QueryContractsByCodeRequest, QueryContractsByCodeResponse, QueryAllContractStateRequest, QueryAllContractStateResponse, QueryRawContractStateRequest, QueryRawContractStateResponse, QuerySmartContractStateRequest, QuerySmartContractStateResponse, QueryCodeRequest, QueryCodeResponse, QueryCodesRequest, QueryCodesResponse, QueryCodeInfoRequest, QueryCodeInfoResponse, QueryPinnedCodesRequest, QueryPinnedCodesResponse, QueryParamsRequest, QueryParamsResponse, QueryContractsByCreatorRequest, QueryContractsByCreatorResponse, QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse, QueryBuildAddressRequest, QueryBuildAddressResponse } from "./query";
-export const createGetContractInfo = (clientResolver?: RpcResolver) => buildQuery<QueryContractInfoRequest, QueryContractInfoResponse>({
+export const getContractInfo = buildQuery<QueryContractInfoRequest, QueryContractInfoResponse>({
   encode: QueryContractInfoRequest.encode,
   decode: QueryContractInfoResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "ContractInfo",
-  clientResolver
+  method: "ContractInfo"
 });
-export const createGetContractHistory = (clientResolver?: RpcResolver) => buildQuery<QueryContractHistoryRequest, QueryContractHistoryResponse>({
+export const getContractHistory = buildQuery<QueryContractHistoryRequest, QueryContractHistoryResponse>({
   encode: QueryContractHistoryRequest.encode,
   decode: QueryContractHistoryResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "ContractHistory",
-  clientResolver
+  method: "ContractHistory"
 });
-export const createGetContractsByCode = (clientResolver?: RpcResolver) => buildQuery<QueryContractsByCodeRequest, QueryContractsByCodeResponse>({
+export const getContractsByCode = buildQuery<QueryContractsByCodeRequest, QueryContractsByCodeResponse>({
   encode: QueryContractsByCodeRequest.encode,
   decode: QueryContractsByCodeResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "ContractsByCode",
-  clientResolver
+  method: "ContractsByCode"
 });
-export const createGetAllContractState = (clientResolver?: RpcResolver) => buildQuery<QueryAllContractStateRequest, QueryAllContractStateResponse>({
+export const getAllContractState = buildQuery<QueryAllContractStateRequest, QueryAllContractStateResponse>({
   encode: QueryAllContractStateRequest.encode,
   decode: QueryAllContractStateResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "AllContractState",
-  clientResolver
+  method: "AllContractState"
 });
-export const createGetRawContractState = (clientResolver?: RpcResolver) => buildQuery<QueryRawContractStateRequest, QueryRawContractStateResponse>({
+export const getRawContractState = buildQuery<QueryRawContractStateRequest, QueryRawContractStateResponse>({
   encode: QueryRawContractStateRequest.encode,
   decode: QueryRawContractStateResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "RawContractState",
-  clientResolver
+  method: "RawContractState"
 });
-export const createGetSmartContractState = (clientResolver?: RpcResolver) => buildQuery<QuerySmartContractStateRequest, QuerySmartContractStateResponse>({
+export const getSmartContractState = buildQuery<QuerySmartContractStateRequest, QuerySmartContractStateResponse>({
   encode: QuerySmartContractStateRequest.encode,
   decode: QuerySmartContractStateResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "SmartContractState",
-  clientResolver
+  method: "SmartContractState"
 });
-export const createGetCode = (clientResolver?: RpcResolver) => buildQuery<QueryCodeRequest, QueryCodeResponse>({
+export const getCode = buildQuery<QueryCodeRequest, QueryCodeResponse>({
   encode: QueryCodeRequest.encode,
   decode: QueryCodeResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "Code",
-  clientResolver
+  method: "Code"
 });
-export const createGetCodes = (clientResolver?: RpcResolver) => buildQuery<QueryCodesRequest, QueryCodesResponse>({
+export const getCodes = buildQuery<QueryCodesRequest, QueryCodesResponse>({
   encode: QueryCodesRequest.encode,
   decode: QueryCodesResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "Codes",
-  clientResolver
+  method: "Codes"
 });
-export const createGetCodeInfo = (clientResolver?: RpcResolver) => buildQuery<QueryCodeInfoRequest, QueryCodeInfoResponse>({
+export const getCodeInfo = buildQuery<QueryCodeInfoRequest, QueryCodeInfoResponse>({
   encode: QueryCodeInfoRequest.encode,
   decode: QueryCodeInfoResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "CodeInfo",
-  clientResolver
+  method: "CodeInfo"
 });
-export const createGetPinnedCodes = (clientResolver?: RpcResolver) => buildQuery<QueryPinnedCodesRequest, QueryPinnedCodesResponse>({
+export const getPinnedCodes = buildQuery<QueryPinnedCodesRequest, QueryPinnedCodesResponse>({
   encode: QueryPinnedCodesRequest.encode,
   decode: QueryPinnedCodesResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "PinnedCodes",
-  clientResolver
+  method: "PinnedCodes"
 });
-export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
+export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "Params",
-  clientResolver
+  method: "Params"
 });
-export const createGetContractsByCreator = (clientResolver?: RpcResolver) => buildQuery<QueryContractsByCreatorRequest, QueryContractsByCreatorResponse>({
+export const getContractsByCreator = buildQuery<QueryContractsByCreatorRequest, QueryContractsByCreatorResponse>({
   encode: QueryContractsByCreatorRequest.encode,
   decode: QueryContractsByCreatorResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "ContractsByCreator",
-  clientResolver
+  method: "ContractsByCreator"
 });
-export const createGetWasmLimitsConfig = (clientResolver?: RpcResolver) => buildQuery<QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse>({
+export const getWasmLimitsConfig = buildQuery<QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse>({
   encode: QueryWasmLimitsConfigRequest.encode,
   decode: QueryWasmLimitsConfigResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "WasmLimitsConfig",
-  clientResolver
+  method: "WasmLimitsConfig"
 });
-export const createGetBuildAddress = (clientResolver?: RpcResolver) => buildQuery<QueryBuildAddressRequest, QueryBuildAddressResponse>({
+export const getBuildAddress = buildQuery<QueryBuildAddressRequest, QueryBuildAddressResponse>({
   encode: QueryBuildAddressRequest.encode,
   decode: QueryBuildAddressResponse.decode,
   service: "cosmwasm.wasm.v1.Query",
-  method: "BuildAddress",
-  clientResolver
+  method: "BuildAddress"
 });

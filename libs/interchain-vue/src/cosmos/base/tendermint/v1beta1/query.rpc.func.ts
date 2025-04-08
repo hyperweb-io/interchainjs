@@ -1,51 +1,44 @@
-import { RpcResolver, buildQuery } from "../../../../helper-func-types";
+import { buildQuery } from "../../../../helper-func-types";
 import { GetNodeInfoRequest, GetNodeInfoResponse, GetSyncingRequest, GetSyncingResponse, GetLatestBlockRequest, GetLatestBlockResponse, GetBlockByHeightRequest, GetBlockByHeightResponse, GetLatestValidatorSetRequest, GetLatestValidatorSetResponse, GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse, ABCIQueryRequest, ABCIQueryResponse } from "./query";
-export const createGetGetNodeInfo = (clientResolver?: RpcResolver) => buildQuery<GetNodeInfoRequest, GetNodeInfoResponse>({
+export const getGetNodeInfo = buildQuery<GetNodeInfoRequest, GetNodeInfoResponse>({
   encode: GetNodeInfoRequest.encode,
   decode: GetNodeInfoResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "GetNodeInfo",
-  clientResolver
+  method: "GetNodeInfo"
 });
-export const createGetGetSyncing = (clientResolver?: RpcResolver) => buildQuery<GetSyncingRequest, GetSyncingResponse>({
+export const getGetSyncing = buildQuery<GetSyncingRequest, GetSyncingResponse>({
   encode: GetSyncingRequest.encode,
   decode: GetSyncingResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "GetSyncing",
-  clientResolver
+  method: "GetSyncing"
 });
-export const createGetGetLatestBlock = (clientResolver?: RpcResolver) => buildQuery<GetLatestBlockRequest, GetLatestBlockResponse>({
+export const getGetLatestBlock = buildQuery<GetLatestBlockRequest, GetLatestBlockResponse>({
   encode: GetLatestBlockRequest.encode,
   decode: GetLatestBlockResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "GetLatestBlock",
-  clientResolver
+  method: "GetLatestBlock"
 });
-export const createGetGetBlockByHeight = (clientResolver?: RpcResolver) => buildQuery<GetBlockByHeightRequest, GetBlockByHeightResponse>({
+export const getGetBlockByHeight = buildQuery<GetBlockByHeightRequest, GetBlockByHeightResponse>({
   encode: GetBlockByHeightRequest.encode,
   decode: GetBlockByHeightResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "GetBlockByHeight",
-  clientResolver
+  method: "GetBlockByHeight"
 });
-export const createGetGetLatestValidatorSet = (clientResolver?: RpcResolver) => buildQuery<GetLatestValidatorSetRequest, GetLatestValidatorSetResponse>({
+export const getGetLatestValidatorSet = buildQuery<GetLatestValidatorSetRequest, GetLatestValidatorSetResponse>({
   encode: GetLatestValidatorSetRequest.encode,
   decode: GetLatestValidatorSetResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "GetLatestValidatorSet",
-  clientResolver
+  method: "GetLatestValidatorSet"
 });
-export const createGetGetValidatorSetByHeight = (clientResolver?: RpcResolver) => buildQuery<GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse>({
+export const getGetValidatorSetByHeight = buildQuery<GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse>({
   encode: GetValidatorSetByHeightRequest.encode,
   decode: GetValidatorSetByHeightResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "GetValidatorSetByHeight",
-  clientResolver
+  method: "GetValidatorSetByHeight"
 });
-export const createGetABCIQuery = (clientResolver?: RpcResolver) => buildQuery<ABCIQueryRequest, ABCIQueryResponse>({
+export const getABCIQuery = buildQuery<ABCIQueryRequest, ABCIQueryResponse>({
   encode: ABCIQueryRequest.encode,
   decode: ABCIQueryResponse.decode,
   service: "cosmos.base.tendermint.v1beta1.Service",
-  method: "ABCIQuery",
-  clientResolver
+  method: "ABCIQuery"
 });

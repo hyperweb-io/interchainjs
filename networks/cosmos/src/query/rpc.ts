@@ -1,7 +1,7 @@
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import { createGetAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/query.rpc.func';
-import { createGetSimulate } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.func';
+import { getAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/query.rpc.func';
+import { getSimulate } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.func';
 import {
   Fee,
   SignerInfo,
@@ -9,7 +9,7 @@ import {
   TxBody,
   TxRaw,
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BroadcastMode, BroadcastOptions, HttpEndpoint, DeliverTxResponse, Event } from '@interchainjs/types';
+import { BroadcastMode, BroadcastOptions, HttpEndpoint, DeliverTxResponse, Event, TxRpc } from '@interchainjs/types';
 import { fromBase64, isEmpty, toHttpEndpoint } from '@interchainjs/utils';
 
 import { defaultAccountParser, defaultBroadcastOptions } from '../defaults';
@@ -46,12 +46,11 @@ export class RpcClient implements QueryClient {
   protected parseAccount: (encodedAccount: EncodedMessage) => BaseAccount =
     defaultAccountParser;
   protected _prefix?: string;
+  protected txRpc: TxRpc;
 
   constructor(endpoint: string | HttpEndpoint, prefix?: string) {
     this.endpoint = toHttpEndpoint(endpoint);
-    const txRpc = createQueryRpc(this.endpoint);
-    this.getAccount = createGetAccount(txRpc);
-    this.getSimulate = createGetSimulate(txRpc);
+    this.txRpc = createQueryRpc(this.endpoint);
     this._prefix = prefix;
   }
 
@@ -69,7 +68,7 @@ export class RpcClient implements QueryClient {
    * get basic account info by address
    */
   async getBaseAccount(address: string): Promise<BaseAccount> {
-    const accountResp = await this.getAccount({
+    const accountResp = await getAccount(this.txRpc, {
       address,
     });
 
@@ -159,7 +158,7 @@ export class RpcClient implements QueryClient {
       ).authInfo,
       signatures: [new Uint8Array()],
     });
-    return await this.getSimulate({
+    return await getSimulate(this.txRpc, {
       tx: void 0,
       txBytes: Tx.encode(tx).finish(),
     });

@@ -1,15 +1,15 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryAccountRequest, AccountResponse, QueryAccountsRequest, AccountsResponse, QueryDisabledListRequest, DisabledListResponse } from "./query";
-import { createGetAccount, createGetAccounts, createGetDisabledList } from "./query.rpc.func";
+import { getAccount, getAccounts, getDisabledList } from "./query.rpc.func";
 export const useGetAccount = buildUseQuery<QueryAccountRequest, AccountResponse>({
-  builderQueryFn: createGetAccount,
+  builderQueryFn: getAccount,
   queryKeyPrefix: "AccountQuery"
 });
 export const useGetAccounts = buildUseQuery<QueryAccountsRequest, AccountsResponse>({
-  builderQueryFn: createGetAccounts,
+  builderQueryFn: getAccounts,
   queryKeyPrefix: "AccountsQuery"
 });
 export const useGetDisabledList = buildUseQuery<QueryDisabledListRequest, DisabledListResponse>({
-  builderQueryFn: createGetDisabledList,
+  builderQueryFn: getDisabledList,
   queryKeyPrefix: "DisabledListQuery"
 });

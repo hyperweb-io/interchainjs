@@ -1,12 +1,12 @@
 import { buildUseVueMutation } from "../../../../../vue-query";
 import { MsgRegisterInterchainAccount, MsgSendTx, MsgUpdateParams } from "./tx";
-import { createRegisterInterchainAccount, createSendTx, createUpdateParams } from "./tx.rpc.func";
+import { registerInterchainAccount, sendTx, updateParams } from "./tx.rpc.func";
 export const useRegisterInterchainAccount = buildUseVueMutation<MsgRegisterInterchainAccount, Error>({
-  builderMutationFn: createRegisterInterchainAccount
+  builderMutationFn: registerInterchainAccount
 });
 export const useSendTx = buildUseVueMutation<MsgSendTx, Error>({
-  builderMutationFn: createSendTx
+  builderMutationFn: sendTx
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
