@@ -1,35 +1,35 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryProposalRequest, QueryProposalResponse, QueryProposalsRequest, QueryProposalsResponse, QueryVoteRequest, QueryVoteResponse, QueryVotesRequest, QueryVotesResponse, QueryParamsRequest, QueryParamsResponse, QueryDepositRequest, QueryDepositResponse, QueryDepositsRequest, QueryDepositsResponse, QueryTallyResultRequest, QueryTallyResultResponse } from "./query";
-import { createGetProposal, createGetProposals, createGetVote, createGetVotes, createGetParams, createGetDeposit, createGetDeposits, createGetTallyResult } from "./query.rpc.func";
+import { getProposal, getProposals, getVote, getVotes, getParams, getDeposit, getDeposits, getTallyResult } from "./query.rpc.func";
 export const useGetProposal = buildUseQuery<QueryProposalRequest, QueryProposalResponse>({
-  builderQueryFn: createGetProposal,
+  builderQueryFn: getProposal,
   queryKeyPrefix: "ProposalQuery"
 });
 export const useGetProposals = buildUseQuery<QueryProposalsRequest, QueryProposalsResponse>({
-  builderQueryFn: createGetProposals,
+  builderQueryFn: getProposals,
   queryKeyPrefix: "ProposalsQuery"
 });
 export const useGetVote = buildUseQuery<QueryVoteRequest, QueryVoteResponse>({
-  builderQueryFn: createGetVote,
+  builderQueryFn: getVote,
   queryKeyPrefix: "VoteQuery"
 });
 export const useGetVotes = buildUseQuery<QueryVotesRequest, QueryVotesResponse>({
-  builderQueryFn: createGetVotes,
+  builderQueryFn: getVotes,
   queryKeyPrefix: "VotesQuery"
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetDeposit = buildUseQuery<QueryDepositRequest, QueryDepositResponse>({
-  builderQueryFn: createGetDeposit,
+  builderQueryFn: getDeposit,
   queryKeyPrefix: "DepositQuery"
 });
 export const useGetDeposits = buildUseQuery<QueryDepositsRequest, QueryDepositsResponse>({
-  builderQueryFn: createGetDeposits,
+  builderQueryFn: getDeposits,
   queryKeyPrefix: "DepositsQuery"
 });
 export const useGetTallyResult = buildUseQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
-  builderQueryFn: createGetTallyResult,
+  builderQueryFn: getTallyResult,
   queryKeyPrefix: "TallyResultQuery"
 });

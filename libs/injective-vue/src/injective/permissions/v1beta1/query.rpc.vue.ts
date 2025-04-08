@@ -1,27 +1,27 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryAllNamespacesRequest, QueryAllNamespacesResponse, QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse, QueryAddressRolesRequest, QueryAddressRolesResponse, QueryAddressesByRoleRequest, QueryAddressesByRoleResponse, QueryVouchersForAddressRequest, QueryVouchersForAddressResponse } from "./query";
-import { createGetParams, createGetAllNamespaces, createGetNamespaceByDenom, createGetAddressRoles, createGetAddressesByRole, createGetVouchersForAddress } from "./query.rpc.func";
+import { getParams, getAllNamespaces, getNamespaceByDenom, getAddressRoles, getAddressesByRole, getVouchersForAddress } from "./query.rpc.func";
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetAllNamespaces = buildUseVueQuery<QueryAllNamespacesRequest, QueryAllNamespacesResponse>({
-  builderQueryFn: createGetAllNamespaces,
+  builderQueryFn: getAllNamespaces,
   queryKeyPrefix: "AllNamespacesQuery"
 });
 export const useGetNamespaceByDenom = buildUseVueQuery<QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse>({
-  builderQueryFn: createGetNamespaceByDenom,
+  builderQueryFn: getNamespaceByDenom,
   queryKeyPrefix: "NamespaceByDenomQuery"
 });
 export const useGetAddressRoles = buildUseVueQuery<QueryAddressRolesRequest, QueryAddressRolesResponse>({
-  builderQueryFn: createGetAddressRoles,
+  builderQueryFn: getAddressRoles,
   queryKeyPrefix: "AddressRolesQuery"
 });
 export const useGetAddressesByRole = buildUseVueQuery<QueryAddressesByRoleRequest, QueryAddressesByRoleResponse>({
-  builderQueryFn: createGetAddressesByRole,
+  builderQueryFn: getAddressesByRole,
   queryKeyPrefix: "AddressesByRoleQuery"
 });
 export const useGetVouchersForAddress = buildUseVueQuery<QueryVouchersForAddressRequest, QueryVouchersForAddressResponse>({
-  builderQueryFn: createGetVouchersForAddress,
+  builderQueryFn: getVouchersForAddress,
   queryKeyPrefix: "VouchersForAddressQuery"
 });

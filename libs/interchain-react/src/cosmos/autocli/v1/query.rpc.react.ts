@@ -1,7 +1,7 @@
 import { buildUseQuery } from "../../../react-query";
 import { AppOptionsRequest, AppOptionsResponse } from "./query";
-import { createGetAppOptions } from "./query.rpc.func";
+import { getAppOptions } from "./query.rpc.func";
 export const useGetAppOptions = buildUseQuery<AppOptionsRequest, AppOptionsResponse>({
-  builderQueryFn: createGetAppOptions,
+  builderQueryFn: getAppOptions,
   queryKeyPrefix: "AppOptionsQuery"
 });

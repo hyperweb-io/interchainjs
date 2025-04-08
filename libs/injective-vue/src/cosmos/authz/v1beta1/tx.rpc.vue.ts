@@ -1,12 +1,12 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgGrant, MsgExec, MsgRevoke } from "./tx";
-import { createGrant, createExec, createRevoke } from "./tx.rpc.func";
+import { grant, exec, revoke } from "./tx.rpc.func";
 export const useGrant = buildUseVueMutation<MsgGrant, Error>({
-  builderMutationFn: createGrant
+  builderMutationFn: grant
 });
 export const useExec = buildUseVueMutation<MsgExec, Error>({
-  builderMutationFn: createExec
+  builderMutationFn: exec
 });
 export const useRevoke = buildUseVueMutation<MsgRevoke, Error>({
-  builderMutationFn: createRevoke
+  builderMutationFn: revoke
 });

@@ -1,9 +1,9 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgUnjail, MsgUpdateParams } from "./tx";
-import { createUnjail, createUpdateParams } from "./tx.rpc.func";
+import { unjail, updateParams } from "./tx.rpc.func";
 export const useUnjail = buildUseMutation<MsgUnjail, Error>({
-  builderMutationFn: createUnjail
+  builderMutationFn: unjail
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

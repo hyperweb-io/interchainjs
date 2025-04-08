@@ -1,121 +1,104 @@
-import { RpcResolver, buildQuery } from "../../../helper-func-types";
+import { buildQuery } from "../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse, QueryBandRelayersRequest, QueryBandRelayersResponse, QueryBandPriceStatesRequest, QueryBandPriceStatesResponse, QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse, QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse, QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse, QueryPythPriceStatesRequest, QueryPythPriceStatesResponse, QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse, QueryStorkPublishersRequest, QueryStorkPublishersResponse, QueryProviderPriceStateRequest, QueryProviderPriceStateResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse, QueryOracleVolatilityRequest, QueryOracleVolatilityResponse, QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse, QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse, QueryOraclePriceRequest, QueryOraclePriceResponse, QueryPythPriceRequest, QueryPythPriceResponse } from "./query";
-export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
+export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "Params",
-  clientResolver
+  method: "Params"
 });
-export const createGetBandRelayers = (clientResolver?: RpcResolver) => buildQuery<QueryBandRelayersRequest, QueryBandRelayersResponse>({
+export const getBandRelayers = buildQuery<QueryBandRelayersRequest, QueryBandRelayersResponse>({
   encode: QueryBandRelayersRequest.encode,
   decode: QueryBandRelayersResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "BandRelayers",
-  clientResolver
+  method: "BandRelayers"
 });
-export const createGetBandPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryBandPriceStatesRequest, QueryBandPriceStatesResponse>({
+export const getBandPriceStates = buildQuery<QueryBandPriceStatesRequest, QueryBandPriceStatesResponse>({
   encode: QueryBandPriceStatesRequest.encode,
   decode: QueryBandPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "BandPriceStates",
-  clientResolver
+  method: "BandPriceStates"
 });
-export const createGetBandIBCPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse>({
+export const getBandIBCPriceStates = buildQuery<QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse>({
   encode: QueryBandIBCPriceStatesRequest.encode,
   decode: QueryBandIBCPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "BandIBCPriceStates",
-  clientResolver
+  method: "BandIBCPriceStates"
 });
-export const createGetPriceFeedPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse>({
+export const getPriceFeedPriceStates = buildQuery<QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse>({
   encode: QueryPriceFeedPriceStatesRequest.encode,
   decode: QueryPriceFeedPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "PriceFeedPriceStates",
-  clientResolver
+  method: "PriceFeedPriceStates"
 });
-export const createGetCoinbasePriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse>({
+export const getCoinbasePriceStates = buildQuery<QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse>({
   encode: QueryCoinbasePriceStatesRequest.encode,
   decode: QueryCoinbasePriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "CoinbasePriceStates",
-  clientResolver
+  method: "CoinbasePriceStates"
 });
-export const createGetPythPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryPythPriceStatesRequest, QueryPythPriceStatesResponse>({
+export const getPythPriceStates = buildQuery<QueryPythPriceStatesRequest, QueryPythPriceStatesResponse>({
   encode: QueryPythPriceStatesRequest.encode,
   decode: QueryPythPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "PythPriceStates",
-  clientResolver
+  method: "PythPriceStates"
 });
-export const createGetStorkPriceStates = (clientResolver?: RpcResolver) => buildQuery<QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse>({
+export const getStorkPriceStates = buildQuery<QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse>({
   encode: QueryStorkPriceStatesRequest.encode,
   decode: QueryStorkPriceStatesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "StorkPriceStates",
-  clientResolver
+  method: "StorkPriceStates"
 });
-export const createGetStorkPublishers = (clientResolver?: RpcResolver) => buildQuery<QueryStorkPublishersRequest, QueryStorkPublishersResponse>({
+export const getStorkPublishers = buildQuery<QueryStorkPublishersRequest, QueryStorkPublishersResponse>({
   encode: QueryStorkPublishersRequest.encode,
   decode: QueryStorkPublishersResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "StorkPublishers",
-  clientResolver
+  method: "StorkPublishers"
 });
-export const createGetProviderPriceState = (clientResolver?: RpcResolver) => buildQuery<QueryProviderPriceStateRequest, QueryProviderPriceStateResponse>({
+export const getProviderPriceState = buildQuery<QueryProviderPriceStateRequest, QueryProviderPriceStateResponse>({
   encode: QueryProviderPriceStateRequest.encode,
   decode: QueryProviderPriceStateResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "ProviderPriceState",
-  clientResolver
+  method: "ProviderPriceState"
 });
-export const createGetOracleModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
+export const getOracleModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "OracleModuleState",
-  clientResolver
+  method: "OracleModuleState"
 });
-export const createGetHistoricalPriceRecords = (clientResolver?: RpcResolver) => buildQuery<QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse>({
+export const getHistoricalPriceRecords = buildQuery<QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse>({
   encode: QueryHistoricalPriceRecordsRequest.encode,
   decode: QueryHistoricalPriceRecordsResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "HistoricalPriceRecords",
-  clientResolver
+  method: "HistoricalPriceRecords"
 });
-export const createGetOracleVolatility = (clientResolver?: RpcResolver) => buildQuery<QueryOracleVolatilityRequest, QueryOracleVolatilityResponse>({
+export const getOracleVolatility = buildQuery<QueryOracleVolatilityRequest, QueryOracleVolatilityResponse>({
   encode: QueryOracleVolatilityRequest.encode,
   decode: QueryOracleVolatilityResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "OracleVolatility",
-  clientResolver
+  method: "OracleVolatility"
 });
-export const createGetOracleProvidersInfo = (clientResolver?: RpcResolver) => buildQuery<QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse>({
+export const getOracleProvidersInfo = buildQuery<QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse>({
   encode: QueryOracleProvidersInfoRequest.encode,
   decode: QueryOracleProvidersInfoResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "OracleProvidersInfo",
-  clientResolver
+  method: "OracleProvidersInfo"
 });
-export const createGetOracleProviderPrices = (clientResolver?: RpcResolver) => buildQuery<QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse>({
+export const getOracleProviderPrices = buildQuery<QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse>({
   encode: QueryOracleProviderPricesRequest.encode,
   decode: QueryOracleProviderPricesResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "OracleProviderPrices",
-  clientResolver
+  method: "OracleProviderPrices"
 });
-export const createGetOraclePrice = (clientResolver?: RpcResolver) => buildQuery<QueryOraclePriceRequest, QueryOraclePriceResponse>({
+export const getOraclePrice = buildQuery<QueryOraclePriceRequest, QueryOraclePriceResponse>({
   encode: QueryOraclePriceRequest.encode,
   decode: QueryOraclePriceResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "OraclePrice",
-  clientResolver
+  method: "OraclePrice"
 });
-export const createGetPythPrice = (clientResolver?: RpcResolver) => buildQuery<QueryPythPriceRequest, QueryPythPriceResponse>({
+export const getPythPrice = buildQuery<QueryPythPriceRequest, QueryPythPriceResponse>({
   encode: QueryPythPriceRequest.encode,
   decode: QueryPythPriceResponse.decode,
   service: "injective.oracle.v1beta1.Query",
-  method: "PythPrice",
-  clientResolver
+  method: "PythPrice"
 });

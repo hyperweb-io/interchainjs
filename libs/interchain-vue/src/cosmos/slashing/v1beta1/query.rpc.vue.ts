@@ -1,15 +1,15 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QuerySigningInfoRequest, QuerySigningInfoResponse, QuerySigningInfosRequest, QuerySigningInfosResponse } from "./query";
-import { createGetParams, createGetSigningInfo, createGetSigningInfos } from "./query.rpc.func";
+import { getParams, getSigningInfo, getSigningInfos } from "./query.rpc.func";
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetSigningInfo = buildUseVueQuery<QuerySigningInfoRequest, QuerySigningInfoResponse>({
-  builderQueryFn: createGetSigningInfo,
+  builderQueryFn: getSigningInfo,
   queryKeyPrefix: "SigningInfoQuery"
 });
 export const useGetSigningInfos = buildUseVueQuery<QuerySigningInfosRequest, QuerySigningInfosResponse>({
-  builderQueryFn: createGetSigningInfos,
+  builderQueryFn: getSigningInfos,
   queryKeyPrefix: "SigningInfosQuery"
 });

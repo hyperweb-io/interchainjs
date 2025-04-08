@@ -1,24 +1,24 @@
 import { buildUseMutation } from "../../../../react-query";
 import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
-import { createCreateClient, createUpdateClient, createUpgradeClient, createSubmitMisbehaviour, createRecoverClient, createIBCSoftwareUpgrade, createUpdateClientParams } from "./tx.rpc.func";
+import { createClient, updateClient, upgradeClient, submitMisbehaviour, recoverClient, iBCSoftwareUpgrade, updateClientParams } from "./tx.rpc.func";
 export const useCreateClient = buildUseMutation<MsgCreateClient, Error>({
-  builderMutationFn: createCreateClient
+  builderMutationFn: createClient
 });
 export const useUpdateClient = buildUseMutation<MsgUpdateClient, Error>({
-  builderMutationFn: createUpdateClient
+  builderMutationFn: updateClient
 });
 export const useUpgradeClient = buildUseMutation<MsgUpgradeClient, Error>({
-  builderMutationFn: createUpgradeClient
+  builderMutationFn: upgradeClient
 });
 export const useSubmitMisbehaviour = buildUseMutation<MsgSubmitMisbehaviour, Error>({
-  builderMutationFn: createSubmitMisbehaviour
+  builderMutationFn: submitMisbehaviour
 });
 export const useRecoverClient = buildUseMutation<MsgRecoverClient, Error>({
-  builderMutationFn: createRecoverClient
+  builderMutationFn: recoverClient
 });
 export const useIBCSoftwareUpgrade = buildUseMutation<MsgIBCSoftwareUpgrade, Error>({
-  builderMutationFn: createIBCSoftwareUpgrade
+  builderMutationFn: iBCSoftwareUpgrade
 });
 export const useUpdateClientParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateClientParams
+  builderMutationFn: updateClientParams
 });

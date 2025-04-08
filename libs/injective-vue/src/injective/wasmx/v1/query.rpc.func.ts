@@ -1,23 +1,20 @@
-import { RpcResolver, buildQuery } from "../../../helper-func-types";
+import { buildQuery } from "../../../helper-func-types";
 import { QueryWasmxParamsRequest, QueryWasmxParamsResponse, QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-export const createGetWasmxParams = (clientResolver?: RpcResolver) => buildQuery<QueryWasmxParamsRequest, QueryWasmxParamsResponse>({
+export const getWasmxParams = buildQuery<QueryWasmxParamsRequest, QueryWasmxParamsResponse>({
   encode: QueryWasmxParamsRequest.encode,
   decode: QueryWasmxParamsResponse.decode,
   service: "injective.wasmx.v1.Query",
-  method: "WasmxParams",
-  clientResolver
+  method: "WasmxParams"
 });
-export const createGetContractRegistrationInfo = (clientResolver?: RpcResolver) => buildQuery<QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse>({
+export const getContractRegistrationInfo = buildQuery<QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse>({
   encode: QueryContractRegistrationInfoRequest.encode,
   decode: QueryContractRegistrationInfoResponse.decode,
   service: "injective.wasmx.v1.Query",
-  method: "ContractRegistrationInfo",
-  clientResolver
+  method: "ContractRegistrationInfo"
 });
-export const createGetWasmxModuleState = (clientResolver?: RpcResolver) => buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
+export const getWasmxModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
   service: "injective.wasmx.v1.Query",
-  method: "WasmxModuleState",
-  clientResolver
+  method: "WasmxModuleState"
 });

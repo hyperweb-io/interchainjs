@@ -1,31 +1,31 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryOwnerRequest, QueryOwnerResponse, QuerySupplyRequest, QuerySupplyResponse, QueryNFTsRequest, QueryNFTsResponse, QueryNFTRequest, QueryNFTResponse, QueryClassRequest, QueryClassResponse, QueryClassesRequest, QueryClassesResponse } from "./query";
-import { createGetBalance, createGetOwner, createGetSupply, createGetNFTs, createGetNFT, createGetClass, createGetClasses } from "./query.rpc.func";
+import { getBalance, getOwner, getSupply, getNFTs, getNFT, getClass, getClasses } from "./query.rpc.func";
 export const useGetBalance = buildUseQuery<QueryBalanceRequest, QueryBalanceResponse>({
-  builderQueryFn: createGetBalance,
+  builderQueryFn: getBalance,
   queryKeyPrefix: "BalanceQuery"
 });
 export const useGetOwner = buildUseQuery<QueryOwnerRequest, QueryOwnerResponse>({
-  builderQueryFn: createGetOwner,
+  builderQueryFn: getOwner,
   queryKeyPrefix: "OwnerQuery"
 });
 export const useGetSupply = buildUseQuery<QuerySupplyRequest, QuerySupplyResponse>({
-  builderQueryFn: createGetSupply,
+  builderQueryFn: getSupply,
   queryKeyPrefix: "SupplyQuery"
 });
 export const useGetNFTs = buildUseQuery<QueryNFTsRequest, QueryNFTsResponse>({
-  builderQueryFn: createGetNFTs,
+  builderQueryFn: getNFTs,
   queryKeyPrefix: "NFTsQuery"
 });
 export const useGetNFT = buildUseQuery<QueryNFTRequest, QueryNFTResponse>({
-  builderQueryFn: createGetNFT,
+  builderQueryFn: getNFT,
   queryKeyPrefix: "NFTQuery"
 });
 export const useGetClass = buildUseQuery<QueryClassRequest, QueryClassResponse>({
-  builderQueryFn: createGetClass,
+  builderQueryFn: getClass,
   queryKeyPrefix: "ClassQuery"
 });
 export const useGetClasses = buildUseQuery<QueryClassesRequest, QueryClassesResponse>({
-  builderQueryFn: createGetClasses,
+  builderQueryFn: getClasses,
   queryKeyPrefix: "ClassesQuery"
 });

@@ -1,24 +1,24 @@
 import { buildUseVueMutation } from "../../../../vue-query";
 import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
-import { createCreateClient, createUpdateClient, createUpgradeClient, createSubmitMisbehaviour, createRecoverClient, createIBCSoftwareUpgrade, createUpdateClientParams } from "./tx.rpc.func";
+import { createClient, updateClient, upgradeClient, submitMisbehaviour, recoverClient, iBCSoftwareUpgrade, updateClientParams } from "./tx.rpc.func";
 export const useCreateClient = buildUseVueMutation<MsgCreateClient, Error>({
-  builderMutationFn: createCreateClient
+  builderMutationFn: createClient
 });
 export const useUpdateClient = buildUseVueMutation<MsgUpdateClient, Error>({
-  builderMutationFn: createUpdateClient
+  builderMutationFn: updateClient
 });
 export const useUpgradeClient = buildUseVueMutation<MsgUpgradeClient, Error>({
-  builderMutationFn: createUpgradeClient
+  builderMutationFn: upgradeClient
 });
 export const useSubmitMisbehaviour = buildUseVueMutation<MsgSubmitMisbehaviour, Error>({
-  builderMutationFn: createSubmitMisbehaviour
+  builderMutationFn: submitMisbehaviour
 });
 export const useRecoverClient = buildUseVueMutation<MsgRecoverClient, Error>({
-  builderMutationFn: createRecoverClient
+  builderMutationFn: recoverClient
 });
 export const useIBCSoftwareUpgrade = buildUseVueMutation<MsgIBCSoftwareUpgrade, Error>({
-  builderMutationFn: createIBCSoftwareUpgrade
+  builderMutationFn: iBCSoftwareUpgrade
 });
 export const useUpdateClientParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateClientParams
+  builderMutationFn: updateClientParams
 });

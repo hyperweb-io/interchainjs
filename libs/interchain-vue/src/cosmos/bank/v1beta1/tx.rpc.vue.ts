@@ -1,15 +1,15 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
-import { createSend, createMultiSend, createUpdateParams, createSetSendEnabled } from "./tx.rpc.func";
+import { send, multiSend, updateParams, setSendEnabled } from "./tx.rpc.func";
 export const useSend = buildUseVueMutation<MsgSend, Error>({
-  builderMutationFn: createSend
+  builderMutationFn: send
 });
 export const useMultiSend = buildUseVueMutation<MsgMultiSend, Error>({
-  builderMutationFn: createMultiSend
+  builderMutationFn: multiSend
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useSetSendEnabled = buildUseVueMutation<MsgSetSendEnabled, Error>({
-  builderMutationFn: createSetSendEnabled
+  builderMutationFn: setSendEnabled
 });

@@ -1,31 +1,31 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { GetNodeInfoRequest, GetNodeInfoResponse, GetSyncingRequest, GetSyncingResponse, GetLatestBlockRequest, GetLatestBlockResponse, GetBlockByHeightRequest, GetBlockByHeightResponse, GetLatestValidatorSetRequest, GetLatestValidatorSetResponse, GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse, ABCIQueryRequest, ABCIQueryResponse } from "./query";
-import { createGetGetNodeInfo, createGetGetSyncing, createGetGetLatestBlock, createGetGetBlockByHeight, createGetGetLatestValidatorSet, createGetGetValidatorSetByHeight, createGetABCIQuery } from "./query.rpc.func";
+import { getGetNodeInfo, getGetSyncing, getGetLatestBlock, getGetBlockByHeight, getGetLatestValidatorSet, getGetValidatorSetByHeight, getABCIQuery } from "./query.rpc.func";
 export const useGetGetNodeInfo = buildUseVueQuery<GetNodeInfoRequest, GetNodeInfoResponse>({
-  builderQueryFn: createGetGetNodeInfo,
+  builderQueryFn: getGetNodeInfo,
   queryKeyPrefix: "GetNodeInfoQuery"
 });
 export const useGetGetSyncing = buildUseVueQuery<GetSyncingRequest, GetSyncingResponse>({
-  builderQueryFn: createGetGetSyncing,
+  builderQueryFn: getGetSyncing,
   queryKeyPrefix: "GetSyncingQuery"
 });
 export const useGetGetLatestBlock = buildUseVueQuery<GetLatestBlockRequest, GetLatestBlockResponse>({
-  builderQueryFn: createGetGetLatestBlock,
+  builderQueryFn: getGetLatestBlock,
   queryKeyPrefix: "GetLatestBlockQuery"
 });
 export const useGetGetBlockByHeight = buildUseVueQuery<GetBlockByHeightRequest, GetBlockByHeightResponse>({
-  builderQueryFn: createGetGetBlockByHeight,
+  builderQueryFn: getGetBlockByHeight,
   queryKeyPrefix: "GetBlockByHeightQuery"
 });
 export const useGetGetLatestValidatorSet = buildUseVueQuery<GetLatestValidatorSetRequest, GetLatestValidatorSetResponse>({
-  builderQueryFn: createGetGetLatestValidatorSet,
+  builderQueryFn: getGetLatestValidatorSet,
   queryKeyPrefix: "GetLatestValidatorSetQuery"
 });
 export const useGetGetValidatorSetByHeight = buildUseVueQuery<GetValidatorSetByHeightRequest, GetValidatorSetByHeightResponse>({
-  builderQueryFn: createGetGetValidatorSetByHeight,
+  builderQueryFn: getGetValidatorSetByHeight,
   queryKeyPrefix: "GetValidatorSetByHeightQuery"
 });
 export const useGetABCIQuery = buildUseVueQuery<ABCIQueryRequest, ABCIQueryResponse>({
-  builderQueryFn: createGetABCIQuery,
+  builderQueryFn: getABCIQuery,
   queryKeyPrefix: "ABCIQueryQuery"
 });

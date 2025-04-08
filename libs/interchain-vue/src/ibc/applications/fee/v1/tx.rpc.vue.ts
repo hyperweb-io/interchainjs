@@ -1,15 +1,15 @@
 import { buildUseVueMutation } from "../../../../vue-query";
 import { MsgRegisterPayee, MsgRegisterCounterpartyPayee, MsgPayPacketFee, MsgPayPacketFeeAsync } from "./tx";
-import { createRegisterPayee, createRegisterCounterpartyPayee, createPayPacketFee, createPayPacketFeeAsync } from "./tx.rpc.func";
+import { registerPayee, registerCounterpartyPayee, payPacketFee, payPacketFeeAsync } from "./tx.rpc.func";
 export const useRegisterPayee = buildUseVueMutation<MsgRegisterPayee, Error>({
-  builderMutationFn: createRegisterPayee
+  builderMutationFn: registerPayee
 });
 export const useRegisterCounterpartyPayee = buildUseVueMutation<MsgRegisterCounterpartyPayee, Error>({
-  builderMutationFn: createRegisterCounterpartyPayee
+  builderMutationFn: registerCounterpartyPayee
 });
 export const usePayPacketFee = buildUseVueMutation<MsgPayPacketFee, Error>({
-  builderMutationFn: createPayPacketFee
+  builderMutationFn: payPacketFee
 });
 export const usePayPacketFeeAsync = buildUseVueMutation<MsgPayPacketFeeAsync, Error>({
-  builderMutationFn: createPayPacketFeeAsync
+  builderMutationFn: payPacketFeeAsync
 });

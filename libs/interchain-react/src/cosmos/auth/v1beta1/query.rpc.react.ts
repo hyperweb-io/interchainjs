@@ -1,43 +1,43 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, QueryAccountInfoRequest, QueryAccountInfoResponse } from "./query";
-import { createGetAccounts, createGetAccount, createGetAccountAddressByID, createGetParams, createGetModuleAccounts, createGetModuleAccountByName, createGetBech32Prefix, createGetAddressBytesToString, createGetAddressStringToBytes, createGetAccountInfo } from "./query.rpc.func";
+import { getAccounts, getAccount, getAccountAddressByID, getParams, getModuleAccounts, getModuleAccountByName, getBech32Prefix, getAddressBytesToString, getAddressStringToBytes, getAccountInfo } from "./query.rpc.func";
 export const useGetAccounts = buildUseQuery<QueryAccountsRequest, QueryAccountsResponse>({
-  builderQueryFn: createGetAccounts,
+  builderQueryFn: getAccounts,
   queryKeyPrefix: "AccountsQuery"
 });
 export const useGetAccount = buildUseQuery<QueryAccountRequest, QueryAccountResponse>({
-  builderQueryFn: createGetAccount,
+  builderQueryFn: getAccount,
   queryKeyPrefix: "AccountQuery"
 });
 export const useGetAccountAddressByID = buildUseQuery<QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse>({
-  builderQueryFn: createGetAccountAddressByID,
+  builderQueryFn: getAccountAddressByID,
   queryKeyPrefix: "AccountAddressByIDQuery"
 });
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetModuleAccounts = buildUseQuery<QueryModuleAccountsRequest, QueryModuleAccountsResponse>({
-  builderQueryFn: createGetModuleAccounts,
+  builderQueryFn: getModuleAccounts,
   queryKeyPrefix: "ModuleAccountsQuery"
 });
 export const useGetModuleAccountByName = buildUseQuery<QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse>({
-  builderQueryFn: createGetModuleAccountByName,
+  builderQueryFn: getModuleAccountByName,
   queryKeyPrefix: "ModuleAccountByNameQuery"
 });
 export const useGetBech32Prefix = buildUseQuery<Bech32PrefixRequest, Bech32PrefixResponse>({
-  builderQueryFn: createGetBech32Prefix,
+  builderQueryFn: getBech32Prefix,
   queryKeyPrefix: "Bech32PrefixQuery"
 });
 export const useGetAddressBytesToString = buildUseQuery<AddressBytesToStringRequest, AddressBytesToStringResponse>({
-  builderQueryFn: createGetAddressBytesToString,
+  builderQueryFn: getAddressBytesToString,
   queryKeyPrefix: "AddressBytesToStringQuery"
 });
 export const useGetAddressStringToBytes = buildUseQuery<AddressStringToBytesRequest, AddressStringToBytesResponse>({
-  builderQueryFn: createGetAddressStringToBytes,
+  builderQueryFn: getAddressStringToBytes,
   queryKeyPrefix: "AddressStringToBytesQuery"
 });
 export const useGetAccountInfo = buildUseQuery<QueryAccountInfoRequest, QueryAccountInfoResponse>({
-  builderQueryFn: createGetAccountInfo,
+  builderQueryFn: getAccountInfo,
   queryKeyPrefix: "AccountInfoQuery"
 });

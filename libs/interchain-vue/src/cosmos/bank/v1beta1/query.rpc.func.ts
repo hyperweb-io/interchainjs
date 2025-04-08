@@ -1,93 +1,80 @@
-import { RpcResolver, buildQuery } from "../../../helper-func-types";
+import { buildQuery } from "../../../helper-func-types";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
-export const createGetBalance = (clientResolver?: RpcResolver) => buildQuery<QueryBalanceRequest, QueryBalanceResponse>({
+export const getBalance = buildQuery<QueryBalanceRequest, QueryBalanceResponse>({
   encode: QueryBalanceRequest.encode,
   decode: QueryBalanceResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "Balance",
-  clientResolver
+  method: "Balance"
 });
-export const createGetAllBalances = (clientResolver?: RpcResolver) => buildQuery<QueryAllBalancesRequest, QueryAllBalancesResponse>({
+export const getAllBalances = buildQuery<QueryAllBalancesRequest, QueryAllBalancesResponse>({
   encode: QueryAllBalancesRequest.encode,
   decode: QueryAllBalancesResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "AllBalances",
-  clientResolver
+  method: "AllBalances"
 });
-export const createGetSpendableBalances = (clientResolver?: RpcResolver) => buildQuery<QuerySpendableBalancesRequest, QuerySpendableBalancesResponse>({
+export const getSpendableBalances = buildQuery<QuerySpendableBalancesRequest, QuerySpendableBalancesResponse>({
   encode: QuerySpendableBalancesRequest.encode,
   decode: QuerySpendableBalancesResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "SpendableBalances",
-  clientResolver
+  method: "SpendableBalances"
 });
-export const createGetSpendableBalanceByDenom = (clientResolver?: RpcResolver) => buildQuery<QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse>({
+export const getSpendableBalanceByDenom = buildQuery<QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse>({
   encode: QuerySpendableBalanceByDenomRequest.encode,
   decode: QuerySpendableBalanceByDenomResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "SpendableBalanceByDenom",
-  clientResolver
+  method: "SpendableBalanceByDenom"
 });
-export const createGetTotalSupply = (clientResolver?: RpcResolver) => buildQuery<QueryTotalSupplyRequest, QueryTotalSupplyResponse>({
+export const getTotalSupply = buildQuery<QueryTotalSupplyRequest, QueryTotalSupplyResponse>({
   encode: QueryTotalSupplyRequest.encode,
   decode: QueryTotalSupplyResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "TotalSupply",
-  clientResolver
+  method: "TotalSupply"
 });
-export const createGetSupplyOf = (clientResolver?: RpcResolver) => buildQuery<QuerySupplyOfRequest, QuerySupplyOfResponse>({
+export const getSupplyOf = buildQuery<QuerySupplyOfRequest, QuerySupplyOfResponse>({
   encode: QuerySupplyOfRequest.encode,
   decode: QuerySupplyOfResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "SupplyOf",
-  clientResolver
+  method: "SupplyOf"
 });
-export const createGetParams = (clientResolver?: RpcResolver) => buildQuery<QueryParamsRequest, QueryParamsResponse>({
+export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "Params",
-  clientResolver
+  method: "Params"
 });
-export const createGetDenomMetadata = (clientResolver?: RpcResolver) => buildQuery<QueryDenomMetadataRequest, QueryDenomMetadataResponse>({
+export const getDenomMetadata = buildQuery<QueryDenomMetadataRequest, QueryDenomMetadataResponse>({
   encode: QueryDenomMetadataRequest.encode,
   decode: QueryDenomMetadataResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "DenomMetadata",
-  clientResolver
+  method: "DenomMetadata"
 });
-export const createGetDenomMetadataByQueryString = (clientResolver?: RpcResolver) => buildQuery<QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse>({
+export const getDenomMetadataByQueryString = buildQuery<QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse>({
   encode: QueryDenomMetadataByQueryStringRequest.encode,
   decode: QueryDenomMetadataByQueryStringResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "DenomMetadataByQueryString",
-  clientResolver
+  method: "DenomMetadataByQueryString"
 });
-export const createGetDenomsMetadata = (clientResolver?: RpcResolver) => buildQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
+export const getDenomsMetadata = buildQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
   encode: QueryDenomsMetadataRequest.encode,
   decode: QueryDenomsMetadataResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "DenomsMetadata",
-  clientResolver
+  method: "DenomsMetadata"
 });
-export const createGetDenomOwners = (clientResolver?: RpcResolver) => buildQuery<QueryDenomOwnersRequest, QueryDenomOwnersResponse>({
+export const getDenomOwners = buildQuery<QueryDenomOwnersRequest, QueryDenomOwnersResponse>({
   encode: QueryDenomOwnersRequest.encode,
   decode: QueryDenomOwnersResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "DenomOwners",
-  clientResolver
+  method: "DenomOwners"
 });
-export const createGetDenomOwnersByQuery = (clientResolver?: RpcResolver) => buildQuery<QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse>({
+export const getDenomOwnersByQuery = buildQuery<QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse>({
   encode: QueryDenomOwnersByQueryRequest.encode,
   decode: QueryDenomOwnersByQueryResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "DenomOwnersByQuery",
-  clientResolver
+  method: "DenomOwnersByQuery"
 });
-export const createGetSendEnabled = (clientResolver?: RpcResolver) => buildQuery<QuerySendEnabledRequest, QuerySendEnabledResponse>({
+export const getSendEnabled = buildQuery<QuerySendEnabledRequest, QuerySendEnabledResponse>({
   encode: QuerySendEnabledRequest.encode,
   decode: QuerySendEnabledResponse.decode,
   service: "cosmos.bank.v1beta1.Query",
-  method: "SendEnabled",
-  clientResolver
+  method: "SendEnabled"
 });

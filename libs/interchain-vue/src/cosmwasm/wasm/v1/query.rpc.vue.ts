@@ -1,59 +1,59 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryContractInfoRequest, QueryContractInfoResponse, QueryContractHistoryRequest, QueryContractHistoryResponse, QueryContractsByCodeRequest, QueryContractsByCodeResponse, QueryAllContractStateRequest, QueryAllContractStateResponse, QueryRawContractStateRequest, QueryRawContractStateResponse, QuerySmartContractStateRequest, QuerySmartContractStateResponse, QueryCodeRequest, QueryCodeResponse, QueryCodesRequest, QueryCodesResponse, QueryCodeInfoRequest, QueryCodeInfoResponse, QueryPinnedCodesRequest, QueryPinnedCodesResponse, QueryParamsRequest, QueryParamsResponse, QueryContractsByCreatorRequest, QueryContractsByCreatorResponse, QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse, QueryBuildAddressRequest, QueryBuildAddressResponse } from "./query";
-import { createGetContractInfo, createGetContractHistory, createGetContractsByCode, createGetAllContractState, createGetRawContractState, createGetSmartContractState, createGetCode, createGetCodes, createGetCodeInfo, createGetPinnedCodes, createGetParams, createGetContractsByCreator, createGetWasmLimitsConfig, createGetBuildAddress } from "./query.rpc.func";
+import { getContractInfo, getContractHistory, getContractsByCode, getAllContractState, getRawContractState, getSmartContractState, getCode, getCodes, getCodeInfo, getPinnedCodes, getParams, getContractsByCreator, getWasmLimitsConfig, getBuildAddress } from "./query.rpc.func";
 export const useGetContractInfo = buildUseVueQuery<QueryContractInfoRequest, QueryContractInfoResponse>({
-  builderQueryFn: createGetContractInfo,
+  builderQueryFn: getContractInfo,
   queryKeyPrefix: "ContractInfoQuery"
 });
 export const useGetContractHistory = buildUseVueQuery<QueryContractHistoryRequest, QueryContractHistoryResponse>({
-  builderQueryFn: createGetContractHistory,
+  builderQueryFn: getContractHistory,
   queryKeyPrefix: "ContractHistoryQuery"
 });
 export const useGetContractsByCode = buildUseVueQuery<QueryContractsByCodeRequest, QueryContractsByCodeResponse>({
-  builderQueryFn: createGetContractsByCode,
+  builderQueryFn: getContractsByCode,
   queryKeyPrefix: "ContractsByCodeQuery"
 });
 export const useGetAllContractState = buildUseVueQuery<QueryAllContractStateRequest, QueryAllContractStateResponse>({
-  builderQueryFn: createGetAllContractState,
+  builderQueryFn: getAllContractState,
   queryKeyPrefix: "AllContractStateQuery"
 });
 export const useGetRawContractState = buildUseVueQuery<QueryRawContractStateRequest, QueryRawContractStateResponse>({
-  builderQueryFn: createGetRawContractState,
+  builderQueryFn: getRawContractState,
   queryKeyPrefix: "RawContractStateQuery"
 });
 export const useGetSmartContractState = buildUseVueQuery<QuerySmartContractStateRequest, QuerySmartContractStateResponse>({
-  builderQueryFn: createGetSmartContractState,
+  builderQueryFn: getSmartContractState,
   queryKeyPrefix: "SmartContractStateQuery"
 });
 export const useGetCode = buildUseVueQuery<QueryCodeRequest, QueryCodeResponse>({
-  builderQueryFn: createGetCode,
+  builderQueryFn: getCode,
   queryKeyPrefix: "CodeQuery"
 });
 export const useGetCodes = buildUseVueQuery<QueryCodesRequest, QueryCodesResponse>({
-  builderQueryFn: createGetCodes,
+  builderQueryFn: getCodes,
   queryKeyPrefix: "CodesQuery"
 });
 export const useGetCodeInfo = buildUseVueQuery<QueryCodeInfoRequest, QueryCodeInfoResponse>({
-  builderQueryFn: createGetCodeInfo,
+  builderQueryFn: getCodeInfo,
   queryKeyPrefix: "CodeInfoQuery"
 });
 export const useGetPinnedCodes = buildUseVueQuery<QueryPinnedCodesRequest, QueryPinnedCodesResponse>({
-  builderQueryFn: createGetPinnedCodes,
+  builderQueryFn: getPinnedCodes,
   queryKeyPrefix: "PinnedCodesQuery"
 });
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetContractsByCreator = buildUseVueQuery<QueryContractsByCreatorRequest, QueryContractsByCreatorResponse>({
-  builderQueryFn: createGetContractsByCreator,
+  builderQueryFn: getContractsByCreator,
   queryKeyPrefix: "ContractsByCreatorQuery"
 });
 export const useGetWasmLimitsConfig = buildUseVueQuery<QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse>({
-  builderQueryFn: createGetWasmLimitsConfig,
+  builderQueryFn: getWasmLimitsConfig,
   queryKeyPrefix: "WasmLimitsConfigQuery"
 });
 export const useGetBuildAddress = buildUseVueQuery<QueryBuildAddressRequest, QueryBuildAddressResponse>({
-  builderQueryFn: createGetBuildAddress,
+  builderQueryFn: getBuildAddress,
   queryKeyPrefix: "BuildAddressQuery"
 });

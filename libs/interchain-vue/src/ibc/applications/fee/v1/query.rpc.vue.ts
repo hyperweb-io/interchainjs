@@ -1,43 +1,43 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { QueryIncentivizedPacketsRequest, QueryIncentivizedPacketsResponse, QueryIncentivizedPacketRequest, QueryIncentivizedPacketResponse, QueryIncentivizedPacketsForChannelRequest, QueryIncentivizedPacketsForChannelResponse, QueryTotalRecvFeesRequest, QueryTotalRecvFeesResponse, QueryTotalAckFeesRequest, QueryTotalAckFeesResponse, QueryTotalTimeoutFeesRequest, QueryTotalTimeoutFeesResponse, QueryPayeeRequest, QueryPayeeResponse, QueryCounterpartyPayeeRequest, QueryCounterpartyPayeeResponse, QueryFeeEnabledChannelsRequest, QueryFeeEnabledChannelsResponse, QueryFeeEnabledChannelRequest, QueryFeeEnabledChannelResponse } from "./query";
-import { createGetIncentivizedPackets, createGetIncentivizedPacket, createGetIncentivizedPacketsForChannel, createGetTotalRecvFees, createGetTotalAckFees, createGetTotalTimeoutFees, createGetPayee, createGetCounterpartyPayee, createGetFeeEnabledChannels, createGetFeeEnabledChannel } from "./query.rpc.func";
+import { getIncentivizedPackets, getIncentivizedPacket, getIncentivizedPacketsForChannel, getTotalRecvFees, getTotalAckFees, getTotalTimeoutFees, getPayee, getCounterpartyPayee, getFeeEnabledChannels, getFeeEnabledChannel } from "./query.rpc.func";
 export const useGetIncentivizedPackets = buildUseVueQuery<QueryIncentivizedPacketsRequest, QueryIncentivizedPacketsResponse>({
-  builderQueryFn: createGetIncentivizedPackets,
+  builderQueryFn: getIncentivizedPackets,
   queryKeyPrefix: "IncentivizedPacketsQuery"
 });
 export const useGetIncentivizedPacket = buildUseVueQuery<QueryIncentivizedPacketRequest, QueryIncentivizedPacketResponse>({
-  builderQueryFn: createGetIncentivizedPacket,
+  builderQueryFn: getIncentivizedPacket,
   queryKeyPrefix: "IncentivizedPacketQuery"
 });
 export const useGetIncentivizedPacketsForChannel = buildUseVueQuery<QueryIncentivizedPacketsForChannelRequest, QueryIncentivizedPacketsForChannelResponse>({
-  builderQueryFn: createGetIncentivizedPacketsForChannel,
+  builderQueryFn: getIncentivizedPacketsForChannel,
   queryKeyPrefix: "IncentivizedPacketsForChannelQuery"
 });
 export const useGetTotalRecvFees = buildUseVueQuery<QueryTotalRecvFeesRequest, QueryTotalRecvFeesResponse>({
-  builderQueryFn: createGetTotalRecvFees,
+  builderQueryFn: getTotalRecvFees,
   queryKeyPrefix: "TotalRecvFeesQuery"
 });
 export const useGetTotalAckFees = buildUseVueQuery<QueryTotalAckFeesRequest, QueryTotalAckFeesResponse>({
-  builderQueryFn: createGetTotalAckFees,
+  builderQueryFn: getTotalAckFees,
   queryKeyPrefix: "TotalAckFeesQuery"
 });
 export const useGetTotalTimeoutFees = buildUseVueQuery<QueryTotalTimeoutFeesRequest, QueryTotalTimeoutFeesResponse>({
-  builderQueryFn: createGetTotalTimeoutFees,
+  builderQueryFn: getTotalTimeoutFees,
   queryKeyPrefix: "TotalTimeoutFeesQuery"
 });
 export const useGetPayee = buildUseVueQuery<QueryPayeeRequest, QueryPayeeResponse>({
-  builderQueryFn: createGetPayee,
+  builderQueryFn: getPayee,
   queryKeyPrefix: "PayeeQuery"
 });
 export const useGetCounterpartyPayee = buildUseVueQuery<QueryCounterpartyPayeeRequest, QueryCounterpartyPayeeResponse>({
-  builderQueryFn: createGetCounterpartyPayee,
+  builderQueryFn: getCounterpartyPayee,
   queryKeyPrefix: "CounterpartyPayeeQuery"
 });
 export const useGetFeeEnabledChannels = buildUseVueQuery<QueryFeeEnabledChannelsRequest, QueryFeeEnabledChannelsResponse>({
-  builderQueryFn: createGetFeeEnabledChannels,
+  builderQueryFn: getFeeEnabledChannels,
   queryKeyPrefix: "FeeEnabledChannelsQuery"
 });
 export const useGetFeeEnabledChannel = buildUseVueQuery<QueryFeeEnabledChannelRequest, QueryFeeEnabledChannelResponse>({
-  builderQueryFn: createGetFeeEnabledChannel,
+  builderQueryFn: getFeeEnabledChannel,
   queryKeyPrefix: "FeeEnabledChannelQuery"
 });

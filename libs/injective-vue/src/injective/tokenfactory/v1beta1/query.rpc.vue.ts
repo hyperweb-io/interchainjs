@@ -1,19 +1,19 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse, QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-import { createGetParams, createGetDenomAuthorityMetadata, createGetDenomsFromCreator, createGetTokenfactoryModuleState } from "./query.rpc.func";
+import { getParams, getDenomAuthorityMetadata, getDenomsFromCreator, getTokenfactoryModuleState } from "./query.rpc.func";
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetDenomAuthorityMetadata = buildUseVueQuery<QueryDenomAuthorityMetadataRequest, QueryDenomAuthorityMetadataResponse>({
-  builderQueryFn: createGetDenomAuthorityMetadata,
+  builderQueryFn: getDenomAuthorityMetadata,
   queryKeyPrefix: "DenomAuthorityMetadataQuery"
 });
 export const useGetDenomsFromCreator = buildUseVueQuery<QueryDenomsFromCreatorRequest, QueryDenomsFromCreatorResponse>({
-  builderQueryFn: createGetDenomsFromCreator,
+  builderQueryFn: getDenomsFromCreator,
   queryKeyPrefix: "DenomsFromCreatorQuery"
 });
 export const useGetTokenfactoryModuleState = buildUseVueQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetTokenfactoryModuleState,
+  builderQueryFn: getTokenfactoryModuleState,
   queryKeyPrefix: "TokenfactoryModuleStateQuery"
 });

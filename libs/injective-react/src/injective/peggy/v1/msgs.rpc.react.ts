@@ -1,45 +1,45 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgValsetConfirm, MsgSendToEth, MsgRequestBatch, MsgConfirmBatch, MsgDepositClaim, MsgWithdrawClaim, MsgValsetUpdatedClaim, MsgERC20DeployedClaim, MsgSetOrchestratorAddresses, MsgCancelSendToEth, MsgSubmitBadSignatureEvidence, MsgUpdateParams, MsgBlacklistEthereumAddresses, MsgRevokeEthereumBlacklist } from "./msgs";
-import { createValsetConfirm, createSendToEth, createRequestBatch, createConfirmBatch, createDepositClaim, createWithdrawClaim, createValsetUpdateClaim, createERC20DeployedClaim, createSetOrchestratorAddresses, createCancelSendToEth, createSubmitBadSignatureEvidence, createUpdateParams, createBlacklistEthereumAddresses, createRevokeEthereumBlacklist } from "./msgs.rpc.func";
+import { valsetConfirm, sendToEth, requestBatch, confirmBatch, depositClaim, withdrawClaim, valsetUpdateClaim, eRC20DeployedClaim, setOrchestratorAddresses, cancelSendToEth, submitBadSignatureEvidence, updateParams, blacklistEthereumAddresses, revokeEthereumBlacklist } from "./msgs.rpc.func";
 export const useValsetConfirm = buildUseMutation<MsgValsetConfirm, Error>({
-  builderMutationFn: createValsetConfirm
+  builderMutationFn: valsetConfirm
 });
 export const useSendToEth = buildUseMutation<MsgSendToEth, Error>({
-  builderMutationFn: createSendToEth
+  builderMutationFn: sendToEth
 });
 export const useRequestBatch = buildUseMutation<MsgRequestBatch, Error>({
-  builderMutationFn: createRequestBatch
+  builderMutationFn: requestBatch
 });
 export const useConfirmBatch = buildUseMutation<MsgConfirmBatch, Error>({
-  builderMutationFn: createConfirmBatch
+  builderMutationFn: confirmBatch
 });
 export const useDepositClaim = buildUseMutation<MsgDepositClaim, Error>({
-  builderMutationFn: createDepositClaim
+  builderMutationFn: depositClaim
 });
 export const useWithdrawClaim = buildUseMutation<MsgWithdrawClaim, Error>({
-  builderMutationFn: createWithdrawClaim
+  builderMutationFn: withdrawClaim
 });
 export const useValsetUpdateClaim = buildUseMutation<MsgValsetUpdatedClaim, Error>({
-  builderMutationFn: createValsetUpdateClaim
+  builderMutationFn: valsetUpdateClaim
 });
 export const useERC20DeployedClaim = buildUseMutation<MsgERC20DeployedClaim, Error>({
-  builderMutationFn: createERC20DeployedClaim
+  builderMutationFn: eRC20DeployedClaim
 });
 export const useSetOrchestratorAddresses = buildUseMutation<MsgSetOrchestratorAddresses, Error>({
-  builderMutationFn: createSetOrchestratorAddresses
+  builderMutationFn: setOrchestratorAddresses
 });
 export const useCancelSendToEth = buildUseMutation<MsgCancelSendToEth, Error>({
-  builderMutationFn: createCancelSendToEth
+  builderMutationFn: cancelSendToEth
 });
 export const useSubmitBadSignatureEvidence = buildUseMutation<MsgSubmitBadSignatureEvidence, Error>({
-  builderMutationFn: createSubmitBadSignatureEvidence
+  builderMutationFn: submitBadSignatureEvidence
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useBlacklistEthereumAddresses = buildUseMutation<MsgBlacklistEthereumAddresses, Error>({
-  builderMutationFn: createBlacklistEthereumAddresses
+  builderMutationFn: blacklistEthereumAddresses
 });
 export const useRevokeEthereumBlacklist = buildUseMutation<MsgRevokeEthereumBlacklist, Error>({
-  builderMutationFn: createRevokeEthereumBlacklist
+  builderMutationFn: revokeEthereumBlacklist
 });

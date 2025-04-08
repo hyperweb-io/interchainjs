@@ -1,55 +1,55 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
-import { createGetBalance, createGetAllBalances, createGetSpendableBalances, createGetSpendableBalanceByDenom, createGetTotalSupply, createGetSupplyOf, createGetParams, createGetDenomMetadata, createGetDenomMetadataByQueryString, createGetDenomsMetadata, createGetDenomOwners, createGetDenomOwnersByQuery, createGetSendEnabled } from "./query.rpc.func";
+import { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceByDenom, getTotalSupply, getSupplyOf, getParams, getDenomMetadata, getDenomMetadataByQueryString, getDenomsMetadata, getDenomOwners, getDenomOwnersByQuery, getSendEnabled } from "./query.rpc.func";
 export const useGetBalance = buildUseVueQuery<QueryBalanceRequest, QueryBalanceResponse>({
-  builderQueryFn: createGetBalance,
+  builderQueryFn: getBalance,
   queryKeyPrefix: "BalanceQuery"
 });
 export const useGetAllBalances = buildUseVueQuery<QueryAllBalancesRequest, QueryAllBalancesResponse>({
-  builderQueryFn: createGetAllBalances,
+  builderQueryFn: getAllBalances,
   queryKeyPrefix: "AllBalancesQuery"
 });
 export const useGetSpendableBalances = buildUseVueQuery<QuerySpendableBalancesRequest, QuerySpendableBalancesResponse>({
-  builderQueryFn: createGetSpendableBalances,
+  builderQueryFn: getSpendableBalances,
   queryKeyPrefix: "SpendableBalancesQuery"
 });
 export const useGetSpendableBalanceByDenom = buildUseVueQuery<QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse>({
-  builderQueryFn: createGetSpendableBalanceByDenom,
+  builderQueryFn: getSpendableBalanceByDenom,
   queryKeyPrefix: "SpendableBalanceByDenomQuery"
 });
 export const useGetTotalSupply = buildUseVueQuery<QueryTotalSupplyRequest, QueryTotalSupplyResponse>({
-  builderQueryFn: createGetTotalSupply,
+  builderQueryFn: getTotalSupply,
   queryKeyPrefix: "TotalSupplyQuery"
 });
 export const useGetSupplyOf = buildUseVueQuery<QuerySupplyOfRequest, QuerySupplyOfResponse>({
-  builderQueryFn: createGetSupplyOf,
+  builderQueryFn: getSupplyOf,
   queryKeyPrefix: "SupplyOfQuery"
 });
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetDenomMetadata = buildUseVueQuery<QueryDenomMetadataRequest, QueryDenomMetadataResponse>({
-  builderQueryFn: createGetDenomMetadata,
+  builderQueryFn: getDenomMetadata,
   queryKeyPrefix: "DenomMetadataQuery"
 });
 export const useGetDenomMetadataByQueryString = buildUseVueQuery<QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse>({
-  builderQueryFn: createGetDenomMetadataByQueryString,
+  builderQueryFn: getDenomMetadataByQueryString,
   queryKeyPrefix: "DenomMetadataByQueryStringQuery"
 });
 export const useGetDenomsMetadata = buildUseVueQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
-  builderQueryFn: createGetDenomsMetadata,
+  builderQueryFn: getDenomsMetadata,
   queryKeyPrefix: "DenomsMetadataQuery"
 });
 export const useGetDenomOwners = buildUseVueQuery<QueryDenomOwnersRequest, QueryDenomOwnersResponse>({
-  builderQueryFn: createGetDenomOwners,
+  builderQueryFn: getDenomOwners,
   queryKeyPrefix: "DenomOwnersQuery"
 });
 export const useGetDenomOwnersByQuery = buildUseVueQuery<QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse>({
-  builderQueryFn: createGetDenomOwnersByQuery,
+  builderQueryFn: getDenomOwnersByQuery,
   queryKeyPrefix: "DenomOwnersByQueryQuery"
 });
 export const useGetSendEnabled = buildUseVueQuery<QuerySendEnabledRequest, QuerySendEnabledResponse>({
-  builderQueryFn: createGetSendEnabled,
+  builderQueryFn: getSendEnabled,
   queryKeyPrefix: "SendEnabledQuery"
 });

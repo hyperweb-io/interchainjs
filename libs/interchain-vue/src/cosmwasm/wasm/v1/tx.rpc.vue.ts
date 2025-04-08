@@ -1,54 +1,54 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgStoreCode, MsgInstantiateContract, MsgInstantiateContract2, MsgExecuteContract, MsgMigrateContract, MsgUpdateAdmin, MsgClearAdmin, MsgUpdateInstantiateConfig, MsgUpdateParams, MsgSudoContract, MsgPinCodes, MsgUnpinCodes, MsgStoreAndInstantiateContract, MsgRemoveCodeUploadParamsAddresses, MsgAddCodeUploadParamsAddresses, MsgStoreAndMigrateContract, MsgUpdateContractLabel } from "./tx";
-import { createStoreCode, createInstantiateContract, createInstantiateContract2, createExecuteContract, createMigrateContract, createUpdateAdmin, createClearAdmin, createUpdateInstantiateConfig, createUpdateParams, createSudoContract, createPinCodes, createUnpinCodes, createStoreAndInstantiateContract, createRemoveCodeUploadParamsAddresses, createAddCodeUploadParamsAddresses, createStoreAndMigrateContract, createUpdateContractLabel } from "./tx.rpc.func";
+import { storeCode, instantiateContract, instantiateContract2, executeContract, migrateContract, updateAdmin, clearAdmin, updateInstantiateConfig, updateParams, sudoContract, pinCodes, unpinCodes, storeAndInstantiateContract, removeCodeUploadParamsAddresses, addCodeUploadParamsAddresses, storeAndMigrateContract, updateContractLabel } from "./tx.rpc.func";
 export const useStoreCode = buildUseVueMutation<MsgStoreCode, Error>({
-  builderMutationFn: createStoreCode
+  builderMutationFn: storeCode
 });
 export const useInstantiateContract = buildUseVueMutation<MsgInstantiateContract, Error>({
-  builderMutationFn: createInstantiateContract
+  builderMutationFn: instantiateContract
 });
 export const useInstantiateContract2 = buildUseVueMutation<MsgInstantiateContract2, Error>({
-  builderMutationFn: createInstantiateContract2
+  builderMutationFn: instantiateContract2
 });
 export const useExecuteContract = buildUseVueMutation<MsgExecuteContract, Error>({
-  builderMutationFn: createExecuteContract
+  builderMutationFn: executeContract
 });
 export const useMigrateContract = buildUseVueMutation<MsgMigrateContract, Error>({
-  builderMutationFn: createMigrateContract
+  builderMutationFn: migrateContract
 });
 export const useUpdateAdmin = buildUseVueMutation<MsgUpdateAdmin, Error>({
-  builderMutationFn: createUpdateAdmin
+  builderMutationFn: updateAdmin
 });
 export const useClearAdmin = buildUseVueMutation<MsgClearAdmin, Error>({
-  builderMutationFn: createClearAdmin
+  builderMutationFn: clearAdmin
 });
 export const useUpdateInstantiateConfig = buildUseVueMutation<MsgUpdateInstantiateConfig, Error>({
-  builderMutationFn: createUpdateInstantiateConfig
+  builderMutationFn: updateInstantiateConfig
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useSudoContract = buildUseVueMutation<MsgSudoContract, Error>({
-  builderMutationFn: createSudoContract
+  builderMutationFn: sudoContract
 });
 export const usePinCodes = buildUseVueMutation<MsgPinCodes, Error>({
-  builderMutationFn: createPinCodes
+  builderMutationFn: pinCodes
 });
 export const useUnpinCodes = buildUseVueMutation<MsgUnpinCodes, Error>({
-  builderMutationFn: createUnpinCodes
+  builderMutationFn: unpinCodes
 });
 export const useStoreAndInstantiateContract = buildUseVueMutation<MsgStoreAndInstantiateContract, Error>({
-  builderMutationFn: createStoreAndInstantiateContract
+  builderMutationFn: storeAndInstantiateContract
 });
 export const useRemoveCodeUploadParamsAddresses = buildUseVueMutation<MsgRemoveCodeUploadParamsAddresses, Error>({
-  builderMutationFn: createRemoveCodeUploadParamsAddresses
+  builderMutationFn: removeCodeUploadParamsAddresses
 });
 export const useAddCodeUploadParamsAddresses = buildUseVueMutation<MsgAddCodeUploadParamsAddresses, Error>({
-  builderMutationFn: createAddCodeUploadParamsAddresses
+  builderMutationFn: addCodeUploadParamsAddresses
 });
 export const useStoreAndMigrateContract = buildUseVueMutation<MsgStoreAndMigrateContract, Error>({
-  builderMutationFn: createStoreAndMigrateContract
+  builderMutationFn: storeAndMigrateContract
 });
 export const useUpdateContractLabel = buildUseVueMutation<MsgUpdateContractLabel, Error>({
-  builderMutationFn: createUpdateContractLabel
+  builderMutationFn: updateContractLabel
 });

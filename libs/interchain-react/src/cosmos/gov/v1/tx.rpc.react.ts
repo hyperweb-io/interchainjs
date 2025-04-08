@@ -1,24 +1,24 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgSubmitProposal, MsgExecLegacyContent, MsgVote, MsgVoteWeighted, MsgDeposit, MsgUpdateParams, MsgCancelProposal } from "./tx";
-import { createSubmitProposal, createExecLegacyContent, createVote, createVoteWeighted, createDeposit, createUpdateParams, createCancelProposal } from "./tx.rpc.func";
+import { submitProposal, execLegacyContent, vote, voteWeighted, deposit, updateParams, cancelProposal } from "./tx.rpc.func";
 export const useSubmitProposal = buildUseMutation<MsgSubmitProposal, Error>({
-  builderMutationFn: createSubmitProposal
+  builderMutationFn: submitProposal
 });
 export const useExecLegacyContent = buildUseMutation<MsgExecLegacyContent, Error>({
-  builderMutationFn: createExecLegacyContent
+  builderMutationFn: execLegacyContent
 });
 export const useVote = buildUseMutation<MsgVote, Error>({
-  builderMutationFn: createVote
+  builderMutationFn: vote
 });
 export const useVoteWeighted = buildUseMutation<MsgVoteWeighted, Error>({
-  builderMutationFn: createVoteWeighted
+  builderMutationFn: voteWeighted
 });
 export const useDeposit = buildUseMutation<MsgDeposit, Error>({
-  builderMutationFn: createDeposit
+  builderMutationFn: deposit
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useCancelProposal = buildUseMutation<MsgCancelProposal, Error>({
-  builderMutationFn: createCancelProposal
+  builderMutationFn: cancelProposal
 });

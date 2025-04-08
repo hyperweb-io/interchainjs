@@ -1,24 +1,24 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgSetWithdrawAddress, MsgWithdrawDelegatorReward, MsgWithdrawValidatorCommission, MsgFundCommunityPool, MsgUpdateParams, MsgCommunityPoolSpend, MsgDepositValidatorRewardsPool } from "./tx";
-import { createSetWithdrawAddress, createWithdrawDelegatorReward, createWithdrawValidatorCommission, createFundCommunityPool, createUpdateParams, createCommunityPoolSpend, createDepositValidatorRewardsPool } from "./tx.rpc.func";
+import { setWithdrawAddress, withdrawDelegatorReward, withdrawValidatorCommission, fundCommunityPool, updateParams, communityPoolSpend, depositValidatorRewardsPool } from "./tx.rpc.func";
 export const useSetWithdrawAddress = buildUseMutation<MsgSetWithdrawAddress, Error>({
-  builderMutationFn: createSetWithdrawAddress
+  builderMutationFn: setWithdrawAddress
 });
 export const useWithdrawDelegatorReward = buildUseMutation<MsgWithdrawDelegatorReward, Error>({
-  builderMutationFn: createWithdrawDelegatorReward
+  builderMutationFn: withdrawDelegatorReward
 });
 export const useWithdrawValidatorCommission = buildUseMutation<MsgWithdrawValidatorCommission, Error>({
-  builderMutationFn: createWithdrawValidatorCommission
+  builderMutationFn: withdrawValidatorCommission
 });
 export const useFundCommunityPool = buildUseMutation<MsgFundCommunityPool, Error>({
-  builderMutationFn: createFundCommunityPool
+  builderMutationFn: fundCommunityPool
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useCommunityPoolSpend = buildUseMutation<MsgCommunityPoolSpend, Error>({
-  builderMutationFn: createCommunityPoolSpend
+  builderMutationFn: communityPoolSpend
 });
 export const useDepositValidatorRewardsPool = buildUseMutation<MsgDepositValidatorRewardsPool, Error>({
-  builderMutationFn: createDepositValidatorRewardsPool
+  builderMutationFn: depositValidatorRewardsPool
 });

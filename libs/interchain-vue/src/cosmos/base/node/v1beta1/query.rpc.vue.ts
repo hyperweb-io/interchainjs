@@ -1,11 +1,11 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { ConfigRequest, ConfigResponse, StatusRequest, StatusResponse } from "./query";
-import { createGetConfig, createGetStatus } from "./query.rpc.func";
+import { getConfig, getStatus } from "./query.rpc.func";
 export const useGetConfig = buildUseVueQuery<ConfigRequest, ConfigResponse>({
-  builderQueryFn: createGetConfig,
+  builderQueryFn: getConfig,
   queryKeyPrefix: "ConfigQuery"
 });
 export const useGetStatus = buildUseVueQuery<StatusRequest, StatusResponse>({
-  builderQueryFn: createGetStatus,
+  builderQueryFn: getStatus,
   queryKeyPrefix: "StatusQuery"
 });

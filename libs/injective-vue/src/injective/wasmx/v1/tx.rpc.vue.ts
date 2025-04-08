@@ -1,21 +1,21 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgUpdateContract, MsgActivateContract, MsgDeactivateContract, MsgExecuteContractCompat, MsgUpdateParams, MsgRegisterContract } from "./tx";
-import { createUpdateRegistryContractParams, createActivateRegistryContract, createDeactivateRegistryContract, createExecuteContractCompat, createUpdateParams, createRegisterContract } from "./tx.rpc.func";
+import { updateRegistryContractParams, activateRegistryContract, deactivateRegistryContract, executeContractCompat, updateParams, registerContract } from "./tx.rpc.func";
 export const useUpdateRegistryContractParams = buildUseVueMutation<MsgUpdateContract, Error>({
-  builderMutationFn: createUpdateRegistryContractParams
+  builderMutationFn: updateRegistryContractParams
 });
 export const useActivateRegistryContract = buildUseVueMutation<MsgActivateContract, Error>({
-  builderMutationFn: createActivateRegistryContract
+  builderMutationFn: activateRegistryContract
 });
 export const useDeactivateRegistryContract = buildUseVueMutation<MsgDeactivateContract, Error>({
-  builderMutationFn: createDeactivateRegistryContract
+  builderMutationFn: deactivateRegistryContract
 });
 export const useExecuteContractCompat = buildUseVueMutation<MsgExecuteContractCompat, Error>({
-  builderMutationFn: createExecuteContractCompat
+  builderMutationFn: executeContractCompat
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useRegisterContract = buildUseVueMutation<MsgRegisterContract, Error>({
-  builderMutationFn: createRegisterContract
+  builderMutationFn: registerContract
 });

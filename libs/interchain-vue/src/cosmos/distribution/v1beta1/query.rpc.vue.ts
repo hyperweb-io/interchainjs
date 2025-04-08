@@ -1,43 +1,43 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse, QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse, QueryValidatorCommissionRequest, QueryValidatorCommissionResponse, QueryValidatorSlashesRequest, QueryValidatorSlashesResponse, QueryDelegationRewardsRequest, QueryDelegationRewardsResponse, QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse, QueryCommunityPoolRequest, QueryCommunityPoolResponse } from "./query";
-import { createGetParams, createGetValidatorDistributionInfo, createGetValidatorOutstandingRewards, createGetValidatorCommission, createGetValidatorSlashes, createGetDelegationRewards, createGetDelegationTotalRewards, createGetDelegatorValidators, createGetDelegatorWithdrawAddress, createGetCommunityPool } from "./query.rpc.func";
+import { getParams, getValidatorDistributionInfo, getValidatorOutstandingRewards, getValidatorCommission, getValidatorSlashes, getDelegationRewards, getDelegationTotalRewards, getDelegatorValidators, getDelegatorWithdrawAddress, getCommunityPool } from "./query.rpc.func";
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetValidatorDistributionInfo = buildUseVueQuery<QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse>({
-  builderQueryFn: createGetValidatorDistributionInfo,
+  builderQueryFn: getValidatorDistributionInfo,
   queryKeyPrefix: "ValidatorDistributionInfoQuery"
 });
 export const useGetValidatorOutstandingRewards = buildUseVueQuery<QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse>({
-  builderQueryFn: createGetValidatorOutstandingRewards,
+  builderQueryFn: getValidatorOutstandingRewards,
   queryKeyPrefix: "ValidatorOutstandingRewardsQuery"
 });
 export const useGetValidatorCommission = buildUseVueQuery<QueryValidatorCommissionRequest, QueryValidatorCommissionResponse>({
-  builderQueryFn: createGetValidatorCommission,
+  builderQueryFn: getValidatorCommission,
   queryKeyPrefix: "ValidatorCommissionQuery"
 });
 export const useGetValidatorSlashes = buildUseVueQuery<QueryValidatorSlashesRequest, QueryValidatorSlashesResponse>({
-  builderQueryFn: createGetValidatorSlashes,
+  builderQueryFn: getValidatorSlashes,
   queryKeyPrefix: "ValidatorSlashesQuery"
 });
 export const useGetDelegationRewards = buildUseVueQuery<QueryDelegationRewardsRequest, QueryDelegationRewardsResponse>({
-  builderQueryFn: createGetDelegationRewards,
+  builderQueryFn: getDelegationRewards,
   queryKeyPrefix: "DelegationRewardsQuery"
 });
 export const useGetDelegationTotalRewards = buildUseVueQuery<QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse>({
-  builderQueryFn: createGetDelegationTotalRewards,
+  builderQueryFn: getDelegationTotalRewards,
   queryKeyPrefix: "DelegationTotalRewardsQuery"
 });
 export const useGetDelegatorValidators = buildUseVueQuery<QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse>({
-  builderQueryFn: createGetDelegatorValidators,
+  builderQueryFn: getDelegatorValidators,
   queryKeyPrefix: "DelegatorValidatorsQuery"
 });
 export const useGetDelegatorWithdrawAddress = buildUseVueQuery<QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse>({
-  builderQueryFn: createGetDelegatorWithdrawAddress,
+  builderQueryFn: getDelegatorWithdrawAddress,
   queryKeyPrefix: "DelegatorWithdrawAddressQuery"
 });
 export const useGetCommunityPool = buildUseVueQuery<QueryCommunityPoolRequest, QueryCommunityPoolResponse>({
-  builderQueryFn: createGetCommunityPool,
+  builderQueryFn: getCommunityPool,
   queryKeyPrefix: "CommunityPoolQuery"
 });

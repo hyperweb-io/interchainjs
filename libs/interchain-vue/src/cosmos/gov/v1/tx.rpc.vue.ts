@@ -1,24 +1,24 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgSubmitProposal, MsgExecLegacyContent, MsgVote, MsgVoteWeighted, MsgDeposit, MsgUpdateParams, MsgCancelProposal } from "./tx";
-import { createSubmitProposal, createExecLegacyContent, createVote, createVoteWeighted, createDeposit, createUpdateParams, createCancelProposal } from "./tx.rpc.func";
+import { submitProposal, execLegacyContent, vote, voteWeighted, deposit, updateParams, cancelProposal } from "./tx.rpc.func";
 export const useSubmitProposal = buildUseVueMutation<MsgSubmitProposal, Error>({
-  builderMutationFn: createSubmitProposal
+  builderMutationFn: submitProposal
 });
 export const useExecLegacyContent = buildUseVueMutation<MsgExecLegacyContent, Error>({
-  builderMutationFn: createExecLegacyContent
+  builderMutationFn: execLegacyContent
 });
 export const useVote = buildUseVueMutation<MsgVote, Error>({
-  builderMutationFn: createVote
+  builderMutationFn: vote
 });
 export const useVoteWeighted = buildUseVueMutation<MsgVoteWeighted, Error>({
-  builderMutationFn: createVoteWeighted
+  builderMutationFn: voteWeighted
 });
 export const useDeposit = buildUseVueMutation<MsgDeposit, Error>({
-  builderMutationFn: createDeposit
+  builderMutationFn: deposit
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useCancelProposal = buildUseVueMutation<MsgCancelProposal, Error>({
-  builderMutationFn: createCancelProposal
+  builderMutationFn: cancelProposal
 });
