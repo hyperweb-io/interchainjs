@@ -168,7 +168,7 @@ export class RpcClient implements QueryClient {
    * Decode TxMsgData from base64-encoded data
    */
   protected decodeTxMsgData(data?: string): TxMsgData {
-    return TxMsgData.decode(fromBase64(data) ?? new Uint8Array());
+    return TxMsgData.decode(data ? fromBase64(data) : new Uint8Array());
   }
 
   /**

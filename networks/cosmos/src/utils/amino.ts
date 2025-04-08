@@ -98,7 +98,7 @@ export function toStdFee(fee: Fee): StdFee {
  * from telescope generated codec to AminoConverter
  */
 export function toConverter(
-  generated: TelescopeGeneratedType<any, any, any>
+  generated: (AminoConverter | TelescopeGeneratedType<any, any, any>)
 ): AminoConverter {
   assertEmpty(generated.aminoType);
   return {
@@ -119,7 +119,7 @@ export function toConverter(
  * from telescope generated codecs to AminoConverters
  */
 export function toConverters(
-  ...generatedArray: TelescopeGeneratedType<any, any, any>[]
+  ...generatedArray: (AminoConverter | TelescopeGeneratedType<any, any, any>)[]
 ): AminoConverter[] {
   return generatedArray.map((generated) => toConverter(generated));
 }

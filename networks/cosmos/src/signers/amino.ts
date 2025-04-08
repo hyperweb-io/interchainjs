@@ -1,4 +1,4 @@
-import { Auth, HttpEndpoint } from '@interchainjs/types';
+import { Auth, HttpEndpoint, TelescopeGeneratedCodec } from '@interchainjs/types';
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
@@ -13,6 +13,7 @@ import {
 } from '../types';
 import { AminoDocAuth } from '../types/docAuth';
 import { IAminoGenericOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
+import { toConverter } from '../utils';
 
 /**
  * AminoDocSigner is a signer for Amino document.
@@ -29,12 +30,12 @@ export class AminoDocSigner extends CosmosDocSigner<CosmosAminoDoc> {
 export abstract class AminoSignerBase<
   AminoDoc,
 > extends CosmosBaseSigner<AminoDoc> {
-  readonly converters: AminoConverter[];
+  readonly converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[];
 
   constructor(
     auth: Auth,
-    encoders: Encoder[],
-    converters: AminoConverter[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
+    converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
@@ -45,7 +46,7 @@ export abstract class AminoSignerBase<
   /**
    * register converters
    */
-  addConverters = (converters: AminoConverter[]) => {
+  addConverters = (converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[]) => {
     // Create a Set of existing typeUrls for quick lookup
     const existingTypeUrls = new Set(this.converters.map(c => c.typeUrl));
 
@@ -53,7 +54,7 @@ export abstract class AminoSignerBase<
     const newConverters = converters.filter(converter => !existingTypeUrls.has(converter.typeUrl));
 
     // Add only the unique converters
-    this.converters.push(...newConverters);
+    this.converters.push(...newConverters.map(toConverter));
   };
 
   /**
@@ -68,7 +69,7 @@ export abstract class AminoSignerBase<
         `No such Converter for type ${aminoType}, please add corresponding Converter with method \`addConverters\``
       );
     }
-    return converter;
+    return toConverter(converter);
   };
 
   /**
@@ -83,7 +84,7 @@ export abstract class AminoSignerBase<
         `No such Converter for typeUrl ${typeUrl}, please add corresponding Converter with method \`addConverter\``
       );
     }
-    return converter;
+    return toConverter(converter);
   };
 }
 
@@ -93,12 +94,11 @@ export abstract class AminoSignerBase<
  */
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
-  implements CosmosAminoSigner
-{
+  implements CosmosAminoSigner {
   constructor(
     auth: Auth,
-    encoders: Encoder[],
-    converters: AminoConverter[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
+    converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
@@ -115,14 +115,14 @@ export class AminoSigner
    */
   static async fromWallet(
     signer: OfflineAminoSigner | IAminoGenericOfflineSigner,
-    encoders: Encoder[],
-    converters: AminoConverter[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
+    converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
     let auth: AminoDocAuth;
 
-    if(isOfflineAminoSigner(signer)){
+    if (isOfflineAminoSigner(signer)) {
       [auth] = await AminoDocAuth.fromOfflineSigner(signer);
     } else {
       [auth] = await AminoDocAuth.fromGenericOfflineSigner(signer);
@@ -137,14 +137,14 @@ export class AminoSigner
    */
   static async fromWalletToSigners(
     signer: OfflineAminoSigner | IAminoGenericOfflineSigner,
-    encoders: Encoder[],
-    converters: AminoConverter[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
+    converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
     let auths: AminoDocAuth[];
 
-    if(isOfflineAminoSigner(signer)) {
+    if (isOfflineAminoSigner(signer)) {
       auths = await AminoDocAuth.fromOfflineSigner(signer);
     } else {
       auths = await AminoDocAuth.fromGenericOfflineSigner(signer);
