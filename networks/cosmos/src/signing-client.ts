@@ -14,10 +14,10 @@ import {
   isOfflineDirectSigner,
   OfflineSigner,
 } from './types/wallet';
-import { toEncoder } from './utils';
+import { toConverter, toEncoder } from './utils';
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
-import { BroadcastOptions, DeliverTxResponse, HttpEndpoint, SIGN_MODE, StdFee } from '@interchainjs/types';
+import { BroadcastOptions, DeliverTxResponse, HttpEndpoint, SIGN_MODE, StdFee, TelescopeGeneratedCodec } from '@interchainjs/types';
 import { fromBase64 } from '@interchainjs/utils';
 
 import {
@@ -59,7 +59,7 @@ export class SigningClient {
 
     this.offlineSigner = offlineSigner;
     this.encoders = options.registry?.map(([, g]) => toEncoder(g)) || [];
-    this.converters = Object.values(options.aminoConverters || {});
+    this.converters = options.registry?.map(([, g]) => toConverter(g)) || [];
 
     this.options = options;
 
@@ -122,7 +122,7 @@ export class SigningClient {
   /**
    * register converters
    */
-  addConverters = (converters: AminoConverter[]) => {
+  addConverters = (converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[]) => {
     // Create a Set of existing typeUrls for quick lookup
     const existingTypeUrls = new Set(this.converters.map(c => c.typeUrl));
 
@@ -130,13 +130,13 @@ export class SigningClient {
     const newConverters = converters.filter(converter => !existingTypeUrls.has(converter.typeUrl));
 
     // Add only the unique converters
-    this.converters.push(...newConverters);
+    this.converters.push(...newConverters.map(toConverter));
   };
 
   /**
    * register encoders
    */
-  addEncoders = (encoders: Encoder[]) => {
+  addEncoders = (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => {
     // Create a Set of existing typeUrls for quick lookup
     const existingTypeUrls = new Set(this.encoders.map(c => c.typeUrl));
 
@@ -144,7 +144,7 @@ export class SigningClient {
     const newEncoders = encoders.filter(encoder => !existingTypeUrls.has(encoder.typeUrl));
 
     // Add only the unique converters
-    this.encoders.push(...newEncoders);
+    this.encoders.push(...newEncoders.map(toEncoder));
   };
 
   private get queryClient() {
@@ -324,7 +324,7 @@ export class SigningClient {
         rawLog: tx.tx_result.log || '',
         tx: fromBase64(tx.tx),
         msgResponses: [],
-        gasUsed:  tx?.tx_result?.gas_used ? BigInt(tx.tx_result.gas_used) : 0n,
+        gasUsed: tx?.tx_result?.gas_used ? BigInt(tx.tx_result.gas_used) : 0n,
         gasWanted: tx?.tx_result?.gas_wanted ? BigInt(tx.tx_result.gas_wanted) : 0n,
       } as IndexedTx;
     });

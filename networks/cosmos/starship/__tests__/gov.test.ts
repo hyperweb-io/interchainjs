@@ -28,9 +28,9 @@ import {
 } from '@interchainjs/types';
 import { fromBase64, toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
-import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetProposal, createGetVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
-import { createGetValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { getProposal, getVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
+import { getValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic, waitUntil } from '../src';
@@ -49,10 +49,6 @@ describe('Governance tests for osmosis', () => {
   let chainInfo, getCoin: () => Promise<Asset>, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
 
   // Variables used accross testcases
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
-  let getProposal: (request: QueryProposalRequest) => Promise<QueryProposalResponse>;
-  let getVote: (request: QueryVoteRequest) => Promise<QueryVoteResponse>;
-  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
   let proposalId: string;
   let validatorAddress: string;
 
@@ -87,19 +83,13 @@ describe('Governance tests for osmosis', () => {
     directAddress = await directSigner.getAddress();
     aminoAddress = await aminoSigner.getAddress();
 
-    // Create custom cosmos interchain client
-    getBalance = createGetBalance(rpcEndpoint);
-    getProposal = createGetProposal(rpcEndpoint);
-    getVote = createGetVote(rpcEndpoint);
-    getValidators = createGetValidators(rpcEndpoint);
-
     // Transfer osmosis to address
     await creditFromFaucet(directAddress);
     await creditFromFaucet(aminoAddress);
   }, 200000);
 
   it('check direct address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: directAddress,
       denom,
     });
@@ -108,7 +98,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('check amino address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: aminoAddress,
       denom,
     });
@@ -117,7 +107,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators({
+    const { validators } = await getValidators(await getRpcEndpoint(), {
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -134,7 +124,7 @@ describe('Governance tests for osmosis', () => {
   });
 
   it('stake tokens to genesis validator', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: directAddress,
       denom,
     });
@@ -237,7 +227,7 @@ describe('Governance tests for osmosis', () => {
   }, 200000);
 
   it('query proposal', async () => {
-    const result = await getProposal({
+    const result = await getProposal(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
     });
 
@@ -279,7 +269,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('verify direct vote', async () => {
-    const { vote } = await getVote({
+    const { vote } = await getVote(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
       voter: directAddress,
     });
@@ -324,7 +314,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('verify amino vote', async () => {
-    const { vote } = await getVote({
+    const { vote } = await getVote(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
       voter: aminoAddress,
     });
@@ -336,7 +326,7 @@ describe('Governance tests for osmosis', () => {
 
   it('wait for voting period to end', async () => {
     // wait for the voting period to end
-    const { proposal } = await getProposal({
+    const { proposal } = await getProposal(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
     });
 
@@ -344,7 +334,7 @@ describe('Governance tests for osmosis', () => {
   }, 200000);
 
   it('verify proposal passed', async () => {
-    const { proposal } = await getProposal({
+    const { proposal } = await getProposal(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
     });
 

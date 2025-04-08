@@ -10,7 +10,6 @@ export type Registry = Array<[TypeUrl, TelescopeGeneratedType<any, any, any>]>;
 
 export interface SigningOptions {
   registry?: Registry;
-  aminoConverters?: Record<TypeUrl, AminoConverter>;
   gasPrice?: Price | string;
   broadcast?: BroadcastOptions;
   signerOptions?: SignerOptions;

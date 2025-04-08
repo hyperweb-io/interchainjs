@@ -19,14 +19,15 @@ export function constructAuthInfo(signerInfos: SignerInfo[], fee: Fee) {
  * from telescope generated codec to encoder
  */
 export function toEncoder(
-  generated: TelescopeGeneratedType<any, any, any>
+  generated: (Encoder | TelescopeGeneratedType<any, any, any>)
 ): Encoder {
   return {
     typeUrl: generated.typeUrl,
     fromPartial: generated.fromPartial,
     encode: (data: any) => {
       assertEmpty(generated.encode);
-      return generated.encode(generated.fromPartial(data)).finish();
+      const encoded = generated.encode(generated.fromPartial(data));
+      return encoded.finish ? encoded.finish() : encoded;
     },
   };
 }
@@ -35,7 +36,7 @@ export function toEncoder(
  * from telescope generated codecs to encoders
  */
 export function toEncoders(
-  ...generatedArray: TelescopeGeneratedType<any, any, any>[]
+  ...generatedArray: (Encoder | TelescopeGeneratedType<any, any, any>)[]
 ): Encoder[] {
   return generatedArray.map((generated) => toEncoder(generated));
 }
@@ -44,7 +45,7 @@ export function toEncoders(
  * from telescope generated codec to decoder
  */
 export function toDecoder(
-  generated: TelescopeGeneratedType<any, any, any>
+  generated: (Decoder | TelescopeGeneratedType<any, any, any>)
 ): Decoder {
   return {
     typeUrl: generated.typeUrl,

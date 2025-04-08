@@ -18,7 +18,8 @@ import {
   SignDocResponse,
   SignerConfig,
   SignResponse,
-  DeliverTxResponse
+  DeliverTxResponse,
+  TelescopeGeneratedCodec
 } from '@interchainjs/types';
 import { assertEmpty, isEmpty } from '@interchainjs/utils';
 
@@ -36,6 +37,7 @@ import {
 } from '../types';
 import { calculateFee } from '../utils/chain';
 import { BaseCosmosTxBuilder } from './tx-builder';
+import { toEncoder } from '../utils';
 
 /**
  * Base class for Cosmos Doc Signer.
@@ -154,7 +156,7 @@ export abstract class CosmosBaseSigner<SignDoc>
   /**
    * register encoders
    */
-  addEncoders = (encoders: Encoder[]) => {
+  addEncoders = (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => {
     // Create a Set of existing typeUrls for quick lookup
     const existingTypeUrls = new Set(this.encoders.map(c => c.typeUrl));
 
@@ -162,7 +164,7 @@ export abstract class CosmosBaseSigner<SignDoc>
     const newEncoders = encoders.filter(encoder => !existingTypeUrls.has(encoder.typeUrl));
 
     // Add only the unique converters
-    this.encoders.push(...newEncoders);
+    this.encoders.push(...newEncoders.map(toEncoder));
   };
 
   /**

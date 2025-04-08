@@ -19,7 +19,7 @@ import { HDPath } from '@interchainjs/types';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { createGetAllBalances, createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
@@ -30,8 +30,6 @@ describe('Token transfers', () => {
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
-
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
@@ -52,9 +50,6 @@ describe('Token transfers', () => {
     });
     address = await directSigner.getAddress();
     address2 = await directSigner2.getAddress();
-
-    // Create custom cosmos interchain client
-    getBalance = createGetBalance(createQueryRpc(await getRpcEndpoint()));
 
     await creditFromFaucet(address);
   });
@@ -83,7 +78,7 @@ describe('Token transfers', () => {
     } = MessageComposer.withTypeUrl;
 
     // Transfer uosmo tokens from faceut
-    directSigner.addEncoders(toEncoders(MsgSend));
+    directSigner.addEncoders([MsgSend]);
     await directSigner.signAndBroadcast(
       {
         messages: [
@@ -101,7 +96,7 @@ describe('Token transfers', () => {
       { deliverTx: true }
     );
 
-    const { balance } = await getBalance({ address: address2, denom });
+    const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
 
     expect(balance!.amount).toEqual(token.amount);
     expect(balance!.denom).toEqual(denom);
@@ -184,9 +179,7 @@ describe('Token transfers', () => {
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
     // Check osmos in address on cosmos chain
-    const cosmosGetAllBalances = createGetAllBalances(createQueryRpc(await cosmosRpcEndpoint()));
-
-    const { balances } = await cosmosGetAllBalances({
+    const { balances } = await getAllBalances(await cosmosRpcEndpoint(), {
       address: cosmosAddress,
       resolveDenom: true,
     });
