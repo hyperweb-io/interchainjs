@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** EventSend is emitted on Msg/Send */
 export interface EventSend {
   /** class_id associated with the nft */
@@ -193,10 +192,9 @@ export const EventSend = {
       typeUrl: "/cosmos.nft.v1beta1.EventSend",
       value: EventSend.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventSend.typeUrl, EventSend);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventSend.aminoType, EventSend.typeUrl);
 function createBaseEventMint(): EventMint {
   return {
     classId: "",
@@ -295,10 +293,9 @@ export const EventMint = {
       typeUrl: "/cosmos.nft.v1beta1.EventMint",
       value: EventMint.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventMint.typeUrl, EventMint);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventMint.aminoType, EventMint.typeUrl);
 function createBaseEventBurn(): EventBurn {
   return {
     classId: "",
@@ -397,7 +394,6 @@ export const EventBurn = {
       typeUrl: "/cosmos.nft.v1beta1.EventBurn",
       value: EventBurn.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventBurn.typeUrl, EventBurn);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventBurn.aminoType, EventBurn.typeUrl);

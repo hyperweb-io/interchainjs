@@ -3,7 +3,6 @@ import { Namespace, NamespaceAmino } from "./permissions";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -278,9 +277,9 @@ export const QueryParamsRequest = {
       typeUrl: "/injective.permissions.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -348,9 +347,11 @@ export const QueryParamsResponse = {
       typeUrl: "/injective.permissions.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
 function createBaseQueryAllNamespacesRequest(): QueryAllNamespacesRequest {
   return {};
 }
@@ -405,9 +406,9 @@ export const QueryAllNamespacesRequest = {
       typeUrl: "/injective.permissions.v1beta1.QueryAllNamespacesRequest",
       value: QueryAllNamespacesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAllNamespacesRequest.typeUrl, QueryAllNamespacesRequest);
 function createBaseQueryAllNamespacesResponse(): QueryAllNamespacesResponse {
   return {
     namespaces: []
@@ -477,9 +478,11 @@ export const QueryAllNamespacesResponse = {
       typeUrl: "/injective.permissions.v1beta1.QueryAllNamespacesResponse",
       value: QueryAllNamespacesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Namespace.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllNamespacesResponse.typeUrl, QueryAllNamespacesResponse);
 function createBaseQueryNamespaceByDenomRequest(): QueryNamespaceByDenomRequest {
   return {
     denom: "",
@@ -559,9 +562,9 @@ export const QueryNamespaceByDenomRequest = {
       typeUrl: "/injective.permissions.v1beta1.QueryNamespaceByDenomRequest",
       value: QueryNamespaceByDenomRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryNamespaceByDenomRequest.typeUrl, QueryNamespaceByDenomRequest);
 function createBaseQueryNamespaceByDenomResponse(): QueryNamespaceByDenomResponse {
   return {
     namespace: undefined
@@ -629,9 +632,11 @@ export const QueryNamespaceByDenomResponse = {
       typeUrl: "/injective.permissions.v1beta1.QueryNamespaceByDenomResponse",
       value: QueryNamespaceByDenomResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Namespace.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryNamespaceByDenomResponse.typeUrl, QueryNamespaceByDenomResponse);
 function createBaseQueryAddressesByRoleRequest(): QueryAddressesByRoleRequest {
   return {
     denom: "",
@@ -711,9 +716,9 @@ export const QueryAddressesByRoleRequest = {
       typeUrl: "/injective.permissions.v1beta1.QueryAddressesByRoleRequest",
       value: QueryAddressesByRoleRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAddressesByRoleRequest.typeUrl, QueryAddressesByRoleRequest);
 function createBaseQueryAddressesByRoleResponse(): QueryAddressesByRoleResponse {
   return {
     addresses: []
@@ -783,9 +788,9 @@ export const QueryAddressesByRoleResponse = {
       typeUrl: "/injective.permissions.v1beta1.QueryAddressesByRoleResponse",
       value: QueryAddressesByRoleResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAddressesByRoleResponse.typeUrl, QueryAddressesByRoleResponse);
 function createBaseQueryAddressRolesRequest(): QueryAddressRolesRequest {
   return {
     denom: "",
@@ -865,9 +870,9 @@ export const QueryAddressRolesRequest = {
       typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesRequest",
       value: QueryAddressRolesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAddressRolesRequest.typeUrl, QueryAddressRolesRequest);
 function createBaseQueryAddressRolesResponse(): QueryAddressRolesResponse {
   return {
     roles: []
@@ -937,9 +942,9 @@ export const QueryAddressRolesResponse = {
       typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesResponse",
       value: QueryAddressRolesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAddressRolesResponse.typeUrl, QueryAddressRolesResponse);
 function createBaseQueryVouchersForAddressRequest(): QueryVouchersForAddressRequest {
   return {
     address: ""
@@ -1007,9 +1012,9 @@ export const QueryVouchersForAddressRequest = {
       typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressRequest",
       value: QueryVouchersForAddressRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryVouchersForAddressRequest.typeUrl, QueryVouchersForAddressRequest);
 function createBaseQueryVouchersForAddressResponse(): QueryVouchersForAddressResponse {
   return {
     vouchers: []
@@ -1079,6 +1084,8 @@ export const QueryVouchersForAddressResponse = {
       typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressResponse",
       value: QueryVouchersForAddressResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryVouchersForAddressResponse.typeUrl, QueryVouchersForAddressResponse);

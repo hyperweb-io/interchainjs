@@ -4,5 +4,6 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.consensus.v1.Query",
-  method: "Params"
+  method: "Params",
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });

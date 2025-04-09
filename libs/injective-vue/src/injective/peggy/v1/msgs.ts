@@ -4,7 +4,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { Params, ParamsAmino } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgSetOrchestratorAddresses
  * this message allows validators to delegate their voting responsibilities
@@ -771,10 +770,9 @@ export const MsgSetOrchestratorAddresses = {
       typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddresses",
       value: MsgSetOrchestratorAddresses.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSetOrchestratorAddresses.typeUrl, MsgSetOrchestratorAddresses);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSetOrchestratorAddresses.aminoType, MsgSetOrchestratorAddresses.typeUrl);
 function createBaseMsgSetOrchestratorAddressesResponse(): MsgSetOrchestratorAddressesResponse {
   return {};
 }
@@ -829,9 +827,9 @@ export const MsgSetOrchestratorAddressesResponse = {
       typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddressesResponse",
       value: MsgSetOrchestratorAddressesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSetOrchestratorAddressesResponse.typeUrl, MsgSetOrchestratorAddressesResponse);
 function createBaseMsgValsetConfirm(): MsgValsetConfirm {
   return {
     nonce: BigInt(0),
@@ -942,10 +940,9 @@ export const MsgValsetConfirm = {
       typeUrl: "/injective.peggy.v1.MsgValsetConfirm",
       value: MsgValsetConfirm.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgValsetConfirm.typeUrl, MsgValsetConfirm);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgValsetConfirm.aminoType, MsgValsetConfirm.typeUrl);
 function createBaseMsgValsetConfirmResponse(): MsgValsetConfirmResponse {
   return {};
 }
@@ -1000,9 +997,9 @@ export const MsgValsetConfirmResponse = {
       typeUrl: "/injective.peggy.v1.MsgValsetConfirmResponse",
       value: MsgValsetConfirmResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgValsetConfirmResponse.typeUrl, MsgValsetConfirmResponse);
 function createBaseMsgSendToEth(): MsgSendToEth {
   return {
     sender: "",
@@ -1113,10 +1110,11 @@ export const MsgSendToEth = {
       typeUrl: "/injective.peggy.v1.MsgSendToEth",
       value: MsgSendToEth.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSendToEth.typeUrl, MsgSendToEth);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSendToEth.aminoType, MsgSendToEth.typeUrl);
 function createBaseMsgSendToEthResponse(): MsgSendToEthResponse {
   return {};
 }
@@ -1171,9 +1169,9 @@ export const MsgSendToEthResponse = {
       typeUrl: "/injective.peggy.v1.MsgSendToEthResponse",
       value: MsgSendToEthResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSendToEthResponse.typeUrl, MsgSendToEthResponse);
 function createBaseMsgRequestBatch(): MsgRequestBatch {
   return {
     orchestrator: "",
@@ -1260,10 +1258,9 @@ export const MsgRequestBatch = {
       typeUrl: "/injective.peggy.v1.MsgRequestBatch",
       value: MsgRequestBatch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRequestBatch.typeUrl, MsgRequestBatch);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRequestBatch.aminoType, MsgRequestBatch.typeUrl);
 function createBaseMsgRequestBatchResponse(): MsgRequestBatchResponse {
   return {};
 }
@@ -1318,9 +1315,9 @@ export const MsgRequestBatchResponse = {
       typeUrl: "/injective.peggy.v1.MsgRequestBatchResponse",
       value: MsgRequestBatchResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRequestBatchResponse.typeUrl, MsgRequestBatchResponse);
 function createBaseMsgConfirmBatch(): MsgConfirmBatch {
   return {
     nonce: BigInt(0),
@@ -1443,10 +1440,9 @@ export const MsgConfirmBatch = {
       typeUrl: "/injective.peggy.v1.MsgConfirmBatch",
       value: MsgConfirmBatch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgConfirmBatch.typeUrl, MsgConfirmBatch);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConfirmBatch.aminoType, MsgConfirmBatch.typeUrl);
 function createBaseMsgConfirmBatchResponse(): MsgConfirmBatchResponse {
   return {};
 }
@@ -1501,9 +1497,9 @@ export const MsgConfirmBatchResponse = {
       typeUrl: "/injective.peggy.v1.MsgConfirmBatchResponse",
       value: MsgConfirmBatchResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgConfirmBatchResponse.typeUrl, MsgConfirmBatchResponse);
 function createBaseMsgDepositClaim(): MsgDepositClaim {
   return {
     eventNonce: BigInt(0),
@@ -1662,10 +1658,9 @@ export const MsgDepositClaim = {
       typeUrl: "/injective.peggy.v1.MsgDepositClaim",
       value: MsgDepositClaim.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDepositClaim.typeUrl, MsgDepositClaim);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDepositClaim.aminoType, MsgDepositClaim.typeUrl);
 function createBaseMsgDepositClaimResponse(): MsgDepositClaimResponse {
   return {};
 }
@@ -1720,9 +1715,9 @@ export const MsgDepositClaimResponse = {
       typeUrl: "/injective.peggy.v1.MsgDepositClaimResponse",
       value: MsgDepositClaimResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDepositClaimResponse.typeUrl, MsgDepositClaimResponse);
 function createBaseMsgWithdrawClaim(): MsgWithdrawClaim {
   return {
     eventNonce: BigInt(0),
@@ -1845,10 +1840,9 @@ export const MsgWithdrawClaim = {
       typeUrl: "/injective.peggy.v1.MsgWithdrawClaim",
       value: MsgWithdrawClaim.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgWithdrawClaim.typeUrl, MsgWithdrawClaim);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgWithdrawClaim.aminoType, MsgWithdrawClaim.typeUrl);
 function createBaseMsgWithdrawClaimResponse(): MsgWithdrawClaimResponse {
   return {};
 }
@@ -1903,9 +1897,9 @@ export const MsgWithdrawClaimResponse = {
       typeUrl: "/injective.peggy.v1.MsgWithdrawClaimResponse",
       value: MsgWithdrawClaimResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgWithdrawClaimResponse.typeUrl, MsgWithdrawClaimResponse);
 function createBaseMsgERC20DeployedClaim(): MsgERC20DeployedClaim {
   return {
     eventNonce: BigInt(0),
@@ -2064,10 +2058,9 @@ export const MsgERC20DeployedClaim = {
       typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaim",
       value: MsgERC20DeployedClaim.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgERC20DeployedClaim.typeUrl, MsgERC20DeployedClaim);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgERC20DeployedClaim.aminoType, MsgERC20DeployedClaim.typeUrl);
 function createBaseMsgERC20DeployedClaimResponse(): MsgERC20DeployedClaimResponse {
   return {};
 }
@@ -2122,9 +2115,9 @@ export const MsgERC20DeployedClaimResponse = {
       typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaimResponse",
       value: MsgERC20DeployedClaimResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgERC20DeployedClaimResponse.typeUrl, MsgERC20DeployedClaimResponse);
 function createBaseMsgCancelSendToEth(): MsgCancelSendToEth {
   return {
     transactionId: BigInt(0),
@@ -2211,10 +2204,9 @@ export const MsgCancelSendToEth = {
       typeUrl: "/injective.peggy.v1.MsgCancelSendToEth",
       value: MsgCancelSendToEth.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelSendToEth.typeUrl, MsgCancelSendToEth);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelSendToEth.aminoType, MsgCancelSendToEth.typeUrl);
 function createBaseMsgCancelSendToEthResponse(): MsgCancelSendToEthResponse {
   return {};
 }
@@ -2269,9 +2261,9 @@ export const MsgCancelSendToEthResponse = {
       typeUrl: "/injective.peggy.v1.MsgCancelSendToEthResponse",
       value: MsgCancelSendToEthResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelSendToEthResponse.typeUrl, MsgCancelSendToEthResponse);
 function createBaseMsgSubmitBadSignatureEvidence(): MsgSubmitBadSignatureEvidence {
   return {
     subject: undefined,
@@ -2370,10 +2362,9 @@ export const MsgSubmitBadSignatureEvidence = {
       typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidence",
       value: MsgSubmitBadSignatureEvidence.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubmitBadSignatureEvidence.typeUrl, MsgSubmitBadSignatureEvidence);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSubmitBadSignatureEvidence.aminoType, MsgSubmitBadSignatureEvidence.typeUrl);
 function createBaseMsgSubmitBadSignatureEvidenceResponse(): MsgSubmitBadSignatureEvidenceResponse {
   return {};
 }
@@ -2428,9 +2419,9 @@ export const MsgSubmitBadSignatureEvidenceResponse = {
       typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse",
       value: MsgSubmitBadSignatureEvidenceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubmitBadSignatureEvidenceResponse.typeUrl, MsgSubmitBadSignatureEvidenceResponse);
 function createBaseMsgValsetUpdatedClaim(): MsgValsetUpdatedClaim {
   return {
     eventNonce: BigInt(0),
@@ -2579,10 +2570,11 @@ export const MsgValsetUpdatedClaim = {
       typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaim",
       value: MsgValsetUpdatedClaim.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BridgeValidator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgValsetUpdatedClaim.typeUrl, MsgValsetUpdatedClaim);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgValsetUpdatedClaim.aminoType, MsgValsetUpdatedClaim.typeUrl);
 function createBaseMsgValsetUpdatedClaimResponse(): MsgValsetUpdatedClaimResponse {
   return {};
 }
@@ -2637,9 +2629,9 @@ export const MsgValsetUpdatedClaimResponse = {
       typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaimResponse",
       value: MsgValsetUpdatedClaimResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgValsetUpdatedClaimResponse.typeUrl, MsgValsetUpdatedClaimResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -2726,10 +2718,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.peggy.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -2784,9 +2777,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.peggy.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
 function createBaseMsgBlacklistEthereumAddresses(): MsgBlacklistEthereumAddresses {
   return {
     signer: "",
@@ -2875,10 +2868,9 @@ export const MsgBlacklistEthereumAddresses = {
       typeUrl: "/injective.peggy.v1.MsgBlacklistEthereumAddresses",
       value: MsgBlacklistEthereumAddresses.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBlacklistEthereumAddresses.typeUrl, MsgBlacklistEthereumAddresses);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBlacklistEthereumAddresses.aminoType, MsgBlacklistEthereumAddresses.typeUrl);
 function createBaseMsgBlacklistEthereumAddressesResponse(): MsgBlacklistEthereumAddressesResponse {
   return {};
 }
@@ -2933,9 +2925,9 @@ export const MsgBlacklistEthereumAddressesResponse = {
       typeUrl: "/injective.peggy.v1.MsgBlacklistEthereumAddressesResponse",
       value: MsgBlacklistEthereumAddressesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBlacklistEthereumAddressesResponse.typeUrl, MsgBlacklistEthereumAddressesResponse);
 function createBaseMsgRevokeEthereumBlacklist(): MsgRevokeEthereumBlacklist {
   return {
     signer: "",
@@ -3024,10 +3016,9 @@ export const MsgRevokeEthereumBlacklist = {
       typeUrl: "/injective.peggy.v1.MsgRevokeEthereumBlacklist",
       value: MsgRevokeEthereumBlacklist.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevokeEthereumBlacklist.typeUrl, MsgRevokeEthereumBlacklist);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevokeEthereumBlacklist.aminoType, MsgRevokeEthereumBlacklist.typeUrl);
 function createBaseMsgRevokeEthereumBlacklistResponse(): MsgRevokeEthereumBlacklistResponse {
   return {};
 }
@@ -3082,6 +3073,6 @@ export const MsgRevokeEthereumBlacklistResponse = {
       typeUrl: "/injective.peggy.v1.MsgRevokeEthereumBlacklistResponse",
       value: MsgRevokeEthereumBlacklistResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevokeEthereumBlacklistResponse.typeUrl, MsgRevokeEthereumBlacklistResponse);

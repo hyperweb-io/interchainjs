@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** Module is the config object for the runtime module. */
 export interface Module {
   /** app_name is the name of the app. */
@@ -327,10 +326,11 @@ export const Module = {
       typeUrl: "/cosmos.app.runtime.v1alpha1.Module",
       value: Module.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    StoreKeyConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Module.typeUrl, Module);
-GlobalDecoderRegistry.registerAminoProtoMapping(Module.aminoType, Module.typeUrl);
 function createBaseStoreKeyConfig(): StoreKeyConfig {
   return {
     moduleName: "",
@@ -417,7 +417,6 @@ export const StoreKeyConfig = {
       typeUrl: "/cosmos.app.runtime.v1alpha1.StoreKeyConfig",
       value: StoreKeyConfig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StoreKeyConfig.typeUrl, StoreKeyConfig);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreKeyConfig.aminoType, StoreKeyConfig.typeUrl);

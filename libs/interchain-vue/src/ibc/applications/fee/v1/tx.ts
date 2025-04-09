@@ -2,7 +2,6 @@ import { Fee, FeeAmino, PacketFee, PacketFeeAmino } from "./fee";
 import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** MsgRegisterPayee defines the request type for the RegisterPayee rpc */
 export interface MsgRegisterPayee {
   /** unique port identifier */
@@ -291,10 +290,9 @@ export const MsgRegisterPayee = {
       typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayee",
       value: MsgRegisterPayee.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterPayee.typeUrl, MsgRegisterPayee);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterPayee.aminoType, MsgRegisterPayee.typeUrl);
 function createBaseMsgRegisterPayeeResponse(): MsgRegisterPayeeResponse {
   return {};
 }
@@ -356,10 +354,9 @@ export const MsgRegisterPayeeResponse = {
       typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayeeResponse",
       value: MsgRegisterPayeeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterPayeeResponse.typeUrl, MsgRegisterPayeeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterPayeeResponse.aminoType, MsgRegisterPayeeResponse.typeUrl);
 function createBaseMsgRegisterCounterpartyPayee(): MsgRegisterCounterpartyPayee {
   return {
     portId: "",
@@ -470,10 +467,9 @@ export const MsgRegisterCounterpartyPayee = {
       typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayee",
       value: MsgRegisterCounterpartyPayee.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterCounterpartyPayee.typeUrl, MsgRegisterCounterpartyPayee);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterCounterpartyPayee.aminoType, MsgRegisterCounterpartyPayee.typeUrl);
 function createBaseMsgRegisterCounterpartyPayeeResponse(): MsgRegisterCounterpartyPayeeResponse {
   return {};
 }
@@ -535,10 +531,9 @@ export const MsgRegisterCounterpartyPayeeResponse = {
       typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse",
       value: MsgRegisterCounterpartyPayeeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterCounterpartyPayeeResponse.typeUrl, MsgRegisterCounterpartyPayeeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterCounterpartyPayeeResponse.aminoType, MsgRegisterCounterpartyPayeeResponse.typeUrl);
 function createBaseMsgPayPacketFee(): MsgPayPacketFee {
   return {
     fee: Fee.fromPartial({}),
@@ -663,10 +658,11 @@ export const MsgPayPacketFee = {
       typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFee",
       value: MsgPayPacketFee.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Fee.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgPayPacketFee.typeUrl, MsgPayPacketFee);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPayPacketFee.aminoType, MsgPayPacketFee.typeUrl);
 function createBaseMsgPayPacketFeeResponse(): MsgPayPacketFeeResponse {
   return {};
 }
@@ -728,10 +724,9 @@ export const MsgPayPacketFeeResponse = {
       typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeResponse",
       value: MsgPayPacketFeeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPayPacketFeeResponse.typeUrl, MsgPayPacketFeeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPayPacketFeeResponse.aminoType, MsgPayPacketFeeResponse.typeUrl);
 function createBaseMsgPayPacketFeeAsync(): MsgPayPacketFeeAsync {
   return {
     packetId: PacketId.fromPartial({}),
@@ -818,10 +813,12 @@ export const MsgPayPacketFeeAsync = {
       typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsync",
       value: MsgPayPacketFeeAsync.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PacketId.registerTypeUrl();
+    PacketFee.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgPayPacketFeeAsync.typeUrl, MsgPayPacketFeeAsync);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPayPacketFeeAsync.aminoType, MsgPayPacketFeeAsync.typeUrl);
 function createBaseMsgPayPacketFeeAsyncResponse(): MsgPayPacketFeeAsyncResponse {
   return {};
 }
@@ -883,7 +880,6 @@ export const MsgPayPacketFeeAsyncResponse = {
       typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse",
       value: MsgPayPacketFeeAsyncResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPayPacketFeeAsyncResponse.typeUrl, MsgPayPacketFeeAsyncResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPayPacketFeeAsyncResponse.aminoType, MsgPayPacketFeeAsyncResponse.typeUrl);

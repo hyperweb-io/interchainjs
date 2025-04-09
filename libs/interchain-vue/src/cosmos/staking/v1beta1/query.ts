@@ -1,7 +1,6 @@
 import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "../../base/query/v1beta1/pagination";
 import { Validator, ValidatorAmino, DelegationResponse, DelegationResponseAmino, UnbondingDelegation, UnbondingDelegationAmino, RedelegationResponse, RedelegationResponseAmino, HistoricalInfo, HistoricalInfoAmino, Pool, PoolAmino, Params, ParamsAmino } from "./staking";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** QueryValidatorsRequest is request type for Query/Validators RPC method. */
 export interface QueryValidatorsRequest {
@@ -757,10 +756,11 @@ export const QueryValidatorsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsRequest",
       value: QueryValidatorsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorsRequest.typeUrl, QueryValidatorsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorsRequest.aminoType, QueryValidatorsRequest.typeUrl);
 function createBaseQueryValidatorsResponse(): QueryValidatorsResponse {
   return {
     validators: [],
@@ -849,10 +849,12 @@ export const QueryValidatorsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorsResponse",
       value: QueryValidatorsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorsResponse.typeUrl, QueryValidatorsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorsResponse.aminoType, QueryValidatorsResponse.typeUrl);
 function createBaseQueryValidatorRequest(): QueryValidatorRequest {
   return {
     validatorAddr: ""
@@ -927,10 +929,9 @@ export const QueryValidatorRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorRequest",
       value: QueryValidatorRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryValidatorRequest.typeUrl, QueryValidatorRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorRequest.aminoType, QueryValidatorRequest.typeUrl);
 function createBaseQueryValidatorResponse(): QueryValidatorResponse {
   return {
     validator: Validator.fromPartial({})
@@ -1005,10 +1006,11 @@ export const QueryValidatorResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorResponse",
       value: QueryValidatorResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorResponse.typeUrl, QueryValidatorResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorResponse.aminoType, QueryValidatorResponse.typeUrl);
 function createBaseQueryValidatorDelegationsRequest(): QueryValidatorDelegationsRequest {
   return {
     validatorAddr: "",
@@ -1095,10 +1097,11 @@ export const QueryValidatorDelegationsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsRequest",
       value: QueryValidatorDelegationsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorDelegationsRequest.typeUrl, QueryValidatorDelegationsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorDelegationsRequest.aminoType, QueryValidatorDelegationsRequest.typeUrl);
 function createBaseQueryValidatorDelegationsResponse(): QueryValidatorDelegationsResponse {
   return {
     delegationResponses: [],
@@ -1187,10 +1190,12 @@ export const QueryValidatorDelegationsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorDelegationsResponse",
       value: QueryValidatorDelegationsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DelegationResponse.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorDelegationsResponse.typeUrl, QueryValidatorDelegationsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorDelegationsResponse.aminoType, QueryValidatorDelegationsResponse.typeUrl);
 function createBaseQueryValidatorUnbondingDelegationsRequest(): QueryValidatorUnbondingDelegationsRequest {
   return {
     validatorAddr: "",
@@ -1277,10 +1282,11 @@ export const QueryValidatorUnbondingDelegationsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest",
       value: QueryValidatorUnbondingDelegationsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorUnbondingDelegationsRequest.typeUrl, QueryValidatorUnbondingDelegationsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorUnbondingDelegationsRequest.aminoType, QueryValidatorUnbondingDelegationsRequest.typeUrl);
 function createBaseQueryValidatorUnbondingDelegationsResponse(): QueryValidatorUnbondingDelegationsResponse {
   return {
     unbondingResponses: [],
@@ -1369,10 +1375,12 @@ export const QueryValidatorUnbondingDelegationsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse",
       value: QueryValidatorUnbondingDelegationsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UnbondingDelegation.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValidatorUnbondingDelegationsResponse.typeUrl, QueryValidatorUnbondingDelegationsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryValidatorUnbondingDelegationsResponse.aminoType, QueryValidatorUnbondingDelegationsResponse.typeUrl);
 function createBaseQueryDelegationRequest(): QueryDelegationRequest {
   return {
     delegatorAddr: "",
@@ -1459,10 +1467,9 @@ export const QueryDelegationRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegationRequest",
       value: QueryDelegationRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegationRequest.typeUrl, QueryDelegationRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegationRequest.aminoType, QueryDelegationRequest.typeUrl);
 function createBaseQueryDelegationResponse(): QueryDelegationResponse {
   return {
     delegationResponse: undefined
@@ -1537,10 +1544,11 @@ export const QueryDelegationResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegationResponse",
       value: QueryDelegationResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DelegationResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegationResponse.typeUrl, QueryDelegationResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegationResponse.aminoType, QueryDelegationResponse.typeUrl);
 function createBaseQueryUnbondingDelegationRequest(): QueryUnbondingDelegationRequest {
   return {
     delegatorAddr: "",
@@ -1627,10 +1635,9 @@ export const QueryUnbondingDelegationRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryUnbondingDelegationRequest",
       value: QueryUnbondingDelegationRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryUnbondingDelegationRequest.typeUrl, QueryUnbondingDelegationRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryUnbondingDelegationRequest.aminoType, QueryUnbondingDelegationRequest.typeUrl);
 function createBaseQueryUnbondingDelegationResponse(): QueryUnbondingDelegationResponse {
   return {
     unbond: UnbondingDelegation.fromPartial({})
@@ -1705,10 +1712,11 @@ export const QueryUnbondingDelegationResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryUnbondingDelegationResponse",
       value: QueryUnbondingDelegationResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UnbondingDelegation.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryUnbondingDelegationResponse.typeUrl, QueryUnbondingDelegationResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryUnbondingDelegationResponse.aminoType, QueryUnbondingDelegationResponse.typeUrl);
 function createBaseQueryDelegatorDelegationsRequest(): QueryDelegatorDelegationsRequest {
   return {
     delegatorAddr: "",
@@ -1795,10 +1803,11 @@ export const QueryDelegatorDelegationsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest",
       value: QueryDelegatorDelegationsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorDelegationsRequest.typeUrl, QueryDelegatorDelegationsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorDelegationsRequest.aminoType, QueryDelegatorDelegationsRequest.typeUrl);
 function createBaseQueryDelegatorDelegationsResponse(): QueryDelegatorDelegationsResponse {
   return {
     delegationResponses: [],
@@ -1887,10 +1896,12 @@ export const QueryDelegatorDelegationsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse",
       value: QueryDelegatorDelegationsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DelegationResponse.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorDelegationsResponse.typeUrl, QueryDelegatorDelegationsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorDelegationsResponse.aminoType, QueryDelegatorDelegationsResponse.typeUrl);
 function createBaseQueryDelegatorUnbondingDelegationsRequest(): QueryDelegatorUnbondingDelegationsRequest {
   return {
     delegatorAddr: "",
@@ -1977,10 +1988,11 @@ export const QueryDelegatorUnbondingDelegationsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest",
       value: QueryDelegatorUnbondingDelegationsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorUnbondingDelegationsRequest.typeUrl, QueryDelegatorUnbondingDelegationsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorUnbondingDelegationsRequest.aminoType, QueryDelegatorUnbondingDelegationsRequest.typeUrl);
 function createBaseQueryDelegatorUnbondingDelegationsResponse(): QueryDelegatorUnbondingDelegationsResponse {
   return {
     unbondingResponses: [],
@@ -2069,10 +2081,12 @@ export const QueryDelegatorUnbondingDelegationsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse",
       value: QueryDelegatorUnbondingDelegationsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UnbondingDelegation.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorUnbondingDelegationsResponse.typeUrl, QueryDelegatorUnbondingDelegationsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorUnbondingDelegationsResponse.aminoType, QueryDelegatorUnbondingDelegationsResponse.typeUrl);
 function createBaseQueryRedelegationsRequest(): QueryRedelegationsRequest {
   return {
     delegatorAddr: "",
@@ -2183,10 +2197,11 @@ export const QueryRedelegationsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsRequest",
       value: QueryRedelegationsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryRedelegationsRequest.typeUrl, QueryRedelegationsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryRedelegationsRequest.aminoType, QueryRedelegationsRequest.typeUrl);
 function createBaseQueryRedelegationsResponse(): QueryRedelegationsResponse {
   return {
     redelegationResponses: [],
@@ -2275,10 +2290,12 @@ export const QueryRedelegationsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryRedelegationsResponse",
       value: QueryRedelegationsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RedelegationResponse.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryRedelegationsResponse.typeUrl, QueryRedelegationsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryRedelegationsResponse.aminoType, QueryRedelegationsResponse.typeUrl);
 function createBaseQueryDelegatorValidatorsRequest(): QueryDelegatorValidatorsRequest {
   return {
     delegatorAddr: "",
@@ -2365,10 +2382,11 @@ export const QueryDelegatorValidatorsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest",
       value: QueryDelegatorValidatorsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorValidatorsRequest.typeUrl, QueryDelegatorValidatorsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorValidatorsRequest.aminoType, QueryDelegatorValidatorsRequest.typeUrl);
 function createBaseQueryDelegatorValidatorsResponse(): QueryDelegatorValidatorsResponse {
   return {
     validators: [],
@@ -2457,10 +2475,12 @@ export const QueryDelegatorValidatorsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse",
       value: QueryDelegatorValidatorsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorValidatorsResponse.typeUrl, QueryDelegatorValidatorsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorValidatorsResponse.aminoType, QueryDelegatorValidatorsResponse.typeUrl);
 function createBaseQueryDelegatorValidatorRequest(): QueryDelegatorValidatorRequest {
   return {
     delegatorAddr: "",
@@ -2547,10 +2567,9 @@ export const QueryDelegatorValidatorRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorRequest",
       value: QueryDelegatorValidatorRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegatorValidatorRequest.typeUrl, QueryDelegatorValidatorRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorValidatorRequest.aminoType, QueryDelegatorValidatorRequest.typeUrl);
 function createBaseQueryDelegatorValidatorResponse(): QueryDelegatorValidatorResponse {
   return {
     validator: Validator.fromPartial({})
@@ -2625,10 +2644,11 @@ export const QueryDelegatorValidatorResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryDelegatorValidatorResponse",
       value: QueryDelegatorValidatorResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDelegatorValidatorResponse.typeUrl, QueryDelegatorValidatorResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDelegatorValidatorResponse.aminoType, QueryDelegatorValidatorResponse.typeUrl);
 function createBaseQueryHistoricalInfoRequest(): QueryHistoricalInfoRequest {
   return {
     height: BigInt(0)
@@ -2703,10 +2723,9 @@ export const QueryHistoricalInfoRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryHistoricalInfoRequest",
       value: QueryHistoricalInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryHistoricalInfoRequest.typeUrl, QueryHistoricalInfoRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryHistoricalInfoRequest.aminoType, QueryHistoricalInfoRequest.typeUrl);
 function createBaseQueryHistoricalInfoResponse(): QueryHistoricalInfoResponse {
   return {
     hist: undefined
@@ -2781,10 +2800,11 @@ export const QueryHistoricalInfoResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryHistoricalInfoResponse",
       value: QueryHistoricalInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    HistoricalInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryHistoricalInfoResponse.typeUrl, QueryHistoricalInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryHistoricalInfoResponse.aminoType, QueryHistoricalInfoResponse.typeUrl);
 function createBaseQueryPoolRequest(): QueryPoolRequest {
   return {};
 }
@@ -2846,10 +2866,9 @@ export const QueryPoolRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryPoolRequest",
       value: QueryPoolRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryPoolRequest.typeUrl, QueryPoolRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryPoolRequest.aminoType, QueryPoolRequest.typeUrl);
 function createBaseQueryPoolResponse(): QueryPoolResponse {
   return {
     pool: Pool.fromPartial({})
@@ -2924,10 +2943,11 @@ export const QueryPoolResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryPoolResponse",
       value: QueryPoolResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Pool.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPoolResponse.typeUrl, QueryPoolResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryPoolResponse.aminoType, QueryPoolResponse.typeUrl);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -2989,10 +3009,9 @@ export const QueryParamsRequest = {
       typeUrl: "/cosmos.staking.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsRequest.aminoType, QueryParamsRequest.typeUrl);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -3067,7 +3086,8 @@ export const QueryParamsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsResponse.aminoType, QueryParamsResponse.typeUrl);

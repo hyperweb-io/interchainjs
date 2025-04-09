@@ -4,5 +4,6 @@ export const getFileDescriptors = buildQuery<FileDescriptorsRequest, FileDescrip
   encode: FileDescriptorsRequest.encode,
   decode: FileDescriptorsResponse.decode,
   service: "cosmos.reflection.v1.ReflectionService",
-  method: "FileDescriptors"
+  method: "FileDescriptors",
+  deps: [FileDescriptorsRequest, FileDescriptorsResponse]
 });

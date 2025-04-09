@@ -3,7 +3,6 @@ import { OracleType } from "../../oracle/v1beta1/oracle";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, toTimestamp, fromTimestamp } from "../../../helpers";
 export interface Params {
   /**
@@ -217,10 +216,9 @@ export const Params = {
       typeUrl: "/injective.insurance.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseInsuranceFund(): InsuranceFund {
   return {
     depositDenom: "",
@@ -408,9 +406,9 @@ export const InsuranceFund = {
       typeUrl: "/injective.insurance.v1beta1.InsuranceFund",
       value: InsuranceFund.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(InsuranceFund.typeUrl, InsuranceFund);
 function createBaseRedemptionSchedule(): RedemptionSchedule {
   return {
     id: BigInt(0),
@@ -526,6 +524,8 @@ export const RedemptionSchedule = {
       typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule",
       value: RedemptionSchedule.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RedemptionSchedule.typeUrl, RedemptionSchedule);

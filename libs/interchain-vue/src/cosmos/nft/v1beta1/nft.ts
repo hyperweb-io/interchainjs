@@ -1,6 +1,5 @@
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** Class defines the class of the nft type. */
 export interface Class {
@@ -224,10 +223,9 @@ export const Class = {
       typeUrl: "/cosmos.nft.v1beta1.Class",
       value: Class.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Class.typeUrl, Class);
-GlobalDecoderRegistry.registerAminoProtoMapping(Class.aminoType, Class.typeUrl);
 function createBaseNFT(): NFT {
   return {
     classId: "",
@@ -350,7 +348,6 @@ export const NFT = {
       typeUrl: "/cosmos.nft.v1beta1.NFT",
       value: NFT.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(NFT.typeUrl, NFT);
-GlobalDecoderRegistry.registerAminoProtoMapping(NFT.aminoType, NFT.typeUrl);

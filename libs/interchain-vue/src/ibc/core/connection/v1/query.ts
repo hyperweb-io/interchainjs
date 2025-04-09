@@ -4,7 +4,6 @@ import { Height, HeightAmino, IdentifiedClientState, IdentifiedClientStateAmino,
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * QueryConnectionRequest is the request type for the Query/Connection RPC
  * method
@@ -397,10 +396,9 @@ export const QueryConnectionRequest = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionRequest",
       value: QueryConnectionRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryConnectionRequest.typeUrl, QueryConnectionRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionRequest.aminoType, QueryConnectionRequest.typeUrl);
 function createBaseQueryConnectionResponse(): QueryConnectionResponse {
   return {
     connection: undefined,
@@ -499,10 +497,12 @@ export const QueryConnectionResponse = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionResponse",
       value: QueryConnectionResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ConnectionEnd.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryConnectionResponse.typeUrl, QueryConnectionResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionResponse.aminoType, QueryConnectionResponse.typeUrl);
 function createBaseQueryConnectionsRequest(): QueryConnectionsRequest {
   return {
     pagination: undefined
@@ -577,10 +577,11 @@ export const QueryConnectionsRequest = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionsRequest",
       value: QueryConnectionsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryConnectionsRequest.typeUrl, QueryConnectionsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionsRequest.aminoType, QueryConnectionsRequest.typeUrl);
 function createBaseQueryConnectionsResponse(): QueryConnectionsResponse {
   return {
     connections: [],
@@ -681,10 +682,13 @@ export const QueryConnectionsResponse = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionsResponse",
       value: QueryConnectionsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IdentifiedConnection.registerTypeUrl();
+    PageResponse.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryConnectionsResponse.typeUrl, QueryConnectionsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionsResponse.aminoType, QueryConnectionsResponse.typeUrl);
 function createBaseQueryClientConnectionsRequest(): QueryClientConnectionsRequest {
   return {
     clientId: ""
@@ -759,10 +763,9 @@ export const QueryClientConnectionsRequest = {
       typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsRequest",
       value: QueryClientConnectionsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryClientConnectionsRequest.typeUrl, QueryClientConnectionsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryClientConnectionsRequest.aminoType, QueryClientConnectionsRequest.typeUrl);
 function createBaseQueryClientConnectionsResponse(): QueryClientConnectionsResponse {
   return {
     connectionPaths: [],
@@ -863,10 +866,11 @@ export const QueryClientConnectionsResponse = {
       typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsResponse",
       value: QueryClientConnectionsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryClientConnectionsResponse.typeUrl, QueryClientConnectionsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryClientConnectionsResponse.aminoType, QueryClientConnectionsResponse.typeUrl);
 function createBaseQueryConnectionClientStateRequest(): QueryConnectionClientStateRequest {
   return {
     connectionId: ""
@@ -941,10 +945,9 @@ export const QueryConnectionClientStateRequest = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateRequest",
       value: QueryConnectionClientStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryConnectionClientStateRequest.typeUrl, QueryConnectionClientStateRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionClientStateRequest.aminoType, QueryConnectionClientStateRequest.typeUrl);
 function createBaseQueryConnectionClientStateResponse(): QueryConnectionClientStateResponse {
   return {
     identifiedClientState: undefined,
@@ -1043,10 +1046,12 @@ export const QueryConnectionClientStateResponse = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateResponse",
       value: QueryConnectionClientStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IdentifiedClientState.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryConnectionClientStateResponse.typeUrl, QueryConnectionClientStateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionClientStateResponse.aminoType, QueryConnectionClientStateResponse.typeUrl);
 function createBaseQueryConnectionConsensusStateRequest(): QueryConnectionConsensusStateRequest {
   return {
     connectionId: "",
@@ -1145,10 +1150,9 @@ export const QueryConnectionConsensusStateRequest = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateRequest",
       value: QueryConnectionConsensusStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryConnectionConsensusStateRequest.typeUrl, QueryConnectionConsensusStateRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionConsensusStateRequest.aminoType, QueryConnectionConsensusStateRequest.typeUrl);
 function createBaseQueryConnectionConsensusStateResponse(): QueryConnectionConsensusStateResponse {
   return {
     consensusState: undefined,
@@ -1259,10 +1263,11 @@ export const QueryConnectionConsensusStateResponse = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateResponse",
       value: QueryConnectionConsensusStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryConnectionConsensusStateResponse.typeUrl, QueryConnectionConsensusStateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionConsensusStateResponse.aminoType, QueryConnectionConsensusStateResponse.typeUrl);
 function createBaseQueryConnectionParamsRequest(): QueryConnectionParamsRequest {
   return {};
 }
@@ -1324,10 +1329,9 @@ export const QueryConnectionParamsRequest = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsRequest",
       value: QueryConnectionParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryConnectionParamsRequest.typeUrl, QueryConnectionParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionParamsRequest.aminoType, QueryConnectionParamsRequest.typeUrl);
 function createBaseQueryConnectionParamsResponse(): QueryConnectionParamsResponse {
   return {
     params: undefined
@@ -1402,7 +1406,8 @@ export const QueryConnectionParamsResponse = {
       typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsResponse",
       value: QueryConnectionParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryConnectionParamsResponse.typeUrl, QueryConnectionParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryConnectionParamsResponse.aminoType, QueryConnectionParamsResponse.typeUrl);

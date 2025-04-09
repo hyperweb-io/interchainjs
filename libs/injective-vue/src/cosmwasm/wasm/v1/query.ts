@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { ContractInfo, ContractInfoAmino, ContractCodeHistoryEntry, ContractCodeHistoryEntryAmino, Model, ModelAmino, AccessConfig, AccessConfigAmino, Params, ParamsAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { toUtf8, fromUtf8 } from "@interchainjs/encoding";
 /**
  * QueryContractInfoRequest is the request type for the Query/ContractInfo RPC
@@ -774,10 +773,9 @@ export const QueryContractInfoRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoRequest",
       value: QueryContractInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryContractInfoRequest.typeUrl, QueryContractInfoRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractInfoRequest.aminoType, QueryContractInfoRequest.typeUrl);
 function createBaseQueryContractInfoResponse(): QueryContractInfoResponse {
   return {
     address: "",
@@ -864,10 +862,11 @@ export const QueryContractInfoResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoResponse",
       value: QueryContractInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ContractInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractInfoResponse.typeUrl, QueryContractInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractInfoResponse.aminoType, QueryContractInfoResponse.typeUrl);
 function createBaseQueryContractHistoryRequest(): QueryContractHistoryRequest {
   return {
     address: "",
@@ -954,10 +953,11 @@ export const QueryContractHistoryRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryRequest",
       value: QueryContractHistoryRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractHistoryRequest.typeUrl, QueryContractHistoryRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractHistoryRequest.aminoType, QueryContractHistoryRequest.typeUrl);
 function createBaseQueryContractHistoryResponse(): QueryContractHistoryResponse {
   return {
     entries: [],
@@ -1046,10 +1046,12 @@ export const QueryContractHistoryResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryResponse",
       value: QueryContractHistoryResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ContractCodeHistoryEntry.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractHistoryResponse.typeUrl, QueryContractHistoryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractHistoryResponse.aminoType, QueryContractHistoryResponse.typeUrl);
 function createBaseQueryContractsByCodeRequest(): QueryContractsByCodeRequest {
   return {
     codeId: BigInt(0),
@@ -1136,10 +1138,11 @@ export const QueryContractsByCodeRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeRequest",
       value: QueryContractsByCodeRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractsByCodeRequest.typeUrl, QueryContractsByCodeRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractsByCodeRequest.aminoType, QueryContractsByCodeRequest.typeUrl);
 function createBaseQueryContractsByCodeResponse(): QueryContractsByCodeResponse {
   return {
     contracts: [],
@@ -1228,10 +1231,11 @@ export const QueryContractsByCodeResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeResponse",
       value: QueryContractsByCodeResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractsByCodeResponse.typeUrl, QueryContractsByCodeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractsByCodeResponse.aminoType, QueryContractsByCodeResponse.typeUrl);
 function createBaseQueryAllContractStateRequest(): QueryAllContractStateRequest {
   return {
     address: "",
@@ -1318,10 +1322,11 @@ export const QueryAllContractStateRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateRequest",
       value: QueryAllContractStateRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllContractStateRequest.typeUrl, QueryAllContractStateRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllContractStateRequest.aminoType, QueryAllContractStateRequest.typeUrl);
 function createBaseQueryAllContractStateResponse(): QueryAllContractStateResponse {
   return {
     models: [],
@@ -1410,10 +1415,12 @@ export const QueryAllContractStateResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateResponse",
       value: QueryAllContractStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Model.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllContractStateResponse.typeUrl, QueryAllContractStateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllContractStateResponse.aminoType, QueryAllContractStateResponse.typeUrl);
 function createBaseQueryRawContractStateRequest(): QueryRawContractStateRequest {
   return {
     address: "",
@@ -1500,10 +1507,9 @@ export const QueryRawContractStateRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateRequest",
       value: QueryRawContractStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryRawContractStateRequest.typeUrl, QueryRawContractStateRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryRawContractStateRequest.aminoType, QueryRawContractStateRequest.typeUrl);
 function createBaseQueryRawContractStateResponse(): QueryRawContractStateResponse {
   return {
     data: new Uint8Array()
@@ -1578,10 +1584,9 @@ export const QueryRawContractStateResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryRawContractStateResponse",
       value: QueryRawContractStateResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryRawContractStateResponse.typeUrl, QueryRawContractStateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryRawContractStateResponse.aminoType, QueryRawContractStateResponse.typeUrl);
 function createBaseQuerySmartContractStateRequest(): QuerySmartContractStateRequest {
   return {
     address: "",
@@ -1668,10 +1673,9 @@ export const QuerySmartContractStateRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateRequest",
       value: QuerySmartContractStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySmartContractStateRequest.typeUrl, QuerySmartContractStateRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySmartContractStateRequest.aminoType, QuerySmartContractStateRequest.typeUrl);
 function createBaseQuerySmartContractStateResponse(): QuerySmartContractStateResponse {
   return {
     data: new Uint8Array()
@@ -1746,10 +1750,9 @@ export const QuerySmartContractStateResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QuerySmartContractStateResponse",
       value: QuerySmartContractStateResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySmartContractStateResponse.typeUrl, QuerySmartContractStateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySmartContractStateResponse.aminoType, QuerySmartContractStateResponse.typeUrl);
 function createBaseQueryCodeRequest(): QueryCodeRequest {
   return {
     codeId: BigInt(0)
@@ -1824,10 +1827,9 @@ export const QueryCodeRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryCodeRequest",
       value: QueryCodeRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCodeRequest.typeUrl, QueryCodeRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodeRequest.aminoType, QueryCodeRequest.typeUrl);
 function createBaseQueryCodeInfoRequest(): QueryCodeInfoRequest {
   return {
     codeId: BigInt(0)
@@ -1902,10 +1904,9 @@ export const QueryCodeInfoRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoRequest",
       value: QueryCodeInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCodeInfoRequest.typeUrl, QueryCodeInfoRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodeInfoRequest.aminoType, QueryCodeInfoRequest.typeUrl);
 function createBaseQueryCodeInfoResponse(): QueryCodeInfoResponse {
   return {
     codeId: BigInt(0),
@@ -2016,10 +2017,11 @@ export const QueryCodeInfoResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoResponse",
       value: QueryCodeInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCodeInfoResponse.typeUrl, QueryCodeInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodeInfoResponse.aminoType, QueryCodeInfoResponse.typeUrl);
 function createBaseCodeInfoResponse(): CodeInfoResponse {
   return {
     codeId: BigInt(0),
@@ -2130,10 +2132,11 @@ export const CodeInfoResponse = {
       typeUrl: "/cosmwasm.wasm.v1.CodeInfoResponse",
       value: CodeInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CodeInfoResponse.typeUrl, CodeInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(CodeInfoResponse.aminoType, CodeInfoResponse.typeUrl);
 function createBaseQueryCodeResponse(): QueryCodeResponse {
   return {
     codeInfo: undefined,
@@ -2220,10 +2223,11 @@ export const QueryCodeResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryCodeResponse",
       value: QueryCodeResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CodeInfoResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCodeResponse.typeUrl, QueryCodeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodeResponse.aminoType, QueryCodeResponse.typeUrl);
 function createBaseQueryCodesRequest(): QueryCodesRequest {
   return {
     pagination: undefined
@@ -2298,10 +2302,11 @@ export const QueryCodesRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryCodesRequest",
       value: QueryCodesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCodesRequest.typeUrl, QueryCodesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodesRequest.aminoType, QueryCodesRequest.typeUrl);
 function createBaseQueryCodesResponse(): QueryCodesResponse {
   return {
     codeInfos: [],
@@ -2390,10 +2395,12 @@ export const QueryCodesResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryCodesResponse",
       value: QueryCodesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CodeInfoResponse.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCodesResponse.typeUrl, QueryCodesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodesResponse.aminoType, QueryCodesResponse.typeUrl);
 function createBaseQueryPinnedCodesRequest(): QueryPinnedCodesRequest {
   return {
     pagination: undefined
@@ -2468,10 +2475,11 @@ export const QueryPinnedCodesRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesRequest",
       value: QueryPinnedCodesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPinnedCodesRequest.typeUrl, QueryPinnedCodesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryPinnedCodesRequest.aminoType, QueryPinnedCodesRequest.typeUrl);
 function createBaseQueryPinnedCodesResponse(): QueryPinnedCodesResponse {
   return {
     codeIds: [],
@@ -2569,10 +2577,11 @@ export const QueryPinnedCodesResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesResponse",
       value: QueryPinnedCodesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPinnedCodesResponse.typeUrl, QueryPinnedCodesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryPinnedCodesResponse.aminoType, QueryPinnedCodesResponse.typeUrl);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -2634,10 +2643,9 @@ export const QueryParamsRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsRequest.aminoType, QueryParamsRequest.typeUrl);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -2712,10 +2720,11 @@ export const QueryParamsResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsResponse.aminoType, QueryParamsResponse.typeUrl);
 function createBaseQueryContractsByCreatorRequest(): QueryContractsByCreatorRequest {
   return {
     creatorAddress: "",
@@ -2802,10 +2811,11 @@ export const QueryContractsByCreatorRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorRequest",
       value: QueryContractsByCreatorRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractsByCreatorRequest.typeUrl, QueryContractsByCreatorRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractsByCreatorRequest.aminoType, QueryContractsByCreatorRequest.typeUrl);
 function createBaseQueryContractsByCreatorResponse(): QueryContractsByCreatorResponse {
   return {
     contractAddresses: [],
@@ -2894,10 +2904,11 @@ export const QueryContractsByCreatorResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorResponse",
       value: QueryContractsByCreatorResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractsByCreatorResponse.typeUrl, QueryContractsByCreatorResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryContractsByCreatorResponse.aminoType, QueryContractsByCreatorResponse.typeUrl);
 function createBaseQueryWasmLimitsConfigRequest(): QueryWasmLimitsConfigRequest {
   return {};
 }
@@ -2959,10 +2970,9 @@ export const QueryWasmLimitsConfigRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigRequest",
       value: QueryWasmLimitsConfigRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryWasmLimitsConfigRequest.typeUrl, QueryWasmLimitsConfigRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryWasmLimitsConfigRequest.aminoType, QueryWasmLimitsConfigRequest.typeUrl);
 function createBaseQueryWasmLimitsConfigResponse(): QueryWasmLimitsConfigResponse {
   return {
     config: ""
@@ -3037,10 +3047,9 @@ export const QueryWasmLimitsConfigResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryWasmLimitsConfigResponse",
       value: QueryWasmLimitsConfigResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryWasmLimitsConfigResponse.typeUrl, QueryWasmLimitsConfigResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryWasmLimitsConfigResponse.aminoType, QueryWasmLimitsConfigResponse.typeUrl);
 function createBaseQueryBuildAddressRequest(): QueryBuildAddressRequest {
   return {
     codeHash: "",
@@ -3151,10 +3160,9 @@ export const QueryBuildAddressRequest = {
       typeUrl: "/cosmwasm.wasm.v1.QueryBuildAddressRequest",
       value: QueryBuildAddressRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBuildAddressRequest.typeUrl, QueryBuildAddressRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryBuildAddressRequest.aminoType, QueryBuildAddressRequest.typeUrl);
 function createBaseQueryBuildAddressResponse(): QueryBuildAddressResponse {
   return {
     address: ""
@@ -3229,7 +3237,6 @@ export const QueryBuildAddressResponse = {
       typeUrl: "/cosmwasm.wasm.v1.QueryBuildAddressResponse",
       value: QueryBuildAddressResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBuildAddressResponse.typeUrl, QueryBuildAddressResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryBuildAddressResponse.aminoType, QueryBuildAddressResponse.typeUrl);

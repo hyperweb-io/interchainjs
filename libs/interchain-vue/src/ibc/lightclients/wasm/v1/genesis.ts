@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** GenesisState defines 08-wasm's keeper genesis state */
 export interface GenesisState {
   /** uploaded light client wasm contracts */
@@ -113,10 +112,11 @@ export const GenesisState = {
       typeUrl: "/ibc.lightclients.wasm.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Contract.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseContract(): Contract {
   return {
     codeBytes: new Uint8Array()
@@ -191,7 +191,6 @@ export const Contract = {
       typeUrl: "/ibc.lightclients.wasm.v1.Contract",
       value: Contract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Contract.typeUrl, Contract);
-GlobalDecoderRegistry.registerAminoProtoMapping(Contract.aminoType, Contract.typeUrl);

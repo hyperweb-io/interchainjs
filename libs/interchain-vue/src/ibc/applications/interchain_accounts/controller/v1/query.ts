@@ -1,7 +1,6 @@
 import { Params, ParamsAmino } from "./controller";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial } from "../../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 /** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
 export interface QueryInterchainAccountRequest {
   owner: string;
@@ -152,10 +151,9 @@ export const QueryInterchainAccountRequest = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest",
       value: QueryInterchainAccountRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryInterchainAccountRequest.typeUrl, QueryInterchainAccountRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryInterchainAccountRequest.aminoType, QueryInterchainAccountRequest.typeUrl);
 function createBaseQueryInterchainAccountResponse(): QueryInterchainAccountResponse {
   return {
     address: ""
@@ -230,10 +228,9 @@ export const QueryInterchainAccountResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse",
       value: QueryInterchainAccountResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryInterchainAccountResponse.typeUrl, QueryInterchainAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryInterchainAccountResponse.aminoType, QueryInterchainAccountResponse.typeUrl);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -295,10 +292,9 @@ export const QueryParamsRequest = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsRequest.aminoType, QueryParamsRequest.typeUrl);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: undefined
@@ -373,7 +369,8 @@ export const QueryParamsResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsResponse.aminoType, QueryParamsResponse.typeUrl);

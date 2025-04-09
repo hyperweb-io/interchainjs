@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino } from "./insurance";
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateInsuranceFund a message to create an insurance fund for a derivative
  * market.
@@ -364,10 +363,11 @@ export const MsgCreateInsuranceFund = {
       typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFund",
       value: MsgCreateInsuranceFund.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateInsuranceFund.typeUrl, MsgCreateInsuranceFund);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateInsuranceFund.aminoType, MsgCreateInsuranceFund.typeUrl);
 function createBaseMsgCreateInsuranceFundResponse(): MsgCreateInsuranceFundResponse {
   return {};
 }
@@ -422,9 +422,9 @@ export const MsgCreateInsuranceFundResponse = {
       typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFundResponse",
       value: MsgCreateInsuranceFundResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateInsuranceFundResponse.typeUrl, MsgCreateInsuranceFundResponse);
 function createBaseMsgUnderwrite(): MsgUnderwrite {
   return {
     sender: "",
@@ -523,10 +523,11 @@ export const MsgUnderwrite = {
       typeUrl: "/injective.insurance.v1beta1.MsgUnderwrite",
       value: MsgUnderwrite.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUnderwrite.typeUrl, MsgUnderwrite);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUnderwrite.aminoType, MsgUnderwrite.typeUrl);
 function createBaseMsgUnderwriteResponse(): MsgUnderwriteResponse {
   return {};
 }
@@ -581,9 +582,9 @@ export const MsgUnderwriteResponse = {
       typeUrl: "/injective.insurance.v1beta1.MsgUnderwriteResponse",
       value: MsgUnderwriteResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUnderwriteResponse.typeUrl, MsgUnderwriteResponse);
 function createBaseMsgRequestRedemption(): MsgRequestRedemption {
   return {
     sender: "",
@@ -682,10 +683,11 @@ export const MsgRequestRedemption = {
       typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemption",
       value: MsgRequestRedemption.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgRequestRedemption.typeUrl, MsgRequestRedemption);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRequestRedemption.aminoType, MsgRequestRedemption.typeUrl);
 function createBaseMsgRequestRedemptionResponse(): MsgRequestRedemptionResponse {
   return {};
 }
@@ -740,9 +742,9 @@ export const MsgRequestRedemptionResponse = {
       typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemptionResponse",
       value: MsgRequestRedemptionResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRequestRedemptionResponse.typeUrl, MsgRequestRedemptionResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -829,10 +831,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.insurance.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -887,6 +890,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.insurance.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);

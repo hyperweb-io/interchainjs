@@ -1,6 +1,5 @@
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** Level is the permission level. */
 export enum Permissions_Level {
   /**
@@ -223,10 +222,9 @@ export const Permissions = {
       typeUrl: "/cosmos.circuit.v1.Permissions",
       value: Permissions.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Permissions.typeUrl, Permissions);
-GlobalDecoderRegistry.registerAminoProtoMapping(Permissions.aminoType, Permissions.typeUrl);
 function createBaseGenesisAccountPermissions(): GenesisAccountPermissions {
   return {
     address: "",
@@ -313,10 +311,11 @@ export const GenesisAccountPermissions = {
       typeUrl: "/cosmos.circuit.v1.GenesisAccountPermissions",
       value: GenesisAccountPermissions.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Permissions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisAccountPermissions.typeUrl, GenesisAccountPermissions);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisAccountPermissions.aminoType, GenesisAccountPermissions.typeUrl);
 function createBaseGenesisState(): GenesisState {
   return {
     accountPermissions: [],
@@ -407,7 +406,8 @@ export const GenesisState = {
       typeUrl: "/cosmos.circuit.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisAccountPermissions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

@@ -1,7 +1,6 @@
 import { GroupInfo, GroupInfoAmino, GroupMember, GroupMemberAmino, GroupPolicyInfo, GroupPolicyInfoAmino, Proposal, ProposalAmino, Vote, VoteAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the group module's genesis state. */
 export interface GenesisState {
   /**
@@ -234,7 +233,12 @@ export const GenesisState = {
       typeUrl: "/cosmos.group.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupInfo.registerTypeUrl();
+    GroupMember.registerTypeUrl();
+    GroupPolicyInfo.registerTypeUrl();
+    Proposal.registerTypeUrl();
+    Vote.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

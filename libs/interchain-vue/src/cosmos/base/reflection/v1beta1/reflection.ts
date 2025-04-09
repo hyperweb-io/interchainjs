@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC. */
 export interface ListAllInterfacesRequest {}
 export interface ListAllInterfacesRequestProtoMsg {
@@ -138,10 +137,9 @@ export const ListAllInterfacesRequest = {
       typeUrl: "/cosmos.base.reflection.v1beta1.ListAllInterfacesRequest",
       value: ListAllInterfacesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListAllInterfacesRequest.typeUrl, ListAllInterfacesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListAllInterfacesRequest.aminoType, ListAllInterfacesRequest.typeUrl);
 function createBaseListAllInterfacesResponse(): ListAllInterfacesResponse {
   return {
     interfaceNames: []
@@ -218,10 +216,9 @@ export const ListAllInterfacesResponse = {
       typeUrl: "/cosmos.base.reflection.v1beta1.ListAllInterfacesResponse",
       value: ListAllInterfacesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListAllInterfacesResponse.typeUrl, ListAllInterfacesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListAllInterfacesResponse.aminoType, ListAllInterfacesResponse.typeUrl);
 function createBaseListImplementationsRequest(): ListImplementationsRequest {
   return {
     interfaceName: ""
@@ -296,10 +293,9 @@ export const ListImplementationsRequest = {
       typeUrl: "/cosmos.base.reflection.v1beta1.ListImplementationsRequest",
       value: ListImplementationsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListImplementationsRequest.typeUrl, ListImplementationsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListImplementationsRequest.aminoType, ListImplementationsRequest.typeUrl);
 function createBaseListImplementationsResponse(): ListImplementationsResponse {
   return {
     implementationMessageNames: []
@@ -376,7 +372,6 @@ export const ListImplementationsResponse = {
       typeUrl: "/cosmos.base.reflection.v1beta1.ListImplementationsResponse",
       value: ListImplementationsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListImplementationsResponse.typeUrl, ListImplementationsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListImplementationsResponse.aminoType, ListImplementationsResponse.typeUrl);

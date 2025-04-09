@@ -2,7 +2,6 @@ import { DecCoin, DecCoinAmino } from "../../base/v1beta1/coin";
 import { ValidatorAccumulatedCommission, ValidatorAccumulatedCommissionAmino, ValidatorHistoricalRewards, ValidatorHistoricalRewardsAmino, ValidatorCurrentRewards, ValidatorCurrentRewardsAmino, DelegatorStartingInfo, DelegatorStartingInfoAmino, ValidatorSlashEvent, ValidatorSlashEventAmino, Params, ParamsAmino, FeePool, FeePoolAmino } from "./distribution";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are
  * withdrawn to by default this struct is only used at genesis to feed in
@@ -333,10 +332,9 @@ export const DelegatorWithdrawInfo = {
       typeUrl: "/cosmos.distribution.v1beta1.DelegatorWithdrawInfo",
       value: DelegatorWithdrawInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DelegatorWithdrawInfo.typeUrl, DelegatorWithdrawInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(DelegatorWithdrawInfo.aminoType, DelegatorWithdrawInfo.typeUrl);
 function createBaseValidatorOutstandingRewardsRecord(): ValidatorOutstandingRewardsRecord {
   return {
     validatorAddress: "",
@@ -425,10 +423,11 @@ export const ValidatorOutstandingRewardsRecord = {
       typeUrl: "/cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord",
       value: ValidatorOutstandingRewardsRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DecCoin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorOutstandingRewardsRecord.typeUrl, ValidatorOutstandingRewardsRecord);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorOutstandingRewardsRecord.aminoType, ValidatorOutstandingRewardsRecord.typeUrl);
 function createBaseValidatorAccumulatedCommissionRecord(): ValidatorAccumulatedCommissionRecord {
   return {
     validatorAddress: "",
@@ -515,10 +514,11 @@ export const ValidatorAccumulatedCommissionRecord = {
       typeUrl: "/cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord",
       value: ValidatorAccumulatedCommissionRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ValidatorAccumulatedCommission.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorAccumulatedCommissionRecord.typeUrl, ValidatorAccumulatedCommissionRecord);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorAccumulatedCommissionRecord.aminoType, ValidatorAccumulatedCommissionRecord.typeUrl);
 function createBaseValidatorHistoricalRewardsRecord(): ValidatorHistoricalRewardsRecord {
   return {
     validatorAddress: "",
@@ -617,10 +617,11 @@ export const ValidatorHistoricalRewardsRecord = {
       typeUrl: "/cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord",
       value: ValidatorHistoricalRewardsRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ValidatorHistoricalRewards.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorHistoricalRewardsRecord.typeUrl, ValidatorHistoricalRewardsRecord);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorHistoricalRewardsRecord.aminoType, ValidatorHistoricalRewardsRecord.typeUrl);
 function createBaseValidatorCurrentRewardsRecord(): ValidatorCurrentRewardsRecord {
   return {
     validatorAddress: "",
@@ -707,10 +708,11 @@ export const ValidatorCurrentRewardsRecord = {
       typeUrl: "/cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord",
       value: ValidatorCurrentRewardsRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ValidatorCurrentRewards.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorCurrentRewardsRecord.typeUrl, ValidatorCurrentRewardsRecord);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorCurrentRewardsRecord.aminoType, ValidatorCurrentRewardsRecord.typeUrl);
 function createBaseDelegatorStartingInfoRecord(): DelegatorStartingInfoRecord {
   return {
     delegatorAddress: "",
@@ -809,10 +811,11 @@ export const DelegatorStartingInfoRecord = {
       typeUrl: "/cosmos.distribution.v1beta1.DelegatorStartingInfoRecord",
       value: DelegatorStartingInfoRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DelegatorStartingInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DelegatorStartingInfoRecord.typeUrl, DelegatorStartingInfoRecord);
-GlobalDecoderRegistry.registerAminoProtoMapping(DelegatorStartingInfoRecord.aminoType, DelegatorStartingInfoRecord.typeUrl);
 function createBaseValidatorSlashEventRecord(): ValidatorSlashEventRecord {
   return {
     validatorAddress: "",
@@ -923,10 +926,11 @@ export const ValidatorSlashEventRecord = {
       typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEventRecord",
       value: ValidatorSlashEventRecord.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ValidatorSlashEvent.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorSlashEventRecord.typeUrl, ValidatorSlashEventRecord);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorSlashEventRecord.aminoType, ValidatorSlashEventRecord.typeUrl);
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
@@ -1123,7 +1127,16 @@ export const GenesisState = {
       typeUrl: "/cosmos.distribution.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    FeePool.registerTypeUrl();
+    DelegatorWithdrawInfo.registerTypeUrl();
+    ValidatorOutstandingRewardsRecord.registerTypeUrl();
+    ValidatorAccumulatedCommissionRecord.registerTypeUrl();
+    ValidatorHistoricalRewardsRecord.registerTypeUrl();
+    ValidatorCurrentRewardsRecord.registerTypeUrl();
+    DelegatorStartingInfoRecord.registerTypeUrl();
+    ValidatorSlashEventRecord.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

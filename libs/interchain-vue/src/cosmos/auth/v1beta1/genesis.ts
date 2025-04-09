@@ -1,7 +1,6 @@
 import { Params, ParamsAmino } from "./auth";
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the auth module's genesis state. */
 export interface GenesisState {
@@ -113,7 +112,6 @@ export const GenesisState = {
       typeUrl: "/cosmos.auth.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

@@ -1,6 +1,5 @@
 import { Params, ParamsAmino, Bid, BidAmino, LastAuctionResult, LastAuctionResultAmino } from "./auction";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the auction module's genesis state. */
 export interface GenesisState {
@@ -151,6 +150,10 @@ export const GenesisState = {
       typeUrl: "/injective.auction.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    Bid.registerTypeUrl();
+    LastAuctionResult.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);

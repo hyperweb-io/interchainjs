@@ -4,29 +4,34 @@ export const getCurrentPlan = buildQuery<QueryCurrentPlanRequest, QueryCurrentPl
   encode: QueryCurrentPlanRequest.encode,
   decode: QueryCurrentPlanResponse.decode,
   service: "cosmos.upgrade.v1beta1.Query",
-  method: "CurrentPlan"
+  method: "CurrentPlan",
+  deps: [QueryCurrentPlanRequest, QueryCurrentPlanResponse]
 });
 export const getAppliedPlan = buildQuery<QueryAppliedPlanRequest, QueryAppliedPlanResponse>({
   encode: QueryAppliedPlanRequest.encode,
   decode: QueryAppliedPlanResponse.decode,
   service: "cosmos.upgrade.v1beta1.Query",
-  method: "AppliedPlan"
+  method: "AppliedPlan",
+  deps: [QueryAppliedPlanRequest, QueryAppliedPlanResponse]
 });
 export const getUpgradedConsensusState = buildQuery<QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse>({
   encode: QueryUpgradedConsensusStateRequest.encode,
   decode: QueryUpgradedConsensusStateResponse.decode,
   service: "cosmos.upgrade.v1beta1.Query",
-  method: "UpgradedConsensusState"
+  method: "UpgradedConsensusState",
+  deps: [QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse]
 });
 export const getModuleVersions = buildQuery<QueryModuleVersionsRequest, QueryModuleVersionsResponse>({
   encode: QueryModuleVersionsRequest.encode,
   decode: QueryModuleVersionsResponse.decode,
   service: "cosmos.upgrade.v1beta1.Query",
-  method: "ModuleVersions"
+  method: "ModuleVersions",
+  deps: [QueryModuleVersionsRequest, QueryModuleVersionsResponse]
 });
 export const getAuthority = buildQuery<QueryAuthorityRequest, QueryAuthorityResponse>({
   encode: QueryAuthorityRequest.encode,
   decode: QueryAuthorityResponse.decode,
   service: "cosmos.upgrade.v1beta1.Query",
-  method: "Authority"
+  method: "Authority",
+  deps: [QueryAuthorityRequest, QueryAuthorityResponse]
 });

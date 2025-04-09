@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Grant, GrantAmino } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
 export interface QueryAllowanceRequest {
   /** granter is the address of the user granting an allowance of their funds. */
@@ -229,10 +228,9 @@ export const QueryAllowanceRequest = {
       typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowanceRequest",
       value: QueryAllowanceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAllowanceRequest.typeUrl, QueryAllowanceRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllowanceRequest.aminoType, QueryAllowanceRequest.typeUrl);
 function createBaseQueryAllowanceResponse(): QueryAllowanceResponse {
   return {
     allowance: undefined
@@ -307,10 +305,11 @@ export const QueryAllowanceResponse = {
       typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowanceResponse",
       value: QueryAllowanceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Grant.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllowanceResponse.typeUrl, QueryAllowanceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllowanceResponse.aminoType, QueryAllowanceResponse.typeUrl);
 function createBaseQueryAllowancesRequest(): QueryAllowancesRequest {
   return {
     grantee: "",
@@ -397,10 +396,11 @@ export const QueryAllowancesRequest = {
       typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesRequest",
       value: QueryAllowancesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllowancesRequest.typeUrl, QueryAllowancesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllowancesRequest.aminoType, QueryAllowancesRequest.typeUrl);
 function createBaseQueryAllowancesResponse(): QueryAllowancesResponse {
   return {
     allowances: [],
@@ -489,10 +489,12 @@ export const QueryAllowancesResponse = {
       typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesResponse",
       value: QueryAllowancesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Grant.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllowancesResponse.typeUrl, QueryAllowancesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllowancesResponse.aminoType, QueryAllowancesResponse.typeUrl);
 function createBaseQueryAllowancesByGranterRequest(): QueryAllowancesByGranterRequest {
   return {
     granter: "",
@@ -579,10 +581,11 @@ export const QueryAllowancesByGranterRequest = {
       typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesByGranterRequest",
       value: QueryAllowancesByGranterRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllowancesByGranterRequest.typeUrl, QueryAllowancesByGranterRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllowancesByGranterRequest.aminoType, QueryAllowancesByGranterRequest.typeUrl);
 function createBaseQueryAllowancesByGranterResponse(): QueryAllowancesByGranterResponse {
   return {
     allowances: [],
@@ -671,7 +674,9 @@ export const QueryAllowancesByGranterResponse = {
       typeUrl: "/cosmos.feegrant.v1beta1.QueryAllowancesByGranterResponse",
       value: QueryAllowancesByGranterResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Grant.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllowancesByGranterResponse.typeUrl, QueryAllowancesByGranterResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllowancesByGranterResponse.aminoType, QueryAllowancesByGranterResponse.typeUrl);

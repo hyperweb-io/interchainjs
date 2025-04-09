@@ -3,7 +3,6 @@ import { InterchainAccountPacketData, InterchainAccountPacketDataAmino } from ".
 import { Params, ParamsAmino } from "./controller";
 import { isSet, DeepPartial } from "../../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 /** MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount */
 export interface MsgRegisterInterchainAccount {
   owner: string;
@@ -242,10 +241,9 @@ export const MsgRegisterInterchainAccount = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount",
       value: MsgRegisterInterchainAccount.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterInterchainAccount.typeUrl, MsgRegisterInterchainAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterInterchainAccount.aminoType, MsgRegisterInterchainAccount.typeUrl);
 function createBaseMsgRegisterInterchainAccountResponse(): MsgRegisterInterchainAccountResponse {
   return {
     channelId: "",
@@ -332,10 +330,9 @@ export const MsgRegisterInterchainAccountResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse",
       value: MsgRegisterInterchainAccountResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterInterchainAccountResponse.typeUrl, MsgRegisterInterchainAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterInterchainAccountResponse.aminoType, MsgRegisterInterchainAccountResponse.typeUrl);
 function createBaseMsgSendTx(): MsgSendTx {
   return {
     owner: "",
@@ -446,10 +443,11 @@ export const MsgSendTx = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTx",
       value: MsgSendTx.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    InterchainAccountPacketData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSendTx.typeUrl, MsgSendTx);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSendTx.aminoType, MsgSendTx.typeUrl);
 function createBaseMsgSendTxResponse(): MsgSendTxResponse {
   return {
     sequence: BigInt(0)
@@ -524,10 +522,9 @@ export const MsgSendTxResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse",
       value: MsgSendTxResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSendTxResponse.typeUrl, MsgSendTxResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSendTxResponse.aminoType, MsgSendTxResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     signer: "",
@@ -614,10 +611,11 @@ export const MsgUpdateParams = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -679,7 +677,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);

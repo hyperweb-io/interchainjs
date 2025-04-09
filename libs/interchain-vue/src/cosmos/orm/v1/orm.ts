@@ -1,5 +1,4 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** TableDescriptor describes an ORM table. */
 export interface TableDescriptor {
@@ -313,10 +312,12 @@ export const TableDescriptor = {
       typeUrl: "/cosmos.orm.v1.TableDescriptor",
       value: TableDescriptor.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PrimaryKeyDescriptor.registerTypeUrl();
+    SecondaryIndexDescriptor.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TableDescriptor.typeUrl, TableDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(TableDescriptor.aminoType, TableDescriptor.typeUrl);
 function createBasePrimaryKeyDescriptor(): PrimaryKeyDescriptor {
   return {
     fields: "",
@@ -403,10 +404,9 @@ export const PrimaryKeyDescriptor = {
       typeUrl: "/cosmos.orm.v1.PrimaryKeyDescriptor",
       value: PrimaryKeyDescriptor.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PrimaryKeyDescriptor.typeUrl, PrimaryKeyDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(PrimaryKeyDescriptor.aminoType, PrimaryKeyDescriptor.typeUrl);
 function createBaseSecondaryIndexDescriptor(): SecondaryIndexDescriptor {
   return {
     fields: "",
@@ -505,10 +505,9 @@ export const SecondaryIndexDescriptor = {
       typeUrl: "/cosmos.orm.v1.SecondaryIndexDescriptor",
       value: SecondaryIndexDescriptor.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SecondaryIndexDescriptor.typeUrl, SecondaryIndexDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(SecondaryIndexDescriptor.aminoType, SecondaryIndexDescriptor.typeUrl);
 function createBaseSingletonDescriptor(): SingletonDescriptor {
   return {
     id: 0
@@ -583,7 +582,6 @@ export const SingletonDescriptor = {
       typeUrl: "/cosmos.orm.v1.SingletonDescriptor",
       value: SingletonDescriptor.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SingletonDescriptor.typeUrl, SingletonDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(SingletonDescriptor.aminoType, SingletonDescriptor.typeUrl);

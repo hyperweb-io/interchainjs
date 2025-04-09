@@ -4,17 +4,20 @@ export const getAllowance = buildQuery<QueryAllowanceRequest, QueryAllowanceResp
   encode: QueryAllowanceRequest.encode,
   decode: QueryAllowanceResponse.decode,
   service: "cosmos.feegrant.v1beta1.Query",
-  method: "Allowance"
+  method: "Allowance",
+  deps: [QueryAllowanceRequest, QueryAllowanceResponse]
 });
 export const getAllowances = buildQuery<QueryAllowancesRequest, QueryAllowancesResponse>({
   encode: QueryAllowancesRequest.encode,
   decode: QueryAllowancesResponse.decode,
   service: "cosmos.feegrant.v1beta1.Query",
-  method: "Allowances"
+  method: "Allowances",
+  deps: [QueryAllowancesRequest, QueryAllowancesResponse]
 });
 export const getAllowancesByGranter = buildQuery<QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponse>({
   encode: QueryAllowancesByGranterRequest.encode,
   decode: QueryAllowancesByGranterResponse.decode,
   service: "cosmos.feegrant.v1beta1.Query",
-  method: "AllowancesByGranter"
+  method: "AllowancesByGranter",
+  deps: [QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponse]
 });

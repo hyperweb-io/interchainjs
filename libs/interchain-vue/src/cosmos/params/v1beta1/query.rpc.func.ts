@@ -4,11 +4,13 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.params.v1beta1.Query",
-  method: "Params"
+  method: "Params",
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const getSubspaces = buildQuery<QuerySubspacesRequest, QuerySubspacesResponse>({
   encode: QuerySubspacesRequest.encode,
   decode: QuerySubspacesResponse.decode,
   service: "cosmos.params.v1beta1.Query",
-  method: "Subspaces"
+  method: "Subspaces",
+  deps: [QuerySubspacesRequest, QuerySubspacesResponse]
 });

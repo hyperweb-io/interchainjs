@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { GroupInfo, GroupInfoAmino, GroupPolicyInfo, GroupPolicyInfoAmino, GroupMember, GroupMemberAmino, Proposal, ProposalAmino, Vote, VoteAmino, TallyResult, TallyResultAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryGroupInfoRequest is the Query/GroupInfo request type. */
 export interface QueryGroupInfoRequest {
   /** group_id is the unique ID of the group. */
@@ -669,10 +668,9 @@ export const QueryGroupInfoRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupInfoRequest",
       value: QueryGroupInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryGroupInfoRequest.typeUrl, QueryGroupInfoRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupInfoRequest.aminoType, QueryGroupInfoRequest.typeUrl);
 function createBaseQueryGroupInfoResponse(): QueryGroupInfoResponse {
   return {
     info: undefined
@@ -747,10 +745,11 @@ export const QueryGroupInfoResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupInfoResponse",
       value: QueryGroupInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupInfoResponse.typeUrl, QueryGroupInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupInfoResponse.aminoType, QueryGroupInfoResponse.typeUrl);
 function createBaseQueryGroupPolicyInfoRequest(): QueryGroupPolicyInfoRequest {
   return {
     address: ""
@@ -825,10 +824,9 @@ export const QueryGroupPolicyInfoRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupPolicyInfoRequest",
       value: QueryGroupPolicyInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryGroupPolicyInfoRequest.typeUrl, QueryGroupPolicyInfoRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupPolicyInfoRequest.aminoType, QueryGroupPolicyInfoRequest.typeUrl);
 function createBaseQueryGroupPolicyInfoResponse(): QueryGroupPolicyInfoResponse {
   return {
     info: undefined
@@ -903,10 +901,11 @@ export const QueryGroupPolicyInfoResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupPolicyInfoResponse",
       value: QueryGroupPolicyInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupPolicyInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupPolicyInfoResponse.typeUrl, QueryGroupPolicyInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupPolicyInfoResponse.aminoType, QueryGroupPolicyInfoResponse.typeUrl);
 function createBaseQueryGroupMembersRequest(): QueryGroupMembersRequest {
   return {
     groupId: BigInt(0),
@@ -993,10 +992,11 @@ export const QueryGroupMembersRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupMembersRequest",
       value: QueryGroupMembersRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupMembersRequest.typeUrl, QueryGroupMembersRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupMembersRequest.aminoType, QueryGroupMembersRequest.typeUrl);
 function createBaseQueryGroupMembersResponse(): QueryGroupMembersResponse {
   return {
     members: [],
@@ -1085,10 +1085,12 @@ export const QueryGroupMembersResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupMembersResponse",
       value: QueryGroupMembersResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupMember.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupMembersResponse.typeUrl, QueryGroupMembersResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupMembersResponse.aminoType, QueryGroupMembersResponse.typeUrl);
 function createBaseQueryGroupsByAdminRequest(): QueryGroupsByAdminRequest {
   return {
     admin: "",
@@ -1175,10 +1177,11 @@ export const QueryGroupsByAdminRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupsByAdminRequest",
       value: QueryGroupsByAdminRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupsByAdminRequest.typeUrl, QueryGroupsByAdminRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupsByAdminRequest.aminoType, QueryGroupsByAdminRequest.typeUrl);
 function createBaseQueryGroupsByAdminResponse(): QueryGroupsByAdminResponse {
   return {
     groups: [],
@@ -1267,10 +1270,12 @@ export const QueryGroupsByAdminResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupsByAdminResponse",
       value: QueryGroupsByAdminResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupInfo.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupsByAdminResponse.typeUrl, QueryGroupsByAdminResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupsByAdminResponse.aminoType, QueryGroupsByAdminResponse.typeUrl);
 function createBaseQueryGroupPoliciesByGroupRequest(): QueryGroupPoliciesByGroupRequest {
   return {
     groupId: BigInt(0),
@@ -1357,10 +1362,11 @@ export const QueryGroupPoliciesByGroupRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupPoliciesByGroupRequest",
       value: QueryGroupPoliciesByGroupRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupPoliciesByGroupRequest.typeUrl, QueryGroupPoliciesByGroupRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupPoliciesByGroupRequest.aminoType, QueryGroupPoliciesByGroupRequest.typeUrl);
 function createBaseQueryGroupPoliciesByGroupResponse(): QueryGroupPoliciesByGroupResponse {
   return {
     groupPolicies: [],
@@ -1449,10 +1455,12 @@ export const QueryGroupPoliciesByGroupResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupPoliciesByGroupResponse",
       value: QueryGroupPoliciesByGroupResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupPolicyInfo.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupPoliciesByGroupResponse.typeUrl, QueryGroupPoliciesByGroupResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupPoliciesByGroupResponse.aminoType, QueryGroupPoliciesByGroupResponse.typeUrl);
 function createBaseQueryGroupPoliciesByAdminRequest(): QueryGroupPoliciesByAdminRequest {
   return {
     admin: "",
@@ -1539,10 +1547,11 @@ export const QueryGroupPoliciesByAdminRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupPoliciesByAdminRequest",
       value: QueryGroupPoliciesByAdminRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupPoliciesByAdminRequest.typeUrl, QueryGroupPoliciesByAdminRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupPoliciesByAdminRequest.aminoType, QueryGroupPoliciesByAdminRequest.typeUrl);
 function createBaseQueryGroupPoliciesByAdminResponse(): QueryGroupPoliciesByAdminResponse {
   return {
     groupPolicies: [],
@@ -1631,10 +1640,12 @@ export const QueryGroupPoliciesByAdminResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupPoliciesByAdminResponse",
       value: QueryGroupPoliciesByAdminResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupPolicyInfo.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupPoliciesByAdminResponse.typeUrl, QueryGroupPoliciesByAdminResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupPoliciesByAdminResponse.aminoType, QueryGroupPoliciesByAdminResponse.typeUrl);
 function createBaseQueryProposalRequest(): QueryProposalRequest {
   return {
     proposalId: BigInt(0)
@@ -1709,10 +1720,9 @@ export const QueryProposalRequest = {
       typeUrl: "/cosmos.group.v1.QueryProposalRequest",
       value: QueryProposalRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryProposalRequest.typeUrl, QueryProposalRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryProposalRequest.aminoType, QueryProposalRequest.typeUrl);
 function createBaseQueryProposalResponse(): QueryProposalResponse {
   return {
     proposal: undefined
@@ -1787,10 +1797,11 @@ export const QueryProposalResponse = {
       typeUrl: "/cosmos.group.v1.QueryProposalResponse",
       value: QueryProposalResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Proposal.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryProposalResponse.typeUrl, QueryProposalResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryProposalResponse.aminoType, QueryProposalResponse.typeUrl);
 function createBaseQueryProposalsByGroupPolicyRequest(): QueryProposalsByGroupPolicyRequest {
   return {
     address: "",
@@ -1877,10 +1888,11 @@ export const QueryProposalsByGroupPolicyRequest = {
       typeUrl: "/cosmos.group.v1.QueryProposalsByGroupPolicyRequest",
       value: QueryProposalsByGroupPolicyRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryProposalsByGroupPolicyRequest.typeUrl, QueryProposalsByGroupPolicyRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryProposalsByGroupPolicyRequest.aminoType, QueryProposalsByGroupPolicyRequest.typeUrl);
 function createBaseQueryProposalsByGroupPolicyResponse(): QueryProposalsByGroupPolicyResponse {
   return {
     proposals: [],
@@ -1969,10 +1981,12 @@ export const QueryProposalsByGroupPolicyResponse = {
       typeUrl: "/cosmos.group.v1.QueryProposalsByGroupPolicyResponse",
       value: QueryProposalsByGroupPolicyResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Proposal.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryProposalsByGroupPolicyResponse.typeUrl, QueryProposalsByGroupPolicyResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryProposalsByGroupPolicyResponse.aminoType, QueryProposalsByGroupPolicyResponse.typeUrl);
 function createBaseQueryVoteByProposalVoterRequest(): QueryVoteByProposalVoterRequest {
   return {
     proposalId: BigInt(0),
@@ -2059,10 +2073,9 @@ export const QueryVoteByProposalVoterRequest = {
       typeUrl: "/cosmos.group.v1.QueryVoteByProposalVoterRequest",
       value: QueryVoteByProposalVoterRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryVoteByProposalVoterRequest.typeUrl, QueryVoteByProposalVoterRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryVoteByProposalVoterRequest.aminoType, QueryVoteByProposalVoterRequest.typeUrl);
 function createBaseQueryVoteByProposalVoterResponse(): QueryVoteByProposalVoterResponse {
   return {
     vote: undefined
@@ -2137,10 +2150,11 @@ export const QueryVoteByProposalVoterResponse = {
       typeUrl: "/cosmos.group.v1.QueryVoteByProposalVoterResponse",
       value: QueryVoteByProposalVoterResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Vote.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryVoteByProposalVoterResponse.typeUrl, QueryVoteByProposalVoterResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryVoteByProposalVoterResponse.aminoType, QueryVoteByProposalVoterResponse.typeUrl);
 function createBaseQueryVotesByProposalRequest(): QueryVotesByProposalRequest {
   return {
     proposalId: BigInt(0),
@@ -2227,10 +2241,11 @@ export const QueryVotesByProposalRequest = {
       typeUrl: "/cosmos.group.v1.QueryVotesByProposalRequest",
       value: QueryVotesByProposalRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryVotesByProposalRequest.typeUrl, QueryVotesByProposalRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryVotesByProposalRequest.aminoType, QueryVotesByProposalRequest.typeUrl);
 function createBaseQueryVotesByProposalResponse(): QueryVotesByProposalResponse {
   return {
     votes: [],
@@ -2319,10 +2334,12 @@ export const QueryVotesByProposalResponse = {
       typeUrl: "/cosmos.group.v1.QueryVotesByProposalResponse",
       value: QueryVotesByProposalResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Vote.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryVotesByProposalResponse.typeUrl, QueryVotesByProposalResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryVotesByProposalResponse.aminoType, QueryVotesByProposalResponse.typeUrl);
 function createBaseQueryVotesByVoterRequest(): QueryVotesByVoterRequest {
   return {
     voter: "",
@@ -2409,10 +2426,11 @@ export const QueryVotesByVoterRequest = {
       typeUrl: "/cosmos.group.v1.QueryVotesByVoterRequest",
       value: QueryVotesByVoterRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryVotesByVoterRequest.typeUrl, QueryVotesByVoterRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryVotesByVoterRequest.aminoType, QueryVotesByVoterRequest.typeUrl);
 function createBaseQueryVotesByVoterResponse(): QueryVotesByVoterResponse {
   return {
     votes: [],
@@ -2501,10 +2519,12 @@ export const QueryVotesByVoterResponse = {
       typeUrl: "/cosmos.group.v1.QueryVotesByVoterResponse",
       value: QueryVotesByVoterResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Vote.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryVotesByVoterResponse.typeUrl, QueryVotesByVoterResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryVotesByVoterResponse.aminoType, QueryVotesByVoterResponse.typeUrl);
 function createBaseQueryGroupsByMemberRequest(): QueryGroupsByMemberRequest {
   return {
     address: "",
@@ -2591,10 +2611,11 @@ export const QueryGroupsByMemberRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupsByMemberRequest",
       value: QueryGroupsByMemberRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupsByMemberRequest.typeUrl, QueryGroupsByMemberRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupsByMemberRequest.aminoType, QueryGroupsByMemberRequest.typeUrl);
 function createBaseQueryGroupsByMemberResponse(): QueryGroupsByMemberResponse {
   return {
     groups: [],
@@ -2683,10 +2704,12 @@ export const QueryGroupsByMemberResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupsByMemberResponse",
       value: QueryGroupsByMemberResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupInfo.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupsByMemberResponse.typeUrl, QueryGroupsByMemberResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupsByMemberResponse.aminoType, QueryGroupsByMemberResponse.typeUrl);
 function createBaseQueryTallyResultRequest(): QueryTallyResultRequest {
   return {
     proposalId: BigInt(0)
@@ -2761,10 +2784,9 @@ export const QueryTallyResultRequest = {
       typeUrl: "/cosmos.group.v1.QueryTallyResultRequest",
       value: QueryTallyResultRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryTallyResultRequest.typeUrl, QueryTallyResultRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryTallyResultRequest.aminoType, QueryTallyResultRequest.typeUrl);
 function createBaseQueryTallyResultResponse(): QueryTallyResultResponse {
   return {
     tally: TallyResult.fromPartial({})
@@ -2839,10 +2861,11 @@ export const QueryTallyResultResponse = {
       typeUrl: "/cosmos.group.v1.QueryTallyResultResponse",
       value: QueryTallyResultResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TallyResult.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryTallyResultResponse.typeUrl, QueryTallyResultResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryTallyResultResponse.aminoType, QueryTallyResultResponse.typeUrl);
 function createBaseQueryGroupsRequest(): QueryGroupsRequest {
   return {
     pagination: undefined
@@ -2917,10 +2940,11 @@ export const QueryGroupsRequest = {
       typeUrl: "/cosmos.group.v1.QueryGroupsRequest",
       value: QueryGroupsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupsRequest.typeUrl, QueryGroupsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupsRequest.aminoType, QueryGroupsRequest.typeUrl);
 function createBaseQueryGroupsResponse(): QueryGroupsResponse {
   return {
     groups: [],
@@ -3009,7 +3033,9 @@ export const QueryGroupsResponse = {
       typeUrl: "/cosmos.group.v1.QueryGroupsResponse",
       value: QueryGroupsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GroupInfo.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGroupsResponse.typeUrl, QueryGroupsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGroupsResponse.aminoType, QueryGroupsResponse.typeUrl);

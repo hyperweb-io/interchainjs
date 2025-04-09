@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 /** PublicKey defines the keys available for use with Validators */
 export interface PublicKey {
   ed25519?: Uint8Array;
@@ -98,6 +97,6 @@ export const PublicKey = {
       typeUrl: "/tendermint.crypto.PublicKey",
       value: PublicKey.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PublicKey.typeUrl, PublicKey);

@@ -4,17 +4,20 @@ export const getGrants = buildQuery<QueryGrantsRequest, QueryGrantsResponse>({
   encode: QueryGrantsRequest.encode,
   decode: QueryGrantsResponse.decode,
   service: "cosmos.authz.v1beta1.Query",
-  method: "Grants"
+  method: "Grants",
+  deps: [QueryGrantsRequest, QueryGrantsResponse]
 });
 export const getGranterGrants = buildQuery<QueryGranterGrantsRequest, QueryGranterGrantsResponse>({
   encode: QueryGranterGrantsRequest.encode,
   decode: QueryGranterGrantsResponse.decode,
   service: "cosmos.authz.v1beta1.Query",
-  method: "GranterGrants"
+  method: "GranterGrants",
+  deps: [QueryGranterGrantsRequest, QueryGranterGrantsResponse]
 });
 export const getGranteeGrants = buildQuery<QueryGranteeGrantsRequest, QueryGranteeGrantsResponse>({
   encode: QueryGranteeGrantsRequest.encode,
   decode: QueryGranteeGrantsResponse.decode,
   service: "cosmos.authz.v1beta1.Query",
-  method: "GranteeGrants"
+  method: "GranteeGrants",
+  deps: [QueryGranteeGrantsRequest, QueryGranteeGrantsResponse]
 });

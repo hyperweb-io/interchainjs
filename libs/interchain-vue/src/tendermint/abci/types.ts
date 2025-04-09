@@ -4,7 +4,6 @@ import { ProofOps, ProofOpsAmino } from "../crypto/proof";
 import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BlockIDFlag } from "../types/validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes, isSet } from "../../helpers";
 export enum CheckTxType {
   NEW = 0,
@@ -1617,9 +1616,26 @@ export const Request = {
       typeUrl: "/tendermint.abci.Request",
       value: Request.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RequestEcho.registerTypeUrl();
+    RequestFlush.registerTypeUrl();
+    RequestInfo.registerTypeUrl();
+    RequestInitChain.registerTypeUrl();
+    RequestQuery.registerTypeUrl();
+    RequestCheckTx.registerTypeUrl();
+    RequestCommit.registerTypeUrl();
+    RequestListSnapshots.registerTypeUrl();
+    RequestOfferSnapshot.registerTypeUrl();
+    RequestLoadSnapshotChunk.registerTypeUrl();
+    RequestApplySnapshotChunk.registerTypeUrl();
+    RequestPrepareProposal.registerTypeUrl();
+    RequestProcessProposal.registerTypeUrl();
+    RequestExtendVote.registerTypeUrl();
+    RequestVerifyVoteExtension.registerTypeUrl();
+    RequestFinalizeBlock.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Request.typeUrl, Request);
 function createBaseRequestEcho(): RequestEcho {
   return {
     message: ""
@@ -1687,9 +1703,9 @@ export const RequestEcho = {
       typeUrl: "/tendermint.abci.RequestEcho",
       value: RequestEcho.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestEcho.typeUrl, RequestEcho);
 function createBaseRequestFlush(): RequestFlush {
   return {};
 }
@@ -1744,9 +1760,9 @@ export const RequestFlush = {
       typeUrl: "/tendermint.abci.RequestFlush",
       value: RequestFlush.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestFlush.typeUrl, RequestFlush);
 function createBaseRequestInfo(): RequestInfo {
   return {
     version: "",
@@ -1850,9 +1866,9 @@ export const RequestInfo = {
       typeUrl: "/tendermint.abci.RequestInfo",
       value: RequestInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestInfo.typeUrl, RequestInfo);
 function createBaseRequestInitChain(): RequestInitChain {
   return {
     time: new Date(),
@@ -1982,9 +1998,12 @@ export const RequestInitChain = {
       typeUrl: "/tendermint.abci.RequestInitChain",
       value: RequestInitChain.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ConsensusParams.registerTypeUrl();
+    ValidatorUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RequestInitChain.typeUrl, RequestInitChain);
 function createBaseRequestQuery(): RequestQuery {
   return {
     data: new Uint8Array(),
@@ -2088,9 +2107,9 @@ export const RequestQuery = {
       typeUrl: "/tendermint.abci.RequestQuery",
       value: RequestQuery.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestQuery.typeUrl, RequestQuery);
 function createBaseRequestCheckTx(): RequestCheckTx {
   return {
     tx: new Uint8Array(),
@@ -2170,9 +2189,9 @@ export const RequestCheckTx = {
       typeUrl: "/tendermint.abci.RequestCheckTx",
       value: RequestCheckTx.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestCheckTx.typeUrl, RequestCheckTx);
 function createBaseRequestCommit(): RequestCommit {
   return {};
 }
@@ -2227,9 +2246,9 @@ export const RequestCommit = {
       typeUrl: "/tendermint.abci.RequestCommit",
       value: RequestCommit.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestCommit.typeUrl, RequestCommit);
 function createBaseRequestListSnapshots(): RequestListSnapshots {
   return {};
 }
@@ -2284,9 +2303,9 @@ export const RequestListSnapshots = {
       typeUrl: "/tendermint.abci.RequestListSnapshots",
       value: RequestListSnapshots.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestListSnapshots.typeUrl, RequestListSnapshots);
 function createBaseRequestOfferSnapshot(): RequestOfferSnapshot {
   return {
     snapshot: undefined,
@@ -2366,9 +2385,11 @@ export const RequestOfferSnapshot = {
       typeUrl: "/tendermint.abci.RequestOfferSnapshot",
       value: RequestOfferSnapshot.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Snapshot.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RequestOfferSnapshot.typeUrl, RequestOfferSnapshot);
 function createBaseRequestLoadSnapshotChunk(): RequestLoadSnapshotChunk {
   return {
     height: BigInt(0),
@@ -2460,9 +2481,9 @@ export const RequestLoadSnapshotChunk = {
       typeUrl: "/tendermint.abci.RequestLoadSnapshotChunk",
       value: RequestLoadSnapshotChunk.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestLoadSnapshotChunk.typeUrl, RequestLoadSnapshotChunk);
 function createBaseRequestApplySnapshotChunk(): RequestApplySnapshotChunk {
   return {
     index: 0,
@@ -2554,9 +2575,9 @@ export const RequestApplySnapshotChunk = {
       typeUrl: "/tendermint.abci.RequestApplySnapshotChunk",
       value: RequestApplySnapshotChunk.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestApplySnapshotChunk.typeUrl, RequestApplySnapshotChunk);
 function createBaseRequestPrepareProposal(): RequestPrepareProposal {
   return {
     maxTxBytes: BigInt(0),
@@ -2712,9 +2733,12 @@ export const RequestPrepareProposal = {
       typeUrl: "/tendermint.abci.RequestPrepareProposal",
       value: RequestPrepareProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ExtendedCommitInfo.registerTypeUrl();
+    Misbehavior.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RequestPrepareProposal.typeUrl, RequestPrepareProposal);
 function createBaseRequestProcessProposal(): RequestProcessProposal {
   return {
     txs: [],
@@ -2870,9 +2894,12 @@ export const RequestProcessProposal = {
       typeUrl: "/tendermint.abci.RequestProcessProposal",
       value: RequestProcessProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CommitInfo.registerTypeUrl();
+    Misbehavior.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RequestProcessProposal.typeUrl, RequestProcessProposal);
 function createBaseRequestExtendVote(): RequestExtendVote {
   return {
     hash: new Uint8Array(),
@@ -3028,9 +3055,12 @@ export const RequestExtendVote = {
       typeUrl: "/tendermint.abci.RequestExtendVote",
       value: RequestExtendVote.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CommitInfo.registerTypeUrl();
+    Misbehavior.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RequestExtendVote.typeUrl, RequestExtendVote);
 function createBaseRequestVerifyVoteExtension(): RequestVerifyVoteExtension {
   return {
     hash: new Uint8Array(),
@@ -3134,9 +3164,9 @@ export const RequestVerifyVoteExtension = {
       typeUrl: "/tendermint.abci.RequestVerifyVoteExtension",
       value: RequestVerifyVoteExtension.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RequestVerifyVoteExtension.typeUrl, RequestVerifyVoteExtension);
 function createBaseRequestFinalizeBlock(): RequestFinalizeBlock {
   return {
     txs: [],
@@ -3292,9 +3322,12 @@ export const RequestFinalizeBlock = {
       typeUrl: "/tendermint.abci.RequestFinalizeBlock",
       value: RequestFinalizeBlock.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CommitInfo.registerTypeUrl();
+    Misbehavior.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RequestFinalizeBlock.typeUrl, RequestFinalizeBlock);
 function createBaseResponse(): Response {
   return {
     exception: undefined,
@@ -3554,9 +3587,27 @@ export const Response = {
       typeUrl: "/tendermint.abci.Response",
       value: Response.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ResponseException.registerTypeUrl();
+    ResponseEcho.registerTypeUrl();
+    ResponseFlush.registerTypeUrl();
+    ResponseInfo.registerTypeUrl();
+    ResponseInitChain.registerTypeUrl();
+    ResponseQuery.registerTypeUrl();
+    ResponseCheckTx.registerTypeUrl();
+    ResponseCommit.registerTypeUrl();
+    ResponseListSnapshots.registerTypeUrl();
+    ResponseOfferSnapshot.registerTypeUrl();
+    ResponseLoadSnapshotChunk.registerTypeUrl();
+    ResponseApplySnapshotChunk.registerTypeUrl();
+    ResponsePrepareProposal.registerTypeUrl();
+    ResponseProcessProposal.registerTypeUrl();
+    ResponseExtendVote.registerTypeUrl();
+    ResponseVerifyVoteExtension.registerTypeUrl();
+    ResponseFinalizeBlock.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Response.typeUrl, Response);
 function createBaseResponseException(): ResponseException {
   return {
     error: ""
@@ -3624,9 +3675,9 @@ export const ResponseException = {
       typeUrl: "/tendermint.abci.ResponseException",
       value: ResponseException.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseException.typeUrl, ResponseException);
 function createBaseResponseEcho(): ResponseEcho {
   return {
     message: ""
@@ -3694,9 +3745,9 @@ export const ResponseEcho = {
       typeUrl: "/tendermint.abci.ResponseEcho",
       value: ResponseEcho.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseEcho.typeUrl, ResponseEcho);
 function createBaseResponseFlush(): ResponseFlush {
   return {};
 }
@@ -3751,9 +3802,9 @@ export const ResponseFlush = {
       typeUrl: "/tendermint.abci.ResponseFlush",
       value: ResponseFlush.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseFlush.typeUrl, ResponseFlush);
 function createBaseResponseInfo(): ResponseInfo {
   return {
     data: "",
@@ -3869,9 +3920,9 @@ export const ResponseInfo = {
       typeUrl: "/tendermint.abci.ResponseInfo",
       value: ResponseInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseInfo.typeUrl, ResponseInfo);
 function createBaseResponseInitChain(): ResponseInitChain {
   return {
     consensusParams: undefined,
@@ -3965,9 +4016,12 @@ export const ResponseInitChain = {
       typeUrl: "/tendermint.abci.ResponseInitChain",
       value: ResponseInitChain.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ConsensusParams.registerTypeUrl();
+    ValidatorUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ResponseInitChain.typeUrl, ResponseInitChain);
 function createBaseResponseQuery(): ResponseQuery {
   return {
     code: 0,
@@ -4131,9 +4185,11 @@ export const ResponseQuery = {
       typeUrl: "/tendermint.abci.ResponseQuery",
       value: ResponseQuery.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ProofOps.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ResponseQuery.typeUrl, ResponseQuery);
 function createBaseResponseCheckTx(): ResponseCheckTx {
   return {
     code: 0,
@@ -4287,9 +4343,11 @@ export const ResponseCheckTx = {
       typeUrl: "/tendermint.abci.ResponseCheckTx",
       value: ResponseCheckTx.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Event.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ResponseCheckTx.typeUrl, ResponseCheckTx);
 function createBaseResponseCommit(): ResponseCommit {
   return {
     retainHeight: BigInt(0)
@@ -4357,9 +4415,9 @@ export const ResponseCommit = {
       typeUrl: "/tendermint.abci.ResponseCommit",
       value: ResponseCommit.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseCommit.typeUrl, ResponseCommit);
 function createBaseResponseListSnapshots(): ResponseListSnapshots {
   return {
     snapshots: []
@@ -4429,9 +4487,11 @@ export const ResponseListSnapshots = {
       typeUrl: "/tendermint.abci.ResponseListSnapshots",
       value: ResponseListSnapshots.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Snapshot.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ResponseListSnapshots.typeUrl, ResponseListSnapshots);
 function createBaseResponseOfferSnapshot(): ResponseOfferSnapshot {
   return {
     result: 0
@@ -4499,9 +4559,9 @@ export const ResponseOfferSnapshot = {
       typeUrl: "/tendermint.abci.ResponseOfferSnapshot",
       value: ResponseOfferSnapshot.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseOfferSnapshot.typeUrl, ResponseOfferSnapshot);
 function createBaseResponseLoadSnapshotChunk(): ResponseLoadSnapshotChunk {
   return {
     chunk: new Uint8Array()
@@ -4569,9 +4629,9 @@ export const ResponseLoadSnapshotChunk = {
       typeUrl: "/tendermint.abci.ResponseLoadSnapshotChunk",
       value: ResponseLoadSnapshotChunk.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseLoadSnapshotChunk.typeUrl, ResponseLoadSnapshotChunk);
 function createBaseResponseApplySnapshotChunk(): ResponseApplySnapshotChunk {
   return {
     result: 0,
@@ -4676,9 +4736,9 @@ export const ResponseApplySnapshotChunk = {
       typeUrl: "/tendermint.abci.ResponseApplySnapshotChunk",
       value: ResponseApplySnapshotChunk.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseApplySnapshotChunk.typeUrl, ResponseApplySnapshotChunk);
 function createBaseResponsePrepareProposal(): ResponsePrepareProposal {
   return {
     txs: []
@@ -4748,9 +4808,9 @@ export const ResponsePrepareProposal = {
       typeUrl: "/tendermint.abci.ResponsePrepareProposal",
       value: ResponsePrepareProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponsePrepareProposal.typeUrl, ResponsePrepareProposal);
 function createBaseResponseProcessProposal(): ResponseProcessProposal {
   return {
     status: 0
@@ -4818,9 +4878,9 @@ export const ResponseProcessProposal = {
       typeUrl: "/tendermint.abci.ResponseProcessProposal",
       value: ResponseProcessProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseProcessProposal.typeUrl, ResponseProcessProposal);
 function createBaseResponseExtendVote(): ResponseExtendVote {
   return {
     voteExtension: new Uint8Array()
@@ -4888,9 +4948,9 @@ export const ResponseExtendVote = {
       typeUrl: "/tendermint.abci.ResponseExtendVote",
       value: ResponseExtendVote.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseExtendVote.typeUrl, ResponseExtendVote);
 function createBaseResponseVerifyVoteExtension(): ResponseVerifyVoteExtension {
   return {
     status: 0
@@ -4958,9 +5018,9 @@ export const ResponseVerifyVoteExtension = {
       typeUrl: "/tendermint.abci.ResponseVerifyVoteExtension",
       value: ResponseVerifyVoteExtension.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ResponseVerifyVoteExtension.typeUrl, ResponseVerifyVoteExtension);
 function createBaseResponseFinalizeBlock(): ResponseFinalizeBlock {
   return {
     events: [],
@@ -5082,9 +5142,14 @@ export const ResponseFinalizeBlock = {
       typeUrl: "/tendermint.abci.ResponseFinalizeBlock",
       value: ResponseFinalizeBlock.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Event.registerTypeUrl();
+    ExecTxResult.registerTypeUrl();
+    ValidatorUpdate.registerTypeUrl();
+    ConsensusParams.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ResponseFinalizeBlock.typeUrl, ResponseFinalizeBlock);
 function createBaseCommitInfo(): CommitInfo {
   return {
     round: 0,
@@ -5166,9 +5231,11 @@ export const CommitInfo = {
       typeUrl: "/tendermint.abci.CommitInfo",
       value: CommitInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    VoteInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CommitInfo.typeUrl, CommitInfo);
 function createBaseExtendedCommitInfo(): ExtendedCommitInfo {
   return {
     round: 0,
@@ -5250,9 +5317,11 @@ export const ExtendedCommitInfo = {
       typeUrl: "/tendermint.abci.ExtendedCommitInfo",
       value: ExtendedCommitInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ExtendedVoteInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExtendedCommitInfo.typeUrl, ExtendedCommitInfo);
 function createBaseEvent(): Event {
   return {
     type: "",
@@ -5334,9 +5403,11 @@ export const Event = {
       typeUrl: "/tendermint.abci.Event",
       value: Event.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    EventAttribute.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Event.typeUrl, Event);
 function createBaseEventAttribute(): EventAttribute {
   return {
     key: "",
@@ -5428,9 +5499,9 @@ export const EventAttribute = {
       typeUrl: "/tendermint.abci.EventAttribute",
       value: EventAttribute.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAttribute.typeUrl, EventAttribute);
 function createBaseExecTxResult(): ExecTxResult {
   return {
     code: 0,
@@ -5584,9 +5655,11 @@ export const ExecTxResult = {
       typeUrl: "/tendermint.abci.ExecTxResult",
       value: ExecTxResult.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Event.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExecTxResult.typeUrl, ExecTxResult);
 function createBaseTxResult(): TxResult {
   return {
     height: BigInt(0),
@@ -5690,9 +5763,11 @@ export const TxResult = {
       typeUrl: "/tendermint.abci.TxResult",
       value: TxResult.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ExecTxResult.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TxResult.typeUrl, TxResult);
 function createBaseValidator(): Validator {
   return {
     address: new Uint8Array(),
@@ -5772,9 +5847,9 @@ export const Validator = {
       typeUrl: "/tendermint.abci.Validator",
       value: Validator.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Validator.typeUrl, Validator);
 function createBaseValidatorUpdate(): ValidatorUpdate {
   return {
     pubKey: PublicKey.fromPartial({}),
@@ -5854,9 +5929,11 @@ export const ValidatorUpdate = {
       typeUrl: "/tendermint.abci.ValidatorUpdate",
       value: ValidatorUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PublicKey.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorUpdate.typeUrl, ValidatorUpdate);
 function createBaseVoteInfo(): VoteInfo {
   return {
     validator: Validator.fromPartial({}),
@@ -5936,9 +6013,11 @@ export const VoteInfo = {
       typeUrl: "/tendermint.abci.VoteInfo",
       value: VoteInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(VoteInfo.typeUrl, VoteInfo);
 function createBaseExtendedVoteInfo(): ExtendedVoteInfo {
   return {
     validator: Validator.fromPartial({}),
@@ -6042,9 +6121,11 @@ export const ExtendedVoteInfo = {
       typeUrl: "/tendermint.abci.ExtendedVoteInfo",
       value: ExtendedVoteInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExtendedVoteInfo.typeUrl, ExtendedVoteInfo);
 function createBaseMisbehavior(): Misbehavior {
   return {
     type: 0,
@@ -6160,9 +6241,11 @@ export const Misbehavior = {
       typeUrl: "/tendermint.abci.Misbehavior",
       value: Misbehavior.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Misbehavior.typeUrl, Misbehavior);
 function createBaseSnapshot(): Snapshot {
   return {
     height: BigInt(0),
@@ -6278,6 +6361,6 @@ export const Snapshot = {
       typeUrl: "/tendermint.abci.Snapshot",
       value: Snapshot.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Snapshot.typeUrl, Snapshot);

@@ -1,7 +1,6 @@
 import { Plan, PlanAmino, ModuleVersion, ModuleVersionAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
  * method.
@@ -319,10 +318,9 @@ export const QueryCurrentPlanRequest = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryCurrentPlanRequest",
       value: QueryCurrentPlanRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCurrentPlanRequest.typeUrl, QueryCurrentPlanRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCurrentPlanRequest.aminoType, QueryCurrentPlanRequest.typeUrl);
 function createBaseQueryCurrentPlanResponse(): QueryCurrentPlanResponse {
   return {
     plan: undefined
@@ -397,10 +395,11 @@ export const QueryCurrentPlanResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryCurrentPlanResponse",
       value: QueryCurrentPlanResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Plan.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCurrentPlanResponse.typeUrl, QueryCurrentPlanResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCurrentPlanResponse.aminoType, QueryCurrentPlanResponse.typeUrl);
 function createBaseQueryAppliedPlanRequest(): QueryAppliedPlanRequest {
   return {
     name: ""
@@ -475,10 +474,9 @@ export const QueryAppliedPlanRequest = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryAppliedPlanRequest",
       value: QueryAppliedPlanRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAppliedPlanRequest.typeUrl, QueryAppliedPlanRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAppliedPlanRequest.aminoType, QueryAppliedPlanRequest.typeUrl);
 function createBaseQueryAppliedPlanResponse(): QueryAppliedPlanResponse {
   return {
     height: BigInt(0)
@@ -553,10 +551,9 @@ export const QueryAppliedPlanResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryAppliedPlanResponse",
       value: QueryAppliedPlanResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAppliedPlanResponse.typeUrl, QueryAppliedPlanResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAppliedPlanResponse.aminoType, QueryAppliedPlanResponse.typeUrl);
 function createBaseQueryUpgradedConsensusStateRequest(): QueryUpgradedConsensusStateRequest {
   return {
     lastHeight: BigInt(0)
@@ -631,10 +628,9 @@ export const QueryUpgradedConsensusStateRequest = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest",
       value: QueryUpgradedConsensusStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryUpgradedConsensusStateRequest.typeUrl, QueryUpgradedConsensusStateRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryUpgradedConsensusStateRequest.aminoType, QueryUpgradedConsensusStateRequest.typeUrl);
 function createBaseQueryUpgradedConsensusStateResponse(): QueryUpgradedConsensusStateResponse {
   return {
     upgradedConsensusState: new Uint8Array()
@@ -709,10 +705,9 @@ export const QueryUpgradedConsensusStateResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse",
       value: QueryUpgradedConsensusStateResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryUpgradedConsensusStateResponse.typeUrl, QueryUpgradedConsensusStateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryUpgradedConsensusStateResponse.aminoType, QueryUpgradedConsensusStateResponse.typeUrl);
 function createBaseQueryModuleVersionsRequest(): QueryModuleVersionsRequest {
   return {
     moduleName: ""
@@ -787,10 +782,9 @@ export const QueryModuleVersionsRequest = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryModuleVersionsRequest",
       value: QueryModuleVersionsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleVersionsRequest.typeUrl, QueryModuleVersionsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleVersionsRequest.aminoType, QueryModuleVersionsRequest.typeUrl);
 function createBaseQueryModuleVersionsResponse(): QueryModuleVersionsResponse {
   return {
     moduleVersions: []
@@ -867,10 +861,11 @@ export const QueryModuleVersionsResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryModuleVersionsResponse",
       value: QueryModuleVersionsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleVersion.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleVersionsResponse.typeUrl, QueryModuleVersionsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleVersionsResponse.aminoType, QueryModuleVersionsResponse.typeUrl);
 function createBaseQueryAuthorityRequest(): QueryAuthorityRequest {
   return {};
 }
@@ -932,10 +927,9 @@ export const QueryAuthorityRequest = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryAuthorityRequest",
       value: QueryAuthorityRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAuthorityRequest.typeUrl, QueryAuthorityRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAuthorityRequest.aminoType, QueryAuthorityRequest.typeUrl);
 function createBaseQueryAuthorityResponse(): QueryAuthorityResponse {
   return {
     address: ""
@@ -1010,7 +1004,6 @@ export const QueryAuthorityResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.QueryAuthorityResponse",
       value: QueryAuthorityResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAuthorityResponse.typeUrl, QueryAuthorityResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAuthorityResponse.aminoType, QueryAuthorityResponse.typeUrl);

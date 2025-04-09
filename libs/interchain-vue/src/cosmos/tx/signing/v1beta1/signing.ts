@@ -2,7 +2,6 @@ import { CompactBitArray, CompactBitArrayAmino } from "../../../crypto/multisig/
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * SignMode represents a signing mode with its own security guarantees.
  * 
@@ -308,10 +307,11 @@ export const SignatureDescriptors = {
       typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptors",
       value: SignatureDescriptors.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignatureDescriptor.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignatureDescriptors.typeUrl, SignatureDescriptors);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureDescriptors.aminoType, SignatureDescriptors.typeUrl);
 function createBaseSignatureDescriptor(): SignatureDescriptor {
   return {
     publicKey: undefined,
@@ -410,10 +410,11 @@ export const SignatureDescriptor = {
       typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptor",
       value: SignatureDescriptor.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignatureDescriptor_Data.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignatureDescriptor.typeUrl, SignatureDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureDescriptor.aminoType, SignatureDescriptor.typeUrl);
 function createBaseSignatureDescriptor_Data(): SignatureDescriptor_Data {
   return {
     single: undefined,
@@ -500,10 +501,12 @@ export const SignatureDescriptor_Data = {
       typeUrl: "/cosmos.tx.signing.v1beta1.Data",
       value: SignatureDescriptor_Data.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignatureDescriptor_Data_Single.registerTypeUrl();
+    SignatureDescriptor_Data_Multi.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignatureDescriptor_Data.typeUrl, SignatureDescriptor_Data);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureDescriptor_Data.aminoType, SignatureDescriptor_Data.typeUrl);
 function createBaseSignatureDescriptor_Data_Single(): SignatureDescriptor_Data_Single {
   return {
     mode: 0,
@@ -590,10 +593,9 @@ export const SignatureDescriptor_Data_Single = {
       typeUrl: "/cosmos.tx.signing.v1beta1.Single",
       value: SignatureDescriptor_Data_Single.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignatureDescriptor_Data_Single.typeUrl, SignatureDescriptor_Data_Single);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureDescriptor_Data_Single.aminoType, SignatureDescriptor_Data_Single.typeUrl);
 function createBaseSignatureDescriptor_Data_Multi(): SignatureDescriptor_Data_Multi {
   return {
     bitarray: undefined,
@@ -682,7 +684,9 @@ export const SignatureDescriptor_Data_Multi = {
       typeUrl: "/cosmos.tx.signing.v1beta1.Multi",
       value: SignatureDescriptor_Data_Multi.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CompactBitArray.registerTypeUrl();
+    SignatureDescriptor_Data.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignatureDescriptor_Data_Multi.typeUrl, SignatureDescriptor_Data_Multi);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureDescriptor_Data_Multi.aminoType, SignatureDescriptor_Data_Multi.typeUrl);

@@ -4,11 +4,13 @@ export const getQuery = buildQuery<QueryRequest, QueryResponse>({
   encode: QueryRequest.encode,
   decode: QueryResponse.decode,
   service: "cosmos.base.grpc.v2.Service",
-  method: "Query"
+  method: "Query",
+  deps: [QueryRequest, QueryResponse]
 });
 export const getListQueryHandlers = buildQuery<ListQueryHandlersRequest, ListQueryHandlersResponse>({
   encode: ListQueryHandlersRequest.encode,
   decode: ListQueryHandlersResponse.decode,
   service: "cosmos.base.grpc.v2.Service",
-  method: "ListQueryHandlers"
+  method: "ListQueryHandlers",
+  deps: [ListQueryHandlersRequest, ListQueryHandlersResponse]
 });

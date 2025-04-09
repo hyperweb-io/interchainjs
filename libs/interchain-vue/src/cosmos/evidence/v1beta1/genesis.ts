@@ -1,7 +1,6 @@
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the evidence module's genesis state. */
 export interface GenesisState {
   /** evidence defines all the evidence at genesis. */
@@ -96,7 +95,6 @@ export const GenesisState = {
       typeUrl: "/cosmos.evidence.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

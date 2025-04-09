@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Event, EventAmino } from "../../../../tendermint/abci/types";
 import { Block, BlockAmino } from "../../../../tendermint/types/block";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
@@ -644,10 +643,11 @@ export const TxResponse = {
       typeUrl: "/cosmos.base.abci.v1beta1.TxResponse",
       value: TxResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Event.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TxResponse.typeUrl, TxResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(TxResponse.aminoType, TxResponse.typeUrl);
 function createBaseABCIMessageLog(): ABCIMessageLog {
   return {
     msgIndex: 0,
@@ -748,10 +748,11 @@ export const ABCIMessageLog = {
       typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog",
       value: ABCIMessageLog.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    StringEvent.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ABCIMessageLog.typeUrl, ABCIMessageLog);
-GlobalDecoderRegistry.registerAminoProtoMapping(ABCIMessageLog.aminoType, ABCIMessageLog.typeUrl);
 function createBaseStringEvent(): StringEvent {
   return {
     type: "",
@@ -840,10 +841,11 @@ export const StringEvent = {
       typeUrl: "/cosmos.base.abci.v1beta1.StringEvent",
       value: StringEvent.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Attribute.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StringEvent.typeUrl, StringEvent);
-GlobalDecoderRegistry.registerAminoProtoMapping(StringEvent.aminoType, StringEvent.typeUrl);
 function createBaseAttribute(): Attribute {
   return {
     key: "",
@@ -930,10 +932,9 @@ export const Attribute = {
       typeUrl: "/cosmos.base.abci.v1beta1.Attribute",
       value: Attribute.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Attribute.typeUrl, Attribute);
-GlobalDecoderRegistry.registerAminoProtoMapping(Attribute.aminoType, Attribute.typeUrl);
 function createBaseGasInfo(): GasInfo {
   return {
     gasWanted: BigInt(0),
@@ -1020,10 +1021,9 @@ export const GasInfo = {
       typeUrl: "/cosmos.base.abci.v1beta1.GasInfo",
       value: GasInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GasInfo.typeUrl, GasInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(GasInfo.aminoType, GasInfo.typeUrl);
 function createBaseResult(): Result {
   return {
     data: new Uint8Array(),
@@ -1138,10 +1138,9 @@ export const Result = {
       typeUrl: "/cosmos.base.abci.v1beta1.Result",
       value: Result.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Result.typeUrl, Result);
-GlobalDecoderRegistry.registerAminoProtoMapping(Result.aminoType, Result.typeUrl);
 function createBaseSimulationResponse(): SimulationResponse {
   return {
     gasInfo: GasInfo.fromPartial({}),
@@ -1228,10 +1227,12 @@ export const SimulationResponse = {
       typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse",
       value: SimulationResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GasInfo.registerTypeUrl();
+    Result.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SimulationResponse.typeUrl, SimulationResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(SimulationResponse.aminoType, SimulationResponse.typeUrl);
 function createBaseMsgData(): MsgData {
   return {
     msgType: "",
@@ -1318,10 +1319,9 @@ export const MsgData = {
       typeUrl: "/cosmos.base.abci.v1beta1.MsgData",
       value: MsgData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgData.typeUrl, MsgData);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgData.aminoType, MsgData.typeUrl);
 function createBaseTxMsgData(): TxMsgData {
   return {
     data: [],
@@ -1412,10 +1412,9 @@ export const TxMsgData = {
       typeUrl: "/cosmos.base.abci.v1beta1.TxMsgData",
       value: TxMsgData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TxMsgData.typeUrl, TxMsgData);
-GlobalDecoderRegistry.registerAminoProtoMapping(TxMsgData.aminoType, TxMsgData.typeUrl);
 function createBaseSearchTxsResult(): SearchTxsResult {
   return {
     totalCount: BigInt(0),
@@ -1552,10 +1551,11 @@ export const SearchTxsResult = {
       typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult",
       value: SearchTxsResult.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TxResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SearchTxsResult.typeUrl, SearchTxsResult);
-GlobalDecoderRegistry.registerAminoProtoMapping(SearchTxsResult.aminoType, SearchTxsResult.typeUrl);
 function createBaseSearchBlocksResult(): SearchBlocksResult {
   return {
     totalCount: BigInt(0),
@@ -1692,7 +1692,8 @@ export const SearchBlocksResult = {
       typeUrl: "/cosmos.base.abci.v1beta1.SearchBlocksResult",
       value: SearchBlocksResult.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Block.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SearchBlocksResult.typeUrl, SearchBlocksResult);
-GlobalDecoderRegistry.registerAminoProtoMapping(SearchBlocksResult.aminoType, SearchBlocksResult.typeUrl);

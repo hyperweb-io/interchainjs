@@ -1,6 +1,5 @@
 import { Params, ParamsAmino, BandPriceState, BandPriceStateAmino, PriceFeedState, PriceFeedStateAmino, CoinbasePriceState, CoinbasePriceStateAmino, BandOracleRequest, BandOracleRequestAmino, BandIBCParams, BandIBCParamsAmino, ChainlinkPriceState, ChainlinkPriceStateAmino, PriceRecords, PriceRecordsAmino, ProviderState, ProviderStateAmino, PythPriceState, PythPriceStateAmino, StorkPriceState, StorkPriceStateAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisState {
@@ -353,9 +352,22 @@ export const GenesisState = {
       typeUrl: "/injective.oracle.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    BandPriceState.registerTypeUrl();
+    PriceFeedState.registerTypeUrl();
+    CoinbasePriceState.registerTypeUrl();
+    BandOracleRequest.registerTypeUrl();
+    BandIBCParams.registerTypeUrl();
+    CalldataRecord.registerTypeUrl();
+    ChainlinkPriceState.registerTypeUrl();
+    PriceRecords.registerTypeUrl();
+    ProviderState.registerTypeUrl();
+    PythPriceState.registerTypeUrl();
+    StorkPriceState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
 function createBaseCalldataRecord(): CalldataRecord {
   return {
     clientId: BigInt(0),
@@ -435,6 +447,6 @@ export const CalldataRecord = {
       typeUrl: "/injective.oracle.v1beta1.CalldataRecord",
       value: CalldataRecord.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(CalldataRecord.typeUrl, CalldataRecord);

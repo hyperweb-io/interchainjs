@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryAuctionParamsRequest is the request type for the Query/AuctionParams RPC
  * method.
@@ -220,9 +219,9 @@ export const QueryAuctionParamsRequest = {
       typeUrl: "/injective.auction.v1beta1.QueryAuctionParamsRequest",
       value: QueryAuctionParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAuctionParamsRequest.typeUrl, QueryAuctionParamsRequest);
 function createBaseQueryAuctionParamsResponse(): QueryAuctionParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -290,9 +289,11 @@ export const QueryAuctionParamsResponse = {
       typeUrl: "/injective.auction.v1beta1.QueryAuctionParamsResponse",
       value: QueryAuctionParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAuctionParamsResponse.typeUrl, QueryAuctionParamsResponse);
 function createBaseQueryCurrentAuctionBasketRequest(): QueryCurrentAuctionBasketRequest {
   return {};
 }
@@ -347,9 +348,9 @@ export const QueryCurrentAuctionBasketRequest = {
       typeUrl: "/injective.auction.v1beta1.QueryCurrentAuctionBasketRequest",
       value: QueryCurrentAuctionBasketRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCurrentAuctionBasketRequest.typeUrl, QueryCurrentAuctionBasketRequest);
 function createBaseQueryCurrentAuctionBasketResponse(): QueryCurrentAuctionBasketResponse {
   return {
     amount: [],
@@ -467,9 +468,11 @@ export const QueryCurrentAuctionBasketResponse = {
       typeUrl: "/injective.auction.v1beta1.QueryCurrentAuctionBasketResponse",
       value: QueryCurrentAuctionBasketResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCurrentAuctionBasketResponse.typeUrl, QueryCurrentAuctionBasketResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -524,9 +527,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.auction.v1beta1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -594,9 +597,11 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.auction.v1beta1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);
 function createBaseQueryLastAuctionResultRequest(): QueryLastAuctionResultRequest {
   return {};
 }
@@ -651,9 +656,9 @@ export const QueryLastAuctionResultRequest = {
       typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultRequest",
       value: QueryLastAuctionResultRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLastAuctionResultRequest.typeUrl, QueryLastAuctionResultRequest);
 function createBaseQueryLastAuctionResultResponse(): QueryLastAuctionResultResponse {
   return {
     lastAuctionResult: undefined
@@ -721,6 +726,8 @@ export const QueryLastAuctionResultResponse = {
       typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultResponse",
       value: QueryLastAuctionResultResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    LastAuctionResult.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLastAuctionResultResponse.typeUrl, QueryLastAuctionResultResponse);

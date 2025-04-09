@@ -398,10 +398,13 @@ export const StoreCodeAuthorization = {
       typeUrl: "/cosmwasm.wasm.v1.StoreCodeAuthorization",
       value: StoreCodeAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(StoreCodeAuthorization.typeUrl, StoreCodeAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(StoreCodeAuthorization.aminoType, StoreCodeAuthorization.typeUrl);
+    CodeGrant.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StoreCodeAuthorization.typeUrl, StoreCodeAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreCodeAuthorization.aminoType, StoreCodeAuthorization.typeUrl);
 function createBaseContractExecutionAuthorization(): ContractExecutionAuthorization {
   return {
     grants: []
@@ -478,10 +481,13 @@ export const ContractExecutionAuthorization = {
       typeUrl: "/cosmwasm.wasm.v1.ContractExecutionAuthorization",
       value: ContractExecutionAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ContractExecutionAuthorization.typeUrl, ContractExecutionAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ContractExecutionAuthorization.aminoType, ContractExecutionAuthorization.typeUrl);
+    ContractGrant.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ContractExecutionAuthorization.typeUrl, ContractExecutionAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContractExecutionAuthorization.aminoType, ContractExecutionAuthorization.typeUrl);
 function createBaseContractMigrationAuthorization(): ContractMigrationAuthorization {
   return {
     grants: []
@@ -558,10 +564,13 @@ export const ContractMigrationAuthorization = {
       typeUrl: "/cosmwasm.wasm.v1.ContractMigrationAuthorization",
       value: ContractMigrationAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ContractMigrationAuthorization.typeUrl, ContractMigrationAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ContractMigrationAuthorization.aminoType, ContractMigrationAuthorization.typeUrl);
+    ContractGrant.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ContractMigrationAuthorization.typeUrl, ContractMigrationAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContractMigrationAuthorization.aminoType, ContractMigrationAuthorization.typeUrl);
 function createBaseCodeGrant(): CodeGrant {
   return {
     codeHash: new Uint8Array(),
@@ -648,10 +657,11 @@ export const CodeGrant = {
       typeUrl: "/cosmwasm.wasm.v1.CodeGrant",
       value: CodeGrant.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CodeGrant.typeUrl, CodeGrant);
-GlobalDecoderRegistry.registerAminoProtoMapping(CodeGrant.aminoType, CodeGrant.typeUrl);
 function createBaseContractGrant(): ContractGrant {
   return {
     contract: "",
@@ -750,10 +760,13 @@ export const ContractGrant = {
       typeUrl: "/cosmwasm.wasm.v1.ContractGrant",
       value: ContractGrant.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AllowAllMessagesFilter.registerTypeUrl();
+    AcceptedMessageKeysFilter.registerTypeUrl();
+    AcceptedMessagesFilter.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ContractGrant.typeUrl, ContractGrant);
-GlobalDecoderRegistry.registerAminoProtoMapping(ContractGrant.aminoType, ContractGrant.typeUrl);
 function createBaseMaxCallsLimit(): MaxCallsLimit {
   return {
     remaining: BigInt(0)
@@ -828,10 +841,12 @@ export const MaxCallsLimit = {
       typeUrl: "/cosmwasm.wasm.v1.MaxCallsLimit",
       value: MaxCallsLimit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(MaxCallsLimit.typeUrl, MaxCallsLimit);
+    GlobalDecoderRegistry.registerAminoProtoMapping(MaxCallsLimit.aminoType, MaxCallsLimit.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(MaxCallsLimit.typeUrl, MaxCallsLimit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MaxCallsLimit.aminoType, MaxCallsLimit.typeUrl);
 function createBaseMaxFundsLimit(): MaxFundsLimit {
   return {
     amounts: []
@@ -908,10 +923,13 @@ export const MaxFundsLimit = {
       typeUrl: "/cosmwasm.wasm.v1.MaxFundsLimit",
       value: MaxFundsLimit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(MaxFundsLimit.typeUrl, MaxFundsLimit);
+    GlobalDecoderRegistry.registerAminoProtoMapping(MaxFundsLimit.aminoType, MaxFundsLimit.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MaxFundsLimit.typeUrl, MaxFundsLimit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MaxFundsLimit.aminoType, MaxFundsLimit.typeUrl);
 function createBaseCombinedLimit(): CombinedLimit {
   return {
     callsRemaining: BigInt(0),
@@ -1000,10 +1018,13 @@ export const CombinedLimit = {
       typeUrl: "/cosmwasm.wasm.v1.CombinedLimit",
       value: CombinedLimit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CombinedLimit.typeUrl, CombinedLimit);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CombinedLimit.aminoType, CombinedLimit.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CombinedLimit.typeUrl, CombinedLimit);
-GlobalDecoderRegistry.registerAminoProtoMapping(CombinedLimit.aminoType, CombinedLimit.typeUrl);
 function createBaseAllowAllMessagesFilter(): AllowAllMessagesFilter {
   return {};
 }
@@ -1065,10 +1086,12 @@ export const AllowAllMessagesFilter = {
       typeUrl: "/cosmwasm.wasm.v1.AllowAllMessagesFilter",
       value: AllowAllMessagesFilter.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(AllowAllMessagesFilter.typeUrl, AllowAllMessagesFilter);
+    GlobalDecoderRegistry.registerAminoProtoMapping(AllowAllMessagesFilter.aminoType, AllowAllMessagesFilter.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(AllowAllMessagesFilter.typeUrl, AllowAllMessagesFilter);
-GlobalDecoderRegistry.registerAminoProtoMapping(AllowAllMessagesFilter.aminoType, AllowAllMessagesFilter.typeUrl);
 function createBaseAcceptedMessageKeysFilter(): AcceptedMessageKeysFilter {
   return {
     keys: []
@@ -1145,10 +1168,12 @@ export const AcceptedMessageKeysFilter = {
       typeUrl: "/cosmwasm.wasm.v1.AcceptedMessageKeysFilter",
       value: AcceptedMessageKeysFilter.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(AcceptedMessageKeysFilter.typeUrl, AcceptedMessageKeysFilter);
+    GlobalDecoderRegistry.registerAminoProtoMapping(AcceptedMessageKeysFilter.aminoType, AcceptedMessageKeysFilter.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(AcceptedMessageKeysFilter.typeUrl, AcceptedMessageKeysFilter);
-GlobalDecoderRegistry.registerAminoProtoMapping(AcceptedMessageKeysFilter.aminoType, AcceptedMessageKeysFilter.typeUrl);
 function createBaseAcceptedMessagesFilter(): AcceptedMessagesFilter {
   return {
     messages: []
@@ -1225,7 +1250,9 @@ export const AcceptedMessagesFilter = {
       typeUrl: "/cosmwasm.wasm.v1.AcceptedMessagesFilter",
       value: AcceptedMessagesFilter.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(AcceptedMessagesFilter.typeUrl, AcceptedMessagesFilter);
+    GlobalDecoderRegistry.registerAminoProtoMapping(AcceptedMessagesFilter.aminoType, AcceptedMessagesFilter.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(AcceptedMessagesFilter.typeUrl, AcceptedMessagesFilter);
-GlobalDecoderRegistry.registerAminoProtoMapping(AcceptedMessagesFilter.aminoType, AcceptedMessagesFilter.typeUrl);

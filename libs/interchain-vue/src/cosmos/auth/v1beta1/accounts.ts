@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BaseAccount, BaseAccountAmino } from "./auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryLegacyAccount defines a query that can be implemented by an x/account
  * to return an auth understandable representation of an account.
@@ -130,10 +129,9 @@ export const QueryLegacyAccount = {
       typeUrl: "/cosmos.auth.v1beta1.QueryLegacyAccount",
       value: QueryLegacyAccount.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLegacyAccount.typeUrl, QueryLegacyAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryLegacyAccount.aminoType, QueryLegacyAccount.typeUrl);
 function createBaseQueryLegacyAccountResponse(): QueryLegacyAccountResponse {
   return {
     account: undefined,
@@ -220,7 +218,8 @@ export const QueryLegacyAccountResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryLegacyAccountResponse",
       value: QueryLegacyAccountResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLegacyAccountResponse.typeUrl, QueryLegacyAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryLegacyAccountResponse.aminoType, QueryLegacyAccountResponse.typeUrl);

@@ -2,7 +2,6 @@ import { ExecutionType, TradeLog, TradeLogAmino, DerivativeTradeLog, DerivativeT
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
 export interface EventBatchSpotExecution {
   marketId: string;
@@ -749,9 +748,11 @@ export const EventBatchSpotExecution = {
       typeUrl: "/injective.exchange.v1beta1.EventBatchSpotExecution",
       value: EventBatchSpotExecution.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TradeLog.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventBatchSpotExecution.typeUrl, EventBatchSpotExecution);
 function createBaseEventBatchDerivativeExecution(): EventBatchDerivativeExecution {
   return {
     marketId: "",
@@ -881,9 +882,11 @@ export const EventBatchDerivativeExecution = {
       typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativeExecution",
       value: EventBatchDerivativeExecution.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeTradeLog.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventBatchDerivativeExecution.typeUrl, EventBatchDerivativeExecution);
 function createBaseEventLostFundsFromLiquidation(): EventLostFundsFromLiquidation {
   return {
     marketId: "",
@@ -987,9 +990,9 @@ export const EventLostFundsFromLiquidation = {
       typeUrl: "/injective.exchange.v1beta1.EventLostFundsFromLiquidation",
       value: EventLostFundsFromLiquidation.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventLostFundsFromLiquidation.typeUrl, EventLostFundsFromLiquidation);
 function createBaseEventBatchDerivativePosition(): EventBatchDerivativePosition {
   return {
     marketId: "",
@@ -1071,9 +1074,11 @@ export const EventBatchDerivativePosition = {
       typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativePosition",
       value: EventBatchDerivativePosition.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SubaccountPosition.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventBatchDerivativePosition.typeUrl, EventBatchDerivativePosition);
 function createBaseEventDerivativeMarketPaused(): EventDerivativeMarketPaused {
   return {
     marketId: "",
@@ -1177,9 +1182,9 @@ export const EventDerivativeMarketPaused = {
       typeUrl: "/injective.exchange.v1beta1.EventDerivativeMarketPaused",
       value: EventDerivativeMarketPaused.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventDerivativeMarketPaused.typeUrl, EventDerivativeMarketPaused);
 function createBaseEventMarketBeyondBankruptcy(): EventMarketBeyondBankruptcy {
   return {
     marketId: "",
@@ -1271,9 +1276,9 @@ export const EventMarketBeyondBankruptcy = {
       typeUrl: "/injective.exchange.v1beta1.EventMarketBeyondBankruptcy",
       value: EventMarketBeyondBankruptcy.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventMarketBeyondBankruptcy.typeUrl, EventMarketBeyondBankruptcy);
 function createBaseEventAllPositionsHaircut(): EventAllPositionsHaircut {
   return {
     marketId: "",
@@ -1365,9 +1370,9 @@ export const EventAllPositionsHaircut = {
       typeUrl: "/injective.exchange.v1beta1.EventAllPositionsHaircut",
       value: EventAllPositionsHaircut.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAllPositionsHaircut.typeUrl, EventAllPositionsHaircut);
 function createBaseEventBinaryOptionsMarketUpdate(): EventBinaryOptionsMarketUpdate {
   return {
     market: BinaryOptionsMarket.fromPartial({})
@@ -1435,9 +1440,11 @@ export const EventBinaryOptionsMarketUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate",
       value: EventBinaryOptionsMarketUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BinaryOptionsMarket.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventBinaryOptionsMarketUpdate.typeUrl, EventBinaryOptionsMarketUpdate);
 function createBaseEventNewSpotOrders(): EventNewSpotOrders {
   return {
     marketId: "",
@@ -1533,9 +1540,11 @@ export const EventNewSpotOrders = {
       typeUrl: "/injective.exchange.v1beta1.EventNewSpotOrders",
       value: EventNewSpotOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotLimitOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventNewSpotOrders.typeUrl, EventNewSpotOrders);
 function createBaseEventNewDerivativeOrders(): EventNewDerivativeOrders {
   return {
     marketId: "",
@@ -1631,9 +1640,11 @@ export const EventNewDerivativeOrders = {
       typeUrl: "/injective.exchange.v1beta1.EventNewDerivativeOrders",
       value: EventNewDerivativeOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeLimitOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventNewDerivativeOrders.typeUrl, EventNewDerivativeOrders);
 function createBaseEventCancelSpotOrder(): EventCancelSpotOrder {
   return {
     marketId: "",
@@ -1713,9 +1724,11 @@ export const EventCancelSpotOrder = {
       typeUrl: "/injective.exchange.v1beta1.EventCancelSpotOrder",
       value: EventCancelSpotOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotLimitOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventCancelSpotOrder.typeUrl, EventCancelSpotOrder);
 function createBaseEventSpotMarketUpdate(): EventSpotMarketUpdate {
   return {
     market: SpotMarket.fromPartial({})
@@ -1783,9 +1796,11 @@ export const EventSpotMarketUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventSpotMarketUpdate",
       value: EventSpotMarketUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotMarket.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSpotMarketUpdate.typeUrl, EventSpotMarketUpdate);
 function createBaseEventPerpetualMarketUpdate(): EventPerpetualMarketUpdate {
   return {
     market: DerivativeMarket.fromPartial({}),
@@ -1877,9 +1892,13 @@ export const EventPerpetualMarketUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketUpdate",
       value: EventPerpetualMarketUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeMarket.registerTypeUrl();
+    PerpetualMarketInfo.registerTypeUrl();
+    PerpetualMarketFunding.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventPerpetualMarketUpdate.typeUrl, EventPerpetualMarketUpdate);
 function createBaseEventExpiryFuturesMarketUpdate(): EventExpiryFuturesMarketUpdate {
   return {
     market: DerivativeMarket.fromPartial({}),
@@ -1959,9 +1978,12 @@ export const EventExpiryFuturesMarketUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate",
       value: EventExpiryFuturesMarketUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeMarket.registerTypeUrl();
+    ExpiryFuturesMarketInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventExpiryFuturesMarketUpdate.typeUrl, EventExpiryFuturesMarketUpdate);
 function createBaseEventPerpetualMarketFundingUpdate(): EventPerpetualMarketFundingUpdate {
   return {
     marketId: "",
@@ -2077,9 +2099,11 @@ export const EventPerpetualMarketFundingUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate",
       value: EventPerpetualMarketFundingUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PerpetualMarketFunding.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventPerpetualMarketFundingUpdate.typeUrl, EventPerpetualMarketFundingUpdate);
 function createBaseEventSubaccountDeposit(): EventSubaccountDeposit {
   return {
     srcAddress: "",
@@ -2171,9 +2195,11 @@ export const EventSubaccountDeposit = {
       typeUrl: "/injective.exchange.v1beta1.EventSubaccountDeposit",
       value: EventSubaccountDeposit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSubaccountDeposit.typeUrl, EventSubaccountDeposit);
 function createBaseEventSubaccountWithdraw(): EventSubaccountWithdraw {
   return {
     subaccountId: new Uint8Array(),
@@ -2265,9 +2291,11 @@ export const EventSubaccountWithdraw = {
       typeUrl: "/injective.exchange.v1beta1.EventSubaccountWithdraw",
       value: EventSubaccountWithdraw.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSubaccountWithdraw.typeUrl, EventSubaccountWithdraw);
 function createBaseEventSubaccountBalanceTransfer(): EventSubaccountBalanceTransfer {
   return {
     srcSubaccountId: "",
@@ -2359,9 +2387,11 @@ export const EventSubaccountBalanceTransfer = {
       typeUrl: "/injective.exchange.v1beta1.EventSubaccountBalanceTransfer",
       value: EventSubaccountBalanceTransfer.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventSubaccountBalanceTransfer.typeUrl, EventSubaccountBalanceTransfer);
 function createBaseEventBatchDepositUpdate(): EventBatchDepositUpdate {
   return {
     depositUpdates: []
@@ -2431,9 +2461,11 @@ export const EventBatchDepositUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventBatchDepositUpdate",
       value: EventBatchDepositUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DepositUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventBatchDepositUpdate.typeUrl, EventBatchDepositUpdate);
 function createBaseDerivativeMarketOrderCancel(): DerivativeMarketOrderCancel {
   return {
     marketOrder: undefined,
@@ -2513,9 +2545,11 @@ export const DerivativeMarketOrderCancel = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderCancel",
       value: DerivativeMarketOrderCancel.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeMarketOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeMarketOrderCancel.typeUrl, DerivativeMarketOrderCancel);
 function createBaseEventCancelDerivativeOrder(): EventCancelDerivativeOrder {
   return {
     marketId: "",
@@ -2619,9 +2653,12 @@ export const EventCancelDerivativeOrder = {
       typeUrl: "/injective.exchange.v1beta1.EventCancelDerivativeOrder",
       value: EventCancelDerivativeOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeLimitOrder.registerTypeUrl();
+    DerivativeMarketOrderCancel.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventCancelDerivativeOrder.typeUrl, EventCancelDerivativeOrder);
 function createBaseEventFeeDiscountSchedule(): EventFeeDiscountSchedule {
   return {
     schedule: undefined
@@ -2689,9 +2726,11 @@ export const EventFeeDiscountSchedule = {
       typeUrl: "/injective.exchange.v1beta1.EventFeeDiscountSchedule",
       value: EventFeeDiscountSchedule.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FeeDiscountSchedule.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventFeeDiscountSchedule.typeUrl, EventFeeDiscountSchedule);
 function createBaseEventTradingRewardCampaignUpdate(): EventTradingRewardCampaignUpdate {
   return {
     campaignInfo: undefined,
@@ -2773,9 +2812,12 @@ export const EventTradingRewardCampaignUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventTradingRewardCampaignUpdate",
       value: EventTradingRewardCampaignUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TradingRewardCampaignInfo.registerTypeUrl();
+    CampaignRewardPool.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventTradingRewardCampaignUpdate.typeUrl, EventTradingRewardCampaignUpdate);
 function createBaseEventTradingRewardDistribution(): EventTradingRewardDistribution {
   return {
     accountRewards: []
@@ -2845,9 +2887,11 @@ export const EventTradingRewardDistribution = {
       typeUrl: "/injective.exchange.v1beta1.EventTradingRewardDistribution",
       value: EventTradingRewardDistribution.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccountRewards.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventTradingRewardDistribution.typeUrl, EventTradingRewardDistribution);
 function createBaseEventNewConditionalDerivativeOrder(): EventNewConditionalDerivativeOrder {
   return {
     marketId: "",
@@ -2951,9 +2995,11 @@ export const EventNewConditionalDerivativeOrder = {
       typeUrl: "/injective.exchange.v1beta1.EventNewConditionalDerivativeOrder",
       value: EventNewConditionalDerivativeOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventNewConditionalDerivativeOrder.typeUrl, EventNewConditionalDerivativeOrder);
 function createBaseEventCancelConditionalDerivativeOrder(): EventCancelConditionalDerivativeOrder {
   return {
     marketId: "",
@@ -3057,9 +3103,12 @@ export const EventCancelConditionalDerivativeOrder = {
       typeUrl: "/injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder",
       value: EventCancelConditionalDerivativeOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeLimitOrder.registerTypeUrl();
+    DerivativeMarketOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventCancelConditionalDerivativeOrder.typeUrl, EventCancelConditionalDerivativeOrder);
 function createBaseEventConditionalDerivativeOrderTrigger(): EventConditionalDerivativeOrderTrigger {
   return {
     marketId: new Uint8Array(),
@@ -3175,9 +3224,9 @@ export const EventConditionalDerivativeOrderTrigger = {
       typeUrl: "/injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger",
       value: EventConditionalDerivativeOrderTrigger.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventConditionalDerivativeOrderTrigger.typeUrl, EventConditionalDerivativeOrderTrigger);
 function createBaseEventOrderFail(): EventOrderFail {
   return {
     account: new Uint8Array(),
@@ -3296,9 +3345,9 @@ export const EventOrderFail = {
       typeUrl: "/injective.exchange.v1beta1.EventOrderFail",
       value: EventOrderFail.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventOrderFail.typeUrl, EventOrderFail);
 function createBaseEventAtomicMarketOrderFeeMultipliersUpdated(): EventAtomicMarketOrderFeeMultipliersUpdated {
   return {
     marketFeeMultipliers: []
@@ -3368,9 +3417,11 @@ export const EventAtomicMarketOrderFeeMultipliersUpdated = {
       typeUrl: "/injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated",
       value: EventAtomicMarketOrderFeeMultipliersUpdated.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MarketFeeMultiplier.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventAtomicMarketOrderFeeMultipliersUpdated.typeUrl, EventAtomicMarketOrderFeeMultipliersUpdated);
 function createBaseEventOrderbookUpdate(): EventOrderbookUpdate {
   return {
     spotUpdates: [],
@@ -3454,9 +3505,11 @@ export const EventOrderbookUpdate = {
       typeUrl: "/injective.exchange.v1beta1.EventOrderbookUpdate",
       value: EventOrderbookUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderbookUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventOrderbookUpdate.typeUrl, EventOrderbookUpdate);
 function createBaseOrderbookUpdate(): OrderbookUpdate {
   return {
     seq: BigInt(0),
@@ -3536,9 +3589,11 @@ export const OrderbookUpdate = {
       typeUrl: "/injective.exchange.v1beta1.OrderbookUpdate",
       value: OrderbookUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Orderbook.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(OrderbookUpdate.typeUrl, OrderbookUpdate);
 function createBaseOrderbook(): Orderbook {
   return {
     marketId: new Uint8Array(),
@@ -3634,9 +3689,11 @@ export const Orderbook = {
       typeUrl: "/injective.exchange.v1beta1.Orderbook",
       value: Orderbook.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Level.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Orderbook.typeUrl, Orderbook);
 function createBaseEventGrantAuthorizations(): EventGrantAuthorizations {
   return {
     granter: "",
@@ -3718,9 +3775,11 @@ export const EventGrantAuthorizations = {
       typeUrl: "/injective.exchange.v1beta1.EventGrantAuthorizations",
       value: EventGrantAuthorizations.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GrantAuthorization.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventGrantAuthorizations.typeUrl, EventGrantAuthorizations);
 function createBaseEventGrantActivation(): EventGrantActivation {
   return {
     grantee: "",
@@ -3812,9 +3871,9 @@ export const EventGrantActivation = {
       typeUrl: "/injective.exchange.v1beta1.EventGrantActivation",
       value: EventGrantActivation.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventGrantActivation.typeUrl, EventGrantActivation);
 function createBaseEventInvalidGrant(): EventInvalidGrant {
   return {
     grantee: "",
@@ -3894,9 +3953,9 @@ export const EventInvalidGrant = {
       typeUrl: "/injective.exchange.v1beta1.EventInvalidGrant",
       value: EventInvalidGrant.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventInvalidGrant.typeUrl, EventInvalidGrant);
 function createBaseEventOrderCancelFail(): EventOrderCancelFail {
   return {
     marketId: "",
@@ -4012,6 +4071,6 @@ export const EventOrderCancelFail = {
       typeUrl: "/injective.exchange.v1beta1.EventOrderCancelFail",
       value: EventOrderCancelFail.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventOrderCancelFail.typeUrl, EventOrderCancelFail);

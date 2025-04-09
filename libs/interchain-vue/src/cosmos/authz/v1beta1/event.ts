@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** EventGrant is emitted on Msg/Grant */
 export interface EventGrant {
   /** Msg type URL for which an autorization is granted */
@@ -151,10 +150,9 @@ export const EventGrant = {
       typeUrl: "/cosmos.authz.v1beta1.EventGrant",
       value: EventGrant.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventGrant.typeUrl, EventGrant);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventGrant.aminoType, EventGrant.typeUrl);
 function createBaseEventRevoke(): EventRevoke {
   return {
     msgTypeUrl: "",
@@ -253,7 +251,6 @@ export const EventRevoke = {
       typeUrl: "/cosmos.authz.v1beta1.EventRevoke",
       value: EventRevoke.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventRevoke.typeUrl, EventRevoke);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventRevoke.aminoType, EventRevoke.typeUrl);

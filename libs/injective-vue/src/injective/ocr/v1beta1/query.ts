@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsRequest";
@@ -256,9 +255,9 @@ export const QueryParamsRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -326,9 +325,11 @@ export const QueryParamsResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
 function createBaseQueryFeedConfigRequest(): QueryFeedConfigRequest {
   return {
     feedId: ""
@@ -396,9 +397,9 @@ export const QueryFeedConfigRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigRequest",
       value: QueryFeedConfigRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryFeedConfigRequest.typeUrl, QueryFeedConfigRequest);
 function createBaseQueryFeedConfigResponse(): QueryFeedConfigResponse {
   return {
     feedConfigInfo: undefined,
@@ -478,9 +479,12 @@ export const QueryFeedConfigResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigResponse",
       value: QueryFeedConfigResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FeedConfigInfo.registerTypeUrl();
+    FeedConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryFeedConfigResponse.typeUrl, QueryFeedConfigResponse);
 function createBaseQueryFeedConfigInfoRequest(): QueryFeedConfigInfoRequest {
   return {
     feedId: ""
@@ -548,9 +552,9 @@ export const QueryFeedConfigInfoRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoRequest",
       value: QueryFeedConfigInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryFeedConfigInfoRequest.typeUrl, QueryFeedConfigInfoRequest);
 function createBaseQueryFeedConfigInfoResponse(): QueryFeedConfigInfoResponse {
   return {
     feedConfigInfo: undefined,
@@ -630,9 +634,12 @@ export const QueryFeedConfigInfoResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoResponse",
       value: QueryFeedConfigInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FeedConfigInfo.registerTypeUrl();
+    EpochAndRound.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryFeedConfigInfoResponse.typeUrl, QueryFeedConfigInfoResponse);
 function createBaseQueryLatestRoundRequest(): QueryLatestRoundRequest {
   return {
     feedId: ""
@@ -700,9 +707,9 @@ export const QueryLatestRoundRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundRequest",
       value: QueryLatestRoundRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLatestRoundRequest.typeUrl, QueryLatestRoundRequest);
 function createBaseQueryLatestRoundResponse(): QueryLatestRoundResponse {
   return {
     latestRoundId: BigInt(0),
@@ -782,9 +789,11 @@ export const QueryLatestRoundResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundResponse",
       value: QueryLatestRoundResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Transmission.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLatestRoundResponse.typeUrl, QueryLatestRoundResponse);
 function createBaseQueryLatestTransmissionDetailsRequest(): QueryLatestTransmissionDetailsRequest {
   return {
     feedId: ""
@@ -852,9 +861,9 @@ export const QueryLatestTransmissionDetailsRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest",
       value: QueryLatestTransmissionDetailsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLatestTransmissionDetailsRequest.typeUrl, QueryLatestTransmissionDetailsRequest);
 function createBaseQueryLatestTransmissionDetailsResponse(): QueryLatestTransmissionDetailsResponse {
   return {
     configDigest: new Uint8Array(),
@@ -946,9 +955,12 @@ export const QueryLatestTransmissionDetailsResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse",
       value: QueryLatestTransmissionDetailsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    EpochAndRound.registerTypeUrl();
+    Transmission.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLatestTransmissionDetailsResponse.typeUrl, QueryLatestTransmissionDetailsResponse);
 function createBaseQueryOwedAmountRequest(): QueryOwedAmountRequest {
   return {
     transmitter: ""
@@ -1016,9 +1028,9 @@ export const QueryOwedAmountRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountRequest",
       value: QueryOwedAmountRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryOwedAmountRequest.typeUrl, QueryOwedAmountRequest);
 function createBaseQueryOwedAmountResponse(): QueryOwedAmountResponse {
   return {
     amount: Coin.fromPartial({})
@@ -1086,9 +1098,11 @@ export const QueryOwedAmountResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountResponse",
       value: QueryOwedAmountResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOwedAmountResponse.typeUrl, QueryOwedAmountResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -1143,9 +1157,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.ocr.v1beta1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -1213,6 +1227,8 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.ocr.v1beta1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);

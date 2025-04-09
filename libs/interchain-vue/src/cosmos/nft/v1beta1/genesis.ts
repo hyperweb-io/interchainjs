@@ -1,7 +1,6 @@
 import { Class, ClassAmino, NFT, NFTAmino } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the nft module's genesis state. */
 export interface GenesisState {
   /** class defines the class of the nft type. */
@@ -136,10 +135,12 @@ export const GenesisState = {
       typeUrl: "/cosmos.nft.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Class.registerTypeUrl();
+    Entry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseEntry(): Entry {
   return {
     owner: "",
@@ -228,7 +229,8 @@ export const Entry = {
       typeUrl: "/cosmos.nft.v1beta1.Entry",
       value: Entry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    NFT.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Entry.typeUrl, Entry);
-GlobalDecoderRegistry.registerAminoProtoMapping(Entry.aminoType, Entry.typeUrl);

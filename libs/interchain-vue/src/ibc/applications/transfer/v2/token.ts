@@ -1,6 +1,5 @@
 import { Hop, HopAmino } from "../v1/transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Token defines a struct which represents a token to be transferred. */
 export interface Token {
@@ -132,10 +131,11 @@ export const Token = {
       typeUrl: "/ibc.applications.transfer.v2.Token",
       value: Token.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Denom.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Token.typeUrl, Token);
-GlobalDecoderRegistry.registerAminoProtoMapping(Token.aminoType, Token.typeUrl);
 function createBaseDenom(): Denom {
   return {
     base: "",
@@ -224,7 +224,8 @@ export const Denom = {
       typeUrl: "/ibc.applications.transfer.v2.Denom",
       value: Denom.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Hop.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Denom.typeUrl, Denom);
-GlobalDecoderRegistry.registerAminoProtoMapping(Denom.aminoType, Denom.typeUrl);

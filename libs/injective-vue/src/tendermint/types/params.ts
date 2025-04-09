@@ -1,6 +1,5 @@
 import { Duration, DurationAmino } from "../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial } from "../../helpers";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
@@ -339,9 +338,15 @@ export const ConsensusParams = {
       typeUrl: "/tendermint.types.ConsensusParams",
       value: ConsensusParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BlockParams.registerTypeUrl();
+    EvidenceParams.registerTypeUrl();
+    ValidatorParams.registerTypeUrl();
+    VersionParams.registerTypeUrl();
+    ABCIParams.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ConsensusParams.typeUrl, ConsensusParams);
 function createBaseBlockParams(): BlockParams {
   return {
     maxBytes: BigInt(0),
@@ -421,9 +426,9 @@ export const BlockParams = {
       typeUrl: "/tendermint.types.BlockParams",
       value: BlockParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BlockParams.typeUrl, BlockParams);
 function createBaseEvidenceParams(): EvidenceParams {
   return {
     maxAgeNumBlocks: BigInt(0),
@@ -515,9 +520,9 @@ export const EvidenceParams = {
       typeUrl: "/tendermint.types.EvidenceParams",
       value: EvidenceParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EvidenceParams.typeUrl, EvidenceParams);
 function createBaseValidatorParams(): ValidatorParams {
   return {
     pubKeyTypes: []
@@ -587,9 +592,9 @@ export const ValidatorParams = {
       typeUrl: "/tendermint.types.ValidatorParams",
       value: ValidatorParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ValidatorParams.typeUrl, ValidatorParams);
 function createBaseVersionParams(): VersionParams {
   return {
     app: BigInt(0)
@@ -657,9 +662,9 @@ export const VersionParams = {
       typeUrl: "/tendermint.types.VersionParams",
       value: VersionParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(VersionParams.typeUrl, VersionParams);
 function createBaseHashedParams(): HashedParams {
   return {
     blockMaxBytes: BigInt(0),
@@ -739,9 +744,9 @@ export const HashedParams = {
       typeUrl: "/tendermint.types.HashedParams",
       value: HashedParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(HashedParams.typeUrl, HashedParams);
 function createBaseABCIParams(): ABCIParams {
   return {
     voteExtensionsEnableHeight: BigInt(0)
@@ -809,6 +814,6 @@ export const ABCIParams = {
       typeUrl: "/tendermint.types.ABCIParams",
       value: ABCIParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ABCIParams.typeUrl, ABCIParams);

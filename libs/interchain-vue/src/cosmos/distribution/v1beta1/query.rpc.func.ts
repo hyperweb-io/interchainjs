@@ -4,59 +4,69 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "Params"
+  method: "Params",
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const getValidatorDistributionInfo = buildQuery<QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse>({
   encode: QueryValidatorDistributionInfoRequest.encode,
   decode: QueryValidatorDistributionInfoResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "ValidatorDistributionInfo"
+  method: "ValidatorDistributionInfo",
+  deps: [QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse]
 });
 export const getValidatorOutstandingRewards = buildQuery<QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse>({
   encode: QueryValidatorOutstandingRewardsRequest.encode,
   decode: QueryValidatorOutstandingRewardsResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "ValidatorOutstandingRewards"
+  method: "ValidatorOutstandingRewards",
+  deps: [QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse]
 });
 export const getValidatorCommission = buildQuery<QueryValidatorCommissionRequest, QueryValidatorCommissionResponse>({
   encode: QueryValidatorCommissionRequest.encode,
   decode: QueryValidatorCommissionResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "ValidatorCommission"
+  method: "ValidatorCommission",
+  deps: [QueryValidatorCommissionRequest, QueryValidatorCommissionResponse]
 });
 export const getValidatorSlashes = buildQuery<QueryValidatorSlashesRequest, QueryValidatorSlashesResponse>({
   encode: QueryValidatorSlashesRequest.encode,
   decode: QueryValidatorSlashesResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "ValidatorSlashes"
+  method: "ValidatorSlashes",
+  deps: [QueryValidatorSlashesRequest, QueryValidatorSlashesResponse]
 });
 export const getDelegationRewards = buildQuery<QueryDelegationRewardsRequest, QueryDelegationRewardsResponse>({
   encode: QueryDelegationRewardsRequest.encode,
   decode: QueryDelegationRewardsResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "DelegationRewards"
+  method: "DelegationRewards",
+  deps: [QueryDelegationRewardsRequest, QueryDelegationRewardsResponse]
 });
 export const getDelegationTotalRewards = buildQuery<QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse>({
   encode: QueryDelegationTotalRewardsRequest.encode,
   decode: QueryDelegationTotalRewardsResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "DelegationTotalRewards"
+  method: "DelegationTotalRewards",
+  deps: [QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse]
 });
 export const getDelegatorValidators = buildQuery<QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse>({
   encode: QueryDelegatorValidatorsRequest.encode,
   decode: QueryDelegatorValidatorsResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "DelegatorValidators"
+  method: "DelegatorValidators",
+  deps: [QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse]
 });
 export const getDelegatorWithdrawAddress = buildQuery<QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse>({
   encode: QueryDelegatorWithdrawAddressRequest.encode,
   decode: QueryDelegatorWithdrawAddressResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "DelegatorWithdrawAddress"
+  method: "DelegatorWithdrawAddress",
+  deps: [QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse]
 });
 export const getCommunityPool = buildQuery<QueryCommunityPoolRequest, QueryCommunityPoolResponse>({
   encode: QueryCommunityPoolRequest.encode,
   decode: QueryCommunityPoolResponse.decode,
   service: "cosmos.distribution.v1beta1.Query",
-  method: "CommunityPool"
+  method: "CommunityPool",
+  deps: [QueryCommunityPoolRequest, QueryCommunityPoolResponse]
 });

@@ -1,6 +1,5 @@
 import { Params, ParamsAmino, Validator, ValidatorAmino, Delegation, DelegationAmino, UnbondingDelegation, UnbondingDelegationAmino, Redelegation, RedelegationAmino } from "./staking";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisState {
@@ -250,10 +249,16 @@ export const GenesisState = {
       typeUrl: "/cosmos.staking.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    LastValidatorPower.registerTypeUrl();
+    Validator.registerTypeUrl();
+    Delegation.registerTypeUrl();
+    UnbondingDelegation.registerTypeUrl();
+    Redelegation.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseLastValidatorPower(): LastValidatorPower {
   return {
     address: "",
@@ -340,7 +345,6 @@ export const LastValidatorPower = {
       typeUrl: "/cosmos.staking.v1beta1.LastValidatorPower",
       value: LastValidatorPower.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(LastValidatorPower.typeUrl, LastValidatorPower);
-GlobalDecoderRegistry.registerAminoProtoMapping(LastValidatorPower.aminoType, LastValidatorPower.typeUrl);

@@ -1,6 +1,5 @@
 import { RegisteredContract, RegisteredContractAmino, Params, ParamsAmino } from "./wasmx";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 export interface RegisteredContractWithAddress {
   address: string;
@@ -125,9 +124,11 @@ export const RegisteredContractWithAddress = {
       typeUrl: "/injective.wasmx.v1.RegisteredContractWithAddress",
       value: RegisteredContractWithAddress.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RegisteredContract.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RegisteredContractWithAddress.typeUrl, RegisteredContractWithAddress);
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
@@ -209,6 +210,9 @@ export const GenesisState = {
       typeUrl: "/injective.wasmx.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    RegisteredContractWithAddress.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);

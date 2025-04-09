@@ -3,7 +3,6 @@ import { EvidenceList, EvidenceListAmino } from "../../../../tendermint/types/ev
 import { Consensus, ConsensusAmino } from "../../../../tendermint/version/types";
 import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * Block is tendermint type Block, with the Header proposer address
@@ -215,10 +214,14 @@ export const Block = {
       typeUrl: "/cosmos.base.tendermint.v1beta1.Block",
       value: Block.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Header.registerTypeUrl();
+    Data.registerTypeUrl();
+    EvidenceList.registerTypeUrl();
+    Commit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Block.typeUrl, Block);
-GlobalDecoderRegistry.registerAminoProtoMapping(Block.aminoType, Block.typeUrl);
 function createBaseHeader(): Header {
   return {
     version: Consensus.fromPartial({}),
@@ -449,7 +452,9 @@ export const Header = {
       typeUrl: "/cosmos.base.tendermint.v1beta1.Header",
       value: Header.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Consensus.registerTypeUrl();
+    BlockID.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Header.typeUrl, Header);
-GlobalDecoderRegistry.registerAminoProtoMapping(Header.aminoType, Header.typeUrl);

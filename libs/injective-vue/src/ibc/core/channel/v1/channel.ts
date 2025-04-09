@@ -1,7 +1,6 @@
 import { Height, HeightAmino } from "../../client/v1/client";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * State defines if a channel is in one of the following states:
  * CLOSED, INIT, TRYOPEN, OPEN, FLUSHING, FLUSHCOMPLETE or UNINITIALIZED.
@@ -614,10 +613,11 @@ export const Channel = {
       typeUrl: "/ibc.core.channel.v1.Channel",
       value: Channel.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Counterparty.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Channel.typeUrl, Channel);
-GlobalDecoderRegistry.registerAminoProtoMapping(Channel.aminoType, Channel.typeUrl);
 function createBaseIdentifiedChannel(): IdentifiedChannel {
   return {
     state: 0,
@@ -778,10 +778,11 @@ export const IdentifiedChannel = {
       typeUrl: "/ibc.core.channel.v1.IdentifiedChannel",
       value: IdentifiedChannel.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Counterparty.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(IdentifiedChannel.typeUrl, IdentifiedChannel);
-GlobalDecoderRegistry.registerAminoProtoMapping(IdentifiedChannel.aminoType, IdentifiedChannel.typeUrl);
 function createBaseCounterparty(): Counterparty {
   return {
     portId: "",
@@ -868,10 +869,9 @@ export const Counterparty = {
       typeUrl: "/ibc.core.channel.v1.Counterparty",
       value: Counterparty.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Counterparty.typeUrl, Counterparty);
-GlobalDecoderRegistry.registerAminoProtoMapping(Counterparty.aminoType, Counterparty.typeUrl);
 function createBasePacket(): Packet {
   return {
     sequence: BigInt(0),
@@ -1030,10 +1030,11 @@ export const Packet = {
       typeUrl: "/ibc.core.channel.v1.Packet",
       value: Packet.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Packet.typeUrl, Packet);
-GlobalDecoderRegistry.registerAminoProtoMapping(Packet.aminoType, Packet.typeUrl);
 function createBasePacketState(): PacketState {
   return {
     portId: "",
@@ -1144,10 +1145,9 @@ export const PacketState = {
       typeUrl: "/ibc.core.channel.v1.PacketState",
       value: PacketState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PacketState.typeUrl, PacketState);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketState.aminoType, PacketState.typeUrl);
 function createBasePacketId(): PacketId {
   return {
     portId: "",
@@ -1246,10 +1246,9 @@ export const PacketId = {
       typeUrl: "/ibc.core.channel.v1.PacketId",
       value: PacketId.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PacketId.typeUrl, PacketId);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketId.aminoType, PacketId.typeUrl);
 function createBaseAcknowledgement(): Acknowledgement {
   return {
     result: undefined,
@@ -1336,10 +1335,9 @@ export const Acknowledgement = {
       typeUrl: "/ibc.core.channel.v1.Acknowledgement",
       value: Acknowledgement.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Acknowledgement.typeUrl, Acknowledgement);
-GlobalDecoderRegistry.registerAminoProtoMapping(Acknowledgement.aminoType, Acknowledgement.typeUrl);
 function createBaseTimeout(): Timeout {
   return {
     height: Height.fromPartial({}),
@@ -1426,10 +1424,11 @@ export const Timeout = {
       typeUrl: "/ibc.core.channel.v1.Timeout",
       value: Timeout.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Timeout.typeUrl, Timeout);
-GlobalDecoderRegistry.registerAminoProtoMapping(Timeout.aminoType, Timeout.typeUrl);
 function createBaseParams(): Params {
   return {
     upgradeTimeout: Timeout.fromPartial({})
@@ -1504,7 +1503,8 @@ export const Params = {
       typeUrl: "/ibc.core.channel.v1.Params",
       value: Params.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Timeout.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);

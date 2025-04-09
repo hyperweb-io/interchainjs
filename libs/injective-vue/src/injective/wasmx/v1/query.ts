@@ -2,7 +2,6 @@ import { Params, ParamsAmino, RegisteredContract, RegisteredContractAmino } from
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryWasmxParamsRequest is the request type for the Query/WasmxParams RPC
  * method.
@@ -167,9 +166,9 @@ export const QueryWasmxParamsRequest = {
       typeUrl: "/injective.wasmx.v1.QueryWasmxParamsRequest",
       value: QueryWasmxParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryWasmxParamsRequest.typeUrl, QueryWasmxParamsRequest);
 function createBaseQueryWasmxParamsResponse(): QueryWasmxParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -237,9 +236,11 @@ export const QueryWasmxParamsResponse = {
       typeUrl: "/injective.wasmx.v1.QueryWasmxParamsResponse",
       value: QueryWasmxParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryWasmxParamsResponse.typeUrl, QueryWasmxParamsResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -294,9 +295,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.wasmx.v1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -364,9 +365,11 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.wasmx.v1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);
 function createBaseQueryContractRegistrationInfoRequest(): QueryContractRegistrationInfoRequest {
   return {
     contractAddress: ""
@@ -434,9 +437,9 @@ export const QueryContractRegistrationInfoRequest = {
       typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoRequest",
       value: QueryContractRegistrationInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryContractRegistrationInfoRequest.typeUrl, QueryContractRegistrationInfoRequest);
 function createBaseQueryContractRegistrationInfoResponse(): QueryContractRegistrationInfoResponse {
   return {
     contract: undefined
@@ -504,6 +507,8 @@ export const QueryContractRegistrationInfoResponse = {
       typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoResponse",
       value: QueryContractRegistrationInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RegisteredContract.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryContractRegistrationInfoResponse.typeUrl, QueryContractRegistrationInfoResponse);

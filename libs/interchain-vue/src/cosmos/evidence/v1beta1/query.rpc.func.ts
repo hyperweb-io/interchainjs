@@ -4,11 +4,13 @@ export const getEvidence = buildQuery<QueryEvidenceRequest, QueryEvidenceRespons
   encode: QueryEvidenceRequest.encode,
   decode: QueryEvidenceResponse.decode,
   service: "cosmos.evidence.v1beta1.Query",
-  method: "Evidence"
+  method: "Evidence",
+  deps: [QueryEvidenceRequest, QueryEvidenceResponse]
 });
 export const getAllEvidence = buildQuery<QueryAllEvidenceRequest, QueryAllEvidenceResponse>({
   encode: QueryAllEvidenceRequest.encode,
   decode: QueryAllEvidenceResponse.decode,
   service: "cosmos.evidence.v1beta1.Query",
-  method: "AllEvidence"
+  method: "AllEvidence",
+  deps: [QueryAllEvidenceRequest, QueryAllEvidenceResponse]
 });
