@@ -1,7 +1,6 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * Type defines a classification of message issued from a controller chain to its associated interchain accounts
  * host
@@ -173,10 +172,9 @@ export const InterchainAccountPacketData = {
       typeUrl: "/ibc.applications.interchain_accounts.v1.InterchainAccountPacketData",
       value: InterchainAccountPacketData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(InterchainAccountPacketData.typeUrl, InterchainAccountPacketData);
-GlobalDecoderRegistry.registerAminoProtoMapping(InterchainAccountPacketData.aminoType, InterchainAccountPacketData.typeUrl);
 function createBaseCosmosTx(): CosmosTx {
   return {
     messages: []
@@ -253,7 +251,6 @@ export const CosmosTx = {
       typeUrl: "/ibc.applications.interchain_accounts.v1.CosmosTx",
       value: CosmosTx.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(CosmosTx.typeUrl, CosmosTx);
-GlobalDecoderRegistry.registerAminoProtoMapping(CosmosTx.aminoType, CosmosTx.typeUrl);

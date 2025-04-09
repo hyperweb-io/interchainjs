@@ -834,10 +834,13 @@ export const StoreCodeProposal = {
       typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal",
       value: StoreCodeProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(StoreCodeProposal.typeUrl, StoreCodeProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(StoreCodeProposal.aminoType, StoreCodeProposal.typeUrl);
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StoreCodeProposal.typeUrl, StoreCodeProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreCodeProposal.aminoType, StoreCodeProposal.typeUrl);
 function createBaseInstantiateContractProposal(): InstantiateContractProposal {
   return {
     title: "",
@@ -998,10 +1001,13 @@ export const InstantiateContractProposal = {
       typeUrl: "/cosmwasm.wasm.v1.InstantiateContractProposal",
       value: InstantiateContractProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(InstantiateContractProposal.typeUrl, InstantiateContractProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(InstantiateContractProposal.aminoType, InstantiateContractProposal.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(InstantiateContractProposal.typeUrl, InstantiateContractProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(InstantiateContractProposal.aminoType, InstantiateContractProposal.typeUrl);
 function createBaseInstantiateContract2Proposal(): InstantiateContract2Proposal {
   return {
     title: "",
@@ -1186,10 +1192,13 @@ export const InstantiateContract2Proposal = {
       typeUrl: "/cosmwasm.wasm.v1.InstantiateContract2Proposal",
       value: InstantiateContract2Proposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(InstantiateContract2Proposal.typeUrl, InstantiateContract2Proposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(InstantiateContract2Proposal.aminoType, InstantiateContract2Proposal.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(InstantiateContract2Proposal.typeUrl, InstantiateContract2Proposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(InstantiateContract2Proposal.aminoType, InstantiateContract2Proposal.typeUrl);
 function createBaseMigrateContractProposal(): MigrateContractProposal {
   return {
     title: "",
@@ -1312,10 +1321,12 @@ export const MigrateContractProposal = {
       typeUrl: "/cosmwasm.wasm.v1.MigrateContractProposal",
       value: MigrateContractProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(MigrateContractProposal.typeUrl, MigrateContractProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(MigrateContractProposal.aminoType, MigrateContractProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(MigrateContractProposal.typeUrl, MigrateContractProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(MigrateContractProposal.aminoType, MigrateContractProposal.typeUrl);
 function createBaseSudoContractProposal(): SudoContractProposal {
   return {
     title: "",
@@ -1426,10 +1437,12 @@ export const SudoContractProposal = {
       typeUrl: "/cosmwasm.wasm.v1.SudoContractProposal",
       value: SudoContractProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(SudoContractProposal.typeUrl, SudoContractProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(SudoContractProposal.aminoType, SudoContractProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(SudoContractProposal.typeUrl, SudoContractProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(SudoContractProposal.aminoType, SudoContractProposal.typeUrl);
 function createBaseExecuteContractProposal(): ExecuteContractProposal {
   return {
     title: "",
@@ -1566,10 +1579,13 @@ export const ExecuteContractProposal = {
       typeUrl: "/cosmwasm.wasm.v1.ExecuteContractProposal",
       value: ExecuteContractProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ExecuteContractProposal.typeUrl, ExecuteContractProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ExecuteContractProposal.aminoType, ExecuteContractProposal.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExecuteContractProposal.typeUrl, ExecuteContractProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(ExecuteContractProposal.aminoType, ExecuteContractProposal.typeUrl);
 function createBaseUpdateAdminProposal(): UpdateAdminProposal {
   return {
     title: "",
@@ -1680,10 +1696,12 @@ export const UpdateAdminProposal = {
       typeUrl: "/cosmwasm.wasm.v1.UpdateAdminProposal",
       value: UpdateAdminProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(UpdateAdminProposal.typeUrl, UpdateAdminProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(UpdateAdminProposal.aminoType, UpdateAdminProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(UpdateAdminProposal.typeUrl, UpdateAdminProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(UpdateAdminProposal.aminoType, UpdateAdminProposal.typeUrl);
 function createBaseClearAdminProposal(): ClearAdminProposal {
   return {
     title: "",
@@ -1782,10 +1800,12 @@ export const ClearAdminProposal = {
       typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal",
       value: ClearAdminProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ClearAdminProposal.typeUrl, ClearAdminProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ClearAdminProposal.aminoType, ClearAdminProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(ClearAdminProposal.typeUrl, ClearAdminProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClearAdminProposal.aminoType, ClearAdminProposal.typeUrl);
 function createBasePinCodesProposal(): PinCodesProposal {
   return {
     title: "",
@@ -1895,10 +1915,12 @@ export const PinCodesProposal = {
       typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal",
       value: PinCodesProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(PinCodesProposal.typeUrl, PinCodesProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(PinCodesProposal.aminoType, PinCodesProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(PinCodesProposal.typeUrl, PinCodesProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(PinCodesProposal.aminoType, PinCodesProposal.typeUrl);
 function createBaseUnpinCodesProposal(): UnpinCodesProposal {
   return {
     title: "",
@@ -2008,10 +2030,12 @@ export const UnpinCodesProposal = {
       typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal",
       value: UnpinCodesProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(UnpinCodesProposal.typeUrl, UnpinCodesProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(UnpinCodesProposal.aminoType, UnpinCodesProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(UnpinCodesProposal.typeUrl, UnpinCodesProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(UnpinCodesProposal.aminoType, UnpinCodesProposal.typeUrl);
 function createBaseAccessConfigUpdate(): AccessConfigUpdate {
   return {
     codeId: BigInt(0),
@@ -2098,10 +2122,11 @@ export const AccessConfigUpdate = {
       typeUrl: "/cosmwasm.wasm.v1.AccessConfigUpdate",
       value: AccessConfigUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AccessConfigUpdate.typeUrl, AccessConfigUpdate);
-GlobalDecoderRegistry.registerAminoProtoMapping(AccessConfigUpdate.aminoType, AccessConfigUpdate.typeUrl);
 function createBaseUpdateInstantiateConfigProposal(): UpdateInstantiateConfigProposal {
   return {
     title: "",
@@ -2202,10 +2227,13 @@ export const UpdateInstantiateConfigProposal = {
       typeUrl: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal",
       value: UpdateInstantiateConfigProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(UpdateInstantiateConfigProposal.typeUrl, UpdateInstantiateConfigProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(UpdateInstantiateConfigProposal.aminoType, UpdateInstantiateConfigProposal.typeUrl);
+    AccessConfigUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(UpdateInstantiateConfigProposal.typeUrl, UpdateInstantiateConfigProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(UpdateInstantiateConfigProposal.aminoType, UpdateInstantiateConfigProposal.typeUrl);
 function createBaseStoreAndInstantiateContractProposal(): StoreAndInstantiateContractProposal {
   return {
     title: "",
@@ -2426,7 +2454,11 @@ export const StoreAndInstantiateContractProposal = {
       typeUrl: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal",
       value: StoreAndInstantiateContractProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(StoreAndInstantiateContractProposal.typeUrl, StoreAndInstantiateContractProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(StoreAndInstantiateContractProposal.aminoType, StoreAndInstantiateContractProposal.typeUrl);
+    AccessConfig.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StoreAndInstantiateContractProposal.typeUrl, StoreAndInstantiateContractProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreAndInstantiateContractProposal.aminoType, StoreAndInstantiateContractProposal.typeUrl);

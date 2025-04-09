@@ -1,7 +1,6 @@
 import { ModuleOptions, ModuleOptionsAmino } from "./options";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
 export interface AppOptionsRequest {}
 export interface AppOptionsRequestProtoMsg {
@@ -113,10 +112,9 @@ export const AppOptionsRequest = {
       typeUrl: "/cosmos.autocli.v1.AppOptionsRequest",
       value: AppOptionsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AppOptionsRequest.typeUrl, AppOptionsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(AppOptionsRequest.aminoType, AppOptionsRequest.typeUrl);
 function createBaseAppOptionsResponse_ModuleOptionsEntry(): AppOptionsResponse_ModuleOptionsEntry {
   return {
     key: "",
@@ -183,6 +181,9 @@ export const AppOptionsResponse_ModuleOptionsEntry = {
   },
   toProto(message: AppOptionsResponse_ModuleOptionsEntry): Uint8Array {
     return AppOptionsResponse_ModuleOptionsEntry.encode(message).finish();
+  },
+  registerTypeUrl() {
+    ModuleOptions.registerTypeUrl();
   }
 };
 function createBaseAppOptionsResponse(): AppOptionsResponse {
@@ -282,7 +283,8 @@ export const AppOptionsResponse = {
       typeUrl: "/cosmos.autocli.v1.AppOptionsResponse",
       value: AppOptionsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleOptions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AppOptionsResponse.typeUrl, AppOptionsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(AppOptionsResponse.aminoType, AppOptionsResponse.typeUrl);

@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface ExtensionOptionsWeb3Tx {
   /**
    * typedDataChainID used only in EIP712 Domain and should match
@@ -134,6 +133,6 @@ export const ExtensionOptionsWeb3Tx = {
       typeUrl: "/injective.types.v1beta1.ExtensionOptionsWeb3Tx",
       value: ExtensionOptionsWeb3Tx.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ExtensionOptionsWeb3Tx.typeUrl, ExtensionOptionsWeb3Tx);

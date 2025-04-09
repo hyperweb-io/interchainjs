@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
  * Tendermint's PubKey interface. It represents the 33-byte compressed public
@@ -121,10 +120,9 @@ export const PubKey = {
       typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
       value: PubKey.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PubKey.typeUrl, PubKey);
-GlobalDecoderRegistry.registerAminoProtoMapping(PubKey.aminoType, PubKey.typeUrl);
 function createBasePrivKey(): PrivKey {
   return {
     key: new Uint8Array()
@@ -199,7 +197,6 @@ export const PrivKey = {
       typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey",
       value: PrivKey.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PrivKey.typeUrl, PrivKey);
-GlobalDecoderRegistry.registerAminoProtoMapping(PrivKey.aminoType, PrivKey.typeUrl);

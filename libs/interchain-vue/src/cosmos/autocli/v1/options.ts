@@ -1,5 +1,4 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptions {
@@ -397,10 +396,11 @@ export const ModuleOptions = {
       typeUrl: "/cosmos.autocli.v1.ModuleOptions",
       value: ModuleOptions.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ServiceCommandDescriptor.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModuleOptions.typeUrl, ModuleOptions);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleOptions.aminoType, ModuleOptions.typeUrl);
 function createBaseServiceCommandDescriptor_SubCommandsEntry(): ServiceCommandDescriptor_SubCommandsEntry {
   return {
     key: "",
@@ -467,6 +467,9 @@ export const ServiceCommandDescriptor_SubCommandsEntry = {
   },
   toProto(message: ServiceCommandDescriptor_SubCommandsEntry): Uint8Array {
     return ServiceCommandDescriptor_SubCommandsEntry.encode(message).finish();
+  },
+  registerTypeUrl() {
+    ServiceCommandDescriptor.registerTypeUrl();
   }
 };
 function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
@@ -592,10 +595,12 @@ export const ServiceCommandDescriptor = {
       typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor",
       value: ServiceCommandDescriptor.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RpcCommandOptions.registerTypeUrl();
+    ServiceCommandDescriptor.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ServiceCommandDescriptor.typeUrl, ServiceCommandDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(ServiceCommandDescriptor.aminoType, ServiceCommandDescriptor.typeUrl);
 function createBaseRpcCommandOptions_FlagOptionsEntry(): RpcCommandOptions_FlagOptionsEntry {
   return {
     key: "",
@@ -662,6 +667,9 @@ export const RpcCommandOptions_FlagOptionsEntry = {
   },
   toProto(message: RpcCommandOptions_FlagOptionsEntry): Uint8Array {
     return RpcCommandOptions_FlagOptionsEntry.encode(message).finish();
+  },
+  registerTypeUrl() {
+    FlagOptions.registerTypeUrl();
   }
 };
 function createBaseRpcCommandOptions(): RpcCommandOptions {
@@ -899,10 +907,12 @@ export const RpcCommandOptions = {
       typeUrl: "/cosmos.autocli.v1.RpcCommandOptions",
       value: RpcCommandOptions.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FlagOptions.registerTypeUrl();
+    PositionalArgDescriptor.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RpcCommandOptions.typeUrl, RpcCommandOptions);
-GlobalDecoderRegistry.registerAminoProtoMapping(RpcCommandOptions.aminoType, RpcCommandOptions.typeUrl);
 function createBaseFlagOptions(): FlagOptions {
   return {
     name: "",
@@ -1049,10 +1059,9 @@ export const FlagOptions = {
       typeUrl: "/cosmos.autocli.v1.FlagOptions",
       value: FlagOptions.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FlagOptions.typeUrl, FlagOptions);
-GlobalDecoderRegistry.registerAminoProtoMapping(FlagOptions.aminoType, FlagOptions.typeUrl);
 function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
   return {
     protoField: "",
@@ -1139,7 +1148,6 @@ export const PositionalArgDescriptor = {
       typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor",
       value: PositionalArgDescriptor.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PositionalArgDescriptor.typeUrl, PositionalArgDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(PositionalArgDescriptor.aminoType, PositionalArgDescriptor.typeUrl);

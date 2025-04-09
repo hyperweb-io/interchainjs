@@ -2,7 +2,6 @@ import { IdentifiedPacketFees, IdentifiedPacketFeesAmino } from "./fee";
 import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** GenesisState defines the ICS29 fee middleware genesis state */
 export interface GenesisState {
   /** list of identified packet fees */
@@ -271,10 +270,15 @@ export const GenesisState = {
       typeUrl: "/ibc.applications.fee.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IdentifiedPacketFees.registerTypeUrl();
+    FeeEnabledChannel.registerTypeUrl();
+    RegisteredPayee.registerTypeUrl();
+    RegisteredCounterpartyPayee.registerTypeUrl();
+    ForwardRelayerAddress.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseFeeEnabledChannel(): FeeEnabledChannel {
   return {
     portId: "",
@@ -361,10 +365,9 @@ export const FeeEnabledChannel = {
       typeUrl: "/ibc.applications.fee.v1.FeeEnabledChannel",
       value: FeeEnabledChannel.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FeeEnabledChannel.typeUrl, FeeEnabledChannel);
-GlobalDecoderRegistry.registerAminoProtoMapping(FeeEnabledChannel.aminoType, FeeEnabledChannel.typeUrl);
 function createBaseRegisteredPayee(): RegisteredPayee {
   return {
     channelId: "",
@@ -463,10 +466,9 @@ export const RegisteredPayee = {
       typeUrl: "/ibc.applications.fee.v1.RegisteredPayee",
       value: RegisteredPayee.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RegisteredPayee.typeUrl, RegisteredPayee);
-GlobalDecoderRegistry.registerAminoProtoMapping(RegisteredPayee.aminoType, RegisteredPayee.typeUrl);
 function createBaseRegisteredCounterpartyPayee(): RegisteredCounterpartyPayee {
   return {
     channelId: "",
@@ -565,10 +567,9 @@ export const RegisteredCounterpartyPayee = {
       typeUrl: "/ibc.applications.fee.v1.RegisteredCounterpartyPayee",
       value: RegisteredCounterpartyPayee.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RegisteredCounterpartyPayee.typeUrl, RegisteredCounterpartyPayee);
-GlobalDecoderRegistry.registerAminoProtoMapping(RegisteredCounterpartyPayee.aminoType, RegisteredCounterpartyPayee.typeUrl);
 function createBaseForwardRelayerAddress(): ForwardRelayerAddress {
   return {
     address: "",
@@ -655,7 +656,8 @@ export const ForwardRelayerAddress = {
       typeUrl: "/ibc.applications.fee.v1.ForwardRelayerAddress",
       value: ForwardRelayerAddress.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PacketId.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ForwardRelayerAddress.typeUrl, ForwardRelayerAddress);
-GlobalDecoderRegistry.registerAminoProtoMapping(ForwardRelayerAddress.aminoType, ForwardRelayerAddress.typeUrl);

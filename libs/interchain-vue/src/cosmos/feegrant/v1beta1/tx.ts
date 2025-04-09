@@ -228,10 +228,13 @@ export const MsgGrantAllowance = {
       typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowance",
       value: MsgGrantAllowance.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BasicAllowance.registerTypeUrl();
+    PeriodicAllowance.registerTypeUrl();
+    AllowedMsgAllowance.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgGrantAllowance.typeUrl, MsgGrantAllowance);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgGrantAllowance.aminoType, MsgGrantAllowance.typeUrl);
 function createBaseMsgGrantAllowanceResponse(): MsgGrantAllowanceResponse {
   return {};
 }
@@ -293,10 +296,9 @@ export const MsgGrantAllowanceResponse = {
       typeUrl: "/cosmos.feegrant.v1beta1.MsgGrantAllowanceResponse",
       value: MsgGrantAllowanceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgGrantAllowanceResponse.typeUrl, MsgGrantAllowanceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgGrantAllowanceResponse.aminoType, MsgGrantAllowanceResponse.typeUrl);
 function createBaseMsgRevokeAllowance(): MsgRevokeAllowance {
   return {
     granter: "",
@@ -383,10 +385,9 @@ export const MsgRevokeAllowance = {
       typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowance",
       value: MsgRevokeAllowance.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevokeAllowance.typeUrl, MsgRevokeAllowance);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevokeAllowance.aminoType, MsgRevokeAllowance.typeUrl);
 function createBaseMsgRevokeAllowanceResponse(): MsgRevokeAllowanceResponse {
   return {};
 }
@@ -448,10 +449,9 @@ export const MsgRevokeAllowanceResponse = {
       typeUrl: "/cosmos.feegrant.v1beta1.MsgRevokeAllowanceResponse",
       value: MsgRevokeAllowanceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevokeAllowanceResponse.typeUrl, MsgRevokeAllowanceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevokeAllowanceResponse.aminoType, MsgRevokeAllowanceResponse.typeUrl);
 function createBaseMsgPruneAllowances(): MsgPruneAllowances {
   return {
     pruner: ""
@@ -526,10 +526,9 @@ export const MsgPruneAllowances = {
       typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowances",
       value: MsgPruneAllowances.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPruneAllowances.typeUrl, MsgPruneAllowances);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPruneAllowances.aminoType, MsgPruneAllowances.typeUrl);
 function createBaseMsgPruneAllowancesResponse(): MsgPruneAllowancesResponse {
   return {};
 }
@@ -591,7 +590,6 @@ export const MsgPruneAllowancesResponse = {
       typeUrl: "/cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse",
       value: MsgPruneAllowancesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPruneAllowancesResponse.typeUrl, MsgPruneAllowancesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPruneAllowancesResponse.aminoType, MsgPruneAllowancesResponse.typeUrl);

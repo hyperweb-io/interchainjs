@@ -1,27 +1,27 @@
 import { buildUseQuery } from "../../../../react-query";
 import { GetAuthnDescriptorRequest, GetAuthnDescriptorResponse, GetChainDescriptorRequest, GetChainDescriptorResponse, GetCodecDescriptorRequest, GetCodecDescriptorResponse, GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse, GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse, GetTxDescriptorRequest, GetTxDescriptorResponse } from "./reflection";
-import { createGetGetAuthnDescriptor, createGetGetChainDescriptor, createGetGetCodecDescriptor, createGetGetConfigurationDescriptor, createGetGetQueryServicesDescriptor, createGetGetTxDescriptor } from "./reflection.rpc.func";
+import { getGetAuthnDescriptor, getGetChainDescriptor, getGetCodecDescriptor, getGetConfigurationDescriptor, getGetQueryServicesDescriptor, getGetTxDescriptor } from "./reflection.rpc.func";
 export const useGetGetAuthnDescriptor = buildUseQuery<GetAuthnDescriptorRequest, GetAuthnDescriptorResponse>({
-  builderQueryFn: createGetGetAuthnDescriptor,
+  builderQueryFn: getGetAuthnDescriptor,
   queryKeyPrefix: "GetAuthnDescriptorQuery"
 });
 export const useGetGetChainDescriptor = buildUseQuery<GetChainDescriptorRequest, GetChainDescriptorResponse>({
-  builderQueryFn: createGetGetChainDescriptor,
+  builderQueryFn: getGetChainDescriptor,
   queryKeyPrefix: "GetChainDescriptorQuery"
 });
 export const useGetGetCodecDescriptor = buildUseQuery<GetCodecDescriptorRequest, GetCodecDescriptorResponse>({
-  builderQueryFn: createGetGetCodecDescriptor,
+  builderQueryFn: getGetCodecDescriptor,
   queryKeyPrefix: "GetCodecDescriptorQuery"
 });
 export const useGetGetConfigurationDescriptor = buildUseQuery<GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse>({
-  builderQueryFn: createGetGetConfigurationDescriptor,
+  builderQueryFn: getGetConfigurationDescriptor,
   queryKeyPrefix: "GetConfigurationDescriptorQuery"
 });
 export const useGetGetQueryServicesDescriptor = buildUseQuery<GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse>({
-  builderQueryFn: createGetGetQueryServicesDescriptor,
+  builderQueryFn: getGetQueryServicesDescriptor,
   queryKeyPrefix: "GetQueryServicesDescriptorQuery"
 });
 export const useGetGetTxDescriptor = buildUseQuery<GetTxDescriptorRequest, GetTxDescriptorResponse>({
-  builderQueryFn: createGetGetTxDescriptor,
+  builderQueryFn: getGetTxDescriptor,
   queryKeyPrefix: "GetTxDescriptorQuery"
 });

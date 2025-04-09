@@ -1,87 +1,87 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryCurrentValsetRequest, QueryCurrentValsetResponse, QueryValsetRequestRequest, QueryValsetRequestResponse, QueryValsetConfirmRequest, QueryValsetConfirmResponse, QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse, QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse, QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse, QueryLastEventByAddrRequest, QueryLastEventByAddrResponse, QueryPendingSendToEth, QueryPendingSendToEthResponse, QueryBatchFeeRequest, QueryBatchFeeResponse, QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse, QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse, QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse, QueryBatchConfirmsRequest, QueryBatchConfirmsResponse, QueryERC20ToDenomRequest, QueryERC20ToDenomResponse, QueryDenomToERC20Request, QueryDenomToERC20Response, QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse, QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse, QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse, QueryModuleStateRequest, QueryModuleStateResponse, MissingNoncesRequest, MissingNoncesResponse } from "./query";
-import { createGetParams, createGetCurrentValset, createGetValsetRequest, createGetValsetConfirm, createGetValsetConfirmsByNonce, createGetLastValsetRequests, createGetLastPendingValsetRequestByAddr, createGetLastEventByAddr, createGetGetPendingSendToEth, createGetBatchFees, createGetOutgoingTxBatches, createGetLastPendingBatchRequestByAddr, createGetBatchRequestByNonce, createGetBatchConfirms, createGetERC20ToDenom, createGetDenomToERC20, createGetGetDelegateKeyByValidator, createGetGetDelegateKeyByEth, createGetGetDelegateKeyByOrchestrator, createGetPeggyModuleState, createGetMissingPeggoNonces } from "./query.rpc.func";
+import { getParams, getCurrentValset, getValsetRequest, getValsetConfirm, getValsetConfirmsByNonce, getLastValsetRequests, getLastPendingValsetRequestByAddr, getLastEventByAddr, getGetPendingSendToEth, getBatchFees, getOutgoingTxBatches, getLastPendingBatchRequestByAddr, getBatchRequestByNonce, getBatchConfirms, getERC20ToDenom, getDenomToERC20, getGetDelegateKeyByValidator, getGetDelegateKeyByEth, getGetDelegateKeyByOrchestrator, getPeggyModuleState, getMissingPeggoNonces } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetCurrentValset = buildUseQuery<QueryCurrentValsetRequest, QueryCurrentValsetResponse>({
-  builderQueryFn: createGetCurrentValset,
+  builderQueryFn: getCurrentValset,
   queryKeyPrefix: "CurrentValsetQuery"
 });
 export const useGetValsetRequest = buildUseQuery<QueryValsetRequestRequest, QueryValsetRequestResponse>({
-  builderQueryFn: createGetValsetRequest,
+  builderQueryFn: getValsetRequest,
   queryKeyPrefix: "ValsetRequestQuery"
 });
 export const useGetValsetConfirm = buildUseQuery<QueryValsetConfirmRequest, QueryValsetConfirmResponse>({
-  builderQueryFn: createGetValsetConfirm,
+  builderQueryFn: getValsetConfirm,
   queryKeyPrefix: "ValsetConfirmQuery"
 });
 export const useGetValsetConfirmsByNonce = buildUseQuery<QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse>({
-  builderQueryFn: createGetValsetConfirmsByNonce,
+  builderQueryFn: getValsetConfirmsByNonce,
   queryKeyPrefix: "ValsetConfirmsByNonceQuery"
 });
 export const useGetLastValsetRequests = buildUseQuery<QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse>({
-  builderQueryFn: createGetLastValsetRequests,
+  builderQueryFn: getLastValsetRequests,
   queryKeyPrefix: "LastValsetRequestsQuery"
 });
 export const useGetLastPendingValsetRequestByAddr = buildUseQuery<QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse>({
-  builderQueryFn: createGetLastPendingValsetRequestByAddr,
+  builderQueryFn: getLastPendingValsetRequestByAddr,
   queryKeyPrefix: "LastPendingValsetRequestByAddrQuery"
 });
 export const useGetLastEventByAddr = buildUseQuery<QueryLastEventByAddrRequest, QueryLastEventByAddrResponse>({
-  builderQueryFn: createGetLastEventByAddr,
+  builderQueryFn: getLastEventByAddr,
   queryKeyPrefix: "LastEventByAddrQuery"
 });
 export const useGetGetPendingSendToEth = buildUseQuery<QueryPendingSendToEth, QueryPendingSendToEthResponse>({
-  builderQueryFn: createGetGetPendingSendToEth,
+  builderQueryFn: getGetPendingSendToEth,
   queryKeyPrefix: "GetPendingSendToEthQuery"
 });
 export const useGetBatchFees = buildUseQuery<QueryBatchFeeRequest, QueryBatchFeeResponse>({
-  builderQueryFn: createGetBatchFees,
+  builderQueryFn: getBatchFees,
   queryKeyPrefix: "BatchFeesQuery"
 });
 export const useGetOutgoingTxBatches = buildUseQuery<QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse>({
-  builderQueryFn: createGetOutgoingTxBatches,
+  builderQueryFn: getOutgoingTxBatches,
   queryKeyPrefix: "OutgoingTxBatchesQuery"
 });
 export const useGetLastPendingBatchRequestByAddr = buildUseQuery<QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse>({
-  builderQueryFn: createGetLastPendingBatchRequestByAddr,
+  builderQueryFn: getLastPendingBatchRequestByAddr,
   queryKeyPrefix: "LastPendingBatchRequestByAddrQuery"
 });
 export const useGetBatchRequestByNonce = buildUseQuery<QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse>({
-  builderQueryFn: createGetBatchRequestByNonce,
+  builderQueryFn: getBatchRequestByNonce,
   queryKeyPrefix: "BatchRequestByNonceQuery"
 });
 export const useGetBatchConfirms = buildUseQuery<QueryBatchConfirmsRequest, QueryBatchConfirmsResponse>({
-  builderQueryFn: createGetBatchConfirms,
+  builderQueryFn: getBatchConfirms,
   queryKeyPrefix: "BatchConfirmsQuery"
 });
 export const useGetERC20ToDenom = buildUseQuery<QueryERC20ToDenomRequest, QueryERC20ToDenomResponse>({
-  builderQueryFn: createGetERC20ToDenom,
+  builderQueryFn: getERC20ToDenom,
   queryKeyPrefix: "ERC20ToDenomQuery"
 });
 export const useGetDenomToERC20 = buildUseQuery<QueryDenomToERC20Request, QueryDenomToERC20Response>({
-  builderQueryFn: createGetDenomToERC20,
+  builderQueryFn: getDenomToERC20,
   queryKeyPrefix: "DenomToERC20Query"
 });
 export const useGetGetDelegateKeyByValidator = buildUseQuery<QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse>({
-  builderQueryFn: createGetGetDelegateKeyByValidator,
+  builderQueryFn: getGetDelegateKeyByValidator,
   queryKeyPrefix: "GetDelegateKeyByValidatorQuery"
 });
 export const useGetGetDelegateKeyByEth = buildUseQuery<QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse>({
-  builderQueryFn: createGetGetDelegateKeyByEth,
+  builderQueryFn: getGetDelegateKeyByEth,
   queryKeyPrefix: "GetDelegateKeyByEthQuery"
 });
 export const useGetGetDelegateKeyByOrchestrator = buildUseQuery<QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse>({
-  builderQueryFn: createGetGetDelegateKeyByOrchestrator,
+  builderQueryFn: getGetDelegateKeyByOrchestrator,
   queryKeyPrefix: "GetDelegateKeyByOrchestratorQuery"
 });
 export const useGetPeggyModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetPeggyModuleState,
+  builderQueryFn: getPeggyModuleState,
   queryKeyPrefix: "PeggyModuleStateQuery"
 });
 export const useGetMissingPeggoNonces = buildUseQuery<MissingNoncesRequest, MissingNoncesResponse>({
-  builderQueryFn: createGetMissingPeggoNonces,
+  builderQueryFn: getMissingPeggoNonces,
   queryKeyPrefix: "MissingPeggoNoncesQuery"
 });

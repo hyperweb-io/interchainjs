@@ -1,7 +1,6 @@
 import { ParamChange, ParamChangeAmino } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
   /** subspace defines the module to query the parameter for. */
@@ -204,10 +203,9 @@ export const QueryParamsRequest = {
       typeUrl: "/cosmos.params.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsRequest.aminoType, QueryParamsRequest.typeUrl);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     param: ParamChange.fromPartial({})
@@ -282,10 +280,11 @@ export const QueryParamsResponse = {
       typeUrl: "/cosmos.params.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ParamChange.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsResponse.aminoType, QueryParamsResponse.typeUrl);
 function createBaseQuerySubspacesRequest(): QuerySubspacesRequest {
   return {};
 }
@@ -347,10 +346,9 @@ export const QuerySubspacesRequest = {
       typeUrl: "/cosmos.params.v1beta1.QuerySubspacesRequest",
       value: QuerySubspacesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySubspacesRequest.typeUrl, QuerySubspacesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySubspacesRequest.aminoType, QuerySubspacesRequest.typeUrl);
 function createBaseQuerySubspacesResponse(): QuerySubspacesResponse {
   return {
     subspaces: []
@@ -427,10 +425,11 @@ export const QuerySubspacesResponse = {
       typeUrl: "/cosmos.params.v1beta1.QuerySubspacesResponse",
       value: QuerySubspacesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Subspace.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QuerySubspacesResponse.typeUrl, QuerySubspacesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySubspacesResponse.aminoType, QuerySubspacesResponse.typeUrl);
 function createBaseSubspace(): Subspace {
   return {
     subspace: "",
@@ -519,7 +518,6 @@ export const Subspace = {
       typeUrl: "/cosmos.params.v1beta1.Subspace",
       value: Subspace.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Subspace.typeUrl, Subspace);
-GlobalDecoderRegistry.registerAminoProtoMapping(Subspace.aminoType, Subspace.typeUrl);

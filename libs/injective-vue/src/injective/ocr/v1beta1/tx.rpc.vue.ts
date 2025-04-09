@@ -1,30 +1,30 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgCreateFeed, MsgUpdateFeed, MsgTransmit, MsgFundFeedRewardPool, MsgWithdrawFeedRewardPool, MsgSetPayees, MsgTransferPayeeship, MsgAcceptPayeeship, MsgUpdateParams } from "./tx";
-import { createCreateFeed, createUpdateFeed, createTransmit, createFundFeedRewardPool, createWithdrawFeedRewardPool, createSetPayees, createTransferPayeeship, createAcceptPayeeship, createUpdateParams } from "./tx.rpc.func";
+import { createFeed, updateFeed, transmit, fundFeedRewardPool, withdrawFeedRewardPool, setPayees, transferPayeeship, acceptPayeeship, updateParams } from "./tx.rpc.func";
 export const useCreateFeed = buildUseVueMutation<MsgCreateFeed, Error>({
-  builderMutationFn: createCreateFeed
+  builderMutationFn: createFeed
 });
 export const useUpdateFeed = buildUseVueMutation<MsgUpdateFeed, Error>({
-  builderMutationFn: createUpdateFeed
+  builderMutationFn: updateFeed
 });
 export const useTransmit = buildUseVueMutation<MsgTransmit, Error>({
-  builderMutationFn: createTransmit
+  builderMutationFn: transmit
 });
 export const useFundFeedRewardPool = buildUseVueMutation<MsgFundFeedRewardPool, Error>({
-  builderMutationFn: createFundFeedRewardPool
+  builderMutationFn: fundFeedRewardPool
 });
 export const useWithdrawFeedRewardPool = buildUseVueMutation<MsgWithdrawFeedRewardPool, Error>({
-  builderMutationFn: createWithdrawFeedRewardPool
+  builderMutationFn: withdrawFeedRewardPool
 });
 export const useSetPayees = buildUseVueMutation<MsgSetPayees, Error>({
-  builderMutationFn: createSetPayees
+  builderMutationFn: setPayees
 });
 export const useTransferPayeeship = buildUseVueMutation<MsgTransferPayeeship, Error>({
-  builderMutationFn: createTransferPayeeship
+  builderMutationFn: transferPayeeship
 });
 export const useAcceptPayeeship = buildUseVueMutation<MsgAcceptPayeeship, Error>({
-  builderMutationFn: createAcceptPayeeship
+  builderMutationFn: acceptPayeeship
 });
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

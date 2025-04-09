@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 export interface NetAddress {
   id: string;
   ip: string;
@@ -172,9 +171,9 @@ export const NetAddress = {
       typeUrl: "/tendermint.p2p.NetAddress",
       value: NetAddress.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(NetAddress.typeUrl, NetAddress);
 function createBaseProtocolVersion(): ProtocolVersion {
   return {
     p2p: BigInt(0),
@@ -266,9 +265,9 @@ export const ProtocolVersion = {
       typeUrl: "/tendermint.p2p.ProtocolVersion",
       value: ProtocolVersion.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ProtocolVersion.typeUrl, ProtocolVersion);
 function createBaseDefaultNodeInfo(): DefaultNodeInfo {
   return {
     protocolVersion: ProtocolVersion.fromPartial({}),
@@ -420,9 +419,12 @@ export const DefaultNodeInfo = {
       typeUrl: "/tendermint.p2p.DefaultNodeInfo",
       value: DefaultNodeInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ProtocolVersion.registerTypeUrl();
+    DefaultNodeInfoOther.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DefaultNodeInfo.typeUrl, DefaultNodeInfo);
 function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
   return {
     txIndex: "",
@@ -502,6 +504,6 @@ export const DefaultNodeInfoOther = {
       typeUrl: "/tendermint.p2p.DefaultNodeInfoOther",
       value: DefaultNodeInfoOther.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DefaultNodeInfoOther.typeUrl, DefaultNodeInfoOther);

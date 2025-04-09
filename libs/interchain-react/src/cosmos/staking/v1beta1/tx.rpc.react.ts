@@ -1,24 +1,24 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgCreateValidator, MsgEditValidator, MsgDelegate, MsgBeginRedelegate, MsgUndelegate, MsgCancelUnbondingDelegation, MsgUpdateParams } from "./tx";
-import { createCreateValidator, createEditValidator, createDelegate, createBeginRedelegate, createUndelegate, createCancelUnbondingDelegation, createUpdateParams } from "./tx.rpc.func";
+import { createValidator, editValidator, delegate, beginRedelegate, undelegate, cancelUnbondingDelegation, updateParams } from "./tx.rpc.func";
 export const useCreateValidator = buildUseMutation<MsgCreateValidator, Error>({
-  builderMutationFn: createCreateValidator
+  builderMutationFn: createValidator
 });
 export const useEditValidator = buildUseMutation<MsgEditValidator, Error>({
-  builderMutationFn: createEditValidator
+  builderMutationFn: editValidator
 });
 export const useDelegate = buildUseMutation<MsgDelegate, Error>({
-  builderMutationFn: createDelegate
+  builderMutationFn: delegate
 });
 export const useBeginRedelegate = buildUseMutation<MsgBeginRedelegate, Error>({
-  builderMutationFn: createBeginRedelegate
+  builderMutationFn: beginRedelegate
 });
 export const useUndelegate = buildUseMutation<MsgUndelegate, Error>({
-  builderMutationFn: createUndelegate
+  builderMutationFn: undelegate
 });
 export const useCancelUnbondingDelegation = buildUseMutation<MsgCancelUnbondingDelegation, Error>({
-  builderMutationFn: createCancelUnbondingDelegation
+  builderMutationFn: cancelUnbondingDelegation
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { NFT, NFTAmino, Class, ClassAmino } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method */
 export interface QueryBalanceRequest {
   /** class_id associated with the nft */
@@ -369,10 +368,9 @@ export const QueryBalanceRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QueryBalanceRequest",
       value: QueryBalanceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBalanceRequest.typeUrl, QueryBalanceRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryBalanceRequest.aminoType, QueryBalanceRequest.typeUrl);
 function createBaseQueryBalanceResponse(): QueryBalanceResponse {
   return {
     amount: BigInt(0)
@@ -447,10 +445,9 @@ export const QueryBalanceResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QueryBalanceResponse",
       value: QueryBalanceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBalanceResponse.typeUrl, QueryBalanceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryBalanceResponse.aminoType, QueryBalanceResponse.typeUrl);
 function createBaseQueryOwnerRequest(): QueryOwnerRequest {
   return {
     classId: "",
@@ -537,10 +534,9 @@ export const QueryOwnerRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QueryOwnerRequest",
       value: QueryOwnerRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryOwnerRequest.typeUrl, QueryOwnerRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryOwnerRequest.aminoType, QueryOwnerRequest.typeUrl);
 function createBaseQueryOwnerResponse(): QueryOwnerResponse {
   return {
     owner: ""
@@ -615,10 +611,9 @@ export const QueryOwnerResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QueryOwnerResponse",
       value: QueryOwnerResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryOwnerResponse.typeUrl, QueryOwnerResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryOwnerResponse.aminoType, QueryOwnerResponse.typeUrl);
 function createBaseQuerySupplyRequest(): QuerySupplyRequest {
   return {
     classId: ""
@@ -693,10 +688,9 @@ export const QuerySupplyRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QuerySupplyRequest",
       value: QuerySupplyRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySupplyRequest.typeUrl, QuerySupplyRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySupplyRequest.aminoType, QuerySupplyRequest.typeUrl);
 function createBaseQuerySupplyResponse(): QuerySupplyResponse {
   return {
     amount: BigInt(0)
@@ -771,10 +765,9 @@ export const QuerySupplyResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QuerySupplyResponse",
       value: QuerySupplyResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QuerySupplyResponse.typeUrl, QuerySupplyResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QuerySupplyResponse.aminoType, QuerySupplyResponse.typeUrl);
 function createBaseQueryNFTsRequest(): QueryNFTsRequest {
   return {
     classId: "",
@@ -873,10 +866,11 @@ export const QueryNFTsRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QueryNFTsRequest",
       value: QueryNFTsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryNFTsRequest.typeUrl, QueryNFTsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryNFTsRequest.aminoType, QueryNFTsRequest.typeUrl);
 function createBaseQueryNFTsResponse(): QueryNFTsResponse {
   return {
     nfts: [],
@@ -965,10 +959,12 @@ export const QueryNFTsResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QueryNFTsResponse",
       value: QueryNFTsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    NFT.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryNFTsResponse.typeUrl, QueryNFTsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryNFTsResponse.aminoType, QueryNFTsResponse.typeUrl);
 function createBaseQueryNFTRequest(): QueryNFTRequest {
   return {
     classId: "",
@@ -1055,10 +1051,9 @@ export const QueryNFTRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QueryNFTRequest",
       value: QueryNFTRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryNFTRequest.typeUrl, QueryNFTRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryNFTRequest.aminoType, QueryNFTRequest.typeUrl);
 function createBaseQueryNFTResponse(): QueryNFTResponse {
   return {
     nft: undefined
@@ -1133,10 +1128,11 @@ export const QueryNFTResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QueryNFTResponse",
       value: QueryNFTResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    NFT.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryNFTResponse.typeUrl, QueryNFTResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryNFTResponse.aminoType, QueryNFTResponse.typeUrl);
 function createBaseQueryClassRequest(): QueryClassRequest {
   return {
     classId: ""
@@ -1211,10 +1207,9 @@ export const QueryClassRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QueryClassRequest",
       value: QueryClassRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryClassRequest.typeUrl, QueryClassRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryClassRequest.aminoType, QueryClassRequest.typeUrl);
 function createBaseQueryClassResponse(): QueryClassResponse {
   return {
     class: undefined
@@ -1289,10 +1284,11 @@ export const QueryClassResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QueryClassResponse",
       value: QueryClassResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Class.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryClassResponse.typeUrl, QueryClassResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryClassResponse.aminoType, QueryClassResponse.typeUrl);
 function createBaseQueryClassesRequest(): QueryClassesRequest {
   return {
     pagination: undefined
@@ -1367,10 +1363,11 @@ export const QueryClassesRequest = {
       typeUrl: "/cosmos.nft.v1beta1.QueryClassesRequest",
       value: QueryClassesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryClassesRequest.typeUrl, QueryClassesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryClassesRequest.aminoType, QueryClassesRequest.typeUrl);
 function createBaseQueryClassesResponse(): QueryClassesResponse {
   return {
     classes: [],
@@ -1459,7 +1456,9 @@ export const QueryClassesResponse = {
       typeUrl: "/cosmos.nft.v1beta1.QueryClassesResponse",
       value: QueryClassesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Class.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryClassesResponse.typeUrl, QueryClassesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryClassesResponse.aminoType, QueryClassesResponse.typeUrl);

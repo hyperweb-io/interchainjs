@@ -105,6 +105,9 @@ export const EthAccount = {
       typeUrl: "/injective.types.v1beta1.EthAccount",
       value: EthAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(EthAccount.typeUrl, EthAccount);
+    BaseAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EthAccount.typeUrl, EthAccount);

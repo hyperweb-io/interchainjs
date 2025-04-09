@@ -1,27 +1,27 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgRelayProviderPrices, MsgRelayPriceFeedPrice, MsgRelayBandRates, MsgRequestBandIBCRates, MsgRelayCoinbaseMessages, MsgRelayStorkPrices, MsgRelayPythPrices, MsgUpdateParams } from "./tx";
-import { createRelayProviderPrices, createRelayPriceFeedPrice, createRelayBandRates, createRequestBandIBCRates, createRelayCoinbaseMessages, createRelayStorkMessage, createRelayPythPrices, createUpdateParams } from "./tx.rpc.func";
+import { relayProviderPrices, relayPriceFeedPrice, relayBandRates, requestBandIBCRates, relayCoinbaseMessages, relayStorkMessage, relayPythPrices, updateParams } from "./tx.rpc.func";
 export const useRelayProviderPrices = buildUseMutation<MsgRelayProviderPrices, Error>({
-  builderMutationFn: createRelayProviderPrices
+  builderMutationFn: relayProviderPrices
 });
 export const useRelayPriceFeedPrice = buildUseMutation<MsgRelayPriceFeedPrice, Error>({
-  builderMutationFn: createRelayPriceFeedPrice
+  builderMutationFn: relayPriceFeedPrice
 });
 export const useRelayBandRates = buildUseMutation<MsgRelayBandRates, Error>({
-  builderMutationFn: createRelayBandRates
+  builderMutationFn: relayBandRates
 });
 export const useRequestBandIBCRates = buildUseMutation<MsgRequestBandIBCRates, Error>({
-  builderMutationFn: createRequestBandIBCRates
+  builderMutationFn: requestBandIBCRates
 });
 export const useRelayCoinbaseMessages = buildUseMutation<MsgRelayCoinbaseMessages, Error>({
-  builderMutationFn: createRelayCoinbaseMessages
+  builderMutationFn: relayCoinbaseMessages
 });
 export const useRelayStorkMessage = buildUseMutation<MsgRelayStorkPrices, Error>({
-  builderMutationFn: createRelayStorkMessage
+  builderMutationFn: relayStorkMessage
 });
 export const useRelayPythPrices = buildUseMutation<MsgRelayPythPrices, Error>({
-  builderMutationFn: createRelayPythPrices
+  builderMutationFn: relayPythPrices
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

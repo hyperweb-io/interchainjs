@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** Module is the config object of the params module. */
 export interface Module {}
 export interface ModuleProtoMsg {
@@ -74,7 +73,6 @@ export const Module = {
       typeUrl: "/cosmos.params.module.v1.Module",
       value: Module.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Module.typeUrl, Module);
-GlobalDecoderRegistry.registerAminoProtoMapping(Module.aminoType, Module.typeUrl);

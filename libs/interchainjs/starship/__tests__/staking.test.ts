@@ -18,12 +18,12 @@ import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signi
 import { useChain } from 'starshipjs';
 import { SIGN_MODE } from '@interchainjs/types';
 
-import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetValidators, createGetDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
 
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 import { QueryDelegationRequest, QueryDelegationResponse, QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
-import { createDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx.rpc.func';
+import { delegate } from 'interchainjs/cosmos/staking/v1beta1/tx.rpc.func';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -39,10 +39,6 @@ describe('Staking tokens testing', () => {
   let validatorAddress: string;
   let delegationAmount: string;
   let totalDelegationAmount: bigint;
-
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
-  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
-  let getDelegation: (request: QueryDelegationRequest) => Promise<QueryDelegationResponse>;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
@@ -62,18 +58,12 @@ describe('Staking tokens testing', () => {
     protoSigner = wallet.toOfflineDirectSigner();
     address = (await protoSigner.getAccounts())[0].address;
 
-    // Create custom cosmos interchain client
-    const rpcEndpoint = await getRpcEndpoint();
-    getBalance = createGetBalance(rpcEndpoint);
-    getValidators = createGetValidators(rpcEndpoint);
-    getDelegation = createGetDelegation(rpcEndpoint);
-
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
   }, 200000);
 
   it('check address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address,
       denom,
     });
@@ -82,7 +72,7 @@ describe('Staking tokens testing', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators({
+    const { validators } = await getValidators(await getRpcEndpoint(), {
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -110,9 +100,7 @@ describe('Staking tokens testing', () => {
       }
     );
 
-    const delegate = createDelegate(signingClient);
-
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address,
       denom,
     });
@@ -140,7 +128,7 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-    const result = await delegate(address, msg, fee, "Stake tokens to genesis validator");
+    const result = await delegate(signingClient, address, msg, fee, "Stake tokens to genesis validator");
     assertIsDeliverTxSuccess(result);
   });
 
@@ -156,9 +144,7 @@ describe('Staking tokens testing', () => {
       }
     );
 
-    const delegate = createDelegate(signingClient);
-
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address,
       denom,
     });
@@ -186,7 +172,7 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-    const result = await delegate(address, msg, fee, "Stake tokens to genesis validator");
+    const result = await delegate(signingClient, address, msg, fee, "Stake tokens to genesis validator");
     assertIsDeliverTxSuccess(result);
   });
 
@@ -202,9 +188,7 @@ describe('Staking tokens testing', () => {
       }
     );
 
-    const delegate = createDelegate(signingClient);
-
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address,
       denom,
     });
@@ -232,12 +216,12 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-    const result = await delegate(address, msg, fee, "Stake tokens to genesis validator");
+    const result = await delegate(signingClient, address, msg, fee, "Stake tokens to genesis validator");
     assertIsDeliverTxSuccess(result);
   });
 
   it('query delegation', async () => {
-    const { delegationResponse } = await getDelegation({
+    const { delegationResponse } = await getDelegation(await getRpcEndpoint(), {
       delegatorAddr: address,
       validatorAddr: validatorAddress,
     });

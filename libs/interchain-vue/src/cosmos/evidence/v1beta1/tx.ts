@@ -137,10 +137,9 @@ export const MsgSubmitEvidence = {
       typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidence",
       value: MsgSubmitEvidence.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubmitEvidence.typeUrl, MsgSubmitEvidence);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSubmitEvidence.aminoType, MsgSubmitEvidence.typeUrl);
 function createBaseMsgSubmitEvidenceResponse(): MsgSubmitEvidenceResponse {
   return {
     hash: new Uint8Array()
@@ -215,7 +214,6 @@ export const MsgSubmitEvidenceResponse = {
       typeUrl: "/cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse",
       value: MsgSubmitEvidenceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubmitEvidenceResponse.typeUrl, MsgSubmitEvidenceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSubmitEvidenceResponse.aminoType, MsgSubmitEvidenceResponse.typeUrl);

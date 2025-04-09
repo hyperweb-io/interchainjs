@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** Module is the config object for the auth module. */
 export interface Module {
   /** bech32_prefix is the bech32 account prefix for the app. */
@@ -155,10 +154,11 @@ export const Module = {
       typeUrl: "/cosmos.auth.module.v1.Module",
       value: Module.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleAccountPermission.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Module.typeUrl, Module);
-GlobalDecoderRegistry.registerAminoProtoMapping(Module.aminoType, Module.typeUrl);
 function createBaseModuleAccountPermission(): ModuleAccountPermission {
   return {
     account: "",
@@ -247,7 +247,6 @@ export const ModuleAccountPermission = {
       typeUrl: "/cosmos.auth.module.v1.ModuleAccountPermission",
       value: ModuleAccountPermission.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ModuleAccountPermission.typeUrl, ModuleAccountPermission);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleAccountPermission.aminoType, ModuleAccountPermission.typeUrl);

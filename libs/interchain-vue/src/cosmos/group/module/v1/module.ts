@@ -1,6 +1,5 @@
 import { Duration, DurationAmino } from "../../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Module is the config object of the group module. */
 export interface Module {
@@ -122,7 +121,6 @@ export const Module = {
       typeUrl: "/cosmos.group.module.v1.Module",
       value: Module.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Module.typeUrl, Module);
-GlobalDecoderRegistry.registerAminoProtoMapping(Module.aminoType, Module.typeUrl);

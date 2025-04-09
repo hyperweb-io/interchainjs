@@ -796,10 +796,11 @@ export const MsgCreateGroup = {
       typeUrl: "/cosmos.group.v1.MsgCreateGroup",
       value: MsgCreateGroup.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MemberRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateGroup.typeUrl, MsgCreateGroup);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateGroup.aminoType, MsgCreateGroup.typeUrl);
 function createBaseMsgCreateGroupResponse(): MsgCreateGroupResponse {
   return {
     groupId: BigInt(0)
@@ -874,10 +875,9 @@ export const MsgCreateGroupResponse = {
       typeUrl: "/cosmos.group.v1.MsgCreateGroupResponse",
       value: MsgCreateGroupResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateGroupResponse.typeUrl, MsgCreateGroupResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateGroupResponse.aminoType, MsgCreateGroupResponse.typeUrl);
 function createBaseMsgUpdateGroupMembers(): MsgUpdateGroupMembers {
   return {
     admin: "",
@@ -978,10 +978,11 @@ export const MsgUpdateGroupMembers = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembers",
       value: MsgUpdateGroupMembers.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MemberRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupMembers.typeUrl, MsgUpdateGroupMembers);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupMembers.aminoType, MsgUpdateGroupMembers.typeUrl);
 function createBaseMsgUpdateGroupMembersResponse(): MsgUpdateGroupMembersResponse {
   return {};
 }
@@ -1043,10 +1044,9 @@ export const MsgUpdateGroupMembersResponse = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupMembersResponse",
       value: MsgUpdateGroupMembersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupMembersResponse.typeUrl, MsgUpdateGroupMembersResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupMembersResponse.aminoType, MsgUpdateGroupMembersResponse.typeUrl);
 function createBaseMsgUpdateGroupAdmin(): MsgUpdateGroupAdmin {
   return {
     admin: "",
@@ -1145,10 +1145,9 @@ export const MsgUpdateGroupAdmin = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdmin",
       value: MsgUpdateGroupAdmin.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupAdmin.typeUrl, MsgUpdateGroupAdmin);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupAdmin.aminoType, MsgUpdateGroupAdmin.typeUrl);
 function createBaseMsgUpdateGroupAdminResponse(): MsgUpdateGroupAdminResponse {
   return {};
 }
@@ -1210,10 +1209,9 @@ export const MsgUpdateGroupAdminResponse = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupAdminResponse",
       value: MsgUpdateGroupAdminResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupAdminResponse.typeUrl, MsgUpdateGroupAdminResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupAdminResponse.aminoType, MsgUpdateGroupAdminResponse.typeUrl);
 function createBaseMsgUpdateGroupMetadata(): MsgUpdateGroupMetadata {
   return {
     admin: "",
@@ -1312,10 +1310,9 @@ export const MsgUpdateGroupMetadata = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadata",
       value: MsgUpdateGroupMetadata.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupMetadata.typeUrl, MsgUpdateGroupMetadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupMetadata.aminoType, MsgUpdateGroupMetadata.typeUrl);
 function createBaseMsgUpdateGroupMetadataResponse(): MsgUpdateGroupMetadataResponse {
   return {};
 }
@@ -1377,10 +1374,9 @@ export const MsgUpdateGroupMetadataResponse = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupMetadataResponse",
       value: MsgUpdateGroupMetadataResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupMetadataResponse.typeUrl, MsgUpdateGroupMetadataResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupMetadataResponse.aminoType, MsgUpdateGroupMetadataResponse.typeUrl);
 function createBaseMsgCreateGroupPolicy(): MsgCreateGroupPolicy {
   return {
     admin: "",
@@ -1491,10 +1487,12 @@ export const MsgCreateGroupPolicy = {
       typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicy",
       value: MsgCreateGroupPolicy.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ThresholdDecisionPolicy.registerTypeUrl();
+    PercentageDecisionPolicy.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateGroupPolicy.typeUrl, MsgCreateGroupPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateGroupPolicy.aminoType, MsgCreateGroupPolicy.typeUrl);
 function createBaseMsgCreateGroupPolicyResponse(): MsgCreateGroupPolicyResponse {
   return {
     address: ""
@@ -1569,10 +1567,9 @@ export const MsgCreateGroupPolicyResponse = {
       typeUrl: "/cosmos.group.v1.MsgCreateGroupPolicyResponse",
       value: MsgCreateGroupPolicyResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateGroupPolicyResponse.typeUrl, MsgCreateGroupPolicyResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateGroupPolicyResponse.aminoType, MsgCreateGroupPolicyResponse.typeUrl);
 function createBaseMsgUpdateGroupPolicyAdmin(): MsgUpdateGroupPolicyAdmin {
   return {
     admin: "",
@@ -1671,10 +1668,9 @@ export const MsgUpdateGroupPolicyAdmin = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdmin",
       value: MsgUpdateGroupPolicyAdmin.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupPolicyAdmin.typeUrl, MsgUpdateGroupPolicyAdmin);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupPolicyAdmin.aminoType, MsgUpdateGroupPolicyAdmin.typeUrl);
 function createBaseMsgUpdateGroupPolicyAdminResponse(): MsgUpdateGroupPolicyAdminResponse {
   return {};
 }
@@ -1736,10 +1732,9 @@ export const MsgUpdateGroupPolicyAdminResponse = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyAdminResponse",
       value: MsgUpdateGroupPolicyAdminResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupPolicyAdminResponse.typeUrl, MsgUpdateGroupPolicyAdminResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupPolicyAdminResponse.aminoType, MsgUpdateGroupPolicyAdminResponse.typeUrl);
 function createBaseMsgCreateGroupWithPolicy(): MsgCreateGroupWithPolicy {
   return {
     admin: "",
@@ -1876,10 +1871,12 @@ export const MsgCreateGroupWithPolicy = {
       typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicy",
       value: MsgCreateGroupWithPolicy.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ThresholdDecisionPolicy.registerTypeUrl();
+    PercentageDecisionPolicy.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateGroupWithPolicy.typeUrl, MsgCreateGroupWithPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateGroupWithPolicy.aminoType, MsgCreateGroupWithPolicy.typeUrl);
 function createBaseMsgCreateGroupWithPolicyResponse(): MsgCreateGroupWithPolicyResponse {
   return {
     groupId: BigInt(0),
@@ -1966,10 +1963,9 @@ export const MsgCreateGroupWithPolicyResponse = {
       typeUrl: "/cosmos.group.v1.MsgCreateGroupWithPolicyResponse",
       value: MsgCreateGroupWithPolicyResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateGroupWithPolicyResponse.typeUrl, MsgCreateGroupWithPolicyResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateGroupWithPolicyResponse.aminoType, MsgCreateGroupWithPolicyResponse.typeUrl);
 function createBaseMsgUpdateGroupPolicyDecisionPolicy(): MsgUpdateGroupPolicyDecisionPolicy {
   return {
     admin: "",
@@ -2068,10 +2064,12 @@ export const MsgUpdateGroupPolicyDecisionPolicy = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicy",
       value: MsgUpdateGroupPolicyDecisionPolicy.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ThresholdDecisionPolicy.registerTypeUrl();
+    PercentageDecisionPolicy.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupPolicyDecisionPolicy.typeUrl, MsgUpdateGroupPolicyDecisionPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupPolicyDecisionPolicy.aminoType, MsgUpdateGroupPolicyDecisionPolicy.typeUrl);
 function createBaseMsgUpdateGroupPolicyDecisionPolicyResponse(): MsgUpdateGroupPolicyDecisionPolicyResponse {
   return {};
 }
@@ -2133,10 +2131,9 @@ export const MsgUpdateGroupPolicyDecisionPolicyResponse = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyDecisionPolicyResponse",
       value: MsgUpdateGroupPolicyDecisionPolicyResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupPolicyDecisionPolicyResponse.typeUrl, MsgUpdateGroupPolicyDecisionPolicyResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupPolicyDecisionPolicyResponse.aminoType, MsgUpdateGroupPolicyDecisionPolicyResponse.typeUrl);
 function createBaseMsgUpdateGroupPolicyMetadata(): MsgUpdateGroupPolicyMetadata {
   return {
     admin: "",
@@ -2235,10 +2232,9 @@ export const MsgUpdateGroupPolicyMetadata = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadata",
       value: MsgUpdateGroupPolicyMetadata.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupPolicyMetadata.typeUrl, MsgUpdateGroupPolicyMetadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupPolicyMetadata.aminoType, MsgUpdateGroupPolicyMetadata.typeUrl);
 function createBaseMsgUpdateGroupPolicyMetadataResponse(): MsgUpdateGroupPolicyMetadataResponse {
   return {};
 }
@@ -2300,10 +2296,9 @@ export const MsgUpdateGroupPolicyMetadataResponse = {
       typeUrl: "/cosmos.group.v1.MsgUpdateGroupPolicyMetadataResponse",
       value: MsgUpdateGroupPolicyMetadataResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateGroupPolicyMetadataResponse.typeUrl, MsgUpdateGroupPolicyMetadataResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateGroupPolicyMetadataResponse.aminoType, MsgUpdateGroupPolicyMetadataResponse.typeUrl);
 function createBaseMsgSubmitProposal(): MsgSubmitProposal {
   return {
     groupPolicyAddress: "",
@@ -2454,10 +2449,9 @@ export const MsgSubmitProposal = {
       typeUrl: "/cosmos.group.v1.MsgSubmitProposal",
       value: MsgSubmitProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubmitProposal.typeUrl, MsgSubmitProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSubmitProposal.aminoType, MsgSubmitProposal.typeUrl);
 function createBaseMsgSubmitProposalResponse(): MsgSubmitProposalResponse {
   return {
     proposalId: BigInt(0)
@@ -2532,10 +2526,9 @@ export const MsgSubmitProposalResponse = {
       typeUrl: "/cosmos.group.v1.MsgSubmitProposalResponse",
       value: MsgSubmitProposalResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubmitProposalResponse.typeUrl, MsgSubmitProposalResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSubmitProposalResponse.aminoType, MsgSubmitProposalResponse.typeUrl);
 function createBaseMsgWithdrawProposal(): MsgWithdrawProposal {
   return {
     proposalId: BigInt(0),
@@ -2622,10 +2615,9 @@ export const MsgWithdrawProposal = {
       typeUrl: "/cosmos.group.v1.MsgWithdrawProposal",
       value: MsgWithdrawProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgWithdrawProposal.typeUrl, MsgWithdrawProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgWithdrawProposal.aminoType, MsgWithdrawProposal.typeUrl);
 function createBaseMsgWithdrawProposalResponse(): MsgWithdrawProposalResponse {
   return {};
 }
@@ -2687,10 +2679,9 @@ export const MsgWithdrawProposalResponse = {
       typeUrl: "/cosmos.group.v1.MsgWithdrawProposalResponse",
       value: MsgWithdrawProposalResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgWithdrawProposalResponse.typeUrl, MsgWithdrawProposalResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgWithdrawProposalResponse.aminoType, MsgWithdrawProposalResponse.typeUrl);
 function createBaseMsgVote(): MsgVote {
   return {
     proposalId: BigInt(0),
@@ -2813,10 +2804,9 @@ export const MsgVote = {
       typeUrl: "/cosmos.group.v1.MsgVote",
       value: MsgVote.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgVote.typeUrl, MsgVote);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgVote.aminoType, MsgVote.typeUrl);
 function createBaseMsgVoteResponse(): MsgVoteResponse {
   return {};
 }
@@ -2878,10 +2868,9 @@ export const MsgVoteResponse = {
       typeUrl: "/cosmos.group.v1.MsgVoteResponse",
       value: MsgVoteResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgVoteResponse.typeUrl, MsgVoteResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgVoteResponse.aminoType, MsgVoteResponse.typeUrl);
 function createBaseMsgExec(): MsgExec {
   return {
     proposalId: BigInt(0),
@@ -2968,10 +2957,9 @@ export const MsgExec = {
       typeUrl: "/cosmos.group.v1.MsgExec",
       value: MsgExec.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExec.typeUrl, MsgExec);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgExec.aminoType, MsgExec.typeUrl);
 function createBaseMsgExecResponse(): MsgExecResponse {
   return {
     result: 0
@@ -3046,10 +3034,9 @@ export const MsgExecResponse = {
       typeUrl: "/cosmos.group.v1.MsgExecResponse",
       value: MsgExecResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExecResponse.typeUrl, MsgExecResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgExecResponse.aminoType, MsgExecResponse.typeUrl);
 function createBaseMsgLeaveGroup(): MsgLeaveGroup {
   return {
     address: "",
@@ -3136,10 +3123,9 @@ export const MsgLeaveGroup = {
       typeUrl: "/cosmos.group.v1.MsgLeaveGroup",
       value: MsgLeaveGroup.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgLeaveGroup.typeUrl, MsgLeaveGroup);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgLeaveGroup.aminoType, MsgLeaveGroup.typeUrl);
 function createBaseMsgLeaveGroupResponse(): MsgLeaveGroupResponse {
   return {};
 }
@@ -3201,7 +3187,6 @@ export const MsgLeaveGroupResponse = {
       typeUrl: "/cosmos.group.v1.MsgLeaveGroupResponse",
       value: MsgLeaveGroupResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgLeaveGroupResponse.typeUrl, MsgLeaveGroupResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgLeaveGroupResponse.aminoType, MsgLeaveGroupResponse.typeUrl);

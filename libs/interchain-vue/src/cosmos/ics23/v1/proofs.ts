@@ -1,5 +1,4 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
 export enum HashOp {
   /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
@@ -754,10 +753,12 @@ export const ExistenceProof = {
       typeUrl: "/cosmos.ics23.v1.ExistenceProof",
       value: ExistenceProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    LeafOp.registerTypeUrl();
+    InnerOp.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExistenceProof.typeUrl, ExistenceProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(ExistenceProof.aminoType, ExistenceProof.typeUrl);
 function createBaseNonExistenceProof(): NonExistenceProof {
   return {
     key: new Uint8Array(),
@@ -856,10 +857,11 @@ export const NonExistenceProof = {
       typeUrl: "/cosmos.ics23.v1.NonExistenceProof",
       value: NonExistenceProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ExistenceProof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(NonExistenceProof.typeUrl, NonExistenceProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(NonExistenceProof.aminoType, NonExistenceProof.typeUrl);
 function createBaseCommitmentProof(): CommitmentProof {
   return {
     exist: undefined,
@@ -970,10 +972,14 @@ export const CommitmentProof = {
       typeUrl: "/cosmos.ics23.v1.CommitmentProof",
       value: CommitmentProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ExistenceProof.registerTypeUrl();
+    NonExistenceProof.registerTypeUrl();
+    BatchProof.registerTypeUrl();
+    CompressedBatchProof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CommitmentProof.typeUrl, CommitmentProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(CommitmentProof.aminoType, CommitmentProof.typeUrl);
 function createBaseLeafOp(): LeafOp {
   return {
     hash: 0,
@@ -1096,10 +1102,9 @@ export const LeafOp = {
       typeUrl: "/cosmos.ics23.v1.LeafOp",
       value: LeafOp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(LeafOp.typeUrl, LeafOp);
-GlobalDecoderRegistry.registerAminoProtoMapping(LeafOp.aminoType, LeafOp.typeUrl);
 function createBaseInnerOp(): InnerOp {
   return {
     hash: 0,
@@ -1198,10 +1203,9 @@ export const InnerOp = {
       typeUrl: "/cosmos.ics23.v1.InnerOp",
       value: InnerOp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(InnerOp.typeUrl, InnerOp);
-GlobalDecoderRegistry.registerAminoProtoMapping(InnerOp.aminoType, InnerOp.typeUrl);
 function createBaseProofSpec(): ProofSpec {
   return {
     leafSpec: undefined,
@@ -1324,10 +1328,12 @@ export const ProofSpec = {
       typeUrl: "/cosmos.ics23.v1.ProofSpec",
       value: ProofSpec.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    LeafOp.registerTypeUrl();
+    InnerSpec.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ProofSpec.typeUrl, ProofSpec);
-GlobalDecoderRegistry.registerAminoProtoMapping(ProofSpec.aminoType, ProofSpec.typeUrl);
 function createBaseInnerSpec(): InnerSpec {
   return {
     childOrder: [],
@@ -1473,10 +1479,9 @@ export const InnerSpec = {
       typeUrl: "/cosmos.ics23.v1.InnerSpec",
       value: InnerSpec.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(InnerSpec.typeUrl, InnerSpec);
-GlobalDecoderRegistry.registerAminoProtoMapping(InnerSpec.aminoType, InnerSpec.typeUrl);
 function createBaseBatchProof(): BatchProof {
   return {
     entries: []
@@ -1553,10 +1558,11 @@ export const BatchProof = {
       typeUrl: "/cosmos.ics23.v1.BatchProof",
       value: BatchProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BatchEntry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BatchProof.typeUrl, BatchProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchProof.aminoType, BatchProof.typeUrl);
 function createBaseBatchEntry(): BatchEntry {
   return {
     exist: undefined,
@@ -1643,10 +1649,12 @@ export const BatchEntry = {
       typeUrl: "/cosmos.ics23.v1.BatchEntry",
       value: BatchEntry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ExistenceProof.registerTypeUrl();
+    NonExistenceProof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BatchEntry.typeUrl, BatchEntry);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchEntry.aminoType, BatchEntry.typeUrl);
 function createBaseCompressedBatchProof(): CompressedBatchProof {
   return {
     entries: [],
@@ -1737,10 +1745,12 @@ export const CompressedBatchProof = {
       typeUrl: "/cosmos.ics23.v1.CompressedBatchProof",
       value: CompressedBatchProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CompressedBatchEntry.registerTypeUrl();
+    InnerOp.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CompressedBatchProof.typeUrl, CompressedBatchProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(CompressedBatchProof.aminoType, CompressedBatchProof.typeUrl);
 function createBaseCompressedBatchEntry(): CompressedBatchEntry {
   return {
     exist: undefined,
@@ -1827,10 +1837,12 @@ export const CompressedBatchEntry = {
       typeUrl: "/cosmos.ics23.v1.CompressedBatchEntry",
       value: CompressedBatchEntry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CompressedExistenceProof.registerTypeUrl();
+    CompressedNonExistenceProof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CompressedBatchEntry.typeUrl, CompressedBatchEntry);
-GlobalDecoderRegistry.registerAminoProtoMapping(CompressedBatchEntry.aminoType, CompressedBatchEntry.typeUrl);
 function createBaseCompressedExistenceProof(): CompressedExistenceProof {
   return {
     key: new Uint8Array(),
@@ -1952,10 +1964,11 @@ export const CompressedExistenceProof = {
       typeUrl: "/cosmos.ics23.v1.CompressedExistenceProof",
       value: CompressedExistenceProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    LeafOp.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CompressedExistenceProof.typeUrl, CompressedExistenceProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(CompressedExistenceProof.aminoType, CompressedExistenceProof.typeUrl);
 function createBaseCompressedNonExistenceProof(): CompressedNonExistenceProof {
   return {
     key: new Uint8Array(),
@@ -2054,7 +2067,8 @@ export const CompressedNonExistenceProof = {
       typeUrl: "/cosmos.ics23.v1.CompressedNonExistenceProof",
       value: CompressedNonExistenceProof.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CompressedExistenceProof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CompressedNonExistenceProof.typeUrl, CompressedNonExistenceProof);
-GlobalDecoderRegistry.registerAminoProtoMapping(CompressedNonExistenceProof.aminoType, CompressedNonExistenceProof.typeUrl);

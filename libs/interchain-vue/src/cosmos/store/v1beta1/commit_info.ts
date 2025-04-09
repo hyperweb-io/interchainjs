@@ -1,7 +1,6 @@
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * CommitInfo defines commit information used by the multi-store when committing
  * a version/height.
@@ -176,10 +175,11 @@ export const CommitInfo = {
       typeUrl: "/cosmos.store.v1beta1.CommitInfo",
       value: CommitInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    StoreInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(CommitInfo.typeUrl, CommitInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(CommitInfo.aminoType, CommitInfo.typeUrl);
 function createBaseStoreInfo(): StoreInfo {
   return {
     name: "",
@@ -266,10 +266,11 @@ export const StoreInfo = {
       typeUrl: "/cosmos.store.v1beta1.StoreInfo",
       value: StoreInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CommitID.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StoreInfo.typeUrl, StoreInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreInfo.aminoType, StoreInfo.typeUrl);
 function createBaseCommitID(): CommitID {
   return {
     version: BigInt(0),
@@ -356,7 +357,6 @@ export const CommitID = {
       typeUrl: "/cosmos.store.v1beta1.CommitID",
       value: CommitID.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(CommitID.typeUrl, CommitID);
-GlobalDecoderRegistry.registerAminoProtoMapping(CommitID.aminoType, CommitID.typeUrl);

@@ -3,7 +3,6 @@ import { Params, ParamsAmino } from "../v1/transfer";
 import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { PacketId, PacketIdAmino, Packet, PacketAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** GenesisState defines the ibc-transfer genesis state */
 export interface GenesisState {
@@ -191,10 +190,14 @@ export const GenesisState = {
       typeUrl: "/ibc.applications.transfer.v2.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Denom.registerTypeUrl();
+    Params.registerTypeUrl();
+    Coin.registerTypeUrl();
+    ForwardedPacket.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseForwardedPacket(): ForwardedPacket {
   return {
     forwardKey: PacketId.fromPartial({}),
@@ -281,7 +284,9 @@ export const ForwardedPacket = {
       typeUrl: "/ibc.applications.transfer.v2.ForwardedPacket",
       value: ForwardedPacket.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PacketId.registerTypeUrl();
+    Packet.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ForwardedPacket.typeUrl, ForwardedPacket);
-GlobalDecoderRegistry.registerAminoProtoMapping(ForwardedPacket.aminoType, ForwardedPacket.typeUrl);

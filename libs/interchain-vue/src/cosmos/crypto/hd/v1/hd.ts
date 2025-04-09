@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** BIP44Params is used as path field in ledger item in Record. */
 export interface BIP44Params {
   /** purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
@@ -163,7 +162,6 @@ export const BIP44Params = {
       typeUrl: "/cosmos.crypto.hd.v1.BIP44Params",
       value: BIP44Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BIP44Params.typeUrl, BIP44Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(BIP44Params.aminoType, BIP44Params.typeUrl);

@@ -1,23 +1,23 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryCurrentPlanRequest, QueryCurrentPlanResponse, QueryAppliedPlanRequest, QueryAppliedPlanResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryModuleVersionsRequest, QueryModuleVersionsResponse, QueryAuthorityRequest, QueryAuthorityResponse } from "./query";
-import { createGetCurrentPlan, createGetAppliedPlan, createGetUpgradedConsensusState, createGetModuleVersions, createGetAuthority } from "./query.rpc.func";
+import { getCurrentPlan, getAppliedPlan, getUpgradedConsensusState, getModuleVersions, getAuthority } from "./query.rpc.func";
 export const useGetCurrentPlan = buildUseVueQuery<QueryCurrentPlanRequest, QueryCurrentPlanResponse>({
-  builderQueryFn: createGetCurrentPlan,
+  builderQueryFn: getCurrentPlan,
   queryKeyPrefix: "CurrentPlanQuery"
 });
 export const useGetAppliedPlan = buildUseVueQuery<QueryAppliedPlanRequest, QueryAppliedPlanResponse>({
-  builderQueryFn: createGetAppliedPlan,
+  builderQueryFn: getAppliedPlan,
   queryKeyPrefix: "AppliedPlanQuery"
 });
 export const useGetUpgradedConsensusState = buildUseVueQuery<QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse>({
-  builderQueryFn: createGetUpgradedConsensusState,
+  builderQueryFn: getUpgradedConsensusState,
   queryKeyPrefix: "UpgradedConsensusStateQuery"
 });
 export const useGetModuleVersions = buildUseVueQuery<QueryModuleVersionsRequest, QueryModuleVersionsResponse>({
-  builderQueryFn: createGetModuleVersions,
+  builderQueryFn: getModuleVersions,
   queryKeyPrefix: "ModuleVersionsQuery"
 });
 export const useGetAuthority = buildUseVueQuery<QueryAuthorityRequest, QueryAuthorityResponse>({
-  builderQueryFn: createGetAuthority,
+  builderQueryFn: getAuthority,
   queryKeyPrefix: "AuthorityQuery"
 });

@@ -6,7 +6,6 @@ import { MerkleRoot, MerkleRootAmino } from "../../../core/commitment/v1/commitm
 import { SignedHeader, SignedHeaderAmino } from "../../../../tendermint/types/types";
 import { ValidatorSet, ValidatorSetAmino } from "../../../../tendermint/types/validator";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * ClientState from Tendermint tracks the current validator set, latest height,
@@ -424,10 +423,13 @@ export const ClientState = {
       typeUrl: "/ibc.lightclients.tendermint.v1.ClientState",
       value: ClientState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Fraction.registerTypeUrl();
+    Height.registerTypeUrl();
+    ProofSpec.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ClientState.typeUrl, ClientState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientState.aminoType, ClientState.typeUrl);
 function createBaseConsensusState(): ConsensusState {
   return {
     timestamp: new Date(),
@@ -526,10 +528,11 @@ export const ConsensusState = {
       typeUrl: "/ibc.lightclients.tendermint.v1.ConsensusState",
       value: ConsensusState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MerkleRoot.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ConsensusState.typeUrl, ConsensusState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConsensusState.aminoType, ConsensusState.typeUrl);
 function createBaseMisbehaviour(): Misbehaviour {
   return {
     clientId: "",
@@ -628,10 +631,11 @@ export const Misbehaviour = {
       typeUrl: "/ibc.lightclients.tendermint.v1.Misbehaviour",
       value: Misbehaviour.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Header.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Misbehaviour.typeUrl, Misbehaviour);
-GlobalDecoderRegistry.registerAminoProtoMapping(Misbehaviour.aminoType, Misbehaviour.typeUrl);
 function createBaseHeader(): Header {
   return {
     signedHeader: undefined,
@@ -742,10 +746,13 @@ export const Header = {
       typeUrl: "/ibc.lightclients.tendermint.v1.Header",
       value: Header.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignedHeader.registerTypeUrl();
+    ValidatorSet.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Header.typeUrl, Header);
-GlobalDecoderRegistry.registerAminoProtoMapping(Header.aminoType, Header.typeUrl);
 function createBaseFraction(): Fraction {
   return {
     numerator: BigInt(0),
@@ -832,7 +839,6 @@ export const Fraction = {
       typeUrl: "/ibc.lightclients.tendermint.v1.Fraction",
       value: Fraction.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Fraction.typeUrl, Fraction);
-GlobalDecoderRegistry.registerAminoProtoMapping(Fraction.aminoType, Fraction.typeUrl);

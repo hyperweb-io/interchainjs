@@ -9,9 +9,9 @@ import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
 import { HDPath } from '@interchainjs/types';
 import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signing-client';
-import { createGetAllBalances, createGetBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
-import { createSend } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
-import { createTransfer } from "interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
+import { getAllBalances, getBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+import { transfer } from "interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
 import { QueryBalanceRequest, QueryBalanceResponse } from 'interchainjs/cosmos/bank/v1beta1/query';
 import { useChain } from 'starshipjs';
 
@@ -27,8 +27,6 @@ describe('Token transfers', () => {
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
-
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
@@ -51,9 +49,6 @@ describe('Token transfers', () => {
     address = accounts[0].address;
     address2 = accounts[1].address;
 
-    // Create custom cosmos interchain client
-    getBalance = createGetBalance(await getRpcEndpoint());
-
     await creditFromFaucet(address);
   });
 
@@ -68,8 +63,6 @@ describe('Token transfers', () => {
         },
       }
     );
-
-    const send = createSend(signingClient);
 
     const fee = {
       amount: [
@@ -88,13 +81,14 @@ describe('Token transfers', () => {
 
     // Transfer uosmo tokens from faceut
     await send(
+      signingClient,
       address,
       { fromAddress: address, toAddress: address2, amount: [token] },
       fee,
       'send tokens test'
     );
 
-    const { balance } = await getBalance({ address: address2, denom });
+    const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
 
     expect(balance!.amount).toEqual(token.amount);
     expect(balance!.denom).toEqual(denom);
@@ -111,8 +105,6 @@ describe('Token transfers', () => {
         },
       }
     );
-
-    const transfer = createTransfer(signingClient);
 
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
       useChain('cosmoshub');
@@ -161,6 +153,7 @@ describe('Token transfers', () => {
 
     // send ibc tokens
     const resp = await transfer(
+      signingClient,
       address,
       MsgTransfer.fromPartial({
         sourcePort,
@@ -178,10 +171,7 @@ describe('Token transfers', () => {
 
     assertIsDeliverTxSuccess(resp);
 
-    // Check osmos in address on cosmos chain
-    const cosmosGetAllBalances = createGetAllBalances(await cosmosRpcEndpoint());
-
-    const { balances } = await cosmosGetAllBalances({
+    const { balances } = await getAllBalances(await cosmosRpcEndpoint(), {
       address: cosmosAddress,
       resolveDenom: true,
     });

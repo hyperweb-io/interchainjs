@@ -1,21 +1,21 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgUpdateContract, MsgActivateContract, MsgDeactivateContract, MsgExecuteContractCompat, MsgUpdateParams, MsgRegisterContract } from "./tx";
-import { createUpdateRegistryContractParams, createActivateRegistryContract, createDeactivateRegistryContract, createExecuteContractCompat, createUpdateParams, createRegisterContract } from "./tx.rpc.func";
+import { updateRegistryContractParams, activateRegistryContract, deactivateRegistryContract, executeContractCompat, updateParams, registerContract } from "./tx.rpc.func";
 export const useUpdateRegistryContractParams = buildUseMutation<MsgUpdateContract, Error>({
-  builderMutationFn: createUpdateRegistryContractParams
+  builderMutationFn: updateRegistryContractParams
 });
 export const useActivateRegistryContract = buildUseMutation<MsgActivateContract, Error>({
-  builderMutationFn: createActivateRegistryContract
+  builderMutationFn: activateRegistryContract
 });
 export const useDeactivateRegistryContract = buildUseMutation<MsgDeactivateContract, Error>({
-  builderMutationFn: createDeactivateRegistryContract
+  builderMutationFn: deactivateRegistryContract
 });
 export const useExecuteContractCompat = buildUseMutation<MsgExecuteContractCompat, Error>({
-  builderMutationFn: createExecuteContractCompat
+  builderMutationFn: executeContractCompat
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useRegisterContract = buildUseMutation<MsgRegisterContract, Error>({
-  builderMutationFn: createRegisterContract
+  builderMutationFn: registerContract
 });

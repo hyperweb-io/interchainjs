@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** ConfigRequest defines the request structure for the Config gRPC query. */
 export interface ConfigRequest {}
 export interface ConfigRequestProtoMsg {
@@ -90,10 +89,9 @@ export const ConfigRequest = {
       typeUrl: "/cosmos.base.node.v2.ConfigRequest",
       value: ConfigRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConfigRequest.typeUrl, ConfigRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConfigRequest.aminoType, ConfigRequest.typeUrl);
 function createBaseConfigResponse(): ConfigResponse {
   return {
     minimumGasPrice: ""
@@ -168,7 +166,6 @@ export const ConfigResponse = {
       typeUrl: "/cosmos.base.node.v2.ConfigResponse",
       value: ConfigResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConfigResponse.typeUrl, ConfigResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConfigResponse.aminoType, ConfigResponse.typeUrl);

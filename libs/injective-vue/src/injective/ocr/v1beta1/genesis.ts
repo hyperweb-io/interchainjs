@@ -1,7 +1,6 @@
 import { Params, ParamsAmino, FeedConfig, FeedConfigAmino, Transmission, TransmissionAmino, EpochAndRound, EpochAndRoundAmino } from "./ocr";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the OCR module's genesis state. */
 export interface GenesisState {
@@ -352,9 +351,18 @@ export const GenesisState = {
       typeUrl: "/injective.ocr.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    FeedConfig.registerTypeUrl();
+    FeedEpochAndRound.registerTypeUrl();
+    FeedTransmission.registerTypeUrl();
+    FeedLatestAggregatorRoundIDs.registerTypeUrl();
+    RewardPool.registerTypeUrl();
+    FeedCounts.registerTypeUrl();
+    PendingPayeeship.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
 function createBaseFeedTransmission(): FeedTransmission {
   return {
     feedId: "",
@@ -434,9 +442,11 @@ export const FeedTransmission = {
       typeUrl: "/injective.ocr.v1beta1.FeedTransmission",
       value: FeedTransmission.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Transmission.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FeedTransmission.typeUrl, FeedTransmission);
 function createBaseFeedEpochAndRound(): FeedEpochAndRound {
   return {
     feedId: "",
@@ -516,9 +526,11 @@ export const FeedEpochAndRound = {
       typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound",
       value: FeedEpochAndRound.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    EpochAndRound.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FeedEpochAndRound.typeUrl, FeedEpochAndRound);
 function createBaseFeedLatestAggregatorRoundIDs(): FeedLatestAggregatorRoundIDs {
   return {
     feedId: "",
@@ -598,9 +610,9 @@ export const FeedLatestAggregatorRoundIDs = {
       typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs",
       value: FeedLatestAggregatorRoundIDs.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FeedLatestAggregatorRoundIDs.typeUrl, FeedLatestAggregatorRoundIDs);
 function createBaseRewardPool(): RewardPool {
   return {
     feedId: "",
@@ -680,9 +692,11 @@ export const RewardPool = {
       typeUrl: "/injective.ocr.v1beta1.RewardPool",
       value: RewardPool.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RewardPool.typeUrl, RewardPool);
 function createBaseFeedCounts(): FeedCounts {
   return {
     feedId: "",
@@ -764,9 +778,11 @@ export const FeedCounts = {
       typeUrl: "/injective.ocr.v1beta1.FeedCounts",
       value: FeedCounts.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Count.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FeedCounts.typeUrl, FeedCounts);
 function createBaseCount(): Count {
   return {
     address: "",
@@ -846,9 +862,9 @@ export const Count = {
       typeUrl: "/injective.ocr.v1beta1.Count",
       value: Count.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Count.typeUrl, Count);
 function createBasePendingPayeeship(): PendingPayeeship {
   return {
     feedId: "",
@@ -940,6 +956,6 @@ export const PendingPayeeship = {
       typeUrl: "/injective.ocr.v1beta1.PendingPayeeship",
       value: PendingPayeeship.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PendingPayeeship.typeUrl, PendingPayeeship);

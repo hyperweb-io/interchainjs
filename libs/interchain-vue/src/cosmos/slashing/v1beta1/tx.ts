@@ -1,7 +1,6 @@
 import { Params, ParamsAmino } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjail {
   validatorAddr: string;
@@ -164,10 +163,9 @@ export const MsgUnjail = {
       typeUrl: "/cosmos.slashing.v1beta1.MsgUnjail",
       value: MsgUnjail.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUnjail.typeUrl, MsgUnjail);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUnjail.aminoType, MsgUnjail.typeUrl);
 function createBaseMsgUnjailResponse(): MsgUnjailResponse {
   return {};
 }
@@ -229,10 +227,9 @@ export const MsgUnjailResponse = {
       typeUrl: "/cosmos.slashing.v1beta1.MsgUnjailResponse",
       value: MsgUnjailResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUnjailResponse.typeUrl, MsgUnjailResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUnjailResponse.aminoType, MsgUnjailResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -319,10 +316,11 @@ export const MsgUpdateParams = {
       typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -384,7 +382,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/cosmos.slashing.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);

@@ -1,7 +1,6 @@
 import { AccessConfig, AccessConfigAmino } from "../../../cosmwasm/wasm/v1/types";
 import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
 export interface Params {
   /**
@@ -231,10 +230,11 @@ export const Params = {
       typeUrl: "/injective.wasmx.v1.Params",
       value: Params.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AccessConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseRegisteredContract(): RegisteredContract {
   return {
     gasLimit: BigInt(0),
@@ -374,6 +374,6 @@ export const RegisteredContract = {
       typeUrl: "/injective.wasmx.v1.RegisteredContract",
       value: RegisteredContract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RegisteredContract.typeUrl, RegisteredContract);

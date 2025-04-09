@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** MsgStoreCode defines the request type for the StoreCode rpc. */
 export interface MsgStoreCode {
   /** signer address */
@@ -203,10 +202,9 @@ export const MsgStoreCode = {
       typeUrl: "/ibc.lightclients.wasm.v1.MsgStoreCode",
       value: MsgStoreCode.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgStoreCode.typeUrl, MsgStoreCode);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgStoreCode.aminoType, MsgStoreCode.typeUrl);
 function createBaseMsgStoreCodeResponse(): MsgStoreCodeResponse {
   return {
     checksum: new Uint8Array()
@@ -281,10 +279,9 @@ export const MsgStoreCodeResponse = {
       typeUrl: "/ibc.lightclients.wasm.v1.MsgStoreCodeResponse",
       value: MsgStoreCodeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgStoreCodeResponse.typeUrl, MsgStoreCodeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgStoreCodeResponse.aminoType, MsgStoreCodeResponse.typeUrl);
 function createBaseMsgRemoveChecksum(): MsgRemoveChecksum {
   return {
     signer: "",
@@ -371,10 +368,9 @@ export const MsgRemoveChecksum = {
       typeUrl: "/ibc.lightclients.wasm.v1.MsgRemoveChecksum",
       value: MsgRemoveChecksum.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRemoveChecksum.typeUrl, MsgRemoveChecksum);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRemoveChecksum.aminoType, MsgRemoveChecksum.typeUrl);
 function createBaseMsgRemoveChecksumResponse(): MsgRemoveChecksumResponse {
   return {};
 }
@@ -436,10 +432,9 @@ export const MsgRemoveChecksumResponse = {
       typeUrl: "/ibc.lightclients.wasm.v1.MsgRemoveChecksumResponse",
       value: MsgRemoveChecksumResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRemoveChecksumResponse.typeUrl, MsgRemoveChecksumResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRemoveChecksumResponse.aminoType, MsgRemoveChecksumResponse.typeUrl);
 function createBaseMsgMigrateContract(): MsgMigrateContract {
   return {
     signer: "",
@@ -550,10 +545,9 @@ export const MsgMigrateContract = {
       typeUrl: "/ibc.lightclients.wasm.v1.MsgMigrateContract",
       value: MsgMigrateContract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgMigrateContract.typeUrl, MsgMigrateContract);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgMigrateContract.aminoType, MsgMigrateContract.typeUrl);
 function createBaseMsgMigrateContractResponse(): MsgMigrateContractResponse {
   return {};
 }
@@ -615,7 +609,6 @@ export const MsgMigrateContractResponse = {
       typeUrl: "/ibc.lightclients.wasm.v1.MsgMigrateContractResponse",
       value: MsgMigrateContractResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgMigrateContractResponse.typeUrl, MsgMigrateContractResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgMigrateContractResponse.aminoType, MsgMigrateContractResponse.typeUrl);

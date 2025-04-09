@@ -1,7 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** each Action enum value should be a power of two */
 export enum Action {
   UNSPECIFIED = 0,
@@ -303,9 +302,12 @@ export const Namespace = {
       typeUrl: "/injective.permissions.v1beta1.Namespace",
       value: Namespace.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Role.registerTypeUrl();
+    AddressRoles.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Namespace.typeUrl, Namespace);
 function createBaseAddressRoles(): AddressRoles {
   return {
     address: "",
@@ -387,9 +389,9 @@ export const AddressRoles = {
       typeUrl: "/injective.permissions.v1beta1.AddressRoles",
       value: AddressRoles.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AddressRoles.typeUrl, AddressRoles);
 function createBaseRole(): Role {
   return {
     role: "",
@@ -469,9 +471,9 @@ export const Role = {
       typeUrl: "/injective.permissions.v1beta1.Role",
       value: Role.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Role.typeUrl, Role);
 function createBaseRoleIDs(): RoleIDs {
   return {
     roleIds: []
@@ -550,9 +552,9 @@ export const RoleIDs = {
       typeUrl: "/injective.permissions.v1beta1.RoleIDs",
       value: RoleIDs.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RoleIDs.typeUrl, RoleIDs);
 function createBaseVoucher(): Voucher {
   return {
     coins: []
@@ -622,9 +624,11 @@ export const Voucher = {
       typeUrl: "/injective.permissions.v1beta1.Voucher",
       value: Voucher.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Voucher.typeUrl, Voucher);
 function createBaseAddressVoucher(): AddressVoucher {
   return {
     address: "",
@@ -704,6 +708,8 @@ export const AddressVoucher = {
       typeUrl: "/injective.permissions.v1beta1.AddressVoucher",
       value: AddressVoucher.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Voucher.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AddressVoucher.typeUrl, AddressVoucher);

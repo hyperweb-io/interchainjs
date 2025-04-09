@@ -2,7 +2,6 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { ConnectionEnd, ConnectionEndAmino } from "../../../core/connection/v1/connection";
 import { Channel, ChannelAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
 /**
  * DataType defines the type of solo machine proof being created. This is done
@@ -627,10 +626,11 @@ export const ClientState = {
       typeUrl: "/ibc.lightclients.solomachine.v2.ClientState",
       value: ClientState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ConsensusState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ClientState.typeUrl, ClientState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientState.aminoType, ClientState.typeUrl);
 function createBaseConsensusState(): ConsensusState {
   return {
     publicKey: undefined,
@@ -729,10 +729,9 @@ export const ConsensusState = {
       typeUrl: "/ibc.lightclients.solomachine.v2.ConsensusState",
       value: ConsensusState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConsensusState.typeUrl, ConsensusState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConsensusState.aminoType, ConsensusState.typeUrl);
 function createBaseHeader(): Header {
   return {
     sequence: BigInt(0),
@@ -855,10 +854,9 @@ export const Header = {
       typeUrl: "/ibc.lightclients.solomachine.v2.Header",
       value: Header.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Header.typeUrl, Header);
-GlobalDecoderRegistry.registerAminoProtoMapping(Header.aminoType, Header.typeUrl);
 function createBaseMisbehaviour(): Misbehaviour {
   return {
     clientId: "",
@@ -969,10 +967,11 @@ export const Misbehaviour = {
       typeUrl: "/ibc.lightclients.solomachine.v2.Misbehaviour",
       value: Misbehaviour.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignatureAndData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Misbehaviour.typeUrl, Misbehaviour);
-GlobalDecoderRegistry.registerAminoProtoMapping(Misbehaviour.aminoType, Misbehaviour.typeUrl);
 function createBaseSignatureAndData(): SignatureAndData {
   return {
     signature: new Uint8Array(),
@@ -1083,10 +1082,9 @@ export const SignatureAndData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.SignatureAndData",
       value: SignatureAndData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignatureAndData.typeUrl, SignatureAndData);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureAndData.aminoType, SignatureAndData.typeUrl);
 function createBaseTimestampedSignatureData(): TimestampedSignatureData {
   return {
     signatureData: new Uint8Array(),
@@ -1173,10 +1171,9 @@ export const TimestampedSignatureData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.TimestampedSignatureData",
       value: TimestampedSignatureData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TimestampedSignatureData.typeUrl, TimestampedSignatureData);
-GlobalDecoderRegistry.registerAminoProtoMapping(TimestampedSignatureData.aminoType, TimestampedSignatureData.typeUrl);
 function createBaseSignBytes(): SignBytes {
   return {
     sequence: BigInt(0),
@@ -1299,10 +1296,9 @@ export const SignBytes = {
       typeUrl: "/ibc.lightclients.solomachine.v2.SignBytes",
       value: SignBytes.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignBytes.typeUrl, SignBytes);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignBytes.aminoType, SignBytes.typeUrl);
 function createBaseHeaderData(): HeaderData {
   return {
     newPubKey: undefined,
@@ -1389,10 +1385,9 @@ export const HeaderData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.HeaderData",
       value: HeaderData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(HeaderData.typeUrl, HeaderData);
-GlobalDecoderRegistry.registerAminoProtoMapping(HeaderData.aminoType, HeaderData.typeUrl);
 function createBaseClientStateData(): ClientStateData {
   return {
     path: new Uint8Array(),
@@ -1479,10 +1474,9 @@ export const ClientStateData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.ClientStateData",
       value: ClientStateData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ClientStateData.typeUrl, ClientStateData);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientStateData.aminoType, ClientStateData.typeUrl);
 function createBaseConsensusStateData(): ConsensusStateData {
   return {
     path: new Uint8Array(),
@@ -1569,10 +1563,9 @@ export const ConsensusStateData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.ConsensusStateData",
       value: ConsensusStateData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConsensusStateData.typeUrl, ConsensusStateData);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConsensusStateData.aminoType, ConsensusStateData.typeUrl);
 function createBaseConnectionStateData(): ConnectionStateData {
   return {
     path: new Uint8Array(),
@@ -1659,10 +1652,11 @@ export const ConnectionStateData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.ConnectionStateData",
       value: ConnectionStateData.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ConnectionEnd.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ConnectionStateData.typeUrl, ConnectionStateData);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConnectionStateData.aminoType, ConnectionStateData.typeUrl);
 function createBaseChannelStateData(): ChannelStateData {
   return {
     path: new Uint8Array(),
@@ -1749,10 +1743,11 @@ export const ChannelStateData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.ChannelStateData",
       value: ChannelStateData.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Channel.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ChannelStateData.typeUrl, ChannelStateData);
-GlobalDecoderRegistry.registerAminoProtoMapping(ChannelStateData.aminoType, ChannelStateData.typeUrl);
 function createBasePacketCommitmentData(): PacketCommitmentData {
   return {
     path: new Uint8Array(),
@@ -1839,10 +1834,9 @@ export const PacketCommitmentData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.PacketCommitmentData",
       value: PacketCommitmentData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PacketCommitmentData.typeUrl, PacketCommitmentData);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketCommitmentData.aminoType, PacketCommitmentData.typeUrl);
 function createBasePacketAcknowledgementData(): PacketAcknowledgementData {
   return {
     path: new Uint8Array(),
@@ -1929,10 +1923,9 @@ export const PacketAcknowledgementData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.PacketAcknowledgementData",
       value: PacketAcknowledgementData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PacketAcknowledgementData.typeUrl, PacketAcknowledgementData);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketAcknowledgementData.aminoType, PacketAcknowledgementData.typeUrl);
 function createBasePacketReceiptAbsenceData(): PacketReceiptAbsenceData {
   return {
     path: new Uint8Array()
@@ -2007,10 +2000,9 @@ export const PacketReceiptAbsenceData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData",
       value: PacketReceiptAbsenceData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PacketReceiptAbsenceData.typeUrl, PacketReceiptAbsenceData);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketReceiptAbsenceData.aminoType, PacketReceiptAbsenceData.typeUrl);
 function createBaseNextSequenceRecvData(): NextSequenceRecvData {
   return {
     path: new Uint8Array(),
@@ -2097,7 +2089,6 @@ export const NextSequenceRecvData = {
       typeUrl: "/ibc.lightclients.solomachine.v2.NextSequenceRecvData",
       value: NextSequenceRecvData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(NextSequenceRecvData.typeUrl, NextSequenceRecvData);
-GlobalDecoderRegistry.registerAminoProtoMapping(NextSequenceRecvData.aminoType, NextSequenceRecvData.typeUrl);

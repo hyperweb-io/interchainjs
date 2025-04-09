@@ -2,7 +2,6 @@ import { Counterparty, CounterpartyAmino, Version, VersionAmino } from "./connec
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to
@@ -436,10 +435,12 @@ export const MsgConnectionOpenInit = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInit",
       value: MsgConnectionOpenInit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Counterparty.registerTypeUrl();
+    Version.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenInit.typeUrl, MsgConnectionOpenInit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenInit.aminoType, MsgConnectionOpenInit.typeUrl);
 function createBaseMsgConnectionOpenInitResponse(): MsgConnectionOpenInitResponse {
   return {};
 }
@@ -501,10 +502,9 @@ export const MsgConnectionOpenInitResponse = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenInitResponse",
       value: MsgConnectionOpenInitResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenInitResponse.typeUrl, MsgConnectionOpenInitResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenInitResponse.aminoType, MsgConnectionOpenInitResponse.typeUrl);
 function createBaseMsgConnectionOpenTry(): MsgConnectionOpenTry {
   return {
     clientId: "",
@@ -725,10 +725,13 @@ export const MsgConnectionOpenTry = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTry",
       value: MsgConnectionOpenTry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Counterparty.registerTypeUrl();
+    Version.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenTry.typeUrl, MsgConnectionOpenTry);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenTry.aminoType, MsgConnectionOpenTry.typeUrl);
 function createBaseMsgConnectionOpenTryResponse(): MsgConnectionOpenTryResponse {
   return {};
 }
@@ -790,10 +793,9 @@ export const MsgConnectionOpenTryResponse = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenTryResponse",
       value: MsgConnectionOpenTryResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenTryResponse.typeUrl, MsgConnectionOpenTryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenTryResponse.aminoType, MsgConnectionOpenTryResponse.typeUrl);
 function createBaseMsgConnectionOpenAck(): MsgConnectionOpenAck {
   return {
     connectionId: "",
@@ -988,10 +990,11 @@ export const MsgConnectionOpenAck = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAck",
       value: MsgConnectionOpenAck.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenAck.typeUrl, MsgConnectionOpenAck);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenAck.aminoType, MsgConnectionOpenAck.typeUrl);
 function createBaseMsgConnectionOpenAckResponse(): MsgConnectionOpenAckResponse {
   return {};
 }
@@ -1053,10 +1056,9 @@ export const MsgConnectionOpenAckResponse = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenAckResponse",
       value: MsgConnectionOpenAckResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenAckResponse.typeUrl, MsgConnectionOpenAckResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenAckResponse.aminoType, MsgConnectionOpenAckResponse.typeUrl);
 function createBaseMsgConnectionOpenConfirm(): MsgConnectionOpenConfirm {
   return {
     connectionId: "",
@@ -1167,10 +1169,11 @@ export const MsgConnectionOpenConfirm = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirm",
       value: MsgConnectionOpenConfirm.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenConfirm.typeUrl, MsgConnectionOpenConfirm);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenConfirm.aminoType, MsgConnectionOpenConfirm.typeUrl);
 function createBaseMsgConnectionOpenConfirmResponse(): MsgConnectionOpenConfirmResponse {
   return {};
 }
@@ -1232,10 +1235,9 @@ export const MsgConnectionOpenConfirmResponse = {
       typeUrl: "/ibc.core.connection.v1.MsgConnectionOpenConfirmResponse",
       value: MsgConnectionOpenConfirmResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgConnectionOpenConfirmResponse.typeUrl, MsgConnectionOpenConfirmResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgConnectionOpenConfirmResponse.aminoType, MsgConnectionOpenConfirmResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     signer: "",
@@ -1322,10 +1324,11 @@ export const MsgUpdateParams = {
       typeUrl: "/ibc.core.connection.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -1387,7 +1390,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/ibc.core.connection.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);

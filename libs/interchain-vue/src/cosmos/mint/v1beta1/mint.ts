@@ -1,7 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** Minter represents the minting state. */
 export interface Minter {
   /** current annual inflation rate */
@@ -148,10 +147,9 @@ export const Minter = {
       typeUrl: "/cosmos.mint.v1beta1.Minter",
       value: Minter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Minter.typeUrl, Minter);
-GlobalDecoderRegistry.registerAminoProtoMapping(Minter.aminoType, Minter.typeUrl);
 function createBaseParams(): Params {
   return {
     mintDenom: "",
@@ -286,7 +284,6 @@ export const Params = {
       typeUrl: "/cosmos.mint.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);

@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 export interface Proof {
   total: bigint;
   index: bigint;
@@ -208,9 +207,9 @@ export const Proof = {
       typeUrl: "/tendermint.crypto.Proof",
       value: Proof.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Proof.typeUrl, Proof);
 function createBaseValueOp(): ValueOp {
   return {
     key: new Uint8Array(),
@@ -290,9 +289,11 @@ export const ValueOp = {
       typeUrl: "/tendermint.crypto.ValueOp",
       value: ValueOp.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Proof.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValueOp.typeUrl, ValueOp);
 function createBaseDominoOp(): DominoOp {
   return {
     key: "",
@@ -384,9 +385,9 @@ export const DominoOp = {
       typeUrl: "/tendermint.crypto.DominoOp",
       value: DominoOp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DominoOp.typeUrl, DominoOp);
 function createBaseProofOp(): ProofOp {
   return {
     type: "",
@@ -478,9 +479,9 @@ export const ProofOp = {
       typeUrl: "/tendermint.crypto.ProofOp",
       value: ProofOp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ProofOp.typeUrl, ProofOp);
 function createBaseProofOps(): ProofOps {
   return {
     ops: []
@@ -550,6 +551,8 @@ export const ProofOps = {
       typeUrl: "/tendermint.crypto.ProofOps",
       value: ProofOps.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ProofOp.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ProofOps.typeUrl, ProofOps);

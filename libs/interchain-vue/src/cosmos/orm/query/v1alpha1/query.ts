@@ -4,7 +4,6 @@ import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { Duration, DurationAmino } from "../../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** GetRequest is the Query/Get request type. */
 export interface GetRequest {
   /** message_name is the fully-qualified message name of the ORM table being queried. */
@@ -355,10 +354,11 @@ export const GetRequest = {
       typeUrl: "/cosmos.orm.query.v1alpha1.GetRequest",
       value: GetRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IndexValue.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GetRequest.typeUrl, GetRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(GetRequest.aminoType, GetRequest.typeUrl);
 function createBaseGetResponse(): GetResponse {
   return {
     result: undefined
@@ -433,10 +433,9 @@ export const GetResponse = {
       typeUrl: "/cosmos.orm.query.v1alpha1.GetResponse",
       value: GetResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GetResponse.typeUrl, GetResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(GetResponse.aminoType, GetResponse.typeUrl);
 function createBaseListRequest(): ListRequest {
   return {
     messageName: "",
@@ -559,10 +558,13 @@ export const ListRequest = {
       typeUrl: "/cosmos.orm.query.v1alpha1.ListRequest",
       value: ListRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ListRequest_Prefix.registerTypeUrl();
+    ListRequest_Range.registerTypeUrl();
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListRequest.typeUrl, ListRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListRequest.aminoType, ListRequest.typeUrl);
 function createBaseListRequest_Prefix(): ListRequest_Prefix {
   return {
     values: []
@@ -639,10 +641,11 @@ export const ListRequest_Prefix = {
       typeUrl: "/cosmos.orm.query.v1alpha1.Prefix",
       value: ListRequest_Prefix.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IndexValue.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListRequest_Prefix.typeUrl, ListRequest_Prefix);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListRequest_Prefix.aminoType, ListRequest_Prefix.typeUrl);
 function createBaseListRequest_Range(): ListRequest_Range {
   return {
     start: [],
@@ -733,10 +736,11 @@ export const ListRequest_Range = {
       typeUrl: "/cosmos.orm.query.v1alpha1.Range",
       value: ListRequest_Range.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IndexValue.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListRequest_Range.typeUrl, ListRequest_Range);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListRequest_Range.aminoType, ListRequest_Range.typeUrl);
 function createBaseListResponse(): ListResponse {
   return {
     results: [],
@@ -825,10 +829,11 @@ export const ListResponse = {
       typeUrl: "/cosmos.orm.query.v1alpha1.ListResponse",
       value: ListResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListResponse.typeUrl, ListResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListResponse.aminoType, ListResponse.typeUrl);
 function createBaseIndexValue(): IndexValue {
   return {
     uint: undefined,
@@ -987,7 +992,6 @@ export const IndexValue = {
       typeUrl: "/cosmos.orm.query.v1alpha1.IndexValue",
       value: IndexValue.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(IndexValue.typeUrl, IndexValue);
-GlobalDecoderRegistry.registerAminoProtoMapping(IndexValue.aminoType, IndexValue.typeUrl);

@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { Input, InputAmino, Output, OutputAmino, Params, ParamsAmino, SendEnabled, SendEnabledAmino } from "./bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
   fromAddress: string;
@@ -305,10 +304,11 @@ export const MsgSend = {
       typeUrl: "/cosmos.bank.v1beta1.MsgSend",
       value: MsgSend.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSend.typeUrl, MsgSend);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSend.aminoType, MsgSend.typeUrl);
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
 }
@@ -370,10 +370,9 @@ export const MsgSendResponse = {
       typeUrl: "/cosmos.bank.v1beta1.MsgSendResponse",
       value: MsgSendResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSendResponse.typeUrl, MsgSendResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSendResponse.aminoType, MsgSendResponse.typeUrl);
 function createBaseMsgMultiSend(): MsgMultiSend {
   return {
     inputs: [],
@@ -464,10 +463,12 @@ export const MsgMultiSend = {
       typeUrl: "/cosmos.bank.v1beta1.MsgMultiSend",
       value: MsgMultiSend.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Input.registerTypeUrl();
+    Output.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgMultiSend.typeUrl, MsgMultiSend);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgMultiSend.aminoType, MsgMultiSend.typeUrl);
 function createBaseMsgMultiSendResponse(): MsgMultiSendResponse {
   return {};
 }
@@ -529,10 +530,9 @@ export const MsgMultiSendResponse = {
       typeUrl: "/cosmos.bank.v1beta1.MsgMultiSendResponse",
       value: MsgMultiSendResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgMultiSendResponse.typeUrl, MsgMultiSendResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgMultiSendResponse.aminoType, MsgMultiSendResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -619,10 +619,11 @@ export const MsgUpdateParams = {
       typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -684,10 +685,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);
 function createBaseMsgSetSendEnabled(): MsgSetSendEnabled {
   return {
     authority: "",
@@ -790,10 +790,11 @@ export const MsgSetSendEnabled = {
       typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled",
       value: MsgSetSendEnabled.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SendEnabled.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSetSendEnabled.typeUrl, MsgSetSendEnabled);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSetSendEnabled.aminoType, MsgSetSendEnabled.typeUrl);
 function createBaseMsgSetSendEnabledResponse(): MsgSetSendEnabledResponse {
   return {};
 }
@@ -855,7 +856,6 @@ export const MsgSetSendEnabledResponse = {
       typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabledResponse",
       value: MsgSetSendEnabledResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSetSendEnabledResponse.typeUrl, MsgSetSendEnabledResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSetSendEnabledResponse.aminoType, MsgSetSendEnabledResponse.typeUrl);

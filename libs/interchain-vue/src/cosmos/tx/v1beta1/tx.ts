@@ -3,7 +3,6 @@ import { SignMode } from "../signing/v1beta1/signing";
 import { CompactBitArray, CompactBitArrayAmino } from "../../crypto/multisig/v1beta1/multisig";
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {
@@ -747,10 +746,12 @@ export const Tx = {
       typeUrl: "/cosmos.tx.v1beta1.Tx",
       value: Tx.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TxBody.registerTypeUrl();
+    AuthInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Tx.typeUrl, Tx);
-GlobalDecoderRegistry.registerAminoProtoMapping(Tx.aminoType, Tx.typeUrl);
 function createBaseTxRaw(): TxRaw {
   return {
     bodyBytes: new Uint8Array(),
@@ -851,10 +852,9 @@ export const TxRaw = {
       typeUrl: "/cosmos.tx.v1beta1.TxRaw",
       value: TxRaw.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TxRaw.typeUrl, TxRaw);
-GlobalDecoderRegistry.registerAminoProtoMapping(TxRaw.aminoType, TxRaw.typeUrl);
 function createBaseSignDoc(): SignDoc {
   return {
     bodyBytes: new Uint8Array(),
@@ -965,10 +965,9 @@ export const SignDoc = {
       typeUrl: "/cosmos.tx.v1beta1.SignDoc",
       value: SignDoc.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignDoc.typeUrl, SignDoc);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignDoc.aminoType, SignDoc.typeUrl);
 function createBaseSignDocDirectAux(): SignDocDirectAux {
   return {
     bodyBytes: new Uint8Array(),
@@ -1103,10 +1102,11 @@ export const SignDocDirectAux = {
       typeUrl: "/cosmos.tx.v1beta1.SignDocDirectAux",
       value: SignDocDirectAux.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Tip.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignDocDirectAux.typeUrl, SignDocDirectAux);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignDocDirectAux.aminoType, SignDocDirectAux.typeUrl);
 function createBaseTxBody(): TxBody {
   return {
     messages: [],
@@ -1235,10 +1235,9 @@ export const TxBody = {
       typeUrl: "/cosmos.tx.v1beta1.TxBody",
       value: TxBody.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TxBody.typeUrl, TxBody);
-GlobalDecoderRegistry.registerAminoProtoMapping(TxBody.aminoType, TxBody.typeUrl);
 function createBaseAuthInfo(): AuthInfo {
   return {
     signerInfos: [],
@@ -1339,10 +1338,13 @@ export const AuthInfo = {
       typeUrl: "/cosmos.tx.v1beta1.AuthInfo",
       value: AuthInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignerInfo.registerTypeUrl();
+    Fee.registerTypeUrl();
+    Tip.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AuthInfo.typeUrl, AuthInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(AuthInfo.aminoType, AuthInfo.typeUrl);
 function createBaseSignerInfo(): SignerInfo {
   return {
     publicKey: undefined,
@@ -1441,10 +1443,11 @@ export const SignerInfo = {
       typeUrl: "/cosmos.tx.v1beta1.SignerInfo",
       value: SignerInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModeInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SignerInfo.typeUrl, SignerInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignerInfo.aminoType, SignerInfo.typeUrl);
 function createBaseModeInfo(): ModeInfo {
   return {
     single: undefined,
@@ -1531,10 +1534,12 @@ export const ModeInfo = {
       typeUrl: "/cosmos.tx.v1beta1.ModeInfo",
       value: ModeInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModeInfo_Single.registerTypeUrl();
+    ModeInfo_Multi.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModeInfo.typeUrl, ModeInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModeInfo.aminoType, ModeInfo.typeUrl);
 function createBaseModeInfo_Single(): ModeInfo_Single {
   return {
     mode: 0
@@ -1609,10 +1614,9 @@ export const ModeInfo_Single = {
       typeUrl: "/cosmos.tx.v1beta1.Single",
       value: ModeInfo_Single.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ModeInfo_Single.typeUrl, ModeInfo_Single);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModeInfo_Single.aminoType, ModeInfo_Single.typeUrl);
 function createBaseModeInfo_Multi(): ModeInfo_Multi {
   return {
     bitarray: undefined,
@@ -1701,10 +1705,12 @@ export const ModeInfo_Multi = {
       typeUrl: "/cosmos.tx.v1beta1.Multi",
       value: ModeInfo_Multi.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CompactBitArray.registerTypeUrl();
+    ModeInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModeInfo_Multi.typeUrl, ModeInfo_Multi);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModeInfo_Multi.aminoType, ModeInfo_Multi.typeUrl);
 function createBaseFee(): Fee {
   return {
     amount: [],
@@ -1817,10 +1823,11 @@ export const Fee = {
       typeUrl: "/cosmos.tx.v1beta1.Fee",
       value: Fee.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Fee.typeUrl, Fee);
-GlobalDecoderRegistry.registerAminoProtoMapping(Fee.aminoType, Fee.typeUrl);
 function createBaseTip(): Tip {
   return {
     amount: [],
@@ -1909,10 +1916,11 @@ export const Tip = {
       typeUrl: "/cosmos.tx.v1beta1.Tip",
       value: Tip.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Tip.typeUrl, Tip);
-GlobalDecoderRegistry.registerAminoProtoMapping(Tip.aminoType, Tip.typeUrl);
 function createBaseAuxSignerData(): AuxSignerData {
   return {
     address: "",
@@ -2023,7 +2031,8 @@ export const AuxSignerData = {
       typeUrl: "/cosmos.tx.v1beta1.AuxSignerData",
       value: AuxSignerData.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignDocDirectAux.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AuxSignerData.typeUrl, AuxSignerData);
-GlobalDecoderRegistry.registerAminoProtoMapping(AuxSignerData.aminoType, AuxSignerData.typeUrl);

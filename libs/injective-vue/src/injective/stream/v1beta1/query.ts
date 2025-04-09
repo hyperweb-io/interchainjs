@@ -1,7 +1,6 @@
 import { Level, LevelAmino, Deposit, DepositAmino, SpotLimitOrder, SpotLimitOrderAmino, DerivativeLimitOrder, DerivativeLimitOrderAmino, PositionDelta, PositionDeltaAmino } from "../../exchange/v1beta1/exchange";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { Decimal } from "@interchainjs/math";
 export enum OrderUpdateStatus {
@@ -664,9 +663,17 @@ export const StreamRequest = {
       typeUrl: "/injective.stream.v1beta1.StreamRequest",
       value: StreamRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BankBalancesFilter.registerTypeUrl();
+    SubaccountDepositsFilter.registerTypeUrl();
+    TradesFilter.registerTypeUrl();
+    OrdersFilter.registerTypeUrl();
+    OrderbookFilter.registerTypeUrl();
+    PositionsFilter.registerTypeUrl();
+    OraclePriceFilter.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StreamRequest.typeUrl, StreamRequest);
 function createBaseStreamResponse(): StreamResponse {
   return {
     blockHeight: BigInt(0),
@@ -886,9 +893,19 @@ export const StreamResponse = {
       typeUrl: "/injective.stream.v1beta1.StreamResponse",
       value: StreamResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BankBalance.registerTypeUrl();
+    SubaccountDeposits.registerTypeUrl();
+    SpotTrade.registerTypeUrl();
+    DerivativeTrade.registerTypeUrl();
+    SpotOrderUpdate.registerTypeUrl();
+    DerivativeOrderUpdate.registerTypeUrl();
+    OrderbookUpdate.registerTypeUrl();
+    Position.registerTypeUrl();
+    OraclePrice.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StreamResponse.typeUrl, StreamResponse);
 function createBaseOrderbookUpdate(): OrderbookUpdate {
   return {
     seq: BigInt(0),
@@ -968,9 +985,11 @@ export const OrderbookUpdate = {
       typeUrl: "/injective.stream.v1beta1.OrderbookUpdate",
       value: OrderbookUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Orderbook.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(OrderbookUpdate.typeUrl, OrderbookUpdate);
 function createBaseOrderbook(): Orderbook {
   return {
     marketId: "",
@@ -1066,9 +1085,11 @@ export const Orderbook = {
       typeUrl: "/injective.stream.v1beta1.Orderbook",
       value: Orderbook.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Level.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Orderbook.typeUrl, Orderbook);
 function createBaseBankBalance(): BankBalance {
   return {
     account: "",
@@ -1150,9 +1171,11 @@ export const BankBalance = {
       typeUrl: "/injective.stream.v1beta1.BankBalance",
       value: BankBalance.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BankBalance.typeUrl, BankBalance);
 function createBaseSubaccountDeposits(): SubaccountDeposits {
   return {
     subaccountId: "",
@@ -1234,9 +1257,11 @@ export const SubaccountDeposits = {
       typeUrl: "/injective.stream.v1beta1.SubaccountDeposits",
       value: SubaccountDeposits.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SubaccountDeposit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SubaccountDeposits.typeUrl, SubaccountDeposits);
 function createBaseSubaccountDeposit(): SubaccountDeposit {
   return {
     denom: "",
@@ -1316,9 +1341,11 @@ export const SubaccountDeposit = {
       typeUrl: "/injective.stream.v1beta1.SubaccountDeposit",
       value: SubaccountDeposit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Deposit.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SubaccountDeposit.typeUrl, SubaccountDeposit);
 function createBaseSpotOrderUpdate(): SpotOrderUpdate {
   return {
     status: 0,
@@ -1422,9 +1449,11 @@ export const SpotOrderUpdate = {
       typeUrl: "/injective.stream.v1beta1.SpotOrderUpdate",
       value: SpotOrderUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotOrderUpdate.typeUrl, SpotOrderUpdate);
 function createBaseSpotOrder(): SpotOrder {
   return {
     marketId: "",
@@ -1504,9 +1533,11 @@ export const SpotOrder = {
       typeUrl: "/injective.stream.v1beta1.SpotOrder",
       value: SpotOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotLimitOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SpotOrder.typeUrl, SpotOrder);
 function createBaseDerivativeOrderUpdate(): DerivativeOrderUpdate {
   return {
     status: 0,
@@ -1610,9 +1641,11 @@ export const DerivativeOrderUpdate = {
       typeUrl: "/injective.stream.v1beta1.DerivativeOrderUpdate",
       value: DerivativeOrderUpdate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeOrderUpdate.typeUrl, DerivativeOrderUpdate);
 function createBaseDerivativeOrder(): DerivativeOrder {
   return {
     marketId: "",
@@ -1704,9 +1737,11 @@ export const DerivativeOrder = {
       typeUrl: "/injective.stream.v1beta1.DerivativeOrder",
       value: DerivativeOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeLimitOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeOrder.typeUrl, DerivativeOrder);
 function createBasePosition(): Position {
   return {
     marketId: "",
@@ -1846,9 +1881,9 @@ export const Position = {
       typeUrl: "/injective.stream.v1beta1.Position",
       value: Position.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Position.typeUrl, Position);
 function createBaseOraclePrice(): OraclePrice {
   return {
     symbol: "",
@@ -1940,9 +1975,9 @@ export const OraclePrice = {
       typeUrl: "/injective.stream.v1beta1.OraclePrice",
       value: OraclePrice.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OraclePrice.typeUrl, OraclePrice);
 function createBaseSpotTrade(): SpotTrade {
   return {
     marketId: "",
@@ -2130,9 +2165,9 @@ export const SpotTrade = {
       typeUrl: "/injective.stream.v1beta1.SpotTrade",
       value: SpotTrade.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SpotTrade.typeUrl, SpotTrade);
 function createBaseDerivativeTrade(): DerivativeTrade {
   return {
     marketId: "",
@@ -2320,9 +2355,11 @@ export const DerivativeTrade = {
       typeUrl: "/injective.stream.v1beta1.DerivativeTrade",
       value: DerivativeTrade.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PositionDelta.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeTrade.typeUrl, DerivativeTrade);
 function createBaseTradesFilter(): TradesFilter {
   return {
     subaccountIds: [],
@@ -2406,9 +2443,9 @@ export const TradesFilter = {
       typeUrl: "/injective.stream.v1beta1.TradesFilter",
       value: TradesFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TradesFilter.typeUrl, TradesFilter);
 function createBasePositionsFilter(): PositionsFilter {
   return {
     subaccountIds: [],
@@ -2492,9 +2529,9 @@ export const PositionsFilter = {
       typeUrl: "/injective.stream.v1beta1.PositionsFilter",
       value: PositionsFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PositionsFilter.typeUrl, PositionsFilter);
 function createBaseOrdersFilter(): OrdersFilter {
   return {
     subaccountIds: [],
@@ -2578,9 +2615,9 @@ export const OrdersFilter = {
       typeUrl: "/injective.stream.v1beta1.OrdersFilter",
       value: OrdersFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OrdersFilter.typeUrl, OrdersFilter);
 function createBaseOrderbookFilter(): OrderbookFilter {
   return {
     marketIds: []
@@ -2650,9 +2687,9 @@ export const OrderbookFilter = {
       typeUrl: "/injective.stream.v1beta1.OrderbookFilter",
       value: OrderbookFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OrderbookFilter.typeUrl, OrderbookFilter);
 function createBaseBankBalancesFilter(): BankBalancesFilter {
   return {
     accounts: []
@@ -2722,9 +2759,9 @@ export const BankBalancesFilter = {
       typeUrl: "/injective.stream.v1beta1.BankBalancesFilter",
       value: BankBalancesFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BankBalancesFilter.typeUrl, BankBalancesFilter);
 function createBaseSubaccountDepositsFilter(): SubaccountDepositsFilter {
   return {
     subaccountIds: []
@@ -2794,9 +2831,9 @@ export const SubaccountDepositsFilter = {
       typeUrl: "/injective.stream.v1beta1.SubaccountDepositsFilter",
       value: SubaccountDepositsFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SubaccountDepositsFilter.typeUrl, SubaccountDepositsFilter);
 function createBaseOraclePriceFilter(): OraclePriceFilter {
   return {
     symbol: []
@@ -2866,6 +2903,6 @@ export const OraclePriceFilter = {
       typeUrl: "/injective.stream.v1beta1.OraclePriceFilter",
       value: OraclePriceFilter.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OraclePriceFilter.typeUrl, OraclePriceFilter);

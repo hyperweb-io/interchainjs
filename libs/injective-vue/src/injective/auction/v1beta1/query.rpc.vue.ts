@@ -1,19 +1,19 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryAuctionParamsRequest, QueryAuctionParamsResponse, QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryLastAuctionResultRequest, QueryLastAuctionResultResponse } from "./query";
-import { createGetAuctionParams, createGetCurrentAuctionBasket, createGetAuctionModuleState, createGetLastAuctionResult } from "./query.rpc.func";
+import { getAuctionParams, getCurrentAuctionBasket, getAuctionModuleState, getLastAuctionResult } from "./query.rpc.func";
 export const useGetAuctionParams = buildUseVueQuery<QueryAuctionParamsRequest, QueryAuctionParamsResponse>({
-  builderQueryFn: createGetAuctionParams,
+  builderQueryFn: getAuctionParams,
   queryKeyPrefix: "AuctionParamsQuery"
 });
 export const useGetCurrentAuctionBasket = buildUseVueQuery<QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse>({
-  builderQueryFn: createGetCurrentAuctionBasket,
+  builderQueryFn: getCurrentAuctionBasket,
   queryKeyPrefix: "CurrentAuctionBasketQuery"
 });
 export const useGetAuctionModuleState = buildUseVueQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetAuctionModuleState,
+  builderQueryFn: getAuctionModuleState,
   queryKeyPrefix: "AuctionModuleStateQuery"
 });
 export const useGetLastAuctionResult = buildUseVueQuery<QueryLastAuctionResultRequest, QueryLastAuctionResultResponse>({
-  builderQueryFn: createGetLastAuctionResult,
+  builderQueryFn: getLastAuctionResult,
   queryKeyPrefix: "LastAuctionResultQuery"
 });

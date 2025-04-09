@@ -1,4 +1,4 @@
-import { Auth, HttpEndpoint } from '@interchainjs/types';
+import { Auth, HttpEndpoint, TelescopeGeneratedCodec } from '@interchainjs/types';
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
@@ -28,7 +28,7 @@ export class DirectDocSigner extends CosmosDocSigner<CosmosDirectDoc> {
 export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
   constructor(
     auth: Auth,
-    encoders: Encoder[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
@@ -45,11 +45,10 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
  */
 export class DirectSigner
   extends DirectSignerBase
-  implements CosmosDirectSigner
-{
+  implements CosmosDirectSigner {
   constructor(
     auth: Auth,
-    encoders: Encoder[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
@@ -62,13 +61,13 @@ export class DirectSigner
    */
   static async fromWallet(
     signer: OfflineDirectSigner | IDirectGenericOfflineSigner,
-    encoders: Encoder[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
     let auth: DirectDocAuth;
 
-    if(isOfflineDirectSigner(signer)){
+    if (isOfflineDirectSigner(signer)) {
       [auth] = await DirectDocAuth.fromOfflineSigner(signer);
     } else {
       [auth] = await DirectDocAuth.fromGenericOfflineSigner(signer);
@@ -83,13 +82,13 @@ export class DirectSigner
    */
   static async fromWalletToSigners(
     signer: OfflineDirectSigner | IDirectGenericOfflineSigner,
-    encoders: Encoder[],
+    encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
     options?: SignerOptions
   ) {
     let auths: DirectDocAuth[];
 
-    if(isOfflineDirectSigner(signer)) {
+    if (isOfflineDirectSigner(signer)) {
       auths = await DirectDocAuth.fromOfflineSigner(signer);
     } else {
       auths = await DirectDocAuth.fromGenericOfflineSigner(signer);

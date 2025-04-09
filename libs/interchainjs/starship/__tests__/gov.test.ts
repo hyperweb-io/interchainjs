@@ -28,12 +28,12 @@ import { useChain } from 'starshipjs';
 
 import { waitUntil } from '../src';
 
-import { createDelegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-import { createSubmitProposal, createVote } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+import { submitProposal, vote } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
 
-import { createGetBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetProposal, createGetVote } from "interchainjs/cosmos/gov/v1beta1/query.rpc.func";
-import { createGetValidators } from "interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+import { getBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+import { getProposal, getVote } from "interchainjs/cosmos/gov/v1beta1/query.rpc.func";
+import { getValidators } from "interchainjs/cosmos/staking/v1beta1/query.rpc.func";
 import { QueryBalanceRequest, QueryBalanceResponse } from 'interchainjs/cosmos/bank/v1beta1/query';
 import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from 'interchainjs/cosmos/gov/v1beta1/query';
 import { QueryValidatorsRequest, QueryValidatorsResponse } from 'interchainjs/cosmos/staking/v1beta1/query';
@@ -51,11 +51,6 @@ describe('Governance tests for osmosis', () => {
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
-
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
-  let getProposal: (request: QueryProposalRequest) => Promise<QueryProposalResponse>;
-  let getVote: (request: QueryVoteRequest) => Promise<QueryVoteResponse>;
-  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
 
   // Variables used accross testcases
   let proposalId: string;
@@ -86,20 +81,13 @@ describe('Governance tests for osmosis', () => {
     directAddress = (await directSigner.getAccounts())[0].address;
     aminoAddress = (await aminoSigner.getAccounts())[0].address;
 
-    // Create custom cosmos interchain client
-    const rpcEndpoint = await getRpcEndpoint();
-    getBalance = createGetBalance(rpcEndpoint);
-    getProposal = createGetProposal(rpcEndpoint);
-    getVote = createGetVote(rpcEndpoint);
-    getValidators = createGetValidators(rpcEndpoint);
-
     // Transfer osmosis to address
     await creditFromFaucet(directAddress);
     await creditFromFaucet(aminoAddress);
   }, 200000);
 
   it('check address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: directAddress,
       denom,
     });
@@ -108,7 +96,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators({
+    const { validators } = await getValidators(await getRpcEndpoint(), {
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -137,9 +125,7 @@ describe('Governance tests for osmosis', () => {
       }
     );
 
-    const delegate = createDelegate(signingClient);
-
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: directAddress,
       denom,
     });
@@ -159,6 +145,7 @@ describe('Governance tests for osmosis', () => {
     };
 
     const result = await delegate(
+      signingClient,
       directAddress,
       {
         delegatorAddress: directAddress,
@@ -187,8 +174,6 @@ describe('Governance tests for osmosis', () => {
       }
     );
 
-    const submitProposal = createSubmitProposal(signingClient);
-
     const contentMsg = TextProposal.fromPartial({
       title: 'Test Proposal',
       description: 'Test text proposal for the e2e testing',
@@ -206,6 +191,7 @@ describe('Governance tests for osmosis', () => {
     };
 
     const result = await submitProposal(
+      signingClient,
       directAddress,
       {
         proposer: directAddress,
@@ -239,7 +225,7 @@ describe('Governance tests for osmosis', () => {
   }, 200000);
 
   it('query proposal', async () => {
-    const result = await getProposal({
+    const result = await getProposal(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
     });
 
@@ -260,8 +246,6 @@ describe('Governance tests for osmosis', () => {
       }
     );
 
-    const vote = createVote(signingClient);
-
     // Vote on proposal from genesis mnemonic address
     const fee = {
       amount: [
@@ -274,6 +258,7 @@ describe('Governance tests for osmosis', () => {
     };
 
     const result = await vote(
+      signingClient,
       directAddress,
       {
         proposalId: BigInt(proposalId),
@@ -287,7 +272,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('verify direct vote', async () => {
-    const { vote } = await getVote({
+    const { vote } = await getVote(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
       voter: directAddress,
     });
@@ -311,8 +296,6 @@ describe('Governance tests for osmosis', () => {
       }
     );
 
-    const vote = createVote(signingClient);
-
     // Vote on proposal from genesis mnemonic address
     const fee = {
       amount: [
@@ -325,6 +308,7 @@ describe('Governance tests for osmosis', () => {
     };
 
     const result = await vote(
+      signingClient,
       aminoAddress,
       {
         proposalId: BigInt(proposalId),
@@ -338,7 +322,7 @@ describe('Governance tests for osmosis', () => {
   }, 10000);
 
   it('verify amino vote', async () => {
-    const { vote } = await getVote({
+    const { vote } = await getVote(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
       voter: aminoAddress,
     });
@@ -350,7 +334,7 @@ describe('Governance tests for osmosis', () => {
 
   it('wait for voting period to end', async () => {
     // wait for the voting period to end
-    const { proposal } = await getProposal({
+    const { proposal } = await getProposal(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
     });
 
@@ -359,7 +343,7 @@ describe('Governance tests for osmosis', () => {
   }, 200000);
 
   it('verify proposal passed', async () => {
-    const { proposal } = await getProposal({
+    const { proposal } = await getProposal(await getRpcEndpoint(), {
       proposalId: BigInt(proposalId),
     });
 

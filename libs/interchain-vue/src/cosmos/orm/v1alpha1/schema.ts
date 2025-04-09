@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** StorageType */
 export enum StorageType {
   /**
@@ -217,10 +216,11 @@ export const ModuleSchemaDescriptor = {
       typeUrl: "/cosmos.orm.v1alpha1.ModuleSchemaDescriptor",
       value: ModuleSchemaDescriptor.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleSchemaDescriptor_FileEntry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModuleSchemaDescriptor.typeUrl, ModuleSchemaDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleSchemaDescriptor.aminoType, ModuleSchemaDescriptor.typeUrl);
 function createBaseModuleSchemaDescriptor_FileEntry(): ModuleSchemaDescriptor_FileEntry {
   return {
     id: 0,
@@ -319,7 +319,6 @@ export const ModuleSchemaDescriptor_FileEntry = {
       typeUrl: "/cosmos.orm.v1alpha1.FileEntry",
       value: ModuleSchemaDescriptor_FileEntry.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ModuleSchemaDescriptor_FileEntry.typeUrl, ModuleSchemaDescriptor_FileEntry);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleSchemaDescriptor_FileEntry.aminoType, ModuleSchemaDescriptor_FileEntry.typeUrl);
