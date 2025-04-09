@@ -6,7 +6,6 @@ import { OutgoingTxBatch, OutgoingTxBatchAmino, OutgoingTransferTx, OutgoingTran
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryParamsRequest";
@@ -655,9 +654,9 @@ export const QueryParamsRequest = {
       typeUrl: "/injective.peggy.v1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -725,9 +724,11 @@ export const QueryParamsResponse = {
       typeUrl: "/injective.peggy.v1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
 function createBaseQueryCurrentValsetRequest(): QueryCurrentValsetRequest {
   return {};
 }
@@ -782,9 +783,9 @@ export const QueryCurrentValsetRequest = {
       typeUrl: "/injective.peggy.v1.QueryCurrentValsetRequest",
       value: QueryCurrentValsetRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCurrentValsetRequest.typeUrl, QueryCurrentValsetRequest);
 function createBaseQueryCurrentValsetResponse(): QueryCurrentValsetResponse {
   return {
     valset: undefined
@@ -852,9 +853,11 @@ export const QueryCurrentValsetResponse = {
       typeUrl: "/injective.peggy.v1.QueryCurrentValsetResponse",
       value: QueryCurrentValsetResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Valset.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryCurrentValsetResponse.typeUrl, QueryCurrentValsetResponse);
 function createBaseQueryValsetRequestRequest(): QueryValsetRequestRequest {
   return {
     nonce: BigInt(0)
@@ -922,9 +925,9 @@ export const QueryValsetRequestRequest = {
       typeUrl: "/injective.peggy.v1.QueryValsetRequestRequest",
       value: QueryValsetRequestRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryValsetRequestRequest.typeUrl, QueryValsetRequestRequest);
 function createBaseQueryValsetRequestResponse(): QueryValsetRequestResponse {
   return {
     valset: undefined
@@ -992,9 +995,11 @@ export const QueryValsetRequestResponse = {
       typeUrl: "/injective.peggy.v1.QueryValsetRequestResponse",
       value: QueryValsetRequestResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Valset.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValsetRequestResponse.typeUrl, QueryValsetRequestResponse);
 function createBaseQueryValsetConfirmRequest(): QueryValsetConfirmRequest {
   return {
     nonce: BigInt(0),
@@ -1074,9 +1079,9 @@ export const QueryValsetConfirmRequest = {
       typeUrl: "/injective.peggy.v1.QueryValsetConfirmRequest",
       value: QueryValsetConfirmRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryValsetConfirmRequest.typeUrl, QueryValsetConfirmRequest);
 function createBaseQueryValsetConfirmResponse(): QueryValsetConfirmResponse {
   return {
     confirm: undefined
@@ -1144,9 +1149,11 @@ export const QueryValsetConfirmResponse = {
       typeUrl: "/injective.peggy.v1.QueryValsetConfirmResponse",
       value: QueryValsetConfirmResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MsgValsetConfirm.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValsetConfirmResponse.typeUrl, QueryValsetConfirmResponse);
 function createBaseQueryValsetConfirmsByNonceRequest(): QueryValsetConfirmsByNonceRequest {
   return {
     nonce: BigInt(0)
@@ -1214,9 +1221,9 @@ export const QueryValsetConfirmsByNonceRequest = {
       typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceRequest",
       value: QueryValsetConfirmsByNonceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryValsetConfirmsByNonceRequest.typeUrl, QueryValsetConfirmsByNonceRequest);
 function createBaseQueryValsetConfirmsByNonceResponse(): QueryValsetConfirmsByNonceResponse {
   return {
     confirms: []
@@ -1286,9 +1293,11 @@ export const QueryValsetConfirmsByNonceResponse = {
       typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceResponse",
       value: QueryValsetConfirmsByNonceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MsgValsetConfirm.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryValsetConfirmsByNonceResponse.typeUrl, QueryValsetConfirmsByNonceResponse);
 function createBaseQueryLastValsetRequestsRequest(): QueryLastValsetRequestsRequest {
   return {};
 }
@@ -1343,9 +1352,9 @@ export const QueryLastValsetRequestsRequest = {
       typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsRequest",
       value: QueryLastValsetRequestsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLastValsetRequestsRequest.typeUrl, QueryLastValsetRequestsRequest);
 function createBaseQueryLastValsetRequestsResponse(): QueryLastValsetRequestsResponse {
   return {
     valsets: []
@@ -1415,9 +1424,11 @@ export const QueryLastValsetRequestsResponse = {
       typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsResponse",
       value: QueryLastValsetRequestsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Valset.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLastValsetRequestsResponse.typeUrl, QueryLastValsetRequestsResponse);
 function createBaseQueryLastPendingValsetRequestByAddrRequest(): QueryLastPendingValsetRequestByAddrRequest {
   return {
     address: ""
@@ -1485,9 +1496,9 @@ export const QueryLastPendingValsetRequestByAddrRequest = {
       typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest",
       value: QueryLastPendingValsetRequestByAddrRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLastPendingValsetRequestByAddrRequest.typeUrl, QueryLastPendingValsetRequestByAddrRequest);
 function createBaseQueryLastPendingValsetRequestByAddrResponse(): QueryLastPendingValsetRequestByAddrResponse {
   return {
     valsets: []
@@ -1557,9 +1568,11 @@ export const QueryLastPendingValsetRequestByAddrResponse = {
       typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse",
       value: QueryLastPendingValsetRequestByAddrResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Valset.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLastPendingValsetRequestByAddrResponse.typeUrl, QueryLastPendingValsetRequestByAddrResponse);
 function createBaseQueryBatchFeeRequest(): QueryBatchFeeRequest {
   return {};
 }
@@ -1614,9 +1627,9 @@ export const QueryBatchFeeRequest = {
       typeUrl: "/injective.peggy.v1.QueryBatchFeeRequest",
       value: QueryBatchFeeRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBatchFeeRequest.typeUrl, QueryBatchFeeRequest);
 function createBaseQueryBatchFeeResponse(): QueryBatchFeeResponse {
   return {
     batchFees: []
@@ -1686,9 +1699,11 @@ export const QueryBatchFeeResponse = {
       typeUrl: "/injective.peggy.v1.QueryBatchFeeResponse",
       value: QueryBatchFeeResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BatchFees.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryBatchFeeResponse.typeUrl, QueryBatchFeeResponse);
 function createBaseQueryLastPendingBatchRequestByAddrRequest(): QueryLastPendingBatchRequestByAddrRequest {
   return {
     address: ""
@@ -1756,9 +1771,9 @@ export const QueryLastPendingBatchRequestByAddrRequest = {
       typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest",
       value: QueryLastPendingBatchRequestByAddrRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLastPendingBatchRequestByAddrRequest.typeUrl, QueryLastPendingBatchRequestByAddrRequest);
 function createBaseQueryLastPendingBatchRequestByAddrResponse(): QueryLastPendingBatchRequestByAddrResponse {
   return {
     batch: undefined
@@ -1826,9 +1841,11 @@ export const QueryLastPendingBatchRequestByAddrResponse = {
       typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse",
       value: QueryLastPendingBatchRequestByAddrResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OutgoingTxBatch.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLastPendingBatchRequestByAddrResponse.typeUrl, QueryLastPendingBatchRequestByAddrResponse);
 function createBaseQueryOutgoingTxBatchesRequest(): QueryOutgoingTxBatchesRequest {
   return {};
 }
@@ -1883,9 +1900,9 @@ export const QueryOutgoingTxBatchesRequest = {
       typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesRequest",
       value: QueryOutgoingTxBatchesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryOutgoingTxBatchesRequest.typeUrl, QueryOutgoingTxBatchesRequest);
 function createBaseQueryOutgoingTxBatchesResponse(): QueryOutgoingTxBatchesResponse {
   return {
     batches: []
@@ -1955,9 +1972,11 @@ export const QueryOutgoingTxBatchesResponse = {
       typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesResponse",
       value: QueryOutgoingTxBatchesResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OutgoingTxBatch.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryOutgoingTxBatchesResponse.typeUrl, QueryOutgoingTxBatchesResponse);
 function createBaseQueryBatchRequestByNonceRequest(): QueryBatchRequestByNonceRequest {
   return {
     nonce: BigInt(0),
@@ -2037,9 +2056,9 @@ export const QueryBatchRequestByNonceRequest = {
       typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceRequest",
       value: QueryBatchRequestByNonceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBatchRequestByNonceRequest.typeUrl, QueryBatchRequestByNonceRequest);
 function createBaseQueryBatchRequestByNonceResponse(): QueryBatchRequestByNonceResponse {
   return {
     batch: undefined
@@ -2107,9 +2126,11 @@ export const QueryBatchRequestByNonceResponse = {
       typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceResponse",
       value: QueryBatchRequestByNonceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OutgoingTxBatch.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryBatchRequestByNonceResponse.typeUrl, QueryBatchRequestByNonceResponse);
 function createBaseQueryBatchConfirmsRequest(): QueryBatchConfirmsRequest {
   return {
     nonce: BigInt(0),
@@ -2189,9 +2210,9 @@ export const QueryBatchConfirmsRequest = {
       typeUrl: "/injective.peggy.v1.QueryBatchConfirmsRequest",
       value: QueryBatchConfirmsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryBatchConfirmsRequest.typeUrl, QueryBatchConfirmsRequest);
 function createBaseQueryBatchConfirmsResponse(): QueryBatchConfirmsResponse {
   return {
     confirms: []
@@ -2261,9 +2282,11 @@ export const QueryBatchConfirmsResponse = {
       typeUrl: "/injective.peggy.v1.QueryBatchConfirmsResponse",
       value: QueryBatchConfirmsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MsgConfirmBatch.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryBatchConfirmsResponse.typeUrl, QueryBatchConfirmsResponse);
 function createBaseQueryLastEventByAddrRequest(): QueryLastEventByAddrRequest {
   return {
     address: ""
@@ -2331,9 +2354,9 @@ export const QueryLastEventByAddrRequest = {
       typeUrl: "/injective.peggy.v1.QueryLastEventByAddrRequest",
       value: QueryLastEventByAddrRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryLastEventByAddrRequest.typeUrl, QueryLastEventByAddrRequest);
 function createBaseQueryLastEventByAddrResponse(): QueryLastEventByAddrResponse {
   return {
     lastClaimEvent: undefined
@@ -2401,9 +2424,11 @@ export const QueryLastEventByAddrResponse = {
       typeUrl: "/injective.peggy.v1.QueryLastEventByAddrResponse",
       value: QueryLastEventByAddrResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    LastClaimEvent.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryLastEventByAddrResponse.typeUrl, QueryLastEventByAddrResponse);
 function createBaseQueryERC20ToDenomRequest(): QueryERC20ToDenomRequest {
   return {
     erc20: ""
@@ -2471,9 +2496,9 @@ export const QueryERC20ToDenomRequest = {
       typeUrl: "/injective.peggy.v1.QueryERC20ToDenomRequest",
       value: QueryERC20ToDenomRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryERC20ToDenomRequest.typeUrl, QueryERC20ToDenomRequest);
 function createBaseQueryERC20ToDenomResponse(): QueryERC20ToDenomResponse {
   return {
     denom: "",
@@ -2553,9 +2578,9 @@ export const QueryERC20ToDenomResponse = {
       typeUrl: "/injective.peggy.v1.QueryERC20ToDenomResponse",
       value: QueryERC20ToDenomResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryERC20ToDenomResponse.typeUrl, QueryERC20ToDenomResponse);
 function createBaseQueryDenomToERC20Request(): QueryDenomToERC20Request {
   return {
     denom: ""
@@ -2623,9 +2648,9 @@ export const QueryDenomToERC20Request = {
       typeUrl: "/injective.peggy.v1.QueryDenomToERC20Request",
       value: QueryDenomToERC20Request.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomToERC20Request.typeUrl, QueryDenomToERC20Request);
 function createBaseQueryDenomToERC20Response(): QueryDenomToERC20Response {
   return {
     erc20: "",
@@ -2705,9 +2730,9 @@ export const QueryDenomToERC20Response = {
       typeUrl: "/injective.peggy.v1.QueryDenomToERC20Response",
       value: QueryDenomToERC20Response.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomToERC20Response.typeUrl, QueryDenomToERC20Response);
 function createBaseQueryDelegateKeysByValidatorAddress(): QueryDelegateKeysByValidatorAddress {
   return {
     validatorAddress: ""
@@ -2775,9 +2800,9 @@ export const QueryDelegateKeysByValidatorAddress = {
       typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddress",
       value: QueryDelegateKeysByValidatorAddress.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegateKeysByValidatorAddress.typeUrl, QueryDelegateKeysByValidatorAddress);
 function createBaseQueryDelegateKeysByValidatorAddressResponse(): QueryDelegateKeysByValidatorAddressResponse {
   return {
     ethAddress: "",
@@ -2857,9 +2882,9 @@ export const QueryDelegateKeysByValidatorAddressResponse = {
       typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse",
       value: QueryDelegateKeysByValidatorAddressResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegateKeysByValidatorAddressResponse.typeUrl, QueryDelegateKeysByValidatorAddressResponse);
 function createBaseQueryDelegateKeysByEthAddress(): QueryDelegateKeysByEthAddress {
   return {
     ethAddress: ""
@@ -2927,9 +2952,9 @@ export const QueryDelegateKeysByEthAddress = {
       typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddress",
       value: QueryDelegateKeysByEthAddress.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegateKeysByEthAddress.typeUrl, QueryDelegateKeysByEthAddress);
 function createBaseQueryDelegateKeysByEthAddressResponse(): QueryDelegateKeysByEthAddressResponse {
   return {
     validatorAddress: "",
@@ -3009,9 +3034,9 @@ export const QueryDelegateKeysByEthAddressResponse = {
       typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddressResponse",
       value: QueryDelegateKeysByEthAddressResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegateKeysByEthAddressResponse.typeUrl, QueryDelegateKeysByEthAddressResponse);
 function createBaseQueryDelegateKeysByOrchestratorAddress(): QueryDelegateKeysByOrchestratorAddress {
   return {
     orchestratorAddress: ""
@@ -3079,9 +3104,9 @@ export const QueryDelegateKeysByOrchestratorAddress = {
       typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress",
       value: QueryDelegateKeysByOrchestratorAddress.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegateKeysByOrchestratorAddress.typeUrl, QueryDelegateKeysByOrchestratorAddress);
 function createBaseQueryDelegateKeysByOrchestratorAddressResponse(): QueryDelegateKeysByOrchestratorAddressResponse {
   return {
     validatorAddress: "",
@@ -3161,9 +3186,9 @@ export const QueryDelegateKeysByOrchestratorAddressResponse = {
       typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse",
       value: QueryDelegateKeysByOrchestratorAddressResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDelegateKeysByOrchestratorAddressResponse.typeUrl, QueryDelegateKeysByOrchestratorAddressResponse);
 function createBaseQueryPendingSendToEth(): QueryPendingSendToEth {
   return {
     senderAddress: ""
@@ -3231,9 +3256,9 @@ export const QueryPendingSendToEth = {
       typeUrl: "/injective.peggy.v1.QueryPendingSendToEth",
       value: QueryPendingSendToEth.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryPendingSendToEth.typeUrl, QueryPendingSendToEth);
 function createBaseQueryPendingSendToEthResponse(): QueryPendingSendToEthResponse {
   return {
     transfersInBatches: [],
@@ -3317,9 +3342,11 @@ export const QueryPendingSendToEthResponse = {
       typeUrl: "/injective.peggy.v1.QueryPendingSendToEthResponse",
       value: QueryPendingSendToEthResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OutgoingTransferTx.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPendingSendToEthResponse.typeUrl, QueryPendingSendToEthResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -3374,9 +3401,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.peggy.v1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -3444,9 +3471,11 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.peggy.v1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);
 function createBaseMissingNoncesRequest(): MissingNoncesRequest {
   return {};
 }
@@ -3501,9 +3530,9 @@ export const MissingNoncesRequest = {
       typeUrl: "/injective.peggy.v1.MissingNoncesRequest",
       value: MissingNoncesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MissingNoncesRequest.typeUrl, MissingNoncesRequest);
 function createBaseMissingNoncesResponse(): MissingNoncesResponse {
   return {
     operatorAddresses: []
@@ -3573,6 +3602,6 @@ export const MissingNoncesResponse = {
       typeUrl: "/injective.peggy.v1.MissingNoncesResponse",
       value: MissingNoncesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MissingNoncesResponse.typeUrl, MissingNoncesResponse);

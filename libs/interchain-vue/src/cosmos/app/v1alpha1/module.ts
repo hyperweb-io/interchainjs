@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** ModuleDescriptor describes an app module. */
 export interface ModuleDescriptor {
   /**
@@ -287,10 +286,12 @@ export const ModuleDescriptor = {
       typeUrl: "/cosmos.app.v1alpha1.ModuleDescriptor",
       value: ModuleDescriptor.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PackageReference.registerTypeUrl();
+    MigrateFromInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModuleDescriptor.typeUrl, ModuleDescriptor);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleDescriptor.aminoType, ModuleDescriptor.typeUrl);
 function createBasePackageReference(): PackageReference {
   return {
     name: "",
@@ -377,10 +378,9 @@ export const PackageReference = {
       typeUrl: "/cosmos.app.v1alpha1.PackageReference",
       value: PackageReference.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PackageReference.typeUrl, PackageReference);
-GlobalDecoderRegistry.registerAminoProtoMapping(PackageReference.aminoType, PackageReference.typeUrl);
 function createBaseMigrateFromInfo(): MigrateFromInfo {
   return {
     module: ""
@@ -455,7 +455,6 @@ export const MigrateFromInfo = {
       typeUrl: "/cosmos.app.v1alpha1.MigrateFromInfo",
       value: MigrateFromInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MigrateFromInfo.typeUrl, MigrateFromInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(MigrateFromInfo.aminoType, MigrateFromInfo.typeUrl);

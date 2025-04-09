@@ -1,7 +1,6 @@
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * Equivocation implements the Evidence interface and defines evidence of double
  * signing misbehavior.
@@ -148,7 +147,6 @@ export const Equivocation = {
       typeUrl: "/cosmos.evidence.v1beta1.Equivocation",
       value: Equivocation.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Equivocation.typeUrl, Equivocation);
-GlobalDecoderRegistry.registerAminoProtoMapping(Equivocation.aminoType, Equivocation.typeUrl);

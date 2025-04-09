@@ -1,7 +1,6 @@
 import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "../../base/query/v1beta1/pagination";
 import { Grant, GrantAmino, GrantAuthorization, GrantAuthorizationAmino } from "./authz";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** QueryGrantsRequest is the request type for the Query/Grants RPC method. */
 export interface QueryGrantsRequest {
@@ -245,10 +244,11 @@ export const QueryGrantsRequest = {
       typeUrl: "/cosmos.authz.v1beta1.QueryGrantsRequest",
       value: QueryGrantsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGrantsRequest.typeUrl, QueryGrantsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGrantsRequest.aminoType, QueryGrantsRequest.typeUrl);
 function createBaseQueryGrantsResponse(): QueryGrantsResponse {
   return {
     grants: [],
@@ -337,10 +337,12 @@ export const QueryGrantsResponse = {
       typeUrl: "/cosmos.authz.v1beta1.QueryGrantsResponse",
       value: QueryGrantsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Grant.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGrantsResponse.typeUrl, QueryGrantsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGrantsResponse.aminoType, QueryGrantsResponse.typeUrl);
 function createBaseQueryGranterGrantsRequest(): QueryGranterGrantsRequest {
   return {
     granter: "",
@@ -427,10 +429,11 @@ export const QueryGranterGrantsRequest = {
       typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsRequest",
       value: QueryGranterGrantsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGranterGrantsRequest.typeUrl, QueryGranterGrantsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGranterGrantsRequest.aminoType, QueryGranterGrantsRequest.typeUrl);
 function createBaseQueryGranterGrantsResponse(): QueryGranterGrantsResponse {
   return {
     grants: [],
@@ -519,10 +522,12 @@ export const QueryGranterGrantsResponse = {
       typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsResponse",
       value: QueryGranterGrantsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GrantAuthorization.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGranterGrantsResponse.typeUrl, QueryGranterGrantsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGranterGrantsResponse.aminoType, QueryGranterGrantsResponse.typeUrl);
 function createBaseQueryGranteeGrantsRequest(): QueryGranteeGrantsRequest {
   return {
     grantee: "",
@@ -609,10 +614,11 @@ export const QueryGranteeGrantsRequest = {
       typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsRequest",
       value: QueryGranteeGrantsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGranteeGrantsRequest.typeUrl, QueryGranteeGrantsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGranteeGrantsRequest.aminoType, QueryGranteeGrantsRequest.typeUrl);
 function createBaseQueryGranteeGrantsResponse(): QueryGranteeGrantsResponse {
   return {
     grants: [],
@@ -701,7 +707,9 @@ export const QueryGranteeGrantsResponse = {
       typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsResponse",
       value: QueryGranteeGrantsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GrantAuthorization.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryGranteeGrantsResponse.typeUrl, QueryGranteeGrantsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryGranteeGrantsResponse.aminoType, QueryGranteeGrantsResponse.typeUrl);

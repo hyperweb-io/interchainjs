@@ -1,27 +1,27 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { QueryConnectionRequest, QueryConnectionResponse, QueryConnectionsRequest, QueryConnectionsResponse, QueryClientConnectionsRequest, QueryClientConnectionsResponse, QueryConnectionClientStateRequest, QueryConnectionClientStateResponse, QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse, QueryConnectionParamsRequest, QueryConnectionParamsResponse } from "./query";
-import { createGetConnection, createGetConnections, createGetClientConnections, createGetConnectionClientState, createGetConnectionConsensusState, createGetConnectionParams } from "./query.rpc.func";
+import { getConnection, getConnections, getClientConnections, getConnectionClientState, getConnectionConsensusState, getConnectionParams } from "./query.rpc.func";
 export const useGetConnection = buildUseVueQuery<QueryConnectionRequest, QueryConnectionResponse>({
-  builderQueryFn: createGetConnection,
+  builderQueryFn: getConnection,
   queryKeyPrefix: "ConnectionQuery"
 });
 export const useGetConnections = buildUseVueQuery<QueryConnectionsRequest, QueryConnectionsResponse>({
-  builderQueryFn: createGetConnections,
+  builderQueryFn: getConnections,
   queryKeyPrefix: "ConnectionsQuery"
 });
 export const useGetClientConnections = buildUseVueQuery<QueryClientConnectionsRequest, QueryClientConnectionsResponse>({
-  builderQueryFn: createGetClientConnections,
+  builderQueryFn: getClientConnections,
   queryKeyPrefix: "ClientConnectionsQuery"
 });
 export const useGetConnectionClientState = buildUseVueQuery<QueryConnectionClientStateRequest, QueryConnectionClientStateResponse>({
-  builderQueryFn: createGetConnectionClientState,
+  builderQueryFn: getConnectionClientState,
   queryKeyPrefix: "ConnectionClientStateQuery"
 });
 export const useGetConnectionConsensusState = buildUseVueQuery<QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse>({
-  builderQueryFn: createGetConnectionConsensusState,
+  builderQueryFn: getConnectionConsensusState,
   queryKeyPrefix: "ConnectionConsensusStateQuery"
 });
 export const useGetConnectionParams = buildUseVueQuery<QueryConnectionParamsRequest, QueryConnectionParamsResponse>({
-  builderQueryFn: createGetConnectionParams,
+  builderQueryFn: getConnectionParams,
   queryKeyPrefix: "ConnectionParamsQuery"
 });

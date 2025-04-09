@@ -1,7 +1,6 @@
 import { RequestFinalizeBlock, RequestFinalizeBlockAmino, ResponseFinalizeBlock, ResponseFinalizeBlockAmino, ResponseCommit, ResponseCommitAmino } from "../../../../tendermint/abci/types";
 import { StoreKVPair, StoreKVPairAmino } from "../../v1beta1/listening";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** ListenEndBlockRequest is the request type for the ListenEndBlock RPC method */
 export interface ListenFinalizeBlockRequest {
@@ -153,10 +152,12 @@ export const ListenFinalizeBlockRequest = {
       typeUrl: "/cosmos.store.streaming.abci.ListenFinalizeBlockRequest",
       value: ListenFinalizeBlockRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RequestFinalizeBlock.registerTypeUrl();
+    ResponseFinalizeBlock.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListenFinalizeBlockRequest.typeUrl, ListenFinalizeBlockRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenFinalizeBlockRequest.aminoType, ListenFinalizeBlockRequest.typeUrl);
 function createBaseListenFinalizeBlockResponse(): ListenFinalizeBlockResponse {
   return {};
 }
@@ -218,10 +219,9 @@ export const ListenFinalizeBlockResponse = {
       typeUrl: "/cosmos.store.streaming.abci.ListenFinalizeBlockResponse",
       value: ListenFinalizeBlockResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListenFinalizeBlockResponse.typeUrl, ListenFinalizeBlockResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenFinalizeBlockResponse.aminoType, ListenFinalizeBlockResponse.typeUrl);
 function createBaseListenCommitRequest(): ListenCommitRequest {
   return {
     blockHeight: BigInt(0),
@@ -322,10 +322,12 @@ export const ListenCommitRequest = {
       typeUrl: "/cosmos.store.streaming.abci.ListenCommitRequest",
       value: ListenCommitRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ResponseCommit.registerTypeUrl();
+    StoreKVPair.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListenCommitRequest.typeUrl, ListenCommitRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenCommitRequest.aminoType, ListenCommitRequest.typeUrl);
 function createBaseListenCommitResponse(): ListenCommitResponse {
   return {};
 }
@@ -387,7 +389,6 @@ export const ListenCommitResponse = {
       typeUrl: "/cosmos.store.streaming.abci.ListenCommitResponse",
       value: ListenCommitResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListenCommitResponse.typeUrl, ListenCommitResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenCommitResponse.aminoType, ListenCommitResponse.typeUrl);

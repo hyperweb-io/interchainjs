@@ -1,6 +1,5 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * ClientState defines a solo machine client that tracks the current consensus
@@ -326,10 +325,11 @@ export const ClientState = {
       typeUrl: "/ibc.lightclients.solomachine.v3.ClientState",
       value: ClientState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ConsensusState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ClientState.typeUrl, ClientState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientState.aminoType, ClientState.typeUrl);
 function createBaseConsensusState(): ConsensusState {
   return {
     publicKey: undefined,
@@ -428,10 +428,9 @@ export const ConsensusState = {
       typeUrl: "/ibc.lightclients.solomachine.v3.ConsensusState",
       value: ConsensusState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConsensusState.typeUrl, ConsensusState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConsensusState.aminoType, ConsensusState.typeUrl);
 function createBaseHeader(): Header {
   return {
     timestamp: BigInt(0),
@@ -542,10 +541,9 @@ export const Header = {
       typeUrl: "/ibc.lightclients.solomachine.v3.Header",
       value: Header.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Header.typeUrl, Header);
-GlobalDecoderRegistry.registerAminoProtoMapping(Header.aminoType, Header.typeUrl);
 function createBaseMisbehaviour(): Misbehaviour {
   return {
     sequence: BigInt(0),
@@ -644,10 +642,11 @@ export const Misbehaviour = {
       typeUrl: "/ibc.lightclients.solomachine.v3.Misbehaviour",
       value: Misbehaviour.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SignatureAndData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Misbehaviour.typeUrl, Misbehaviour);
-GlobalDecoderRegistry.registerAminoProtoMapping(Misbehaviour.aminoType, Misbehaviour.typeUrl);
 function createBaseSignatureAndData(): SignatureAndData {
   return {
     signature: new Uint8Array(),
@@ -758,10 +757,9 @@ export const SignatureAndData = {
       typeUrl: "/ibc.lightclients.solomachine.v3.SignatureAndData",
       value: SignatureAndData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignatureAndData.typeUrl, SignatureAndData);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignatureAndData.aminoType, SignatureAndData.typeUrl);
 function createBaseTimestampedSignatureData(): TimestampedSignatureData {
   return {
     signatureData: new Uint8Array(),
@@ -848,10 +846,9 @@ export const TimestampedSignatureData = {
       typeUrl: "/ibc.lightclients.solomachine.v3.TimestampedSignatureData",
       value: TimestampedSignatureData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TimestampedSignatureData.typeUrl, TimestampedSignatureData);
-GlobalDecoderRegistry.registerAminoProtoMapping(TimestampedSignatureData.aminoType, TimestampedSignatureData.typeUrl);
 function createBaseSignBytes(): SignBytes {
   return {
     sequence: BigInt(0),
@@ -974,10 +971,9 @@ export const SignBytes = {
       typeUrl: "/ibc.lightclients.solomachine.v3.SignBytes",
       value: SignBytes.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SignBytes.typeUrl, SignBytes);
-GlobalDecoderRegistry.registerAminoProtoMapping(SignBytes.aminoType, SignBytes.typeUrl);
 function createBaseHeaderData(): HeaderData {
   return {
     newPubKey: undefined,
@@ -1064,7 +1060,6 @@ export const HeaderData = {
       typeUrl: "/ibc.lightclients.solomachine.v3.HeaderData",
       value: HeaderData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(HeaderData.typeUrl, HeaderData);
-GlobalDecoderRegistry.registerAminoProtoMapping(HeaderData.aminoType, HeaderData.typeUrl);

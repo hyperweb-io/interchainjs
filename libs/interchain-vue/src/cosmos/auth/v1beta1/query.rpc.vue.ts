@@ -1,43 +1,43 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, QueryAccountInfoRequest, QueryAccountInfoResponse } from "./query";
-import { createGetAccounts, createGetAccount, createGetAccountAddressByID, createGetParams, createGetModuleAccounts, createGetModuleAccountByName, createGetBech32Prefix, createGetAddressBytesToString, createGetAddressStringToBytes, createGetAccountInfo } from "./query.rpc.func";
+import { getAccounts, getAccount, getAccountAddressByID, getParams, getModuleAccounts, getModuleAccountByName, getBech32Prefix, getAddressBytesToString, getAddressStringToBytes, getAccountInfo } from "./query.rpc.func";
 export const useGetAccounts = buildUseVueQuery<QueryAccountsRequest, QueryAccountsResponse>({
-  builderQueryFn: createGetAccounts,
+  builderQueryFn: getAccounts,
   queryKeyPrefix: "AccountsQuery"
 });
 export const useGetAccount = buildUseVueQuery<QueryAccountRequest, QueryAccountResponse>({
-  builderQueryFn: createGetAccount,
+  builderQueryFn: getAccount,
   queryKeyPrefix: "AccountQuery"
 });
 export const useGetAccountAddressByID = buildUseVueQuery<QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse>({
-  builderQueryFn: createGetAccountAddressByID,
+  builderQueryFn: getAccountAddressByID,
   queryKeyPrefix: "AccountAddressByIDQuery"
 });
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetModuleAccounts = buildUseVueQuery<QueryModuleAccountsRequest, QueryModuleAccountsResponse>({
-  builderQueryFn: createGetModuleAccounts,
+  builderQueryFn: getModuleAccounts,
   queryKeyPrefix: "ModuleAccountsQuery"
 });
 export const useGetModuleAccountByName = buildUseVueQuery<QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse>({
-  builderQueryFn: createGetModuleAccountByName,
+  builderQueryFn: getModuleAccountByName,
   queryKeyPrefix: "ModuleAccountByNameQuery"
 });
 export const useGetBech32Prefix = buildUseVueQuery<Bech32PrefixRequest, Bech32PrefixResponse>({
-  builderQueryFn: createGetBech32Prefix,
+  builderQueryFn: getBech32Prefix,
   queryKeyPrefix: "Bech32PrefixQuery"
 });
 export const useGetAddressBytesToString = buildUseVueQuery<AddressBytesToStringRequest, AddressBytesToStringResponse>({
-  builderQueryFn: createGetAddressBytesToString,
+  builderQueryFn: getAddressBytesToString,
   queryKeyPrefix: "AddressBytesToStringQuery"
 });
 export const useGetAddressStringToBytes = buildUseVueQuery<AddressStringToBytesRequest, AddressStringToBytesResponse>({
-  builderQueryFn: createGetAddressStringToBytes,
+  builderQueryFn: getAddressStringToBytes,
   queryKeyPrefix: "AddressStringToBytesQuery"
 });
 export const useGetAccountInfo = buildUseVueQuery<QueryAccountInfoRequest, QueryAccountInfoResponse>({
-  builderQueryFn: createGetAccountInfo,
+  builderQueryFn: getAccountInfo,
   queryKeyPrefix: "AccountInfoQuery"
 });

@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the raw genesis transaction in JSON. */
 export interface GenesisState {
   /** gen_txs defines the genesis transactions. */
@@ -95,7 +94,6 @@ export const GenesisState = {
       typeUrl: "/cosmos.genutil.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

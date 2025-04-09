@@ -557,10 +557,11 @@ export const QueryAccountsRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest",
       value: QueryAccountsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAccountsRequest.typeUrl, QueryAccountsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountsRequest.aminoType, QueryAccountsRequest.typeUrl);
 function createBaseQueryAccountsResponse(): QueryAccountsResponse {
   return {
     accounts: [],
@@ -649,10 +650,13 @@ export const QueryAccountsResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse",
       value: QueryAccountsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseAccount.registerTypeUrl();
+    EthAccount.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAccountsResponse.typeUrl, QueryAccountsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountsResponse.aminoType, QueryAccountsResponse.typeUrl);
 function createBaseQueryAccountRequest(): QueryAccountRequest {
   return {
     address: ""
@@ -727,10 +731,9 @@ export const QueryAccountRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest",
       value: QueryAccountRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAccountRequest.typeUrl, QueryAccountRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountRequest.aminoType, QueryAccountRequest.typeUrl);
 function createBaseQueryAccountResponse(): QueryAccountResponse {
   return {
     account: undefined
@@ -805,10 +808,12 @@ export const QueryAccountResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountResponse",
       value: QueryAccountResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseAccount.registerTypeUrl();
+    EthAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAccountResponse.typeUrl, QueryAccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountResponse.aminoType, QueryAccountResponse.typeUrl);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -870,10 +875,9 @@ export const QueryParamsRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest",
       value: QueryParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsRequest.aminoType, QueryParamsRequest.typeUrl);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -948,10 +952,11 @@ export const QueryParamsResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse",
       value: QueryParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryParamsResponse.aminoType, QueryParamsResponse.typeUrl);
 function createBaseQueryModuleAccountsRequest(): QueryModuleAccountsRequest {
   return {};
 }
@@ -1013,10 +1018,9 @@ export const QueryModuleAccountsRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsRequest",
       value: QueryModuleAccountsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleAccountsRequest.typeUrl, QueryModuleAccountsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleAccountsRequest.aminoType, QueryModuleAccountsRequest.typeUrl);
 function createBaseQueryModuleAccountsResponse(): QueryModuleAccountsResponse {
   return {
     accounts: []
@@ -1093,10 +1097,11 @@ export const QueryModuleAccountsResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsResponse",
       value: QueryModuleAccountsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleAccountsResponse.typeUrl, QueryModuleAccountsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleAccountsResponse.aminoType, QueryModuleAccountsResponse.typeUrl);
 function createBaseQueryModuleAccountByNameRequest(): QueryModuleAccountByNameRequest {
   return {
     name: ""
@@ -1171,10 +1176,9 @@ export const QueryModuleAccountByNameRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest",
       value: QueryModuleAccountByNameRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleAccountByNameRequest.typeUrl, QueryModuleAccountByNameRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleAccountByNameRequest.aminoType, QueryModuleAccountByNameRequest.typeUrl);
 function createBaseQueryModuleAccountByNameResponse(): QueryModuleAccountByNameResponse {
   return {
     account: undefined
@@ -1249,10 +1253,11 @@ export const QueryModuleAccountByNameResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse",
       value: QueryModuleAccountByNameResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleAccountByNameResponse.typeUrl, QueryModuleAccountByNameResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryModuleAccountByNameResponse.aminoType, QueryModuleAccountByNameResponse.typeUrl);
 function createBaseBech32PrefixRequest(): Bech32PrefixRequest {
   return {};
 }
@@ -1314,10 +1319,9 @@ export const Bech32PrefixRequest = {
       typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixRequest",
       value: Bech32PrefixRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Bech32PrefixRequest.typeUrl, Bech32PrefixRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(Bech32PrefixRequest.aminoType, Bech32PrefixRequest.typeUrl);
 function createBaseBech32PrefixResponse(): Bech32PrefixResponse {
   return {
     bech32Prefix: ""
@@ -1392,10 +1396,9 @@ export const Bech32PrefixResponse = {
       typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixResponse",
       value: Bech32PrefixResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Bech32PrefixResponse.typeUrl, Bech32PrefixResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(Bech32PrefixResponse.aminoType, Bech32PrefixResponse.typeUrl);
 function createBaseAddressBytesToStringRequest(): AddressBytesToStringRequest {
   return {
     addressBytes: new Uint8Array()
@@ -1470,10 +1473,9 @@ export const AddressBytesToStringRequest = {
       typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringRequest",
       value: AddressBytesToStringRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AddressBytesToStringRequest.typeUrl, AddressBytesToStringRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(AddressBytesToStringRequest.aminoType, AddressBytesToStringRequest.typeUrl);
 function createBaseAddressBytesToStringResponse(): AddressBytesToStringResponse {
   return {
     addressString: ""
@@ -1548,10 +1550,9 @@ export const AddressBytesToStringResponse = {
       typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringResponse",
       value: AddressBytesToStringResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AddressBytesToStringResponse.typeUrl, AddressBytesToStringResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(AddressBytesToStringResponse.aminoType, AddressBytesToStringResponse.typeUrl);
 function createBaseAddressStringToBytesRequest(): AddressStringToBytesRequest {
   return {
     addressString: ""
@@ -1626,10 +1627,9 @@ export const AddressStringToBytesRequest = {
       typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesRequest",
       value: AddressStringToBytesRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AddressStringToBytesRequest.typeUrl, AddressStringToBytesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(AddressStringToBytesRequest.aminoType, AddressStringToBytesRequest.typeUrl);
 function createBaseAddressStringToBytesResponse(): AddressStringToBytesResponse {
   return {
     addressBytes: new Uint8Array()
@@ -1704,10 +1704,9 @@ export const AddressStringToBytesResponse = {
       typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesResponse",
       value: AddressStringToBytesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(AddressStringToBytesResponse.typeUrl, AddressStringToBytesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(AddressStringToBytesResponse.aminoType, AddressStringToBytesResponse.typeUrl);
 function createBaseQueryAccountAddressByIDRequest(): QueryAccountAddressByIDRequest {
   return {
     id: BigInt(0),
@@ -1794,10 +1793,9 @@ export const QueryAccountAddressByIDRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest",
       value: QueryAccountAddressByIDRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAccountAddressByIDRequest.typeUrl, QueryAccountAddressByIDRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountAddressByIDRequest.aminoType, QueryAccountAddressByIDRequest.typeUrl);
 function createBaseQueryAccountAddressByIDResponse(): QueryAccountAddressByIDResponse {
   return {
     accountAddress: ""
@@ -1872,10 +1870,9 @@ export const QueryAccountAddressByIDResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse",
       value: QueryAccountAddressByIDResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAccountAddressByIDResponse.typeUrl, QueryAccountAddressByIDResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountAddressByIDResponse.aminoType, QueryAccountAddressByIDResponse.typeUrl);
 function createBaseQueryAccountInfoRequest(): QueryAccountInfoRequest {
   return {
     address: ""
@@ -1950,10 +1947,9 @@ export const QueryAccountInfoRequest = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoRequest",
       value: QueryAccountInfoRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAccountInfoRequest.typeUrl, QueryAccountInfoRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountInfoRequest.aminoType, QueryAccountInfoRequest.typeUrl);
 function createBaseQueryAccountInfoResponse(): QueryAccountInfoResponse {
   return {
     info: undefined
@@ -2028,7 +2024,8 @@ export const QueryAccountInfoResponse = {
       typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse",
       value: QueryAccountInfoResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BaseAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAccountInfoResponse.typeUrl, QueryAccountInfoResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountInfoResponse.aminoType, QueryAccountInfoResponse.typeUrl);

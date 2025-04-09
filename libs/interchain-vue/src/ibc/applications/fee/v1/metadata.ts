@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * Metadata defines the ICS29 channel specific metadata encoded into the channel version bytestring
  * See ICS004: https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#Versioning
@@ -115,7 +114,6 @@ export const Metadata = {
       typeUrl: "/ibc.applications.fee.v1.Metadata",
       value: Metadata.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Metadata.typeUrl, Metadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(Metadata.aminoType, Metadata.typeUrl);

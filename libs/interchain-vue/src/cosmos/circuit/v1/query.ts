@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Permissions, PermissionsAmino, GenesisAccountPermissions, GenesisAccountPermissionsAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
 export interface QueryAccountRequest {
   address: string;
@@ -175,10 +174,9 @@ export const QueryAccountRequest = {
       typeUrl: "/cosmos.circuit.v1.QueryAccountRequest",
       value: QueryAccountRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryAccountRequest.typeUrl, QueryAccountRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountRequest.aminoType, QueryAccountRequest.typeUrl);
 function createBaseAccountResponse(): AccountResponse {
   return {
     permission: undefined
@@ -253,10 +251,11 @@ export const AccountResponse = {
       typeUrl: "/cosmos.circuit.v1.AccountResponse",
       value: AccountResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Permissions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AccountResponse.typeUrl, AccountResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(AccountResponse.aminoType, AccountResponse.typeUrl);
 function createBaseQueryAccountsRequest(): QueryAccountsRequest {
   return {
     pagination: undefined
@@ -331,10 +330,11 @@ export const QueryAccountsRequest = {
       typeUrl: "/cosmos.circuit.v1.QueryAccountsRequest",
       value: QueryAccountsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAccountsRequest.typeUrl, QueryAccountsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAccountsRequest.aminoType, QueryAccountsRequest.typeUrl);
 function createBaseAccountsResponse(): AccountsResponse {
   return {
     accounts: [],
@@ -423,10 +423,12 @@ export const AccountsResponse = {
       typeUrl: "/cosmos.circuit.v1.AccountsResponse",
       value: AccountsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisAccountPermissions.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AccountsResponse.typeUrl, AccountsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(AccountsResponse.aminoType, AccountsResponse.typeUrl);
 function createBaseQueryDisabledListRequest(): QueryDisabledListRequest {
   return {};
 }
@@ -488,10 +490,9 @@ export const QueryDisabledListRequest = {
       typeUrl: "/cosmos.circuit.v1.QueryDisabledListRequest",
       value: QueryDisabledListRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDisabledListRequest.typeUrl, QueryDisabledListRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDisabledListRequest.aminoType, QueryDisabledListRequest.typeUrl);
 function createBaseDisabledListResponse(): DisabledListResponse {
   return {
     disabledList: []
@@ -568,7 +569,6 @@ export const DisabledListResponse = {
       typeUrl: "/cosmos.circuit.v1.DisabledListResponse",
       value: DisabledListResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DisabledListResponse.typeUrl, DisabledListResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(DisabledListResponse.aminoType, DisabledListResponse.typeUrl);

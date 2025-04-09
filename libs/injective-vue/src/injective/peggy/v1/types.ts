@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** BridgeValidator represents a validator's ETH address and its power */
 export interface BridgeValidator {
   power: bigint;
@@ -204,9 +203,9 @@ export const BridgeValidator = {
       typeUrl: "/injective.peggy.v1.BridgeValidator",
       value: BridgeValidator.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BridgeValidator.typeUrl, BridgeValidator);
 function createBaseValset(): Valset {
   return {
     nonce: BigInt(0),
@@ -324,9 +323,11 @@ export const Valset = {
       typeUrl: "/injective.peggy.v1.Valset",
       value: Valset.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BridgeValidator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Valset.typeUrl, Valset);
 function createBaseLastObservedEthereumBlockHeight(): LastObservedEthereumBlockHeight {
   return {
     cosmosBlockHeight: BigInt(0),
@@ -406,9 +407,9 @@ export const LastObservedEthereumBlockHeight = {
       typeUrl: "/injective.peggy.v1.LastObservedEthereumBlockHeight",
       value: LastObservedEthereumBlockHeight.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(LastObservedEthereumBlockHeight.typeUrl, LastObservedEthereumBlockHeight);
 function createBaseLastClaimEvent(): LastClaimEvent {
   return {
     ethereumEventNonce: BigInt(0),
@@ -488,9 +489,9 @@ export const LastClaimEvent = {
       typeUrl: "/injective.peggy.v1.LastClaimEvent",
       value: LastClaimEvent.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(LastClaimEvent.typeUrl, LastClaimEvent);
 function createBaseERC20ToDenom(): ERC20ToDenom {
   return {
     erc20: "",
@@ -570,6 +571,6 @@ export const ERC20ToDenom = {
       typeUrl: "/injective.peggy.v1.ERC20ToDenom",
       value: ERC20ToDenom.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ERC20ToDenom.typeUrl, ERC20ToDenom);

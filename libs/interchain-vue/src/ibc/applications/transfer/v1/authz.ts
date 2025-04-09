@@ -237,10 +237,12 @@ export const Allocation = {
       typeUrl: "/ibc.applications.transfer.v1.Allocation",
       value: Allocation.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
+    AllowedForwarding.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Allocation.typeUrl, Allocation);
-GlobalDecoderRegistry.registerAminoProtoMapping(Allocation.aminoType, Allocation.typeUrl);
 function createBaseAllowedForwarding(): AllowedForwarding {
   return {
     hops: []
@@ -317,10 +319,11 @@ export const AllowedForwarding = {
       typeUrl: "/ibc.applications.transfer.v1.AllowedForwarding",
       value: AllowedForwarding.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Hop.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AllowedForwarding.typeUrl, AllowedForwarding);
-GlobalDecoderRegistry.registerAminoProtoMapping(AllowedForwarding.aminoType, AllowedForwarding.typeUrl);
 function createBaseTransferAuthorization(): TransferAuthorization {
   return {
     allocations: []
@@ -397,7 +400,10 @@ export const TransferAuthorization = {
       typeUrl: "/ibc.applications.transfer.v1.TransferAuthorization",
       value: TransferAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(TransferAuthorization.typeUrl, TransferAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(TransferAuthorization.aminoType, TransferAuthorization.typeUrl);
+    Allocation.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(TransferAuthorization.typeUrl, TransferAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(TransferAuthorization.aminoType, TransferAuthorization.typeUrl);

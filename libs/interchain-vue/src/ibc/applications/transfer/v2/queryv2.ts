@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Denom, DenomAmino } from "./token";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * QueryDenomRequest is the request type for the Query/Denom RPC
  * method
@@ -177,10 +176,9 @@ export const QueryDenomRequest = {
       typeUrl: "/ibc.applications.transfer.v2.QueryDenomRequest",
       value: QueryDenomRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryDenomRequest.typeUrl, QueryDenomRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomRequest.aminoType, QueryDenomRequest.typeUrl);
 function createBaseQueryDenomResponse(): QueryDenomResponse {
   return {
     denom: undefined
@@ -255,10 +253,11 @@ export const QueryDenomResponse = {
       typeUrl: "/ibc.applications.transfer.v2.QueryDenomResponse",
       value: QueryDenomResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Denom.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomResponse.typeUrl, QueryDenomResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomResponse.aminoType, QueryDenomResponse.typeUrl);
 function createBaseQueryDenomsRequest(): QueryDenomsRequest {
   return {
     pagination: undefined
@@ -333,10 +332,11 @@ export const QueryDenomsRequest = {
       typeUrl: "/ibc.applications.transfer.v2.QueryDenomsRequest",
       value: QueryDenomsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomsRequest.typeUrl, QueryDenomsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomsRequest.aminoType, QueryDenomsRequest.typeUrl);
 function createBaseQueryDenomsResponse(): QueryDenomsResponse {
   return {
     denoms: [],
@@ -425,7 +425,9 @@ export const QueryDenomsResponse = {
       typeUrl: "/ibc.applications.transfer.v2.QueryDenomsResponse",
       value: QueryDenomsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Denom.registerTypeUrl();
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryDenomsResponse.typeUrl, QueryDenomsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryDenomsResponse.aminoType, QueryDenomsResponse.typeUrl);

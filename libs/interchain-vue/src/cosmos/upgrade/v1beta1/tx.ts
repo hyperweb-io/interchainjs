@@ -1,6 +1,5 @@
 import { Plan, PlanAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
@@ -184,10 +183,11 @@ export const MsgSoftwareUpgrade = {
       typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
       value: MsgSoftwareUpgrade.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Plan.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSoftwareUpgrade.typeUrl, MsgSoftwareUpgrade);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSoftwareUpgrade.aminoType, MsgSoftwareUpgrade.typeUrl);
 function createBaseMsgSoftwareUpgradeResponse(): MsgSoftwareUpgradeResponse {
   return {};
 }
@@ -249,10 +249,9 @@ export const MsgSoftwareUpgradeResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
       value: MsgSoftwareUpgradeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSoftwareUpgradeResponse.typeUrl, MsgSoftwareUpgradeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSoftwareUpgradeResponse.aminoType, MsgSoftwareUpgradeResponse.typeUrl);
 function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
   return {
     authority: ""
@@ -327,10 +326,9 @@ export const MsgCancelUpgrade = {
       typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgrade",
       value: MsgCancelUpgrade.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelUpgrade.typeUrl, MsgCancelUpgrade);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelUpgrade.aminoType, MsgCancelUpgrade.typeUrl);
 function createBaseMsgCancelUpgradeResponse(): MsgCancelUpgradeResponse {
   return {};
 }
@@ -392,7 +390,6 @@ export const MsgCancelUpgradeResponse = {
       typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse",
       value: MsgCancelUpgradeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelUpgradeResponse.typeUrl, MsgCancelUpgradeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelUpgradeResponse.aminoType, MsgCancelUpgradeResponse.typeUrl);

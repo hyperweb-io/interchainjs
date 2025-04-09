@@ -1,7 +1,6 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BIP44Params, BIP44ParamsAmino } from "../../hd/v1/hd";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Record is used for representing a key in the keyring. */
 export interface Record {
@@ -237,10 +236,14 @@ export const Record = {
       typeUrl: "/cosmos.crypto.keyring.v1.Record",
       value: Record.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Record_Local.registerTypeUrl();
+    Record_Ledger.registerTypeUrl();
+    Record_Multi.registerTypeUrl();
+    Record_Offline.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Record.typeUrl, Record);
-GlobalDecoderRegistry.registerAminoProtoMapping(Record.aminoType, Record.typeUrl);
 function createBaseRecord_Local(): Record_Local {
   return {
     privKey: undefined
@@ -315,10 +318,9 @@ export const Record_Local = {
       typeUrl: "/cosmos.crypto.keyring.v1.Local",
       value: Record_Local.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Record_Local.typeUrl, Record_Local);
-GlobalDecoderRegistry.registerAminoProtoMapping(Record_Local.aminoType, Record_Local.typeUrl);
 function createBaseRecord_Ledger(): Record_Ledger {
   return {
     path: undefined
@@ -393,10 +395,11 @@ export const Record_Ledger = {
       typeUrl: "/cosmos.crypto.keyring.v1.Ledger",
       value: Record_Ledger.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BIP44Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Record_Ledger.typeUrl, Record_Ledger);
-GlobalDecoderRegistry.registerAminoProtoMapping(Record_Ledger.aminoType, Record_Ledger.typeUrl);
 function createBaseRecord_Multi(): Record_Multi {
   return {};
 }
@@ -458,10 +461,9 @@ export const Record_Multi = {
       typeUrl: "/cosmos.crypto.keyring.v1.Multi",
       value: Record_Multi.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Record_Multi.typeUrl, Record_Multi);
-GlobalDecoderRegistry.registerAminoProtoMapping(Record_Multi.aminoType, Record_Multi.typeUrl);
 function createBaseRecord_Offline(): Record_Offline {
   return {};
 }
@@ -523,7 +525,6 @@ export const Record_Offline = {
       typeUrl: "/cosmos.crypto.keyring.v1.Offline",
       value: Record_Offline.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Record_Offline.typeUrl, Record_Offline);
-GlobalDecoderRegistry.registerAminoProtoMapping(Record_Offline.aminoType, Record_Offline.typeUrl);

@@ -752,10 +752,9 @@ export const Params = {
       typeUrl: "/injective.ocr.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseFeedConfig(): FeedConfig {
   return {
     signers: [],
@@ -899,9 +898,11 @@ export const FeedConfig = {
       typeUrl: "/injective.ocr.v1beta1.FeedConfig",
       value: FeedConfig.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleParams.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FeedConfig.typeUrl, FeedConfig);
 function createBaseFeedConfigInfo(): FeedConfigInfo {
   return {
     latestConfigDigest: new Uint8Array(),
@@ -1017,9 +1018,9 @@ export const FeedConfigInfo = {
       typeUrl: "/injective.ocr.v1beta1.FeedConfigInfo",
       value: FeedConfigInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FeedConfigInfo.typeUrl, FeedConfigInfo);
 function createBaseModuleParams(): ModuleParams {
   return {
     feedId: "",
@@ -1195,9 +1196,9 @@ export const ModuleParams = {
       typeUrl: "/injective.ocr.v1beta1.ModuleParams",
       value: ModuleParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ModuleParams.typeUrl, ModuleParams);
 function createBaseContractConfig(): ContractConfig {
   return {
     configCount: BigInt(0),
@@ -1341,9 +1342,9 @@ export const ContractConfig = {
       typeUrl: "/injective.ocr.v1beta1.ContractConfig",
       value: ContractConfig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ContractConfig.typeUrl, ContractConfig);
 function createBaseSetConfigProposal(): SetConfigProposal {
   return {
     title: "",
@@ -1442,10 +1443,13 @@ export const SetConfigProposal = {
       typeUrl: "/injective.ocr.v1beta1.SetConfigProposal",
       value: SetConfigProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(SetConfigProposal.typeUrl, SetConfigProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(SetConfigProposal.aminoType, SetConfigProposal.typeUrl);
+    FeedConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SetConfigProposal.typeUrl, SetConfigProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(SetConfigProposal.aminoType, SetConfigProposal.typeUrl);
 function createBaseFeedProperties(): FeedProperties {
   return {
     feedId: "",
@@ -1633,9 +1637,9 @@ export const FeedProperties = {
       typeUrl: "/injective.ocr.v1beta1.FeedProperties",
       value: FeedProperties.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FeedProperties.typeUrl, FeedProperties);
 function createBaseSetBatchConfigProposal(): SetBatchConfigProposal {
   return {
     title: "",
@@ -1776,10 +1780,13 @@ export const SetBatchConfigProposal = {
       typeUrl: "/injective.ocr.v1beta1.SetBatchConfigProposal",
       value: SetBatchConfigProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(SetBatchConfigProposal.typeUrl, SetBatchConfigProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(SetBatchConfigProposal.aminoType, SetBatchConfigProposal.typeUrl);
+    FeedProperties.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SetBatchConfigProposal.typeUrl, SetBatchConfigProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(SetBatchConfigProposal.aminoType, SetBatchConfigProposal.typeUrl);
 function createBaseOracleObservationsCounts(): OracleObservationsCounts {
   return {
     counts: []
@@ -1858,9 +1865,9 @@ export const OracleObservationsCounts = {
       typeUrl: "/injective.ocr.v1beta1.OracleObservationsCounts",
       value: OracleObservationsCounts.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OracleObservationsCounts.typeUrl, OracleObservationsCounts);
 function createBaseGasReimbursements(): GasReimbursements {
   return {
     reimbursements: []
@@ -1930,9 +1937,11 @@ export const GasReimbursements = {
       typeUrl: "/injective.ocr.v1beta1.GasReimbursements",
       value: GasReimbursements.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GasReimbursements.typeUrl, GasReimbursements);
 function createBasePayee(): Payee {
   return {
     transmitterAddr: "",
@@ -2012,9 +2021,9 @@ export const Payee = {
       typeUrl: "/injective.ocr.v1beta1.Payee",
       value: Payee.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Payee.typeUrl, Payee);
 function createBaseTransmission(): Transmission {
   return {
     answer: "",
@@ -2106,9 +2115,9 @@ export const Transmission = {
       typeUrl: "/injective.ocr.v1beta1.Transmission",
       value: Transmission.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Transmission.typeUrl, Transmission);
 function createBaseEpochAndRound(): EpochAndRound {
   return {
     epoch: BigInt(0),
@@ -2188,9 +2197,9 @@ export const EpochAndRound = {
       typeUrl: "/injective.ocr.v1beta1.EpochAndRound",
       value: EpochAndRound.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EpochAndRound.typeUrl, EpochAndRound);
 function createBaseReport(): Report {
   return {
     observationsTimestamp: BigInt(0),
@@ -2284,9 +2293,9 @@ export const Report = {
       typeUrl: "/injective.ocr.v1beta1.Report",
       value: Report.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Report.typeUrl, Report);
 function createBaseReportToSign(): ReportToSign {
   return {
     configDigest: new Uint8Array(),
@@ -2402,9 +2411,9 @@ export const ReportToSign = {
       typeUrl: "/injective.ocr.v1beta1.ReportToSign",
       value: ReportToSign.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ReportToSign.typeUrl, ReportToSign);
 function createBaseEventOraclePaid(): EventOraclePaid {
   return {
     transmitterAddr: "",
@@ -2496,9 +2505,11 @@ export const EventOraclePaid = {
       typeUrl: "/injective.ocr.v1beta1.EventOraclePaid",
       value: EventOraclePaid.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventOraclePaid.typeUrl, EventOraclePaid);
 function createBaseEventAnswerUpdated(): EventAnswerUpdated {
   return {
     current: "",
@@ -2590,9 +2601,9 @@ export const EventAnswerUpdated = {
       typeUrl: "/injective.ocr.v1beta1.EventAnswerUpdated",
       value: EventAnswerUpdated.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAnswerUpdated.typeUrl, EventAnswerUpdated);
 function createBaseEventNewRound(): EventNewRound {
   return {
     roundId: "",
@@ -2684,9 +2695,9 @@ export const EventNewRound = {
       typeUrl: "/injective.ocr.v1beta1.EventNewRound",
       value: EventNewRound.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventNewRound.typeUrl, EventNewRound);
 function createBaseEventTransmitted(): EventTransmitted {
   return {
     configDigest: new Uint8Array(),
@@ -2766,9 +2777,9 @@ export const EventTransmitted = {
       typeUrl: "/injective.ocr.v1beta1.EventTransmitted",
       value: EventTransmitted.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventTransmitted.typeUrl, EventTransmitted);
 function createBaseEventNewTransmission(): EventNewTransmission {
   return {
     feedId: "",
@@ -2934,9 +2945,11 @@ export const EventNewTransmission = {
       typeUrl: "/injective.ocr.v1beta1.EventNewTransmission",
       value: EventNewTransmission.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    EpochAndRound.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventNewTransmission.typeUrl, EventNewTransmission);
 function createBaseEventConfigSet(): EventConfigSet {
   return {
     configDigest: new Uint8Array(),
@@ -3040,6 +3053,9 @@ export const EventConfigSet = {
       typeUrl: "/injective.ocr.v1beta1.EventConfigSet",
       value: EventConfigSet.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FeedConfig.registerTypeUrl();
+    FeedConfigInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventConfigSet.typeUrl, EventConfigSet);

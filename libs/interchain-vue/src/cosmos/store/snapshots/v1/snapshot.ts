@@ -1,5 +1,4 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** Snapshot contains Tendermint state sync snapshot info. */
 export interface Snapshot {
@@ -303,10 +302,11 @@ export const Snapshot = {
       typeUrl: "/cosmos.store.snapshots.v1.Snapshot",
       value: Snapshot.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Metadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Snapshot.typeUrl, Snapshot);
-GlobalDecoderRegistry.registerAminoProtoMapping(Snapshot.aminoType, Snapshot.typeUrl);
 function createBaseMetadata(): Metadata {
   return {
     chunkHashes: []
@@ -383,10 +383,9 @@ export const Metadata = {
       typeUrl: "/cosmos.store.snapshots.v1.Metadata",
       value: Metadata.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Metadata.typeUrl, Metadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(Metadata.aminoType, Metadata.typeUrl);
 function createBaseSnapshotItem(): SnapshotItem {
   return {
     store: undefined,
@@ -497,10 +496,14 @@ export const SnapshotItem = {
       typeUrl: "/cosmos.store.snapshots.v1.SnapshotItem",
       value: SnapshotItem.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SnapshotStoreItem.registerTypeUrl();
+    SnapshotIAVLItem.registerTypeUrl();
+    SnapshotExtensionMeta.registerTypeUrl();
+    SnapshotExtensionPayload.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SnapshotItem.typeUrl, SnapshotItem);
-GlobalDecoderRegistry.registerAminoProtoMapping(SnapshotItem.aminoType, SnapshotItem.typeUrl);
 function createBaseSnapshotStoreItem(): SnapshotStoreItem {
   return {
     name: ""
@@ -575,10 +578,9 @@ export const SnapshotStoreItem = {
       typeUrl: "/cosmos.store.snapshots.v1.SnapshotStoreItem",
       value: SnapshotStoreItem.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SnapshotStoreItem.typeUrl, SnapshotStoreItem);
-GlobalDecoderRegistry.registerAminoProtoMapping(SnapshotStoreItem.aminoType, SnapshotStoreItem.typeUrl);
 function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
   return {
     key: new Uint8Array(),
@@ -689,10 +691,9 @@ export const SnapshotIAVLItem = {
       typeUrl: "/cosmos.store.snapshots.v1.SnapshotIAVLItem",
       value: SnapshotIAVLItem.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SnapshotIAVLItem.typeUrl, SnapshotIAVLItem);
-GlobalDecoderRegistry.registerAminoProtoMapping(SnapshotIAVLItem.aminoType, SnapshotIAVLItem.typeUrl);
 function createBaseSnapshotExtensionMeta(): SnapshotExtensionMeta {
   return {
     name: "",
@@ -779,10 +780,9 @@ export const SnapshotExtensionMeta = {
       typeUrl: "/cosmos.store.snapshots.v1.SnapshotExtensionMeta",
       value: SnapshotExtensionMeta.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SnapshotExtensionMeta.typeUrl, SnapshotExtensionMeta);
-GlobalDecoderRegistry.registerAminoProtoMapping(SnapshotExtensionMeta.aminoType, SnapshotExtensionMeta.typeUrl);
 function createBaseSnapshotExtensionPayload(): SnapshotExtensionPayload {
   return {
     payload: new Uint8Array()
@@ -857,7 +857,6 @@ export const SnapshotExtensionPayload = {
       typeUrl: "/cosmos.store.snapshots.v1.SnapshotExtensionPayload",
       value: SnapshotExtensionPayload.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SnapshotExtensionPayload.typeUrl, SnapshotExtensionPayload);
-GlobalDecoderRegistry.registerAminoProtoMapping(SnapshotExtensionPayload.aminoType, SnapshotExtensionPayload.typeUrl);

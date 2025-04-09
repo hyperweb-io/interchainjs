@@ -1,45 +1,45 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgCreateGroup, MsgUpdateGroupMembers, MsgUpdateGroupAdmin, MsgUpdateGroupMetadata, MsgCreateGroupPolicy, MsgCreateGroupWithPolicy, MsgUpdateGroupPolicyAdmin, MsgUpdateGroupPolicyDecisionPolicy, MsgUpdateGroupPolicyMetadata, MsgSubmitProposal, MsgWithdrawProposal, MsgVote, MsgExec, MsgLeaveGroup } from "./tx";
-import { createCreateGroup, createUpdateGroupMembers, createUpdateGroupAdmin, createUpdateGroupMetadata, createCreateGroupPolicy, createCreateGroupWithPolicy, createUpdateGroupPolicyAdmin, createUpdateGroupPolicyDecisionPolicy, createUpdateGroupPolicyMetadata, createSubmitProposal, createWithdrawProposal, createVote, createExec, createLeaveGroup } from "./tx.rpc.func";
+import { createGroup, updateGroupMembers, updateGroupAdmin, updateGroupMetadata, createGroupPolicy, createGroupWithPolicy, updateGroupPolicyAdmin, updateGroupPolicyDecisionPolicy, updateGroupPolicyMetadata, submitProposal, withdrawProposal, vote, exec, leaveGroup } from "./tx.rpc.func";
 export const useCreateGroup = buildUseMutation<MsgCreateGroup, Error>({
-  builderMutationFn: createCreateGroup
+  builderMutationFn: createGroup
 });
 export const useUpdateGroupMembers = buildUseMutation<MsgUpdateGroupMembers, Error>({
-  builderMutationFn: createUpdateGroupMembers
+  builderMutationFn: updateGroupMembers
 });
 export const useUpdateGroupAdmin = buildUseMutation<MsgUpdateGroupAdmin, Error>({
-  builderMutationFn: createUpdateGroupAdmin
+  builderMutationFn: updateGroupAdmin
 });
 export const useUpdateGroupMetadata = buildUseMutation<MsgUpdateGroupMetadata, Error>({
-  builderMutationFn: createUpdateGroupMetadata
+  builderMutationFn: updateGroupMetadata
 });
 export const useCreateGroupPolicy = buildUseMutation<MsgCreateGroupPolicy, Error>({
-  builderMutationFn: createCreateGroupPolicy
+  builderMutationFn: createGroupPolicy
 });
 export const useCreateGroupWithPolicy = buildUseMutation<MsgCreateGroupWithPolicy, Error>({
-  builderMutationFn: createCreateGroupWithPolicy
+  builderMutationFn: createGroupWithPolicy
 });
 export const useUpdateGroupPolicyAdmin = buildUseMutation<MsgUpdateGroupPolicyAdmin, Error>({
-  builderMutationFn: createUpdateGroupPolicyAdmin
+  builderMutationFn: updateGroupPolicyAdmin
 });
 export const useUpdateGroupPolicyDecisionPolicy = buildUseMutation<MsgUpdateGroupPolicyDecisionPolicy, Error>({
-  builderMutationFn: createUpdateGroupPolicyDecisionPolicy
+  builderMutationFn: updateGroupPolicyDecisionPolicy
 });
 export const useUpdateGroupPolicyMetadata = buildUseMutation<MsgUpdateGroupPolicyMetadata, Error>({
-  builderMutationFn: createUpdateGroupPolicyMetadata
+  builderMutationFn: updateGroupPolicyMetadata
 });
 export const useSubmitProposal = buildUseMutation<MsgSubmitProposal, Error>({
-  builderMutationFn: createSubmitProposal
+  builderMutationFn: submitProposal
 });
 export const useWithdrawProposal = buildUseMutation<MsgWithdrawProposal, Error>({
-  builderMutationFn: createWithdrawProposal
+  builderMutationFn: withdrawProposal
 });
 export const useVote = buildUseMutation<MsgVote, Error>({
-  builderMutationFn: createVote
+  builderMutationFn: vote
 });
 export const useExec = buildUseMutation<MsgExec, Error>({
-  builderMutationFn: createExec
+  builderMutationFn: exec
 });
 export const useLeaveGroup = buildUseMutation<MsgLeaveGroup, Error>({
-  builderMutationFn: createLeaveGroup
+  builderMutationFn: leaveGroup
 });

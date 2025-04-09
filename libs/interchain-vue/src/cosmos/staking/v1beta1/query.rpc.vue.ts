@@ -1,59 +1,59 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryValidatorsRequest, QueryValidatorsResponse, QueryValidatorRequest, QueryValidatorResponse, QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse, QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse, QueryDelegationRequest, QueryDelegationResponse, QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse, QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse, QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse, QueryRedelegationsRequest, QueryRedelegationsResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse, QueryHistoricalInfoRequest, QueryHistoricalInfoResponse, QueryPoolRequest, QueryPoolResponse, QueryParamsRequest, QueryParamsResponse } from "./query";
-import { createGetValidators, createGetValidator, createGetValidatorDelegations, createGetValidatorUnbondingDelegations, createGetDelegation, createGetUnbondingDelegation, createGetDelegatorDelegations, createGetDelegatorUnbondingDelegations, createGetRedelegations, createGetDelegatorValidators, createGetDelegatorValidator, createGetHistoricalInfo, createGetPool, createGetParams } from "./query.rpc.func";
+import { getValidators, getValidator, getValidatorDelegations, getValidatorUnbondingDelegations, getDelegation, getUnbondingDelegation, getDelegatorDelegations, getDelegatorUnbondingDelegations, getRedelegations, getDelegatorValidators, getDelegatorValidator, getHistoricalInfo, getPool, getParams } from "./query.rpc.func";
 export const useGetValidators = buildUseVueQuery<QueryValidatorsRequest, QueryValidatorsResponse>({
-  builderQueryFn: createGetValidators,
+  builderQueryFn: getValidators,
   queryKeyPrefix: "ValidatorsQuery"
 });
 export const useGetValidator = buildUseVueQuery<QueryValidatorRequest, QueryValidatorResponse>({
-  builderQueryFn: createGetValidator,
+  builderQueryFn: getValidator,
   queryKeyPrefix: "ValidatorQuery"
 });
 export const useGetValidatorDelegations = buildUseVueQuery<QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse>({
-  builderQueryFn: createGetValidatorDelegations,
+  builderQueryFn: getValidatorDelegations,
   queryKeyPrefix: "ValidatorDelegationsQuery"
 });
 export const useGetValidatorUnbondingDelegations = buildUseVueQuery<QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse>({
-  builderQueryFn: createGetValidatorUnbondingDelegations,
+  builderQueryFn: getValidatorUnbondingDelegations,
   queryKeyPrefix: "ValidatorUnbondingDelegationsQuery"
 });
 export const useGetDelegation = buildUseVueQuery<QueryDelegationRequest, QueryDelegationResponse>({
-  builderQueryFn: createGetDelegation,
+  builderQueryFn: getDelegation,
   queryKeyPrefix: "DelegationQuery"
 });
 export const useGetUnbondingDelegation = buildUseVueQuery<QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse>({
-  builderQueryFn: createGetUnbondingDelegation,
+  builderQueryFn: getUnbondingDelegation,
   queryKeyPrefix: "UnbondingDelegationQuery"
 });
 export const useGetDelegatorDelegations = buildUseVueQuery<QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse>({
-  builderQueryFn: createGetDelegatorDelegations,
+  builderQueryFn: getDelegatorDelegations,
   queryKeyPrefix: "DelegatorDelegationsQuery"
 });
 export const useGetDelegatorUnbondingDelegations = buildUseVueQuery<QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse>({
-  builderQueryFn: createGetDelegatorUnbondingDelegations,
+  builderQueryFn: getDelegatorUnbondingDelegations,
   queryKeyPrefix: "DelegatorUnbondingDelegationsQuery"
 });
 export const useGetRedelegations = buildUseVueQuery<QueryRedelegationsRequest, QueryRedelegationsResponse>({
-  builderQueryFn: createGetRedelegations,
+  builderQueryFn: getRedelegations,
   queryKeyPrefix: "RedelegationsQuery"
 });
 export const useGetDelegatorValidators = buildUseVueQuery<QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse>({
-  builderQueryFn: createGetDelegatorValidators,
+  builderQueryFn: getDelegatorValidators,
   queryKeyPrefix: "DelegatorValidatorsQuery"
 });
 export const useGetDelegatorValidator = buildUseVueQuery<QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse>({
-  builderQueryFn: createGetDelegatorValidator,
+  builderQueryFn: getDelegatorValidator,
   queryKeyPrefix: "DelegatorValidatorQuery"
 });
 export const useGetHistoricalInfo = buildUseVueQuery<QueryHistoricalInfoRequest, QueryHistoricalInfoResponse>({
-  builderQueryFn: createGetHistoricalInfo,
+  builderQueryFn: getHistoricalInfo,
   queryKeyPrefix: "HistoricalInfoQuery"
 });
 export const useGetPool = buildUseVueQuery<QueryPoolRequest, QueryPoolResponse>({
-  builderQueryFn: createGetPool,
+  builderQueryFn: getPool,
   queryKeyPrefix: "PoolQuery"
 });
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });

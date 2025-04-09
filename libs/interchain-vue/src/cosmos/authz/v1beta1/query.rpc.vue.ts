@@ -1,15 +1,15 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryGrantsRequest, QueryGrantsResponse, QueryGranterGrantsRequest, QueryGranterGrantsResponse, QueryGranteeGrantsRequest, QueryGranteeGrantsResponse } from "./query";
-import { createGetGrants, createGetGranterGrants, createGetGranteeGrants } from "./query.rpc.func";
+import { getGrants, getGranterGrants, getGranteeGrants } from "./query.rpc.func";
 export const useGetGrants = buildUseVueQuery<QueryGrantsRequest, QueryGrantsResponse>({
-  builderQueryFn: createGetGrants,
+  builderQueryFn: getGrants,
   queryKeyPrefix: "GrantsQuery"
 });
 export const useGetGranterGrants = buildUseVueQuery<QueryGranterGrantsRequest, QueryGranterGrantsResponse>({
-  builderQueryFn: createGetGranterGrants,
+  builderQueryFn: getGranterGrants,
   queryKeyPrefix: "GranterGrantsQuery"
 });
 export const useGetGranteeGrants = buildUseVueQuery<QueryGranteeGrantsRequest, QueryGranteeGrantsResponse>({
-  builderQueryFn: createGetGranteeGrants,
+  builderQueryFn: getGranteeGrants,
   queryKeyPrefix: "GranteeGrantsQuery"
 });

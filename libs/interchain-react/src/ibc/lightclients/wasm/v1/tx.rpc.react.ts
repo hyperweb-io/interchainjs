@@ -1,12 +1,12 @@
 import { buildUseMutation } from "../../../../react-query";
 import { MsgStoreCode, MsgRemoveChecksum, MsgMigrateContract } from "./tx";
-import { createStoreCode, createRemoveChecksum, createMigrateContract } from "./tx.rpc.func";
+import { storeCode, removeChecksum, migrateContract } from "./tx.rpc.func";
 export const useStoreCode = buildUseMutation<MsgStoreCode, Error>({
-  builderMutationFn: createStoreCode
+  builderMutationFn: storeCode
 });
 export const useRemoveChecksum = buildUseMutation<MsgRemoveChecksum, Error>({
-  builderMutationFn: createRemoveChecksum
+  builderMutationFn: removeChecksum
 });
 export const useMigrateContract = buildUseMutation<MsgMigrateContract, Error>({
-  builderMutationFn: createMigrateContract
+  builderMutationFn: migrateContract
 });

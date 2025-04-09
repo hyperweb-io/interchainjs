@@ -1,11 +1,11 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QuerySubspacesRequest, QuerySubspacesResponse } from "./query";
-import { createGetParams, createGetSubspaces } from "./query.rpc.func";
+import { getParams, getSubspaces } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetSubspaces = buildUseQuery<QuerySubspacesRequest, QuerySubspacesResponse>({
-  builderQueryFn: createGetSubspaces,
+  builderQueryFn: getSubspaces,
   queryKeyPrefix: "SubspacesQuery"
 });

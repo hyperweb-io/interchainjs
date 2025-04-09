@@ -1,6 +1,5 @@
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /**
  * ClaimType is the cosmos type of an event from the counterpart chain that can
@@ -246,9 +245,9 @@ export const Attestation = {
       typeUrl: "/injective.peggy.v1.Attestation",
       value: Attestation.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Attestation.typeUrl, Attestation);
 function createBaseERC20Token(): ERC20Token {
   return {
     contract: "",
@@ -328,6 +327,6 @@ export const ERC20Token = {
       typeUrl: "/injective.peggy.v1.ERC20Token",
       value: ERC20Token.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ERC20Token.typeUrl, ERC20Token);

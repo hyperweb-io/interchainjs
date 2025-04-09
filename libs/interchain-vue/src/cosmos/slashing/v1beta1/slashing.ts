@@ -2,7 +2,6 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino } from "../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * ValidatorSigningInfo defines a validator's signing info for monitoring their
  * liveness activity.
@@ -225,10 +224,9 @@ export const ValidatorSigningInfo = {
       typeUrl: "/cosmos.slashing.v1beta1.ValidatorSigningInfo",
       value: ValidatorSigningInfo.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ValidatorSigningInfo.typeUrl, ValidatorSigningInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorSigningInfo.aminoType, ValidatorSigningInfo.typeUrl);
 function createBaseParams(): Params {
   return {
     signedBlocksWindow: BigInt(0),
@@ -351,7 +349,6 @@ export const Params = {
       typeUrl: "/cosmos.slashing.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);

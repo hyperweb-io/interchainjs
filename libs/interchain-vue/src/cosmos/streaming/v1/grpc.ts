@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method */
 export interface ListenDeliverBlockRequest {
   blockHeight: bigint;
@@ -285,10 +284,12 @@ export const ListenDeliverBlockRequest = {
       typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockRequest",
       value: ListenDeliverBlockRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Event.registerTypeUrl();
+    ExecTxResult.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListenDeliverBlockRequest.typeUrl, ListenDeliverBlockRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenDeliverBlockRequest.aminoType, ListenDeliverBlockRequest.typeUrl);
 function createBaseListenDeliverBlockResponse(): ListenDeliverBlockResponse {
   return {};
 }
@@ -350,10 +351,9 @@ export const ListenDeliverBlockResponse = {
       typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockResponse",
       value: ListenDeliverBlockResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListenDeliverBlockResponse.typeUrl, ListenDeliverBlockResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenDeliverBlockResponse.aminoType, ListenDeliverBlockResponse.typeUrl);
 function createBaseListenStateChangesRequest(): ListenStateChangesRequest {
   return {
     blockHeight: BigInt(0),
@@ -454,10 +454,11 @@ export const ListenStateChangesRequest = {
       typeUrl: "/cosmos.streaming.v1.ListenStateChangesRequest",
       value: ListenStateChangesRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    StoreKVPair.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListenStateChangesRequest.typeUrl, ListenStateChangesRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenStateChangesRequest.aminoType, ListenStateChangesRequest.typeUrl);
 function createBaseListenStateChangesResponse(): ListenStateChangesResponse {
   return {};
 }
@@ -519,10 +520,9 @@ export const ListenStateChangesResponse = {
       typeUrl: "/cosmos.streaming.v1.ListenStateChangesResponse",
       value: ListenStateChangesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListenStateChangesResponse.typeUrl, ListenStateChangesResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListenStateChangesResponse.aminoType, ListenStateChangesResponse.typeUrl);
 function createBaseStoreKVPair(): StoreKVPair {
   return {
     address: new Uint8Array(),
@@ -633,10 +633,9 @@ export const StoreKVPair = {
       typeUrl: "/cosmos.streaming.v1.StoreKVPair",
       value: StoreKVPair.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StoreKVPair.typeUrl, StoreKVPair);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreKVPair.aminoType, StoreKVPair.typeUrl);
 function createBaseEvent(): Event {
   return {
     type: "",
@@ -725,10 +724,11 @@ export const Event = {
       typeUrl: "/cosmos.streaming.v1.Event",
       value: Event.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    EventAttribute.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Event.typeUrl, Event);
-GlobalDecoderRegistry.registerAminoProtoMapping(Event.aminoType, Event.typeUrl);
 function createBaseEventAttribute(): EventAttribute {
   return {
     key: "",
@@ -815,10 +815,9 @@ export const EventAttribute = {
       typeUrl: "/cosmos.streaming.v1.EventAttribute",
       value: EventAttribute.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventAttribute.typeUrl, EventAttribute);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventAttribute.aminoType, EventAttribute.typeUrl);
 function createBaseExecTxResult(): ExecTxResult {
   return {
     code: 0,
@@ -979,7 +978,8 @@ export const ExecTxResult = {
       typeUrl: "/cosmos.streaming.v1.ExecTxResult",
       value: ExecTxResult.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Event.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ExecTxResult.typeUrl, ExecTxResult);
-GlobalDecoderRegistry.registerAminoProtoMapping(ExecTxResult.aminoType, ExecTxResult.typeUrl);

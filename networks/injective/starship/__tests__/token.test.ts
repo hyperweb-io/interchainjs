@@ -15,12 +15,13 @@ import {
 } from '@interchainjs/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
-import { DirectSigner } from '@interchainjs/injective/signers/direct';
+import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { createGetAllBalances, createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
+import { defaultSignerOptions } from '@interchainjs/injective/defaults';
 
 const hdPath = "m/44'/60'/0'/0/0";
 
@@ -32,8 +33,6 @@ describe('Token transfers', () => {
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
-
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
 
   let injRpcEndpoint: string;
 
@@ -48,11 +47,8 @@ describe('Token transfers', () => {
 
     // Initialize auth
     const [auth] = EthSecp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
-    directSigner = new DirectSigner(auth, [], injRpcEndpoint);
+    directSigner = new DirectSigner(auth, [], injRpcEndpoint, defaultSignerOptions.Cosmos);
     address = await directSigner.getAddress();
-
-    // Create custom cosmos interchain client
-    getBalance = createGetBalance(injRpcEndpoint);
 
     await creditFromFaucet(address);
 
@@ -60,7 +56,7 @@ describe('Token transfers', () => {
   });
 
   it('check address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: address,
       denom,
     });
@@ -112,7 +108,7 @@ describe('Token transfers', () => {
       { deliverTx: true }
     );
 
-    const { balance } = await getBalance({ address: address2, denom });
+    const { balance } = await getBalance(injRpcEndpoint, { address: address2, denom });
 
     expect(balance!.amount).toEqual(token.amount);
     expect(balance!.denom).toEqual(denom);
@@ -168,7 +164,7 @@ describe('Token transfers', () => {
 
     // Transfer injective tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
-    const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
+    const timeoutTime = currentTime + 3000 * 1000000000; // 5 minutes
 
     const fee = {
       amount: [
@@ -214,10 +210,7 @@ describe('Token transfers', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 6000));
 
-    // Check osmos in address on cosmos chain
-    const cosmosGetAllBalances = createGetAllBalances(createQueryRpc(await cosmosRpcEndpoint()));
-
-    const { balances } = await cosmosGetAllBalances({
+    const { balances } = await getAllBalances(await cosmosRpcEndpoint(), {
       address: cosmosAddress,
       resolveDenom: true,
     });

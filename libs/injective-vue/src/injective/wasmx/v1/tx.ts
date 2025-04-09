@@ -2,7 +2,6 @@ import { Params, ParamsAmino } from "./wasmx";
 import { ContractRegistrationRequest, ContractRegistrationRequestAmino } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgExecuteContractCompat submits the given message data to a smart contract,
  * compatible with EIP712
@@ -327,10 +326,9 @@ export const MsgExecuteContractCompat = {
       typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompat",
       value: MsgExecuteContractCompat.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExecuteContractCompat.typeUrl, MsgExecuteContractCompat);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgExecuteContractCompat.aminoType, MsgExecuteContractCompat.typeUrl);
 function createBaseMsgExecuteContractCompatResponse(): MsgExecuteContractCompatResponse {
   return {
     data: new Uint8Array()
@@ -398,9 +396,9 @@ export const MsgExecuteContractCompatResponse = {
       typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompatResponse",
       value: MsgExecuteContractCompatResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExecuteContractCompatResponse.typeUrl, MsgExecuteContractCompatResponse);
 function createBaseMsgUpdateContract(): MsgUpdateContract {
   return {
     sender: "",
@@ -523,10 +521,9 @@ export const MsgUpdateContract = {
       typeUrl: "/injective.wasmx.v1.MsgUpdateContract",
       value: MsgUpdateContract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateContract.typeUrl, MsgUpdateContract);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateContract.aminoType, MsgUpdateContract.typeUrl);
 function createBaseMsgUpdateContractResponse(): MsgUpdateContractResponse {
   return {};
 }
@@ -581,9 +578,9 @@ export const MsgUpdateContractResponse = {
       typeUrl: "/injective.wasmx.v1.MsgUpdateContractResponse",
       value: MsgUpdateContractResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateContractResponse.typeUrl, MsgUpdateContractResponse);
 function createBaseMsgActivateContract(): MsgActivateContract {
   return {
     sender: "",
@@ -670,10 +667,9 @@ export const MsgActivateContract = {
       typeUrl: "/injective.wasmx.v1.MsgActivateContract",
       value: MsgActivateContract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgActivateContract.typeUrl, MsgActivateContract);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgActivateContract.aminoType, MsgActivateContract.typeUrl);
 function createBaseMsgActivateContractResponse(): MsgActivateContractResponse {
   return {};
 }
@@ -728,9 +724,9 @@ export const MsgActivateContractResponse = {
       typeUrl: "/injective.wasmx.v1.MsgActivateContractResponse",
       value: MsgActivateContractResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgActivateContractResponse.typeUrl, MsgActivateContractResponse);
 function createBaseMsgDeactivateContract(): MsgDeactivateContract {
   return {
     sender: "",
@@ -817,10 +813,9 @@ export const MsgDeactivateContract = {
       typeUrl: "/injective.wasmx.v1.MsgDeactivateContract",
       value: MsgDeactivateContract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDeactivateContract.typeUrl, MsgDeactivateContract);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDeactivateContract.aminoType, MsgDeactivateContract.typeUrl);
 function createBaseMsgDeactivateContractResponse(): MsgDeactivateContractResponse {
   return {};
 }
@@ -875,9 +870,9 @@ export const MsgDeactivateContractResponse = {
       typeUrl: "/injective.wasmx.v1.MsgDeactivateContractResponse",
       value: MsgDeactivateContractResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDeactivateContractResponse.typeUrl, MsgDeactivateContractResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -964,10 +959,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.wasmx.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -1022,9 +1018,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.wasmx.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
 function createBaseMsgRegisterContract(): MsgRegisterContract {
   return {
     sender: "",
@@ -1111,10 +1107,11 @@ export const MsgRegisterContract = {
       typeUrl: "/injective.wasmx.v1.MsgRegisterContract",
       value: MsgRegisterContract.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ContractRegistrationRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgRegisterContract.typeUrl, MsgRegisterContract);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRegisterContract.aminoType, MsgRegisterContract.typeUrl);
 function createBaseMsgRegisterContractResponse(): MsgRegisterContractResponse {
   return {};
 }
@@ -1169,6 +1166,6 @@ export const MsgRegisterContractResponse = {
       typeUrl: "/injective.wasmx.v1.MsgRegisterContractResponse",
       value: MsgRegisterContractResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRegisterContractResponse.typeUrl, MsgRegisterContractResponse);

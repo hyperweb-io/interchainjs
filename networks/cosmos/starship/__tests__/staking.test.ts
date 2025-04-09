@@ -20,8 +20,8 @@ import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Sig
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
-import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetValidators, createGetDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
 
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 import { QueryDelegationRequest, QueryDelegationResponse, QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
@@ -36,9 +36,6 @@ describe('Staking tokens testing', () => {
     creditFromFaucet;
 
   // Variables used accross testcases
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
-  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
-  let getDelegation: (request: QueryDelegationRequest) => Promise<QueryDelegationResponse>;
   let validatorAddress: string;
   let delegationAmount: string;
 
@@ -60,18 +57,12 @@ describe('Staking tokens testing', () => {
     address = (await directWallet.getAccounts())[0].address;
     // (await directWallet.getAccount()).getAddress(prefix) as string;
 
-    // Create custom cosmos interchain client
-    const rpcEndpoint = await getRpcEndpoint();
-    getBalance = createGetBalance(rpcEndpoint);
-    getValidators = createGetValidators(rpcEndpoint);
-    getDelegation = createGetDelegation(rpcEndpoint);
-
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
   }, 200000);
 
   it('check address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address,
       denom,
     });
@@ -80,7 +71,7 @@ describe('Staking tokens testing', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators({
+    const { validators } = await getValidators(await getRpcEndpoint(), {
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -104,7 +95,7 @@ describe('Staking tokens testing', () => {
       { prefix: chainInfo.chain.bech32_prefix }
     );
 
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address,
       denom,
     });
@@ -148,7 +139,7 @@ describe('Staking tokens testing', () => {
   });
 
   it('query delegation', async () => {
-    const { delegationResponse } = await getDelegation({
+    const { delegationResponse } = await getDelegation(await getRpcEndpoint(), {
       delegatorAddr: address,
       validatorAddr: validatorAddress,
     });

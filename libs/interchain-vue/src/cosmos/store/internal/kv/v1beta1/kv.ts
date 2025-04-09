@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 /** Pairs defines a repeated slice of Pair objects. */
 export interface Pairs {
   pairs: Pair[];
@@ -111,10 +110,11 @@ export const Pairs = {
       typeUrl: "/cosmos.store.internal.kv.v1beta1.Pairs",
       value: Pairs.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Pair.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Pairs.typeUrl, Pairs);
-GlobalDecoderRegistry.registerAminoProtoMapping(Pairs.aminoType, Pairs.typeUrl);
 function createBasePair(): Pair {
   return {
     key: new Uint8Array(),
@@ -201,7 +201,6 @@ export const Pair = {
       typeUrl: "/cosmos.store.internal.kv.v1beta1.Pair",
       value: Pair.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Pair.typeUrl, Pair);
-GlobalDecoderRegistry.registerAminoProtoMapping(Pair.aminoType, Pair.typeUrl);

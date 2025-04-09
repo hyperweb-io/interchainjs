@@ -1,24 +1,24 @@
 import { buildUseVueMutation } from "../../../vue-query";
 import { MsgUpdateParams, MsgCreateNamespace, MsgDeleteNamespace, MsgUpdateNamespace, MsgUpdateNamespaceRoles, MsgRevokeNamespaceRoles, MsgClaimVoucher } from "./tx";
-import { createUpdateParams, createCreateNamespace, createDeleteNamespace, createUpdateNamespace, createUpdateNamespaceRoles, createRevokeNamespaceRoles, createClaimVoucher } from "./tx.rpc.func";
+import { updateParams, createNamespace, deleteNamespace, updateNamespace, updateNamespaceRoles, revokeNamespaceRoles, claimVoucher } from "./tx.rpc.func";
 export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useCreateNamespace = buildUseVueMutation<MsgCreateNamespace, Error>({
-  builderMutationFn: createCreateNamespace
+  builderMutationFn: createNamespace
 });
 export const useDeleteNamespace = buildUseVueMutation<MsgDeleteNamespace, Error>({
-  builderMutationFn: createDeleteNamespace
+  builderMutationFn: deleteNamespace
 });
 export const useUpdateNamespace = buildUseVueMutation<MsgUpdateNamespace, Error>({
-  builderMutationFn: createUpdateNamespace
+  builderMutationFn: updateNamespace
 });
 export const useUpdateNamespaceRoles = buildUseVueMutation<MsgUpdateNamespaceRoles, Error>({
-  builderMutationFn: createUpdateNamespaceRoles
+  builderMutationFn: updateNamespaceRoles
 });
 export const useRevokeNamespaceRoles = buildUseVueMutation<MsgRevokeNamespaceRoles, Error>({
-  builderMutationFn: createRevokeNamespaceRoles
+  builderMutationFn: revokeNamespaceRoles
 });
 export const useClaimVoucher = buildUseVueMutation<MsgClaimVoucher, Error>({
-  builderMutationFn: createClaimVoucher
+  builderMutationFn: claimVoucher
 });

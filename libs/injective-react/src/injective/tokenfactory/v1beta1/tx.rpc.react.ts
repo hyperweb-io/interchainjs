@@ -1,21 +1,21 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgCreateDenom, MsgMint, MsgBurn, MsgChangeAdmin, MsgSetDenomMetadata, MsgUpdateParams } from "./tx";
-import { createCreateDenom, createMint, createBurn, createChangeAdmin, createSetDenomMetadata, createUpdateParams } from "./tx.rpc.func";
+import { createDenom, mint, burn, changeAdmin, setDenomMetadata, updateParams } from "./tx.rpc.func";
 export const useCreateDenom = buildUseMutation<MsgCreateDenom, Error>({
-  builderMutationFn: createCreateDenom
+  builderMutationFn: createDenom
 });
 export const useMint = buildUseMutation<MsgMint, Error>({
-  builderMutationFn: createMint
+  builderMutationFn: mint
 });
 export const useBurn = buildUseMutation<MsgBurn, Error>({
-  builderMutationFn: createBurn
+  builderMutationFn: burn
 });
 export const useChangeAdmin = buildUseMutation<MsgChangeAdmin, Error>({
-  builderMutationFn: createChangeAdmin
+  builderMutationFn: changeAdmin
 });
 export const useSetDenomMetadata = buildUseMutation<MsgSetDenomMetadata, Error>({
-  builderMutationFn: createSetDenomMetadata
+  builderMutationFn: setDenomMetadata
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

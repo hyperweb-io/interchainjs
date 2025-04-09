@@ -1,6 +1,5 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** QueryRequest is the request for the Query method */
 export interface QueryRequest {
@@ -154,10 +153,9 @@ export const QueryRequest = {
       typeUrl: "/cosmos.base.grpc.v2.QueryRequest",
       value: QueryRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryRequest.typeUrl, QueryRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryRequest.aminoType, QueryRequest.typeUrl);
 function createBaseQueryResponse(): QueryResponse {
   return {
     response: undefined
@@ -232,10 +230,9 @@ export const QueryResponse = {
       typeUrl: "/cosmos.base.grpc.v2.QueryResponse",
       value: QueryResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryResponse.typeUrl, QueryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryResponse.aminoType, QueryResponse.typeUrl);
 function createBaseListQueryHandlersRequest(): ListQueryHandlersRequest {
   return {};
 }
@@ -297,10 +294,9 @@ export const ListQueryHandlersRequest = {
       typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersRequest",
       value: ListQueryHandlersRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ListQueryHandlersRequest.typeUrl, ListQueryHandlersRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListQueryHandlersRequest.aminoType, ListQueryHandlersRequest.typeUrl);
 function createBaseListQueryHandlersResponse(): ListQueryHandlersResponse {
   return {
     handlers: []
@@ -377,10 +373,11 @@ export const ListQueryHandlersResponse = {
       typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersResponse",
       value: ListQueryHandlersResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Handler.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ListQueryHandlersResponse.typeUrl, ListQueryHandlersResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ListQueryHandlersResponse.aminoType, ListQueryHandlersResponse.typeUrl);
 function createBaseHandler(): Handler {
   return {
     requestName: "",
@@ -467,7 +464,6 @@ export const Handler = {
       typeUrl: "/cosmos.base.grpc.v2.Handler",
       value: Handler.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Handler.typeUrl, Handler);
-GlobalDecoderRegistry.registerAminoProtoMapping(Handler.aminoType, Handler.typeUrl);

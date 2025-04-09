@@ -1,7 +1,6 @@
 import { FileDescriptorProto, FileDescriptorProtoAmino } from "../../../google/protobuf/descriptor";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** FileDescriptorsRequest is the Query/FileDescriptors request type. */
 export interface FileDescriptorsRequest {}
 export interface FileDescriptorsRequestProtoMsg {
@@ -93,10 +92,9 @@ export const FileDescriptorsRequest = {
       typeUrl: "/cosmos.reflection.v1.FileDescriptorsRequest",
       value: FileDescriptorsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FileDescriptorsRequest.typeUrl, FileDescriptorsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(FileDescriptorsRequest.aminoType, FileDescriptorsRequest.typeUrl);
 function createBaseFileDescriptorsResponse(): FileDescriptorsResponse {
   return {
     files: []
@@ -173,7 +171,8 @@ export const FileDescriptorsResponse = {
       typeUrl: "/cosmos.reflection.v1.FileDescriptorsResponse",
       value: FileDescriptorsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    FileDescriptorProto.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FileDescriptorsResponse.typeUrl, FileDescriptorsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(FileDescriptorsResponse.aminoType, FileDescriptorsResponse.typeUrl);

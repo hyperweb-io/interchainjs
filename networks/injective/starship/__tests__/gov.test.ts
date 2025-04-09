@@ -36,9 +36,9 @@ import { useChain } from 'starshipjs';
 import { generateMnemonic } from '../src';
 import { AminoGenericOfflineSigner, OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
 import { SIGN_MODE } from '@interchainjs/types';
-import { createGetBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetProposal, createGetVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
-import { createGetValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { getProposal, getVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
+import { getValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from '@interchainjs/cosmos-types/cosmos/gov/v1beta1/query';
 import { QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
@@ -67,10 +67,6 @@ describe('Governance tests for injective', () => {
   let injRpcEndpoint: string;
 
   // Variables used accross testcases
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
-  let getProposal: (request: QueryProposalRequest) => Promise<QueryProposalResponse>;
-  let getVote: (request: QueryVoteRequest) => Promise<QueryVoteResponse>;
-  let getValidators: (request: QueryValidatorsRequest) => Promise<QueryValidatorsResponse>;
   let proposalId: string;
   let validatorAddress: string;
 
@@ -93,14 +89,14 @@ describe('Governance tests for injective', () => {
       directAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       injRpcEndpoint,
-      { prefix: commonPrefix }
+      defaultSignerOptions.Cosmos
     );
     aminoSigner = new AminoSigner(
       aminoAuth,
       toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       injRpcEndpoint,
-      { prefix: commonPrefix }
+      defaultSignerOptions.Cosmos
     );
     directAddress = await directSigner.getAddress();
     aminoAddress = await aminoSigner.getAddress();
@@ -137,14 +133,8 @@ describe('Governance tests for injective', () => {
       }
     );
 
-    signingClient.addEncoders(toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
-    signingClient.addConverters(toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote));
-
-    // Create custom cosmos interchain client
-    getBalance = createGetBalance(injRpcEndpoint);
-    getProposal = createGetProposal(injRpcEndpoint);
-    getVote = createGetVote(injRpcEndpoint);
-    getValidators = createGetValidators(injRpcEndpoint);
+    signingClient.addEncoders([MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote]);
+    signingClient.addConverters([MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote]);
 
     // Transfer inj to address
     for (let i = 0; i < 10; i++) {
@@ -158,7 +148,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check direct address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: directAddress,
       denom,
     });
@@ -167,7 +157,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check amino address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: aminoAddress,
       denom,
     });
@@ -176,7 +166,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check direct offline address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: directOfflineAddress,
       denom,
     });
@@ -185,7 +175,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check amino offline address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: aminoOfflineAddress,
       denom,
     });
@@ -194,7 +184,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators({
+    const { validators } = await getValidators(injRpcEndpoint, {
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -211,7 +201,7 @@ describe('Governance tests for injective', () => {
   });
 
   it('stake tokens to genesis validator', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: testingOfflineAddress,
       denom,
     });
@@ -250,7 +240,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('check direct address has tokens', async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(injRpcEndpoint, {
       address: testingOfflineAddress,
       denom,
     });
@@ -318,7 +308,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('query proposal', async () => {
-    const result = await getProposal({
+    const result = await getProposal(injRpcEndpoint, {
       proposalId: BigInt(proposalId),
     });
 
@@ -360,7 +350,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('verify direct vote', async () => {
-    const { vote } = await getVote({
+    const { vote } = await getVote(injRpcEndpoint, {
       proposalId: BigInt(proposalId),
       voter: directAddress,
     });
@@ -407,7 +397,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('verify amino vote', async () => {
-    const { vote } = await getVote({
+    const { vote } = await getVote(injRpcEndpoint, {
       proposalId: BigInt(proposalId),
       voter: aminoAddress,
     });
@@ -420,7 +410,7 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('verify proposal passed', async () => {
-    const { proposal } = await getProposal({
+    const { proposal } = await getProposal(injRpcEndpoint, {
       proposalId: BigInt(proposalId),
     });
 

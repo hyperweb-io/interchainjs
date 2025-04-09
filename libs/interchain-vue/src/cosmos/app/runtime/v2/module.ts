@@ -1,5 +1,4 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Module is the config object for the runtime module. */
 export interface Module {
@@ -391,10 +390,12 @@ export const Module = {
       typeUrl: "/cosmos.app.runtime.v2.Module",
       value: Module.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GasConfig.registerTypeUrl();
+    StoreKeyConfig.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Module.typeUrl, Module);
-GlobalDecoderRegistry.registerAminoProtoMapping(Module.aminoType, Module.typeUrl);
 function createBaseGasConfig(): GasConfig {
   return {
     validateTxGasLimit: BigInt(0),
@@ -493,10 +494,9 @@ export const GasConfig = {
       typeUrl: "/cosmos.app.runtime.v2.GasConfig",
       value: GasConfig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GasConfig.typeUrl, GasConfig);
-GlobalDecoderRegistry.registerAminoProtoMapping(GasConfig.aminoType, GasConfig.typeUrl);
 function createBaseStoreKeyConfig(): StoreKeyConfig {
   return {
     moduleName: "",
@@ -583,7 +583,6 @@ export const StoreKeyConfig = {
       typeUrl: "/cosmos.app.runtime.v2.StoreKeyConfig",
       value: StoreKeyConfig.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StoreKeyConfig.typeUrl, StoreKeyConfig);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreKeyConfig.aminoType, StoreKeyConfig.typeUrl);

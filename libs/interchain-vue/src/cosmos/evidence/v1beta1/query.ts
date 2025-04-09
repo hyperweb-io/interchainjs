@@ -2,7 +2,6 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryEvidenceRequest is the request type for the Query/Evidence RPC method. */
 export interface QueryEvidenceRequest {
   /**
@@ -197,10 +196,9 @@ export const QueryEvidenceRequest = {
       typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceRequest",
       value: QueryEvidenceRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryEvidenceRequest.typeUrl, QueryEvidenceRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryEvidenceRequest.aminoType, QueryEvidenceRequest.typeUrl);
 function createBaseQueryEvidenceResponse(): QueryEvidenceResponse {
   return {
     evidence: undefined
@@ -275,10 +273,9 @@ export const QueryEvidenceResponse = {
       typeUrl: "/cosmos.evidence.v1beta1.QueryEvidenceResponse",
       value: QueryEvidenceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryEvidenceResponse.typeUrl, QueryEvidenceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryEvidenceResponse.aminoType, QueryEvidenceResponse.typeUrl);
 function createBaseQueryAllEvidenceRequest(): QueryAllEvidenceRequest {
   return {
     pagination: undefined
@@ -353,10 +350,11 @@ export const QueryAllEvidenceRequest = {
       typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceRequest",
       value: QueryAllEvidenceRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllEvidenceRequest.typeUrl, QueryAllEvidenceRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllEvidenceRequest.aminoType, QueryAllEvidenceRequest.typeUrl);
 function createBaseQueryAllEvidenceResponse(): QueryAllEvidenceResponse {
   return {
     evidence: [],
@@ -445,7 +443,8 @@ export const QueryAllEvidenceResponse = {
       typeUrl: "/cosmos.evidence.v1beta1.QueryAllEvidenceResponse",
       value: QueryAllEvidenceResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryAllEvidenceResponse.typeUrl, QueryAllEvidenceResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryAllEvidenceResponse.aminoType, QueryAllEvidenceResponse.typeUrl);

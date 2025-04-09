@@ -1,6 +1,5 @@
 import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {
@@ -196,9 +195,11 @@ export const ValidatorSet = {
       typeUrl: "/tendermint.types.ValidatorSet",
       value: ValidatorSet.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorSet.typeUrl, ValidatorSet);
 function createBaseValidator(): Validator {
   return {
     address: new Uint8Array(),
@@ -302,9 +303,11 @@ export const Validator = {
       typeUrl: "/tendermint.types.Validator",
       value: Validator.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PublicKey.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Validator.typeUrl, Validator);
 function createBaseSimpleValidator(): SimpleValidator {
   return {
     pubKey: undefined,
@@ -384,6 +387,8 @@ export const SimpleValidator = {
       typeUrl: "/tendermint.types.SimpleValidator",
       value: SimpleValidator.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PublicKey.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SimpleValidator.typeUrl, SimpleValidator);

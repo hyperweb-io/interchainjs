@@ -5,7 +5,6 @@ import { Params, ParamsAmino } from "../../../cosmos/distribution/v1beta1/distri
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 export interface MsgUpdateSpotMarket {
   /** current admin address of the associated market */
   admin: string;
@@ -2126,10 +2125,9 @@ export const MsgUpdateSpotMarket = {
       typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarket",
       value: MsgUpdateSpotMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateSpotMarket.typeUrl, MsgUpdateSpotMarket);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateSpotMarket.aminoType, MsgUpdateSpotMarket.typeUrl);
 function createBaseMsgUpdateSpotMarketResponse(): MsgUpdateSpotMarketResponse {
   return {};
 }
@@ -2184,9 +2182,9 @@ export const MsgUpdateSpotMarketResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarketResponse",
       value: MsgUpdateSpotMarketResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateSpotMarketResponse.typeUrl, MsgUpdateSpotMarketResponse);
 function createBaseMsgUpdateDerivativeMarket(): MsgUpdateDerivativeMarket {
   return {
     admin: "",
@@ -2345,10 +2343,9 @@ export const MsgUpdateDerivativeMarket = {
       typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarket",
       value: MsgUpdateDerivativeMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateDerivativeMarket.typeUrl, MsgUpdateDerivativeMarket);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateDerivativeMarket.aminoType, MsgUpdateDerivativeMarket.typeUrl);
 function createBaseMsgUpdateDerivativeMarketResponse(): MsgUpdateDerivativeMarketResponse {
   return {};
 }
@@ -2403,9 +2400,9 @@ export const MsgUpdateDerivativeMarketResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse",
       value: MsgUpdateDerivativeMarketResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateDerivativeMarketResponse.typeUrl, MsgUpdateDerivativeMarketResponse);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -2492,10 +2489,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.exchange.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -2550,9 +2548,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
 function createBaseMsgDeposit(): MsgDeposit {
   return {
     sender: "",
@@ -2651,10 +2649,11 @@ export const MsgDeposit = {
       typeUrl: "/injective.exchange.v1beta1.MsgDeposit",
       value: MsgDeposit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgDeposit.typeUrl, MsgDeposit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDeposit.aminoType, MsgDeposit.typeUrl);
 function createBaseMsgDepositResponse(): MsgDepositResponse {
   return {};
 }
@@ -2709,9 +2708,9 @@ export const MsgDepositResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgDepositResponse",
       value: MsgDepositResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDepositResponse.typeUrl, MsgDepositResponse);
 function createBaseMsgWithdraw(): MsgWithdraw {
   return {
     sender: "",
@@ -2810,10 +2809,11 @@ export const MsgWithdraw = {
       typeUrl: "/injective.exchange.v1beta1.MsgWithdraw",
       value: MsgWithdraw.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgWithdraw.typeUrl, MsgWithdraw);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgWithdraw.aminoType, MsgWithdraw.typeUrl);
 function createBaseMsgWithdrawResponse(): MsgWithdrawResponse {
   return {};
 }
@@ -2868,9 +2868,9 @@ export const MsgWithdrawResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgWithdrawResponse",
       value: MsgWithdrawResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgWithdrawResponse.typeUrl, MsgWithdrawResponse);
 function createBaseMsgCreateSpotLimitOrder(): MsgCreateSpotLimitOrder {
   return {
     sender: "",
@@ -2957,10 +2957,11 @@ export const MsgCreateSpotLimitOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
       value: MsgCreateSpotLimitOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateSpotLimitOrder.typeUrl, MsgCreateSpotLimitOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateSpotLimitOrder.aminoType, MsgCreateSpotLimitOrder.typeUrl);
 function createBaseMsgCreateSpotLimitOrderResponse(): MsgCreateSpotLimitOrderResponse {
   return {
     orderHash: "",
@@ -3040,9 +3041,9 @@ export const MsgCreateSpotLimitOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse",
       value: MsgCreateSpotLimitOrderResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateSpotLimitOrderResponse.typeUrl, MsgCreateSpotLimitOrderResponse);
 function createBaseMsgBatchCreateSpotLimitOrders(): MsgBatchCreateSpotLimitOrders {
   return {
     sender: "",
@@ -3131,10 +3132,11 @@ export const MsgBatchCreateSpotLimitOrders = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders",
       value: MsgBatchCreateSpotLimitOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBatchCreateSpotLimitOrders.typeUrl, MsgBatchCreateSpotLimitOrders);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBatchCreateSpotLimitOrders.aminoType, MsgBatchCreateSpotLimitOrders.typeUrl);
 function createBaseMsgBatchCreateSpotLimitOrdersResponse(): MsgBatchCreateSpotLimitOrdersResponse {
   return {
     orderHashes: [],
@@ -3232,9 +3234,9 @@ export const MsgBatchCreateSpotLimitOrdersResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse",
       value: MsgBatchCreateSpotLimitOrdersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBatchCreateSpotLimitOrdersResponse.typeUrl, MsgBatchCreateSpotLimitOrdersResponse);
 function createBaseMsgInstantSpotMarketLaunch(): MsgInstantSpotMarketLaunch {
   return {
     sender: "",
@@ -3381,10 +3383,9 @@ export const MsgInstantSpotMarketLaunch = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunch",
       value: MsgInstantSpotMarketLaunch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantSpotMarketLaunch.typeUrl, MsgInstantSpotMarketLaunch);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgInstantSpotMarketLaunch.aminoType, MsgInstantSpotMarketLaunch.typeUrl);
 function createBaseMsgInstantSpotMarketLaunchResponse(): MsgInstantSpotMarketLaunchResponse {
   return {};
 }
@@ -3439,9 +3440,9 @@ export const MsgInstantSpotMarketLaunchResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse",
       value: MsgInstantSpotMarketLaunchResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantSpotMarketLaunchResponse.typeUrl, MsgInstantSpotMarketLaunchResponse);
 function createBaseMsgInstantPerpetualMarketLaunch(): MsgInstantPerpetualMarketLaunch {
   return {
     sender: "",
@@ -3672,10 +3673,9 @@ export const MsgInstantPerpetualMarketLaunch = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch",
       value: MsgInstantPerpetualMarketLaunch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantPerpetualMarketLaunch.typeUrl, MsgInstantPerpetualMarketLaunch);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgInstantPerpetualMarketLaunch.aminoType, MsgInstantPerpetualMarketLaunch.typeUrl);
 function createBaseMsgInstantPerpetualMarketLaunchResponse(): MsgInstantPerpetualMarketLaunchResponse {
   return {};
 }
@@ -3730,9 +3730,9 @@ export const MsgInstantPerpetualMarketLaunchResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse",
       value: MsgInstantPerpetualMarketLaunchResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantPerpetualMarketLaunchResponse.typeUrl, MsgInstantPerpetualMarketLaunchResponse);
 function createBaseMsgInstantBinaryOptionsMarketLaunch(): MsgInstantBinaryOptionsMarketLaunch {
   return {
     sender: "",
@@ -3975,10 +3975,9 @@ export const MsgInstantBinaryOptionsMarketLaunch = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch",
       value: MsgInstantBinaryOptionsMarketLaunch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantBinaryOptionsMarketLaunch.typeUrl, MsgInstantBinaryOptionsMarketLaunch);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgInstantBinaryOptionsMarketLaunch.aminoType, MsgInstantBinaryOptionsMarketLaunch.typeUrl);
 function createBaseMsgInstantBinaryOptionsMarketLaunchResponse(): MsgInstantBinaryOptionsMarketLaunchResponse {
   return {};
 }
@@ -4033,9 +4032,9 @@ export const MsgInstantBinaryOptionsMarketLaunchResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse",
       value: MsgInstantBinaryOptionsMarketLaunchResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantBinaryOptionsMarketLaunchResponse.typeUrl, MsgInstantBinaryOptionsMarketLaunchResponse);
 function createBaseMsgInstantExpiryFuturesMarketLaunch(): MsgInstantExpiryFuturesMarketLaunch {
   return {
     sender: "",
@@ -4278,10 +4277,9 @@ export const MsgInstantExpiryFuturesMarketLaunch = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch",
       value: MsgInstantExpiryFuturesMarketLaunch.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantExpiryFuturesMarketLaunch.typeUrl, MsgInstantExpiryFuturesMarketLaunch);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgInstantExpiryFuturesMarketLaunch.aminoType, MsgInstantExpiryFuturesMarketLaunch.typeUrl);
 function createBaseMsgInstantExpiryFuturesMarketLaunchResponse(): MsgInstantExpiryFuturesMarketLaunchResponse {
   return {};
 }
@@ -4336,9 +4334,9 @@ export const MsgInstantExpiryFuturesMarketLaunchResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse",
       value: MsgInstantExpiryFuturesMarketLaunchResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgInstantExpiryFuturesMarketLaunchResponse.typeUrl, MsgInstantExpiryFuturesMarketLaunchResponse);
 function createBaseMsgCreateSpotMarketOrder(): MsgCreateSpotMarketOrder {
   return {
     sender: "",
@@ -4425,10 +4423,11 @@ export const MsgCreateSpotMarketOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder",
       value: MsgCreateSpotMarketOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateSpotMarketOrder.typeUrl, MsgCreateSpotMarketOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateSpotMarketOrder.aminoType, MsgCreateSpotMarketOrder.typeUrl);
 function createBaseMsgCreateSpotMarketOrderResponse(): MsgCreateSpotMarketOrderResponse {
   return {
     orderHash: "",
@@ -4520,9 +4519,11 @@ export const MsgCreateSpotMarketOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse",
       value: MsgCreateSpotMarketOrderResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    SpotMarketOrderResults.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateSpotMarketOrderResponse.typeUrl, MsgCreateSpotMarketOrderResponse);
 function createBaseSpotMarketOrderResults(): SpotMarketOrderResults {
   return {
     quantity: "",
@@ -4614,9 +4615,9 @@ export const SpotMarketOrderResults = {
       typeUrl: "/injective.exchange.v1beta1.SpotMarketOrderResults",
       value: SpotMarketOrderResults.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(SpotMarketOrderResults.typeUrl, SpotMarketOrderResults);
 function createBaseMsgCreateDerivativeLimitOrder(): MsgCreateDerivativeLimitOrder {
   return {
     sender: "",
@@ -4703,10 +4704,11 @@ export const MsgCreateDerivativeLimitOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder",
       value: MsgCreateDerivativeLimitOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateDerivativeLimitOrder.typeUrl, MsgCreateDerivativeLimitOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateDerivativeLimitOrder.aminoType, MsgCreateDerivativeLimitOrder.typeUrl);
 function createBaseMsgCreateDerivativeLimitOrderResponse(): MsgCreateDerivativeLimitOrderResponse {
   return {
     orderHash: "",
@@ -4786,9 +4788,9 @@ export const MsgCreateDerivativeLimitOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse",
       value: MsgCreateDerivativeLimitOrderResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateDerivativeLimitOrderResponse.typeUrl, MsgCreateDerivativeLimitOrderResponse);
 function createBaseMsgCreateBinaryOptionsLimitOrder(): MsgCreateBinaryOptionsLimitOrder {
   return {
     sender: "",
@@ -4875,10 +4877,11 @@ export const MsgCreateBinaryOptionsLimitOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder",
       value: MsgCreateBinaryOptionsLimitOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateBinaryOptionsLimitOrder.typeUrl, MsgCreateBinaryOptionsLimitOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateBinaryOptionsLimitOrder.aminoType, MsgCreateBinaryOptionsLimitOrder.typeUrl);
 function createBaseMsgCreateBinaryOptionsLimitOrderResponse(): MsgCreateBinaryOptionsLimitOrderResponse {
   return {
     orderHash: "",
@@ -4958,9 +4961,9 @@ export const MsgCreateBinaryOptionsLimitOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse",
       value: MsgCreateBinaryOptionsLimitOrderResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateBinaryOptionsLimitOrderResponse.typeUrl, MsgCreateBinaryOptionsLimitOrderResponse);
 function createBaseMsgBatchCreateDerivativeLimitOrders(): MsgBatchCreateDerivativeLimitOrders {
   return {
     sender: "",
@@ -5049,10 +5052,11 @@ export const MsgBatchCreateDerivativeLimitOrders = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders",
       value: MsgBatchCreateDerivativeLimitOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBatchCreateDerivativeLimitOrders.typeUrl, MsgBatchCreateDerivativeLimitOrders);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBatchCreateDerivativeLimitOrders.aminoType, MsgBatchCreateDerivativeLimitOrders.typeUrl);
 function createBaseMsgBatchCreateDerivativeLimitOrdersResponse(): MsgBatchCreateDerivativeLimitOrdersResponse {
   return {
     orderHashes: [],
@@ -5150,9 +5154,9 @@ export const MsgBatchCreateDerivativeLimitOrdersResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse",
       value: MsgBatchCreateDerivativeLimitOrdersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBatchCreateDerivativeLimitOrdersResponse.typeUrl, MsgBatchCreateDerivativeLimitOrdersResponse);
 function createBaseMsgCancelSpotOrder(): MsgCancelSpotOrder {
   return {
     sender: "",
@@ -5275,10 +5279,9 @@ export const MsgCancelSpotOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrder",
       value: MsgCancelSpotOrder.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelSpotOrder.typeUrl, MsgCancelSpotOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelSpotOrder.aminoType, MsgCancelSpotOrder.typeUrl);
 function createBaseMsgCancelSpotOrderResponse(): MsgCancelSpotOrderResponse {
   return {};
 }
@@ -5333,9 +5336,9 @@ export const MsgCancelSpotOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrderResponse",
       value: MsgCancelSpotOrderResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelSpotOrderResponse.typeUrl, MsgCancelSpotOrderResponse);
 function createBaseMsgBatchCancelSpotOrders(): MsgBatchCancelSpotOrders {
   return {
     sender: "",
@@ -5424,10 +5427,11 @@ export const MsgBatchCancelSpotOrders = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders",
       value: MsgBatchCancelSpotOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBatchCancelSpotOrders.typeUrl, MsgBatchCancelSpotOrders);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBatchCancelSpotOrders.aminoType, MsgBatchCancelSpotOrders.typeUrl);
 function createBaseMsgBatchCancelSpotOrdersResponse(): MsgBatchCancelSpotOrdersResponse {
   return {
     success: []
@@ -5506,9 +5510,9 @@ export const MsgBatchCancelSpotOrdersResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse",
       value: MsgBatchCancelSpotOrdersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBatchCancelSpotOrdersResponse.typeUrl, MsgBatchCancelSpotOrdersResponse);
 function createBaseMsgBatchCancelBinaryOptionsOrders(): MsgBatchCancelBinaryOptionsOrders {
   return {
     sender: "",
@@ -5597,10 +5601,11 @@ export const MsgBatchCancelBinaryOptionsOrders = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders",
       value: MsgBatchCancelBinaryOptionsOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBatchCancelBinaryOptionsOrders.typeUrl, MsgBatchCancelBinaryOptionsOrders);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBatchCancelBinaryOptionsOrders.aminoType, MsgBatchCancelBinaryOptionsOrders.typeUrl);
 function createBaseMsgBatchCancelBinaryOptionsOrdersResponse(): MsgBatchCancelBinaryOptionsOrdersResponse {
   return {
     success: []
@@ -5679,9 +5684,9 @@ export const MsgBatchCancelBinaryOptionsOrdersResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse",
       value: MsgBatchCancelBinaryOptionsOrdersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBatchCancelBinaryOptionsOrdersResponse.typeUrl, MsgBatchCancelBinaryOptionsOrdersResponse);
 function createBaseMsgBatchUpdateOrders(): MsgBatchUpdateOrders {
   return {
     sender: "",
@@ -5894,10 +5899,13 @@ export const MsgBatchUpdateOrders = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrders",
       value: MsgBatchUpdateOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderData.registerTypeUrl();
+    SpotOrder.registerTypeUrl();
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBatchUpdateOrders.typeUrl, MsgBatchUpdateOrders);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBatchUpdateOrders.aminoType, MsgBatchUpdateOrders.typeUrl);
 function createBaseMsgBatchUpdateOrdersResponse(): MsgBatchUpdateOrdersResponse {
   return {
     spotCancelSuccess: [],
@@ -6148,9 +6156,9 @@ export const MsgBatchUpdateOrdersResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse",
       value: MsgBatchUpdateOrdersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBatchUpdateOrdersResponse.typeUrl, MsgBatchUpdateOrdersResponse);
 function createBaseMsgCreateDerivativeMarketOrder(): MsgCreateDerivativeMarketOrder {
   return {
     sender: "",
@@ -6237,10 +6245,11 @@ export const MsgCreateDerivativeMarketOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder",
       value: MsgCreateDerivativeMarketOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateDerivativeMarketOrder.typeUrl, MsgCreateDerivativeMarketOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateDerivativeMarketOrder.aminoType, MsgCreateDerivativeMarketOrder.typeUrl);
 function createBaseMsgCreateDerivativeMarketOrderResponse(): MsgCreateDerivativeMarketOrderResponse {
   return {
     orderHash: "",
@@ -6332,9 +6341,11 @@ export const MsgCreateDerivativeMarketOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse",
       value: MsgCreateDerivativeMarketOrderResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeMarketOrderResults.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateDerivativeMarketOrderResponse.typeUrl, MsgCreateDerivativeMarketOrderResponse);
 function createBaseDerivativeMarketOrderResults(): DerivativeMarketOrderResults {
   return {
     quantity: "",
@@ -6450,9 +6461,11 @@ export const DerivativeMarketOrderResults = {
       typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderResults",
       value: DerivativeMarketOrderResults.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PositionDelta.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DerivativeMarketOrderResults.typeUrl, DerivativeMarketOrderResults);
 function createBaseMsgCreateBinaryOptionsMarketOrder(): MsgCreateBinaryOptionsMarketOrder {
   return {
     sender: "",
@@ -6539,10 +6552,11 @@ export const MsgCreateBinaryOptionsMarketOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder",
       value: MsgCreateBinaryOptionsMarketOrder.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateBinaryOptionsMarketOrder.typeUrl, MsgCreateBinaryOptionsMarketOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateBinaryOptionsMarketOrder.aminoType, MsgCreateBinaryOptionsMarketOrder.typeUrl);
 function createBaseMsgCreateBinaryOptionsMarketOrderResponse(): MsgCreateBinaryOptionsMarketOrderResponse {
   return {
     orderHash: "",
@@ -6634,9 +6648,11 @@ export const MsgCreateBinaryOptionsMarketOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse",
       value: MsgCreateBinaryOptionsMarketOrderResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeMarketOrderResults.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateBinaryOptionsMarketOrderResponse.typeUrl, MsgCreateBinaryOptionsMarketOrderResponse);
 function createBaseMsgCancelDerivativeOrder(): MsgCancelDerivativeOrder {
   return {
     sender: "",
@@ -6771,10 +6787,9 @@ export const MsgCancelDerivativeOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrder",
       value: MsgCancelDerivativeOrder.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelDerivativeOrder.typeUrl, MsgCancelDerivativeOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelDerivativeOrder.aminoType, MsgCancelDerivativeOrder.typeUrl);
 function createBaseMsgCancelDerivativeOrderResponse(): MsgCancelDerivativeOrderResponse {
   return {};
 }
@@ -6829,9 +6844,9 @@ export const MsgCancelDerivativeOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse",
       value: MsgCancelDerivativeOrderResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelDerivativeOrderResponse.typeUrl, MsgCancelDerivativeOrderResponse);
 function createBaseMsgCancelBinaryOptionsOrder(): MsgCancelBinaryOptionsOrder {
   return {
     sender: "",
@@ -6966,10 +6981,9 @@ export const MsgCancelBinaryOptionsOrder = {
       typeUrl: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder",
       value: MsgCancelBinaryOptionsOrder.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelBinaryOptionsOrder.typeUrl, MsgCancelBinaryOptionsOrder);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelBinaryOptionsOrder.aminoType, MsgCancelBinaryOptionsOrder.typeUrl);
 function createBaseMsgCancelBinaryOptionsOrderResponse(): MsgCancelBinaryOptionsOrderResponse {
   return {};
 }
@@ -7024,9 +7038,9 @@ export const MsgCancelBinaryOptionsOrderResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse",
       value: MsgCancelBinaryOptionsOrderResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelBinaryOptionsOrderResponse.typeUrl, MsgCancelBinaryOptionsOrderResponse);
 function createBaseOrderData(): OrderData {
   return {
     marketId: "",
@@ -7142,9 +7156,9 @@ export const OrderData = {
       typeUrl: "/injective.exchange.v1beta1.OrderData",
       value: OrderData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(OrderData.typeUrl, OrderData);
 function createBaseMsgBatchCancelDerivativeOrders(): MsgBatchCancelDerivativeOrders {
   return {
     sender: "",
@@ -7233,10 +7247,11 @@ export const MsgBatchCancelDerivativeOrders = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders",
       value: MsgBatchCancelDerivativeOrders.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OrderData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBatchCancelDerivativeOrders.typeUrl, MsgBatchCancelDerivativeOrders);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBatchCancelDerivativeOrders.aminoType, MsgBatchCancelDerivativeOrders.typeUrl);
 function createBaseMsgBatchCancelDerivativeOrdersResponse(): MsgBatchCancelDerivativeOrdersResponse {
   return {
     success: []
@@ -7315,9 +7330,9 @@ export const MsgBatchCancelDerivativeOrdersResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse",
       value: MsgBatchCancelDerivativeOrdersResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBatchCancelDerivativeOrdersResponse.typeUrl, MsgBatchCancelDerivativeOrdersResponse);
 function createBaseMsgSubaccountTransfer(): MsgSubaccountTransfer {
   return {
     sender: "",
@@ -7428,10 +7443,11 @@ export const MsgSubaccountTransfer = {
       typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransfer",
       value: MsgSubaccountTransfer.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSubaccountTransfer.typeUrl, MsgSubaccountTransfer);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSubaccountTransfer.aminoType, MsgSubaccountTransfer.typeUrl);
 function createBaseMsgSubaccountTransferResponse(): MsgSubaccountTransferResponse {
   return {};
 }
@@ -7486,9 +7502,9 @@ export const MsgSubaccountTransferResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransferResponse",
       value: MsgSubaccountTransferResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSubaccountTransferResponse.typeUrl, MsgSubaccountTransferResponse);
 function createBaseMsgExternalTransfer(): MsgExternalTransfer {
   return {
     sender: "",
@@ -7599,10 +7615,11 @@ export const MsgExternalTransfer = {
       typeUrl: "/injective.exchange.v1beta1.MsgExternalTransfer",
       value: MsgExternalTransfer.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgExternalTransfer.typeUrl, MsgExternalTransfer);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgExternalTransfer.aminoType, MsgExternalTransfer.typeUrl);
 function createBaseMsgExternalTransferResponse(): MsgExternalTransferResponse {
   return {};
 }
@@ -7657,9 +7674,9 @@ export const MsgExternalTransferResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgExternalTransferResponse",
       value: MsgExternalTransferResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExternalTransferResponse.typeUrl, MsgExternalTransferResponse);
 function createBaseMsgLiquidatePosition(): MsgLiquidatePosition {
   return {
     sender: "",
@@ -7770,10 +7787,11 @@ export const MsgLiquidatePosition = {
       typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePosition",
       value: MsgLiquidatePosition.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DerivativeOrder.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgLiquidatePosition.typeUrl, MsgLiquidatePosition);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgLiquidatePosition.aminoType, MsgLiquidatePosition.typeUrl);
 function createBaseMsgLiquidatePositionResponse(): MsgLiquidatePositionResponse {
   return {};
 }
@@ -7828,9 +7846,9 @@ export const MsgLiquidatePositionResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePositionResponse",
       value: MsgLiquidatePositionResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgLiquidatePositionResponse.typeUrl, MsgLiquidatePositionResponse);
 function createBaseMsgEmergencySettleMarket(): MsgEmergencySettleMarket {
   return {
     sender: "",
@@ -7929,10 +7947,9 @@ export const MsgEmergencySettleMarket = {
       typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarket",
       value: MsgEmergencySettleMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgEmergencySettleMarket.typeUrl, MsgEmergencySettleMarket);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgEmergencySettleMarket.aminoType, MsgEmergencySettleMarket.typeUrl);
 function createBaseMsgEmergencySettleMarketResponse(): MsgEmergencySettleMarketResponse {
   return {};
 }
@@ -7987,9 +8004,9 @@ export const MsgEmergencySettleMarketResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarketResponse",
       value: MsgEmergencySettleMarketResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgEmergencySettleMarketResponse.typeUrl, MsgEmergencySettleMarketResponse);
 function createBaseMsgIncreasePositionMargin(): MsgIncreasePositionMargin {
   return {
     sender: "",
@@ -8112,10 +8129,9 @@ export const MsgIncreasePositionMargin = {
       typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMargin",
       value: MsgIncreasePositionMargin.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgIncreasePositionMargin.typeUrl, MsgIncreasePositionMargin);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgIncreasePositionMargin.aminoType, MsgIncreasePositionMargin.typeUrl);
 function createBaseMsgIncreasePositionMarginResponse(): MsgIncreasePositionMarginResponse {
   return {};
 }
@@ -8170,9 +8186,9 @@ export const MsgIncreasePositionMarginResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMarginResponse",
       value: MsgIncreasePositionMarginResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgIncreasePositionMarginResponse.typeUrl, MsgIncreasePositionMarginResponse);
 function createBaseMsgDecreasePositionMargin(): MsgDecreasePositionMargin {
   return {
     sender: "",
@@ -8295,10 +8311,9 @@ export const MsgDecreasePositionMargin = {
       typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMargin",
       value: MsgDecreasePositionMargin.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDecreasePositionMargin.typeUrl, MsgDecreasePositionMargin);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDecreasePositionMargin.aminoType, MsgDecreasePositionMargin.typeUrl);
 function createBaseMsgDecreasePositionMarginResponse(): MsgDecreasePositionMarginResponse {
   return {};
 }
@@ -8353,9 +8368,9 @@ export const MsgDecreasePositionMarginResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMarginResponse",
       value: MsgDecreasePositionMarginResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDecreasePositionMarginResponse.typeUrl, MsgDecreasePositionMarginResponse);
 function createBaseMsgPrivilegedExecuteContract(): MsgPrivilegedExecuteContract {
   return {
     sender: "",
@@ -8466,10 +8481,9 @@ export const MsgPrivilegedExecuteContract = {
       typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContract",
       value: MsgPrivilegedExecuteContract.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPrivilegedExecuteContract.typeUrl, MsgPrivilegedExecuteContract);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPrivilegedExecuteContract.aminoType, MsgPrivilegedExecuteContract.typeUrl);
 function createBaseMsgPrivilegedExecuteContractResponse(): MsgPrivilegedExecuteContractResponse {
   return {
     fundsDiff: []
@@ -8539,9 +8553,11 @@ export const MsgPrivilegedExecuteContractResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse",
       value: MsgPrivilegedExecuteContractResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgPrivilegedExecuteContractResponse.typeUrl, MsgPrivilegedExecuteContractResponse);
 function createBaseMsgRewardsOptOut(): MsgRewardsOptOut {
   return {
     sender: ""
@@ -8616,10 +8632,9 @@ export const MsgRewardsOptOut = {
       typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOut",
       value: MsgRewardsOptOut.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRewardsOptOut.typeUrl, MsgRewardsOptOut);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRewardsOptOut.aminoType, MsgRewardsOptOut.typeUrl);
 function createBaseMsgRewardsOptOutResponse(): MsgRewardsOptOutResponse {
   return {};
 }
@@ -8674,9 +8689,9 @@ export const MsgRewardsOptOutResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOutResponse",
       value: MsgRewardsOptOutResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRewardsOptOutResponse.typeUrl, MsgRewardsOptOutResponse);
 function createBaseMsgReclaimLockedFunds(): MsgReclaimLockedFunds {
   return {
     sender: "",
@@ -8775,10 +8790,9 @@ export const MsgReclaimLockedFunds = {
       typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFunds",
       value: MsgReclaimLockedFunds.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgReclaimLockedFunds.typeUrl, MsgReclaimLockedFunds);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgReclaimLockedFunds.aminoType, MsgReclaimLockedFunds.typeUrl);
 function createBaseMsgReclaimLockedFundsResponse(): MsgReclaimLockedFundsResponse {
   return {};
 }
@@ -8833,9 +8847,9 @@ export const MsgReclaimLockedFundsResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFundsResponse",
       value: MsgReclaimLockedFundsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgReclaimLockedFundsResponse.typeUrl, MsgReclaimLockedFundsResponse);
 function createBaseMsgSignData(): MsgSignData {
   return {
     signer: new Uint8Array(),
@@ -8915,9 +8929,9 @@ export const MsgSignData = {
       typeUrl: "/injective.exchange.v1beta1.MsgSignData",
       value: MsgSignData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSignData.typeUrl, MsgSignData);
 function createBaseMsgSignDoc(): MsgSignDoc {
   return {
     signType: "",
@@ -8997,9 +9011,11 @@ export const MsgSignDoc = {
       typeUrl: "/injective.exchange.v1beta1.MsgSignDoc",
       value: MsgSignDoc.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MsgSignData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgSignDoc.typeUrl, MsgSignDoc);
 function createBaseMsgAdminUpdateBinaryOptionsMarket(): MsgAdminUpdateBinaryOptionsMarket {
   return {
     sender: "",
@@ -9134,10 +9150,9 @@ export const MsgAdminUpdateBinaryOptionsMarket = {
       typeUrl: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket",
       value: MsgAdminUpdateBinaryOptionsMarket.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAdminUpdateBinaryOptionsMarket.typeUrl, MsgAdminUpdateBinaryOptionsMarket);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAdminUpdateBinaryOptionsMarket.aminoType, MsgAdminUpdateBinaryOptionsMarket.typeUrl);
 function createBaseMsgAdminUpdateBinaryOptionsMarketResponse(): MsgAdminUpdateBinaryOptionsMarketResponse {
   return {};
 }
@@ -9192,9 +9207,9 @@ export const MsgAdminUpdateBinaryOptionsMarketResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse",
       value: MsgAdminUpdateBinaryOptionsMarketResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAdminUpdateBinaryOptionsMarketResponse.typeUrl, MsgAdminUpdateBinaryOptionsMarketResponse);
 function createBaseMsgAuthorizeStakeGrants(): MsgAuthorizeStakeGrants {
   return {
     sender: "",
@@ -9283,10 +9298,11 @@ export const MsgAuthorizeStakeGrants = {
       typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrants",
       value: MsgAuthorizeStakeGrants.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GrantAuthorization.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgAuthorizeStakeGrants.typeUrl, MsgAuthorizeStakeGrants);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAuthorizeStakeGrants.aminoType, MsgAuthorizeStakeGrants.typeUrl);
 function createBaseMsgAuthorizeStakeGrantsResponse(): MsgAuthorizeStakeGrantsResponse {
   return {};
 }
@@ -9341,9 +9357,9 @@ export const MsgAuthorizeStakeGrantsResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse",
       value: MsgAuthorizeStakeGrantsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAuthorizeStakeGrantsResponse.typeUrl, MsgAuthorizeStakeGrantsResponse);
 function createBaseMsgActivateStakeGrant(): MsgActivateStakeGrant {
   return {
     sender: "",
@@ -9430,10 +9446,9 @@ export const MsgActivateStakeGrant = {
       typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrant",
       value: MsgActivateStakeGrant.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgActivateStakeGrant.typeUrl, MsgActivateStakeGrant);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgActivateStakeGrant.aminoType, MsgActivateStakeGrant.typeUrl);
 function createBaseMsgActivateStakeGrantResponse(): MsgActivateStakeGrantResponse {
   return {};
 }
@@ -9488,6 +9503,6 @@ export const MsgActivateStakeGrantResponse = {
       typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse",
       value: MsgActivateStakeGrantResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgActivateStakeGrantResponse.typeUrl, MsgActivateStakeGrantResponse);

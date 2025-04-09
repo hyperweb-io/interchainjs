@@ -106,7 +106,10 @@ export const InterchainAccount = {
       typeUrl: "/ibc.applications.interchain_accounts.v1.InterchainAccount",
       value: InterchainAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(InterchainAccount.typeUrl, InterchainAccount);
+    GlobalDecoderRegistry.registerAminoProtoMapping(InterchainAccount.aminoType, InterchainAccount.typeUrl);
+    BaseAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(InterchainAccount.typeUrl, InterchainAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(InterchainAccount.aminoType, InterchainAccount.typeUrl);

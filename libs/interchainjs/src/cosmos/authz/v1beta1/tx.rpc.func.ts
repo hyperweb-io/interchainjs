@@ -1,24 +1,11 @@
-import { buildTx, SigningClientResolver } from "../../../helper-func-types";
-import { toEncoders, toConverters } from "@interchainjs/cosmos/utils";
+import { buildTx } from "../../../helper-func-types";
 import { MsgGrant, MsgExec, MsgRevoke } from "./tx";
-export const createGrant = (clientResolver?: SigningClientResolver) => buildTx<MsgGrant>({
-  clientResolver,
-  typeUrl: MsgGrant.typeUrl,
-  encoders: toEncoders(MsgGrant),
-  converters: toConverters(MsgGrant),
-  deps: [MsgGrant]
+export const grant = buildTx<MsgGrant>({
+  msg: MsgGrant
 });
-export const createExec = (clientResolver?: SigningClientResolver) => buildTx<MsgExec>({
-  clientResolver,
-  typeUrl: MsgExec.typeUrl,
-  encoders: toEncoders(MsgExec),
-  converters: toConverters(MsgExec),
-  deps: [MsgExec]
+export const exec = buildTx<MsgExec>({
+  msg: MsgExec
 });
-export const createRevoke = (clientResolver?: SigningClientResolver) => buildTx<MsgRevoke>({
-  clientResolver,
-  typeUrl: MsgRevoke.typeUrl,
-  encoders: toEncoders(MsgRevoke),
-  converters: toConverters(MsgRevoke),
-  deps: [MsgRevoke]
+export const revoke = buildTx<MsgRevoke>({
+  msg: MsgRevoke
 });

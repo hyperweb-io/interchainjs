@@ -1,30 +1,30 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgCreateFeed, MsgUpdateFeed, MsgTransmit, MsgFundFeedRewardPool, MsgWithdrawFeedRewardPool, MsgSetPayees, MsgTransferPayeeship, MsgAcceptPayeeship, MsgUpdateParams } from "./tx";
-import { createCreateFeed, createUpdateFeed, createTransmit, createFundFeedRewardPool, createWithdrawFeedRewardPool, createSetPayees, createTransferPayeeship, createAcceptPayeeship, createUpdateParams } from "./tx.rpc.func";
+import { createFeed, updateFeed, transmit, fundFeedRewardPool, withdrawFeedRewardPool, setPayees, transferPayeeship, acceptPayeeship, updateParams } from "./tx.rpc.func";
 export const useCreateFeed = buildUseMutation<MsgCreateFeed, Error>({
-  builderMutationFn: createCreateFeed
+  builderMutationFn: createFeed
 });
 export const useUpdateFeed = buildUseMutation<MsgUpdateFeed, Error>({
-  builderMutationFn: createUpdateFeed
+  builderMutationFn: updateFeed
 });
 export const useTransmit = buildUseMutation<MsgTransmit, Error>({
-  builderMutationFn: createTransmit
+  builderMutationFn: transmit
 });
 export const useFundFeedRewardPool = buildUseMutation<MsgFundFeedRewardPool, Error>({
-  builderMutationFn: createFundFeedRewardPool
+  builderMutationFn: fundFeedRewardPool
 });
 export const useWithdrawFeedRewardPool = buildUseMutation<MsgWithdrawFeedRewardPool, Error>({
-  builderMutationFn: createWithdrawFeedRewardPool
+  builderMutationFn: withdrawFeedRewardPool
 });
 export const useSetPayees = buildUseMutation<MsgSetPayees, Error>({
-  builderMutationFn: createSetPayees
+  builderMutationFn: setPayees
 });
 export const useTransferPayeeship = buildUseMutation<MsgTransferPayeeship, Error>({
-  builderMutationFn: createTransferPayeeship
+  builderMutationFn: transferPayeeship
 });
 export const useAcceptPayeeship = buildUseMutation<MsgAcceptPayeeship, Error>({
-  builderMutationFn: createAcceptPayeeship
+  builderMutationFn: acceptPayeeship
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

@@ -21,10 +21,10 @@ import { Secp256k1HDWallet } from "@interchainjs/cosmos/wallets/secp256k1hd";
 import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signing-client';
 import { QueryBalanceRequest, QueryBalanceResponse } from 'interchainjs/cosmos/bank/v1beta1/query';
 
-import { createGetBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+import { getBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 import { DeliverTxResponse, StdFee } from "@interchainjs/types";
-import { createGrant, createExec, createRevoke } from "interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
-import { createGetGranteeGrants } from "interchainjs/cosmos/authz/v1beta1/query.rpc.func";
+import { grant, exec, revoke } from "interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
+import { getGranteeGrants } from "interchainjs/cosmos/authz/v1beta1/query.rpc.func";
 import { DirectGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
@@ -33,15 +33,9 @@ describe("Authz testing", () => {
   let wallet1: Secp256k1HDWallet, address1: string, denom: string;
   let wallet2: Secp256k1HDWallet, address2: string;
   let wallet3: Secp256k1HDWallet, address3: string;
+  let signingClient1: CosmosSigningClient, signingClient2: CosmosSigningClient;
   let commonPrefix: string, chainInfo, getCoin, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
   let expiration: Date;
-
-  let getBalance: (request: QueryBalanceRequest) => Promise<QueryBalanceResponse>;
-  let getGranteeGrants: (request: QueryGranteeGrantsRequest) => Promise<QueryGranteeGrantsResponse>;
-
-  let grant1: (signerAddress: string, message: MsgGrant, fee: StdFee | "auto", memo: string) => Promise<DeliverTxResponse>;
-  let exec2: (signerAddress: string, message: MsgExec, fee: StdFee | "auto", memo: string) => Promise<DeliverTxResponse>;
-  let revoke1: (signerAddress: string, message: MsgRevoke, fee: StdFee | "auto", memo: string) => Promise<DeliverTxResponse>;
 
   // Variables used accross testcases
 
@@ -52,10 +46,6 @@ describe("Authz testing", () => {
 
     commonPrefix = chainInfo?.chain?.bech32_prefix;
 
-    const rpcEndpoint = await getRpcEndpoint();
-    getBalance = createGetBalance(rpcEndpoint);
-    getGranteeGrants = createGetGranteeGrants(rpcEndpoint);
-
     // Initialize wallet
     wallet1 = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), [
       {
@@ -64,7 +54,7 @@ describe("Authz testing", () => {
       },
     ]);
     address1 = (await wallet1.getAccounts())[0].address;
-    const signingClient1 = await CosmosSigningClient.connectWithSigner(
+    signingClient1 = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       new DirectGenericOfflineSigner(wallet1),
       {
@@ -82,7 +72,7 @@ describe("Authz testing", () => {
       },
     ]);
     address2 = (await wallet2.getAccounts())[0].address;
-    const signingClient2 = await CosmosSigningClient.connectWithSigner(
+    signingClient2 = await CosmosSigningClient.connectWithSigner(
       await getRpcEndpoint(),
       new DirectGenericOfflineSigner(wallet2),
       {
@@ -101,10 +91,6 @@ describe("Authz testing", () => {
     ]);
     address3 = (await wallet3.getAccounts())[0].address;
 
-    grant1 = createGrant(signingClient1);
-    exec2 = createExec(signingClient2);
-    revoke1 = createRevoke(signingClient1);
-
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address1);
     await creditFromFaucet(address2);
@@ -117,7 +103,7 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("check address1 has tokens", async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: address1,
       denom,
     });
@@ -126,7 +112,7 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("check address2 has tokens", async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: address2,
       denom,
     });
@@ -135,7 +121,7 @@ describe("Authz testing", () => {
   }, 200000);
 
   it("check address3 has tokens", async () => {
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: address3,
       denom,
     });
@@ -170,11 +156,11 @@ describe("Authz testing", () => {
       }),
     });
 
-    const result = await grant1(address1, msg, fee, "grant address2 Send Auth with limits");
+    const result = await grant(signingClient1, address1, msg, fee, "grant address2 Send Auth with limits");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await getGranteeGrants({
+    const authsResults = await getGranteeGrants(await getRpcEndpoint(), {
       grantee: address2,
     });
 
@@ -211,16 +197,11 @@ describe("Authz testing", () => {
       }),
     });
 
-    const result = await grant1(
-      address1,
-      msg,
-      fee,
-      "grant address3 Generic Send Auth"
-    );
+    const result = await grant(signingClient1, address1, msg, fee, "grant address3 Generic Send Auth");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await getGranteeGrants({
+    const authsResults = await getGranteeGrants(await getRpcEndpoint(), {
       grantee: address3,
     });
 
@@ -257,16 +238,11 @@ describe("Authz testing", () => {
       }),
     });
 
-    const result = await grant1(
-      address1,
-      msg,
-      fee,
-      "grant address2 Generic Vote Auth"
-    );
+    const result = await grant(signingClient1, address1, msg, fee, "grant address2 Generic Vote Auth");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await getGranteeGrants({
+    const authsResults = await getGranteeGrants(await getRpcEndpoint(), {
       grantee: address2,
     });
 
@@ -310,16 +286,11 @@ describe("Authz testing", () => {
       ],
     });
 
-    const result = await exec2(
-      address2,
-      msg,
-      fee,
-      "exec address2 send"
-    );
+    const result = await exec(signingClient2, address2, msg, fee, "exec address2 send");
 
     assertIsDeliverTxSuccess(result);
 
-    const { balance } = await getBalance({
+    const { balance } = await getBalance(await getRpcEndpoint(), {
       address: address2,
       denom,
     });
@@ -344,16 +315,11 @@ describe("Authz testing", () => {
       msgTypeUrl: MsgVote.typeUrl,
     });
 
-    const result = await revoke1(
-      address1,
-      msg,
-      fee,
-      "revoke address2 vote auth"
-    );
+    const result = await revoke(signingClient1, address1, msg, fee, "revoke address2 vote auth");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await getGranteeGrants({
+    const authsResults = await getGranteeGrants(await getRpcEndpoint(), {
       grantee: address2,
     });
 
@@ -385,16 +351,11 @@ describe("Authz testing", () => {
       msgTypeUrl: MsgSend.typeUrl,
     });
 
-    const result = await revoke1(
-      address1,
-      msg,
-      fee,
-      "revoke address3 generic send auth"
-    );
+    const result = await revoke(signingClient1, address1, msg, fee, "revoke address3 generic send auth");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await getGranteeGrants({
+    const authsResults = await getGranteeGrants(await getRpcEndpoint(), {
       grantee: address3,
     });
 
@@ -418,16 +379,11 @@ describe("Authz testing", () => {
       msgTypeUrl: MsgSend.typeUrl,
     });
 
-    const result = await revoke1(
-      address1,
-      msg,
-      fee,
-      "revoke address2 send auth"
-    );
+    const result = await revoke(signingClient1, address1, msg, fee, "revoke address2 send auth");
 
     assertIsDeliverTxSuccess(result);
 
-    const authsResults = await getGranteeGrants({
+    const authsResults = await getGranteeGrants(await getRpcEndpoint(), {
       grantee: address2,
     });
 

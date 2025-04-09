@@ -1,27 +1,27 @@
 import { buildUseVueQuery } from "../../../../vue-query";
 import { GetAuthnDescriptorRequest, GetAuthnDescriptorResponse, GetChainDescriptorRequest, GetChainDescriptorResponse, GetCodecDescriptorRequest, GetCodecDescriptorResponse, GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse, GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse, GetTxDescriptorRequest, GetTxDescriptorResponse } from "./reflection";
-import { createGetGetAuthnDescriptor, createGetGetChainDescriptor, createGetGetCodecDescriptor, createGetGetConfigurationDescriptor, createGetGetQueryServicesDescriptor, createGetGetTxDescriptor } from "./reflection.rpc.func";
+import { getGetAuthnDescriptor, getGetChainDescriptor, getGetCodecDescriptor, getGetConfigurationDescriptor, getGetQueryServicesDescriptor, getGetTxDescriptor } from "./reflection.rpc.func";
 export const useGetGetAuthnDescriptor = buildUseVueQuery<GetAuthnDescriptorRequest, GetAuthnDescriptorResponse>({
-  builderQueryFn: createGetGetAuthnDescriptor,
+  builderQueryFn: getGetAuthnDescriptor,
   queryKeyPrefix: "GetAuthnDescriptorQuery"
 });
 export const useGetGetChainDescriptor = buildUseVueQuery<GetChainDescriptorRequest, GetChainDescriptorResponse>({
-  builderQueryFn: createGetGetChainDescriptor,
+  builderQueryFn: getGetChainDescriptor,
   queryKeyPrefix: "GetChainDescriptorQuery"
 });
 export const useGetGetCodecDescriptor = buildUseVueQuery<GetCodecDescriptorRequest, GetCodecDescriptorResponse>({
-  builderQueryFn: createGetGetCodecDescriptor,
+  builderQueryFn: getGetCodecDescriptor,
   queryKeyPrefix: "GetCodecDescriptorQuery"
 });
 export const useGetGetConfigurationDescriptor = buildUseVueQuery<GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse>({
-  builderQueryFn: createGetGetConfigurationDescriptor,
+  builderQueryFn: getGetConfigurationDescriptor,
   queryKeyPrefix: "GetConfigurationDescriptorQuery"
 });
 export const useGetGetQueryServicesDescriptor = buildUseVueQuery<GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse>({
-  builderQueryFn: createGetGetQueryServicesDescriptor,
+  builderQueryFn: getGetQueryServicesDescriptor,
   queryKeyPrefix: "GetQueryServicesDescriptorQuery"
 });
 export const useGetGetTxDescriptor = buildUseVueQuery<GetTxDescriptorRequest, GetTxDescriptorResponse>({
-  builderQueryFn: createGetGetTxDescriptor,
+  builderQueryFn: getGetTxDescriptor,
   queryKeyPrefix: "GetTxDescriptorQuery"
 });

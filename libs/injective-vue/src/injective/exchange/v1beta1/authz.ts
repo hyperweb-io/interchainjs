@@ -273,10 +273,12 @@ export const CreateSpotLimitOrderAuthz = {
       typeUrl: "/injective.exchange.v1beta1.CreateSpotLimitOrderAuthz",
       value: CreateSpotLimitOrderAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CreateSpotLimitOrderAuthz.typeUrl, CreateSpotLimitOrderAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CreateSpotLimitOrderAuthz.aminoType, CreateSpotLimitOrderAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CreateSpotLimitOrderAuthz.typeUrl, CreateSpotLimitOrderAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(CreateSpotLimitOrderAuthz.aminoType, CreateSpotLimitOrderAuthz.typeUrl);
 function createBaseCreateSpotMarketOrderAuthz(): CreateSpotMarketOrderAuthz {
   return {
     subaccountId: "",
@@ -365,10 +367,12 @@ export const CreateSpotMarketOrderAuthz = {
       typeUrl: "/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz",
       value: CreateSpotMarketOrderAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CreateSpotMarketOrderAuthz.typeUrl, CreateSpotMarketOrderAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CreateSpotMarketOrderAuthz.aminoType, CreateSpotMarketOrderAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CreateSpotMarketOrderAuthz.typeUrl, CreateSpotMarketOrderAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(CreateSpotMarketOrderAuthz.aminoType, CreateSpotMarketOrderAuthz.typeUrl);
 function createBaseBatchCreateSpotLimitOrdersAuthz(): BatchCreateSpotLimitOrdersAuthz {
   return {
     subaccountId: "",
@@ -457,10 +461,12 @@ export const BatchCreateSpotLimitOrdersAuthz = {
       typeUrl: "/injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz",
       value: BatchCreateSpotLimitOrdersAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchCreateSpotLimitOrdersAuthz.typeUrl, BatchCreateSpotLimitOrdersAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchCreateSpotLimitOrdersAuthz.aminoType, BatchCreateSpotLimitOrdersAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BatchCreateSpotLimitOrdersAuthz.typeUrl, BatchCreateSpotLimitOrdersAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchCreateSpotLimitOrdersAuthz.aminoType, BatchCreateSpotLimitOrdersAuthz.typeUrl);
 function createBaseCancelSpotOrderAuthz(): CancelSpotOrderAuthz {
   return {
     subaccountId: "",
@@ -549,10 +555,12 @@ export const CancelSpotOrderAuthz = {
       typeUrl: "/injective.exchange.v1beta1.CancelSpotOrderAuthz",
       value: CancelSpotOrderAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CancelSpotOrderAuthz.typeUrl, CancelSpotOrderAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CancelSpotOrderAuthz.aminoType, CancelSpotOrderAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CancelSpotOrderAuthz.typeUrl, CancelSpotOrderAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(CancelSpotOrderAuthz.aminoType, CancelSpotOrderAuthz.typeUrl);
 function createBaseBatchCancelSpotOrdersAuthz(): BatchCancelSpotOrdersAuthz {
   return {
     subaccountId: "",
@@ -641,10 +649,12 @@ export const BatchCancelSpotOrdersAuthz = {
       typeUrl: "/injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz",
       value: BatchCancelSpotOrdersAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchCancelSpotOrdersAuthz.typeUrl, BatchCancelSpotOrdersAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchCancelSpotOrdersAuthz.aminoType, BatchCancelSpotOrdersAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BatchCancelSpotOrdersAuthz.typeUrl, BatchCancelSpotOrdersAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchCancelSpotOrdersAuthz.aminoType, BatchCancelSpotOrdersAuthz.typeUrl);
 function createBaseCreateDerivativeLimitOrderAuthz(): CreateDerivativeLimitOrderAuthz {
   return {
     subaccountId: "",
@@ -733,10 +743,12 @@ export const CreateDerivativeLimitOrderAuthz = {
       typeUrl: "/injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz",
       value: CreateDerivativeLimitOrderAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CreateDerivativeLimitOrderAuthz.typeUrl, CreateDerivativeLimitOrderAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CreateDerivativeLimitOrderAuthz.aminoType, CreateDerivativeLimitOrderAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CreateDerivativeLimitOrderAuthz.typeUrl, CreateDerivativeLimitOrderAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(CreateDerivativeLimitOrderAuthz.aminoType, CreateDerivativeLimitOrderAuthz.typeUrl);
 function createBaseCreateDerivativeMarketOrderAuthz(): CreateDerivativeMarketOrderAuthz {
   return {
     subaccountId: "",
@@ -825,10 +837,12 @@ export const CreateDerivativeMarketOrderAuthz = {
       typeUrl: "/injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz",
       value: CreateDerivativeMarketOrderAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CreateDerivativeMarketOrderAuthz.typeUrl, CreateDerivativeMarketOrderAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CreateDerivativeMarketOrderAuthz.aminoType, CreateDerivativeMarketOrderAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CreateDerivativeMarketOrderAuthz.typeUrl, CreateDerivativeMarketOrderAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(CreateDerivativeMarketOrderAuthz.aminoType, CreateDerivativeMarketOrderAuthz.typeUrl);
 function createBaseBatchCreateDerivativeLimitOrdersAuthz(): BatchCreateDerivativeLimitOrdersAuthz {
   return {
     subaccountId: "",
@@ -917,10 +931,12 @@ export const BatchCreateDerivativeLimitOrdersAuthz = {
       typeUrl: "/injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz",
       value: BatchCreateDerivativeLimitOrdersAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchCreateDerivativeLimitOrdersAuthz.typeUrl, BatchCreateDerivativeLimitOrdersAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchCreateDerivativeLimitOrdersAuthz.aminoType, BatchCreateDerivativeLimitOrdersAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BatchCreateDerivativeLimitOrdersAuthz.typeUrl, BatchCreateDerivativeLimitOrdersAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchCreateDerivativeLimitOrdersAuthz.aminoType, BatchCreateDerivativeLimitOrdersAuthz.typeUrl);
 function createBaseCancelDerivativeOrderAuthz(): CancelDerivativeOrderAuthz {
   return {
     subaccountId: "",
@@ -1009,10 +1025,12 @@ export const CancelDerivativeOrderAuthz = {
       typeUrl: "/injective.exchange.v1beta1.CancelDerivativeOrderAuthz",
       value: CancelDerivativeOrderAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(CancelDerivativeOrderAuthz.typeUrl, CancelDerivativeOrderAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(CancelDerivativeOrderAuthz.aminoType, CancelDerivativeOrderAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(CancelDerivativeOrderAuthz.typeUrl, CancelDerivativeOrderAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(CancelDerivativeOrderAuthz.aminoType, CancelDerivativeOrderAuthz.typeUrl);
 function createBaseBatchCancelDerivativeOrdersAuthz(): BatchCancelDerivativeOrdersAuthz {
   return {
     subaccountId: "",
@@ -1101,10 +1119,12 @@ export const BatchCancelDerivativeOrdersAuthz = {
       typeUrl: "/injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz",
       value: BatchCancelDerivativeOrdersAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchCancelDerivativeOrdersAuthz.typeUrl, BatchCancelDerivativeOrdersAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchCancelDerivativeOrdersAuthz.aminoType, BatchCancelDerivativeOrdersAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BatchCancelDerivativeOrdersAuthz.typeUrl, BatchCancelDerivativeOrdersAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchCancelDerivativeOrdersAuthz.aminoType, BatchCancelDerivativeOrdersAuthz.typeUrl);
 function createBaseBatchUpdateOrdersAuthz(): BatchUpdateOrdersAuthz {
   return {
     subaccountId: "",
@@ -1207,7 +1227,9 @@ export const BatchUpdateOrdersAuthz = {
       typeUrl: "/injective.exchange.v1beta1.BatchUpdateOrdersAuthz",
       value: BatchUpdateOrdersAuthz.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BatchUpdateOrdersAuthz.typeUrl, BatchUpdateOrdersAuthz);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BatchUpdateOrdersAuthz.aminoType, BatchUpdateOrdersAuthz.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BatchUpdateOrdersAuthz.typeUrl, BatchUpdateOrdersAuthz);
-GlobalDecoderRegistry.registerAminoProtoMapping(BatchUpdateOrdersAuthz.aminoType, BatchUpdateOrdersAuthz.typeUrl);

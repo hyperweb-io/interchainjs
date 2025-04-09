@@ -1,9 +1,9 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgVerifyInvariant, MsgUpdateParams } from "./tx";
-import { createVerifyInvariant, createUpdateParams } from "./tx.rpc.func";
+import { verifyInvariant, updateParams } from "./tx.rpc.func";
 export const useVerifyInvariant = buildUseMutation<MsgVerifyInvariant, Error>({
-  builderMutationFn: createVerifyInvariant
+  builderMutationFn: verifyInvariant
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });

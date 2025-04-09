@@ -1,24 +1,24 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgUpdateParams, MsgCreateNamespace, MsgDeleteNamespace, MsgUpdateNamespace, MsgUpdateNamespaceRoles, MsgRevokeNamespaceRoles, MsgClaimVoucher } from "./tx";
-import { createUpdateParams, createCreateNamespace, createDeleteNamespace, createUpdateNamespace, createUpdateNamespaceRoles, createRevokeNamespaceRoles, createClaimVoucher } from "./tx.rpc.func";
+import { updateParams, createNamespace, deleteNamespace, updateNamespace, updateNamespaceRoles, revokeNamespaceRoles, claimVoucher } from "./tx.rpc.func";
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useCreateNamespace = buildUseMutation<MsgCreateNamespace, Error>({
-  builderMutationFn: createCreateNamespace
+  builderMutationFn: createNamespace
 });
 export const useDeleteNamespace = buildUseMutation<MsgDeleteNamespace, Error>({
-  builderMutationFn: createDeleteNamespace
+  builderMutationFn: deleteNamespace
 });
 export const useUpdateNamespace = buildUseMutation<MsgUpdateNamespace, Error>({
-  builderMutationFn: createUpdateNamespace
+  builderMutationFn: updateNamespace
 });
 export const useUpdateNamespaceRoles = buildUseMutation<MsgUpdateNamespaceRoles, Error>({
-  builderMutationFn: createUpdateNamespaceRoles
+  builderMutationFn: updateNamespaceRoles
 });
 export const useRevokeNamespaceRoles = buildUseMutation<MsgRevokeNamespaceRoles, Error>({
-  builderMutationFn: createRevokeNamespaceRoles
+  builderMutationFn: revokeNamespaceRoles
 });
 export const useClaimVoucher = buildUseMutation<MsgClaimVoucher, Error>({
-  builderMutationFn: createClaimVoucher
+  builderMutationFn: claimVoucher
 });

@@ -237,10 +237,14 @@ export const StakeAuthorization = {
       typeUrl: "/cosmos.staking.v1beta1.StakeAuthorization",
       value: StakeAuthorization.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(StakeAuthorization.typeUrl, StakeAuthorization);
+    GlobalDecoderRegistry.registerAminoProtoMapping(StakeAuthorization.aminoType, StakeAuthorization.typeUrl);
+    Coin.registerTypeUrl();
+    StakeAuthorization_Validators.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(StakeAuthorization.typeUrl, StakeAuthorization);
-GlobalDecoderRegistry.registerAminoProtoMapping(StakeAuthorization.aminoType, StakeAuthorization.typeUrl);
 function createBaseStakeAuthorization_Validators(): StakeAuthorization_Validators {
   return {
     address: []
@@ -317,7 +321,6 @@ export const StakeAuthorization_Validators = {
       typeUrl: "/cosmos.staking.v1beta1.Validators",
       value: StakeAuthorization_Validators.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StakeAuthorization_Validators.typeUrl, StakeAuthorization_Validators);
-GlobalDecoderRegistry.registerAminoProtoMapping(StakeAuthorization_Validators.aminoType, StakeAuthorization_Validators.typeUrl);

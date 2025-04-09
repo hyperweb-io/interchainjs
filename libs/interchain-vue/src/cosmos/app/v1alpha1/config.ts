@@ -1,7 +1,6 @@
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * Config represents the configuration for a Cosmos SDK ABCI app.
  * It is intended that all state machine logic including the version of
@@ -222,10 +221,12 @@ export const Config = {
       typeUrl: "/cosmos.app.v1alpha1.Config",
       value: Config.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ModuleConfig.registerTypeUrl();
+    GolangBinding.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Config.typeUrl, Config);
-GlobalDecoderRegistry.registerAminoProtoMapping(Config.aminoType, Config.typeUrl);
 function createBaseModuleConfig(): ModuleConfig {
   return {
     name: "",
@@ -326,10 +327,11 @@ export const ModuleConfig = {
       typeUrl: "/cosmos.app.v1alpha1.ModuleConfig",
       value: ModuleConfig.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GolangBinding.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModuleConfig.typeUrl, ModuleConfig);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleConfig.aminoType, ModuleConfig.typeUrl);
 function createBaseGolangBinding(): GolangBinding {
   return {
     interfaceType: "",
@@ -416,7 +418,6 @@ export const GolangBinding = {
       typeUrl: "/cosmos.app.v1alpha1.GolangBinding",
       value: GolangBinding.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GolangBinding.typeUrl, GolangBinding);
-GlobalDecoderRegistry.registerAminoProtoMapping(GolangBinding.aminoType, GolangBinding.typeUrl);

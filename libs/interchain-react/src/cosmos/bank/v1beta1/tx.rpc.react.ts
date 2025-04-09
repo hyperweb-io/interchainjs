@@ -1,15 +1,15 @@
 import { buildUseMutation } from "../../../react-query";
 import { MsgSend, MsgMultiSend, MsgUpdateParams, MsgSetSendEnabled } from "./tx";
-import { createSend, createMultiSend, createUpdateParams, createSetSendEnabled } from "./tx.rpc.func";
+import { send, multiSend, updateParams, setSendEnabled } from "./tx.rpc.func";
 export const useSend = buildUseMutation<MsgSend, Error>({
-  builderMutationFn: createSend
+  builderMutationFn: send
 });
 export const useMultiSend = buildUseMutation<MsgMultiSend, Error>({
-  builderMutationFn: createMultiSend
+  builderMutationFn: multiSend
 });
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
-  builderMutationFn: createUpdateParams
+  builderMutationFn: updateParams
 });
 export const useSetSendEnabled = buildUseMutation<MsgSetSendEnabled, Error>({
-  builderMutationFn: createSetSendEnabled
+  builderMutationFn: setSendEnabled
 });

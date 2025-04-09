@@ -839,10 +839,12 @@ export const HistoricalInfo = {
       typeUrl: "/cosmos.staking.v1beta1.HistoricalInfo",
       value: HistoricalInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Header.registerTypeUrl();
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(HistoricalInfo.typeUrl, HistoricalInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(HistoricalInfo.aminoType, HistoricalInfo.typeUrl);
 function createBaseCommissionRates(): CommissionRates {
   return {
     rate: "",
@@ -941,10 +943,9 @@ export const CommissionRates = {
       typeUrl: "/cosmos.staking.v1beta1.CommissionRates",
       value: CommissionRates.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(CommissionRates.typeUrl, CommissionRates);
-GlobalDecoderRegistry.registerAminoProtoMapping(CommissionRates.aminoType, CommissionRates.typeUrl);
 function createBaseCommission(): Commission {
   return {
     commissionRates: CommissionRates.fromPartial({}),
@@ -1031,10 +1032,11 @@ export const Commission = {
       typeUrl: "/cosmos.staking.v1beta1.Commission",
       value: Commission.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CommissionRates.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Commission.typeUrl, Commission);
-GlobalDecoderRegistry.registerAminoProtoMapping(Commission.aminoType, Commission.typeUrl);
 function createBaseDescription(): Description {
   return {
     moniker: "",
@@ -1157,10 +1159,9 @@ export const Description = {
       typeUrl: "/cosmos.staking.v1beta1.Description",
       value: Description.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Description.typeUrl, Description);
-GlobalDecoderRegistry.registerAminoProtoMapping(Description.aminoType, Description.typeUrl);
 function createBaseValidator(): Validator {
   return {
     operatorAddress: "",
@@ -1390,10 +1391,12 @@ export const Validator = {
       typeUrl: "/cosmos.staking.v1beta1.Validator",
       value: Validator.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Description.registerTypeUrl();
+    Commission.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Validator.typeUrl, Validator);
-GlobalDecoderRegistry.registerAminoProtoMapping(Validator.aminoType, Validator.typeUrl);
 function createBaseValAddresses(): ValAddresses {
   return {
     addresses: []
@@ -1470,10 +1473,9 @@ export const ValAddresses = {
       typeUrl: "/cosmos.staking.v1beta1.ValAddresses",
       value: ValAddresses.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ValAddresses.typeUrl, ValAddresses);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValAddresses.aminoType, ValAddresses.typeUrl);
 function createBaseDVPair(): DVPair {
   return {
     delegatorAddress: "",
@@ -1560,10 +1562,9 @@ export const DVPair = {
       typeUrl: "/cosmos.staking.v1beta1.DVPair",
       value: DVPair.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DVPair.typeUrl, DVPair);
-GlobalDecoderRegistry.registerAminoProtoMapping(DVPair.aminoType, DVPair.typeUrl);
 function createBaseDVPairs(): DVPairs {
   return {
     pairs: []
@@ -1640,10 +1641,11 @@ export const DVPairs = {
       typeUrl: "/cosmos.staking.v1beta1.DVPairs",
       value: DVPairs.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DVPair.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DVPairs.typeUrl, DVPairs);
-GlobalDecoderRegistry.registerAminoProtoMapping(DVPairs.aminoType, DVPairs.typeUrl);
 function createBaseDVVTriplet(): DVVTriplet {
   return {
     delegatorAddress: "",
@@ -1742,10 +1744,9 @@ export const DVVTriplet = {
       typeUrl: "/cosmos.staking.v1beta1.DVVTriplet",
       value: DVVTriplet.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(DVVTriplet.typeUrl, DVVTriplet);
-GlobalDecoderRegistry.registerAminoProtoMapping(DVVTriplet.aminoType, DVVTriplet.typeUrl);
 function createBaseDVVTriplets(): DVVTriplets {
   return {
     triplets: []
@@ -1822,10 +1823,11 @@ export const DVVTriplets = {
       typeUrl: "/cosmos.staking.v1beta1.DVVTriplets",
       value: DVVTriplets.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DVVTriplet.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DVVTriplets.typeUrl, DVVTriplets);
-GlobalDecoderRegistry.registerAminoProtoMapping(DVVTriplets.aminoType, DVVTriplets.typeUrl);
 function createBaseDelegation(): Delegation {
   return {
     delegatorAddress: "",
@@ -1924,10 +1926,9 @@ export const Delegation = {
       typeUrl: "/cosmos.staking.v1beta1.Delegation",
       value: Delegation.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Delegation.typeUrl, Delegation);
-GlobalDecoderRegistry.registerAminoProtoMapping(Delegation.aminoType, Delegation.typeUrl);
 function createBaseUnbondingDelegation(): UnbondingDelegation {
   return {
     delegatorAddress: "",
@@ -2028,10 +2029,11 @@ export const UnbondingDelegation = {
       typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegation",
       value: UnbondingDelegation.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UnbondingDelegationEntry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(UnbondingDelegation.typeUrl, UnbondingDelegation);
-GlobalDecoderRegistry.registerAminoProtoMapping(UnbondingDelegation.aminoType, UnbondingDelegation.typeUrl);
 function createBaseUnbondingDelegationEntry(): UnbondingDelegationEntry {
   return {
     creationHeight: BigInt(0),
@@ -2166,10 +2168,9 @@ export const UnbondingDelegationEntry = {
       typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegationEntry",
       value: UnbondingDelegationEntry.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(UnbondingDelegationEntry.typeUrl, UnbondingDelegationEntry);
-GlobalDecoderRegistry.registerAminoProtoMapping(UnbondingDelegationEntry.aminoType, UnbondingDelegationEntry.typeUrl);
 function createBaseRedelegationEntry(): RedelegationEntry {
   return {
     creationHeight: BigInt(0),
@@ -2304,10 +2305,9 @@ export const RedelegationEntry = {
       typeUrl: "/cosmos.staking.v1beta1.RedelegationEntry",
       value: RedelegationEntry.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RedelegationEntry.typeUrl, RedelegationEntry);
-GlobalDecoderRegistry.registerAminoProtoMapping(RedelegationEntry.aminoType, RedelegationEntry.typeUrl);
 function createBaseRedelegation(): Redelegation {
   return {
     delegatorAddress: "",
@@ -2420,10 +2420,11 @@ export const Redelegation = {
       typeUrl: "/cosmos.staking.v1beta1.Redelegation",
       value: Redelegation.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RedelegationEntry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Redelegation.typeUrl, Redelegation);
-GlobalDecoderRegistry.registerAminoProtoMapping(Redelegation.aminoType, Redelegation.typeUrl);
 function createBaseParams(): Params {
   return {
     unbondingTime: Duration.fromPartial({}),
@@ -2558,10 +2559,9 @@ export const Params = {
       typeUrl: "/cosmos.staking.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseDelegationResponse(): DelegationResponse {
   return {
     delegation: Delegation.fromPartial({}),
@@ -2648,10 +2648,12 @@ export const DelegationResponse = {
       typeUrl: "/cosmos.staking.v1beta1.DelegationResponse",
       value: DelegationResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Delegation.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DelegationResponse.typeUrl, DelegationResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(DelegationResponse.aminoType, DelegationResponse.typeUrl);
 function createBaseRedelegationEntryResponse(): RedelegationEntryResponse {
   return {
     redelegationEntry: RedelegationEntry.fromPartial({}),
@@ -2738,10 +2740,11 @@ export const RedelegationEntryResponse = {
       typeUrl: "/cosmos.staking.v1beta1.RedelegationEntryResponse",
       value: RedelegationEntryResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    RedelegationEntry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RedelegationEntryResponse.typeUrl, RedelegationEntryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(RedelegationEntryResponse.aminoType, RedelegationEntryResponse.typeUrl);
 function createBaseRedelegationResponse(): RedelegationResponse {
   return {
     redelegation: Redelegation.fromPartial({}),
@@ -2830,10 +2833,12 @@ export const RedelegationResponse = {
       typeUrl: "/cosmos.staking.v1beta1.RedelegationResponse",
       value: RedelegationResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Redelegation.registerTypeUrl();
+    RedelegationEntryResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(RedelegationResponse.typeUrl, RedelegationResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(RedelegationResponse.aminoType, RedelegationResponse.typeUrl);
 function createBasePool(): Pool {
   return {
     notBondedTokens: "",
@@ -2920,10 +2925,9 @@ export const Pool = {
       typeUrl: "/cosmos.staking.v1beta1.Pool",
       value: Pool.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Pool.typeUrl, Pool);
-GlobalDecoderRegistry.registerAminoProtoMapping(Pool.aminoType, Pool.typeUrl);
 function createBaseValidatorUpdates(): ValidatorUpdates {
   return {
     updates: []
@@ -3000,7 +3004,8 @@ export const ValidatorUpdates = {
       typeUrl: "/cosmos.staking.v1beta1.ValidatorUpdates",
       value: ValidatorUpdates.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ValidatorUpdate.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorUpdates.typeUrl, ValidatorUpdates);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorUpdates.aminoType, ValidatorUpdates.typeUrl);

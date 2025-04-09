@@ -1,27 +1,27 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryInsuranceParamsRequest, QueryInsuranceParamsResponse, QueryInsuranceFundRequest, QueryInsuranceFundResponse, QueryInsuranceFundsRequest, QueryInsuranceFundsResponse, QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse, QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-import { createGetInsuranceParams, createGetInsuranceFund, createGetInsuranceFunds, createGetEstimatedRedemptions, createGetPendingRedemptions, createGetInsuranceModuleState } from "./query.rpc.func";
+import { getInsuranceParams, getInsuranceFund, getInsuranceFunds, getEstimatedRedemptions, getPendingRedemptions, getInsuranceModuleState } from "./query.rpc.func";
 export const useGetInsuranceParams = buildUseQuery<QueryInsuranceParamsRequest, QueryInsuranceParamsResponse>({
-  builderQueryFn: createGetInsuranceParams,
+  builderQueryFn: getInsuranceParams,
   queryKeyPrefix: "InsuranceParamsQuery"
 });
 export const useGetInsuranceFund = buildUseQuery<QueryInsuranceFundRequest, QueryInsuranceFundResponse>({
-  builderQueryFn: createGetInsuranceFund,
+  builderQueryFn: getInsuranceFund,
   queryKeyPrefix: "InsuranceFundQuery"
 });
 export const useGetInsuranceFunds = buildUseQuery<QueryInsuranceFundsRequest, QueryInsuranceFundsResponse>({
-  builderQueryFn: createGetInsuranceFunds,
+  builderQueryFn: getInsuranceFunds,
   queryKeyPrefix: "InsuranceFundsQuery"
 });
 export const useGetEstimatedRedemptions = buildUseQuery<QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse>({
-  builderQueryFn: createGetEstimatedRedemptions,
+  builderQueryFn: getEstimatedRedemptions,
   queryKeyPrefix: "EstimatedRedemptionsQuery"
 });
 export const useGetPendingRedemptions = buildUseQuery<QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse>({
-  builderQueryFn: createGetPendingRedemptions,
+  builderQueryFn: getPendingRedemptions,
   queryKeyPrefix: "PendingRedemptionsQuery"
 });
 export const useGetInsuranceModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
-  builderQueryFn: createGetInsuranceModuleState,
+  builderQueryFn: getInsuranceModuleState,
   queryKeyPrefix: "InsuranceModuleStateQuery"
 });

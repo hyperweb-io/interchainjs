@@ -1,15 +1,15 @@
 import { buildUseQuery } from "../../../react-query";
 import { QueryGrantsRequest, QueryGrantsResponse, QueryGranterGrantsRequest, QueryGranterGrantsResponse, QueryGranteeGrantsRequest, QueryGranteeGrantsResponse } from "./query";
-import { createGetGrants, createGetGranterGrants, createGetGranteeGrants } from "./query.rpc.func";
+import { getGrants, getGranterGrants, getGranteeGrants } from "./query.rpc.func";
 export const useGetGrants = buildUseQuery<QueryGrantsRequest, QueryGrantsResponse>({
-  builderQueryFn: createGetGrants,
+  builderQueryFn: getGrants,
   queryKeyPrefix: "GrantsQuery"
 });
 export const useGetGranterGrants = buildUseQuery<QueryGranterGrantsRequest, QueryGranterGrantsResponse>({
-  builderQueryFn: createGetGranterGrants,
+  builderQueryFn: getGranterGrants,
   queryKeyPrefix: "GranterGrantsQuery"
 });
 export const useGetGranteeGrants = buildUseQuery<QueryGranteeGrantsRequest, QueryGranteeGrantsResponse>({
-  builderQueryFn: createGetGranteeGrants,
+  builderQueryFn: getGranteeGrants,
   queryKeyPrefix: "GranteeGrantsQuery"
 });

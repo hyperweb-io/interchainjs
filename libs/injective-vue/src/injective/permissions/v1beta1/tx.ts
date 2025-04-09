@@ -1,7 +1,6 @@
 import { Params, ParamsAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { Namespace, NamespaceAmino, Role, RoleAmino, AddressRoles, AddressRolesAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 export interface MsgUpdateParams {
   /** authority is the address of the governance account. */
@@ -367,10 +366,11 @@ export const MsgUpdateParams = {
       typeUrl: "/injective.permissions.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -425,9 +425,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
 function createBaseMsgCreateNamespace(): MsgCreateNamespace {
   return {
     sender: "",
@@ -514,10 +514,11 @@ export const MsgCreateNamespace = {
       typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespace",
       value: MsgCreateNamespace.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Namespace.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateNamespace.typeUrl, MsgCreateNamespace);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateNamespace.aminoType, MsgCreateNamespace.typeUrl);
 function createBaseMsgCreateNamespaceResponse(): MsgCreateNamespaceResponse {
   return {};
 }
@@ -572,9 +573,9 @@ export const MsgCreateNamespaceResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespaceResponse",
       value: MsgCreateNamespaceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateNamespaceResponse.typeUrl, MsgCreateNamespaceResponse);
 function createBaseMsgDeleteNamespace(): MsgDeleteNamespace {
   return {
     sender: "",
@@ -661,10 +662,9 @@ export const MsgDeleteNamespace = {
       typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace",
       value: MsgDeleteNamespace.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDeleteNamespace.typeUrl, MsgDeleteNamespace);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDeleteNamespace.aminoType, MsgDeleteNamespace.typeUrl);
 function createBaseMsgDeleteNamespaceResponse(): MsgDeleteNamespaceResponse {
   return {};
 }
@@ -719,9 +719,9 @@ export const MsgDeleteNamespaceResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse",
       value: MsgDeleteNamespaceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDeleteNamespaceResponse.typeUrl, MsgDeleteNamespaceResponse);
 function createBaseMsgUpdateNamespace(): MsgUpdateNamespace {
   return {
     sender: "",
@@ -856,10 +856,14 @@ export const MsgUpdateNamespace = {
       typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespace",
       value: MsgUpdateNamespace.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MsgUpdateNamespace_MsgSetWasmHook.registerTypeUrl();
+    MsgUpdateNamespace_MsgSetMintsPaused.registerTypeUrl();
+    MsgUpdateNamespace_MsgSetSendsPaused.registerTypeUrl();
+    MsgUpdateNamespace_MsgSetBurnsPaused.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespace.typeUrl, MsgUpdateNamespace);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateNamespace.aminoType, MsgUpdateNamespace.typeUrl);
 function createBaseMsgUpdateNamespace_MsgSetWasmHook(): MsgUpdateNamespace_MsgSetWasmHook {
   return {
     newValue: ""
@@ -927,9 +931,9 @@ export const MsgUpdateNamespace_MsgSetWasmHook = {
       typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook",
       value: MsgUpdateNamespace_MsgSetWasmHook.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespace_MsgSetWasmHook.typeUrl, MsgUpdateNamespace_MsgSetWasmHook);
 function createBaseMsgUpdateNamespace_MsgSetMintsPaused(): MsgUpdateNamespace_MsgSetMintsPaused {
   return {
     newValue: false
@@ -997,9 +1001,9 @@ export const MsgUpdateNamespace_MsgSetMintsPaused = {
       typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused",
       value: MsgUpdateNamespace_MsgSetMintsPaused.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespace_MsgSetMintsPaused.typeUrl, MsgUpdateNamespace_MsgSetMintsPaused);
 function createBaseMsgUpdateNamespace_MsgSetSendsPaused(): MsgUpdateNamespace_MsgSetSendsPaused {
   return {
     newValue: false
@@ -1067,9 +1071,9 @@ export const MsgUpdateNamespace_MsgSetSendsPaused = {
       typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused",
       value: MsgUpdateNamespace_MsgSetSendsPaused.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespace_MsgSetSendsPaused.typeUrl, MsgUpdateNamespace_MsgSetSendsPaused);
 function createBaseMsgUpdateNamespace_MsgSetBurnsPaused(): MsgUpdateNamespace_MsgSetBurnsPaused {
   return {
     newValue: false
@@ -1137,9 +1141,9 @@ export const MsgUpdateNamespace_MsgSetBurnsPaused = {
       typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused",
       value: MsgUpdateNamespace_MsgSetBurnsPaused.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespace_MsgSetBurnsPaused.typeUrl, MsgUpdateNamespace_MsgSetBurnsPaused);
 function createBaseMsgUpdateNamespaceResponse(): MsgUpdateNamespaceResponse {
   return {};
 }
@@ -1194,9 +1198,9 @@ export const MsgUpdateNamespaceResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceResponse",
       value: MsgUpdateNamespaceResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespaceResponse.typeUrl, MsgUpdateNamespaceResponse);
 function createBaseMsgUpdateNamespaceRoles(): MsgUpdateNamespaceRoles {
   return {
     sender: "",
@@ -1311,10 +1315,12 @@ export const MsgUpdateNamespaceRoles = {
       typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles",
       value: MsgUpdateNamespaceRoles.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Role.registerTypeUrl();
+    AddressRoles.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespaceRoles.typeUrl, MsgUpdateNamespaceRoles);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateNamespaceRoles.aminoType, MsgUpdateNamespaceRoles.typeUrl);
 function createBaseMsgUpdateNamespaceRolesResponse(): MsgUpdateNamespaceRolesResponse {
   return {};
 }
@@ -1369,9 +1375,9 @@ export const MsgUpdateNamespaceRolesResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse",
       value: MsgUpdateNamespaceRolesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateNamespaceRolesResponse.typeUrl, MsgUpdateNamespaceRolesResponse);
 function createBaseMsgRevokeNamespaceRoles(): MsgRevokeNamespaceRoles {
   return {
     sender: "",
@@ -1472,10 +1478,11 @@ export const MsgRevokeNamespaceRoles = {
       typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles",
       value: MsgRevokeNamespaceRoles.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    AddressRoles.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgRevokeNamespaceRoles.typeUrl, MsgRevokeNamespaceRoles);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevokeNamespaceRoles.aminoType, MsgRevokeNamespaceRoles.typeUrl);
 function createBaseMsgRevokeNamespaceRolesResponse(): MsgRevokeNamespaceRolesResponse {
   return {};
 }
@@ -1530,9 +1537,9 @@ export const MsgRevokeNamespaceRolesResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse",
       value: MsgRevokeNamespaceRolesResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevokeNamespaceRolesResponse.typeUrl, MsgRevokeNamespaceRolesResponse);
 function createBaseMsgClaimVoucher(): MsgClaimVoucher {
   return {
     sender: "",
@@ -1619,10 +1626,9 @@ export const MsgClaimVoucher = {
       typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucher",
       value: MsgClaimVoucher.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgClaimVoucher.typeUrl, MsgClaimVoucher);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgClaimVoucher.aminoType, MsgClaimVoucher.typeUrl);
 function createBaseMsgClaimVoucherResponse(): MsgClaimVoucherResponse {
   return {};
 }
@@ -1677,6 +1683,6 @@ export const MsgClaimVoucherResponse = {
       typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucherResponse",
       value: MsgClaimVoucherResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgClaimVoucherResponse.typeUrl, MsgClaimVoucherResponse);

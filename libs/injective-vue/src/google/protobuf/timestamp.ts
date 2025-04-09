@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, fromJsonTimestamp, fromTimestamp } from "../../helpers";
-import { GlobalDecoderRegistry } from "../../registry";
 /**
  * A Timestamp represents a point in time independent of any time zone or local
  * calendar, encoded as a count of seconds and fractions of seconds at
@@ -276,6 +275,6 @@ export const Timestamp = {
       typeUrl: "/google.protobuf.Timestamp",
       value: Timestamp.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Timestamp.typeUrl, Timestamp);

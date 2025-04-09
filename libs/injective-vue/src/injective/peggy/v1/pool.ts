@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** IDSet represents a set of IDs */
 export interface IDSet {
   ids: bigint[];
@@ -111,9 +110,9 @@ export const IDSet = {
       typeUrl: "/injective.peggy.v1.IDSet",
       value: IDSet.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(IDSet.typeUrl, IDSet);
 function createBaseBatchFees(): BatchFees {
   return {
     token: "",
@@ -193,6 +192,6 @@ export const BatchFees = {
       typeUrl: "/injective.peggy.v1.BatchFees",
       value: BatchFees.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(BatchFees.typeUrl, BatchFees);

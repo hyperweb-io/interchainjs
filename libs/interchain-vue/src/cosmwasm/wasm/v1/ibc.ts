@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgIBCSend */
 export interface MsgIBCSend {
   /** the channel by which the packet will be sent */
@@ -205,10 +204,9 @@ export const MsgIBCSend = {
       typeUrl: "/cosmwasm.wasm.v1.MsgIBCSend",
       value: MsgIBCSend.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgIBCSend.typeUrl, MsgIBCSend);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgIBCSend.aminoType, MsgIBCSend.typeUrl);
 function createBaseMsgIBCSendResponse(): MsgIBCSendResponse {
   return {
     sequence: BigInt(0)
@@ -283,10 +281,9 @@ export const MsgIBCSendResponse = {
       typeUrl: "/cosmwasm.wasm.v1.MsgIBCSendResponse",
       value: MsgIBCSendResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgIBCSendResponse.typeUrl, MsgIBCSendResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgIBCSendResponse.aminoType, MsgIBCSendResponse.typeUrl);
 function createBaseMsgIBCWriteAcknowledgementResponse(): MsgIBCWriteAcknowledgementResponse {
   return {};
 }
@@ -348,10 +345,9 @@ export const MsgIBCWriteAcknowledgementResponse = {
       typeUrl: "/cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse",
       value: MsgIBCWriteAcknowledgementResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgIBCWriteAcknowledgementResponse.typeUrl, MsgIBCWriteAcknowledgementResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgIBCWriteAcknowledgementResponse.aminoType, MsgIBCWriteAcknowledgementResponse.typeUrl);
 function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
   return {
     channel: ""
@@ -426,7 +422,6 @@ export const MsgIBCCloseChannel = {
       typeUrl: "/cosmwasm.wasm.v1.MsgIBCCloseChannel",
       value: MsgIBCCloseChannel.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgIBCCloseChannel.typeUrl, MsgIBCCloseChannel);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgIBCCloseChannel.aminoType, MsgIBCCloseChannel.typeUrl);

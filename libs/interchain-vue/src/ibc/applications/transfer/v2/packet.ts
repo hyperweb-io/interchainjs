@@ -2,7 +2,6 @@ import { Token, TokenAmino } from "./token";
 import { Hop, HopAmino } from "../v1/transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * FungibleTokenPacketData defines a struct for the packet payload
  * See FungibleTokenPacketData spec:
@@ -239,10 +238,9 @@ export const FungibleTokenPacketData = {
       typeUrl: "/ibc.applications.transfer.v2.FungibleTokenPacketData",
       value: FungibleTokenPacketData.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(FungibleTokenPacketData.typeUrl, FungibleTokenPacketData);
-GlobalDecoderRegistry.registerAminoProtoMapping(FungibleTokenPacketData.aminoType, FungibleTokenPacketData.typeUrl);
 function createBaseFungibleTokenPacketDataV2(): FungibleTokenPacketDataV2 {
   return {
     tokens: [],
@@ -367,10 +365,12 @@ export const FungibleTokenPacketDataV2 = {
       typeUrl: "/ibc.applications.transfer.v2.FungibleTokenPacketDataV2",
       value: FungibleTokenPacketDataV2.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Token.registerTypeUrl();
+    ForwardingPacketData.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(FungibleTokenPacketDataV2.typeUrl, FungibleTokenPacketDataV2);
-GlobalDecoderRegistry.registerAminoProtoMapping(FungibleTokenPacketDataV2.aminoType, FungibleTokenPacketDataV2.typeUrl);
 function createBaseForwardingPacketData(): ForwardingPacketData {
   return {
     destinationMemo: "",
@@ -459,7 +459,8 @@ export const ForwardingPacketData = {
       typeUrl: "/ibc.applications.transfer.v2.ForwardingPacketData",
       value: ForwardingPacketData.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Hop.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ForwardingPacketData.typeUrl, ForwardingPacketData);
-GlobalDecoderRegistry.registerAminoProtoMapping(ForwardingPacketData.aminoType, ForwardingPacketData.typeUrl);

@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** Module is the config object of the upgrade module. */
 export interface Module {
   /** authority defines the custom module authority. If not set, defaults to the governance module. */
@@ -93,7 +92,6 @@ export const Module = {
       typeUrl: "/cosmos.upgrade.module.v1.Module",
       value: Module.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Module.typeUrl, Module);
-GlobalDecoderRegistry.registerAminoProtoMapping(Module.aminoType, Module.typeUrl);

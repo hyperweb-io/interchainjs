@@ -1,19 +1,19 @@
 import { buildUseQuery } from "../../../../react-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryDenomHashRequest, QueryDenomHashResponse, QueryEscrowAddressRequest, QueryEscrowAddressResponse, QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse } from "./query";
-import { createGetParams, createGetDenomHash, createGetEscrowAddress, createGetTotalEscrowForDenom } from "./query.rpc.func";
+import { getParams, getDenomHash, getEscrowAddress, getTotalEscrowForDenom } from "./query.rpc.func";
 export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsResponse>({
-  builderQueryFn: createGetParams,
+  builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
 export const useGetDenomHash = buildUseQuery<QueryDenomHashRequest, QueryDenomHashResponse>({
-  builderQueryFn: createGetDenomHash,
+  builderQueryFn: getDenomHash,
   queryKeyPrefix: "DenomHashQuery"
 });
 export const useGetEscrowAddress = buildUseQuery<QueryEscrowAddressRequest, QueryEscrowAddressResponse>({
-  builderQueryFn: createGetEscrowAddress,
+  builderQueryFn: getEscrowAddress,
   queryKeyPrefix: "EscrowAddressQuery"
 });
 export const useGetTotalEscrowForDenom = buildUseQuery<QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse>({
-  builderQueryFn: createGetTotalEscrowForDenom,
+  builderQueryFn: getTotalEscrowForDenom,
   queryKeyPrefix: "TotalEscrowForDenomQuery"
 });

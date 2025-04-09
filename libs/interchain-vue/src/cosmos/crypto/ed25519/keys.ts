@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * PubKey is an ed25519 public key for handling Tendermint keys in SDK.
  * It's needed for Any serialization and SDK compatibility.
@@ -125,10 +124,9 @@ export const PubKey = {
       typeUrl: "/cosmos.crypto.ed25519.PubKey",
       value: PubKey.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PubKey.typeUrl, PubKey);
-GlobalDecoderRegistry.registerAminoProtoMapping(PubKey.aminoType, PubKey.typeUrl);
 function createBasePrivKey(): PrivKey {
   return {
     key: new Uint8Array()
@@ -203,7 +201,6 @@ export const PrivKey = {
       typeUrl: "/cosmos.crypto.ed25519.PrivKey",
       value: PrivKey.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PrivKey.typeUrl, PrivKey);
-GlobalDecoderRegistry.registerAminoProtoMapping(PrivKey.aminoType, PrivKey.typeUrl);

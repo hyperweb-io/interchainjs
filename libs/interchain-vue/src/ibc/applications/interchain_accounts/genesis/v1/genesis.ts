@@ -3,7 +3,6 @@ import { ParamsAmino as Params1Amino } from "../../controller/v1/controller";
 import { Params as Params2 } from "../../host/v1/host";
 import { ParamsAmino as Params2Amino } from "../../host/v1/host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 import { DeepPartial } from "../../../../../helpers";
 /** GenesisState defines the interchain accounts genesis state */
 export interface GenesisState {
@@ -201,10 +200,12 @@ export const GenesisState = {
       typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ControllerGenesisState.registerTypeUrl();
+    HostGenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseControllerGenesisState(): ControllerGenesisState {
   return {
     activeChannels: [],
@@ -321,10 +322,13 @@ export const ControllerGenesisState = {
       typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState",
       value: ControllerGenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ActiveChannel.registerTypeUrl();
+    RegisteredInterchainAccount.registerTypeUrl();
+    Params1.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ControllerGenesisState.typeUrl, ControllerGenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ControllerGenesisState.aminoType, ControllerGenesisState.typeUrl);
 function createBaseHostGenesisState(): HostGenesisState {
   return {
     activeChannels: [],
@@ -439,10 +443,13 @@ export const HostGenesisState = {
       typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.HostGenesisState",
       value: HostGenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ActiveChannel.registerTypeUrl();
+    RegisteredInterchainAccount.registerTypeUrl();
+    Params2.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(HostGenesisState.typeUrl, HostGenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(HostGenesisState.aminoType, HostGenesisState.typeUrl);
 function createBaseActiveChannel(): ActiveChannel {
   return {
     connectionId: "",
@@ -553,10 +560,9 @@ export const ActiveChannel = {
       typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.ActiveChannel",
       value: ActiveChannel.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ActiveChannel.typeUrl, ActiveChannel);
-GlobalDecoderRegistry.registerAminoProtoMapping(ActiveChannel.aminoType, ActiveChannel.typeUrl);
 function createBaseRegisteredInterchainAccount(): RegisteredInterchainAccount {
   return {
     connectionId: "",
@@ -655,7 +661,6 @@ export const RegisteredInterchainAccount = {
       typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount",
       value: RegisteredInterchainAccount.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(RegisteredInterchainAccount.typeUrl, RegisteredInterchainAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(RegisteredInterchainAccount.aminoType, RegisteredInterchainAccount.typeUrl);

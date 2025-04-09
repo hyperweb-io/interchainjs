@@ -1,6 +1,5 @@
 import { Params, ParamsAmino, ValidatorSigningInfo, ValidatorSigningInfoAmino } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the slashing module's genesis state. */
 export interface GenesisState {
@@ -214,10 +213,13 @@ export const GenesisState = {
       typeUrl: "/cosmos.slashing.v1beta1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    SigningInfo.registerTypeUrl();
+    ValidatorMissedBlocks.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseSigningInfo(): SigningInfo {
   return {
     address: "",
@@ -304,10 +306,11 @@ export const SigningInfo = {
       typeUrl: "/cosmos.slashing.v1beta1.SigningInfo",
       value: SigningInfo.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ValidatorSigningInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(SigningInfo.typeUrl, SigningInfo);
-GlobalDecoderRegistry.registerAminoProtoMapping(SigningInfo.aminoType, SigningInfo.typeUrl);
 function createBaseValidatorMissedBlocks(): ValidatorMissedBlocks {
   return {
     address: "",
@@ -396,10 +399,11 @@ export const ValidatorMissedBlocks = {
       typeUrl: "/cosmos.slashing.v1beta1.ValidatorMissedBlocks",
       value: ValidatorMissedBlocks.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    MissedBlock.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ValidatorMissedBlocks.typeUrl, ValidatorMissedBlocks);
-GlobalDecoderRegistry.registerAminoProtoMapping(ValidatorMissedBlocks.aminoType, ValidatorMissedBlocks.typeUrl);
 function createBaseMissedBlock(): MissedBlock {
   return {
     index: BigInt(0),
@@ -486,7 +490,6 @@ export const MissedBlock = {
       typeUrl: "/cosmos.slashing.v1beta1.MissedBlock",
       value: MissedBlock.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MissedBlock.typeUrl, MissedBlock);
-GlobalDecoderRegistry.registerAminoProtoMapping(MissedBlock.aminoType, MissedBlock.typeUrl);
