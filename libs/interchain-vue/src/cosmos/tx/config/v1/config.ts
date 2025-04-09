@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** Config is the config object of the x/auth/tx package. */
 export interface Config {
   /**
@@ -121,7 +120,6 @@ export const Config = {
       typeUrl: "/cosmos.tx.config.v1.Config",
       value: Config.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Config.typeUrl, Config);
-GlobalDecoderRegistry.registerAminoProtoMapping(Config.aminoType, Config.typeUrl);

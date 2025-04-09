@@ -3,7 +3,6 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryInsuranceParamsRequest is the request type for the Query/InsuranceParams
  * RPC method.
@@ -316,9 +315,9 @@ export const QueryInsuranceParamsRequest = {
       typeUrl: "/injective.insurance.v1beta1.QueryInsuranceParamsRequest",
       value: QueryInsuranceParamsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryInsuranceParamsRequest.typeUrl, QueryInsuranceParamsRequest);
 function createBaseQueryInsuranceParamsResponse(): QueryInsuranceParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -386,9 +385,11 @@ export const QueryInsuranceParamsResponse = {
       typeUrl: "/injective.insurance.v1beta1.QueryInsuranceParamsResponse",
       value: QueryInsuranceParamsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryInsuranceParamsResponse.typeUrl, QueryInsuranceParamsResponse);
 function createBaseQueryInsuranceFundRequest(): QueryInsuranceFundRequest {
   return {
     marketId: ""
@@ -456,9 +457,9 @@ export const QueryInsuranceFundRequest = {
       typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundRequest",
       value: QueryInsuranceFundRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryInsuranceFundRequest.typeUrl, QueryInsuranceFundRequest);
 function createBaseQueryInsuranceFundResponse(): QueryInsuranceFundResponse {
   return {
     fund: undefined
@@ -526,9 +527,11 @@ export const QueryInsuranceFundResponse = {
       typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundResponse",
       value: QueryInsuranceFundResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    InsuranceFund.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryInsuranceFundResponse.typeUrl, QueryInsuranceFundResponse);
 function createBaseQueryInsuranceFundsRequest(): QueryInsuranceFundsRequest {
   return {};
 }
@@ -583,9 +586,9 @@ export const QueryInsuranceFundsRequest = {
       typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundsRequest",
       value: QueryInsuranceFundsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryInsuranceFundsRequest.typeUrl, QueryInsuranceFundsRequest);
 function createBaseQueryInsuranceFundsResponse(): QueryInsuranceFundsResponse {
   return {
     funds: []
@@ -655,9 +658,11 @@ export const QueryInsuranceFundsResponse = {
       typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundsResponse",
       value: QueryInsuranceFundsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    InsuranceFund.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryInsuranceFundsResponse.typeUrl, QueryInsuranceFundsResponse);
 function createBaseQueryEstimatedRedemptionsRequest(): QueryEstimatedRedemptionsRequest {
   return {
     marketId: "",
@@ -737,9 +742,9 @@ export const QueryEstimatedRedemptionsRequest = {
       typeUrl: "/injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest",
       value: QueryEstimatedRedemptionsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryEstimatedRedemptionsRequest.typeUrl, QueryEstimatedRedemptionsRequest);
 function createBaseQueryEstimatedRedemptionsResponse(): QueryEstimatedRedemptionsResponse {
   return {
     amount: []
@@ -809,9 +814,11 @@ export const QueryEstimatedRedemptionsResponse = {
       typeUrl: "/injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse",
       value: QueryEstimatedRedemptionsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryEstimatedRedemptionsResponse.typeUrl, QueryEstimatedRedemptionsResponse);
 function createBaseQueryPendingRedemptionsRequest(): QueryPendingRedemptionsRequest {
   return {
     marketId: "",
@@ -891,9 +898,9 @@ export const QueryPendingRedemptionsRequest = {
       typeUrl: "/injective.insurance.v1beta1.QueryPendingRedemptionsRequest",
       value: QueryPendingRedemptionsRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryPendingRedemptionsRequest.typeUrl, QueryPendingRedemptionsRequest);
 function createBaseQueryPendingRedemptionsResponse(): QueryPendingRedemptionsResponse {
   return {
     amount: []
@@ -963,9 +970,11 @@ export const QueryPendingRedemptionsResponse = {
       typeUrl: "/injective.insurance.v1beta1.QueryPendingRedemptionsResponse",
       value: QueryPendingRedemptionsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryPendingRedemptionsResponse.typeUrl, QueryPendingRedemptionsResponse);
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
@@ -1020,9 +1029,9 @@ export const QueryModuleStateRequest = {
       typeUrl: "/injective.insurance.v1beta1.QueryModuleStateRequest",
       value: QueryModuleStateRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryModuleStateRequest.typeUrl, QueryModuleStateRequest);
 function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
   return {
     state: undefined
@@ -1090,6 +1099,8 @@ export const QueryModuleStateResponse = {
       typeUrl: "/injective.insurance.v1beta1.QueryModuleStateResponse",
       value: QueryModuleStateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisState.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryModuleStateResponse.typeUrl, QueryModuleStateResponse);

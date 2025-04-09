@@ -222,10 +222,12 @@ export const BaseAccount = {
       typeUrl: "/cosmos.auth.v1beta1.BaseAccount",
       value: BaseAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BaseAccount.typeUrl, BaseAccount);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BaseAccount.aminoType, BaseAccount.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(BaseAccount.typeUrl, BaseAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(BaseAccount.aminoType, BaseAccount.typeUrl);
 function createBaseModuleAccount(): ModuleAccount {
   return {
     baseAccount: undefined,
@@ -326,10 +328,13 @@ export const ModuleAccount = {
       typeUrl: "/cosmos.auth.v1beta1.ModuleAccount",
       value: ModuleAccount.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(ModuleAccount.typeUrl, ModuleAccount);
+    GlobalDecoderRegistry.registerAminoProtoMapping(ModuleAccount.aminoType, ModuleAccount.typeUrl);
+    BaseAccount.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ModuleAccount.typeUrl, ModuleAccount);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleAccount.aminoType, ModuleAccount.typeUrl);
 function createBaseModuleCredential(): ModuleCredential {
   return {
     moduleName: "",
@@ -418,10 +423,9 @@ export const ModuleCredential = {
       typeUrl: "/cosmos.auth.v1beta1.ModuleCredential",
       value: ModuleCredential.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ModuleCredential.typeUrl, ModuleCredential);
-GlobalDecoderRegistry.registerAminoProtoMapping(ModuleCredential.aminoType, ModuleCredential.typeUrl);
 function createBaseParams(): Params {
   return {
     maxMemoCharacters: BigInt(0),
@@ -544,7 +548,6 @@ export const Params = {
       typeUrl: "/cosmos.auth.v1beta1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);

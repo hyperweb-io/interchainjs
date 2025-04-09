@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 /**
  * Params defines the set of on-chain interchain accounts parameters.
  * The following parameters may be used to disable the host submodule.
@@ -157,10 +156,9 @@ export const Params = {
       typeUrl: "/ibc.applications.interchain_accounts.host.v1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);
 function createBaseQueryRequest(): QueryRequest {
   return {
     path: "",
@@ -247,7 +245,6 @@ export const QueryRequest = {
       typeUrl: "/ibc.applications.interchain_accounts.host.v1.QueryRequest",
       value: QueryRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryRequest.typeUrl, QueryRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryRequest.aminoType, QueryRequest.typeUrl);

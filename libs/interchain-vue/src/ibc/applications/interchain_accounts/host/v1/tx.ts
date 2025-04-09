@@ -1,6 +1,5 @@
 import { Params, ParamsAmino, QueryRequest, QueryRequestAmino } from "./host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
 /** MsgUpdateParams defines the payload for Msg/UpdateParams */
 export interface MsgUpdateParams {
@@ -174,10 +173,11 @@ export const MsgUpdateParams = {
       typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -239,10 +239,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);
 function createBaseMsgModuleQuerySafe(): MsgModuleQuerySafe {
   return {
     signer: "",
@@ -331,10 +330,11 @@ export const MsgModuleQuerySafe = {
       typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe",
       value: MsgModuleQuerySafe.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    QueryRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgModuleQuerySafe.typeUrl, MsgModuleQuerySafe);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgModuleQuerySafe.aminoType, MsgModuleQuerySafe.typeUrl);
 function createBaseMsgModuleQuerySafeResponse(): MsgModuleQuerySafeResponse {
   return {
     height: BigInt(0),
@@ -423,7 +423,6 @@ export const MsgModuleQuerySafeResponse = {
       typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse",
       value: MsgModuleQuerySafeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgModuleQuerySafeResponse.typeUrl, MsgModuleQuerySafeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgModuleQuerySafeResponse.aminoType, MsgModuleQuerySafeResponse.typeUrl);

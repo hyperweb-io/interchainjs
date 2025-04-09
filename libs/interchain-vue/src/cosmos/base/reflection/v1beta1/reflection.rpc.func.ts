@@ -4,11 +4,13 @@ export const getListAllInterfaces = buildQuery<ListAllInterfacesRequest, ListAll
   encode: ListAllInterfacesRequest.encode,
   decode: ListAllInterfacesResponse.decode,
   service: "cosmos.base.reflection.v1beta1.ReflectionService",
-  method: "ListAllInterfaces"
+  method: "ListAllInterfaces",
+  deps: [ListAllInterfacesRequest, ListAllInterfacesResponse]
 });
 export const getListImplementations = buildQuery<ListImplementationsRequest, ListImplementationsResponse>({
   encode: ListImplementationsRequest.encode,
   decode: ListImplementationsResponse.decode,
   service: "cosmos.base.reflection.v1beta1.ReflectionService",
-  method: "ListImplementations"
+  method: "ListImplementations",
+  deps: [ListImplementationsRequest, ListImplementationsResponse]
 });

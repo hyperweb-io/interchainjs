@@ -547,10 +547,9 @@ export const WeightedVoteOption = {
       typeUrl: "/cosmos.gov.v1beta1.WeightedVoteOption",
       value: WeightedVoteOption.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(WeightedVoteOption.typeUrl, WeightedVoteOption);
-GlobalDecoderRegistry.registerAminoProtoMapping(WeightedVoteOption.aminoType, WeightedVoteOption.typeUrl);
 function createBaseTextProposal(): TextProposal {
   return {
     title: "",
@@ -637,10 +636,12 @@ export const TextProposal = {
       typeUrl: "/cosmos.gov.v1beta1.TextProposal",
       value: TextProposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(TextProposal.typeUrl, TextProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(TextProposal.aminoType, TextProposal.typeUrl);
   }
 };
-GlobalDecoderRegistry.register(TextProposal.typeUrl, TextProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(TextProposal.aminoType, TextProposal.typeUrl);
 function createBaseDeposit(): Deposit {
   return {
     proposalId: BigInt(0),
@@ -741,10 +742,11 @@ export const Deposit = {
       typeUrl: "/cosmos.gov.v1beta1.Deposit",
       value: Deposit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Deposit.typeUrl, Deposit);
-GlobalDecoderRegistry.registerAminoProtoMapping(Deposit.aminoType, Deposit.typeUrl);
 function createBaseProposal(): Proposal {
   return {
     proposalId: BigInt(0),
@@ -917,10 +919,30 @@ export const Proposal = {
       typeUrl: "/cosmos.gov.v1beta1.Proposal",
       value: Proposal.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TextProposal.registerTypeUrl();
+    CommunityPoolSpendProposal.registerTypeUrl();
+    CommunityPoolSpendProposalWithDeposit.registerTypeUrl();
+    ParameterChangeProposal.registerTypeUrl();
+    SoftwareUpgradeProposal.registerTypeUrl();
+    CancelSoftwareUpgradeProposal.registerTypeUrl();
+    StoreCodeProposal.registerTypeUrl();
+    InstantiateContractProposal.registerTypeUrl();
+    InstantiateContract2Proposal.registerTypeUrl();
+    MigrateContractProposal.registerTypeUrl();
+    SudoContractProposal.registerTypeUrl();
+    ExecuteContractProposal.registerTypeUrl();
+    UpdateAdminProposal.registerTypeUrl();
+    ClearAdminProposal.registerTypeUrl();
+    PinCodesProposal.registerTypeUrl();
+    UnpinCodesProposal.registerTypeUrl();
+    UpdateInstantiateConfigProposal.registerTypeUrl();
+    StoreAndInstantiateContractProposal.registerTypeUrl();
+    TallyResult.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Proposal.typeUrl, Proposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(Proposal.aminoType, Proposal.typeUrl);
 function createBaseTallyResult(): TallyResult {
   return {
     yes: "",
@@ -1031,10 +1053,9 @@ export const TallyResult = {
       typeUrl: "/cosmos.gov.v1beta1.TallyResult",
       value: TallyResult.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TallyResult.typeUrl, TallyResult);
-GlobalDecoderRegistry.registerAminoProtoMapping(TallyResult.aminoType, TallyResult.typeUrl);
 function createBaseVote(): Vote {
   return {
     proposalId: BigInt(0),
@@ -1147,10 +1168,11 @@ export const Vote = {
       typeUrl: "/cosmos.gov.v1beta1.Vote",
       value: Vote.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    WeightedVoteOption.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Vote.typeUrl, Vote);
-GlobalDecoderRegistry.registerAminoProtoMapping(Vote.aminoType, Vote.typeUrl);
 function createBaseDepositParams(): DepositParams {
   return {
     minDeposit: [],
@@ -1239,10 +1261,11 @@ export const DepositParams = {
       typeUrl: "/cosmos.gov.v1beta1.DepositParams",
       value: DepositParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DepositParams.typeUrl, DepositParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(DepositParams.aminoType, DepositParams.typeUrl);
 function createBaseVotingParams(): VotingParams {
   return {
     votingPeriod: Duration.fromPartial({})
@@ -1317,10 +1340,9 @@ export const VotingParams = {
       typeUrl: "/cosmos.gov.v1beta1.VotingParams",
       value: VotingParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(VotingParams.typeUrl, VotingParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(VotingParams.aminoType, VotingParams.typeUrl);
 function createBaseTallyParams(): TallyParams {
   return {
     quorum: new Uint8Array(),
@@ -1419,7 +1441,6 @@ export const TallyParams = {
       typeUrl: "/cosmos.gov.v1beta1.TallyParams",
       value: TallyParams.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(TallyParams.typeUrl, TallyParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(TallyParams.aminoType, TallyParams.typeUrl);

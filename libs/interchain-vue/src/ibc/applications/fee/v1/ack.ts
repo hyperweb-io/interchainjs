@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
 export interface IncentivizedAcknowledgement {
   /** the underlying app acknowledgement bytes */
@@ -125,7 +124,6 @@ export const IncentivizedAcknowledgement = {
       typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement",
       value: IncentivizedAcknowledgement.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(IncentivizedAcknowledgement.typeUrl, IncentivizedAcknowledgement);
-GlobalDecoderRegistry.registerAminoProtoMapping(IncentivizedAcknowledgement.aminoType, IncentivizedAcknowledgement.typeUrl);

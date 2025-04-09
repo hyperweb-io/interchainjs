@@ -4,59 +4,69 @@ export const getAccounts = buildQuery<QueryAccountsRequest, QueryAccountsRespons
   encode: QueryAccountsRequest.encode,
   decode: QueryAccountsResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "Accounts"
+  method: "Accounts",
+  deps: [QueryAccountsRequest, QueryAccountsResponse]
 });
 export const getAccount = buildQuery<QueryAccountRequest, QueryAccountResponse>({
   encode: QueryAccountRequest.encode,
   decode: QueryAccountResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "Account"
+  method: "Account",
+  deps: [QueryAccountRequest, QueryAccountResponse]
 });
 export const getAccountAddressByID = buildQuery<QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse>({
   encode: QueryAccountAddressByIDRequest.encode,
   decode: QueryAccountAddressByIDResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "AccountAddressByID"
+  method: "AccountAddressByID",
+  deps: [QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse]
 });
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "Params"
+  method: "Params",
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const getModuleAccounts = buildQuery<QueryModuleAccountsRequest, QueryModuleAccountsResponse>({
   encode: QueryModuleAccountsRequest.encode,
   decode: QueryModuleAccountsResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "ModuleAccounts"
+  method: "ModuleAccounts",
+  deps: [QueryModuleAccountsRequest, QueryModuleAccountsResponse]
 });
 export const getModuleAccountByName = buildQuery<QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse>({
   encode: QueryModuleAccountByNameRequest.encode,
   decode: QueryModuleAccountByNameResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "ModuleAccountByName"
+  method: "ModuleAccountByName",
+  deps: [QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse]
 });
 export const getBech32Prefix = buildQuery<Bech32PrefixRequest, Bech32PrefixResponse>({
   encode: Bech32PrefixRequest.encode,
   decode: Bech32PrefixResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "Bech32Prefix"
+  method: "Bech32Prefix",
+  deps: [Bech32PrefixRequest, Bech32PrefixResponse]
 });
 export const getAddressBytesToString = buildQuery<AddressBytesToStringRequest, AddressBytesToStringResponse>({
   encode: AddressBytesToStringRequest.encode,
   decode: AddressBytesToStringResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "AddressBytesToString"
+  method: "AddressBytesToString",
+  deps: [AddressBytesToStringRequest, AddressBytesToStringResponse]
 });
 export const getAddressStringToBytes = buildQuery<AddressStringToBytesRequest, AddressStringToBytesResponse>({
   encode: AddressStringToBytesRequest.encode,
   decode: AddressStringToBytesResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "AddressStringToBytes"
+  method: "AddressStringToBytes",
+  deps: [AddressStringToBytesRequest, AddressStringToBytesResponse]
 });
 export const getAccountInfo = buildQuery<QueryAccountInfoRequest, QueryAccountInfoResponse>({
   encode: QueryAccountInfoRequest.encode,
   decode: QueryAccountInfoResponse.decode,
   service: "cosmos.auth.v1beta1.Query",
-  method: "AccountInfo"
+  method: "AccountInfo",
+  deps: [QueryAccountInfoRequest, QueryAccountInfoResponse]
 });

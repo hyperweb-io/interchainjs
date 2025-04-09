@@ -1,7 +1,6 @@
 import { ERC20Token, ERC20TokenAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** OutgoingTxBatch represents a batch of transactions going from Peggy to ETH */
 export interface OutgoingTxBatch {
   batchNonce: bigint;
@@ -167,9 +166,11 @@ export const OutgoingTxBatch = {
       typeUrl: "/injective.peggy.v1.OutgoingTxBatch",
       value: OutgoingTxBatch.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    OutgoingTransferTx.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(OutgoingTxBatch.typeUrl, OutgoingTxBatch);
 function createBaseOutgoingTransferTx(): OutgoingTransferTx {
   return {
     id: BigInt(0),
@@ -285,6 +286,8 @@ export const OutgoingTransferTx = {
       typeUrl: "/injective.peggy.v1.OutgoingTransferTx",
       value: OutgoingTransferTx.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ERC20Token.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(OutgoingTransferTx.typeUrl, OutgoingTransferTx);

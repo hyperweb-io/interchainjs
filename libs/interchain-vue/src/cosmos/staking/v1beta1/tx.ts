@@ -504,10 +504,11 @@ export const MsgCreateValidator = {
       typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidator",
       value: MsgCreateValidator.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCreateValidator.typeUrl, MsgCreateValidator);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateValidator.aminoType, MsgCreateValidator.typeUrl);
 function createBaseMsgCreateValidatorResponse(): MsgCreateValidatorResponse {
   return {};
 }
@@ -569,10 +570,9 @@ export const MsgCreateValidatorResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidatorResponse",
       value: MsgCreateValidatorResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCreateValidatorResponse.typeUrl, MsgCreateValidatorResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCreateValidatorResponse.aminoType, MsgCreateValidatorResponse.typeUrl);
 function createBaseMsgEditValidator(): MsgEditValidator {
   return {
     description: Description.fromPartial({}),
@@ -683,10 +683,11 @@ export const MsgEditValidator = {
       typeUrl: "/cosmos.staking.v1beta1.MsgEditValidator",
       value: MsgEditValidator.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Description.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgEditValidator.typeUrl, MsgEditValidator);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgEditValidator.aminoType, MsgEditValidator.typeUrl);
 function createBaseMsgEditValidatorResponse(): MsgEditValidatorResponse {
   return {};
 }
@@ -748,10 +749,9 @@ export const MsgEditValidatorResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgEditValidatorResponse",
       value: MsgEditValidatorResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgEditValidatorResponse.typeUrl, MsgEditValidatorResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgEditValidatorResponse.aminoType, MsgEditValidatorResponse.typeUrl);
 function createBaseMsgDelegate(): MsgDelegate {
   return {
     delegatorAddress: "",
@@ -850,10 +850,11 @@ export const MsgDelegate = {
       typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
       value: MsgDelegate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgDelegate.typeUrl, MsgDelegate);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDelegate.aminoType, MsgDelegate.typeUrl);
 function createBaseMsgDelegateResponse(): MsgDelegateResponse {
   return {};
 }
@@ -915,10 +916,9 @@ export const MsgDelegateResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgDelegateResponse",
       value: MsgDelegateResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgDelegateResponse.typeUrl, MsgDelegateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgDelegateResponse.aminoType, MsgDelegateResponse.typeUrl);
 function createBaseMsgBeginRedelegate(): MsgBeginRedelegate {
   return {
     delegatorAddress: "",
@@ -1029,10 +1029,11 @@ export const MsgBeginRedelegate = {
       typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegate",
       value: MsgBeginRedelegate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgBeginRedelegate.typeUrl, MsgBeginRedelegate);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBeginRedelegate.aminoType, MsgBeginRedelegate.typeUrl);
 function createBaseMsgBeginRedelegateResponse(): MsgBeginRedelegateResponse {
   return {
     completionTime: new Date()
@@ -1107,10 +1108,9 @@ export const MsgBeginRedelegateResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegateResponse",
       value: MsgBeginRedelegateResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgBeginRedelegateResponse.typeUrl, MsgBeginRedelegateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgBeginRedelegateResponse.aminoType, MsgBeginRedelegateResponse.typeUrl);
 function createBaseMsgUndelegate(): MsgUndelegate {
   return {
     delegatorAddress: "",
@@ -1209,10 +1209,11 @@ export const MsgUndelegate = {
       typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
       value: MsgUndelegate.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUndelegate.typeUrl, MsgUndelegate);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUndelegate.aminoType, MsgUndelegate.typeUrl);
 function createBaseMsgUndelegateResponse(): MsgUndelegateResponse {
   return {
     completionTime: new Date(),
@@ -1299,10 +1300,11 @@ export const MsgUndelegateResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgUndelegateResponse",
       value: MsgUndelegateResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUndelegateResponse.typeUrl, MsgUndelegateResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUndelegateResponse.aminoType, MsgUndelegateResponse.typeUrl);
 function createBaseMsgCancelUnbondingDelegation(): MsgCancelUnbondingDelegation {
   return {
     delegatorAddress: "",
@@ -1413,10 +1415,11 @@ export const MsgCancelUnbondingDelegation = {
       typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation",
       value: MsgCancelUnbondingDelegation.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgCancelUnbondingDelegation.typeUrl, MsgCancelUnbondingDelegation);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelUnbondingDelegation.aminoType, MsgCancelUnbondingDelegation.typeUrl);
 function createBaseMsgCancelUnbondingDelegationResponse(): MsgCancelUnbondingDelegationResponse {
   return {};
 }
@@ -1478,10 +1481,9 @@ export const MsgCancelUnbondingDelegationResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgCancelUnbondingDelegationResponse",
       value: MsgCancelUnbondingDelegationResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgCancelUnbondingDelegationResponse.typeUrl, MsgCancelUnbondingDelegationResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgCancelUnbondingDelegationResponse.aminoType, MsgCancelUnbondingDelegationResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -1568,10 +1570,11 @@ export const MsgUpdateParams = {
       typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -1633,7 +1636,6 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);

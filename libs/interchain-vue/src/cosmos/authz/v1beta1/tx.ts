@@ -237,10 +237,11 @@ export const MsgGrant = {
       typeUrl: "/cosmos.authz.v1beta1.MsgGrant",
       value: MsgGrant.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Grant.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgGrant.typeUrl, MsgGrant);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgGrant.aminoType, MsgGrant.typeUrl);
 function createBaseMsgGrantResponse(): MsgGrantResponse {
   return {};
 }
@@ -302,10 +303,9 @@ export const MsgGrantResponse = {
       typeUrl: "/cosmos.authz.v1beta1.MsgGrantResponse",
       value: MsgGrantResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgGrantResponse.typeUrl, MsgGrantResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgGrantResponse.aminoType, MsgGrantResponse.typeUrl);
 function createBaseMsgExec(): MsgExec {
   return {
     grantee: "",
@@ -394,10 +394,9 @@ export const MsgExec = {
       typeUrl: "/cosmos.authz.v1beta1.MsgExec",
       value: MsgExec.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExec.typeUrl, MsgExec);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgExec.aminoType, MsgExec.typeUrl);
 function createBaseMsgExecResponse(): MsgExecResponse {
   return {
     results: []
@@ -474,10 +473,9 @@ export const MsgExecResponse = {
       typeUrl: "/cosmos.authz.v1beta1.MsgExecResponse",
       value: MsgExecResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgExecResponse.typeUrl, MsgExecResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgExecResponse.aminoType, MsgExecResponse.typeUrl);
 function createBaseMsgRevoke(): MsgRevoke {
   return {
     granter: "",
@@ -576,10 +574,9 @@ export const MsgRevoke = {
       typeUrl: "/cosmos.authz.v1beta1.MsgRevoke",
       value: MsgRevoke.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevoke.typeUrl, MsgRevoke);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevoke.aminoType, MsgRevoke.typeUrl);
 function createBaseMsgRevokeResponse(): MsgRevokeResponse {
   return {};
 }
@@ -641,7 +638,6 @@ export const MsgRevokeResponse = {
       typeUrl: "/cosmos.authz.v1beta1.MsgRevokeResponse",
       value: MsgRevokeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRevokeResponse.typeUrl, MsgRevokeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRevokeResponse.aminoType, MsgRevokeResponse.typeUrl);

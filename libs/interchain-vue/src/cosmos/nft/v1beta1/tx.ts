@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgSend represents a message to send a nft from one account to another account. */
 export interface MsgSend {
   /** class_id defines the unique identifier of the nft classification, similar to the contract address of ERC721 */
@@ -153,10 +152,9 @@ export const MsgSend = {
       typeUrl: "/cosmos.nft.v1beta1.MsgSend",
       value: MsgSend.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSend.typeUrl, MsgSend);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSend.aminoType, MsgSend.typeUrl);
 function createBaseMsgSendResponse(): MsgSendResponse {
   return {};
 }
@@ -218,7 +216,6 @@ export const MsgSendResponse = {
       typeUrl: "/cosmos.nft.v1beta1.MsgSendResponse",
       value: MsgSendResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgSendResponse.typeUrl, MsgSendResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgSendResponse.aminoType, MsgSendResponse.typeUrl);

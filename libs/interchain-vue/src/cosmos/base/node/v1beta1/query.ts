@@ -1,7 +1,6 @@
 import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** ConfigRequest defines the request structure for the Config gRPC query. */
 export interface ConfigRequest {}
 export interface ConfigRequestProtoMsg {
@@ -143,10 +142,9 @@ export const ConfigRequest = {
       typeUrl: "/cosmos.base.node.v1beta1.ConfigRequest",
       value: ConfigRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConfigRequest.typeUrl, ConfigRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConfigRequest.aminoType, ConfigRequest.typeUrl);
 function createBaseConfigResponse(): ConfigResponse {
   return {
     minimumGasPrice: "",
@@ -257,10 +255,9 @@ export const ConfigResponse = {
       typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse",
       value: ConfigResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConfigResponse.typeUrl, ConfigResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConfigResponse.aminoType, ConfigResponse.typeUrl);
 function createBaseStatusRequest(): StatusRequest {
   return {};
 }
@@ -322,10 +319,9 @@ export const StatusRequest = {
       typeUrl: "/cosmos.base.node.v1beta1.StatusRequest",
       value: StatusRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StatusRequest.typeUrl, StatusRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(StatusRequest.aminoType, StatusRequest.typeUrl);
 function createBaseStatusResponse(): StatusResponse {
   return {
     earliestStoreHeight: BigInt(0),
@@ -448,7 +444,6 @@ export const StatusResponse = {
       typeUrl: "/cosmos.base.node.v1beta1.StatusResponse",
       value: StatusResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StatusResponse.typeUrl, StatusResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(StatusResponse.aminoType, StatusResponse.typeUrl);

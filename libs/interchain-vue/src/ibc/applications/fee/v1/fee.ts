@@ -2,7 +2,6 @@ import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /** Fee defines the ICS29 receive, acknowledgement and timeout fees */
 export interface Fee {
   /** the packet receive fee */
@@ -199,10 +198,11 @@ export const Fee = {
       typeUrl: "/ibc.applications.fee.v1.Fee",
       value: Fee.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Fee.typeUrl, Fee);
-GlobalDecoderRegistry.registerAminoProtoMapping(Fee.aminoType, Fee.typeUrl);
 function createBasePacketFee(): PacketFee {
   return {
     fee: Fee.fromPartial({}),
@@ -303,10 +303,11 @@ export const PacketFee = {
       typeUrl: "/ibc.applications.fee.v1.PacketFee",
       value: PacketFee.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Fee.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PacketFee.typeUrl, PacketFee);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketFee.aminoType, PacketFee.typeUrl);
 function createBasePacketFees(): PacketFees {
   return {
     packetFees: []
@@ -383,10 +384,11 @@ export const PacketFees = {
       typeUrl: "/ibc.applications.fee.v1.PacketFees",
       value: PacketFees.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PacketFee.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PacketFees.typeUrl, PacketFees);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketFees.aminoType, PacketFees.typeUrl);
 function createBaseIdentifiedPacketFees(): IdentifiedPacketFees {
   return {
     packetId: PacketId.fromPartial({}),
@@ -475,7 +477,9 @@ export const IdentifiedPacketFees = {
       typeUrl: "/ibc.applications.fee.v1.IdentifiedPacketFees",
       value: IdentifiedPacketFees.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PacketId.registerTypeUrl();
+    PacketFee.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(IdentifiedPacketFees.typeUrl, IdentifiedPacketFees);
-GlobalDecoderRegistry.registerAminoProtoMapping(IdentifiedPacketFees.aminoType, IdentifiedPacketFees.typeUrl);

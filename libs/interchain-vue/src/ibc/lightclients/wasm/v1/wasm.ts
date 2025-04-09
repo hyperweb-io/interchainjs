@@ -1,6 +1,5 @@
 import { Height, HeightAmino } from "../../../core/client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** Wasm light client's Client state */
 export interface ClientState {
@@ -196,10 +195,11 @@ export const ClientState = {
       typeUrl: "/ibc.lightclients.wasm.v1.ClientState",
       value: ClientState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(ClientState.typeUrl, ClientState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientState.aminoType, ClientState.typeUrl);
 function createBaseConsensusState(): ConsensusState {
   return {
     data: new Uint8Array()
@@ -274,10 +274,9 @@ export const ConsensusState = {
       typeUrl: "/ibc.lightclients.wasm.v1.ConsensusState",
       value: ConsensusState.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ConsensusState.typeUrl, ConsensusState);
-GlobalDecoderRegistry.registerAminoProtoMapping(ConsensusState.aminoType, ConsensusState.typeUrl);
 function createBaseClientMessage(): ClientMessage {
   return {
     data: new Uint8Array()
@@ -352,10 +351,9 @@ export const ClientMessage = {
       typeUrl: "/ibc.lightclients.wasm.v1.ClientMessage",
       value: ClientMessage.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ClientMessage.typeUrl, ClientMessage);
-GlobalDecoderRegistry.registerAminoProtoMapping(ClientMessage.aminoType, ClientMessage.typeUrl);
 function createBaseChecksums(): Checksums {
   return {
     checksums: []
@@ -432,7 +430,6 @@ export const Checksums = {
       typeUrl: "/ibc.lightclients.wasm.v1.Checksums",
       value: Checksums.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Checksums.typeUrl, Checksums);
-GlobalDecoderRegistry.registerAminoProtoMapping(Checksums.aminoType, Checksums.typeUrl);

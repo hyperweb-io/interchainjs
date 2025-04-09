@@ -17,9 +17,12 @@ export interface QueryBuilderOptions<TReq, TRes> {
   decode: (input: BinaryReader | Uint8Array, length?: number) => TRes
   service: string,
   method: string,
+  deps?: TelescopeGeneratedCodec<any, any, any>[],
 }
 
 export function buildQuery<TReq, TRes>(opts: QueryBuilderOptions<TReq, TRes>) {
+    registerDependencies(opts.deps ?? []);
+
     return async (client: EndpointOrRpc, request: TReq) => {
       let rpc: Rpc | undefined;
 
@@ -64,7 +67,7 @@ export interface ISigningClient {
   signAndBroadcast: (
     signerAddress: string,
     message: Message<any>[],
-    fee: StdFee | "auto",
+    fee: StdFee | 'auto',
     memo: string
   ) => Promise<DeliverTxResponse>;
 }
@@ -74,6 +77,10 @@ export interface TxBuilderOptions {
 }
 
 export function buildTx<TMsg>(opts: TxBuilderOptions) {
+  if(opts.msg){
+    registerDependencies([opts.msg]);
+  }
+
   return async (
     client: ISigningClient,
     signerAddress: string,
@@ -114,3 +121,9 @@ export interface AminoConverter {
 }
 
 export type EndpointOrRpc = string | HttpEndpoint | Rpc ;
+
+function registerDependencies(deps: TelescopeGeneratedCodec<any, any, any>[]) {
+  for (const dep of deps) {
+    dep.registerTypeUrl?.();
+  }
+}

@@ -4,17 +4,20 @@ export const getWasmxParams = buildQuery<QueryWasmxParamsRequest, QueryWasmxPara
   encode: QueryWasmxParamsRequest.encode,
   decode: QueryWasmxParamsResponse.decode,
   service: "injective.wasmx.v1.Query",
-  method: "WasmxParams"
+  method: "WasmxParams",
+  deps: [QueryWasmxParamsRequest, QueryWasmxParamsResponse]
 });
 export const getContractRegistrationInfo = buildQuery<QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse>({
   encode: QueryContractRegistrationInfoRequest.encode,
   decode: QueryContractRegistrationInfoResponse.decode,
   service: "injective.wasmx.v1.Query",
-  method: "ContractRegistrationInfo"
+  method: "ContractRegistrationInfo",
+  deps: [QueryContractRegistrationInfoRequest, QueryContractRegistrationInfoResponse]
 });
 export const getWasmxModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
   service: "injective.wasmx.v1.Query",
-  method: "WasmxModuleState"
+  method: "WasmxModuleState",
+  deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });

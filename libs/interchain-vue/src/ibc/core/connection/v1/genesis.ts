@@ -1,6 +1,5 @@
 import { IdentifiedConnection, IdentifiedConnectionAmino, ConnectionPaths, ConnectionPathsAmino, Params, ParamsAmino } from "./connection";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** GenesisState defines the ibc connection submodule's genesis state. */
 export interface GenesisState {
@@ -140,7 +139,10 @@ export const GenesisState = {
       typeUrl: "/ibc.core.connection.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IdentifiedConnection.registerTypeUrl();
+    ConnectionPaths.registerTypeUrl();
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);

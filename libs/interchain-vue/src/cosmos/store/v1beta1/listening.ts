@@ -1,7 +1,6 @@
 import { ResponseCommit, ResponseCommitAmino, RequestFinalizeBlock, RequestFinalizeBlockAmino, ResponseFinalizeBlock, ResponseFinalizeBlockAmino } from "../../../tendermint/abci/types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * StoreKVPair is a KVStore KVPair used for listening to state changes (Sets and Deletes)
  * It optionally includes the StoreKey for the originating KVStore and a Boolean flag to distinguish between Sets and
@@ -178,10 +177,9 @@ export const StoreKVPair = {
       typeUrl: "/cosmos.store.v1beta1.StoreKVPair",
       value: StoreKVPair.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(StoreKVPair.typeUrl, StoreKVPair);
-GlobalDecoderRegistry.registerAminoProtoMapping(StoreKVPair.aminoType, StoreKVPair.typeUrl);
 function createBaseBlockMetadata(): BlockMetadata {
   return {
     responseCommit: undefined,
@@ -280,7 +278,10 @@ export const BlockMetadata = {
       typeUrl: "/cosmos.store.v1beta1.BlockMetadata",
       value: BlockMetadata.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ResponseCommit.registerTypeUrl();
+    RequestFinalizeBlock.registerTypeUrl();
+    ResponseFinalizeBlock.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BlockMetadata.typeUrl, BlockMetadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(BlockMetadata.aminoType, BlockMetadata.typeUrl);

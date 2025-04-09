@@ -2,7 +2,6 @@ import { Vote, VoteAmino, LightBlock, LightBlockAmino } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Validator, ValidatorAmino } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
-import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
@@ -161,9 +160,12 @@ export const Evidence = {
       typeUrl: "/tendermint.types.Evidence",
       value: Evidence.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    DuplicateVoteEvidence.registerTypeUrl();
+    LightClientAttackEvidence.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Evidence.typeUrl, Evidence);
 function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
   return {
     voteA: undefined,
@@ -279,9 +281,11 @@ export const DuplicateVoteEvidence = {
       typeUrl: "/tendermint.types.DuplicateVoteEvidence",
       value: DuplicateVoteEvidence.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Vote.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(DuplicateVoteEvidence.typeUrl, DuplicateVoteEvidence);
 function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
   return {
     conflictingBlock: undefined,
@@ -399,9 +403,12 @@ export const LightClientAttackEvidence = {
       typeUrl: "/tendermint.types.LightClientAttackEvidence",
       value: LightClientAttackEvidence.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    LightBlock.registerTypeUrl();
+    Validator.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(LightClientAttackEvidence.typeUrl, LightClientAttackEvidence);
 function createBaseEvidenceList(): EvidenceList {
   return {
     evidence: []
@@ -471,6 +478,8 @@ export const EvidenceList = {
       typeUrl: "/tendermint.types.EvidenceList",
       value: EvidenceList.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Evidence.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EvidenceList.typeUrl, EvidenceList);

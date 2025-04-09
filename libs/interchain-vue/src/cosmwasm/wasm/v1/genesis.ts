@@ -1,6 +1,5 @@
 import { Params, ParamsAmino, CodeInfo, CodeInfoAmino, ContractInfo, ContractInfoAmino, Model, ModelAmino, ContractCodeHistoryEntry, ContractCodeHistoryEntryAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {
@@ -204,10 +203,14 @@ export const GenesisState = {
       typeUrl: "/cosmwasm.wasm.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
+    Code.registerTypeUrl();
+    Contract.registerTypeUrl();
+    Sequence.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseCode(): Code {
   return {
     codeId: BigInt(0),
@@ -318,10 +321,11 @@ export const Code = {
       typeUrl: "/cosmwasm.wasm.v1.Code",
       value: Code.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    CodeInfo.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Code.typeUrl, Code);
-GlobalDecoderRegistry.registerAminoProtoMapping(Code.aminoType, Code.typeUrl);
 function createBaseContract(): Contract {
   return {
     contractAddress: "",
@@ -436,10 +440,13 @@ export const Contract = {
       typeUrl: "/cosmwasm.wasm.v1.Contract",
       value: Contract.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ContractInfo.registerTypeUrl();
+    Model.registerTypeUrl();
+    ContractCodeHistoryEntry.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Contract.typeUrl, Contract);
-GlobalDecoderRegistry.registerAminoProtoMapping(Contract.aminoType, Contract.typeUrl);
 function createBaseSequence(): Sequence {
   return {
     idKey: new Uint8Array(),
@@ -526,7 +533,6 @@ export const Sequence = {
       typeUrl: "/cosmwasm.wasm.v1.Sequence",
       value: Sequence.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Sequence.typeUrl, Sequence);
-GlobalDecoderRegistry.registerAminoProtoMapping(Sequence.aminoType, Sequence.typeUrl);

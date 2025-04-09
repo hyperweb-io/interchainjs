@@ -1,6 +1,5 @@
 import { Timeout, TimeoutAmino, Order } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, isSet } from "../../../../helpers";
 /**
  * Upgrade is a verifiable type which contains the relevant information
@@ -188,10 +187,12 @@ export const Upgrade = {
       typeUrl: "/ibc.core.channel.v1.Upgrade",
       value: Upgrade.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UpgradeFields.registerTypeUrl();
+    Timeout.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Upgrade.typeUrl, Upgrade);
-GlobalDecoderRegistry.registerAminoProtoMapping(Upgrade.aminoType, Upgrade.typeUrl);
 function createBaseUpgradeFields(): UpgradeFields {
   return {
     ordering: 0,
@@ -292,10 +293,9 @@ export const UpgradeFields = {
       typeUrl: "/ibc.core.channel.v1.UpgradeFields",
       value: UpgradeFields.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(UpgradeFields.typeUrl, UpgradeFields);
-GlobalDecoderRegistry.registerAminoProtoMapping(UpgradeFields.aminoType, UpgradeFields.typeUrl);
 function createBaseErrorReceipt(): ErrorReceipt {
   return {
     sequence: BigInt(0),
@@ -382,7 +382,6 @@ export const ErrorReceipt = {
       typeUrl: "/ibc.core.channel.v1.ErrorReceipt",
       value: ErrorReceipt.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(ErrorReceipt.typeUrl, ErrorReceipt);
-GlobalDecoderRegistry.registerAminoProtoMapping(ErrorReceipt.aminoType, ErrorReceipt.typeUrl);

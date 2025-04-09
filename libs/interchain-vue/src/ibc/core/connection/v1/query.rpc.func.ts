@@ -4,35 +4,41 @@ export const getConnection = buildQuery<QueryConnectionRequest, QueryConnectionR
   encode: QueryConnectionRequest.encode,
   decode: QueryConnectionResponse.decode,
   service: "ibc.core.connection.v1.Query",
-  method: "Connection"
+  method: "Connection",
+  deps: [QueryConnectionRequest, QueryConnectionResponse]
 });
 export const getConnections = buildQuery<QueryConnectionsRequest, QueryConnectionsResponse>({
   encode: QueryConnectionsRequest.encode,
   decode: QueryConnectionsResponse.decode,
   service: "ibc.core.connection.v1.Query",
-  method: "Connections"
+  method: "Connections",
+  deps: [QueryConnectionsRequest, QueryConnectionsResponse]
 });
 export const getClientConnections = buildQuery<QueryClientConnectionsRequest, QueryClientConnectionsResponse>({
   encode: QueryClientConnectionsRequest.encode,
   decode: QueryClientConnectionsResponse.decode,
   service: "ibc.core.connection.v1.Query",
-  method: "ClientConnections"
+  method: "ClientConnections",
+  deps: [QueryClientConnectionsRequest, QueryClientConnectionsResponse]
 });
 export const getConnectionClientState = buildQuery<QueryConnectionClientStateRequest, QueryConnectionClientStateResponse>({
   encode: QueryConnectionClientStateRequest.encode,
   decode: QueryConnectionClientStateResponse.decode,
   service: "ibc.core.connection.v1.Query",
-  method: "ConnectionClientState"
+  method: "ConnectionClientState",
+  deps: [QueryConnectionClientStateRequest, QueryConnectionClientStateResponse]
 });
 export const getConnectionConsensusState = buildQuery<QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse>({
   encode: QueryConnectionConsensusStateRequest.encode,
   decode: QueryConnectionConsensusStateResponse.decode,
   service: "ibc.core.connection.v1.Query",
-  method: "ConnectionConsensusState"
+  method: "ConnectionConsensusState",
+  deps: [QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse]
 });
 export const getConnectionParams = buildQuery<QueryConnectionParamsRequest, QueryConnectionParamsResponse>({
   encode: QueryConnectionParamsRequest.encode,
   decode: QueryConnectionParamsResponse.decode,
   service: "ibc.core.connection.v1.Query",
-  method: "ConnectionParams"
+  method: "ConnectionParams",
+  deps: [QueryConnectionParamsRequest, QueryConnectionParamsResponse]
 });

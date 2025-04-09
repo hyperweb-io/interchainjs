@@ -1,6 +1,5 @@
 import { IdentifiedClientState, IdentifiedClientStateAmino, ClientConsensusStates, ClientConsensusStatesAmino, Params, ParamsAmino } from "./client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** GenesisState defines the ibc client submodule's genesis state. */
 export interface GenesisState {
@@ -238,10 +237,14 @@ export const GenesisState = {
       typeUrl: "/ibc.core.client.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IdentifiedClientState.registerTypeUrl();
+    ClientConsensusStates.registerTypeUrl();
+    IdentifiedGenesisMetadata.registerTypeUrl();
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBaseGenesisMetadata(): GenesisMetadata {
   return {
     key: new Uint8Array(),
@@ -328,10 +331,9 @@ export const GenesisMetadata = {
       typeUrl: "/ibc.core.client.v1.GenesisMetadata",
       value: GenesisMetadata.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(GenesisMetadata.typeUrl, GenesisMetadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisMetadata.aminoType, GenesisMetadata.typeUrl);
 function createBaseIdentifiedGenesisMetadata(): IdentifiedGenesisMetadata {
   return {
     clientId: "",
@@ -420,7 +422,8 @@ export const IdentifiedGenesisMetadata = {
       typeUrl: "/ibc.core.client.v1.IdentifiedGenesisMetadata",
       value: IdentifiedGenesisMetadata.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GenesisMetadata.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(IdentifiedGenesisMetadata.typeUrl, IdentifiedGenesisMetadata);
-GlobalDecoderRegistry.registerAminoProtoMapping(IdentifiedGenesisMetadata.aminoType, IdentifiedGenesisMetadata.typeUrl);

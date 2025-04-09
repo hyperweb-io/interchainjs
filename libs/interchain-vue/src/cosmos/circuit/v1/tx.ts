@@ -1,6 +1,5 @@
 import { Permissions, PermissionsAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type. */
 export interface MsgAuthorizeCircuitBreaker {
@@ -252,10 +251,11 @@ export const MsgAuthorizeCircuitBreaker = {
       typeUrl: "/cosmos.circuit.v1.MsgAuthorizeCircuitBreaker",
       value: MsgAuthorizeCircuitBreaker.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Permissions.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgAuthorizeCircuitBreaker.typeUrl, MsgAuthorizeCircuitBreaker);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAuthorizeCircuitBreaker.aminoType, MsgAuthorizeCircuitBreaker.typeUrl);
 function createBaseMsgAuthorizeCircuitBreakerResponse(): MsgAuthorizeCircuitBreakerResponse {
   return {
     success: false
@@ -330,10 +330,9 @@ export const MsgAuthorizeCircuitBreakerResponse = {
       typeUrl: "/cosmos.circuit.v1.MsgAuthorizeCircuitBreakerResponse",
       value: MsgAuthorizeCircuitBreakerResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAuthorizeCircuitBreakerResponse.typeUrl, MsgAuthorizeCircuitBreakerResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAuthorizeCircuitBreakerResponse.aminoType, MsgAuthorizeCircuitBreakerResponse.typeUrl);
 function createBaseMsgTripCircuitBreaker(): MsgTripCircuitBreaker {
   return {
     authority: "",
@@ -422,10 +421,9 @@ export const MsgTripCircuitBreaker = {
       typeUrl: "/cosmos.circuit.v1.MsgTripCircuitBreaker",
       value: MsgTripCircuitBreaker.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTripCircuitBreaker.typeUrl, MsgTripCircuitBreaker);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTripCircuitBreaker.aminoType, MsgTripCircuitBreaker.typeUrl);
 function createBaseMsgTripCircuitBreakerResponse(): MsgTripCircuitBreakerResponse {
   return {
     success: false
@@ -500,10 +498,9 @@ export const MsgTripCircuitBreakerResponse = {
       typeUrl: "/cosmos.circuit.v1.MsgTripCircuitBreakerResponse",
       value: MsgTripCircuitBreakerResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTripCircuitBreakerResponse.typeUrl, MsgTripCircuitBreakerResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTripCircuitBreakerResponse.aminoType, MsgTripCircuitBreakerResponse.typeUrl);
 function createBaseMsgResetCircuitBreaker(): MsgResetCircuitBreaker {
   return {
     authority: "",
@@ -592,10 +589,9 @@ export const MsgResetCircuitBreaker = {
       typeUrl: "/cosmos.circuit.v1.MsgResetCircuitBreaker",
       value: MsgResetCircuitBreaker.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgResetCircuitBreaker.typeUrl, MsgResetCircuitBreaker);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgResetCircuitBreaker.aminoType, MsgResetCircuitBreaker.typeUrl);
 function createBaseMsgResetCircuitBreakerResponse(): MsgResetCircuitBreakerResponse {
   return {
     success: false
@@ -670,7 +666,6 @@ export const MsgResetCircuitBreakerResponse = {
       typeUrl: "/cosmos.circuit.v1.MsgResetCircuitBreakerResponse",
       value: MsgResetCircuitBreakerResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgResetCircuitBreakerResponse.typeUrl, MsgResetCircuitBreakerResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgResetCircuitBreakerResponse.aminoType, MsgResetCircuitBreakerResponse.typeUrl);

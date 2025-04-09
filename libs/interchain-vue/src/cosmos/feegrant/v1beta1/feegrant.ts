@@ -243,10 +243,13 @@ export const BasicAllowance = {
       typeUrl: "/cosmos.feegrant.v1beta1.BasicAllowance",
       value: BasicAllowance.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(BasicAllowance.typeUrl, BasicAllowance);
+    GlobalDecoderRegistry.registerAminoProtoMapping(BasicAllowance.aminoType, BasicAllowance.typeUrl);
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(BasicAllowance.typeUrl, BasicAllowance);
-GlobalDecoderRegistry.registerAminoProtoMapping(BasicAllowance.aminoType, BasicAllowance.typeUrl);
 function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
     basic: BasicAllowance.fromPartial({}),
@@ -373,10 +376,14 @@ export const PeriodicAllowance = {
       typeUrl: "/cosmos.feegrant.v1beta1.PeriodicAllowance",
       value: PeriodicAllowance.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(PeriodicAllowance.typeUrl, PeriodicAllowance);
+    GlobalDecoderRegistry.registerAminoProtoMapping(PeriodicAllowance.aminoType, PeriodicAllowance.typeUrl);
+    BasicAllowance.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(PeriodicAllowance.typeUrl, PeriodicAllowance);
-GlobalDecoderRegistry.registerAminoProtoMapping(PeriodicAllowance.aminoType, PeriodicAllowance.typeUrl);
 function createBaseAllowedMsgAllowance(): AllowedMsgAllowance {
   return {
     allowance: undefined,
@@ -465,10 +472,15 @@ export const AllowedMsgAllowance = {
       typeUrl: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance",
       value: AllowedMsgAllowance.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    GlobalDecoderRegistry.register(AllowedMsgAllowance.typeUrl, AllowedMsgAllowance);
+    GlobalDecoderRegistry.registerAminoProtoMapping(AllowedMsgAllowance.aminoType, AllowedMsgAllowance.typeUrl);
+    BasicAllowance.registerTypeUrl();
+    PeriodicAllowance.registerTypeUrl();
+    AllowedMsgAllowance.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(AllowedMsgAllowance.typeUrl, AllowedMsgAllowance);
-GlobalDecoderRegistry.registerAminoProtoMapping(AllowedMsgAllowance.aminoType, AllowedMsgAllowance.typeUrl);
 function createBaseGrant(): Grant {
   return {
     granter: "",
@@ -567,7 +579,10 @@ export const Grant = {
       typeUrl: "/cosmos.feegrant.v1beta1.Grant",
       value: Grant.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    BasicAllowance.registerTypeUrl();
+    PeriodicAllowance.registerTypeUrl();
+    AllowedMsgAllowance.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(Grant.typeUrl, Grant);
-GlobalDecoderRegistry.registerAminoProtoMapping(Grant.aminoType, Grant.typeUrl);

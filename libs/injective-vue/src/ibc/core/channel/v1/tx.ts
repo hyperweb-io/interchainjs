@@ -2,7 +2,6 @@ import { Channel, ChannelAmino, Packet, PacketAmino, State } from "./channel";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { UpgradeFields, UpgradeFieldsAmino, Upgrade, UpgradeAmino, ErrorReceipt, ErrorReceiptAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 export enum ResponseResultType {
@@ -996,10 +995,11 @@ export const MsgChannelOpenInit = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenInit",
       value: MsgChannelOpenInit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Channel.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelOpenInit.typeUrl, MsgChannelOpenInit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenInit.aminoType, MsgChannelOpenInit.typeUrl);
 function createBaseMsgChannelOpenInitResponse(): MsgChannelOpenInitResponse {
   return {
     channelId: "",
@@ -1086,10 +1086,9 @@ export const MsgChannelOpenInitResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenInitResponse",
       value: MsgChannelOpenInitResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelOpenInitResponse.typeUrl, MsgChannelOpenInitResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenInitResponse.aminoType, MsgChannelOpenInitResponse.typeUrl);
 function createBaseMsgChannelOpenTry(): MsgChannelOpenTry {
   return {
     portId: "",
@@ -1236,10 +1235,12 @@ export const MsgChannelOpenTry = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenTry",
       value: MsgChannelOpenTry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Channel.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelOpenTry.typeUrl, MsgChannelOpenTry);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenTry.aminoType, MsgChannelOpenTry.typeUrl);
 function createBaseMsgChannelOpenTryResponse(): MsgChannelOpenTryResponse {
   return {
     version: "",
@@ -1326,10 +1327,9 @@ export const MsgChannelOpenTryResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenTryResponse",
       value: MsgChannelOpenTryResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelOpenTryResponse.typeUrl, MsgChannelOpenTryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenTryResponse.aminoType, MsgChannelOpenTryResponse.typeUrl);
 function createBaseMsgChannelOpenAck(): MsgChannelOpenAck {
   return {
     portId: "",
@@ -1476,10 +1476,11 @@ export const MsgChannelOpenAck = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenAck",
       value: MsgChannelOpenAck.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelOpenAck.typeUrl, MsgChannelOpenAck);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenAck.aminoType, MsgChannelOpenAck.typeUrl);
 function createBaseMsgChannelOpenAckResponse(): MsgChannelOpenAckResponse {
   return {};
 }
@@ -1541,10 +1542,9 @@ export const MsgChannelOpenAckResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenAckResponse",
       value: MsgChannelOpenAckResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelOpenAckResponse.typeUrl, MsgChannelOpenAckResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenAckResponse.aminoType, MsgChannelOpenAckResponse.typeUrl);
 function createBaseMsgChannelOpenConfirm(): MsgChannelOpenConfirm {
   return {
     portId: "",
@@ -1667,10 +1667,11 @@ export const MsgChannelOpenConfirm = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenConfirm",
       value: MsgChannelOpenConfirm.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelOpenConfirm.typeUrl, MsgChannelOpenConfirm);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenConfirm.aminoType, MsgChannelOpenConfirm.typeUrl);
 function createBaseMsgChannelOpenConfirmResponse(): MsgChannelOpenConfirmResponse {
   return {};
 }
@@ -1732,10 +1733,9 @@ export const MsgChannelOpenConfirmResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelOpenConfirmResponse",
       value: MsgChannelOpenConfirmResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelOpenConfirmResponse.typeUrl, MsgChannelOpenConfirmResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelOpenConfirmResponse.aminoType, MsgChannelOpenConfirmResponse.typeUrl);
 function createBaseMsgChannelCloseInit(): MsgChannelCloseInit {
   return {
     portId: "",
@@ -1834,10 +1834,9 @@ export const MsgChannelCloseInit = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelCloseInit",
       value: MsgChannelCloseInit.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelCloseInit.typeUrl, MsgChannelCloseInit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelCloseInit.aminoType, MsgChannelCloseInit.typeUrl);
 function createBaseMsgChannelCloseInitResponse(): MsgChannelCloseInitResponse {
   return {};
 }
@@ -1899,10 +1898,9 @@ export const MsgChannelCloseInitResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelCloseInitResponse",
       value: MsgChannelCloseInitResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelCloseInitResponse.typeUrl, MsgChannelCloseInitResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelCloseInitResponse.aminoType, MsgChannelCloseInitResponse.typeUrl);
 function createBaseMsgChannelCloseConfirm(): MsgChannelCloseConfirm {
   return {
     portId: "",
@@ -2037,10 +2035,11 @@ export const MsgChannelCloseConfirm = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelCloseConfirm",
       value: MsgChannelCloseConfirm.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelCloseConfirm.typeUrl, MsgChannelCloseConfirm);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelCloseConfirm.aminoType, MsgChannelCloseConfirm.typeUrl);
 function createBaseMsgChannelCloseConfirmResponse(): MsgChannelCloseConfirmResponse {
   return {};
 }
@@ -2102,10 +2101,9 @@ export const MsgChannelCloseConfirmResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelCloseConfirmResponse",
       value: MsgChannelCloseConfirmResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelCloseConfirmResponse.typeUrl, MsgChannelCloseConfirmResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelCloseConfirmResponse.aminoType, MsgChannelCloseConfirmResponse.typeUrl);
 function createBaseMsgRecvPacket(): MsgRecvPacket {
   return {
     packet: Packet.fromPartial({}),
@@ -2216,10 +2214,12 @@ export const MsgRecvPacket = {
       typeUrl: "/ibc.core.channel.v1.MsgRecvPacket",
       value: MsgRecvPacket.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Packet.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgRecvPacket.typeUrl, MsgRecvPacket);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRecvPacket.aminoType, MsgRecvPacket.typeUrl);
 function createBaseMsgRecvPacketResponse(): MsgRecvPacketResponse {
   return {
     result: 0
@@ -2294,10 +2294,9 @@ export const MsgRecvPacketResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgRecvPacketResponse",
       value: MsgRecvPacketResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgRecvPacketResponse.typeUrl, MsgRecvPacketResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgRecvPacketResponse.aminoType, MsgRecvPacketResponse.typeUrl);
 function createBaseMsgTimeout(): MsgTimeout {
   return {
     packet: Packet.fromPartial({}),
@@ -2420,10 +2419,12 @@ export const MsgTimeout = {
       typeUrl: "/ibc.core.channel.v1.MsgTimeout",
       value: MsgTimeout.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Packet.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgTimeout.typeUrl, MsgTimeout);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTimeout.aminoType, MsgTimeout.typeUrl);
 function createBaseMsgTimeoutResponse(): MsgTimeoutResponse {
   return {
     result: 0
@@ -2498,10 +2499,9 @@ export const MsgTimeoutResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgTimeoutResponse",
       value: MsgTimeoutResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTimeoutResponse.typeUrl, MsgTimeoutResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTimeoutResponse.aminoType, MsgTimeoutResponse.typeUrl);
 function createBaseMsgTimeoutOnClose(): MsgTimeoutOnClose {
   return {
     packet: Packet.fromPartial({}),
@@ -2648,10 +2648,12 @@ export const MsgTimeoutOnClose = {
       typeUrl: "/ibc.core.channel.v1.MsgTimeoutOnClose",
       value: MsgTimeoutOnClose.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Packet.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgTimeoutOnClose.typeUrl, MsgTimeoutOnClose);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTimeoutOnClose.aminoType, MsgTimeoutOnClose.typeUrl);
 function createBaseMsgTimeoutOnCloseResponse(): MsgTimeoutOnCloseResponse {
   return {
     result: 0
@@ -2726,10 +2728,9 @@ export const MsgTimeoutOnCloseResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgTimeoutOnCloseResponse",
       value: MsgTimeoutOnCloseResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgTimeoutOnCloseResponse.typeUrl, MsgTimeoutOnCloseResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgTimeoutOnCloseResponse.aminoType, MsgTimeoutOnCloseResponse.typeUrl);
 function createBaseMsgAcknowledgement(): MsgAcknowledgement {
   return {
     packet: Packet.fromPartial({}),
@@ -2852,10 +2853,12 @@ export const MsgAcknowledgement = {
       typeUrl: "/ibc.core.channel.v1.MsgAcknowledgement",
       value: MsgAcknowledgement.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Packet.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgAcknowledgement.typeUrl, MsgAcknowledgement);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAcknowledgement.aminoType, MsgAcknowledgement.typeUrl);
 function createBaseMsgAcknowledgementResponse(): MsgAcknowledgementResponse {
   return {
     result: 0
@@ -2930,10 +2933,9 @@ export const MsgAcknowledgementResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgAcknowledgementResponse",
       value: MsgAcknowledgementResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgAcknowledgementResponse.typeUrl, MsgAcknowledgementResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgAcknowledgementResponse.aminoType, MsgAcknowledgementResponse.typeUrl);
 function createBaseMsgChannelUpgradeInit(): MsgChannelUpgradeInit {
   return {
     portId: "",
@@ -3044,10 +3046,11 @@ export const MsgChannelUpgradeInit = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeInit",
       value: MsgChannelUpgradeInit.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UpgradeFields.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeInit.typeUrl, MsgChannelUpgradeInit);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeInit.aminoType, MsgChannelUpgradeInit.typeUrl);
 function createBaseMsgChannelUpgradeInitResponse(): MsgChannelUpgradeInitResponse {
   return {
     upgrade: Upgrade.fromPartial({}),
@@ -3134,10 +3137,11 @@ export const MsgChannelUpgradeInitResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeInitResponse",
       value: MsgChannelUpgradeInitResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Upgrade.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeInitResponse.typeUrl, MsgChannelUpgradeInitResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeInitResponse.aminoType, MsgChannelUpgradeInitResponse.typeUrl);
 function createBaseMsgChannelUpgradeTry(): MsgChannelUpgradeTry {
   return {
     portId: "",
@@ -3310,10 +3314,12 @@ export const MsgChannelUpgradeTry = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeTry",
       value: MsgChannelUpgradeTry.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    UpgradeFields.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeTry.typeUrl, MsgChannelUpgradeTry);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeTry.aminoType, MsgChannelUpgradeTry.typeUrl);
 function createBaseMsgChannelUpgradeTryResponse(): MsgChannelUpgradeTryResponse {
   return {
     upgrade: Upgrade.fromPartial({}),
@@ -3412,10 +3418,11 @@ export const MsgChannelUpgradeTryResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeTryResponse",
       value: MsgChannelUpgradeTryResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Upgrade.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeTryResponse.typeUrl, MsgChannelUpgradeTryResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeTryResponse.aminoType, MsgChannelUpgradeTryResponse.typeUrl);
 function createBaseMsgChannelUpgradeAck(): MsgChannelUpgradeAck {
   return {
     portId: "",
@@ -3562,10 +3569,12 @@ export const MsgChannelUpgradeAck = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeAck",
       value: MsgChannelUpgradeAck.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Upgrade.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeAck.typeUrl, MsgChannelUpgradeAck);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeAck.aminoType, MsgChannelUpgradeAck.typeUrl);
 function createBaseMsgChannelUpgradeAckResponse(): MsgChannelUpgradeAckResponse {
   return {
     result: 0
@@ -3640,10 +3649,9 @@ export const MsgChannelUpgradeAckResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeAckResponse",
       value: MsgChannelUpgradeAckResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeAckResponse.typeUrl, MsgChannelUpgradeAckResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeAckResponse.aminoType, MsgChannelUpgradeAckResponse.typeUrl);
 function createBaseMsgChannelUpgradeConfirm(): MsgChannelUpgradeConfirm {
   return {
     portId: "",
@@ -3802,10 +3810,12 @@ export const MsgChannelUpgradeConfirm = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeConfirm",
       value: MsgChannelUpgradeConfirm.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Upgrade.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeConfirm.typeUrl, MsgChannelUpgradeConfirm);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeConfirm.aminoType, MsgChannelUpgradeConfirm.typeUrl);
 function createBaseMsgChannelUpgradeConfirmResponse(): MsgChannelUpgradeConfirmResponse {
   return {
     result: 0
@@ -3880,10 +3890,9 @@ export const MsgChannelUpgradeConfirmResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeConfirmResponse",
       value: MsgChannelUpgradeConfirmResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeConfirmResponse.typeUrl, MsgChannelUpgradeConfirmResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeConfirmResponse.aminoType, MsgChannelUpgradeConfirmResponse.typeUrl);
 function createBaseMsgChannelUpgradeOpen(): MsgChannelUpgradeOpen {
   return {
     portId: "",
@@ -4030,10 +4039,11 @@ export const MsgChannelUpgradeOpen = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeOpen",
       value: MsgChannelUpgradeOpen.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeOpen.typeUrl, MsgChannelUpgradeOpen);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeOpen.aminoType, MsgChannelUpgradeOpen.typeUrl);
 function createBaseMsgChannelUpgradeOpenResponse(): MsgChannelUpgradeOpenResponse {
   return {};
 }
@@ -4095,10 +4105,9 @@ export const MsgChannelUpgradeOpenResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeOpenResponse",
       value: MsgChannelUpgradeOpenResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeOpenResponse.typeUrl, MsgChannelUpgradeOpenResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeOpenResponse.aminoType, MsgChannelUpgradeOpenResponse.typeUrl);
 function createBaseMsgChannelUpgradeTimeout(): MsgChannelUpgradeTimeout {
   return {
     portId: "",
@@ -4233,10 +4242,12 @@ export const MsgChannelUpgradeTimeout = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeTimeout",
       value: MsgChannelUpgradeTimeout.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Channel.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeTimeout.typeUrl, MsgChannelUpgradeTimeout);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeTimeout.aminoType, MsgChannelUpgradeTimeout.typeUrl);
 function createBaseMsgChannelUpgradeTimeoutResponse(): MsgChannelUpgradeTimeoutResponse {
   return {};
 }
@@ -4298,10 +4309,9 @@ export const MsgChannelUpgradeTimeoutResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeTimeoutResponse",
       value: MsgChannelUpgradeTimeoutResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeTimeoutResponse.typeUrl, MsgChannelUpgradeTimeoutResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeTimeoutResponse.aminoType, MsgChannelUpgradeTimeoutResponse.typeUrl);
 function createBaseMsgChannelUpgradeCancel(): MsgChannelUpgradeCancel {
   return {
     portId: "",
@@ -4436,10 +4446,12 @@ export const MsgChannelUpgradeCancel = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeCancel",
       value: MsgChannelUpgradeCancel.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    ErrorReceipt.registerTypeUrl();
+    Height.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeCancel.typeUrl, MsgChannelUpgradeCancel);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeCancel.aminoType, MsgChannelUpgradeCancel.typeUrl);
 function createBaseMsgChannelUpgradeCancelResponse(): MsgChannelUpgradeCancelResponse {
   return {};
 }
@@ -4501,10 +4513,9 @@ export const MsgChannelUpgradeCancelResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgChannelUpgradeCancelResponse",
       value: MsgChannelUpgradeCancelResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgChannelUpgradeCancelResponse.typeUrl, MsgChannelUpgradeCancelResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgChannelUpgradeCancelResponse.aminoType, MsgChannelUpgradeCancelResponse.typeUrl);
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
     authority: "",
@@ -4591,10 +4602,11 @@ export const MsgUpdateParams = {
       typeUrl: "/ibc.core.channel.v1.MsgUpdateParams",
       value: MsgUpdateParams.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(MsgUpdateParams.typeUrl, MsgUpdateParams);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParams.aminoType, MsgUpdateParams.typeUrl);
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
@@ -4656,10 +4668,9 @@ export const MsgUpdateParamsResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgUpdateParamsResponse.typeUrl, MsgUpdateParamsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgUpdateParamsResponse.aminoType, MsgUpdateParamsResponse.typeUrl);
 function createBaseMsgPruneAcknowledgements(): MsgPruneAcknowledgements {
   return {
     portId: "",
@@ -4770,10 +4781,9 @@ export const MsgPruneAcknowledgements = {
       typeUrl: "/ibc.core.channel.v1.MsgPruneAcknowledgements",
       value: MsgPruneAcknowledgements.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPruneAcknowledgements.typeUrl, MsgPruneAcknowledgements);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPruneAcknowledgements.aminoType, MsgPruneAcknowledgements.typeUrl);
 function createBaseMsgPruneAcknowledgementsResponse(): MsgPruneAcknowledgementsResponse {
   return {
     totalPrunedSequences: BigInt(0),
@@ -4860,7 +4870,6 @@ export const MsgPruneAcknowledgementsResponse = {
       typeUrl: "/ibc.core.channel.v1.MsgPruneAcknowledgementsResponse",
       value: MsgPruneAcknowledgementsResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MsgPruneAcknowledgementsResponse.typeUrl, MsgPruneAcknowledgementsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(MsgPruneAcknowledgementsResponse.aminoType, MsgPruneAcknowledgementsResponse.typeUrl);

@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * MerklePath is the path used to verify commitment proofs, which can be an
  * arbitrary structured object (defined by a commitment type).
@@ -101,7 +100,6 @@ export const MerklePath = {
       typeUrl: "/ibc.core.commitment.v2.MerklePath",
       value: MerklePath.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(MerklePath.typeUrl, MerklePath);
-GlobalDecoderRegistry.registerAminoProtoMapping(MerklePath.aminoType, MerklePath.typeUrl);

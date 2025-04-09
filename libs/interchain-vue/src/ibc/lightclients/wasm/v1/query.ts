@@ -1,6 +1,5 @@
 import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** QueryChecksumsRequest is the request type for the Query/Checksums RPC method. */
 export interface QueryChecksumsRequest {
@@ -150,10 +149,11 @@ export const QueryChecksumsRequest = {
       typeUrl: "/ibc.lightclients.wasm.v1.QueryChecksumsRequest",
       value: QueryChecksumsRequest.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageRequest.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryChecksumsRequest.typeUrl, QueryChecksumsRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryChecksumsRequest.aminoType, QueryChecksumsRequest.typeUrl);
 function createBaseQueryChecksumsResponse(): QueryChecksumsResponse {
   return {
     checksums: [],
@@ -242,10 +242,11 @@ export const QueryChecksumsResponse = {
       typeUrl: "/ibc.lightclients.wasm.v1.QueryChecksumsResponse",
       value: QueryChecksumsResponse.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    PageResponse.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(QueryChecksumsResponse.typeUrl, QueryChecksumsResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryChecksumsResponse.aminoType, QueryChecksumsResponse.typeUrl);
 function createBaseQueryCodeRequest(): QueryCodeRequest {
   return {
     checksum: ""
@@ -320,10 +321,9 @@ export const QueryCodeRequest = {
       typeUrl: "/ibc.lightclients.wasm.v1.QueryCodeRequest",
       value: QueryCodeRequest.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCodeRequest.typeUrl, QueryCodeRequest);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodeRequest.aminoType, QueryCodeRequest.typeUrl);
 function createBaseQueryCodeResponse(): QueryCodeResponse {
   return {
     data: new Uint8Array()
@@ -398,7 +398,6 @@ export const QueryCodeResponse = {
       typeUrl: "/ibc.lightclients.wasm.v1.QueryCodeResponse",
       value: QueryCodeResponse.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(QueryCodeResponse.typeUrl, QueryCodeResponse);
-GlobalDecoderRegistry.registerAminoProtoMapping(QueryCodeResponse.aminoType, QueryCodeResponse.typeUrl);

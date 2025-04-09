@@ -1,6 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial } from "../../../../../helpers";
-import { GlobalDecoderRegistry } from "../../../../../registry";
 /**
  * Params defines the set of on-chain interchain accounts parameters.
  * The following parameters may be used to disable the controller submodule.
@@ -99,7 +98,6 @@ export const Params = {
       typeUrl: "/ibc.applications.interchain_accounts.controller.v1.Params",
       value: Params.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(Params.typeUrl, Params);
-GlobalDecoderRegistry.registerAminoProtoMapping(Params.aminoType, Params.typeUrl);

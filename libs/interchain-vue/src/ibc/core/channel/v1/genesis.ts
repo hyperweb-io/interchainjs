@@ -1,6 +1,5 @@
 import { IdentifiedChannel, IdentifiedChannelAmino, PacketState, PacketStateAmino, Params, ParamsAmino } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisState {
@@ -246,10 +245,14 @@ export const GenesisState = {
       typeUrl: "/ibc.core.channel.v1.GenesisState",
       value: GenesisState.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    IdentifiedChannel.registerTypeUrl();
+    PacketState.registerTypeUrl();
+    PacketSequence.registerTypeUrl();
+    Params.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);
-GlobalDecoderRegistry.registerAminoProtoMapping(GenesisState.aminoType, GenesisState.typeUrl);
 function createBasePacketSequence(): PacketSequence {
   return {
     portId: "",
@@ -348,7 +351,6 @@ export const PacketSequence = {
       typeUrl: "/ibc.core.channel.v1.PacketSequence",
       value: PacketSequence.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(PacketSequence.typeUrl, PacketSequence);
-GlobalDecoderRegistry.registerAminoProtoMapping(PacketSequence.aminoType, PacketSequence.typeUrl);

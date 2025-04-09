@@ -4,17 +4,20 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
   service: "cosmos.mint.v1beta1.Query",
-  method: "Params"
+  method: "Params",
+  deps: [QueryParamsRequest, QueryParamsResponse]
 });
 export const getInflation = buildQuery<QueryInflationRequest, QueryInflationResponse>({
   encode: QueryInflationRequest.encode,
   decode: QueryInflationResponse.decode,
   service: "cosmos.mint.v1beta1.Query",
-  method: "Inflation"
+  method: "Inflation",
+  deps: [QueryInflationRequest, QueryInflationResponse]
 });
 export const getAnnualProvisions = buildQuery<QueryAnnualProvisionsRequest, QueryAnnualProvisionsResponse>({
   encode: QueryAnnualProvisionsRequest.encode,
   decode: QueryAnnualProvisionsResponse.decode,
   service: "cosmos.mint.v1beta1.Query",
-  method: "AnnualProvisions"
+  method: "AnnualProvisions",
+  deps: [QueryAnnualProvisionsRequest, QueryAnnualProvisionsResponse]
 });

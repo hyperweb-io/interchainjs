@@ -1,7 +1,6 @@
 import { ProposalExecutorResult, ProposalStatus, TallyResult, TallyResultAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
-import { GlobalDecoderRegistry } from "../../../registry";
 /** EventCreateGroup is an event emitted when a group is created. */
 export interface EventCreateGroup {
   /** group_id is the unique ID of the group. */
@@ -276,10 +275,9 @@ export const EventCreateGroup = {
       typeUrl: "/cosmos.group.v1.EventCreateGroup",
       value: EventCreateGroup.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventCreateGroup.typeUrl, EventCreateGroup);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventCreateGroup.aminoType, EventCreateGroup.typeUrl);
 function createBaseEventUpdateGroup(): EventUpdateGroup {
   return {
     groupId: BigInt(0)
@@ -354,10 +352,9 @@ export const EventUpdateGroup = {
       typeUrl: "/cosmos.group.v1.EventUpdateGroup",
       value: EventUpdateGroup.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventUpdateGroup.typeUrl, EventUpdateGroup);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventUpdateGroup.aminoType, EventUpdateGroup.typeUrl);
 function createBaseEventCreateGroupPolicy(): EventCreateGroupPolicy {
   return {
     address: ""
@@ -432,10 +429,9 @@ export const EventCreateGroupPolicy = {
       typeUrl: "/cosmos.group.v1.EventCreateGroupPolicy",
       value: EventCreateGroupPolicy.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventCreateGroupPolicy.typeUrl, EventCreateGroupPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventCreateGroupPolicy.aminoType, EventCreateGroupPolicy.typeUrl);
 function createBaseEventUpdateGroupPolicy(): EventUpdateGroupPolicy {
   return {
     address: ""
@@ -510,10 +506,9 @@ export const EventUpdateGroupPolicy = {
       typeUrl: "/cosmos.group.v1.EventUpdateGroupPolicy",
       value: EventUpdateGroupPolicy.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventUpdateGroupPolicy.typeUrl, EventUpdateGroupPolicy);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventUpdateGroupPolicy.aminoType, EventUpdateGroupPolicy.typeUrl);
 function createBaseEventSubmitProposal(): EventSubmitProposal {
   return {
     proposalId: BigInt(0)
@@ -588,10 +583,9 @@ export const EventSubmitProposal = {
       typeUrl: "/cosmos.group.v1.EventSubmitProposal",
       value: EventSubmitProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventSubmitProposal.typeUrl, EventSubmitProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventSubmitProposal.aminoType, EventSubmitProposal.typeUrl);
 function createBaseEventWithdrawProposal(): EventWithdrawProposal {
   return {
     proposalId: BigInt(0)
@@ -666,10 +660,9 @@ export const EventWithdrawProposal = {
       typeUrl: "/cosmos.group.v1.EventWithdrawProposal",
       value: EventWithdrawProposal.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventWithdrawProposal.typeUrl, EventWithdrawProposal);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventWithdrawProposal.aminoType, EventWithdrawProposal.typeUrl);
 function createBaseEventVote(): EventVote {
   return {
     proposalId: BigInt(0)
@@ -744,10 +737,9 @@ export const EventVote = {
       typeUrl: "/cosmos.group.v1.EventVote",
       value: EventVote.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventVote.typeUrl, EventVote);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventVote.aminoType, EventVote.typeUrl);
 function createBaseEventExec(): EventExec {
   return {
     proposalId: BigInt(0),
@@ -846,10 +838,9 @@ export const EventExec = {
       typeUrl: "/cosmos.group.v1.EventExec",
       value: EventExec.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventExec.typeUrl, EventExec);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventExec.aminoType, EventExec.typeUrl);
 function createBaseEventLeaveGroup(): EventLeaveGroup {
   return {
     groupId: BigInt(0),
@@ -936,10 +927,9 @@ export const EventLeaveGroup = {
       typeUrl: "/cosmos.group.v1.EventLeaveGroup",
       value: EventLeaveGroup.encode(message).finish()
     };
-  }
+  },
+  registerTypeUrl() {}
 };
-GlobalDecoderRegistry.register(EventLeaveGroup.typeUrl, EventLeaveGroup);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventLeaveGroup.aminoType, EventLeaveGroup.typeUrl);
 function createBaseEventProposalPruned(): EventProposalPruned {
   return {
     proposalId: BigInt(0),
@@ -1038,7 +1028,8 @@ export const EventProposalPruned = {
       typeUrl: "/cosmos.group.v1.EventProposalPruned",
       value: EventProposalPruned.encode(message).finish()
     };
+  },
+  registerTypeUrl() {
+    TallyResult.registerTypeUrl();
   }
 };
-GlobalDecoderRegistry.register(EventProposalPruned.typeUrl, EventProposalPruned);
-GlobalDecoderRegistry.registerAminoProtoMapping(EventProposalPruned.aminoType, EventProposalPruned.typeUrl);
