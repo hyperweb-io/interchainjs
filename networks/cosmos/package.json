@@ -29,7 +29,8 @@
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
     "starship:all": "yarn starship start",
-    "starship:clean": "yarn starship stop"
+    "starship:clean": "yarn starship stop",
+    "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts"
   },
   "dependencies": {
     "@chain-registry/v2": "^1.65.6",
