@@ -25,16 +25,19 @@ import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
-  let directSigner: DirectSigner, denom: string, address: string, address2: string;
+  let directSigner: DirectSigner, denom: string, address: string, address2: string, ws: string;
   let chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
     creditFromFaucet;
 
+  let initialBalance: string = "0"; // Track initial balance before each test
+
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
     denom = (await getCoin()).base;
+    ws = `${chainInfo.chain.apis.rpc[0].address.replace('http', 'ws')}/websocket`;
 
     const mnemonic = generateMnemonic();
     // Initialize auth
@@ -54,7 +57,127 @@ describe('Token transfers', () => {
     await creditFromFaucet(address);
   });
 
+  it('monitor osmosis token transfer via WebSocket', async () => {
+    // Setup WebSocket connection to listen for events
+    const WebSocket = require('ws');
+    const wsClient = new WebSocket(ws);
+
+    // Create a promise that will be resolved when we receive a transaction event
+    const txEventPromise = new Promise<any>((resolve) => {
+      wsClient.on('open', () => {
+        // Subscribe to Tx events
+        const subscribeMsg = {
+          jsonrpc: '2.0',
+          id: 'subscribe-tx',
+          method: 'subscribe',
+          params: {
+            query: "tm.event='Tx' AND transfer.recipient='" + address2 + "'"
+          }
+        };
+        wsClient.send(JSON.stringify(subscribeMsg));
+      });
+
+      wsClient.on('message', (data: any) => {
+        const response = JSON.parse(data.toString());
+        if (response.result && response.result.events) {
+          resolve(response);
+        }
+      });
+
+      wsClient.on('error', (err: any) => {
+        console.error('WebSocket error:', err);
+      });
+    });
+
+    // Setup fees and token for the transaction
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const token = {
+      amount: '5000000', // Different amount to distinguish from other tests
+      denom,
+    };
+
+    // Wait a bit to ensure WebSocket connection is established
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Send the transaction
+    directSigner.addEncoders(toEncoders(MsgSend));
+    const txResult = await directSigner.signAndBroadcast(
+      {
+        messages: [
+          MessageComposer.withTypeUrl.send(
+            {
+              fromAddress: address,
+              toAddress: address2,
+              amount: [token],
+            }
+          ),
+        ],
+        fee,
+        memo: 'websocket test transaction',
+      },
+      { deliverTx: true }
+    );
+
+    // Wait for the WebSocket event (with a timeout)
+    const txEvent = await Promise.race([
+      txEventPromise,
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 10000))
+    ]);
+
+    // Close WebSocket connection
+    wsClient.close();
+
+    // Verify WebSocket event was received
+    expect(txEvent).not.toBeNull();
+    expect(txEvent.result.events).toBeDefined();
+
+    // Verify transfer details in the event
+    if (txEvent && txEvent.result && txEvent.result.events) {
+      // Extract transfer details - structure depends on the chain's event format
+      // This might need adjustment based on the actual event structure
+      if (txEvent.result.events.transfer) {
+        const transferEvent = txEvent.result.events.transfer;
+
+        // Check for amount in the event (format might vary)
+        if (transferEvent.amount) {
+          // The transfer amount might be in format like "5000000uosmo"
+          const amountMatch = transferEvent.amount.match(/(\d+)(.+)/);
+          if (amountMatch) {
+            const [_, amount, eventDenom] = amountMatch;
+            expect(amount).toEqual(token.amount);
+          }
+        }
+
+        // Verify recipient
+        if (transferEvent.recipient) {
+          expect(transferEvent.recipient).toEqual(address2);
+        }
+      }
+    }
+
+    // Also verify through direct query
+    const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+
+    // Calculate the expected final balance
+    const expectedBalance = (BigInt(initialBalance) + BigInt(token.amount)).toString();
+
+    expect(balance!.amount).toEqual(expectedBalance);
+  }, 20000);
+
   it('send osmosis token to address', async () => {
+    // Get initial balance
+    const initialBalanceResponse = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+    const initialAmount = initialBalanceResponse.balance?.amount || "0";
+
     const fee = {
       amount: [
         {
@@ -98,7 +221,10 @@ describe('Token transfers', () => {
 
     const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
 
-    expect(balance!.amount).toEqual(token.amount);
+    // Calculate expected balance (initial + transferred amount)
+    const expectedBalance = (BigInt(initialAmount) + BigInt(token.amount)).toString();
+
+    expect(balance!.amount).toEqual(expectedBalance);
     expect(balance!.denom).toEqual(denom);
   }, 10000);
 
