@@ -2507,12 +2507,12 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.3.tgz#282046f03e886e352b2d5f5da5eb755e01457f3f"
   integrity sha512-DE427ROAphMQzU4ENbliGYrBSYPXF+TtLg9S8vzeA+OF4ZKzoDdzfL8sxuMUGS/lgRhM6j1URSk9ghf7Xo1tyA==
 
-"@starship-ci/cli@3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-3.5.0.tgz#f8244675c17407851dbe663e1fbac67a10d8def7"
-  integrity sha512-qUQ6JVRf9HZz2nzw3TT4kIL83H6PRvmiED/dqou05uZP+WCcOrQm1qT1rQpxn5XowFPrl1WOGF04/P28ZNIZFA==
+"@starship-ci/cli@3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-3.10.0.tgz#3d1afa7a6f5336adb2623124aa9cde5120d4780b"
+  integrity sha512-OmCdhhxhpHl2RBMyppcel0S+0TWbaO5KjL5NtIEx9Kqkkb4M5rFZG2KYB0Wmc8umKJcwV1TB5esu3Psdlu0d4g==
   dependencies:
-    "@starship-ci/client" "^3.5.0"
+    "@starship-ci/client" "^3.10.0"
     chalk "^4.1.0"
     deepmerge "^4.3.1"
     inquirerer "^1.9.0"
@@ -2542,10 +2542,10 @@
     mkdirp "3.0.1"
     shelljs "^0.8.5"
 
-"@starship-ci/client@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-3.5.0.tgz#76249f1713c8d7c9ad7cbb5f551efb3035ec2062"
-  integrity sha512-xLsiLEc2wfdYyNH3IVb4E7PYedyZatel+iGoiFWLGRTQjvSzMWjXENTn+281i2JG1KO9qJwsGKC9AWhL5+b4IQ==
+"@starship-ci/client@^3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-3.10.0.tgz#a76c708ea050f63d34011856b56c8be9f57c61b8"
+  integrity sha512-+6jsqNQqnlvkAWTG17fGLwVa70fwmpMPx0K4Oz7FJPn59tK1I22aiEeE9IcrUt4wqfzgCSrUj9pSdGZU3Fndhw==
   dependencies:
     chalk "^4.1.0"
     deepmerge "^4.3.1"
