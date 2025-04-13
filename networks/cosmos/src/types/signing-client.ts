@@ -1,5 +1,5 @@
-import { AminoConverter, Message, SignerOptions } from '../types/signer';
-import { BroadcastOptions, Price } from '@interchainjs/types';
+import { AminoConverter, Encoder, Message, SignerOptions } from '../types/signer';
+import { BroadcastOptions, DeliverTxResponse, Price, StdFee, TelescopeGeneratedCodec } from '@interchainjs/types';
 import { Event, TelescopeGeneratedType } from '@interchainjs/types';
 
 export type EncodeObject = Message;
@@ -29,4 +29,29 @@ export interface MsgData {
 export interface SequenceResponse {
   accountNumber: bigint;
   sequence: bigint;
+}
+
+export function isISigningClient(client: unknown): client is ISigningClient {
+  return client !== null && client !== undefined
+    && typeof (client as ISigningClient).signAndBroadcast === 'function'
+    && (!(client as ISigningClient).addConverters || typeof (client as ISigningClient).addConverters === 'function')
+    && typeof (client as ISigningClient).addEncoders === 'function';
+}
+
+export interface ISigningClient {
+  /**
+   * register converters
+   */
+  addConverters?: (converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+  /**
+   * register encoders
+   */
+  addEncoders: (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+
+  signAndBroadcast: (
+    signerAddress: string,
+    message: Message<any>[],
+    fee: StdFee | "auto",
+    memo: string
+  ) => Promise<DeliverTxResponse>;
 }
