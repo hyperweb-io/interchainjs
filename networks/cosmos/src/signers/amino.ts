@@ -1,4 +1,4 @@
-import { Auth, HttpEndpoint, TelescopeGeneratedCodec } from '@interchainjs/types';
+import { Auth, BroadcastOptions, DeliverTxResponse, EncodeObject, HttpEndpoint, StdFee, TelescopeGeneratedCodec } from '@interchainjs/types';
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
@@ -8,12 +8,14 @@ import {
   CosmosAccount,
   CosmosAminoDoc,
   CosmosAminoSigner,
+  CosmosSignArgs,
   Encoder,
   SignerOptions,
 } from '../types';
 import { AminoDocAuth } from '../types/docAuth';
 import { IAminoGenericOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
 import { toConverter } from '../utils';
+import { ISigningClient } from '@interchainjs/cosmos-types/helper-func-types';
 
 /**
  * AminoDocSigner is a signer for Amino document.
@@ -37,9 +39,10 @@ export abstract class AminoSignerBase<
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
-    super(auth, encoders, endpoint, options);
+    super(auth, encoders, endpoint, options, broadcastOptions);
     this.converters = converters;
   }
 
@@ -94,15 +97,17 @@ export abstract class AminoSignerBase<
  */
 export class AminoSigner
   extends AminoSignerBase<CosmosAminoDoc>
-  implements CosmosAminoSigner {
+  implements CosmosAminoSigner, ISigningClient {
+
   constructor(
     auth: Auth,
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
-    super(auth, encoders, converters, endpoint, options);
+    super(auth, encoders, converters, endpoint, options, broadcastOptions);
   }
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
@@ -118,7 +123,8 @@ export class AminoSigner
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
     let auth: AminoDocAuth;
 
@@ -128,7 +134,7 @@ export class AminoSigner
       [auth] = await AminoDocAuth.fromGenericOfflineSigner(signer);
     }
 
-    return new AminoSigner(auth, encoders, converters, endpoint, options);
+    return new AminoSigner(auth, encoders, converters, endpoint, options, broadcastOptions);
   }
 
   /**
@@ -140,7 +146,8 @@ export class AminoSigner
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
     let auths: AminoDocAuth[];
 
@@ -151,7 +158,7 @@ export class AminoSigner
     }
 
     return auths.map((auth) => {
-      return new AminoSigner(auth, encoders, converters, endpoint, options);
+      return new AminoSigner(auth, encoders, converters, endpoint, options, broadcastOptions);
     });
   }
 }

@@ -19,7 +19,9 @@ import {
   SignerConfig,
   SignResponse,
   DeliverTxResponse,
-  TelescopeGeneratedCodec
+  TelescopeGeneratedCodec,
+  EncodeObject,
+  StdFee
 } from '@interchainjs/types';
 import { assertEmpty, isEmpty } from '@interchainjs/utils';
 
@@ -27,6 +29,7 @@ import { defaultSignerOptions } from '../defaults';
 import { RpcClient } from '../query/rpc';
 import {
   CosmosSignArgs,
+  DocOptions,
   EncodedMessage,
   Encoder,
   FeeOptions,
@@ -124,11 +127,17 @@ export abstract class CosmosBaseSigner<SignDoc>
    */
   declare txBuilder: BaseCosmosTxBuilder<SignDoc>;
 
+  /**
+   * broadcast options
+   */
+  broadcastOptions?: BroadcastOptions;
+
   constructor(
     auth: Auth,
     encoders: Encoder[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
     super(auth, { ...defaultSignerOptions, ...options });
     this.encoders = encoders;
@@ -301,10 +310,48 @@ export abstract class CosmosBaseSigner<SignDoc>
     return result;
   }
 
+  async signAndBroadcast(
+    args: CosmosSignArgs,
+    options?: BroadcastOptions
+  ): Promise<DeliverTxResponse>;
+
+  async signAndBroadcast(
+    signerAddress: string,
+    messages: EncodeObject[],
+    fee: StdFee | 'auto',
+    memo: string
+  ): Promise<DeliverTxResponse>;
+
   /**
    * sign and broadcast tx messages
    */
   async signAndBroadcast(
+    args: CosmosSignArgs | string,
+    messageOrOptions?: BroadcastOptions | EncodeObject[],
+    fee?: StdFee | 'auto',
+    memo?: string,
+    options?: DocOptions
+  ): Promise<DeliverTxResponse> {
+    if (typeof args === 'string') {
+      if (args !== await this.getAddress()) {
+        throw new Error('signerAddress is not match');
+      }
+
+      return this._signAndBroadcast({
+        messages: messageOrOptions as EncodeObject[],
+        fee: fee === 'auto' ? undefined : fee as StdFee,
+        memo: memo as string,
+        options: options as DocOptions
+      }, this.broadcastOptions);
+    }
+
+    return this._signAndBroadcast(args, this.broadcastOptions);
+  }
+
+  /**
+   * sign and broadcast tx messages
+   */
+  async _signAndBroadcast(
     { messages, fee, memo, options: signOptions }: CosmosSignArgs,
     options?: BroadcastOptions
   ) {
