@@ -146,6 +146,7 @@ export abstract class CosmosBaseSigner<SignDoc>
     this._encodePublicKey =
       options?.encodePublicKey ?? defaultSignerOptions.encodePublicKey;
     this.prefix = options?.prefix;
+    this.broadcastOptions = broadcastOptions;
     if (!isEmpty(endpoint)) {
       this.setEndpoint(endpoint);
     }
