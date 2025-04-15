@@ -1,4 +1,4 @@
-import { Auth, HttpEndpoint, TelescopeGeneratedCodec } from '@interchainjs/types';
+import { Auth, BroadcastOptions, HttpEndpoint, TelescopeGeneratedCodec } from '@interchainjs/types';
 
 import { BaseCosmosTxBuilder, CosmosBaseSigner, CosmosDocSigner } from '../base';
 import { BaseCosmosTxBuilderContext } from '../base/builder-context';
@@ -12,6 +12,7 @@ import {
 } from '../types';
 import { DirectDocAuth } from '../types/docAuth';
 import { IDirectGenericOfflineSigner, isOfflineDirectSigner, OfflineDirectSigner } from '../types/wallet';
+import { ISigningClient } from '../types/signing-client';
 
 /**
  * DirectDocSigner is a signer for Direct document.
@@ -30,9 +31,10 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
     auth: Auth,
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
-    super(auth, encoders, endpoint, options);
+    super(auth, encoders, endpoint, options, broadcastOptions);
   }
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosDirectDoc> {
@@ -45,14 +47,15 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
  */
 export class DirectSigner
   extends DirectSignerBase
-  implements CosmosDirectSigner {
+  implements CosmosDirectSigner, ISigningClient {
   constructor(
     auth: Auth,
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
-    super(auth, encoders, endpoint, options);
+    super(auth, encoders, endpoint, options, broadcastOptions);
   }
 
   /**
@@ -63,7 +66,8 @@ export class DirectSigner
     signer: OfflineDirectSigner | IDirectGenericOfflineSigner,
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
     let auth: DirectDocAuth;
 
@@ -73,7 +77,7 @@ export class DirectSigner
       [auth] = await DirectDocAuth.fromGenericOfflineSigner(signer);
     }
 
-    return new DirectSigner(auth, encoders, endpoint, options);
+    return new DirectSigner(auth, encoders, endpoint, options, broadcastOptions);
   }
 
   /**
@@ -84,7 +88,8 @@ export class DirectSigner
     signer: OfflineDirectSigner | IDirectGenericOfflineSigner,
     encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[],
     endpoint?: string | HttpEndpoint,
-    options?: SignerOptions
+    options?: SignerOptions,
+    broadcastOptions?: BroadcastOptions
   ) {
     let auths: DirectDocAuth[];
 
@@ -95,7 +100,7 @@ export class DirectSigner
     }
 
     return auths.map((auth) => {
-      return new DirectSigner(auth, encoders, endpoint, options);
+      return new DirectSigner(auth, encoders, endpoint, options, broadcastOptions);
     });
   }
 }
