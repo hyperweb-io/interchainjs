@@ -25,6 +25,7 @@ import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/
 
 import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
 import { QueryDelegationRequest, QueryDelegationResponse, QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
+import { delegate } from '../../../../libs/interchainjs/src/cosmos/staking/v1beta1/tx.rpc.func';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -92,7 +93,11 @@ describe('Staking tokens testing', () => {
       directWallet,
       toEncoders(MsgDelegate),
       await getRpcEndpoint(),
-      { prefix: chainInfo.chain.bech32_prefix }
+      { prefix: chainInfo.chain.bech32_prefix },
+      {
+        checkTx: true,
+        deliverTx: true,
+      }
     );
 
     const { balance } = await getBalance(await getRpcEndpoint(), {
@@ -103,17 +108,14 @@ describe('Staking tokens testing', () => {
     // Stake half of the tokens
     // eslint-disable-next-line no-undef
     delegationAmount = (BigInt(balance!.amount) / BigInt(2)).toString();
-    const msg = {
-      typeUrl: MsgDelegate.typeUrl,
-      value: MsgDelegate.fromPartial({
-        delegatorAddress: address,
-        validatorAddress: validatorAddress,
-        amount: {
-          amount: delegationAmount,
-          denom: balance!.denom,
-        },
-      }),
-    };
+    const msg = MsgDelegate.fromPartial({
+      delegatorAddress: address,
+      validatorAddress: validatorAddress,
+      amount: {
+        amount: delegationAmount,
+        denom: balance!.denom,
+      },
+    });
 
     const fee = {
       amount: [
@@ -125,16 +127,8 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-      },
-      {
-        deliverTx: true,
-      }
-    );
+    const result = await delegate(directSigner, address, msg, fee, '');
+
     assertIsDeliverTxSuccess(result);
   });
 
