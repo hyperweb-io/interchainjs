@@ -345,7 +345,7 @@ export abstract class CosmosBaseSigner<SignDoc>
       }, this.broadcastOptions);
     }
 
-    return this._signAndBroadcast(args, this.broadcastOptions);
+    return this._signAndBroadcast(args, messageOrOptions ? messageOrOptions as BroadcastOptions : this.broadcastOptions);
   }
 
   /**

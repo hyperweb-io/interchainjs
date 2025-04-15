@@ -39,6 +39,22 @@
    {
       "type": "node",
       "request": "launch",
+      "name": "Debug Jest Tests in cosmos staking",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+         "--config",
+         "./jest.starship.config.js",
+         "--verbose",
+         "--bail",
+         "starship/__tests__/staking.test.ts"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/networks/cosmos",
+      "internalConsoleOptions": "neverOpen"
+   },
+   {
+      "type": "node",
+      "request": "launch",
       "name": "Debug Jest Tests in Interchainjs token",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
       "args": [
