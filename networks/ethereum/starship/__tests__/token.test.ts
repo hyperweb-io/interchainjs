@@ -330,7 +330,7 @@ describe('sending Tests', () => {
     await Promise.race([transferPromise, timeoutPromise]);
 
     // Close the WebSocket connection
-    monitor.close();
+    await monitor.close();
     console.log('WebSocket connection closed');
   }, 60000); // Increased timeout to 60s for WebSocket operations
 });
