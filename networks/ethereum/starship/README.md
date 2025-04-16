@@ -31,11 +31,20 @@ curl -X POST -H "Content-Type: application/json" \
 ```
 
 Get balance:
-```
+```sh
 curl -X POST \
   -H "Content-Type: application/json" \
   --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x7e5f4552091a69125d5dfcb7b8c2659029395bdf", "latest"],"id":1}' \
   http://localhost:8545
+```
+
+use ws to get latest block height:
+```sh
+wscat -c ws://127.0.0.1:8546
+```
+and then paste:
+```
+{"jsonrpc": "2.0", "id": 1, "method": "eth_subscribe", "params": ["newHeads"]}
 ```
 
 ## 1. Installation

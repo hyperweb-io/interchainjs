@@ -27,8 +27,8 @@
     "test:ethers": "npx jest --preset ts-jest devnet/__tests__/ethers.test.ts",
     "test:noethers": "npx jest --preset ts-jest devnet/__tests__/noethers.test.ts",
     "run-ganache": "bash devnet/run-ganache.sh",
-    "starship": "npx starship start --config ./starship/configs/eth-lite.yaml",
-    "starship:stop": "npx starship stop",
+    "starship": "starship start --config ./starship/configs/eth-lite.yaml",
+    "starship:stop": "starship stop",
     "starship:test": "npx jest --preset ts-jest starship/__tests__/token.test.ts"
   },
   "dependencies": {
@@ -49,7 +49,7 @@
     "transaction"
   ],
   "devDependencies": {
-    "@starship-ci/cli": "3.5.0",
+    "@starship-ci/cli": "3.10.0",
     "starshipjs": "^3.3.0"
   }
 }
