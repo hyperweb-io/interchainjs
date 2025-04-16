@@ -99,14 +99,15 @@ export class WebSocketContractMonitor {
 
   /**
    * Close the WebSocket connection and remove all event listeners
+   * @returns A promise that resolves when the connection is closed
    */
-  public close(): void {
+  public async close(): Promise<void> {
     if (!this.isConnected) {
       return;
     }
 
     try {
-      this.provider.close();
+      await this.provider.close();
       this.isConnected = false;
     } catch (error) {
       console.error('Error while closing WebSocket connection:', error);

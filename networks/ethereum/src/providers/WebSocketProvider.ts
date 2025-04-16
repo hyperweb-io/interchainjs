@@ -380,13 +380,46 @@ export class WebSocketProvider {
 
   /**
    * Close the WebSocket connection
+   * @returns A promise that resolves when the connection is closed
    */
-  public close(): void {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.close();
-    }
-    this.subscriptions.clear();
-    this.pendingRequests.clear();
-    this.ws = null;
+  public close(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      // Cancel any pending reconnection attempts
+      this.reconnectAttempts = this.maxReconnectAttempts;
+
+      // Clear all internal state
+      this.subscriptions.clear();
+      this.pendingRequests.clear();
+
+      if (this.ws) {
+        // Create a local reference to the websocket
+        const ws = this.ws;
+
+        // Clear the reference immediately to prevent any new operations
+        this.ws = null;
+
+        if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+          // Set up onclose handler to resolve the promise
+          // but set it first to prevent the reconnect logic
+          ws.onclose = () => {
+            resolve();
+          };
+
+          // Remove other handlers to prevent console logs after test
+          ws.onerror = null;
+          ws.onmessage = null;
+          ws.onopen = null;
+
+          // Close the connection
+          ws.close();
+        } else {
+          // Already closing or closed
+          resolve();
+        }
+      } else {
+        // No connection to close
+        resolve();
+      }
+    });
   }
 }
