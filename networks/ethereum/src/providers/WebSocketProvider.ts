@@ -1,6 +1,6 @@
 import { TransactionLog } from '../types/transaction';
 import { Abi, AbiEvent, DecodedEventData, EventHandler } from '../types/events';
-import { keccak_256 } from 'js-sha3'; // 导入js-sha3库来计算keccak256哈希
+import { keccak_256 } from 'js-sha3';
 
 /**
  * WebSocketProvider for Ethereum event monitoring
@@ -11,7 +11,6 @@ export class WebSocketProvider {
   private ws: WebSocket | null = null;
   private url: string;
   private subscriptions: Map<string, { id: string; handler: EventHandler }> = new Map();
-  private nextSubscriptionId = 1;
   private nextRequestId = 1;
   private pendingRequests: Map<number, { resolve: Function; reject: Function }> = new Map();
   private abiMap: Map<string, Abi> = new Map();
@@ -187,7 +186,6 @@ export class WebSocketProvider {
    * Calculate the event topic (keccak256 hash of the event signature)
    */
   private getEventTopic(signature: string): string {
-    // 使用js-sha3的keccak_256函数来计算哈希
     return '0x' + keccak_256(signature);
   }
 

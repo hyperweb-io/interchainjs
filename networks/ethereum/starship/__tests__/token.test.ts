@@ -1,7 +1,6 @@
 import { SignerFromPrivateKey } from '../../src/signers/SignerFromPrivateKey';
 // Adjust the import path as needed
 import axios from 'axios';
-import { computeContractAddress } from '../../src/utils/common';
 import { bytecode, abi } from '../../contracts/usdt/contract.json'
 import { ContractEncoder, AbiFunctionItem } from '../../src/utils/ContractEncoder';
 import { WebSocketContractMonitor } from '../../src/providers/WebSocketContractMonitor';
@@ -261,7 +260,7 @@ describe('sending Tests', () => {
       console.log('Deploying USDT contract for WebSocket test...');
       const transfer = new SignerFromPrivateKey(privSender, RPC_URL);
       try {
-        const { txHash, wait } = await transfer.sendLegacyTransactionAutoGasLimit(
+        const { wait } = await transfer.sendLegacyTransactionAutoGasLimit(
           '', // no receiver while deploying smart contract
           0n,
           bytecode
