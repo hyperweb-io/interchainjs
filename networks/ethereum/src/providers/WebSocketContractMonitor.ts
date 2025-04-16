@@ -34,7 +34,7 @@ export class WebSocketContractMonitor {
    */
   public async connect(): Promise<void> {
     if (this.isConnected) {
-      return; // 避免重复连接
+      return;
     }
 
     try {
