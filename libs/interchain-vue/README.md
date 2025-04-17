@@ -21,7 +21,7 @@ Tree shakable tutorial video: https://youtu.be/3dRm9HEklMo
 
 #### How Tree Shakable Helpers Work
 
-Each helper function is individually exported using a `create*` prefix (e.g., `createGetAllBalances`).
+Each helper function is individually exported (e.g., `getAllBalances`).
 Each customized hook is individually exported using a `use*` prefix (e.g., `useGetBalance`)
 This pattern enables:
 
@@ -33,17 +33,10 @@ For example, query helpers are functions that return other functions, constructe
 
 ```js
 // Import only what you need
-import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
-
-// Initialize RPC client
-const rpc = createQueryRpc(endpoint);
-
-// Create the specific helper function you need
-const getAllBalances = createGetAllBalances(rpc);
+import { getAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 
 // Now you can query the blockchain
-const balance = await getAllBalances({
+const balance = await getAllBalances(endpoint, {
   address: "cosmos1addresshere",
 });
 ```
@@ -85,7 +78,7 @@ InterchainJS provides two main types of tree shakable helpers and customized hoo
 1. **Query Helpers/Customized Hooks**: For retrieving data from the blockchain
 
    ```js
-   import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+   import { getValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
    import { useGetValidators } from "@interchainjs/vue/cosmos/staking/v1beta1/query.rpc.vue";
    ```
 
@@ -102,24 +95,17 @@ Here's how you might use both types together in a staking scenario:
 
 ```js
 // Import helpers
-import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
-import { createDelegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-
-// Setup query client
-const rpc = createQueryRpc(endpoint);
-const getValidator = createGetValidator(rpc);
+import { getValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+import { delegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 
 // Query validator info
-const { validator } = await getValidator({
+const { validator } = await getValidator(endpoint, {
   validatorAddr: "cosmosvaloper1...",
 });
 
-// Setup transaction function
-const delegate = createDelegate(signingClient);
-
 // Execute delegation
 const result = await delegate(
+  singingClient,
   signerAddress,
   {
     delegatorAddress: signerAddress,

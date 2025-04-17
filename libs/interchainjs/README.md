@@ -126,19 +126,14 @@ The following resources provide comprehensive guidance for developers working wi
 RPC (Remote Procedure Call) clients enable communication between your application and blockchain networks. InterchainJS provides a flexible and type-safe way to create these clients, allowing you to query blockchain data with minimal configuration. The following example demonstrates how to create and use an RPC client to query data from a Cosmos-based blockchain.
 
 ```js
-import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
+import { getAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 
 { getRpcEndpoint } = useChain("cosmoshub");
 
 const endpoint = await getRpcEndpoint();
-const rpc = createQueryRpc(endpoint);
-
-// get the tree shakable helper functions using the rpc client
-const getAllBalances = createGetAllBalances(rpc);
 
 // now you can query the cosmos modules
-const balance = await getAllBalances({
+const balance = await getAllBalances(endpoint,{
   address: "cosmos1addresshere",
 });
 ```
@@ -150,7 +145,7 @@ Tree shakable tutorial video: https://youtu.be/3dRm9HEklMo
 
 #### How Tree Shakable Helpers Work
 
-Each helper function is individually exported using a `create*` prefix (e.g., `createGetAllBalances`).
+Each helper function is individually exported (e.g., `getAllBalances`).
 This pattern enables:
 
 1. **Bundle Size Optimization**: Only the functions you import and use are included in your final bundle
@@ -161,17 +156,10 @@ For example, query helpers are functions that return other functions, constructe
 
 ```js
 // Import only what you need
-import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
-
-// Initialize RPC client
-const rpc = createQueryRpc(endpoint);
-
-// Create the specific helper function you need
-const getAllBalances = createGetAllBalances(rpc);
+import { getAllBalances } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 
 // Now you can query the blockchain
-const balance = await getAllBalances({
+const balance = await getAllBalances(endpoint, {
   address: "cosmos1addresshere",
 });
 ```
@@ -183,7 +171,7 @@ InterchainJS provides two main types of tree shakable helpers:
 1. **Query Helpers**: For retrieving data from the blockchain
 
    ```js
-   import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+   import { getValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
    ```
 
 2. **Transaction Helpers**: For broadcasting transactions
@@ -198,24 +186,17 @@ Here's how you might use both types together in a staking scenario:
 
 ```js
 // Import helpers
-import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
-import { createDelegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-
-// Setup query client
-const rpc = createQueryRpc(endpoint);
-const getValidator = createGetValidator(rpc);
+import { getValidator } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
+import { delegate } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 
 // Query validator info
-const { validator } = await getValidator({
+const { validator } = await getValidator(endpoint, {
   validatorAddr: "cosmosvaloper1...",
 });
 
-// Setup transaction function
-const delegate = createDelegate(signingClient);
-
 // Execute delegation
 const result = await delegate(
+  signingClient,
   signerAddress,
   {
     delegatorAddress: signerAddress,
@@ -258,16 +239,16 @@ The following sections provide import examples for various Cosmos SDK modules.
 ```js
 // query helpers
 import {
-  createGetGrants,
-  createGetGranterGrants,
-  createGetGranteeGrants,
+  getGrants,
+  getGranterGrants,
+  getGranteeGrants,
 } from "@interchainjs/cosmos/authz/v1beta1/query.rpc.func";
 
 // tx helpers
 import {
-  createGrant,
-  createRevoke,
-  createExec,
+  grant,
+  revoke,
+  exec,
 } from "@interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
 ```
 
@@ -276,16 +257,16 @@ import {
 ```js
 // query helpers
 import {
-  createGetAllBalances,
-  createGetDenomMetadata,
-  createGetSupply,
-  createGetParams,
+  getAllBalances,
+  getDenomMetadata,
+  getSupply,
+  getParams,
 } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 
 // tx helpers
 import {
-  createSend,
-  createMultiSend,
+  send,
+  multiSend,
 } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 ```
 
@@ -294,16 +275,16 @@ import {
 ```js
 // query helpers
 import {
-  createGetAccount,
-  createGetAccounts,
-  createGetDisabledList,
+  getAccount,
+  getAccounts,
+  getDisabledList,
 } from "@interchainjs/cosmos/circuit/v1/query.rpc.func";
 
 // tx helpers
 import {
-  createAuthorizeCircuitBreaker,
-  createTripCircuitBreaker,
-  createResetCircuitBreaker,
+  authorizeCircuitBreaker,
+  tripCircuitBreaker,
+  resetCircuitBreaker,
 } from "@interchainjs/cosmos/circuit/v1/tx.rpc.func";
 ```
 
@@ -311,10 +292,10 @@ import {
 
 ```js
 // query helpers
-import { createGetParams } from "@interchainjs/cosmos/consensus/v1/query.rpc.func";
+import { getParams } from "@interchainjs/cosmos/consensus/v1/query.rpc.func";
 
 // tx helpers
-import { createUpdateParams } from "@interchainjs/cosmos/consensus/v1/tx.rpc.func";
+import { updateParams } from "@interchainjs/cosmos/consensus/v1/tx.rpc.func";
 ```
 
 ##### Crisis
@@ -322,8 +303,8 @@ import { createUpdateParams } from "@interchainjs/cosmos/consensus/v1/tx.rpc.fun
 ```js
 // tx helpers
 import {
-  createVerifyInvariant,
-  createUpdateParams,
+  verifyInvariant,
+  updateParams,
 } from "@interchainjs/cosmos/crisis/v1beta1/tx.rpc.func";
 ```
 
@@ -332,23 +313,23 @@ import {
 ```js
 // query helpers
 import {
-  createGetParams,
-  createGetValidatorDistributionInfo,
-  createGetValidatorOutstandingRewards,
-  createGetValidatorCommission,
-  createGetValidatorSlashes,
-  createGetDelegationRewards,
-  createGetDelegationTotalRewards,
+  getParams,
+  getValidatorDistributionInfo,
+  getValidatorOutstandingRewards,
+  getValidatorCommission,
+  getValidatorSlashes,
+  getDelegationRewards,
+  getDelegationTotalRewards,
 } from "@interchainjs/cosmos/distribution/v1beta1/query.rpc.func";
 
 // tx helpers
 import {
-  createSetWithdrawAddress,
-  createWithdrawDelegatorReward,
-  createWithdrawValidatorCommission,
-  createFundCommunityPool,
-  createCommunityPoolSpend,
-  createUpdateParams,
+  setWithdrawAddress,
+  withdrawDelegatorReward,
+  withdrawValidatorCommission,
+  fundCommunityPool,
+  communityPoolSpend,
+  updateParams,
 } from "@interchainjs/cosmos/distribution/v1beta1/tx.rpc.func";
 ```
 
@@ -357,12 +338,12 @@ import {
 ```js
 // query helpers
 import {
-  createGetEvidence,
-  createGetAllEvidence,
+  getEvidence,
+  getAllEvidence,
 } from "@interchainjs/cosmos/evidence/v1beta1/query.rpc.func";
 
 // tx helpers
-import { createSubmitEvidence } from "@interchainjs/cosmos/evidence/v1beta1/tx.rpc.func";
+import { submitEvidence } from "@interchainjs/cosmos/evidence/v1beta1/tx.rpc.func";
 ```
 
 ##### Feegrant
@@ -370,16 +351,16 @@ import { createSubmitEvidence } from "@interchainjs/cosmos/evidence/v1beta1/tx.r
 ```js
 // query helpers
 import {
-  createGetAllowance,
-  createGetAllowances,
-  createGetAllowancesByGranter,
+  getAllowance,
+  getAllowances,
+  getAllowancesByGranter,
 } from "@interchainjs/cosmos/feegrant/v1beta1/query.rpc.func";
 
 // tx helpers
 import {
-  createGrantAllowance,
-  createRevokeAllowance,
-  createPruneAllowances,
+  grantAllowance,
+  revokeAllowance,
+  pruneAllowances,
 } from "@interchainjs/cosmos/feegrant/v1beta1/tx.rpc.func";
 ```
 
@@ -388,22 +369,22 @@ import {
 ```js
 // query helpers
 import {
-  createGetProposal,
-  createGetProposals,
-  createGetVote,
-  createGetVotes,
-  createGetParams,
-  createGetDeposit,
-  createGetDeposits,
-  createGetTallyResult,
+  getProposal,
+  getProposals,
+  getVote,
+  getVotes,
+  getParams,
+  getDeposit,
+  getDeposits,
+  getTallyResult,
 } from "@interchainjs/cosmos/gov/v1beta1/query.rpc.func";
 
 // tx helpers
 import {
-  createSubmitProposal,
-  createDeposit,
-  createVote,
-  createVoteWeighted,
+  submitProposal,
+  deposit,
+  vote,
+  voteWeighted,
 } from "@interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
 ```
 
@@ -412,24 +393,24 @@ import {
 ```js
 // query helpers
 import {
-  createGetGroupInfo,
-  createGetGroupPolicyInfo,
-  createGetGroupMembers,
-  createGetGroupsByAdmin,
-  createGetGroupPoliciesByGroup,
-  createGetGroupPoliciesByAdmin,
+  getGroupInfo,
+  getGroupPolicyInfo,
+  getGroupMembers,
+  getGroupsByAdmin,
+  getGroupPoliciesByGroup,
+  getGroupPoliciesByAdmin,
 } from "@interchainjs/cosmos/group/v1/query.rpc.func";
 
 // tx helpers
 import {
-  createCreateGroup,
-  createUpdateGroupMetadata,
-  createUpdateGroupMembers,
-  createUpdateGroupAdmin,
-  createUpdateGroupPolicyMetadata,
-  createSubmitProposal,
-  createVote,
-  createExec,
+  createGroup,
+  updateGroupMetadata,
+  updateGroupMembers,
+  updateGroupAdmin,
+  updateGroupPolicyMetadata,
+  submitProposal,
+  vote,
+  exec,
 } from "@interchainjs/cosmos/group/v1/tx.rpc.func";
 ```
 
@@ -438,13 +419,13 @@ import {
 ```js
 // query helpers
 import {
-  createGetParams,
-  createGetInflation,
-  createGetAnnualProvisions,
+  getParams,
+  getInflation,
+  getAnnualProvisions,
 } from "@interchainjs/cosmos/mint/v1beta1/query.rpc.func";
 
 // tx helpers
-import { createUpdateParams } from "@interchainjs/cosmos/mint/v1beta1/tx.rpc.func";
+import { updateParams } from "@interchainjs/cosmos/mint/v1beta1/tx.rpc.func";
 ```
 
 ##### Nft
@@ -452,16 +433,16 @@ import { createUpdateParams } from "@interchainjs/cosmos/mint/v1beta1/tx.rpc.fun
 ```js
 // query helpers
 import {
-  createGetBalance,
-  createGetOwner,
-  createGetClass,
-  createGetClasses,
-  createGetNFTs,
-  createGetNFT,
+  getBalance,
+  getOwner,
+  getClass,
+  getClasses,
+  getNFTs,
+  getNFT,
 } from "@interchainjs/cosmos/nft/v1/query.rpc.func";
 
 // tx helpers
-import { createSend } from "@interchainjs/cosmos/nft/v1/tx.rpc.func";
+import { send } from "@interchainjs/cosmos/nft/v1/tx.rpc.func";
 ```
 
 ##### Staking
@@ -469,21 +450,21 @@ import { createSend } from "@interchainjs/cosmos/nft/v1/tx.rpc.func";
 ```js
 // query helpers
 import {
-  createGetValidators,
-  createGetValidator,
-  createGetValidatorDelegations,
-  createGetValidatorUnbondingDelegations,
-  createGetDelegation,
-  createGetUnbondingDelegation,
+  getValidators,
+  getValidator,
+  getValidatorDelegations,
+  getValidatorUnbondingDelegations,
+  getDelegation,
+  getUnbondingDelegation,
 } from "@interchainjs/cosmos/staking/v1beta1/query.rpc.func";
 
 // tx helpers
 import {
-  createCreateValidator,
-  createEditValidator,
-  createDelegate,
-  createUndelegate,
-  createRedelegate,
+  createValidator,
+  editValidator,
+  delegate,
+  undelegate,
+  redelegate,
 } from "@interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 ```
 
@@ -492,9 +473,9 @@ import {
 ```js
 // tx helpers
 import {
-  createCreateVestingAccount,
-  createCreatePermanentLockedAccount,
-  createCreatePeriodicVestingAccount,
+  createVestingAccount,
+  createPermanentLockedAccount,
+  createPeriodicVestingAccount,
 } from "@interchainjs/cosmos/vesting/v1beta1/tx.rpc.func";
 ```
 
@@ -503,23 +484,23 @@ import {
 ```js
 // query helpers
 import {
-  createGetContractInfo,
-  createGetContractHistory,
-  createGetContractsByCode,
-  createGetAllContractState,
-  createGetRawContractState,
-  createGetSmartContractState,
-  createGetCode,
-  createGetCodes,
+  getContractInfo,
+  getContractHistory,
+  getContractsByCode,
+  getAllContractState,
+  getRawContractState,
+  getSmartContractState,
+  getCode,
+  getCodes,
 } from "@interchainjs/cosmwasm/wasm/v1/query.rpc.func";
 
 // tx helpers
 import {
-  createStoreCode,
-  createInstantiateContract,
-  createMigrateContract,
-  createUpdateAdmin,
-  createClearAdmin,
+  storeCode,
+  instantiateContract,
+  migrateContract,
+  updateAdmin,
+  clearAdmin,
 } from "@interchainjs/cosmwasm/wasm/v1/tx.rpc.func";
 ```
 
@@ -528,16 +509,16 @@ import {
 ```js
 // query helpers
 import {
-  createGetParams,
-  createGetDenomHash,
-  createGetEscrowAddress,
-  createGetTotalEscrowForDenom,
+  getParams,
+  getDenomHash,
+  getEscrowAddress,
+  getTotalEscrowForDenom,
 } from "@interchainjs/ibc/applications/transfer/v1/query.rpc.func";
 
 // tx helpers
 import {
-  createTransfer,
-  createUpdateParams,
+  transfer,
+  updateParams,
 } from "@interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
 ```
 
