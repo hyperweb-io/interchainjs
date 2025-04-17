@@ -63,26 +63,20 @@ npm install injective-react
 ### RPC Clients
 
 ```js
-import { createQueryRpc } from "@interchainjs/cosmos/utils";
-import { createGetAllBalances } from "injectivejs/cosmos/bank/v1beta1/query.rpc.func";
-import { createGetExchangeBalances } from "injectivejs/injective/exchange/v1beta1/query.rpc.func";
+import { getAllBalances } from "injectivejs/cosmos/bank/v1beta1/query.rpc.func";
+import { getExchangeBalances } from "injectivejs/injective/exchange/v1beta1/query.rpc.func";
 
 { getRpcEndpoint } = useChain("injective");
 
 const endpoint = await getRpcEndpoint();
-const rpc = createQueryRpc(endpoint);
-
-// get the tree shakable helper functions using the rpc client
-const getAllBalances = createGetAllBalances(rpc);
 
 // now you can query the cosmos modules
-const balance = await getAllBalances({
+const balance = await getAllBalances(endpoint, {
   address: "inj1addresshere",
 });
 
 // you can also query the injective modules
-const getExchangeBalances = createGetExchangeBalances(rpc);
-const exchangeBalance = await getExchangeBalances({});
+const exchangeBalance = await getExchangeBalances(endpoint, {});
 ```
 
 ### Tx Hooks
@@ -134,57 +128,57 @@ There're also react hooks for helper functions. Please see the [Tx Hooks](#tx-ho
 
 ```js
 import {
-  createDeposit,
-  createLiquidatePosition,
-  createActivateStakeGrant,
+  deposit,
+  liquidatePosition,
+  activateStakeGrant,
 } from "injectivejs/injective/exchange/v1beta1/tx.rpc.func";
 ```
 
 #### Auction
 
 ```js
-import { createBid } from "injectivejs/injective/auction/v1beta1/tx.rpc.func";
+import { bid } from "injectivejs/injective/auction/v1beta1/tx.rpc.func";
 ```
 
 #### Exchange
 
 ```js
 import {
-  createActivateStakeGrant,
-  createAdminUpdateBinaryOptionsMarket,
-  createAuthorizeStakeGrants,
-  createBatchCancelBinaryOptionsOrders,
-  createBatchCancelDerivativeOrders,
-  createBatchCancelSpotOrders,
-  createBatchCreateDerivativeLimitOrders,
-  createBatchCreateSpotLimitOrders,
-  createBatchUpdateOrders,
-  createCancelBinaryOptionsOrder,
-  createCancelDerivativeOrder,
-  createCancelSpotOrder,
-  createCreateBinaryOptionsLimitOrder,
-  createCreateBinaryOptionsMarketOrder,
-  createCreateDerivativeLimitOrder,
-  createCreateDerivativeMarketOrder,
-  createCreateSpotLimitOrder,
-  createCreateSpotMarketOrder,
-  createDecreasePositionMargin,
-  createDeposit,
-  createEmergencySettleMarket,
-  createExternalTransfer,
-  createIncreasePositionMargin,
-  createInstantBinaryOptionsMarketLaunch,
-  createInstantExpiryFuturesMarketLaunch,
-  createInstantPerpetualMarketLaunch,
-  createInstantSpotMarketLaunch,
-  createLiquidatePosition,
-  createPrivilegedExecuteContract,
-  createRewardsOptOut,
-  createSubaccountTransfer,
-  createUpdateDerivativeMarket,
-  createUpdateParams,
-  createUpdateSpotMarket,
-  createWithdraw,
+  activateStakeGrant,
+  adminUpdateBinaryOptionsMarket,
+  authorizeStakeGrants,
+  batchCancelBinaryOptionsOrders,
+  batchCancelDerivativeOrders,
+  batchCancelSpotOrders,
+  batchCreateDerivativeLimitOrders,
+  batchCreateSpotLimitOrders,
+  batchUpdateOrders,
+  cancelBinaryOptionsOrder,
+  cancelDerivativeOrder,
+  cancelSpotOrder,
+  createBinaryOptionsLimitOrder,
+  createBinaryOptionsMarketOrder,
+  createDerivativeLimitOrder,
+  createDerivativeMarketOrder,
+  createSpotLimitOrder,
+  createSpotMarketOrder,
+  decreasePositionMargin,
+  deposit,
+  emergencySettleMarket,
+  externalTransfer,
+  increasePositionMargin,
+  instantBinaryOptionsMarketLaunch,
+  instantExpiryFuturesMarketLaunch,
+  instantPerpetualMarketLaunch,
+  instantSpotMarketLaunch,
+  liquidatePosition,
+  privilegedExecuteContract,
+  rewardsOptOut,
+  subaccountTransfer,
+  updateDerivativeMarket,
+  updateParams,
+  updateSpotMarket,
+  withdraw,
 } from "injectivejs/injective/exchange/v1beta1/tx.rpc.func";
 ```
 
@@ -192,9 +186,9 @@ import {
 
 ```js
 import {
-  createCreateInsuranceFund,
-  createRequestRedemption,
-  createUnderwrite,
+  createInsuranceFund,
+  requestRedemption,
+  underwrite,
 } from "injectivejs/injective/insurance/v1beta1/tx.rpc.func";
 ```
 
@@ -202,14 +196,14 @@ import {
 
 ```js
 import {
-  createAcceptPayeeship,
-  createCreateFeed,
-  createFundFeedRewardPool,
-  createSetPayees,
-  createTransferPayeeship,
-  createTransmit,
-  createUpdateFeed,
-  createWithdrawFeedRewardPool,
+  acceptPayeeship,
+  createFeed,
+  fundFeedRewardPool,
+  setPayees,
+  transferPayeeship,
+  transmit,
+  updateFeed,
+  withdrawFeedRewardPool,
 } from "injectivejs/injective/ocr/v1beta1/tx.rpc.func";
 ```
 
@@ -217,13 +211,13 @@ import {
 
 ```js
 import {
-  createRelayBandRates,
-  createRelayCoinbaseMessages,
-  createRelayPriceFeedPrice,
-  createRelayProviderPrices,
-  createRelayPythPrices,
-  createRelayStorkMessage,
-  createRequestBandIBCRates,
+  relayBandRates,
+  relayCoinbaseMessages,
+  relayPriceFeedPrice,
+  relayProviderPrices,
+  relayPythPrices,
+  relayStorkMessage,
+  requestBandIBCRates,
 } from "injectivejs/injective/oracle/v1beta1/tx.rpc.func";
 ```
 
@@ -231,19 +225,19 @@ import {
 
 ```js
 import {
-  createBlacklistEthereumAddresses,
-  createCancelSendToEth,
-  createConfirmBatch,
-  createDepositClaim,
-  createERC20DeployedClaim,
-  createRequestBatch,
-  createRevokeEthereumBlacklist,
-  createSendToEth,
-  createSetOrchestratorAddresses,
-  createSubmitBadSignatureEvidence,
-  createValsetConfirm,
-  createValsetUpdateClaim,
-  createWithdrawClaim,
+  blacklistEthereumAddresses,
+  cancelSendToEth,
+  confirmBatch,
+  depositClaim,
+  eRC20DeployedClaim,
+  requestBatch,
+  revokeEthereumBlacklist,
+  sendToEth,
+  setOrchestratorAddresses,
+  submitBadSignatureEvidence,
+  valsetConfirm,
+  valsetUpdateClaim,
+  withdrawClaim,
 } from "injectivejs/injective/peggy/v1/msgs.rpc.func";
 ```
 
@@ -251,57 +245,57 @@ import {
 
 ```js
 import {
-  createExecuteContract,
-  createClearAdmin,
-  createInstantiateContract,
-  createInstantiateContract2,
-  createMigrateContract,
-  createPinCodes,
-  createRemoveCodeUploadParamsAddresses,
-  createStoreAndInstantiateContract,
-  createStoreCode,
-  createSudoContract,
-  createUnpinCodes,
-  createUpdateAdmin,
-  createUpdateContractLabel,
-  createUpdateInstantiateConfig,
-  createAddCodeUploadParamsAddresses,
-  createStoreAndMigrateContract,
+  executeContract,
+  clearAdmin,
+  instantiateContract,
+  instantiateContract2,
+  migrateContract,
+  pinCodes,
+  removeCodeUploadParamsAddresses,
+  storeAndInstantiateContract,
+  storeCode,
+  sudoContract,
+  unpinCodes,
+  updateAdmin,
+  updateContractLabel,
+  updateInstantiateConfig,
+  addCodeUploadParamsAddresses,
+  storeAndMigrateContract,
 } from "injectivejs/cosmwasm/wasm/v1/tx.rpc.func";
 ```
 
 #### IBC
 
 ```js
-import { createTransfer } from "injectivejs/ibc/applications/transfer/v1/tx.rpc.func";
+import { transfer } from "injectivejs/ibc/applications/transfer/v1/tx.rpc.func";
 ```
 
 #### Cosmos
 
 ```js
 import {
-  createFundCommunityPool,
-  createCommunityPoolSpend,
-  createDepositValidatorRewardsPool,
+  fundCommunityPool,
+  communityPoolSpend,
+  depositValidatorRewardsPool,
 } from "injectivejs/cosmos/distribution/v1beta1/tx.rpc.func";
 
 import {
-  createSend,
-  createMultiSend,
+  send,
+  multiSend,
 } from "injectivejs/cosmos/bank/v1beta1/tx.rpc.func";
 
 import {
-  createDelegate,
-  createUndelegate,
-  createCancelUnbondingDelegation,
-  createCreateValidator,
+  delegate,
+  undelegate,
+  cancelUnbondingDelegation,
+  createValidator,
 } from "injectivejs/cosmos/staking/v1beta1/tx.rpc.func";
 
 import {
-  createDeposit,
-  createSubmitProposal,
-  createVote,
-  createVoteWeighted,
+  deposit,
+  submitProposal,
+  vote,
+  voteWeighted,
 } from "injectivejs/cosmos/gov/v1beta1/tx.rpc.func";
 ```
 
