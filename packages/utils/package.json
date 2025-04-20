@@ -30,11 +30,11 @@
     "decimal.js": "^10.4.3"
   },
   "devDependencies": {
-    "@chain-registry/v2": "1.71.71",
-    "@chain-registry/v2-types": "0.53.72"
+    "@chain-registry/v2": "^1.71.186",
+    "@chain-registry/v2-types": "^0.53.115"
   },
   "peerDependencies": {
-    "@chain-registry/v2": "1.71.71",
-    "@chain-registry/v2-types": "0.53.72"
+    "@chain-registry/v2": "^1.71.186",
+    "@chain-registry/v2-types": "^0.53.115"
   }
 }
