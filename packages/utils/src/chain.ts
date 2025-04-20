@@ -5,7 +5,7 @@ import { Chain } from '@chain-registry/v2-types';
  * get chain by chain id from chain registry
  */
 export function getChainById(chainId: string): Chain {
-  return chains.find((c) => c.chainId === chainId);
+  return chains?.find((c) => c.chainId === chainId);
 }
 
 /**
