@@ -1116,17 +1116,10 @@
   resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.68.tgz#83173c3e79c7c89a382c4017e15db71970038847"
   integrity sha512-MCK9RKJ67VYWCJ0HtnDYJIottx4paoo6wKMbH3s6xWFzLVwufJWi0iKMoppVOIXWk+yr+h9W3puaLJPnYNez9A==
 
-"@chain-registry/v2-types@0.53.72", "@chain-registry/v2-types@^0.53.40":
-  version "0.53.72"
-  resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.72.tgz#3621cc1e94cacb430c657c2af63d4825950b880f"
-  integrity sha512-HIbDFK0R1aZTbXdTN7FOZI+z3lHt4ZQWRYDctUk3IwvGxOC04gYCa45SfsHx4YpqALXa0hu9Acj5fUSp4mnZ5w==
-
-"@chain-registry/v2@1.71.71":
-  version "1.71.71"
-  resolved "https://registry.yarnpkg.com/@chain-registry/v2/-/v2-1.71.71.tgz#648eab79a487a2680c77b85fab96d5c5d5fb3eea"
-  integrity sha512-JdzJHRduw58io8ZOKy7mnAt9oFJqWSa5Bn5srWXG5326ztUCe1MLd9yZMMCos57mc4UFrOJm8Gr9V7lKtEZvjQ==
-  dependencies:
-    "@chain-registry/v2-types" "^0.53.40"
+"@chain-registry/v2-types@^0.53.115":
+  version "0.53.115"
+  resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.115.tgz#c9f629360dc1a3335dc30ebb053c5e98581b36a7"
+  integrity sha512-9gY2x8XzwVjYALr2zrs9yvyiaY4DuvwfFF2DbWd9t4/8r4VWv+HHKZ1WLjtvNwEL1/CJ0enfMDz9L/hXyxiDcQ==
 
 "@chain-registry/v2@^1.65.6":
   version "1.71.121"
@@ -1135,10 +1128,17 @@
   dependencies:
     "@chain-registry/v2-types" "^0.53.68"
 
-"@cosmology/ast@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.10.0.tgz#66af38e2b57786c2394ba5e0e444eaed5975a028"
-  integrity sha512-agJHTtYr733bGIIjRLEHRVuTT+3IpgoxoRVZFE+h0CkwNKapawKBmR/CZMyUIPvqYIQMhpO7fO086KIGNMwLpw==
+"@chain-registry/v2@^1.71.186":
+  version "1.71.186"
+  resolved "https://registry.yarnpkg.com/@chain-registry/v2/-/v2-1.71.186.tgz#b448913dcd9292d2ac709ecf3f9eb09340f81229"
+  integrity sha512-f+d8b3oKk4qlWzkRPCE8xyAXMbo6FZ/ydOfzez+gGZJ5VftUCBR+3hmEbeu8GxwIOL1YhyYqPVcCsZq+aWq2Hg==
+  dependencies:
+    "@chain-registry/v2-types" "^0.53.115"
+
+"@cosmology/ast@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.10.1.tgz#265756583228ae1c5dc3090fb2424f6856c0461f"
+  integrity sha512-N20RIRa9Xm71cno/OFH8ZAVkfbNR/1WYkkIJQoK9EUZNPCpJk0wZGZiT+uLYa0Qt6eKzEwiamua6sh9BPE1T+A==
   dependencies:
     "@babel/types" "7.23.6"
     "@cosmology/types" "^1.12.0"
@@ -1146,10 +1146,10 @@
     case "1.6.3"
     dotty "0.1.2"
 
-"@cosmology/proto-parser@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.10.0.tgz#06a72f9ab8fa215243b42f8d2144e04c5d690dee"
-  integrity sha512-aclYnl22ZZB5O9LI7dpGq+f38/NW2/Y73LBhSBKNkEfgOksbzIZGDT4K3sdAqo4Mu+QSUN3b/JAzfCFKETBRYg==
+"@cosmology/proto-parser@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.10.1.tgz#d3f1e9d30acc1e4da5bc7bf9a974d3cacc4d02b5"
+  integrity sha512-PeWu6B/bZ6LgYbPdJPUZPU2w4BAr8i/KKNfCdAySDhAqvu+YdD/780Y/xhlx7qB7u6Kij043jf1POYQbHm2ktA==
   dependencies:
     "@cosmology/protobufjs" "7.3.2"
     "@cosmology/types" "^1.12.0"
@@ -1179,17 +1179,17 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.12.3":
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.12.3.tgz#e85beac54aa20ac81495e67b612342e42b3afa23"
-  integrity sha512-+X/d2PoPR3O/5M/4FYRgbJ9apF4Pi7RH6fIMnkr/gw73l/3SkgBEMCHSOQBruld8N44tzKkdsmu5LpjxEfqWcw==
+"@cosmology/telescope@^1.12.5":
+  version "1.12.5"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.12.5.tgz#ba41edf94cb411eff3bb0e3e951b590ba289c303"
+  integrity sha512-b9xCx4q7/pmn789k7VnlR2mAmowNXfX9UtQcATaTo+yzFwO7ZfqpeeN5q0fNq8l67By6cSanUBtmCLxYl6g4gg==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.10.0"
-    "@cosmology/proto-parser" "^1.10.0"
+    "@cosmology/ast" "^1.10.1"
+    "@cosmology/proto-parser" "^1.10.1"
     "@cosmology/types" "^1.12.0"
     "@cosmology/utils" "^1.10.0"
     "@cosmwasm/ts-codegen" "0.35.7"
