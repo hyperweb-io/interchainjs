@@ -181,7 +181,7 @@ export interface QueryClient extends IApiClient<Uint8Array, DeliverTxResponse, B
  * Signer args for cosmos chains
  */
 export type CosmosSignArgs<Option = DocOptions> = {
-  messages: Message[];
+  messages: readonly Message[];
   fee?: StdFee;
   memo?: string;
   options?: Option;
