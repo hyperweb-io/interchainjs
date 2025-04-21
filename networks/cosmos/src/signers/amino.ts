@@ -15,7 +15,7 @@ import {
 import { AminoDocAuth } from '../types/docAuth';
 import { IAminoGenericOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
 import { toConverter } from '../utils';
-import { ISigningClient } from '@interchainjs/cosmos-types/helper-func-types';
+import { ISigningClient } from '../types/signing-client';
 
 /**
  * AminoDocSigner is a signer for Amino document.
