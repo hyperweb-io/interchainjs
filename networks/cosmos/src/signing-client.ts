@@ -175,7 +175,7 @@ export class SigningClient {
 
   async sign(
     signerAddress: string,
-    messages: EncodeObject[],
+    messages: readonly EncodeObject[],
     fee: StdFee,
     memo: string
   ): Promise<TxRaw> {
@@ -192,7 +192,7 @@ export class SigningClient {
 
   private signWithAutoFee = async (
     signerAddress: string,
-    messages: EncodeObject[],
+    messages: readonly EncodeObject[],
     fee: StdFee | 'auto',
     memo = ''
   ): Promise<TxRaw> => {
@@ -252,7 +252,7 @@ export class SigningClient {
 
   signAndBroadcast = async (
     signerAddress: string,
-    messages: EncodeObject[],
+    messages: readonly EncodeObject[],
     fee: StdFee | 'auto',
     memo = ''
   ): Promise<DeliverTxResponse> => {
