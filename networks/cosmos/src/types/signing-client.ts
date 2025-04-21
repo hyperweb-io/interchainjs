@@ -35,7 +35,7 @@ export function isISigningClient(client: unknown): client is ISigningClient {
   return client !== null && client !== undefined
     && typeof (client as ISigningClient).signAndBroadcast === 'function'
     && (!(client as ISigningClient).addConverters || typeof (client as ISigningClient).addConverters === 'function')
-    && typeof (client as ISigningClient).addEncoders === 'function';
+    && (!(client as ISigningClient).addEncoders || typeof (client as ISigningClient).addEncoders === 'function');
 }
 
 export interface ISigningClient {
@@ -46,12 +46,14 @@ export interface ISigningClient {
   /**
    * register encoders
    */
-  addEncoders: (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => void;
-
+  addEncoders?: (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+  /**
+   * sign and broadcast
+   */
   signAndBroadcast: (
     signerAddress: string,
     message: Message<any>[],
     fee: StdFee | "auto",
-    memo: string
+    memo?: string
   ) => Promise<DeliverTxResponse>;
 }
