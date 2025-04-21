@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/vue",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "description": "@interchainjs/vue is a JavaScript library providing vue hooks for interacting with Cosmos SDK based blockchains.",
   "main": "index.js",
   "module": "esm/index.js",
@@ -25,12 +25,12 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "1.11.3",
-    "@interchainjs/cosmos-types": "1.11.3",
-    "@interchainjs/encoding": "1.11.3",
-    "@interchainjs/pubkey": "1.11.3",
-    "@interchainjs/types": "1.11.3",
-    "@interchainjs/utils": "1.11.3",
+    "@interchainjs/cosmos": "1.11.4",
+    "@interchainjs/cosmos-types": "1.11.4",
+    "@interchainjs/encoding": "1.11.4",
+    "@interchainjs/pubkey": "1.11.4",
+    "@interchainjs/types": "1.11.4",
+    "@interchainjs/utils": "1.11.4",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3"
   },
