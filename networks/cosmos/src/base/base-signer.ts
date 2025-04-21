@@ -318,7 +318,7 @@ export abstract class CosmosBaseSigner<SignDoc>
 
   async signAndBroadcast(
     signerAddress: string,
-    messages: EncodeObject[],
+    messages: readonly EncodeObject[],
     fee: StdFee | 'auto',
     memo: string
   ): Promise<DeliverTxResponse>;
@@ -328,7 +328,7 @@ export abstract class CosmosBaseSigner<SignDoc>
    */
   async signAndBroadcast(
     args: CosmosSignArgs | string,
-    messageOrOptions?: BroadcastOptions | EncodeObject[],
+    messageOrOptions?: BroadcastOptions | readonly EncodeObject[],
     fee?: StdFee | 'auto',
     memo?: string,
     options?: DocOptions
