@@ -52,7 +52,7 @@ export interface ISigningClient {
    */
   signAndBroadcast: (
     signerAddress: string,
-    message: Message<any>[],
+    message: readonly Message<any>[],
     fee: StdFee | "auto",
     memo?: string
   ) => Promise<DeliverTxResponse>;

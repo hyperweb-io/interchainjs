@@ -58,7 +58,7 @@ export function toMessages(
  * from protobuf messages to Amino messages
  */
 export function toAminoMsgs(
-  messages: Message[],
+  messages: readonly Message[],
   getConverter: (typeUrl: string) => AminoConverter
 ): AminoMessage[] {
   return messages.map(({ typeUrl, value }) => {
