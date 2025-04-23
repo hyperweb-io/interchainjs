@@ -212,7 +212,7 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
     const txRaw = await this.buildTxRaw({ messages, fee, memo, options });
 
     // buildDoc
-    const doc = await this.buildDoc({ messages, fee, memo, options }, txRaw);
+    const doc = await this.buildDoc({ messages, fee: fee ?? txRaw.fee, memo, options }, txRaw);
 
     // sign signature to the doc bytes
     const signResp = await this.ctx.signer.signDoc(doc);
