@@ -33,8 +33,6 @@
     "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts"
   },
   "dependencies": {
-    "@chain-registry/v2": "^1.65.6",
-    "@chain-registry/v2-types": "0.53.68",
     "@interchainjs/auth": "1.11.4",
     "@interchainjs/cosmos-types": "1.11.4",
     "@interchainjs/types": "1.11.4",
