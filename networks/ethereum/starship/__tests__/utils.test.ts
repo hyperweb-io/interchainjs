@@ -1,5 +1,6 @@
 import { isValidEthereumAddress, toChecksumAddress } from '../../src/utils/address';
 import { convert, ethToUnit, unitToEth, DENOMINATIONS } from '../../src/utils/denominations';
+import { utf8ToHex, hexToUtf8 } from '../../src/utils/encoding';
 
 describe('address utils', () => {
   const validChecksum = '0x6f43F827bb07458dB45D23c6Dc3408FA4D2f8777';
@@ -81,5 +82,24 @@ describe('denominations utils', () => {
   test('convert truncated wei back to ether (floor)', () => {
     // Truncated wei divided by 1e18 yields 0 (integer division)
     expect(convert('12345678901234567', 'wei', 'ether')).toBe('0');
+  });
+});
+
+
+describe('encoding utils', () => {
+  test('utf8ToHex should encode a UTF-8 string to hex', () => {
+    expect(utf8ToHex('hello')).toBe('68656c6c6f');
+  });
+
+  test('hexToUtf8 should decode a hex string to UTF-8', () => {
+    expect(hexToUtf8('68656c6c6f')).toBe('hello');
+  });
+
+  test('hexToUtf8 should decode a hex string with 0x prefix', () => {
+    expect(hexToUtf8('0x68656c6c6f')).toBe('hello');
+  });
+
+  test('hexToUtf8 should throw an error for invalid hex string', () => {
+    expect(() => hexToUtf8('0x123')).toThrow('Invalid hex string: 0x123');
   });
 });
