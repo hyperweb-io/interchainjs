@@ -1,5 +1,5 @@
 import { isValidEthereumAddress, toChecksumAddress } from '../../src/utils/address';
-import { convert, ethToUnit, unitToEth, DENOMINATIONS } from '../../src/utils/denominations';
+import { parseEther, formatEther, parseUnits, formatUnits } from '../../src/utils/denominations';
 import { utf8ToHex, hexToUtf8 } from '../../src/utils/encoding';
 
 describe('address utils', () => {
@@ -34,54 +34,107 @@ describe('address utils', () => {
   });
 });
 
-
-describe('denominations utils', () => {
-  test('DENOMINATIONS constants', () => {
-    expect(DENOMINATIONS.wei).toBe('1');
-    expect(DENOMINATIONS.ether).toBe('1000000000000000000');
+describe('parseEther', () => {
+  test('should convert ETH to wei', () => {
+    expect(parseEther('1.0').toString()).toBe('1000000000000000000');
+    expect(parseEther('2.5').toString()).toBe('2500000000000000000');
+    expect(parseEther('0.000000000000000001').toString()).toBe('1');
   });
 
-  test('convert wei to ether', () => {
-    expect(convert('1000000000000000000', 'wei', 'ether')).toBe('1');
+  test('should handle zero', () => {
+    expect(parseEther('0').toString()).toBe('0');
+    expect(parseEther('0.0').toString()).toBe('0');
   });
 
-  test('convert gwei to ether', () => {
-    expect(convert('1000000000', 'gwei', 'ether')).toBe('1');
+  test('should handle string and number inputs', () => {
+    expect(parseEther('5').toString()).toBe(parseEther(5).toString());
   });
 
-  test('convert ether to ether', () => {
-    expect(convert('2', 'ether', 'ether')).toBe('2');
+  test('should handle scientific notation', () => {
+    expect(parseEther('1e18').toString()).toBe('1000000000000000000000000000000000000');
+    expect(parseEther('2e-18').toString()).toBe('2');
   });
 
-  test('ethToUnit and unitToEth coherence', () => {
-    const amountEth = '3';
-    const amountWei = DENOMINATIONS.ether;
-    expect(ethToUnit(amountEth, 'wei')).toBe(convert(amountEth, 'ether', 'wei'));
-    expect(unitToEth(amountWei, 'wei')).toBe(convert(amountWei, 'wei', 'ether'));
+  test('should truncate excess decimals beyond 18 places', () => {
+    // Should truncate, not round
+    expect(parseEther('1.0000000000000000005').toString()).toBe('1000000000000000000');
+    expect(parseEther('0.0000000000000000001').toString()).toBe('0');
+  });
+});
+
+describe('formatEther', () => {
+  test('should convert wei to ETH', () => {
+    expect(formatEther(BigInt('1000000000000000000'))).toBe('1');
+    expect(formatEther('1000000000000000000')).toBe('1');
+    expect(formatEther(BigInt('2500000000000000000'))).toBe('2.5');
   });
 
-  test('convert numeric unit (11) to wei and back', () => {
-    // 1 * 10^11 = 100000000000 wei
-    expect(convert('1', 11, 'wei')).toBe('100000000000');
-    // 100000000000 wei / 10^11 = 1
-    expect(convert('100000000000', 'wei', 11)).toBe('1');
+  test('should handle zero', () => {
+    expect(formatEther(BigInt('0'))).toBe('0');
+    expect(formatEther('0')).toBe('0');
   });
 
-  test('convert using numeric unit (5) precision', () => {
-    // 1.23456 * 10^5 = 123456
-    expect(convert('1.23456', 5, 'wei')).toBe('123456');
-    // 123456 wei / 10^5 = 1
-    expect(convert('123456', 'wei', 5)).toBe('1');
+  test('should format with correct precision', () => {
+    expect(formatEther(BigInt('1'))).toBe('0.000000000000000001');
+    expect(formatEther(BigInt('100000000'))).toBe('0.0000000001');
   });
 
-  test('truncate decimals beyond 18 places for ether to wei', () => {
-    // Only first 18 decimal digits are used
-    expect(convert('0.01234567890123456789', 'ether', 'wei')).toBe('12345678901234567');
+  test('should remove trailing zeros', () => {
+    expect(formatEther(BigInt('1000000000000000000'))).toBe('1');  // Not '1.000000000000000000'
+    expect(formatEther(BigInt('1100000000000000000'))).toBe('1.1'); // Not '1.100000000000000000'
+  });
+});
+
+describe('parseUnits', () => {
+  test('should convert amount to smallest units with custom decimals', () => {
+    expect(parseUnits('1.0', 6).toString()).toBe('1000000'); // 6 decimals (USDC)
+    expect(parseUnits('2.5', 8).toString()).toBe('250000000'); // 8 decimals (WBTC)
+    expect(parseUnits('1', 0).toString()).toBe('1'); // 0 decimals
   });
 
-  test('convert truncated wei back to ether (floor)', () => {
-    // Truncated wei divided by 1e18 yields 0 (integer division)
-    expect(convert('12345678901234567', 'wei', 'ether')).toBe('0');
+  test('should handle more decimal places than specified', () => {
+    expect(parseUnits('1.123456789', 6).toString()).toBe('1123456'); // Truncate to 6 decimals
+    expect(parseUnits('0.1234567890123456789', 10).toString()).toBe('1234567890'); // Truncate to 10 decimals
+  });
+
+  test('should handle leading and trailing zeros', () => {
+    expect(parseUnits('01.100', 6).toString()).toBe('1100000');
+    expect(parseUnits('000.0010', 6).toString()).toBe('1000');
+  });
+
+  test('should throw for negative decimals', () => {
+    expect(() => parseUnits('1.0', -1)).toThrow('Decimals must be a non-negative integer');
+  });
+
+  test('should handle very large values', () => {
+    expect(parseUnits('1000000000000000000', 18).toString()).toBe('1000000000000000000000000000000000000');
+  });
+});
+
+describe('formatUnits', () => {
+  test('should convert smallest units to human-readable form with custom decimals', () => {
+    expect(formatUnits(BigInt('1000000'), 6)).toBe('1');
+    expect(formatUnits(BigInt('250000000'), 8)).toBe('2.5');
+    expect(formatUnits(BigInt('1'), 0)).toBe('1');
+  });
+
+  test('should handle string inputs', () => {
+    expect(formatUnits('1000000', 6)).toBe('1');
+    expect(formatUnits('250000000', 8)).toBe('2.5');
+  });
+
+  test('should handle zero values', () => {
+    expect(formatUnits(BigInt('0'), 18)).toBe('0');
+    expect(formatUnits('0', 6)).toBe('0');
+  });
+
+  test('should handle small values', () => {
+    expect(formatUnits(BigInt('1'), 18)).toBe('0.000000000000000001');
+    expect(formatUnits(BigInt('10'), 18)).toBe('0.00000000000000001');
+  });
+
+  test('should throw for negative decimals', () => {
+    expect(() => formatUnits(BigInt('1'), -1)).toThrow('Decimals must be a non-negative integer');
   });
 });
 
