@@ -20,7 +20,113 @@ Transaction codec and client to communicate with ethereum blockchain.
 npm install @interchainjs/ethereum
 ```
 
-In the frontend
+### Using private key
+
+```typescript
+import { SignerFromPrivateKey } from "@interchainjs/ethereum/signers/SignerFromPrivateKey"
+const signer = new SignerFromPrivateKey(privateKey, RPC_URL)
+const { txHash, wait } = await signer.sendEIP1559TransactionAutoGasLimit(
+  recipientAddress,
+  amount
+)
+const receipt = await wait()
+```
+
+```typescript
+// Get the address and current balance
+type Address = string
+const address: Address = signer.getAddress()
+console.log("Address:", address)
+
+const balance: bigint = await signer.getBalance()
+console.log("Balance (wei):", balance)
+
+// Get the current nonce
+const nonce: number = await signer.getNonce()
+console.log("Nonce:", nonce)
+
+// Send a legacy transaction with automatic gas limit
+const { txHash: legacyHash, wait: legacyWait } = await signer.sendLegacyTransactionAutoGasLimit(
+  recipientAddress,
+  1000000000000000n, // 0.001 ETH
+  '0x'
+)
+const legacyReceipt = await legacyWait()
+console.log("Legacy tx receipt:", legacyReceipt)
+
+// Send an EIP-1559 transaction with automatic gas settings
+const { txHash: eipHash, wait: eipWait } = await signer.sendEIP1559TransactionAutoGasLimit(
+  recipientAddress,
+  1000000000000000n // 0.001 ETH
+)
+const eipReceipt = await eipWait()
+console.log("EIP-1559 tx receipt:", eipReceipt)
+
+// Sign and verify a personal message
+const message: string = "Hello, Ethereum!"
+const signature: string = signer.personalSign(message)
+console.log("Signature:", signature)
+
+const isValid: boolean = SignerFromPrivateKey.verifyPersonalSignature(
+  message,
+  signature,
+  address
+)
+console.log("Signature valid:", isValid)
+}
+```
+
+```typescript
+// Estimate gas for an arbitrary transaction
+const estimatedGas: bigint = await signer.estimateGas(
+  recipientAddress,
+  500000000000000000n, // 0.5 ETH
+  '0x'               // optional data
+)
+console.log('Estimated gas:', estimatedGas.toString())
+```
+
+```typescript
+// Deploy a smart contract
+const bytecode = '0x...'; // compiled contract bytecode
+const { txHash: deployHash, wait: deployWait } = await signer.sendLegacyTransactionAutoGasLimit(
+  '',
+  0n,
+  bytecode
+)
+const deployReceipt = await deployWait()
+console.log('Contract deployed at:', deployReceipt.contractAddress)
+```
+
+```typescript
+// Interact with a deployed contract (transfer ERC20 tokens)
+import { ContractEncoder } from "@interchainjs/ethereum/utils/ContractEncoder"
+const abi = [ /* ERC20 contract ABI */ ]
+const contractAddress = deployReceipt.contractAddress
+const contract = new ContractEncoder(abi)
+const dataHex = contract.transfer(recipientAddress, 1000000n)
+const { txHash: tokenHash, wait: tokenWait } = await signer.sendLegacyTransactionAutoGasLimit(
+  contractAddress,
+  0n,
+  dataHex
+)
+const tokenReceipt = await tokenWait()
+console.log('Token transfer receipt:', tokenReceipt)
+```
+
+```typescript
+// Monitor contract events via WebSocket
+import { WebSocketContractMonitor } from "@interchainjs/ethereum/providers/WebSocketContractMonitor"
+const wsUrl = 'ws://127.0.0.1:8546'
+const monitor = new WebSocketContractMonitor(contractAddress, abi, wsUrl)
+await monitor.connect()
+monitor.on('Transfer', (event) => {
+  console.log('Transfer event:', event)
+})
+```
+See more usages in the [unit test](starship/__tests__/token.test.ts)
+
+### In the frontend
 
 ``` typescript
 import { SignerFromBrowser } from "@interchainjs/ethereum/signers/SignerFromBrowser"
@@ -31,20 +137,7 @@ const tx = await signer.send({
 })
 const receipt = await tx.wait()
 ```
-
-Using private key
-
-``` typescript
-import { SignerFromPrivateKey } from "@interchainjs/ethereum/signers/SignerFromPrivateKey"
-const signer = new SignerFromPrivateKey(privateKey, RPC_URL)
-const { txHash, wait } = await signer.sendEIP1559TransactionAutoGasLimit(
-  recipientAddress,
-  amount
-)
-const receipt = await wait()
-```
-
-
+For more details, see this example: https://github.com/hyperweb-io/create-interchain-app/blob/main/examples/ethereum/app/page.tsx
 
 ## Implementations
 
