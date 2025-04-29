@@ -5,7 +5,7 @@ import { TransactionReceipt } from '../types/transaction';
  * Usually, you can use 'any' or refer to the spec:
  * https://eips.ethereum.org/EIPS/eip-1193#request
  */
-interface EthereumProvider {
+export interface EthereumProvider {
   request: (args: {
     method: string;
     params?: any[];

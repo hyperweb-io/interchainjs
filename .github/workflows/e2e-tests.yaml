@@ -92,4 +92,4 @@ jobs:
           config: networks/ethereum/starship/configs/eth-lite.yaml
 
       - name: Run E2E Tests
-        run: cd ./networks/ethereum && yarn starship:test
+        run: cd ./networks/ethereum && yarn starship:test && yarn test:utils
