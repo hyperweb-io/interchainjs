@@ -37,6 +37,8 @@ import { getValidators } from "interchainjs/cosmos/staking/v1beta1/query.rpc.fun
 import { QueryBalanceRequest, QueryBalanceResponse } from 'interchainjs/cosmos/bank/v1beta1/query';
 import { QueryProposalRequest, QueryProposalResponse, QueryVoteRequest, QueryVoteResponse } from 'interchainjs/cosmos/gov/v1beta1/query';
 import { QueryValidatorsRequest, QueryValidatorsResponse } from 'interchainjs/cosmos/staking/v1beta1/query';
+import { MsgDelegate } from '../../../injective-react/src/cosmos/staking/v1beta1/tx';
+import { MsgSend } from '../../src/cosmos/bank/v1beta1/tx';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -117,6 +119,10 @@ describe('Governance tests for osmosis', () => {
       await getRpcEndpoint(),
       new DirectGenericOfflineSigner(directSigner),
       {
+        registry: [
+          MsgDelegate,
+          MsgSend,
+        ],
         broadcast: {
           checkTx: true,
           deliverTx: true,

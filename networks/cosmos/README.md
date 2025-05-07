@@ -20,16 +20,101 @@ Transaction codec and client to communicate with any cosmos blockchain.
 npm install @interchainjs/cosmos
 ```
 
-Taking `direct` signing mode as example.
+Example for signing client here:
+
+```ts
+import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signing-client';
+
+const signingClient = await CosmosSigningClient.connectWithSigner(
+  await getRpcEndpoint(),
+  new DirectGenericOfflineSigner(directSigner),
+  {
+    registry: [
+      // as many as possible encoders registered here.
+      MsgDelegate,
+      MsgSend,
+    ],
+    broadcast: {
+      checkTx: true,
+    },
+  }
+);
+
+// sign and broadcast
+const result = await signingClient.signAndBroadcast(<MESSAGE>[]);
+console.log(result.hash); // the hash of TxRaw
+
+```
+
+Or use the tree shakable helper functions (**Most Recommended**) we generate in interchainjs libs:
+
+```ts
+import { SigningClient as CosmosSigningClient } from '@interchainjs/cosmos/signing-client';
+import { submitProposal } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+
+const signingClient = await CosmosSigningClient.connectWithSigner(
+  await getRpcEndpoint(),
+  new DirectGenericOfflineSigner(directSigner),
+  {
+    // no registry needed here anymore
+    // registry: [
+    // ],
+    broadcast: {
+      checkTx: true,
+    },
+  }
+);
+
+// Necessary typeurl and codecs will be registered automatically in the helper functions. Meaning users don't have to register them all at once.
+const result = await submitProposal(
+  signingClient,
+  directAddress,
+  {
+    proposer: directAddress,
+    initialDeposit: [
+      {
+        amount: '1000000',
+        denom: denom,
+      },
+    ],
+    content: {
+      typeUrl: '/cosmos.gov.v1beta1.TextProposal',
+      value: TextProposal.encode(contentMsg).finish(),
+    },
+  },
+  fee,
+  "submit proposal"
+);
+console.log(result.hash); // the hash of TxRaw
+```
+
+Examples for direct and amino signers here:
 
 ```ts
 // import * from "@interchainjs/cosmos"; // Error: use sub-imports, to ensure small app size
 import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 
-const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now
+// const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now
+const signer = new DirectSigner(
+      directAuth,
+      // as many as possible encoders registered here.
+      [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      rpcEndpoint,
+      { prefix: chainInfo.chain.bech32_prefix }
+    );
+const aminoSigner = new AminoSigner(
+      aminoAuth,
+      // as many as possible encoders registered here.
+      [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      // as many as possible converters registered here.
+      [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      rpcEndpoint,
+      { prefix: chainInfo.chain.bech32_prefix }
+    );
 const result = await signer.signAndBroadcast(<MESSAGE>[]);
 console.log(result.hash); // the hash of TxRaw
 ```
+
 
 - See [@interchainjs/auth](/packages/auth/README.md) to construct `<AUTH>`
 - See [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) to construct `<ENCODER>`s and `<CONVERTER>`s, and also different message types.

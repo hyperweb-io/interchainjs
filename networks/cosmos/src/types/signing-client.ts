@@ -6,7 +6,7 @@ export type EncodeObject = Message;
 
 export type TypeUrl = string;
 
-export type Registry = Array<[TypeUrl, TelescopeGeneratedType<any, any, any>]>;
+export type Registry = Array<[TypeUrl, TelescopeGeneratedType<any, any, any>] | TelescopeGeneratedType<any, any, any>>;
 
 export interface SigningOptions {
   registry?: Registry;
