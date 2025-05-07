@@ -58,8 +58,18 @@ export class SigningClient {
     this.client = client;
 
     this.offlineSigner = offlineSigner;
-    this.encoders = options.registry?.map(([, g]) => toEncoder(g)) || [];
-    this.converters = options.registry?.map(([, g]) => toConverter(g)) || [];
+    this.encoders = options.registry?.map((type) => {
+      if (Array.isArray(type)) {
+        return toEncoder(type[1]);
+      }
+      return type;
+    }) || [];
+    this.converters = options.registry?.map((type) => {
+      if (Array.isArray(type)) {
+        return toConverter(type[1]);
+      }
+      return toConverter(type);
+    }) || [];
 
     this.options = options;
 
