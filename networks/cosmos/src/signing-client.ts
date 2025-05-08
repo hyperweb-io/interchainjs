@@ -141,6 +141,13 @@ export class SigningClient {
 
     // Add only the unique converters
     this.converters.push(...newConverters.map(toConverter));
+
+    Object.values(this.signers).forEach(signer => {
+      if (signer instanceof AminoSigner) {
+        signer.addEncoders(this.encoders);
+        signer.addConverters(newConverters);
+      }
+    });
   };
 
   /**
@@ -155,6 +162,12 @@ export class SigningClient {
 
     // Add only the unique converters
     this.encoders.push(...newEncoders.map(toEncoder));
+
+    Object.values(this.signers).forEach(signer => {
+      if (signer instanceof DirectSigner) {
+        signer.addEncoders(newEncoders);
+      }
+    });
   };
 
   private get queryClient() {
