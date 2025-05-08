@@ -13,6 +13,7 @@ import {
 import { DirectDocAuth } from '../types/docAuth';
 import { IDirectGenericOfflineSigner, isOfflineDirectSigner, OfflineDirectSigner } from '../types/wallet';
 import { ISigningClient } from '../types/signing-client';
+import { toEncoder } from '../utils';
 
 /**
  * DirectDocSigner is a signer for Direct document.
@@ -34,7 +35,7 @@ export class DirectSignerBase extends CosmosBaseSigner<CosmosDirectDoc> {
     options?: SignerOptions,
     broadcastOptions?: BroadcastOptions
   ) {
-    super(auth, encoders, endpoint, options, broadcastOptions);
+    super(auth, encoders.map(toEncoder), endpoint, options, broadcastOptions);
   }
 
   getTxBuilder(): BaseCosmosTxBuilder<CosmosDirectDoc> {
