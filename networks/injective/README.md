@@ -23,7 +23,6 @@ npm install @interchainjs/injective
 Taking `direct` signing mode as example.
 
 ```ts
-// import * from "@interchainjs/injective"; // Error: use sub-imports, to ensure small app size
 import { DirectSigner } from "@interchainjs/injective/signers/direct";
 
 const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now

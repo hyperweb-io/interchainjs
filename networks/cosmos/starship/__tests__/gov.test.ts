@@ -69,14 +69,17 @@ describe('Governance tests for osmosis', () => {
     ]);
     directSigner = new DirectSigner(
       directAuth,
-      [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      // [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       rpcEndpoint,
       { prefix: chainInfo.chain.bech32_prefix }
     );
     aminoSigner = new AminoSigner(
       aminoAuth,
-      [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
-      [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      // [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      toEncoders(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
+      // [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
+      toConverters(MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote),
       rpcEndpoint,
       { prefix: chainInfo.chain.bech32_prefix }
     );
