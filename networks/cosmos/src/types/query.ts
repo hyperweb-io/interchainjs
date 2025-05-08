@@ -64,7 +64,33 @@ export type SearchTxQuery =
   | ReadonlyArray<{
       readonly key: string;
       readonly value: string;
-    }>;
+    }>
+  | {
+      query: string | ReadonlyArray<{
+        readonly key: string;
+        readonly value: string;
+      }>;
+      prove?: boolean;
+      page?: number;
+      perPage?: number;
+      orderBy?: 'asc' | 'desc';
+    };
+
+export type SearchBlockQuery =
+  | string
+  | ReadonlyArray<{
+      readonly key: string;
+      readonly value: string;
+    }>
+  | {
+      query: string | ReadonlyArray<{
+        readonly key: string;
+        readonly value: string;
+      }>;
+      page?: number;
+      perPage?: number;
+      orderBy?: 'asc' | 'desc';
+    };
 
 interface EventAttribute {
   key: string;
@@ -97,6 +123,35 @@ export interface SearchTxResponse {
     };
   }[];
   total_count: string;
+}
+
+export interface SearchBlockResponse {
+  blocks: {
+    block_id: {
+      hash: string;
+      parts: {
+        total: number;
+        hash: string;
+      };
+    };
+    block: {
+      header: Header;
+      data: {
+        txs: string[];
+      };
+      evidence: {
+        evidence: any[];
+      };
+      last_commit?: any;
+    };
+  }[];
+  total_count: string;
+}
+
+export interface IndexedBlock {
+  height: number;
+  hash: string;
+  txs: Uint8Array[];
 }
 
 interface BlockHeader {
