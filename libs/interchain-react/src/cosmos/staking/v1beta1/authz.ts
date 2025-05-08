@@ -239,6 +239,9 @@ export const StakeAuthorization = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(StakeAuthorization.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(StakeAuthorization.typeUrl, StakeAuthorization);
     GlobalDecoderRegistry.registerAminoProtoMapping(StakeAuthorization.aminoType, StakeAuthorization.typeUrl);
     Coin.registerTypeUrl();

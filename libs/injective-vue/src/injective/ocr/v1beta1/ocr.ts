@@ -1445,6 +1445,9 @@ export const SetConfigProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(SetConfigProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(SetConfigProposal.typeUrl, SetConfigProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(SetConfigProposal.aminoType, SetConfigProposal.typeUrl);
     FeedConfig.registerTypeUrl();
@@ -1782,6 +1785,9 @@ export const SetBatchConfigProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(SetBatchConfigProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(SetBatchConfigProposal.typeUrl, SetBatchConfigProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(SetBatchConfigProposal.aminoType, SetBatchConfigProposal.typeUrl);
     FeedProperties.registerTypeUrl();

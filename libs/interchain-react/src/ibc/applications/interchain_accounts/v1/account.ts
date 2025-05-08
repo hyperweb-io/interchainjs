@@ -108,6 +108,9 @@ export const InterchainAccount = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(InterchainAccount.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(InterchainAccount.typeUrl, InterchainAccount);
     GlobalDecoderRegistry.registerAminoProtoMapping(InterchainAccount.aminoType, InterchainAccount.typeUrl);
     BaseAccount.registerTypeUrl();

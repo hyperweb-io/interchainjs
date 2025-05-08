@@ -704,6 +704,9 @@ export const Supply = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(Supply.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(Supply.typeUrl, Supply);
     GlobalDecoderRegistry.registerAminoProtoMapping(Supply.aminoType, Supply.typeUrl);
     Coin.registerTypeUrl();

@@ -402,6 +402,9 @@ export const TransferAuthorization = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(TransferAuthorization.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(TransferAuthorization.typeUrl, TransferAuthorization);
     GlobalDecoderRegistry.registerAminoProtoMapping(TransferAuthorization.aminoType, TransferAuthorization.typeUrl);
     Allocation.registerTypeUrl();

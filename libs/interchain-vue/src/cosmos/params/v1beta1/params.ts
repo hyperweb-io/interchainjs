@@ -149,6 +149,9 @@ export const ParameterChangeProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ParameterChangeProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ParameterChangeProposal.typeUrl, ParameterChangeProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(ParameterChangeProposal.aminoType, ParameterChangeProposal.typeUrl);
     ParamChange.registerTypeUrl();

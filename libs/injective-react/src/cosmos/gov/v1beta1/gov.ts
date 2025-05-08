@@ -642,6 +642,9 @@ export const TextProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(TextProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(TextProposal.typeUrl, TextProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(TextProposal.aminoType, TextProposal.typeUrl);
   }
