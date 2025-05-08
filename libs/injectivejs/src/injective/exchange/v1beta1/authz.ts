@@ -275,6 +275,9 @@ export const CreateSpotLimitOrderAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CreateSpotLimitOrderAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CreateSpotLimitOrderAuthz.typeUrl, CreateSpotLimitOrderAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(CreateSpotLimitOrderAuthz.aminoType, CreateSpotLimitOrderAuthz.typeUrl);
   }
@@ -369,6 +372,9 @@ export const CreateSpotMarketOrderAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CreateSpotMarketOrderAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CreateSpotMarketOrderAuthz.typeUrl, CreateSpotMarketOrderAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(CreateSpotMarketOrderAuthz.aminoType, CreateSpotMarketOrderAuthz.typeUrl);
   }
@@ -463,6 +469,9 @@ export const BatchCreateSpotLimitOrdersAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchCreateSpotLimitOrdersAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchCreateSpotLimitOrdersAuthz.typeUrl, BatchCreateSpotLimitOrdersAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchCreateSpotLimitOrdersAuthz.aminoType, BatchCreateSpotLimitOrdersAuthz.typeUrl);
   }
@@ -557,6 +566,9 @@ export const CancelSpotOrderAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CancelSpotOrderAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CancelSpotOrderAuthz.typeUrl, CancelSpotOrderAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(CancelSpotOrderAuthz.aminoType, CancelSpotOrderAuthz.typeUrl);
   }
@@ -651,6 +663,9 @@ export const BatchCancelSpotOrdersAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchCancelSpotOrdersAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchCancelSpotOrdersAuthz.typeUrl, BatchCancelSpotOrdersAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchCancelSpotOrdersAuthz.aminoType, BatchCancelSpotOrdersAuthz.typeUrl);
   }
@@ -745,6 +760,9 @@ export const CreateDerivativeLimitOrderAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CreateDerivativeLimitOrderAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CreateDerivativeLimitOrderAuthz.typeUrl, CreateDerivativeLimitOrderAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(CreateDerivativeLimitOrderAuthz.aminoType, CreateDerivativeLimitOrderAuthz.typeUrl);
   }
@@ -839,6 +857,9 @@ export const CreateDerivativeMarketOrderAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CreateDerivativeMarketOrderAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CreateDerivativeMarketOrderAuthz.typeUrl, CreateDerivativeMarketOrderAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(CreateDerivativeMarketOrderAuthz.aminoType, CreateDerivativeMarketOrderAuthz.typeUrl);
   }
@@ -933,6 +954,9 @@ export const BatchCreateDerivativeLimitOrdersAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchCreateDerivativeLimitOrdersAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchCreateDerivativeLimitOrdersAuthz.typeUrl, BatchCreateDerivativeLimitOrdersAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchCreateDerivativeLimitOrdersAuthz.aminoType, BatchCreateDerivativeLimitOrdersAuthz.typeUrl);
   }
@@ -1027,6 +1051,9 @@ export const CancelDerivativeOrderAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CancelDerivativeOrderAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CancelDerivativeOrderAuthz.typeUrl, CancelDerivativeOrderAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(CancelDerivativeOrderAuthz.aminoType, CancelDerivativeOrderAuthz.typeUrl);
   }
@@ -1121,6 +1148,9 @@ export const BatchCancelDerivativeOrdersAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchCancelDerivativeOrdersAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchCancelDerivativeOrdersAuthz.typeUrl, BatchCancelDerivativeOrdersAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchCancelDerivativeOrdersAuthz.aminoType, BatchCancelDerivativeOrdersAuthz.typeUrl);
   }
@@ -1229,6 +1259,9 @@ export const BatchUpdateOrdersAuthz = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchUpdateOrdersAuthz.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchUpdateOrdersAuthz.typeUrl, BatchUpdateOrdersAuthz);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchUpdateOrdersAuthz.aminoType, BatchUpdateOrdersAuthz.typeUrl);
   }

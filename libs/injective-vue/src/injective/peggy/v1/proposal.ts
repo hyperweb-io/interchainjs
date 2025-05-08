@@ -132,6 +132,9 @@ export const BlacklistEthereumAddressesProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BlacklistEthereumAddressesProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BlacklistEthereumAddressesProposal.typeUrl, BlacklistEthereumAddressesProposal);
   }
 };
@@ -230,6 +233,9 @@ export const RevokeEthereumBlacklistProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(RevokeEthereumBlacklistProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(RevokeEthereumBlacklistProposal.typeUrl, RevokeEthereumBlacklistProposal);
   }
 };

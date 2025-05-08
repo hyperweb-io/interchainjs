@@ -1250,6 +1250,9 @@ export const SpotMarketParamUpdateProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(SpotMarketParamUpdateProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(SpotMarketParamUpdateProposal.typeUrl, SpotMarketParamUpdateProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(SpotMarketParamUpdateProposal.aminoType, SpotMarketParamUpdateProposal.typeUrl);
     AdminInfo.registerTypeUrl();
@@ -1592,6 +1595,9 @@ export const BatchExchangeModificationProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchExchangeModificationProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchExchangeModificationProposal.typeUrl, BatchExchangeModificationProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchExchangeModificationProposal.aminoType, BatchExchangeModificationProposal.typeUrl);
     SpotMarketParamUpdateProposal.registerTypeUrl();
@@ -1803,6 +1809,9 @@ export const SpotMarketLaunchProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(SpotMarketLaunchProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(SpotMarketLaunchProposal.typeUrl, SpotMarketLaunchProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(SpotMarketLaunchProposal.aminoType, SpotMarketLaunchProposal.typeUrl);
     AdminInfo.registerTypeUrl();
@@ -2064,6 +2073,9 @@ export const PerpetualMarketLaunchProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(PerpetualMarketLaunchProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(PerpetualMarketLaunchProposal.typeUrl, PerpetualMarketLaunchProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(PerpetualMarketLaunchProposal.aminoType, PerpetualMarketLaunchProposal.typeUrl);
     AdminInfo.registerTypeUrl();
@@ -2337,6 +2349,9 @@ export const BinaryOptionsMarketLaunchProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BinaryOptionsMarketLaunchProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BinaryOptionsMarketLaunchProposal.typeUrl, BinaryOptionsMarketLaunchProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BinaryOptionsMarketLaunchProposal.aminoType, BinaryOptionsMarketLaunchProposal.typeUrl);
   }
@@ -2609,6 +2624,9 @@ export const ExpiryFuturesMarketLaunchProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ExpiryFuturesMarketLaunchProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ExpiryFuturesMarketLaunchProposal.typeUrl, ExpiryFuturesMarketLaunchProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(ExpiryFuturesMarketLaunchProposal.aminoType, ExpiryFuturesMarketLaunchProposal.typeUrl);
     AdminInfo.registerTypeUrl();
@@ -2882,6 +2900,9 @@ export const DerivativeMarketParamUpdateProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(DerivativeMarketParamUpdateProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(DerivativeMarketParamUpdateProposal.typeUrl, DerivativeMarketParamUpdateProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(DerivativeMarketParamUpdateProposal.aminoType, DerivativeMarketParamUpdateProposal.typeUrl);
     OracleParams.registerTypeUrl();
@@ -3082,6 +3103,9 @@ export const MarketForcedSettlementProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(MarketForcedSettlementProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(MarketForcedSettlementProposal.typeUrl, MarketForcedSettlementProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(MarketForcedSettlementProposal.aminoType, MarketForcedSettlementProposal.typeUrl);
   }
@@ -3188,6 +3212,9 @@ export const UpdateDenomDecimalsProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(UpdateDenomDecimalsProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(UpdateDenomDecimalsProposal.typeUrl, UpdateDenomDecimalsProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(UpdateDenomDecimalsProposal.aminoType, UpdateDenomDecimalsProposal.typeUrl);
     DenomDecimals.registerTypeUrl();
@@ -3449,6 +3476,9 @@ export const BinaryOptionsMarketParamUpdateProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BinaryOptionsMarketParamUpdateProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BinaryOptionsMarketParamUpdateProposal.typeUrl, BinaryOptionsMarketParamUpdateProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BinaryOptionsMarketParamUpdateProposal.aminoType, BinaryOptionsMarketParamUpdateProposal.typeUrl);
     ProviderOracleParams.registerTypeUrl();
@@ -3780,6 +3810,9 @@ export const TradingRewardCampaignLaunchProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(TradingRewardCampaignLaunchProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(TradingRewardCampaignLaunchProposal.typeUrl, TradingRewardCampaignLaunchProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardCampaignLaunchProposal.aminoType, TradingRewardCampaignLaunchProposal.typeUrl);
     TradingRewardCampaignInfo.registerTypeUrl();
@@ -3914,6 +3947,9 @@ export const TradingRewardCampaignUpdateProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(TradingRewardCampaignUpdateProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(TradingRewardCampaignUpdateProposal.typeUrl, TradingRewardCampaignUpdateProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardCampaignUpdateProposal.aminoType, TradingRewardCampaignUpdateProposal.typeUrl);
     TradingRewardCampaignInfo.registerTypeUrl();
@@ -4116,6 +4152,9 @@ export const TradingRewardPendingPointsUpdateProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(TradingRewardPendingPointsUpdateProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(TradingRewardPendingPointsUpdateProposal.typeUrl, TradingRewardPendingPointsUpdateProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(TradingRewardPendingPointsUpdateProposal.aminoType, TradingRewardPendingPointsUpdateProposal.typeUrl);
     RewardPointUpdate.registerTypeUrl();
@@ -4221,6 +4260,9 @@ export const FeeDiscountProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(FeeDiscountProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(FeeDiscountProposal.typeUrl, FeeDiscountProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(FeeDiscountProposal.aminoType, FeeDiscountProposal.typeUrl);
     FeeDiscountSchedule.registerTypeUrl();
@@ -4328,6 +4370,9 @@ export const BatchCommunityPoolSpendProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchCommunityPoolSpendProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchCommunityPoolSpendProposal.typeUrl, BatchCommunityPoolSpendProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchCommunityPoolSpendProposal.aminoType, BatchCommunityPoolSpendProposal.typeUrl);
     CommunityPoolSpendProposal.registerTypeUrl();
@@ -4435,6 +4480,9 @@ export const AtomicMarketOrderFeeMultiplierScheduleProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl, AtomicMarketOrderFeeMultiplierScheduleProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(AtomicMarketOrderFeeMultiplierScheduleProposal.aminoType, AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl);
     MarketFeeMultiplier.registerTypeUrl();
