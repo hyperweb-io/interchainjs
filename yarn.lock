@@ -1111,22 +1111,10 @@
     bignumber.js "9.1.2"
     sha.js "^2.4.11"
 
-"@chain-registry/v2-types@0.53.68", "@chain-registry/v2-types@^0.53.68":
-  version "0.53.68"
-  resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.68.tgz#83173c3e79c7c89a382c4017e15db71970038847"
-  integrity sha512-MCK9RKJ67VYWCJ0HtnDYJIottx4paoo6wKMbH3s6xWFzLVwufJWi0iKMoppVOIXWk+yr+h9W3puaLJPnYNez9A==
-
 "@chain-registry/v2-types@^0.53.115":
   version "0.53.115"
   resolved "https://registry.yarnpkg.com/@chain-registry/v2-types/-/v2-types-0.53.115.tgz#c9f629360dc1a3335dc30ebb053c5e98581b36a7"
   integrity sha512-9gY2x8XzwVjYALr2zrs9yvyiaY4DuvwfFF2DbWd9t4/8r4VWv+HHKZ1WLjtvNwEL1/CJ0enfMDz9L/hXyxiDcQ==
-
-"@chain-registry/v2@^1.65.6":
-  version "1.71.121"
-  resolved "https://registry.yarnpkg.com/@chain-registry/v2/-/v2-1.71.121.tgz#38baa88c2d6eb59e8996a0bc2b754b2f492468d9"
-  integrity sha512-lwQxuTV4pNvKHmIFtN2/K9UPnGUagRPau9fSBDb6fg6g38IMi2kCqWFTZusPL3RbwJP782L3u6z7zlglf6Q/Hg==
-  dependencies:
-    "@chain-registry/v2-types" "^0.53.68"
 
 "@chain-registry/v2@^1.71.186":
   version "1.71.186"
@@ -1135,10 +1123,10 @@
   dependencies:
     "@chain-registry/v2-types" "^0.53.115"
 
-"@cosmology/ast@^1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.10.1.tgz#265756583228ae1c5dc3090fb2424f6856c0461f"
-  integrity sha512-N20RIRa9Xm71cno/OFH8ZAVkfbNR/1WYkkIJQoK9EUZNPCpJk0wZGZiT+uLYa0Qt6eKzEwiamua6sh9BPE1T+A==
+"@cosmology/ast@^1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.10.2.tgz#8d87697545038f44dd8ed82798bb0f835143756e"
+  integrity sha512-fCOxf6VahxjhvJVfrMNuuDc9uqgx8l4CDIpHxoNkTKbH9misc6UaPxXW8q2cUSEP/FSc8uuu1HALGE+af4qkfQ==
   dependencies:
     "@babel/types" "7.23.6"
     "@cosmology/types" "^1.12.0"
@@ -1179,16 +1167,16 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.12.7":
-  version "1.12.7"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.12.7.tgz#09076d1c6510e44a905f3bc300f7a0143cbed77d"
-  integrity sha512-e+Lvg0d1DpRRReTZebs+7+3TzS7gKw02/G28GktLn0MorxNs3fFhq6ZVNvCqv3ZyshYn5IFxfaWzjTVJ1l4gGA==
+"@cosmology/telescope@^1.12.9":
+  version "1.12.9"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.12.9.tgz#541ca060778f0de0a17da06c4b50d5cd56d33bf2"
+  integrity sha512-mEfQzwNq4ysVvxJFRza8mIGfxndETrTEBigY7BqXf5EqNoESTU9uRF2wSMmb07TAlovJMkWGCZNll0N8hFvmcA==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.10.1"
+    "@cosmology/ast" "^1.10.2"
     "@cosmology/proto-parser" "^1.10.1"
     "@cosmology/types" "^1.12.0"
     "@cosmology/utils" "^1.10.0"

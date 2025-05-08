@@ -836,6 +836,9 @@ export const StoreCodeProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(StoreCodeProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(StoreCodeProposal.typeUrl, StoreCodeProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(StoreCodeProposal.aminoType, StoreCodeProposal.typeUrl);
     AccessConfig.registerTypeUrl();
@@ -1003,6 +1006,9 @@ export const InstantiateContractProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(InstantiateContractProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(InstantiateContractProposal.typeUrl, InstantiateContractProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(InstantiateContractProposal.aminoType, InstantiateContractProposal.typeUrl);
     Coin.registerTypeUrl();
@@ -1194,6 +1200,9 @@ export const InstantiateContract2Proposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(InstantiateContract2Proposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(InstantiateContract2Proposal.typeUrl, InstantiateContract2Proposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(InstantiateContract2Proposal.aminoType, InstantiateContract2Proposal.typeUrl);
     Coin.registerTypeUrl();
@@ -1323,6 +1332,9 @@ export const MigrateContractProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(MigrateContractProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(MigrateContractProposal.typeUrl, MigrateContractProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(MigrateContractProposal.aminoType, MigrateContractProposal.typeUrl);
   }
@@ -1439,6 +1451,9 @@ export const SudoContractProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(SudoContractProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(SudoContractProposal.typeUrl, SudoContractProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(SudoContractProposal.aminoType, SudoContractProposal.typeUrl);
   }
@@ -1581,6 +1596,9 @@ export const ExecuteContractProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ExecuteContractProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ExecuteContractProposal.typeUrl, ExecuteContractProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(ExecuteContractProposal.aminoType, ExecuteContractProposal.typeUrl);
     Coin.registerTypeUrl();
@@ -1698,6 +1716,9 @@ export const UpdateAdminProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(UpdateAdminProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(UpdateAdminProposal.typeUrl, UpdateAdminProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(UpdateAdminProposal.aminoType, UpdateAdminProposal.typeUrl);
   }
@@ -1802,6 +1823,9 @@ export const ClearAdminProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ClearAdminProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ClearAdminProposal.typeUrl, ClearAdminProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(ClearAdminProposal.aminoType, ClearAdminProposal.typeUrl);
   }
@@ -1917,6 +1941,9 @@ export const PinCodesProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(PinCodesProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(PinCodesProposal.typeUrl, PinCodesProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(PinCodesProposal.aminoType, PinCodesProposal.typeUrl);
   }
@@ -2032,6 +2059,9 @@ export const UnpinCodesProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(UnpinCodesProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(UnpinCodesProposal.typeUrl, UnpinCodesProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(UnpinCodesProposal.aminoType, UnpinCodesProposal.typeUrl);
   }
@@ -2229,6 +2259,9 @@ export const UpdateInstantiateConfigProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(UpdateInstantiateConfigProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(UpdateInstantiateConfigProposal.typeUrl, UpdateInstantiateConfigProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(UpdateInstantiateConfigProposal.aminoType, UpdateInstantiateConfigProposal.typeUrl);
     AccessConfigUpdate.registerTypeUrl();
@@ -2456,6 +2489,9 @@ export const StoreAndInstantiateContractProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(StoreAndInstantiateContractProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(StoreAndInstantiateContractProposal.typeUrl, StoreAndInstantiateContractProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(StoreAndInstantiateContractProposal.aminoType, StoreAndInstantiateContractProposal.typeUrl);
     AccessConfig.registerTypeUrl();

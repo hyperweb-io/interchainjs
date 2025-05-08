@@ -287,6 +287,9 @@ export const ContractRegistrationRequestProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ContractRegistrationRequestProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ContractRegistrationRequestProposal.typeUrl, ContractRegistrationRequestProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(ContractRegistrationRequestProposal.aminoType, ContractRegistrationRequestProposal.typeUrl);
     ContractRegistrationRequest.registerTypeUrl();
@@ -394,6 +397,9 @@ export const BatchContractRegistrationRequestProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchContractRegistrationRequestProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchContractRegistrationRequestProposal.typeUrl, BatchContractRegistrationRequestProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchContractRegistrationRequestProposal.aminoType, BatchContractRegistrationRequestProposal.typeUrl);
     ContractRegistrationRequest.registerTypeUrl();
@@ -501,6 +507,9 @@ export const BatchContractDeregistrationProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchContractDeregistrationProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchContractDeregistrationProposal.typeUrl, BatchContractDeregistrationProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchContractDeregistrationProposal.aminoType, BatchContractDeregistrationProposal.typeUrl);
   }
@@ -670,6 +679,9 @@ export const ContractRegistrationRequest = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ContractRegistrationRequest.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ContractRegistrationRequest.typeUrl, ContractRegistrationRequest);
   }
 };
@@ -775,6 +787,9 @@ export const BatchStoreCodeProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BatchStoreCodeProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BatchStoreCodeProposal.typeUrl, BatchStoreCodeProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(BatchStoreCodeProposal.aminoType, BatchStoreCodeProposal.typeUrl);
     StoreCodeProposal.registerTypeUrl();

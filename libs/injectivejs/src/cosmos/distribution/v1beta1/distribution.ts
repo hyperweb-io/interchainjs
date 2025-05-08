@@ -1175,6 +1175,9 @@ export const CommunityPoolSpendProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CommunityPoolSpendProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CommunityPoolSpendProposal.typeUrl, CommunityPoolSpendProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(CommunityPoolSpendProposal.aminoType, CommunityPoolSpendProposal.typeUrl);
     Coin.registerTypeUrl();
@@ -1498,6 +1501,9 @@ export const CommunityPoolSpendProposalWithDeposit = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CommunityPoolSpendProposalWithDeposit.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CommunityPoolSpendProposalWithDeposit.typeUrl, CommunityPoolSpendProposalWithDeposit);
     GlobalDecoderRegistry.registerAminoProtoMapping(CommunityPoolSpendProposalWithDeposit.aminoType, CommunityPoolSpendProposalWithDeposit.typeUrl);
   }

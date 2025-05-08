@@ -224,6 +224,9 @@ export const BaseAccount = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(BaseAccount.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(BaseAccount.typeUrl, BaseAccount);
     GlobalDecoderRegistry.registerAminoProtoMapping(BaseAccount.aminoType, BaseAccount.typeUrl);
   }
@@ -330,6 +333,9 @@ export const ModuleAccount = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ModuleAccount.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ModuleAccount.typeUrl, ModuleAccount);
     GlobalDecoderRegistry.registerAminoProtoMapping(ModuleAccount.aminoType, ModuleAccount.typeUrl);
     BaseAccount.registerTypeUrl();
