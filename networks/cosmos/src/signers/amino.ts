@@ -14,7 +14,7 @@ import {
 } from '../types';
 import { AminoDocAuth } from '../types/docAuth';
 import { IAminoGenericOfflineSigner, isOfflineAminoSigner, OfflineAminoSigner } from '../types/wallet';
-import { toConverter } from '../utils';
+import { toConverter, toEncoder } from '../utils';
 import { ISigningClient } from '../types/signing-client';
 
 /**
@@ -42,8 +42,8 @@ export abstract class AminoSignerBase<
     options?: SignerOptions,
     broadcastOptions?: BroadcastOptions
   ) {
-    super(auth, encoders, endpoint, options, broadcastOptions);
-    this.converters = converters;
+    super(auth, encoders.map(toEncoder), endpoint, options, broadcastOptions);
+    this.converters = converters.map(toConverter);
   }
 
   /**

@@ -58,8 +58,18 @@ export class SigningClient {
     this.client = client;
 
     this.offlineSigner = offlineSigner;
-    this.encoders = options.registry?.map(([, g]) => toEncoder(g)) || [];
-    this.converters = options.registry?.map(([, g]) => toConverter(g)) || [];
+    this.encoders = options.registry?.map((type) => {
+      if (Array.isArray(type)) {
+        return toEncoder(type[1]);
+      }
+      return toEncoder(type);
+    }) || [];
+    this.converters = options.registry?.map((type) => {
+      if (Array.isArray(type)) {
+        return toConverter(type[1]);
+      }
+      return toConverter(type);
+    }) || [];
 
     this.options = options;
 
@@ -131,6 +141,13 @@ export class SigningClient {
 
     // Add only the unique converters
     this.converters.push(...newConverters.map(toConverter));
+
+    Object.values(this.signers).forEach(signer => {
+      if (signer instanceof AminoSigner) {
+        signer.addEncoders(this.encoders);
+        signer.addConverters(newConverters);
+      }
+    });
   };
 
   /**
@@ -145,6 +162,12 @@ export class SigningClient {
 
     // Add only the unique converters
     this.encoders.push(...newEncoders.map(toEncoder));
+
+    Object.values(this.signers).forEach(signer => {
+      if (signer instanceof DirectSigner) {
+        signer.addEncoders(newEncoders);
+      }
+    });
   };
 
   private get queryClient() {

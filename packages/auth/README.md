@@ -23,7 +23,6 @@ npm install @interchainjs/auth
 Taking `secp256k1` as example.
 
 ```ts
-// import * from "@interchainjs/auth"; // Error: use sub-imports, to ensure small app size
 import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
 
 const [directAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
