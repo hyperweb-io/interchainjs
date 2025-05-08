@@ -400,6 +400,9 @@ export const StoreCodeAuthorization = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(StoreCodeAuthorization.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(StoreCodeAuthorization.typeUrl, StoreCodeAuthorization);
     GlobalDecoderRegistry.registerAminoProtoMapping(StoreCodeAuthorization.aminoType, StoreCodeAuthorization.typeUrl);
     CodeGrant.registerTypeUrl();
@@ -483,6 +486,9 @@ export const ContractExecutionAuthorization = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ContractExecutionAuthorization.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ContractExecutionAuthorization.typeUrl, ContractExecutionAuthorization);
     GlobalDecoderRegistry.registerAminoProtoMapping(ContractExecutionAuthorization.aminoType, ContractExecutionAuthorization.typeUrl);
     ContractGrant.registerTypeUrl();
@@ -566,6 +572,9 @@ export const ContractMigrationAuthorization = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(ContractMigrationAuthorization.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(ContractMigrationAuthorization.typeUrl, ContractMigrationAuthorization);
     GlobalDecoderRegistry.registerAminoProtoMapping(ContractMigrationAuthorization.aminoType, ContractMigrationAuthorization.typeUrl);
     ContractGrant.registerTypeUrl();
@@ -843,6 +852,9 @@ export const MaxCallsLimit = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(MaxCallsLimit.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(MaxCallsLimit.typeUrl, MaxCallsLimit);
     GlobalDecoderRegistry.registerAminoProtoMapping(MaxCallsLimit.aminoType, MaxCallsLimit.typeUrl);
   }
@@ -925,6 +937,9 @@ export const MaxFundsLimit = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(MaxFundsLimit.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(MaxFundsLimit.typeUrl, MaxFundsLimit);
     GlobalDecoderRegistry.registerAminoProtoMapping(MaxFundsLimit.aminoType, MaxFundsLimit.typeUrl);
     Coin.registerTypeUrl();
@@ -1020,6 +1035,9 @@ export const CombinedLimit = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CombinedLimit.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CombinedLimit.typeUrl, CombinedLimit);
     GlobalDecoderRegistry.registerAminoProtoMapping(CombinedLimit.aminoType, CombinedLimit.typeUrl);
     Coin.registerTypeUrl();
@@ -1088,6 +1106,9 @@ export const AllowAllMessagesFilter = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(AllowAllMessagesFilter.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(AllowAllMessagesFilter.typeUrl, AllowAllMessagesFilter);
     GlobalDecoderRegistry.registerAminoProtoMapping(AllowAllMessagesFilter.aminoType, AllowAllMessagesFilter.typeUrl);
   }
@@ -1170,6 +1191,9 @@ export const AcceptedMessageKeysFilter = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(AcceptedMessageKeysFilter.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(AcceptedMessageKeysFilter.typeUrl, AcceptedMessageKeysFilter);
     GlobalDecoderRegistry.registerAminoProtoMapping(AcceptedMessageKeysFilter.aminoType, AcceptedMessageKeysFilter.typeUrl);
   }
@@ -1252,6 +1276,9 @@ export const AcceptedMessagesFilter = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(AcceptedMessagesFilter.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(AcceptedMessagesFilter.typeUrl, AcceptedMessagesFilter);
     GlobalDecoderRegistry.registerAminoProtoMapping(AcceptedMessagesFilter.aminoType, AcceptedMessagesFilter.typeUrl);
   }

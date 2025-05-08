@@ -406,6 +406,9 @@ export const SoftwareUpgradeProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(SoftwareUpgradeProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(SoftwareUpgradeProposal.typeUrl, SoftwareUpgradeProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(SoftwareUpgradeProposal.aminoType, SoftwareUpgradeProposal.typeUrl);
     Plan.registerTypeUrl();
@@ -499,6 +502,9 @@ export const CancelSoftwareUpgradeProposal = {
     };
   },
   registerTypeUrl() {
+    if (GlobalDecoderRegistry.getDecoder(CancelSoftwareUpgradeProposal.typeUrl)) {
+      return;
+    }
     GlobalDecoderRegistry.register(CancelSoftwareUpgradeProposal.typeUrl, CancelSoftwareUpgradeProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(CancelSoftwareUpgradeProposal.aminoType, CancelSoftwareUpgradeProposal.typeUrl);
   }
