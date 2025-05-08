@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.11.5...@interchainjs/cosmos@1.11.6) (2025-05-08)
+
+### Bug Fixes
+
+- add converters to signers ([e1bf3fd](https://github.com/hyperweb-io/interchainjs/commit/e1bf3fd9caa7c6712f4827f29ba64d1f9acd3521))
+
 ## [1.11.5](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.11.4...@interchainjs/cosmos@1.11.5) (2025-04-24)
 
 **Note:** Version bump only for package @interchainjs/cosmos
