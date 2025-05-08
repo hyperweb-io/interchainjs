@@ -91,7 +91,6 @@ console.log(result.hash); // the hash of TxRaw
 Examples for direct and amino signers here:
 
 ```ts
-// import * from "@interchainjs/cosmos"; // Error: use sub-imports, to ensure small app size
 import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
 
 // const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now

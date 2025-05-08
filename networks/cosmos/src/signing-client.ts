@@ -62,7 +62,7 @@ export class SigningClient {
       if (Array.isArray(type)) {
         return toEncoder(type[1]);
       }
-      return type;
+      return toEncoder(type);
     }) || [];
     this.converters = options.registry?.map((type) => {
       if (Array.isArray(type)) {
