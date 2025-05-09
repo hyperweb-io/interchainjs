@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** TableDescriptor describes an ORM table. */
 export interface TableDescriptor {
@@ -314,6 +315,9 @@ export const TableDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TableDescriptor.typeUrl)) {
+      return;
+    }
     PrimaryKeyDescriptor.registerTypeUrl();
     SecondaryIndexDescriptor.registerTypeUrl();
   }

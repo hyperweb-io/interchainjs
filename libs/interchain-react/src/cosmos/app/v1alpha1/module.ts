@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** ModuleDescriptor describes an app module. */
 export interface ModuleDescriptor {
   /**
@@ -288,6 +289,9 @@ export const ModuleDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ModuleDescriptor.typeUrl)) {
+      return;
+    }
     PackageReference.registerTypeUrl();
     MigrateFromInfo.registerTypeUrl();
   }

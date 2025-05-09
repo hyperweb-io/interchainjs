@@ -2,6 +2,7 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Denom, DenomAmino } from "./token";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * QueryDenomRequest is the request type for the Query/Denom RPC
  * method
@@ -255,6 +256,9 @@ export const QueryDenomResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDenomResponse.typeUrl)) {
+      return;
+    }
     Denom.registerTypeUrl();
   }
 };
@@ -334,6 +338,9 @@ export const QueryDenomsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDenomsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -427,6 +434,9 @@ export const QueryDenomsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDenomsResponse.typeUrl)) {
+      return;
+    }
     Denom.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }

@@ -1,6 +1,7 @@
 import { ProposalExecutorResult, ProposalStatus, TallyResult, TallyResultAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** EventCreateGroup is an event emitted when a group is created. */
 export interface EventCreateGroup {
   /** group_id is the unique ID of the group. */
@@ -1030,6 +1031,9 @@ export const EventProposalPruned = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventProposalPruned.typeUrl)) {
+      return;
+    }
     TallyResult.registerTypeUrl();
   }
 };

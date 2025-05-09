@@ -4,6 +4,7 @@ import { ProofOps, ProofOpsAmino } from "../crypto/proof";
 import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BlockIDFlag } from "../types/validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
+import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes, isSet } from "../../helpers";
 export enum CheckTxType {
   NEW = 0,
@@ -1618,6 +1619,9 @@ export const Request = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Request.typeUrl)) {
+      return;
+    }
     RequestEcho.registerTypeUrl();
     RequestFlush.registerTypeUrl();
     RequestInfo.registerTypeUrl();
@@ -2000,6 +2004,9 @@ export const RequestInitChain = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RequestInitChain.typeUrl)) {
+      return;
+    }
     ConsensusParams.registerTypeUrl();
     ValidatorUpdate.registerTypeUrl();
   }
@@ -2387,6 +2394,9 @@ export const RequestOfferSnapshot = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RequestOfferSnapshot.typeUrl)) {
+      return;
+    }
     Snapshot.registerTypeUrl();
   }
 };
@@ -2735,6 +2745,9 @@ export const RequestPrepareProposal = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RequestPrepareProposal.typeUrl)) {
+      return;
+    }
     ExtendedCommitInfo.registerTypeUrl();
     Misbehavior.registerTypeUrl();
   }
@@ -2896,6 +2909,9 @@ export const RequestProcessProposal = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RequestProcessProposal.typeUrl)) {
+      return;
+    }
     CommitInfo.registerTypeUrl();
     Misbehavior.registerTypeUrl();
   }
@@ -3057,6 +3073,9 @@ export const RequestExtendVote = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RequestExtendVote.typeUrl)) {
+      return;
+    }
     CommitInfo.registerTypeUrl();
     Misbehavior.registerTypeUrl();
   }
@@ -3324,6 +3343,9 @@ export const RequestFinalizeBlock = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RequestFinalizeBlock.typeUrl)) {
+      return;
+    }
     CommitInfo.registerTypeUrl();
     Misbehavior.registerTypeUrl();
   }
@@ -3589,6 +3611,9 @@ export const Response = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Response.typeUrl)) {
+      return;
+    }
     ResponseException.registerTypeUrl();
     ResponseEcho.registerTypeUrl();
     ResponseFlush.registerTypeUrl();
@@ -4018,6 +4043,9 @@ export const ResponseInitChain = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ResponseInitChain.typeUrl)) {
+      return;
+    }
     ConsensusParams.registerTypeUrl();
     ValidatorUpdate.registerTypeUrl();
   }
@@ -4187,6 +4215,9 @@ export const ResponseQuery = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ResponseQuery.typeUrl)) {
+      return;
+    }
     ProofOps.registerTypeUrl();
   }
 };
@@ -4345,6 +4376,9 @@ export const ResponseCheckTx = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ResponseCheckTx.typeUrl)) {
+      return;
+    }
     Event.registerTypeUrl();
   }
 };
@@ -4489,6 +4523,9 @@ export const ResponseListSnapshots = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ResponseListSnapshots.typeUrl)) {
+      return;
+    }
     Snapshot.registerTypeUrl();
   }
 };
@@ -5144,6 +5181,9 @@ export const ResponseFinalizeBlock = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ResponseFinalizeBlock.typeUrl)) {
+      return;
+    }
     Event.registerTypeUrl();
     ExecTxResult.registerTypeUrl();
     ValidatorUpdate.registerTypeUrl();
@@ -5233,6 +5273,9 @@ export const CommitInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CommitInfo.typeUrl)) {
+      return;
+    }
     VoteInfo.registerTypeUrl();
   }
 };
@@ -5319,6 +5362,9 @@ export const ExtendedCommitInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExtendedCommitInfo.typeUrl)) {
+      return;
+    }
     ExtendedVoteInfo.registerTypeUrl();
   }
 };
@@ -5405,6 +5451,9 @@ export const Event = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Event.typeUrl)) {
+      return;
+    }
     EventAttribute.registerTypeUrl();
   }
 };
@@ -5657,6 +5706,9 @@ export const ExecTxResult = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExecTxResult.typeUrl)) {
+      return;
+    }
     Event.registerTypeUrl();
   }
 };
@@ -5765,6 +5817,9 @@ export const TxResult = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TxResult.typeUrl)) {
+      return;
+    }
     ExecTxResult.registerTypeUrl();
   }
 };
@@ -5931,6 +5986,9 @@ export const ValidatorUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorUpdate.typeUrl)) {
+      return;
+    }
     PublicKey.registerTypeUrl();
   }
 };
@@ -6015,6 +6073,9 @@ export const VoteInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(VoteInfo.typeUrl)) {
+      return;
+    }
     Validator.registerTypeUrl();
   }
 };
@@ -6123,6 +6184,9 @@ export const ExtendedVoteInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExtendedVoteInfo.typeUrl)) {
+      return;
+    }
     Validator.registerTypeUrl();
   }
 };
@@ -6243,6 +6307,9 @@ export const Misbehavior = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Misbehavior.typeUrl)) {
+      return;
+    }
     Validator.registerTypeUrl();
   }
 };

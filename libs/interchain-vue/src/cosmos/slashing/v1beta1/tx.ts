@@ -1,6 +1,7 @@
 import { Params, ParamsAmino } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgUnjail defines the Msg/Unjail request type */
 export interface MsgUnjail {
   validatorAddr: string;
@@ -318,6 +319,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

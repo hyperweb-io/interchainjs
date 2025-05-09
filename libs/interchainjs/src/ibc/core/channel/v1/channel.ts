@@ -1,6 +1,7 @@
 import { Height, HeightAmino } from "../../client/v1/client";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * State defines if a channel is in one of the following states:
  * CLOSED, INIT, TRYOPEN, OPEN, FLUSHING, FLUSHCOMPLETE or UNINITIALIZED.
@@ -615,6 +616,9 @@ export const Channel = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Channel.typeUrl)) {
+      return;
+    }
     Counterparty.registerTypeUrl();
   }
 };
@@ -780,6 +784,9 @@ export const IdentifiedChannel = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(IdentifiedChannel.typeUrl)) {
+      return;
+    }
     Counterparty.registerTypeUrl();
   }
 };
@@ -1032,6 +1039,9 @@ export const Packet = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Packet.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -1426,6 +1436,9 @@ export const Timeout = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Timeout.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -1505,6 +1518,9 @@ export const Params = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Params.typeUrl)) {
+      return;
+    }
     Timeout.registerTypeUrl();
   }
 };

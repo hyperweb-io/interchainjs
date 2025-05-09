@@ -3,6 +3,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsRequest";
@@ -327,6 +328,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -481,6 +485,9 @@ export const QueryFeedConfigResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeedConfigResponse.typeUrl)) {
+      return;
+    }
     FeedConfigInfo.registerTypeUrl();
     FeedConfig.registerTypeUrl();
   }
@@ -636,6 +643,9 @@ export const QueryFeedConfigInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeedConfigInfoResponse.typeUrl)) {
+      return;
+    }
     FeedConfigInfo.registerTypeUrl();
     EpochAndRound.registerTypeUrl();
   }
@@ -791,6 +801,9 @@ export const QueryLatestRoundResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLatestRoundResponse.typeUrl)) {
+      return;
+    }
     Transmission.registerTypeUrl();
   }
 };
@@ -957,6 +970,9 @@ export const QueryLatestTransmissionDetailsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLatestTransmissionDetailsResponse.typeUrl)) {
+      return;
+    }
     EpochAndRound.registerTypeUrl();
     Transmission.registerTypeUrl();
   }
@@ -1100,6 +1116,9 @@ export const QueryOwedAmountResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOwedAmountResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1229,6 +1248,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };

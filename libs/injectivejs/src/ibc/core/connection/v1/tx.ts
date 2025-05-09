@@ -2,6 +2,7 @@ import { Counterparty, CounterpartyAmino, Version, VersionAmino } from "./connec
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * MsgConnectionOpenInit defines the msg sent by an account on Chain A to
@@ -437,6 +438,9 @@ export const MsgConnectionOpenInit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgConnectionOpenInit.typeUrl)) {
+      return;
+    }
     Counterparty.registerTypeUrl();
     Version.registerTypeUrl();
   }
@@ -727,6 +731,9 @@ export const MsgConnectionOpenTry = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgConnectionOpenTry.typeUrl)) {
+      return;
+    }
     Counterparty.registerTypeUrl();
     Version.registerTypeUrl();
     Height.registerTypeUrl();
@@ -992,6 +999,9 @@ export const MsgConnectionOpenAck = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgConnectionOpenAck.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -1171,6 +1181,9 @@ export const MsgConnectionOpenConfirm = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgConnectionOpenConfirm.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -1326,6 +1339,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

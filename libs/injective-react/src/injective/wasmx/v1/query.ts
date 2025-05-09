@@ -2,6 +2,7 @@ import { Params, ParamsAmino, RegisteredContract, RegisteredContractAmino } from
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryWasmxParamsRequest is the request type for the Query/WasmxParams RPC
  * method.
@@ -238,6 +239,9 @@ export const QueryWasmxParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryWasmxParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -367,6 +371,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };
@@ -509,6 +516,9 @@ export const QueryContractRegistrationInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryContractRegistrationInfoResponse.typeUrl)) {
+      return;
+    }
     RegisteredContract.registerTypeUrl();
   }
 };

@@ -2,6 +2,7 @@ import { Token, TokenAmino } from "./token";
 import { Hop, HopAmino } from "../v1/transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * FungibleTokenPacketData defines a struct for the packet payload
  * See FungibleTokenPacketData spec:
@@ -367,6 +368,9 @@ export const FungibleTokenPacketDataV2 = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FungibleTokenPacketDataV2.typeUrl)) {
+      return;
+    }
     Token.registerTypeUrl();
     ForwardingPacketData.registerTypeUrl();
   }
@@ -461,6 +465,9 @@ export const ForwardingPacketData = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ForwardingPacketData.typeUrl)) {
+      return;
+    }
     Hop.registerTypeUrl();
   }
 };

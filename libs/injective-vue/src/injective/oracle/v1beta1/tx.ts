@@ -2,6 +2,7 @@ import { AssetPair, AssetPairAmino, PriceAttestation, PriceAttestationAmino, Par
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
  * provider oracle.
@@ -1098,6 +1099,9 @@ export const MsgRelayStorkPrices = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRelayStorkPrices.typeUrl)) {
+      return;
+    }
     AssetPair.registerTypeUrl();
   }
 };
@@ -1394,6 +1398,9 @@ export const MsgRelayPythPrices = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRelayPythPrices.typeUrl)) {
+      return;
+    }
     PriceAttestation.registerTypeUrl();
   }
 };
@@ -1542,6 +1549,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

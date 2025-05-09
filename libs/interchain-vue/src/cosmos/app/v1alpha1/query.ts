@@ -1,6 +1,7 @@
 import { Config, ConfigAmino } from "./config";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryConfigRequest is the Query/Config request type. */
 export interface QueryConfigRequest {}
 export interface QueryConfigRequestProtoMsg {
@@ -171,6 +172,9 @@ export const QueryConfigResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryConfigResponse.typeUrl)) {
+      return;
+    }
     Config.registerTypeUrl();
   }
 };

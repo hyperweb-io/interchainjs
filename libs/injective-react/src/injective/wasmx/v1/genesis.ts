@@ -1,5 +1,6 @@
 import { RegisteredContract, RegisteredContractAmino, Params, ParamsAmino } from "./wasmx";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 export interface RegisteredContractWithAddress {
   address: string;
@@ -126,6 +127,9 @@ export const RegisteredContractWithAddress = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RegisteredContractWithAddress.typeUrl)) {
+      return;
+    }
     RegisteredContract.registerTypeUrl();
   }
 };
@@ -212,6 +216,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     RegisteredContractWithAddress.registerTypeUrl();
   }

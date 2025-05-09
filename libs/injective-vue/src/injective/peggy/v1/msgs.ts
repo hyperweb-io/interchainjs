@@ -4,6 +4,7 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { Params, ParamsAmino } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgSetOrchestratorAddresses
  * this message allows validators to delegate their voting responsibilities
@@ -1112,6 +1113,9 @@ export const MsgSendToEth = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSendToEth.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2572,6 +2576,9 @@ export const MsgValsetUpdatedClaim = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgValsetUpdatedClaim.typeUrl)) {
+      return;
+    }
     BridgeValidator.registerTypeUrl();
   }
 };
@@ -2720,6 +2727,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

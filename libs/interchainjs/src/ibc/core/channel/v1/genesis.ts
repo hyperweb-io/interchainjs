@@ -1,5 +1,6 @@
 import { IdentifiedChannel, IdentifiedChannelAmino, PacketState, PacketStateAmino, Params, ParamsAmino } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** GenesisState defines the ibc channel submodule's genesis state. */
 export interface GenesisState {
@@ -247,6 +248,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     IdentifiedChannel.registerTypeUrl();
     PacketState.registerTypeUrl();
     PacketSequence.registerTypeUrl();

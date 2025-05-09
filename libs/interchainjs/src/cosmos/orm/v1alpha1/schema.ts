@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** StorageType */
 export enum StorageType {
   /**
@@ -218,6 +219,9 @@ export const ModuleSchemaDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ModuleSchemaDescriptor.typeUrl)) {
+      return;
+    }
     ModuleSchemaDescriptor_FileEntry.registerTypeUrl();
   }
 };

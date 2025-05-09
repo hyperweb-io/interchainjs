@@ -1,6 +1,7 @@
 import { ModuleOptions, ModuleOptionsAmino } from "./options";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** AppOptionsRequest is the RemoteInfoService/AppOptions request type. */
 export interface AppOptionsRequest {}
 export interface AppOptionsRequestProtoMsg {
@@ -285,6 +286,9 @@ export const AppOptionsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AppOptionsResponse.typeUrl)) {
+      return;
+    }
     ModuleOptions.registerTypeUrl();
   }
 };

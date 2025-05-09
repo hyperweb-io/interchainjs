@@ -1,5 +1,6 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /**
  * IdentifiedClientState defines a client state with an additional client
@@ -429,6 +430,9 @@ export const ClientConsensusStates = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ClientConsensusStates.typeUrl)) {
+      return;
+    }
     ConsensusStateWithHeight.registerTypeUrl();
   }
 };

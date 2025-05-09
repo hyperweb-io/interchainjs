@@ -1,6 +1,7 @@
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * CommitInfo defines commit information used by the multi-store when committing
  * a version/height.
@@ -177,6 +178,9 @@ export const CommitInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CommitInfo.typeUrl)) {
+      return;
+    }
     StoreInfo.registerTypeUrl();
   }
 };
@@ -268,6 +272,9 @@ export const StoreInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StoreInfo.typeUrl)) {
+      return;
+    }
     CommitID.registerTypeUrl();
   }
 };

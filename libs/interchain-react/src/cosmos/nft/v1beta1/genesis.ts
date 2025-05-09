@@ -1,6 +1,7 @@
 import { Class, ClassAmino, NFT, NFTAmino } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** GenesisState defines the nft module's genesis state. */
 export interface GenesisState {
   /** class defines the class of the nft type. */
@@ -137,6 +138,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Class.registerTypeUrl();
     Entry.registerTypeUrl();
   }
@@ -231,6 +235,9 @@ export const Entry = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Entry.typeUrl)) {
+      return;
+    }
     NFT.registerTypeUrl();
   }
 };

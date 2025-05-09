@@ -1,6 +1,7 @@
 import { Header, HeaderAmino, Data, DataAmino, Commit, CommitAmino } from "./types";
 import { EvidenceList, EvidenceListAmino } from "./evidence";
 import { BinaryReader, BinaryWriter } from "../../binary";
+import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial } from "../../helpers";
 export interface Block {
   header: Header;
@@ -127,6 +128,9 @@ export const Block = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Block.typeUrl)) {
+      return;
+    }
     Header.registerTypeUrl();
     Data.registerTypeUrl();
     EvidenceList.registerTypeUrl();

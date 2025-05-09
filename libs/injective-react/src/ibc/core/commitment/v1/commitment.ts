@@ -1,6 +1,7 @@
 import { CommitmentProof, CommitmentProofAmino } from "../../../../cosmos/ics23/v1/proofs";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * MerkleRoot defines a merkle root hash.
  * In the Cosmos SDK, the AppHash of a block header becomes the root.
@@ -307,6 +308,9 @@ export const MerkleProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MerkleProof.typeUrl)) {
+      return;
+    }
     CommitmentProof.registerTypeUrl();
   }
 };

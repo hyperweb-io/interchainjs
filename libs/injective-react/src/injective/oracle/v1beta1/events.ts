@@ -2,6 +2,7 @@ import { StorkPriceState, StorkPriceStateAmino, PythPriceState, PythPriceStateAm
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface SetChainlinkPriceEvent {
   feedId: string;
   answer: string;
@@ -1159,6 +1160,9 @@ export const EventSetStorkPrices = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSetStorkPrices.typeUrl)) {
+      return;
+    }
     StorkPriceState.registerTypeUrl();
   }
 };
@@ -1233,6 +1237,9 @@ export const EventSetPythPrices = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSetPythPrices.typeUrl)) {
+      return;
+    }
     PythPriceState.registerTypeUrl();
   }
 };

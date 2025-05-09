@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { GlobalDecoderRegistry } from "../../registry";
 export interface Proof {
   total: bigint;
   index: bigint;
@@ -291,6 +292,9 @@ export const ValueOp = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValueOp.typeUrl)) {
+      return;
+    }
     Proof.registerTypeUrl();
   }
 };
@@ -553,6 +557,9 @@ export const ProofOps = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ProofOps.typeUrl)) {
+      return;
+    }
     ProofOp.registerTypeUrl();
   }
 };

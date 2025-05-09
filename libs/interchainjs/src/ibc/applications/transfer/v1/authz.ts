@@ -239,6 +239,9 @@ export const Allocation = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Allocation.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
     AllowedForwarding.registerTypeUrl();
   }
@@ -321,6 +324,9 @@ export const AllowedForwarding = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AllowedForwarding.typeUrl)) {
+      return;
+    }
     Hop.registerTypeUrl();
   }
 };
@@ -402,7 +408,7 @@ export const TransferAuthorization = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(TransferAuthorization.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TransferAuthorization.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(TransferAuthorization.typeUrl, TransferAuthorization);

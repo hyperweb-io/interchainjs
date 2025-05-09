@@ -1,5 +1,6 @@
 import { Params, ParamsAmino, QueryRequest, QueryRequestAmino } from "./host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
 /** MsgUpdateParams defines the payload for Msg/UpdateParams */
 export interface MsgUpdateParams {
@@ -175,6 +176,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -332,6 +336,9 @@ export const MsgModuleQuerySafe = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgModuleQuerySafe.typeUrl)) {
+      return;
+    }
     QueryRequest.registerTypeUrl();
   }
 };

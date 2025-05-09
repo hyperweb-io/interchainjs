@@ -2,6 +2,7 @@ import { IdentifiedPacketFees, IdentifiedPacketFeesAmino } from "./fee";
 import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /** GenesisState defines the ICS29 fee middleware genesis state */
 export interface GenesisState {
   /** list of identified packet fees */
@@ -272,6 +273,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     IdentifiedPacketFees.registerTypeUrl();
     FeeEnabledChannel.registerTypeUrl();
     RegisteredPayee.registerTypeUrl();
@@ -658,6 +662,9 @@ export const ForwardRelayerAddress = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ForwardRelayerAddress.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
   }
 };

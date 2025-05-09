@@ -1,5 +1,6 @@
 import { Duration, DurationAmino } from "../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../binary";
+import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial } from "../../helpers";
 /**
  * ConsensusParams contains consensus critical parameters that determine the
@@ -340,6 +341,9 @@ export const ConsensusParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ConsensusParams.typeUrl)) {
+      return;
+    }
     BlockParams.registerTypeUrl();
     EvidenceParams.registerTypeUrl();
     ValidatorParams.registerTypeUrl();

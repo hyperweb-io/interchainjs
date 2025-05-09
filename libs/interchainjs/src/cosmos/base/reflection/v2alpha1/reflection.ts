@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** AppDescriptor describes a cosmos-sdk based application */
 export interface AppDescriptor {
@@ -714,6 +715,9 @@ export const AppDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AppDescriptor.typeUrl)) {
+      return;
+    }
     AuthnDescriptor.registerTypeUrl();
     ChainDescriptor.registerTypeUrl();
     CodecDescriptor.registerTypeUrl();
@@ -812,6 +816,9 @@ export const TxDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TxDescriptor.typeUrl)) {
+      return;
+    }
     MsgDescriptor.registerTypeUrl();
   }
 };
@@ -893,6 +900,9 @@ export const AuthnDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AuthnDescriptor.typeUrl)) {
+      return;
+    }
     SigningModeDescriptor.registerTypeUrl();
   }
 };
@@ -1152,6 +1162,9 @@ export const CodecDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CodecDescriptor.typeUrl)) {
+      return;
+    }
     InterfaceDescriptor.registerTypeUrl();
   }
 };
@@ -1259,6 +1272,9 @@ export const InterfaceDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(InterfaceDescriptor.typeUrl)) {
+      return;
+    }
     InterfaceAcceptingMessageDescriptor.registerTypeUrl();
     InterfaceImplementerDescriptor.registerTypeUrl();
   }
@@ -1737,6 +1753,9 @@ export const GetAuthnDescriptorResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetAuthnDescriptorResponse.typeUrl)) {
+      return;
+    }
     AuthnDescriptor.registerTypeUrl();
   }
 };
@@ -1880,6 +1899,9 @@ export const GetChainDescriptorResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetChainDescriptorResponse.typeUrl)) {
+      return;
+    }
     ChainDescriptor.registerTypeUrl();
   }
 };
@@ -2023,6 +2045,9 @@ export const GetCodecDescriptorResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetCodecDescriptorResponse.typeUrl)) {
+      return;
+    }
     CodecDescriptor.registerTypeUrl();
   }
 };
@@ -2166,6 +2191,9 @@ export const GetConfigurationDescriptorResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetConfigurationDescriptorResponse.typeUrl)) {
+      return;
+    }
     ConfigurationDescriptor.registerTypeUrl();
   }
 };
@@ -2309,6 +2337,9 @@ export const GetQueryServicesDescriptorResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetQueryServicesDescriptorResponse.typeUrl)) {
+      return;
+    }
     QueryServicesDescriptor.registerTypeUrl();
   }
 };
@@ -2452,6 +2483,9 @@ export const GetTxDescriptorResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetTxDescriptorResponse.typeUrl)) {
+      return;
+    }
     TxDescriptor.registerTypeUrl();
   }
 };
@@ -2533,6 +2567,9 @@ export const QueryServicesDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryServicesDescriptor.typeUrl)) {
+      return;
+    }
     QueryServiceDescriptor.registerTypeUrl();
   }
 };
@@ -2638,6 +2675,9 @@ export const QueryServiceDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryServiceDescriptor.typeUrl)) {
+      return;
+    }
     QueryMethodDescriptor.registerTypeUrl();
   }
 };

@@ -2,6 +2,7 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Event, EventAmino } from "../../../../tendermint/abci/types";
 import { Block, BlockAmino } from "../../../../tendermint/types/block";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
@@ -645,6 +646,9 @@ export const TxResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TxResponse.typeUrl)) {
+      return;
+    }
     Event.registerTypeUrl();
   }
 };
@@ -750,6 +754,9 @@ export const ABCIMessageLog = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ABCIMessageLog.typeUrl)) {
+      return;
+    }
     StringEvent.registerTypeUrl();
   }
 };
@@ -843,6 +850,9 @@ export const StringEvent = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StringEvent.typeUrl)) {
+      return;
+    }
     Attribute.registerTypeUrl();
   }
 };
@@ -1229,6 +1239,9 @@ export const SimulationResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SimulationResponse.typeUrl)) {
+      return;
+    }
     GasInfo.registerTypeUrl();
     Result.registerTypeUrl();
   }
@@ -1553,6 +1566,9 @@ export const SearchTxsResult = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SearchTxsResult.typeUrl)) {
+      return;
+    }
     TxResponse.registerTypeUrl();
   }
 };
@@ -1694,6 +1710,9 @@ export const SearchBlocksResult = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SearchBlocksResult.typeUrl)) {
+      return;
+    }
     Block.registerTypeUrl();
   }
 };

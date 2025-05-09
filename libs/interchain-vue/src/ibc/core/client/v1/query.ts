@@ -4,6 +4,7 @@ import { MerklePath, MerklePathAmino } from "../../commitment/v2/commitment";
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * QueryClientStateRequest is the request type for the Query/ClientState RPC
  * method
@@ -711,6 +712,9 @@ export const QueryClientStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClientStateResponse.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -790,6 +794,9 @@ export const QueryClientStatesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClientStatesRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -883,6 +890,9 @@ export const QueryClientStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClientStatesResponse.typeUrl)) {
+      return;
+    }
     IdentifiedClientState.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1100,6 +1110,9 @@ export const QueryConsensusStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryConsensusStateResponse.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -1191,6 +1204,9 @@ export const QueryConsensusStatesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryConsensusStatesRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1284,6 +1300,9 @@ export const QueryConsensusStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryConsensusStatesResponse.typeUrl)) {
+      return;
+    }
     ConsensusStateWithHeight.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1376,6 +1395,9 @@ export const QueryConsensusStateHeightsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryConsensusStateHeightsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1469,6 +1491,9 @@ export const QueryConsensusStateHeightsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryConsensusStateHeightsResponse.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1767,6 +1792,9 @@ export const QueryClientParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClientParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -2200,6 +2228,9 @@ export const QueryVerifyMembershipRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryVerifyMembershipRequest.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
     MerklePath.registerTypeUrl();
   }

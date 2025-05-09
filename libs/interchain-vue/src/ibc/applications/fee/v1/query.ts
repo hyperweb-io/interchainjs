@@ -4,6 +4,7 @@ import { IdentifiedPacketFees, IdentifiedPacketFeesAmino } from "./fee";
 import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { FeeEnabledChannel, FeeEnabledChannelAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsRequest {
@@ -509,6 +510,9 @@ export const QueryIncentivizedPacketsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryIncentivizedPacketsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -602,6 +606,9 @@ export const QueryIncentivizedPacketsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryIncentivizedPacketsResponse.typeUrl)) {
+      return;
+    }
     IdentifiedPacketFees.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -694,6 +701,9 @@ export const QueryIncentivizedPacketRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryIncentivizedPacketRequest.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
   }
 };
@@ -773,6 +783,9 @@ export const QueryIncentivizedPacketResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryIncentivizedPacketResponse.typeUrl)) {
+      return;
+    }
     IdentifiedPacketFees.registerTypeUrl();
   }
 };
@@ -888,6 +901,9 @@ export const QueryIncentivizedPacketsForChannelRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryIncentivizedPacketsForChannelRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -981,6 +997,9 @@ export const QueryIncentivizedPacketsForChannelResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryIncentivizedPacketsForChannelResponse.typeUrl)) {
+      return;
+    }
     IdentifiedPacketFees.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1061,6 +1080,9 @@ export const QueryTotalRecvFeesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTotalRecvFeesRequest.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
   }
 };
@@ -1142,6 +1164,9 @@ export const QueryTotalRecvFeesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTotalRecvFeesResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1221,6 +1246,9 @@ export const QueryTotalAckFeesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTotalAckFeesRequest.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
   }
 };
@@ -1302,6 +1330,9 @@ export const QueryTotalAckFeesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTotalAckFeesResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1381,6 +1412,9 @@ export const QueryTotalTimeoutFeesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTotalTimeoutFeesRequest.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
   }
 };
@@ -1462,6 +1496,9 @@ export const QueryTotalTimeoutFeesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTotalTimeoutFeesResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1885,6 +1922,9 @@ export const QueryFeeEnabledChannelsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeeEnabledChannelsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1978,6 +2018,9 @@ export const QueryFeeEnabledChannelsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeeEnabledChannelsResponse.typeUrl)) {
+      return;
+    }
     FeeEnabledChannel.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }

@@ -348,6 +348,9 @@ export const Params = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Params.typeUrl)) {
+      return;
+    }
     SendEnabled.registerTypeUrl();
   }
 };
@@ -530,6 +533,9 @@ export const Input = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Input.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -623,6 +629,9 @@ export const Output = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Output.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -704,7 +713,7 @@ export const Supply = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(Supply.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Supply.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(Supply.typeUrl, Supply);
@@ -977,6 +986,9 @@ export const Metadata = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Metadata.typeUrl)) {
+      return;
+    }
     DenomUnit.registerTypeUrl();
   }
 };

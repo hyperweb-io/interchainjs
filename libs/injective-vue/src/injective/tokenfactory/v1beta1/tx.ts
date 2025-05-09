@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Metadata, MetadataAmino, Params, ParamsAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
  * method. It allows an account to create a new denom. It requires a sender
@@ -545,6 +546,9 @@ export const MsgMint = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgMint.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -693,6 +697,9 @@ export const MsgBurn = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBurn.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -999,6 +1006,9 @@ export const MsgSetDenomMetadata = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSetDenomMetadata.typeUrl)) {
+      return;
+    }
     Metadata.registerTypeUrl();
   }
 };
@@ -1147,6 +1157,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

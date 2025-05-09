@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../../core/client/v1/client";
 import { Forwarding, ForwardingAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /**
  * MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
@@ -331,6 +332,9 @@ export const MsgTransfer = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgTransfer.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
     Height.registerTypeUrl();
     Forwarding.registerTypeUrl();
@@ -501,6 +505,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

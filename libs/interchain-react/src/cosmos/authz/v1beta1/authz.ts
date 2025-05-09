@@ -193,7 +193,7 @@ export const GenericAuthorization = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(GenericAuthorization.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenericAuthorization.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(GenericAuthorization.typeUrl, GenericAuthorization);
@@ -288,6 +288,9 @@ export const Grant = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Grant.typeUrl)) {
+      return;
+    }
     GenericAuthorization.registerTypeUrl();
     SendAuthorization.registerTypeUrl();
     StakeAuthorization.registerTypeUrl();
@@ -409,6 +412,9 @@ export const GrantAuthorization = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GrantAuthorization.typeUrl)) {
+      return;
+    }
     GenericAuthorization.registerTypeUrl();
     SendAuthorization.registerTypeUrl();
     StakeAuthorization.registerTypeUrl();

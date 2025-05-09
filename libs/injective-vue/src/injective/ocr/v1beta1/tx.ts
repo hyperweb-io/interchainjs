@@ -1,6 +1,7 @@
 import { FeedConfig, FeedConfigAmino, Report, ReportAmino, Params, ParamsAmino } from "./ocr";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface MsgCreateFeed {
   sender: string;
@@ -412,6 +413,9 @@ export const MsgCreateFeed = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateFeed.typeUrl)) {
+      return;
+    }
     FeedConfig.registerTypeUrl();
   }
 };
@@ -868,6 +872,9 @@ export const MsgTransmit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgTransmit.typeUrl)) {
+      return;
+    }
     Report.registerTypeUrl();
   }
 };
@@ -1028,6 +1035,9 @@ export const MsgFundFeedRewardPool = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgFundFeedRewardPool.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1188,6 +1198,9 @@ export const MsgWithdrawFeedRewardPool = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgWithdrawFeedRewardPool.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1838,6 +1851,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
