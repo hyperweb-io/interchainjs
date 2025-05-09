@@ -1,6 +1,7 @@
 import { AccessConfig, AccessConfigAmino, Params, ParamsAmino } from "./types";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@interchainjs/encoding";
 /** MsgStoreCode submit Wasm code to the system */
@@ -1071,6 +1072,9 @@ export const MsgStoreCode = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgStoreCode.typeUrl)) {
+      return;
+    }
     AccessConfig.registerTypeUrl();
   }
 };
@@ -1301,6 +1305,9 @@ export const MsgInstantiateContract = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgInstantiateContract.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1555,6 +1562,9 @@ export const MsgInstantiateContract2 = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgInstantiateContract2.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1761,6 +1771,9 @@ export const MsgExecuteContract = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgExecuteContract.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2449,6 +2462,9 @@ export const MsgUpdateInstantiateConfig = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateInstantiateConfig.typeUrl)) {
+      return;
+    }
     AccessConfig.registerTypeUrl();
   }
 };
@@ -2604,6 +2620,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -3375,6 +3394,9 @@ export const MsgStoreAndInstantiateContract = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgStoreAndInstantiateContract.typeUrl)) {
+      return;
+    }
     AccessConfig.registerTypeUrl();
     Coin.registerTypeUrl();
   }
@@ -3902,6 +3924,9 @@ export const MsgStoreAndMigrateContract = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgStoreAndMigrateContract.typeUrl)) {
+      return;
+    }
     AccessConfig.registerTypeUrl();
   }
 };

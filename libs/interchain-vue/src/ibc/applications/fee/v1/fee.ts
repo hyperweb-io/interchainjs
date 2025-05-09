@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /** Fee defines the ICS29 receive, acknowledgement and timeout fees */
 export interface Fee {
   /** the packet receive fee */
@@ -200,6 +201,9 @@ export const Fee = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Fee.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -305,6 +309,9 @@ export const PacketFee = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PacketFee.typeUrl)) {
+      return;
+    }
     Fee.registerTypeUrl();
   }
 };
@@ -386,6 +393,9 @@ export const PacketFees = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PacketFees.typeUrl)) {
+      return;
+    }
     PacketFee.registerTypeUrl();
   }
 };
@@ -479,6 +489,9 @@ export const IdentifiedPacketFees = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(IdentifiedPacketFees.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
     PacketFee.registerTypeUrl();
   }

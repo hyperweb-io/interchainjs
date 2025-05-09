@@ -3,6 +3,7 @@ import { EvidenceList, EvidenceListAmino } from "../../../../tendermint/types/ev
 import { Consensus, ConsensusAmino } from "../../../../tendermint/version/types";
 import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * Block is tendermint type Block, with the Header proposer address
@@ -216,6 +217,9 @@ export const Block = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Block.typeUrl)) {
+      return;
+    }
     Header.registerTypeUrl();
     Data.registerTypeUrl();
     EvidenceList.registerTypeUrl();
@@ -454,6 +458,9 @@ export const Header = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Header.typeUrl)) {
+      return;
+    }
     Consensus.registerTypeUrl();
     BlockID.registerTypeUrl();
   }

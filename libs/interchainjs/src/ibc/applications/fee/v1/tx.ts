@@ -2,6 +2,7 @@ import { Fee, FeeAmino, PacketFee, PacketFeeAmino } from "./fee";
 import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /** MsgRegisterPayee defines the request type for the RegisterPayee rpc */
 export interface MsgRegisterPayee {
   /** unique port identifier */
@@ -660,6 +661,9 @@ export const MsgPayPacketFee = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgPayPacketFee.typeUrl)) {
+      return;
+    }
     Fee.registerTypeUrl();
   }
 };
@@ -815,6 +819,9 @@ export const MsgPayPacketFeeAsync = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgPayPacketFeeAsync.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
     PacketFee.registerTypeUrl();
   }

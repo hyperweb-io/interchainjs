@@ -552,6 +552,9 @@ export const ValidatorHistoricalRewards = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorHistoricalRewards.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -645,6 +648,9 @@ export const ValidatorCurrentRewards = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorCurrentRewards.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -726,6 +732,9 @@ export const ValidatorAccumulatedCommission = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorAccumulatedCommission.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -807,6 +816,9 @@ export const ValidatorOutstandingRewards = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorOutstandingRewards.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -977,6 +989,9 @@ export const ValidatorSlashEvents = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorSlashEvents.typeUrl)) {
+      return;
+    }
     ValidatorSlashEvent.registerTypeUrl();
   }
 };
@@ -1058,6 +1073,9 @@ export const FeePool = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeePool.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -1175,7 +1193,7 @@ export const CommunityPoolSpendProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CommunityPoolSpendProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CommunityPoolSpendProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CommunityPoolSpendProposal.typeUrl, CommunityPoolSpendProposal);
@@ -1374,6 +1392,9 @@ export const DelegationDelegatorReward = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DelegationDelegatorReward.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -1501,7 +1522,7 @@ export const CommunityPoolSpendProposalWithDeposit = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CommunityPoolSpendProposalWithDeposit.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CommunityPoolSpendProposalWithDeposit.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CommunityPoolSpendProposalWithDeposit.typeUrl, CommunityPoolSpendProposalWithDeposit);

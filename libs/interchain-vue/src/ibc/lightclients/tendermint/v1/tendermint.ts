@@ -6,6 +6,7 @@ import { MerkleRoot, MerkleRootAmino } from "../../../core/commitment/v1/commitm
 import { SignedHeader, SignedHeaderAmino } from "../../../../tendermint/types/types";
 import { ValidatorSet, ValidatorSetAmino } from "../../../../tendermint/types/validator";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /**
  * ClientState from Tendermint tracks the current validator set, latest height,
@@ -425,6 +426,9 @@ export const ClientState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ClientState.typeUrl)) {
+      return;
+    }
     Fraction.registerTypeUrl();
     Height.registerTypeUrl();
     ProofSpec.registerTypeUrl();
@@ -530,6 +534,9 @@ export const ConsensusState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ConsensusState.typeUrl)) {
+      return;
+    }
     MerkleRoot.registerTypeUrl();
   }
 };
@@ -633,6 +640,9 @@ export const Misbehaviour = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Misbehaviour.typeUrl)) {
+      return;
+    }
     Header.registerTypeUrl();
   }
 };
@@ -748,6 +758,9 @@ export const Header = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Header.typeUrl)) {
+      return;
+    }
     SignedHeader.registerTypeUrl();
     ValidatorSet.registerTypeUrl();
     Height.registerTypeUrl();

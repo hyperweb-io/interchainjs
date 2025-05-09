@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Metadata, MetadataAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventCreateTFDenom {
   account: string;
   denom: string;
@@ -245,6 +246,9 @@ export const EventMintTFDenom = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventMintTFDenom.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -329,6 +333,9 @@ export const EventBurnDenom = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBurnDenom.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -495,6 +502,9 @@ export const EventSetTFDenomMetadata = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSetTFDenomMetadata.typeUrl)) {
+      return;
+    }
     Metadata.registerTypeUrl();
   }
 };

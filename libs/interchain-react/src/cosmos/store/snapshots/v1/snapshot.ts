@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** Snapshot contains Tendermint state sync snapshot info. */
 export interface Snapshot {
@@ -304,6 +305,9 @@ export const Snapshot = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Snapshot.typeUrl)) {
+      return;
+    }
     Metadata.registerTypeUrl();
   }
 };
@@ -498,6 +502,9 @@ export const SnapshotItem = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SnapshotItem.typeUrl)) {
+      return;
+    }
     SnapshotStoreItem.registerTypeUrl();
     SnapshotIAVLItem.registerTypeUrl();
     SnapshotExtensionMeta.registerTypeUrl();

@@ -2,6 +2,7 @@ import { OracleType, OracleInfo, OracleInfoAmino, PythPriceState, PythPriceState
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
 export interface QueryPythPriceRequest {
   priceId: string;
@@ -896,6 +897,9 @@ export const QueryPythPriceResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPythPriceResponse.typeUrl)) {
+      return;
+    }
     PythPriceState.registerTypeUrl();
   }
 };
@@ -1025,6 +1029,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -1285,6 +1292,9 @@ export const QueryBandPriceStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBandPriceStatesResponse.typeUrl)) {
+      return;
+    }
     BandPriceState.registerTypeUrl();
   }
 };
@@ -1416,6 +1426,9 @@ export const QueryBandIBCPriceStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBandIBCPriceStatesResponse.typeUrl)) {
+      return;
+    }
     BandPriceState.registerTypeUrl();
   }
 };
@@ -1547,6 +1560,9 @@ export const QueryPriceFeedPriceStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPriceFeedPriceStatesResponse.typeUrl)) {
+      return;
+    }
     PriceFeedState.registerTypeUrl();
   }
 };
@@ -1678,6 +1694,9 @@ export const QueryCoinbasePriceStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryCoinbasePriceStatesResponse.typeUrl)) {
+      return;
+    }
     CoinbasePriceState.registerTypeUrl();
   }
 };
@@ -1809,6 +1828,9 @@ export const QueryPythPriceStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPythPriceStatesResponse.typeUrl)) {
+      return;
+    }
     PythPriceState.registerTypeUrl();
   }
 };
@@ -1940,6 +1962,9 @@ export const QueryStorkPriceStatesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryStorkPriceStatesResponse.typeUrl)) {
+      return;
+    }
     StorkPriceState.registerTypeUrl();
   }
 };
@@ -2223,6 +2248,9 @@ export const QueryProviderPriceStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryProviderPriceStateResponse.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -2352,6 +2380,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };
@@ -2508,6 +2539,9 @@ export const QueryHistoricalPriceRecordsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryHistoricalPriceRecordsResponse.typeUrl)) {
+      return;
+    }
     PriceRecords.registerTypeUrl();
   }
 };
@@ -2698,6 +2732,9 @@ export const QueryOracleVolatilityRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOracleVolatilityRequest.typeUrl)) {
+      return;
+    }
     OracleInfo.registerTypeUrl();
     OracleHistoryOptions.registerTypeUrl();
   }
@@ -2797,6 +2834,9 @@ export const QueryOracleVolatilityResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOracleVolatilityResponse.typeUrl)) {
+      return;
+    }
     MetadataStatistics.registerTypeUrl();
     PriceRecord.registerTypeUrl();
   }
@@ -2929,6 +2969,9 @@ export const QueryOracleProvidersInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOracleProvidersInfoResponse.typeUrl)) {
+      return;
+    }
     ProviderInfo.registerTypeUrl();
   }
 };
@@ -3073,6 +3116,9 @@ export const QueryOracleProviderPricesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOracleProviderPricesResponse.typeUrl)) {
+      return;
+    }
     ProviderState.registerTypeUrl();
   }
 };
@@ -3263,6 +3309,9 @@ export const QueryOraclePriceRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOraclePriceRequest.typeUrl)) {
+      return;
+    }
     ScalingOptions.registerTypeUrl();
   }
 };
@@ -3477,6 +3526,9 @@ export const QueryOraclePriceResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOraclePriceResponse.typeUrl)) {
+      return;
+    }
     PricePairState.registerTypeUrl();
   }
 };

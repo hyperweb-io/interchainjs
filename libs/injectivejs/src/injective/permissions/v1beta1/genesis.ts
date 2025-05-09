@@ -1,6 +1,7 @@
 import { Params, ParamsAmino } from "./params";
 import { Namespace, NamespaceAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the permissions module's genesis state. */
 export interface GenesisState {
@@ -105,6 +106,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     Namespace.registerTypeUrl();
   }

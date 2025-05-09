@@ -5,6 +5,7 @@ import { BlockID, BlockIDAmino } from "../../../tendermint/types/types";
 import { Block, BlockAmino } from "../../../tendermint/types/block";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** OrderBy defines the sorting order */
 export enum OrderBy {
   /**
@@ -825,6 +826,9 @@ export const GetTxsEventRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetTxsEventRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -944,6 +948,9 @@ export const GetTxsEventResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetTxsEventResponse.typeUrl)) {
+      return;
+    }
     Tx.registerTypeUrl();
     TxResponse.registerTypeUrl();
     PageResponse.registerTypeUrl();
@@ -1114,6 +1121,9 @@ export const BroadcastTxResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BroadcastTxResponse.typeUrl)) {
+      return;
+    }
     TxResponse.registerTypeUrl();
   }
 };
@@ -1205,6 +1215,9 @@ export const SimulateRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SimulateRequest.typeUrl)) {
+      return;
+    }
     Tx.registerTypeUrl();
   }
 };
@@ -1296,6 +1309,9 @@ export const SimulateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SimulateResponse.typeUrl)) {
+      return;
+    }
     GasInfo.registerTypeUrl();
     Result.registerTypeUrl();
   }
@@ -1465,6 +1481,9 @@ export const GetTxResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetTxResponse.typeUrl)) {
+      return;
+    }
     Tx.registerTypeUrl();
     TxResponse.registerTypeUrl();
   }
@@ -1557,6 +1576,9 @@ export const GetBlockWithTxsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetBlockWithTxsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1674,6 +1696,9 @@ export const GetBlockWithTxsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetBlockWithTxsResponse.typeUrl)) {
+      return;
+    }
     Tx.registerTypeUrl();
     BlockID.registerTypeUrl();
     Block.registerTypeUrl();
@@ -1833,6 +1858,9 @@ export const TxDecodeResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TxDecodeResponse.typeUrl)) {
+      return;
+    }
     Tx.registerTypeUrl();
   }
 };
@@ -1912,6 +1940,9 @@ export const TxEncodeRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TxEncodeRequest.typeUrl)) {
+      return;
+    }
     Tx.registerTypeUrl();
   }
 };

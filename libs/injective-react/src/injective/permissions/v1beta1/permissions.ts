@@ -1,6 +1,7 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** each Action enum value should be a power of two */
 export enum Action {
   UNSPECIFIED = 0,
@@ -304,6 +305,9 @@ export const Namespace = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Namespace.typeUrl)) {
+      return;
+    }
     Role.registerTypeUrl();
     AddressRoles.registerTypeUrl();
   }
@@ -626,6 +630,9 @@ export const Voucher = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Voucher.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -710,6 +717,9 @@ export const AddressVoucher = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AddressVoucher.typeUrl)) {
+      return;
+    }
     Voucher.registerTypeUrl();
   }
 };

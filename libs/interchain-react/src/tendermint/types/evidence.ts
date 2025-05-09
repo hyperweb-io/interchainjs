@@ -2,6 +2,7 @@ import { Vote, VoteAmino, LightBlock, LightBlockAmino } from "./types";
 import { Timestamp } from "../../google/protobuf/timestamp";
 import { Validator, ValidatorAmino } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
+import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
@@ -162,6 +163,9 @@ export const Evidence = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Evidence.typeUrl)) {
+      return;
+    }
     DuplicateVoteEvidence.registerTypeUrl();
     LightClientAttackEvidence.registerTypeUrl();
   }
@@ -283,6 +287,9 @@ export const DuplicateVoteEvidence = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DuplicateVoteEvidence.typeUrl)) {
+      return;
+    }
     Vote.registerTypeUrl();
   }
 };
@@ -405,6 +412,9 @@ export const LightClientAttackEvidence = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(LightClientAttackEvidence.typeUrl)) {
+      return;
+    }
     LightBlock.registerTypeUrl();
     Validator.registerTypeUrl();
   }
@@ -480,6 +490,9 @@ export const EvidenceList = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EvidenceList.typeUrl)) {
+      return;
+    }
     Evidence.registerTypeUrl();
   }
 };

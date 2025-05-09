@@ -1,5 +1,6 @@
 import { Permissions, PermissionsAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** MsgAuthorizeCircuitBreaker defines the Msg/AuthorizeCircuitBreaker request type. */
 export interface MsgAuthorizeCircuitBreaker {
@@ -253,6 +254,9 @@ export const MsgAuthorizeCircuitBreaker = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgAuthorizeCircuitBreaker.typeUrl)) {
+      return;
+    }
     Permissions.registerTypeUrl();
   }
 };

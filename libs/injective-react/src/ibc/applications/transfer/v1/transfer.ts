@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * Params defines the set of IBC transfer parameters.
  * NOTE: To prevent a single token from being transferred, set the
@@ -277,6 +278,9 @@ export const Forwarding = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Forwarding.typeUrl)) {
+      return;
+    }
     Hop.registerTypeUrl();
   }
 };

@@ -1,5 +1,6 @@
 import { Params, ParamsAmino, ValidatorSigningInfo, ValidatorSigningInfoAmino } from "./slashing";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the slashing module's genesis state. */
 export interface GenesisState {
@@ -215,6 +216,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     SigningInfo.registerTypeUrl();
     ValidatorMissedBlocks.registerTypeUrl();
@@ -308,6 +312,9 @@ export const SigningInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SigningInfo.typeUrl)) {
+      return;
+    }
     ValidatorSigningInfo.registerTypeUrl();
   }
 };
@@ -401,6 +408,9 @@ export const ValidatorMissedBlocks = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorMissedBlocks.typeUrl)) {
+      return;
+    }
     MissedBlock.registerTypeUrl();
   }
 };

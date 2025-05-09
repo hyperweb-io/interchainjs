@@ -2,6 +2,7 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { ConnectionEnd, ConnectionEndAmino } from "../../../core/connection/v1/connection";
 import { Channel, ChannelAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
 /**
  * DataType defines the type of solo machine proof being created. This is done
@@ -628,6 +629,9 @@ export const ClientState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ClientState.typeUrl)) {
+      return;
+    }
     ConsensusState.registerTypeUrl();
   }
 };
@@ -969,6 +973,9 @@ export const Misbehaviour = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Misbehaviour.typeUrl)) {
+      return;
+    }
     SignatureAndData.registerTypeUrl();
   }
 };
@@ -1654,6 +1661,9 @@ export const ConnectionStateData = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ConnectionStateData.typeUrl)) {
+      return;
+    }
     ConnectionEnd.registerTypeUrl();
   }
 };
@@ -1745,6 +1755,9 @@ export const ChannelStateData = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ChannelStateData.typeUrl)) {
+      return;
+    }
     Channel.registerTypeUrl();
   }
 };

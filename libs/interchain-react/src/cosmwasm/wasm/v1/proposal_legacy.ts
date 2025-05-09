@@ -836,7 +836,7 @@ export const StoreCodeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(StoreCodeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StoreCodeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(StoreCodeProposal.typeUrl, StoreCodeProposal);
@@ -1006,7 +1006,7 @@ export const InstantiateContractProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(InstantiateContractProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(InstantiateContractProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(InstantiateContractProposal.typeUrl, InstantiateContractProposal);
@@ -1200,7 +1200,7 @@ export const InstantiateContract2Proposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(InstantiateContract2Proposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(InstantiateContract2Proposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(InstantiateContract2Proposal.typeUrl, InstantiateContract2Proposal);
@@ -1332,7 +1332,7 @@ export const MigrateContractProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(MigrateContractProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MigrateContractProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(MigrateContractProposal.typeUrl, MigrateContractProposal);
@@ -1451,7 +1451,7 @@ export const SudoContractProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(SudoContractProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SudoContractProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(SudoContractProposal.typeUrl, SudoContractProposal);
@@ -1596,7 +1596,7 @@ export const ExecuteContractProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(ExecuteContractProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExecuteContractProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(ExecuteContractProposal.typeUrl, ExecuteContractProposal);
@@ -1716,7 +1716,7 @@ export const UpdateAdminProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(UpdateAdminProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(UpdateAdminProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(UpdateAdminProposal.typeUrl, UpdateAdminProposal);
@@ -1823,7 +1823,7 @@ export const ClearAdminProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(ClearAdminProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ClearAdminProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(ClearAdminProposal.typeUrl, ClearAdminProposal);
@@ -1941,7 +1941,7 @@ export const PinCodesProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(PinCodesProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PinCodesProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(PinCodesProposal.typeUrl, PinCodesProposal);
@@ -2059,7 +2059,7 @@ export const UnpinCodesProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(UnpinCodesProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(UnpinCodesProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(UnpinCodesProposal.typeUrl, UnpinCodesProposal);
@@ -2154,6 +2154,9 @@ export const AccessConfigUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AccessConfigUpdate.typeUrl)) {
+      return;
+    }
     AccessConfig.registerTypeUrl();
   }
 };
@@ -2259,7 +2262,7 @@ export const UpdateInstantiateConfigProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(UpdateInstantiateConfigProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(UpdateInstantiateConfigProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(UpdateInstantiateConfigProposal.typeUrl, UpdateInstantiateConfigProposal);
@@ -2489,7 +2492,7 @@ export const StoreAndInstantiateContractProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(StoreAndInstantiateContractProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StoreAndInstantiateContractProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(StoreAndInstantiateContractProposal.typeUrl, StoreAndInstantiateContractProposal);

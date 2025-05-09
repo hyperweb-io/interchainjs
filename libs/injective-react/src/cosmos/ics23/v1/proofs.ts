@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
 export enum HashOp {
   /** NO_HASH - NO_HASH is the default if no data passed. Note this is an illegal argument some places. */
@@ -755,6 +756,9 @@ export const ExistenceProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExistenceProof.typeUrl)) {
+      return;
+    }
     LeafOp.registerTypeUrl();
     InnerOp.registerTypeUrl();
   }
@@ -859,6 +863,9 @@ export const NonExistenceProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(NonExistenceProof.typeUrl)) {
+      return;
+    }
     ExistenceProof.registerTypeUrl();
   }
 };
@@ -974,6 +981,9 @@ export const CommitmentProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CommitmentProof.typeUrl)) {
+      return;
+    }
     ExistenceProof.registerTypeUrl();
     NonExistenceProof.registerTypeUrl();
     BatchProof.registerTypeUrl();
@@ -1330,6 +1340,9 @@ export const ProofSpec = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ProofSpec.typeUrl)) {
+      return;
+    }
     LeafOp.registerTypeUrl();
     InnerSpec.registerTypeUrl();
   }
@@ -1560,6 +1573,9 @@ export const BatchProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchProof.typeUrl)) {
+      return;
+    }
     BatchEntry.registerTypeUrl();
   }
 };
@@ -1651,6 +1667,9 @@ export const BatchEntry = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchEntry.typeUrl)) {
+      return;
+    }
     ExistenceProof.registerTypeUrl();
     NonExistenceProof.registerTypeUrl();
   }
@@ -1747,6 +1766,9 @@ export const CompressedBatchProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CompressedBatchProof.typeUrl)) {
+      return;
+    }
     CompressedBatchEntry.registerTypeUrl();
     InnerOp.registerTypeUrl();
   }
@@ -1839,6 +1861,9 @@ export const CompressedBatchEntry = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CompressedBatchEntry.typeUrl)) {
+      return;
+    }
     CompressedExistenceProof.registerTypeUrl();
     CompressedNonExistenceProof.registerTypeUrl();
   }
@@ -1966,6 +1991,9 @@ export const CompressedExistenceProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CompressedExistenceProof.typeUrl)) {
+      return;
+    }
     LeafOp.registerTypeUrl();
   }
 };
@@ -2069,6 +2097,9 @@ export const CompressedNonExistenceProof = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CompressedNonExistenceProof.typeUrl)) {
+      return;
+    }
     CompressedExistenceProof.registerTypeUrl();
   }
 };

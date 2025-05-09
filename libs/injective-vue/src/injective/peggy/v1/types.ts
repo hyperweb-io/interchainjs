@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** BridgeValidator represents a validator's ETH address and its power */
 export interface BridgeValidator {
   power: bigint;
@@ -325,6 +326,9 @@ export const Valset = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Valset.typeUrl)) {
+      return;
+    }
     BridgeValidator.registerTypeUrl();
   }
 };

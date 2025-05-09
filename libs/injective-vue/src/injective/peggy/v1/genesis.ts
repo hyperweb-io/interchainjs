@@ -4,6 +4,7 @@ import { MsgValsetConfirm, MsgValsetConfirmAmino, MsgConfirmBatch, MsgConfirmBat
 import { OutgoingTxBatch, OutgoingTxBatchAmino, OutgoingTransferTx, OutgoingTransferTxAmino } from "./batch";
 import { Attestation, AttestationAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState struct */
 export interface GenesisState {
@@ -304,6 +305,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     Valset.registerTypeUrl();
     MsgValsetConfirm.registerTypeUrl();

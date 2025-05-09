@@ -2,6 +2,7 @@ import { CompactBitArray, CompactBitArrayAmino } from "../../../crypto/multisig/
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * SignMode represents a signing mode with its own security guarantees.
  * 
@@ -309,6 +310,9 @@ export const SignatureDescriptors = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SignatureDescriptors.typeUrl)) {
+      return;
+    }
     SignatureDescriptor.registerTypeUrl();
   }
 };
@@ -412,6 +416,9 @@ export const SignatureDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SignatureDescriptor.typeUrl)) {
+      return;
+    }
     SignatureDescriptor_Data.registerTypeUrl();
   }
 };
@@ -503,6 +510,9 @@ export const SignatureDescriptor_Data = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SignatureDescriptor_Data.typeUrl)) {
+      return;
+    }
     SignatureDescriptor_Data_Single.registerTypeUrl();
     SignatureDescriptor_Data_Multi.registerTypeUrl();
   }
@@ -686,6 +696,9 @@ export const SignatureDescriptor_Data_Multi = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SignatureDescriptor_Data_Multi.typeUrl)) {
+      return;
+    }
     CompactBitArray.registerTypeUrl();
     SignatureDescriptor_Data.registerTypeUrl();
   }

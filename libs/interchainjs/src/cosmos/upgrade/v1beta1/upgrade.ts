@@ -406,7 +406,7 @@ export const SoftwareUpgradeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(SoftwareUpgradeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SoftwareUpgradeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(SoftwareUpgradeProposal.typeUrl, SoftwareUpgradeProposal);
@@ -502,7 +502,7 @@ export const CancelSoftwareUpgradeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CancelSoftwareUpgradeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CancelSoftwareUpgradeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CancelSoftwareUpgradeProposal.typeUrl, CancelSoftwareUpgradeProposal);

@@ -1,6 +1,7 @@
 import { RequestFinalizeBlock, RequestFinalizeBlockAmino, ResponseFinalizeBlock, ResponseFinalizeBlockAmino, ResponseCommit, ResponseCommitAmino } from "../../../../tendermint/abci/types";
 import { StoreKVPair, StoreKVPairAmino } from "../../v1beta1/listening";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** ListenEndBlockRequest is the request type for the ListenEndBlock RPC method */
 export interface ListenFinalizeBlockRequest {
@@ -154,6 +155,9 @@ export const ListenFinalizeBlockRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListenFinalizeBlockRequest.typeUrl)) {
+      return;
+    }
     RequestFinalizeBlock.registerTypeUrl();
     ResponseFinalizeBlock.registerTypeUrl();
   }
@@ -324,6 +328,9 @@ export const ListenCommitRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListenCommitRequest.typeUrl)) {
+      return;
+    }
     ResponseCommit.registerTypeUrl();
     StoreKVPair.registerTypeUrl();
   }

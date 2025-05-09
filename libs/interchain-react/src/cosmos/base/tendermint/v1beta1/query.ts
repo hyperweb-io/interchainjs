@@ -7,6 +7,7 @@ import { Block as Block2 } from "./types";
 import { BlockAmino as Block2Amino } from "./types";
 import { DefaultNodeInfo, DefaultNodeInfoAmino } from "../../../../tendermint/p2p/types";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** GetValidatorSetByHeightRequest is the request type for the Query/GetValidatorSetByHeight RPC method. */
 export interface GetValidatorSetByHeightRequest {
@@ -516,6 +517,9 @@ export const GetValidatorSetByHeightRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetValidatorSetByHeightRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -621,6 +625,9 @@ export const GetValidatorSetByHeightResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetValidatorSetByHeightResponse.typeUrl)) {
+      return;
+    }
     Validator.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -701,6 +708,9 @@ export const GetLatestValidatorSetRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetLatestValidatorSetRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -806,6 +816,9 @@ export const GetLatestValidatorSetResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetLatestValidatorSetResponse.typeUrl)) {
+      return;
+    }
     Validator.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1100,6 +1113,9 @@ export const GetBlockByHeightResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetBlockByHeightResponse.typeUrl)) {
+      return;
+    }
     BlockID.registerTypeUrl();
     Block1.registerTypeUrl();
     Block2.registerTypeUrl();
@@ -1269,6 +1285,9 @@ export const GetLatestBlockResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetLatestBlockResponse.typeUrl)) {
+      return;
+    }
     BlockID.registerTypeUrl();
     Block1.registerTypeUrl();
     Block2.registerTypeUrl();
@@ -1567,6 +1586,9 @@ export const GetNodeInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetNodeInfoResponse.typeUrl)) {
+      return;
+    }
     DefaultNodeInfo.registerTypeUrl();
     VersionInfo.registerTypeUrl();
   }
@@ -1733,6 +1755,9 @@ export const VersionInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(VersionInfo.typeUrl)) {
+      return;
+    }
     Module.registerTypeUrl();
   }
 };
@@ -2122,6 +2147,9 @@ export const ABCIQueryResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ABCIQueryResponse.typeUrl)) {
+      return;
+    }
     ProofOps.registerTypeUrl();
   }
 };
@@ -2304,6 +2332,9 @@ export const ProofOps = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ProofOps.typeUrl)) {
+      return;
+    }
     ProofOp.registerTypeUrl();
   }
 };

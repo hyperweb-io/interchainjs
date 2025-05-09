@@ -2,6 +2,7 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Grant, GrantAmino } from "./feegrant";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryAllowanceRequest is the request type for the Query/Allowance RPC method. */
 export interface QueryAllowanceRequest {
   /** granter is the address of the user granting an allowance of their funds. */
@@ -307,6 +308,9 @@ export const QueryAllowanceResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAllowanceResponse.typeUrl)) {
+      return;
+    }
     Grant.registerTypeUrl();
   }
 };
@@ -398,6 +402,9 @@ export const QueryAllowancesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAllowancesRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -491,6 +498,9 @@ export const QueryAllowancesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAllowancesResponse.typeUrl)) {
+      return;
+    }
     Grant.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -583,6 +593,9 @@ export const QueryAllowancesByGranterRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAllowancesByGranterRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -676,6 +689,9 @@ export const QueryAllowancesByGranterResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAllowancesByGranterResponse.typeUrl)) {
+      return;
+    }
     Grant.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }

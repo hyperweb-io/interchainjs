@@ -1,5 +1,6 @@
 import { IdentifiedClientState, IdentifiedClientStateAmino, ClientConsensusStates, ClientConsensusStatesAmino, Params, ParamsAmino } from "./client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** GenesisState defines the ibc client submodule's genesis state. */
 export interface GenesisState {
@@ -239,6 +240,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     IdentifiedClientState.registerTypeUrl();
     ClientConsensusStates.registerTypeUrl();
     IdentifiedGenesisMetadata.registerTypeUrl();
@@ -424,6 +428,9 @@ export const IdentifiedGenesisMetadata = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(IdentifiedGenesisMetadata.typeUrl)) {
+      return;
+    }
     GenesisMetadata.registerTypeUrl();
   }
 };

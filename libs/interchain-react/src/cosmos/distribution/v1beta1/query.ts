@@ -3,6 +3,7 @@ import { Params, ParamsAmino, ValidatorOutstandingRewards, ValidatorOutstandingR
 import { DecCoin, DecCoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -617,6 +618,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -801,6 +805,9 @@ export const QueryValidatorDistributionInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValidatorDistributionInfoResponse.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -957,6 +964,9 @@ export const QueryValidatorOutstandingRewardsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValidatorOutstandingRewardsResponse.typeUrl)) {
+      return;
+    }
     ValidatorOutstandingRewards.registerTypeUrl();
   }
 };
@@ -1113,6 +1123,9 @@ export const QueryValidatorCommissionResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValidatorCommissionResponse.typeUrl)) {
+      return;
+    }
     ValidatorAccumulatedCommission.registerTypeUrl();
   }
 };
@@ -1228,6 +1241,9 @@ export const QueryValidatorSlashesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValidatorSlashesRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1321,6 +1337,9 @@ export const QueryValidatorSlashesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValidatorSlashesResponse.typeUrl)) {
+      return;
+    }
     ValidatorSlashEvent.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1492,6 +1511,9 @@ export const QueryDelegationRewardsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDelegationRewardsResponse.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -1664,6 +1686,9 @@ export const QueryDelegationTotalRewardsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDelegationTotalRewardsResponse.typeUrl)) {
+      return;
+    }
     DelegationDelegatorReward.registerTypeUrl();
     DecCoin.registerTypeUrl();
   }
@@ -2120,6 +2145,9 @@ export const QueryCommunityPoolResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryCommunityPoolResponse.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };

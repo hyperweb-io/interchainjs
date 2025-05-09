@@ -1,6 +1,7 @@
 import { Plan, PlanAmino, ModuleVersion, ModuleVersionAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
  * method.
@@ -397,6 +398,9 @@ export const QueryCurrentPlanResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryCurrentPlanResponse.typeUrl)) {
+      return;
+    }
     Plan.registerTypeUrl();
   }
 };
@@ -863,6 +867,9 @@ export const QueryModuleVersionsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleVersionsResponse.typeUrl)) {
+      return;
+    }
     ModuleVersion.registerTypeUrl();
   }
 };

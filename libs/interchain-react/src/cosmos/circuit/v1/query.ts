@@ -2,6 +2,7 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { Permissions, PermissionsAmino, GenesisAccountPermissions, GenesisAccountPermissionsAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryAccountRequest is the request type for the Query/Account RPC method. */
 export interface QueryAccountRequest {
   address: string;
@@ -253,6 +254,9 @@ export const AccountResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AccountResponse.typeUrl)) {
+      return;
+    }
     Permissions.registerTypeUrl();
   }
 };
@@ -332,6 +336,9 @@ export const QueryAccountsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -425,6 +432,9 @@ export const AccountsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AccountsResponse.typeUrl)) {
+      return;
+    }
     GenesisAccountPermissions.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }

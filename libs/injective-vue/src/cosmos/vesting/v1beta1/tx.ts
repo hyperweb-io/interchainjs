@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { Period, PeriodAmino } from "./vesting";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateVestingAccount defines a message that enables creating a vesting
  * account.
@@ -278,6 +279,9 @@ export const MsgCreateVestingAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateVestingAccount.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -447,6 +451,9 @@ export const MsgCreatePermanentLockedAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreatePermanentLockedAccount.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -628,6 +635,9 @@ export const MsgCreatePeriodicVestingAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreatePeriodicVestingAccount.typeUrl)) {
+      return;
+    }
     Period.registerTypeUrl();
   }
 };

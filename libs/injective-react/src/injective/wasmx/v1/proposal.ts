@@ -287,7 +287,7 @@ export const ContractRegistrationRequestProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(ContractRegistrationRequestProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ContractRegistrationRequestProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(ContractRegistrationRequestProposal.typeUrl, ContractRegistrationRequestProposal);
@@ -397,7 +397,7 @@ export const BatchContractRegistrationRequestProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchContractRegistrationRequestProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchContractRegistrationRequestProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchContractRegistrationRequestProposal.typeUrl, BatchContractRegistrationRequestProposal);
@@ -507,7 +507,7 @@ export const BatchContractDeregistrationProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchContractDeregistrationProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchContractDeregistrationProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchContractDeregistrationProposal.typeUrl, BatchContractDeregistrationProposal);
@@ -679,7 +679,7 @@ export const ContractRegistrationRequest = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(ContractRegistrationRequest.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ContractRegistrationRequest.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(ContractRegistrationRequest.typeUrl, ContractRegistrationRequest);
@@ -787,7 +787,7 @@ export const BatchStoreCodeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchStoreCodeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchStoreCodeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchStoreCodeProposal.typeUrl, BatchStoreCodeProposal);

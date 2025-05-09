@@ -3,6 +3,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryInsuranceParamsRequest is the request type for the Query/InsuranceParams
  * RPC method.
@@ -387,6 +388,9 @@ export const QueryInsuranceParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryInsuranceParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -529,6 +533,9 @@ export const QueryInsuranceFundResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryInsuranceFundResponse.typeUrl)) {
+      return;
+    }
     InsuranceFund.registerTypeUrl();
   }
 };
@@ -660,6 +667,9 @@ export const QueryInsuranceFundsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryInsuranceFundsResponse.typeUrl)) {
+      return;
+    }
     InsuranceFund.registerTypeUrl();
   }
 };
@@ -816,6 +826,9 @@ export const QueryEstimatedRedemptionsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryEstimatedRedemptionsResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -972,6 +985,9 @@ export const QueryPendingRedemptionsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPendingRedemptionsResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1101,6 +1117,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };

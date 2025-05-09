@@ -3,6 +3,7 @@ import { DenomAuthorityMetadata, DenomAuthorityMetadataAmino } from "./authority
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -289,6 +290,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -443,6 +447,9 @@ export const QueryDenomAuthorityMetadataResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDenomAuthorityMetadataResponse.typeUrl)) {
+      return;
+    }
     DenomAuthorityMetadata.registerTypeUrl();
   }
 };
@@ -714,6 +721,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };

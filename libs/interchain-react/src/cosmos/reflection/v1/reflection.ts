@@ -1,6 +1,7 @@
 import { FileDescriptorProto, FileDescriptorProtoAmino } from "../../../google/protobuf/descriptor";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** FileDescriptorsRequest is the Query/FileDescriptors request type. */
 export interface FileDescriptorsRequest {}
 export interface FileDescriptorsRequestProtoMsg {
@@ -173,6 +174,9 @@ export const FileDescriptorsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FileDescriptorsResponse.typeUrl)) {
+      return;
+    }
     FileDescriptorProto.registerTypeUrl();
   }
 };

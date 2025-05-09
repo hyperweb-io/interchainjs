@@ -3,6 +3,7 @@ import { Balance, BalanceAmino, DerivativePosition, DerivativePositionAmino, Gen
 import { MetadataStatistics, MetadataStatisticsAmino } from "../../oracle/v1beta1/oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
 export enum OrderSide {
   /** Side_Unspecified - will return both */
@@ -3402,6 +3403,9 @@ export const QuerySubaccountOrdersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountOrdersResponse.typeUrl)) {
+      return;
+    }
     SubaccountOrderData.registerTypeUrl();
   }
 };
@@ -3498,6 +3502,9 @@ export const SubaccountOrderbookMetadataWithMarket = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SubaccountOrderbookMetadataWithMarket.typeUrl)) {
+      return;
+    }
     SubaccountOrderbookMetadata.registerTypeUrl();
   }
 };
@@ -3627,6 +3634,9 @@ export const QueryExchangeParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryExchangeParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -3711,6 +3721,9 @@ export const QuerySubaccountDepositsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountDepositsRequest.typeUrl)) {
+      return;
+    }
     Subaccount.registerTypeUrl();
   }
 };
@@ -3877,6 +3890,9 @@ export const QuerySubaccountDepositsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountDepositsResponse.typeUrl)) {
+      return;
+    }
     Deposit.registerTypeUrl();
   }
 };
@@ -4008,6 +4024,9 @@ export const QueryExchangeBalancesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryExchangeBalancesResponse.typeUrl)) {
+      return;
+    }
     Balance.registerTypeUrl();
   }
 };
@@ -4152,6 +4171,9 @@ export const QueryAggregateVolumeResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAggregateVolumeResponse.typeUrl)) {
+      return;
+    }
     MarketVolume.registerTypeUrl();
   }
 };
@@ -4326,6 +4348,9 @@ export const QueryAggregateVolumesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAggregateVolumesResponse.typeUrl)) {
+      return;
+    }
     AggregateAccountVolumeRecord.registerTypeUrl();
     MarketVolume.registerTypeUrl();
   }
@@ -4469,6 +4494,9 @@ export const QueryAggregateMarketVolumeResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAggregateMarketVolumeResponse.typeUrl)) {
+      return;
+    }
     VolumeRecord.registerTypeUrl();
   }
 };
@@ -4755,6 +4783,9 @@ export const QueryDenomDecimalsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDenomDecimalsResponse.typeUrl)) {
+      return;
+    }
     DenomDecimals.registerTypeUrl();
   }
 };
@@ -4901,6 +4932,9 @@ export const QueryAggregateMarketVolumesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAggregateMarketVolumesResponse.typeUrl)) {
+      return;
+    }
     MarketVolume.registerTypeUrl();
   }
 };
@@ -5055,6 +5089,9 @@ export const QuerySubaccountDepositResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountDepositResponse.typeUrl)) {
+      return;
+    }
     Deposit.registerTypeUrl();
   }
 };
@@ -5213,6 +5250,9 @@ export const QuerySpotMarketsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySpotMarketsResponse.typeUrl)) {
+      return;
+    }
     SpotMarket.registerTypeUrl();
   }
 };
@@ -5355,6 +5395,9 @@ export const QuerySpotMarketResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySpotMarketResponse.typeUrl)) {
+      return;
+    }
     SpotMarket.registerTypeUrl();
   }
 };
@@ -5561,6 +5604,9 @@ export const QuerySpotOrderbookResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySpotOrderbookResponse.typeUrl)) {
+      return;
+    }
     Level.registerTypeUrl();
   }
 };
@@ -5645,6 +5691,9 @@ export const FullSpotMarket = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FullSpotMarket.typeUrl)) {
+      return;
+    }
     SpotMarket.registerTypeUrl();
     MidPriceAndTOB.registerTypeUrl();
   }
@@ -5816,6 +5865,9 @@ export const QueryFullSpotMarketsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFullSpotMarketsResponse.typeUrl)) {
+      return;
+    }
     FullSpotMarket.registerTypeUrl();
   }
 };
@@ -5970,6 +6022,9 @@ export const QueryFullSpotMarketResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFullSpotMarketResponse.typeUrl)) {
+      return;
+    }
     FullSpotMarket.registerTypeUrl();
   }
 };
@@ -6140,6 +6195,9 @@ export const QuerySpotOrdersByHashesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySpotOrdersByHashesResponse.typeUrl)) {
+      return;
+    }
     TrimmedSpotLimitOrder.registerTypeUrl();
   }
 };
@@ -6508,6 +6566,9 @@ export const QueryTraderSpotOrdersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTraderSpotOrdersResponse.typeUrl)) {
+      return;
+    }
     TrimmedSpotLimitOrder.registerTypeUrl();
   }
 };
@@ -6582,6 +6643,9 @@ export const QueryAccountAddressSpotOrdersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountAddressSpotOrdersResponse.typeUrl)) {
+      return;
+    }
     TrimmedSpotLimitOrder.registerTypeUrl();
   }
 };
@@ -7092,6 +7156,9 @@ export const QueryDerivativeOrderbookResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDerivativeOrderbookResponse.typeUrl)) {
+      return;
+    }
     Level.registerTypeUrl();
   }
 };
@@ -7720,6 +7787,9 @@ export const QueryTraderDerivativeOrdersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTraderDerivativeOrdersResponse.typeUrl)) {
+      return;
+    }
     TrimmedDerivativeLimitOrder.registerTypeUrl();
   }
 };
@@ -7794,6 +7864,9 @@ export const QueryAccountAddressDerivativeOrdersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountAddressDerivativeOrdersResponse.typeUrl)) {
+      return;
+    }
     TrimmedDerivativeLimitOrder.registerTypeUrl();
   }
 };
@@ -7964,6 +8037,9 @@ export const QueryDerivativeOrdersByHashesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDerivativeOrdersByHashesResponse.typeUrl)) {
+      return;
+    }
     TrimmedDerivativeLimitOrder.registerTypeUrl();
   }
 };
@@ -8226,6 +8302,9 @@ export const PerpetualMarketState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PerpetualMarketState.typeUrl)) {
+      return;
+    }
     PerpetualMarketInfo.registerTypeUrl();
     PerpetualMarketFunding.registerTypeUrl();
   }
@@ -8347,6 +8426,9 @@ export const FullDerivativeMarket = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FullDerivativeMarket.typeUrl)) {
+      return;
+    }
     DerivativeMarket.registerTypeUrl();
     PerpetualMarketState.registerTypeUrl();
     ExpiryFuturesMarketInfo.registerTypeUrl();
@@ -8424,6 +8506,9 @@ export const QueryDerivativeMarketsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDerivativeMarketsResponse.typeUrl)) {
+      return;
+    }
     FullDerivativeMarket.registerTypeUrl();
   }
 };
@@ -8566,6 +8651,9 @@ export const QueryDerivativeMarketResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDerivativeMarketResponse.typeUrl)) {
+      return;
+    }
     FullDerivativeMarket.registerTypeUrl();
   }
 };
@@ -9166,6 +9254,9 @@ export const QuerySubaccountPositionsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountPositionsResponse.typeUrl)) {
+      return;
+    }
     DerivativePosition.registerTypeUrl();
   }
 };
@@ -9238,6 +9329,9 @@ export const QuerySubaccountPositionInMarketResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountPositionInMarketResponse.typeUrl)) {
+      return;
+    }
     Position.registerTypeUrl();
   }
 };
@@ -9416,6 +9510,9 @@ export const QuerySubaccountEffectivePositionInMarketResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountEffectivePositionInMarketResponse.typeUrl)) {
+      return;
+    }
     EffectivePosition.registerTypeUrl();
   }
 };
@@ -9558,6 +9655,9 @@ export const QueryPerpetualMarketInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPerpetualMarketInfoResponse.typeUrl)) {
+      return;
+    }
     PerpetualMarketInfo.registerTypeUrl();
   }
 };
@@ -9700,6 +9800,9 @@ export const QueryExpiryFuturesMarketInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryExpiryFuturesMarketInfoResponse.typeUrl)) {
+      return;
+    }
     ExpiryFuturesMarketInfo.registerTypeUrl();
   }
 };
@@ -9842,6 +9945,9 @@ export const QueryPerpetualMarketFundingResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPerpetualMarketFundingResponse.typeUrl)) {
+      return;
+    }
     PerpetualMarketFunding.registerTypeUrl();
   }
 };
@@ -9916,6 +10022,9 @@ export const QuerySubaccountOrderMetadataResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubaccountOrderMetadataResponse.typeUrl)) {
+      return;
+    }
     SubaccountOrderbookMetadataWithMarket.registerTypeUrl();
   }
 };
@@ -10115,6 +10224,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };
@@ -10246,6 +10358,9 @@ export const QueryPositionsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPositionsResponse.typeUrl)) {
+      return;
+    }
     DerivativePosition.registerTypeUrl();
   }
 };
@@ -10585,6 +10700,9 @@ export const QueryTradeRewardCampaignResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTradeRewardCampaignResponse.typeUrl)) {
+      return;
+    }
     TradingRewardCampaignInfo.registerTypeUrl();
     CampaignRewardPool.registerTypeUrl();
   }
@@ -11021,6 +11139,9 @@ export const QueryFeeDiscountAccountInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeeDiscountAccountInfoResponse.typeUrl)) {
+      return;
+    }
     FeeDiscountTierInfo.registerTypeUrl();
     FeeDiscountTierTTL.registerTypeUrl();
   }
@@ -11151,6 +11272,9 @@ export const QueryFeeDiscountScheduleResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeeDiscountScheduleResponse.typeUrl)) {
+      return;
+    }
     FeeDiscountSchedule.registerTypeUrl();
   }
 };
@@ -11437,6 +11561,9 @@ export const QueryBalanceMismatchesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBalanceMismatchesResponse.typeUrl)) {
+      return;
+    }
     BalanceMismatch.registerTypeUrl();
   }
 };
@@ -11686,6 +11813,9 @@ export const QueryBalanceWithBalanceHoldsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBalanceWithBalanceHoldsResponse.typeUrl)) {
+      return;
+    }
     BalanceWithMarginHold.registerTypeUrl();
   }
 };
@@ -11899,6 +12029,9 @@ export const QueryFeeDiscountTierStatisticsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFeeDiscountTierStatisticsResponse.typeUrl)) {
+      return;
+    }
     TierStatistic.registerTypeUrl();
   }
 };
@@ -12354,6 +12487,9 @@ export const QueryHistoricalTradeRecordsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryHistoricalTradeRecordsResponse.typeUrl)) {
+      return;
+    }
     TradeRecords.registerTypeUrl();
   }
 };
@@ -12544,6 +12680,9 @@ export const QueryMarketVolatilityRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryMarketVolatilityRequest.typeUrl)) {
+      return;
+    }
     TradeHistoryOptions.registerTypeUrl();
   }
 };
@@ -12642,6 +12781,9 @@ export const QueryMarketVolatilityResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryMarketVolatilityResponse.typeUrl)) {
+      return;
+    }
     MetadataStatistics.registerTypeUrl();
     TradeRecord.registerTypeUrl();
   }
@@ -12787,6 +12929,9 @@ export const QueryBinaryMarketsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBinaryMarketsResponse.typeUrl)) {
+      return;
+    }
     BinaryOptionsMarket.registerTypeUrl();
   }
 };
@@ -13097,6 +13242,9 @@ export const QueryTraderDerivativeConditionalOrdersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTraderDerivativeConditionalOrdersResponse.typeUrl)) {
+      return;
+    }
     TrimmedDerivativeConditionalOrder.registerTypeUrl();
   }
 };
@@ -13391,6 +13539,9 @@ export const QueryActiveStakeGrantResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryActiveStakeGrantResponse.typeUrl)) {
+      return;
+    }
     ActiveGrant.registerTypeUrl();
     EffectiveGrant.registerTypeUrl();
   }
@@ -13700,6 +13851,9 @@ export const QueryGrantAuthorizationsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryGrantAuthorizationsResponse.typeUrl)) {
+      return;
+    }
     GrantAuthorization.registerTypeUrl();
   }
 };

@@ -1,6 +1,7 @@
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * Config represents the configuration for a Cosmos SDK ABCI app.
  * It is intended that all state machine logic including the version of
@@ -223,6 +224,9 @@ export const Config = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Config.typeUrl)) {
+      return;
+    }
     ModuleConfig.registerTypeUrl();
     GolangBinding.registerTypeUrl();
   }
@@ -329,6 +333,9 @@ export const ModuleConfig = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ModuleConfig.typeUrl)) {
+      return;
+    }
     GolangBinding.registerTypeUrl();
   }
 };

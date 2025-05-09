@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Module is the config object for the runtime module. */
 export interface Module {
@@ -392,6 +393,9 @@ export const Module = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Module.typeUrl)) {
+      return;
+    }
     GasConfig.registerTypeUrl();
     StoreKeyConfig.registerTypeUrl();
   }

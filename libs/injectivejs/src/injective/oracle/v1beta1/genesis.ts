@@ -1,5 +1,6 @@
 import { Params, ParamsAmino, BandPriceState, BandPriceStateAmino, PriceFeedState, PriceFeedStateAmino, CoinbasePriceState, CoinbasePriceStateAmino, BandOracleRequest, BandOracleRequestAmino, BandIBCParams, BandIBCParamsAmino, ChainlinkPriceState, ChainlinkPriceStateAmino, PriceRecords, PriceRecordsAmino, ProviderState, ProviderStateAmino, PythPriceState, PythPriceStateAmino, StorkPriceState, StorkPriceStateAmino } from "./oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState defines the oracle module's genesis state. */
 export interface GenesisState {
@@ -354,6 +355,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     BandPriceState.registerTypeUrl();
     PriceFeedState.registerTypeUrl();

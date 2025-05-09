@@ -3,6 +3,7 @@ import { Params, ParamsAmino } from "../v1/transfer";
 import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { PacketId, PacketIdAmino, Packet, PacketAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** GenesisState defines the ibc-transfer genesis state */
 export interface GenesisState {
@@ -192,6 +193,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Denom.registerTypeUrl();
     Params.registerTypeUrl();
     Coin.registerTypeUrl();
@@ -286,6 +290,9 @@ export const ForwardedPacket = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ForwardedPacket.typeUrl)) {
+      return;
+    }
     PacketId.registerTypeUrl();
     Packet.registerTypeUrl();
   }

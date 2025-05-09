@@ -1,6 +1,7 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** Params defines the parameters for the tokenfactory module. */
 export interface Params {
   denomCreationFee: Coin[];
@@ -95,6 +96,9 @@ export const Params = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Params.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

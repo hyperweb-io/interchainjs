@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { Input, InputAmino, Output, OutputAmino, Params, ParamsAmino, SendEnabled, SendEnabledAmino } from "./bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgSend represents a message to send coins from one account to another. */
 export interface MsgSend {
   fromAddress: string;
@@ -306,6 +307,9 @@ export const MsgSend = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSend.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -465,6 +469,9 @@ export const MsgMultiSend = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgMultiSend.typeUrl)) {
+      return;
+    }
     Input.registerTypeUrl();
     Output.registerTypeUrl();
   }
@@ -621,6 +628,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -792,6 +802,9 @@ export const MsgSetSendEnabled = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSetSendEnabled.typeUrl)) {
+      return;
+    }
     SendEnabled.registerTypeUrl();
   }
 };

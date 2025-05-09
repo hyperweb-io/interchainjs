@@ -900,6 +900,9 @@ export const FeedConfig = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeedConfig.typeUrl)) {
+      return;
+    }
     ModuleParams.registerTypeUrl();
   }
 };
@@ -1445,7 +1448,7 @@ export const SetConfigProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(SetConfigProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SetConfigProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(SetConfigProposal.typeUrl, SetConfigProposal);
@@ -1785,7 +1788,7 @@ export const SetBatchConfigProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(SetBatchConfigProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SetBatchConfigProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(SetBatchConfigProposal.typeUrl, SetBatchConfigProposal);
@@ -1945,6 +1948,9 @@ export const GasReimbursements = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GasReimbursements.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2513,6 +2519,9 @@ export const EventOraclePaid = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventOraclePaid.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2953,6 +2962,9 @@ export const EventNewTransmission = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventNewTransmission.typeUrl)) {
+      return;
+    }
     EpochAndRound.registerTypeUrl();
   }
 };
@@ -3061,6 +3073,9 @@ export const EventConfigSet = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventConfigSet.typeUrl)) {
+      return;
+    }
     FeedConfig.registerTypeUrl();
     FeedConfigInfo.registerTypeUrl();
   }

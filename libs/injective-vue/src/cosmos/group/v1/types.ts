@@ -1039,7 +1039,7 @@ export const ThresholdDecisionPolicy = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(ThresholdDecisionPolicy.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ThresholdDecisionPolicy.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(ThresholdDecisionPolicy.typeUrl, ThresholdDecisionPolicy);
@@ -1135,7 +1135,7 @@ export const PercentageDecisionPolicy = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(PercentageDecisionPolicy.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PercentageDecisionPolicy.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(PercentageDecisionPolicy.typeUrl, PercentageDecisionPolicy);
@@ -1457,6 +1457,9 @@ export const GroupMember = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GroupMember.typeUrl)) {
+      return;
+    }
     Member.registerTypeUrl();
   }
 };
@@ -1608,6 +1611,9 @@ export const GroupPolicyInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GroupPolicyInfo.typeUrl)) {
+      return;
+    }
     ThresholdDecisionPolicy.registerTypeUrl();
     PercentageDecisionPolicy.registerTypeUrl();
   }
