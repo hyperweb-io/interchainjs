@@ -65,7 +65,20 @@ export const options: TelescopeInput = {
       "hooks": {
         "react": false,
         "vue": false
-      }
+      },
+      nameMappers: {
+        Query: {
+          "cosmos.tx.v1beta1.GetTx": {
+            funcBody: "unchanged"
+          },
+          "cosmos.tx.v1beta1.GetTxsEvent": {
+            funcBody: "unchanged"
+          },
+          "cosmos.tx.v1beta1.GetBlockWithTxs": {
+            funcBody: "unchanged"
+          },
+        },
+      },
     },
     "interfaces": {
       "enabled": true,
