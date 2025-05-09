@@ -6,6 +6,7 @@ import { OutgoingTxBatch, OutgoingTxBatchAmino, OutgoingTransferTx, OutgoingTran
 import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryParamsRequest";
@@ -726,6 +727,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -855,6 +859,9 @@ export const QueryCurrentValsetResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryCurrentValsetResponse.typeUrl)) {
+      return;
+    }
     Valset.registerTypeUrl();
   }
 };
@@ -997,6 +1004,9 @@ export const QueryValsetRequestResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValsetRequestResponse.typeUrl)) {
+      return;
+    }
     Valset.registerTypeUrl();
   }
 };
@@ -1151,6 +1161,9 @@ export const QueryValsetConfirmResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValsetConfirmResponse.typeUrl)) {
+      return;
+    }
     MsgValsetConfirm.registerTypeUrl();
   }
 };
@@ -1295,6 +1308,9 @@ export const QueryValsetConfirmsByNonceResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryValsetConfirmsByNonceResponse.typeUrl)) {
+      return;
+    }
     MsgValsetConfirm.registerTypeUrl();
   }
 };
@@ -1426,6 +1442,9 @@ export const QueryLastValsetRequestsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLastValsetRequestsResponse.typeUrl)) {
+      return;
+    }
     Valset.registerTypeUrl();
   }
 };
@@ -1570,6 +1589,9 @@ export const QueryLastPendingValsetRequestByAddrResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLastPendingValsetRequestByAddrResponse.typeUrl)) {
+      return;
+    }
     Valset.registerTypeUrl();
   }
 };
@@ -1701,6 +1723,9 @@ export const QueryBatchFeeResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBatchFeeResponse.typeUrl)) {
+      return;
+    }
     BatchFees.registerTypeUrl();
   }
 };
@@ -1843,6 +1868,9 @@ export const QueryLastPendingBatchRequestByAddrResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLastPendingBatchRequestByAddrResponse.typeUrl)) {
+      return;
+    }
     OutgoingTxBatch.registerTypeUrl();
   }
 };
@@ -1974,6 +2002,9 @@ export const QueryOutgoingTxBatchesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryOutgoingTxBatchesResponse.typeUrl)) {
+      return;
+    }
     OutgoingTxBatch.registerTypeUrl();
   }
 };
@@ -2128,6 +2159,9 @@ export const QueryBatchRequestByNonceResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBatchRequestByNonceResponse.typeUrl)) {
+      return;
+    }
     OutgoingTxBatch.registerTypeUrl();
   }
 };
@@ -2284,6 +2318,9 @@ export const QueryBatchConfirmsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryBatchConfirmsResponse.typeUrl)) {
+      return;
+    }
     MsgConfirmBatch.registerTypeUrl();
   }
 };
@@ -2426,6 +2463,9 @@ export const QueryLastEventByAddrResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLastEventByAddrResponse.typeUrl)) {
+      return;
+    }
     LastClaimEvent.registerTypeUrl();
   }
 };
@@ -3344,6 +3384,9 @@ export const QueryPendingSendToEthResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryPendingSendToEthResponse.typeUrl)) {
+      return;
+    }
     OutgoingTransferTx.registerTypeUrl();
   }
 };
@@ -3473,6 +3516,9 @@ export const QueryModuleStateResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleStateResponse.typeUrl)) {
+      return;
+    }
     GenesisState.registerTypeUrl();
   }
 };

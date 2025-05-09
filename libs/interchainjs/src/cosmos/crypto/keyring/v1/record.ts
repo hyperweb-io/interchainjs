@@ -1,6 +1,7 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BIP44Params, BIP44ParamsAmino } from "../../hd/v1/hd";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Record is used for representing a key in the keyring. */
 export interface Record {
@@ -238,6 +239,9 @@ export const Record = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Record.typeUrl)) {
+      return;
+    }
     Record_Local.registerTypeUrl();
     Record_Ledger.registerTypeUrl();
     Record_Multi.registerTypeUrl();
@@ -397,6 +401,9 @@ export const Record_Ledger = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Record_Ledger.typeUrl)) {
+      return;
+    }
     BIP44Params.registerTypeUrl();
   }
 };

@@ -1,5 +1,6 @@
 import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** QueryRequest is the request for the Query method */
 export interface QueryRequest {
@@ -375,6 +376,9 @@ export const ListQueryHandlersResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListQueryHandlersResponse.typeUrl)) {
+      return;
+    }
     Handler.registerTypeUrl();
   }
 };

@@ -1,5 +1,6 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 export interface Params {
   peggyId: string;
@@ -387,6 +388,9 @@ export const Params = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Params.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

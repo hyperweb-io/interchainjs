@@ -559,6 +559,9 @@ export const QueryAccountsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -652,6 +655,9 @@ export const QueryAccountsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountsResponse.typeUrl)) {
+      return;
+    }
     BaseAccount.registerTypeUrl();
     EthAccount.registerTypeUrl();
     PageResponse.registerTypeUrl();
@@ -810,6 +816,9 @@ export const QueryAccountResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountResponse.typeUrl)) {
+      return;
+    }
     BaseAccount.registerTypeUrl();
     EthAccount.registerTypeUrl();
   }
@@ -954,6 +963,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -1099,6 +1111,9 @@ export const QueryModuleAccountsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleAccountsResponse.typeUrl)) {
+      return;
+    }
     ModuleAccount.registerTypeUrl();
   }
 };
@@ -1255,6 +1270,9 @@ export const QueryModuleAccountByNameResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryModuleAccountByNameResponse.typeUrl)) {
+      return;
+    }
     ModuleAccount.registerTypeUrl();
   }
 };
@@ -2026,6 +2044,9 @@ export const QueryAccountInfoResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAccountInfoResponse.typeUrl)) {
+      return;
+    }
     BaseAccount.registerTypeUrl();
   }
 };

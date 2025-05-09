@@ -2,6 +2,7 @@ import { ClaimType } from "./attestation";
 import { BridgeValidator, BridgeValidatorAmino } from "./types";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface EventAttestationObserved {
   attestationType: ClaimType;
   bridgeContract: string;
@@ -912,6 +913,9 @@ export const EventValsetUpdateRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventValsetUpdateRequest.typeUrl)) {
+      return;
+    }
     BridgeValidator.registerTypeUrl();
   }
 };
@@ -2002,6 +2006,9 @@ export const EventValsetUpdateClaim = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventValsetUpdateClaim.typeUrl)) {
+      return;
+    }
     BridgeValidator.registerTypeUrl();
   }
 };

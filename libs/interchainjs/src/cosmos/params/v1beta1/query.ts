@@ -1,6 +1,7 @@
 import { ParamChange, ParamChangeAmino } from "./params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
   /** subspace defines the module to query the parameter for. */
@@ -282,6 +283,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     ParamChange.registerTypeUrl();
   }
 };
@@ -427,6 +431,9 @@ export const QuerySubspacesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QuerySubspacesResponse.typeUrl)) {
+      return;
+    }
     Subspace.registerTypeUrl();
   }
 };

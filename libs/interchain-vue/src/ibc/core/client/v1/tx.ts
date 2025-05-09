@@ -2,6 +2,7 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { Plan, PlanAmino } from "../../../../cosmos/upgrade/v1beta1/upgrade";
 import { Params, ParamsAmino } from "./client";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {
@@ -1478,6 +1479,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

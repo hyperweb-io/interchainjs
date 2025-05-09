@@ -297,6 +297,9 @@ export const MsgSubmitProposal = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSubmitProposal.typeUrl)) {
+      return;
+    }
     CommunityPoolSpendProposal.registerTypeUrl();
     CommunityPoolSpendProposalWithDeposit.registerTypeUrl();
     TextProposal.registerTypeUrl();
@@ -697,6 +700,9 @@ export const MsgVoteWeighted = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgVoteWeighted.typeUrl)) {
+      return;
+    }
     WeightedVoteOption.registerTypeUrl();
   }
 };
@@ -866,6 +872,9 @@ export const MsgDeposit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgDeposit.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

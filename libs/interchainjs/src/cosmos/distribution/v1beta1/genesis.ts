@@ -2,6 +2,7 @@ import { DecCoin, DecCoinAmino } from "../../base/v1beta1/coin";
 import { ValidatorAccumulatedCommission, ValidatorAccumulatedCommissionAmino, ValidatorHistoricalRewards, ValidatorHistoricalRewardsAmino, ValidatorCurrentRewards, ValidatorCurrentRewardsAmino, DelegatorStartingInfo, DelegatorStartingInfoAmino, ValidatorSlashEvent, ValidatorSlashEventAmino, Params, ParamsAmino, FeePool, FeePoolAmino } from "./distribution";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * DelegatorWithdrawInfo is the address for where distributions rewards are
  * withdrawn to by default this struct is only used at genesis to feed in
@@ -425,6 +426,9 @@ export const ValidatorOutstandingRewardsRecord = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorOutstandingRewardsRecord.typeUrl)) {
+      return;
+    }
     DecCoin.registerTypeUrl();
   }
 };
@@ -516,6 +520,9 @@ export const ValidatorAccumulatedCommissionRecord = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorAccumulatedCommissionRecord.typeUrl)) {
+      return;
+    }
     ValidatorAccumulatedCommission.registerTypeUrl();
   }
 };
@@ -619,6 +626,9 @@ export const ValidatorHistoricalRewardsRecord = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorHistoricalRewardsRecord.typeUrl)) {
+      return;
+    }
     ValidatorHistoricalRewards.registerTypeUrl();
   }
 };
@@ -710,6 +720,9 @@ export const ValidatorCurrentRewardsRecord = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorCurrentRewardsRecord.typeUrl)) {
+      return;
+    }
     ValidatorCurrentRewards.registerTypeUrl();
   }
 };
@@ -813,6 +826,9 @@ export const DelegatorStartingInfoRecord = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DelegatorStartingInfoRecord.typeUrl)) {
+      return;
+    }
     DelegatorStartingInfo.registerTypeUrl();
   }
 };
@@ -928,6 +944,9 @@ export const ValidatorSlashEventRecord = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorSlashEventRecord.typeUrl)) {
+      return;
+    }
     ValidatorSlashEvent.registerTypeUrl();
   }
 };
@@ -1129,6 +1148,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     FeePool.registerTypeUrl();
     DelegatorWithdrawInfo.registerTypeUrl();

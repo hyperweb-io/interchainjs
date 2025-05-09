@@ -1,5 +1,6 @@
 import { Params, ParamsAmino, InsuranceFund, InsuranceFundAmino, RedemptionSchedule, RedemptionScheduleAmino } from "./insurance";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the insurance module's genesis state. */
 export interface GenesisState {
@@ -174,6 +175,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     InsuranceFund.registerTypeUrl();
     RedemptionSchedule.registerTypeUrl();

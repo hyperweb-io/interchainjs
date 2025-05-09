@@ -1,5 +1,6 @@
 import { BlockParams, BlockParamsAmino, EvidenceParams, EvidenceParamsAmino, ValidatorParams, ValidatorParamsAmino, ABCIParams, ABCIParamsAmino } from "../../../tendermint/types/params";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParams {
@@ -185,6 +186,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     BlockParams.registerTypeUrl();
     EvidenceParams.registerTypeUrl();
     ValidatorParams.registerTypeUrl();

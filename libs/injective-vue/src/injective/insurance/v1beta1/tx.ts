@@ -3,6 +3,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino } from "./insurance";
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateInsuranceFund a message to create an insurance fund for a derivative
  * market.
@@ -365,6 +366,9 @@ export const MsgCreateInsuranceFund = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateInsuranceFund.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -525,6 +529,9 @@ export const MsgUnderwrite = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUnderwrite.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -685,6 +692,9 @@ export const MsgRequestRedemption = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRequestRedemption.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -833,6 +843,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

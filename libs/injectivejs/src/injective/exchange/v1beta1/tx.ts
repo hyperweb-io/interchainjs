@@ -5,6 +5,7 @@ import { Params, ParamsAmino } from "../../../cosmos/distribution/v1beta1/distri
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface MsgUpdateSpotMarket {
   /** current admin address of the associated market */
   admin: string;
@@ -2491,6 +2492,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -2651,6 +2655,9 @@ export const MsgDeposit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgDeposit.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2811,6 +2818,9 @@ export const MsgWithdraw = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgWithdraw.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2959,6 +2969,9 @@ export const MsgCreateSpotLimitOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateSpotLimitOrder.typeUrl)) {
+      return;
+    }
     SpotOrder.registerTypeUrl();
   }
 };
@@ -3134,6 +3147,9 @@ export const MsgBatchCreateSpotLimitOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchCreateSpotLimitOrders.typeUrl)) {
+      return;
+    }
     SpotOrder.registerTypeUrl();
   }
 };
@@ -4425,6 +4441,9 @@ export const MsgCreateSpotMarketOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateSpotMarketOrder.typeUrl)) {
+      return;
+    }
     SpotOrder.registerTypeUrl();
   }
 };
@@ -4521,6 +4540,9 @@ export const MsgCreateSpotMarketOrderResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateSpotMarketOrderResponse.typeUrl)) {
+      return;
+    }
     SpotMarketOrderResults.registerTypeUrl();
   }
 };
@@ -4706,6 +4728,9 @@ export const MsgCreateDerivativeLimitOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateDerivativeLimitOrder.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -4879,6 +4904,9 @@ export const MsgCreateBinaryOptionsLimitOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateBinaryOptionsLimitOrder.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -5054,6 +5082,9 @@ export const MsgBatchCreateDerivativeLimitOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchCreateDerivativeLimitOrders.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -5429,6 +5460,9 @@ export const MsgBatchCancelSpotOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchCancelSpotOrders.typeUrl)) {
+      return;
+    }
     OrderData.registerTypeUrl();
   }
 };
@@ -5603,6 +5637,9 @@ export const MsgBatchCancelBinaryOptionsOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchCancelBinaryOptionsOrders.typeUrl)) {
+      return;
+    }
     OrderData.registerTypeUrl();
   }
 };
@@ -5901,6 +5938,9 @@ export const MsgBatchUpdateOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchUpdateOrders.typeUrl)) {
+      return;
+    }
     OrderData.registerTypeUrl();
     SpotOrder.registerTypeUrl();
     DerivativeOrder.registerTypeUrl();
@@ -6247,6 +6287,9 @@ export const MsgCreateDerivativeMarketOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateDerivativeMarketOrder.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -6343,6 +6386,9 @@ export const MsgCreateDerivativeMarketOrderResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateDerivativeMarketOrderResponse.typeUrl)) {
+      return;
+    }
     DerivativeMarketOrderResults.registerTypeUrl();
   }
 };
@@ -6463,6 +6509,9 @@ export const DerivativeMarketOrderResults = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativeMarketOrderResults.typeUrl)) {
+      return;
+    }
     PositionDelta.registerTypeUrl();
   }
 };
@@ -6554,6 +6603,9 @@ export const MsgCreateBinaryOptionsMarketOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateBinaryOptionsMarketOrder.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -6650,6 +6702,9 @@ export const MsgCreateBinaryOptionsMarketOrderResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateBinaryOptionsMarketOrderResponse.typeUrl)) {
+      return;
+    }
     DerivativeMarketOrderResults.registerTypeUrl();
   }
 };
@@ -7249,6 +7304,9 @@ export const MsgBatchCancelDerivativeOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchCancelDerivativeOrders.typeUrl)) {
+      return;
+    }
     OrderData.registerTypeUrl();
   }
 };
@@ -7445,6 +7503,9 @@ export const MsgSubaccountTransfer = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSubaccountTransfer.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -7617,6 +7678,9 @@ export const MsgExternalTransfer = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgExternalTransfer.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -7789,6 +7853,9 @@ export const MsgLiquidatePosition = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgLiquidatePosition.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -8555,6 +8622,9 @@ export const MsgPrivilegedExecuteContractResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgPrivilegedExecuteContractResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -9013,6 +9083,9 @@ export const MsgSignDoc = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSignDoc.typeUrl)) {
+      return;
+    }
     MsgSignData.registerTypeUrl();
   }
 };
@@ -9300,6 +9373,9 @@ export const MsgAuthorizeStakeGrants = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgAuthorizeStakeGrants.typeUrl)) {
+      return;
+    }
     GrantAuthorization.registerTypeUrl();
   }
 };

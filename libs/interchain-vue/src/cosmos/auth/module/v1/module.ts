@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /** Module is the config object for the auth module. */
 export interface Module {
   /** bech32_prefix is the bech32 account prefix for the app. */
@@ -156,6 +157,9 @@ export const Module = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Module.typeUrl)) {
+      return;
+    }
     ModuleAccountPermission.registerTypeUrl();
   }
 };

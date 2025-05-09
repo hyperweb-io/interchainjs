@@ -1,6 +1,7 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { Params, ParamsAmino } from "./auction";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** Bid defines a SDK message for placing a bid for an auction */
 export interface MsgBid {
@@ -174,6 +175,9 @@ export const MsgBid = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBid.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -322,6 +326,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

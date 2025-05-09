@@ -2,6 +2,7 @@ import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "
 import { NFT, NFTAmino, Class, ClassAmino } from "./nft";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryBalanceRequest is the request type for the Query/Balance RPC method */
 export interface QueryBalanceRequest {
   /** class_id associated with the nft */
@@ -868,6 +869,9 @@ export const QueryNFTsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryNFTsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -961,6 +965,9 @@ export const QueryNFTsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryNFTsResponse.typeUrl)) {
+      return;
+    }
     NFT.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1130,6 +1137,9 @@ export const QueryNFTResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryNFTResponse.typeUrl)) {
+      return;
+    }
     NFT.registerTypeUrl();
   }
 };
@@ -1286,6 +1296,9 @@ export const QueryClassResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClassResponse.typeUrl)) {
+      return;
+    }
     Class.registerTypeUrl();
   }
 };
@@ -1365,6 +1378,9 @@ export const QueryClassesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClassesRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1458,6 +1474,9 @@ export const QueryClassesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryClassesResponse.typeUrl)) {
+      return;
+    }
     Class.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }

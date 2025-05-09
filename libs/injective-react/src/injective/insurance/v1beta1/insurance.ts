@@ -3,6 +3,7 @@ import { OracleType } from "../../oracle/v1beta1/oracle";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, toTimestamp, fromTimestamp } from "../../../helpers";
 export interface Params {
   /**
@@ -526,6 +527,9 @@ export const RedemptionSchedule = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RedemptionSchedule.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

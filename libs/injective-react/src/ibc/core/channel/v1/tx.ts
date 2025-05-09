@@ -2,6 +2,7 @@ import { Channel, ChannelAmino, Packet, PacketAmino, State } from "./channel";
 import { Height, HeightAmino, Params, ParamsAmino } from "../../client/v1/client";
 import { UpgradeFields, UpgradeFieldsAmino, Upgrade, UpgradeAmino, ErrorReceipt, ErrorReceiptAmino } from "./upgrade";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../../helpers";
 /** ResponseResultType defines the possible outcomes of the execution of a message */
 export enum ResponseResultType {
@@ -997,6 +998,9 @@ export const MsgChannelOpenInit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelOpenInit.typeUrl)) {
+      return;
+    }
     Channel.registerTypeUrl();
   }
 };
@@ -1237,6 +1241,9 @@ export const MsgChannelOpenTry = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelOpenTry.typeUrl)) {
+      return;
+    }
     Channel.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -1478,6 +1485,9 @@ export const MsgChannelOpenAck = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelOpenAck.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -1669,6 +1679,9 @@ export const MsgChannelOpenConfirm = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelOpenConfirm.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -2037,6 +2050,9 @@ export const MsgChannelCloseConfirm = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelCloseConfirm.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -2216,6 +2232,9 @@ export const MsgRecvPacket = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRecvPacket.typeUrl)) {
+      return;
+    }
     Packet.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -2421,6 +2440,9 @@ export const MsgTimeout = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgTimeout.typeUrl)) {
+      return;
+    }
     Packet.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -2650,6 +2672,9 @@ export const MsgTimeoutOnClose = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgTimeoutOnClose.typeUrl)) {
+      return;
+    }
     Packet.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -2855,6 +2880,9 @@ export const MsgAcknowledgement = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgAcknowledgement.typeUrl)) {
+      return;
+    }
     Packet.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -3048,6 +3076,9 @@ export const MsgChannelUpgradeInit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeInit.typeUrl)) {
+      return;
+    }
     UpgradeFields.registerTypeUrl();
   }
 };
@@ -3139,6 +3170,9 @@ export const MsgChannelUpgradeInitResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeInitResponse.typeUrl)) {
+      return;
+    }
     Upgrade.registerTypeUrl();
   }
 };
@@ -3316,6 +3350,9 @@ export const MsgChannelUpgradeTry = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeTry.typeUrl)) {
+      return;
+    }
     UpgradeFields.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -3420,6 +3457,9 @@ export const MsgChannelUpgradeTryResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeTryResponse.typeUrl)) {
+      return;
+    }
     Upgrade.registerTypeUrl();
   }
 };
@@ -3571,6 +3611,9 @@ export const MsgChannelUpgradeAck = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeAck.typeUrl)) {
+      return;
+    }
     Upgrade.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -3812,6 +3855,9 @@ export const MsgChannelUpgradeConfirm = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeConfirm.typeUrl)) {
+      return;
+    }
     Upgrade.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -4041,6 +4087,9 @@ export const MsgChannelUpgradeOpen = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeOpen.typeUrl)) {
+      return;
+    }
     Height.registerTypeUrl();
   }
 };
@@ -4244,6 +4293,9 @@ export const MsgChannelUpgradeTimeout = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeTimeout.typeUrl)) {
+      return;
+    }
     Channel.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -4448,6 +4500,9 @@ export const MsgChannelUpgradeCancel = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgChannelUpgradeCancel.typeUrl)) {
+      return;
+    }
     ErrorReceipt.registerTypeUrl();
     Height.registerTypeUrl();
   }
@@ -4604,6 +4659,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

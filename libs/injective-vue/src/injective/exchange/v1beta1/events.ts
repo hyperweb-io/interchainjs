@@ -2,6 +2,7 @@ import { ExecutionType, TradeLog, TradeLogAmino, DerivativeTradeLog, DerivativeT
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
 export interface EventBatchSpotExecution {
   marketId: string;
@@ -750,6 +751,9 @@ export const EventBatchSpotExecution = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBatchSpotExecution.typeUrl)) {
+      return;
+    }
     TradeLog.registerTypeUrl();
   }
 };
@@ -884,6 +888,9 @@ export const EventBatchDerivativeExecution = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBatchDerivativeExecution.typeUrl)) {
+      return;
+    }
     DerivativeTradeLog.registerTypeUrl();
   }
 };
@@ -1076,6 +1083,9 @@ export const EventBatchDerivativePosition = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBatchDerivativePosition.typeUrl)) {
+      return;
+    }
     SubaccountPosition.registerTypeUrl();
   }
 };
@@ -1442,6 +1452,9 @@ export const EventBinaryOptionsMarketUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBinaryOptionsMarketUpdate.typeUrl)) {
+      return;
+    }
     BinaryOptionsMarket.registerTypeUrl();
   }
 };
@@ -1542,6 +1555,9 @@ export const EventNewSpotOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventNewSpotOrders.typeUrl)) {
+      return;
+    }
     SpotLimitOrder.registerTypeUrl();
   }
 };
@@ -1642,6 +1658,9 @@ export const EventNewDerivativeOrders = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventNewDerivativeOrders.typeUrl)) {
+      return;
+    }
     DerivativeLimitOrder.registerTypeUrl();
   }
 };
@@ -1726,6 +1745,9 @@ export const EventCancelSpotOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventCancelSpotOrder.typeUrl)) {
+      return;
+    }
     SpotLimitOrder.registerTypeUrl();
   }
 };
@@ -1798,6 +1820,9 @@ export const EventSpotMarketUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSpotMarketUpdate.typeUrl)) {
+      return;
+    }
     SpotMarket.registerTypeUrl();
   }
 };
@@ -1894,6 +1919,9 @@ export const EventPerpetualMarketUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventPerpetualMarketUpdate.typeUrl)) {
+      return;
+    }
     DerivativeMarket.registerTypeUrl();
     PerpetualMarketInfo.registerTypeUrl();
     PerpetualMarketFunding.registerTypeUrl();
@@ -1980,6 +2008,9 @@ export const EventExpiryFuturesMarketUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventExpiryFuturesMarketUpdate.typeUrl)) {
+      return;
+    }
     DerivativeMarket.registerTypeUrl();
     ExpiryFuturesMarketInfo.registerTypeUrl();
   }
@@ -2101,6 +2132,9 @@ export const EventPerpetualMarketFundingUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventPerpetualMarketFundingUpdate.typeUrl)) {
+      return;
+    }
     PerpetualMarketFunding.registerTypeUrl();
   }
 };
@@ -2197,6 +2231,9 @@ export const EventSubaccountDeposit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSubaccountDeposit.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2293,6 +2330,9 @@ export const EventSubaccountWithdraw = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSubaccountWithdraw.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2389,6 +2429,9 @@ export const EventSubaccountBalanceTransfer = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSubaccountBalanceTransfer.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2463,6 +2506,9 @@ export const EventBatchDepositUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBatchDepositUpdate.typeUrl)) {
+      return;
+    }
     DepositUpdate.registerTypeUrl();
   }
 };
@@ -2547,6 +2593,9 @@ export const DerivativeMarketOrderCancel = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativeMarketOrderCancel.typeUrl)) {
+      return;
+    }
     DerivativeMarketOrder.registerTypeUrl();
   }
 };
@@ -2655,6 +2704,9 @@ export const EventCancelDerivativeOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventCancelDerivativeOrder.typeUrl)) {
+      return;
+    }
     DerivativeLimitOrder.registerTypeUrl();
     DerivativeMarketOrderCancel.registerTypeUrl();
   }
@@ -2728,6 +2780,9 @@ export const EventFeeDiscountSchedule = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventFeeDiscountSchedule.typeUrl)) {
+      return;
+    }
     FeeDiscountSchedule.registerTypeUrl();
   }
 };
@@ -2814,6 +2869,9 @@ export const EventTradingRewardCampaignUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventTradingRewardCampaignUpdate.typeUrl)) {
+      return;
+    }
     TradingRewardCampaignInfo.registerTypeUrl();
     CampaignRewardPool.registerTypeUrl();
   }
@@ -2889,6 +2947,9 @@ export const EventTradingRewardDistribution = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventTradingRewardDistribution.typeUrl)) {
+      return;
+    }
     AccountRewards.registerTypeUrl();
   }
 };
@@ -2997,6 +3058,9 @@ export const EventNewConditionalDerivativeOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventNewConditionalDerivativeOrder.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -3105,6 +3169,9 @@ export const EventCancelConditionalDerivativeOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventCancelConditionalDerivativeOrder.typeUrl)) {
+      return;
+    }
     DerivativeLimitOrder.registerTypeUrl();
     DerivativeMarketOrder.registerTypeUrl();
   }
@@ -3419,6 +3486,9 @@ export const EventAtomicMarketOrderFeeMultipliersUpdated = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventAtomicMarketOrderFeeMultipliersUpdated.typeUrl)) {
+      return;
+    }
     MarketFeeMultiplier.registerTypeUrl();
   }
 };
@@ -3507,6 +3577,9 @@ export const EventOrderbookUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventOrderbookUpdate.typeUrl)) {
+      return;
+    }
     OrderbookUpdate.registerTypeUrl();
   }
 };
@@ -3591,6 +3664,9 @@ export const OrderbookUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(OrderbookUpdate.typeUrl)) {
+      return;
+    }
     Orderbook.registerTypeUrl();
   }
 };
@@ -3691,6 +3767,9 @@ export const Orderbook = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Orderbook.typeUrl)) {
+      return;
+    }
     Level.registerTypeUrl();
   }
 };
@@ -3777,6 +3856,9 @@ export const EventGrantAuthorizations = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventGrantAuthorizations.typeUrl)) {
+      return;
+    }
     GrantAuthorization.registerTypeUrl();
   }
 };

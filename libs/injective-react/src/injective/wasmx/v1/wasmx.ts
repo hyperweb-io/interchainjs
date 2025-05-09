@@ -1,6 +1,7 @@
 import { AccessConfig, AccessConfigAmino } from "../../../cosmwasm/wasm/v1/types";
 import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
 export interface Params {
   /**
@@ -232,6 +233,9 @@ export const Params = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Params.typeUrl)) {
+      return;
+    }
     AccessConfig.registerTypeUrl();
   }
 };

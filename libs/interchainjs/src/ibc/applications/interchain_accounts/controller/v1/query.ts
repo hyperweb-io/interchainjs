@@ -1,6 +1,7 @@
 import { Params, ParamsAmino } from "./controller";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial } from "../../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../../registry";
 /** QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method. */
 export interface QueryInterchainAccountRequest {
   owner: string;
@@ -371,6 +372,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

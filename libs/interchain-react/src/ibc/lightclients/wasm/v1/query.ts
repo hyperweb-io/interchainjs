@@ -1,5 +1,6 @@
 import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "../../../../cosmos/base/query/v1beta1/pagination";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 /** QueryChecksumsRequest is the request type for the Query/Checksums RPC method. */
 export interface QueryChecksumsRequest {
@@ -151,6 +152,9 @@ export const QueryChecksumsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryChecksumsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -244,6 +248,9 @@ export const QueryChecksumsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryChecksumsResponse.typeUrl)) {
+      return;
+    }
     PageResponse.registerTypeUrl();
   }
 };

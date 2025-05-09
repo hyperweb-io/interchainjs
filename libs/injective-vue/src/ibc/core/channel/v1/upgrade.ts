@@ -1,5 +1,6 @@
 import { Timeout, TimeoutAmino, Order } from "./channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial, isSet } from "../../../../helpers";
 /**
  * Upgrade is a verifiable type which contains the relevant information
@@ -189,6 +190,9 @@ export const Upgrade = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Upgrade.typeUrl)) {
+      return;
+    }
     UpgradeFields.registerTypeUrl();
     Timeout.registerTypeUrl();
   }

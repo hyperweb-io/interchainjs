@@ -3,6 +3,7 @@ import { ParamsAmino as Params1Amino } from "../../controller/v1/controller";
 import { Params as Params2 } from "../../host/v1/host";
 import { ParamsAmino as Params2Amino } from "../../host/v1/host";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../../registry";
 import { DeepPartial } from "../../../../../helpers";
 /** GenesisState defines the interchain accounts genesis state */
 export interface GenesisState {
@@ -202,6 +203,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     ControllerGenesisState.registerTypeUrl();
     HostGenesisState.registerTypeUrl();
   }
@@ -324,6 +328,9 @@ export const ControllerGenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ControllerGenesisState.typeUrl)) {
+      return;
+    }
     ActiveChannel.registerTypeUrl();
     RegisteredInterchainAccount.registerTypeUrl();
     Params1.registerTypeUrl();
@@ -445,6 +452,9 @@ export const HostGenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(HostGenesisState.typeUrl)) {
+      return;
+    }
     ActiveChannel.registerTypeUrl();
     RegisteredInterchainAccount.registerTypeUrl();
     Params2.registerTypeUrl();

@@ -1,6 +1,7 @@
 import { MerklePrefix, MerklePrefixAmino } from "../../commitment/v1/commitment";
 import { isSet, DeepPartial } from "../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * State defines if a connection is in one of the following states:
  * INIT, TRYOPEN, OPEN or UNINITIALIZED.
@@ -421,6 +422,9 @@ export const ConnectionEnd = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ConnectionEnd.typeUrl)) {
+      return;
+    }
     Version.registerTypeUrl();
     Counterparty.registerTypeUrl();
   }
@@ -563,6 +567,9 @@ export const IdentifiedConnection = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(IdentifiedConnection.typeUrl)) {
+      return;
+    }
     Version.registerTypeUrl();
     Counterparty.registerTypeUrl();
   }
@@ -667,6 +674,9 @@ export const Counterparty = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Counterparty.typeUrl)) {
+      return;
+    }
     MerklePrefix.registerTypeUrl();
   }
 };

@@ -107,7 +107,7 @@ export const EthAccount = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(EthAccount.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EthAccount.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(EthAccount.typeUrl, EthAccount);

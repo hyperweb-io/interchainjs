@@ -1,6 +1,7 @@
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** MsgVerifyInvariant represents a message to verify a particular invariance. */
 export interface MsgVerifyInvariant {
   /** sender is the account address of private key to send coins to fee collector account. */
@@ -344,6 +345,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

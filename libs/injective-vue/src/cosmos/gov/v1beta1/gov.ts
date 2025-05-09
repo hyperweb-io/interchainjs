@@ -642,7 +642,7 @@ export const TextProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(TextProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TextProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(TextProposal.typeUrl, TextProposal);
@@ -751,6 +751,9 @@ export const Deposit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Deposit.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -928,6 +931,9 @@ export const Proposal = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Proposal.typeUrl)) {
+      return;
+    }
     TextProposal.registerTypeUrl();
     CommunityPoolSpendProposal.registerTypeUrl();
     CommunityPoolSpendProposalWithDeposit.registerTypeUrl();
@@ -1212,6 +1218,9 @@ export const Vote = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Vote.typeUrl)) {
+      return;
+    }
     WeightedVoteOption.registerTypeUrl();
   }
 };
@@ -1305,6 +1314,9 @@ export const DepositParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DepositParams.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

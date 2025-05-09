@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 export interface Params {
   /** auction_period_duration defines the auction period duration */
   auctionPeriod: bigint;
@@ -688,6 +689,9 @@ export const EventAuctionStart = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventAuctionStart.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

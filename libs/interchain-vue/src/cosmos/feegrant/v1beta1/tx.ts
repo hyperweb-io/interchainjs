@@ -230,6 +230,9 @@ export const MsgGrantAllowance = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgGrantAllowance.typeUrl)) {
+      return;
+    }
     BasicAllowance.registerTypeUrl();
     PeriodicAllowance.registerTypeUrl();
     AllowedMsgAllowance.registerTypeUrl();

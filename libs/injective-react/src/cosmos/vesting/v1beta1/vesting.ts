@@ -1,6 +1,7 @@
 import { BaseAccount, BaseAccountAmino } from "../../auth/v1beta1/auth";
 import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /**
  * BaseVestingAccount implements the VestingAccount interface. It contains all
@@ -288,6 +289,9 @@ export const BaseVestingAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BaseVestingAccount.typeUrl)) {
+      return;
+    }
     BaseAccount.registerTypeUrl();
     Coin.registerTypeUrl();
   }
@@ -380,6 +384,9 @@ export const ContinuousVestingAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ContinuousVestingAccount.typeUrl)) {
+      return;
+    }
     BaseVestingAccount.registerTypeUrl();
   }
 };
@@ -459,6 +466,9 @@ export const DelayedVestingAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DelayedVestingAccount.typeUrl)) {
+      return;
+    }
     BaseVestingAccount.registerTypeUrl();
   }
 };
@@ -552,6 +562,9 @@ export const Period = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Period.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -657,6 +670,9 @@ export const PeriodicVestingAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PeriodicVestingAccount.typeUrl)) {
+      return;
+    }
     BaseVestingAccount.registerTypeUrl();
     Period.registerTypeUrl();
   }
@@ -737,6 +753,9 @@ export const PermanentLockedAccount = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PermanentLockedAccount.typeUrl)) {
+      return;
+    }
     BaseVestingAccount.registerTypeUrl();
   }
 };
