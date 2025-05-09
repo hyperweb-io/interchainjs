@@ -1,24 +1,24 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, BroadcastTxRequest, BroadcastTxResponse, GetTxsEventRequest, GetTxsEventResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeRequest, TxEncodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxDecodeAminoRequest, TxDecodeAminoResponse } from "./service";
-import { getSimulate, getGetTx, getBroadcastTx, getGetTxsEvent, getGetBlockWithTxs, getTxDecode, getTxEncode, getTxEncodeAmino, getTxDecodeAmino } from "./service.rpc.func";
+import { getSimulate, getTx, getBroadcastTx, getTxsEvent, getBlockWithTxs, getTxDecode, getTxEncode, getTxEncodeAmino, getTxDecodeAmino } from "./service.rpc.func";
 export const useGetSimulate = buildUseVueQuery<SimulateRequest, SimulateResponse>({
   builderQueryFn: getSimulate,
   queryKeyPrefix: "SimulateQuery"
 });
-export const useGetGetTx = buildUseVueQuery<GetTxRequest, GetTxResponse>({
-  builderQueryFn: getGetTx,
+export const useGetTx = buildUseVueQuery<GetTxRequest, GetTxResponse>({
+  builderQueryFn: getTx,
   queryKeyPrefix: "GetTxQuery"
 });
 export const useGetBroadcastTx = buildUseVueQuery<BroadcastTxRequest, BroadcastTxResponse>({
   builderQueryFn: getBroadcastTx,
   queryKeyPrefix: "BroadcastTxQuery"
 });
-export const useGetGetTxsEvent = buildUseVueQuery<GetTxsEventRequest, GetTxsEventResponse>({
-  builderQueryFn: getGetTxsEvent,
+export const useGetTxsEvent = buildUseVueQuery<GetTxsEventRequest, GetTxsEventResponse>({
+  builderQueryFn: getTxsEvent,
   queryKeyPrefix: "GetTxsEventQuery"
 });
-export const useGetGetBlockWithTxs = buildUseVueQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
-  builderQueryFn: getGetBlockWithTxs,
+export const useGetBlockWithTxs = buildUseVueQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
+  builderQueryFn: getBlockWithTxs,
   queryKeyPrefix: "GetBlockWithTxsQuery"
 });
 export const useGetTxDecode = buildUseVueQuery<TxDecodeRequest, TxDecodeResponse>({
