@@ -7,7 +7,7 @@ export const getSimulate = buildQuery<SimulateRequest, SimulateResponse>({
   method: "Simulate",
   deps: [SimulateRequest, SimulateResponse]
 });
-export const getGetTx = buildQuery<GetTxRequest, GetTxResponse>({
+export const getTx = buildQuery<GetTxRequest, GetTxResponse>({
   encode: GetTxRequest.encode,
   decode: GetTxResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
@@ -21,14 +21,14 @@ export const getBroadcastTx = buildQuery<BroadcastTxRequest, BroadcastTxResponse
   method: "BroadcastTx",
   deps: [BroadcastTxRequest, BroadcastTxResponse]
 });
-export const getGetTxsEvent = buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
+export const getTxsEvent = buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
   encode: GetTxsEventRequest.encode,
   decode: GetTxsEventResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
   method: "GetTxsEvent",
   deps: [GetTxsEventRequest, GetTxsEventResponse]
 });
-export const getGetBlockWithTxs = buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
+export const getBlockWithTxs = buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
   encode: GetBlockWithTxsRequest.encode,
   decode: GetBlockWithTxsResponse.decode,
   service: "cosmos.tx.v1beta1.Service",
