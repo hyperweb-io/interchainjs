@@ -1,24 +1,24 @@
 import { buildUseQuery } from "../../../react-query";
 import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, BroadcastTxRequest, BroadcastTxResponse, GetTxsEventRequest, GetTxsEventResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeRequest, TxEncodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxDecodeAminoRequest, TxDecodeAminoResponse } from "./service";
-import { getSimulate, getGetTx, getBroadcastTx, getGetTxsEvent, getGetBlockWithTxs, getTxDecode, getTxEncode, getTxEncodeAmino, getTxDecodeAmino } from "./service.rpc.func";
+import { getSimulate, getTx, getBroadcastTx, getTxsEvent, getBlockWithTxs, getTxDecode, getTxEncode, getTxEncodeAmino, getTxDecodeAmino } from "./service.rpc.func";
 export const useGetSimulate = buildUseQuery<SimulateRequest, SimulateResponse>({
   builderQueryFn: getSimulate,
   queryKeyPrefix: "SimulateQuery"
 });
-export const useGetGetTx = buildUseQuery<GetTxRequest, GetTxResponse>({
-  builderQueryFn: getGetTx,
+export const useGetTx = buildUseQuery<GetTxRequest, GetTxResponse>({
+  builderQueryFn: getTx,
   queryKeyPrefix: "GetTxQuery"
 });
 export const useGetBroadcastTx = buildUseQuery<BroadcastTxRequest, BroadcastTxResponse>({
   builderQueryFn: getBroadcastTx,
   queryKeyPrefix: "BroadcastTxQuery"
 });
-export const useGetGetTxsEvent = buildUseQuery<GetTxsEventRequest, GetTxsEventResponse>({
-  builderQueryFn: getGetTxsEvent,
+export const useGetTxsEvent = buildUseQuery<GetTxsEventRequest, GetTxsEventResponse>({
+  builderQueryFn: getTxsEvent,
   queryKeyPrefix: "GetTxsEventQuery"
 });
-export const useGetGetBlockWithTxs = buildUseQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
-  builderQueryFn: getGetBlockWithTxs,
+export const useGetBlockWithTxs = buildUseQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
+  builderQueryFn: getBlockWithTxs,
   queryKeyPrefix: "GetBlockWithTxsQuery"
 });
 export const useGetTxDecode = buildUseQuery<TxDecodeRequest, TxDecodeResponse>({
