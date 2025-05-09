@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/math",
-  "version": "1.11.7",
+  "version": "1.11.8",
   "description": "Math helpers for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>"
