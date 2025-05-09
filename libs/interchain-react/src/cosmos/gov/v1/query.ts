@@ -2,6 +2,7 @@ import { ProposalStatus, Proposal, ProposalAmino, Vote, VoteAmino, VotingParams,
 import { PageRequest, PageRequestAmino, PageResponse, PageResponseAmino } from "../../base/query/v1beta1/pagination";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryConstitutionRequest is the request type for the Query/Constitution RPC method */
 export interface QueryConstitutionRequest {}
 export interface QueryConstitutionRequestProtoMsg {
@@ -708,6 +709,9 @@ export const QueryProposalResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryProposalResponse.typeUrl)) {
+      return;
+    }
     Proposal.registerTypeUrl();
   }
 };
@@ -823,6 +827,9 @@ export const QueryProposalsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryProposalsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -916,6 +923,9 @@ export const QueryProposalsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryProposalsResponse.typeUrl)) {
+      return;
+    }
     Proposal.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1085,6 +1095,9 @@ export const QueryVoteResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryVoteResponse.typeUrl)) {
+      return;
+    }
     Vote.registerTypeUrl();
   }
 };
@@ -1176,6 +1189,9 @@ export const QueryVotesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryVotesRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1269,6 +1285,9 @@ export const QueryVotesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryVotesResponse.typeUrl)) {
+      return;
+    }
     Vote.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1462,6 +1481,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     VotingParams.registerTypeUrl();
     DepositParams.registerTypeUrl();
     TallyParams.registerTypeUrl();
@@ -1633,6 +1655,9 @@ export const QueryDepositResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDepositResponse.typeUrl)) {
+      return;
+    }
     Deposit.registerTypeUrl();
   }
 };
@@ -1724,6 +1749,9 @@ export const QueryDepositsRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDepositsRequest.typeUrl)) {
+      return;
+    }
     PageRequest.registerTypeUrl();
   }
 };
@@ -1817,6 +1845,9 @@ export const QueryDepositsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDepositsResponse.typeUrl)) {
+      return;
+    }
     Deposit.registerTypeUrl();
     PageResponse.registerTypeUrl();
   }
@@ -1974,6 +2005,9 @@ export const QueryTallyResultResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryTallyResultResponse.typeUrl)) {
+      return;
+    }
     TallyResult.registerTypeUrl();
   }
 };

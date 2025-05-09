@@ -1,5 +1,6 @@
 import { Hop, HopAmino } from "../v1/transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
 /** Token defines a struct which represents a token to be transferred. */
 export interface Token {
@@ -133,6 +134,9 @@ export const Token = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Token.typeUrl)) {
+      return;
+    }
     Denom.registerTypeUrl();
   }
 };
@@ -226,6 +230,9 @@ export const Denom = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Denom.typeUrl)) {
+      return;
+    }
     Hop.registerTypeUrl();
   }
 };

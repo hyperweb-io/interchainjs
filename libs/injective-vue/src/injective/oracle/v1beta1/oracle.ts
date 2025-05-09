@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { Decimal } from "@interchainjs/math";
+import { GlobalDecoderRegistry } from "../../../registry";
 export enum OracleType {
   Unspecified = 0,
   Band = 1,
@@ -961,6 +962,9 @@ export const ChainlinkPriceState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ChainlinkPriceState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -1081,6 +1085,9 @@ export const BandPriceState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BandPriceState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -1191,6 +1198,9 @@ export const PriceFeedState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PriceFeedState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -1361,6 +1371,9 @@ export const ProviderState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ProviderState.typeUrl)) {
+      return;
+    }
     ProviderInfo.registerTypeUrl();
     ProviderPriceState.registerTypeUrl();
   }
@@ -1446,6 +1459,9 @@ export const ProviderPriceState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ProviderPriceState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -1718,6 +1734,9 @@ export const CoinbasePriceState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CoinbasePriceState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -1826,6 +1845,9 @@ export const StorkPriceState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StorkPriceState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -2052,6 +2074,9 @@ export const PythPriceState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PythPriceState.typeUrl)) {
+      return;
+    }
     PriceState.registerTypeUrl();
   }
 };
@@ -2224,6 +2249,9 @@ export const BandOracleRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BandOracleRequest.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -2533,6 +2561,9 @@ export const LastPriceTimestamps = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(LastPriceTimestamps.typeUrl)) {
+      return;
+    }
     SymbolPriceTimestamp.registerTypeUrl();
   }
 };
@@ -2631,6 +2662,9 @@ export const PriceRecords = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PriceRecords.typeUrl)) {
+      return;
+    }
     PriceRecord.registerTypeUrl();
   }
 };
@@ -3119,6 +3153,9 @@ export const AssetPair = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AssetPair.typeUrl)) {
+      return;
+    }
     SignedPriceOfAssetPair.registerTypeUrl();
   }
 };

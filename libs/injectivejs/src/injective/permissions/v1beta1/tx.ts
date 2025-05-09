@@ -1,6 +1,7 @@
 import { Params, ParamsAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { Namespace, NamespaceAmino, Role, RoleAmino, AddressRoles, AddressRolesAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 export interface MsgUpdateParams {
   /** authority is the address of the governance account. */
@@ -368,6 +369,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -516,6 +520,9 @@ export const MsgCreateNamespace = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgCreateNamespace.typeUrl)) {
+      return;
+    }
     Namespace.registerTypeUrl();
   }
 };
@@ -858,6 +865,9 @@ export const MsgUpdateNamespace = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateNamespace.typeUrl)) {
+      return;
+    }
     MsgUpdateNamespace_MsgSetWasmHook.registerTypeUrl();
     MsgUpdateNamespace_MsgSetMintsPaused.registerTypeUrl();
     MsgUpdateNamespace_MsgSetSendsPaused.registerTypeUrl();
@@ -1317,6 +1327,9 @@ export const MsgUpdateNamespaceRoles = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateNamespaceRoles.typeUrl)) {
+      return;
+    }
     Role.registerTypeUrl();
     AddressRoles.registerTypeUrl();
   }
@@ -1480,6 +1493,9 @@ export const MsgRevokeNamespaceRoles = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRevokeNamespaceRoles.typeUrl)) {
+      return;
+    }
     AddressRoles.registerTypeUrl();
   }
 };

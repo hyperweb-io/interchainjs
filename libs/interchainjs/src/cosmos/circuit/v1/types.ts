@@ -1,5 +1,6 @@
 import { isSet, DeepPartial } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** Level is the permission level. */
 export enum Permissions_Level {
   /**
@@ -313,6 +314,9 @@ export const GenesisAccountPermissions = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisAccountPermissions.typeUrl)) {
+      return;
+    }
     Permissions.registerTypeUrl();
   }
 };
@@ -408,6 +412,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     GenesisAccountPermissions.registerTypeUrl();
   }
 };

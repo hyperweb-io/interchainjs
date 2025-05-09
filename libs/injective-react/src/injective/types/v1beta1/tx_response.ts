@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * base header ak message type, we can cast the bytes into corresponding message
  * response type
@@ -193,6 +194,9 @@ export const TxResponseData = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TxResponseData.typeUrl)) {
+      return;
+    }
     TxResponseGenericMessage.registerTypeUrl();
   }
 };

@@ -275,7 +275,7 @@ export const CreateSpotLimitOrderAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CreateSpotLimitOrderAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CreateSpotLimitOrderAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CreateSpotLimitOrderAuthz.typeUrl, CreateSpotLimitOrderAuthz);
@@ -372,7 +372,7 @@ export const CreateSpotMarketOrderAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CreateSpotMarketOrderAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CreateSpotMarketOrderAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CreateSpotMarketOrderAuthz.typeUrl, CreateSpotMarketOrderAuthz);
@@ -469,7 +469,7 @@ export const BatchCreateSpotLimitOrdersAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchCreateSpotLimitOrdersAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchCreateSpotLimitOrdersAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchCreateSpotLimitOrdersAuthz.typeUrl, BatchCreateSpotLimitOrdersAuthz);
@@ -566,7 +566,7 @@ export const CancelSpotOrderAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CancelSpotOrderAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CancelSpotOrderAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CancelSpotOrderAuthz.typeUrl, CancelSpotOrderAuthz);
@@ -663,7 +663,7 @@ export const BatchCancelSpotOrdersAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchCancelSpotOrdersAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchCancelSpotOrdersAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchCancelSpotOrdersAuthz.typeUrl, BatchCancelSpotOrdersAuthz);
@@ -760,7 +760,7 @@ export const CreateDerivativeLimitOrderAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CreateDerivativeLimitOrderAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CreateDerivativeLimitOrderAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CreateDerivativeLimitOrderAuthz.typeUrl, CreateDerivativeLimitOrderAuthz);
@@ -857,7 +857,7 @@ export const CreateDerivativeMarketOrderAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CreateDerivativeMarketOrderAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CreateDerivativeMarketOrderAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CreateDerivativeMarketOrderAuthz.typeUrl, CreateDerivativeMarketOrderAuthz);
@@ -954,7 +954,7 @@ export const BatchCreateDerivativeLimitOrdersAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchCreateDerivativeLimitOrdersAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchCreateDerivativeLimitOrdersAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchCreateDerivativeLimitOrdersAuthz.typeUrl, BatchCreateDerivativeLimitOrdersAuthz);
@@ -1051,7 +1051,7 @@ export const CancelDerivativeOrderAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(CancelDerivativeOrderAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(CancelDerivativeOrderAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(CancelDerivativeOrderAuthz.typeUrl, CancelDerivativeOrderAuthz);
@@ -1148,7 +1148,7 @@ export const BatchCancelDerivativeOrdersAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchCancelDerivativeOrdersAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchCancelDerivativeOrdersAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchCancelDerivativeOrdersAuthz.typeUrl, BatchCancelDerivativeOrdersAuthz);
@@ -1259,7 +1259,7 @@ export const BatchUpdateOrdersAuthz = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(BatchUpdateOrdersAuthz.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BatchUpdateOrdersAuthz.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(BatchUpdateOrdersAuthz.typeUrl, BatchUpdateOrdersAuthz);

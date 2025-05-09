@@ -1,5 +1,6 @@
 import { Params, ParamsAmino, SpotMarket, SpotMarketAmino, DerivativeMarket, DerivativeMarketAmino, PerpetualMarketInfo, PerpetualMarketInfoAmino, DerivativeMarketSettlementInfo, DerivativeMarketSettlementInfoAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, TradeRecords, TradeRecordsAmino, BinaryOptionsMarket, BinaryOptionsMarketAmino, DenomDecimals, DenomDecimalsAmino, MarketFeeMultiplier, MarketFeeMultiplierAmino, AggregateSubaccountVolumeRecord, AggregateSubaccountVolumeRecordAmino, MarketVolume, MarketVolumeAmino, FeeDiscountTierTTL, FeeDiscountTierTTLAmino, SpotLimitOrder, SpotLimitOrderAmino, DerivativeLimitOrder, DerivativeLimitOrderAmino, DerivativeMarketOrder, DerivativeMarketOrderAmino, Deposit, DepositAmino, Position, PositionAmino, SubaccountTradeNonce, SubaccountTradeNonceAmino, ExpiryFuturesMarketInfo, ExpiryFuturesMarketInfoAmino, PerpetualMarketFunding, PerpetualMarketFundingAmino, GrantAuthorization, GrantAuthorizationAmino, ActiveGrant, ActiveGrantAmino } from "./exchange";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 import { Decimal } from "@interchainjs/math";
 /** GenesisState defines the exchange module's genesis state. */
@@ -1019,6 +1020,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     SpotMarket.registerTypeUrl();
     DerivativeMarket.registerTypeUrl();
@@ -1213,6 +1217,9 @@ export const FeeDiscountAccountTierTTL = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeeDiscountAccountTierTTL.typeUrl)) {
+      return;
+    }
     FeeDiscountTierTTL.registerTypeUrl();
   }
 };
@@ -1299,6 +1306,9 @@ export const FeeDiscountBucketVolumeAccounts = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeeDiscountBucketVolumeAccounts.typeUrl)) {
+      return;
+    }
     AccountVolume.registerTypeUrl();
   }
 };
@@ -1549,6 +1559,9 @@ export const TradingRewardCampaignAccountPendingPoints = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(TradingRewardCampaignAccountPendingPoints.typeUrl)) {
+      return;
+    }
     TradingRewardCampaignAccountPoints.registerTypeUrl();
   }
 };
@@ -1647,6 +1660,9 @@ export const SpotOrderBook = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SpotOrderBook.typeUrl)) {
+      return;
+    }
     SpotLimitOrder.registerTypeUrl();
   }
 };
@@ -1745,6 +1761,9 @@ export const DerivativeOrderBook = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativeOrderBook.typeUrl)) {
+      return;
+    }
     DerivativeLimitOrder.registerTypeUrl();
   }
 };
@@ -1873,6 +1892,9 @@ export const ConditionalDerivativeOrderBook = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ConditionalDerivativeOrderBook.typeUrl)) {
+      return;
+    }
     DerivativeLimitOrder.registerTypeUrl();
     DerivativeMarketOrder.registerTypeUrl();
   }
@@ -1970,6 +1992,9 @@ export const Balance = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Balance.typeUrl)) {
+      return;
+    }
     Deposit.registerTypeUrl();
   }
 };
@@ -2066,6 +2091,9 @@ export const DerivativePosition = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativePosition.typeUrl)) {
+      return;
+    }
     Position.registerTypeUrl();
   }
 };
@@ -2150,6 +2178,9 @@ export const SubaccountNonce = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SubaccountNonce.typeUrl)) {
+      return;
+    }
     SubaccountTradeNonce.registerTypeUrl();
   }
 };
@@ -2234,6 +2265,9 @@ export const ExpiryFuturesMarketInfoState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExpiryFuturesMarketInfoState.typeUrl)) {
+      return;
+    }
     ExpiryFuturesMarketInfo.registerTypeUrl();
   }
 };
@@ -2318,6 +2352,9 @@ export const PerpetualMarketFundingState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(PerpetualMarketFundingState.typeUrl)) {
+      return;
+    }
     PerpetualMarketFunding.registerTypeUrl();
   }
 };
@@ -2428,6 +2465,9 @@ export const FullGrantAuthorizations = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FullGrantAuthorizations.typeUrl)) {
+      return;
+    }
     GrantAuthorization.registerTypeUrl();
   }
 };
@@ -2512,6 +2552,9 @@ export const FullActiveGrant = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FullActiveGrant.typeUrl)) {
+      return;
+    }
     ActiveGrant.registerTypeUrl();
   }
 };

@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
+import { GlobalDecoderRegistry } from "../../registry";
 /**
  * Defines the HTTP configuration for an API service. It contains a list of
  * [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
@@ -803,6 +804,9 @@ export const Http = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Http.typeUrl)) {
+      return;
+    }
     HttpRule.registerTypeUrl();
   }
 };
@@ -985,6 +989,9 @@ export const HttpRule = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(HttpRule.typeUrl)) {
+      return;
+    }
     CustomHttpPattern.registerTypeUrl();
     HttpRule.registerTypeUrl();
   }

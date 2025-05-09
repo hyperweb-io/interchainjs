@@ -1,6 +1,7 @@
 import { Params, ParamsAmino, FeedConfig, FeedConfigAmino, Transmission, TransmissionAmino, EpochAndRound, EpochAndRoundAmino } from "./ocr";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /** GenesisState defines the OCR module's genesis state. */
 export interface GenesisState {
@@ -353,6 +354,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     FeedConfig.registerTypeUrl();
     FeedEpochAndRound.registerTypeUrl();
@@ -444,6 +448,9 @@ export const FeedTransmission = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeedTransmission.typeUrl)) {
+      return;
+    }
     Transmission.registerTypeUrl();
   }
 };
@@ -528,6 +535,9 @@ export const FeedEpochAndRound = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeedEpochAndRound.typeUrl)) {
+      return;
+    }
     EpochAndRound.registerTypeUrl();
   }
 };
@@ -694,6 +704,9 @@ export const RewardPool = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RewardPool.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -780,6 +793,9 @@ export const FeedCounts = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(FeedCounts.typeUrl)) {
+      return;
+    }
     Count.registerTypeUrl();
   }
 };

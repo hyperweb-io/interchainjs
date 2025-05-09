@@ -3,6 +3,7 @@ import { Namespace, NamespaceAmino } from "./permissions";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -349,6 +350,9 @@ export const QueryParamsResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryParamsResponse.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -480,6 +484,9 @@ export const QueryAllNamespacesResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryAllNamespacesResponse.typeUrl)) {
+      return;
+    }
     Namespace.registerTypeUrl();
   }
 };
@@ -634,6 +641,9 @@ export const QueryNamespaceByDenomResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryNamespaceByDenomResponse.typeUrl)) {
+      return;
+    }
     Namespace.registerTypeUrl();
   }
 };
@@ -1086,6 +1096,9 @@ export const QueryVouchersForAddressResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryVouchersForAddressResponse.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

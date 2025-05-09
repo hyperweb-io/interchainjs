@@ -841,6 +841,9 @@ export const HistoricalInfo = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(HistoricalInfo.typeUrl)) {
+      return;
+    }
     Header.registerTypeUrl();
     Validator.registerTypeUrl();
   }
@@ -1034,6 +1037,9 @@ export const Commission = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Commission.typeUrl)) {
+      return;
+    }
     CommissionRates.registerTypeUrl();
   }
 };
@@ -1393,6 +1399,9 @@ export const Validator = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Validator.typeUrl)) {
+      return;
+    }
     Description.registerTypeUrl();
     Commission.registerTypeUrl();
   }
@@ -1643,6 +1652,9 @@ export const DVPairs = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DVPairs.typeUrl)) {
+      return;
+    }
     DVPair.registerTypeUrl();
   }
 };
@@ -1825,6 +1837,9 @@ export const DVVTriplets = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DVVTriplets.typeUrl)) {
+      return;
+    }
     DVVTriplet.registerTypeUrl();
   }
 };
@@ -2031,6 +2046,9 @@ export const UnbondingDelegation = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(UnbondingDelegation.typeUrl)) {
+      return;
+    }
     UnbondingDelegationEntry.registerTypeUrl();
   }
 };
@@ -2422,6 +2440,9 @@ export const Redelegation = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Redelegation.typeUrl)) {
+      return;
+    }
     RedelegationEntry.registerTypeUrl();
   }
 };
@@ -2650,6 +2671,9 @@ export const DelegationResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DelegationResponse.typeUrl)) {
+      return;
+    }
     Delegation.registerTypeUrl();
     Coin.registerTypeUrl();
   }
@@ -2742,6 +2766,9 @@ export const RedelegationEntryResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RedelegationEntryResponse.typeUrl)) {
+      return;
+    }
     RedelegationEntry.registerTypeUrl();
   }
 };
@@ -2835,6 +2862,9 @@ export const RedelegationResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RedelegationResponse.typeUrl)) {
+      return;
+    }
     Redelegation.registerTypeUrl();
     RedelegationEntryResponse.registerTypeUrl();
   }
@@ -3006,6 +3036,9 @@ export const ValidatorUpdates = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorUpdates.typeUrl)) {
+      return;
+    }
     ValidatorUpdate.registerTypeUrl();
   }
 };

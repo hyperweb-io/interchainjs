@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../../registry";
 /** Pairs defines a repeated slice of Pair objects. */
 export interface Pairs {
   pairs: Pair[];
@@ -112,6 +113,9 @@ export const Pairs = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Pairs.typeUrl)) {
+      return;
+    }
     Pair.registerTypeUrl();
   }
 };

@@ -108,7 +108,7 @@ export const InterchainAccount = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(InterchainAccount.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(InterchainAccount.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(InterchainAccount.typeUrl, InterchainAccount);

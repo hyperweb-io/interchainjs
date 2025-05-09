@@ -1,6 +1,7 @@
 import { Level, LevelAmino, Deposit, DepositAmino, SpotLimitOrder, SpotLimitOrderAmino, DerivativeLimitOrder, DerivativeLimitOrderAmino, PositionDelta, PositionDeltaAmino } from "../../exchange/v1beta1/exchange";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { Decimal } from "@interchainjs/math";
 export enum OrderUpdateStatus {
@@ -665,6 +666,9 @@ export const StreamRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StreamRequest.typeUrl)) {
+      return;
+    }
     BankBalancesFilter.registerTypeUrl();
     SubaccountDepositsFilter.registerTypeUrl();
     TradesFilter.registerTypeUrl();
@@ -895,6 +899,9 @@ export const StreamResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StreamResponse.typeUrl)) {
+      return;
+    }
     BankBalance.registerTypeUrl();
     SubaccountDeposits.registerTypeUrl();
     SpotTrade.registerTypeUrl();
@@ -987,6 +994,9 @@ export const OrderbookUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(OrderbookUpdate.typeUrl)) {
+      return;
+    }
     Orderbook.registerTypeUrl();
   }
 };
@@ -1087,6 +1097,9 @@ export const Orderbook = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Orderbook.typeUrl)) {
+      return;
+    }
     Level.registerTypeUrl();
   }
 };
@@ -1173,6 +1186,9 @@ export const BankBalance = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(BankBalance.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -1259,6 +1275,9 @@ export const SubaccountDeposits = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SubaccountDeposits.typeUrl)) {
+      return;
+    }
     SubaccountDeposit.registerTypeUrl();
   }
 };
@@ -1343,6 +1362,9 @@ export const SubaccountDeposit = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SubaccountDeposit.typeUrl)) {
+      return;
+    }
     Deposit.registerTypeUrl();
   }
 };
@@ -1451,6 +1473,9 @@ export const SpotOrderUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SpotOrderUpdate.typeUrl)) {
+      return;
+    }
     SpotOrder.registerTypeUrl();
   }
 };
@@ -1535,6 +1560,9 @@ export const SpotOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SpotOrder.typeUrl)) {
+      return;
+    }
     SpotLimitOrder.registerTypeUrl();
   }
 };
@@ -1643,6 +1671,9 @@ export const DerivativeOrderUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativeOrderUpdate.typeUrl)) {
+      return;
+    }
     DerivativeOrder.registerTypeUrl();
   }
 };
@@ -1739,6 +1770,9 @@ export const DerivativeOrder = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativeOrder.typeUrl)) {
+      return;
+    }
     DerivativeLimitOrder.registerTypeUrl();
   }
 };
@@ -2357,6 +2391,9 @@ export const DerivativeTrade = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DerivativeTrade.typeUrl)) {
+      return;
+    }
     PositionDelta.registerTypeUrl();
   }
 };

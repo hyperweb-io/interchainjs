@@ -4,6 +4,7 @@ import { Timestamp } from "../../../../google/protobuf/timestamp";
 import { Duration, DurationAmino } from "../../../../google/protobuf/duration";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { GlobalDecoderRegistry } from "../../../../registry";
 /** GetRequest is the Query/Get request type. */
 export interface GetRequest {
   /** message_name is the fully-qualified message name of the ORM table being queried. */
@@ -356,6 +357,9 @@ export const GetRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GetRequest.typeUrl)) {
+      return;
+    }
     IndexValue.registerTypeUrl();
   }
 };
@@ -560,6 +564,9 @@ export const ListRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListRequest.typeUrl)) {
+      return;
+    }
     ListRequest_Prefix.registerTypeUrl();
     ListRequest_Range.registerTypeUrl();
     PageRequest.registerTypeUrl();
@@ -643,6 +650,9 @@ export const ListRequest_Prefix = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListRequest_Prefix.typeUrl)) {
+      return;
+    }
     IndexValue.registerTypeUrl();
   }
 };
@@ -738,6 +748,9 @@ export const ListRequest_Range = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListRequest_Range.typeUrl)) {
+      return;
+    }
     IndexValue.registerTypeUrl();
   }
 };
@@ -831,6 +844,9 @@ export const ListResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListResponse.typeUrl)) {
+      return;
+    }
     PageResponse.registerTypeUrl();
   }
 };

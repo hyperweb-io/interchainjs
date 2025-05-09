@@ -316,7 +316,7 @@ export const GrantBandOraclePrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(GrantBandOraclePrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GrantBandOraclePrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(GrantBandOraclePrivilegeProposal.typeUrl, GrantBandOraclePrivilegeProposal);
@@ -425,7 +425,7 @@ export const RevokeBandOraclePrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(RevokeBandOraclePrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RevokeBandOraclePrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(RevokeBandOraclePrivilegeProposal.typeUrl, RevokeBandOraclePrivilegeProposal);
@@ -558,7 +558,7 @@ export const GrantPriceFeederPrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(GrantPriceFeederPrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GrantPriceFeederPrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(GrantPriceFeederPrivilegeProposal.typeUrl, GrantPriceFeederPrivilegeProposal);
@@ -679,7 +679,7 @@ export const GrantProviderPrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(GrantProviderPrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GrantProviderPrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(GrantProviderPrivilegeProposal.typeUrl, GrantProviderPrivilegeProposal);
@@ -800,7 +800,7 @@ export const RevokeProviderPrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(RevokeProviderPrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RevokeProviderPrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(RevokeProviderPrivilegeProposal.typeUrl, RevokeProviderPrivilegeProposal);
@@ -933,7 +933,7 @@ export const RevokePriceFeederPrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(RevokePriceFeederPrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RevokePriceFeederPrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(RevokePriceFeederPrivilegeProposal.typeUrl, RevokePriceFeederPrivilegeProposal);
@@ -1040,7 +1040,7 @@ export const AuthorizeBandOracleRequestProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(AuthorizeBandOracleRequestProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AuthorizeBandOracleRequestProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(AuthorizeBandOracleRequestProposal.typeUrl, AuthorizeBandOracleRequestProposal);
@@ -1171,7 +1171,7 @@ export const UpdateBandOracleRequestProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(UpdateBandOracleRequestProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(UpdateBandOracleRequestProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(UpdateBandOracleRequestProposal.typeUrl, UpdateBandOracleRequestProposal);
@@ -1279,7 +1279,7 @@ export const EnableBandIBCProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(EnableBandIBCProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EnableBandIBCProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(EnableBandIBCProposal.typeUrl, EnableBandIBCProposal);
@@ -1389,7 +1389,7 @@ export const GrantStorkPublisherPrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(GrantStorkPublisherPrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GrantStorkPublisherPrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(GrantStorkPublisherPrivilegeProposal.typeUrl, GrantStorkPublisherPrivilegeProposal);
@@ -1498,7 +1498,7 @@ export const RevokeStorkPublisherPrivilegeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(RevokeStorkPublisherPrivilegeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RevokeStorkPublisherPrivilegeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(RevokeStorkPublisherPrivilegeProposal.typeUrl, RevokeStorkPublisherPrivilegeProposal);

@@ -3,6 +3,7 @@ import { InterchainAccountPacketData, InterchainAccountPacketDataAmino } from ".
 import { Params, ParamsAmino } from "./controller";
 import { isSet, DeepPartial } from "../../../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../../../binary";
+import { GlobalDecoderRegistry } from "../../../../../registry";
 /** MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount */
 export interface MsgRegisterInterchainAccount {
   owner: string;
@@ -445,6 +446,9 @@ export const MsgSendTx = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgSendTx.typeUrl)) {
+      return;
+    }
     InterchainAccountPacketData.registerTypeUrl();
   }
 };
@@ -613,6 +617,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };

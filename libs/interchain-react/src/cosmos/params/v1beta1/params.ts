@@ -149,7 +149,7 @@ export const ParameterChangeProposal = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(ParameterChangeProposal.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ParameterChangeProposal.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(ParameterChangeProposal.typeUrl, ParameterChangeProposal);

@@ -239,7 +239,7 @@ export const StakeAuthorization = {
     };
   },
   registerTypeUrl() {
-    if (GlobalDecoderRegistry.getDecoder(StakeAuthorization.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(StakeAuthorization.typeUrl)) {
       return;
     }
     GlobalDecoderRegistry.register(StakeAuthorization.typeUrl, StakeAuthorization);

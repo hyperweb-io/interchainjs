@@ -1,5 +1,6 @@
 import { Params, ParamsAmino, CodeInfo, CodeInfoAmino, ContractInfo, ContractInfoAmino, Model, ModelAmino, ContractCodeHistoryEntry, ContractCodeHistoryEntryAmino } from "./types";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {
@@ -205,6 +206,9 @@ export const GenesisState = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(GenesisState.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
     Code.registerTypeUrl();
     Contract.registerTypeUrl();
@@ -323,6 +327,9 @@ export const Code = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Code.typeUrl)) {
+      return;
+    }
     CodeInfo.registerTypeUrl();
   }
 };
@@ -442,6 +449,9 @@ export const Contract = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Contract.typeUrl)) {
+      return;
+    }
     ContractInfo.registerTypeUrl();
     Model.registerTypeUrl();
     ContractCodeHistoryEntry.registerTypeUrl();

@@ -1,5 +1,6 @@
 import { PublicKey, PublicKeyAmino } from "../crypto/keys";
 import { BinaryReader, BinaryWriter } from "../../binary";
+import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 /** BlockIdFlag indicates which BlockID the signature is for */
 export enum BlockIDFlag {
@@ -197,6 +198,9 @@ export const ValidatorSet = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ValidatorSet.typeUrl)) {
+      return;
+    }
     Validator.registerTypeUrl();
   }
 };
@@ -305,6 +309,9 @@ export const Validator = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Validator.typeUrl)) {
+      return;
+    }
     PublicKey.registerTypeUrl();
   }
 };
@@ -389,6 +396,9 @@ export const SimpleValidator = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(SimpleValidator.typeUrl)) {
+      return;
+    }
     PublicKey.registerTypeUrl();
   }
 };

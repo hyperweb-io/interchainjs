@@ -1,6 +1,7 @@
 import { InsuranceFund, InsuranceFundAmino, RedemptionSchedule, RedemptionScheduleAmino } from "./insurance";
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 export interface EventInsuranceFundUpdate {
   fund?: InsuranceFund;
@@ -165,6 +166,9 @@ export const EventInsuranceFundUpdate = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventInsuranceFundUpdate.typeUrl)) {
+      return;
+    }
     InsuranceFund.registerTypeUrl();
   }
 };
@@ -237,6 +241,9 @@ export const EventRequestRedemption = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventRequestRedemption.typeUrl)) {
+      return;
+    }
     RedemptionSchedule.registerTypeUrl();
   }
 };
@@ -321,6 +328,9 @@ export const EventWithdrawRedemption = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventWithdrawRedemption.typeUrl)) {
+      return;
+    }
     RedemptionSchedule.registerTypeUrl();
     Coin.registerTypeUrl();
   }
@@ -430,6 +440,9 @@ export const EventUnderwrite = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventUnderwrite.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };
@@ -526,6 +539,9 @@ export const EventInsuranceWithdraw = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventInsuranceWithdraw.typeUrl)) {
+      return;
+    }
     Coin.registerTypeUrl();
   }
 };

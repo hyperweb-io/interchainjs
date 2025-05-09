@@ -2,6 +2,7 @@ import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BaseAccount, BaseAccountAmino } from "./auth";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryLegacyAccount defines a query that can be implemented by an x/account
  * to return an auth understandable representation of an account.
@@ -220,6 +221,9 @@ export const QueryLegacyAccountResponse = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryLegacyAccountResponse.typeUrl)) {
+      return;
+    }
     BaseAccount.registerTypeUrl();
   }
 };

@@ -1,5 +1,6 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /** ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method */
 export interface ListenDeliverBlockRequest {
   blockHeight: bigint;
@@ -286,6 +287,9 @@ export const ListenDeliverBlockRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListenDeliverBlockRequest.typeUrl)) {
+      return;
+    }
     Event.registerTypeUrl();
     ExecTxResult.registerTypeUrl();
   }
@@ -456,6 +460,9 @@ export const ListenStateChangesRequest = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ListenStateChangesRequest.typeUrl)) {
+      return;
+    }
     StoreKVPair.registerTypeUrl();
   }
 };
@@ -726,6 +733,9 @@ export const Event = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Event.typeUrl)) {
+      return;
+    }
     EventAttribute.registerTypeUrl();
   }
 };
@@ -980,6 +990,9 @@ export const ExecTxResult = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ExecTxResult.typeUrl)) {
+      return;
+    }
     Event.registerTypeUrl();
   }
 };

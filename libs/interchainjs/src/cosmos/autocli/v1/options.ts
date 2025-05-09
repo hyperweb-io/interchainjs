@@ -1,4 +1,5 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
 /** ModuleOptions describes the CLI options for a Cosmos SDK module. */
 export interface ModuleOptions {
@@ -398,6 +399,9 @@ export const ModuleOptions = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ModuleOptions.typeUrl)) {
+      return;
+    }
     ServiceCommandDescriptor.registerTypeUrl();
   }
 };
@@ -597,6 +601,9 @@ export const ServiceCommandDescriptor = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(ServiceCommandDescriptor.typeUrl)) {
+      return;
+    }
     RpcCommandOptions.registerTypeUrl();
     ServiceCommandDescriptor.registerTypeUrl();
   }
@@ -909,6 +916,9 @@ export const RpcCommandOptions = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(RpcCommandOptions.typeUrl)) {
+      return;
+    }
     FlagOptions.registerTypeUrl();
     PositionalArgDescriptor.registerTypeUrl();
   }

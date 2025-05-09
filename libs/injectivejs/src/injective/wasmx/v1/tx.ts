@@ -2,6 +2,7 @@ import { Params, ParamsAmino } from "./wasmx";
 import { ContractRegistrationRequest, ContractRegistrationRequestAmino } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgExecuteContractCompat submits the given message data to a smart contract,
  * compatible with EIP712
@@ -961,6 +962,9 @@ export const MsgUpdateParams = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateParams.typeUrl)) {
+      return;
+    }
     Params.registerTypeUrl();
   }
 };
@@ -1109,6 +1113,9 @@ export const MsgRegisterContract = {
     };
   },
   registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRegisterContract.typeUrl)) {
+      return;
+    }
     ContractRegistrationRequest.registerTypeUrl();
   }
 };
