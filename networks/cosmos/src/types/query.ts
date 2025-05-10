@@ -66,37 +66,43 @@ export type SearchTxQuery =
       readonly value: string;
     }>;
 
+export interface SearchTxQueryObj {
+  query:
+    | string
+    | ReadonlyArray<{
+        readonly key: string;
+        readonly value: string;
+      }>;
+  prove?: boolean;
+  page?: number;
+  perPage?: number;
+  orderBy?: 'asc' | 'desc';
+}
+
+export type SearchBlockQuery =
+  | string
+  | ReadonlyArray<{
+      readonly key: string;
+      readonly value: string;
+    }>;
+
+export interface SearchBlockQueryObj {
+  query:
+    | string
+    | ReadonlyArray<{
+        readonly key: string;
+        readonly value: string;
+      }>;
+  page?: number;
+  perPage?: number;
+  orderBy?: 'asc' | 'desc';
+}
+
 interface EventAttribute {
   key: string;
   value: string;
   /** nondeterministic */
   index: boolean;
-}
-
-export interface SearchTxResponse {
-  txs: {
-    hash: string;
-    height: string;
-    index: number;
-    tx_result: {
-      log: string;
-      gas_wanted: string;
-      gas_used: string;
-      tags: EventAttribute[];
-    };
-    tx: string;
-    proof: {
-      RootHash: string;
-      Data: string;
-      Proof: {
-        total: string;
-        index: string;
-        leaf_hash: string;
-        aunts: string[];
-      };
-    };
-  }[];
-  total_count: string;
 }
 
 interface BlockHeader {
@@ -182,4 +188,12 @@ export interface BlockResponse {
     };
     last_commit?: any;
   };
+}
+
+export function isSearchTxQueryObj(query: any): query is SearchTxQueryObj {
+  return typeof query === 'object' && 'query' in query;
+}
+
+export function isSearchBlockQueryObj(query: any): query is SearchBlockQueryObj {
+  return typeof query === 'object' && 'query' in query;
 }

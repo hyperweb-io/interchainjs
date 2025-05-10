@@ -24,14 +24,18 @@ import {
   Block,
   BlockResponse,
   IndexedTx,
+  SearchBlockQuery,
   SearchTxQuery,
-  SearchTxResponse,
+  SearchTxQueryObj,
   TxResponse,
+  isSearchBlockQueryObj,
+  isSearchTxQueryObj,
 } from './types/query';
 import {
   EncodeObject,
   SigningOptions,
 } from './types/signing-client';
+
 
 /**
  * SigningClient is a client that can sign and broadcast transactions.
@@ -319,38 +323,81 @@ export class SigningClient {
     };
   }
 
-  async searchTx(query: SearchTxQuery): Promise<IndexedTx[]> {
+  async searchTx(query: SearchTxQuery | SearchTxQueryObj): Promise<any> {
     let rawQuery: string;
+    let prove = false;
+    let page = 1;
+    let perPage = 100;
+    let orderBy: 'asc' | 'desc' = 'asc';
+
     if (typeof query === 'string') {
       rawQuery = query;
     } else if (Array.isArray(query)) {
       rawQuery = query.map((t) => `${t.key}=${t.value}`).join(' AND ');
+    } else if (isSearchTxQueryObj(query)) {
+      if (typeof query.query === 'string') {
+        rawQuery = query.query;
+      } else if (Array.isArray(query.query)) {
+        rawQuery = query.query.map((t) => `${t.key}=${t.value}`).join(' AND ');
+      } else {
+        throw new Error('Need to provide a valid query.');
+      }
+      prove = query.prove ?? false;
+      page = query.page ?? 1;
+      perPage = query.perPage ?? 100;
+      orderBy = query.orderBy ?? 'asc';
     } else {
       throw new Error('Got unsupported query type.');
     }
-    const orderBy: 'asc' | 'desc' = 'asc';
-    const data = await fetch(
-      `${this.endpoint.url}/tx_search?query="${rawQuery}"&order_by="${orderBy}"`
-      // `${this.endpoint.url}/tx_search?query="${rawQuery}"&order_by="${orderBy}"&page=1&per_page=100`
-    );
-    const json = await data.json();
 
-    const { txs }: SearchTxResponse = json['result'];
-    return txs.map((tx) => {
-      return {
-        height: Number.parseInt(tx.height),
-        txIndex: tx.index,
-        hash: tx.hash,
-        code: 0,
-        // events: tx.tx_result.tags,
-        events: [],
-        rawLog: tx.tx_result.log || '',
-        tx: fromBase64(tx.tx),
-        msgResponses: [],
-        gasUsed: tx?.tx_result?.gas_used ? BigInt(tx.tx_result.gas_used) : 0n,
-        gasWanted: tx?.tx_result?.gas_wanted ? BigInt(tx.tx_result.gas_wanted) : 0n,
-      } as IndexedTx;
+    const params = new URLSearchParams({
+      query: `"${rawQuery}"`,
+      prove: prove.toString(),
+      page: page.toString(),
+      per_page: perPage.toString(),
+      order_by: `"${orderBy}"`,
     });
+
+    const data = await fetch(`${this.endpoint.url}/tx_search?${params.toString()}`);
+    const json = await data.json();
+    return json['result'];
+  }
+
+  async searchBlock(query: SearchBlockQuery): Promise<any> {
+    let rawQuery: string;
+    let page = 1;
+    let perPage = 100;
+    let orderBy: 'asc' | 'desc' = 'asc';
+
+    if (typeof query === 'string') {
+      rawQuery = query;
+    } else if (Array.isArray(query)) {
+      rawQuery = query.map((t) => `${t.key}=${t.value}`).join(' AND ');
+    } else if (isSearchBlockQueryObj(query)) {
+      if (typeof query.query === 'string') {
+        rawQuery = query.query;
+      } else if (Array.isArray(query.query)) {
+        rawQuery = query.query.map((t) => `${t.key}=${t.value}`).join(' AND ');
+      } else {
+        throw new Error('Need to provide a valid query.');
+      }
+      page = query.page ?? 1;
+      perPage = query.perPage ?? 100;
+      orderBy = query.orderBy ?? 'asc';
+    } else {
+      throw new Error('Got unsupported query type.');
+    }
+
+    const params = new URLSearchParams({
+      query: `"${rawQuery}"`,
+      page: page.toString(),
+      per_page: perPage.toString(),
+      order_by: `"${orderBy}"`,
+    });
+
+    const data = await fetch(`${this.endpoint.url}/block_search?${params.toString()}`);
+    const json = await data.json();
+    return json['result'];
   }
 
   async getBlock(height?: number): Promise<Block> {
