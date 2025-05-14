@@ -1,1 +1,3 @@
-throw new Error('@interchainjs/auth has no entry-point: consult README for usage');
+export * from './ethSecp256k1';
+export * from './secp256k1';
+export * from './utils';
