@@ -5,6 +5,8 @@ import {
   AminoConverter,
   Encoder,
   QueryClient,
+  IndexedTx,
+  TxResponse
 } from './types';
 import {
   IAminoGenericOfflineSigner,
@@ -23,11 +25,9 @@ import { fromBase64 } from '@interchainjs/utils';
 import {
   Block,
   BlockResponse,
-  IndexedTx,
   SearchBlockQuery,
   SearchTxQuery,
   SearchTxQueryObj,
-  TxResponse,
   isSearchBlockQueryObj,
   isSearchTxQueryObj,
 } from './types/query';
