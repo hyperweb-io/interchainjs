@@ -12,9 +12,6 @@ import {
   IAminoGenericOfflineSigner,
   ICosmosGenericOfflineSigner,
   IDirectGenericOfflineSigner,
-  isOfflineAminoSigner,
-  isOfflineDirectSigner,
-  OfflineSigner,
 } from './types/wallet';
 import { toConverter, toEncoder } from './utils';
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
