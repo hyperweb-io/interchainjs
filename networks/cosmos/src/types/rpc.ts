@@ -110,11 +110,9 @@ export interface IndexedTx {
   }>;
   gasUsed: bigint;
   gasWanted: bigint;
-  data: string;
-  /** nondeterministic */
-  log: string;
-  /** nondeterministic */
-  info: string;
+  data?: string;
+  log?: string;
+  info?: string;
 }
 
 export interface TxResponse {

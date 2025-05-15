@@ -1,3 +1,4 @@
-throw new Error(
-  '@interchainjs/injective have no entry-point: consult README for usage'
-);
+export * from './accounts/inj-account';
+export * from './wallets/ethSecp256k1hd';
+export * from './defaults';
+export * from './utils';
