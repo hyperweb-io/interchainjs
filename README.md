@@ -1,15 +1,13 @@
 # InterchainJS
 
-<div align="center">
+<p align="center">
   <img
     src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg"
     width="280"
   />
-</div>
+</p>
 
-<div>&nbsp</div>
-
-<div align="center" width="100%">
+<p align="center" width="100%">
   <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
     <img
       height="20"
@@ -25,12 +23,9 @@
       src="https://img.shields.io/badge/license-Apache-blue.svg"
     />
   </a>
-</div>
+</p>
 
-<div>&nbsp</div>
-
-A single, universal signing interface for any network. Birthed from
-the interchain ecosystem for builders. Create adapters for any Web3 network.
+A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any Web3 network.
 
 ## Table of Contents
 
