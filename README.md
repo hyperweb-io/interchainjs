@@ -1,6 +1,6 @@
 # InterchainJS
 
-<p align="center">
+<p align="center" class="logo">
   <img
     src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg"
     width="280"
@@ -8,16 +8,16 @@
 </p>
 
 <p align="center" width="100%">
-  <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
+  <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml" class="run-tests">
     <img
       height="20"
       src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg"
     />
   </a>
-  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT">
+  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT" class="license">
     <img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg" />
   </a>
-  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache">
+  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache" class="license">
     <img
       height="20"
       src="https://img.shields.io/badge/license-Apache-blue.svg"
