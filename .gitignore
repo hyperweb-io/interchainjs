@@ -4,3 +4,5 @@
 **/dist_spec
 **/yarn-error.log
 lerna-debug.log
+
+docDraft.ts
