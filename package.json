@@ -26,7 +26,8 @@
     "build:dev": "lerna run build:dev --stream; yarn symlink",
     "lint": "lerna run lint --parallel",
     "symlink": "symlink-workspace --logLevel error",
-    "postinstall": "yarn symlink"
+    "postinstall": "yarn symlink",
+    "doc": "./scripts/copy_readmes.sh"
   },
   "devDependencies": {
     "@chain-registry/client": "1.18.1",
