@@ -153,6 +153,60 @@ const receipt = await tx.wait();
 
 For more details, see this example: https://github.com/hyperweb-io/create-interchain-app/blob/main/examples/ethereum/app/page.tsx
 
+## Utility Functions
+
+### Denominations
+
+```typescript
+import {
+  parseEther,
+  formatEther,
+  parseUnits,
+  formatUnits
+} from "@interchainjs/ethereum/utils/denominations";
+
+// Parse ETH to wei
+const wei: bigint = parseEther("1.5"); // 1500000000000000000n
+
+// Format wei to ETH
+const eth: string = formatEther(wei); // "1.5"
+
+// Parse a token amount (e.g., 6 decimals)
+const units: bigint = parseUnits("123.456", 6);
+
+// Format back to human‐readable
+const amount: string = formatUnits(units, 6); // "123.456"
+```
+
+### Encoding
+
+```typescript
+import {
+  utf8ToHex,
+  hexToUtf8
+} from "@interchainjs/ethereum/utils/encoding";
+
+const hex = utf8ToHex("Hello, Ethereum!"); // "48656c6c6f2c20457468657265756d21"
+const str = hexToUtf8("0x48656c6c6f");     // "Hello"
+```
+
+### Address Utilities
+
+```typescript
+import {
+  isValidEthereumAddress,
+  toChecksumAddress
+} from "@interchainjs/ethereum/utils/address";
+
+const addr = "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359";
+console.log(isValidEthereumAddress(addr)); 
+// true
+
+const lower = "0xfB6916095ca1df60bb79ce92ce3ea74c37c5d359";
+console.log(toChecksumAddress(lower)); 
+// "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
+```
+
 ## Implementations
 
 - **SignerFromPrivateKey** from `@interchainjs/ethereum/signers/SignerFromPrivateKey`
