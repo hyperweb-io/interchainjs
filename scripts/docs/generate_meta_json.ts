@@ -3,6 +3,12 @@ import path from 'path';
 
 // Priority configuration for directory and file sorting
 const PRIORITY_CONFIG: Record<string, Record<string, number>> = {
+  'docs': {
+    'networks': 100,
+    'libs': 90,
+    'packages': 80,
+    'advanced': 70,
+  },
   'libs': {
     'cosmos-types': 60,
     'interchainjs': 50,
