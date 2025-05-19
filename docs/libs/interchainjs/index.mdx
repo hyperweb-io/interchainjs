@@ -1,15 +1,37 @@
 # InterchainJS
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg" width="280">
+<p align="center" style={{ marginBottom: "20px" }}>
+  <img
+    src="https://raw.githubusercontent.com/hyperweb-io/interchainjs/refs/heads/main/assets/logo.svg"
+    width="280"
+  />
 </p>
 
-<p align="center" width="100%">
+<p
+  align="center"
+  width="100%"
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "2px",
+  }}
+>
   <a href="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml">
-    <img height="20" src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg" />
+    <img
+      height="20"
+      src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg"
+    />
   </a>
-   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-   <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
+  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT">
+    <img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg" />
+  </a>
+  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache">
+    <img
+      height="20"
+      src="https://img.shields.io/badge/license-Apache-blue.svg"
+    />
+  </a>
 </p>
 
 A single, universal signing interface for any network. Birthed from the interchain ecosystem for builders. Create adapters for any Web3 network.
@@ -264,10 +286,7 @@ import {
 } from "@interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 
 // tx helpers
-import {
-  send,
-  multiSend,
-} from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+import { send, multiSend } from "@interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 ```
 
 ##### Circuit
