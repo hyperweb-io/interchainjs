@@ -27,8 +27,9 @@
     "lint": "lerna run lint --parallel",
     "symlink": "symlink-workspace --logLevel error",
     "postinstall": "yarn symlink",
-    "doc": "./scripts/copy_readmes.sh",
-    "doc:reverse": "./scripts/reverse_copy_readmes.sh"
+    "doc": "yarn doc:clean; ./scripts/docs/copy_readmes.sh; ./scripts/docs/generate_meta_json.sh",
+    "doc:reverse": "./scripts/docs/reverse_copy_readmes.sh",
+    "doc:clean": "rimraf ./docs/libs; rimraf ./docs/networks; rimraf ./docs/packages; rimraf ./docs/_meta.json; rimraf ./docs/index.mdx;"
   },
   "devDependencies": {
     "@chain-registry/client": "1.18.1",

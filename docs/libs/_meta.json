@@ -1,9 +1,5 @@
 {
-  "injective-vue": "Injective Vue",
-  "injective-react": "Injective React",
-  "interchainjs": "InterchainJS",
-  "interchain-vue": "Interchain Vue",
-  "interchain-react": "Interchain React",
-  "injectivejs": "InjectiveJS",
-  "cosmos-types": "Cosmos Types"
+  "cosmos-types": "Cosmos Types",
+  "interchainjs": "Interchainjs",
+  "interchain-react": "Interchain React"
 }

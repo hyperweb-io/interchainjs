@@ -1,8 +1,48 @@
 import fs from 'fs';
 import path from 'path';
 
+// Priority configuration for directory and file sorting
+const PRIORITY_CONFIG: Record<string, Record<string, number>> = {
+  'libs': {
+    'cosmos-types': 60,
+    'interchainjs': 50,
+    'interchain-react': 40,
+  },
+  'networks': {
+    'cosmos': 60,
+    'ethereum': 50,
+    'injective': 40,
+  },
+  // Global defaults can be added here
+  '_global': {
+  }
+};
+
 // Base directory for docs
-const DOCS_DIR = path.resolve(__dirname, '../docs');
+const DOCS_DIR = path.resolve(__dirname, '../../docs');
+
+/**
+ * Get priority for a specific key in a given context
+ */
+function getPriority(context: string, key: string): number {
+  // Check context-specific priority first
+  if (context && PRIORITY_CONFIG[context] && PRIORITY_CONFIG[context][key] !== undefined) {
+    return PRIORITY_CONFIG[context][key];
+  }
+
+  // Check global defaults
+  if (PRIORITY_CONFIG['_global'] && PRIORITY_CONFIG['_global'][key] !== undefined) {
+    return PRIORITY_CONFIG['_global'][key];
+  }
+
+  // Default priority for index is always 9999
+  if (key === 'index') {
+    return 9999;
+  }
+
+  // Default to 0 if no priority is specified
+  return 0;
+}
 
 /**
  * Format a filename or directory name to a readable title
@@ -28,9 +68,14 @@ function formatTitle(name: string): string {
 }
 
 /**
- * Generate _meta.json content for a directory
+ * Generate _meta.json content for a directory with custom sorting
  */
 function generateMetaContent(dirPath: string): Record<string, string> {
+  // Determine context based on whether it's a file or directory
+  const context = fs.statSync(dirPath).isDirectory()
+    ? path.basename(dirPath)
+    : path.basename(path.dirname(dirPath));
+
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
   const meta: Record<string, string> = {};
 
@@ -50,13 +95,27 @@ function generateMetaContent(dirPath: string): Record<string, string> {
       meta[entry.name] = formatTitle(entry.name);
     });
 
-  // If we have an index file, make sure it's first
-  if (meta.index) {
-    const { index, ...rest } = meta;
-    return { index, ...rest };
-  }
+  // Sort keys based on priority and then alphabetically
+  const sortedMeta: Record<string, string> = {};
+  Object.keys(meta)
+    .sort((a, b) => {
+      const priorityA = getPriority(context, a);
+      const priorityB = getPriority(context, b);
 
-  return meta;
+      // First, compare by priority (descending)
+      if (priorityA !== priorityB) {
+        return priorityB - priorityA;
+      }
+
+      // If priorities are equal, sort alphabetically
+      return a.localeCompare(b);
+    })
+    .forEach(key => {
+      sortedMeta[key] = meta[key];
+    });
+
+
+  return sortedMeta;
 }
 
 /**

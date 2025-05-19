@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the project root directory
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DOCS_DIR="${PROJECT_ROOT}/docs"
 
 # Copy index.mdx files from docs/libs, docs/packages, and docs/networks back to their source locations
