@@ -1,0 +1,10 @@
+{
+  "amino": "Amino",
+  "math": "Math",
+  "utils": "Utils",
+  "encoding": "Encoding",
+  "pubkey": "Pubkey",
+  "auth": "Auth",
+  "types": "Types",
+  "crypto": "Crypto"
+}
