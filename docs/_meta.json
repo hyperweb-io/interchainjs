@@ -1,7 +1,7 @@
 {
   "index": "Overview",
-  "advanced": "Advanced",
-  "libs": "Libs",
   "networks": "Networks",
-  "packages": "Packages"
+  "libs": "Libs",
+  "packages": "Packages",
+  "advanced": "Advanced"
 }
