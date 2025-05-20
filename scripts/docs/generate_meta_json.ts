@@ -1,27 +1,55 @@
 import fs from 'fs';
 import path from 'path';
 
+interface MetaConfig {
+  priority: number;
+  title: string;
+}
+
 // Priority configuration for directory and file sorting
-const PRIORITY_CONFIG: Record<string, Record<string, number>> = {
+const PRIORITY_CONFIG: Record<string, Record<string, MetaConfig>> = {
   'docs': {
-    'networks': 100,
-    'libs': 90,
-    'packages': 80,
-    'advanced': 70,
+    'networks': {
+      priority: 100,
+      title: 'Networks',
+    },
+    'libs': {
+      priority: 90,
+      title: 'Libraries',
+    },
+    'packages': {
+      priority: 80,
+      title: 'Packages',
+    },
   },
   'libs': {
-    'cosmos-types': 60,
-    'interchainjs': 50,
-    'interchain-react': 40,
+    'cosmos-types': {
+      priority: 60,
+      title: 'Cosmos Types',
+    },
+    'interchainjs': {
+      priority: 50,
+      title: 'Interchain JS',
+    },
+    'interchain-react': {
+      priority: 40,
+      title: 'Interchain React',
+    },
   },
   'networks': {
-    'cosmos': 60,
-    'ethereum': 50,
-    'injective': 40,
+    'cosmos': {
+      priority: 60,
+      title: 'Cosmos',
+    },
+    'ethereum': {
+      priority: 50,
+      title: 'Ethereum',
+    },
+    'injective': {
+      priority: 40,
+      title: 'Injective',
+    },
   },
-  // Global defaults can be added here
-  '_global': {
-  }
 };
 
 // Base directory for docs
@@ -33,12 +61,7 @@ const DOCS_DIR = path.resolve(__dirname, '../../docs');
 function getPriority(context: string, key: string): number {
   // Check context-specific priority first
   if (context && PRIORITY_CONFIG[context] && PRIORITY_CONFIG[context][key] !== undefined) {
-    return PRIORITY_CONFIG[context][key];
-  }
-
-  // Check global defaults
-  if (PRIORITY_CONFIG['_global'] && PRIORITY_CONFIG['_global'][key] !== undefined) {
-    return PRIORITY_CONFIG['_global'][key];
+    return PRIORITY_CONFIG[context][key].priority;
   }
 
   // Default priority for index is always 9999
@@ -48,6 +71,13 @@ function getPriority(context: string, key: string): number {
 
   // Default to 0 if no priority is specified
   return 0;
+}
+
+function getTitle(context: string, key: string): string {
+  if (context && PRIORITY_CONFIG[context] && PRIORITY_CONFIG[context][key] !== undefined) {
+    return PRIORITY_CONFIG[context][key].title;
+  }
+  return formatTitle(key);
 }
 
 /**
@@ -83,7 +113,7 @@ function generateMetaContent(dirPath: string): Record<string, string> {
     : path.basename(path.dirname(dirPath));
 
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
-  const meta: Record<string, string> = {};
+  const meta: Record<string, MetaConfig> = {};
 
   // Process files first (excluding _meta.json)
   entries
@@ -91,14 +121,20 @@ function generateMetaContent(dirPath: string): Record<string, string> {
     .forEach(entry => {
       // Extract name without extension
       const baseName = path.basename(entry.name, path.extname(entry.name));
-      meta[baseName] = formatTitle(baseName);
+      meta[baseName] = {
+        title: getTitle(context, baseName),
+        priority: getPriority(context, baseName),
+      };
     });
 
   // Then process directories
   entries
     .filter(entry => entry.isDirectory() && !entry.name.startsWith('.'))
     .forEach(entry => {
-      meta[entry.name] = formatTitle(entry.name);
+      meta[entry.name] = {
+        title: getTitle(context, entry.name),
+        priority: getPriority(context, entry.name),
+      };
     });
 
   // Sort keys based on priority and then alphabetically
@@ -117,7 +153,7 @@ function generateMetaContent(dirPath: string): Record<string, string> {
       return a.localeCompare(b);
     })
     .forEach(key => {
-      sortedMeta[key] = meta[key];
+      sortedMeta[key] = meta[key].title;
     });
 
 
