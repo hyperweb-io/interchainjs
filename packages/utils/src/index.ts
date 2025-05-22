@@ -10,3 +10,4 @@ export * from "./chain";
 export * from "./rpc";
 export * from "./logs";
 export * from "./events";
+export * from "./case";

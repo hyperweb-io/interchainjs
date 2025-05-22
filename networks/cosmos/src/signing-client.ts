@@ -17,12 +17,13 @@ import { toConverter, toEncoder } from './utils';
 import { TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { TxRpc } from '@interchainjs/cosmos-types/types';
 import { BroadcastOptions, DeliverTxResponse, HttpEndpoint, SIGN_MODE, StdFee, TelescopeGeneratedCodec } from '@interchainjs/types';
-import { fromBase64 } from '@interchainjs/utils';
+import { fromBase64, camelCaseRecursive } from '@interchainjs/utils';
 
 import {
   Block,
   BlockResponse,
   SearchBlockQuery,
+  SearchBlockQueryObj,
   SearchTxQuery,
   SearchTxQueryObj,
   isSearchBlockQueryObj,
@@ -299,6 +300,12 @@ export class SigningClient {
       : this.queryClient.endpoint;
   }
 
+  async getStatus() {
+    const data = await fetch(`${this.endpoint.url}/status`);
+    const json = await data.json();
+    return json['result'];
+  }
+
   async getTx(id: string): Promise<IndexedTx | null> {
     const data = await fetch(`${this.endpoint.url}/tx?hash=0x${id}`);
     const json = await data.json();
@@ -357,10 +364,10 @@ export class SigningClient {
 
     const data = await fetch(`${this.endpoint.url}/tx_search?${params.toString()}`);
     const json = await data.json();
-    return json['result'];
+    return camelCaseRecursive(json['result']);
   }
 
-  async searchBlock(query: SearchBlockQuery): Promise<any> {
+  async searchBlock(query: SearchBlockQuery | SearchBlockQueryObj): Promise<any> {
     let rawQuery: string;
     let page = 1;
     let perPage = 100;
@@ -394,7 +401,7 @@ export class SigningClient {
 
     const data = await fetch(`${this.endpoint.url}/block_search?${params.toString()}`);
     const json = await data.json();
-    return json['result'];
+    return camelCaseRecursive(json['result']);
   }
 
   async getBlock(height?: number): Promise<Block> {
