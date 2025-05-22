@@ -246,6 +246,14 @@ Then an authz example website will be created and users can take a look how sign
 
 ---
 
+### Bitcoin Network
+
+| Feature          | Package                                                |
+| ---------------- | ------------------------------------------------------ |
+| **Transactions** | [@interchainjs/bitcoin](https://docs.hyperweb.io/interchain-js/networks/bitcoin) |
+
+---
+
 ## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem
