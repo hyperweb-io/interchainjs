@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/injective",
-  "version": "1.11.10",
+  "version": "1.11.11",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -33,15 +33,15 @@
   },
   "dependencies": {
     "@ethersproject/transactions": "^5.7.0",
-    "@interchainjs/auth": "1.11.10",
-    "@interchainjs/cosmos": "1.11.10",
-    "@interchainjs/cosmos-types": "1.11.10",
-    "@interchainjs/ethereum": "1.11.10",
-    "@interchainjs/types": "1.11.10",
-    "@interchainjs/utils": "1.11.10",
+    "@interchainjs/auth": "1.11.11",
+    "@interchainjs/cosmos": "1.11.11",
+    "@interchainjs/cosmos-types": "1.11.11",
+    "@interchainjs/ethereum": "1.11.11",
+    "@interchainjs/types": "1.11.11",
+    "@interchainjs/utils": "1.11.11",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3",
-    "interchainjs": "1.11.10"
+    "interchainjs": "1.11.11"
   },
   "keywords": [
     "injective"

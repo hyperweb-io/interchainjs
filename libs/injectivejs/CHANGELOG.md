@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.11](https://github.com/hyperweb-io/interchainjs/compare/injectivejs@1.11.10...injectivejs@1.11.11) (2025-05-22)
+
+**Note:** Version bump only for package injectivejs
+
 ## [1.11.10](https://github.com/hyperweb-io/interchainjs/compare/injectivejs@1.11.9...injectivejs@1.11.10) (2025-05-15)
 
 **Note:** Version bump only for package injectivejs
