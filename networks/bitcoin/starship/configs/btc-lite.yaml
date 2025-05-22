@@ -1,0 +1,13 @@
+version: 1.5.0
+
+chains:
+  - id: 18443
+    name: bitcoin
+    image: ghcr.io/hyperweb-io/starship/bitcoin/bitcoin-core:latest
+    numValidators: 1
+    ports:
+      rest: 18443
+      rpc: 18444
+    balances:
+      - address: "mwj9YvDrJbfZwQB1yn6ZsQj4YQrZJPWEBW" # priv key: cThjSL4HkRECuDxXgHzciPH6nGgdxjgqLbz1Cdi4HpVJoiLhRZGk
+        amount: "50"
