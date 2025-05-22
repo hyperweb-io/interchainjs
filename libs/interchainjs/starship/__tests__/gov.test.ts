@@ -83,6 +83,24 @@ describe('Governance tests for osmosis', () => {
     directAddress = (await directSigner.getAccounts())[0].address;
     aminoAddress = (await aminoSigner.getAccounts())[0].address;
 
+    const signingClient = await CosmosSigningClient.connectWithSigner(
+      await getRpcEndpoint(),
+      new DirectGenericOfflineSigner(directSigner),
+    );
+
+    //get status
+    const status = await signingClient.getStatus();
+    const latestBlockHeight = status.sync_info.latest_block_height;
+
+    expect(BigInt(latestBlockHeight)).toBeGreaterThan(0n);
+
+    const blocks = await signingClient.searchBlock({
+      query: `block.height<=${latestBlockHeight}`,
+      page: 1,
+      perPage: 10,
+    });
+    expect(BigInt(blocks.totalCount)).toBeGreaterThan(0n);
+
     // Transfer osmosis to address
     await creditFromFaucet(directAddress);
     await creditFromFaucet(aminoAddress);
