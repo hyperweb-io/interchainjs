@@ -148,7 +148,6 @@ npm install interchainjs @interchainjs/cosmos @interchainjs/math @chain-registry
 import { SigningClient } from "@interchainjs/cosmos/signing-client";
 import { AminoGenericOfflineSigner, OfflineAminoSigner, OfflineDirectSigner, DirectGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx'
-import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 
 // Get Keplr offline signer
 const keplrOfflineSigner = window.keplr.getOfflineSigner(chainId);
@@ -203,17 +202,23 @@ const result = await signingClient.signAndBroadcast(
   form.memo || "Transfer ATOM via InterchainJS"
 );
 
-// or use the send function
-// const result = await send(
-//   signingClient,
-//   senderAddress,
-//   { fromAddress: senderAddress, toAddress: form.toAddress, amount },
-//   fee,
-//   form.memo || "Transfer ATOM via InterchainJS"
-// );
+console.log(result.transactionHash);
+```
+Using helper function `send`
+```ts
+import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+
+const result = await send(
+  signingClient, // the same client as above
+  senderAddress,
+  { fromAddress: senderAddress, toAddress: form.toAddress, amount },
+  fee,
+  form.memo || "Transfer ATOM via InterchainJS"
+);
 
 console.log(result.transactionHash);
 ```
+
 
 ## Implementations
 
