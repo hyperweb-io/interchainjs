@@ -143,6 +143,82 @@ const result = await delegate(
 
 By importing only the specific helpers you need, you ensure that your application bundle remains as small and efficient as possible.
 
+#### Example: Working with keplr using interchainjs-react helper hooks
+```ts
+import { SigningClient } from "@interchainjs/cosmos/signing-client";
+import { DirectGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
+import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx'
+import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+
+// Get Keplr offline signer
+const keplrOfflineSigner = window.keplr.getOfflineSigner(chainId);
+const offlineSigner = new DirectGenericOfflineSigner(keplrOfflineSigner);
+
+// Create signing client
+const signingClient = await SigningClient.connectWithSigner(
+  rpcEndpoint,
+  offlineSigner,
+  {
+    broadcast: {
+      checkTx: true,
+      deliverTx: true
+    }
+  }
+);
+signingClient.addEncoders([MsgSend])
+signingClient.addConverters([MsgSend])
+
+// Get account info
+const accounts = await offlineSigner.getAccounts();
+const senderAddress = accounts[0].address;
+
+// Build transfer message
+const amount = [{
+  denom: "uatom",
+  amount: (parseFloat(form.amount) * 1000000).toString() // Convert to uatom
+}]
+const transferMsg = {
+  typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+  value: {
+    fromAddress: senderAddress,
+    toAddress: form.toAddress,
+    amount
+  }
+};
+
+// Set fee
+const fee = {
+  amount: [{
+    denom: "uatom",
+    amount: "5000" // 0.005 ATOM fee
+  }],
+  gas: "200000"
+};
+
+// Sign and broadcast transaction
+const result = await send(
+  signingClient,
+  senderAddress,
+  { fromAddress: senderAddress, toAddress: form.toAddress, amount },
+  fee,
+  form.memo || "Transfer ATOM via InterchainJS"
+);
+
+console.log(result.transactionHash);
+```
+
+#### Example: Working with keplr using siging client
+```ts
+// signingClient is the same as in the code above
+const result = await signingClient.signAndBroadcast(
+  senderAddress,
+  [transferMsg],
+  fee,
+  form.memo || "Transfer ATOM via InterchainJS"
+);
+console.log(result.transactionHash);
+```
+
 ## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem
