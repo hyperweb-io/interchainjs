@@ -177,14 +177,6 @@ const amount = [{
   denom: "uatom",
   amount: (parseFloat(form.amount) * 1000000).toString() // Convert to uatom
 }]
-const transferMsg = {
-  typeUrl: "/cosmos.bank.v1beta1.MsgSend",
-  value: {
-    fromAddress: senderAddress,
-    toAddress: form.toAddress,
-    amount
-  }
-};
 
 // Set fee
 const fee = {
@@ -209,6 +201,15 @@ console.log(result.transactionHash);
 
 #### Example: Working with keplr using siging client
 ```ts
+const transferMsg = {
+  typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+  value: {
+    fromAddress: senderAddress,
+    toAddress: form.toAddress,
+    amount // amount is the same as in the code above
+  }
+};
+
 // signingClient is the same as in the code above
 const result = await signingClient.signAndBroadcast(
   senderAddress,
