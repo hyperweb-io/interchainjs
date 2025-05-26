@@ -137,7 +137,7 @@ monitor.on("Transfer", (event) => {
 });
 ```
 
-See more usages in the [unit test](starship/__tests__/token.test.ts)
+See more usages in the [unit test](https://github.com/hyperweb-io/interchainjs/blob/main/networks/ethereum/starship/__tests__/token.test.ts)
 
 ### In the frontend
 
@@ -151,7 +151,7 @@ const tx = await signer.send({
 const receipt = await tx.wait();
 ```
 
-For more details, see this example: https://github.com/hyperweb-io/create-interchain-app/blob/main/examples/ethereum/app/page.tsx
+For more details, see this [example](https://github.com/hyperweb-io/create-interchain-app/blob/main/examples/ethereum/app/page.tsx)
 
 ## Utility Functions
 
