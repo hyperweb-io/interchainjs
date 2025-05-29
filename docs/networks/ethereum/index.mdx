@@ -28,25 +28,38 @@
   </a>
 </p>
 
-Transaction codec and client to communicate with ethereum blockchain.
+Welcome to the **InterchainJS Ethereum** tutorial!  
+This guide will help you quickly get started with sending transactions, interacting with smart contracts, and handling Ethereum utilities using the `@interchainjs/ethereum` package.  
+Whether you're building backend services or frontend dApps, you'll find practical examples and tips below. Let's dive in! ✨
 
-## Usage
+---
+
+## Overview
+
+Transaction codec and client to communicate with the Ethereum blockchain.
+
+---
+
+## Installation
 
 ```sh
 npm install @interchainjs/ethereum
 ```
 
-### Using private key
+---
+
+## Usage
+
+### Using a Private Key
+
+#### Import and Construct Signer
 
 ```typescript
 import { SignerFromPrivateKey } from "@interchainjs/ethereum/signers/SignerFromPrivateKey";
 const signer = new SignerFromPrivateKey(privateKey, RPC_URL);
-const { txHash, wait } = await signer.sendEIP1559TransactionAutoGasLimit(
-  recipientAddress,
-  amount
-);
-const receipt = await wait();
 ```
+
+#### Get Address, Balance, and Nonce
 
 ```typescript
 // Get the address and current balance
@@ -60,7 +73,11 @@ console.log("Balance (wei):", balance)
 // Get the current nonce
 const nonce: number = await signer.getNonce()
 console.log("Nonce:", nonce)
+```
 
+#### Send Legacy and EIP-1559 Transactions
+
+```typescript
 // Send a legacy transaction with automatic gas limit
 const { txHash: legacyHash, wait: legacyWait } = await signer.sendLegacyTransactionAutoGasLimit(
   recipientAddress,
@@ -77,7 +94,11 @@ const { txHash: eipHash, wait: eipWait } = await signer.sendEIP1559TransactionAu
 )
 const eipReceipt = await eipWait()
 console.log("EIP-1559 tx receipt:", eipReceipt)
+```
 
+#### Sign and Verify a Personal Message
+
+```typescript
 // Sign and verify a personal message
 const message: string = "Hello, Ethereum!"
 const signature: string = signer.personalSign(message)
@@ -92,6 +113,8 @@ console.log("Signature valid:", isValid)
 }
 ```
 
+#### Estimate Gas for a Transaction
+
 ```typescript
 // Estimate gas for an arbitrary transaction
 const estimatedGas: bigint = await signer.estimateGas(
@@ -102,6 +125,8 @@ const estimatedGas: bigint = await signer.estimateGas(
 console.log("Estimated gas:", estimatedGas.toString());
 ```
 
+#### Deploy a Smart Contract
+
 ```typescript
 // Deploy a smart contract
 const bytecode = "0x..."; // compiled contract bytecode
@@ -110,6 +135,8 @@ const { txHash: deployHash, wait: deployWait } =
 const deployReceipt = await deployWait();
 console.log("Contract deployed at:", deployReceipt.contractAddress);
 ```
+
+#### Interact with a Deployed Contract (ERC20 Transfer)
 
 ```typescript
 // Interact with a deployed contract (transfer ERC20 tokens)
@@ -126,6 +153,8 @@ const tokenReceipt = await tokenWait();
 console.log("Token transfer receipt:", tokenReceipt);
 ```
 
+#### Monitor Contract Events via WebSocket
+
 ```typescript
 // Monitor contract events via WebSocket
 import { WebSocketContractMonitor } from "@interchainjs/ethereum/providers/WebSocketContractMonitor";
@@ -137,9 +166,11 @@ monitor.on("Transfer", (event) => {
 });
 ```
 
-See more usages in the [unit test](starship/__tests__/token.test.ts)
+See more usages in the [unit test](https://github.com/hyperweb-io/interchainjs/blob/main/networks/ethereum/starship/__tests__/token.test.ts)
 
 ### In the frontend
+
+#### Send Transaction from Browser Wallet
 
 ```typescript
 import { SignerFromBrowser } from "@interchainjs/ethereum/signers/SignerFromBrowser";
@@ -151,11 +182,15 @@ const tx = await signer.send({
 const receipt = await tx.wait();
 ```
 
-For more details, see this example: https://github.com/hyperweb-io/create-interchain-app/blob/main/examples/ethereum/app/page.tsx
+For more details, see this [example](https://github.com/hyperweb-io/create-interchain-app/blob/main/examples/ethereum/app/page.tsx)
+
+---
 
 ## Utility Functions
 
 ### Denominations
+
+#### Parse and Format ETH/Token Amounts
 
 ```typescript
 import {
@@ -180,6 +215,8 @@ const amount: string = formatUnits(units, 6); // "123.456"
 
 ### Encoding
 
+#### UTF-8 and Hex Conversion
+
 ```typescript
 import {
   utf8ToHex,
@@ -191,6 +228,8 @@ const str = hexToUtf8("0x48656c6c6f");     // "Hello"
 ```
 
 ### Address Utilities
+
+#### Validate and Checksum Ethereum Addresses
 
 ```typescript
 import {
@@ -207,10 +246,13 @@ console.log(toChecksumAddress(lower));
 // "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359"
 ```
 
+---
+
 ## Implementations
 
 - **SignerFromPrivateKey** from `@interchainjs/ethereum/signers/SignerFromPrivateKey`
 - **SignerFromBrowser** from `@interchainjs/ethereum/signers/SignerFromBrowser`
+
 
 ## Interchain JavaScript Stack ⚛️
 
