@@ -25,6 +25,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@interchainjs/math": "1.11.11",
     "@interchainjs/cosmos": "1.11.11",
     "@interchainjs/cosmos-types": "1.11.11",
     "@interchainjs/encoding": "1.11.11",
