@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/cosmos",
-  "version": "1.11.12",
+  "version": "1.11.13",
   "description": "Transaction codec and client to communicate with any cosmos blockchain",
   "main": "index.js",
   "module": "esm/index.js",
@@ -33,10 +33,10 @@
     "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts"
   },
   "dependencies": {
-    "@interchainjs/auth": "1.11.12",
-    "@interchainjs/cosmos-types": "1.11.12",
-    "@interchainjs/types": "1.11.12",
-    "@interchainjs/utils": "1.11.12",
+    "@interchainjs/auth": "1.11.13",
+    "@interchainjs/cosmos-types": "1.11.13",
+    "@interchainjs/types": "1.11.13",
+    "@interchainjs/utils": "1.11.13",
     "@noble/curves": "^1.1.0",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3"
