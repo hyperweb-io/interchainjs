@@ -36,9 +36,12 @@ export const submitBadSignatureEvidence = buildTx<MsgSubmitBadSignatureEvidence>
 export const updateParams = buildTx<MsgUpdateParams>({
   msg: MsgUpdateParams
 });
+/* BlacklistEthereumAddresses adds Ethereum addresses to the peggy blacklist. */
 export const blacklistEthereumAddresses = buildTx<MsgBlacklistEthereumAddresses>({
   msg: MsgBlacklistEthereumAddresses
 });
+/* RevokeEthereumBlacklist removes Ethereum addresses from the peggy
+ blacklist. */
 export const revokeEthereumBlacklist = buildTx<MsgRevokeEthereumBlacklist>({
   msg: MsgRevokeEthereumBlacklist
 });

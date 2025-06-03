@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse } from "./query";
+/* Params queries all parameters of the ICA host submodule. */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,

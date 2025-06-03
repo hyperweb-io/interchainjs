@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryGroupInfoRequest, QueryGroupInfoResponse, QueryGroupPolicyInfoRequest, QueryGroupPolicyInfoResponse, QueryGroupMembersRequest, QueryGroupMembersResponse, QueryGroupsByAdminRequest, QueryGroupsByAdminResponse, QueryGroupPoliciesByGroupRequest, QueryGroupPoliciesByGroupResponse, QueryGroupPoliciesByAdminRequest, QueryGroupPoliciesByAdminResponse, QueryProposalRequest, QueryProposalResponse, QueryProposalsByGroupPolicyRequest, QueryProposalsByGroupPolicyResponse, QueryVoteByProposalVoterRequest, QueryVoteByProposalVoterResponse, QueryVotesByProposalRequest, QueryVotesByProposalResponse, QueryVotesByVoterRequest, QueryVotesByVoterResponse, QueryGroupsByMemberRequest, QueryGroupsByMemberResponse, QueryTallyResultRequest, QueryTallyResultResponse, QueryGroupsRequest, QueryGroupsResponse } from "./query";
+/* GroupInfo queries group info based on group id. */
 export const getGroupInfo = buildQuery<QueryGroupInfoRequest, QueryGroupInfoResponse>({
   encode: QueryGroupInfoRequest.encode,
   decode: QueryGroupInfoResponse.decode,
@@ -7,6 +8,7 @@ export const getGroupInfo = buildQuery<QueryGroupInfoRequest, QueryGroupInfoResp
   method: "GroupInfo",
   deps: [QueryGroupInfoRequest, QueryGroupInfoResponse]
 });
+/* GroupPolicyInfo queries group policy info based on account address of group policy. */
 export const getGroupPolicyInfo = buildQuery<QueryGroupPolicyInfoRequest, QueryGroupPolicyInfoResponse>({
   encode: QueryGroupPolicyInfoRequest.encode,
   decode: QueryGroupPolicyInfoResponse.decode,
@@ -14,6 +16,7 @@ export const getGroupPolicyInfo = buildQuery<QueryGroupPolicyInfoRequest, QueryG
   method: "GroupPolicyInfo",
   deps: [QueryGroupPolicyInfoRequest, QueryGroupPolicyInfoResponse]
 });
+/* GroupMembers queries members of a group by group id. */
 export const getGroupMembers = buildQuery<QueryGroupMembersRequest, QueryGroupMembersResponse>({
   encode: QueryGroupMembersRequest.encode,
   decode: QueryGroupMembersResponse.decode,
@@ -21,6 +24,7 @@ export const getGroupMembers = buildQuery<QueryGroupMembersRequest, QueryGroupMe
   method: "GroupMembers",
   deps: [QueryGroupMembersRequest, QueryGroupMembersResponse]
 });
+/* GroupsByAdmin queries groups by admin address. */
 export const getGroupsByAdmin = buildQuery<QueryGroupsByAdminRequest, QueryGroupsByAdminResponse>({
   encode: QueryGroupsByAdminRequest.encode,
   decode: QueryGroupsByAdminResponse.decode,
@@ -28,6 +32,7 @@ export const getGroupsByAdmin = buildQuery<QueryGroupsByAdminRequest, QueryGroup
   method: "GroupsByAdmin",
   deps: [QueryGroupsByAdminRequest, QueryGroupsByAdminResponse]
 });
+/* GroupPoliciesByGroup queries group policies by group id. */
 export const getGroupPoliciesByGroup = buildQuery<QueryGroupPoliciesByGroupRequest, QueryGroupPoliciesByGroupResponse>({
   encode: QueryGroupPoliciesByGroupRequest.encode,
   decode: QueryGroupPoliciesByGroupResponse.decode,
@@ -35,6 +40,7 @@ export const getGroupPoliciesByGroup = buildQuery<QueryGroupPoliciesByGroupReque
   method: "GroupPoliciesByGroup",
   deps: [QueryGroupPoliciesByGroupRequest, QueryGroupPoliciesByGroupResponse]
 });
+/* GroupPoliciesByAdmin queries group policies by admin address. */
 export const getGroupPoliciesByAdmin = buildQuery<QueryGroupPoliciesByAdminRequest, QueryGroupPoliciesByAdminResponse>({
   encode: QueryGroupPoliciesByAdminRequest.encode,
   decode: QueryGroupPoliciesByAdminResponse.decode,
@@ -42,6 +48,7 @@ export const getGroupPoliciesByAdmin = buildQuery<QueryGroupPoliciesByAdminReque
   method: "GroupPoliciesByAdmin",
   deps: [QueryGroupPoliciesByAdminRequest, QueryGroupPoliciesByAdminResponse]
 });
+/* Proposal queries a proposal based on proposal id. */
 export const getProposal = buildQuery<QueryProposalRequest, QueryProposalResponse>({
   encode: QueryProposalRequest.encode,
   decode: QueryProposalResponse.decode,
@@ -49,6 +56,7 @@ export const getProposal = buildQuery<QueryProposalRequest, QueryProposalRespons
   method: "Proposal",
   deps: [QueryProposalRequest, QueryProposalResponse]
 });
+/* ProposalsByGroupPolicy queries proposals based on account address of group policy. */
 export const getProposalsByGroupPolicy = buildQuery<QueryProposalsByGroupPolicyRequest, QueryProposalsByGroupPolicyResponse>({
   encode: QueryProposalsByGroupPolicyRequest.encode,
   decode: QueryProposalsByGroupPolicyResponse.decode,
@@ -56,6 +64,7 @@ export const getProposalsByGroupPolicy = buildQuery<QueryProposalsByGroupPolicyR
   method: "ProposalsByGroupPolicy",
   deps: [QueryProposalsByGroupPolicyRequest, QueryProposalsByGroupPolicyResponse]
 });
+/* VoteByProposalVoter queries a vote by proposal id and voter. */
 export const getVoteByProposalVoter = buildQuery<QueryVoteByProposalVoterRequest, QueryVoteByProposalVoterResponse>({
   encode: QueryVoteByProposalVoterRequest.encode,
   decode: QueryVoteByProposalVoterResponse.decode,
@@ -63,6 +72,7 @@ export const getVoteByProposalVoter = buildQuery<QueryVoteByProposalVoterRequest
   method: "VoteByProposalVoter",
   deps: [QueryVoteByProposalVoterRequest, QueryVoteByProposalVoterResponse]
 });
+/* VotesByProposal queries a vote by proposal id. */
 export const getVotesByProposal = buildQuery<QueryVotesByProposalRequest, QueryVotesByProposalResponse>({
   encode: QueryVotesByProposalRequest.encode,
   decode: QueryVotesByProposalResponse.decode,
@@ -70,6 +80,7 @@ export const getVotesByProposal = buildQuery<QueryVotesByProposalRequest, QueryV
   method: "VotesByProposal",
   deps: [QueryVotesByProposalRequest, QueryVotesByProposalResponse]
 });
+/* VotesByVoter queries a vote by voter. */
 export const getVotesByVoter = buildQuery<QueryVotesByVoterRequest, QueryVotesByVoterResponse>({
   encode: QueryVotesByVoterRequest.encode,
   decode: QueryVotesByVoterResponse.decode,
@@ -77,6 +88,7 @@ export const getVotesByVoter = buildQuery<QueryVotesByVoterRequest, QueryVotesBy
   method: "VotesByVoter",
   deps: [QueryVotesByVoterRequest, QueryVotesByVoterResponse]
 });
+/* GroupsByMember queries groups by member address. */
 export const getGroupsByMember = buildQuery<QueryGroupsByMemberRequest, QueryGroupsByMemberResponse>({
   encode: QueryGroupsByMemberRequest.encode,
   decode: QueryGroupsByMemberResponse.decode,
@@ -84,6 +96,11 @@ export const getGroupsByMember = buildQuery<QueryGroupsByMemberRequest, QueryGro
   method: "GroupsByMember",
   deps: [QueryGroupsByMemberRequest, QueryGroupsByMemberResponse]
 });
+/* TallyResult returns the tally result of a proposal. If the proposal is
+ still in voting period, then this query computes the current tally state,
+ which might not be final. On the other hand, if the proposal is final,
+ then it simply returns the `final_tally_result` state stored in the
+ proposal itself. */
 export const getTallyResult = buildQuery<QueryTallyResultRequest, QueryTallyResultResponse>({
   encode: QueryTallyResultRequest.encode,
   decode: QueryTallyResultResponse.decode,
@@ -91,6 +108,9 @@ export const getTallyResult = buildQuery<QueryTallyResultRequest, QueryTallyResu
   method: "TallyResult",
   deps: [QueryTallyResultRequest, QueryTallyResultResponse]
 });
+/* Groups queries all groups in state.
+
+ Since: cosmos-sdk 0.47.1 */
 export const getGroups = buildQuery<QueryGroupsRequest, QueryGroupsResponse>({
   encode: QueryGroupsRequest.encode,
   decode: QueryGroupsResponse.decode,

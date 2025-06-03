@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { AppOptionsRequest, AppOptionsResponse } from "./query";
+/* AppOptions returns the autocli options for all of the modules in an app. */
 export const getAppOptions = buildQuery<AppOptionsRequest, AppOptionsResponse>({
   encode: AppOptionsRequest.encode,
   decode: AppOptionsResponse.decode,
