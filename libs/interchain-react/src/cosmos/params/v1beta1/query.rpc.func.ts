@@ -1,5 +1,7 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse, QuerySubspacesRequest, QuerySubspacesResponse } from "./query";
+/* Params queries a specific parameter of a module, given its subspace and
+ key. */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
@@ -7,6 +9,9 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
+/* Subspaces queries for all registered subspaces and all keys for a subspace.
+
+ Since: cosmos-sdk 0.46 */
 export const getSubspaces = buildQuery<QuerySubspacesRequest, QuerySubspacesResponse>({
   encode: QuerySubspacesRequest.encode,
   decode: QuerySubspacesResponse.decode,

@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryAuctionParamsRequest, QueryAuctionParamsResponse, QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryLastAuctionResultRequest, QueryLastAuctionResultResponse } from "./query";
+/* Retrieves auction params */
 export const getAuctionParams = buildQuery<QueryAuctionParamsRequest, QueryAuctionParamsResponse>({
   encode: QueryAuctionParamsRequest.encode,
   decode: QueryAuctionParamsResponse.decode,
@@ -7,6 +8,7 @@ export const getAuctionParams = buildQuery<QueryAuctionParamsRequest, QueryAucti
   method: "AuctionParams",
   deps: [QueryAuctionParamsRequest, QueryAuctionParamsResponse]
 });
+/* Retrieves current auction basket with current highest bid and bidder */
 export const getCurrentAuctionBasket = buildQuery<QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse>({
   encode: QueryCurrentAuctionBasketRequest.encode,
   decode: QueryCurrentAuctionBasketResponse.decode,
@@ -14,6 +16,7 @@ export const getCurrentAuctionBasket = buildQuery<QueryCurrentAuctionBasketReque
   method: "CurrentAuctionBasket",
   deps: [QueryCurrentAuctionBasketRequest, QueryCurrentAuctionBasketResponse]
 });
+/* Retrieves the entire auction module's state */
 export const getAuctionModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
