@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
+/* Balance queries the balance of a single coin for a single account. */
 export const getBalance = buildQuery<QueryBalanceRequest, QueryBalanceResponse>({
   encode: QueryBalanceRequest.encode,
   decode: QueryBalanceResponse.decode,
@@ -7,6 +8,10 @@ export const getBalance = buildQuery<QueryBalanceRequest, QueryBalanceResponse>(
   method: "Balance",
   deps: [QueryBalanceRequest, QueryBalanceResponse]
 });
+/* AllBalances queries the balance of all coins for a single account.
+
+ When called from another module, this query might consume a high amount of
+ gas if the pagination field is incorrectly set. */
 export const getAllBalances = buildQuery<QueryAllBalancesRequest, QueryAllBalancesResponse>({
   encode: QueryAllBalancesRequest.encode,
   decode: QueryAllBalancesResponse.decode,
@@ -14,6 +19,13 @@ export const getAllBalances = buildQuery<QueryAllBalancesRequest, QueryAllBalanc
   method: "AllBalances",
   deps: [QueryAllBalancesRequest, QueryAllBalancesResponse]
 });
+/* SpendableBalances queries the spendable balance of all coins for a single
+ account.
+
+ When called from another module, this query might consume a high amount of
+ gas if the pagination field is incorrectly set.
+
+ Since: cosmos-sdk 0.46 */
 export const getSpendableBalances = buildQuery<QuerySpendableBalancesRequest, QuerySpendableBalancesResponse>({
   encode: QuerySpendableBalancesRequest.encode,
   decode: QuerySpendableBalancesResponse.decode,
@@ -21,6 +33,13 @@ export const getSpendableBalances = buildQuery<QuerySpendableBalancesRequest, Qu
   method: "SpendableBalances",
   deps: [QuerySpendableBalancesRequest, QuerySpendableBalancesResponse]
 });
+/* SpendableBalanceByDenom queries the spendable balance of a single denom for
+ a single account.
+
+ When called from another module, this query might consume a high amount of
+ gas if the pagination field is incorrectly set.
+
+ Since: cosmos-sdk 0.47 */
 export const getSpendableBalanceByDenom = buildQuery<QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse>({
   encode: QuerySpendableBalanceByDenomRequest.encode,
   decode: QuerySpendableBalanceByDenomResponse.decode,
@@ -28,6 +47,10 @@ export const getSpendableBalanceByDenom = buildQuery<QuerySpendableBalanceByDeno
   method: "SpendableBalanceByDenom",
   deps: [QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse]
 });
+/* TotalSupply queries the total supply of all coins.
+
+ When called from another module, this query might consume a high amount of
+ gas if the pagination field is incorrectly set. */
 export const getTotalSupply = buildQuery<QueryTotalSupplyRequest, QueryTotalSupplyResponse>({
   encode: QueryTotalSupplyRequest.encode,
   decode: QueryTotalSupplyResponse.decode,
@@ -35,6 +58,10 @@ export const getTotalSupply = buildQuery<QueryTotalSupplyRequest, QueryTotalSupp
   method: "TotalSupply",
   deps: [QueryTotalSupplyRequest, QueryTotalSupplyResponse]
 });
+/* SupplyOf queries the supply of a single coin.
+
+ When called from another module, this query might consume a high amount of
+ gas if the pagination field is incorrectly set. */
 export const getSupplyOf = buildQuery<QuerySupplyOfRequest, QuerySupplyOfResponse>({
   encode: QuerySupplyOfRequest.encode,
   decode: QuerySupplyOfResponse.decode,
@@ -42,6 +69,7 @@ export const getSupplyOf = buildQuery<QuerySupplyOfRequest, QuerySupplyOfRespons
   method: "SupplyOf",
   deps: [QuerySupplyOfRequest, QuerySupplyOfResponse]
 });
+/* Params queries the parameters of x/bank module. */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
@@ -49,6 +77,7 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
+/* DenomMetadata queries the client metadata of a given coin denomination. */
 export const getDenomMetadata = buildQuery<QueryDenomMetadataRequest, QueryDenomMetadataResponse>({
   encode: QueryDenomMetadataRequest.encode,
   decode: QueryDenomMetadataResponse.decode,
@@ -56,6 +85,7 @@ export const getDenomMetadata = buildQuery<QueryDenomMetadataRequest, QueryDenom
   method: "DenomMetadata",
   deps: [QueryDenomMetadataRequest, QueryDenomMetadataResponse]
 });
+/* DenomMetadataByQueryString queries the client metadata of a given coin denomination. */
 export const getDenomMetadataByQueryString = buildQuery<QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse>({
   encode: QueryDenomMetadataByQueryStringRequest.encode,
   decode: QueryDenomMetadataByQueryStringResponse.decode,
@@ -63,6 +93,8 @@ export const getDenomMetadataByQueryString = buildQuery<QueryDenomMetadataByQuer
   method: "DenomMetadataByQueryString",
   deps: [QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse]
 });
+/* DenomsMetadata queries the client metadata for all registered coin
+ denominations. */
 export const getDenomsMetadata = buildQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
   encode: QueryDenomsMetadataRequest.encode,
   decode: QueryDenomsMetadataResponse.decode,
@@ -70,6 +102,13 @@ export const getDenomsMetadata = buildQuery<QueryDenomsMetadataRequest, QueryDen
   method: "DenomsMetadata",
   deps: [QueryDenomsMetadataRequest, QueryDenomsMetadataResponse]
 });
+/* DenomOwners queries for all account addresses that own a particular token
+ denomination.
+
+ When called from another module, this query might consume a high amount of
+ gas if the pagination field is incorrectly set.
+
+ Since: cosmos-sdk 0.46 */
 export const getDenomOwners = buildQuery<QueryDenomOwnersRequest, QueryDenomOwnersResponse>({
   encode: QueryDenomOwnersRequest.encode,
   decode: QueryDenomOwnersResponse.decode,
@@ -77,6 +116,10 @@ export const getDenomOwners = buildQuery<QueryDenomOwnersRequest, QueryDenomOwne
   method: "DenomOwners",
   deps: [QueryDenomOwnersRequest, QueryDenomOwnersResponse]
 });
+/* DenomOwnersByQuery queries for all account addresses that own a particular token
+ denomination.
+
+ Since: cosmos-sdk 0.50.3 */
 export const getDenomOwnersByQuery = buildQuery<QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse>({
   encode: QueryDenomOwnersByQueryRequest.encode,
   decode: QueryDenomOwnersByQueryResponse.decode,
@@ -84,6 +127,13 @@ export const getDenomOwnersByQuery = buildQuery<QueryDenomOwnersByQueryRequest, 
   method: "DenomOwnersByQuery",
   deps: [QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse]
 });
+/* SendEnabled queries for SendEnabled entries.
+
+ This query only returns denominations that have specific SendEnabled settings.
+ Any denomination that does not have a specific setting will use the default
+ params.default_send_enabled, and will not be returned by this query.
+
+ Since: cosmos-sdk 0.47 */
 export const getSendEnabled = buildQuery<QuerySendEnabledRequest, QuerySendEnabledResponse>({
   encode: QuerySendEnabledRequest.encode,
   decode: QuerySendEnabledResponse.decode,

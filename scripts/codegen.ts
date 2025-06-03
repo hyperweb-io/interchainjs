@@ -48,7 +48,8 @@ export const options: TelescopeInput = {
       }
     },
     "bundle": {
-      "enabled": false
+      "enabled": true,
+      type: "module"
     },
     "stargateClients": {
       "enabled": false

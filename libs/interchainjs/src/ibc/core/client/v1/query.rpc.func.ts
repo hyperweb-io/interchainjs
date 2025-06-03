@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../../helper-func-types";
 import { QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryClientParamsRequest, QueryClientParamsResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryVerifyMembershipRequest, QueryVerifyMembershipResponse } from "./query";
+/* ClientState queries an IBC light client. */
 export const getClientState = buildQuery<QueryClientStateRequest, QueryClientStateResponse>({
   encode: QueryClientStateRequest.encode,
   decode: QueryClientStateResponse.decode,
@@ -7,6 +8,7 @@ export const getClientState = buildQuery<QueryClientStateRequest, QueryClientSta
   method: "ClientState",
   deps: [QueryClientStateRequest, QueryClientStateResponse]
 });
+/* ClientStates queries all the IBC light clients of a chain. */
 export const getClientStates = buildQuery<QueryClientStatesRequest, QueryClientStatesResponse>({
   encode: QueryClientStatesRequest.encode,
   decode: QueryClientStatesResponse.decode,
@@ -14,6 +16,8 @@ export const getClientStates = buildQuery<QueryClientStatesRequest, QueryClientS
   method: "ClientStates",
   deps: [QueryClientStatesRequest, QueryClientStatesResponse]
 });
+/* ConsensusState queries a consensus state associated with a client state at
+ a given height. */
 export const getConsensusState = buildQuery<QueryConsensusStateRequest, QueryConsensusStateResponse>({
   encode: QueryConsensusStateRequest.encode,
   decode: QueryConsensusStateResponse.decode,
@@ -21,6 +25,8 @@ export const getConsensusState = buildQuery<QueryConsensusStateRequest, QueryCon
   method: "ConsensusState",
   deps: [QueryConsensusStateRequest, QueryConsensusStateResponse]
 });
+/* ConsensusStates queries all the consensus state associated with a given
+ client. */
 export const getConsensusStates = buildQuery<QueryConsensusStatesRequest, QueryConsensusStatesResponse>({
   encode: QueryConsensusStatesRequest.encode,
   decode: QueryConsensusStatesResponse.decode,
@@ -28,6 +34,7 @@ export const getConsensusStates = buildQuery<QueryConsensusStatesRequest, QueryC
   method: "ConsensusStates",
   deps: [QueryConsensusStatesRequest, QueryConsensusStatesResponse]
 });
+/* ConsensusStateHeights queries the height of every consensus states associated with a given client. */
 export const getConsensusStateHeights = buildQuery<QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse>({
   encode: QueryConsensusStateHeightsRequest.encode,
   decode: QueryConsensusStateHeightsResponse.decode,
@@ -35,6 +42,7 @@ export const getConsensusStateHeights = buildQuery<QueryConsensusStateHeightsReq
   method: "ConsensusStateHeights",
   deps: [QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse]
 });
+/* Status queries the status of an IBC client. */
 export const getClientStatus = buildQuery<QueryClientStatusRequest, QueryClientStatusResponse>({
   encode: QueryClientStatusRequest.encode,
   decode: QueryClientStatusResponse.decode,
@@ -42,6 +50,7 @@ export const getClientStatus = buildQuery<QueryClientStatusRequest, QueryClientS
   method: "ClientStatus",
   deps: [QueryClientStatusRequest, QueryClientStatusResponse]
 });
+/* ClientParams queries all parameters of the ibc client submodule. */
 export const getClientParams = buildQuery<QueryClientParamsRequest, QueryClientParamsResponse>({
   encode: QueryClientParamsRequest.encode,
   decode: QueryClientParamsResponse.decode,
@@ -49,6 +58,7 @@ export const getClientParams = buildQuery<QueryClientParamsRequest, QueryClientP
   method: "ClientParams",
   deps: [QueryClientParamsRequest, QueryClientParamsResponse]
 });
+/* UpgradedClientState queries an Upgraded IBC light client. */
 export const getUpgradedClientState = buildQuery<QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse>({
   encode: QueryUpgradedClientStateRequest.encode,
   decode: QueryUpgradedClientStateResponse.decode,
@@ -56,6 +66,7 @@ export const getUpgradedClientState = buildQuery<QueryUpgradedClientStateRequest
   method: "UpgradedClientState",
   deps: [QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse]
 });
+/* UpgradedConsensusState queries an Upgraded IBC consensus state. */
 export const getUpgradedConsensusState = buildQuery<QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse>({
   encode: QueryUpgradedConsensusStateRequest.encode,
   decode: QueryUpgradedConsensusStateResponse.decode,
@@ -63,6 +74,7 @@ export const getUpgradedConsensusState = buildQuery<QueryUpgradedConsensusStateR
   method: "UpgradedConsensusState",
   deps: [QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse]
 });
+/* VerifyMembership queries an IBC light client for proof verification of a value at a given key path. */
 export const getVerifyMembership = buildQuery<QueryVerifyMembershipRequest, QueryVerifyMembershipResponse>({
   encode: QueryVerifyMembershipRequest.encode,
   decode: QueryVerifyMembershipResponse.decode,

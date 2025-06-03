@@ -1,10 +1,12 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryCurrentValsetRequest, QueryCurrentValsetResponse, QueryValsetRequestRequest, QueryValsetRequestResponse, QueryValsetConfirmRequest, QueryValsetConfirmResponse, QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse, QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse, QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse, QueryLastEventByAddrRequest, QueryLastEventByAddrResponse, QueryPendingSendToEth, QueryPendingSendToEthResponse, QueryBatchFeeRequest, QueryBatchFeeResponse, QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse, QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse, QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse, QueryBatchConfirmsRequest, QueryBatchConfirmsResponse, QueryERC20ToDenomRequest, QueryERC20ToDenomResponse, QueryDenomToERC20Request, QueryDenomToERC20Response, QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse, QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse, QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse, QueryModuleStateRequest, QueryModuleStateResponse, MissingNoncesRequest, MissingNoncesResponse } from "./query";
 import { getParams, getCurrentValset, getValsetRequest, getValsetConfirm, getValsetConfirmsByNonce, getLastValsetRequests, getLastPendingValsetRequestByAddr, getLastEventByAddr, getGetPendingSendToEth, getBatchFees, getOutgoingTxBatches, getLastPendingBatchRequestByAddr, getBatchRequestByNonce, getBatchConfirms, getERC20ToDenom, getDenomToERC20, getGetDelegateKeyByValidator, getGetDelegateKeyByEth, getGetDelegateKeyByOrchestrator, getPeggyModuleState, getMissingPeggoNonces } from "./query.rpc.func";
+/* Deployments queries deployments */
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
+/* valset */
 export const useGetCurrentValset = buildUseVueQuery<QueryCurrentValsetRequest, QueryCurrentValsetResponse>({
   builderQueryFn: getCurrentValset,
   queryKeyPrefix: "CurrentValsetQuery"
@@ -29,10 +31,12 @@ export const useGetLastPendingValsetRequestByAddr = buildUseVueQuery<QueryLastPe
   builderQueryFn: getLastPendingValsetRequestByAddr,
   queryKeyPrefix: "LastPendingValsetRequestByAddrQuery"
 });
+/* claim */
 export const useGetLastEventByAddr = buildUseVueQuery<QueryLastEventByAddrRequest, QueryLastEventByAddrResponse>({
   builderQueryFn: getLastEventByAddr,
   queryKeyPrefix: "LastEventByAddrQuery"
 });
+/* batch */
 export const useGetGetPendingSendToEth = buildUseVueQuery<QueryPendingSendToEth, QueryPendingSendToEthResponse>({
   builderQueryFn: getGetPendingSendToEth,
   queryKeyPrefix: "GetPendingSendToEthQuery"
@@ -77,6 +81,7 @@ export const useGetGetDelegateKeyByOrchestrator = buildUseVueQuery<QueryDelegate
   builderQueryFn: getGetDelegateKeyByOrchestrator,
   queryKeyPrefix: "GetDelegateKeyByOrchestratorQuery"
 });
+/* Retrieves the entire peggy module's state */
 export const useGetPeggyModuleState = buildUseVueQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   builderQueryFn: getPeggyModuleState,
   queryKeyPrefix: "PeggyModuleStateQuery"

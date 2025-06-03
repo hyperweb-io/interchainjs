@@ -7,6 +7,7 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
+/* Retrieves the OCR FeedConfig for a given FeedId */
 export const getFeedConfig = buildQuery<QueryFeedConfigRequest, QueryFeedConfigResponse>({
   encode: QueryFeedConfigRequest.encode,
   decode: QueryFeedConfigResponse.decode,
@@ -14,6 +15,7 @@ export const getFeedConfig = buildQuery<QueryFeedConfigRequest, QueryFeedConfigR
   method: "FeedConfig",
   deps: [QueryFeedConfigRequest, QueryFeedConfigResponse]
 });
+/* Retrieves the OCR FeedConfigInfo for a given FeedId */
 export const getFeedConfigInfo = buildQuery<QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse>({
   encode: QueryFeedConfigInfoRequest.encode,
   decode: QueryFeedConfigInfoResponse.decode,
@@ -21,6 +23,7 @@ export const getFeedConfigInfo = buildQuery<QueryFeedConfigInfoRequest, QueryFee
   method: "FeedConfigInfo",
   deps: [QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse]
 });
+/* Retrieves latest round ID and data, including median answer for that round */
 export const getLatestRound = buildQuery<QueryLatestRoundRequest, QueryLatestRoundResponse>({
   encode: QueryLatestRoundRequest.encode,
   decode: QueryLatestRoundResponse.decode,
@@ -28,6 +31,8 @@ export const getLatestRound = buildQuery<QueryLatestRoundRequest, QueryLatestRou
   method: "LatestRound",
   deps: [QueryLatestRoundRequest, QueryLatestRoundResponse]
 });
+/* LatestTransmissionDetails returns details about the latest trasmission
+ recorded on chain for the given feed ID. */
 export const getLatestTransmissionDetails = buildQuery<QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse>({
   encode: QueryLatestTransmissionDetailsRequest.encode,
   decode: QueryLatestTransmissionDetailsResponse.decode,
@@ -35,6 +40,7 @@ export const getLatestTransmissionDetails = buildQuery<QueryLatestTransmissionDe
   method: "LatestTransmissionDetails",
   deps: [QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse]
 });
+/* Retrieves transmitter's owed amount */
 export const getOwedAmount = buildQuery<QueryOwedAmountRequest, QueryOwedAmountResponse>({
   encode: QueryOwedAmountRequest.encode,
   decode: QueryOwedAmountResponse.decode,
@@ -42,6 +48,7 @@ export const getOwedAmount = buildQuery<QueryOwedAmountRequest, QueryOwedAmountR
   method: "OwedAmount",
   deps: [QueryOwedAmountRequest, QueryOwedAmountResponse]
 });
+/* Retrieves the entire OCR module's state */
 export const getOcrModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
