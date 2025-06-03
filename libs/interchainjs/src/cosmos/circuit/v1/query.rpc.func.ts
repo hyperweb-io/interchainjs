@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryAccountRequest, AccountResponse, QueryAccountsRequest, AccountsResponse, QueryDisabledListRequest, DisabledListResponse } from "./query";
+/* Account returns account permissions. */
 export const getAccount = buildQuery<QueryAccountRequest, AccountResponse>({
   encode: QueryAccountRequest.encode,
   decode: AccountResponse.decode,
@@ -7,6 +8,7 @@ export const getAccount = buildQuery<QueryAccountRequest, AccountResponse>({
   method: "Account",
   deps: [QueryAccountRequest, AccountResponse]
 });
+/* Account returns account permissions. */
 export const getAccounts = buildQuery<QueryAccountsRequest, AccountsResponse>({
   encode: QueryAccountsRequest.encode,
   decode: AccountsResponse.decode,
@@ -14,6 +16,7 @@ export const getAccounts = buildQuery<QueryAccountsRequest, AccountsResponse>({
   method: "Accounts",
   deps: [QueryAccountsRequest, AccountsResponse]
 });
+/* DisabledList returns a list of disabled message urls */
 export const getDisabledList = buildQuery<QueryDisabledListRequest, DisabledListResponse>({
   encode: QueryDisabledListRequest.encode,
   decode: DisabledListResponse.decode,

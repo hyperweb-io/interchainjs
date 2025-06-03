@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse, QueryBandRelayersRequest, QueryBandRelayersResponse, QueryBandPriceStatesRequest, QueryBandPriceStatesResponse, QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse, QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse, QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse, QueryPythPriceStatesRequest, QueryPythPriceStatesResponse, QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse, QueryStorkPublishersRequest, QueryStorkPublishersResponse, QueryProviderPriceStateRequest, QueryProviderPriceStateResponse, QueryModuleStateRequest, QueryModuleStateResponse, QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse, QueryOracleVolatilityRequest, QueryOracleVolatilityResponse, QueryOracleProvidersInfoRequest, QueryOracleProvidersInfoResponse, QueryOracleProviderPricesRequest, QueryOracleProviderPricesResponse, QueryOraclePriceRequest, QueryOraclePriceResponse, QueryPythPriceRequest, QueryPythPriceResponse } from "./query";
+/* Retrieves oracle params */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
@@ -7,6 +8,7 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
+/* Retrieves the band relayers */
 export const getBandRelayers = buildQuery<QueryBandRelayersRequest, QueryBandRelayersResponse>({
   encode: QueryBandRelayersRequest.encode,
   decode: QueryBandRelayersResponse.decode,
@@ -14,6 +16,7 @@ export const getBandRelayers = buildQuery<QueryBandRelayersRequest, QueryBandRel
   method: "BandRelayers",
   deps: [QueryBandRelayersRequest, QueryBandRelayersResponse]
 });
+/* Retrieves the state for all band price feeds */
 export const getBandPriceStates = buildQuery<QueryBandPriceStatesRequest, QueryBandPriceStatesResponse>({
   encode: QueryBandPriceStatesRequest.encode,
   decode: QueryBandPriceStatesResponse.decode,
@@ -21,6 +24,7 @@ export const getBandPriceStates = buildQuery<QueryBandPriceStatesRequest, QueryB
   method: "BandPriceStates",
   deps: [QueryBandPriceStatesRequest, QueryBandPriceStatesResponse]
 });
+/* Retrieves the state for all band ibc price feeds */
 export const getBandIBCPriceStates = buildQuery<QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse>({
   encode: QueryBandIBCPriceStatesRequest.encode,
   decode: QueryBandIBCPriceStatesResponse.decode,
@@ -28,6 +32,7 @@ export const getBandIBCPriceStates = buildQuery<QueryBandIBCPriceStatesRequest, 
   method: "BandIBCPriceStates",
   deps: [QueryBandIBCPriceStatesRequest, QueryBandIBCPriceStatesResponse]
 });
+/* Retrieves the state for all price feeds */
 export const getPriceFeedPriceStates = buildQuery<QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse>({
   encode: QueryPriceFeedPriceStatesRequest.encode,
   decode: QueryPriceFeedPriceStatesResponse.decode,
@@ -35,6 +40,7 @@ export const getPriceFeedPriceStates = buildQuery<QueryPriceFeedPriceStatesReque
   method: "PriceFeedPriceStates",
   deps: [QueryPriceFeedPriceStatesRequest, QueryPriceFeedPriceStatesResponse]
 });
+/* Retrieves the state for all coinbase price feeds */
 export const getCoinbasePriceStates = buildQuery<QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse>({
   encode: QueryCoinbasePriceStatesRequest.encode,
   decode: QueryCoinbasePriceStatesResponse.decode,
@@ -42,6 +48,7 @@ export const getCoinbasePriceStates = buildQuery<QueryCoinbasePriceStatesRequest
   method: "CoinbasePriceStates",
   deps: [QueryCoinbasePriceStatesRequest, QueryCoinbasePriceStatesResponse]
 });
+/* Retrieves the state for all pyth price feeds */
 export const getPythPriceStates = buildQuery<QueryPythPriceStatesRequest, QueryPythPriceStatesResponse>({
   encode: QueryPythPriceStatesRequest.encode,
   decode: QueryPythPriceStatesResponse.decode,
@@ -49,6 +56,7 @@ export const getPythPriceStates = buildQuery<QueryPythPriceStatesRequest, QueryP
   method: "PythPriceStates",
   deps: [QueryPythPriceStatesRequest, QueryPythPriceStatesResponse]
 });
+/* Retrieves the state for all stork price feeds */
 export const getStorkPriceStates = buildQuery<QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse>({
   encode: QueryStorkPriceStatesRequest.encode,
   decode: QueryStorkPriceStatesResponse.decode,
@@ -56,6 +64,7 @@ export const getStorkPriceStates = buildQuery<QueryStorkPriceStatesRequest, Quer
   method: "StorkPriceStates",
   deps: [QueryStorkPriceStatesRequest, QueryStorkPriceStatesResponse]
 });
+/* Retrieves all stork publishers */
 export const getStorkPublishers = buildQuery<QueryStorkPublishersRequest, QueryStorkPublishersResponse>({
   encode: QueryStorkPublishersRequest.encode,
   decode: QueryStorkPublishersResponse.decode,
@@ -63,6 +72,7 @@ export const getStorkPublishers = buildQuery<QueryStorkPublishersRequest, QueryS
   method: "StorkPublishers",
   deps: [QueryStorkPublishersRequest, QueryStorkPublishersResponse]
 });
+/* Retrieves the state for all provider price feeds */
 export const getProviderPriceState = buildQuery<QueryProviderPriceStateRequest, QueryProviderPriceStateResponse>({
   encode: QueryProviderPriceStateRequest.encode,
   decode: QueryProviderPriceStateResponse.decode,
@@ -70,6 +80,7 @@ export const getProviderPriceState = buildQuery<QueryProviderPriceStateRequest, 
   method: "ProviderPriceState",
   deps: [QueryProviderPriceStateRequest, QueryProviderPriceStateResponse]
 });
+/* Retrieves the entire oracle module's state */
 export const getOracleModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
@@ -77,6 +88,7 @@ export const getOracleModuleState = buildQuery<QueryModuleStateRequest, QueryMod
   method: "OracleModuleState",
   deps: [QueryModuleStateRequest, QueryModuleStateResponse]
 });
+/* Retrieves historical price records for a given OracleType and Symbol */
 export const getHistoricalPriceRecords = buildQuery<QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse>({
   encode: QueryHistoricalPriceRecordsRequest.encode,
   decode: QueryHistoricalPriceRecordsResponse.decode,
@@ -84,6 +96,7 @@ export const getHistoricalPriceRecords = buildQuery<QueryHistoricalPriceRecordsR
   method: "HistoricalPriceRecords",
   deps: [QueryHistoricalPriceRecordsRequest, QueryHistoricalPriceRecordsResponse]
 });
+/* Retrieves mixed volatility value for the specified pair of base/quote */
 export const getOracleVolatility = buildQuery<QueryOracleVolatilityRequest, QueryOracleVolatilityResponse>({
   encode: QueryOracleVolatilityRequest.encode,
   decode: QueryOracleVolatilityResponse.decode,

@@ -1,5 +1,8 @@
 import { buildQuery } from "../../../../helper-func-types";
 import { GetAuthnDescriptorRequest, GetAuthnDescriptorResponse, GetChainDescriptorRequest, GetChainDescriptorResponse, GetCodecDescriptorRequest, GetCodecDescriptorResponse, GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse, GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse, GetTxDescriptorRequest, GetTxDescriptorResponse } from "./reflection";
+/* GetAuthnDescriptor returns information on how to authenticate transactions in the application
+ NOTE: this RPC is still experimental and might be subject to breaking changes or removal in
+ future releases of the cosmos-sdk. */
 export const getGetAuthnDescriptor = buildQuery<GetAuthnDescriptorRequest, GetAuthnDescriptorResponse>({
   encode: GetAuthnDescriptorRequest.encode,
   decode: GetAuthnDescriptorResponse.decode,
@@ -7,6 +10,7 @@ export const getGetAuthnDescriptor = buildQuery<GetAuthnDescriptorRequest, GetAu
   method: "GetAuthnDescriptor",
   deps: [GetAuthnDescriptorRequest, GetAuthnDescriptorResponse]
 });
+/* GetChainDescriptor returns the description of the chain */
 export const getGetChainDescriptor = buildQuery<GetChainDescriptorRequest, GetChainDescriptorResponse>({
   encode: GetChainDescriptorRequest.encode,
   decode: GetChainDescriptorResponse.decode,
@@ -14,6 +18,7 @@ export const getGetChainDescriptor = buildQuery<GetChainDescriptorRequest, GetCh
   method: "GetChainDescriptor",
   deps: [GetChainDescriptorRequest, GetChainDescriptorResponse]
 });
+/* GetCodecDescriptor returns the descriptor of the codec of the application */
 export const getGetCodecDescriptor = buildQuery<GetCodecDescriptorRequest, GetCodecDescriptorResponse>({
   encode: GetCodecDescriptorRequest.encode,
   decode: GetCodecDescriptorResponse.decode,
@@ -21,6 +26,7 @@ export const getGetCodecDescriptor = buildQuery<GetCodecDescriptorRequest, GetCo
   method: "GetCodecDescriptor",
   deps: [GetCodecDescriptorRequest, GetCodecDescriptorResponse]
 });
+/* GetConfigurationDescriptor returns the descriptor for the sdk.Config of the application */
 export const getGetConfigurationDescriptor = buildQuery<GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse>({
   encode: GetConfigurationDescriptorRequest.encode,
   decode: GetConfigurationDescriptorResponse.decode,
@@ -28,6 +34,7 @@ export const getGetConfigurationDescriptor = buildQuery<GetConfigurationDescript
   method: "GetConfigurationDescriptor",
   deps: [GetConfigurationDescriptorRequest, GetConfigurationDescriptorResponse]
 });
+/* GetQueryServicesDescriptor returns the available gRPC queryable services of the application */
 export const getGetQueryServicesDescriptor = buildQuery<GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse>({
   encode: GetQueryServicesDescriptorRequest.encode,
   decode: GetQueryServicesDescriptorResponse.decode,
@@ -35,6 +42,7 @@ export const getGetQueryServicesDescriptor = buildQuery<GetQueryServicesDescript
   method: "GetQueryServicesDescriptor",
   deps: [GetQueryServicesDescriptorRequest, GetQueryServicesDescriptorResponse]
 });
+/* GetTxDescriptor returns information on the used transaction object and available msgs that can be used */
 export const getGetTxDescriptor = buildQuery<GetTxDescriptorRequest, GetTxDescriptorResponse>({
   encode: GetTxDescriptorRequest.encode,
   decode: GetTxDescriptorResponse.decode,

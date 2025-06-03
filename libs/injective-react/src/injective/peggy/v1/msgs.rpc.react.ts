@@ -37,9 +37,12 @@ export const useSubmitBadSignatureEvidence = buildUseMutation<MsgSubmitBadSignat
 export const useUpdateParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: updateParams
 });
+/* BlacklistEthereumAddresses adds Ethereum addresses to the peggy blacklist. */
 export const useBlacklistEthereumAddresses = buildUseMutation<MsgBlacklistEthereumAddresses, Error>({
   builderMutationFn: blacklistEthereumAddresses
 });
+/* RevokeEthereumBlacklist removes Ethereum addresses from the peggy
+ blacklist. */
 export const useRevokeEthereumBlacklist = buildUseMutation<MsgRevokeEthereumBlacklist, Error>({
   builderMutationFn: revokeEthereumBlacklist
 });

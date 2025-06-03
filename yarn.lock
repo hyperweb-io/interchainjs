@@ -1123,25 +1123,25 @@
   dependencies:
     "@chain-registry/v2-types" "^0.53.115"
 
-"@cosmology/ast@^1.10.5":
-  version "1.10.5"
-  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.10.5.tgz#73de275d16a2ce8388fc337c46782acea2308ce1"
-  integrity sha512-fPGRo1dfAhU6kJejk/2q+qtrANnv+m5GdXD5GQAc/hgbJr9+AvscaMYv3iiCVZRdH/RPGjAeUzxOqmFI56P6zQ==
+"@cosmology/ast@^1.10.10":
+  version "1.10.10"
+  resolved "https://registry.yarnpkg.com/@cosmology/ast/-/ast-1.10.10.tgz#ed0867e928012fc6628249bf043b3936885c1062"
+  integrity sha512-MYuWPp6sCJj7FUPYhhbuS6SilZ09OQkrWAn9Bzwo24hK6rg+vqhRUisw5TdpcwScS0ZOGJ2hfepeXgLSyF8oEA==
   dependencies:
     "@babel/types" "7.23.6"
-    "@cosmology/types" "^1.12.0"
-    "@cosmology/utils" "^1.10.0"
+    "@cosmology/types" "^1.12.3"
+    "@cosmology/utils" "^1.10.4"
     case "1.6.3"
     dotty "0.1.2"
 
-"@cosmology/proto-parser@^1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.10.1.tgz#d3f1e9d30acc1e4da5bc7bf9a974d3cacc4d02b5"
-  integrity sha512-PeWu6B/bZ6LgYbPdJPUZPU2w4BAr8i/KKNfCdAySDhAqvu+YdD/780Y/xhlx7qB7u6Kij043jf1POYQbHm2ktA==
+"@cosmology/proto-parser@^1.10.6":
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/@cosmology/proto-parser/-/proto-parser-1.10.6.tgz#5add6a38a99d38744a9eb794636de759f4fc87b4"
+  integrity sha512-WAklYwB1Aph7f1sI9QC2KOIlTT6FwNO7QJVpIxeysCeO4WqI72xX2NrG9RE/G0RIXTTUIst+hFW3Yq8DVEDryQ==
   dependencies:
     "@cosmology/protobufjs" "7.3.2"
-    "@cosmology/types" "^1.12.0"
-    "@cosmology/utils" "^1.10.0"
+    "@cosmology/types" "^1.12.3"
+    "@cosmology/utils" "^1.10.4"
     dotty "0.1.2"
     fast-json-patch "3.1.1"
     glob "8.0.3"
@@ -1167,19 +1167,19 @@
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
-"@cosmology/telescope@^1.12.12":
-  version "1.12.12"
-  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.12.12.tgz#6e3e36408c5dad612eb42ff6a54761f99c17b55f"
-  integrity sha512-d4u23L4bHl93KhGidavyq1fA/hV69W7YumLnHwVLzutXsL7m5AHp6+tYHjgPKUo+j0hHksuG6vRbpBOKya9JGg==
+"@cosmology/telescope@^1.12.18":
+  version "1.12.18"
+  resolved "https://registry.yarnpkg.com/@cosmology/telescope/-/telescope-1.12.18.tgz#483d4a171bb297305eaa32aa76e4645f9ba51613"
+  integrity sha512-jqfLilWHN4MomH5s2KlCsy0miHjSXEcc6oiigY4brQGfhtcw1nmVwQzXQWJuZVXk4lwVb1YqNWmowSOu+AJ8zA==
   dependencies:
     "@babel/generator" "^7.23.6"
     "@babel/parser" "^7.23.6"
     "@babel/traverse" "7.23.6"
     "@babel/types" "7.23.6"
-    "@cosmology/ast" "^1.10.5"
-    "@cosmology/proto-parser" "^1.10.1"
-    "@cosmology/types" "^1.12.0"
-    "@cosmology/utils" "^1.10.0"
+    "@cosmology/ast" "^1.10.10"
+    "@cosmology/proto-parser" "^1.10.6"
+    "@cosmology/types" "^1.12.3"
+    "@cosmology/utils" "^1.10.4"
     "@cosmwasm/ts-codegen" "0.35.7"
     "@types/parse-package-name" "0.1.0"
     case "1.6.3"
@@ -1197,20 +1197,20 @@
     rimraf "5.0.0"
     yaml "^2.3.4"
 
-"@cosmology/types@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.12.0.tgz#8668f85892a80b22ac61e15505d5722effa6d1fd"
-  integrity sha512-JDVWBLE/VR9xuPIEel8/zW9SicPcg9uttFOst2Y2zhN/GhGbdLNQ+Wxjy2WG21QXZkqMlBpX7nuCXHt0AmcDPA==
+"@cosmology/types@^1.12.3":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@cosmology/types/-/types-1.12.3.tgz#365872ca2a0784e1b87af9b6da29b0b97d650231"
+  integrity sha512-//1IfkgDBSbGCsa+1LaGRYBjpWImJ4UOj0vWu5nq68o4aDrTAkkS2i2boJcuiRy+07Putb4cCwqcljfd8/Z/Xg==
   dependencies:
     case "1.6.3"
     fast-json-patch "3.1.1"
 
-"@cosmology/utils@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.10.0.tgz#0b833faf5060bf04e44d68295902f5110a6721a7"
-  integrity sha512-AOszvPVage+RmviThrOhOxvOmHNCROxQMlDiN6+4l/X0YXq2f85G+yi8mza/nelK4tdG6jo+2qpEV83RMbOBnw==
+"@cosmology/utils@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@cosmology/utils/-/utils-1.10.4.tgz#f2865c79dd466c63cd8c69b9df1ade5b94b14fab"
+  integrity sha512-D06tfG7zYlhMCR/RU3aUZIj1Ho+xLxUrOUyfMhENCHvnpdCXsHz8FstGkh813VtlBXujw1qpb3l4l68XTx5qgg==
   dependencies:
-    "@cosmology/types" "^1.12.0"
+    "@cosmology/types" "^1.12.3"
     dotty "0.1.2"
 
 "@cosmwasm/ts-codegen@0.35.7":

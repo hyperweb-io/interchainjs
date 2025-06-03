@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse, QueryCurrentValsetRequest, QueryCurrentValsetResponse, QueryValsetRequestRequest, QueryValsetRequestResponse, QueryValsetConfirmRequest, QueryValsetConfirmResponse, QueryValsetConfirmsByNonceRequest, QueryValsetConfirmsByNonceResponse, QueryLastValsetRequestsRequest, QueryLastValsetRequestsResponse, QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse, QueryLastEventByAddrRequest, QueryLastEventByAddrResponse, QueryPendingSendToEth, QueryPendingSendToEthResponse, QueryBatchFeeRequest, QueryBatchFeeResponse, QueryOutgoingTxBatchesRequest, QueryOutgoingTxBatchesResponse, QueryLastPendingBatchRequestByAddrRequest, QueryLastPendingBatchRequestByAddrResponse, QueryBatchRequestByNonceRequest, QueryBatchRequestByNonceResponse, QueryBatchConfirmsRequest, QueryBatchConfirmsResponse, QueryERC20ToDenomRequest, QueryERC20ToDenomResponse, QueryDenomToERC20Request, QueryDenomToERC20Response, QueryDelegateKeysByValidatorAddress, QueryDelegateKeysByValidatorAddressResponse, QueryDelegateKeysByEthAddress, QueryDelegateKeysByEthAddressResponse, QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse, QueryModuleStateRequest, QueryModuleStateResponse, MissingNoncesRequest, MissingNoncesResponse } from "./query";
+/* Deployments queries deployments */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
@@ -7,6 +8,7 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
+/* valset */
 export const getCurrentValset = buildQuery<QueryCurrentValsetRequest, QueryCurrentValsetResponse>({
   encode: QueryCurrentValsetRequest.encode,
   decode: QueryCurrentValsetResponse.decode,
@@ -49,6 +51,7 @@ export const getLastPendingValsetRequestByAddr = buildQuery<QueryLastPendingVals
   method: "LastPendingValsetRequestByAddr",
   deps: [QueryLastPendingValsetRequestByAddrRequest, QueryLastPendingValsetRequestByAddrResponse]
 });
+/* claim */
 export const getLastEventByAddr = buildQuery<QueryLastEventByAddrRequest, QueryLastEventByAddrResponse>({
   encode: QueryLastEventByAddrRequest.encode,
   decode: QueryLastEventByAddrResponse.decode,
@@ -56,6 +59,7 @@ export const getLastEventByAddr = buildQuery<QueryLastEventByAddrRequest, QueryL
   method: "LastEventByAddr",
   deps: [QueryLastEventByAddrRequest, QueryLastEventByAddrResponse]
 });
+/* batch */
 export const getGetPendingSendToEth = buildQuery<QueryPendingSendToEth, QueryPendingSendToEthResponse>({
   encode: QueryPendingSendToEth.encode,
   decode: QueryPendingSendToEthResponse.decode,
@@ -133,6 +137,7 @@ export const getGetDelegateKeyByOrchestrator = buildQuery<QueryDelegateKeysByOrc
   method: "GetDelegateKeyByOrchestrator",
   deps: [QueryDelegateKeysByOrchestratorAddress, QueryDelegateKeysByOrchestratorAddressResponse]
 });
+/* Retrieves the entire peggy module's state */
 export const getPeggyModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,

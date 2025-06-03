@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../../helper-func-types";
 import { QueryConnectionRequest, QueryConnectionResponse, QueryConnectionsRequest, QueryConnectionsResponse, QueryClientConnectionsRequest, QueryClientConnectionsResponse, QueryConnectionClientStateRequest, QueryConnectionClientStateResponse, QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse, QueryConnectionParamsRequest, QueryConnectionParamsResponse } from "./query";
+/* Connection queries an IBC connection end. */
 export const getConnection = buildQuery<QueryConnectionRequest, QueryConnectionResponse>({
   encode: QueryConnectionRequest.encode,
   decode: QueryConnectionResponse.decode,
@@ -7,6 +8,7 @@ export const getConnection = buildQuery<QueryConnectionRequest, QueryConnectionR
   method: "Connection",
   deps: [QueryConnectionRequest, QueryConnectionResponse]
 });
+/* Connections queries all the IBC connections of a chain. */
 export const getConnections = buildQuery<QueryConnectionsRequest, QueryConnectionsResponse>({
   encode: QueryConnectionsRequest.encode,
   decode: QueryConnectionsResponse.decode,
@@ -14,6 +16,8 @@ export const getConnections = buildQuery<QueryConnectionsRequest, QueryConnectio
   method: "Connections",
   deps: [QueryConnectionsRequest, QueryConnectionsResponse]
 });
+/* ClientConnections queries the connection paths associated with a client
+ state. */
 export const getClientConnections = buildQuery<QueryClientConnectionsRequest, QueryClientConnectionsResponse>({
   encode: QueryClientConnectionsRequest.encode,
   decode: QueryClientConnectionsResponse.decode,
@@ -21,6 +25,8 @@ export const getClientConnections = buildQuery<QueryClientConnectionsRequest, Qu
   method: "ClientConnections",
   deps: [QueryClientConnectionsRequest, QueryClientConnectionsResponse]
 });
+/* ConnectionClientState queries the client state associated with the
+ connection. */
 export const getConnectionClientState = buildQuery<QueryConnectionClientStateRequest, QueryConnectionClientStateResponse>({
   encode: QueryConnectionClientStateRequest.encode,
   decode: QueryConnectionClientStateResponse.decode,
@@ -28,6 +34,8 @@ export const getConnectionClientState = buildQuery<QueryConnectionClientStateReq
   method: "ConnectionClientState",
   deps: [QueryConnectionClientStateRequest, QueryConnectionClientStateResponse]
 });
+/* ConnectionConsensusState queries the consensus state associated with the
+ connection. */
 export const getConnectionConsensusState = buildQuery<QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse>({
   encode: QueryConnectionConsensusStateRequest.encode,
   decode: QueryConnectionConsensusStateResponse.decode,
@@ -35,6 +43,7 @@ export const getConnectionConsensusState = buildQuery<QueryConnectionConsensusSt
   method: "ConnectionConsensusState",
   deps: [QueryConnectionConsensusStateRequest, QueryConnectionConsensusStateResponse]
 });
+/* ConnectionParams queries all parameters of the ibc connection submodule. */
 export const getConnectionParams = buildQuery<QueryConnectionParamsRequest, QueryConnectionParamsResponse>({
   encode: QueryConnectionParamsRequest.encode,
   decode: QueryConnectionParamsResponse.decode,

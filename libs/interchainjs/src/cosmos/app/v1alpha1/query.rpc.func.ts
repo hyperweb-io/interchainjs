@@ -1,5 +1,6 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryConfigRequest, QueryConfigResponse } from "./query";
+/* Config returns the current app config. */
 export const getConfig = buildQuery<QueryConfigRequest, QueryConfigResponse>({
   encode: QueryConfigRequest.encode,
   decode: QueryConfigResponse.decode,
