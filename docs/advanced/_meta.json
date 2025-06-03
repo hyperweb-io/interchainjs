@@ -4,5 +4,6 @@
   "migration-from-cosmjs": "Migration from CosmJS",
   "signer": "Signer",
   "tutorial": "Tutorial",
-  "wallet": "Wallet"
+  "wallet": "Wallet",
+  "add-network": "Add a Network"
 }
