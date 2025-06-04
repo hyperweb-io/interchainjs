@@ -26,6 +26,7 @@ import {
     useMutation,
     UseMutationOptions,
     QueryKey,
+    defaultContext
 } from '@tanstack/react-query';
 
 import { HttpEndpoint } from "@interchainjs/types";
@@ -63,6 +64,7 @@ export const useRpcEndpoint = <TData = string | HttpEndpoint>({
     options,
     rpcEndPointKey,
 }: UseRpcEndpointQuery<TData>) => {
+    options.context = options.context || defaultContext;
     const key = rpcEndPointKey || DEFAULT_RPC_ENDPOINT_QUERY_KEY;
     return useQuery<string | HttpEndpoint, Error, TData>([key, getter], async () => {
         return await getter();
@@ -73,8 +75,9 @@ export const useRpcClient = <TData = ProtobufRpcClient>({
     options,
     clientResolver
 }: UseRpcClientQuery<TData>) => {
+    options.context = options.context || defaultContext;
     const queryClient = useQueryClient({
-      context: options?.context
+      context: options.context
     });
 
     const key = clientResolver?.clientQueryKey || DEFAULT_RPC_CLIENT_QUERY_KEY;
@@ -116,8 +119,9 @@ export function buildUseQuery<TReq, TRes>(opts: UseQueryBuilderOptions<TReq, TRe
     clientResolver,
     customizedQueryKey,
   }: UseQueryParams<TReq, TRes, TData>) => {
+    options.context = options.context || defaultContext;
     const queryClient = useQueryClient({
-      context: options?.context
+      context: options.context
     });
 
     let rpcResolver: EndpointOrRpc | undefined;
@@ -177,8 +181,9 @@ export function buildUseMutation<TMsg, TError>(opts: UseMutationBuilderOptions<T
     options,
     clientResolver
   }: ReactMutationParams<DeliverTxResponse, TError, ITxArgs<TMsg>>) => {
+    options.context = options.context || defaultContext;
     const queryClient = useQueryClient({
-      context: options?.context
+      context: options.context
     });
 
     let signingClientResolver: ISigningClient | undefined;
