@@ -4,30 +4,54 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryParamsRequest";
   value: Uint8Array;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequestAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
   type: "/injective.permissions.v1beta1.QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryParamsResponse";
   value: Uint8Array;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponseAmino {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
@@ -37,6 +61,9 @@ export interface QueryParamsResponseAminoMsg {
 /**
  * QueryAllNamespacesRequest is the request type for the Query/AllNamespaces RPC
  * method.
+ * @name QueryAllNamespacesRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAllNamespacesRequest
  */
 export interface QueryAllNamespacesRequest {}
 export interface QueryAllNamespacesRequestProtoMsg {
@@ -46,6 +73,9 @@ export interface QueryAllNamespacesRequestProtoMsg {
 /**
  * QueryAllNamespacesRequest is the request type for the Query/AllNamespaces RPC
  * method.
+ * @name QueryAllNamespacesRequestAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAllNamespacesRequest
  */
 export interface QueryAllNamespacesRequestAmino {}
 export interface QueryAllNamespacesRequestAminoMsg {
@@ -55,6 +85,9 @@ export interface QueryAllNamespacesRequestAminoMsg {
 /**
  * QueryAllNamespacesResponse is the response type for the Query/AllNamespaces
  * RPC method.
+ * @name QueryAllNamespacesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAllNamespacesResponse
  */
 export interface QueryAllNamespacesResponse {
   namespaces: Namespace[];
@@ -66,6 +99,9 @@ export interface QueryAllNamespacesResponseProtoMsg {
 /**
  * QueryAllNamespacesResponse is the response type for the Query/AllNamespaces
  * RPC method.
+ * @name QueryAllNamespacesResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAllNamespacesResponse
  */
 export interface QueryAllNamespacesResponseAmino {
   namespaces: NamespaceAmino[];
@@ -77,6 +113,9 @@ export interface QueryAllNamespacesResponseAminoMsg {
 /**
  * QueryNamespaceByDenomRequest is the request type for the
  * Query/NamespaceByDenom RPC method.
+ * @name QueryNamespaceByDenomRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryNamespaceByDenomRequest
  */
 export interface QueryNamespaceByDenomRequest {
   denom: string;
@@ -89,6 +128,9 @@ export interface QueryNamespaceByDenomRequestProtoMsg {
 /**
  * QueryNamespaceByDenomRequest is the request type for the
  * Query/NamespaceByDenom RPC method.
+ * @name QueryNamespaceByDenomRequestAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryNamespaceByDenomRequest
  */
 export interface QueryNamespaceByDenomRequestAmino {
   denom: string;
@@ -101,6 +143,9 @@ export interface QueryNamespaceByDenomRequestAminoMsg {
 /**
  * QueryNamespaceByDenomResponse is the response type for the
  * Query/NamespaceByDenom RPC method.
+ * @name QueryNamespaceByDenomResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryNamespaceByDenomResponse
  */
 export interface QueryNamespaceByDenomResponse {
   namespace?: Namespace;
@@ -112,6 +157,9 @@ export interface QueryNamespaceByDenomResponseProtoMsg {
 /**
  * QueryNamespaceByDenomResponse is the response type for the
  * Query/NamespaceByDenom RPC method.
+ * @name QueryNamespaceByDenomResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryNamespaceByDenomResponse
  */
 export interface QueryNamespaceByDenomResponseAmino {
   namespace?: NamespaceAmino;
@@ -123,6 +171,9 @@ export interface QueryNamespaceByDenomResponseAminoMsg {
 /**
  * QueryAddressesByRoleRequest is the request type for the Query/AddressesByRole
  * RPC method.
+ * @name QueryAddressesByRoleRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressesByRoleRequest
  */
 export interface QueryAddressesByRoleRequest {
   denom: string;
@@ -135,6 +186,9 @@ export interface QueryAddressesByRoleRequestProtoMsg {
 /**
  * QueryAddressesByRoleRequest is the request type for the Query/AddressesByRole
  * RPC method.
+ * @name QueryAddressesByRoleRequestAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressesByRoleRequest
  */
 export interface QueryAddressesByRoleRequestAmino {
   denom: string;
@@ -147,6 +201,9 @@ export interface QueryAddressesByRoleRequestAminoMsg {
 /**
  * QueryAddressesByRoleResponse is the response type for the
  * Query/AddressesByRole RPC method.
+ * @name QueryAddressesByRoleResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressesByRoleResponse
  */
 export interface QueryAddressesByRoleResponse {
   addresses: string[];
@@ -158,6 +215,9 @@ export interface QueryAddressesByRoleResponseProtoMsg {
 /**
  * QueryAddressesByRoleResponse is the response type for the
  * Query/AddressesByRole RPC method.
+ * @name QueryAddressesByRoleResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressesByRoleResponse
  */
 export interface QueryAddressesByRoleResponseAmino {
   addresses: string[];
@@ -166,6 +226,11 @@ export interface QueryAddressesByRoleResponseAminoMsg {
   type: "/injective.permissions.v1beta1.QueryAddressesByRoleResponse";
   value: QueryAddressesByRoleResponseAmino;
 }
+/**
+ * @name QueryAddressRolesRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressRolesRequest
+ */
 export interface QueryAddressRolesRequest {
   denom: string;
   address: string;
@@ -174,6 +239,11 @@ export interface QueryAddressRolesRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryAddressRolesRequestAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressRolesRequest
+ */
 export interface QueryAddressRolesRequestAmino {
   denom: string;
   address: string;
@@ -182,6 +252,11 @@ export interface QueryAddressRolesRequestAminoMsg {
   type: "/injective.permissions.v1beta1.QueryAddressRolesRequest";
   value: QueryAddressRolesRequestAmino;
 }
+/**
+ * @name QueryAddressRolesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressRolesResponse
+ */
 export interface QueryAddressRolesResponse {
   roles: string[];
 }
@@ -189,6 +264,11 @@ export interface QueryAddressRolesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryAddressRolesResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressRolesResponse
+ */
 export interface QueryAddressRolesResponseAmino {
   roles: string[];
 }
@@ -196,6 +276,11 @@ export interface QueryAddressRolesResponseAminoMsg {
   type: "/injective.permissions.v1beta1.QueryAddressRolesResponse";
   value: QueryAddressRolesResponseAmino;
 }
+/**
+ * @name QueryVouchersForAddressRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryVouchersForAddressRequest
+ */
 export interface QueryVouchersForAddressRequest {
   address: string;
 }
@@ -203,6 +288,11 @@ export interface QueryVouchersForAddressRequestProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryVouchersForAddressRequestAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryVouchersForAddressRequest
+ */
 export interface QueryVouchersForAddressRequestAmino {
   address: string;
 }
@@ -210,6 +300,11 @@ export interface QueryVouchersForAddressRequestAminoMsg {
   type: "/injective.permissions.v1beta1.QueryVouchersForAddressRequest";
   value: QueryVouchersForAddressRequestAmino;
 }
+/**
+ * @name QueryVouchersForAddressResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryVouchersForAddressResponse
+ */
 export interface QueryVouchersForAddressResponse {
   vouchers: Coin[];
 }
@@ -217,6 +312,11 @@ export interface QueryVouchersForAddressResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryVouchersForAddressResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryVouchersForAddressResponse
+ */
 export interface QueryVouchersForAddressResponseAmino {
   vouchers: CoinAmino[];
 }
@@ -227,6 +327,12 @@ export interface QueryVouchersForAddressResponseAminoMsg {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/injective.permissions.v1beta1.QueryParamsRequest",
   is(o: any): o is QueryParamsRequest {
@@ -286,6 +392,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/injective.permissions.v1beta1.QueryParamsResponse",
   is(o: any): o is QueryParamsResponse {
@@ -359,6 +471,13 @@ export const QueryParamsResponse = {
 function createBaseQueryAllNamespacesRequest(): QueryAllNamespacesRequest {
   return {};
 }
+/**
+ * QueryAllNamespacesRequest is the request type for the Query/AllNamespaces RPC
+ * method.
+ * @name QueryAllNamespacesRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAllNamespacesRequest
+ */
 export const QueryAllNamespacesRequest = {
   typeUrl: "/injective.permissions.v1beta1.QueryAllNamespacesRequest",
   is(o: any): o is QueryAllNamespacesRequest {
@@ -418,6 +537,13 @@ function createBaseQueryAllNamespacesResponse(): QueryAllNamespacesResponse {
     namespaces: []
   };
 }
+/**
+ * QueryAllNamespacesResponse is the response type for the Query/AllNamespaces
+ * RPC method.
+ * @name QueryAllNamespacesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAllNamespacesResponse
+ */
 export const QueryAllNamespacesResponse = {
   typeUrl: "/injective.permissions.v1beta1.QueryAllNamespacesResponse",
   is(o: any): o is QueryAllNamespacesResponse {
@@ -496,6 +622,13 @@ function createBaseQueryNamespaceByDenomRequest(): QueryNamespaceByDenomRequest 
     includeRoles: false
   };
 }
+/**
+ * QueryNamespaceByDenomRequest is the request type for the
+ * Query/NamespaceByDenom RPC method.
+ * @name QueryNamespaceByDenomRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryNamespaceByDenomRequest
+ */
 export const QueryNamespaceByDenomRequest = {
   typeUrl: "/injective.permissions.v1beta1.QueryNamespaceByDenomRequest",
   is(o: any): o is QueryNamespaceByDenomRequest {
@@ -577,6 +710,13 @@ function createBaseQueryNamespaceByDenomResponse(): QueryNamespaceByDenomRespons
     namespace: undefined
   };
 }
+/**
+ * QueryNamespaceByDenomResponse is the response type for the
+ * Query/NamespaceByDenom RPC method.
+ * @name QueryNamespaceByDenomResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryNamespaceByDenomResponse
+ */
 export const QueryNamespaceByDenomResponse = {
   typeUrl: "/injective.permissions.v1beta1.QueryNamespaceByDenomResponse",
   is(o: any): o is QueryNamespaceByDenomResponse {
@@ -653,6 +793,13 @@ function createBaseQueryAddressesByRoleRequest(): QueryAddressesByRoleRequest {
     role: ""
   };
 }
+/**
+ * QueryAddressesByRoleRequest is the request type for the Query/AddressesByRole
+ * RPC method.
+ * @name QueryAddressesByRoleRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressesByRoleRequest
+ */
 export const QueryAddressesByRoleRequest = {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressesByRoleRequest",
   is(o: any): o is QueryAddressesByRoleRequest {
@@ -734,6 +881,13 @@ function createBaseQueryAddressesByRoleResponse(): QueryAddressesByRoleResponse 
     addresses: []
   };
 }
+/**
+ * QueryAddressesByRoleResponse is the response type for the
+ * Query/AddressesByRole RPC method.
+ * @name QueryAddressesByRoleResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressesByRoleResponse
+ */
 export const QueryAddressesByRoleResponse = {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressesByRoleResponse",
   is(o: any): o is QueryAddressesByRoleResponse {
@@ -807,6 +961,11 @@ function createBaseQueryAddressRolesRequest(): QueryAddressRolesRequest {
     address: ""
   };
 }
+/**
+ * @name QueryAddressRolesRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressRolesRequest
+ */
 export const QueryAddressRolesRequest = {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesRequest",
   is(o: any): o is QueryAddressRolesRequest {
@@ -888,6 +1047,11 @@ function createBaseQueryAddressRolesResponse(): QueryAddressRolesResponse {
     roles: []
   };
 }
+/**
+ * @name QueryAddressRolesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryAddressRolesResponse
+ */
 export const QueryAddressRolesResponse = {
   typeUrl: "/injective.permissions.v1beta1.QueryAddressRolesResponse",
   is(o: any): o is QueryAddressRolesResponse {
@@ -960,6 +1124,11 @@ function createBaseQueryVouchersForAddressRequest(): QueryVouchersForAddressRequ
     address: ""
   };
 }
+/**
+ * @name QueryVouchersForAddressRequest
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryVouchersForAddressRequest
+ */
 export const QueryVouchersForAddressRequest = {
   typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressRequest",
   is(o: any): o is QueryVouchersForAddressRequest {
@@ -1030,6 +1199,11 @@ function createBaseQueryVouchersForAddressResponse(): QueryVouchersForAddressRes
     vouchers: []
   };
 }
+/**
+ * @name QueryVouchersForAddressResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.QueryVouchersForAddressResponse
+ */
 export const QueryVouchersForAddressResponse = {
   typeUrl: "/injective.permissions.v1beta1.QueryVouchersForAddressResponse",
   is(o: any): o is QueryVouchersForAddressResponse {

@@ -3,9 +3,16 @@ import { Namespace, NamespaceAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the permissions module's genesis state. */
+/**
+ * GenesisState defines the permissions module's genesis state.
+ * @name GenesisState
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
   namespaces: Namespace[];
 }
@@ -13,9 +20,16 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the permissions module's genesis state. */
+/**
+ * GenesisState defines the permissions module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: ParamsAmino;
   namespaces: NamespaceAmino[];
 }
@@ -29,6 +43,12 @@ function createBaseGenesisState(): GenesisState {
     namespaces: []
   };
 }
+/**
+ * GenesisState defines the permissions module's genesis state.
+ * @name GenesisState
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.permissions.v1beta1.GenesisState",
   is(o: any): o is GenesisState {

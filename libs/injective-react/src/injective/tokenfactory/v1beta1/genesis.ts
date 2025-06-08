@@ -3,9 +3,16 @@ import { DenomAuthorityMetadata, DenomAuthorityMetadataAmino } from "./authority
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the tokenfactory module's genesis state. */
+/**
+ * GenesisState defines the tokenfactory module's genesis state.
+ * @name GenesisState
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
   factoryDenoms: GenesisDenom[];
 }
@@ -13,9 +20,16 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the tokenfactory module's genesis state. */
+/**
+ * GenesisState defines the tokenfactory module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: ParamsAmino;
   factory_denoms: GenesisDenomAmino[];
 }
@@ -27,6 +41,9 @@ export interface GenesisStateAminoMsg {
  * GenesisDenom defines a tokenfactory denom that is defined within genesis
  * state. The structure contains DenomAuthorityMetadata which defines the
  * denom's admin.
+ * @name GenesisDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.GenesisDenom
  */
 export interface GenesisDenom {
   denom: string;
@@ -43,6 +60,9 @@ export interface GenesisDenomProtoMsg {
  * GenesisDenom defines a tokenfactory denom that is defined within genesis
  * state. The structure contains DenomAuthorityMetadata which defines the
  * denom's admin.
+ * @name GenesisDenomAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.GenesisDenom
  */
 export interface GenesisDenomAmino {
   denom: string;
@@ -61,6 +81,12 @@ function createBaseGenesisState(): GenesisState {
     factoryDenoms: []
   };
 }
+/**
+ * GenesisState defines the tokenfactory module's genesis state.
+ * @name GenesisState
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.tokenfactory.v1beta1.GenesisState",
   is(o: any): o is GenesisState {
@@ -154,6 +180,14 @@ function createBaseGenesisDenom(): GenesisDenom {
     decimals: 0
   };
 }
+/**
+ * GenesisDenom defines a tokenfactory denom that is defined within genesis
+ * state. The structure contains DenomAuthorityMetadata which defines the
+ * denom's admin.
+ * @name GenesisDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.GenesisDenom
+ */
 export const GenesisDenom = {
   typeUrl: "/injective.tokenfactory.v1beta1.GenesisDenom",
   is(o: any): o is GenesisDenom {

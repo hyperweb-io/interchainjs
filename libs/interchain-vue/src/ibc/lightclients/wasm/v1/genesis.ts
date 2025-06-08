@@ -1,36 +1,64 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-/** GenesisState defines 08-wasm's keeper genesis state */
+/**
+ * GenesisState defines 08-wasm's keeper genesis state
+ * @name GenesisState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.GenesisState
+ */
 export interface GenesisState {
-  /** uploaded light client wasm contracts */
+  /**
+   * uploaded light client wasm contracts
+   */
   contracts: Contract[];
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/ibc.lightclients.wasm.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines 08-wasm's keeper genesis state */
+/**
+ * GenesisState defines 08-wasm's keeper genesis state
+ * @name GenesisStateAmino
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** uploaded light client wasm contracts */
+  /**
+   * uploaded light client wasm contracts
+   */
   contracts: ContractAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
   value: GenesisStateAmino;
 }
-/** Contract stores contract code */
+/**
+ * Contract stores contract code
+ * @name Contract
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Contract
+ */
 export interface Contract {
-  /** contract byte code */
+  /**
+   * contract byte code
+   */
   codeBytes: Uint8Array;
 }
 export interface ContractProtoMsg {
   typeUrl: "/ibc.lightclients.wasm.v1.Contract";
   value: Uint8Array;
 }
-/** Contract stores contract code */
+/**
+ * Contract stores contract code
+ * @name ContractAmino
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Contract
+ */
 export interface ContractAmino {
-  /** contract byte code */
+  /**
+   * contract byte code
+   */
   code_bytes: string;
 }
 export interface ContractAminoMsg {
@@ -42,6 +70,12 @@ function createBaseGenesisState(): GenesisState {
     contracts: []
   };
 }
+/**
+ * GenesisState defines 08-wasm's keeper genesis state
+ * @name GenesisState
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.lightclients.wasm.v1.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",
@@ -126,6 +160,12 @@ function createBaseContract(): Contract {
     codeBytes: new Uint8Array()
   };
 }
+/**
+ * Contract stores contract code
+ * @name Contract
+ * @package ibc.lightclients.wasm.v1
+ * @see proto type: ibc.lightclients.wasm.v1.Contract
+ */
 export const Contract = {
   typeUrl: "/ibc.lightclients.wasm.v1.Contract",
   aminoType: "cosmos-sdk/Contract",

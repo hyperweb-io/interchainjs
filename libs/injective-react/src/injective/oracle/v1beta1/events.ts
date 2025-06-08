@@ -3,6 +3,11 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name SetChainlinkPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetChainlinkPriceEvent
+ */
 export interface SetChainlinkPriceEvent {
   feedId: string;
   answer: string;
@@ -12,6 +17,11 @@ export interface SetChainlinkPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetChainlinkPriceEvent";
   value: Uint8Array;
 }
+/**
+ * @name SetChainlinkPriceEventAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetChainlinkPriceEvent
+ */
 export interface SetChainlinkPriceEventAmino {
   feed_id: string;
   answer: string;
@@ -21,7 +31,12 @@ export interface SetChainlinkPriceEventAminoMsg {
   type: "/injective.oracle.v1beta1.SetChainlinkPriceEvent";
   value: SetChainlinkPriceEventAmino;
 }
-/** Event type upon set ref */
+/**
+ * Event type upon set ref
+ * @name SetBandPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetBandPriceEvent
+ */
 export interface SetBandPriceEvent {
   relayer: string;
   symbol: string;
@@ -33,7 +48,12 @@ export interface SetBandPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetBandPriceEvent";
   value: Uint8Array;
 }
-/** Event type upon set ref */
+/**
+ * Event type upon set ref
+ * @name SetBandPriceEventAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetBandPriceEvent
+ */
 export interface SetBandPriceEventAmino {
   relayer: string;
   symbol: string;
@@ -45,6 +65,11 @@ export interface SetBandPriceEventAminoMsg {
   type: "/injective.oracle.v1beta1.SetBandPriceEvent";
   value: SetBandPriceEventAmino;
 }
+/**
+ * @name SetBandIBCPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetBandIBCPriceEvent
+ */
 export interface SetBandIBCPriceEvent {
   relayer: string;
   symbols: string[];
@@ -57,6 +82,11 @@ export interface SetBandIBCPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetBandIBCPriceEvent";
   value: Uint8Array;
 }
+/**
+ * @name SetBandIBCPriceEventAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetBandIBCPriceEvent
+ */
 export interface SetBandIBCPriceEventAmino {
   relayer: string;
   symbols: string[];
@@ -69,6 +99,11 @@ export interface SetBandIBCPriceEventAminoMsg {
   type: "/injective.oracle.v1beta1.SetBandIBCPriceEvent";
   value: SetBandIBCPriceEventAmino;
 }
+/**
+ * @name EventBandIBCAckSuccess
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCAckSuccess
+ */
 export interface EventBandIBCAckSuccess {
   ackResult: string;
   clientId: bigint;
@@ -77,6 +112,11 @@ export interface EventBandIBCAckSuccessProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckSuccess";
   value: Uint8Array;
 }
+/**
+ * @name EventBandIBCAckSuccessAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCAckSuccess
+ */
 export interface EventBandIBCAckSuccessAmino {
   ack_result: string;
   client_id: string;
@@ -85,6 +125,11 @@ export interface EventBandIBCAckSuccessAminoMsg {
   type: "/injective.oracle.v1beta1.EventBandIBCAckSuccess";
   value: EventBandIBCAckSuccessAmino;
 }
+/**
+ * @name EventBandIBCAckError
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCAckError
+ */
 export interface EventBandIBCAckError {
   ackError: string;
   clientId: bigint;
@@ -93,6 +138,11 @@ export interface EventBandIBCAckErrorProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckError";
   value: Uint8Array;
 }
+/**
+ * @name EventBandIBCAckErrorAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCAckError
+ */
 export interface EventBandIBCAckErrorAmino {
   ack_error: string;
   client_id: string;
@@ -101,6 +151,11 @@ export interface EventBandIBCAckErrorAminoMsg {
   type: "/injective.oracle.v1beta1.EventBandIBCAckError";
   value: EventBandIBCAckErrorAmino;
 }
+/**
+ * @name EventBandIBCResponseTimeout
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCResponseTimeout
+ */
 export interface EventBandIBCResponseTimeout {
   clientId: bigint;
 }
@@ -108,6 +163,11 @@ export interface EventBandIBCResponseTimeoutProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCResponseTimeout";
   value: Uint8Array;
 }
+/**
+ * @name EventBandIBCResponseTimeoutAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCResponseTimeout
+ */
 export interface EventBandIBCResponseTimeoutAmino {
   client_id: string;
 }
@@ -115,28 +175,47 @@ export interface EventBandIBCResponseTimeoutAminoMsg {
   type: "/injective.oracle.v1beta1.EventBandIBCResponseTimeout";
   value: EventBandIBCResponseTimeoutAmino;
 }
+/**
+ * @name SetPriceFeedPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetPriceFeedPriceEvent
+ */
 export interface SetPriceFeedPriceEvent {
   relayer: string;
   base: string;
   quote: string;
-  /** price defines the price of the oracle base and quote */
+  /**
+   * price defines the price of the oracle base and quote
+   */
   price: string;
 }
 export interface SetPriceFeedPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetPriceFeedPriceEvent";
   value: Uint8Array;
 }
+/**
+ * @name SetPriceFeedPriceEventAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetPriceFeedPriceEvent
+ */
 export interface SetPriceFeedPriceEventAmino {
   relayer: string;
   base: string;
   quote: string;
-  /** price defines the price of the oracle base and quote */
+  /**
+   * price defines the price of the oracle base and quote
+   */
   price: string;
 }
 export interface SetPriceFeedPriceEventAminoMsg {
   type: "/injective.oracle.v1beta1.SetPriceFeedPriceEvent";
   value: SetPriceFeedPriceEventAmino;
 }
+/**
+ * @name SetProviderPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetProviderPriceEvent
+ */
 export interface SetProviderPriceEvent {
   provider: string;
   relayer: string;
@@ -147,6 +226,11 @@ export interface SetProviderPriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetProviderPriceEvent";
   value: Uint8Array;
 }
+/**
+ * @name SetProviderPriceEventAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetProviderPriceEvent
+ */
 export interface SetProviderPriceEventAmino {
   provider: string;
   relayer: string;
@@ -157,6 +241,11 @@ export interface SetProviderPriceEventAminoMsg {
   type: "/injective.oracle.v1beta1.SetProviderPriceEvent";
   value: SetProviderPriceEventAmino;
 }
+/**
+ * @name SetCoinbasePriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetCoinbasePriceEvent
+ */
 export interface SetCoinbasePriceEvent {
   symbol: string;
   price: string;
@@ -166,6 +255,11 @@ export interface SetCoinbasePriceEventProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SetCoinbasePriceEvent";
   value: Uint8Array;
 }
+/**
+ * @name SetCoinbasePriceEventAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetCoinbasePriceEvent
+ */
 export interface SetCoinbasePriceEventAmino {
   symbol: string;
   price: string;
@@ -175,6 +269,11 @@ export interface SetCoinbasePriceEventAminoMsg {
   type: "/injective.oracle.v1beta1.SetCoinbasePriceEvent";
   value: SetCoinbasePriceEventAmino;
 }
+/**
+ * @name EventSetStorkPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventSetStorkPrices
+ */
 export interface EventSetStorkPrices {
   prices: StorkPriceState[];
 }
@@ -182,6 +281,11 @@ export interface EventSetStorkPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventSetStorkPrices";
   value: Uint8Array;
 }
+/**
+ * @name EventSetStorkPricesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventSetStorkPrices
+ */
 export interface EventSetStorkPricesAmino {
   prices: StorkPriceStateAmino[];
 }
@@ -189,6 +293,11 @@ export interface EventSetStorkPricesAminoMsg {
   type: "/injective.oracle.v1beta1.EventSetStorkPrices";
   value: EventSetStorkPricesAmino;
 }
+/**
+ * @name EventSetPythPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventSetPythPrices
+ */
 export interface EventSetPythPrices {
   prices: PythPriceState[];
 }
@@ -196,6 +305,11 @@ export interface EventSetPythPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EventSetPythPrices";
   value: Uint8Array;
 }
+/**
+ * @name EventSetPythPricesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventSetPythPrices
+ */
 export interface EventSetPythPricesAmino {
   prices: PythPriceStateAmino[];
 }
@@ -210,6 +324,11 @@ function createBaseSetChainlinkPriceEvent(): SetChainlinkPriceEvent {
     timestamp: BigInt(0)
   };
 }
+/**
+ * @name SetChainlinkPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetChainlinkPriceEvent
+ */
 export const SetChainlinkPriceEvent = {
   typeUrl: "/injective.oracle.v1beta1.SetChainlinkPriceEvent",
   is(o: any): o is SetChainlinkPriceEvent {
@@ -306,6 +425,12 @@ function createBaseSetBandPriceEvent(): SetBandPriceEvent {
     requestId: BigInt(0)
   };
 }
+/**
+ * Event type upon set ref
+ * @name SetBandPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetBandPriceEvent
+ */
 export const SetBandPriceEvent = {
   typeUrl: "/injective.oracle.v1beta1.SetBandPriceEvent",
   is(o: any): o is SetBandPriceEvent {
@@ -425,6 +550,11 @@ function createBaseSetBandIBCPriceEvent(): SetBandIBCPriceEvent {
     clientId: BigInt(0)
   };
 }
+/**
+ * @name SetBandIBCPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetBandIBCPriceEvent
+ */
 export const SetBandIBCPriceEvent = {
   typeUrl: "/injective.oracle.v1beta1.SetBandIBCPriceEvent",
   is(o: any): o is SetBandIBCPriceEvent {
@@ -555,6 +685,11 @@ function createBaseEventBandIBCAckSuccess(): EventBandIBCAckSuccess {
     clientId: BigInt(0)
   };
 }
+/**
+ * @name EventBandIBCAckSuccess
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCAckSuccess
+ */
 export const EventBandIBCAckSuccess = {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckSuccess",
   is(o: any): o is EventBandIBCAckSuccess {
@@ -637,6 +772,11 @@ function createBaseEventBandIBCAckError(): EventBandIBCAckError {
     clientId: BigInt(0)
   };
 }
+/**
+ * @name EventBandIBCAckError
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCAckError
+ */
 export const EventBandIBCAckError = {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCAckError",
   is(o: any): o is EventBandIBCAckError {
@@ -718,6 +858,11 @@ function createBaseEventBandIBCResponseTimeout(): EventBandIBCResponseTimeout {
     clientId: BigInt(0)
   };
 }
+/**
+ * @name EventBandIBCResponseTimeout
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventBandIBCResponseTimeout
+ */
 export const EventBandIBCResponseTimeout = {
   typeUrl: "/injective.oracle.v1beta1.EventBandIBCResponseTimeout",
   is(o: any): o is EventBandIBCResponseTimeout {
@@ -791,6 +936,11 @@ function createBaseSetPriceFeedPriceEvent(): SetPriceFeedPriceEvent {
     price: ""
   };
 }
+/**
+ * @name SetPriceFeedPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetPriceFeedPriceEvent
+ */
 export const SetPriceFeedPriceEvent = {
   typeUrl: "/injective.oracle.v1beta1.SetPriceFeedPriceEvent",
   is(o: any): o is SetPriceFeedPriceEvent {
@@ -897,6 +1047,11 @@ function createBaseSetProviderPriceEvent(): SetProviderPriceEvent {
     price: ""
   };
 }
+/**
+ * @name SetProviderPriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetProviderPriceEvent
+ */
 export const SetProviderPriceEvent = {
   typeUrl: "/injective.oracle.v1beta1.SetProviderPriceEvent",
   is(o: any): o is SetProviderPriceEvent {
@@ -1002,6 +1157,11 @@ function createBaseSetCoinbasePriceEvent(): SetCoinbasePriceEvent {
     timestamp: BigInt(0)
   };
 }
+/**
+ * @name SetCoinbasePriceEvent
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SetCoinbasePriceEvent
+ */
 export const SetCoinbasePriceEvent = {
   typeUrl: "/injective.oracle.v1beta1.SetCoinbasePriceEvent",
   is(o: any): o is SetCoinbasePriceEvent {
@@ -1094,6 +1254,11 @@ function createBaseEventSetStorkPrices(): EventSetStorkPrices {
     prices: []
   };
 }
+/**
+ * @name EventSetStorkPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventSetStorkPrices
+ */
 export const EventSetStorkPrices = {
   typeUrl: "/injective.oracle.v1beta1.EventSetStorkPrices",
   is(o: any): o is EventSetStorkPrices {
@@ -1171,6 +1336,11 @@ function createBaseEventSetPythPrices(): EventSetPythPrices {
     prices: []
   };
 }
+/**
+ * @name EventSetPythPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EventSetPythPrices
+ */
 export const EventSetPythPrices = {
   typeUrl: "/injective.oracle.v1beta1.EventSetPythPrices",
   is(o: any): o is EventSetPythPrices {

@@ -1,6 +1,11 @@
 import { buildQuery } from "../../../helper-func-types";
 import { SimulateRequest, SimulateResponse, GetTxRequest, GetTxResponse, BroadcastTxRequest, BroadcastTxResponse, GetTxsEventRequest, GetTxsEventResponse, GetBlockWithTxsRequest, GetBlockWithTxsResponse, TxDecodeRequest, TxDecodeResponse, TxEncodeRequest, TxEncodeResponse, TxEncodeAminoRequest, TxEncodeAminoResponse, TxDecodeAminoRequest, TxDecodeAminoResponse } from "./service";
-/* Simulate simulates executing a transaction for estimating gas usage. */
+/**
+ * Simulate simulates executing a transaction for estimating gas usage.
+ * @name getSimulate
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.Simulate
+ */
 export const getSimulate = buildQuery<SimulateRequest, SimulateResponse>({
   encode: SimulateRequest.encode,
   decode: SimulateResponse.decode,
@@ -8,7 +13,12 @@ export const getSimulate = buildQuery<SimulateRequest, SimulateResponse>({
   method: "Simulate",
   deps: [SimulateRequest, SimulateResponse]
 });
-/* GetTx fetches a tx by hash. */
+/**
+ * GetTx fetches a tx by hash.
+ * @name getTx
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.GetTx
+ */
 export const getTx = buildQuery<GetTxRequest, GetTxResponse>({
   encode: GetTxRequest.encode,
   decode: GetTxResponse.decode,
@@ -16,7 +26,12 @@ export const getTx = buildQuery<GetTxRequest, GetTxResponse>({
   method: "GetTx",
   deps: [GetTxRequest, GetTxResponse]
 });
-/* BroadcastTx broadcast transaction. */
+/**
+ * BroadcastTx broadcast transaction.
+ * @name getBroadcastTx
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.BroadcastTx
+ */
 export const getBroadcastTx = buildQuery<BroadcastTxRequest, BroadcastTxResponse>({
   encode: BroadcastTxRequest.encode,
   decode: BroadcastTxResponse.decode,
@@ -24,7 +39,12 @@ export const getBroadcastTx = buildQuery<BroadcastTxRequest, BroadcastTxResponse
   method: "BroadcastTx",
   deps: [BroadcastTxRequest, BroadcastTxResponse]
 });
-/* GetTxsEvent fetches txs by event. */
+/**
+ * GetTxsEvent fetches txs by event.
+ * @name getTxsEvent
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.GetTxsEvent
+ */
 export const getTxsEvent = buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
   encode: GetTxsEventRequest.encode,
   decode: GetTxsEventResponse.decode,
@@ -32,9 +52,14 @@ export const getTxsEvent = buildQuery<GetTxsEventRequest, GetTxsEventResponse>({
   method: "GetTxsEvent",
   deps: [GetTxsEventRequest, GetTxsEventResponse]
 });
-/* GetBlockWithTxs fetches a block with decoded txs.
-
- Since: cosmos-sdk 0.45.2 */
+/**
+ * GetBlockWithTxs fetches a block with decoded txs.
+ * 
+ * Since: cosmos-sdk 0.45.2
+ * @name getBlockWithTxs
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.GetBlockWithTxs
+ */
 export const getBlockWithTxs = buildQuery<GetBlockWithTxsRequest, GetBlockWithTxsResponse>({
   encode: GetBlockWithTxsRequest.encode,
   decode: GetBlockWithTxsResponse.decode,
@@ -42,9 +67,14 @@ export const getBlockWithTxs = buildQuery<GetBlockWithTxsRequest, GetBlockWithTx
   method: "GetBlockWithTxs",
   deps: [GetBlockWithTxsRequest, GetBlockWithTxsResponse]
 });
-/* TxDecode decodes the transaction.
-
- Since: cosmos-sdk 0.47 */
+/**
+ * TxDecode decodes the transaction.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name getTxDecode
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.TxDecode
+ */
 export const getTxDecode = buildQuery<TxDecodeRequest, TxDecodeResponse>({
   encode: TxDecodeRequest.encode,
   decode: TxDecodeResponse.decode,
@@ -52,9 +82,14 @@ export const getTxDecode = buildQuery<TxDecodeRequest, TxDecodeResponse>({
   method: "TxDecode",
   deps: [TxDecodeRequest, TxDecodeResponse]
 });
-/* TxEncode encodes the transaction.
-
- Since: cosmos-sdk 0.47 */
+/**
+ * TxEncode encodes the transaction.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name getTxEncode
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.TxEncode
+ */
 export const getTxEncode = buildQuery<TxEncodeRequest, TxEncodeResponse>({
   encode: TxEncodeRequest.encode,
   decode: TxEncodeResponse.decode,
@@ -62,9 +97,14 @@ export const getTxEncode = buildQuery<TxEncodeRequest, TxEncodeResponse>({
   method: "TxEncode",
   deps: [TxEncodeRequest, TxEncodeResponse]
 });
-/* TxEncodeAmino encodes an Amino transaction from JSON to encoded bytes.
-
- Since: cosmos-sdk 0.47 */
+/**
+ * TxEncodeAmino encodes an Amino transaction from JSON to encoded bytes.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name getTxEncodeAmino
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.TxEncodeAmino
+ */
 export const getTxEncodeAmino = buildQuery<TxEncodeAminoRequest, TxEncodeAminoResponse>({
   encode: TxEncodeAminoRequest.encode,
   decode: TxEncodeAminoResponse.decode,
@@ -72,9 +112,14 @@ export const getTxEncodeAmino = buildQuery<TxEncodeAminoRequest, TxEncodeAminoRe
   method: "TxEncodeAmino",
   deps: [TxEncodeAminoRequest, TxEncodeAminoResponse]
 });
-/* TxDecodeAmino decodes an Amino transaction from encoded bytes to JSON.
-
- Since: cosmos-sdk 0.47 */
+/**
+ * TxDecodeAmino decodes an Amino transaction from encoded bytes to JSON.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name getTxDecodeAmino
+ * @package cosmos.tx.v1beta1
+ * @see proto service: cosmos.tx.v1beta1.TxDecodeAmino
+ */
 export const getTxDecodeAmino = buildQuery<TxDecodeAminoRequest, TxDecodeAminoResponse>({
   encode: TxDecodeAminoRequest.encode,
   decode: TxDecodeAminoResponse.decode,

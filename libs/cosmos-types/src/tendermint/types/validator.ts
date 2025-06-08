@@ -47,17 +47,32 @@ export function blockIDFlagToJSON(object: BlockIDFlag): string {
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name ValidatorSet
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ValidatorSet
+ */
 export interface ValidatorSet {
   validators: Validator[];
   proposer?: Validator;
   totalVotingPower: bigint;
 }
+/**
+ * @name Validator
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Validator
+ */
 export interface Validator {
   address: Uint8Array;
   pubKey: PublicKey;
   votingPower: bigint;
   proposerPriority: bigint;
 }
+/**
+ * @name SimpleValidator
+ * @package tendermint.types
+ * @see proto type: tendermint.types.SimpleValidator
+ */
 export interface SimpleValidator {
   pubKey?: PublicKey;
   votingPower: bigint;
@@ -69,6 +84,11 @@ function createBaseValidatorSet(): ValidatorSet {
     totalVotingPower: BigInt(0)
   };
 }
+/**
+ * @name ValidatorSet
+ * @package tendermint.types
+ * @see proto type: tendermint.types.ValidatorSet
+ */
 export const ValidatorSet = {
   typeUrl: "/tendermint.types.ValidatorSet",
   encode(message: ValidatorSet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -122,6 +142,11 @@ function createBaseValidator(): Validator {
     proposerPriority: BigInt(0)
   };
 }
+/**
+ * @name Validator
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Validator
+ */
 export const Validator = {
   typeUrl: "/tendermint.types.Validator",
   encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -180,6 +205,11 @@ function createBaseSimpleValidator(): SimpleValidator {
     votingPower: BigInt(0)
   };
 }
+/**
+ * @name SimpleValidator
+ * @package tendermint.types
+ * @see proto type: tendermint.types.SimpleValidator
+ */
 export const SimpleValidator = {
   typeUrl: "/tendermint.types.SimpleValidator",
   encode(message: SimpleValidator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

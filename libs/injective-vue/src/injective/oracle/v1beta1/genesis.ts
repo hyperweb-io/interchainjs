@@ -2,9 +2,16 @@ import { Params, ParamsAmino, BandPriceState, BandPriceStateAmino, PriceFeedStat
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-/** GenesisState defines the oracle module's genesis state. */
+/**
+ * GenesisState defines the oracle module's genesis state.
+ * @name GenesisState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to oracle. */
+  /**
+   * params defines all the parameters of related to oracle.
+   */
   params: Params;
   bandRelayers: string[];
   bandPriceStates: BandPriceState[];
@@ -27,9 +34,16 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the oracle module's genesis state. */
+/**
+ * GenesisState defines the oracle module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines all the parameters of related to oracle. */
+  /**
+   * params defines all the parameters of related to oracle.
+   */
   params: ParamsAmino;
   band_relayers: string[];
   band_price_states: BandPriceStateAmino[];
@@ -52,6 +66,11 @@ export interface GenesisStateAminoMsg {
   type: "/injective.oracle.v1beta1.GenesisState";
   value: GenesisStateAmino;
 }
+/**
+ * @name CalldataRecord
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.CalldataRecord
+ */
 export interface CalldataRecord {
   clientId: bigint;
   calldata: Uint8Array;
@@ -60,6 +79,11 @@ export interface CalldataRecordProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.CalldataRecord";
   value: Uint8Array;
 }
+/**
+ * @name CalldataRecordAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.CalldataRecord
+ */
 export interface CalldataRecordAmino {
   client_id: string;
   calldata: string;
@@ -89,6 +113,12 @@ function createBaseGenesisState(): GenesisState {
     storkPublishers: []
   };
 }
+/**
+ * GenesisState defines the oracle module's genesis state.
+ * @name GenesisState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.oracle.v1beta1.GenesisState",
   is(o: any): o is GenesisState {
@@ -378,6 +408,11 @@ function createBaseCalldataRecord(): CalldataRecord {
     calldata: new Uint8Array()
   };
 }
+/**
+ * @name CalldataRecord
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.CalldataRecord
+ */
 export const CalldataRecord = {
   typeUrl: "/injective.oracle.v1beta1.CalldataRecord",
   is(o: any): o is CalldataRecord {

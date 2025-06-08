@@ -2,44 +2,80 @@ import { Hop, HopAmino } from "../v1/transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** Token defines a struct which represents a token to be transferred. */
+/**
+ * Token defines a struct which represents a token to be transferred.
+ * @name Token
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.Token
+ */
 export interface Token {
-  /** the token denomination */
+  /**
+   * the token denomination
+   */
   denom: Denom;
-  /** the token amount to be transferred */
+  /**
+   * the token amount to be transferred
+   */
   amount: string;
 }
 export interface TokenProtoMsg {
   typeUrl: "/ibc.applications.transfer.v2.Token";
   value: Uint8Array;
 }
-/** Token defines a struct which represents a token to be transferred. */
+/**
+ * Token defines a struct which represents a token to be transferred.
+ * @name TokenAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.Token
+ */
 export interface TokenAmino {
-  /** the token denomination */
+  /**
+   * the token denomination
+   */
   denom: DenomAmino;
-  /** the token amount to be transferred */
+  /**
+   * the token amount to be transferred
+   */
   amount: string;
 }
 export interface TokenAminoMsg {
   type: "cosmos-sdk/Token";
   value: TokenAmino;
 }
-/** Denom holds the base denom of a Token and a trace of the chains it was sent through. */
+/**
+ * Denom holds the base denom of a Token and a trace of the chains it was sent through.
+ * @name Denom
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.Denom
+ */
 export interface Denom {
-  /** the base token denomination */
+  /**
+   * the base token denomination
+   */
   base: string;
-  /** the trace of the token */
+  /**
+   * the trace of the token
+   */
   trace: Hop[];
 }
 export interface DenomProtoMsg {
   typeUrl: "/ibc.applications.transfer.v2.Denom";
   value: Uint8Array;
 }
-/** Denom holds the base denom of a Token and a trace of the chains it was sent through. */
+/**
+ * Denom holds the base denom of a Token and a trace of the chains it was sent through.
+ * @name DenomAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.Denom
+ */
 export interface DenomAmino {
-  /** the base token denomination */
+  /**
+   * the base token denomination
+   */
   base: string;
-  /** the trace of the token */
+  /**
+   * the trace of the token
+   */
   trace: HopAmino[];
 }
 export interface DenomAminoMsg {
@@ -52,6 +88,12 @@ function createBaseToken(): Token {
     amount: ""
   };
 }
+/**
+ * Token defines a struct which represents a token to be transferred.
+ * @name Token
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.Token
+ */
 export const Token = {
   typeUrl: "/ibc.applications.transfer.v2.Token",
   aminoType: "cosmos-sdk/Token",
@@ -146,6 +188,12 @@ function createBaseDenom(): Denom {
     trace: []
   };
 }
+/**
+ * Denom holds the base denom of a Token and a trace of the chains it was sent through.
+ * @name Denom
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.Denom
+ */
 export const Denom = {
   typeUrl: "/ibc.applications.transfer.v2.Denom",
   aminoType: "cosmos-sdk/Denom",

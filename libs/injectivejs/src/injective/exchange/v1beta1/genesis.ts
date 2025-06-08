@@ -3,24 +3,41 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 import { Decimal } from "@interchainjs/math";
-/** GenesisState defines the exchange module's genesis state. */
+/**
+ * GenesisState defines the exchange module's genesis state.
+ * @name GenesisState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to exchange. */
+  /**
+   * params defines all the parameters of related to exchange.
+   */
   params: Params;
-  /** spot_markets is an array containing the genesis trade pairs */
+  /**
+   * spot_markets is an array containing the genesis trade pairs
+   */
   spotMarkets: SpotMarket[];
-  /** derivative_markets is an array containing the genesis derivative markets */
+  /**
+   * derivative_markets is an array containing the genesis derivative markets
+   */
   derivativeMarkets: DerivativeMarket[];
-  /** spot_orderbook defines the spot exchange limit orderbook active at genesis. */
+  /**
+   * spot_orderbook defines the spot exchange limit orderbook active at genesis.
+   */
   spotOrderbook: SpotOrderBook[];
   /**
    * derivative_orderbook defines the derivative exchange limit orderbook active
    * at genesis.
    */
   derivativeOrderbook: DerivativeOrderBook[];
-  /** balances defines the exchange users balances active at genesis. */
+  /**
+   * balances defines the exchange users balances active at genesis.
+   */
   balances: Balance[];
-  /** positions defines the exchange derivative positions at genesis */
+  /**
+   * positions defines the exchange derivative positions at genesis
+   */
   positions: DerivativePosition[];
   /**
    * subaccount_trade_nonces defines the subaccount trade nonces for the
@@ -43,25 +60,41 @@ export interface GenesisState {
    */
   perpetualMarketFundingState: PerpetualMarketFundingState[];
   derivativeMarketSettlementScheduled: DerivativeMarketSettlementInfo[];
-  /** sets spot markets as enabled */
+  /**
+   * sets spot markets as enabled
+   */
   isSpotExchangeEnabled: boolean;
-  /** sets derivative markets as enabled */
+  /**
+   * sets derivative markets as enabled
+   */
   isDerivativesExchangeEnabled: boolean;
-  /** the current trading reward campaign info */
+  /**
+   * the current trading reward campaign info
+   */
   tradingRewardCampaignInfo?: TradingRewardCampaignInfo;
-  /** the current and upcoming trading reward campaign pools */
+  /**
+   * the current and upcoming trading reward campaign pools
+   */
   tradingRewardPoolCampaignSchedule: CampaignRewardPool[];
   tradingRewardCampaignAccountPoints: TradingRewardCampaignAccountPoints[];
-  /** the fee discount schedule */
+  /**
+   * the fee discount schedule
+   */
   feeDiscountSchedule?: FeeDiscountSchedule;
-  /** the cached fee discount account tiers with TTL */
+  /**
+   * the cached fee discount account tiers with TTL
+   */
   feeDiscountAccountTierTtl: FeeDiscountAccountTierTTL[];
   feeDiscountBucketVolumeAccounts: FeeDiscountBucketVolumeAccounts[];
-  /** sets the first fee cycle as finished */
+  /**
+   * sets the first fee cycle as finished
+   */
   isFirstFeeCycleFinished: boolean;
   pendingTradingRewardPoolCampaignSchedule: CampaignRewardPool[];
   pendingTradingRewardCampaignAccountPoints: TradingRewardCampaignAccountPendingPoints[];
-  /** the addresses opting out of trading rewards */
+  /**
+   * the addresses opting out of trading rewards
+   */
   rewardsOptOutAddresses: string[];
   historicalTradeRecords: TradeRecords[];
   /**
@@ -79,7 +112,9 @@ export interface GenesisState {
    * forced closings at genesis
    */
   spotMarketIdsScheduledToForceClose: string[];
-  /** denom_decimals defines the denom decimals for the exchange. */
+  /**
+   * denom_decimals defines the denom decimals for the exchange.
+   */
   denomDecimals: DenomDecimals[];
   conditionalDerivativeOrderbooks: ConditionalDerivativeOrderBook[];
   /**
@@ -97,24 +132,41 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the exchange module's genesis state. */
+/**
+ * GenesisState defines the exchange module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines all the parameters of related to exchange. */
+  /**
+   * params defines all the parameters of related to exchange.
+   */
   params: ParamsAmino;
-  /** spot_markets is an array containing the genesis trade pairs */
+  /**
+   * spot_markets is an array containing the genesis trade pairs
+   */
   spot_markets: SpotMarketAmino[];
-  /** derivative_markets is an array containing the genesis derivative markets */
+  /**
+   * derivative_markets is an array containing the genesis derivative markets
+   */
   derivative_markets: DerivativeMarketAmino[];
-  /** spot_orderbook defines the spot exchange limit orderbook active at genesis. */
+  /**
+   * spot_orderbook defines the spot exchange limit orderbook active at genesis.
+   */
   spot_orderbook: SpotOrderBookAmino[];
   /**
    * derivative_orderbook defines the derivative exchange limit orderbook active
    * at genesis.
    */
   derivative_orderbook: DerivativeOrderBookAmino[];
-  /** balances defines the exchange users balances active at genesis. */
+  /**
+   * balances defines the exchange users balances active at genesis.
+   */
   balances: BalanceAmino[];
-  /** positions defines the exchange derivative positions at genesis */
+  /**
+   * positions defines the exchange derivative positions at genesis
+   */
   positions: DerivativePositionAmino[];
   /**
    * subaccount_trade_nonces defines the subaccount trade nonces for the
@@ -137,25 +189,41 @@ export interface GenesisStateAmino {
    */
   perpetual_market_funding_state: PerpetualMarketFundingStateAmino[];
   derivative_market_settlement_scheduled: DerivativeMarketSettlementInfoAmino[];
-  /** sets spot markets as enabled */
+  /**
+   * sets spot markets as enabled
+   */
   is_spot_exchange_enabled: boolean;
-  /** sets derivative markets as enabled */
+  /**
+   * sets derivative markets as enabled
+   */
   is_derivatives_exchange_enabled: boolean;
-  /** the current trading reward campaign info */
+  /**
+   * the current trading reward campaign info
+   */
   trading_reward_campaign_info?: TradingRewardCampaignInfoAmino;
-  /** the current and upcoming trading reward campaign pools */
+  /**
+   * the current and upcoming trading reward campaign pools
+   */
   trading_reward_pool_campaign_schedule: CampaignRewardPoolAmino[];
   trading_reward_campaign_account_points: TradingRewardCampaignAccountPointsAmino[];
-  /** the fee discount schedule */
+  /**
+   * the fee discount schedule
+   */
   fee_discount_schedule?: FeeDiscountScheduleAmino;
-  /** the cached fee discount account tiers with TTL */
+  /**
+   * the cached fee discount account tiers with TTL
+   */
   fee_discount_account_tier_ttl: FeeDiscountAccountTierTTLAmino[];
   fee_discount_bucket_volume_accounts: FeeDiscountBucketVolumeAccountsAmino[];
-  /** sets the first fee cycle as finished */
+  /**
+   * sets the first fee cycle as finished
+   */
   is_first_fee_cycle_finished: boolean;
   pending_trading_reward_pool_campaign_schedule: CampaignRewardPoolAmino[];
   pending_trading_reward_campaign_account_points: TradingRewardCampaignAccountPendingPointsAmino[];
-  /** the addresses opting out of trading rewards */
+  /**
+   * the addresses opting out of trading rewards
+   */
   rewards_opt_out_addresses: string[];
   historical_trade_records: TradeRecordsAmino[];
   /**
@@ -173,7 +241,9 @@ export interface GenesisStateAmino {
    * forced closings at genesis
    */
   spot_market_ids_scheduled_to_force_close: string[];
-  /** denom_decimals defines the denom decimals for the exchange. */
+  /**
+   * denom_decimals defines the denom decimals for the exchange.
+   */
   denom_decimals: DenomDecimalsAmino[];
   conditional_derivative_orderbooks: ConditionalDerivativeOrderBookAmino[];
   /**
@@ -191,6 +261,11 @@ export interface GenesisStateAminoMsg {
   type: "/injective.exchange.v1beta1.GenesisState";
   value: GenesisStateAmino;
 }
+/**
+ * @name OrderbookSequence
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderbookSequence
+ */
 export interface OrderbookSequence {
   sequence: bigint;
   marketId: string;
@@ -199,6 +274,11 @@ export interface OrderbookSequenceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderbookSequence";
   value: Uint8Array;
 }
+/**
+ * @name OrderbookSequenceAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderbookSequence
+ */
 export interface OrderbookSequenceAmino {
   sequence: string;
   market_id: string;
@@ -207,6 +287,11 @@ export interface OrderbookSequenceAminoMsg {
   type: "/injective.exchange.v1beta1.OrderbookSequence";
   value: OrderbookSequenceAmino;
 }
+/**
+ * @name FeeDiscountAccountTierTTL
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountAccountTierTTL
+ */
 export interface FeeDiscountAccountTierTTL {
   account: string;
   tierTtl?: FeeDiscountTierTTL;
@@ -215,6 +300,11 @@ export interface FeeDiscountAccountTierTTLProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountAccountTierTTL";
   value: Uint8Array;
 }
+/**
+ * @name FeeDiscountAccountTierTTLAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountAccountTierTTL
+ */
 export interface FeeDiscountAccountTierTTLAmino {
   account: string;
   tier_ttl?: FeeDiscountTierTTLAmino;
@@ -223,6 +313,11 @@ export interface FeeDiscountAccountTierTTLAminoMsg {
   type: "/injective.exchange.v1beta1.FeeDiscountAccountTierTTL";
   value: FeeDiscountAccountTierTTLAmino;
 }
+/**
+ * @name FeeDiscountBucketVolumeAccounts
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts
+ */
 export interface FeeDiscountBucketVolumeAccounts {
   bucketStartTimestamp: bigint;
   accountVolume: AccountVolume[];
@@ -231,6 +326,11 @@ export interface FeeDiscountBucketVolumeAccountsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts";
   value: Uint8Array;
 }
+/**
+ * @name FeeDiscountBucketVolumeAccountsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts
+ */
 export interface FeeDiscountBucketVolumeAccountsAmino {
   bucket_start_timestamp: string;
   account_volume: AccountVolumeAmino[];
@@ -239,6 +339,11 @@ export interface FeeDiscountBucketVolumeAccountsAminoMsg {
   type: "/injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts";
   value: FeeDiscountBucketVolumeAccountsAmino;
 }
+/**
+ * @name AccountVolume
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AccountVolume
+ */
 export interface AccountVolume {
   account: string;
   volume: string;
@@ -247,6 +352,11 @@ export interface AccountVolumeProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AccountVolume";
   value: Uint8Array;
 }
+/**
+ * @name AccountVolumeAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AccountVolume
+ */
 export interface AccountVolumeAmino {
   account: string;
   volume: string;
@@ -255,6 +365,11 @@ export interface AccountVolumeAminoMsg {
   type: "/injective.exchange.v1beta1.AccountVolume";
   value: AccountVolumeAmino;
 }
+/**
+ * @name TradingRewardCampaignAccountPoints
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignAccountPoints
+ */
 export interface TradingRewardCampaignAccountPoints {
   account: string;
   points: string;
@@ -263,6 +378,11 @@ export interface TradingRewardCampaignAccountPointsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPoints";
   value: Uint8Array;
 }
+/**
+ * @name TradingRewardCampaignAccountPointsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignAccountPoints
+ */
 export interface TradingRewardCampaignAccountPointsAmino {
   account: string;
   points: string;
@@ -271,6 +391,11 @@ export interface TradingRewardCampaignAccountPointsAminoMsg {
   type: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPoints";
   value: TradingRewardCampaignAccountPointsAmino;
 }
+/**
+ * @name TradingRewardCampaignAccountPendingPoints
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints
+ */
 export interface TradingRewardCampaignAccountPendingPoints {
   rewardPoolStartTimestamp: bigint;
   accountPoints: TradingRewardCampaignAccountPoints[];
@@ -279,6 +404,11 @@ export interface TradingRewardCampaignAccountPendingPointsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints";
   value: Uint8Array;
 }
+/**
+ * @name TradingRewardCampaignAccountPendingPointsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints
+ */
 export interface TradingRewardCampaignAccountPendingPointsAmino {
   reward_pool_start_timestamp: string;
   account_points: TradingRewardCampaignAccountPointsAmino[];
@@ -287,7 +417,12 @@ export interface TradingRewardCampaignAccountPendingPointsAminoMsg {
   type: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints";
   value: TradingRewardCampaignAccountPendingPointsAmino;
 }
-/** Spot Exchange Limit Orderbook */
+/**
+ * Spot Exchange Limit Orderbook
+ * @name SpotOrderBook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotOrderBook
+ */
 export interface SpotOrderBook {
   marketId: string;
   isBuySide: boolean;
@@ -297,7 +432,12 @@ export interface SpotOrderBookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotOrderBook";
   value: Uint8Array;
 }
-/** Spot Exchange Limit Orderbook */
+/**
+ * Spot Exchange Limit Orderbook
+ * @name SpotOrderBookAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotOrderBook
+ */
 export interface SpotOrderBookAmino {
   market_id: string;
   isBuySide: boolean;
@@ -307,7 +447,12 @@ export interface SpotOrderBookAminoMsg {
   type: "/injective.exchange.v1beta1.SpotOrderBook";
   value: SpotOrderBookAmino;
 }
-/** Derivative Exchange Limit Orderbook */
+/**
+ * Derivative Exchange Limit Orderbook
+ * @name DerivativeOrderBook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeOrderBook
+ */
 export interface DerivativeOrderBook {
   marketId: string;
   isBuySide: boolean;
@@ -317,7 +462,12 @@ export interface DerivativeOrderBookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeOrderBook";
   value: Uint8Array;
 }
-/** Derivative Exchange Limit Orderbook */
+/**
+ * Derivative Exchange Limit Orderbook
+ * @name DerivativeOrderBookAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeOrderBook
+ */
 export interface DerivativeOrderBookAmino {
   market_id: string;
   isBuySide: boolean;
@@ -327,7 +477,12 @@ export interface DerivativeOrderBookAminoMsg {
   type: "/injective.exchange.v1beta1.DerivativeOrderBook";
   value: DerivativeOrderBookAmino;
 }
-/** Orderbook containing limit & market conditional orders */
+/**
+ * Orderbook containing limit & market conditional orders
+ * @name ConditionalDerivativeOrderBook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ConditionalDerivativeOrderBook
+ */
 export interface ConditionalDerivativeOrderBook {
   marketId: string;
   limitBuyOrders: DerivativeLimitOrder[];
@@ -339,7 +494,12 @@ export interface ConditionalDerivativeOrderBookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ConditionalDerivativeOrderBook";
   value: Uint8Array;
 }
-/** Orderbook containing limit & market conditional orders */
+/**
+ * Orderbook containing limit & market conditional orders
+ * @name ConditionalDerivativeOrderBookAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ConditionalDerivativeOrderBook
+ */
 export interface ConditionalDerivativeOrderBookAmino {
   market_id: string;
   limit_buy_orders: DerivativeLimitOrderAmino[];
@@ -351,6 +511,11 @@ export interface ConditionalDerivativeOrderBookAminoMsg {
   type: "/injective.exchange.v1beta1.ConditionalDerivativeOrderBook";
   value: ConditionalDerivativeOrderBookAmino;
 }
+/**
+ * @name Balance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Balance
+ */
 export interface Balance {
   subaccountId: string;
   denom: string;
@@ -360,6 +525,11 @@ export interface BalanceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Balance";
   value: Uint8Array;
 }
+/**
+ * @name BalanceAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Balance
+ */
 export interface BalanceAmino {
   subaccount_id: string;
   denom: string;
@@ -369,6 +539,11 @@ export interface BalanceAminoMsg {
   type: "/injective.exchange.v1beta1.Balance";
   value: BalanceAmino;
 }
+/**
+ * @name DerivativePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativePosition
+ */
 export interface DerivativePosition {
   subaccountId: string;
   marketId: string;
@@ -378,6 +553,11 @@ export interface DerivativePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativePosition";
   value: Uint8Array;
 }
+/**
+ * @name DerivativePositionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativePosition
+ */
 export interface DerivativePositionAmino {
   subaccount_id: string;
   market_id: string;
@@ -387,6 +567,11 @@ export interface DerivativePositionAminoMsg {
   type: "/injective.exchange.v1beta1.DerivativePosition";
   value: DerivativePositionAmino;
 }
+/**
+ * @name SubaccountNonce
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SubaccountNonce
+ */
 export interface SubaccountNonce {
   subaccountId: string;
   subaccountTradeNonce: SubaccountTradeNonce;
@@ -395,6 +580,11 @@ export interface SubaccountNonceProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountNonce";
   value: Uint8Array;
 }
+/**
+ * @name SubaccountNonceAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SubaccountNonce
+ */
 export interface SubaccountNonceAmino {
   subaccount_id: string;
   subaccount_trade_nonce: SubaccountTradeNonceAmino;
@@ -403,6 +593,11 @@ export interface SubaccountNonceAminoMsg {
   type: "/injective.exchange.v1beta1.SubaccountNonce";
   value: SubaccountNonceAmino;
 }
+/**
+ * @name ExpiryFuturesMarketInfoState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketInfoState
+ */
 export interface ExpiryFuturesMarketInfoState {
   marketId: string;
   marketInfo?: ExpiryFuturesMarketInfo;
@@ -411,6 +606,11 @@ export interface ExpiryFuturesMarketInfoStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketInfoState";
   value: Uint8Array;
 }
+/**
+ * @name ExpiryFuturesMarketInfoStateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketInfoState
+ */
 export interface ExpiryFuturesMarketInfoStateAmino {
   market_id: string;
   market_info?: ExpiryFuturesMarketInfoAmino;
@@ -419,6 +619,11 @@ export interface ExpiryFuturesMarketInfoStateAminoMsg {
   type: "/injective.exchange.v1beta1.ExpiryFuturesMarketInfoState";
   value: ExpiryFuturesMarketInfoStateAmino;
 }
+/**
+ * @name PerpetualMarketFundingState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketFundingState
+ */
 export interface PerpetualMarketFundingState {
   marketId: string;
   funding?: PerpetualMarketFunding;
@@ -427,6 +632,11 @@ export interface PerpetualMarketFundingStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketFundingState";
   value: Uint8Array;
 }
+/**
+ * @name PerpetualMarketFundingStateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketFundingState
+ */
 export interface PerpetualMarketFundingStateAmino {
   market_id: string;
   funding?: PerpetualMarketFundingAmino;
@@ -435,6 +645,11 @@ export interface PerpetualMarketFundingStateAminoMsg {
   type: "/injective.exchange.v1beta1.PerpetualMarketFundingState";
   value: PerpetualMarketFundingStateAmino;
 }
+/**
+ * @name FullGrantAuthorizations
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullGrantAuthorizations
+ */
 export interface FullGrantAuthorizations {
   granter: string;
   totalGrantAmount: string;
@@ -445,6 +660,11 @@ export interface FullGrantAuthorizationsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullGrantAuthorizations";
   value: Uint8Array;
 }
+/**
+ * @name FullGrantAuthorizationsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullGrantAuthorizations
+ */
 export interface FullGrantAuthorizationsAmino {
   granter: string;
   total_grant_amount: string;
@@ -455,6 +675,11 @@ export interface FullGrantAuthorizationsAminoMsg {
   type: "/injective.exchange.v1beta1.FullGrantAuthorizations";
   value: FullGrantAuthorizationsAmino;
 }
+/**
+ * @name FullActiveGrant
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullActiveGrant
+ */
 export interface FullActiveGrant {
   grantee: string;
   activeGrant?: ActiveGrant;
@@ -463,6 +688,11 @@ export interface FullActiveGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullActiveGrant";
   value: Uint8Array;
 }
+/**
+ * @name FullActiveGrantAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullActiveGrant
+ */
 export interface FullActiveGrantAmino {
   grantee: string;
   active_grant?: ActiveGrantAmino;
@@ -511,6 +741,12 @@ function createBaseGenesisState(): GenesisState {
     activeGrants: []
   };
 }
+/**
+ * GenesisState defines the exchange module's genesis state.
+ * @name GenesisState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.exchange.v1beta1.GenesisState",
   is(o: any): o is GenesisState {
@@ -1060,6 +1296,11 @@ function createBaseOrderbookSequence(): OrderbookSequence {
     marketId: ""
   };
 }
+/**
+ * @name OrderbookSequence
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderbookSequence
+ */
 export const OrderbookSequence = {
   typeUrl: "/injective.exchange.v1beta1.OrderbookSequence",
   is(o: any): o is OrderbookSequence {
@@ -1142,6 +1383,11 @@ function createBaseFeeDiscountAccountTierTTL(): FeeDiscountAccountTierTTL {
     tierTtl: undefined
   };
 }
+/**
+ * @name FeeDiscountAccountTierTTL
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountAccountTierTTL
+ */
 export const FeeDiscountAccountTierTTL = {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountAccountTierTTL",
   is(o: any): o is FeeDiscountAccountTierTTL {
@@ -1229,6 +1475,11 @@ function createBaseFeeDiscountBucketVolumeAccounts(): FeeDiscountBucketVolumeAcc
     accountVolume: []
   };
 }
+/**
+ * @name FeeDiscountBucketVolumeAccounts
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts
+ */
 export const FeeDiscountBucketVolumeAccounts = {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountBucketVolumeAccounts",
   is(o: any): o is FeeDiscountBucketVolumeAccounts {
@@ -1318,6 +1569,11 @@ function createBaseAccountVolume(): AccountVolume {
     volume: ""
   };
 }
+/**
+ * @name AccountVolume
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AccountVolume
+ */
 export const AccountVolume = {
   typeUrl: "/injective.exchange.v1beta1.AccountVolume",
   is(o: any): o is AccountVolume {
@@ -1400,6 +1656,11 @@ function createBaseTradingRewardCampaignAccountPoints(): TradingRewardCampaignAc
     points: ""
   };
 }
+/**
+ * @name TradingRewardCampaignAccountPoints
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignAccountPoints
+ */
 export const TradingRewardCampaignAccountPoints = {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPoints",
   is(o: any): o is TradingRewardCampaignAccountPoints {
@@ -1482,6 +1743,11 @@ function createBaseTradingRewardCampaignAccountPendingPoints(): TradingRewardCam
     accountPoints: []
   };
 }
+/**
+ * @name TradingRewardCampaignAccountPendingPoints
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints
+ */
 export const TradingRewardCampaignAccountPendingPoints = {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignAccountPendingPoints",
   is(o: any): o is TradingRewardCampaignAccountPendingPoints {
@@ -1572,6 +1838,12 @@ function createBaseSpotOrderBook(): SpotOrderBook {
     orders: []
   };
 }
+/**
+ * Spot Exchange Limit Orderbook
+ * @name SpotOrderBook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotOrderBook
+ */
 export const SpotOrderBook = {
   typeUrl: "/injective.exchange.v1beta1.SpotOrderBook",
   is(o: any): o is SpotOrderBook {
@@ -1673,6 +1945,12 @@ function createBaseDerivativeOrderBook(): DerivativeOrderBook {
     orders: []
   };
 }
+/**
+ * Derivative Exchange Limit Orderbook
+ * @name DerivativeOrderBook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeOrderBook
+ */
 export const DerivativeOrderBook = {
   typeUrl: "/injective.exchange.v1beta1.DerivativeOrderBook",
   is(o: any): o is DerivativeOrderBook {
@@ -1776,6 +2054,12 @@ function createBaseConditionalDerivativeOrderBook(): ConditionalDerivativeOrderB
     marketSellOrders: []
   };
 }
+/**
+ * Orderbook containing limit & market conditional orders
+ * @name ConditionalDerivativeOrderBook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ConditionalDerivativeOrderBook
+ */
 export const ConditionalDerivativeOrderBook = {
   typeUrl: "/injective.exchange.v1beta1.ConditionalDerivativeOrderBook",
   is(o: any): o is ConditionalDerivativeOrderBook {
@@ -1906,6 +2190,11 @@ function createBaseBalance(): Balance {
     deposits: undefined
   };
 }
+/**
+ * @name Balance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Balance
+ */
 export const Balance = {
   typeUrl: "/injective.exchange.v1beta1.Balance",
   is(o: any): o is Balance {
@@ -2005,6 +2294,11 @@ function createBaseDerivativePosition(): DerivativePosition {
     position: undefined
   };
 }
+/**
+ * @name DerivativePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativePosition
+ */
 export const DerivativePosition = {
   typeUrl: "/injective.exchange.v1beta1.DerivativePosition",
   is(o: any): o is DerivativePosition {
@@ -2103,6 +2397,11 @@ function createBaseSubaccountNonce(): SubaccountNonce {
     subaccountTradeNonce: SubaccountTradeNonce.fromPartial({})
   };
 }
+/**
+ * @name SubaccountNonce
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SubaccountNonce
+ */
 export const SubaccountNonce = {
   typeUrl: "/injective.exchange.v1beta1.SubaccountNonce",
   is(o: any): o is SubaccountNonce {
@@ -2190,6 +2489,11 @@ function createBaseExpiryFuturesMarketInfoState(): ExpiryFuturesMarketInfoState 
     marketInfo: undefined
   };
 }
+/**
+ * @name ExpiryFuturesMarketInfoState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketInfoState
+ */
 export const ExpiryFuturesMarketInfoState = {
   typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketInfoState",
   is(o: any): o is ExpiryFuturesMarketInfoState {
@@ -2277,6 +2581,11 @@ function createBasePerpetualMarketFundingState(): PerpetualMarketFundingState {
     funding: undefined
   };
 }
+/**
+ * @name PerpetualMarketFundingState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketFundingState
+ */
 export const PerpetualMarketFundingState = {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketFundingState",
   is(o: any): o is PerpetualMarketFundingState {
@@ -2366,6 +2675,11 @@ function createBaseFullGrantAuthorizations(): FullGrantAuthorizations {
     grants: []
   };
 }
+/**
+ * @name FullGrantAuthorizations
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullGrantAuthorizations
+ */
 export const FullGrantAuthorizations = {
   typeUrl: "/injective.exchange.v1beta1.FullGrantAuthorizations",
   is(o: any): o is FullGrantAuthorizations {
@@ -2477,6 +2791,11 @@ function createBaseFullActiveGrant(): FullActiveGrant {
     activeGrant: undefined
   };
 }
+/**
+ * @name FullActiveGrant
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullActiveGrant
+ */
 export const FullActiveGrant = {
   typeUrl: "/injective.exchange.v1beta1.FullActiveGrant",
   is(o: any): o is FullActiveGrant {

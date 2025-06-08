@@ -6,6 +6,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
  * provider oracle.
+ * @name MsgRelayProviderPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayProviderPrices
  */
 export interface MsgRelayProviderPrices {
   sender: string;
@@ -20,6 +23,9 @@ export interface MsgRelayProviderPricesProtoMsg {
 /**
  * MsgRelayProviderPrice defines a SDK message for setting a price through the
  * provider oracle.
+ * @name MsgRelayProviderPricesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayProviderPrices
  */
 export interface MsgRelayProviderPricesAmino {
   sender: string;
@@ -31,11 +37,21 @@ export interface MsgRelayProviderPricesAminoMsg {
   type: "oracle/MsgRelayProviderPrices";
   value: MsgRelayProviderPricesAmino;
 }
+/**
+ * @name MsgRelayProviderPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayProviderPricesResponse
+ */
 export interface MsgRelayProviderPricesResponse {}
 export interface MsgRelayProviderPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRelayProviderPricesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayProviderPricesResponse
+ */
 export interface MsgRelayProviderPricesResponseAmino {}
 export interface MsgRelayProviderPricesResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse";
@@ -44,12 +60,17 @@ export interface MsgRelayProviderPricesResponseAminoMsg {
 /**
  * MsgRelayPriceFeedPrice defines a SDK message for setting a price through the
  * pricefeed oracle.
+ * @name MsgRelayPriceFeedPrice
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPriceFeedPrice
  */
 export interface MsgRelayPriceFeedPrice {
   sender: string;
   base: string[];
   quote: string[];
-  /** price defines the price of the oracle base and quote */
+  /**
+   * price defines the price of the oracle base and quote
+   */
   price: string[];
 }
 export interface MsgRelayPriceFeedPriceProtoMsg {
@@ -59,28 +80,48 @@ export interface MsgRelayPriceFeedPriceProtoMsg {
 /**
  * MsgRelayPriceFeedPrice defines a SDK message for setting a price through the
  * pricefeed oracle.
+ * @name MsgRelayPriceFeedPriceAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPriceFeedPrice
  */
 export interface MsgRelayPriceFeedPriceAmino {
   sender: string;
   base: string[];
   quote: string[];
-  /** price defines the price of the oracle base and quote */
+  /**
+   * price defines the price of the oracle base and quote
+   */
   price: string[];
 }
 export interface MsgRelayPriceFeedPriceAminoMsg {
   type: "oracle/MsgRelayPriceFeedPrice";
   value: MsgRelayPriceFeedPriceAmino;
 }
+/**
+ * @name MsgRelayPriceFeedPriceResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse
+ */
 export interface MsgRelayPriceFeedPriceResponse {}
 export interface MsgRelayPriceFeedPriceResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRelayPriceFeedPriceResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse
+ */
 export interface MsgRelayPriceFeedPriceResponseAmino {}
 export interface MsgRelayPriceFeedPriceResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse";
   value: MsgRelayPriceFeedPriceResponseAmino;
 }
+/**
+ * @name MsgRelayBandRates
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayBandRates
+ */
 export interface MsgRelayBandRates {
   relayer: string;
   symbols: string[];
@@ -92,6 +133,11 @@ export interface MsgRelayBandRatesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRates";
   value: Uint8Array;
 }
+/**
+ * @name MsgRelayBandRatesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayBandRates
+ */
 export interface MsgRelayBandRatesAmino {
   relayer: string;
   symbols: string[];
@@ -103,11 +149,21 @@ export interface MsgRelayBandRatesAminoMsg {
   type: "oracle/MsgRelayBandRates";
   value: MsgRelayBandRatesAmino;
 }
+/**
+ * @name MsgRelayBandRatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayBandRatesResponse
+ */
 export interface MsgRelayBandRatesResponse {}
 export interface MsgRelayBandRatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRatesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRelayBandRatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayBandRatesResponse
+ */
 export interface MsgRelayBandRatesResponseAmino {}
 export interface MsgRelayBandRatesResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayBandRatesResponse";
@@ -116,6 +172,9 @@ export interface MsgRelayBandRatesResponseAminoMsg {
 /**
  * MsgRelayCoinbaseMessages defines a SDK message for relaying price messages
  * from Coinbase API.
+ * @name MsgRelayCoinbaseMessages
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayCoinbaseMessages
  */
 export interface MsgRelayCoinbaseMessages {
   sender: string;
@@ -129,6 +188,9 @@ export interface MsgRelayCoinbaseMessagesProtoMsg {
 /**
  * MsgRelayCoinbaseMessages defines a SDK message for relaying price messages
  * from Coinbase API.
+ * @name MsgRelayCoinbaseMessagesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayCoinbaseMessages
  */
 export interface MsgRelayCoinbaseMessagesAmino {
   sender: string;
@@ -139,11 +201,21 @@ export interface MsgRelayCoinbaseMessagesAminoMsg {
   type: "oracle/MsgRelayCoinbaseMessages";
   value: MsgRelayCoinbaseMessagesAmino;
 }
+/**
+ * @name MsgRelayCoinbaseMessagesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse
+ */
 export interface MsgRelayCoinbaseMessagesResponse {}
 export interface MsgRelayCoinbaseMessagesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRelayCoinbaseMessagesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse
+ */
 export interface MsgRelayCoinbaseMessagesResponseAmino {}
 export interface MsgRelayCoinbaseMessagesResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse";
@@ -152,6 +224,9 @@ export interface MsgRelayCoinbaseMessagesResponseAminoMsg {
 /**
  * MsgRelayStorkPrices defines a SDK message for relaying price message
  * from Stork API.
+ * @name MsgRelayStorkPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayStorkPrices
  */
 export interface MsgRelayStorkPrices {
   sender: string;
@@ -164,6 +239,9 @@ export interface MsgRelayStorkPricesProtoMsg {
 /**
  * MsgRelayStorkPrices defines a SDK message for relaying price message
  * from Stork API.
+ * @name MsgRelayStorkPricesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayStorkPrices
  */
 export interface MsgRelayStorkPricesAmino {
   sender: string;
@@ -173,11 +251,21 @@ export interface MsgRelayStorkPricesAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayStorkPrices";
   value: MsgRelayStorkPricesAmino;
 }
+/**
+ * @name MsgRelayStorkPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayStorkPricesResponse
+ */
 export interface MsgRelayStorkPricesResponse {}
 export interface MsgRelayStorkPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPricesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRelayStorkPricesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayStorkPricesResponse
+ */
 export interface MsgRelayStorkPricesResponseAmino {}
 export interface MsgRelayStorkPricesResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayStorkPricesResponse";
@@ -186,6 +274,9 @@ export interface MsgRelayStorkPricesResponseAminoMsg {
 /**
  * MsgRequestBandIBCRates defines a SDK message for requesting data from
  * BandChain using IBC.
+ * @name MsgRequestBandIBCRates
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRequestBandIBCRates
  */
 export interface MsgRequestBandIBCRates {
   sender: string;
@@ -198,6 +289,9 @@ export interface MsgRequestBandIBCRatesProtoMsg {
 /**
  * MsgRequestBandIBCRates defines a SDK message for requesting data from
  * BandChain using IBC.
+ * @name MsgRequestBandIBCRatesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRequestBandIBCRates
  */
 export interface MsgRequestBandIBCRatesAmino {
   sender: string;
@@ -207,19 +301,34 @@ export interface MsgRequestBandIBCRatesAminoMsg {
   type: "oracle/MsgRequestBandIBCRates";
   value: MsgRequestBandIBCRatesAmino;
 }
-/** MsgRequestDataResponse defines the Msg/RequestBandIBCRates response type. */
+/**
+ * MsgRequestDataResponse defines the Msg/RequestBandIBCRates response type.
+ * @name MsgRequestBandIBCRatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse
+ */
 export interface MsgRequestBandIBCRatesResponse {}
 export interface MsgRequestBandIBCRatesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse";
   value: Uint8Array;
 }
-/** MsgRequestDataResponse defines the Msg/RequestBandIBCRates response type. */
+/**
+ * MsgRequestDataResponse defines the Msg/RequestBandIBCRates response type.
+ * @name MsgRequestBandIBCRatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse
+ */
 export interface MsgRequestBandIBCRatesResponseAmino {}
 export interface MsgRequestBandIBCRatesResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse";
   value: MsgRequestBandIBCRatesResponseAmino;
 }
-/** MsgRelayPythPrices defines a SDK message for updating Pyth prices */
+/**
+ * MsgRelayPythPrices defines a SDK message for updating Pyth prices
+ * @name MsgRelayPythPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPythPrices
+ */
 export interface MsgRelayPythPrices {
   sender: string;
   priceAttestations: PriceAttestation[];
@@ -228,7 +337,12 @@ export interface MsgRelayPythPricesProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPrices";
   value: Uint8Array;
 }
-/** MsgRelayPythPrices defines a SDK message for updating Pyth prices */
+/**
+ * MsgRelayPythPrices defines a SDK message for updating Pyth prices
+ * @name MsgRelayPythPricesAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPythPrices
+ */
 export interface MsgRelayPythPricesAmino {
   sender: string;
   price_attestations: PriceAttestationAmino[];
@@ -237,20 +351,37 @@ export interface MsgRelayPythPricesAminoMsg {
   type: "oracle/MsgRelayPythPrices";
   value: MsgRelayPythPricesAmino;
 }
-/** MsgRelayPythPricesResponse defines the Msg/RelayPythPrices response type. */
+/**
+ * MsgRelayPythPricesResponse defines the Msg/RelayPythPrices response type.
+ * @name MsgRelayPythPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPythPricesResponse
+ */
 export interface MsgRelayPythPricesResponse {}
 export interface MsgRelayPythPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPricesResponse";
   value: Uint8Array;
 }
-/** MsgRelayPythPricesResponse defines the Msg/RelayPythPrices response type. */
+/**
+ * MsgRelayPythPricesResponse defines the Msg/RelayPythPrices response type.
+ * @name MsgRelayPythPricesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPythPricesResponse
+ */
 export interface MsgRelayPythPricesResponseAmino {}
 export interface MsgRelayPythPricesResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgRelayPythPricesResponse";
   value: MsgRelayPythPricesResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the oracle parameters to update.
@@ -263,8 +394,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the oracle parameters to update.
@@ -277,11 +415,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "oracle/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.oracle.v1beta1.MsgUpdateParamsResponse";
@@ -295,6 +443,13 @@ function createBaseMsgRelayProviderPrices(): MsgRelayProviderPrices {
     prices: []
   };
 }
+/**
+ * MsgRelayProviderPrice defines a SDK message for setting a price through the
+ * provider oracle.
+ * @name MsgRelayProviderPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayProviderPrices
+ */
 export const MsgRelayProviderPrices = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPrices",
   aminoType: "oracle/MsgRelayProviderPrices",
@@ -407,6 +562,11 @@ export const MsgRelayProviderPrices = {
 function createBaseMsgRelayProviderPricesResponse(): MsgRelayProviderPricesResponse {
   return {};
 }
+/**
+ * @name MsgRelayProviderPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayProviderPricesResponse
+ */
 export const MsgRelayProviderPricesResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayProviderPricesResponse",
   is(o: any): o is MsgRelayProviderPricesResponse {
@@ -469,6 +629,13 @@ function createBaseMsgRelayPriceFeedPrice(): MsgRelayPriceFeedPrice {
     price: []
   };
 }
+/**
+ * MsgRelayPriceFeedPrice defines a SDK message for setting a price through the
+ * pricefeed oracle.
+ * @name MsgRelayPriceFeedPrice
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPriceFeedPrice
+ */
 export const MsgRelayPriceFeedPrice = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPrice",
   aminoType: "oracle/MsgRelayPriceFeedPrice",
@@ -583,6 +750,11 @@ export const MsgRelayPriceFeedPrice = {
 function createBaseMsgRelayPriceFeedPriceResponse(): MsgRelayPriceFeedPriceResponse {
   return {};
 }
+/**
+ * @name MsgRelayPriceFeedPriceResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse
+ */
 export const MsgRelayPriceFeedPriceResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPriceFeedPriceResponse",
   is(o: any): o is MsgRelayPriceFeedPriceResponse {
@@ -646,6 +818,11 @@ function createBaseMsgRelayBandRates(): MsgRelayBandRates {
     requestIDs: []
   };
 }
+/**
+ * @name MsgRelayBandRates
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayBandRates
+ */
 export const MsgRelayBandRates = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRates",
   aminoType: "oracle/MsgRelayBandRates",
@@ -800,6 +977,11 @@ export const MsgRelayBandRates = {
 function createBaseMsgRelayBandRatesResponse(): MsgRelayBandRatesResponse {
   return {};
 }
+/**
+ * @name MsgRelayBandRatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayBandRatesResponse
+ */
 export const MsgRelayBandRatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayBandRatesResponse",
   is(o: any): o is MsgRelayBandRatesResponse {
@@ -861,6 +1043,13 @@ function createBaseMsgRelayCoinbaseMessages(): MsgRelayCoinbaseMessages {
     signatures: []
   };
 }
+/**
+ * MsgRelayCoinbaseMessages defines a SDK message for relaying price messages
+ * from Coinbase API.
+ * @name MsgRelayCoinbaseMessages
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayCoinbaseMessages
+ */
 export const MsgRelayCoinbaseMessages = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessages",
   aminoType: "oracle/MsgRelayCoinbaseMessages",
@@ -962,6 +1151,11 @@ export const MsgRelayCoinbaseMessages = {
 function createBaseMsgRelayCoinbaseMessagesResponse(): MsgRelayCoinbaseMessagesResponse {
   return {};
 }
+/**
+ * @name MsgRelayCoinbaseMessagesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse
+ */
 export const MsgRelayCoinbaseMessagesResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayCoinbaseMessagesResponse",
   is(o: any): o is MsgRelayCoinbaseMessagesResponse {
@@ -1022,6 +1216,13 @@ function createBaseMsgRelayStorkPrices(): MsgRelayStorkPrices {
     assetPairs: []
   };
 }
+/**
+ * MsgRelayStorkPrices defines a SDK message for relaying price message
+ * from Stork API.
+ * @name MsgRelayStorkPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayStorkPrices
+ */
 export const MsgRelayStorkPrices = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPrices",
   is(o: any): o is MsgRelayStorkPrices {
@@ -1108,6 +1309,11 @@ export const MsgRelayStorkPrices = {
 function createBaseMsgRelayStorkPricesResponse(): MsgRelayStorkPricesResponse {
   return {};
 }
+/**
+ * @name MsgRelayStorkPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayStorkPricesResponse
+ */
 export const MsgRelayStorkPricesResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayStorkPricesResponse",
   is(o: any): o is MsgRelayStorkPricesResponse {
@@ -1168,6 +1374,13 @@ function createBaseMsgRequestBandIBCRates(): MsgRequestBandIBCRates {
     requestId: BigInt(0)
   };
 }
+/**
+ * MsgRequestBandIBCRates defines a SDK message for requesting data from
+ * BandChain using IBC.
+ * @name MsgRequestBandIBCRates
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRequestBandIBCRates
+ */
 export const MsgRequestBandIBCRates = {
   typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRates",
   aminoType: "oracle/MsgRequestBandIBCRates",
@@ -1254,6 +1467,12 @@ export const MsgRequestBandIBCRates = {
 function createBaseMsgRequestBandIBCRatesResponse(): MsgRequestBandIBCRatesResponse {
   return {};
 }
+/**
+ * MsgRequestDataResponse defines the Msg/RequestBandIBCRates response type.
+ * @name MsgRequestBandIBCRatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse
+ */
 export const MsgRequestBandIBCRatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRequestBandIBCRatesResponse",
   is(o: any): o is MsgRequestBandIBCRatesResponse {
@@ -1314,6 +1533,12 @@ function createBaseMsgRelayPythPrices(): MsgRelayPythPrices {
     priceAttestations: []
   };
 }
+/**
+ * MsgRelayPythPrices defines a SDK message for updating Pyth prices
+ * @name MsgRelayPythPrices
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPythPrices
+ */
 export const MsgRelayPythPrices = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPrices",
   aminoType: "oracle/MsgRelayPythPrices",
@@ -1407,6 +1632,12 @@ export const MsgRelayPythPrices = {
 function createBaseMsgRelayPythPricesResponse(): MsgRelayPythPricesResponse {
   return {};
 }
+/**
+ * MsgRelayPythPricesResponse defines the Msg/RelayPythPrices response type.
+ * @name MsgRelayPythPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgRelayPythPricesResponse
+ */
 export const MsgRelayPythPricesResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgRelayPythPricesResponse",
   is(o: any): o is MsgRelayPythPricesResponse {
@@ -1467,6 +1698,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.oracle.v1beta1.MsgUpdateParams",
   aminoType: "oracle/MsgUpdateParams",
@@ -1558,6 +1794,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.oracle.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {

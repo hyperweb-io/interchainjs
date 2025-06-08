@@ -1,52 +1,102 @@
 import { buildUseQuery } from "../../../../react-query";
 import { QueryIncentivizedPacketsRequest, QueryIncentivizedPacketsResponse, QueryIncentivizedPacketRequest, QueryIncentivizedPacketResponse, QueryIncentivizedPacketsForChannelRequest, QueryIncentivizedPacketsForChannelResponse, QueryTotalRecvFeesRequest, QueryTotalRecvFeesResponse, QueryTotalAckFeesRequest, QueryTotalAckFeesResponse, QueryTotalTimeoutFeesRequest, QueryTotalTimeoutFeesResponse, QueryPayeeRequest, QueryPayeeResponse, QueryCounterpartyPayeeRequest, QueryCounterpartyPayeeResponse, QueryFeeEnabledChannelsRequest, QueryFeeEnabledChannelsResponse, QueryFeeEnabledChannelRequest, QueryFeeEnabledChannelResponse } from "./query";
 import { getIncentivizedPackets, getIncentivizedPacket, getIncentivizedPacketsForChannel, getTotalRecvFees, getTotalAckFees, getTotalTimeoutFees, getPayee, getCounterpartyPayee, getFeeEnabledChannels, getFeeEnabledChannel } from "./query.rpc.func";
-/* IncentivizedPackets returns all incentivized packets and their associated fees */
+/**
+ * IncentivizedPackets returns all incentivized packets and their associated fees
+ * @name useGetIncentivizedPackets
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.IncentivizedPackets
+ */
 export const useGetIncentivizedPackets = buildUseQuery<QueryIncentivizedPacketsRequest, QueryIncentivizedPacketsResponse>({
   builderQueryFn: getIncentivizedPackets,
   queryKeyPrefix: "IncentivizedPacketsQuery"
 });
-/* IncentivizedPacket returns all packet fees for a packet given its identifier */
+/**
+ * IncentivizedPacket returns all packet fees for a packet given its identifier
+ * @name useGetIncentivizedPacket
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.IncentivizedPacket
+ */
 export const useGetIncentivizedPacket = buildUseQuery<QueryIncentivizedPacketRequest, QueryIncentivizedPacketResponse>({
   builderQueryFn: getIncentivizedPacket,
   queryKeyPrefix: "IncentivizedPacketQuery"
 });
-/* Gets all incentivized packets for a specific channel */
+/**
+ * Gets all incentivized packets for a specific channel
+ * @name useGetIncentivizedPacketsForChannel
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.IncentivizedPacketsForChannel
+ */
 export const useGetIncentivizedPacketsForChannel = buildUseQuery<QueryIncentivizedPacketsForChannelRequest, QueryIncentivizedPacketsForChannelResponse>({
   builderQueryFn: getIncentivizedPacketsForChannel,
   queryKeyPrefix: "IncentivizedPacketsForChannelQuery"
 });
-/* TotalRecvFees returns the total receive fees for a packet given its identifier */
+/**
+ * TotalRecvFees returns the total receive fees for a packet given its identifier
+ * @name useGetTotalRecvFees
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.TotalRecvFees
+ */
 export const useGetTotalRecvFees = buildUseQuery<QueryTotalRecvFeesRequest, QueryTotalRecvFeesResponse>({
   builderQueryFn: getTotalRecvFees,
   queryKeyPrefix: "TotalRecvFeesQuery"
 });
-/* TotalAckFees returns the total acknowledgement fees for a packet given its identifier */
+/**
+ * TotalAckFees returns the total acknowledgement fees for a packet given its identifier
+ * @name useGetTotalAckFees
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.TotalAckFees
+ */
 export const useGetTotalAckFees = buildUseQuery<QueryTotalAckFeesRequest, QueryTotalAckFeesResponse>({
   builderQueryFn: getTotalAckFees,
   queryKeyPrefix: "TotalAckFeesQuery"
 });
-/* TotalTimeoutFees returns the total timeout fees for a packet given its identifier */
+/**
+ * TotalTimeoutFees returns the total timeout fees for a packet given its identifier
+ * @name useGetTotalTimeoutFees
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.TotalTimeoutFees
+ */
 export const useGetTotalTimeoutFees = buildUseQuery<QueryTotalTimeoutFeesRequest, QueryTotalTimeoutFeesResponse>({
   builderQueryFn: getTotalTimeoutFees,
   queryKeyPrefix: "TotalTimeoutFeesQuery"
 });
-/* Payee returns the registered payee address for a specific channel given the relayer address */
+/**
+ * Payee returns the registered payee address for a specific channel given the relayer address
+ * @name useGetPayee
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.Payee
+ */
 export const useGetPayee = buildUseQuery<QueryPayeeRequest, QueryPayeeResponse>({
   builderQueryFn: getPayee,
   queryKeyPrefix: "PayeeQuery"
 });
-/* CounterpartyPayee returns the registered counterparty payee for forward relaying */
+/**
+ * CounterpartyPayee returns the registered counterparty payee for forward relaying
+ * @name useGetCounterpartyPayee
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.CounterpartyPayee
+ */
 export const useGetCounterpartyPayee = buildUseQuery<QueryCounterpartyPayeeRequest, QueryCounterpartyPayeeResponse>({
   builderQueryFn: getCounterpartyPayee,
   queryKeyPrefix: "CounterpartyPayeeQuery"
 });
-/* FeeEnabledChannels returns a list of all fee enabled channels */
+/**
+ * FeeEnabledChannels returns a list of all fee enabled channels
+ * @name useGetFeeEnabledChannels
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.FeeEnabledChannels
+ */
 export const useGetFeeEnabledChannels = buildUseQuery<QueryFeeEnabledChannelsRequest, QueryFeeEnabledChannelsResponse>({
   builderQueryFn: getFeeEnabledChannels,
   queryKeyPrefix: "FeeEnabledChannelsQuery"
 });
-/* FeeEnabledChannel returns true if the provided port and channel identifiers belong to a fee enabled channel */
+/**
+ * FeeEnabledChannel returns true if the provided port and channel identifiers belong to a fee enabled channel
+ * @name useGetFeeEnabledChannel
+ * @package ibc.applications.fee.v1
+ * @see proto service: ibc.applications.fee.v1.FeeEnabledChannel
+ */
 export const useGetFeeEnabledChannel = buildUseQuery<QueryFeeEnabledChannelRequest, QueryFeeEnabledChannelResponse>({
   builderQueryFn: getFeeEnabledChannel,
   queryKeyPrefix: "FeeEnabledChannelQuery"

@@ -4,6 +4,11 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
+/**
+ * @name QueryPythPriceRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceRequest
+ */
 export interface QueryPythPriceRequest {
   priceId: string;
 }
@@ -11,6 +16,11 @@ export interface QueryPythPriceRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryPythPriceRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceRequest
+ */
 export interface QueryPythPriceRequestAmino {
   price_id: string;
 }
@@ -18,6 +28,11 @@ export interface QueryPythPriceRequestAminoMsg {
   type: "/injective.oracle.v1beta1.QueryPythPriceRequest";
   value: QueryPythPriceRequestAmino;
 }
+/**
+ * @name QueryPythPriceResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceResponse
+ */
 export interface QueryPythPriceResponse {
   priceState?: PythPriceState;
 }
@@ -25,6 +40,11 @@ export interface QueryPythPriceResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryPythPriceResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceResponse
+ */
 export interface QueryPythPriceResponseAmino {
   price_state?: PythPriceStateAmino;
 }
@@ -35,6 +55,9 @@ export interface QueryPythPriceResponseAminoMsg {
 /**
  * QueryOracleParamsRequest is the request type for the Query/OracleParams RPC
  * method.
+ * @name QueryParamsRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryParamsRequest
  */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
@@ -44,6 +67,9 @@ export interface QueryParamsRequestProtoMsg {
 /**
  * QueryOracleParamsRequest is the request type for the Query/OracleParams RPC
  * method.
+ * @name QueryParamsRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryParamsRequest
  */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
@@ -53,6 +79,9 @@ export interface QueryParamsRequestAminoMsg {
 /**
  * QueryOracleParamsResponse is the response type for the Query/OracleParams RPC
  * method.
+ * @name QueryParamsResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryParamsResponse
  */
 export interface QueryParamsResponse {
   params: Params;
@@ -64,6 +93,9 @@ export interface QueryParamsResponseProtoMsg {
 /**
  * QueryOracleParamsResponse is the response type for the Query/OracleParams RPC
  * method.
+ * @name QueryParamsResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryParamsResponse
  */
 export interface QueryParamsResponseAmino {
   params: ParamsAmino;
@@ -75,6 +107,9 @@ export interface QueryParamsResponseAminoMsg {
 /**
  * QueryBandRelayersRequest is the request type for the Query/BandRelayers RPC
  * method.
+ * @name QueryBandRelayersRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandRelayersRequest
  */
 export interface QueryBandRelayersRequest {}
 export interface QueryBandRelayersRequestProtoMsg {
@@ -84,6 +119,9 @@ export interface QueryBandRelayersRequestProtoMsg {
 /**
  * QueryBandRelayersRequest is the request type for the Query/BandRelayers RPC
  * method.
+ * @name QueryBandRelayersRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandRelayersRequest
  */
 export interface QueryBandRelayersRequestAmino {}
 export interface QueryBandRelayersRequestAminoMsg {
@@ -93,6 +131,9 @@ export interface QueryBandRelayersRequestAminoMsg {
 /**
  * QueryBandRelayersResponse is the response type for the Query/BandRelayers RPC
  * method.
+ * @name QueryBandRelayersResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandRelayersResponse
  */
 export interface QueryBandRelayersResponse {
   relayers: string[];
@@ -104,6 +145,9 @@ export interface QueryBandRelayersResponseProtoMsg {
 /**
  * QueryBandRelayersResponse is the response type for the Query/BandRelayers RPC
  * method.
+ * @name QueryBandRelayersResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandRelayersResponse
  */
 export interface QueryBandRelayersResponseAmino {
   relayers: string[];
@@ -115,6 +159,9 @@ export interface QueryBandRelayersResponseAminoMsg {
 /**
  * QueryBandPriceStatesRequest is the request type for the Query/BandPriceStates
  * RPC method.
+ * @name QueryBandPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandPriceStatesRequest
  */
 export interface QueryBandPriceStatesRequest {}
 export interface QueryBandPriceStatesRequestProtoMsg {
@@ -124,6 +171,9 @@ export interface QueryBandPriceStatesRequestProtoMsg {
 /**
  * QueryBandPriceStatesRequest is the request type for the Query/BandPriceStates
  * RPC method.
+ * @name QueryBandPriceStatesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandPriceStatesRequest
  */
 export interface QueryBandPriceStatesRequestAmino {}
 export interface QueryBandPriceStatesRequestAminoMsg {
@@ -133,6 +183,9 @@ export interface QueryBandPriceStatesRequestAminoMsg {
 /**
  * QueryBandPriceStatesResponse is the response type for the
  * Query/BandPriceStates RPC method.
+ * @name QueryBandPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandPriceStatesResponse
  */
 export interface QueryBandPriceStatesResponse {
   priceStates: BandPriceState[];
@@ -144,6 +197,9 @@ export interface QueryBandPriceStatesResponseProtoMsg {
 /**
  * QueryBandPriceStatesResponse is the response type for the
  * Query/BandPriceStates RPC method.
+ * @name QueryBandPriceStatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandPriceStatesResponse
  */
 export interface QueryBandPriceStatesResponseAmino {
   price_states: BandPriceStateAmino[];
@@ -155,6 +211,9 @@ export interface QueryBandPriceStatesResponseAminoMsg {
 /**
  * QueryBandIBCPriceStatesRequest is the request type for the
  * Query/BandIBCPriceStates RPC method.
+ * @name QueryBandIBCPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest
  */
 export interface QueryBandIBCPriceStatesRequest {}
 export interface QueryBandIBCPriceStatesRequestProtoMsg {
@@ -164,6 +223,9 @@ export interface QueryBandIBCPriceStatesRequestProtoMsg {
 /**
  * QueryBandIBCPriceStatesRequest is the request type for the
  * Query/BandIBCPriceStates RPC method.
+ * @name QueryBandIBCPriceStatesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest
  */
 export interface QueryBandIBCPriceStatesRequestAmino {}
 export interface QueryBandIBCPriceStatesRequestAminoMsg {
@@ -173,6 +235,9 @@ export interface QueryBandIBCPriceStatesRequestAminoMsg {
 /**
  * QueryBandIBCPriceStatesResponse is the response type for the
  * Query/BandIBCPriceStates RPC method.
+ * @name QueryBandIBCPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse
  */
 export interface QueryBandIBCPriceStatesResponse {
   priceStates: BandPriceState[];
@@ -184,6 +249,9 @@ export interface QueryBandIBCPriceStatesResponseProtoMsg {
 /**
  * QueryBandIBCPriceStatesResponse is the response type for the
  * Query/BandIBCPriceStates RPC method.
+ * @name QueryBandIBCPriceStatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse
  */
 export interface QueryBandIBCPriceStatesResponseAmino {
   price_states: BandPriceStateAmino[];
@@ -195,6 +263,9 @@ export interface QueryBandIBCPriceStatesResponseAminoMsg {
 /**
  * QueryPriceFeedPriceStatesRequest is the request type for the
  * Query/PriceFeedPriceStates RPC method.
+ * @name QueryPriceFeedPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest
  */
 export interface QueryPriceFeedPriceStatesRequest {}
 export interface QueryPriceFeedPriceStatesRequestProtoMsg {
@@ -204,6 +275,9 @@ export interface QueryPriceFeedPriceStatesRequestProtoMsg {
 /**
  * QueryPriceFeedPriceStatesRequest is the request type for the
  * Query/PriceFeedPriceStates RPC method.
+ * @name QueryPriceFeedPriceStatesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest
  */
 export interface QueryPriceFeedPriceStatesRequestAmino {}
 export interface QueryPriceFeedPriceStatesRequestAminoMsg {
@@ -213,6 +287,9 @@ export interface QueryPriceFeedPriceStatesRequestAminoMsg {
 /**
  * QueryPriceFeedPriceStatesResponse is the response type for the
  * Query/PriceFeedPriceStates RPC method.
+ * @name QueryPriceFeedPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse
  */
 export interface QueryPriceFeedPriceStatesResponse {
   priceStates: PriceFeedState[];
@@ -224,6 +301,9 @@ export interface QueryPriceFeedPriceStatesResponseProtoMsg {
 /**
  * QueryPriceFeedPriceStatesResponse is the response type for the
  * Query/PriceFeedPriceStates RPC method.
+ * @name QueryPriceFeedPriceStatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse
  */
 export interface QueryPriceFeedPriceStatesResponseAmino {
   price_states: PriceFeedStateAmino[];
@@ -235,6 +315,9 @@ export interface QueryPriceFeedPriceStatesResponseAminoMsg {
 /**
  * QueryCoinbasePriceStatesRequest is the request type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryCoinbasePriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest
  */
 export interface QueryCoinbasePriceStatesRequest {}
 export interface QueryCoinbasePriceStatesRequestProtoMsg {
@@ -244,6 +327,9 @@ export interface QueryCoinbasePriceStatesRequestProtoMsg {
 /**
  * QueryCoinbasePriceStatesRequest is the request type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryCoinbasePriceStatesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest
  */
 export interface QueryCoinbasePriceStatesRequestAmino {}
 export interface QueryCoinbasePriceStatesRequestAminoMsg {
@@ -253,6 +339,9 @@ export interface QueryCoinbasePriceStatesRequestAminoMsg {
 /**
  * QueryCoinbasePriceStatesResponse is the response type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryCoinbasePriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse
  */
 export interface QueryCoinbasePriceStatesResponse {
   priceStates: CoinbasePriceState[];
@@ -264,6 +353,9 @@ export interface QueryCoinbasePriceStatesResponseProtoMsg {
 /**
  * QueryCoinbasePriceStatesResponse is the response type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryCoinbasePriceStatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse
  */
 export interface QueryCoinbasePriceStatesResponseAmino {
   price_states: CoinbasePriceStateAmino[];
@@ -275,6 +367,9 @@ export interface QueryCoinbasePriceStatesResponseAminoMsg {
 /**
  * QueryPythPriceStatesRequest is the request type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryPythPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceStatesRequest
  */
 export interface QueryPythPriceStatesRequest {}
 export interface QueryPythPriceStatesRequestProtoMsg {
@@ -284,6 +379,9 @@ export interface QueryPythPriceStatesRequestProtoMsg {
 /**
  * QueryPythPriceStatesRequest is the request type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryPythPriceStatesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceStatesRequest
  */
 export interface QueryPythPriceStatesRequestAmino {}
 export interface QueryPythPriceStatesRequestAminoMsg {
@@ -293,6 +391,9 @@ export interface QueryPythPriceStatesRequestAminoMsg {
 /**
  * QueryPythPriceStatesResponse is the response type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryPythPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceStatesResponse
  */
 export interface QueryPythPriceStatesResponse {
   priceStates: PythPriceState[];
@@ -304,6 +405,9 @@ export interface QueryPythPriceStatesResponseProtoMsg {
 /**
  * QueryPythPriceStatesResponse is the response type for the
  * Query/CoinbasePriceStates RPC method.
+ * @name QueryPythPriceStatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceStatesResponse
  */
 export interface QueryPythPriceStatesResponseAmino {
   price_states: PythPriceStateAmino[];
@@ -315,6 +419,9 @@ export interface QueryPythPriceStatesResponseAminoMsg {
 /**
  * QueryStorkPriceStatesRequest is the request type for the
  * Query/StorkPriceStates RPC method.
+ * @name QueryStorkPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPriceStatesRequest
  */
 export interface QueryStorkPriceStatesRequest {}
 export interface QueryStorkPriceStatesRequestProtoMsg {
@@ -324,6 +431,9 @@ export interface QueryStorkPriceStatesRequestProtoMsg {
 /**
  * QueryStorkPriceStatesRequest is the request type for the
  * Query/StorkPriceStates RPC method.
+ * @name QueryStorkPriceStatesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPriceStatesRequest
  */
 export interface QueryStorkPriceStatesRequestAmino {}
 export interface QueryStorkPriceStatesRequestAminoMsg {
@@ -333,6 +443,9 @@ export interface QueryStorkPriceStatesRequestAminoMsg {
 /**
  * QueryStorkPriceStatesResponse is the response type for the
  * Query/StorkPriceStates RPC method.
+ * @name QueryStorkPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPriceStatesResponse
  */
 export interface QueryStorkPriceStatesResponse {
   priceStates: StorkPriceState[];
@@ -344,6 +457,9 @@ export interface QueryStorkPriceStatesResponseProtoMsg {
 /**
  * QueryStorkPriceStatesResponse is the response type for the
  * Query/StorkPriceStates RPC method.
+ * @name QueryStorkPriceStatesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPriceStatesResponse
  */
 export interface QueryStorkPriceStatesResponseAmino {
   price_states: StorkPriceStateAmino[];
@@ -355,6 +471,9 @@ export interface QueryStorkPriceStatesResponseAminoMsg {
 /**
  * QueryStorkPublishersRequest is the request type for the
  * Query/StorkPublishers RPC method.
+ * @name QueryStorkPublishersRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPublishersRequest
  */
 export interface QueryStorkPublishersRequest {}
 export interface QueryStorkPublishersRequestProtoMsg {
@@ -364,6 +483,9 @@ export interface QueryStorkPublishersRequestProtoMsg {
 /**
  * QueryStorkPublishersRequest is the request type for the
  * Query/StorkPublishers RPC method.
+ * @name QueryStorkPublishersRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPublishersRequest
  */
 export interface QueryStorkPublishersRequestAmino {}
 export interface QueryStorkPublishersRequestAminoMsg {
@@ -373,6 +495,9 @@ export interface QueryStorkPublishersRequestAminoMsg {
 /**
  * QueryStorkPublishersResponse is the response type for the
  * Query/StorkPublishers RPC method.
+ * @name QueryStorkPublishersResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPublishersResponse
  */
 export interface QueryStorkPublishersResponse {
   publishers: string[];
@@ -384,6 +509,9 @@ export interface QueryStorkPublishersResponseProtoMsg {
 /**
  * QueryStorkPublishersResponse is the response type for the
  * Query/StorkPublishers RPC method.
+ * @name QueryStorkPublishersResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPublishersResponse
  */
 export interface QueryStorkPublishersResponseAmino {
   publishers: string[];
@@ -395,6 +523,9 @@ export interface QueryStorkPublishersResponseAminoMsg {
 /**
  * QueryProviderPriceStateRequest is the request type for the
  * Query/ProviderPriceState RPC method.
+ * @name QueryProviderPriceStateRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryProviderPriceStateRequest
  */
 export interface QueryProviderPriceStateRequest {
   provider: string;
@@ -407,6 +538,9 @@ export interface QueryProviderPriceStateRequestProtoMsg {
 /**
  * QueryProviderPriceStateRequest is the request type for the
  * Query/ProviderPriceState RPC method.
+ * @name QueryProviderPriceStateRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryProviderPriceStateRequest
  */
 export interface QueryProviderPriceStateRequestAmino {
   provider: string;
@@ -419,6 +553,9 @@ export interface QueryProviderPriceStateRequestAminoMsg {
 /**
  * QueryProviderPriceStatesResponse is the response type for the
  * Query/ProviderPriceStates RPC method.
+ * @name QueryProviderPriceStateResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryProviderPriceStateResponse
  */
 export interface QueryProviderPriceStateResponse {
   priceState?: PriceState;
@@ -430,6 +567,9 @@ export interface QueryProviderPriceStateResponseProtoMsg {
 /**
  * QueryProviderPriceStatesResponse is the response type for the
  * Query/ProviderPriceStates RPC method.
+ * @name QueryProviderPriceStateResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryProviderPriceStateResponse
  */
 export interface QueryProviderPriceStateResponseAmino {
   price_state?: PriceStateAmino;
@@ -441,6 +581,9 @@ export interface QueryProviderPriceStateResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/OracleModuleState
  * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -450,6 +593,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/OracleModuleState
  * RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -459,6 +605,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the Query/OracleModuleState
  * RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -470,6 +619,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the Query/OracleModuleState
  * RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -478,6 +630,11 @@ export interface QueryModuleStateResponseAminoMsg {
   type: "/injective.oracle.v1beta1.QueryModuleStateResponse";
   value: QueryModuleStateResponseAmino;
 }
+/**
+ * @name QueryHistoricalPriceRecordsRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest
+ */
 export interface QueryHistoricalPriceRecordsRequest {
   oracle: OracleType;
   symbolId: string;
@@ -486,6 +643,11 @@ export interface QueryHistoricalPriceRecordsRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryHistoricalPriceRecordsRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest
+ */
 export interface QueryHistoricalPriceRecordsRequestAmino {
   oracle: OracleType;
   symbol_id: string;
@@ -494,6 +656,11 @@ export interface QueryHistoricalPriceRecordsRequestAminoMsg {
   type: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest";
   value: QueryHistoricalPriceRecordsRequestAmino;
 }
+/**
+ * @name QueryHistoricalPriceRecordsResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse
+ */
 export interface QueryHistoricalPriceRecordsResponse {
   priceRecords: PriceRecords[];
 }
@@ -501,6 +668,11 @@ export interface QueryHistoricalPriceRecordsResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryHistoricalPriceRecordsResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse
+ */
 export interface QueryHistoricalPriceRecordsResponseAmino {
   price_records: PriceRecordsAmino[];
 }
@@ -508,6 +680,11 @@ export interface QueryHistoricalPriceRecordsResponseAminoMsg {
   type: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse";
   value: QueryHistoricalPriceRecordsResponseAmino;
 }
+/**
+ * @name OracleHistoryOptions
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.OracleHistoryOptions
+ */
 export interface OracleHistoryOptions {
   /**
    * MaxAge restricts the oracle price records oldest age in seconds from the
@@ -530,6 +707,11 @@ export interface OracleHistoryOptionsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.OracleHistoryOptions";
   value: Uint8Array;
 }
+/**
+ * @name OracleHistoryOptionsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.OracleHistoryOptions
+ */
 export interface OracleHistoryOptionsAmino {
   /**
    * MaxAge restricts the oracle price records oldest age in seconds from the
@@ -555,6 +737,9 @@ export interface OracleHistoryOptionsAminoMsg {
 /**
  * QueryOracleVolatilityRequest is the request type for Query/OracleVolatility
  * RPC method.
+ * @name QueryOracleVolatilityRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleVolatilityRequest
  */
 export interface QueryOracleVolatilityRequest {
   baseInfo?: OracleInfo;
@@ -568,6 +753,9 @@ export interface QueryOracleVolatilityRequestProtoMsg {
 /**
  * QueryOracleVolatilityRequest is the request type for Query/OracleVolatility
  * RPC method.
+ * @name QueryOracleVolatilityRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleVolatilityRequest
  */
 export interface QueryOracleVolatilityRequestAmino {
   base_info?: OracleInfoAmino;
@@ -581,6 +769,9 @@ export interface QueryOracleVolatilityRequestAminoMsg {
 /**
  * QueryOracleVolatilityResponse is the response type for Query/OracleVolatility
  * RPC method.
+ * @name QueryOracleVolatilityResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleVolatilityResponse
  */
 export interface QueryOracleVolatilityResponse {
   volatility: string;
@@ -594,6 +785,9 @@ export interface QueryOracleVolatilityResponseProtoMsg {
 /**
  * QueryOracleVolatilityResponse is the response type for Query/OracleVolatility
  * RPC method.
+ * @name QueryOracleVolatilityResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleVolatilityResponse
  */
 export interface QueryOracleVolatilityResponseAmino {
   volatility: string;
@@ -604,16 +798,31 @@ export interface QueryOracleVolatilityResponseAminoMsg {
   type: "/injective.oracle.v1beta1.QueryOracleVolatilityResponse";
   value: QueryOracleVolatilityResponseAmino;
 }
+/**
+ * @name QueryOracleProvidersInfoRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProvidersInfoRequest
+ */
 export interface QueryOracleProvidersInfoRequest {}
 export interface QueryOracleProvidersInfoRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryOracleProvidersInfoRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProvidersInfoRequest
+ */
 export interface QueryOracleProvidersInfoRequestAmino {}
 export interface QueryOracleProvidersInfoRequestAminoMsg {
   type: "/injective.oracle.v1beta1.QueryOracleProvidersInfoRequest";
   value: QueryOracleProvidersInfoRequestAmino;
 }
+/**
+ * @name QueryOracleProvidersInfoResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProvidersInfoResponse
+ */
 export interface QueryOracleProvidersInfoResponse {
   providers: ProviderInfo[];
 }
@@ -621,6 +830,11 @@ export interface QueryOracleProvidersInfoResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryOracleProvidersInfoResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProvidersInfoResponse
+ */
 export interface QueryOracleProvidersInfoResponseAmino {
   providers: ProviderInfoAmino[];
 }
@@ -628,6 +842,11 @@ export interface QueryOracleProvidersInfoResponseAminoMsg {
   type: "/injective.oracle.v1beta1.QueryOracleProvidersInfoResponse";
   value: QueryOracleProvidersInfoResponseAmino;
 }
+/**
+ * @name QueryOracleProviderPricesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProviderPricesRequest
+ */
 export interface QueryOracleProviderPricesRequest {
   provider: string;
 }
@@ -635,6 +854,11 @@ export interface QueryOracleProviderPricesRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryOracleProviderPricesRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProviderPricesRequest
+ */
 export interface QueryOracleProviderPricesRequestAmino {
   provider: string;
 }
@@ -642,6 +866,11 @@ export interface QueryOracleProviderPricesRequestAminoMsg {
   type: "/injective.oracle.v1beta1.QueryOracleProviderPricesRequest";
   value: QueryOracleProviderPricesRequestAmino;
 }
+/**
+ * @name QueryOracleProviderPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProviderPricesResponse
+ */
 export interface QueryOracleProviderPricesResponse {
   providerState: ProviderState[];
 }
@@ -649,6 +878,11 @@ export interface QueryOracleProviderPricesResponseProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryOracleProviderPricesResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProviderPricesResponse
+ */
 export interface QueryOracleProviderPricesResponseAmino {
   providerState: ProviderStateAmino[];
 }
@@ -660,6 +894,9 @@ export interface QueryOracleProviderPricesResponseAminoMsg {
  * ScalingOptions defines optional configuration to avoid precision loss. The
  * oracle result will be returned as base_price * 10^base_decimals / quote_price
  * * 10^quote_decimals
+ * @name ScalingOptions
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ScalingOptions
  */
 export interface ScalingOptions {
   baseDecimals: number;
@@ -673,6 +910,9 @@ export interface ScalingOptionsProtoMsg {
  * ScalingOptions defines optional configuration to avoid precision loss. The
  * oracle result will be returned as base_price * 10^base_decimals / quote_price
  * * 10^quote_decimals
+ * @name ScalingOptionsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ScalingOptions
  */
 export interface ScalingOptionsAmino {
   base_decimals: number;
@@ -685,6 +925,9 @@ export interface ScalingOptionsAminoMsg {
 /**
  * QueryOraclePriceRequest is the request type for the Query/OraclePrice RPC
  * method.
+ * @name QueryOraclePriceRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOraclePriceRequest
  */
 export interface QueryOraclePriceRequest {
   oracleType: OracleType;
@@ -699,6 +942,9 @@ export interface QueryOraclePriceRequestProtoMsg {
 /**
  * QueryOraclePriceRequest is the request type for the Query/OraclePrice RPC
  * method.
+ * @name QueryOraclePriceRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOraclePriceRequest
  */
 export interface QueryOraclePriceRequestAmino {
   oracle_type: OracleType;
@@ -710,6 +956,11 @@ export interface QueryOraclePriceRequestAminoMsg {
   type: "/injective.oracle.v1beta1.QueryOraclePriceRequest";
   value: QueryOraclePriceRequestAmino;
 }
+/**
+ * @name PricePairState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PricePairState
+ */
 export interface PricePairState {
   pairPrice: string;
   basePrice: string;
@@ -723,6 +974,11 @@ export interface PricePairStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PricePairState";
   value: Uint8Array;
 }
+/**
+ * @name PricePairStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PricePairState
+ */
 export interface PricePairStateAmino {
   pair_price: string;
   base_price: string;
@@ -739,6 +995,9 @@ export interface PricePairStateAminoMsg {
 /**
  * QueryOraclePriceResponse is the response type for the Query/OraclePrice RPC
  * method.
+ * @name QueryOraclePriceResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOraclePriceResponse
  */
 export interface QueryOraclePriceResponse {
   pricePairState?: PricePairState;
@@ -750,6 +1009,9 @@ export interface QueryOraclePriceResponseProtoMsg {
 /**
  * QueryOraclePriceResponse is the response type for the Query/OraclePrice RPC
  * method.
+ * @name QueryOraclePriceResponseAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOraclePriceResponse
  */
 export interface QueryOraclePriceResponseAmino {
   price_pair_state?: PricePairStateAmino;
@@ -763,6 +1025,11 @@ function createBaseQueryPythPriceRequest(): QueryPythPriceRequest {
     priceId: ""
   };
 }
+/**
+ * @name QueryPythPriceRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceRequest
+ */
 export const QueryPythPriceRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceRequest",
   is(o: any): o is QueryPythPriceRequest {
@@ -833,6 +1100,11 @@ function createBaseQueryPythPriceResponse(): QueryPythPriceResponse {
     priceState: undefined
   };
 }
+/**
+ * @name QueryPythPriceResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceResponse
+ */
 export const QueryPythPriceResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceResponse",
   is(o: any): o is QueryPythPriceResponse {
@@ -906,6 +1178,13 @@ export const QueryPythPriceResponse = {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryOracleParamsRequest is the request type for the Query/OracleParams RPC
+ * method.
+ * @name QueryParamsRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryParamsRequest",
   is(o: any): o is QueryParamsRequest {
@@ -965,6 +1244,13 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryOracleParamsResponse is the response type for the Query/OracleParams RPC
+ * method.
+ * @name QueryParamsResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryParamsResponse",
   is(o: any): o is QueryParamsResponse {
@@ -1038,6 +1324,13 @@ export const QueryParamsResponse = {
 function createBaseQueryBandRelayersRequest(): QueryBandRelayersRequest {
   return {};
 }
+/**
+ * QueryBandRelayersRequest is the request type for the Query/BandRelayers RPC
+ * method.
+ * @name QueryBandRelayersRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandRelayersRequest
+ */
 export const QueryBandRelayersRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryBandRelayersRequest",
   is(o: any): o is QueryBandRelayersRequest {
@@ -1097,6 +1390,13 @@ function createBaseQueryBandRelayersResponse(): QueryBandRelayersResponse {
     relayers: []
   };
 }
+/**
+ * QueryBandRelayersResponse is the response type for the Query/BandRelayers RPC
+ * method.
+ * @name QueryBandRelayersResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandRelayersResponse
+ */
 export const QueryBandRelayersResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryBandRelayersResponse",
   is(o: any): o is QueryBandRelayersResponse {
@@ -1167,6 +1467,13 @@ export const QueryBandRelayersResponse = {
 function createBaseQueryBandPriceStatesRequest(): QueryBandPriceStatesRequest {
   return {};
 }
+/**
+ * QueryBandPriceStatesRequest is the request type for the Query/BandPriceStates
+ * RPC method.
+ * @name QueryBandPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandPriceStatesRequest
+ */
 export const QueryBandPriceStatesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryBandPriceStatesRequest",
   is(o: any): o is QueryBandPriceStatesRequest {
@@ -1226,6 +1533,13 @@ function createBaseQueryBandPriceStatesResponse(): QueryBandPriceStatesResponse 
     priceStates: []
   };
 }
+/**
+ * QueryBandPriceStatesResponse is the response type for the
+ * Query/BandPriceStates RPC method.
+ * @name QueryBandPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandPriceStatesResponse
+ */
 export const QueryBandPriceStatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryBandPriceStatesResponse",
   is(o: any): o is QueryBandPriceStatesResponse {
@@ -1301,6 +1615,13 @@ export const QueryBandPriceStatesResponse = {
 function createBaseQueryBandIBCPriceStatesRequest(): QueryBandIBCPriceStatesRequest {
   return {};
 }
+/**
+ * QueryBandIBCPriceStatesRequest is the request type for the
+ * Query/BandIBCPriceStates RPC method.
+ * @name QueryBandIBCPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest
+ */
 export const QueryBandIBCPriceStatesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryBandIBCPriceStatesRequest",
   is(o: any): o is QueryBandIBCPriceStatesRequest {
@@ -1360,6 +1681,13 @@ function createBaseQueryBandIBCPriceStatesResponse(): QueryBandIBCPriceStatesRes
     priceStates: []
   };
 }
+/**
+ * QueryBandIBCPriceStatesResponse is the response type for the
+ * Query/BandIBCPriceStates RPC method.
+ * @name QueryBandIBCPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse
+ */
 export const QueryBandIBCPriceStatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryBandIBCPriceStatesResponse",
   is(o: any): o is QueryBandIBCPriceStatesResponse {
@@ -1435,6 +1763,13 @@ export const QueryBandIBCPriceStatesResponse = {
 function createBaseQueryPriceFeedPriceStatesRequest(): QueryPriceFeedPriceStatesRequest {
   return {};
 }
+/**
+ * QueryPriceFeedPriceStatesRequest is the request type for the
+ * Query/PriceFeedPriceStates RPC method.
+ * @name QueryPriceFeedPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest
+ */
 export const QueryPriceFeedPriceStatesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryPriceFeedPriceStatesRequest",
   is(o: any): o is QueryPriceFeedPriceStatesRequest {
@@ -1494,6 +1829,13 @@ function createBaseQueryPriceFeedPriceStatesResponse(): QueryPriceFeedPriceState
     priceStates: []
   };
 }
+/**
+ * QueryPriceFeedPriceStatesResponse is the response type for the
+ * Query/PriceFeedPriceStates RPC method.
+ * @name QueryPriceFeedPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse
+ */
 export const QueryPriceFeedPriceStatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryPriceFeedPriceStatesResponse",
   is(o: any): o is QueryPriceFeedPriceStatesResponse {
@@ -1569,6 +1911,13 @@ export const QueryPriceFeedPriceStatesResponse = {
 function createBaseQueryCoinbasePriceStatesRequest(): QueryCoinbasePriceStatesRequest {
   return {};
 }
+/**
+ * QueryCoinbasePriceStatesRequest is the request type for the
+ * Query/CoinbasePriceStates RPC method.
+ * @name QueryCoinbasePriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest
+ */
 export const QueryCoinbasePriceStatesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryCoinbasePriceStatesRequest",
   is(o: any): o is QueryCoinbasePriceStatesRequest {
@@ -1628,6 +1977,13 @@ function createBaseQueryCoinbasePriceStatesResponse(): QueryCoinbasePriceStatesR
     priceStates: []
   };
 }
+/**
+ * QueryCoinbasePriceStatesResponse is the response type for the
+ * Query/CoinbasePriceStates RPC method.
+ * @name QueryCoinbasePriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse
+ */
 export const QueryCoinbasePriceStatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryCoinbasePriceStatesResponse",
   is(o: any): o is QueryCoinbasePriceStatesResponse {
@@ -1703,6 +2059,13 @@ export const QueryCoinbasePriceStatesResponse = {
 function createBaseQueryPythPriceStatesRequest(): QueryPythPriceStatesRequest {
   return {};
 }
+/**
+ * QueryPythPriceStatesRequest is the request type for the
+ * Query/CoinbasePriceStates RPC method.
+ * @name QueryPythPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceStatesRequest
+ */
 export const QueryPythPriceStatesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceStatesRequest",
   is(o: any): o is QueryPythPriceStatesRequest {
@@ -1762,6 +2125,13 @@ function createBaseQueryPythPriceStatesResponse(): QueryPythPriceStatesResponse 
     priceStates: []
   };
 }
+/**
+ * QueryPythPriceStatesResponse is the response type for the
+ * Query/CoinbasePriceStates RPC method.
+ * @name QueryPythPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryPythPriceStatesResponse
+ */
 export const QueryPythPriceStatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryPythPriceStatesResponse",
   is(o: any): o is QueryPythPriceStatesResponse {
@@ -1837,6 +2207,13 @@ export const QueryPythPriceStatesResponse = {
 function createBaseQueryStorkPriceStatesRequest(): QueryStorkPriceStatesRequest {
   return {};
 }
+/**
+ * QueryStorkPriceStatesRequest is the request type for the
+ * Query/StorkPriceStates RPC method.
+ * @name QueryStorkPriceStatesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPriceStatesRequest
+ */
 export const QueryStorkPriceStatesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPriceStatesRequest",
   is(o: any): o is QueryStorkPriceStatesRequest {
@@ -1896,6 +2273,13 @@ function createBaseQueryStorkPriceStatesResponse(): QueryStorkPriceStatesRespons
     priceStates: []
   };
 }
+/**
+ * QueryStorkPriceStatesResponse is the response type for the
+ * Query/StorkPriceStates RPC method.
+ * @name QueryStorkPriceStatesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPriceStatesResponse
+ */
 export const QueryStorkPriceStatesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPriceStatesResponse",
   is(o: any): o is QueryStorkPriceStatesResponse {
@@ -1971,6 +2355,13 @@ export const QueryStorkPriceStatesResponse = {
 function createBaseQueryStorkPublishersRequest(): QueryStorkPublishersRequest {
   return {};
 }
+/**
+ * QueryStorkPublishersRequest is the request type for the
+ * Query/StorkPublishers RPC method.
+ * @name QueryStorkPublishersRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPublishersRequest
+ */
 export const QueryStorkPublishersRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPublishersRequest",
   is(o: any): o is QueryStorkPublishersRequest {
@@ -2030,6 +2421,13 @@ function createBaseQueryStorkPublishersResponse(): QueryStorkPublishersResponse 
     publishers: []
   };
 }
+/**
+ * QueryStorkPublishersResponse is the response type for the
+ * Query/StorkPublishers RPC method.
+ * @name QueryStorkPublishersResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryStorkPublishersResponse
+ */
 export const QueryStorkPublishersResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryStorkPublishersResponse",
   is(o: any): o is QueryStorkPublishersResponse {
@@ -2103,6 +2501,13 @@ function createBaseQueryProviderPriceStateRequest(): QueryProviderPriceStateRequ
     symbol: ""
   };
 }
+/**
+ * QueryProviderPriceStateRequest is the request type for the
+ * Query/ProviderPriceState RPC method.
+ * @name QueryProviderPriceStateRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryProviderPriceStateRequest
+ */
 export const QueryProviderPriceStateRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryProviderPriceStateRequest",
   is(o: any): o is QueryProviderPriceStateRequest {
@@ -2184,6 +2589,13 @@ function createBaseQueryProviderPriceStateResponse(): QueryProviderPriceStateRes
     priceState: undefined
   };
 }
+/**
+ * QueryProviderPriceStatesResponse is the response type for the
+ * Query/ProviderPriceStates RPC method.
+ * @name QueryProviderPriceStateResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryProviderPriceStateResponse
+ */
 export const QueryProviderPriceStateResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryProviderPriceStateResponse",
   is(o: any): o is QueryProviderPriceStateResponse {
@@ -2257,6 +2669,13 @@ export const QueryProviderPriceStateResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the Query/OracleModuleState
+ * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -2316,6 +2735,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the Query/OracleModuleState
+ * RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {
@@ -2392,6 +2818,11 @@ function createBaseQueryHistoricalPriceRecordsRequest(): QueryHistoricalPriceRec
     symbolId: ""
   };
 }
+/**
+ * @name QueryHistoricalPriceRecordsRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest
+ */
 export const QueryHistoricalPriceRecordsRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsRequest",
   is(o: any): o is QueryHistoricalPriceRecordsRequest {
@@ -2473,6 +2904,11 @@ function createBaseQueryHistoricalPriceRecordsResponse(): QueryHistoricalPriceRe
     priceRecords: []
   };
 }
+/**
+ * @name QueryHistoricalPriceRecordsResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse
+ */
 export const QueryHistoricalPriceRecordsResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryHistoricalPriceRecordsResponse",
   is(o: any): o is QueryHistoricalPriceRecordsResponse {
@@ -2552,6 +2988,11 @@ function createBaseOracleHistoryOptions(): OracleHistoryOptions {
     includeMetadata: false
   };
 }
+/**
+ * @name OracleHistoryOptions
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.OracleHistoryOptions
+ */
 export const OracleHistoryOptions = {
   typeUrl: "/injective.oracle.v1beta1.OracleHistoryOptions",
   is(o: any): o is OracleHistoryOptions {
@@ -2646,6 +3087,13 @@ function createBaseQueryOracleVolatilityRequest(): QueryOracleVolatilityRequest 
     oracleHistoryOptions: undefined
   };
 }
+/**
+ * QueryOracleVolatilityRequest is the request type for Query/OracleVolatility
+ * RPC method.
+ * @name QueryOracleVolatilityRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleVolatilityRequest
+ */
 export const QueryOracleVolatilityRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleVolatilityRequest",
   is(o: any): o is QueryOracleVolatilityRequest {
@@ -2746,6 +3194,13 @@ function createBaseQueryOracleVolatilityResponse(): QueryOracleVolatilityRespons
     rawHistory: []
   };
 }
+/**
+ * QueryOracleVolatilityResponse is the response type for Query/OracleVolatility
+ * RPC method.
+ * @name QueryOracleVolatilityResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleVolatilityResponse
+ */
 export const QueryOracleVolatilityResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleVolatilityResponse",
   is(o: any): o is QueryOracleVolatilityResponse {
@@ -2844,6 +3299,11 @@ export const QueryOracleVolatilityResponse = {
 function createBaseQueryOracleProvidersInfoRequest(): QueryOracleProvidersInfoRequest {
   return {};
 }
+/**
+ * @name QueryOracleProvidersInfoRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProvidersInfoRequest
+ */
 export const QueryOracleProvidersInfoRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoRequest",
   is(o: any): o is QueryOracleProvidersInfoRequest {
@@ -2903,6 +3363,11 @@ function createBaseQueryOracleProvidersInfoResponse(): QueryOracleProvidersInfoR
     providers: []
   };
 }
+/**
+ * @name QueryOracleProvidersInfoResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProvidersInfoResponse
+ */
 export const QueryOracleProvidersInfoResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProvidersInfoResponse",
   is(o: any): o is QueryOracleProvidersInfoResponse {
@@ -2980,6 +3445,11 @@ function createBaseQueryOracleProviderPricesRequest(): QueryOracleProviderPrices
     provider: ""
   };
 }
+/**
+ * @name QueryOracleProviderPricesRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProviderPricesRequest
+ */
 export const QueryOracleProviderPricesRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesRequest",
   is(o: any): o is QueryOracleProviderPricesRequest {
@@ -3050,6 +3520,11 @@ function createBaseQueryOracleProviderPricesResponse(): QueryOracleProviderPrice
     providerState: []
   };
 }
+/**
+ * @name QueryOracleProviderPricesResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOracleProviderPricesResponse
+ */
 export const QueryOracleProviderPricesResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryOracleProviderPricesResponse",
   is(o: any): o is QueryOracleProviderPricesResponse {
@@ -3128,6 +3603,14 @@ function createBaseScalingOptions(): ScalingOptions {
     quoteDecimals: 0
   };
 }
+/**
+ * ScalingOptions defines optional configuration to avoid precision loss. The
+ * oracle result will be returned as base_price * 10^base_decimals / quote_price
+ * * 10^quote_decimals
+ * @name ScalingOptions
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ScalingOptions
+ */
 export const ScalingOptions = {
   typeUrl: "/injective.oracle.v1beta1.ScalingOptions",
   is(o: any): o is ScalingOptions {
@@ -3212,6 +3695,13 @@ function createBaseQueryOraclePriceRequest(): QueryOraclePriceRequest {
     scalingOptions: undefined
   };
 }
+/**
+ * QueryOraclePriceRequest is the request type for the Query/OraclePrice RPC
+ * method.
+ * @name QueryOraclePriceRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOraclePriceRequest
+ */
 export const QueryOraclePriceRequest = {
   typeUrl: "/injective.oracle.v1beta1.QueryOraclePriceRequest",
   is(o: any): o is QueryOraclePriceRequest {
@@ -3326,6 +3816,11 @@ function createBasePricePairState(): PricePairState {
     quoteTimestamp: BigInt(0)
   };
 }
+/**
+ * @name PricePairState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PricePairState
+ */
 export const PricePairState = {
   typeUrl: "/injective.oracle.v1beta1.PricePairState",
   is(o: any): o is PricePairState {
@@ -3462,6 +3957,13 @@ function createBaseQueryOraclePriceResponse(): QueryOraclePriceResponse {
     pricePairState: undefined
   };
 }
+/**
+ * QueryOraclePriceResponse is the response type for the Query/OraclePrice RPC
+ * method.
+ * @name QueryOraclePriceResponse
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.QueryOraclePriceResponse
+ */
 export const QueryOraclePriceResponse = {
   typeUrl: "/injective.oracle.v1beta1.QueryOraclePriceResponse",
   is(o: any): o is QueryOraclePriceResponse {
