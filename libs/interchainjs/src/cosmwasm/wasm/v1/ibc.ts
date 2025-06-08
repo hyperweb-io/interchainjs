@@ -1,8 +1,15 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-/** MsgIBCSend */
+/**
+ * MsgIBCSend
+ * @name MsgIBCSend
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSend
+ */
 export interface MsgIBCSend {
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   channel: string;
   /**
    * Timeout height relative to the current block height.
@@ -24,9 +31,16 @@ export interface MsgIBCSendProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCSend";
   value: Uint8Array;
 }
-/** MsgIBCSend */
+/**
+ * MsgIBCSend
+ * @name MsgIBCSendAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSend
+ */
 export interface MsgIBCSendAmino {
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   channel: string;
   /**
    * Timeout height relative to the current block height.
@@ -48,37 +62,66 @@ export interface MsgIBCSendAminoMsg {
   type: "wasm/MsgIBCSend";
   value: MsgIBCSendAmino;
 }
-/** MsgIBCSendResponse */
+/**
+ * MsgIBCSendResponse
+ * @name MsgIBCSendResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSendResponse
+ */
 export interface MsgIBCSendResponse {
-  /** Sequence number of the IBC packet sent */
+  /**
+   * Sequence number of the IBC packet sent
+   */
   sequence: bigint;
 }
 export interface MsgIBCSendResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCSendResponse";
   value: Uint8Array;
 }
-/** MsgIBCSendResponse */
+/**
+ * MsgIBCSendResponse
+ * @name MsgIBCSendResponseAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSendResponse
+ */
 export interface MsgIBCSendResponseAmino {
-  /** Sequence number of the IBC packet sent */
+  /**
+   * Sequence number of the IBC packet sent
+   */
   sequence: string;
 }
 export interface MsgIBCSendResponseAminoMsg {
   type: "wasm/MsgIBCSendResponse";
   value: MsgIBCSendResponseAmino;
 }
-/** MsgIBCWriteAcknowledgementResponse */
+/**
+ * MsgIBCWriteAcknowledgementResponse
+ * @name MsgIBCWriteAcknowledgementResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse
+ */
 export interface MsgIBCWriteAcknowledgementResponse {}
 export interface MsgIBCWriteAcknowledgementResponseProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse";
   value: Uint8Array;
 }
-/** MsgIBCWriteAcknowledgementResponse */
+/**
+ * MsgIBCWriteAcknowledgementResponse
+ * @name MsgIBCWriteAcknowledgementResponseAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse
+ */
 export interface MsgIBCWriteAcknowledgementResponseAmino {}
 export interface MsgIBCWriteAcknowledgementResponseAminoMsg {
   type: "wasm/MsgIBCWriteAcknowledgementResponse";
   value: MsgIBCWriteAcknowledgementResponseAmino;
 }
-/** MsgIBCCloseChannel port and channel need to be owned by the contract */
+/**
+ * MsgIBCCloseChannel port and channel need to be owned by the contract
+ * @name MsgIBCCloseChannel
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCCloseChannel
+ */
 export interface MsgIBCCloseChannel {
   channel: string;
 }
@@ -86,7 +129,12 @@ export interface MsgIBCCloseChannelProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCCloseChannel";
   value: Uint8Array;
 }
-/** MsgIBCCloseChannel port and channel need to be owned by the contract */
+/**
+ * MsgIBCCloseChannel port and channel need to be owned by the contract
+ * @name MsgIBCCloseChannelAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCCloseChannel
+ */
 export interface MsgIBCCloseChannelAmino {
   channel: string;
 }
@@ -102,6 +150,12 @@ function createBaseMsgIBCSend(): MsgIBCSend {
     data: new Uint8Array()
   };
 }
+/**
+ * MsgIBCSend
+ * @name MsgIBCSend
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSend
+ */
 export const MsgIBCSend = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCSend",
   aminoType: "wasm/MsgIBCSend",
@@ -212,6 +266,12 @@ function createBaseMsgIBCSendResponse(): MsgIBCSendResponse {
     sequence: BigInt(0)
   };
 }
+/**
+ * MsgIBCSendResponse
+ * @name MsgIBCSendResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCSendResponse
+ */
 export const MsgIBCSendResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCSendResponse",
   aminoType: "wasm/MsgIBCSendResponse",
@@ -287,6 +347,12 @@ export const MsgIBCSendResponse = {
 function createBaseMsgIBCWriteAcknowledgementResponse(): MsgIBCWriteAcknowledgementResponse {
   return {};
 }
+/**
+ * MsgIBCWriteAcknowledgementResponse
+ * @name MsgIBCWriteAcknowledgementResponse
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse
+ */
 export const MsgIBCWriteAcknowledgementResponse = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCWriteAcknowledgementResponse",
   aminoType: "wasm/MsgIBCWriteAcknowledgementResponse",
@@ -353,6 +419,12 @@ function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
     channel: ""
   };
 }
+/**
+ * MsgIBCCloseChannel port and channel need to be owned by the contract
+ * @name MsgIBCCloseChannel
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MsgIBCCloseChannel
+ */
 export const MsgIBCCloseChannel = {
   typeUrl: "/cosmwasm.wasm.v1.MsgIBCCloseChannel",
   aminoType: "wasm/MsgIBCCloseChannel",

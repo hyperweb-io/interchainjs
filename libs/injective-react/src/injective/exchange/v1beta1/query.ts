@@ -84,6 +84,11 @@ export function cancellationStrategyToJSON(object: CancellationStrategy): string
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name Subaccount
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Subaccount
+ */
 export interface Subaccount {
   trader: string;
   subaccountNonce: number;
@@ -92,6 +97,11 @@ export interface SubaccountProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Subaccount";
   value: Uint8Array;
 }
+/**
+ * @name SubaccountAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Subaccount
+ */
 export interface SubaccountAmino {
   trader: string;
   subaccount_nonce: number;
@@ -100,6 +110,11 @@ export interface SubaccountAminoMsg {
   type: "/injective.exchange.v1beta1.Subaccount";
   value: SubaccountAmino;
 }
+/**
+ * @name QuerySubaccountOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrdersRequest
+ */
 export interface QuerySubaccountOrdersRequest {
   subaccountId: string;
   marketId: string;
@@ -108,6 +123,11 @@ export interface QuerySubaccountOrdersRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrdersRequest";
   value: Uint8Array;
 }
+/**
+ * @name QuerySubaccountOrdersRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrdersRequest
+ */
 export interface QuerySubaccountOrdersRequestAmino {
   subaccount_id: string;
   market_id: string;
@@ -116,6 +136,11 @@ export interface QuerySubaccountOrdersRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QuerySubaccountOrdersRequest";
   value: QuerySubaccountOrdersRequestAmino;
 }
+/**
+ * @name QuerySubaccountOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrdersResponse
+ */
 export interface QuerySubaccountOrdersResponse {
   buyOrders: SubaccountOrderData[];
   sellOrders: SubaccountOrderData[];
@@ -124,6 +149,11 @@ export interface QuerySubaccountOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrdersResponse";
   value: Uint8Array;
 }
+/**
+ * @name QuerySubaccountOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrdersResponse
+ */
 export interface QuerySubaccountOrdersResponseAmino {
   buy_orders: SubaccountOrderDataAmino[];
   sell_orders: SubaccountOrderDataAmino[];
@@ -132,6 +162,11 @@ export interface QuerySubaccountOrdersResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QuerySubaccountOrdersResponse";
   value: QuerySubaccountOrdersResponseAmino;
 }
+/**
+ * @name SubaccountOrderbookMetadataWithMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarket
+ */
 export interface SubaccountOrderbookMetadataWithMarket {
   metadata?: SubaccountOrderbookMetadata;
   marketId: string;
@@ -141,6 +176,11 @@ export interface SubaccountOrderbookMetadataWithMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarket";
   value: Uint8Array;
 }
+/**
+ * @name SubaccountOrderbookMetadataWithMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarket
+ */
 export interface SubaccountOrderbookMetadataWithMarketAmino {
   metadata?: SubaccountOrderbookMetadataAmino;
   market_id: string;
@@ -153,6 +193,9 @@ export interface SubaccountOrderbookMetadataWithMarketAminoMsg {
 /**
  * QueryExchangeParamsRequest is the request type for the Query/ExchangeParams
  * RPC method.
+ * @name QueryExchangeParamsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeParamsRequest
  */
 export interface QueryExchangeParamsRequest {}
 export interface QueryExchangeParamsRequestProtoMsg {
@@ -162,6 +205,9 @@ export interface QueryExchangeParamsRequestProtoMsg {
 /**
  * QueryExchangeParamsRequest is the request type for the Query/ExchangeParams
  * RPC method.
+ * @name QueryExchangeParamsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeParamsRequest
  */
 export interface QueryExchangeParamsRequestAmino {}
 export interface QueryExchangeParamsRequestAminoMsg {
@@ -171,6 +217,9 @@ export interface QueryExchangeParamsRequestAminoMsg {
 /**
  * QueryExchangeParamsRequest is the response type for the Query/ExchangeParams
  * RPC method.
+ * @name QueryExchangeParamsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeParamsResponse
  */
 export interface QueryExchangeParamsResponse {
   params: Params;
@@ -182,6 +231,9 @@ export interface QueryExchangeParamsResponseProtoMsg {
 /**
  * QueryExchangeParamsRequest is the response type for the Query/ExchangeParams
  * RPC method.
+ * @name QueryExchangeParamsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeParamsResponse
  */
 export interface QueryExchangeParamsResponseAmino {
   params: ParamsAmino;
@@ -193,6 +245,9 @@ export interface QueryExchangeParamsResponseAminoMsg {
 /**
  * QuerySubaccountDepositsRequest is the request type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsRequest
  */
 export interface QuerySubaccountDepositsRequest {
   subaccountId: string;
@@ -205,6 +260,9 @@ export interface QuerySubaccountDepositsRequestProtoMsg {
 /**
  * QuerySubaccountDepositsRequest is the request type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsRequest
  */
 export interface QuerySubaccountDepositsRequestAmino {
   subaccount_id: string;
@@ -214,6 +272,11 @@ export interface QuerySubaccountDepositsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QuerySubaccountDepositsRequest";
   value: QuerySubaccountDepositsRequestAmino;
 }
+/**
+ * @name QuerySubaccountDepositsResponse_DepositsEntry
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.undefined
+ */
 export interface QuerySubaccountDepositsResponse_DepositsEntry {
   key: string;
   value?: Deposit;
@@ -222,6 +285,11 @@ export interface QuerySubaccountDepositsResponse_DepositsEntryProtoMsg {
   typeUrl: string;
   value: Uint8Array;
 }
+/**
+ * @name QuerySubaccountDepositsResponse_DepositsEntryAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsResponse_DepositsEntry
+ */
 export interface QuerySubaccountDepositsResponse_DepositsEntryAmino {
   key: string;
   value?: DepositAmino;
@@ -233,6 +301,9 @@ export interface QuerySubaccountDepositsResponse_DepositsEntryAminoMsg {
 /**
  * QuerySubaccountDepositsResponse is the response type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsResponse
  */
 export interface QuerySubaccountDepositsResponse {
   deposits: {
@@ -246,6 +317,9 @@ export interface QuerySubaccountDepositsResponseProtoMsg {
 /**
  * QuerySubaccountDepositsResponse is the response type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsResponse
  */
 export interface QuerySubaccountDepositsResponseAmino {
   deposits: {
@@ -259,6 +333,9 @@ export interface QuerySubaccountDepositsResponseAminoMsg {
 /**
  * QueryExchangeBalancesRequest is the request type for the
  * Query/ExchangeBalances RPC method.
+ * @name QueryExchangeBalancesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeBalancesRequest
  */
 export interface QueryExchangeBalancesRequest {}
 export interface QueryExchangeBalancesRequestProtoMsg {
@@ -268,6 +345,9 @@ export interface QueryExchangeBalancesRequestProtoMsg {
 /**
  * QueryExchangeBalancesRequest is the request type for the
  * Query/ExchangeBalances RPC method.
+ * @name QueryExchangeBalancesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeBalancesRequest
  */
 export interface QueryExchangeBalancesRequestAmino {}
 export interface QueryExchangeBalancesRequestAminoMsg {
@@ -277,6 +357,9 @@ export interface QueryExchangeBalancesRequestAminoMsg {
 /**
  * QuerySubaccountDepositsResponse is the response type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QueryExchangeBalancesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeBalancesResponse
  */
 export interface QueryExchangeBalancesResponse {
   balances: Balance[];
@@ -288,6 +371,9 @@ export interface QueryExchangeBalancesResponseProtoMsg {
 /**
  * QuerySubaccountDepositsResponse is the response type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QueryExchangeBalancesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeBalancesResponse
  */
 export interface QueryExchangeBalancesResponseAmino {
   balances: BalanceAmino[];
@@ -299,9 +385,14 @@ export interface QueryExchangeBalancesResponseAminoMsg {
 /**
  * QueryAggregateVolumeRequest is the request type for the Query/AggregateVolume
  * RPC method.
+ * @name QueryAggregateVolumeRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumeRequest
  */
 export interface QueryAggregateVolumeRequest {
-  /** can either be an address or a subaccount */
+  /**
+   * can either be an address or a subaccount
+   */
   account: string;
 }
 export interface QueryAggregateVolumeRequestProtoMsg {
@@ -311,9 +402,14 @@ export interface QueryAggregateVolumeRequestProtoMsg {
 /**
  * QueryAggregateVolumeRequest is the request type for the Query/AggregateVolume
  * RPC method.
+ * @name QueryAggregateVolumeRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumeRequest
  */
 export interface QueryAggregateVolumeRequestAmino {
-  /** can either be an address or a subaccount */
+  /**
+   * can either be an address or a subaccount
+   */
   account: string;
 }
 export interface QueryAggregateVolumeRequestAminoMsg {
@@ -323,6 +419,9 @@ export interface QueryAggregateVolumeRequestAminoMsg {
 /**
  * QueryAggregateVolumeResponse is the response type for the
  * Query/AggregateVolume RPC method.
+ * @name QueryAggregateVolumeResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumeResponse
  */
 export interface QueryAggregateVolumeResponse {
   /**
@@ -338,6 +437,9 @@ export interface QueryAggregateVolumeResponseProtoMsg {
 /**
  * QueryAggregateVolumeResponse is the response type for the
  * Query/AggregateVolume RPC method.
+ * @name QueryAggregateVolumeResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumeResponse
  */
 export interface QueryAggregateVolumeResponseAmino {
   /**
@@ -353,6 +455,9 @@ export interface QueryAggregateVolumeResponseAminoMsg {
 /**
  * QueryAggregateVolumesRequest is the request type for the
  * Query/AggregateVolumes RPC method.
+ * @name QueryAggregateVolumesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumesRequest
  */
 export interface QueryAggregateVolumesRequest {
   accounts: string[];
@@ -365,6 +470,9 @@ export interface QueryAggregateVolumesRequestProtoMsg {
 /**
  * QueryAggregateVolumesRequest is the request type for the
  * Query/AggregateVolumes RPC method.
+ * @name QueryAggregateVolumesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumesRequest
  */
 export interface QueryAggregateVolumesRequestAmino {
   accounts: string[];
@@ -377,11 +485,18 @@ export interface QueryAggregateVolumesRequestAminoMsg {
 /**
  * QueryAggregateVolumesResponse is the response type for the
  * Query/AggregateVolumes RPC method.
+ * @name QueryAggregateVolumesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumesResponse
  */
 export interface QueryAggregateVolumesResponse {
-  /** the aggregate volume records for the accounts specified */
+  /**
+   * the aggregate volume records for the accounts specified
+   */
   aggregateAccountVolumes: AggregateAccountVolumeRecord[];
-  /** the aggregate volumes for the markets specified */
+  /**
+   * the aggregate volumes for the markets specified
+   */
   aggregateMarketVolumes: MarketVolume[];
 }
 export interface QueryAggregateVolumesResponseProtoMsg {
@@ -391,11 +506,18 @@ export interface QueryAggregateVolumesResponseProtoMsg {
 /**
  * QueryAggregateVolumesResponse is the response type for the
  * Query/AggregateVolumes RPC method.
+ * @name QueryAggregateVolumesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumesResponse
  */
 export interface QueryAggregateVolumesResponseAmino {
-  /** the aggregate volume records for the accounts specified */
+  /**
+   * the aggregate volume records for the accounts specified
+   */
   aggregate_account_volumes: AggregateAccountVolumeRecordAmino[];
-  /** the aggregate volumes for the markets specified */
+  /**
+   * the aggregate volumes for the markets specified
+   */
   aggregate_market_volumes: MarketVolumeAmino[];
 }
 export interface QueryAggregateVolumesResponseAminoMsg {
@@ -405,6 +527,9 @@ export interface QueryAggregateVolumesResponseAminoMsg {
 /**
  * QueryAggregateMarketVolumeRequest is the request type for the
  * Query/AggregateMarketVolume RPC method.
+ * @name QueryAggregateMarketVolumeRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumeRequest
  */
 export interface QueryAggregateMarketVolumeRequest {
   marketId: string;
@@ -416,6 +541,9 @@ export interface QueryAggregateMarketVolumeRequestProtoMsg {
 /**
  * QueryAggregateMarketVolumeRequest is the request type for the
  * Query/AggregateMarketVolume RPC method.
+ * @name QueryAggregateMarketVolumeRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumeRequest
  */
 export interface QueryAggregateMarketVolumeRequestAmino {
   market_id: string;
@@ -427,6 +555,9 @@ export interface QueryAggregateMarketVolumeRequestAminoMsg {
 /**
  * QueryAggregateMarketVolumeResponse is the response type for the
  * Query/AggregateMarketVolume RPC method.
+ * @name QueryAggregateMarketVolumeResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumeResponse
  */
 export interface QueryAggregateMarketVolumeResponse {
   volume: VolumeRecord;
@@ -438,6 +569,9 @@ export interface QueryAggregateMarketVolumeResponseProtoMsg {
 /**
  * QueryAggregateMarketVolumeResponse is the response type for the
  * Query/AggregateMarketVolume RPC method.
+ * @name QueryAggregateMarketVolumeResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumeResponse
  */
 export interface QueryAggregateMarketVolumeResponseAmino {
   volume: VolumeRecordAmino;
@@ -449,6 +583,9 @@ export interface QueryAggregateMarketVolumeResponseAminoMsg {
 /**
  * QueryDenomDecimalRequest is the request type for the Query/DenomDecimal RPC
  * method.
+ * @name QueryDenomDecimalRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalRequest
  */
 export interface QueryDenomDecimalRequest {
   denom: string;
@@ -460,6 +597,9 @@ export interface QueryDenomDecimalRequestProtoMsg {
 /**
  * QueryDenomDecimalRequest is the request type for the Query/DenomDecimal RPC
  * method.
+ * @name QueryDenomDecimalRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalRequest
  */
 export interface QueryDenomDecimalRequestAmino {
   denom: string;
@@ -471,6 +611,9 @@ export interface QueryDenomDecimalRequestAminoMsg {
 /**
  * QueryDenomDecimalResponse is the response type for the Query/DenomDecimal RPC
  * method.
+ * @name QueryDenomDecimalResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalResponse
  */
 export interface QueryDenomDecimalResponse {
   decimal: bigint;
@@ -482,6 +625,9 @@ export interface QueryDenomDecimalResponseProtoMsg {
 /**
  * QueryDenomDecimalResponse is the response type for the Query/DenomDecimal RPC
  * method.
+ * @name QueryDenomDecimalResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalResponse
  */
 export interface QueryDenomDecimalResponseAmino {
   decimal: string;
@@ -493,9 +639,14 @@ export interface QueryDenomDecimalResponseAminoMsg {
 /**
  * QueryDenomDecimalsRequest is the request type for the Query/DenomDecimals RPC
  * method.
+ * @name QueryDenomDecimalsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalsRequest
  */
 export interface QueryDenomDecimalsRequest {
-  /** denoms can be empty to query all denom decimals */
+  /**
+   * denoms can be empty to query all denom decimals
+   */
   denoms: string[];
 }
 export interface QueryDenomDecimalsRequestProtoMsg {
@@ -505,9 +656,14 @@ export interface QueryDenomDecimalsRequestProtoMsg {
 /**
  * QueryDenomDecimalsRequest is the request type for the Query/DenomDecimals RPC
  * method.
+ * @name QueryDenomDecimalsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalsRequest
  */
 export interface QueryDenomDecimalsRequestAmino {
-  /** denoms can be empty to query all denom decimals */
+  /**
+   * denoms can be empty to query all denom decimals
+   */
   denoms: string[];
 }
 export interface QueryDenomDecimalsRequestAminoMsg {
@@ -517,6 +673,9 @@ export interface QueryDenomDecimalsRequestAminoMsg {
 /**
  * QueryDenomDecimalsRequest is the response type for the Query/DenomDecimals
  * RPC method.
+ * @name QueryDenomDecimalsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalsResponse
  */
 export interface QueryDenomDecimalsResponse {
   denomDecimals: DenomDecimals[];
@@ -528,6 +687,9 @@ export interface QueryDenomDecimalsResponseProtoMsg {
 /**
  * QueryDenomDecimalsRequest is the response type for the Query/DenomDecimals
  * RPC method.
+ * @name QueryDenomDecimalsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalsResponse
  */
 export interface QueryDenomDecimalsResponseAmino {
   denom_decimals: DenomDecimalsAmino[];
@@ -539,6 +701,9 @@ export interface QueryDenomDecimalsResponseAminoMsg {
 /**
  * QueryAggregateMarketVolumesRequest is the request type for the
  * Query/AggregateMarketVolumes RPC method.
+ * @name QueryAggregateMarketVolumesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumesRequest
  */
 export interface QueryAggregateMarketVolumesRequest {
   marketIds: string[];
@@ -550,6 +715,9 @@ export interface QueryAggregateMarketVolumesRequestProtoMsg {
 /**
  * QueryAggregateMarketVolumesRequest is the request type for the
  * Query/AggregateMarketVolumes RPC method.
+ * @name QueryAggregateMarketVolumesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumesRequest
  */
 export interface QueryAggregateMarketVolumesRequestAmino {
   market_ids: string[];
@@ -561,9 +729,14 @@ export interface QueryAggregateMarketVolumesRequestAminoMsg {
 /**
  * QueryAggregateMarketVolumesResponse is the response type for the
  * Query/AggregateMarketVolumes RPC method.
+ * @name QueryAggregateMarketVolumesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumesResponse
  */
 export interface QueryAggregateMarketVolumesResponse {
-  /** the aggregate volumes for the entire market */
+  /**
+   * the aggregate volumes for the entire market
+   */
   volumes: MarketVolume[];
 }
 export interface QueryAggregateMarketVolumesResponseProtoMsg {
@@ -573,9 +746,14 @@ export interface QueryAggregateMarketVolumesResponseProtoMsg {
 /**
  * QueryAggregateMarketVolumesResponse is the response type for the
  * Query/AggregateMarketVolumes RPC method.
+ * @name QueryAggregateMarketVolumesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumesResponse
  */
 export interface QueryAggregateMarketVolumesResponseAmino {
-  /** the aggregate volumes for the entire market */
+  /**
+   * the aggregate volumes for the entire market
+   */
   volumes: MarketVolumeAmino[];
 }
 export interface QueryAggregateMarketVolumesResponseAminoMsg {
@@ -585,6 +763,9 @@ export interface QueryAggregateMarketVolumesResponseAminoMsg {
 /**
  * QuerySubaccountDepositsRequest is the request type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositRequest
  */
 export interface QuerySubaccountDepositRequest {
   subaccountId: string;
@@ -597,6 +778,9 @@ export interface QuerySubaccountDepositRequestProtoMsg {
 /**
  * QuerySubaccountDepositsRequest is the request type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositRequest
  */
 export interface QuerySubaccountDepositRequestAmino {
   subaccount_id: string;
@@ -609,6 +793,9 @@ export interface QuerySubaccountDepositRequestAminoMsg {
 /**
  * QuerySubaccountDepositsResponse is the response type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositResponse
  */
 export interface QuerySubaccountDepositResponse {
   deposits?: Deposit;
@@ -620,6 +807,9 @@ export interface QuerySubaccountDepositResponseProtoMsg {
 /**
  * QuerySubaccountDepositsResponse is the response type for the
  * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositResponse
  */
 export interface QuerySubaccountDepositResponseAmino {
   deposits?: DepositAmino;
@@ -631,11 +821,18 @@ export interface QuerySubaccountDepositResponseAminoMsg {
 /**
  * QuerySpotMarketsRequest is the request type for the Query/SpotMarkets RPC
  * method.
+ * @name QuerySpotMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketsRequest
  */
 export interface QuerySpotMarketsRequest {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
-  /** Filter by market IDs */
+  /**
+   * Filter by market IDs
+   */
   marketIds: string[];
 }
 export interface QuerySpotMarketsRequestProtoMsg {
@@ -645,11 +842,18 @@ export interface QuerySpotMarketsRequestProtoMsg {
 /**
  * QuerySpotMarketsRequest is the request type for the Query/SpotMarkets RPC
  * method.
+ * @name QuerySpotMarketsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketsRequest
  */
 export interface QuerySpotMarketsRequestAmino {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
-  /** Filter by market IDs */
+  /**
+   * Filter by market IDs
+   */
   market_ids: string[];
 }
 export interface QuerySpotMarketsRequestAminoMsg {
@@ -659,6 +863,9 @@ export interface QuerySpotMarketsRequestAminoMsg {
 /**
  * QuerySpotMarketsResponse is the response type for the Query/SpotMarkets RPC
  * method.
+ * @name QuerySpotMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketsResponse
  */
 export interface QuerySpotMarketsResponse {
   markets: SpotMarket[];
@@ -670,6 +877,9 @@ export interface QuerySpotMarketsResponseProtoMsg {
 /**
  * QuerySpotMarketsResponse is the response type for the Query/SpotMarkets RPC
  * method.
+ * @name QuerySpotMarketsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketsResponse
  */
 export interface QuerySpotMarketsResponseAmino {
   markets: SpotMarketAmino[];
@@ -681,9 +891,14 @@ export interface QuerySpotMarketsResponseAminoMsg {
 /**
  * QuerySpotMarketRequest is the request type for the Query/SpotMarket RPC
  * method.
+ * @name QuerySpotMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketRequest
  */
 export interface QuerySpotMarketRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
 }
 export interface QuerySpotMarketRequestProtoMsg {
@@ -693,9 +908,14 @@ export interface QuerySpotMarketRequestProtoMsg {
 /**
  * QuerySpotMarketRequest is the request type for the Query/SpotMarket RPC
  * method.
+ * @name QuerySpotMarketRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketRequest
  */
 export interface QuerySpotMarketRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
 }
 export interface QuerySpotMarketRequestAminoMsg {
@@ -705,6 +925,9 @@ export interface QuerySpotMarketRequestAminoMsg {
 /**
  * QuerySpotMarketResponse is the response type for the Query/SpotMarket RPC
  * method.
+ * @name QuerySpotMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketResponse
  */
 export interface QuerySpotMarketResponse {
   market?: SpotMarket;
@@ -716,6 +939,9 @@ export interface QuerySpotMarketResponseProtoMsg {
 /**
  * QuerySpotMarketResponse is the response type for the Query/SpotMarket RPC
  * method.
+ * @name QuerySpotMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketResponse
  */
 export interface QuerySpotMarketResponseAmino {
   market?: SpotMarketAmino;
@@ -727,9 +953,14 @@ export interface QuerySpotMarketResponseAminoMsg {
 /**
  * QuerySpotOrderbookRequest is the request type for the Query/SpotOrderbook RPC
  * method.
+ * @name QuerySpotOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrderbookRequest
  */
 export interface QuerySpotOrderbookRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
   limit: bigint;
   orderSide: OrderSide;
@@ -743,9 +974,14 @@ export interface QuerySpotOrderbookRequestProtoMsg {
 /**
  * QuerySpotOrderbookRequest is the request type for the Query/SpotOrderbook RPC
  * method.
+ * @name QuerySpotOrderbookRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrderbookRequest
  */
 export interface QuerySpotOrderbookRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
   limit: string;
   order_side: OrderSide;
@@ -759,6 +995,9 @@ export interface QuerySpotOrderbookRequestAminoMsg {
 /**
  * QuerySpotOrderbookResponse is the response type for the Query/SpotOrderbook
  * RPC method.
+ * @name QuerySpotOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrderbookResponse
  */
 export interface QuerySpotOrderbookResponse {
   buysPriceLevel: Level[];
@@ -771,6 +1010,9 @@ export interface QuerySpotOrderbookResponseProtoMsg {
 /**
  * QuerySpotOrderbookResponse is the response type for the Query/SpotOrderbook
  * RPC method.
+ * @name QuerySpotOrderbookResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrderbookResponse
  */
 export interface QuerySpotOrderbookResponseAmino {
   buys_price_level: LevelAmino[];
@@ -780,6 +1022,11 @@ export interface QuerySpotOrderbookResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QuerySpotOrderbookResponse";
   value: QuerySpotOrderbookResponseAmino;
 }
+/**
+ * @name FullSpotMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullSpotMarket
+ */
 export interface FullSpotMarket {
   market?: SpotMarket;
   /**
@@ -792,6 +1039,11 @@ export interface FullSpotMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullSpotMarket";
   value: Uint8Array;
 }
+/**
+ * @name FullSpotMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullSpotMarket
+ */
 export interface FullSpotMarketAmino {
   market?: SpotMarketAmino;
   /**
@@ -807,11 +1059,18 @@ export interface FullSpotMarketAminoMsg {
 /**
  * QueryFullSpotMarketsRequest is the request type for the Query/FullSpotMarkets
  * RPC method.
+ * @name QueryFullSpotMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketsRequest
  */
 export interface QueryFullSpotMarketsRequest {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
-  /** Filter by market IDs */
+  /**
+   * Filter by market IDs
+   */
   marketIds: string[];
   /**
    * Flag to return the markets mid price and top of the book buy and sell
@@ -826,11 +1085,18 @@ export interface QueryFullSpotMarketsRequestProtoMsg {
 /**
  * QueryFullSpotMarketsRequest is the request type for the Query/FullSpotMarkets
  * RPC method.
+ * @name QueryFullSpotMarketsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketsRequest
  */
 export interface QueryFullSpotMarketsRequestAmino {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
-  /** Filter by market IDs */
+  /**
+   * Filter by market IDs
+   */
   market_ids: string[];
   /**
    * Flag to return the markets mid price and top of the book buy and sell
@@ -845,6 +1111,9 @@ export interface QueryFullSpotMarketsRequestAminoMsg {
 /**
  * QueryFullSpotMarketsResponse is the response type for the
  * Query/FullSpotMarkets RPC method.
+ * @name QueryFullSpotMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketsResponse
  */
 export interface QueryFullSpotMarketsResponse {
   markets: FullSpotMarket[];
@@ -856,6 +1125,9 @@ export interface QueryFullSpotMarketsResponseProtoMsg {
 /**
  * QueryFullSpotMarketsResponse is the response type for the
  * Query/FullSpotMarkets RPC method.
+ * @name QueryFullSpotMarketsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketsResponse
  */
 export interface QueryFullSpotMarketsResponseAmino {
   markets: FullSpotMarketAmino[];
@@ -867,9 +1139,14 @@ export interface QueryFullSpotMarketsResponseAminoMsg {
 /**
  * QuerySpotMarketRequest is the request type for the Query/SpotMarket RPC
  * method.
+ * @name QueryFullSpotMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketRequest
  */
 export interface QueryFullSpotMarketRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
   /**
    * Flag to return the markets mid price and top of the book buy and sell
@@ -884,9 +1161,14 @@ export interface QueryFullSpotMarketRequestProtoMsg {
 /**
  * QuerySpotMarketRequest is the request type for the Query/SpotMarket RPC
  * method.
+ * @name QueryFullSpotMarketRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketRequest
  */
 export interface QueryFullSpotMarketRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
   /**
    * Flag to return the markets mid price and top of the book buy and sell
@@ -901,6 +1183,9 @@ export interface QueryFullSpotMarketRequestAminoMsg {
 /**
  * QuerySpotMarketResponse is the response type for the Query/SpotMarket RPC
  * method.
+ * @name QueryFullSpotMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketResponse
  */
 export interface QueryFullSpotMarketResponse {
   market?: FullSpotMarket;
@@ -912,6 +1197,9 @@ export interface QueryFullSpotMarketResponseProtoMsg {
 /**
  * QuerySpotMarketResponse is the response type for the Query/SpotMarket RPC
  * method.
+ * @name QueryFullSpotMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketResponse
  */
 export interface QueryFullSpotMarketResponseAmino {
   market?: FullSpotMarketAmino;
@@ -923,13 +1211,22 @@ export interface QueryFullSpotMarketResponseAminoMsg {
 /**
  * QuerySpotOrdersByHashesRequest is the request type for the
  * Query/SpotOrdersByHashes RPC method.
+ * @name QuerySpotOrdersByHashesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrdersByHashesRequest
  */
 export interface QuerySpotOrdersByHashesRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccountId: string;
-  /** the order hashes */
+  /**
+   * the order hashes
+   */
   orderHashes: string[];
 }
 export interface QuerySpotOrdersByHashesRequestProtoMsg {
@@ -939,13 +1236,22 @@ export interface QuerySpotOrdersByHashesRequestProtoMsg {
 /**
  * QuerySpotOrdersByHashesRequest is the request type for the
  * Query/SpotOrdersByHashes RPC method.
+ * @name QuerySpotOrdersByHashesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrdersByHashesRequest
  */
 export interface QuerySpotOrdersByHashesRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccount_id: string;
-  /** the order hashes */
+  /**
+   * the order hashes
+   */
   order_hashes: string[];
 }
 export interface QuerySpotOrdersByHashesRequestAminoMsg {
@@ -955,6 +1261,9 @@ export interface QuerySpotOrdersByHashesRequestAminoMsg {
 /**
  * QuerySpotOrdersByHashesResponse is the response type for the
  * Query/SpotOrdersByHashes RPC method.
+ * @name QuerySpotOrdersByHashesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrdersByHashesResponse
  */
 export interface QuerySpotOrdersByHashesResponse {
   orders: TrimmedSpotLimitOrder[];
@@ -966,6 +1275,9 @@ export interface QuerySpotOrdersByHashesResponseProtoMsg {
 /**
  * QuerySpotOrdersByHashesResponse is the response type for the
  * Query/SpotOrdersByHashes RPC method.
+ * @name QuerySpotOrdersByHashesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrdersByHashesResponse
  */
 export interface QuerySpotOrdersByHashesResponseAmino {
   orders: TrimmedSpotLimitOrderAmino[];
@@ -977,11 +1289,18 @@ export interface QuerySpotOrdersByHashesResponseAminoMsg {
 /**
  * QueryTraderSpotOrdersRequest is the request type for the
  * Query/TraderSpotOrders RPC method.
+ * @name QueryTraderSpotOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersRequest
  */
 export interface QueryTraderSpotOrdersRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccountId: string;
 }
 export interface QueryTraderSpotOrdersRequestProtoMsg {
@@ -991,11 +1310,18 @@ export interface QueryTraderSpotOrdersRequestProtoMsg {
 /**
  * QueryTraderSpotOrdersRequest is the request type for the
  * Query/TraderSpotOrders RPC method.
+ * @name QueryTraderSpotOrdersRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersRequest
  */
 export interface QueryTraderSpotOrdersRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccount_id: string;
 }
 export interface QueryTraderSpotOrdersRequestAminoMsg {
@@ -1005,11 +1331,18 @@ export interface QueryTraderSpotOrdersRequestAminoMsg {
 /**
  * QueryAccountAddressSpotOrdersRequest is the request type for the
  * Query/AccountAddressSpotOrders RPC method.
+ * @name QueryAccountAddressSpotOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressSpotOrdersRequest
  */
 export interface QueryAccountAddressSpotOrdersRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** Account address of the trader */
+  /**
+   * Account address of the trader
+   */
   accountAddress: string;
 }
 export interface QueryAccountAddressSpotOrdersRequestProtoMsg {
@@ -1019,25 +1352,45 @@ export interface QueryAccountAddressSpotOrdersRequestProtoMsg {
 /**
  * QueryAccountAddressSpotOrdersRequest is the request type for the
  * Query/AccountAddressSpotOrders RPC method.
+ * @name QueryAccountAddressSpotOrdersRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressSpotOrdersRequest
  */
 export interface QueryAccountAddressSpotOrdersRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** Account address of the trader */
+  /**
+   * Account address of the trader
+   */
   account_address: string;
 }
 export interface QueryAccountAddressSpotOrdersRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryAccountAddressSpotOrdersRequest";
   value: QueryAccountAddressSpotOrdersRequestAmino;
 }
+/**
+ * @name TrimmedSpotLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedSpotLimitOrder
+ */
 export interface TrimmedSpotLimitOrder {
-  /** price of the order */
+  /**
+   * price of the order
+   */
   price: string;
-  /** quantity of the order */
+  /**
+   * quantity of the order
+   */
   quantity: string;
-  /** the amount of the quantity remaining fillable */
+  /**
+   * the amount of the quantity remaining fillable
+   */
   fillable: string;
-  /** true if the order is a buy */
+  /**
+   * true if the order is a buy
+   */
   isBuy: boolean;
   orderHash: string;
   cid: string;
@@ -1046,14 +1399,27 @@ export interface TrimmedSpotLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TrimmedSpotLimitOrder";
   value: Uint8Array;
 }
+/**
+ * @name TrimmedSpotLimitOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedSpotLimitOrder
+ */
 export interface TrimmedSpotLimitOrderAmino {
-  /** price of the order */
+  /**
+   * price of the order
+   */
   price: string;
-  /** quantity of the order */
+  /**
+   * quantity of the order
+   */
   quantity: string;
-  /** the amount of the quantity remaining fillable */
+  /**
+   * the amount of the quantity remaining fillable
+   */
   fillable: string;
-  /** true if the order is a buy */
+  /**
+   * true if the order is a buy
+   */
   isBuy: boolean;
   order_hash: string;
   cid: string;
@@ -1065,6 +1431,9 @@ export interface TrimmedSpotLimitOrderAminoMsg {
 /**
  * QueryTraderSpotOrdersResponse is the response type for the
  * Query/TraderSpotOrders RPC method.
+ * @name QueryTraderSpotOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersResponse
  */
 export interface QueryTraderSpotOrdersResponse {
   orders: TrimmedSpotLimitOrder[];
@@ -1076,6 +1445,9 @@ export interface QueryTraderSpotOrdersResponseProtoMsg {
 /**
  * QueryTraderSpotOrdersResponse is the response type for the
  * Query/TraderSpotOrders RPC method.
+ * @name QueryTraderSpotOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersResponse
  */
 export interface QueryTraderSpotOrdersResponseAmino {
   orders: TrimmedSpotLimitOrderAmino[];
@@ -1087,6 +1459,9 @@ export interface QueryTraderSpotOrdersResponseAminoMsg {
 /**
  * QueryAccountAddressSpotOrdersResponse is the response type for the
  * Query/AccountAddressSpotOrders RPC method.
+ * @name QueryAccountAddressSpotOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressSpotOrdersResponse
  */
 export interface QueryAccountAddressSpotOrdersResponse {
   orders: TrimmedSpotLimitOrder[];
@@ -1098,6 +1473,9 @@ export interface QueryAccountAddressSpotOrdersResponseProtoMsg {
 /**
  * QueryAccountAddressSpotOrdersResponse is the response type for the
  * Query/AccountAddressSpotOrders RPC method.
+ * @name QueryAccountAddressSpotOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressSpotOrdersResponse
  */
 export interface QueryAccountAddressSpotOrdersResponseAmino {
   orders: TrimmedSpotLimitOrderAmino[];
@@ -1109,9 +1487,14 @@ export interface QueryAccountAddressSpotOrdersResponseAminoMsg {
 /**
  * QuerySpotMidPriceAndTOBRequest is the request type for the
  * Query/SpotMidPriceAndTOB RPC method.
+ * @name QuerySpotMidPriceAndTOBRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMidPriceAndTOBRequest
  */
 export interface QuerySpotMidPriceAndTOBRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
 }
 export interface QuerySpotMidPriceAndTOBRequestProtoMsg {
@@ -1121,9 +1504,14 @@ export interface QuerySpotMidPriceAndTOBRequestProtoMsg {
 /**
  * QuerySpotMidPriceAndTOBRequest is the request type for the
  * Query/SpotMidPriceAndTOB RPC method.
+ * @name QuerySpotMidPriceAndTOBRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMidPriceAndTOBRequest
  */
 export interface QuerySpotMidPriceAndTOBRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
 }
 export interface QuerySpotMidPriceAndTOBRequestAminoMsg {
@@ -1133,13 +1521,22 @@ export interface QuerySpotMidPriceAndTOBRequestAminoMsg {
 /**
  * QuerySpotMidPriceAndTOBResponse is the response type for the
  * Query/SpotMidPriceAndTOB RPC method.
+ * @name QuerySpotMidPriceAndTOBResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMidPriceAndTOBResponse
  */
 export interface QuerySpotMidPriceAndTOBResponse {
-  /** mid price of the market */
+  /**
+   * mid price of the market
+   */
   midPrice?: string;
-  /** best buy price of the market */
+  /**
+   * best buy price of the market
+   */
   bestBuyPrice?: string;
-  /** best sell price of the market */
+  /**
+   * best sell price of the market
+   */
   bestSellPrice?: string;
 }
 export interface QuerySpotMidPriceAndTOBResponseProtoMsg {
@@ -1149,13 +1546,22 @@ export interface QuerySpotMidPriceAndTOBResponseProtoMsg {
 /**
  * QuerySpotMidPriceAndTOBResponse is the response type for the
  * Query/SpotMidPriceAndTOB RPC method.
+ * @name QuerySpotMidPriceAndTOBResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMidPriceAndTOBResponse
  */
 export interface QuerySpotMidPriceAndTOBResponseAmino {
-  /** mid price of the market */
+  /**
+   * mid price of the market
+   */
   mid_price?: string;
-  /** best buy price of the market */
+  /**
+   * best buy price of the market
+   */
   best_buy_price?: string;
-  /** best sell price of the market */
+  /**
+   * best sell price of the market
+   */
   best_sell_price?: string;
 }
 export interface QuerySpotMidPriceAndTOBResponseAminoMsg {
@@ -1165,9 +1571,14 @@ export interface QuerySpotMidPriceAndTOBResponseAminoMsg {
 /**
  * QueryDerivativeMidPriceAndTOBRequest is the request type for the
  * Query/GetDerivativeMidPriceAndTOB RPC method.
+ * @name QueryDerivativeMidPriceAndTOBRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBRequest
  */
 export interface QueryDerivativeMidPriceAndTOBRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
 }
 export interface QueryDerivativeMidPriceAndTOBRequestProtoMsg {
@@ -1177,9 +1588,14 @@ export interface QueryDerivativeMidPriceAndTOBRequestProtoMsg {
 /**
  * QueryDerivativeMidPriceAndTOBRequest is the request type for the
  * Query/GetDerivativeMidPriceAndTOB RPC method.
+ * @name QueryDerivativeMidPriceAndTOBRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBRequest
  */
 export interface QueryDerivativeMidPriceAndTOBRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
 }
 export interface QueryDerivativeMidPriceAndTOBRequestAminoMsg {
@@ -1189,13 +1605,22 @@ export interface QueryDerivativeMidPriceAndTOBRequestAminoMsg {
 /**
  * QueryDerivativeMidPriceAndTOBResponse is the response type for the
  * Query/GetDerivativeMidPriceAndTOB RPC method.
+ * @name QueryDerivativeMidPriceAndTOBResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBResponse
  */
 export interface QueryDerivativeMidPriceAndTOBResponse {
-  /** mid price of the market */
+  /**
+   * mid price of the market
+   */
   midPrice?: string;
-  /** best buy price of the market */
+  /**
+   * best buy price of the market
+   */
   bestBuyPrice?: string;
-  /** best sell price of the market */
+  /**
+   * best sell price of the market
+   */
   bestSellPrice?: string;
 }
 export interface QueryDerivativeMidPriceAndTOBResponseProtoMsg {
@@ -1205,13 +1630,22 @@ export interface QueryDerivativeMidPriceAndTOBResponseProtoMsg {
 /**
  * QueryDerivativeMidPriceAndTOBResponse is the response type for the
  * Query/GetDerivativeMidPriceAndTOB RPC method.
+ * @name QueryDerivativeMidPriceAndTOBResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBResponse
  */
 export interface QueryDerivativeMidPriceAndTOBResponseAmino {
-  /** mid price of the market */
+  /**
+   * mid price of the market
+   */
   mid_price?: string;
-  /** best buy price of the market */
+  /**
+   * best buy price of the market
+   */
   best_buy_price?: string;
-  /** best sell price of the market */
+  /**
+   * best sell price of the market
+   */
   best_sell_price?: string;
 }
 export interface QueryDerivativeMidPriceAndTOBResponseAminoMsg {
@@ -1221,9 +1655,14 @@ export interface QueryDerivativeMidPriceAndTOBResponseAminoMsg {
 /**
  * QueryDerivativeOrderbookRequest is the request type for the
  * Query/DerivativeOrderbook RPC method.
+ * @name QueryDerivativeOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrderbookRequest
  */
 export interface QueryDerivativeOrderbookRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
   limit: bigint;
   limitCumulativeNotional?: string;
@@ -1235,9 +1674,14 @@ export interface QueryDerivativeOrderbookRequestProtoMsg {
 /**
  * QueryDerivativeOrderbookRequest is the request type for the
  * Query/DerivativeOrderbook RPC method.
+ * @name QueryDerivativeOrderbookRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrderbookRequest
  */
 export interface QueryDerivativeOrderbookRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
   limit: string;
   limit_cumulative_notional?: string;
@@ -1249,6 +1693,9 @@ export interface QueryDerivativeOrderbookRequestAminoMsg {
 /**
  * QueryDerivativeOrderbookResponse is the response type for the
  * Query/DerivativeOrderbook RPC method.
+ * @name QueryDerivativeOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrderbookResponse
  */
 export interface QueryDerivativeOrderbookResponse {
   buysPriceLevel: Level[];
@@ -1261,6 +1708,9 @@ export interface QueryDerivativeOrderbookResponseProtoMsg {
 /**
  * QueryDerivativeOrderbookResponse is the response type for the
  * Query/DerivativeOrderbook RPC method.
+ * @name QueryDerivativeOrderbookResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrderbookResponse
  */
 export interface QueryDerivativeOrderbookResponseAmino {
   buys_price_level: LevelAmino[];
@@ -1273,17 +1723,30 @@ export interface QueryDerivativeOrderbookResponseAminoMsg {
 /**
  * QueryTraderSpotOrdersToCancelUpToAmountRequest is the request type for the
  * Query/TraderSpotOrdersToCancelUpToAmountRequest RPC method.
+ * @name QueryTraderSpotOrdersToCancelUpToAmountRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersToCancelUpToAmountRequest
  */
 export interface QueryTraderSpotOrdersToCancelUpToAmountRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccountId: string;
-  /** the base amount to cancel (free up) */
+  /**
+   * the base amount to cancel (free up)
+   */
   baseAmount: string;
-  /** the quote amount to cancel (free up) */
+  /**
+   * the quote amount to cancel (free up)
+   */
   quoteAmount: string;
-  /** The cancellation strategy */
+  /**
+   * The cancellation strategy
+   */
   strategy: CancellationStrategy;
   /**
    * The reference price for the cancellation strategy, e.g. mid price or mark
@@ -1298,17 +1761,30 @@ export interface QueryTraderSpotOrdersToCancelUpToAmountRequestProtoMsg {
 /**
  * QueryTraderSpotOrdersToCancelUpToAmountRequest is the request type for the
  * Query/TraderSpotOrdersToCancelUpToAmountRequest RPC method.
+ * @name QueryTraderSpotOrdersToCancelUpToAmountRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersToCancelUpToAmountRequest
  */
 export interface QueryTraderSpotOrdersToCancelUpToAmountRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccount_id: string;
-  /** the base amount to cancel (free up) */
+  /**
+   * the base amount to cancel (free up)
+   */
   base_amount: string;
-  /** the quote amount to cancel (free up) */
+  /**
+   * the quote amount to cancel (free up)
+   */
   quote_amount: string;
-  /** The cancellation strategy */
+  /**
+   * The cancellation strategy
+   */
   strategy: CancellationStrategy;
   /**
    * The reference price for the cancellation strategy, e.g. mid price or mark
@@ -1323,15 +1799,26 @@ export interface QueryTraderSpotOrdersToCancelUpToAmountRequestAminoMsg {
 /**
  * QueryTraderDerivativeOrdersToCancelUpToAmountRequest is the request type for
  * the Query/TraderDerivativeOrdersToCancelUpToAmountRequest RPC method.
+ * @name QueryTraderDerivativeOrdersToCancelUpToAmountRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersToCancelUpToAmountRequest
  */
 export interface QueryTraderDerivativeOrdersToCancelUpToAmountRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccountId: string;
-  /** the quote amount to cancel (free up) */
+  /**
+   * the quote amount to cancel (free up)
+   */
   quoteAmount: string;
-  /** The cancellation strategy */
+  /**
+   * The cancellation strategy
+   */
   strategy: CancellationStrategy;
   /**
    * The reference price for the cancellation strategy, e.g. mid price or mark
@@ -1346,15 +1833,26 @@ export interface QueryTraderDerivativeOrdersToCancelUpToAmountRequestProtoMsg {
 /**
  * QueryTraderDerivativeOrdersToCancelUpToAmountRequest is the request type for
  * the Query/TraderDerivativeOrdersToCancelUpToAmountRequest RPC method.
+ * @name QueryTraderDerivativeOrdersToCancelUpToAmountRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersToCancelUpToAmountRequest
  */
 export interface QueryTraderDerivativeOrdersToCancelUpToAmountRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccount_id: string;
-  /** the quote amount to cancel (free up) */
+  /**
+   * the quote amount to cancel (free up)
+   */
   quote_amount: string;
-  /** The cancellation strategy */
+  /**
+   * The cancellation strategy
+   */
   strategy: CancellationStrategy;
   /**
    * The reference price for the cancellation strategy, e.g. mid price or mark
@@ -1369,11 +1867,18 @@ export interface QueryTraderDerivativeOrdersToCancelUpToAmountRequestAminoMsg {
 /**
  * QueryTraderDerivativeOrdersRequest is the request type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest
  */
 export interface QueryTraderDerivativeOrdersRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccountId: string;
 }
 export interface QueryTraderDerivativeOrdersRequestProtoMsg {
@@ -1383,11 +1888,18 @@ export interface QueryTraderDerivativeOrdersRequestProtoMsg {
 /**
  * QueryTraderDerivativeOrdersRequest is the request type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeOrdersRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest
  */
 export interface QueryTraderDerivativeOrdersRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccount_id: string;
 }
 export interface QueryTraderDerivativeOrdersRequestAminoMsg {
@@ -1397,11 +1909,18 @@ export interface QueryTraderDerivativeOrdersRequestAminoMsg {
 /**
  * QueryAccountAddressSpotOrdersRequest is the request type for the
  * Query/AccountAddressDerivativeOrders RPC method.
+ * @name QueryAccountAddressDerivativeOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersRequest
  */
 export interface QueryAccountAddressDerivativeOrdersRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** Account address of the trader */
+  /**
+   * Account address of the trader
+   */
   accountAddress: string;
 }
 export interface QueryAccountAddressDerivativeOrdersRequestProtoMsg {
@@ -1411,27 +1930,49 @@ export interface QueryAccountAddressDerivativeOrdersRequestProtoMsg {
 /**
  * QueryAccountAddressSpotOrdersRequest is the request type for the
  * Query/AccountAddressDerivativeOrders RPC method.
+ * @name QueryAccountAddressDerivativeOrdersRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersRequest
  */
 export interface QueryAccountAddressDerivativeOrdersRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** Account address of the trader */
+  /**
+   * Account address of the trader
+   */
   account_address: string;
 }
 export interface QueryAccountAddressDerivativeOrdersRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersRequest";
   value: QueryAccountAddressDerivativeOrdersRequestAmino;
 }
+/**
+ * @name TrimmedDerivativeLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedDerivativeLimitOrder
+ */
 export interface TrimmedDerivativeLimitOrder {
-  /** price of the order */
+  /**
+   * price of the order
+   */
   price: string;
-  /** quantity of the order */
+  /**
+   * quantity of the order
+   */
   quantity: string;
-  /** margin of the order */
+  /**
+   * margin of the order
+   */
   margin: string;
-  /** the amount of the quantity remaining fillable */
+  /**
+   * the amount of the quantity remaining fillable
+   */
   fillable: string;
-  /** true if the order is a buy */
+  /**
+   * true if the order is a buy
+   */
   isBuy: boolean;
   orderHash: string;
   cid: string;
@@ -1440,16 +1981,31 @@ export interface TrimmedDerivativeLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TrimmedDerivativeLimitOrder";
   value: Uint8Array;
 }
+/**
+ * @name TrimmedDerivativeLimitOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedDerivativeLimitOrder
+ */
 export interface TrimmedDerivativeLimitOrderAmino {
-  /** price of the order */
+  /**
+   * price of the order
+   */
   price: string;
-  /** quantity of the order */
+  /**
+   * quantity of the order
+   */
   quantity: string;
-  /** margin of the order */
+  /**
+   * margin of the order
+   */
   margin: string;
-  /** the amount of the quantity remaining fillable */
+  /**
+   * the amount of the quantity remaining fillable
+   */
   fillable: string;
-  /** true if the order is a buy */
+  /**
+   * true if the order is a buy
+   */
   isBuy: boolean;
   order_hash: string;
   cid: string;
@@ -1461,6 +2017,9 @@ export interface TrimmedDerivativeLimitOrderAminoMsg {
 /**
  * QueryTraderDerivativeOrdersResponse is the response type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse
  */
 export interface QueryTraderDerivativeOrdersResponse {
   orders: TrimmedDerivativeLimitOrder[];
@@ -1472,6 +2031,9 @@ export interface QueryTraderDerivativeOrdersResponseProtoMsg {
 /**
  * QueryTraderDerivativeOrdersResponse is the response type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse
  */
 export interface QueryTraderDerivativeOrdersResponseAmino {
   orders: TrimmedDerivativeLimitOrderAmino[];
@@ -1483,6 +2045,9 @@ export interface QueryTraderDerivativeOrdersResponseAminoMsg {
 /**
  * QueryAccountAddressDerivativeOrdersResponse is the response type for the
  * Query/AccountAddressDerivativeOrders RPC method.
+ * @name QueryAccountAddressDerivativeOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersResponse
  */
 export interface QueryAccountAddressDerivativeOrdersResponse {
   orders: TrimmedDerivativeLimitOrder[];
@@ -1494,6 +2059,9 @@ export interface QueryAccountAddressDerivativeOrdersResponseProtoMsg {
 /**
  * QueryAccountAddressDerivativeOrdersResponse is the response type for the
  * Query/AccountAddressDerivativeOrders RPC method.
+ * @name QueryAccountAddressDerivativeOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersResponse
  */
 export interface QueryAccountAddressDerivativeOrdersResponseAmino {
   orders: TrimmedDerivativeLimitOrderAmino[];
@@ -1505,13 +2073,22 @@ export interface QueryAccountAddressDerivativeOrdersResponseAminoMsg {
 /**
  * QueryTraderDerivativeOrdersRequest is the request type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryDerivativeOrdersByHashesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrdersByHashesRequest
  */
 export interface QueryDerivativeOrdersByHashesRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccountId: string;
-  /** the order hashes */
+  /**
+   * the order hashes
+   */
   orderHashes: string[];
 }
 export interface QueryDerivativeOrdersByHashesRequestProtoMsg {
@@ -1521,13 +2098,22 @@ export interface QueryDerivativeOrdersByHashesRequestProtoMsg {
 /**
  * QueryTraderDerivativeOrdersRequest is the request type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryDerivativeOrdersByHashesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrdersByHashesRequest
  */
 export interface QueryDerivativeOrdersByHashesRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
-  /** SubaccountID of the trader */
+  /**
+   * SubaccountID of the trader
+   */
   subaccount_id: string;
-  /** the order hashes */
+  /**
+   * the order hashes
+   */
   order_hashes: string[];
 }
 export interface QueryDerivativeOrdersByHashesRequestAminoMsg {
@@ -1537,6 +2123,9 @@ export interface QueryDerivativeOrdersByHashesRequestAminoMsg {
 /**
  * QueryDerivativeOrdersByHashesResponse is the response type for the
  * Query/DerivativeOrdersByHashes RPC method.
+ * @name QueryDerivativeOrdersByHashesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrdersByHashesResponse
  */
 export interface QueryDerivativeOrdersByHashesResponse {
   orders: TrimmedDerivativeLimitOrder[];
@@ -1548,6 +2137,9 @@ export interface QueryDerivativeOrdersByHashesResponseProtoMsg {
 /**
  * QueryDerivativeOrdersByHashesResponse is the response type for the
  * Query/DerivativeOrdersByHashes RPC method.
+ * @name QueryDerivativeOrdersByHashesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrdersByHashesResponse
  */
 export interface QueryDerivativeOrdersByHashesResponseAmino {
   orders: TrimmedDerivativeLimitOrderAmino[];
@@ -1559,11 +2151,18 @@ export interface QueryDerivativeOrdersByHashesResponseAminoMsg {
 /**
  * QueryDerivativeMarketsRequest is the request type for the
  * Query/DerivativeMarkets RPC method.
+ * @name QueryDerivativeMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketsRequest
  */
 export interface QueryDerivativeMarketsRequest {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
-  /** Filter by market IDs */
+  /**
+   * Filter by market IDs
+   */
   marketIds: string[];
   /**
    * Flag to return the markets mid price and top of the book buy and sell
@@ -1578,11 +2177,18 @@ export interface QueryDerivativeMarketsRequestProtoMsg {
 /**
  * QueryDerivativeMarketsRequest is the request type for the
  * Query/DerivativeMarkets RPC method.
+ * @name QueryDerivativeMarketsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketsRequest
  */
 export interface QueryDerivativeMarketsRequestAmino {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
-  /** Filter by market IDs */
+  /**
+   * Filter by market IDs
+   */
   market_ids: string[];
   /**
    * Flag to return the markets mid price and top of the book buy and sell
@@ -1594,24 +2200,43 @@ export interface QueryDerivativeMarketsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryDerivativeMarketsRequest";
   value: QueryDerivativeMarketsRequestAmino;
 }
+/**
+ * @name PriceLevel
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PriceLevel
+ */
 export interface PriceLevel {
   price: string;
-  /** quantity */
+  /**
+   * quantity
+   */
   quantity: string;
 }
 export interface PriceLevelProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PriceLevel";
   value: Uint8Array;
 }
+/**
+ * @name PriceLevelAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PriceLevel
+ */
 export interface PriceLevelAmino {
   price: string;
-  /** quantity */
+  /**
+   * quantity
+   */
   quantity: string;
 }
 export interface PriceLevelAminoMsg {
   type: "/injective.exchange.v1beta1.PriceLevel";
   value: PriceLevelAmino;
 }
+/**
+ * @name PerpetualMarketState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketState
+ */
 export interface PerpetualMarketState {
   marketInfo?: PerpetualMarketInfo;
   fundingInfo?: PerpetualMarketFunding;
@@ -1620,6 +2245,11 @@ export interface PerpetualMarketStateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketState";
   value: Uint8Array;
 }
+/**
+ * @name PerpetualMarketStateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketState
+ */
 export interface PerpetualMarketStateAmino {
   market_info?: PerpetualMarketInfoAmino;
   funding_info?: PerpetualMarketFundingAmino;
@@ -1628,6 +2258,11 @@ export interface PerpetualMarketStateAminoMsg {
   type: "/injective.exchange.v1beta1.PerpetualMarketState";
   value: PerpetualMarketStateAmino;
 }
+/**
+ * @name FullDerivativeMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullDerivativeMarket
+ */
 export interface FullDerivativeMarket {
   market?: DerivativeMarket;
   perpetualInfo?: PerpetualMarketState;
@@ -1643,6 +2278,11 @@ export interface FullDerivativeMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FullDerivativeMarket";
   value: Uint8Array;
 }
+/**
+ * @name FullDerivativeMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullDerivativeMarket
+ */
 export interface FullDerivativeMarketAmino {
   market?: DerivativeMarketAmino;
   perpetual_info?: PerpetualMarketStateAmino;
@@ -1661,6 +2301,9 @@ export interface FullDerivativeMarketAminoMsg {
 /**
  * QueryDerivativeMarketsResponse is the response type for the
  * Query/DerivativeMarkets RPC method.
+ * @name QueryDerivativeMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketsResponse
  */
 export interface QueryDerivativeMarketsResponse {
   markets: FullDerivativeMarket[];
@@ -1672,6 +2315,9 @@ export interface QueryDerivativeMarketsResponseProtoMsg {
 /**
  * QueryDerivativeMarketsResponse is the response type for the
  * Query/DerivativeMarkets RPC method.
+ * @name QueryDerivativeMarketsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketsResponse
  */
 export interface QueryDerivativeMarketsResponseAmino {
   markets: FullDerivativeMarketAmino[];
@@ -1683,9 +2329,14 @@ export interface QueryDerivativeMarketsResponseAminoMsg {
 /**
  * QueryDerivativeMarketRequest is the request type for the
  * Query/DerivativeMarket RPC method.
+ * @name QueryDerivativeMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketRequest
  */
 export interface QueryDerivativeMarketRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
 }
 export interface QueryDerivativeMarketRequestProtoMsg {
@@ -1695,9 +2346,14 @@ export interface QueryDerivativeMarketRequestProtoMsg {
 /**
  * QueryDerivativeMarketRequest is the request type for the
  * Query/DerivativeMarket RPC method.
+ * @name QueryDerivativeMarketRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketRequest
  */
 export interface QueryDerivativeMarketRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
 }
 export interface QueryDerivativeMarketRequestAminoMsg {
@@ -1707,6 +2363,9 @@ export interface QueryDerivativeMarketRequestAminoMsg {
 /**
  * QueryDerivativeMarketResponse is the response type for the
  * Query/DerivativeMarket RPC method.
+ * @name QueryDerivativeMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketResponse
  */
 export interface QueryDerivativeMarketResponse {
   market?: FullDerivativeMarket;
@@ -1718,6 +2377,9 @@ export interface QueryDerivativeMarketResponseProtoMsg {
 /**
  * QueryDerivativeMarketResponse is the response type for the
  * Query/DerivativeMarket RPC method.
+ * @name QueryDerivativeMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketResponse
  */
 export interface QueryDerivativeMarketResponseAmino {
   market?: FullDerivativeMarketAmino;
@@ -1729,9 +2391,14 @@ export interface QueryDerivativeMarketResponseAminoMsg {
 /**
  * QueryDerivativeMarketAddressRequest is the request type for the
  * Query/DerivativeMarketAddress RPC method.
+ * @name QueryDerivativeMarketAddressRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest
  */
 export interface QueryDerivativeMarketAddressRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
 }
 export interface QueryDerivativeMarketAddressRequestProtoMsg {
@@ -1741,9 +2408,14 @@ export interface QueryDerivativeMarketAddressRequestProtoMsg {
 /**
  * QueryDerivativeMarketAddressRequest is the request type for the
  * Query/DerivativeMarketAddress RPC method.
+ * @name QueryDerivativeMarketAddressRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest
  */
 export interface QueryDerivativeMarketAddressRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
 }
 export interface QueryDerivativeMarketAddressRequestAminoMsg {
@@ -1753,11 +2425,18 @@ export interface QueryDerivativeMarketAddressRequestAminoMsg {
 /**
  * QueryDerivativeMarketAddressResponse is the response type for the
  * Query/DerivativeMarketAddress RPC method.
+ * @name QueryDerivativeMarketAddressResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse
  */
 export interface QueryDerivativeMarketAddressResponse {
-  /** address for the market */
+  /**
+   * address for the market
+   */
   address: string;
-  /** subaccountID for the market */
+  /**
+   * subaccountID for the market
+   */
   subaccountId: string;
 }
 export interface QueryDerivativeMarketAddressResponseProtoMsg {
@@ -1767,11 +2446,18 @@ export interface QueryDerivativeMarketAddressResponseProtoMsg {
 /**
  * QueryDerivativeMarketAddressResponse is the response type for the
  * Query/DerivativeMarketAddress RPC method.
+ * @name QueryDerivativeMarketAddressResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse
  */
 export interface QueryDerivativeMarketAddressResponseAmino {
-  /** address for the market */
+  /**
+   * address for the market
+   */
   address: string;
-  /** subaccountID for the market */
+  /**
+   * subaccountID for the market
+   */
   subaccount_id: string;
 }
 export interface QueryDerivativeMarketAddressResponseAminoMsg {
@@ -1781,6 +2467,9 @@ export interface QueryDerivativeMarketAddressResponseAminoMsg {
 /**
  * QuerySubaccountTradeNonceRequest is the request type for the
  * Query/SubaccountTradeNonce RPC method.
+ * @name QuerySubaccountTradeNonceRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest
  */
 export interface QuerySubaccountTradeNonceRequest {
   subaccountId: string;
@@ -1792,6 +2481,9 @@ export interface QuerySubaccountTradeNonceRequestProtoMsg {
 /**
  * QuerySubaccountTradeNonceRequest is the request type for the
  * Query/SubaccountTradeNonce RPC method.
+ * @name QuerySubaccountTradeNonceRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest
  */
 export interface QuerySubaccountTradeNonceRequestAmino {
   subaccount_id: string;
@@ -1803,6 +2495,9 @@ export interface QuerySubaccountTradeNonceRequestAminoMsg {
 /**
  * QuerySubaccountPositionsRequest is the request type for the
  * Query/SubaccountPositions RPC method.
+ * @name QuerySubaccountPositionsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionsRequest
  */
 export interface QuerySubaccountPositionsRequest {
   subaccountId: string;
@@ -1814,6 +2509,9 @@ export interface QuerySubaccountPositionsRequestProtoMsg {
 /**
  * QuerySubaccountPositionsRequest is the request type for the
  * Query/SubaccountPositions RPC method.
+ * @name QuerySubaccountPositionsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionsRequest
  */
 export interface QuerySubaccountPositionsRequestAmino {
   subaccount_id: string;
@@ -1825,6 +2523,9 @@ export interface QuerySubaccountPositionsRequestAminoMsg {
 /**
  * QuerySubaccountPositionInMarketRequest is the request type for the
  * Query/SubaccountPositionInMarket RPC method.
+ * @name QuerySubaccountPositionInMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionInMarketRequest
  */
 export interface QuerySubaccountPositionInMarketRequest {
   subaccountId: string;
@@ -1837,6 +2538,9 @@ export interface QuerySubaccountPositionInMarketRequestProtoMsg {
 /**
  * QuerySubaccountPositionInMarketRequest is the request type for the
  * Query/SubaccountPositionInMarket RPC method.
+ * @name QuerySubaccountPositionInMarketRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionInMarketRequest
  */
 export interface QuerySubaccountPositionInMarketRequestAmino {
   subaccount_id: string;
@@ -1849,6 +2553,9 @@ export interface QuerySubaccountPositionInMarketRequestAminoMsg {
 /**
  * QuerySubaccountEffectivePositionInMarketRequest is the request type for the
  * Query/SubaccountEffectivePositionInMarket RPC method.
+ * @name QuerySubaccountEffectivePositionInMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketRequest
  */
 export interface QuerySubaccountEffectivePositionInMarketRequest {
   subaccountId: string;
@@ -1861,6 +2568,9 @@ export interface QuerySubaccountEffectivePositionInMarketRequestProtoMsg {
 /**
  * QuerySubaccountEffectivePositionInMarketRequest is the request type for the
  * Query/SubaccountEffectivePositionInMarket RPC method.
+ * @name QuerySubaccountEffectivePositionInMarketRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketRequest
  */
 export interface QuerySubaccountEffectivePositionInMarketRequestAmino {
   subaccount_id: string;
@@ -1873,6 +2583,9 @@ export interface QuerySubaccountEffectivePositionInMarketRequestAminoMsg {
 /**
  * QuerySubaccountOrderMetadataRequest is the request type for the
  * Query/SubaccountOrderMetadata RPC method.
+ * @name QuerySubaccountOrderMetadataRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest
  */
 export interface QuerySubaccountOrderMetadataRequest {
   subaccountId: string;
@@ -1884,6 +2597,9 @@ export interface QuerySubaccountOrderMetadataRequestProtoMsg {
 /**
  * QuerySubaccountOrderMetadataRequest is the request type for the
  * Query/SubaccountOrderMetadata RPC method.
+ * @name QuerySubaccountOrderMetadataRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest
  */
 export interface QuerySubaccountOrderMetadataRequestAmino {
   subaccount_id: string;
@@ -1895,6 +2611,9 @@ export interface QuerySubaccountOrderMetadataRequestAminoMsg {
 /**
  * QuerySubaccountPositionsResponse is the response type for the
  * Query/SubaccountPositions RPC method.
+ * @name QuerySubaccountPositionsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionsResponse
  */
 export interface QuerySubaccountPositionsResponse {
   state: DerivativePosition[];
@@ -1906,6 +2625,9 @@ export interface QuerySubaccountPositionsResponseProtoMsg {
 /**
  * QuerySubaccountPositionsResponse is the response type for the
  * Query/SubaccountPositions RPC method.
+ * @name QuerySubaccountPositionsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionsResponse
  */
 export interface QuerySubaccountPositionsResponseAmino {
   state: DerivativePositionAmino[];
@@ -1917,6 +2639,9 @@ export interface QuerySubaccountPositionsResponseAminoMsg {
 /**
  * QuerySubaccountPositionInMarketResponse is the response type for the
  * Query/SubaccountPositionInMarket RPC method.
+ * @name QuerySubaccountPositionInMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionInMarketResponse
  */
 export interface QuerySubaccountPositionInMarketResponse {
   state?: Position;
@@ -1928,6 +2653,9 @@ export interface QuerySubaccountPositionInMarketResponseProtoMsg {
 /**
  * QuerySubaccountPositionInMarketResponse is the response type for the
  * Query/SubaccountPositionInMarket RPC method.
+ * @name QuerySubaccountPositionInMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionInMarketResponse
  */
 export interface QuerySubaccountPositionInMarketResponseAmino {
   state?: PositionAmino;
@@ -1936,6 +2664,11 @@ export interface QuerySubaccountPositionInMarketResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QuerySubaccountPositionInMarketResponse";
   value: QuerySubaccountPositionInMarketResponseAmino;
 }
+/**
+ * @name EffectivePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EffectivePosition
+ */
 export interface EffectivePosition {
   isLong: boolean;
   quantity: string;
@@ -1946,6 +2679,11 @@ export interface EffectivePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EffectivePosition";
   value: Uint8Array;
 }
+/**
+ * @name EffectivePositionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EffectivePosition
+ */
 export interface EffectivePositionAmino {
   is_long: boolean;
   quantity: string;
@@ -1959,6 +2697,9 @@ export interface EffectivePositionAminoMsg {
 /**
  * QuerySubaccountEffectivePositionInMarketResponse is the response type for the
  * Query/SubaccountEffectivePositionInMarket RPC method.
+ * @name QuerySubaccountEffectivePositionInMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketResponse
  */
 export interface QuerySubaccountEffectivePositionInMarketResponse {
   state?: EffectivePosition;
@@ -1970,6 +2711,9 @@ export interface QuerySubaccountEffectivePositionInMarketResponseProtoMsg {
 /**
  * QuerySubaccountEffectivePositionInMarketResponse is the response type for the
  * Query/SubaccountEffectivePositionInMarket RPC method.
+ * @name QuerySubaccountEffectivePositionInMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketResponse
  */
 export interface QuerySubaccountEffectivePositionInMarketResponseAmino {
   state?: EffectivePositionAmino;
@@ -1981,6 +2725,9 @@ export interface QuerySubaccountEffectivePositionInMarketResponseAminoMsg {
 /**
  * QueryPerpetualMarketInfoRequest is the request type for the
  * Query/PerpetualMarketInfo RPC method.
+ * @name QueryPerpetualMarketInfoRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketInfoRequest
  */
 export interface QueryPerpetualMarketInfoRequest {
   marketId: string;
@@ -1992,6 +2739,9 @@ export interface QueryPerpetualMarketInfoRequestProtoMsg {
 /**
  * QueryPerpetualMarketInfoRequest is the request type for the
  * Query/PerpetualMarketInfo RPC method.
+ * @name QueryPerpetualMarketInfoRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketInfoRequest
  */
 export interface QueryPerpetualMarketInfoRequestAmino {
   market_id: string;
@@ -2003,6 +2753,9 @@ export interface QueryPerpetualMarketInfoRequestAminoMsg {
 /**
  * QueryPerpetualMarketInfoResponse is the response type for the
  * Query/PerpetualMarketInfo RPC method.
+ * @name QueryPerpetualMarketInfoResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketInfoResponse
  */
 export interface QueryPerpetualMarketInfoResponse {
   info: PerpetualMarketInfo;
@@ -2014,6 +2767,9 @@ export interface QueryPerpetualMarketInfoResponseProtoMsg {
 /**
  * QueryPerpetualMarketInfoResponse is the response type for the
  * Query/PerpetualMarketInfo RPC method.
+ * @name QueryPerpetualMarketInfoResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketInfoResponse
  */
 export interface QueryPerpetualMarketInfoResponseAmino {
   info: PerpetualMarketInfoAmino;
@@ -2025,6 +2781,9 @@ export interface QueryPerpetualMarketInfoResponseAminoMsg {
 /**
  * QueryExpiryFuturesMarketInfoRequest is the request type for the Query/
  * ExpiryFuturesMarketInfo RPC method.
+ * @name QueryExpiryFuturesMarketInfoRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoRequest
  */
 export interface QueryExpiryFuturesMarketInfoRequest {
   marketId: string;
@@ -2036,6 +2795,9 @@ export interface QueryExpiryFuturesMarketInfoRequestProtoMsg {
 /**
  * QueryExpiryFuturesMarketInfoRequest is the request type for the Query/
  * ExpiryFuturesMarketInfo RPC method.
+ * @name QueryExpiryFuturesMarketInfoRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoRequest
  */
 export interface QueryExpiryFuturesMarketInfoRequestAmino {
   market_id: string;
@@ -2047,6 +2809,9 @@ export interface QueryExpiryFuturesMarketInfoRequestAminoMsg {
 /**
  * QueryExpiryFuturesMarketInfoResponse is the response type for the Query/
  * ExpiryFuturesMarketInfo RPC method.
+ * @name QueryExpiryFuturesMarketInfoResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoResponse
  */
 export interface QueryExpiryFuturesMarketInfoResponse {
   info: ExpiryFuturesMarketInfo;
@@ -2058,6 +2823,9 @@ export interface QueryExpiryFuturesMarketInfoResponseProtoMsg {
 /**
  * QueryExpiryFuturesMarketInfoResponse is the response type for the Query/
  * ExpiryFuturesMarketInfo RPC method.
+ * @name QueryExpiryFuturesMarketInfoResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoResponse
  */
 export interface QueryExpiryFuturesMarketInfoResponseAmino {
   info: ExpiryFuturesMarketInfoAmino;
@@ -2069,6 +2837,9 @@ export interface QueryExpiryFuturesMarketInfoResponseAminoMsg {
 /**
  * QueryPerpetualMarketFundingRequest is the request type for the
  * Query/PerpetualMarketFunding RPC method.
+ * @name QueryPerpetualMarketFundingRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketFundingRequest
  */
 export interface QueryPerpetualMarketFundingRequest {
   marketId: string;
@@ -2080,6 +2851,9 @@ export interface QueryPerpetualMarketFundingRequestProtoMsg {
 /**
  * QueryPerpetualMarketFundingRequest is the request type for the
  * Query/PerpetualMarketFunding RPC method.
+ * @name QueryPerpetualMarketFundingRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketFundingRequest
  */
 export interface QueryPerpetualMarketFundingRequestAmino {
   market_id: string;
@@ -2091,6 +2865,9 @@ export interface QueryPerpetualMarketFundingRequestAminoMsg {
 /**
  * QueryPerpetualMarketFundingResponse is the response type for the
  * Query/PerpetualMarketFunding RPC method.
+ * @name QueryPerpetualMarketFundingResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketFundingResponse
  */
 export interface QueryPerpetualMarketFundingResponse {
   state: PerpetualMarketFunding;
@@ -2102,6 +2879,9 @@ export interface QueryPerpetualMarketFundingResponseProtoMsg {
 /**
  * QueryPerpetualMarketFundingResponse is the response type for the
  * Query/PerpetualMarketFunding RPC method.
+ * @name QueryPerpetualMarketFundingResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketFundingResponse
  */
 export interface QueryPerpetualMarketFundingResponseAmino {
   state: PerpetualMarketFundingAmino;
@@ -2113,6 +2893,9 @@ export interface QueryPerpetualMarketFundingResponseAminoMsg {
 /**
  * QuerySubaccountOrderMetadataResponse is the response type for the
  * Query/SubaccountOrderMetadata RPC method.
+ * @name QuerySubaccountOrderMetadataResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse
  */
 export interface QuerySubaccountOrderMetadataResponse {
   metadata: SubaccountOrderbookMetadataWithMarket[];
@@ -2124,6 +2907,9 @@ export interface QuerySubaccountOrderMetadataResponseProtoMsg {
 /**
  * QuerySubaccountOrderMetadataResponse is the response type for the
  * Query/SubaccountOrderMetadata RPC method.
+ * @name QuerySubaccountOrderMetadataResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse
  */
 export interface QuerySubaccountOrderMetadataResponseAmino {
   metadata: SubaccountOrderbookMetadataWithMarketAmino[];
@@ -2135,6 +2921,9 @@ export interface QuerySubaccountOrderMetadataResponseAminoMsg {
 /**
  * QuerySubaccountTradeNonceResponse is the response type for the
  * Query/SubaccountTradeNonce RPC method.
+ * @name QuerySubaccountTradeNonceResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse
  */
 export interface QuerySubaccountTradeNonceResponse {
   nonce: number;
@@ -2146,6 +2935,9 @@ export interface QuerySubaccountTradeNonceResponseProtoMsg {
 /**
  * QuerySubaccountTradeNonceResponse is the response type for the
  * Query/SubaccountTradeNonce RPC method.
+ * @name QuerySubaccountTradeNonceResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse
  */
 export interface QuerySubaccountTradeNonceResponseAmino {
   nonce: number;
@@ -2157,6 +2949,9 @@ export interface QuerySubaccountTradeNonceResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/ExchangeModuleState
  * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -2166,6 +2961,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/ExchangeModuleState
  * RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -2175,6 +2973,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/ExchangeModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -2186,6 +2987,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/ExchangeModuleState RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -2194,13 +2998,23 @@ export interface QueryModuleStateResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryModuleStateResponse";
   value: QueryModuleStateResponseAmino;
 }
-/** QueryPositionsRequest is the request type for the Query/Positions RPC method. */
+/**
+ * QueryPositionsRequest is the request type for the Query/Positions RPC method.
+ * @name QueryPositionsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPositionsRequest
+ */
 export interface QueryPositionsRequest {}
 export interface QueryPositionsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryPositionsRequest";
   value: Uint8Array;
 }
-/** QueryPositionsRequest is the request type for the Query/Positions RPC method. */
+/**
+ * QueryPositionsRequest is the request type for the Query/Positions RPC method.
+ * @name QueryPositionsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPositionsRequest
+ */
 export interface QueryPositionsRequestAmino {}
 export interface QueryPositionsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryPositionsRequest";
@@ -2209,6 +3023,9 @@ export interface QueryPositionsRequestAminoMsg {
 /**
  * QueryPositionsResponse is the response type for the Query/Positions RPC
  * method.
+ * @name QueryPositionsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPositionsResponse
  */
 export interface QueryPositionsResponse {
   state: DerivativePosition[];
@@ -2220,6 +3037,9 @@ export interface QueryPositionsResponseProtoMsg {
 /**
  * QueryPositionsResponse is the response type for the Query/Positions RPC
  * method.
+ * @name QueryPositionsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPositionsResponse
  */
 export interface QueryPositionsResponseAmino {
   state: DerivativePositionAmino[];
@@ -2231,6 +3051,9 @@ export interface QueryPositionsResponseAminoMsg {
 /**
  * QueryTradeRewardPointsRequest is the request type for the
  * Query/TradeRewardPoints RPC method.
+ * @name QueryTradeRewardPointsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardPointsRequest
  */
 export interface QueryTradeRewardPointsRequest {
   accounts: string[];
@@ -2243,6 +3066,9 @@ export interface QueryTradeRewardPointsRequestProtoMsg {
 /**
  * QueryTradeRewardPointsRequest is the request type for the
  * Query/TradeRewardPoints RPC method.
+ * @name QueryTradeRewardPointsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardPointsRequest
  */
 export interface QueryTradeRewardPointsRequestAmino {
   accounts: string[];
@@ -2255,6 +3081,9 @@ export interface QueryTradeRewardPointsRequestAminoMsg {
 /**
  * QueryTradeRewardPointsResponse is the response type for the
  * Query/TradeRewardPoints RPC method.
+ * @name QueryTradeRewardPointsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardPointsResponse
  */
 export interface QueryTradeRewardPointsResponse {
   accountTradeRewardPoints: string[];
@@ -2266,6 +3095,9 @@ export interface QueryTradeRewardPointsResponseProtoMsg {
 /**
  * QueryTradeRewardPointsResponse is the response type for the
  * Query/TradeRewardPoints RPC method.
+ * @name QueryTradeRewardPointsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardPointsResponse
  */
 export interface QueryTradeRewardPointsResponseAmino {
   account_trade_reward_points: string[];
@@ -2277,6 +3109,9 @@ export interface QueryTradeRewardPointsResponseAminoMsg {
 /**
  * QueryTradeRewardCampaignRequest is the request type for the
  * Query/TradeRewardCampaign RPC method.
+ * @name QueryTradeRewardCampaignRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardCampaignRequest
  */
 export interface QueryTradeRewardCampaignRequest {}
 export interface QueryTradeRewardCampaignRequestProtoMsg {
@@ -2286,6 +3121,9 @@ export interface QueryTradeRewardCampaignRequestProtoMsg {
 /**
  * QueryTradeRewardCampaignRequest is the request type for the
  * Query/TradeRewardCampaign RPC method.
+ * @name QueryTradeRewardCampaignRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardCampaignRequest
  */
 export interface QueryTradeRewardCampaignRequestAmino {}
 export interface QueryTradeRewardCampaignRequestAminoMsg {
@@ -2295,6 +3133,9 @@ export interface QueryTradeRewardCampaignRequestAminoMsg {
 /**
  * QueryTradeRewardCampaignResponse is the response type for the
  * Query/TradeRewardCampaign RPC method.
+ * @name QueryTradeRewardCampaignResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardCampaignResponse
  */
 export interface QueryTradeRewardCampaignResponse {
   tradingRewardCampaignInfo?: TradingRewardCampaignInfo;
@@ -2310,6 +3151,9 @@ export interface QueryTradeRewardCampaignResponseProtoMsg {
 /**
  * QueryTradeRewardCampaignResponse is the response type for the
  * Query/TradeRewardCampaign RPC method.
+ * @name QueryTradeRewardCampaignResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardCampaignResponse
  */
 export interface QueryTradeRewardCampaignResponseAmino {
   trading_reward_campaign_info?: TradingRewardCampaignInfoAmino;
@@ -2325,6 +3169,9 @@ export interface QueryTradeRewardCampaignResponseAminoMsg {
 /**
  * QueryIsRegisteredDMMRequest is the request type for the Query/IsRegisteredDMM
  * RPC method.
+ * @name QueryIsOptedOutOfRewardsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryIsOptedOutOfRewardsRequest
  */
 export interface QueryIsOptedOutOfRewardsRequest {
   account: string;
@@ -2336,6 +3183,9 @@ export interface QueryIsOptedOutOfRewardsRequestProtoMsg {
 /**
  * QueryIsRegisteredDMMRequest is the request type for the Query/IsRegisteredDMM
  * RPC method.
+ * @name QueryIsOptedOutOfRewardsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryIsOptedOutOfRewardsRequest
  */
 export interface QueryIsOptedOutOfRewardsRequestAmino {
   account: string;
@@ -2347,6 +3197,9 @@ export interface QueryIsOptedOutOfRewardsRequestAminoMsg {
 /**
  * QueryIsRegisteredDMMResponse is the response type for the
  * Query/IsRegisteredDMM RPC method.
+ * @name QueryIsOptedOutOfRewardsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryIsOptedOutOfRewardsResponse
  */
 export interface QueryIsOptedOutOfRewardsResponse {
   isOptedOut: boolean;
@@ -2358,6 +3211,9 @@ export interface QueryIsOptedOutOfRewardsResponseProtoMsg {
 /**
  * QueryIsRegisteredDMMResponse is the response type for the
  * Query/IsRegisteredDMM RPC method.
+ * @name QueryIsOptedOutOfRewardsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryIsOptedOutOfRewardsResponse
  */
 export interface QueryIsOptedOutOfRewardsResponseAmino {
   is_opted_out: boolean;
@@ -2369,6 +3225,9 @@ export interface QueryIsOptedOutOfRewardsResponseAminoMsg {
 /**
  * QueryRegisteredDMMsRequest is the request type for the Query/RegisteredDMMs
  * RPC method.
+ * @name QueryOptedOutOfRewardsAccountsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsRequest
  */
 export interface QueryOptedOutOfRewardsAccountsRequest {}
 export interface QueryOptedOutOfRewardsAccountsRequestProtoMsg {
@@ -2378,6 +3237,9 @@ export interface QueryOptedOutOfRewardsAccountsRequestProtoMsg {
 /**
  * QueryRegisteredDMMsRequest is the request type for the Query/RegisteredDMMs
  * RPC method.
+ * @name QueryOptedOutOfRewardsAccountsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsRequest
  */
 export interface QueryOptedOutOfRewardsAccountsRequestAmino {}
 export interface QueryOptedOutOfRewardsAccountsRequestAminoMsg {
@@ -2387,6 +3249,9 @@ export interface QueryOptedOutOfRewardsAccountsRequestAminoMsg {
 /**
  * QueryRegisteredDMMsResponse is the response type for the Query/RegisteredDMMs
  * RPC method.
+ * @name QueryOptedOutOfRewardsAccountsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsResponse
  */
 export interface QueryOptedOutOfRewardsAccountsResponse {
   accounts: string[];
@@ -2398,6 +3263,9 @@ export interface QueryOptedOutOfRewardsAccountsResponseProtoMsg {
 /**
  * QueryRegisteredDMMsResponse is the response type for the Query/RegisteredDMMs
  * RPC method.
+ * @name QueryOptedOutOfRewardsAccountsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsResponse
  */
 export interface QueryOptedOutOfRewardsAccountsResponseAmino {
   accounts: string[];
@@ -2409,6 +3277,9 @@ export interface QueryOptedOutOfRewardsAccountsResponseAminoMsg {
 /**
  * QueryFeeDiscountAccountInfoRequest is the request type for the
  * Query/FeeDiscountAccountInfo RPC method.
+ * @name QueryFeeDiscountAccountInfoRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest
  */
 export interface QueryFeeDiscountAccountInfoRequest {
   account: string;
@@ -2420,6 +3291,9 @@ export interface QueryFeeDiscountAccountInfoRequestProtoMsg {
 /**
  * QueryFeeDiscountAccountInfoRequest is the request type for the
  * Query/FeeDiscountAccountInfo RPC method.
+ * @name QueryFeeDiscountAccountInfoRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest
  */
 export interface QueryFeeDiscountAccountInfoRequestAmino {
   account: string;
@@ -2431,6 +3305,9 @@ export interface QueryFeeDiscountAccountInfoRequestAminoMsg {
 /**
  * QueryFeeDiscountAccountInfoResponse is the response type for the
  * Query/FeeDiscountAccountInfo RPC method.
+ * @name QueryFeeDiscountAccountInfoResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse
  */
 export interface QueryFeeDiscountAccountInfoResponse {
   tierLevel: bigint;
@@ -2444,6 +3321,9 @@ export interface QueryFeeDiscountAccountInfoResponseProtoMsg {
 /**
  * QueryFeeDiscountAccountInfoResponse is the response type for the
  * Query/FeeDiscountAccountInfo RPC method.
+ * @name QueryFeeDiscountAccountInfoResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse
  */
 export interface QueryFeeDiscountAccountInfoResponseAmino {
   tier_level: string;
@@ -2457,6 +3337,9 @@ export interface QueryFeeDiscountAccountInfoResponseAminoMsg {
 /**
  * QueryFeeDiscountScheduleRequest is the request type for the
  * Query/FeeDiscountSchedule RPC method.
+ * @name QueryFeeDiscountScheduleRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest
  */
 export interface QueryFeeDiscountScheduleRequest {}
 export interface QueryFeeDiscountScheduleRequestProtoMsg {
@@ -2466,6 +3349,9 @@ export interface QueryFeeDiscountScheduleRequestProtoMsg {
 /**
  * QueryFeeDiscountScheduleRequest is the request type for the
  * Query/FeeDiscountSchedule RPC method.
+ * @name QueryFeeDiscountScheduleRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest
  */
 export interface QueryFeeDiscountScheduleRequestAmino {}
 export interface QueryFeeDiscountScheduleRequestAminoMsg {
@@ -2475,6 +3361,9 @@ export interface QueryFeeDiscountScheduleRequestAminoMsg {
 /**
  * QueryFeeDiscountScheduleResponse is the response type for the
  * Query/FeeDiscountSchedule RPC method.
+ * @name QueryFeeDiscountScheduleResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse
  */
 export interface QueryFeeDiscountScheduleResponse {
   feeDiscountSchedule?: FeeDiscountSchedule;
@@ -2486,6 +3375,9 @@ export interface QueryFeeDiscountScheduleResponseProtoMsg {
 /**
  * QueryFeeDiscountScheduleResponse is the response type for the
  * Query/FeeDiscountSchedule RPC method.
+ * @name QueryFeeDiscountScheduleResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse
  */
 export interface QueryFeeDiscountScheduleResponseAmino {
   fee_discount_schedule?: FeeDiscountScheduleAmino;
@@ -2497,6 +3389,9 @@ export interface QueryFeeDiscountScheduleResponseAminoMsg {
 /**
  * QueryBalanceMismatchesRequest is the request type for the
  * Query/QueryBalanceMismatches RPC method.
+ * @name QueryBalanceMismatchesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceMismatchesRequest
  */
 export interface QueryBalanceMismatchesRequest {
   dustFactor: bigint;
@@ -2508,6 +3403,9 @@ export interface QueryBalanceMismatchesRequestProtoMsg {
 /**
  * QueryBalanceMismatchesRequest is the request type for the
  * Query/QueryBalanceMismatches RPC method.
+ * @name QueryBalanceMismatchesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceMismatchesRequest
  */
 export interface QueryBalanceMismatchesRequestAmino {
   dust_factor: string;
@@ -2516,6 +3414,11 @@ export interface QueryBalanceMismatchesRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryBalanceMismatchesRequest";
   value: QueryBalanceMismatchesRequestAmino;
 }
+/**
+ * @name BalanceMismatch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BalanceMismatch
+ */
 export interface BalanceMismatch {
   subaccountId: string;
   denom: string;
@@ -2529,6 +3432,11 @@ export interface BalanceMismatchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BalanceMismatch";
   value: Uint8Array;
 }
+/**
+ * @name BalanceMismatchAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BalanceMismatch
+ */
 export interface BalanceMismatchAmino {
   subaccountId: string;
   denom: string;
@@ -2545,6 +3453,9 @@ export interface BalanceMismatchAminoMsg {
 /**
  * QueryBalanceMismatchesResponse is the response type for the
  * Query/QueryBalanceMismatches RPC method.
+ * @name QueryBalanceMismatchesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceMismatchesResponse
  */
 export interface QueryBalanceMismatchesResponse {
   balanceMismatches: BalanceMismatch[];
@@ -2556,6 +3467,9 @@ export interface QueryBalanceMismatchesResponseProtoMsg {
 /**
  * QueryBalanceMismatchesResponse is the response type for the
  * Query/QueryBalanceMismatches RPC method.
+ * @name QueryBalanceMismatchesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceMismatchesResponse
  */
 export interface QueryBalanceMismatchesResponseAmino {
   balance_mismatches: BalanceMismatchAmino[];
@@ -2567,6 +3481,9 @@ export interface QueryBalanceMismatchesResponseAminoMsg {
 /**
  * QueryBalanceWithBalanceHoldsRequest is the request type for the
  * Query/QueryBalanceWithBalanceHolds RPC method.
+ * @name QueryBalanceWithBalanceHoldsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest
  */
 export interface QueryBalanceWithBalanceHoldsRequest {}
 export interface QueryBalanceWithBalanceHoldsRequestProtoMsg {
@@ -2576,12 +3493,20 @@ export interface QueryBalanceWithBalanceHoldsRequestProtoMsg {
 /**
  * QueryBalanceWithBalanceHoldsRequest is the request type for the
  * Query/QueryBalanceWithBalanceHolds RPC method.
+ * @name QueryBalanceWithBalanceHoldsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest
  */
 export interface QueryBalanceWithBalanceHoldsRequestAmino {}
 export interface QueryBalanceWithBalanceHoldsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest";
   value: QueryBalanceWithBalanceHoldsRequestAmino;
 }
+/**
+ * @name BalanceWithMarginHold
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BalanceWithMarginHold
+ */
 export interface BalanceWithMarginHold {
   subaccountId: string;
   denom: string;
@@ -2593,6 +3518,11 @@ export interface BalanceWithMarginHoldProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BalanceWithMarginHold";
   value: Uint8Array;
 }
+/**
+ * @name BalanceWithMarginHoldAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BalanceWithMarginHold
+ */
 export interface BalanceWithMarginHoldAmino {
   subaccountId: string;
   denom: string;
@@ -2607,6 +3537,9 @@ export interface BalanceWithMarginHoldAminoMsg {
 /**
  * QueryBalanceWithBalanceHoldsResponse is the response type for the
  * Query/QueryBalanceWithBalanceHolds RPC method.
+ * @name QueryBalanceWithBalanceHoldsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse
  */
 export interface QueryBalanceWithBalanceHoldsResponse {
   balanceWithBalanceHolds: BalanceWithMarginHold[];
@@ -2618,6 +3551,9 @@ export interface QueryBalanceWithBalanceHoldsResponseProtoMsg {
 /**
  * QueryBalanceWithBalanceHoldsResponse is the response type for the
  * Query/QueryBalanceWithBalanceHolds RPC method.
+ * @name QueryBalanceWithBalanceHoldsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse
  */
 export interface QueryBalanceWithBalanceHoldsResponseAmino {
   balance_with_balance_holds: BalanceWithMarginHoldAmino[];
@@ -2629,6 +3565,9 @@ export interface QueryBalanceWithBalanceHoldsResponseAminoMsg {
 /**
  * QueryFeeDiscountTierStatisticsRequest is the request type for the
  * Query/QueryFeeDiscountTierStatistics RPC method.
+ * @name QueryFeeDiscountTierStatisticsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsRequest
  */
 export interface QueryFeeDiscountTierStatisticsRequest {}
 export interface QueryFeeDiscountTierStatisticsRequestProtoMsg {
@@ -2638,12 +3577,20 @@ export interface QueryFeeDiscountTierStatisticsRequestProtoMsg {
 /**
  * QueryFeeDiscountTierStatisticsRequest is the request type for the
  * Query/QueryFeeDiscountTierStatistics RPC method.
+ * @name QueryFeeDiscountTierStatisticsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsRequest
  */
 export interface QueryFeeDiscountTierStatisticsRequestAmino {}
 export interface QueryFeeDiscountTierStatisticsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsRequest";
   value: QueryFeeDiscountTierStatisticsRequestAmino;
 }
+/**
+ * @name TierStatistic
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TierStatistic
+ */
 export interface TierStatistic {
   tier: bigint;
   count: bigint;
@@ -2652,6 +3599,11 @@ export interface TierStatisticProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TierStatistic";
   value: Uint8Array;
 }
+/**
+ * @name TierStatisticAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TierStatistic
+ */
 export interface TierStatisticAmino {
   tier: string;
   count: string;
@@ -2663,6 +3615,9 @@ export interface TierStatisticAminoMsg {
 /**
  * QueryFeeDiscountTierStatisticsResponse is the response type for the
  * Query/QueryFeeDiscountTierStatistics RPC method.
+ * @name QueryFeeDiscountTierStatisticsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsResponse
  */
 export interface QueryFeeDiscountTierStatisticsResponse {
   statistics: TierStatistic[];
@@ -2674,6 +3629,9 @@ export interface QueryFeeDiscountTierStatisticsResponseProtoMsg {
 /**
  * QueryFeeDiscountTierStatisticsResponse is the response type for the
  * Query/QueryFeeDiscountTierStatistics RPC method.
+ * @name QueryFeeDiscountTierStatisticsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsResponse
  */
 export interface QueryFeeDiscountTierStatisticsResponseAmino {
   statistics: TierStatisticAmino[];
@@ -2685,6 +3643,9 @@ export interface QueryFeeDiscountTierStatisticsResponseAminoMsg {
 /**
  * MitoVaultInfosRequest is the request type for the Query/MitoVaultInfos RPC
  * method.
+ * @name MitoVaultInfosRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MitoVaultInfosRequest
  */
 export interface MitoVaultInfosRequest {}
 export interface MitoVaultInfosRequestProtoMsg {
@@ -2694,6 +3655,9 @@ export interface MitoVaultInfosRequestProtoMsg {
 /**
  * MitoVaultInfosRequest is the request type for the Query/MitoVaultInfos RPC
  * method.
+ * @name MitoVaultInfosRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MitoVaultInfosRequest
  */
 export interface MitoVaultInfosRequestAmino {}
 export interface MitoVaultInfosRequestAminoMsg {
@@ -2703,6 +3667,9 @@ export interface MitoVaultInfosRequestAminoMsg {
 /**
  * MitoVaultInfosResponse is the response type for the Query/MitoVaultInfos RPC
  * method.
+ * @name MitoVaultInfosResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MitoVaultInfosResponse
  */
 export interface MitoVaultInfosResponse {
   masterAddresses: string[];
@@ -2717,6 +3684,9 @@ export interface MitoVaultInfosResponseProtoMsg {
 /**
  * MitoVaultInfosResponse is the response type for the Query/MitoVaultInfos RPC
  * method.
+ * @name MitoVaultInfosResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MitoVaultInfosResponse
  */
 export interface MitoVaultInfosResponseAmino {
   master_addresses: string[];
@@ -2731,6 +3701,9 @@ export interface MitoVaultInfosResponseAminoMsg {
 /**
  * QueryMarketIDFromVaultRequest is the request type for the
  * Query/QueryMarketIDFromVault RPC method.
+ * @name QueryMarketIDFromVaultRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketIDFromVaultRequest
  */
 export interface QueryMarketIDFromVaultRequest {
   vaultAddress: string;
@@ -2742,6 +3715,9 @@ export interface QueryMarketIDFromVaultRequestProtoMsg {
 /**
  * QueryMarketIDFromVaultRequest is the request type for the
  * Query/QueryMarketIDFromVault RPC method.
+ * @name QueryMarketIDFromVaultRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketIDFromVaultRequest
  */
 export interface QueryMarketIDFromVaultRequestAmino {
   vault_address: string;
@@ -2753,6 +3729,9 @@ export interface QueryMarketIDFromVaultRequestAminoMsg {
 /**
  * QueryMarketIDFromVaultResponse is the response type for the
  * Query/QueryMarketIDFromVault RPC method.
+ * @name QueryMarketIDFromVaultResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketIDFromVaultResponse
  */
 export interface QueryMarketIDFromVaultResponse {
   marketId: string;
@@ -2764,6 +3743,9 @@ export interface QueryMarketIDFromVaultResponseProtoMsg {
 /**
  * QueryMarketIDFromVaultResponse is the response type for the
  * Query/QueryMarketIDFromVault RPC method.
+ * @name QueryMarketIDFromVaultResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketIDFromVaultResponse
  */
 export interface QueryMarketIDFromVaultResponseAmino {
   market_id: string;
@@ -2772,6 +3754,11 @@ export interface QueryMarketIDFromVaultResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryMarketIDFromVaultResponse";
   value: QueryMarketIDFromVaultResponseAmino;
 }
+/**
+ * @name QueryHistoricalTradeRecordsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest
+ */
 export interface QueryHistoricalTradeRecordsRequest {
   marketId: string;
 }
@@ -2779,6 +3766,11 @@ export interface QueryHistoricalTradeRecordsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryHistoricalTradeRecordsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest
+ */
 export interface QueryHistoricalTradeRecordsRequestAmino {
   market_id: string;
 }
@@ -2786,6 +3778,11 @@ export interface QueryHistoricalTradeRecordsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest";
   value: QueryHistoricalTradeRecordsRequestAmino;
 }
+/**
+ * @name QueryHistoricalTradeRecordsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryHistoricalTradeRecordsResponse
+ */
 export interface QueryHistoricalTradeRecordsResponse {
   tradeRecords: TradeRecords[];
 }
@@ -2793,6 +3790,11 @@ export interface QueryHistoricalTradeRecordsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryHistoricalTradeRecordsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryHistoricalTradeRecordsResponse
+ */
 export interface QueryHistoricalTradeRecordsResponseAmino {
   trade_records: TradeRecordsAmino[];
 }
@@ -2803,9 +3805,14 @@ export interface QueryHistoricalTradeRecordsResponseAminoMsg {
 /**
  * TradeHistoryOptions are the optional params for Query/MarketVolatility RPC
  * method.
+ * @name TradeHistoryOptions
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradeHistoryOptions
  */
 export interface TradeHistoryOptions {
-  /** TradeGroupingSec of 0 means use the chain's default grouping */
+  /**
+   * TradeGroupingSec of 0 means use the chain's default grouping
+   */
   tradeGroupingSec: bigint;
   /**
    * MaxAge restricts the trade records oldest age in seconds from the current
@@ -2831,9 +3838,14 @@ export interface TradeHistoryOptionsProtoMsg {
 /**
  * TradeHistoryOptions are the optional params for Query/MarketVolatility RPC
  * method.
+ * @name TradeHistoryOptionsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradeHistoryOptions
  */
 export interface TradeHistoryOptionsAmino {
-  /** TradeGroupingSec of 0 means use the chain's default grouping */
+  /**
+   * TradeGroupingSec of 0 means use the chain's default grouping
+   */
   trade_grouping_sec: string;
   /**
    * MaxAge restricts the trade records oldest age in seconds from the current
@@ -2859,6 +3871,9 @@ export interface TradeHistoryOptionsAminoMsg {
 /**
  * QueryMarketVolatilityRequest are the request params for the
  * Query/MarketVolatility RPC method.
+ * @name QueryMarketVolatilityRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketVolatilityRequest
  */
 export interface QueryMarketVolatilityRequest {
   marketId: string;
@@ -2871,6 +3886,9 @@ export interface QueryMarketVolatilityRequestProtoMsg {
 /**
  * QueryMarketVolatilityRequest are the request params for the
  * Query/MarketVolatility RPC method.
+ * @name QueryMarketVolatilityRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketVolatilityRequest
  */
 export interface QueryMarketVolatilityRequestAmino {
   market_id: string;
@@ -2883,6 +3901,9 @@ export interface QueryMarketVolatilityRequestAminoMsg {
 /**
  * QueryMarketVolatilityResponse is the response type for the
  * Query/MarketVolatility RPC method.
+ * @name QueryMarketVolatilityResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketVolatilityResponse
  */
 export interface QueryMarketVolatilityResponse {
   volatility: string;
@@ -2896,6 +3917,9 @@ export interface QueryMarketVolatilityResponseProtoMsg {
 /**
  * QueryMarketVolatilityResponse is the response type for the
  * Query/MarketVolatility RPC method.
+ * @name QueryMarketVolatilityResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketVolatilityResponse
  */
 export interface QueryMarketVolatilityResponseAmino {
   volatility: string;
@@ -2909,9 +3933,14 @@ export interface QueryMarketVolatilityResponseAminoMsg {
 /**
  * QuerBinaryMarketsRequest is the request type for the Query/BinaryMarkets RPC
  * method.
+ * @name QueryBinaryMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBinaryMarketsRequest
  */
 export interface QueryBinaryMarketsRequest {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
 }
 export interface QueryBinaryMarketsRequestProtoMsg {
@@ -2921,9 +3950,14 @@ export interface QueryBinaryMarketsRequestProtoMsg {
 /**
  * QuerBinaryMarketsRequest is the request type for the Query/BinaryMarkets RPC
  * method.
+ * @name QueryBinaryMarketsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBinaryMarketsRequest
  */
 export interface QueryBinaryMarketsRequestAmino {
-  /** Status of the market, for convenience it is set to string - not enum */
+  /**
+   * Status of the market, for convenience it is set to string - not enum
+   */
   status: string;
 }
 export interface QueryBinaryMarketsRequestAminoMsg {
@@ -2933,6 +3967,9 @@ export interface QueryBinaryMarketsRequestAminoMsg {
 /**
  * QueryBinaryMarketsResponse is the response type for the Query/BinaryMarkets
  * RPC method.
+ * @name QueryBinaryMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBinaryMarketsResponse
  */
 export interface QueryBinaryMarketsResponse {
   markets: BinaryOptionsMarket[];
@@ -2944,6 +3981,9 @@ export interface QueryBinaryMarketsResponseProtoMsg {
 /**
  * QueryBinaryMarketsResponse is the response type for the Query/BinaryMarkets
  * RPC method.
+ * @name QueryBinaryMarketsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBinaryMarketsResponse
  */
 export interface QueryBinaryMarketsResponseAmino {
   markets: BinaryOptionsMarketAmino[];
@@ -2955,6 +3995,9 @@ export interface QueryBinaryMarketsResponseAminoMsg {
 /**
  * QueryConditionalOrdersRequest is the request type for the
  * Query/ConditionalOrders RPC method.
+ * @name QueryTraderDerivativeConditionalOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersRequest
  */
 export interface QueryTraderDerivativeConditionalOrdersRequest {
   subaccountId: string;
@@ -2967,6 +4010,9 @@ export interface QueryTraderDerivativeConditionalOrdersRequestProtoMsg {
 /**
  * QueryConditionalOrdersRequest is the request type for the
  * Query/ConditionalOrders RPC method.
+ * @name QueryTraderDerivativeConditionalOrdersRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersRequest
  */
 export interface QueryTraderDerivativeConditionalOrdersRequestAmino {
   subaccount_id: string;
@@ -2976,16 +4022,31 @@ export interface QueryTraderDerivativeConditionalOrdersRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersRequest";
   value: QueryTraderDerivativeConditionalOrdersRequestAmino;
 }
+/**
+ * @name TrimmedDerivativeConditionalOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedDerivativeConditionalOrder
+ */
 export interface TrimmedDerivativeConditionalOrder {
-  /** price of the order */
+  /**
+   * price of the order
+   */
   price: string;
-  /** quantity of the order */
+  /**
+   * quantity of the order
+   */
   quantity: string;
-  /** margin of the order */
+  /**
+   * margin of the order
+   */
   margin: string;
-  /** price to trigger the order */
+  /**
+   * price to trigger the order
+   */
   triggerPrice: string;
-  /** true if the order is a buy */
+  /**
+   * true if the order is a buy
+   */
   isBuy: boolean;
   isLimit: boolean;
   orderHash: string;
@@ -2995,16 +4056,31 @@ export interface TrimmedDerivativeConditionalOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TrimmedDerivativeConditionalOrder";
   value: Uint8Array;
 }
+/**
+ * @name TrimmedDerivativeConditionalOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedDerivativeConditionalOrder
+ */
 export interface TrimmedDerivativeConditionalOrderAmino {
-  /** price of the order */
+  /**
+   * price of the order
+   */
   price: string;
-  /** quantity of the order */
+  /**
+   * quantity of the order
+   */
   quantity: string;
-  /** margin of the order */
+  /**
+   * margin of the order
+   */
   margin: string;
-  /** price to trigger the order */
+  /**
+   * price to trigger the order
+   */
   triggerPrice: string;
-  /** true if the order is a buy */
+  /**
+   * true if the order is a buy
+   */
   isBuy: boolean;
   isLimit: boolean;
   order_hash: string;
@@ -3017,6 +4093,9 @@ export interface TrimmedDerivativeConditionalOrderAminoMsg {
 /**
  * QueryTraderDerivativeOrdersResponse is the response type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeConditionalOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersResponse
  */
 export interface QueryTraderDerivativeConditionalOrdersResponse {
   orders: TrimmedDerivativeConditionalOrder[];
@@ -3028,6 +4107,9 @@ export interface QueryTraderDerivativeConditionalOrdersResponseProtoMsg {
 /**
  * QueryTraderDerivativeOrdersResponse is the response type for the
  * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeConditionalOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersResponse
  */
 export interface QueryTraderDerivativeConditionalOrdersResponseAmino {
   orders: TrimmedDerivativeConditionalOrderAmino[];
@@ -3036,6 +4118,11 @@ export interface QueryTraderDerivativeConditionalOrdersResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersResponse";
   value: QueryTraderDerivativeConditionalOrdersResponseAmino;
 }
+/**
+ * @name QueryMarketAtomicExecutionFeeMultiplierRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest
+ */
 export interface QueryMarketAtomicExecutionFeeMultiplierRequest {
   marketId: string;
 }
@@ -3043,6 +4130,11 @@ export interface QueryMarketAtomicExecutionFeeMultiplierRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryMarketAtomicExecutionFeeMultiplierRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest
+ */
 export interface QueryMarketAtomicExecutionFeeMultiplierRequestAmino {
   market_id: string;
 }
@@ -3050,6 +4142,11 @@ export interface QueryMarketAtomicExecutionFeeMultiplierRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest";
   value: QueryMarketAtomicExecutionFeeMultiplierRequestAmino;
 }
+/**
+ * @name QueryMarketAtomicExecutionFeeMultiplierResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse
+ */
 export interface QueryMarketAtomicExecutionFeeMultiplierResponse {
   multiplier: string;
 }
@@ -3057,6 +4154,11 @@ export interface QueryMarketAtomicExecutionFeeMultiplierResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryMarketAtomicExecutionFeeMultiplierResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse
+ */
 export interface QueryMarketAtomicExecutionFeeMultiplierResponseAmino {
   multiplier: string;
 }
@@ -3064,6 +4166,11 @@ export interface QueryMarketAtomicExecutionFeeMultiplierResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse";
   value: QueryMarketAtomicExecutionFeeMultiplierResponseAmino;
 }
+/**
+ * @name QueryActiveStakeGrantRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryActiveStakeGrantRequest
+ */
 export interface QueryActiveStakeGrantRequest {
   grantee: string;
 }
@@ -3071,6 +4178,11 @@ export interface QueryActiveStakeGrantRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryActiveStakeGrantRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryActiveStakeGrantRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryActiveStakeGrantRequest
+ */
 export interface QueryActiveStakeGrantRequestAmino {
   grantee: string;
 }
@@ -3078,6 +4190,11 @@ export interface QueryActiveStakeGrantRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryActiveStakeGrantRequest";
   value: QueryActiveStakeGrantRequestAmino;
 }
+/**
+ * @name QueryActiveStakeGrantResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryActiveStakeGrantResponse
+ */
 export interface QueryActiveStakeGrantResponse {
   grant?: ActiveGrant;
   effectiveGrant?: EffectiveGrant;
@@ -3086,6 +4203,11 @@ export interface QueryActiveStakeGrantResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryActiveStakeGrantResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryActiveStakeGrantResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryActiveStakeGrantResponse
+ */
 export interface QueryActiveStakeGrantResponseAmino {
   grant?: ActiveGrantAmino;
   effective_grant?: EffectiveGrantAmino;
@@ -3094,6 +4216,11 @@ export interface QueryActiveStakeGrantResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryActiveStakeGrantResponse";
   value: QueryActiveStakeGrantResponseAmino;
 }
+/**
+ * @name QueryGrantAuthorizationRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationRequest
+ */
 export interface QueryGrantAuthorizationRequest {
   granter: string;
   grantee: string;
@@ -3102,6 +4229,11 @@ export interface QueryGrantAuthorizationRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryGrantAuthorizationRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationRequest
+ */
 export interface QueryGrantAuthorizationRequestAmino {
   granter: string;
   grantee: string;
@@ -3110,6 +4242,11 @@ export interface QueryGrantAuthorizationRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryGrantAuthorizationRequest";
   value: QueryGrantAuthorizationRequestAmino;
 }
+/**
+ * @name QueryGrantAuthorizationResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationResponse
+ */
 export interface QueryGrantAuthorizationResponse {
   amount: string;
 }
@@ -3117,6 +4254,11 @@ export interface QueryGrantAuthorizationResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryGrantAuthorizationResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationResponse
+ */
 export interface QueryGrantAuthorizationResponseAmino {
   amount: string;
 }
@@ -3124,6 +4266,11 @@ export interface QueryGrantAuthorizationResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryGrantAuthorizationResponse";
   value: QueryGrantAuthorizationResponseAmino;
 }
+/**
+ * @name QueryGrantAuthorizationsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationsRequest
+ */
 export interface QueryGrantAuthorizationsRequest {
   granter: string;
 }
@@ -3131,6 +4278,11 @@ export interface QueryGrantAuthorizationsRequestProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryGrantAuthorizationsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationsRequest
+ */
 export interface QueryGrantAuthorizationsRequestAmino {
   granter: string;
 }
@@ -3138,6 +4290,11 @@ export interface QueryGrantAuthorizationsRequestAminoMsg {
   type: "/injective.exchange.v1beta1.QueryGrantAuthorizationsRequest";
   value: QueryGrantAuthorizationsRequestAmino;
 }
+/**
+ * @name QueryGrantAuthorizationsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationsResponse
+ */
 export interface QueryGrantAuthorizationsResponse {
   totalGrantAmount: string;
   grants: GrantAuthorization[];
@@ -3146,6 +4303,11 @@ export interface QueryGrantAuthorizationsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryGrantAuthorizationsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationsResponse
+ */
 export interface QueryGrantAuthorizationsResponseAmino {
   total_grant_amount: string;
   grants: GrantAuthorizationAmino[];
@@ -3160,6 +4322,11 @@ function createBaseSubaccount(): Subaccount {
     subaccountNonce: 0
   };
 }
+/**
+ * @name Subaccount
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Subaccount
+ */
 export const Subaccount = {
   typeUrl: "/injective.exchange.v1beta1.Subaccount",
   is(o: any): o is Subaccount {
@@ -3242,6 +4409,11 @@ function createBaseQuerySubaccountOrdersRequest(): QuerySubaccountOrdersRequest 
     marketId: ""
   };
 }
+/**
+ * @name QuerySubaccountOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrdersRequest
+ */
 export const QuerySubaccountOrdersRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrdersRequest",
   is(o: any): o is QuerySubaccountOrdersRequest {
@@ -3324,6 +4496,11 @@ function createBaseQuerySubaccountOrdersResponse(): QuerySubaccountOrdersRespons
     sellOrders: []
   };
 }
+/**
+ * @name QuerySubaccountOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrdersResponse
+ */
 export const QuerySubaccountOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrdersResponse",
   is(o: any): o is QuerySubaccountOrdersResponse {
@@ -3416,6 +4593,11 @@ function createBaseSubaccountOrderbookMetadataWithMarket(): SubaccountOrderbookM
     isBuy: false
   };
 }
+/**
+ * @name SubaccountOrderbookMetadataWithMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarket
+ */
 export const SubaccountOrderbookMetadataWithMarket = {
   typeUrl: "/injective.exchange.v1beta1.SubaccountOrderbookMetadataWithMarket",
   is(o: any): o is SubaccountOrderbookMetadataWithMarket {
@@ -3511,6 +4693,13 @@ export const SubaccountOrderbookMetadataWithMarket = {
 function createBaseQueryExchangeParamsRequest(): QueryExchangeParamsRequest {
   return {};
 }
+/**
+ * QueryExchangeParamsRequest is the request type for the Query/ExchangeParams
+ * RPC method.
+ * @name QueryExchangeParamsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeParamsRequest
+ */
 export const QueryExchangeParamsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeParamsRequest",
   is(o: any): o is QueryExchangeParamsRequest {
@@ -3570,6 +4759,13 @@ function createBaseQueryExchangeParamsResponse(): QueryExchangeParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryExchangeParamsRequest is the response type for the Query/ExchangeParams
+ * RPC method.
+ * @name QueryExchangeParamsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeParamsResponse
+ */
 export const QueryExchangeParamsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeParamsResponse",
   is(o: any): o is QueryExchangeParamsResponse {
@@ -3646,6 +4842,13 @@ function createBaseQuerySubaccountDepositsRequest(): QuerySubaccountDepositsRequ
     subaccount: undefined
   };
 }
+/**
+ * QuerySubaccountDepositsRequest is the request type for the
+ * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsRequest
+ */
 export const QuerySubaccountDepositsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositsRequest",
   is(o: any): o is QuerySubaccountDepositsRequest {
@@ -3733,6 +4936,11 @@ function createBaseQuerySubaccountDepositsResponse_DepositsEntry(): QuerySubacco
     value: undefined
   };
 }
+/**
+ * @name QuerySubaccountDepositsResponse_DepositsEntry
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.undefined
+ */
 export const QuerySubaccountDepositsResponse_DepositsEntry = {
   encode(message: QuerySubaccountDepositsResponse_DepositsEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== "") {
@@ -3803,6 +5011,13 @@ function createBaseQuerySubaccountDepositsResponse(): QuerySubaccountDepositsRes
     deposits: {}
   };
 }
+/**
+ * QuerySubaccountDepositsResponse is the response type for the
+ * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositsResponse
+ */
 export const QuerySubaccountDepositsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositsResponse",
   is(o: any): o is QuerySubaccountDepositsResponse {
@@ -3899,6 +5114,13 @@ export const QuerySubaccountDepositsResponse = {
 function createBaseQueryExchangeBalancesRequest(): QueryExchangeBalancesRequest {
   return {};
 }
+/**
+ * QueryExchangeBalancesRequest is the request type for the
+ * Query/ExchangeBalances RPC method.
+ * @name QueryExchangeBalancesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeBalancesRequest
+ */
 export const QueryExchangeBalancesRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeBalancesRequest",
   is(o: any): o is QueryExchangeBalancesRequest {
@@ -3958,6 +5180,13 @@ function createBaseQueryExchangeBalancesResponse(): QueryExchangeBalancesRespons
     balances: []
   };
 }
+/**
+ * QuerySubaccountDepositsResponse is the response type for the
+ * Query/SubaccountDeposits RPC method.
+ * @name QueryExchangeBalancesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExchangeBalancesResponse
+ */
 export const QueryExchangeBalancesResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryExchangeBalancesResponse",
   is(o: any): o is QueryExchangeBalancesResponse {
@@ -4035,6 +5264,13 @@ function createBaseQueryAggregateVolumeRequest(): QueryAggregateVolumeRequest {
     account: ""
   };
 }
+/**
+ * QueryAggregateVolumeRequest is the request type for the Query/AggregateVolume
+ * RPC method.
+ * @name QueryAggregateVolumeRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumeRequest
+ */
 export const QueryAggregateVolumeRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumeRequest",
   is(o: any): o is QueryAggregateVolumeRequest {
@@ -4105,6 +5341,13 @@ function createBaseQueryAggregateVolumeResponse(): QueryAggregateVolumeResponse 
     aggregateVolumes: []
   };
 }
+/**
+ * QueryAggregateVolumeResponse is the response type for the
+ * Query/AggregateVolume RPC method.
+ * @name QueryAggregateVolumeResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumeResponse
+ */
 export const QueryAggregateVolumeResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumeResponse",
   is(o: any): o is QueryAggregateVolumeResponse {
@@ -4183,6 +5426,13 @@ function createBaseQueryAggregateVolumesRequest(): QueryAggregateVolumesRequest 
     marketIds: []
   };
 }
+/**
+ * QueryAggregateVolumesRequest is the request type for the
+ * Query/AggregateVolumes RPC method.
+ * @name QueryAggregateVolumesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumesRequest
+ */
 export const QueryAggregateVolumesRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumesRequest",
   is(o: any): o is QueryAggregateVolumesRequest {
@@ -4269,6 +5519,13 @@ function createBaseQueryAggregateVolumesResponse(): QueryAggregateVolumesRespons
     aggregateMarketVolumes: []
   };
 }
+/**
+ * QueryAggregateVolumesResponse is the response type for the
+ * Query/AggregateVolumes RPC method.
+ * @name QueryAggregateVolumesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateVolumesResponse
+ */
 export const QueryAggregateVolumesResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateVolumesResponse",
   is(o: any): o is QueryAggregateVolumesResponse {
@@ -4360,6 +5617,13 @@ function createBaseQueryAggregateMarketVolumeRequest(): QueryAggregateMarketVolu
     marketId: ""
   };
 }
+/**
+ * QueryAggregateMarketVolumeRequest is the request type for the
+ * Query/AggregateMarketVolume RPC method.
+ * @name QueryAggregateMarketVolumeRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumeRequest
+ */
 export const QueryAggregateMarketVolumeRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumeRequest",
   is(o: any): o is QueryAggregateMarketVolumeRequest {
@@ -4430,6 +5694,13 @@ function createBaseQueryAggregateMarketVolumeResponse(): QueryAggregateMarketVol
     volume: VolumeRecord.fromPartial({})
   };
 }
+/**
+ * QueryAggregateMarketVolumeResponse is the response type for the
+ * Query/AggregateMarketVolume RPC method.
+ * @name QueryAggregateMarketVolumeResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumeResponse
+ */
 export const QueryAggregateMarketVolumeResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumeResponse",
   is(o: any): o is QueryAggregateMarketVolumeResponse {
@@ -4505,6 +5776,13 @@ function createBaseQueryDenomDecimalRequest(): QueryDenomDecimalRequest {
     denom: ""
   };
 }
+/**
+ * QueryDenomDecimalRequest is the request type for the Query/DenomDecimal RPC
+ * method.
+ * @name QueryDenomDecimalRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalRequest
+ */
 export const QueryDenomDecimalRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalRequest",
   is(o: any): o is QueryDenomDecimalRequest {
@@ -4575,6 +5853,13 @@ function createBaseQueryDenomDecimalResponse(): QueryDenomDecimalResponse {
     decimal: BigInt(0)
   };
 }
+/**
+ * QueryDenomDecimalResponse is the response type for the Query/DenomDecimal RPC
+ * method.
+ * @name QueryDenomDecimalResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalResponse
+ */
 export const QueryDenomDecimalResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalResponse",
   is(o: any): o is QueryDenomDecimalResponse {
@@ -4645,6 +5930,13 @@ function createBaseQueryDenomDecimalsRequest(): QueryDenomDecimalsRequest {
     denoms: []
   };
 }
+/**
+ * QueryDenomDecimalsRequest is the request type for the Query/DenomDecimals RPC
+ * method.
+ * @name QueryDenomDecimalsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalsRequest
+ */
 export const QueryDenomDecimalsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalsRequest",
   is(o: any): o is QueryDenomDecimalsRequest {
@@ -4717,6 +6009,13 @@ function createBaseQueryDenomDecimalsResponse(): QueryDenomDecimalsResponse {
     denomDecimals: []
   };
 }
+/**
+ * QueryDenomDecimalsRequest is the response type for the Query/DenomDecimals
+ * RPC method.
+ * @name QueryDenomDecimalsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomDecimalsResponse
+ */
 export const QueryDenomDecimalsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDenomDecimalsResponse",
   is(o: any): o is QueryDenomDecimalsResponse {
@@ -4794,6 +6093,13 @@ function createBaseQueryAggregateMarketVolumesRequest(): QueryAggregateMarketVol
     marketIds: []
   };
 }
+/**
+ * QueryAggregateMarketVolumesRequest is the request type for the
+ * Query/AggregateMarketVolumes RPC method.
+ * @name QueryAggregateMarketVolumesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumesRequest
+ */
 export const QueryAggregateMarketVolumesRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumesRequest",
   is(o: any): o is QueryAggregateMarketVolumesRequest {
@@ -4866,6 +6172,13 @@ function createBaseQueryAggregateMarketVolumesResponse(): QueryAggregateMarketVo
     volumes: []
   };
 }
+/**
+ * QueryAggregateMarketVolumesResponse is the response type for the
+ * Query/AggregateMarketVolumes RPC method.
+ * @name QueryAggregateMarketVolumesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAggregateMarketVolumesResponse
+ */
 export const QueryAggregateMarketVolumesResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryAggregateMarketVolumesResponse",
   is(o: any): o is QueryAggregateMarketVolumesResponse {
@@ -4944,6 +6257,13 @@ function createBaseQuerySubaccountDepositRequest(): QuerySubaccountDepositReques
     denom: ""
   };
 }
+/**
+ * QuerySubaccountDepositsRequest is the request type for the
+ * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositRequest
+ */
 export const QuerySubaccountDepositRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositRequest",
   is(o: any): o is QuerySubaccountDepositRequest {
@@ -5025,6 +6345,13 @@ function createBaseQuerySubaccountDepositResponse(): QuerySubaccountDepositRespo
     deposits: undefined
   };
 }
+/**
+ * QuerySubaccountDepositsResponse is the response type for the
+ * Query/SubaccountDeposits RPC method.
+ * @name QuerySubaccountDepositResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountDepositResponse
+ */
 export const QuerySubaccountDepositResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountDepositResponse",
   is(o: any): o is QuerySubaccountDepositResponse {
@@ -5101,6 +6428,13 @@ function createBaseQuerySpotMarketsRequest(): QuerySpotMarketsRequest {
     marketIds: []
   };
 }
+/**
+ * QuerySpotMarketsRequest is the request type for the Query/SpotMarkets RPC
+ * method.
+ * @name QuerySpotMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketsRequest
+ */
 export const QuerySpotMarketsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketsRequest",
   is(o: any): o is QuerySpotMarketsRequest {
@@ -5184,6 +6518,13 @@ function createBaseQuerySpotMarketsResponse(): QuerySpotMarketsResponse {
     markets: []
   };
 }
+/**
+ * QuerySpotMarketsResponse is the response type for the Query/SpotMarkets RPC
+ * method.
+ * @name QuerySpotMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketsResponse
+ */
 export const QuerySpotMarketsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketsResponse",
   is(o: any): o is QuerySpotMarketsResponse {
@@ -5261,6 +6602,13 @@ function createBaseQuerySpotMarketRequest(): QuerySpotMarketRequest {
     marketId: ""
   };
 }
+/**
+ * QuerySpotMarketRequest is the request type for the Query/SpotMarket RPC
+ * method.
+ * @name QuerySpotMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketRequest
+ */
 export const QuerySpotMarketRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketRequest",
   is(o: any): o is QuerySpotMarketRequest {
@@ -5331,6 +6679,13 @@ function createBaseQuerySpotMarketResponse(): QuerySpotMarketResponse {
     market: undefined
   };
 }
+/**
+ * QuerySpotMarketResponse is the response type for the Query/SpotMarket RPC
+ * method.
+ * @name QuerySpotMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMarketResponse
+ */
 export const QuerySpotMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMarketResponse",
   is(o: any): o is QuerySpotMarketResponse {
@@ -5410,6 +6765,13 @@ function createBaseQuerySpotOrderbookRequest(): QuerySpotOrderbookRequest {
     limitCumulativeQuantity: undefined
   };
 }
+/**
+ * QuerySpotOrderbookRequest is the request type for the Query/SpotOrderbook RPC
+ * method.
+ * @name QuerySpotOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrderbookRequest
+ */
 export const QuerySpotOrderbookRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrderbookRequest",
   is(o: any): o is QuerySpotOrderbookRequest {
@@ -5525,6 +6887,13 @@ function createBaseQuerySpotOrderbookResponse(): QuerySpotOrderbookResponse {
     sellsPriceLevel: []
   };
 }
+/**
+ * QuerySpotOrderbookResponse is the response type for the Query/SpotOrderbook
+ * RPC method.
+ * @name QuerySpotOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrderbookResponse
+ */
 export const QuerySpotOrderbookResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrderbookResponse",
   is(o: any): o is QuerySpotOrderbookResponse {
@@ -5616,6 +6985,11 @@ function createBaseFullSpotMarket(): FullSpotMarket {
     midPriceAndTob: undefined
   };
 }
+/**
+ * @name FullSpotMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullSpotMarket
+ */
 export const FullSpotMarket = {
   typeUrl: "/injective.exchange.v1beta1.FullSpotMarket",
   is(o: any): o is FullSpotMarket {
@@ -5705,6 +7079,13 @@ function createBaseQueryFullSpotMarketsRequest(): QueryFullSpotMarketsRequest {
     withMidPriceAndTob: false
   };
 }
+/**
+ * QueryFullSpotMarketsRequest is the request type for the Query/FullSpotMarkets
+ * RPC method.
+ * @name QueryFullSpotMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketsRequest
+ */
 export const QueryFullSpotMarketsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketsRequest",
   is(o: any): o is QueryFullSpotMarketsRequest {
@@ -5799,6 +7180,13 @@ function createBaseQueryFullSpotMarketsResponse(): QueryFullSpotMarketsResponse 
     markets: []
   };
 }
+/**
+ * QueryFullSpotMarketsResponse is the response type for the
+ * Query/FullSpotMarkets RPC method.
+ * @name QueryFullSpotMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketsResponse
+ */
 export const QueryFullSpotMarketsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketsResponse",
   is(o: any): o is QueryFullSpotMarketsResponse {
@@ -5877,6 +7265,13 @@ function createBaseQueryFullSpotMarketRequest(): QueryFullSpotMarketRequest {
     withMidPriceAndTob: false
   };
 }
+/**
+ * QuerySpotMarketRequest is the request type for the Query/SpotMarket RPC
+ * method.
+ * @name QueryFullSpotMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketRequest
+ */
 export const QueryFullSpotMarketRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketRequest",
   is(o: any): o is QueryFullSpotMarketRequest {
@@ -5958,6 +7353,13 @@ function createBaseQueryFullSpotMarketResponse(): QueryFullSpotMarketResponse {
     market: undefined
   };
 }
+/**
+ * QuerySpotMarketResponse is the response type for the Query/SpotMarket RPC
+ * method.
+ * @name QueryFullSpotMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotMarketResponse
+ */
 export const QueryFullSpotMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryFullSpotMarketResponse",
   is(o: any): o is QueryFullSpotMarketResponse {
@@ -6035,6 +7437,13 @@ function createBaseQuerySpotOrdersByHashesRequest(): QuerySpotOrdersByHashesRequ
     orderHashes: []
   };
 }
+/**
+ * QuerySpotOrdersByHashesRequest is the request type for the
+ * Query/SpotOrdersByHashes RPC method.
+ * @name QuerySpotOrdersByHashesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrdersByHashesRequest
+ */
 export const QuerySpotOrdersByHashesRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrdersByHashesRequest",
   is(o: any): o is QuerySpotOrdersByHashesRequest {
@@ -6129,6 +7538,13 @@ function createBaseQuerySpotOrdersByHashesResponse(): QuerySpotOrdersByHashesRes
     orders: []
   };
 }
+/**
+ * QuerySpotOrdersByHashesResponse is the response type for the
+ * Query/SpotOrdersByHashes RPC method.
+ * @name QuerySpotOrdersByHashesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotOrdersByHashesResponse
+ */
 export const QuerySpotOrdersByHashesResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotOrdersByHashesResponse",
   is(o: any): o is QuerySpotOrdersByHashesResponse {
@@ -6207,6 +7623,13 @@ function createBaseQueryTraderSpotOrdersRequest(): QueryTraderSpotOrdersRequest 
     subaccountId: ""
   };
 }
+/**
+ * QueryTraderSpotOrdersRequest is the request type for the
+ * Query/TraderSpotOrders RPC method.
+ * @name QueryTraderSpotOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersRequest
+ */
 export const QueryTraderSpotOrdersRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderSpotOrdersRequest",
   is(o: any): o is QueryTraderSpotOrdersRequest {
@@ -6289,6 +7712,13 @@ function createBaseQueryAccountAddressSpotOrdersRequest(): QueryAccountAddressSp
     accountAddress: ""
   };
 }
+/**
+ * QueryAccountAddressSpotOrdersRequest is the request type for the
+ * Query/AccountAddressSpotOrders RPC method.
+ * @name QueryAccountAddressSpotOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressSpotOrdersRequest
+ */
 export const QueryAccountAddressSpotOrdersRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressSpotOrdersRequest",
   is(o: any): o is QueryAccountAddressSpotOrdersRequest {
@@ -6375,6 +7805,11 @@ function createBaseTrimmedSpotLimitOrder(): TrimmedSpotLimitOrder {
     cid: ""
   };
 }
+/**
+ * @name TrimmedSpotLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedSpotLimitOrder
+ */
 export const TrimmedSpotLimitOrder = {
   typeUrl: "/injective.exchange.v1beta1.TrimmedSpotLimitOrder",
   is(o: any): o is TrimmedSpotLimitOrder {
@@ -6500,6 +7935,13 @@ function createBaseQueryTraderSpotOrdersResponse(): QueryTraderSpotOrdersRespons
     orders: []
   };
 }
+/**
+ * QueryTraderSpotOrdersResponse is the response type for the
+ * Query/TraderSpotOrders RPC method.
+ * @name QueryTraderSpotOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersResponse
+ */
 export const QueryTraderSpotOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderSpotOrdersResponse",
   is(o: any): o is QueryTraderSpotOrdersResponse {
@@ -6577,6 +8019,13 @@ function createBaseQueryAccountAddressSpotOrdersResponse(): QueryAccountAddressS
     orders: []
   };
 }
+/**
+ * QueryAccountAddressSpotOrdersResponse is the response type for the
+ * Query/AccountAddressSpotOrders RPC method.
+ * @name QueryAccountAddressSpotOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressSpotOrdersResponse
+ */
 export const QueryAccountAddressSpotOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressSpotOrdersResponse",
   is(o: any): o is QueryAccountAddressSpotOrdersResponse {
@@ -6654,6 +8103,13 @@ function createBaseQuerySpotMidPriceAndTOBRequest(): QuerySpotMidPriceAndTOBRequ
     marketId: ""
   };
 }
+/**
+ * QuerySpotMidPriceAndTOBRequest is the request type for the
+ * Query/SpotMidPriceAndTOB RPC method.
+ * @name QuerySpotMidPriceAndTOBRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMidPriceAndTOBRequest
+ */
 export const QuerySpotMidPriceAndTOBRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMidPriceAndTOBRequest",
   is(o: any): o is QuerySpotMidPriceAndTOBRequest {
@@ -6726,6 +8182,13 @@ function createBaseQuerySpotMidPriceAndTOBResponse(): QuerySpotMidPriceAndTOBRes
     bestSellPrice: undefined
   };
 }
+/**
+ * QuerySpotMidPriceAndTOBResponse is the response type for the
+ * Query/SpotMidPriceAndTOB RPC method.
+ * @name QuerySpotMidPriceAndTOBResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySpotMidPriceAndTOBResponse
+ */
 export const QuerySpotMidPriceAndTOBResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySpotMidPriceAndTOBResponse",
   is(o: any): o is QuerySpotMidPriceAndTOBResponse {
@@ -6818,6 +8281,13 @@ function createBaseQueryDerivativeMidPriceAndTOBRequest(): QueryDerivativeMidPri
     marketId: ""
   };
 }
+/**
+ * QueryDerivativeMidPriceAndTOBRequest is the request type for the
+ * Query/GetDerivativeMidPriceAndTOB RPC method.
+ * @name QueryDerivativeMidPriceAndTOBRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBRequest
+ */
 export const QueryDerivativeMidPriceAndTOBRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBRequest",
   is(o: any): o is QueryDerivativeMidPriceAndTOBRequest {
@@ -6890,6 +8360,13 @@ function createBaseQueryDerivativeMidPriceAndTOBResponse(): QueryDerivativeMidPr
     bestSellPrice: undefined
   };
 }
+/**
+ * QueryDerivativeMidPriceAndTOBResponse is the response type for the
+ * Query/GetDerivativeMidPriceAndTOB RPC method.
+ * @name QueryDerivativeMidPriceAndTOBResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBResponse
+ */
 export const QueryDerivativeMidPriceAndTOBResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMidPriceAndTOBResponse",
   is(o: any): o is QueryDerivativeMidPriceAndTOBResponse {
@@ -6984,6 +8461,13 @@ function createBaseQueryDerivativeOrderbookRequest(): QueryDerivativeOrderbookRe
     limitCumulativeNotional: undefined
   };
 }
+/**
+ * QueryDerivativeOrderbookRequest is the request type for the
+ * Query/DerivativeOrderbook RPC method.
+ * @name QueryDerivativeOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrderbookRequest
+ */
 export const QueryDerivativeOrderbookRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrderbookRequest",
   is(o: any): o is QueryDerivativeOrderbookRequest {
@@ -7077,6 +8561,13 @@ function createBaseQueryDerivativeOrderbookResponse(): QueryDerivativeOrderbookR
     sellsPriceLevel: []
   };
 }
+/**
+ * QueryDerivativeOrderbookResponse is the response type for the
+ * Query/DerivativeOrderbook RPC method.
+ * @name QueryDerivativeOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrderbookResponse
+ */
 export const QueryDerivativeOrderbookResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrderbookResponse",
   is(o: any): o is QueryDerivativeOrderbookResponse {
@@ -7172,6 +8663,13 @@ function createBaseQueryTraderSpotOrdersToCancelUpToAmountRequest(): QueryTrader
     referencePrice: undefined
   };
 }
+/**
+ * QueryTraderSpotOrdersToCancelUpToAmountRequest is the request type for the
+ * Query/TraderSpotOrdersToCancelUpToAmountRequest RPC method.
+ * @name QueryTraderSpotOrdersToCancelUpToAmountRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderSpotOrdersToCancelUpToAmountRequest
+ */
 export const QueryTraderSpotOrdersToCancelUpToAmountRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderSpotOrdersToCancelUpToAmountRequest",
   is(o: any): o is QueryTraderSpotOrdersToCancelUpToAmountRequest {
@@ -7301,6 +8799,13 @@ function createBaseQueryTraderDerivativeOrdersToCancelUpToAmountRequest(): Query
     referencePrice: undefined
   };
 }
+/**
+ * QueryTraderDerivativeOrdersToCancelUpToAmountRequest is the request type for
+ * the Query/TraderDerivativeOrdersToCancelUpToAmountRequest RPC method.
+ * @name QueryTraderDerivativeOrdersToCancelUpToAmountRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersToCancelUpToAmountRequest
+ */
 export const QueryTraderDerivativeOrdersToCancelUpToAmountRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeOrdersToCancelUpToAmountRequest",
   is(o: any): o is QueryTraderDerivativeOrdersToCancelUpToAmountRequest {
@@ -7416,6 +8921,13 @@ function createBaseQueryTraderDerivativeOrdersRequest(): QueryTraderDerivativeOr
     subaccountId: ""
   };
 }
+/**
+ * QueryTraderDerivativeOrdersRequest is the request type for the
+ * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest
+ */
 export const QueryTraderDerivativeOrdersRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeOrdersRequest",
   is(o: any): o is QueryTraderDerivativeOrdersRequest {
@@ -7498,6 +9010,13 @@ function createBaseQueryAccountAddressDerivativeOrdersRequest(): QueryAccountAdd
     accountAddress: ""
   };
 }
+/**
+ * QueryAccountAddressSpotOrdersRequest is the request type for the
+ * Query/AccountAddressDerivativeOrders RPC method.
+ * @name QueryAccountAddressDerivativeOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersRequest
+ */
 export const QueryAccountAddressDerivativeOrdersRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersRequest",
   is(o: any): o is QueryAccountAddressDerivativeOrdersRequest {
@@ -7585,6 +9104,11 @@ function createBaseTrimmedDerivativeLimitOrder(): TrimmedDerivativeLimitOrder {
     cid: ""
   };
 }
+/**
+ * @name TrimmedDerivativeLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedDerivativeLimitOrder
+ */
 export const TrimmedDerivativeLimitOrder = {
   typeUrl: "/injective.exchange.v1beta1.TrimmedDerivativeLimitOrder",
   is(o: any): o is TrimmedDerivativeLimitOrder {
@@ -7721,6 +9245,13 @@ function createBaseQueryTraderDerivativeOrdersResponse(): QueryTraderDerivativeO
     orders: []
   };
 }
+/**
+ * QueryTraderDerivativeOrdersResponse is the response type for the
+ * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse
+ */
 export const QueryTraderDerivativeOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeOrdersResponse",
   is(o: any): o is QueryTraderDerivativeOrdersResponse {
@@ -7798,6 +9329,13 @@ function createBaseQueryAccountAddressDerivativeOrdersResponse(): QueryAccountAd
     orders: []
   };
 }
+/**
+ * QueryAccountAddressDerivativeOrdersResponse is the response type for the
+ * Query/AccountAddressDerivativeOrders RPC method.
+ * @name QueryAccountAddressDerivativeOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersResponse
+ */
 export const QueryAccountAddressDerivativeOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryAccountAddressDerivativeOrdersResponse",
   is(o: any): o is QueryAccountAddressDerivativeOrdersResponse {
@@ -7877,6 +9415,13 @@ function createBaseQueryDerivativeOrdersByHashesRequest(): QueryDerivativeOrders
     orderHashes: []
   };
 }
+/**
+ * QueryTraderDerivativeOrdersRequest is the request type for the
+ * Query/TraderDerivativeOrders RPC method.
+ * @name QueryDerivativeOrdersByHashesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrdersByHashesRequest
+ */
 export const QueryDerivativeOrdersByHashesRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrdersByHashesRequest",
   is(o: any): o is QueryDerivativeOrdersByHashesRequest {
@@ -7971,6 +9516,13 @@ function createBaseQueryDerivativeOrdersByHashesResponse(): QueryDerivativeOrder
     orders: []
   };
 }
+/**
+ * QueryDerivativeOrdersByHashesResponse is the response type for the
+ * Query/DerivativeOrdersByHashes RPC method.
+ * @name QueryDerivativeOrdersByHashesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeOrdersByHashesResponse
+ */
 export const QueryDerivativeOrdersByHashesResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeOrdersByHashesResponse",
   is(o: any): o is QueryDerivativeOrdersByHashesResponse {
@@ -8050,6 +9602,13 @@ function createBaseQueryDerivativeMarketsRequest(): QueryDerivativeMarketsReques
     withMidPriceAndTob: false
   };
 }
+/**
+ * QueryDerivativeMarketsRequest is the request type for the
+ * Query/DerivativeMarkets RPC method.
+ * @name QueryDerivativeMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketsRequest
+ */
 export const QueryDerivativeMarketsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketsRequest",
   is(o: any): o is QueryDerivativeMarketsRequest {
@@ -8145,6 +9704,11 @@ function createBasePriceLevel(): PriceLevel {
     quantity: ""
   };
 }
+/**
+ * @name PriceLevel
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PriceLevel
+ */
 export const PriceLevel = {
   typeUrl: "/injective.exchange.v1beta1.PriceLevel",
   is(o: any): o is PriceLevel {
@@ -8227,6 +9791,11 @@ function createBasePerpetualMarketState(): PerpetualMarketState {
     fundingInfo: undefined
   };
 }
+/**
+ * @name PerpetualMarketState
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketState
+ */
 export const PerpetualMarketState = {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketState",
   is(o: any): o is PerpetualMarketState {
@@ -8318,6 +9887,11 @@ function createBaseFullDerivativeMarket(): FullDerivativeMarket {
     midPriceAndTob: undefined
   };
 }
+/**
+ * @name FullDerivativeMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FullDerivativeMarket
+ */
 export const FullDerivativeMarket = {
   typeUrl: "/injective.exchange.v1beta1.FullDerivativeMarket",
   is(o: any): o is FullDerivativeMarket {
@@ -8440,6 +10014,13 @@ function createBaseQueryDerivativeMarketsResponse(): QueryDerivativeMarketsRespo
     markets: []
   };
 }
+/**
+ * QueryDerivativeMarketsResponse is the response type for the
+ * Query/DerivativeMarkets RPC method.
+ * @name QueryDerivativeMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketsResponse
+ */
 export const QueryDerivativeMarketsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketsResponse",
   is(o: any): o is QueryDerivativeMarketsResponse {
@@ -8517,6 +10098,13 @@ function createBaseQueryDerivativeMarketRequest(): QueryDerivativeMarketRequest 
     marketId: ""
   };
 }
+/**
+ * QueryDerivativeMarketRequest is the request type for the
+ * Query/DerivativeMarket RPC method.
+ * @name QueryDerivativeMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketRequest
+ */
 export const QueryDerivativeMarketRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketRequest",
   is(o: any): o is QueryDerivativeMarketRequest {
@@ -8587,6 +10175,13 @@ function createBaseQueryDerivativeMarketResponse(): QueryDerivativeMarketRespons
     market: undefined
   };
 }
+/**
+ * QueryDerivativeMarketResponse is the response type for the
+ * Query/DerivativeMarket RPC method.
+ * @name QueryDerivativeMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketResponse
+ */
 export const QueryDerivativeMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketResponse",
   is(o: any): o is QueryDerivativeMarketResponse {
@@ -8662,6 +10257,13 @@ function createBaseQueryDerivativeMarketAddressRequest(): QueryDerivativeMarketA
     marketId: ""
   };
 }
+/**
+ * QueryDerivativeMarketAddressRequest is the request type for the
+ * Query/DerivativeMarketAddress RPC method.
+ * @name QueryDerivativeMarketAddressRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest
+ */
 export const QueryDerivativeMarketAddressRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketAddressRequest",
   is(o: any): o is QueryDerivativeMarketAddressRequest {
@@ -8733,6 +10335,13 @@ function createBaseQueryDerivativeMarketAddressResponse(): QueryDerivativeMarket
     subaccountId: ""
   };
 }
+/**
+ * QueryDerivativeMarketAddressResponse is the response type for the
+ * Query/DerivativeMarketAddress RPC method.
+ * @name QueryDerivativeMarketAddressResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse
+ */
 export const QueryDerivativeMarketAddressResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryDerivativeMarketAddressResponse",
   is(o: any): o is QueryDerivativeMarketAddressResponse {
@@ -8814,6 +10423,13 @@ function createBaseQuerySubaccountTradeNonceRequest(): QuerySubaccountTradeNonce
     subaccountId: ""
   };
 }
+/**
+ * QuerySubaccountTradeNonceRequest is the request type for the
+ * Query/SubaccountTradeNonce RPC method.
+ * @name QuerySubaccountTradeNonceRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest
+ */
 export const QuerySubaccountTradeNonceRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountTradeNonceRequest",
   is(o: any): o is QuerySubaccountTradeNonceRequest {
@@ -8884,6 +10500,13 @@ function createBaseQuerySubaccountPositionsRequest(): QuerySubaccountPositionsRe
     subaccountId: ""
   };
 }
+/**
+ * QuerySubaccountPositionsRequest is the request type for the
+ * Query/SubaccountPositions RPC method.
+ * @name QuerySubaccountPositionsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionsRequest
+ */
 export const QuerySubaccountPositionsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionsRequest",
   is(o: any): o is QuerySubaccountPositionsRequest {
@@ -8955,6 +10578,13 @@ function createBaseQuerySubaccountPositionInMarketRequest(): QuerySubaccountPosi
     marketId: ""
   };
 }
+/**
+ * QuerySubaccountPositionInMarketRequest is the request type for the
+ * Query/SubaccountPositionInMarket RPC method.
+ * @name QuerySubaccountPositionInMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionInMarketRequest
+ */
 export const QuerySubaccountPositionInMarketRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionInMarketRequest",
   is(o: any): o is QuerySubaccountPositionInMarketRequest {
@@ -9037,6 +10667,13 @@ function createBaseQuerySubaccountEffectivePositionInMarketRequest(): QuerySubac
     marketId: ""
   };
 }
+/**
+ * QuerySubaccountEffectivePositionInMarketRequest is the request type for the
+ * Query/SubaccountEffectivePositionInMarket RPC method.
+ * @name QuerySubaccountEffectivePositionInMarketRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketRequest
+ */
 export const QuerySubaccountEffectivePositionInMarketRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketRequest",
   is(o: any): o is QuerySubaccountEffectivePositionInMarketRequest {
@@ -9118,6 +10755,13 @@ function createBaseQuerySubaccountOrderMetadataRequest(): QuerySubaccountOrderMe
     subaccountId: ""
   };
 }
+/**
+ * QuerySubaccountOrderMetadataRequest is the request type for the
+ * Query/SubaccountOrderMetadata RPC method.
+ * @name QuerySubaccountOrderMetadataRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest
+ */
 export const QuerySubaccountOrderMetadataRequest = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrderMetadataRequest",
   is(o: any): o is QuerySubaccountOrderMetadataRequest {
@@ -9188,6 +10832,13 @@ function createBaseQuerySubaccountPositionsResponse(): QuerySubaccountPositionsR
     state: []
   };
 }
+/**
+ * QuerySubaccountPositionsResponse is the response type for the
+ * Query/SubaccountPositions RPC method.
+ * @name QuerySubaccountPositionsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionsResponse
+ */
 export const QuerySubaccountPositionsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionsResponse",
   is(o: any): o is QuerySubaccountPositionsResponse {
@@ -9265,6 +10916,13 @@ function createBaseQuerySubaccountPositionInMarketResponse(): QuerySubaccountPos
     state: undefined
   };
 }
+/**
+ * QuerySubaccountPositionInMarketResponse is the response type for the
+ * Query/SubaccountPositionInMarket RPC method.
+ * @name QuerySubaccountPositionInMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountPositionInMarketResponse
+ */
 export const QuerySubaccountPositionInMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountPositionInMarketResponse",
   is(o: any): o is QuerySubaccountPositionInMarketResponse {
@@ -9343,6 +11001,11 @@ function createBaseEffectivePosition(): EffectivePosition {
     effectiveMargin: ""
   };
 }
+/**
+ * @name EffectivePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EffectivePosition
+ */
 export const EffectivePosition = {
   typeUrl: "/injective.exchange.v1beta1.EffectivePosition",
   is(o: any): o is EffectivePosition {
@@ -9446,6 +11109,13 @@ function createBaseQuerySubaccountEffectivePositionInMarketResponse(): QuerySuba
     state: undefined
   };
 }
+/**
+ * QuerySubaccountEffectivePositionInMarketResponse is the response type for the
+ * Query/SubaccountEffectivePositionInMarket RPC method.
+ * @name QuerySubaccountEffectivePositionInMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketResponse
+ */
 export const QuerySubaccountEffectivePositionInMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountEffectivePositionInMarketResponse",
   is(o: any): o is QuerySubaccountEffectivePositionInMarketResponse {
@@ -9521,6 +11191,13 @@ function createBaseQueryPerpetualMarketInfoRequest(): QueryPerpetualMarketInfoRe
     marketId: ""
   };
 }
+/**
+ * QueryPerpetualMarketInfoRequest is the request type for the
+ * Query/PerpetualMarketInfo RPC method.
+ * @name QueryPerpetualMarketInfoRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketInfoRequest
+ */
 export const QueryPerpetualMarketInfoRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketInfoRequest",
   is(o: any): o is QueryPerpetualMarketInfoRequest {
@@ -9591,6 +11268,13 @@ function createBaseQueryPerpetualMarketInfoResponse(): QueryPerpetualMarketInfoR
     info: PerpetualMarketInfo.fromPartial({})
   };
 }
+/**
+ * QueryPerpetualMarketInfoResponse is the response type for the
+ * Query/PerpetualMarketInfo RPC method.
+ * @name QueryPerpetualMarketInfoResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketInfoResponse
+ */
 export const QueryPerpetualMarketInfoResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketInfoResponse",
   is(o: any): o is QueryPerpetualMarketInfoResponse {
@@ -9666,6 +11350,13 @@ function createBaseQueryExpiryFuturesMarketInfoRequest(): QueryExpiryFuturesMark
     marketId: ""
   };
 }
+/**
+ * QueryExpiryFuturesMarketInfoRequest is the request type for the Query/
+ * ExpiryFuturesMarketInfo RPC method.
+ * @name QueryExpiryFuturesMarketInfoRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoRequest
+ */
 export const QueryExpiryFuturesMarketInfoRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoRequest",
   is(o: any): o is QueryExpiryFuturesMarketInfoRequest {
@@ -9736,6 +11427,13 @@ function createBaseQueryExpiryFuturesMarketInfoResponse(): QueryExpiryFuturesMar
     info: ExpiryFuturesMarketInfo.fromPartial({})
   };
 }
+/**
+ * QueryExpiryFuturesMarketInfoResponse is the response type for the Query/
+ * ExpiryFuturesMarketInfo RPC method.
+ * @name QueryExpiryFuturesMarketInfoResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoResponse
+ */
 export const QueryExpiryFuturesMarketInfoResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryExpiryFuturesMarketInfoResponse",
   is(o: any): o is QueryExpiryFuturesMarketInfoResponse {
@@ -9811,6 +11509,13 @@ function createBaseQueryPerpetualMarketFundingRequest(): QueryPerpetualMarketFun
     marketId: ""
   };
 }
+/**
+ * QueryPerpetualMarketFundingRequest is the request type for the
+ * Query/PerpetualMarketFunding RPC method.
+ * @name QueryPerpetualMarketFundingRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketFundingRequest
+ */
 export const QueryPerpetualMarketFundingRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketFundingRequest",
   is(o: any): o is QueryPerpetualMarketFundingRequest {
@@ -9881,6 +11586,13 @@ function createBaseQueryPerpetualMarketFundingResponse(): QueryPerpetualMarketFu
     state: PerpetualMarketFunding.fromPartial({})
   };
 }
+/**
+ * QueryPerpetualMarketFundingResponse is the response type for the
+ * Query/PerpetualMarketFunding RPC method.
+ * @name QueryPerpetualMarketFundingResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPerpetualMarketFundingResponse
+ */
 export const QueryPerpetualMarketFundingResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryPerpetualMarketFundingResponse",
   is(o: any): o is QueryPerpetualMarketFundingResponse {
@@ -9956,6 +11668,13 @@ function createBaseQuerySubaccountOrderMetadataResponse(): QuerySubaccountOrderM
     metadata: []
   };
 }
+/**
+ * QuerySubaccountOrderMetadataResponse is the response type for the
+ * Query/SubaccountOrderMetadata RPC method.
+ * @name QuerySubaccountOrderMetadataResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse
+ */
 export const QuerySubaccountOrderMetadataResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountOrderMetadataResponse",
   is(o: any): o is QuerySubaccountOrderMetadataResponse {
@@ -10033,6 +11752,13 @@ function createBaseQuerySubaccountTradeNonceResponse(): QuerySubaccountTradeNonc
     nonce: 0
   };
 }
+/**
+ * QuerySubaccountTradeNonceResponse is the response type for the
+ * Query/SubaccountTradeNonce RPC method.
+ * @name QuerySubaccountTradeNonceResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse
+ */
 export const QuerySubaccountTradeNonceResponse = {
   typeUrl: "/injective.exchange.v1beta1.QuerySubaccountTradeNonceResponse",
   is(o: any): o is QuerySubaccountTradeNonceResponse {
@@ -10101,6 +11827,13 @@ export const QuerySubaccountTradeNonceResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the Query/ExchangeModuleState
+ * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -10160,6 +11893,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the
+ * Query/ExchangeModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {
@@ -10233,6 +11973,12 @@ export const QueryModuleStateResponse = {
 function createBaseQueryPositionsRequest(): QueryPositionsRequest {
   return {};
 }
+/**
+ * QueryPositionsRequest is the request type for the Query/Positions RPC method.
+ * @name QueryPositionsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPositionsRequest
+ */
 export const QueryPositionsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryPositionsRequest",
   is(o: any): o is QueryPositionsRequest {
@@ -10292,6 +12038,13 @@ function createBaseQueryPositionsResponse(): QueryPositionsResponse {
     state: []
   };
 }
+/**
+ * QueryPositionsResponse is the response type for the Query/Positions RPC
+ * method.
+ * @name QueryPositionsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryPositionsResponse
+ */
 export const QueryPositionsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryPositionsResponse",
   is(o: any): o is QueryPositionsResponse {
@@ -10370,6 +12123,13 @@ function createBaseQueryTradeRewardPointsRequest(): QueryTradeRewardPointsReques
     pendingPoolTimestamp: BigInt(0)
   };
 }
+/**
+ * QueryTradeRewardPointsRequest is the request type for the
+ * Query/TradeRewardPoints RPC method.
+ * @name QueryTradeRewardPointsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardPointsRequest
+ */
 export const QueryTradeRewardPointsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardPointsRequest",
   is(o: any): o is QueryTradeRewardPointsRequest {
@@ -10453,6 +12213,13 @@ function createBaseQueryTradeRewardPointsResponse(): QueryTradeRewardPointsRespo
     accountTradeRewardPoints: []
   };
 }
+/**
+ * QueryTradeRewardPointsResponse is the response type for the
+ * Query/TradeRewardPoints RPC method.
+ * @name QueryTradeRewardPointsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardPointsResponse
+ */
 export const QueryTradeRewardPointsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardPointsResponse",
   is(o: any): o is QueryTradeRewardPointsResponse {
@@ -10523,6 +12290,13 @@ export const QueryTradeRewardPointsResponse = {
 function createBaseQueryTradeRewardCampaignRequest(): QueryTradeRewardCampaignRequest {
   return {};
 }
+/**
+ * QueryTradeRewardCampaignRequest is the request type for the
+ * Query/TradeRewardCampaign RPC method.
+ * @name QueryTradeRewardCampaignRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardCampaignRequest
+ */
 export const QueryTradeRewardCampaignRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardCampaignRequest",
   is(o: any): o is QueryTradeRewardCampaignRequest {
@@ -10586,6 +12360,13 @@ function createBaseQueryTradeRewardCampaignResponse(): QueryTradeRewardCampaignR
     pendingTotalTradeRewardPoints: []
   };
 }
+/**
+ * QueryTradeRewardCampaignResponse is the response type for the
+ * Query/TradeRewardCampaign RPC method.
+ * @name QueryTradeRewardCampaignResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTradeRewardCampaignResponse
+ */
 export const QueryTradeRewardCampaignResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryTradeRewardCampaignResponse",
   is(o: any): o is QueryTradeRewardCampaignResponse {
@@ -10712,6 +12493,13 @@ function createBaseQueryIsOptedOutOfRewardsRequest(): QueryIsOptedOutOfRewardsRe
     account: ""
   };
 }
+/**
+ * QueryIsRegisteredDMMRequest is the request type for the Query/IsRegisteredDMM
+ * RPC method.
+ * @name QueryIsOptedOutOfRewardsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryIsOptedOutOfRewardsRequest
+ */
 export const QueryIsOptedOutOfRewardsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryIsOptedOutOfRewardsRequest",
   is(o: any): o is QueryIsOptedOutOfRewardsRequest {
@@ -10782,6 +12570,13 @@ function createBaseQueryIsOptedOutOfRewardsResponse(): QueryIsOptedOutOfRewardsR
     isOptedOut: false
   };
 }
+/**
+ * QueryIsRegisteredDMMResponse is the response type for the
+ * Query/IsRegisteredDMM RPC method.
+ * @name QueryIsOptedOutOfRewardsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryIsOptedOutOfRewardsResponse
+ */
 export const QueryIsOptedOutOfRewardsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryIsOptedOutOfRewardsResponse",
   is(o: any): o is QueryIsOptedOutOfRewardsResponse {
@@ -10850,6 +12645,13 @@ export const QueryIsOptedOutOfRewardsResponse = {
 function createBaseQueryOptedOutOfRewardsAccountsRequest(): QueryOptedOutOfRewardsAccountsRequest {
   return {};
 }
+/**
+ * QueryRegisteredDMMsRequest is the request type for the Query/RegisteredDMMs
+ * RPC method.
+ * @name QueryOptedOutOfRewardsAccountsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsRequest
+ */
 export const QueryOptedOutOfRewardsAccountsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsRequest",
   is(o: any): o is QueryOptedOutOfRewardsAccountsRequest {
@@ -10909,6 +12711,13 @@ function createBaseQueryOptedOutOfRewardsAccountsResponse(): QueryOptedOutOfRewa
     accounts: []
   };
 }
+/**
+ * QueryRegisteredDMMsResponse is the response type for the Query/RegisteredDMMs
+ * RPC method.
+ * @name QueryOptedOutOfRewardsAccountsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsResponse
+ */
 export const QueryOptedOutOfRewardsAccountsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryOptedOutOfRewardsAccountsResponse",
   is(o: any): o is QueryOptedOutOfRewardsAccountsResponse {
@@ -10981,6 +12790,13 @@ function createBaseQueryFeeDiscountAccountInfoRequest(): QueryFeeDiscountAccount
     account: ""
   };
 }
+/**
+ * QueryFeeDiscountAccountInfoRequest is the request type for the
+ * Query/FeeDiscountAccountInfo RPC method.
+ * @name QueryFeeDiscountAccountInfoRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest
+ */
 export const QueryFeeDiscountAccountInfoRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountAccountInfoRequest",
   is(o: any): o is QueryFeeDiscountAccountInfoRequest {
@@ -11053,6 +12869,13 @@ function createBaseQueryFeeDiscountAccountInfoResponse(): QueryFeeDiscountAccoun
     accountTtl: undefined
   };
 }
+/**
+ * QueryFeeDiscountAccountInfoResponse is the response type for the
+ * Query/FeeDiscountAccountInfo RPC method.
+ * @name QueryFeeDiscountAccountInfoResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse
+ */
 export const QueryFeeDiscountAccountInfoResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountAccountInfoResponse",
   is(o: any): o is QueryFeeDiscountAccountInfoResponse {
@@ -11149,6 +12972,13 @@ export const QueryFeeDiscountAccountInfoResponse = {
 function createBaseQueryFeeDiscountScheduleRequest(): QueryFeeDiscountScheduleRequest {
   return {};
 }
+/**
+ * QueryFeeDiscountScheduleRequest is the request type for the
+ * Query/FeeDiscountSchedule RPC method.
+ * @name QueryFeeDiscountScheduleRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest
+ */
 export const QueryFeeDiscountScheduleRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountScheduleRequest",
   is(o: any): o is QueryFeeDiscountScheduleRequest {
@@ -11208,6 +13038,13 @@ function createBaseQueryFeeDiscountScheduleResponse(): QueryFeeDiscountScheduleR
     feeDiscountSchedule: undefined
   };
 }
+/**
+ * QueryFeeDiscountScheduleResponse is the response type for the
+ * Query/FeeDiscountSchedule RPC method.
+ * @name QueryFeeDiscountScheduleResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse
+ */
 export const QueryFeeDiscountScheduleResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountScheduleResponse",
   is(o: any): o is QueryFeeDiscountScheduleResponse {
@@ -11283,6 +13120,13 @@ function createBaseQueryBalanceMismatchesRequest(): QueryBalanceMismatchesReques
     dustFactor: BigInt(0)
   };
 }
+/**
+ * QueryBalanceMismatchesRequest is the request type for the
+ * Query/QueryBalanceMismatches RPC method.
+ * @name QueryBalanceMismatchesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceMismatchesRequest
+ */
 export const QueryBalanceMismatchesRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceMismatchesRequest",
   is(o: any): o is QueryBalanceMismatchesRequest {
@@ -11359,6 +13203,11 @@ function createBaseBalanceMismatch(): BalanceMismatch {
     difference: ""
   };
 }
+/**
+ * @name BalanceMismatch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BalanceMismatch
+ */
 export const BalanceMismatch = {
   typeUrl: "/injective.exchange.v1beta1.BalanceMismatch",
   is(o: any): o is BalanceMismatch {
@@ -11495,6 +13344,13 @@ function createBaseQueryBalanceMismatchesResponse(): QueryBalanceMismatchesRespo
     balanceMismatches: []
   };
 }
+/**
+ * QueryBalanceMismatchesResponse is the response type for the
+ * Query/QueryBalanceMismatches RPC method.
+ * @name QueryBalanceMismatchesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceMismatchesResponse
+ */
 export const QueryBalanceMismatchesResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceMismatchesResponse",
   is(o: any): o is QueryBalanceMismatchesResponse {
@@ -11570,6 +13426,13 @@ export const QueryBalanceMismatchesResponse = {
 function createBaseQueryBalanceWithBalanceHoldsRequest(): QueryBalanceWithBalanceHoldsRequest {
   return {};
 }
+/**
+ * QueryBalanceWithBalanceHoldsRequest is the request type for the
+ * Query/QueryBalanceWithBalanceHolds RPC method.
+ * @name QueryBalanceWithBalanceHoldsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest
+ */
 export const QueryBalanceWithBalanceHoldsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsRequest",
   is(o: any): o is QueryBalanceWithBalanceHoldsRequest {
@@ -11633,6 +13496,11 @@ function createBaseBalanceWithMarginHold(): BalanceWithMarginHold {
     balanceHold: ""
   };
 }
+/**
+ * @name BalanceWithMarginHold
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BalanceWithMarginHold
+ */
 export const BalanceWithMarginHold = {
   typeUrl: "/injective.exchange.v1beta1.BalanceWithMarginHold",
   is(o: any): o is BalanceWithMarginHold {
@@ -11747,6 +13615,13 @@ function createBaseQueryBalanceWithBalanceHoldsResponse(): QueryBalanceWithBalan
     balanceWithBalanceHolds: []
   };
 }
+/**
+ * QueryBalanceWithBalanceHoldsResponse is the response type for the
+ * Query/QueryBalanceWithBalanceHolds RPC method.
+ * @name QueryBalanceWithBalanceHoldsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse
+ */
 export const QueryBalanceWithBalanceHoldsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryBalanceWithBalanceHoldsResponse",
   is(o: any): o is QueryBalanceWithBalanceHoldsResponse {
@@ -11822,6 +13697,13 @@ export const QueryBalanceWithBalanceHoldsResponse = {
 function createBaseQueryFeeDiscountTierStatisticsRequest(): QueryFeeDiscountTierStatisticsRequest {
   return {};
 }
+/**
+ * QueryFeeDiscountTierStatisticsRequest is the request type for the
+ * Query/QueryFeeDiscountTierStatistics RPC method.
+ * @name QueryFeeDiscountTierStatisticsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsRequest
+ */
 export const QueryFeeDiscountTierStatisticsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsRequest",
   is(o: any): o is QueryFeeDiscountTierStatisticsRequest {
@@ -11882,6 +13764,11 @@ function createBaseTierStatistic(): TierStatistic {
     count: BigInt(0)
   };
 }
+/**
+ * @name TierStatistic
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TierStatistic
+ */
 export const TierStatistic = {
   typeUrl: "/injective.exchange.v1beta1.TierStatistic",
   is(o: any): o is TierStatistic {
@@ -11963,6 +13850,13 @@ function createBaseQueryFeeDiscountTierStatisticsResponse(): QueryFeeDiscountTie
     statistics: []
   };
 }
+/**
+ * QueryFeeDiscountTierStatisticsResponse is the response type for the
+ * Query/QueryFeeDiscountTierStatistics RPC method.
+ * @name QueryFeeDiscountTierStatisticsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsResponse
+ */
 export const QueryFeeDiscountTierStatisticsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryFeeDiscountTierStatisticsResponse",
   is(o: any): o is QueryFeeDiscountTierStatisticsResponse {
@@ -12038,6 +13932,13 @@ export const QueryFeeDiscountTierStatisticsResponse = {
 function createBaseMitoVaultInfosRequest(): MitoVaultInfosRequest {
   return {};
 }
+/**
+ * MitoVaultInfosRequest is the request type for the Query/MitoVaultInfos RPC
+ * method.
+ * @name MitoVaultInfosRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MitoVaultInfosRequest
+ */
 export const MitoVaultInfosRequest = {
   typeUrl: "/injective.exchange.v1beta1.MitoVaultInfosRequest",
   is(o: any): o is MitoVaultInfosRequest {
@@ -12100,6 +14001,13 @@ function createBaseMitoVaultInfosResponse(): MitoVaultInfosResponse {
     cw20Addresses: []
   };
 }
+/**
+ * MitoVaultInfosResponse is the response type for the Query/MitoVaultInfos RPC
+ * method.
+ * @name MitoVaultInfosResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MitoVaultInfosResponse
+ */
 export const MitoVaultInfosResponse = {
   typeUrl: "/injective.exchange.v1beta1.MitoVaultInfosResponse",
   is(o: any): o is MitoVaultInfosResponse {
@@ -12211,6 +14119,13 @@ function createBaseQueryMarketIDFromVaultRequest(): QueryMarketIDFromVaultReques
     vaultAddress: ""
   };
 }
+/**
+ * QueryMarketIDFromVaultRequest is the request type for the
+ * Query/QueryMarketIDFromVault RPC method.
+ * @name QueryMarketIDFromVaultRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketIDFromVaultRequest
+ */
 export const QueryMarketIDFromVaultRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketIDFromVaultRequest",
   is(o: any): o is QueryMarketIDFromVaultRequest {
@@ -12281,6 +14196,13 @@ function createBaseQueryMarketIDFromVaultResponse(): QueryMarketIDFromVaultRespo
     marketId: ""
   };
 }
+/**
+ * QueryMarketIDFromVaultResponse is the response type for the
+ * Query/QueryMarketIDFromVault RPC method.
+ * @name QueryMarketIDFromVaultResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketIDFromVaultResponse
+ */
 export const QueryMarketIDFromVaultResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketIDFromVaultResponse",
   is(o: any): o is QueryMarketIDFromVaultResponse {
@@ -12351,6 +14273,11 @@ function createBaseQueryHistoricalTradeRecordsRequest(): QueryHistoricalTradeRec
     marketId: ""
   };
 }
+/**
+ * @name QueryHistoricalTradeRecordsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest
+ */
 export const QueryHistoricalTradeRecordsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsRequest",
   is(o: any): o is QueryHistoricalTradeRecordsRequest {
@@ -12421,6 +14348,11 @@ function createBaseQueryHistoricalTradeRecordsResponse(): QueryHistoricalTradeRe
     tradeRecords: []
   };
 }
+/**
+ * @name QueryHistoricalTradeRecordsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryHistoricalTradeRecordsResponse
+ */
 export const QueryHistoricalTradeRecordsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryHistoricalTradeRecordsResponse",
   is(o: any): o is QueryHistoricalTradeRecordsResponse {
@@ -12501,6 +14433,13 @@ function createBaseTradeHistoryOptions(): TradeHistoryOptions {
     includeMetadata: false
   };
 }
+/**
+ * TradeHistoryOptions are the optional params for Query/MarketVolatility RPC
+ * method.
+ * @name TradeHistoryOptions
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradeHistoryOptions
+ */
 export const TradeHistoryOptions = {
   typeUrl: "/injective.exchange.v1beta1.TradeHistoryOptions",
   is(o: any): o is TradeHistoryOptions {
@@ -12605,6 +14544,13 @@ function createBaseQueryMarketVolatilityRequest(): QueryMarketVolatilityRequest 
     tradeHistoryOptions: undefined
   };
 }
+/**
+ * QueryMarketVolatilityRequest are the request params for the
+ * Query/MarketVolatility RPC method.
+ * @name QueryMarketVolatilityRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketVolatilityRequest
+ */
 export const QueryMarketVolatilityRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketVolatilityRequest",
   is(o: any): o is QueryMarketVolatilityRequest {
@@ -12693,6 +14639,13 @@ function createBaseQueryMarketVolatilityResponse(): QueryMarketVolatilityRespons
     rawHistory: []
   };
 }
+/**
+ * QueryMarketVolatilityResponse is the response type for the
+ * Query/MarketVolatility RPC method.
+ * @name QueryMarketVolatilityResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketVolatilityResponse
+ */
 export const QueryMarketVolatilityResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketVolatilityResponse",
   is(o: any): o is QueryMarketVolatilityResponse {
@@ -12793,6 +14746,13 @@ function createBaseQueryBinaryMarketsRequest(): QueryBinaryMarketsRequest {
     status: ""
   };
 }
+/**
+ * QuerBinaryMarketsRequest is the request type for the Query/BinaryMarkets RPC
+ * method.
+ * @name QueryBinaryMarketsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBinaryMarketsRequest
+ */
 export const QueryBinaryMarketsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryBinaryMarketsRequest",
   is(o: any): o is QueryBinaryMarketsRequest {
@@ -12863,6 +14823,13 @@ function createBaseQueryBinaryMarketsResponse(): QueryBinaryMarketsResponse {
     markets: []
   };
 }
+/**
+ * QueryBinaryMarketsResponse is the response type for the Query/BinaryMarkets
+ * RPC method.
+ * @name QueryBinaryMarketsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryBinaryMarketsResponse
+ */
 export const QueryBinaryMarketsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryBinaryMarketsResponse",
   is(o: any): o is QueryBinaryMarketsResponse {
@@ -12941,6 +14908,13 @@ function createBaseQueryTraderDerivativeConditionalOrdersRequest(): QueryTraderD
     marketId: ""
   };
 }
+/**
+ * QueryConditionalOrdersRequest is the request type for the
+ * Query/ConditionalOrders RPC method.
+ * @name QueryTraderDerivativeConditionalOrdersRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersRequest
+ */
 export const QueryTraderDerivativeConditionalOrdersRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersRequest",
   is(o: any): o is QueryTraderDerivativeConditionalOrdersRequest {
@@ -13029,6 +15003,11 @@ function createBaseTrimmedDerivativeConditionalOrder(): TrimmedDerivativeConditi
     cid: ""
   };
 }
+/**
+ * @name TrimmedDerivativeConditionalOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedDerivativeConditionalOrder
+ */
 export const TrimmedDerivativeConditionalOrder = {
   typeUrl: "/injective.exchange.v1beta1.TrimmedDerivativeConditionalOrder",
   is(o: any): o is TrimmedDerivativeConditionalOrder {
@@ -13176,6 +15155,13 @@ function createBaseQueryTraderDerivativeConditionalOrdersResponse(): QueryTrader
     orders: []
   };
 }
+/**
+ * QueryTraderDerivativeOrdersResponse is the response type for the
+ * Query/TraderDerivativeOrders RPC method.
+ * @name QueryTraderDerivativeConditionalOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersResponse
+ */
 export const QueryTraderDerivativeConditionalOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryTraderDerivativeConditionalOrdersResponse",
   is(o: any): o is QueryTraderDerivativeConditionalOrdersResponse {
@@ -13253,6 +15239,11 @@ function createBaseQueryMarketAtomicExecutionFeeMultiplierRequest(): QueryMarket
     marketId: ""
   };
 }
+/**
+ * @name QueryMarketAtomicExecutionFeeMultiplierRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest
+ */
 export const QueryMarketAtomicExecutionFeeMultiplierRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest",
   is(o: any): o is QueryMarketAtomicExecutionFeeMultiplierRequest {
@@ -13323,6 +15314,11 @@ function createBaseQueryMarketAtomicExecutionFeeMultiplierResponse(): QueryMarke
     multiplier: ""
   };
 }
+/**
+ * @name QueryMarketAtomicExecutionFeeMultiplierResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse
+ */
 export const QueryMarketAtomicExecutionFeeMultiplierResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierResponse",
   is(o: any): o is QueryMarketAtomicExecutionFeeMultiplierResponse {
@@ -13393,6 +15389,11 @@ function createBaseQueryActiveStakeGrantRequest(): QueryActiveStakeGrantRequest 
     grantee: ""
   };
 }
+/**
+ * @name QueryActiveStakeGrantRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryActiveStakeGrantRequest
+ */
 export const QueryActiveStakeGrantRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryActiveStakeGrantRequest",
   is(o: any): o is QueryActiveStakeGrantRequest {
@@ -13464,6 +15465,11 @@ function createBaseQueryActiveStakeGrantResponse(): QueryActiveStakeGrantRespons
     effectiveGrant: undefined
   };
 }
+/**
+ * @name QueryActiveStakeGrantResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryActiveStakeGrantResponse
+ */
 export const QueryActiveStakeGrantResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryActiveStakeGrantResponse",
   is(o: any): o is QueryActiveStakeGrantResponse {
@@ -13552,6 +15558,11 @@ function createBaseQueryGrantAuthorizationRequest(): QueryGrantAuthorizationRequ
     grantee: ""
   };
 }
+/**
+ * @name QueryGrantAuthorizationRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationRequest
+ */
 export const QueryGrantAuthorizationRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationRequest",
   is(o: any): o is QueryGrantAuthorizationRequest {
@@ -13633,6 +15644,11 @@ function createBaseQueryGrantAuthorizationResponse(): QueryGrantAuthorizationRes
     amount: ""
   };
 }
+/**
+ * @name QueryGrantAuthorizationResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationResponse
+ */
 export const QueryGrantAuthorizationResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationResponse",
   is(o: any): o is QueryGrantAuthorizationResponse {
@@ -13703,6 +15719,11 @@ function createBaseQueryGrantAuthorizationsRequest(): QueryGrantAuthorizationsRe
     granter: ""
   };
 }
+/**
+ * @name QueryGrantAuthorizationsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationsRequest
+ */
 export const QueryGrantAuthorizationsRequest = {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationsRequest",
   is(o: any): o is QueryGrantAuthorizationsRequest {
@@ -13774,6 +15795,11 @@ function createBaseQueryGrantAuthorizationsResponse(): QueryGrantAuthorizationsR
     grants: []
   };
 }
+/**
+ * @name QueryGrantAuthorizationsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryGrantAuthorizationsResponse
+ */
 export const QueryGrantAuthorizationsResponse = {
   typeUrl: "/injective.exchange.v1beta1.QueryGrantAuthorizationsResponse",
   is(o: any): o is QueryGrantAuthorizationsResponse {

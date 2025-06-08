@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
 import { GlobalDecoderRegistry } from "../../registry";
+/**
+ * @name NetAddress
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.NetAddress
+ */
 export interface NetAddress {
   id: string;
   ip: string;
@@ -10,6 +15,11 @@ export interface NetAddressProtoMsg {
   typeUrl: "/tendermint.p2p.NetAddress";
   value: Uint8Array;
 }
+/**
+ * @name NetAddressAmino
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.NetAddress
+ */
 export interface NetAddressAmino {
   id: string;
   ip: string;
@@ -19,6 +29,11 @@ export interface NetAddressAminoMsg {
   type: "/tendermint.p2p.NetAddress";
   value: NetAddressAmino;
 }
+/**
+ * @name ProtocolVersion
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.ProtocolVersion
+ */
 export interface ProtocolVersion {
   p2p: bigint;
   block: bigint;
@@ -28,6 +43,11 @@ export interface ProtocolVersionProtoMsg {
   typeUrl: "/tendermint.p2p.ProtocolVersion";
   value: Uint8Array;
 }
+/**
+ * @name ProtocolVersionAmino
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.ProtocolVersion
+ */
 export interface ProtocolVersionAmino {
   p2p: string;
   block: string;
@@ -37,6 +57,11 @@ export interface ProtocolVersionAminoMsg {
   type: "/tendermint.p2p.ProtocolVersion";
   value: ProtocolVersionAmino;
 }
+/**
+ * @name DefaultNodeInfo
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfo
+ */
 export interface DefaultNodeInfo {
   protocolVersion: ProtocolVersion;
   defaultNodeId: string;
@@ -51,6 +76,11 @@ export interface DefaultNodeInfoProtoMsg {
   typeUrl: "/tendermint.p2p.DefaultNodeInfo";
   value: Uint8Array;
 }
+/**
+ * @name DefaultNodeInfoAmino
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfo
+ */
 export interface DefaultNodeInfoAmino {
   protocol_version: ProtocolVersionAmino;
   default_node_id: string;
@@ -65,6 +95,11 @@ export interface DefaultNodeInfoAminoMsg {
   type: "/tendermint.p2p.DefaultNodeInfo";
   value: DefaultNodeInfoAmino;
 }
+/**
+ * @name DefaultNodeInfoOther
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfoOther
+ */
 export interface DefaultNodeInfoOther {
   txIndex: string;
   rpcAddress: string;
@@ -73,6 +108,11 @@ export interface DefaultNodeInfoOtherProtoMsg {
   typeUrl: "/tendermint.p2p.DefaultNodeInfoOther";
   value: Uint8Array;
 }
+/**
+ * @name DefaultNodeInfoOtherAmino
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfoOther
+ */
 export interface DefaultNodeInfoOtherAmino {
   tx_index: string;
   rpc_address: string;
@@ -88,6 +128,11 @@ function createBaseNetAddress(): NetAddress {
     port: 0
   };
 }
+/**
+ * @name NetAddress
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.NetAddress
+ */
 export const NetAddress = {
   typeUrl: "/tendermint.p2p.NetAddress",
   is(o: any): o is NetAddress {
@@ -182,6 +227,11 @@ function createBaseProtocolVersion(): ProtocolVersion {
     app: BigInt(0)
   };
 }
+/**
+ * @name ProtocolVersion
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.ProtocolVersion
+ */
 export const ProtocolVersion = {
   typeUrl: "/tendermint.p2p.ProtocolVersion",
   is(o: any): o is ProtocolVersion {
@@ -281,6 +331,11 @@ function createBaseDefaultNodeInfo(): DefaultNodeInfo {
     other: DefaultNodeInfoOther.fromPartial({})
   };
 }
+/**
+ * @name DefaultNodeInfo
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfo
+ */
 export const DefaultNodeInfo = {
   typeUrl: "/tendermint.p2p.DefaultNodeInfo",
   is(o: any): o is DefaultNodeInfo {
@@ -435,6 +490,11 @@ function createBaseDefaultNodeInfoOther(): DefaultNodeInfoOther {
     rpcAddress: ""
   };
 }
+/**
+ * @name DefaultNodeInfoOther
+ * @package tendermint.p2p
+ * @see proto type: tendermint.p2p.DefaultNodeInfoOther
+ */
 export const DefaultNodeInfoOther = {
   typeUrl: "/tendermint.p2p.DefaultNodeInfoOther",
   is(o: any): o is DefaultNodeInfoOther {

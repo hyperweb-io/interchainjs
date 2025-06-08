@@ -5,7 +5,12 @@ import { PacketId, PacketIdAmino, Packet, PacketAmino } from "../../../core/chan
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** GenesisState defines the ibc-transfer genesis state */
+/**
+ * GenesisState defines the ibc-transfer genesis state
+ * @name GenesisState
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.GenesisState
+ */
 export interface GenesisState {
   portId: string;
   denoms: Denom[];
@@ -25,7 +30,12 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/ibc.applications.transfer.v2.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the ibc-transfer genesis state */
+/**
+ * GenesisState defines the ibc-transfer genesis state
+ * @name GenesisStateAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.GenesisState
+ */
 export interface GenesisStateAmino {
   port_id: string;
   denoms: DenomAmino[];
@@ -45,7 +55,12 @@ export interface GenesisStateAminoMsg {
   type: "cosmos-sdk/GenesisState";
   value: GenesisStateAmino;
 }
-/** ForwardedPacket defines the genesis type necessary to retrieve and store forwarded packets. */
+/**
+ * ForwardedPacket defines the genesis type necessary to retrieve and store forwarded packets.
+ * @name ForwardedPacket
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.ForwardedPacket
+ */
 export interface ForwardedPacket {
   forwardKey: PacketId;
   packet: Packet;
@@ -54,7 +69,12 @@ export interface ForwardedPacketProtoMsg {
   typeUrl: "/ibc.applications.transfer.v2.ForwardedPacket";
   value: Uint8Array;
 }
-/** ForwardedPacket defines the genesis type necessary to retrieve and store forwarded packets. */
+/**
+ * ForwardedPacket defines the genesis type necessary to retrieve and store forwarded packets.
+ * @name ForwardedPacketAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.ForwardedPacket
+ */
 export interface ForwardedPacketAmino {
   forward_key: PacketIdAmino;
   packet: PacketAmino;
@@ -72,6 +92,12 @@ function createBaseGenesisState(): GenesisState {
     forwardedPackets: []
   };
 }
+/**
+ * GenesisState defines the ibc-transfer genesis state
+ * @name GenesisState
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.applications.transfer.v2.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",
@@ -208,6 +234,12 @@ function createBaseForwardedPacket(): ForwardedPacket {
     packet: Packet.fromPartial({})
   };
 }
+/**
+ * ForwardedPacket defines the genesis type necessary to retrieve and store forwarded packets.
+ * @name ForwardedPacket
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.ForwardedPacket
+ */
 export const ForwardedPacket = {
   typeUrl: "/ibc.applications.transfer.v2.ForwardedPacket",
   aminoType: "cosmos-sdk/ForwardedPacket",

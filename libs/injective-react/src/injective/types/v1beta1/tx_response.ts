@@ -4,6 +4,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * base header ak message type, we can cast the bytes into corresponding message
  * response type
+ * @name TxResponseGenericMessage
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.TxResponseGenericMessage
  */
 export interface TxResponseGenericMessage {
   header: string;
@@ -16,6 +19,9 @@ export interface TxResponseGenericMessageProtoMsg {
 /**
  * base header ak message type, we can cast the bytes into corresponding message
  * response type
+ * @name TxResponseGenericMessageAmino
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.TxResponseGenericMessage
  */
 export interface TxResponseGenericMessageAmino {
   header: string;
@@ -25,7 +31,12 @@ export interface TxResponseGenericMessageAminoMsg {
   type: "/injective.types.v1beta1.TxResponseGenericMessage";
   value: TxResponseGenericMessageAmino;
 }
-/** improvised message to unpack length prefixed messages in tx response data */
+/**
+ * improvised message to unpack length prefixed messages in tx response data
+ * @name TxResponseData
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.TxResponseData
+ */
 export interface TxResponseData {
   messages: TxResponseGenericMessage[];
 }
@@ -33,7 +44,12 @@ export interface TxResponseDataProtoMsg {
   typeUrl: "/injective.types.v1beta1.TxResponseData";
   value: Uint8Array;
 }
-/** improvised message to unpack length prefixed messages in tx response data */
+/**
+ * improvised message to unpack length prefixed messages in tx response data
+ * @name TxResponseDataAmino
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.TxResponseData
+ */
 export interface TxResponseDataAmino {
   messages: TxResponseGenericMessageAmino[];
 }
@@ -47,6 +63,13 @@ function createBaseTxResponseGenericMessage(): TxResponseGenericMessage {
     data: new Uint8Array()
   };
 }
+/**
+ * base header ak message type, we can cast the bytes into corresponding message
+ * response type
+ * @name TxResponseGenericMessage
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.TxResponseGenericMessage
+ */
 export const TxResponseGenericMessage = {
   typeUrl: "/injective.types.v1beta1.TxResponseGenericMessage",
   is(o: any): o is TxResponseGenericMessage {
@@ -128,6 +151,12 @@ function createBaseTxResponseData(): TxResponseData {
     messages: []
   };
 }
+/**
+ * improvised message to unpack length prefixed messages in tx response data
+ * @name TxResponseData
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.TxResponseData
+ */
 export const TxResponseData = {
   typeUrl: "/injective.types.v1beta1.TxResponseData",
   is(o: any): o is TxResponseData {

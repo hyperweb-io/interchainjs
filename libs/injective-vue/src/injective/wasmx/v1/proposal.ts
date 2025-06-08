@@ -45,6 +45,11 @@ export function fundingModeToJSON(object: FundingMode): string {
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name ContractRegistrationRequestProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.ContractRegistrationRequestProposal
+ */
 export interface ContractRegistrationRequestProposal {
   title: string;
   description: string;
@@ -54,6 +59,11 @@ export interface ContractRegistrationRequestProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.ContractRegistrationRequestProposal";
   value: Uint8Array;
 }
+/**
+ * @name ContractRegistrationRequestProposalAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.ContractRegistrationRequestProposal
+ */
 export interface ContractRegistrationRequestProposalAmino {
   title: string;
   description: string;
@@ -63,6 +73,11 @@ export interface ContractRegistrationRequestProposalAminoMsg {
   type: "wasmx/ContractRegistrationRequestProposal";
   value: ContractRegistrationRequestProposalAmino;
 }
+/**
+ * @name BatchContractRegistrationRequestProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchContractRegistrationRequestProposal
+ */
 export interface BatchContractRegistrationRequestProposal {
   title: string;
   description: string;
@@ -72,6 +87,11 @@ export interface BatchContractRegistrationRequestProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal";
   value: Uint8Array;
 }
+/**
+ * @name BatchContractRegistrationRequestProposalAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchContractRegistrationRequestProposal
+ */
 export interface BatchContractRegistrationRequestProposalAmino {
   title: string;
   description: string;
@@ -81,6 +101,11 @@ export interface BatchContractRegistrationRequestProposalAminoMsg {
   type: "wasmx/BatchContractRegistrationRequestProposal";
   value: BatchContractRegistrationRequestProposalAmino;
 }
+/**
+ * @name BatchContractDeregistrationProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchContractDeregistrationProposal
+ */
 export interface BatchContractDeregistrationProposal {
   title: string;
   description: string;
@@ -90,6 +115,11 @@ export interface BatchContractDeregistrationProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.BatchContractDeregistrationProposal";
   value: Uint8Array;
 }
+/**
+ * @name BatchContractDeregistrationProposalAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchContractDeregistrationProposal
+ */
 export interface BatchContractDeregistrationProposalAmino {
   title: string;
   description: string;
@@ -99,12 +129,23 @@ export interface BatchContractDeregistrationProposalAminoMsg {
   type: "wasmx/BatchContractDeregistrationProposal";
   value: BatchContractDeregistrationProposalAmino;
 }
+/**
+ * @name ContractRegistrationRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.ContractRegistrationRequest
+ */
 export interface ContractRegistrationRequest {
-  /** Unique Identifier for contract instance to be registered. */
+  /**
+   * Unique Identifier for contract instance to be registered.
+   */
   contractAddress: string;
-  /** Maximum gas to be used for the smart contract execution. */
+  /**
+   * Maximum gas to be used for the smart contract execution.
+   */
   gasLimit: bigint;
-  /** gas price to be used for the smart contract execution. */
+  /**
+   * gas price to be used for the smart contract execution.
+   */
   gasPrice: bigint;
   shouldPinContract: boolean;
   /**
@@ -127,19 +168,32 @@ export interface ContractRegistrationRequest {
    * funding_mode is other than SelfFunded
    */
   granterAddress: string;
-  /** Specifies how the contract will fund its execution */
+  /**
+   * Specifies how the contract will fund its execution
+   */
   fundingMode: FundingMode;
 }
 export interface ContractRegistrationRequestProtoMsg {
   typeUrl: "/injective.wasmx.v1.ContractRegistrationRequest";
   value: Uint8Array;
 }
+/**
+ * @name ContractRegistrationRequestAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.ContractRegistrationRequest
+ */
 export interface ContractRegistrationRequestAmino {
-  /** Unique Identifier for contract instance to be registered. */
+  /**
+   * Unique Identifier for contract instance to be registered.
+   */
   contract_address: string;
-  /** Maximum gas to be used for the smart contract execution. */
+  /**
+   * Maximum gas to be used for the smart contract execution.
+   */
   gas_limit: string;
-  /** gas price to be used for the smart contract execution. */
+  /**
+   * gas price to be used for the smart contract execution.
+   */
   gas_price: string;
   should_pin_contract: boolean;
   /**
@@ -162,13 +216,20 @@ export interface ContractRegistrationRequestAmino {
    * funding_mode is other than SelfFunded
    */
   granter_address: string;
-  /** Specifies how the contract will fund its execution */
+  /**
+   * Specifies how the contract will fund its execution
+   */
   funding_mode: FundingMode;
 }
 export interface ContractRegistrationRequestAminoMsg {
   type: "/injective.wasmx.v1.ContractRegistrationRequest";
   value: ContractRegistrationRequestAmino;
 }
+/**
+ * @name BatchStoreCodeProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchStoreCodeProposal
+ */
 export interface BatchStoreCodeProposal {
   title: string;
   description: string;
@@ -178,6 +239,11 @@ export interface BatchStoreCodeProposalProtoMsg {
   typeUrl: "/injective.wasmx.v1.BatchStoreCodeProposal";
   value: Uint8Array;
 }
+/**
+ * @name BatchStoreCodeProposalAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchStoreCodeProposal
+ */
 export interface BatchStoreCodeProposalAmino {
   title: string;
   description: string;
@@ -194,6 +260,11 @@ function createBaseContractRegistrationRequestProposal(): ContractRegistrationRe
     contractRegistrationRequest: ContractRegistrationRequest.fromPartial({})
   };
 }
+/**
+ * @name ContractRegistrationRequestProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.ContractRegistrationRequestProposal
+ */
 export const ContractRegistrationRequestProposal = {
   typeUrl: "/injective.wasmx.v1.ContractRegistrationRequestProposal",
   aminoType: "wasmx/ContractRegistrationRequestProposal",
@@ -302,6 +373,11 @@ function createBaseBatchContractRegistrationRequestProposal(): BatchContractRegi
     contractRegistrationRequests: []
   };
 }
+/**
+ * @name BatchContractRegistrationRequestProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchContractRegistrationRequestProposal
+ */
 export const BatchContractRegistrationRequestProposal = {
   typeUrl: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal",
   aminoType: "wasmx/BatchContractRegistrationRequestProposal",
@@ -412,6 +488,11 @@ function createBaseBatchContractDeregistrationProposal(): BatchContractDeregistr
     contracts: []
   };
 }
+/**
+ * @name BatchContractDeregistrationProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchContractDeregistrationProposal
+ */
 export const BatchContractDeregistrationProposal = {
   typeUrl: "/injective.wasmx.v1.BatchContractDeregistrationProposal",
   aminoType: "wasmx/BatchContractDeregistrationProposal",
@@ -527,6 +608,11 @@ function createBaseContractRegistrationRequest(): ContractRegistrationRequest {
     fundingMode: 0
   };
 }
+/**
+ * @name ContractRegistrationRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.ContractRegistrationRequest
+ */
 export const ContractRegistrationRequest = {
   typeUrl: "/injective.wasmx.v1.ContractRegistrationRequest",
   is(o: any): o is ContractRegistrationRequest {
@@ -692,6 +778,11 @@ function createBaseBatchStoreCodeProposal(): BatchStoreCodeProposal {
     proposals: []
   };
 }
+/**
+ * @name BatchStoreCodeProposal
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.BatchStoreCodeProposal
+ */
 export const BatchStoreCodeProposal = {
   typeUrl: "/injective.wasmx.v1.BatchStoreCodeProposal",
   aminoType: "wasmx/BatchStoreCodeProposal",

@@ -1,6 +1,11 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryInsuranceParamsRequest, QueryInsuranceParamsResponse, QueryInsuranceFundRequest, QueryInsuranceFundResponse, QueryInsuranceFundsRequest, QueryInsuranceFundsResponse, QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse, QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
-/* Retrieves insurance params */
+/**
+ * Retrieves insurance params
+ * @name getInsuranceParams
+ * @package injective.insurance.v1beta1
+ * @see proto service: injective.insurance.v1beta1.InsuranceParams
+ */
 export const getInsuranceParams = buildQuery<QueryInsuranceParamsRequest, QueryInsuranceParamsResponse>({
   encode: QueryInsuranceParamsRequest.encode,
   decode: QueryInsuranceParamsResponse.decode,
@@ -8,7 +13,12 @@ export const getInsuranceParams = buildQuery<QueryInsuranceParamsRequest, QueryI
   method: "InsuranceParams",
   deps: [QueryInsuranceParamsRequest, QueryInsuranceParamsResponse]
 });
-/* Retrieves individual insurance fund information from market id */
+/**
+ * Retrieves individual insurance fund information from market id
+ * @name getInsuranceFund
+ * @package injective.insurance.v1beta1
+ * @see proto service: injective.insurance.v1beta1.InsuranceFund
+ */
 export const getInsuranceFund = buildQuery<QueryInsuranceFundRequest, QueryInsuranceFundResponse>({
   encode: QueryInsuranceFundRequest.encode,
   decode: QueryInsuranceFundResponse.decode,
@@ -16,7 +26,12 @@ export const getInsuranceFund = buildQuery<QueryInsuranceFundRequest, QueryInsur
   method: "InsuranceFund",
   deps: [QueryInsuranceFundRequest, QueryInsuranceFundResponse]
 });
-/* Retrieves all insurance funds */
+/**
+ * Retrieves all insurance funds
+ * @name getInsuranceFunds
+ * @package injective.insurance.v1beta1
+ * @see proto service: injective.insurance.v1beta1.InsuranceFunds
+ */
 export const getInsuranceFunds = buildQuery<QueryInsuranceFundsRequest, QueryInsuranceFundsResponse>({
   encode: QueryInsuranceFundsRequest.encode,
   decode: QueryInsuranceFundsResponse.decode,
@@ -24,8 +39,13 @@ export const getInsuranceFunds = buildQuery<QueryInsuranceFundsRequest, QueryIns
   method: "InsuranceFunds",
   deps: [QueryInsuranceFundsRequest, QueryInsuranceFundsResponse]
 });
-/* Retrives the value of insurance fund share token at current price (not
- pending redemption) */
+/**
+ * Retrives the value of insurance fund share token at current price (not
+ * pending redemption)
+ * @name getEstimatedRedemptions
+ * @package injective.insurance.v1beta1
+ * @see proto service: injective.insurance.v1beta1.EstimatedRedemptions
+ */
 export const getEstimatedRedemptions = buildQuery<QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse>({
   encode: QueryEstimatedRedemptionsRequest.encode,
   decode: QueryEstimatedRedemptionsResponse.decode,
@@ -33,7 +53,12 @@ export const getEstimatedRedemptions = buildQuery<QueryEstimatedRedemptionsReque
   method: "EstimatedRedemptions",
   deps: [QueryEstimatedRedemptionsRequest, QueryEstimatedRedemptionsResponse]
 });
-/* Retrieves pending redemptions' share token at current price */
+/**
+ * Retrieves pending redemptions' share token at current price
+ * @name getPendingRedemptions
+ * @package injective.insurance.v1beta1
+ * @see proto service: injective.insurance.v1beta1.PendingRedemptions
+ */
 export const getPendingRedemptions = buildQuery<QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse>({
   encode: QueryPendingRedemptionsRequest.encode,
   decode: QueryPendingRedemptionsResponse.decode,
@@ -41,7 +66,12 @@ export const getPendingRedemptions = buildQuery<QueryPendingRedemptionsRequest, 
   method: "PendingRedemptions",
   deps: [QueryPendingRedemptionsRequest, QueryPendingRedemptionsResponse]
 });
-/* Retrieves the entire insurance module's state */
+/**
+ * Retrieves the entire insurance module's state
+ * @name getInsuranceModuleState
+ * @package injective.insurance.v1beta1
+ * @see proto service: injective.insurance.v1beta1.InsuranceModuleState
+ */
 export const getInsuranceModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,

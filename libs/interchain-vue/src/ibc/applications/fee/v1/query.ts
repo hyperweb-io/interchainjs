@@ -6,84 +6,152 @@ import { FeeEnabledChannel, FeeEnabledChannelAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
+/**
+ * QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc
+ * @name QueryIncentivizedPacketsRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsRequest
+ */
 export interface QueryIncentivizedPacketsRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
-  /** block height at which to query */
+  /**
+   * block height at which to query
+   */
   queryHeight: bigint;
 }
 export interface QueryIncentivizedPacketsRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsRequest";
   value: Uint8Array;
 }
-/** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
+/**
+ * QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc
+ * @name QueryIncentivizedPacketsRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsRequest
+ */
 export interface QueryIncentivizedPacketsRequestAmino {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequestAmino;
-  /** block height at which to query */
+  /**
+   * block height at which to query
+   */
   query_height: string;
 }
 export interface QueryIncentivizedPacketsRequestAminoMsg {
   type: "cosmos-sdk/QueryIncentivizedPacketsRequest";
   value: QueryIncentivizedPacketsRequestAmino;
 }
-/** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc */
+/**
+ * QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc
+ * @name QueryIncentivizedPacketsResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsResponse
+ */
 export interface QueryIncentivizedPacketsResponse {
-  /** list of identified fees for incentivized packets */
+  /**
+   * list of identified fees for incentivized packets
+   */
   incentivizedPackets: IdentifiedPacketFees[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 export interface QueryIncentivizedPacketsResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsResponse";
   value: Uint8Array;
 }
-/** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc */
+/**
+ * QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc
+ * @name QueryIncentivizedPacketsResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsResponse
+ */
 export interface QueryIncentivizedPacketsResponseAmino {
-  /** list of identified fees for incentivized packets */
+  /**
+   * list of identified fees for incentivized packets
+   */
   incentivized_packets: IdentifiedPacketFeesAmino[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponseAmino;
 }
 export interface QueryIncentivizedPacketsResponseAminoMsg {
   type: "cosmos-sdk/QueryIncentivizedPacketsResponse";
   value: QueryIncentivizedPacketsResponseAmino;
 }
-/** QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc */
+/**
+ * QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc
+ * @name QueryIncentivizedPacketRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketRequest
+ */
 export interface QueryIncentivizedPacketRequest {
-  /** unique packet identifier comprised of channel ID, port ID and sequence */
+  /**
+   * unique packet identifier comprised of channel ID, port ID and sequence
+   */
   packetId: PacketId;
-  /** block height at which to query */
+  /**
+   * block height at which to query
+   */
   queryHeight: bigint;
 }
 export interface QueryIncentivizedPacketRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketRequest";
   value: Uint8Array;
 }
-/** QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc */
+/**
+ * QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc
+ * @name QueryIncentivizedPacketRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketRequest
+ */
 export interface QueryIncentivizedPacketRequestAmino {
-  /** unique packet identifier comprised of channel ID, port ID and sequence */
+  /**
+   * unique packet identifier comprised of channel ID, port ID and sequence
+   */
   packet_id: PacketIdAmino;
-  /** block height at which to query */
+  /**
+   * block height at which to query
+   */
   query_height: string;
 }
 export interface QueryIncentivizedPacketRequestAminoMsg {
   type: "cosmos-sdk/QueryIncentivizedPacketRequest";
   value: QueryIncentivizedPacketRequestAmino;
 }
-/** QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc */
+/**
+ * QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc
+ * @name QueryIncentivizedPacketResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketResponse
+ */
 export interface QueryIncentivizedPacketResponse {
-  /** the identified fees for the incentivized packet */
+  /**
+   * the identified fees for the incentivized packet
+   */
   incentivizedPacket: IdentifiedPacketFees;
 }
 export interface QueryIncentivizedPacketResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketResponse";
   value: Uint8Array;
 }
-/** QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc */
+/**
+ * QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc
+ * @name QueryIncentivizedPacketResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketResponse
+ */
 export interface QueryIncentivizedPacketResponseAmino {
-  /** the identified fees for the incentivized packet */
+  /**
+   * the identified fees for the incentivized packet
+   */
   incentivized_packet: IdentifiedPacketFeesAmino;
 }
 export interface QueryIncentivizedPacketResponseAminoMsg {
@@ -93,13 +161,20 @@ export interface QueryIncentivizedPacketResponseAminoMsg {
 /**
  * QueryIncentivizedPacketsForChannelRequest defines the request type for querying for all incentivized packets
  * for a specific channel
+ * @name QueryIncentivizedPacketsForChannelRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest
  */
 export interface QueryIncentivizedPacketsForChannelRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
   portId: string;
   channelId: string;
-  /** Height to query at */
+  /**
+   * Height to query at
+   */
   queryHeight: bigint;
 }
 export interface QueryIncentivizedPacketsForChannelRequestProtoMsg {
@@ -109,13 +184,20 @@ export interface QueryIncentivizedPacketsForChannelRequestProtoMsg {
 /**
  * QueryIncentivizedPacketsForChannelRequest defines the request type for querying for all incentivized packets
  * for a specific channel
+ * @name QueryIncentivizedPacketsForChannelRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest
  */
 export interface QueryIncentivizedPacketsForChannelRequestAmino {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequestAmino;
   port_id: string;
   channel_id: string;
-  /** Height to query at */
+  /**
+   * Height to query at
+   */
   query_height: string;
 }
 export interface QueryIncentivizedPacketsForChannelRequestAminoMsg {
@@ -125,11 +207,18 @@ export interface QueryIncentivizedPacketsForChannelRequestAminoMsg {
 /**
  * QueryIncentivizedPacketsForChannelResponse defines the response type for querying for all incentivized packets
  * for a specific channel
+ * @name QueryIncentivizedPacketsForChannelResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse
  */
 export interface QueryIncentivizedPacketsForChannelResponse {
-  /** Map of all incentivized_packets */
+  /**
+   * Map of all incentivized_packets
+   */
   incentivizedPackets: IdentifiedPacketFees[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 export interface QueryIncentivizedPacketsForChannelResponseProtoMsg {
@@ -139,283 +228,506 @@ export interface QueryIncentivizedPacketsForChannelResponseProtoMsg {
 /**
  * QueryIncentivizedPacketsForChannelResponse defines the response type for querying for all incentivized packets
  * for a specific channel
+ * @name QueryIncentivizedPacketsForChannelResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse
  */
 export interface QueryIncentivizedPacketsForChannelResponseAmino {
-  /** Map of all incentivized_packets */
+  /**
+   * Map of all incentivized_packets
+   */
   incentivized_packets: IdentifiedPacketFeesAmino[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponseAmino;
 }
 export interface QueryIncentivizedPacketsForChannelResponseAminoMsg {
   type: "cosmos-sdk/QueryIncentivizedPacketsForChannelResponse";
   value: QueryIncentivizedPacketsForChannelResponseAmino;
 }
-/** QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc */
+/**
+ * QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc
+ * @name QueryTotalRecvFeesRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalRecvFeesRequest
+ */
 export interface QueryTotalRecvFeesRequest {
-  /** the packet identifier for the associated fees */
+  /**
+   * the packet identifier for the associated fees
+   */
   packetId: PacketId;
 }
 export interface QueryTotalRecvFeesRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesRequest";
   value: Uint8Array;
 }
-/** QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc */
+/**
+ * QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc
+ * @name QueryTotalRecvFeesRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalRecvFeesRequest
+ */
 export interface QueryTotalRecvFeesRequestAmino {
-  /** the packet identifier for the associated fees */
+  /**
+   * the packet identifier for the associated fees
+   */
   packet_id: PacketIdAmino;
 }
 export interface QueryTotalRecvFeesRequestAminoMsg {
   type: "cosmos-sdk/QueryTotalRecvFeesRequest";
   value: QueryTotalRecvFeesRequestAmino;
 }
-/** QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc */
+/**
+ * QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc
+ * @name QueryTotalRecvFeesResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalRecvFeesResponse
+ */
 export interface QueryTotalRecvFeesResponse {
-  /** the total packet receive fees */
+  /**
+   * the total packet receive fees
+   */
   recvFees: Coin[];
 }
 export interface QueryTotalRecvFeesResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesResponse";
   value: Uint8Array;
 }
-/** QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc */
+/**
+ * QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc
+ * @name QueryTotalRecvFeesResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalRecvFeesResponse
+ */
 export interface QueryTotalRecvFeesResponseAmino {
-  /** the total packet receive fees */
+  /**
+   * the total packet receive fees
+   */
   recv_fees: CoinAmino[];
 }
 export interface QueryTotalRecvFeesResponseAminoMsg {
   type: "cosmos-sdk/QueryTotalRecvFeesResponse";
   value: QueryTotalRecvFeesResponseAmino;
 }
-/** QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc */
+/**
+ * QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc
+ * @name QueryTotalAckFeesRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalAckFeesRequest
+ */
 export interface QueryTotalAckFeesRequest {
-  /** the packet identifier for the associated fees */
+  /**
+   * the packet identifier for the associated fees
+   */
   packetId: PacketId;
 }
 export interface QueryTotalAckFeesRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesRequest";
   value: Uint8Array;
 }
-/** QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc */
+/**
+ * QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc
+ * @name QueryTotalAckFeesRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalAckFeesRequest
+ */
 export interface QueryTotalAckFeesRequestAmino {
-  /** the packet identifier for the associated fees */
+  /**
+   * the packet identifier for the associated fees
+   */
   packet_id: PacketIdAmino;
 }
 export interface QueryTotalAckFeesRequestAminoMsg {
   type: "cosmos-sdk/QueryTotalAckFeesRequest";
   value: QueryTotalAckFeesRequestAmino;
 }
-/** QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc */
+/**
+ * QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc
+ * @name QueryTotalAckFeesResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalAckFeesResponse
+ */
 export interface QueryTotalAckFeesResponse {
-  /** the total packet acknowledgement fees */
+  /**
+   * the total packet acknowledgement fees
+   */
   ackFees: Coin[];
 }
 export interface QueryTotalAckFeesResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesResponse";
   value: Uint8Array;
 }
-/** QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc */
+/**
+ * QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc
+ * @name QueryTotalAckFeesResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalAckFeesResponse
+ */
 export interface QueryTotalAckFeesResponseAmino {
-  /** the total packet acknowledgement fees */
+  /**
+   * the total packet acknowledgement fees
+   */
   ack_fees: CoinAmino[];
 }
 export interface QueryTotalAckFeesResponseAminoMsg {
   type: "cosmos-sdk/QueryTotalAckFeesResponse";
   value: QueryTotalAckFeesResponseAmino;
 }
-/** QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc */
+/**
+ * QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc
+ * @name QueryTotalTimeoutFeesRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest
+ */
 export interface QueryTotalTimeoutFeesRequest {
-  /** the packet identifier for the associated fees */
+  /**
+   * the packet identifier for the associated fees
+   */
   packetId: PacketId;
 }
 export interface QueryTotalTimeoutFeesRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest";
   value: Uint8Array;
 }
-/** QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc */
+/**
+ * QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc
+ * @name QueryTotalTimeoutFeesRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest
+ */
 export interface QueryTotalTimeoutFeesRequestAmino {
-  /** the packet identifier for the associated fees */
+  /**
+   * the packet identifier for the associated fees
+   */
   packet_id: PacketIdAmino;
 }
 export interface QueryTotalTimeoutFeesRequestAminoMsg {
   type: "cosmos-sdk/QueryTotalTimeoutFeesRequest";
   value: QueryTotalTimeoutFeesRequestAmino;
 }
-/** QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc */
+/**
+ * QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc
+ * @name QueryTotalTimeoutFeesResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse
+ */
 export interface QueryTotalTimeoutFeesResponse {
-  /** the total packet timeout fees */
+  /**
+   * the total packet timeout fees
+   */
   timeoutFees: Coin[];
 }
 export interface QueryTotalTimeoutFeesResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse";
   value: Uint8Array;
 }
-/** QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc */
+/**
+ * QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc
+ * @name QueryTotalTimeoutFeesResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse
+ */
 export interface QueryTotalTimeoutFeesResponseAmino {
-  /** the total packet timeout fees */
+  /**
+   * the total packet timeout fees
+   */
   timeout_fees: CoinAmino[];
 }
 export interface QueryTotalTimeoutFeesResponseAminoMsg {
   type: "cosmos-sdk/QueryTotalTimeoutFeesResponse";
   value: QueryTotalTimeoutFeesResponseAmino;
 }
-/** QueryPayeeRequest defines the request type for the Payee rpc */
+/**
+ * QueryPayeeRequest defines the request type for the Payee rpc
+ * @name QueryPayeeRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryPayeeRequest
+ */
 export interface QueryPayeeRequest {
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channelId: string;
-  /** the relayer address to which the distribution address is registered */
+  /**
+   * the relayer address to which the distribution address is registered
+   */
   relayer: string;
 }
 export interface QueryPayeeRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryPayeeRequest";
   value: Uint8Array;
 }
-/** QueryPayeeRequest defines the request type for the Payee rpc */
+/**
+ * QueryPayeeRequest defines the request type for the Payee rpc
+ * @name QueryPayeeRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryPayeeRequest
+ */
 export interface QueryPayeeRequestAmino {
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channel_id: string;
-  /** the relayer address to which the distribution address is registered */
+  /**
+   * the relayer address to which the distribution address is registered
+   */
   relayer: string;
 }
 export interface QueryPayeeRequestAminoMsg {
   type: "cosmos-sdk/QueryPayeeRequest";
   value: QueryPayeeRequestAmino;
 }
-/** QueryPayeeResponse defines the response type for the Payee rpc */
+/**
+ * QueryPayeeResponse defines the response type for the Payee rpc
+ * @name QueryPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryPayeeResponse
+ */
 export interface QueryPayeeResponse {
-  /** the payee address to which packet fees are paid out */
+  /**
+   * the payee address to which packet fees are paid out
+   */
   payeeAddress: string;
 }
 export interface QueryPayeeResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryPayeeResponse";
   value: Uint8Array;
 }
-/** QueryPayeeResponse defines the response type for the Payee rpc */
+/**
+ * QueryPayeeResponse defines the response type for the Payee rpc
+ * @name QueryPayeeResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryPayeeResponse
+ */
 export interface QueryPayeeResponseAmino {
-  /** the payee address to which packet fees are paid out */
+  /**
+   * the payee address to which packet fees are paid out
+   */
   payee_address: string;
 }
 export interface QueryPayeeResponseAminoMsg {
   type: "cosmos-sdk/QueryPayeeResponse";
   value: QueryPayeeResponseAmino;
 }
-/** QueryCounterpartyPayeeRequest defines the request type for the CounterpartyPayee rpc */
+/**
+ * QueryCounterpartyPayeeRequest defines the request type for the CounterpartyPayee rpc
+ * @name QueryCounterpartyPayeeRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryCounterpartyPayeeRequest
+ */
 export interface QueryCounterpartyPayeeRequest {
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channelId: string;
-  /** the relayer address to which the counterparty is registered */
+  /**
+   * the relayer address to which the counterparty is registered
+   */
   relayer: string;
 }
 export interface QueryCounterpartyPayeeRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryCounterpartyPayeeRequest";
   value: Uint8Array;
 }
-/** QueryCounterpartyPayeeRequest defines the request type for the CounterpartyPayee rpc */
+/**
+ * QueryCounterpartyPayeeRequest defines the request type for the CounterpartyPayee rpc
+ * @name QueryCounterpartyPayeeRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryCounterpartyPayeeRequest
+ */
 export interface QueryCounterpartyPayeeRequestAmino {
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channel_id: string;
-  /** the relayer address to which the counterparty is registered */
+  /**
+   * the relayer address to which the counterparty is registered
+   */
   relayer: string;
 }
 export interface QueryCounterpartyPayeeRequestAminoMsg {
   type: "cosmos-sdk/QueryCounterpartyPayeeRequest";
   value: QueryCounterpartyPayeeRequestAmino;
 }
-/** QueryCounterpartyPayeeResponse defines the response type for the CounterpartyPayee rpc */
+/**
+ * QueryCounterpartyPayeeResponse defines the response type for the CounterpartyPayee rpc
+ * @name QueryCounterpartyPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryCounterpartyPayeeResponse
+ */
 export interface QueryCounterpartyPayeeResponse {
-  /** the counterparty payee address used to compensate forward relaying */
+  /**
+   * the counterparty payee address used to compensate forward relaying
+   */
   counterpartyPayee: string;
 }
 export interface QueryCounterpartyPayeeResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryCounterpartyPayeeResponse";
   value: Uint8Array;
 }
-/** QueryCounterpartyPayeeResponse defines the response type for the CounterpartyPayee rpc */
+/**
+ * QueryCounterpartyPayeeResponse defines the response type for the CounterpartyPayee rpc
+ * @name QueryCounterpartyPayeeResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryCounterpartyPayeeResponse
+ */
 export interface QueryCounterpartyPayeeResponseAmino {
-  /** the counterparty payee address used to compensate forward relaying */
+  /**
+   * the counterparty payee address used to compensate forward relaying
+   */
   counterparty_payee: string;
 }
 export interface QueryCounterpartyPayeeResponseAminoMsg {
   type: "cosmos-sdk/QueryCounterpartyPayeeResponse";
   value: QueryCounterpartyPayeeResponseAmino;
 }
-/** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
+/**
+ * QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc
+ * @name QueryFeeEnabledChannelsRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest
+ */
 export interface QueryFeeEnabledChannelsRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
-  /** block height at which to query */
+  /**
+   * block height at which to query
+   */
   queryHeight: bigint;
 }
 export interface QueryFeeEnabledChannelsRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest";
   value: Uint8Array;
 }
-/** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
+/**
+ * QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc
+ * @name QueryFeeEnabledChannelsRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest
+ */
 export interface QueryFeeEnabledChannelsRequestAmino {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequestAmino;
-  /** block height at which to query */
+  /**
+   * block height at which to query
+   */
   query_height: string;
 }
 export interface QueryFeeEnabledChannelsRequestAminoMsg {
   type: "cosmos-sdk/QueryFeeEnabledChannelsRequest";
   value: QueryFeeEnabledChannelsRequestAmino;
 }
-/** QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc */
+/**
+ * QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc
+ * @name QueryFeeEnabledChannelsResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse
+ */
 export interface QueryFeeEnabledChannelsResponse {
-  /** list of fee enabled channels */
+  /**
+   * list of fee enabled channels
+   */
   feeEnabledChannels: FeeEnabledChannel[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 export interface QueryFeeEnabledChannelsResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse";
   value: Uint8Array;
 }
-/** QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc */
+/**
+ * QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc
+ * @name QueryFeeEnabledChannelsResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse
+ */
 export interface QueryFeeEnabledChannelsResponseAmino {
-  /** list of fee enabled channels */
+  /**
+   * list of fee enabled channels
+   */
   fee_enabled_channels: FeeEnabledChannelAmino[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponseAmino;
 }
 export interface QueryFeeEnabledChannelsResponseAminoMsg {
   type: "cosmos-sdk/QueryFeeEnabledChannelsResponse";
   value: QueryFeeEnabledChannelsResponseAmino;
 }
-/** QueryFeeEnabledChannelRequest defines the request type for the FeeEnabledChannel rpc */
+/**
+ * QueryFeeEnabledChannelRequest defines the request type for the FeeEnabledChannel rpc
+ * @name QueryFeeEnabledChannelRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelRequest
+ */
 export interface QueryFeeEnabledChannelRequest {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   portId: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channelId: string;
 }
 export interface QueryFeeEnabledChannelRequestProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelRequest";
   value: Uint8Array;
 }
-/** QueryFeeEnabledChannelRequest defines the request type for the FeeEnabledChannel rpc */
+/**
+ * QueryFeeEnabledChannelRequest defines the request type for the FeeEnabledChannel rpc
+ * @name QueryFeeEnabledChannelRequestAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelRequest
+ */
 export interface QueryFeeEnabledChannelRequestAmino {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   port_id: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channel_id: string;
 }
 export interface QueryFeeEnabledChannelRequestAminoMsg {
   type: "cosmos-sdk/QueryFeeEnabledChannelRequest";
   value: QueryFeeEnabledChannelRequestAmino;
 }
-/** QueryFeeEnabledChannelResponse defines the response type for the FeeEnabledChannel rpc */
+/**
+ * QueryFeeEnabledChannelResponse defines the response type for the FeeEnabledChannel rpc
+ * @name QueryFeeEnabledChannelResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelResponse
+ */
 export interface QueryFeeEnabledChannelResponse {
-  /** boolean flag representing the fee enabled channel status */
+  /**
+   * boolean flag representing the fee enabled channel status
+   */
   feeEnabled: boolean;
 }
 export interface QueryFeeEnabledChannelResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelResponse";
   value: Uint8Array;
 }
-/** QueryFeeEnabledChannelResponse defines the response type for the FeeEnabledChannel rpc */
+/**
+ * QueryFeeEnabledChannelResponse defines the response type for the FeeEnabledChannel rpc
+ * @name QueryFeeEnabledChannelResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelResponse
+ */
 export interface QueryFeeEnabledChannelResponseAmino {
-  /** boolean flag representing the fee enabled channel status */
+  /**
+   * boolean flag representing the fee enabled channel status
+   */
   fee_enabled: boolean;
 }
 export interface QueryFeeEnabledChannelResponseAminoMsg {
@@ -428,6 +740,12 @@ function createBaseQueryIncentivizedPacketsRequest(): QueryIncentivizedPacketsRe
     queryHeight: BigInt(0)
   };
 }
+/**
+ * QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc
+ * @name QueryIncentivizedPacketsRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsRequest
+ */
 export const QueryIncentivizedPacketsRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsRequest",
   aminoType: "cosmos-sdk/QueryIncentivizedPacketsRequest",
@@ -522,6 +840,12 @@ function createBaseQueryIncentivizedPacketsResponse(): QueryIncentivizedPacketsR
     pagination: undefined
   };
 }
+/**
+ * QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPackets rpc
+ * @name QueryIncentivizedPacketsResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsResponse
+ */
 export const QueryIncentivizedPacketsResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsResponse",
   aminoType: "cosmos-sdk/QueryIncentivizedPacketsResponse",
@@ -619,6 +943,12 @@ function createBaseQueryIncentivizedPacketRequest(): QueryIncentivizedPacketRequ
     queryHeight: BigInt(0)
   };
 }
+/**
+ * QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc
+ * @name QueryIncentivizedPacketRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketRequest
+ */
 export const QueryIncentivizedPacketRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketRequest",
   aminoType: "cosmos-sdk/QueryIncentivizedPacketRequest",
@@ -712,6 +1042,12 @@ function createBaseQueryIncentivizedPacketResponse(): QueryIncentivizedPacketRes
     incentivizedPacket: IdentifiedPacketFees.fromPartial({})
   };
 }
+/**
+ * QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc
+ * @name QueryIncentivizedPacketResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketResponse
+ */
 export const QueryIncentivizedPacketResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketResponse",
   aminoType: "cosmos-sdk/QueryIncentivizedPacketResponse",
@@ -797,6 +1133,13 @@ function createBaseQueryIncentivizedPacketsForChannelRequest(): QueryIncentivize
     queryHeight: BigInt(0)
   };
 }
+/**
+ * QueryIncentivizedPacketsForChannelRequest defines the request type for querying for all incentivized packets
+ * for a specific channel
+ * @name QueryIncentivizedPacketsForChannelRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest
+ */
 export const QueryIncentivizedPacketsForChannelRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest",
   aminoType: "cosmos-sdk/QueryIncentivizedPacketsForChannelRequest",
@@ -913,6 +1256,13 @@ function createBaseQueryIncentivizedPacketsForChannelResponse(): QueryIncentiviz
     pagination: undefined
   };
 }
+/**
+ * QueryIncentivizedPacketsForChannelResponse defines the response type for querying for all incentivized packets
+ * for a specific channel
+ * @name QueryIncentivizedPacketsForChannelResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse
+ */
 export const QueryIncentivizedPacketsForChannelResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse",
   aminoType: "cosmos-sdk/QueryIncentivizedPacketsForChannelResponse",
@@ -1009,6 +1359,12 @@ function createBaseQueryTotalRecvFeesRequest(): QueryTotalRecvFeesRequest {
     packetId: PacketId.fromPartial({})
   };
 }
+/**
+ * QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc
+ * @name QueryTotalRecvFeesRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalRecvFeesRequest
+ */
 export const QueryTotalRecvFeesRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesRequest",
   aminoType: "cosmos-sdk/QueryTotalRecvFeesRequest",
@@ -1091,6 +1447,12 @@ function createBaseQueryTotalRecvFeesResponse(): QueryTotalRecvFeesResponse {
     recvFees: []
   };
 }
+/**
+ * QueryTotalRecvFeesResponse defines the response type for the TotalRecvFees rpc
+ * @name QueryTotalRecvFeesResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalRecvFeesResponse
+ */
 export const QueryTotalRecvFeesResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesResponse",
   aminoType: "cosmos-sdk/QueryTotalRecvFeesResponse",
@@ -1175,6 +1537,12 @@ function createBaseQueryTotalAckFeesRequest(): QueryTotalAckFeesRequest {
     packetId: PacketId.fromPartial({})
   };
 }
+/**
+ * QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc
+ * @name QueryTotalAckFeesRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalAckFeesRequest
+ */
 export const QueryTotalAckFeesRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesRequest",
   aminoType: "cosmos-sdk/QueryTotalAckFeesRequest",
@@ -1257,6 +1625,12 @@ function createBaseQueryTotalAckFeesResponse(): QueryTotalAckFeesResponse {
     ackFees: []
   };
 }
+/**
+ * QueryTotalAckFeesResponse defines the response type for the TotalAckFees rpc
+ * @name QueryTotalAckFeesResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalAckFeesResponse
+ */
 export const QueryTotalAckFeesResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesResponse",
   aminoType: "cosmos-sdk/QueryTotalAckFeesResponse",
@@ -1341,6 +1715,12 @@ function createBaseQueryTotalTimeoutFeesRequest(): QueryTotalTimeoutFeesRequest 
     packetId: PacketId.fromPartial({})
   };
 }
+/**
+ * QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc
+ * @name QueryTotalTimeoutFeesRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest
+ */
 export const QueryTotalTimeoutFeesRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest",
   aminoType: "cosmos-sdk/QueryTotalTimeoutFeesRequest",
@@ -1423,6 +1803,12 @@ function createBaseQueryTotalTimeoutFeesResponse(): QueryTotalTimeoutFeesRespons
     timeoutFees: []
   };
 }
+/**
+ * QueryTotalTimeoutFeesResponse defines the response type for the TotalTimeoutFees rpc
+ * @name QueryTotalTimeoutFeesResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse
+ */
 export const QueryTotalTimeoutFeesResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse",
   aminoType: "cosmos-sdk/QueryTotalTimeoutFeesResponse",
@@ -1508,6 +1894,12 @@ function createBaseQueryPayeeRequest(): QueryPayeeRequest {
     relayer: ""
   };
 }
+/**
+ * QueryPayeeRequest defines the request type for the Payee rpc
+ * @name QueryPayeeRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryPayeeRequest
+ */
 export const QueryPayeeRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryPayeeRequest",
   aminoType: "cosmos-sdk/QueryPayeeRequest",
@@ -1596,6 +1988,12 @@ function createBaseQueryPayeeResponse(): QueryPayeeResponse {
     payeeAddress: ""
   };
 }
+/**
+ * QueryPayeeResponse defines the response type for the Payee rpc
+ * @name QueryPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryPayeeResponse
+ */
 export const QueryPayeeResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryPayeeResponse",
   aminoType: "cosmos-sdk/QueryPayeeResponse",
@@ -1674,6 +2072,12 @@ function createBaseQueryCounterpartyPayeeRequest(): QueryCounterpartyPayeeReques
     relayer: ""
   };
 }
+/**
+ * QueryCounterpartyPayeeRequest defines the request type for the CounterpartyPayee rpc
+ * @name QueryCounterpartyPayeeRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryCounterpartyPayeeRequest
+ */
 export const QueryCounterpartyPayeeRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryCounterpartyPayeeRequest",
   aminoType: "cosmos-sdk/QueryCounterpartyPayeeRequest",
@@ -1762,6 +2166,12 @@ function createBaseQueryCounterpartyPayeeResponse(): QueryCounterpartyPayeeRespo
     counterpartyPayee: ""
   };
 }
+/**
+ * QueryCounterpartyPayeeResponse defines the response type for the CounterpartyPayee rpc
+ * @name QueryCounterpartyPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryCounterpartyPayeeResponse
+ */
 export const QueryCounterpartyPayeeResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryCounterpartyPayeeResponse",
   aminoType: "cosmos-sdk/QueryCounterpartyPayeeResponse",
@@ -1840,6 +2250,12 @@ function createBaseQueryFeeEnabledChannelsRequest(): QueryFeeEnabledChannelsRequ
     queryHeight: BigInt(0)
   };
 }
+/**
+ * QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc
+ * @name QueryFeeEnabledChannelsRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest
+ */
 export const QueryFeeEnabledChannelsRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest",
   aminoType: "cosmos-sdk/QueryFeeEnabledChannelsRequest",
@@ -1934,6 +2350,12 @@ function createBaseQueryFeeEnabledChannelsResponse(): QueryFeeEnabledChannelsRes
     pagination: undefined
   };
 }
+/**
+ * QueryFeeEnabledChannelsResponse defines the response type for the FeeEnabledChannels rpc
+ * @name QueryFeeEnabledChannelsResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse
+ */
 export const QueryFeeEnabledChannelsResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse",
   aminoType: "cosmos-sdk/QueryFeeEnabledChannelsResponse",
@@ -2031,6 +2453,12 @@ function createBaseQueryFeeEnabledChannelRequest(): QueryFeeEnabledChannelReques
     channelId: ""
   };
 }
+/**
+ * QueryFeeEnabledChannelRequest defines the request type for the FeeEnabledChannel rpc
+ * @name QueryFeeEnabledChannelRequest
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelRequest
+ */
 export const QueryFeeEnabledChannelRequest = {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelRequest",
   aminoType: "cosmos-sdk/QueryFeeEnabledChannelRequest",
@@ -2119,6 +2547,12 @@ function createBaseQueryFeeEnabledChannelResponse(): QueryFeeEnabledChannelRespo
     feeEnabled: false
   };
 }
+/**
+ * QueryFeeEnabledChannelResponse defines the response type for the FeeEnabledChannel rpc
+ * @name QueryFeeEnabledChannelResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.QueryFeeEnabledChannelResponse
+ */
 export const QueryFeeEnabledChannelResponse = {
   typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelResponse",
   aminoType: "cosmos-sdk/QueryFeeEnabledChannelResponse",

@@ -3,6 +3,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
+/**
+ * @name EventInsuranceFundUpdate
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventInsuranceFundUpdate
+ */
 export interface EventInsuranceFundUpdate {
   fund?: InsuranceFund;
 }
@@ -10,6 +15,11 @@ export interface EventInsuranceFundUpdateProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventInsuranceFundUpdateAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventInsuranceFundUpdate
+ */
 export interface EventInsuranceFundUpdateAmino {
   fund?: InsuranceFundAmino;
 }
@@ -17,6 +27,11 @@ export interface EventInsuranceFundUpdateAminoMsg {
   type: "/injective.insurance.v1beta1.EventInsuranceFundUpdate";
   value: EventInsuranceFundUpdateAmino;
 }
+/**
+ * @name EventRequestRedemption
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventRequestRedemption
+ */
 export interface EventRequestRedemption {
   schedule?: RedemptionSchedule;
 }
@@ -24,6 +39,11 @@ export interface EventRequestRedemptionProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption";
   value: Uint8Array;
 }
+/**
+ * @name EventRequestRedemptionAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventRequestRedemption
+ */
 export interface EventRequestRedemptionAmino {
   schedule?: RedemptionScheduleAmino;
 }
@@ -31,54 +51,103 @@ export interface EventRequestRedemptionAminoMsg {
   type: "/injective.insurance.v1beta1.EventRequestRedemption";
   value: EventRequestRedemptionAmino;
 }
+/**
+ * @name EventWithdrawRedemption
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventWithdrawRedemption
+ */
 export interface EventWithdrawRedemption {
-  /** redemption schedule triggered withdraw */
+  /**
+   * redemption schedule triggered withdraw
+   */
   schedule?: RedemptionSchedule;
-  /** redeem coin amount in base_currency */
+  /**
+   * redeem coin amount in base_currency
+   */
   redeemCoin: Coin;
 }
 export interface EventWithdrawRedemptionProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption";
   value: Uint8Array;
 }
+/**
+ * @name EventWithdrawRedemptionAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventWithdrawRedemption
+ */
 export interface EventWithdrawRedemptionAmino {
-  /** redemption schedule triggered withdraw */
+  /**
+   * redemption schedule triggered withdraw
+   */
   schedule?: RedemptionScheduleAmino;
-  /** redeem coin amount in base_currency */
+  /**
+   * redeem coin amount in base_currency
+   */
   redeem_coin: CoinAmino;
 }
 export interface EventWithdrawRedemptionAminoMsg {
   type: "/injective.insurance.v1beta1.EventWithdrawRedemption";
   value: EventWithdrawRedemptionAmino;
 }
+/**
+ * @name EventUnderwrite
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventUnderwrite
+ */
 export interface EventUnderwrite {
-  /** address of the underwriter */
+  /**
+   * address of the underwriter
+   */
   underwriter: string;
-  /** marketId of insurance fund for the redemption */
+  /**
+   * marketId of insurance fund for the redemption
+   */
   marketId: string;
-  /** deposit coin amount */
+  /**
+   * deposit coin amount
+   */
   deposit: Coin;
-  /** share coin amount */
+  /**
+   * share coin amount
+   */
   shares: Coin;
 }
 export interface EventUnderwriteProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventUnderwrite";
   value: Uint8Array;
 }
+/**
+ * @name EventUnderwriteAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventUnderwrite
+ */
 export interface EventUnderwriteAmino {
-  /** address of the underwriter */
+  /**
+   * address of the underwriter
+   */
   underwriter: string;
-  /** marketId of insurance fund for the redemption */
+  /**
+   * marketId of insurance fund for the redemption
+   */
   marketId: string;
-  /** deposit coin amount */
+  /**
+   * deposit coin amount
+   */
   deposit: CoinAmino;
-  /** share coin amount */
+  /**
+   * share coin amount
+   */
   shares: CoinAmino;
 }
 export interface EventUnderwriteAminoMsg {
   type: "/injective.insurance.v1beta1.EventUnderwrite";
   value: EventUnderwriteAmino;
 }
+/**
+ * @name EventInsuranceWithdraw
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventInsuranceWithdraw
+ */
 export interface EventInsuranceWithdraw {
   marketId: string;
   marketTicker: string;
@@ -88,6 +157,11 @@ export interface EventInsuranceWithdrawProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.EventInsuranceWithdraw";
   value: Uint8Array;
 }
+/**
+ * @name EventInsuranceWithdrawAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventInsuranceWithdraw
+ */
 export interface EventInsuranceWithdrawAmino {
   market_id: string;
   market_ticker: string;
@@ -102,6 +176,11 @@ function createBaseEventInsuranceFundUpdate(): EventInsuranceFundUpdate {
     fund: undefined
   };
 }
+/**
+ * @name EventInsuranceFundUpdate
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventInsuranceFundUpdate
+ */
 export const EventInsuranceFundUpdate = {
   typeUrl: "/injective.insurance.v1beta1.EventInsuranceFundUpdate",
   is(o: any): o is EventInsuranceFundUpdate {
@@ -177,6 +256,11 @@ function createBaseEventRequestRedemption(): EventRequestRedemption {
     schedule: undefined
   };
 }
+/**
+ * @name EventRequestRedemption
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventRequestRedemption
+ */
 export const EventRequestRedemption = {
   typeUrl: "/injective.insurance.v1beta1.EventRequestRedemption",
   is(o: any): o is EventRequestRedemption {
@@ -253,6 +337,11 @@ function createBaseEventWithdrawRedemption(): EventWithdrawRedemption {
     redeemCoin: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventWithdrawRedemption
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventWithdrawRedemption
+ */
 export const EventWithdrawRedemption = {
   typeUrl: "/injective.insurance.v1beta1.EventWithdrawRedemption",
   is(o: any): o is EventWithdrawRedemption {
@@ -343,6 +432,11 @@ function createBaseEventUnderwrite(): EventUnderwrite {
     shares: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventUnderwrite
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventUnderwrite
+ */
 export const EventUnderwrite = {
   typeUrl: "/injective.insurance.v1beta1.EventUnderwrite",
   is(o: any): o is EventUnderwrite {
@@ -453,6 +547,11 @@ function createBaseEventInsuranceWithdraw(): EventInsuranceWithdraw {
     withdrawal: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventInsuranceWithdraw
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.EventInsuranceWithdraw
+ */
 export const EventInsuranceWithdraw = {
   typeUrl: "/injective.insurance.v1beta1.EventInsuranceWithdraw",
   is(o: any): o is EventInsuranceWithdraw {

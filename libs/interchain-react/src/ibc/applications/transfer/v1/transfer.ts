@@ -6,6 +6,9 @@ import { GlobalDecoderRegistry } from "../../../../registry";
  * NOTE: To prevent a single token from being transferred, set the
  * TransfersEnabled parameter to true and then set the bank module's SendEnabled
  * parameter for the denomination to false.
+ * @name Params
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Params
  */
 export interface Params {
   /**
@@ -28,6 +31,9 @@ export interface ParamsProtoMsg {
  * NOTE: To prevent a single token from being transferred, set the
  * TransfersEnabled parameter to true and then set the bank module's SendEnabled
  * parameter for the denomination to false.
+ * @name ParamsAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Params
  */
 export interface ParamsAmino {
   /**
@@ -49,11 +55,18 @@ export interface ParamsAminoMsg {
  * Forwarding defines a list of port ID, channel ID pairs determining the path
  * through which a packet must be forwarded, and an unwind boolean indicating if
  * the coin should be unwinded to its native chain before forwarding.
+ * @name Forwarding
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Forwarding
  */
 export interface Forwarding {
-  /** optional unwinding for the token transfered */
+  /**
+   * optional unwinding for the token transfered
+   */
   unwind: boolean;
-  /** optional intermediate path through which packet will be forwarded */
+  /**
+   * optional intermediate path through which packet will be forwarded
+   */
   hops: Hop[];
 }
 export interface ForwardingProtoMsg {
@@ -64,11 +77,18 @@ export interface ForwardingProtoMsg {
  * Forwarding defines a list of port ID, channel ID pairs determining the path
  * through which a packet must be forwarded, and an unwind boolean indicating if
  * the coin should be unwinded to its native chain before forwarding.
+ * @name ForwardingAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Forwarding
  */
 export interface ForwardingAmino {
-  /** optional unwinding for the token transfered */
+  /**
+   * optional unwinding for the token transfered
+   */
   unwind: boolean;
-  /** optional intermediate path through which packet will be forwarded */
+  /**
+   * optional intermediate path through which packet will be forwarded
+   */
   hops: HopAmino[];
 }
 export interface ForwardingAminoMsg {
@@ -78,6 +98,9 @@ export interface ForwardingAminoMsg {
 /**
  * Hop defines a port ID, channel ID pair specifying where tokens must be forwarded
  * next in a multihop transfer.
+ * @name Hop
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Hop
  */
 export interface Hop {
   portId: string;
@@ -90,6 +113,9 @@ export interface HopProtoMsg {
 /**
  * Hop defines a port ID, channel ID pair specifying where tokens must be forwarded
  * next in a multihop transfer.
+ * @name HopAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Hop
  */
 export interface HopAmino {
   port_id: string;
@@ -105,6 +131,15 @@ function createBaseParams(): Params {
     receiveEnabled: false
   };
 }
+/**
+ * Params defines the set of IBC transfer parameters.
+ * NOTE: To prevent a single token from being transferred, set the
+ * TransfersEnabled parameter to true and then set the bank module's SendEnabled
+ * parameter for the denomination to false.
+ * @name Params
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Params
+ */
 export const Params = {
   typeUrl: "/ibc.applications.transfer.v1.Params",
   aminoType: "cosmos-sdk/Params",
@@ -194,6 +229,14 @@ function createBaseForwarding(): Forwarding {
     hops: []
   };
 }
+/**
+ * Forwarding defines a list of port ID, channel ID pairs determining the path
+ * through which a packet must be forwarded, and an unwind boolean indicating if
+ * the coin should be unwinded to its native chain before forwarding.
+ * @name Forwarding
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Forwarding
+ */
 export const Forwarding = {
   typeUrl: "/ibc.applications.transfer.v1.Forwarding",
   aminoType: "cosmos-sdk/Forwarding",
@@ -290,6 +333,13 @@ function createBaseHop(): Hop {
     channelId: ""
   };
 }
+/**
+ * Hop defines a port ID, channel ID pair specifying where tokens must be forwarded
+ * next in a multihop transfer.
+ * @name Hop
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Hop
+ */
 export const Hop = {
   typeUrl: "/ibc.applications.transfer.v1.Hop",
   aminoType: "cosmos-sdk/Hop",

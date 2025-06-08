@@ -42,13 +42,22 @@ export function exchangeTypeToJSON(object: ExchangeType): string {
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name SpotMarketParamUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketParamUpdateProposal
+ */
 export interface SpotMarketParamUpdateProposal {
   title: string;
   description: string;
   marketId: string;
-  /** maker_fee_rate defines the trade fee rate for makers on the spot market */
+  /**
+   * maker_fee_rate defines the trade fee rate for makers on the spot market
+   */
   makerFeeRate?: string;
-  /** taker_fee_rate defines the trade fee rate for takers on the spot market */
+  /**
+   * taker_fee_rate defines the trade fee rate for takers on the spot market
+   */
   takerFeeRate?: string;
   /**
    * relayer_fee_share_rate defines the relayer fee share rate for the spot
@@ -78,13 +87,22 @@ export interface SpotMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal";
   value: Uint8Array;
 }
+/**
+ * @name SpotMarketParamUpdateProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketParamUpdateProposal
+ */
 export interface SpotMarketParamUpdateProposalAmino {
   title: string;
   description: string;
   market_id: string;
-  /** maker_fee_rate defines the trade fee rate for makers on the spot market */
+  /**
+   * maker_fee_rate defines the trade fee rate for makers on the spot market
+   */
   maker_fee_rate?: string;
-  /** taker_fee_rate defines the trade fee rate for takers on the spot market */
+  /**
+   * taker_fee_rate defines the trade fee rate for takers on the spot market
+   */
   taker_fee_rate?: string;
   /**
    * relayer_fee_share_rate defines the relayer fee share rate for the spot
@@ -114,6 +132,11 @@ export interface SpotMarketParamUpdateProposalAminoMsg {
   type: "exchange/SpotMarketParamUpdateProposal";
   value: SpotMarketParamUpdateProposalAmino;
 }
+/**
+ * @name ExchangeEnableProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExchangeEnableProposal
+ */
 export interface ExchangeEnableProposal {
   title: string;
   description: string;
@@ -123,6 +146,11 @@ export interface ExchangeEnableProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ExchangeEnableProposal";
   value: Uint8Array;
 }
+/**
+ * @name ExchangeEnableProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExchangeEnableProposal
+ */
 export interface ExchangeEnableProposalAmino {
   title: string;
   description: string;
@@ -132,6 +160,11 @@ export interface ExchangeEnableProposalAminoMsg {
   type: "exchange/ExchangeEnableProposal";
   value: ExchangeEnableProposalAmino;
 }
+/**
+ * @name BatchExchangeModificationProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchExchangeModificationProposal
+ */
 export interface BatchExchangeModificationProposal {
   title: string;
   description: string;
@@ -151,6 +184,11 @@ export interface BatchExchangeModificationProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal";
   value: Uint8Array;
 }
+/**
+ * @name BatchExchangeModificationProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchExchangeModificationProposal
+ */
 export interface BatchExchangeModificationProposalAmino {
   title: string;
   description: string;
@@ -173,28 +211,45 @@ export interface BatchExchangeModificationProposalAminoMsg {
 /**
  * SpotMarketLaunchProposal defines a SDK message for proposing a new spot
  * market through governance
+ * @name SpotMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketLaunchProposal
  */
 export interface SpotMarketLaunchProposal {
   title: string;
   description: string;
-  /** Ticker for the spot market. */
+  /**
+   * Ticker for the spot market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   baseDenom: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quoteDenom: string;
-  /** min_price_tick_size defines the minimum tick size of the order's price */
+  /**
+   * min_price_tick_size defines the minimum tick size of the order's price
+   */
   minPriceTickSize: string;
   /**
    * min_quantity_tick_size defines the minimum tick size of the order's
    * quantity
    */
   minQuantityTickSize: string;
-  /** maker_fee_rate defines the fee percentage makers pay when trading */
+  /**
+   * maker_fee_rate defines the fee percentage makers pay when trading
+   */
   makerFeeRate?: string;
-  /** taker_fee_rate defines the fee percentage takers pay when trading */
+  /**
+   * taker_fee_rate defines the fee percentage takers pay when trading
+   */
   takerFeeRate?: string;
-  /** min_notional defines the minimum notional for orders in the market */
+  /**
+   * min_notional defines the minimum notional for orders in the market
+   */
   minNotional: string;
   adminInfo?: AdminInfo;
 }
@@ -205,28 +260,45 @@ export interface SpotMarketLaunchProposalProtoMsg {
 /**
  * SpotMarketLaunchProposal defines a SDK message for proposing a new spot
  * market through governance
+ * @name SpotMarketLaunchProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketLaunchProposal
  */
 export interface SpotMarketLaunchProposalAmino {
   title: string;
   description: string;
-  /** Ticker for the spot market. */
+  /**
+   * Ticker for the spot market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   base_denom: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quote_denom: string;
-  /** min_price_tick_size defines the minimum tick size of the order's price */
+  /**
+   * min_price_tick_size defines the minimum tick size of the order's price
+   */
   min_price_tick_size: string;
   /**
    * min_quantity_tick_size defines the minimum tick size of the order's
    * quantity
    */
   min_quantity_tick_size: string;
-  /** maker_fee_rate defines the fee percentage makers pay when trading */
+  /**
+   * maker_fee_rate defines the fee percentage makers pay when trading
+   */
   maker_fee_rate?: string;
-  /** taker_fee_rate defines the fee percentage takers pay when trading */
+  /**
+   * taker_fee_rate defines the fee percentage takers pay when trading
+   */
   taker_fee_rate?: string;
-  /** min_notional defines the minimum notional for orders in the market */
+  /**
+   * min_notional defines the minimum notional for orders in the market
+   */
   min_notional: string;
   admin_info?: AdminInfoAmino;
 }
@@ -237,21 +309,36 @@ export interface SpotMarketLaunchProposalAminoMsg {
 /**
  * PerpetualMarketLaunchProposal defines a SDK message for proposing a new
  * perpetual futures market through governance
+ * @name PerpetualMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketLaunchProposal
  */
 export interface PerpetualMarketLaunchProposal {
   title: string;
   description: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   quoteDenom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracleBase: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracleQuote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
   /**
    * initial_margin_ratio defines the initial margin ratio for the derivative
@@ -297,21 +384,36 @@ export interface PerpetualMarketLaunchProposalProtoMsg {
 /**
  * PerpetualMarketLaunchProposal defines a SDK message for proposing a new
  * perpetual futures market through governance
+ * @name PerpetualMarketLaunchProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketLaunchProposal
  */
 export interface PerpetualMarketLaunchProposalAmino {
   title: string;
   description: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   quote_denom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracle_base: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracle_quote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
   /**
    * initial_margin_ratio defines the initial margin ratio for the derivative
@@ -354,30 +456,57 @@ export interface PerpetualMarketLaunchProposalAminoMsg {
   type: "exchange/PerpetualMarketLaunchProposal";
   value: PerpetualMarketLaunchProposalAmino;
 }
+/**
+ * @name BinaryOptionsMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal
+ */
 export interface BinaryOptionsMarketLaunchProposal {
   title: string;
   description: string;
-  /** Ticker for the derivative contract. */
+  /**
+   * Ticker for the derivative contract.
+   */
   ticker: string;
-  /** Oracle symbol */
+  /**
+   * Oracle symbol
+   */
   oracleSymbol: string;
-  /** Oracle Provider */
+  /**
+   * Oracle Provider
+   */
   oracleProvider: string;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expirationTimestamp: bigint;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlementTimestamp: bigint;
-  /** admin of the market */
+  /**
+   * admin of the market
+   */
   admin: string;
-  /** Address of the quote currency denomination for the binary options contract */
+  /**
+   * Address of the quote currency denomination for the binary options contract
+   */
   quoteDenom: string;
-  /** maker_fee_rate defines the maker fee rate of a binary options market */
+  /**
+   * maker_fee_rate defines the maker fee rate of a binary options market
+   */
   makerFeeRate: string;
-  /** taker_fee_rate defines the taker fee rate of a derivative market */
+  /**
+   * taker_fee_rate defines the taker fee rate of a derivative market
+   */
   takerFeeRate: string;
   /**
    * min_price_tick_size defines the minimum tick size that the price and margin
@@ -400,30 +529,57 @@ export interface BinaryOptionsMarketLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal";
   value: Uint8Array;
 }
+/**
+ * @name BinaryOptionsMarketLaunchProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal
+ */
 export interface BinaryOptionsMarketLaunchProposalAmino {
   title: string;
   description: string;
-  /** Ticker for the derivative contract. */
+  /**
+   * Ticker for the derivative contract.
+   */
   ticker: string;
-  /** Oracle symbol */
+  /**
+   * Oracle symbol
+   */
   oracle_symbol: string;
-  /** Oracle Provider */
+  /**
+   * Oracle Provider
+   */
   oracle_provider: string;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expiration_timestamp: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlement_timestamp: string;
-  /** admin of the market */
+  /**
+   * admin of the market
+   */
   admin: string;
-  /** Address of the quote currency denomination for the binary options contract */
+  /**
+   * Address of the quote currency denomination for the binary options contract
+   */
   quote_denom: string;
-  /** maker_fee_rate defines the maker fee rate of a binary options market */
+  /**
+   * maker_fee_rate defines the maker fee rate of a binary options market
+   */
   maker_fee_rate: string;
-  /** taker_fee_rate defines the taker fee rate of a derivative market */
+  /**
+   * taker_fee_rate defines the taker fee rate of a derivative market
+   */
   taker_fee_rate: string;
   /**
    * min_price_tick_size defines the minimum tick size that the price and margin
@@ -449,23 +605,40 @@ export interface BinaryOptionsMarketLaunchProposalAminoMsg {
 /**
  * ExpiryFuturesMarketLaunchProposal defines a SDK message for proposing a new
  * expiry futures market through governance
+ * @name ExpiryFuturesMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal
  */
 export interface ExpiryFuturesMarketLaunchProposal {
   title: string;
   description: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quoteDenom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracleBase: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracleQuote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
-  /** Expiration time of the market */
+  /**
+   * Expiration time of the market
+   */
   expiry: bigint;
   /**
    * initial_margin_ratio defines the initial margin ratio for the derivative
@@ -511,23 +684,40 @@ export interface ExpiryFuturesMarketLaunchProposalProtoMsg {
 /**
  * ExpiryFuturesMarketLaunchProposal defines a SDK message for proposing a new
  * expiry futures market through governance
+ * @name ExpiryFuturesMarketLaunchProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal
  */
 export interface ExpiryFuturesMarketLaunchProposalAmino {
   title: string;
   description: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quote_denom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracle_base: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracle_quote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
-  /** Expiration time of the market */
+  /**
+   * Expiration time of the market
+   */
   expiry: string;
   /**
    * initial_margin_ratio defines the initial margin ratio for the derivative
@@ -570,6 +760,11 @@ export interface ExpiryFuturesMarketLaunchProposalAminoMsg {
   type: "exchange/ExpiryFuturesMarketLaunchProposal";
   value: ExpiryFuturesMarketLaunchProposalAmino;
 }
+/**
+ * @name DerivativeMarketParamUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal
+ */
 export interface DerivativeMarketParamUpdateProposal {
   title: string;
   description: string;
@@ -609,7 +804,9 @@ export interface DerivativeMarketParamUpdateProposal {
    * quantity
    */
   minQuantityTickSize?: string;
-  /** hourly_interest_rate defines the hourly interest rate */
+  /**
+   * hourly_interest_rate defines the hourly interest rate
+   */
   hourlyInterestRate?: string;
   /**
    * hourly_funding_rate_cap defines the maximum absolute value of the hourly
@@ -630,6 +827,11 @@ export interface DerivativeMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal";
   value: Uint8Array;
 }
+/**
+ * @name DerivativeMarketParamUpdateProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal
+ */
 export interface DerivativeMarketParamUpdateProposalAmino {
   title: string;
   description: string;
@@ -669,7 +871,9 @@ export interface DerivativeMarketParamUpdateProposalAmino {
    * quantity
    */
   min_quantity_tick_size?: string;
-  /** hourly_interest_rate defines the hourly interest rate */
+  /**
+   * hourly_interest_rate defines the hourly interest rate
+   */
   HourlyInterestRate?: string;
   /**
    * hourly_funding_rate_cap defines the maximum absolute value of the hourly
@@ -690,6 +894,11 @@ export interface DerivativeMarketParamUpdateProposalAminoMsg {
   type: "exchange/DerivativeMarketParamUpdateProposal";
   value: DerivativeMarketParamUpdateProposalAmino;
 }
+/**
+ * @name AdminInfo
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AdminInfo
+ */
 export interface AdminInfo {
   admin: string;
   adminPermissions: number;
@@ -698,6 +907,11 @@ export interface AdminInfoProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.AdminInfo";
   value: Uint8Array;
 }
+/**
+ * @name AdminInfoAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AdminInfo
+ */
 export interface AdminInfoAmino {
   admin: string;
   admin_permissions: number;
@@ -706,6 +920,11 @@ export interface AdminInfoAminoMsg {
   type: "/injective.exchange.v1beta1.AdminInfo";
   value: AdminInfoAmino;
 }
+/**
+ * @name MarketForcedSettlementProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MarketForcedSettlementProposal
+ */
 export interface MarketForcedSettlementProposal {
   title: string;
   description: string;
@@ -716,6 +935,11 @@ export interface MarketForcedSettlementProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MarketForcedSettlementProposal";
   value: Uint8Array;
 }
+/**
+ * @name MarketForcedSettlementProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MarketForcedSettlementProposal
+ */
 export interface MarketForcedSettlementProposalAmino {
   title: string;
   description: string;
@@ -726,6 +950,11 @@ export interface MarketForcedSettlementProposalAminoMsg {
   type: "exchange/MarketForcedSettlementProposal";
   value: MarketForcedSettlementProposalAmino;
 }
+/**
+ * @name UpdateDenomDecimalsProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.UpdateDenomDecimalsProposal
+ */
 export interface UpdateDenomDecimalsProposal {
   title: string;
   description: string;
@@ -735,6 +964,11 @@ export interface UpdateDenomDecimalsProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal";
   value: Uint8Array;
 }
+/**
+ * @name UpdateDenomDecimalsProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.UpdateDenomDecimalsProposal
+ */
 export interface UpdateDenomDecimalsProposalAmino {
   title: string;
   description: string;
@@ -744,6 +978,11 @@ export interface UpdateDenomDecimalsProposalAminoMsg {
   type: "exchange/UpdateDenomDecimalsProposal";
   value: UpdateDenomDecimalsProposalAmino;
 }
+/**
+ * @name BinaryOptionsMarketParamUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal
+ */
 export interface BinaryOptionsMarketParamUpdateProposal {
   title: string;
   description: string;
@@ -773,13 +1012,21 @@ export interface BinaryOptionsMarketParamUpdateProposal {
    * quantity
    */
   minQuantityTickSize?: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expirationTimestamp: bigint;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlementTimestamp: bigint;
-  /** new price at which market will be settled */
+  /**
+   * new price at which market will be settled
+   */
   settlementPrice?: string;
-  /** admin of the market */
+  /**
+   * admin of the market
+   */
   admin: string;
   status: MarketStatus;
   oracleParams?: ProviderOracleParams;
@@ -794,6 +1041,11 @@ export interface BinaryOptionsMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal";
   value: Uint8Array;
 }
+/**
+ * @name BinaryOptionsMarketParamUpdateProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal
+ */
 export interface BinaryOptionsMarketParamUpdateProposalAmino {
   title: string;
   description: string;
@@ -823,13 +1075,21 @@ export interface BinaryOptionsMarketParamUpdateProposalAmino {
    * quantity
    */
   min_quantity_tick_size?: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expiration_timestamp: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlement_timestamp: string;
-  /** new price at which market will be settled */
+  /**
+   * new price at which market will be settled
+   */
   settlement_price?: string;
-  /** admin of the market */
+  /**
+   * admin of the market
+   */
   admin: string;
   status: MarketStatus;
   oracle_params?: ProviderOracleParamsAmino;
@@ -844,62 +1104,119 @@ export interface BinaryOptionsMarketParamUpdateProposalAminoMsg {
   type: "exchange/BinaryOptionsMarketParamUpdateProposal";
   value: BinaryOptionsMarketParamUpdateProposalAmino;
 }
+/**
+ * @name ProviderOracleParams
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ProviderOracleParams
+ */
 export interface ProviderOracleParams {
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   symbol: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   provider: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
 }
 export interface ProviderOracleParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.ProviderOracleParams";
   value: Uint8Array;
 }
+/**
+ * @name ProviderOracleParamsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ProviderOracleParams
+ */
 export interface ProviderOracleParamsAmino {
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   symbol: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   provider: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
 }
 export interface ProviderOracleParamsAminoMsg {
   type: "/injective.exchange.v1beta1.ProviderOracleParams";
   value: ProviderOracleParamsAmino;
 }
+/**
+ * @name OracleParams
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OracleParams
+ */
 export interface OracleParams {
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracleBase: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracleQuote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
 }
 export interface OracleParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OracleParams";
   value: Uint8Array;
 }
+/**
+ * @name OracleParamsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OracleParams
+ */
 export interface OracleParamsAmino {
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracle_base: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracle_quote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
 }
 export interface OracleParamsAminoMsg {
   type: "/injective.exchange.v1beta1.OracleParams";
   value: OracleParamsAmino;
 }
+/**
+ * @name TradingRewardCampaignLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal
+ */
 export interface TradingRewardCampaignLaunchProposal {
   title: string;
   description: string;
@@ -910,6 +1227,11 @@ export interface TradingRewardCampaignLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal";
   value: Uint8Array;
 }
+/**
+ * @name TradingRewardCampaignLaunchProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal
+ */
 export interface TradingRewardCampaignLaunchProposalAmino {
   title: string;
   description: string;
@@ -920,6 +1242,11 @@ export interface TradingRewardCampaignLaunchProposalAminoMsg {
   type: "exchange/TradingRewardCampaignLaunchProposal";
   value: TradingRewardCampaignLaunchProposalAmino;
 }
+/**
+ * @name TradingRewardCampaignUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal
+ */
 export interface TradingRewardCampaignUpdateProposal {
   title: string;
   description: string;
@@ -931,6 +1258,11 @@ export interface TradingRewardCampaignUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal";
   value: Uint8Array;
 }
+/**
+ * @name TradingRewardCampaignUpdateProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal
+ */
 export interface TradingRewardCampaignUpdateProposalAmino {
   title: string;
   description: string;
@@ -942,24 +1274,43 @@ export interface TradingRewardCampaignUpdateProposalAminoMsg {
   type: "exchange/TradingRewardCampaignUpdateProposal";
   value: TradingRewardCampaignUpdateProposalAmino;
 }
+/**
+ * @name RewardPointUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.RewardPointUpdate
+ */
 export interface RewardPointUpdate {
   accountAddress: string;
-  /** new_points overwrites the current trading reward points for the account */
+  /**
+   * new_points overwrites the current trading reward points for the account
+   */
   newPoints: string;
 }
 export interface RewardPointUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.RewardPointUpdate";
   value: Uint8Array;
 }
+/**
+ * @name RewardPointUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.RewardPointUpdate
+ */
 export interface RewardPointUpdateAmino {
   account_address: string;
-  /** new_points overwrites the current trading reward points for the account */
+  /**
+   * new_points overwrites the current trading reward points for the account
+   */
   new_points: string;
 }
 export interface RewardPointUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.RewardPointUpdate";
   value: RewardPointUpdateAmino;
 }
+/**
+ * @name TradingRewardPendingPointsUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal
+ */
 export interface TradingRewardPendingPointsUpdateProposal {
   title: string;
   description: string;
@@ -970,6 +1321,11 @@ export interface TradingRewardPendingPointsUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal";
   value: Uint8Array;
 }
+/**
+ * @name TradingRewardPendingPointsUpdateProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal
+ */
 export interface TradingRewardPendingPointsUpdateProposalAmino {
   title: string;
   description: string;
@@ -980,6 +1336,11 @@ export interface TradingRewardPendingPointsUpdateProposalAminoMsg {
   type: "exchange/TradingRewardPendingPointsUpdateProposal";
   value: TradingRewardPendingPointsUpdateProposalAmino;
 }
+/**
+ * @name FeeDiscountProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountProposal
+ */
 export interface FeeDiscountProposal {
   title: string;
   description: string;
@@ -989,6 +1350,11 @@ export interface FeeDiscountProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountProposal";
   value: Uint8Array;
 }
+/**
+ * @name FeeDiscountProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountProposal
+ */
 export interface FeeDiscountProposalAmino {
   title: string;
   description: string;
@@ -998,6 +1364,11 @@ export interface FeeDiscountProposalAminoMsg {
   type: "exchange/FeeDiscountProposal";
   value: FeeDiscountProposalAmino;
 }
+/**
+ * @name BatchCommunityPoolSpendProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCommunityPoolSpendProposal
+ */
 export interface BatchCommunityPoolSpendProposal {
   title: string;
   description: string;
@@ -1007,6 +1378,11 @@ export interface BatchCommunityPoolSpendProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal";
   value: Uint8Array;
 }
+/**
+ * @name BatchCommunityPoolSpendProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCommunityPoolSpendProposal
+ */
 export interface BatchCommunityPoolSpendProposalAmino {
   title: string;
   description: string;
@@ -1019,6 +1395,9 @@ export interface BatchCommunityPoolSpendProposalAminoMsg {
 /**
  * AtomicMarketOrderFeeMultiplierScheduleProposal defines a SDK message for
  * proposing new atomic take fee multipliers for specified markets
+ * @name AtomicMarketOrderFeeMultiplierScheduleProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal
  */
 export interface AtomicMarketOrderFeeMultiplierScheduleProposal {
   title: string;
@@ -1032,6 +1411,9 @@ export interface AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg {
 /**
  * AtomicMarketOrderFeeMultiplierScheduleProposal defines a SDK message for
  * proposing new atomic take fee multipliers for specified markets
+ * @name AtomicMarketOrderFeeMultiplierScheduleProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal
  */
 export interface AtomicMarketOrderFeeMultiplierScheduleProposalAmino {
   title: string;
@@ -1058,6 +1440,11 @@ function createBaseSpotMarketParamUpdateProposal(): SpotMarketParamUpdateProposa
     adminInfo: undefined
   };
 }
+/**
+ * @name SpotMarketParamUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketParamUpdateProposal
+ */
 export const SpotMarketParamUpdateProposal = {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal",
   aminoType: "exchange/SpotMarketParamUpdateProposal",
@@ -1265,6 +1652,11 @@ function createBaseExchangeEnableProposal(): ExchangeEnableProposal {
     exchangeType: 0
   };
 }
+/**
+ * @name ExchangeEnableProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExchangeEnableProposal
+ */
 export const ExchangeEnableProposal = {
   typeUrl: "/injective.exchange.v1beta1.ExchangeEnableProposal",
   aminoType: "exchange/ExchangeEnableProposal",
@@ -1376,6 +1768,11 @@ function createBaseBatchExchangeModificationProposal(): BatchExchangeModificatio
     marketForcedSettlementProposals: []
   };
 }
+/**
+ * @name BatchExchangeModificationProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchExchangeModificationProposal
+ */
 export const BatchExchangeModificationProposal = {
   typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal",
   aminoType: "exchange/BatchExchangeModificationProposal",
@@ -1628,6 +2025,13 @@ function createBaseSpotMarketLaunchProposal(): SpotMarketLaunchProposal {
     adminInfo: undefined
   };
 }
+/**
+ * SpotMarketLaunchProposal defines a SDK message for proposing a new spot
+ * market through governance
+ * @name SpotMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketLaunchProposal
+ */
 export const SpotMarketLaunchProposal = {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal",
   aminoType: "exchange/SpotMarketLaunchProposal",
@@ -1837,6 +2241,13 @@ function createBasePerpetualMarketLaunchProposal(): PerpetualMarketLaunchProposa
     adminInfo: undefined
   };
 }
+/**
+ * PerpetualMarketLaunchProposal defines a SDK message for proposing a new
+ * perpetual futures market through governance
+ * @name PerpetualMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.PerpetualMarketLaunchProposal
+ */
 export const PerpetualMarketLaunchProposal = {
   typeUrl: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal",
   aminoType: "exchange/PerpetualMarketLaunchProposal",
@@ -2102,6 +2513,11 @@ function createBaseBinaryOptionsMarketLaunchProposal(): BinaryOptionsMarketLaunc
     adminPermissions: 0
   };
 }
+/**
+ * @name BinaryOptionsMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal
+ */
 export const BinaryOptionsMarketLaunchProposal = {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal",
   aminoType: "exchange/BinaryOptionsMarketLaunchProposal",
@@ -2377,6 +2793,13 @@ function createBaseExpiryFuturesMarketLaunchProposal(): ExpiryFuturesMarketLaunc
     adminInfo: undefined
   };
 }
+/**
+ * ExpiryFuturesMarketLaunchProposal defines a SDK message for proposing a new
+ * expiry futures market through governance
+ * @name ExpiryFuturesMarketLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal
+ */
 export const ExpiryFuturesMarketLaunchProposal = {
   typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal",
   aminoType: "exchange/ExpiryFuturesMarketLaunchProposal",
@@ -2653,6 +3076,11 @@ function createBaseDerivativeMarketParamUpdateProposal(): DerivativeMarketParamU
     adminInfo: undefined
   };
 }
+/**
+ * @name DerivativeMarketParamUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal
+ */
 export const DerivativeMarketParamUpdateProposal = {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal",
   aminoType: "exchange/DerivativeMarketParamUpdateProposal",
@@ -2915,6 +3343,11 @@ function createBaseAdminInfo(): AdminInfo {
     adminPermissions: 0
   };
 }
+/**
+ * @name AdminInfo
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AdminInfo
+ */
 export const AdminInfo = {
   typeUrl: "/injective.exchange.v1beta1.AdminInfo",
   is(o: any): o is AdminInfo {
@@ -2999,6 +3432,11 @@ function createBaseMarketForcedSettlementProposal(): MarketForcedSettlementPropo
     settlementPrice: undefined
   };
 }
+/**
+ * @name MarketForcedSettlementProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MarketForcedSettlementProposal
+ */
 export const MarketForcedSettlementProposal = {
   typeUrl: "/injective.exchange.v1beta1.MarketForcedSettlementProposal",
   aminoType: "exchange/MarketForcedSettlementProposal",
@@ -3117,6 +3555,11 @@ function createBaseUpdateDenomDecimalsProposal(): UpdateDenomDecimalsProposal {
     denomDecimals: []
   };
 }
+/**
+ * @name UpdateDenomDecimalsProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.UpdateDenomDecimalsProposal
+ */
 export const UpdateDenomDecimalsProposal = {
   typeUrl: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal",
   aminoType: "exchange/UpdateDenomDecimalsProposal",
@@ -3240,6 +3683,11 @@ function createBaseBinaryOptionsMarketParamUpdateProposal(): BinaryOptionsMarket
     minNotional: undefined
   };
 }
+/**
+ * @name BinaryOptionsMarketParamUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal
+ */
 export const BinaryOptionsMarketParamUpdateProposal = {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal",
   aminoType: "exchange/BinaryOptionsMarketParamUpdateProposal",
@@ -3492,6 +3940,11 @@ function createBaseProviderOracleParams(): ProviderOracleParams {
     oracleType: 0
   };
 }
+/**
+ * @name ProviderOracleParams
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.ProviderOracleParams
+ */
 export const ProviderOracleParams = {
   typeUrl: "/injective.exchange.v1beta1.ProviderOracleParams",
   is(o: any): o is ProviderOracleParams {
@@ -3598,6 +4051,11 @@ function createBaseOracleParams(): OracleParams {
     oracleType: 0
   };
 }
+/**
+ * @name OracleParams
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OracleParams
+ */
 export const OracleParams = {
   typeUrl: "/injective.exchange.v1beta1.OracleParams",
   is(o: any): o is OracleParams {
@@ -3704,6 +4162,11 @@ function createBaseTradingRewardCampaignLaunchProposal(): TradingRewardCampaignL
     campaignRewardPools: []
   };
 }
+/**
+ * @name TradingRewardCampaignLaunchProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal
+ */
 export const TradingRewardCampaignLaunchProposal = {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal",
   aminoType: "exchange/TradingRewardCampaignLaunchProposal",
@@ -3828,6 +4291,11 @@ function createBaseTradingRewardCampaignUpdateProposal(): TradingRewardCampaignU
     campaignRewardPoolsUpdates: []
   };
 }
+/**
+ * @name TradingRewardCampaignUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal
+ */
 export const TradingRewardCampaignUpdateProposal = {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal",
   aminoType: "exchange/TradingRewardCampaignUpdateProposal",
@@ -3962,6 +4430,11 @@ function createBaseRewardPointUpdate(): RewardPointUpdate {
     newPoints: ""
   };
 }
+/**
+ * @name RewardPointUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.RewardPointUpdate
+ */
 export const RewardPointUpdate = {
   typeUrl: "/injective.exchange.v1beta1.RewardPointUpdate",
   is(o: any): o is RewardPointUpdate {
@@ -4046,6 +4519,11 @@ function createBaseTradingRewardPendingPointsUpdateProposal(): TradingRewardPend
     rewardPointUpdates: []
   };
 }
+/**
+ * @name TradingRewardPendingPointsUpdateProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal
+ */
 export const TradingRewardPendingPointsUpdateProposal = {
   typeUrl: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal",
   aminoType: "exchange/TradingRewardPendingPointsUpdateProposal",
@@ -4167,6 +4645,11 @@ function createBaseFeeDiscountProposal(): FeeDiscountProposal {
     schedule: undefined
   };
 }
+/**
+ * @name FeeDiscountProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.FeeDiscountProposal
+ */
 export const FeeDiscountProposal = {
   typeUrl: "/injective.exchange.v1beta1.FeeDiscountProposal",
   aminoType: "exchange/FeeDiscountProposal",
@@ -4275,6 +4758,11 @@ function createBaseBatchCommunityPoolSpendProposal(): BatchCommunityPoolSpendPro
     proposals: []
   };
 }
+/**
+ * @name BatchCommunityPoolSpendProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCommunityPoolSpendProposal
+ */
 export const BatchCommunityPoolSpendProposal = {
   typeUrl: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal",
   aminoType: "exchange/BatchCommunityPoolSpendProposal",
@@ -4385,6 +4873,13 @@ function createBaseAtomicMarketOrderFeeMultiplierScheduleProposal(): AtomicMarke
     marketFeeMultipliers: []
   };
 }
+/**
+ * AtomicMarketOrderFeeMultiplierScheduleProposal defines a SDK message for
+ * proposing new atomic take fee multipliers for specified markets
+ * @name AtomicMarketOrderFeeMultiplierScheduleProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal
+ */
 export const AtomicMarketOrderFeeMultiplierScheduleProposal = {
   typeUrl: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal",
   aminoType: "exchange/AtomicMarketOrderFeeMultiplierScheduleProposal",

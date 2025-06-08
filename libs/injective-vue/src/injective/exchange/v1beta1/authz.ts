@@ -1,7 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** spot authz messages */
+/**
+ * spot authz messages
+ * @name CreateSpotLimitOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateSpotLimitOrderAuthz
+ */
 export interface CreateSpotLimitOrderAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -10,7 +15,12 @@ export interface CreateSpotLimitOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateSpotLimitOrderAuthz";
   value: Uint8Array;
 }
-/** spot authz messages */
+/**
+ * spot authz messages
+ * @name CreateSpotLimitOrderAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateSpotLimitOrderAuthz
+ */
 export interface CreateSpotLimitOrderAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -19,6 +29,11 @@ export interface CreateSpotLimitOrderAuthzAminoMsg {
   type: "exchange/CreateSpotLimitOrderAuthz";
   value: CreateSpotLimitOrderAuthzAmino;
 }
+/**
+ * @name CreateSpotMarketOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateSpotMarketOrderAuthz
+ */
 export interface CreateSpotMarketOrderAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -27,6 +42,11 @@ export interface CreateSpotMarketOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz";
   value: Uint8Array;
 }
+/**
+ * @name CreateSpotMarketOrderAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateSpotMarketOrderAuthz
+ */
 export interface CreateSpotMarketOrderAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -35,6 +55,11 @@ export interface CreateSpotMarketOrderAuthzAminoMsg {
   type: "exchange/CreateSpotMarketOrderAuthz";
   value: CreateSpotMarketOrderAuthzAmino;
 }
+/**
+ * @name BatchCreateSpotLimitOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz
+ */
 export interface BatchCreateSpotLimitOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -43,6 +68,11 @@ export interface BatchCreateSpotLimitOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz";
   value: Uint8Array;
 }
+/**
+ * @name BatchCreateSpotLimitOrdersAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz
+ */
 export interface BatchCreateSpotLimitOrdersAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -51,6 +81,11 @@ export interface BatchCreateSpotLimitOrdersAuthzAminoMsg {
   type: "exchange/BatchCreateSpotLimitOrdersAuthz";
   value: BatchCreateSpotLimitOrdersAuthzAmino;
 }
+/**
+ * @name CancelSpotOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CancelSpotOrderAuthz
+ */
 export interface CancelSpotOrderAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -59,6 +94,11 @@ export interface CancelSpotOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CancelSpotOrderAuthz";
   value: Uint8Array;
 }
+/**
+ * @name CancelSpotOrderAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CancelSpotOrderAuthz
+ */
 export interface CancelSpotOrderAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -67,6 +107,11 @@ export interface CancelSpotOrderAuthzAminoMsg {
   type: "exchange/CancelSpotOrderAuthz";
   value: CancelSpotOrderAuthzAmino;
 }
+/**
+ * @name BatchCancelSpotOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz
+ */
 export interface BatchCancelSpotOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -75,6 +120,11 @@ export interface BatchCancelSpotOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz";
   value: Uint8Array;
 }
+/**
+ * @name BatchCancelSpotOrdersAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz
+ */
 export interface BatchCancelSpotOrdersAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -83,7 +133,12 @@ export interface BatchCancelSpotOrdersAuthzAminoMsg {
   type: "exchange/BatchCancelSpotOrdersAuthz";
   value: BatchCancelSpotOrdersAuthzAmino;
 }
-/** derivative authz messages */
+/**
+ * derivative authz messages
+ * @name CreateDerivativeLimitOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz
+ */
 export interface CreateDerivativeLimitOrderAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -92,7 +147,12 @@ export interface CreateDerivativeLimitOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz";
   value: Uint8Array;
 }
-/** derivative authz messages */
+/**
+ * derivative authz messages
+ * @name CreateDerivativeLimitOrderAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz
+ */
 export interface CreateDerivativeLimitOrderAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -101,6 +161,11 @@ export interface CreateDerivativeLimitOrderAuthzAminoMsg {
   type: "exchange/CreateDerivativeLimitOrderAuthz";
   value: CreateDerivativeLimitOrderAuthzAmino;
 }
+/**
+ * @name CreateDerivativeMarketOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz
+ */
 export interface CreateDerivativeMarketOrderAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -109,6 +174,11 @@ export interface CreateDerivativeMarketOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz";
   value: Uint8Array;
 }
+/**
+ * @name CreateDerivativeMarketOrderAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz
+ */
 export interface CreateDerivativeMarketOrderAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -117,6 +187,11 @@ export interface CreateDerivativeMarketOrderAuthzAminoMsg {
   type: "exchange/CreateDerivativeMarketOrderAuthz";
   value: CreateDerivativeMarketOrderAuthzAmino;
 }
+/**
+ * @name BatchCreateDerivativeLimitOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz
+ */
 export interface BatchCreateDerivativeLimitOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -125,6 +200,11 @@ export interface BatchCreateDerivativeLimitOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz";
   value: Uint8Array;
 }
+/**
+ * @name BatchCreateDerivativeLimitOrdersAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz
+ */
 export interface BatchCreateDerivativeLimitOrdersAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -133,6 +213,11 @@ export interface BatchCreateDerivativeLimitOrdersAuthzAminoMsg {
   type: "exchange/BatchCreateDerivativeLimitOrdersAuthz";
   value: BatchCreateDerivativeLimitOrdersAuthzAmino;
 }
+/**
+ * @name CancelDerivativeOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CancelDerivativeOrderAuthz
+ */
 export interface CancelDerivativeOrderAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -141,6 +226,11 @@ export interface CancelDerivativeOrderAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.CancelDerivativeOrderAuthz";
   value: Uint8Array;
 }
+/**
+ * @name CancelDerivativeOrderAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CancelDerivativeOrderAuthz
+ */
 export interface CancelDerivativeOrderAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -149,6 +239,11 @@ export interface CancelDerivativeOrderAuthzAminoMsg {
   type: "exchange/CancelDerivativeOrderAuthz";
   value: CancelDerivativeOrderAuthzAmino;
 }
+/**
+ * @name BatchCancelDerivativeOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz
+ */
 export interface BatchCancelDerivativeOrdersAuthz {
   subaccountId: string;
   marketIds: string[];
@@ -157,6 +252,11 @@ export interface BatchCancelDerivativeOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz";
   value: Uint8Array;
 }
+/**
+ * @name BatchCancelDerivativeOrdersAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz
+ */
 export interface BatchCancelDerivativeOrdersAuthzAmino {
   subaccount_id: string;
   market_ids: string[];
@@ -165,7 +265,12 @@ export interface BatchCancelDerivativeOrdersAuthzAminoMsg {
   type: "exchange/BatchCancelDerivativeOrdersAuthz";
   value: BatchCancelDerivativeOrdersAuthzAmino;
 }
-/** common authz message used in both spot & derivative markets */
+/**
+ * common authz message used in both spot & derivative markets
+ * @name BatchUpdateOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchUpdateOrdersAuthz
+ */
 export interface BatchUpdateOrdersAuthz {
   subaccountId: string;
   spotMarkets: string[];
@@ -175,7 +280,12 @@ export interface BatchUpdateOrdersAuthzProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchUpdateOrdersAuthz";
   value: Uint8Array;
 }
-/** common authz message used in both spot & derivative markets */
+/**
+ * common authz message used in both spot & derivative markets
+ * @name BatchUpdateOrdersAuthzAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchUpdateOrdersAuthz
+ */
 export interface BatchUpdateOrdersAuthzAmino {
   subaccount_id: string;
   spot_markets: string[];
@@ -191,6 +301,12 @@ function createBaseCreateSpotLimitOrderAuthz(): CreateSpotLimitOrderAuthz {
     marketIds: []
   };
 }
+/**
+ * spot authz messages
+ * @name CreateSpotLimitOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateSpotLimitOrderAuthz
+ */
 export const CreateSpotLimitOrderAuthz = {
   typeUrl: "/injective.exchange.v1beta1.CreateSpotLimitOrderAuthz",
   aminoType: "exchange/CreateSpotLimitOrderAuthz",
@@ -288,6 +404,11 @@ function createBaseCreateSpotMarketOrderAuthz(): CreateSpotMarketOrderAuthz {
     marketIds: []
   };
 }
+/**
+ * @name CreateSpotMarketOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateSpotMarketOrderAuthz
+ */
 export const CreateSpotMarketOrderAuthz = {
   typeUrl: "/injective.exchange.v1beta1.CreateSpotMarketOrderAuthz",
   aminoType: "exchange/CreateSpotMarketOrderAuthz",
@@ -385,6 +506,11 @@ function createBaseBatchCreateSpotLimitOrdersAuthz(): BatchCreateSpotLimitOrders
     marketIds: []
   };
 }
+/**
+ * @name BatchCreateSpotLimitOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz
+ */
 export const BatchCreateSpotLimitOrdersAuthz = {
   typeUrl: "/injective.exchange.v1beta1.BatchCreateSpotLimitOrdersAuthz",
   aminoType: "exchange/BatchCreateSpotLimitOrdersAuthz",
@@ -482,6 +608,11 @@ function createBaseCancelSpotOrderAuthz(): CancelSpotOrderAuthz {
     marketIds: []
   };
 }
+/**
+ * @name CancelSpotOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CancelSpotOrderAuthz
+ */
 export const CancelSpotOrderAuthz = {
   typeUrl: "/injective.exchange.v1beta1.CancelSpotOrderAuthz",
   aminoType: "exchange/CancelSpotOrderAuthz",
@@ -579,6 +710,11 @@ function createBaseBatchCancelSpotOrdersAuthz(): BatchCancelSpotOrdersAuthz {
     marketIds: []
   };
 }
+/**
+ * @name BatchCancelSpotOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz
+ */
 export const BatchCancelSpotOrdersAuthz = {
   typeUrl: "/injective.exchange.v1beta1.BatchCancelSpotOrdersAuthz",
   aminoType: "exchange/BatchCancelSpotOrdersAuthz",
@@ -676,6 +812,12 @@ function createBaseCreateDerivativeLimitOrderAuthz(): CreateDerivativeLimitOrder
     marketIds: []
   };
 }
+/**
+ * derivative authz messages
+ * @name CreateDerivativeLimitOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz
+ */
 export const CreateDerivativeLimitOrderAuthz = {
   typeUrl: "/injective.exchange.v1beta1.CreateDerivativeLimitOrderAuthz",
   aminoType: "exchange/CreateDerivativeLimitOrderAuthz",
@@ -773,6 +915,11 @@ function createBaseCreateDerivativeMarketOrderAuthz(): CreateDerivativeMarketOrd
     marketIds: []
   };
 }
+/**
+ * @name CreateDerivativeMarketOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz
+ */
 export const CreateDerivativeMarketOrderAuthz = {
   typeUrl: "/injective.exchange.v1beta1.CreateDerivativeMarketOrderAuthz",
   aminoType: "exchange/CreateDerivativeMarketOrderAuthz",
@@ -870,6 +1017,11 @@ function createBaseBatchCreateDerivativeLimitOrdersAuthz(): BatchCreateDerivativ
     marketIds: []
   };
 }
+/**
+ * @name BatchCreateDerivativeLimitOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz
+ */
 export const BatchCreateDerivativeLimitOrdersAuthz = {
   typeUrl: "/injective.exchange.v1beta1.BatchCreateDerivativeLimitOrdersAuthz",
   aminoType: "exchange/BatchCreateDerivativeLimitOrdersAuthz",
@@ -967,6 +1119,11 @@ function createBaseCancelDerivativeOrderAuthz(): CancelDerivativeOrderAuthz {
     marketIds: []
   };
 }
+/**
+ * @name CancelDerivativeOrderAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.CancelDerivativeOrderAuthz
+ */
 export const CancelDerivativeOrderAuthz = {
   typeUrl: "/injective.exchange.v1beta1.CancelDerivativeOrderAuthz",
   aminoType: "exchange/CancelDerivativeOrderAuthz",
@@ -1064,6 +1221,11 @@ function createBaseBatchCancelDerivativeOrdersAuthz(): BatchCancelDerivativeOrde
     marketIds: []
   };
 }
+/**
+ * @name BatchCancelDerivativeOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz
+ */
 export const BatchCancelDerivativeOrdersAuthz = {
   typeUrl: "/injective.exchange.v1beta1.BatchCancelDerivativeOrdersAuthz",
   aminoType: "exchange/BatchCancelDerivativeOrdersAuthz",
@@ -1162,6 +1324,12 @@ function createBaseBatchUpdateOrdersAuthz(): BatchUpdateOrdersAuthz {
     derivativeMarkets: []
   };
 }
+/**
+ * common authz message used in both spot & derivative markets
+ * @name BatchUpdateOrdersAuthz
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.BatchUpdateOrdersAuthz
+ */
 export const BatchUpdateOrdersAuthz = {
   typeUrl: "/injective.exchange.v1beta1.BatchUpdateOrdersAuthz",
   aminoType: "exchange/BatchUpdateOrdersAuthz",

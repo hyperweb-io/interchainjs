@@ -8,6 +8,9 @@ import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromByt
 /**
  * Block is tendermint type Block, with the Header proposer address
  * field converted to bech32 string.
+ * @name Block
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Block
  */
 export interface Block {
   header: Header;
@@ -22,6 +25,9 @@ export interface BlockProtoMsg {
 /**
  * Block is tendermint type Block, with the Header proposer address
  * field converted to bech32 string.
+ * @name BlockAmino
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Block
  */
 export interface BlockAmino {
   header: HeaderAmino;
@@ -33,30 +39,55 @@ export interface BlockAminoMsg {
   type: "cosmos-sdk/Block";
   value: BlockAmino;
 }
-/** Header defines the structure of a Tendermint block header. */
+/**
+ * Header defines the structure of a Tendermint block header.
+ * @name Header
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Header
+ */
 export interface Header {
-  /** basic block info */
+  /**
+   * basic block info
+   */
   version: Consensus;
   chainId: string;
   height: bigint;
   time: Date;
-  /** prev block info */
+  /**
+   * prev block info
+   */
   lastBlockId: BlockID;
-  /** hashes of block data */
+  /**
+   * hashes of block data
+   */
   lastCommitHash: Uint8Array;
-  /** transactions */
+  /**
+   * transactions
+   */
   dataHash: Uint8Array;
-  /** hashes from the app output from the prev block */
+  /**
+   * hashes from the app output from the prev block
+   */
   validatorsHash: Uint8Array;
-  /** validators for the next block */
+  /**
+   * validators for the next block
+   */
   nextValidatorsHash: Uint8Array;
-  /** consensus params for current block */
+  /**
+   * consensus params for current block
+   */
   consensusHash: Uint8Array;
-  /** state after txs from the previous block */
+  /**
+   * state after txs from the previous block
+   */
   appHash: Uint8Array;
-  /** root hash of all results from the txs from the previous block */
+  /**
+   * root hash of all results from the txs from the previous block
+   */
   lastResultsHash: Uint8Array;
-  /** consensus info */
+  /**
+   * consensus info
+   */
   evidenceHash: Uint8Array;
   /**
    * proposer_address is the original block proposer address, formatted as a Bech32 string.
@@ -69,30 +100,55 @@ export interface HeaderProtoMsg {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Header";
   value: Uint8Array;
 }
-/** Header defines the structure of a Tendermint block header. */
+/**
+ * Header defines the structure of a Tendermint block header.
+ * @name HeaderAmino
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Header
+ */
 export interface HeaderAmino {
-  /** basic block info */
+  /**
+   * basic block info
+   */
   version: ConsensusAmino;
   chain_id: string;
   height: string;
   time: string;
-  /** prev block info */
+  /**
+   * prev block info
+   */
   last_block_id: BlockIDAmino;
-  /** hashes of block data */
+  /**
+   * hashes of block data
+   */
   last_commit_hash: string;
-  /** transactions */
+  /**
+   * transactions
+   */
   data_hash: string;
-  /** hashes from the app output from the prev block */
+  /**
+   * hashes from the app output from the prev block
+   */
   validators_hash: string;
-  /** validators for the next block */
+  /**
+   * validators for the next block
+   */
   next_validators_hash: string;
-  /** consensus params for current block */
+  /**
+   * consensus params for current block
+   */
   consensus_hash: string;
-  /** state after txs from the previous block */
+  /**
+   * state after txs from the previous block
+   */
   app_hash: string;
-  /** root hash of all results from the txs from the previous block */
+  /**
+   * root hash of all results from the txs from the previous block
+   */
   last_results_hash: string;
-  /** consensus info */
+  /**
+   * consensus info
+   */
   evidence_hash: string;
   /**
    * proposer_address is the original block proposer address, formatted as a Bech32 string.
@@ -113,6 +169,13 @@ function createBaseBlock(): Block {
     lastCommit: undefined
   };
 }
+/**
+ * Block is tendermint type Block, with the Header proposer address
+ * field converted to bech32 string.
+ * @name Block
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Block
+ */
 export const Block = {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Block",
   aminoType: "cosmos-sdk/Block",
@@ -244,6 +307,12 @@ function createBaseHeader(): Header {
     proposerAddress: ""
   };
 }
+/**
+ * Header defines the structure of a Tendermint block header.
+ * @name Header
+ * @package cosmos.base.tendermint.v1beta1
+ * @see proto type: cosmos.base.tendermint.v1beta1.Header
+ */
 export const Header = {
   typeUrl: "/cosmos.base.tendermint.v1beta1.Header",
   aminoType: "cosmos-sdk/Header",

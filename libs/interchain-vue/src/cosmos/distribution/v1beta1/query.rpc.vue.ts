@@ -1,53 +1,103 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse, QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse, QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse, QueryValidatorCommissionRequest, QueryValidatorCommissionResponse, QueryValidatorSlashesRequest, QueryValidatorSlashesResponse, QueryDelegationRewardsRequest, QueryDelegationRewardsResponse, QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse, QueryCommunityPoolRequest, QueryCommunityPoolResponse } from "./query";
 import { getParams, getValidatorDistributionInfo, getValidatorOutstandingRewards, getValidatorCommission, getValidatorSlashes, getDelegationRewards, getDelegationTotalRewards, getDelegatorValidators, getDelegatorWithdrawAddress, getCommunityPool } from "./query.rpc.func";
-/* Params queries params of the distribution module. */
+/**
+ * Params queries params of the distribution module.
+ * @name useGetParams
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.Params
+ */
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"
 });
-/* ValidatorDistributionInfo queries validator commission and self-delegation rewards for validator */
+/**
+ * ValidatorDistributionInfo queries validator commission and self-delegation rewards for validator
+ * @name useGetValidatorDistributionInfo
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.ValidatorDistributionInfo
+ */
 export const useGetValidatorDistributionInfo = buildUseVueQuery<QueryValidatorDistributionInfoRequest, QueryValidatorDistributionInfoResponse>({
   builderQueryFn: getValidatorDistributionInfo,
   queryKeyPrefix: "ValidatorDistributionInfoQuery"
 });
-/* ValidatorOutstandingRewards queries rewards of a validator address. */
+/**
+ * ValidatorOutstandingRewards queries rewards of a validator address.
+ * @name useGetValidatorOutstandingRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.ValidatorOutstandingRewards
+ */
 export const useGetValidatorOutstandingRewards = buildUseVueQuery<QueryValidatorOutstandingRewardsRequest, QueryValidatorOutstandingRewardsResponse>({
   builderQueryFn: getValidatorOutstandingRewards,
   queryKeyPrefix: "ValidatorOutstandingRewardsQuery"
 });
-/* ValidatorCommission queries accumulated commission for a validator. */
+/**
+ * ValidatorCommission queries accumulated commission for a validator.
+ * @name useGetValidatorCommission
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.ValidatorCommission
+ */
 export const useGetValidatorCommission = buildUseVueQuery<QueryValidatorCommissionRequest, QueryValidatorCommissionResponse>({
   builderQueryFn: getValidatorCommission,
   queryKeyPrefix: "ValidatorCommissionQuery"
 });
-/* ValidatorSlashes queries slash events of a validator. */
+/**
+ * ValidatorSlashes queries slash events of a validator.
+ * @name useGetValidatorSlashes
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.ValidatorSlashes
+ */
 export const useGetValidatorSlashes = buildUseVueQuery<QueryValidatorSlashesRequest, QueryValidatorSlashesResponse>({
   builderQueryFn: getValidatorSlashes,
   queryKeyPrefix: "ValidatorSlashesQuery"
 });
-/* DelegationRewards queries the total rewards accrued by a delegation. */
+/**
+ * DelegationRewards queries the total rewards accrued by a delegation.
+ * @name useGetDelegationRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.DelegationRewards
+ */
 export const useGetDelegationRewards = buildUseVueQuery<QueryDelegationRewardsRequest, QueryDelegationRewardsResponse>({
   builderQueryFn: getDelegationRewards,
   queryKeyPrefix: "DelegationRewardsQuery"
 });
-/* DelegationTotalRewards queries the total rewards accrued by each
- validator. */
+/**
+ * DelegationTotalRewards queries the total rewards accrued by each
+ * validator.
+ * @name useGetDelegationTotalRewards
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.DelegationTotalRewards
+ */
 export const useGetDelegationTotalRewards = buildUseVueQuery<QueryDelegationTotalRewardsRequest, QueryDelegationTotalRewardsResponse>({
   builderQueryFn: getDelegationTotalRewards,
   queryKeyPrefix: "DelegationTotalRewardsQuery"
 });
-/* DelegatorValidators queries the validators of a delegator. */
+/**
+ * DelegatorValidators queries the validators of a delegator.
+ * @name useGetDelegatorValidators
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.DelegatorValidators
+ */
 export const useGetDelegatorValidators = buildUseVueQuery<QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse>({
   builderQueryFn: getDelegatorValidators,
   queryKeyPrefix: "DelegatorValidatorsQuery"
 });
-/* DelegatorWithdrawAddress queries withdraw address of a delegator. */
+/**
+ * DelegatorWithdrawAddress queries withdraw address of a delegator.
+ * @name useGetDelegatorWithdrawAddress
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.DelegatorWithdrawAddress
+ */
 export const useGetDelegatorWithdrawAddress = buildUseVueQuery<QueryDelegatorWithdrawAddressRequest, QueryDelegatorWithdrawAddressResponse>({
   builderQueryFn: getDelegatorWithdrawAddress,
   queryKeyPrefix: "DelegatorWithdrawAddressQuery"
 });
-/* CommunityPool queries the community pool coins. */
+/**
+ * CommunityPool queries the community pool coins.
+ * @name useGetCommunityPool
+ * @package cosmos.distribution.v1beta1
+ * @see proto service: cosmos.distribution.v1beta1.CommunityPool
+ */
 export const useGetCommunityPool = buildUseVueQuery<QueryCommunityPoolRequest, QueryCommunityPoolResponse>({
   builderQueryFn: getCommunityPool,
   queryKeyPrefix: "CommunityPoolQuery"

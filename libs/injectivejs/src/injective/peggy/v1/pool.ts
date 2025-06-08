@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-/** IDSet represents a set of IDs */
+/**
+ * IDSet represents a set of IDs
+ * @name IDSet
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.IDSet
+ */
 export interface IDSet {
   ids: bigint[];
 }
@@ -8,7 +13,12 @@ export interface IDSetProtoMsg {
   typeUrl: "/injective.peggy.v1.IDSet";
   value: Uint8Array;
 }
-/** IDSet represents a set of IDs */
+/**
+ * IDSet represents a set of IDs
+ * @name IDSetAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.IDSet
+ */
 export interface IDSetAmino {
   ids: string[];
 }
@@ -16,6 +26,11 @@ export interface IDSetAminoMsg {
   type: "/injective.peggy.v1.IDSet";
   value: IDSetAmino;
 }
+/**
+ * @name BatchFees
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BatchFees
+ */
 export interface BatchFees {
   token: string;
   totalFees: string;
@@ -24,6 +39,11 @@ export interface BatchFeesProtoMsg {
   typeUrl: "/injective.peggy.v1.BatchFees";
   value: Uint8Array;
 }
+/**
+ * @name BatchFeesAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BatchFees
+ */
 export interface BatchFeesAmino {
   token: string;
   total_fees: string;
@@ -37,6 +57,12 @@ function createBaseIDSet(): IDSet {
     ids: []
   };
 }
+/**
+ * IDSet represents a set of IDs
+ * @name IDSet
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.IDSet
+ */
 export const IDSet = {
   typeUrl: "/injective.peggy.v1.IDSet",
   is(o: any): o is IDSet {
@@ -119,6 +145,11 @@ function createBaseBatchFees(): BatchFees {
     totalFees: ""
   };
 }
+/**
+ * @name BatchFees
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BatchFees
+ */
 export const BatchFees = {
   typeUrl: "/injective.peggy.v1.BatchFees",
   is(o: any): o is BatchFees {
