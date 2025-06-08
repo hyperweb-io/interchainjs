@@ -12,7 +12,7 @@ export { registry as IbcApplicationsTransferV1Registry, MessageComposer as IbcAp
 export { registry as IbcCoreChannelV1Registry, MessageComposer as IbcCoreChannelV1MessageComposer } from "./core/channel/v1/tx.registry";
 export { registry as IbcCoreClientV1Registry, MessageComposer as IbcCoreClientV1MessageComposer } from "./core/client/v1/tx.registry";
 export { registry as IbcCoreConnectionV1Registry, MessageComposer as IbcCoreConnectionV1MessageComposer } from "./core/connection/v1/tx.registry";
-export { transfer, updateParams as updateParams5 } from "./applications/transfer/v1/tx.rpc.func";
+export { transfer, updateParams as updateParamsIbcApplicationsTransferV1 } from "./applications/transfer/v1/tx.rpc.func";
 export * from "./core/channel/v1/tx.rpc.func";
 export * from "./core/client/v1/tx.rpc.func";
 export * from "./core/connection/v1/tx.rpc.func";

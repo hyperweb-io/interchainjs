@@ -2,16 +2,25 @@ import { Params, ParamsAmino, InsuranceFund, InsuranceFundAmino, RedemptionSched
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the insurance module's genesis state. */
+/**
+ * GenesisState defines the insurance module's genesis state.
+ * @name GenesisState
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to insurance. */
+  /**
+   * params defines all the parameters of related to insurance.
+   */
   params: Params;
   /**
    * insurance_funds describes the insurance funds available for derivative
    * markets
    */
   insuranceFunds: InsuranceFund[];
-  /** redemption_schedule describes the redemption requests pending */
+  /**
+   * redemption_schedule describes the redemption requests pending
+   */
   redemptionSchedule: RedemptionSchedule[];
   /**
    * next_share_denom_id describes the next share denom id to be used for newly
@@ -28,16 +37,25 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the insurance module's genesis state. */
+/**
+ * GenesisState defines the insurance module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines all the parameters of related to insurance. */
+  /**
+   * params defines all the parameters of related to insurance.
+   */
   params: ParamsAmino;
   /**
    * insurance_funds describes the insurance funds available for derivative
    * markets
    */
   insurance_funds: InsuranceFundAmino[];
-  /** redemption_schedule describes the redemption requests pending */
+  /**
+   * redemption_schedule describes the redemption requests pending
+   */
   redemption_schedule: RedemptionScheduleAmino[];
   /**
    * next_share_denom_id describes the next share denom id to be used for newly
@@ -63,6 +81,12 @@ function createBaseGenesisState(): GenesisState {
     nextRedemptionScheduleId: BigInt(0)
   };
 }
+/**
+ * GenesisState defines the insurance module's genesis state.
+ * @name GenesisState
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.insurance.v1beta1.GenesisState",
   is(o: any): o is GenesisState {

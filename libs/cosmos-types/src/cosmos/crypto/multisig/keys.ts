@@ -5,6 +5,9 @@ import { DeepPartial } from "../../../helpers";
  * LegacyAminoPubKey specifies a public key type
  * which nests multiple public keys and a threshold,
  * it uses legacy amino address rules.
+ * @name LegacyAminoPubKey
+ * @package cosmos.crypto.multisig
+ * @see proto type: cosmos.crypto.multisig.LegacyAminoPubKey
  */
 export interface LegacyAminoPubKey {
   threshold: number;
@@ -16,6 +19,14 @@ function createBaseLegacyAminoPubKey(): LegacyAminoPubKey {
     publicKeys: []
   };
 }
+/**
+ * LegacyAminoPubKey specifies a public key type
+ * which nests multiple public keys and a threshold,
+ * it uses legacy amino address rules.
+ * @name LegacyAminoPubKey
+ * @package cosmos.crypto.multisig
+ * @see proto type: cosmos.crypto.multisig.LegacyAminoPubKey
+ */
 export const LegacyAminoPubKey = {
   typeUrl: "/cosmos.crypto.multisig.LegacyAminoPubKey",
   aminoType: "tendermint/PubKeyMultisigThreshold",

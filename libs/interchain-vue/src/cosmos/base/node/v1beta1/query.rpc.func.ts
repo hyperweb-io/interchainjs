@@ -1,6 +1,11 @@
 import { buildQuery } from "../../../../helper-func-types";
 import { ConfigRequest, ConfigResponse, StatusRequest, StatusResponse } from "./query";
-/* Config queries for the operator configuration. */
+/**
+ * Config queries for the operator configuration.
+ * @name getConfig
+ * @package cosmos.base.node.v1beta1
+ * @see proto service: cosmos.base.node.v1beta1.Config
+ */
 export const getConfig = buildQuery<ConfigRequest, ConfigResponse>({
   encode: ConfigRequest.encode,
   decode: ConfigResponse.decode,
@@ -8,7 +13,12 @@ export const getConfig = buildQuery<ConfigRequest, ConfigResponse>({
   method: "Config",
   deps: [ConfigRequest, ConfigResponse]
 });
-/* Status queries for the node status. */
+/**
+ * Status queries for the node status.
+ * @name getStatus
+ * @package cosmos.base.node.v1beta1
+ * @see proto service: cosmos.base.node.v1beta1.Status
+ */
 export const getStatus = buildQuery<StatusRequest, StatusResponse>({
   encode: StatusRequest.encode,
   decode: StatusResponse.decode,

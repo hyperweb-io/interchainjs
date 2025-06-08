@@ -2,11 +2,18 @@ import { IdentifiedConnection, IdentifiedConnectionAmino, ConnectionPaths, Conne
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** GenesisState defines the ibc connection submodule's genesis state. */
+/**
+ * GenesisState defines the ibc connection submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.GenesisState
+ */
 export interface GenesisState {
   connections: IdentifiedConnection[];
   clientConnectionPaths: ConnectionPaths[];
-  /** the sequence for the next generated connection identifier */
+  /**
+   * the sequence for the next generated connection identifier
+   */
   nextConnectionSequence: bigint;
   params: Params;
 }
@@ -14,11 +21,18 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/ibc.core.connection.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the ibc connection submodule's genesis state. */
+/**
+ * GenesisState defines the ibc connection submodule's genesis state.
+ * @name GenesisStateAmino
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.GenesisState
+ */
 export interface GenesisStateAmino {
   connections: IdentifiedConnectionAmino[];
   client_connection_paths: ConnectionPathsAmino[];
-  /** the sequence for the next generated connection identifier */
+  /**
+   * the sequence for the next generated connection identifier
+   */
   next_connection_sequence: string;
   params: ParamsAmino;
 }
@@ -34,6 +48,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({})
   };
 }
+/**
+ * GenesisState defines the ibc connection submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.connection.v1
+ * @see proto type: ibc.core.connection.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.connection.v1.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",

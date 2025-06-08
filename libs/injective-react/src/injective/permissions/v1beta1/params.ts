@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-/** Params defines the parameters for the permissions module. */
+/**
+ * Params defines the parameters for the permissions module.
+ * @name Params
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Params
+ */
 export interface Params {
   wasmHookQueryMaxGas: bigint;
 }
@@ -8,7 +13,12 @@ export interface ParamsProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Params";
   value: Uint8Array;
 }
-/** Params defines the parameters for the permissions module. */
+/**
+ * Params defines the parameters for the permissions module.
+ * @name ParamsAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Params
+ */
 export interface ParamsAmino {
   wasm_hook_query_max_gas: string;
 }
@@ -21,6 +31,12 @@ function createBaseParams(): Params {
     wasmHookQueryMaxGas: BigInt(0)
   };
 }
+/**
+ * Params defines the parameters for the permissions module.
+ * @name Params
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/injective.permissions.v1beta1.Params",
   aminoType: "permissions/Params",

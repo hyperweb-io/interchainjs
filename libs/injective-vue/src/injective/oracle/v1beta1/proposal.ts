@@ -2,6 +2,11 @@ import { BandOracleRequest, BandOracleRequestAmino, BandIBCParams, BandIBCParams
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name GrantBandOraclePrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal
+ */
 export interface GrantBandOraclePrivilegeProposal {
   title: string;
   description: string;
@@ -11,6 +16,11 @@ export interface GrantBandOraclePrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name GrantBandOraclePrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal
+ */
 export interface GrantBandOraclePrivilegeProposalAmino {
   title: string;
   description: string;
@@ -20,6 +30,11 @@ export interface GrantBandOraclePrivilegeProposalAminoMsg {
   type: "oracle/GrantBandOraclePrivilegeProposal";
   value: GrantBandOraclePrivilegeProposalAmino;
 }
+/**
+ * @name RevokeBandOraclePrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal
+ */
 export interface RevokeBandOraclePrivilegeProposal {
   title: string;
   description: string;
@@ -29,6 +44,11 @@ export interface RevokeBandOraclePrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name RevokeBandOraclePrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal
+ */
 export interface RevokeBandOraclePrivilegeProposalAmino {
   title: string;
   description: string;
@@ -38,6 +58,11 @@ export interface RevokeBandOraclePrivilegeProposalAminoMsg {
   type: "oracle/RevokeBandOraclePrivilegeProposal";
   value: RevokeBandOraclePrivilegeProposalAmino;
 }
+/**
+ * @name GrantPriceFeederPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal
+ */
 export interface GrantPriceFeederPrivilegeProposal {
   title: string;
   description: string;
@@ -49,6 +74,11 @@ export interface GrantPriceFeederPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name GrantPriceFeederPrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal
+ */
 export interface GrantPriceFeederPrivilegeProposalAmino {
   title: string;
   description: string;
@@ -60,6 +90,11 @@ export interface GrantPriceFeederPrivilegeProposalAminoMsg {
   type: "oracle/GrantPriceFeederPrivilegeProposal";
   value: GrantPriceFeederPrivilegeProposalAmino;
 }
+/**
+ * @name GrantProviderPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantProviderPrivilegeProposal
+ */
 export interface GrantProviderPrivilegeProposal {
   title: string;
   description: string;
@@ -70,6 +105,11 @@ export interface GrantProviderPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name GrantProviderPrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantProviderPrivilegeProposal
+ */
 export interface GrantProviderPrivilegeProposalAmino {
   title: string;
   description: string;
@@ -80,6 +120,11 @@ export interface GrantProviderPrivilegeProposalAminoMsg {
   type: "oracle/GrantProviderPrivilegeProposal";
   value: GrantProviderPrivilegeProposalAmino;
 }
+/**
+ * @name RevokeProviderPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeProviderPrivilegeProposal
+ */
 export interface RevokeProviderPrivilegeProposal {
   title: string;
   description: string;
@@ -90,6 +135,11 @@ export interface RevokeProviderPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name RevokeProviderPrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeProviderPrivilegeProposal
+ */
 export interface RevokeProviderPrivilegeProposalAmino {
   title: string;
   description: string;
@@ -100,6 +150,11 @@ export interface RevokeProviderPrivilegeProposalAminoMsg {
   type: "oracle/RevokeProviderPrivilegeProposal";
   value: RevokeProviderPrivilegeProposalAmino;
 }
+/**
+ * @name RevokePriceFeederPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal
+ */
 export interface RevokePriceFeederPrivilegeProposal {
   title: string;
   description: string;
@@ -111,6 +166,11 @@ export interface RevokePriceFeederPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name RevokePriceFeederPrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal
+ */
 export interface RevokePriceFeederPrivilegeProposalAmino {
   title: string;
   description: string;
@@ -122,6 +182,11 @@ export interface RevokePriceFeederPrivilegeProposalAminoMsg {
   type: "oracle/RevokePriceFeederPrivilegeProposal";
   value: RevokePriceFeederPrivilegeProposalAmino;
 }
+/**
+ * @name AuthorizeBandOracleRequestProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal
+ */
 export interface AuthorizeBandOracleRequestProposal {
   title: string;
   description: string;
@@ -131,6 +196,11 @@ export interface AuthorizeBandOracleRequestProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal";
   value: Uint8Array;
 }
+/**
+ * @name AuthorizeBandOracleRequestProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal
+ */
 export interface AuthorizeBandOracleRequestProposalAmino {
   title: string;
   description: string;
@@ -140,6 +210,11 @@ export interface AuthorizeBandOracleRequestProposalAminoMsg {
   type: "oracle/AuthorizeBandOracleRequestProposal";
   value: AuthorizeBandOracleRequestProposalAmino;
 }
+/**
+ * @name UpdateBandOracleRequestProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.UpdateBandOracleRequestProposal
+ */
 export interface UpdateBandOracleRequestProposal {
   title: string;
   description: string;
@@ -150,6 +225,11 @@ export interface UpdateBandOracleRequestProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal";
   value: Uint8Array;
 }
+/**
+ * @name UpdateBandOracleRequestProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.UpdateBandOracleRequestProposal
+ */
 export interface UpdateBandOracleRequestProposalAmino {
   title: string;
   description: string;
@@ -160,6 +240,11 @@ export interface UpdateBandOracleRequestProposalAminoMsg {
   type: "oracle/UpdateBandOracleRequestProposal";
   value: UpdateBandOracleRequestProposalAmino;
 }
+/**
+ * @name EnableBandIBCProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EnableBandIBCProposal
+ */
 export interface EnableBandIBCProposal {
   title: string;
   description: string;
@@ -169,6 +254,11 @@ export interface EnableBandIBCProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.EnableBandIBCProposal";
   value: Uint8Array;
 }
+/**
+ * @name EnableBandIBCProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EnableBandIBCProposal
+ */
 export interface EnableBandIBCProposalAmino {
   title: string;
   description: string;
@@ -178,6 +268,11 @@ export interface EnableBandIBCProposalAminoMsg {
   type: "oracle/EnableBandIBCProposal";
   value: EnableBandIBCProposalAmino;
 }
+/**
+ * @name GrantStorkPublisherPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal
+ */
 export interface GrantStorkPublisherPrivilegeProposal {
   title: string;
   description: string;
@@ -187,6 +282,11 @@ export interface GrantStorkPublisherPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name GrantStorkPublisherPrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal
+ */
 export interface GrantStorkPublisherPrivilegeProposalAmino {
   title: string;
   description: string;
@@ -196,6 +296,11 @@ export interface GrantStorkPublisherPrivilegeProposalAminoMsg {
   type: "oracle/GrantStorkPublisherPrivilegeProposal";
   value: GrantStorkPublisherPrivilegeProposalAmino;
 }
+/**
+ * @name RevokeStorkPublisherPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal
+ */
 export interface RevokeStorkPublisherPrivilegeProposal {
   title: string;
   description: string;
@@ -205,6 +310,11 @@ export interface RevokeStorkPublisherPrivilegeProposalProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal";
   value: Uint8Array;
 }
+/**
+ * @name RevokeStorkPublisherPrivilegeProposalAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal
+ */
 export interface RevokeStorkPublisherPrivilegeProposalAmino {
   title: string;
   description: string;
@@ -221,6 +331,11 @@ function createBaseGrantBandOraclePrivilegeProposal(): GrantBandOraclePrivilegeP
     relayers: []
   };
 }
+/**
+ * @name GrantBandOraclePrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal
+ */
 export const GrantBandOraclePrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal",
   aminoType: "oracle/GrantBandOraclePrivilegeProposal",
@@ -330,6 +445,11 @@ function createBaseRevokeBandOraclePrivilegeProposal(): RevokeBandOraclePrivileg
     relayers: []
   };
 }
+/**
+ * @name RevokeBandOraclePrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal
+ */
 export const RevokeBandOraclePrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal",
   aminoType: "oracle/RevokeBandOraclePrivilegeProposal",
@@ -441,6 +561,11 @@ function createBaseGrantPriceFeederPrivilegeProposal(): GrantPriceFeederPrivileg
     relayers: []
   };
 }
+/**
+ * @name GrantPriceFeederPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal
+ */
 export const GrantPriceFeederPrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal",
   aminoType: "oracle/GrantPriceFeederPrivilegeProposal",
@@ -573,6 +698,11 @@ function createBaseGrantProviderPrivilegeProposal(): GrantProviderPrivilegePropo
     relayers: []
   };
 }
+/**
+ * @name GrantProviderPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantProviderPrivilegeProposal
+ */
 export const GrantProviderPrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal",
   aminoType: "oracle/GrantProviderPrivilegeProposal",
@@ -694,6 +824,11 @@ function createBaseRevokeProviderPrivilegeProposal(): RevokeProviderPrivilegePro
     relayers: []
   };
 }
+/**
+ * @name RevokeProviderPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeProviderPrivilegeProposal
+ */
 export const RevokeProviderPrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal",
   aminoType: "oracle/RevokeProviderPrivilegeProposal",
@@ -816,6 +951,11 @@ function createBaseRevokePriceFeederPrivilegeProposal(): RevokePriceFeederPrivil
     relayers: []
   };
 }
+/**
+ * @name RevokePriceFeederPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal
+ */
 export const RevokePriceFeederPrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal",
   aminoType: "oracle/RevokePriceFeederPrivilegeProposal",
@@ -947,6 +1087,11 @@ function createBaseAuthorizeBandOracleRequestProposal(): AuthorizeBandOracleRequ
     request: BandOracleRequest.fromPartial({})
   };
 }
+/**
+ * @name AuthorizeBandOracleRequestProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal
+ */
 export const AuthorizeBandOracleRequestProposal = {
   typeUrl: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal",
   aminoType: "oracle/AuthorizeBandOracleRequestProposal",
@@ -1056,6 +1201,11 @@ function createBaseUpdateBandOracleRequestProposal(): UpdateBandOracleRequestPro
     updateOracleRequest: undefined
   };
 }
+/**
+ * @name UpdateBandOracleRequestProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.UpdateBandOracleRequestProposal
+ */
 export const UpdateBandOracleRequestProposal = {
   typeUrl: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal",
   aminoType: "oracle/UpdateBandOracleRequestProposal",
@@ -1186,6 +1336,11 @@ function createBaseEnableBandIBCProposal(): EnableBandIBCProposal {
     bandIbcParams: BandIBCParams.fromPartial({})
   };
 }
+/**
+ * @name EnableBandIBCProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.EnableBandIBCProposal
+ */
 export const EnableBandIBCProposal = {
   typeUrl: "/injective.oracle.v1beta1.EnableBandIBCProposal",
   aminoType: "oracle/EnableBandIBCProposal",
@@ -1294,6 +1449,11 @@ function createBaseGrantStorkPublisherPrivilegeProposal(): GrantStorkPublisherPr
     storkPublishers: []
   };
 }
+/**
+ * @name GrantStorkPublisherPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal
+ */
 export const GrantStorkPublisherPrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal",
   aminoType: "oracle/GrantStorkPublisherPrivilegeProposal",
@@ -1403,6 +1563,11 @@ function createBaseRevokeStorkPublisherPrivilegeProposal(): RevokeStorkPublisher
     storkPublishers: []
   };
 }
+/**
+ * @name RevokeStorkPublisherPrivilegeProposal
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal
+ */
 export const RevokeStorkPublisherPrivilegeProposal = {
   typeUrl: "/injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal",
   aminoType: "oracle/RevokeStorkPublisherPrivilegeProposal",

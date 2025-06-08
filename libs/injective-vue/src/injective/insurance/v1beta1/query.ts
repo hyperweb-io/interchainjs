@@ -7,6 +7,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryInsuranceParamsRequest is the request type for the Query/InsuranceParams
  * RPC method.
+ * @name QueryInsuranceParamsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceParamsRequest
  */
 export interface QueryInsuranceParamsRequest {}
 export interface QueryInsuranceParamsRequestProtoMsg {
@@ -16,6 +19,9 @@ export interface QueryInsuranceParamsRequestProtoMsg {
 /**
  * QueryInsuranceParamsRequest is the request type for the Query/InsuranceParams
  * RPC method.
+ * @name QueryInsuranceParamsRequestAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceParamsRequest
  */
 export interface QueryInsuranceParamsRequestAmino {}
 export interface QueryInsuranceParamsRequestAminoMsg {
@@ -25,6 +31,9 @@ export interface QueryInsuranceParamsRequestAminoMsg {
 /**
  * QueryInsuranceParamsRequest is the response type for the
  * Query/InsuranceParams RPC method.
+ * @name QueryInsuranceParamsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceParamsResponse
  */
 export interface QueryInsuranceParamsResponse {
   params: Params;
@@ -36,6 +45,9 @@ export interface QueryInsuranceParamsResponseProtoMsg {
 /**
  * QueryInsuranceParamsRequest is the response type for the
  * Query/InsuranceParams RPC method.
+ * @name QueryInsuranceParamsResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceParamsResponse
  */
 export interface QueryInsuranceParamsResponseAmino {
   params: ParamsAmino;
@@ -47,9 +59,14 @@ export interface QueryInsuranceParamsResponseAminoMsg {
 /**
  * QueryInsuranceFundRequest is the request type for the Query/InsuranceFunds
  * RPC method.
+ * @name QueryInsuranceFundRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundRequest
  */
 export interface QueryInsuranceFundRequest {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   marketId: string;
 }
 export interface QueryInsuranceFundRequestProtoMsg {
@@ -59,9 +76,14 @@ export interface QueryInsuranceFundRequestProtoMsg {
 /**
  * QueryInsuranceFundRequest is the request type for the Query/InsuranceFunds
  * RPC method.
+ * @name QueryInsuranceFundRequestAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundRequest
  */
 export interface QueryInsuranceFundRequestAmino {
-  /** Market ID for the market */
+  /**
+   * Market ID for the market
+   */
   market_id: string;
 }
 export interface QueryInsuranceFundRequestAminoMsg {
@@ -71,6 +93,9 @@ export interface QueryInsuranceFundRequestAminoMsg {
 /**
  * QueryInsuranceFundResponse is the response type for the Query/InsuranceFund
  * RPC method.
+ * @name QueryInsuranceFundResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundResponse
  */
 export interface QueryInsuranceFundResponse {
   fund?: InsuranceFund;
@@ -82,6 +107,9 @@ export interface QueryInsuranceFundResponseProtoMsg {
 /**
  * QueryInsuranceFundResponse is the response type for the Query/InsuranceFund
  * RPC method.
+ * @name QueryInsuranceFundResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundResponse
  */
 export interface QueryInsuranceFundResponseAmino {
   fund?: InsuranceFundAmino;
@@ -93,6 +121,9 @@ export interface QueryInsuranceFundResponseAminoMsg {
 /**
  * QueryInsuranceFundsRequest is the request type for the Query/InsuranceFunds
  * RPC method.
+ * @name QueryInsuranceFundsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundsRequest
  */
 export interface QueryInsuranceFundsRequest {}
 export interface QueryInsuranceFundsRequestProtoMsg {
@@ -102,6 +133,9 @@ export interface QueryInsuranceFundsRequestProtoMsg {
 /**
  * QueryInsuranceFundsRequest is the request type for the Query/InsuranceFunds
  * RPC method.
+ * @name QueryInsuranceFundsRequestAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundsRequest
  */
 export interface QueryInsuranceFundsRequestAmino {}
 export interface QueryInsuranceFundsRequestAminoMsg {
@@ -111,6 +145,9 @@ export interface QueryInsuranceFundsRequestAminoMsg {
 /**
  * QueryInsuranceFundsResponse is the response type for the Query/InsuranceFunds
  * RPC method.
+ * @name QueryInsuranceFundsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundsResponse
  */
 export interface QueryInsuranceFundsResponse {
   funds: InsuranceFund[];
@@ -122,6 +159,9 @@ export interface QueryInsuranceFundsResponseProtoMsg {
 /**
  * QueryInsuranceFundsResponse is the response type for the Query/InsuranceFunds
  * RPC method.
+ * @name QueryInsuranceFundsResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundsResponse
  */
 export interface QueryInsuranceFundsResponseAmino {
   funds: InsuranceFundAmino[];
@@ -133,6 +173,9 @@ export interface QueryInsuranceFundsResponseAminoMsg {
 /**
  * QueryEstimatedRedemptionsRequest is the request type for the
  * Query/EstimatedRedemptions RPC method.
+ * @name QueryEstimatedRedemptionsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest
  */
 export interface QueryEstimatedRedemptionsRequest {
   marketId: string;
@@ -145,6 +188,9 @@ export interface QueryEstimatedRedemptionsRequestProtoMsg {
 /**
  * QueryEstimatedRedemptionsRequest is the request type for the
  * Query/EstimatedRedemptions RPC method.
+ * @name QueryEstimatedRedemptionsRequestAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest
  */
 export interface QueryEstimatedRedemptionsRequestAmino {
   marketId: string;
@@ -157,6 +203,9 @@ export interface QueryEstimatedRedemptionsRequestAminoMsg {
 /**
  * QueryEstimatedRedemptionsResponse is the response type for the
  * Query/EstimatedRedemptions RPC method.
+ * @name QueryEstimatedRedemptionsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse
  */
 export interface QueryEstimatedRedemptionsResponse {
   amount: Coin[];
@@ -168,6 +217,9 @@ export interface QueryEstimatedRedemptionsResponseProtoMsg {
 /**
  * QueryEstimatedRedemptionsResponse is the response type for the
  * Query/EstimatedRedemptions RPC method.
+ * @name QueryEstimatedRedemptionsResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse
  */
 export interface QueryEstimatedRedemptionsResponseAmino {
   amount: CoinAmino[];
@@ -179,6 +231,9 @@ export interface QueryEstimatedRedemptionsResponseAminoMsg {
 /**
  * QueryPendingRedemptionsRequest is the request type for the
  * Query/PendingRedemptions RPC method.
+ * @name QueryPendingRedemptionsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryPendingRedemptionsRequest
  */
 export interface QueryPendingRedemptionsRequest {
   marketId: string;
@@ -191,6 +246,9 @@ export interface QueryPendingRedemptionsRequestProtoMsg {
 /**
  * QueryPendingRedemptionsRequest is the request type for the
  * Query/PendingRedemptions RPC method.
+ * @name QueryPendingRedemptionsRequestAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryPendingRedemptionsRequest
  */
 export interface QueryPendingRedemptionsRequestAmino {
   marketId: string;
@@ -203,6 +261,9 @@ export interface QueryPendingRedemptionsRequestAminoMsg {
 /**
  * QueryPendingRedemptionsResponse is the response type for the
  * Query/PendingRedemptions RPC method.
+ * @name QueryPendingRedemptionsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryPendingRedemptionsResponse
  */
 export interface QueryPendingRedemptionsResponse {
   amount: Coin[];
@@ -214,6 +275,9 @@ export interface QueryPendingRedemptionsResponseProtoMsg {
 /**
  * QueryPendingRedemptionsResponse is the response type for the
  * Query/PendingRedemptions RPC method.
+ * @name QueryPendingRedemptionsResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryPendingRedemptionsResponse
  */
 export interface QueryPendingRedemptionsResponseAmino {
   amount: CoinAmino[];
@@ -225,6 +289,9 @@ export interface QueryPendingRedemptionsResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the
  * Query/InsuranceModuleState RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -234,6 +301,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the
  * Query/InsuranceModuleState RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -243,6 +313,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/InsuranceModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -254,6 +327,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/InsuranceModuleState RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -265,6 +341,13 @@ export interface QueryModuleStateResponseAminoMsg {
 function createBaseQueryInsuranceParamsRequest(): QueryInsuranceParamsRequest {
   return {};
 }
+/**
+ * QueryInsuranceParamsRequest is the request type for the Query/InsuranceParams
+ * RPC method.
+ * @name QueryInsuranceParamsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceParamsRequest
+ */
 export const QueryInsuranceParamsRequest = {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceParamsRequest",
   is(o: any): o is QueryInsuranceParamsRequest {
@@ -324,6 +407,13 @@ function createBaseQueryInsuranceParamsResponse(): QueryInsuranceParamsResponse 
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryInsuranceParamsRequest is the response type for the
+ * Query/InsuranceParams RPC method.
+ * @name QueryInsuranceParamsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceParamsResponse
+ */
 export const QueryInsuranceParamsResponse = {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceParamsResponse",
   is(o: any): o is QueryInsuranceParamsResponse {
@@ -399,6 +489,13 @@ function createBaseQueryInsuranceFundRequest(): QueryInsuranceFundRequest {
     marketId: ""
   };
 }
+/**
+ * QueryInsuranceFundRequest is the request type for the Query/InsuranceFunds
+ * RPC method.
+ * @name QueryInsuranceFundRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundRequest
+ */
 export const QueryInsuranceFundRequest = {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundRequest",
   is(o: any): o is QueryInsuranceFundRequest {
@@ -469,6 +566,13 @@ function createBaseQueryInsuranceFundResponse(): QueryInsuranceFundResponse {
     fund: undefined
   };
 }
+/**
+ * QueryInsuranceFundResponse is the response type for the Query/InsuranceFund
+ * RPC method.
+ * @name QueryInsuranceFundResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundResponse
+ */
 export const QueryInsuranceFundResponse = {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundResponse",
   is(o: any): o is QueryInsuranceFundResponse {
@@ -542,6 +646,13 @@ export const QueryInsuranceFundResponse = {
 function createBaseQueryInsuranceFundsRequest(): QueryInsuranceFundsRequest {
   return {};
 }
+/**
+ * QueryInsuranceFundsRequest is the request type for the Query/InsuranceFunds
+ * RPC method.
+ * @name QueryInsuranceFundsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundsRequest
+ */
 export const QueryInsuranceFundsRequest = {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundsRequest",
   is(o: any): o is QueryInsuranceFundsRequest {
@@ -601,6 +712,13 @@ function createBaseQueryInsuranceFundsResponse(): QueryInsuranceFundsResponse {
     funds: []
   };
 }
+/**
+ * QueryInsuranceFundsResponse is the response type for the Query/InsuranceFunds
+ * RPC method.
+ * @name QueryInsuranceFundsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryInsuranceFundsResponse
+ */
 export const QueryInsuranceFundsResponse = {
   typeUrl: "/injective.insurance.v1beta1.QueryInsuranceFundsResponse",
   is(o: any): o is QueryInsuranceFundsResponse {
@@ -679,6 +797,13 @@ function createBaseQueryEstimatedRedemptionsRequest(): QueryEstimatedRedemptions
     address: ""
   };
 }
+/**
+ * QueryEstimatedRedemptionsRequest is the request type for the
+ * Query/EstimatedRedemptions RPC method.
+ * @name QueryEstimatedRedemptionsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest
+ */
 export const QueryEstimatedRedemptionsRequest = {
   typeUrl: "/injective.insurance.v1beta1.QueryEstimatedRedemptionsRequest",
   is(o: any): o is QueryEstimatedRedemptionsRequest {
@@ -760,6 +885,13 @@ function createBaseQueryEstimatedRedemptionsResponse(): QueryEstimatedRedemption
     amount: []
   };
 }
+/**
+ * QueryEstimatedRedemptionsResponse is the response type for the
+ * Query/EstimatedRedemptions RPC method.
+ * @name QueryEstimatedRedemptionsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse
+ */
 export const QueryEstimatedRedemptionsResponse = {
   typeUrl: "/injective.insurance.v1beta1.QueryEstimatedRedemptionsResponse",
   is(o: any): o is QueryEstimatedRedemptionsResponse {
@@ -838,6 +970,13 @@ function createBaseQueryPendingRedemptionsRequest(): QueryPendingRedemptionsRequ
     address: ""
   };
 }
+/**
+ * QueryPendingRedemptionsRequest is the request type for the
+ * Query/PendingRedemptions RPC method.
+ * @name QueryPendingRedemptionsRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryPendingRedemptionsRequest
+ */
 export const QueryPendingRedemptionsRequest = {
   typeUrl: "/injective.insurance.v1beta1.QueryPendingRedemptionsRequest",
   is(o: any): o is QueryPendingRedemptionsRequest {
@@ -919,6 +1058,13 @@ function createBaseQueryPendingRedemptionsResponse(): QueryPendingRedemptionsRes
     amount: []
   };
 }
+/**
+ * QueryPendingRedemptionsResponse is the response type for the
+ * Query/PendingRedemptions RPC method.
+ * @name QueryPendingRedemptionsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryPendingRedemptionsResponse
+ */
 export const QueryPendingRedemptionsResponse = {
   typeUrl: "/injective.insurance.v1beta1.QueryPendingRedemptionsResponse",
   is(o: any): o is QueryPendingRedemptionsResponse {
@@ -994,6 +1140,13 @@ export const QueryPendingRedemptionsResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the
+ * Query/InsuranceModuleState RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.insurance.v1beta1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -1053,6 +1206,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the
+ * Query/InsuranceModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.insurance.v1beta1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {

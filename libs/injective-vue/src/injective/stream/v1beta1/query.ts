@@ -47,6 +47,11 @@ export function orderUpdateStatusToJSON(object: OrderUpdateStatus): string {
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name StreamRequest
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.StreamRequest
+ */
 export interface StreamRequest {
   bankBalancesFilter?: BankBalancesFilter;
   subaccountDepositsFilter?: SubaccountDepositsFilter;
@@ -63,6 +68,11 @@ export interface StreamRequestProtoMsg {
   typeUrl: "/injective.stream.v1beta1.StreamRequest";
   value: Uint8Array;
 }
+/**
+ * @name StreamRequestAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.StreamRequest
+ */
 export interface StreamRequestAmino {
   bank_balances_filter?: BankBalancesFilterAmino;
   subaccount_deposits_filter?: SubaccountDepositsFilterAmino;
@@ -79,6 +89,11 @@ export interface StreamRequestAminoMsg {
   type: "/injective.stream.v1beta1.StreamRequest";
   value: StreamRequestAmino;
 }
+/**
+ * @name StreamResponse
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.StreamResponse
+ */
 export interface StreamResponse {
   blockHeight: bigint;
   blockTime: bigint;
@@ -97,6 +112,11 @@ export interface StreamResponseProtoMsg {
   typeUrl: "/injective.stream.v1beta1.StreamResponse";
   value: Uint8Array;
 }
+/**
+ * @name StreamResponseAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.StreamResponse
+ */
 export interface StreamResponseAmino {
   block_height: string;
   block_time: string;
@@ -115,6 +135,11 @@ export interface StreamResponseAminoMsg {
   type: "/injective.stream.v1beta1.StreamResponse";
   value: StreamResponseAmino;
 }
+/**
+ * @name OrderbookUpdate
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrderbookUpdate
+ */
 export interface OrderbookUpdate {
   seq: bigint;
   orderbook?: Orderbook;
@@ -123,6 +148,11 @@ export interface OrderbookUpdateProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OrderbookUpdate";
   value: Uint8Array;
 }
+/**
+ * @name OrderbookUpdateAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrderbookUpdate
+ */
 export interface OrderbookUpdateAmino {
   seq: string;
   orderbook?: OrderbookAmino;
@@ -131,6 +161,11 @@ export interface OrderbookUpdateAminoMsg {
   type: "/injective.stream.v1beta1.OrderbookUpdate";
   value: OrderbookUpdateAmino;
 }
+/**
+ * @name Orderbook
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.Orderbook
+ */
 export interface Orderbook {
   marketId: string;
   buyLevels: Level[];
@@ -140,6 +175,11 @@ export interface OrderbookProtoMsg {
   typeUrl: "/injective.stream.v1beta1.Orderbook";
   value: Uint8Array;
 }
+/**
+ * @name OrderbookAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.Orderbook
+ */
 export interface OrderbookAmino {
   market_id: string;
   buy_levels: LevelAmino[];
@@ -149,6 +189,11 @@ export interface OrderbookAminoMsg {
   type: "/injective.stream.v1beta1.Orderbook";
   value: OrderbookAmino;
 }
+/**
+ * @name BankBalance
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.BankBalance
+ */
 export interface BankBalance {
   account: string;
   balances: Coin[];
@@ -157,6 +202,11 @@ export interface BankBalanceProtoMsg {
   typeUrl: "/injective.stream.v1beta1.BankBalance";
   value: Uint8Array;
 }
+/**
+ * @name BankBalanceAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.BankBalance
+ */
 export interface BankBalanceAmino {
   account: string;
   balances: CoinAmino[];
@@ -165,6 +215,11 @@ export interface BankBalanceAminoMsg {
   type: "/injective.stream.v1beta1.BankBalance";
   value: BankBalanceAmino;
 }
+/**
+ * @name SubaccountDeposits
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDeposits
+ */
 export interface SubaccountDeposits {
   subaccountId: string;
   deposits: SubaccountDeposit[];
@@ -173,6 +228,11 @@ export interface SubaccountDepositsProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SubaccountDeposits";
   value: Uint8Array;
 }
+/**
+ * @name SubaccountDepositsAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDeposits
+ */
 export interface SubaccountDepositsAmino {
   subaccount_id: string;
   deposits: SubaccountDepositAmino[];
@@ -181,6 +241,11 @@ export interface SubaccountDepositsAminoMsg {
   type: "/injective.stream.v1beta1.SubaccountDeposits";
   value: SubaccountDepositsAmino;
 }
+/**
+ * @name SubaccountDeposit
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDeposit
+ */
 export interface SubaccountDeposit {
   denom: string;
   deposit: Deposit;
@@ -189,6 +254,11 @@ export interface SubaccountDepositProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SubaccountDeposit";
   value: Uint8Array;
 }
+/**
+ * @name SubaccountDepositAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDeposit
+ */
 export interface SubaccountDepositAmino {
   denom: string;
   deposit: DepositAmino;
@@ -197,6 +267,11 @@ export interface SubaccountDepositAminoMsg {
   type: "/injective.stream.v1beta1.SubaccountDeposit";
   value: SubaccountDepositAmino;
 }
+/**
+ * @name SpotOrderUpdate
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotOrderUpdate
+ */
 export interface SpotOrderUpdate {
   status: OrderUpdateStatus;
   orderHash: Uint8Array;
@@ -207,6 +282,11 @@ export interface SpotOrderUpdateProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SpotOrderUpdate";
   value: Uint8Array;
 }
+/**
+ * @name SpotOrderUpdateAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotOrderUpdate
+ */
 export interface SpotOrderUpdateAmino {
   status: OrderUpdateStatus;
   order_hash: string;
@@ -217,6 +297,11 @@ export interface SpotOrderUpdateAminoMsg {
   type: "/injective.stream.v1beta1.SpotOrderUpdate";
   value: SpotOrderUpdateAmino;
 }
+/**
+ * @name SpotOrder
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotOrder
+ */
 export interface SpotOrder {
   marketId: string;
   order: SpotLimitOrder;
@@ -225,6 +310,11 @@ export interface SpotOrderProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SpotOrder";
   value: Uint8Array;
 }
+/**
+ * @name SpotOrderAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotOrder
+ */
 export interface SpotOrderAmino {
   market_id: string;
   order: SpotLimitOrderAmino;
@@ -233,6 +323,11 @@ export interface SpotOrderAminoMsg {
   type: "/injective.stream.v1beta1.SpotOrder";
   value: SpotOrderAmino;
 }
+/**
+ * @name DerivativeOrderUpdate
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeOrderUpdate
+ */
 export interface DerivativeOrderUpdate {
   status: OrderUpdateStatus;
   orderHash: Uint8Array;
@@ -243,6 +338,11 @@ export interface DerivativeOrderUpdateProtoMsg {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrderUpdate";
   value: Uint8Array;
 }
+/**
+ * @name DerivativeOrderUpdateAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeOrderUpdate
+ */
 export interface DerivativeOrderUpdateAmino {
   status: OrderUpdateStatus;
   order_hash: string;
@@ -253,6 +353,11 @@ export interface DerivativeOrderUpdateAminoMsg {
   type: "/injective.stream.v1beta1.DerivativeOrderUpdate";
   value: DerivativeOrderUpdateAmino;
 }
+/**
+ * @name DerivativeOrder
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeOrder
+ */
 export interface DerivativeOrder {
   marketId: string;
   order: DerivativeLimitOrder;
@@ -262,6 +367,11 @@ export interface DerivativeOrderProtoMsg {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrder";
   value: Uint8Array;
 }
+/**
+ * @name DerivativeOrderAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeOrder
+ */
 export interface DerivativeOrderAmino {
   market_id: string;
   order: DerivativeLimitOrderAmino;
@@ -271,6 +381,11 @@ export interface DerivativeOrderAminoMsg {
   type: "/injective.stream.v1beta1.DerivativeOrder";
   value: DerivativeOrderAmino;
 }
+/**
+ * @name Position
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.Position
+ */
 export interface Position {
   marketId: string;
   subaccountId: string;
@@ -284,6 +399,11 @@ export interface PositionProtoMsg {
   typeUrl: "/injective.stream.v1beta1.Position";
   value: Uint8Array;
 }
+/**
+ * @name PositionAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.Position
+ */
 export interface PositionAmino {
   market_id: string;
   subaccount_id: string;
@@ -297,6 +417,11 @@ export interface PositionAminoMsg {
   type: "/injective.stream.v1beta1.Position";
   value: PositionAmino;
 }
+/**
+ * @name OraclePrice
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OraclePrice
+ */
 export interface OraclePrice {
   symbol: string;
   price: string;
@@ -306,6 +431,11 @@ export interface OraclePriceProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OraclePrice";
   value: Uint8Array;
 }
+/**
+ * @name OraclePriceAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OraclePrice
+ */
 export interface OraclePriceAmino {
   symbol: string;
   price: string;
@@ -315,13 +445,20 @@ export interface OraclePriceAminoMsg {
   type: "/injective.stream.v1beta1.OraclePrice";
   value: OraclePriceAmino;
 }
+/**
+ * @name SpotTrade
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotTrade
+ */
 export interface SpotTrade {
   marketId: string;
   isBuy: boolean;
   executionType: string;
   quantity: string;
   price: string;
-  /** bytes32 subaccount ID that executed the trade */
+  /**
+   * bytes32 subaccount ID that executed the trade
+   */
   subaccountId: string;
   fee: string;
   orderHash: Uint8Array;
@@ -333,13 +470,20 @@ export interface SpotTradeProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SpotTrade";
   value: Uint8Array;
 }
+/**
+ * @name SpotTradeAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotTrade
+ */
 export interface SpotTradeAmino {
   market_id: string;
   is_buy: boolean;
   executionType: string;
   quantity: string;
   price: string;
-  /** bytes32 subaccount ID that executed the trade */
+  /**
+   * bytes32 subaccount ID that executed the trade
+   */
   subaccount_id: string;
   fee: string;
   order_hash: string;
@@ -351,6 +495,11 @@ export interface SpotTradeAminoMsg {
   type: "/injective.stream.v1beta1.SpotTrade";
   value: SpotTradeAmino;
 }
+/**
+ * @name DerivativeTrade
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeTrade
+ */
 export interface DerivativeTrade {
   marketId: string;
   isBuy: boolean;
@@ -368,6 +517,11 @@ export interface DerivativeTradeProtoMsg {
   typeUrl: "/injective.stream.v1beta1.DerivativeTrade";
   value: Uint8Array;
 }
+/**
+ * @name DerivativeTradeAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeTrade
+ */
 export interface DerivativeTradeAmino {
   market_id: string;
   is_buy: boolean;
@@ -385,6 +539,11 @@ export interface DerivativeTradeAminoMsg {
   type: "/injective.stream.v1beta1.DerivativeTrade";
   value: DerivativeTradeAmino;
 }
+/**
+ * @name TradesFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.TradesFilter
+ */
 export interface TradesFilter {
   subaccountIds: string[];
   marketIds: string[];
@@ -393,6 +552,11 @@ export interface TradesFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.TradesFilter";
   value: Uint8Array;
 }
+/**
+ * @name TradesFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.TradesFilter
+ */
 export interface TradesFilterAmino {
   subaccount_ids: string[];
   market_ids: string[];
@@ -401,6 +565,11 @@ export interface TradesFilterAminoMsg {
   type: "/injective.stream.v1beta1.TradesFilter";
   value: TradesFilterAmino;
 }
+/**
+ * @name PositionsFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.PositionsFilter
+ */
 export interface PositionsFilter {
   subaccountIds: string[];
   marketIds: string[];
@@ -409,6 +578,11 @@ export interface PositionsFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.PositionsFilter";
   value: Uint8Array;
 }
+/**
+ * @name PositionsFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.PositionsFilter
+ */
 export interface PositionsFilterAmino {
   subaccount_ids: string[];
   market_ids: string[];
@@ -417,6 +591,11 @@ export interface PositionsFilterAminoMsg {
   type: "/injective.stream.v1beta1.PositionsFilter";
   value: PositionsFilterAmino;
 }
+/**
+ * @name OrdersFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrdersFilter
+ */
 export interface OrdersFilter {
   subaccountIds: string[];
   marketIds: string[];
@@ -425,6 +604,11 @@ export interface OrdersFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OrdersFilter";
   value: Uint8Array;
 }
+/**
+ * @name OrdersFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrdersFilter
+ */
 export interface OrdersFilterAmino {
   subaccount_ids: string[];
   market_ids: string[];
@@ -433,6 +617,11 @@ export interface OrdersFilterAminoMsg {
   type: "/injective.stream.v1beta1.OrdersFilter";
   value: OrdersFilterAmino;
 }
+/**
+ * @name OrderbookFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrderbookFilter
+ */
 export interface OrderbookFilter {
   marketIds: string[];
 }
@@ -440,6 +629,11 @@ export interface OrderbookFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OrderbookFilter";
   value: Uint8Array;
 }
+/**
+ * @name OrderbookFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrderbookFilter
+ */
 export interface OrderbookFilterAmino {
   market_ids: string[];
 }
@@ -447,6 +641,11 @@ export interface OrderbookFilterAminoMsg {
   type: "/injective.stream.v1beta1.OrderbookFilter";
   value: OrderbookFilterAmino;
 }
+/**
+ * @name BankBalancesFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.BankBalancesFilter
+ */
 export interface BankBalancesFilter {
   accounts: string[];
 }
@@ -454,6 +653,11 @@ export interface BankBalancesFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.BankBalancesFilter";
   value: Uint8Array;
 }
+/**
+ * @name BankBalancesFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.BankBalancesFilter
+ */
 export interface BankBalancesFilterAmino {
   accounts: string[];
 }
@@ -461,6 +665,11 @@ export interface BankBalancesFilterAminoMsg {
   type: "/injective.stream.v1beta1.BankBalancesFilter";
   value: BankBalancesFilterAmino;
 }
+/**
+ * @name SubaccountDepositsFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDepositsFilter
+ */
 export interface SubaccountDepositsFilter {
   subaccountIds: string[];
 }
@@ -468,6 +677,11 @@ export interface SubaccountDepositsFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.SubaccountDepositsFilter";
   value: Uint8Array;
 }
+/**
+ * @name SubaccountDepositsFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDepositsFilter
+ */
 export interface SubaccountDepositsFilterAmino {
   subaccount_ids: string[];
 }
@@ -475,6 +689,11 @@ export interface SubaccountDepositsFilterAminoMsg {
   type: "/injective.stream.v1beta1.SubaccountDepositsFilter";
   value: SubaccountDepositsFilterAmino;
 }
+/**
+ * @name OraclePriceFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OraclePriceFilter
+ */
 export interface OraclePriceFilter {
   symbol: string[];
 }
@@ -482,6 +701,11 @@ export interface OraclePriceFilterProtoMsg {
   typeUrl: "/injective.stream.v1beta1.OraclePriceFilter";
   value: Uint8Array;
 }
+/**
+ * @name OraclePriceFilterAmino
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OraclePriceFilter
+ */
 export interface OraclePriceFilterAmino {
   symbol: string[];
 }
@@ -503,6 +727,11 @@ function createBaseStreamRequest(): StreamRequest {
     oraclePriceFilter: undefined
   };
 }
+/**
+ * @name StreamRequest
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.StreamRequest
+ */
 export const StreamRequest = {
   typeUrl: "/injective.stream.v1beta1.StreamRequest",
   is(o: any): o is StreamRequest {
@@ -694,6 +923,11 @@ function createBaseStreamResponse(): StreamResponse {
     oraclePrices: []
   };
 }
+/**
+ * @name StreamResponse
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.StreamResponse
+ */
 export const StreamResponse = {
   typeUrl: "/injective.stream.v1beta1.StreamResponse",
   is(o: any): o is StreamResponse {
@@ -919,6 +1153,11 @@ function createBaseOrderbookUpdate(): OrderbookUpdate {
     orderbook: undefined
   };
 }
+/**
+ * @name OrderbookUpdate
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrderbookUpdate
+ */
 export const OrderbookUpdate = {
   typeUrl: "/injective.stream.v1beta1.OrderbookUpdate",
   is(o: any): o is OrderbookUpdate {
@@ -1007,6 +1246,11 @@ function createBaseOrderbook(): Orderbook {
     sellLevels: []
   };
 }
+/**
+ * @name Orderbook
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.Orderbook
+ */
 export const Orderbook = {
   typeUrl: "/injective.stream.v1beta1.Orderbook",
   is(o: any): o is Orderbook {
@@ -1109,6 +1353,11 @@ function createBaseBankBalance(): BankBalance {
     balances: []
   };
 }
+/**
+ * @name BankBalance
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.BankBalance
+ */
 export const BankBalance = {
   typeUrl: "/injective.stream.v1beta1.BankBalance",
   is(o: any): o is BankBalance {
@@ -1198,6 +1447,11 @@ function createBaseSubaccountDeposits(): SubaccountDeposits {
     deposits: []
   };
 }
+/**
+ * @name SubaccountDeposits
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDeposits
+ */
 export const SubaccountDeposits = {
   typeUrl: "/injective.stream.v1beta1.SubaccountDeposits",
   is(o: any): o is SubaccountDeposits {
@@ -1287,6 +1541,11 @@ function createBaseSubaccountDeposit(): SubaccountDeposit {
     deposit: Deposit.fromPartial({})
   };
 }
+/**
+ * @name SubaccountDeposit
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDeposit
+ */
 export const SubaccountDeposit = {
   typeUrl: "/injective.stream.v1beta1.SubaccountDeposit",
   is(o: any): o is SubaccountDeposit {
@@ -1376,6 +1635,11 @@ function createBaseSpotOrderUpdate(): SpotOrderUpdate {
     order: undefined
   };
 }
+/**
+ * @name SpotOrderUpdate
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotOrderUpdate
+ */
 export const SpotOrderUpdate = {
   typeUrl: "/injective.stream.v1beta1.SpotOrderUpdate",
   is(o: any): o is SpotOrderUpdate {
@@ -1485,6 +1749,11 @@ function createBaseSpotOrder(): SpotOrder {
     order: SpotLimitOrder.fromPartial({})
   };
 }
+/**
+ * @name SpotOrder
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotOrder
+ */
 export const SpotOrder = {
   typeUrl: "/injective.stream.v1beta1.SpotOrder",
   is(o: any): o is SpotOrder {
@@ -1574,6 +1843,11 @@ function createBaseDerivativeOrderUpdate(): DerivativeOrderUpdate {
     order: undefined
   };
 }
+/**
+ * @name DerivativeOrderUpdate
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeOrderUpdate
+ */
 export const DerivativeOrderUpdate = {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrderUpdate",
   is(o: any): o is DerivativeOrderUpdate {
@@ -1684,6 +1958,11 @@ function createBaseDerivativeOrder(): DerivativeOrder {
     isMarket: false
   };
 }
+/**
+ * @name DerivativeOrder
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeOrder
+ */
 export const DerivativeOrder = {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrder",
   is(o: any): o is DerivativeOrder {
@@ -1787,6 +2066,11 @@ function createBasePosition(): Position {
     cumulativeFundingEntry: ""
   };
 }
+/**
+ * @name Position
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.Position
+ */
 export const Position = {
   typeUrl: "/injective.stream.v1beta1.Position",
   is(o: any): o is Position {
@@ -1925,6 +2209,11 @@ function createBaseOraclePrice(): OraclePrice {
     type: ""
   };
 }
+/**
+ * @name OraclePrice
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OraclePrice
+ */
 export const OraclePrice = {
   typeUrl: "/injective.stream.v1beta1.OraclePrice",
   is(o: any): o is OraclePrice {
@@ -2027,6 +2316,11 @@ function createBaseSpotTrade(): SpotTrade {
     tradeId: ""
   };
 }
+/**
+ * @name SpotTrade
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SpotTrade
+ */
 export const SpotTrade = {
   typeUrl: "/injective.stream.v1beta1.SpotTrade",
   is(o: any): o is SpotTrade {
@@ -2217,6 +2511,11 @@ function createBaseDerivativeTrade(): DerivativeTrade {
     tradeId: ""
   };
 }
+/**
+ * @name DerivativeTrade
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.DerivativeTrade
+ */
 export const DerivativeTrade = {
   typeUrl: "/injective.stream.v1beta1.DerivativeTrade",
   is(o: any): o is DerivativeTrade {
@@ -2403,6 +2702,11 @@ function createBaseTradesFilter(): TradesFilter {
     marketIds: []
   };
 }
+/**
+ * @name TradesFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.TradesFilter
+ */
 export const TradesFilter = {
   typeUrl: "/injective.stream.v1beta1.TradesFilter",
   is(o: any): o is TradesFilter {
@@ -2489,6 +2793,11 @@ function createBasePositionsFilter(): PositionsFilter {
     marketIds: []
   };
 }
+/**
+ * @name PositionsFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.PositionsFilter
+ */
 export const PositionsFilter = {
   typeUrl: "/injective.stream.v1beta1.PositionsFilter",
   is(o: any): o is PositionsFilter {
@@ -2575,6 +2884,11 @@ function createBaseOrdersFilter(): OrdersFilter {
     marketIds: []
   };
 }
+/**
+ * @name OrdersFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrdersFilter
+ */
 export const OrdersFilter = {
   typeUrl: "/injective.stream.v1beta1.OrdersFilter",
   is(o: any): o is OrdersFilter {
@@ -2660,6 +2974,11 @@ function createBaseOrderbookFilter(): OrderbookFilter {
     marketIds: []
   };
 }
+/**
+ * @name OrderbookFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OrderbookFilter
+ */
 export const OrderbookFilter = {
   typeUrl: "/injective.stream.v1beta1.OrderbookFilter",
   is(o: any): o is OrderbookFilter {
@@ -2732,6 +3051,11 @@ function createBaseBankBalancesFilter(): BankBalancesFilter {
     accounts: []
   };
 }
+/**
+ * @name BankBalancesFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.BankBalancesFilter
+ */
 export const BankBalancesFilter = {
   typeUrl: "/injective.stream.v1beta1.BankBalancesFilter",
   is(o: any): o is BankBalancesFilter {
@@ -2804,6 +3128,11 @@ function createBaseSubaccountDepositsFilter(): SubaccountDepositsFilter {
     subaccountIds: []
   };
 }
+/**
+ * @name SubaccountDepositsFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.SubaccountDepositsFilter
+ */
 export const SubaccountDepositsFilter = {
   typeUrl: "/injective.stream.v1beta1.SubaccountDepositsFilter",
   is(o: any): o is SubaccountDepositsFilter {
@@ -2876,6 +3205,11 @@ function createBaseOraclePriceFilter(): OraclePriceFilter {
     symbol: []
   };
 }
+/**
+ * @name OraclePriceFilter
+ * @package injective.stream.v1beta1
+ * @see proto type: injective.stream.v1beta1.OraclePriceFilter
+ */
 export const OraclePriceFilter = {
   typeUrl: "/injective.stream.v1beta1.OraclePriceFilter",
   is(o: any): o is OraclePriceFilter {

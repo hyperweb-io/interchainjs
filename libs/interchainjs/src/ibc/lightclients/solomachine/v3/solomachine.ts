@@ -5,11 +5,18 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpe
 /**
  * ClientState defines a solo machine client that tracks the current consensus
  * state and if the client is frozen.
+ * @name ClientState
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.ClientState
  */
 export interface ClientState {
-  /** latest sequence of the client state */
+  /**
+   * latest sequence of the client state
+   */
   sequence: bigint;
-  /** frozen sequence of the solo machine */
+  /**
+   * frozen sequence of the solo machine
+   */
   isFrozen: boolean;
   consensusState?: ConsensusState;
 }
@@ -20,11 +27,18 @@ export interface ClientStateProtoMsg {
 /**
  * ClientState defines a solo machine client that tracks the current consensus
  * state and if the client is frozen.
+ * @name ClientStateAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.ClientState
  */
 export interface ClientStateAmino {
-  /** latest sequence of the client state */
+  /**
+   * latest sequence of the client state
+   */
   sequence: string;
-  /** frozen sequence of the solo machine */
+  /**
+   * frozen sequence of the solo machine
+   */
   is_frozen: boolean;
   consensus_state?: ConsensusStateAmino;
 }
@@ -36,9 +50,14 @@ export interface ClientStateAminoMsg {
  * ConsensusState defines a solo machine consensus state. The sequence of a
  * consensus state is contained in the "height" key used in storing the
  * consensus state.
+ * @name ConsensusState
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.ConsensusState
  */
 export interface ConsensusState {
-  /** public key of the solo machine */
+  /**
+   * public key of the solo machine
+   */
   publicKey?: Any;
   /**
    * diversifier allows the same public key to be re-used across different solo
@@ -56,9 +75,14 @@ export interface ConsensusStateProtoMsg {
  * ConsensusState defines a solo machine consensus state. The sequence of a
  * consensus state is contained in the "height" key used in storing the
  * consensus state.
+ * @name ConsensusStateAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.ConsensusState
  */
 export interface ConsensusStateAmino {
-  /** public key of the solo machine */
+  /**
+   * public key of the solo machine
+   */
   public_key?: AnyAmino;
   /**
    * diversifier allows the same public key to be re-used across different solo
@@ -72,7 +96,12 @@ export interface ConsensusStateAminoMsg {
   type: "cosmos-sdk/ConsensusState";
   value: ConsensusStateAmino;
 }
-/** Header defines a solo machine consensus header */
+/**
+ * Header defines a solo machine consensus header
+ * @name Header
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.Header
+ */
 export interface Header {
   timestamp: bigint;
   signature: Uint8Array;
@@ -83,7 +112,12 @@ export interface HeaderProtoMsg {
   typeUrl: "/ibc.lightclients.solomachine.v3.Header";
   value: Uint8Array;
 }
-/** Header defines a solo machine consensus header */
+/**
+ * Header defines a solo machine consensus header
+ * @name HeaderAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.Header
+ */
 export interface HeaderAmino {
   timestamp: string;
   signature: string;
@@ -97,6 +131,9 @@ export interface HeaderAminoMsg {
 /**
  * Misbehaviour defines misbehaviour for a solo machine which consists
  * of a sequence and two signatures over different messages at that sequence.
+ * @name Misbehaviour
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.Misbehaviour
  */
 export interface Misbehaviour {
   sequence: bigint;
@@ -110,6 +147,9 @@ export interface MisbehaviourProtoMsg {
 /**
  * Misbehaviour defines misbehaviour for a solo machine which consists
  * of a sequence and two signatures over different messages at that sequence.
+ * @name MisbehaviourAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.Misbehaviour
  */
 export interface MisbehaviourAmino {
   sequence: string;
@@ -123,6 +163,9 @@ export interface MisbehaviourAminoMsg {
 /**
  * SignatureAndData contains a signature and the data signed over to create that
  * signature.
+ * @name SignatureAndData
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.SignatureAndData
  */
 export interface SignatureAndData {
   signature: Uint8Array;
@@ -137,6 +180,9 @@ export interface SignatureAndDataProtoMsg {
 /**
  * SignatureAndData contains a signature and the data signed over to create that
  * signature.
+ * @name SignatureAndDataAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.SignatureAndData
  */
 export interface SignatureAndDataAmino {
   signature: string;
@@ -151,6 +197,9 @@ export interface SignatureAndDataAminoMsg {
 /**
  * TimestampedSignatureData contains the signature data and the timestamp of the
  * signature.
+ * @name TimestampedSignatureData
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.TimestampedSignatureData
  */
 export interface TimestampedSignatureData {
   signatureData: Uint8Array;
@@ -163,6 +212,9 @@ export interface TimestampedSignatureDataProtoMsg {
 /**
  * TimestampedSignatureData contains the signature data and the timestamp of the
  * signature.
+ * @name TimestampedSignatureDataAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.TimestampedSignatureData
  */
 export interface TimestampedSignatureDataAmino {
   signature_data: string;
@@ -172,56 +224,104 @@ export interface TimestampedSignatureDataAminoMsg {
   type: "cosmos-sdk/TimestampedSignatureData";
   value: TimestampedSignatureDataAmino;
 }
-/** SignBytes defines the signed bytes used for signature verification. */
+/**
+ * SignBytes defines the signed bytes used for signature verification.
+ * @name SignBytes
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.SignBytes
+ */
 export interface SignBytes {
-  /** the sequence number */
+  /**
+   * the sequence number
+   */
   sequence: bigint;
-  /** the proof timestamp */
+  /**
+   * the proof timestamp
+   */
   timestamp: bigint;
-  /** the public key diversifier */
+  /**
+   * the public key diversifier
+   */
   diversifier: string;
-  /** the standardised path bytes */
+  /**
+   * the standardised path bytes
+   */
   path: Uint8Array;
-  /** the marshaled data bytes */
+  /**
+   * the marshaled data bytes
+   */
   data: Uint8Array;
 }
 export interface SignBytesProtoMsg {
   typeUrl: "/ibc.lightclients.solomachine.v3.SignBytes";
   value: Uint8Array;
 }
-/** SignBytes defines the signed bytes used for signature verification. */
+/**
+ * SignBytes defines the signed bytes used for signature verification.
+ * @name SignBytesAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.SignBytes
+ */
 export interface SignBytesAmino {
-  /** the sequence number */
+  /**
+   * the sequence number
+   */
   sequence: string;
-  /** the proof timestamp */
+  /**
+   * the proof timestamp
+   */
   timestamp: string;
-  /** the public key diversifier */
+  /**
+   * the public key diversifier
+   */
   diversifier: string;
-  /** the standardised path bytes */
+  /**
+   * the standardised path bytes
+   */
   path: string;
-  /** the marshaled data bytes */
+  /**
+   * the marshaled data bytes
+   */
   data: string;
 }
 export interface SignBytesAminoMsg {
   type: "cosmos-sdk/SignBytes";
   value: SignBytesAmino;
 }
-/** HeaderData returns the SignBytes data for update verification. */
+/**
+ * HeaderData returns the SignBytes data for update verification.
+ * @name HeaderData
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.HeaderData
+ */
 export interface HeaderData {
-  /** header public key */
+  /**
+   * header public key
+   */
   newPubKey?: Any;
-  /** header diversifier */
+  /**
+   * header diversifier
+   */
   newDiversifier: string;
 }
 export interface HeaderDataProtoMsg {
   typeUrl: "/ibc.lightclients.solomachine.v3.HeaderData";
   value: Uint8Array;
 }
-/** HeaderData returns the SignBytes data for update verification. */
+/**
+ * HeaderData returns the SignBytes data for update verification.
+ * @name HeaderDataAmino
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.HeaderData
+ */
 export interface HeaderDataAmino {
-  /** header public key */
+  /**
+   * header public key
+   */
   new_pub_key?: AnyAmino;
-  /** header diversifier */
+  /**
+   * header diversifier
+   */
   new_diversifier: string;
 }
 export interface HeaderDataAminoMsg {
@@ -235,6 +335,13 @@ function createBaseClientState(): ClientState {
     consensusState: undefined
   };
 }
+/**
+ * ClientState defines a solo machine client that tracks the current consensus
+ * state and if the client is frozen.
+ * @name ClientState
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.ClientState
+ */
 export const ClientState = {
   typeUrl: "/ibc.lightclients.solomachine.v3.ClientState",
   aminoType: "cosmos-sdk/ClientState",
@@ -341,6 +448,14 @@ function createBaseConsensusState(): ConsensusState {
     timestamp: BigInt(0)
   };
 }
+/**
+ * ConsensusState defines a solo machine consensus state. The sequence of a
+ * consensus state is contained in the "height" key used in storing the
+ * consensus state.
+ * @name ConsensusState
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.ConsensusState
+ */
 export const ConsensusState = {
   typeUrl: "/ibc.lightclients.solomachine.v3.ConsensusState",
   aminoType: "cosmos-sdk/ConsensusState",
@@ -443,6 +558,12 @@ function createBaseHeader(): Header {
     newDiversifier: ""
   };
 }
+/**
+ * Header defines a solo machine consensus header
+ * @name Header
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.Header
+ */
 export const Header = {
   typeUrl: "/ibc.lightclients.solomachine.v3.Header",
   aminoType: "cosmos-sdk/Header",
@@ -555,6 +676,13 @@ function createBaseMisbehaviour(): Misbehaviour {
     signatureTwo: undefined
   };
 }
+/**
+ * Misbehaviour defines misbehaviour for a solo machine which consists
+ * of a sequence and two signatures over different messages at that sequence.
+ * @name Misbehaviour
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.Misbehaviour
+ */
 export const Misbehaviour = {
   typeUrl: "/ibc.lightclients.solomachine.v3.Misbehaviour",
   aminoType: "cosmos-sdk/Misbehaviour",
@@ -662,6 +790,13 @@ function createBaseSignatureAndData(): SignatureAndData {
     timestamp: BigInt(0)
   };
 }
+/**
+ * SignatureAndData contains a signature and the data signed over to create that
+ * signature.
+ * @name SignatureAndData
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.SignatureAndData
+ */
 export const SignatureAndData = {
   typeUrl: "/ibc.lightclients.solomachine.v3.SignatureAndData",
   aminoType: "cosmos-sdk/SignatureAndData",
@@ -773,6 +908,13 @@ function createBaseTimestampedSignatureData(): TimestampedSignatureData {
     timestamp: BigInt(0)
   };
 }
+/**
+ * TimestampedSignatureData contains the signature data and the timestamp of the
+ * signature.
+ * @name TimestampedSignatureData
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.TimestampedSignatureData
+ */
 export const TimestampedSignatureData = {
   typeUrl: "/ibc.lightclients.solomachine.v3.TimestampedSignatureData",
   aminoType: "cosmos-sdk/TimestampedSignatureData",
@@ -865,6 +1007,12 @@ function createBaseSignBytes(): SignBytes {
     data: new Uint8Array()
   };
 }
+/**
+ * SignBytes defines the signed bytes used for signature verification.
+ * @name SignBytes
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.SignBytes
+ */
 export const SignBytes = {
   typeUrl: "/ibc.lightclients.solomachine.v3.SignBytes",
   aminoType: "cosmos-sdk/SignBytes",
@@ -987,6 +1135,12 @@ function createBaseHeaderData(): HeaderData {
     newDiversifier: ""
   };
 }
+/**
+ * HeaderData returns the SignBytes data for update verification.
+ * @name HeaderData
+ * @package ibc.lightclients.solomachine.v3
+ * @see proto type: ibc.lightclients.solomachine.v3.HeaderData
+ */
 export const HeaderData = {
   typeUrl: "/ibc.lightclients.solomachine.v3.HeaderData",
   aminoType: "cosmos-sdk/HeaderData",

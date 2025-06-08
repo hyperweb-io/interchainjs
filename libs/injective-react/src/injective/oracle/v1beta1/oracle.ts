@@ -100,6 +100,11 @@ export function oracleTypeToJSON(object: OracleType): string {
       return "UNRECOGNIZED";
   }
 }
+/**
+ * @name Params
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.Params
+ */
 export interface Params {
   pythContract: string;
 }
@@ -107,6 +112,11 @@ export interface ParamsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.Params";
   value: Uint8Array;
 }
+/**
+ * @name ParamsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.Params
+ */
 export interface ParamsAmino {
   pyth_contract: string;
 }
@@ -114,6 +124,11 @@ export interface ParamsAminoMsg {
   type: "oracle/Params";
   value: ParamsAmino;
 }
+/**
+ * @name OracleInfo
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.OracleInfo
+ */
 export interface OracleInfo {
   symbol: string;
   oracleType: OracleType;
@@ -122,6 +137,11 @@ export interface OracleInfoProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.OracleInfo";
   value: Uint8Array;
 }
+/**
+ * @name OracleInfoAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.OracleInfo
+ */
 export interface OracleInfoAmino {
   symbol: string;
   oracle_type: OracleType;
@@ -130,6 +150,11 @@ export interface OracleInfoAminoMsg {
   type: "/injective.oracle.v1beta1.OracleInfo";
   value: OracleInfoAmino;
 }
+/**
+ * @name ChainlinkPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ChainlinkPriceState
+ */
 export interface ChainlinkPriceState {
   feedId: string;
   answer: string;
@@ -140,6 +165,11 @@ export interface ChainlinkPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ChainlinkPriceState";
   value: Uint8Array;
 }
+/**
+ * @name ChainlinkPriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ChainlinkPriceState
+ */
 export interface ChainlinkPriceStateAmino {
   feed_id: string;
   answer: string;
@@ -150,6 +180,11 @@ export interface ChainlinkPriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.ChainlinkPriceState";
   value: ChainlinkPriceStateAmino;
 }
+/**
+ * @name BandPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandPriceState
+ */
 export interface BandPriceState {
   symbol: string;
   rate: string;
@@ -161,6 +196,11 @@ export interface BandPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.BandPriceState";
   value: Uint8Array;
 }
+/**
+ * @name BandPriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandPriceState
+ */
 export interface BandPriceStateAmino {
   symbol: string;
   rate: string;
@@ -172,6 +212,11 @@ export interface BandPriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.BandPriceState";
   value: BandPriceStateAmino;
 }
+/**
+ * @name PriceFeedState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedState
+ */
 export interface PriceFeedState {
   base: string;
   quote: string;
@@ -182,6 +227,11 @@ export interface PriceFeedStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedState";
   value: Uint8Array;
 }
+/**
+ * @name PriceFeedStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedState
+ */
 export interface PriceFeedStateAmino {
   base: string;
   quote: string;
@@ -192,6 +242,11 @@ export interface PriceFeedStateAminoMsg {
   type: "/injective.oracle.v1beta1.PriceFeedState";
   value: PriceFeedStateAmino;
 }
+/**
+ * @name ProviderInfo
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderInfo
+ */
 export interface ProviderInfo {
   provider: string;
   relayers: string[];
@@ -200,6 +255,11 @@ export interface ProviderInfoProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ProviderInfo";
   value: Uint8Array;
 }
+/**
+ * @name ProviderInfoAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderInfo
+ */
 export interface ProviderInfoAmino {
   provider: string;
   relayers: string[];
@@ -208,6 +268,11 @@ export interface ProviderInfoAminoMsg {
   type: "/injective.oracle.v1beta1.ProviderInfo";
   value: ProviderInfoAmino;
 }
+/**
+ * @name ProviderState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderState
+ */
 export interface ProviderState {
   providerInfo?: ProviderInfo;
   providerPriceStates: ProviderPriceState[];
@@ -216,6 +281,11 @@ export interface ProviderStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ProviderState";
   value: Uint8Array;
 }
+/**
+ * @name ProviderStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderState
+ */
 export interface ProviderStateAmino {
   provider_info?: ProviderInfoAmino;
   provider_price_states: ProviderPriceStateAmino[];
@@ -224,6 +294,11 @@ export interface ProviderStateAminoMsg {
   type: "/injective.oracle.v1beta1.ProviderState";
   value: ProviderStateAmino;
 }
+/**
+ * @name ProviderPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderPriceState
+ */
 export interface ProviderPriceState {
   symbol: string;
   state?: PriceState;
@@ -232,6 +307,11 @@ export interface ProviderPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.ProviderPriceState";
   value: Uint8Array;
 }
+/**
+ * @name ProviderPriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderPriceState
+ */
 export interface ProviderPriceStateAmino {
   symbol: string;
   state?: PriceStateAmino;
@@ -240,6 +320,11 @@ export interface ProviderPriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.ProviderPriceState";
   value: ProviderPriceStateAmino;
 }
+/**
+ * @name PriceFeedInfo
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedInfo
+ */
 export interface PriceFeedInfo {
   base: string;
   quote: string;
@@ -248,6 +333,11 @@ export interface PriceFeedInfoProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedInfo";
   value: Uint8Array;
 }
+/**
+ * @name PriceFeedInfoAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedInfo
+ */
 export interface PriceFeedInfoAmino {
   base: string;
   quote: string;
@@ -256,6 +346,11 @@ export interface PriceFeedInfoAminoMsg {
   type: "/injective.oracle.v1beta1.PriceFeedInfo";
   value: PriceFeedInfoAmino;
 }
+/**
+ * @name PriceFeedPrice
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedPrice
+ */
 export interface PriceFeedPrice {
   price: string;
 }
@@ -263,6 +358,11 @@ export interface PriceFeedPriceProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedPrice";
   value: Uint8Array;
 }
+/**
+ * @name PriceFeedPriceAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedPrice
+ */
 export interface PriceFeedPriceAmino {
   price: string;
 }
@@ -270,66 +370,127 @@ export interface PriceFeedPriceAminoMsg {
   type: "/injective.oracle.v1beta1.PriceFeedPrice";
   value: PriceFeedPriceAmino;
 }
+/**
+ * @name CoinbasePriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.CoinbasePriceState
+ */
 export interface CoinbasePriceState {
-  /** kind should always be "prices" */
+  /**
+   * kind should always be "prices"
+   */
   kind: string;
-  /** timestamp of the when the price was signed by coinbase */
+  /**
+   * timestamp of the when the price was signed by coinbase
+   */
   timestamp: bigint;
-  /** the symbol of the price, e.g. BTC */
+  /**
+   * the symbol of the price, e.g. BTC
+   */
   key: string;
-  /** the value of the price scaled by 1e6 */
+  /**
+   * the value of the price scaled by 1e6
+   */
   value: bigint;
-  /** the price state */
+  /**
+   * the price state
+   */
   priceState: PriceState;
 }
 export interface CoinbasePriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.CoinbasePriceState";
   value: Uint8Array;
 }
+/**
+ * @name CoinbasePriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.CoinbasePriceState
+ */
 export interface CoinbasePriceStateAmino {
-  /** kind should always be "prices" */
+  /**
+   * kind should always be "prices"
+   */
   kind: string;
-  /** timestamp of the when the price was signed by coinbase */
+  /**
+   * timestamp of the when the price was signed by coinbase
+   */
   timestamp: string;
-  /** the symbol of the price, e.g. BTC */
+  /**
+   * the symbol of the price, e.g. BTC
+   */
   key: string;
-  /** the value of the price scaled by 1e6 */
+  /**
+   * the value of the price scaled by 1e6
+   */
   value: string;
-  /** the price state */
+  /**
+   * the price state
+   */
   price_state: PriceStateAmino;
 }
 export interface CoinbasePriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.CoinbasePriceState";
   value: CoinbasePriceStateAmino;
 }
+/**
+ * @name StorkPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.StorkPriceState
+ */
 export interface StorkPriceState {
-  /** timestamp of the when the price was signed by stork */
+  /**
+   * timestamp of the when the price was signed by stork
+   */
   timestamp: bigint;
-  /** the symbol of the price, e.g. BTC */
+  /**
+   * the symbol of the price, e.g. BTC
+   */
   symbol: string;
-  /** the value of the price scaled by 1e18 */
+  /**
+   * the value of the price scaled by 1e18
+   */
   value: string;
-  /** the price state */
+  /**
+   * the price state
+   */
   priceState: PriceState;
 }
 export interface StorkPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.StorkPriceState";
   value: Uint8Array;
 }
+/**
+ * @name StorkPriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.StorkPriceState
+ */
 export interface StorkPriceStateAmino {
-  /** timestamp of the when the price was signed by stork */
+  /**
+   * timestamp of the when the price was signed by stork
+   */
   timestamp: string;
-  /** the symbol of the price, e.g. BTC */
+  /**
+   * the symbol of the price, e.g. BTC
+   */
   symbol: string;
-  /** the value of the price scaled by 1e18 */
+  /**
+   * the value of the price scaled by 1e18
+   */
   value: string;
-  /** the price state */
+  /**
+   * the price state
+   */
   price_state: PriceStateAmino;
 }
 export interface StorkPriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.StorkPriceState";
   value: StorkPriceStateAmino;
 }
+/**
+ * @name PriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceState
+ */
 export interface PriceState {
   price: string;
   cumulativePrice: string;
@@ -339,6 +500,11 @@ export interface PriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceState";
   value: Uint8Array;
 }
+/**
+ * @name PriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceState
+ */
 export interface PriceStateAmino {
   price: string;
   cumulative_price: string;
@@ -348,6 +514,11 @@ export interface PriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.PriceState";
   value: PriceStateAmino;
 }
+/**
+ * @name PythPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PythPriceState
+ */
 export interface PythPriceState {
   priceId: string;
   emaPrice: string;
@@ -360,6 +531,11 @@ export interface PythPriceStateProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PythPriceState";
   value: Uint8Array;
 }
+/**
+ * @name PythPriceStateAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PythPriceState
+ */
 export interface PythPriceStateAmino {
   price_id: string;
   ema_price: string;
@@ -372,15 +548,24 @@ export interface PythPriceStateAminoMsg {
   type: "/injective.oracle.v1beta1.PythPriceState";
   value: PythPriceStateAmino;
 }
+/**
+ * @name BandOracleRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandOracleRequest
+ */
 export interface BandOracleRequest {
-  /** Unique Identifier for band ibc oracle request */
+  /**
+   * Unique Identifier for band ibc oracle request
+   */
   requestId: bigint;
   /**
    * OracleScriptID is the unique identifier of the oracle script to be
    * executed.
    */
   oracleScriptId: bigint;
-  /** Symbols is the list of symbols to prepare in the calldata */
+  /**
+   * Symbols is the list of symbols to prepare in the calldata
+   */
   symbols: string[];
   /**
    * AskCount is the number of validators that are requested to respond to this
@@ -398,9 +583,13 @@ export interface BandOracleRequest {
    * providers.
    */
   feeLimit: Coin[];
-  /** PrepareGas is amount of gas to pay to prepare raw requests */
+  /**
+   * PrepareGas is amount of gas to pay to prepare raw requests
+   */
   prepareGas: bigint;
-  /** ExecuteGas is amount of gas to reserve for executing */
+  /**
+   * ExecuteGas is amount of gas to reserve for executing
+   */
   executeGas: bigint;
   /**
    * MinSourceCount is the minimum number of data sources that must be used by
@@ -412,15 +601,24 @@ export interface BandOracleRequestProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.BandOracleRequest";
   value: Uint8Array;
 }
+/**
+ * @name BandOracleRequestAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandOracleRequest
+ */
 export interface BandOracleRequestAmino {
-  /** Unique Identifier for band ibc oracle request */
+  /**
+   * Unique Identifier for band ibc oracle request
+   */
   request_id: string;
   /**
    * OracleScriptID is the unique identifier of the oracle script to be
    * executed.
    */
   oracle_script_id: string;
-  /** Symbols is the list of symbols to prepare in the calldata */
+  /**
+   * Symbols is the list of symbols to prepare in the calldata
+   */
   symbols: string[];
   /**
    * AskCount is the number of validators that are requested to respond to this
@@ -438,9 +636,13 @@ export interface BandOracleRequestAmino {
    * providers.
    */
   fee_limit: CoinAmino[];
-  /** PrepareGas is amount of gas to pay to prepare raw requests */
+  /**
+   * PrepareGas is amount of gas to pay to prepare raw requests
+   */
   prepare_gas: string;
-  /** ExecuteGas is amount of gas to reserve for executing */
+  /**
+   * ExecuteGas is amount of gas to reserve for executing
+   */
   execute_gas: string;
   /**
    * MinSourceCount is the minimum number of data sources that must be used by
@@ -452,42 +654,81 @@ export interface BandOracleRequestAminoMsg {
   type: "/injective.oracle.v1beta1.BandOracleRequest";
   value: BandOracleRequestAmino;
 }
+/**
+ * @name BandIBCParams
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandIBCParams
+ */
 export interface BandIBCParams {
-  /** true if Band IBC should be enabled */
+  /**
+   * true if Band IBC should be enabled
+   */
   bandIbcEnabled: boolean;
-  /** block request interval to send Band IBC prices */
+  /**
+   * block request interval to send Band IBC prices
+   */
   ibcRequestInterval: bigint;
-  /** band IBC source channel */
+  /**
+   * band IBC source channel
+   */
   ibcSourceChannel: string;
-  /** band IBC version */
+  /**
+   * band IBC version
+   */
   ibcVersion: string;
-  /** band IBC portID */
+  /**
+   * band IBC portID
+   */
   ibcPortId: string;
-  /** legacy oracle scheme ids */
+  /**
+   * legacy oracle scheme ids
+   */
   legacyOracleIds: bigint[];
 }
 export interface BandIBCParamsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.BandIBCParams";
   value: Uint8Array;
 }
+/**
+ * @name BandIBCParamsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandIBCParams
+ */
 export interface BandIBCParamsAmino {
-  /** true if Band IBC should be enabled */
+  /**
+   * true if Band IBC should be enabled
+   */
   band_ibc_enabled: boolean;
-  /** block request interval to send Band IBC prices */
+  /**
+   * block request interval to send Band IBC prices
+   */
   ibc_request_interval: string;
-  /** band IBC source channel */
+  /**
+   * band IBC source channel
+   */
   ibc_source_channel: string;
-  /** band IBC version */
+  /**
+   * band IBC version
+   */
   ibc_version: string;
-  /** band IBC portID */
+  /**
+   * band IBC portID
+   */
   ibc_port_id: string;
-  /** legacy oracle scheme ids */
+  /**
+   * legacy oracle scheme ids
+   */
   legacy_oracle_ids: string[];
 }
 export interface BandIBCParamsAminoMsg {
   type: "/injective.oracle.v1beta1.BandIBCParams";
   value: BandIBCParamsAmino;
 }
+/**
+ * @name SymbolPriceTimestamp
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SymbolPriceTimestamp
+ */
 export interface SymbolPriceTimestamp {
   oracle: OracleType;
   symbolId: string;
@@ -497,6 +738,11 @@ export interface SymbolPriceTimestampProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SymbolPriceTimestamp";
   value: Uint8Array;
 }
+/**
+ * @name SymbolPriceTimestampAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SymbolPriceTimestamp
+ */
 export interface SymbolPriceTimestampAmino {
   oracle: OracleType;
   symbol_id: string;
@@ -506,6 +752,11 @@ export interface SymbolPriceTimestampAminoMsg {
   type: "/injective.oracle.v1beta1.SymbolPriceTimestamp";
   value: SymbolPriceTimestampAmino;
 }
+/**
+ * @name LastPriceTimestamps
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.LastPriceTimestamps
+ */
 export interface LastPriceTimestamps {
   lastPriceTimestamps: SymbolPriceTimestamp[];
 }
@@ -513,6 +764,11 @@ export interface LastPriceTimestampsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.LastPriceTimestamps";
   value: Uint8Array;
 }
+/**
+ * @name LastPriceTimestampsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.LastPriceTimestamps
+ */
 export interface LastPriceTimestampsAmino {
   last_price_timestamps: SymbolPriceTimestampAmino[];
 }
@@ -520,6 +776,11 @@ export interface LastPriceTimestampsAminoMsg {
   type: "/injective.oracle.v1beta1.LastPriceTimestamps";
   value: LastPriceTimestampsAmino;
 }
+/**
+ * @name PriceRecords
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceRecords
+ */
 export interface PriceRecords {
   oracle: OracleType;
   symbolId: string;
@@ -529,6 +790,11 @@ export interface PriceRecordsProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceRecords";
   value: Uint8Array;
 }
+/**
+ * @name PriceRecordsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceRecords
+ */
 export interface PriceRecordsAmino {
   oracle: OracleType;
   symbol_id: string;
@@ -538,6 +804,11 @@ export interface PriceRecordsAminoMsg {
   type: "/injective.oracle.v1beta1.PriceRecords";
   value: PriceRecordsAmino;
 }
+/**
+ * @name PriceRecord
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceRecord
+ */
 export interface PriceRecord {
   timestamp: bigint;
   price: string;
@@ -546,6 +817,11 @@ export interface PriceRecordProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceRecord";
   value: Uint8Array;
 }
+/**
+ * @name PriceRecordAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceRecord
+ */
 export interface PriceRecordAmino {
   timestamp: string;
   price: string;
@@ -557,6 +833,9 @@ export interface PriceRecordAminoMsg {
 /**
  * MetadataStatistics refers to the metadata summary statistics of the
  * historical sample considered
+ * @name MetadataStatistics
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MetadataStatistics
  */
 export interface MetadataStatistics {
   /**
@@ -564,7 +843,9 @@ export interface MetadataStatistics {
    * no grouping is used
    */
   groupCount: number;
-  /** RecordsSampleSize refers to the total number of records used. */
+  /**
+   * RecordsSampleSize refers to the total number of records used.
+   */
   recordsSampleSize: number;
   /**
    * Mean refers to the arithmetic mean
@@ -578,15 +859,25 @@ export interface MetadataStatistics {
    * ∆t_i) / ∑ ∆t_i where ∆t_i = t_i - t_{i-1}
    */
   twap: string;
-  /** FirstTimestamp is the timestamp of the oldest record considered */
+  /**
+   * FirstTimestamp is the timestamp of the oldest record considered
+   */
   firstTimestamp: bigint;
-  /** LastTimestamp is the timestamp of the youngest record considered */
+  /**
+   * LastTimestamp is the timestamp of the youngest record considered
+   */
   lastTimestamp: bigint;
-  /** MinPrice refers to the smallest individual raw price considered */
+  /**
+   * MinPrice refers to the smallest individual raw price considered
+   */
   minPrice: string;
-  /** MaxPrice refers to the largest individual raw price considered */
+  /**
+   * MaxPrice refers to the largest individual raw price considered
+   */
   maxPrice: string;
-  /** MedianPrice refers to the median individual raw price considered */
+  /**
+   * MedianPrice refers to the median individual raw price considered
+   */
   medianPrice: string;
 }
 export interface MetadataStatisticsProtoMsg {
@@ -596,6 +887,9 @@ export interface MetadataStatisticsProtoMsg {
 /**
  * MetadataStatistics refers to the metadata summary statistics of the
  * historical sample considered
+ * @name MetadataStatisticsAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MetadataStatistics
  */
 export interface MetadataStatisticsAmino {
   /**
@@ -603,7 +897,9 @@ export interface MetadataStatisticsAmino {
    * no grouping is used
    */
   group_count: number;
-  /** RecordsSampleSize refers to the total number of records used. */
+  /**
+   * RecordsSampleSize refers to the total number of records used.
+   */
   records_sample_size: number;
   /**
    * Mean refers to the arithmetic mean
@@ -617,24 +913,41 @@ export interface MetadataStatisticsAmino {
    * ∆t_i) / ∑ ∆t_i where ∆t_i = t_i - t_{i-1}
    */
   twap: string;
-  /** FirstTimestamp is the timestamp of the oldest record considered */
+  /**
+   * FirstTimestamp is the timestamp of the oldest record considered
+   */
   first_timestamp: string;
-  /** LastTimestamp is the timestamp of the youngest record considered */
+  /**
+   * LastTimestamp is the timestamp of the youngest record considered
+   */
   last_timestamp: string;
-  /** MinPrice refers to the smallest individual raw price considered */
+  /**
+   * MinPrice refers to the smallest individual raw price considered
+   */
   min_price: string;
-  /** MaxPrice refers to the largest individual raw price considered */
+  /**
+   * MaxPrice refers to the largest individual raw price considered
+   */
   max_price: string;
-  /** MedianPrice refers to the median individual raw price considered */
+  /**
+   * MedianPrice refers to the median individual raw price considered
+   */
   median_price: string;
 }
 export interface MetadataStatisticsAminoMsg {
   type: "/injective.oracle.v1beta1.MetadataStatistics";
   value: MetadataStatisticsAmino;
 }
+/**
+ * @name PriceAttestation
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceAttestation
+ */
 export interface PriceAttestation {
   priceId: string;
-  /** MaxPrice refers to the largest individual raw price considered */
+  /**
+   * MaxPrice refers to the largest individual raw price considered
+   */
   price: bigint;
   conf: bigint;
   expo: number;
@@ -647,9 +960,16 @@ export interface PriceAttestationProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.PriceAttestation";
   value: Uint8Array;
 }
+/**
+ * @name PriceAttestationAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceAttestation
+ */
 export interface PriceAttestationAmino {
   price_id: string;
-  /** MaxPrice refers to the largest individual raw price considered */
+  /**
+   * MaxPrice refers to the largest individual raw price considered
+   */
   price: string;
   conf: string;
   expo: number;
@@ -662,6 +982,11 @@ export interface PriceAttestationAminoMsg {
   type: "/injective.oracle.v1beta1.PriceAttestation";
   value: PriceAttestationAmino;
 }
+/**
+ * @name AssetPair
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.AssetPair
+ */
 export interface AssetPair {
   assetId: string;
   signedPrices: SignedPriceOfAssetPair[];
@@ -670,6 +995,11 @@ export interface AssetPairProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.AssetPair";
   value: Uint8Array;
 }
+/**
+ * @name AssetPairAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.AssetPair
+ */
 export interface AssetPairAmino {
   asset_id: string;
   signed_prices: SignedPriceOfAssetPairAmino[];
@@ -678,6 +1008,11 @@ export interface AssetPairAminoMsg {
   type: "/injective.oracle.v1beta1.AssetPair";
   value: AssetPairAmino;
 }
+/**
+ * @name SignedPriceOfAssetPair
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SignedPriceOfAssetPair
+ */
 export interface SignedPriceOfAssetPair {
   publisherKey: string;
   timestamp: bigint;
@@ -688,6 +1023,11 @@ export interface SignedPriceOfAssetPairProtoMsg {
   typeUrl: "/injective.oracle.v1beta1.SignedPriceOfAssetPair";
   value: Uint8Array;
 }
+/**
+ * @name SignedPriceOfAssetPairAmino
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SignedPriceOfAssetPair
+ */
 export interface SignedPriceOfAssetPairAmino {
   publisher_key: string;
   timestamp: string;
@@ -703,6 +1043,11 @@ function createBaseParams(): Params {
     pythContract: ""
   };
 }
+/**
+ * @name Params
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/injective.oracle.v1beta1.Params",
   aminoType: "oracle/Params",
@@ -781,6 +1126,11 @@ function createBaseOracleInfo(): OracleInfo {
     oracleType: 0
   };
 }
+/**
+ * @name OracleInfo
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.OracleInfo
+ */
 export const OracleInfo = {
   typeUrl: "/injective.oracle.v1beta1.OracleInfo",
   is(o: any): o is OracleInfo {
@@ -865,6 +1215,11 @@ function createBaseChainlinkPriceState(): ChainlinkPriceState {
     priceState: PriceState.fromPartial({})
   };
 }
+/**
+ * @name ChainlinkPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ChainlinkPriceState
+ */
 export const ChainlinkPriceState = {
   typeUrl: "/injective.oracle.v1beta1.ChainlinkPriceState",
   is(o: any): o is ChainlinkPriceState {
@@ -977,6 +1332,11 @@ function createBaseBandPriceState(): BandPriceState {
     priceState: PriceState.fromPartial({})
   };
 }
+/**
+ * @name BandPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandPriceState
+ */
 export const BandPriceState = {
   typeUrl: "/injective.oracle.v1beta1.BandPriceState",
   is(o: any): o is BandPriceState {
@@ -1099,6 +1459,11 @@ function createBasePriceFeedState(): PriceFeedState {
     relayers: []
   };
 }
+/**
+ * @name PriceFeedState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedState
+ */
 export const PriceFeedState = {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedState",
   is(o: any): o is PriceFeedState {
@@ -1210,6 +1575,11 @@ function createBaseProviderInfo(): ProviderInfo {
     relayers: []
   };
 }
+/**
+ * @name ProviderInfo
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderInfo
+ */
 export const ProviderInfo = {
   typeUrl: "/injective.oracle.v1beta1.ProviderInfo",
   is(o: any): o is ProviderInfo {
@@ -1294,6 +1664,11 @@ function createBaseProviderState(): ProviderState {
     providerPriceStates: []
   };
 }
+/**
+ * @name ProviderState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderState
+ */
 export const ProviderState = {
   typeUrl: "/injective.oracle.v1beta1.ProviderState",
   is(o: any): o is ProviderState {
@@ -1384,6 +1759,11 @@ function createBaseProviderPriceState(): ProviderPriceState {
     state: undefined
   };
 }
+/**
+ * @name ProviderPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.ProviderPriceState
+ */
 export const ProviderPriceState = {
   typeUrl: "/injective.oracle.v1beta1.ProviderPriceState",
   is(o: any): o is ProviderPriceState {
@@ -1471,6 +1851,11 @@ function createBasePriceFeedInfo(): PriceFeedInfo {
     quote: ""
   };
 }
+/**
+ * @name PriceFeedInfo
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedInfo
+ */
 export const PriceFeedInfo = {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedInfo",
   is(o: any): o is PriceFeedInfo {
@@ -1552,6 +1937,11 @@ function createBasePriceFeedPrice(): PriceFeedPrice {
     price: ""
   };
 }
+/**
+ * @name PriceFeedPrice
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceFeedPrice
+ */
 export const PriceFeedPrice = {
   typeUrl: "/injective.oracle.v1beta1.PriceFeedPrice",
   is(o: any): o is PriceFeedPrice {
@@ -1626,6 +2016,11 @@ function createBaseCoinbasePriceState(): CoinbasePriceState {
     priceState: PriceState.fromPartial({})
   };
 }
+/**
+ * @name CoinbasePriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.CoinbasePriceState
+ */
 export const CoinbasePriceState = {
   typeUrl: "/injective.oracle.v1beta1.CoinbasePriceState",
   is(o: any): o is CoinbasePriceState {
@@ -1748,6 +2143,11 @@ function createBaseStorkPriceState(): StorkPriceState {
     priceState: PriceState.fromPartial({})
   };
 }
+/**
+ * @name StorkPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.StorkPriceState
+ */
 export const StorkPriceState = {
   typeUrl: "/injective.oracle.v1beta1.StorkPriceState",
   is(o: any): o is StorkPriceState {
@@ -1858,6 +2258,11 @@ function createBasePriceState(): PriceState {
     timestamp: BigInt(0)
   };
 }
+/**
+ * @name PriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceState
+ */
 export const PriceState = {
   typeUrl: "/injective.oracle.v1beta1.PriceState",
   is(o: any): o is PriceState {
@@ -1955,6 +2360,11 @@ function createBasePythPriceState(): PythPriceState {
     priceState: PriceState.fromPartial({})
   };
 }
+/**
+ * @name PythPriceState
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PythPriceState
+ */
 export const PythPriceState = {
   typeUrl: "/injective.oracle.v1beta1.PythPriceState",
   is(o: any): o is PythPriceState {
@@ -2093,6 +2503,11 @@ function createBaseBandOracleRequest(): BandOracleRequest {
     minSourceCount: BigInt(0)
   };
 }
+/**
+ * @name BandOracleRequest
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandOracleRequest
+ */
 export const BandOracleRequest = {
   typeUrl: "/injective.oracle.v1beta1.BandOracleRequest",
   is(o: any): o is BandOracleRequest {
@@ -2265,6 +2680,11 @@ function createBaseBandIBCParams(): BandIBCParams {
     legacyOracleIds: []
   };
 }
+/**
+ * @name BandIBCParams
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.BandIBCParams
+ */
 export const BandIBCParams = {
   typeUrl: "/injective.oracle.v1beta1.BandIBCParams",
   is(o: any): o is BandIBCParams {
@@ -2403,6 +2823,11 @@ function createBaseSymbolPriceTimestamp(): SymbolPriceTimestamp {
     timestamp: BigInt(0)
   };
 }
+/**
+ * @name SymbolPriceTimestamp
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SymbolPriceTimestamp
+ */
 export const SymbolPriceTimestamp = {
   typeUrl: "/injective.oracle.v1beta1.SymbolPriceTimestamp",
   is(o: any): o is SymbolPriceTimestamp {
@@ -2495,6 +2920,11 @@ function createBaseLastPriceTimestamps(): LastPriceTimestamps {
     lastPriceTimestamps: []
   };
 }
+/**
+ * @name LastPriceTimestamps
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.LastPriceTimestamps
+ */
 export const LastPriceTimestamps = {
   typeUrl: "/injective.oracle.v1beta1.LastPriceTimestamps",
   is(o: any): o is LastPriceTimestamps {
@@ -2574,6 +3004,11 @@ function createBasePriceRecords(): PriceRecords {
     latestPriceRecords: []
   };
 }
+/**
+ * @name PriceRecords
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceRecords
+ */
 export const PriceRecords = {
   typeUrl: "/injective.oracle.v1beta1.PriceRecords",
   is(o: any): o is PriceRecords {
@@ -2674,6 +3109,11 @@ function createBasePriceRecord(): PriceRecord {
     price: ""
   };
 }
+/**
+ * @name PriceRecord
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceRecord
+ */
 export const PriceRecord = {
   typeUrl: "/injective.oracle.v1beta1.PriceRecord",
   is(o: any): o is PriceRecord {
@@ -2763,6 +3203,13 @@ function createBaseMetadataStatistics(): MetadataStatistics {
     medianPrice: ""
   };
 }
+/**
+ * MetadataStatistics refers to the metadata summary statistics of the
+ * historical sample considered
+ * @name MetadataStatistics
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.MetadataStatistics
+ */
 export const MetadataStatistics = {
   typeUrl: "/injective.oracle.v1beta1.MetadataStatistics",
   is(o: any): o is MetadataStatistics {
@@ -2928,6 +3375,11 @@ function createBasePriceAttestation(): PriceAttestation {
     publishTime: BigInt(0)
   };
 }
+/**
+ * @name PriceAttestation
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.PriceAttestation
+ */
 export const PriceAttestation = {
   typeUrl: "/injective.oracle.v1beta1.PriceAttestation",
   is(o: any): o is PriceAttestation {
@@ -3076,6 +3528,11 @@ function createBaseAssetPair(): AssetPair {
     signedPrices: []
   };
 }
+/**
+ * @name AssetPair
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.AssetPair
+ */
 export const AssetPair = {
   typeUrl: "/injective.oracle.v1beta1.AssetPair",
   is(o: any): o is AssetPair {
@@ -3167,6 +3624,11 @@ function createBaseSignedPriceOfAssetPair(): SignedPriceOfAssetPair {
     signature: new Uint8Array()
   };
 }
+/**
+ * @name SignedPriceOfAssetPair
+ * @package injective.oracle.v1beta1
+ * @see proto type: injective.oracle.v1beta1.SignedPriceOfAssetPair
+ */
 export const SignedPriceOfAssetPair = {
   typeUrl: "/injective.oracle.v1beta1.SignedPriceOfAssetPair",
   is(o: any): o is SignedPriceOfAssetPair {

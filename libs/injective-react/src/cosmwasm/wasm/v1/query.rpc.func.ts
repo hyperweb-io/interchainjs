@@ -1,6 +1,11 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryContractInfoRequest, QueryContractInfoResponse, QueryContractHistoryRequest, QueryContractHistoryResponse, QueryContractsByCodeRequest, QueryContractsByCodeResponse, QueryAllContractStateRequest, QueryAllContractStateResponse, QueryRawContractStateRequest, QueryRawContractStateResponse, QuerySmartContractStateRequest, QuerySmartContractStateResponse, QueryCodeRequest, QueryCodeResponse, QueryCodesRequest, QueryCodesResponse, QueryCodeInfoRequest, QueryCodeInfoResponse, QueryPinnedCodesRequest, QueryPinnedCodesResponse, QueryParamsRequest, QueryParamsResponse, QueryContractsByCreatorRequest, QueryContractsByCreatorResponse, QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse, QueryBuildAddressRequest, QueryBuildAddressResponse } from "./query";
-/* ContractInfo gets the contract meta data */
+/**
+ * ContractInfo gets the contract meta data
+ * @name getContractInfo
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.ContractInfo
+ */
 export const getContractInfo = buildQuery<QueryContractInfoRequest, QueryContractInfoResponse>({
   encode: QueryContractInfoRequest.encode,
   decode: QueryContractInfoResponse.decode,
@@ -8,7 +13,12 @@ export const getContractInfo = buildQuery<QueryContractInfoRequest, QueryContrac
   method: "ContractInfo",
   deps: [QueryContractInfoRequest, QueryContractInfoResponse]
 });
-/* ContractHistory gets the contract code history */
+/**
+ * ContractHistory gets the contract code history
+ * @name getContractHistory
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.ContractHistory
+ */
 export const getContractHistory = buildQuery<QueryContractHistoryRequest, QueryContractHistoryResponse>({
   encode: QueryContractHistoryRequest.encode,
   decode: QueryContractHistoryResponse.decode,
@@ -16,7 +26,12 @@ export const getContractHistory = buildQuery<QueryContractHistoryRequest, QueryC
   method: "ContractHistory",
   deps: [QueryContractHistoryRequest, QueryContractHistoryResponse]
 });
-/* ContractsByCode lists all smart contracts for a code id */
+/**
+ * ContractsByCode lists all smart contracts for a code id
+ * @name getContractsByCode
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.ContractsByCode
+ */
 export const getContractsByCode = buildQuery<QueryContractsByCodeRequest, QueryContractsByCodeResponse>({
   encode: QueryContractsByCodeRequest.encode,
   decode: QueryContractsByCodeResponse.decode,
@@ -24,7 +39,12 @@ export const getContractsByCode = buildQuery<QueryContractsByCodeRequest, QueryC
   method: "ContractsByCode",
   deps: [QueryContractsByCodeRequest, QueryContractsByCodeResponse]
 });
-/* AllContractState gets all raw store data for a single contract */
+/**
+ * AllContractState gets all raw store data for a single contract
+ * @name getAllContractState
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.AllContractState
+ */
 export const getAllContractState = buildQuery<QueryAllContractStateRequest, QueryAllContractStateResponse>({
   encode: QueryAllContractStateRequest.encode,
   decode: QueryAllContractStateResponse.decode,
@@ -32,7 +52,12 @@ export const getAllContractState = buildQuery<QueryAllContractStateRequest, Quer
   method: "AllContractState",
   deps: [QueryAllContractStateRequest, QueryAllContractStateResponse]
 });
-/* RawContractState gets single key from the raw store data of a contract */
+/**
+ * RawContractState gets single key from the raw store data of a contract
+ * @name getRawContractState
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.RawContractState
+ */
 export const getRawContractState = buildQuery<QueryRawContractStateRequest, QueryRawContractStateResponse>({
   encode: QueryRawContractStateRequest.encode,
   decode: QueryRawContractStateResponse.decode,
@@ -40,7 +65,12 @@ export const getRawContractState = buildQuery<QueryRawContractStateRequest, Quer
   method: "RawContractState",
   deps: [QueryRawContractStateRequest, QueryRawContractStateResponse]
 });
-/* SmartContractState get smart query result from the contract */
+/**
+ * SmartContractState get smart query result from the contract
+ * @name getSmartContractState
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.SmartContractState
+ */
 export const getSmartContractState = buildQuery<QuerySmartContractStateRequest, QuerySmartContractStateResponse>({
   encode: QuerySmartContractStateRequest.encode,
   decode: QuerySmartContractStateResponse.decode,
@@ -48,7 +78,12 @@ export const getSmartContractState = buildQuery<QuerySmartContractStateRequest, 
   method: "SmartContractState",
   deps: [QuerySmartContractStateRequest, QuerySmartContractStateResponse]
 });
-/* Code gets the binary code and metadata for a single wasm code */
+/**
+ * Code gets the binary code and metadata for a single wasm code
+ * @name getCode
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.Code
+ */
 export const getCode = buildQuery<QueryCodeRequest, QueryCodeResponse>({
   encode: QueryCodeRequest.encode,
   decode: QueryCodeResponse.decode,
@@ -56,7 +91,12 @@ export const getCode = buildQuery<QueryCodeRequest, QueryCodeResponse>({
   method: "Code",
   deps: [QueryCodeRequest, QueryCodeResponse]
 });
-/* Codes gets the metadata for all stored wasm codes */
+/**
+ * Codes gets the metadata for all stored wasm codes
+ * @name getCodes
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.Codes
+ */
 export const getCodes = buildQuery<QueryCodesRequest, QueryCodesResponse>({
   encode: QueryCodesRequest.encode,
   decode: QueryCodesResponse.decode,
@@ -64,7 +104,12 @@ export const getCodes = buildQuery<QueryCodesRequest, QueryCodesResponse>({
   method: "Codes",
   deps: [QueryCodesRequest, QueryCodesResponse]
 });
-/* CodeInfo gets the metadata for a single wasm code */
+/**
+ * CodeInfo gets the metadata for a single wasm code
+ * @name getCodeInfo
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.CodeInfo
+ */
 export const getCodeInfo = buildQuery<QueryCodeInfoRequest, QueryCodeInfoResponse>({
   encode: QueryCodeInfoRequest.encode,
   decode: QueryCodeInfoResponse.decode,
@@ -72,7 +117,12 @@ export const getCodeInfo = buildQuery<QueryCodeInfoRequest, QueryCodeInfoRespons
   method: "CodeInfo",
   deps: [QueryCodeInfoRequest, QueryCodeInfoResponse]
 });
-/* PinnedCodes gets the pinned code ids */
+/**
+ * PinnedCodes gets the pinned code ids
+ * @name getPinnedCodes
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.PinnedCodes
+ */
 export const getPinnedCodes = buildQuery<QueryPinnedCodesRequest, QueryPinnedCodesResponse>({
   encode: QueryPinnedCodesRequest.encode,
   decode: QueryPinnedCodesResponse.decode,
@@ -80,7 +130,12 @@ export const getPinnedCodes = buildQuery<QueryPinnedCodesRequest, QueryPinnedCod
   method: "PinnedCodes",
   deps: [QueryPinnedCodesRequest, QueryPinnedCodesResponse]
 });
-/* Params gets the module params */
+/**
+ * Params gets the module params
+ * @name getParams
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.Params
+ */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
@@ -88,7 +143,12 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-/* ContractsByCreator gets the contracts by creator */
+/**
+ * ContractsByCreator gets the contracts by creator
+ * @name getContractsByCreator
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.ContractsByCreator
+ */
 export const getContractsByCreator = buildQuery<QueryContractsByCreatorRequest, QueryContractsByCreatorResponse>({
   encode: QueryContractsByCreatorRequest.encode,
   decode: QueryContractsByCreatorResponse.decode,
@@ -96,8 +156,13 @@ export const getContractsByCreator = buildQuery<QueryContractsByCreatorRequest, 
   method: "ContractsByCreator",
   deps: [QueryContractsByCreatorRequest, QueryContractsByCreatorResponse]
 });
-/* WasmLimitsConfig gets the configured limits for static validation of Wasm
- files, encoded in JSON. */
+/**
+ * WasmLimitsConfig gets the configured limits for static validation of Wasm
+ * files, encoded in JSON.
+ * @name getWasmLimitsConfig
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.WasmLimitsConfig
+ */
 export const getWasmLimitsConfig = buildQuery<QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse>({
   encode: QueryWasmLimitsConfigRequest.encode,
   decode: QueryWasmLimitsConfigResponse.decode,
@@ -105,7 +170,12 @@ export const getWasmLimitsConfig = buildQuery<QueryWasmLimitsConfigRequest, Quer
   method: "WasmLimitsConfig",
   deps: [QueryWasmLimitsConfigRequest, QueryWasmLimitsConfigResponse]
 });
-/* BuildAddress builds a contract address */
+/**
+ * BuildAddress builds a contract address
+ * @name getBuildAddress
+ * @package cosmwasm.wasm.v1
+ * @see proto service: cosmwasm.wasm.v1.BuildAddress
+ */
 export const getBuildAddress = buildQuery<QueryBuildAddressRequest, QueryBuildAddressResponse>({
   encode: QueryBuildAddressRequest.encode,
   decode: QueryBuildAddressResponse.decode,

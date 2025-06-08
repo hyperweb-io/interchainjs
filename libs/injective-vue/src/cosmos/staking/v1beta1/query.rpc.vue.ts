@@ -1,97 +1,167 @@
 import { buildUseVueQuery } from "../../../vue-query";
 import { QueryValidatorsRequest, QueryValidatorsResponse, QueryValidatorRequest, QueryValidatorResponse, QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse, QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse, QueryDelegationRequest, QueryDelegationResponse, QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse, QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse, QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse, QueryRedelegationsRequest, QueryRedelegationsResponse, QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse, QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse, QueryHistoricalInfoRequest, QueryHistoricalInfoResponse, QueryPoolRequest, QueryPoolResponse, QueryParamsRequest, QueryParamsResponse } from "./query";
 import { getValidators, getValidator, getValidatorDelegations, getValidatorUnbondingDelegations, getDelegation, getUnbondingDelegation, getDelegatorDelegations, getDelegatorUnbondingDelegations, getRedelegations, getDelegatorValidators, getDelegatorValidator, getHistoricalInfo, getPool, getParams } from "./query.rpc.func";
-/* Validators queries all validators that match the given status.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * Validators queries all validators that match the given status.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetValidators
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.Validators
+ */
 export const useGetValidators = buildUseVueQuery<QueryValidatorsRequest, QueryValidatorsResponse>({
   builderQueryFn: getValidators,
   queryKeyPrefix: "ValidatorsQuery"
 });
-/* Validator queries validator info for given validator address. */
+/**
+ * Validator queries validator info for given validator address.
+ * @name useGetValidator
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.Validator
+ */
 export const useGetValidator = buildUseVueQuery<QueryValidatorRequest, QueryValidatorResponse>({
   builderQueryFn: getValidator,
   queryKeyPrefix: "ValidatorQuery"
 });
-/* ValidatorDelegations queries delegate info for given validator.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * ValidatorDelegations queries delegate info for given validator.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetValidatorDelegations
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.ValidatorDelegations
+ */
 export const useGetValidatorDelegations = buildUseVueQuery<QueryValidatorDelegationsRequest, QueryValidatorDelegationsResponse>({
   builderQueryFn: getValidatorDelegations,
   queryKeyPrefix: "ValidatorDelegationsQuery"
 });
-/* ValidatorUnbondingDelegations queries unbonding delegations of a validator.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * ValidatorUnbondingDelegations queries unbonding delegations of a validator.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetValidatorUnbondingDelegations
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.ValidatorUnbondingDelegations
+ */
 export const useGetValidatorUnbondingDelegations = buildUseVueQuery<QueryValidatorUnbondingDelegationsRequest, QueryValidatorUnbondingDelegationsResponse>({
   builderQueryFn: getValidatorUnbondingDelegations,
   queryKeyPrefix: "ValidatorUnbondingDelegationsQuery"
 });
-/* Delegation queries delegate info for given validator delegator pair. */
+/**
+ * Delegation queries delegate info for given validator delegator pair.
+ * @name useGetDelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.Delegation
+ */
 export const useGetDelegation = buildUseVueQuery<QueryDelegationRequest, QueryDelegationResponse>({
   builderQueryFn: getDelegation,
   queryKeyPrefix: "DelegationQuery"
 });
-/* UnbondingDelegation queries unbonding info for given validator delegator
- pair. */
+/**
+ * UnbondingDelegation queries unbonding info for given validator delegator
+ * pair.
+ * @name useGetUnbondingDelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.UnbondingDelegation
+ */
 export const useGetUnbondingDelegation = buildUseVueQuery<QueryUnbondingDelegationRequest, QueryUnbondingDelegationResponse>({
   builderQueryFn: getUnbondingDelegation,
   queryKeyPrefix: "UnbondingDelegationQuery"
 });
-/* DelegatorDelegations queries all delegations of a given delegator address.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * DelegatorDelegations queries all delegations of a given delegator address.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetDelegatorDelegations
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.DelegatorDelegations
+ */
 export const useGetDelegatorDelegations = buildUseVueQuery<QueryDelegatorDelegationsRequest, QueryDelegatorDelegationsResponse>({
   builderQueryFn: getDelegatorDelegations,
   queryKeyPrefix: "DelegatorDelegationsQuery"
 });
-/* DelegatorUnbondingDelegations queries all unbonding delegations of a given
- delegator address.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * DelegatorUnbondingDelegations queries all unbonding delegations of a given
+ * delegator address.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetDelegatorUnbondingDelegations
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.DelegatorUnbondingDelegations
+ */
 export const useGetDelegatorUnbondingDelegations = buildUseVueQuery<QueryDelegatorUnbondingDelegationsRequest, QueryDelegatorUnbondingDelegationsResponse>({
   builderQueryFn: getDelegatorUnbondingDelegations,
   queryKeyPrefix: "DelegatorUnbondingDelegationsQuery"
 });
-/* Redelegations queries redelegations of given address.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * Redelegations queries redelegations of given address.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetRedelegations
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.Redelegations
+ */
 export const useGetRedelegations = buildUseVueQuery<QueryRedelegationsRequest, QueryRedelegationsResponse>({
   builderQueryFn: getRedelegations,
   queryKeyPrefix: "RedelegationsQuery"
 });
-/* DelegatorValidators queries all validators info for given delegator
- address.
-
- When called from another module, this query might consume a high amount of
- gas if the pagination field is incorrectly set. */
+/**
+ * DelegatorValidators queries all validators info for given delegator
+ * address.
+ * 
+ * When called from another module, this query might consume a high amount of
+ * gas if the pagination field is incorrectly set.
+ * @name useGetDelegatorValidators
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.DelegatorValidators
+ */
 export const useGetDelegatorValidators = buildUseVueQuery<QueryDelegatorValidatorsRequest, QueryDelegatorValidatorsResponse>({
   builderQueryFn: getDelegatorValidators,
   queryKeyPrefix: "DelegatorValidatorsQuery"
 });
-/* DelegatorValidator queries validator info for given delegator validator
- pair. */
+/**
+ * DelegatorValidator queries validator info for given delegator validator
+ * pair.
+ * @name useGetDelegatorValidator
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.DelegatorValidator
+ */
 export const useGetDelegatorValidator = buildUseVueQuery<QueryDelegatorValidatorRequest, QueryDelegatorValidatorResponse>({
   builderQueryFn: getDelegatorValidator,
   queryKeyPrefix: "DelegatorValidatorQuery"
 });
-/* HistoricalInfo queries the historical info for given height. */
+/**
+ * HistoricalInfo queries the historical info for given height.
+ * @name useGetHistoricalInfo
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.HistoricalInfo
+ */
 export const useGetHistoricalInfo = buildUseVueQuery<QueryHistoricalInfoRequest, QueryHistoricalInfoResponse>({
   builderQueryFn: getHistoricalInfo,
   queryKeyPrefix: "HistoricalInfoQuery"
 });
-/* Pool queries the pool info. */
+/**
+ * Pool queries the pool info.
+ * @name useGetPool
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.Pool
+ */
 export const useGetPool = buildUseVueQuery<QueryPoolRequest, QueryPoolResponse>({
   builderQueryFn: getPool,
   queryKeyPrefix: "PoolQuery"
 });
-/* Parameters queries the staking parameters. */
+/**
+ * Parameters queries the staking parameters.
+ * @name useGetParams
+ * @package cosmos.staking.v1beta1
+ * @see proto service: cosmos.staking.v1beta1.Params
+ */
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"

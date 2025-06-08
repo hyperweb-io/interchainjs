@@ -4,6 +4,11 @@ import { Validator, ValidatorAmino } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { GlobalDecoderRegistry } from "../../registry";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+/**
+ * @name Evidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Evidence
+ */
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
   lightClientAttackEvidence?: LightClientAttackEvidence;
@@ -12,6 +17,11 @@ export interface EvidenceProtoMsg {
   typeUrl: "/tendermint.types.Evidence";
   value: Uint8Array;
 }
+/**
+ * @name EvidenceAmino
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Evidence
+ */
 export interface EvidenceAmino {
   duplicate_vote_evidence?: DuplicateVoteEvidenceAmino;
   light_client_attack_evidence?: LightClientAttackEvidenceAmino;
@@ -20,7 +30,12 @@ export interface EvidenceAminoMsg {
   type: "/tendermint.types.Evidence";
   value: EvidenceAmino;
 }
-/** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
+/**
+ * DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes.
+ * @name DuplicateVoteEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.DuplicateVoteEvidence
+ */
 export interface DuplicateVoteEvidence {
   voteA?: Vote;
   voteB?: Vote;
@@ -32,7 +47,12 @@ export interface DuplicateVoteEvidenceProtoMsg {
   typeUrl: "/tendermint.types.DuplicateVoteEvidence";
   value: Uint8Array;
 }
-/** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
+/**
+ * DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes.
+ * @name DuplicateVoteEvidenceAmino
+ * @package tendermint.types
+ * @see proto type: tendermint.types.DuplicateVoteEvidence
+ */
 export interface DuplicateVoteEvidenceAmino {
   vote_a?: VoteAmino;
   vote_b?: VoteAmino;
@@ -44,7 +64,12 @@ export interface DuplicateVoteEvidenceAminoMsg {
   type: "/tendermint.types.DuplicateVoteEvidence";
   value: DuplicateVoteEvidenceAmino;
 }
-/** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
+/**
+ * LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client.
+ * @name LightClientAttackEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.LightClientAttackEvidence
+ */
 export interface LightClientAttackEvidence {
   conflictingBlock?: LightBlock;
   commonHeight: bigint;
@@ -56,7 +81,12 @@ export interface LightClientAttackEvidenceProtoMsg {
   typeUrl: "/tendermint.types.LightClientAttackEvidence";
   value: Uint8Array;
 }
-/** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
+/**
+ * LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client.
+ * @name LightClientAttackEvidenceAmino
+ * @package tendermint.types
+ * @see proto type: tendermint.types.LightClientAttackEvidence
+ */
 export interface LightClientAttackEvidenceAmino {
   conflicting_block?: LightBlockAmino;
   common_height: string;
@@ -68,6 +98,11 @@ export interface LightClientAttackEvidenceAminoMsg {
   type: "/tendermint.types.LightClientAttackEvidence";
   value: LightClientAttackEvidenceAmino;
 }
+/**
+ * @name EvidenceList
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceList
+ */
 export interface EvidenceList {
   evidence: Evidence[];
 }
@@ -75,6 +110,11 @@ export interface EvidenceListProtoMsg {
   typeUrl: "/tendermint.types.EvidenceList";
   value: Uint8Array;
 }
+/**
+ * @name EvidenceListAmino
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceList
+ */
 export interface EvidenceListAmino {
   evidence: EvidenceAmino[];
 }
@@ -88,6 +128,11 @@ function createBaseEvidence(): Evidence {
     lightClientAttackEvidence: undefined
   };
 }
+/**
+ * @name Evidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Evidence
+ */
 export const Evidence = {
   typeUrl: "/tendermint.types.Evidence",
   is(o: any): o is Evidence {
@@ -179,6 +224,12 @@ function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
     timestamp: new Date()
   };
 }
+/**
+ * DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes.
+ * @name DuplicateVoteEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.DuplicateVoteEvidence
+ */
 export const DuplicateVoteEvidence = {
   typeUrl: "/tendermint.types.DuplicateVoteEvidence",
   is(o: any): o is DuplicateVoteEvidence {
@@ -302,6 +353,12 @@ function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
     timestamp: new Date()
   };
 }
+/**
+ * LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client.
+ * @name LightClientAttackEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.LightClientAttackEvidence
+ */
 export const LightClientAttackEvidence = {
   typeUrl: "/tendermint.types.LightClientAttackEvidence",
   is(o: any): o is LightClientAttackEvidence {
@@ -424,6 +481,11 @@ function createBaseEvidenceList(): EvidenceList {
     evidence: []
   };
 }
+/**
+ * @name EvidenceList
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceList
+ */
 export const EvidenceList = {
   typeUrl: "/tendermint.types.EvidenceList",
   is(o: any): o is EvidenceList {

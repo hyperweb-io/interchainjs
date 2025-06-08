@@ -3,11 +3,18 @@ import { DeepPartial } from "../../../../helpers";
 /**
  * Metadata defines the ICS29 channel specific metadata encoded into the channel version bytestring
  * See ICS004: https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#Versioning
+ * @name Metadata
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.Metadata
  */
 export interface Metadata {
-  /** fee_version defines the ICS29 fee version */
+  /**
+   * fee_version defines the ICS29 fee version
+   */
   feeVersion: string;
-  /** app_version defines the underlying application version, which may or may not be a JSON encoded bytestring */
+  /**
+   * app_version defines the underlying application version, which may or may not be a JSON encoded bytestring
+   */
   appVersion: string;
 }
 export interface MetadataProtoMsg {
@@ -17,11 +24,18 @@ export interface MetadataProtoMsg {
 /**
  * Metadata defines the ICS29 channel specific metadata encoded into the channel version bytestring
  * See ICS004: https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#Versioning
+ * @name MetadataAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.Metadata
  */
 export interface MetadataAmino {
-  /** fee_version defines the ICS29 fee version */
+  /**
+   * fee_version defines the ICS29 fee version
+   */
   fee_version: string;
-  /** app_version defines the underlying application version, which may or may not be a JSON encoded bytestring */
+  /**
+   * app_version defines the underlying application version, which may or may not be a JSON encoded bytestring
+   */
   app_version: string;
 }
 export interface MetadataAminoMsg {
@@ -34,6 +48,13 @@ function createBaseMetadata(): Metadata {
     appVersion: ""
   };
 }
+/**
+ * Metadata defines the ICS29 channel specific metadata encoded into the channel version bytestring
+ * See ICS004: https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#Versioning
+ * @name Metadata
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.Metadata
+ */
 export const Metadata = {
   typeUrl: "/ibc.applications.fee.v1.Metadata",
   aminoType: "cosmos-sdk/Metadata",

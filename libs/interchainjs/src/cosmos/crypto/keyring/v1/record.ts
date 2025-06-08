@@ -3,38 +3,72 @@ import { BIP44Params, BIP44ParamsAmino } from "../../hd/v1/hd";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** Record is used for representing a key in the keyring. */
+/**
+ * Record is used for representing a key in the keyring.
+ * @name Record
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record
+ */
 export interface Record {
-  /** name represents a name of Record */
+  /**
+   * name represents a name of Record
+   */
   name: string;
-  /** pub_key represents a public key in any format */
+  /**
+   * pub_key represents a public key in any format
+   */
   pubKey?: Any;
-  /** local stores the private key locally. */
+  /**
+   * local stores the private key locally.
+   */
   local?: Record_Local;
-  /** ledger stores the information about a Ledger key. */
+  /**
+   * ledger stores the information about a Ledger key.
+   */
   ledger?: Record_Ledger;
-  /** Multi does not store any other information. */
+  /**
+   * Multi does not store any other information.
+   */
   multi?: Record_Multi;
-  /** Offline does not store any other information. */
+  /**
+   * Offline does not store any other information.
+   */
   offline?: Record_Offline;
 }
 export interface RecordProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Record";
   value: Uint8Array;
 }
-/** Record is used for representing a key in the keyring. */
+/**
+ * Record is used for representing a key in the keyring.
+ * @name RecordAmino
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record
+ */
 export interface RecordAmino {
-  /** name represents a name of Record */
+  /**
+   * name represents a name of Record
+   */
   name: string;
-  /** pub_key represents a public key in any format */
+  /**
+   * pub_key represents a public key in any format
+   */
   pub_key?: AnyAmino;
-  /** local stores the private key locally. */
+  /**
+   * local stores the private key locally.
+   */
   local?: Record_LocalAmino;
-  /** ledger stores the information about a Ledger key. */
+  /**
+   * ledger stores the information about a Ledger key.
+   */
   ledger?: Record_LedgerAmino;
-  /** Multi does not store any other information. */
+  /**
+   * Multi does not store any other information.
+   */
   multi?: Record_MultiAmino;
-  /** Offline does not store any other information. */
+  /**
+   * Offline does not store any other information.
+   */
   offline?: Record_OfflineAmino;
 }
 export interface RecordAminoMsg {
@@ -44,6 +78,9 @@ export interface RecordAminoMsg {
 /**
  * Item is a keyring item stored in a keyring backend.
  * Local item
+ * @name Record_Local
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Local
  */
 export interface Record_Local {
   privKey?: Any;
@@ -55,6 +92,9 @@ export interface Record_LocalProtoMsg {
 /**
  * Item is a keyring item stored in a keyring backend.
  * Local item
+ * @name Record_LocalAmino
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record_Local
  */
 export interface Record_LocalAmino {
   priv_key?: AnyAmino;
@@ -63,7 +103,12 @@ export interface Record_LocalAminoMsg {
   type: "cosmos-sdk/Local";
   value: Record_LocalAmino;
 }
-/** Ledger item */
+/**
+ * Ledger item
+ * @name Record_Ledger
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Ledger
+ */
 export interface Record_Ledger {
   path?: BIP44Params;
 }
@@ -71,7 +116,12 @@ export interface Record_LedgerProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Ledger";
   value: Uint8Array;
 }
-/** Ledger item */
+/**
+ * Ledger item
+ * @name Record_LedgerAmino
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record_Ledger
+ */
 export interface Record_LedgerAmino {
   path?: BIP44ParamsAmino;
 }
@@ -79,25 +129,45 @@ export interface Record_LedgerAminoMsg {
   type: "cosmos-sdk/Ledger";
   value: Record_LedgerAmino;
 }
-/** Multi item */
+/**
+ * Multi item
+ * @name Record_Multi
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Multi
+ */
 export interface Record_Multi {}
 export interface Record_MultiProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Multi";
   value: Uint8Array;
 }
-/** Multi item */
+/**
+ * Multi item
+ * @name Record_MultiAmino
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record_Multi
+ */
 export interface Record_MultiAmino {}
 export interface Record_MultiAminoMsg {
   type: "cosmos-sdk/Multi";
   value: Record_MultiAmino;
 }
-/** Offline item */
+/**
+ * Offline item
+ * @name Record_Offline
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Offline
+ */
 export interface Record_Offline {}
 export interface Record_OfflineProtoMsg {
   typeUrl: "/cosmos.crypto.keyring.v1.Offline";
   value: Uint8Array;
 }
-/** Offline item */
+/**
+ * Offline item
+ * @name Record_OfflineAmino
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record_Offline
+ */
 export interface Record_OfflineAmino {}
 export interface Record_OfflineAminoMsg {
   type: "cosmos-sdk/Offline";
@@ -113,6 +183,12 @@ function createBaseRecord(): Record {
     offline: undefined
   };
 }
+/**
+ * Record is used for representing a key in the keyring.
+ * @name Record
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Record
+ */
 export const Record = {
   typeUrl: "/cosmos.crypto.keyring.v1.Record",
   aminoType: "cosmos-sdk/Record",
@@ -253,6 +329,13 @@ function createBaseRecord_Local(): Record_Local {
     privKey: undefined
   };
 }
+/**
+ * Item is a keyring item stored in a keyring backend.
+ * Local item
+ * @name Record_Local
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Local
+ */
 export const Record_Local = {
   typeUrl: "/cosmos.crypto.keyring.v1.Local",
   aminoType: "cosmos-sdk/Local",
@@ -330,6 +413,12 @@ function createBaseRecord_Ledger(): Record_Ledger {
     path: undefined
   };
 }
+/**
+ * Ledger item
+ * @name Record_Ledger
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Ledger
+ */
 export const Record_Ledger = {
   typeUrl: "/cosmos.crypto.keyring.v1.Ledger",
   aminoType: "cosmos-sdk/Ledger",
@@ -410,6 +499,12 @@ export const Record_Ledger = {
 function createBaseRecord_Multi(): Record_Multi {
   return {};
 }
+/**
+ * Multi item
+ * @name Record_Multi
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Multi
+ */
 export const Record_Multi = {
   typeUrl: "/cosmos.crypto.keyring.v1.Multi",
   aminoType: "cosmos-sdk/Multi",
@@ -474,6 +569,12 @@ export const Record_Multi = {
 function createBaseRecord_Offline(): Record_Offline {
   return {};
 }
+/**
+ * Offline item
+ * @name Record_Offline
+ * @package cosmos.crypto.keyring.v1
+ * @see proto type: cosmos.crypto.keyring.v1.Offline
+ */
 export const Record_Offline = {
   typeUrl: "/cosmos.crypto.keyring.v1.Offline",
   aminoType: "cosmos-sdk/Offline",

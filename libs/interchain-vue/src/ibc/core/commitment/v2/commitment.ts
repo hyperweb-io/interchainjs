@@ -4,6 +4,9 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpe
  * MerklePath is the path used to verify commitment proofs, which can be an
  * arbitrary structured object (defined by a commitment type).
  * MerklePath is represented from root-to-leaf
+ * @name MerklePath
+ * @package ibc.core.commitment.v2
+ * @see proto type: ibc.core.commitment.v2.MerklePath
  */
 export interface MerklePath {
   keyPath: Uint8Array[];
@@ -16,6 +19,9 @@ export interface MerklePathProtoMsg {
  * MerklePath is the path used to verify commitment proofs, which can be an
  * arbitrary structured object (defined by a commitment type).
  * MerklePath is represented from root-to-leaf
+ * @name MerklePathAmino
+ * @package ibc.core.commitment.v2
+ * @see proto type: ibc.core.commitment.v2.MerklePath
  */
 export interface MerklePathAmino {
   key_path: string[];
@@ -29,6 +35,14 @@ function createBaseMerklePath(): MerklePath {
     keyPath: []
   };
 }
+/**
+ * MerklePath is the path used to verify commitment proofs, which can be an
+ * arbitrary structured object (defined by a commitment type).
+ * MerklePath is represented from root-to-leaf
+ * @name MerklePath
+ * @package ibc.core.commitment.v2
+ * @see proto type: ibc.core.commitment.v2.MerklePath
+ */
 export const MerklePath = {
   typeUrl: "/ibc.core.commitment.v2.MerklePath",
   aminoType: "cosmos-sdk/MerklePath",
