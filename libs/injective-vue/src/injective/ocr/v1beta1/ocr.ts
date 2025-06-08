@@ -4,32 +4,61 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
+/**
+ * @name Params
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Params
+ */
 export interface Params {
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   linkDenom: string;
-  /** The block number interval at which payouts are made */
+  /**
+   * The block number interval at which payouts are made
+   */
   payoutBlockInterval: bigint;
-  /** The admin for the OCR module */
+  /**
+   * The admin for the OCR module
+   */
   moduleAdmin: string;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Params";
   value: Uint8Array;
 }
+/**
+ * @name ParamsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Params
+ */
 export interface ParamsAmino {
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   link_denom: string;
-  /** The block number interval at which payouts are made */
+  /**
+   * The block number interval at which payouts are made
+   */
   payout_block_interval: string;
-  /** The admin for the OCR module */
+  /**
+   * The admin for the OCR module
+   */
   module_admin: string;
 }
 export interface ParamsAminoMsg {
   type: "ocr/Params";
   value: ParamsAmino;
 }
+/**
+ * @name FeedConfig
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedConfig
+ */
 export interface FeedConfig {
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
@@ -41,7 +70,9 @@ export interface FeedConfig {
    * while still working correctly
    */
   f: number;
-  /** onchain_config serialized data with reporting plugin params on chain. */
+  /**
+   * onchain_config serialized data with reporting plugin params on chain.
+   */
   onchainConfig: Uint8Array;
   /**
    * offchain_config_version version of the serialization format used for
@@ -53,15 +84,24 @@ export interface FeedConfig {
    * operation
    */
   offchainConfig: Uint8Array;
-  /** feed-specific params for the Cosmos module. */
+  /**
+   * feed-specific params for the Cosmos module.
+   */
   moduleParams?: ModuleParams;
 }
 export interface FeedConfigProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedConfig";
   value: Uint8Array;
 }
+/**
+ * @name FeedConfigAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedConfig
+ */
 export interface FeedConfigAmino {
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
@@ -73,7 +113,9 @@ export interface FeedConfigAmino {
    * while still working correctly
    */
   f: number;
-  /** onchain_config serialized data with reporting plugin params on chain. */
+  /**
+   * onchain_config serialized data with reporting plugin params on chain.
+   */
   onchain_config: string;
   /**
    * offchain_config_version version of the serialization format used for
@@ -85,13 +127,20 @@ export interface FeedConfigAmino {
    * operation
    */
   offchain_config: string;
-  /** feed-specific params for the Cosmos module. */
+  /**
+   * feed-specific params for the Cosmos module.
+   */
   module_params?: ModuleParamsAmino;
 }
 export interface FeedConfigAminoMsg {
   type: "/injective.ocr.v1beta1.FeedConfig";
   value: FeedConfigAmino;
 }
+/**
+ * @name FeedConfigInfo
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedConfigInfo
+ */
 export interface FeedConfigInfo {
   latestConfigDigest: Uint8Array;
   f: number;
@@ -107,6 +156,11 @@ export interface FeedConfigInfoProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedConfigInfo";
   value: Uint8Array;
 }
+/**
+ * @name FeedConfigInfoAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedConfigInfo
+ */
 export interface FeedConfigInfoAmino {
   latest_config_digest: string;
   f: number;
@@ -122,71 +176,124 @@ export interface FeedConfigInfoAminoMsg {
   type: "/injective.ocr.v1beta1.FeedConfigInfo";
   value: FeedConfigInfoAmino;
 }
+/**
+ * @name ModuleParams
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ModuleParams
+ */
 export interface ModuleParams {
-  /** feed_id is an unique ID for the target of this config */
+  /**
+   * feed_id is an unique ID for the target of this config
+   */
   feedId: string;
-  /** lowest answer the median of a report is allowed to be */
+  /**
+   * lowest answer the median of a report is allowed to be
+   */
   minAnswer: string;
-  /** highest answer the median of a report is allowed to be */
+  /**
+   * highest answer the median of a report is allowed to be
+   */
   maxAnswer: string;
-  /** Fixed LINK reward for each observer */
+  /**
+   * Fixed LINK reward for each observer
+   */
   linkPerObservation: string;
-  /** Fixed LINK reward for transmitter */
+  /**
+   * Fixed LINK reward for transmitter
+   */
   linkPerTransmission: string;
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   linkDenom: string;
-  /** Enables unique reports */
+  /**
+   * Enables unique reports
+   */
   uniqueReports: boolean;
   /**
    * short human-readable description of observable this feed's answers pertain
    * to
    */
   description: string;
-  /** feed administrator */
+  /**
+   * feed administrator
+   */
   feedAdmin: string;
-  /** feed billing administrator */
+  /**
+   * feed billing administrator
+   */
   billingAdmin: string;
 }
 export interface ModuleParamsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.ModuleParams";
   value: Uint8Array;
 }
+/**
+ * @name ModuleParamsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ModuleParams
+ */
 export interface ModuleParamsAmino {
-  /** feed_id is an unique ID for the target of this config */
+  /**
+   * feed_id is an unique ID for the target of this config
+   */
   feed_id: string;
-  /** lowest answer the median of a report is allowed to be */
+  /**
+   * lowest answer the median of a report is allowed to be
+   */
   min_answer: string;
-  /** highest answer the median of a report is allowed to be */
+  /**
+   * highest answer the median of a report is allowed to be
+   */
   max_answer: string;
-  /** Fixed LINK reward for each observer */
+  /**
+   * Fixed LINK reward for each observer
+   */
   link_per_observation: string;
-  /** Fixed LINK reward for transmitter */
+  /**
+   * Fixed LINK reward for transmitter
+   */
   link_per_transmission: string;
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   link_denom: string;
-  /** Enables unique reports */
+  /**
+   * Enables unique reports
+   */
   unique_reports: boolean;
   /**
    * short human-readable description of observable this feed's answers pertain
    * to
    */
   description: string;
-  /** feed administrator */
+  /**
+   * feed administrator
+   */
   feed_admin: string;
-  /** feed billing administrator */
+  /**
+   * feed billing administrator
+   */
   billing_admin: string;
 }
 export interface ModuleParamsAminoMsg {
   type: "/injective.ocr.v1beta1.ModuleParams";
   value: ModuleParamsAmino;
 }
+/**
+ * @name ContractConfig
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ContractConfig
+ */
 export interface ContractConfig {
   /**
    * config_count ordinal number of this config setting among all config
    * settings
    */
   configCount: bigint;
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
@@ -198,7 +305,9 @@ export interface ContractConfig {
    * while still working correctly
    */
   f: number;
-  /** onchain_config serialized data with reporting plugin params on chain. */
+  /**
+   * onchain_config serialized data with reporting plugin params on chain.
+   */
   onchainConfig: Uint8Array;
   /**
    * offchain_config_version version of the serialization format used for
@@ -215,13 +324,20 @@ export interface ContractConfigProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.ContractConfig";
   value: Uint8Array;
 }
+/**
+ * @name ContractConfigAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ContractConfig
+ */
 export interface ContractConfigAmino {
   /**
    * config_count ordinal number of this config setting among all config
    * settings
    */
   config_count: string;
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
@@ -233,7 +349,9 @@ export interface ContractConfigAmino {
    * while still working correctly
    */
   f: number;
-  /** onchain_config serialized data with reporting plugin params on chain. */
+  /**
+   * onchain_config serialized data with reporting plugin params on chain.
+   */
   onchain_config: string;
   /**
    * offchain_config_version version of the serialization format used for
@@ -250,6 +368,11 @@ export interface ContractConfigAminoMsg {
   type: "/injective.ocr.v1beta1.ContractConfig";
   value: ContractConfigAmino;
 }
+/**
+ * @name SetConfigProposal
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.SetConfigProposal
+ */
 export interface SetConfigProposal {
   title: string;
   description: string;
@@ -259,6 +382,11 @@ export interface SetConfigProposalProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.SetConfigProposal";
   value: Uint8Array;
 }
+/**
+ * @name SetConfigProposalAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.SetConfigProposal
+ */
 export interface SetConfigProposalAmino {
   title: string;
   description: string;
@@ -268,15 +396,24 @@ export interface SetConfigProposalAminoMsg {
   type: "ocr/SetConfigProposal";
   value: SetConfigProposalAmino;
 }
+/**
+ * @name FeedProperties
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedProperties
+ */
 export interface FeedProperties {
-  /** feed_id is an unique ID for the target of this config */
+  /**
+   * feed_id is an unique ID for the target of this config
+   */
   feedId: string;
   /**
    * f maximum number of faulty/dishonest oracles the protocol can tolerate
    * while still working correctly
    */
   f: number;
-  /** onchain_config serialized data with reporting plugin params on chain. */
+  /**
+   * onchain_config serialized data with reporting plugin params on chain.
+   */
   onchainConfig: Uint8Array;
   /**
    * offchain_config_version version of the serialization format used for
@@ -288,15 +425,25 @@ export interface FeedProperties {
    * operation
    */
   offchainConfig: Uint8Array;
-  /** lowest answer the median of a report is allowed to be */
+  /**
+   * lowest answer the median of a report is allowed to be
+   */
   minAnswer: string;
-  /** highest answer the median of a report is allowed to be */
+  /**
+   * highest answer the median of a report is allowed to be
+   */
   maxAnswer: string;
-  /** Fixed LINK reward for each observer */
+  /**
+   * Fixed LINK reward for each observer
+   */
   linkPerObservation: string;
-  /** Fixed LINK reward for transmitter */
+  /**
+   * Fixed LINK reward for transmitter
+   */
   linkPerTransmission: string;
-  /** Enables unique reports */
+  /**
+   * Enables unique reports
+   */
   uniqueReports: boolean;
   /**
    * short human-readable description of observable this feed's answers pertain
@@ -308,15 +455,24 @@ export interface FeedPropertiesProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedProperties";
   value: Uint8Array;
 }
+/**
+ * @name FeedPropertiesAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedProperties
+ */
 export interface FeedPropertiesAmino {
-  /** feed_id is an unique ID for the target of this config */
+  /**
+   * feed_id is an unique ID for the target of this config
+   */
   feed_id: string;
   /**
    * f maximum number of faulty/dishonest oracles the protocol can tolerate
    * while still working correctly
    */
   f: number;
-  /** onchain_config serialized data with reporting plugin params on chain. */
+  /**
+   * onchain_config serialized data with reporting plugin params on chain.
+   */
   onchain_config: string;
   /**
    * offchain_config_version version of the serialization format used for
@@ -328,15 +484,25 @@ export interface FeedPropertiesAmino {
    * operation
    */
   offchain_config: string;
-  /** lowest answer the median of a report is allowed to be */
+  /**
+   * lowest answer the median of a report is allowed to be
+   */
   min_answer: string;
-  /** highest answer the median of a report is allowed to be */
+  /**
+   * highest answer the median of a report is allowed to be
+   */
   max_answer: string;
-  /** Fixed LINK reward for each observer */
+  /**
+   * Fixed LINK reward for each observer
+   */
   link_per_observation: string;
-  /** Fixed LINK reward for transmitter */
+  /**
+   * Fixed LINK reward for transmitter
+   */
   link_per_transmission: string;
-  /** Enables unique reports */
+  /**
+   * Enables unique reports
+   */
   unique_reports: boolean;
   /**
    * short human-readable description of observable this feed's answers pertain
@@ -348,44 +514,71 @@ export interface FeedPropertiesAminoMsg {
   type: "/injective.ocr.v1beta1.FeedProperties";
   value: FeedPropertiesAmino;
 }
+/**
+ * @name SetBatchConfigProposal
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.SetBatchConfigProposal
+ */
 export interface SetBatchConfigProposal {
   title: string;
   description: string;
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
    * via the transmit method
    */
   transmitters: string[];
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   linkDenom: string;
-  /** feed properties */
+  /**
+   * feed properties
+   */
   feedProperties: FeedProperties[];
 }
 export interface SetBatchConfigProposalProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.SetBatchConfigProposal";
   value: Uint8Array;
 }
+/**
+ * @name SetBatchConfigProposalAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.SetBatchConfigProposal
+ */
 export interface SetBatchConfigProposalAmino {
   title: string;
   description: string;
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
    * via the transmit method
    */
   transmitters: string[];
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   link_denom: string;
-  /** feed properties */
+  /**
+   * feed properties
+   */
   feed_properties: FeedPropertiesAmino[];
 }
 export interface SetBatchConfigProposalAminoMsg {
   type: "ocr/SetBatchConfigProposal";
   value: SetBatchConfigProposalAmino;
 }
+/**
+ * @name OracleObservationsCounts
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.OracleObservationsCounts
+ */
 export interface OracleObservationsCounts {
   counts: number[];
 }
@@ -393,6 +586,11 @@ export interface OracleObservationsCountsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.OracleObservationsCounts";
   value: Uint8Array;
 }
+/**
+ * @name OracleObservationsCountsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.OracleObservationsCounts
+ */
 export interface OracleObservationsCountsAmino {
   counts: number[];
 }
@@ -400,7 +598,12 @@ export interface OracleObservationsCountsAminoMsg {
   type: "/injective.ocr.v1beta1.OracleObservationsCounts";
   value: OracleObservationsCountsAmino;
 }
-/** LINK-INJ-denominated reimbursements for gas used by transmitters. */
+/**
+ * LINK-INJ-denominated reimbursements for gas used by transmitters.
+ * @name GasReimbursements
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.GasReimbursements
+ */
 export interface GasReimbursements {
   reimbursements: Coin[];
 }
@@ -408,7 +611,12 @@ export interface GasReimbursementsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.GasReimbursements";
   value: Uint8Array;
 }
-/** LINK-INJ-denominated reimbursements for gas used by transmitters. */
+/**
+ * LINK-INJ-denominated reimbursements for gas used by transmitters.
+ * @name GasReimbursementsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.GasReimbursements
+ */
 export interface GasReimbursementsAmino {
   reimbursements: CoinAmino[];
 }
@@ -416,6 +624,11 @@ export interface GasReimbursementsAminoMsg {
   type: "/injective.ocr.v1beta1.GasReimbursements";
   value: GasReimbursementsAmino;
 }
+/**
+ * @name Payee
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Payee
+ */
 export interface Payee {
   transmitterAddr: string;
   paymentAddr: string;
@@ -424,6 +637,11 @@ export interface PayeeProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Payee";
   value: Uint8Array;
 }
+/**
+ * @name PayeeAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Payee
+ */
 export interface PayeeAmino {
   transmitter_addr: string;
   payment_addr: string;
@@ -435,12 +653,19 @@ export interface PayeeAminoMsg {
 /**
  * Transmission records the median answer from the transmit transaction at
  * time timestamp
+ * @name Transmission
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Transmission
  */
 export interface Transmission {
   answer: string;
-  /** when were observations made offchain */
+  /**
+   * when were observations made offchain
+   */
   observationsTimestamp: bigint;
-  /** when was report received onchain */
+  /**
+   * when was report received onchain
+   */
   transmissionTimestamp: bigint;
 }
 export interface TransmissionProtoMsg {
@@ -450,18 +675,30 @@ export interface TransmissionProtoMsg {
 /**
  * Transmission records the median answer from the transmit transaction at
  * time timestamp
+ * @name TransmissionAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Transmission
  */
 export interface TransmissionAmino {
   answer: string;
-  /** when were observations made offchain */
+  /**
+   * when were observations made offchain
+   */
   observations_timestamp: string;
-  /** when was report received onchain */
+  /**
+   * when was report received onchain
+   */
   transmission_timestamp: string;
 }
 export interface TransmissionAminoMsg {
   type: "/injective.ocr.v1beta1.Transmission";
   value: TransmissionAmino;
 }
+/**
+ * @name EpochAndRound
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EpochAndRound
+ */
 export interface EpochAndRound {
   epoch: bigint;
   round: bigint;
@@ -470,6 +707,11 @@ export interface EpochAndRoundProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EpochAndRound";
   value: Uint8Array;
 }
+/**
+ * @name EpochAndRoundAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EpochAndRound
+ */
 export interface EpochAndRoundAmino {
   epoch: string;
   round: string;
@@ -478,9 +720,16 @@ export interface EpochAndRoundAminoMsg {
   type: "/injective.ocr.v1beta1.EpochAndRound";
   value: EpochAndRoundAmino;
 }
+/**
+ * @name Report
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Report
+ */
 export interface Report {
   observationsTimestamp: bigint;
-  /** ith element is the index of the ith observer */
+  /**
+   * ith element is the index of the ith observer
+   */
   observers: Uint8Array;
   observations: string[];
 }
@@ -488,9 +737,16 @@ export interface ReportProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Report";
   value: Uint8Array;
 }
+/**
+ * @name ReportAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Report
+ */
 export interface ReportAmino {
   observations_timestamp: string;
-  /** ith element is the index of the ith observer */
+  /**
+   * ith element is the index of the ith observer
+   */
   observers: string;
   observations: string[];
 }
@@ -498,30 +754,49 @@ export interface ReportAminoMsg {
   type: "/injective.ocr.v1beta1.Report";
   value: ReportAmino;
 }
+/**
+ * @name ReportToSign
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ReportToSign
+ */
 export interface ReportToSign {
   configDigest: Uint8Array;
   epoch: bigint;
   round: bigint;
   extraHash: Uint8Array;
-  /** Opaque report */
+  /**
+   * Opaque report
+   */
   report: Uint8Array;
 }
 export interface ReportToSignProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.ReportToSign";
   value: Uint8Array;
 }
+/**
+ * @name ReportToSignAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ReportToSign
+ */
 export interface ReportToSignAmino {
   config_digest: string;
   epoch: string;
   round: string;
   extra_hash: string;
-  /** Opaque report */
+  /**
+   * Opaque report
+   */
   report: string;
 }
 export interface ReportToSignAminoMsg {
   type: "/injective.ocr.v1beta1.ReportToSign";
   value: ReportToSignAmino;
 }
+/**
+ * @name EventOraclePaid
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventOraclePaid
+ */
 export interface EventOraclePaid {
   transmitterAddr: string;
   payeeAddr: string;
@@ -531,6 +806,11 @@ export interface EventOraclePaidProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventOraclePaid";
   value: Uint8Array;
 }
+/**
+ * @name EventOraclePaidAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventOraclePaid
+ */
 export interface EventOraclePaidAmino {
   transmitter_addr: string;
   payee_addr: string;
@@ -540,6 +820,11 @@ export interface EventOraclePaidAminoMsg {
   type: "/injective.ocr.v1beta1.EventOraclePaid";
   value: EventOraclePaidAmino;
 }
+/**
+ * @name EventAnswerUpdated
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventAnswerUpdated
+ */
 export interface EventAnswerUpdated {
   current: string;
   roundId: string;
@@ -549,6 +834,11 @@ export interface EventAnswerUpdatedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventAnswerUpdated";
   value: Uint8Array;
 }
+/**
+ * @name EventAnswerUpdatedAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventAnswerUpdated
+ */
 export interface EventAnswerUpdatedAmino {
   current: string;
   round_id: string;
@@ -558,9 +848,16 @@ export interface EventAnswerUpdatedAminoMsg {
   type: "/injective.ocr.v1beta1.EventAnswerUpdated";
   value: EventAnswerUpdatedAmino;
 }
+/**
+ * @name EventNewRound
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventNewRound
+ */
 export interface EventNewRound {
   roundId: string;
-  /** address of starter */
+  /**
+   * address of starter
+   */
   startedBy: string;
   startedAt: Date;
 }
@@ -568,9 +865,16 @@ export interface EventNewRoundProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventNewRound";
   value: Uint8Array;
 }
+/**
+ * @name EventNewRoundAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventNewRound
+ */
 export interface EventNewRoundAmino {
   round_id: string;
-  /** address of starter */
+  /**
+   * address of starter
+   */
   started_by: string;
   started_at: string;
 }
@@ -578,6 +882,11 @@ export interface EventNewRoundAminoMsg {
   type: "/injective.ocr.v1beta1.EventNewRound";
   value: EventNewRoundAmino;
 }
+/**
+ * @name EventTransmitted
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventTransmitted
+ */
 export interface EventTransmitted {
   configDigest: Uint8Array;
   epoch: bigint;
@@ -586,6 +895,11 @@ export interface EventTransmittedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventTransmitted";
   value: Uint8Array;
 }
+/**
+ * @name EventTransmittedAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventTransmitted
+ */
 export interface EventTransmittedAmino {
   config_digest: string;
   epoch: string;
@@ -594,6 +908,11 @@ export interface EventTransmittedAminoMsg {
   type: "/injective.ocr.v1beta1.EventTransmitted";
   value: EventTransmittedAmino;
 }
+/**
+ * @name EventNewTransmission
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventNewTransmission
+ */
 export interface EventNewTransmission {
   feedId: string;
   aggregatorRoundId: number;
@@ -609,6 +928,11 @@ export interface EventNewTransmissionProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventNewTransmission";
   value: Uint8Array;
 }
+/**
+ * @name EventNewTransmissionAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventNewTransmission
+ */
 export interface EventNewTransmissionAmino {
   feed_id: string;
   aggregator_round_id: number;
@@ -624,8 +948,15 @@ export interface EventNewTransmissionAminoMsg {
   type: "/injective.ocr.v1beta1.EventNewTransmission";
   value: EventNewTransmissionAmino;
 }
+/**
+ * @name EventConfigSet
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventConfigSet
+ */
 export interface EventConfigSet {
-  /** hash of the config */
+  /**
+   * hash of the config
+   */
   configDigest: Uint8Array;
   /**
    * previous_config_block_number block in which the previous config was set, to
@@ -639,8 +970,15 @@ export interface EventConfigSetProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.EventConfigSet";
   value: Uint8Array;
 }
+/**
+ * @name EventConfigSetAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventConfigSet
+ */
 export interface EventConfigSetAmino {
-  /** hash of the config */
+  /**
+   * hash of the config
+   */
   config_digest: string;
   /**
    * previous_config_block_number block in which the previous config was set, to
@@ -661,6 +999,11 @@ function createBaseParams(): Params {
     moduleAdmin: ""
   };
 }
+/**
+ * @name Params
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/injective.ocr.v1beta1.Params",
   aminoType: "ocr/Params",
@@ -766,6 +1109,11 @@ function createBaseFeedConfig(): FeedConfig {
     moduleParams: undefined
   };
 }
+/**
+ * @name FeedConfig
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedConfig
+ */
 export const FeedConfig = {
   typeUrl: "/injective.ocr.v1beta1.FeedConfig",
   is(o: any): o is FeedConfig {
@@ -915,6 +1263,11 @@ function createBaseFeedConfigInfo(): FeedConfigInfo {
     latestConfigBlockNumber: BigInt(0)
   };
 }
+/**
+ * @name FeedConfigInfo
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedConfigInfo
+ */
 export const FeedConfigInfo = {
   typeUrl: "/injective.ocr.v1beta1.FeedConfigInfo",
   is(o: any): o is FeedConfigInfo {
@@ -1038,6 +1391,11 @@ function createBaseModuleParams(): ModuleParams {
     billingAdmin: ""
   };
 }
+/**
+ * @name ModuleParams
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ModuleParams
+ */
 export const ModuleParams = {
   typeUrl: "/injective.ocr.v1beta1.ModuleParams",
   is(o: any): o is ModuleParams {
@@ -1213,6 +1571,11 @@ function createBaseContractConfig(): ContractConfig {
     offchainConfig: new Uint8Array()
   };
 }
+/**
+ * @name ContractConfig
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ContractConfig
+ */
 export const ContractConfig = {
   typeUrl: "/injective.ocr.v1beta1.ContractConfig",
   is(o: any): o is ContractConfig {
@@ -1355,6 +1718,11 @@ function createBaseSetConfigProposal(): SetConfigProposal {
     config: undefined
   };
 }
+/**
+ * @name SetConfigProposal
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.SetConfigProposal
+ */
 export const SetConfigProposal = {
   typeUrl: "/injective.ocr.v1beta1.SetConfigProposal",
   aminoType: "ocr/SetConfigProposal",
@@ -1471,6 +1839,11 @@ function createBaseFeedProperties(): FeedProperties {
     description: ""
   };
 }
+/**
+ * @name FeedProperties
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedProperties
+ */
 export const FeedProperties = {
   typeUrl: "/injective.ocr.v1beta1.FeedProperties",
   is(o: any): o is FeedProperties {
@@ -1656,6 +2029,11 @@ function createBaseSetBatchConfigProposal(): SetBatchConfigProposal {
     feedProperties: []
   };
 }
+/**
+ * @name SetBatchConfigProposal
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.SetBatchConfigProposal
+ */
 export const SetBatchConfigProposal = {
   typeUrl: "/injective.ocr.v1beta1.SetBatchConfigProposal",
   aminoType: "ocr/SetBatchConfigProposal",
@@ -1801,6 +2179,11 @@ function createBaseOracleObservationsCounts(): OracleObservationsCounts {
     counts: []
   };
 }
+/**
+ * @name OracleObservationsCounts
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.OracleObservationsCounts
+ */
 export const OracleObservationsCounts = {
   typeUrl: "/injective.ocr.v1beta1.OracleObservationsCounts",
   is(o: any): o is OracleObservationsCounts {
@@ -1882,6 +2265,12 @@ function createBaseGasReimbursements(): GasReimbursements {
     reimbursements: []
   };
 }
+/**
+ * LINK-INJ-denominated reimbursements for gas used by transmitters.
+ * @name GasReimbursements
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.GasReimbursements
+ */
 export const GasReimbursements = {
   typeUrl: "/injective.ocr.v1beta1.GasReimbursements",
   is(o: any): o is GasReimbursements {
@@ -1960,6 +2349,11 @@ function createBasePayee(): Payee {
     paymentAddr: ""
   };
 }
+/**
+ * @name Payee
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Payee
+ */
 export const Payee = {
   typeUrl: "/injective.ocr.v1beta1.Payee",
   is(o: any): o is Payee {
@@ -2043,6 +2437,13 @@ function createBaseTransmission(): Transmission {
     transmissionTimestamp: BigInt(0)
   };
 }
+/**
+ * Transmission records the median answer from the transmit transaction at
+ * time timestamp
+ * @name Transmission
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Transmission
+ */
 export const Transmission = {
   typeUrl: "/injective.ocr.v1beta1.Transmission",
   is(o: any): o is Transmission {
@@ -2136,6 +2537,11 @@ function createBaseEpochAndRound(): EpochAndRound {
     round: BigInt(0)
   };
 }
+/**
+ * @name EpochAndRound
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EpochAndRound
+ */
 export const EpochAndRound = {
   typeUrl: "/injective.ocr.v1beta1.EpochAndRound",
   is(o: any): o is EpochAndRound {
@@ -2219,6 +2625,11 @@ function createBaseReport(): Report {
     observations: []
   };
 }
+/**
+ * @name Report
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Report
+ */
 export const Report = {
   typeUrl: "/injective.ocr.v1beta1.Report",
   is(o: any): o is Report {
@@ -2317,6 +2728,11 @@ function createBaseReportToSign(): ReportToSign {
     report: new Uint8Array()
   };
 }
+/**
+ * @name ReportToSign
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.ReportToSign
+ */
 export const ReportToSign = {
   typeUrl: "/injective.ocr.v1beta1.ReportToSign",
   is(o: any): o is ReportToSign {
@@ -2433,6 +2849,11 @@ function createBaseEventOraclePaid(): EventOraclePaid {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventOraclePaid
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventOraclePaid
+ */
 export const EventOraclePaid = {
   typeUrl: "/injective.ocr.v1beta1.EventOraclePaid",
   is(o: any): o is EventOraclePaid {
@@ -2532,6 +2953,11 @@ function createBaseEventAnswerUpdated(): EventAnswerUpdated {
     updatedAt: new Date()
   };
 }
+/**
+ * @name EventAnswerUpdated
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventAnswerUpdated
+ */
 export const EventAnswerUpdated = {
   typeUrl: "/injective.ocr.v1beta1.EventAnswerUpdated",
   is(o: any): o is EventAnswerUpdated {
@@ -2626,6 +3052,11 @@ function createBaseEventNewRound(): EventNewRound {
     startedAt: new Date()
   };
 }
+/**
+ * @name EventNewRound
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventNewRound
+ */
 export const EventNewRound = {
   typeUrl: "/injective.ocr.v1beta1.EventNewRound",
   is(o: any): o is EventNewRound {
@@ -2719,6 +3150,11 @@ function createBaseEventTransmitted(): EventTransmitted {
     epoch: BigInt(0)
   };
 }
+/**
+ * @name EventTransmitted
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventTransmitted
+ */
 export const EventTransmitted = {
   typeUrl: "/injective.ocr.v1beta1.EventTransmitted",
   is(o: any): o is EventTransmitted {
@@ -2808,6 +3244,11 @@ function createBaseEventNewTransmission(): EventNewTransmission {
     epochAndRound: undefined
   };
 }
+/**
+ * @name EventNewTransmission
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventNewTransmission
+ */
 export const EventNewTransmission = {
   typeUrl: "/injective.ocr.v1beta1.EventNewTransmission",
   is(o: any): o is EventNewTransmission {
@@ -2976,6 +3417,11 @@ function createBaseEventConfigSet(): EventConfigSet {
     configInfo: undefined
   };
 }
+/**
+ * @name EventConfigSet
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.EventConfigSet
+ */
 export const EventConfigSet = {
   typeUrl: "/injective.ocr.v1beta1.EventConfigSet",
   is(o: any): o is EventConfigSet {

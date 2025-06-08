@@ -5,11 +5,18 @@ import { DeepPartial } from "../../../../helpers";
 /**
  * IdentifiedClientState defines a client state with an additional client
  * identifier field.
+ * @name IdentifiedClientState
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.IdentifiedClientState
  */
 export interface IdentifiedClientState {
-  /** client identifier */
+  /**
+   * client identifier
+   */
   clientId: string;
-  /** client state */
+  /**
+   * client state
+   */
   clientState?: Any;
 }
 export interface IdentifiedClientStateProtoMsg {
@@ -19,11 +26,18 @@ export interface IdentifiedClientStateProtoMsg {
 /**
  * IdentifiedClientState defines a client state with an additional client
  * identifier field.
+ * @name IdentifiedClientStateAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.IdentifiedClientState
  */
 export interface IdentifiedClientStateAmino {
-  /** client identifier */
+  /**
+   * client identifier
+   */
   client_id: string;
-  /** client state */
+  /**
+   * client state
+   */
   client_state?: AnyAmino;
 }
 export interface IdentifiedClientStateAminoMsg {
@@ -33,11 +47,18 @@ export interface IdentifiedClientStateAminoMsg {
 /**
  * ConsensusStateWithHeight defines a consensus state with an additional height
  * field.
+ * @name ConsensusStateWithHeight
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.ConsensusStateWithHeight
  */
 export interface ConsensusStateWithHeight {
-  /** consensus state height */
+  /**
+   * consensus state height
+   */
   height: Height;
-  /** consensus state */
+  /**
+   * consensus state
+   */
   consensusState?: Any;
 }
 export interface ConsensusStateWithHeightProtoMsg {
@@ -47,11 +68,18 @@ export interface ConsensusStateWithHeightProtoMsg {
 /**
  * ConsensusStateWithHeight defines a consensus state with an additional height
  * field.
+ * @name ConsensusStateWithHeightAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.ConsensusStateWithHeight
  */
 export interface ConsensusStateWithHeightAmino {
-  /** consensus state height */
+  /**
+   * consensus state height
+   */
   height: HeightAmino;
-  /** consensus state */
+  /**
+   * consensus state
+   */
   consensus_state?: AnyAmino;
 }
 export interface ConsensusStateWithHeightAminoMsg {
@@ -61,11 +89,18 @@ export interface ConsensusStateWithHeightAminoMsg {
 /**
  * ClientConsensusStates defines all the stored consensus states for a given
  * client.
+ * @name ClientConsensusStates
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.ClientConsensusStates
  */
 export interface ClientConsensusStates {
-  /** client identifier */
+  /**
+   * client identifier
+   */
   clientId: string;
-  /** consensus states and their heights associated with the client */
+  /**
+   * consensus states and their heights associated with the client
+   */
   consensusStates: ConsensusStateWithHeight[];
 }
 export interface ClientConsensusStatesProtoMsg {
@@ -75,11 +110,18 @@ export interface ClientConsensusStatesProtoMsg {
 /**
  * ClientConsensusStates defines all the stored consensus states for a given
  * client.
+ * @name ClientConsensusStatesAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.ClientConsensusStates
  */
 export interface ClientConsensusStatesAmino {
-  /** client identifier */
+  /**
+   * client identifier
+   */
   client_id: string;
-  /** consensus states and their heights associated with the client */
+  /**
+   * consensus states and their heights associated with the client
+   */
   consensus_states: ConsensusStateWithHeightAmino[];
 }
 export interface ClientConsensusStatesAminoMsg {
@@ -100,11 +142,18 @@ export interface ClientConsensusStatesAminoMsg {
  * 
  * Please note that json tags for generated Go code are overridden to explicitly exclude the omitempty jsontag.
  * This enforces the Go json marshaller to always emit zero values for both revision_number and revision_height.
+ * @name Height
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.Height
  */
 export interface Height {
-  /** the revision that the client is currently on */
+  /**
+   * the revision that the client is currently on
+   */
   revisionNumber: bigint;
-  /** the height within the given revision */
+  /**
+   * the height within the given revision
+   */
   revisionHeight: bigint;
 }
 export interface HeightProtoMsg {
@@ -125,18 +174,30 @@ export interface HeightProtoMsg {
  * 
  * Please note that json tags for generated Go code are overridden to explicitly exclude the omitempty jsontag.
  * This enforces the Go json marshaller to always emit zero values for both revision_number and revision_height.
+ * @name HeightAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.Height
  */
 export interface HeightAmino {
-  /** the revision that the client is currently on */
+  /**
+   * the revision that the client is currently on
+   */
   revision_number: string;
-  /** the height within the given revision */
+  /**
+   * the height within the given revision
+   */
   revision_height: string;
 }
 export interface HeightAminoMsg {
   type: "cosmos-sdk/Height";
   value: HeightAmino;
 }
-/** Params defines the set of IBC light client parameters. */
+/**
+ * Params defines the set of IBC light client parameters.
+ * @name Params
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.Params
+ */
 export interface Params {
   /**
    * allowed_clients defines the list of allowed client state types which can be created
@@ -149,7 +210,12 @@ export interface ParamsProtoMsg {
   typeUrl: "/ibc.core.client.v1.Params";
   value: Uint8Array;
 }
-/** Params defines the set of IBC light client parameters. */
+/**
+ * Params defines the set of IBC light client parameters.
+ * @name ParamsAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.Params
+ */
 export interface ParamsAmino {
   /**
    * allowed_clients defines the list of allowed client state types which can be created
@@ -168,6 +234,13 @@ function createBaseIdentifiedClientState(): IdentifiedClientState {
     clientState: undefined
   };
 }
+/**
+ * IdentifiedClientState defines a client state with an additional client
+ * identifier field.
+ * @name IdentifiedClientState
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.IdentifiedClientState
+ */
 export const IdentifiedClientState = {
   typeUrl: "/ibc.core.client.v1.IdentifiedClientState",
   aminoType: "cosmos-sdk/IdentifiedClientState",
@@ -257,6 +330,13 @@ function createBaseConsensusStateWithHeight(): ConsensusStateWithHeight {
     consensusState: undefined
   };
 }
+/**
+ * ConsensusStateWithHeight defines a consensus state with an additional height
+ * field.
+ * @name ConsensusStateWithHeight
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.ConsensusStateWithHeight
+ */
 export const ConsensusStateWithHeight = {
   typeUrl: "/ibc.core.client.v1.ConsensusStateWithHeight",
   aminoType: "cosmos-sdk/ConsensusStateWithHeight",
@@ -346,6 +426,13 @@ function createBaseClientConsensusStates(): ClientConsensusStates {
     consensusStates: []
   };
 }
+/**
+ * ClientConsensusStates defines all the stored consensus states for a given
+ * client.
+ * @name ClientConsensusStates
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.ClientConsensusStates
+ */
 export const ClientConsensusStates = {
   typeUrl: "/ibc.core.client.v1.ClientConsensusStates",
   aminoType: "cosmos-sdk/ClientConsensusStates",
@@ -442,6 +529,24 @@ function createBaseHeight(): Height {
     revisionHeight: BigInt(0)
   };
 }
+/**
+ * Height is a monotonically increasing data type
+ * that can be compared against another Height for the purposes of updating and
+ * freezing clients
+ * 
+ * Normally the RevisionHeight is incremented at each height while keeping
+ * RevisionNumber the same. However some consensus algorithms may choose to
+ * reset the height in certain conditions e.g. hard forks, state-machine
+ * breaking changes In these cases, the RevisionNumber is incremented so that
+ * height continues to be monitonically increasing even as the RevisionHeight
+ * gets reset
+ * 
+ * Please note that json tags for generated Go code are overridden to explicitly exclude the omitempty jsontag.
+ * This enforces the Go json marshaller to always emit zero values for both revision_number and revision_height.
+ * @name Height
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.Height
+ */
 export const Height = {
   typeUrl: "/ibc.core.client.v1.Height",
   aminoType: "cosmos-sdk/Height",
@@ -526,6 +631,12 @@ function createBaseParams(): Params {
     allowedClients: []
   };
 }
+/**
+ * Params defines the set of IBC light client parameters.
+ * @name Params
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.Params
+ */
 export const Params = {
   typeUrl: "/ibc.core.client.v1.Params",
   aminoType: "cosmos-sdk/Params",

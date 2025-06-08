@@ -9,22 +9,39 @@ import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@interchainjs/encoding";
  * an explicit StoreCodeProposal. To submit WASM code to the system,
  * a simple MsgStoreCode can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name StoreCodeProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreCodeProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface StoreCodeProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   runAs: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasmByteCode: Uint8Array;
-  /** InstantiatePermission to apply on contract creation, optional */
+  /**
+   * InstantiatePermission to apply on contract creation, optional
+   */
   instantiatePermission?: AccessConfig;
-  /** UnpinCode code on upload, optional */
+  /**
+   * UnpinCode code on upload, optional
+   */
   unpinCode: boolean;
-  /** Source is the URL where the code is hosted */
+  /**
+   * Source is the URL where the code is hosted
+   */
   source: string;
   /**
    * Builder is the docker image used to build the code deterministically, used
@@ -46,22 +63,39 @@ export interface StoreCodeProposalProtoMsg {
  * an explicit StoreCodeProposal. To submit WASM code to the system,
  * a simple MsgStoreCode can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name StoreCodeProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreCodeProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface StoreCodeProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   run_as: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasm_byte_code: string;
-  /** InstantiatePermission to apply on contract creation, optional */
+  /**
+   * InstantiatePermission to apply on contract creation, optional
+   */
   instantiate_permission?: AccessConfigAmino;
-  /** UnpinCode code on upload, optional */
+  /**
+   * UnpinCode code on upload, optional
+   */
   unpin_code: boolean;
-  /** Source is the URL where the code is hosted */
+  /**
+   * Source is the URL where the code is hosted
+   */
   source: string;
   /**
    * Builder is the docker image used to build the code deterministically, used
@@ -83,24 +117,43 @@ export interface StoreCodeProposalAminoMsg {
  * an explicit InstantiateContractProposal. To instantiate a contract,
  * a simple MsgInstantiateContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name InstantiateContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.InstantiateContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface InstantiateContractProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   runAs: string;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   codeId: bigint;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: Coin[];
 }
 export interface InstantiateContractProposalProtoMsg {
@@ -112,24 +165,43 @@ export interface InstantiateContractProposalProtoMsg {
  * an explicit InstantiateContractProposal. To instantiate a contract,
  * a simple MsgInstantiateContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name InstantiateContractProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.InstantiateContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface InstantiateContractProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   run_as: string;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   code_id: string;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: any;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: CoinAmino[];
 }
 export interface InstantiateContractProposalAminoMsg {
@@ -141,26 +213,47 @@ export interface InstantiateContractProposalAminoMsg {
  * an explicit InstantiateContract2Proposal. To instantiate contract 2,
  * a simple MsgInstantiateContract2 can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name InstantiateContract2Proposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.InstantiateContract2Proposal
+ * @deprecated
  */
-/** @deprecated */
 export interface InstantiateContract2Proposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   runAs: string;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   codeId: bigint;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encode message to be passed to the contract on instantiation */
+  /**
+   * Msg json encode message to be passed to the contract on instantiation
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: Coin[];
-  /** Salt is an arbitrary value provided by the sender. Size can be 1 to 64. */
+  /**
+   * Salt is an arbitrary value provided by the sender. Size can be 1 to 64.
+   */
   salt: Uint8Array;
   /**
    * FixMsg include the msg value into the hash for the predictable address.
@@ -177,26 +270,47 @@ export interface InstantiateContract2ProposalProtoMsg {
  * an explicit InstantiateContract2Proposal. To instantiate contract 2,
  * a simple MsgInstantiateContract2 can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name InstantiateContract2ProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.InstantiateContract2Proposal
+ * @deprecated
  */
-/** @deprecated */
 export interface InstantiateContract2ProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   run_as: string;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** CodeID is the reference to the stored WASM code */
+  /**
+   * CodeID is the reference to the stored WASM code
+   */
   code_id: string;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encode message to be passed to the contract on instantiation */
+  /**
+   * Msg json encode message to be passed to the contract on instantiation
+   */
   msg: any;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: CoinAmino[];
-  /** Salt is an arbitrary value provided by the sender. Size can be 1 to 64. */
+  /**
+   * Salt is an arbitrary value provided by the sender. Size can be 1 to 64.
+   */
   salt: string;
   /**
    * FixMsg include the msg value into the hash for the predictable address.
@@ -213,18 +327,31 @@ export interface InstantiateContract2ProposalAminoMsg {
  * an explicit MigrateContractProposal. To migrate a contract,
  * a simple MsgMigrateContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name MigrateContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MigrateContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface MigrateContractProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** CodeID references the new WASM code */
+  /**
+   * CodeID references the new WASM code
+   */
   codeId: bigint;
-  /** Msg json encoded message to be passed to the contract on migration */
+  /**
+   * Msg json encoded message to be passed to the contract on migration
+   */
   msg: Uint8Array;
 }
 export interface MigrateContractProposalProtoMsg {
@@ -236,18 +363,31 @@ export interface MigrateContractProposalProtoMsg {
  * an explicit MigrateContractProposal. To migrate a contract,
  * a simple MsgMigrateContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name MigrateContractProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MigrateContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface MigrateContractProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** CodeID references the new WASM code */
+  /**
+   * CodeID references the new WASM code
+   */
   code_id: string;
-  /** Msg json encoded message to be passed to the contract on migration */
+  /**
+   * Msg json encoded message to be passed to the contract on migration
+   */
   msg: any;
 }
 export interface MigrateContractProposalAminoMsg {
@@ -259,16 +399,27 @@ export interface MigrateContractProposalAminoMsg {
  * an explicit SudoContractProposal. To call sudo on a contract,
  * a simple MsgSudoContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name SudoContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.SudoContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface SudoContractProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract as sudo */
+  /**
+   * Msg json encoded message to be passed to the contract as sudo
+   */
   msg: Uint8Array;
 }
 export interface SudoContractProposalProtoMsg {
@@ -280,16 +431,27 @@ export interface SudoContractProposalProtoMsg {
  * an explicit SudoContractProposal. To call sudo on a contract,
  * a simple MsgSudoContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name SudoContractProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.SudoContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface SudoContractProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract as sudo */
+  /**
+   * Msg json encoded message to be passed to the contract as sudo
+   */
   msg: any;
 }
 export interface SudoContractProposalAminoMsg {
@@ -301,20 +463,35 @@ export interface SudoContractProposalAminoMsg {
  * an explicit ExecuteContractProposal. To call execute on a contract,
  * a simple MsgExecuteContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name ExecuteContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ExecuteContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface ExecuteContractProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   runAs: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract as execute */
+  /**
+   * Msg json encoded message to be passed to the contract as execute
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: Coin[];
 }
 export interface ExecuteContractProposalProtoMsg {
@@ -326,20 +503,35 @@ export interface ExecuteContractProposalProtoMsg {
  * an explicit ExecuteContractProposal. To call execute on a contract,
  * a simple MsgExecuteContract can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name ExecuteContractProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ExecuteContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface ExecuteContractProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   run_as: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract as execute */
+  /**
+   * Msg json encoded message to be passed to the contract as execute
+   */
   msg: any;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: CoinAmino[];
 }
 export interface ExecuteContractProposalAminoMsg {
@@ -351,16 +543,27 @@ export interface ExecuteContractProposalAminoMsg {
  * an explicit UpdateAdminProposal. To set an admin for a contract,
  * a simple MsgUpdateAdmin can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name UpdateAdminProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UpdateAdminProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface UpdateAdminProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** NewAdmin address to be set */
+  /**
+   * NewAdmin address to be set
+   */
   newAdmin: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
 export interface UpdateAdminProposalProtoMsg {
@@ -372,16 +575,27 @@ export interface UpdateAdminProposalProtoMsg {
  * an explicit UpdateAdminProposal. To set an admin for a contract,
  * a simple MsgUpdateAdmin can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name UpdateAdminProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UpdateAdminProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface UpdateAdminProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** NewAdmin address to be set */
+  /**
+   * NewAdmin address to be set
+   */
   new_admin: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
 export interface UpdateAdminProposalAminoMsg {
@@ -393,14 +607,23 @@ export interface UpdateAdminProposalAminoMsg {
  * an explicit ClearAdminProposal. To clear the admin of a contract,
  * a simple MsgClearAdmin can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name ClearAdminProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ClearAdminProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface ClearAdminProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
 export interface ClearAdminProposalProtoMsg {
@@ -412,14 +635,23 @@ export interface ClearAdminProposalProtoMsg {
  * an explicit ClearAdminProposal. To clear the admin of a contract,
  * a simple MsgClearAdmin can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name ClearAdminProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ClearAdminProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface ClearAdminProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
 }
 export interface ClearAdminProposalAminoMsg {
@@ -431,14 +663,23 @@ export interface ClearAdminProposalAminoMsg {
  * an explicit PinCodesProposal. To pin a set of code ids in the wasmvm
  * cache, a simple MsgPinCodes can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name PinCodesProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.PinCodesProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface PinCodesProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** CodeIDs references the new WASM codes */
+  /**
+   * CodeIDs references the new WASM codes
+   */
   codeIds: bigint[];
 }
 export interface PinCodesProposalProtoMsg {
@@ -450,14 +691,23 @@ export interface PinCodesProposalProtoMsg {
  * an explicit PinCodesProposal. To pin a set of code ids in the wasmvm
  * cache, a simple MsgPinCodes can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name PinCodesProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.PinCodesProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface PinCodesProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** CodeIDs references the new WASM codes */
+  /**
+   * CodeIDs references the new WASM codes
+   */
   code_ids: string[];
 }
 export interface PinCodesProposalAminoMsg {
@@ -469,14 +719,23 @@ export interface PinCodesProposalAminoMsg {
  * an explicit UnpinCodesProposal. To unpin a set of code ids in the wasmvm
  * cache, a simple MsgUnpinCodes can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name UnpinCodesProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UnpinCodesProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface UnpinCodesProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** CodeIDs references the WASM codes */
+  /**
+   * CodeIDs references the WASM codes
+   */
   codeIds: bigint[];
 }
 export interface UnpinCodesProposalProtoMsg {
@@ -488,14 +747,23 @@ export interface UnpinCodesProposalProtoMsg {
  * an explicit UnpinCodesProposal. To unpin a set of code ids in the wasmvm
  * cache, a simple MsgUnpinCodes can be invoked from the x/gov module via
  * a v1 governance proposal.
+ * @name UnpinCodesProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UnpinCodesProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface UnpinCodesProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** CodeIDs references the WASM codes */
+  /**
+   * CodeIDs references the WASM codes
+   */
   code_ids: string[];
 }
 export interface UnpinCodesProposalAminoMsg {
@@ -505,11 +773,18 @@ export interface UnpinCodesProposalAminoMsg {
 /**
  * AccessConfigUpdate contains the code id and the access config to be
  * applied.
+ * @name AccessConfigUpdate
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AccessConfigUpdate
  */
 export interface AccessConfigUpdate {
-  /** CodeID is the reference to the stored WASM code to be updated */
+  /**
+   * CodeID is the reference to the stored WASM code to be updated
+   */
   codeId: bigint;
-  /** InstantiatePermission to apply to the set of code ids */
+  /**
+   * InstantiatePermission to apply to the set of code ids
+   */
   instantiatePermission: AccessConfig;
 }
 export interface AccessConfigUpdateProtoMsg {
@@ -519,11 +794,18 @@ export interface AccessConfigUpdateProtoMsg {
 /**
  * AccessConfigUpdate contains the code id and the access config to be
  * applied.
+ * @name AccessConfigUpdateAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AccessConfigUpdate
  */
 export interface AccessConfigUpdateAmino {
-  /** CodeID is the reference to the stored WASM code to be updated */
+  /**
+   * CodeID is the reference to the stored WASM code to be updated
+   */
   code_id: string;
-  /** InstantiatePermission to apply to the set of code ids */
+  /**
+   * InstantiatePermission to apply to the set of code ids
+   */
   instantiate_permission: AccessConfigAmino;
 }
 export interface AccessConfigUpdateAminoMsg {
@@ -535,12 +817,19 @@ export interface AccessConfigUpdateAminoMsg {
  * an explicit UpdateInstantiateConfigProposal. To update instantiate config
  * to a set of code ids, a simple MsgUpdateInstantiateConfig can be invoked from
  * the x/gov module via a v1 governance proposal.
+ * @name UpdateInstantiateConfigProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UpdateInstantiateConfigProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface UpdateInstantiateConfigProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
   /**
    * AccessConfigUpdate contains the list of code ids and the access config
@@ -557,12 +846,19 @@ export interface UpdateInstantiateConfigProposalProtoMsg {
  * an explicit UpdateInstantiateConfigProposal. To update instantiate config
  * to a set of code ids, a simple MsgUpdateInstantiateConfig can be invoked from
  * the x/gov module via a v1 governance proposal.
+ * @name UpdateInstantiateConfigProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UpdateInstantiateConfigProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface UpdateInstantiateConfigProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
   /**
    * AccessConfigUpdate contains the list of code ids and the access config
@@ -579,30 +875,55 @@ export interface UpdateInstantiateConfigProposalAminoMsg {
  * an explicit StoreAndInstantiateContractProposal. To store and instantiate
  * the contract, a simple MsgStoreAndInstantiateContract can be invoked from
  * the x/gov module via a v1 governance proposal.
+ * @name StoreAndInstantiateContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface StoreAndInstantiateContractProposal {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   runAs: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasmByteCode: Uint8Array;
-  /** InstantiatePermission to apply on contract creation, optional */
+  /**
+   * InstantiatePermission to apply on contract creation, optional
+   */
   instantiatePermission?: AccessConfig;
-  /** UnpinCode code on upload, optional */
+  /**
+   * UnpinCode code on upload, optional
+   */
   unpinCode: boolean;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: Uint8Array;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: Coin[];
-  /** Source is the URL where the code is hosted */
+  /**
+   * Source is the URL where the code is hosted
+   */
   source: string;
   /**
    * Builder is the docker image used to build the code deterministically, used
@@ -624,30 +945,55 @@ export interface StoreAndInstantiateContractProposalProtoMsg {
  * an explicit StoreAndInstantiateContractProposal. To store and instantiate
  * the contract, a simple MsgStoreAndInstantiateContract can be invoked from
  * the x/gov module via a v1 governance proposal.
+ * @name StoreAndInstantiateContractProposalAmino
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+ * @deprecated
  */
-/** @deprecated */
 export interface StoreAndInstantiateContractProposalAmino {
-  /** Title is a short summary */
+  /**
+   * Title is a short summary
+   */
   title: string;
-  /** Description is a human readable text */
+  /**
+   * Description is a human readable text
+   */
   description: string;
-  /** RunAs is the address that is passed to the contract's environment as sender */
+  /**
+   * RunAs is the address that is passed to the contract's environment as sender
+   */
   run_as: string;
-  /** WASMByteCode can be raw or gzip compressed */
+  /**
+   * WASMByteCode can be raw or gzip compressed
+   */
   wasm_byte_code: string;
-  /** InstantiatePermission to apply on contract creation, optional */
+  /**
+   * InstantiatePermission to apply on contract creation, optional
+   */
   instantiate_permission?: AccessConfigAmino;
-  /** UnpinCode code on upload, optional */
+  /**
+   * UnpinCode code on upload, optional
+   */
   unpin_code: boolean;
-  /** Admin is an optional address that can execute migrations */
+  /**
+   * Admin is an optional address that can execute migrations
+   */
   admin: string;
-  /** Label is optional metadata to be stored with a contract instance. */
+  /**
+   * Label is optional metadata to be stored with a contract instance.
+   */
   label: string;
-  /** Msg json encoded message to be passed to the contract on instantiation */
+  /**
+   * Msg json encoded message to be passed to the contract on instantiation
+   */
   msg: any;
-  /** Funds coins that are transferred to the contract on instantiation */
+  /**
+   * Funds coins that are transferred to the contract on instantiation
+   */
   funds: CoinAmino[];
-  /** Source is the URL where the code is hosted */
+  /**
+   * Source is the URL where the code is hosted
+   */
   source: string;
   /**
    * Builder is the docker image used to build the code deterministically, used
@@ -677,6 +1023,16 @@ function createBaseStoreCodeProposal(): StoreCodeProposal {
     codeHash: new Uint8Array()
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit StoreCodeProposal. To submit WASM code to the system,
+ * a simple MsgStoreCode can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name StoreCodeProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreCodeProposal
+ * @deprecated
+ */
 export const StoreCodeProposal = {
   typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal",
   aminoType: "wasm/StoreCodeProposal",
@@ -856,6 +1212,16 @@ function createBaseInstantiateContractProposal(): InstantiateContractProposal {
     funds: []
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit InstantiateContractProposal. To instantiate a contract,
+ * a simple MsgInstantiateContract can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name InstantiateContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.InstantiateContractProposal
+ * @deprecated
+ */
 export const InstantiateContractProposal = {
   typeUrl: "/cosmwasm.wasm.v1.InstantiateContractProposal",
   aminoType: "wasm/InstantiateContractProposal",
@@ -1028,6 +1394,16 @@ function createBaseInstantiateContract2Proposal(): InstantiateContract2Proposal 
     fixMsg: false
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit InstantiateContract2Proposal. To instantiate contract 2,
+ * a simple MsgInstantiateContract2 can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name InstantiateContract2Proposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.InstantiateContract2Proposal
+ * @deprecated
+ */
 export const InstantiateContract2Proposal = {
   typeUrl: "/cosmwasm.wasm.v1.InstantiateContract2Proposal",
   aminoType: "wasm/InstantiateContract2Proposal",
@@ -1217,6 +1593,16 @@ function createBaseMigrateContractProposal(): MigrateContractProposal {
     msg: new Uint8Array()
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit MigrateContractProposal. To migrate a contract,
+ * a simple MsgMigrateContract can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name MigrateContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.MigrateContractProposal
+ * @deprecated
+ */
 export const MigrateContractProposal = {
   typeUrl: "/cosmwasm.wasm.v1.MigrateContractProposal",
   aminoType: "wasm/MigrateContractProposal",
@@ -1347,6 +1733,16 @@ function createBaseSudoContractProposal(): SudoContractProposal {
     msg: new Uint8Array()
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit SudoContractProposal. To call sudo on a contract,
+ * a simple MsgSudoContract can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name SudoContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.SudoContractProposal
+ * @deprecated
+ */
 export const SudoContractProposal = {
   typeUrl: "/cosmwasm.wasm.v1.SudoContractProposal",
   aminoType: "wasm/SudoContractProposal",
@@ -1468,6 +1864,16 @@ function createBaseExecuteContractProposal(): ExecuteContractProposal {
     funds: []
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit ExecuteContractProposal. To call execute on a contract,
+ * a simple MsgExecuteContract can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name ExecuteContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ExecuteContractProposal
+ * @deprecated
+ */
 export const ExecuteContractProposal = {
   typeUrl: "/cosmwasm.wasm.v1.ExecuteContractProposal",
   aminoType: "wasm/ExecuteContractProposal",
@@ -1612,6 +2018,16 @@ function createBaseUpdateAdminProposal(): UpdateAdminProposal {
     contract: ""
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit UpdateAdminProposal. To set an admin for a contract,
+ * a simple MsgUpdateAdmin can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name UpdateAdminProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UpdateAdminProposal
+ * @deprecated
+ */
 export const UpdateAdminProposal = {
   typeUrl: "/cosmwasm.wasm.v1.UpdateAdminProposal",
   aminoType: "wasm/UpdateAdminProposal",
@@ -1730,6 +2146,16 @@ function createBaseClearAdminProposal(): ClearAdminProposal {
     contract: ""
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit ClearAdminProposal. To clear the admin of a contract,
+ * a simple MsgClearAdmin can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name ClearAdminProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.ClearAdminProposal
+ * @deprecated
+ */
 export const ClearAdminProposal = {
   typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal",
   aminoType: "wasm/ClearAdminProposal",
@@ -1837,6 +2263,16 @@ function createBasePinCodesProposal(): PinCodesProposal {
     codeIds: []
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit PinCodesProposal. To pin a set of code ids in the wasmvm
+ * cache, a simple MsgPinCodes can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name PinCodesProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.PinCodesProposal
+ * @deprecated
+ */
 export const PinCodesProposal = {
   typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal",
   aminoType: "wasm/PinCodesProposal",
@@ -1955,6 +2391,16 @@ function createBaseUnpinCodesProposal(): UnpinCodesProposal {
     codeIds: []
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit UnpinCodesProposal. To unpin a set of code ids in the wasmvm
+ * cache, a simple MsgUnpinCodes can be invoked from the x/gov module via
+ * a v1 governance proposal.
+ * @name UnpinCodesProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UnpinCodesProposal
+ * @deprecated
+ */
 export const UnpinCodesProposal = {
   typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal",
   aminoType: "wasm/UnpinCodesProposal",
@@ -2072,6 +2518,13 @@ function createBaseAccessConfigUpdate(): AccessConfigUpdate {
     instantiatePermission: AccessConfig.fromPartial({})
   };
 }
+/**
+ * AccessConfigUpdate contains the code id and the access config to be
+ * applied.
+ * @name AccessConfigUpdate
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.AccessConfigUpdate
+ */
 export const AccessConfigUpdate = {
   typeUrl: "/cosmwasm.wasm.v1.AccessConfigUpdate",
   aminoType: "wasm/AccessConfigUpdate",
@@ -2167,6 +2620,16 @@ function createBaseUpdateInstantiateConfigProposal(): UpdateInstantiateConfigPro
     accessConfigUpdates: []
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit UpdateInstantiateConfigProposal. To update instantiate config
+ * to a set of code ids, a simple MsgUpdateInstantiateConfig can be invoked from
+ * the x/gov module via a v1 governance proposal.
+ * @name UpdateInstantiateConfigProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.UpdateInstantiateConfigProposal
+ * @deprecated
+ */
 export const UpdateInstantiateConfigProposal = {
   typeUrl: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal",
   aminoType: "wasm/UpdateInstantiateConfigProposal",
@@ -2287,6 +2750,16 @@ function createBaseStoreAndInstantiateContractProposal(): StoreAndInstantiateCon
     codeHash: new Uint8Array()
   };
 }
+/**
+ * Deprecated: Do not use. Since wasmd v0.40, there is no longer a need for
+ * an explicit StoreAndInstantiateContractProposal. To store and instantiate
+ * the contract, a simple MsgStoreAndInstantiateContract can be invoked from
+ * the x/gov module via a v1 governance proposal.
+ * @name StoreAndInstantiateContractProposal
+ * @package cosmwasm.wasm.v1
+ * @see proto type: cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+ * @deprecated
+ */
 export const StoreAndInstantiateContractProposal = {
   typeUrl: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal",
   aminoType: "wasm/StoreAndInstantiateContractProposal",

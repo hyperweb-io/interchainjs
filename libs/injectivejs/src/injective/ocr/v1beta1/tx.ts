@@ -3,6 +3,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+/**
+ * @name MsgCreateFeed
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgCreateFeed
+ */
 export interface MsgCreateFeed {
   sender: string;
   config?: FeedConfig;
@@ -11,6 +16,11 @@ export interface MsgCreateFeedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgCreateFeed";
   value: Uint8Array;
 }
+/**
+ * @name MsgCreateFeedAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgCreateFeed
+ */
 export interface MsgCreateFeedAmino {
   sender: string;
   config?: FeedConfigAmino;
@@ -19,80 +29,145 @@ export interface MsgCreateFeedAminoMsg {
   type: "ocr/MsgCreateFeed";
   value: MsgCreateFeedAmino;
 }
+/**
+ * @name MsgCreateFeedResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgCreateFeedResponse
+ */
 export interface MsgCreateFeedResponse {}
 export interface MsgCreateFeedResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgCreateFeedResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgCreateFeedResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgCreateFeedResponse
+ */
 export interface MsgCreateFeedResponseAmino {}
 export interface MsgCreateFeedResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgCreateFeedResponse";
   value: MsgCreateFeedResponseAmino;
 }
+/**
+ * @name MsgUpdateFeed
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateFeed
+ */
 export interface MsgUpdateFeed {
   sender: string;
-  /** feed_id is an unique ID for the target of this config */
+  /**
+   * feed_id is an unique ID for the target of this config
+   */
   feedId: string;
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
    * via the transmit method
    */
   transmitters: string[];
-  /** Fixed LINK reward for each observer */
+  /**
+   * Fixed LINK reward for each observer
+   */
   linkPerObservation?: string;
-  /** Fixed LINK reward for transmitter */
+  /**
+   * Fixed LINK reward for transmitter
+   */
   linkPerTransmission?: string;
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   linkDenom: string;
-  /** feed administrator */
+  /**
+   * feed administrator
+   */
   feedAdmin: string;
-  /** feed billing administrator */
+  /**
+   * feed billing administrator
+   */
   billingAdmin: string;
 }
 export interface MsgUpdateFeedProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeed";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateFeedAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateFeed
+ */
 export interface MsgUpdateFeedAmino {
   sender: string;
-  /** feed_id is an unique ID for the target of this config */
+  /**
+   * feed_id is an unique ID for the target of this config
+   */
   feed_id: string;
-  /** signers ith element is address ith oracle uses to sign a report */
+  /**
+   * signers ith element is address ith oracle uses to sign a report
+   */
   signers: string[];
   /**
    * transmitters ith element is address ith oracle uses to transmit a report
    * via the transmit method
    */
   transmitters: string[];
-  /** Fixed LINK reward for each observer */
+  /**
+   * Fixed LINK reward for each observer
+   */
   link_per_observation?: string;
-  /** Fixed LINK reward for transmitter */
+  /**
+   * Fixed LINK reward for transmitter
+   */
   link_per_transmission?: string;
-  /** Native denom for LINK coin in the bank keeper */
+  /**
+   * Native denom for LINK coin in the bank keeper
+   */
   link_denom: string;
-  /** feed administrator */
+  /**
+   * feed administrator
+   */
   feed_admin: string;
-  /** feed billing administrator */
+  /**
+   * feed billing administrator
+   */
   billing_admin: string;
 }
 export interface MsgUpdateFeedAminoMsg {
   type: "ocr/MsgUpdateFeed";
   value: MsgUpdateFeedAmino;
 }
+/**
+ * @name MsgUpdateFeedResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateFeedResponse
+ */
 export interface MsgUpdateFeedResponse {}
 export interface MsgUpdateFeedResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeedResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateFeedResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateFeedResponse
+ */
 export interface MsgUpdateFeedResponseAmino {}
 export interface MsgUpdateFeedResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgUpdateFeedResponse";
   value: MsgUpdateFeedResponseAmino;
 }
+/**
+ * @name MsgTransmit
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransmit
+ */
 export interface MsgTransmit {
-  /** Address of the transmitter */
+  /**
+   * Address of the transmitter
+   */
   transmitter: string;
   configDigest: Uint8Array;
   feedId: string;
@@ -106,8 +181,15 @@ export interface MsgTransmitProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransmit";
   value: Uint8Array;
 }
+/**
+ * @name MsgTransmitAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransmit
+ */
 export interface MsgTransmitAmino {
-  /** Address of the transmitter */
+  /**
+   * Address of the transmitter
+   */
   transmitter: string;
   config_digest: string;
   feed_id: string;
@@ -121,16 +203,31 @@ export interface MsgTransmitAminoMsg {
   type: "ocr/MsgTransmit";
   value: MsgTransmitAmino;
 }
+/**
+ * @name MsgTransmitResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransmitResponse
+ */
 export interface MsgTransmitResponse {}
 export interface MsgTransmitResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransmitResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgTransmitResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransmitResponse
+ */
 export interface MsgTransmitResponseAmino {}
 export interface MsgTransmitResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgTransmitResponse";
   value: MsgTransmitResponseAmino;
 }
+/**
+ * @name MsgFundFeedRewardPool
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgFundFeedRewardPool
+ */
 export interface MsgFundFeedRewardPool {
   sender: string;
   feedId: string;
@@ -140,6 +237,11 @@ export interface MsgFundFeedRewardPoolProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPool";
   value: Uint8Array;
 }
+/**
+ * @name MsgFundFeedRewardPoolAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgFundFeedRewardPool
+ */
 export interface MsgFundFeedRewardPoolAmino {
   sender: string;
   feed_id: string;
@@ -149,16 +251,31 @@ export interface MsgFundFeedRewardPoolAminoMsg {
   type: "ocr/MsgFundFeedRewardPool";
   value: MsgFundFeedRewardPoolAmino;
 }
+/**
+ * @name MsgFundFeedRewardPoolResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse
+ */
 export interface MsgFundFeedRewardPoolResponse {}
 export interface MsgFundFeedRewardPoolResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgFundFeedRewardPoolResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse
+ */
 export interface MsgFundFeedRewardPoolResponseAmino {}
 export interface MsgFundFeedRewardPoolResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse";
   value: MsgFundFeedRewardPoolResponseAmino;
 }
+/**
+ * @name MsgWithdrawFeedRewardPool
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgWithdrawFeedRewardPool
+ */
 export interface MsgWithdrawFeedRewardPool {
   sender: string;
   feedId: string;
@@ -168,6 +285,11 @@ export interface MsgWithdrawFeedRewardPoolProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPool";
   value: Uint8Array;
 }
+/**
+ * @name MsgWithdrawFeedRewardPoolAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgWithdrawFeedRewardPool
+ */
 export interface MsgWithdrawFeedRewardPoolAmino {
   sender: string;
   feed_id: string;
@@ -177,88 +299,163 @@ export interface MsgWithdrawFeedRewardPoolAminoMsg {
   type: "ocr/MsgWithdrawFeedRewardPool";
   value: MsgWithdrawFeedRewardPoolAmino;
 }
+/**
+ * @name MsgWithdrawFeedRewardPoolResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse
+ */
 export interface MsgWithdrawFeedRewardPoolResponse {}
 export interface MsgWithdrawFeedRewardPoolResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgWithdrawFeedRewardPoolResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse
+ */
 export interface MsgWithdrawFeedRewardPoolResponseAmino {}
 export interface MsgWithdrawFeedRewardPoolResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse";
   value: MsgWithdrawFeedRewardPoolResponseAmino;
 }
+/**
+ * @name MsgSetPayees
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgSetPayees
+ */
 export interface MsgSetPayees {
   sender: string;
   feedId: string;
-  /** addresses oracles use to transmit the reports */
+  /**
+   * addresses oracles use to transmit the reports
+   */
   transmitters: string[];
-  /** addresses of payees corresponding to list of transmitters */
+  /**
+   * addresses of payees corresponding to list of transmitters
+   */
   payees: string[];
 }
 export interface MsgSetPayeesProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgSetPayees";
   value: Uint8Array;
 }
+/**
+ * @name MsgSetPayeesAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgSetPayees
+ */
 export interface MsgSetPayeesAmino {
   sender: string;
   feed_id: string;
-  /** addresses oracles use to transmit the reports */
+  /**
+   * addresses oracles use to transmit the reports
+   */
   transmitters: string[];
-  /** addresses of payees corresponding to list of transmitters */
+  /**
+   * addresses of payees corresponding to list of transmitters
+   */
   payees: string[];
 }
 export interface MsgSetPayeesAminoMsg {
   type: "ocr/MsgSetPayees";
   value: MsgSetPayeesAmino;
 }
+/**
+ * @name MsgSetPayeesResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgSetPayeesResponse
+ */
 export interface MsgSetPayeesResponse {}
 export interface MsgSetPayeesResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgSetPayeesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgSetPayeesResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgSetPayeesResponse
+ */
 export interface MsgSetPayeesResponseAmino {}
 export interface MsgSetPayeesResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgSetPayeesResponse";
   value: MsgSetPayeesResponseAmino;
 }
+/**
+ * @name MsgTransferPayeeship
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransferPayeeship
+ */
 export interface MsgTransferPayeeship {
-  /** transmitter address of oracle whose payee is changing */
+  /**
+   * transmitter address of oracle whose payee is changing
+   */
   sender: string;
   transmitter: string;
   feedId: string;
-  /** new payee address */
+  /**
+   * new payee address
+   */
   proposed: string;
 }
 export interface MsgTransferPayeeshipProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeship";
   value: Uint8Array;
 }
+/**
+ * @name MsgTransferPayeeshipAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransferPayeeship
+ */
 export interface MsgTransferPayeeshipAmino {
-  /** transmitter address of oracle whose payee is changing */
+  /**
+   * transmitter address of oracle whose payee is changing
+   */
   sender: string;
   transmitter: string;
   feed_id: string;
-  /** new payee address */
+  /**
+   * new payee address
+   */
   proposed: string;
 }
 export interface MsgTransferPayeeshipAminoMsg {
   type: "ocr/MsgTransferPayeeship";
   value: MsgTransferPayeeshipAmino;
 }
+/**
+ * @name MsgTransferPayeeshipResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransferPayeeshipResponse
+ */
 export interface MsgTransferPayeeshipResponse {}
 export interface MsgTransferPayeeshipResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeshipResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgTransferPayeeshipResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransferPayeeshipResponse
+ */
 export interface MsgTransferPayeeshipResponseAmino {}
 export interface MsgTransferPayeeshipResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgTransferPayeeshipResponse";
   value: MsgTransferPayeeshipResponseAmino;
 }
+/**
+ * @name MsgAcceptPayeeship
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgAcceptPayeeship
+ */
 export interface MsgAcceptPayeeship {
-  /** new payee address */
+  /**
+   * new payee address
+   */
   payee: string;
-  /** transmitter address of oracle whose payee is changing */
+  /**
+   * transmitter address of oracle whose payee is changing
+   */
   transmitter: string;
   feedId: string;
 }
@@ -266,10 +463,19 @@ export interface MsgAcceptPayeeshipProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeship";
   value: Uint8Array;
 }
+/**
+ * @name MsgAcceptPayeeshipAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgAcceptPayeeship
+ */
 export interface MsgAcceptPayeeshipAmino {
-  /** new payee address */
+  /**
+   * new payee address
+   */
   payee: string;
-  /** transmitter address of oracle whose payee is changing */
+  /**
+   * transmitter address of oracle whose payee is changing
+   */
   transmitter: string;
   feed_id: string;
 }
@@ -277,18 +483,35 @@ export interface MsgAcceptPayeeshipAminoMsg {
   type: "ocr/MsgAcceptPayeeship";
   value: MsgAcceptPayeeshipAmino;
 }
+/**
+ * @name MsgAcceptPayeeshipResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgAcceptPayeeshipResponse
+ */
 export interface MsgAcceptPayeeshipResponse {}
 export interface MsgAcceptPayeeshipResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeshipResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgAcceptPayeeshipResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgAcceptPayeeshipResponse
+ */
 export interface MsgAcceptPayeeshipResponseAmino {}
 export interface MsgAcceptPayeeshipResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgAcceptPayeeshipResponse";
   value: MsgAcceptPayeeshipResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the ocr parameters to update.
@@ -301,8 +524,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the ocr parameters to update.
@@ -315,11 +545,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "ocr/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.ocr.v1beta1.MsgUpdateParamsResponse";
@@ -331,6 +571,11 @@ function createBaseMsgCreateFeed(): MsgCreateFeed {
     config: undefined
   };
 }
+/**
+ * @name MsgCreateFeed
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgCreateFeed
+ */
 export const MsgCreateFeed = {
   typeUrl: "/injective.ocr.v1beta1.MsgCreateFeed",
   aminoType: "ocr/MsgCreateFeed",
@@ -422,6 +667,11 @@ export const MsgCreateFeed = {
 function createBaseMsgCreateFeedResponse(): MsgCreateFeedResponse {
   return {};
 }
+/**
+ * @name MsgCreateFeedResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgCreateFeedResponse
+ */
 export const MsgCreateFeedResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgCreateFeedResponse",
   is(o: any): o is MsgCreateFeedResponse {
@@ -489,6 +739,11 @@ function createBaseMsgUpdateFeed(): MsgUpdateFeed {
     billingAdmin: ""
   };
 }
+/**
+ * @name MsgUpdateFeed
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateFeed
+ */
 export const MsgUpdateFeed = {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeed",
   aminoType: "ocr/MsgUpdateFeed",
@@ -656,6 +911,11 @@ export const MsgUpdateFeed = {
 function createBaseMsgUpdateFeedResponse(): MsgUpdateFeedResponse {
   return {};
 }
+/**
+ * @name MsgUpdateFeedResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateFeedResponse
+ */
 export const MsgUpdateFeedResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateFeedResponse",
   is(o: any): o is MsgUpdateFeedResponse {
@@ -722,6 +982,11 @@ function createBaseMsgTransmit(): MsgTransmit {
     signatures: []
   };
 }
+/**
+ * @name MsgTransmit
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransmit
+ */
 export const MsgTransmit = {
   typeUrl: "/injective.ocr.v1beta1.MsgTransmit",
   aminoType: "ocr/MsgTransmit",
@@ -881,6 +1146,11 @@ export const MsgTransmit = {
 function createBaseMsgTransmitResponse(): MsgTransmitResponse {
   return {};
 }
+/**
+ * @name MsgTransmitResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransmitResponse
+ */
 export const MsgTransmitResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgTransmitResponse",
   is(o: any): o is MsgTransmitResponse {
@@ -942,6 +1212,11 @@ function createBaseMsgFundFeedRewardPool(): MsgFundFeedRewardPool {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name MsgFundFeedRewardPool
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgFundFeedRewardPool
+ */
 export const MsgFundFeedRewardPool = {
   typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPool",
   aminoType: "ocr/MsgFundFeedRewardPool",
@@ -1044,6 +1319,11 @@ export const MsgFundFeedRewardPool = {
 function createBaseMsgFundFeedRewardPoolResponse(): MsgFundFeedRewardPoolResponse {
   return {};
 }
+/**
+ * @name MsgFundFeedRewardPoolResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse
+ */
 export const MsgFundFeedRewardPoolResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgFundFeedRewardPoolResponse",
   is(o: any): o is MsgFundFeedRewardPoolResponse {
@@ -1105,6 +1385,11 @@ function createBaseMsgWithdrawFeedRewardPool(): MsgWithdrawFeedRewardPool {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name MsgWithdrawFeedRewardPool
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgWithdrawFeedRewardPool
+ */
 export const MsgWithdrawFeedRewardPool = {
   typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPool",
   aminoType: "ocr/MsgWithdrawFeedRewardPool",
@@ -1207,6 +1492,11 @@ export const MsgWithdrawFeedRewardPool = {
 function createBaseMsgWithdrawFeedRewardPoolResponse(): MsgWithdrawFeedRewardPoolResponse {
   return {};
 }
+/**
+ * @name MsgWithdrawFeedRewardPoolResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse
+ */
 export const MsgWithdrawFeedRewardPoolResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgWithdrawFeedRewardPoolResponse",
   is(o: any): o is MsgWithdrawFeedRewardPoolResponse {
@@ -1269,6 +1559,11 @@ function createBaseMsgSetPayees(): MsgSetPayees {
     payees: []
   };
 }
+/**
+ * @name MsgSetPayees
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgSetPayees
+ */
 export const MsgSetPayees = {
   typeUrl: "/injective.ocr.v1beta1.MsgSetPayees",
   aminoType: "ocr/MsgSetPayees",
@@ -1381,6 +1676,11 @@ export const MsgSetPayees = {
 function createBaseMsgSetPayeesResponse(): MsgSetPayeesResponse {
   return {};
 }
+/**
+ * @name MsgSetPayeesResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgSetPayeesResponse
+ */
 export const MsgSetPayeesResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgSetPayeesResponse",
   is(o: any): o is MsgSetPayeesResponse {
@@ -1443,6 +1743,11 @@ function createBaseMsgTransferPayeeship(): MsgTransferPayeeship {
     proposed: ""
   };
 }
+/**
+ * @name MsgTransferPayeeship
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransferPayeeship
+ */
 export const MsgTransferPayeeship = {
   typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeship",
   aminoType: "ocr/MsgTransferPayeeship",
@@ -1551,6 +1856,11 @@ export const MsgTransferPayeeship = {
 function createBaseMsgTransferPayeeshipResponse(): MsgTransferPayeeshipResponse {
   return {};
 }
+/**
+ * @name MsgTransferPayeeshipResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgTransferPayeeshipResponse
+ */
 export const MsgTransferPayeeshipResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgTransferPayeeshipResponse",
   is(o: any): o is MsgTransferPayeeshipResponse {
@@ -1612,6 +1922,11 @@ function createBaseMsgAcceptPayeeship(): MsgAcceptPayeeship {
     feedId: ""
   };
 }
+/**
+ * @name MsgAcceptPayeeship
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgAcceptPayeeship
+ */
 export const MsgAcceptPayeeship = {
   typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeship",
   aminoType: "ocr/MsgAcceptPayeeship",
@@ -1709,6 +2024,11 @@ export const MsgAcceptPayeeship = {
 function createBaseMsgAcceptPayeeshipResponse(): MsgAcceptPayeeshipResponse {
   return {};
 }
+/**
+ * @name MsgAcceptPayeeshipResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgAcceptPayeeshipResponse
+ */
 export const MsgAcceptPayeeshipResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgAcceptPayeeshipResponse",
   is(o: any): o is MsgAcceptPayeeshipResponse {
@@ -1769,6 +2089,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateParams",
   aminoType: "ocr/MsgUpdateParams",
@@ -1860,6 +2185,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.ocr.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {

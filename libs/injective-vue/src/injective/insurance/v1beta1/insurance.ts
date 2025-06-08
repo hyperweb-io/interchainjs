@@ -5,6 +5,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet, toTimestamp, fromTimestamp } from "../../../helpers";
+/**
+ * @name Params
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.Params
+ */
 export interface Params {
   /**
    * default_redemption_notice_period_duration defines the default minimum
@@ -17,6 +22,11 @@ export interface ParamsProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.Params";
   value: Uint8Array;
 }
+/**
+ * @name ParamsAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.Params
+ */
 export interface ParamsAmino {
   /**
    * default_redemption_notice_period_duration defines the default minimum
@@ -29,10 +39,19 @@ export interface ParamsAminoMsg {
   type: "insurance/Params";
   value: ParamsAmino;
 }
+/**
+ * @name InsuranceFund
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.InsuranceFund
+ */
 export interface InsuranceFund {
-  /** deposit denomination for the given insurance fund */
+  /**
+   * deposit denomination for the given insurance fund
+   */
   depositDenom: string;
-  /** insurance fund pool token denomination for the given insurance fund */
+  /**
+   * insurance fund pool token denomination for the given insurance fund
+   */
   insurancePoolTokenDenom: string;
   /**
    * redemption_notice_period_duration defines the minimum notice period
@@ -40,13 +59,21 @@ export interface InsuranceFund {
    * before the underwriter can claim his tokens
    */
   redemptionNoticePeriodDuration: Duration;
-  /** balance of fund */
+  /**
+   * balance of fund
+   */
   balance: string;
-  /** total share tokens minted */
+  /**
+   * total share tokens minted
+   */
   totalShare: string;
-  /** marketID of the derivative market */
+  /**
+   * marketID of the derivative market
+   */
   marketId: string;
-  /** ticker of the derivative market */
+  /**
+   * ticker of the derivative market
+   */
   marketTicker: string;
   /**
    * Oracle base currency of the derivative market OR the oracle symbol for the
@@ -58,7 +85,9 @@ export interface InsuranceFund {
    * the binary options market.
    */
   oracleQuote: string;
-  /** Oracle type of the binary options or derivative market */
+  /**
+   * Oracle type of the binary options or derivative market
+   */
   oracleType: OracleType;
   /**
    * Expiration time of the derivative market. Should be -1 for perpetual or -2
@@ -70,10 +99,19 @@ export interface InsuranceFundProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.InsuranceFund";
   value: Uint8Array;
 }
+/**
+ * @name InsuranceFundAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.InsuranceFund
+ */
 export interface InsuranceFundAmino {
-  /** deposit denomination for the given insurance fund */
+  /**
+   * deposit denomination for the given insurance fund
+   */
   deposit_denom: string;
-  /** insurance fund pool token denomination for the given insurance fund */
+  /**
+   * insurance fund pool token denomination for the given insurance fund
+   */
   insurance_pool_token_denom: string;
   /**
    * redemption_notice_period_duration defines the minimum notice period
@@ -81,13 +119,21 @@ export interface InsuranceFundAmino {
    * before the underwriter can claim his tokens
    */
   redemption_notice_period_duration: DurationAmino;
-  /** balance of fund */
+  /**
+   * balance of fund
+   */
   balance: string;
-  /** total share tokens minted */
+  /**
+   * total share tokens minted
+   */
   total_share: string;
-  /** marketID of the derivative market */
+  /**
+   * marketID of the derivative market
+   */
   market_id: string;
-  /** ticker of the derivative market */
+  /**
+   * ticker of the derivative market
+   */
   market_ticker: string;
   /**
    * Oracle base currency of the derivative market OR the oracle symbol for the
@@ -99,7 +145,9 @@ export interface InsuranceFundAmino {
    * the binary options market.
    */
   oracle_quote: string;
-  /** Oracle type of the binary options or derivative market */
+  /**
+   * Oracle type of the binary options or derivative market
+   */
   oracle_type: OracleType;
   /**
    * Expiration time of the derivative market. Should be -1 for perpetual or -2
@@ -111,32 +159,62 @@ export interface InsuranceFundAminoMsg {
   type: "/injective.insurance.v1beta1.InsuranceFund";
   value: InsuranceFundAmino;
 }
+/**
+ * @name RedemptionSchedule
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.RedemptionSchedule
+ */
 export interface RedemptionSchedule {
-  /** id of redemption schedule */
+  /**
+   * id of redemption schedule
+   */
   id: bigint;
-  /** marketId of insurance fund for the redemption */
+  /**
+   * marketId of insurance fund for the redemption
+   */
   marketId: string;
-  /** address of the redeemer */
+  /**
+   * address of the redeemer
+   */
   redeemer: string;
-  /** the time after which the redemption can be claimed */
+  /**
+   * the time after which the redemption can be claimed
+   */
   claimableRedemptionTime: Date;
-  /** the insurance_pool_token amount to redeem */
+  /**
+   * the insurance_pool_token amount to redeem
+   */
   redemptionAmount: Coin;
 }
 export interface RedemptionScheduleProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule";
   value: Uint8Array;
 }
+/**
+ * @name RedemptionScheduleAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.RedemptionSchedule
+ */
 export interface RedemptionScheduleAmino {
-  /** id of redemption schedule */
+  /**
+   * id of redemption schedule
+   */
   id: string;
-  /** marketId of insurance fund for the redemption */
+  /**
+   * marketId of insurance fund for the redemption
+   */
   marketId: string;
-  /** address of the redeemer */
+  /**
+   * address of the redeemer
+   */
   redeemer: string;
-  /** the time after which the redemption can be claimed */
+  /**
+   * the time after which the redemption can be claimed
+   */
   claimable_redemption_time: string;
-  /** the insurance_pool_token amount to redeem */
+  /**
+   * the insurance_pool_token amount to redeem
+   */
   redemption_amount: CoinAmino;
 }
 export interface RedemptionScheduleAminoMsg {
@@ -148,6 +226,11 @@ function createBaseParams(): Params {
     defaultRedemptionNoticePeriodDuration: Duration.fromPartial({})
   };
 }
+/**
+ * @name Params
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/injective.insurance.v1beta1.Params",
   aminoType: "insurance/Params",
@@ -235,6 +318,11 @@ function createBaseInsuranceFund(): InsuranceFund {
     expiry: BigInt(0)
   };
 }
+/**
+ * @name InsuranceFund
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.InsuranceFund
+ */
 export const InsuranceFund = {
   typeUrl: "/injective.insurance.v1beta1.InsuranceFund",
   is(o: any): o is InsuranceFund {
@@ -419,6 +507,11 @@ function createBaseRedemptionSchedule(): RedemptionSchedule {
     redemptionAmount: Coin.fromPartial({})
   };
 }
+/**
+ * @name RedemptionSchedule
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.RedemptionSchedule
+ */
 export const RedemptionSchedule = {
   typeUrl: "/injective.insurance.v1beta1.RedemptionSchedule",
   is(o: any): o is RedemptionSchedule {

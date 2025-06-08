@@ -1,9 +1,16 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** Module is the config object for the runtime module. */
+/**
+ * Module is the config object for the runtime module.
+ * @name Module
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.Module
+ */
 export interface Module {
-  /** app_name is the name of the app. */
+  /**
+   * app_name is the name of the app.
+   */
   appName: string;
   /**
    * pre_blockers specifies the module names of pre blockers
@@ -45,7 +52,9 @@ export interface Module {
    * If this is left empty, it uses the default migration order (alphabetically).
    */
   orderMigrations: string[];
-  /** GasConfig is the config object for gas limits. */
+  /**
+   * GasConfig is the config object for gas limits.
+   */
   gasConfig?: GasConfig;
   /**
    * override_store_keys is an optional list of overrides for the module store keys
@@ -63,9 +72,16 @@ export interface ModuleProtoMsg {
   typeUrl: "/cosmos.app.runtime.v2.Module";
   value: Uint8Array;
 }
-/** Module is the config object for the runtime module. */
+/**
+ * Module is the config object for the runtime module.
+ * @name ModuleAmino
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.Module
+ */
 export interface ModuleAmino {
-  /** app_name is the name of the app. */
+  /**
+   * app_name is the name of the app.
+   */
   app_name: string;
   /**
    * pre_blockers specifies the module names of pre blockers
@@ -107,7 +123,9 @@ export interface ModuleAmino {
    * If this is left empty, it uses the default migration order (alphabetically).
    */
   order_migrations: string[];
-  /** GasConfig is the config object for gas limits. */
+  /**
+   * GasConfig is the config object for gas limits.
+   */
   gas_config?: GasConfigAmino;
   /**
    * override_store_keys is an optional list of overrides for the module store keys
@@ -125,26 +143,48 @@ export interface ModuleAminoMsg {
   type: "cosmos-sdk/Module";
   value: ModuleAmino;
 }
-/** GasConfig is the config object for gas limits. */
+/**
+ * GasConfig is the config object for gas limits.
+ * @name GasConfig
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.GasConfig
+ */
 export interface GasConfig {
-  /** validate_tx_gas_limit is the gas limit for validating a tx. */
+  /**
+   * validate_tx_gas_limit is the gas limit for validating a tx.
+   */
   validateTxGasLimit: bigint;
-  /** query_gas_limit is the gas limit for querying. */
+  /**
+   * query_gas_limit is the gas limit for querying.
+   */
   queryGasLimit: bigint;
-  /** simulation_gas_limit is the gas limit for simulation. */
+  /**
+   * simulation_gas_limit is the gas limit for simulation.
+   */
   simulationGasLimit: bigint;
 }
 export interface GasConfigProtoMsg {
   typeUrl: "/cosmos.app.runtime.v2.GasConfig";
   value: Uint8Array;
 }
-/** GasConfig is the config object for gas limits. */
+/**
+ * GasConfig is the config object for gas limits.
+ * @name GasConfigAmino
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.GasConfig
+ */
 export interface GasConfigAmino {
-  /** validate_tx_gas_limit is the gas limit for validating a tx. */
+  /**
+   * validate_tx_gas_limit is the gas limit for validating a tx.
+   */
   validate_tx_gas_limit: string;
-  /** query_gas_limit is the gas limit for querying. */
+  /**
+   * query_gas_limit is the gas limit for querying.
+   */
   query_gas_limit: string;
-  /** simulation_gas_limit is the gas limit for simulation. */
+  /**
+   * simulation_gas_limit is the gas limit for simulation.
+   */
   simulation_gas_limit: string;
 }
 export interface GasConfigAminoMsg {
@@ -154,11 +194,18 @@ export interface GasConfigAminoMsg {
 /**
  * StoreKeyConfig may be supplied to override the default module store key, which
  * is the module name.
+ * @name StoreKeyConfig
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.StoreKeyConfig
  */
 export interface StoreKeyConfig {
-  /** name of the module to override the store key of */
+  /**
+   * name of the module to override the store key of
+   */
   moduleName: string;
-  /** the kv store key to use instead of the module name. */
+  /**
+   * the kv store key to use instead of the module name.
+   */
   kvStoreKey: string;
 }
 export interface StoreKeyConfigProtoMsg {
@@ -168,11 +215,18 @@ export interface StoreKeyConfigProtoMsg {
 /**
  * StoreKeyConfig may be supplied to override the default module store key, which
  * is the module name.
+ * @name StoreKeyConfigAmino
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.StoreKeyConfig
  */
 export interface StoreKeyConfigAmino {
-  /** name of the module to override the store key of */
+  /**
+   * name of the module to override the store key of
+   */
   module_name: string;
-  /** the kv store key to use instead of the module name. */
+  /**
+   * the kv store key to use instead of the module name.
+   */
   kv_store_key: string;
 }
 export interface StoreKeyConfigAminoMsg {
@@ -194,6 +248,12 @@ function createBaseModule(): Module {
     skipStoreKeys: []
   };
 }
+/**
+ * Module is the config object for the runtime module.
+ * @name Module
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.app.runtime.v2.Module",
   aminoType: "cosmos-sdk/Module",
@@ -407,6 +467,12 @@ function createBaseGasConfig(): GasConfig {
     simulationGasLimit: BigInt(0)
   };
 }
+/**
+ * GasConfig is the config object for gas limits.
+ * @name GasConfig
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.GasConfig
+ */
 export const GasConfig = {
   typeUrl: "/cosmos.app.runtime.v2.GasConfig",
   aminoType: "cosmos-sdk/GasConfig",
@@ -507,6 +573,13 @@ function createBaseStoreKeyConfig(): StoreKeyConfig {
     kvStoreKey: ""
   };
 }
+/**
+ * StoreKeyConfig may be supplied to override the default module store key, which
+ * is the module name.
+ * @name StoreKeyConfig
+ * @package cosmos.app.runtime.v2
+ * @see proto type: cosmos.app.runtime.v2.StoreKeyConfig
+ */
 export const StoreKeyConfig = {
   typeUrl: "/cosmos.app.runtime.v2.StoreKeyConfig",
   aminoType: "cosmos-sdk/StoreKeyConfig",

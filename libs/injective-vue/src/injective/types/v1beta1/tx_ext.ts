@@ -1,5 +1,10 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+/**
+ * @name ExtensionOptionsWeb3Tx
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.ExtensionOptionsWeb3Tx
+ */
 export interface ExtensionOptionsWeb3Tx {
   /**
    * typedDataChainID used only in EIP712 Domain and should match
@@ -21,6 +26,11 @@ export interface ExtensionOptionsWeb3TxProtoMsg {
   typeUrl: "/injective.types.v1beta1.ExtensionOptionsWeb3Tx";
   value: Uint8Array;
 }
+/**
+ * @name ExtensionOptionsWeb3TxAmino
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.ExtensionOptionsWeb3Tx
+ */
 export interface ExtensionOptionsWeb3TxAmino {
   /**
    * typedDataChainID used only in EIP712 Domain and should match
@@ -49,6 +59,11 @@ function createBaseExtensionOptionsWeb3Tx(): ExtensionOptionsWeb3Tx {
     feePayerSig: new Uint8Array()
   };
 }
+/**
+ * @name ExtensionOptionsWeb3Tx
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.ExtensionOptionsWeb3Tx
+ */
 export const ExtensionOptionsWeb3Tx = {
   typeUrl: "/injective.types.v1beta1.ExtensionOptionsWeb3Tx",
   is(o: any): o is ExtensionOptionsWeb3Tx {

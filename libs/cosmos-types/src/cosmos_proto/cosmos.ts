@@ -39,6 +39,9 @@ export function scalarTypeToJSON(object: ScalarType): string {
 /**
  * InterfaceDescriptor describes an interface type to be used with
  * accepts_interface and implements_interface and declared by declare_interface.
+ * @name InterfaceDescriptor
+ * @package cosmos_proto
+ * @see proto type: cosmos_proto.InterfaceDescriptor
  */
 export interface InterfaceDescriptor {
   /**
@@ -62,6 +65,9 @@ export interface InterfaceDescriptor {
  * Scalars should ideally define an encoding such that there is only one
  * valid syntactical representation for a given semantic meaning,
  * i.e. the encoding should be deterministic.
+ * @name ScalarDescriptor
+ * @package cosmos_proto
+ * @see proto type: cosmos_proto.ScalarDescriptor
  */
 export interface ScalarDescriptor {
   /**
@@ -91,6 +97,13 @@ function createBaseInterfaceDescriptor(): InterfaceDescriptor {
     description: ""
   };
 }
+/**
+ * InterfaceDescriptor describes an interface type to be used with
+ * accepts_interface and implements_interface and declared by declare_interface.
+ * @name InterfaceDescriptor
+ * @package cosmos_proto
+ * @see proto type: cosmos_proto.InterfaceDescriptor
+ */
 export const InterfaceDescriptor = {
   typeUrl: "/cosmos_proto.InterfaceDescriptor",
   encode(message: InterfaceDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -136,6 +149,18 @@ function createBaseScalarDescriptor(): ScalarDescriptor {
     fieldType: []
   };
 }
+/**
+ * ScalarDescriptor describes an scalar type to be used with
+ * the scalar field option and declared by declare_scalar.
+ * Scalars extend simple protobuf built-in types with additional
+ * syntax and semantics, for instance to represent big integers.
+ * Scalars should ideally define an encoding such that there is only one
+ * valid syntactical representation for a given semantic meaning,
+ * i.e. the encoding should be deterministic.
+ * @name ScalarDescriptor
+ * @package cosmos_proto
+ * @see proto type: cosmos_proto.ScalarDescriptor
+ */
 export const ScalarDescriptor = {
   typeUrl: "/cosmos_proto.ScalarDescriptor",
   encode(message: ScalarDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

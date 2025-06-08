@@ -8,6 +8,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * to return an auth understandable representation of an account.
  * This query is only used for accounts retro-compatibility at gRPC
  * level, the state machine must not make any assumptions around this.
+ * @name QueryLegacyAccount
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryLegacyAccount
  */
 export interface QueryLegacyAccount {}
 export interface QueryLegacyAccountProtoMsg {
@@ -19,6 +22,9 @@ export interface QueryLegacyAccountProtoMsg {
  * to return an auth understandable representation of an account.
  * This query is only used for accounts retro-compatibility at gRPC
  * level, the state machine must not make any assumptions around this.
+ * @name QueryLegacyAccountAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryLegacyAccount
  */
 export interface QueryLegacyAccountAmino {}
 export interface QueryLegacyAccountAminoMsg {
@@ -28,6 +34,9 @@ export interface QueryLegacyAccountAminoMsg {
 /**
  * QueryLegacyAccountResponse defines the response type of the
  * `QueryLegacyAccount` query.
+ * @name QueryLegacyAccountResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryLegacyAccountResponse
  */
 export interface QueryLegacyAccountResponse {
   /**
@@ -50,6 +59,9 @@ export interface QueryLegacyAccountResponseProtoMsg {
 /**
  * QueryLegacyAccountResponse defines the response type of the
  * `QueryLegacyAccount` query.
+ * @name QueryLegacyAccountResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryLegacyAccountResponse
  */
 export interface QueryLegacyAccountResponseAmino {
   /**
@@ -72,6 +84,15 @@ export interface QueryLegacyAccountResponseAminoMsg {
 function createBaseQueryLegacyAccount(): QueryLegacyAccount {
   return {};
 }
+/**
+ * QueryLegacyAccount defines a query that can be implemented by an x/account
+ * to return an auth understandable representation of an account.
+ * This query is only used for accounts retro-compatibility at gRPC
+ * level, the state machine must not make any assumptions around this.
+ * @name QueryLegacyAccount
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryLegacyAccount
+ */
 export const QueryLegacyAccount = {
   typeUrl: "/cosmos.auth.v1beta1.QueryLegacyAccount",
   aminoType: "cosmos-sdk/QueryLegacyAccount",
@@ -139,6 +160,13 @@ function createBaseQueryLegacyAccountResponse(): QueryLegacyAccountResponse {
     base: undefined
   };
 }
+/**
+ * QueryLegacyAccountResponse defines the response type of the
+ * `QueryLegacyAccount` query.
+ * @name QueryLegacyAccountResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryLegacyAccountResponse
+ */
 export const QueryLegacyAccountResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryLegacyAccountResponse",
   aminoType: "cosmos-sdk/QueryLegacyAccountResponse",

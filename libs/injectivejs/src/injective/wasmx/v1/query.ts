@@ -6,6 +6,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryWasmxParamsRequest is the request type for the Query/WasmxParams RPC
  * method.
+ * @name QueryWasmxParamsRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryWasmxParamsRequest
  */
 export interface QueryWasmxParamsRequest {}
 export interface QueryWasmxParamsRequestProtoMsg {
@@ -15,6 +18,9 @@ export interface QueryWasmxParamsRequestProtoMsg {
 /**
  * QueryWasmxParamsRequest is the request type for the Query/WasmxParams RPC
  * method.
+ * @name QueryWasmxParamsRequestAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryWasmxParamsRequest
  */
 export interface QueryWasmxParamsRequestAmino {}
 export interface QueryWasmxParamsRequestAminoMsg {
@@ -24,6 +30,9 @@ export interface QueryWasmxParamsRequestAminoMsg {
 /**
  * QueryWasmxParamsRequest is the response type for the Query/WasmxParams RPC
  * method.
+ * @name QueryWasmxParamsResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryWasmxParamsResponse
  */
 export interface QueryWasmxParamsResponse {
   params: Params;
@@ -35,6 +44,9 @@ export interface QueryWasmxParamsResponseProtoMsg {
 /**
  * QueryWasmxParamsRequest is the response type for the Query/WasmxParams RPC
  * method.
+ * @name QueryWasmxParamsResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryWasmxParamsResponse
  */
 export interface QueryWasmxParamsResponseAmino {
   params: ParamsAmino;
@@ -46,6 +58,9 @@ export interface QueryWasmxParamsResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/WasmxModuleState
  * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -55,6 +70,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/WasmxModuleState
  * RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -64,6 +82,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the Query/WasmxModuleState
  * RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -75,6 +96,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the Query/WasmxModuleState
  * RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -83,7 +107,12 @@ export interface QueryModuleStateResponseAminoMsg {
   type: "/injective.wasmx.v1.QueryModuleStateResponse";
   value: QueryModuleStateResponseAmino;
 }
-/** Contract registration info */
+/**
+ * Contract registration info
+ * @name QueryContractRegistrationInfoRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryContractRegistrationInfoRequest
+ */
 export interface QueryContractRegistrationInfoRequest {
   contractAddress: string;
 }
@@ -91,7 +120,12 @@ export interface QueryContractRegistrationInfoRequestProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoRequest";
   value: Uint8Array;
 }
-/** Contract registration info */
+/**
+ * Contract registration info
+ * @name QueryContractRegistrationInfoRequestAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryContractRegistrationInfoRequest
+ */
 export interface QueryContractRegistrationInfoRequestAmino {
   contract_address: string;
 }
@@ -99,6 +133,11 @@ export interface QueryContractRegistrationInfoRequestAminoMsg {
   type: "/injective.wasmx.v1.QueryContractRegistrationInfoRequest";
   value: QueryContractRegistrationInfoRequestAmino;
 }
+/**
+ * @name QueryContractRegistrationInfoResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryContractRegistrationInfoResponse
+ */
 export interface QueryContractRegistrationInfoResponse {
   contract?: RegisteredContract;
 }
@@ -106,6 +145,11 @@ export interface QueryContractRegistrationInfoResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryContractRegistrationInfoResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryContractRegistrationInfoResponse
+ */
 export interface QueryContractRegistrationInfoResponseAmino {
   contract?: RegisteredContractAmino;
 }
@@ -116,6 +160,13 @@ export interface QueryContractRegistrationInfoResponseAminoMsg {
 function createBaseQueryWasmxParamsRequest(): QueryWasmxParamsRequest {
   return {};
 }
+/**
+ * QueryWasmxParamsRequest is the request type for the Query/WasmxParams RPC
+ * method.
+ * @name QueryWasmxParamsRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryWasmxParamsRequest
+ */
 export const QueryWasmxParamsRequest = {
   typeUrl: "/injective.wasmx.v1.QueryWasmxParamsRequest",
   is(o: any): o is QueryWasmxParamsRequest {
@@ -175,6 +226,13 @@ function createBaseQueryWasmxParamsResponse(): QueryWasmxParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryWasmxParamsRequest is the response type for the Query/WasmxParams RPC
+ * method.
+ * @name QueryWasmxParamsResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryWasmxParamsResponse
+ */
 export const QueryWasmxParamsResponse = {
   typeUrl: "/injective.wasmx.v1.QueryWasmxParamsResponse",
   is(o: any): o is QueryWasmxParamsResponse {
@@ -248,6 +306,13 @@ export const QueryWasmxParamsResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the Query/WasmxModuleState
+ * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.wasmx.v1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -307,6 +372,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the Query/WasmxModuleState
+ * RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.wasmx.v1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {
@@ -382,6 +454,12 @@ function createBaseQueryContractRegistrationInfoRequest(): QueryContractRegistra
     contractAddress: ""
   };
 }
+/**
+ * Contract registration info
+ * @name QueryContractRegistrationInfoRequest
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryContractRegistrationInfoRequest
+ */
 export const QueryContractRegistrationInfoRequest = {
   typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoRequest",
   is(o: any): o is QueryContractRegistrationInfoRequest {
@@ -452,6 +530,11 @@ function createBaseQueryContractRegistrationInfoResponse(): QueryContractRegistr
     contract: undefined
   };
 }
+/**
+ * @name QueryContractRegistrationInfoResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.QueryContractRegistrationInfoResponse
+ */
 export const QueryContractRegistrationInfoResponse = {
   typeUrl: "/injective.wasmx.v1.QueryContractRegistrationInfoResponse",
   is(o: any): o is QueryContractRegistrationInfoResponse {

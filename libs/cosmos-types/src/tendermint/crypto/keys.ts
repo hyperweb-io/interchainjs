@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
-/** PublicKey defines the keys available for use with Validators */
+/**
+ * PublicKey defines the keys available for use with Validators
+ * @name PublicKey
+ * @package tendermint.crypto
+ * @see proto type: tendermint.crypto.PublicKey
+ */
 export interface PublicKey {
   ed25519?: Uint8Array;
   secp256k1?: Uint8Array;
@@ -11,6 +16,12 @@ function createBasePublicKey(): PublicKey {
     secp256k1: undefined
   };
 }
+/**
+ * PublicKey defines the keys available for use with Validators
+ * @name PublicKey
+ * @package tendermint.crypto
+ * @see proto type: tendermint.crypto.PublicKey
+ */
 export const PublicKey = {
   typeUrl: "/tendermint.crypto.PublicKey",
   encode(message: PublicKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

@@ -13,10 +13,15 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
  * originally set to be the creator, but this can be changed later. The token
  * denom does not indicate the current admin.
+ * @name MsgCreateDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgCreateDenom
  */
 export interface MsgCreateDenom {
   sender: string;
-  /** subdenom can be up to 44 "alphanumeric" characters long. */
+  /**
+   * subdenom can be up to 44 "alphanumeric" characters long.
+   */
   subdenom: string;
   name: string;
   symbol: string;
@@ -36,10 +41,15 @@ export interface MsgCreateDenomProtoMsg {
  * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
  * originally set to be the creator, but this can be changed later. The token
  * denom does not indicate the current admin.
+ * @name MsgCreateDenomAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgCreateDenom
  */
 export interface MsgCreateDenomAmino {
   sender: string;
-  /** subdenom can be up to 44 "alphanumeric" characters long. */
+  /**
+   * subdenom can be up to 44 "alphanumeric" characters long.
+   */
   subdenom: string;
   name: string;
   symbol: string;
@@ -52,6 +62,9 @@ export interface MsgCreateDenomAminoMsg {
 /**
  * MsgCreateDenomResponse is the return value of MsgCreateDenom
  * It returns the full string of the newly created denom
+ * @name MsgCreateDenomResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgCreateDenomResponse
  */
 export interface MsgCreateDenomResponse {
   newTokenDenom: string;
@@ -63,6 +76,9 @@ export interface MsgCreateDenomResponseProtoMsg {
 /**
  * MsgCreateDenomResponse is the return value of MsgCreateDenom
  * It returns the full string of the newly created denom
+ * @name MsgCreateDenomResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgCreateDenomResponse
  */
 export interface MsgCreateDenomResponseAmino {
   new_token_denom: string;
@@ -74,6 +90,9 @@ export interface MsgCreateDenomResponseAminoMsg {
 /**
  * MsgMint is the sdk.Msg type for allowing an admin account to mint
  * more of a token.  For now, we only support minting to the sender account
+ * @name MsgMint
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgMint
  */
 export interface MsgMint {
   sender: string;
@@ -86,6 +105,9 @@ export interface MsgMintProtoMsg {
 /**
  * MsgMint is the sdk.Msg type for allowing an admin account to mint
  * more of a token.  For now, we only support minting to the sender account
+ * @name MsgMintAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgMint
  */
 export interface MsgMintAmino {
   sender: string;
@@ -95,11 +117,21 @@ export interface MsgMintAminoMsg {
   type: "injective/tokenfactory/mint";
   value: MsgMintAmino;
 }
+/**
+ * @name MsgMintResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgMintResponse
+ */
 export interface MsgMintResponse {}
 export interface MsgMintResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMintResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgMintResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgMintResponse
+ */
 export interface MsgMintResponseAmino {}
 export interface MsgMintResponseAminoMsg {
   type: "/injective.tokenfactory.v1beta1.MsgMintResponse";
@@ -108,6 +140,9 @@ export interface MsgMintResponseAminoMsg {
 /**
  * MsgBurn is the sdk.Msg type for allowing an admin account to burn
  * a token.  For now, we only support burning from the sender account.
+ * @name MsgBurn
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgBurn
  */
 export interface MsgBurn {
   sender: string;
@@ -120,6 +155,9 @@ export interface MsgBurnProtoMsg {
 /**
  * MsgBurn is the sdk.Msg type for allowing an admin account to burn
  * a token.  For now, we only support burning from the sender account.
+ * @name MsgBurnAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgBurn
  */
 export interface MsgBurnAmino {
   sender: string;
@@ -129,11 +167,21 @@ export interface MsgBurnAminoMsg {
   type: "injective/tokenfactory/burn";
   value: MsgBurnAmino;
 }
+/**
+ * @name MsgBurnResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgBurnResponse
+ */
 export interface MsgBurnResponse {}
 export interface MsgBurnResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurnResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgBurnResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgBurnResponse
+ */
 export interface MsgBurnResponseAmino {}
 export interface MsgBurnResponseAminoMsg {
   type: "/injective.tokenfactory.v1beta1.MsgBurnResponse";
@@ -142,6 +190,9 @@ export interface MsgBurnResponseAminoMsg {
 /**
  * MsgChangeAdmin is the sdk.Msg type for allowing an admin account to reassign
  * adminship of a denom to a new account
+ * @name MsgChangeAdmin
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgChangeAdmin
  */
 export interface MsgChangeAdmin {
   sender: string;
@@ -155,6 +206,9 @@ export interface MsgChangeAdminProtoMsg {
 /**
  * MsgChangeAdmin is the sdk.Msg type for allowing an admin account to reassign
  * adminship of a denom to a new account
+ * @name MsgChangeAdminAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgChangeAdmin
  */
 export interface MsgChangeAdminAmino {
   sender: string;
@@ -168,6 +222,9 @@ export interface MsgChangeAdminAminoMsg {
 /**
  * MsgChangeAdminResponse defines the response structure for an executed
  * MsgChangeAdmin message.
+ * @name MsgChangeAdminResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgChangeAdminResponse
  */
 export interface MsgChangeAdminResponse {}
 export interface MsgChangeAdminResponseProtoMsg {
@@ -177,6 +234,9 @@ export interface MsgChangeAdminResponseProtoMsg {
 /**
  * MsgChangeAdminResponse defines the response structure for an executed
  * MsgChangeAdmin message.
+ * @name MsgChangeAdminResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgChangeAdminResponse
  */
 export interface MsgChangeAdminResponseAmino {}
 export interface MsgChangeAdminResponseAminoMsg {
@@ -186,6 +246,9 @@ export interface MsgChangeAdminResponseAminoMsg {
 /**
  * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
  * the denom's bank metadata
+ * @name MsgSetDenomMetadata
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadata
  */
 export interface MsgSetDenomMetadata {
   sender: string;
@@ -198,6 +261,9 @@ export interface MsgSetDenomMetadataProtoMsg {
 /**
  * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
  * the denom's bank metadata
+ * @name MsgSetDenomMetadataAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadata
  */
 export interface MsgSetDenomMetadataAmino {
   sender: string;
@@ -210,6 +276,9 @@ export interface MsgSetDenomMetadataAminoMsg {
 /**
  * MsgSetDenomMetadataResponse defines the response structure for an executed
  * MsgSetDenomMetadata message.
+ * @name MsgSetDenomMetadataResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse
  */
 export interface MsgSetDenomMetadataResponse {}
 export interface MsgSetDenomMetadataResponseProtoMsg {
@@ -219,14 +288,24 @@ export interface MsgSetDenomMetadataResponseProtoMsg {
 /**
  * MsgSetDenomMetadataResponse defines the response structure for an executed
  * MsgSetDenomMetadata message.
+ * @name MsgSetDenomMetadataResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse
  */
 export interface MsgSetDenomMetadataResponseAmino {}
 export interface MsgSetDenomMetadataResponseAminoMsg {
   type: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse";
   value: MsgSetDenomMetadataResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the tokenfactory parameters to update.
@@ -239,8 +318,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the tokenfactory parameters to update.
@@ -253,11 +339,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "injective/tokenfactory/update-params";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.tokenfactory.v1beta1.MsgUpdateParamsResponse";
@@ -272,6 +368,20 @@ function createBaseMsgCreateDenom(): MsgCreateDenom {
     decimals: 0
   };
 }
+/**
+ * MsgCreateDenom defines the message structure for the CreateDenom gRPC service
+ * method. It allows an account to create a new denom. It requires a sender
+ * address and a sub denomination. The (sender_address, sub_denomination) tuple
+ * must be unique and cannot be re-used.
+ * 
+ * The resulting denom created is defined as
+ * <factory/{creatorAddress}/{subdenom}>. The resulting denom's admin is
+ * originally set to be the creator, but this can be changed later. The token
+ * denom does not indicate the current admin.
+ * @name MsgCreateDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgCreateDenom
+ */
 export const MsgCreateDenom = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenom",
   aminoType: "injective/tokenfactory/create-denom",
@@ -393,6 +503,13 @@ function createBaseMsgCreateDenomResponse(): MsgCreateDenomResponse {
     newTokenDenom: ""
   };
 }
+/**
+ * MsgCreateDenomResponse is the return value of MsgCreateDenom
+ * It returns the full string of the newly created denom
+ * @name MsgCreateDenomResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgCreateDenomResponse
+ */
 export const MsgCreateDenomResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenomResponse",
   is(o: any): o is MsgCreateDenomResponse {
@@ -464,6 +581,13 @@ function createBaseMsgMint(): MsgMint {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * MsgMint is the sdk.Msg type for allowing an admin account to mint
+ * more of a token.  For now, we only support minting to the sender account
+ * @name MsgMint
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgMint
+ */
 export const MsgMint = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMint",
   aminoType: "injective/tokenfactory/mint",
@@ -555,6 +679,11 @@ export const MsgMint = {
 function createBaseMsgMintResponse(): MsgMintResponse {
   return {};
 }
+/**
+ * @name MsgMintResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgMintResponse
+ */
 export const MsgMintResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMintResponse",
   is(o: any): o is MsgMintResponse {
@@ -615,6 +744,13 @@ function createBaseMsgBurn(): MsgBurn {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * MsgBurn is the sdk.Msg type for allowing an admin account to burn
+ * a token.  For now, we only support burning from the sender account.
+ * @name MsgBurn
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgBurn
+ */
 export const MsgBurn = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurn",
   aminoType: "injective/tokenfactory/burn",
@@ -706,6 +842,11 @@ export const MsgBurn = {
 function createBaseMsgBurnResponse(): MsgBurnResponse {
   return {};
 }
+/**
+ * @name MsgBurnResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgBurnResponse
+ */
 export const MsgBurnResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurnResponse",
   is(o: any): o is MsgBurnResponse {
@@ -767,6 +908,13 @@ function createBaseMsgChangeAdmin(): MsgChangeAdmin {
     newAdmin: ""
   };
 }
+/**
+ * MsgChangeAdmin is the sdk.Msg type for allowing an admin account to reassign
+ * adminship of a denom to a new account
+ * @name MsgChangeAdmin
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgChangeAdmin
+ */
 export const MsgChangeAdmin = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgChangeAdmin",
   aminoType: "injective/tokenfactory/change-admin",
@@ -864,6 +1012,13 @@ export const MsgChangeAdmin = {
 function createBaseMsgChangeAdminResponse(): MsgChangeAdminResponse {
   return {};
 }
+/**
+ * MsgChangeAdminResponse defines the response structure for an executed
+ * MsgChangeAdmin message.
+ * @name MsgChangeAdminResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgChangeAdminResponse
+ */
 export const MsgChangeAdminResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgChangeAdminResponse",
   is(o: any): o is MsgChangeAdminResponse {
@@ -924,6 +1079,13 @@ function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
     metadata: Metadata.fromPartial({})
   };
 }
+/**
+ * MsgSetDenomMetadata is the sdk.Msg type for allowing an admin account to set
+ * the denom's bank metadata
+ * @name MsgSetDenomMetadata
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadata
+ */
 export const MsgSetDenomMetadata = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadata",
   aminoType: "injective/tokenfactory/set-denom-metadata",
@@ -1015,6 +1177,13 @@ export const MsgSetDenomMetadata = {
 function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
   return {};
 }
+/**
+ * MsgSetDenomMetadataResponse defines the response structure for an executed
+ * MsgSetDenomMetadata message.
+ * @name MsgSetDenomMetadataResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse
+ */
 export const MsgSetDenomMetadataResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadataResponse",
   is(o: any): o is MsgSetDenomMetadataResponse {
@@ -1075,6 +1244,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParams",
   aminoType: "injective/tokenfactory/update-params",
@@ -1166,6 +1340,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {

@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name BlacklistEthereumAddressesProposal
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BlacklistEthereumAddressesProposal
+ */
 export interface BlacklistEthereumAddressesProposal {
   title: string;
   description: string;
@@ -10,6 +15,11 @@ export interface BlacklistEthereumAddressesProposalProtoMsg {
   typeUrl: "/injective.peggy.v1.BlacklistEthereumAddressesProposal";
   value: Uint8Array;
 }
+/**
+ * @name BlacklistEthereumAddressesProposalAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BlacklistEthereumAddressesProposal
+ */
 export interface BlacklistEthereumAddressesProposalAmino {
   title: string;
   description: string;
@@ -19,6 +29,11 @@ export interface BlacklistEthereumAddressesProposalAminoMsg {
   type: "/injective.peggy.v1.BlacklistEthereumAddressesProposal";
   value: BlacklistEthereumAddressesProposalAmino;
 }
+/**
+ * @name RevokeEthereumBlacklistProposal
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.RevokeEthereumBlacklistProposal
+ */
 export interface RevokeEthereumBlacklistProposal {
   title: string;
   description: string;
@@ -28,6 +43,11 @@ export interface RevokeEthereumBlacklistProposalProtoMsg {
   typeUrl: "/injective.peggy.v1.RevokeEthereumBlacklistProposal";
   value: Uint8Array;
 }
+/**
+ * @name RevokeEthereumBlacklistProposalAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.RevokeEthereumBlacklistProposal
+ */
 export interface RevokeEthereumBlacklistProposalAmino {
   title: string;
   description: string;
@@ -44,6 +64,11 @@ function createBaseBlacklistEthereumAddressesProposal(): BlacklistEthereumAddres
     blacklistAddresses: []
   };
 }
+/**
+ * @name BlacklistEthereumAddressesProposal
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BlacklistEthereumAddressesProposal
+ */
 export const BlacklistEthereumAddressesProposal = {
   typeUrl: "/injective.peggy.v1.BlacklistEthereumAddressesProposal",
   is(o: any): o is BlacklistEthereumAddressesProposal {
@@ -145,6 +170,11 @@ function createBaseRevokeEthereumBlacklistProposal(): RevokeEthereumBlacklistPro
     blacklistAddresses: []
   };
 }
+/**
+ * @name RevokeEthereumBlacklistProposal
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.RevokeEthereumBlacklistProposal
+ */
 export const RevokeEthereumBlacklistProposal = {
   typeUrl: "/injective.peggy.v1.RevokeEthereumBlacklistProposal",
   is(o: any): o is RevokeEthereumBlacklistProposal {

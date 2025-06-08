@@ -1,7 +1,12 @@
 import { buildUseVueQuery } from "../../../../../vue-query";
 import { QueryParamsRequest, QueryParamsResponse } from "./query";
 import { getParams } from "./query.rpc.func";
-/* Params queries all parameters of the ICA host submodule. */
+/**
+ * Params queries all parameters of the ICA host submodule.
+ * @name useGetParams
+ * @package ibc.applications.interchain_accounts.host.v1
+ * @see proto service: ibc.applications.interchain_accounts.host.v1.Params
+ */
 export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResponse>({
   builderQueryFn: getParams,
   queryKeyPrefix: "ParamsQuery"

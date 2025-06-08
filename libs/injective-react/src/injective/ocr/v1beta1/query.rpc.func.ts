@@ -1,5 +1,10 @@
 import { buildQuery } from "../../../helper-func-types";
 import { QueryParamsRequest, QueryParamsResponse, QueryFeedConfigRequest, QueryFeedConfigResponse, QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse, QueryLatestRoundRequest, QueryLatestRoundResponse, QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse, QueryOwedAmountRequest, QueryOwedAmountResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
+/**
+ * @name getParams
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.Params
+ */
 export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   encode: QueryParamsRequest.encode,
   decode: QueryParamsResponse.decode,
@@ -7,7 +12,12 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
-/* Retrieves the OCR FeedConfig for a given FeedId */
+/**
+ * Retrieves the OCR FeedConfig for a given FeedId
+ * @name getFeedConfig
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.FeedConfig
+ */
 export const getFeedConfig = buildQuery<QueryFeedConfigRequest, QueryFeedConfigResponse>({
   encode: QueryFeedConfigRequest.encode,
   decode: QueryFeedConfigResponse.decode,
@@ -15,7 +25,12 @@ export const getFeedConfig = buildQuery<QueryFeedConfigRequest, QueryFeedConfigR
   method: "FeedConfig",
   deps: [QueryFeedConfigRequest, QueryFeedConfigResponse]
 });
-/* Retrieves the OCR FeedConfigInfo for a given FeedId */
+/**
+ * Retrieves the OCR FeedConfigInfo for a given FeedId
+ * @name getFeedConfigInfo
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.FeedConfigInfo
+ */
 export const getFeedConfigInfo = buildQuery<QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse>({
   encode: QueryFeedConfigInfoRequest.encode,
   decode: QueryFeedConfigInfoResponse.decode,
@@ -23,7 +38,12 @@ export const getFeedConfigInfo = buildQuery<QueryFeedConfigInfoRequest, QueryFee
   method: "FeedConfigInfo",
   deps: [QueryFeedConfigInfoRequest, QueryFeedConfigInfoResponse]
 });
-/* Retrieves latest round ID and data, including median answer for that round */
+/**
+ * Retrieves latest round ID and data, including median answer for that round
+ * @name getLatestRound
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.LatestRound
+ */
 export const getLatestRound = buildQuery<QueryLatestRoundRequest, QueryLatestRoundResponse>({
   encode: QueryLatestRoundRequest.encode,
   decode: QueryLatestRoundResponse.decode,
@@ -31,8 +51,13 @@ export const getLatestRound = buildQuery<QueryLatestRoundRequest, QueryLatestRou
   method: "LatestRound",
   deps: [QueryLatestRoundRequest, QueryLatestRoundResponse]
 });
-/* LatestTransmissionDetails returns details about the latest trasmission
- recorded on chain for the given feed ID. */
+/**
+ * LatestTransmissionDetails returns details about the latest trasmission
+ * recorded on chain for the given feed ID.
+ * @name getLatestTransmissionDetails
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.LatestTransmissionDetails
+ */
 export const getLatestTransmissionDetails = buildQuery<QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse>({
   encode: QueryLatestTransmissionDetailsRequest.encode,
   decode: QueryLatestTransmissionDetailsResponse.decode,
@@ -40,7 +65,12 @@ export const getLatestTransmissionDetails = buildQuery<QueryLatestTransmissionDe
   method: "LatestTransmissionDetails",
   deps: [QueryLatestTransmissionDetailsRequest, QueryLatestTransmissionDetailsResponse]
 });
-/* Retrieves transmitter's owed amount */
+/**
+ * Retrieves transmitter's owed amount
+ * @name getOwedAmount
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.OwedAmount
+ */
 export const getOwedAmount = buildQuery<QueryOwedAmountRequest, QueryOwedAmountResponse>({
   encode: QueryOwedAmountRequest.encode,
   decode: QueryOwedAmountResponse.decode,
@@ -48,7 +78,12 @@ export const getOwedAmount = buildQuery<QueryOwedAmountRequest, QueryOwedAmountR
   method: "OwedAmount",
   deps: [QueryOwedAmountRequest, QueryOwedAmountResponse]
 });
-/* Retrieves the entire OCR module's state */
+/**
+ * Retrieves the entire OCR module's state
+ * @name getOcrModuleState
+ * @package injective.ocr.v1beta1
+ * @see proto service: injective.ocr.v1beta1.OcrModuleState
+ */
 export const getOcrModuleState = buildQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
   encode: QueryModuleStateRequest.encode,
   decode: QueryModuleStateResponse.decode,
