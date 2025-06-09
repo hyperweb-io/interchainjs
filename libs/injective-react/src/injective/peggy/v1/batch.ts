@@ -2,7 +2,12 @@ import { ERC20Token, ERC20TokenAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** OutgoingTxBatch represents a batch of transactions going from Peggy to ETH */
+/**
+ * OutgoingTxBatch represents a batch of transactions going from Peggy to ETH
+ * @name OutgoingTxBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.OutgoingTxBatch
+ */
 export interface OutgoingTxBatch {
   batchNonce: bigint;
   batchTimeout: bigint;
@@ -14,7 +19,12 @@ export interface OutgoingTxBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.OutgoingTxBatch";
   value: Uint8Array;
 }
-/** OutgoingTxBatch represents a batch of transactions going from Peggy to ETH */
+/**
+ * OutgoingTxBatch represents a batch of transactions going from Peggy to ETH
+ * @name OutgoingTxBatchAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.OutgoingTxBatch
+ */
 export interface OutgoingTxBatchAmino {
   batch_nonce: string;
   batch_timeout: string;
@@ -26,7 +36,12 @@ export interface OutgoingTxBatchAminoMsg {
   type: "/injective.peggy.v1.OutgoingTxBatch";
   value: OutgoingTxBatchAmino;
 }
-/** OutgoingTransferTx represents an individual send from Peggy to ETH */
+/**
+ * OutgoingTransferTx represents an individual send from Peggy to ETH
+ * @name OutgoingTransferTx
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.OutgoingTransferTx
+ */
 export interface OutgoingTransferTx {
   id: bigint;
   sender: string;
@@ -38,7 +53,12 @@ export interface OutgoingTransferTxProtoMsg {
   typeUrl: "/injective.peggy.v1.OutgoingTransferTx";
   value: Uint8Array;
 }
-/** OutgoingTransferTx represents an individual send from Peggy to ETH */
+/**
+ * OutgoingTransferTx represents an individual send from Peggy to ETH
+ * @name OutgoingTransferTxAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.OutgoingTransferTx
+ */
 export interface OutgoingTransferTxAmino {
   id: string;
   sender: string;
@@ -59,6 +79,12 @@ function createBaseOutgoingTxBatch(): OutgoingTxBatch {
     block: BigInt(0)
   };
 }
+/**
+ * OutgoingTxBatch represents a batch of transactions going from Peggy to ETH
+ * @name OutgoingTxBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.OutgoingTxBatch
+ */
 export const OutgoingTxBatch = {
   typeUrl: "/injective.peggy.v1.OutgoingTxBatch",
   is(o: any): o is OutgoingTxBatch {
@@ -184,6 +210,12 @@ function createBaseOutgoingTransferTx(): OutgoingTransferTx {
     erc20Fee: undefined
   };
 }
+/**
+ * OutgoingTransferTx represents an individual send from Peggy to ETH
+ * @name OutgoingTransferTx
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.OutgoingTransferTx
+ */
 export const OutgoingTransferTx = {
   typeUrl: "/injective.peggy.v1.OutgoingTransferTx",
   is(o: any): o is OutgoingTransferTx {

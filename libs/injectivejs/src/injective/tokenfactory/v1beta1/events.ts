@@ -3,6 +3,11 @@ import { Metadata, MetadataAmino } from "../../../cosmos/bank/v1beta1/bank";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name EventCreateTFDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventCreateTFDenom
+ */
 export interface EventCreateTFDenom {
   account: string;
   denom: string;
@@ -11,6 +16,11 @@ export interface EventCreateTFDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom";
   value: Uint8Array;
 }
+/**
+ * @name EventCreateTFDenomAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventCreateTFDenom
+ */
 export interface EventCreateTFDenomAmino {
   account: string;
   denom: string;
@@ -19,6 +29,11 @@ export interface EventCreateTFDenomAminoMsg {
   type: "/injective.tokenfactory.v1beta1.EventCreateTFDenom";
   value: EventCreateTFDenomAmino;
 }
+/**
+ * @name EventMintTFDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventMintTFDenom
+ */
 export interface EventMintTFDenom {
   recipientAddress: string;
   amount: Coin;
@@ -27,6 +42,11 @@ export interface EventMintTFDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom";
   value: Uint8Array;
 }
+/**
+ * @name EventMintTFDenomAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventMintTFDenom
+ */
 export interface EventMintTFDenomAmino {
   recipient_address: string;
   amount: CoinAmino;
@@ -35,6 +55,11 @@ export interface EventMintTFDenomAminoMsg {
   type: "/injective.tokenfactory.v1beta1.EventMintTFDenom";
   value: EventMintTFDenomAmino;
 }
+/**
+ * @name EventBurnDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventBurnDenom
+ */
 export interface EventBurnDenom {
   burnerAddress: string;
   amount: Coin;
@@ -43,6 +68,11 @@ export interface EventBurnDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom";
   value: Uint8Array;
 }
+/**
+ * @name EventBurnDenomAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventBurnDenom
+ */
 export interface EventBurnDenomAmino {
   burner_address: string;
   amount: CoinAmino;
@@ -51,6 +81,11 @@ export interface EventBurnDenomAminoMsg {
   type: "/injective.tokenfactory.v1beta1.EventBurnDenom";
   value: EventBurnDenomAmino;
 }
+/**
+ * @name EventChangeTFAdmin
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventChangeTFAdmin
+ */
 export interface EventChangeTFAdmin {
   denom: string;
   newAdminAddress: string;
@@ -59,6 +94,11 @@ export interface EventChangeTFAdminProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin";
   value: Uint8Array;
 }
+/**
+ * @name EventChangeTFAdminAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventChangeTFAdmin
+ */
 export interface EventChangeTFAdminAmino {
   denom: string;
   new_admin_address: string;
@@ -67,6 +107,11 @@ export interface EventChangeTFAdminAminoMsg {
   type: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin";
   value: EventChangeTFAdminAmino;
 }
+/**
+ * @name EventSetTFDenomMetadata
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventSetTFDenomMetadata
+ */
 export interface EventSetTFDenomMetadata {
   denom: string;
   metadata: Metadata;
@@ -75,6 +120,11 @@ export interface EventSetTFDenomMetadataProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata";
   value: Uint8Array;
 }
+/**
+ * @name EventSetTFDenomMetadataAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventSetTFDenomMetadata
+ */
 export interface EventSetTFDenomMetadataAmino {
   denom: string;
   metadata: MetadataAmino;
@@ -89,6 +139,11 @@ function createBaseEventCreateTFDenom(): EventCreateTFDenom {
     denom: ""
   };
 }
+/**
+ * @name EventCreateTFDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventCreateTFDenom
+ */
 export const EventCreateTFDenom = {
   typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom",
   is(o: any): o is EventCreateTFDenom {
@@ -171,6 +226,11 @@ function createBaseEventMintTFDenom(): EventMintTFDenom {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventMintTFDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventMintTFDenom
+ */
 export const EventMintTFDenom = {
   typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom",
   is(o: any): o is EventMintTFDenom {
@@ -258,6 +318,11 @@ function createBaseEventBurnDenom(): EventBurnDenom {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventBurnDenom
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventBurnDenom
+ */
 export const EventBurnDenom = {
   typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom",
   is(o: any): o is EventBurnDenom {
@@ -345,6 +410,11 @@ function createBaseEventChangeTFAdmin(): EventChangeTFAdmin {
     newAdminAddress: ""
   };
 }
+/**
+ * @name EventChangeTFAdmin
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventChangeTFAdmin
+ */
 export const EventChangeTFAdmin = {
   typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin",
   is(o: any): o is EventChangeTFAdmin {
@@ -427,6 +497,11 @@ function createBaseEventSetTFDenomMetadata(): EventSetTFDenomMetadata {
     metadata: Metadata.fromPartial({})
   };
 }
+/**
+ * @name EventSetTFDenomMetadata
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.EventSetTFDenomMetadata
+ */
 export const EventSetTFDenomMetadata = {
   typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata",
   is(o: any): o is EventSetTFDenomMetadata {

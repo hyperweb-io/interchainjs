@@ -1,6 +1,11 @@
 import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes, isSet } from "../../../helpers";
+/**
+ * @name EventContractExecution
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractExecution
+ */
 export interface EventContractExecution {
   contractAddress: string;
   response: Uint8Array;
@@ -11,6 +16,11 @@ export interface EventContractExecutionProtoMsg {
   typeUrl: "/injective.wasmx.v1.EventContractExecution";
   value: Uint8Array;
 }
+/**
+ * @name EventContractExecutionAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractExecution
+ */
 export interface EventContractExecutionAmino {
   contract_address: string;
   response: string;
@@ -21,6 +31,11 @@ export interface EventContractExecutionAminoMsg {
   type: "/injective.wasmx.v1.EventContractExecution";
   value: EventContractExecutionAmino;
 }
+/**
+ * @name EventContractRegistered
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractRegistered
+ */
 export interface EventContractRegistered {
   contractAddress: string;
   gasPrice: bigint;
@@ -35,6 +50,11 @@ export interface EventContractRegisteredProtoMsg {
   typeUrl: "/injective.wasmx.v1.EventContractRegistered";
   value: Uint8Array;
 }
+/**
+ * @name EventContractRegisteredAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractRegistered
+ */
 export interface EventContractRegisteredAmino {
   contract_address: string;
   gas_price: string;
@@ -49,6 +69,11 @@ export interface EventContractRegisteredAminoMsg {
   type: "/injective.wasmx.v1.EventContractRegistered";
   value: EventContractRegisteredAmino;
 }
+/**
+ * @name EventContractDeregistered
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractDeregistered
+ */
 export interface EventContractDeregistered {
   contractAddress: string;
 }
@@ -56,6 +81,11 @@ export interface EventContractDeregisteredProtoMsg {
   typeUrl: "/injective.wasmx.v1.EventContractDeregistered";
   value: Uint8Array;
 }
+/**
+ * @name EventContractDeregisteredAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractDeregistered
+ */
 export interface EventContractDeregisteredAmino {
   contract_address: string;
 }
@@ -71,6 +101,11 @@ function createBaseEventContractExecution(): EventContractExecution {
     executionError: ""
   };
 }
+/**
+ * @name EventContractExecution
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractExecution
+ */
 export const EventContractExecution = {
   typeUrl: "/injective.wasmx.v1.EventContractExecution",
   is(o: any): o is EventContractExecution {
@@ -181,6 +216,11 @@ function createBaseEventContractRegistered(): EventContractRegistered {
     fundingMode: 0
   };
 }
+/**
+ * @name EventContractRegistered
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractRegistered
+ */
 export const EventContractRegistered = {
   typeUrl: "/injective.wasmx.v1.EventContractRegistered",
   is(o: any): o is EventContractRegistered {
@@ -328,6 +368,11 @@ function createBaseEventContractDeregistered(): EventContractDeregistered {
     contractAddress: ""
   };
 }
+/**
+ * @name EventContractDeregistered
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.EventContractDeregistered
+ */
 export const EventContractDeregistered = {
   typeUrl: "/injective.wasmx.v1.EventContractDeregistered",
   is(o: any): o is EventContractDeregistered {

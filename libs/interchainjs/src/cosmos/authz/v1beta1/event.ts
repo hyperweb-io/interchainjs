@@ -1,51 +1,95 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-/** EventGrant is emitted on Msg/Grant */
+/**
+ * EventGrant is emitted on Msg/Grant
+ * @name EventGrant
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.EventGrant
+ */
 export interface EventGrant {
-  /** Msg type URL for which an autorization is granted */
+  /**
+   * Msg type URL for which an autorization is granted
+   */
   msgTypeUrl: string;
-  /** Granter account address */
+  /**
+   * Granter account address
+   */
   granter: string;
-  /** Grantee account address */
+  /**
+   * Grantee account address
+   */
   grantee: string;
 }
 export interface EventGrantProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.EventGrant";
   value: Uint8Array;
 }
-/** EventGrant is emitted on Msg/Grant */
+/**
+ * EventGrant is emitted on Msg/Grant
+ * @name EventGrantAmino
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.EventGrant
+ */
 export interface EventGrantAmino {
-  /** Msg type URL for which an autorization is granted */
+  /**
+   * Msg type URL for which an autorization is granted
+   */
   msg_type_url: string;
-  /** Granter account address */
+  /**
+   * Granter account address
+   */
   granter: string;
-  /** Grantee account address */
+  /**
+   * Grantee account address
+   */
   grantee: string;
 }
 export interface EventGrantAminoMsg {
   type: "cosmos-sdk/EventGrant";
   value: EventGrantAmino;
 }
-/** EventRevoke is emitted on Msg/Revoke */
+/**
+ * EventRevoke is emitted on Msg/Revoke
+ * @name EventRevoke
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.EventRevoke
+ */
 export interface EventRevoke {
-  /** Msg type URL for which an autorization is revoked */
+  /**
+   * Msg type URL for which an autorization is revoked
+   */
   msgTypeUrl: string;
-  /** Granter account address */
+  /**
+   * Granter account address
+   */
   granter: string;
-  /** Grantee account address */
+  /**
+   * Grantee account address
+   */
   grantee: string;
 }
 export interface EventRevokeProtoMsg {
   typeUrl: "/cosmos.authz.v1beta1.EventRevoke";
   value: Uint8Array;
 }
-/** EventRevoke is emitted on Msg/Revoke */
+/**
+ * EventRevoke is emitted on Msg/Revoke
+ * @name EventRevokeAmino
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.EventRevoke
+ */
 export interface EventRevokeAmino {
-  /** Msg type URL for which an autorization is revoked */
+  /**
+   * Msg type URL for which an autorization is revoked
+   */
   msg_type_url: string;
-  /** Granter account address */
+  /**
+   * Granter account address
+   */
   granter: string;
-  /** Grantee account address */
+  /**
+   * Grantee account address
+   */
   grantee: string;
 }
 export interface EventRevokeAminoMsg {
@@ -59,6 +103,12 @@ function createBaseEventGrant(): EventGrant {
     grantee: ""
   };
 }
+/**
+ * EventGrant is emitted on Msg/Grant
+ * @name EventGrant
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.EventGrant
+ */
 export const EventGrant = {
   typeUrl: "/cosmos.authz.v1beta1.EventGrant",
   aminoType: "cosmos-sdk/EventGrant",
@@ -160,6 +210,12 @@ function createBaseEventRevoke(): EventRevoke {
     grantee: ""
   };
 }
+/**
+ * EventRevoke is emitted on Msg/Revoke
+ * @name EventRevoke
+ * @package cosmos.authz.v1beta1
+ * @see proto type: cosmos.authz.v1beta1.EventRevoke
+ */
 export const EventRevoke = {
   typeUrl: "/cosmos.authz.v1beta1.EventRevoke",
   aminoType: "cosmos-sdk/EventRevoke",

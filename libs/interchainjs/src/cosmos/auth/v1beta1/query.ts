@@ -9,9 +9,14 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers"
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
  * 
  * Since: cosmos-sdk 0.43
+ * @name QueryAccountsRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountsRequest
  */
 export interface QueryAccountsRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 export interface QueryAccountsRequestProtoMsg {
@@ -22,9 +27,14 @@ export interface QueryAccountsRequestProtoMsg {
  * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
  * 
  * Since: cosmos-sdk 0.43
+ * @name QueryAccountsRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountsRequest
  */
 export interface QueryAccountsRequestAmino {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequestAmino;
 }
 export interface QueryAccountsRequestAminoMsg {
@@ -35,11 +45,18 @@ export interface QueryAccountsRequestAminoMsg {
  * QueryAccountsResponse is the response type for the Query/Accounts RPC method.
  * 
  * Since: cosmos-sdk 0.43
+ * @name QueryAccountsResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountsResponse
  */
 export interface QueryAccountsResponse {
-  /** accounts are the existing accounts */
+  /**
+   * accounts are the existing accounts
+   */
   accounts: (BaseAccount | EthAccount | Any)[] | Any[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 export interface QueryAccountsResponseProtoMsg {
@@ -47,44 +64,75 @@ export interface QueryAccountsResponseProtoMsg {
   value: Uint8Array;
 }
 export type QueryAccountsResponseEncoded = Omit<QueryAccountsResponse, "accounts"> & {
-  /** accounts are the existing accounts */accounts: (BaseAccountProtoMsg | EthAccountProtoMsg | AnyProtoMsg)[];
+  /**
+   * accounts are the existing accounts
+   */
+  accounts: (BaseAccountProtoMsg | EthAccountProtoMsg | AnyProtoMsg)[];
 };
 /**
  * QueryAccountsResponse is the response type for the Query/Accounts RPC method.
  * 
  * Since: cosmos-sdk 0.43
+ * @name QueryAccountsResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountsResponse
  */
 export interface QueryAccountsResponseAmino {
-  /** accounts are the existing accounts */
+  /**
+   * accounts are the existing accounts
+   */
   accounts: AnyAmino[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponseAmino;
 }
 export interface QueryAccountsResponseAminoMsg {
   type: "cosmos-sdk/QueryAccountsResponse";
   value: QueryAccountsResponseAmino;
 }
-/** QueryAccountRequest is the request type for the Query/Account RPC method. */
+/**
+ * QueryAccountRequest is the request type for the Query/Account RPC method.
+ * @name QueryAccountRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountRequest
+ */
 export interface QueryAccountRequest {
-  /** address defines the address to query for. */
+  /**
+   * address defines the address to query for.
+   */
   address: string;
 }
 export interface QueryAccountRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest";
   value: Uint8Array;
 }
-/** QueryAccountRequest is the request type for the Query/Account RPC method. */
+/**
+ * QueryAccountRequest is the request type for the Query/Account RPC method.
+ * @name QueryAccountRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountRequest
+ */
 export interface QueryAccountRequestAmino {
-  /** address defines the address to query for. */
+  /**
+   * address defines the address to query for.
+   */
   address: string;
 }
 export interface QueryAccountRequestAminoMsg {
   type: "cosmos-sdk/QueryAccountRequest";
   value: QueryAccountRequestAmino;
 }
-/** QueryAccountResponse is the response type for the Query/Account RPC method. */
+/**
+ * QueryAccountResponse is the response type for the Query/Account RPC method.
+ * @name QueryAccountResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountResponse
+ */
 export interface QueryAccountResponse {
-  /** account defines the account of the corresponding address. */
+  /**
+   * account defines the account of the corresponding address.
+   */
   account?: BaseAccount | EthAccount | Any | undefined;
 }
 export interface QueryAccountResponseProtoMsg {
@@ -92,41 +140,75 @@ export interface QueryAccountResponseProtoMsg {
   value: Uint8Array;
 }
 export type QueryAccountResponseEncoded = Omit<QueryAccountResponse, "account"> & {
-  /** account defines the account of the corresponding address. */account?: BaseAccountProtoMsg | EthAccountProtoMsg | AnyProtoMsg | undefined;
+  /**
+   * account defines the account of the corresponding address.
+   */
+  account?: BaseAccountProtoMsg | EthAccountProtoMsg | AnyProtoMsg | undefined;
 };
-/** QueryAccountResponse is the response type for the Query/Account RPC method. */
+/**
+ * QueryAccountResponse is the response type for the Query/Account RPC method.
+ * @name QueryAccountResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountResponse
+ */
 export interface QueryAccountResponseAmino {
-  /** account defines the account of the corresponding address. */
+  /**
+   * account defines the account of the corresponding address.
+   */
   account?: AnyAmino;
 }
 export interface QueryAccountResponseAminoMsg {
   type: "cosmos-sdk/QueryAccountResponse";
   value: QueryAccountResponseAmino;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest";
   value: Uint8Array;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
   type: "cosmos-sdk/QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse";
   value: Uint8Array;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponseAmino {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
@@ -137,6 +219,9 @@ export interface QueryParamsResponseAminoMsg {
  * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name QueryModuleAccountsRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountsRequest
  */
 export interface QueryModuleAccountsRequest {}
 export interface QueryModuleAccountsRequestProtoMsg {
@@ -147,6 +232,9 @@ export interface QueryModuleAccountsRequestProtoMsg {
  * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name QueryModuleAccountsRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountsRequest
  */
 export interface QueryModuleAccountsRequestAmino {}
 export interface QueryModuleAccountsRequestAminoMsg {
@@ -157,6 +245,9 @@ export interface QueryModuleAccountsRequestAminoMsg {
  * QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name QueryModuleAccountsResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountsResponse
  */
 export interface QueryModuleAccountsResponse {
   accounts: (ModuleAccount | Any)[] | Any[];
@@ -172,6 +263,9 @@ export type QueryModuleAccountsResponseEncoded = Omit<QueryModuleAccountsRespons
  * QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name QueryModuleAccountsResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountsResponse
  */
 export interface QueryModuleAccountsResponseAmino {
   accounts: AnyAmino[];
@@ -180,7 +274,12 @@ export interface QueryModuleAccountsResponseAminoMsg {
   type: "cosmos-sdk/QueryModuleAccountsResponse";
   value: QueryModuleAccountsResponseAmino;
 }
-/** QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method. */
+/**
+ * QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method.
+ * @name QueryModuleAccountByNameRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountByNameRequest
+ */
 export interface QueryModuleAccountByNameRequest {
   name: string;
 }
@@ -188,7 +287,12 @@ export interface QueryModuleAccountByNameRequestProtoMsg {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest";
   value: Uint8Array;
 }
-/** QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method. */
+/**
+ * QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method.
+ * @name QueryModuleAccountByNameRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountByNameRequest
+ */
 export interface QueryModuleAccountByNameRequestAmino {
   name: string;
 }
@@ -196,7 +300,12 @@ export interface QueryModuleAccountByNameRequestAminoMsg {
   type: "cosmos-sdk/QueryModuleAccountByNameRequest";
   value: QueryModuleAccountByNameRequestAmino;
 }
-/** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
+/**
+ * QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method.
+ * @name QueryModuleAccountByNameResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountByNameResponse
+ */
 export interface QueryModuleAccountByNameResponse {
   account?: ModuleAccount | Any | undefined;
 }
@@ -207,7 +316,12 @@ export interface QueryModuleAccountByNameResponseProtoMsg {
 export type QueryModuleAccountByNameResponseEncoded = Omit<QueryModuleAccountByNameResponse, "account"> & {
   account?: ModuleAccountProtoMsg | AnyProtoMsg | undefined;
 };
-/** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
+/**
+ * QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method.
+ * @name QueryModuleAccountByNameResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountByNameResponse
+ */
 export interface QueryModuleAccountByNameResponseAmino {
   account?: AnyAmino;
 }
@@ -219,6 +333,9 @@ export interface QueryModuleAccountByNameResponseAminoMsg {
  * Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name Bech32PrefixRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.Bech32PrefixRequest
  */
 export interface Bech32PrefixRequest {}
 export interface Bech32PrefixRequestProtoMsg {
@@ -229,6 +346,9 @@ export interface Bech32PrefixRequestProtoMsg {
  * Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name Bech32PrefixRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.Bech32PrefixRequest
  */
 export interface Bech32PrefixRequestAmino {}
 export interface Bech32PrefixRequestAminoMsg {
@@ -239,6 +359,9 @@ export interface Bech32PrefixRequestAminoMsg {
  * Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name Bech32PrefixResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.Bech32PrefixResponse
  */
 export interface Bech32PrefixResponse {
   bech32Prefix: string;
@@ -251,6 +374,9 @@ export interface Bech32PrefixResponseProtoMsg {
  * Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name Bech32PrefixResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.Bech32PrefixResponse
  */
 export interface Bech32PrefixResponseAmino {
   bech32_prefix: string;
@@ -263,6 +389,9 @@ export interface Bech32PrefixResponseAminoMsg {
  * AddressBytesToStringRequest is the request type for AddressString rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressBytesToStringRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressBytesToStringRequest
  */
 export interface AddressBytesToStringRequest {
   addressBytes: Uint8Array;
@@ -275,6 +404,9 @@ export interface AddressBytesToStringRequestProtoMsg {
  * AddressBytesToStringRequest is the request type for AddressString rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressBytesToStringRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressBytesToStringRequest
  */
 export interface AddressBytesToStringRequestAmino {
   address_bytes: string;
@@ -287,6 +419,9 @@ export interface AddressBytesToStringRequestAminoMsg {
  * AddressBytesToStringResponse is the response type for AddressString rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressBytesToStringResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressBytesToStringResponse
  */
 export interface AddressBytesToStringResponse {
   addressString: string;
@@ -299,6 +434,9 @@ export interface AddressBytesToStringResponseProtoMsg {
  * AddressBytesToStringResponse is the response type for AddressString rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressBytesToStringResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressBytesToStringResponse
  */
 export interface AddressBytesToStringResponseAmino {
   address_string: string;
@@ -311,6 +449,9 @@ export interface AddressBytesToStringResponseAminoMsg {
  * AddressStringToBytesRequest is the request type for AccountBytes rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressStringToBytesRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressStringToBytesRequest
  */
 export interface AddressStringToBytesRequest {
   addressString: string;
@@ -323,6 +464,9 @@ export interface AddressStringToBytesRequestProtoMsg {
  * AddressStringToBytesRequest is the request type for AccountBytes rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressStringToBytesRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressStringToBytesRequest
  */
 export interface AddressStringToBytesRequestAmino {
   address_string: string;
@@ -335,6 +479,9 @@ export interface AddressStringToBytesRequestAminoMsg {
  * AddressStringToBytesResponse is the response type for AddressBytes rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressStringToBytesResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressStringToBytesResponse
  */
 export interface AddressStringToBytesResponse {
   addressBytes: Uint8Array;
@@ -347,6 +494,9 @@ export interface AddressStringToBytesResponseProtoMsg {
  * AddressStringToBytesResponse is the response type for AddressBytes rpc method.
  * 
  * Since: cosmos-sdk 0.46
+ * @name AddressStringToBytesResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressStringToBytesResponse
  */
 export interface AddressStringToBytesResponseAmino {
   address_bytes: string;
@@ -359,6 +509,9 @@ export interface AddressStringToBytesResponseAminoMsg {
  * QueryAccountAddressByIDRequest is the request type for AccountAddressByID rpc method
  * 
  * Since: cosmos-sdk 0.46.2
+ * @name QueryAccountAddressByIDRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountAddressByIDRequest
  */
 export interface QueryAccountAddressByIDRequest {
   /**
@@ -367,8 +520,8 @@ export interface QueryAccountAddressByIDRequest {
    * id is the account number of the address to be queried. This field
    * should have been an uint64 (like all account numbers), and will be
    * updated to uint64 in a future version of the auth query.
+   * @deprecated
    */
-  /** @deprecated */
   id: bigint;
   /**
    * account_id is the account number of the address to be queried.
@@ -385,6 +538,9 @@ export interface QueryAccountAddressByIDRequestProtoMsg {
  * QueryAccountAddressByIDRequest is the request type for AccountAddressByID rpc method
  * 
  * Since: cosmos-sdk 0.46.2
+ * @name QueryAccountAddressByIDRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountAddressByIDRequest
  */
 export interface QueryAccountAddressByIDRequestAmino {
   /**
@@ -393,8 +549,8 @@ export interface QueryAccountAddressByIDRequestAmino {
    * id is the account number of the address to be queried. This field
    * should have been an uint64 (like all account numbers), and will be
    * updated to uint64 in a future version of the auth query.
+   * @deprecated
    */
-  /** @deprecated */
   id: string;
   /**
    * account_id is the account number of the address to be queried.
@@ -411,6 +567,9 @@ export interface QueryAccountAddressByIDRequestAminoMsg {
  * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
  * 
  * Since: cosmos-sdk 0.46.2
+ * @name QueryAccountAddressByIDResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountAddressByIDResponse
  */
 export interface QueryAccountAddressByIDResponse {
   accountAddress: string;
@@ -423,6 +582,9 @@ export interface QueryAccountAddressByIDResponseProtoMsg {
  * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
  * 
  * Since: cosmos-sdk 0.46.2
+ * @name QueryAccountAddressByIDResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountAddressByIDResponse
  */
 export interface QueryAccountAddressByIDResponseAmino {
   account_address: string;
@@ -435,9 +597,14 @@ export interface QueryAccountAddressByIDResponseAminoMsg {
  * QueryAccountInfoRequest is the Query/AccountInfo request type.
  * 
  * Since: cosmos-sdk 0.47
+ * @name QueryAccountInfoRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountInfoRequest
  */
 export interface QueryAccountInfoRequest {
-  /** address is the account address string. */
+  /**
+   * address is the account address string.
+   */
   address: string;
 }
 export interface QueryAccountInfoRequestProtoMsg {
@@ -448,9 +615,14 @@ export interface QueryAccountInfoRequestProtoMsg {
  * QueryAccountInfoRequest is the Query/AccountInfo request type.
  * 
  * Since: cosmos-sdk 0.47
+ * @name QueryAccountInfoRequestAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountInfoRequest
  */
 export interface QueryAccountInfoRequestAmino {
-  /** address is the account address string. */
+  /**
+   * address is the account address string.
+   */
   address: string;
 }
 export interface QueryAccountInfoRequestAminoMsg {
@@ -461,9 +633,14 @@ export interface QueryAccountInfoRequestAminoMsg {
  * QueryAccountInfoResponse is the Query/AccountInfo response type.
  * 
  * Since: cosmos-sdk 0.47
+ * @name QueryAccountInfoResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountInfoResponse
  */
 export interface QueryAccountInfoResponse {
-  /** info is the account info which is represented by BaseAccount. */
+  /**
+   * info is the account info which is represented by BaseAccount.
+   */
   info?: BaseAccount;
 }
 export interface QueryAccountInfoResponseProtoMsg {
@@ -474,9 +651,14 @@ export interface QueryAccountInfoResponseProtoMsg {
  * QueryAccountInfoResponse is the Query/AccountInfo response type.
  * 
  * Since: cosmos-sdk 0.47
+ * @name QueryAccountInfoResponseAmino
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountInfoResponse
  */
 export interface QueryAccountInfoResponseAmino {
-  /** info is the account info which is represented by BaseAccount. */
+  /**
+   * info is the account info which is represented by BaseAccount.
+   */
   info?: BaseAccountAmino;
 }
 export interface QueryAccountInfoResponseAminoMsg {
@@ -488,6 +670,14 @@ function createBaseQueryAccountsRequest(): QueryAccountsRequest {
     pagination: undefined
   };
 }
+/**
+ * QueryAccountsRequest is the request type for the Query/Accounts RPC method.
+ * 
+ * Since: cosmos-sdk 0.43
+ * @name QueryAccountsRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountsRequest
+ */
 export const QueryAccountsRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest",
   aminoType: "cosmos-sdk/QueryAccountsRequest",
@@ -571,6 +761,14 @@ function createBaseQueryAccountsResponse(): QueryAccountsResponse {
     pagination: undefined
   };
 }
+/**
+ * QueryAccountsResponse is the response type for the Query/Accounts RPC method.
+ * 
+ * Since: cosmos-sdk 0.43
+ * @name QueryAccountsResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountsResponse
+ */
 export const QueryAccountsResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse",
   aminoType: "cosmos-sdk/QueryAccountsResponse",
@@ -668,6 +866,12 @@ function createBaseQueryAccountRequest(): QueryAccountRequest {
     address: ""
   };
 }
+/**
+ * QueryAccountRequest is the request type for the Query/Account RPC method.
+ * @name QueryAccountRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountRequest
+ */
 export const QueryAccountRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountRequest",
   aminoType: "cosmos-sdk/QueryAccountRequest",
@@ -745,6 +949,12 @@ function createBaseQueryAccountResponse(): QueryAccountResponse {
     account: undefined
   };
 }
+/**
+ * QueryAccountResponse is the response type for the Query/Account RPC method.
+ * @name QueryAccountResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountResponse
+ */
 export const QueryAccountResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountResponse",
   aminoType: "cosmos-sdk/QueryAccountResponse",
@@ -826,6 +1036,12 @@ export const QueryAccountResponse = {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryParamsRequest",
   aminoType: "cosmos-sdk/QueryParamsRequest",
@@ -892,6 +1108,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse",
   aminoType: "cosmos-sdk/QueryParamsResponse",
@@ -972,6 +1194,14 @@ export const QueryParamsResponse = {
 function createBaseQueryModuleAccountsRequest(): QueryModuleAccountsRequest {
   return {};
 }
+/**
+ * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name QueryModuleAccountsRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountsRequest
+ */
 export const QueryModuleAccountsRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsRequest",
   aminoType: "cosmos-sdk/QueryModuleAccountsRequest",
@@ -1038,6 +1268,14 @@ function createBaseQueryModuleAccountsResponse(): QueryModuleAccountsResponse {
     accounts: []
   };
 }
+/**
+ * QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name QueryModuleAccountsResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountsResponse
+ */
 export const QueryModuleAccountsResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountsResponse",
   aminoType: "cosmos-sdk/QueryModuleAccountsResponse",
@@ -1122,6 +1360,12 @@ function createBaseQueryModuleAccountByNameRequest(): QueryModuleAccountByNameRe
     name: ""
   };
 }
+/**
+ * QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method.
+ * @name QueryModuleAccountByNameRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountByNameRequest
+ */
 export const QueryModuleAccountByNameRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameRequest",
   aminoType: "cosmos-sdk/QueryModuleAccountByNameRequest",
@@ -1199,6 +1443,12 @@ function createBaseQueryModuleAccountByNameResponse(): QueryModuleAccountByNameR
     account: undefined
   };
 }
+/**
+ * QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method.
+ * @name QueryModuleAccountByNameResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryModuleAccountByNameResponse
+ */
 export const QueryModuleAccountByNameResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryModuleAccountByNameResponse",
   aminoType: "cosmos-sdk/QueryModuleAccountByNameResponse",
@@ -1279,6 +1529,14 @@ export const QueryModuleAccountByNameResponse = {
 function createBaseBech32PrefixRequest(): Bech32PrefixRequest {
   return {};
 }
+/**
+ * Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name Bech32PrefixRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.Bech32PrefixRequest
+ */
 export const Bech32PrefixRequest = {
   typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixRequest",
   aminoType: "cosmos-sdk/Bech32PrefixRequest",
@@ -1345,6 +1603,14 @@ function createBaseBech32PrefixResponse(): Bech32PrefixResponse {
     bech32Prefix: ""
   };
 }
+/**
+ * Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name Bech32PrefixResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.Bech32PrefixResponse
+ */
 export const Bech32PrefixResponse = {
   typeUrl: "/cosmos.auth.v1beta1.Bech32PrefixResponse",
   aminoType: "cosmos-sdk/Bech32PrefixResponse",
@@ -1422,6 +1688,14 @@ function createBaseAddressBytesToStringRequest(): AddressBytesToStringRequest {
     addressBytes: new Uint8Array()
   };
 }
+/**
+ * AddressBytesToStringRequest is the request type for AddressString rpc method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name AddressBytesToStringRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressBytesToStringRequest
+ */
 export const AddressBytesToStringRequest = {
   typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringRequest",
   aminoType: "cosmos-sdk/AddressBytesToStringRequest",
@@ -1499,6 +1773,14 @@ function createBaseAddressBytesToStringResponse(): AddressBytesToStringResponse 
     addressString: ""
   };
 }
+/**
+ * AddressBytesToStringResponse is the response type for AddressString rpc method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name AddressBytesToStringResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressBytesToStringResponse
+ */
 export const AddressBytesToStringResponse = {
   typeUrl: "/cosmos.auth.v1beta1.AddressBytesToStringResponse",
   aminoType: "cosmos-sdk/AddressBytesToStringResponse",
@@ -1576,6 +1858,14 @@ function createBaseAddressStringToBytesRequest(): AddressStringToBytesRequest {
     addressString: ""
   };
 }
+/**
+ * AddressStringToBytesRequest is the request type for AccountBytes rpc method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name AddressStringToBytesRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressStringToBytesRequest
+ */
 export const AddressStringToBytesRequest = {
   typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesRequest",
   aminoType: "cosmos-sdk/AddressStringToBytesRequest",
@@ -1653,6 +1943,14 @@ function createBaseAddressStringToBytesResponse(): AddressStringToBytesResponse 
     addressBytes: new Uint8Array()
   };
 }
+/**
+ * AddressStringToBytesResponse is the response type for AddressBytes rpc method.
+ * 
+ * Since: cosmos-sdk 0.46
+ * @name AddressStringToBytesResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.AddressStringToBytesResponse
+ */
 export const AddressStringToBytesResponse = {
   typeUrl: "/cosmos.auth.v1beta1.AddressStringToBytesResponse",
   aminoType: "cosmos-sdk/AddressStringToBytesResponse",
@@ -1731,6 +2029,14 @@ function createBaseQueryAccountAddressByIDRequest(): QueryAccountAddressByIDRequ
     accountId: BigInt(0)
   };
 }
+/**
+ * QueryAccountAddressByIDRequest is the request type for AccountAddressByID rpc method
+ * 
+ * Since: cosmos-sdk 0.46.2
+ * @name QueryAccountAddressByIDRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountAddressByIDRequest
+ */
 export const QueryAccountAddressByIDRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDRequest",
   aminoType: "cosmos-sdk/QueryAccountAddressByIDRequest",
@@ -1819,6 +2125,14 @@ function createBaseQueryAccountAddressByIDResponse(): QueryAccountAddressByIDRes
     accountAddress: ""
   };
 }
+/**
+ * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
+ * 
+ * Since: cosmos-sdk 0.46.2
+ * @name QueryAccountAddressByIDResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountAddressByIDResponse
+ */
 export const QueryAccountAddressByIDResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountAddressByIDResponse",
   aminoType: "cosmos-sdk/QueryAccountAddressByIDResponse",
@@ -1896,6 +2210,14 @@ function createBaseQueryAccountInfoRequest(): QueryAccountInfoRequest {
     address: ""
   };
 }
+/**
+ * QueryAccountInfoRequest is the Query/AccountInfo request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name QueryAccountInfoRequest
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountInfoRequest
+ */
 export const QueryAccountInfoRequest = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoRequest",
   aminoType: "cosmos-sdk/QueryAccountInfoRequest",
@@ -1973,6 +2295,14 @@ function createBaseQueryAccountInfoResponse(): QueryAccountInfoResponse {
     info: undefined
   };
 }
+/**
+ * QueryAccountInfoResponse is the Query/AccountInfo response type.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name QueryAccountInfoResponse
+ * @package cosmos.auth.v1beta1
+ * @see proto type: cosmos.auth.v1beta1.QueryAccountInfoResponse
+ */
 export const QueryAccountInfoResponse = {
   typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse",
   aminoType: "cosmos-sdk/QueryAccountInfoResponse",

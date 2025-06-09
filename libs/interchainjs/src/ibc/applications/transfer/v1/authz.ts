@@ -3,51 +3,86 @@ import { Hop, HopAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-/** Allocation defines the spend limit for a particular port and channel */
+/**
+ * Allocation defines the spend limit for a particular port and channel
+ * @name Allocation
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Allocation
+ */
 export interface Allocation {
-  /** the port on which the packet will be sent */
+  /**
+   * the port on which the packet will be sent
+   */
   sourcePort: string;
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   sourceChannel: string;
-  /** spend limitation on the channel */
+  /**
+   * spend limitation on the channel
+   */
   spendLimit: Coin[];
-  /** allow list of receivers, an empty allow list permits any receiver address */
+  /**
+   * allow list of receivers, an empty allow list permits any receiver address
+   */
   allowList: string[];
   /**
    * allow list of memo strings, an empty list prohibits all memo strings;
    * a list only with "*" permits any memo string
    */
   allowedPacketData: string[];
-  /** Forwarding options that are allowed. */
+  /**
+   * Forwarding options that are allowed.
+   */
   allowedForwarding: AllowedForwarding[];
 }
 export interface AllocationProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.Allocation";
   value: Uint8Array;
 }
-/** Allocation defines the spend limit for a particular port and channel */
+/**
+ * Allocation defines the spend limit for a particular port and channel
+ * @name AllocationAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Allocation
+ */
 export interface AllocationAmino {
-  /** the port on which the packet will be sent */
+  /**
+   * the port on which the packet will be sent
+   */
   source_port: string;
-  /** the channel by which the packet will be sent */
+  /**
+   * the channel by which the packet will be sent
+   */
   source_channel: string;
-  /** spend limitation on the channel */
+  /**
+   * spend limitation on the channel
+   */
   spend_limit: CoinAmino[];
-  /** allow list of receivers, an empty allow list permits any receiver address */
+  /**
+   * allow list of receivers, an empty allow list permits any receiver address
+   */
   allow_list: string[];
   /**
    * allow list of memo strings, an empty list prohibits all memo strings;
    * a list only with "*" permits any memo string
    */
   allowed_packet_data: string[];
-  /** Forwarding options that are allowed. */
+  /**
+   * Forwarding options that are allowed.
+   */
   allowed_forwarding: AllowedForwardingAmino[];
 }
 export interface AllocationAminoMsg {
   type: "cosmos-sdk/Allocation";
   value: AllocationAmino;
 }
-/** AllowedForwarding defines which options are allowed for forwarding. */
+/**
+ * AllowedForwarding defines which options are allowed for forwarding.
+ * @name AllowedForwarding
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.AllowedForwarding
+ */
 export interface AllowedForwarding {
   /**
    * a list of allowed source port ID/channel ID pairs through which the packet is allowed to be forwarded until final
@@ -59,7 +94,12 @@ export interface AllowedForwardingProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.AllowedForwarding";
   value: Uint8Array;
 }
-/** AllowedForwarding defines which options are allowed for forwarding. */
+/**
+ * AllowedForwarding defines which options are allowed for forwarding.
+ * @name AllowedForwardingAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.AllowedForwarding
+ */
 export interface AllowedForwardingAmino {
   /**
    * a list of allowed source port ID/channel ID pairs through which the packet is allowed to be forwarded until final
@@ -74,9 +114,14 @@ export interface AllowedForwardingAminoMsg {
 /**
  * TransferAuthorization allows the grantee to spend up to spend_limit coins from
  * the granter's account for ibc transfer on a specific channel
+ * @name TransferAuthorization
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.TransferAuthorization
  */
 export interface TransferAuthorization {
-  /** port and channel amounts */
+  /**
+   * port and channel amounts
+   */
   allocations: Allocation[];
 }
 export interface TransferAuthorizationProtoMsg {
@@ -86,9 +131,14 @@ export interface TransferAuthorizationProtoMsg {
 /**
  * TransferAuthorization allows the grantee to spend up to spend_limit coins from
  * the granter's account for ibc transfer on a specific channel
+ * @name TransferAuthorizationAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.TransferAuthorization
  */
 export interface TransferAuthorizationAmino {
-  /** port and channel amounts */
+  /**
+   * port and channel amounts
+   */
   allocations: AllocationAmino[];
 }
 export interface TransferAuthorizationAminoMsg {
@@ -105,6 +155,12 @@ function createBaseAllocation(): Allocation {
     allowedForwarding: []
   };
 }
+/**
+ * Allocation defines the spend limit for a particular port and channel
+ * @name Allocation
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.Allocation
+ */
 export const Allocation = {
   typeUrl: "/ibc.applications.transfer.v1.Allocation",
   aminoType: "cosmos-sdk/Allocation",
@@ -251,6 +307,12 @@ function createBaseAllowedForwarding(): AllowedForwarding {
     hops: []
   };
 }
+/**
+ * AllowedForwarding defines which options are allowed for forwarding.
+ * @name AllowedForwarding
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.AllowedForwarding
+ */
 export const AllowedForwarding = {
   typeUrl: "/ibc.applications.transfer.v1.AllowedForwarding",
   aminoType: "cosmos-sdk/AllowedForwarding",
@@ -335,6 +397,13 @@ function createBaseTransferAuthorization(): TransferAuthorization {
     allocations: []
   };
 }
+/**
+ * TransferAuthorization allows the grantee to spend up to spend_limit coins from
+ * the granter's account for ibc transfer on a specific channel
+ * @name TransferAuthorization
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.TransferAuthorization
+ */
 export const TransferAuthorization = {
   typeUrl: "/ibc.applications.transfer.v1.TransferAuthorization",
   aminoType: "cosmos-sdk/TransferAuthorization",

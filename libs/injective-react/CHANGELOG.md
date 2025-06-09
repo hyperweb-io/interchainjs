@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.15](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.11.14...injective-react@1.11.15) (2025-06-08)
+
+**Note:** Version bump only for package injective-react
+
+## [1.11.14](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.11.13...injective-react@1.11.14) (2025-06-04)
+
+**Note:** Version bump only for package injective-react
+
+## [1.11.13](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.11.12...injective-react@1.11.13) (2025-06-03)
+
+**Note:** Version bump only for package injective-react
+
 ## [1.11.12](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.11.11...injective-react@1.11.12) (2025-05-29)
 
 **Note:** Version bump only for package injective-react

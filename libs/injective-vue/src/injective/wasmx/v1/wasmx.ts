@@ -3,6 +3,11 @@ import { FundingMode } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, isSet } from "../../../helpers";
+/**
+ * @name Params
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.Params
+ */
 export interface Params {
   /**
    * Set the status to active to indicate that contracts can be executed in
@@ -30,6 +35,11 @@ export interface ParamsProtoMsg {
   typeUrl: "/injective.wasmx.v1.Params";
   value: Uint8Array;
 }
+/**
+ * @name ParamsAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.Params
+ */
 export interface ParamsAmino {
   /**
    * Set the status to active to indicate that contracts can be executed in
@@ -57,52 +67,82 @@ export interface ParamsAminoMsg {
   type: "wasmx/Params";
   value: ParamsAmino;
 }
+/**
+ * @name RegisteredContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.RegisteredContract
+ */
 export interface RegisteredContract {
-  /** limit of gas per BB execution */
+  /**
+   * limit of gas per BB execution
+   */
   gasLimit: bigint;
-  /** gas price that contract is willing to pay for execution in BeginBlocker */
+  /**
+   * gas price that contract is willing to pay for execution in BeginBlocker
+   */
   gasPrice: bigint;
-  /** is contract currently active */
+  /**
+   * is contract currently active
+   */
   isExecutable: boolean;
   /**
    * code_id that is allowed to be executed (to prevent malicious updates) - if
    * nil/0 any code_id can be executed
    */
   codeId?: bigint;
-  /** optional - admin addr that is allowed to update contract data */
+  /**
+   * optional - admin addr that is allowed to update contract data
+   */
   adminAddress?: string;
   /**
    * Optional: address of the contract granting fee
    * Must be set if fund_mode is GrantOnly
    */
   granterAddress?: string;
-  /** funding mode */
+  /**
+   * funding mode
+   */
   fundMode: FundingMode;
 }
 export interface RegisteredContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.RegisteredContract";
   value: Uint8Array;
 }
+/**
+ * @name RegisteredContractAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.RegisteredContract
+ */
 export interface RegisteredContractAmino {
-  /** limit of gas per BB execution */
+  /**
+   * limit of gas per BB execution
+   */
   gas_limit: string;
-  /** gas price that contract is willing to pay for execution in BeginBlocker */
+  /**
+   * gas price that contract is willing to pay for execution in BeginBlocker
+   */
   gas_price: string;
-  /** is contract currently active */
+  /**
+   * is contract currently active
+   */
   is_executable: boolean;
   /**
    * code_id that is allowed to be executed (to prevent malicious updates) - if
    * nil/0 any code_id can be executed
    */
   code_id?: string;
-  /** optional - admin addr that is allowed to update contract data */
+  /**
+   * optional - admin addr that is allowed to update contract data
+   */
   admin_address?: string;
   /**
    * Optional: address of the contract granting fee
    * Must be set if fund_mode is GrantOnly
    */
   granter_address?: string;
-  /** funding mode */
+  /**
+   * funding mode
+   */
   fund_mode: FundingMode;
 }
 export interface RegisteredContractAminoMsg {
@@ -118,6 +158,11 @@ function createBaseParams(): Params {
     registerContractAccess: AccessConfig.fromPartial({})
   };
 }
+/**
+ * @name Params
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.Params
+ */
 export const Params = {
   typeUrl: "/injective.wasmx.v1.Params",
   aminoType: "wasmx/Params",
@@ -250,6 +295,11 @@ function createBaseRegisteredContract(): RegisteredContract {
     fundMode: 0
   };
 }
+/**
+ * @name RegisteredContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.RegisteredContract
+ */
 export const RegisteredContract = {
   typeUrl: "/injective.wasmx.v1.RegisteredContract",
   is(o: any): o is RegisteredContract {

@@ -2,7 +2,12 @@ import { IdentifiedChannel, IdentifiedChannelAmino, PacketState, PacketStateAmin
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** GenesisState defines the ibc channel submodule's genesis state. */
+/**
+ * GenesisState defines the ibc channel submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.GenesisState
+ */
 export interface GenesisState {
   channels: IdentifiedChannel[];
   acknowledgements: PacketState[];
@@ -11,7 +16,9 @@ export interface GenesisState {
   sendSequences: PacketSequence[];
   recvSequences: PacketSequence[];
   ackSequences: PacketSequence[];
-  /** the sequence for the next generated channel identifier */
+  /**
+   * the sequence for the next generated channel identifier
+   */
   nextChannelSequence: bigint;
   params: Params;
 }
@@ -19,7 +26,12 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/ibc.core.channel.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the ibc channel submodule's genesis state. */
+/**
+ * GenesisState defines the ibc channel submodule's genesis state.
+ * @name GenesisStateAmino
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.GenesisState
+ */
 export interface GenesisStateAmino {
   channels: IdentifiedChannelAmino[];
   acknowledgements: PacketStateAmino[];
@@ -28,7 +40,9 @@ export interface GenesisStateAmino {
   send_sequences: PacketSequenceAmino[];
   recv_sequences: PacketSequenceAmino[];
   ack_sequences: PacketSequenceAmino[];
-  /** the sequence for the next generated channel identifier */
+  /**
+   * the sequence for the next generated channel identifier
+   */
   next_channel_sequence: string;
   params: ParamsAmino;
 }
@@ -39,6 +53,9 @@ export interface GenesisStateAminoMsg {
 /**
  * PacketSequence defines the genesis type necessary to retrieve and store
  * next send and receive sequences.
+ * @name PacketSequence
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.PacketSequence
  */
 export interface PacketSequence {
   portId: string;
@@ -52,6 +69,9 @@ export interface PacketSequenceProtoMsg {
 /**
  * PacketSequence defines the genesis type necessary to retrieve and store
  * next send and receive sequences.
+ * @name PacketSequenceAmino
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.PacketSequence
  */
 export interface PacketSequenceAmino {
   port_id: string;
@@ -75,6 +95,12 @@ function createBaseGenesisState(): GenesisState {
     params: Params.fromPartial({})
   };
 }
+/**
+ * GenesisState defines the ibc channel submodule's genesis state.
+ * @name GenesisState
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.channel.v1.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",
@@ -264,6 +290,13 @@ function createBasePacketSequence(): PacketSequence {
     sequence: BigInt(0)
   };
 }
+/**
+ * PacketSequence defines the genesis type necessary to retrieve and store
+ * next send and receive sequences.
+ * @name PacketSequence
+ * @package ibc.core.channel.v1
+ * @see proto type: ibc.core.channel.v1.PacketSequence
+ */
 export const PacketSequence = {
   typeUrl: "/ibc.core.channel.v1.PacketSequence",
   aminoType: "cosmos-sdk/PacketSequence",

@@ -1,7 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** BridgeValidator represents a validator's ETH address and its power */
+/**
+ * BridgeValidator represents a validator's ETH address and its power
+ * @name BridgeValidator
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BridgeValidator
+ */
 export interface BridgeValidator {
   power: bigint;
   ethereumAddress: string;
@@ -10,7 +15,12 @@ export interface BridgeValidatorProtoMsg {
   typeUrl: "/injective.peggy.v1.BridgeValidator";
   value: Uint8Array;
 }
-/** BridgeValidator represents a validator's ETH address and its power */
+/**
+ * BridgeValidator represents a validator's ETH address and its power
+ * @name BridgeValidatorAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BridgeValidator
+ */
 export interface BridgeValidatorAmino {
   power: string;
   ethereum_address: string;
@@ -23,13 +33,18 @@ export interface BridgeValidatorAminoMsg {
  * Valset is the Ethereum Bridge Multsig Set, each peggy validator also
  * maintains an ETH key to sign messages, these are used to check signatures on
  * ETH because of the significant gas savings
+ * @name Valset
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Valset
  */
 export interface Valset {
   nonce: bigint;
   members: BridgeValidator[];
   height: bigint;
   rewardAmount: string;
-  /** the reward token in it's Ethereum hex address representation */
+  /**
+   * the reward token in it's Ethereum hex address representation
+   */
   rewardToken: string;
 }
 export interface ValsetProtoMsg {
@@ -40,13 +55,18 @@ export interface ValsetProtoMsg {
  * Valset is the Ethereum Bridge Multsig Set, each peggy validator also
  * maintains an ETH key to sign messages, these are used to check signatures on
  * ETH because of the significant gas savings
+ * @name ValsetAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Valset
  */
 export interface ValsetAmino {
   nonce: string;
   members: BridgeValidatorAmino[];
   height: string;
   reward_amount: string;
-  /** the reward token in it's Ethereum hex address representation */
+  /**
+   * the reward token in it's Ethereum hex address representation
+   */
   reward_token: string;
 }
 export interface ValsetAminoMsg {
@@ -59,6 +79,9 @@ export interface ValsetAminoMsg {
  * it was observed at. These two numbers can be used to project
  * outward and always produce batches with timeouts in the future
  * even if no Ethereum block height has been relayed for a long time
+ * @name LastObservedEthereumBlockHeight
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.LastObservedEthereumBlockHeight
  */
 export interface LastObservedEthereumBlockHeight {
   cosmosBlockHeight: bigint;
@@ -74,6 +97,9 @@ export interface LastObservedEthereumBlockHeightProtoMsg {
  * it was observed at. These two numbers can be used to project
  * outward and always produce batches with timeouts in the future
  * even if no Ethereum block height has been relayed for a long time
+ * @name LastObservedEthereumBlockHeightAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.LastObservedEthereumBlockHeight
  */
 export interface LastObservedEthereumBlockHeightAmino {
   cosmos_block_height: string;
@@ -83,7 +109,12 @@ export interface LastObservedEthereumBlockHeightAminoMsg {
   type: "/injective.peggy.v1.LastObservedEthereumBlockHeight";
   value: LastObservedEthereumBlockHeightAmino;
 }
-/** LastClaimEvent stores last claim event details of validator. */
+/**
+ * LastClaimEvent stores last claim event details of validator.
+ * @name LastClaimEvent
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.LastClaimEvent
+ */
 export interface LastClaimEvent {
   ethereumEventNonce: bigint;
   ethereumEventHeight: bigint;
@@ -92,7 +123,12 @@ export interface LastClaimEventProtoMsg {
   typeUrl: "/injective.peggy.v1.LastClaimEvent";
   value: Uint8Array;
 }
-/** LastClaimEvent stores last claim event details of validator. */
+/**
+ * LastClaimEvent stores last claim event details of validator.
+ * @name LastClaimEventAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.LastClaimEvent
+ */
 export interface LastClaimEventAmino {
   ethereum_event_nonce: string;
   ethereum_event_height: string;
@@ -104,6 +140,9 @@ export interface LastClaimEventAminoMsg {
 /**
  * This records the relationship between an ERC20 token and the denom
  * of the corresponding Cosmos originated asset
+ * @name ERC20ToDenom
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.ERC20ToDenom
  */
 export interface ERC20ToDenom {
   erc20: string;
@@ -116,6 +155,9 @@ export interface ERC20ToDenomProtoMsg {
 /**
  * This records the relationship between an ERC20 token and the denom
  * of the corresponding Cosmos originated asset
+ * @name ERC20ToDenomAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.ERC20ToDenom
  */
 export interface ERC20ToDenomAmino {
   erc20: string;
@@ -131,6 +173,12 @@ function createBaseBridgeValidator(): BridgeValidator {
     ethereumAddress: ""
   };
 }
+/**
+ * BridgeValidator represents a validator's ETH address and its power
+ * @name BridgeValidator
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.BridgeValidator
+ */
 export const BridgeValidator = {
   typeUrl: "/injective.peggy.v1.BridgeValidator",
   is(o: any): o is BridgeValidator {
@@ -216,6 +264,14 @@ function createBaseValset(): Valset {
     rewardToken: ""
   };
 }
+/**
+ * Valset is the Ethereum Bridge Multsig Set, each peggy validator also
+ * maintains an ETH key to sign messages, these are used to check signatures on
+ * ETH because of the significant gas savings
+ * @name Valset
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Valset
+ */
 export const Valset = {
   typeUrl: "/injective.peggy.v1.Valset",
   is(o: any): o is Valset {
@@ -338,6 +394,16 @@ function createBaseLastObservedEthereumBlockHeight(): LastObservedEthereumBlockH
     ethereumBlockHeight: BigInt(0)
   };
 }
+/**
+ * LastObservedEthereumBlockHeight stores the last observed
+ * Ethereum block height along with the Cosmos block height that
+ * it was observed at. These two numbers can be used to project
+ * outward and always produce batches with timeouts in the future
+ * even if no Ethereum block height has been relayed for a long time
+ * @name LastObservedEthereumBlockHeight
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.LastObservedEthereumBlockHeight
+ */
 export const LastObservedEthereumBlockHeight = {
   typeUrl: "/injective.peggy.v1.LastObservedEthereumBlockHeight",
   is(o: any): o is LastObservedEthereumBlockHeight {
@@ -420,6 +486,12 @@ function createBaseLastClaimEvent(): LastClaimEvent {
     ethereumEventHeight: BigInt(0)
   };
 }
+/**
+ * LastClaimEvent stores last claim event details of validator.
+ * @name LastClaimEvent
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.LastClaimEvent
+ */
 export const LastClaimEvent = {
   typeUrl: "/injective.peggy.v1.LastClaimEvent",
   is(o: any): o is LastClaimEvent {
@@ -502,6 +574,13 @@ function createBaseERC20ToDenom(): ERC20ToDenom {
     denom: ""
   };
 }
+/**
+ * This records the relationship between an ERC20 token and the denom
+ * of the corresponding Cosmos originated asset
+ * @name ERC20ToDenom
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.ERC20ToDenom
+ */
 export const ERC20ToDenom = {
   typeUrl: "/injective.peggy.v1.ERC20ToDenom",
   is(o: any): o is ERC20ToDenom {

@@ -1,7 +1,12 @@
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method */
+/**
+ * ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method
+ * @name ListenDeliverBlockRequest
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenDeliverBlockRequest
+ */
 export interface ListenDeliverBlockRequest {
   blockHeight: bigint;
   txs: Uint8Array[];
@@ -12,7 +17,12 @@ export interface ListenDeliverBlockRequestProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockRequest";
   value: Uint8Array;
 }
-/** ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method */
+/**
+ * ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method
+ * @name ListenDeliverBlockRequestAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenDeliverBlockRequest
+ */
 export interface ListenDeliverBlockRequestAmino {
   block_height: string;
   txs: string[];
@@ -23,19 +33,34 @@ export interface ListenDeliverBlockRequestAminoMsg {
   type: "cosmos-sdk/ListenDeliverBlockRequest";
   value: ListenDeliverBlockRequestAmino;
 }
-/** ListenDeliverBlockResponse is the response type for the ListenDeliverBlock RPC method */
+/**
+ * ListenDeliverBlockResponse is the response type for the ListenDeliverBlock RPC method
+ * @name ListenDeliverBlockResponse
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenDeliverBlockResponse
+ */
 export interface ListenDeliverBlockResponse {}
 export interface ListenDeliverBlockResponseProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockResponse";
   value: Uint8Array;
 }
-/** ListenDeliverBlockResponse is the response type for the ListenDeliverBlock RPC method */
+/**
+ * ListenDeliverBlockResponse is the response type for the ListenDeliverBlock RPC method
+ * @name ListenDeliverBlockResponseAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenDeliverBlockResponse
+ */
 export interface ListenDeliverBlockResponseAmino {}
 export interface ListenDeliverBlockResponseAminoMsg {
   type: "cosmos-sdk/ListenDeliverBlockResponse";
   value: ListenDeliverBlockResponseAmino;
 }
-/** ListenStateChangesRequest is the request type for the ListenStateChanges RPC method */
+/**
+ * ListenStateChangesRequest is the request type for the ListenStateChanges RPC method
+ * @name ListenStateChangesRequest
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenStateChangesRequest
+ */
 export interface ListenStateChangesRequest {
   blockHeight: bigint;
   changeSet: StoreKVPair[];
@@ -45,7 +70,12 @@ export interface ListenStateChangesRequestProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenStateChangesRequest";
   value: Uint8Array;
 }
-/** ListenStateChangesRequest is the request type for the ListenStateChanges RPC method */
+/**
+ * ListenStateChangesRequest is the request type for the ListenStateChanges RPC method
+ * @name ListenStateChangesRequestAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenStateChangesRequest
+ */
 export interface ListenStateChangesRequestAmino {
   block_height: string;
   change_set: StoreKVPairAmino[];
@@ -55,55 +85,92 @@ export interface ListenStateChangesRequestAminoMsg {
   type: "cosmos-sdk/ListenStateChangesRequest";
   value: ListenStateChangesRequestAmino;
 }
-/** ListenStateChangesResponse is the response type for the ListenStateChanges RPC method */
+/**
+ * ListenStateChangesResponse is the response type for the ListenStateChanges RPC method
+ * @name ListenStateChangesResponse
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenStateChangesResponse
+ */
 export interface ListenStateChangesResponse {}
 export interface ListenStateChangesResponseProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ListenStateChangesResponse";
   value: Uint8Array;
 }
-/** ListenStateChangesResponse is the response type for the ListenStateChanges RPC method */
+/**
+ * ListenStateChangesResponse is the response type for the ListenStateChanges RPC method
+ * @name ListenStateChangesResponseAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenStateChangesResponse
+ */
 export interface ListenStateChangesResponseAmino {}
 export interface ListenStateChangesResponseAminoMsg {
   type: "cosmos-sdk/ListenStateChangesResponse";
   value: ListenStateChangesResponseAmino;
 }
-/** StoreKVPair is a single key-value pair, associated with a store. */
+/**
+ * StoreKVPair is a single key-value pair, associated with a store.
+ * @name StoreKVPair
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.StoreKVPair
+ */
 export interface StoreKVPair {
   /**
    * address defines the address of the account the state changes are coming from.
    * In case of modules you can expect a stringified
    */
   address: Uint8Array;
-  /** key defines the key of the address that changed. */
+  /**
+   * key defines the key of the address that changed.
+   */
   key: Uint8Array;
-  /** value defines the value that changed, empty in case of removal. */
+  /**
+   * value defines the value that changed, empty in case of removal.
+   */
   value: Uint8Array;
-  /** delete defines if the key was removed. */
+  /**
+   * delete defines if the key was removed.
+   */
   delete: boolean;
 }
 export interface StoreKVPairProtoMsg {
   typeUrl: "/cosmos.streaming.v1.StoreKVPair";
   value: Uint8Array;
 }
-/** StoreKVPair is a single key-value pair, associated with a store. */
+/**
+ * StoreKVPair is a single key-value pair, associated with a store.
+ * @name StoreKVPairAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.StoreKVPair
+ */
 export interface StoreKVPairAmino {
   /**
    * address defines the address of the account the state changes are coming from.
    * In case of modules you can expect a stringified
    */
   address: string;
-  /** key defines the key of the address that changed. */
+  /**
+   * key defines the key of the address that changed.
+   */
   key: string;
-  /** value defines the value that changed, empty in case of removal. */
+  /**
+   * value defines the value that changed, empty in case of removal.
+   */
   value: string;
-  /** delete defines if the key was removed. */
+  /**
+   * delete defines if the key was removed.
+   */
   delete: boolean;
 }
 export interface StoreKVPairAminoMsg {
   type: "cosmos-sdk/StoreKVPair";
   value: StoreKVPairAmino;
 }
-/** Event is a single event, associated with a transaction. */
+/**
+ * Event is a single event, associated with a transaction.
+ * @name Event
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.Event
+ */
 export interface Event {
   type: string;
   attributes: EventAttribute[];
@@ -112,7 +179,12 @@ export interface EventProtoMsg {
   typeUrl: "/cosmos.streaming.v1.Event";
   value: Uint8Array;
 }
-/** Event is a single event, associated with a transaction. */
+/**
+ * Event is a single event, associated with a transaction.
+ * @name EventAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.Event
+ */
 export interface EventAmino {
   type: string;
   attributes: EventAttributeAmino[];
@@ -121,7 +193,12 @@ export interface EventAminoMsg {
   type: "cosmos-sdk/Event";
   value: EventAmino;
 }
-/** EventAttribute is a single key-value pair, associated with an event. */
+/**
+ * EventAttribute is a single key-value pair, associated with an event.
+ * @name EventAttribute
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.EventAttribute
+ */
 export interface EventAttribute {
   key: string;
   value: string;
@@ -130,7 +207,12 @@ export interface EventAttributeProtoMsg {
   typeUrl: "/cosmos.streaming.v1.EventAttribute";
   value: Uint8Array;
 }
-/** EventAttribute is a single key-value pair, associated with an event. */
+/**
+ * EventAttribute is a single key-value pair, associated with an event.
+ * @name EventAttributeAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.EventAttribute
+ */
 export interface EventAttributeAmino {
   key: string;
   value: string;
@@ -139,7 +221,12 @@ export interface EventAttributeAminoMsg {
   type: "cosmos-sdk/EventAttribute";
   value: EventAttributeAmino;
 }
-/** ExecTxResult contains results of executing one individual transaction. */
+/**
+ * ExecTxResult contains results of executing one individual transaction.
+ * @name ExecTxResult
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ExecTxResult
+ */
 export interface ExecTxResult {
   code: number;
   data: Uint8Array;
@@ -154,7 +241,12 @@ export interface ExecTxResultProtoMsg {
   typeUrl: "/cosmos.streaming.v1.ExecTxResult";
   value: Uint8Array;
 }
-/** ExecTxResult contains results of executing one individual transaction. */
+/**
+ * ExecTxResult contains results of executing one individual transaction.
+ * @name ExecTxResultAmino
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ExecTxResult
+ */
 export interface ExecTxResultAmino {
   code: number;
   data: string;
@@ -177,6 +269,12 @@ function createBaseListenDeliverBlockRequest(): ListenDeliverBlockRequest {
     txResults: []
   };
 }
+/**
+ * ListenDeliverBlockRequest is the request type for the ListenDeliverBlock RPC method
+ * @name ListenDeliverBlockRequest
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenDeliverBlockRequest
+ */
 export const ListenDeliverBlockRequest = {
   typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockRequest",
   aminoType: "cosmos-sdk/ListenDeliverBlockRequest",
@@ -297,6 +395,12 @@ export const ListenDeliverBlockRequest = {
 function createBaseListenDeliverBlockResponse(): ListenDeliverBlockResponse {
   return {};
 }
+/**
+ * ListenDeliverBlockResponse is the response type for the ListenDeliverBlock RPC method
+ * @name ListenDeliverBlockResponse
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenDeliverBlockResponse
+ */
 export const ListenDeliverBlockResponse = {
   typeUrl: "/cosmos.streaming.v1.ListenDeliverBlockResponse",
   aminoType: "cosmos-sdk/ListenDeliverBlockResponse",
@@ -365,6 +469,12 @@ function createBaseListenStateChangesRequest(): ListenStateChangesRequest {
     appHash: new Uint8Array()
   };
 }
+/**
+ * ListenStateChangesRequest is the request type for the ListenStateChanges RPC method
+ * @name ListenStateChangesRequest
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenStateChangesRequest
+ */
 export const ListenStateChangesRequest = {
   typeUrl: "/cosmos.streaming.v1.ListenStateChangesRequest",
   aminoType: "cosmos-sdk/ListenStateChangesRequest",
@@ -469,6 +579,12 @@ export const ListenStateChangesRequest = {
 function createBaseListenStateChangesResponse(): ListenStateChangesResponse {
   return {};
 }
+/**
+ * ListenStateChangesResponse is the response type for the ListenStateChanges RPC method
+ * @name ListenStateChangesResponse
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ListenStateChangesResponse
+ */
 export const ListenStateChangesResponse = {
   typeUrl: "/cosmos.streaming.v1.ListenStateChangesResponse",
   aminoType: "cosmos-sdk/ListenStateChangesResponse",
@@ -538,6 +654,12 @@ function createBaseStoreKVPair(): StoreKVPair {
     delete: false
   };
 }
+/**
+ * StoreKVPair is a single key-value pair, associated with a store.
+ * @name StoreKVPair
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.StoreKVPair
+ */
 export const StoreKVPair = {
   typeUrl: "/cosmos.streaming.v1.StoreKVPair",
   aminoType: "cosmos-sdk/StoreKVPair",
@@ -649,6 +771,12 @@ function createBaseEvent(): Event {
     attributes: []
   };
 }
+/**
+ * Event is a single event, associated with a transaction.
+ * @name Event
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.Event
+ */
 export const Event = {
   typeUrl: "/cosmos.streaming.v1.Event",
   aminoType: "cosmos-sdk/Event",
@@ -745,6 +873,12 @@ function createBaseEventAttribute(): EventAttribute {
     value: ""
   };
 }
+/**
+ * EventAttribute is a single key-value pair, associated with an event.
+ * @name EventAttribute
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.EventAttribute
+ */
 export const EventAttribute = {
   typeUrl: "/cosmos.streaming.v1.EventAttribute",
   aminoType: "cosmos-sdk/EventAttribute",
@@ -840,6 +974,12 @@ function createBaseExecTxResult(): ExecTxResult {
     codespace: ""
   };
 }
+/**
+ * ExecTxResult contains results of executing one individual transaction.
+ * @name ExecTxResult
+ * @package cosmos.streaming.v1
+ * @see proto type: cosmos.streaming.v1.ExecTxResult
+ */
 export const ExecTxResult = {
   typeUrl: "/cosmos.streaming.v1.ExecTxResult",
   aminoType: "cosmos-sdk/ExecTxResult",

@@ -3,6 +3,11 @@ import { BridgeValidator, BridgeValidatorAmino } from "./types";
 import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name EventAttestationObserved
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventAttestationObserved
+ */
 export interface EventAttestationObserved {
   attestationType: ClaimType;
   bridgeContract: string;
@@ -14,6 +19,11 @@ export interface EventAttestationObservedProtoMsg {
   typeUrl: "/injective.peggy.v1.EventAttestationObserved";
   value: Uint8Array;
 }
+/**
+ * @name EventAttestationObservedAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventAttestationObserved
+ */
 export interface EventAttestationObservedAmino {
   attestation_type: ClaimType;
   bridge_contract: string;
@@ -25,6 +35,11 @@ export interface EventAttestationObservedAminoMsg {
   type: "/injective.peggy.v1.EventAttestationObserved";
   value: EventAttestationObservedAmino;
 }
+/**
+ * @name EventBridgeWithdrawCanceled
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventBridgeWithdrawCanceled
+ */
 export interface EventBridgeWithdrawCanceled {
   bridgeContract: string;
   bridgeChainId: bigint;
@@ -33,6 +48,11 @@ export interface EventBridgeWithdrawCanceledProtoMsg {
   typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled";
   value: Uint8Array;
 }
+/**
+ * @name EventBridgeWithdrawCanceledAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventBridgeWithdrawCanceled
+ */
 export interface EventBridgeWithdrawCanceledAmino {
   bridge_contract: string;
   bridge_chain_id: string;
@@ -41,6 +61,11 @@ export interface EventBridgeWithdrawCanceledAminoMsg {
   type: "/injective.peggy.v1.EventBridgeWithdrawCanceled";
   value: EventBridgeWithdrawCanceledAmino;
 }
+/**
+ * @name EventOutgoingBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventOutgoingBatch
+ */
 export interface EventOutgoingBatch {
   denom: string;
   orchestratorAddress: string;
@@ -52,6 +77,11 @@ export interface EventOutgoingBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.EventOutgoingBatch";
   value: Uint8Array;
 }
+/**
+ * @name EventOutgoingBatchAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventOutgoingBatch
+ */
 export interface EventOutgoingBatchAmino {
   denom: string;
   orchestrator_address: string;
@@ -63,6 +93,11 @@ export interface EventOutgoingBatchAminoMsg {
   type: "/injective.peggy.v1.EventOutgoingBatch";
   value: EventOutgoingBatchAmino;
 }
+/**
+ * @name EventOutgoingBatchCanceled
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventOutgoingBatchCanceled
+ */
 export interface EventOutgoingBatchCanceled {
   bridgeContract: string;
   bridgeChainId: bigint;
@@ -73,6 +108,11 @@ export interface EventOutgoingBatchCanceledProtoMsg {
   typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled";
   value: Uint8Array;
 }
+/**
+ * @name EventOutgoingBatchCanceledAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventOutgoingBatchCanceled
+ */
 export interface EventOutgoingBatchCanceledAmino {
   bridge_contract: string;
   bridge_chain_id: string;
@@ -83,6 +123,11 @@ export interface EventOutgoingBatchCanceledAminoMsg {
   type: "/injective.peggy.v1.EventOutgoingBatchCanceled";
   value: EventOutgoingBatchCanceledAmino;
 }
+/**
+ * @name EventValsetUpdateRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetUpdateRequest
+ */
 export interface EventValsetUpdateRequest {
   valsetNonce: bigint;
   valsetHeight: bigint;
@@ -94,6 +139,11 @@ export interface EventValsetUpdateRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest";
   value: Uint8Array;
 }
+/**
+ * @name EventValsetUpdateRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetUpdateRequest
+ */
 export interface EventValsetUpdateRequestAmino {
   valset_nonce: string;
   valset_height: string;
@@ -105,6 +155,11 @@ export interface EventValsetUpdateRequestAminoMsg {
   type: "/injective.peggy.v1.EventValsetUpdateRequest";
   value: EventValsetUpdateRequestAmino;
 }
+/**
+ * @name EventSetOrchestratorAddresses
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSetOrchestratorAddresses
+ */
 export interface EventSetOrchestratorAddresses {
   validatorAddress: string;
   orchestratorAddress: string;
@@ -114,6 +169,11 @@ export interface EventSetOrchestratorAddressesProtoMsg {
   typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses";
   value: Uint8Array;
 }
+/**
+ * @name EventSetOrchestratorAddressesAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSetOrchestratorAddresses
+ */
 export interface EventSetOrchestratorAddressesAmino {
   validator_address: string;
   orchestrator_address: string;
@@ -123,6 +183,11 @@ export interface EventSetOrchestratorAddressesAminoMsg {
   type: "/injective.peggy.v1.EventSetOrchestratorAddresses";
   value: EventSetOrchestratorAddressesAmino;
 }
+/**
+ * @name EventValsetConfirm
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetConfirm
+ */
 export interface EventValsetConfirm {
   valsetNonce: bigint;
   orchestratorAddress: string;
@@ -131,6 +196,11 @@ export interface EventValsetConfirmProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValsetConfirm";
   value: Uint8Array;
 }
+/**
+ * @name EventValsetConfirmAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetConfirm
+ */
 export interface EventValsetConfirmAmino {
   valset_nonce: string;
   orchestrator_address: string;
@@ -139,6 +209,11 @@ export interface EventValsetConfirmAminoMsg {
   type: "/injective.peggy.v1.EventValsetConfirm";
   value: EventValsetConfirmAmino;
 }
+/**
+ * @name EventSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSendToEth
+ */
 export interface EventSendToEth {
   outgoingTxId: bigint;
   sender: string;
@@ -150,6 +225,11 @@ export interface EventSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.EventSendToEth";
   value: Uint8Array;
 }
+/**
+ * @name EventSendToEthAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSendToEth
+ */
 export interface EventSendToEthAmino {
   outgoing_tx_id: string;
   sender: string;
@@ -161,6 +241,11 @@ export interface EventSendToEthAminoMsg {
   type: "/injective.peggy.v1.EventSendToEth";
   value: EventSendToEthAmino;
 }
+/**
+ * @name EventConfirmBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventConfirmBatch
+ */
 export interface EventConfirmBatch {
   batchNonce: bigint;
   orchestratorAddress: string;
@@ -169,6 +254,11 @@ export interface EventConfirmBatchProtoMsg {
   typeUrl: "/injective.peggy.v1.EventConfirmBatch";
   value: Uint8Array;
 }
+/**
+ * @name EventConfirmBatchAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventConfirmBatch
+ */
 export interface EventConfirmBatchAmino {
   batch_nonce: string;
   orchestrator_address: string;
@@ -177,6 +267,11 @@ export interface EventConfirmBatchAminoMsg {
   type: "/injective.peggy.v1.EventConfirmBatch";
   value: EventConfirmBatchAmino;
 }
+/**
+ * @name EventAttestationVote
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventAttestationVote
+ */
 export interface EventAttestationVote {
   eventNonce: bigint;
   attestationId: Uint8Array;
@@ -186,6 +281,11 @@ export interface EventAttestationVoteProtoMsg {
   typeUrl: "/injective.peggy.v1.EventAttestationVote";
   value: Uint8Array;
 }
+/**
+ * @name EventAttestationVoteAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventAttestationVote
+ */
 export interface EventAttestationVoteAmino {
   event_nonce: string;
   attestation_id: string;
@@ -195,6 +295,11 @@ export interface EventAttestationVoteAminoMsg {
   type: "/injective.peggy.v1.EventAttestationVote";
   value: EventAttestationVoteAmino;
 }
+/**
+ * @name EventDepositClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventDepositClaim
+ */
 export interface EventDepositClaim {
   eventNonce: bigint;
   eventHeight: bigint;
@@ -210,6 +315,11 @@ export interface EventDepositClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventDepositClaim";
   value: Uint8Array;
 }
+/**
+ * @name EventDepositClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventDepositClaim
+ */
 export interface EventDepositClaimAmino {
   event_nonce: string;
   event_height: string;
@@ -225,6 +335,11 @@ export interface EventDepositClaimAminoMsg {
   type: "/injective.peggy.v1.EventDepositClaim";
   value: EventDepositClaimAmino;
 }
+/**
+ * @name EventWithdrawClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventWithdrawClaim
+ */
 export interface EventWithdrawClaim {
   eventNonce: bigint;
   eventHeight: bigint;
@@ -237,6 +352,11 @@ export interface EventWithdrawClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventWithdrawClaim";
   value: Uint8Array;
 }
+/**
+ * @name EventWithdrawClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventWithdrawClaim
+ */
 export interface EventWithdrawClaimAmino {
   event_nonce: string;
   event_height: string;
@@ -249,6 +369,11 @@ export interface EventWithdrawClaimAminoMsg {
   type: "/injective.peggy.v1.EventWithdrawClaim";
   value: EventWithdrawClaimAmino;
 }
+/**
+ * @name EventERC20DeployedClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventERC20DeployedClaim
+ */
 export interface EventERC20DeployedClaim {
   eventNonce: bigint;
   eventHeight: bigint;
@@ -264,6 +389,11 @@ export interface EventERC20DeployedClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim";
   value: Uint8Array;
 }
+/**
+ * @name EventERC20DeployedClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventERC20DeployedClaim
+ */
 export interface EventERC20DeployedClaimAmino {
   event_nonce: string;
   event_height: string;
@@ -279,6 +409,11 @@ export interface EventERC20DeployedClaimAminoMsg {
   type: "/injective.peggy.v1.EventERC20DeployedClaim";
   value: EventERC20DeployedClaimAmino;
 }
+/**
+ * @name EventValsetUpdateClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetUpdateClaim
+ */
 export interface EventValsetUpdateClaim {
   eventNonce: bigint;
   eventHeight: bigint;
@@ -293,6 +428,11 @@ export interface EventValsetUpdateClaimProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim";
   value: Uint8Array;
 }
+/**
+ * @name EventValsetUpdateClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetUpdateClaim
+ */
 export interface EventValsetUpdateClaimAmino {
   event_nonce: string;
   event_height: string;
@@ -307,6 +447,11 @@ export interface EventValsetUpdateClaimAminoMsg {
   type: "/injective.peggy.v1.EventValsetUpdateClaim";
   value: EventValsetUpdateClaimAmino;
 }
+/**
+ * @name EventCancelSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventCancelSendToEth
+ */
 export interface EventCancelSendToEth {
   outgoingTxId: bigint;
 }
@@ -314,6 +459,11 @@ export interface EventCancelSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.EventCancelSendToEth";
   value: Uint8Array;
 }
+/**
+ * @name EventCancelSendToEthAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventCancelSendToEth
+ */
 export interface EventCancelSendToEthAmino {
   outgoing_tx_id: string;
 }
@@ -321,6 +471,11 @@ export interface EventCancelSendToEthAminoMsg {
   type: "/injective.peggy.v1.EventCancelSendToEth";
   value: EventCancelSendToEthAmino;
 }
+/**
+ * @name EventSubmitBadSignatureEvidence
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSubmitBadSignatureEvidence
+ */
 export interface EventSubmitBadSignatureEvidence {
   badEthSignature: string;
   badEthSignatureSubject: string;
@@ -329,6 +484,11 @@ export interface EventSubmitBadSignatureEvidenceProtoMsg {
   typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence";
   value: Uint8Array;
 }
+/**
+ * @name EventSubmitBadSignatureEvidenceAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSubmitBadSignatureEvidence
+ */
 export interface EventSubmitBadSignatureEvidenceAmino {
   bad_eth_signature: string;
   bad_eth_signature_subject: string;
@@ -337,6 +497,11 @@ export interface EventSubmitBadSignatureEvidenceAminoMsg {
   type: "/injective.peggy.v1.EventSubmitBadSignatureEvidence";
   value: EventSubmitBadSignatureEvidenceAmino;
 }
+/**
+ * @name EventValidatorSlash
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValidatorSlash
+ */
 export interface EventValidatorSlash {
   power: bigint;
   reason: string;
@@ -348,6 +513,11 @@ export interface EventValidatorSlashProtoMsg {
   typeUrl: "/injective.peggy.v1.EventValidatorSlash";
   value: Uint8Array;
 }
+/**
+ * @name EventValidatorSlashAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValidatorSlash
+ */
 export interface EventValidatorSlashAmino {
   power: string;
   reason: string;
@@ -368,6 +538,11 @@ function createBaseEventAttestationObserved(): EventAttestationObserved {
     nonce: BigInt(0)
   };
 }
+/**
+ * @name EventAttestationObserved
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventAttestationObserved
+ */
 export const EventAttestationObserved = {
   typeUrl: "/injective.peggy.v1.EventAttestationObserved",
   is(o: any): o is EventAttestationObserved {
@@ -483,6 +658,11 @@ function createBaseEventBridgeWithdrawCanceled(): EventBridgeWithdrawCanceled {
     bridgeChainId: BigInt(0)
   };
 }
+/**
+ * @name EventBridgeWithdrawCanceled
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventBridgeWithdrawCanceled
+ */
 export const EventBridgeWithdrawCanceled = {
   typeUrl: "/injective.peggy.v1.EventBridgeWithdrawCanceled",
   is(o: any): o is EventBridgeWithdrawCanceled {
@@ -568,6 +748,11 @@ function createBaseEventOutgoingBatch(): EventOutgoingBatch {
     batchTxIds: []
   };
 }
+/**
+ * @name EventOutgoingBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventOutgoingBatch
+ */
 export const EventOutgoingBatch = {
   typeUrl: "/injective.peggy.v1.EventOutgoingBatch",
   is(o: any): o is EventOutgoingBatch {
@@ -696,6 +881,11 @@ function createBaseEventOutgoingBatchCanceled(): EventOutgoingBatchCanceled {
     nonce: BigInt(0)
   };
 }
+/**
+ * @name EventOutgoingBatchCanceled
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventOutgoingBatchCanceled
+ */
 export const EventOutgoingBatchCanceled = {
   typeUrl: "/injective.peggy.v1.EventOutgoingBatchCanceled",
   is(o: any): o is EventOutgoingBatchCanceled {
@@ -803,6 +993,11 @@ function createBaseEventValsetUpdateRequest(): EventValsetUpdateRequest {
     rewardToken: ""
   };
 }
+/**
+ * @name EventValsetUpdateRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetUpdateRequest
+ */
 export const EventValsetUpdateRequest = {
   typeUrl: "/injective.peggy.v1.EventValsetUpdateRequest",
   is(o: any): o is EventValsetUpdateRequest {
@@ -926,6 +1121,11 @@ function createBaseEventSetOrchestratorAddresses(): EventSetOrchestratorAddresse
     operatorEthAddress: ""
   };
 }
+/**
+ * @name EventSetOrchestratorAddresses
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSetOrchestratorAddresses
+ */
 export const EventSetOrchestratorAddresses = {
   typeUrl: "/injective.peggy.v1.EventSetOrchestratorAddresses",
   is(o: any): o is EventSetOrchestratorAddresses {
@@ -1019,6 +1219,11 @@ function createBaseEventValsetConfirm(): EventValsetConfirm {
     orchestratorAddress: ""
   };
 }
+/**
+ * @name EventValsetConfirm
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetConfirm
+ */
 export const EventValsetConfirm = {
   typeUrl: "/injective.peggy.v1.EventValsetConfirm",
   is(o: any): o is EventValsetConfirm {
@@ -1104,6 +1309,11 @@ function createBaseEventSendToEth(): EventSendToEth {
     bridgeFee: ""
   };
 }
+/**
+ * @name EventSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSendToEth
+ */
 export const EventSendToEth = {
   typeUrl: "/injective.peggy.v1.EventSendToEth",
   is(o: any): o is EventSendToEth {
@@ -1219,6 +1429,11 @@ function createBaseEventConfirmBatch(): EventConfirmBatch {
     orchestratorAddress: ""
   };
 }
+/**
+ * @name EventConfirmBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventConfirmBatch
+ */
 export const EventConfirmBatch = {
   typeUrl: "/injective.peggy.v1.EventConfirmBatch",
   is(o: any): o is EventConfirmBatch {
@@ -1302,6 +1517,11 @@ function createBaseEventAttestationVote(): EventAttestationVote {
     voter: ""
   };
 }
+/**
+ * @name EventAttestationVote
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventAttestationVote
+ */
 export const EventAttestationVote = {
   typeUrl: "/injective.peggy.v1.EventAttestationVote",
   is(o: any): o is EventAttestationVote {
@@ -1402,6 +1622,11 @@ function createBaseEventDepositClaim(): EventDepositClaim {
     data: ""
   };
 }
+/**
+ * @name EventDepositClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventDepositClaim
+ */
 export const EventDepositClaim = {
   typeUrl: "/injective.peggy.v1.EventDepositClaim",
   is(o: any): o is EventDepositClaim {
@@ -1565,6 +1790,11 @@ function createBaseEventWithdrawClaim(): EventWithdrawClaim {
     orchestratorAddress: ""
   };
 }
+/**
+ * @name EventWithdrawClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventWithdrawClaim
+ */
 export const EventWithdrawClaim = {
   typeUrl: "/injective.peggy.v1.EventWithdrawClaim",
   is(o: any): o is EventWithdrawClaim {
@@ -1698,6 +1928,11 @@ function createBaseEventERC20DeployedClaim(): EventERC20DeployedClaim {
     orchestratorAddress: ""
   };
 }
+/**
+ * @name EventERC20DeployedClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventERC20DeployedClaim
+ */
 export const EventERC20DeployedClaim = {
   typeUrl: "/injective.peggy.v1.EventERC20DeployedClaim",
   is(o: any): o is EventERC20DeployedClaim {
@@ -1863,6 +2098,11 @@ function createBaseEventValsetUpdateClaim(): EventValsetUpdateClaim {
     orchestratorAddress: ""
   };
 }
+/**
+ * @name EventValsetUpdateClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValsetUpdateClaim
+ */
 export const EventValsetUpdateClaim = {
   typeUrl: "/injective.peggy.v1.EventValsetUpdateClaim",
   is(o: any): o is EventValsetUpdateClaim {
@@ -2017,6 +2257,11 @@ function createBaseEventCancelSendToEth(): EventCancelSendToEth {
     outgoingTxId: BigInt(0)
   };
 }
+/**
+ * @name EventCancelSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventCancelSendToEth
+ */
 export const EventCancelSendToEth = {
   typeUrl: "/injective.peggy.v1.EventCancelSendToEth",
   is(o: any): o is EventCancelSendToEth {
@@ -2088,6 +2333,11 @@ function createBaseEventSubmitBadSignatureEvidence(): EventSubmitBadSignatureEvi
     badEthSignatureSubject: ""
   };
 }
+/**
+ * @name EventSubmitBadSignatureEvidence
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventSubmitBadSignatureEvidence
+ */
 export const EventSubmitBadSignatureEvidence = {
   typeUrl: "/injective.peggy.v1.EventSubmitBadSignatureEvidence",
   is(o: any): o is EventSubmitBadSignatureEvidence {
@@ -2173,6 +2423,11 @@ function createBaseEventValidatorSlash(): EventValidatorSlash {
     moniker: ""
   };
 }
+/**
+ * @name EventValidatorSlash
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventValidatorSlash
+ */
 export const EventValidatorSlash = {
   typeUrl: "/injective.peggy.v1.EventValidatorSlash",
   is(o: any): o is EventValidatorSlash {

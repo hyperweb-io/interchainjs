@@ -6,7 +6,12 @@ import { Attestation, AttestationAmino } from "./attestation";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState struct */
+/**
+ * GenesisState struct
+ * @name GenesisState
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.GenesisState
+ */
 export interface GenesisState {
   params?: Params;
   lastObservedNonce: bigint;
@@ -28,7 +33,12 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.peggy.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState struct */
+/**
+ * GenesisState struct
+ * @name GenesisStateAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.GenesisState
+ */
 export interface GenesisStateAmino {
   params?: ParamsAmino;
   last_observed_nonce: string;
@@ -69,6 +79,12 @@ function createBaseGenesisState(): GenesisState {
     ethereumBlacklist: []
   };
 }
+/**
+ * GenesisState struct
+ * @name GenesisState
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.peggy.v1.GenesisState",
   is(o: any): o is GenesisState {
