@@ -7,16 +7,31 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name QueryParamsRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryParamsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryParamsRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
   type: "/injective.peggy.v1.QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
+/**
+ * @name QueryParamsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
   params: Params;
 }
@@ -24,6 +39,11 @@ export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryParamsResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponseAmino {
   params: ParamsAmino;
 }
@@ -31,16 +51,31 @@ export interface QueryParamsResponseAminoMsg {
   type: "/injective.peggy.v1.QueryParamsResponse";
   value: QueryParamsResponseAmino;
 }
+/**
+ * @name QueryCurrentValsetRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryCurrentValsetRequest
+ */
 export interface QueryCurrentValsetRequest {}
 export interface QueryCurrentValsetRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryCurrentValsetRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryCurrentValsetRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryCurrentValsetRequest
+ */
 export interface QueryCurrentValsetRequestAmino {}
 export interface QueryCurrentValsetRequestAminoMsg {
   type: "/injective.peggy.v1.QueryCurrentValsetRequest";
   value: QueryCurrentValsetRequestAmino;
 }
+/**
+ * @name QueryCurrentValsetResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryCurrentValsetResponse
+ */
 export interface QueryCurrentValsetResponse {
   valset?: Valset;
 }
@@ -48,6 +83,11 @@ export interface QueryCurrentValsetResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryCurrentValsetResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryCurrentValsetResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryCurrentValsetResponse
+ */
 export interface QueryCurrentValsetResponseAmino {
   valset?: ValsetAmino;
 }
@@ -55,6 +95,11 @@ export interface QueryCurrentValsetResponseAminoMsg {
   type: "/injective.peggy.v1.QueryCurrentValsetResponse";
   value: QueryCurrentValsetResponseAmino;
 }
+/**
+ * @name QueryValsetRequestRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetRequestRequest
+ */
 export interface QueryValsetRequestRequest {
   nonce: bigint;
 }
@@ -62,6 +107,11 @@ export interface QueryValsetRequestRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetRequestRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryValsetRequestRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetRequestRequest
+ */
 export interface QueryValsetRequestRequestAmino {
   nonce: string;
 }
@@ -69,6 +119,11 @@ export interface QueryValsetRequestRequestAminoMsg {
   type: "/injective.peggy.v1.QueryValsetRequestRequest";
   value: QueryValsetRequestRequestAmino;
 }
+/**
+ * @name QueryValsetRequestResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetRequestResponse
+ */
 export interface QueryValsetRequestResponse {
   valset?: Valset;
 }
@@ -76,6 +131,11 @@ export interface QueryValsetRequestResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetRequestResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryValsetRequestResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetRequestResponse
+ */
 export interface QueryValsetRequestResponseAmino {
   valset?: ValsetAmino;
 }
@@ -83,6 +143,11 @@ export interface QueryValsetRequestResponseAminoMsg {
   type: "/injective.peggy.v1.QueryValsetRequestResponse";
   value: QueryValsetRequestResponseAmino;
 }
+/**
+ * @name QueryValsetConfirmRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmRequest
+ */
 export interface QueryValsetConfirmRequest {
   nonce: bigint;
   address: string;
@@ -91,6 +156,11 @@ export interface QueryValsetConfirmRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryValsetConfirmRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmRequest
+ */
 export interface QueryValsetConfirmRequestAmino {
   nonce: string;
   address: string;
@@ -99,6 +169,11 @@ export interface QueryValsetConfirmRequestAminoMsg {
   type: "/injective.peggy.v1.QueryValsetConfirmRequest";
   value: QueryValsetConfirmRequestAmino;
 }
+/**
+ * @name QueryValsetConfirmResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmResponse
+ */
 export interface QueryValsetConfirmResponse {
   confirm?: MsgValsetConfirm;
 }
@@ -106,6 +181,11 @@ export interface QueryValsetConfirmResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryValsetConfirmResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmResponse
+ */
 export interface QueryValsetConfirmResponseAmino {
   confirm?: MsgValsetConfirmAmino;
 }
@@ -113,6 +193,11 @@ export interface QueryValsetConfirmResponseAminoMsg {
   type: "/injective.peggy.v1.QueryValsetConfirmResponse";
   value: QueryValsetConfirmResponseAmino;
 }
+/**
+ * @name QueryValsetConfirmsByNonceRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmsByNonceRequest
+ */
 export interface QueryValsetConfirmsByNonceRequest {
   nonce: bigint;
 }
@@ -120,6 +205,11 @@ export interface QueryValsetConfirmsByNonceRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryValsetConfirmsByNonceRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmsByNonceRequest
+ */
 export interface QueryValsetConfirmsByNonceRequestAmino {
   nonce: string;
 }
@@ -127,6 +217,11 @@ export interface QueryValsetConfirmsByNonceRequestAminoMsg {
   type: "/injective.peggy.v1.QueryValsetConfirmsByNonceRequest";
   value: QueryValsetConfirmsByNonceRequestAmino;
 }
+/**
+ * @name QueryValsetConfirmsByNonceResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmsByNonceResponse
+ */
 export interface QueryValsetConfirmsByNonceResponse {
   confirms: MsgValsetConfirm[];
 }
@@ -134,6 +229,11 @@ export interface QueryValsetConfirmsByNonceResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryValsetConfirmsByNonceResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmsByNonceResponse
+ */
 export interface QueryValsetConfirmsByNonceResponseAmino {
   confirms: MsgValsetConfirmAmino[];
 }
@@ -141,16 +241,31 @@ export interface QueryValsetConfirmsByNonceResponseAminoMsg {
   type: "/injective.peggy.v1.QueryValsetConfirmsByNonceResponse";
   value: QueryValsetConfirmsByNonceResponseAmino;
 }
+/**
+ * @name QueryLastValsetRequestsRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastValsetRequestsRequest
+ */
 export interface QueryLastValsetRequestsRequest {}
 export interface QueryLastValsetRequestsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastValsetRequestsRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastValsetRequestsRequest
+ */
 export interface QueryLastValsetRequestsRequestAmino {}
 export interface QueryLastValsetRequestsRequestAminoMsg {
   type: "/injective.peggy.v1.QueryLastValsetRequestsRequest";
   value: QueryLastValsetRequestsRequestAmino;
 }
+/**
+ * @name QueryLastValsetRequestsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastValsetRequestsResponse
+ */
 export interface QueryLastValsetRequestsResponse {
   valsets: Valset[];
 }
@@ -158,6 +273,11 @@ export interface QueryLastValsetRequestsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastValsetRequestsResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastValsetRequestsResponse
+ */
 export interface QueryLastValsetRequestsResponseAmino {
   valsets: ValsetAmino[];
 }
@@ -165,6 +285,11 @@ export interface QueryLastValsetRequestsResponseAminoMsg {
   type: "/injective.peggy.v1.QueryLastValsetRequestsResponse";
   value: QueryLastValsetRequestsResponseAmino;
 }
+/**
+ * @name QueryLastPendingValsetRequestByAddrRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest
+ */
 export interface QueryLastPendingValsetRequestByAddrRequest {
   address: string;
 }
@@ -172,6 +297,11 @@ export interface QueryLastPendingValsetRequestByAddrRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastPendingValsetRequestByAddrRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest
+ */
 export interface QueryLastPendingValsetRequestByAddrRequestAmino {
   address: string;
 }
@@ -179,6 +309,11 @@ export interface QueryLastPendingValsetRequestByAddrRequestAminoMsg {
   type: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest";
   value: QueryLastPendingValsetRequestByAddrRequestAmino;
 }
+/**
+ * @name QueryLastPendingValsetRequestByAddrResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse
+ */
 export interface QueryLastPendingValsetRequestByAddrResponse {
   valsets: Valset[];
 }
@@ -186,6 +321,11 @@ export interface QueryLastPendingValsetRequestByAddrResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastPendingValsetRequestByAddrResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse
+ */
 export interface QueryLastPendingValsetRequestByAddrResponseAmino {
   valsets: ValsetAmino[];
 }
@@ -193,16 +333,31 @@ export interface QueryLastPendingValsetRequestByAddrResponseAminoMsg {
   type: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse";
   value: QueryLastPendingValsetRequestByAddrResponseAmino;
 }
+/**
+ * @name QueryBatchFeeRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchFeeRequest
+ */
 export interface QueryBatchFeeRequest {}
 export interface QueryBatchFeeRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchFeeRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryBatchFeeRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchFeeRequest
+ */
 export interface QueryBatchFeeRequestAmino {}
 export interface QueryBatchFeeRequestAminoMsg {
   type: "/injective.peggy.v1.QueryBatchFeeRequest";
   value: QueryBatchFeeRequestAmino;
 }
+/**
+ * @name QueryBatchFeeResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchFeeResponse
+ */
 export interface QueryBatchFeeResponse {
   batchFees: BatchFees[];
 }
@@ -210,6 +365,11 @@ export interface QueryBatchFeeResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchFeeResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryBatchFeeResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchFeeResponse
+ */
 export interface QueryBatchFeeResponseAmino {
   batchFees: BatchFeesAmino[];
 }
@@ -217,6 +377,11 @@ export interface QueryBatchFeeResponseAminoMsg {
   type: "/injective.peggy.v1.QueryBatchFeeResponse";
   value: QueryBatchFeeResponseAmino;
 }
+/**
+ * @name QueryLastPendingBatchRequestByAddrRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest
+ */
 export interface QueryLastPendingBatchRequestByAddrRequest {
   address: string;
 }
@@ -224,6 +389,11 @@ export interface QueryLastPendingBatchRequestByAddrRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastPendingBatchRequestByAddrRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest
+ */
 export interface QueryLastPendingBatchRequestByAddrRequestAmino {
   address: string;
 }
@@ -231,6 +401,11 @@ export interface QueryLastPendingBatchRequestByAddrRequestAminoMsg {
   type: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest";
   value: QueryLastPendingBatchRequestByAddrRequestAmino;
 }
+/**
+ * @name QueryLastPendingBatchRequestByAddrResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse
+ */
 export interface QueryLastPendingBatchRequestByAddrResponse {
   batch?: OutgoingTxBatch;
 }
@@ -238,6 +413,11 @@ export interface QueryLastPendingBatchRequestByAddrResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastPendingBatchRequestByAddrResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse
+ */
 export interface QueryLastPendingBatchRequestByAddrResponseAmino {
   batch?: OutgoingTxBatchAmino;
 }
@@ -245,16 +425,31 @@ export interface QueryLastPendingBatchRequestByAddrResponseAminoMsg {
   type: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse";
   value: QueryLastPendingBatchRequestByAddrResponseAmino;
 }
+/**
+ * @name QueryOutgoingTxBatchesRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryOutgoingTxBatchesRequest
+ */
 export interface QueryOutgoingTxBatchesRequest {}
 export interface QueryOutgoingTxBatchesRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryOutgoingTxBatchesRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryOutgoingTxBatchesRequest
+ */
 export interface QueryOutgoingTxBatchesRequestAmino {}
 export interface QueryOutgoingTxBatchesRequestAminoMsg {
   type: "/injective.peggy.v1.QueryOutgoingTxBatchesRequest";
   value: QueryOutgoingTxBatchesRequestAmino;
 }
+/**
+ * @name QueryOutgoingTxBatchesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryOutgoingTxBatchesResponse
+ */
 export interface QueryOutgoingTxBatchesResponse {
   batches: OutgoingTxBatch[];
 }
@@ -262,6 +457,11 @@ export interface QueryOutgoingTxBatchesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryOutgoingTxBatchesResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryOutgoingTxBatchesResponse
+ */
 export interface QueryOutgoingTxBatchesResponseAmino {
   batches: OutgoingTxBatchAmino[];
 }
@@ -269,6 +469,11 @@ export interface QueryOutgoingTxBatchesResponseAminoMsg {
   type: "/injective.peggy.v1.QueryOutgoingTxBatchesResponse";
   value: QueryOutgoingTxBatchesResponseAmino;
 }
+/**
+ * @name QueryBatchRequestByNonceRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchRequestByNonceRequest
+ */
 export interface QueryBatchRequestByNonceRequest {
   nonce: bigint;
   contractAddress: string;
@@ -277,6 +482,11 @@ export interface QueryBatchRequestByNonceRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryBatchRequestByNonceRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchRequestByNonceRequest
+ */
 export interface QueryBatchRequestByNonceRequestAmino {
   nonce: string;
   contract_address: string;
@@ -285,6 +495,11 @@ export interface QueryBatchRequestByNonceRequestAminoMsg {
   type: "/injective.peggy.v1.QueryBatchRequestByNonceRequest";
   value: QueryBatchRequestByNonceRequestAmino;
 }
+/**
+ * @name QueryBatchRequestByNonceResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchRequestByNonceResponse
+ */
 export interface QueryBatchRequestByNonceResponse {
   batch?: OutgoingTxBatch;
 }
@@ -292,6 +507,11 @@ export interface QueryBatchRequestByNonceResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryBatchRequestByNonceResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchRequestByNonceResponse
+ */
 export interface QueryBatchRequestByNonceResponseAmino {
   batch?: OutgoingTxBatchAmino;
 }
@@ -299,6 +519,11 @@ export interface QueryBatchRequestByNonceResponseAminoMsg {
   type: "/injective.peggy.v1.QueryBatchRequestByNonceResponse";
   value: QueryBatchRequestByNonceResponseAmino;
 }
+/**
+ * @name QueryBatchConfirmsRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchConfirmsRequest
+ */
 export interface QueryBatchConfirmsRequest {
   nonce: bigint;
   contractAddress: string;
@@ -307,6 +532,11 @@ export interface QueryBatchConfirmsRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchConfirmsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryBatchConfirmsRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchConfirmsRequest
+ */
 export interface QueryBatchConfirmsRequestAmino {
   nonce: string;
   contract_address: string;
@@ -315,6 +545,11 @@ export interface QueryBatchConfirmsRequestAminoMsg {
   type: "/injective.peggy.v1.QueryBatchConfirmsRequest";
   value: QueryBatchConfirmsRequestAmino;
 }
+/**
+ * @name QueryBatchConfirmsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchConfirmsResponse
+ */
 export interface QueryBatchConfirmsResponse {
   confirms: MsgConfirmBatch[];
 }
@@ -322,6 +557,11 @@ export interface QueryBatchConfirmsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryBatchConfirmsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryBatchConfirmsResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchConfirmsResponse
+ */
 export interface QueryBatchConfirmsResponseAmino {
   confirms: MsgConfirmBatchAmino[];
 }
@@ -329,6 +569,11 @@ export interface QueryBatchConfirmsResponseAminoMsg {
   type: "/injective.peggy.v1.QueryBatchConfirmsResponse";
   value: QueryBatchConfirmsResponseAmino;
 }
+/**
+ * @name QueryLastEventByAddrRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastEventByAddrRequest
+ */
 export interface QueryLastEventByAddrRequest {
   address: string;
 }
@@ -336,6 +581,11 @@ export interface QueryLastEventByAddrRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastEventByAddrRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastEventByAddrRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastEventByAddrRequest
+ */
 export interface QueryLastEventByAddrRequestAmino {
   address: string;
 }
@@ -343,6 +593,11 @@ export interface QueryLastEventByAddrRequestAminoMsg {
   type: "/injective.peggy.v1.QueryLastEventByAddrRequest";
   value: QueryLastEventByAddrRequestAmino;
 }
+/**
+ * @name QueryLastEventByAddrResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastEventByAddrResponse
+ */
 export interface QueryLastEventByAddrResponse {
   lastClaimEvent?: LastClaimEvent;
 }
@@ -350,6 +605,11 @@ export interface QueryLastEventByAddrResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryLastEventByAddrResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastEventByAddrResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastEventByAddrResponse
+ */
 export interface QueryLastEventByAddrResponseAmino {
   last_claim_event?: LastClaimEventAmino;
 }
@@ -357,6 +617,11 @@ export interface QueryLastEventByAddrResponseAminoMsg {
   type: "/injective.peggy.v1.QueryLastEventByAddrResponse";
   value: QueryLastEventByAddrResponseAmino;
 }
+/**
+ * @name QueryERC20ToDenomRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryERC20ToDenomRequest
+ */
 export interface QueryERC20ToDenomRequest {
   erc20: string;
 }
@@ -364,6 +629,11 @@ export interface QueryERC20ToDenomRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryERC20ToDenomRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryERC20ToDenomRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryERC20ToDenomRequest
+ */
 export interface QueryERC20ToDenomRequestAmino {
   erc20: string;
 }
@@ -371,6 +641,11 @@ export interface QueryERC20ToDenomRequestAminoMsg {
   type: "/injective.peggy.v1.QueryERC20ToDenomRequest";
   value: QueryERC20ToDenomRequestAmino;
 }
+/**
+ * @name QueryERC20ToDenomResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryERC20ToDenomResponse
+ */
 export interface QueryERC20ToDenomResponse {
   denom: string;
   cosmosOriginated: boolean;
@@ -379,6 +654,11 @@ export interface QueryERC20ToDenomResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryERC20ToDenomResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryERC20ToDenomResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryERC20ToDenomResponse
+ */
 export interface QueryERC20ToDenomResponseAmino {
   denom: string;
   cosmos_originated: boolean;
@@ -387,6 +667,11 @@ export interface QueryERC20ToDenomResponseAminoMsg {
   type: "/injective.peggy.v1.QueryERC20ToDenomResponse";
   value: QueryERC20ToDenomResponseAmino;
 }
+/**
+ * @name QueryDenomToERC20Request
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDenomToERC20Request
+ */
 export interface QueryDenomToERC20Request {
   denom: string;
 }
@@ -394,6 +679,11 @@ export interface QueryDenomToERC20RequestProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDenomToERC20Request";
   value: Uint8Array;
 }
+/**
+ * @name QueryDenomToERC20RequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDenomToERC20Request
+ */
 export interface QueryDenomToERC20RequestAmino {
   denom: string;
 }
@@ -401,6 +691,11 @@ export interface QueryDenomToERC20RequestAminoMsg {
   type: "/injective.peggy.v1.QueryDenomToERC20Request";
   value: QueryDenomToERC20RequestAmino;
 }
+/**
+ * @name QueryDenomToERC20Response
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDenomToERC20Response
+ */
 export interface QueryDenomToERC20Response {
   erc20: string;
   cosmosOriginated: boolean;
@@ -409,6 +704,11 @@ export interface QueryDenomToERC20ResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDenomToERC20Response";
   value: Uint8Array;
 }
+/**
+ * @name QueryDenomToERC20ResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDenomToERC20Response
+ */
 export interface QueryDenomToERC20ResponseAmino {
   erc20: string;
   cosmos_originated: boolean;
@@ -417,6 +717,11 @@ export interface QueryDenomToERC20ResponseAminoMsg {
   type: "/injective.peggy.v1.QueryDenomToERC20Response";
   value: QueryDenomToERC20ResponseAmino;
 }
+/**
+ * @name QueryDelegateKeysByValidatorAddress
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByValidatorAddress
+ */
 export interface QueryDelegateKeysByValidatorAddress {
   validatorAddress: string;
 }
@@ -424,6 +729,11 @@ export interface QueryDelegateKeysByValidatorAddressProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddress";
   value: Uint8Array;
 }
+/**
+ * @name QueryDelegateKeysByValidatorAddressAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByValidatorAddress
+ */
 export interface QueryDelegateKeysByValidatorAddressAmino {
   validator_address: string;
 }
@@ -431,6 +741,11 @@ export interface QueryDelegateKeysByValidatorAddressAminoMsg {
   type: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddress";
   value: QueryDelegateKeysByValidatorAddressAmino;
 }
+/**
+ * @name QueryDelegateKeysByValidatorAddressResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse
+ */
 export interface QueryDelegateKeysByValidatorAddressResponse {
   ethAddress: string;
   orchestratorAddress: string;
@@ -439,6 +754,11 @@ export interface QueryDelegateKeysByValidatorAddressResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryDelegateKeysByValidatorAddressResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse
+ */
 export interface QueryDelegateKeysByValidatorAddressResponseAmino {
   eth_address: string;
   orchestrator_address: string;
@@ -447,6 +767,11 @@ export interface QueryDelegateKeysByValidatorAddressResponseAminoMsg {
   type: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse";
   value: QueryDelegateKeysByValidatorAddressResponseAmino;
 }
+/**
+ * @name QueryDelegateKeysByEthAddress
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByEthAddress
+ */
 export interface QueryDelegateKeysByEthAddress {
   ethAddress: string;
 }
@@ -454,6 +779,11 @@ export interface QueryDelegateKeysByEthAddressProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddress";
   value: Uint8Array;
 }
+/**
+ * @name QueryDelegateKeysByEthAddressAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByEthAddress
+ */
 export interface QueryDelegateKeysByEthAddressAmino {
   eth_address: string;
 }
@@ -461,6 +791,11 @@ export interface QueryDelegateKeysByEthAddressAminoMsg {
   type: "/injective.peggy.v1.QueryDelegateKeysByEthAddress";
   value: QueryDelegateKeysByEthAddressAmino;
 }
+/**
+ * @name QueryDelegateKeysByEthAddressResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByEthAddressResponse
+ */
 export interface QueryDelegateKeysByEthAddressResponse {
   validatorAddress: string;
   orchestratorAddress: string;
@@ -469,6 +804,11 @@ export interface QueryDelegateKeysByEthAddressResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddressResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryDelegateKeysByEthAddressResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByEthAddressResponse
+ */
 export interface QueryDelegateKeysByEthAddressResponseAmino {
   validator_address: string;
   orchestrator_address: string;
@@ -477,6 +817,11 @@ export interface QueryDelegateKeysByEthAddressResponseAminoMsg {
   type: "/injective.peggy.v1.QueryDelegateKeysByEthAddressResponse";
   value: QueryDelegateKeysByEthAddressResponseAmino;
 }
+/**
+ * @name QueryDelegateKeysByOrchestratorAddress
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress
+ */
 export interface QueryDelegateKeysByOrchestratorAddress {
   orchestratorAddress: string;
 }
@@ -484,6 +829,11 @@ export interface QueryDelegateKeysByOrchestratorAddressProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress";
   value: Uint8Array;
 }
+/**
+ * @name QueryDelegateKeysByOrchestratorAddressAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress
+ */
 export interface QueryDelegateKeysByOrchestratorAddressAmino {
   orchestrator_address: string;
 }
@@ -491,6 +841,11 @@ export interface QueryDelegateKeysByOrchestratorAddressAminoMsg {
   type: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress";
   value: QueryDelegateKeysByOrchestratorAddressAmino;
 }
+/**
+ * @name QueryDelegateKeysByOrchestratorAddressResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse
+ */
 export interface QueryDelegateKeysByOrchestratorAddressResponse {
   validatorAddress: string;
   ethAddress: string;
@@ -499,6 +854,11 @@ export interface QueryDelegateKeysByOrchestratorAddressResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryDelegateKeysByOrchestratorAddressResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse
+ */
 export interface QueryDelegateKeysByOrchestratorAddressResponseAmino {
   validator_address: string;
   eth_address: string;
@@ -507,6 +867,11 @@ export interface QueryDelegateKeysByOrchestratorAddressResponseAminoMsg {
   type: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse";
   value: QueryDelegateKeysByOrchestratorAddressResponseAmino;
 }
+/**
+ * @name QueryPendingSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryPendingSendToEth
+ */
 export interface QueryPendingSendToEth {
   senderAddress: string;
 }
@@ -514,6 +879,11 @@ export interface QueryPendingSendToEthProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryPendingSendToEth";
   value: Uint8Array;
 }
+/**
+ * @name QueryPendingSendToEthAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryPendingSendToEth
+ */
 export interface QueryPendingSendToEthAmino {
   sender_address: string;
 }
@@ -521,6 +891,11 @@ export interface QueryPendingSendToEthAminoMsg {
   type: "/injective.peggy.v1.QueryPendingSendToEth";
   value: QueryPendingSendToEthAmino;
 }
+/**
+ * @name QueryPendingSendToEthResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryPendingSendToEthResponse
+ */
 export interface QueryPendingSendToEthResponse {
   transfersInBatches: OutgoingTransferTx[];
   unbatchedTransfers: OutgoingTransferTx[];
@@ -529,6 +904,11 @@ export interface QueryPendingSendToEthResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.QueryPendingSendToEthResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryPendingSendToEthResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryPendingSendToEthResponse
+ */
 export interface QueryPendingSendToEthResponseAmino {
   transfers_in_batches: OutgoingTransferTxAmino[];
   unbatched_transfers: OutgoingTransferTxAmino[];
@@ -540,6 +920,9 @@ export interface QueryPendingSendToEthResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/PeggyModuleState
  * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -549,6 +932,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/PeggyModuleState
  * RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -558,6 +944,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the Query/PeggyModuleState
  * RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -569,6 +958,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the Query/PeggyModuleState
  * RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -577,16 +969,31 @@ export interface QueryModuleStateResponseAminoMsg {
   type: "/injective.peggy.v1.QueryModuleStateResponse";
   value: QueryModuleStateResponseAmino;
 }
+/**
+ * @name MissingNoncesRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MissingNoncesRequest
+ */
 export interface MissingNoncesRequest {}
 export interface MissingNoncesRequestProtoMsg {
   typeUrl: "/injective.peggy.v1.MissingNoncesRequest";
   value: Uint8Array;
 }
+/**
+ * @name MissingNoncesRequestAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MissingNoncesRequest
+ */
 export interface MissingNoncesRequestAmino {}
 export interface MissingNoncesRequestAminoMsg {
   type: "/injective.peggy.v1.MissingNoncesRequest";
   value: MissingNoncesRequestAmino;
 }
+/**
+ * @name MissingNoncesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MissingNoncesResponse
+ */
 export interface MissingNoncesResponse {
   operatorAddresses: string[];
 }
@@ -594,6 +1001,11 @@ export interface MissingNoncesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MissingNoncesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MissingNoncesResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MissingNoncesResponse
+ */
 export interface MissingNoncesResponseAmino {
   operator_addresses: string[];
 }
@@ -604,6 +1016,11 @@ export interface MissingNoncesResponseAminoMsg {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * @name QueryParamsRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/injective.peggy.v1.QueryParamsRequest",
   is(o: any): o is QueryParamsRequest {
@@ -663,6 +1080,11 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name QueryParamsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/injective.peggy.v1.QueryParamsResponse",
   is(o: any): o is QueryParamsResponse {
@@ -736,6 +1158,11 @@ export const QueryParamsResponse = {
 function createBaseQueryCurrentValsetRequest(): QueryCurrentValsetRequest {
   return {};
 }
+/**
+ * @name QueryCurrentValsetRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryCurrentValsetRequest
+ */
 export const QueryCurrentValsetRequest = {
   typeUrl: "/injective.peggy.v1.QueryCurrentValsetRequest",
   is(o: any): o is QueryCurrentValsetRequest {
@@ -795,6 +1222,11 @@ function createBaseQueryCurrentValsetResponse(): QueryCurrentValsetResponse {
     valset: undefined
   };
 }
+/**
+ * @name QueryCurrentValsetResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryCurrentValsetResponse
+ */
 export const QueryCurrentValsetResponse = {
   typeUrl: "/injective.peggy.v1.QueryCurrentValsetResponse",
   is(o: any): o is QueryCurrentValsetResponse {
@@ -870,6 +1302,11 @@ function createBaseQueryValsetRequestRequest(): QueryValsetRequestRequest {
     nonce: BigInt(0)
   };
 }
+/**
+ * @name QueryValsetRequestRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetRequestRequest
+ */
 export const QueryValsetRequestRequest = {
   typeUrl: "/injective.peggy.v1.QueryValsetRequestRequest",
   is(o: any): o is QueryValsetRequestRequest {
@@ -940,6 +1377,11 @@ function createBaseQueryValsetRequestResponse(): QueryValsetRequestResponse {
     valset: undefined
   };
 }
+/**
+ * @name QueryValsetRequestResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetRequestResponse
+ */
 export const QueryValsetRequestResponse = {
   typeUrl: "/injective.peggy.v1.QueryValsetRequestResponse",
   is(o: any): o is QueryValsetRequestResponse {
@@ -1016,6 +1458,11 @@ function createBaseQueryValsetConfirmRequest(): QueryValsetConfirmRequest {
     address: ""
   };
 }
+/**
+ * @name QueryValsetConfirmRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmRequest
+ */
 export const QueryValsetConfirmRequest = {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmRequest",
   is(o: any): o is QueryValsetConfirmRequest {
@@ -1097,6 +1544,11 @@ function createBaseQueryValsetConfirmResponse(): QueryValsetConfirmResponse {
     confirm: undefined
   };
 }
+/**
+ * @name QueryValsetConfirmResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmResponse
+ */
 export const QueryValsetConfirmResponse = {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmResponse",
   is(o: any): o is QueryValsetConfirmResponse {
@@ -1172,6 +1624,11 @@ function createBaseQueryValsetConfirmsByNonceRequest(): QueryValsetConfirmsByNon
     nonce: BigInt(0)
   };
 }
+/**
+ * @name QueryValsetConfirmsByNonceRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmsByNonceRequest
+ */
 export const QueryValsetConfirmsByNonceRequest = {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceRequest",
   is(o: any): o is QueryValsetConfirmsByNonceRequest {
@@ -1242,6 +1699,11 @@ function createBaseQueryValsetConfirmsByNonceResponse(): QueryValsetConfirmsByNo
     confirms: []
   };
 }
+/**
+ * @name QueryValsetConfirmsByNonceResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryValsetConfirmsByNonceResponse
+ */
 export const QueryValsetConfirmsByNonceResponse = {
   typeUrl: "/injective.peggy.v1.QueryValsetConfirmsByNonceResponse",
   is(o: any): o is QueryValsetConfirmsByNonceResponse {
@@ -1317,6 +1779,11 @@ export const QueryValsetConfirmsByNonceResponse = {
 function createBaseQueryLastValsetRequestsRequest(): QueryLastValsetRequestsRequest {
   return {};
 }
+/**
+ * @name QueryLastValsetRequestsRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastValsetRequestsRequest
+ */
 export const QueryLastValsetRequestsRequest = {
   typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsRequest",
   is(o: any): o is QueryLastValsetRequestsRequest {
@@ -1376,6 +1843,11 @@ function createBaseQueryLastValsetRequestsResponse(): QueryLastValsetRequestsRes
     valsets: []
   };
 }
+/**
+ * @name QueryLastValsetRequestsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastValsetRequestsResponse
+ */
 export const QueryLastValsetRequestsResponse = {
   typeUrl: "/injective.peggy.v1.QueryLastValsetRequestsResponse",
   is(o: any): o is QueryLastValsetRequestsResponse {
@@ -1453,6 +1925,11 @@ function createBaseQueryLastPendingValsetRequestByAddrRequest(): QueryLastPendin
     address: ""
   };
 }
+/**
+ * @name QueryLastPendingValsetRequestByAddrRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest
+ */
 export const QueryLastPendingValsetRequestByAddrRequest = {
   typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrRequest",
   is(o: any): o is QueryLastPendingValsetRequestByAddrRequest {
@@ -1523,6 +2000,11 @@ function createBaseQueryLastPendingValsetRequestByAddrResponse(): QueryLastPendi
     valsets: []
   };
 }
+/**
+ * @name QueryLastPendingValsetRequestByAddrResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse
+ */
 export const QueryLastPendingValsetRequestByAddrResponse = {
   typeUrl: "/injective.peggy.v1.QueryLastPendingValsetRequestByAddrResponse",
   is(o: any): o is QueryLastPendingValsetRequestByAddrResponse {
@@ -1598,6 +2080,11 @@ export const QueryLastPendingValsetRequestByAddrResponse = {
 function createBaseQueryBatchFeeRequest(): QueryBatchFeeRequest {
   return {};
 }
+/**
+ * @name QueryBatchFeeRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchFeeRequest
+ */
 export const QueryBatchFeeRequest = {
   typeUrl: "/injective.peggy.v1.QueryBatchFeeRequest",
   is(o: any): o is QueryBatchFeeRequest {
@@ -1657,6 +2144,11 @@ function createBaseQueryBatchFeeResponse(): QueryBatchFeeResponse {
     batchFees: []
   };
 }
+/**
+ * @name QueryBatchFeeResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchFeeResponse
+ */
 export const QueryBatchFeeResponse = {
   typeUrl: "/injective.peggy.v1.QueryBatchFeeResponse",
   is(o: any): o is QueryBatchFeeResponse {
@@ -1734,6 +2226,11 @@ function createBaseQueryLastPendingBatchRequestByAddrRequest(): QueryLastPending
     address: ""
   };
 }
+/**
+ * @name QueryLastPendingBatchRequestByAddrRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest
+ */
 export const QueryLastPendingBatchRequestByAddrRequest = {
   typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrRequest",
   is(o: any): o is QueryLastPendingBatchRequestByAddrRequest {
@@ -1804,6 +2301,11 @@ function createBaseQueryLastPendingBatchRequestByAddrResponse(): QueryLastPendin
     batch: undefined
   };
 }
+/**
+ * @name QueryLastPendingBatchRequestByAddrResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse
+ */
 export const QueryLastPendingBatchRequestByAddrResponse = {
   typeUrl: "/injective.peggy.v1.QueryLastPendingBatchRequestByAddrResponse",
   is(o: any): o is QueryLastPendingBatchRequestByAddrResponse {
@@ -1877,6 +2379,11 @@ export const QueryLastPendingBatchRequestByAddrResponse = {
 function createBaseQueryOutgoingTxBatchesRequest(): QueryOutgoingTxBatchesRequest {
   return {};
 }
+/**
+ * @name QueryOutgoingTxBatchesRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryOutgoingTxBatchesRequest
+ */
 export const QueryOutgoingTxBatchesRequest = {
   typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesRequest",
   is(o: any): o is QueryOutgoingTxBatchesRequest {
@@ -1936,6 +2443,11 @@ function createBaseQueryOutgoingTxBatchesResponse(): QueryOutgoingTxBatchesRespo
     batches: []
   };
 }
+/**
+ * @name QueryOutgoingTxBatchesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryOutgoingTxBatchesResponse
+ */
 export const QueryOutgoingTxBatchesResponse = {
   typeUrl: "/injective.peggy.v1.QueryOutgoingTxBatchesResponse",
   is(o: any): o is QueryOutgoingTxBatchesResponse {
@@ -2014,6 +2526,11 @@ function createBaseQueryBatchRequestByNonceRequest(): QueryBatchRequestByNonceRe
     contractAddress: ""
   };
 }
+/**
+ * @name QueryBatchRequestByNonceRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchRequestByNonceRequest
+ */
 export const QueryBatchRequestByNonceRequest = {
   typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceRequest",
   is(o: any): o is QueryBatchRequestByNonceRequest {
@@ -2095,6 +2612,11 @@ function createBaseQueryBatchRequestByNonceResponse(): QueryBatchRequestByNonceR
     batch: undefined
   };
 }
+/**
+ * @name QueryBatchRequestByNonceResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchRequestByNonceResponse
+ */
 export const QueryBatchRequestByNonceResponse = {
   typeUrl: "/injective.peggy.v1.QueryBatchRequestByNonceResponse",
   is(o: any): o is QueryBatchRequestByNonceResponse {
@@ -2171,6 +2693,11 @@ function createBaseQueryBatchConfirmsRequest(): QueryBatchConfirmsRequest {
     contractAddress: ""
   };
 }
+/**
+ * @name QueryBatchConfirmsRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchConfirmsRequest
+ */
 export const QueryBatchConfirmsRequest = {
   typeUrl: "/injective.peggy.v1.QueryBatchConfirmsRequest",
   is(o: any): o is QueryBatchConfirmsRequest {
@@ -2252,6 +2779,11 @@ function createBaseQueryBatchConfirmsResponse(): QueryBatchConfirmsResponse {
     confirms: []
   };
 }
+/**
+ * @name QueryBatchConfirmsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryBatchConfirmsResponse
+ */
 export const QueryBatchConfirmsResponse = {
   typeUrl: "/injective.peggy.v1.QueryBatchConfirmsResponse",
   is(o: any): o is QueryBatchConfirmsResponse {
@@ -2329,6 +2861,11 @@ function createBaseQueryLastEventByAddrRequest(): QueryLastEventByAddrRequest {
     address: ""
   };
 }
+/**
+ * @name QueryLastEventByAddrRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastEventByAddrRequest
+ */
 export const QueryLastEventByAddrRequest = {
   typeUrl: "/injective.peggy.v1.QueryLastEventByAddrRequest",
   is(o: any): o is QueryLastEventByAddrRequest {
@@ -2399,6 +2936,11 @@ function createBaseQueryLastEventByAddrResponse(): QueryLastEventByAddrResponse 
     lastClaimEvent: undefined
   };
 }
+/**
+ * @name QueryLastEventByAddrResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryLastEventByAddrResponse
+ */
 export const QueryLastEventByAddrResponse = {
   typeUrl: "/injective.peggy.v1.QueryLastEventByAddrResponse",
   is(o: any): o is QueryLastEventByAddrResponse {
@@ -2474,6 +3016,11 @@ function createBaseQueryERC20ToDenomRequest(): QueryERC20ToDenomRequest {
     erc20: ""
   };
 }
+/**
+ * @name QueryERC20ToDenomRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryERC20ToDenomRequest
+ */
 export const QueryERC20ToDenomRequest = {
   typeUrl: "/injective.peggy.v1.QueryERC20ToDenomRequest",
   is(o: any): o is QueryERC20ToDenomRequest {
@@ -2545,6 +3092,11 @@ function createBaseQueryERC20ToDenomResponse(): QueryERC20ToDenomResponse {
     cosmosOriginated: false
   };
 }
+/**
+ * @name QueryERC20ToDenomResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryERC20ToDenomResponse
+ */
 export const QueryERC20ToDenomResponse = {
   typeUrl: "/injective.peggy.v1.QueryERC20ToDenomResponse",
   is(o: any): o is QueryERC20ToDenomResponse {
@@ -2626,6 +3178,11 @@ function createBaseQueryDenomToERC20Request(): QueryDenomToERC20Request {
     denom: ""
   };
 }
+/**
+ * @name QueryDenomToERC20Request
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDenomToERC20Request
+ */
 export const QueryDenomToERC20Request = {
   typeUrl: "/injective.peggy.v1.QueryDenomToERC20Request",
   is(o: any): o is QueryDenomToERC20Request {
@@ -2697,6 +3254,11 @@ function createBaseQueryDenomToERC20Response(): QueryDenomToERC20Response {
     cosmosOriginated: false
   };
 }
+/**
+ * @name QueryDenomToERC20Response
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDenomToERC20Response
+ */
 export const QueryDenomToERC20Response = {
   typeUrl: "/injective.peggy.v1.QueryDenomToERC20Response",
   is(o: any): o is QueryDenomToERC20Response {
@@ -2778,6 +3340,11 @@ function createBaseQueryDelegateKeysByValidatorAddress(): QueryDelegateKeysByVal
     validatorAddress: ""
   };
 }
+/**
+ * @name QueryDelegateKeysByValidatorAddress
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByValidatorAddress
+ */
 export const QueryDelegateKeysByValidatorAddress = {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddress",
   is(o: any): o is QueryDelegateKeysByValidatorAddress {
@@ -2849,6 +3416,11 @@ function createBaseQueryDelegateKeysByValidatorAddressResponse(): QueryDelegateK
     orchestratorAddress: ""
   };
 }
+/**
+ * @name QueryDelegateKeysByValidatorAddressResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse
+ */
 export const QueryDelegateKeysByValidatorAddressResponse = {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByValidatorAddressResponse",
   is(o: any): o is QueryDelegateKeysByValidatorAddressResponse {
@@ -2930,6 +3502,11 @@ function createBaseQueryDelegateKeysByEthAddress(): QueryDelegateKeysByEthAddres
     ethAddress: ""
   };
 }
+/**
+ * @name QueryDelegateKeysByEthAddress
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByEthAddress
+ */
 export const QueryDelegateKeysByEthAddress = {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddress",
   is(o: any): o is QueryDelegateKeysByEthAddress {
@@ -3001,6 +3578,11 @@ function createBaseQueryDelegateKeysByEthAddressResponse(): QueryDelegateKeysByE
     orchestratorAddress: ""
   };
 }
+/**
+ * @name QueryDelegateKeysByEthAddressResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByEthAddressResponse
+ */
 export const QueryDelegateKeysByEthAddressResponse = {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByEthAddressResponse",
   is(o: any): o is QueryDelegateKeysByEthAddressResponse {
@@ -3082,6 +3664,11 @@ function createBaseQueryDelegateKeysByOrchestratorAddress(): QueryDelegateKeysBy
     orchestratorAddress: ""
   };
 }
+/**
+ * @name QueryDelegateKeysByOrchestratorAddress
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress
+ */
 export const QueryDelegateKeysByOrchestratorAddress = {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddress",
   is(o: any): o is QueryDelegateKeysByOrchestratorAddress {
@@ -3153,6 +3740,11 @@ function createBaseQueryDelegateKeysByOrchestratorAddressResponse(): QueryDelega
     ethAddress: ""
   };
 }
+/**
+ * @name QueryDelegateKeysByOrchestratorAddressResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse
+ */
 export const QueryDelegateKeysByOrchestratorAddressResponse = {
   typeUrl: "/injective.peggy.v1.QueryDelegateKeysByOrchestratorAddressResponse",
   is(o: any): o is QueryDelegateKeysByOrchestratorAddressResponse {
@@ -3234,6 +3826,11 @@ function createBaseQueryPendingSendToEth(): QueryPendingSendToEth {
     senderAddress: ""
   };
 }
+/**
+ * @name QueryPendingSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryPendingSendToEth
+ */
 export const QueryPendingSendToEth = {
   typeUrl: "/injective.peggy.v1.QueryPendingSendToEth",
   is(o: any): o is QueryPendingSendToEth {
@@ -3305,6 +3902,11 @@ function createBaseQueryPendingSendToEthResponse(): QueryPendingSendToEthRespons
     unbatchedTransfers: []
   };
 }
+/**
+ * @name QueryPendingSendToEthResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryPendingSendToEthResponse
+ */
 export const QueryPendingSendToEthResponse = {
   typeUrl: "/injective.peggy.v1.QueryPendingSendToEthResponse",
   is(o: any): o is QueryPendingSendToEthResponse {
@@ -3393,6 +3995,13 @@ export const QueryPendingSendToEthResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the Query/PeggyModuleState
+ * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.peggy.v1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -3452,6 +4061,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the Query/PeggyModuleState
+ * RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.peggy.v1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {
@@ -3525,6 +4141,11 @@ export const QueryModuleStateResponse = {
 function createBaseMissingNoncesRequest(): MissingNoncesRequest {
   return {};
 }
+/**
+ * @name MissingNoncesRequest
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MissingNoncesRequest
+ */
 export const MissingNoncesRequest = {
   typeUrl: "/injective.peggy.v1.MissingNoncesRequest",
   is(o: any): o is MissingNoncesRequest {
@@ -3584,6 +4205,11 @@ function createBaseMissingNoncesResponse(): MissingNoncesResponse {
     operatorAddresses: []
   };
 }
+/**
+ * @name MissingNoncesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MissingNoncesResponse
+ */
 export const MissingNoncesResponse = {
   typeUrl: "/injective.peggy.v1.MissingNoncesResponse",
   is(o: any): o is MissingNoncesResponse {

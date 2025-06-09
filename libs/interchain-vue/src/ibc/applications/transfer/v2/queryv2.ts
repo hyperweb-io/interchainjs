@@ -6,9 +6,14 @@ import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * QueryDenomRequest is the request type for the Query/Denom RPC
  * method
+ * @name QueryDenomRequest
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomRequest
  */
 export interface QueryDenomRequest {
-  /** hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination. */
+  /**
+   * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+   */
   hash: string;
 }
 export interface QueryDenomRequestProtoMsg {
@@ -18,9 +23,14 @@ export interface QueryDenomRequestProtoMsg {
 /**
  * QueryDenomRequest is the request type for the Query/Denom RPC
  * method
+ * @name QueryDenomRequestAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomRequest
  */
 export interface QueryDenomRequestAmino {
-  /** hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination. */
+  /**
+   * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+   */
   hash: string;
 }
 export interface QueryDenomRequestAminoMsg {
@@ -30,9 +40,14 @@ export interface QueryDenomRequestAminoMsg {
 /**
  * QueryDenomResponse is the response type for the Query/Denom RPC
  * method.
+ * @name QueryDenomResponse
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomResponse
  */
 export interface QueryDenomResponse {
-  /** denom returns the requested denomination. */
+  /**
+   * denom returns the requested denomination.
+   */
   denom?: Denom;
 }
 export interface QueryDenomResponseProtoMsg {
@@ -42,9 +57,14 @@ export interface QueryDenomResponseProtoMsg {
 /**
  * QueryDenomResponse is the response type for the Query/Denom RPC
  * method.
+ * @name QueryDenomResponseAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomResponse
  */
 export interface QueryDenomResponseAmino {
-  /** denom returns the requested denomination. */
+  /**
+   * denom returns the requested denomination.
+   */
   denom?: DenomAmino;
 }
 export interface QueryDenomResponseAminoMsg {
@@ -54,9 +74,14 @@ export interface QueryDenomResponseAminoMsg {
 /**
  * QueryDenomsRequest is the request type for the Query/Denoms RPC
  * method
+ * @name QueryDenomsRequest
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomsRequest
  */
 export interface QueryDenomsRequest {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequest;
 }
 export interface QueryDenomsRequestProtoMsg {
@@ -66,9 +91,14 @@ export interface QueryDenomsRequestProtoMsg {
 /**
  * QueryDenomsRequest is the request type for the Query/Denoms RPC
  * method
+ * @name QueryDenomsRequestAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomsRequest
  */
 export interface QueryDenomsRequestAmino {
-  /** pagination defines an optional pagination for the request. */
+  /**
+   * pagination defines an optional pagination for the request.
+   */
   pagination?: PageRequestAmino;
 }
 export interface QueryDenomsRequestAminoMsg {
@@ -78,11 +108,18 @@ export interface QueryDenomsRequestAminoMsg {
 /**
  * QueryDenomsResponse is the response type for the Query/Denoms RPC
  * method.
+ * @name QueryDenomsResponse
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomsResponse
  */
 export interface QueryDenomsResponse {
-  /** denoms returns all denominations. */
+  /**
+   * denoms returns all denominations.
+   */
   denoms: Denom[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponse;
 }
 export interface QueryDenomsResponseProtoMsg {
@@ -92,11 +129,18 @@ export interface QueryDenomsResponseProtoMsg {
 /**
  * QueryDenomsResponse is the response type for the Query/Denoms RPC
  * method.
+ * @name QueryDenomsResponseAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomsResponse
  */
 export interface QueryDenomsResponseAmino {
-  /** denoms returns all denominations. */
+  /**
+   * denoms returns all denominations.
+   */
   denoms: DenomAmino[];
-  /** pagination defines the pagination in the response. */
+  /**
+   * pagination defines the pagination in the response.
+   */
   pagination?: PageResponseAmino;
 }
 export interface QueryDenomsResponseAminoMsg {
@@ -108,6 +152,13 @@ function createBaseQueryDenomRequest(): QueryDenomRequest {
     hash: ""
   };
 }
+/**
+ * QueryDenomRequest is the request type for the Query/Denom RPC
+ * method
+ * @name QueryDenomRequest
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomRequest
+ */
 export const QueryDenomRequest = {
   typeUrl: "/ibc.applications.transfer.v2.QueryDenomRequest",
   aminoType: "cosmos-sdk/QueryDenomRequest",
@@ -185,6 +236,13 @@ function createBaseQueryDenomResponse(): QueryDenomResponse {
     denom: undefined
   };
 }
+/**
+ * QueryDenomResponse is the response type for the Query/Denom RPC
+ * method.
+ * @name QueryDenomResponse
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomResponse
+ */
 export const QueryDenomResponse = {
   typeUrl: "/ibc.applications.transfer.v2.QueryDenomResponse",
   aminoType: "cosmos-sdk/QueryDenomResponse",
@@ -267,6 +325,13 @@ function createBaseQueryDenomsRequest(): QueryDenomsRequest {
     pagination: undefined
   };
 }
+/**
+ * QueryDenomsRequest is the request type for the Query/Denoms RPC
+ * method
+ * @name QueryDenomsRequest
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomsRequest
+ */
 export const QueryDenomsRequest = {
   typeUrl: "/ibc.applications.transfer.v2.QueryDenomsRequest",
   aminoType: "cosmos-sdk/QueryDenomsRequest",
@@ -350,6 +415,13 @@ function createBaseQueryDenomsResponse(): QueryDenomsResponse {
     pagination: undefined
   };
 }
+/**
+ * QueryDenomsResponse is the response type for the Query/Denoms RPC
+ * method.
+ * @name QueryDenomsResponse
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.QueryDenomsResponse
+ */
 export const QueryDenomsResponse = {
   typeUrl: "/ibc.applications.transfer.v2.QueryDenomsResponse",
   aminoType: "cosmos-sdk/QueryDenomsResponse",

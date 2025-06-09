@@ -3,85 +3,157 @@ import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-/** MsgRegisterPayee defines the request type for the RegisterPayee rpc */
+/**
+ * MsgRegisterPayee defines the request type for the RegisterPayee rpc
+ * @name MsgRegisterPayee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterPayee
+ */
 export interface MsgRegisterPayee {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   portId: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channelId: string;
-  /** the relayer address */
+  /**
+   * the relayer address
+   */
   relayer: string;
-  /** the payee address */
+  /**
+   * the payee address
+   */
   payee: string;
 }
 export interface MsgRegisterPayeeProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayee";
   value: Uint8Array;
 }
-/** MsgRegisterPayee defines the request type for the RegisterPayee rpc */
+/**
+ * MsgRegisterPayee defines the request type for the RegisterPayee rpc
+ * @name MsgRegisterPayeeAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterPayee
+ */
 export interface MsgRegisterPayeeAmino {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   port_id: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channel_id: string;
-  /** the relayer address */
+  /**
+   * the relayer address
+   */
   relayer: string;
-  /** the payee address */
+  /**
+   * the payee address
+   */
   payee: string;
 }
 export interface MsgRegisterPayeeAminoMsg {
   type: "cosmos-sdk/MsgRegisterPayee";
   value: MsgRegisterPayeeAmino;
 }
-/** MsgRegisterPayeeResponse defines the response type for the RegisterPayee rpc */
+/**
+ * MsgRegisterPayeeResponse defines the response type for the RegisterPayee rpc
+ * @name MsgRegisterPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterPayeeResponse
+ */
 export interface MsgRegisterPayeeResponse {}
 export interface MsgRegisterPayeeResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayeeResponse";
   value: Uint8Array;
 }
-/** MsgRegisterPayeeResponse defines the response type for the RegisterPayee rpc */
+/**
+ * MsgRegisterPayeeResponse defines the response type for the RegisterPayee rpc
+ * @name MsgRegisterPayeeResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterPayeeResponse
+ */
 export interface MsgRegisterPayeeResponseAmino {}
 export interface MsgRegisterPayeeResponseAminoMsg {
   type: "cosmos-sdk/MsgRegisterPayeeResponse";
   value: MsgRegisterPayeeResponseAmino;
 }
-/** MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc */
+/**
+ * MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc
+ * @name MsgRegisterCounterpartyPayee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterCounterpartyPayee
+ */
 export interface MsgRegisterCounterpartyPayee {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   portId: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channelId: string;
-  /** the relayer address */
+  /**
+   * the relayer address
+   */
   relayer: string;
-  /** the counterparty payee address */
+  /**
+   * the counterparty payee address
+   */
   counterpartyPayee: string;
 }
 export interface MsgRegisterCounterpartyPayeeProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayee";
   value: Uint8Array;
 }
-/** MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc */
+/**
+ * MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc
+ * @name MsgRegisterCounterpartyPayeeAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterCounterpartyPayee
+ */
 export interface MsgRegisterCounterpartyPayeeAmino {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   port_id: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channel_id: string;
-  /** the relayer address */
+  /**
+   * the relayer address
+   */
   relayer: string;
-  /** the counterparty payee address */
+  /**
+   * the counterparty payee address
+   */
   counterparty_payee: string;
 }
 export interface MsgRegisterCounterpartyPayeeAminoMsg {
   type: "cosmos-sdk/MsgRegisterCounterpartyPayee";
   value: MsgRegisterCounterpartyPayeeAmino;
 }
-/** MsgRegisterCounterpartyPayeeResponse defines the response type for the RegisterCounterpartyPayee rpc */
+/**
+ * MsgRegisterCounterpartyPayeeResponse defines the response type for the RegisterCounterpartyPayee rpc
+ * @name MsgRegisterCounterpartyPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse
+ */
 export interface MsgRegisterCounterpartyPayeeResponse {}
 export interface MsgRegisterCounterpartyPayeeResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse";
   value: Uint8Array;
 }
-/** MsgRegisterCounterpartyPayeeResponse defines the response type for the RegisterCounterpartyPayee rpc */
+/**
+ * MsgRegisterCounterpartyPayeeResponse defines the response type for the RegisterCounterpartyPayee rpc
+ * @name MsgRegisterCounterpartyPayeeResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse
+ */
 export interface MsgRegisterCounterpartyPayeeResponseAmino {}
 export interface MsgRegisterCounterpartyPayeeResponseAminoMsg {
   type: "cosmos-sdk/MsgRegisterCounterpartyPayeeResponse";
@@ -91,17 +163,30 @@ export interface MsgRegisterCounterpartyPayeeResponseAminoMsg {
  * MsgPayPacketFee defines the request type for the PayPacketFee rpc
  * This Msg can be used to pay for a packet at the next sequence send & should be combined with the Msg that will be
  * paid for
+ * @name MsgPayPacketFee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFee
  */
 export interface MsgPayPacketFee {
-  /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
+  /**
+   * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
+   */
   fee: Fee;
-  /** the source port unique identifier */
+  /**
+   * the source port unique identifier
+   */
   sourcePortId: string;
-  /** the source channel unique identifier */
+  /**
+   * the source channel unique identifier
+   */
   sourceChannelId: string;
-  /** account address to refund fee if necessary */
+  /**
+   * account address to refund fee if necessary
+   */
   signer: string;
-  /** optional list of relayers permitted to the receive packet fees */
+  /**
+   * optional list of relayers permitted to the receive packet fees
+   */
   relayers: string[];
 }
 export interface MsgPayPacketFeeProtoMsg {
@@ -112,30 +197,53 @@ export interface MsgPayPacketFeeProtoMsg {
  * MsgPayPacketFee defines the request type for the PayPacketFee rpc
  * This Msg can be used to pay for a packet at the next sequence send & should be combined with the Msg that will be
  * paid for
+ * @name MsgPayPacketFeeAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFee
  */
 export interface MsgPayPacketFeeAmino {
-  /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
+  /**
+   * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
+   */
   fee: FeeAmino;
-  /** the source port unique identifier */
+  /**
+   * the source port unique identifier
+   */
   source_port_id: string;
-  /** the source channel unique identifier */
+  /**
+   * the source channel unique identifier
+   */
   source_channel_id: string;
-  /** account address to refund fee if necessary */
+  /**
+   * account address to refund fee if necessary
+   */
   signer: string;
-  /** optional list of relayers permitted to the receive packet fees */
+  /**
+   * optional list of relayers permitted to the receive packet fees
+   */
   relayers: string[];
 }
 export interface MsgPayPacketFeeAminoMsg {
   type: "cosmos-sdk/MsgPayPacketFee";
   value: MsgPayPacketFeeAmino;
 }
-/** MsgPayPacketFeeResponse defines the response type for the PayPacketFee rpc */
+/**
+ * MsgPayPacketFeeResponse defines the response type for the PayPacketFee rpc
+ * @name MsgPayPacketFeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeResponse
+ */
 export interface MsgPayPacketFeeResponse {}
 export interface MsgPayPacketFeeResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeResponse";
   value: Uint8Array;
 }
-/** MsgPayPacketFeeResponse defines the response type for the PayPacketFee rpc */
+/**
+ * MsgPayPacketFeeResponse defines the response type for the PayPacketFee rpc
+ * @name MsgPayPacketFeeResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeResponse
+ */
 export interface MsgPayPacketFeeResponseAmino {}
 export interface MsgPayPacketFeeResponseAminoMsg {
   type: "cosmos-sdk/MsgPayPacketFeeResponse";
@@ -144,11 +252,18 @@ export interface MsgPayPacketFeeResponseAminoMsg {
 /**
  * MsgPayPacketFeeAsync defines the request type for the PayPacketFeeAsync rpc
  * This Msg can be used to pay for a packet at a specified sequence (instead of the next sequence send)
+ * @name MsgPayPacketFeeAsync
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeAsync
  */
 export interface MsgPayPacketFeeAsync {
-  /** unique packet identifier comprised of the channel ID, port ID and sequence */
+  /**
+   * unique packet identifier comprised of the channel ID, port ID and sequence
+   */
   packetId: PacketId;
-  /** the packet fee associated with a particular IBC packet */
+  /**
+   * the packet fee associated with a particular IBC packet
+   */
   packetFee: PacketFee;
 }
 export interface MsgPayPacketFeeAsyncProtoMsg {
@@ -158,24 +273,41 @@ export interface MsgPayPacketFeeAsyncProtoMsg {
 /**
  * MsgPayPacketFeeAsync defines the request type for the PayPacketFeeAsync rpc
  * This Msg can be used to pay for a packet at a specified sequence (instead of the next sequence send)
+ * @name MsgPayPacketFeeAsyncAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeAsync
  */
 export interface MsgPayPacketFeeAsyncAmino {
-  /** unique packet identifier comprised of the channel ID, port ID and sequence */
+  /**
+   * unique packet identifier comprised of the channel ID, port ID and sequence
+   */
   packet_id: PacketIdAmino;
-  /** the packet fee associated with a particular IBC packet */
+  /**
+   * the packet fee associated with a particular IBC packet
+   */
   packet_fee: PacketFeeAmino;
 }
 export interface MsgPayPacketFeeAsyncAminoMsg {
   type: "cosmos-sdk/MsgPayPacketFeeAsync";
   value: MsgPayPacketFeeAsyncAmino;
 }
-/** MsgPayPacketFeeAsyncResponse defines the response type for the PayPacketFeeAsync rpc */
+/**
+ * MsgPayPacketFeeAsyncResponse defines the response type for the PayPacketFeeAsync rpc
+ * @name MsgPayPacketFeeAsyncResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse
+ */
 export interface MsgPayPacketFeeAsyncResponse {}
 export interface MsgPayPacketFeeAsyncResponseProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse";
   value: Uint8Array;
 }
-/** MsgPayPacketFeeAsyncResponse defines the response type for the PayPacketFeeAsync rpc */
+/**
+ * MsgPayPacketFeeAsyncResponse defines the response type for the PayPacketFeeAsync rpc
+ * @name MsgPayPacketFeeAsyncResponseAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse
+ */
 export interface MsgPayPacketFeeAsyncResponseAmino {}
 export interface MsgPayPacketFeeAsyncResponseAminoMsg {
   type: "cosmos-sdk/MsgPayPacketFeeAsyncResponse";
@@ -189,6 +321,12 @@ function createBaseMsgRegisterPayee(): MsgRegisterPayee {
     payee: ""
   };
 }
+/**
+ * MsgRegisterPayee defines the request type for the RegisterPayee rpc
+ * @name MsgRegisterPayee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterPayee
+ */
 export const MsgRegisterPayee = {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayee",
   aminoType: "cosmos-sdk/MsgRegisterPayee",
@@ -297,6 +435,12 @@ export const MsgRegisterPayee = {
 function createBaseMsgRegisterPayeeResponse(): MsgRegisterPayeeResponse {
   return {};
 }
+/**
+ * MsgRegisterPayeeResponse defines the response type for the RegisterPayee rpc
+ * @name MsgRegisterPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterPayeeResponse
+ */
 export const MsgRegisterPayeeResponse = {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayeeResponse",
   aminoType: "cosmos-sdk/MsgRegisterPayeeResponse",
@@ -366,6 +510,12 @@ function createBaseMsgRegisterCounterpartyPayee(): MsgRegisterCounterpartyPayee 
     counterpartyPayee: ""
   };
 }
+/**
+ * MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc
+ * @name MsgRegisterCounterpartyPayee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterCounterpartyPayee
+ */
 export const MsgRegisterCounterpartyPayee = {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayee",
   aminoType: "cosmos-sdk/MsgRegisterCounterpartyPayee",
@@ -474,6 +624,12 @@ export const MsgRegisterCounterpartyPayee = {
 function createBaseMsgRegisterCounterpartyPayeeResponse(): MsgRegisterCounterpartyPayeeResponse {
   return {};
 }
+/**
+ * MsgRegisterCounterpartyPayeeResponse defines the response type for the RegisterCounterpartyPayee rpc
+ * @name MsgRegisterCounterpartyPayeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse
+ */
 export const MsgRegisterCounterpartyPayeeResponse = {
   typeUrl: "/ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse",
   aminoType: "cosmos-sdk/MsgRegisterCounterpartyPayeeResponse",
@@ -544,6 +700,14 @@ function createBaseMsgPayPacketFee(): MsgPayPacketFee {
     relayers: []
   };
 }
+/**
+ * MsgPayPacketFee defines the request type for the PayPacketFee rpc
+ * This Msg can be used to pay for a packet at the next sequence send & should be combined with the Msg that will be
+ * paid for
+ * @name MsgPayPacketFee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFee
+ */
 export const MsgPayPacketFee = {
   typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFee",
   aminoType: "cosmos-sdk/MsgPayPacketFee",
@@ -670,6 +834,12 @@ export const MsgPayPacketFee = {
 function createBaseMsgPayPacketFeeResponse(): MsgPayPacketFeeResponse {
   return {};
 }
+/**
+ * MsgPayPacketFeeResponse defines the response type for the PayPacketFee rpc
+ * @name MsgPayPacketFeeResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeResponse
+ */
 export const MsgPayPacketFeeResponse = {
   typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeResponse",
   aminoType: "cosmos-sdk/MsgPayPacketFeeResponse",
@@ -737,6 +907,13 @@ function createBaseMsgPayPacketFeeAsync(): MsgPayPacketFeeAsync {
     packetFee: PacketFee.fromPartial({})
   };
 }
+/**
+ * MsgPayPacketFeeAsync defines the request type for the PayPacketFeeAsync rpc
+ * This Msg can be used to pay for a packet at a specified sequence (instead of the next sequence send)
+ * @name MsgPayPacketFeeAsync
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeAsync
+ */
 export const MsgPayPacketFeeAsync = {
   typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsync",
   aminoType: "cosmos-sdk/MsgPayPacketFeeAsync",
@@ -829,6 +1006,12 @@ export const MsgPayPacketFeeAsync = {
 function createBaseMsgPayPacketFeeAsyncResponse(): MsgPayPacketFeeAsyncResponse {
   return {};
 }
+/**
+ * MsgPayPacketFeeAsyncResponse defines the response type for the PayPacketFeeAsync rpc
+ * @name MsgPayPacketFeeAsyncResponse
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse
+ */
 export const MsgPayPacketFeeAsyncResponse = {
   typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse",
   aminoType: "cosmos-sdk/MsgPayPacketFeeAsyncResponse",

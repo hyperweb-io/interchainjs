@@ -4,6 +4,9 @@ import { DeepPartial } from "../../../helpers";
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
+ * @name EthAccount
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.EthAccount
  */
 export interface EthAccount {
   baseAccount?: BaseAccount;
@@ -15,6 +18,13 @@ function createBaseEthAccount(): EthAccount {
     codeHash: new Uint8Array()
   };
 }
+/**
+ * EthAccount implements the authtypes.AccountI interface and embeds an
+ * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
+ * @name EthAccount
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.EthAccount
+ */
 export const EthAccount = {
   typeUrl: "/injective.types.v1beta1.EthAccount",
   encode(message: EthAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

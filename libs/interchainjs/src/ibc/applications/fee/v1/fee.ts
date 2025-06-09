@@ -3,92 +3,168 @@ import { PacketId, PacketIdAmino } from "../../../core/channel/v1/channel";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-/** Fee defines the ICS29 receive, acknowledgement and timeout fees */
+/**
+ * Fee defines the ICS29 receive, acknowledgement and timeout fees
+ * @name Fee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.Fee
+ */
 export interface Fee {
-  /** the packet receive fee */
+  /**
+   * the packet receive fee
+   */
   recvFee: Coin[];
-  /** the packet acknowledgement fee */
+  /**
+   * the packet acknowledgement fee
+   */
   ackFee: Coin[];
-  /** the packet timeout fee */
+  /**
+   * the packet timeout fee
+   */
   timeoutFee: Coin[];
 }
 export interface FeeProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.Fee";
   value: Uint8Array;
 }
-/** Fee defines the ICS29 receive, acknowledgement and timeout fees */
+/**
+ * Fee defines the ICS29 receive, acknowledgement and timeout fees
+ * @name FeeAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.Fee
+ */
 export interface FeeAmino {
-  /** the packet receive fee */
+  /**
+   * the packet receive fee
+   */
   recv_fee: CoinAmino[];
-  /** the packet acknowledgement fee */
+  /**
+   * the packet acknowledgement fee
+   */
   ack_fee: CoinAmino[];
-  /** the packet timeout fee */
+  /**
+   * the packet timeout fee
+   */
   timeout_fee: CoinAmino[];
 }
 export interface FeeAminoMsg {
   type: "cosmos-sdk/Fee";
   value: FeeAmino;
 }
-/** PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers */
+/**
+ * PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers
+ * @name PacketFee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.PacketFee
+ */
 export interface PacketFee {
-  /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
+  /**
+   * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
+   */
   fee: Fee;
-  /** the refund address for unspent fees */
+  /**
+   * the refund address for unspent fees
+   */
   refundAddress: string;
-  /** optional list of relayers permitted to receive fees */
+  /**
+   * optional list of relayers permitted to receive fees
+   */
   relayers: string[];
 }
 export interface PacketFeeProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.PacketFee";
   value: Uint8Array;
 }
-/** PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers */
+/**
+ * PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers
+ * @name PacketFeeAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.PacketFee
+ */
 export interface PacketFeeAmino {
-  /** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
+  /**
+   * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
+   */
   fee: FeeAmino;
-  /** the refund address for unspent fees */
+  /**
+   * the refund address for unspent fees
+   */
   refund_address: string;
-  /** optional list of relayers permitted to receive fees */
+  /**
+   * optional list of relayers permitted to receive fees
+   */
   relayers: string[];
 }
 export interface PacketFeeAminoMsg {
   type: "cosmos-sdk/PacketFee";
   value: PacketFeeAmino;
 }
-/** PacketFees contains a list of type PacketFee */
+/**
+ * PacketFees contains a list of type PacketFee
+ * @name PacketFees
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.PacketFees
+ */
 export interface PacketFees {
-  /** list of packet fees */
+  /**
+   * list of packet fees
+   */
   packetFees: PacketFee[];
 }
 export interface PacketFeesProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.PacketFees";
   value: Uint8Array;
 }
-/** PacketFees contains a list of type PacketFee */
+/**
+ * PacketFees contains a list of type PacketFee
+ * @name PacketFeesAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.PacketFees
+ */
 export interface PacketFeesAmino {
-  /** list of packet fees */
+  /**
+   * list of packet fees
+   */
   packet_fees: PacketFeeAmino[];
 }
 export interface PacketFeesAminoMsg {
   type: "cosmos-sdk/PacketFees";
   value: PacketFeesAmino;
 }
-/** IdentifiedPacketFees contains a list of type PacketFee and associated PacketId */
+/**
+ * IdentifiedPacketFees contains a list of type PacketFee and associated PacketId
+ * @name IdentifiedPacketFees
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.IdentifiedPacketFees
+ */
 export interface IdentifiedPacketFees {
-  /** unique packet identifier comprised of the channel ID, port ID and sequence */
+  /**
+   * unique packet identifier comprised of the channel ID, port ID and sequence
+   */
   packetId: PacketId;
-  /** list of packet fees */
+  /**
+   * list of packet fees
+   */
   packetFees: PacketFee[];
 }
 export interface IdentifiedPacketFeesProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.IdentifiedPacketFees";
   value: Uint8Array;
 }
-/** IdentifiedPacketFees contains a list of type PacketFee and associated PacketId */
+/**
+ * IdentifiedPacketFees contains a list of type PacketFee and associated PacketId
+ * @name IdentifiedPacketFeesAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.IdentifiedPacketFees
+ */
 export interface IdentifiedPacketFeesAmino {
-  /** unique packet identifier comprised of the channel ID, port ID and sequence */
+  /**
+   * unique packet identifier comprised of the channel ID, port ID and sequence
+   */
   packet_id: PacketIdAmino;
-  /** list of packet fees */
+  /**
+   * list of packet fees
+   */
   packet_fees: PacketFeeAmino[];
 }
 export interface IdentifiedPacketFeesAminoMsg {
@@ -102,6 +178,12 @@ function createBaseFee(): Fee {
     timeoutFee: []
   };
 }
+/**
+ * Fee defines the ICS29 receive, acknowledgement and timeout fees
+ * @name Fee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.Fee
+ */
 export const Fee = {
   typeUrl: "/ibc.applications.fee.v1.Fee",
   aminoType: "cosmos-sdk/Fee",
@@ -214,6 +296,12 @@ function createBasePacketFee(): PacketFee {
     relayers: []
   };
 }
+/**
+ * PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers
+ * @name PacketFee
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.PacketFee
+ */
 export const PacketFee = {
   typeUrl: "/ibc.applications.fee.v1.PacketFee",
   aminoType: "cosmos-sdk/PacketFee",
@@ -320,6 +408,12 @@ function createBasePacketFees(): PacketFees {
     packetFees: []
   };
 }
+/**
+ * PacketFees contains a list of type PacketFee
+ * @name PacketFees
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.PacketFees
+ */
 export const PacketFees = {
   typeUrl: "/ibc.applications.fee.v1.PacketFees",
   aminoType: "cosmos-sdk/PacketFees",
@@ -405,6 +499,12 @@ function createBaseIdentifiedPacketFees(): IdentifiedPacketFees {
     packetFees: []
   };
 }
+/**
+ * IdentifiedPacketFees contains a list of type PacketFee and associated PacketId
+ * @name IdentifiedPacketFees
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.IdentifiedPacketFees
+ */
 export const IdentifiedPacketFees = {
   typeUrl: "/ibc.applications.fee.v1.IdentifiedPacketFees",
   aminoType: "cosmos-sdk/IdentifiedPacketFees",

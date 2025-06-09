@@ -2,34 +2,64 @@ import { Params, ParamsAmino, Bid, BidAmino, LastAuctionResult, LastAuctionResul
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the auction module's genesis state. */
+/**
+ * GenesisState defines the auction module's genesis state.
+ * @name GenesisState
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to auction. */
+  /**
+   * params defines all the parameters of related to auction.
+   */
   params: Params;
-  /** current auction round */
+  /**
+   * current auction round
+   */
   auctionRound: bigint;
-  /** current highest bid */
+  /**
+   * current highest bid
+   */
   highestBid?: Bid;
-  /** auction ending timestamp */
+  /**
+   * auction ending timestamp
+   */
   auctionEndingTimestamp: bigint;
-  /** last auction result */
+  /**
+   * last auction result
+   */
   lastAuctionResult?: LastAuctionResult;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.auction.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the auction module's genesis state. */
+/**
+ * GenesisState defines the auction module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines all the parameters of related to auction. */
+  /**
+   * params defines all the parameters of related to auction.
+   */
   params: ParamsAmino;
-  /** current auction round */
+  /**
+   * current auction round
+   */
   auction_round: string;
-  /** current highest bid */
+  /**
+   * current highest bid
+   */
   highest_bid?: BidAmino;
-  /** auction ending timestamp */
+  /**
+   * auction ending timestamp
+   */
   auction_ending_timestamp: string;
-  /** last auction result */
+  /**
+   * last auction result
+   */
   last_auction_result?: LastAuctionResultAmino;
 }
 export interface GenesisStateAminoMsg {
@@ -45,6 +75,12 @@ function createBaseGenesisState(): GenesisState {
     lastAuctionResult: undefined
   };
 }
+/**
+ * GenesisState defines the auction module's genesis state.
+ * @name GenesisState
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.auction.v1beta1.GenesisState",
   is(o: any): o is GenesisState {

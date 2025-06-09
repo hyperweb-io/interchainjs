@@ -1,25 +1,47 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
-/** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
+/**
+ * IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
+ * @name IncentivizedAcknowledgement
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.IncentivizedAcknowledgement
+ */
 export interface IncentivizedAcknowledgement {
-  /** the underlying app acknowledgement bytes */
+  /**
+   * the underlying app acknowledgement bytes
+   */
   appAcknowledgement: Uint8Array;
-  /** the relayer address which submits the recv packet message */
+  /**
+   * the relayer address which submits the recv packet message
+   */
   forwardRelayerAddress: string;
-  /** success flag of the base application callback */
+  /**
+   * success flag of the base application callback
+   */
   underlyingAppSuccess: boolean;
 }
 export interface IncentivizedAcknowledgementProtoMsg {
   typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement";
   value: Uint8Array;
 }
-/** IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware */
+/**
+ * IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
+ * @name IncentivizedAcknowledgementAmino
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.IncentivizedAcknowledgement
+ */
 export interface IncentivizedAcknowledgementAmino {
-  /** the underlying app acknowledgement bytes */
+  /**
+   * the underlying app acknowledgement bytes
+   */
   app_acknowledgement: string;
-  /** the relayer address which submits the recv packet message */
+  /**
+   * the relayer address which submits the recv packet message
+   */
   forward_relayer_address: string;
-  /** success flag of the base application callback */
+  /**
+   * success flag of the base application callback
+   */
   underlying_app_success: boolean;
 }
 export interface IncentivizedAcknowledgementAminoMsg {
@@ -33,6 +55,12 @@ function createBaseIncentivizedAcknowledgement(): IncentivizedAcknowledgement {
     underlyingAppSuccess: false
   };
 }
+/**
+ * IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
+ * @name IncentivizedAcknowledgement
+ * @package ibc.applications.fee.v1
+ * @see proto type: ibc.applications.fee.v1.IncentivizedAcknowledgement
+ */
 export const IncentivizedAcknowledgement = {
   typeUrl: "/ibc.applications.fee.v1.IncentivizedAcknowledgement",
   aminoType: "cosmos-sdk/IncentivizedAcknowledgement",

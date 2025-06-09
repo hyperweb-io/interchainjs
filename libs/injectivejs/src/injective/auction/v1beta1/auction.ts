@@ -3,26 +3,49 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name Params
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.Params
+ */
 export interface Params {
-  /** auction_period_duration defines the auction period duration */
+  /**
+   * auction_period_duration defines the auction period duration
+   */
   auctionPeriod: bigint;
-  /** min_next_bid_increment_rate defines the minimum increment rate for new bids */
+  /**
+   * min_next_bid_increment_rate defines the minimum increment rate for new bids
+   */
   minNextBidIncrementRate: string;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.auction.v1beta1.Params";
   value: Uint8Array;
 }
+/**
+ * @name ParamsAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.Params
+ */
 export interface ParamsAmino {
-  /** auction_period_duration defines the auction period duration */
+  /**
+   * auction_period_duration defines the auction period duration
+   */
   auction_period: string;
-  /** min_next_bid_increment_rate defines the minimum increment rate for new bids */
+  /**
+   * min_next_bid_increment_rate defines the minimum increment rate for new bids
+   */
   min_next_bid_increment_rate: string;
 }
 export interface ParamsAminoMsg {
   type: "auction/Params";
   value: ParamsAmino;
 }
+/**
+ * @name Bid
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.Bid
+ */
 export interface Bid {
   bidder: string;
   amount: string;
@@ -31,6 +54,11 @@ export interface BidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.Bid";
   value: Uint8Array;
 }
+/**
+ * @name BidAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.Bid
+ */
 export interface BidAmino {
   bidder: string;
   amount: string;
@@ -39,82 +67,157 @@ export interface BidAminoMsg {
   type: "/injective.auction.v1beta1.Bid";
   value: BidAmino;
 }
+/**
+ * @name LastAuctionResult
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.LastAuctionResult
+ */
 export interface LastAuctionResult {
-  /** winner describes the address of the winner */
+  /**
+   * winner describes the address of the winner
+   */
   winner: string;
-  /** amount describes the amount the winner get from the auction */
+  /**
+   * amount describes the amount the winner get from the auction
+   */
   amount: string;
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: bigint;
 }
 export interface LastAuctionResultProtoMsg {
   typeUrl: "/injective.auction.v1beta1.LastAuctionResult";
   value: Uint8Array;
 }
+/**
+ * @name LastAuctionResultAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.LastAuctionResult
+ */
 export interface LastAuctionResultAmino {
-  /** winner describes the address of the winner */
+  /**
+   * winner describes the address of the winner
+   */
   winner: string;
-  /** amount describes the amount the winner get from the auction */
+  /**
+   * amount describes the amount the winner get from the auction
+   */
   amount: string;
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: string;
 }
 export interface LastAuctionResultAminoMsg {
   type: "/injective.auction.v1beta1.LastAuctionResult";
   value: LastAuctionResultAmino;
 }
+/**
+ * @name EventBid
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventBid
+ */
 export interface EventBid {
-  /** bidder describes the address of bidder */
+  /**
+   * bidder describes the address of bidder
+   */
   bidder: string;
-  /** amount describes the amount the bidder put on the auction */
+  /**
+   * amount describes the amount the bidder put on the auction
+   */
   amount: string;
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: bigint;
 }
 export interface EventBidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.EventBid";
   value: Uint8Array;
 }
+/**
+ * @name EventBidAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventBid
+ */
 export interface EventBidAmino {
-  /** bidder describes the address of bidder */
+  /**
+   * bidder describes the address of bidder
+   */
   bidder: string;
-  /** amount describes the amount the bidder put on the auction */
+  /**
+   * amount describes the amount the bidder put on the auction
+   */
   amount: string;
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: string;
 }
 export interface EventBidAminoMsg {
   type: "/injective.auction.v1beta1.EventBid";
   value: EventBidAmino;
 }
+/**
+ * @name EventAuctionResult
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventAuctionResult
+ */
 export interface EventAuctionResult {
-  /** winner describes the address of the winner */
+  /**
+   * winner describes the address of the winner
+   */
   winner: string;
-  /** amount describes the amount the winner get from the auction */
+  /**
+   * amount describes the amount the winner get from the auction
+   */
   amount: string;
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: bigint;
 }
 export interface EventAuctionResultProtoMsg {
   typeUrl: "/injective.auction.v1beta1.EventAuctionResult";
   value: Uint8Array;
 }
+/**
+ * @name EventAuctionResultAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventAuctionResult
+ */
 export interface EventAuctionResultAmino {
-  /** winner describes the address of the winner */
+  /**
+   * winner describes the address of the winner
+   */
   winner: string;
-  /** amount describes the amount the winner get from the auction */
+  /**
+   * amount describes the amount the winner get from the auction
+   */
   amount: string;
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: string;
 }
 export interface EventAuctionResultAminoMsg {
   type: "/injective.auction.v1beta1.EventAuctionResult";
   value: EventAuctionResultAmino;
 }
+/**
+ * @name EventAuctionStart
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventAuctionStart
+ */
 export interface EventAuctionStart {
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: bigint;
-  /** ending_timestamp describes auction end time */
+  /**
+   * ending_timestamp describes auction end time
+   */
   endingTimestamp: bigint;
   /**
    * new_basket describes auction module balance at the time of new auction
@@ -126,10 +229,19 @@ export interface EventAuctionStartProtoMsg {
   typeUrl: "/injective.auction.v1beta1.EventAuctionStart";
   value: Uint8Array;
 }
+/**
+ * @name EventAuctionStartAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventAuctionStart
+ */
 export interface EventAuctionStartAmino {
-  /** round defines the round number of auction */
+  /**
+   * round defines the round number of auction
+   */
   round: string;
-  /** ending_timestamp describes auction end time */
+  /**
+   * ending_timestamp describes auction end time
+   */
   ending_timestamp: string;
   /**
    * new_basket describes auction module balance at the time of new auction
@@ -147,6 +259,11 @@ function createBaseParams(): Params {
     minNextBidIncrementRate: ""
   };
 }
+/**
+ * @name Params
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/injective.auction.v1beta1.Params",
   aminoType: "auction/Params",
@@ -236,6 +353,11 @@ function createBaseBid(): Bid {
     amount: ""
   };
 }
+/**
+ * @name Bid
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.Bid
+ */
 export const Bid = {
   typeUrl: "/injective.auction.v1beta1.Bid",
   is(o: any): o is Bid {
@@ -319,6 +441,11 @@ function createBaseLastAuctionResult(): LastAuctionResult {
     round: BigInt(0)
   };
 }
+/**
+ * @name LastAuctionResult
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.LastAuctionResult
+ */
 export const LastAuctionResult = {
   typeUrl: "/injective.auction.v1beta1.LastAuctionResult",
   is(o: any): o is LastAuctionResult {
@@ -413,6 +540,11 @@ function createBaseEventBid(): EventBid {
     round: BigInt(0)
   };
 }
+/**
+ * @name EventBid
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventBid
+ */
 export const EventBid = {
   typeUrl: "/injective.auction.v1beta1.EventBid",
   is(o: any): o is EventBid {
@@ -507,6 +639,11 @@ function createBaseEventAuctionResult(): EventAuctionResult {
     round: BigInt(0)
   };
 }
+/**
+ * @name EventAuctionResult
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventAuctionResult
+ */
 export const EventAuctionResult = {
   typeUrl: "/injective.auction.v1beta1.EventAuctionResult",
   is(o: any): o is EventAuctionResult {
@@ -601,6 +738,11 @@ function createBaseEventAuctionStart(): EventAuctionStart {
     newBasket: []
   };
 }
+/**
+ * @name EventAuctionStart
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.EventAuctionStart
+ */
 export const EventAuctionStart = {
   typeUrl: "/injective.auction.v1beta1.EventAuctionStart",
   is(o: any): o is EventAuctionStart {

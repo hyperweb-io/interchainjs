@@ -103,6 +103,9 @@ export function infractionToJSON(object: Infraction): string {
  * It is stored as part of staking module's state, which persists the `n` most
  * recent HistoricalInfo
  * (`n` is set by the staking module's `historical_entries` parameter).
+ * @name HistoricalInfo
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.HistoricalInfo
  */
 export interface HistoricalInfo {
   header: Header;
@@ -117,6 +120,9 @@ export interface HistoricalInfoProtoMsg {
  * It is stored as part of staking module's state, which persists the `n` most
  * recent HistoricalInfo
  * (`n` is set by the staking module's `historical_entries` parameter).
+ * @name HistoricalInfoAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.HistoricalInfo
  */
 export interface HistoricalInfoAmino {
   header: HeaderAmino;
@@ -129,13 +135,22 @@ export interface HistoricalInfoAminoMsg {
 /**
  * CommissionRates defines the initial commission rates to be used for creating
  * a validator.
+ * @name CommissionRates
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.CommissionRates
  */
 export interface CommissionRates {
-  /** rate is the commission rate charged to delegators, as a fraction. */
+  /**
+   * rate is the commission rate charged to delegators, as a fraction.
+   */
   rate: string;
-  /** max_rate defines the maximum commission rate which validator can ever charge, as a fraction. */
+  /**
+   * max_rate defines the maximum commission rate which validator can ever charge, as a fraction.
+   */
   maxRate: string;
-  /** max_change_rate defines the maximum daily increase of the validator commission, as a fraction. */
+  /**
+   * max_change_rate defines the maximum daily increase of the validator commission, as a fraction.
+   */
   maxChangeRate: string;
 }
 export interface CommissionRatesProtoMsg {
@@ -145,69 +160,126 @@ export interface CommissionRatesProtoMsg {
 /**
  * CommissionRates defines the initial commission rates to be used for creating
  * a validator.
+ * @name CommissionRatesAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.CommissionRates
  */
 export interface CommissionRatesAmino {
-  /** rate is the commission rate charged to delegators, as a fraction. */
+  /**
+   * rate is the commission rate charged to delegators, as a fraction.
+   */
   rate: string;
-  /** max_rate defines the maximum commission rate which validator can ever charge, as a fraction. */
+  /**
+   * max_rate defines the maximum commission rate which validator can ever charge, as a fraction.
+   */
   max_rate: string;
-  /** max_change_rate defines the maximum daily increase of the validator commission, as a fraction. */
+  /**
+   * max_change_rate defines the maximum daily increase of the validator commission, as a fraction.
+   */
   max_change_rate: string;
 }
 export interface CommissionRatesAminoMsg {
   type: "cosmos-sdk/CommissionRates";
   value: CommissionRatesAmino;
 }
-/** Commission defines commission parameters for a given validator. */
+/**
+ * Commission defines commission parameters for a given validator.
+ * @name Commission
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Commission
+ */
 export interface Commission {
-  /** commission_rates defines the initial commission rates to be used for creating a validator. */
+  /**
+   * commission_rates defines the initial commission rates to be used for creating a validator.
+   */
   commissionRates: CommissionRates;
-  /** update_time is the last time the commission rate was changed. */
+  /**
+   * update_time is the last time the commission rate was changed.
+   */
   updateTime: Date;
 }
 export interface CommissionProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Commission";
   value: Uint8Array;
 }
-/** Commission defines commission parameters for a given validator. */
+/**
+ * Commission defines commission parameters for a given validator.
+ * @name CommissionAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Commission
+ */
 export interface CommissionAmino {
-  /** commission_rates defines the initial commission rates to be used for creating a validator. */
+  /**
+   * commission_rates defines the initial commission rates to be used for creating a validator.
+   */
   commission_rates: CommissionRatesAmino;
-  /** update_time is the last time the commission rate was changed. */
+  /**
+   * update_time is the last time the commission rate was changed.
+   */
   update_time: string;
 }
 export interface CommissionAminoMsg {
   type: "cosmos-sdk/Commission";
   value: CommissionAmino;
 }
-/** Description defines a validator description. */
+/**
+ * Description defines a validator description.
+ * @name Description
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Description
+ */
 export interface Description {
-  /** moniker defines a human-readable name for the validator. */
+  /**
+   * moniker defines a human-readable name for the validator.
+   */
   moniker: string;
-  /** identity defines an optional identity signature (ex. UPort or Keybase). */
+  /**
+   * identity defines an optional identity signature (ex. UPort or Keybase).
+   */
   identity: string;
-  /** website defines an optional website link. */
+  /**
+   * website defines an optional website link.
+   */
   website: string;
-  /** security_contact defines an optional email for security contact. */
+  /**
+   * security_contact defines an optional email for security contact.
+   */
   securityContact: string;
-  /** details define other optional details. */
+  /**
+   * details define other optional details.
+   */
   details: string;
 }
 export interface DescriptionProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Description";
   value: Uint8Array;
 }
-/** Description defines a validator description. */
+/**
+ * Description defines a validator description.
+ * @name DescriptionAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Description
+ */
 export interface DescriptionAmino {
-  /** moniker defines a human-readable name for the validator. */
+  /**
+   * moniker defines a human-readable name for the validator.
+   */
   moniker: string;
-  /** identity defines an optional identity signature (ex. UPort or Keybase). */
+  /**
+   * identity defines an optional identity signature (ex. UPort or Keybase).
+   */
   identity: string;
-  /** website defines an optional website link. */
+  /**
+   * website defines an optional website link.
+   */
   website: string;
-  /** security_contact defines an optional email for security contact. */
+  /**
+   * security_contact defines an optional email for security contact.
+   */
   security_contact: string;
-  /** details define other optional details. */
+  /**
+   * details define other optional details.
+   */
   details: string;
 }
 export interface DescriptionAminoMsg {
@@ -223,27 +295,50 @@ export interface DescriptionAminoMsg {
  * bond shares is based on the amount of coins delegated divided by the current
  * exchange rate. Voting power can be calculated as total bonded shares
  * multiplied by exchange rate.
+ * @name Validator
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Validator
  */
 export interface Validator {
-  /** operator_address defines the address of the validator's operator; bech encoded in JSON. */
+  /**
+   * operator_address defines the address of the validator's operator; bech encoded in JSON.
+   */
   operatorAddress: string;
-  /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
+  /**
+   * consensus_pubkey is the consensus public key of the validator, as a Protobuf Any.
+   */
   consensusPubkey?: Any | undefined;
-  /** jailed defined whether the validator has been jailed from bonded status or not. */
+  /**
+   * jailed defined whether the validator has been jailed from bonded status or not.
+   */
   jailed: boolean;
-  /** status is the validator status (bonded/unbonding/unbonded). */
+  /**
+   * status is the validator status (bonded/unbonding/unbonded).
+   */
   status: BondStatus;
-  /** tokens define the delegated tokens (incl. self-delegation). */
+  /**
+   * tokens define the delegated tokens (incl. self-delegation).
+   */
   tokens: string;
-  /** delegator_shares defines total shares issued to a validator's delegators. */
+  /**
+   * delegator_shares defines total shares issued to a validator's delegators.
+   */
   delegatorShares: string;
-  /** description defines the description terms for the validator. */
+  /**
+   * description defines the description terms for the validator.
+   */
   description: Description;
-  /** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
+  /**
+   * unbonding_height defines, if unbonding, the height at which this validator has begun unbonding.
+   */
   unbondingHeight: bigint;
-  /** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
+  /**
+   * unbonding_time defines, if unbonding, the min time for the validator to complete unbonding.
+   */
   unbondingTime: Date;
-  /** commission defines the commission parameters. */
+  /**
+   * commission defines the commission parameters.
+   */
   commission: Commission;
   /**
    * min_self_delegation is the validator's self declared minimum self delegation.
@@ -251,9 +346,13 @@ export interface Validator {
    * Since: cosmos-sdk 0.46
    */
   minSelfDelegation: string;
-  /** strictly positive if this validator's unbonding has been stopped by external modules */
+  /**
+   * strictly positive if this validator's unbonding has been stopped by external modules
+   */
   unbondingOnHoldRefCount: bigint;
-  /** list of unbonding ids, each uniquely identifing an unbonding of this validator */
+  /**
+   * list of unbonding ids, each uniquely identifing an unbonding of this validator
+   */
   unbondingIds: bigint[];
 }
 export interface ValidatorProtoMsg {
@@ -261,7 +360,10 @@ export interface ValidatorProtoMsg {
   value: Uint8Array;
 }
 export type ValidatorEncoded = Omit<Validator, "consensusPubkey"> & {
-  /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */consensusPubkey?: AnyProtoMsg | undefined;
+  /**
+   * consensus_pubkey is the consensus public key of the validator, as a Protobuf Any.
+   */
+  consensusPubkey?: AnyProtoMsg | undefined;
 };
 /**
  * Validator defines a validator, together with the total amount of the
@@ -272,27 +374,50 @@ export type ValidatorEncoded = Omit<Validator, "consensusPubkey"> & {
  * bond shares is based on the amount of coins delegated divided by the current
  * exchange rate. Voting power can be calculated as total bonded shares
  * multiplied by exchange rate.
+ * @name ValidatorAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Validator
  */
 export interface ValidatorAmino {
-  /** operator_address defines the address of the validator's operator; bech encoded in JSON. */
+  /**
+   * operator_address defines the address of the validator's operator; bech encoded in JSON.
+   */
   operator_address: string;
-  /** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
+  /**
+   * consensus_pubkey is the consensus public key of the validator, as a Protobuf Any.
+   */
   consensus_pubkey?: AnyAmino;
-  /** jailed defined whether the validator has been jailed from bonded status or not. */
+  /**
+   * jailed defined whether the validator has been jailed from bonded status or not.
+   */
   jailed: boolean;
-  /** status is the validator status (bonded/unbonding/unbonded). */
+  /**
+   * status is the validator status (bonded/unbonding/unbonded).
+   */
   status: BondStatus;
-  /** tokens define the delegated tokens (incl. self-delegation). */
+  /**
+   * tokens define the delegated tokens (incl. self-delegation).
+   */
   tokens: string;
-  /** delegator_shares defines total shares issued to a validator's delegators. */
+  /**
+   * delegator_shares defines total shares issued to a validator's delegators.
+   */
   delegator_shares: string;
-  /** description defines the description terms for the validator. */
+  /**
+   * description defines the description terms for the validator.
+   */
   description: DescriptionAmino;
-  /** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
+  /**
+   * unbonding_height defines, if unbonding, the height at which this validator has begun unbonding.
+   */
   unbonding_height: string;
-  /** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
+  /**
+   * unbonding_time defines, if unbonding, the min time for the validator to complete unbonding.
+   */
   unbonding_time: string;
-  /** commission defines the commission parameters. */
+  /**
+   * commission defines the commission parameters.
+   */
   commission: CommissionAmino;
   /**
    * min_self_delegation is the validator's self declared minimum self delegation.
@@ -300,16 +425,25 @@ export interface ValidatorAmino {
    * Since: cosmos-sdk 0.46
    */
   min_self_delegation: string;
-  /** strictly positive if this validator's unbonding has been stopped by external modules */
+  /**
+   * strictly positive if this validator's unbonding has been stopped by external modules
+   */
   unbonding_on_hold_ref_count: string;
-  /** list of unbonding ids, each uniquely identifing an unbonding of this validator */
+  /**
+   * list of unbonding ids, each uniquely identifing an unbonding of this validator
+   */
   unbonding_ids: string[];
 }
 export interface ValidatorAminoMsg {
   type: "cosmos-sdk/Validator";
   value: ValidatorAmino;
 }
-/** ValAddresses defines a repeated set of validator addresses. */
+/**
+ * ValAddresses defines a repeated set of validator addresses.
+ * @name ValAddresses
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.ValAddresses
+ */
 export interface ValAddresses {
   addresses: string[];
 }
@@ -317,7 +451,12 @@ export interface ValAddressesProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.ValAddresses";
   value: Uint8Array;
 }
-/** ValAddresses defines a repeated set of validator addresses. */
+/**
+ * ValAddresses defines a repeated set of validator addresses.
+ * @name ValAddressesAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.ValAddresses
+ */
 export interface ValAddressesAmino {
   addresses: string[];
 }
@@ -329,6 +468,9 @@ export interface ValAddressesAminoMsg {
  * DVPair is struct that just has a delegator-validator pair with no other data.
  * It is intended to be used as a marshalable pointer. For example, a DVPair can
  * be used to construct the key to getting an UnbondingDelegation from state.
+ * @name DVPair
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVPair
  */
 export interface DVPair {
   delegatorAddress: string;
@@ -342,6 +484,9 @@ export interface DVPairProtoMsg {
  * DVPair is struct that just has a delegator-validator pair with no other data.
  * It is intended to be used as a marshalable pointer. For example, a DVPair can
  * be used to construct the key to getting an UnbondingDelegation from state.
+ * @name DVPairAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVPair
  */
 export interface DVPairAmino {
   delegator_address: string;
@@ -351,7 +496,12 @@ export interface DVPairAminoMsg {
   type: "cosmos-sdk/DVPair";
   value: DVPairAmino;
 }
-/** DVPairs defines an array of DVPair objects. */
+/**
+ * DVPairs defines an array of DVPair objects.
+ * @name DVPairs
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVPairs
+ */
 export interface DVPairs {
   pairs: DVPair[];
 }
@@ -359,7 +509,12 @@ export interface DVPairsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DVPairs";
   value: Uint8Array;
 }
-/** DVPairs defines an array of DVPair objects. */
+/**
+ * DVPairs defines an array of DVPair objects.
+ * @name DVPairsAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVPairs
+ */
 export interface DVPairsAmino {
   pairs: DVPairAmino[];
 }
@@ -372,6 +527,9 @@ export interface DVPairsAminoMsg {
  * with no other data. It is intended to be used as a marshalable pointer. For
  * example, a DVVTriplet can be used to construct the key to getting a
  * Redelegation from state.
+ * @name DVVTriplet
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVVTriplet
  */
 export interface DVVTriplet {
   delegatorAddress: string;
@@ -387,6 +545,9 @@ export interface DVVTripletProtoMsg {
  * with no other data. It is intended to be used as a marshalable pointer. For
  * example, a DVVTriplet can be used to construct the key to getting a
  * Redelegation from state.
+ * @name DVVTripletAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVVTriplet
  */
 export interface DVVTripletAmino {
   delegator_address: string;
@@ -397,7 +558,12 @@ export interface DVVTripletAminoMsg {
   type: "cosmos-sdk/DVVTriplet";
   value: DVVTripletAmino;
 }
-/** DVVTriplets defines an array of DVVTriplet objects. */
+/**
+ * DVVTriplets defines an array of DVVTriplet objects.
+ * @name DVVTriplets
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVVTriplets
+ */
 export interface DVVTriplets {
   triplets: DVVTriplet[];
 }
@@ -405,7 +571,12 @@ export interface DVVTripletsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.DVVTriplets";
   value: Uint8Array;
 }
-/** DVVTriplets defines an array of DVVTriplet objects. */
+/**
+ * DVVTriplets defines an array of DVVTriplet objects.
+ * @name DVVTripletsAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVVTriplets
+ */
 export interface DVVTripletsAmino {
   triplets: DVVTripletAmino[];
 }
@@ -417,13 +588,22 @@ export interface DVVTripletsAminoMsg {
  * Delegation represents the bond with tokens held by an account. It is
  * owned by one delegator, and is associated with the voting power of one
  * validator.
+ * @name Delegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Delegation
  */
 export interface Delegation {
-  /** delegator_address is the encoded address of the delegator. */
+  /**
+   * delegator_address is the encoded address of the delegator.
+   */
   delegatorAddress: string;
-  /** validator_address is the encoded address of the validator. */
+  /**
+   * validator_address is the encoded address of the validator.
+   */
   validatorAddress: string;
-  /** shares define the delegation shares received. */
+  /**
+   * shares define the delegation shares received.
+   */
   shares: string;
 }
 export interface DelegationProtoMsg {
@@ -434,13 +614,22 @@ export interface DelegationProtoMsg {
  * Delegation represents the bond with tokens held by an account. It is
  * owned by one delegator, and is associated with the voting power of one
  * validator.
+ * @name DelegationAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Delegation
  */
 export interface DelegationAmino {
-  /** delegator_address is the encoded address of the delegator. */
+  /**
+   * delegator_address is the encoded address of the delegator.
+   */
   delegator_address: string;
-  /** validator_address is the encoded address of the validator. */
+  /**
+   * validator_address is the encoded address of the validator.
+   */
   validator_address: string;
-  /** shares define the delegation shares received. */
+  /**
+   * shares define the delegation shares received.
+   */
   shares: string;
 }
 export interface DelegationAminoMsg {
@@ -450,13 +639,22 @@ export interface DelegationAminoMsg {
 /**
  * UnbondingDelegation stores all of a single delegator's unbonding bonds
  * for a single validator in an time-ordered list.
+ * @name UnbondingDelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.UnbondingDelegation
  */
 export interface UnbondingDelegation {
-  /** delegator_address is the encoded address of the delegator. */
+  /**
+   * delegator_address is the encoded address of the delegator.
+   */
   delegatorAddress: string;
-  /** validator_address is the encoded address of the validator. */
+  /**
+   * validator_address is the encoded address of the validator.
+   */
   validatorAddress: string;
-  /** entries are the unbonding delegation entries. */
+  /**
+   * entries are the unbonding delegation entries.
+   */
   entries: UnbondingDelegationEntry[];
 }
 export interface UnbondingDelegationProtoMsg {
@@ -466,89 +664,166 @@ export interface UnbondingDelegationProtoMsg {
 /**
  * UnbondingDelegation stores all of a single delegator's unbonding bonds
  * for a single validator in an time-ordered list.
+ * @name UnbondingDelegationAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.UnbondingDelegation
  */
 export interface UnbondingDelegationAmino {
-  /** delegator_address is the encoded address of the delegator. */
+  /**
+   * delegator_address is the encoded address of the delegator.
+   */
   delegator_address: string;
-  /** validator_address is the encoded address of the validator. */
+  /**
+   * validator_address is the encoded address of the validator.
+   */
   validator_address: string;
-  /** entries are the unbonding delegation entries. */
+  /**
+   * entries are the unbonding delegation entries.
+   */
   entries: UnbondingDelegationEntryAmino[];
 }
 export interface UnbondingDelegationAminoMsg {
   type: "cosmos-sdk/UnbondingDelegation";
   value: UnbondingDelegationAmino;
 }
-/** UnbondingDelegationEntry defines an unbonding object with relevant metadata. */
+/**
+ * UnbondingDelegationEntry defines an unbonding object with relevant metadata.
+ * @name UnbondingDelegationEntry
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.UnbondingDelegationEntry
+ */
 export interface UnbondingDelegationEntry {
-  /** creation_height is the height which the unbonding took place. */
+  /**
+   * creation_height is the height which the unbonding took place.
+   */
   creationHeight: bigint;
-  /** completion_time is the unix time for unbonding completion. */
+  /**
+   * completion_time is the unix time for unbonding completion.
+   */
   completionTime: Date;
-  /** initial_balance defines the tokens initially scheduled to receive at completion. */
+  /**
+   * initial_balance defines the tokens initially scheduled to receive at completion.
+   */
   initialBalance: string;
-  /** balance defines the tokens to receive at completion. */
+  /**
+   * balance defines the tokens to receive at completion.
+   */
   balance: string;
-  /** Incrementing id that uniquely identifies this entry */
+  /**
+   * Incrementing id that uniquely identifies this entry
+   */
   unbondingId: bigint;
-  /** Strictly positive if this entry's unbonding has been stopped by external modules */
+  /**
+   * Strictly positive if this entry's unbonding has been stopped by external modules
+   */
   unbondingOnHoldRefCount: bigint;
 }
 export interface UnbondingDelegationEntryProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegationEntry";
   value: Uint8Array;
 }
-/** UnbondingDelegationEntry defines an unbonding object with relevant metadata. */
+/**
+ * UnbondingDelegationEntry defines an unbonding object with relevant metadata.
+ * @name UnbondingDelegationEntryAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.UnbondingDelegationEntry
+ */
 export interface UnbondingDelegationEntryAmino {
-  /** creation_height is the height which the unbonding took place. */
+  /**
+   * creation_height is the height which the unbonding took place.
+   */
   creation_height: string;
-  /** completion_time is the unix time for unbonding completion. */
+  /**
+   * completion_time is the unix time for unbonding completion.
+   */
   completion_time: string;
-  /** initial_balance defines the tokens initially scheduled to receive at completion. */
+  /**
+   * initial_balance defines the tokens initially scheduled to receive at completion.
+   */
   initial_balance: string;
-  /** balance defines the tokens to receive at completion. */
+  /**
+   * balance defines the tokens to receive at completion.
+   */
   balance: string;
-  /** Incrementing id that uniquely identifies this entry */
+  /**
+   * Incrementing id that uniquely identifies this entry
+   */
   unbonding_id: string;
-  /** Strictly positive if this entry's unbonding has been stopped by external modules */
+  /**
+   * Strictly positive if this entry's unbonding has been stopped by external modules
+   */
   unbonding_on_hold_ref_count: string;
 }
 export interface UnbondingDelegationEntryAminoMsg {
   type: "cosmos-sdk/UnbondingDelegationEntry";
   value: UnbondingDelegationEntryAmino;
 }
-/** RedelegationEntry defines a redelegation object with relevant metadata. */
+/**
+ * RedelegationEntry defines a redelegation object with relevant metadata.
+ * @name RedelegationEntry
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationEntry
+ */
 export interface RedelegationEntry {
-  /** creation_height  defines the height which the redelegation took place. */
+  /**
+   * creation_height  defines the height which the redelegation took place.
+   */
   creationHeight: bigint;
-  /** completion_time defines the unix time for redelegation completion. */
+  /**
+   * completion_time defines the unix time for redelegation completion.
+   */
   completionTime: Date;
-  /** initial_balance defines the initial balance when redelegation started. */
+  /**
+   * initial_balance defines the initial balance when redelegation started.
+   */
   initialBalance: string;
-  /** shares_dst is the amount of destination-validator shares created by redelegation. */
+  /**
+   * shares_dst is the amount of destination-validator shares created by redelegation.
+   */
   sharesDst: string;
-  /** Incrementing id that uniquely identifies this entry */
+  /**
+   * Incrementing id that uniquely identifies this entry
+   */
   unbondingId: bigint;
-  /** Strictly positive if this entry's unbonding has been stopped by external modules */
+  /**
+   * Strictly positive if this entry's unbonding has been stopped by external modules
+   */
   unbondingOnHoldRefCount: bigint;
 }
 export interface RedelegationEntryProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationEntry";
   value: Uint8Array;
 }
-/** RedelegationEntry defines a redelegation object with relevant metadata. */
+/**
+ * RedelegationEntry defines a redelegation object with relevant metadata.
+ * @name RedelegationEntryAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationEntry
+ */
 export interface RedelegationEntryAmino {
-  /** creation_height  defines the height which the redelegation took place. */
+  /**
+   * creation_height  defines the height which the redelegation took place.
+   */
   creation_height: string;
-  /** completion_time defines the unix time for redelegation completion. */
+  /**
+   * completion_time defines the unix time for redelegation completion.
+   */
   completion_time: string;
-  /** initial_balance defines the initial balance when redelegation started. */
+  /**
+   * initial_balance defines the initial balance when redelegation started.
+   */
   initial_balance: string;
-  /** shares_dst is the amount of destination-validator shares created by redelegation. */
+  /**
+   * shares_dst is the amount of destination-validator shares created by redelegation.
+   */
   shares_dst: string;
-  /** Incrementing id that uniquely identifies this entry */
+  /**
+   * Incrementing id that uniquely identifies this entry
+   */
   unbonding_id: string;
-  /** Strictly positive if this entry's unbonding has been stopped by external modules */
+  /**
+   * Strictly positive if this entry's unbonding has been stopped by external modules
+   */
   unbonding_on_hold_ref_count: string;
 }
 export interface RedelegationEntryAminoMsg {
@@ -558,15 +833,26 @@ export interface RedelegationEntryAminoMsg {
 /**
  * Redelegation contains the list of a particular delegator's redelegating bonds
  * from a particular source validator to a particular destination validator.
+ * @name Redelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Redelegation
  */
 export interface Redelegation {
-  /** delegator_address is the bech32-encoded address of the delegator. */
+  /**
+   * delegator_address is the bech32-encoded address of the delegator.
+   */
   delegatorAddress: string;
-  /** validator_src_address is the validator redelegation source operator address. */
+  /**
+   * validator_src_address is the validator redelegation source operator address.
+   */
   validatorSrcAddress: string;
-  /** validator_dst_address is the validator redelegation destination operator address. */
+  /**
+   * validator_dst_address is the validator redelegation destination operator address.
+   */
   validatorDstAddress: string;
-  /** entries are the redelegation entries. */
+  /**
+   * entries are the redelegation entries.
+   */
   entries: RedelegationEntry[];
 }
 export interface RedelegationProtoMsg {
@@ -576,53 +862,98 @@ export interface RedelegationProtoMsg {
 /**
  * Redelegation contains the list of a particular delegator's redelegating bonds
  * from a particular source validator to a particular destination validator.
+ * @name RedelegationAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Redelegation
  */
 export interface RedelegationAmino {
-  /** delegator_address is the bech32-encoded address of the delegator. */
+  /**
+   * delegator_address is the bech32-encoded address of the delegator.
+   */
   delegator_address: string;
-  /** validator_src_address is the validator redelegation source operator address. */
+  /**
+   * validator_src_address is the validator redelegation source operator address.
+   */
   validator_src_address: string;
-  /** validator_dst_address is the validator redelegation destination operator address. */
+  /**
+   * validator_dst_address is the validator redelegation destination operator address.
+   */
   validator_dst_address: string;
-  /** entries are the redelegation entries. */
+  /**
+   * entries are the redelegation entries.
+   */
   entries: RedelegationEntryAmino[];
 }
 export interface RedelegationAminoMsg {
   type: "cosmos-sdk/Redelegation";
   value: RedelegationAmino;
 }
-/** Params defines the parameters for the x/staking module. */
+/**
+ * Params defines the parameters for the x/staking module.
+ * @name Params
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Params
+ */
 export interface Params {
-  /** unbonding_time is the time duration of unbonding. */
+  /**
+   * unbonding_time is the time duration of unbonding.
+   */
   unbondingTime: Duration;
-  /** max_validators is the maximum number of validators. */
+  /**
+   * max_validators is the maximum number of validators.
+   */
   maxValidators: number;
-  /** max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio). */
+  /**
+   * max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio).
+   */
   maxEntries: number;
-  /** historical_entries is the number of historical entries to persist. */
+  /**
+   * historical_entries is the number of historical entries to persist.
+   */
   historicalEntries: number;
-  /** bond_denom defines the bondable coin denomination. */
+  /**
+   * bond_denom defines the bondable coin denomination.
+   */
   bondDenom: string;
-  /** min_commission_rate is the chain-wide minimum commission rate that a validator can charge their delegators */
+  /**
+   * min_commission_rate is the chain-wide minimum commission rate that a validator can charge their delegators
+   */
   minCommissionRate: string;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/cosmos.staking.v1beta1.Params";
   value: Uint8Array;
 }
-/** Params defines the parameters for the x/staking module. */
+/**
+ * Params defines the parameters for the x/staking module.
+ * @name ParamsAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Params
+ */
 export interface ParamsAmino {
-  /** unbonding_time is the time duration of unbonding. */
+  /**
+   * unbonding_time is the time duration of unbonding.
+   */
   unbonding_time: DurationAmino;
-  /** max_validators is the maximum number of validators. */
+  /**
+   * max_validators is the maximum number of validators.
+   */
   max_validators: number;
-  /** max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio). */
+  /**
+   * max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio).
+   */
   max_entries: number;
-  /** historical_entries is the number of historical entries to persist. */
+  /**
+   * historical_entries is the number of historical entries to persist.
+   */
   historical_entries: number;
-  /** bond_denom defines the bondable coin denomination. */
+  /**
+   * bond_denom defines the bondable coin denomination.
+   */
   bond_denom: string;
-  /** min_commission_rate is the chain-wide minimum commission rate that a validator can charge their delegators */
+  /**
+   * min_commission_rate is the chain-wide minimum commission rate that a validator can charge their delegators
+   */
   min_commission_rate: string;
 }
 export interface ParamsAminoMsg {
@@ -632,6 +963,9 @@ export interface ParamsAminoMsg {
 /**
  * DelegationResponse is equivalent to Delegation except that it contains a
  * balance in addition to shares which is more suitable for client responses.
+ * @name DelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DelegationResponse
  */
 export interface DelegationResponse {
   delegation: Delegation;
@@ -644,6 +978,9 @@ export interface DelegationResponseProtoMsg {
 /**
  * DelegationResponse is equivalent to Delegation except that it contains a
  * balance in addition to shares which is more suitable for client responses.
+ * @name DelegationResponseAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DelegationResponse
  */
 export interface DelegationResponseAmino {
   delegation: DelegationAmino;
@@ -657,6 +994,9 @@ export interface DelegationResponseAminoMsg {
  * RedelegationEntryResponse is equivalent to a RedelegationEntry except that it
  * contains a balance in addition to shares which is more suitable for client
  * responses.
+ * @name RedelegationEntryResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationEntryResponse
  */
 export interface RedelegationEntryResponse {
   redelegationEntry: RedelegationEntry;
@@ -670,6 +1010,9 @@ export interface RedelegationEntryResponseProtoMsg {
  * RedelegationEntryResponse is equivalent to a RedelegationEntry except that it
  * contains a balance in addition to shares which is more suitable for client
  * responses.
+ * @name RedelegationEntryResponseAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationEntryResponse
  */
 export interface RedelegationEntryResponseAmino {
   redelegation_entry: RedelegationEntryAmino;
@@ -683,6 +1026,9 @@ export interface RedelegationEntryResponseAminoMsg {
  * RedelegationResponse is equivalent to a Redelegation except that its entries
  * contain a balance in addition to shares which is more suitable for client
  * responses.
+ * @name RedelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationResponse
  */
 export interface RedelegationResponse {
   redelegation: Redelegation;
@@ -696,6 +1042,9 @@ export interface RedelegationResponseProtoMsg {
  * RedelegationResponse is equivalent to a Redelegation except that its entries
  * contain a balance in addition to shares which is more suitable for client
  * responses.
+ * @name RedelegationResponseAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationResponse
  */
 export interface RedelegationResponseAmino {
   redelegation: RedelegationAmino;
@@ -708,6 +1057,9 @@ export interface RedelegationResponseAminoMsg {
 /**
  * Pool is used for tracking bonded and not-bonded token supply of the bond
  * denomination.
+ * @name Pool
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Pool
  */
 export interface Pool {
   notBondedTokens: string;
@@ -720,6 +1072,9 @@ export interface PoolProtoMsg {
 /**
  * Pool is used for tracking bonded and not-bonded token supply of the bond
  * denomination.
+ * @name PoolAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Pool
  */
 export interface PoolAmino {
   not_bonded_tokens: string;
@@ -732,6 +1087,9 @@ export interface PoolAminoMsg {
 /**
  * ValidatorUpdates defines an array of abci.ValidatorUpdate objects.
  * TODO: explore moving this to proto/cosmos/base to separate modules from tendermint dependence
+ * @name ValidatorUpdates
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.ValidatorUpdates
  */
 export interface ValidatorUpdates {
   updates: ValidatorUpdate[];
@@ -743,6 +1101,9 @@ export interface ValidatorUpdatesProtoMsg {
 /**
  * ValidatorUpdates defines an array of abci.ValidatorUpdate objects.
  * TODO: explore moving this to proto/cosmos/base to separate modules from tendermint dependence
+ * @name ValidatorUpdatesAmino
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.ValidatorUpdates
  */
 export interface ValidatorUpdatesAmino {
   updates: ValidatorUpdateAmino[];
@@ -757,6 +1118,15 @@ function createBaseHistoricalInfo(): HistoricalInfo {
     valset: []
   };
 }
+/**
+ * HistoricalInfo contains header and validator information for a given block.
+ * It is stored as part of staking module's state, which persists the `n` most
+ * recent HistoricalInfo
+ * (`n` is set by the staking module's `historical_entries` parameter).
+ * @name HistoricalInfo
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.HistoricalInfo
+ */
 export const HistoricalInfo = {
   typeUrl: "/cosmos.staking.v1beta1.HistoricalInfo",
   aminoType: "cosmos-sdk/HistoricalInfo",
@@ -855,6 +1225,13 @@ function createBaseCommissionRates(): CommissionRates {
     maxChangeRate: ""
   };
 }
+/**
+ * CommissionRates defines the initial commission rates to be used for creating
+ * a validator.
+ * @name CommissionRates
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.CommissionRates
+ */
 export const CommissionRates = {
   typeUrl: "/cosmos.staking.v1beta1.CommissionRates",
   aminoType: "cosmos-sdk/CommissionRates",
@@ -955,6 +1332,12 @@ function createBaseCommission(): Commission {
     updateTime: new Date()
   };
 }
+/**
+ * Commission defines commission parameters for a given validator.
+ * @name Commission
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Commission
+ */
 export const Commission = {
   typeUrl: "/cosmos.staking.v1beta1.Commission",
   aminoType: "cosmos-sdk/Commission",
@@ -1052,6 +1435,12 @@ function createBaseDescription(): Description {
     details: ""
   };
 }
+/**
+ * Description defines a validator description.
+ * @name Description
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Description
+ */
 export const Description = {
   typeUrl: "/cosmos.staking.v1beta1.Description",
   aminoType: "cosmos-sdk/Description",
@@ -1185,6 +1574,19 @@ function createBaseValidator(): Validator {
     unbondingIds: []
   };
 }
+/**
+ * Validator defines a validator, together with the total amount of the
+ * Validator's bond shares and their exchange rate to coins. Slashing results in
+ * a decrease in the exchange rate, allowing correct calculation of future
+ * undelegations without iterating over delegators. When coins are delegated to
+ * this validator, the validator is credited with a delegation whose number of
+ * bond shares is based on the amount of coins delegated divided by the current
+ * exchange rate. Voting power can be calculated as total bonded shares
+ * multiplied by exchange rate.
+ * @name Validator
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Validator
+ */
 export const Validator = {
   typeUrl: "/cosmos.staking.v1beta1.Validator",
   aminoType: "cosmos-sdk/Validator",
@@ -1411,6 +1813,12 @@ function createBaseValAddresses(): ValAddresses {
     addresses: []
   };
 }
+/**
+ * ValAddresses defines a repeated set of validator addresses.
+ * @name ValAddresses
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.ValAddresses
+ */
 export const ValAddresses = {
   typeUrl: "/cosmos.staking.v1beta1.ValAddresses",
   aminoType: "cosmos-sdk/ValAddresses",
@@ -1491,6 +1899,14 @@ function createBaseDVPair(): DVPair {
     validatorAddress: ""
   };
 }
+/**
+ * DVPair is struct that just has a delegator-validator pair with no other data.
+ * It is intended to be used as a marshalable pointer. For example, a DVPair can
+ * be used to construct the key to getting an UnbondingDelegation from state.
+ * @name DVPair
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVPair
+ */
 export const DVPair = {
   typeUrl: "/cosmos.staking.v1beta1.DVPair",
   aminoType: "cosmos-sdk/DVPair",
@@ -1579,6 +1995,12 @@ function createBaseDVPairs(): DVPairs {
     pairs: []
   };
 }
+/**
+ * DVPairs defines an array of DVPair objects.
+ * @name DVPairs
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVPairs
+ */
 export const DVPairs = {
   typeUrl: "/cosmos.staking.v1beta1.DVPairs",
   aminoType: "cosmos-sdk/DVPairs",
@@ -1665,6 +2087,15 @@ function createBaseDVVTriplet(): DVVTriplet {
     validatorDstAddress: ""
   };
 }
+/**
+ * DVVTriplet is struct that just has a delegator-validator-validator triplet
+ * with no other data. It is intended to be used as a marshalable pointer. For
+ * example, a DVVTriplet can be used to construct the key to getting a
+ * Redelegation from state.
+ * @name DVVTriplet
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVVTriplet
+ */
 export const DVVTriplet = {
   typeUrl: "/cosmos.staking.v1beta1.DVVTriplet",
   aminoType: "cosmos-sdk/DVVTriplet",
@@ -1764,6 +2195,12 @@ function createBaseDVVTriplets(): DVVTriplets {
     triplets: []
   };
 }
+/**
+ * DVVTriplets defines an array of DVVTriplet objects.
+ * @name DVVTriplets
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DVVTriplets
+ */
 export const DVVTriplets = {
   typeUrl: "/cosmos.staking.v1beta1.DVVTriplets",
   aminoType: "cosmos-sdk/DVVTriplets",
@@ -1850,6 +2287,14 @@ function createBaseDelegation(): Delegation {
     shares: ""
   };
 }
+/**
+ * Delegation represents the bond with tokens held by an account. It is
+ * owned by one delegator, and is associated with the voting power of one
+ * validator.
+ * @name Delegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Delegation
+ */
 export const Delegation = {
   typeUrl: "/cosmos.staking.v1beta1.Delegation",
   aminoType: "cosmos-sdk/Delegation",
@@ -1951,6 +2396,13 @@ function createBaseUnbondingDelegation(): UnbondingDelegation {
     entries: []
   };
 }
+/**
+ * UnbondingDelegation stores all of a single delegator's unbonding bonds
+ * for a single validator in an time-ordered list.
+ * @name UnbondingDelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.UnbondingDelegation
+ */
 export const UnbondingDelegation = {
   typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegation",
   aminoType: "cosmos-sdk/UnbondingDelegation",
@@ -2062,6 +2514,12 @@ function createBaseUnbondingDelegationEntry(): UnbondingDelegationEntry {
     unbondingOnHoldRefCount: BigInt(0)
   };
 }
+/**
+ * UnbondingDelegationEntry defines an unbonding object with relevant metadata.
+ * @name UnbondingDelegationEntry
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.UnbondingDelegationEntry
+ */
 export const UnbondingDelegationEntry = {
   typeUrl: "/cosmos.staking.v1beta1.UnbondingDelegationEntry",
   aminoType: "cosmos-sdk/UnbondingDelegationEntry",
@@ -2199,6 +2657,12 @@ function createBaseRedelegationEntry(): RedelegationEntry {
     unbondingOnHoldRefCount: BigInt(0)
   };
 }
+/**
+ * RedelegationEntry defines a redelegation object with relevant metadata.
+ * @name RedelegationEntry
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationEntry
+ */
 export const RedelegationEntry = {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationEntry",
   aminoType: "cosmos-sdk/RedelegationEntry",
@@ -2334,6 +2798,13 @@ function createBaseRedelegation(): Redelegation {
     entries: []
   };
 }
+/**
+ * Redelegation contains the list of a particular delegator's redelegating bonds
+ * from a particular source validator to a particular destination validator.
+ * @name Redelegation
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Redelegation
+ */
 export const Redelegation = {
   typeUrl: "/cosmos.staking.v1beta1.Redelegation",
   aminoType: "cosmos-sdk/Redelegation",
@@ -2456,6 +2927,12 @@ function createBaseParams(): Params {
     minCommissionRate: ""
   };
 }
+/**
+ * Params defines the parameters for the x/staking module.
+ * @name Params
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/cosmos.staking.v1beta1.Params",
   aminoType: "cosmos-sdk/x/staking/Params",
@@ -2589,6 +3066,13 @@ function createBaseDelegationResponse(): DelegationResponse {
     balance: Coin.fromPartial({})
   };
 }
+/**
+ * DelegationResponse is equivalent to Delegation except that it contains a
+ * balance in addition to shares which is more suitable for client responses.
+ * @name DelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.DelegationResponse
+ */
 export const DelegationResponse = {
   typeUrl: "/cosmos.staking.v1beta1.DelegationResponse",
   aminoType: "cosmos-sdk/DelegationResponse",
@@ -2684,6 +3168,14 @@ function createBaseRedelegationEntryResponse(): RedelegationEntryResponse {
     balance: ""
   };
 }
+/**
+ * RedelegationEntryResponse is equivalent to a RedelegationEntry except that it
+ * contains a balance in addition to shares which is more suitable for client
+ * responses.
+ * @name RedelegationEntryResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationEntryResponse
+ */
 export const RedelegationEntryResponse = {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationEntryResponse",
   aminoType: "cosmos-sdk/RedelegationEntryResponse",
@@ -2778,6 +3270,14 @@ function createBaseRedelegationResponse(): RedelegationResponse {
     entries: []
   };
 }
+/**
+ * RedelegationResponse is equivalent to a Redelegation except that its entries
+ * contain a balance in addition to shares which is more suitable for client
+ * responses.
+ * @name RedelegationResponse
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.RedelegationResponse
+ */
 export const RedelegationResponse = {
   typeUrl: "/cosmos.staking.v1beta1.RedelegationResponse",
   aminoType: "cosmos-sdk/RedelegationResponse",
@@ -2875,6 +3375,13 @@ function createBasePool(): Pool {
     bondedTokens: ""
   };
 }
+/**
+ * Pool is used for tracking bonded and not-bonded token supply of the bond
+ * denomination.
+ * @name Pool
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.Pool
+ */
 export const Pool = {
   typeUrl: "/cosmos.staking.v1beta1.Pool",
   aminoType: "cosmos-sdk/Pool",
@@ -2963,6 +3470,13 @@ function createBaseValidatorUpdates(): ValidatorUpdates {
     updates: []
   };
 }
+/**
+ * ValidatorUpdates defines an array of abci.ValidatorUpdate objects.
+ * TODO: explore moving this to proto/cosmos/base to separate modules from tendermint dependence
+ * @name ValidatorUpdates
+ * @package cosmos.staking.v1beta1
+ * @see proto type: cosmos.staking.v1beta1.ValidatorUpdates
+ */
 export const ValidatorUpdates = {
   typeUrl: "/cosmos.staking.v1beta1.ValidatorUpdates",
   aminoType: "cosmos-sdk/ValidatorUpdates",

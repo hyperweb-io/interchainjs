@@ -6,108 +6,211 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name MsgUpdateSpotMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateSpotMarket
+ */
 export interface MsgUpdateSpotMarket {
-  /** current admin address of the associated market */
+  /**
+   * current admin address of the associated market
+   */
   admin: string;
-  /** id of the market to be updated */
+  /**
+   * id of the market to be updated
+   */
   marketId: string;
-  /** (optional) updated ticker value */
+  /**
+   * (optional) updated ticker value
+   */
   newTicker: string;
-  /** (optional) updated min price tick size value */
+  /**
+   * (optional) updated min price tick size value
+   */
   newMinPriceTickSize: string;
-  /** (optional) updated min quantity tick size value */
+  /**
+   * (optional) updated min quantity tick size value
+   */
   newMinQuantityTickSize: string;
-  /** (optional) updated min notional */
+  /**
+   * (optional) updated min notional
+   */
   newMinNotional: string;
 }
 export interface MsgUpdateSpotMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarket";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateSpotMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateSpotMarket
+ */
 export interface MsgUpdateSpotMarketAmino {
-  /** current admin address of the associated market */
+  /**
+   * current admin address of the associated market
+   */
   admin: string;
-  /** id of the market to be updated */
+  /**
+   * id of the market to be updated
+   */
   market_id: string;
-  /** (optional) updated ticker value */
+  /**
+   * (optional) updated ticker value
+   */
   new_ticker: string;
-  /** (optional) updated min price tick size value */
+  /**
+   * (optional) updated min price tick size value
+   */
   new_min_price_tick_size: string;
-  /** (optional) updated min quantity tick size value */
+  /**
+   * (optional) updated min quantity tick size value
+   */
   new_min_quantity_tick_size: string;
-  /** (optional) updated min notional */
+  /**
+   * (optional) updated min notional
+   */
   new_min_notional: string;
 }
 export interface MsgUpdateSpotMarketAminoMsg {
   type: "exchange/MsgUpdateSpotMarket";
   value: MsgUpdateSpotMarketAmino;
 }
+/**
+ * @name MsgUpdateSpotMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateSpotMarketResponse
+ */
 export interface MsgUpdateSpotMarketResponse {}
 export interface MsgUpdateSpotMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarketResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateSpotMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateSpotMarketResponse
+ */
 export interface MsgUpdateSpotMarketResponseAmino {}
 export interface MsgUpdateSpotMarketResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgUpdateSpotMarketResponse";
   value: MsgUpdateSpotMarketResponseAmino;
 }
+/**
+ * @name MsgUpdateDerivativeMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateDerivativeMarket
+ */
 export interface MsgUpdateDerivativeMarket {
-  /** current admin address of the associated market */
+  /**
+   * current admin address of the associated market
+   */
   admin: string;
-  /** id of the market to be updated */
+  /**
+   * id of the market to be updated
+   */
   marketId: string;
-  /** (optional) updated value for ticker */
+  /**
+   * (optional) updated value for ticker
+   */
   newTicker: string;
-  /** (optional) updated value for min_price_tick_size */
+  /**
+   * (optional) updated value for min_price_tick_size
+   */
   newMinPriceTickSize: string;
-  /** (optional) updated value min_quantity_tick_size */
+  /**
+   * (optional) updated value min_quantity_tick_size
+   */
   newMinQuantityTickSize: string;
-  /** (optional) updated min notional */
+  /**
+   * (optional) updated min notional
+   */
   newMinNotional: string;
-  /** (optional) updated value for initial_margin_ratio */
+  /**
+   * (optional) updated value for initial_margin_ratio
+   */
   newInitialMarginRatio: string;
-  /** (optional) updated value for maintenance_margin_ratio */
+  /**
+   * (optional) updated value for maintenance_margin_ratio
+   */
   newMaintenanceMarginRatio: string;
 }
 export interface MsgUpdateDerivativeMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarket";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateDerivativeMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateDerivativeMarket
+ */
 export interface MsgUpdateDerivativeMarketAmino {
-  /** current admin address of the associated market */
+  /**
+   * current admin address of the associated market
+   */
   admin: string;
-  /** id of the market to be updated */
+  /**
+   * id of the market to be updated
+   */
   market_id: string;
-  /** (optional) updated value for ticker */
+  /**
+   * (optional) updated value for ticker
+   */
   new_ticker: string;
-  /** (optional) updated value for min_price_tick_size */
+  /**
+   * (optional) updated value for min_price_tick_size
+   */
   new_min_price_tick_size: string;
-  /** (optional) updated value min_quantity_tick_size */
+  /**
+   * (optional) updated value min_quantity_tick_size
+   */
   new_min_quantity_tick_size: string;
-  /** (optional) updated min notional */
+  /**
+   * (optional) updated min notional
+   */
   new_min_notional: string;
-  /** (optional) updated value for initial_margin_ratio */
+  /**
+   * (optional) updated value for initial_margin_ratio
+   */
   new_initial_margin_ratio: string;
-  /** (optional) updated value for maintenance_margin_ratio */
+  /**
+   * (optional) updated value for maintenance_margin_ratio
+   */
   new_maintenance_margin_ratio: string;
 }
 export interface MsgUpdateDerivativeMarketAminoMsg {
   type: "exchange/MsgUpdateDerivativeMarket";
   value: MsgUpdateDerivativeMarketAmino;
 }
+/**
+ * @name MsgUpdateDerivativeMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse
+ */
 export interface MsgUpdateDerivativeMarketResponse {}
 export interface MsgUpdateDerivativeMarketResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateDerivativeMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse
+ */
 export interface MsgUpdateDerivativeMarketResponseAmino {}
 export interface MsgUpdateDerivativeMarketResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse";
   value: MsgUpdateDerivativeMarketResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the exchange parameters to update.
@@ -120,8 +223,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the exchange parameters to update.
@@ -134,11 +244,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "exchange/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgUpdateParamsResponse";
@@ -147,6 +267,9 @@ export interface MsgUpdateParamsResponseAminoMsg {
 /**
  * MsgDeposit defines a SDK message for transferring coins from the sender's
  * bank balance into the subaccount's exchange deposits
+ * @name MsgDeposit
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDeposit
  */
 export interface MsgDeposit {
   sender: string;
@@ -164,6 +287,9 @@ export interface MsgDepositProtoMsg {
 /**
  * MsgDeposit defines a SDK message for transferring coins from the sender's
  * bank balance into the subaccount's exchange deposits
+ * @name MsgDepositAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDeposit
  */
 export interface MsgDepositAmino {
   sender: string;
@@ -178,13 +304,23 @@ export interface MsgDepositAminoMsg {
   type: "exchange/MsgDeposit";
   value: MsgDepositAmino;
 }
-/** MsgDepositResponse defines the Msg/Deposit response type. */
+/**
+ * MsgDepositResponse defines the Msg/Deposit response type.
+ * @name MsgDepositResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDepositResponse
+ */
 export interface MsgDepositResponse {}
 export interface MsgDepositResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgDepositResponse";
   value: Uint8Array;
 }
-/** MsgDepositResponse defines the Msg/Deposit response type. */
+/**
+ * MsgDepositResponse defines the Msg/Deposit response type.
+ * @name MsgDepositResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDepositResponse
+ */
 export interface MsgDepositResponseAmino {}
 export interface MsgDepositResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgDepositResponse";
@@ -193,10 +329,15 @@ export interface MsgDepositResponseAminoMsg {
 /**
  * MsgWithdraw defines a SDK message for withdrawing coins from a subaccount's
  * deposits to the user's bank balance
+ * @name MsgWithdraw
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgWithdraw
  */
 export interface MsgWithdraw {
   sender: string;
-  /** bytes32 subaccount ID to withdraw funds from */
+  /**
+   * bytes32 subaccount ID to withdraw funds from
+   */
   subaccountId: string;
   amount: Coin;
 }
@@ -207,10 +348,15 @@ export interface MsgWithdrawProtoMsg {
 /**
  * MsgWithdraw defines a SDK message for withdrawing coins from a subaccount's
  * deposits to the user's bank balance
+ * @name MsgWithdrawAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgWithdraw
  */
 export interface MsgWithdrawAmino {
   sender: string;
-  /** bytes32 subaccount ID to withdraw funds from */
+  /**
+   * bytes32 subaccount ID to withdraw funds from
+   */
   subaccount_id: string;
   amount: CoinAmino;
 }
@@ -218,13 +364,23 @@ export interface MsgWithdrawAminoMsg {
   type: "exchange/MsgWithdraw";
   value: MsgWithdrawAmino;
 }
-/** MsgWithdraw defines the Msg/Withdraw response type. */
+/**
+ * MsgWithdraw defines the Msg/Withdraw response type.
+ * @name MsgWithdrawResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgWithdrawResponse
+ */
 export interface MsgWithdrawResponse {}
 export interface MsgWithdrawResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgWithdrawResponse";
   value: Uint8Array;
 }
-/** MsgWithdraw defines the Msg/Withdraw response type. */
+/**
+ * MsgWithdraw defines the Msg/Withdraw response type.
+ * @name MsgWithdrawResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgWithdrawResponse
+ */
 export interface MsgWithdrawResponseAmino {}
 export interface MsgWithdrawResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgWithdrawResponse";
@@ -233,6 +389,9 @@ export interface MsgWithdrawResponseAminoMsg {
 /**
  * MsgCreateSpotLimitOrder defines a SDK message for creating a new spot limit
  * order.
+ * @name MsgCreateSpotLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotLimitOrder
  */
 export interface MsgCreateSpotLimitOrder {
   sender: string;
@@ -245,6 +404,9 @@ export interface MsgCreateSpotLimitOrderProtoMsg {
 /**
  * MsgCreateSpotLimitOrder defines a SDK message for creating a new spot limit
  * order.
+ * @name MsgCreateSpotLimitOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotLimitOrder
  */
 export interface MsgCreateSpotLimitOrderAmino {
   sender: string;
@@ -257,6 +419,9 @@ export interface MsgCreateSpotLimitOrderAminoMsg {
 /**
  * MsgCreateSpotLimitOrderResponse defines the Msg/CreateSpotOrder response
  * type.
+ * @name MsgCreateSpotLimitOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse
  */
 export interface MsgCreateSpotLimitOrderResponse {
   orderHash: string;
@@ -269,6 +434,9 @@ export interface MsgCreateSpotLimitOrderResponseProtoMsg {
 /**
  * MsgCreateSpotLimitOrderResponse defines the Msg/CreateSpotOrder response
  * type.
+ * @name MsgCreateSpotLimitOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse
  */
 export interface MsgCreateSpotLimitOrderResponseAmino {
   order_hash: string;
@@ -281,6 +449,9 @@ export interface MsgCreateSpotLimitOrderResponseAminoMsg {
 /**
  * MsgBatchCreateSpotLimitOrders defines a SDK message for creating a new batch
  * of spot limit orders.
+ * @name MsgBatchCreateSpotLimitOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders
  */
 export interface MsgBatchCreateSpotLimitOrders {
   sender: string;
@@ -293,6 +464,9 @@ export interface MsgBatchCreateSpotLimitOrdersProtoMsg {
 /**
  * MsgBatchCreateSpotLimitOrders defines a SDK message for creating a new batch
  * of spot limit orders.
+ * @name MsgBatchCreateSpotLimitOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders
  */
 export interface MsgBatchCreateSpotLimitOrdersAmino {
   sender: string;
@@ -305,6 +479,9 @@ export interface MsgBatchCreateSpotLimitOrdersAminoMsg {
 /**
  * MsgBatchCreateSpotLimitOrdersResponse defines the
  * Msg/BatchCreateSpotLimitOrders response type.
+ * @name MsgBatchCreateSpotLimitOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse
  */
 export interface MsgBatchCreateSpotLimitOrdersResponse {
   orderHashes: string[];
@@ -318,6 +495,9 @@ export interface MsgBatchCreateSpotLimitOrdersResponseProtoMsg {
 /**
  * MsgBatchCreateSpotLimitOrdersResponse defines the
  * Msg/BatchCreateSpotLimitOrders response type.
+ * @name MsgBatchCreateSpotLimitOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse
  */
 export interface MsgBatchCreateSpotLimitOrdersResponseAmino {
   order_hashes: string[];
@@ -331,16 +511,27 @@ export interface MsgBatchCreateSpotLimitOrdersResponseAminoMsg {
 /**
  * MsgInstantSpotMarketLaunch defines a SDK message for creating a new spot
  * market by paying listing fee without governance
+ * @name MsgInstantSpotMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantSpotMarketLaunch
  */
 export interface MsgInstantSpotMarketLaunch {
   sender: string;
-  /** Ticker for the spot market. */
+  /**
+   * Ticker for the spot market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   baseDenom: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quoteDenom: string;
-  /** min_price_tick_size defines the minimum tick size of the order's price */
+  /**
+   * min_price_tick_size defines the minimum tick size of the order's price
+   */
   minPriceTickSize: string;
   /**
    * min_quantity_tick_size defines the minimum tick size of the order's
@@ -360,16 +551,27 @@ export interface MsgInstantSpotMarketLaunchProtoMsg {
 /**
  * MsgInstantSpotMarketLaunch defines a SDK message for creating a new spot
  * market by paying listing fee without governance
+ * @name MsgInstantSpotMarketLaunchAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantSpotMarketLaunch
  */
 export interface MsgInstantSpotMarketLaunchAmino {
   sender: string;
-  /** Ticker for the spot market. */
+  /**
+   * Ticker for the spot market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   base_denom: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quote_denom: string;
-  /** min_price_tick_size defines the minimum tick size of the order's price */
+  /**
+   * min_price_tick_size defines the minimum tick size of the order's price
+   */
   min_price_tick_size: string;
   /**
    * min_quantity_tick_size defines the minimum tick size of the order's
@@ -389,6 +591,9 @@ export interface MsgInstantSpotMarketLaunchAminoMsg {
 /**
  * MsgInstantSpotMarketLaunchResponse defines the Msg/InstantSpotMarketLaunch
  * response type.
+ * @name MsgInstantSpotMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse
  */
 export interface MsgInstantSpotMarketLaunchResponse {}
 export interface MsgInstantSpotMarketLaunchResponseProtoMsg {
@@ -398,6 +603,9 @@ export interface MsgInstantSpotMarketLaunchResponseProtoMsg {
 /**
  * MsgInstantSpotMarketLaunchResponse defines the Msg/InstantSpotMarketLaunch
  * response type.
+ * @name MsgInstantSpotMarketLaunchResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse
  */
 export interface MsgInstantSpotMarketLaunchResponseAmino {}
 export interface MsgInstantSpotMarketLaunchResponseAminoMsg {
@@ -407,20 +615,35 @@ export interface MsgInstantSpotMarketLaunchResponseAminoMsg {
 /**
  * MsgInstantPerpetualMarketLaunch defines a SDK message for creating a new
  * perpetual futures market by paying listing fee without governance
+ * @name MsgInstantPerpetualMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch
  */
 export interface MsgInstantPerpetualMarketLaunch {
   sender: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   quoteDenom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracleBase: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracleQuote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
   /**
    * maker_fee_rate defines the trade fee rate for makers on the perpetual
@@ -465,20 +688,35 @@ export interface MsgInstantPerpetualMarketLaunchProtoMsg {
 /**
  * MsgInstantPerpetualMarketLaunch defines a SDK message for creating a new
  * perpetual futures market by paying listing fee without governance
+ * @name MsgInstantPerpetualMarketLaunchAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch
  */
 export interface MsgInstantPerpetualMarketLaunchAmino {
   sender: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the base currency */
+  /**
+   * type of coin to use as the base currency
+   */
   quote_denom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracle_base: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracle_quote: string;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
   /**
    * maker_fee_rate defines the trade fee rate for makers on the perpetual
@@ -523,6 +761,9 @@ export interface MsgInstantPerpetualMarketLaunchAminoMsg {
 /**
  * MsgInstantPerpetualMarketLaunchResponse defines the
  * Msg/InstantPerpetualMarketLaunchResponse response type.
+ * @name MsgInstantPerpetualMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse
  */
 export interface MsgInstantPerpetualMarketLaunchResponse {}
 export interface MsgInstantPerpetualMarketLaunchResponseProtoMsg {
@@ -532,6 +773,9 @@ export interface MsgInstantPerpetualMarketLaunchResponseProtoMsg {
 /**
  * MsgInstantPerpetualMarketLaunchResponse defines the
  * Msg/InstantPerpetualMarketLaunchResponse response type.
+ * @name MsgInstantPerpetualMarketLaunchResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse
  */
 export interface MsgInstantPerpetualMarketLaunchResponseAmino {}
 export interface MsgInstantPerpetualMarketLaunchResponseAminoMsg {
@@ -541,18 +785,31 @@ export interface MsgInstantPerpetualMarketLaunchResponseAminoMsg {
 /**
  * MsgInstantBinaryOptionsMarketLaunch defines a SDK message for creating a new
  * perpetual futures market by paying listing fee without governance
+ * @name MsgInstantBinaryOptionsMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch
  */
 export interface MsgInstantBinaryOptionsMarketLaunch {
   sender: string;
-  /** Ticker for the derivative contract. */
+  /**
+   * Ticker for the derivative contract.
+   */
   ticker: string;
-  /** Oracle symbol */
+  /**
+   * Oracle symbol
+   */
   oracleSymbol: string;
-  /** Oracle Provider */
+  /**
+   * Oracle Provider
+   */
   oracleProvider: string;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
   /**
    * maker_fee_rate defines the trade fee rate for makers on the perpetual
@@ -564,13 +821,21 @@ export interface MsgInstantBinaryOptionsMarketLaunch {
    * market
    */
   takerFeeRate: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expirationTimestamp: bigint;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlementTimestamp: bigint;
-  /** admin of the market */
+  /**
+   * admin of the market
+   */
   admin: string;
-  /** Address of the quote currency denomination for the binary options contract */
+  /**
+   * Address of the quote currency denomination for the binary options contract
+   */
   quoteDenom: string;
   /**
    * min_price_tick_size defines the minimum tick size that the price and margin
@@ -595,18 +860,31 @@ export interface MsgInstantBinaryOptionsMarketLaunchProtoMsg {
 /**
  * MsgInstantBinaryOptionsMarketLaunch defines a SDK message for creating a new
  * perpetual futures market by paying listing fee without governance
+ * @name MsgInstantBinaryOptionsMarketLaunchAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch
  */
 export interface MsgInstantBinaryOptionsMarketLaunchAmino {
   sender: string;
-  /** Ticker for the derivative contract. */
+  /**
+   * Ticker for the derivative contract.
+   */
   ticker: string;
-  /** Oracle symbol */
+  /**
+   * Oracle symbol
+   */
   oracle_symbol: string;
-  /** Oracle Provider */
+  /**
+   * Oracle Provider
+   */
   oracle_provider: string;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
   /**
    * maker_fee_rate defines the trade fee rate for makers on the perpetual
@@ -618,13 +896,21 @@ export interface MsgInstantBinaryOptionsMarketLaunchAmino {
    * market
    */
   taker_fee_rate: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expiration_timestamp: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlement_timestamp: string;
-  /** admin of the market */
+  /**
+   * admin of the market
+   */
   admin: string;
-  /** Address of the quote currency denomination for the binary options contract */
+  /**
+   * Address of the quote currency denomination for the binary options contract
+   */
   quote_denom: string;
   /**
    * min_price_tick_size defines the minimum tick size that the price and margin
@@ -649,6 +935,9 @@ export interface MsgInstantBinaryOptionsMarketLaunchAminoMsg {
 /**
  * MsgInstantBinaryOptionsMarketLaunchResponse defines the
  * Msg/InstantBinaryOptionsMarketLaunchResponse response type.
+ * @name MsgInstantBinaryOptionsMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse
  */
 export interface MsgInstantBinaryOptionsMarketLaunchResponse {}
 export interface MsgInstantBinaryOptionsMarketLaunchResponseProtoMsg {
@@ -658,6 +947,9 @@ export interface MsgInstantBinaryOptionsMarketLaunchResponseProtoMsg {
 /**
  * MsgInstantBinaryOptionsMarketLaunchResponse defines the
  * Msg/InstantBinaryOptionsMarketLaunchResponse response type.
+ * @name MsgInstantBinaryOptionsMarketLaunchResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse
  */
 export interface MsgInstantBinaryOptionsMarketLaunchResponseAmino {}
 export interface MsgInstantBinaryOptionsMarketLaunchResponseAminoMsg {
@@ -667,22 +959,39 @@ export interface MsgInstantBinaryOptionsMarketLaunchResponseAminoMsg {
 /**
  * MsgInstantExpiryFuturesMarketLaunch defines a SDK message for creating a new
  * expiry futures market by paying listing fee without governance
+ * @name MsgInstantExpiryFuturesMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch
  */
 export interface MsgInstantExpiryFuturesMarketLaunch {
   sender: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quoteDenom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracleBase: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracleQuote: string;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracleType: OracleType;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracleScaleFactor: number;
-  /** Expiration time of the market */
+  /**
+   * Expiration time of the market
+   */
   expiry: bigint;
   /**
    * maker_fee_rate defines the trade fee rate for makers on the expiry futures
@@ -727,22 +1036,39 @@ export interface MsgInstantExpiryFuturesMarketLaunchProtoMsg {
 /**
  * MsgInstantExpiryFuturesMarketLaunch defines a SDK message for creating a new
  * expiry futures market by paying listing fee without governance
+ * @name MsgInstantExpiryFuturesMarketLaunchAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch
  */
 export interface MsgInstantExpiryFuturesMarketLaunchAmino {
   sender: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** type of coin to use as the quote currency */
+  /**
+   * type of coin to use as the quote currency
+   */
   quote_denom: string;
-  /** Oracle base currency */
+  /**
+   * Oracle base currency
+   */
   oracle_base: string;
-  /** Oracle quote currency */
+  /**
+   * Oracle quote currency
+   */
   oracle_quote: string;
-  /** Oracle type */
+  /**
+   * Oracle type
+   */
   oracle_type: OracleType;
-  /** Scale factor for oracle prices. */
+  /**
+   * Scale factor for oracle prices.
+   */
   oracle_scale_factor: number;
-  /** Expiration time of the market */
+  /**
+   * Expiration time of the market
+   */
   expiry: string;
   /**
    * maker_fee_rate defines the trade fee rate for makers on the expiry futures
@@ -787,6 +1113,9 @@ export interface MsgInstantExpiryFuturesMarketLaunchAminoMsg {
 /**
  * MsgInstantExpiryFuturesMarketLaunchResponse defines the
  * Msg/InstantExpiryFuturesMarketLaunch response type.
+ * @name MsgInstantExpiryFuturesMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse
  */
 export interface MsgInstantExpiryFuturesMarketLaunchResponse {}
 export interface MsgInstantExpiryFuturesMarketLaunchResponseProtoMsg {
@@ -796,6 +1125,9 @@ export interface MsgInstantExpiryFuturesMarketLaunchResponseProtoMsg {
 /**
  * MsgInstantExpiryFuturesMarketLaunchResponse defines the
  * Msg/InstantExpiryFuturesMarketLaunch response type.
+ * @name MsgInstantExpiryFuturesMarketLaunchResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse
  */
 export interface MsgInstantExpiryFuturesMarketLaunchResponseAmino {}
 export interface MsgInstantExpiryFuturesMarketLaunchResponseAminoMsg {
@@ -805,6 +1137,9 @@ export interface MsgInstantExpiryFuturesMarketLaunchResponseAminoMsg {
 /**
  * MsgCreateSpotMarketOrder defines a SDK message for creating a new spot market
  * order.
+ * @name MsgCreateSpotMarketOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotMarketOrder
  */
 export interface MsgCreateSpotMarketOrder {
   sender: string;
@@ -817,6 +1152,9 @@ export interface MsgCreateSpotMarketOrderProtoMsg {
 /**
  * MsgCreateSpotMarketOrder defines a SDK message for creating a new spot market
  * order.
+ * @name MsgCreateSpotMarketOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotMarketOrder
  */
 export interface MsgCreateSpotMarketOrderAmino {
   sender: string;
@@ -829,6 +1167,9 @@ export interface MsgCreateSpotMarketOrderAminoMsg {
 /**
  * MsgCreateSpotMarketOrderResponse defines the Msg/CreateSpotMarketLimitOrder
  * response type.
+ * @name MsgCreateSpotMarketOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse
  */
 export interface MsgCreateSpotMarketOrderResponse {
   orderHash: string;
@@ -842,6 +1183,9 @@ export interface MsgCreateSpotMarketOrderResponseProtoMsg {
 /**
  * MsgCreateSpotMarketOrderResponse defines the Msg/CreateSpotMarketLimitOrder
  * response type.
+ * @name MsgCreateSpotMarketOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse
  */
 export interface MsgCreateSpotMarketOrderResponseAmino {
   order_hash: string;
@@ -852,6 +1196,11 @@ export interface MsgCreateSpotMarketOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse";
   value: MsgCreateSpotMarketOrderResponseAmino;
 }
+/**
+ * @name SpotMarketOrderResults
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketOrderResults
+ */
 export interface SpotMarketOrderResults {
   quantity: string;
   price: string;
@@ -861,6 +1210,11 @@ export interface SpotMarketOrderResultsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketOrderResults";
   value: Uint8Array;
 }
+/**
+ * @name SpotMarketOrderResultsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketOrderResults
+ */
 export interface SpotMarketOrderResultsAmino {
   quantity: string;
   price: string;
@@ -870,7 +1224,12 @@ export interface SpotMarketOrderResultsAminoMsg {
   type: "/injective.exchange.v1beta1.SpotMarketOrderResults";
   value: SpotMarketOrderResultsAmino;
 }
-/** A Cosmos-SDK MsgCreateDerivativeLimitOrder */
+/**
+ * A Cosmos-SDK MsgCreateDerivativeLimitOrder
+ * @name MsgCreateDerivativeLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder
+ */
 export interface MsgCreateDerivativeLimitOrder {
   sender: string;
   order: DerivativeOrder;
@@ -879,7 +1238,12 @@ export interface MsgCreateDerivativeLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgCreateDerivativeLimitOrder */
+/**
+ * A Cosmos-SDK MsgCreateDerivativeLimitOrder
+ * @name MsgCreateDerivativeLimitOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder
+ */
 export interface MsgCreateDerivativeLimitOrderAmino {
   sender: string;
   order: DerivativeOrderAmino;
@@ -891,6 +1255,9 @@ export interface MsgCreateDerivativeLimitOrderAminoMsg {
 /**
  * MsgCreateDerivativeLimitOrderResponse defines the
  * Msg/CreateDerivativeMarketOrder response type.
+ * @name MsgCreateDerivativeLimitOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse
  */
 export interface MsgCreateDerivativeLimitOrderResponse {
   orderHash: string;
@@ -903,6 +1270,9 @@ export interface MsgCreateDerivativeLimitOrderResponseProtoMsg {
 /**
  * MsgCreateDerivativeLimitOrderResponse defines the
  * Msg/CreateDerivativeMarketOrder response type.
+ * @name MsgCreateDerivativeLimitOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse
  */
 export interface MsgCreateDerivativeLimitOrderResponseAmino {
   order_hash: string;
@@ -912,7 +1282,12 @@ export interface MsgCreateDerivativeLimitOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse";
   value: MsgCreateDerivativeLimitOrderResponseAmino;
 }
-/** A Cosmos-SDK MsgCreateBinaryOptionsLimitOrder */
+/**
+ * A Cosmos-SDK MsgCreateBinaryOptionsLimitOrder
+ * @name MsgCreateBinaryOptionsLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder
+ */
 export interface MsgCreateBinaryOptionsLimitOrder {
   sender: string;
   order: DerivativeOrder;
@@ -921,7 +1296,12 @@ export interface MsgCreateBinaryOptionsLimitOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgCreateBinaryOptionsLimitOrder */
+/**
+ * A Cosmos-SDK MsgCreateBinaryOptionsLimitOrder
+ * @name MsgCreateBinaryOptionsLimitOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder
+ */
 export interface MsgCreateBinaryOptionsLimitOrderAmino {
   sender: string;
   order: DerivativeOrderAmino;
@@ -933,6 +1313,9 @@ export interface MsgCreateBinaryOptionsLimitOrderAminoMsg {
 /**
  * MsgCreateBinaryOptionsLimitOrderResponse defines the
  * Msg/CreateBinaryOptionsLimitOrder response type.
+ * @name MsgCreateBinaryOptionsLimitOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse
  */
 export interface MsgCreateBinaryOptionsLimitOrderResponse {
   orderHash: string;
@@ -945,6 +1328,9 @@ export interface MsgCreateBinaryOptionsLimitOrderResponseProtoMsg {
 /**
  * MsgCreateBinaryOptionsLimitOrderResponse defines the
  * Msg/CreateBinaryOptionsLimitOrder response type.
+ * @name MsgCreateBinaryOptionsLimitOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse
  */
 export interface MsgCreateBinaryOptionsLimitOrderResponseAmino {
   order_hash: string;
@@ -954,7 +1340,12 @@ export interface MsgCreateBinaryOptionsLimitOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse";
   value: MsgCreateBinaryOptionsLimitOrderResponseAmino;
 }
-/** A Cosmos-SDK MsgBatchCreateDerivativeLimitOrders */
+/**
+ * A Cosmos-SDK MsgBatchCreateDerivativeLimitOrders
+ * @name MsgBatchCreateDerivativeLimitOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders
+ */
 export interface MsgBatchCreateDerivativeLimitOrders {
   sender: string;
   orders: DerivativeOrder[];
@@ -963,7 +1354,12 @@ export interface MsgBatchCreateDerivativeLimitOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgBatchCreateDerivativeLimitOrders */
+/**
+ * A Cosmos-SDK MsgBatchCreateDerivativeLimitOrders
+ * @name MsgBatchCreateDerivativeLimitOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders
+ */
 export interface MsgBatchCreateDerivativeLimitOrdersAmino {
   sender: string;
   orders: DerivativeOrderAmino[];
@@ -975,6 +1371,9 @@ export interface MsgBatchCreateDerivativeLimitOrdersAminoMsg {
 /**
  * MsgBatchCreateDerivativeLimitOrdersResponse defines the
  * Msg/BatchCreateDerivativeLimitOrders response type.
+ * @name MsgBatchCreateDerivativeLimitOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse
  */
 export interface MsgBatchCreateDerivativeLimitOrdersResponse {
   orderHashes: string[];
@@ -988,6 +1387,9 @@ export interface MsgBatchCreateDerivativeLimitOrdersResponseProtoMsg {
 /**
  * MsgBatchCreateDerivativeLimitOrdersResponse defines the
  * Msg/BatchCreateDerivativeLimitOrders response type.
+ * @name MsgBatchCreateDerivativeLimitOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse
  */
 export interface MsgBatchCreateDerivativeLimitOrdersResponseAmino {
   order_hashes: string[];
@@ -998,7 +1400,12 @@ export interface MsgBatchCreateDerivativeLimitOrdersResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse";
   value: MsgBatchCreateDerivativeLimitOrdersResponseAmino;
 }
-/** MsgCancelSpotOrder defines the Msg/CancelSpotOrder response type. */
+/**
+ * MsgCancelSpotOrder defines the Msg/CancelSpotOrder response type.
+ * @name MsgCancelSpotOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelSpotOrder
+ */
 export interface MsgCancelSpotOrder {
   sender: string;
   marketId: string;
@@ -1010,7 +1417,12 @@ export interface MsgCancelSpotOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrder";
   value: Uint8Array;
 }
-/** MsgCancelSpotOrder defines the Msg/CancelSpotOrder response type. */
+/**
+ * MsgCancelSpotOrder defines the Msg/CancelSpotOrder response type.
+ * @name MsgCancelSpotOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelSpotOrder
+ */
 export interface MsgCancelSpotOrderAmino {
   sender: string;
   market_id: string;
@@ -1022,19 +1434,34 @@ export interface MsgCancelSpotOrderAminoMsg {
   type: "exchange/MsgCancelSpotOrder";
   value: MsgCancelSpotOrderAmino;
 }
-/** MsgCancelSpotOrderResponse defines the Msg/CancelSpotOrder response type. */
+/**
+ * MsgCancelSpotOrderResponse defines the Msg/CancelSpotOrder response type.
+ * @name MsgCancelSpotOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelSpotOrderResponse
+ */
 export interface MsgCancelSpotOrderResponse {}
 export interface MsgCancelSpotOrderResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrderResponse";
   value: Uint8Array;
 }
-/** MsgCancelSpotOrderResponse defines the Msg/CancelSpotOrder response type. */
+/**
+ * MsgCancelSpotOrderResponse defines the Msg/CancelSpotOrder response type.
+ * @name MsgCancelSpotOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelSpotOrderResponse
+ */
 export interface MsgCancelSpotOrderResponseAmino {}
 export interface MsgCancelSpotOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCancelSpotOrderResponse";
   value: MsgCancelSpotOrderResponseAmino;
 }
-/** MsgBatchCancelSpotOrders defines the Msg/BatchCancelSpotOrders response type. */
+/**
+ * MsgBatchCancelSpotOrders defines the Msg/BatchCancelSpotOrders response type.
+ * @name MsgBatchCancelSpotOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelSpotOrders
+ */
 export interface MsgBatchCancelSpotOrders {
   sender: string;
   data: OrderData[];
@@ -1043,7 +1470,12 @@ export interface MsgBatchCancelSpotOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders";
   value: Uint8Array;
 }
-/** MsgBatchCancelSpotOrders defines the Msg/BatchCancelSpotOrders response type. */
+/**
+ * MsgBatchCancelSpotOrders defines the Msg/BatchCancelSpotOrders response type.
+ * @name MsgBatchCancelSpotOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelSpotOrders
+ */
 export interface MsgBatchCancelSpotOrdersAmino {
   sender: string;
   data: OrderDataAmino[];
@@ -1055,6 +1487,9 @@ export interface MsgBatchCancelSpotOrdersAminoMsg {
 /**
  * MsgBatchCancelSpotOrdersResponse defines the Msg/BatchCancelSpotOrders
  * response type.
+ * @name MsgBatchCancelSpotOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse
  */
 export interface MsgBatchCancelSpotOrdersResponse {
   success: boolean[];
@@ -1066,6 +1501,9 @@ export interface MsgBatchCancelSpotOrdersResponseProtoMsg {
 /**
  * MsgBatchCancelSpotOrdersResponse defines the Msg/BatchCancelSpotOrders
  * response type.
+ * @name MsgBatchCancelSpotOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse
  */
 export interface MsgBatchCancelSpotOrdersResponseAmino {
   success: boolean[];
@@ -1077,6 +1515,9 @@ export interface MsgBatchCancelSpotOrdersResponseAminoMsg {
 /**
  * MsgBatchCancelBinaryOptionsOrders defines the
  * Msg/BatchCancelBinaryOptionsOrders response type.
+ * @name MsgBatchCancelBinaryOptionsOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders
  */
 export interface MsgBatchCancelBinaryOptionsOrders {
   sender: string;
@@ -1089,6 +1530,9 @@ export interface MsgBatchCancelBinaryOptionsOrdersProtoMsg {
 /**
  * MsgBatchCancelBinaryOptionsOrders defines the
  * Msg/BatchCancelBinaryOptionsOrders response type.
+ * @name MsgBatchCancelBinaryOptionsOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders
  */
 export interface MsgBatchCancelBinaryOptionsOrdersAmino {
   sender: string;
@@ -1101,6 +1545,9 @@ export interface MsgBatchCancelBinaryOptionsOrdersAminoMsg {
 /**
  * BatchCancelBinaryOptionsOrdersResponse defines the
  * Msg/BatchCancelBinaryOptionsOrders response type.
+ * @name MsgBatchCancelBinaryOptionsOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse
  */
 export interface MsgBatchCancelBinaryOptionsOrdersResponse {
   success: boolean[];
@@ -1112,6 +1559,9 @@ export interface MsgBatchCancelBinaryOptionsOrdersResponseProtoMsg {
 /**
  * BatchCancelBinaryOptionsOrdersResponse defines the
  * Msg/BatchCancelBinaryOptionsOrders response type.
+ * @name MsgBatchCancelBinaryOptionsOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse
  */
 export interface MsgBatchCancelBinaryOptionsOrdersResponseAmino {
   success: boolean[];
@@ -1120,7 +1570,12 @@ export interface MsgBatchCancelBinaryOptionsOrdersResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse";
   value: MsgBatchCancelBinaryOptionsOrdersResponseAmino;
 }
-/** MsgBatchUpdateOrders defines the Msg/BatchUpdateOrders response type. */
+/**
+ * MsgBatchUpdateOrders defines the Msg/BatchUpdateOrders response type.
+ * @name MsgBatchUpdateOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchUpdateOrders
+ */
 export interface MsgBatchUpdateOrders {
   sender: string;
   /**
@@ -1142,7 +1597,12 @@ export interface MsgBatchUpdateOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrders";
   value: Uint8Array;
 }
-/** MsgBatchUpdateOrders defines the Msg/BatchUpdateOrders response type. */
+/**
+ * MsgBatchUpdateOrders defines the Msg/BatchUpdateOrders response type.
+ * @name MsgBatchUpdateOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchUpdateOrders
+ */
 export interface MsgBatchUpdateOrdersAmino {
   sender: string;
   /**
@@ -1164,7 +1624,12 @@ export interface MsgBatchUpdateOrdersAminoMsg {
   type: "exchange/MsgBatchUpdateOrders";
   value: MsgBatchUpdateOrdersAmino;
 }
-/** MsgBatchUpdateOrdersResponse defines the Msg/BatchUpdateOrders response type. */
+/**
+ * MsgBatchUpdateOrdersResponse defines the Msg/BatchUpdateOrders response type.
+ * @name MsgBatchUpdateOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse
+ */
 export interface MsgBatchUpdateOrdersResponse {
   spotCancelSuccess: boolean[];
   derivativeCancelSuccess: boolean[];
@@ -1183,7 +1648,12 @@ export interface MsgBatchUpdateOrdersResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse";
   value: Uint8Array;
 }
-/** MsgBatchUpdateOrdersResponse defines the Msg/BatchUpdateOrders response type. */
+/**
+ * MsgBatchUpdateOrdersResponse defines the Msg/BatchUpdateOrders response type.
+ * @name MsgBatchUpdateOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse
+ */
 export interface MsgBatchUpdateOrdersResponseAmino {
   spot_cancel_success: boolean[];
   derivative_cancel_success: boolean[];
@@ -1202,7 +1672,12 @@ export interface MsgBatchUpdateOrdersResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse";
   value: MsgBatchUpdateOrdersResponseAmino;
 }
-/** A Cosmos-SDK MsgCreateDerivativeMarketOrder */
+/**
+ * A Cosmos-SDK MsgCreateDerivativeMarketOrder
+ * @name MsgCreateDerivativeMarketOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder
+ */
 export interface MsgCreateDerivativeMarketOrder {
   sender: string;
   order: DerivativeOrder;
@@ -1211,7 +1686,12 @@ export interface MsgCreateDerivativeMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgCreateDerivativeMarketOrder */
+/**
+ * A Cosmos-SDK MsgCreateDerivativeMarketOrder
+ * @name MsgCreateDerivativeMarketOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder
+ */
 export interface MsgCreateDerivativeMarketOrderAmino {
   sender: string;
   order: DerivativeOrderAmino;
@@ -1223,6 +1703,9 @@ export interface MsgCreateDerivativeMarketOrderAminoMsg {
 /**
  * MsgCreateDerivativeMarketOrderResponse defines the
  * Msg/CreateDerivativeMarketOrder response type.
+ * @name MsgCreateDerivativeMarketOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse
  */
 export interface MsgCreateDerivativeMarketOrderResponse {
   orderHash: string;
@@ -1236,6 +1719,9 @@ export interface MsgCreateDerivativeMarketOrderResponseProtoMsg {
 /**
  * MsgCreateDerivativeMarketOrderResponse defines the
  * Msg/CreateDerivativeMarketOrder response type.
+ * @name MsgCreateDerivativeMarketOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse
  */
 export interface MsgCreateDerivativeMarketOrderResponseAmino {
   order_hash: string;
@@ -1246,6 +1732,11 @@ export interface MsgCreateDerivativeMarketOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse";
   value: MsgCreateDerivativeMarketOrderResponseAmino;
 }
+/**
+ * @name DerivativeMarketOrderResults
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketOrderResults
+ */
 export interface DerivativeMarketOrderResults {
   quantity: string;
   price: string;
@@ -1257,6 +1748,11 @@ export interface DerivativeMarketOrderResultsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderResults";
   value: Uint8Array;
 }
+/**
+ * @name DerivativeMarketOrderResultsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketOrderResults
+ */
 export interface DerivativeMarketOrderResultsAmino {
   quantity: string;
   price: string;
@@ -1268,7 +1764,12 @@ export interface DerivativeMarketOrderResultsAminoMsg {
   type: "/injective.exchange.v1beta1.DerivativeMarketOrderResults";
   value: DerivativeMarketOrderResultsAmino;
 }
-/** A Cosmos-SDK MsgCreateBinaryOptionsMarketOrder */
+/**
+ * A Cosmos-SDK MsgCreateBinaryOptionsMarketOrder
+ * @name MsgCreateBinaryOptionsMarketOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder
+ */
 export interface MsgCreateBinaryOptionsMarketOrder {
   sender: string;
   order: DerivativeOrder;
@@ -1277,7 +1778,12 @@ export interface MsgCreateBinaryOptionsMarketOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgCreateBinaryOptionsMarketOrder */
+/**
+ * A Cosmos-SDK MsgCreateBinaryOptionsMarketOrder
+ * @name MsgCreateBinaryOptionsMarketOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder
+ */
 export interface MsgCreateBinaryOptionsMarketOrderAmino {
   sender: string;
   order: DerivativeOrderAmino;
@@ -1289,6 +1795,9 @@ export interface MsgCreateBinaryOptionsMarketOrderAminoMsg {
 /**
  * MsgCreateBinaryOptionsMarketOrderResponse defines the
  * Msg/CreateBinaryOptionsMarketOrder response type.
+ * @name MsgCreateBinaryOptionsMarketOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse
  */
 export interface MsgCreateBinaryOptionsMarketOrderResponse {
   orderHash: string;
@@ -1302,6 +1811,9 @@ export interface MsgCreateBinaryOptionsMarketOrderResponseProtoMsg {
 /**
  * MsgCreateBinaryOptionsMarketOrderResponse defines the
  * Msg/CreateBinaryOptionsMarketOrder response type.
+ * @name MsgCreateBinaryOptionsMarketOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse
  */
 export interface MsgCreateBinaryOptionsMarketOrderResponseAmino {
   order_hash: string;
@@ -1312,13 +1824,20 @@ export interface MsgCreateBinaryOptionsMarketOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse";
   value: MsgCreateBinaryOptionsMarketOrderResponseAmino;
 }
-/** MsgCancelDerivativeOrder defines the Msg/CancelDerivativeOrder response type. */
+/**
+ * MsgCancelDerivativeOrder defines the Msg/CancelDerivativeOrder response type.
+ * @name MsgCancelDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelDerivativeOrder
+ */
 export interface MsgCancelDerivativeOrder {
   sender: string;
   marketId: string;
   subaccountId: string;
   orderHash: string;
-  /** bitwise combination of OrderMask enum values */
+  /**
+   * bitwise combination of OrderMask enum values
+   */
   orderMask: number;
   cid: string;
 }
@@ -1326,13 +1845,20 @@ export interface MsgCancelDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrder";
   value: Uint8Array;
 }
-/** MsgCancelDerivativeOrder defines the Msg/CancelDerivativeOrder response type. */
+/**
+ * MsgCancelDerivativeOrder defines the Msg/CancelDerivativeOrder response type.
+ * @name MsgCancelDerivativeOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelDerivativeOrder
+ */
 export interface MsgCancelDerivativeOrderAmino {
   sender: string;
   market_id: string;
   subaccount_id: string;
   order_hash: string;
-  /** bitwise combination of OrderMask enum values */
+  /**
+   * bitwise combination of OrderMask enum values
+   */
   order_mask: number;
   cid: string;
 }
@@ -1343,6 +1869,9 @@ export interface MsgCancelDerivativeOrderAminoMsg {
 /**
  * MsgCancelDerivativeOrderResponse defines the
  * Msg/CancelDerivativeOrderResponse response type.
+ * @name MsgCancelDerivativeOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse
  */
 export interface MsgCancelDerivativeOrderResponse {}
 export interface MsgCancelDerivativeOrderResponseProtoMsg {
@@ -1352,6 +1881,9 @@ export interface MsgCancelDerivativeOrderResponseProtoMsg {
 /**
  * MsgCancelDerivativeOrderResponse defines the
  * Msg/CancelDerivativeOrderResponse response type.
+ * @name MsgCancelDerivativeOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse
  */
 export interface MsgCancelDerivativeOrderResponseAmino {}
 export interface MsgCancelDerivativeOrderResponseAminoMsg {
@@ -1361,13 +1893,18 @@ export interface MsgCancelDerivativeOrderResponseAminoMsg {
 /**
  * MsgCancelBinaryOptionsOrder defines the Msg/CancelBinaryOptionsOrder response
  * type.
+ * @name MsgCancelBinaryOptionsOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder
  */
 export interface MsgCancelBinaryOptionsOrder {
   sender: string;
   marketId: string;
   subaccountId: string;
   orderHash: string;
-  /** bitwise combination of OrderMask enum values */
+  /**
+   * bitwise combination of OrderMask enum values
+   */
   orderMask: number;
   cid: string;
 }
@@ -1378,13 +1915,18 @@ export interface MsgCancelBinaryOptionsOrderProtoMsg {
 /**
  * MsgCancelBinaryOptionsOrder defines the Msg/CancelBinaryOptionsOrder response
  * type.
+ * @name MsgCancelBinaryOptionsOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder
  */
 export interface MsgCancelBinaryOptionsOrderAmino {
   sender: string;
   market_id: string;
   subaccount_id: string;
   order_hash: string;
-  /** bitwise combination of OrderMask enum values */
+  /**
+   * bitwise combination of OrderMask enum values
+   */
   order_mask: number;
   cid: string;
 }
@@ -1395,6 +1937,9 @@ export interface MsgCancelBinaryOptionsOrderAminoMsg {
 /**
  * MsgCancelBinaryOptionsOrderResponse defines the
  * Msg/CancelBinaryOptionsOrderResponse response type.
+ * @name MsgCancelBinaryOptionsOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse
  */
 export interface MsgCancelBinaryOptionsOrderResponse {}
 export interface MsgCancelBinaryOptionsOrderResponseProtoMsg {
@@ -1404,17 +1949,27 @@ export interface MsgCancelBinaryOptionsOrderResponseProtoMsg {
 /**
  * MsgCancelBinaryOptionsOrderResponse defines the
  * Msg/CancelBinaryOptionsOrderResponse response type.
+ * @name MsgCancelBinaryOptionsOrderResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse
  */
 export interface MsgCancelBinaryOptionsOrderResponseAmino {}
 export interface MsgCancelBinaryOptionsOrderResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse";
   value: MsgCancelBinaryOptionsOrderResponseAmino;
 }
+/**
+ * @name OrderData
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderData
+ */
 export interface OrderData {
   marketId: string;
   subaccountId: string;
   orderHash: string;
-  /** bitwise combination of OrderMask enum values */
+  /**
+   * bitwise combination of OrderMask enum values
+   */
   orderMask: number;
   cid: string;
 }
@@ -1422,11 +1977,18 @@ export interface OrderDataProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderData";
   value: Uint8Array;
 }
+/**
+ * @name OrderDataAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderData
+ */
 export interface OrderDataAmino {
   market_id: string;
   subaccount_id: string;
   order_hash: string;
-  /** bitwise combination of OrderMask enum values */
+  /**
+   * bitwise combination of OrderMask enum values
+   */
   order_mask: number;
   cid: string;
 }
@@ -1437,6 +1999,9 @@ export interface OrderDataAminoMsg {
 /**
  * MsgBatchCancelDerivativeOrders defines the Msg/CancelDerivativeOrders
  * response type.
+ * @name MsgBatchCancelDerivativeOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders
  */
 export interface MsgBatchCancelDerivativeOrders {
   sender: string;
@@ -1449,6 +2014,9 @@ export interface MsgBatchCancelDerivativeOrdersProtoMsg {
 /**
  * MsgBatchCancelDerivativeOrders defines the Msg/CancelDerivativeOrders
  * response type.
+ * @name MsgBatchCancelDerivativeOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders
  */
 export interface MsgBatchCancelDerivativeOrdersAmino {
   sender: string;
@@ -1461,6 +2029,9 @@ export interface MsgBatchCancelDerivativeOrdersAminoMsg {
 /**
  * MsgBatchCancelDerivativeOrdersResponse defines the
  * Msg/CancelDerivativeOrderResponse response type.
+ * @name MsgBatchCancelDerivativeOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse
  */
 export interface MsgBatchCancelDerivativeOrdersResponse {
   success: boolean[];
@@ -1472,6 +2043,9 @@ export interface MsgBatchCancelDerivativeOrdersResponseProtoMsg {
 /**
  * MsgBatchCancelDerivativeOrdersResponse defines the
  * Msg/CancelDerivativeOrderResponse response type.
+ * @name MsgBatchCancelDerivativeOrdersResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse
  */
 export interface MsgBatchCancelDerivativeOrdersResponseAmino {
   success: boolean[];
@@ -1480,7 +2054,12 @@ export interface MsgBatchCancelDerivativeOrdersResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse";
   value: MsgBatchCancelDerivativeOrdersResponseAmino;
 }
-/** A Cosmos-SDK MsgSubaccountTransfer */
+/**
+ * A Cosmos-SDK MsgSubaccountTransfer
+ * @name MsgSubaccountTransfer
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSubaccountTransfer
+ */
 export interface MsgSubaccountTransfer {
   sender: string;
   sourceSubaccountId: string;
@@ -1491,7 +2070,12 @@ export interface MsgSubaccountTransferProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransfer";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgSubaccountTransfer */
+/**
+ * A Cosmos-SDK MsgSubaccountTransfer
+ * @name MsgSubaccountTransferAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSubaccountTransfer
+ */
 export interface MsgSubaccountTransferAmino {
   sender: string;
   source_subaccount_id: string;
@@ -1505,6 +2089,9 @@ export interface MsgSubaccountTransferAminoMsg {
 /**
  * MsgSubaccountTransferResponse defines the Msg/SubaccountTransfer response
  * type.
+ * @name MsgSubaccountTransferResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSubaccountTransferResponse
  */
 export interface MsgSubaccountTransferResponse {}
 export interface MsgSubaccountTransferResponseProtoMsg {
@@ -1514,13 +2101,21 @@ export interface MsgSubaccountTransferResponseProtoMsg {
 /**
  * MsgSubaccountTransferResponse defines the Msg/SubaccountTransfer response
  * type.
+ * @name MsgSubaccountTransferResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSubaccountTransferResponse
  */
 export interface MsgSubaccountTransferResponseAmino {}
 export interface MsgSubaccountTransferResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgSubaccountTransferResponse";
   value: MsgSubaccountTransferResponseAmino;
 }
-/** A Cosmos-SDK MsgExternalTransfer */
+/**
+ * A Cosmos-SDK MsgExternalTransfer
+ * @name MsgExternalTransfer
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgExternalTransfer
+ */
 export interface MsgExternalTransfer {
   sender: string;
   sourceSubaccountId: string;
@@ -1531,7 +2126,12 @@ export interface MsgExternalTransferProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgExternalTransfer";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgExternalTransfer */
+/**
+ * A Cosmos-SDK MsgExternalTransfer
+ * @name MsgExternalTransferAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgExternalTransfer
+ */
 export interface MsgExternalTransferAmino {
   sender: string;
   source_subaccount_id: string;
@@ -1542,55 +2142,94 @@ export interface MsgExternalTransferAminoMsg {
   type: "exchange/MsgExternalTransfer";
   value: MsgExternalTransferAmino;
 }
-/** MsgExternalTransferResponse defines the Msg/ExternalTransfer response type. */
+/**
+ * MsgExternalTransferResponse defines the Msg/ExternalTransfer response type.
+ * @name MsgExternalTransferResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgExternalTransferResponse
+ */
 export interface MsgExternalTransferResponse {}
 export interface MsgExternalTransferResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgExternalTransferResponse";
   value: Uint8Array;
 }
-/** MsgExternalTransferResponse defines the Msg/ExternalTransfer response type. */
+/**
+ * MsgExternalTransferResponse defines the Msg/ExternalTransfer response type.
+ * @name MsgExternalTransferResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgExternalTransferResponse
+ */
 export interface MsgExternalTransferResponseAmino {}
 export interface MsgExternalTransferResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgExternalTransferResponse";
   value: MsgExternalTransferResponseAmino;
 }
-/** A Cosmos-SDK MsgLiquidatePosition */
+/**
+ * A Cosmos-SDK MsgLiquidatePosition
+ * @name MsgLiquidatePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgLiquidatePosition
+ */
 export interface MsgLiquidatePosition {
   sender: string;
   subaccountId: string;
   marketId: string;
-  /** optional order to provide for liquidation */
+  /**
+   * optional order to provide for liquidation
+   */
   order?: DerivativeOrder;
 }
 export interface MsgLiquidatePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePosition";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgLiquidatePosition */
+/**
+ * A Cosmos-SDK MsgLiquidatePosition
+ * @name MsgLiquidatePositionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgLiquidatePosition
+ */
 export interface MsgLiquidatePositionAmino {
   sender: string;
   subaccount_id: string;
   market_id: string;
-  /** optional order to provide for liquidation */
+  /**
+   * optional order to provide for liquidation
+   */
   order?: DerivativeOrderAmino;
 }
 export interface MsgLiquidatePositionAminoMsg {
   type: "exchange/MsgLiquidatePosition";
   value: MsgLiquidatePositionAmino;
 }
-/** MsgLiquidatePositionResponse defines the Msg/LiquidatePosition response type. */
+/**
+ * MsgLiquidatePositionResponse defines the Msg/LiquidatePosition response type.
+ * @name MsgLiquidatePositionResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgLiquidatePositionResponse
+ */
 export interface MsgLiquidatePositionResponse {}
 export interface MsgLiquidatePositionResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePositionResponse";
   value: Uint8Array;
 }
-/** MsgLiquidatePositionResponse defines the Msg/LiquidatePosition response type. */
+/**
+ * MsgLiquidatePositionResponse defines the Msg/LiquidatePosition response type.
+ * @name MsgLiquidatePositionResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgLiquidatePositionResponse
+ */
 export interface MsgLiquidatePositionResponseAmino {}
 export interface MsgLiquidatePositionResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgLiquidatePositionResponse";
   value: MsgLiquidatePositionResponseAmino;
 }
-/** A Cosmos-SDK MsgEmergencySettleMarket */
+/**
+ * A Cosmos-SDK MsgEmergencySettleMarket
+ * @name MsgEmergencySettleMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgEmergencySettleMarket
+ */
 export interface MsgEmergencySettleMarket {
   sender: string;
   subaccountId: string;
@@ -1600,7 +2239,12 @@ export interface MsgEmergencySettleMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarket";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgEmergencySettleMarket */
+/**
+ * A Cosmos-SDK MsgEmergencySettleMarket
+ * @name MsgEmergencySettleMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgEmergencySettleMarket
+ */
 export interface MsgEmergencySettleMarketAmino {
   sender: string;
   subaccount_id: string;
@@ -1613,6 +2257,9 @@ export interface MsgEmergencySettleMarketAminoMsg {
 /**
  * MsgEmergencySettleMarketResponse defines the Msg/EmergencySettleMarket
  * response type.
+ * @name MsgEmergencySettleMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgEmergencySettleMarketResponse
  */
 export interface MsgEmergencySettleMarketResponse {}
 export interface MsgEmergencySettleMarketResponseProtoMsg {
@@ -1622,32 +2269,49 @@ export interface MsgEmergencySettleMarketResponseProtoMsg {
 /**
  * MsgEmergencySettleMarketResponse defines the Msg/EmergencySettleMarket
  * response type.
+ * @name MsgEmergencySettleMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgEmergencySettleMarketResponse
  */
 export interface MsgEmergencySettleMarketResponseAmino {}
 export interface MsgEmergencySettleMarketResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgEmergencySettleMarketResponse";
   value: MsgEmergencySettleMarketResponseAmino;
 }
-/** A Cosmos-SDK MsgIncreasePositionMargin */
+/**
+ * A Cosmos-SDK MsgIncreasePositionMargin
+ * @name MsgIncreasePositionMargin
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgIncreasePositionMargin
+ */
 export interface MsgIncreasePositionMargin {
   sender: string;
   sourceSubaccountId: string;
   destinationSubaccountId: string;
   marketId: string;
-  /** amount defines the amount of margin to add to the position */
+  /**
+   * amount defines the amount of margin to add to the position
+   */
   amount: string;
 }
 export interface MsgIncreasePositionMarginProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMargin";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgIncreasePositionMargin */
+/**
+ * A Cosmos-SDK MsgIncreasePositionMargin
+ * @name MsgIncreasePositionMarginAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgIncreasePositionMargin
+ */
 export interface MsgIncreasePositionMarginAmino {
   sender: string;
   source_subaccount_id: string;
   destination_subaccount_id: string;
   market_id: string;
-  /** amount defines the amount of margin to add to the position */
+  /**
+   * amount defines the amount of margin to add to the position
+   */
   amount: string;
 }
 export interface MsgIncreasePositionMarginAminoMsg {
@@ -1657,6 +2321,9 @@ export interface MsgIncreasePositionMarginAminoMsg {
 /**
  * MsgIncreasePositionMarginResponse defines the Msg/IncreasePositionMargin
  * response type.
+ * @name MsgIncreasePositionMarginResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgIncreasePositionMarginResponse
  */
 export interface MsgIncreasePositionMarginResponse {}
 export interface MsgIncreasePositionMarginResponseProtoMsg {
@@ -1666,32 +2333,49 @@ export interface MsgIncreasePositionMarginResponseProtoMsg {
 /**
  * MsgIncreasePositionMarginResponse defines the Msg/IncreasePositionMargin
  * response type.
+ * @name MsgIncreasePositionMarginResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgIncreasePositionMarginResponse
  */
 export interface MsgIncreasePositionMarginResponseAmino {}
 export interface MsgIncreasePositionMarginResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgIncreasePositionMarginResponse";
   value: MsgIncreasePositionMarginResponseAmino;
 }
-/** A Cosmos-SDK MsgDecreasePositionMargin */
+/**
+ * A Cosmos-SDK MsgDecreasePositionMargin
+ * @name MsgDecreasePositionMargin
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDecreasePositionMargin
+ */
 export interface MsgDecreasePositionMargin {
   sender: string;
   sourceSubaccountId: string;
   destinationSubaccountId: string;
   marketId: string;
-  /** amount defines the amount of margin to withdraw from the position */
+  /**
+   * amount defines the amount of margin to withdraw from the position
+   */
   amount: string;
 }
 export interface MsgDecreasePositionMarginProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMargin";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgDecreasePositionMargin */
+/**
+ * A Cosmos-SDK MsgDecreasePositionMargin
+ * @name MsgDecreasePositionMarginAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDecreasePositionMargin
+ */
 export interface MsgDecreasePositionMarginAmino {
   sender: string;
   source_subaccount_id: string;
   destination_subaccount_id: string;
   market_id: string;
-  /** amount defines the amount of margin to withdraw from the position */
+  /**
+   * amount defines the amount of margin to withdraw from the position
+   */
   amount: string;
 }
 export interface MsgDecreasePositionMarginAminoMsg {
@@ -1701,6 +2385,9 @@ export interface MsgDecreasePositionMarginAminoMsg {
 /**
  * MsgDecreasePositionMarginResponse defines the Msg/MsgDecreasePositionMargin
  * response type.
+ * @name MsgDecreasePositionMarginResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDecreasePositionMarginResponse
  */
 export interface MsgDecreasePositionMarginResponse {}
 export interface MsgDecreasePositionMarginResponseProtoMsg {
@@ -1710,13 +2397,21 @@ export interface MsgDecreasePositionMarginResponseProtoMsg {
 /**
  * MsgDecreasePositionMarginResponse defines the Msg/MsgDecreasePositionMargin
  * response type.
+ * @name MsgDecreasePositionMarginResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDecreasePositionMarginResponse
  */
 export interface MsgDecreasePositionMarginResponseAmino {}
 export interface MsgDecreasePositionMarginResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgDecreasePositionMarginResponse";
   value: MsgDecreasePositionMarginResponseAmino;
 }
-/** MsgPrivilegedExecuteContract defines the Msg/Exec message type */
+/**
+ * MsgPrivilegedExecuteContract defines the Msg/Exec message type
+ * @name MsgPrivilegedExecuteContract
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgPrivilegedExecuteContract
+ */
 export interface MsgPrivilegedExecuteContract {
   sender: string;
   /**
@@ -1724,16 +2419,25 @@ export interface MsgPrivilegedExecuteContract {
    * 100inj).
    */
   funds: string;
-  /** contract_address defines the contract address to execute */
+  /**
+   * contract_address defines the contract address to execute
+   */
   contractAddress: string;
-  /** data defines the call data used when executing the contract */
+  /**
+   * data defines the call data used when executing the contract
+   */
   data: string;
 }
 export interface MsgPrivilegedExecuteContractProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContract";
   value: Uint8Array;
 }
-/** MsgPrivilegedExecuteContract defines the Msg/Exec message type */
+/**
+ * MsgPrivilegedExecuteContract defines the Msg/Exec message type
+ * @name MsgPrivilegedExecuteContractAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgPrivilegedExecuteContract
+ */
 export interface MsgPrivilegedExecuteContractAmino {
   sender: string;
   /**
@@ -1741,16 +2445,25 @@ export interface MsgPrivilegedExecuteContractAmino {
    * 100inj).
    */
   funds: string;
-  /** contract_address defines the contract address to execute */
+  /**
+   * contract_address defines the contract address to execute
+   */
   contract_address: string;
-  /** data defines the call data used when executing the contract */
+  /**
+   * data defines the call data used when executing the contract
+   */
   data: string;
 }
 export interface MsgPrivilegedExecuteContractAminoMsg {
   type: "exchange/MsgPrivilegedExecuteContract";
   value: MsgPrivilegedExecuteContractAmino;
 }
-/** MsgPrivilegedExecuteContractResponse defines the Msg/Exec response type. */
+/**
+ * MsgPrivilegedExecuteContractResponse defines the Msg/Exec response type.
+ * @name MsgPrivilegedExecuteContractResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse
+ */
 export interface MsgPrivilegedExecuteContractResponse {
   fundsDiff: Coin[];
 }
@@ -1758,7 +2471,12 @@ export interface MsgPrivilegedExecuteContractResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse";
   value: Uint8Array;
 }
-/** MsgPrivilegedExecuteContractResponse defines the Msg/Exec response type. */
+/**
+ * MsgPrivilegedExecuteContractResponse defines the Msg/Exec response type.
+ * @name MsgPrivilegedExecuteContractResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse
+ */
 export interface MsgPrivilegedExecuteContractResponseAmino {
   funds_diff: CoinAmino[];
 }
@@ -1766,7 +2484,12 @@ export interface MsgPrivilegedExecuteContractResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse";
   value: MsgPrivilegedExecuteContractResponseAmino;
 }
-/** A Cosmos-SDK MsgRewardsOptOut */
+/**
+ * A Cosmos-SDK MsgRewardsOptOut
+ * @name MsgRewardsOptOut
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgRewardsOptOut
+ */
 export interface MsgRewardsOptOut {
   sender: string;
 }
@@ -1774,7 +2497,12 @@ export interface MsgRewardsOptOutProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOut";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgRewardsOptOut */
+/**
+ * A Cosmos-SDK MsgRewardsOptOut
+ * @name MsgRewardsOptOutAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgRewardsOptOut
+ */
 export interface MsgRewardsOptOutAmino {
   sender: string;
 }
@@ -1782,19 +2510,34 @@ export interface MsgRewardsOptOutAminoMsg {
   type: "exchange/MsgRewardsOptOut";
   value: MsgRewardsOptOutAmino;
 }
-/** MsgRewardsOptOutResponse defines the Msg/RewardsOptOut response type. */
+/**
+ * MsgRewardsOptOutResponse defines the Msg/RewardsOptOut response type.
+ * @name MsgRewardsOptOutResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgRewardsOptOutResponse
+ */
 export interface MsgRewardsOptOutResponse {}
 export interface MsgRewardsOptOutResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOutResponse";
   value: Uint8Array;
 }
-/** MsgRewardsOptOutResponse defines the Msg/RewardsOptOut response type. */
+/**
+ * MsgRewardsOptOutResponse defines the Msg/RewardsOptOut response type.
+ * @name MsgRewardsOptOutResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgRewardsOptOutResponse
+ */
 export interface MsgRewardsOptOutResponseAmino {}
 export interface MsgRewardsOptOutResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgRewardsOptOutResponse";
   value: MsgRewardsOptOutResponseAmino;
 }
-/** A Cosmos-SDK MsgReclaimLockedFunds */
+/**
+ * A Cosmos-SDK MsgReclaimLockedFunds
+ * @name MsgReclaimLockedFunds
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgReclaimLockedFunds
+ */
 export interface MsgReclaimLockedFunds {
   sender: string;
   lockedAccountPubKey: Uint8Array;
@@ -1804,7 +2547,12 @@ export interface MsgReclaimLockedFundsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFunds";
   value: Uint8Array;
 }
-/** A Cosmos-SDK MsgReclaimLockedFunds */
+/**
+ * A Cosmos-SDK MsgReclaimLockedFunds
+ * @name MsgReclaimLockedFundsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgReclaimLockedFunds
+ */
 export interface MsgReclaimLockedFundsAmino {
   sender: string;
   lockedAccountPubKey: string;
@@ -1817,6 +2565,9 @@ export interface MsgReclaimLockedFundsAminoMsg {
 /**
  * MsgReclaimLockedFundsResponse defines the Msg/ReclaimLockedFunds response
  * type.
+ * @name MsgReclaimLockedFundsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgReclaimLockedFundsResponse
  */
 export interface MsgReclaimLockedFundsResponse {}
 export interface MsgReclaimLockedFundsResponseProtoMsg {
@@ -1826,15 +2577,25 @@ export interface MsgReclaimLockedFundsResponseProtoMsg {
 /**
  * MsgReclaimLockedFundsResponse defines the Msg/ReclaimLockedFunds response
  * type.
+ * @name MsgReclaimLockedFundsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgReclaimLockedFundsResponse
  */
 export interface MsgReclaimLockedFundsResponseAmino {}
 export interface MsgReclaimLockedFundsResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgReclaimLockedFundsResponse";
   value: MsgReclaimLockedFundsResponseAmino;
 }
-/** MsgSignData defines an arbitrary, general-purpose, off-chain message */
+/**
+ * MsgSignData defines an arbitrary, general-purpose, off-chain message
+ * @name MsgSignData
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSignData
+ */
 export interface MsgSignData {
-  /** Signer is the sdk.AccAddress of the message signer */
+  /**
+   * Signer is the sdk.AccAddress of the message signer
+   */
   signer: Uint8Array;
   /**
    * Data represents the raw bytes of the content that is signed (text, json,
@@ -1846,9 +2607,16 @@ export interface MsgSignDataProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSignData";
   value: Uint8Array;
 }
-/** MsgSignData defines an arbitrary, general-purpose, off-chain message */
+/**
+ * MsgSignData defines an arbitrary, general-purpose, off-chain message
+ * @name MsgSignDataAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSignData
+ */
 export interface MsgSignDataAmino {
-  /** Signer is the sdk.AccAddress of the message signer */
+  /**
+   * Signer is the sdk.AccAddress of the message signer
+   */
   Signer: string;
   /**
    * Data represents the raw bytes of the content that is signed (text, json,
@@ -1860,7 +2628,12 @@ export interface MsgSignDataAminoMsg {
   type: "/injective.exchange.v1beta1.MsgSignData";
   value: MsgSignDataAmino;
 }
-/** MsgSignDoc defines an arbitrary, general-purpose, off-chain message */
+/**
+ * MsgSignDoc defines an arbitrary, general-purpose, off-chain message
+ * @name MsgSignDoc
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSignDoc
+ */
 export interface MsgSignDoc {
   signType: string;
   value: MsgSignData;
@@ -1869,7 +2642,12 @@ export interface MsgSignDocProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgSignDoc";
   value: Uint8Array;
 }
-/** MsgSignDoc defines an arbitrary, general-purpose, off-chain message */
+/**
+ * MsgSignDoc defines an arbitrary, general-purpose, off-chain message
+ * @name MsgSignDocAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSignDoc
+ */
 export interface MsgSignDocAmino {
   sign_type: string;
   value: MsgSignDataAmino;
@@ -1881,17 +2659,28 @@ export interface MsgSignDocAminoMsg {
 /**
  * MsgAdminUpdateBinaryOptionsMarket is used by the market Admin to operate the
  * market
+ * @name MsgAdminUpdateBinaryOptionsMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket
  */
 export interface MsgAdminUpdateBinaryOptionsMarket {
   sender: string;
   marketId: string;
-  /** new price at which market will be settled */
+  /**
+   * new price at which market will be settled
+   */
   settlementPrice?: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expirationTimestamp: bigint;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlementTimestamp: bigint;
-  /** Status of the market */
+  /**
+   * Status of the market
+   */
   status: MarketStatus;
 }
 export interface MsgAdminUpdateBinaryOptionsMarketProtoMsg {
@@ -1901,17 +2690,28 @@ export interface MsgAdminUpdateBinaryOptionsMarketProtoMsg {
 /**
  * MsgAdminUpdateBinaryOptionsMarket is used by the market Admin to operate the
  * market
+ * @name MsgAdminUpdateBinaryOptionsMarketAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket
  */
 export interface MsgAdminUpdateBinaryOptionsMarketAmino {
   sender: string;
   market_id: string;
-  /** new price at which market will be settled */
+  /**
+   * new price at which market will be settled
+   */
   settlement_price?: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   expiration_timestamp: string;
-  /** expiration timestamp */
+  /**
+   * expiration timestamp
+   */
   settlement_timestamp: string;
-  /** Status of the market */
+  /**
+   * Status of the market
+   */
   status: MarketStatus;
 }
 export interface MsgAdminUpdateBinaryOptionsMarketAminoMsg {
@@ -1921,6 +2721,9 @@ export interface MsgAdminUpdateBinaryOptionsMarketAminoMsg {
 /**
  * MsgAdminUpdateBinaryOptionsMarketResponse is the response for
  * AdminUpdateBinaryOptionsMarket rpc method
+ * @name MsgAdminUpdateBinaryOptionsMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse
  */
 export interface MsgAdminUpdateBinaryOptionsMarketResponse {}
 export interface MsgAdminUpdateBinaryOptionsMarketResponseProtoMsg {
@@ -1930,13 +2733,21 @@ export interface MsgAdminUpdateBinaryOptionsMarketResponseProtoMsg {
 /**
  * MsgAdminUpdateBinaryOptionsMarketResponse is the response for
  * AdminUpdateBinaryOptionsMarket rpc method
+ * @name MsgAdminUpdateBinaryOptionsMarketResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse
  */
 export interface MsgAdminUpdateBinaryOptionsMarketResponseAmino {}
 export interface MsgAdminUpdateBinaryOptionsMarketResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse";
   value: MsgAdminUpdateBinaryOptionsMarketResponseAmino;
 }
-/** MsgAuthorizeStakeGrants grants stakes to grantees. */
+/**
+ * MsgAuthorizeStakeGrants grants stakes to grantees.
+ * @name MsgAuthorizeStakeGrants
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAuthorizeStakeGrants
+ */
 export interface MsgAuthorizeStakeGrants {
   sender: string;
   grants: GrantAuthorization[];
@@ -1945,7 +2756,12 @@ export interface MsgAuthorizeStakeGrantsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrants";
   value: Uint8Array;
 }
-/** MsgAuthorizeStakeGrants grants stakes to grantees. */
+/**
+ * MsgAuthorizeStakeGrants grants stakes to grantees.
+ * @name MsgAuthorizeStakeGrantsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAuthorizeStakeGrants
+ */
 export interface MsgAuthorizeStakeGrantsAmino {
   sender: string;
   grants: GrantAuthorizationAmino[];
@@ -1954,17 +2770,32 @@ export interface MsgAuthorizeStakeGrantsAminoMsg {
   type: "exchange/MsgAuthorizeStakeGrants";
   value: MsgAuthorizeStakeGrantsAmino;
 }
+/**
+ * @name MsgAuthorizeStakeGrantsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse
+ */
 export interface MsgAuthorizeStakeGrantsResponse {}
 export interface MsgAuthorizeStakeGrantsResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgAuthorizeStakeGrantsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse
+ */
 export interface MsgAuthorizeStakeGrantsResponseAmino {}
 export interface MsgAuthorizeStakeGrantsResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse";
   value: MsgAuthorizeStakeGrantsResponseAmino;
 }
-/** MsgActivateStakeGrant allows a grantee to activate a stake grant. */
+/**
+ * MsgActivateStakeGrant allows a grantee to activate a stake grant.
+ * @name MsgActivateStakeGrant
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgActivateStakeGrant
+ */
 export interface MsgActivateStakeGrant {
   sender: string;
   granter: string;
@@ -1973,7 +2804,12 @@ export interface MsgActivateStakeGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrant";
   value: Uint8Array;
 }
-/** MsgActivateStakeGrant allows a grantee to activate a stake grant. */
+/**
+ * MsgActivateStakeGrant allows a grantee to activate a stake grant.
+ * @name MsgActivateStakeGrantAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgActivateStakeGrant
+ */
 export interface MsgActivateStakeGrantAmino {
   sender: string;
   granter: string;
@@ -1982,11 +2818,21 @@ export interface MsgActivateStakeGrantAminoMsg {
   type: "exchange/MsgActivateStakeGrant";
   value: MsgActivateStakeGrantAmino;
 }
+/**
+ * @name MsgActivateStakeGrantResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgActivateStakeGrantResponse
+ */
 export interface MsgActivateStakeGrantResponse {}
 export interface MsgActivateStakeGrantResponseProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgActivateStakeGrantResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgActivateStakeGrantResponse
+ */
 export interface MsgActivateStakeGrantResponseAmino {}
 export interface MsgActivateStakeGrantResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse";
@@ -2002,6 +2848,11 @@ function createBaseMsgUpdateSpotMarket(): MsgUpdateSpotMarket {
     newMinNotional: ""
   };
 }
+/**
+ * @name MsgUpdateSpotMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateSpotMarket
+ */
 export const MsgUpdateSpotMarket = {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarket",
   aminoType: "exchange/MsgUpdateSpotMarket",
@@ -2132,6 +2983,11 @@ export const MsgUpdateSpotMarket = {
 function createBaseMsgUpdateSpotMarketResponse(): MsgUpdateSpotMarketResponse {
   return {};
 }
+/**
+ * @name MsgUpdateSpotMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateSpotMarketResponse
+ */
 export const MsgUpdateSpotMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateSpotMarketResponse",
   is(o: any): o is MsgUpdateSpotMarketResponse {
@@ -2198,6 +3054,11 @@ function createBaseMsgUpdateDerivativeMarket(): MsgUpdateDerivativeMarket {
     newMaintenanceMarginRatio: ""
   };
 }
+/**
+ * @name MsgUpdateDerivativeMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateDerivativeMarket
+ */
 export const MsgUpdateDerivativeMarket = {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarket",
   aminoType: "exchange/MsgUpdateDerivativeMarket",
@@ -2350,6 +3211,11 @@ export const MsgUpdateDerivativeMarket = {
 function createBaseMsgUpdateDerivativeMarketResponse(): MsgUpdateDerivativeMarketResponse {
   return {};
 }
+/**
+ * @name MsgUpdateDerivativeMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse
+ */
 export const MsgUpdateDerivativeMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateDerivativeMarketResponse",
   is(o: any): o is MsgUpdateDerivativeMarketResponse {
@@ -2410,6 +3276,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateParams",
   aminoType: "exchange/MsgUpdateParams",
@@ -2501,6 +3372,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {
@@ -2562,6 +3438,13 @@ function createBaseMsgDeposit(): MsgDeposit {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * MsgDeposit defines a SDK message for transferring coins from the sender's
+ * bank balance into the subaccount's exchange deposits
+ * @name MsgDeposit
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDeposit
+ */
 export const MsgDeposit = {
   typeUrl: "/injective.exchange.v1beta1.MsgDeposit",
   aminoType: "exchange/MsgDeposit",
@@ -2664,6 +3547,12 @@ export const MsgDeposit = {
 function createBaseMsgDepositResponse(): MsgDepositResponse {
   return {};
 }
+/**
+ * MsgDepositResponse defines the Msg/Deposit response type.
+ * @name MsgDepositResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDepositResponse
+ */
 export const MsgDepositResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgDepositResponse",
   is(o: any): o is MsgDepositResponse {
@@ -2725,6 +3614,13 @@ function createBaseMsgWithdraw(): MsgWithdraw {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * MsgWithdraw defines a SDK message for withdrawing coins from a subaccount's
+ * deposits to the user's bank balance
+ * @name MsgWithdraw
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgWithdraw
+ */
 export const MsgWithdraw = {
   typeUrl: "/injective.exchange.v1beta1.MsgWithdraw",
   aminoType: "exchange/MsgWithdraw",
@@ -2827,6 +3723,12 @@ export const MsgWithdraw = {
 function createBaseMsgWithdrawResponse(): MsgWithdrawResponse {
   return {};
 }
+/**
+ * MsgWithdraw defines the Msg/Withdraw response type.
+ * @name MsgWithdrawResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgWithdrawResponse
+ */
 export const MsgWithdrawResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgWithdrawResponse",
   is(o: any): o is MsgWithdrawResponse {
@@ -2887,6 +3789,13 @@ function createBaseMsgCreateSpotLimitOrder(): MsgCreateSpotLimitOrder {
     order: SpotOrder.fromPartial({})
   };
 }
+/**
+ * MsgCreateSpotLimitOrder defines a SDK message for creating a new spot limit
+ * order.
+ * @name MsgCreateSpotLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotLimitOrder
+ */
 export const MsgCreateSpotLimitOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotLimitOrder",
   aminoType: "exchange/MsgCreateSpotLimitOrder",
@@ -2981,6 +3890,13 @@ function createBaseMsgCreateSpotLimitOrderResponse(): MsgCreateSpotLimitOrderRes
     cid: ""
   };
 }
+/**
+ * MsgCreateSpotLimitOrderResponse defines the Msg/CreateSpotOrder response
+ * type.
+ * @name MsgCreateSpotLimitOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse
+ */
 export const MsgCreateSpotLimitOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotLimitOrderResponse",
   is(o: any): o is MsgCreateSpotLimitOrderResponse {
@@ -3063,6 +3979,13 @@ function createBaseMsgBatchCreateSpotLimitOrders(): MsgBatchCreateSpotLimitOrder
     orders: []
   };
 }
+/**
+ * MsgBatchCreateSpotLimitOrders defines a SDK message for creating a new batch
+ * of spot limit orders.
+ * @name MsgBatchCreateSpotLimitOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders
+ */
 export const MsgBatchCreateSpotLimitOrders = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrders",
   aminoType: "exchange/MsgBatchCreateSpotLimitOrders",
@@ -3160,6 +4083,13 @@ function createBaseMsgBatchCreateSpotLimitOrdersResponse(): MsgBatchCreateSpotLi
     failedOrdersCids: []
   };
 }
+/**
+ * MsgBatchCreateSpotLimitOrdersResponse defines the
+ * Msg/BatchCreateSpotLimitOrders response type.
+ * @name MsgBatchCreateSpotLimitOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse
+ */
 export const MsgBatchCreateSpotLimitOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateSpotLimitOrdersResponse",
   is(o: any): o is MsgBatchCreateSpotLimitOrdersResponse {
@@ -3264,6 +4194,13 @@ function createBaseMsgInstantSpotMarketLaunch(): MsgInstantSpotMarketLaunch {
     minNotional: ""
   };
 }
+/**
+ * MsgInstantSpotMarketLaunch defines a SDK message for creating a new spot
+ * market by paying listing fee without governance
+ * @name MsgInstantSpotMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantSpotMarketLaunch
+ */
 export const MsgInstantSpotMarketLaunch = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunch",
   aminoType: "exchange/MsgInstantSpotMarketLaunch",
@@ -3405,6 +4342,13 @@ export const MsgInstantSpotMarketLaunch = {
 function createBaseMsgInstantSpotMarketLaunchResponse(): MsgInstantSpotMarketLaunchResponse {
   return {};
 }
+/**
+ * MsgInstantSpotMarketLaunchResponse defines the Msg/InstantSpotMarketLaunch
+ * response type.
+ * @name MsgInstantSpotMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse
+ */
 export const MsgInstantSpotMarketLaunchResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunchResponse",
   is(o: any): o is MsgInstantSpotMarketLaunchResponse {
@@ -3477,6 +4421,13 @@ function createBaseMsgInstantPerpetualMarketLaunch(): MsgInstantPerpetualMarketL
     minNotional: ""
   };
 }
+/**
+ * MsgInstantPerpetualMarketLaunch defines a SDK message for creating a new
+ * perpetual futures market by paying listing fee without governance
+ * @name MsgInstantPerpetualMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch
+ */
 export const MsgInstantPerpetualMarketLaunch = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunch",
   aminoType: "exchange/MsgInstantPerpetualMarketLaunch",
@@ -3695,6 +4646,13 @@ export const MsgInstantPerpetualMarketLaunch = {
 function createBaseMsgInstantPerpetualMarketLaunchResponse(): MsgInstantPerpetualMarketLaunchResponse {
   return {};
 }
+/**
+ * MsgInstantPerpetualMarketLaunchResponse defines the
+ * Msg/InstantPerpetualMarketLaunchResponse response type.
+ * @name MsgInstantPerpetualMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse
+ */
 export const MsgInstantPerpetualMarketLaunchResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantPerpetualMarketLaunchResponse",
   is(o: any): o is MsgInstantPerpetualMarketLaunchResponse {
@@ -3768,6 +4726,13 @@ function createBaseMsgInstantBinaryOptionsMarketLaunch(): MsgInstantBinaryOption
     minNotional: ""
   };
 }
+/**
+ * MsgInstantBinaryOptionsMarketLaunch defines a SDK message for creating a new
+ * perpetual futures market by paying listing fee without governance
+ * @name MsgInstantBinaryOptionsMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch
+ */
 export const MsgInstantBinaryOptionsMarketLaunch = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunch",
   aminoType: "exchange/MsgInstantBinaryOptionsMarketLaunch",
@@ -3997,6 +4962,13 @@ export const MsgInstantBinaryOptionsMarketLaunch = {
 function createBaseMsgInstantBinaryOptionsMarketLaunchResponse(): MsgInstantBinaryOptionsMarketLaunchResponse {
   return {};
 }
+/**
+ * MsgInstantBinaryOptionsMarketLaunchResponse defines the
+ * Msg/InstantBinaryOptionsMarketLaunchResponse response type.
+ * @name MsgInstantBinaryOptionsMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse
+ */
 export const MsgInstantBinaryOptionsMarketLaunchResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantBinaryOptionsMarketLaunchResponse",
   is(o: any): o is MsgInstantBinaryOptionsMarketLaunchResponse {
@@ -4070,6 +5042,13 @@ function createBaseMsgInstantExpiryFuturesMarketLaunch(): MsgInstantExpiryFuture
     minNotional: ""
   };
 }
+/**
+ * MsgInstantExpiryFuturesMarketLaunch defines a SDK message for creating a new
+ * expiry futures market by paying listing fee without governance
+ * @name MsgInstantExpiryFuturesMarketLaunch
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch
+ */
 export const MsgInstantExpiryFuturesMarketLaunch = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunch",
   aminoType: "exchange/MsgInstantExpiryFuturesMarketLaunch",
@@ -4299,6 +5278,13 @@ export const MsgInstantExpiryFuturesMarketLaunch = {
 function createBaseMsgInstantExpiryFuturesMarketLaunchResponse(): MsgInstantExpiryFuturesMarketLaunchResponse {
   return {};
 }
+/**
+ * MsgInstantExpiryFuturesMarketLaunchResponse defines the
+ * Msg/InstantExpiryFuturesMarketLaunch response type.
+ * @name MsgInstantExpiryFuturesMarketLaunchResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse
+ */
 export const MsgInstantExpiryFuturesMarketLaunchResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantExpiryFuturesMarketLaunchResponse",
   is(o: any): o is MsgInstantExpiryFuturesMarketLaunchResponse {
@@ -4359,6 +5345,13 @@ function createBaseMsgCreateSpotMarketOrder(): MsgCreateSpotMarketOrder {
     order: SpotOrder.fromPartial({})
   };
 }
+/**
+ * MsgCreateSpotMarketOrder defines a SDK message for creating a new spot market
+ * order.
+ * @name MsgCreateSpotMarketOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotMarketOrder
+ */
 export const MsgCreateSpotMarketOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrder",
   aminoType: "exchange/MsgCreateSpotMarketOrder",
@@ -4454,6 +5447,13 @@ function createBaseMsgCreateSpotMarketOrderResponse(): MsgCreateSpotMarketOrderR
     cid: ""
   };
 }
+/**
+ * MsgCreateSpotMarketOrderResponse defines the Msg/CreateSpotMarketLimitOrder
+ * response type.
+ * @name MsgCreateSpotMarketOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse
+ */
 export const MsgCreateSpotMarketOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateSpotMarketOrderResponse",
   is(o: any): o is MsgCreateSpotMarketOrderResponse {
@@ -4553,6 +5553,11 @@ function createBaseSpotMarketOrderResults(): SpotMarketOrderResults {
     fee: ""
   };
 }
+/**
+ * @name SpotMarketOrderResults
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.SpotMarketOrderResults
+ */
 export const SpotMarketOrderResults = {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketOrderResults",
   is(o: any): o is SpotMarketOrderResults {
@@ -4646,6 +5651,12 @@ function createBaseMsgCreateDerivativeLimitOrder(): MsgCreateDerivativeLimitOrde
     order: DerivativeOrder.fromPartial({})
   };
 }
+/**
+ * A Cosmos-SDK MsgCreateDerivativeLimitOrder
+ * @name MsgCreateDerivativeLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder
+ */
 export const MsgCreateDerivativeLimitOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrder",
   aminoType: "exchange/MsgCreateDerivativeLimitOrder",
@@ -4740,6 +5751,13 @@ function createBaseMsgCreateDerivativeLimitOrderResponse(): MsgCreateDerivativeL
     cid: ""
   };
 }
+/**
+ * MsgCreateDerivativeLimitOrderResponse defines the
+ * Msg/CreateDerivativeMarketOrder response type.
+ * @name MsgCreateDerivativeLimitOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse
+ */
 export const MsgCreateDerivativeLimitOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeLimitOrderResponse",
   is(o: any): o is MsgCreateDerivativeLimitOrderResponse {
@@ -4822,6 +5840,12 @@ function createBaseMsgCreateBinaryOptionsLimitOrder(): MsgCreateBinaryOptionsLim
     order: DerivativeOrder.fromPartial({})
   };
 }
+/**
+ * A Cosmos-SDK MsgCreateBinaryOptionsLimitOrder
+ * @name MsgCreateBinaryOptionsLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder
+ */
 export const MsgCreateBinaryOptionsLimitOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrder",
   aminoType: "exchange/MsgCreateBinaryOptionsLimitOrder",
@@ -4916,6 +5940,13 @@ function createBaseMsgCreateBinaryOptionsLimitOrderResponse(): MsgCreateBinaryOp
     cid: ""
   };
 }
+/**
+ * MsgCreateBinaryOptionsLimitOrderResponse defines the
+ * Msg/CreateBinaryOptionsLimitOrder response type.
+ * @name MsgCreateBinaryOptionsLimitOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse
+ */
 export const MsgCreateBinaryOptionsLimitOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsLimitOrderResponse",
   is(o: any): o is MsgCreateBinaryOptionsLimitOrderResponse {
@@ -4998,6 +6029,12 @@ function createBaseMsgBatchCreateDerivativeLimitOrders(): MsgBatchCreateDerivati
     orders: []
   };
 }
+/**
+ * A Cosmos-SDK MsgBatchCreateDerivativeLimitOrders
+ * @name MsgBatchCreateDerivativeLimitOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders
+ */
 export const MsgBatchCreateDerivativeLimitOrders = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrders",
   aminoType: "exchange/MsgBatchCreateDerivativeLimitOrders",
@@ -5095,6 +6132,13 @@ function createBaseMsgBatchCreateDerivativeLimitOrdersResponse(): MsgBatchCreate
     failedOrdersCids: []
   };
 }
+/**
+ * MsgBatchCreateDerivativeLimitOrdersResponse defines the
+ * Msg/BatchCreateDerivativeLimitOrders response type.
+ * @name MsgBatchCreateDerivativeLimitOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse
+ */
 export const MsgBatchCreateDerivativeLimitOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCreateDerivativeLimitOrdersResponse",
   is(o: any): o is MsgBatchCreateDerivativeLimitOrdersResponse {
@@ -5197,6 +6241,12 @@ function createBaseMsgCancelSpotOrder(): MsgCancelSpotOrder {
     cid: ""
   };
 }
+/**
+ * MsgCancelSpotOrder defines the Msg/CancelSpotOrder response type.
+ * @name MsgCancelSpotOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelSpotOrder
+ */
 export const MsgCancelSpotOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrder",
   aminoType: "exchange/MsgCancelSpotOrder",
@@ -5316,6 +6366,12 @@ export const MsgCancelSpotOrder = {
 function createBaseMsgCancelSpotOrderResponse(): MsgCancelSpotOrderResponse {
   return {};
 }
+/**
+ * MsgCancelSpotOrderResponse defines the Msg/CancelSpotOrder response type.
+ * @name MsgCancelSpotOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelSpotOrderResponse
+ */
 export const MsgCancelSpotOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelSpotOrderResponse",
   is(o: any): o is MsgCancelSpotOrderResponse {
@@ -5376,6 +6432,12 @@ function createBaseMsgBatchCancelSpotOrders(): MsgBatchCancelSpotOrders {
     data: []
   };
 }
+/**
+ * MsgBatchCancelSpotOrders defines the Msg/BatchCancelSpotOrders response type.
+ * @name MsgBatchCancelSpotOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelSpotOrders
+ */
 export const MsgBatchCancelSpotOrders = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrders",
   aminoType: "exchange/MsgBatchCancelSpotOrders",
@@ -5471,6 +6533,13 @@ function createBaseMsgBatchCancelSpotOrdersResponse(): MsgBatchCancelSpotOrdersR
     success: []
   };
 }
+/**
+ * MsgBatchCancelSpotOrdersResponse defines the Msg/BatchCancelSpotOrders
+ * response type.
+ * @name MsgBatchCancelSpotOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse
+ */
 export const MsgBatchCancelSpotOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelSpotOrdersResponse",
   is(o: any): o is MsgBatchCancelSpotOrdersResponse {
@@ -5553,6 +6622,13 @@ function createBaseMsgBatchCancelBinaryOptionsOrders(): MsgBatchCancelBinaryOpti
     data: []
   };
 }
+/**
+ * MsgBatchCancelBinaryOptionsOrders defines the
+ * Msg/BatchCancelBinaryOptionsOrders response type.
+ * @name MsgBatchCancelBinaryOptionsOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders
+ */
 export const MsgBatchCancelBinaryOptionsOrders = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrders",
   aminoType: "exchange/MsgBatchCancelBinaryOptionsOrders",
@@ -5648,6 +6724,13 @@ function createBaseMsgBatchCancelBinaryOptionsOrdersResponse(): MsgBatchCancelBi
     success: []
   };
 }
+/**
+ * BatchCancelBinaryOptionsOrdersResponse defines the
+ * Msg/BatchCancelBinaryOptionsOrders response type.
+ * @name MsgBatchCancelBinaryOptionsOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse
+ */
 export const MsgBatchCancelBinaryOptionsOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelBinaryOptionsOrdersResponse",
   is(o: any): o is MsgBatchCancelBinaryOptionsOrdersResponse {
@@ -5739,6 +6822,12 @@ function createBaseMsgBatchUpdateOrders(): MsgBatchUpdateOrders {
     binaryOptionsOrdersToCreate: []
   };
 }
+/**
+ * MsgBatchUpdateOrders defines the Msg/BatchUpdateOrders response type.
+ * @name MsgBatchUpdateOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchUpdateOrders
+ */
 export const MsgBatchUpdateOrders = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrders",
   aminoType: "exchange/MsgBatchUpdateOrders",
@@ -5962,6 +7051,12 @@ function createBaseMsgBatchUpdateOrdersResponse(): MsgBatchUpdateOrdersResponse 
     failedBinaryOptionsOrdersCids: []
   };
 }
+/**
+ * MsgBatchUpdateOrdersResponse defines the Msg/BatchUpdateOrders response type.
+ * @name MsgBatchUpdateOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse
+ */
 export const MsgBatchUpdateOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchUpdateOrdersResponse",
   is(o: any): o is MsgBatchUpdateOrdersResponse {
@@ -6205,6 +7300,12 @@ function createBaseMsgCreateDerivativeMarketOrder(): MsgCreateDerivativeMarketOr
     order: DerivativeOrder.fromPartial({})
   };
 }
+/**
+ * A Cosmos-SDK MsgCreateDerivativeMarketOrder
+ * @name MsgCreateDerivativeMarketOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder
+ */
 export const MsgCreateDerivativeMarketOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrder",
   aminoType: "exchange/MsgCreateDerivativeMarketOrder",
@@ -6300,6 +7401,13 @@ function createBaseMsgCreateDerivativeMarketOrderResponse(): MsgCreateDerivative
     cid: ""
   };
 }
+/**
+ * MsgCreateDerivativeMarketOrderResponse defines the
+ * Msg/CreateDerivativeMarketOrder response type.
+ * @name MsgCreateDerivativeMarketOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse
+ */
 export const MsgCreateDerivativeMarketOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateDerivativeMarketOrderResponse",
   is(o: any): o is MsgCreateDerivativeMarketOrderResponse {
@@ -6401,6 +7509,11 @@ function createBaseDerivativeMarketOrderResults(): DerivativeMarketOrderResults 
     payout: ""
   };
 }
+/**
+ * @name DerivativeMarketOrderResults
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketOrderResults
+ */
 export const DerivativeMarketOrderResults = {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderResults",
   is(o: any): o is DerivativeMarketOrderResults {
@@ -6521,6 +7634,12 @@ function createBaseMsgCreateBinaryOptionsMarketOrder(): MsgCreateBinaryOptionsMa
     order: DerivativeOrder.fromPartial({})
   };
 }
+/**
+ * A Cosmos-SDK MsgCreateBinaryOptionsMarketOrder
+ * @name MsgCreateBinaryOptionsMarketOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder
+ */
 export const MsgCreateBinaryOptionsMarketOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrder",
   aminoType: "exchange/MsgCreateBinaryOptionsMarketOrder",
@@ -6616,6 +7735,13 @@ function createBaseMsgCreateBinaryOptionsMarketOrderResponse(): MsgCreateBinaryO
     cid: ""
   };
 }
+/**
+ * MsgCreateBinaryOptionsMarketOrderResponse defines the
+ * Msg/CreateBinaryOptionsMarketOrder response type.
+ * @name MsgCreateBinaryOptionsMarketOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse
+ */
 export const MsgCreateBinaryOptionsMarketOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCreateBinaryOptionsMarketOrderResponse",
   is(o: any): o is MsgCreateBinaryOptionsMarketOrderResponse {
@@ -6718,6 +7844,12 @@ function createBaseMsgCancelDerivativeOrder(): MsgCancelDerivativeOrder {
     cid: ""
   };
 }
+/**
+ * MsgCancelDerivativeOrder defines the Msg/CancelDerivativeOrder response type.
+ * @name MsgCancelDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelDerivativeOrder
+ */
 export const MsgCancelDerivativeOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrder",
   aminoType: "exchange/MsgCancelDerivativeOrder",
@@ -6848,6 +7980,13 @@ export const MsgCancelDerivativeOrder = {
 function createBaseMsgCancelDerivativeOrderResponse(): MsgCancelDerivativeOrderResponse {
   return {};
 }
+/**
+ * MsgCancelDerivativeOrderResponse defines the
+ * Msg/CancelDerivativeOrderResponse response type.
+ * @name MsgCancelDerivativeOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse
+ */
 export const MsgCancelDerivativeOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelDerivativeOrderResponse",
   is(o: any): o is MsgCancelDerivativeOrderResponse {
@@ -6912,6 +8051,13 @@ function createBaseMsgCancelBinaryOptionsOrder(): MsgCancelBinaryOptionsOrder {
     cid: ""
   };
 }
+/**
+ * MsgCancelBinaryOptionsOrder defines the Msg/CancelBinaryOptionsOrder response
+ * type.
+ * @name MsgCancelBinaryOptionsOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder
+ */
 export const MsgCancelBinaryOptionsOrder = {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrder",
   aminoType: "exchange/MsgCancelBinaryOptionsOrder",
@@ -7042,6 +8188,13 @@ export const MsgCancelBinaryOptionsOrder = {
 function createBaseMsgCancelBinaryOptionsOrderResponse(): MsgCancelBinaryOptionsOrderResponse {
   return {};
 }
+/**
+ * MsgCancelBinaryOptionsOrderResponse defines the
+ * Msg/CancelBinaryOptionsOrderResponse response type.
+ * @name MsgCancelBinaryOptionsOrderResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse
+ */
 export const MsgCancelBinaryOptionsOrderResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgCancelBinaryOptionsOrderResponse",
   is(o: any): o is MsgCancelBinaryOptionsOrderResponse {
@@ -7105,6 +8258,11 @@ function createBaseOrderData(): OrderData {
     cid: ""
   };
 }
+/**
+ * @name OrderData
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderData
+ */
 export const OrderData = {
   typeUrl: "/injective.exchange.v1beta1.OrderData",
   is(o: any): o is OrderData {
@@ -7220,6 +8378,13 @@ function createBaseMsgBatchCancelDerivativeOrders(): MsgBatchCancelDerivativeOrd
     data: []
   };
 }
+/**
+ * MsgBatchCancelDerivativeOrders defines the Msg/CancelDerivativeOrders
+ * response type.
+ * @name MsgBatchCancelDerivativeOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders
+ */
 export const MsgBatchCancelDerivativeOrders = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrders",
   aminoType: "exchange/MsgBatchCancelDerivativeOrders",
@@ -7315,6 +8480,13 @@ function createBaseMsgBatchCancelDerivativeOrdersResponse(): MsgBatchCancelDeriv
     success: []
   };
 }
+/**
+ * MsgBatchCancelDerivativeOrdersResponse defines the
+ * Msg/CancelDerivativeOrderResponse response type.
+ * @name MsgBatchCancelDerivativeOrdersResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse
+ */
 export const MsgBatchCancelDerivativeOrdersResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgBatchCancelDerivativeOrdersResponse",
   is(o: any): o is MsgBatchCancelDerivativeOrdersResponse {
@@ -7399,6 +8571,12 @@ function createBaseMsgSubaccountTransfer(): MsgSubaccountTransfer {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * A Cosmos-SDK MsgSubaccountTransfer
+ * @name MsgSubaccountTransfer
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSubaccountTransfer
+ */
 export const MsgSubaccountTransfer = {
   typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransfer",
   aminoType: "exchange/MsgSubaccountTransfer",
@@ -7512,6 +8690,13 @@ export const MsgSubaccountTransfer = {
 function createBaseMsgSubaccountTransferResponse(): MsgSubaccountTransferResponse {
   return {};
 }
+/**
+ * MsgSubaccountTransferResponse defines the Msg/SubaccountTransfer response
+ * type.
+ * @name MsgSubaccountTransferResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSubaccountTransferResponse
+ */
 export const MsgSubaccountTransferResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgSubaccountTransferResponse",
   is(o: any): o is MsgSubaccountTransferResponse {
@@ -7574,6 +8759,12 @@ function createBaseMsgExternalTransfer(): MsgExternalTransfer {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * A Cosmos-SDK MsgExternalTransfer
+ * @name MsgExternalTransfer
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgExternalTransfer
+ */
 export const MsgExternalTransfer = {
   typeUrl: "/injective.exchange.v1beta1.MsgExternalTransfer",
   aminoType: "exchange/MsgExternalTransfer",
@@ -7687,6 +8878,12 @@ export const MsgExternalTransfer = {
 function createBaseMsgExternalTransferResponse(): MsgExternalTransferResponse {
   return {};
 }
+/**
+ * MsgExternalTransferResponse defines the Msg/ExternalTransfer response type.
+ * @name MsgExternalTransferResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgExternalTransferResponse
+ */
 export const MsgExternalTransferResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgExternalTransferResponse",
   is(o: any): o is MsgExternalTransferResponse {
@@ -7749,6 +8946,12 @@ function createBaseMsgLiquidatePosition(): MsgLiquidatePosition {
     order: undefined
   };
 }
+/**
+ * A Cosmos-SDK MsgLiquidatePosition
+ * @name MsgLiquidatePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgLiquidatePosition
+ */
 export const MsgLiquidatePosition = {
   typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePosition",
   aminoType: "exchange/MsgLiquidatePosition",
@@ -7862,6 +9065,12 @@ export const MsgLiquidatePosition = {
 function createBaseMsgLiquidatePositionResponse(): MsgLiquidatePositionResponse {
   return {};
 }
+/**
+ * MsgLiquidatePositionResponse defines the Msg/LiquidatePosition response type.
+ * @name MsgLiquidatePositionResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgLiquidatePositionResponse
+ */
 export const MsgLiquidatePositionResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgLiquidatePositionResponse",
   is(o: any): o is MsgLiquidatePositionResponse {
@@ -7923,6 +9132,12 @@ function createBaseMsgEmergencySettleMarket(): MsgEmergencySettleMarket {
     marketId: ""
   };
 }
+/**
+ * A Cosmos-SDK MsgEmergencySettleMarket
+ * @name MsgEmergencySettleMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgEmergencySettleMarket
+ */
 export const MsgEmergencySettleMarket = {
   typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarket",
   aminoType: "exchange/MsgEmergencySettleMarket",
@@ -8020,6 +9235,13 @@ export const MsgEmergencySettleMarket = {
 function createBaseMsgEmergencySettleMarketResponse(): MsgEmergencySettleMarketResponse {
   return {};
 }
+/**
+ * MsgEmergencySettleMarketResponse defines the Msg/EmergencySettleMarket
+ * response type.
+ * @name MsgEmergencySettleMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgEmergencySettleMarketResponse
+ */
 export const MsgEmergencySettleMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgEmergencySettleMarketResponse",
   is(o: any): o is MsgEmergencySettleMarketResponse {
@@ -8083,6 +9305,12 @@ function createBaseMsgIncreasePositionMargin(): MsgIncreasePositionMargin {
     amount: ""
   };
 }
+/**
+ * A Cosmos-SDK MsgIncreasePositionMargin
+ * @name MsgIncreasePositionMargin
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgIncreasePositionMargin
+ */
 export const MsgIncreasePositionMargin = {
   typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMargin",
   aminoType: "exchange/MsgIncreasePositionMargin",
@@ -8202,6 +9430,13 @@ export const MsgIncreasePositionMargin = {
 function createBaseMsgIncreasePositionMarginResponse(): MsgIncreasePositionMarginResponse {
   return {};
 }
+/**
+ * MsgIncreasePositionMarginResponse defines the Msg/IncreasePositionMargin
+ * response type.
+ * @name MsgIncreasePositionMarginResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgIncreasePositionMarginResponse
+ */
 export const MsgIncreasePositionMarginResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgIncreasePositionMarginResponse",
   is(o: any): o is MsgIncreasePositionMarginResponse {
@@ -8265,6 +9500,12 @@ function createBaseMsgDecreasePositionMargin(): MsgDecreasePositionMargin {
     amount: ""
   };
 }
+/**
+ * A Cosmos-SDK MsgDecreasePositionMargin
+ * @name MsgDecreasePositionMargin
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDecreasePositionMargin
+ */
 export const MsgDecreasePositionMargin = {
   typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMargin",
   aminoType: "exchange/MsgDecreasePositionMargin",
@@ -8384,6 +9625,13 @@ export const MsgDecreasePositionMargin = {
 function createBaseMsgDecreasePositionMarginResponse(): MsgDecreasePositionMarginResponse {
   return {};
 }
+/**
+ * MsgDecreasePositionMarginResponse defines the Msg/MsgDecreasePositionMargin
+ * response type.
+ * @name MsgDecreasePositionMarginResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgDecreasePositionMarginResponse
+ */
 export const MsgDecreasePositionMarginResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgDecreasePositionMarginResponse",
   is(o: any): o is MsgDecreasePositionMarginResponse {
@@ -8446,6 +9694,12 @@ function createBaseMsgPrivilegedExecuteContract(): MsgPrivilegedExecuteContract 
     data: ""
   };
 }
+/**
+ * MsgPrivilegedExecuteContract defines the Msg/Exec message type
+ * @name MsgPrivilegedExecuteContract
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgPrivilegedExecuteContract
+ */
 export const MsgPrivilegedExecuteContract = {
   typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContract",
   aminoType: "exchange/MsgPrivilegedExecuteContract",
@@ -8556,6 +9810,12 @@ function createBaseMsgPrivilegedExecuteContractResponse(): MsgPrivilegedExecuteC
     fundsDiff: []
   };
 }
+/**
+ * MsgPrivilegedExecuteContractResponse defines the Msg/Exec response type.
+ * @name MsgPrivilegedExecuteContractResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse
+ */
 export const MsgPrivilegedExecuteContractResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgPrivilegedExecuteContractResponse",
   is(o: any): o is MsgPrivilegedExecuteContractResponse {
@@ -8633,6 +9893,12 @@ function createBaseMsgRewardsOptOut(): MsgRewardsOptOut {
     sender: ""
   };
 }
+/**
+ * A Cosmos-SDK MsgRewardsOptOut
+ * @name MsgRewardsOptOut
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgRewardsOptOut
+ */
 export const MsgRewardsOptOut = {
   typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOut",
   aminoType: "exchange/MsgRewardsOptOut",
@@ -8708,6 +9974,12 @@ export const MsgRewardsOptOut = {
 function createBaseMsgRewardsOptOutResponse(): MsgRewardsOptOutResponse {
   return {};
 }
+/**
+ * MsgRewardsOptOutResponse defines the Msg/RewardsOptOut response type.
+ * @name MsgRewardsOptOutResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgRewardsOptOutResponse
+ */
 export const MsgRewardsOptOutResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgRewardsOptOutResponse",
   is(o: any): o is MsgRewardsOptOutResponse {
@@ -8769,6 +10041,12 @@ function createBaseMsgReclaimLockedFunds(): MsgReclaimLockedFunds {
     signature: new Uint8Array()
   };
 }
+/**
+ * A Cosmos-SDK MsgReclaimLockedFunds
+ * @name MsgReclaimLockedFunds
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgReclaimLockedFunds
+ */
 export const MsgReclaimLockedFunds = {
   typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFunds",
   aminoType: "exchange/MsgReclaimLockedFunds",
@@ -8866,6 +10144,13 @@ export const MsgReclaimLockedFunds = {
 function createBaseMsgReclaimLockedFundsResponse(): MsgReclaimLockedFundsResponse {
   return {};
 }
+/**
+ * MsgReclaimLockedFundsResponse defines the Msg/ReclaimLockedFunds response
+ * type.
+ * @name MsgReclaimLockedFundsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgReclaimLockedFundsResponse
+ */
 export const MsgReclaimLockedFundsResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgReclaimLockedFundsResponse",
   is(o: any): o is MsgReclaimLockedFundsResponse {
@@ -8926,6 +10211,12 @@ function createBaseMsgSignData(): MsgSignData {
     data: new Uint8Array()
   };
 }
+/**
+ * MsgSignData defines an arbitrary, general-purpose, off-chain message
+ * @name MsgSignData
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSignData
+ */
 export const MsgSignData = {
   typeUrl: "/injective.exchange.v1beta1.MsgSignData",
   is(o: any): o is MsgSignData {
@@ -9008,6 +10299,12 @@ function createBaseMsgSignDoc(): MsgSignDoc {
     value: MsgSignData.fromPartial({})
   };
 }
+/**
+ * MsgSignDoc defines an arbitrary, general-purpose, off-chain message
+ * @name MsgSignDoc
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgSignDoc
+ */
 export const MsgSignDoc = {
   typeUrl: "/injective.exchange.v1beta1.MsgSignDoc",
   is(o: any): o is MsgSignDoc {
@@ -9099,6 +10396,13 @@ function createBaseMsgAdminUpdateBinaryOptionsMarket(): MsgAdminUpdateBinaryOpti
     status: 0
   };
 }
+/**
+ * MsgAdminUpdateBinaryOptionsMarket is used by the market Admin to operate the
+ * market
+ * @name MsgAdminUpdateBinaryOptionsMarket
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket
+ */
 export const MsgAdminUpdateBinaryOptionsMarket = {
   typeUrl: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarket",
   aminoType: "exchange/MsgAdminUpdateBinaryOptionsMarket",
@@ -9229,6 +10533,13 @@ export const MsgAdminUpdateBinaryOptionsMarket = {
 function createBaseMsgAdminUpdateBinaryOptionsMarketResponse(): MsgAdminUpdateBinaryOptionsMarketResponse {
   return {};
 }
+/**
+ * MsgAdminUpdateBinaryOptionsMarketResponse is the response for
+ * AdminUpdateBinaryOptionsMarket rpc method
+ * @name MsgAdminUpdateBinaryOptionsMarketResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse
+ */
 export const MsgAdminUpdateBinaryOptionsMarketResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgAdminUpdateBinaryOptionsMarketResponse",
   is(o: any): o is MsgAdminUpdateBinaryOptionsMarketResponse {
@@ -9289,6 +10600,12 @@ function createBaseMsgAuthorizeStakeGrants(): MsgAuthorizeStakeGrants {
     grants: []
   };
 }
+/**
+ * MsgAuthorizeStakeGrants grants stakes to grantees.
+ * @name MsgAuthorizeStakeGrants
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAuthorizeStakeGrants
+ */
 export const MsgAuthorizeStakeGrants = {
   typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrants",
   aminoType: "exchange/MsgAuthorizeStakeGrants",
@@ -9382,6 +10699,11 @@ export const MsgAuthorizeStakeGrants = {
 function createBaseMsgAuthorizeStakeGrantsResponse(): MsgAuthorizeStakeGrantsResponse {
   return {};
 }
+/**
+ * @name MsgAuthorizeStakeGrantsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse
+ */
 export const MsgAuthorizeStakeGrantsResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgAuthorizeStakeGrantsResponse",
   is(o: any): o is MsgAuthorizeStakeGrantsResponse {
@@ -9442,6 +10764,12 @@ function createBaseMsgActivateStakeGrant(): MsgActivateStakeGrant {
     granter: ""
   };
 }
+/**
+ * MsgActivateStakeGrant allows a grantee to activate a stake grant.
+ * @name MsgActivateStakeGrant
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgActivateStakeGrant
+ */
 export const MsgActivateStakeGrant = {
   typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrant",
   aminoType: "exchange/MsgActivateStakeGrant",
@@ -9528,6 +10856,11 @@ export const MsgActivateStakeGrant = {
 function createBaseMsgActivateStakeGrantResponse(): MsgActivateStakeGrantResponse {
   return {};
 }
+/**
+ * @name MsgActivateStakeGrantResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgActivateStakeGrantResponse
+ */
 export const MsgActivateStakeGrantResponse = {
   typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse",
   is(o: any): o is MsgActivateStakeGrantResponse {

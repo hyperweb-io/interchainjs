@@ -5,6 +5,9 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers"
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
+ * @name EthAccount
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.EthAccount
  */
 export interface EthAccount {
   baseAccount?: BaseAccount;
@@ -17,6 +20,9 @@ export interface EthAccountProtoMsg {
 /**
  * EthAccount implements the authtypes.AccountI interface and embeds an
  * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
+ * @name EthAccountAmino
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.EthAccount
  */
 export interface EthAccountAmino {
   base_account?: BaseAccountAmino;
@@ -32,6 +38,13 @@ function createBaseEthAccount(): EthAccount {
     codeHash: new Uint8Array()
   };
 }
+/**
+ * EthAccount implements the authtypes.AccountI interface and embeds an
+ * authtypes.BaseAccount type. It is compatible with the auth AccountKeeper.
+ * @name EthAccount
+ * @package injective.types.v1beta1
+ * @see proto type: injective.types.v1beta1.EthAccount
+ */
 export const EthAccount = {
   typeUrl: "/injective.types.v1beta1.EthAccount",
   is(o: any): o is EthAccount {

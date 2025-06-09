@@ -66,9 +66,14 @@ export function permissions_LevelToJSON(object: Permissions_Level): string {
 /**
  * Permissions are the permissions that an account has to trip
  * or reset the circuit breaker.
+ * @name Permissions
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.Permissions
  */
 export interface Permissions {
-  /** level is the level of permissions granted to this account. */
+  /**
+   * level is the level of permissions granted to this account.
+   */
   level: Permissions_Level;
   /**
    * limit_type_urls is used with LEVEL_SOME_MSGS to limit the lists of Msg type
@@ -84,9 +89,14 @@ export interface PermissionsProtoMsg {
 /**
  * Permissions are the permissions that an account has to trip
  * or reset the circuit breaker.
+ * @name PermissionsAmino
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.Permissions
  */
 export interface PermissionsAmino {
-  /** level is the level of permissions granted to this account. */
+  /**
+   * level is the level of permissions granted to this account.
+   */
   level: Permissions_Level;
   /**
    * limit_type_urls is used with LEVEL_SOME_MSGS to limit the lists of Msg type
@@ -99,7 +109,12 @@ export interface PermissionsAminoMsg {
   type: "cosmos-sdk/Permissions";
   value: PermissionsAmino;
 }
-/** GenesisAccountPermissions is the account permissions for the circuit breaker in genesis */
+/**
+ * GenesisAccountPermissions is the account permissions for the circuit breaker in genesis
+ * @name GenesisAccountPermissions
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.GenesisAccountPermissions
+ */
 export interface GenesisAccountPermissions {
   address: string;
   permissions?: Permissions;
@@ -108,7 +123,12 @@ export interface GenesisAccountPermissionsProtoMsg {
   typeUrl: "/cosmos.circuit.v1.GenesisAccountPermissions";
   value: Uint8Array;
 }
-/** GenesisAccountPermissions is the account permissions for the circuit breaker in genesis */
+/**
+ * GenesisAccountPermissions is the account permissions for the circuit breaker in genesis
+ * @name GenesisAccountPermissionsAmino
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.GenesisAccountPermissions
+ */
 export interface GenesisAccountPermissionsAmino {
   address: string;
   permissions?: PermissionsAmino;
@@ -117,7 +137,12 @@ export interface GenesisAccountPermissionsAminoMsg {
   type: "cosmos-sdk/GenesisAccountPermissions";
   value: GenesisAccountPermissionsAmino;
 }
-/** GenesisState is the state that must be provided at genesis. */
+/**
+ * GenesisState is the state that must be provided at genesis.
+ * @name GenesisState
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.GenesisState
+ */
 export interface GenesisState {
   accountPermissions: GenesisAccountPermissions[];
   disabledTypeUrls: string[];
@@ -126,7 +151,12 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.circuit.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState is the state that must be provided at genesis. */
+/**
+ * GenesisState is the state that must be provided at genesis.
+ * @name GenesisStateAmino
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.GenesisState
+ */
 export interface GenesisStateAmino {
   account_permissions: GenesisAccountPermissionsAmino[];
   disabled_type_urls: string[];
@@ -141,6 +171,13 @@ function createBasePermissions(): Permissions {
     limitTypeUrls: []
   };
 }
+/**
+ * Permissions are the permissions that an account has to trip
+ * or reset the circuit breaker.
+ * @name Permissions
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.Permissions
+ */
 export const Permissions = {
   typeUrl: "/cosmos.circuit.v1.Permissions",
   aminoType: "cosmos-sdk/Permissions",
@@ -232,6 +269,12 @@ function createBaseGenesisAccountPermissions(): GenesisAccountPermissions {
     permissions: undefined
   };
 }
+/**
+ * GenesisAccountPermissions is the account permissions for the circuit breaker in genesis
+ * @name GenesisAccountPermissions
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.GenesisAccountPermissions
+ */
 export const GenesisAccountPermissions = {
   typeUrl: "/cosmos.circuit.v1.GenesisAccountPermissions",
   aminoType: "cosmos-sdk/GenesisAccountPermissions",
@@ -326,6 +369,12 @@ function createBaseGenesisState(): GenesisState {
     disabledTypeUrls: []
   };
 }
+/**
+ * GenesisState is the state that must be provided at genesis.
+ * @name GenesisState
+ * @package cosmos.circuit.v1
+ * @see proto type: cosmos.circuit.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.circuit.v1.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",

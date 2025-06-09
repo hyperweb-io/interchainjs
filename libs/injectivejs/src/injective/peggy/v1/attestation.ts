@@ -70,6 +70,9 @@ export function claimTypeToJSON(object: ClaimType): string {
  * it is processed the key in which the attestation is stored is keyed on the
  * exact details of the claim but there is no reason to store those exact
  * details becuause the next message sender will kindly provide you with them.
+ * @name Attestation
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Attestation
  */
 export interface Attestation {
   observed: boolean;
@@ -97,6 +100,9 @@ export interface AttestationProtoMsg {
  * it is processed the key in which the attestation is stored is keyed on the
  * exact details of the claim but there is no reason to store those exact
  * details becuause the next message sender will kindly provide you with them.
+ * @name AttestationAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Attestation
  */
 export interface AttestationAmino {
   observed: boolean;
@@ -115,6 +121,9 @@ export interface AttestationAminoMsg {
  * originated token, if so it will be the ERC20 address of the representation
  * (note: developers should look up the token symbol using the address on ETH to
  * display for UI)
+ * @name ERC20Token
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.ERC20Token
  */
 export interface ERC20Token {
   contract: string;
@@ -131,6 +140,9 @@ export interface ERC20TokenProtoMsg {
  * originated token, if so it will be the ERC20 address of the representation
  * (note: developers should look up the token symbol using the address on ETH to
  * display for UI)
+ * @name ERC20TokenAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.ERC20Token
  */
 export interface ERC20TokenAmino {
   contract: string;
@@ -148,6 +160,26 @@ function createBaseAttestation(): Attestation {
     claim: undefined
   };
 }
+/**
+ * Attestation is an aggregate of `claims` that eventually becomes `observed` by
+ * all orchestrators
+ * EVENT_NONCE:
+ * EventNonce a nonce provided by the peggy contract that is unique per event
+ * fired These event nonces must be relayed in order. This is a correctness
+ * issue, if relaying out of order transaction replay attacks become possible
+ * OBSERVED:
+ * Observed indicates that >67% of validators have attested to the event,
+ * and that the event should be executed by the peggy state machine
+ * 
+ * The actual content of the claims is passed in with the transaction making the
+ * claim and then passed through the call stack alongside the attestation while
+ * it is processed the key in which the attestation is stored is keyed on the
+ * exact details of the claim but there is no reason to store those exact
+ * details becuause the next message sender will kindly provide you with them.
+ * @name Attestation
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Attestation
+ */
 export const Attestation = {
   typeUrl: "/injective.peggy.v1.Attestation",
   is(o: any): o is Attestation {
@@ -254,6 +286,17 @@ function createBaseERC20Token(): ERC20Token {
     amount: ""
   };
 }
+/**
+ * ERC20Token unique identifier for an Ethereum ERC20 token.
+ * CONTRACT:
+ * The contract address on ETH of the token, this could be a Cosmos
+ * originated token, if so it will be the ERC20 address of the representation
+ * (note: developers should look up the token symbol using the address on ETH to
+ * display for UI)
+ * @name ERC20Token
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.ERC20Token
+ */
 export const ERC20Token = {
   typeUrl: "/injective.peggy.v1.ERC20Token",
   is(o: any): o is ERC20Token {

@@ -6,15 +6,26 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgExecuteContractCompat submits the given message data to a smart contract,
  * compatible with EIP712
+ * @name MsgExecuteContractCompat
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgExecuteContractCompat
  */
 export interface MsgExecuteContractCompat {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract */
+  /**
+   * Msg json encoded message to be passed to the contract
+   */
   msg: string;
-  /** Funds coins that are transferred to the contract on execution */
+  /**
+   * Funds coins that are transferred to the contract on execution
+   */
   funds: string;
 }
 export interface MsgExecuteContractCompatProtoMsg {
@@ -24,137 +35,253 @@ export interface MsgExecuteContractCompatProtoMsg {
 /**
  * MsgExecuteContractCompat submits the given message data to a smart contract,
  * compatible with EIP712
+ * @name MsgExecuteContractCompatAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgExecuteContractCompat
  */
 export interface MsgExecuteContractCompatAmino {
-  /** Sender is the that actor that signed the messages */
+  /**
+   * Sender is the that actor that signed the messages
+   */
   sender: string;
-  /** Contract is the address of the smart contract */
+  /**
+   * Contract is the address of the smart contract
+   */
   contract: string;
-  /** Msg json encoded message to be passed to the contract */
+  /**
+   * Msg json encoded message to be passed to the contract
+   */
   msg: string;
-  /** Funds coins that are transferred to the contract on execution */
+  /**
+   * Funds coins that are transferred to the contract on execution
+   */
   funds: string;
 }
 export interface MsgExecuteContractCompatAminoMsg {
   type: "wasmx/MsgExecuteContractCompat";
   value: MsgExecuteContractCompatAmino;
 }
-/** MsgExecuteContractCompatResponse returns execution result data. */
+/**
+ * MsgExecuteContractCompatResponse returns execution result data.
+ * @name MsgExecuteContractCompatResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgExecuteContractCompatResponse
+ */
 export interface MsgExecuteContractCompatResponse {
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: Uint8Array;
 }
 export interface MsgExecuteContractCompatResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompatResponse";
   value: Uint8Array;
 }
-/** MsgExecuteContractCompatResponse returns execution result data. */
+/**
+ * MsgExecuteContractCompatResponse returns execution result data.
+ * @name MsgExecuteContractCompatResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgExecuteContractCompatResponse
+ */
 export interface MsgExecuteContractCompatResponseAmino {
-  /** Data contains bytes to returned from the contract */
+  /**
+   * Data contains bytes to returned from the contract
+   */
   data: string;
 }
 export interface MsgExecuteContractCompatResponseAminoMsg {
   type: "/injective.wasmx.v1.MsgExecuteContractCompatResponse";
   value: MsgExecuteContractCompatResponseAmino;
 }
+/**
+ * @name MsgUpdateContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateContract
+ */
 export interface MsgUpdateContract {
   sender: string;
-  /** Unique Identifier for contract instance to be registered. */
+  /**
+   * Unique Identifier for contract instance to be registered.
+   */
   contractAddress: string;
-  /** Maximum gas to be used for the smart contract execution. */
+  /**
+   * Maximum gas to be used for the smart contract execution.
+   */
   gasLimit: bigint;
-  /** gas price to be used for the smart contract execution. */
+  /**
+   * gas price to be used for the smart contract execution.
+   */
   gasPrice: bigint;
-  /** optional - admin account that will be allowed to perform any changes */
+  /**
+   * optional - admin account that will be allowed to perform any changes
+   */
   adminAddress?: string;
 }
 export interface MsgUpdateContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateContract";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateContractAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateContract
+ */
 export interface MsgUpdateContractAmino {
   sender: string;
-  /** Unique Identifier for contract instance to be registered. */
+  /**
+   * Unique Identifier for contract instance to be registered.
+   */
   contract_address: string;
-  /** Maximum gas to be used for the smart contract execution. */
+  /**
+   * Maximum gas to be used for the smart contract execution.
+   */
   gas_limit: string;
-  /** gas price to be used for the smart contract execution. */
+  /**
+   * gas price to be used for the smart contract execution.
+   */
   gas_price: string;
-  /** optional - admin account that will be allowed to perform any changes */
+  /**
+   * optional - admin account that will be allowed to perform any changes
+   */
   admin_address?: string;
 }
 export interface MsgUpdateContractAminoMsg {
   type: "wasmx/MsgUpdateContract";
   value: MsgUpdateContractAmino;
 }
+/**
+ * @name MsgUpdateContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateContractResponse
+ */
 export interface MsgUpdateContractResponse {}
 export interface MsgUpdateContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateContractResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateContractResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateContractResponse
+ */
 export interface MsgUpdateContractResponseAmino {}
 export interface MsgUpdateContractResponseAminoMsg {
   type: "/injective.wasmx.v1.MsgUpdateContractResponse";
   value: MsgUpdateContractResponseAmino;
 }
+/**
+ * @name MsgActivateContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgActivateContract
+ */
 export interface MsgActivateContract {
   sender: string;
-  /** Unique Identifier for contract instance to be activated. */
+  /**
+   * Unique Identifier for contract instance to be activated.
+   */
   contractAddress: string;
 }
 export interface MsgActivateContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgActivateContract";
   value: Uint8Array;
 }
+/**
+ * @name MsgActivateContractAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgActivateContract
+ */
 export interface MsgActivateContractAmino {
   sender: string;
-  /** Unique Identifier for contract instance to be activated. */
+  /**
+   * Unique Identifier for contract instance to be activated.
+   */
   contract_address: string;
 }
 export interface MsgActivateContractAminoMsg {
   type: "wasmx/MsgActivateContract";
   value: MsgActivateContractAmino;
 }
+/**
+ * @name MsgActivateContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgActivateContractResponse
+ */
 export interface MsgActivateContractResponse {}
 export interface MsgActivateContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgActivateContractResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgActivateContractResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgActivateContractResponse
+ */
 export interface MsgActivateContractResponseAmino {}
 export interface MsgActivateContractResponseAminoMsg {
   type: "/injective.wasmx.v1.MsgActivateContractResponse";
   value: MsgActivateContractResponseAmino;
 }
+/**
+ * @name MsgDeactivateContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgDeactivateContract
+ */
 export interface MsgDeactivateContract {
   sender: string;
-  /** Unique Identifier for contract instance to be deactivated. */
+  /**
+   * Unique Identifier for contract instance to be deactivated.
+   */
   contractAddress: string;
 }
 export interface MsgDeactivateContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgDeactivateContract";
   value: Uint8Array;
 }
+/**
+ * @name MsgDeactivateContractAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgDeactivateContract
+ */
 export interface MsgDeactivateContractAmino {
   sender: string;
-  /** Unique Identifier for contract instance to be deactivated. */
+  /**
+   * Unique Identifier for contract instance to be deactivated.
+   */
   contract_address: string;
 }
 export interface MsgDeactivateContractAminoMsg {
   type: "wasmx/MsgDeactivateContract";
   value: MsgDeactivateContractAmino;
 }
+/**
+ * @name MsgDeactivateContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgDeactivateContractResponse
+ */
 export interface MsgDeactivateContractResponse {}
 export interface MsgDeactivateContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgDeactivateContractResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgDeactivateContractResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgDeactivateContractResponse
+ */
 export interface MsgDeactivateContractResponseAmino {}
 export interface MsgDeactivateContractResponseAminoMsg {
   type: "/injective.wasmx.v1.MsgDeactivateContractResponse";
   value: MsgDeactivateContractResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the wasmx parameters to update.
@@ -167,8 +294,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the wasmx parameters to update.
@@ -181,16 +315,31 @@ export interface MsgUpdateParamsAminoMsg {
   type: "wasmx/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.wasmx.v1.MsgUpdateParamsResponse";
   value: MsgUpdateParamsResponseAmino;
 }
+/**
+ * @name MsgRegisterContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgRegisterContract
+ */
 export interface MsgRegisterContract {
   sender: string;
   contractRegistrationRequest: ContractRegistrationRequest;
@@ -199,6 +348,11 @@ export interface MsgRegisterContractProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgRegisterContract";
   value: Uint8Array;
 }
+/**
+ * @name MsgRegisterContractAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgRegisterContract
+ */
 export interface MsgRegisterContractAmino {
   sender: string;
   contract_registration_request: ContractRegistrationRequestAmino;
@@ -207,11 +361,21 @@ export interface MsgRegisterContractAminoMsg {
   type: "wasmx/MsgRegisterContract";
   value: MsgRegisterContractAmino;
 }
+/**
+ * @name MsgRegisterContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgRegisterContractResponse
+ */
 export interface MsgRegisterContractResponse {}
 export interface MsgRegisterContractResponseProtoMsg {
   typeUrl: "/injective.wasmx.v1.MsgRegisterContractResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRegisterContractResponseAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgRegisterContractResponse
+ */
 export interface MsgRegisterContractResponseAmino {}
 export interface MsgRegisterContractResponseAminoMsg {
   type: "/injective.wasmx.v1.MsgRegisterContractResponse";
@@ -225,6 +389,13 @@ function createBaseMsgExecuteContractCompat(): MsgExecuteContractCompat {
     funds: ""
   };
 }
+/**
+ * MsgExecuteContractCompat submits the given message data to a smart contract,
+ * compatible with EIP712
+ * @name MsgExecuteContractCompat
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgExecuteContractCompat
+ */
 export const MsgExecuteContractCompat = {
   typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompat",
   aminoType: "wasmx/MsgExecuteContractCompat",
@@ -335,6 +506,12 @@ function createBaseMsgExecuteContractCompatResponse(): MsgExecuteContractCompatR
     data: new Uint8Array()
   };
 }
+/**
+ * MsgExecuteContractCompatResponse returns execution result data.
+ * @name MsgExecuteContractCompatResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgExecuteContractCompatResponse
+ */
 export const MsgExecuteContractCompatResponse = {
   typeUrl: "/injective.wasmx.v1.MsgExecuteContractCompatResponse",
   is(o: any): o is MsgExecuteContractCompatResponse {
@@ -409,6 +586,11 @@ function createBaseMsgUpdateContract(): MsgUpdateContract {
     adminAddress: undefined
   };
 }
+/**
+ * @name MsgUpdateContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateContract
+ */
 export const MsgUpdateContract = {
   typeUrl: "/injective.wasmx.v1.MsgUpdateContract",
   aminoType: "wasmx/MsgUpdateContract",
@@ -528,6 +710,11 @@ export const MsgUpdateContract = {
 function createBaseMsgUpdateContractResponse(): MsgUpdateContractResponse {
   return {};
 }
+/**
+ * @name MsgUpdateContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateContractResponse
+ */
 export const MsgUpdateContractResponse = {
   typeUrl: "/injective.wasmx.v1.MsgUpdateContractResponse",
   is(o: any): o is MsgUpdateContractResponse {
@@ -588,6 +775,11 @@ function createBaseMsgActivateContract(): MsgActivateContract {
     contractAddress: ""
   };
 }
+/**
+ * @name MsgActivateContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgActivateContract
+ */
 export const MsgActivateContract = {
   typeUrl: "/injective.wasmx.v1.MsgActivateContract",
   aminoType: "wasmx/MsgActivateContract",
@@ -674,6 +866,11 @@ export const MsgActivateContract = {
 function createBaseMsgActivateContractResponse(): MsgActivateContractResponse {
   return {};
 }
+/**
+ * @name MsgActivateContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgActivateContractResponse
+ */
 export const MsgActivateContractResponse = {
   typeUrl: "/injective.wasmx.v1.MsgActivateContractResponse",
   is(o: any): o is MsgActivateContractResponse {
@@ -734,6 +931,11 @@ function createBaseMsgDeactivateContract(): MsgDeactivateContract {
     contractAddress: ""
   };
 }
+/**
+ * @name MsgDeactivateContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgDeactivateContract
+ */
 export const MsgDeactivateContract = {
   typeUrl: "/injective.wasmx.v1.MsgDeactivateContract",
   aminoType: "wasmx/MsgDeactivateContract",
@@ -820,6 +1022,11 @@ export const MsgDeactivateContract = {
 function createBaseMsgDeactivateContractResponse(): MsgDeactivateContractResponse {
   return {};
 }
+/**
+ * @name MsgDeactivateContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgDeactivateContractResponse
+ */
 export const MsgDeactivateContractResponse = {
   typeUrl: "/injective.wasmx.v1.MsgDeactivateContractResponse",
   is(o: any): o is MsgDeactivateContractResponse {
@@ -880,6 +1087,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.wasmx.v1.MsgUpdateParams",
   aminoType: "wasmx/MsgUpdateParams",
@@ -971,6 +1183,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.wasmx.v1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {
@@ -1031,6 +1248,11 @@ function createBaseMsgRegisterContract(): MsgRegisterContract {
     contractRegistrationRequest: ContractRegistrationRequest.fromPartial({})
   };
 }
+/**
+ * @name MsgRegisterContract
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgRegisterContract
+ */
 export const MsgRegisterContract = {
   typeUrl: "/injective.wasmx.v1.MsgRegisterContract",
   aminoType: "wasmx/MsgRegisterContract",
@@ -1122,6 +1344,11 @@ export const MsgRegisterContract = {
 function createBaseMsgRegisterContractResponse(): MsgRegisterContractResponse {
   return {};
 }
+/**
+ * @name MsgRegisterContractResponse
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.MsgRegisterContractResponse
+ */
 export const MsgRegisterContractResponse = {
   typeUrl: "/injective.wasmx.v1.MsgRegisterContractResponse",
   is(o: any): o is MsgRegisterContractResponse {

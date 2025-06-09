@@ -4,30 +4,54 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsRequest";
   value: Uint8Array;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequestAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
   type: "/injective.tokenfactory.v1beta1.QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: Params;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsResponse";
   value: Uint8Array;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponseAmino {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
@@ -37,6 +61,9 @@ export interface QueryParamsResponseAminoMsg {
 /**
  * QueryDenomAuthorityMetadataRequest defines the request structure for the
  * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest
  */
 export interface QueryDenomAuthorityMetadataRequest {
   creator: string;
@@ -49,6 +76,9 @@ export interface QueryDenomAuthorityMetadataRequestProtoMsg {
 /**
  * QueryDenomAuthorityMetadataRequest defines the request structure for the
  * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataRequestAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest
  */
 export interface QueryDenomAuthorityMetadataRequestAmino {
   creator: string;
@@ -61,6 +91,9 @@ export interface QueryDenomAuthorityMetadataRequestAminoMsg {
 /**
  * QueryDenomAuthorityMetadataResponse defines the response structure for the
  * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse
  */
 export interface QueryDenomAuthorityMetadataResponse {
   authorityMetadata: DenomAuthorityMetadata;
@@ -72,6 +105,9 @@ export interface QueryDenomAuthorityMetadataResponseProtoMsg {
 /**
  * QueryDenomAuthorityMetadataResponse defines the response structure for the
  * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse
  */
 export interface QueryDenomAuthorityMetadataResponseAmino {
   authority_metadata: DenomAuthorityMetadataAmino;
@@ -83,6 +119,9 @@ export interface QueryDenomAuthorityMetadataResponseAminoMsg {
 /**
  * QueryDenomsFromCreatorRequest defines the request structure for the
  * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest
  */
 export interface QueryDenomsFromCreatorRequest {
   creator: string;
@@ -94,6 +133,9 @@ export interface QueryDenomsFromCreatorRequestProtoMsg {
 /**
  * QueryDenomsFromCreatorRequest defines the request structure for the
  * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorRequestAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest
  */
 export interface QueryDenomsFromCreatorRequestAmino {
   creator: string;
@@ -105,6 +147,9 @@ export interface QueryDenomsFromCreatorRequestAminoMsg {
 /**
  * QueryDenomsFromCreatorRequest defines the response structure for the
  * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse
  */
 export interface QueryDenomsFromCreatorResponse {
   denoms: string[];
@@ -116,6 +161,9 @@ export interface QueryDenomsFromCreatorResponseProtoMsg {
 /**
  * QueryDenomsFromCreatorRequest defines the response structure for the
  * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse
  */
 export interface QueryDenomsFromCreatorResponseAmino {
   denoms: string[];
@@ -127,6 +175,9 @@ export interface QueryDenomsFromCreatorResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the
  * Query/TokenfactoryModuleState RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -136,6 +187,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the
  * Query/TokenfactoryModuleState RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -145,6 +199,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/TokenfactoryModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -156,6 +213,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/TokenfactoryModuleState RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -167,6 +227,12 @@ export interface QueryModuleStateResponseAminoMsg {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsRequest",
   is(o: any): o is QueryParamsRequest {
@@ -226,6 +292,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryParamsResponse",
   is(o: any): o is QueryParamsResponse {
@@ -302,6 +374,13 @@ function createBaseQueryDenomAuthorityMetadataRequest(): QueryDenomAuthorityMeta
     subDenom: ""
   };
 }
+/**
+ * QueryDenomAuthorityMetadataRequest defines the request structure for the
+ * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest
+ */
 export const QueryDenomAuthorityMetadataRequest = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataRequest",
   is(o: any): o is QueryDenomAuthorityMetadataRequest {
@@ -383,6 +462,13 @@ function createBaseQueryDenomAuthorityMetadataResponse(): QueryDenomAuthorityMet
     authorityMetadata: DenomAuthorityMetadata.fromPartial({})
   };
 }
+/**
+ * QueryDenomAuthorityMetadataResponse defines the response structure for the
+ * DenomAuthorityMetadata gRPC query.
+ * @name QueryDenomAuthorityMetadataResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse
+ */
 export const QueryDenomAuthorityMetadataResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse",
   is(o: any): o is QueryDenomAuthorityMetadataResponse {
@@ -458,6 +544,13 @@ function createBaseQueryDenomsFromCreatorRequest(): QueryDenomsFromCreatorReques
     creator: ""
   };
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the request structure for the
+ * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest
+ */
 export const QueryDenomsFromCreatorRequest = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomsFromCreatorRequest",
   is(o: any): o is QueryDenomsFromCreatorRequest {
@@ -528,6 +621,13 @@ function createBaseQueryDenomsFromCreatorResponse(): QueryDenomsFromCreatorRespo
     denoms: []
   };
 }
+/**
+ * QueryDenomsFromCreatorRequest defines the response structure for the
+ * DenomsFromCreator gRPC query.
+ * @name QueryDenomsFromCreatorResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse
+ */
 export const QueryDenomsFromCreatorResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryDenomsFromCreatorResponse",
   is(o: any): o is QueryDenomsFromCreatorResponse {
@@ -598,6 +698,13 @@ export const QueryDenomsFromCreatorResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the
+ * Query/TokenfactoryModuleState RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -657,6 +764,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the
+ * Query/TokenfactoryModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.tokenfactory.v1beta1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {

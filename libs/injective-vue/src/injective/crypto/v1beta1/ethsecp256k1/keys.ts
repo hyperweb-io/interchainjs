@@ -4,6 +4,9 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpe
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
  * Tendermint's PubKey interface. It represents the 33-byte compressed public
  * key format.
+ * @name PubKey
+ * @package injective.crypto.v1beta1.ethsecp256k1
+ * @see proto type: injective.crypto.v1beta1.ethsecp256k1.PubKey
  */
 export interface PubKey {
   key: Uint8Array;
@@ -16,6 +19,9 @@ export interface PubKeyProtoMsg {
  * PubKey defines a type alias for an ecdsa.PublicKey that implements
  * Tendermint's PubKey interface. It represents the 33-byte compressed public
  * key format.
+ * @name PubKeyAmino
+ * @package injective.crypto.v1beta1.ethsecp256k1
+ * @see proto type: injective.crypto.v1beta1.ethsecp256k1.PubKey
  */
 export interface PubKeyAmino {
   key: string;
@@ -27,6 +33,9 @@ export interface PubKeyAminoMsg {
 /**
  * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
  * Tendermint's PrivateKey interface.
+ * @name PrivKey
+ * @package injective.crypto.v1beta1.ethsecp256k1
+ * @see proto type: injective.crypto.v1beta1.ethsecp256k1.PrivKey
  */
 export interface PrivKey {
   key: Uint8Array;
@@ -38,6 +47,9 @@ export interface PrivKeyProtoMsg {
 /**
  * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
  * Tendermint's PrivateKey interface.
+ * @name PrivKeyAmino
+ * @package injective.crypto.v1beta1.ethsecp256k1
+ * @see proto type: injective.crypto.v1beta1.ethsecp256k1.PrivKey
  */
 export interface PrivKeyAmino {
   key: string;
@@ -51,6 +63,14 @@ function createBasePubKey(): PubKey {
     key: new Uint8Array()
   };
 }
+/**
+ * PubKey defines a type alias for an ecdsa.PublicKey that implements
+ * Tendermint's PubKey interface. It represents the 33-byte compressed public
+ * key format.
+ * @name PubKey
+ * @package injective.crypto.v1beta1.ethsecp256k1
+ * @see proto type: injective.crypto.v1beta1.ethsecp256k1.PubKey
+ */
 export const PubKey = {
   typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PubKey",
   aminoType: "injective/PubKeyEthSecp256k1",
@@ -128,6 +148,13 @@ function createBasePrivKey(): PrivKey {
     key: new Uint8Array()
   };
 }
+/**
+ * PrivKey defines a type alias for an ecdsa.PrivateKey that implements
+ * Tendermint's PrivateKey interface.
+ * @name PrivKey
+ * @package injective.crypto.v1beta1.ethsecp256k1
+ * @see proto type: injective.crypto.v1beta1.ethsecp256k1.PrivKey
+ */
 export const PrivKey = {
   typeUrl: "/injective.crypto.v1beta1.ethsecp256k1.PrivKey",
   aminoType: "injective/PrivKeyEthSecp256k1",

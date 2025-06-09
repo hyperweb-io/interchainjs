@@ -4,15 +4,26 @@ import { toTimestamp, fromTimestamp, DeepPartial } from "../../../helpers";
 /**
  * Equivocation implements the Evidence interface and defines evidence of double
  * signing misbehavior.
+ * @name Equivocation
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.Equivocation
  */
 export interface Equivocation {
-  /** height is the equivocation height. */
+  /**
+   * height is the equivocation height.
+   */
   height: bigint;
-  /** time is the equivocation time. */
+  /**
+   * time is the equivocation time.
+   */
   time: Date;
-  /** power is the equivocation validator power. */
+  /**
+   * power is the equivocation validator power.
+   */
   power: bigint;
-  /** consensus_address is the equivocation validator consensus address. */
+  /**
+   * consensus_address is the equivocation validator consensus address.
+   */
   consensusAddress: string;
 }
 export interface EquivocationProtoMsg {
@@ -22,15 +33,26 @@ export interface EquivocationProtoMsg {
 /**
  * Equivocation implements the Evidence interface and defines evidence of double
  * signing misbehavior.
+ * @name EquivocationAmino
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.Equivocation
  */
 export interface EquivocationAmino {
-  /** height is the equivocation height. */
+  /**
+   * height is the equivocation height.
+   */
   height: string;
-  /** time is the equivocation time. */
+  /**
+   * time is the equivocation time.
+   */
   time: string;
-  /** power is the equivocation validator power. */
+  /**
+   * power is the equivocation validator power.
+   */
   power: string;
-  /** consensus_address is the equivocation validator consensus address. */
+  /**
+   * consensus_address is the equivocation validator consensus address.
+   */
   consensus_address: string;
 }
 export interface EquivocationAminoMsg {
@@ -45,6 +67,13 @@ function createBaseEquivocation(): Equivocation {
     consensusAddress: ""
   };
 }
+/**
+ * Equivocation implements the Evidence interface and defines evidence of double
+ * signing misbehavior.
+ * @name Equivocation
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.Equivocation
+ */
 export const Equivocation = {
   typeUrl: "/cosmos.evidence.v1beta1.Equivocation",
   aminoType: "cosmos-sdk/Equivocation",

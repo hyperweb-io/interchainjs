@@ -2,6 +2,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
+/**
+ * @name EventSetVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.EventSetVoucher
+ */
 export interface EventSetVoucher {
   addr: string;
   voucher: Coin;
@@ -10,6 +15,11 @@ export interface EventSetVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.EventSetVoucher";
   value: Uint8Array;
 }
+/**
+ * @name EventSetVoucherAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.EventSetVoucher
+ */
 export interface EventSetVoucherAmino {
   addr: string;
   voucher: CoinAmino;
@@ -24,6 +34,11 @@ function createBaseEventSetVoucher(): EventSetVoucher {
     voucher: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventSetVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.EventSetVoucher
+ */
 export const EventSetVoucher = {
   typeUrl: "/injective.permissions.v1beta1.EventSetVoucher",
   is(o: any): o is EventSetVoucher {
