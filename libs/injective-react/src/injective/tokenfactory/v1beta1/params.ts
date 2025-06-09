@@ -2,7 +2,12 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** Params defines the parameters for the tokenfactory module. */
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name Params
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.Params
+ */
 export interface Params {
   denomCreationFee: Coin[];
 }
@@ -10,7 +15,12 @@ export interface ParamsProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.Params";
   value: Uint8Array;
 }
-/** Params defines the parameters for the tokenfactory module. */
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name ParamsAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.Params
+ */
 export interface ParamsAmino {
   denom_creation_fee: CoinAmino[];
 }
@@ -23,6 +33,12 @@ function createBaseParams(): Params {
     denomCreationFee: []
   };
 }
+/**
+ * Params defines the parameters for the tokenfactory module.
+ * @name Params
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.Params
+ */
 export const Params = {
   typeUrl: "/injective.tokenfactory.v1beta1.Params",
   aminoType: "injective/tokenfactory/Params",

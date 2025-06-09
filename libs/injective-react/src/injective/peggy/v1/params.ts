@@ -2,6 +2,11 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+/**
+ * @name Params
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Params
+ */
 export interface Params {
   peggyId: string;
   contractSourceHash: string;
@@ -30,6 +35,11 @@ export interface ParamsProtoMsg {
   typeUrl: "/injective.peggy.v1.Params";
   value: Uint8Array;
 }
+/**
+ * @name ParamsAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Params
+ */
 export interface ParamsAmino {
   peggy_id: string;
   contract_source_hash: string;
@@ -84,6 +94,11 @@ function createBaseParams(): Params {
     admins: []
   };
 }
+/**
+ * @name Params
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Params
+ */
 export const Params = {
   typeUrl: "/injective.peggy.v1.Params",
   aminoType: "peggy/Params",

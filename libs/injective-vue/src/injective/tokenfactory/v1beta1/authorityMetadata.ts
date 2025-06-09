@@ -4,9 +4,14 @@ import { DeepPartial } from "../../../helpers";
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
  * capabilities over a token factory denom. Right now there is only one Admin
  * permission, but is planned to be extended to the future.
+ * @name DenomAuthorityMetadata
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.DenomAuthorityMetadata
  */
 export interface DenomAuthorityMetadata {
-  /** Can be empty for no admin, or a valid injective address */
+  /**
+   * Can be empty for no admin, or a valid injective address
+   */
   admin: string;
 }
 export interface DenomAuthorityMetadataProtoMsg {
@@ -17,9 +22,14 @@ export interface DenomAuthorityMetadataProtoMsg {
  * DenomAuthorityMetadata specifies metadata for addresses that have specific
  * capabilities over a token factory denom. Right now there is only one Admin
  * permission, but is planned to be extended to the future.
+ * @name DenomAuthorityMetadataAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.DenomAuthorityMetadata
  */
 export interface DenomAuthorityMetadataAmino {
-  /** Can be empty for no admin, or a valid injective address */
+  /**
+   * Can be empty for no admin, or a valid injective address
+   */
   admin: string;
 }
 export interface DenomAuthorityMetadataAminoMsg {
@@ -31,6 +41,14 @@ function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
     admin: ""
   };
 }
+/**
+ * DenomAuthorityMetadata specifies metadata for addresses that have specific
+ * capabilities over a token factory denom. Right now there is only one Admin
+ * permission, but is planned to be extended to the future.
+ * @name DenomAuthorityMetadata
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.DenomAuthorityMetadata
+ */
 export const DenomAuthorityMetadata = {
   typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata",
   is(o: any): o is DenomAuthorityMetadata {

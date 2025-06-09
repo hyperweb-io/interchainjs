@@ -2,39 +2,71 @@ import { Coin, CoinAmino } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
-/** MsgVerifyInvariant represents a message to verify a particular invariance. */
+/**
+ * MsgVerifyInvariant represents a message to verify a particular invariance.
+ * @name MsgVerifyInvariant
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariant
+ */
 export interface MsgVerifyInvariant {
-  /** sender is the account address of private key to send coins to fee collector account. */
+  /**
+   * sender is the account address of private key to send coins to fee collector account.
+   */
   sender: string;
-  /** name of the invariant module. */
+  /**
+   * name of the invariant module.
+   */
   invariantModuleName: string;
-  /** invariant_route is the msg's invariant route. */
+  /**
+   * invariant_route is the msg's invariant route.
+   */
   invariantRoute: string;
 }
 export interface MsgVerifyInvariantProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant";
   value: Uint8Array;
 }
-/** MsgVerifyInvariant represents a message to verify a particular invariance. */
+/**
+ * MsgVerifyInvariant represents a message to verify a particular invariance.
+ * @name MsgVerifyInvariantAmino
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariant
+ */
 export interface MsgVerifyInvariantAmino {
-  /** sender is the account address of private key to send coins to fee collector account. */
+  /**
+   * sender is the account address of private key to send coins to fee collector account.
+   */
   sender: string;
-  /** name of the invariant module. */
+  /**
+   * name of the invariant module.
+   */
   invariant_module_name: string;
-  /** invariant_route is the msg's invariant route. */
+  /**
+   * invariant_route is the msg's invariant route.
+   */
   invariant_route: string;
 }
 export interface MsgVerifyInvariantAminoMsg {
   type: "cosmos-sdk/MsgVerifyInvariant";
   value: MsgVerifyInvariantAmino;
 }
-/** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
+/**
+ * MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type.
+ * @name MsgVerifyInvariantResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariantResponse
+ */
 export interface MsgVerifyInvariantResponse {}
 export interface MsgVerifyInvariantResponseProtoMsg {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse";
   value: Uint8Array;
 }
-/** MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type. */
+/**
+ * MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type.
+ * @name MsgVerifyInvariantResponseAmino
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariantResponse
+ */
 export interface MsgVerifyInvariantResponseAmino {}
 export interface MsgVerifyInvariantResponseAminoMsg {
   type: "cosmos-sdk/MsgVerifyInvariantResponse";
@@ -44,11 +76,18 @@ export interface MsgVerifyInvariantResponseAminoMsg {
  * MsgUpdateParams is the Msg/UpdateParams request type.
  * 
  * Since: cosmos-sdk 0.47
+ * @name MsgUpdateParams
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
  */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
-  /** constant_fee defines the x/crisis parameter. */
+  /**
+   * constant_fee defines the x/crisis parameter.
+   */
   constantFee: Coin;
 }
 export interface MsgUpdateParamsProtoMsg {
@@ -59,11 +98,18 @@ export interface MsgUpdateParamsProtoMsg {
  * MsgUpdateParams is the Msg/UpdateParams request type.
  * 
  * Since: cosmos-sdk 0.47
+ * @name MsgUpdateParamsAmino
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
  */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /**
+   * authority is the address that controls the module (defaults to x/gov unless overwritten).
+   */
   authority: string;
-  /** constant_fee defines the x/crisis parameter. */
+  /**
+   * constant_fee defines the x/crisis parameter.
+   */
   constant_fee: CoinAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
@@ -75,6 +121,9 @@ export interface MsgUpdateParamsAminoMsg {
  * MsgUpdateParams message.
  * 
  * Since: cosmos-sdk 0.47
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
@@ -86,6 +135,9 @@ export interface MsgUpdateParamsResponseProtoMsg {
  * MsgUpdateParams message.
  * 
  * Since: cosmos-sdk 0.47
+ * @name MsgUpdateParamsResponseAmino
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
  */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
@@ -99,6 +151,12 @@ function createBaseMsgVerifyInvariant(): MsgVerifyInvariant {
     invariantRoute: ""
   };
 }
+/**
+ * MsgVerifyInvariant represents a message to verify a particular invariance.
+ * @name MsgVerifyInvariant
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariant
+ */
 export const MsgVerifyInvariant = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariant",
   aminoType: "cosmos-sdk/MsgVerifyInvariant",
@@ -196,6 +254,12 @@ export const MsgVerifyInvariant = {
 function createBaseMsgVerifyInvariantResponse(): MsgVerifyInvariantResponse {
   return {};
 }
+/**
+ * MsgVerifyInvariantResponse defines the Msg/VerifyInvariant response type.
+ * @name MsgVerifyInvariantResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgVerifyInvariantResponse
+ */
 export const MsgVerifyInvariantResponse = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgVerifyInvariantResponse",
   aminoType: "cosmos-sdk/MsgVerifyInvariantResponse",
@@ -263,6 +327,14 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     constantFee: Coin.fromPartial({})
   };
 }
+/**
+ * MsgUpdateParams is the Msg/UpdateParams request type.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name MsgUpdateParams
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParams",
   aminoType: "cosmos-sdk/x/crisis/MsgUpdateParams",
@@ -354,6 +426,15 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ * 
+ * Since: cosmos-sdk 0.47
+ * @name MsgUpdateParamsResponse
+ * @package cosmos.crisis.v1beta1
+ * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/cosmos.crisis.v1beta1.MsgUpdateParamsResponse",
   aminoType: "cosmos-sdk/MsgUpdateParamsResponse",

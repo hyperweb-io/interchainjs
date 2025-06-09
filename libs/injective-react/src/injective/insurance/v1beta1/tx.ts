@@ -7,13 +7,22 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * MsgCreateInsuranceFund a message to create an insurance fund for a derivative
  * market.
+ * @name MsgCreateInsuranceFund
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgCreateInsuranceFund
  */
 export interface MsgCreateInsuranceFund {
-  /** Creator of the insurance fund. */
+  /**
+   * Creator of the insurance fund.
+   */
   sender: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** Coin denom to use for the market quote denom */
+  /**
+   * Coin denom to use for the market quote denom
+   */
   quoteDenom: string;
   /**
    * Oracle base currency of the derivative market OR the oracle symbol for the
@@ -25,14 +34,18 @@ export interface MsgCreateInsuranceFund {
    * the binary options market.
    */
   oracleQuote: string;
-  /** Oracle type of the binary options or derivative market */
+  /**
+   * Oracle type of the binary options or derivative market
+   */
   oracleType: OracleType;
   /**
    * Expiration time of the derivative market. Should be -1 for perpetual or -2
    * for binary options markets.
    */
   expiry: bigint;
-  /** Initial deposit of the insurance fund */
+  /**
+   * Initial deposit of the insurance fund
+   */
   initialDeposit: Coin;
 }
 export interface MsgCreateInsuranceFundProtoMsg {
@@ -42,13 +55,22 @@ export interface MsgCreateInsuranceFundProtoMsg {
 /**
  * MsgCreateInsuranceFund a message to create an insurance fund for a derivative
  * market.
+ * @name MsgCreateInsuranceFundAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgCreateInsuranceFund
  */
 export interface MsgCreateInsuranceFundAmino {
-  /** Creator of the insurance fund. */
+  /**
+   * Creator of the insurance fund.
+   */
   sender: string;
-  /** Ticker for the derivative market. */
+  /**
+   * Ticker for the derivative market.
+   */
   ticker: string;
-  /** Coin denom to use for the market quote denom */
+  /**
+   * Coin denom to use for the market quote denom
+   */
   quote_denom: string;
   /**
    * Oracle base currency of the derivative market OR the oracle symbol for the
@@ -60,25 +82,39 @@ export interface MsgCreateInsuranceFundAmino {
    * the binary options market.
    */
   oracle_quote: string;
-  /** Oracle type of the binary options or derivative market */
+  /**
+   * Oracle type of the binary options or derivative market
+   */
   oracle_type: OracleType;
   /**
    * Expiration time of the derivative market. Should be -1 for perpetual or -2
    * for binary options markets.
    */
   expiry: string;
-  /** Initial deposit of the insurance fund */
+  /**
+   * Initial deposit of the insurance fund
+   */
   initial_deposit: CoinAmino;
 }
 export interface MsgCreateInsuranceFundAminoMsg {
   type: "insurance/MsgCreateInsuranceFund";
   value: MsgCreateInsuranceFundAmino;
 }
+/**
+ * @name MsgCreateInsuranceFundResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgCreateInsuranceFundResponse
+ */
 export interface MsgCreateInsuranceFundResponse {}
 export interface MsgCreateInsuranceFundResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFundResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgCreateInsuranceFundResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgCreateInsuranceFundResponse
+ */
 export interface MsgCreateInsuranceFundResponseAmino {}
 export interface MsgCreateInsuranceFundResponseAminoMsg {
   type: "/injective.insurance.v1beta1.MsgCreateInsuranceFundResponse";
@@ -87,13 +123,22 @@ export interface MsgCreateInsuranceFundResponseAminoMsg {
 /**
  * MsgUnderwrite defines a message for depositing coins to underwrite an
  * insurance fund
+ * @name MsgUnderwrite
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUnderwrite
  */
 export interface MsgUnderwrite {
-  /** Address of the underwriter. */
+  /**
+   * Address of the underwriter.
+   */
   sender: string;
-  /** MarketID of the insurance fund. */
+  /**
+   * MarketID of the insurance fund.
+   */
   marketId: string;
-  /** Amount of quote_denom to underwrite the insurance fund. */
+  /**
+   * Amount of quote_denom to underwrite the insurance fund.
+   */
   deposit: Coin;
 }
 export interface MsgUnderwriteProtoMsg {
@@ -103,24 +148,43 @@ export interface MsgUnderwriteProtoMsg {
 /**
  * MsgUnderwrite defines a message for depositing coins to underwrite an
  * insurance fund
+ * @name MsgUnderwriteAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUnderwrite
  */
 export interface MsgUnderwriteAmino {
-  /** Address of the underwriter. */
+  /**
+   * Address of the underwriter.
+   */
   sender: string;
-  /** MarketID of the insurance fund. */
+  /**
+   * MarketID of the insurance fund.
+   */
   market_id: string;
-  /** Amount of quote_denom to underwrite the insurance fund. */
+  /**
+   * Amount of quote_denom to underwrite the insurance fund.
+   */
   deposit: CoinAmino;
 }
 export interface MsgUnderwriteAminoMsg {
   type: "insurance/MsgUnderwrite";
   value: MsgUnderwriteAmino;
 }
+/**
+ * @name MsgUnderwriteResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUnderwriteResponse
+ */
 export interface MsgUnderwriteResponse {}
 export interface MsgUnderwriteResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUnderwriteResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUnderwriteResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUnderwriteResponse
+ */
 export interface MsgUnderwriteResponseAmino {}
 export interface MsgUnderwriteResponseAminoMsg {
   type: "/injective.insurance.v1beta1.MsgUnderwriteResponse";
@@ -129,13 +193,22 @@ export interface MsgUnderwriteResponseAminoMsg {
 /**
  * MsgRequestRedemption defines a message for requesting a redemption of the
  * sender's insurance fund tokens
+ * @name MsgRequestRedemption
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgRequestRedemption
  */
 export interface MsgRequestRedemption {
-  /** Address of the underwriter requesting a redemption. */
+  /**
+   * Address of the underwriter requesting a redemption.
+   */
   sender: string;
-  /** MarketID of the insurance fund. */
+  /**
+   * MarketID of the insurance fund.
+   */
   marketId: string;
-  /** Insurance fund share token amount to be redeemed. */
+  /**
+   * Insurance fund share token amount to be redeemed.
+   */
   amount: Coin;
 }
 export interface MsgRequestRedemptionProtoMsg {
@@ -145,31 +218,57 @@ export interface MsgRequestRedemptionProtoMsg {
 /**
  * MsgRequestRedemption defines a message for requesting a redemption of the
  * sender's insurance fund tokens
+ * @name MsgRequestRedemptionAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgRequestRedemption
  */
 export interface MsgRequestRedemptionAmino {
-  /** Address of the underwriter requesting a redemption. */
+  /**
+   * Address of the underwriter requesting a redemption.
+   */
   sender: string;
-  /** MarketID of the insurance fund. */
+  /**
+   * MarketID of the insurance fund.
+   */
   market_id: string;
-  /** Insurance fund share token amount to be redeemed. */
+  /**
+   * Insurance fund share token amount to be redeemed.
+   */
   amount: CoinAmino;
 }
 export interface MsgRequestRedemptionAminoMsg {
   type: "insurance/MsgRequestRedemption";
   value: MsgRequestRedemptionAmino;
 }
+/**
+ * @name MsgRequestRedemptionResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgRequestRedemptionResponse
+ */
 export interface MsgRequestRedemptionResponse {}
 export interface MsgRequestRedemptionResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemptionResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRequestRedemptionResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgRequestRedemptionResponse
+ */
 export interface MsgRequestRedemptionResponseAmino {}
 export interface MsgRequestRedemptionResponseAminoMsg {
   type: "/injective.insurance.v1beta1.MsgRequestRedemptionResponse";
   value: MsgRequestRedemptionResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the insurance parameters to update.
@@ -182,8 +281,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the insurance parameters to update.
@@ -196,11 +302,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "insurance/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.insurance.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.insurance.v1beta1.MsgUpdateParamsResponse";
@@ -218,6 +334,13 @@ function createBaseMsgCreateInsuranceFund(): MsgCreateInsuranceFund {
     initialDeposit: Coin.fromPartial({})
   };
 }
+/**
+ * MsgCreateInsuranceFund a message to create an insurance fund for a derivative
+ * market.
+ * @name MsgCreateInsuranceFund
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgCreateInsuranceFund
+ */
 export const MsgCreateInsuranceFund = {
   typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFund",
   aminoType: "insurance/MsgCreateInsuranceFund",
@@ -375,6 +498,11 @@ export const MsgCreateInsuranceFund = {
 function createBaseMsgCreateInsuranceFundResponse(): MsgCreateInsuranceFundResponse {
   return {};
 }
+/**
+ * @name MsgCreateInsuranceFundResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgCreateInsuranceFundResponse
+ */
 export const MsgCreateInsuranceFundResponse = {
   typeUrl: "/injective.insurance.v1beta1.MsgCreateInsuranceFundResponse",
   is(o: any): o is MsgCreateInsuranceFundResponse {
@@ -436,6 +564,13 @@ function createBaseMsgUnderwrite(): MsgUnderwrite {
     deposit: Coin.fromPartial({})
   };
 }
+/**
+ * MsgUnderwrite defines a message for depositing coins to underwrite an
+ * insurance fund
+ * @name MsgUnderwrite
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUnderwrite
+ */
 export const MsgUnderwrite = {
   typeUrl: "/injective.insurance.v1beta1.MsgUnderwrite",
   aminoType: "insurance/MsgUnderwrite",
@@ -538,6 +673,11 @@ export const MsgUnderwrite = {
 function createBaseMsgUnderwriteResponse(): MsgUnderwriteResponse {
   return {};
 }
+/**
+ * @name MsgUnderwriteResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUnderwriteResponse
+ */
 export const MsgUnderwriteResponse = {
   typeUrl: "/injective.insurance.v1beta1.MsgUnderwriteResponse",
   is(o: any): o is MsgUnderwriteResponse {
@@ -599,6 +739,13 @@ function createBaseMsgRequestRedemption(): MsgRequestRedemption {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * MsgRequestRedemption defines a message for requesting a redemption of the
+ * sender's insurance fund tokens
+ * @name MsgRequestRedemption
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgRequestRedemption
+ */
 export const MsgRequestRedemption = {
   typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemption",
   aminoType: "insurance/MsgRequestRedemption",
@@ -701,6 +848,11 @@ export const MsgRequestRedemption = {
 function createBaseMsgRequestRedemptionResponse(): MsgRequestRedemptionResponse {
   return {};
 }
+/**
+ * @name MsgRequestRedemptionResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgRequestRedemptionResponse
+ */
 export const MsgRequestRedemptionResponse = {
   typeUrl: "/injective.insurance.v1beta1.MsgRequestRedemptionResponse",
   is(o: any): o is MsgRequestRedemptionResponse {
@@ -761,6 +913,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.insurance.v1beta1.MsgUpdateParams",
   aminoType: "insurance/MsgUpdateParams",
@@ -852,6 +1009,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.insurance.v1beta1
+ * @see proto type: injective.insurance.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.insurance.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {

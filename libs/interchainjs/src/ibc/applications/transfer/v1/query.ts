@@ -3,30 +3,54 @@ import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.QueryParamsRequest";
   value: Uint8Array;
 }
-/** QueryParamsRequest is the request type for the Query/Params RPC method. */
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequestAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryParamsRequest
+ */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
   type: "cosmos-sdk/QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params?: Params;
 }
 export interface QueryParamsResponseProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.QueryParamsResponse";
   value: Uint8Array;
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponseAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryParamsResponse
+ */
 export interface QueryParamsResponseAmino {
-  /** params defines the parameters of the module. */
+  /**
+   * params defines the parameters of the module.
+   */
   params?: ParamsAmino;
 }
 export interface QueryParamsResponseAminoMsg {
@@ -36,9 +60,14 @@ export interface QueryParamsResponseAminoMsg {
 /**
  * QueryDenomHashRequest is the request type for the Query/DenomHash RPC
  * method
+ * @name QueryDenomHashRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryDenomHashRequest
  */
 export interface QueryDenomHashRequest {
-  /** The denomination trace ([port_id]/[channel_id])+/[denom] */
+  /**
+   * The denomination trace ([port_id]/[channel_id])+/[denom]
+   */
   trace: string;
 }
 export interface QueryDenomHashRequestProtoMsg {
@@ -48,9 +77,14 @@ export interface QueryDenomHashRequestProtoMsg {
 /**
  * QueryDenomHashRequest is the request type for the Query/DenomHash RPC
  * method
+ * @name QueryDenomHashRequestAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryDenomHashRequest
  */
 export interface QueryDenomHashRequestAmino {
-  /** The denomination trace ([port_id]/[channel_id])+/[denom] */
+  /**
+   * The denomination trace ([port_id]/[channel_id])+/[denom]
+   */
   trace: string;
 }
 export interface QueryDenomHashRequestAminoMsg {
@@ -60,9 +94,14 @@ export interface QueryDenomHashRequestAminoMsg {
 /**
  * QueryDenomHashResponse is the response type for the Query/DenomHash RPC
  * method.
+ * @name QueryDenomHashResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryDenomHashResponse
  */
 export interface QueryDenomHashResponse {
-  /** hash (in hex format) of the denomination trace information. */
+  /**
+   * hash (in hex format) of the denomination trace information.
+   */
   hash: string;
 }
 export interface QueryDenomHashResponseProtoMsg {
@@ -72,56 +111,98 @@ export interface QueryDenomHashResponseProtoMsg {
 /**
  * QueryDenomHashResponse is the response type for the Query/DenomHash RPC
  * method.
+ * @name QueryDenomHashResponseAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryDenomHashResponse
  */
 export interface QueryDenomHashResponseAmino {
-  /** hash (in hex format) of the denomination trace information. */
+  /**
+   * hash (in hex format) of the denomination trace information.
+   */
   hash: string;
 }
 export interface QueryDenomHashResponseAminoMsg {
   type: "cosmos-sdk/QueryDenomHashResponse";
   value: QueryDenomHashResponseAmino;
 }
-/** QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method. */
+/**
+ * QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method.
+ * @name QueryEscrowAddressRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryEscrowAddressRequest
+ */
 export interface QueryEscrowAddressRequest {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   portId: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channelId: string;
 }
 export interface QueryEscrowAddressRequestProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.QueryEscrowAddressRequest";
   value: Uint8Array;
 }
-/** QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method. */
+/**
+ * QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method.
+ * @name QueryEscrowAddressRequestAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryEscrowAddressRequest
+ */
 export interface QueryEscrowAddressRequestAmino {
-  /** unique port identifier */
+  /**
+   * unique port identifier
+   */
   port_id: string;
-  /** unique channel identifier */
+  /**
+   * unique channel identifier
+   */
   channel_id: string;
 }
 export interface QueryEscrowAddressRequestAminoMsg {
   type: "cosmos-sdk/QueryEscrowAddressRequest";
   value: QueryEscrowAddressRequestAmino;
 }
-/** QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method. */
+/**
+ * QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
+ * @name QueryEscrowAddressResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryEscrowAddressResponse
+ */
 export interface QueryEscrowAddressResponse {
-  /** the escrow account address */
+  /**
+   * the escrow account address
+   */
   escrowAddress: string;
 }
 export interface QueryEscrowAddressResponseProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.QueryEscrowAddressResponse";
   value: Uint8Array;
 }
-/** QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method. */
+/**
+ * QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
+ * @name QueryEscrowAddressResponseAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryEscrowAddressResponse
+ */
 export interface QueryEscrowAddressResponseAmino {
-  /** the escrow account address */
+  /**
+   * the escrow account address
+   */
   escrow_address: string;
 }
 export interface QueryEscrowAddressResponseAminoMsg {
   type: "cosmos-sdk/QueryEscrowAddressResponse";
   value: QueryEscrowAddressResponseAmino;
 }
-/** QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method. */
+/**
+ * QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method.
+ * @name QueryTotalEscrowForDenomRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest
+ */
 export interface QueryTotalEscrowForDenomRequest {
   denom: string;
 }
@@ -129,7 +210,12 @@ export interface QueryTotalEscrowForDenomRequestProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest";
   value: Uint8Array;
 }
-/** QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method. */
+/**
+ * QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method.
+ * @name QueryTotalEscrowForDenomRequestAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest
+ */
 export interface QueryTotalEscrowForDenomRequestAmino {
   denom: string;
 }
@@ -137,7 +223,12 @@ export interface QueryTotalEscrowForDenomRequestAminoMsg {
   type: "cosmos-sdk/QueryTotalEscrowForDenomRequest";
   value: QueryTotalEscrowForDenomRequestAmino;
 }
-/** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
+/**
+ * QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method.
+ * @name QueryTotalEscrowForDenomResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse
+ */
 export interface QueryTotalEscrowForDenomResponse {
   amount: Coin;
 }
@@ -145,7 +236,12 @@ export interface QueryTotalEscrowForDenomResponseProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse";
   value: Uint8Array;
 }
-/** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
+/**
+ * QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method.
+ * @name QueryTotalEscrowForDenomResponseAmino
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse
+ */
 export interface QueryTotalEscrowForDenomResponseAmino {
   amount: CoinAmino;
 }
@@ -156,6 +252,12 @@ export interface QueryTotalEscrowForDenomResponseAminoMsg {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * QueryParamsRequest is the request type for the Query/Params RPC method.
+ * @name QueryParamsRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/ibc.applications.transfer.v1.QueryParamsRequest",
   aminoType: "cosmos-sdk/QueryParamsRequest",
@@ -222,6 +324,12 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: undefined
   };
 }
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @name QueryParamsResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/ibc.applications.transfer.v1.QueryParamsResponse",
   aminoType: "cosmos-sdk/QueryParamsResponse",
@@ -304,6 +412,13 @@ function createBaseQueryDenomHashRequest(): QueryDenomHashRequest {
     trace: ""
   };
 }
+/**
+ * QueryDenomHashRequest is the request type for the Query/DenomHash RPC
+ * method
+ * @name QueryDenomHashRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryDenomHashRequest
+ */
 export const QueryDenomHashRequest = {
   typeUrl: "/ibc.applications.transfer.v1.QueryDenomHashRequest",
   aminoType: "cosmos-sdk/QueryDenomHashRequest",
@@ -381,6 +496,13 @@ function createBaseQueryDenomHashResponse(): QueryDenomHashResponse {
     hash: ""
   };
 }
+/**
+ * QueryDenomHashResponse is the response type for the Query/DenomHash RPC
+ * method.
+ * @name QueryDenomHashResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryDenomHashResponse
+ */
 export const QueryDenomHashResponse = {
   typeUrl: "/ibc.applications.transfer.v1.QueryDenomHashResponse",
   aminoType: "cosmos-sdk/QueryDenomHashResponse",
@@ -459,6 +581,12 @@ function createBaseQueryEscrowAddressRequest(): QueryEscrowAddressRequest {
     channelId: ""
   };
 }
+/**
+ * QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method.
+ * @name QueryEscrowAddressRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryEscrowAddressRequest
+ */
 export const QueryEscrowAddressRequest = {
   typeUrl: "/ibc.applications.transfer.v1.QueryEscrowAddressRequest",
   aminoType: "cosmos-sdk/QueryEscrowAddressRequest",
@@ -547,6 +675,12 @@ function createBaseQueryEscrowAddressResponse(): QueryEscrowAddressResponse {
     escrowAddress: ""
   };
 }
+/**
+ * QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
+ * @name QueryEscrowAddressResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryEscrowAddressResponse
+ */
 export const QueryEscrowAddressResponse = {
   typeUrl: "/ibc.applications.transfer.v1.QueryEscrowAddressResponse",
   aminoType: "cosmos-sdk/QueryEscrowAddressResponse",
@@ -624,6 +758,12 @@ function createBaseQueryTotalEscrowForDenomRequest(): QueryTotalEscrowForDenomRe
     denom: ""
   };
 }
+/**
+ * QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method.
+ * @name QueryTotalEscrowForDenomRequest
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest
+ */
 export const QueryTotalEscrowForDenomRequest = {
   typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest",
   aminoType: "cosmos-sdk/QueryTotalEscrowForDenomRequest",
@@ -701,6 +841,12 @@ function createBaseQueryTotalEscrowForDenomResponse(): QueryTotalEscrowForDenomR
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method.
+ * @name QueryTotalEscrowForDenomResponse
+ * @package ibc.applications.transfer.v1
+ * @see proto type: ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse
+ */
 export const QueryTotalEscrowForDenomResponse = {
   typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse",
   aminoType: "cosmos-sdk/QueryTotalEscrowForDenomResponse",

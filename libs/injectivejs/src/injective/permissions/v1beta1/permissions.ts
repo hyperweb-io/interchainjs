@@ -46,16 +46,27 @@ export function actionToJSON(object: Action): string {
       return "UNRECOGNIZED";
   }
 }
-/** Namespace defines a permissions namespace */
+/**
+ * Namespace defines a permissions namespace
+ * @name Namespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Namespace
+ */
 export interface Namespace {
-  /** tokenfactory denom to which this namespace applies to */
+  /**
+   * tokenfactory denom to which this namespace applies to
+   */
   denom: string;
-  /** address of smart contract to apply code-based restrictions */
+  /**
+   * address of smart contract to apply code-based restrictions
+   */
   wasmHook: string;
   mintsPaused: boolean;
   sendsPaused: boolean;
   burnsPaused: boolean;
-  /** permissions for each role */
+  /**
+   * permissions for each role
+   */
   rolePermissions: Role[];
   addressRoles: AddressRoles[];
 }
@@ -63,16 +74,27 @@ export interface NamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Namespace";
   value: Uint8Array;
 }
-/** Namespace defines a permissions namespace */
+/**
+ * Namespace defines a permissions namespace
+ * @name NamespaceAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Namespace
+ */
 export interface NamespaceAmino {
-  /** tokenfactory denom to which this namespace applies to */
+  /**
+   * tokenfactory denom to which this namespace applies to
+   */
   denom: string;
-  /** address of smart contract to apply code-based restrictions */
+  /**
+   * address of smart contract to apply code-based restrictions
+   */
   wasm_hook: string;
   mints_paused: boolean;
   sends_paused: boolean;
   burns_paused: boolean;
-  /** permissions for each role */
+  /**
+   * permissions for each role
+   */
   role_permissions: RoleAmino[];
   address_roles: AddressRolesAmino[];
 }
@@ -80,6 +102,11 @@ export interface NamespaceAminoMsg {
   type: "/injective.permissions.v1beta1.Namespace";
   value: NamespaceAmino;
 }
+/**
+ * @name AddressRoles
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.AddressRoles
+ */
 export interface AddressRoles {
   address: string;
   roles: string[];
@@ -88,6 +115,11 @@ export interface AddressRolesProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.AddressRoles";
   value: Uint8Array;
 }
+/**
+ * @name AddressRolesAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.AddressRoles
+ */
 export interface AddressRolesAmino {
   address: string;
   roles: string[];
@@ -96,7 +128,12 @@ export interface AddressRolesAminoMsg {
   type: "/injective.permissions.v1beta1.AddressRoles";
   value: AddressRolesAmino;
 }
-/** Role is only used for storage */
+/**
+ * Role is only used for storage
+ * @name Role
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Role
+ */
 export interface Role {
   role: string;
   permissions: number;
@@ -105,7 +142,12 @@ export interface RoleProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Role";
   value: Uint8Array;
 }
-/** Role is only used for storage */
+/**
+ * Role is only used for storage
+ * @name RoleAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Role
+ */
 export interface RoleAmino {
   role: string;
   permissions: number;
@@ -114,7 +156,12 @@ export interface RoleAminoMsg {
   type: "/injective.permissions.v1beta1.Role";
   value: RoleAmino;
 }
-/** used in storage */
+/**
+ * used in storage
+ * @name RoleIDs
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleIDs
+ */
 export interface RoleIDs {
   roleIds: number[];
 }
@@ -122,7 +169,12 @@ export interface RoleIDsProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.RoleIDs";
   value: Uint8Array;
 }
-/** used in storage */
+/**
+ * used in storage
+ * @name RoleIDsAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleIDs
+ */
 export interface RoleIDsAmino {
   role_ids: number[];
 }
@@ -130,6 +182,11 @@ export interface RoleIDsAminoMsg {
   type: "/injective.permissions.v1beta1.RoleIDs";
   value: RoleIDsAmino;
 }
+/**
+ * @name Voucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Voucher
+ */
 export interface Voucher {
   coins: Coin[];
 }
@@ -137,6 +194,11 @@ export interface VoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Voucher";
   value: Uint8Array;
 }
+/**
+ * @name VoucherAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Voucher
+ */
 export interface VoucherAmino {
   coins: CoinAmino[];
 }
@@ -144,6 +206,11 @@ export interface VoucherAminoMsg {
   type: "/injective.permissions.v1beta1.Voucher";
   value: VoucherAmino;
 }
+/**
+ * @name AddressVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.AddressVoucher
+ */
 export interface AddressVoucher {
   address: string;
   voucher?: Voucher;
@@ -152,6 +219,11 @@ export interface AddressVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.AddressVoucher";
   value: Uint8Array;
 }
+/**
+ * @name AddressVoucherAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.AddressVoucher
+ */
 export interface AddressVoucherAmino {
   address: string;
   voucher?: VoucherAmino;
@@ -171,6 +243,12 @@ function createBaseNamespace(): Namespace {
     addressRoles: []
   };
 }
+/**
+ * Namespace defines a permissions namespace
+ * @name Namespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Namespace
+ */
 export const Namespace = {
   typeUrl: "/injective.permissions.v1beta1.Namespace",
   is(o: any): o is Namespace {
@@ -318,6 +396,11 @@ function createBaseAddressRoles(): AddressRoles {
     roles: []
   };
 }
+/**
+ * @name AddressRoles
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.AddressRoles
+ */
 export const AddressRoles = {
   typeUrl: "/injective.permissions.v1beta1.AddressRoles",
   is(o: any): o is AddressRoles {
@@ -402,6 +485,12 @@ function createBaseRole(): Role {
     permissions: 0
   };
 }
+/**
+ * Role is only used for storage
+ * @name Role
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Role
+ */
 export const Role = {
   typeUrl: "/injective.permissions.v1beta1.Role",
   is(o: any): o is Role {
@@ -483,6 +572,12 @@ function createBaseRoleIDs(): RoleIDs {
     roleIds: []
   };
 }
+/**
+ * used in storage
+ * @name RoleIDs
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleIDs
+ */
 export const RoleIDs = {
   typeUrl: "/injective.permissions.v1beta1.RoleIDs",
   is(o: any): o is RoleIDs {
@@ -564,6 +659,11 @@ function createBaseVoucher(): Voucher {
     coins: []
   };
 }
+/**
+ * @name Voucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.Voucher
+ */
 export const Voucher = {
   typeUrl: "/injective.permissions.v1beta1.Voucher",
   is(o: any): o is Voucher {
@@ -642,6 +742,11 @@ function createBaseAddressVoucher(): AddressVoucher {
     voucher: undefined
   };
 }
+/**
+ * @name AddressVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.AddressVoucher
+ */
 export const AddressVoucher = {
   typeUrl: "/injective.permissions.v1beta1.AddressVoucher",
   is(o: any): o is AddressVoucher {

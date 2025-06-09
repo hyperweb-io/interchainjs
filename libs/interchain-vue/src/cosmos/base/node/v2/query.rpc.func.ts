@@ -1,5 +1,11 @@
 import { buildQuery } from "../../../../helper-func-types";
 import { ConfigRequest, ConfigResponse } from "./query";
+/**
+ * Config queries for the operator configuration.
+ * @name getConfig
+ * @package cosmos.base.node.v2
+ * @see proto service: cosmos.base.node.v2.Config
+ */
 export const getConfig = buildQuery<ConfigRequest, ConfigResponse>({
   encode: ConfigRequest.encode,
   decode: ConfigResponse.decode,

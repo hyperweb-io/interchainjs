@@ -7,26 +7,48 @@ import { GenesisStateAmino as GenesisState3Amino } from "../../channel/v1/genesi
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** GenesisState defines the ibc module's genesis state. */
+/**
+ * GenesisState defines the ibc module's genesis state.
+ * @name GenesisState
+ * @package ibc.core.types.v1
+ * @see proto type: ibc.core.types.v1.GenesisState
+ */
 export interface GenesisState {
-  /** ICS002 - Clients genesis state */
+  /**
+   * ICS002 - Clients genesis state
+   */
   clientGenesis: GenesisState1;
-  /** ICS003 - Connections genesis state */
+  /**
+   * ICS003 - Connections genesis state
+   */
   connectionGenesis: GenesisState2;
-  /** ICS004 - Channel genesis state */
+  /**
+   * ICS004 - Channel genesis state
+   */
   channelGenesis: GenesisState3;
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/ibc.core.types.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the ibc module's genesis state. */
+/**
+ * GenesisState defines the ibc module's genesis state.
+ * @name GenesisStateAmino
+ * @package ibc.core.types.v1
+ * @see proto type: ibc.core.types.v1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** ICS002 - Clients genesis state */
+  /**
+   * ICS002 - Clients genesis state
+   */
   client_genesis: GenesisState1Amino;
-  /** ICS003 - Connections genesis state */
+  /**
+   * ICS003 - Connections genesis state
+   */
   connection_genesis: GenesisState2Amino;
-  /** ICS004 - Channel genesis state */
+  /**
+   * ICS004 - Channel genesis state
+   */
   channel_genesis: GenesisState3Amino;
 }
 export interface GenesisStateAminoMsg {
@@ -40,6 +62,12 @@ function createBaseGenesisState(): GenesisState {
     channelGenesis: GenesisState3.fromPartial({})
   };
 }
+/**
+ * GenesisState defines the ibc module's genesis state.
+ * @name GenesisState
+ * @package ibc.core.types.v1
+ * @see proto type: ibc.core.types.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/ibc.core.types.v1.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",

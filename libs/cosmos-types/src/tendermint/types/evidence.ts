@@ -3,11 +3,21 @@ import { Timestamp } from "../../google/protobuf/timestamp";
 import { Validator } from "./validator";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+/**
+ * @name Evidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Evidence
+ */
 export interface Evidence {
   duplicateVoteEvidence?: DuplicateVoteEvidence;
   lightClientAttackEvidence?: LightClientAttackEvidence;
 }
-/** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
+/**
+ * DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes.
+ * @name DuplicateVoteEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.DuplicateVoteEvidence
+ */
 export interface DuplicateVoteEvidence {
   voteA?: Vote;
   voteB?: Vote;
@@ -15,7 +25,12 @@ export interface DuplicateVoteEvidence {
   validatorPower: bigint;
   timestamp: Date;
 }
-/** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
+/**
+ * LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client.
+ * @name LightClientAttackEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.LightClientAttackEvidence
+ */
 export interface LightClientAttackEvidence {
   conflictingBlock?: LightBlock;
   commonHeight: bigint;
@@ -23,6 +38,11 @@ export interface LightClientAttackEvidence {
   totalVotingPower: bigint;
   timestamp: Date;
 }
+/**
+ * @name EvidenceList
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceList
+ */
 export interface EvidenceList {
   evidence: Evidence[];
 }
@@ -32,6 +52,11 @@ function createBaseEvidence(): Evidence {
     lightClientAttackEvidence: undefined
   };
 }
+/**
+ * @name Evidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Evidence
+ */
 export const Evidence = {
   typeUrl: "/tendermint.types.Evidence",
   encode(message: Evidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -79,6 +104,12 @@ function createBaseDuplicateVoteEvidence(): DuplicateVoteEvidence {
     timestamp: new Date()
   };
 }
+/**
+ * DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes.
+ * @name DuplicateVoteEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.DuplicateVoteEvidence
+ */
 export const DuplicateVoteEvidence = {
   typeUrl: "/tendermint.types.DuplicateVoteEvidence",
   encode(message: DuplicateVoteEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -147,6 +178,12 @@ function createBaseLightClientAttackEvidence(): LightClientAttackEvidence {
     timestamp: new Date()
   };
 }
+/**
+ * LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client.
+ * @name LightClientAttackEvidence
+ * @package tendermint.types
+ * @see proto type: tendermint.types.LightClientAttackEvidence
+ */
 export const LightClientAttackEvidence = {
   typeUrl: "/tendermint.types.LightClientAttackEvidence",
   encode(message: LightClientAttackEvidence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
@@ -211,6 +248,11 @@ function createBaseEvidenceList(): EvidenceList {
     evidence: []
   };
 }
+/**
+ * @name EvidenceList
+ * @package tendermint.types
+ * @see proto type: tendermint.types.EvidenceList
+ */
 export const EvidenceList = {
   typeUrl: "/tendermint.types.EvidenceList",
   encode(message: EvidenceList, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {

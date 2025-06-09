@@ -3,8 +3,15 @@ import { Namespace, NamespaceAmino, Role, RoleAmino, AddressRoles, AddressRolesA
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
+/**
+ * @name MsgUpdateParams
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the permissions parameters to update.
@@ -17,8 +24,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the permissions parameters to update.
@@ -31,16 +45,31 @@ export interface MsgUpdateParamsAminoMsg {
   type: "permissions/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgUpdateParamsResponse";
   value: MsgUpdateParamsResponseAmino;
 }
+/**
+ * @name MsgCreateNamespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgCreateNamespace
+ */
 export interface MsgCreateNamespace {
   sender: string;
   namespace: Namespace;
@@ -49,6 +78,11 @@ export interface MsgCreateNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespace";
   value: Uint8Array;
 }
+/**
+ * @name MsgCreateNamespaceAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgCreateNamespace
+ */
 export interface MsgCreateNamespaceAmino {
   sender: string;
   namespace: NamespaceAmino;
@@ -57,16 +91,31 @@ export interface MsgCreateNamespaceAminoMsg {
   type: "permissions/MsgCreateNamespace";
   value: MsgCreateNamespaceAmino;
 }
+/**
+ * @name MsgCreateNamespaceResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgCreateNamespaceResponse
+ */
 export interface MsgCreateNamespaceResponse {}
 export interface MsgCreateNamespaceResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespaceResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgCreateNamespaceResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgCreateNamespaceResponse
+ */
 export interface MsgCreateNamespaceResponseAmino {}
 export interface MsgCreateNamespaceResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgCreateNamespaceResponse";
   value: MsgCreateNamespaceResponseAmino;
 }
+/**
+ * @name MsgDeleteNamespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespace
+ */
 export interface MsgDeleteNamespace {
   sender: string;
   namespaceDenom: string;
@@ -75,6 +124,11 @@ export interface MsgDeleteNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace";
   value: Uint8Array;
 }
+/**
+ * @name MsgDeleteNamespaceAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespace
+ */
 export interface MsgDeleteNamespaceAmino {
   sender: string;
   namespace_denom: string;
@@ -83,21 +137,40 @@ export interface MsgDeleteNamespaceAminoMsg {
   type: "permissions/MsgDeleteNamespace";
   value: MsgDeleteNamespaceAmino;
 }
+/**
+ * @name MsgDeleteNamespaceResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespaceResponse
+ */
 export interface MsgDeleteNamespaceResponse {}
 export interface MsgDeleteNamespaceResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgDeleteNamespaceResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespaceResponse
+ */
 export interface MsgDeleteNamespaceResponseAmino {}
 export interface MsgDeleteNamespaceResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse";
   value: MsgDeleteNamespaceResponseAmino;
 }
+/**
+ * @name MsgUpdateNamespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace
+ */
 export interface MsgUpdateNamespace {
   sender: string;
-  /** namespace denom to which this updates are applied */
+  /**
+   * namespace denom to which this updates are applied
+   */
   namespaceDenom: string;
-  /** address of smart contract to apply code-based restrictions */
+  /**
+   * address of smart contract to apply code-based restrictions
+   */
   wasmHook?: MsgUpdateNamespace_MsgSetWasmHook;
   mintsPaused?: MsgUpdateNamespace_MsgSetMintsPaused;
   sendsPaused?: MsgUpdateNamespace_MsgSetSendsPaused;
@@ -107,11 +180,20 @@ export interface MsgUpdateNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespace";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespaceAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace
+ */
 export interface MsgUpdateNamespaceAmino {
   sender: string;
-  /** namespace denom to which this updates are applied */
+  /**
+   * namespace denom to which this updates are applied
+   */
   namespace_denom: string;
-  /** address of smart contract to apply code-based restrictions */
+  /**
+   * address of smart contract to apply code-based restrictions
+   */
   wasm_hook?: MsgUpdateNamespace_MsgSetWasmHookAmino;
   mints_paused?: MsgUpdateNamespace_MsgSetMintsPausedAmino;
   sends_paused?: MsgUpdateNamespace_MsgSetSendsPausedAmino;
@@ -121,6 +203,11 @@ export interface MsgUpdateNamespaceAminoMsg {
   type: "permissions/MsgUpdateNamespace";
   value: MsgUpdateNamespaceAmino;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetWasmHook
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetWasmHook
+ */
 export interface MsgUpdateNamespace_MsgSetWasmHook {
   newValue: string;
 }
@@ -128,6 +215,11 @@ export interface MsgUpdateNamespace_MsgSetWasmHookProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetWasmHookAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetWasmHook
+ */
 export interface MsgUpdateNamespace_MsgSetWasmHookAmino {
   new_value: string;
 }
@@ -135,6 +227,11 @@ export interface MsgUpdateNamespace_MsgSetWasmHookAminoMsg {
   type: "/injective.permissions.v1beta1.MsgSetWasmHook";
   value: MsgUpdateNamespace_MsgSetWasmHookAmino;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetMintsPaused
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetMintsPaused
+ */
 export interface MsgUpdateNamespace_MsgSetMintsPaused {
   newValue: boolean;
 }
@@ -142,6 +239,11 @@ export interface MsgUpdateNamespace_MsgSetMintsPausedProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetMintsPausedAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetMintsPaused
+ */
 export interface MsgUpdateNamespace_MsgSetMintsPausedAmino {
   new_value: boolean;
 }
@@ -149,6 +251,11 @@ export interface MsgUpdateNamespace_MsgSetMintsPausedAminoMsg {
   type: "/injective.permissions.v1beta1.MsgSetMintsPaused";
   value: MsgUpdateNamespace_MsgSetMintsPausedAmino;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetSendsPaused
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetSendsPaused
+ */
 export interface MsgUpdateNamespace_MsgSetSendsPaused {
   newValue: boolean;
 }
@@ -156,6 +263,11 @@ export interface MsgUpdateNamespace_MsgSetSendsPausedProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetSendsPausedAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetSendsPaused
+ */
 export interface MsgUpdateNamespace_MsgSetSendsPausedAmino {
   new_value: boolean;
 }
@@ -163,6 +275,11 @@ export interface MsgUpdateNamespace_MsgSetSendsPausedAminoMsg {
   type: "/injective.permissions.v1beta1.MsgSetSendsPaused";
   value: MsgUpdateNamespace_MsgSetSendsPausedAmino;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetBurnsPaused
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetBurnsPaused
+ */
 export interface MsgUpdateNamespace_MsgSetBurnsPaused {
   newValue: boolean;
 }
@@ -170,6 +287,11 @@ export interface MsgUpdateNamespace_MsgSetBurnsPausedProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetBurnsPausedAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetBurnsPaused
+ */
 export interface MsgUpdateNamespace_MsgSetBurnsPausedAmino {
   new_value: boolean;
 }
@@ -177,84 +299,159 @@ export interface MsgUpdateNamespace_MsgSetBurnsPausedAminoMsg {
   type: "/injective.permissions.v1beta1.MsgSetBurnsPaused";
   value: MsgUpdateNamespace_MsgSetBurnsPausedAmino;
 }
+/**
+ * @name MsgUpdateNamespaceResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceResponse
+ */
 export interface MsgUpdateNamespaceResponse {}
 export interface MsgUpdateNamespaceResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespaceResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceResponse
+ */
 export interface MsgUpdateNamespaceResponseAmino {}
 export interface MsgUpdateNamespaceResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgUpdateNamespaceResponse";
   value: MsgUpdateNamespaceResponseAmino;
 }
+/**
+ * @name MsgUpdateNamespaceRoles
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRoles
+ */
 export interface MsgUpdateNamespaceRoles {
   sender: string;
-  /** namespace denom to which this updates are applied */
+  /**
+   * namespace denom to which this updates are applied
+   */
   namespaceDenom: string;
-  /** new role definitions or updated permissions for existing roles */
+  /**
+   * new role definitions or updated permissions for existing roles
+   */
   rolePermissions: Role[];
-  /** new addresses to add or new roles for existing addresses to */
+  /**
+   * new addresses to add or new roles for existing addresses to
+   */
   addressRoles: AddressRoles[];
 }
 export interface MsgUpdateNamespaceRolesProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespaceRolesAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRoles
+ */
 export interface MsgUpdateNamespaceRolesAmino {
   sender: string;
-  /** namespace denom to which this updates are applied */
+  /**
+   * namespace denom to which this updates are applied
+   */
   namespace_denom: string;
-  /** new role definitions or updated permissions for existing roles */
+  /**
+   * new role definitions or updated permissions for existing roles
+   */
   role_permissions: RoleAmino[];
-  /** new addresses to add or new roles for existing addresses to */
+  /**
+   * new addresses to add or new roles for existing addresses to
+   */
   address_roles: AddressRolesAmino[];
 }
 export interface MsgUpdateNamespaceRolesAminoMsg {
   type: "permissions/MsgUpdateNamespaceRoles";
   value: MsgUpdateNamespaceRolesAmino;
 }
+/**
+ * @name MsgUpdateNamespaceRolesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse
+ */
 export interface MsgUpdateNamespaceRolesResponse {}
 export interface MsgUpdateNamespaceRolesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateNamespaceRolesResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse
+ */
 export interface MsgUpdateNamespaceRolesResponseAmino {}
 export interface MsgUpdateNamespaceRolesResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse";
   value: MsgUpdateNamespaceRolesResponseAmino;
 }
+/**
+ * @name MsgRevokeNamespaceRoles
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRoles
+ */
 export interface MsgRevokeNamespaceRoles {
   sender: string;
-  /** namespace denom to which this updates are applied */
+  /**
+   * namespace denom to which this updates are applied
+   */
   namespaceDenom: string;
-  /** {"address" => array of roles to revoke from this address} */
+  /**
+   * {"address" => array of roles to revoke from this address}
+   */
   addressRolesToRevoke: AddressRoles[];
 }
 export interface MsgRevokeNamespaceRolesProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles";
   value: Uint8Array;
 }
+/**
+ * @name MsgRevokeNamespaceRolesAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRoles
+ */
 export interface MsgRevokeNamespaceRolesAmino {
   sender: string;
-  /** namespace denom to which this updates are applied */
+  /**
+   * namespace denom to which this updates are applied
+   */
   namespace_denom: string;
-  /** {"address" => array of roles to revoke from this address} */
+  /**
+   * {"address" => array of roles to revoke from this address}
+   */
   address_roles_to_revoke: AddressRolesAmino[];
 }
 export interface MsgRevokeNamespaceRolesAminoMsg {
   type: "permissions/MsgRevokeNamespaceRoles";
   value: MsgRevokeNamespaceRolesAmino;
 }
+/**
+ * @name MsgRevokeNamespaceRolesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse
+ */
 export interface MsgRevokeNamespaceRolesResponse {}
 export interface MsgRevokeNamespaceRolesResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRevokeNamespaceRolesResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse
+ */
 export interface MsgRevokeNamespaceRolesResponseAmino {}
 export interface MsgRevokeNamespaceRolesResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse";
   value: MsgRevokeNamespaceRolesResponseAmino;
 }
+/**
+ * @name MsgClaimVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgClaimVoucher
+ */
 export interface MsgClaimVoucher {
   sender: string;
   denom: string;
@@ -263,6 +460,11 @@ export interface MsgClaimVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucher";
   value: Uint8Array;
 }
+/**
+ * @name MsgClaimVoucherAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgClaimVoucher
+ */
 export interface MsgClaimVoucherAmino {
   sender: string;
   denom: string;
@@ -271,11 +473,21 @@ export interface MsgClaimVoucherAminoMsg {
   type: "permissions/MsgClaimVoucher";
   value: MsgClaimVoucherAmino;
 }
+/**
+ * @name MsgClaimVoucherResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgClaimVoucherResponse
+ */
 export interface MsgClaimVoucherResponse {}
 export interface MsgClaimVoucherResponseProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucherResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgClaimVoucherResponseAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgClaimVoucherResponse
+ */
 export interface MsgClaimVoucherResponseAmino {}
 export interface MsgClaimVoucherResponseAminoMsg {
   type: "/injective.permissions.v1beta1.MsgClaimVoucherResponse";
@@ -287,6 +499,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateParams",
   aminoType: "permissions/MsgUpdateParams",
@@ -378,6 +595,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {
@@ -438,6 +660,11 @@ function createBaseMsgCreateNamespace(): MsgCreateNamespace {
     namespace: Namespace.fromPartial({})
   };
 }
+/**
+ * @name MsgCreateNamespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgCreateNamespace
+ */
 export const MsgCreateNamespace = {
   typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespace",
   aminoType: "permissions/MsgCreateNamespace",
@@ -529,6 +756,11 @@ export const MsgCreateNamespace = {
 function createBaseMsgCreateNamespaceResponse(): MsgCreateNamespaceResponse {
   return {};
 }
+/**
+ * @name MsgCreateNamespaceResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgCreateNamespaceResponse
+ */
 export const MsgCreateNamespaceResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgCreateNamespaceResponse",
   is(o: any): o is MsgCreateNamespaceResponse {
@@ -589,6 +821,11 @@ function createBaseMsgDeleteNamespace(): MsgDeleteNamespace {
     namespaceDenom: ""
   };
 }
+/**
+ * @name MsgDeleteNamespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespace
+ */
 export const MsgDeleteNamespace = {
   typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace",
   aminoType: "permissions/MsgDeleteNamespace",
@@ -675,6 +912,11 @@ export const MsgDeleteNamespace = {
 function createBaseMsgDeleteNamespaceResponse(): MsgDeleteNamespaceResponse {
   return {};
 }
+/**
+ * @name MsgDeleteNamespaceResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespaceResponse
+ */
 export const MsgDeleteNamespaceResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse",
   is(o: any): o is MsgDeleteNamespaceResponse {
@@ -739,6 +981,11 @@ function createBaseMsgUpdateNamespace(): MsgUpdateNamespace {
     burnsPaused: undefined
   };
 }
+/**
+ * @name MsgUpdateNamespace
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace
+ */
 export const MsgUpdateNamespace = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespace",
   aminoType: "permissions/MsgUpdateNamespace",
@@ -879,6 +1126,11 @@ function createBaseMsgUpdateNamespace_MsgSetWasmHook(): MsgUpdateNamespace_MsgSe
     newValue: ""
   };
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetWasmHook
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetWasmHook
+ */
 export const MsgUpdateNamespace_MsgSetWasmHook = {
   typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook",
   is(o: any): o is MsgUpdateNamespace_MsgSetWasmHook {
@@ -949,6 +1201,11 @@ function createBaseMsgUpdateNamespace_MsgSetMintsPaused(): MsgUpdateNamespace_Ms
     newValue: false
   };
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetMintsPaused
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetMintsPaused
+ */
 export const MsgUpdateNamespace_MsgSetMintsPaused = {
   typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused",
   is(o: any): o is MsgUpdateNamespace_MsgSetMintsPaused {
@@ -1019,6 +1276,11 @@ function createBaseMsgUpdateNamespace_MsgSetSendsPaused(): MsgUpdateNamespace_Ms
     newValue: false
   };
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetSendsPaused
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetSendsPaused
+ */
 export const MsgUpdateNamespace_MsgSetSendsPaused = {
   typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused",
   is(o: any): o is MsgUpdateNamespace_MsgSetSendsPaused {
@@ -1089,6 +1351,11 @@ function createBaseMsgUpdateNamespace_MsgSetBurnsPaused(): MsgUpdateNamespace_Ms
     newValue: false
   };
 }
+/**
+ * @name MsgUpdateNamespace_MsgSetBurnsPaused
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgSetBurnsPaused
+ */
 export const MsgUpdateNamespace_MsgSetBurnsPaused = {
   typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused",
   is(o: any): o is MsgUpdateNamespace_MsgSetBurnsPaused {
@@ -1157,6 +1424,11 @@ export const MsgUpdateNamespace_MsgSetBurnsPaused = {
 function createBaseMsgUpdateNamespaceResponse(): MsgUpdateNamespaceResponse {
   return {};
 }
+/**
+ * @name MsgUpdateNamespaceResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceResponse
+ */
 export const MsgUpdateNamespaceResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceResponse",
   is(o: any): o is MsgUpdateNamespaceResponse {
@@ -1219,6 +1491,11 @@ function createBaseMsgUpdateNamespaceRoles(): MsgUpdateNamespaceRoles {
     addressRoles: []
   };
 }
+/**
+ * @name MsgUpdateNamespaceRoles
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRoles
+ */
 export const MsgUpdateNamespaceRoles = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles",
   aminoType: "permissions/MsgUpdateNamespaceRoles",
@@ -1337,6 +1614,11 @@ export const MsgUpdateNamespaceRoles = {
 function createBaseMsgUpdateNamespaceRolesResponse(): MsgUpdateNamespaceRolesResponse {
   return {};
 }
+/**
+ * @name MsgUpdateNamespaceRolesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse
+ */
 export const MsgUpdateNamespaceRolesResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse",
   is(o: any): o is MsgUpdateNamespaceRolesResponse {
@@ -1398,6 +1680,11 @@ function createBaseMsgRevokeNamespaceRoles(): MsgRevokeNamespaceRoles {
     addressRolesToRevoke: []
   };
 }
+/**
+ * @name MsgRevokeNamespaceRoles
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRoles
+ */
 export const MsgRevokeNamespaceRoles = {
   typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles",
   aminoType: "permissions/MsgRevokeNamespaceRoles",
@@ -1502,6 +1789,11 @@ export const MsgRevokeNamespaceRoles = {
 function createBaseMsgRevokeNamespaceRolesResponse(): MsgRevokeNamespaceRolesResponse {
   return {};
 }
+/**
+ * @name MsgRevokeNamespaceRolesResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse
+ */
 export const MsgRevokeNamespaceRolesResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse",
   is(o: any): o is MsgRevokeNamespaceRolesResponse {
@@ -1562,6 +1854,11 @@ function createBaseMsgClaimVoucher(): MsgClaimVoucher {
     denom: ""
   };
 }
+/**
+ * @name MsgClaimVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgClaimVoucher
+ */
 export const MsgClaimVoucher = {
   typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucher",
   aminoType: "permissions/MsgClaimVoucher",
@@ -1648,6 +1945,11 @@ export const MsgClaimVoucher = {
 function createBaseMsgClaimVoucherResponse(): MsgClaimVoucherResponse {
   return {};
 }
+/**
+ * @name MsgClaimVoucherResponse
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.MsgClaimVoucherResponse
+ */
 export const MsgClaimVoucherResponse = {
   typeUrl: "/injective.permissions.v1beta1.MsgClaimVoucherResponse",
   is(o: any): o is MsgClaimVoucherResponse {

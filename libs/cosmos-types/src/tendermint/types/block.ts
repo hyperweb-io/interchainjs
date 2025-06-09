@@ -2,6 +2,11 @@ import { Header, Data, Commit } from "./types";
 import { EvidenceList } from "./evidence";
 import { BinaryReader, BinaryWriter } from "../../binary";
 import { DeepPartial } from "../../helpers";
+/**
+ * @name Block
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Block
+ */
 export interface Block {
   header: Header;
   data: Data;
@@ -16,6 +21,11 @@ function createBaseBlock(): Block {
     lastCommit: undefined
   };
 }
+/**
+ * @name Block
+ * @package tendermint.types
+ * @see proto type: tendermint.types.Block
+ */
 export const Block = {
   typeUrl: "/tendermint.types.Block",
   encode(message: Block, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
