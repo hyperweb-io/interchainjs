@@ -217,7 +217,7 @@ send(
 )
 ```
 
-#### Example: Working with keplr using siging client
+#### Example: Working with keplr using the signing client
 ```ts
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx'
 
