@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-/** Module is the config object of the staking module. */
+/**
+ * Module is the config object of the staking module.
+ * @name Module
+ * @package cosmos.staking.module.v1
+ * @see proto type: cosmos.staking.module.v1.Module
+ */
 export interface Module {
   /**
    * hooks_order specifies the order of staking hooks and should be a list
@@ -8,18 +13,29 @@ export interface Module {
    * provided, then hooks will be applied in alphabetical order of module names.
    */
   hooksOrder: string[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
-  /** bech32_prefix_validator is the bech32 validator prefix for the app. */
+  /**
+   * bech32_prefix_validator is the bech32 validator prefix for the app.
+   */
   bech32PrefixValidator: string;
-  /** bech32_prefix_consensus is the bech32 consensus node prefix for the app. */
+  /**
+   * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+   */
   bech32PrefixConsensus: string;
 }
 export interface ModuleProtoMsg {
   typeUrl: "/cosmos.staking.module.v1.Module";
   value: Uint8Array;
 }
-/** Module is the config object of the staking module. */
+/**
+ * Module is the config object of the staking module.
+ * @name ModuleAmino
+ * @package cosmos.staking.module.v1
+ * @see proto type: cosmos.staking.module.v1.Module
+ */
 export interface ModuleAmino {
   /**
    * hooks_order specifies the order of staking hooks and should be a list
@@ -27,11 +43,17 @@ export interface ModuleAmino {
    * provided, then hooks will be applied in alphabetical order of module names.
    */
   hooks_order: string[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
-  /** bech32_prefix_validator is the bech32 validator prefix for the app. */
+  /**
+   * bech32_prefix_validator is the bech32 validator prefix for the app.
+   */
   bech32_prefix_validator: string;
-  /** bech32_prefix_consensus is the bech32 consensus node prefix for the app. */
+  /**
+   * bech32_prefix_consensus is the bech32 consensus node prefix for the app.
+   */
   bech32_prefix_consensus: string;
 }
 export interface ModuleAminoMsg {
@@ -46,6 +68,12 @@ function createBaseModule(): Module {
     bech32PrefixConsensus: ""
   };
 }
+/**
+ * Module is the config object of the staking module.
+ * @name Module
+ * @package cosmos.staking.module.v1
+ * @see proto type: cosmos.staking.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.staking.module.v1.Module",
   aminoType: "cosmos-sdk/Module",

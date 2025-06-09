@@ -2,33 +2,46 @@ import { Deposit, DepositAmino, Vote, VoteAmino, Proposal, ProposalAmino, Deposi
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the gov module's genesis state. */
+/**
+ * GenesisState defines the gov module's genesis state.
+ * @name GenesisState
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.GenesisState
+ */
 export interface GenesisState {
-  /** starting_proposal_id is the ID of the starting proposal. */
+  /**
+   * starting_proposal_id is the ID of the starting proposal.
+   */
   startingProposalId: bigint;
-  /** deposits defines all the deposits present at genesis. */
+  /**
+   * deposits defines all the deposits present at genesis.
+   */
   deposits: Deposit[];
-  /** votes defines all the votes present at genesis. */
+  /**
+   * votes defines all the votes present at genesis.
+   */
   votes: Vote[];
-  /** proposals defines all the proposals present at genesis. */
+  /**
+   * proposals defines all the proposals present at genesis.
+   */
   proposals: Proposal[];
   /**
    * Deprecated: Prefer to use `params` instead.
    * deposit_params defines all the paramaters of related to deposit.
+   * @deprecated
    */
-  /** @deprecated */
   depositParams?: DepositParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * voting_params defines all the paramaters of related to voting.
+   * @deprecated
    */
-  /** @deprecated */
   votingParams?: VotingParams;
   /**
    * Deprecated: Prefer to use `params` instead.
    * tally_params defines all the paramaters of related to tally.
+   * @deprecated
    */
-  /** @deprecated */
   tallyParams?: TallyParams;
   /**
    * params defines all the paramaters of x/gov module.
@@ -50,33 +63,46 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.gov.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the gov module's genesis state. */
+/**
+ * GenesisState defines the gov module's genesis state.
+ * @name GenesisStateAmino
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** starting_proposal_id is the ID of the starting proposal. */
+  /**
+   * starting_proposal_id is the ID of the starting proposal.
+   */
   starting_proposal_id: string;
-  /** deposits defines all the deposits present at genesis. */
+  /**
+   * deposits defines all the deposits present at genesis.
+   */
   deposits: DepositAmino[];
-  /** votes defines all the votes present at genesis. */
+  /**
+   * votes defines all the votes present at genesis.
+   */
   votes: VoteAmino[];
-  /** proposals defines all the proposals present at genesis. */
+  /**
+   * proposals defines all the proposals present at genesis.
+   */
   proposals: ProposalAmino[];
   /**
    * Deprecated: Prefer to use `params` instead.
    * deposit_params defines all the paramaters of related to deposit.
+   * @deprecated
    */
-  /** @deprecated */
   deposit_params?: DepositParamsAmino;
   /**
    * Deprecated: Prefer to use `params` instead.
    * voting_params defines all the paramaters of related to voting.
+   * @deprecated
    */
-  /** @deprecated */
   voting_params?: VotingParamsAmino;
   /**
    * Deprecated: Prefer to use `params` instead.
    * tally_params defines all the paramaters of related to tally.
+   * @deprecated
    */
-  /** @deprecated */
   tally_params?: TallyParamsAmino;
   /**
    * params defines all the paramaters of x/gov module.
@@ -111,6 +137,12 @@ function createBaseGenesisState(): GenesisState {
     constitution: ""
   };
 }
+/**
+ * GenesisState defines the gov module's genesis state.
+ * @name GenesisState
+ * @package cosmos.gov.v1
+ * @see proto type: cosmos.gov.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.gov.v1.GenesisState",
   aminoType: "cosmos-sdk/v1/GenesisState",

@@ -3,62 +3,109 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the OCR module's genesis state. */
+/**
+ * GenesisState defines the OCR module's genesis state.
+ * @name GenesisState
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to OCR. */
+  /**
+   * params defines all the parameters of related to OCR.
+   */
   params: Params;
-  /** feed_configs stores all of the supported OCR feeds */
+  /**
+   * feed_configs stores all of the supported OCR feeds
+   */
   feedConfigs: FeedConfig[];
-  /** latest_epoch_and_rounds stores the latest epoch and round for each feedId */
+  /**
+   * latest_epoch_and_rounds stores the latest epoch and round for each feedId
+   */
   latestEpochAndRounds: FeedEpochAndRound[];
-  /** feed_transmissions stores the last transmission for each feed */
+  /**
+   * feed_transmissions stores the last transmission for each feed
+   */
   feedTransmissions: FeedTransmission[];
   /**
    * latest_aggregator_round_ids stores the latest aggregator round ID for each
    * feedId
    */
   latestAggregatorRoundIds: FeedLatestAggregatorRoundIDs[];
-  /** reward_pools stores the reward pools */
+  /**
+   * reward_pools stores the reward pools
+   */
   rewardPools: RewardPool[];
-  /** feed_observation_counts stores the feed observation counts */
+  /**
+   * feed_observation_counts stores the feed observation counts
+   */
   feedObservationCounts: FeedCounts[];
-  /** feed_transmission_counts stores the feed transmission counts */
+  /**
+   * feed_transmission_counts stores the feed transmission counts
+   */
   feedTransmissionCounts: FeedCounts[];
-  /** pending_payeeships stores the pending payeeships */
+  /**
+   * pending_payeeships stores the pending payeeships
+   */
   pendingPayeeships: PendingPayeeship[];
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the OCR module's genesis state. */
+/**
+ * GenesisState defines the OCR module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines all the parameters of related to OCR. */
+  /**
+   * params defines all the parameters of related to OCR.
+   */
   params: ParamsAmino;
-  /** feed_configs stores all of the supported OCR feeds */
+  /**
+   * feed_configs stores all of the supported OCR feeds
+   */
   feed_configs: FeedConfigAmino[];
-  /** latest_epoch_and_rounds stores the latest epoch and round for each feedId */
+  /**
+   * latest_epoch_and_rounds stores the latest epoch and round for each feedId
+   */
   latest_epoch_and_rounds: FeedEpochAndRoundAmino[];
-  /** feed_transmissions stores the last transmission for each feed */
+  /**
+   * feed_transmissions stores the last transmission for each feed
+   */
   feed_transmissions: FeedTransmissionAmino[];
   /**
    * latest_aggregator_round_ids stores the latest aggregator round ID for each
    * feedId
    */
   latest_aggregator_round_ids: FeedLatestAggregatorRoundIDsAmino[];
-  /** reward_pools stores the reward pools */
+  /**
+   * reward_pools stores the reward pools
+   */
   reward_pools: RewardPoolAmino[];
-  /** feed_observation_counts stores the feed observation counts */
+  /**
+   * feed_observation_counts stores the feed observation counts
+   */
   feed_observation_counts: FeedCountsAmino[];
-  /** feed_transmission_counts stores the feed transmission counts */
+  /**
+   * feed_transmission_counts stores the feed transmission counts
+   */
   feed_transmission_counts: FeedCountsAmino[];
-  /** pending_payeeships stores the pending payeeships */
+  /**
+   * pending_payeeships stores the pending payeeships
+   */
   pending_payeeships: PendingPayeeshipAmino[];
 }
 export interface GenesisStateAminoMsg {
   type: "/injective.ocr.v1beta1.GenesisState";
   value: GenesisStateAmino;
 }
+/**
+ * @name FeedTransmission
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedTransmission
+ */
 export interface FeedTransmission {
   feedId: string;
   transmission?: Transmission;
@@ -67,6 +114,11 @@ export interface FeedTransmissionProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedTransmission";
   value: Uint8Array;
 }
+/**
+ * @name FeedTransmissionAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedTransmission
+ */
 export interface FeedTransmissionAmino {
   feed_id: string;
   transmission?: TransmissionAmino;
@@ -75,6 +127,11 @@ export interface FeedTransmissionAminoMsg {
   type: "/injective.ocr.v1beta1.FeedTransmission";
   value: FeedTransmissionAmino;
 }
+/**
+ * @name FeedEpochAndRound
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedEpochAndRound
+ */
 export interface FeedEpochAndRound {
   feedId: string;
   epochAndRound?: EpochAndRound;
@@ -83,6 +140,11 @@ export interface FeedEpochAndRoundProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound";
   value: Uint8Array;
 }
+/**
+ * @name FeedEpochAndRoundAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedEpochAndRound
+ */
 export interface FeedEpochAndRoundAmino {
   feed_id: string;
   epoch_and_round?: EpochAndRoundAmino;
@@ -91,6 +153,11 @@ export interface FeedEpochAndRoundAminoMsg {
   type: "/injective.ocr.v1beta1.FeedEpochAndRound";
   value: FeedEpochAndRoundAmino;
 }
+/**
+ * @name FeedLatestAggregatorRoundIDs
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs
+ */
 export interface FeedLatestAggregatorRoundIDs {
   feedId: string;
   aggregatorRoundId: bigint;
@@ -99,6 +166,11 @@ export interface FeedLatestAggregatorRoundIDsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs";
   value: Uint8Array;
 }
+/**
+ * @name FeedLatestAggregatorRoundIDsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs
+ */
 export interface FeedLatestAggregatorRoundIDsAmino {
   feed_id: string;
   aggregator_round_id: string;
@@ -107,6 +179,11 @@ export interface FeedLatestAggregatorRoundIDsAminoMsg {
   type: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs";
   value: FeedLatestAggregatorRoundIDsAmino;
 }
+/**
+ * @name RewardPool
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.RewardPool
+ */
 export interface RewardPool {
   feedId: string;
   amount: Coin;
@@ -115,6 +192,11 @@ export interface RewardPoolProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.RewardPool";
   value: Uint8Array;
 }
+/**
+ * @name RewardPoolAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.RewardPool
+ */
 export interface RewardPoolAmino {
   feed_id: string;
   amount: CoinAmino;
@@ -123,6 +205,11 @@ export interface RewardPoolAminoMsg {
   type: "/injective.ocr.v1beta1.RewardPool";
   value: RewardPoolAmino;
 }
+/**
+ * @name FeedCounts
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedCounts
+ */
 export interface FeedCounts {
   feedId: string;
   counts: Count[];
@@ -131,6 +218,11 @@ export interface FeedCountsProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.FeedCounts";
   value: Uint8Array;
 }
+/**
+ * @name FeedCountsAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedCounts
+ */
 export interface FeedCountsAmino {
   feed_id: string;
   counts: CountAmino[];
@@ -139,6 +231,11 @@ export interface FeedCountsAminoMsg {
   type: "/injective.ocr.v1beta1.FeedCounts";
   value: FeedCountsAmino;
 }
+/**
+ * @name Count
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Count
+ */
 export interface Count {
   address: string;
   count: bigint;
@@ -147,6 +244,11 @@ export interface CountProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.Count";
   value: Uint8Array;
 }
+/**
+ * @name CountAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Count
+ */
 export interface CountAmino {
   address: string;
   count: string;
@@ -155,6 +257,11 @@ export interface CountAminoMsg {
   type: "/injective.ocr.v1beta1.Count";
   value: CountAmino;
 }
+/**
+ * @name PendingPayeeship
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.PendingPayeeship
+ */
 export interface PendingPayeeship {
   feedId: string;
   transmitter: string;
@@ -164,6 +271,11 @@ export interface PendingPayeeshipProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.PendingPayeeship";
   value: Uint8Array;
 }
+/**
+ * @name PendingPayeeshipAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.PendingPayeeship
+ */
 export interface PendingPayeeshipAmino {
   feed_id: string;
   transmitter: string;
@@ -186,6 +298,12 @@ function createBaseGenesisState(): GenesisState {
     pendingPayeeships: []
   };
 }
+/**
+ * GenesisState defines the OCR module's genesis state.
+ * @name GenesisState
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.ocr.v1beta1.GenesisState",
   is(o: any): o is GenesisState {
@@ -373,6 +491,11 @@ function createBaseFeedTransmission(): FeedTransmission {
     transmission: undefined
   };
 }
+/**
+ * @name FeedTransmission
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedTransmission
+ */
 export const FeedTransmission = {
   typeUrl: "/injective.ocr.v1beta1.FeedTransmission",
   is(o: any): o is FeedTransmission {
@@ -460,6 +583,11 @@ function createBaseFeedEpochAndRound(): FeedEpochAndRound {
     epochAndRound: undefined
   };
 }
+/**
+ * @name FeedEpochAndRound
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedEpochAndRound
+ */
 export const FeedEpochAndRound = {
   typeUrl: "/injective.ocr.v1beta1.FeedEpochAndRound",
   is(o: any): o is FeedEpochAndRound {
@@ -547,6 +675,11 @@ function createBaseFeedLatestAggregatorRoundIDs(): FeedLatestAggregatorRoundIDs 
     aggregatorRoundId: BigInt(0)
   };
 }
+/**
+ * @name FeedLatestAggregatorRoundIDs
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs
+ */
 export const FeedLatestAggregatorRoundIDs = {
   typeUrl: "/injective.ocr.v1beta1.FeedLatestAggregatorRoundIDs",
   is(o: any): o is FeedLatestAggregatorRoundIDs {
@@ -629,6 +762,11 @@ function createBaseRewardPool(): RewardPool {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name RewardPool
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.RewardPool
+ */
 export const RewardPool = {
   typeUrl: "/injective.ocr.v1beta1.RewardPool",
   is(o: any): o is RewardPool {
@@ -716,6 +854,11 @@ function createBaseFeedCounts(): FeedCounts {
     counts: []
   };
 }
+/**
+ * @name FeedCounts
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.FeedCounts
+ */
 export const FeedCounts = {
   typeUrl: "/injective.ocr.v1beta1.FeedCounts",
   is(o: any): o is FeedCounts {
@@ -805,6 +948,11 @@ function createBaseCount(): Count {
     count: BigInt(0)
   };
 }
+/**
+ * @name Count
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.Count
+ */
 export const Count = {
   typeUrl: "/injective.ocr.v1beta1.Count",
   is(o: any): o is Count {
@@ -888,6 +1036,11 @@ function createBasePendingPayeeship(): PendingPayeeship {
     proposedPayee: ""
   };
 }
+/**
+ * @name PendingPayeeship
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.PendingPayeeship
+ */
 export const PendingPayeeship = {
   typeUrl: "/injective.ocr.v1beta1.PendingPayeeship",
   is(o: any): o is PendingPayeeship {

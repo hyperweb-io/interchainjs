@@ -2,6 +2,11 @@ import { RegisteredContract, RegisteredContractAmino, Params, ParamsAmino } from
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
+/**
+ * @name RegisteredContractWithAddress
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.RegisteredContractWithAddress
+ */
 export interface RegisteredContractWithAddress {
   address: string;
   registeredContract?: RegisteredContract;
@@ -10,6 +15,11 @@ export interface RegisteredContractWithAddressProtoMsg {
   typeUrl: "/injective.wasmx.v1.RegisteredContractWithAddress";
   value: Uint8Array;
 }
+/**
+ * @name RegisteredContractWithAddressAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.RegisteredContractWithAddress
+ */
 export interface RegisteredContractWithAddressAmino {
   address: string;
   registered_contract?: RegisteredContractAmino;
@@ -18,9 +28,16 @@ export interface RegisteredContractWithAddressAminoMsg {
   type: "/injective.wasmx.v1.RegisteredContractWithAddress";
   value: RegisteredContractWithAddressAmino;
 }
-/** GenesisState defines the wasmx module's genesis state. */
+/**
+ * GenesisState defines the wasmx module's genesis state.
+ * @name GenesisState
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.GenesisState
+ */
 export interface GenesisState {
-  /** params defines all the parameters of related to wasmx. */
+  /**
+   * params defines all the parameters of related to wasmx.
+   */
   params: Params;
   /**
    * registered_contracts is an array containing the genesis registered
@@ -32,9 +49,16 @@ export interface GenesisStateProtoMsg {
   typeUrl: "/injective.wasmx.v1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the wasmx module's genesis state. */
+/**
+ * GenesisState defines the wasmx module's genesis state.
+ * @name GenesisStateAmino
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** params defines all the parameters of related to wasmx. */
+  /**
+   * params defines all the parameters of related to wasmx.
+   */
   params: ParamsAmino;
   /**
    * registered_contracts is an array containing the genesis registered
@@ -52,6 +76,11 @@ function createBaseRegisteredContractWithAddress(): RegisteredContractWithAddres
     registeredContract: undefined
   };
 }
+/**
+ * @name RegisteredContractWithAddress
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.RegisteredContractWithAddress
+ */
 export const RegisteredContractWithAddress = {
   typeUrl: "/injective.wasmx.v1.RegisteredContractWithAddress",
   is(o: any): o is RegisteredContractWithAddress {
@@ -139,6 +168,12 @@ function createBaseGenesisState(): GenesisState {
     registeredContracts: []
   };
 }
+/**
+ * GenesisState defines the wasmx module's genesis state.
+ * @name GenesisState
+ * @package injective.wasmx.v1
+ * @see proto type: injective.wasmx.v1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/injective.wasmx.v1.GenesisState",
   is(o: any): o is GenesisState {

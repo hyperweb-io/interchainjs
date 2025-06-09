@@ -4,16 +4,31 @@ import { GenesisState, GenesisStateAmino } from "./genesis";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
+/**
+ * @name QueryParamsRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequest {}
 export interface QueryParamsRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryParamsRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryParamsRequest
+ */
 export interface QueryParamsRequestAmino {}
 export interface QueryParamsRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryParamsRequest";
   value: QueryParamsRequestAmino;
 }
+/**
+ * @name QueryParamsResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponse {
   params: Params;
 }
@@ -21,6 +36,11 @@ export interface QueryParamsResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryParamsResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryParamsResponse
+ */
 export interface QueryParamsResponseAmino {
   params: ParamsAmino;
 }
@@ -28,6 +48,11 @@ export interface QueryParamsResponseAminoMsg {
   type: "/injective.ocr.v1beta1.QueryParamsResponse";
   value: QueryParamsResponseAmino;
 }
+/**
+ * @name QueryFeedConfigRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigRequest
+ */
 export interface QueryFeedConfigRequest {
   feedId: string;
 }
@@ -35,6 +60,11 @@ export interface QueryFeedConfigRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryFeedConfigRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigRequest
+ */
 export interface QueryFeedConfigRequestAmino {
   feed_id: string;
 }
@@ -42,6 +72,11 @@ export interface QueryFeedConfigRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryFeedConfigRequest";
   value: QueryFeedConfigRequestAmino;
 }
+/**
+ * @name QueryFeedConfigResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigResponse
+ */
 export interface QueryFeedConfigResponse {
   feedConfigInfo?: FeedConfigInfo;
   feedConfig?: FeedConfig;
@@ -50,6 +85,11 @@ export interface QueryFeedConfigResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryFeedConfigResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigResponse
+ */
 export interface QueryFeedConfigResponseAmino {
   feed_config_info?: FeedConfigInfoAmino;
   feed_config?: FeedConfigAmino;
@@ -58,6 +98,11 @@ export interface QueryFeedConfigResponseAminoMsg {
   type: "/injective.ocr.v1beta1.QueryFeedConfigResponse";
   value: QueryFeedConfigResponseAmino;
 }
+/**
+ * @name QueryFeedConfigInfoRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigInfoRequest
+ */
 export interface QueryFeedConfigInfoRequest {
   feedId: string;
 }
@@ -65,6 +110,11 @@ export interface QueryFeedConfigInfoRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryFeedConfigInfoRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigInfoRequest
+ */
 export interface QueryFeedConfigInfoRequestAmino {
   feed_id: string;
 }
@@ -72,6 +122,11 @@ export interface QueryFeedConfigInfoRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryFeedConfigInfoRequest";
   value: QueryFeedConfigInfoRequestAmino;
 }
+/**
+ * @name QueryFeedConfigInfoResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigInfoResponse
+ */
 export interface QueryFeedConfigInfoResponse {
   feedConfigInfo?: FeedConfigInfo;
   epochAndRound?: EpochAndRound;
@@ -80,6 +135,11 @@ export interface QueryFeedConfigInfoResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryFeedConfigInfoResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigInfoResponse
+ */
 export interface QueryFeedConfigInfoResponseAmino {
   feed_config_info?: FeedConfigInfoAmino;
   epoch_and_round?: EpochAndRoundAmino;
@@ -88,6 +148,11 @@ export interface QueryFeedConfigInfoResponseAminoMsg {
   type: "/injective.ocr.v1beta1.QueryFeedConfigInfoResponse";
   value: QueryFeedConfigInfoResponseAmino;
 }
+/**
+ * @name QueryLatestRoundRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestRoundRequest
+ */
 export interface QueryLatestRoundRequest {
   feedId: string;
 }
@@ -95,6 +160,11 @@ export interface QueryLatestRoundRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLatestRoundRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestRoundRequest
+ */
 export interface QueryLatestRoundRequestAmino {
   feed_id: string;
 }
@@ -102,6 +172,11 @@ export interface QueryLatestRoundRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryLatestRoundRequest";
   value: QueryLatestRoundRequestAmino;
 }
+/**
+ * @name QueryLatestRoundResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestRoundResponse
+ */
 export interface QueryLatestRoundResponse {
   latestRoundId: bigint;
   data?: Transmission;
@@ -110,6 +185,11 @@ export interface QueryLatestRoundResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLatestRoundResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestRoundResponse
+ */
 export interface QueryLatestRoundResponseAmino {
   latest_round_id: string;
   data?: TransmissionAmino;
@@ -118,6 +198,11 @@ export interface QueryLatestRoundResponseAminoMsg {
   type: "/injective.ocr.v1beta1.QueryLatestRoundResponse";
   value: QueryLatestRoundResponseAmino;
 }
+/**
+ * @name QueryLatestTransmissionDetailsRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest
+ */
 export interface QueryLatestTransmissionDetailsRequest {
   feedId: string;
 }
@@ -125,6 +210,11 @@ export interface QueryLatestTransmissionDetailsRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLatestTransmissionDetailsRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest
+ */
 export interface QueryLatestTransmissionDetailsRequestAmino {
   feed_id: string;
 }
@@ -132,6 +222,11 @@ export interface QueryLatestTransmissionDetailsRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest";
   value: QueryLatestTransmissionDetailsRequestAmino;
 }
+/**
+ * @name QueryLatestTransmissionDetailsResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse
+ */
 export interface QueryLatestTransmissionDetailsResponse {
   configDigest: Uint8Array;
   epochAndRound?: EpochAndRound;
@@ -141,6 +236,11 @@ export interface QueryLatestTransmissionDetailsResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLatestTransmissionDetailsResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse
+ */
 export interface QueryLatestTransmissionDetailsResponseAmino {
   config_digest: string;
   epoch_and_round?: EpochAndRoundAmino;
@@ -150,6 +250,11 @@ export interface QueryLatestTransmissionDetailsResponseAminoMsg {
   type: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse";
   value: QueryLatestTransmissionDetailsResponseAmino;
 }
+/**
+ * @name QueryOwedAmountRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryOwedAmountRequest
+ */
 export interface QueryOwedAmountRequest {
   transmitter: string;
 }
@@ -157,6 +262,11 @@ export interface QueryOwedAmountRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryOwedAmountRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryOwedAmountRequest
+ */
 export interface QueryOwedAmountRequestAmino {
   transmitter: string;
 }
@@ -164,6 +274,11 @@ export interface QueryOwedAmountRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryOwedAmountRequest";
   value: QueryOwedAmountRequestAmino;
 }
+/**
+ * @name QueryOwedAmountResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryOwedAmountResponse
+ */
 export interface QueryOwedAmountResponse {
   amount: Coin;
 }
@@ -171,6 +286,11 @@ export interface QueryOwedAmountResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryOwedAmountResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryOwedAmountResponse
+ */
 export interface QueryOwedAmountResponseAmino {
   amount: CoinAmino;
 }
@@ -178,16 +298,31 @@ export interface QueryOwedAmountResponseAminoMsg {
   type: "/injective.ocr.v1beta1.QueryOwedAmountResponse";
   value: QueryOwedAmountResponseAmino;
 }
+/**
+ * @name QueryModuleStateRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryModuleStateRequest
+ */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryModuleStateRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryModuleStateRequestAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryModuleStateRequest
+ */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
   type: "/injective.ocr.v1beta1.QueryModuleStateRequest";
   value: QueryModuleStateRequestAmino;
 }
+/**
+ * @name QueryModuleStateResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryModuleStateResponse
+ */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
 }
@@ -195,6 +330,11 @@ export interface QueryModuleStateResponseProtoMsg {
   typeUrl: "/injective.ocr.v1beta1.QueryModuleStateResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryModuleStateResponseAmino
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryModuleStateResponse
+ */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
 }
@@ -205,6 +345,11 @@ export interface QueryModuleStateResponseAminoMsg {
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
+/**
+ * @name QueryParamsRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryParamsRequest
+ */
 export const QueryParamsRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsRequest",
   is(o: any): o is QueryParamsRequest {
@@ -264,6 +409,11 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name QueryParamsResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryParamsResponse
+ */
 export const QueryParamsResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryParamsResponse",
   is(o: any): o is QueryParamsResponse {
@@ -339,6 +489,11 @@ function createBaseQueryFeedConfigRequest(): QueryFeedConfigRequest {
     feedId: ""
   };
 }
+/**
+ * @name QueryFeedConfigRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigRequest
+ */
 export const QueryFeedConfigRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigRequest",
   is(o: any): o is QueryFeedConfigRequest {
@@ -410,6 +565,11 @@ function createBaseQueryFeedConfigResponse(): QueryFeedConfigResponse {
     feedConfig: undefined
   };
 }
+/**
+ * @name QueryFeedConfigResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigResponse
+ */
 export const QueryFeedConfigResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigResponse",
   is(o: any): o is QueryFeedConfigResponse {
@@ -497,6 +657,11 @@ function createBaseQueryFeedConfigInfoRequest(): QueryFeedConfigInfoRequest {
     feedId: ""
   };
 }
+/**
+ * @name QueryFeedConfigInfoRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigInfoRequest
+ */
 export const QueryFeedConfigInfoRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoRequest",
   is(o: any): o is QueryFeedConfigInfoRequest {
@@ -568,6 +733,11 @@ function createBaseQueryFeedConfigInfoResponse(): QueryFeedConfigInfoResponse {
     epochAndRound: undefined
   };
 }
+/**
+ * @name QueryFeedConfigInfoResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryFeedConfigInfoResponse
+ */
 export const QueryFeedConfigInfoResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryFeedConfigInfoResponse",
   is(o: any): o is QueryFeedConfigInfoResponse {
@@ -655,6 +825,11 @@ function createBaseQueryLatestRoundRequest(): QueryLatestRoundRequest {
     feedId: ""
   };
 }
+/**
+ * @name QueryLatestRoundRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestRoundRequest
+ */
 export const QueryLatestRoundRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundRequest",
   is(o: any): o is QueryLatestRoundRequest {
@@ -726,6 +901,11 @@ function createBaseQueryLatestRoundResponse(): QueryLatestRoundResponse {
     data: undefined
   };
 }
+/**
+ * @name QueryLatestRoundResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestRoundResponse
+ */
 export const QueryLatestRoundResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestRoundResponse",
   is(o: any): o is QueryLatestRoundResponse {
@@ -812,6 +992,11 @@ function createBaseQueryLatestTransmissionDetailsRequest(): QueryLatestTransmiss
     feedId: ""
   };
 }
+/**
+ * @name QueryLatestTransmissionDetailsRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest
+ */
 export const QueryLatestTransmissionDetailsRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsRequest",
   is(o: any): o is QueryLatestTransmissionDetailsRequest {
@@ -884,6 +1069,11 @@ function createBaseQueryLatestTransmissionDetailsResponse(): QueryLatestTransmis
     data: undefined
   };
 }
+/**
+ * @name QueryLatestTransmissionDetailsResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse
+ */
 export const QueryLatestTransmissionDetailsResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryLatestTransmissionDetailsResponse",
   is(o: any): o is QueryLatestTransmissionDetailsResponse {
@@ -982,6 +1172,11 @@ function createBaseQueryOwedAmountRequest(): QueryOwedAmountRequest {
     transmitter: ""
   };
 }
+/**
+ * @name QueryOwedAmountRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryOwedAmountRequest
+ */
 export const QueryOwedAmountRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountRequest",
   is(o: any): o is QueryOwedAmountRequest {
@@ -1052,6 +1247,11 @@ function createBaseQueryOwedAmountResponse(): QueryOwedAmountResponse {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name QueryOwedAmountResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryOwedAmountResponse
+ */
 export const QueryOwedAmountResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryOwedAmountResponse",
   is(o: any): o is QueryOwedAmountResponse {
@@ -1125,6 +1325,11 @@ export const QueryOwedAmountResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * @name QueryModuleStateRequest
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.ocr.v1beta1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -1184,6 +1389,11 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * @name QueryModuleStateResponse
+ * @package injective.ocr.v1beta1
+ * @see proto type: injective.ocr.v1beta1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.ocr.v1beta1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {

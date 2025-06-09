@@ -19,6 +19,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * ETH_ADDRESS
  * This is a hex encoded 0x Ethereum public key that will be used by this
  * validator on Ethereum
+ * @name MsgSetOrchestratorAddresses
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSetOrchestratorAddresses
  */
 export interface MsgSetOrchestratorAddresses {
   sender: string;
@@ -43,6 +46,9 @@ export interface MsgSetOrchestratorAddressesProtoMsg {
  * ETH_ADDRESS
  * This is a hex encoded 0x Ethereum public key that will be used by this
  * validator on Ethereum
+ * @name MsgSetOrchestratorAddressesAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSetOrchestratorAddresses
  */
 export interface MsgSetOrchestratorAddressesAmino {
   sender: string;
@@ -53,11 +59,21 @@ export interface MsgSetOrchestratorAddressesAminoMsg {
   type: "peggy/MsgSetOrchestratorAddresses";
   value: MsgSetOrchestratorAddressesAmino;
 }
+/**
+ * @name MsgSetOrchestratorAddressesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSetOrchestratorAddressesResponse
+ */
 export interface MsgSetOrchestratorAddressesResponse {}
 export interface MsgSetOrchestratorAddressesResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddressesResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgSetOrchestratorAddressesResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSetOrchestratorAddressesResponse
+ */
 export interface MsgSetOrchestratorAddressesResponseAmino {}
 export interface MsgSetOrchestratorAddressesResponseAminoMsg {
   type: "/injective.peggy.v1.MsgSetOrchestratorAddressesResponse";
@@ -79,6 +95,9 @@ export interface MsgSetOrchestratorAddressesResponseAminoMsg {
  * signatures it is then possible for anyone to view these signatures in the
  * chain store and submit them to Ethereum to update the validator set
  * -------------
+ * @name MsgValsetConfirm
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetConfirm
  */
 export interface MsgValsetConfirm {
   nonce: bigint;
@@ -106,6 +125,9 @@ export interface MsgValsetConfirmProtoMsg {
  * signatures it is then possible for anyone to view these signatures in the
  * chain store and submit them to Ethereum to update the validator set
  * -------------
+ * @name MsgValsetConfirmAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetConfirm
  */
 export interface MsgValsetConfirmAmino {
   nonce: string;
@@ -117,11 +139,21 @@ export interface MsgValsetConfirmAminoMsg {
   type: "peggy/MsgValsetConfirm";
   value: MsgValsetConfirmAmino;
 }
+/**
+ * @name MsgValsetConfirmResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetConfirmResponse
+ */
 export interface MsgValsetConfirmResponse {}
 export interface MsgValsetConfirmResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgValsetConfirmResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgValsetConfirmResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetConfirmResponse
+ */
 export interface MsgValsetConfirmResponseAmino {}
 export interface MsgValsetConfirmResponseAminoMsg {
   type: "/injective.peggy.v1.MsgValsetConfirmResponse";
@@ -140,6 +172,9 @@ export interface MsgValsetConfirmResponseAminoMsg {
  * the fee paid for the bridge, distinct from the fee paid to the chain to
  * actually send this message in the first place. So a successful send has
  * two layers of fees for the user
+ * @name MsgSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSendToEth
  */
 export interface MsgSendToEth {
   sender: string;
@@ -164,6 +199,9 @@ export interface MsgSendToEthProtoMsg {
  * the fee paid for the bridge, distinct from the fee paid to the chain to
  * actually send this message in the first place. So a successful send has
  * two layers of fees for the user
+ * @name MsgSendToEthAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSendToEth
  */
 export interface MsgSendToEthAmino {
   sender: string;
@@ -175,11 +213,21 @@ export interface MsgSendToEthAminoMsg {
   type: "peggy/MsgSendToEth";
   value: MsgSendToEthAmino;
 }
+/**
+ * @name MsgSendToEthResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSendToEthResponse
+ */
 export interface MsgSendToEthResponse {}
 export interface MsgSendToEthResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSendToEthResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgSendToEthResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSendToEthResponse
+ */
 export interface MsgSendToEthResponseAmino {}
 export interface MsgSendToEthResponseAminoMsg {
   type: "/injective.peggy.v1.MsgSendToEthResponse";
@@ -195,6 +243,9 @@ export interface MsgSendToEthResponseAminoMsg {
  * batch, sign it, submit the signatures with a MsgConfirmBatch before a relayer
  * can finally submit the batch
  * -------------
+ * @name MsgRequestBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRequestBatch
  */
 export interface MsgRequestBatch {
   orchestrator: string;
@@ -214,6 +265,9 @@ export interface MsgRequestBatchProtoMsg {
  * batch, sign it, submit the signatures with a MsgConfirmBatch before a relayer
  * can finally submit the batch
  * -------------
+ * @name MsgRequestBatchAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRequestBatch
  */
 export interface MsgRequestBatchAmino {
   orchestrator: string;
@@ -223,11 +277,21 @@ export interface MsgRequestBatchAminoMsg {
   type: "peggy/MsgRequestBatch";
   value: MsgRequestBatchAmino;
 }
+/**
+ * @name MsgRequestBatchResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRequestBatchResponse
+ */
 export interface MsgRequestBatchResponse {}
 export interface MsgRequestBatchResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgRequestBatchResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgRequestBatchResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRequestBatchResponse
+ */
 export interface MsgRequestBatchResponseAmino {}
 export interface MsgRequestBatchResponseAminoMsg {
   type: "/injective.peggy.v1.MsgRequestBatchResponse";
@@ -242,6 +306,9 @@ export interface MsgRequestBatchResponseAminoMsg {
  * (TODO determine this without nondeterminism) This message includes the batch
  * as well as an Ethereum signature over this batch by the validator
  * -------------
+ * @name MsgConfirmBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgConfirmBatch
  */
 export interface MsgConfirmBatch {
   nonce: bigint;
@@ -263,6 +330,9 @@ export interface MsgConfirmBatchProtoMsg {
  * (TODO determine this without nondeterminism) This message includes the batch
  * as well as an Ethereum signature over this batch by the validator
  * -------------
+ * @name MsgConfirmBatchAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgConfirmBatch
  */
 export interface MsgConfirmBatchAmino {
   nonce: string;
@@ -275,11 +345,21 @@ export interface MsgConfirmBatchAminoMsg {
   type: "peggy/MsgConfirmBatch";
   value: MsgConfirmBatchAmino;
 }
+/**
+ * @name MsgConfirmBatchResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgConfirmBatchResponse
+ */
 export interface MsgConfirmBatchResponse {}
 export interface MsgConfirmBatchResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgConfirmBatchResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgConfirmBatchResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgConfirmBatchResponse
+ */
 export interface MsgConfirmBatchResponseAmino {}
 export interface MsgConfirmBatchResponseAminoMsg {
   type: "/injective.peggy.v1.MsgConfirmBatchResponse";
@@ -291,6 +371,9 @@ export interface MsgConfirmBatchResponseAminoMsg {
  * claimed to have seen the deposit enter the ethereum blockchain coins are
  * issued to the Cosmos address in question
  * -------------
+ * @name MsgDepositClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgDepositClaim
  */
 export interface MsgDepositClaim {
   eventNonce: bigint;
@@ -312,6 +395,9 @@ export interface MsgDepositClaimProtoMsg {
  * claimed to have seen the deposit enter the ethereum blockchain coins are
  * issued to the Cosmos address in question
  * -------------
+ * @name MsgDepositClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgDepositClaim
  */
 export interface MsgDepositClaimAmino {
   event_nonce: string;
@@ -327,11 +413,21 @@ export interface MsgDepositClaimAminoMsg {
   type: "peggy/MsgDepositClaim";
   value: MsgDepositClaimAmino;
 }
+/**
+ * @name MsgDepositClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgDepositClaimResponse
+ */
 export interface MsgDepositClaimResponse {}
 export interface MsgDepositClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgDepositClaimResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgDepositClaimResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgDepositClaimResponse
+ */
 export interface MsgDepositClaimResponseAmino {}
 export interface MsgDepositClaimResponseAminoMsg {
   type: "/injective.peggy.v1.MsgDepositClaimResponse";
@@ -340,6 +436,9 @@ export interface MsgDepositClaimResponseAminoMsg {
 /**
  * WithdrawClaim claims that a batch of withdrawal
  * operations on the bridge contract was executed.
+ * @name MsgWithdrawClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgWithdrawClaim
  */
 export interface MsgWithdrawClaim {
   eventNonce: bigint;
@@ -355,6 +454,9 @@ export interface MsgWithdrawClaimProtoMsg {
 /**
  * WithdrawClaim claims that a batch of withdrawal
  * operations on the bridge contract was executed.
+ * @name MsgWithdrawClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgWithdrawClaim
  */
 export interface MsgWithdrawClaimAmino {
   event_nonce: string;
@@ -367,11 +469,21 @@ export interface MsgWithdrawClaimAminoMsg {
   type: "peggy/MsgWithdrawClaim";
   value: MsgWithdrawClaimAmino;
 }
+/**
+ * @name MsgWithdrawClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgWithdrawClaimResponse
+ */
 export interface MsgWithdrawClaimResponse {}
 export interface MsgWithdrawClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgWithdrawClaimResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgWithdrawClaimResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgWithdrawClaimResponse
+ */
 export interface MsgWithdrawClaimResponseAmino {}
 export interface MsgWithdrawClaimResponseAminoMsg {
   type: "/injective.peggy.v1.MsgWithdrawClaimResponse";
@@ -381,6 +493,9 @@ export interface MsgWithdrawClaimResponseAminoMsg {
  * ERC20DeployedClaim allows the Cosmos module
  * to learn about an ERC20 that someone deployed
  * to represent a Cosmos asset
+ * @name MsgERC20DeployedClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgERC20DeployedClaim
  */
 export interface MsgERC20DeployedClaim {
   eventNonce: bigint;
@@ -400,6 +515,9 @@ export interface MsgERC20DeployedClaimProtoMsg {
  * ERC20DeployedClaim allows the Cosmos module
  * to learn about an ERC20 that someone deployed
  * to represent a Cosmos asset
+ * @name MsgERC20DeployedClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgERC20DeployedClaim
  */
 export interface MsgERC20DeployedClaimAmino {
   event_nonce: string;
@@ -415,11 +533,21 @@ export interface MsgERC20DeployedClaimAminoMsg {
   type: "peggy/MsgERC20DeployedClaim";
   value: MsgERC20DeployedClaimAmino;
 }
+/**
+ * @name MsgERC20DeployedClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgERC20DeployedClaimResponse
+ */
 export interface MsgERC20DeployedClaimResponse {}
 export interface MsgERC20DeployedClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaimResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgERC20DeployedClaimResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgERC20DeployedClaimResponse
+ */
 export interface MsgERC20DeployedClaimResponseAmino {}
 export interface MsgERC20DeployedClaimResponseAminoMsg {
   type: "/injective.peggy.v1.MsgERC20DeployedClaimResponse";
@@ -429,6 +557,9 @@ export interface MsgERC20DeployedClaimResponseAminoMsg {
  * This call allows the sender (and only the sender)
  * to cancel a given MsgSendToEth and recieve a refund
  * of the tokens
+ * @name MsgCancelSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgCancelSendToEth
  */
 export interface MsgCancelSendToEth {
   transactionId: bigint;
@@ -442,6 +573,9 @@ export interface MsgCancelSendToEthProtoMsg {
  * This call allows the sender (and only the sender)
  * to cancel a given MsgSendToEth and recieve a refund
  * of the tokens
+ * @name MsgCancelSendToEthAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgCancelSendToEth
  */
 export interface MsgCancelSendToEthAmino {
   transaction_id: string;
@@ -451,11 +585,21 @@ export interface MsgCancelSendToEthAminoMsg {
   type: "peggy/MsgCancelSendToEth";
   value: MsgCancelSendToEthAmino;
 }
+/**
+ * @name MsgCancelSendToEthResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgCancelSendToEthResponse
+ */
 export interface MsgCancelSendToEthResponse {}
 export interface MsgCancelSendToEthResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgCancelSendToEthResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgCancelSendToEthResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgCancelSendToEthResponse
+ */
 export interface MsgCancelSendToEthResponseAmino {}
 export interface MsgCancelSendToEthResponseAminoMsg {
   type: "/injective.peggy.v1.MsgCancelSendToEthResponse";
@@ -465,6 +609,9 @@ export interface MsgCancelSendToEthResponseAminoMsg {
  * This call allows anyone to submit evidence that a
  * validator has signed a valset, batch, or logic call that never
  * existed. Subject contains the batch, valset, or logic call.
+ * @name MsgSubmitBadSignatureEvidence
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSubmitBadSignatureEvidence
  */
 export interface MsgSubmitBadSignatureEvidence {
   subject?: Any;
@@ -479,6 +626,9 @@ export interface MsgSubmitBadSignatureEvidenceProtoMsg {
  * This call allows anyone to submit evidence that a
  * validator has signed a valset, batch, or logic call that never
  * existed. Subject contains the batch, valset, or logic call.
+ * @name MsgSubmitBadSignatureEvidenceAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSubmitBadSignatureEvidence
  */
 export interface MsgSubmitBadSignatureEvidenceAmino {
   subject?: AnyAmino;
@@ -489,11 +639,21 @@ export interface MsgSubmitBadSignatureEvidenceAminoMsg {
   type: "peggy/MsgSubmitBadSignatureEvidence";
   value: MsgSubmitBadSignatureEvidenceAmino;
 }
+/**
+ * @name MsgSubmitBadSignatureEvidenceResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse
+ */
 export interface MsgSubmitBadSignatureEvidenceResponse {}
 export interface MsgSubmitBadSignatureEvidenceResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgSubmitBadSignatureEvidenceResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse
+ */
 export interface MsgSubmitBadSignatureEvidenceResponseAmino {}
 export interface MsgSubmitBadSignatureEvidenceResponseAminoMsg {
   type: "/injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse";
@@ -502,6 +662,9 @@ export interface MsgSubmitBadSignatureEvidenceResponseAminoMsg {
 /**
  * This informs the Cosmos module that a validator
  * set has been updated.
+ * @name MsgValsetUpdatedClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetUpdatedClaim
  */
 export interface MsgValsetUpdatedClaim {
   eventNonce: bigint;
@@ -519,6 +682,9 @@ export interface MsgValsetUpdatedClaimProtoMsg {
 /**
  * This informs the Cosmos module that a validator
  * set has been updated.
+ * @name MsgValsetUpdatedClaimAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetUpdatedClaim
  */
 export interface MsgValsetUpdatedClaimAmino {
   event_nonce: string;
@@ -533,18 +699,35 @@ export interface MsgValsetUpdatedClaimAminoMsg {
   type: "peggy/MsgValsetUpdatedClaim";
   value: MsgValsetUpdatedClaimAmino;
 }
+/**
+ * @name MsgValsetUpdatedClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetUpdatedClaimResponse
+ */
 export interface MsgValsetUpdatedClaimResponse {}
 export interface MsgValsetUpdatedClaimResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaimResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgValsetUpdatedClaimResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetUpdatedClaimResponse
+ */
 export interface MsgValsetUpdatedClaimResponseAmino {}
 export interface MsgValsetUpdatedClaimResponseAminoMsg {
   type: "/injective.peggy.v1.MsgValsetUpdatedClaimResponse";
   value: MsgValsetUpdatedClaimResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the peggy parameters to update.
@@ -557,8 +740,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the peggy parameters to update.
@@ -571,11 +761,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "peggy/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.peggy.v1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.peggy.v1.MsgUpdateParamsResponse";
@@ -584,11 +784,18 @@ export interface MsgUpdateParamsResponseAminoMsg {
 /**
  * MsgBlacklistEthereumAddresses defines the message used to add Ethereum
  * addresses to peggy blacklist.
+ * @name MsgBlacklistEthereumAddresses
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgBlacklistEthereumAddresses
  */
 export interface MsgBlacklistEthereumAddresses {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** Ethereum addresses to include in the blacklist */
+  /**
+   * Ethereum addresses to include in the blacklist
+   */
   blacklistAddresses: string[];
 }
 export interface MsgBlacklistEthereumAddressesProtoMsg {
@@ -598,11 +805,18 @@ export interface MsgBlacklistEthereumAddressesProtoMsg {
 /**
  * MsgBlacklistEthereumAddresses defines the message used to add Ethereum
  * addresses to peggy blacklist.
+ * @name MsgBlacklistEthereumAddressesAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgBlacklistEthereumAddresses
  */
 export interface MsgBlacklistEthereumAddressesAmino {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** Ethereum addresses to include in the blacklist */
+  /**
+   * Ethereum addresses to include in the blacklist
+   */
   blacklist_addresses: string[];
 }
 export interface MsgBlacklistEthereumAddressesAminoMsg {
@@ -612,6 +826,9 @@ export interface MsgBlacklistEthereumAddressesAminoMsg {
 /**
  * MsgBlacklistEthereumAddressesResponse defines the
  * MsgBlacklistEthereumAddresses response type.
+ * @name MsgBlacklistEthereumAddressesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgBlacklistEthereumAddressesResponse
  */
 export interface MsgBlacklistEthereumAddressesResponse {}
 export interface MsgBlacklistEthereumAddressesResponseProtoMsg {
@@ -621,6 +838,9 @@ export interface MsgBlacklistEthereumAddressesResponseProtoMsg {
 /**
  * MsgBlacklistEthereumAddressesResponse defines the
  * MsgBlacklistEthereumAddresses response type.
+ * @name MsgBlacklistEthereumAddressesResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgBlacklistEthereumAddressesResponse
  */
 export interface MsgBlacklistEthereumAddressesResponseAmino {}
 export interface MsgBlacklistEthereumAddressesResponseAminoMsg {
@@ -630,11 +850,18 @@ export interface MsgBlacklistEthereumAddressesResponseAminoMsg {
 /**
  * MsgRevokeEthereumBlacklist defines the message used to remove Ethereum
  * addresses from peggy blacklist.
+ * @name MsgRevokeEthereumBlacklist
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRevokeEthereumBlacklist
  */
 export interface MsgRevokeEthereumBlacklist {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** Ethereum addresses to include in the blacklist */
+  /**
+   * Ethereum addresses to include in the blacklist
+   */
   blacklistAddresses: string[];
 }
 export interface MsgRevokeEthereumBlacklistProtoMsg {
@@ -644,11 +871,18 @@ export interface MsgRevokeEthereumBlacklistProtoMsg {
 /**
  * MsgRevokeEthereumBlacklist defines the message used to remove Ethereum
  * addresses from peggy blacklist.
+ * @name MsgRevokeEthereumBlacklistAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRevokeEthereumBlacklist
  */
 export interface MsgRevokeEthereumBlacklistAmino {
-  /** signer address */
+  /**
+   * signer address
+   */
   signer: string;
-  /** Ethereum addresses to include in the blacklist */
+  /**
+   * Ethereum addresses to include in the blacklist
+   */
   blacklist_addresses: string[];
 }
 export interface MsgRevokeEthereumBlacklistAminoMsg {
@@ -658,6 +892,9 @@ export interface MsgRevokeEthereumBlacklistAminoMsg {
 /**
  * MsgRevokeEthereumBlacklistResponse defines the MsgRevokeEthereumBlacklist
  * response type.
+ * @name MsgRevokeEthereumBlacklistResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRevokeEthereumBlacklistResponse
  */
 export interface MsgRevokeEthereumBlacklistResponse {}
 export interface MsgRevokeEthereumBlacklistResponseProtoMsg {
@@ -667,6 +904,9 @@ export interface MsgRevokeEthereumBlacklistResponseProtoMsg {
 /**
  * MsgRevokeEthereumBlacklistResponse defines the MsgRevokeEthereumBlacklist
  * response type.
+ * @name MsgRevokeEthereumBlacklistResponseAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRevokeEthereumBlacklistResponse
  */
 export interface MsgRevokeEthereumBlacklistResponseAmino {}
 export interface MsgRevokeEthereumBlacklistResponseAminoMsg {
@@ -680,6 +920,24 @@ function createBaseMsgSetOrchestratorAddresses(): MsgSetOrchestratorAddresses {
     ethAddress: ""
   };
 }
+/**
+ * MsgSetOrchestratorAddresses
+ * this message allows validators to delegate their voting responsibilities
+ * to a given key. This key is then used as an optional authentication method
+ * for sigining oracle claims
+ * VALIDATOR
+ * The validator field is a cosmosvaloper1... string (i.e. sdk.ValAddress)
+ * that references a validator in the active set
+ * ORCHESTRATOR
+ * The orchestrator field is a cosmos1... string  (i.e. sdk.AccAddress) that
+ * references the key that is being delegated to
+ * ETH_ADDRESS
+ * This is a hex encoded 0x Ethereum public key that will be used by this
+ * validator on Ethereum
+ * @name MsgSetOrchestratorAddresses
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSetOrchestratorAddresses
+ */
 export const MsgSetOrchestratorAddresses = {
   typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddresses",
   aminoType: "peggy/MsgSetOrchestratorAddresses",
@@ -777,6 +1035,11 @@ export const MsgSetOrchestratorAddresses = {
 function createBaseMsgSetOrchestratorAddressesResponse(): MsgSetOrchestratorAddressesResponse {
   return {};
 }
+/**
+ * @name MsgSetOrchestratorAddressesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSetOrchestratorAddressesResponse
+ */
 export const MsgSetOrchestratorAddressesResponse = {
   typeUrl: "/injective.peggy.v1.MsgSetOrchestratorAddressesResponse",
   is(o: any): o is MsgSetOrchestratorAddressesResponse {
@@ -839,6 +1102,26 @@ function createBaseMsgValsetConfirm(): MsgValsetConfirm {
     signature: ""
   };
 }
+/**
+ * MsgValsetConfirm
+ * this is the message sent by the validators when they wish to submit their
+ * signatures over the validator set at a given block height. A validator must
+ * first call MsgSetEthAddress to set their Ethereum address to be used for
+ * signing. Then someone (anyone) must make a ValsetRequest the request is
+ * essentially a messaging mechanism to determine which block all validators
+ * should submit signatures over. Finally validators sign the validator set,
+ * powers, and Ethereum addresses of the entire validator set at the height of a
+ * ValsetRequest and submit that signature with this message.
+ * 
+ * If a sufficient number of validators (66% of voting power) (A) have set
+ * Ethereum addresses and (B) submit ValsetConfirm messages with their
+ * signatures it is then possible for anyone to view these signatures in the
+ * chain store and submit them to Ethereum to update the validator set
+ * -------------
+ * @name MsgValsetConfirm
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetConfirm
+ */
 export const MsgValsetConfirm = {
   typeUrl: "/injective.peggy.v1.MsgValsetConfirm",
   aminoType: "peggy/MsgValsetConfirm",
@@ -947,6 +1230,11 @@ export const MsgValsetConfirm = {
 function createBaseMsgValsetConfirmResponse(): MsgValsetConfirmResponse {
   return {};
 }
+/**
+ * @name MsgValsetConfirmResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetConfirmResponse
+ */
 export const MsgValsetConfirmResponse = {
   typeUrl: "/injective.peggy.v1.MsgValsetConfirmResponse",
   is(o: any): o is MsgValsetConfirmResponse {
@@ -1009,6 +1297,23 @@ function createBaseMsgSendToEth(): MsgSendToEth {
     bridgeFee: Coin.fromPartial({})
   };
 }
+/**
+ * MsgSendToEth
+ * This is the message that a user calls when they want to bridge an asset
+ * it will later be removed when it is included in a batch and successfully
+ * submitted tokens are removed from the users balance immediately
+ * -------------
+ * AMOUNT:
+ * the coin to send across the bridge, note the restriction that this is a
+ * single coin not a set of coins that is normal in other Cosmos messages
+ * FEE:
+ * the fee paid for the bridge, distinct from the fee paid to the chain to
+ * actually send this message in the first place. So a successful send has
+ * two layers of fees for the user
+ * @name MsgSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSendToEth
+ */
 export const MsgSendToEth = {
   typeUrl: "/injective.peggy.v1.MsgSendToEth",
   aminoType: "peggy/MsgSendToEth",
@@ -1122,6 +1427,11 @@ export const MsgSendToEth = {
 function createBaseMsgSendToEthResponse(): MsgSendToEthResponse {
   return {};
 }
+/**
+ * @name MsgSendToEthResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSendToEthResponse
+ */
 export const MsgSendToEthResponse = {
   typeUrl: "/injective.peggy.v1.MsgSendToEthResponse",
   is(o: any): o is MsgSendToEthResponse {
@@ -1182,6 +1492,20 @@ function createBaseMsgRequestBatch(): MsgRequestBatch {
     denom: ""
   };
 }
+/**
+ * MsgRequestBatch
+ * this is a message anyone can send that requests a batch of transactions to
+ * send across the bridge be created for whatever block height this message is
+ * included in. This acts as a coordination point, the handler for this message
+ * looks at the AddToOutgoingPool tx's in the store and generates a batch, also
+ * available in the store tied to this message. The validators then grab this
+ * batch, sign it, submit the signatures with a MsgConfirmBatch before a relayer
+ * can finally submit the batch
+ * -------------
+ * @name MsgRequestBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRequestBatch
+ */
 export const MsgRequestBatch = {
   typeUrl: "/injective.peggy.v1.MsgRequestBatch",
   aminoType: "peggy/MsgRequestBatch",
@@ -1268,6 +1592,11 @@ export const MsgRequestBatch = {
 function createBaseMsgRequestBatchResponse(): MsgRequestBatchResponse {
   return {};
 }
+/**
+ * @name MsgRequestBatchResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRequestBatchResponse
+ */
 export const MsgRequestBatchResponse = {
   typeUrl: "/injective.peggy.v1.MsgRequestBatchResponse",
   is(o: any): o is MsgRequestBatchResponse {
@@ -1331,6 +1660,19 @@ function createBaseMsgConfirmBatch(): MsgConfirmBatch {
     signature: ""
   };
 }
+/**
+ * MsgConfirmBatch
+ * When validators observe a MsgRequestBatch they form a batch by ordering
+ * transactions currently in the txqueue in order of highest to lowest fee,
+ * cutting off when the batch either reaches a hardcoded maximum size (to be
+ * decided, probably around 100) or when transactions stop being profitable
+ * (TODO determine this without nondeterminism) This message includes the batch
+ * as well as an Ethereum signature over this batch by the validator
+ * -------------
+ * @name MsgConfirmBatch
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgConfirmBatch
+ */
 export const MsgConfirmBatch = {
   typeUrl: "/injective.peggy.v1.MsgConfirmBatch",
   aminoType: "peggy/MsgConfirmBatch",
@@ -1450,6 +1792,11 @@ export const MsgConfirmBatch = {
 function createBaseMsgConfirmBatchResponse(): MsgConfirmBatchResponse {
   return {};
 }
+/**
+ * @name MsgConfirmBatchResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgConfirmBatchResponse
+ */
 export const MsgConfirmBatchResponse = {
   typeUrl: "/injective.peggy.v1.MsgConfirmBatchResponse",
   is(o: any): o is MsgConfirmBatchResponse {
@@ -1516,6 +1863,16 @@ function createBaseMsgDepositClaim(): MsgDepositClaim {
     data: ""
   };
 }
+/**
+ * EthereumBridgeDepositClaim
+ * When more than 66% of the active validator set has
+ * claimed to have seen the deposit enter the ethereum blockchain coins are
+ * issued to the Cosmos address in question
+ * -------------
+ * @name MsgDepositClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgDepositClaim
+ */
 export const MsgDepositClaim = {
   typeUrl: "/injective.peggy.v1.MsgDepositClaim",
   aminoType: "peggy/MsgDepositClaim",
@@ -1668,6 +2025,11 @@ export const MsgDepositClaim = {
 function createBaseMsgDepositClaimResponse(): MsgDepositClaimResponse {
   return {};
 }
+/**
+ * @name MsgDepositClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgDepositClaimResponse
+ */
 export const MsgDepositClaimResponse = {
   typeUrl: "/injective.peggy.v1.MsgDepositClaimResponse",
   is(o: any): o is MsgDepositClaimResponse {
@@ -1731,6 +2093,13 @@ function createBaseMsgWithdrawClaim(): MsgWithdrawClaim {
     orchestrator: ""
   };
 }
+/**
+ * WithdrawClaim claims that a batch of withdrawal
+ * operations on the bridge contract was executed.
+ * @name MsgWithdrawClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgWithdrawClaim
+ */
 export const MsgWithdrawClaim = {
   typeUrl: "/injective.peggy.v1.MsgWithdrawClaim",
   aminoType: "peggy/MsgWithdrawClaim",
@@ -1850,6 +2219,11 @@ export const MsgWithdrawClaim = {
 function createBaseMsgWithdrawClaimResponse(): MsgWithdrawClaimResponse {
   return {};
 }
+/**
+ * @name MsgWithdrawClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgWithdrawClaimResponse
+ */
 export const MsgWithdrawClaimResponse = {
   typeUrl: "/injective.peggy.v1.MsgWithdrawClaimResponse",
   is(o: any): o is MsgWithdrawClaimResponse {
@@ -1916,6 +2290,14 @@ function createBaseMsgERC20DeployedClaim(): MsgERC20DeployedClaim {
     orchestrator: ""
   };
 }
+/**
+ * ERC20DeployedClaim allows the Cosmos module
+ * to learn about an ERC20 that someone deployed
+ * to represent a Cosmos asset
+ * @name MsgERC20DeployedClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgERC20DeployedClaim
+ */
 export const MsgERC20DeployedClaim = {
   typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaim",
   aminoType: "peggy/MsgERC20DeployedClaim",
@@ -2068,6 +2450,11 @@ export const MsgERC20DeployedClaim = {
 function createBaseMsgERC20DeployedClaimResponse(): MsgERC20DeployedClaimResponse {
   return {};
 }
+/**
+ * @name MsgERC20DeployedClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgERC20DeployedClaimResponse
+ */
 export const MsgERC20DeployedClaimResponse = {
   typeUrl: "/injective.peggy.v1.MsgERC20DeployedClaimResponse",
   is(o: any): o is MsgERC20DeployedClaimResponse {
@@ -2128,6 +2515,14 @@ function createBaseMsgCancelSendToEth(): MsgCancelSendToEth {
     sender: ""
   };
 }
+/**
+ * This call allows the sender (and only the sender)
+ * to cancel a given MsgSendToEth and recieve a refund
+ * of the tokens
+ * @name MsgCancelSendToEth
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgCancelSendToEth
+ */
 export const MsgCancelSendToEth = {
   typeUrl: "/injective.peggy.v1.MsgCancelSendToEth",
   aminoType: "peggy/MsgCancelSendToEth",
@@ -2214,6 +2609,11 @@ export const MsgCancelSendToEth = {
 function createBaseMsgCancelSendToEthResponse(): MsgCancelSendToEthResponse {
   return {};
 }
+/**
+ * @name MsgCancelSendToEthResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgCancelSendToEthResponse
+ */
 export const MsgCancelSendToEthResponse = {
   typeUrl: "/injective.peggy.v1.MsgCancelSendToEthResponse",
   is(o: any): o is MsgCancelSendToEthResponse {
@@ -2275,6 +2675,14 @@ function createBaseMsgSubmitBadSignatureEvidence(): MsgSubmitBadSignatureEvidenc
     sender: ""
   };
 }
+/**
+ * This call allows anyone to submit evidence that a
+ * validator has signed a valset, batch, or logic call that never
+ * existed. Subject contains the batch, valset, or logic call.
+ * @name MsgSubmitBadSignatureEvidence
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSubmitBadSignatureEvidence
+ */
 export const MsgSubmitBadSignatureEvidence = {
   typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidence",
   aminoType: "peggy/MsgSubmitBadSignatureEvidence",
@@ -2372,6 +2780,11 @@ export const MsgSubmitBadSignatureEvidence = {
 function createBaseMsgSubmitBadSignatureEvidenceResponse(): MsgSubmitBadSignatureEvidenceResponse {
   return {};
 }
+/**
+ * @name MsgSubmitBadSignatureEvidenceResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse
+ */
 export const MsgSubmitBadSignatureEvidenceResponse = {
   typeUrl: "/injective.peggy.v1.MsgSubmitBadSignatureEvidenceResponse",
   is(o: any): o is MsgSubmitBadSignatureEvidenceResponse {
@@ -2437,6 +2850,13 @@ function createBaseMsgValsetUpdatedClaim(): MsgValsetUpdatedClaim {
     orchestrator: ""
   };
 }
+/**
+ * This informs the Cosmos module that a validator
+ * set has been updated.
+ * @name MsgValsetUpdatedClaim
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetUpdatedClaim
+ */
 export const MsgValsetUpdatedClaim = {
   typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaim",
   aminoType: "peggy/MsgValsetUpdatedClaim",
@@ -2585,6 +3005,11 @@ export const MsgValsetUpdatedClaim = {
 function createBaseMsgValsetUpdatedClaimResponse(): MsgValsetUpdatedClaimResponse {
   return {};
 }
+/**
+ * @name MsgValsetUpdatedClaimResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgValsetUpdatedClaimResponse
+ */
 export const MsgValsetUpdatedClaimResponse = {
   typeUrl: "/injective.peggy.v1.MsgValsetUpdatedClaimResponse",
   is(o: any): o is MsgValsetUpdatedClaimResponse {
@@ -2645,6 +3070,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.peggy.v1.MsgUpdateParams",
   aminoType: "peggy/MsgUpdateParams",
@@ -2736,6 +3166,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.peggy.v1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {
@@ -2796,6 +3231,13 @@ function createBaseMsgBlacklistEthereumAddresses(): MsgBlacklistEthereumAddresse
     blacklistAddresses: []
   };
 }
+/**
+ * MsgBlacklistEthereumAddresses defines the message used to add Ethereum
+ * addresses to peggy blacklist.
+ * @name MsgBlacklistEthereumAddresses
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgBlacklistEthereumAddresses
+ */
 export const MsgBlacklistEthereumAddresses = {
   typeUrl: "/injective.peggy.v1.MsgBlacklistEthereumAddresses",
   aminoType: "peggy/MsgBlacklistEthereumAddresses",
@@ -2884,6 +3326,13 @@ export const MsgBlacklistEthereumAddresses = {
 function createBaseMsgBlacklistEthereumAddressesResponse(): MsgBlacklistEthereumAddressesResponse {
   return {};
 }
+/**
+ * MsgBlacklistEthereumAddressesResponse defines the
+ * MsgBlacklistEthereumAddresses response type.
+ * @name MsgBlacklistEthereumAddressesResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgBlacklistEthereumAddressesResponse
+ */
 export const MsgBlacklistEthereumAddressesResponse = {
   typeUrl: "/injective.peggy.v1.MsgBlacklistEthereumAddressesResponse",
   is(o: any): o is MsgBlacklistEthereumAddressesResponse {
@@ -2944,6 +3393,13 @@ function createBaseMsgRevokeEthereumBlacklist(): MsgRevokeEthereumBlacklist {
     blacklistAddresses: []
   };
 }
+/**
+ * MsgRevokeEthereumBlacklist defines the message used to remove Ethereum
+ * addresses from peggy blacklist.
+ * @name MsgRevokeEthereumBlacklist
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRevokeEthereumBlacklist
+ */
 export const MsgRevokeEthereumBlacklist = {
   typeUrl: "/injective.peggy.v1.MsgRevokeEthereumBlacklist",
   aminoType: "peggy/MsgRevokeEthereumBlacklist",
@@ -3032,6 +3488,13 @@ export const MsgRevokeEthereumBlacklist = {
 function createBaseMsgRevokeEthereumBlacklistResponse(): MsgRevokeEthereumBlacklistResponse {
   return {};
 }
+/**
+ * MsgRevokeEthereumBlacklistResponse defines the MsgRevokeEthereumBlacklist
+ * response type.
+ * @name MsgRevokeEthereumBlacklistResponse
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.MsgRevokeEthereumBlacklistResponse
+ */
 export const MsgRevokeEthereumBlacklistResponse = {
   typeUrl: "/injective.peggy.v1.MsgRevokeEthereumBlacklistResponse",
   is(o: any): o is MsgRevokeEthereumBlacklistResponse {

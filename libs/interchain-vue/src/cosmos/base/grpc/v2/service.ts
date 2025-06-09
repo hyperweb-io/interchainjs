@@ -2,7 +2,12 @@ import { Any, AnyAmino } from "../../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 import { DeepPartial } from "../../../../helpers";
-/** QueryRequest is the request for the Query method */
+/**
+ * QueryRequest is the request for the Query method
+ * @name QueryRequest
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.QueryRequest
+ */
 export interface QueryRequest {
   request?: Any;
 }
@@ -10,7 +15,12 @@ export interface QueryRequestProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.QueryRequest";
   value: Uint8Array;
 }
-/** QueryRequest is the request for the Query method */
+/**
+ * QueryRequest is the request for the Query method
+ * @name QueryRequestAmino
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.QueryRequest
+ */
 export interface QueryRequestAmino {
   request?: AnyAmino;
 }
@@ -18,7 +28,12 @@ export interface QueryRequestAminoMsg {
   type: "cosmos-sdk/QueryRequest";
   value: QueryRequestAmino;
 }
-/** QueryResponse is the response for the Query method */
+/**
+ * QueryResponse is the response for the Query method
+ * @name QueryResponse
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.QueryResponse
+ */
 export interface QueryResponse {
   response?: Any;
 }
@@ -26,7 +41,12 @@ export interface QueryResponseProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.QueryResponse";
   value: Uint8Array;
 }
-/** QueryResponse is the response for the Query method */
+/**
+ * QueryResponse is the response for the Query method
+ * @name QueryResponseAmino
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.QueryResponse
+ */
 export interface QueryResponseAmino {
   response?: AnyAmino;
 }
@@ -34,19 +54,34 @@ export interface QueryResponseAminoMsg {
   type: "cosmos-sdk/QueryResponse";
   value: QueryResponseAmino;
 }
-/** ListQueryHandlersRequest is the request for the ListQueryHandlers method */
+/**
+ * ListQueryHandlersRequest is the request for the ListQueryHandlers method
+ * @name ListQueryHandlersRequest
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.ListQueryHandlersRequest
+ */
 export interface ListQueryHandlersRequest {}
 export interface ListQueryHandlersRequestProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersRequest";
   value: Uint8Array;
 }
-/** ListQueryHandlersRequest is the request for the ListQueryHandlers method */
+/**
+ * ListQueryHandlersRequest is the request for the ListQueryHandlers method
+ * @name ListQueryHandlersRequestAmino
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.ListQueryHandlersRequest
+ */
 export interface ListQueryHandlersRequestAmino {}
 export interface ListQueryHandlersRequestAminoMsg {
   type: "cosmos-sdk/ListQueryHandlersRequest";
   value: ListQueryHandlersRequestAmino;
 }
-/** ListQueryHandlersResponse is the response for the ListQueryHandlers method */
+/**
+ * ListQueryHandlersResponse is the response for the ListQueryHandlers method
+ * @name ListQueryHandlersResponse
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.ListQueryHandlersResponse
+ */
 export interface ListQueryHandlersResponse {
   handlers: Handler[];
 }
@@ -54,7 +89,12 @@ export interface ListQueryHandlersResponseProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersResponse";
   value: Uint8Array;
 }
-/** ListQueryHandlersResponse is the response for the ListQueryHandlers method */
+/**
+ * ListQueryHandlersResponse is the response for the ListQueryHandlers method
+ * @name ListQueryHandlersResponseAmino
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.ListQueryHandlersResponse
+ */
 export interface ListQueryHandlersResponseAmino {
   handlers: HandlerAmino[];
 }
@@ -62,7 +102,12 @@ export interface ListQueryHandlersResponseAminoMsg {
   type: "cosmos-sdk/ListQueryHandlersResponse";
   value: ListQueryHandlersResponseAmino;
 }
-/** Handler defines a query handler */
+/**
+ * Handler defines a query handler
+ * @name Handler
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.Handler
+ */
 export interface Handler {
   requestName: string;
   responseName: string;
@@ -71,7 +116,12 @@ export interface HandlerProtoMsg {
   typeUrl: "/cosmos.base.grpc.v2.Handler";
   value: Uint8Array;
 }
-/** Handler defines a query handler */
+/**
+ * Handler defines a query handler
+ * @name HandlerAmino
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.Handler
+ */
 export interface HandlerAmino {
   request_name: string;
   response_name: string;
@@ -85,6 +135,12 @@ function createBaseQueryRequest(): QueryRequest {
     request: undefined
   };
 }
+/**
+ * QueryRequest is the request for the Query method
+ * @name QueryRequest
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.QueryRequest
+ */
 export const QueryRequest = {
   typeUrl: "/cosmos.base.grpc.v2.QueryRequest",
   aminoType: "cosmos-sdk/QueryRequest",
@@ -162,6 +218,12 @@ function createBaseQueryResponse(): QueryResponse {
     response: undefined
   };
 }
+/**
+ * QueryResponse is the response for the Query method
+ * @name QueryResponse
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.QueryResponse
+ */
 export const QueryResponse = {
   typeUrl: "/cosmos.base.grpc.v2.QueryResponse",
   aminoType: "cosmos-sdk/QueryResponse",
@@ -237,6 +299,12 @@ export const QueryResponse = {
 function createBaseListQueryHandlersRequest(): ListQueryHandlersRequest {
   return {};
 }
+/**
+ * ListQueryHandlersRequest is the request for the ListQueryHandlers method
+ * @name ListQueryHandlersRequest
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.ListQueryHandlersRequest
+ */
 export const ListQueryHandlersRequest = {
   typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersRequest",
   aminoType: "cosmos-sdk/ListQueryHandlersRequest",
@@ -303,6 +371,12 @@ function createBaseListQueryHandlersResponse(): ListQueryHandlersResponse {
     handlers: []
   };
 }
+/**
+ * ListQueryHandlersResponse is the response for the ListQueryHandlers method
+ * @name ListQueryHandlersResponse
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.ListQueryHandlersResponse
+ */
 export const ListQueryHandlersResponse = {
   typeUrl: "/cosmos.base.grpc.v2.ListQueryHandlersResponse",
   aminoType: "cosmos-sdk/ListQueryHandlersResponse",
@@ -388,6 +462,12 @@ function createBaseHandler(): Handler {
     responseName: ""
   };
 }
+/**
+ * Handler defines a query handler
+ * @name Handler
+ * @package cosmos.base.grpc.v2
+ * @see proto type: cosmos.base.grpc.v2.Handler
+ */
 export const Handler = {
   typeUrl: "/cosmos.base.grpc.v2.Handler",
   aminoType: "cosmos-sdk/Handler",

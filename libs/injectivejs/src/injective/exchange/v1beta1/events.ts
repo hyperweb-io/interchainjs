@@ -4,6 +4,11 @@ import { isSet, DeepPartial, bytesFromBase64, base64FromBytes } from "../../../h
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@interchainjs/math";
+/**
+ * @name EventBatchSpotExecution
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchSpotExecution
+ */
 export interface EventBatchSpotExecution {
   marketId: string;
   isBuy: boolean;
@@ -14,6 +19,11 @@ export interface EventBatchSpotExecutionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchSpotExecution";
   value: Uint8Array;
 }
+/**
+ * @name EventBatchSpotExecutionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchSpotExecution
+ */
 export interface EventBatchSpotExecutionAmino {
   market_id: string;
   is_buy: boolean;
@@ -24,11 +34,18 @@ export interface EventBatchSpotExecutionAminoMsg {
   type: "/injective.exchange.v1beta1.EventBatchSpotExecution";
   value: EventBatchSpotExecutionAmino;
 }
+/**
+ * @name EventBatchDerivativeExecution
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDerivativeExecution
+ */
 export interface EventBatchDerivativeExecution {
   marketId: string;
   isBuy: boolean;
   isLiquidation: boolean;
-  /** nil for time expiry futures */
+  /**
+   * nil for time expiry futures
+   */
   cumulativeFunding?: string;
   executionType: ExecutionType;
   trades: DerivativeTradeLog[];
@@ -37,11 +54,18 @@ export interface EventBatchDerivativeExecutionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativeExecution";
   value: Uint8Array;
 }
+/**
+ * @name EventBatchDerivativeExecutionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDerivativeExecution
+ */
 export interface EventBatchDerivativeExecutionAmino {
   market_id: string;
   is_buy: boolean;
   is_liquidation: boolean;
-  /** nil for time expiry futures */
+  /**
+   * nil for time expiry futures
+   */
   cumulative_funding?: string;
   executionType: ExecutionType;
   trades: DerivativeTradeLogAmino[];
@@ -50,6 +74,11 @@ export interface EventBatchDerivativeExecutionAminoMsg {
   type: "/injective.exchange.v1beta1.EventBatchDerivativeExecution";
   value: EventBatchDerivativeExecutionAmino;
 }
+/**
+ * @name EventLostFundsFromLiquidation
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventLostFundsFromLiquidation
+ */
 export interface EventLostFundsFromLiquidation {
   marketId: string;
   subaccountId: Uint8Array;
@@ -60,6 +89,11 @@ export interface EventLostFundsFromLiquidationProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventLostFundsFromLiquidation";
   value: Uint8Array;
 }
+/**
+ * @name EventLostFundsFromLiquidationAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventLostFundsFromLiquidation
+ */
 export interface EventLostFundsFromLiquidationAmino {
   market_id: string;
   subaccount_id: string;
@@ -70,6 +104,11 @@ export interface EventLostFundsFromLiquidationAminoMsg {
   type: "/injective.exchange.v1beta1.EventLostFundsFromLiquidation";
   value: EventLostFundsFromLiquidationAmino;
 }
+/**
+ * @name EventBatchDerivativePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDerivativePosition
+ */
 export interface EventBatchDerivativePosition {
   marketId: string;
   positions: SubaccountPosition[];
@@ -78,6 +117,11 @@ export interface EventBatchDerivativePositionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativePosition";
   value: Uint8Array;
 }
+/**
+ * @name EventBatchDerivativePositionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDerivativePosition
+ */
 export interface EventBatchDerivativePositionAmino {
   market_id: string;
   positions: SubaccountPositionAmino[];
@@ -86,6 +130,11 @@ export interface EventBatchDerivativePositionAminoMsg {
   type: "/injective.exchange.v1beta1.EventBatchDerivativePosition";
   value: EventBatchDerivativePositionAmino;
 }
+/**
+ * @name EventDerivativeMarketPaused
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventDerivativeMarketPaused
+ */
 export interface EventDerivativeMarketPaused {
   marketId: string;
   settlePrice: string;
@@ -96,6 +145,11 @@ export interface EventDerivativeMarketPausedProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventDerivativeMarketPaused";
   value: Uint8Array;
 }
+/**
+ * @name EventDerivativeMarketPausedAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventDerivativeMarketPaused
+ */
 export interface EventDerivativeMarketPausedAmino {
   market_id: string;
   settle_price: string;
@@ -106,6 +160,11 @@ export interface EventDerivativeMarketPausedAminoMsg {
   type: "/injective.exchange.v1beta1.EventDerivativeMarketPaused";
   value: EventDerivativeMarketPausedAmino;
 }
+/**
+ * @name EventMarketBeyondBankruptcy
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventMarketBeyondBankruptcy
+ */
 export interface EventMarketBeyondBankruptcy {
   marketId: string;
   settlePrice: string;
@@ -115,6 +174,11 @@ export interface EventMarketBeyondBankruptcyProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventMarketBeyondBankruptcy";
   value: Uint8Array;
 }
+/**
+ * @name EventMarketBeyondBankruptcyAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventMarketBeyondBankruptcy
+ */
 export interface EventMarketBeyondBankruptcyAmino {
   market_id: string;
   settle_price: string;
@@ -124,6 +188,11 @@ export interface EventMarketBeyondBankruptcyAminoMsg {
   type: "/injective.exchange.v1beta1.EventMarketBeyondBankruptcy";
   value: EventMarketBeyondBankruptcyAmino;
 }
+/**
+ * @name EventAllPositionsHaircut
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventAllPositionsHaircut
+ */
 export interface EventAllPositionsHaircut {
   marketId: string;
   settlePrice: string;
@@ -133,6 +202,11 @@ export interface EventAllPositionsHaircutProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventAllPositionsHaircut";
   value: Uint8Array;
 }
+/**
+ * @name EventAllPositionsHaircutAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventAllPositionsHaircut
+ */
 export interface EventAllPositionsHaircutAmino {
   market_id: string;
   settle_price: string;
@@ -142,6 +216,11 @@ export interface EventAllPositionsHaircutAminoMsg {
   type: "/injective.exchange.v1beta1.EventAllPositionsHaircut";
   value: EventAllPositionsHaircutAmino;
 }
+/**
+ * @name EventBinaryOptionsMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate
+ */
 export interface EventBinaryOptionsMarketUpdate {
   market: BinaryOptionsMarket;
 }
@@ -149,6 +228,11 @@ export interface EventBinaryOptionsMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventBinaryOptionsMarketUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate
+ */
 export interface EventBinaryOptionsMarketUpdateAmino {
   market: BinaryOptionsMarketAmino;
 }
@@ -156,6 +240,11 @@ export interface EventBinaryOptionsMarketUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate";
   value: EventBinaryOptionsMarketUpdateAmino;
 }
+/**
+ * @name EventNewSpotOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewSpotOrders
+ */
 export interface EventNewSpotOrders {
   marketId: string;
   buyOrders: SpotLimitOrder[];
@@ -165,6 +254,11 @@ export interface EventNewSpotOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventNewSpotOrders";
   value: Uint8Array;
 }
+/**
+ * @name EventNewSpotOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewSpotOrders
+ */
 export interface EventNewSpotOrdersAmino {
   market_id: string;
   buy_orders: SpotLimitOrderAmino[];
@@ -174,6 +268,11 @@ export interface EventNewSpotOrdersAminoMsg {
   type: "/injective.exchange.v1beta1.EventNewSpotOrders";
   value: EventNewSpotOrdersAmino;
 }
+/**
+ * @name EventNewDerivativeOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewDerivativeOrders
+ */
 export interface EventNewDerivativeOrders {
   marketId: string;
   buyOrders: DerivativeLimitOrder[];
@@ -183,6 +282,11 @@ export interface EventNewDerivativeOrdersProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventNewDerivativeOrders";
   value: Uint8Array;
 }
+/**
+ * @name EventNewDerivativeOrdersAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewDerivativeOrders
+ */
 export interface EventNewDerivativeOrdersAmino {
   market_id: string;
   buy_orders: DerivativeLimitOrderAmino[];
@@ -192,6 +296,11 @@ export interface EventNewDerivativeOrdersAminoMsg {
   type: "/injective.exchange.v1beta1.EventNewDerivativeOrders";
   value: EventNewDerivativeOrdersAmino;
 }
+/**
+ * @name EventCancelSpotOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelSpotOrder
+ */
 export interface EventCancelSpotOrder {
   marketId: string;
   order: SpotLimitOrder;
@@ -200,6 +309,11 @@ export interface EventCancelSpotOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventCancelSpotOrder";
   value: Uint8Array;
 }
+/**
+ * @name EventCancelSpotOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelSpotOrder
+ */
 export interface EventCancelSpotOrderAmino {
   market_id: string;
   order: SpotLimitOrderAmino;
@@ -208,6 +322,11 @@ export interface EventCancelSpotOrderAminoMsg {
   type: "/injective.exchange.v1beta1.EventCancelSpotOrder";
   value: EventCancelSpotOrderAmino;
 }
+/**
+ * @name EventSpotMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSpotMarketUpdate
+ */
 export interface EventSpotMarketUpdate {
   market: SpotMarket;
 }
@@ -215,6 +334,11 @@ export interface EventSpotMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSpotMarketUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventSpotMarketUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSpotMarketUpdate
+ */
 export interface EventSpotMarketUpdateAmino {
   market: SpotMarketAmino;
 }
@@ -222,6 +346,11 @@ export interface EventSpotMarketUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventSpotMarketUpdate";
   value: EventSpotMarketUpdateAmino;
 }
+/**
+ * @name EventPerpetualMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventPerpetualMarketUpdate
+ */
 export interface EventPerpetualMarketUpdate {
   market: DerivativeMarket;
   perpetualMarketInfo?: PerpetualMarketInfo;
@@ -231,6 +360,11 @@ export interface EventPerpetualMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventPerpetualMarketUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventPerpetualMarketUpdate
+ */
 export interface EventPerpetualMarketUpdateAmino {
   market: DerivativeMarketAmino;
   perpetual_market_info?: PerpetualMarketInfoAmino;
@@ -240,6 +374,11 @@ export interface EventPerpetualMarketUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventPerpetualMarketUpdate";
   value: EventPerpetualMarketUpdateAmino;
 }
+/**
+ * @name EventExpiryFuturesMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate
+ */
 export interface EventExpiryFuturesMarketUpdate {
   market: DerivativeMarket;
   expiryFuturesMarketInfo?: ExpiryFuturesMarketInfo;
@@ -248,6 +387,11 @@ export interface EventExpiryFuturesMarketUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventExpiryFuturesMarketUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate
+ */
 export interface EventExpiryFuturesMarketUpdateAmino {
   market: DerivativeMarketAmino;
   expiry_futures_market_info?: ExpiryFuturesMarketInfoAmino;
@@ -256,6 +400,11 @@ export interface EventExpiryFuturesMarketUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate";
   value: EventExpiryFuturesMarketUpdateAmino;
 }
+/**
+ * @name EventPerpetualMarketFundingUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate
+ */
 export interface EventPerpetualMarketFundingUpdate {
   marketId: string;
   funding: PerpetualMarketFunding;
@@ -267,6 +416,11 @@ export interface EventPerpetualMarketFundingUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventPerpetualMarketFundingUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate
+ */
 export interface EventPerpetualMarketFundingUpdateAmino {
   market_id: string;
   funding: PerpetualMarketFundingAmino;
@@ -278,6 +432,11 @@ export interface EventPerpetualMarketFundingUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate";
   value: EventPerpetualMarketFundingUpdateAmino;
 }
+/**
+ * @name EventSubaccountDeposit
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountDeposit
+ */
 export interface EventSubaccountDeposit {
   srcAddress: string;
   subaccountId: Uint8Array;
@@ -287,6 +446,11 @@ export interface EventSubaccountDepositProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountDeposit";
   value: Uint8Array;
 }
+/**
+ * @name EventSubaccountDepositAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountDeposit
+ */
 export interface EventSubaccountDepositAmino {
   src_address: string;
   subaccount_id: string;
@@ -296,6 +460,11 @@ export interface EventSubaccountDepositAminoMsg {
   type: "/injective.exchange.v1beta1.EventSubaccountDeposit";
   value: EventSubaccountDepositAmino;
 }
+/**
+ * @name EventSubaccountWithdraw
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountWithdraw
+ */
 export interface EventSubaccountWithdraw {
   subaccountId: Uint8Array;
   dstAddress: string;
@@ -305,6 +474,11 @@ export interface EventSubaccountWithdrawProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountWithdraw";
   value: Uint8Array;
 }
+/**
+ * @name EventSubaccountWithdrawAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountWithdraw
+ */
 export interface EventSubaccountWithdrawAmino {
   subaccount_id: string;
   dst_address: string;
@@ -314,6 +488,11 @@ export interface EventSubaccountWithdrawAminoMsg {
   type: "/injective.exchange.v1beta1.EventSubaccountWithdraw";
   value: EventSubaccountWithdrawAmino;
 }
+/**
+ * @name EventSubaccountBalanceTransfer
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountBalanceTransfer
+ */
 export interface EventSubaccountBalanceTransfer {
   srcSubaccountId: string;
   dstSubaccountId: string;
@@ -323,6 +502,11 @@ export interface EventSubaccountBalanceTransferProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountBalanceTransfer";
   value: Uint8Array;
 }
+/**
+ * @name EventSubaccountBalanceTransferAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountBalanceTransfer
+ */
 export interface EventSubaccountBalanceTransferAmino {
   src_subaccount_id: string;
   dst_subaccount_id: string;
@@ -332,6 +516,11 @@ export interface EventSubaccountBalanceTransferAminoMsg {
   type: "/injective.exchange.v1beta1.EventSubaccountBalanceTransfer";
   value: EventSubaccountBalanceTransferAmino;
 }
+/**
+ * @name EventBatchDepositUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDepositUpdate
+ */
 export interface EventBatchDepositUpdate {
   depositUpdates: DepositUpdate[];
 }
@@ -339,6 +528,11 @@ export interface EventBatchDepositUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDepositUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventBatchDepositUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDepositUpdate
+ */
 export interface EventBatchDepositUpdateAmino {
   deposit_updates: DepositUpdateAmino[];
 }
@@ -346,6 +540,11 @@ export interface EventBatchDepositUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventBatchDepositUpdate";
   value: EventBatchDepositUpdateAmino;
 }
+/**
+ * @name DerivativeMarketOrderCancel
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketOrderCancel
+ */
 export interface DerivativeMarketOrderCancel {
   marketOrder?: DerivativeMarketOrder;
   cancelQuantity: string;
@@ -354,6 +553,11 @@ export interface DerivativeMarketOrderCancelProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderCancel";
   value: Uint8Array;
 }
+/**
+ * @name DerivativeMarketOrderCancelAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketOrderCancel
+ */
 export interface DerivativeMarketOrderCancelAmino {
   market_order?: DerivativeMarketOrderAmino;
   cancel_quantity: string;
@@ -362,6 +566,11 @@ export interface DerivativeMarketOrderCancelAminoMsg {
   type: "/injective.exchange.v1beta1.DerivativeMarketOrderCancel";
   value: DerivativeMarketOrderCancelAmino;
 }
+/**
+ * @name EventCancelDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelDerivativeOrder
+ */
 export interface EventCancelDerivativeOrder {
   marketId: string;
   isLimitCancel: boolean;
@@ -372,6 +581,11 @@ export interface EventCancelDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventCancelDerivativeOrder";
   value: Uint8Array;
 }
+/**
+ * @name EventCancelDerivativeOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelDerivativeOrder
+ */
 export interface EventCancelDerivativeOrderAmino {
   market_id: string;
   isLimitCancel: boolean;
@@ -382,6 +596,11 @@ export interface EventCancelDerivativeOrderAminoMsg {
   type: "/injective.exchange.v1beta1.EventCancelDerivativeOrder";
   value: EventCancelDerivativeOrderAmino;
 }
+/**
+ * @name EventFeeDiscountSchedule
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventFeeDiscountSchedule
+ */
 export interface EventFeeDiscountSchedule {
   schedule?: FeeDiscountSchedule;
 }
@@ -389,6 +608,11 @@ export interface EventFeeDiscountScheduleProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventFeeDiscountSchedule";
   value: Uint8Array;
 }
+/**
+ * @name EventFeeDiscountScheduleAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventFeeDiscountSchedule
+ */
 export interface EventFeeDiscountScheduleAmino {
   schedule?: FeeDiscountScheduleAmino;
 }
@@ -396,6 +620,11 @@ export interface EventFeeDiscountScheduleAminoMsg {
   type: "/injective.exchange.v1beta1.EventFeeDiscountSchedule";
   value: EventFeeDiscountScheduleAmino;
 }
+/**
+ * @name EventTradingRewardCampaignUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventTradingRewardCampaignUpdate
+ */
 export interface EventTradingRewardCampaignUpdate {
   campaignInfo?: TradingRewardCampaignInfo;
   campaignRewardPools: CampaignRewardPool[];
@@ -404,6 +633,11 @@ export interface EventTradingRewardCampaignUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventTradingRewardCampaignUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventTradingRewardCampaignUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventTradingRewardCampaignUpdate
+ */
 export interface EventTradingRewardCampaignUpdateAmino {
   campaign_info?: TradingRewardCampaignInfoAmino;
   campaign_reward_pools: CampaignRewardPoolAmino[];
@@ -412,6 +646,11 @@ export interface EventTradingRewardCampaignUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventTradingRewardCampaignUpdate";
   value: EventTradingRewardCampaignUpdateAmino;
 }
+/**
+ * @name EventTradingRewardDistribution
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventTradingRewardDistribution
+ */
 export interface EventTradingRewardDistribution {
   accountRewards: AccountRewards[];
 }
@@ -419,6 +658,11 @@ export interface EventTradingRewardDistributionProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventTradingRewardDistribution";
   value: Uint8Array;
 }
+/**
+ * @name EventTradingRewardDistributionAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventTradingRewardDistribution
+ */
 export interface EventTradingRewardDistributionAmino {
   account_rewards: AccountRewardsAmino[];
 }
@@ -426,6 +670,11 @@ export interface EventTradingRewardDistributionAminoMsg {
   type: "/injective.exchange.v1beta1.EventTradingRewardDistribution";
   value: EventTradingRewardDistributionAmino;
 }
+/**
+ * @name EventNewConditionalDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewConditionalDerivativeOrder
+ */
 export interface EventNewConditionalDerivativeOrder {
   marketId: string;
   order?: DerivativeOrder;
@@ -436,6 +685,11 @@ export interface EventNewConditionalDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventNewConditionalDerivativeOrder";
   value: Uint8Array;
 }
+/**
+ * @name EventNewConditionalDerivativeOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewConditionalDerivativeOrder
+ */
 export interface EventNewConditionalDerivativeOrderAmino {
   market_id: string;
   order?: DerivativeOrderAmino;
@@ -446,6 +700,11 @@ export interface EventNewConditionalDerivativeOrderAminoMsg {
   type: "/injective.exchange.v1beta1.EventNewConditionalDerivativeOrder";
   value: EventNewConditionalDerivativeOrderAmino;
 }
+/**
+ * @name EventCancelConditionalDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder
+ */
 export interface EventCancelConditionalDerivativeOrder {
   marketId: string;
   isLimitCancel: boolean;
@@ -456,6 +715,11 @@ export interface EventCancelConditionalDerivativeOrderProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder";
   value: Uint8Array;
 }
+/**
+ * @name EventCancelConditionalDerivativeOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder
+ */
 export interface EventCancelConditionalDerivativeOrderAmino {
   market_id: string;
   isLimitCancel: boolean;
@@ -466,6 +730,11 @@ export interface EventCancelConditionalDerivativeOrderAminoMsg {
   type: "/injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder";
   value: EventCancelConditionalDerivativeOrderAmino;
 }
+/**
+ * @name EventConditionalDerivativeOrderTrigger
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger
+ */
 export interface EventConditionalDerivativeOrderTrigger {
   marketId: Uint8Array;
   isLimitTrigger: boolean;
@@ -477,6 +746,11 @@ export interface EventConditionalDerivativeOrderTriggerProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger";
   value: Uint8Array;
 }
+/**
+ * @name EventConditionalDerivativeOrderTriggerAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger
+ */
 export interface EventConditionalDerivativeOrderTriggerAmino {
   market_id: string;
   isLimitTrigger: boolean;
@@ -488,6 +762,11 @@ export interface EventConditionalDerivativeOrderTriggerAminoMsg {
   type: "/injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger";
   value: EventConditionalDerivativeOrderTriggerAmino;
 }
+/**
+ * @name EventOrderFail
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderFail
+ */
 export interface EventOrderFail {
   account: Uint8Array;
   hashes: Uint8Array[];
@@ -498,6 +777,11 @@ export interface EventOrderFailProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventOrderFail";
   value: Uint8Array;
 }
+/**
+ * @name EventOrderFailAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderFail
+ */
 export interface EventOrderFailAmino {
   account: string;
   hashes: string[];
@@ -508,6 +792,11 @@ export interface EventOrderFailAminoMsg {
   type: "/injective.exchange.v1beta1.EventOrderFail";
   value: EventOrderFailAmino;
 }
+/**
+ * @name EventAtomicMarketOrderFeeMultipliersUpdated
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated
+ */
 export interface EventAtomicMarketOrderFeeMultipliersUpdated {
   marketFeeMultipliers: MarketFeeMultiplier[];
 }
@@ -515,6 +804,11 @@ export interface EventAtomicMarketOrderFeeMultipliersUpdatedProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated";
   value: Uint8Array;
 }
+/**
+ * @name EventAtomicMarketOrderFeeMultipliersUpdatedAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated
+ */
 export interface EventAtomicMarketOrderFeeMultipliersUpdatedAmino {
   market_fee_multipliers: MarketFeeMultiplierAmino[];
 }
@@ -522,6 +816,11 @@ export interface EventAtomicMarketOrderFeeMultipliersUpdatedAminoMsg {
   type: "/injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated";
   value: EventAtomicMarketOrderFeeMultipliersUpdatedAmino;
 }
+/**
+ * @name EventOrderbookUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderbookUpdate
+ */
 export interface EventOrderbookUpdate {
   spotUpdates: OrderbookUpdate[];
   derivativeUpdates: OrderbookUpdate[];
@@ -530,6 +829,11 @@ export interface EventOrderbookUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventOrderbookUpdate";
   value: Uint8Array;
 }
+/**
+ * @name EventOrderbookUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderbookUpdate
+ */
 export interface EventOrderbookUpdateAmino {
   spot_updates: OrderbookUpdateAmino[];
   derivative_updates: OrderbookUpdateAmino[];
@@ -538,6 +842,11 @@ export interface EventOrderbookUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.EventOrderbookUpdate";
   value: EventOrderbookUpdateAmino;
 }
+/**
+ * @name OrderbookUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderbookUpdate
+ */
 export interface OrderbookUpdate {
   seq: bigint;
   orderbook?: Orderbook;
@@ -546,6 +855,11 @@ export interface OrderbookUpdateProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.OrderbookUpdate";
   value: Uint8Array;
 }
+/**
+ * @name OrderbookUpdateAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderbookUpdate
+ */
 export interface OrderbookUpdateAmino {
   seq: string;
   orderbook?: OrderbookAmino;
@@ -554,6 +868,11 @@ export interface OrderbookUpdateAminoMsg {
   type: "/injective.exchange.v1beta1.OrderbookUpdate";
   value: OrderbookUpdateAmino;
 }
+/**
+ * @name Orderbook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Orderbook
+ */
 export interface Orderbook {
   marketId: Uint8Array;
   buyLevels: Level[];
@@ -563,6 +882,11 @@ export interface OrderbookProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Orderbook";
   value: Uint8Array;
 }
+/**
+ * @name OrderbookAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Orderbook
+ */
 export interface OrderbookAmino {
   market_id: string;
   buy_levels: LevelAmino[];
@@ -572,6 +896,11 @@ export interface OrderbookAminoMsg {
   type: "/injective.exchange.v1beta1.Orderbook";
   value: OrderbookAmino;
 }
+/**
+ * @name EventGrantAuthorizations
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventGrantAuthorizations
+ */
 export interface EventGrantAuthorizations {
   granter: string;
   grants: GrantAuthorization[];
@@ -580,6 +909,11 @@ export interface EventGrantAuthorizationsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventGrantAuthorizations";
   value: Uint8Array;
 }
+/**
+ * @name EventGrantAuthorizationsAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventGrantAuthorizations
+ */
 export interface EventGrantAuthorizationsAmino {
   granter: string;
   grants: GrantAuthorizationAmino[];
@@ -588,6 +922,11 @@ export interface EventGrantAuthorizationsAminoMsg {
   type: "/injective.exchange.v1beta1.EventGrantAuthorizations";
   value: EventGrantAuthorizationsAmino;
 }
+/**
+ * @name EventGrantActivation
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventGrantActivation
+ */
 export interface EventGrantActivation {
   grantee: string;
   granter: string;
@@ -597,6 +936,11 @@ export interface EventGrantActivationProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventGrantActivation";
   value: Uint8Array;
 }
+/**
+ * @name EventGrantActivationAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventGrantActivation
+ */
 export interface EventGrantActivationAmino {
   grantee: string;
   granter: string;
@@ -606,6 +950,11 @@ export interface EventGrantActivationAminoMsg {
   type: "/injective.exchange.v1beta1.EventGrantActivation";
   value: EventGrantActivationAmino;
 }
+/**
+ * @name EventInvalidGrant
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventInvalidGrant
+ */
 export interface EventInvalidGrant {
   grantee: string;
   granter: string;
@@ -614,6 +963,11 @@ export interface EventInvalidGrantProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventInvalidGrant";
   value: Uint8Array;
 }
+/**
+ * @name EventInvalidGrantAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventInvalidGrant
+ */
 export interface EventInvalidGrantAmino {
   grantee: string;
   granter: string;
@@ -622,6 +976,11 @@ export interface EventInvalidGrantAminoMsg {
   type: "/injective.exchange.v1beta1.EventInvalidGrant";
   value: EventInvalidGrantAmino;
 }
+/**
+ * @name EventOrderCancelFail
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderCancelFail
+ */
 export interface EventOrderCancelFail {
   marketId: string;
   subaccountId: string;
@@ -633,6 +992,11 @@ export interface EventOrderCancelFailProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.EventOrderCancelFail";
   value: Uint8Array;
 }
+/**
+ * @name EventOrderCancelFailAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderCancelFail
+ */
 export interface EventOrderCancelFailAmino {
   market_id: string;
   subaccount_id: string;
@@ -652,6 +1016,11 @@ function createBaseEventBatchSpotExecution(): EventBatchSpotExecution {
     trades: []
   };
 }
+/**
+ * @name EventBatchSpotExecution
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchSpotExecution
+ */
 export const EventBatchSpotExecution = {
   typeUrl: "/injective.exchange.v1beta1.EventBatchSpotExecution",
   is(o: any): o is EventBatchSpotExecution {
@@ -767,6 +1136,11 @@ function createBaseEventBatchDerivativeExecution(): EventBatchDerivativeExecutio
     trades: []
   };
 }
+/**
+ * @name EventBatchDerivativeExecution
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDerivativeExecution
+ */
 export const EventBatchDerivativeExecution = {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativeExecution",
   is(o: any): o is EventBatchDerivativeExecution {
@@ -902,6 +1276,11 @@ function createBaseEventLostFundsFromLiquidation(): EventLostFundsFromLiquidatio
     lostFundsFromOrderCancels: ""
   };
 }
+/**
+ * @name EventLostFundsFromLiquidation
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventLostFundsFromLiquidation
+ */
 export const EventLostFundsFromLiquidation = {
   typeUrl: "/injective.exchange.v1beta1.EventLostFundsFromLiquidation",
   is(o: any): o is EventLostFundsFromLiquidation {
@@ -1006,6 +1385,11 @@ function createBaseEventBatchDerivativePosition(): EventBatchDerivativePosition 
     positions: []
   };
 }
+/**
+ * @name EventBatchDerivativePosition
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDerivativePosition
+ */
 export const EventBatchDerivativePosition = {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDerivativePosition",
   is(o: any): o is EventBatchDerivativePosition {
@@ -1097,6 +1481,11 @@ function createBaseEventDerivativeMarketPaused(): EventDerivativeMarketPaused {
     missingFundsRate: ""
   };
 }
+/**
+ * @name EventDerivativeMarketPaused
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventDerivativeMarketPaused
+ */
 export const EventDerivativeMarketPaused = {
   typeUrl: "/injective.exchange.v1beta1.EventDerivativeMarketPaused",
   is(o: any): o is EventDerivativeMarketPaused {
@@ -1202,6 +1591,11 @@ function createBaseEventMarketBeyondBankruptcy(): EventMarketBeyondBankruptcy {
     missingMarketFunds: ""
   };
 }
+/**
+ * @name EventMarketBeyondBankruptcy
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventMarketBeyondBankruptcy
+ */
 export const EventMarketBeyondBankruptcy = {
   typeUrl: "/injective.exchange.v1beta1.EventMarketBeyondBankruptcy",
   is(o: any): o is EventMarketBeyondBankruptcy {
@@ -1296,6 +1690,11 @@ function createBaseEventAllPositionsHaircut(): EventAllPositionsHaircut {
     missingFundsRate: ""
   };
 }
+/**
+ * @name EventAllPositionsHaircut
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventAllPositionsHaircut
+ */
 export const EventAllPositionsHaircut = {
   typeUrl: "/injective.exchange.v1beta1.EventAllPositionsHaircut",
   is(o: any): o is EventAllPositionsHaircut {
@@ -1388,6 +1787,11 @@ function createBaseEventBinaryOptionsMarketUpdate(): EventBinaryOptionsMarketUpd
     market: BinaryOptionsMarket.fromPartial({})
   };
 }
+/**
+ * @name EventBinaryOptionsMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate
+ */
 export const EventBinaryOptionsMarketUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventBinaryOptionsMarketUpdate",
   is(o: any): o is EventBinaryOptionsMarketUpdate {
@@ -1465,6 +1869,11 @@ function createBaseEventNewSpotOrders(): EventNewSpotOrders {
     sellOrders: []
   };
 }
+/**
+ * @name EventNewSpotOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewSpotOrders
+ */
 export const EventNewSpotOrders = {
   typeUrl: "/injective.exchange.v1beta1.EventNewSpotOrders",
   is(o: any): o is EventNewSpotOrders {
@@ -1568,6 +1977,11 @@ function createBaseEventNewDerivativeOrders(): EventNewDerivativeOrders {
     sellOrders: []
   };
 }
+/**
+ * @name EventNewDerivativeOrders
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewDerivativeOrders
+ */
 export const EventNewDerivativeOrders = {
   typeUrl: "/injective.exchange.v1beta1.EventNewDerivativeOrders",
   is(o: any): o is EventNewDerivativeOrders {
@@ -1670,6 +2084,11 @@ function createBaseEventCancelSpotOrder(): EventCancelSpotOrder {
     order: SpotLimitOrder.fromPartial({})
   };
 }
+/**
+ * @name EventCancelSpotOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelSpotOrder
+ */
 export const EventCancelSpotOrder = {
   typeUrl: "/injective.exchange.v1beta1.EventCancelSpotOrder",
   is(o: any): o is EventCancelSpotOrder {
@@ -1756,6 +2175,11 @@ function createBaseEventSpotMarketUpdate(): EventSpotMarketUpdate {
     market: SpotMarket.fromPartial({})
   };
 }
+/**
+ * @name EventSpotMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSpotMarketUpdate
+ */
 export const EventSpotMarketUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventSpotMarketUpdate",
   is(o: any): o is EventSpotMarketUpdate {
@@ -1833,6 +2257,11 @@ function createBaseEventPerpetualMarketUpdate(): EventPerpetualMarketUpdate {
     funding: undefined
   };
 }
+/**
+ * @name EventPerpetualMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventPerpetualMarketUpdate
+ */
 export const EventPerpetualMarketUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketUpdate",
   is(o: any): o is EventPerpetualMarketUpdate {
@@ -1933,6 +2362,11 @@ function createBaseEventExpiryFuturesMarketUpdate(): EventExpiryFuturesMarketUpd
     expiryFuturesMarketInfo: undefined
   };
 }
+/**
+ * @name EventExpiryFuturesMarketUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate
+ */
 export const EventExpiryFuturesMarketUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventExpiryFuturesMarketUpdate",
   is(o: any): o is EventExpiryFuturesMarketUpdate {
@@ -2024,6 +2458,11 @@ function createBaseEventPerpetualMarketFundingUpdate(): EventPerpetualMarketFund
     markPrice: undefined
   };
 }
+/**
+ * @name EventPerpetualMarketFundingUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate
+ */
 export const EventPerpetualMarketFundingUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventPerpetualMarketFundingUpdate",
   is(o: any): o is EventPerpetualMarketFundingUpdate {
@@ -2145,6 +2584,11 @@ function createBaseEventSubaccountDeposit(): EventSubaccountDeposit {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventSubaccountDeposit
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountDeposit
+ */
 export const EventSubaccountDeposit = {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountDeposit",
   is(o: any): o is EventSubaccountDeposit {
@@ -2244,6 +2688,11 @@ function createBaseEventSubaccountWithdraw(): EventSubaccountWithdraw {
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventSubaccountWithdraw
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountWithdraw
+ */
 export const EventSubaccountWithdraw = {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountWithdraw",
   is(o: any): o is EventSubaccountWithdraw {
@@ -2343,6 +2792,11 @@ function createBaseEventSubaccountBalanceTransfer(): EventSubaccountBalanceTrans
     amount: Coin.fromPartial({})
   };
 }
+/**
+ * @name EventSubaccountBalanceTransfer
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSubaccountBalanceTransfer
+ */
 export const EventSubaccountBalanceTransfer = {
   typeUrl: "/injective.exchange.v1beta1.EventSubaccountBalanceTransfer",
   is(o: any): o is EventSubaccountBalanceTransfer {
@@ -2440,6 +2894,11 @@ function createBaseEventBatchDepositUpdate(): EventBatchDepositUpdate {
     depositUpdates: []
   };
 }
+/**
+ * @name EventBatchDepositUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventBatchDepositUpdate
+ */
 export const EventBatchDepositUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventBatchDepositUpdate",
   is(o: any): o is EventBatchDepositUpdate {
@@ -2518,6 +2977,11 @@ function createBaseDerivativeMarketOrderCancel(): DerivativeMarketOrderCancel {
     cancelQuantity: ""
   };
 }
+/**
+ * @name DerivativeMarketOrderCancel
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DerivativeMarketOrderCancel
+ */
 export const DerivativeMarketOrderCancel = {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarketOrderCancel",
   is(o: any): o is DerivativeMarketOrderCancel {
@@ -2607,6 +3071,11 @@ function createBaseEventCancelDerivativeOrder(): EventCancelDerivativeOrder {
     marketOrderCancel: undefined
   };
 }
+/**
+ * @name EventCancelDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelDerivativeOrder
+ */
 export const EventCancelDerivativeOrder = {
   typeUrl: "/injective.exchange.v1beta1.EventCancelDerivativeOrder",
   is(o: any): o is EventCancelDerivativeOrder {
@@ -2716,6 +3185,11 @@ function createBaseEventFeeDiscountSchedule(): EventFeeDiscountSchedule {
     schedule: undefined
   };
 }
+/**
+ * @name EventFeeDiscountSchedule
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventFeeDiscountSchedule
+ */
 export const EventFeeDiscountSchedule = {
   typeUrl: "/injective.exchange.v1beta1.EventFeeDiscountSchedule",
   is(o: any): o is EventFeeDiscountSchedule {
@@ -2792,6 +3266,11 @@ function createBaseEventTradingRewardCampaignUpdate(): EventTradingRewardCampaig
     campaignRewardPools: []
   };
 }
+/**
+ * @name EventTradingRewardCampaignUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventTradingRewardCampaignUpdate
+ */
 export const EventTradingRewardCampaignUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventTradingRewardCampaignUpdate",
   is(o: any): o is EventTradingRewardCampaignUpdate {
@@ -2881,6 +3360,11 @@ function createBaseEventTradingRewardDistribution(): EventTradingRewardDistribut
     accountRewards: []
   };
 }
+/**
+ * @name EventTradingRewardDistribution
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventTradingRewardDistribution
+ */
 export const EventTradingRewardDistribution = {
   typeUrl: "/injective.exchange.v1beta1.EventTradingRewardDistribution",
   is(o: any): o is EventTradingRewardDistribution {
@@ -2961,6 +3445,11 @@ function createBaseEventNewConditionalDerivativeOrder(): EventNewConditionalDeri
     isMarket: false
   };
 }
+/**
+ * @name EventNewConditionalDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNewConditionalDerivativeOrder
+ */
 export const EventNewConditionalDerivativeOrder = {
   typeUrl: "/injective.exchange.v1beta1.EventNewConditionalDerivativeOrder",
   is(o: any): o is EventNewConditionalDerivativeOrder {
@@ -3072,6 +3561,11 @@ function createBaseEventCancelConditionalDerivativeOrder(): EventCancelCondition
     marketOrder: undefined
   };
 }
+/**
+ * @name EventCancelConditionalDerivativeOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder
+ */
 export const EventCancelConditionalDerivativeOrder = {
   typeUrl: "/injective.exchange.v1beta1.EventCancelConditionalDerivativeOrder",
   is(o: any): o is EventCancelConditionalDerivativeOrder {
@@ -3185,6 +3679,11 @@ function createBaseEventConditionalDerivativeOrderTrigger(): EventConditionalDer
     triggeredOrderCid: ""
   };
 }
+/**
+ * @name EventConditionalDerivativeOrderTrigger
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger
+ */
 export const EventConditionalDerivativeOrderTrigger = {
   typeUrl: "/injective.exchange.v1beta1.EventConditionalDerivativeOrderTrigger",
   is(o: any): o is EventConditionalDerivativeOrderTrigger {
@@ -3302,6 +3801,11 @@ function createBaseEventOrderFail(): EventOrderFail {
     cids: []
   };
 }
+/**
+ * @name EventOrderFail
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderFail
+ */
 export const EventOrderFail = {
   typeUrl: "/injective.exchange.v1beta1.EventOrderFail",
   is(o: any): o is EventOrderFail {
@@ -3420,6 +3924,11 @@ function createBaseEventAtomicMarketOrderFeeMultipliersUpdated(): EventAtomicMar
     marketFeeMultipliers: []
   };
 }
+/**
+ * @name EventAtomicMarketOrderFeeMultipliersUpdated
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated
+ */
 export const EventAtomicMarketOrderFeeMultipliersUpdated = {
   typeUrl: "/injective.exchange.v1beta1.EventAtomicMarketOrderFeeMultipliersUpdated",
   is(o: any): o is EventAtomicMarketOrderFeeMultipliersUpdated {
@@ -3498,6 +4007,11 @@ function createBaseEventOrderbookUpdate(): EventOrderbookUpdate {
     derivativeUpdates: []
   };
 }
+/**
+ * @name EventOrderbookUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderbookUpdate
+ */
 export const EventOrderbookUpdate = {
   typeUrl: "/injective.exchange.v1beta1.EventOrderbookUpdate",
   is(o: any): o is EventOrderbookUpdate {
@@ -3589,6 +4103,11 @@ function createBaseOrderbookUpdate(): OrderbookUpdate {
     orderbook: undefined
   };
 }
+/**
+ * @name OrderbookUpdate
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.OrderbookUpdate
+ */
 export const OrderbookUpdate = {
   typeUrl: "/injective.exchange.v1beta1.OrderbookUpdate",
   is(o: any): o is OrderbookUpdate {
@@ -3677,6 +4196,11 @@ function createBaseOrderbook(): Orderbook {
     sellLevels: []
   };
 }
+/**
+ * @name Orderbook
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.Orderbook
+ */
 export const Orderbook = {
   typeUrl: "/injective.exchange.v1beta1.Orderbook",
   is(o: any): o is Orderbook {
@@ -3779,6 +4303,11 @@ function createBaseEventGrantAuthorizations(): EventGrantAuthorizations {
     grants: []
   };
 }
+/**
+ * @name EventGrantAuthorizations
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventGrantAuthorizations
+ */
 export const EventGrantAuthorizations = {
   typeUrl: "/injective.exchange.v1beta1.EventGrantAuthorizations",
   is(o: any): o is EventGrantAuthorizations {
@@ -3869,6 +4398,11 @@ function createBaseEventGrantActivation(): EventGrantActivation {
     amount: ""
   };
 }
+/**
+ * @name EventGrantActivation
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventGrantActivation
+ */
 export const EventGrantActivation = {
   typeUrl: "/injective.exchange.v1beta1.EventGrantActivation",
   is(o: any): o is EventGrantActivation {
@@ -3962,6 +4496,11 @@ function createBaseEventInvalidGrant(): EventInvalidGrant {
     granter: ""
   };
 }
+/**
+ * @name EventInvalidGrant
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventInvalidGrant
+ */
 export const EventInvalidGrant = {
   typeUrl: "/injective.exchange.v1beta1.EventInvalidGrant",
   is(o: any): o is EventInvalidGrant {
@@ -4047,6 +4586,11 @@ function createBaseEventOrderCancelFail(): EventOrderCancelFail {
     description: ""
   };
 }
+/**
+ * @name EventOrderCancelFail
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventOrderCancelFail
+ */
 export const EventOrderCancelFail = {
   typeUrl: "/injective.exchange.v1beta1.EventOrderCancelFail",
   is(o: any): o is EventOrderCancelFail {

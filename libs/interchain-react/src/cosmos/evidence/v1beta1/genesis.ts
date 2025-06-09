@@ -1,18 +1,32 @@
 import { Any, AnyAmino } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
-/** GenesisState defines the evidence module's genesis state. */
+/**
+ * GenesisState defines the evidence module's genesis state.
+ * @name GenesisState
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.GenesisState
+ */
 export interface GenesisState {
-  /** evidence defines all the evidence at genesis. */
+  /**
+   * evidence defines all the evidence at genesis.
+   */
   evidence: Any[];
 }
 export interface GenesisStateProtoMsg {
   typeUrl: "/cosmos.evidence.v1beta1.GenesisState";
   value: Uint8Array;
 }
-/** GenesisState defines the evidence module's genesis state. */
+/**
+ * GenesisState defines the evidence module's genesis state.
+ * @name GenesisStateAmino
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.GenesisState
+ */
 export interface GenesisStateAmino {
-  /** evidence defines all the evidence at genesis. */
+  /**
+   * evidence defines all the evidence at genesis.
+   */
   evidence: AnyAmino[];
 }
 export interface GenesisStateAminoMsg {
@@ -24,6 +38,12 @@ function createBaseGenesisState(): GenesisState {
     evidence: []
   };
 }
+/**
+ * GenesisState defines the evidence module's genesis state.
+ * @name GenesisState
+ * @package cosmos.evidence.v1beta1
+ * @see proto type: cosmos.evidence.v1beta1.GenesisState
+ */
 export const GenesisState = {
   typeUrl: "/cosmos.evidence.v1beta1.GenesisState",
   aminoType: "cosmos-sdk/GenesisState",

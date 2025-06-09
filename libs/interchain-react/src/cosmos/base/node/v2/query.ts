@@ -1,18 +1,33 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-/** ConfigRequest defines the request structure for the Config gRPC query. */
+/**
+ * ConfigRequest defines the request structure for the Config gRPC query.
+ * @name ConfigRequest
+ * @package cosmos.base.node.v2
+ * @see proto type: cosmos.base.node.v2.ConfigRequest
+ */
 export interface ConfigRequest {}
 export interface ConfigRequestProtoMsg {
   typeUrl: "/cosmos.base.node.v2.ConfigRequest";
   value: Uint8Array;
 }
-/** ConfigRequest defines the request structure for the Config gRPC query. */
+/**
+ * ConfigRequest defines the request structure for the Config gRPC query.
+ * @name ConfigRequestAmino
+ * @package cosmos.base.node.v2
+ * @see proto type: cosmos.base.node.v2.ConfigRequest
+ */
 export interface ConfigRequestAmino {}
 export interface ConfigRequestAminoMsg {
   type: "cosmos-sdk/ConfigRequest";
   value: ConfigRequestAmino;
 }
-/** ConfigResponse defines the response structure for the Config gRPC query. */
+/**
+ * ConfigResponse defines the response structure for the Config gRPC query.
+ * @name ConfigResponse
+ * @package cosmos.base.node.v2
+ * @see proto type: cosmos.base.node.v2.ConfigResponse
+ */
 export interface ConfigResponse {
   minimumGasPrice: string;
 }
@@ -20,7 +35,12 @@ export interface ConfigResponseProtoMsg {
   typeUrl: "/cosmos.base.node.v2.ConfigResponse";
   value: Uint8Array;
 }
-/** ConfigResponse defines the response structure for the Config gRPC query. */
+/**
+ * ConfigResponse defines the response structure for the Config gRPC query.
+ * @name ConfigResponseAmino
+ * @package cosmos.base.node.v2
+ * @see proto type: cosmos.base.node.v2.ConfigResponse
+ */
 export interface ConfigResponseAmino {
   minimum_gas_price: string;
 }
@@ -31,6 +51,12 @@ export interface ConfigResponseAminoMsg {
 function createBaseConfigRequest(): ConfigRequest {
   return {};
 }
+/**
+ * ConfigRequest defines the request structure for the Config gRPC query.
+ * @name ConfigRequest
+ * @package cosmos.base.node.v2
+ * @see proto type: cosmos.base.node.v2.ConfigRequest
+ */
 export const ConfigRequest = {
   typeUrl: "/cosmos.base.node.v2.ConfigRequest",
   aminoType: "cosmos-sdk/ConfigRequest",
@@ -97,6 +123,12 @@ function createBaseConfigResponse(): ConfigResponse {
     minimumGasPrice: ""
   };
 }
+/**
+ * ConfigResponse defines the response structure for the Config gRPC query.
+ * @name ConfigResponse
+ * @package cosmos.base.node.v2
+ * @see proto type: cosmos.base.node.v2.ConfigResponse
+ */
 export const ConfigResponse = {
   typeUrl: "/cosmos.base.node.v2.ConfigResponse",
   aminoType: "cosmos-sdk/ConfigResponse",

@@ -7,6 +7,9 @@ import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * QueryAuctionParamsRequest is the request type for the Query/AuctionParams RPC
  * method.
+ * @name QueryAuctionParamsRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryAuctionParamsRequest
  */
 export interface QueryAuctionParamsRequest {}
 export interface QueryAuctionParamsRequestProtoMsg {
@@ -16,6 +19,9 @@ export interface QueryAuctionParamsRequestProtoMsg {
 /**
  * QueryAuctionParamsRequest is the request type for the Query/AuctionParams RPC
  * method.
+ * @name QueryAuctionParamsRequestAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryAuctionParamsRequest
  */
 export interface QueryAuctionParamsRequestAmino {}
 export interface QueryAuctionParamsRequestAminoMsg {
@@ -25,6 +31,9 @@ export interface QueryAuctionParamsRequestAminoMsg {
 /**
  * QueryAuctionParamsRequest is the response type for the Query/AuctionParams
  * RPC method.
+ * @name QueryAuctionParamsResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryAuctionParamsResponse
  */
 export interface QueryAuctionParamsResponse {
   params: Params;
@@ -36,6 +45,9 @@ export interface QueryAuctionParamsResponseProtoMsg {
 /**
  * QueryAuctionParamsRequest is the response type for the Query/AuctionParams
  * RPC method.
+ * @name QueryAuctionParamsResponseAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryAuctionParamsResponse
  */
 export interface QueryAuctionParamsResponseAmino {
   params: ParamsAmino;
@@ -47,6 +59,9 @@ export interface QueryAuctionParamsResponseAminoMsg {
 /**
  * QueryCurrentAuctionBasketRequest is the request type for the
  * Query/CurrentAuctionBasket RPC method.
+ * @name QueryCurrentAuctionBasketRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryCurrentAuctionBasketRequest
  */
 export interface QueryCurrentAuctionBasketRequest {}
 export interface QueryCurrentAuctionBasketRequestProtoMsg {
@@ -56,6 +71,9 @@ export interface QueryCurrentAuctionBasketRequestProtoMsg {
 /**
  * QueryCurrentAuctionBasketRequest is the request type for the
  * Query/CurrentAuctionBasket RPC method.
+ * @name QueryCurrentAuctionBasketRequestAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryCurrentAuctionBasketRequest
  */
 export interface QueryCurrentAuctionBasketRequestAmino {}
 export interface QueryCurrentAuctionBasketRequestAminoMsg {
@@ -65,17 +83,30 @@ export interface QueryCurrentAuctionBasketRequestAminoMsg {
 /**
  * QueryCurrentAuctionBasketResponse is the response type for the
  * Query/CurrentAuctionBasket RPC method.
+ * @name QueryCurrentAuctionBasketResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryCurrentAuctionBasketResponse
  */
 export interface QueryCurrentAuctionBasketResponse {
-  /** amount describes the amount put on auction */
+  /**
+   * amount describes the amount put on auction
+   */
   amount: Coin[];
-  /** auctionRound describes current auction round */
+  /**
+   * auctionRound describes current auction round
+   */
   auctionRound: bigint;
-  /** auctionClosingTime describes auction close time for the round */
+  /**
+   * auctionClosingTime describes auction close time for the round
+   */
   auctionClosingTime: bigint;
-  /** highestBidder describes highest bidder on current round */
+  /**
+   * highestBidder describes highest bidder on current round
+   */
   highestBidder: string;
-  /** highestBidAmount describes highest bid amount on current round */
+  /**
+   * highestBidAmount describes highest bid amount on current round
+   */
   highestBidAmount: string;
 }
 export interface QueryCurrentAuctionBasketResponseProtoMsg {
@@ -85,17 +116,30 @@ export interface QueryCurrentAuctionBasketResponseProtoMsg {
 /**
  * QueryCurrentAuctionBasketResponse is the response type for the
  * Query/CurrentAuctionBasket RPC method.
+ * @name QueryCurrentAuctionBasketResponseAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryCurrentAuctionBasketResponse
  */
 export interface QueryCurrentAuctionBasketResponseAmino {
-  /** amount describes the amount put on auction */
+  /**
+   * amount describes the amount put on auction
+   */
   amount: CoinAmino[];
-  /** auctionRound describes current auction round */
+  /**
+   * auctionRound describes current auction round
+   */
   auctionRound: string;
-  /** auctionClosingTime describes auction close time for the round */
+  /**
+   * auctionClosingTime describes auction close time for the round
+   */
   auctionClosingTime: string;
-  /** highestBidder describes highest bidder on current round */
+  /**
+   * highestBidder describes highest bidder on current round
+   */
   highestBidder: string;
-  /** highestBidAmount describes highest bid amount on current round */
+  /**
+   * highestBidAmount describes highest bid amount on current round
+   */
   highestBidAmount: string;
 }
 export interface QueryCurrentAuctionBasketResponseAminoMsg {
@@ -105,6 +149,9 @@ export interface QueryCurrentAuctionBasketResponseAminoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/AuctionModuleState
  * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequest {}
 export interface QueryModuleStateRequestProtoMsg {
@@ -114,6 +161,9 @@ export interface QueryModuleStateRequestProtoMsg {
 /**
  * QueryModuleStateRequest is the request type for the Query/AuctionModuleState
  * RPC method.
+ * @name QueryModuleStateRequestAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryModuleStateRequest
  */
 export interface QueryModuleStateRequestAmino {}
 export interface QueryModuleStateRequestAminoMsg {
@@ -123,6 +173,9 @@ export interface QueryModuleStateRequestAminoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/AuctionModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponse {
   state?: GenesisState;
@@ -134,6 +187,9 @@ export interface QueryModuleStateResponseProtoMsg {
 /**
  * QueryModuleStateResponse is the response type for the
  * Query/AuctionModuleState RPC method.
+ * @name QueryModuleStateResponseAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryModuleStateResponse
  */
 export interface QueryModuleStateResponseAmino {
   state?: GenesisStateAmino;
@@ -142,16 +198,31 @@ export interface QueryModuleStateResponseAminoMsg {
   type: "/injective.auction.v1beta1.QueryModuleStateResponse";
   value: QueryModuleStateResponseAmino;
 }
+/**
+ * @name QueryLastAuctionResultRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryLastAuctionResultRequest
+ */
 export interface QueryLastAuctionResultRequest {}
 export interface QueryLastAuctionResultRequestProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultRequest";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastAuctionResultRequestAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryLastAuctionResultRequest
+ */
 export interface QueryLastAuctionResultRequestAmino {}
 export interface QueryLastAuctionResultRequestAminoMsg {
   type: "/injective.auction.v1beta1.QueryLastAuctionResultRequest";
   value: QueryLastAuctionResultRequestAmino;
 }
+/**
+ * @name QueryLastAuctionResultResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryLastAuctionResultResponse
+ */
 export interface QueryLastAuctionResultResponse {
   lastAuctionResult?: LastAuctionResult;
 }
@@ -159,6 +230,11 @@ export interface QueryLastAuctionResultResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultResponse";
   value: Uint8Array;
 }
+/**
+ * @name QueryLastAuctionResultResponseAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryLastAuctionResultResponse
+ */
 export interface QueryLastAuctionResultResponseAmino {
   last_auction_result?: LastAuctionResultAmino;
 }
@@ -169,6 +245,13 @@ export interface QueryLastAuctionResultResponseAminoMsg {
 function createBaseQueryAuctionParamsRequest(): QueryAuctionParamsRequest {
   return {};
 }
+/**
+ * QueryAuctionParamsRequest is the request type for the Query/AuctionParams RPC
+ * method.
+ * @name QueryAuctionParamsRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryAuctionParamsRequest
+ */
 export const QueryAuctionParamsRequest = {
   typeUrl: "/injective.auction.v1beta1.QueryAuctionParamsRequest",
   is(o: any): o is QueryAuctionParamsRequest {
@@ -228,6 +311,13 @@ function createBaseQueryAuctionParamsResponse(): QueryAuctionParamsResponse {
     params: Params.fromPartial({})
   };
 }
+/**
+ * QueryAuctionParamsRequest is the response type for the Query/AuctionParams
+ * RPC method.
+ * @name QueryAuctionParamsResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryAuctionParamsResponse
+ */
 export const QueryAuctionParamsResponse = {
   typeUrl: "/injective.auction.v1beta1.QueryAuctionParamsResponse",
   is(o: any): o is QueryAuctionParamsResponse {
@@ -301,6 +391,13 @@ export const QueryAuctionParamsResponse = {
 function createBaseQueryCurrentAuctionBasketRequest(): QueryCurrentAuctionBasketRequest {
   return {};
 }
+/**
+ * QueryCurrentAuctionBasketRequest is the request type for the
+ * Query/CurrentAuctionBasket RPC method.
+ * @name QueryCurrentAuctionBasketRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryCurrentAuctionBasketRequest
+ */
 export const QueryCurrentAuctionBasketRequest = {
   typeUrl: "/injective.auction.v1beta1.QueryCurrentAuctionBasketRequest",
   is(o: any): o is QueryCurrentAuctionBasketRequest {
@@ -364,6 +461,13 @@ function createBaseQueryCurrentAuctionBasketResponse(): QueryCurrentAuctionBaske
     highestBidAmount: ""
   };
 }
+/**
+ * QueryCurrentAuctionBasketResponse is the response type for the
+ * Query/CurrentAuctionBasket RPC method.
+ * @name QueryCurrentAuctionBasketResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryCurrentAuctionBasketResponse
+ */
 export const QueryCurrentAuctionBasketResponse = {
   typeUrl: "/injective.auction.v1beta1.QueryCurrentAuctionBasketResponse",
   is(o: any): o is QueryCurrentAuctionBasketResponse {
@@ -483,6 +587,13 @@ export const QueryCurrentAuctionBasketResponse = {
 function createBaseQueryModuleStateRequest(): QueryModuleStateRequest {
   return {};
 }
+/**
+ * QueryModuleStateRequest is the request type for the Query/AuctionModuleState
+ * RPC method.
+ * @name QueryModuleStateRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryModuleStateRequest
+ */
 export const QueryModuleStateRequest = {
   typeUrl: "/injective.auction.v1beta1.QueryModuleStateRequest",
   is(o: any): o is QueryModuleStateRequest {
@@ -542,6 +653,13 @@ function createBaseQueryModuleStateResponse(): QueryModuleStateResponse {
     state: undefined
   };
 }
+/**
+ * QueryModuleStateResponse is the response type for the
+ * Query/AuctionModuleState RPC method.
+ * @name QueryModuleStateResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryModuleStateResponse
+ */
 export const QueryModuleStateResponse = {
   typeUrl: "/injective.auction.v1beta1.QueryModuleStateResponse",
   is(o: any): o is QueryModuleStateResponse {
@@ -615,6 +733,11 @@ export const QueryModuleStateResponse = {
 function createBaseQueryLastAuctionResultRequest(): QueryLastAuctionResultRequest {
   return {};
 }
+/**
+ * @name QueryLastAuctionResultRequest
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryLastAuctionResultRequest
+ */
 export const QueryLastAuctionResultRequest = {
   typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultRequest",
   is(o: any): o is QueryLastAuctionResultRequest {
@@ -674,6 +797,11 @@ function createBaseQueryLastAuctionResultResponse(): QueryLastAuctionResultRespo
     lastAuctionResult: undefined
   };
 }
+/**
+ * @name QueryLastAuctionResultResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.QueryLastAuctionResultResponse
+ */
 export const QueryLastAuctionResultResponse = {
   typeUrl: "/injective.auction.v1beta1.QueryLastAuctionResultResponse",
   is(o: any): o is QueryLastAuctionResultResponse {

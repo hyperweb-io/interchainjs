@@ -3,42 +3,77 @@ import { Params, ParamsAmino } from "./auction";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
-/** Bid defines a SDK message for placing a bid for an auction */
+/**
+ * Bid defines a SDK message for placing a bid for an auction
+ * @name MsgBid
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgBid
+ */
 export interface MsgBid {
   sender: string;
-  /** amount of the bid in INJ tokens */
+  /**
+   * amount of the bid in INJ tokens
+   */
   bidAmount: Coin;
-  /** the current auction round being bid on */
+  /**
+   * the current auction round being bid on
+   */
   round: bigint;
 }
 export interface MsgBidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgBid";
   value: Uint8Array;
 }
-/** Bid defines a SDK message for placing a bid for an auction */
+/**
+ * Bid defines a SDK message for placing a bid for an auction
+ * @name MsgBidAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgBid
+ */
 export interface MsgBidAmino {
   sender: string;
-  /** amount of the bid in INJ tokens */
+  /**
+   * amount of the bid in INJ tokens
+   */
   bid_amount: CoinAmino;
-  /** the current auction round being bid on */
+  /**
+   * the current auction round being bid on
+   */
   round: string;
 }
 export interface MsgBidAminoMsg {
   type: "auction/MsgBid";
   value: MsgBidAmino;
 }
+/**
+ * @name MsgBidResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgBidResponse
+ */
 export interface MsgBidResponse {}
 export interface MsgBidResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgBidResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgBidResponseAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgBidResponse
+ */
 export interface MsgBidResponseAmino {}
 export interface MsgBidResponseAminoMsg {
   type: "/injective.auction.v1beta1.MsgBidResponse";
   value: MsgBidResponseAmino;
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParams {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the ocr parameters to update.
@@ -51,8 +86,15 @@ export interface MsgUpdateParamsProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgUpdateParams";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgUpdateParams
+ */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address of the governance account. */
+  /**
+   * authority is the address of the governance account.
+   */
   authority: string;
   /**
    * params defines the ocr parameters to update.
@@ -65,11 +107,21 @@ export interface MsgUpdateParamsAminoMsg {
   type: "auction/MsgUpdateParams";
   value: MsgUpdateParamsAmino;
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
   typeUrl: "/injective.auction.v1beta1.MsgUpdateParamsResponse";
   value: Uint8Array;
 }
+/**
+ * @name MsgUpdateParamsResponseAmino
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgUpdateParamsResponse
+ */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
   type: "/injective.auction.v1beta1.MsgUpdateParamsResponse";
@@ -82,6 +134,12 @@ function createBaseMsgBid(): MsgBid {
     round: BigInt(0)
   };
 }
+/**
+ * Bid defines a SDK message for placing a bid for an auction
+ * @name MsgBid
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgBid
+ */
 export const MsgBid = {
   typeUrl: "/injective.auction.v1beta1.MsgBid",
   aminoType: "auction/MsgBid",
@@ -184,6 +242,11 @@ export const MsgBid = {
 function createBaseMsgBidResponse(): MsgBidResponse {
   return {};
 }
+/**
+ * @name MsgBidResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgBidResponse
+ */
 export const MsgBidResponse = {
   typeUrl: "/injective.auction.v1beta1.MsgBidResponse",
   is(o: any): o is MsgBidResponse {
@@ -244,6 +307,11 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
     params: Params.fromPartial({})
   };
 }
+/**
+ * @name MsgUpdateParams
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgUpdateParams
+ */
 export const MsgUpdateParams = {
   typeUrl: "/injective.auction.v1beta1.MsgUpdateParams",
   aminoType: "auction/MsgUpdateParams",
@@ -335,6 +403,11 @@ export const MsgUpdateParams = {
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
+/**
+ * @name MsgUpdateParamsResponse
+ * @package injective.auction.v1beta1
+ * @see proto type: injective.auction.v1beta1.MsgUpdateParamsResponse
+ */
 export const MsgUpdateParamsResponse = {
   typeUrl: "/injective.auction.v1beta1.MsgUpdateParamsResponse",
   is(o: any): o is MsgUpdateParamsResponse {

@@ -1,6 +1,11 @@
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
-/** Module is the config object of the bank module. */
+/**
+ * Module is the config object of the bank module.
+ * @name Module
+ * @package cosmos.bank.module.v1
+ * @see proto type: cosmos.bank.module.v1.Module
+ */
 export interface Module {
   /**
    * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
@@ -8,7 +13,9 @@ export interface Module {
    * module_account_permissions
    */
   blockedModuleAccountsOverride: string[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
   /**
    * restrictions_order specifies the order of send restrictions and should be
@@ -22,7 +29,12 @@ export interface ModuleProtoMsg {
   typeUrl: "/cosmos.bank.module.v1.Module";
   value: Uint8Array;
 }
-/** Module is the config object of the bank module. */
+/**
+ * Module is the config object of the bank module.
+ * @name ModuleAmino
+ * @package cosmos.bank.module.v1
+ * @see proto type: cosmos.bank.module.v1.Module
+ */
 export interface ModuleAmino {
   /**
    * blocked_module_accounts_override configures exceptional module accounts which should be blocked from receiving
@@ -30,7 +42,9 @@ export interface ModuleAmino {
    * module_account_permissions
    */
   blocked_module_accounts_override: string[];
-  /** authority defines the custom module authority. If not set, defaults to the governance module. */
+  /**
+   * authority defines the custom module authority. If not set, defaults to the governance module.
+   */
   authority: string;
   /**
    * restrictions_order specifies the order of send restrictions and should be
@@ -51,6 +65,12 @@ function createBaseModule(): Module {
     restrictionsOrder: []
   };
 }
+/**
+ * Module is the config object of the bank module.
+ * @name Module
+ * @package cosmos.bank.module.v1
+ * @see proto type: cosmos.bank.module.v1.Module
+ */
 export const Module = {
   typeUrl: "/cosmos.bank.module.v1.Module",
   aminoType: "cosmos-sdk/Module",

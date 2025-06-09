@@ -7,17 +7,30 @@ import { GlobalDecoderRegistry } from "../../../../registry";
  * FungibleTokenPacketData defines a struct for the packet payload
  * See FungibleTokenPacketData spec:
  * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+ * @name FungibleTokenPacketData
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.FungibleTokenPacketData
  */
 export interface FungibleTokenPacketData {
-  /** the token denomination to be transferred */
+  /**
+   * the token denomination to be transferred
+   */
   denom: string;
-  /** the token amount to be transferred */
+  /**
+   * the token amount to be transferred
+   */
   amount: string;
-  /** the sender address */
+  /**
+   * the sender address
+   */
   sender: string;
-  /** the recipient address on the destination chain */
+  /**
+   * the recipient address on the destination chain
+   */
   receiver: string;
-  /** optional memo */
+  /**
+   * optional memo
+   */
   memo: string;
 }
 export interface FungibleTokenPacketDataProtoMsg {
@@ -28,17 +41,30 @@ export interface FungibleTokenPacketDataProtoMsg {
  * FungibleTokenPacketData defines a struct for the packet payload
  * See FungibleTokenPacketData spec:
  * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+ * @name FungibleTokenPacketDataAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.FungibleTokenPacketData
  */
 export interface FungibleTokenPacketDataAmino {
-  /** the token denomination to be transferred */
+  /**
+   * the token denomination to be transferred
+   */
   denom: string;
-  /** the token amount to be transferred */
+  /**
+   * the token amount to be transferred
+   */
   amount: string;
-  /** the sender address */
+  /**
+   * the sender address
+   */
   sender: string;
-  /** the recipient address on the destination chain */
+  /**
+   * the recipient address on the destination chain
+   */
   receiver: string;
-  /** optional memo */
+  /**
+   * optional memo
+   */
   memo: string;
 }
 export interface FungibleTokenPacketDataAminoMsg {
@@ -49,17 +75,30 @@ export interface FungibleTokenPacketDataAminoMsg {
  * FungibleTokenPacketDataV2 defines a struct for the packet payload
  * See FungibleTokenPacketDataV2 spec:
  * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+ * @name FungibleTokenPacketDataV2
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.FungibleTokenPacketDataV2
  */
 export interface FungibleTokenPacketDataV2 {
-  /** the tokens to be transferred */
+  /**
+   * the tokens to be transferred
+   */
   tokens: Token[];
-  /** the sender address */
+  /**
+   * the sender address
+   */
   sender: string;
-  /** the recipient address on the destination chain */
+  /**
+   * the recipient address on the destination chain
+   */
   receiver: string;
-  /** optional memo */
+  /**
+   * optional memo
+   */
   memo: string;
-  /** optional forwarding information */
+  /**
+   * optional forwarding information
+   */
   forwarding: ForwardingPacketData;
 }
 export interface FungibleTokenPacketDataV2ProtoMsg {
@@ -70,17 +109,30 @@ export interface FungibleTokenPacketDataV2ProtoMsg {
  * FungibleTokenPacketDataV2 defines a struct for the packet payload
  * See FungibleTokenPacketDataV2 spec:
  * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+ * @name FungibleTokenPacketDataV2Amino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.FungibleTokenPacketDataV2
  */
 export interface FungibleTokenPacketDataV2Amino {
-  /** the tokens to be transferred */
+  /**
+   * the tokens to be transferred
+   */
   tokens: TokenAmino[];
-  /** the sender address */
+  /**
+   * the sender address
+   */
   sender: string;
-  /** the recipient address on the destination chain */
+  /**
+   * the recipient address on the destination chain
+   */
   receiver: string;
-  /** optional memo */
+  /**
+   * optional memo
+   */
   memo: string;
-  /** optional forwarding information */
+  /**
+   * optional forwarding information
+   */
   forwarding: ForwardingPacketDataAmino;
 }
 export interface FungibleTokenPacketDataV2AminoMsg {
@@ -91,11 +143,18 @@ export interface FungibleTokenPacketDataV2AminoMsg {
  * ForwardingPacketData defines a list of port ID, channel ID pairs determining the path
  * through which a packet must be forwarded, and the destination memo string to be used in the
  * final destination of the tokens.
+ * @name ForwardingPacketData
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.ForwardingPacketData
  */
 export interface ForwardingPacketData {
-  /** optional memo consumed by final destination chain */
+  /**
+   * optional memo consumed by final destination chain
+   */
   destinationMemo: string;
-  /** optional intermediate path through which packet will be forwarded. */
+  /**
+   * optional intermediate path through which packet will be forwarded.
+   */
   hops: Hop[];
 }
 export interface ForwardingPacketDataProtoMsg {
@@ -106,11 +165,18 @@ export interface ForwardingPacketDataProtoMsg {
  * ForwardingPacketData defines a list of port ID, channel ID pairs determining the path
  * through which a packet must be forwarded, and the destination memo string to be used in the
  * final destination of the tokens.
+ * @name ForwardingPacketDataAmino
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.ForwardingPacketData
  */
 export interface ForwardingPacketDataAmino {
-  /** optional memo consumed by final destination chain */
+  /**
+   * optional memo consumed by final destination chain
+   */
   destination_memo: string;
-  /** optional intermediate path through which packet will be forwarded. */
+  /**
+   * optional intermediate path through which packet will be forwarded.
+   */
   hops: HopAmino[];
 }
 export interface ForwardingPacketDataAminoMsg {
@@ -126,6 +192,14 @@ function createBaseFungibleTokenPacketData(): FungibleTokenPacketData {
     memo: ""
   };
 }
+/**
+ * FungibleTokenPacketData defines a struct for the packet payload
+ * See FungibleTokenPacketData spec:
+ * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+ * @name FungibleTokenPacketData
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.FungibleTokenPacketData
+ */
 export const FungibleTokenPacketData = {
   typeUrl: "/ibc.applications.transfer.v2.FungibleTokenPacketData",
   aminoType: "cosmos-sdk/FungibleTokenPacketData",
@@ -251,6 +325,14 @@ function createBaseFungibleTokenPacketDataV2(): FungibleTokenPacketDataV2 {
     forwarding: ForwardingPacketData.fromPartial({})
   };
 }
+/**
+ * FungibleTokenPacketDataV2 defines a struct for the packet payload
+ * See FungibleTokenPacketDataV2 spec:
+ * https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+ * @name FungibleTokenPacketDataV2
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.FungibleTokenPacketDataV2
+ */
 export const FungibleTokenPacketDataV2 = {
   typeUrl: "/ibc.applications.transfer.v2.FungibleTokenPacketDataV2",
   aminoType: "cosmos-sdk/FungibleTokenPacketDataV2",
@@ -381,6 +463,14 @@ function createBaseForwardingPacketData(): ForwardingPacketData {
     hops: []
   };
 }
+/**
+ * ForwardingPacketData defines a list of port ID, channel ID pairs determining the path
+ * through which a packet must be forwarded, and the destination memo string to be used in the
+ * final destination of the tokens.
+ * @name ForwardingPacketData
+ * @package ibc.applications.transfer.v2
+ * @see proto type: ibc.applications.transfer.v2.ForwardingPacketData
+ */
 export const ForwardingPacketData = {
   typeUrl: "/ibc.applications.transfer.v2.ForwardingPacketData",
   aminoType: "cosmos-sdk/ForwardingPacketData",
