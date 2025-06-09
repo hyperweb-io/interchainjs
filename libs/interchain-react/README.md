@@ -147,8 +147,8 @@ By importing only the specific helpers you need, you ensure that your applicatio
 ```ts
 import { SigningClient } from "@interchainjs/cosmos/signing-client";
 import { DirectGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx'
-import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+import { defaultContext } from '@tanstack/react-query';
+import { useSend } from '@interchainjs/react/cosmos/bank/v1beta1/tx.rpc.react';
 
 // Get Keplr offline signer
 const keplrOfflineSigner = window.keplr.getOfflineSigner(chainId);
@@ -165,8 +165,13 @@ const signingClient = await SigningClient.connectWithSigner(
     }
   }
 );
-signingClient.addEncoders([MsgSend])
-signingClient.addConverters([MsgSend])
+
+const {mutate: send} = useSend({
+  clientResolver: signingClient,
+  options: {
+    context: defaultContext
+  }
+})
 
 // Get account info
 const accounts = await offlineSigner.getAccounts();
@@ -175,7 +180,7 @@ const senderAddress = accounts[0].address;
 // Build transfer message
 const amount = [{
   denom: "uatom",
-  amount: (parseFloat(form.amount) * 1000000).toString() // Convert to uatom
+  amount: (parseFloat(form.amount) * 1000000).toString() // Convert from ATOM to uatom
 }]
 
 // Set fee
@@ -188,19 +193,38 @@ const fee = {
 };
 
 // Sign and broadcast transaction
-const result = await send(
-  signingClient,
-  senderAddress,
-  { fromAddress: senderAddress, toAddress: form.toAddress, amount },
-  fee,
-  form.memo || "Transfer ATOM via InterchainJS"
-);
-
-console.log(result.transactionHash);
+send(
+   {
+    signerAddress: senderAddress,
+    message: {
+      fromAddress: senderAddress,
+      toAddress: form.toAddress,
+      amount,
+    },
+    fee,
+    memo: form.memo || "Transfer ATOM via InterchainJS"
+  },
+  {
+    onSuccess: (result) => {
+      setTxHash(result.transactionHash);
+    },
+    onError: (error) => {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Transfer failed:', error);
+      setError(`Transfer failed: ${errorMessage}`);
+    }
+  }
+)
 ```
 
 #### Example: Working with keplr using siging client
 ```ts
+import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx'
+
+// signingClient is the same as in the code above
+signingClient.addEncoders([MsgSend])
+signingClient.addConverters([MsgSend])
+
 const transferMsg = {
   typeUrl: "/cosmos.bank.v1beta1.MsgSend",
   value: {
@@ -210,7 +234,6 @@ const transferMsg = {
   }
 };
 
-// signingClient is the same as in the code above
 const result = await signingClient.signAndBroadcast(
   senderAddress,
   [transferMsg],
