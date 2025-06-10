@@ -21,8 +21,6 @@ export const useVote = buildUseMutation<MsgVote, Error>({
 });
 /**
  * VoteWeighted defines a method to add a weighted vote on a specific proposal.
- * 
- * Since: cosmos-sdk 0.43
  * @name useVoteWeighted
  * @package cosmos.gov.v1beta1
  * @see proto service: cosmos.gov.v1beta1.VoteWeighted

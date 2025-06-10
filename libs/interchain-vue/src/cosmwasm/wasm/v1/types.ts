@@ -257,6 +257,7 @@ export interface ContractInfo {
    */
   created?: AbsoluteTxPosition;
   ibcPortId: string;
+  ibc2PortId: string;
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
@@ -302,6 +303,7 @@ export interface ContractInfoAmino {
    */
   created?: AbsoluteTxPositionAmino;
   ibc_port_id: string;
+  ibc2_port_id: string;
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
@@ -840,6 +842,7 @@ function createBaseContractInfo(): ContractInfo {
     label: "",
     created: undefined,
     ibcPortId: "",
+    ibc2PortId: "",
     extension: undefined
   };
 }
@@ -853,10 +856,10 @@ export const ContractInfo = {
   typeUrl: "/cosmwasm.wasm.v1.ContractInfo",
   aminoType: "wasm/ContractInfo",
   is(o: any): o is ContractInfo {
-    return o && (o.$typeUrl === ContractInfo.typeUrl || typeof o.codeId === "bigint" && typeof o.creator === "string" && typeof o.admin === "string" && typeof o.label === "string" && typeof o.ibcPortId === "string");
+    return o && (o.$typeUrl === ContractInfo.typeUrl || typeof o.codeId === "bigint" && typeof o.creator === "string" && typeof o.admin === "string" && typeof o.label === "string" && typeof o.ibcPortId === "string" && typeof o.ibc2PortId === "string");
   },
   isAmino(o: any): o is ContractInfoAmino {
-    return o && (o.$typeUrl === ContractInfo.typeUrl || typeof o.code_id === "bigint" && typeof o.creator === "string" && typeof o.admin === "string" && typeof o.label === "string" && typeof o.ibc_port_id === "string");
+    return o && (o.$typeUrl === ContractInfo.typeUrl || typeof o.code_id === "bigint" && typeof o.creator === "string" && typeof o.admin === "string" && typeof o.label === "string" && typeof o.ibc_port_id === "string" && typeof o.ibc2_port_id === "string");
   },
   encode(message: ContractInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
@@ -877,8 +880,11 @@ export const ContractInfo = {
     if (message.ibcPortId !== "") {
       writer.uint32(50).string(message.ibcPortId);
     }
+    if (message.ibc2PortId !== "") {
+      writer.uint32(58).string(message.ibc2PortId);
+    }
     if (message.extension !== undefined) {
-      Any.encode(GlobalDecoderRegistry.wrapAny(message.extension), writer.uint32(58).fork()).ldelim();
+      Any.encode(GlobalDecoderRegistry.wrapAny(message.extension), writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -908,6 +914,9 @@ export const ContractInfo = {
           message.ibcPortId = reader.string();
           break;
         case 7:
+          message.ibc2PortId = reader.string();
+          break;
+        case 8:
           message.extension = GlobalDecoderRegistry.unwrapAny(reader);
           break;
         default:
@@ -925,6 +934,7 @@ export const ContractInfo = {
     message.label = object.label ?? "";
     message.created = object.created !== undefined && object.created !== null ? AbsoluteTxPosition.fromPartial(object.created) : undefined;
     message.ibcPortId = object.ibcPortId ?? "";
+    message.ibc2PortId = object.ibc2PortId ?? "";
     message.extension = object.extension !== undefined && object.extension !== null ? GlobalDecoderRegistry.fromPartial(object.extension) : undefined;
     return message;
   },
@@ -948,6 +958,9 @@ export const ContractInfo = {
     if (object.ibc_port_id !== undefined && object.ibc_port_id !== null) {
       message.ibcPortId = object.ibc_port_id;
     }
+    if (object.ibc2_port_id !== undefined && object.ibc2_port_id !== null) {
+      message.ibc2PortId = object.ibc2_port_id;
+    }
     if (object.extension !== undefined && object.extension !== null) {
       message.extension = GlobalDecoderRegistry.fromAminoMsg(object.extension);
     }
@@ -961,6 +974,7 @@ export const ContractInfo = {
     obj.label = message.label === "" ? undefined : message.label;
     obj.created = message.created ? AbsoluteTxPosition.toAmino(message.created) : undefined;
     obj.ibc_port_id = message.ibcPortId === "" ? undefined : message.ibcPortId;
+    obj.ibc2_port_id = message.ibc2PortId === "" ? undefined : message.ibc2PortId;
     obj.extension = message.extension ? GlobalDecoderRegistry.toAminoMsg(message.extension) : undefined;
     return obj;
   },

@@ -4,10 +4,9 @@ import { VoteOption, WeightedVoteOption, WeightedVoteOptionAmino, TextProposal, 
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalProtoMsg, CommunityPoolSpendProposalWithDeposit, CommunityPoolSpendProposalWithDepositProtoMsg } from "../../distribution/v1beta1/distribution";
 import { SoftwareUpgradeProposal, SoftwareUpgradeProposalProtoMsg, CancelSoftwareUpgradeProposal, CancelSoftwareUpgradeProposalProtoMsg } from "../../upgrade/v1beta1/upgrade";
 import { StoreCodeProposal, StoreCodeProposalProtoMsg, InstantiateContractProposal, InstantiateContractProposalProtoMsg, InstantiateContract2Proposal, InstantiateContract2ProposalProtoMsg, MigrateContractProposal, MigrateContractProposalProtoMsg, SudoContractProposal, SudoContractProposalProtoMsg, ExecuteContractProposal, ExecuteContractProposalProtoMsg, UpdateAdminProposal, UpdateAdminProposalProtoMsg, ClearAdminProposal, ClearAdminProposalProtoMsg, PinCodesProposal, PinCodesProposalProtoMsg, UnpinCodesProposal, UnpinCodesProposalProtoMsg, UpdateInstantiateConfigProposal, UpdateInstantiateConfigProposalProtoMsg, StoreAndInstantiateContractProposal, StoreAndInstantiateContractProposalProtoMsg } from "../../../cosmwasm/wasm/v1/proposal_legacy";
-import { SpotMarketParamUpdateProposal, SpotMarketParamUpdateProposalProtoMsg, BatchExchangeModificationProposal, BatchExchangeModificationProposalProtoMsg, SpotMarketLaunchProposal, SpotMarketLaunchProposalProtoMsg, PerpetualMarketLaunchProposal, PerpetualMarketLaunchProposalProtoMsg, BinaryOptionsMarketLaunchProposal, BinaryOptionsMarketLaunchProposalProtoMsg, ExpiryFuturesMarketLaunchProposal, ExpiryFuturesMarketLaunchProposalProtoMsg, DerivativeMarketParamUpdateProposal, DerivativeMarketParamUpdateProposalProtoMsg, MarketForcedSettlementProposal, MarketForcedSettlementProposalProtoMsg, UpdateDenomDecimalsProposal, UpdateDenomDecimalsProposalProtoMsg, BinaryOptionsMarketParamUpdateProposal, BinaryOptionsMarketParamUpdateProposalProtoMsg, TradingRewardCampaignLaunchProposal, TradingRewardCampaignLaunchProposalProtoMsg, TradingRewardCampaignUpdateProposal, TradingRewardCampaignUpdateProposalProtoMsg, TradingRewardPendingPointsUpdateProposal, TradingRewardPendingPointsUpdateProposalProtoMsg, FeeDiscountProposal, FeeDiscountProposalProtoMsg, BatchCommunityPoolSpendProposal, BatchCommunityPoolSpendProposalProtoMsg, AtomicMarketOrderFeeMultiplierScheduleProposal, AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg } from "../../../injective/exchange/v1beta1/proposal";
+import { SpotMarketParamUpdateProposal, SpotMarketParamUpdateProposalProtoMsg, BatchExchangeModificationProposal, BatchExchangeModificationProposalProtoMsg, SpotMarketLaunchProposal, SpotMarketLaunchProposalProtoMsg, PerpetualMarketLaunchProposal, PerpetualMarketLaunchProposalProtoMsg, BinaryOptionsMarketLaunchProposal, BinaryOptionsMarketLaunchProposalProtoMsg, ExpiryFuturesMarketLaunchProposal, ExpiryFuturesMarketLaunchProposalProtoMsg, DerivativeMarketParamUpdateProposal, DerivativeMarketParamUpdateProposalProtoMsg, MarketForcedSettlementProposal, MarketForcedSettlementProposalProtoMsg, UpdateDenomDecimalsProposal, UpdateDenomDecimalsProposalProtoMsg, BinaryOptionsMarketParamUpdateProposal, BinaryOptionsMarketParamUpdateProposalProtoMsg, TradingRewardCampaignLaunchProposal, TradingRewardCampaignLaunchProposalProtoMsg, TradingRewardCampaignUpdateProposal, TradingRewardCampaignUpdateProposalProtoMsg, TradingRewardPendingPointsUpdateProposal, TradingRewardPendingPointsUpdateProposalProtoMsg, FeeDiscountProposal, FeeDiscountProposalProtoMsg, BatchCommunityPoolSpendProposal, BatchCommunityPoolSpendProposalProtoMsg, AtomicMarketOrderFeeMultiplierScheduleProposal, AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg, DenomMinNotionalProposal, DenomMinNotionalProposalProtoMsg } from "../../../injective/exchange/v1beta1/proposal";
 import { SetConfigProposal, SetConfigProposalProtoMsg, SetBatchConfigProposal, SetBatchConfigProposalProtoMsg } from "../../../injective/ocr/v1beta1/ocr";
 import { GrantBandOraclePrivilegeProposal, GrantBandOraclePrivilegeProposalProtoMsg, RevokeBandOraclePrivilegeProposal, RevokeBandOraclePrivilegeProposalProtoMsg, GrantPriceFeederPrivilegeProposal, GrantPriceFeederPrivilegeProposalProtoMsg, GrantProviderPrivilegeProposal, GrantProviderPrivilegeProposalProtoMsg, RevokeProviderPrivilegeProposal, RevokeProviderPrivilegeProposalProtoMsg, RevokePriceFeederPrivilegeProposal, RevokePriceFeederPrivilegeProposalProtoMsg, AuthorizeBandOracleRequestProposal, AuthorizeBandOracleRequestProposalProtoMsg, UpdateBandOracleRequestProposal, UpdateBandOracleRequestProposalProtoMsg, EnableBandIBCProposal, EnableBandIBCProposalProtoMsg, GrantStorkPublisherPrivilegeProposal, GrantStorkPublisherPrivilegeProposalProtoMsg, RevokeStorkPublisherPrivilegeProposal, RevokeStorkPublisherPrivilegeProposalProtoMsg } from "../../../injective/oracle/v1beta1/proposal";
-import { BlacklistEthereumAddressesProposal, BlacklistEthereumAddressesProposalProtoMsg, RevokeEthereumBlacklistProposal, RevokeEthereumBlacklistProposalProtoMsg } from "../../../injective/peggy/v1/proposal";
 import { ContractRegistrationRequestProposal, ContractRegistrationRequestProposalProtoMsg, BatchContractRegistrationRequestProposal, BatchContractRegistrationRequestProposalProtoMsg, BatchContractDeregistrationProposal, BatchContractDeregistrationProposalProtoMsg, ContractRegistrationRequest, ContractRegistrationRequestProtoMsg, BatchStoreCodeProposal, BatchStoreCodeProposalProtoMsg } from "../../../injective/wasmx/v1/proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
@@ -23,7 +22,7 @@ export interface MsgSubmitProposal {
   /**
    * content is the proposal's content.
    */
-  content?: CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | SpotMarketParamUpdateProposal | BatchExchangeModificationProposal | SpotMarketLaunchProposal | PerpetualMarketLaunchProposal | BinaryOptionsMarketLaunchProposal | ExpiryFuturesMarketLaunchProposal | DerivativeMarketParamUpdateProposal | MarketForcedSettlementProposal | UpdateDenomDecimalsProposal | BinaryOptionsMarketParamUpdateProposal | TradingRewardCampaignLaunchProposal | TradingRewardCampaignUpdateProposal | TradingRewardPendingPointsUpdateProposal | FeeDiscountProposal | BatchCommunityPoolSpendProposal | AtomicMarketOrderFeeMultiplierScheduleProposal | SetConfigProposal | SetBatchConfigProposal | GrantBandOraclePrivilegeProposal | RevokeBandOraclePrivilegeProposal | GrantPriceFeederPrivilegeProposal | GrantProviderPrivilegeProposal | RevokeProviderPrivilegeProposal | RevokePriceFeederPrivilegeProposal | AuthorizeBandOracleRequestProposal | UpdateBandOracleRequestProposal | EnableBandIBCProposal | GrantStorkPublisherPrivilegeProposal | RevokeStorkPublisherPrivilegeProposal | BlacklistEthereumAddressesProposal | RevokeEthereumBlacklistProposal | ContractRegistrationRequestProposal | BatchContractRegistrationRequestProposal | BatchContractDeregistrationProposal | ContractRegistrationRequest | BatchStoreCodeProposal | Any | undefined;
+  content?: CommunityPoolSpendProposal | CommunityPoolSpendProposalWithDeposit | TextProposal | SoftwareUpgradeProposal | CancelSoftwareUpgradeProposal | StoreCodeProposal | InstantiateContractProposal | InstantiateContract2Proposal | MigrateContractProposal | SudoContractProposal | ExecuteContractProposal | UpdateAdminProposal | ClearAdminProposal | PinCodesProposal | UnpinCodesProposal | UpdateInstantiateConfigProposal | StoreAndInstantiateContractProposal | SpotMarketParamUpdateProposal | BatchExchangeModificationProposal | SpotMarketLaunchProposal | PerpetualMarketLaunchProposal | BinaryOptionsMarketLaunchProposal | ExpiryFuturesMarketLaunchProposal | DerivativeMarketParamUpdateProposal | MarketForcedSettlementProposal | UpdateDenomDecimalsProposal | BinaryOptionsMarketParamUpdateProposal | TradingRewardCampaignLaunchProposal | TradingRewardCampaignUpdateProposal | TradingRewardPendingPointsUpdateProposal | FeeDiscountProposal | BatchCommunityPoolSpendProposal | AtomicMarketOrderFeeMultiplierScheduleProposal | DenomMinNotionalProposal | SetConfigProposal | SetBatchConfigProposal | GrantBandOraclePrivilegeProposal | RevokeBandOraclePrivilegeProposal | GrantPriceFeederPrivilegeProposal | GrantProviderPrivilegeProposal | RevokeProviderPrivilegeProposal | RevokePriceFeederPrivilegeProposal | AuthorizeBandOracleRequestProposal | UpdateBandOracleRequestProposal | EnableBandIBCProposal | GrantStorkPublisherPrivilegeProposal | RevokeStorkPublisherPrivilegeProposal | ContractRegistrationRequestProposal | BatchContractRegistrationRequestProposal | BatchContractDeregistrationProposal | ContractRegistrationRequest | BatchStoreCodeProposal | Any | undefined;
   /**
    * initial_deposit is the deposit value that must be paid at proposal submission.
    */
@@ -41,7 +40,7 @@ export type MsgSubmitProposalEncoded = Omit<MsgSubmitProposal, "content"> & {
   /**
    * content is the proposal's content.
    */
-  content?: CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | StoreCodeProposalProtoMsg | InstantiateContractProposalProtoMsg | InstantiateContract2ProposalProtoMsg | MigrateContractProposalProtoMsg | SudoContractProposalProtoMsg | ExecuteContractProposalProtoMsg | UpdateAdminProposalProtoMsg | ClearAdminProposalProtoMsg | PinCodesProposalProtoMsg | UnpinCodesProposalProtoMsg | UpdateInstantiateConfigProposalProtoMsg | StoreAndInstantiateContractProposalProtoMsg | SpotMarketParamUpdateProposalProtoMsg | BatchExchangeModificationProposalProtoMsg | SpotMarketLaunchProposalProtoMsg | PerpetualMarketLaunchProposalProtoMsg | BinaryOptionsMarketLaunchProposalProtoMsg | ExpiryFuturesMarketLaunchProposalProtoMsg | DerivativeMarketParamUpdateProposalProtoMsg | MarketForcedSettlementProposalProtoMsg | UpdateDenomDecimalsProposalProtoMsg | BinaryOptionsMarketParamUpdateProposalProtoMsg | TradingRewardCampaignLaunchProposalProtoMsg | TradingRewardCampaignUpdateProposalProtoMsg | TradingRewardPendingPointsUpdateProposalProtoMsg | FeeDiscountProposalProtoMsg | BatchCommunityPoolSpendProposalProtoMsg | AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg | SetConfigProposalProtoMsg | SetBatchConfigProposalProtoMsg | GrantBandOraclePrivilegeProposalProtoMsg | RevokeBandOraclePrivilegeProposalProtoMsg | GrantPriceFeederPrivilegeProposalProtoMsg | GrantProviderPrivilegeProposalProtoMsg | RevokeProviderPrivilegeProposalProtoMsg | RevokePriceFeederPrivilegeProposalProtoMsg | AuthorizeBandOracleRequestProposalProtoMsg | UpdateBandOracleRequestProposalProtoMsg | EnableBandIBCProposalProtoMsg | GrantStorkPublisherPrivilegeProposalProtoMsg | RevokeStorkPublisherPrivilegeProposalProtoMsg | BlacklistEthereumAddressesProposalProtoMsg | RevokeEthereumBlacklistProposalProtoMsg | ContractRegistrationRequestProposalProtoMsg | BatchContractRegistrationRequestProposalProtoMsg | BatchContractDeregistrationProposalProtoMsg | ContractRegistrationRequestProtoMsg | BatchStoreCodeProposalProtoMsg | AnyProtoMsg | undefined;
+  content?: CommunityPoolSpendProposalProtoMsg | CommunityPoolSpendProposalWithDepositProtoMsg | TextProposalProtoMsg | SoftwareUpgradeProposalProtoMsg | CancelSoftwareUpgradeProposalProtoMsg | StoreCodeProposalProtoMsg | InstantiateContractProposalProtoMsg | InstantiateContract2ProposalProtoMsg | MigrateContractProposalProtoMsg | SudoContractProposalProtoMsg | ExecuteContractProposalProtoMsg | UpdateAdminProposalProtoMsg | ClearAdminProposalProtoMsg | PinCodesProposalProtoMsg | UnpinCodesProposalProtoMsg | UpdateInstantiateConfigProposalProtoMsg | StoreAndInstantiateContractProposalProtoMsg | SpotMarketParamUpdateProposalProtoMsg | BatchExchangeModificationProposalProtoMsg | SpotMarketLaunchProposalProtoMsg | PerpetualMarketLaunchProposalProtoMsg | BinaryOptionsMarketLaunchProposalProtoMsg | ExpiryFuturesMarketLaunchProposalProtoMsg | DerivativeMarketParamUpdateProposalProtoMsg | MarketForcedSettlementProposalProtoMsg | UpdateDenomDecimalsProposalProtoMsg | BinaryOptionsMarketParamUpdateProposalProtoMsg | TradingRewardCampaignLaunchProposalProtoMsg | TradingRewardCampaignUpdateProposalProtoMsg | TradingRewardPendingPointsUpdateProposalProtoMsg | FeeDiscountProposalProtoMsg | BatchCommunityPoolSpendProposalProtoMsg | AtomicMarketOrderFeeMultiplierScheduleProposalProtoMsg | DenomMinNotionalProposalProtoMsg | SetConfigProposalProtoMsg | SetBatchConfigProposalProtoMsg | GrantBandOraclePrivilegeProposalProtoMsg | RevokeBandOraclePrivilegeProposalProtoMsg | GrantPriceFeederPrivilegeProposalProtoMsg | GrantProviderPrivilegeProposalProtoMsg | RevokeProviderPrivilegeProposalProtoMsg | RevokePriceFeederPrivilegeProposalProtoMsg | AuthorizeBandOracleRequestProposalProtoMsg | UpdateBandOracleRequestProposalProtoMsg | EnableBandIBCProposalProtoMsg | GrantStorkPublisherPrivilegeProposalProtoMsg | RevokeStorkPublisherPrivilegeProposalProtoMsg | ContractRegistrationRequestProposalProtoMsg | BatchContractRegistrationRequestProposalProtoMsg | BatchContractDeregistrationProposalProtoMsg | ContractRegistrationRequestProtoMsg | BatchStoreCodeProposalProtoMsg | AnyProtoMsg | undefined;
 };
 /**
  * MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
@@ -172,8 +171,6 @@ export interface MsgVoteResponseAminoMsg {
 }
 /**
  * MsgVoteWeighted defines a message to cast a vote.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeighted
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeighted
@@ -198,8 +195,6 @@ export interface MsgVoteWeightedProtoMsg {
 }
 /**
  * MsgVoteWeighted defines a message to cast a vote.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedAmino
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeighted
@@ -224,8 +219,6 @@ export interface MsgVoteWeightedAminoMsg {
 }
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedResponse
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeightedResponse
@@ -237,8 +230,6 @@ export interface MsgVoteWeightedResponseProtoMsg {
 }
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedResponseAmino
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeightedResponse
@@ -463,6 +454,7 @@ export const MsgSubmitProposal = {
     FeeDiscountProposal.registerTypeUrl();
     BatchCommunityPoolSpendProposal.registerTypeUrl();
     AtomicMarketOrderFeeMultiplierScheduleProposal.registerTypeUrl();
+    DenomMinNotionalProposal.registerTypeUrl();
     SetConfigProposal.registerTypeUrl();
     SetBatchConfigProposal.registerTypeUrl();
     GrantBandOraclePrivilegeProposal.registerTypeUrl();
@@ -476,8 +468,6 @@ export const MsgSubmitProposal = {
     EnableBandIBCProposal.registerTypeUrl();
     GrantStorkPublisherPrivilegeProposal.registerTypeUrl();
     RevokeStorkPublisherPrivilegeProposal.registerTypeUrl();
-    BlacklistEthereumAddressesProposal.registerTypeUrl();
-    RevokeEthereumBlacklistProposal.registerTypeUrl();
     ContractRegistrationRequestProposal.registerTypeUrl();
     BatchContractRegistrationRequestProposal.registerTypeUrl();
     BatchContractDeregistrationProposal.registerTypeUrl();
@@ -755,8 +745,6 @@ function createBaseMsgVoteWeighted(): MsgVoteWeighted {
 }
 /**
  * MsgVoteWeighted defines a message to cast a vote.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeighted
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeighted
@@ -867,8 +855,6 @@ function createBaseMsgVoteWeightedResponse(): MsgVoteWeightedResponse {
 }
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedResponse
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeightedResponse

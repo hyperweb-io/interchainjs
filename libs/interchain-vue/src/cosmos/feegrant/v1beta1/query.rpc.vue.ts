@@ -23,8 +23,6 @@ export const useGetAllowances = buildUseVueQuery<QueryAllowancesRequest, QueryAl
 });
 /**
  * AllowancesByGranter returns all the grants given by an address
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetAllowancesByGranter
  * @package cosmos.feegrant.v1beta1
  * @see proto service: cosmos.feegrant.v1beta1.AllowancesByGranter

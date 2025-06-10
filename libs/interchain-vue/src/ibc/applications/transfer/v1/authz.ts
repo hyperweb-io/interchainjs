@@ -1,5 +1,4 @@
 import { Coin, CoinAmino } from "../../../../cosmos/base/v1beta1/coin";
-import { Hop, HopAmino } from "./transfer";
 import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { DeepPartial } from "../../../../helpers";
 import { GlobalDecoderRegistry } from "../../../../registry";
@@ -31,10 +30,6 @@ export interface Allocation {
    * a list only with "*" permits any memo string
    */
   allowedPacketData: string[];
-  /**
-   * Forwarding options that are allowed.
-   */
-  allowedForwarding: AllowedForwarding[];
 }
 export interface AllocationProtoMsg {
   typeUrl: "/ibc.applications.transfer.v1.Allocation";
@@ -68,48 +63,10 @@ export interface AllocationAmino {
    * a list only with "*" permits any memo string
    */
   allowed_packet_data: string[];
-  /**
-   * Forwarding options that are allowed.
-   */
-  allowed_forwarding: AllowedForwardingAmino[];
 }
 export interface AllocationAminoMsg {
   type: "cosmos-sdk/Allocation";
   value: AllocationAmino;
-}
-/**
- * AllowedForwarding defines which options are allowed for forwarding.
- * @name AllowedForwarding
- * @package ibc.applications.transfer.v1
- * @see proto type: ibc.applications.transfer.v1.AllowedForwarding
- */
-export interface AllowedForwarding {
-  /**
-   * a list of allowed source port ID/channel ID pairs through which the packet is allowed to be forwarded until final
-   * destination
-   */
-  hops: Hop[];
-}
-export interface AllowedForwardingProtoMsg {
-  typeUrl: "/ibc.applications.transfer.v1.AllowedForwarding";
-  value: Uint8Array;
-}
-/**
- * AllowedForwarding defines which options are allowed for forwarding.
- * @name AllowedForwardingAmino
- * @package ibc.applications.transfer.v1
- * @see proto type: ibc.applications.transfer.v1.AllowedForwarding
- */
-export interface AllowedForwardingAmino {
-  /**
-   * a list of allowed source port ID/channel ID pairs through which the packet is allowed to be forwarded until final
-   * destination
-   */
-  hops: HopAmino[];
-}
-export interface AllowedForwardingAminoMsg {
-  type: "cosmos-sdk/AllowedForwarding";
-  value: AllowedForwardingAmino;
 }
 /**
  * TransferAuthorization allows the grantee to spend up to spend_limit coins from
@@ -151,8 +108,7 @@ function createBaseAllocation(): Allocation {
     sourceChannel: "",
     spendLimit: [],
     allowList: [],
-    allowedPacketData: [],
-    allowedForwarding: []
+    allowedPacketData: []
   };
 }
 /**
@@ -165,10 +121,10 @@ export const Allocation = {
   typeUrl: "/ibc.applications.transfer.v1.Allocation",
   aminoType: "cosmos-sdk/Allocation",
   is(o: any): o is Allocation {
-    return o && (o.$typeUrl === Allocation.typeUrl || typeof o.sourcePort === "string" && typeof o.sourceChannel === "string" && Array.isArray(o.spendLimit) && (!o.spendLimit.length || Coin.is(o.spendLimit[0])) && Array.isArray(o.allowList) && (!o.allowList.length || typeof o.allowList[0] === "string") && Array.isArray(o.allowedPacketData) && (!o.allowedPacketData.length || typeof o.allowedPacketData[0] === "string") && Array.isArray(o.allowedForwarding) && (!o.allowedForwarding.length || AllowedForwarding.is(o.allowedForwarding[0])));
+    return o && (o.$typeUrl === Allocation.typeUrl || typeof o.sourcePort === "string" && typeof o.sourceChannel === "string" && Array.isArray(o.spendLimit) && (!o.spendLimit.length || Coin.is(o.spendLimit[0])) && Array.isArray(o.allowList) && (!o.allowList.length || typeof o.allowList[0] === "string") && Array.isArray(o.allowedPacketData) && (!o.allowedPacketData.length || typeof o.allowedPacketData[0] === "string"));
   },
   isAmino(o: any): o is AllocationAmino {
-    return o && (o.$typeUrl === Allocation.typeUrl || typeof o.source_port === "string" && typeof o.source_channel === "string" && Array.isArray(o.spend_limit) && (!o.spend_limit.length || Coin.isAmino(o.spend_limit[0])) && Array.isArray(o.allow_list) && (!o.allow_list.length || typeof o.allow_list[0] === "string") && Array.isArray(o.allowed_packet_data) && (!o.allowed_packet_data.length || typeof o.allowed_packet_data[0] === "string") && Array.isArray(o.allowed_forwarding) && (!o.allowed_forwarding.length || AllowedForwarding.isAmino(o.allowed_forwarding[0])));
+    return o && (o.$typeUrl === Allocation.typeUrl || typeof o.source_port === "string" && typeof o.source_channel === "string" && Array.isArray(o.spend_limit) && (!o.spend_limit.length || Coin.isAmino(o.spend_limit[0])) && Array.isArray(o.allow_list) && (!o.allow_list.length || typeof o.allow_list[0] === "string") && Array.isArray(o.allowed_packet_data) && (!o.allowed_packet_data.length || typeof o.allowed_packet_data[0] === "string"));
   },
   encode(message: Allocation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sourcePort !== "") {
@@ -185,9 +141,6 @@ export const Allocation = {
     }
     for (const v of message.allowedPacketData) {
       writer.uint32(42).string(v!);
-    }
-    for (const v of message.allowedForwarding) {
-      AllowedForwarding.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -213,9 +166,6 @@ export const Allocation = {
         case 5:
           message.allowedPacketData.push(reader.string());
           break;
-        case 6:
-          message.allowedForwarding.push(AllowedForwarding.decode(reader, reader.uint32()));
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -230,7 +180,6 @@ export const Allocation = {
     message.spendLimit = object.spendLimit?.map(e => Coin.fromPartial(e)) || [];
     message.allowList = object.allowList?.map(e => e) || [];
     message.allowedPacketData = object.allowedPacketData?.map(e => e) || [];
-    message.allowedForwarding = object.allowedForwarding?.map(e => AllowedForwarding.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: AllocationAmino): Allocation {
@@ -244,7 +193,6 @@ export const Allocation = {
     message.spendLimit = object.spend_limit?.map(e => Coin.fromAmino(e)) || [];
     message.allowList = object.allow_list?.map(e => e) || [];
     message.allowedPacketData = object.allowed_packet_data?.map(e => e) || [];
-    message.allowedForwarding = object.allowed_forwarding?.map(e => AllowedForwarding.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Allocation): AllocationAmino {
@@ -265,11 +213,6 @@ export const Allocation = {
       obj.allowed_packet_data = message.allowedPacketData.map(e => e);
     } else {
       obj.allowed_packet_data = message.allowedPacketData;
-    }
-    if (message.allowedForwarding) {
-      obj.allowed_forwarding = message.allowedForwarding.map(e => e ? AllowedForwarding.toAmino(e) : undefined);
-    } else {
-      obj.allowed_forwarding = message.allowedForwarding;
     }
     return obj;
   },
@@ -299,97 +242,6 @@ export const Allocation = {
       return;
     }
     Coin.registerTypeUrl();
-    AllowedForwarding.registerTypeUrl();
-  }
-};
-function createBaseAllowedForwarding(): AllowedForwarding {
-  return {
-    hops: []
-  };
-}
-/**
- * AllowedForwarding defines which options are allowed for forwarding.
- * @name AllowedForwarding
- * @package ibc.applications.transfer.v1
- * @see proto type: ibc.applications.transfer.v1.AllowedForwarding
- */
-export const AllowedForwarding = {
-  typeUrl: "/ibc.applications.transfer.v1.AllowedForwarding",
-  aminoType: "cosmos-sdk/AllowedForwarding",
-  is(o: any): o is AllowedForwarding {
-    return o && (o.$typeUrl === AllowedForwarding.typeUrl || Array.isArray(o.hops) && (!o.hops.length || Hop.is(o.hops[0])));
-  },
-  isAmino(o: any): o is AllowedForwardingAmino {
-    return o && (o.$typeUrl === AllowedForwarding.typeUrl || Array.isArray(o.hops) && (!o.hops.length || Hop.isAmino(o.hops[0])));
-  },
-  encode(message: AllowedForwarding, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    for (const v of message.hops) {
-      Hop.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): AllowedForwarding {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAllowedForwarding();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.hops.push(Hop.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<AllowedForwarding>): AllowedForwarding {
-    const message = createBaseAllowedForwarding();
-    message.hops = object.hops?.map(e => Hop.fromPartial(e)) || [];
-    return message;
-  },
-  fromAmino(object: AllowedForwardingAmino): AllowedForwarding {
-    const message = createBaseAllowedForwarding();
-    message.hops = object.hops?.map(e => Hop.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: AllowedForwarding): AllowedForwardingAmino {
-    const obj: any = {};
-    if (message.hops) {
-      obj.hops = message.hops.map(e => e ? Hop.toAmino(e) : undefined);
-    } else {
-      obj.hops = message.hops;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: AllowedForwardingAminoMsg): AllowedForwarding {
-    return AllowedForwarding.fromAmino(object.value);
-  },
-  toAminoMsg(message: AllowedForwarding): AllowedForwardingAminoMsg {
-    return {
-      type: "cosmos-sdk/AllowedForwarding",
-      value: AllowedForwarding.toAmino(message)
-    };
-  },
-  fromProtoMsg(message: AllowedForwardingProtoMsg): AllowedForwarding {
-    return AllowedForwarding.decode(message.value);
-  },
-  toProto(message: AllowedForwarding): Uint8Array {
-    return AllowedForwarding.encode(message).finish();
-  },
-  toProtoMsg(message: AllowedForwarding): AllowedForwardingProtoMsg {
-    return {
-      typeUrl: "/ibc.applications.transfer.v1.AllowedForwarding",
-      value: AllowedForwarding.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(AllowedForwarding.typeUrl)) {
-      return;
-    }
-    Hop.registerTypeUrl();
   }
 };
 function createBaseTransferAuthorization(): TransferAuthorization {

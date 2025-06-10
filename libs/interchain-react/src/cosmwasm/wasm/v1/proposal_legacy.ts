@@ -832,7 +832,7 @@ export interface UpdateInstantiateConfigProposal {
    */
   description: string;
   /**
-   * AccessConfigUpdate contains the list of code ids and the access config
+   * AccessConfigUpdates contains the list of code ids and the access config
    * to be applied.
    */
   accessConfigUpdates: AccessConfigUpdate[];
@@ -861,7 +861,7 @@ export interface UpdateInstantiateConfigProposalAmino {
    */
   description: string;
   /**
-   * AccessConfigUpdate contains the list of code ids and the access config
+   * AccessConfigUpdates contains the list of code ids and the access config
    * to be applied.
    */
   access_config_updates: AccessConfigUpdateAmino[];

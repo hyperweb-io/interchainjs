@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../react-query";
-import { MsgUpdateParams, MsgCreateNamespace, MsgDeleteNamespace, MsgUpdateNamespace, MsgUpdateNamespaceRoles, MsgRevokeNamespaceRoles, MsgClaimVoucher } from "./tx";
-import { updateParams, createNamespace, deleteNamespace, updateNamespace, updateNamespaceRoles, revokeNamespaceRoles, claimVoucher } from "./tx.rpc.func";
+import { MsgUpdateParams, MsgCreateNamespace, MsgUpdateNamespace, MsgUpdateActorRoles, MsgClaimVoucher } from "./tx";
+import { updateParams, createNamespace, updateNamespace, updateActorRoles, claimVoucher } from "./tx.rpc.func";
 /**
  * @name useUpdateParams
  * @package injective.permissions.v1beta1
@@ -18,14 +18,6 @@ export const useCreateNamespace = buildUseMutation<MsgCreateNamespace, Error>({
   builderMutationFn: createNamespace
 });
 /**
- * @name useDeleteNamespace
- * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.DeleteNamespace
- */
-export const useDeleteNamespace = buildUseMutation<MsgDeleteNamespace, Error>({
-  builderMutationFn: deleteNamespace
-});
-/**
  * @name useUpdateNamespace
  * @package injective.permissions.v1beta1
  * @see proto service: injective.permissions.v1beta1.UpdateNamespace
@@ -34,20 +26,12 @@ export const useUpdateNamespace = buildUseMutation<MsgUpdateNamespace, Error>({
   builderMutationFn: updateNamespace
 });
 /**
- * @name useUpdateNamespaceRoles
+ * @name useUpdateActorRoles
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.UpdateNamespaceRoles
+ * @see proto service: injective.permissions.v1beta1.UpdateActorRoles
  */
-export const useUpdateNamespaceRoles = buildUseMutation<MsgUpdateNamespaceRoles, Error>({
-  builderMutationFn: updateNamespaceRoles
-});
-/**
- * @name useRevokeNamespaceRoles
- * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.RevokeNamespaceRoles
- */
-export const useRevokeNamespaceRoles = buildUseMutation<MsgRevokeNamespaceRoles, Error>({
-  builderMutationFn: revokeNamespaceRoles
+export const useUpdateActorRoles = buildUseMutation<MsgUpdateActorRoles, Error>({
+  builderMutationFn: updateActorRoles
 });
 /**
  * @name useClaimVoucher

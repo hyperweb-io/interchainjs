@@ -4,7 +4,7 @@ import { BinaryReader, BinaryWriter } from "../../../../binary";
 import { GlobalDecoderRegistry } from "../../../../registry";
 /**
  * State defines if a channel is in one of the following states:
- * CLOSED, INIT, TRYOPEN, OPEN, FLUSHING, FLUSHCOMPLETE or UNINITIALIZED.
+ * CLOSED, INIT, TRYOPEN, OPEN, or UNINITIALIZED.
  */
 export enum State {
   /** STATE_UNINITIALIZED_UNSPECIFIED - Default State */
@@ -23,10 +23,6 @@ export enum State {
    * packets.
    */
   STATE_CLOSED = 4,
-  /** STATE_FLUSHING - A channel has just accepted the upgrade handshake attempt and is flushing in-flight packets. */
-  STATE_FLUSHING = 5,
-  /** STATE_FLUSHCOMPLETE - A channel has just completed flushing any in-flight packets. */
-  STATE_FLUSHCOMPLETE = 6,
   UNRECOGNIZED = -1,
 }
 export const StateAmino = State;
@@ -47,12 +43,6 @@ export function stateFromJSON(object: any): State {
     case 4:
     case "STATE_CLOSED":
       return State.STATE_CLOSED;
-    case 5:
-    case "STATE_FLUSHING":
-      return State.STATE_FLUSHING;
-    case 6:
-    case "STATE_FLUSHCOMPLETE":
-      return State.STATE_FLUSHCOMPLETE;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -71,10 +61,6 @@ export function stateToJSON(object: State): string {
       return "STATE_OPEN";
     case State.STATE_CLOSED:
       return "STATE_CLOSED";
-    case State.STATE_FLUSHING:
-      return "STATE_FLUSHING";
-    case State.STATE_FLUSHCOMPLETE:
-      return "STATE_FLUSHCOMPLETE";
     case State.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -154,11 +140,6 @@ export interface Channel {
    * opaque channel version, which is agreed upon during the handshake
    */
   version: string;
-  /**
-   * upgrade sequence indicates the latest upgrade attempt performed by this channel
-   * the value of 0 indicates the channel has never been upgraded
-   */
-  upgradeSequence: bigint;
 }
 export interface ChannelProtoMsg {
   typeUrl: "/ibc.core.channel.v1.Channel";
@@ -194,11 +175,6 @@ export interface ChannelAmino {
    * opaque channel version, which is agreed upon during the handshake
    */
   version: string;
-  /**
-   * upgrade sequence indicates the latest upgrade attempt performed by this channel
-   * the value of 0 indicates the channel has never been upgraded
-   */
-  upgrade_sequence: string;
 }
 export interface ChannelAminoMsg {
   type: "cosmos-sdk/Channel";
@@ -241,11 +217,6 @@ export interface IdentifiedChannel {
    * channel identifier
    */
   channelId: string;
-  /**
-   * upgrade sequence indicates the latest upgrade attempt performed by this channel
-   * the value of 0 indicates the channel has never been upgraded
-   */
-  upgradeSequence: bigint;
 }
 export interface IdentifiedChannelProtoMsg {
   typeUrl: "/ibc.core.channel.v1.IdentifiedChannel";
@@ -288,11 +259,6 @@ export interface IdentifiedChannelAmino {
    * channel identifier
    */
   channel_id: string;
-  /**
-   * upgrade sequence indicates the latest upgrade attempt performed by this channel
-   * the value of 0 indicates the channel has never been upgraded
-   */
-  upgrade_sequence: string;
 }
 export interface IdentifiedChannelAminoMsg {
   type: "cosmos-sdk/IdentifiedChannel";
@@ -586,7 +552,7 @@ export interface AcknowledgementAminoMsg {
 }
 /**
  * Timeout defines an execution deadline structure for 04-channel handlers.
- * This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+ * This includes packet lifecycle handlers.
  * A valid Timeout contains either one or both of a timestamp and block height (sequence).
  * @name Timeout
  * @package ibc.core.channel.v1
@@ -594,11 +560,11 @@ export interface AcknowledgementAminoMsg {
  */
 export interface Timeout {
   /**
-   * block height after which the packet or upgrade times out
+   * block height after which the packet times out
    */
   height: Height;
   /**
-   * block timestamp (in nanoseconds) after which the packet or upgrade times out
+   * block timestamp (in nanoseconds) after which the packet times out
    */
   timestamp: bigint;
 }
@@ -608,7 +574,7 @@ export interface TimeoutProtoMsg {
 }
 /**
  * Timeout defines an execution deadline structure for 04-channel handlers.
- * This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+ * This includes packet lifecycle handlers.
  * A valid Timeout contains either one or both of a timestamp and block height (sequence).
  * @name TimeoutAmino
  * @package ibc.core.channel.v1
@@ -616,11 +582,11 @@ export interface TimeoutProtoMsg {
  */
 export interface TimeoutAmino {
   /**
-   * block height after which the packet or upgrade times out
+   * block height after which the packet times out
    */
   height: HeightAmino;
   /**
-   * block timestamp (in nanoseconds) after which the packet or upgrade times out
+   * block timestamp (in nanoseconds) after which the packet times out
    */
   timestamp: string;
 }
@@ -628,46 +594,13 @@ export interface TimeoutAminoMsg {
   type: "cosmos-sdk/Timeout";
   value: TimeoutAmino;
 }
-/**
- * Params defines the set of IBC channel parameters.
- * @name Params
- * @package ibc.core.channel.v1
- * @see proto type: ibc.core.channel.v1.Params
- */
-export interface Params {
-  /**
-   * the relative timeout after which channel upgrades will time out.
-   */
-  upgradeTimeout: Timeout;
-}
-export interface ParamsProtoMsg {
-  typeUrl: "/ibc.core.channel.v1.Params";
-  value: Uint8Array;
-}
-/**
- * Params defines the set of IBC channel parameters.
- * @name ParamsAmino
- * @package ibc.core.channel.v1
- * @see proto type: ibc.core.channel.v1.Params
- */
-export interface ParamsAmino {
-  /**
-   * the relative timeout after which channel upgrades will time out.
-   */
-  upgrade_timeout: TimeoutAmino;
-}
-export interface ParamsAminoMsg {
-  type: "cosmos-sdk/Params";
-  value: ParamsAmino;
-}
 function createBaseChannel(): Channel {
   return {
     state: 0,
     ordering: 0,
     counterparty: Counterparty.fromPartial({}),
     connectionHops: [],
-    version: "",
-    upgradeSequence: BigInt(0)
+    version: ""
   };
 }
 /**
@@ -682,10 +615,10 @@ export const Channel = {
   typeUrl: "/ibc.core.channel.v1.Channel",
   aminoType: "cosmos-sdk/Channel",
   is(o: any): o is Channel {
-    return o && (o.$typeUrl === Channel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.is(o.counterparty) && Array.isArray(o.connectionHops) && (!o.connectionHops.length || typeof o.connectionHops[0] === "string") && typeof o.version === "string" && typeof o.upgradeSequence === "bigint");
+    return o && (o.$typeUrl === Channel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.is(o.counterparty) && Array.isArray(o.connectionHops) && (!o.connectionHops.length || typeof o.connectionHops[0] === "string") && typeof o.version === "string");
   },
   isAmino(o: any): o is ChannelAmino {
-    return o && (o.$typeUrl === Channel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.isAmino(o.counterparty) && Array.isArray(o.connection_hops) && (!o.connection_hops.length || typeof o.connection_hops[0] === "string") && typeof o.version === "string" && typeof o.upgrade_sequence === "bigint");
+    return o && (o.$typeUrl === Channel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.isAmino(o.counterparty) && Array.isArray(o.connection_hops) && (!o.connection_hops.length || typeof o.connection_hops[0] === "string") && typeof o.version === "string");
   },
   encode(message: Channel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.state !== 0) {
@@ -702,9 +635,6 @@ export const Channel = {
     }
     if (message.version !== "") {
       writer.uint32(42).string(message.version);
-    }
-    if (message.upgradeSequence !== BigInt(0)) {
-      writer.uint32(48).uint64(message.upgradeSequence);
     }
     return writer;
   },
@@ -730,9 +660,6 @@ export const Channel = {
         case 5:
           message.version = reader.string();
           break;
-        case 6:
-          message.upgradeSequence = reader.uint64();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -747,7 +674,6 @@ export const Channel = {
     message.counterparty = object.counterparty !== undefined && object.counterparty !== null ? Counterparty.fromPartial(object.counterparty) : undefined;
     message.connectionHops = object.connectionHops?.map(e => e) || [];
     message.version = object.version ?? "";
-    message.upgradeSequence = object.upgradeSequence !== undefined && object.upgradeSequence !== null ? BigInt(object.upgradeSequence.toString()) : BigInt(0);
     return message;
   },
   fromAmino(object: ChannelAmino): Channel {
@@ -765,9 +691,6 @@ export const Channel = {
     if (object.version !== undefined && object.version !== null) {
       message.version = object.version;
     }
-    if (object.upgrade_sequence !== undefined && object.upgrade_sequence !== null) {
-      message.upgradeSequence = BigInt(object.upgrade_sequence);
-    }
     return message;
   },
   toAmino(message: Channel): ChannelAmino {
@@ -781,7 +704,6 @@ export const Channel = {
       obj.connection_hops = message.connectionHops;
     }
     obj.version = message.version === "" ? undefined : message.version;
-    obj.upgrade_sequence = message.upgradeSequence !== BigInt(0) ? message.upgradeSequence?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: ChannelAminoMsg): Channel {
@@ -820,8 +742,7 @@ function createBaseIdentifiedChannel(): IdentifiedChannel {
     connectionHops: [],
     version: "",
     portId: "",
-    channelId: "",
-    upgradeSequence: BigInt(0)
+    channelId: ""
   };
 }
 /**
@@ -835,10 +756,10 @@ export const IdentifiedChannel = {
   typeUrl: "/ibc.core.channel.v1.IdentifiedChannel",
   aminoType: "cosmos-sdk/IdentifiedChannel",
   is(o: any): o is IdentifiedChannel {
-    return o && (o.$typeUrl === IdentifiedChannel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.is(o.counterparty) && Array.isArray(o.connectionHops) && (!o.connectionHops.length || typeof o.connectionHops[0] === "string") && typeof o.version === "string" && typeof o.portId === "string" && typeof o.channelId === "string" && typeof o.upgradeSequence === "bigint");
+    return o && (o.$typeUrl === IdentifiedChannel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.is(o.counterparty) && Array.isArray(o.connectionHops) && (!o.connectionHops.length || typeof o.connectionHops[0] === "string") && typeof o.version === "string" && typeof o.portId === "string" && typeof o.channelId === "string");
   },
   isAmino(o: any): o is IdentifiedChannelAmino {
-    return o && (o.$typeUrl === IdentifiedChannel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.isAmino(o.counterparty) && Array.isArray(o.connection_hops) && (!o.connection_hops.length || typeof o.connection_hops[0] === "string") && typeof o.version === "string" && typeof o.port_id === "string" && typeof o.channel_id === "string" && typeof o.upgrade_sequence === "bigint");
+    return o && (o.$typeUrl === IdentifiedChannel.typeUrl || isSet(o.state) && isSet(o.ordering) && Counterparty.isAmino(o.counterparty) && Array.isArray(o.connection_hops) && (!o.connection_hops.length || typeof o.connection_hops[0] === "string") && typeof o.version === "string" && typeof o.port_id === "string" && typeof o.channel_id === "string");
   },
   encode(message: IdentifiedChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.state !== 0) {
@@ -861,9 +782,6 @@ export const IdentifiedChannel = {
     }
     if (message.channelId !== "") {
       writer.uint32(58).string(message.channelId);
-    }
-    if (message.upgradeSequence !== BigInt(0)) {
-      writer.uint32(64).uint64(message.upgradeSequence);
     }
     return writer;
   },
@@ -895,9 +813,6 @@ export const IdentifiedChannel = {
         case 7:
           message.channelId = reader.string();
           break;
-        case 8:
-          message.upgradeSequence = reader.uint64();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -914,7 +829,6 @@ export const IdentifiedChannel = {
     message.version = object.version ?? "";
     message.portId = object.portId ?? "";
     message.channelId = object.channelId ?? "";
-    message.upgradeSequence = object.upgradeSequence !== undefined && object.upgradeSequence !== null ? BigInt(object.upgradeSequence.toString()) : BigInt(0);
     return message;
   },
   fromAmino(object: IdentifiedChannelAmino): IdentifiedChannel {
@@ -938,9 +852,6 @@ export const IdentifiedChannel = {
     if (object.channel_id !== undefined && object.channel_id !== null) {
       message.channelId = object.channel_id;
     }
-    if (object.upgrade_sequence !== undefined && object.upgrade_sequence !== null) {
-      message.upgradeSequence = BigInt(object.upgrade_sequence);
-    }
     return message;
   },
   toAmino(message: IdentifiedChannel): IdentifiedChannelAmino {
@@ -956,7 +867,6 @@ export const IdentifiedChannel = {
     obj.version = message.version === "" ? undefined : message.version;
     obj.port_id = message.portId === "" ? undefined : message.portId;
     obj.channel_id = message.channelId === "" ? undefined : message.channelId;
-    obj.upgrade_sequence = message.upgradeSequence !== BigInt(0) ? message.upgradeSequence?.toString() : undefined;
     return obj;
   },
   fromAminoMsg(object: IdentifiedChannelAminoMsg): IdentifiedChannel {
@@ -1594,7 +1504,7 @@ function createBaseTimeout(): Timeout {
 }
 /**
  * Timeout defines an execution deadline structure for 04-channel handlers.
- * This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+ * This includes packet lifecycle handlers.
  * A valid Timeout contains either one or both of a timestamp and block height (sequence).
  * @name Timeout
  * @package ibc.core.channel.v1
@@ -1686,93 +1596,5 @@ export const Timeout = {
       return;
     }
     Height.registerTypeUrl();
-  }
-};
-function createBaseParams(): Params {
-  return {
-    upgradeTimeout: Timeout.fromPartial({})
-  };
-}
-/**
- * Params defines the set of IBC channel parameters.
- * @name Params
- * @package ibc.core.channel.v1
- * @see proto type: ibc.core.channel.v1.Params
- */
-export const Params = {
-  typeUrl: "/ibc.core.channel.v1.Params",
-  aminoType: "cosmos-sdk/Params",
-  is(o: any): o is Params {
-    return o && (o.$typeUrl === Params.typeUrl || Timeout.is(o.upgradeTimeout));
-  },
-  isAmino(o: any): o is ParamsAmino {
-    return o && (o.$typeUrl === Params.typeUrl || Timeout.isAmino(o.upgrade_timeout));
-  },
-  encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.upgradeTimeout !== undefined) {
-      Timeout.encode(message.upgradeTimeout, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): Params {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParams();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.upgradeTimeout = Timeout.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<Params>): Params {
-    const message = createBaseParams();
-    message.upgradeTimeout = object.upgradeTimeout !== undefined && object.upgradeTimeout !== null ? Timeout.fromPartial(object.upgradeTimeout) : undefined;
-    return message;
-  },
-  fromAmino(object: ParamsAmino): Params {
-    const message = createBaseParams();
-    if (object.upgrade_timeout !== undefined && object.upgrade_timeout !== null) {
-      message.upgradeTimeout = Timeout.fromAmino(object.upgrade_timeout);
-    }
-    return message;
-  },
-  toAmino(message: Params): ParamsAmino {
-    const obj: any = {};
-    obj.upgrade_timeout = message.upgradeTimeout ? Timeout.toAmino(message.upgradeTimeout) : undefined;
-    return obj;
-  },
-  fromAminoMsg(object: ParamsAminoMsg): Params {
-    return Params.fromAmino(object.value);
-  },
-  toAminoMsg(message: Params): ParamsAminoMsg {
-    return {
-      type: "cosmos-sdk/Params",
-      value: Params.toAmino(message)
-    };
-  },
-  fromProtoMsg(message: ParamsProtoMsg): Params {
-    return Params.decode(message.value);
-  },
-  toProto(message: Params): Uint8Array {
-    return Params.encode(message).finish();
-  },
-  toProtoMsg(message: Params): ParamsProtoMsg {
-    return {
-      typeUrl: "/ibc.core.channel.v1.Params",
-      value: Params.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Params.typeUrl)) {
-      return;
-    }
-    Timeout.registerTypeUrl();
   }
 };

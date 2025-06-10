@@ -448,6 +448,11 @@ export interface Params {
    * inj_auction_max_cap defines the maximum cap for INJ sent to auction
    */
   injAuctionMaxCap: string;
+  /**
+   * fixed_gas_enabled indicates if msg server will consume fixed gas amount for
+   * certain msg types
+   */
+  fixedGasEnabled: boolean;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.Params";
@@ -591,6 +596,11 @@ export interface ParamsAmino {
    * inj_auction_max_cap defines the maximum cap for INJ sent to auction
    */
   inj_auction_max_cap: string;
+  /**
+   * fixed_gas_enabled indicates if msg server will consume fixed gas amount for
+   * certain msg types
+   */
+  fixed_gas_enabled: boolean;
 }
 export interface ParamsAminoMsg {
   type: "exchange/Params";
@@ -712,6 +722,10 @@ export interface DerivativeMarket {
    * level of admin permissions
    */
   adminPermissions: number;
+  /**
+   * quote token decimals
+   */
+  quoteDecimals: number;
 }
 export interface DerivativeMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarket";
@@ -807,6 +821,10 @@ export interface DerivativeMarketAmino {
    * level of admin permissions
    */
   admin_permissions: number;
+  /**
+   * quote token decimals
+   */
+  quote_decimals: number;
 }
 export interface DerivativeMarketAminoMsg {
   type: "/injective.exchange.v1beta1.DerivativeMarket";
@@ -896,6 +914,10 @@ export interface BinaryOptionsMarket {
    * level of admin permissions
    */
   adminPermissions: number;
+  /**
+   * quote token decimals
+   */
+  quoteDecimals: number;
 }
 export interface BinaryOptionsMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarket";
@@ -985,6 +1007,10 @@ export interface BinaryOptionsMarketAmino {
    * level of admin permissions
    */
   admin_permissions: number;
+  /**
+   * quote token decimals
+   */
+  quote_decimals: number;
 }
 export interface BinaryOptionsMarketAminoMsg {
   type: "/injective.exchange.v1beta1.BinaryOptionsMarket";
@@ -1342,6 +1368,14 @@ export interface SpotMarket {
    * level of admin permissions
    */
   adminPermissions: number;
+  /**
+   * base token decimals
+   */
+  baseDecimals: number;
+  /**
+   * quote token decimals
+   */
+  quoteDecimals: number;
 }
 export interface SpotMarketProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarket";
@@ -1411,6 +1445,14 @@ export interface SpotMarketAmino {
    * level of admin permissions
    */
   admin_permissions: number;
+  /**
+   * base token decimals
+   */
+  base_decimals: number;
+  /**
+   * quote token decimals
+   */
+  quote_decimals: number;
 }
 export interface SpotMarketAminoMsg {
   type: "/injective.exchange.v1beta1.SpotMarket";
@@ -2846,6 +2888,32 @@ export interface EffectiveGrantAminoMsg {
   type: "/injective.exchange.v1beta1.EffectiveGrant";
   value: EffectiveGrantAmino;
 }
+/**
+ * @name DenomMinNotional
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DenomMinNotional
+ */
+export interface DenomMinNotional {
+  denom: string;
+  minNotional: string;
+}
+export interface DenomMinNotionalProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.DenomMinNotional";
+  value: Uint8Array;
+}
+/**
+ * @name DenomMinNotionalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DenomMinNotional
+ */
+export interface DenomMinNotionalAmino {
+  denom: string;
+  min_notional: string;
+}
+export interface DenomMinNotionalAminoMsg {
+  type: "/injective.exchange.v1beta1.DenomMinNotional";
+  value: DenomMinNotionalAmino;
+}
 function createBaseParams(): Params {
   return {
     spotMarketInstantListingFee: Coin.fromPartial({}),
@@ -2875,7 +2943,8 @@ function createBaseParams(): Params {
     postOnlyModeHeightThreshold: BigInt(0),
     marginDecreasePriceTimestampThresholdSeconds: BigInt(0),
     exchangeAdmins: [],
-    injAuctionMaxCap: ""
+    injAuctionMaxCap: "",
+    fixedGasEnabled: false
   };
 }
 /**
@@ -2887,10 +2956,10 @@ export const Params = {
   typeUrl: "/injective.exchange.v1beta1.Params",
   aminoType: "exchange/Params",
   is(o: any): o is Params {
-    return o && (o.$typeUrl === Params.typeUrl || Coin.is(o.spotMarketInstantListingFee) && Coin.is(o.derivativeMarketInstantListingFee) && typeof o.defaultSpotMakerFeeRate === "string" && typeof o.defaultSpotTakerFeeRate === "string" && typeof o.defaultDerivativeMakerFeeRate === "string" && typeof o.defaultDerivativeTakerFeeRate === "string" && typeof o.defaultInitialMarginRatio === "string" && typeof o.defaultMaintenanceMarginRatio === "string" && typeof o.defaultFundingInterval === "bigint" && typeof o.fundingMultiple === "bigint" && typeof o.relayerFeeShareRate === "string" && typeof o.defaultHourlyFundingRateCap === "string" && typeof o.defaultHourlyInterestRate === "string" && typeof o.maxDerivativeOrderSideCount === "number" && typeof o.injRewardStakedRequirementThreshold === "string" && typeof o.tradingRewardsVestingDuration === "bigint" && typeof o.liquidatorRewardShareRate === "string" && Coin.is(o.binaryOptionsMarketInstantListingFee) && isSet(o.atomicMarketOrderAccessLevel) && typeof o.spotAtomicMarketOrderFeeMultiplier === "string" && typeof o.derivativeAtomicMarketOrderFeeMultiplier === "string" && typeof o.binaryOptionsAtomicMarketOrderFeeMultiplier === "string" && typeof o.minimalProtocolFeeRate === "string" && typeof o.isInstantDerivativeMarketLaunchEnabled === "boolean" && typeof o.postOnlyModeHeightThreshold === "bigint" && typeof o.marginDecreasePriceTimestampThresholdSeconds === "bigint" && Array.isArray(o.exchangeAdmins) && (!o.exchangeAdmins.length || typeof o.exchangeAdmins[0] === "string") && typeof o.injAuctionMaxCap === "string");
+    return o && (o.$typeUrl === Params.typeUrl || Coin.is(o.spotMarketInstantListingFee) && Coin.is(o.derivativeMarketInstantListingFee) && typeof o.defaultSpotMakerFeeRate === "string" && typeof o.defaultSpotTakerFeeRate === "string" && typeof o.defaultDerivativeMakerFeeRate === "string" && typeof o.defaultDerivativeTakerFeeRate === "string" && typeof o.defaultInitialMarginRatio === "string" && typeof o.defaultMaintenanceMarginRatio === "string" && typeof o.defaultFundingInterval === "bigint" && typeof o.fundingMultiple === "bigint" && typeof o.relayerFeeShareRate === "string" && typeof o.defaultHourlyFundingRateCap === "string" && typeof o.defaultHourlyInterestRate === "string" && typeof o.maxDerivativeOrderSideCount === "number" && typeof o.injRewardStakedRequirementThreshold === "string" && typeof o.tradingRewardsVestingDuration === "bigint" && typeof o.liquidatorRewardShareRate === "string" && Coin.is(o.binaryOptionsMarketInstantListingFee) && isSet(o.atomicMarketOrderAccessLevel) && typeof o.spotAtomicMarketOrderFeeMultiplier === "string" && typeof o.derivativeAtomicMarketOrderFeeMultiplier === "string" && typeof o.binaryOptionsAtomicMarketOrderFeeMultiplier === "string" && typeof o.minimalProtocolFeeRate === "string" && typeof o.isInstantDerivativeMarketLaunchEnabled === "boolean" && typeof o.postOnlyModeHeightThreshold === "bigint" && typeof o.marginDecreasePriceTimestampThresholdSeconds === "bigint" && Array.isArray(o.exchangeAdmins) && (!o.exchangeAdmins.length || typeof o.exchangeAdmins[0] === "string") && typeof o.injAuctionMaxCap === "string" && typeof o.fixedGasEnabled === "boolean");
   },
   isAmino(o: any): o is ParamsAmino {
-    return o && (o.$typeUrl === Params.typeUrl || Coin.isAmino(o.spot_market_instant_listing_fee) && Coin.isAmino(o.derivative_market_instant_listing_fee) && typeof o.default_spot_maker_fee_rate === "string" && typeof o.default_spot_taker_fee_rate === "string" && typeof o.default_derivative_maker_fee_rate === "string" && typeof o.default_derivative_taker_fee_rate === "string" && typeof o.default_initial_margin_ratio === "string" && typeof o.default_maintenance_margin_ratio === "string" && typeof o.default_funding_interval === "bigint" && typeof o.funding_multiple === "bigint" && typeof o.relayer_fee_share_rate === "string" && typeof o.default_hourly_funding_rate_cap === "string" && typeof o.default_hourly_interest_rate === "string" && typeof o.max_derivative_order_side_count === "number" && typeof o.inj_reward_staked_requirement_threshold === "string" && typeof o.trading_rewards_vesting_duration === "bigint" && typeof o.liquidator_reward_share_rate === "string" && Coin.isAmino(o.binary_options_market_instant_listing_fee) && isSet(o.atomic_market_order_access_level) && typeof o.spot_atomic_market_order_fee_multiplier === "string" && typeof o.derivative_atomic_market_order_fee_multiplier === "string" && typeof o.binary_options_atomic_market_order_fee_multiplier === "string" && typeof o.minimal_protocol_fee_rate === "string" && typeof o.is_instant_derivative_market_launch_enabled === "boolean" && typeof o.post_only_mode_height_threshold === "bigint" && typeof o.margin_decrease_price_timestamp_threshold_seconds === "bigint" && Array.isArray(o.exchange_admins) && (!o.exchange_admins.length || typeof o.exchange_admins[0] === "string") && typeof o.inj_auction_max_cap === "string");
+    return o && (o.$typeUrl === Params.typeUrl || Coin.isAmino(o.spot_market_instant_listing_fee) && Coin.isAmino(o.derivative_market_instant_listing_fee) && typeof o.default_spot_maker_fee_rate === "string" && typeof o.default_spot_taker_fee_rate === "string" && typeof o.default_derivative_maker_fee_rate === "string" && typeof o.default_derivative_taker_fee_rate === "string" && typeof o.default_initial_margin_ratio === "string" && typeof o.default_maintenance_margin_ratio === "string" && typeof o.default_funding_interval === "bigint" && typeof o.funding_multiple === "bigint" && typeof o.relayer_fee_share_rate === "string" && typeof o.default_hourly_funding_rate_cap === "string" && typeof o.default_hourly_interest_rate === "string" && typeof o.max_derivative_order_side_count === "number" && typeof o.inj_reward_staked_requirement_threshold === "string" && typeof o.trading_rewards_vesting_duration === "bigint" && typeof o.liquidator_reward_share_rate === "string" && Coin.isAmino(o.binary_options_market_instant_listing_fee) && isSet(o.atomic_market_order_access_level) && typeof o.spot_atomic_market_order_fee_multiplier === "string" && typeof o.derivative_atomic_market_order_fee_multiplier === "string" && typeof o.binary_options_atomic_market_order_fee_multiplier === "string" && typeof o.minimal_protocol_fee_rate === "string" && typeof o.is_instant_derivative_market_launch_enabled === "boolean" && typeof o.post_only_mode_height_threshold === "bigint" && typeof o.margin_decrease_price_timestamp_threshold_seconds === "bigint" && Array.isArray(o.exchange_admins) && (!o.exchange_admins.length || typeof o.exchange_admins[0] === "string") && typeof o.inj_auction_max_cap === "string" && typeof o.fixed_gas_enabled === "boolean");
   },
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.spotMarketInstantListingFee !== undefined) {
@@ -2976,6 +3045,9 @@ export const Params = {
     }
     if (message.injAuctionMaxCap !== "") {
       writer.uint32(226).string(message.injAuctionMaxCap);
+    }
+    if (message.fixedGasEnabled === true) {
+      writer.uint32(232).bool(message.fixedGasEnabled);
     }
     return writer;
   },
@@ -3070,6 +3142,9 @@ export const Params = {
         case 28:
           message.injAuctionMaxCap = reader.string();
           break;
+        case 29:
+          message.fixedGasEnabled = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3107,6 +3182,7 @@ export const Params = {
     message.marginDecreasePriceTimestampThresholdSeconds = object.marginDecreasePriceTimestampThresholdSeconds !== undefined && object.marginDecreasePriceTimestampThresholdSeconds !== null ? BigInt(object.marginDecreasePriceTimestampThresholdSeconds.toString()) : BigInt(0);
     message.exchangeAdmins = object.exchangeAdmins?.map(e => e) || [];
     message.injAuctionMaxCap = object.injAuctionMaxCap ?? "";
+    message.fixedGasEnabled = object.fixedGasEnabled ?? false;
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
@@ -3193,6 +3269,9 @@ export const Params = {
     if (object.inj_auction_max_cap !== undefined && object.inj_auction_max_cap !== null) {
       message.injAuctionMaxCap = object.inj_auction_max_cap;
     }
+    if (object.fixed_gas_enabled !== undefined && object.fixed_gas_enabled !== null) {
+      message.fixedGasEnabled = object.fixed_gas_enabled;
+    }
     return message;
   },
   toAmino(message: Params): ParamsAmino {
@@ -3229,6 +3308,7 @@ export const Params = {
       obj.exchange_admins = message.exchangeAdmins;
     }
     obj.inj_auction_max_cap = message.injAuctionMaxCap === "" ? undefined : message.injAuctionMaxCap;
+    obj.fixed_gas_enabled = message.fixedGasEnabled === false ? undefined : message.fixedGasEnabled;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {
@@ -3366,7 +3446,8 @@ function createBaseDerivativeMarket(): DerivativeMarket {
     minQuantityTickSize: "",
     minNotional: "",
     admin: "",
-    adminPermissions: 0
+    adminPermissions: 0,
+    quoteDecimals: 0
   };
 }
 /**
@@ -3378,10 +3459,10 @@ function createBaseDerivativeMarket(): DerivativeMarket {
 export const DerivativeMarket = {
   typeUrl: "/injective.exchange.v1beta1.DerivativeMarket",
   is(o: any): o is DerivativeMarket {
-    return o && (o.$typeUrl === DerivativeMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracleBase === "string" && typeof o.oracleQuote === "string" && isSet(o.oracleType) && typeof o.oracleScaleFactor === "number" && typeof o.quoteDenom === "string" && typeof o.marketId === "string" && typeof o.initialMarginRatio === "string" && typeof o.maintenanceMarginRatio === "string" && typeof o.makerFeeRate === "string" && typeof o.takerFeeRate === "string" && typeof o.relayerFeeShareRate === "string" && typeof o.isPerpetual === "boolean" && isSet(o.status) && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.admin === "string" && typeof o.adminPermissions === "number");
+    return o && (o.$typeUrl === DerivativeMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracleBase === "string" && typeof o.oracleQuote === "string" && isSet(o.oracleType) && typeof o.oracleScaleFactor === "number" && typeof o.quoteDenom === "string" && typeof o.marketId === "string" && typeof o.initialMarginRatio === "string" && typeof o.maintenanceMarginRatio === "string" && typeof o.makerFeeRate === "string" && typeof o.takerFeeRate === "string" && typeof o.relayerFeeShareRate === "string" && typeof o.isPerpetual === "boolean" && isSet(o.status) && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.admin === "string" && typeof o.adminPermissions === "number" && typeof o.quoteDecimals === "number");
   },
   isAmino(o: any): o is DerivativeMarketAmino {
-    return o && (o.$typeUrl === DerivativeMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracle_base === "string" && typeof o.oracle_quote === "string" && isSet(o.oracle_type) && typeof o.oracle_scale_factor === "number" && typeof o.quote_denom === "string" && typeof o.market_id === "string" && typeof o.initial_margin_ratio === "string" && typeof o.maintenance_margin_ratio === "string" && typeof o.maker_fee_rate === "string" && typeof o.taker_fee_rate === "string" && typeof o.relayer_fee_share_rate === "string" && typeof o.isPerpetual === "boolean" && isSet(o.status) && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.admin === "string" && typeof o.admin_permissions === "number");
+    return o && (o.$typeUrl === DerivativeMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracle_base === "string" && typeof o.oracle_quote === "string" && isSet(o.oracle_type) && typeof o.oracle_scale_factor === "number" && typeof o.quote_denom === "string" && typeof o.market_id === "string" && typeof o.initial_margin_ratio === "string" && typeof o.maintenance_margin_ratio === "string" && typeof o.maker_fee_rate === "string" && typeof o.taker_fee_rate === "string" && typeof o.relayer_fee_share_rate === "string" && typeof o.isPerpetual === "boolean" && isSet(o.status) && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.admin === "string" && typeof o.admin_permissions === "number" && typeof o.quote_decimals === "number");
   },
   encode(message: DerivativeMarket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ticker !== "") {
@@ -3440,6 +3521,9 @@ export const DerivativeMarket = {
     }
     if (message.adminPermissions !== 0) {
       writer.uint32(152).uint32(message.adminPermissions);
+    }
+    if (message.quoteDecimals !== 0) {
+      writer.uint32(160).uint32(message.quoteDecimals);
     }
     return writer;
   },
@@ -3507,6 +3591,9 @@ export const DerivativeMarket = {
         case 19:
           message.adminPermissions = reader.uint32();
           break;
+        case 20:
+          message.quoteDecimals = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3535,6 +3622,7 @@ export const DerivativeMarket = {
     message.minNotional = object.minNotional ?? "";
     message.admin = object.admin ?? "";
     message.adminPermissions = object.adminPermissions ?? 0;
+    message.quoteDecimals = object.quoteDecimals ?? 0;
     return message;
   },
   fromAmino(object: DerivativeMarketAmino): DerivativeMarket {
@@ -3596,6 +3684,9 @@ export const DerivativeMarket = {
     if (object.admin_permissions !== undefined && object.admin_permissions !== null) {
       message.adminPermissions = object.admin_permissions;
     }
+    if (object.quote_decimals !== undefined && object.quote_decimals !== null) {
+      message.quoteDecimals = object.quote_decimals;
+    }
     return message;
   },
   toAmino(message: DerivativeMarket): DerivativeMarketAmino {
@@ -3619,6 +3710,7 @@ export const DerivativeMarket = {
     obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
+    obj.quote_decimals = message.quoteDecimals === 0 ? undefined : message.quoteDecimals;
     return obj;
   },
   fromAminoMsg(object: DerivativeMarketAminoMsg): DerivativeMarket {
@@ -3658,7 +3750,8 @@ function createBaseBinaryOptionsMarket(): BinaryOptionsMarket {
     minQuantityTickSize: "",
     settlementPrice: undefined,
     minNotional: "",
-    adminPermissions: 0
+    adminPermissions: 0,
+    quoteDecimals: 0
   };
 }
 /**
@@ -3670,10 +3763,10 @@ function createBaseBinaryOptionsMarket(): BinaryOptionsMarket {
 export const BinaryOptionsMarket = {
   typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarket",
   is(o: any): o is BinaryOptionsMarket {
-    return o && (o.$typeUrl === BinaryOptionsMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracleSymbol === "string" && typeof o.oracleProvider === "string" && isSet(o.oracleType) && typeof o.oracleScaleFactor === "number" && typeof o.expirationTimestamp === "bigint" && typeof o.settlementTimestamp === "bigint" && typeof o.admin === "string" && typeof o.quoteDenom === "string" && typeof o.marketId === "string" && typeof o.makerFeeRate === "string" && typeof o.takerFeeRate === "string" && typeof o.relayerFeeShareRate === "string" && isSet(o.status) && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.adminPermissions === "number");
+    return o && (o.$typeUrl === BinaryOptionsMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracleSymbol === "string" && typeof o.oracleProvider === "string" && isSet(o.oracleType) && typeof o.oracleScaleFactor === "number" && typeof o.expirationTimestamp === "bigint" && typeof o.settlementTimestamp === "bigint" && typeof o.admin === "string" && typeof o.quoteDenom === "string" && typeof o.marketId === "string" && typeof o.makerFeeRate === "string" && typeof o.takerFeeRate === "string" && typeof o.relayerFeeShareRate === "string" && isSet(o.status) && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.adminPermissions === "number" && typeof o.quoteDecimals === "number");
   },
   isAmino(o: any): o is BinaryOptionsMarketAmino {
-    return o && (o.$typeUrl === BinaryOptionsMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracle_symbol === "string" && typeof o.oracle_provider === "string" && isSet(o.oracle_type) && typeof o.oracle_scale_factor === "number" && typeof o.expiration_timestamp === "bigint" && typeof o.settlement_timestamp === "bigint" && typeof o.admin === "string" && typeof o.quote_denom === "string" && typeof o.market_id === "string" && typeof o.maker_fee_rate === "string" && typeof o.taker_fee_rate === "string" && typeof o.relayer_fee_share_rate === "string" && isSet(o.status) && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.admin_permissions === "number");
+    return o && (o.$typeUrl === BinaryOptionsMarket.typeUrl || typeof o.ticker === "string" && typeof o.oracle_symbol === "string" && typeof o.oracle_provider === "string" && isSet(o.oracle_type) && typeof o.oracle_scale_factor === "number" && typeof o.expiration_timestamp === "bigint" && typeof o.settlement_timestamp === "bigint" && typeof o.admin === "string" && typeof o.quote_denom === "string" && typeof o.market_id === "string" && typeof o.maker_fee_rate === "string" && typeof o.taker_fee_rate === "string" && typeof o.relayer_fee_share_rate === "string" && isSet(o.status) && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.admin_permissions === "number" && typeof o.quote_decimals === "number");
   },
   encode(message: BinaryOptionsMarket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ticker !== "") {
@@ -3732,6 +3825,9 @@ export const BinaryOptionsMarket = {
     }
     if (message.adminPermissions !== 0) {
       writer.uint32(152).uint32(message.adminPermissions);
+    }
+    if (message.quoteDecimals !== 0) {
+      writer.uint32(160).uint32(message.quoteDecimals);
     }
     return writer;
   },
@@ -3799,6 +3895,9 @@ export const BinaryOptionsMarket = {
         case 19:
           message.adminPermissions = reader.uint32();
           break;
+        case 20:
+          message.quoteDecimals = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3827,6 +3926,7 @@ export const BinaryOptionsMarket = {
     message.settlementPrice = object.settlementPrice ?? undefined;
     message.minNotional = object.minNotional ?? "";
     message.adminPermissions = object.adminPermissions ?? 0;
+    message.quoteDecimals = object.quoteDecimals ?? 0;
     return message;
   },
   fromAmino(object: BinaryOptionsMarketAmino): BinaryOptionsMarket {
@@ -3888,6 +3988,9 @@ export const BinaryOptionsMarket = {
     if (object.admin_permissions !== undefined && object.admin_permissions !== null) {
       message.adminPermissions = object.admin_permissions;
     }
+    if (object.quote_decimals !== undefined && object.quote_decimals !== null) {
+      message.quoteDecimals = object.quote_decimals;
+    }
     return message;
   },
   toAmino(message: BinaryOptionsMarket): BinaryOptionsMarketAmino {
@@ -3911,6 +4014,7 @@ export const BinaryOptionsMarket = {
     obj.settlement_price = message.settlementPrice === null ? undefined : Decimal.fromUserInput(message.settlementPrice, 18).atomics;
     obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
+    obj.quote_decimals = message.quoteDecimals === 0 ? undefined : message.quoteDecimals;
     return obj;
   },
   fromAminoMsg(object: BinaryOptionsMarketAminoMsg): BinaryOptionsMarket {
@@ -4550,7 +4654,9 @@ function createBaseSpotMarket(): SpotMarket {
     minQuantityTickSize: "",
     minNotional: "",
     admin: "",
-    adminPermissions: 0
+    adminPermissions: 0,
+    baseDecimals: 0,
+    quoteDecimals: 0
   };
 }
 /**
@@ -4562,10 +4668,10 @@ function createBaseSpotMarket(): SpotMarket {
 export const SpotMarket = {
   typeUrl: "/injective.exchange.v1beta1.SpotMarket",
   is(o: any): o is SpotMarket {
-    return o && (o.$typeUrl === SpotMarket.typeUrl || typeof o.ticker === "string" && typeof o.baseDenom === "string" && typeof o.quoteDenom === "string" && typeof o.makerFeeRate === "string" && typeof o.takerFeeRate === "string" && typeof o.relayerFeeShareRate === "string" && typeof o.marketId === "string" && isSet(o.status) && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.admin === "string" && typeof o.adminPermissions === "number");
+    return o && (o.$typeUrl === SpotMarket.typeUrl || typeof o.ticker === "string" && typeof o.baseDenom === "string" && typeof o.quoteDenom === "string" && typeof o.makerFeeRate === "string" && typeof o.takerFeeRate === "string" && typeof o.relayerFeeShareRate === "string" && typeof o.marketId === "string" && isSet(o.status) && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.admin === "string" && typeof o.adminPermissions === "number" && typeof o.baseDecimals === "number" && typeof o.quoteDecimals === "number");
   },
   isAmino(o: any): o is SpotMarketAmino {
-    return o && (o.$typeUrl === SpotMarket.typeUrl || typeof o.ticker === "string" && typeof o.base_denom === "string" && typeof o.quote_denom === "string" && typeof o.maker_fee_rate === "string" && typeof o.taker_fee_rate === "string" && typeof o.relayer_fee_share_rate === "string" && typeof o.market_id === "string" && isSet(o.status) && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.admin === "string" && typeof o.admin_permissions === "number");
+    return o && (o.$typeUrl === SpotMarket.typeUrl || typeof o.ticker === "string" && typeof o.base_denom === "string" && typeof o.quote_denom === "string" && typeof o.maker_fee_rate === "string" && typeof o.taker_fee_rate === "string" && typeof o.relayer_fee_share_rate === "string" && typeof o.market_id === "string" && isSet(o.status) && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.admin === "string" && typeof o.admin_permissions === "number" && typeof o.base_decimals === "number" && typeof o.quote_decimals === "number");
   },
   encode(message: SpotMarket, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.ticker !== "") {
@@ -4606,6 +4712,12 @@ export const SpotMarket = {
     }
     if (message.adminPermissions !== 0) {
       writer.uint32(104).uint32(message.adminPermissions);
+    }
+    if (message.baseDecimals !== 0) {
+      writer.uint32(112).uint32(message.baseDecimals);
+    }
+    if (message.quoteDecimals !== 0) {
+      writer.uint32(120).uint32(message.quoteDecimals);
     }
     return writer;
   },
@@ -4655,6 +4767,12 @@ export const SpotMarket = {
         case 13:
           message.adminPermissions = reader.uint32();
           break;
+        case 14:
+          message.baseDecimals = reader.uint32();
+          break;
+        case 15:
+          message.quoteDecimals = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -4677,6 +4795,8 @@ export const SpotMarket = {
     message.minNotional = object.minNotional ?? "";
     message.admin = object.admin ?? "";
     message.adminPermissions = object.adminPermissions ?? 0;
+    message.baseDecimals = object.baseDecimals ?? 0;
+    message.quoteDecimals = object.quoteDecimals ?? 0;
     return message;
   },
   fromAmino(object: SpotMarketAmino): SpotMarket {
@@ -4720,6 +4840,12 @@ export const SpotMarket = {
     if (object.admin_permissions !== undefined && object.admin_permissions !== null) {
       message.adminPermissions = object.admin_permissions;
     }
+    if (object.base_decimals !== undefined && object.base_decimals !== null) {
+      message.baseDecimals = object.base_decimals;
+    }
+    if (object.quote_decimals !== undefined && object.quote_decimals !== null) {
+      message.quoteDecimals = object.quote_decimals;
+    }
     return message;
   },
   toAmino(message: SpotMarket): SpotMarketAmino {
@@ -4737,6 +4863,8 @@ export const SpotMarket = {
     obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin = message.admin === "" ? undefined : message.admin;
     obj.admin_permissions = message.adminPermissions === 0 ? undefined : message.adminPermissions;
+    obj.base_decimals = message.baseDecimals === 0 ? undefined : message.baseDecimals;
+    obj.quote_decimals = message.quoteDecimals === 0 ? undefined : message.quoteDecimals;
     return obj;
   },
   fromAminoMsg(object: SpotMarketAminoMsg): SpotMarket {
@@ -9005,6 +9133,93 @@ export const EffectiveGrant = {
     return {
       typeUrl: "/injective.exchange.v1beta1.EffectiveGrant",
       value: EffectiveGrant.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseDenomMinNotional(): DenomMinNotional {
+  return {
+    denom: "",
+    minNotional: ""
+  };
+}
+/**
+ * @name DenomMinNotional
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DenomMinNotional
+ */
+export const DenomMinNotional = {
+  typeUrl: "/injective.exchange.v1beta1.DenomMinNotional",
+  is(o: any): o is DenomMinNotional {
+    return o && (o.$typeUrl === DenomMinNotional.typeUrl || typeof o.denom === "string" && typeof o.minNotional === "string");
+  },
+  isAmino(o: any): o is DenomMinNotionalAmino {
+    return o && (o.$typeUrl === DenomMinNotional.typeUrl || typeof o.denom === "string" && typeof o.min_notional === "string");
+  },
+  encode(message: DenomMinNotional, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    if (message.minNotional !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): DenomMinNotional {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDenomMinNotional();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.denom = reader.string();
+          break;
+        case 2:
+          message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<DenomMinNotional>): DenomMinNotional {
+    const message = createBaseDenomMinNotional();
+    message.denom = object.denom ?? "";
+    message.minNotional = object.minNotional ?? "";
+    return message;
+  },
+  fromAmino(object: DenomMinNotionalAmino): DenomMinNotional {
+    const message = createBaseDenomMinNotional();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    if (object.min_notional !== undefined && object.min_notional !== null) {
+      message.minNotional = object.min_notional;
+    }
+    return message;
+  },
+  toAmino(message: DenomMinNotional): DenomMinNotionalAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
+    return obj;
+  },
+  fromAminoMsg(object: DenomMinNotionalAminoMsg): DenomMinNotional {
+    return DenomMinNotional.fromAmino(object.value);
+  },
+  fromProtoMsg(message: DenomMinNotionalProtoMsg): DenomMinNotional {
+    return DenomMinNotional.decode(message.value);
+  },
+  toProto(message: DenomMinNotional): Uint8Array {
+    return DenomMinNotional.encode(message).finish();
+  },
+  toProtoMsg(message: DenomMinNotional): DenomMinNotionalProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.DenomMinNotional",
+      value: DenomMinNotional.encode(message).finish()
     };
   },
   registerTypeUrl() {}

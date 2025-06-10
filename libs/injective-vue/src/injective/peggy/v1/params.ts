@@ -30,6 +30,10 @@ export interface Params {
   bridgeContractStartHeight: bigint;
   valsetReward: Coin;
   admins: string[];
+  /**
+   * address for receiving Peggy Deposits from sanctioned Ethereum addresses
+   */
+  segregatedWalletAddress: string;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.peggy.v1.Params";
@@ -63,6 +67,10 @@ export interface ParamsAmino {
   bridge_contract_start_height: string;
   valset_reward: CoinAmino;
   admins: string[];
+  /**
+   * address for receiving Peggy Deposits from sanctioned Ethereum addresses
+   */
+  segregated_wallet_address: string;
 }
 export interface ParamsAminoMsg {
   type: "peggy/Params";
@@ -91,7 +99,8 @@ function createBaseParams(): Params {
     claimSlashingEnabled: false,
     bridgeContractStartHeight: BigInt(0),
     valsetReward: Coin.fromPartial({}),
-    admins: []
+    admins: [],
+    segregatedWalletAddress: ""
   };
 }
 /**
@@ -103,10 +112,10 @@ export const Params = {
   typeUrl: "/injective.peggy.v1.Params",
   aminoType: "peggy/Params",
   is(o: any): o is Params {
-    return o && (o.$typeUrl === Params.typeUrl || typeof o.peggyId === "string" && typeof o.contractSourceHash === "string" && typeof o.bridgeEthereumAddress === "string" && typeof o.bridgeChainId === "bigint" && typeof o.signedValsetsWindow === "bigint" && typeof o.signedBatchesWindow === "bigint" && typeof o.signedClaimsWindow === "bigint" && typeof o.targetBatchTimeout === "bigint" && typeof o.averageBlockTime === "bigint" && typeof o.averageEthereumBlockTime === "bigint" && (o.slashFractionValset instanceof Uint8Array || typeof o.slashFractionValset === "string") && (o.slashFractionBatch instanceof Uint8Array || typeof o.slashFractionBatch === "string") && (o.slashFractionClaim instanceof Uint8Array || typeof o.slashFractionClaim === "string") && (o.slashFractionConflictingClaim instanceof Uint8Array || typeof o.slashFractionConflictingClaim === "string") && typeof o.unbondSlashingValsetsWindow === "bigint" && (o.slashFractionBadEthSignature instanceof Uint8Array || typeof o.slashFractionBadEthSignature === "string") && typeof o.cosmosCoinDenom === "string" && typeof o.cosmosCoinErc20Contract === "string" && typeof o.claimSlashingEnabled === "boolean" && typeof o.bridgeContractStartHeight === "bigint" && Coin.is(o.valsetReward) && Array.isArray(o.admins) && (!o.admins.length || typeof o.admins[0] === "string"));
+    return o && (o.$typeUrl === Params.typeUrl || typeof o.peggyId === "string" && typeof o.contractSourceHash === "string" && typeof o.bridgeEthereumAddress === "string" && typeof o.bridgeChainId === "bigint" && typeof o.signedValsetsWindow === "bigint" && typeof o.signedBatchesWindow === "bigint" && typeof o.signedClaimsWindow === "bigint" && typeof o.targetBatchTimeout === "bigint" && typeof o.averageBlockTime === "bigint" && typeof o.averageEthereumBlockTime === "bigint" && (o.slashFractionValset instanceof Uint8Array || typeof o.slashFractionValset === "string") && (o.slashFractionBatch instanceof Uint8Array || typeof o.slashFractionBatch === "string") && (o.slashFractionClaim instanceof Uint8Array || typeof o.slashFractionClaim === "string") && (o.slashFractionConflictingClaim instanceof Uint8Array || typeof o.slashFractionConflictingClaim === "string") && typeof o.unbondSlashingValsetsWindow === "bigint" && (o.slashFractionBadEthSignature instanceof Uint8Array || typeof o.slashFractionBadEthSignature === "string") && typeof o.cosmosCoinDenom === "string" && typeof o.cosmosCoinErc20Contract === "string" && typeof o.claimSlashingEnabled === "boolean" && typeof o.bridgeContractStartHeight === "bigint" && Coin.is(o.valsetReward) && Array.isArray(o.admins) && (!o.admins.length || typeof o.admins[0] === "string") && typeof o.segregatedWalletAddress === "string");
   },
   isAmino(o: any): o is ParamsAmino {
-    return o && (o.$typeUrl === Params.typeUrl || typeof o.peggy_id === "string" && typeof o.contract_source_hash === "string" && typeof o.bridge_ethereum_address === "string" && typeof o.bridge_chain_id === "bigint" && typeof o.signed_valsets_window === "bigint" && typeof o.signed_batches_window === "bigint" && typeof o.signed_claims_window === "bigint" && typeof o.target_batch_timeout === "bigint" && typeof o.average_block_time === "bigint" && typeof o.average_ethereum_block_time === "bigint" && (o.slash_fraction_valset instanceof Uint8Array || typeof o.slash_fraction_valset === "string") && (o.slash_fraction_batch instanceof Uint8Array || typeof o.slash_fraction_batch === "string") && (o.slash_fraction_claim instanceof Uint8Array || typeof o.slash_fraction_claim === "string") && (o.slash_fraction_conflicting_claim instanceof Uint8Array || typeof o.slash_fraction_conflicting_claim === "string") && typeof o.unbond_slashing_valsets_window === "bigint" && (o.slash_fraction_bad_eth_signature instanceof Uint8Array || typeof o.slash_fraction_bad_eth_signature === "string") && typeof o.cosmos_coin_denom === "string" && typeof o.cosmos_coin_erc20_contract === "string" && typeof o.claim_slashing_enabled === "boolean" && typeof o.bridge_contract_start_height === "bigint" && Coin.isAmino(o.valset_reward) && Array.isArray(o.admins) && (!o.admins.length || typeof o.admins[0] === "string"));
+    return o && (o.$typeUrl === Params.typeUrl || typeof o.peggy_id === "string" && typeof o.contract_source_hash === "string" && typeof o.bridge_ethereum_address === "string" && typeof o.bridge_chain_id === "bigint" && typeof o.signed_valsets_window === "bigint" && typeof o.signed_batches_window === "bigint" && typeof o.signed_claims_window === "bigint" && typeof o.target_batch_timeout === "bigint" && typeof o.average_block_time === "bigint" && typeof o.average_ethereum_block_time === "bigint" && (o.slash_fraction_valset instanceof Uint8Array || typeof o.slash_fraction_valset === "string") && (o.slash_fraction_batch instanceof Uint8Array || typeof o.slash_fraction_batch === "string") && (o.slash_fraction_claim instanceof Uint8Array || typeof o.slash_fraction_claim === "string") && (o.slash_fraction_conflicting_claim instanceof Uint8Array || typeof o.slash_fraction_conflicting_claim === "string") && typeof o.unbond_slashing_valsets_window === "bigint" && (o.slash_fraction_bad_eth_signature instanceof Uint8Array || typeof o.slash_fraction_bad_eth_signature === "string") && typeof o.cosmos_coin_denom === "string" && typeof o.cosmos_coin_erc20_contract === "string" && typeof o.claim_slashing_enabled === "boolean" && typeof o.bridge_contract_start_height === "bigint" && Coin.isAmino(o.valset_reward) && Array.isArray(o.admins) && (!o.admins.length || typeof o.admins[0] === "string") && typeof o.segregated_wallet_address === "string");
   },
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.peggyId !== "") {
@@ -174,6 +183,9 @@ export const Params = {
     }
     for (const v of message.admins) {
       writer.uint32(178).string(v!);
+    }
+    if (message.segregatedWalletAddress !== "") {
+      writer.uint32(186).string(message.segregatedWalletAddress);
     }
     return writer;
   },
@@ -250,6 +262,9 @@ export const Params = {
         case 22:
           message.admins.push(reader.string());
           break;
+        case 23:
+          message.segregatedWalletAddress = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -281,6 +296,7 @@ export const Params = {
     message.bridgeContractStartHeight = object.bridgeContractStartHeight !== undefined && object.bridgeContractStartHeight !== null ? BigInt(object.bridgeContractStartHeight.toString()) : BigInt(0);
     message.valsetReward = object.valsetReward !== undefined && object.valsetReward !== null ? Coin.fromPartial(object.valsetReward) : undefined;
     message.admins = object.admins?.map(e => e) || [];
+    message.segregatedWalletAddress = object.segregatedWalletAddress ?? "";
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
@@ -349,6 +365,9 @@ export const Params = {
       message.valsetReward = Coin.fromAmino(object.valset_reward);
     }
     message.admins = object.admins?.map(e => e) || [];
+    if (object.segregated_wallet_address !== undefined && object.segregated_wallet_address !== null) {
+      message.segregatedWalletAddress = object.segregated_wallet_address;
+    }
     return message;
   },
   toAmino(message: Params): ParamsAmino {
@@ -379,6 +398,7 @@ export const Params = {
     } else {
       obj.admins = message.admins;
     }
+    obj.segregated_wallet_address = message.segregatedWalletAddress === "" ? undefined : message.segregatedWalletAddress;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {

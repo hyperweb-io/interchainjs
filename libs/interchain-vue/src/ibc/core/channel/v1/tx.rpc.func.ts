@@ -1,5 +1,5 @@
 import { buildTx } from "../../../../helper-func-types";
-import { MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelCloseInit, MsgChannelCloseConfirm, MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgAcknowledgement, MsgChannelUpgradeInit, MsgChannelUpgradeTry, MsgChannelUpgradeAck, MsgChannelUpgradeConfirm, MsgChannelUpgradeOpen, MsgChannelUpgradeTimeout, MsgChannelUpgradeCancel, MsgUpdateParams, MsgPruneAcknowledgements } from "./tx";
+import { MsgChannelOpenInit, MsgChannelOpenTry, MsgChannelOpenAck, MsgChannelOpenConfirm, MsgChannelCloseInit, MsgChannelCloseConfirm, MsgRecvPacket, MsgTimeout, MsgTimeoutOnClose, MsgAcknowledgement } from "./tx";
 /**
  * ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.
  * @name channelOpenInit
@@ -90,85 +90,4 @@ export const timeoutOnClose = buildTx<MsgTimeoutOnClose>({
  */
 export const acknowledgement = buildTx<MsgAcknowledgement>({
   msg: MsgAcknowledgement
-});
-/**
- * ChannelUpgradeInit defines a rpc handler method for MsgChannelUpgradeInit.
- * @name channelUpgradeInit
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeInit
- */
-export const channelUpgradeInit = buildTx<MsgChannelUpgradeInit>({
-  msg: MsgChannelUpgradeInit
-});
-/**
- * ChannelUpgradeTry defines a rpc handler method for MsgChannelUpgradeTry.
- * @name channelUpgradeTry
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeTry
- */
-export const channelUpgradeTry = buildTx<MsgChannelUpgradeTry>({
-  msg: MsgChannelUpgradeTry
-});
-/**
- * ChannelUpgradeAck defines a rpc handler method for MsgChannelUpgradeAck.
- * @name channelUpgradeAck
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeAck
- */
-export const channelUpgradeAck = buildTx<MsgChannelUpgradeAck>({
-  msg: MsgChannelUpgradeAck
-});
-/**
- * ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
- * @name channelUpgradeConfirm
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeConfirm
- */
-export const channelUpgradeConfirm = buildTx<MsgChannelUpgradeConfirm>({
-  msg: MsgChannelUpgradeConfirm
-});
-/**
- * ChannelUpgradeOpen defines a rpc handler method for MsgChannelUpgradeOpen.
- * @name channelUpgradeOpen
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeOpen
- */
-export const channelUpgradeOpen = buildTx<MsgChannelUpgradeOpen>({
-  msg: MsgChannelUpgradeOpen
-});
-/**
- * ChannelUpgradeTimeout defines a rpc handler method for MsgChannelUpgradeTimeout.
- * @name channelUpgradeTimeout
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeTimeout
- */
-export const channelUpgradeTimeout = buildTx<MsgChannelUpgradeTimeout>({
-  msg: MsgChannelUpgradeTimeout
-});
-/**
- * ChannelUpgradeCancel defines a rpc handler method for MsgChannelUpgradeCancel.
- * @name channelUpgradeCancel
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelUpgradeCancel
- */
-export const channelUpgradeCancel = buildTx<MsgChannelUpgradeCancel>({
-  msg: MsgChannelUpgradeCancel
-});
-/**
- * UpdateChannelParams defines a rpc handler method for MsgUpdateParams.
- * @name updateChannelParams
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.UpdateChannelParams
- */
-export const updateChannelParams = buildTx<MsgUpdateParams>({
-  msg: MsgUpdateParams
-});
-/**
- * PruneAcknowledgements defines a rpc handler method for MsgPruneAcknowledgements.
- * @name pruneAcknowledgements
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.PruneAcknowledgements
- */
-export const pruneAcknowledgements = buildTx<MsgPruneAcknowledgements>({
-  msg: MsgPruneAcknowledgements
 });

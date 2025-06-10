@@ -175,9 +175,6 @@ export interface QueryUpgradedConsensusStateRequestAminoMsg {
  * @deprecated
  */
 export interface QueryUpgradedConsensusStateResponse {
-  /**
-   * Since: cosmos-sdk 0.43
-   */
   upgradedConsensusState: Uint8Array;
 }
 export interface QueryUpgradedConsensusStateResponseProtoMsg {
@@ -193,9 +190,6 @@ export interface QueryUpgradedConsensusStateResponseProtoMsg {
  * @deprecated
  */
 export interface QueryUpgradedConsensusStateResponseAmino {
-  /**
-   * Since: cosmos-sdk 0.43
-   */
   upgraded_consensus_state: string;
 }
 export interface QueryUpgradedConsensusStateResponseAminoMsg {
@@ -205,8 +199,6 @@ export interface QueryUpgradedConsensusStateResponseAminoMsg {
 /**
  * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
  * RPC method.
- * 
- * Since: cosmos-sdk 0.43
  * @name QueryModuleVersionsRequest
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsRequest
@@ -226,8 +218,6 @@ export interface QueryModuleVersionsRequestProtoMsg {
 /**
  * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
  * RPC method.
- * 
- * Since: cosmos-sdk 0.43
  * @name QueryModuleVersionsRequestAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsRequest
@@ -247,8 +237,6 @@ export interface QueryModuleVersionsRequestAminoMsg {
 /**
  * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
  * RPC method.
- * 
- * Since: cosmos-sdk 0.43
  * @name QueryModuleVersionsResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsResponse
@@ -266,8 +254,6 @@ export interface QueryModuleVersionsResponseProtoMsg {
 /**
  * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
  * RPC method.
- * 
- * Since: cosmos-sdk 0.43
  * @name QueryModuleVersionsResponseAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsResponse
@@ -284,8 +270,6 @@ export interface QueryModuleVersionsResponseAminoMsg {
 }
 /**
  * QueryAuthorityRequest is the request type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryAuthorityRequest
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityRequest
@@ -297,8 +281,6 @@ export interface QueryAuthorityRequestProtoMsg {
 }
 /**
  * QueryAuthorityRequest is the request type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryAuthorityRequestAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityRequest
@@ -310,8 +292,6 @@ export interface QueryAuthorityRequestAminoMsg {
 }
 /**
  * QueryAuthorityResponse is the response type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryAuthorityResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityResponse
@@ -325,8 +305,6 @@ export interface QueryAuthorityResponseProtoMsg {
 }
 /**
  * QueryAuthorityResponse is the response type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryAuthorityResponseAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityResponse
@@ -844,8 +822,6 @@ function createBaseQueryModuleVersionsRequest(): QueryModuleVersionsRequest {
 /**
  * QueryModuleVersionsRequest is the request type for the Query/ModuleVersions
  * RPC method.
- * 
- * Since: cosmos-sdk 0.43
  * @name QueryModuleVersionsRequest
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsRequest
@@ -930,8 +906,6 @@ function createBaseQueryModuleVersionsResponse(): QueryModuleVersionsResponse {
 /**
  * QueryModuleVersionsResponse is the response type for the Query/ModuleVersions
  * RPC method.
- * 
- * Since: cosmos-sdk 0.43
  * @name QueryModuleVersionsResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryModuleVersionsResponse
@@ -1020,8 +994,6 @@ function createBaseQueryAuthorityRequest(): QueryAuthorityRequest {
 }
 /**
  * QueryAuthorityRequest is the request type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryAuthorityRequest
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityRequest
@@ -1094,8 +1066,6 @@ function createBaseQueryAuthorityResponse(): QueryAuthorityResponse {
 }
 /**
  * QueryAuthorityResponse is the response type for Query/Authority
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryAuthorityResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.QueryAuthorityResponse

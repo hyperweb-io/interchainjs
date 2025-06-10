@@ -1,4 +1,4 @@
-import { MarketStatus, DenomDecimals, DenomDecimalsAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, MarketFeeMultiplier, MarketFeeMultiplierAmino } from "./exchange";
+import { MarketStatus, DenomDecimals, DenomDecimalsAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, MarketFeeMultiplier, MarketFeeMultiplierAmino, DenomMinNotional, DenomMinNotionalAmino } from "./exchange";
 import { OracleType } from "../../oracle/v1beta1/oracle";
 import { CommunityPoolSpendProposal, CommunityPoolSpendProposalAmino } from "../../../cosmos/distribution/v1beta1/distribution";
 import { isSet, DeepPartial } from "../../../helpers";
@@ -82,6 +82,14 @@ export interface SpotMarketParamUpdateProposal {
    */
   minNotional?: string;
   adminInfo?: AdminInfo;
+  /**
+   * base token decimals
+   */
+  baseDecimals: number;
+  /**
+   * quote token decimals
+   */
+  quoteDecimals: number;
 }
 export interface SpotMarketParamUpdateProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal";
@@ -127,6 +135,14 @@ export interface SpotMarketParamUpdateProposalAmino {
    */
   min_notional?: string;
   admin_info?: AdminInfoAmino;
+  /**
+   * base token decimals
+   */
+  base_decimals: number;
+  /**
+   * quote token decimals
+   */
+  quote_decimals: number;
 }
 export interface SpotMarketParamUpdateProposalAminoMsg {
   type: "exchange/SpotMarketParamUpdateProposal";
@@ -179,6 +195,7 @@ export interface BatchExchangeModificationProposal {
   denomDecimalsUpdateProposal?: UpdateDenomDecimalsProposal;
   feeDiscountProposal?: FeeDiscountProposal;
   marketForcedSettlementProposals: MarketForcedSettlementProposal[];
+  denomMinNotionalProposal?: DenomMinNotionalProposal;
 }
 export interface BatchExchangeModificationProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal";
@@ -203,6 +220,7 @@ export interface BatchExchangeModificationProposalAmino {
   denom_decimals_update_proposal?: UpdateDenomDecimalsProposalAmino;
   fee_discount_proposal?: FeeDiscountProposalAmino;
   market_forced_settlement_proposals: MarketForcedSettlementProposalAmino[];
+  denom_min_notional_proposal?: DenomMinNotionalProposalAmino;
 }
 export interface BatchExchangeModificationProposalAminoMsg {
   type: "exchange/BatchExchangeModificationProposal";
@@ -252,6 +270,14 @@ export interface SpotMarketLaunchProposal {
    */
   minNotional: string;
   adminInfo?: AdminInfo;
+  /**
+   * base token decimals
+   */
+  baseDecimals: number;
+  /**
+   * quote token decimals
+   */
+  quoteDecimals: number;
 }
 export interface SpotMarketLaunchProposalProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal";
@@ -301,6 +327,14 @@ export interface SpotMarketLaunchProposalAmino {
    */
   min_notional: string;
   admin_info?: AdminInfoAmino;
+  /**
+   * base token decimals
+   */
+  base_decimals: number;
+  /**
+   * quote token decimals
+   */
+  quote_decimals: number;
 }
 export interface SpotMarketLaunchProposalAminoMsg {
   type: "exchange/SpotMarketLaunchProposal";
@@ -1424,6 +1458,34 @@ export interface AtomicMarketOrderFeeMultiplierScheduleProposalAminoMsg {
   type: "exchange/AtomicMarketOrderFeeMultiplierScheduleProposal";
   value: AtomicMarketOrderFeeMultiplierScheduleProposalAmino;
 }
+/**
+ * @name DenomMinNotionalProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DenomMinNotionalProposal
+ */
+export interface DenomMinNotionalProposal {
+  title: string;
+  description: string;
+  denomMinNotionals: DenomMinNotional[];
+}
+export interface DenomMinNotionalProposalProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.DenomMinNotionalProposal";
+  value: Uint8Array;
+}
+/**
+ * @name DenomMinNotionalProposalAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DenomMinNotionalProposal
+ */
+export interface DenomMinNotionalProposalAmino {
+  title: string;
+  description: string;
+  denom_min_notionals: DenomMinNotionalAmino[];
+}
+export interface DenomMinNotionalProposalAminoMsg {
+  type: "exchange/DenomMinNotionalProposal";
+  value: DenomMinNotionalProposalAmino;
+}
 function createBaseSpotMarketParamUpdateProposal(): SpotMarketParamUpdateProposal {
   return {
     title: "",
@@ -1437,7 +1499,9 @@ function createBaseSpotMarketParamUpdateProposal(): SpotMarketParamUpdateProposa
     status: 0,
     ticker: undefined,
     minNotional: undefined,
-    adminInfo: undefined
+    adminInfo: undefined,
+    baseDecimals: 0,
+    quoteDecimals: 0
   };
 }
 /**
@@ -1449,10 +1513,10 @@ export const SpotMarketParamUpdateProposal = {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal",
   aminoType: "exchange/SpotMarketParamUpdateProposal",
   is(o: any): o is SpotMarketParamUpdateProposal {
-    return o && (o.$typeUrl === SpotMarketParamUpdateProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.marketId === "string" && isSet(o.status));
+    return o && (o.$typeUrl === SpotMarketParamUpdateProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.marketId === "string" && isSet(o.status) && typeof o.baseDecimals === "number" && typeof o.quoteDecimals === "number");
   },
   isAmino(o: any): o is SpotMarketParamUpdateProposalAmino {
-    return o && (o.$typeUrl === SpotMarketParamUpdateProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.market_id === "string" && isSet(o.status));
+    return o && (o.$typeUrl === SpotMarketParamUpdateProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.market_id === "string" && isSet(o.status) && typeof o.base_decimals === "number" && typeof o.quote_decimals === "number");
   },
   encode(message: SpotMarketParamUpdateProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
@@ -1490,6 +1554,12 @@ export const SpotMarketParamUpdateProposal = {
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(98).fork()).ldelim();
+    }
+    if (message.baseDecimals !== 0) {
+      writer.uint32(104).uint32(message.baseDecimals);
+    }
+    if (message.quoteDecimals !== 0) {
+      writer.uint32(112).uint32(message.quoteDecimals);
     }
     return writer;
   },
@@ -1536,6 +1606,12 @@ export const SpotMarketParamUpdateProposal = {
         case 12:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
           break;
+        case 13:
+          message.baseDecimals = reader.uint32();
+          break;
+        case 14:
+          message.quoteDecimals = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1557,6 +1633,8 @@ export const SpotMarketParamUpdateProposal = {
     message.ticker = object.ticker ?? undefined;
     message.minNotional = object.minNotional ?? undefined;
     message.adminInfo = object.adminInfo !== undefined && object.adminInfo !== null ? AdminInfo.fromPartial(object.adminInfo) : undefined;
+    message.baseDecimals = object.baseDecimals ?? 0;
+    message.quoteDecimals = object.quoteDecimals ?? 0;
     return message;
   },
   fromAmino(object: SpotMarketParamUpdateProposalAmino): SpotMarketParamUpdateProposal {
@@ -1597,6 +1675,12 @@ export const SpotMarketParamUpdateProposal = {
     if (object.admin_info !== undefined && object.admin_info !== null) {
       message.adminInfo = AdminInfo.fromAmino(object.admin_info);
     }
+    if (object.base_decimals !== undefined && object.base_decimals !== null) {
+      message.baseDecimals = object.base_decimals;
+    }
+    if (object.quote_decimals !== undefined && object.quote_decimals !== null) {
+      message.quoteDecimals = object.quote_decimals;
+    }
     return message;
   },
   toAmino(message: SpotMarketParamUpdateProposal): SpotMarketParamUpdateProposalAmino {
@@ -1613,6 +1697,8 @@ export const SpotMarketParamUpdateProposal = {
     obj.ticker = message.ticker === null ? undefined : message.ticker;
     obj.min_notional = message.minNotional === null ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
+    obj.base_decimals = message.baseDecimals === 0 ? undefined : message.baseDecimals;
+    obj.quote_decimals = message.quoteDecimals === 0 ? undefined : message.quoteDecimals;
     return obj;
   },
   fromAminoMsg(object: SpotMarketParamUpdateProposalAminoMsg): SpotMarketParamUpdateProposal {
@@ -1765,7 +1851,8 @@ function createBaseBatchExchangeModificationProposal(): BatchExchangeModificatio
     binaryOptionsParamUpdateProposals: [],
     denomDecimalsUpdateProposal: undefined,
     feeDiscountProposal: undefined,
-    marketForcedSettlementProposals: []
+    marketForcedSettlementProposals: [],
+    denomMinNotionalProposal: undefined
   };
 }
 /**
@@ -1822,6 +1909,9 @@ export const BatchExchangeModificationProposal = {
     for (const v of message.marketForcedSettlementProposals) {
       MarketForcedSettlementProposal.encode(v!, writer.uint32(106).fork()).ldelim();
     }
+    if (message.denomMinNotionalProposal !== undefined) {
+      DenomMinNotionalProposal.encode(message.denomMinNotionalProposal, writer.uint32(114).fork()).ldelim();
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BatchExchangeModificationProposal {
@@ -1870,6 +1960,9 @@ export const BatchExchangeModificationProposal = {
         case 13:
           message.marketForcedSettlementProposals.push(MarketForcedSettlementProposal.decode(reader, reader.uint32()));
           break;
+        case 14:
+          message.denomMinNotionalProposal = DenomMinNotionalProposal.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1892,6 +1985,7 @@ export const BatchExchangeModificationProposal = {
     message.denomDecimalsUpdateProposal = object.denomDecimalsUpdateProposal !== undefined && object.denomDecimalsUpdateProposal !== null ? UpdateDenomDecimalsProposal.fromPartial(object.denomDecimalsUpdateProposal) : undefined;
     message.feeDiscountProposal = object.feeDiscountProposal !== undefined && object.feeDiscountProposal !== null ? FeeDiscountProposal.fromPartial(object.feeDiscountProposal) : undefined;
     message.marketForcedSettlementProposals = object.marketForcedSettlementProposals?.map(e => MarketForcedSettlementProposal.fromPartial(e)) || [];
+    message.denomMinNotionalProposal = object.denomMinNotionalProposal !== undefined && object.denomMinNotionalProposal !== null ? DenomMinNotionalProposal.fromPartial(object.denomMinNotionalProposal) : undefined;
     return message;
   },
   fromAmino(object: BatchExchangeModificationProposalAmino): BatchExchangeModificationProposal {
@@ -1919,6 +2013,9 @@ export const BatchExchangeModificationProposal = {
       message.feeDiscountProposal = FeeDiscountProposal.fromAmino(object.fee_discount_proposal);
     }
     message.marketForcedSettlementProposals = object.market_forced_settlement_proposals?.map(e => MarketForcedSettlementProposal.fromAmino(e)) || [];
+    if (object.denom_min_notional_proposal !== undefined && object.denom_min_notional_proposal !== null) {
+      message.denomMinNotionalProposal = DenomMinNotionalProposal.fromAmino(object.denom_min_notional_proposal);
+    }
     return message;
   },
   toAmino(message: BatchExchangeModificationProposal): BatchExchangeModificationProposalAmino {
@@ -1968,6 +2065,7 @@ export const BatchExchangeModificationProposal = {
     } else {
       obj.market_forced_settlement_proposals = message.marketForcedSettlementProposals;
     }
+    obj.denom_min_notional_proposal = message.denomMinNotionalProposal ? DenomMinNotionalProposal.toAmino(message.denomMinNotionalProposal) : undefined;
     return obj;
   },
   fromAminoMsg(object: BatchExchangeModificationProposalAminoMsg): BatchExchangeModificationProposal {
@@ -2008,6 +2106,7 @@ export const BatchExchangeModificationProposal = {
     UpdateDenomDecimalsProposal.registerTypeUrl();
     FeeDiscountProposal.registerTypeUrl();
     MarketForcedSettlementProposal.registerTypeUrl();
+    DenomMinNotionalProposal.registerTypeUrl();
   }
 };
 function createBaseSpotMarketLaunchProposal(): SpotMarketLaunchProposal {
@@ -2022,7 +2121,9 @@ function createBaseSpotMarketLaunchProposal(): SpotMarketLaunchProposal {
     makerFeeRate: undefined,
     takerFeeRate: undefined,
     minNotional: "",
-    adminInfo: undefined
+    adminInfo: undefined,
+    baseDecimals: 0,
+    quoteDecimals: 0
   };
 }
 /**
@@ -2036,10 +2137,10 @@ export const SpotMarketLaunchProposal = {
   typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal",
   aminoType: "exchange/SpotMarketLaunchProposal",
   is(o: any): o is SpotMarketLaunchProposal {
-    return o && (o.$typeUrl === SpotMarketLaunchProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.ticker === "string" && typeof o.baseDenom === "string" && typeof o.quoteDenom === "string" && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string");
+    return o && (o.$typeUrl === SpotMarketLaunchProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.ticker === "string" && typeof o.baseDenom === "string" && typeof o.quoteDenom === "string" && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.baseDecimals === "number" && typeof o.quoteDecimals === "number");
   },
   isAmino(o: any): o is SpotMarketLaunchProposalAmino {
-    return o && (o.$typeUrl === SpotMarketLaunchProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.ticker === "string" && typeof o.base_denom === "string" && typeof o.quote_denom === "string" && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string");
+    return o && (o.$typeUrl === SpotMarketLaunchProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && typeof o.ticker === "string" && typeof o.base_denom === "string" && typeof o.quote_denom === "string" && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.base_decimals === "number" && typeof o.quote_decimals === "number");
   },
   encode(message: SpotMarketLaunchProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.title !== "") {
@@ -2074,6 +2175,12 @@ export const SpotMarketLaunchProposal = {
     }
     if (message.adminInfo !== undefined) {
       AdminInfo.encode(message.adminInfo, writer.uint32(90).fork()).ldelim();
+    }
+    if (message.baseDecimals !== 0) {
+      writer.uint32(112).uint32(message.baseDecimals);
+    }
+    if (message.quoteDecimals !== 0) {
+      writer.uint32(120).uint32(message.quoteDecimals);
     }
     return writer;
   },
@@ -2117,6 +2224,12 @@ export const SpotMarketLaunchProposal = {
         case 11:
           message.adminInfo = AdminInfo.decode(reader, reader.uint32());
           break;
+        case 14:
+          message.baseDecimals = reader.uint32();
+          break;
+        case 15:
+          message.quoteDecimals = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2137,6 +2250,8 @@ export const SpotMarketLaunchProposal = {
     message.takerFeeRate = object.takerFeeRate ?? undefined;
     message.minNotional = object.minNotional ?? "";
     message.adminInfo = object.adminInfo !== undefined && object.adminInfo !== null ? AdminInfo.fromPartial(object.adminInfo) : undefined;
+    message.baseDecimals = object.baseDecimals ?? 0;
+    message.quoteDecimals = object.quoteDecimals ?? 0;
     return message;
   },
   fromAmino(object: SpotMarketLaunchProposalAmino): SpotMarketLaunchProposal {
@@ -2174,6 +2289,12 @@ export const SpotMarketLaunchProposal = {
     if (object.admin_info !== undefined && object.admin_info !== null) {
       message.adminInfo = AdminInfo.fromAmino(object.admin_info);
     }
+    if (object.base_decimals !== undefined && object.base_decimals !== null) {
+      message.baseDecimals = object.base_decimals;
+    }
+    if (object.quote_decimals !== undefined && object.quote_decimals !== null) {
+      message.quoteDecimals = object.quote_decimals;
+    }
     return message;
   },
   toAmino(message: SpotMarketLaunchProposal): SpotMarketLaunchProposalAmino {
@@ -2189,6 +2310,8 @@ export const SpotMarketLaunchProposal = {
     obj.taker_fee_rate = message.takerFeeRate === null ? undefined : Decimal.fromUserInput(message.takerFeeRate, 18).atomics;
     obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
     obj.admin_info = message.adminInfo ? AdminInfo.toAmino(message.adminInfo) : undefined;
+    obj.base_decimals = message.baseDecimals === 0 ? undefined : message.baseDecimals;
+    obj.quote_decimals = message.quoteDecimals === 0 ? undefined : message.quoteDecimals;
     return obj;
   },
   fromAminoMsg(object: SpotMarketLaunchProposalAminoMsg): SpotMarketLaunchProposal {
@@ -4981,5 +5104,120 @@ export const AtomicMarketOrderFeeMultiplierScheduleProposal = {
     GlobalDecoderRegistry.register(AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl, AtomicMarketOrderFeeMultiplierScheduleProposal);
     GlobalDecoderRegistry.registerAminoProtoMapping(AtomicMarketOrderFeeMultiplierScheduleProposal.aminoType, AtomicMarketOrderFeeMultiplierScheduleProposal.typeUrl);
     MarketFeeMultiplier.registerTypeUrl();
+  }
+};
+function createBaseDenomMinNotionalProposal(): DenomMinNotionalProposal {
+  return {
+    title: "",
+    description: "",
+    denomMinNotionals: []
+  };
+}
+/**
+ * @name DenomMinNotionalProposal
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.DenomMinNotionalProposal
+ */
+export const DenomMinNotionalProposal = {
+  typeUrl: "/injective.exchange.v1beta1.DenomMinNotionalProposal",
+  aminoType: "exchange/DenomMinNotionalProposal",
+  is(o: any): o is DenomMinNotionalProposal {
+    return o && (o.$typeUrl === DenomMinNotionalProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && Array.isArray(o.denomMinNotionals) && (!o.denomMinNotionals.length || DenomMinNotional.is(o.denomMinNotionals[0])));
+  },
+  isAmino(o: any): o is DenomMinNotionalProposalAmino {
+    return o && (o.$typeUrl === DenomMinNotionalProposal.typeUrl || typeof o.title === "string" && typeof o.description === "string" && Array.isArray(o.denom_min_notionals) && (!o.denom_min_notionals.length || DenomMinNotional.isAmino(o.denom_min_notionals[0])));
+  },
+  encode(message: DenomMinNotionalProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    for (const v of message.denomMinNotionals) {
+      DenomMinNotional.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): DenomMinNotionalProposal {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDenomMinNotionalProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.denomMinNotionals.push(DenomMinNotional.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<DenomMinNotionalProposal>): DenomMinNotionalProposal {
+    const message = createBaseDenomMinNotionalProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.denomMinNotionals = object.denomMinNotionals?.map(e => DenomMinNotional.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: DenomMinNotionalProposalAmino): DenomMinNotionalProposal {
+    const message = createBaseDenomMinNotionalProposal();
+    if (object.title !== undefined && object.title !== null) {
+      message.title = object.title;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    }
+    message.denomMinNotionals = object.denom_min_notionals?.map(e => DenomMinNotional.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: DenomMinNotionalProposal): DenomMinNotionalProposalAmino {
+    const obj: any = {};
+    obj.title = message.title === "" ? undefined : message.title;
+    obj.description = message.description === "" ? undefined : message.description;
+    if (message.denomMinNotionals) {
+      obj.denom_min_notionals = message.denomMinNotionals.map(e => e ? DenomMinNotional.toAmino(e) : undefined);
+    } else {
+      obj.denom_min_notionals = message.denomMinNotionals;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: DenomMinNotionalProposalAminoMsg): DenomMinNotionalProposal {
+    return DenomMinNotionalProposal.fromAmino(object.value);
+  },
+  toAminoMsg(message: DenomMinNotionalProposal): DenomMinNotionalProposalAminoMsg {
+    return {
+      type: "exchange/DenomMinNotionalProposal",
+      value: DenomMinNotionalProposal.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: DenomMinNotionalProposalProtoMsg): DenomMinNotionalProposal {
+    return DenomMinNotionalProposal.decode(message.value);
+  },
+  toProto(message: DenomMinNotionalProposal): Uint8Array {
+    return DenomMinNotionalProposal.encode(message).finish();
+  },
+  toProtoMsg(message: DenomMinNotionalProposal): DenomMinNotionalProposalProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.DenomMinNotionalProposal",
+      value: DenomMinNotionalProposal.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(DenomMinNotionalProposal.typeUrl)) {
+      return;
+    }
+    GlobalDecoderRegistry.register(DenomMinNotionalProposal.typeUrl, DenomMinNotionalProposal);
+    GlobalDecoderRegistry.registerAminoProtoMapping(DenomMinNotionalProposal.aminoType, DenomMinNotionalProposal.typeUrl);
+    DenomMinNotional.registerTypeUrl();
   }
 };

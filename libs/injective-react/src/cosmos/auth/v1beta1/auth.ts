@@ -70,8 +70,6 @@ export interface ModuleAccountAminoMsg {
 }
 /**
  * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
- * 
- * Since: cosmos-sdk 0.47
  * @name ModuleCredential
  * @package cosmos.auth.v1beta1
  * @see proto type: cosmos.auth.v1beta1.ModuleCredential
@@ -93,8 +91,6 @@ export interface ModuleCredentialProtoMsg {
 }
 /**
  * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
- * 
- * Since: cosmos-sdk 0.47
  * @name ModuleCredentialAmino
  * @package cosmos.auth.v1beta1
  * @see proto type: cosmos.auth.v1beta1.ModuleCredential
@@ -399,8 +395,6 @@ function createBaseModuleCredential(): ModuleCredential {
 }
 /**
  * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
- * 
- * Since: cosmos-sdk 0.47
  * @name ModuleCredential
  * @package cosmos.auth.v1beta1
  * @see proto type: cosmos.auth.v1beta1.ModuleCredential

@@ -120,6 +120,8 @@ export const getDelegatorWithdrawAddress = buildQuery<QueryDelegatorWithdrawAddr
 });
 /**
  * CommunityPool queries the community pool coins.
+ * 
+ * WARNING: This query will fail if an external community pool is used.
  * @name getCommunityPool
  * @package cosmos.distribution.v1beta1
  * @see proto service: cosmos.distribution.v1beta1.CommunityPool

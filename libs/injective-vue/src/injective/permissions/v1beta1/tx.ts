@@ -1,5 +1,5 @@
 import { Params, ParamsAmino } from "../../../cosmos/bank/v1beta1/bank";
-import { Namespace, NamespaceAmino, Role, RoleAmino, AddressRoles, AddressRolesAmino } from "./permissions";
+import { Namespace, NamespaceAmino, Role, RoleAmino, RoleManager, RoleManagerAmino, PolicyStatus, PolicyStatusAmino, PolicyManagerCapability, PolicyManagerCapabilityAmino, RoleActors, RoleActorsAmino } from "./permissions";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
@@ -112,52 +112,6 @@ export interface MsgCreateNamespaceResponseAminoMsg {
   value: MsgCreateNamespaceResponseAmino;
 }
 /**
- * @name MsgDeleteNamespace
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespace
- */
-export interface MsgDeleteNamespace {
-  sender: string;
-  namespaceDenom: string;
-}
-export interface MsgDeleteNamespaceProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace";
-  value: Uint8Array;
-}
-/**
- * @name MsgDeleteNamespaceAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespace
- */
-export interface MsgDeleteNamespaceAmino {
-  sender: string;
-  namespace_denom: string;
-}
-export interface MsgDeleteNamespaceAminoMsg {
-  type: "permissions/MsgDeleteNamespace";
-  value: MsgDeleteNamespaceAmino;
-}
-/**
- * @name MsgDeleteNamespaceResponse
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespaceResponse
- */
-export interface MsgDeleteNamespaceResponse {}
-export interface MsgDeleteNamespaceResponseProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse";
-  value: Uint8Array;
-}
-/**
- * @name MsgDeleteNamespaceResponseAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespaceResponse
- */
-export interface MsgDeleteNamespaceResponseAmino {}
-export interface MsgDeleteNamespaceResponseAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse";
-  value: MsgDeleteNamespaceResponseAmino;
-}
-/**
  * @name MsgUpdateNamespace
  * @package injective.permissions.v1beta1
  * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace
@@ -165,16 +119,29 @@ export interface MsgDeleteNamespaceResponseAminoMsg {
 export interface MsgUpdateNamespace {
   sender: string;
   /**
-   * namespace denom to which this updates are applied
+   * denom whose namespace updates are to be applied
    */
-  namespaceDenom: string;
+  denom: string;
   /**
    * address of smart contract to apply code-based restrictions
    */
-  wasmHook?: MsgUpdateNamespace_MsgSetWasmHook;
-  mintsPaused?: MsgUpdateNamespace_MsgSetMintsPaused;
-  sendsPaused?: MsgUpdateNamespace_MsgSetSendsPaused;
-  burnsPaused?: MsgUpdateNamespace_MsgSetBurnsPaused;
+  contractHook?: MsgUpdateNamespace_SetContractHook;
+  /**
+   * role permissions to update
+   */
+  rolePermissions: Role[];
+  /**
+   * role managers to update
+   */
+  roleManagers: RoleManager[];
+  /**
+   * policy statuses to update
+   */
+  policyStatuses: PolicyStatus[];
+  /**
+   * policy manager capabilities to update
+   */
+  policyManagerCapabilities: PolicyManagerCapability[];
 }
 export interface MsgUpdateNamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespace";
@@ -188,116 +155,57 @@ export interface MsgUpdateNamespaceProtoMsg {
 export interface MsgUpdateNamespaceAmino {
   sender: string;
   /**
-   * namespace denom to which this updates are applied
+   * denom whose namespace updates are to be applied
    */
-  namespace_denom: string;
+  denom: string;
   /**
    * address of smart contract to apply code-based restrictions
    */
-  wasm_hook?: MsgUpdateNamespace_MsgSetWasmHookAmino;
-  mints_paused?: MsgUpdateNamespace_MsgSetMintsPausedAmino;
-  sends_paused?: MsgUpdateNamespace_MsgSetSendsPausedAmino;
-  burns_paused?: MsgUpdateNamespace_MsgSetBurnsPausedAmino;
+  contract_hook?: MsgUpdateNamespace_SetContractHookAmino;
+  /**
+   * role permissions to update
+   */
+  role_permissions: RoleAmino[];
+  /**
+   * role managers to update
+   */
+  role_managers: RoleManagerAmino[];
+  /**
+   * policy statuses to update
+   */
+  policy_statuses: PolicyStatusAmino[];
+  /**
+   * policy manager capabilities to update
+   */
+  policy_manager_capabilities: PolicyManagerCapabilityAmino[];
 }
 export interface MsgUpdateNamespaceAminoMsg {
   type: "permissions/MsgUpdateNamespace";
   value: MsgUpdateNamespaceAmino;
 }
 /**
- * @name MsgUpdateNamespace_MsgSetWasmHook
+ * @name MsgUpdateNamespace_SetContractHook
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetWasmHook
+ * @see proto type: injective.permissions.v1beta1.SetContractHook
  */
-export interface MsgUpdateNamespace_MsgSetWasmHook {
+export interface MsgUpdateNamespace_SetContractHook {
   newValue: string;
 }
-export interface MsgUpdateNamespace_MsgSetWasmHookProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook";
+export interface MsgUpdateNamespace_SetContractHookProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.SetContractHook";
   value: Uint8Array;
 }
 /**
- * @name MsgUpdateNamespace_MsgSetWasmHookAmino
+ * @name MsgUpdateNamespace_SetContractHookAmino
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetWasmHook
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_SetContractHook
  */
-export interface MsgUpdateNamespace_MsgSetWasmHookAmino {
+export interface MsgUpdateNamespace_SetContractHookAmino {
   new_value: string;
 }
-export interface MsgUpdateNamespace_MsgSetWasmHookAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgSetWasmHook";
-  value: MsgUpdateNamespace_MsgSetWasmHookAmino;
-}
-/**
- * @name MsgUpdateNamespace_MsgSetMintsPaused
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetMintsPaused
- */
-export interface MsgUpdateNamespace_MsgSetMintsPaused {
-  newValue: boolean;
-}
-export interface MsgUpdateNamespace_MsgSetMintsPausedProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused";
-  value: Uint8Array;
-}
-/**
- * @name MsgUpdateNamespace_MsgSetMintsPausedAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetMintsPaused
- */
-export interface MsgUpdateNamespace_MsgSetMintsPausedAmino {
-  new_value: boolean;
-}
-export interface MsgUpdateNamespace_MsgSetMintsPausedAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgSetMintsPaused";
-  value: MsgUpdateNamespace_MsgSetMintsPausedAmino;
-}
-/**
- * @name MsgUpdateNamespace_MsgSetSendsPaused
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetSendsPaused
- */
-export interface MsgUpdateNamespace_MsgSetSendsPaused {
-  newValue: boolean;
-}
-export interface MsgUpdateNamespace_MsgSetSendsPausedProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused";
-  value: Uint8Array;
-}
-/**
- * @name MsgUpdateNamespace_MsgSetSendsPausedAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetSendsPaused
- */
-export interface MsgUpdateNamespace_MsgSetSendsPausedAmino {
-  new_value: boolean;
-}
-export interface MsgUpdateNamespace_MsgSetSendsPausedAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgSetSendsPaused";
-  value: MsgUpdateNamespace_MsgSetSendsPausedAmino;
-}
-/**
- * @name MsgUpdateNamespace_MsgSetBurnsPaused
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetBurnsPaused
- */
-export interface MsgUpdateNamespace_MsgSetBurnsPaused {
-  newValue: boolean;
-}
-export interface MsgUpdateNamespace_MsgSetBurnsPausedProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused";
-  value: Uint8Array;
-}
-/**
- * @name MsgUpdateNamespace_MsgSetBurnsPausedAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespace_MsgSetBurnsPaused
- */
-export interface MsgUpdateNamespace_MsgSetBurnsPausedAmino {
-  new_value: boolean;
-}
-export interface MsgUpdateNamespace_MsgSetBurnsPausedAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgSetBurnsPaused";
-  value: MsgUpdateNamespace_MsgSetBurnsPausedAmino;
+export interface MsgUpdateNamespace_SetContractHookAminoMsg {
+  type: "/injective.permissions.v1beta1.SetContractHook";
+  value: MsgUpdateNamespace_SetContractHookAmino;
 }
 /**
  * @name MsgUpdateNamespaceResponse
@@ -320,132 +228,72 @@ export interface MsgUpdateNamespaceResponseAminoMsg {
   value: MsgUpdateNamespaceResponseAmino;
 }
 /**
- * @name MsgUpdateNamespaceRoles
+ * @name MsgUpdateActorRoles
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRoles
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateActorRoles
  */
-export interface MsgUpdateNamespaceRoles {
+export interface MsgUpdateActorRoles {
   sender: string;
   /**
    * namespace denom to which this updates are applied
    */
-  namespaceDenom: string;
+  denom: string;
   /**
-   * new role definitions or updated permissions for existing roles
+   * roles to add for given actors
    */
-  rolePermissions: Role[];
+  roleActorsToAdd: RoleActors[];
   /**
-   * new addresses to add or new roles for existing addresses to
+   * roles to revoke from given actors
    */
-  addressRoles: AddressRoles[];
+  roleActorsToRevoke: RoleActors[];
 }
-export interface MsgUpdateNamespaceRolesProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles";
+export interface MsgUpdateActorRolesProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.MsgUpdateActorRoles";
   value: Uint8Array;
 }
 /**
- * @name MsgUpdateNamespaceRolesAmino
+ * @name MsgUpdateActorRolesAmino
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRoles
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateActorRoles
  */
-export interface MsgUpdateNamespaceRolesAmino {
+export interface MsgUpdateActorRolesAmino {
   sender: string;
   /**
    * namespace denom to which this updates are applied
    */
-  namespace_denom: string;
+  denom: string;
   /**
-   * new role definitions or updated permissions for existing roles
+   * roles to add for given actors
    */
-  role_permissions: RoleAmino[];
+  role_actors_to_add: RoleActorsAmino[];
   /**
-   * new addresses to add or new roles for existing addresses to
+   * roles to revoke from given actors
    */
-  address_roles: AddressRolesAmino[];
+  role_actors_to_revoke: RoleActorsAmino[];
 }
-export interface MsgUpdateNamespaceRolesAminoMsg {
-  type: "permissions/MsgUpdateNamespaceRoles";
-  value: MsgUpdateNamespaceRolesAmino;
+export interface MsgUpdateActorRolesAminoMsg {
+  type: "permissions/MsgUpdateActorRoles";
+  value: MsgUpdateActorRolesAmino;
 }
 /**
- * @name MsgUpdateNamespaceRolesResponse
+ * @name MsgUpdateActorRolesResponse
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateActorRolesResponse
  */
-export interface MsgUpdateNamespaceRolesResponse {}
-export interface MsgUpdateNamespaceRolesResponseProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse";
+export interface MsgUpdateActorRolesResponse {}
+export interface MsgUpdateActorRolesResponseProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.MsgUpdateActorRolesResponse";
   value: Uint8Array;
 }
 /**
- * @name MsgUpdateNamespaceRolesResponseAmino
+ * @name MsgUpdateActorRolesResponseAmino
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateActorRolesResponse
  */
-export interface MsgUpdateNamespaceRolesResponseAmino {}
-export interface MsgUpdateNamespaceRolesResponseAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse";
-  value: MsgUpdateNamespaceRolesResponseAmino;
-}
-/**
- * @name MsgRevokeNamespaceRoles
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRoles
- */
-export interface MsgRevokeNamespaceRoles {
-  sender: string;
-  /**
-   * namespace denom to which this updates are applied
-   */
-  namespaceDenom: string;
-  /**
-   * {"address" => array of roles to revoke from this address}
-   */
-  addressRolesToRevoke: AddressRoles[];
-}
-export interface MsgRevokeNamespaceRolesProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles";
-  value: Uint8Array;
-}
-/**
- * @name MsgRevokeNamespaceRolesAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRoles
- */
-export interface MsgRevokeNamespaceRolesAmino {
-  sender: string;
-  /**
-   * namespace denom to which this updates are applied
-   */
-  namespace_denom: string;
-  /**
-   * {"address" => array of roles to revoke from this address}
-   */
-  address_roles_to_revoke: AddressRolesAmino[];
-}
-export interface MsgRevokeNamespaceRolesAminoMsg {
-  type: "permissions/MsgRevokeNamespaceRoles";
-  value: MsgRevokeNamespaceRolesAmino;
-}
-/**
- * @name MsgRevokeNamespaceRolesResponse
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse
- */
-export interface MsgRevokeNamespaceRolesResponse {}
-export interface MsgRevokeNamespaceRolesResponseProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse";
-  value: Uint8Array;
-}
-/**
- * @name MsgRevokeNamespaceRolesResponseAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse
- */
-export interface MsgRevokeNamespaceRolesResponseAmino {}
-export interface MsgRevokeNamespaceRolesResponseAminoMsg {
-  type: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse";
-  value: MsgRevokeNamespaceRolesResponseAmino;
+export interface MsgUpdateActorRolesResponseAmino {}
+export interface MsgUpdateActorRolesResponseAminoMsg {
+  type: "/injective.permissions.v1beta1.MsgUpdateActorRolesResponse";
+  value: MsgUpdateActorRolesResponseAmino;
 }
 /**
  * @name MsgClaimVoucher
@@ -815,170 +663,15 @@ export const MsgCreateNamespaceResponse = {
   },
   registerTypeUrl() {}
 };
-function createBaseMsgDeleteNamespace(): MsgDeleteNamespace {
-  return {
-    sender: "",
-    namespaceDenom: ""
-  };
-}
-/**
- * @name MsgDeleteNamespace
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespace
- */
-export const MsgDeleteNamespace = {
-  typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace",
-  aminoType: "permissions/MsgDeleteNamespace",
-  is(o: any): o is MsgDeleteNamespace {
-    return o && (o.$typeUrl === MsgDeleteNamespace.typeUrl || typeof o.sender === "string" && typeof o.namespaceDenom === "string");
-  },
-  isAmino(o: any): o is MsgDeleteNamespaceAmino {
-    return o && (o.$typeUrl === MsgDeleteNamespace.typeUrl || typeof o.sender === "string" && typeof o.namespace_denom === "string");
-  },
-  encode(message: MsgDeleteNamespace, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.sender !== "") {
-      writer.uint32(10).string(message.sender);
-    }
-    if (message.namespaceDenom !== "") {
-      writer.uint32(18).string(message.namespaceDenom);
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteNamespace {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgDeleteNamespace();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.namespaceDenom = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgDeleteNamespace>): MsgDeleteNamespace {
-    const message = createBaseMsgDeleteNamespace();
-    message.sender = object.sender ?? "";
-    message.namespaceDenom = object.namespaceDenom ?? "";
-    return message;
-  },
-  fromAmino(object: MsgDeleteNamespaceAmino): MsgDeleteNamespace {
-    const message = createBaseMsgDeleteNamespace();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    if (object.namespace_denom !== undefined && object.namespace_denom !== null) {
-      message.namespaceDenom = object.namespace_denom;
-    }
-    return message;
-  },
-  toAmino(message: MsgDeleteNamespace): MsgDeleteNamespaceAmino {
-    const obj: any = {};
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.namespace_denom = message.namespaceDenom === "" ? undefined : message.namespaceDenom;
-    return obj;
-  },
-  fromAminoMsg(object: MsgDeleteNamespaceAminoMsg): MsgDeleteNamespace {
-    return MsgDeleteNamespace.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgDeleteNamespace): MsgDeleteNamespaceAminoMsg {
-    return {
-      type: "permissions/MsgDeleteNamespace",
-      value: MsgDeleteNamespace.toAmino(message)
-    };
-  },
-  fromProtoMsg(message: MsgDeleteNamespaceProtoMsg): MsgDeleteNamespace {
-    return MsgDeleteNamespace.decode(message.value);
-  },
-  toProto(message: MsgDeleteNamespace): Uint8Array {
-    return MsgDeleteNamespace.encode(message).finish();
-  },
-  toProtoMsg(message: MsgDeleteNamespace): MsgDeleteNamespaceProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespace",
-      value: MsgDeleteNamespace.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {}
-};
-function createBaseMsgDeleteNamespaceResponse(): MsgDeleteNamespaceResponse {
-  return {};
-}
-/**
- * @name MsgDeleteNamespaceResponse
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgDeleteNamespaceResponse
- */
-export const MsgDeleteNamespaceResponse = {
-  typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse",
-  is(o: any): o is MsgDeleteNamespaceResponse {
-    return o && o.$typeUrl === MsgDeleteNamespaceResponse.typeUrl;
-  },
-  isAmino(o: any): o is MsgDeleteNamespaceResponseAmino {
-    return o && o.$typeUrl === MsgDeleteNamespaceResponse.typeUrl;
-  },
-  encode(_: MsgDeleteNamespaceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteNamespaceResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgDeleteNamespaceResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(_: DeepPartial<MsgDeleteNamespaceResponse>): MsgDeleteNamespaceResponse {
-    const message = createBaseMsgDeleteNamespaceResponse();
-    return message;
-  },
-  fromAmino(_: MsgDeleteNamespaceResponseAmino): MsgDeleteNamespaceResponse {
-    const message = createBaseMsgDeleteNamespaceResponse();
-    return message;
-  },
-  toAmino(_: MsgDeleteNamespaceResponse): MsgDeleteNamespaceResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgDeleteNamespaceResponseAminoMsg): MsgDeleteNamespaceResponse {
-    return MsgDeleteNamespaceResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgDeleteNamespaceResponseProtoMsg): MsgDeleteNamespaceResponse {
-    return MsgDeleteNamespaceResponse.decode(message.value);
-  },
-  toProto(message: MsgDeleteNamespaceResponse): Uint8Array {
-    return MsgDeleteNamespaceResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgDeleteNamespaceResponse): MsgDeleteNamespaceResponseProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgDeleteNamespaceResponse",
-      value: MsgDeleteNamespaceResponse.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {}
-};
 function createBaseMsgUpdateNamespace(): MsgUpdateNamespace {
   return {
     sender: "",
-    namespaceDenom: "",
-    wasmHook: undefined,
-    mintsPaused: undefined,
-    sendsPaused: undefined,
-    burnsPaused: undefined
+    denom: "",
+    contractHook: undefined,
+    rolePermissions: [],
+    roleManagers: [],
+    policyStatuses: [],
+    policyManagerCapabilities: []
   };
 }
 /**
@@ -990,29 +683,32 @@ export const MsgUpdateNamespace = {
   typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespace",
   aminoType: "permissions/MsgUpdateNamespace",
   is(o: any): o is MsgUpdateNamespace {
-    return o && (o.$typeUrl === MsgUpdateNamespace.typeUrl || typeof o.sender === "string" && typeof o.namespaceDenom === "string");
+    return o && (o.$typeUrl === MsgUpdateNamespace.typeUrl || typeof o.sender === "string" && typeof o.denom === "string" && Array.isArray(o.rolePermissions) && (!o.rolePermissions.length || Role.is(o.rolePermissions[0])) && Array.isArray(o.roleManagers) && (!o.roleManagers.length || RoleManager.is(o.roleManagers[0])) && Array.isArray(o.policyStatuses) && (!o.policyStatuses.length || PolicyStatus.is(o.policyStatuses[0])) && Array.isArray(o.policyManagerCapabilities) && (!o.policyManagerCapabilities.length || PolicyManagerCapability.is(o.policyManagerCapabilities[0])));
   },
   isAmino(o: any): o is MsgUpdateNamespaceAmino {
-    return o && (o.$typeUrl === MsgUpdateNamespace.typeUrl || typeof o.sender === "string" && typeof o.namespace_denom === "string");
+    return o && (o.$typeUrl === MsgUpdateNamespace.typeUrl || typeof o.sender === "string" && typeof o.denom === "string" && Array.isArray(o.role_permissions) && (!o.role_permissions.length || Role.isAmino(o.role_permissions[0])) && Array.isArray(o.role_managers) && (!o.role_managers.length || RoleManager.isAmino(o.role_managers[0])) && Array.isArray(o.policy_statuses) && (!o.policy_statuses.length || PolicyStatus.isAmino(o.policy_statuses[0])) && Array.isArray(o.policy_manager_capabilities) && (!o.policy_manager_capabilities.length || PolicyManagerCapability.isAmino(o.policy_manager_capabilities[0])));
   },
   encode(message: MsgUpdateNamespace, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.namespaceDenom !== "") {
-      writer.uint32(18).string(message.namespaceDenom);
+    if (message.denom !== "") {
+      writer.uint32(18).string(message.denom);
     }
-    if (message.wasmHook !== undefined) {
-      MsgUpdateNamespace_MsgSetWasmHook.encode(message.wasmHook, writer.uint32(26).fork()).ldelim();
+    if (message.contractHook !== undefined) {
+      MsgUpdateNamespace_SetContractHook.encode(message.contractHook, writer.uint32(26).fork()).ldelim();
     }
-    if (message.mintsPaused !== undefined) {
-      MsgUpdateNamespace_MsgSetMintsPaused.encode(message.mintsPaused, writer.uint32(34).fork()).ldelim();
+    for (const v of message.rolePermissions) {
+      Role.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.sendsPaused !== undefined) {
-      MsgUpdateNamespace_MsgSetSendsPaused.encode(message.sendsPaused, writer.uint32(42).fork()).ldelim();
+    for (const v of message.roleManagers) {
+      RoleManager.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    if (message.burnsPaused !== undefined) {
-      MsgUpdateNamespace_MsgSetBurnsPaused.encode(message.burnsPaused, writer.uint32(50).fork()).ldelim();
+    for (const v of message.policyStatuses) {
+      PolicyStatus.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
+    for (const v of message.policyManagerCapabilities) {
+      PolicyManagerCapability.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -1027,19 +723,22 @@ export const MsgUpdateNamespace = {
           message.sender = reader.string();
           break;
         case 2:
-          message.namespaceDenom = reader.string();
+          message.denom = reader.string();
           break;
         case 3:
-          message.wasmHook = MsgUpdateNamespace_MsgSetWasmHook.decode(reader, reader.uint32());
+          message.contractHook = MsgUpdateNamespace_SetContractHook.decode(reader, reader.uint32());
           break;
         case 4:
-          message.mintsPaused = MsgUpdateNamespace_MsgSetMintsPaused.decode(reader, reader.uint32());
+          message.rolePermissions.push(Role.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.sendsPaused = MsgUpdateNamespace_MsgSetSendsPaused.decode(reader, reader.uint32());
+          message.roleManagers.push(RoleManager.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.burnsPaused = MsgUpdateNamespace_MsgSetBurnsPaused.decode(reader, reader.uint32());
+          message.policyStatuses.push(PolicyStatus.decode(reader, reader.uint32()));
+          break;
+        case 7:
+          message.policyManagerCapabilities.push(PolicyManagerCapability.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -1051,11 +750,12 @@ export const MsgUpdateNamespace = {
   fromPartial(object: DeepPartial<MsgUpdateNamespace>): MsgUpdateNamespace {
     const message = createBaseMsgUpdateNamespace();
     message.sender = object.sender ?? "";
-    message.namespaceDenom = object.namespaceDenom ?? "";
-    message.wasmHook = object.wasmHook !== undefined && object.wasmHook !== null ? MsgUpdateNamespace_MsgSetWasmHook.fromPartial(object.wasmHook) : undefined;
-    message.mintsPaused = object.mintsPaused !== undefined && object.mintsPaused !== null ? MsgUpdateNamespace_MsgSetMintsPaused.fromPartial(object.mintsPaused) : undefined;
-    message.sendsPaused = object.sendsPaused !== undefined && object.sendsPaused !== null ? MsgUpdateNamespace_MsgSetSendsPaused.fromPartial(object.sendsPaused) : undefined;
-    message.burnsPaused = object.burnsPaused !== undefined && object.burnsPaused !== null ? MsgUpdateNamespace_MsgSetBurnsPaused.fromPartial(object.burnsPaused) : undefined;
+    message.denom = object.denom ?? "";
+    message.contractHook = object.contractHook !== undefined && object.contractHook !== null ? MsgUpdateNamespace_SetContractHook.fromPartial(object.contractHook) : undefined;
+    message.rolePermissions = object.rolePermissions?.map(e => Role.fromPartial(e)) || [];
+    message.roleManagers = object.roleManagers?.map(e => RoleManager.fromPartial(e)) || [];
+    message.policyStatuses = object.policyStatuses?.map(e => PolicyStatus.fromPartial(e)) || [];
+    message.policyManagerCapabilities = object.policyManagerCapabilities?.map(e => PolicyManagerCapability.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: MsgUpdateNamespaceAmino): MsgUpdateNamespace {
@@ -1063,31 +763,43 @@ export const MsgUpdateNamespace = {
     if (object.sender !== undefined && object.sender !== null) {
       message.sender = object.sender;
     }
-    if (object.namespace_denom !== undefined && object.namespace_denom !== null) {
-      message.namespaceDenom = object.namespace_denom;
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
     }
-    if (object.wasm_hook !== undefined && object.wasm_hook !== null) {
-      message.wasmHook = MsgUpdateNamespace_MsgSetWasmHook.fromAmino(object.wasm_hook);
+    if (object.contract_hook !== undefined && object.contract_hook !== null) {
+      message.contractHook = MsgUpdateNamespace_SetContractHook.fromAmino(object.contract_hook);
     }
-    if (object.mints_paused !== undefined && object.mints_paused !== null) {
-      message.mintsPaused = MsgUpdateNamespace_MsgSetMintsPaused.fromAmino(object.mints_paused);
-    }
-    if (object.sends_paused !== undefined && object.sends_paused !== null) {
-      message.sendsPaused = MsgUpdateNamespace_MsgSetSendsPaused.fromAmino(object.sends_paused);
-    }
-    if (object.burns_paused !== undefined && object.burns_paused !== null) {
-      message.burnsPaused = MsgUpdateNamespace_MsgSetBurnsPaused.fromAmino(object.burns_paused);
-    }
+    message.rolePermissions = object.role_permissions?.map(e => Role.fromAmino(e)) || [];
+    message.roleManagers = object.role_managers?.map(e => RoleManager.fromAmino(e)) || [];
+    message.policyStatuses = object.policy_statuses?.map(e => PolicyStatus.fromAmino(e)) || [];
+    message.policyManagerCapabilities = object.policy_manager_capabilities?.map(e => PolicyManagerCapability.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: MsgUpdateNamespace): MsgUpdateNamespaceAmino {
     const obj: any = {};
     obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.namespace_denom = message.namespaceDenom === "" ? undefined : message.namespaceDenom;
-    obj.wasm_hook = message.wasmHook ? MsgUpdateNamespace_MsgSetWasmHook.toAmino(message.wasmHook) : undefined;
-    obj.mints_paused = message.mintsPaused ? MsgUpdateNamespace_MsgSetMintsPaused.toAmino(message.mintsPaused) : undefined;
-    obj.sends_paused = message.sendsPaused ? MsgUpdateNamespace_MsgSetSendsPaused.toAmino(message.sendsPaused) : undefined;
-    obj.burns_paused = message.burnsPaused ? MsgUpdateNamespace_MsgSetBurnsPaused.toAmino(message.burnsPaused) : undefined;
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.contract_hook = message.contractHook ? MsgUpdateNamespace_SetContractHook.toAmino(message.contractHook) : undefined;
+    if (message.rolePermissions) {
+      obj.role_permissions = message.rolePermissions.map(e => e ? Role.toAmino(e) : undefined);
+    } else {
+      obj.role_permissions = message.rolePermissions;
+    }
+    if (message.roleManagers) {
+      obj.role_managers = message.roleManagers.map(e => e ? RoleManager.toAmino(e) : undefined);
+    } else {
+      obj.role_managers = message.roleManagers;
+    }
+    if (message.policyStatuses) {
+      obj.policy_statuses = message.policyStatuses.map(e => e ? PolicyStatus.toAmino(e) : undefined);
+    } else {
+      obj.policy_statuses = message.policyStatuses;
+    }
+    if (message.policyManagerCapabilities) {
+      obj.policy_manager_capabilities = message.policyManagerCapabilities.map(e => e ? PolicyManagerCapability.toAmino(e) : undefined);
+    } else {
+      obj.policy_manager_capabilities = message.policyManagerCapabilities;
+    }
     return obj;
   },
   fromAminoMsg(object: MsgUpdateNamespaceAminoMsg): MsgUpdateNamespace {
@@ -1115,40 +827,41 @@ export const MsgUpdateNamespace = {
     if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateNamespace.typeUrl)) {
       return;
     }
-    MsgUpdateNamespace_MsgSetWasmHook.registerTypeUrl();
-    MsgUpdateNamespace_MsgSetMintsPaused.registerTypeUrl();
-    MsgUpdateNamespace_MsgSetSendsPaused.registerTypeUrl();
-    MsgUpdateNamespace_MsgSetBurnsPaused.registerTypeUrl();
+    MsgUpdateNamespace_SetContractHook.registerTypeUrl();
+    Role.registerTypeUrl();
+    RoleManager.registerTypeUrl();
+    PolicyStatus.registerTypeUrl();
+    PolicyManagerCapability.registerTypeUrl();
   }
 };
-function createBaseMsgUpdateNamespace_MsgSetWasmHook(): MsgUpdateNamespace_MsgSetWasmHook {
+function createBaseMsgUpdateNamespace_SetContractHook(): MsgUpdateNamespace_SetContractHook {
   return {
     newValue: ""
   };
 }
 /**
- * @name MsgUpdateNamespace_MsgSetWasmHook
+ * @name MsgUpdateNamespace_SetContractHook
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetWasmHook
+ * @see proto type: injective.permissions.v1beta1.SetContractHook
  */
-export const MsgUpdateNamespace_MsgSetWasmHook = {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook",
-  is(o: any): o is MsgUpdateNamespace_MsgSetWasmHook {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetWasmHook.typeUrl || typeof o.newValue === "string");
+export const MsgUpdateNamespace_SetContractHook = {
+  typeUrl: "/injective.permissions.v1beta1.SetContractHook",
+  is(o: any): o is MsgUpdateNamespace_SetContractHook {
+    return o && (o.$typeUrl === MsgUpdateNamespace_SetContractHook.typeUrl || typeof o.newValue === "string");
   },
-  isAmino(o: any): o is MsgUpdateNamespace_MsgSetWasmHookAmino {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetWasmHook.typeUrl || typeof o.new_value === "string");
+  isAmino(o: any): o is MsgUpdateNamespace_SetContractHookAmino {
+    return o && (o.$typeUrl === MsgUpdateNamespace_SetContractHook.typeUrl || typeof o.new_value === "string");
   },
-  encode(message: MsgUpdateNamespace_MsgSetWasmHook, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: MsgUpdateNamespace_SetContractHook, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.newValue !== "") {
       writer.uint32(10).string(message.newValue);
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespace_MsgSetWasmHook {
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespace_SetContractHook {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNamespace_MsgSetWasmHook();
+    const message = createBaseMsgUpdateNamespace_SetContractHook();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1162,261 +875,36 @@ export const MsgUpdateNamespace_MsgSetWasmHook = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgUpdateNamespace_MsgSetWasmHook>): MsgUpdateNamespace_MsgSetWasmHook {
-    const message = createBaseMsgUpdateNamespace_MsgSetWasmHook();
+  fromPartial(object: DeepPartial<MsgUpdateNamespace_SetContractHook>): MsgUpdateNamespace_SetContractHook {
+    const message = createBaseMsgUpdateNamespace_SetContractHook();
     message.newValue = object.newValue ?? "";
     return message;
   },
-  fromAmino(object: MsgUpdateNamespace_MsgSetWasmHookAmino): MsgUpdateNamespace_MsgSetWasmHook {
-    const message = createBaseMsgUpdateNamespace_MsgSetWasmHook();
+  fromAmino(object: MsgUpdateNamespace_SetContractHookAmino): MsgUpdateNamespace_SetContractHook {
+    const message = createBaseMsgUpdateNamespace_SetContractHook();
     if (object.new_value !== undefined && object.new_value !== null) {
       message.newValue = object.new_value;
     }
     return message;
   },
-  toAmino(message: MsgUpdateNamespace_MsgSetWasmHook): MsgUpdateNamespace_MsgSetWasmHookAmino {
+  toAmino(message: MsgUpdateNamespace_SetContractHook): MsgUpdateNamespace_SetContractHookAmino {
     const obj: any = {};
     obj.new_value = message.newValue === "" ? undefined : message.newValue;
     return obj;
   },
-  fromAminoMsg(object: MsgUpdateNamespace_MsgSetWasmHookAminoMsg): MsgUpdateNamespace_MsgSetWasmHook {
-    return MsgUpdateNamespace_MsgSetWasmHook.fromAmino(object.value);
+  fromAminoMsg(object: MsgUpdateNamespace_SetContractHookAminoMsg): MsgUpdateNamespace_SetContractHook {
+    return MsgUpdateNamespace_SetContractHook.fromAmino(object.value);
   },
-  fromProtoMsg(message: MsgUpdateNamespace_MsgSetWasmHookProtoMsg): MsgUpdateNamespace_MsgSetWasmHook {
-    return MsgUpdateNamespace_MsgSetWasmHook.decode(message.value);
+  fromProtoMsg(message: MsgUpdateNamespace_SetContractHookProtoMsg): MsgUpdateNamespace_SetContractHook {
+    return MsgUpdateNamespace_SetContractHook.decode(message.value);
   },
-  toProto(message: MsgUpdateNamespace_MsgSetWasmHook): Uint8Array {
-    return MsgUpdateNamespace_MsgSetWasmHook.encode(message).finish();
+  toProto(message: MsgUpdateNamespace_SetContractHook): Uint8Array {
+    return MsgUpdateNamespace_SetContractHook.encode(message).finish();
   },
-  toProtoMsg(message: MsgUpdateNamespace_MsgSetWasmHook): MsgUpdateNamespace_MsgSetWasmHookProtoMsg {
+  toProtoMsg(message: MsgUpdateNamespace_SetContractHook): MsgUpdateNamespace_SetContractHookProtoMsg {
     return {
-      typeUrl: "/injective.permissions.v1beta1.MsgSetWasmHook",
-      value: MsgUpdateNamespace_MsgSetWasmHook.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {}
-};
-function createBaseMsgUpdateNamespace_MsgSetMintsPaused(): MsgUpdateNamespace_MsgSetMintsPaused {
-  return {
-    newValue: false
-  };
-}
-/**
- * @name MsgUpdateNamespace_MsgSetMintsPaused
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetMintsPaused
- */
-export const MsgUpdateNamespace_MsgSetMintsPaused = {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused",
-  is(o: any): o is MsgUpdateNamespace_MsgSetMintsPaused {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetMintsPaused.typeUrl || typeof o.newValue === "boolean");
-  },
-  isAmino(o: any): o is MsgUpdateNamespace_MsgSetMintsPausedAmino {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetMintsPaused.typeUrl || typeof o.new_value === "boolean");
-  },
-  encode(message: MsgUpdateNamespace_MsgSetMintsPaused, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.newValue === true) {
-      writer.uint32(8).bool(message.newValue);
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespace_MsgSetMintsPaused {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNamespace_MsgSetMintsPaused();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.newValue = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgUpdateNamespace_MsgSetMintsPaused>): MsgUpdateNamespace_MsgSetMintsPaused {
-    const message = createBaseMsgUpdateNamespace_MsgSetMintsPaused();
-    message.newValue = object.newValue ?? false;
-    return message;
-  },
-  fromAmino(object: MsgUpdateNamespace_MsgSetMintsPausedAmino): MsgUpdateNamespace_MsgSetMintsPaused {
-    const message = createBaseMsgUpdateNamespace_MsgSetMintsPaused();
-    if (object.new_value !== undefined && object.new_value !== null) {
-      message.newValue = object.new_value;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateNamespace_MsgSetMintsPaused): MsgUpdateNamespace_MsgSetMintsPausedAmino {
-    const obj: any = {};
-    obj.new_value = message.newValue === false ? undefined : message.newValue;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateNamespace_MsgSetMintsPausedAminoMsg): MsgUpdateNamespace_MsgSetMintsPaused {
-    return MsgUpdateNamespace_MsgSetMintsPaused.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgUpdateNamespace_MsgSetMintsPausedProtoMsg): MsgUpdateNamespace_MsgSetMintsPaused {
-    return MsgUpdateNamespace_MsgSetMintsPaused.decode(message.value);
-  },
-  toProto(message: MsgUpdateNamespace_MsgSetMintsPaused): Uint8Array {
-    return MsgUpdateNamespace_MsgSetMintsPaused.encode(message).finish();
-  },
-  toProtoMsg(message: MsgUpdateNamespace_MsgSetMintsPaused): MsgUpdateNamespace_MsgSetMintsPausedProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgSetMintsPaused",
-      value: MsgUpdateNamespace_MsgSetMintsPaused.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {}
-};
-function createBaseMsgUpdateNamespace_MsgSetSendsPaused(): MsgUpdateNamespace_MsgSetSendsPaused {
-  return {
-    newValue: false
-  };
-}
-/**
- * @name MsgUpdateNamespace_MsgSetSendsPaused
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetSendsPaused
- */
-export const MsgUpdateNamespace_MsgSetSendsPaused = {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused",
-  is(o: any): o is MsgUpdateNamespace_MsgSetSendsPaused {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetSendsPaused.typeUrl || typeof o.newValue === "boolean");
-  },
-  isAmino(o: any): o is MsgUpdateNamespace_MsgSetSendsPausedAmino {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetSendsPaused.typeUrl || typeof o.new_value === "boolean");
-  },
-  encode(message: MsgUpdateNamespace_MsgSetSendsPaused, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.newValue === true) {
-      writer.uint32(8).bool(message.newValue);
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespace_MsgSetSendsPaused {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNamespace_MsgSetSendsPaused();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.newValue = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgUpdateNamespace_MsgSetSendsPaused>): MsgUpdateNamespace_MsgSetSendsPaused {
-    const message = createBaseMsgUpdateNamespace_MsgSetSendsPaused();
-    message.newValue = object.newValue ?? false;
-    return message;
-  },
-  fromAmino(object: MsgUpdateNamespace_MsgSetSendsPausedAmino): MsgUpdateNamespace_MsgSetSendsPaused {
-    const message = createBaseMsgUpdateNamespace_MsgSetSendsPaused();
-    if (object.new_value !== undefined && object.new_value !== null) {
-      message.newValue = object.new_value;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateNamespace_MsgSetSendsPaused): MsgUpdateNamespace_MsgSetSendsPausedAmino {
-    const obj: any = {};
-    obj.new_value = message.newValue === false ? undefined : message.newValue;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateNamespace_MsgSetSendsPausedAminoMsg): MsgUpdateNamespace_MsgSetSendsPaused {
-    return MsgUpdateNamespace_MsgSetSendsPaused.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgUpdateNamespace_MsgSetSendsPausedProtoMsg): MsgUpdateNamespace_MsgSetSendsPaused {
-    return MsgUpdateNamespace_MsgSetSendsPaused.decode(message.value);
-  },
-  toProto(message: MsgUpdateNamespace_MsgSetSendsPaused): Uint8Array {
-    return MsgUpdateNamespace_MsgSetSendsPaused.encode(message).finish();
-  },
-  toProtoMsg(message: MsgUpdateNamespace_MsgSetSendsPaused): MsgUpdateNamespace_MsgSetSendsPausedProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgSetSendsPaused",
-      value: MsgUpdateNamespace_MsgSetSendsPaused.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {}
-};
-function createBaseMsgUpdateNamespace_MsgSetBurnsPaused(): MsgUpdateNamespace_MsgSetBurnsPaused {
-  return {
-    newValue: false
-  };
-}
-/**
- * @name MsgUpdateNamespace_MsgSetBurnsPaused
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgSetBurnsPaused
- */
-export const MsgUpdateNamespace_MsgSetBurnsPaused = {
-  typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused",
-  is(o: any): o is MsgUpdateNamespace_MsgSetBurnsPaused {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetBurnsPaused.typeUrl || typeof o.newValue === "boolean");
-  },
-  isAmino(o: any): o is MsgUpdateNamespace_MsgSetBurnsPausedAmino {
-    return o && (o.$typeUrl === MsgUpdateNamespace_MsgSetBurnsPaused.typeUrl || typeof o.new_value === "boolean");
-  },
-  encode(message: MsgUpdateNamespace_MsgSetBurnsPaused, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.newValue === true) {
-      writer.uint32(8).bool(message.newValue);
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespace_MsgSetBurnsPaused {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNamespace_MsgSetBurnsPaused();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.newValue = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgUpdateNamespace_MsgSetBurnsPaused>): MsgUpdateNamespace_MsgSetBurnsPaused {
-    const message = createBaseMsgUpdateNamespace_MsgSetBurnsPaused();
-    message.newValue = object.newValue ?? false;
-    return message;
-  },
-  fromAmino(object: MsgUpdateNamespace_MsgSetBurnsPausedAmino): MsgUpdateNamespace_MsgSetBurnsPaused {
-    const message = createBaseMsgUpdateNamespace_MsgSetBurnsPaused();
-    if (object.new_value !== undefined && object.new_value !== null) {
-      message.newValue = object.new_value;
-    }
-    return message;
-  },
-  toAmino(message: MsgUpdateNamespace_MsgSetBurnsPaused): MsgUpdateNamespace_MsgSetBurnsPausedAmino {
-    const obj: any = {};
-    obj.new_value = message.newValue === false ? undefined : message.newValue;
-    return obj;
-  },
-  fromAminoMsg(object: MsgUpdateNamespace_MsgSetBurnsPausedAminoMsg): MsgUpdateNamespace_MsgSetBurnsPaused {
-    return MsgUpdateNamespace_MsgSetBurnsPaused.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgUpdateNamespace_MsgSetBurnsPausedProtoMsg): MsgUpdateNamespace_MsgSetBurnsPaused {
-    return MsgUpdateNamespace_MsgSetBurnsPaused.decode(message.value);
-  },
-  toProto(message: MsgUpdateNamespace_MsgSetBurnsPaused): Uint8Array {
-    return MsgUpdateNamespace_MsgSetBurnsPaused.encode(message).finish();
-  },
-  toProtoMsg(message: MsgUpdateNamespace_MsgSetBurnsPaused): MsgUpdateNamespace_MsgSetBurnsPausedProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgSetBurnsPaused",
-      value: MsgUpdateNamespace_MsgSetBurnsPaused.encode(message).finish()
+      typeUrl: "/injective.permissions.v1beta1.SetContractHook",
+      value: MsgUpdateNamespace_SetContractHook.encode(message).finish()
     };
   },
   registerTypeUrl() {}
@@ -1483,47 +971,47 @@ export const MsgUpdateNamespaceResponse = {
   },
   registerTypeUrl() {}
 };
-function createBaseMsgUpdateNamespaceRoles(): MsgUpdateNamespaceRoles {
+function createBaseMsgUpdateActorRoles(): MsgUpdateActorRoles {
   return {
     sender: "",
-    namespaceDenom: "",
-    rolePermissions: [],
-    addressRoles: []
+    denom: "",
+    roleActorsToAdd: [],
+    roleActorsToRevoke: []
   };
 }
 /**
- * @name MsgUpdateNamespaceRoles
+ * @name MsgUpdateActorRoles
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRoles
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateActorRoles
  */
-export const MsgUpdateNamespaceRoles = {
-  typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles",
-  aminoType: "permissions/MsgUpdateNamespaceRoles",
-  is(o: any): o is MsgUpdateNamespaceRoles {
-    return o && (o.$typeUrl === MsgUpdateNamespaceRoles.typeUrl || typeof o.sender === "string" && typeof o.namespaceDenom === "string" && Array.isArray(o.rolePermissions) && (!o.rolePermissions.length || Role.is(o.rolePermissions[0])) && Array.isArray(o.addressRoles) && (!o.addressRoles.length || AddressRoles.is(o.addressRoles[0])));
+export const MsgUpdateActorRoles = {
+  typeUrl: "/injective.permissions.v1beta1.MsgUpdateActorRoles",
+  aminoType: "permissions/MsgUpdateActorRoles",
+  is(o: any): o is MsgUpdateActorRoles {
+    return o && (o.$typeUrl === MsgUpdateActorRoles.typeUrl || typeof o.sender === "string" && typeof o.denom === "string" && Array.isArray(o.roleActorsToAdd) && (!o.roleActorsToAdd.length || RoleActors.is(o.roleActorsToAdd[0])) && Array.isArray(o.roleActorsToRevoke) && (!o.roleActorsToRevoke.length || RoleActors.is(o.roleActorsToRevoke[0])));
   },
-  isAmino(o: any): o is MsgUpdateNamespaceRolesAmino {
-    return o && (o.$typeUrl === MsgUpdateNamespaceRoles.typeUrl || typeof o.sender === "string" && typeof o.namespace_denom === "string" && Array.isArray(o.role_permissions) && (!o.role_permissions.length || Role.isAmino(o.role_permissions[0])) && Array.isArray(o.address_roles) && (!o.address_roles.length || AddressRoles.isAmino(o.address_roles[0])));
+  isAmino(o: any): o is MsgUpdateActorRolesAmino {
+    return o && (o.$typeUrl === MsgUpdateActorRoles.typeUrl || typeof o.sender === "string" && typeof o.denom === "string" && Array.isArray(o.role_actors_to_add) && (!o.role_actors_to_add.length || RoleActors.isAmino(o.role_actors_to_add[0])) && Array.isArray(o.role_actors_to_revoke) && (!o.role_actors_to_revoke.length || RoleActors.isAmino(o.role_actors_to_revoke[0])));
   },
-  encode(message: MsgUpdateNamespaceRoles, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: MsgUpdateActorRoles, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
-    if (message.namespaceDenom !== "") {
-      writer.uint32(18).string(message.namespaceDenom);
+    if (message.denom !== "") {
+      writer.uint32(18).string(message.denom);
     }
-    for (const v of message.rolePermissions) {
-      Role.encode(v!, writer.uint32(26).fork()).ldelim();
+    for (const v of message.roleActorsToAdd) {
+      RoleActors.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    for (const v of message.addressRoles) {
-      AddressRoles.encode(v!, writer.uint32(34).fork()).ldelim();
+    for (const v of message.roleActorsToRevoke) {
+      RoleActors.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespaceRoles {
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateActorRoles {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNamespaceRoles();
+    const message = createBaseMsgUpdateActorRoles();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1531,13 +1019,13 @@ export const MsgUpdateNamespaceRoles = {
           message.sender = reader.string();
           break;
         case 2:
-          message.namespaceDenom = reader.string();
+          message.denom = reader.string();
           break;
         case 3:
-          message.rolePermissions.push(Role.decode(reader, reader.uint32()));
+          message.roleActorsToAdd.push(RoleActors.decode(reader, reader.uint32()));
           break;
-        case 4:
-          message.addressRoles.push(AddressRoles.decode(reader, reader.uint32()));
+        case 5:
+          message.roleActorsToRevoke.push(RoleActors.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -1546,94 +1034,93 @@ export const MsgUpdateNamespaceRoles = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgUpdateNamespaceRoles>): MsgUpdateNamespaceRoles {
-    const message = createBaseMsgUpdateNamespaceRoles();
+  fromPartial(object: DeepPartial<MsgUpdateActorRoles>): MsgUpdateActorRoles {
+    const message = createBaseMsgUpdateActorRoles();
     message.sender = object.sender ?? "";
-    message.namespaceDenom = object.namespaceDenom ?? "";
-    message.rolePermissions = object.rolePermissions?.map(e => Role.fromPartial(e)) || [];
-    message.addressRoles = object.addressRoles?.map(e => AddressRoles.fromPartial(e)) || [];
+    message.denom = object.denom ?? "";
+    message.roleActorsToAdd = object.roleActorsToAdd?.map(e => RoleActors.fromPartial(e)) || [];
+    message.roleActorsToRevoke = object.roleActorsToRevoke?.map(e => RoleActors.fromPartial(e)) || [];
     return message;
   },
-  fromAmino(object: MsgUpdateNamespaceRolesAmino): MsgUpdateNamespaceRoles {
-    const message = createBaseMsgUpdateNamespaceRoles();
+  fromAmino(object: MsgUpdateActorRolesAmino): MsgUpdateActorRoles {
+    const message = createBaseMsgUpdateActorRoles();
     if (object.sender !== undefined && object.sender !== null) {
       message.sender = object.sender;
     }
-    if (object.namespace_denom !== undefined && object.namespace_denom !== null) {
-      message.namespaceDenom = object.namespace_denom;
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
     }
-    message.rolePermissions = object.role_permissions?.map(e => Role.fromAmino(e)) || [];
-    message.addressRoles = object.address_roles?.map(e => AddressRoles.fromAmino(e)) || [];
+    message.roleActorsToAdd = object.role_actors_to_add?.map(e => RoleActors.fromAmino(e)) || [];
+    message.roleActorsToRevoke = object.role_actors_to_revoke?.map(e => RoleActors.fromAmino(e)) || [];
     return message;
   },
-  toAmino(message: MsgUpdateNamespaceRoles): MsgUpdateNamespaceRolesAmino {
+  toAmino(message: MsgUpdateActorRoles): MsgUpdateActorRolesAmino {
     const obj: any = {};
     obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.namespace_denom = message.namespaceDenom === "" ? undefined : message.namespaceDenom;
-    if (message.rolePermissions) {
-      obj.role_permissions = message.rolePermissions.map(e => e ? Role.toAmino(e) : undefined);
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    if (message.roleActorsToAdd) {
+      obj.role_actors_to_add = message.roleActorsToAdd.map(e => e ? RoleActors.toAmino(e) : undefined);
     } else {
-      obj.role_permissions = message.rolePermissions;
+      obj.role_actors_to_add = message.roleActorsToAdd;
     }
-    if (message.addressRoles) {
-      obj.address_roles = message.addressRoles.map(e => e ? AddressRoles.toAmino(e) : undefined);
+    if (message.roleActorsToRevoke) {
+      obj.role_actors_to_revoke = message.roleActorsToRevoke.map(e => e ? RoleActors.toAmino(e) : undefined);
     } else {
-      obj.address_roles = message.addressRoles;
+      obj.role_actors_to_revoke = message.roleActorsToRevoke;
     }
     return obj;
   },
-  fromAminoMsg(object: MsgUpdateNamespaceRolesAminoMsg): MsgUpdateNamespaceRoles {
-    return MsgUpdateNamespaceRoles.fromAmino(object.value);
+  fromAminoMsg(object: MsgUpdateActorRolesAminoMsg): MsgUpdateActorRoles {
+    return MsgUpdateActorRoles.fromAmino(object.value);
   },
-  toAminoMsg(message: MsgUpdateNamespaceRoles): MsgUpdateNamespaceRolesAminoMsg {
+  toAminoMsg(message: MsgUpdateActorRoles): MsgUpdateActorRolesAminoMsg {
     return {
-      type: "permissions/MsgUpdateNamespaceRoles",
-      value: MsgUpdateNamespaceRoles.toAmino(message)
+      type: "permissions/MsgUpdateActorRoles",
+      value: MsgUpdateActorRoles.toAmino(message)
     };
   },
-  fromProtoMsg(message: MsgUpdateNamespaceRolesProtoMsg): MsgUpdateNamespaceRoles {
-    return MsgUpdateNamespaceRoles.decode(message.value);
+  fromProtoMsg(message: MsgUpdateActorRolesProtoMsg): MsgUpdateActorRoles {
+    return MsgUpdateActorRoles.decode(message.value);
   },
-  toProto(message: MsgUpdateNamespaceRoles): Uint8Array {
-    return MsgUpdateNamespaceRoles.encode(message).finish();
+  toProto(message: MsgUpdateActorRoles): Uint8Array {
+    return MsgUpdateActorRoles.encode(message).finish();
   },
-  toProtoMsg(message: MsgUpdateNamespaceRoles): MsgUpdateNamespaceRolesProtoMsg {
+  toProtoMsg(message: MsgUpdateActorRoles): MsgUpdateActorRolesProtoMsg {
     return {
-      typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRoles",
-      value: MsgUpdateNamespaceRoles.encode(message).finish()
+      typeUrl: "/injective.permissions.v1beta1.MsgUpdateActorRoles",
+      value: MsgUpdateActorRoles.encode(message).finish()
     };
   },
   registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateNamespaceRoles.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgUpdateActorRoles.typeUrl)) {
       return;
     }
-    Role.registerTypeUrl();
-    AddressRoles.registerTypeUrl();
+    RoleActors.registerTypeUrl();
   }
 };
-function createBaseMsgUpdateNamespaceRolesResponse(): MsgUpdateNamespaceRolesResponse {
+function createBaseMsgUpdateActorRolesResponse(): MsgUpdateActorRolesResponse {
   return {};
 }
 /**
- * @name MsgUpdateNamespaceRolesResponse
+ * @name MsgUpdateActorRolesResponse
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse
+ * @see proto type: injective.permissions.v1beta1.MsgUpdateActorRolesResponse
  */
-export const MsgUpdateNamespaceRolesResponse = {
-  typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse",
-  is(o: any): o is MsgUpdateNamespaceRolesResponse {
-    return o && o.$typeUrl === MsgUpdateNamespaceRolesResponse.typeUrl;
+export const MsgUpdateActorRolesResponse = {
+  typeUrl: "/injective.permissions.v1beta1.MsgUpdateActorRolesResponse",
+  is(o: any): o is MsgUpdateActorRolesResponse {
+    return o && o.$typeUrl === MsgUpdateActorRolesResponse.typeUrl;
   },
-  isAmino(o: any): o is MsgUpdateNamespaceRolesResponseAmino {
-    return o && o.$typeUrl === MsgUpdateNamespaceRolesResponse.typeUrl;
+  isAmino(o: any): o is MsgUpdateActorRolesResponseAmino {
+    return o && o.$typeUrl === MsgUpdateActorRolesResponse.typeUrl;
   },
-  encode(_: MsgUpdateNamespaceRolesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(_: MsgUpdateActorRolesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateNamespaceRolesResponse {
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateActorRolesResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUpdateNamespaceRolesResponse();
+    const message = createBaseMsgUpdateActorRolesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1644,206 +1131,31 @@ export const MsgUpdateNamespaceRolesResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgUpdateNamespaceRolesResponse>): MsgUpdateNamespaceRolesResponse {
-    const message = createBaseMsgUpdateNamespaceRolesResponse();
+  fromPartial(_: DeepPartial<MsgUpdateActorRolesResponse>): MsgUpdateActorRolesResponse {
+    const message = createBaseMsgUpdateActorRolesResponse();
     return message;
   },
-  fromAmino(_: MsgUpdateNamespaceRolesResponseAmino): MsgUpdateNamespaceRolesResponse {
-    const message = createBaseMsgUpdateNamespaceRolesResponse();
+  fromAmino(_: MsgUpdateActorRolesResponseAmino): MsgUpdateActorRolesResponse {
+    const message = createBaseMsgUpdateActorRolesResponse();
     return message;
   },
-  toAmino(_: MsgUpdateNamespaceRolesResponse): MsgUpdateNamespaceRolesResponseAmino {
+  toAmino(_: MsgUpdateActorRolesResponse): MsgUpdateActorRolesResponseAmino {
     const obj: any = {};
     return obj;
   },
-  fromAminoMsg(object: MsgUpdateNamespaceRolesResponseAminoMsg): MsgUpdateNamespaceRolesResponse {
-    return MsgUpdateNamespaceRolesResponse.fromAmino(object.value);
+  fromAminoMsg(object: MsgUpdateActorRolesResponseAminoMsg): MsgUpdateActorRolesResponse {
+    return MsgUpdateActorRolesResponse.fromAmino(object.value);
   },
-  fromProtoMsg(message: MsgUpdateNamespaceRolesResponseProtoMsg): MsgUpdateNamespaceRolesResponse {
-    return MsgUpdateNamespaceRolesResponse.decode(message.value);
+  fromProtoMsg(message: MsgUpdateActorRolesResponseProtoMsg): MsgUpdateActorRolesResponse {
+    return MsgUpdateActorRolesResponse.decode(message.value);
   },
-  toProto(message: MsgUpdateNamespaceRolesResponse): Uint8Array {
-    return MsgUpdateNamespaceRolesResponse.encode(message).finish();
+  toProto(message: MsgUpdateActorRolesResponse): Uint8Array {
+    return MsgUpdateActorRolesResponse.encode(message).finish();
   },
-  toProtoMsg(message: MsgUpdateNamespaceRolesResponse): MsgUpdateNamespaceRolesResponseProtoMsg {
+  toProtoMsg(message: MsgUpdateActorRolesResponse): MsgUpdateActorRolesResponseProtoMsg {
     return {
-      typeUrl: "/injective.permissions.v1beta1.MsgUpdateNamespaceRolesResponse",
-      value: MsgUpdateNamespaceRolesResponse.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {}
-};
-function createBaseMsgRevokeNamespaceRoles(): MsgRevokeNamespaceRoles {
-  return {
-    sender: "",
-    namespaceDenom: "",
-    addressRolesToRevoke: []
-  };
-}
-/**
- * @name MsgRevokeNamespaceRoles
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRoles
- */
-export const MsgRevokeNamespaceRoles = {
-  typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles",
-  aminoType: "permissions/MsgRevokeNamespaceRoles",
-  is(o: any): o is MsgRevokeNamespaceRoles {
-    return o && (o.$typeUrl === MsgRevokeNamespaceRoles.typeUrl || typeof o.sender === "string" && typeof o.namespaceDenom === "string" && Array.isArray(o.addressRolesToRevoke) && (!o.addressRolesToRevoke.length || AddressRoles.is(o.addressRolesToRevoke[0])));
-  },
-  isAmino(o: any): o is MsgRevokeNamespaceRolesAmino {
-    return o && (o.$typeUrl === MsgRevokeNamespaceRoles.typeUrl || typeof o.sender === "string" && typeof o.namespace_denom === "string" && Array.isArray(o.address_roles_to_revoke) && (!o.address_roles_to_revoke.length || AddressRoles.isAmino(o.address_roles_to_revoke[0])));
-  },
-  encode(message: MsgRevokeNamespaceRoles, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.sender !== "") {
-      writer.uint32(10).string(message.sender);
-    }
-    if (message.namespaceDenom !== "") {
-      writer.uint32(18).string(message.namespaceDenom);
-    }
-    for (const v of message.addressRolesToRevoke) {
-      AddressRoles.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgRevokeNamespaceRoles {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgRevokeNamespaceRoles();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.sender = reader.string();
-          break;
-        case 2:
-          message.namespaceDenom = reader.string();
-          break;
-        case 3:
-          message.addressRolesToRevoke.push(AddressRoles.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgRevokeNamespaceRoles>): MsgRevokeNamespaceRoles {
-    const message = createBaseMsgRevokeNamespaceRoles();
-    message.sender = object.sender ?? "";
-    message.namespaceDenom = object.namespaceDenom ?? "";
-    message.addressRolesToRevoke = object.addressRolesToRevoke?.map(e => AddressRoles.fromPartial(e)) || [];
-    return message;
-  },
-  fromAmino(object: MsgRevokeNamespaceRolesAmino): MsgRevokeNamespaceRoles {
-    const message = createBaseMsgRevokeNamespaceRoles();
-    if (object.sender !== undefined && object.sender !== null) {
-      message.sender = object.sender;
-    }
-    if (object.namespace_denom !== undefined && object.namespace_denom !== null) {
-      message.namespaceDenom = object.namespace_denom;
-    }
-    message.addressRolesToRevoke = object.address_roles_to_revoke?.map(e => AddressRoles.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: MsgRevokeNamespaceRoles): MsgRevokeNamespaceRolesAmino {
-    const obj: any = {};
-    obj.sender = message.sender === "" ? undefined : message.sender;
-    obj.namespace_denom = message.namespaceDenom === "" ? undefined : message.namespaceDenom;
-    if (message.addressRolesToRevoke) {
-      obj.address_roles_to_revoke = message.addressRolesToRevoke.map(e => e ? AddressRoles.toAmino(e) : undefined);
-    } else {
-      obj.address_roles_to_revoke = message.addressRolesToRevoke;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: MsgRevokeNamespaceRolesAminoMsg): MsgRevokeNamespaceRoles {
-    return MsgRevokeNamespaceRoles.fromAmino(object.value);
-  },
-  toAminoMsg(message: MsgRevokeNamespaceRoles): MsgRevokeNamespaceRolesAminoMsg {
-    return {
-      type: "permissions/MsgRevokeNamespaceRoles",
-      value: MsgRevokeNamespaceRoles.toAmino(message)
-    };
-  },
-  fromProtoMsg(message: MsgRevokeNamespaceRolesProtoMsg): MsgRevokeNamespaceRoles {
-    return MsgRevokeNamespaceRoles.decode(message.value);
-  },
-  toProto(message: MsgRevokeNamespaceRoles): Uint8Array {
-    return MsgRevokeNamespaceRoles.encode(message).finish();
-  },
-  toProtoMsg(message: MsgRevokeNamespaceRoles): MsgRevokeNamespaceRolesProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRoles",
-      value: MsgRevokeNamespaceRoles.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgRevokeNamespaceRoles.typeUrl)) {
-      return;
-    }
-    AddressRoles.registerTypeUrl();
-  }
-};
-function createBaseMsgRevokeNamespaceRolesResponse(): MsgRevokeNamespaceRolesResponse {
-  return {};
-}
-/**
- * @name MsgRevokeNamespaceRolesResponse
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse
- */
-export const MsgRevokeNamespaceRolesResponse = {
-  typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse",
-  is(o: any): o is MsgRevokeNamespaceRolesResponse {
-    return o && o.$typeUrl === MsgRevokeNamespaceRolesResponse.typeUrl;
-  },
-  isAmino(o: any): o is MsgRevokeNamespaceRolesResponseAmino {
-    return o && o.$typeUrl === MsgRevokeNamespaceRolesResponse.typeUrl;
-  },
-  encode(_: MsgRevokeNamespaceRolesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgRevokeNamespaceRolesResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgRevokeNamespaceRolesResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(_: DeepPartial<MsgRevokeNamespaceRolesResponse>): MsgRevokeNamespaceRolesResponse {
-    const message = createBaseMsgRevokeNamespaceRolesResponse();
-    return message;
-  },
-  fromAmino(_: MsgRevokeNamespaceRolesResponseAmino): MsgRevokeNamespaceRolesResponse {
-    const message = createBaseMsgRevokeNamespaceRolesResponse();
-    return message;
-  },
-  toAmino(_: MsgRevokeNamespaceRolesResponse): MsgRevokeNamespaceRolesResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgRevokeNamespaceRolesResponseAminoMsg): MsgRevokeNamespaceRolesResponse {
-    return MsgRevokeNamespaceRolesResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgRevokeNamespaceRolesResponseProtoMsg): MsgRevokeNamespaceRolesResponse {
-    return MsgRevokeNamespaceRolesResponse.decode(message.value);
-  },
-  toProto(message: MsgRevokeNamespaceRolesResponse): Uint8Array {
-    return MsgRevokeNamespaceRolesResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgRevokeNamespaceRolesResponse): MsgRevokeNamespaceRolesResponseProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.MsgRevokeNamespaceRolesResponse",
-      value: MsgRevokeNamespaceRolesResponse.encode(message).finish()
+      typeUrl: "/injective.permissions.v1beta1.MsgUpdateActorRolesResponse",
+      value: MsgUpdateActorRolesResponse.encode(message).finish()
     };
   },
   registerTypeUrl() {}

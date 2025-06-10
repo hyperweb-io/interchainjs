@@ -529,6 +529,136 @@ export interface EventValidatorSlashAminoMsg {
   type: "/injective.peggy.v1.EventValidatorSlash";
   value: EventValidatorSlashAmino;
 }
+/**
+ * @name EventDepositReceived
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventDepositReceived
+ */
+export interface EventDepositReceived {
+  /**
+   * Ethereum sender address
+   */
+  sender: string;
+  /**
+   * Injective receiver address
+   */
+  receiver: string;
+  /**
+   * Coin deposited to Injective
+   */
+  amount: string;
+}
+export interface EventDepositReceivedProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventDepositReceived";
+  value: Uint8Array;
+}
+/**
+ * @name EventDepositReceivedAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventDepositReceived
+ */
+export interface EventDepositReceivedAmino {
+  /**
+   * Ethereum sender address
+   */
+  sender: string;
+  /**
+   * Injective receiver address
+   */
+  receiver: string;
+  /**
+   * Coin deposited to Injective
+   */
+  amount: string;
+}
+export interface EventDepositReceivedAminoMsg {
+  type: "/injective.peggy.v1.EventDepositReceived";
+  value: EventDepositReceivedAmino;
+}
+/**
+ * @name EventWithdrawalsCompleted
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventWithdrawalsCompleted
+ */
+export interface EventWithdrawalsCompleted {
+  /**
+   * token denom of each withdrawal
+   */
+  denom: string;
+  /**
+   * individual withdrawals
+   */
+  withdrawals: Withdrawal[];
+}
+export interface EventWithdrawalsCompletedProtoMsg {
+  typeUrl: "/injective.peggy.v1.EventWithdrawalsCompleted";
+  value: Uint8Array;
+}
+/**
+ * @name EventWithdrawalsCompletedAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventWithdrawalsCompleted
+ */
+export interface EventWithdrawalsCompletedAmino {
+  /**
+   * token denom of each withdrawal
+   */
+  denom: string;
+  /**
+   * individual withdrawals
+   */
+  withdrawals: WithdrawalAmino[];
+}
+export interface EventWithdrawalsCompletedAminoMsg {
+  type: "/injective.peggy.v1.EventWithdrawalsCompleted";
+  value: EventWithdrawalsCompletedAmino;
+}
+/**
+ * @name Withdrawal
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Withdrawal
+ */
+export interface Withdrawal {
+  /**
+   * Injective sender address
+   */
+  sender: string;
+  /**
+   * Ethereum receiver address
+   */
+  receiver: string;
+  /**
+   * Amount of tokens withdrawn to Ethereum
+   */
+  amount: string;
+}
+export interface WithdrawalProtoMsg {
+  typeUrl: "/injective.peggy.v1.Withdrawal";
+  value: Uint8Array;
+}
+/**
+ * @name WithdrawalAmino
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Withdrawal
+ */
+export interface WithdrawalAmino {
+  /**
+   * Injective sender address
+   */
+  sender: string;
+  /**
+   * Ethereum receiver address
+   */
+  receiver: string;
+  /**
+   * Amount of tokens withdrawn to Ethereum
+   */
+  amount: string;
+}
+export interface WithdrawalAminoMsg {
+  type: "/injective.peggy.v1.Withdrawal";
+  value: WithdrawalAmino;
+}
 function createBaseEventAttestationObserved(): EventAttestationObserved {
   return {
     attestationType: 0,
@@ -2533,6 +2663,298 @@ export const EventValidatorSlash = {
     return {
       typeUrl: "/injective.peggy.v1.EventValidatorSlash",
       value: EventValidatorSlash.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseEventDepositReceived(): EventDepositReceived {
+  return {
+    sender: "",
+    receiver: "",
+    amount: ""
+  };
+}
+/**
+ * @name EventDepositReceived
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventDepositReceived
+ */
+export const EventDepositReceived = {
+  typeUrl: "/injective.peggy.v1.EventDepositReceived",
+  is(o: any): o is EventDepositReceived {
+    return o && (o.$typeUrl === EventDepositReceived.typeUrl || typeof o.sender === "string" && typeof o.receiver === "string" && typeof o.amount === "string");
+  },
+  isAmino(o: any): o is EventDepositReceivedAmino {
+    return o && (o.$typeUrl === EventDepositReceived.typeUrl || typeof o.sender === "string" && typeof o.receiver === "string" && typeof o.amount === "string");
+  },
+  encode(message: EventDepositReceived, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
+    if (message.amount !== "") {
+      writer.uint32(26).string(message.amount);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): EventDepositReceived {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventDepositReceived();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+        case 2:
+          message.receiver = reader.string();
+          break;
+        case 3:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<EventDepositReceived>): EventDepositReceived {
+    const message = createBaseEventDepositReceived();
+    message.sender = object.sender ?? "";
+    message.receiver = object.receiver ?? "";
+    message.amount = object.amount ?? "";
+    return message;
+  },
+  fromAmino(object: EventDepositReceivedAmino): EventDepositReceived {
+    const message = createBaseEventDepositReceived();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: EventDepositReceived): EventDepositReceivedAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    obj.amount = message.amount === "" ? undefined : message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: EventDepositReceivedAminoMsg): EventDepositReceived {
+    return EventDepositReceived.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventDepositReceivedProtoMsg): EventDepositReceived {
+    return EventDepositReceived.decode(message.value);
+  },
+  toProto(message: EventDepositReceived): Uint8Array {
+    return EventDepositReceived.encode(message).finish();
+  },
+  toProtoMsg(message: EventDepositReceived): EventDepositReceivedProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventDepositReceived",
+      value: EventDepositReceived.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseEventWithdrawalsCompleted(): EventWithdrawalsCompleted {
+  return {
+    denom: "",
+    withdrawals: []
+  };
+}
+/**
+ * @name EventWithdrawalsCompleted
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.EventWithdrawalsCompleted
+ */
+export const EventWithdrawalsCompleted = {
+  typeUrl: "/injective.peggy.v1.EventWithdrawalsCompleted",
+  is(o: any): o is EventWithdrawalsCompleted {
+    return o && (o.$typeUrl === EventWithdrawalsCompleted.typeUrl || typeof o.denom === "string" && Array.isArray(o.withdrawals) && (!o.withdrawals.length || Withdrawal.is(o.withdrawals[0])));
+  },
+  isAmino(o: any): o is EventWithdrawalsCompletedAmino {
+    return o && (o.$typeUrl === EventWithdrawalsCompleted.typeUrl || typeof o.denom === "string" && Array.isArray(o.withdrawals) && (!o.withdrawals.length || Withdrawal.isAmino(o.withdrawals[0])));
+  },
+  encode(message: EventWithdrawalsCompleted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    for (const v of message.withdrawals) {
+      Withdrawal.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): EventWithdrawalsCompleted {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventWithdrawalsCompleted();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.denom = reader.string();
+          break;
+        case 2:
+          message.withdrawals.push(Withdrawal.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<EventWithdrawalsCompleted>): EventWithdrawalsCompleted {
+    const message = createBaseEventWithdrawalsCompleted();
+    message.denom = object.denom ?? "";
+    message.withdrawals = object.withdrawals?.map(e => Withdrawal.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: EventWithdrawalsCompletedAmino): EventWithdrawalsCompleted {
+    const message = createBaseEventWithdrawalsCompleted();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    message.withdrawals = object.withdrawals?.map(e => Withdrawal.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: EventWithdrawalsCompleted): EventWithdrawalsCompletedAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    if (message.withdrawals) {
+      obj.withdrawals = message.withdrawals.map(e => e ? Withdrawal.toAmino(e) : undefined);
+    } else {
+      obj.withdrawals = message.withdrawals;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: EventWithdrawalsCompletedAminoMsg): EventWithdrawalsCompleted {
+    return EventWithdrawalsCompleted.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventWithdrawalsCompletedProtoMsg): EventWithdrawalsCompleted {
+    return EventWithdrawalsCompleted.decode(message.value);
+  },
+  toProto(message: EventWithdrawalsCompleted): Uint8Array {
+    return EventWithdrawalsCompleted.encode(message).finish();
+  },
+  toProtoMsg(message: EventWithdrawalsCompleted): EventWithdrawalsCompletedProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.EventWithdrawalsCompleted",
+      value: EventWithdrawalsCompleted.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventWithdrawalsCompleted.typeUrl)) {
+      return;
+    }
+    Withdrawal.registerTypeUrl();
+  }
+};
+function createBaseWithdrawal(): Withdrawal {
+  return {
+    sender: "",
+    receiver: "",
+    amount: ""
+  };
+}
+/**
+ * @name Withdrawal
+ * @package injective.peggy.v1
+ * @see proto type: injective.peggy.v1.Withdrawal
+ */
+export const Withdrawal = {
+  typeUrl: "/injective.peggy.v1.Withdrawal",
+  is(o: any): o is Withdrawal {
+    return o && (o.$typeUrl === Withdrawal.typeUrl || typeof o.sender === "string" && typeof o.receiver === "string" && typeof o.amount === "string");
+  },
+  isAmino(o: any): o is WithdrawalAmino {
+    return o && (o.$typeUrl === Withdrawal.typeUrl || typeof o.sender === "string" && typeof o.receiver === "string" && typeof o.amount === "string");
+  },
+  encode(message: Withdrawal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
+    if (message.amount !== "") {
+      writer.uint32(26).string(message.amount);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): Withdrawal {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseWithdrawal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+        case 2:
+          message.receiver = reader.string();
+          break;
+        case 3:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<Withdrawal>): Withdrawal {
+    const message = createBaseWithdrawal();
+    message.sender = object.sender ?? "";
+    message.receiver = object.receiver ?? "";
+    message.amount = object.amount ?? "";
+    return message;
+  },
+  fromAmino(object: WithdrawalAmino): Withdrawal {
+    const message = createBaseWithdrawal();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: Withdrawal): WithdrawalAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
+    obj.amount = message.amount === "" ? undefined : message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: WithdrawalAminoMsg): Withdrawal {
+    return Withdrawal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: WithdrawalProtoMsg): Withdrawal {
+    return Withdrawal.decode(message.value);
+  },
+  toProto(message: Withdrawal): Uint8Array {
+    return Withdrawal.encode(message).finish();
+  },
+  toProtoMsg(message: Withdrawal): WithdrawalProtoMsg {
+    return {
+      typeUrl: "/injective.peggy.v1.Withdrawal",
+      value: Withdrawal.encode(message).finish()
     };
   },
   registerTypeUrl() {}

@@ -26,6 +26,10 @@ export interface MsgCreateDenom {
   name: string;
   symbol: string;
   decimals: number;
+  /**
+   * true if admins are allowed to burn tokens from other addresses
+   */
+  allowAdminBurn: boolean;
 }
 export interface MsgCreateDenomProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenom";
@@ -54,6 +58,10 @@ export interface MsgCreateDenomAmino {
   name: string;
   symbol: string;
   decimals: number;
+  /**
+   * true if admins are allowed to burn tokens from other addresses
+   */
+  allow_admin_burn: boolean;
 }
 export interface MsgCreateDenomAminoMsg {
   type: "injective/tokenfactory/create-denom";
@@ -88,8 +96,8 @@ export interface MsgCreateDenomResponseAminoMsg {
   value: MsgCreateDenomResponseAmino;
 }
 /**
- * MsgMint is the sdk.Msg type for allowing an admin account to mint
- * more of a token.  For now, we only support minting to the sender account
+ * MsgMint is the sdk.Msg type for allowing an admin account or other permitted
+ * accounts to mint more of a token.
  * @name MsgMint
  * @package injective.tokenfactory.v1beta1
  * @see proto type: injective.tokenfactory.v1beta1.MsgMint
@@ -97,14 +105,15 @@ export interface MsgCreateDenomResponseAminoMsg {
 export interface MsgMint {
   sender: string;
   amount: Coin;
+  receiver: string;
 }
 export interface MsgMintProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMint";
   value: Uint8Array;
 }
 /**
- * MsgMint is the sdk.Msg type for allowing an admin account to mint
- * more of a token.  For now, we only support minting to the sender account
+ * MsgMint is the sdk.Msg type for allowing an admin account or other permitted
+ * accounts to mint more of a token.
  * @name MsgMintAmino
  * @package injective.tokenfactory.v1beta1
  * @see proto type: injective.tokenfactory.v1beta1.MsgMint
@@ -112,6 +121,7 @@ export interface MsgMintProtoMsg {
 export interface MsgMintAmino {
   sender: string;
   amount: CoinAmino;
+  receiver: string;
 }
 export interface MsgMintAminoMsg {
   type: "injective/tokenfactory/mint";
@@ -139,7 +149,7 @@ export interface MsgMintResponseAminoMsg {
 }
 /**
  * MsgBurn is the sdk.Msg type for allowing an admin account to burn
- * a token.  For now, we only support burning from the sender account.
+ * a token.
  * @name MsgBurn
  * @package injective.tokenfactory.v1beta1
  * @see proto type: injective.tokenfactory.v1beta1.MsgBurn
@@ -147,6 +157,7 @@ export interface MsgMintResponseAminoMsg {
 export interface MsgBurn {
   sender: string;
   amount: Coin;
+  burnFromAddress: string;
 }
 export interface MsgBurnProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurn";
@@ -154,7 +165,7 @@ export interface MsgBurnProtoMsg {
 }
 /**
  * MsgBurn is the sdk.Msg type for allowing an admin account to burn
- * a token.  For now, we only support burning from the sender account.
+ * a token.
  * @name MsgBurnAmino
  * @package injective.tokenfactory.v1beta1
  * @see proto type: injective.tokenfactory.v1beta1.MsgBurn
@@ -162,6 +173,7 @@ export interface MsgBurnProtoMsg {
 export interface MsgBurnAmino {
   sender: string;
   amount: CoinAmino;
+  burnFromAddress: string;
 }
 export interface MsgBurnAminoMsg {
   type: "injective/tokenfactory/burn";
@@ -253,6 +265,7 @@ export interface MsgChangeAdminResponseAminoMsg {
 export interface MsgSetDenomMetadata {
   sender: string;
   metadata: Metadata;
+  adminBurnDisabled?: MsgSetDenomMetadata_AdminBurnDisabled;
 }
 export interface MsgSetDenomMetadataProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgSetDenomMetadata";
@@ -268,10 +281,41 @@ export interface MsgSetDenomMetadataProtoMsg {
 export interface MsgSetDenomMetadataAmino {
   sender: string;
   metadata: MetadataAmino;
+  admin_burn_disabled?: MsgSetDenomMetadata_AdminBurnDisabledAmino;
 }
 export interface MsgSetDenomMetadataAminoMsg {
   type: "injective/tokenfactory/set-denom-metadata";
   value: MsgSetDenomMetadataAmino;
+}
+/**
+ * @name MsgSetDenomMetadata_AdminBurnDisabled
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.AdminBurnDisabled
+ */
+export interface MsgSetDenomMetadata_AdminBurnDisabled {
+  /**
+   * true if the admin burn capability should be disabled
+   */
+  shouldDisable: boolean;
+}
+export interface MsgSetDenomMetadata_AdminBurnDisabledProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.AdminBurnDisabled";
+  value: Uint8Array;
+}
+/**
+ * @name MsgSetDenomMetadata_AdminBurnDisabledAmino
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.MsgSetDenomMetadata_AdminBurnDisabled
+ */
+export interface MsgSetDenomMetadata_AdminBurnDisabledAmino {
+  /**
+   * true if the admin burn capability should be disabled
+   */
+  should_disable: boolean;
+}
+export interface MsgSetDenomMetadata_AdminBurnDisabledAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.AdminBurnDisabled";
+  value: MsgSetDenomMetadata_AdminBurnDisabledAmino;
 }
 /**
  * MsgSetDenomMetadataResponse defines the response structure for an executed
@@ -365,7 +409,8 @@ function createBaseMsgCreateDenom(): MsgCreateDenom {
     subdenom: "",
     name: "",
     symbol: "",
-    decimals: 0
+    decimals: 0,
+    allowAdminBurn: false
   };
 }
 /**
@@ -386,10 +431,10 @@ export const MsgCreateDenom = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgCreateDenom",
   aminoType: "injective/tokenfactory/create-denom",
   is(o: any): o is MsgCreateDenom {
-    return o && (o.$typeUrl === MsgCreateDenom.typeUrl || typeof o.sender === "string" && typeof o.subdenom === "string" && typeof o.name === "string" && typeof o.symbol === "string" && typeof o.decimals === "number");
+    return o && (o.$typeUrl === MsgCreateDenom.typeUrl || typeof o.sender === "string" && typeof o.subdenom === "string" && typeof o.name === "string" && typeof o.symbol === "string" && typeof o.decimals === "number" && typeof o.allowAdminBurn === "boolean");
   },
   isAmino(o: any): o is MsgCreateDenomAmino {
-    return o && (o.$typeUrl === MsgCreateDenom.typeUrl || typeof o.sender === "string" && typeof o.subdenom === "string" && typeof o.name === "string" && typeof o.symbol === "string" && typeof o.decimals === "number");
+    return o && (o.$typeUrl === MsgCreateDenom.typeUrl || typeof o.sender === "string" && typeof o.subdenom === "string" && typeof o.name === "string" && typeof o.symbol === "string" && typeof o.decimals === "number" && typeof o.allow_admin_burn === "boolean");
   },
   encode(message: MsgCreateDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
@@ -406,6 +451,9 @@ export const MsgCreateDenom = {
     }
     if (message.decimals !== 0) {
       writer.uint32(40).uint32(message.decimals);
+    }
+    if (message.allowAdminBurn === true) {
+      writer.uint32(48).bool(message.allowAdminBurn);
     }
     return writer;
   },
@@ -431,6 +479,9 @@ export const MsgCreateDenom = {
         case 5:
           message.decimals = reader.uint32();
           break;
+        case 6:
+          message.allowAdminBurn = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -445,6 +496,7 @@ export const MsgCreateDenom = {
     message.name = object.name ?? "";
     message.symbol = object.symbol ?? "";
     message.decimals = object.decimals ?? 0;
+    message.allowAdminBurn = object.allowAdminBurn ?? false;
     return message;
   },
   fromAmino(object: MsgCreateDenomAmino): MsgCreateDenom {
@@ -464,6 +516,9 @@ export const MsgCreateDenom = {
     if (object.decimals !== undefined && object.decimals !== null) {
       message.decimals = object.decimals;
     }
+    if (object.allow_admin_burn !== undefined && object.allow_admin_burn !== null) {
+      message.allowAdminBurn = object.allow_admin_burn;
+    }
     return message;
   },
   toAmino(message: MsgCreateDenom): MsgCreateDenomAmino {
@@ -473,6 +528,7 @@ export const MsgCreateDenom = {
     obj.name = message.name === "" ? undefined : message.name;
     obj.symbol = message.symbol === "" ? undefined : message.symbol;
     obj.decimals = message.decimals === 0 ? undefined : message.decimals;
+    obj.allow_admin_burn = message.allowAdminBurn === false ? undefined : message.allowAdminBurn;
     return obj;
   },
   fromAminoMsg(object: MsgCreateDenomAminoMsg): MsgCreateDenom {
@@ -578,12 +634,13 @@ export const MsgCreateDenomResponse = {
 function createBaseMsgMint(): MsgMint {
   return {
     sender: "",
-    amount: Coin.fromPartial({})
+    amount: Coin.fromPartial({}),
+    receiver: ""
   };
 }
 /**
- * MsgMint is the sdk.Msg type for allowing an admin account to mint
- * more of a token.  For now, we only support minting to the sender account
+ * MsgMint is the sdk.Msg type for allowing an admin account or other permitted
+ * accounts to mint more of a token.
  * @name MsgMint
  * @package injective.tokenfactory.v1beta1
  * @see proto type: injective.tokenfactory.v1beta1.MsgMint
@@ -592,10 +649,10 @@ export const MsgMint = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgMint",
   aminoType: "injective/tokenfactory/mint",
   is(o: any): o is MsgMint {
-    return o && (o.$typeUrl === MsgMint.typeUrl || typeof o.sender === "string" && Coin.is(o.amount));
+    return o && (o.$typeUrl === MsgMint.typeUrl || typeof o.sender === "string" && Coin.is(o.amount) && typeof o.receiver === "string");
   },
   isAmino(o: any): o is MsgMintAmino {
-    return o && (o.$typeUrl === MsgMint.typeUrl || typeof o.sender === "string" && Coin.isAmino(o.amount));
+    return o && (o.$typeUrl === MsgMint.typeUrl || typeof o.sender === "string" && Coin.isAmino(o.amount) && typeof o.receiver === "string");
   },
   encode(message: MsgMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
@@ -603,6 +660,9 @@ export const MsgMint = {
     }
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.receiver !== "") {
+      writer.uint32(26).string(message.receiver);
     }
     return writer;
   },
@@ -619,6 +679,9 @@ export const MsgMint = {
         case 2:
           message.amount = Coin.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.receiver = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -630,6 +693,7 @@ export const MsgMint = {
     const message = createBaseMsgMint();
     message.sender = object.sender ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.receiver = object.receiver ?? "";
     return message;
   },
   fromAmino(object: MsgMintAmino): MsgMint {
@@ -640,12 +704,16 @@ export const MsgMint = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromAmino(object.amount);
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
     return message;
   },
   toAmino(message: MsgMint): MsgMintAmino {
     const obj: any = {};
     obj.sender = message.sender === "" ? undefined : message.sender;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
     return obj;
   },
   fromAminoMsg(object: MsgMintAminoMsg): MsgMint {
@@ -741,12 +809,13 @@ export const MsgMintResponse = {
 function createBaseMsgBurn(): MsgBurn {
   return {
     sender: "",
-    amount: Coin.fromPartial({})
+    amount: Coin.fromPartial({}),
+    burnFromAddress: ""
   };
 }
 /**
  * MsgBurn is the sdk.Msg type for allowing an admin account to burn
- * a token.  For now, we only support burning from the sender account.
+ * a token.
  * @name MsgBurn
  * @package injective.tokenfactory.v1beta1
  * @see proto type: injective.tokenfactory.v1beta1.MsgBurn
@@ -755,10 +824,10 @@ export const MsgBurn = {
   typeUrl: "/injective.tokenfactory.v1beta1.MsgBurn",
   aminoType: "injective/tokenfactory/burn",
   is(o: any): o is MsgBurn {
-    return o && (o.$typeUrl === MsgBurn.typeUrl || typeof o.sender === "string" && Coin.is(o.amount));
+    return o && (o.$typeUrl === MsgBurn.typeUrl || typeof o.sender === "string" && Coin.is(o.amount) && typeof o.burnFromAddress === "string");
   },
   isAmino(o: any): o is MsgBurnAmino {
-    return o && (o.$typeUrl === MsgBurn.typeUrl || typeof o.sender === "string" && Coin.isAmino(o.amount));
+    return o && (o.$typeUrl === MsgBurn.typeUrl || typeof o.sender === "string" && Coin.isAmino(o.amount) && typeof o.burnFromAddress === "string");
   },
   encode(message: MsgBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
@@ -766,6 +835,9 @@ export const MsgBurn = {
     }
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.burnFromAddress !== "") {
+      writer.uint32(26).string(message.burnFromAddress);
     }
     return writer;
   },
@@ -782,6 +854,9 @@ export const MsgBurn = {
         case 2:
           message.amount = Coin.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.burnFromAddress = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -793,6 +868,7 @@ export const MsgBurn = {
     const message = createBaseMsgBurn();
     message.sender = object.sender ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.burnFromAddress = object.burnFromAddress ?? "";
     return message;
   },
   fromAmino(object: MsgBurnAmino): MsgBurn {
@@ -803,12 +879,16 @@ export const MsgBurn = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromAmino(object.amount);
     }
+    if (object.burnFromAddress !== undefined && object.burnFromAddress !== null) {
+      message.burnFromAddress = object.burnFromAddress;
+    }
     return message;
   },
   toAmino(message: MsgBurn): MsgBurnAmino {
     const obj: any = {};
     obj.sender = message.sender === "" ? undefined : message.sender;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.burnFromAddress = message.burnFromAddress ?? "";
     return obj;
   },
   fromAminoMsg(object: MsgBurnAminoMsg): MsgBurn {
@@ -1076,7 +1156,8 @@ export const MsgChangeAdminResponse = {
 function createBaseMsgSetDenomMetadata(): MsgSetDenomMetadata {
   return {
     sender: "",
-    metadata: Metadata.fromPartial({})
+    metadata: Metadata.fromPartial({}),
+    adminBurnDisabled: undefined
   };
 }
 /**
@@ -1102,6 +1183,9 @@ export const MsgSetDenomMetadata = {
     if (message.metadata !== undefined) {
       Metadata.encode(message.metadata, writer.uint32(18).fork()).ldelim();
     }
+    if (message.adminBurnDisabled !== undefined) {
+      MsgSetDenomMetadata_AdminBurnDisabled.encode(message.adminBurnDisabled, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgSetDenomMetadata {
@@ -1117,6 +1201,9 @@ export const MsgSetDenomMetadata = {
         case 2:
           message.metadata = Metadata.decode(reader, reader.uint32());
           break;
+        case 3:
+          message.adminBurnDisabled = MsgSetDenomMetadata_AdminBurnDisabled.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1128,6 +1215,7 @@ export const MsgSetDenomMetadata = {
     const message = createBaseMsgSetDenomMetadata();
     message.sender = object.sender ?? "";
     message.metadata = object.metadata !== undefined && object.metadata !== null ? Metadata.fromPartial(object.metadata) : undefined;
+    message.adminBurnDisabled = object.adminBurnDisabled !== undefined && object.adminBurnDisabled !== null ? MsgSetDenomMetadata_AdminBurnDisabled.fromPartial(object.adminBurnDisabled) : undefined;
     return message;
   },
   fromAmino(object: MsgSetDenomMetadataAmino): MsgSetDenomMetadata {
@@ -1138,12 +1226,16 @@ export const MsgSetDenomMetadata = {
     if (object.metadata !== undefined && object.metadata !== null) {
       message.metadata = Metadata.fromAmino(object.metadata);
     }
+    if (object.admin_burn_disabled !== undefined && object.admin_burn_disabled !== null) {
+      message.adminBurnDisabled = MsgSetDenomMetadata_AdminBurnDisabled.fromAmino(object.admin_burn_disabled);
+    }
     return message;
   },
   toAmino(message: MsgSetDenomMetadata): MsgSetDenomMetadataAmino {
     const obj: any = {};
     obj.sender = message.sender === "" ? undefined : message.sender;
     obj.metadata = message.metadata ? Metadata.toAmino(message.metadata) : undefined;
+    obj.admin_burn_disabled = message.adminBurnDisabled ? MsgSetDenomMetadata_AdminBurnDisabled.toAmino(message.adminBurnDisabled) : undefined;
     return obj;
   },
   fromAminoMsg(object: MsgSetDenomMetadataAminoMsg): MsgSetDenomMetadata {
@@ -1172,7 +1264,83 @@ export const MsgSetDenomMetadata = {
       return;
     }
     Metadata.registerTypeUrl();
+    MsgSetDenomMetadata_AdminBurnDisabled.registerTypeUrl();
   }
+};
+function createBaseMsgSetDenomMetadata_AdminBurnDisabled(): MsgSetDenomMetadata_AdminBurnDisabled {
+  return {
+    shouldDisable: false
+  };
+}
+/**
+ * @name MsgSetDenomMetadata_AdminBurnDisabled
+ * @package injective.tokenfactory.v1beta1
+ * @see proto type: injective.tokenfactory.v1beta1.AdminBurnDisabled
+ */
+export const MsgSetDenomMetadata_AdminBurnDisabled = {
+  typeUrl: "/injective.tokenfactory.v1beta1.AdminBurnDisabled",
+  is(o: any): o is MsgSetDenomMetadata_AdminBurnDisabled {
+    return o && (o.$typeUrl === MsgSetDenomMetadata_AdminBurnDisabled.typeUrl || typeof o.shouldDisable === "boolean");
+  },
+  isAmino(o: any): o is MsgSetDenomMetadata_AdminBurnDisabledAmino {
+    return o && (o.$typeUrl === MsgSetDenomMetadata_AdminBurnDisabled.typeUrl || typeof o.should_disable === "boolean");
+  },
+  encode(message: MsgSetDenomMetadata_AdminBurnDisabled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.shouldDisable === true) {
+      writer.uint32(8).bool(message.shouldDisable);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSetDenomMetadata_AdminBurnDisabled {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSetDenomMetadata_AdminBurnDisabled();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.shouldDisable = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<MsgSetDenomMetadata_AdminBurnDisabled>): MsgSetDenomMetadata_AdminBurnDisabled {
+    const message = createBaseMsgSetDenomMetadata_AdminBurnDisabled();
+    message.shouldDisable = object.shouldDisable ?? false;
+    return message;
+  },
+  fromAmino(object: MsgSetDenomMetadata_AdminBurnDisabledAmino): MsgSetDenomMetadata_AdminBurnDisabled {
+    const message = createBaseMsgSetDenomMetadata_AdminBurnDisabled();
+    if (object.should_disable !== undefined && object.should_disable !== null) {
+      message.shouldDisable = object.should_disable;
+    }
+    return message;
+  },
+  toAmino(message: MsgSetDenomMetadata_AdminBurnDisabled): MsgSetDenomMetadata_AdminBurnDisabledAmino {
+    const obj: any = {};
+    obj.should_disable = message.shouldDisable === false ? undefined : message.shouldDisable;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSetDenomMetadata_AdminBurnDisabledAminoMsg): MsgSetDenomMetadata_AdminBurnDisabled {
+    return MsgSetDenomMetadata_AdminBurnDisabled.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSetDenomMetadata_AdminBurnDisabledProtoMsg): MsgSetDenomMetadata_AdminBurnDisabled {
+    return MsgSetDenomMetadata_AdminBurnDisabled.decode(message.value);
+  },
+  toProto(message: MsgSetDenomMetadata_AdminBurnDisabled): Uint8Array {
+    return MsgSetDenomMetadata_AdminBurnDisabled.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSetDenomMetadata_AdminBurnDisabled): MsgSetDenomMetadata_AdminBurnDisabledProtoMsg {
+    return {
+      typeUrl: "/injective.tokenfactory.v1beta1.AdminBurnDisabled",
+      value: MsgSetDenomMetadata_AdminBurnDisabled.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
 };
 function createBaseMsgSetDenomMetadataResponse(): MsgSetDenomMetadataResponse {
   return {};

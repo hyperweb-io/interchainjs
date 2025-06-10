@@ -2,6 +2,7 @@ import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { OracleType } from "../../oracle/v1beta1/oracle";
 import { SpotOrder, SpotOrderAmino, DerivativeOrder, DerivativeOrderAmino, MarketStatus, GrantAuthorization, GrantAuthorizationAmino, PositionDelta, PositionDeltaAmino } from "./exchange";
 import { Params, ParamsAmino } from "../../../cosmos/distribution/v1beta1/distribution";
+import { BatchExchangeModificationProposal, BatchExchangeModificationProposalAmino } from "./proposal";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { Decimal } from "@interchainjs/math";
 import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
@@ -543,6 +544,14 @@ export interface MsgInstantSpotMarketLaunch {
    * orders in the market
    */
   minNotional: string;
+  /**
+   * base token decimals
+   */
+  baseDecimals: number;
+  /**
+   * quote token decimals
+   */
+  quoteDecimals: number;
 }
 export interface MsgInstantSpotMarketLaunchProtoMsg {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunch";
@@ -583,6 +592,14 @@ export interface MsgInstantSpotMarketLaunchAmino {
    * orders in the market
    */
   min_notional: string;
+  /**
+   * base token decimals
+   */
+  base_decimals: number;
+  /**
+   * quote token decimals
+   */
+  quote_decimals: number;
 }
 export interface MsgInstantSpotMarketLaunchAminoMsg {
   type: "exchange/MsgInstantSpotMarketLaunch";
@@ -2838,6 +2855,58 @@ export interface MsgActivateStakeGrantResponseAminoMsg {
   type: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse";
   value: MsgActivateStakeGrantResponseAmino;
 }
+/**
+ * @name MsgBatchExchangeModification
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchExchangeModification
+ */
+export interface MsgBatchExchangeModification {
+  /**
+   * message sender, that is also the TX signer
+   */
+  sender: string;
+  proposal?: BatchExchangeModificationProposal;
+}
+export interface MsgBatchExchangeModificationProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.MsgBatchExchangeModification";
+  value: Uint8Array;
+}
+/**
+ * @name MsgBatchExchangeModificationAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchExchangeModification
+ */
+export interface MsgBatchExchangeModificationAmino {
+  /**
+   * message sender, that is also the TX signer
+   */
+  sender: string;
+  proposal?: BatchExchangeModificationProposalAmino;
+}
+export interface MsgBatchExchangeModificationAminoMsg {
+  type: "exchange/MsgBatchExchangeModification";
+  value: MsgBatchExchangeModificationAmino;
+}
+/**
+ * @name MsgBatchExchangeModificationResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchExchangeModificationResponse
+ */
+export interface MsgBatchExchangeModificationResponse {}
+export interface MsgBatchExchangeModificationResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.MsgBatchExchangeModificationResponse";
+  value: Uint8Array;
+}
+/**
+ * @name MsgBatchExchangeModificationResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchExchangeModificationResponse
+ */
+export interface MsgBatchExchangeModificationResponseAmino {}
+export interface MsgBatchExchangeModificationResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.MsgBatchExchangeModificationResponse";
+  value: MsgBatchExchangeModificationResponseAmino;
+}
 function createBaseMsgUpdateSpotMarket(): MsgUpdateSpotMarket {
   return {
     admin: "",
@@ -4191,7 +4260,9 @@ function createBaseMsgInstantSpotMarketLaunch(): MsgInstantSpotMarketLaunch {
     quoteDenom: "",
     minPriceTickSize: "",
     minQuantityTickSize: "",
-    minNotional: ""
+    minNotional: "",
+    baseDecimals: 0,
+    quoteDecimals: 0
   };
 }
 /**
@@ -4205,10 +4276,10 @@ export const MsgInstantSpotMarketLaunch = {
   typeUrl: "/injective.exchange.v1beta1.MsgInstantSpotMarketLaunch",
   aminoType: "exchange/MsgInstantSpotMarketLaunch",
   is(o: any): o is MsgInstantSpotMarketLaunch {
-    return o && (o.$typeUrl === MsgInstantSpotMarketLaunch.typeUrl || typeof o.sender === "string" && typeof o.ticker === "string" && typeof o.baseDenom === "string" && typeof o.quoteDenom === "string" && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string");
+    return o && (o.$typeUrl === MsgInstantSpotMarketLaunch.typeUrl || typeof o.sender === "string" && typeof o.ticker === "string" && typeof o.baseDenom === "string" && typeof o.quoteDenom === "string" && typeof o.minPriceTickSize === "string" && typeof o.minQuantityTickSize === "string" && typeof o.minNotional === "string" && typeof o.baseDecimals === "number" && typeof o.quoteDecimals === "number");
   },
   isAmino(o: any): o is MsgInstantSpotMarketLaunchAmino {
-    return o && (o.$typeUrl === MsgInstantSpotMarketLaunch.typeUrl || typeof o.sender === "string" && typeof o.ticker === "string" && typeof o.base_denom === "string" && typeof o.quote_denom === "string" && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string");
+    return o && (o.$typeUrl === MsgInstantSpotMarketLaunch.typeUrl || typeof o.sender === "string" && typeof o.ticker === "string" && typeof o.base_denom === "string" && typeof o.quote_denom === "string" && typeof o.min_price_tick_size === "string" && typeof o.min_quantity_tick_size === "string" && typeof o.min_notional === "string" && typeof o.base_decimals === "number" && typeof o.quote_decimals === "number");
   },
   encode(message: MsgInstantSpotMarketLaunch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sender !== "") {
@@ -4231,6 +4302,12 @@ export const MsgInstantSpotMarketLaunch = {
     }
     if (message.minNotional !== "") {
       writer.uint32(58).string(Decimal.fromUserInput(message.minNotional, 18).atomics);
+    }
+    if (message.baseDecimals !== 0) {
+      writer.uint32(64).uint32(message.baseDecimals);
+    }
+    if (message.quoteDecimals !== 0) {
+      writer.uint32(72).uint32(message.quoteDecimals);
     }
     return writer;
   },
@@ -4262,6 +4339,12 @@ export const MsgInstantSpotMarketLaunch = {
         case 7:
           message.minNotional = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
+        case 8:
+          message.baseDecimals = reader.uint32();
+          break;
+        case 9:
+          message.quoteDecimals = reader.uint32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -4278,6 +4361,8 @@ export const MsgInstantSpotMarketLaunch = {
     message.minPriceTickSize = object.minPriceTickSize ?? "";
     message.minQuantityTickSize = object.minQuantityTickSize ?? "";
     message.minNotional = object.minNotional ?? "";
+    message.baseDecimals = object.baseDecimals ?? 0;
+    message.quoteDecimals = object.quoteDecimals ?? 0;
     return message;
   },
   fromAmino(object: MsgInstantSpotMarketLaunchAmino): MsgInstantSpotMarketLaunch {
@@ -4303,6 +4388,12 @@ export const MsgInstantSpotMarketLaunch = {
     if (object.min_notional !== undefined && object.min_notional !== null) {
       message.minNotional = object.min_notional;
     }
+    if (object.base_decimals !== undefined && object.base_decimals !== null) {
+      message.baseDecimals = object.base_decimals;
+    }
+    if (object.quote_decimals !== undefined && object.quote_decimals !== null) {
+      message.quoteDecimals = object.quote_decimals;
+    }
     return message;
   },
   toAmino(message: MsgInstantSpotMarketLaunch): MsgInstantSpotMarketLaunchAmino {
@@ -4314,6 +4405,8 @@ export const MsgInstantSpotMarketLaunch = {
     obj.min_price_tick_size = message.minPriceTickSize === "" ? undefined : Decimal.fromUserInput(message.minPriceTickSize, 18).atomics;
     obj.min_quantity_tick_size = message.minQuantityTickSize === "" ? undefined : Decimal.fromUserInput(message.minQuantityTickSize, 18).atomics;
     obj.min_notional = message.minNotional === "" ? undefined : Decimal.fromUserInput(message.minNotional, 18).atomics;
+    obj.base_decimals = message.baseDecimals === 0 ? undefined : message.baseDecimals;
+    obj.quote_decimals = message.quoteDecimals === 0 ? undefined : message.quoteDecimals;
     return obj;
   },
   fromAminoMsg(object: MsgInstantSpotMarketLaunchAminoMsg): MsgInstantSpotMarketLaunch {
@@ -10911,6 +11004,167 @@ export const MsgActivateStakeGrantResponse = {
     return {
       typeUrl: "/injective.exchange.v1beta1.MsgActivateStakeGrantResponse",
       value: MsgActivateStakeGrantResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseMsgBatchExchangeModification(): MsgBatchExchangeModification {
+  return {
+    sender: "",
+    proposal: undefined
+  };
+}
+/**
+ * @name MsgBatchExchangeModification
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchExchangeModification
+ */
+export const MsgBatchExchangeModification = {
+  typeUrl: "/injective.exchange.v1beta1.MsgBatchExchangeModification",
+  aminoType: "exchange/MsgBatchExchangeModification",
+  is(o: any): o is MsgBatchExchangeModification {
+    return o && (o.$typeUrl === MsgBatchExchangeModification.typeUrl || typeof o.sender === "string");
+  },
+  isAmino(o: any): o is MsgBatchExchangeModificationAmino {
+    return o && (o.$typeUrl === MsgBatchExchangeModification.typeUrl || typeof o.sender === "string");
+  },
+  encode(message: MsgBatchExchangeModification, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.sender !== "") {
+      writer.uint32(10).string(message.sender);
+    }
+    if (message.proposal !== undefined) {
+      BatchExchangeModificationProposal.encode(message.proposal, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgBatchExchangeModification {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgBatchExchangeModification();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sender = reader.string();
+          break;
+        case 2:
+          message.proposal = BatchExchangeModificationProposal.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<MsgBatchExchangeModification>): MsgBatchExchangeModification {
+    const message = createBaseMsgBatchExchangeModification();
+    message.sender = object.sender ?? "";
+    message.proposal = object.proposal !== undefined && object.proposal !== null ? BatchExchangeModificationProposal.fromPartial(object.proposal) : undefined;
+    return message;
+  },
+  fromAmino(object: MsgBatchExchangeModificationAmino): MsgBatchExchangeModification {
+    const message = createBaseMsgBatchExchangeModification();
+    if (object.sender !== undefined && object.sender !== null) {
+      message.sender = object.sender;
+    }
+    if (object.proposal !== undefined && object.proposal !== null) {
+      message.proposal = BatchExchangeModificationProposal.fromAmino(object.proposal);
+    }
+    return message;
+  },
+  toAmino(message: MsgBatchExchangeModification): MsgBatchExchangeModificationAmino {
+    const obj: any = {};
+    obj.sender = message.sender === "" ? undefined : message.sender;
+    obj.proposal = message.proposal ? BatchExchangeModificationProposal.toAmino(message.proposal) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: MsgBatchExchangeModificationAminoMsg): MsgBatchExchangeModification {
+    return MsgBatchExchangeModification.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgBatchExchangeModification): MsgBatchExchangeModificationAminoMsg {
+    return {
+      type: "exchange/MsgBatchExchangeModification",
+      value: MsgBatchExchangeModification.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgBatchExchangeModificationProtoMsg): MsgBatchExchangeModification {
+    return MsgBatchExchangeModification.decode(message.value);
+  },
+  toProto(message: MsgBatchExchangeModification): Uint8Array {
+    return MsgBatchExchangeModification.encode(message).finish();
+  },
+  toProtoMsg(message: MsgBatchExchangeModification): MsgBatchExchangeModificationProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.MsgBatchExchangeModification",
+      value: MsgBatchExchangeModification.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(MsgBatchExchangeModification.typeUrl)) {
+      return;
+    }
+    BatchExchangeModificationProposal.registerTypeUrl();
+  }
+};
+function createBaseMsgBatchExchangeModificationResponse(): MsgBatchExchangeModificationResponse {
+  return {};
+}
+/**
+ * @name MsgBatchExchangeModificationResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MsgBatchExchangeModificationResponse
+ */
+export const MsgBatchExchangeModificationResponse = {
+  typeUrl: "/injective.exchange.v1beta1.MsgBatchExchangeModificationResponse",
+  is(o: any): o is MsgBatchExchangeModificationResponse {
+    return o && o.$typeUrl === MsgBatchExchangeModificationResponse.typeUrl;
+  },
+  isAmino(o: any): o is MsgBatchExchangeModificationResponseAmino {
+    return o && o.$typeUrl === MsgBatchExchangeModificationResponse.typeUrl;
+  },
+  encode(_: MsgBatchExchangeModificationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgBatchExchangeModificationResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgBatchExchangeModificationResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: DeepPartial<MsgBatchExchangeModificationResponse>): MsgBatchExchangeModificationResponse {
+    const message = createBaseMsgBatchExchangeModificationResponse();
+    return message;
+  },
+  fromAmino(_: MsgBatchExchangeModificationResponseAmino): MsgBatchExchangeModificationResponse {
+    const message = createBaseMsgBatchExchangeModificationResponse();
+    return message;
+  },
+  toAmino(_: MsgBatchExchangeModificationResponse): MsgBatchExchangeModificationResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgBatchExchangeModificationResponseAminoMsg): MsgBatchExchangeModificationResponse {
+    return MsgBatchExchangeModificationResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgBatchExchangeModificationResponseProtoMsg): MsgBatchExchangeModificationResponse {
+    return MsgBatchExchangeModificationResponse.decode(message.value);
+  },
+  toProto(message: MsgBatchExchangeModificationResponse): Uint8Array {
+    return MsgBatchExchangeModificationResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgBatchExchangeModificationResponse): MsgBatchExchangeModificationResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.MsgBatchExchangeModificationResponse",
+      value: MsgBatchExchangeModificationResponse.encode(message).finish()
     };
   },
   registerTypeUrl() {}
