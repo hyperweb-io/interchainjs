@@ -13,8 +13,6 @@ export const useGetGrants = buildUseQuery<QueryGrantsRequest, QueryGrantsRespons
 });
 /**
  * GranterGrants returns list of `GrantAuthorization`, granted by granter.
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetGranterGrants
  * @package cosmos.authz.v1beta1
  * @see proto service: cosmos.authz.v1beta1.GranterGrants
@@ -25,8 +23,6 @@ export const useGetGranterGrants = buildUseQuery<QueryGranterGrantsRequest, Quer
 });
 /**
  * GranteeGrants returns a list of `GrantAuthorization` by grantee.
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetGranteeGrants
  * @package cosmos.authz.v1beta1
  * @see proto service: cosmos.authz.v1beta1.GranteeGrants

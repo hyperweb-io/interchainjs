@@ -22,8 +22,6 @@ export const revokeAllowance = buildTx<MsgRevokeAllowance>({
 });
 /**
  * PruneAllowances prunes expired fee allowances, currently up to 75 at a time.
- * 
- * Since cosmos-sdk 0.50
  * @name pruneAllowances
  * @package cosmos.feegrant.v1beta1
  * @see proto service: cosmos.feegrant.v1beta1.PruneAllowances

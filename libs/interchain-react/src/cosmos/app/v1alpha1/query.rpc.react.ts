@@ -6,6 +6,7 @@ import { getConfig } from "./query.rpc.func";
  * @name useGetConfig
  * @package cosmos.app.v1alpha1
  * @see proto service: cosmos.app.v1alpha1.Config
+ * @deprecated
  */
 export const useGetConfig = buildUseQuery<QueryConfigRequest, QueryConfigResponse>({
   builderQueryFn: getConfig,

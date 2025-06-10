@@ -16,8 +16,6 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
 });
 /**
  * Subspaces queries for all registered subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name getSubspaces
  * @package cosmos.params.v1beta1
  * @see proto service: cosmos.params.v1beta1.Subspaces

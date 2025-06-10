@@ -1,6 +1,6 @@
 {
   "repos": [
-    { "owner": "cosmos", "repo": "cosmos-sdk", "branch": "release/v0.50.x" },
+    { "owner": "cosmos", "repo": "cosmos-sdk", "branch": "release/v0.53.x" },
     { "owner": "cosmos", "repo": "ibc-go" },
     { "owner": "injectivelabs", "repo": "sdk-go" }
   ],

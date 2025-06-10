@@ -1,5 +1,5 @@
 import { buildQuery } from "../../../../helper-func-types";
-import { QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryClientParamsRequest, QueryClientParamsResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryVerifyMembershipRequest, QueryVerifyMembershipResponse } from "./query";
+import { QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryClientParamsRequest, QueryClientParamsResponse, QueryClientCreatorRequest, QueryClientCreatorResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryVerifyMembershipRequest, QueryVerifyMembershipResponse } from "./query";
 /**
  * ClientState queries an IBC light client.
  * @name getClientState
@@ -92,6 +92,19 @@ export const getClientParams = buildQuery<QueryClientParamsRequest, QueryClientP
   service: "ibc.core.client.v1.Query",
   method: "ClientParams",
   deps: [QueryClientParamsRequest, QueryClientParamsResponse]
+});
+/**
+ * ClientCreator queries the creator of a given client.
+ * @name getClientCreator
+ * @package ibc.core.client.v1
+ * @see proto service: ibc.core.client.v1.ClientCreator
+ */
+export const getClientCreator = buildQuery<QueryClientCreatorRequest, QueryClientCreatorResponse>({
+  encode: QueryClientCreatorRequest.encode,
+  decode: QueryClientCreatorResponse.decode,
+  service: "ibc.core.client.v1.Query",
+  method: "ClientCreator",
+  deps: [QueryClientCreatorRequest, QueryClientCreatorResponse]
 });
 /**
  * UpgradedClientState queries an Upgraded IBC light client.

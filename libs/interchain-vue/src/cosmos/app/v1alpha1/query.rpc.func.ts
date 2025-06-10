@@ -5,6 +5,7 @@ import { QueryConfigRequest, QueryConfigResponse } from "./query";
  * @name getConfig
  * @package cosmos.app.v1alpha1
  * @see proto service: cosmos.app.v1alpha1.Config
+ * @deprecated
  */
 export const getConfig = buildQuery<QueryConfigRequest, QueryConfigResponse>({
   encode: QueryConfigRequest.encode,

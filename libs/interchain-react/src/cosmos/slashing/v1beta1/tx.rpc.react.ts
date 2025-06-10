@@ -15,8 +15,6 @@ export const useUnjail = buildUseMutation<MsgUnjail, Error>({
 /**
  * UpdateParams defines a governance operation for updating the x/slashing module
  * parameters. The authority defaults to the x/gov module account.
- * 
- * Since: cosmos-sdk 0.47
  * @name useUpdateParams
  * @package cosmos.slashing.v1beta1
  * @see proto service: cosmos.slashing.v1beta1.UpdateParams

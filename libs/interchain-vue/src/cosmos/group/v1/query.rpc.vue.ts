@@ -137,8 +137,6 @@ export const useGetTallyResult = buildUseVueQuery<QueryTallyResultRequest, Query
 });
 /**
  * Groups queries all groups in state.
- * 
- * Since: cosmos-sdk 0.47.1
  * @name useGetGroups
  * @package cosmos.group.v1
  * @see proto service: cosmos.group.v1.Groups

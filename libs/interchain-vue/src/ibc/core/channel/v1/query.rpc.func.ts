@@ -1,5 +1,5 @@
 import { buildQuery } from "../../../../helper-func-types";
-import { QueryChannelRequest, QueryChannelResponse, QueryChannelsRequest, QueryChannelsResponse, QueryConnectionChannelsRequest, QueryConnectionChannelsResponse, QueryChannelClientStateRequest, QueryChannelClientStateResponse, QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse, QueryPacketCommitmentRequest, QueryPacketCommitmentResponse, QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse, QueryPacketReceiptRequest, QueryPacketReceiptResponse, QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse, QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse, QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse, QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse, QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse, QueryNextSequenceSendRequest, QueryNextSequenceSendResponse, QueryUpgradeErrorRequest, QueryUpgradeErrorResponse, QueryUpgradeRequest, QueryUpgradeResponse, QueryChannelParamsRequest, QueryChannelParamsResponse } from "./query";
+import { QueryChannelRequest, QueryChannelResponse, QueryChannelsRequest, QueryChannelsResponse, QueryConnectionChannelsRequest, QueryConnectionChannelsResponse, QueryChannelClientStateRequest, QueryChannelClientStateResponse, QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse, QueryPacketCommitmentRequest, QueryPacketCommitmentResponse, QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse, QueryPacketReceiptRequest, QueryPacketReceiptResponse, QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse, QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse, QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse, QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse, QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse, QueryNextSequenceSendRequest, QueryNextSequenceSendResponse } from "./query";
 /**
  * Channel queries an IBC Channel.
  * @name getChannel
@@ -189,43 +189,4 @@ export const getNextSequenceSend = buildQuery<QueryNextSequenceSendRequest, Quer
   service: "ibc.core.channel.v1.Query",
   method: "NextSequenceSend",
   deps: [QueryNextSequenceSendRequest, QueryNextSequenceSendResponse]
-});
-/**
- * UpgradeError returns the error receipt if the upgrade handshake failed.
- * @name getUpgradeError
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.UpgradeError
- */
-export const getUpgradeError = buildQuery<QueryUpgradeErrorRequest, QueryUpgradeErrorResponse>({
-  encode: QueryUpgradeErrorRequest.encode,
-  decode: QueryUpgradeErrorResponse.decode,
-  service: "ibc.core.channel.v1.Query",
-  method: "UpgradeError",
-  deps: [QueryUpgradeErrorRequest, QueryUpgradeErrorResponse]
-});
-/**
- * Upgrade returns the upgrade for a given port and channel id.
- * @name getUpgrade
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.Upgrade
- */
-export const getUpgrade = buildQuery<QueryUpgradeRequest, QueryUpgradeResponse>({
-  encode: QueryUpgradeRequest.encode,
-  decode: QueryUpgradeResponse.decode,
-  service: "ibc.core.channel.v1.Query",
-  method: "Upgrade",
-  deps: [QueryUpgradeRequest, QueryUpgradeResponse]
-});
-/**
- * ChannelParams queries all parameters of the ibc channel submodule.
- * @name getChannelParams
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelParams
- */
-export const getChannelParams = buildQuery<QueryChannelParamsRequest, QueryChannelParamsResponse>({
-  encode: QueryChannelParamsRequest.encode,
-  decode: QueryChannelParamsResponse.decode,
-  service: "ibc.core.channel.v1.Query",
-  method: "ChannelParams",
-  deps: [QueryChannelParamsRequest, QueryChannelParamsResponse]
 });

@@ -848,6 +848,98 @@ export function featureSet_JsonFormatToJSON(object: FeatureSet_JsonFormat): stri
       return "UNRECOGNIZED";
   }
 }
+export enum FeatureSet_EnforceNamingStyle {
+  ENFORCE_NAMING_STYLE_UNKNOWN = 0,
+  STYLE2024 = 1,
+  STYLE_LEGACY = 2,
+  UNRECOGNIZED = -1,
+}
+export function featureSet_EnforceNamingStyleFromJSON(object: any): FeatureSet_EnforceNamingStyle {
+  switch (object) {
+    case 0:
+    case "ENFORCE_NAMING_STYLE_UNKNOWN":
+      return FeatureSet_EnforceNamingStyle.ENFORCE_NAMING_STYLE_UNKNOWN;
+    case 1:
+    case "STYLE2024":
+      return FeatureSet_EnforceNamingStyle.STYLE2024;
+    case 2:
+    case "STYLE_LEGACY":
+      return FeatureSet_EnforceNamingStyle.STYLE_LEGACY;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return FeatureSet_EnforceNamingStyle.UNRECOGNIZED;
+  }
+}
+export function featureSet_EnforceNamingStyleToJSON(object: FeatureSet_EnforceNamingStyle): string {
+  switch (object) {
+    case FeatureSet_EnforceNamingStyle.ENFORCE_NAMING_STYLE_UNKNOWN:
+      return "ENFORCE_NAMING_STYLE_UNKNOWN";
+    case FeatureSet_EnforceNamingStyle.STYLE2024:
+      return "STYLE2024";
+    case FeatureSet_EnforceNamingStyle.STYLE_LEGACY:
+      return "STYLE_LEGACY";
+    case FeatureSet_EnforceNamingStyle.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+export enum FeatureSet_VisibilityFeature_DefaultSymbolVisibility {
+  DEFAULT_SYMBOL_VISIBILITY_UNKNOWN = 0,
+  /** EXPORT_ALL - Default pre-EDITION_2024, all UNSET visibility are export. */
+  EXPORT_ALL = 1,
+  /** EXPORT_TOP_LEVEL - All top-level symbols default to export, nested default to local. */
+  EXPORT_TOP_LEVEL = 2,
+  /** LOCAL_ALL - All symbols default to local. */
+  LOCAL_ALL = 3,
+  /**
+   * STRICT - All symbols local by default. Nested types cannot be exported.
+   * With special case caveat for message { enum {} reserved 1 to max; }
+   * This is the recommended setting for new protos.
+   */
+  STRICT = 4,
+  UNRECOGNIZED = -1,
+}
+export function featureSet_VisibilityFeature_DefaultSymbolVisibilityFromJSON(object: any): FeatureSet_VisibilityFeature_DefaultSymbolVisibility {
+  switch (object) {
+    case 0:
+    case "DEFAULT_SYMBOL_VISIBILITY_UNKNOWN":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.DEFAULT_SYMBOL_VISIBILITY_UNKNOWN;
+    case 1:
+    case "EXPORT_ALL":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_ALL;
+    case 2:
+    case "EXPORT_TOP_LEVEL":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_TOP_LEVEL;
+    case 3:
+    case "LOCAL_ALL":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.LOCAL_ALL;
+    case 4:
+    case "STRICT":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.STRICT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.UNRECOGNIZED;
+  }
+}
+export function featureSet_VisibilityFeature_DefaultSymbolVisibilityToJSON(object: FeatureSet_VisibilityFeature_DefaultSymbolVisibility): string {
+  switch (object) {
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.DEFAULT_SYMBOL_VISIBILITY_UNKNOWN:
+      return "DEFAULT_SYMBOL_VISIBILITY_UNKNOWN";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_ALL:
+      return "EXPORT_ALL";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_TOP_LEVEL:
+      return "EXPORT_TOP_LEVEL";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.LOCAL_ALL:
+      return "LOCAL_ALL";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.STRICT:
+      return "STRICT";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
 /**
  * Represents the identified object's effect on the element in the original
  * .proto file.
@@ -892,6 +984,49 @@ export function generatedCodeInfo_Annotation_SemanticToJSON(object: GeneratedCod
   }
 }
 /**
+ * Describes the 'visibility' of a symbol with respect to the proto import
+ * system. Symbols can only be imported when the visibility rules do not prevent
+ * it (ex: local symbols cannot be imported).  Visibility modifiers can only set
+ * on `message` and `enum` as they are the only types available to be referenced
+ * from other files.
+ */
+export enum SymbolVisibility {
+  VISIBILITY_UNSET = 0,
+  VISIBILITY_LOCAL = 1,
+  VISIBILITY_EXPORT = 2,
+  UNRECOGNIZED = -1,
+}
+export function symbolVisibilityFromJSON(object: any): SymbolVisibility {
+  switch (object) {
+    case 0:
+    case "VISIBILITY_UNSET":
+      return SymbolVisibility.VISIBILITY_UNSET;
+    case 1:
+    case "VISIBILITY_LOCAL":
+      return SymbolVisibility.VISIBILITY_LOCAL;
+    case 2:
+    case "VISIBILITY_EXPORT":
+      return SymbolVisibility.VISIBILITY_EXPORT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return SymbolVisibility.UNRECOGNIZED;
+  }
+}
+export function symbolVisibilityToJSON(object: SymbolVisibility): string {
+  switch (object) {
+    case SymbolVisibility.VISIBILITY_UNSET:
+      return "VISIBILITY_UNSET";
+    case SymbolVisibility.VISIBILITY_LOCAL:
+      return "VISIBILITY_LOCAL";
+    case SymbolVisibility.VISIBILITY_EXPORT:
+      return "VISIBILITY_EXPORT";
+    case SymbolVisibility.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+/**
  * The protocol compiler can output a FileDescriptorSet containing the .proto
  * files it parses.
  * @name FileDescriptorSet
@@ -929,6 +1064,11 @@ export interface FileDescriptorProto {
    * For Google-internal migration only. Do not use.
    */
   weakDependency: number[];
+  /**
+   * Names of files imported by this file purely for the purpose of providing
+   * option extensions. These are excluded from the dependency list above.
+   */
+  optionDependency: string[];
   /**
    * All top-level definitions in this file.
    */
@@ -983,6 +1123,10 @@ export interface DescriptorProto {
    * A given name may only be reserved once.
    */
   reservedName: string[];
+  /**
+   * Support for `export` and `local` keywords on enums.
+   */
+  visibility: SymbolVisibility;
 }
 /**
  * @name DescriptorProto_ExtensionRange
@@ -1182,6 +1326,10 @@ export interface EnumDescriptorProto {
    * be reserved once.
    */
   reservedName: string[];
+  /**
+   * Support for `export` and `local` keywords on enums.
+   */
+  visibility: SymbolVisibility;
 }
 /**
  * Range of reserved numeric values. Reserved values may not be used by
@@ -1555,7 +1703,9 @@ export interface FieldOptions {
    */
   deprecated: boolean;
   /**
+   * DEPRECATED. DO NOT USE!
    * For Google-internal migration only. Do not use.
+   * @deprecated
    */
   weak: boolean;
   /**
@@ -1821,7 +1971,14 @@ export interface FeatureSet {
   utf8Validation: FeatureSet_Utf8Validation;
   messageEncoding: FeatureSet_MessageEncoding;
   jsonFormat: FeatureSet_JsonFormat;
+  enforceNamingStyle: FeatureSet_EnforceNamingStyle;
 }
+/**
+ * @name FeatureSet_VisibilityFeature
+ * @package google.protobuf
+ * @see proto type: google.protobuf.VisibilityFeature
+ */
+export interface FeatureSet_VisibilityFeature {}
 /**
  * A compiled specification for the defaults of a set of features.  These
  * messages are generated from FeatureSet extensions and can be used to seed
@@ -2105,6 +2262,7 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
     dependency: [],
     publicDependency: [],
     weakDependency: [],
+    optionDependency: [],
     messageType: [],
     enumType: [],
     service: [],
@@ -2143,6 +2301,9 @@ export const FileDescriptorProto = {
       writer.int32(v);
     }
     writer.ldelim();
+    for (const v of message.optionDependency) {
+      writer.uint32(122).string(v!);
+    }
     for (const v of message.messageType) {
       DescriptorProto.encode(v!, writer.uint32(34).fork()).ldelim();
     }
@@ -2205,6 +2366,9 @@ export const FileDescriptorProto = {
             message.weakDependency.push(reader.int32());
           }
           break;
+        case 15:
+          message.optionDependency.push(reader.string());
+          break;
         case 4:
           message.messageType.push(DescriptorProto.decode(reader, reader.uint32()));
           break;
@@ -2243,6 +2407,7 @@ export const FileDescriptorProto = {
     message.dependency = object.dependency?.map(e => e) || [];
     message.publicDependency = object.publicDependency?.map(e => e) || [];
     message.weakDependency = object.weakDependency?.map(e => e) || [];
+    message.optionDependency = object.optionDependency?.map(e => e) || [];
     message.messageType = object.messageType?.map(e => DescriptorProto.fromPartial(e)) || [];
     message.enumType = object.enumType?.map(e => EnumDescriptorProto.fromPartial(e)) || [];
     message.service = object.service?.map(e => ServiceDescriptorProto.fromPartial(e)) || [];
@@ -2265,7 +2430,8 @@ function createBaseDescriptorProto(): DescriptorProto {
     oneofDecl: [],
     options: undefined,
     reservedRange: [],
-    reservedName: []
+    reservedName: [],
+    visibility: 1
   };
 }
 /**
@@ -2307,6 +2473,9 @@ export const DescriptorProto = {
     for (const v of message.reservedName) {
       writer.uint32(82).string(v!);
     }
+    if (message.visibility !== 1) {
+      writer.uint32(88).int32(message.visibility);
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): DescriptorProto {
@@ -2346,6 +2515,9 @@ export const DescriptorProto = {
         case 10:
           message.reservedName.push(reader.string());
           break;
+        case 11:
+          message.visibility = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2365,6 +2537,7 @@ export const DescriptorProto = {
     message.options = object.options !== undefined && object.options !== null ? MessageOptions.fromPartial(object.options) : undefined;
     message.reservedRange = object.reservedRange?.map(e => DescriptorProto_ReservedRange.fromPartial(e)) || [];
     message.reservedName = object.reservedName?.map(e => e) || [];
+    message.visibility = object.visibility ?? 1;
     return message;
   }
 };
@@ -2793,7 +2966,8 @@ function createBaseEnumDescriptorProto(): EnumDescriptorProto {
     value: [],
     options: undefined,
     reservedRange: [],
-    reservedName: []
+    reservedName: [],
+    visibility: 1
   };
 }
 /**
@@ -2820,6 +2994,9 @@ export const EnumDescriptorProto = {
     for (const v of message.reservedName) {
       writer.uint32(42).string(v!);
     }
+    if (message.visibility !== 1) {
+      writer.uint32(48).int32(message.visibility);
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): EnumDescriptorProto {
@@ -2844,6 +3021,9 @@ export const EnumDescriptorProto = {
         case 5:
           message.reservedName.push(reader.string());
           break;
+        case 6:
+          message.visibility = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2858,6 +3038,7 @@ export const EnumDescriptorProto = {
     message.options = object.options !== undefined && object.options !== null ? EnumOptions.fromPartial(object.options) : undefined;
     message.reservedRange = object.reservedRange?.map(e => EnumDescriptorProto_EnumReservedRange.fromPartial(e)) || [];
     message.reservedName = object.reservedName?.map(e => e) || [];
+    message.visibility = object.visibility ?? 1;
     return message;
   }
 };
@@ -4146,7 +4327,8 @@ function createBaseFeatureSet(): FeatureSet {
     repeatedFieldEncoding: 1,
     utf8Validation: 0,
     messageEncoding: 1,
-    jsonFormat: 1
+    jsonFormat: 1,
+    enforceNamingStyle: 1
   };
 }
 /**
@@ -4181,6 +4363,9 @@ export const FeatureSet = {
     if (message.jsonFormat !== 1) {
       writer.uint32(48).int32(message.jsonFormat);
     }
+    if (message.enforceNamingStyle !== 1) {
+      writer.uint32(56).int32(message.enforceNamingStyle);
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): FeatureSet {
@@ -4208,6 +4393,9 @@ export const FeatureSet = {
         case 6:
           message.jsonFormat = reader.int32() as any;
           break;
+        case 7:
+          message.enforceNamingStyle = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -4223,6 +4411,39 @@ export const FeatureSet = {
     message.utf8Validation = object.utf8Validation ?? 0;
     message.messageEncoding = object.messageEncoding ?? 1;
     message.jsonFormat = object.jsonFormat ?? 1;
+    message.enforceNamingStyle = object.enforceNamingStyle ?? 1;
+    return message;
+  }
+};
+function createBaseFeatureSet_VisibilityFeature(): FeatureSet_VisibilityFeature {
+  return {};
+}
+/**
+ * @name FeatureSet_VisibilityFeature
+ * @package google.protobuf
+ * @see proto type: google.protobuf.VisibilityFeature
+ */
+export const FeatureSet_VisibilityFeature = {
+  typeUrl: "/google.protobuf.VisibilityFeature",
+  encode(_: FeatureSet_VisibilityFeature, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): FeatureSet_VisibilityFeature {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFeatureSet_VisibilityFeature();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: DeepPartial<FeatureSet_VisibilityFeature>): FeatureSet_VisibilityFeature {
+    const message = createBaseFeatureSet_VisibilityFeature();
     return message;
   }
 };

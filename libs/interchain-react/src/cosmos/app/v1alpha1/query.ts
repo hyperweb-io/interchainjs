@@ -25,7 +25,7 @@ export interface QueryConfigRequestAminoMsg {
   value: QueryConfigRequestAmino;
 }
 /**
- * QueryConfigRequest is the Query/Config response type.
+ * QueryConfigResponse is the Query/Config response type.
  * @name QueryConfigResponse
  * @package cosmos.app.v1alpha1
  * @see proto type: cosmos.app.v1alpha1.QueryConfigResponse
@@ -41,7 +41,7 @@ export interface QueryConfigResponseProtoMsg {
   value: Uint8Array;
 }
 /**
- * QueryConfigRequest is the Query/Config response type.
+ * QueryConfigResponse is the Query/Config response type.
  * @name QueryConfigResponseAmino
  * @package cosmos.app.v1alpha1
  * @see proto type: cosmos.app.v1alpha1.QueryConfigResponse
@@ -132,7 +132,7 @@ function createBaseQueryConfigResponse(): QueryConfigResponse {
   };
 }
 /**
- * QueryConfigRequest is the Query/Config response type.
+ * QueryConfigResponse is the Query/Config response type.
  * @name QueryConfigResponse
  * @package cosmos.app.v1alpha1
  * @see proto type: cosmos.app.v1alpha1.QueryConfigResponse

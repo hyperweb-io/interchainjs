@@ -47,8 +47,6 @@ export const getUpgradedConsensusState = buildQuery<QueryUpgradedConsensusStateR
 });
 /**
  * ModuleVersions queries the list of module versions from state.
- * 
- * Since: cosmos-sdk 0.43
  * @name getModuleVersions
  * @package cosmos.upgrade.v1beta1
  * @see proto service: cosmos.upgrade.v1beta1.ModuleVersions
@@ -62,8 +60,6 @@ export const getModuleVersions = buildQuery<QueryModuleVersionsRequest, QueryMod
 });
 /**
  * Returns the account with authority to conduct upgrades
- * 
- * Since: cosmos-sdk 0.46
  * @name getAuthority
  * @package cosmos.upgrade.v1beta1
  * @see proto service: cosmos.upgrade.v1beta1.Authority

@@ -12,8 +12,6 @@ export const verifyInvariant = buildTx<MsgVerifyInvariant>({
 /**
  * UpdateParams defines a governance operation for updating the x/crisis module
  * parameters. The authority is defined in the keeper.
- * 
- * Since: cosmos-sdk 0.47
  * @name updateParams
  * @package cosmos.crisis.v1beta1
  * @see proto service: cosmos.crisis.v1beta1.UpdateParams

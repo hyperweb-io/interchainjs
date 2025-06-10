@@ -69,8 +69,6 @@ export interface MetadataAminoMsg {
 }
 /**
  * SnapshotItem is an item contained in a rootmulti.Store snapshot.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotItem
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotItem
@@ -87,8 +85,6 @@ export interface SnapshotItemProtoMsg {
 }
 /**
  * SnapshotItem is an item contained in a rootmulti.Store snapshot.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotItemAmino
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotItem
@@ -105,8 +101,6 @@ export interface SnapshotItemAminoMsg {
 }
 /**
  * SnapshotStoreItem contains metadata about a snapshotted store.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotStoreItem
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotStoreItem
@@ -120,8 +114,6 @@ export interface SnapshotStoreItemProtoMsg {
 }
 /**
  * SnapshotStoreItem contains metadata about a snapshotted store.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotStoreItemAmino
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotStoreItem
@@ -135,8 +127,6 @@ export interface SnapshotStoreItemAminoMsg {
 }
 /**
  * SnapshotIAVLItem is an exported IAVL node.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotIAVLItem
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotIAVLItem
@@ -159,8 +149,6 @@ export interface SnapshotIAVLItemProtoMsg {
 }
 /**
  * SnapshotIAVLItem is an exported IAVL node.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotIAVLItemAmino
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotIAVLItem
@@ -183,8 +171,6 @@ export interface SnapshotIAVLItemAminoMsg {
 }
 /**
  * SnapshotExtensionMeta contains metadata about an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotExtensionMeta
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotExtensionMeta
@@ -199,8 +185,6 @@ export interface SnapshotExtensionMetaProtoMsg {
 }
 /**
  * SnapshotExtensionMeta contains metadata about an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotExtensionMetaAmino
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotExtensionMeta
@@ -215,8 +199,6 @@ export interface SnapshotExtensionMetaAminoMsg {
 }
 /**
  * SnapshotExtensionPayload contains payloads of an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotExtensionPayload
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotExtensionPayload
@@ -230,8 +212,6 @@ export interface SnapshotExtensionPayloadProtoMsg {
 }
 /**
  * SnapshotExtensionPayload contains payloads of an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotExtensionPayloadAmino
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotExtensionPayload
@@ -474,8 +454,6 @@ function createBaseSnapshotItem(): SnapshotItem {
 }
 /**
  * SnapshotItem is an item contained in a rootmulti.Store snapshot.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotItem
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotItem
@@ -600,8 +578,6 @@ function createBaseSnapshotStoreItem(): SnapshotStoreItem {
 }
 /**
  * SnapshotStoreItem contains metadata about a snapshotted store.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotStoreItem
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotStoreItem
@@ -688,8 +664,6 @@ function createBaseSnapshotIAVLItem(): SnapshotIAVLItem {
 }
 /**
  * SnapshotIAVLItem is an exported IAVL node.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotIAVLItem
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotIAVLItem
@@ -807,8 +781,6 @@ function createBaseSnapshotExtensionMeta(): SnapshotExtensionMeta {
 }
 /**
  * SnapshotExtensionMeta contains metadata about an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotExtensionMeta
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotExtensionMeta
@@ -903,8 +875,6 @@ function createBaseSnapshotExtensionPayload(): SnapshotExtensionPayload {
 }
 /**
  * SnapshotExtensionPayload contains payloads of an external snapshotter.
- * 
- * Since: cosmos-sdk 0.46
  * @name SnapshotExtensionPayload
  * @package cosmos.store.snapshots.v1
  * @see proto type: cosmos.store.snapshots.v1.SnapshotExtensionPayload
