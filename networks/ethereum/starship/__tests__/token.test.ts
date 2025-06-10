@@ -1,9 +1,7 @@
-import { SignerFromPrivateKey } from '../../src/signers/SignerFromPrivateKey';
-// Adjust the import path as needed
-import axios from 'axios';
+import { SignerFromPrivateKey } from '@interchainjs/ethereum/signers/SignerFromPrivateKey';
 import { bytecode, abi } from '../../contracts/usdt/contract.json'
-import { ContractEncoder, AbiFunctionItem } from '../../src/utils/ContractEncoder';
-import { WebSocketContractMonitor } from '../../src/providers/WebSocketContractMonitor';
+import { ContractEncoder, AbiFunctionItem } from '@interchainjs/ethereum/utils/ContractEncoder';
+import { WebSocketContractMonitor } from '@interchainjs/ethereum/providers/WebSocketContractMonitor';
 
 // RPC endpoint for your local/test environment.
 // E.g., Hardhat node: http://127.0.0.1:8545
@@ -45,10 +43,18 @@ describe('sending Tests', () => {
       id: 1,
     };
 
-    const resp = await axios.post(RPC_URL, callPayload);
-    const hexBalance = resp.data.result;
+    const resp = await fetch(RPC_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(callPayload)
+    });
+
+    const data = await resp.json();
+    const hexBalance = data.result;
     if (hexBalance === undefined || hexBalance === null) {
-      console.error('Error: eth_call did not return a valid result. Full response:', resp.data);
+      console.error('Error: eth_call did not return a valid result. Full response:', data);
       throw new Error('eth_call returned an undefined result');
     }
     return BigInt(hexBalance);
@@ -109,7 +115,7 @@ describe('sending Tests', () => {
     // The sender should lose at least "valueWei" (plus gas fees).
     // So, we just check that the sender's lost amount >= valueWei
     expect(senderDelta).toBeGreaterThanOrEqual(BigInt(valueWei));
-  }, 60000); // Increased Jest timeout to 60s for potential network delays
+  }, 60000);
 
   it('should send ETH from sender to receiver via EIP-1559, and check balances', async () => {
     // return
