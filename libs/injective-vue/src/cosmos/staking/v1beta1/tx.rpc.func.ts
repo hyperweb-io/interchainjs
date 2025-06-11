@@ -51,8 +51,6 @@ export const undelegate = buildTx<MsgUndelegate>({
 /**
  * CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
  * and delegate back to previous validator.
- * 
- * Since: cosmos-sdk 0.46
  * @name cancelUnbondingDelegation
  * @package cosmos.staking.v1beta1
  * @see proto service: cosmos.staking.v1beta1.CancelUnbondingDelegation
@@ -63,7 +61,6 @@ export const cancelUnbondingDelegation = buildTx<MsgCancelUnbondingDelegation>({
 /**
  * UpdateParams defines an operation for updating the x/staking module
  * parameters.
- * Since: cosmos-sdk 0.47
  * @name updateParams
  * @package cosmos.staking.v1beta1
  * @see proto service: cosmos.staking.v1beta1.UpdateParams

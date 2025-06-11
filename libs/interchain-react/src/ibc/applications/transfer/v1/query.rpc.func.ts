@@ -1,5 +1,5 @@
 import { buildQuery } from "../../../../helper-func-types";
-import { QueryParamsRequest, QueryParamsResponse, QueryDenomHashRequest, QueryDenomHashResponse, QueryEscrowAddressRequest, QueryEscrowAddressResponse, QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse } from "./query";
+import { QueryParamsRequest, QueryParamsResponse, QueryDenomsRequest, QueryDenomsResponse, QueryDenomRequest, QueryDenomResponse, QueryDenomHashRequest, QueryDenomHashResponse, QueryEscrowAddressRequest, QueryEscrowAddressResponse, QueryTotalEscrowForDenomRequest, QueryTotalEscrowForDenomResponse } from "./query";
 /**
  * Params queries all parameters of the ibc-transfer module.
  * @name getParams
@@ -12,6 +12,32 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   service: "ibc.applications.transfer.v1.Query",
   method: "Params",
   deps: [QueryParamsRequest, QueryParamsResponse]
+});
+/**
+ * Denoms queries all denominations
+ * @name getDenoms
+ * @package ibc.applications.transfer.v1
+ * @see proto service: ibc.applications.transfer.v1.Denoms
+ */
+export const getDenoms = buildQuery<QueryDenomsRequest, QueryDenomsResponse>({
+  encode: QueryDenomsRequest.encode,
+  decode: QueryDenomsResponse.decode,
+  service: "ibc.applications.transfer.v1.Query",
+  method: "Denoms",
+  deps: [QueryDenomsRequest, QueryDenomsResponse]
+});
+/**
+ * Denom queries a denomination
+ * @name getDenom
+ * @package ibc.applications.transfer.v1
+ * @see proto service: ibc.applications.transfer.v1.Denom
+ */
+export const getDenom = buildQuery<QueryDenomRequest, QueryDenomResponse>({
+  encode: QueryDenomRequest.encode,
+  decode: QueryDenomResponse.decode,
+  service: "ibc.applications.transfer.v1.Query",
+  method: "Denom",
+  deps: [QueryDenomRequest, QueryDenomResponse]
 });
 /**
  * DenomHash queries a denomination hash information.

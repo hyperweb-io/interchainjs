@@ -14,8 +14,6 @@ export const useCreateVestingAccount = buildUseVueMutation<MsgCreateVestingAccou
 /**
  * CreatePermanentLockedAccount defines a method that enables creating a permanent
  * locked account.
- * 
- * Since: cosmos-sdk 0.46
  * @name useCreatePermanentLockedAccount
  * @package cosmos.vesting.v1beta1
  * @see proto service: cosmos.vesting.v1beta1.CreatePermanentLockedAccount
@@ -26,8 +24,6 @@ export const useCreatePermanentLockedAccount = buildUseVueMutation<MsgCreatePerm
 /**
  * CreatePeriodicVestingAccount defines a method that enables creating a
  * periodic vesting account.
- * 
- * Since: cosmos-sdk 0.46
  * @name useCreatePeriodicVestingAccount
  * @package cosmos.vesting.v1beta1
  * @see proto service: cosmos.vesting.v1beta1.CreatePeriodicVestingAccount

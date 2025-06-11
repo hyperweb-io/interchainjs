@@ -4,8 +4,6 @@ import { GlobalDecoderRegistry } from "../../../registry";
 import { DeepPartial } from "../../../helpers";
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgSoftwareUpgrade
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
@@ -26,8 +24,6 @@ export interface MsgSoftwareUpgradeProtoMsg {
 }
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgSoftwareUpgradeAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
@@ -48,8 +44,6 @@ export interface MsgSoftwareUpgradeAminoMsg {
 }
 /**
  * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgSoftwareUpgradeResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse
@@ -61,8 +55,6 @@ export interface MsgSoftwareUpgradeResponseProtoMsg {
 }
 /**
  * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgSoftwareUpgradeResponseAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse
@@ -74,8 +66,6 @@ export interface MsgSoftwareUpgradeResponseAminoMsg {
 }
 /**
  * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgCancelUpgrade
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgrade
@@ -92,8 +82,6 @@ export interface MsgCancelUpgradeProtoMsg {
 }
 /**
  * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgCancelUpgradeAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgrade
@@ -110,8 +98,6 @@ export interface MsgCancelUpgradeAminoMsg {
 }
 /**
  * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgCancelUpgradeResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse
@@ -123,8 +109,6 @@ export interface MsgCancelUpgradeResponseProtoMsg {
 }
 /**
  * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgCancelUpgradeResponseAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse
@@ -142,8 +126,6 @@ function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
 }
 /**
  * MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgSoftwareUpgrade
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgrade
@@ -241,8 +223,6 @@ function createBaseMsgSoftwareUpgradeResponse(): MsgSoftwareUpgradeResponse {
 }
 /**
  * MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgSoftwareUpgradeResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse
@@ -315,8 +295,6 @@ function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
 }
 /**
  * MsgCancelUpgrade is the Msg/CancelUpgrade request type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgCancelUpgrade
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgrade
@@ -398,8 +376,6 @@ function createBaseMsgCancelUpgradeResponse(): MsgCancelUpgradeResponse {
 }
 /**
  * MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
- * 
- * Since: cosmos-sdk 0.46
  * @name MsgCancelUpgradeResponse
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.MsgCancelUpgradeResponse

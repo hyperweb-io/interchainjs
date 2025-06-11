@@ -1,6 +1,6 @@
 import { TelescopeGeneratedType } from "../../../../types";
-import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
-export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [["/ibc.core.client.v1.MsgCreateClient", MsgCreateClient], ["/ibc.core.client.v1.MsgUpdateClient", MsgUpdateClient], ["/ibc.core.client.v1.MsgUpgradeClient", MsgUpgradeClient], ["/ibc.core.client.v1.MsgSubmitMisbehaviour", MsgSubmitMisbehaviour], ["/ibc.core.client.v1.MsgRecoverClient", MsgRecoverClient], ["/ibc.core.client.v1.MsgIBCSoftwareUpgrade", MsgIBCSoftwareUpgrade], ["/ibc.core.client.v1.MsgUpdateParams", MsgUpdateParams]];
+import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams, MsgDeleteClientCreator } from "./tx";
+export const registry: ReadonlyArray<[string, TelescopeGeneratedType<any, any, any>]> = [["/ibc.core.client.v1.MsgCreateClient", MsgCreateClient], ["/ibc.core.client.v1.MsgUpdateClient", MsgUpdateClient], ["/ibc.core.client.v1.MsgUpgradeClient", MsgUpgradeClient], ["/ibc.core.client.v1.MsgSubmitMisbehaviour", MsgSubmitMisbehaviour], ["/ibc.core.client.v1.MsgRecoverClient", MsgRecoverClient], ["/ibc.core.client.v1.MsgIBCSoftwareUpgrade", MsgIBCSoftwareUpgrade], ["/ibc.core.client.v1.MsgUpdateParams", MsgUpdateParams], ["/ibc.core.client.v1.MsgDeleteClientCreator", MsgDeleteClientCreator]];
 export const MessageComposer = {
   encoded: {
     createClient(value: MsgCreateClient) {
@@ -43,6 +43,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/ibc.core.client.v1.MsgUpdateParams",
         value: MsgUpdateParams.encode(value).finish()
+      };
+    },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value: MsgDeleteClientCreator.encode(value).finish()
       };
     }
   },
@@ -88,6 +94,12 @@ export const MessageComposer = {
         typeUrl: "/ibc.core.client.v1.MsgUpdateParams",
         value
       };
+    },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value
+      };
     }
   },
   fromPartial: {
@@ -131,6 +143,12 @@ export const MessageComposer = {
       return {
         typeUrl: "/ibc.core.client.v1.MsgUpdateParams",
         value: MsgUpdateParams.fromPartial(value)
+      };
+    },
+    deleteClientCreator(value: MsgDeleteClientCreator) {
+      return {
+        typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+        value: MsgDeleteClientCreator.fromPartial(value)
       };
     }
   }

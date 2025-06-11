@@ -1,13 +1,29 @@
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
+import { DeepPartial, isSet } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /** each Action enum value should be a power of two */
 export enum Action {
+  /** UNSPECIFIED - 0 is reserved for ACTION_UNSPECIFIED */
   UNSPECIFIED = 0,
+  /** MINT - 1 is reserved for MINT */
   MINT = 1,
+  /** RECEIVE - 2 is reserved for RECEIVE */
   RECEIVE = 2,
+  /** BURN - 4 is reserved for BURN */
   BURN = 4,
+  /** SEND - 8 is reserved for SEND */
+  SEND = 8,
+  /** SUPER_BURN - 16 is reserved for SUPER_BURN */
+  SUPER_BURN = 16,
+  /** MODIFY_POLICY_MANAGERS - 2^27 is reserved for MODIFY_POLICY_MANAGERS */
+  MODIFY_POLICY_MANAGERS = 134217728,
+  /** MODIFY_CONTRACT_HOOK - 2^28 is reserved for MODIFY_CONTRACT_HOOK */
+  MODIFY_CONTRACT_HOOK = 268435456,
+  /** MODIFY_ROLE_PERMISSIONS - 2^29 is reserved for MODIFY_ROLE_PERMISSIONS */
+  MODIFY_ROLE_PERMISSIONS = 536870912,
+  /** MODIFY_ROLE_MANAGERS - 2^30 is reserved for MODIFY_ROLE_MANAGERS */
+  MODIFY_ROLE_MANAGERS = 1073741824,
   UNRECOGNIZED = -1,
 }
 export const ActionAmino = Action;
@@ -25,6 +41,24 @@ export function actionFromJSON(object: any): Action {
     case 4:
     case "BURN":
       return Action.BURN;
+    case 8:
+    case "SEND":
+      return Action.SEND;
+    case 16:
+    case "SUPER_BURN":
+      return Action.SUPER_BURN;
+    case 134217728:
+    case "MODIFY_POLICY_MANAGERS":
+      return Action.MODIFY_POLICY_MANAGERS;
+    case 268435456:
+    case "MODIFY_CONTRACT_HOOK":
+      return Action.MODIFY_CONTRACT_HOOK;
+    case 536870912:
+    case "MODIFY_ROLE_PERMISSIONS":
+      return Action.MODIFY_ROLE_PERMISSIONS;
+    case 1073741824:
+    case "MODIFY_ROLE_MANAGERS":
+      return Action.MODIFY_ROLE_MANAGERS;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -41,6 +75,18 @@ export function actionToJSON(object: Action): string {
       return "RECEIVE";
     case Action.BURN:
       return "BURN";
+    case Action.SEND:
+      return "SEND";
+    case Action.SUPER_BURN:
+      return "SUPER_BURN";
+    case Action.MODIFY_POLICY_MANAGERS:
+      return "MODIFY_POLICY_MANAGERS";
+    case Action.MODIFY_CONTRACT_HOOK:
+      return "MODIFY_CONTRACT_HOOK";
+    case Action.MODIFY_ROLE_PERMISSIONS:
+      return "MODIFY_ROLE_PERMISSIONS";
+    case Action.MODIFY_ROLE_MANAGERS:
+      return "MODIFY_ROLE_MANAGERS";
     case Action.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -60,15 +106,27 @@ export interface Namespace {
   /**
    * address of smart contract to apply code-based restrictions
    */
-  wasmHook: string;
-  mintsPaused: boolean;
-  sendsPaused: boolean;
-  burnsPaused: boolean;
+  contractHook: string;
   /**
    * permissions for each role
    */
   rolePermissions: Role[];
-  addressRoles: AddressRoles[];
+  /**
+   * roles for each actor
+   */
+  actorRoles: ActorRoles[];
+  /**
+   * managers for each role
+   */
+  roleManagers: RoleManager[];
+  /**
+   * status for each policy
+   */
+  policyStatuses: PolicyStatus[];
+  /**
+   * capabilities for each manager for each policy
+   */
+  policyManagerCapabilities: PolicyManagerCapability[];
 }
 export interface NamespaceProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.Namespace";
@@ -88,45 +146,145 @@ export interface NamespaceAmino {
   /**
    * address of smart contract to apply code-based restrictions
    */
-  wasm_hook: string;
-  mints_paused: boolean;
-  sends_paused: boolean;
-  burns_paused: boolean;
+  contract_hook: string;
   /**
    * permissions for each role
    */
   role_permissions: RoleAmino[];
-  address_roles: AddressRolesAmino[];
+  /**
+   * roles for each actor
+   */
+  actor_roles: ActorRolesAmino[];
+  /**
+   * managers for each role
+   */
+  role_managers: RoleManagerAmino[];
+  /**
+   * status for each policy
+   */
+  policy_statuses: PolicyStatusAmino[];
+  /**
+   * capabilities for each manager for each policy
+   */
+  policy_manager_capabilities: PolicyManagerCapabilityAmino[];
 }
 export interface NamespaceAminoMsg {
   type: "/injective.permissions.v1beta1.Namespace";
   value: NamespaceAmino;
 }
 /**
- * @name AddressRoles
+ * AddressRoles defines roles for an actor
+ * @name ActorRoles
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.AddressRoles
+ * @see proto type: injective.permissions.v1beta1.ActorRoles
  */
-export interface AddressRoles {
-  address: string;
+export interface ActorRoles {
+  actor: string;
   roles: string[];
 }
-export interface AddressRolesProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.AddressRoles";
+export interface ActorRolesProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.ActorRoles";
   value: Uint8Array;
 }
 /**
- * @name AddressRolesAmino
+ * AddressRoles defines roles for an actor
+ * @name ActorRolesAmino
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.AddressRoles
+ * @see proto type: injective.permissions.v1beta1.ActorRoles
  */
-export interface AddressRolesAmino {
-  address: string;
+export interface ActorRolesAmino {
+  actor: string;
   roles: string[];
 }
-export interface AddressRolesAminoMsg {
-  type: "/injective.permissions.v1beta1.AddressRoles";
-  value: AddressRolesAmino;
+export interface ActorRolesAminoMsg {
+  type: "/injective.permissions.v1beta1.ActorRoles";
+  value: ActorRolesAmino;
+}
+/**
+ * RoleActors defines actors for a role
+ * @name RoleActors
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleActors
+ */
+export interface RoleActors {
+  role: string;
+  actors: string[];
+}
+export interface RoleActorsProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.RoleActors";
+  value: Uint8Array;
+}
+/**
+ * RoleActors defines actors for a role
+ * @name RoleActorsAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleActors
+ */
+export interface RoleActorsAmino {
+  role: string;
+  actors: string[];
+}
+export interface RoleActorsAminoMsg {
+  type: "/injective.permissions.v1beta1.RoleActors";
+  value: RoleActorsAmino;
+}
+/**
+ * RoleManager defines roles for a manager address
+ * @name RoleManager
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleManager
+ */
+export interface RoleManager {
+  manager: string;
+  roles: string[];
+}
+export interface RoleManagerProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.RoleManager";
+  value: Uint8Array;
+}
+/**
+ * RoleManager defines roles for a manager address
+ * @name RoleManagerAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleManager
+ */
+export interface RoleManagerAmino {
+  manager: string;
+  roles: string[];
+}
+export interface RoleManagerAminoMsg {
+  type: "/injective.permissions.v1beta1.RoleManager";
+  value: RoleManagerAmino;
+}
+/**
+ * PolicyStatus defines the status of a policy
+ * @name PolicyStatus
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.PolicyStatus
+ */
+export interface PolicyStatus {
+  action: Action;
+  isDisabled: boolean;
+  isSealed: boolean;
+}
+export interface PolicyStatusProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.PolicyStatus";
+  value: Uint8Array;
+}
+/**
+ * PolicyStatus defines the status of a policy
+ * @name PolicyStatusAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.PolicyStatus
+ */
+export interface PolicyStatusAmino {
+  action: Action;
+  is_disabled: boolean;
+  is_sealed: boolean;
+}
+export interface PolicyStatusAminoMsg {
+  type: "/injective.permissions.v1beta1.PolicyStatus";
+  value: PolicyStatusAmino;
 }
 /**
  * Role is only used for storage
@@ -135,7 +293,8 @@ export interface AddressRolesAminoMsg {
  * @see proto type: injective.permissions.v1beta1.Role
  */
 export interface Role {
-  role: string;
+  name: string;
+  roleId: number;
   permissions: number;
 }
 export interface RoleProtoMsg {
@@ -149,12 +308,45 @@ export interface RoleProtoMsg {
  * @see proto type: injective.permissions.v1beta1.Role
  */
 export interface RoleAmino {
-  role: string;
+  name: string;
+  role_id: number;
   permissions: number;
 }
 export interface RoleAminoMsg {
   type: "/injective.permissions.v1beta1.Role";
   value: RoleAmino;
+}
+/**
+ * PolicyManagerCapability defines the capabilities of a manager for a policy
+ * @name PolicyManagerCapability
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.PolicyManagerCapability
+ */
+export interface PolicyManagerCapability {
+  manager: string;
+  action: Action;
+  canDisable: boolean;
+  canSeal: boolean;
+}
+export interface PolicyManagerCapabilityProtoMsg {
+  typeUrl: "/injective.permissions.v1beta1.PolicyManagerCapability";
+  value: Uint8Array;
+}
+/**
+ * PolicyManagerCapability defines the capabilities of a manager for a policy
+ * @name PolicyManagerCapabilityAmino
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.PolicyManagerCapability
+ */
+export interface PolicyManagerCapabilityAmino {
+  manager: string;
+  action: Action;
+  can_disable: boolean;
+  can_seal: boolean;
+}
+export interface PolicyManagerCapabilityAminoMsg {
+  type: "/injective.permissions.v1beta1.PolicyManagerCapability";
+  value: PolicyManagerCapabilityAmino;
 }
 /**
  * used in storage
@@ -183,50 +375,28 @@ export interface RoleIDsAminoMsg {
   value: RoleIDsAmino;
 }
 /**
- * @name Voucher
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.Voucher
- */
-export interface Voucher {
-  coins: Coin[];
-}
-export interface VoucherProtoMsg {
-  typeUrl: "/injective.permissions.v1beta1.Voucher";
-  value: Uint8Array;
-}
-/**
- * @name VoucherAmino
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.Voucher
- */
-export interface VoucherAmino {
-  coins: CoinAmino[];
-}
-export interface VoucherAminoMsg {
-  type: "/injective.permissions.v1beta1.Voucher";
-  value: VoucherAmino;
-}
-/**
+ * AddressVoucher is used to represent a voucher for a specific address
  * @name AddressVoucher
  * @package injective.permissions.v1beta1
  * @see proto type: injective.permissions.v1beta1.AddressVoucher
  */
 export interface AddressVoucher {
   address: string;
-  voucher?: Voucher;
+  voucher: Coin;
 }
 export interface AddressVoucherProtoMsg {
   typeUrl: "/injective.permissions.v1beta1.AddressVoucher";
   value: Uint8Array;
 }
 /**
+ * AddressVoucher is used to represent a voucher for a specific address
  * @name AddressVoucherAmino
  * @package injective.permissions.v1beta1
  * @see proto type: injective.permissions.v1beta1.AddressVoucher
  */
 export interface AddressVoucherAmino {
   address: string;
-  voucher?: VoucherAmino;
+  voucher: CoinAmino;
 }
 export interface AddressVoucherAminoMsg {
   type: "/injective.permissions.v1beta1.AddressVoucher";
@@ -235,12 +405,12 @@ export interface AddressVoucherAminoMsg {
 function createBaseNamespace(): Namespace {
   return {
     denom: "",
-    wasmHook: "",
-    mintsPaused: false,
-    sendsPaused: false,
-    burnsPaused: false,
+    contractHook: "",
     rolePermissions: [],
-    addressRoles: []
+    actorRoles: [],
+    roleManagers: [],
+    policyStatuses: [],
+    policyManagerCapabilities: []
   };
 }
 /**
@@ -252,32 +422,32 @@ function createBaseNamespace(): Namespace {
 export const Namespace = {
   typeUrl: "/injective.permissions.v1beta1.Namespace",
   is(o: any): o is Namespace {
-    return o && (o.$typeUrl === Namespace.typeUrl || typeof o.denom === "string" && typeof o.wasmHook === "string" && typeof o.mintsPaused === "boolean" && typeof o.sendsPaused === "boolean" && typeof o.burnsPaused === "boolean" && Array.isArray(o.rolePermissions) && (!o.rolePermissions.length || Role.is(o.rolePermissions[0])) && Array.isArray(o.addressRoles) && (!o.addressRoles.length || AddressRoles.is(o.addressRoles[0])));
+    return o && (o.$typeUrl === Namespace.typeUrl || typeof o.denom === "string" && typeof o.contractHook === "string" && Array.isArray(o.rolePermissions) && (!o.rolePermissions.length || Role.is(o.rolePermissions[0])) && Array.isArray(o.actorRoles) && (!o.actorRoles.length || ActorRoles.is(o.actorRoles[0])) && Array.isArray(o.roleManagers) && (!o.roleManagers.length || RoleManager.is(o.roleManagers[0])) && Array.isArray(o.policyStatuses) && (!o.policyStatuses.length || PolicyStatus.is(o.policyStatuses[0])) && Array.isArray(o.policyManagerCapabilities) && (!o.policyManagerCapabilities.length || PolicyManagerCapability.is(o.policyManagerCapabilities[0])));
   },
   isAmino(o: any): o is NamespaceAmino {
-    return o && (o.$typeUrl === Namespace.typeUrl || typeof o.denom === "string" && typeof o.wasm_hook === "string" && typeof o.mints_paused === "boolean" && typeof o.sends_paused === "boolean" && typeof o.burns_paused === "boolean" && Array.isArray(o.role_permissions) && (!o.role_permissions.length || Role.isAmino(o.role_permissions[0])) && Array.isArray(o.address_roles) && (!o.address_roles.length || AddressRoles.isAmino(o.address_roles[0])));
+    return o && (o.$typeUrl === Namespace.typeUrl || typeof o.denom === "string" && typeof o.contract_hook === "string" && Array.isArray(o.role_permissions) && (!o.role_permissions.length || Role.isAmino(o.role_permissions[0])) && Array.isArray(o.actor_roles) && (!o.actor_roles.length || ActorRoles.isAmino(o.actor_roles[0])) && Array.isArray(o.role_managers) && (!o.role_managers.length || RoleManager.isAmino(o.role_managers[0])) && Array.isArray(o.policy_statuses) && (!o.policy_statuses.length || PolicyStatus.isAmino(o.policy_statuses[0])) && Array.isArray(o.policy_manager_capabilities) && (!o.policy_manager_capabilities.length || PolicyManagerCapability.isAmino(o.policy_manager_capabilities[0])));
   },
   encode(message: Namespace, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
-    if (message.wasmHook !== "") {
-      writer.uint32(18).string(message.wasmHook);
-    }
-    if (message.mintsPaused === true) {
-      writer.uint32(24).bool(message.mintsPaused);
-    }
-    if (message.sendsPaused === true) {
-      writer.uint32(32).bool(message.sendsPaused);
-    }
-    if (message.burnsPaused === true) {
-      writer.uint32(40).bool(message.burnsPaused);
+    if (message.contractHook !== "") {
+      writer.uint32(18).string(message.contractHook);
     }
     for (const v of message.rolePermissions) {
-      Role.encode(v!, writer.uint32(50).fork()).ldelim();
+      Role.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    for (const v of message.addressRoles) {
-      AddressRoles.encode(v!, writer.uint32(58).fork()).ldelim();
+    for (const v of message.actorRoles) {
+      ActorRoles.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.roleManagers) {
+      RoleManager.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    for (const v of message.policyStatuses) {
+      PolicyStatus.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
+    for (const v of message.policyManagerCapabilities) {
+      PolicyManagerCapability.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -292,22 +462,22 @@ export const Namespace = {
           message.denom = reader.string();
           break;
         case 2:
-          message.wasmHook = reader.string();
+          message.contractHook = reader.string();
           break;
         case 3:
-          message.mintsPaused = reader.bool();
-          break;
-        case 4:
-          message.sendsPaused = reader.bool();
-          break;
-        case 5:
-          message.burnsPaused = reader.bool();
-          break;
-        case 6:
           message.rolePermissions.push(Role.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.actorRoles.push(ActorRoles.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.roleManagers.push(RoleManager.decode(reader, reader.uint32()));
+          break;
+        case 6:
+          message.policyStatuses.push(PolicyStatus.decode(reader, reader.uint32()));
+          break;
         case 7:
-          message.addressRoles.push(AddressRoles.decode(reader, reader.uint32()));
+          message.policyManagerCapabilities.push(PolicyManagerCapability.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -319,12 +489,12 @@ export const Namespace = {
   fromPartial(object: DeepPartial<Namespace>): Namespace {
     const message = createBaseNamespace();
     message.denom = object.denom ?? "";
-    message.wasmHook = object.wasmHook ?? "";
-    message.mintsPaused = object.mintsPaused ?? false;
-    message.sendsPaused = object.sendsPaused ?? false;
-    message.burnsPaused = object.burnsPaused ?? false;
+    message.contractHook = object.contractHook ?? "";
     message.rolePermissions = object.rolePermissions?.map(e => Role.fromPartial(e)) || [];
-    message.addressRoles = object.addressRoles?.map(e => AddressRoles.fromPartial(e)) || [];
+    message.actorRoles = object.actorRoles?.map(e => ActorRoles.fromPartial(e)) || [];
+    message.roleManagers = object.roleManagers?.map(e => RoleManager.fromPartial(e)) || [];
+    message.policyStatuses = object.policyStatuses?.map(e => PolicyStatus.fromPartial(e)) || [];
+    message.policyManagerCapabilities = object.policyManagerCapabilities?.map(e => PolicyManagerCapability.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: NamespaceAmino): Namespace {
@@ -332,38 +502,44 @@ export const Namespace = {
     if (object.denom !== undefined && object.denom !== null) {
       message.denom = object.denom;
     }
-    if (object.wasm_hook !== undefined && object.wasm_hook !== null) {
-      message.wasmHook = object.wasm_hook;
-    }
-    if (object.mints_paused !== undefined && object.mints_paused !== null) {
-      message.mintsPaused = object.mints_paused;
-    }
-    if (object.sends_paused !== undefined && object.sends_paused !== null) {
-      message.sendsPaused = object.sends_paused;
-    }
-    if (object.burns_paused !== undefined && object.burns_paused !== null) {
-      message.burnsPaused = object.burns_paused;
+    if (object.contract_hook !== undefined && object.contract_hook !== null) {
+      message.contractHook = object.contract_hook;
     }
     message.rolePermissions = object.role_permissions?.map(e => Role.fromAmino(e)) || [];
-    message.addressRoles = object.address_roles?.map(e => AddressRoles.fromAmino(e)) || [];
+    message.actorRoles = object.actor_roles?.map(e => ActorRoles.fromAmino(e)) || [];
+    message.roleManagers = object.role_managers?.map(e => RoleManager.fromAmino(e)) || [];
+    message.policyStatuses = object.policy_statuses?.map(e => PolicyStatus.fromAmino(e)) || [];
+    message.policyManagerCapabilities = object.policy_manager_capabilities?.map(e => PolicyManagerCapability.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Namespace): NamespaceAmino {
     const obj: any = {};
     obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.wasm_hook = message.wasmHook === "" ? undefined : message.wasmHook;
-    obj.mints_paused = message.mintsPaused === false ? undefined : message.mintsPaused;
-    obj.sends_paused = message.sendsPaused === false ? undefined : message.sendsPaused;
-    obj.burns_paused = message.burnsPaused === false ? undefined : message.burnsPaused;
+    obj.contract_hook = message.contractHook === "" ? undefined : message.contractHook;
     if (message.rolePermissions) {
       obj.role_permissions = message.rolePermissions.map(e => e ? Role.toAmino(e) : undefined);
     } else {
       obj.role_permissions = message.rolePermissions;
     }
-    if (message.addressRoles) {
-      obj.address_roles = message.addressRoles.map(e => e ? AddressRoles.toAmino(e) : undefined);
+    if (message.actorRoles) {
+      obj.actor_roles = message.actorRoles.map(e => e ? ActorRoles.toAmino(e) : undefined);
     } else {
-      obj.address_roles = message.addressRoles;
+      obj.actor_roles = message.actorRoles;
+    }
+    if (message.roleManagers) {
+      obj.role_managers = message.roleManagers.map(e => e ? RoleManager.toAmino(e) : undefined);
+    } else {
+      obj.role_managers = message.roleManagers;
+    }
+    if (message.policyStatuses) {
+      obj.policy_statuses = message.policyStatuses.map(e => e ? PolicyStatus.toAmino(e) : undefined);
+    } else {
+      obj.policy_statuses = message.policyStatuses;
+    }
+    if (message.policyManagerCapabilities) {
+      obj.policy_manager_capabilities = message.policyManagerCapabilities.map(e => e ? PolicyManagerCapability.toAmino(e) : undefined);
+    } else {
+      obj.policy_manager_capabilities = message.policyManagerCapabilities;
     }
     return obj;
   },
@@ -387,46 +563,50 @@ export const Namespace = {
       return;
     }
     Role.registerTypeUrl();
-    AddressRoles.registerTypeUrl();
+    ActorRoles.registerTypeUrl();
+    RoleManager.registerTypeUrl();
+    PolicyStatus.registerTypeUrl();
+    PolicyManagerCapability.registerTypeUrl();
   }
 };
-function createBaseAddressRoles(): AddressRoles {
+function createBaseActorRoles(): ActorRoles {
   return {
-    address: "",
+    actor: "",
     roles: []
   };
 }
 /**
- * @name AddressRoles
+ * AddressRoles defines roles for an actor
+ * @name ActorRoles
  * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.AddressRoles
+ * @see proto type: injective.permissions.v1beta1.ActorRoles
  */
-export const AddressRoles = {
-  typeUrl: "/injective.permissions.v1beta1.AddressRoles",
-  is(o: any): o is AddressRoles {
-    return o && (o.$typeUrl === AddressRoles.typeUrl || typeof o.address === "string" && Array.isArray(o.roles) && (!o.roles.length || typeof o.roles[0] === "string"));
+export const ActorRoles = {
+  typeUrl: "/injective.permissions.v1beta1.ActorRoles",
+  is(o: any): o is ActorRoles {
+    return o && (o.$typeUrl === ActorRoles.typeUrl || typeof o.actor === "string" && Array.isArray(o.roles) && (!o.roles.length || typeof o.roles[0] === "string"));
   },
-  isAmino(o: any): o is AddressRolesAmino {
-    return o && (o.$typeUrl === AddressRoles.typeUrl || typeof o.address === "string" && Array.isArray(o.roles) && (!o.roles.length || typeof o.roles[0] === "string"));
+  isAmino(o: any): o is ActorRolesAmino {
+    return o && (o.$typeUrl === ActorRoles.typeUrl || typeof o.actor === "string" && Array.isArray(o.roles) && (!o.roles.length || typeof o.roles[0] === "string"));
   },
-  encode(message: AddressRoles, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
+  encode(message: ActorRoles, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.actor !== "") {
+      writer.uint32(10).string(message.actor);
     }
     for (const v of message.roles) {
       writer.uint32(18).string(v!);
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): AddressRoles {
+  decode(input: BinaryReader | Uint8Array, length?: number): ActorRoles {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddressRoles();
+    const message = createBaseActorRoles();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.address = reader.string();
+          message.actor = reader.string();
           break;
         case 2:
           message.roles.push(reader.string());
@@ -438,23 +618,23 @@ export const AddressRoles = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<AddressRoles>): AddressRoles {
-    const message = createBaseAddressRoles();
-    message.address = object.address ?? "";
+  fromPartial(object: DeepPartial<ActorRoles>): ActorRoles {
+    const message = createBaseActorRoles();
+    message.actor = object.actor ?? "";
     message.roles = object.roles?.map(e => e) || [];
     return message;
   },
-  fromAmino(object: AddressRolesAmino): AddressRoles {
-    const message = createBaseAddressRoles();
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address;
+  fromAmino(object: ActorRolesAmino): ActorRoles {
+    const message = createBaseActorRoles();
+    if (object.actor !== undefined && object.actor !== null) {
+      message.actor = object.actor;
     }
     message.roles = object.roles?.map(e => e) || [];
     return message;
   },
-  toAmino(message: AddressRoles): AddressRolesAmino {
+  toAmino(message: ActorRoles): ActorRolesAmino {
     const obj: any = {};
-    obj.address = message.address === "" ? undefined : message.address;
+    obj.actor = message.actor === "" ? undefined : message.actor;
     if (message.roles) {
       obj.roles = message.roles.map(e => e);
     } else {
@@ -462,26 +642,307 @@ export const AddressRoles = {
     }
     return obj;
   },
-  fromAminoMsg(object: AddressRolesAminoMsg): AddressRoles {
-    return AddressRoles.fromAmino(object.value);
+  fromAminoMsg(object: ActorRolesAminoMsg): ActorRoles {
+    return ActorRoles.fromAmino(object.value);
   },
-  fromProtoMsg(message: AddressRolesProtoMsg): AddressRoles {
-    return AddressRoles.decode(message.value);
+  fromProtoMsg(message: ActorRolesProtoMsg): ActorRoles {
+    return ActorRoles.decode(message.value);
   },
-  toProto(message: AddressRoles): Uint8Array {
-    return AddressRoles.encode(message).finish();
+  toProto(message: ActorRoles): Uint8Array {
+    return ActorRoles.encode(message).finish();
   },
-  toProtoMsg(message: AddressRoles): AddressRolesProtoMsg {
+  toProtoMsg(message: ActorRoles): ActorRolesProtoMsg {
     return {
-      typeUrl: "/injective.permissions.v1beta1.AddressRoles",
-      value: AddressRoles.encode(message).finish()
+      typeUrl: "/injective.permissions.v1beta1.ActorRoles",
+      value: ActorRoles.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseRoleActors(): RoleActors {
+  return {
+    role: "",
+    actors: []
+  };
+}
+/**
+ * RoleActors defines actors for a role
+ * @name RoleActors
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleActors
+ */
+export const RoleActors = {
+  typeUrl: "/injective.permissions.v1beta1.RoleActors",
+  is(o: any): o is RoleActors {
+    return o && (o.$typeUrl === RoleActors.typeUrl || typeof o.role === "string" && Array.isArray(o.actors) && (!o.actors.length || typeof o.actors[0] === "string"));
+  },
+  isAmino(o: any): o is RoleActorsAmino {
+    return o && (o.$typeUrl === RoleActors.typeUrl || typeof o.role === "string" && Array.isArray(o.actors) && (!o.actors.length || typeof o.actors[0] === "string"));
+  },
+  encode(message: RoleActors, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.role !== "") {
+      writer.uint32(10).string(message.role);
+    }
+    for (const v of message.actors) {
+      writer.uint32(18).string(v!);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): RoleActors {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRoleActors();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.role = reader.string();
+          break;
+        case 2:
+          message.actors.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<RoleActors>): RoleActors {
+    const message = createBaseRoleActors();
+    message.role = object.role ?? "";
+    message.actors = object.actors?.map(e => e) || [];
+    return message;
+  },
+  fromAmino(object: RoleActorsAmino): RoleActors {
+    const message = createBaseRoleActors();
+    if (object.role !== undefined && object.role !== null) {
+      message.role = object.role;
+    }
+    message.actors = object.actors?.map(e => e) || [];
+    return message;
+  },
+  toAmino(message: RoleActors): RoleActorsAmino {
+    const obj: any = {};
+    obj.role = message.role === "" ? undefined : message.role;
+    if (message.actors) {
+      obj.actors = message.actors.map(e => e);
+    } else {
+      obj.actors = message.actors;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: RoleActorsAminoMsg): RoleActors {
+    return RoleActors.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RoleActorsProtoMsg): RoleActors {
+    return RoleActors.decode(message.value);
+  },
+  toProto(message: RoleActors): Uint8Array {
+    return RoleActors.encode(message).finish();
+  },
+  toProtoMsg(message: RoleActors): RoleActorsProtoMsg {
+    return {
+      typeUrl: "/injective.permissions.v1beta1.RoleActors",
+      value: RoleActors.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseRoleManager(): RoleManager {
+  return {
+    manager: "",
+    roles: []
+  };
+}
+/**
+ * RoleManager defines roles for a manager address
+ * @name RoleManager
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.RoleManager
+ */
+export const RoleManager = {
+  typeUrl: "/injective.permissions.v1beta1.RoleManager",
+  is(o: any): o is RoleManager {
+    return o && (o.$typeUrl === RoleManager.typeUrl || typeof o.manager === "string" && Array.isArray(o.roles) && (!o.roles.length || typeof o.roles[0] === "string"));
+  },
+  isAmino(o: any): o is RoleManagerAmino {
+    return o && (o.$typeUrl === RoleManager.typeUrl || typeof o.manager === "string" && Array.isArray(o.roles) && (!o.roles.length || typeof o.roles[0] === "string"));
+  },
+  encode(message: RoleManager, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.manager !== "") {
+      writer.uint32(10).string(message.manager);
+    }
+    for (const v of message.roles) {
+      writer.uint32(18).string(v!);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): RoleManager {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRoleManager();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.manager = reader.string();
+          break;
+        case 2:
+          message.roles.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<RoleManager>): RoleManager {
+    const message = createBaseRoleManager();
+    message.manager = object.manager ?? "";
+    message.roles = object.roles?.map(e => e) || [];
+    return message;
+  },
+  fromAmino(object: RoleManagerAmino): RoleManager {
+    const message = createBaseRoleManager();
+    if (object.manager !== undefined && object.manager !== null) {
+      message.manager = object.manager;
+    }
+    message.roles = object.roles?.map(e => e) || [];
+    return message;
+  },
+  toAmino(message: RoleManager): RoleManagerAmino {
+    const obj: any = {};
+    obj.manager = message.manager === "" ? undefined : message.manager;
+    if (message.roles) {
+      obj.roles = message.roles.map(e => e);
+    } else {
+      obj.roles = message.roles;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: RoleManagerAminoMsg): RoleManager {
+    return RoleManager.fromAmino(object.value);
+  },
+  fromProtoMsg(message: RoleManagerProtoMsg): RoleManager {
+    return RoleManager.decode(message.value);
+  },
+  toProto(message: RoleManager): Uint8Array {
+    return RoleManager.encode(message).finish();
+  },
+  toProtoMsg(message: RoleManager): RoleManagerProtoMsg {
+    return {
+      typeUrl: "/injective.permissions.v1beta1.RoleManager",
+      value: RoleManager.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBasePolicyStatus(): PolicyStatus {
+  return {
+    action: 0,
+    isDisabled: false,
+    isSealed: false
+  };
+}
+/**
+ * PolicyStatus defines the status of a policy
+ * @name PolicyStatus
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.PolicyStatus
+ */
+export const PolicyStatus = {
+  typeUrl: "/injective.permissions.v1beta1.PolicyStatus",
+  is(o: any): o is PolicyStatus {
+    return o && (o.$typeUrl === PolicyStatus.typeUrl || isSet(o.action) && typeof o.isDisabled === "boolean" && typeof o.isSealed === "boolean");
+  },
+  isAmino(o: any): o is PolicyStatusAmino {
+    return o && (o.$typeUrl === PolicyStatus.typeUrl || isSet(o.action) && typeof o.is_disabled === "boolean" && typeof o.is_sealed === "boolean");
+  },
+  encode(message: PolicyStatus, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.action !== 0) {
+      writer.uint32(8).int32(message.action);
+    }
+    if (message.isDisabled === true) {
+      writer.uint32(16).bool(message.isDisabled);
+    }
+    if (message.isSealed === true) {
+      writer.uint32(24).bool(message.isSealed);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): PolicyStatus {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePolicyStatus();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.action = reader.int32() as any;
+          break;
+        case 2:
+          message.isDisabled = reader.bool();
+          break;
+        case 3:
+          message.isSealed = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<PolicyStatus>): PolicyStatus {
+    const message = createBasePolicyStatus();
+    message.action = object.action ?? 0;
+    message.isDisabled = object.isDisabled ?? false;
+    message.isSealed = object.isSealed ?? false;
+    return message;
+  },
+  fromAmino(object: PolicyStatusAmino): PolicyStatus {
+    const message = createBasePolicyStatus();
+    if (object.action !== undefined && object.action !== null) {
+      message.action = object.action;
+    }
+    if (object.is_disabled !== undefined && object.is_disabled !== null) {
+      message.isDisabled = object.is_disabled;
+    }
+    if (object.is_sealed !== undefined && object.is_sealed !== null) {
+      message.isSealed = object.is_sealed;
+    }
+    return message;
+  },
+  toAmino(message: PolicyStatus): PolicyStatusAmino {
+    const obj: any = {};
+    obj.action = message.action === 0 ? undefined : message.action;
+    obj.is_disabled = message.isDisabled === false ? undefined : message.isDisabled;
+    obj.is_sealed = message.isSealed === false ? undefined : message.isSealed;
+    return obj;
+  },
+  fromAminoMsg(object: PolicyStatusAminoMsg): PolicyStatus {
+    return PolicyStatus.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PolicyStatusProtoMsg): PolicyStatus {
+    return PolicyStatus.decode(message.value);
+  },
+  toProto(message: PolicyStatus): Uint8Array {
+    return PolicyStatus.encode(message).finish();
+  },
+  toProtoMsg(message: PolicyStatus): PolicyStatusProtoMsg {
+    return {
+      typeUrl: "/injective.permissions.v1beta1.PolicyStatus",
+      value: PolicyStatus.encode(message).finish()
     };
   },
   registerTypeUrl() {}
 };
 function createBaseRole(): Role {
   return {
-    role: "",
+    name: "",
+    roleId: 0,
     permissions: 0
   };
 }
@@ -494,17 +955,20 @@ function createBaseRole(): Role {
 export const Role = {
   typeUrl: "/injective.permissions.v1beta1.Role",
   is(o: any): o is Role {
-    return o && (o.$typeUrl === Role.typeUrl || typeof o.role === "string" && typeof o.permissions === "number");
+    return o && (o.$typeUrl === Role.typeUrl || typeof o.name === "string" && typeof o.roleId === "number" && typeof o.permissions === "number");
   },
   isAmino(o: any): o is RoleAmino {
-    return o && (o.$typeUrl === Role.typeUrl || typeof o.role === "string" && typeof o.permissions === "number");
+    return o && (o.$typeUrl === Role.typeUrl || typeof o.name === "string" && typeof o.role_id === "number" && typeof o.permissions === "number");
   },
   encode(message: Role, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.role !== "") {
-      writer.uint32(10).string(message.role);
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+    if (message.roleId !== 0) {
+      writer.uint32(16).uint32(message.roleId);
     }
     if (message.permissions !== 0) {
-      writer.uint32(16).uint32(message.permissions);
+      writer.uint32(24).uint32(message.permissions);
     }
     return writer;
   },
@@ -516,9 +980,12 @@ export const Role = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.role = reader.string();
+          message.name = reader.string();
           break;
         case 2:
+          message.roleId = reader.uint32();
+          break;
+        case 3:
           message.permissions = reader.uint32();
           break;
         default:
@@ -530,14 +997,18 @@ export const Role = {
   },
   fromPartial(object: DeepPartial<Role>): Role {
     const message = createBaseRole();
-    message.role = object.role ?? "";
+    message.name = object.name ?? "";
+    message.roleId = object.roleId ?? 0;
     message.permissions = object.permissions ?? 0;
     return message;
   },
   fromAmino(object: RoleAmino): Role {
     const message = createBaseRole();
-    if (object.role !== undefined && object.role !== null) {
-      message.role = object.role;
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    }
+    if (object.role_id !== undefined && object.role_id !== null) {
+      message.roleId = object.role_id;
     }
     if (object.permissions !== undefined && object.permissions !== null) {
       message.permissions = object.permissions;
@@ -546,7 +1017,8 @@ export const Role = {
   },
   toAmino(message: Role): RoleAmino {
     const obj: any = {};
-    obj.role = message.role === "" ? undefined : message.role;
+    obj.name = message.name === "" ? undefined : message.name;
+    obj.role_id = message.roleId === 0 ? undefined : message.roleId;
     obj.permissions = message.permissions === 0 ? undefined : message.permissions;
     return obj;
   },
@@ -563,6 +1035,118 @@ export const Role = {
     return {
       typeUrl: "/injective.permissions.v1beta1.Role",
       value: Role.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBasePolicyManagerCapability(): PolicyManagerCapability {
+  return {
+    manager: "",
+    action: 0,
+    canDisable: false,
+    canSeal: false
+  };
+}
+/**
+ * PolicyManagerCapability defines the capabilities of a manager for a policy
+ * @name PolicyManagerCapability
+ * @package injective.permissions.v1beta1
+ * @see proto type: injective.permissions.v1beta1.PolicyManagerCapability
+ */
+export const PolicyManagerCapability = {
+  typeUrl: "/injective.permissions.v1beta1.PolicyManagerCapability",
+  is(o: any): o is PolicyManagerCapability {
+    return o && (o.$typeUrl === PolicyManagerCapability.typeUrl || typeof o.manager === "string" && isSet(o.action) && typeof o.canDisable === "boolean" && typeof o.canSeal === "boolean");
+  },
+  isAmino(o: any): o is PolicyManagerCapabilityAmino {
+    return o && (o.$typeUrl === PolicyManagerCapability.typeUrl || typeof o.manager === "string" && isSet(o.action) && typeof o.can_disable === "boolean" && typeof o.can_seal === "boolean");
+  },
+  encode(message: PolicyManagerCapability, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.manager !== "") {
+      writer.uint32(10).string(message.manager);
+    }
+    if (message.action !== 0) {
+      writer.uint32(16).int32(message.action);
+    }
+    if (message.canDisable === true) {
+      writer.uint32(24).bool(message.canDisable);
+    }
+    if (message.canSeal === true) {
+      writer.uint32(32).bool(message.canSeal);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): PolicyManagerCapability {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePolicyManagerCapability();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.manager = reader.string();
+          break;
+        case 2:
+          message.action = reader.int32() as any;
+          break;
+        case 3:
+          message.canDisable = reader.bool();
+          break;
+        case 4:
+          message.canSeal = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<PolicyManagerCapability>): PolicyManagerCapability {
+    const message = createBasePolicyManagerCapability();
+    message.manager = object.manager ?? "";
+    message.action = object.action ?? 0;
+    message.canDisable = object.canDisable ?? false;
+    message.canSeal = object.canSeal ?? false;
+    return message;
+  },
+  fromAmino(object: PolicyManagerCapabilityAmino): PolicyManagerCapability {
+    const message = createBasePolicyManagerCapability();
+    if (object.manager !== undefined && object.manager !== null) {
+      message.manager = object.manager;
+    }
+    if (object.action !== undefined && object.action !== null) {
+      message.action = object.action;
+    }
+    if (object.can_disable !== undefined && object.can_disable !== null) {
+      message.canDisable = object.can_disable;
+    }
+    if (object.can_seal !== undefined && object.can_seal !== null) {
+      message.canSeal = object.can_seal;
+    }
+    return message;
+  },
+  toAmino(message: PolicyManagerCapability): PolicyManagerCapabilityAmino {
+    const obj: any = {};
+    obj.manager = message.manager === "" ? undefined : message.manager;
+    obj.action = message.action === 0 ? undefined : message.action;
+    obj.can_disable = message.canDisable === false ? undefined : message.canDisable;
+    obj.can_seal = message.canSeal === false ? undefined : message.canSeal;
+    return obj;
+  },
+  fromAminoMsg(object: PolicyManagerCapabilityAminoMsg): PolicyManagerCapability {
+    return PolicyManagerCapability.fromAmino(object.value);
+  },
+  fromProtoMsg(message: PolicyManagerCapabilityProtoMsg): PolicyManagerCapability {
+    return PolicyManagerCapability.decode(message.value);
+  },
+  toProto(message: PolicyManagerCapability): Uint8Array {
+    return PolicyManagerCapability.encode(message).finish();
+  },
+  toProtoMsg(message: PolicyManagerCapability): PolicyManagerCapabilityProtoMsg {
+    return {
+      typeUrl: "/injective.permissions.v1beta1.PolicyManagerCapability",
+      value: PolicyManagerCapability.encode(message).finish()
     };
   },
   registerTypeUrl() {}
@@ -654,95 +1238,14 @@ export const RoleIDs = {
   },
   registerTypeUrl() {}
 };
-function createBaseVoucher(): Voucher {
-  return {
-    coins: []
-  };
-}
-/**
- * @name Voucher
- * @package injective.permissions.v1beta1
- * @see proto type: injective.permissions.v1beta1.Voucher
- */
-export const Voucher = {
-  typeUrl: "/injective.permissions.v1beta1.Voucher",
-  is(o: any): o is Voucher {
-    return o && (o.$typeUrl === Voucher.typeUrl || Array.isArray(o.coins) && (!o.coins.length || Coin.is(o.coins[0])));
-  },
-  isAmino(o: any): o is VoucherAmino {
-    return o && (o.$typeUrl === Voucher.typeUrl || Array.isArray(o.coins) && (!o.coins.length || Coin.isAmino(o.coins[0])));
-  },
-  encode(message: Voucher, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    for (const v of message.coins) {
-      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(input: BinaryReader | Uint8Array, length?: number): Voucher {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseVoucher();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.coins.push(Coin.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<Voucher>): Voucher {
-    const message = createBaseVoucher();
-    message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
-    return message;
-  },
-  fromAmino(object: VoucherAmino): Voucher {
-    const message = createBaseVoucher();
-    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
-    return message;
-  },
-  toAmino(message: Voucher): VoucherAmino {
-    const obj: any = {};
-    if (message.coins) {
-      obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
-    } else {
-      obj.coins = message.coins;
-    }
-    return obj;
-  },
-  fromAminoMsg(object: VoucherAminoMsg): Voucher {
-    return Voucher.fromAmino(object.value);
-  },
-  fromProtoMsg(message: VoucherProtoMsg): Voucher {
-    return Voucher.decode(message.value);
-  },
-  toProto(message: Voucher): Uint8Array {
-    return Voucher.encode(message).finish();
-  },
-  toProtoMsg(message: Voucher): VoucherProtoMsg {
-    return {
-      typeUrl: "/injective.permissions.v1beta1.Voucher",
-      value: Voucher.encode(message).finish()
-    };
-  },
-  registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Voucher.typeUrl)) {
-      return;
-    }
-    Coin.registerTypeUrl();
-  }
-};
 function createBaseAddressVoucher(): AddressVoucher {
   return {
     address: "",
-    voucher: undefined
+    voucher: Coin.fromPartial({})
   };
 }
 /**
+ * AddressVoucher is used to represent a voucher for a specific address
  * @name AddressVoucher
  * @package injective.permissions.v1beta1
  * @see proto type: injective.permissions.v1beta1.AddressVoucher
@@ -750,17 +1253,17 @@ function createBaseAddressVoucher(): AddressVoucher {
 export const AddressVoucher = {
   typeUrl: "/injective.permissions.v1beta1.AddressVoucher",
   is(o: any): o is AddressVoucher {
-    return o && (o.$typeUrl === AddressVoucher.typeUrl || typeof o.address === "string");
+    return o && (o.$typeUrl === AddressVoucher.typeUrl || typeof o.address === "string" && Coin.is(o.voucher));
   },
   isAmino(o: any): o is AddressVoucherAmino {
-    return o && (o.$typeUrl === AddressVoucher.typeUrl || typeof o.address === "string");
+    return o && (o.$typeUrl === AddressVoucher.typeUrl || typeof o.address === "string" && Coin.isAmino(o.voucher));
   },
   encode(message: AddressVoucher, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     if (message.voucher !== undefined) {
-      Voucher.encode(message.voucher, writer.uint32(18).fork()).ldelim();
+      Coin.encode(message.voucher, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -775,7 +1278,7 @@ export const AddressVoucher = {
           message.address = reader.string();
           break;
         case 2:
-          message.voucher = Voucher.decode(reader, reader.uint32());
+          message.voucher = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -787,7 +1290,7 @@ export const AddressVoucher = {
   fromPartial(object: DeepPartial<AddressVoucher>): AddressVoucher {
     const message = createBaseAddressVoucher();
     message.address = object.address ?? "";
-    message.voucher = object.voucher !== undefined && object.voucher !== null ? Voucher.fromPartial(object.voucher) : undefined;
+    message.voucher = object.voucher !== undefined && object.voucher !== null ? Coin.fromPartial(object.voucher) : undefined;
     return message;
   },
   fromAmino(object: AddressVoucherAmino): AddressVoucher {
@@ -796,14 +1299,14 @@ export const AddressVoucher = {
       message.address = object.address;
     }
     if (object.voucher !== undefined && object.voucher !== null) {
-      message.voucher = Voucher.fromAmino(object.voucher);
+      message.voucher = Coin.fromAmino(object.voucher);
     }
     return message;
   },
   toAmino(message: AddressVoucher): AddressVoucherAmino {
     const obj: any = {};
     obj.address = message.address === "" ? undefined : message.address;
-    obj.voucher = message.voucher ? Voucher.toAmino(message.voucher) : undefined;
+    obj.voucher = message.voucher ? Coin.toAmino(message.voucher) : undefined;
     return obj;
   },
   fromAminoMsg(object: AddressVoucherAminoMsg): AddressVoucher {
@@ -825,6 +1328,6 @@ export const AddressVoucher = {
     if (!GlobalDecoderRegistry.registerExistingTypeUrl(AddressVoucher.typeUrl)) {
       return;
     }
-    Voucher.registerTypeUrl();
+    Coin.registerTypeUrl();
   }
 };

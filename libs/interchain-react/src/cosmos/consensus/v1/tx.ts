@@ -23,9 +23,6 @@ export interface MsgUpdateParams {
   block?: BlockParams;
   evidence?: EvidenceParams;
   validator?: ValidatorParams;
-  /**
-   * Since: cosmos-sdk 0.50
-   */
   abci?: ABCIParams;
 }
 export interface MsgUpdateParamsProtoMsg {
@@ -53,9 +50,6 @@ export interface MsgUpdateParamsAmino {
   block?: BlockParamsAmino;
   evidence?: EvidenceParamsAmino;
   validator?: ValidatorParamsAmino;
-  /**
-   * Since: cosmos-sdk 0.50
-   */
   abci?: ABCIParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {

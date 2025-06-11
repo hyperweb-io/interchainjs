@@ -426,8 +426,6 @@ export interface QueryParamsResponse {
   tallyParams?: TallyParams;
   /**
    * params defines all the paramaters of x/gov module.
-   * 
-   * Since: cosmos-sdk 0.47
    */
   params?: Params;
 }
@@ -462,8 +460,6 @@ export interface QueryParamsResponseAmino {
   tally_params?: TallyParamsAmino;
   /**
    * params defines all the paramaters of x/gov module.
-   * 
-   * Since: cosmos-sdk 0.47
    */
   params?: ParamsAmino;
 }

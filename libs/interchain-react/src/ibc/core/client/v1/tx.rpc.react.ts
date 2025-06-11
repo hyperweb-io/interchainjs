@@ -1,6 +1,6 @@
 import { buildUseMutation } from "../../../../react-query";
-import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
-import { createClient, updateClient, upgradeClient, submitMisbehaviour, recoverClient, iBCSoftwareUpgrade, updateClientParams } from "./tx.rpc.func";
+import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams, MsgDeleteClientCreator } from "./tx";
+import { createClient, updateClient, upgradeClient, submitMisbehaviour, recoverClient, iBCSoftwareUpgrade, updateClientParams, deleteClientCreator } from "./tx.rpc.func";
 /**
  * CreateClient defines a rpc handler method for MsgCreateClient.
  * @name useCreateClient
@@ -63,4 +63,13 @@ export const useIBCSoftwareUpgrade = buildUseMutation<MsgIBCSoftwareUpgrade, Err
  */
 export const useUpdateClientParams = buildUseMutation<MsgUpdateParams, Error>({
   builderMutationFn: updateClientParams
+});
+/**
+ * DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator.
+ * @name useDeleteClientCreator
+ * @package ibc.core.client.v1
+ * @see proto service: ibc.core.client.v1.DeleteClientCreator
+ */
+export const useDeleteClientCreator = buildUseMutation<MsgDeleteClientCreator, Error>({
+  builderMutationFn: deleteClientCreator
 });

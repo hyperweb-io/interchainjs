@@ -168,8 +168,6 @@ export interface MsgVoteResponseAminoMsg {
 }
 /**
  * MsgVoteWeighted defines a message to cast a vote.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeighted
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeighted
@@ -194,8 +192,6 @@ export interface MsgVoteWeightedProtoMsg {
 }
 /**
  * MsgVoteWeighted defines a message to cast a vote.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedAmino
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeighted
@@ -220,8 +216,6 @@ export interface MsgVoteWeightedAminoMsg {
 }
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedResponse
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeightedResponse
@@ -233,8 +227,6 @@ export interface MsgVoteWeightedResponseProtoMsg {
 }
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedResponseAmino
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeightedResponse
@@ -716,8 +708,6 @@ function createBaseMsgVoteWeighted(): MsgVoteWeighted {
 }
 /**
  * MsgVoteWeighted defines a message to cast a vote.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeighted
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeighted
@@ -828,8 +818,6 @@ function createBaseMsgVoteWeightedResponse(): MsgVoteWeightedResponse {
 }
 /**
  * MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
- * 
- * Since: cosmos-sdk 0.43
  * @name MsgVoteWeightedResponse
  * @package cosmos.gov.v1beta1
  * @see proto type: cosmos.gov.v1beta1.MsgVoteWeightedResponse

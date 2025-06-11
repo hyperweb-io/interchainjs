@@ -65,8 +65,6 @@ export const useGetGetValidatorSetByHeight = buildUseQuery<GetValidatorSetByHeig
  * ABCIQuery defines a query handler that supports ABCI queries directly to the
  * application, bypassing Tendermint completely. The ABCI query must contain
  * a valid and supported path, including app, custom, p2p, and store.
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetABCIQuery
  * @package cosmos.base.tendermint.v1beta1
  * @see proto service: cosmos.base.tendermint.v1beta1.ABCIQuery

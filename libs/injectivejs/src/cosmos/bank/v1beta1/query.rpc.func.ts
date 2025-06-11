@@ -1,5 +1,5 @@
 import { buildQuery } from "../../../helper-func-types";
-import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
+import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
 /**
  * Balance queries the balance of a single coin for a single account.
  * @name getBalance
@@ -35,8 +35,6 @@ export const getAllBalances = buildQuery<QueryAllBalancesRequest, QueryAllBalanc
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.46
  * @name getSpendableBalances
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.SpendableBalances
@@ -54,8 +52,6 @@ export const getSpendableBalances = buildQuery<QuerySpendableBalancesRequest, Qu
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.47
  * @name getSpendableBalanceByDenom
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.SpendableBalanceByDenom
@@ -113,6 +109,20 @@ export const getParams = buildQuery<QueryParamsRequest, QueryParamsResponse>({
   deps: [QueryParamsRequest, QueryParamsResponse]
 });
 /**
+ * DenomsMetadata queries the client metadata for all registered coin
+ * denominations.
+ * @name getDenomsMetadata
+ * @package cosmos.bank.v1beta1
+ * @see proto service: cosmos.bank.v1beta1.DenomsMetadata
+ */
+export const getDenomsMetadata = buildQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
+  encode: QueryDenomsMetadataRequest.encode,
+  decode: QueryDenomsMetadataResponse.decode,
+  service: "cosmos.bank.v1beta1.Query",
+  method: "DenomsMetadata",
+  deps: [QueryDenomsMetadataRequest, QueryDenomsMetadataResponse]
+});
+/**
  * DenomMetadata queries the client metadata of a given coin denomination.
  * @name getDenomMetadata
  * @package cosmos.bank.v1beta1
@@ -139,27 +149,11 @@ export const getDenomMetadataByQueryString = buildQuery<QueryDenomMetadataByQuer
   deps: [QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse]
 });
 /**
- * DenomsMetadata queries the client metadata for all registered coin
- * denominations.
- * @name getDenomsMetadata
- * @package cosmos.bank.v1beta1
- * @see proto service: cosmos.bank.v1beta1.DenomsMetadata
- */
-export const getDenomsMetadata = buildQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
-  encode: QueryDenomsMetadataRequest.encode,
-  decode: QueryDenomsMetadataResponse.decode,
-  service: "cosmos.bank.v1beta1.Query",
-  method: "DenomsMetadata",
-  deps: [QueryDenomsMetadataRequest, QueryDenomsMetadataResponse]
-});
-/**
  * DenomOwners queries for all account addresses that own a particular token
  * denomination.
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.46
  * @name getDenomOwners
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.DenomOwners
@@ -174,8 +168,6 @@ export const getDenomOwners = buildQuery<QueryDenomOwnersRequest, QueryDenomOwne
 /**
  * DenomOwnersByQuery queries for all account addresses that own a particular token
  * denomination.
- * 
- * Since: cosmos-sdk 0.50.3
  * @name getDenomOwnersByQuery
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.DenomOwnersByQuery
@@ -193,8 +185,6 @@ export const getDenomOwnersByQuery = buildQuery<QueryDenomOwnersByQueryRequest, 
  * This query only returns denominations that have specific SendEnabled settings.
  * Any denomination that does not have a specific setting will use the default
  * params.default_send_enabled, and will not be returned by this query.
- * 
- * Since: cosmos-sdk 0.47
  * @name getSendEnabled
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.SendEnabled

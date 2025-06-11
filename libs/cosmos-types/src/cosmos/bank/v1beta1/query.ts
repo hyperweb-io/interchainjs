@@ -48,8 +48,6 @@ export interface QueryAllBalancesRequest {
   pagination?: PageRequest;
   /**
    * resolve_denom is the flag to resolve the denom into a human-readable form from the metadata.
-   * 
-   * Since: cosmos-sdk 0.50
    */
   resolveDenom: boolean;
 }
@@ -73,8 +71,6 @@ export interface QueryAllBalancesResponse {
 /**
  * QuerySpendableBalancesRequest defines the gRPC request structure for querying
  * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySpendableBalancesRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalancesRequest
@@ -92,8 +88,6 @@ export interface QuerySpendableBalancesRequest {
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
  * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySpendableBalancesResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalancesResponse
@@ -111,8 +105,6 @@ export interface QuerySpendableBalancesResponse {
 /**
  * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
  * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySpendableBalanceByDenomRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalanceByDenomRequest
@@ -130,8 +122,6 @@ export interface QuerySpendableBalanceByDenomRequest {
 /**
  * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
  * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySpendableBalanceByDenomResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalanceByDenomResponse
@@ -152,8 +142,6 @@ export interface QuerySpendableBalanceByDenomResponse {
 export interface QueryTotalSupplyRequest {
   /**
    * pagination defines an optional pagination for the request.
-   * 
-   * Since: cosmos-sdk 0.43
    */
   pagination?: PageRequest;
 }
@@ -171,8 +159,6 @@ export interface QueryTotalSupplyResponse {
   supply: Coin[];
   /**
    * pagination defines the pagination in the response.
-   * 
-   * Since: cosmos-sdk 0.43
    */
   pagination?: PageResponse;
 }
@@ -321,8 +307,6 @@ export interface QueryDenomOwnersRequest {
  * DenomOwner defines structure representing an account that owns or holds a
  * particular denominated token. It contains the account address and account
  * balance of the denominated token.
- * 
- * Since: cosmos-sdk 0.46
  * @name DenomOwner
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.DenomOwner
@@ -339,8 +323,6 @@ export interface DenomOwner {
 }
 /**
  * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryDenomOwnersResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QueryDenomOwnersResponse
@@ -356,8 +338,6 @@ export interface QueryDenomOwnersResponse {
  * QueryDenomOwnersByQueryRequest defines the request type for the DenomOwnersByQuery RPC query,
  * which queries for a paginated set of all account holders of a particular
  * denomination.
- * 
- * Since: cosmos-sdk 0.50.3
  * @name QueryDenomOwnersByQueryRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QueryDenomOwnersByQueryRequest
@@ -374,8 +354,6 @@ export interface QueryDenomOwnersByQueryRequest {
 }
 /**
  * QueryDenomOwnersByQueryResponse defines the RPC response of a DenomOwnersByQuery RPC query.
- * 
- * Since: cosmos-sdk 0.50.3
  * @name QueryDenomOwnersByQueryResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QueryDenomOwnersByQueryResponse
@@ -389,8 +367,6 @@ export interface QueryDenomOwnersByQueryResponse {
 }
 /**
  * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySendEnabledRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySendEnabledRequest
@@ -408,8 +384,6 @@ export interface QuerySendEnabledRequest {
 }
 /**
  * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySendEnabledResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySendEnabledResponse
@@ -636,8 +610,6 @@ function createBaseQuerySpendableBalancesRequest(): QuerySpendableBalancesReques
 /**
  * QuerySpendableBalancesRequest defines the gRPC request structure for querying
  * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySpendableBalancesRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalancesRequest
@@ -690,8 +662,6 @@ function createBaseQuerySpendableBalancesResponse(): QuerySpendableBalancesRespo
 /**
  * QuerySpendableBalancesResponse defines the gRPC response structure for querying
  * an account's spendable balances.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySpendableBalancesResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalancesResponse
@@ -744,8 +714,6 @@ function createBaseQuerySpendableBalanceByDenomRequest(): QuerySpendableBalanceB
 /**
  * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
  * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySpendableBalanceByDenomRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalanceByDenomRequest
@@ -797,8 +765,6 @@ function createBaseQuerySpendableBalanceByDenomResponse(): QuerySpendableBalance
 /**
  * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
  * querying an account's spendable balance for a specific denom.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySpendableBalanceByDenomResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySpendableBalanceByDenomResponse
@@ -1427,8 +1393,6 @@ function createBaseDenomOwner(): DenomOwner {
  * DenomOwner defines structure representing an account that owns or holds a
  * particular denominated token. It contains the account address and account
  * balance of the denominated token.
- * 
- * Since: cosmos-sdk 0.46
  * @name DenomOwner
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.DenomOwner
@@ -1480,8 +1444,6 @@ function createBaseQueryDenomOwnersResponse(): QueryDenomOwnersResponse {
 }
 /**
  * QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
- * 
- * Since: cosmos-sdk 0.46
  * @name QueryDenomOwnersResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QueryDenomOwnersResponse
@@ -1535,8 +1497,6 @@ function createBaseQueryDenomOwnersByQueryRequest(): QueryDenomOwnersByQueryRequ
  * QueryDenomOwnersByQueryRequest defines the request type for the DenomOwnersByQuery RPC query,
  * which queries for a paginated set of all account holders of a particular
  * denomination.
- * 
- * Since: cosmos-sdk 0.50.3
  * @name QueryDenomOwnersByQueryRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QueryDenomOwnersByQueryRequest
@@ -1588,8 +1548,6 @@ function createBaseQueryDenomOwnersByQueryResponse(): QueryDenomOwnersByQueryRes
 }
 /**
  * QueryDenomOwnersByQueryResponse defines the RPC response of a DenomOwnersByQuery RPC query.
- * 
- * Since: cosmos-sdk 0.50.3
  * @name QueryDenomOwnersByQueryResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QueryDenomOwnersByQueryResponse
@@ -1641,8 +1599,6 @@ function createBaseQuerySendEnabledRequest(): QuerySendEnabledRequest {
 }
 /**
  * QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySendEnabledRequest
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySendEnabledRequest
@@ -1694,8 +1650,6 @@ function createBaseQuerySendEnabledResponse(): QuerySendEnabledResponse {
 }
 /**
  * QuerySendEnabledResponse defines the RPC response of a SendEnable query.
- * 
- * Since: cosmos-sdk 0.47
  * @name QuerySendEnabledResponse
  * @package cosmos.bank.v1beta1
  * @see proto type: cosmos.bank.v1beta1.QuerySendEnabledResponse

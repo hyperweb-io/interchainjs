@@ -18,8 +18,6 @@ export interface QueryEvidenceRequest {
   evidenceHash: Uint8Array;
   /**
    * hash defines the evidence hash of the requested evidence.
-   * 
-   * Since: cosmos-sdk 0.47
    */
   hash: string;
 }
@@ -42,8 +40,6 @@ export interface QueryEvidenceRequestAmino {
   evidence_hash: string;
   /**
    * hash defines the evidence hash of the requested evidence.
-   * 
-   * Since: cosmos-sdk 0.47
    */
   hash: string;
 }

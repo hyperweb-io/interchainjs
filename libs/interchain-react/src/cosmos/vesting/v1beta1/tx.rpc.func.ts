@@ -13,8 +13,6 @@ export const createVestingAccount = buildTx<MsgCreateVestingAccount>({
 /**
  * CreatePermanentLockedAccount defines a method that enables creating a permanent
  * locked account.
- * 
- * Since: cosmos-sdk 0.46
  * @name createPermanentLockedAccount
  * @package cosmos.vesting.v1beta1
  * @see proto service: cosmos.vesting.v1beta1.CreatePermanentLockedAccount
@@ -25,8 +23,6 @@ export const createPermanentLockedAccount = buildTx<MsgCreatePermanentLockedAcco
 /**
  * CreatePeriodicVestingAccount defines a method that enables creating a
  * periodic vesting account.
- * 
- * Since: cosmos-sdk 0.46
  * @name createPeriodicVestingAccount
  * @package cosmos.vesting.v1beta1
  * @see proto service: cosmos.vesting.v1beta1.CreatePeriodicVestingAccount

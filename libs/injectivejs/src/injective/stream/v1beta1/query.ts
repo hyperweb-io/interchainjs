@@ -2,7 +2,7 @@ import { Level, LevelAmino, Deposit, DepositAmino, SpotLimitOrder, SpotLimitOrde
 import { Coin, CoinAmino } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { GlobalDecoderRegistry } from "../../../registry";
-import { DeepPartial, isSet, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { DeepPartial, isSet } from "../../../helpers";
 import { Decimal } from "@interchainjs/math";
 export enum OrderUpdateStatus {
   Unspecified = 0,
@@ -274,7 +274,7 @@ export interface SubaccountDepositAminoMsg {
  */
 export interface SpotOrderUpdate {
   status: OrderUpdateStatus;
-  orderHash: Uint8Array;
+  orderHash: string;
   cid: string;
   order?: SpotOrder;
 }
@@ -330,7 +330,7 @@ export interface SpotOrderAminoMsg {
  */
 export interface DerivativeOrderUpdate {
   status: OrderUpdateStatus;
-  orderHash: Uint8Array;
+  orderHash: string;
   cid: string;
   order?: DerivativeOrder;
 }
@@ -461,7 +461,7 @@ export interface SpotTrade {
    */
   subaccountId: string;
   fee: string;
-  orderHash: Uint8Array;
+  orderHash: string;
   feeRecipientAddress?: string;
   cid: string;
   tradeId: string;
@@ -1630,7 +1630,7 @@ export const SubaccountDeposit = {
 function createBaseSpotOrderUpdate(): SpotOrderUpdate {
   return {
     status: 0,
-    orderHash: new Uint8Array(),
+    orderHash: "",
     cid: "",
     order: undefined
   };
@@ -1643,17 +1643,17 @@ function createBaseSpotOrderUpdate(): SpotOrderUpdate {
 export const SpotOrderUpdate = {
   typeUrl: "/injective.stream.v1beta1.SpotOrderUpdate",
   is(o: any): o is SpotOrderUpdate {
-    return o && (o.$typeUrl === SpotOrderUpdate.typeUrl || isSet(o.status) && (o.orderHash instanceof Uint8Array || typeof o.orderHash === "string") && typeof o.cid === "string");
+    return o && (o.$typeUrl === SpotOrderUpdate.typeUrl || isSet(o.status) && typeof o.orderHash === "string" && typeof o.cid === "string");
   },
   isAmino(o: any): o is SpotOrderUpdateAmino {
-    return o && (o.$typeUrl === SpotOrderUpdate.typeUrl || isSet(o.status) && (o.order_hash instanceof Uint8Array || typeof o.order_hash === "string") && typeof o.cid === "string");
+    return o && (o.$typeUrl === SpotOrderUpdate.typeUrl || isSet(o.status) && typeof o.order_hash === "string" && typeof o.cid === "string");
   },
   encode(message: SpotOrderUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.status !== 0) {
       writer.uint32(8).int32(message.status);
     }
-    if (message.orderHash.length !== 0) {
-      writer.uint32(18).bytes(message.orderHash);
+    if (message.orderHash !== "") {
+      writer.uint32(18).string(message.orderHash);
     }
     if (message.cid !== "") {
       writer.uint32(26).string(message.cid);
@@ -1674,7 +1674,7 @@ export const SpotOrderUpdate = {
           message.status = reader.int32() as any;
           break;
         case 2:
-          message.orderHash = reader.bytes();
+          message.orderHash = reader.string();
           break;
         case 3:
           message.cid = reader.string();
@@ -1692,7 +1692,7 @@ export const SpotOrderUpdate = {
   fromPartial(object: DeepPartial<SpotOrderUpdate>): SpotOrderUpdate {
     const message = createBaseSpotOrderUpdate();
     message.status = object.status ?? 0;
-    message.orderHash = object.orderHash ?? new Uint8Array();
+    message.orderHash = object.orderHash ?? "";
     message.cid = object.cid ?? "";
     message.order = object.order !== undefined && object.order !== null ? SpotOrder.fromPartial(object.order) : undefined;
     return message;
@@ -1703,7 +1703,7 @@ export const SpotOrderUpdate = {
       message.status = object.status;
     }
     if (object.order_hash !== undefined && object.order_hash !== null) {
-      message.orderHash = bytesFromBase64(object.order_hash);
+      message.orderHash = object.order_hash;
     }
     if (object.cid !== undefined && object.cid !== null) {
       message.cid = object.cid;
@@ -1716,7 +1716,7 @@ export const SpotOrderUpdate = {
   toAmino(message: SpotOrderUpdate): SpotOrderUpdateAmino {
     const obj: any = {};
     obj.status = message.status === 0 ? undefined : message.status;
-    obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
+    obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.cid = message.cid === "" ? undefined : message.cid;
     obj.order = message.order ? SpotOrder.toAmino(message.order) : undefined;
     return obj;
@@ -1838,7 +1838,7 @@ export const SpotOrder = {
 function createBaseDerivativeOrderUpdate(): DerivativeOrderUpdate {
   return {
     status: 0,
-    orderHash: new Uint8Array(),
+    orderHash: "",
     cid: "",
     order: undefined
   };
@@ -1851,17 +1851,17 @@ function createBaseDerivativeOrderUpdate(): DerivativeOrderUpdate {
 export const DerivativeOrderUpdate = {
   typeUrl: "/injective.stream.v1beta1.DerivativeOrderUpdate",
   is(o: any): o is DerivativeOrderUpdate {
-    return o && (o.$typeUrl === DerivativeOrderUpdate.typeUrl || isSet(o.status) && (o.orderHash instanceof Uint8Array || typeof o.orderHash === "string") && typeof o.cid === "string");
+    return o && (o.$typeUrl === DerivativeOrderUpdate.typeUrl || isSet(o.status) && typeof o.orderHash === "string" && typeof o.cid === "string");
   },
   isAmino(o: any): o is DerivativeOrderUpdateAmino {
-    return o && (o.$typeUrl === DerivativeOrderUpdate.typeUrl || isSet(o.status) && (o.order_hash instanceof Uint8Array || typeof o.order_hash === "string") && typeof o.cid === "string");
+    return o && (o.$typeUrl === DerivativeOrderUpdate.typeUrl || isSet(o.status) && typeof o.order_hash === "string" && typeof o.cid === "string");
   },
   encode(message: DerivativeOrderUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.status !== 0) {
       writer.uint32(8).int32(message.status);
     }
-    if (message.orderHash.length !== 0) {
-      writer.uint32(18).bytes(message.orderHash);
+    if (message.orderHash !== "") {
+      writer.uint32(18).string(message.orderHash);
     }
     if (message.cid !== "") {
       writer.uint32(26).string(message.cid);
@@ -1882,7 +1882,7 @@ export const DerivativeOrderUpdate = {
           message.status = reader.int32() as any;
           break;
         case 2:
-          message.orderHash = reader.bytes();
+          message.orderHash = reader.string();
           break;
         case 3:
           message.cid = reader.string();
@@ -1900,7 +1900,7 @@ export const DerivativeOrderUpdate = {
   fromPartial(object: DeepPartial<DerivativeOrderUpdate>): DerivativeOrderUpdate {
     const message = createBaseDerivativeOrderUpdate();
     message.status = object.status ?? 0;
-    message.orderHash = object.orderHash ?? new Uint8Array();
+    message.orderHash = object.orderHash ?? "";
     message.cid = object.cid ?? "";
     message.order = object.order !== undefined && object.order !== null ? DerivativeOrder.fromPartial(object.order) : undefined;
     return message;
@@ -1911,7 +1911,7 @@ export const DerivativeOrderUpdate = {
       message.status = object.status;
     }
     if (object.order_hash !== undefined && object.order_hash !== null) {
-      message.orderHash = bytesFromBase64(object.order_hash);
+      message.orderHash = object.order_hash;
     }
     if (object.cid !== undefined && object.cid !== null) {
       message.cid = object.cid;
@@ -1924,7 +1924,7 @@ export const DerivativeOrderUpdate = {
   toAmino(message: DerivativeOrderUpdate): DerivativeOrderUpdateAmino {
     const obj: any = {};
     obj.status = message.status === 0 ? undefined : message.status;
-    obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
+    obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.cid = message.cid === "" ? undefined : message.cid;
     obj.order = message.order ? DerivativeOrder.toAmino(message.order) : undefined;
     return obj;
@@ -2310,7 +2310,7 @@ function createBaseSpotTrade(): SpotTrade {
     price: "",
     subaccountId: "",
     fee: "",
-    orderHash: new Uint8Array(),
+    orderHash: "",
     feeRecipientAddress: undefined,
     cid: "",
     tradeId: ""
@@ -2324,10 +2324,10 @@ function createBaseSpotTrade(): SpotTrade {
 export const SpotTrade = {
   typeUrl: "/injective.stream.v1beta1.SpotTrade",
   is(o: any): o is SpotTrade {
-    return o && (o.$typeUrl === SpotTrade.typeUrl || typeof o.marketId === "string" && typeof o.isBuy === "boolean" && typeof o.executionType === "string" && typeof o.quantity === "string" && typeof o.price === "string" && typeof o.subaccountId === "string" && typeof o.fee === "string" && (o.orderHash instanceof Uint8Array || typeof o.orderHash === "string") && typeof o.cid === "string" && typeof o.tradeId === "string");
+    return o && (o.$typeUrl === SpotTrade.typeUrl || typeof o.marketId === "string" && typeof o.isBuy === "boolean" && typeof o.executionType === "string" && typeof o.quantity === "string" && typeof o.price === "string" && typeof o.subaccountId === "string" && typeof o.fee === "string" && typeof o.orderHash === "string" && typeof o.cid === "string" && typeof o.tradeId === "string");
   },
   isAmino(o: any): o is SpotTradeAmino {
-    return o && (o.$typeUrl === SpotTrade.typeUrl || typeof o.market_id === "string" && typeof o.is_buy === "boolean" && typeof o.executionType === "string" && typeof o.quantity === "string" && typeof o.price === "string" && typeof o.subaccount_id === "string" && typeof o.fee === "string" && (o.order_hash instanceof Uint8Array || typeof o.order_hash === "string") && typeof o.cid === "string" && typeof o.trade_id === "string");
+    return o && (o.$typeUrl === SpotTrade.typeUrl || typeof o.market_id === "string" && typeof o.is_buy === "boolean" && typeof o.executionType === "string" && typeof o.quantity === "string" && typeof o.price === "string" && typeof o.subaccount_id === "string" && typeof o.fee === "string" && typeof o.order_hash === "string" && typeof o.cid === "string" && typeof o.trade_id === "string");
   },
   encode(message: SpotTrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.marketId !== "") {
@@ -2351,8 +2351,8 @@ export const SpotTrade = {
     if (message.fee !== "") {
       writer.uint32(58).string(Decimal.fromUserInput(message.fee, 18).atomics);
     }
-    if (message.orderHash.length !== 0) {
-      writer.uint32(66).bytes(message.orderHash);
+    if (message.orderHash !== "") {
+      writer.uint32(66).string(message.orderHash);
     }
     if (message.feeRecipientAddress !== undefined) {
       writer.uint32(74).string(message.feeRecipientAddress);
@@ -2394,7 +2394,7 @@ export const SpotTrade = {
           message.fee = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
         case 8:
-          message.orderHash = reader.bytes();
+          message.orderHash = reader.string();
           break;
         case 9:
           message.feeRecipientAddress = reader.string();
@@ -2421,7 +2421,7 @@ export const SpotTrade = {
     message.price = object.price ?? "";
     message.subaccountId = object.subaccountId ?? "";
     message.fee = object.fee ?? "";
-    message.orderHash = object.orderHash ?? new Uint8Array();
+    message.orderHash = object.orderHash ?? "";
     message.feeRecipientAddress = object.feeRecipientAddress ?? undefined;
     message.cid = object.cid ?? "";
     message.tradeId = object.tradeId ?? "";
@@ -2451,7 +2451,7 @@ export const SpotTrade = {
       message.fee = object.fee;
     }
     if (object.order_hash !== undefined && object.order_hash !== null) {
-      message.orderHash = bytesFromBase64(object.order_hash);
+      message.orderHash = object.order_hash;
     }
     if (object.fee_recipient_address !== undefined && object.fee_recipient_address !== null) {
       message.feeRecipientAddress = object.fee_recipient_address;
@@ -2473,7 +2473,7 @@ export const SpotTrade = {
     obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
     obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
     obj.fee = message.fee === "" ? undefined : Decimal.fromUserInput(message.fee, 18).atomics;
-    obj.order_hash = message.orderHash ? base64FromBytes(message.orderHash) : undefined;
+    obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
     obj.fee_recipient_address = message.feeRecipientAddress === null ? undefined : message.feeRecipientAddress;
     obj.cid = message.cid === "" ? undefined : message.cid;
     obj.trade_id = message.tradeId === "" ? undefined : message.tradeId;

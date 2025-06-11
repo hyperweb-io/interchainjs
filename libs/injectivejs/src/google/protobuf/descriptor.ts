@@ -865,6 +865,100 @@ export function featureSet_JsonFormatToJSON(object: FeatureSet_JsonFormat): stri
       return "UNRECOGNIZED";
   }
 }
+export enum FeatureSet_EnforceNamingStyle {
+  ENFORCE_NAMING_STYLE_UNKNOWN = 0,
+  STYLE2024 = 1,
+  STYLE_LEGACY = 2,
+  UNRECOGNIZED = -1,
+}
+export const FeatureSet_EnforceNamingStyleAmino = FeatureSet_EnforceNamingStyle;
+export function featureSet_EnforceNamingStyleFromJSON(object: any): FeatureSet_EnforceNamingStyle {
+  switch (object) {
+    case 0:
+    case "ENFORCE_NAMING_STYLE_UNKNOWN":
+      return FeatureSet_EnforceNamingStyle.ENFORCE_NAMING_STYLE_UNKNOWN;
+    case 1:
+    case "STYLE2024":
+      return FeatureSet_EnforceNamingStyle.STYLE2024;
+    case 2:
+    case "STYLE_LEGACY":
+      return FeatureSet_EnforceNamingStyle.STYLE_LEGACY;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return FeatureSet_EnforceNamingStyle.UNRECOGNIZED;
+  }
+}
+export function featureSet_EnforceNamingStyleToJSON(object: FeatureSet_EnforceNamingStyle): string {
+  switch (object) {
+    case FeatureSet_EnforceNamingStyle.ENFORCE_NAMING_STYLE_UNKNOWN:
+      return "ENFORCE_NAMING_STYLE_UNKNOWN";
+    case FeatureSet_EnforceNamingStyle.STYLE2024:
+      return "STYLE2024";
+    case FeatureSet_EnforceNamingStyle.STYLE_LEGACY:
+      return "STYLE_LEGACY";
+    case FeatureSet_EnforceNamingStyle.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+export enum FeatureSet_VisibilityFeature_DefaultSymbolVisibility {
+  DEFAULT_SYMBOL_VISIBILITY_UNKNOWN = 0,
+  /** EXPORT_ALL - Default pre-EDITION_2024, all UNSET visibility are export. */
+  EXPORT_ALL = 1,
+  /** EXPORT_TOP_LEVEL - All top-level symbols default to export, nested default to local. */
+  EXPORT_TOP_LEVEL = 2,
+  /** LOCAL_ALL - All symbols default to local. */
+  LOCAL_ALL = 3,
+  /**
+   * STRICT - All symbols local by default. Nested types cannot be exported.
+   * With special case caveat for message { enum {} reserved 1 to max; }
+   * This is the recommended setting for new protos.
+   */
+  STRICT = 4,
+  UNRECOGNIZED = -1,
+}
+export const FeatureSet_VisibilityFeature_DefaultSymbolVisibilityAmino = FeatureSet_VisibilityFeature_DefaultSymbolVisibility;
+export function featureSet_VisibilityFeature_DefaultSymbolVisibilityFromJSON(object: any): FeatureSet_VisibilityFeature_DefaultSymbolVisibility {
+  switch (object) {
+    case 0:
+    case "DEFAULT_SYMBOL_VISIBILITY_UNKNOWN":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.DEFAULT_SYMBOL_VISIBILITY_UNKNOWN;
+    case 1:
+    case "EXPORT_ALL":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_ALL;
+    case 2:
+    case "EXPORT_TOP_LEVEL":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_TOP_LEVEL;
+    case 3:
+    case "LOCAL_ALL":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.LOCAL_ALL;
+    case 4:
+    case "STRICT":
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.STRICT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return FeatureSet_VisibilityFeature_DefaultSymbolVisibility.UNRECOGNIZED;
+  }
+}
+export function featureSet_VisibilityFeature_DefaultSymbolVisibilityToJSON(object: FeatureSet_VisibilityFeature_DefaultSymbolVisibility): string {
+  switch (object) {
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.DEFAULT_SYMBOL_VISIBILITY_UNKNOWN:
+      return "DEFAULT_SYMBOL_VISIBILITY_UNKNOWN";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_ALL:
+      return "EXPORT_ALL";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.EXPORT_TOP_LEVEL:
+      return "EXPORT_TOP_LEVEL";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.LOCAL_ALL:
+      return "LOCAL_ALL";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.STRICT:
+      return "STRICT";
+    case FeatureSet_VisibilityFeature_DefaultSymbolVisibility.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
 /**
  * Represents the identified object's effect on the element in the original
  * .proto file.
@@ -905,6 +999,50 @@ export function generatedCodeInfo_Annotation_SemanticToJSON(object: GeneratedCod
     case GeneratedCodeInfo_Annotation_Semantic.ALIAS:
       return "ALIAS";
     case GeneratedCodeInfo_Annotation_Semantic.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+/**
+ * Describes the 'visibility' of a symbol with respect to the proto import
+ * system. Symbols can only be imported when the visibility rules do not prevent
+ * it (ex: local symbols cannot be imported).  Visibility modifiers can only set
+ * on `message` and `enum` as they are the only types available to be referenced
+ * from other files.
+ */
+export enum SymbolVisibility {
+  VISIBILITY_UNSET = 0,
+  VISIBILITY_LOCAL = 1,
+  VISIBILITY_EXPORT = 2,
+  UNRECOGNIZED = -1,
+}
+export const SymbolVisibilityAmino = SymbolVisibility;
+export function symbolVisibilityFromJSON(object: any): SymbolVisibility {
+  switch (object) {
+    case 0:
+    case "VISIBILITY_UNSET":
+      return SymbolVisibility.VISIBILITY_UNSET;
+    case 1:
+    case "VISIBILITY_LOCAL":
+      return SymbolVisibility.VISIBILITY_LOCAL;
+    case 2:
+    case "VISIBILITY_EXPORT":
+      return SymbolVisibility.VISIBILITY_EXPORT;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return SymbolVisibility.UNRECOGNIZED;
+  }
+}
+export function symbolVisibilityToJSON(object: SymbolVisibility): string {
+  switch (object) {
+    case SymbolVisibility.VISIBILITY_UNSET:
+      return "VISIBILITY_UNSET";
+    case SymbolVisibility.VISIBILITY_LOCAL:
+      return "VISIBILITY_LOCAL";
+    case SymbolVisibility.VISIBILITY_EXPORT:
+      return "VISIBILITY_EXPORT";
+    case SymbolVisibility.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
@@ -965,6 +1103,11 @@ export interface FileDescriptorProto {
    * For Google-internal migration only. Do not use.
    */
   weakDependency: number[];
+  /**
+   * Names of files imported by this file purely for the purpose of providing
+   * option extensions. These are excluded from the dependency list above.
+   */
+  optionDependency: string[];
   /**
    * All top-level definitions in this file.
    */
@@ -1031,6 +1174,11 @@ export interface FileDescriptorProtoAmino {
    */
   weak_dependency: number[];
   /**
+   * Names of files imported by this file purely for the purpose of providing
+   * option extensions. These are excluded from the dependency list above.
+   */
+  option_dependency: string[];
+  /**
    * All top-level definitions in this file.
    */
   message_type: DescriptorProtoAmino[];
@@ -1088,6 +1236,10 @@ export interface DescriptorProto {
    * A given name may only be reserved once.
    */
   reservedName: string[];
+  /**
+   * Support for `export` and `local` keywords on enums.
+   */
+  visibility: SymbolVisibility;
 }
 export interface DescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.DescriptorProto";
@@ -1114,6 +1266,10 @@ export interface DescriptorProtoAmino {
    * A given name may only be reserved once.
    */
   reserved_name: string[];
+  /**
+   * Support for `export` and `local` keywords on enums.
+   */
+  visibility: SymbolVisibility;
 }
 export interface DescriptorProtoAminoMsg {
   type: "/google.protobuf.DescriptorProto";
@@ -1542,6 +1698,10 @@ export interface EnumDescriptorProto {
    * be reserved once.
    */
   reservedName: string[];
+  /**
+   * Support for `export` and `local` keywords on enums.
+   */
+  visibility: SymbolVisibility;
 }
 export interface EnumDescriptorProtoProtoMsg {
   typeUrl: "/google.protobuf.EnumDescriptorProto";
@@ -1568,6 +1728,10 @@ export interface EnumDescriptorProtoAmino {
    * be reserved once.
    */
   reserved_name: string[];
+  /**
+   * Support for `export` and `local` keywords on enums.
+   */
+  visibility: SymbolVisibility;
 }
 export interface EnumDescriptorProtoAminoMsg {
   type: "/google.protobuf.EnumDescriptorProto";
@@ -2286,7 +2450,9 @@ export interface FieldOptions {
    */
   deprecated: boolean;
   /**
+   * DEPRECATED. DO NOT USE!
    * For Google-internal migration only. Do not use.
+   * @deprecated
    */
   weak: boolean;
   /**
@@ -2393,7 +2559,9 @@ export interface FieldOptionsAmino {
    */
   deprecated: boolean;
   /**
+   * DEPRECATED. DO NOT USE!
    * For Google-internal migration only. Do not use.
+   * @deprecated
    */
   weak: boolean;
   /**
@@ -2959,6 +3127,7 @@ export interface FeatureSet {
   utf8Validation: FeatureSet_Utf8Validation;
   messageEncoding: FeatureSet_MessageEncoding;
   jsonFormat: FeatureSet_JsonFormat;
+  enforceNamingStyle: FeatureSet_EnforceNamingStyle;
 }
 export interface FeatureSetProtoMsg {
   typeUrl: "/google.protobuf.FeatureSet";
@@ -2982,10 +3151,31 @@ export interface FeatureSetAmino {
   utf8_validation: FeatureSet_Utf8Validation;
   message_encoding: FeatureSet_MessageEncoding;
   json_format: FeatureSet_JsonFormat;
+  enforce_naming_style: FeatureSet_EnforceNamingStyle;
 }
 export interface FeatureSetAminoMsg {
   type: "/google.protobuf.FeatureSet";
   value: FeatureSetAmino;
+}
+/**
+ * @name FeatureSet_VisibilityFeature
+ * @package google.protobuf
+ * @see proto type: google.protobuf.VisibilityFeature
+ */
+export interface FeatureSet_VisibilityFeature {}
+export interface FeatureSet_VisibilityFeatureProtoMsg {
+  typeUrl: "/google.protobuf.VisibilityFeature";
+  value: Uint8Array;
+}
+/**
+ * @name FeatureSet_VisibilityFeatureAmino
+ * @package google.protobuf
+ * @see proto type: google.protobuf.FeatureSet_VisibilityFeature
+ */
+export interface FeatureSet_VisibilityFeatureAmino {}
+export interface FeatureSet_VisibilityFeatureAminoMsg {
+  type: "/google.protobuf.VisibilityFeature";
+  value: FeatureSet_VisibilityFeatureAmino;
 }
 /**
  * A compiled specification for the defaults of a set of features.  These
@@ -3592,6 +3782,7 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
     dependency: [],
     publicDependency: [],
     weakDependency: [],
+    optionDependency: [],
     messageType: [],
     enumType: [],
     service: [],
@@ -3611,10 +3802,10 @@ function createBaseFileDescriptorProto(): FileDescriptorProto {
 export const FileDescriptorProto = {
   typeUrl: "/google.protobuf.FileDescriptorProto",
   is(o: any): o is FileDescriptorProto {
-    return o && (o.$typeUrl === FileDescriptorProto.typeUrl || typeof o.name === "string" && typeof o.package === "string" && Array.isArray(o.dependency) && (!o.dependency.length || typeof o.dependency[0] === "string") && Array.isArray(o.publicDependency) && (!o.publicDependency.length || typeof o.publicDependency[0] === "number") && Array.isArray(o.weakDependency) && (!o.weakDependency.length || typeof o.weakDependency[0] === "number") && Array.isArray(o.messageType) && (!o.messageType.length || DescriptorProto.is(o.messageType[0])) && Array.isArray(o.enumType) && (!o.enumType.length || EnumDescriptorProto.is(o.enumType[0])) && Array.isArray(o.service) && (!o.service.length || ServiceDescriptorProto.is(o.service[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.is(o.extension[0])) && typeof o.syntax === "string" && isSet(o.edition));
+    return o && (o.$typeUrl === FileDescriptorProto.typeUrl || typeof o.name === "string" && typeof o.package === "string" && Array.isArray(o.dependency) && (!o.dependency.length || typeof o.dependency[0] === "string") && Array.isArray(o.publicDependency) && (!o.publicDependency.length || typeof o.publicDependency[0] === "number") && Array.isArray(o.weakDependency) && (!o.weakDependency.length || typeof o.weakDependency[0] === "number") && Array.isArray(o.optionDependency) && (!o.optionDependency.length || typeof o.optionDependency[0] === "string") && Array.isArray(o.messageType) && (!o.messageType.length || DescriptorProto.is(o.messageType[0])) && Array.isArray(o.enumType) && (!o.enumType.length || EnumDescriptorProto.is(o.enumType[0])) && Array.isArray(o.service) && (!o.service.length || ServiceDescriptorProto.is(o.service[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.is(o.extension[0])) && typeof o.syntax === "string" && isSet(o.edition));
   },
   isAmino(o: any): o is FileDescriptorProtoAmino {
-    return o && (o.$typeUrl === FileDescriptorProto.typeUrl || typeof o.name === "string" && typeof o.package === "string" && Array.isArray(o.dependency) && (!o.dependency.length || typeof o.dependency[0] === "string") && Array.isArray(o.public_dependency) && (!o.public_dependency.length || typeof o.public_dependency[0] === "number") && Array.isArray(o.weak_dependency) && (!o.weak_dependency.length || typeof o.weak_dependency[0] === "number") && Array.isArray(o.message_type) && (!o.message_type.length || DescriptorProto.isAmino(o.message_type[0])) && Array.isArray(o.enum_type) && (!o.enum_type.length || EnumDescriptorProto.isAmino(o.enum_type[0])) && Array.isArray(o.service) && (!o.service.length || ServiceDescriptorProto.isAmino(o.service[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.isAmino(o.extension[0])) && typeof o.syntax === "string" && isSet(o.edition));
+    return o && (o.$typeUrl === FileDescriptorProto.typeUrl || typeof o.name === "string" && typeof o.package === "string" && Array.isArray(o.dependency) && (!o.dependency.length || typeof o.dependency[0] === "string") && Array.isArray(o.public_dependency) && (!o.public_dependency.length || typeof o.public_dependency[0] === "number") && Array.isArray(o.weak_dependency) && (!o.weak_dependency.length || typeof o.weak_dependency[0] === "number") && Array.isArray(o.option_dependency) && (!o.option_dependency.length || typeof o.option_dependency[0] === "string") && Array.isArray(o.message_type) && (!o.message_type.length || DescriptorProto.isAmino(o.message_type[0])) && Array.isArray(o.enum_type) && (!o.enum_type.length || EnumDescriptorProto.isAmino(o.enum_type[0])) && Array.isArray(o.service) && (!o.service.length || ServiceDescriptorProto.isAmino(o.service[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.isAmino(o.extension[0])) && typeof o.syntax === "string" && isSet(o.edition));
   },
   encode(message: FileDescriptorProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
@@ -3636,6 +3827,9 @@ export const FileDescriptorProto = {
       writer.int32(v);
     }
     writer.ldelim();
+    for (const v of message.optionDependency) {
+      writer.uint32(122).string(v!);
+    }
     for (const v of message.messageType) {
       DescriptorProto.encode(v!, writer.uint32(34).fork()).ldelim();
     }
@@ -3698,6 +3892,9 @@ export const FileDescriptorProto = {
             message.weakDependency.push(reader.int32());
           }
           break;
+        case 15:
+          message.optionDependency.push(reader.string());
+          break;
         case 4:
           message.messageType.push(DescriptorProto.decode(reader, reader.uint32()));
           break;
@@ -3736,6 +3933,7 @@ export const FileDescriptorProto = {
     message.dependency = object.dependency?.map(e => e) || [];
     message.publicDependency = object.publicDependency?.map(e => e) || [];
     message.weakDependency = object.weakDependency?.map(e => e) || [];
+    message.optionDependency = object.optionDependency?.map(e => e) || [];
     message.messageType = object.messageType?.map(e => DescriptorProto.fromPartial(e)) || [];
     message.enumType = object.enumType?.map(e => EnumDescriptorProto.fromPartial(e)) || [];
     message.service = object.service?.map(e => ServiceDescriptorProto.fromPartial(e)) || [];
@@ -3757,6 +3955,7 @@ export const FileDescriptorProto = {
     message.dependency = object.dependency?.map(e => e) || [];
     message.publicDependency = object.public_dependency?.map(e => e) || [];
     message.weakDependency = object.weak_dependency?.map(e => e) || [];
+    message.optionDependency = object.option_dependency?.map(e => e) || [];
     message.messageType = object.message_type?.map(e => DescriptorProto.fromAmino(e)) || [];
     message.enumType = object.enum_type?.map(e => EnumDescriptorProto.fromAmino(e)) || [];
     message.service = object.service?.map(e => ServiceDescriptorProto.fromAmino(e)) || [];
@@ -3793,6 +3992,11 @@ export const FileDescriptorProto = {
       obj.weak_dependency = message.weakDependency.map(e => e);
     } else {
       obj.weak_dependency = message.weakDependency;
+    }
+    if (message.optionDependency) {
+      obj.option_dependency = message.optionDependency.map(e => e);
+    } else {
+      obj.option_dependency = message.optionDependency;
     }
     if (message.messageType) {
       obj.message_type = message.messageType.map(e => e ? DescriptorProto.toAmino(e) : undefined);
@@ -3858,7 +4062,8 @@ function createBaseDescriptorProto(): DescriptorProto {
     oneofDecl: [],
     options: undefined,
     reservedRange: [],
-    reservedName: []
+    reservedName: [],
+    visibility: 1
   };
 }
 /**
@@ -3870,10 +4075,10 @@ function createBaseDescriptorProto(): DescriptorProto {
 export const DescriptorProto = {
   typeUrl: "/google.protobuf.DescriptorProto",
   is(o: any): o is DescriptorProto {
-    return o && (o.$typeUrl === DescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.field) && (!o.field.length || FieldDescriptorProto.is(o.field[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.is(o.extension[0])) && Array.isArray(o.nestedType) && (!o.nestedType.length || DescriptorProto.is(o.nestedType[0])) && Array.isArray(o.enumType) && (!o.enumType.length || EnumDescriptorProto.is(o.enumType[0])) && Array.isArray(o.extensionRange) && (!o.extensionRange.length || DescriptorProto_ExtensionRange.is(o.extensionRange[0])) && Array.isArray(o.oneofDecl) && (!o.oneofDecl.length || OneofDescriptorProto.is(o.oneofDecl[0])) && Array.isArray(o.reservedRange) && (!o.reservedRange.length || DescriptorProto_ReservedRange.is(o.reservedRange[0])) && Array.isArray(o.reservedName) && (!o.reservedName.length || typeof o.reservedName[0] === "string"));
+    return o && (o.$typeUrl === DescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.field) && (!o.field.length || FieldDescriptorProto.is(o.field[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.is(o.extension[0])) && Array.isArray(o.nestedType) && (!o.nestedType.length || DescriptorProto.is(o.nestedType[0])) && Array.isArray(o.enumType) && (!o.enumType.length || EnumDescriptorProto.is(o.enumType[0])) && Array.isArray(o.extensionRange) && (!o.extensionRange.length || DescriptorProto_ExtensionRange.is(o.extensionRange[0])) && Array.isArray(o.oneofDecl) && (!o.oneofDecl.length || OneofDescriptorProto.is(o.oneofDecl[0])) && Array.isArray(o.reservedRange) && (!o.reservedRange.length || DescriptorProto_ReservedRange.is(o.reservedRange[0])) && Array.isArray(o.reservedName) && (!o.reservedName.length || typeof o.reservedName[0] === "string") && isSet(o.visibility));
   },
   isAmino(o: any): o is DescriptorProtoAmino {
-    return o && (o.$typeUrl === DescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.field) && (!o.field.length || FieldDescriptorProto.isAmino(o.field[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.isAmino(o.extension[0])) && Array.isArray(o.nested_type) && (!o.nested_type.length || DescriptorProto.isAmino(o.nested_type[0])) && Array.isArray(o.enum_type) && (!o.enum_type.length || EnumDescriptorProto.isAmino(o.enum_type[0])) && Array.isArray(o.extension_range) && (!o.extension_range.length || DescriptorProto_ExtensionRange.isAmino(o.extension_range[0])) && Array.isArray(o.oneof_decl) && (!o.oneof_decl.length || OneofDescriptorProto.isAmino(o.oneof_decl[0])) && Array.isArray(o.reserved_range) && (!o.reserved_range.length || DescriptorProto_ReservedRange.isAmino(o.reserved_range[0])) && Array.isArray(o.reserved_name) && (!o.reserved_name.length || typeof o.reserved_name[0] === "string"));
+    return o && (o.$typeUrl === DescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.field) && (!o.field.length || FieldDescriptorProto.isAmino(o.field[0])) && Array.isArray(o.extension) && (!o.extension.length || FieldDescriptorProto.isAmino(o.extension[0])) && Array.isArray(o.nested_type) && (!o.nested_type.length || DescriptorProto.isAmino(o.nested_type[0])) && Array.isArray(o.enum_type) && (!o.enum_type.length || EnumDescriptorProto.isAmino(o.enum_type[0])) && Array.isArray(o.extension_range) && (!o.extension_range.length || DescriptorProto_ExtensionRange.isAmino(o.extension_range[0])) && Array.isArray(o.oneof_decl) && (!o.oneof_decl.length || OneofDescriptorProto.isAmino(o.oneof_decl[0])) && Array.isArray(o.reserved_range) && (!o.reserved_range.length || DescriptorProto_ReservedRange.isAmino(o.reserved_range[0])) && Array.isArray(o.reserved_name) && (!o.reserved_name.length || typeof o.reserved_name[0] === "string") && isSet(o.visibility));
   },
   encode(message: DescriptorProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
@@ -3905,6 +4110,9 @@ export const DescriptorProto = {
     }
     for (const v of message.reservedName) {
       writer.uint32(82).string(v!);
+    }
+    if (message.visibility !== 1) {
+      writer.uint32(88).int32(message.visibility);
     }
     return writer;
   },
@@ -3945,6 +4153,9 @@ export const DescriptorProto = {
         case 10:
           message.reservedName.push(reader.string());
           break;
+        case 11:
+          message.visibility = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3964,6 +4175,7 @@ export const DescriptorProto = {
     message.options = object.options !== undefined && object.options !== null ? MessageOptions.fromPartial(object.options) : undefined;
     message.reservedRange = object.reservedRange?.map(e => DescriptorProto_ReservedRange.fromPartial(e)) || [];
     message.reservedName = object.reservedName?.map(e => e) || [];
+    message.visibility = object.visibility ?? 1;
     return message;
   },
   fromAmino(object: DescriptorProtoAmino): DescriptorProto {
@@ -3982,6 +4194,9 @@ export const DescriptorProto = {
     }
     message.reservedRange = object.reserved_range?.map(e => DescriptorProto_ReservedRange.fromAmino(e)) || [];
     message.reservedName = object.reserved_name?.map(e => e) || [];
+    if (object.visibility !== undefined && object.visibility !== null) {
+      message.visibility = object.visibility;
+    }
     return message;
   },
   toAmino(message: DescriptorProto): DescriptorProtoAmino {
@@ -4028,6 +4243,7 @@ export const DescriptorProto = {
     } else {
       obj.reserved_name = message.reservedName;
     }
+    obj.visibility = message.visibility === 1 ? undefined : message.visibility;
     return obj;
   },
   fromAminoMsg(object: DescriptorProtoAminoMsg): DescriptorProto {
@@ -4797,7 +5013,8 @@ function createBaseEnumDescriptorProto(): EnumDescriptorProto {
     value: [],
     options: undefined,
     reservedRange: [],
-    reservedName: []
+    reservedName: [],
+    visibility: 1
   };
 }
 /**
@@ -4809,10 +5026,10 @@ function createBaseEnumDescriptorProto(): EnumDescriptorProto {
 export const EnumDescriptorProto = {
   typeUrl: "/google.protobuf.EnumDescriptorProto",
   is(o: any): o is EnumDescriptorProto {
-    return o && (o.$typeUrl === EnumDescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.value) && (!o.value.length || EnumValueDescriptorProto.is(o.value[0])) && Array.isArray(o.reservedRange) && (!o.reservedRange.length || EnumDescriptorProto_EnumReservedRange.is(o.reservedRange[0])) && Array.isArray(o.reservedName) && (!o.reservedName.length || typeof o.reservedName[0] === "string"));
+    return o && (o.$typeUrl === EnumDescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.value) && (!o.value.length || EnumValueDescriptorProto.is(o.value[0])) && Array.isArray(o.reservedRange) && (!o.reservedRange.length || EnumDescriptorProto_EnumReservedRange.is(o.reservedRange[0])) && Array.isArray(o.reservedName) && (!o.reservedName.length || typeof o.reservedName[0] === "string") && isSet(o.visibility));
   },
   isAmino(o: any): o is EnumDescriptorProtoAmino {
-    return o && (o.$typeUrl === EnumDescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.value) && (!o.value.length || EnumValueDescriptorProto.isAmino(o.value[0])) && Array.isArray(o.reserved_range) && (!o.reserved_range.length || EnumDescriptorProto_EnumReservedRange.isAmino(o.reserved_range[0])) && Array.isArray(o.reserved_name) && (!o.reserved_name.length || typeof o.reserved_name[0] === "string"));
+    return o && (o.$typeUrl === EnumDescriptorProto.typeUrl || typeof o.name === "string" && Array.isArray(o.value) && (!o.value.length || EnumValueDescriptorProto.isAmino(o.value[0])) && Array.isArray(o.reserved_range) && (!o.reserved_range.length || EnumDescriptorProto_EnumReservedRange.isAmino(o.reserved_range[0])) && Array.isArray(o.reserved_name) && (!o.reserved_name.length || typeof o.reserved_name[0] === "string") && isSet(o.visibility));
   },
   encode(message: EnumDescriptorProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.name !== "") {
@@ -4829,6 +5046,9 @@ export const EnumDescriptorProto = {
     }
     for (const v of message.reservedName) {
       writer.uint32(42).string(v!);
+    }
+    if (message.visibility !== 1) {
+      writer.uint32(48).int32(message.visibility);
     }
     return writer;
   },
@@ -4854,6 +5074,9 @@ export const EnumDescriptorProto = {
         case 5:
           message.reservedName.push(reader.string());
           break;
+        case 6:
+          message.visibility = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -4868,6 +5091,7 @@ export const EnumDescriptorProto = {
     message.options = object.options !== undefined && object.options !== null ? EnumOptions.fromPartial(object.options) : undefined;
     message.reservedRange = object.reservedRange?.map(e => EnumDescriptorProto_EnumReservedRange.fromPartial(e)) || [];
     message.reservedName = object.reservedName?.map(e => e) || [];
+    message.visibility = object.visibility ?? 1;
     return message;
   },
   fromAmino(object: EnumDescriptorProtoAmino): EnumDescriptorProto {
@@ -4881,6 +5105,9 @@ export const EnumDescriptorProto = {
     }
     message.reservedRange = object.reserved_range?.map(e => EnumDescriptorProto_EnumReservedRange.fromAmino(e)) || [];
     message.reservedName = object.reserved_name?.map(e => e) || [];
+    if (object.visibility !== undefined && object.visibility !== null) {
+      message.visibility = object.visibility;
+    }
     return message;
   },
   toAmino(message: EnumDescriptorProto): EnumDescriptorProtoAmino {
@@ -4902,6 +5129,7 @@ export const EnumDescriptorProto = {
     } else {
       obj.reserved_name = message.reservedName;
     }
+    obj.visibility = message.visibility === 1 ? undefined : message.visibility;
     return obj;
   },
   fromAminoMsg(object: EnumDescriptorProtoAminoMsg): EnumDescriptorProto {
@@ -7149,7 +7377,8 @@ function createBaseFeatureSet(): FeatureSet {
     repeatedFieldEncoding: 1,
     utf8Validation: 0,
     messageEncoding: 1,
-    jsonFormat: 1
+    jsonFormat: 1,
+    enforceNamingStyle: 1
   };
 }
 /**
@@ -7166,10 +7395,10 @@ function createBaseFeatureSet(): FeatureSet {
 export const FeatureSet = {
   typeUrl: "/google.protobuf.FeatureSet",
   is(o: any): o is FeatureSet {
-    return o && (o.$typeUrl === FeatureSet.typeUrl || isSet(o.fieldPresence) && isSet(o.enumType) && isSet(o.repeatedFieldEncoding) && isSet(o.utf8Validation) && isSet(o.messageEncoding) && isSet(o.jsonFormat));
+    return o && (o.$typeUrl === FeatureSet.typeUrl || isSet(o.fieldPresence) && isSet(o.enumType) && isSet(o.repeatedFieldEncoding) && isSet(o.utf8Validation) && isSet(o.messageEncoding) && isSet(o.jsonFormat) && isSet(o.enforceNamingStyle));
   },
   isAmino(o: any): o is FeatureSetAmino {
-    return o && (o.$typeUrl === FeatureSet.typeUrl || isSet(o.field_presence) && isSet(o.enum_type) && isSet(o.repeated_field_encoding) && isSet(o.utf8_validation) && isSet(o.message_encoding) && isSet(o.json_format));
+    return o && (o.$typeUrl === FeatureSet.typeUrl || isSet(o.field_presence) && isSet(o.enum_type) && isSet(o.repeated_field_encoding) && isSet(o.utf8_validation) && isSet(o.message_encoding) && isSet(o.json_format) && isSet(o.enforce_naming_style));
   },
   encode(message: FeatureSet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.fieldPresence !== 1) {
@@ -7189,6 +7418,9 @@ export const FeatureSet = {
     }
     if (message.jsonFormat !== 1) {
       writer.uint32(48).int32(message.jsonFormat);
+    }
+    if (message.enforceNamingStyle !== 1) {
+      writer.uint32(56).int32(message.enforceNamingStyle);
     }
     return writer;
   },
@@ -7217,6 +7449,9 @@ export const FeatureSet = {
         case 6:
           message.jsonFormat = reader.int32() as any;
           break;
+        case 7:
+          message.enforceNamingStyle = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -7232,6 +7467,7 @@ export const FeatureSet = {
     message.utf8Validation = object.utf8Validation ?? 0;
     message.messageEncoding = object.messageEncoding ?? 1;
     message.jsonFormat = object.jsonFormat ?? 1;
+    message.enforceNamingStyle = object.enforceNamingStyle ?? 1;
     return message;
   },
   fromAmino(object: FeatureSetAmino): FeatureSet {
@@ -7254,6 +7490,9 @@ export const FeatureSet = {
     if (object.json_format !== undefined && object.json_format !== null) {
       message.jsonFormat = object.json_format;
     }
+    if (object.enforce_naming_style !== undefined && object.enforce_naming_style !== null) {
+      message.enforceNamingStyle = object.enforce_naming_style;
+    }
     return message;
   },
   toAmino(message: FeatureSet): FeatureSetAmino {
@@ -7264,6 +7503,7 @@ export const FeatureSet = {
     obj.utf8_validation = message.utf8Validation === 0 ? undefined : message.utf8Validation;
     obj.message_encoding = message.messageEncoding === 1 ? undefined : message.messageEncoding;
     obj.json_format = message.jsonFormat === 1 ? undefined : message.jsonFormat;
+    obj.enforce_naming_style = message.enforceNamingStyle === 1 ? undefined : message.enforceNamingStyle;
     return obj;
   },
   fromAminoMsg(object: FeatureSetAminoMsg): FeatureSet {
@@ -7279,6 +7519,68 @@ export const FeatureSet = {
     return {
       typeUrl: "/google.protobuf.FeatureSet",
       value: FeatureSet.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseFeatureSet_VisibilityFeature(): FeatureSet_VisibilityFeature {
+  return {};
+}
+/**
+ * @name FeatureSet_VisibilityFeature
+ * @package google.protobuf
+ * @see proto type: google.protobuf.VisibilityFeature
+ */
+export const FeatureSet_VisibilityFeature = {
+  typeUrl: "/google.protobuf.VisibilityFeature",
+  is(o: any): o is FeatureSet_VisibilityFeature {
+    return o && o.$typeUrl === FeatureSet_VisibilityFeature.typeUrl;
+  },
+  isAmino(o: any): o is FeatureSet_VisibilityFeatureAmino {
+    return o && o.$typeUrl === FeatureSet_VisibilityFeature.typeUrl;
+  },
+  encode(_: FeatureSet_VisibilityFeature, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): FeatureSet_VisibilityFeature {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFeatureSet_VisibilityFeature();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: DeepPartial<FeatureSet_VisibilityFeature>): FeatureSet_VisibilityFeature {
+    const message = createBaseFeatureSet_VisibilityFeature();
+    return message;
+  },
+  fromAmino(_: FeatureSet_VisibilityFeatureAmino): FeatureSet_VisibilityFeature {
+    const message = createBaseFeatureSet_VisibilityFeature();
+    return message;
+  },
+  toAmino(_: FeatureSet_VisibilityFeature): FeatureSet_VisibilityFeatureAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: FeatureSet_VisibilityFeatureAminoMsg): FeatureSet_VisibilityFeature {
+    return FeatureSet_VisibilityFeature.fromAmino(object.value);
+  },
+  fromProtoMsg(message: FeatureSet_VisibilityFeatureProtoMsg): FeatureSet_VisibilityFeature {
+    return FeatureSet_VisibilityFeature.decode(message.value);
+  },
+  toProto(message: FeatureSet_VisibilityFeature): Uint8Array {
+    return FeatureSet_VisibilityFeature.encode(message).finish();
+  },
+  toProtoMsg(message: FeatureSet_VisibilityFeature): FeatureSet_VisibilityFeatureProtoMsg {
+    return {
+      typeUrl: "/google.protobuf.VisibilityFeature",
+      value: FeatureSet_VisibilityFeature.encode(message).finish()
     };
   },
   registerTypeUrl() {}

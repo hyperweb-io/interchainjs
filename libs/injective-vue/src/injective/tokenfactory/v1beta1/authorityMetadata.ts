@@ -13,6 +13,10 @@ export interface DenomAuthorityMetadata {
    * Can be empty for no admin, or a valid injective address
    */
   admin: string;
+  /**
+   * true if the admin can burn tokens from other addresses
+   */
+  adminBurnAllowed: boolean;
 }
 export interface DenomAuthorityMetadataProtoMsg {
   typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata";
@@ -31,6 +35,10 @@ export interface DenomAuthorityMetadataAmino {
    * Can be empty for no admin, or a valid injective address
    */
   admin: string;
+  /**
+   * true if the admin can burn tokens from other addresses
+   */
+  admin_burn_allowed: boolean;
 }
 export interface DenomAuthorityMetadataAminoMsg {
   type: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata";
@@ -38,7 +46,8 @@ export interface DenomAuthorityMetadataAminoMsg {
 }
 function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
   return {
-    admin: ""
+    admin: "",
+    adminBurnAllowed: false
   };
 }
 /**
@@ -52,14 +61,17 @@ function createBaseDenomAuthorityMetadata(): DenomAuthorityMetadata {
 export const DenomAuthorityMetadata = {
   typeUrl: "/injective.tokenfactory.v1beta1.DenomAuthorityMetadata",
   is(o: any): o is DenomAuthorityMetadata {
-    return o && (o.$typeUrl === DenomAuthorityMetadata.typeUrl || typeof o.admin === "string");
+    return o && (o.$typeUrl === DenomAuthorityMetadata.typeUrl || typeof o.admin === "string" && typeof o.adminBurnAllowed === "boolean");
   },
   isAmino(o: any): o is DenomAuthorityMetadataAmino {
-    return o && (o.$typeUrl === DenomAuthorityMetadata.typeUrl || typeof o.admin === "string");
+    return o && (o.$typeUrl === DenomAuthorityMetadata.typeUrl || typeof o.admin === "string" && typeof o.admin_burn_allowed === "boolean");
   },
   encode(message: DenomAuthorityMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.admin !== "") {
       writer.uint32(10).string(message.admin);
+    }
+    if (message.adminBurnAllowed === true) {
+      writer.uint32(16).bool(message.adminBurnAllowed);
     }
     return writer;
   },
@@ -73,6 +85,9 @@ export const DenomAuthorityMetadata = {
         case 1:
           message.admin = reader.string();
           break;
+        case 2:
+          message.adminBurnAllowed = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -83,6 +98,7 @@ export const DenomAuthorityMetadata = {
   fromPartial(object: DeepPartial<DenomAuthorityMetadata>): DenomAuthorityMetadata {
     const message = createBaseDenomAuthorityMetadata();
     message.admin = object.admin ?? "";
+    message.adminBurnAllowed = object.adminBurnAllowed ?? false;
     return message;
   },
   fromAmino(object: DenomAuthorityMetadataAmino): DenomAuthorityMetadata {
@@ -90,11 +106,15 @@ export const DenomAuthorityMetadata = {
     if (object.admin !== undefined && object.admin !== null) {
       message.admin = object.admin;
     }
+    if (object.admin_burn_allowed !== undefined && object.admin_burn_allowed !== null) {
+      message.adminBurnAllowed = object.admin_burn_allowed;
+    }
     return message;
   },
   toAmino(message: DenomAuthorityMetadata): DenomAuthorityMetadataAmino {
     const obj: any = {};
     obj.admin = message.admin === "" ? undefined : message.admin;
+    obj.admin_burn_allowed = message.adminBurnAllowed === false ? undefined : message.adminBurnAllowed;
     return obj;
   },
   fromAminoMsg(object: DenomAuthorityMetadataAminoMsg): DenomAuthorityMetadata {
