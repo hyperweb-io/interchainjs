@@ -1,5 +1,5 @@
-import { isValidEthereumAddress, toChecksumAddress } from '../../src/utils/address';
-import { utf8ToHex, hexToUtf8 } from '../../src/utils/encoding';
+import { isValidEthereumAddress, toChecksumAddress } from '@interchainjs/ethereum/utils/address';
+import { utf8ToHex, hexToUtf8 } from '@interchainjs/ethereum/utils/encoding';
 
 describe('address utils', () => {
   const validChecksum = '0x6f43F827bb07458dB45D23c6Dc3408FA4D2f8777';
