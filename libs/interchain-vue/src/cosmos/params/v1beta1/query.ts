@@ -77,8 +77,6 @@ export interface QueryParamsResponseAminoMsg {
 /**
  * QuerySubspacesRequest defines a request type for querying for all registered
  * subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySubspacesRequest
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.QuerySubspacesRequest
@@ -91,8 +89,6 @@ export interface QuerySubspacesRequestProtoMsg {
 /**
  * QuerySubspacesRequest defines a request type for querying for all registered
  * subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySubspacesRequestAmino
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.QuerySubspacesRequest
@@ -105,8 +101,6 @@ export interface QuerySubspacesRequestAminoMsg {
 /**
  * QuerySubspacesResponse defines the response types for querying for all
  * registered subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySubspacesResponse
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.QuerySubspacesResponse
@@ -121,8 +115,6 @@ export interface QuerySubspacesResponseProtoMsg {
 /**
  * QuerySubspacesResponse defines the response types for querying for all
  * registered subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySubspacesResponseAmino
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.QuerySubspacesResponse
@@ -137,8 +129,6 @@ export interface QuerySubspacesResponseAminoMsg {
 /**
  * Subspace defines a parameter subspace name and all the keys that exist for
  * the subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name Subspace
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.Subspace
@@ -154,8 +144,6 @@ export interface SubspaceProtoMsg {
 /**
  * Subspace defines a parameter subspace name and all the keys that exist for
  * the subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name SubspaceAmino
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.Subspace
@@ -357,8 +345,6 @@ function createBaseQuerySubspacesRequest(): QuerySubspacesRequest {
 /**
  * QuerySubspacesRequest defines a request type for querying for all registered
  * subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySubspacesRequest
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.QuerySubspacesRequest
@@ -432,8 +418,6 @@ function createBaseQuerySubspacesResponse(): QuerySubspacesResponse {
 /**
  * QuerySubspacesResponse defines the response types for querying for all
  * registered subspaces and all keys for a subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name QuerySubspacesResponse
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.QuerySubspacesResponse
@@ -526,8 +510,6 @@ function createBaseSubspace(): Subspace {
 /**
  * Subspace defines a parameter subspace name and all the keys that exist for
  * the subspace.
- * 
- * Since: cosmos-sdk 0.46
  * @name Subspace
  * @package cosmos.params.v1beta1
  * @see proto type: cosmos.params.v1beta1.Subspace

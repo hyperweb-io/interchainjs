@@ -161,6 +161,58 @@ export interface EventDerivativeMarketPausedAminoMsg {
   value: EventDerivativeMarketPausedAmino;
 }
 /**
+ * @name EventSettledMarketBalance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSettledMarketBalance
+ */
+export interface EventSettledMarketBalance {
+  marketId: string;
+  amount: string;
+}
+export interface EventSettledMarketBalanceProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.EventSettledMarketBalance";
+  value: Uint8Array;
+}
+/**
+ * @name EventSettledMarketBalanceAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSettledMarketBalance
+ */
+export interface EventSettledMarketBalanceAmino {
+  market_id: string;
+  amount: string;
+}
+export interface EventSettledMarketBalanceAminoMsg {
+  type: "/injective.exchange.v1beta1.EventSettledMarketBalance";
+  value: EventSettledMarketBalanceAmino;
+}
+/**
+ * @name EventNotSettledMarketBalance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNotSettledMarketBalance
+ */
+export interface EventNotSettledMarketBalance {
+  marketId: string;
+  amount: string;
+}
+export interface EventNotSettledMarketBalanceProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.EventNotSettledMarketBalance";
+  value: Uint8Array;
+}
+/**
+ * @name EventNotSettledMarketBalanceAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNotSettledMarketBalance
+ */
+export interface EventNotSettledMarketBalanceAmino {
+  market_id: string;
+  amount: string;
+}
+export interface EventNotSettledMarketBalanceAminoMsg {
+  type: "/injective.exchange.v1beta1.EventNotSettledMarketBalance";
+  value: EventNotSettledMarketBalanceAmino;
+}
+/**
  * @name EventMarketBeyondBankruptcy
  * @package injective.exchange.v1beta1
  * @see proto type: injective.exchange.v1beta1.EventMarketBeyondBankruptcy
@@ -1580,6 +1632,180 @@ export const EventDerivativeMarketPaused = {
     return {
       typeUrl: "/injective.exchange.v1beta1.EventDerivativeMarketPaused",
       value: EventDerivativeMarketPaused.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseEventSettledMarketBalance(): EventSettledMarketBalance {
+  return {
+    marketId: "",
+    amount: ""
+  };
+}
+/**
+ * @name EventSettledMarketBalance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventSettledMarketBalance
+ */
+export const EventSettledMarketBalance = {
+  typeUrl: "/injective.exchange.v1beta1.EventSettledMarketBalance",
+  is(o: any): o is EventSettledMarketBalance {
+    return o && (o.$typeUrl === EventSettledMarketBalance.typeUrl || typeof o.marketId === "string" && typeof o.amount === "string");
+  },
+  isAmino(o: any): o is EventSettledMarketBalanceAmino {
+    return o && (o.$typeUrl === EventSettledMarketBalance.typeUrl || typeof o.market_id === "string" && typeof o.amount === "string");
+  },
+  encode(message: EventSettledMarketBalance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.marketId !== "") {
+      writer.uint32(10).string(message.marketId);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): EventSettledMarketBalance {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventSettledMarketBalance();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.marketId = reader.string();
+          break;
+        case 2:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<EventSettledMarketBalance>): EventSettledMarketBalance {
+    const message = createBaseEventSettledMarketBalance();
+    message.marketId = object.marketId ?? "";
+    message.amount = object.amount ?? "";
+    return message;
+  },
+  fromAmino(object: EventSettledMarketBalanceAmino): EventSettledMarketBalance {
+    const message = createBaseEventSettledMarketBalance();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: EventSettledMarketBalance): EventSettledMarketBalanceAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId === "" ? undefined : message.marketId;
+    obj.amount = message.amount === "" ? undefined : message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: EventSettledMarketBalanceAminoMsg): EventSettledMarketBalance {
+    return EventSettledMarketBalance.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventSettledMarketBalanceProtoMsg): EventSettledMarketBalance {
+    return EventSettledMarketBalance.decode(message.value);
+  },
+  toProto(message: EventSettledMarketBalance): Uint8Array {
+    return EventSettledMarketBalance.encode(message).finish();
+  },
+  toProtoMsg(message: EventSettledMarketBalance): EventSettledMarketBalanceProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.EventSettledMarketBalance",
+      value: EventSettledMarketBalance.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseEventNotSettledMarketBalance(): EventNotSettledMarketBalance {
+  return {
+    marketId: "",
+    amount: ""
+  };
+}
+/**
+ * @name EventNotSettledMarketBalance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.EventNotSettledMarketBalance
+ */
+export const EventNotSettledMarketBalance = {
+  typeUrl: "/injective.exchange.v1beta1.EventNotSettledMarketBalance",
+  is(o: any): o is EventNotSettledMarketBalance {
+    return o && (o.$typeUrl === EventNotSettledMarketBalance.typeUrl || typeof o.marketId === "string" && typeof o.amount === "string");
+  },
+  isAmino(o: any): o is EventNotSettledMarketBalanceAmino {
+    return o && (o.$typeUrl === EventNotSettledMarketBalance.typeUrl || typeof o.market_id === "string" && typeof o.amount === "string");
+  },
+  encode(message: EventNotSettledMarketBalance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.marketId !== "") {
+      writer.uint32(10).string(message.marketId);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): EventNotSettledMarketBalance {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventNotSettledMarketBalance();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.marketId = reader.string();
+          break;
+        case 2:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<EventNotSettledMarketBalance>): EventNotSettledMarketBalance {
+    const message = createBaseEventNotSettledMarketBalance();
+    message.marketId = object.marketId ?? "";
+    message.amount = object.amount ?? "";
+    return message;
+  },
+  fromAmino(object: EventNotSettledMarketBalanceAmino): EventNotSettledMarketBalance {
+    const message = createBaseEventNotSettledMarketBalance();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: EventNotSettledMarketBalance): EventNotSettledMarketBalanceAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId === "" ? undefined : message.marketId;
+    obj.amount = message.amount === "" ? undefined : message.amount;
+    return obj;
+  },
+  fromAminoMsg(object: EventNotSettledMarketBalanceAminoMsg): EventNotSettledMarketBalance {
+    return EventNotSettledMarketBalance.fromAmino(object.value);
+  },
+  fromProtoMsg(message: EventNotSettledMarketBalanceProtoMsg): EventNotSettledMarketBalance {
+    return EventNotSettledMarketBalance.decode(message.value);
+  },
+  toProto(message: EventNotSettledMarketBalance): Uint8Array {
+    return EventNotSettledMarketBalance.encode(message).finish();
+  },
+  toProtoMsg(message: EventNotSettledMarketBalance): EventNotSettledMarketBalanceProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.EventNotSettledMarketBalance",
+      value: EventNotSettledMarketBalance.encode(message).finish()
     };
   },
   registerTypeUrl() {}

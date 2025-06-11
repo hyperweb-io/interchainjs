@@ -199,8 +199,6 @@ export interface CancelSoftwareUpgradeProposalAminoMsg {
 }
 /**
  * ModuleVersion specifies a module and its consensus version.
- * 
- * Since: cosmos-sdk 0.43
  * @name ModuleVersion
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.ModuleVersion
@@ -221,8 +219,6 @@ export interface ModuleVersionProtoMsg {
 }
 /**
  * ModuleVersion specifies a module and its consensus version.
- * 
- * Since: cosmos-sdk 0.43
  * @name ModuleVersionAmino
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.ModuleVersion
@@ -603,8 +599,6 @@ function createBaseModuleVersion(): ModuleVersion {
 }
 /**
  * ModuleVersion specifies a module and its consensus version.
- * 
- * Since: cosmos-sdk 0.43
  * @name ModuleVersion
  * @package cosmos.upgrade.v1beta1
  * @see proto type: cosmos.upgrade.v1beta1.ModuleVersion

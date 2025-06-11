@@ -1,5 +1,5 @@
 import { buildTx } from "../../../helper-func-types";
-import { MsgUpdateParams, MsgCreateNamespace, MsgDeleteNamespace, MsgUpdateNamespace, MsgUpdateNamespaceRoles, MsgRevokeNamespaceRoles, MsgClaimVoucher } from "./tx";
+import { MsgUpdateParams, MsgCreateNamespace, MsgUpdateNamespace, MsgUpdateActorRoles, MsgClaimVoucher } from "./tx";
 /**
  * @name updateParams
  * @package injective.permissions.v1beta1
@@ -17,14 +17,6 @@ export const createNamespace = buildTx<MsgCreateNamespace>({
   msg: MsgCreateNamespace
 });
 /**
- * @name deleteNamespace
- * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.DeleteNamespace
- */
-export const deleteNamespace = buildTx<MsgDeleteNamespace>({
-  msg: MsgDeleteNamespace
-});
-/**
  * @name updateNamespace
  * @package injective.permissions.v1beta1
  * @see proto service: injective.permissions.v1beta1.UpdateNamespace
@@ -33,20 +25,12 @@ export const updateNamespace = buildTx<MsgUpdateNamespace>({
   msg: MsgUpdateNamespace
 });
 /**
- * @name updateNamespaceRoles
+ * @name updateActorRoles
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.UpdateNamespaceRoles
+ * @see proto service: injective.permissions.v1beta1.UpdateActorRoles
  */
-export const updateNamespaceRoles = buildTx<MsgUpdateNamespaceRoles>({
-  msg: MsgUpdateNamespaceRoles
-});
-/**
- * @name revokeNamespaceRoles
- * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.RevokeNamespaceRoles
- */
-export const revokeNamespaceRoles = buildTx<MsgRevokeNamespaceRoles>({
-  msg: MsgRevokeNamespaceRoles
+export const updateActorRoles = buildTx<MsgUpdateActorRoles>({
+  msg: MsgUpdateActorRoles
 });
 /**
  * @name claimVoucher

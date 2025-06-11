@@ -94,6 +94,16 @@ export interface ServiceCommandDescriptor {
   subCommands: {
     [key: string]: ServiceCommandDescriptor;
   };
+  /**
+   * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
+   * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
+   * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
+   */
+  enhanceCustomCommand: boolean;
+  /**
+   * short is an optional parameter used to override the short description of the auto generated command.
+   */
+  short: string;
 }
 export interface ServiceCommandDescriptorProtoMsg {
   typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor";
@@ -126,6 +136,16 @@ export interface ServiceCommandDescriptorAmino {
   sub_commands: {
     [key: string]: ServiceCommandDescriptorAmino;
   };
+  /**
+   * enhance_custom_commands specifies whether to skip the service when generating commands, if a custom command already
+   * exists, or enhance the existing command. If set to true, the custom command will be enhanced with the services from
+   * gRPC. otherwise when a custom command exists, no commands will be generated for the service.
+   */
+  enhance_custom_command: boolean;
+  /**
+   * short is an optional parameter used to override the short description of the auto generated command.
+   */
+  short: string;
 }
 export interface ServiceCommandDescriptorAminoMsg {
   type: "cosmos-sdk/ServiceCommandDescriptor";
@@ -226,6 +246,13 @@ export interface RpcCommandOptions {
    * skip specifies whether to skip this rpc method when generating commands.
    */
   skip: boolean;
+  /**
+   * gov_proposal specifies whether autocli should generate a gov proposal transaction for this rpc method.
+   * Normally autocli generates a transaction containing the message and broadcast it.
+   * However, when true, autocli generates a proposal transaction containing the message and broadcast it.
+   * This option is ineffective for query commands.
+   */
+  govProposal: boolean;
 }
 export interface RpcCommandOptionsProtoMsg {
   typeUrl: "/cosmos.autocli.v1.RpcCommandOptions";
@@ -300,6 +327,13 @@ export interface RpcCommandOptionsAmino {
    * skip specifies whether to skip this rpc method when generating commands.
    */
   skip: boolean;
+  /**
+   * gov_proposal specifies whether autocli should generate a gov proposal transaction for this rpc method.
+   * Normally autocli generates a transaction containing the message and broadcast it.
+   * However, when true, autocli generates a proposal transaction containing the message and broadcast it.
+   * This option is ineffective for query commands.
+   */
+  gov_proposal: boolean;
 }
 export interface RpcCommandOptionsAminoMsg {
   type: "cosmos-sdk/RpcCommandOptions";
@@ -406,9 +440,14 @@ export interface PositionalArgDescriptor {
   /**
    * varargs makes a positional parameter a varargs parameter. This can only be
    * applied to last positional parameter and the proto_field must a repeated
-   * field.
+   * field. Note: It is mutually exclusive with optional.
    */
   varargs: boolean;
+  /**
+   * optional makes the last positional parameter optional.
+   * Note: It is mutually exclusive with varargs.
+   */
+  optional: boolean;
 }
 export interface PositionalArgDescriptorProtoMsg {
   typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor";
@@ -429,9 +468,14 @@ export interface PositionalArgDescriptorAmino {
   /**
    * varargs makes a positional parameter a varargs parameter. This can only be
    * applied to last positional parameter and the proto_field must a repeated
-   * field.
+   * field. Note: It is mutually exclusive with optional.
    */
   varargs: boolean;
+  /**
+   * optional makes the last positional parameter optional.
+   * Note: It is mutually exclusive with varargs.
+   */
+  optional: boolean;
 }
 export interface PositionalArgDescriptorAminoMsg {
   type: "cosmos-sdk/PositionalArgDescriptor";
@@ -617,7 +661,9 @@ function createBaseServiceCommandDescriptor(): ServiceCommandDescriptor {
   return {
     service: "",
     rpcCommandOptions: [],
-    subCommands: {}
+    subCommands: {},
+    enhanceCustomCommand: false,
+    short: ""
   };
 }
 /**
@@ -630,10 +676,10 @@ export const ServiceCommandDescriptor = {
   typeUrl: "/cosmos.autocli.v1.ServiceCommandDescriptor",
   aminoType: "cosmos-sdk/ServiceCommandDescriptor",
   is(o: any): o is ServiceCommandDescriptor {
-    return o && (o.$typeUrl === ServiceCommandDescriptor.typeUrl || typeof o.service === "string" && Array.isArray(o.rpcCommandOptions) && (!o.rpcCommandOptions.length || RpcCommandOptions.is(o.rpcCommandOptions[0])) && isSet(o.subCommands));
+    return o && (o.$typeUrl === ServiceCommandDescriptor.typeUrl || typeof o.service === "string" && Array.isArray(o.rpcCommandOptions) && (!o.rpcCommandOptions.length || RpcCommandOptions.is(o.rpcCommandOptions[0])) && isSet(o.subCommands) && typeof o.enhanceCustomCommand === "boolean" && typeof o.short === "string");
   },
   isAmino(o: any): o is ServiceCommandDescriptorAmino {
-    return o && (o.$typeUrl === ServiceCommandDescriptor.typeUrl || typeof o.service === "string" && Array.isArray(o.rpc_command_options) && (!o.rpc_command_options.length || RpcCommandOptions.isAmino(o.rpc_command_options[0])) && isSet(o.sub_commands));
+    return o && (o.$typeUrl === ServiceCommandDescriptor.typeUrl || typeof o.service === "string" && Array.isArray(o.rpc_command_options) && (!o.rpc_command_options.length || RpcCommandOptions.isAmino(o.rpc_command_options[0])) && isSet(o.sub_commands) && typeof o.enhance_custom_command === "boolean" && typeof o.short === "string");
   },
   encode(message: ServiceCommandDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.service !== "") {
@@ -648,6 +694,12 @@ export const ServiceCommandDescriptor = {
         value
       }, writer.uint32(26).fork()).ldelim();
     });
+    if (message.enhanceCustomCommand === true) {
+      writer.uint32(32).bool(message.enhanceCustomCommand);
+    }
+    if (message.short !== "") {
+      writer.uint32(42).string(message.short);
+    }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ServiceCommandDescriptor {
@@ -669,6 +721,12 @@ export const ServiceCommandDescriptor = {
             message.subCommands[entry3.key] = entry3.value;
           }
           break;
+        case 4:
+          message.enhanceCustomCommand = reader.bool();
+          break;
+        case 5:
+          message.short = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -688,6 +746,8 @@ export const ServiceCommandDescriptor = {
       }
       return acc;
     }, {});
+    message.enhanceCustomCommand = object.enhanceCustomCommand ?? false;
+    message.short = object.short ?? "";
     return message;
   },
   fromAmino(object: ServiceCommandDescriptorAmino): ServiceCommandDescriptor {
@@ -704,6 +764,12 @@ export const ServiceCommandDescriptor = {
       }
       return acc;
     }, {});
+    if (object.enhance_custom_command !== undefined && object.enhance_custom_command !== null) {
+      message.enhanceCustomCommand = object.enhance_custom_command;
+    }
+    if (object.short !== undefined && object.short !== null) {
+      message.short = object.short;
+    }
     return message;
   },
   toAmino(message: ServiceCommandDescriptor): ServiceCommandDescriptorAmino {
@@ -720,6 +786,8 @@ export const ServiceCommandDescriptor = {
         obj.sub_commands[k] = ServiceCommandDescriptor.toAmino(v);
       });
     }
+    obj.enhance_custom_command = message.enhanceCustomCommand === false ? undefined : message.enhanceCustomCommand;
+    obj.short = message.short === "" ? undefined : message.short;
     return obj;
   },
   fromAminoMsg(object: ServiceCommandDescriptorAminoMsg): ServiceCommandDescriptor {
@@ -840,7 +908,8 @@ function createBaseRpcCommandOptions(): RpcCommandOptions {
     version: "",
     flagOptions: {},
     positionalArgs: [],
-    skip: false
+    skip: false,
+    govProposal: false
   };
 }
 /**
@@ -854,10 +923,10 @@ export const RpcCommandOptions = {
   typeUrl: "/cosmos.autocli.v1.RpcCommandOptions",
   aminoType: "cosmos-sdk/RpcCommandOptions",
   is(o: any): o is RpcCommandOptions {
-    return o && (o.$typeUrl === RpcCommandOptions.typeUrl || typeof o.rpcMethod === "string" && typeof o.use === "string" && typeof o.long === "string" && typeof o.short === "string" && typeof o.example === "string" && Array.isArray(o.alias) && (!o.alias.length || typeof o.alias[0] === "string") && Array.isArray(o.suggestFor) && (!o.suggestFor.length || typeof o.suggestFor[0] === "string") && typeof o.deprecated === "string" && typeof o.version === "string" && isSet(o.flagOptions) && Array.isArray(o.positionalArgs) && (!o.positionalArgs.length || PositionalArgDescriptor.is(o.positionalArgs[0])) && typeof o.skip === "boolean");
+    return o && (o.$typeUrl === RpcCommandOptions.typeUrl || typeof o.rpcMethod === "string" && typeof o.use === "string" && typeof o.long === "string" && typeof o.short === "string" && typeof o.example === "string" && Array.isArray(o.alias) && (!o.alias.length || typeof o.alias[0] === "string") && Array.isArray(o.suggestFor) && (!o.suggestFor.length || typeof o.suggestFor[0] === "string") && typeof o.deprecated === "string" && typeof o.version === "string" && isSet(o.flagOptions) && Array.isArray(o.positionalArgs) && (!o.positionalArgs.length || PositionalArgDescriptor.is(o.positionalArgs[0])) && typeof o.skip === "boolean" && typeof o.govProposal === "boolean");
   },
   isAmino(o: any): o is RpcCommandOptionsAmino {
-    return o && (o.$typeUrl === RpcCommandOptions.typeUrl || typeof o.rpc_method === "string" && typeof o.use === "string" && typeof o.long === "string" && typeof o.short === "string" && typeof o.example === "string" && Array.isArray(o.alias) && (!o.alias.length || typeof o.alias[0] === "string") && Array.isArray(o.suggest_for) && (!o.suggest_for.length || typeof o.suggest_for[0] === "string") && typeof o.deprecated === "string" && typeof o.version === "string" && isSet(o.flag_options) && Array.isArray(o.positional_args) && (!o.positional_args.length || PositionalArgDescriptor.isAmino(o.positional_args[0])) && typeof o.skip === "boolean");
+    return o && (o.$typeUrl === RpcCommandOptions.typeUrl || typeof o.rpc_method === "string" && typeof o.use === "string" && typeof o.long === "string" && typeof o.short === "string" && typeof o.example === "string" && Array.isArray(o.alias) && (!o.alias.length || typeof o.alias[0] === "string") && Array.isArray(o.suggest_for) && (!o.suggest_for.length || typeof o.suggest_for[0] === "string") && typeof o.deprecated === "string" && typeof o.version === "string" && isSet(o.flag_options) && Array.isArray(o.positional_args) && (!o.positional_args.length || PositionalArgDescriptor.isAmino(o.positional_args[0])) && typeof o.skip === "boolean" && typeof o.gov_proposal === "boolean");
   },
   encode(message: RpcCommandOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.rpcMethod !== "") {
@@ -898,6 +967,9 @@ export const RpcCommandOptions = {
     }
     if (message.skip === true) {
       writer.uint32(96).bool(message.skip);
+    }
+    if (message.govProposal === true) {
+      writer.uint32(104).bool(message.govProposal);
     }
     return writer;
   },
@@ -947,6 +1019,9 @@ export const RpcCommandOptions = {
         case 12:
           message.skip = reader.bool();
           break;
+        case 13:
+          message.govProposal = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -975,6 +1050,7 @@ export const RpcCommandOptions = {
     }, {});
     message.positionalArgs = object.positionalArgs?.map(e => PositionalArgDescriptor.fromPartial(e)) || [];
     message.skip = object.skip ?? false;
+    message.govProposal = object.govProposal ?? false;
     return message;
   },
   fromAmino(object: RpcCommandOptionsAmino): RpcCommandOptions {
@@ -1014,6 +1090,9 @@ export const RpcCommandOptions = {
     if (object.skip !== undefined && object.skip !== null) {
       message.skip = object.skip;
     }
+    if (object.gov_proposal !== undefined && object.gov_proposal !== null) {
+      message.govProposal = object.gov_proposal;
+    }
     return message;
   },
   toAmino(message: RpcCommandOptions): RpcCommandOptionsAmino {
@@ -1047,6 +1126,7 @@ export const RpcCommandOptions = {
       obj.positional_args = message.positionalArgs;
     }
     obj.skip = message.skip === false ? undefined : message.skip;
+    obj.gov_proposal = message.govProposal === false ? undefined : message.govProposal;
     return obj;
   },
   fromAminoMsg(object: RpcCommandOptionsAminoMsg): RpcCommandOptions {
@@ -1239,7 +1319,8 @@ export const FlagOptions = {
 function createBasePositionalArgDescriptor(): PositionalArgDescriptor {
   return {
     protoField: "",
-    varargs: false
+    varargs: false,
+    optional: false
   };
 }
 /**
@@ -1252,10 +1333,10 @@ export const PositionalArgDescriptor = {
   typeUrl: "/cosmos.autocli.v1.PositionalArgDescriptor",
   aminoType: "cosmos-sdk/PositionalArgDescriptor",
   is(o: any): o is PositionalArgDescriptor {
-    return o && (o.$typeUrl === PositionalArgDescriptor.typeUrl || typeof o.protoField === "string" && typeof o.varargs === "boolean");
+    return o && (o.$typeUrl === PositionalArgDescriptor.typeUrl || typeof o.protoField === "string" && typeof o.varargs === "boolean" && typeof o.optional === "boolean");
   },
   isAmino(o: any): o is PositionalArgDescriptorAmino {
-    return o && (o.$typeUrl === PositionalArgDescriptor.typeUrl || typeof o.proto_field === "string" && typeof o.varargs === "boolean");
+    return o && (o.$typeUrl === PositionalArgDescriptor.typeUrl || typeof o.proto_field === "string" && typeof o.varargs === "boolean" && typeof o.optional === "boolean");
   },
   encode(message: PositionalArgDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.protoField !== "") {
@@ -1263,6 +1344,9 @@ export const PositionalArgDescriptor = {
     }
     if (message.varargs === true) {
       writer.uint32(16).bool(message.varargs);
+    }
+    if (message.optional === true) {
+      writer.uint32(24).bool(message.optional);
     }
     return writer;
   },
@@ -1279,6 +1363,9 @@ export const PositionalArgDescriptor = {
         case 2:
           message.varargs = reader.bool();
           break;
+        case 3:
+          message.optional = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1290,6 +1377,7 @@ export const PositionalArgDescriptor = {
     const message = createBasePositionalArgDescriptor();
     message.protoField = object.protoField ?? "";
     message.varargs = object.varargs ?? false;
+    message.optional = object.optional ?? false;
     return message;
   },
   fromAmino(object: PositionalArgDescriptorAmino): PositionalArgDescriptor {
@@ -1300,12 +1388,16 @@ export const PositionalArgDescriptor = {
     if (object.varargs !== undefined && object.varargs !== null) {
       message.varargs = object.varargs;
     }
+    if (object.optional !== undefined && object.optional !== null) {
+      message.optional = object.optional;
+    }
     return message;
   },
   toAmino(message: PositionalArgDescriptor): PositionalArgDescriptorAmino {
     const obj: any = {};
     obj.proto_field = message.protoField === "" ? undefined : message.protoField;
     obj.varargs = message.varargs === false ? undefined : message.varargs;
+    obj.optional = message.optional === false ? undefined : message.optional;
     return obj;
   },
   fromAminoMsg(object: PositionalArgDescriptorAminoMsg): PositionalArgDescriptor {

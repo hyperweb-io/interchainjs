@@ -1,9 +1,10 @@
 import { Any } from "../../../google/protobuf/any";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 import { SignMode } from "../signing/v1beta1/signing";
 import { CompactBitArray } from "../../crypto/multisig/v1beta1/multisig";
 import { Coin } from "../../base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
+import { DeepPartial, toTimestamp, fromTimestamp } from "../../../helpers";
 /**
  * Tx is the standard type used for broadcasting transactions.
  * @name Tx
@@ -86,8 +87,6 @@ export interface SignDoc {
 /**
  * SignDocDirectAux is the type used for generating sign bytes for
  * SIGN_MODE_DIRECT_AUX.
- * 
- * Since: cosmos-sdk 0.46
  * @name SignDocDirectAux
  * @package cosmos.tx.v1beta1
  * @see proto type: cosmos.tx.v1beta1.SignDocDirectAux
@@ -142,14 +141,40 @@ export interface TxBody {
   /**
    * memo is any arbitrary note/comment to be added to the transaction.
    * WARNING: in clients, any publicly exposed text should not be called memo,
-   * but should be called `note` instead (see https://github.com/cosmos/cosmos-sdk/issues/9122).
+   * but should be called `note` instead (see
+   * https://github.com/cosmos/cosmos-sdk/issues/9122).
    */
   memo: string;
   /**
-   * timeout is the block height after which this transaction will not
-   * be processed by the chain
+   * timeout_height is the block height after which this transaction will not
+   * be processed by the chain.
    */
   timeoutHeight: bigint;
+  /**
+   * unordered, when set to true, indicates that the transaction signer(s)
+   * intend for the transaction to be evaluated and executed in an un-ordered
+   * fashion. Specifically, the account's nonce will NOT be checked or
+   * incremented, which allows for fire-and-forget as well as concurrent
+   * transaction execution.
+   * 
+   * Note, when set to true, the existing 'timeout_timestamp' value must
+   * be set and will be used to correspond to a timestamp in which the transaction is deemed
+   * valid.
+   * 
+   * When true, the sequence value MUST be 0, and any transaction with unordered=true and a non-zero sequence value will
+   * be rejected.
+   * External services that make assumptions about sequence values may need to be updated because of this.
+   */
+  unordered: boolean;
+  /**
+   * timeout_timestamp is the block time after which this transaction will not
+   * be processed by the chain.
+   * 
+   * Note, if unordered=true this value MUST be set
+   * and will act as a short-lived TTL in which the transaction is deemed valid
+   * and kept in memory to prevent duplicates.
+   */
+  timeoutTimestamp?: Date;
   /**
    * extension_options are arbitrary options that can be added by chains
    * when the default options are not sufficient. If any of these are present
@@ -190,8 +215,6 @@ export interface AuthInfo {
    * 
    * This field is ignored if the chain didn't enable tips, i.e. didn't add the
    * `TipDecorator` in its posthandler.
-   * 
-   * Since: cosmos-sdk 0.46
    * @deprecated
    */
   tip?: Tip;
@@ -288,22 +311,22 @@ export interface Fee {
    */
   gasLimit: bigint;
   /**
-   * if unset, the first signer is responsible for paying the fees. If set, the specified account must pay the fees.
-   * the payer must be a tx signer (and thus have signed this field in AuthInfo).
-   * setting this field does *not* change the ordering of required signers for the transaction.
+   * if unset, the first signer is responsible for paying the fees. If set, the
+   * specified account must pay the fees. the payer must be a tx signer (and
+   * thus have signed this field in AuthInfo). setting this field does *not*
+   * change the ordering of required signers for the transaction.
    */
   payer: string;
   /**
-   * if set, the fee payer (either the first signer or the value of the payer field) requests that a fee grant be used
-   * to pay fees instead of the fee payer's own balance. If an appropriate fee grant does not exist or the chain does
-   * not support fee grants, this will fail
+   * if set, the fee payer (either the first signer or the value of the payer
+   * field) requests that a fee grant be used to pay fees instead of the fee
+   * payer's own balance. If an appropriate fee grant does not exist or the
+   * chain does not support fee grants, this will fail
    */
   granter: string;
 }
 /**
  * Tip is the tip used for meta-transactions.
- * 
- * Since: cosmos-sdk 0.46
  * @name Tip
  * @package cosmos.tx.v1beta1
  * @see proto type: cosmos.tx.v1beta1.Tip
@@ -324,8 +347,6 @@ export interface Tip {
  * tipper) builds and sends to the fee payer (who will build and broadcast the
  * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
  * by the node if sent directly as-is.
- * 
- * Since: cosmos-sdk 0.46
  * @name AuxSignerData
  * @package cosmos.tx.v1beta1
  * @see proto type: cosmos.tx.v1beta1.AuxSignerData
@@ -554,8 +575,6 @@ function createBaseSignDocDirectAux(): SignDocDirectAux {
 /**
  * SignDocDirectAux is the type used for generating sign bytes for
  * SIGN_MODE_DIRECT_AUX.
- * 
- * Since: cosmos-sdk 0.46
  * @name SignDocDirectAux
  * @package cosmos.tx.v1beta1
  * @see proto type: cosmos.tx.v1beta1.SignDocDirectAux
@@ -632,6 +651,8 @@ function createBaseTxBody(): TxBody {
     messages: [],
     memo: "",
     timeoutHeight: BigInt(0),
+    unordered: false,
+    timeoutTimestamp: undefined,
     extensionOptions: [],
     nonCriticalExtensionOptions: []
   };
@@ -654,6 +675,12 @@ export const TxBody = {
     }
     if (message.timeoutHeight !== BigInt(0)) {
       writer.uint32(24).uint64(message.timeoutHeight);
+    }
+    if (message.unordered === true) {
+      writer.uint32(32).bool(message.unordered);
+    }
+    if (message.timeoutTimestamp !== undefined) {
+      Timestamp.encode(toTimestamp(message.timeoutTimestamp), writer.uint32(42).fork()).ldelim();
     }
     for (const v of message.extensionOptions) {
       Any.encode(v!, writer.uint32(8186).fork()).ldelim();
@@ -679,6 +706,12 @@ export const TxBody = {
         case 3:
           message.timeoutHeight = reader.uint64();
           break;
+        case 4:
+          message.unordered = reader.bool();
+          break;
+        case 5:
+          message.timeoutTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
+          break;
         case 1023:
           message.extensionOptions.push(Any.decode(reader, reader.uint32()));
           break;
@@ -697,6 +730,8 @@ export const TxBody = {
     message.messages = object.messages?.map(e => Any.fromPartial(e)) || [];
     message.memo = object.memo ?? "";
     message.timeoutHeight = object.timeoutHeight !== undefined && object.timeoutHeight !== null ? BigInt(object.timeoutHeight.toString()) : BigInt(0);
+    message.unordered = object.unordered ?? false;
+    message.timeoutTimestamp = object.timeoutTimestamp ?? undefined;
     message.extensionOptions = object.extensionOptions?.map(e => Any.fromPartial(e)) || [];
     message.nonCriticalExtensionOptions = object.nonCriticalExtensionOptions?.map(e => Any.fromPartial(e)) || [];
     return message;
@@ -1046,8 +1081,6 @@ function createBaseTip(): Tip {
 }
 /**
  * Tip is the tip used for meta-transactions.
- * 
- * Since: cosmos-sdk 0.46
  * @name Tip
  * @package cosmos.tx.v1beta1
  * @see proto type: cosmos.tx.v1beta1.Tip
@@ -1105,8 +1138,6 @@ function createBaseAuxSignerData(): AuxSignerData {
  * tipper) builds and sends to the fee payer (who will build and broadcast the
  * actual tx). AuxSignerData is not a valid tx in itself, and will be rejected
  * by the node if sent directly as-is.
- * 
- * Since: cosmos-sdk 0.46
  * @name AuxSignerData
  * @package cosmos.tx.v1beta1
  * @see proto type: cosmos.tx.v1beta1.AuxSignerData

@@ -144,8 +144,6 @@ export interface MsgRevokeAllowanceResponseAminoMsg {
 }
 /**
  * MsgPruneAllowances prunes expired fee allowances.
- * 
- * Since cosmos-sdk 0.50
  * @name MsgPruneAllowances
  * @package cosmos.feegrant.v1beta1
  * @see proto type: cosmos.feegrant.v1beta1.MsgPruneAllowances
@@ -162,8 +160,6 @@ export interface MsgPruneAllowancesProtoMsg {
 }
 /**
  * MsgPruneAllowances prunes expired fee allowances.
- * 
- * Since cosmos-sdk 0.50
  * @name MsgPruneAllowancesAmino
  * @package cosmos.feegrant.v1beta1
  * @see proto type: cosmos.feegrant.v1beta1.MsgPruneAllowances
@@ -180,8 +176,6 @@ export interface MsgPruneAllowancesAminoMsg {
 }
 /**
  * MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type.
- * 
- * Since cosmos-sdk 0.50
  * @name MsgPruneAllowancesResponse
  * @package cosmos.feegrant.v1beta1
  * @see proto type: cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse
@@ -193,8 +187,6 @@ export interface MsgPruneAllowancesResponseProtoMsg {
 }
 /**
  * MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type.
- * 
- * Since cosmos-sdk 0.50
  * @name MsgPruneAllowancesResponseAmino
  * @package cosmos.feegrant.v1beta1
  * @see proto type: cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse
@@ -554,8 +546,6 @@ function createBaseMsgPruneAllowances(): MsgPruneAllowances {
 }
 /**
  * MsgPruneAllowances prunes expired fee allowances.
- * 
- * Since cosmos-sdk 0.50
  * @name MsgPruneAllowances
  * @package cosmos.feegrant.v1beta1
  * @see proto type: cosmos.feegrant.v1beta1.MsgPruneAllowances
@@ -637,8 +627,6 @@ function createBaseMsgPruneAllowancesResponse(): MsgPruneAllowancesResponse {
 }
 /**
  * MsgPruneAllowancesResponse defines the Msg/PruneAllowancesResponse response type.
- * 
- * Since cosmos-sdk 0.50
  * @name MsgPruneAllowancesResponse
  * @package cosmos.feegrant.v1beta1
  * @see proto type: cosmos.feegrant.v1beta1.MsgPruneAllowancesResponse

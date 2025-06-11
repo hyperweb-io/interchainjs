@@ -4,155 +4,159 @@ import { BinaryReader, BinaryWriter } from "../../../binary";
 import { DeepPartial } from "../../../helpers";
 import { GlobalDecoderRegistry } from "../../../registry";
 /**
- * @name EventCreateTFDenom
+ * @name EventCreateDenom
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventCreateTFDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventCreateDenom
  */
-export interface EventCreateTFDenom {
+export interface EventCreateDenom {
   account: string;
   denom: string;
 }
-export interface EventCreateTFDenomProtoMsg {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom";
+export interface EventCreateDenomProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventCreateDenom";
   value: Uint8Array;
 }
 /**
- * @name EventCreateTFDenomAmino
+ * @name EventCreateDenomAmino
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventCreateTFDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventCreateDenom
  */
-export interface EventCreateTFDenomAmino {
+export interface EventCreateDenomAmino {
   account: string;
   denom: string;
 }
-export interface EventCreateTFDenomAminoMsg {
-  type: "/injective.tokenfactory.v1beta1.EventCreateTFDenom";
-  value: EventCreateTFDenomAmino;
+export interface EventCreateDenomAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.EventCreateDenom";
+  value: EventCreateDenomAmino;
 }
 /**
- * @name EventMintTFDenom
+ * @name EventMint
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventMintTFDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventMint
  */
-export interface EventMintTFDenom {
-  recipientAddress: string;
+export interface EventMint {
+  minter: string;
   amount: Coin;
+  receiver: string;
 }
-export interface EventMintTFDenomProtoMsg {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom";
+export interface EventMintProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventMint";
   value: Uint8Array;
 }
 /**
- * @name EventMintTFDenomAmino
+ * @name EventMintAmino
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventMintTFDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventMint
  */
-export interface EventMintTFDenomAmino {
-  recipient_address: string;
+export interface EventMintAmino {
+  minter: string;
   amount: CoinAmino;
+  receiver: string;
 }
-export interface EventMintTFDenomAminoMsg {
-  type: "/injective.tokenfactory.v1beta1.EventMintTFDenom";
-  value: EventMintTFDenomAmino;
+export interface EventMintAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.EventMint";
+  value: EventMintAmino;
 }
 /**
- * @name EventBurnDenom
+ * @name EventBurn
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventBurnDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventBurn
  */
-export interface EventBurnDenom {
-  burnerAddress: string;
+export interface EventBurn {
+  burner: string;
   amount: Coin;
+  burnFrom: string;
 }
-export interface EventBurnDenomProtoMsg {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom";
+export interface EventBurnProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventBurn";
   value: Uint8Array;
 }
 /**
- * @name EventBurnDenomAmino
+ * @name EventBurnAmino
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventBurnDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventBurn
  */
-export interface EventBurnDenomAmino {
-  burner_address: string;
+export interface EventBurnAmino {
+  burner: string;
   amount: CoinAmino;
+  burn_from: string;
 }
-export interface EventBurnDenomAminoMsg {
-  type: "/injective.tokenfactory.v1beta1.EventBurnDenom";
-  value: EventBurnDenomAmino;
+export interface EventBurnAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.EventBurn";
+  value: EventBurnAmino;
 }
 /**
- * @name EventChangeTFAdmin
+ * @name EventChangeAdmin
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventChangeTFAdmin
+ * @see proto type: injective.tokenfactory.v1beta1.EventChangeAdmin
  */
-export interface EventChangeTFAdmin {
+export interface EventChangeAdmin {
   denom: string;
   newAdminAddress: string;
 }
-export interface EventChangeTFAdminProtoMsg {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin";
+export interface EventChangeAdminProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventChangeAdmin";
   value: Uint8Array;
 }
 /**
- * @name EventChangeTFAdminAmino
+ * @name EventChangeAdminAmino
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventChangeTFAdmin
+ * @see proto type: injective.tokenfactory.v1beta1.EventChangeAdmin
  */
-export interface EventChangeTFAdminAmino {
+export interface EventChangeAdminAmino {
   denom: string;
   new_admin_address: string;
 }
-export interface EventChangeTFAdminAminoMsg {
-  type: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin";
-  value: EventChangeTFAdminAmino;
+export interface EventChangeAdminAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.EventChangeAdmin";
+  value: EventChangeAdminAmino;
 }
 /**
- * @name EventSetTFDenomMetadata
+ * @name EventSetDenomMetadata
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventSetTFDenomMetadata
+ * @see proto type: injective.tokenfactory.v1beta1.EventSetDenomMetadata
  */
-export interface EventSetTFDenomMetadata {
+export interface EventSetDenomMetadata {
   denom: string;
   metadata: Metadata;
 }
-export interface EventSetTFDenomMetadataProtoMsg {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata";
+export interface EventSetDenomMetadataProtoMsg {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventSetDenomMetadata";
   value: Uint8Array;
 }
 /**
- * @name EventSetTFDenomMetadataAmino
+ * @name EventSetDenomMetadataAmino
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventSetTFDenomMetadata
+ * @see proto type: injective.tokenfactory.v1beta1.EventSetDenomMetadata
  */
-export interface EventSetTFDenomMetadataAmino {
+export interface EventSetDenomMetadataAmino {
   denom: string;
   metadata: MetadataAmino;
 }
-export interface EventSetTFDenomMetadataAminoMsg {
-  type: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata";
-  value: EventSetTFDenomMetadataAmino;
+export interface EventSetDenomMetadataAminoMsg {
+  type: "/injective.tokenfactory.v1beta1.EventSetDenomMetadata";
+  value: EventSetDenomMetadataAmino;
 }
-function createBaseEventCreateTFDenom(): EventCreateTFDenom {
+function createBaseEventCreateDenom(): EventCreateDenom {
   return {
     account: "",
     denom: ""
   };
 }
 /**
- * @name EventCreateTFDenom
+ * @name EventCreateDenom
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventCreateTFDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventCreateDenom
  */
-export const EventCreateTFDenom = {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom",
-  is(o: any): o is EventCreateTFDenom {
-    return o && (o.$typeUrl === EventCreateTFDenom.typeUrl || typeof o.account === "string" && typeof o.denom === "string");
+export const EventCreateDenom = {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventCreateDenom",
+  is(o: any): o is EventCreateDenom {
+    return o && (o.$typeUrl === EventCreateDenom.typeUrl || typeof o.account === "string" && typeof o.denom === "string");
   },
-  isAmino(o: any): o is EventCreateTFDenomAmino {
-    return o && (o.$typeUrl === EventCreateTFDenom.typeUrl || typeof o.account === "string" && typeof o.denom === "string");
+  isAmino(o: any): o is EventCreateDenomAmino {
+    return o && (o.$typeUrl === EventCreateDenom.typeUrl || typeof o.account === "string" && typeof o.denom === "string");
   },
-  encode(message: EventCreateTFDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: EventCreateDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.account !== "") {
       writer.uint32(10).string(message.account);
     }
@@ -161,10 +165,10 @@ export const EventCreateTFDenom = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): EventCreateTFDenom {
+  decode(input: BinaryReader | Uint8Array, length?: number): EventCreateDenom {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventCreateTFDenom();
+    const message = createBaseEventCreateDenom();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -181,14 +185,14 @@ export const EventCreateTFDenom = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<EventCreateTFDenom>): EventCreateTFDenom {
-    const message = createBaseEventCreateTFDenom();
+  fromPartial(object: DeepPartial<EventCreateDenom>): EventCreateDenom {
+    const message = createBaseEventCreateDenom();
     message.account = object.account ?? "";
     message.denom = object.denom ?? "";
     return message;
   },
-  fromAmino(object: EventCreateTFDenomAmino): EventCreateTFDenom {
-    const message = createBaseEventCreateTFDenom();
+  fromAmino(object: EventCreateDenomAmino): EventCreateDenom {
+    const message = createBaseEventCreateDenom();
     if (object.account !== undefined && object.account !== null) {
       message.account = object.account;
     }
@@ -197,69 +201,76 @@ export const EventCreateTFDenom = {
     }
     return message;
   },
-  toAmino(message: EventCreateTFDenom): EventCreateTFDenomAmino {
+  toAmino(message: EventCreateDenom): EventCreateDenomAmino {
     const obj: any = {};
     obj.account = message.account === "" ? undefined : message.account;
     obj.denom = message.denom === "" ? undefined : message.denom;
     return obj;
   },
-  fromAminoMsg(object: EventCreateTFDenomAminoMsg): EventCreateTFDenom {
-    return EventCreateTFDenom.fromAmino(object.value);
+  fromAminoMsg(object: EventCreateDenomAminoMsg): EventCreateDenom {
+    return EventCreateDenom.fromAmino(object.value);
   },
-  fromProtoMsg(message: EventCreateTFDenomProtoMsg): EventCreateTFDenom {
-    return EventCreateTFDenom.decode(message.value);
+  fromProtoMsg(message: EventCreateDenomProtoMsg): EventCreateDenom {
+    return EventCreateDenom.decode(message.value);
   },
-  toProto(message: EventCreateTFDenom): Uint8Array {
-    return EventCreateTFDenom.encode(message).finish();
+  toProto(message: EventCreateDenom): Uint8Array {
+    return EventCreateDenom.encode(message).finish();
   },
-  toProtoMsg(message: EventCreateTFDenom): EventCreateTFDenomProtoMsg {
+  toProtoMsg(message: EventCreateDenom): EventCreateDenomProtoMsg {
     return {
-      typeUrl: "/injective.tokenfactory.v1beta1.EventCreateTFDenom",
-      value: EventCreateTFDenom.encode(message).finish()
+      typeUrl: "/injective.tokenfactory.v1beta1.EventCreateDenom",
+      value: EventCreateDenom.encode(message).finish()
     };
   },
   registerTypeUrl() {}
 };
-function createBaseEventMintTFDenom(): EventMintTFDenom {
+function createBaseEventMint(): EventMint {
   return {
-    recipientAddress: "",
-    amount: Coin.fromPartial({})
+    minter: "",
+    amount: Coin.fromPartial({}),
+    receiver: ""
   };
 }
 /**
- * @name EventMintTFDenom
+ * @name EventMint
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventMintTFDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventMint
  */
-export const EventMintTFDenom = {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom",
-  is(o: any): o is EventMintTFDenom {
-    return o && (o.$typeUrl === EventMintTFDenom.typeUrl || typeof o.recipientAddress === "string" && Coin.is(o.amount));
+export const EventMint = {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventMint",
+  is(o: any): o is EventMint {
+    return o && (o.$typeUrl === EventMint.typeUrl || typeof o.minter === "string" && Coin.is(o.amount) && typeof o.receiver === "string");
   },
-  isAmino(o: any): o is EventMintTFDenomAmino {
-    return o && (o.$typeUrl === EventMintTFDenom.typeUrl || typeof o.recipient_address === "string" && Coin.isAmino(o.amount));
+  isAmino(o: any): o is EventMintAmino {
+    return o && (o.$typeUrl === EventMint.typeUrl || typeof o.minter === "string" && Coin.isAmino(o.amount) && typeof o.receiver === "string");
   },
-  encode(message: EventMintTFDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.recipientAddress !== "") {
-      writer.uint32(10).string(message.recipientAddress);
+  encode(message: EventMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.minter !== "") {
+      writer.uint32(10).string(message.minter);
     }
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
+    if (message.receiver !== "") {
+      writer.uint32(26).string(message.receiver);
+    }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): EventMintTFDenom {
+  decode(input: BinaryReader | Uint8Array, length?: number): EventMint {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventMintTFDenom();
+    const message = createBaseEventMint();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.recipientAddress = reader.string();
+          message.minter = reader.string();
           break;
         case 2:
           message.amount = Coin.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.receiver = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -268,90 +279,102 @@ export const EventMintTFDenom = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<EventMintTFDenom>): EventMintTFDenom {
-    const message = createBaseEventMintTFDenom();
-    message.recipientAddress = object.recipientAddress ?? "";
+  fromPartial(object: DeepPartial<EventMint>): EventMint {
+    const message = createBaseEventMint();
+    message.minter = object.minter ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.receiver = object.receiver ?? "";
     return message;
   },
-  fromAmino(object: EventMintTFDenomAmino): EventMintTFDenom {
-    const message = createBaseEventMintTFDenom();
-    if (object.recipient_address !== undefined && object.recipient_address !== null) {
-      message.recipientAddress = object.recipient_address;
+  fromAmino(object: EventMintAmino): EventMint {
+    const message = createBaseEventMint();
+    if (object.minter !== undefined && object.minter !== null) {
+      message.minter = object.minter;
     }
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromAmino(object.amount);
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    }
     return message;
   },
-  toAmino(message: EventMintTFDenom): EventMintTFDenomAmino {
+  toAmino(message: EventMint): EventMintAmino {
     const obj: any = {};
-    obj.recipient_address = message.recipientAddress === "" ? undefined : message.recipientAddress;
+    obj.minter = message.minter === "" ? undefined : message.minter;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.receiver = message.receiver === "" ? undefined : message.receiver;
     return obj;
   },
-  fromAminoMsg(object: EventMintTFDenomAminoMsg): EventMintTFDenom {
-    return EventMintTFDenom.fromAmino(object.value);
+  fromAminoMsg(object: EventMintAminoMsg): EventMint {
+    return EventMint.fromAmino(object.value);
   },
-  fromProtoMsg(message: EventMintTFDenomProtoMsg): EventMintTFDenom {
-    return EventMintTFDenom.decode(message.value);
+  fromProtoMsg(message: EventMintProtoMsg): EventMint {
+    return EventMint.decode(message.value);
   },
-  toProto(message: EventMintTFDenom): Uint8Array {
-    return EventMintTFDenom.encode(message).finish();
+  toProto(message: EventMint): Uint8Array {
+    return EventMint.encode(message).finish();
   },
-  toProtoMsg(message: EventMintTFDenom): EventMintTFDenomProtoMsg {
+  toProtoMsg(message: EventMint): EventMintProtoMsg {
     return {
-      typeUrl: "/injective.tokenfactory.v1beta1.EventMintTFDenom",
-      value: EventMintTFDenom.encode(message).finish()
+      typeUrl: "/injective.tokenfactory.v1beta1.EventMint",
+      value: EventMint.encode(message).finish()
     };
   },
   registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventMintTFDenom.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventMint.typeUrl)) {
       return;
     }
     Coin.registerTypeUrl();
   }
 };
-function createBaseEventBurnDenom(): EventBurnDenom {
+function createBaseEventBurn(): EventBurn {
   return {
-    burnerAddress: "",
-    amount: Coin.fromPartial({})
+    burner: "",
+    amount: Coin.fromPartial({}),
+    burnFrom: ""
   };
 }
 /**
- * @name EventBurnDenom
+ * @name EventBurn
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventBurnDenom
+ * @see proto type: injective.tokenfactory.v1beta1.EventBurn
  */
-export const EventBurnDenom = {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom",
-  is(o: any): o is EventBurnDenom {
-    return o && (o.$typeUrl === EventBurnDenom.typeUrl || typeof o.burnerAddress === "string" && Coin.is(o.amount));
+export const EventBurn = {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventBurn",
+  is(o: any): o is EventBurn {
+    return o && (o.$typeUrl === EventBurn.typeUrl || typeof o.burner === "string" && Coin.is(o.amount) && typeof o.burnFrom === "string");
   },
-  isAmino(o: any): o is EventBurnDenomAmino {
-    return o && (o.$typeUrl === EventBurnDenom.typeUrl || typeof o.burner_address === "string" && Coin.isAmino(o.amount));
+  isAmino(o: any): o is EventBurnAmino {
+    return o && (o.$typeUrl === EventBurn.typeUrl || typeof o.burner === "string" && Coin.isAmino(o.amount) && typeof o.burn_from === "string");
   },
-  encode(message: EventBurnDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.burnerAddress !== "") {
-      writer.uint32(10).string(message.burnerAddress);
+  encode(message: EventBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.burner !== "") {
+      writer.uint32(10).string(message.burner);
     }
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
+    if (message.burnFrom !== "") {
+      writer.uint32(26).string(message.burnFrom);
+    }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): EventBurnDenom {
+  decode(input: BinaryReader | Uint8Array, length?: number): EventBurn {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventBurnDenom();
+    const message = createBaseEventBurn();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.burnerAddress = reader.string();
+          message.burner = reader.string();
           break;
         case 2:
           message.amount = Coin.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.burnFrom = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -360,70 +383,75 @@ export const EventBurnDenom = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<EventBurnDenom>): EventBurnDenom {
-    const message = createBaseEventBurnDenom();
-    message.burnerAddress = object.burnerAddress ?? "";
+  fromPartial(object: DeepPartial<EventBurn>): EventBurn {
+    const message = createBaseEventBurn();
+    message.burner = object.burner ?? "";
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
+    message.burnFrom = object.burnFrom ?? "";
     return message;
   },
-  fromAmino(object: EventBurnDenomAmino): EventBurnDenom {
-    const message = createBaseEventBurnDenom();
-    if (object.burner_address !== undefined && object.burner_address !== null) {
-      message.burnerAddress = object.burner_address;
+  fromAmino(object: EventBurnAmino): EventBurn {
+    const message = createBaseEventBurn();
+    if (object.burner !== undefined && object.burner !== null) {
+      message.burner = object.burner;
     }
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = Coin.fromAmino(object.amount);
     }
+    if (object.burn_from !== undefined && object.burn_from !== null) {
+      message.burnFrom = object.burn_from;
+    }
     return message;
   },
-  toAmino(message: EventBurnDenom): EventBurnDenomAmino {
+  toAmino(message: EventBurn): EventBurnAmino {
     const obj: any = {};
-    obj.burner_address = message.burnerAddress === "" ? undefined : message.burnerAddress;
+    obj.burner = message.burner === "" ? undefined : message.burner;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
+    obj.burn_from = message.burnFrom === "" ? undefined : message.burnFrom;
     return obj;
   },
-  fromAminoMsg(object: EventBurnDenomAminoMsg): EventBurnDenom {
-    return EventBurnDenom.fromAmino(object.value);
+  fromAminoMsg(object: EventBurnAminoMsg): EventBurn {
+    return EventBurn.fromAmino(object.value);
   },
-  fromProtoMsg(message: EventBurnDenomProtoMsg): EventBurnDenom {
-    return EventBurnDenom.decode(message.value);
+  fromProtoMsg(message: EventBurnProtoMsg): EventBurn {
+    return EventBurn.decode(message.value);
   },
-  toProto(message: EventBurnDenom): Uint8Array {
-    return EventBurnDenom.encode(message).finish();
+  toProto(message: EventBurn): Uint8Array {
+    return EventBurn.encode(message).finish();
   },
-  toProtoMsg(message: EventBurnDenom): EventBurnDenomProtoMsg {
+  toProtoMsg(message: EventBurn): EventBurnProtoMsg {
     return {
-      typeUrl: "/injective.tokenfactory.v1beta1.EventBurnDenom",
-      value: EventBurnDenom.encode(message).finish()
+      typeUrl: "/injective.tokenfactory.v1beta1.EventBurn",
+      value: EventBurn.encode(message).finish()
     };
   },
   registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBurnDenom.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBurn.typeUrl)) {
       return;
     }
     Coin.registerTypeUrl();
   }
 };
-function createBaseEventChangeTFAdmin(): EventChangeTFAdmin {
+function createBaseEventChangeAdmin(): EventChangeAdmin {
   return {
     denom: "",
     newAdminAddress: ""
   };
 }
 /**
- * @name EventChangeTFAdmin
+ * @name EventChangeAdmin
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventChangeTFAdmin
+ * @see proto type: injective.tokenfactory.v1beta1.EventChangeAdmin
  */
-export const EventChangeTFAdmin = {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin",
-  is(o: any): o is EventChangeTFAdmin {
-    return o && (o.$typeUrl === EventChangeTFAdmin.typeUrl || typeof o.denom === "string" && typeof o.newAdminAddress === "string");
+export const EventChangeAdmin = {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventChangeAdmin",
+  is(o: any): o is EventChangeAdmin {
+    return o && (o.$typeUrl === EventChangeAdmin.typeUrl || typeof o.denom === "string" && typeof o.newAdminAddress === "string");
   },
-  isAmino(o: any): o is EventChangeTFAdminAmino {
-    return o && (o.$typeUrl === EventChangeTFAdmin.typeUrl || typeof o.denom === "string" && typeof o.new_admin_address === "string");
+  isAmino(o: any): o is EventChangeAdminAmino {
+    return o && (o.$typeUrl === EventChangeAdmin.typeUrl || typeof o.denom === "string" && typeof o.new_admin_address === "string");
   },
-  encode(message: EventChangeTFAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: EventChangeAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -432,10 +460,10 @@ export const EventChangeTFAdmin = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): EventChangeTFAdmin {
+  decode(input: BinaryReader | Uint8Array, length?: number): EventChangeAdmin {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventChangeTFAdmin();
+    const message = createBaseEventChangeAdmin();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -452,14 +480,14 @@ export const EventChangeTFAdmin = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<EventChangeTFAdmin>): EventChangeTFAdmin {
-    const message = createBaseEventChangeTFAdmin();
+  fromPartial(object: DeepPartial<EventChangeAdmin>): EventChangeAdmin {
+    const message = createBaseEventChangeAdmin();
     message.denom = object.denom ?? "";
     message.newAdminAddress = object.newAdminAddress ?? "";
     return message;
   },
-  fromAmino(object: EventChangeTFAdminAmino): EventChangeTFAdmin {
-    const message = createBaseEventChangeTFAdmin();
+  fromAmino(object: EventChangeAdminAmino): EventChangeAdmin {
+    const message = createBaseEventChangeAdmin();
     if (object.denom !== undefined && object.denom !== null) {
       message.denom = object.denom;
     }
@@ -468,49 +496,49 @@ export const EventChangeTFAdmin = {
     }
     return message;
   },
-  toAmino(message: EventChangeTFAdmin): EventChangeTFAdminAmino {
+  toAmino(message: EventChangeAdmin): EventChangeAdminAmino {
     const obj: any = {};
     obj.denom = message.denom === "" ? undefined : message.denom;
     obj.new_admin_address = message.newAdminAddress === "" ? undefined : message.newAdminAddress;
     return obj;
   },
-  fromAminoMsg(object: EventChangeTFAdminAminoMsg): EventChangeTFAdmin {
-    return EventChangeTFAdmin.fromAmino(object.value);
+  fromAminoMsg(object: EventChangeAdminAminoMsg): EventChangeAdmin {
+    return EventChangeAdmin.fromAmino(object.value);
   },
-  fromProtoMsg(message: EventChangeTFAdminProtoMsg): EventChangeTFAdmin {
-    return EventChangeTFAdmin.decode(message.value);
+  fromProtoMsg(message: EventChangeAdminProtoMsg): EventChangeAdmin {
+    return EventChangeAdmin.decode(message.value);
   },
-  toProto(message: EventChangeTFAdmin): Uint8Array {
-    return EventChangeTFAdmin.encode(message).finish();
+  toProto(message: EventChangeAdmin): Uint8Array {
+    return EventChangeAdmin.encode(message).finish();
   },
-  toProtoMsg(message: EventChangeTFAdmin): EventChangeTFAdminProtoMsg {
+  toProtoMsg(message: EventChangeAdmin): EventChangeAdminProtoMsg {
     return {
-      typeUrl: "/injective.tokenfactory.v1beta1.EventChangeTFAdmin",
-      value: EventChangeTFAdmin.encode(message).finish()
+      typeUrl: "/injective.tokenfactory.v1beta1.EventChangeAdmin",
+      value: EventChangeAdmin.encode(message).finish()
     };
   },
   registerTypeUrl() {}
 };
-function createBaseEventSetTFDenomMetadata(): EventSetTFDenomMetadata {
+function createBaseEventSetDenomMetadata(): EventSetDenomMetadata {
   return {
     denom: "",
     metadata: Metadata.fromPartial({})
   };
 }
 /**
- * @name EventSetTFDenomMetadata
+ * @name EventSetDenomMetadata
  * @package injective.tokenfactory.v1beta1
- * @see proto type: injective.tokenfactory.v1beta1.EventSetTFDenomMetadata
+ * @see proto type: injective.tokenfactory.v1beta1.EventSetDenomMetadata
  */
-export const EventSetTFDenomMetadata = {
-  typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata",
-  is(o: any): o is EventSetTFDenomMetadata {
-    return o && (o.$typeUrl === EventSetTFDenomMetadata.typeUrl || typeof o.denom === "string" && Metadata.is(o.metadata));
+export const EventSetDenomMetadata = {
+  typeUrl: "/injective.tokenfactory.v1beta1.EventSetDenomMetadata",
+  is(o: any): o is EventSetDenomMetadata {
+    return o && (o.$typeUrl === EventSetDenomMetadata.typeUrl || typeof o.denom === "string" && Metadata.is(o.metadata));
   },
-  isAmino(o: any): o is EventSetTFDenomMetadataAmino {
-    return o && (o.$typeUrl === EventSetTFDenomMetadata.typeUrl || typeof o.denom === "string" && Metadata.isAmino(o.metadata));
+  isAmino(o: any): o is EventSetDenomMetadataAmino {
+    return o && (o.$typeUrl === EventSetDenomMetadata.typeUrl || typeof o.denom === "string" && Metadata.isAmino(o.metadata));
   },
-  encode(message: EventSetTFDenomMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: EventSetDenomMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.denom !== "") {
       writer.uint32(10).string(message.denom);
     }
@@ -519,10 +547,10 @@ export const EventSetTFDenomMetadata = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): EventSetTFDenomMetadata {
+  decode(input: BinaryReader | Uint8Array, length?: number): EventSetDenomMetadata {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseEventSetTFDenomMetadata();
+    const message = createBaseEventSetDenomMetadata();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -539,14 +567,14 @@ export const EventSetTFDenomMetadata = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<EventSetTFDenomMetadata>): EventSetTFDenomMetadata {
-    const message = createBaseEventSetTFDenomMetadata();
+  fromPartial(object: DeepPartial<EventSetDenomMetadata>): EventSetDenomMetadata {
+    const message = createBaseEventSetDenomMetadata();
     message.denom = object.denom ?? "";
     message.metadata = object.metadata !== undefined && object.metadata !== null ? Metadata.fromPartial(object.metadata) : undefined;
     return message;
   },
-  fromAmino(object: EventSetTFDenomMetadataAmino): EventSetTFDenomMetadata {
-    const message = createBaseEventSetTFDenomMetadata();
+  fromAmino(object: EventSetDenomMetadataAmino): EventSetDenomMetadata {
+    const message = createBaseEventSetDenomMetadata();
     if (object.denom !== undefined && object.denom !== null) {
       message.denom = object.denom;
     }
@@ -555,29 +583,29 @@ export const EventSetTFDenomMetadata = {
     }
     return message;
   },
-  toAmino(message: EventSetTFDenomMetadata): EventSetTFDenomMetadataAmino {
+  toAmino(message: EventSetDenomMetadata): EventSetDenomMetadataAmino {
     const obj: any = {};
     obj.denom = message.denom === "" ? undefined : message.denom;
     obj.metadata = message.metadata ? Metadata.toAmino(message.metadata) : undefined;
     return obj;
   },
-  fromAminoMsg(object: EventSetTFDenomMetadataAminoMsg): EventSetTFDenomMetadata {
-    return EventSetTFDenomMetadata.fromAmino(object.value);
+  fromAminoMsg(object: EventSetDenomMetadataAminoMsg): EventSetDenomMetadata {
+    return EventSetDenomMetadata.fromAmino(object.value);
   },
-  fromProtoMsg(message: EventSetTFDenomMetadataProtoMsg): EventSetTFDenomMetadata {
-    return EventSetTFDenomMetadata.decode(message.value);
+  fromProtoMsg(message: EventSetDenomMetadataProtoMsg): EventSetDenomMetadata {
+    return EventSetDenomMetadata.decode(message.value);
   },
-  toProto(message: EventSetTFDenomMetadata): Uint8Array {
-    return EventSetTFDenomMetadata.encode(message).finish();
+  toProto(message: EventSetDenomMetadata): Uint8Array {
+    return EventSetDenomMetadata.encode(message).finish();
   },
-  toProtoMsg(message: EventSetTFDenomMetadata): EventSetTFDenomMetadataProtoMsg {
+  toProtoMsg(message: EventSetDenomMetadata): EventSetDenomMetadataProtoMsg {
     return {
-      typeUrl: "/injective.tokenfactory.v1beta1.EventSetTFDenomMetadata",
-      value: EventSetTFDenomMetadata.encode(message).finish()
+      typeUrl: "/injective.tokenfactory.v1beta1.EventSetDenomMetadata",
+      value: EventSetDenomMetadata.encode(message).finish()
     };
   },
   registerTypeUrl() {
-    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSetTFDenomMetadata.typeUrl)) {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventSetDenomMetadata.typeUrl)) {
       return;
     }
     Metadata.registerTypeUrl();

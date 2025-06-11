@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../../react-query";
-import { QueryChannelRequest, QueryChannelResponse, QueryChannelsRequest, QueryChannelsResponse, QueryConnectionChannelsRequest, QueryConnectionChannelsResponse, QueryChannelClientStateRequest, QueryChannelClientStateResponse, QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse, QueryPacketCommitmentRequest, QueryPacketCommitmentResponse, QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse, QueryPacketReceiptRequest, QueryPacketReceiptResponse, QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse, QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse, QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse, QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse, QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse, QueryNextSequenceSendRequest, QueryNextSequenceSendResponse, QueryUpgradeErrorRequest, QueryUpgradeErrorResponse, QueryUpgradeRequest, QueryUpgradeResponse, QueryChannelParamsRequest, QueryChannelParamsResponse } from "./query";
-import { getChannel, getChannels, getConnectionChannels, getChannelClientState, getChannelConsensusState, getPacketCommitment, getPacketCommitments, getPacketReceipt, getPacketAcknowledgement, getPacketAcknowledgements, getUnreceivedPackets, getUnreceivedAcks, getNextSequenceReceive, getNextSequenceSend, getUpgradeError, getUpgrade, getChannelParams } from "./query.rpc.func";
+import { QueryChannelRequest, QueryChannelResponse, QueryChannelsRequest, QueryChannelsResponse, QueryConnectionChannelsRequest, QueryConnectionChannelsResponse, QueryChannelClientStateRequest, QueryChannelClientStateResponse, QueryChannelConsensusStateRequest, QueryChannelConsensusStateResponse, QueryPacketCommitmentRequest, QueryPacketCommitmentResponse, QueryPacketCommitmentsRequest, QueryPacketCommitmentsResponse, QueryPacketReceiptRequest, QueryPacketReceiptResponse, QueryPacketAcknowledgementRequest, QueryPacketAcknowledgementResponse, QueryPacketAcknowledgementsRequest, QueryPacketAcknowledgementsResponse, QueryUnreceivedPacketsRequest, QueryUnreceivedPacketsResponse, QueryUnreceivedAcksRequest, QueryUnreceivedAcksResponse, QueryNextSequenceReceiveRequest, QueryNextSequenceReceiveResponse, QueryNextSequenceSendRequest, QueryNextSequenceSendResponse } from "./query";
+import { getChannel, getChannels, getConnectionChannels, getChannelClientState, getChannelConsensusState, getPacketCommitment, getPacketCommitments, getPacketReceipt, getPacketAcknowledgement, getPacketAcknowledgements, getUnreceivedPackets, getUnreceivedAcks, getNextSequenceReceive, getNextSequenceSend } from "./query.rpc.func";
 /**
  * Channel queries an IBC Channel.
  * @name useGetChannel
@@ -148,34 +148,4 @@ export const useGetNextSequenceReceive = buildUseQuery<QueryNextSequenceReceiveR
 export const useGetNextSequenceSend = buildUseQuery<QueryNextSequenceSendRequest, QueryNextSequenceSendResponse>({
   builderQueryFn: getNextSequenceSend,
   queryKeyPrefix: "NextSequenceSendQuery"
-});
-/**
- * UpgradeError returns the error receipt if the upgrade handshake failed.
- * @name useGetUpgradeError
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.UpgradeError
- */
-export const useGetUpgradeError = buildUseQuery<QueryUpgradeErrorRequest, QueryUpgradeErrorResponse>({
-  builderQueryFn: getUpgradeError,
-  queryKeyPrefix: "UpgradeErrorQuery"
-});
-/**
- * Upgrade returns the upgrade for a given port and channel id.
- * @name useGetUpgrade
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.Upgrade
- */
-export const useGetUpgrade = buildUseQuery<QueryUpgradeRequest, QueryUpgradeResponse>({
-  builderQueryFn: getUpgrade,
-  queryKeyPrefix: "UpgradeQuery"
-});
-/**
- * ChannelParams queries all parameters of the ibc channel submodule.
- * @name useGetChannelParams
- * @package ibc.core.channel.v1
- * @see proto service: ibc.core.channel.v1.ChannelParams
- */
-export const useGetChannelParams = buildUseQuery<QueryChannelParamsRequest, QueryChannelParamsResponse>({
-  builderQueryFn: getChannelParams,
-  queryKeyPrefix: "ChannelParamsQuery"
 });

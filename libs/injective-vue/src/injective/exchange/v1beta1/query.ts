@@ -1,4 +1,4 @@
-import { SubaccountOrderData, SubaccountOrderDataAmino, SubaccountOrderbookMetadata, SubaccountOrderbookMetadataAmino, Params, ParamsAmino, Deposit, DepositAmino, MarketVolume, MarketVolumeAmino, AggregateAccountVolumeRecord, AggregateAccountVolumeRecordAmino, VolumeRecord, VolumeRecordAmino, DenomDecimals, DenomDecimalsAmino, SpotMarket, SpotMarketAmino, Level, LevelAmino, MidPriceAndTOB, MidPriceAndTOBAmino, PerpetualMarketInfo, PerpetualMarketInfoAmino, PerpetualMarketFunding, PerpetualMarketFundingAmino, DerivativeMarket, DerivativeMarketAmino, ExpiryFuturesMarketInfo, ExpiryFuturesMarketInfoAmino, Position, PositionAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountTierInfo, FeeDiscountTierInfoAmino, FeeDiscountTierTTL, FeeDiscountTierTTLAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, TradeRecords, TradeRecordsAmino, TradeRecord, TradeRecordAmino, BinaryOptionsMarket, BinaryOptionsMarketAmino, ActiveGrant, ActiveGrantAmino, EffectiveGrant, EffectiveGrantAmino, GrantAuthorization, GrantAuthorizationAmino } from "./exchange";
+import { SubaccountOrderData, SubaccountOrderDataAmino, SubaccountOrderbookMetadata, SubaccountOrderbookMetadataAmino, Params, ParamsAmino, Deposit, DepositAmino, MarketVolume, MarketVolumeAmino, AggregateAccountVolumeRecord, AggregateAccountVolumeRecordAmino, VolumeRecord, VolumeRecordAmino, DenomDecimals, DenomDecimalsAmino, SpotMarket, SpotMarketAmino, Level, LevelAmino, MidPriceAndTOB, MidPriceAndTOBAmino, PerpetualMarketInfo, PerpetualMarketInfoAmino, PerpetualMarketFunding, PerpetualMarketFundingAmino, DerivativeMarket, DerivativeMarketAmino, ExpiryFuturesMarketInfo, ExpiryFuturesMarketInfoAmino, Position, PositionAmino, TradingRewardCampaignInfo, TradingRewardCampaignInfoAmino, CampaignRewardPool, CampaignRewardPoolAmino, FeeDiscountTierInfo, FeeDiscountTierInfoAmino, FeeDiscountTierTTL, FeeDiscountTierTTLAmino, FeeDiscountSchedule, FeeDiscountScheduleAmino, TradeRecords, TradeRecordsAmino, TradeRecord, TradeRecordAmino, BinaryOptionsMarket, BinaryOptionsMarketAmino, ActiveGrant, ActiveGrantAmino, EffectiveGrant, EffectiveGrantAmino, GrantAuthorization, GrantAuthorizationAmino, DenomMinNotional, DenomMinNotionalAmino } from "./exchange";
 import { Balance, BalanceAmino, DerivativePosition, DerivativePositionAmino, GenesisState, GenesisStateAmino } from "./genesis";
 import { MetadataStatistics, MetadataStatisticsAmino } from "../../oracle/v1beta1/oracle";
 import { BinaryReader, BinaryWriter } from "../../../binary";
@@ -4119,6 +4119,154 @@ export interface QueryTraderDerivativeConditionalOrdersResponseAminoMsg {
   value: QueryTraderDerivativeConditionalOrdersResponseAmino;
 }
 /**
+ * @name QueryFullSpotOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotOrderbookRequest
+ */
+export interface QueryFullSpotOrderbookRequest {
+  /**
+   * market id
+   */
+  marketId: string;
+}
+export interface QueryFullSpotOrderbookRequestProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullSpotOrderbookRequest";
+  value: Uint8Array;
+}
+/**
+ * @name QueryFullSpotOrderbookRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotOrderbookRequest
+ */
+export interface QueryFullSpotOrderbookRequestAmino {
+  /**
+   * market id
+   */
+  market_id: string;
+}
+export interface QueryFullSpotOrderbookRequestAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryFullSpotOrderbookRequest";
+  value: QueryFullSpotOrderbookRequestAmino;
+}
+/**
+ * @name QueryFullSpotOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotOrderbookResponse
+ */
+export interface QueryFullSpotOrderbookResponse {
+  bids: TrimmedLimitOrder[];
+  asks: TrimmedLimitOrder[];
+}
+export interface QueryFullSpotOrderbookResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullSpotOrderbookResponse";
+  value: Uint8Array;
+}
+/**
+ * @name QueryFullSpotOrderbookResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotOrderbookResponse
+ */
+export interface QueryFullSpotOrderbookResponseAmino {
+  Bids: TrimmedLimitOrderAmino[];
+  Asks: TrimmedLimitOrderAmino[];
+}
+export interface QueryFullSpotOrderbookResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryFullSpotOrderbookResponse";
+  value: QueryFullSpotOrderbookResponseAmino;
+}
+/**
+ * @name QueryFullDerivativeOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest
+ */
+export interface QueryFullDerivativeOrderbookRequest {
+  /**
+   * market id
+   */
+  marketId: string;
+}
+export interface QueryFullDerivativeOrderbookRequestProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest";
+  value: Uint8Array;
+}
+/**
+ * @name QueryFullDerivativeOrderbookRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest
+ */
+export interface QueryFullDerivativeOrderbookRequestAmino {
+  /**
+   * market id
+   */
+  market_id: string;
+}
+export interface QueryFullDerivativeOrderbookRequestAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest";
+  value: QueryFullDerivativeOrderbookRequestAmino;
+}
+/**
+ * @name QueryFullDerivativeOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse
+ */
+export interface QueryFullDerivativeOrderbookResponse {
+  bids: TrimmedLimitOrder[];
+  asks: TrimmedLimitOrder[];
+}
+export interface QueryFullDerivativeOrderbookResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse";
+  value: Uint8Array;
+}
+/**
+ * @name QueryFullDerivativeOrderbookResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse
+ */
+export interface QueryFullDerivativeOrderbookResponseAmino {
+  Bids: TrimmedLimitOrderAmino[];
+  Asks: TrimmedLimitOrderAmino[];
+}
+export interface QueryFullDerivativeOrderbookResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse";
+  value: QueryFullDerivativeOrderbookResponseAmino;
+}
+/**
+ * @name TrimmedLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedLimitOrder
+ */
+export interface TrimmedLimitOrder {
+  price: string;
+  /**
+   * quantity of the order
+   */
+  quantity: string;
+  orderHash: string;
+  subaccountId: string;
+}
+export interface TrimmedLimitOrderProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.TrimmedLimitOrder";
+  value: Uint8Array;
+}
+/**
+ * @name TrimmedLimitOrderAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedLimitOrder
+ */
+export interface TrimmedLimitOrderAmino {
+  price: string;
+  /**
+   * quantity of the order
+   */
+  quantity: string;
+  order_hash: string;
+  subaccount_id: string;
+}
+export interface TrimmedLimitOrderAminoMsg {
+  type: "/injective.exchange.v1beta1.TrimmedLimitOrder";
+  value: TrimmedLimitOrderAmino;
+}
+/**
  * @name QueryMarketAtomicExecutionFeeMultiplierRequest
  * @package injective.exchange.v1beta1
  * @see proto type: injective.exchange.v1beta1.QueryMarketAtomicExecutionFeeMultiplierRequest
@@ -4315,6 +4463,222 @@ export interface QueryGrantAuthorizationsResponseAmino {
 export interface QueryGrantAuthorizationsResponseAminoMsg {
   type: "/injective.exchange.v1beta1.QueryGrantAuthorizationsResponse";
   value: QueryGrantAuthorizationsResponseAmino;
+}
+/**
+ * @name QueryMarketBalanceRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalanceRequest
+ */
+export interface QueryMarketBalanceRequest {
+  /**
+   * market id
+   */
+  marketId: string;
+}
+export interface QueryMarketBalanceRequestProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalanceRequest";
+  value: Uint8Array;
+}
+/**
+ * @name QueryMarketBalanceRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalanceRequest
+ */
+export interface QueryMarketBalanceRequestAmino {
+  /**
+   * market id
+   */
+  market_id: string;
+}
+export interface QueryMarketBalanceRequestAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryMarketBalanceRequest";
+  value: QueryMarketBalanceRequestAmino;
+}
+/**
+ * @name QueryMarketBalanceResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalanceResponse
+ */
+export interface QueryMarketBalanceResponse {
+  balance?: MarketBalance;
+}
+export interface QueryMarketBalanceResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalanceResponse";
+  value: Uint8Array;
+}
+/**
+ * @name QueryMarketBalanceResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalanceResponse
+ */
+export interface QueryMarketBalanceResponseAmino {
+  balance?: MarketBalanceAmino;
+}
+export interface QueryMarketBalanceResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryMarketBalanceResponse";
+  value: QueryMarketBalanceResponseAmino;
+}
+/**
+ * @name QueryMarketBalancesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalancesRequest
+ */
+export interface QueryMarketBalancesRequest {}
+export interface QueryMarketBalancesRequestProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalancesRequest";
+  value: Uint8Array;
+}
+/**
+ * @name QueryMarketBalancesRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalancesRequest
+ */
+export interface QueryMarketBalancesRequestAmino {}
+export interface QueryMarketBalancesRequestAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryMarketBalancesRequest";
+  value: QueryMarketBalancesRequestAmino;
+}
+/**
+ * @name QueryMarketBalancesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalancesResponse
+ */
+export interface QueryMarketBalancesResponse {
+  balances: MarketBalance[];
+}
+export interface QueryMarketBalancesResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalancesResponse";
+  value: Uint8Array;
+}
+/**
+ * @name QueryMarketBalancesResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalancesResponse
+ */
+export interface QueryMarketBalancesResponseAmino {
+  balances: MarketBalanceAmino[];
+}
+export interface QueryMarketBalancesResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryMarketBalancesResponse";
+  value: QueryMarketBalancesResponseAmino;
+}
+/**
+ * @name MarketBalance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MarketBalance
+ */
+export interface MarketBalance {
+  marketId: string;
+  balance: string;
+}
+export interface MarketBalanceProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.MarketBalance";
+  value: Uint8Array;
+}
+/**
+ * @name MarketBalanceAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MarketBalance
+ */
+export interface MarketBalanceAmino {
+  market_id: string;
+  balance: string;
+}
+export interface MarketBalanceAminoMsg {
+  type: "/injective.exchange.v1beta1.MarketBalance";
+  value: MarketBalanceAmino;
+}
+/**
+ * @name QueryDenomMinNotionalRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalRequest
+ */
+export interface QueryDenomMinNotionalRequest {
+  denom: string;
+}
+export interface QueryDenomMinNotionalRequestProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalRequest";
+  value: Uint8Array;
+}
+/**
+ * @name QueryDenomMinNotionalRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalRequest
+ */
+export interface QueryDenomMinNotionalRequestAmino {
+  denom: string;
+}
+export interface QueryDenomMinNotionalRequestAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryDenomMinNotionalRequest";
+  value: QueryDenomMinNotionalRequestAmino;
+}
+/**
+ * @name QueryDenomMinNotionalResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalResponse
+ */
+export interface QueryDenomMinNotionalResponse {
+  amount: string;
+}
+export interface QueryDenomMinNotionalResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalResponse";
+  value: Uint8Array;
+}
+/**
+ * @name QueryDenomMinNotionalResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalResponse
+ */
+export interface QueryDenomMinNotionalResponseAmino {
+  amount: string;
+}
+export interface QueryDenomMinNotionalResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryDenomMinNotionalResponse";
+  value: QueryDenomMinNotionalResponseAmino;
+}
+/**
+ * @name QueryDenomMinNotionalsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalsRequest
+ */
+export interface QueryDenomMinNotionalsRequest {}
+export interface QueryDenomMinNotionalsRequestProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalsRequest";
+  value: Uint8Array;
+}
+/**
+ * @name QueryDenomMinNotionalsRequestAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalsRequest
+ */
+export interface QueryDenomMinNotionalsRequestAmino {}
+export interface QueryDenomMinNotionalsRequestAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryDenomMinNotionalsRequest";
+  value: QueryDenomMinNotionalsRequestAmino;
+}
+/**
+ * @name QueryDenomMinNotionalsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalsResponse
+ */
+export interface QueryDenomMinNotionalsResponse {
+  denomMinNotionals: DenomMinNotional[];
+}
+export interface QueryDenomMinNotionalsResponseProtoMsg {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalsResponse";
+  value: Uint8Array;
+}
+/**
+ * @name QueryDenomMinNotionalsResponseAmino
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalsResponse
+ */
+export interface QueryDenomMinNotionalsResponseAmino {
+  denom_min_notionals: DenomMinNotionalAmino[];
+}
+export interface QueryDenomMinNotionalsResponseAminoMsg {
+  type: "/injective.exchange.v1beta1.QueryDenomMinNotionalsResponse";
+  value: QueryDenomMinNotionalsResponseAmino;
 }
 function createBaseSubaccount(): Subaccount {
   return {
@@ -15234,6 +15598,459 @@ export const QueryTraderDerivativeConditionalOrdersResponse = {
     TrimmedDerivativeConditionalOrder.registerTypeUrl();
   }
 };
+function createBaseQueryFullSpotOrderbookRequest(): QueryFullSpotOrderbookRequest {
+  return {
+    marketId: ""
+  };
+}
+/**
+ * @name QueryFullSpotOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotOrderbookRequest
+ */
+export const QueryFullSpotOrderbookRequest = {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullSpotOrderbookRequest",
+  is(o: any): o is QueryFullSpotOrderbookRequest {
+    return o && (o.$typeUrl === QueryFullSpotOrderbookRequest.typeUrl || typeof o.marketId === "string");
+  },
+  isAmino(o: any): o is QueryFullSpotOrderbookRequestAmino {
+    return o && (o.$typeUrl === QueryFullSpotOrderbookRequest.typeUrl || typeof o.market_id === "string");
+  },
+  encode(message: QueryFullSpotOrderbookRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.marketId !== "") {
+      writer.uint32(10).string(message.marketId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFullSpotOrderbookRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFullSpotOrderbookRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.marketId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryFullSpotOrderbookRequest>): QueryFullSpotOrderbookRequest {
+    const message = createBaseQueryFullSpotOrderbookRequest();
+    message.marketId = object.marketId ?? "";
+    return message;
+  },
+  fromAmino(object: QueryFullSpotOrderbookRequestAmino): QueryFullSpotOrderbookRequest {
+    const message = createBaseQueryFullSpotOrderbookRequest();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    return message;
+  },
+  toAmino(message: QueryFullSpotOrderbookRequest): QueryFullSpotOrderbookRequestAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId === "" ? undefined : message.marketId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFullSpotOrderbookRequestAminoMsg): QueryFullSpotOrderbookRequest {
+    return QueryFullSpotOrderbookRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryFullSpotOrderbookRequestProtoMsg): QueryFullSpotOrderbookRequest {
+    return QueryFullSpotOrderbookRequest.decode(message.value);
+  },
+  toProto(message: QueryFullSpotOrderbookRequest): Uint8Array {
+    return QueryFullSpotOrderbookRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryFullSpotOrderbookRequest): QueryFullSpotOrderbookRequestProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryFullSpotOrderbookRequest",
+      value: QueryFullSpotOrderbookRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryFullSpotOrderbookResponse(): QueryFullSpotOrderbookResponse {
+  return {
+    bids: [],
+    asks: []
+  };
+}
+/**
+ * @name QueryFullSpotOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullSpotOrderbookResponse
+ */
+export const QueryFullSpotOrderbookResponse = {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullSpotOrderbookResponse",
+  is(o: any): o is QueryFullSpotOrderbookResponse {
+    return o && (o.$typeUrl === QueryFullSpotOrderbookResponse.typeUrl || Array.isArray(o.bids) && (!o.bids.length || TrimmedLimitOrder.is(o.bids[0])) && Array.isArray(o.asks) && (!o.asks.length || TrimmedLimitOrder.is(o.asks[0])));
+  },
+  isAmino(o: any): o is QueryFullSpotOrderbookResponseAmino {
+    return o && (o.$typeUrl === QueryFullSpotOrderbookResponse.typeUrl || Array.isArray(o.Bids) && (!o.Bids.length || TrimmedLimitOrder.isAmino(o.Bids[0])) && Array.isArray(o.Asks) && (!o.Asks.length || TrimmedLimitOrder.isAmino(o.Asks[0])));
+  },
+  encode(message: QueryFullSpotOrderbookResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.bids) {
+      TrimmedLimitOrder.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.asks) {
+      TrimmedLimitOrder.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFullSpotOrderbookResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFullSpotOrderbookResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bids.push(TrimmedLimitOrder.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.asks.push(TrimmedLimitOrder.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryFullSpotOrderbookResponse>): QueryFullSpotOrderbookResponse {
+    const message = createBaseQueryFullSpotOrderbookResponse();
+    message.bids = object.bids?.map(e => TrimmedLimitOrder.fromPartial(e)) || [];
+    message.asks = object.asks?.map(e => TrimmedLimitOrder.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryFullSpotOrderbookResponseAmino): QueryFullSpotOrderbookResponse {
+    const message = createBaseQueryFullSpotOrderbookResponse();
+    message.bids = object.Bids?.map(e => TrimmedLimitOrder.fromAmino(e)) || [];
+    message.asks = object.Asks?.map(e => TrimmedLimitOrder.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryFullSpotOrderbookResponse): QueryFullSpotOrderbookResponseAmino {
+    const obj: any = {};
+    if (message.bids) {
+      obj.Bids = message.bids.map(e => e ? TrimmedLimitOrder.toAmino(e) : undefined);
+    } else {
+      obj.Bids = message.bids;
+    }
+    if (message.asks) {
+      obj.Asks = message.asks.map(e => e ? TrimmedLimitOrder.toAmino(e) : undefined);
+    } else {
+      obj.Asks = message.asks;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryFullSpotOrderbookResponseAminoMsg): QueryFullSpotOrderbookResponse {
+    return QueryFullSpotOrderbookResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryFullSpotOrderbookResponseProtoMsg): QueryFullSpotOrderbookResponse {
+    return QueryFullSpotOrderbookResponse.decode(message.value);
+  },
+  toProto(message: QueryFullSpotOrderbookResponse): Uint8Array {
+    return QueryFullSpotOrderbookResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryFullSpotOrderbookResponse): QueryFullSpotOrderbookResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryFullSpotOrderbookResponse",
+      value: QueryFullSpotOrderbookResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFullSpotOrderbookResponse.typeUrl)) {
+      return;
+    }
+    TrimmedLimitOrder.registerTypeUrl();
+  }
+};
+function createBaseQueryFullDerivativeOrderbookRequest(): QueryFullDerivativeOrderbookRequest {
+  return {
+    marketId: ""
+  };
+}
+/**
+ * @name QueryFullDerivativeOrderbookRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest
+ */
+export const QueryFullDerivativeOrderbookRequest = {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest",
+  is(o: any): o is QueryFullDerivativeOrderbookRequest {
+    return o && (o.$typeUrl === QueryFullDerivativeOrderbookRequest.typeUrl || typeof o.marketId === "string");
+  },
+  isAmino(o: any): o is QueryFullDerivativeOrderbookRequestAmino {
+    return o && (o.$typeUrl === QueryFullDerivativeOrderbookRequest.typeUrl || typeof o.market_id === "string");
+  },
+  encode(message: QueryFullDerivativeOrderbookRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.marketId !== "") {
+      writer.uint32(10).string(message.marketId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFullDerivativeOrderbookRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFullDerivativeOrderbookRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.marketId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryFullDerivativeOrderbookRequest>): QueryFullDerivativeOrderbookRequest {
+    const message = createBaseQueryFullDerivativeOrderbookRequest();
+    message.marketId = object.marketId ?? "";
+    return message;
+  },
+  fromAmino(object: QueryFullDerivativeOrderbookRequestAmino): QueryFullDerivativeOrderbookRequest {
+    const message = createBaseQueryFullDerivativeOrderbookRequest();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    return message;
+  },
+  toAmino(message: QueryFullDerivativeOrderbookRequest): QueryFullDerivativeOrderbookRequestAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId === "" ? undefined : message.marketId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryFullDerivativeOrderbookRequestAminoMsg): QueryFullDerivativeOrderbookRequest {
+    return QueryFullDerivativeOrderbookRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryFullDerivativeOrderbookRequestProtoMsg): QueryFullDerivativeOrderbookRequest {
+    return QueryFullDerivativeOrderbookRequest.decode(message.value);
+  },
+  toProto(message: QueryFullDerivativeOrderbookRequest): Uint8Array {
+    return QueryFullDerivativeOrderbookRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryFullDerivativeOrderbookRequest): QueryFullDerivativeOrderbookRequestProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookRequest",
+      value: QueryFullDerivativeOrderbookRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryFullDerivativeOrderbookResponse(): QueryFullDerivativeOrderbookResponse {
+  return {
+    bids: [],
+    asks: []
+  };
+}
+/**
+ * @name QueryFullDerivativeOrderbookResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse
+ */
+export const QueryFullDerivativeOrderbookResponse = {
+  typeUrl: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse",
+  is(o: any): o is QueryFullDerivativeOrderbookResponse {
+    return o && (o.$typeUrl === QueryFullDerivativeOrderbookResponse.typeUrl || Array.isArray(o.bids) && (!o.bids.length || TrimmedLimitOrder.is(o.bids[0])) && Array.isArray(o.asks) && (!o.asks.length || TrimmedLimitOrder.is(o.asks[0])));
+  },
+  isAmino(o: any): o is QueryFullDerivativeOrderbookResponseAmino {
+    return o && (o.$typeUrl === QueryFullDerivativeOrderbookResponse.typeUrl || Array.isArray(o.Bids) && (!o.Bids.length || TrimmedLimitOrder.isAmino(o.Bids[0])) && Array.isArray(o.Asks) && (!o.Asks.length || TrimmedLimitOrder.isAmino(o.Asks[0])));
+  },
+  encode(message: QueryFullDerivativeOrderbookResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.bids) {
+      TrimmedLimitOrder.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.asks) {
+      TrimmedLimitOrder.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryFullDerivativeOrderbookResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFullDerivativeOrderbookResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bids.push(TrimmedLimitOrder.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.asks.push(TrimmedLimitOrder.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryFullDerivativeOrderbookResponse>): QueryFullDerivativeOrderbookResponse {
+    const message = createBaseQueryFullDerivativeOrderbookResponse();
+    message.bids = object.bids?.map(e => TrimmedLimitOrder.fromPartial(e)) || [];
+    message.asks = object.asks?.map(e => TrimmedLimitOrder.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryFullDerivativeOrderbookResponseAmino): QueryFullDerivativeOrderbookResponse {
+    const message = createBaseQueryFullDerivativeOrderbookResponse();
+    message.bids = object.Bids?.map(e => TrimmedLimitOrder.fromAmino(e)) || [];
+    message.asks = object.Asks?.map(e => TrimmedLimitOrder.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryFullDerivativeOrderbookResponse): QueryFullDerivativeOrderbookResponseAmino {
+    const obj: any = {};
+    if (message.bids) {
+      obj.Bids = message.bids.map(e => e ? TrimmedLimitOrder.toAmino(e) : undefined);
+    } else {
+      obj.Bids = message.bids;
+    }
+    if (message.asks) {
+      obj.Asks = message.asks.map(e => e ? TrimmedLimitOrder.toAmino(e) : undefined);
+    } else {
+      obj.Asks = message.asks;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryFullDerivativeOrderbookResponseAminoMsg): QueryFullDerivativeOrderbookResponse {
+    return QueryFullDerivativeOrderbookResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryFullDerivativeOrderbookResponseProtoMsg): QueryFullDerivativeOrderbookResponse {
+    return QueryFullDerivativeOrderbookResponse.decode(message.value);
+  },
+  toProto(message: QueryFullDerivativeOrderbookResponse): Uint8Array {
+    return QueryFullDerivativeOrderbookResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryFullDerivativeOrderbookResponse): QueryFullDerivativeOrderbookResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryFullDerivativeOrderbookResponse",
+      value: QueryFullDerivativeOrderbookResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryFullDerivativeOrderbookResponse.typeUrl)) {
+      return;
+    }
+    TrimmedLimitOrder.registerTypeUrl();
+  }
+};
+function createBaseTrimmedLimitOrder(): TrimmedLimitOrder {
+  return {
+    price: "",
+    quantity: "",
+    orderHash: "",
+    subaccountId: ""
+  };
+}
+/**
+ * @name TrimmedLimitOrder
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.TrimmedLimitOrder
+ */
+export const TrimmedLimitOrder = {
+  typeUrl: "/injective.exchange.v1beta1.TrimmedLimitOrder",
+  is(o: any): o is TrimmedLimitOrder {
+    return o && (o.$typeUrl === TrimmedLimitOrder.typeUrl || typeof o.price === "string" && typeof o.quantity === "string" && typeof o.orderHash === "string" && typeof o.subaccountId === "string");
+  },
+  isAmino(o: any): o is TrimmedLimitOrderAmino {
+    return o && (o.$typeUrl === TrimmedLimitOrder.typeUrl || typeof o.price === "string" && typeof o.quantity === "string" && typeof o.order_hash === "string" && typeof o.subaccount_id === "string");
+  },
+  encode(message: TrimmedLimitOrder, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.price !== "") {
+      writer.uint32(10).string(Decimal.fromUserInput(message.price, 18).atomics);
+    }
+    if (message.quantity !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.quantity, 18).atomics);
+    }
+    if (message.orderHash !== "") {
+      writer.uint32(26).string(message.orderHash);
+    }
+    if (message.subaccountId !== "") {
+      writer.uint32(34).string(message.subaccountId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): TrimmedLimitOrder {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseTrimmedLimitOrder();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.price = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        case 2:
+          message.quantity = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        case 3:
+          message.orderHash = reader.string();
+          break;
+        case 4:
+          message.subaccountId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<TrimmedLimitOrder>): TrimmedLimitOrder {
+    const message = createBaseTrimmedLimitOrder();
+    message.price = object.price ?? "";
+    message.quantity = object.quantity ?? "";
+    message.orderHash = object.orderHash ?? "";
+    message.subaccountId = object.subaccountId ?? "";
+    return message;
+  },
+  fromAmino(object: TrimmedLimitOrderAmino): TrimmedLimitOrder {
+    const message = createBaseTrimmedLimitOrder();
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    }
+    if (object.quantity !== undefined && object.quantity !== null) {
+      message.quantity = object.quantity;
+    }
+    if (object.order_hash !== undefined && object.order_hash !== null) {
+      message.orderHash = object.order_hash;
+    }
+    if (object.subaccount_id !== undefined && object.subaccount_id !== null) {
+      message.subaccountId = object.subaccount_id;
+    }
+    return message;
+  },
+  toAmino(message: TrimmedLimitOrder): TrimmedLimitOrderAmino {
+    const obj: any = {};
+    obj.price = message.price === "" ? undefined : Decimal.fromUserInput(message.price, 18).atomics;
+    obj.quantity = message.quantity === "" ? undefined : Decimal.fromUserInput(message.quantity, 18).atomics;
+    obj.order_hash = message.orderHash === "" ? undefined : message.orderHash;
+    obj.subaccount_id = message.subaccountId === "" ? undefined : message.subaccountId;
+    return obj;
+  },
+  fromAminoMsg(object: TrimmedLimitOrderAminoMsg): TrimmedLimitOrder {
+    return TrimmedLimitOrder.fromAmino(object.value);
+  },
+  fromProtoMsg(message: TrimmedLimitOrderProtoMsg): TrimmedLimitOrder {
+    return TrimmedLimitOrder.decode(message.value);
+  },
+  toProto(message: TrimmedLimitOrder): Uint8Array {
+    return TrimmedLimitOrder.encode(message).finish();
+  },
+  toProtoMsg(message: TrimmedLimitOrder): TrimmedLimitOrderProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.TrimmedLimitOrder",
+      value: TrimmedLimitOrder.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
 function createBaseQueryMarketAtomicExecutionFeeMultiplierRequest(): QueryMarketAtomicExecutionFeeMultiplierRequest {
   return {
     marketId: ""
@@ -15881,5 +16698,685 @@ export const QueryGrantAuthorizationsResponse = {
       return;
     }
     GrantAuthorization.registerTypeUrl();
+  }
+};
+function createBaseQueryMarketBalanceRequest(): QueryMarketBalanceRequest {
+  return {
+    marketId: ""
+  };
+}
+/**
+ * @name QueryMarketBalanceRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalanceRequest
+ */
+export const QueryMarketBalanceRequest = {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalanceRequest",
+  is(o: any): o is QueryMarketBalanceRequest {
+    return o && (o.$typeUrl === QueryMarketBalanceRequest.typeUrl || typeof o.marketId === "string");
+  },
+  isAmino(o: any): o is QueryMarketBalanceRequestAmino {
+    return o && (o.$typeUrl === QueryMarketBalanceRequest.typeUrl || typeof o.market_id === "string");
+  },
+  encode(message: QueryMarketBalanceRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.marketId !== "") {
+      writer.uint32(10).string(message.marketId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryMarketBalanceRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryMarketBalanceRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.marketId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryMarketBalanceRequest>): QueryMarketBalanceRequest {
+    const message = createBaseQueryMarketBalanceRequest();
+    message.marketId = object.marketId ?? "";
+    return message;
+  },
+  fromAmino(object: QueryMarketBalanceRequestAmino): QueryMarketBalanceRequest {
+    const message = createBaseQueryMarketBalanceRequest();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    return message;
+  },
+  toAmino(message: QueryMarketBalanceRequest): QueryMarketBalanceRequestAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId === "" ? undefined : message.marketId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketBalanceRequestAminoMsg): QueryMarketBalanceRequest {
+    return QueryMarketBalanceRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMarketBalanceRequestProtoMsg): QueryMarketBalanceRequest {
+    return QueryMarketBalanceRequest.decode(message.value);
+  },
+  toProto(message: QueryMarketBalanceRequest): Uint8Array {
+    return QueryMarketBalanceRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMarketBalanceRequest): QueryMarketBalanceRequestProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryMarketBalanceRequest",
+      value: QueryMarketBalanceRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryMarketBalanceResponse(): QueryMarketBalanceResponse {
+  return {
+    balance: undefined
+  };
+}
+/**
+ * @name QueryMarketBalanceResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalanceResponse
+ */
+export const QueryMarketBalanceResponse = {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalanceResponse",
+  is(o: any): o is QueryMarketBalanceResponse {
+    return o && o.$typeUrl === QueryMarketBalanceResponse.typeUrl;
+  },
+  isAmino(o: any): o is QueryMarketBalanceResponseAmino {
+    return o && o.$typeUrl === QueryMarketBalanceResponse.typeUrl;
+  },
+  encode(message: QueryMarketBalanceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.balance !== undefined) {
+      MarketBalance.encode(message.balance, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryMarketBalanceResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryMarketBalanceResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.balance = MarketBalance.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryMarketBalanceResponse>): QueryMarketBalanceResponse {
+    const message = createBaseQueryMarketBalanceResponse();
+    message.balance = object.balance !== undefined && object.balance !== null ? MarketBalance.fromPartial(object.balance) : undefined;
+    return message;
+  },
+  fromAmino(object: QueryMarketBalanceResponseAmino): QueryMarketBalanceResponse {
+    const message = createBaseQueryMarketBalanceResponse();
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = MarketBalance.fromAmino(object.balance);
+    }
+    return message;
+  },
+  toAmino(message: QueryMarketBalanceResponse): QueryMarketBalanceResponseAmino {
+    const obj: any = {};
+    obj.balance = message.balance ? MarketBalance.toAmino(message.balance) : undefined;
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketBalanceResponseAminoMsg): QueryMarketBalanceResponse {
+    return QueryMarketBalanceResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMarketBalanceResponseProtoMsg): QueryMarketBalanceResponse {
+    return QueryMarketBalanceResponse.decode(message.value);
+  },
+  toProto(message: QueryMarketBalanceResponse): Uint8Array {
+    return QueryMarketBalanceResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMarketBalanceResponse): QueryMarketBalanceResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryMarketBalanceResponse",
+      value: QueryMarketBalanceResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryMarketBalanceResponse.typeUrl)) {
+      return;
+    }
+    MarketBalance.registerTypeUrl();
+  }
+};
+function createBaseQueryMarketBalancesRequest(): QueryMarketBalancesRequest {
+  return {};
+}
+/**
+ * @name QueryMarketBalancesRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalancesRequest
+ */
+export const QueryMarketBalancesRequest = {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalancesRequest",
+  is(o: any): o is QueryMarketBalancesRequest {
+    return o && o.$typeUrl === QueryMarketBalancesRequest.typeUrl;
+  },
+  isAmino(o: any): o is QueryMarketBalancesRequestAmino {
+    return o && o.$typeUrl === QueryMarketBalancesRequest.typeUrl;
+  },
+  encode(_: QueryMarketBalancesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryMarketBalancesRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryMarketBalancesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: DeepPartial<QueryMarketBalancesRequest>): QueryMarketBalancesRequest {
+    const message = createBaseQueryMarketBalancesRequest();
+    return message;
+  },
+  fromAmino(_: QueryMarketBalancesRequestAmino): QueryMarketBalancesRequest {
+    const message = createBaseQueryMarketBalancesRequest();
+    return message;
+  },
+  toAmino(_: QueryMarketBalancesRequest): QueryMarketBalancesRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketBalancesRequestAminoMsg): QueryMarketBalancesRequest {
+    return QueryMarketBalancesRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMarketBalancesRequestProtoMsg): QueryMarketBalancesRequest {
+    return QueryMarketBalancesRequest.decode(message.value);
+  },
+  toProto(message: QueryMarketBalancesRequest): Uint8Array {
+    return QueryMarketBalancesRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMarketBalancesRequest): QueryMarketBalancesRequestProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryMarketBalancesRequest",
+      value: QueryMarketBalancesRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryMarketBalancesResponse(): QueryMarketBalancesResponse {
+  return {
+    balances: []
+  };
+}
+/**
+ * @name QueryMarketBalancesResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryMarketBalancesResponse
+ */
+export const QueryMarketBalancesResponse = {
+  typeUrl: "/injective.exchange.v1beta1.QueryMarketBalancesResponse",
+  is(o: any): o is QueryMarketBalancesResponse {
+    return o && (o.$typeUrl === QueryMarketBalancesResponse.typeUrl || Array.isArray(o.balances) && (!o.balances.length || MarketBalance.is(o.balances[0])));
+  },
+  isAmino(o: any): o is QueryMarketBalancesResponseAmino {
+    return o && (o.$typeUrl === QueryMarketBalancesResponse.typeUrl || Array.isArray(o.balances) && (!o.balances.length || MarketBalance.isAmino(o.balances[0])));
+  },
+  encode(message: QueryMarketBalancesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.balances) {
+      MarketBalance.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryMarketBalancesResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryMarketBalancesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.balances.push(MarketBalance.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryMarketBalancesResponse>): QueryMarketBalancesResponse {
+    const message = createBaseQueryMarketBalancesResponse();
+    message.balances = object.balances?.map(e => MarketBalance.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryMarketBalancesResponseAmino): QueryMarketBalancesResponse {
+    const message = createBaseQueryMarketBalancesResponse();
+    message.balances = object.balances?.map(e => MarketBalance.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryMarketBalancesResponse): QueryMarketBalancesResponseAmino {
+    const obj: any = {};
+    if (message.balances) {
+      obj.balances = message.balances.map(e => e ? MarketBalance.toAmino(e) : undefined);
+    } else {
+      obj.balances = message.balances;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryMarketBalancesResponseAminoMsg): QueryMarketBalancesResponse {
+    return QueryMarketBalancesResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryMarketBalancesResponseProtoMsg): QueryMarketBalancesResponse {
+    return QueryMarketBalancesResponse.decode(message.value);
+  },
+  toProto(message: QueryMarketBalancesResponse): Uint8Array {
+    return QueryMarketBalancesResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryMarketBalancesResponse): QueryMarketBalancesResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryMarketBalancesResponse",
+      value: QueryMarketBalancesResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryMarketBalancesResponse.typeUrl)) {
+      return;
+    }
+    MarketBalance.registerTypeUrl();
+  }
+};
+function createBaseMarketBalance(): MarketBalance {
+  return {
+    marketId: "",
+    balance: ""
+  };
+}
+/**
+ * @name MarketBalance
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.MarketBalance
+ */
+export const MarketBalance = {
+  typeUrl: "/injective.exchange.v1beta1.MarketBalance",
+  is(o: any): o is MarketBalance {
+    return o && (o.$typeUrl === MarketBalance.typeUrl || typeof o.marketId === "string" && typeof o.balance === "string");
+  },
+  isAmino(o: any): o is MarketBalanceAmino {
+    return o && (o.$typeUrl === MarketBalance.typeUrl || typeof o.market_id === "string" && typeof o.balance === "string");
+  },
+  encode(message: MarketBalance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.marketId !== "") {
+      writer.uint32(10).string(message.marketId);
+    }
+    if (message.balance !== "") {
+      writer.uint32(18).string(Decimal.fromUserInput(message.balance, 18).atomics);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MarketBalance {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMarketBalance();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.marketId = reader.string();
+          break;
+        case 2:
+          message.balance = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<MarketBalance>): MarketBalance {
+    const message = createBaseMarketBalance();
+    message.marketId = object.marketId ?? "";
+    message.balance = object.balance ?? "";
+    return message;
+  },
+  fromAmino(object: MarketBalanceAmino): MarketBalance {
+    const message = createBaseMarketBalance();
+    if (object.market_id !== undefined && object.market_id !== null) {
+      message.marketId = object.market_id;
+    }
+    if (object.balance !== undefined && object.balance !== null) {
+      message.balance = object.balance;
+    }
+    return message;
+  },
+  toAmino(message: MarketBalance): MarketBalanceAmino {
+    const obj: any = {};
+    obj.market_id = message.marketId === "" ? undefined : message.marketId;
+    obj.balance = message.balance === "" ? undefined : Decimal.fromUserInput(message.balance, 18).atomics;
+    return obj;
+  },
+  fromAminoMsg(object: MarketBalanceAminoMsg): MarketBalance {
+    return MarketBalance.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MarketBalanceProtoMsg): MarketBalance {
+    return MarketBalance.decode(message.value);
+  },
+  toProto(message: MarketBalance): Uint8Array {
+    return MarketBalance.encode(message).finish();
+  },
+  toProtoMsg(message: MarketBalance): MarketBalanceProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.MarketBalance",
+      value: MarketBalance.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryDenomMinNotionalRequest(): QueryDenomMinNotionalRequest {
+  return {
+    denom: ""
+  };
+}
+/**
+ * @name QueryDenomMinNotionalRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalRequest
+ */
+export const QueryDenomMinNotionalRequest = {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalRequest",
+  is(o: any): o is QueryDenomMinNotionalRequest {
+    return o && (o.$typeUrl === QueryDenomMinNotionalRequest.typeUrl || typeof o.denom === "string");
+  },
+  isAmino(o: any): o is QueryDenomMinNotionalRequestAmino {
+    return o && (o.$typeUrl === QueryDenomMinNotionalRequest.typeUrl || typeof o.denom === "string");
+  },
+  encode(message: QueryDenomMinNotionalRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.denom !== "") {
+      writer.uint32(10).string(message.denom);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryDenomMinNotionalRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDenomMinNotionalRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.denom = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryDenomMinNotionalRequest>): QueryDenomMinNotionalRequest {
+    const message = createBaseQueryDenomMinNotionalRequest();
+    message.denom = object.denom ?? "";
+    return message;
+  },
+  fromAmino(object: QueryDenomMinNotionalRequestAmino): QueryDenomMinNotionalRequest {
+    const message = createBaseQueryDenomMinNotionalRequest();
+    if (object.denom !== undefined && object.denom !== null) {
+      message.denom = object.denom;
+    }
+    return message;
+  },
+  toAmino(message: QueryDenomMinNotionalRequest): QueryDenomMinNotionalRequestAmino {
+    const obj: any = {};
+    obj.denom = message.denom === "" ? undefined : message.denom;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomMinNotionalRequestAminoMsg): QueryDenomMinNotionalRequest {
+    return QueryDenomMinNotionalRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryDenomMinNotionalRequestProtoMsg): QueryDenomMinNotionalRequest {
+    return QueryDenomMinNotionalRequest.decode(message.value);
+  },
+  toProto(message: QueryDenomMinNotionalRequest): Uint8Array {
+    return QueryDenomMinNotionalRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryDenomMinNotionalRequest): QueryDenomMinNotionalRequestProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalRequest",
+      value: QueryDenomMinNotionalRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryDenomMinNotionalResponse(): QueryDenomMinNotionalResponse {
+  return {
+    amount: ""
+  };
+}
+/**
+ * @name QueryDenomMinNotionalResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalResponse
+ */
+export const QueryDenomMinNotionalResponse = {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalResponse",
+  is(o: any): o is QueryDenomMinNotionalResponse {
+    return o && (o.$typeUrl === QueryDenomMinNotionalResponse.typeUrl || typeof o.amount === "string");
+  },
+  isAmino(o: any): o is QueryDenomMinNotionalResponseAmino {
+    return o && (o.$typeUrl === QueryDenomMinNotionalResponse.typeUrl || typeof o.amount === "string");
+  },
+  encode(message: QueryDenomMinNotionalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.amount !== "") {
+      writer.uint32(10).string(Decimal.fromUserInput(message.amount, 18).atomics);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryDenomMinNotionalResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDenomMinNotionalResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.amount = Decimal.fromAtomics(reader.string(), 18).toString();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryDenomMinNotionalResponse>): QueryDenomMinNotionalResponse {
+    const message = createBaseQueryDenomMinNotionalResponse();
+    message.amount = object.amount ?? "";
+    return message;
+  },
+  fromAmino(object: QueryDenomMinNotionalResponseAmino): QueryDenomMinNotionalResponse {
+    const message = createBaseQueryDenomMinNotionalResponse();
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount;
+    }
+    return message;
+  },
+  toAmino(message: QueryDenomMinNotionalResponse): QueryDenomMinNotionalResponseAmino {
+    const obj: any = {};
+    obj.amount = message.amount === "" ? undefined : Decimal.fromUserInput(message.amount, 18).atomics;
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomMinNotionalResponseAminoMsg): QueryDenomMinNotionalResponse {
+    return QueryDenomMinNotionalResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryDenomMinNotionalResponseProtoMsg): QueryDenomMinNotionalResponse {
+    return QueryDenomMinNotionalResponse.decode(message.value);
+  },
+  toProto(message: QueryDenomMinNotionalResponse): Uint8Array {
+    return QueryDenomMinNotionalResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryDenomMinNotionalResponse): QueryDenomMinNotionalResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalResponse",
+      value: QueryDenomMinNotionalResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryDenomMinNotionalsRequest(): QueryDenomMinNotionalsRequest {
+  return {};
+}
+/**
+ * @name QueryDenomMinNotionalsRequest
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalsRequest
+ */
+export const QueryDenomMinNotionalsRequest = {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalsRequest",
+  is(o: any): o is QueryDenomMinNotionalsRequest {
+    return o && o.$typeUrl === QueryDenomMinNotionalsRequest.typeUrl;
+  },
+  isAmino(o: any): o is QueryDenomMinNotionalsRequestAmino {
+    return o && o.$typeUrl === QueryDenomMinNotionalsRequest.typeUrl;
+  },
+  encode(_: QueryDenomMinNotionalsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryDenomMinNotionalsRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDenomMinNotionalsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: DeepPartial<QueryDenomMinNotionalsRequest>): QueryDenomMinNotionalsRequest {
+    const message = createBaseQueryDenomMinNotionalsRequest();
+    return message;
+  },
+  fromAmino(_: QueryDenomMinNotionalsRequestAmino): QueryDenomMinNotionalsRequest {
+    const message = createBaseQueryDenomMinNotionalsRequest();
+    return message;
+  },
+  toAmino(_: QueryDenomMinNotionalsRequest): QueryDenomMinNotionalsRequestAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomMinNotionalsRequestAminoMsg): QueryDenomMinNotionalsRequest {
+    return QueryDenomMinNotionalsRequest.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryDenomMinNotionalsRequestProtoMsg): QueryDenomMinNotionalsRequest {
+    return QueryDenomMinNotionalsRequest.decode(message.value);
+  },
+  toProto(message: QueryDenomMinNotionalsRequest): Uint8Array {
+    return QueryDenomMinNotionalsRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryDenomMinNotionalsRequest): QueryDenomMinNotionalsRequestProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalsRequest",
+      value: QueryDenomMinNotionalsRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryDenomMinNotionalsResponse(): QueryDenomMinNotionalsResponse {
+  return {
+    denomMinNotionals: []
+  };
+}
+/**
+ * @name QueryDenomMinNotionalsResponse
+ * @package injective.exchange.v1beta1
+ * @see proto type: injective.exchange.v1beta1.QueryDenomMinNotionalsResponse
+ */
+export const QueryDenomMinNotionalsResponse = {
+  typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalsResponse",
+  is(o: any): o is QueryDenomMinNotionalsResponse {
+    return o && (o.$typeUrl === QueryDenomMinNotionalsResponse.typeUrl || Array.isArray(o.denomMinNotionals) && (!o.denomMinNotionals.length || DenomMinNotional.is(o.denomMinNotionals[0])));
+  },
+  isAmino(o: any): o is QueryDenomMinNotionalsResponseAmino {
+    return o && (o.$typeUrl === QueryDenomMinNotionalsResponse.typeUrl || Array.isArray(o.denom_min_notionals) && (!o.denom_min_notionals.length || DenomMinNotional.isAmino(o.denom_min_notionals[0])));
+  },
+  encode(message: QueryDenomMinNotionalsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    for (const v of message.denomMinNotionals) {
+      DenomMinNotional.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryDenomMinNotionalsResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDenomMinNotionalsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.denomMinNotionals.push(DenomMinNotional.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryDenomMinNotionalsResponse>): QueryDenomMinNotionalsResponse {
+    const message = createBaseQueryDenomMinNotionalsResponse();
+    message.denomMinNotionals = object.denomMinNotionals?.map(e => DenomMinNotional.fromPartial(e)) || [];
+    return message;
+  },
+  fromAmino(object: QueryDenomMinNotionalsResponseAmino): QueryDenomMinNotionalsResponse {
+    const message = createBaseQueryDenomMinNotionalsResponse();
+    message.denomMinNotionals = object.denom_min_notionals?.map(e => DenomMinNotional.fromAmino(e)) || [];
+    return message;
+  },
+  toAmino(message: QueryDenomMinNotionalsResponse): QueryDenomMinNotionalsResponseAmino {
+    const obj: any = {};
+    if (message.denomMinNotionals) {
+      obj.denom_min_notionals = message.denomMinNotionals.map(e => e ? DenomMinNotional.toAmino(e) : undefined);
+    } else {
+      obj.denom_min_notionals = message.denomMinNotionals;
+    }
+    return obj;
+  },
+  fromAminoMsg(object: QueryDenomMinNotionalsResponseAminoMsg): QueryDenomMinNotionalsResponse {
+    return QueryDenomMinNotionalsResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: QueryDenomMinNotionalsResponseProtoMsg): QueryDenomMinNotionalsResponse {
+    return QueryDenomMinNotionalsResponse.decode(message.value);
+  },
+  toProto(message: QueryDenomMinNotionalsResponse): Uint8Array {
+    return QueryDenomMinNotionalsResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryDenomMinNotionalsResponse): QueryDenomMinNotionalsResponseProtoMsg {
+    return {
+      typeUrl: "/injective.exchange.v1beta1.QueryDenomMinNotionalsResponse",
+      value: QueryDenomMinNotionalsResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(QueryDenomMinNotionalsResponse.typeUrl)) {
+      return;
+    }
+    DenomMinNotional.registerTypeUrl();
   }
 };

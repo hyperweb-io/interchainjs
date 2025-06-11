@@ -50,8 +50,6 @@ export const useDeposit = buildUseVueMutation<MsgDeposit, Error>({
 /**
  * UpdateParams defines a governance operation for updating the x/gov module
  * parameters. The authority is defined in the keeper.
- * 
- * Since: cosmos-sdk 0.47
  * @name useUpdateParams
  * @package cosmos.gov.v1
  * @see proto service: cosmos.gov.v1.UpdateParams
@@ -61,8 +59,6 @@ export const useUpdateParams = buildUseVueMutation<MsgUpdateParams, Error>({
 });
 /**
  * CancelProposal defines a method to cancel governance proposal
- * 
- * Since: cosmos-sdk 0.50
  * @name useCancelProposal
  * @package cosmos.gov.v1
  * @see proto service: cosmos.gov.v1.CancelProposal

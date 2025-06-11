@@ -74,8 +74,6 @@ export interface MsgVerifyInvariantResponseAminoMsg {
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
- * 
- * Since: cosmos-sdk 0.47
  * @name MsgUpdateParams
  * @package cosmos.crisis.v1beta1
  * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
@@ -96,8 +94,6 @@ export interface MsgUpdateParamsProtoMsg {
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
- * 
- * Since: cosmos-sdk 0.47
  * @name MsgUpdateParamsAmino
  * @package cosmos.crisis.v1beta1
  * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
@@ -119,8 +115,6 @@ export interface MsgUpdateParamsAminoMsg {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- * 
- * Since: cosmos-sdk 0.47
  * @name MsgUpdateParamsResponse
  * @package cosmos.crisis.v1beta1
  * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
@@ -133,8 +127,6 @@ export interface MsgUpdateParamsResponseProtoMsg {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- * 
- * Since: cosmos-sdk 0.47
  * @name MsgUpdateParamsResponseAmino
  * @package cosmos.crisis.v1beta1
  * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse
@@ -329,8 +321,6 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
- * 
- * Since: cosmos-sdk 0.47
  * @name MsgUpdateParams
  * @package cosmos.crisis.v1beta1
  * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParams
@@ -429,8 +419,6 @@ function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- * 
- * Since: cosmos-sdk 0.47
  * @name MsgUpdateParamsResponse
  * @package cosmos.crisis.v1beta1
  * @see proto type: cosmos.crisis.v1beta1.MsgUpdateParamsResponse

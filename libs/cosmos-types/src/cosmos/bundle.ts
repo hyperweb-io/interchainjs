@@ -18,7 +18,7 @@ export * from "./tx/v1beta1/service";
 export * from "./tx/v1beta1/tx";
 export * from "./vesting/v1beta1/vesting";
 export { getAccounts, getAccount, getAccountAddressByID, getParams, getModuleAccounts, getModuleAccountByName, getBech32Prefix, getAddressBytesToString, getAddressStringToBytes, getAccountInfo } from "./auth/v1beta1/query.rpc.func";
-export { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceByDenom, getTotalSupply, getSupplyOf, getParams as getParamsCosmosBankV1beta1, getDenomMetadata, getDenomMetadataByQueryString, getDenomsMetadata, getDenomOwners, getDenomOwnersByQuery, getSendEnabled } from "./bank/v1beta1/query.rpc.func";
+export { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceByDenom, getTotalSupply, getSupplyOf, getParams as getParamsCosmosBankV1beta1, getDenomsMetadata, getDenomMetadata, getDenomMetadataByQueryString, getDenomOwners, getDenomOwnersByQuery, getSendEnabled } from "./bank/v1beta1/query.rpc.func";
 export { getProposal, getProposals, getVote, getVotes, getParams as getParamsCosmosGovV1beta1, getDeposit, getDeposits, getTallyResult } from "./gov/v1beta1/query.rpc.func";
 export { getValidators, getValidator, getValidatorDelegations, getValidatorUnbondingDelegations, getDelegation, getUnbondingDelegation, getDelegatorDelegations, getDelegatorUnbondingDelegations, getRedelegations, getDelegatorValidators, getDelegatorValidator, getHistoricalInfo, getPool, getParams as getParamsCosmosStakingV1beta1 } from "./staking/v1beta1/query.rpc.func";
 export * from "./tx/v1beta1/service.rpc.func";

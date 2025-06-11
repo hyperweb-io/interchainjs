@@ -1,6 +1,6 @@
 import { buildUseVueQuery } from "../../../vue-query";
-import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
-import { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceByDenom, getTotalSupply, getSupplyOf, getParams, getDenomMetadata, getDenomMetadataByQueryString, getDenomsMetadata, getDenomOwners, getDenomOwnersByQuery, getSendEnabled } from "./query.rpc.func";
+import { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest, QueryParamsResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomOwnersRequest, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./query";
+import { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceByDenom, getTotalSupply, getSupplyOf, getParams, getDenomsMetadata, getDenomMetadata, getDenomMetadataByQueryString, getDenomOwners, getDenomOwnersByQuery, getSendEnabled } from "./query.rpc.func";
 /**
  * Balance queries the balance of a single coin for a single account.
  * @name useGetBalance
@@ -30,8 +30,6 @@ export const useGetAllBalances = buildUseVueQuery<QueryAllBalancesRequest, Query
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetSpendableBalances
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.SpendableBalances
@@ -46,8 +44,6 @@ export const useGetSpendableBalances = buildUseVueQuery<QuerySpendableBalancesRe
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.47
  * @name useGetSpendableBalanceByDenom
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.SpendableBalanceByDenom
@@ -93,6 +89,17 @@ export const useGetParams = buildUseVueQuery<QueryParamsRequest, QueryParamsResp
   queryKeyPrefix: "ParamsQuery"
 });
 /**
+ * DenomsMetadata queries the client metadata for all registered coin
+ * denominations.
+ * @name useGetDenomsMetadata
+ * @package cosmos.bank.v1beta1
+ * @see proto service: cosmos.bank.v1beta1.DenomsMetadata
+ */
+export const useGetDenomsMetadata = buildUseVueQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
+  builderQueryFn: getDenomsMetadata,
+  queryKeyPrefix: "DenomsMetadataQuery"
+});
+/**
  * DenomMetadata queries the client metadata of a given coin denomination.
  * @name useGetDenomMetadata
  * @package cosmos.bank.v1beta1
@@ -113,24 +120,11 @@ export const useGetDenomMetadataByQueryString = buildUseVueQuery<QueryDenomMetad
   queryKeyPrefix: "DenomMetadataByQueryStringQuery"
 });
 /**
- * DenomsMetadata queries the client metadata for all registered coin
- * denominations.
- * @name useGetDenomsMetadata
- * @package cosmos.bank.v1beta1
- * @see proto service: cosmos.bank.v1beta1.DenomsMetadata
- */
-export const useGetDenomsMetadata = buildUseVueQuery<QueryDenomsMetadataRequest, QueryDenomsMetadataResponse>({
-  builderQueryFn: getDenomsMetadata,
-  queryKeyPrefix: "DenomsMetadataQuery"
-});
-/**
  * DenomOwners queries for all account addresses that own a particular token
  * denomination.
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetDenomOwners
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.DenomOwners
@@ -142,8 +136,6 @@ export const useGetDenomOwners = buildUseVueQuery<QueryDenomOwnersRequest, Query
 /**
  * DenomOwnersByQuery queries for all account addresses that own a particular token
  * denomination.
- * 
- * Since: cosmos-sdk 0.50.3
  * @name useGetDenomOwnersByQuery
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.DenomOwnersByQuery
@@ -158,8 +150,6 @@ export const useGetDenomOwnersByQuery = buildUseVueQuery<QueryDenomOwnersByQuery
  * This query only returns denominations that have specific SendEnabled settings.
  * Any denomination that does not have a specific setting will use the default
  * params.default_send_enabled, and will not be returned by this query.
- * 
- * Since: cosmos-sdk 0.47
  * @name useGetSendEnabled
  * @package cosmos.bank.v1beta1
  * @see proto service: cosmos.bank.v1beta1.SendEnabled

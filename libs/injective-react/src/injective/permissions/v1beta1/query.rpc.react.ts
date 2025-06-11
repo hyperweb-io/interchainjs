@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../react-query";
-import { QueryParamsRequest, QueryParamsResponse, QueryAllNamespacesRequest, QueryAllNamespacesResponse, QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse, QueryAddressRolesRequest, QueryAddressRolesResponse, QueryAddressesByRoleRequest, QueryAddressesByRoleResponse, QueryVouchersForAddressRequest, QueryVouchersForAddressResponse } from "./query";
-import { getParams, getAllNamespaces, getNamespaceByDenom, getAddressRoles, getAddressesByRole, getVouchersForAddress } from "./query.rpc.func";
+import { QueryParamsRequest, QueryParamsResponse, QueryNamespaceDenomsRequest, QueryNamespaceDenomsResponse, QueryNamespacesRequest, QueryNamespacesResponse, QueryNamespaceRequest, QueryNamespaceResponse, QueryRolesByActorRequest, QueryRolesByActorResponse, QueryActorsByRoleRequest, QueryActorsByRoleResponse, QueryRoleManagersRequest, QueryRoleManagersResponse, QueryRoleManagerRequest, QueryRoleManagerResponse, QueryPolicyStatusesRequest, QueryPolicyStatusesResponse, QueryPolicyManagerCapabilitiesRequest, QueryPolicyManagerCapabilitiesResponse, QueryVouchersRequest, QueryVouchersResponse, QueryVoucherRequest, QueryVoucherResponse, QueryModuleStateRequest, QueryModuleStateResponse } from "./query";
+import { getParams, getNamespaceDenoms, getNamespaces, getNamespace, getRolesByActor, getActorsByRole, getRoleManagers, getRoleManager, getPolicyStatuses, getPolicyManagerCapabilities, getVouchers, getVoucher, getPermissionsModuleState } from "./query.rpc.func";
 /**
  * Params defines a gRPC query method that returns the permissions module's
  * parameters.
@@ -13,58 +13,132 @@ export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsRespons
   queryKeyPrefix: "ParamsQuery"
 });
 /**
- * AllNamespaces defines a gRPC query method that returns the permissions
+ * NamespaceDenoms defines a gRPC query method that returns the denoms for
+ * which a namespace exists
+ * @name useGetNamespaceDenoms
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.NamespaceDenoms
+ */
+export const useGetNamespaceDenoms = buildUseQuery<QueryNamespaceDenomsRequest, QueryNamespaceDenomsResponse>({
+  builderQueryFn: getNamespaceDenoms,
+  queryKeyPrefix: "NamespaceDenomsQuery"
+});
+/**
+ * Namespaces defines a gRPC query method that returns the permissions
  * module's created namespaces.
- * @name useGetAllNamespaces
+ * @name useGetNamespaces
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.AllNamespaces
+ * @see proto service: injective.permissions.v1beta1.Namespaces
  */
-export const useGetAllNamespaces = buildUseQuery<QueryAllNamespacesRequest, QueryAllNamespacesResponse>({
-  builderQueryFn: getAllNamespaces,
-  queryKeyPrefix: "AllNamespacesQuery"
+export const useGetNamespaces = buildUseQuery<QueryNamespacesRequest, QueryNamespacesResponse>({
+  builderQueryFn: getNamespaces,
+  queryKeyPrefix: "NamespacesQuery"
 });
 /**
- * NamespaceByDenom defines a gRPC query method that returns the permissions
+ * Namespace defines a gRPC query method that returns the permissions
  * module's namespace associated with the provided denom.
- * @name useGetNamespaceByDenom
+ * @name useGetNamespace
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.NamespaceByDenom
+ * @see proto service: injective.permissions.v1beta1.Namespace
  */
-export const useGetNamespaceByDenom = buildUseQuery<QueryNamespaceByDenomRequest, QueryNamespaceByDenomResponse>({
-  builderQueryFn: getNamespaceByDenom,
-  queryKeyPrefix: "NamespaceByDenomQuery"
+export const useGetNamespace = buildUseQuery<QueryNamespaceRequest, QueryNamespaceResponse>({
+  builderQueryFn: getNamespace,
+  queryKeyPrefix: "NamespaceQuery"
 });
 /**
- * AddressRoles defines a gRPC query method that returns address roles in the
- * namespace
- * @name useGetAddressRoles
+ * RolesByActor defines a gRPC query method that returns roles for the actor
+ * in the namespace
+ * @name useGetRolesByActor
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.AddressRoles
+ * @see proto service: injective.permissions.v1beta1.RolesByActor
  */
-export const useGetAddressRoles = buildUseQuery<QueryAddressRolesRequest, QueryAddressRolesResponse>({
-  builderQueryFn: getAddressRoles,
-  queryKeyPrefix: "AddressRolesQuery"
+export const useGetRolesByActor = buildUseQuery<QueryRolesByActorRequest, QueryRolesByActorResponse>({
+  builderQueryFn: getRolesByActor,
+  queryKeyPrefix: "RolesByActorQuery"
 });
 /**
- * AddressesByRole defines a gRPC query method that returns a namespace's
- * roles associated with the provided address.
- * @name useGetAddressesByRole
+ * ActorsByRole defines a gRPC query method that returns a namespace's roles
+ * associated with the provided actor.
+ * @name useGetActorsByRole
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.AddressesByRole
+ * @see proto service: injective.permissions.v1beta1.ActorsByRole
  */
-export const useGetAddressesByRole = buildUseQuery<QueryAddressesByRoleRequest, QueryAddressesByRoleResponse>({
-  builderQueryFn: getAddressesByRole,
-  queryKeyPrefix: "AddressesByRoleQuery"
+export const useGetActorsByRole = buildUseQuery<QueryActorsByRoleRequest, QueryActorsByRoleResponse>({
+  builderQueryFn: getActorsByRole,
+  queryKeyPrefix: "ActorsByRoleQuery"
 });
 /**
- * VouchersForAddress defines a gRPC query method that returns a map of
- * vouchers that are held by permissions module for this address, keyed by the
- * originator address
- * @name useGetVouchersForAddress
+ * RoleManagers defines a gRPC query method that returns a namespace's role
+ * managers
+ * @name useGetRoleManagers
  * @package injective.permissions.v1beta1
- * @see proto service: injective.permissions.v1beta1.VouchersForAddress
+ * @see proto service: injective.permissions.v1beta1.RoleManagers
  */
-export const useGetVouchersForAddress = buildUseQuery<QueryVouchersForAddressRequest, QueryVouchersForAddressResponse>({
-  builderQueryFn: getVouchersForAddress,
-  queryKeyPrefix: "VouchersForAddressQuery"
+export const useGetRoleManagers = buildUseQuery<QueryRoleManagersRequest, QueryRoleManagersResponse>({
+  builderQueryFn: getRoleManagers,
+  queryKeyPrefix: "RoleManagersQuery"
+});
+/**
+ * RoleManager defines a gRPC query method that returns the roles a given role
+ * manager manages for a given namespace
+ * @name useGetRoleManager
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.RoleManager
+ */
+export const useGetRoleManager = buildUseQuery<QueryRoleManagerRequest, QueryRoleManagerResponse>({
+  builderQueryFn: getRoleManager,
+  queryKeyPrefix: "RoleManagerQuery"
+});
+/**
+ * PolicyStatuses defines a gRPC query method that returns a namespace's
+ * policy statuses
+ * @name useGetPolicyStatuses
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.PolicyStatuses
+ */
+export const useGetPolicyStatuses = buildUseQuery<QueryPolicyStatusesRequest, QueryPolicyStatusesResponse>({
+  builderQueryFn: getPolicyStatuses,
+  queryKeyPrefix: "PolicyStatusesQuery"
+});
+/**
+ * PolicyManagerCapabilities defines a gRPC query method that returns a
+ * namespace's policy manager capabilities
+ * @name useGetPolicyManagerCapabilities
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.PolicyManagerCapabilities
+ */
+export const useGetPolicyManagerCapabilities = buildUseQuery<QueryPolicyManagerCapabilitiesRequest, QueryPolicyManagerCapabilitiesResponse>({
+  builderQueryFn: getPolicyManagerCapabilities,
+  queryKeyPrefix: "PolicyManagerCapabilitiesQuery"
+});
+/**
+ * Vouchers defines a gRPC query method for the vouchers for a given denom
+ * @name useGetVouchers
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.Vouchers
+ */
+export const useGetVouchers = buildUseQuery<QueryVouchersRequest, QueryVouchersResponse>({
+  builderQueryFn: getVouchers,
+  queryKeyPrefix: "VouchersQuery"
+});
+/**
+ * Voucher defines a gRPC query method for the vouchers for a given denom and
+ * address
+ * @name useGetVoucher
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.Voucher
+ */
+export const useGetVoucher = buildUseQuery<QueryVoucherRequest, QueryVoucherResponse>({
+  builderQueryFn: getVoucher,
+  queryKeyPrefix: "VoucherQuery"
+});
+/**
+ * Retrieves the entire permissions module's state
+ * @name useGetPermissionsModuleState
+ * @package injective.permissions.v1beta1
+ * @see proto service: injective.permissions.v1beta1.PermissionsModuleState
+ */
+export const useGetPermissionsModuleState = buildUseQuery<QueryModuleStateRequest, QueryModuleStateResponse>({
+  builderQueryFn: getPermissionsModuleState,
+  queryKeyPrefix: "PermissionsModuleStateQuery"
 });

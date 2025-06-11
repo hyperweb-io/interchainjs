@@ -1,5 +1,5 @@
 import { buildTx } from "../../../../helper-func-types";
-import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams } from "./tx";
+import { MsgCreateClient, MsgUpdateClient, MsgUpgradeClient, MsgSubmitMisbehaviour, MsgRecoverClient, MsgIBCSoftwareUpgrade, MsgUpdateParams, MsgDeleteClientCreator } from "./tx";
 /**
  * CreateClient defines a rpc handler method for MsgCreateClient.
  * @name createClient
@@ -62,4 +62,13 @@ export const iBCSoftwareUpgrade = buildTx<MsgIBCSoftwareUpgrade>({
  */
 export const updateClientParams = buildTx<MsgUpdateParams>({
   msg: MsgUpdateParams
+});
+/**
+ * DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator.
+ * @name deleteClientCreator
+ * @package ibc.core.client.v1
+ * @see proto service: ibc.core.client.v1.DeleteClientCreator
+ */
+export const deleteClientCreator = buildTx<MsgDeleteClientCreator>({
+  msg: MsgDeleteClientCreator
 });

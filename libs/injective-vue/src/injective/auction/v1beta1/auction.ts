@@ -17,6 +17,11 @@ export interface Params {
    * min_next_bid_increment_rate defines the minimum increment rate for new bids
    */
   minNextBidIncrementRate: string;
+  /**
+   * inj_basket_max_cap defines the maximum cap for INJ contained in an auction
+   * basket
+   */
+  injBasketMaxCap: string;
 }
 export interface ParamsProtoMsg {
   typeUrl: "/injective.auction.v1beta1.Params";
@@ -36,6 +41,11 @@ export interface ParamsAmino {
    * min_next_bid_increment_rate defines the minimum increment rate for new bids
    */
   min_next_bid_increment_rate: string;
+  /**
+   * inj_basket_max_cap defines the maximum cap for INJ contained in an auction
+   * basket
+   */
+  inj_basket_max_cap: string;
 }
 export interface ParamsAminoMsg {
   type: "auction/Params";
@@ -48,7 +58,7 @@ export interface ParamsAminoMsg {
  */
 export interface Bid {
   bidder: string;
-  amount: string;
+  amount: Coin;
 }
 export interface BidProtoMsg {
   typeUrl: "/injective.auction.v1beta1.Bid";
@@ -61,7 +71,7 @@ export interface BidProtoMsg {
  */
 export interface BidAmino {
   bidder: string;
-  amount: string;
+  amount: CoinAmino;
 }
 export interface BidAminoMsg {
   type: "/injective.auction.v1beta1.Bid";
@@ -80,7 +90,7 @@ export interface LastAuctionResult {
   /**
    * amount describes the amount the winner get from the auction
    */
-  amount: string;
+  amount: Coin;
   /**
    * round defines the round number of auction
    */
@@ -103,7 +113,7 @@ export interface LastAuctionResultAmino {
   /**
    * amount describes the amount the winner get from the auction
    */
-  amount: string;
+  amount: CoinAmino;
   /**
    * round defines the round number of auction
    */
@@ -126,7 +136,7 @@ export interface EventBid {
   /**
    * amount describes the amount the bidder put on the auction
    */
-  amount: string;
+  amount: Coin;
   /**
    * round defines the round number of auction
    */
@@ -149,7 +159,7 @@ export interface EventBidAmino {
   /**
    * amount describes the amount the bidder put on the auction
    */
-  amount: string;
+  amount: CoinAmino;
   /**
    * round defines the round number of auction
    */
@@ -172,7 +182,7 @@ export interface EventAuctionResult {
   /**
    * amount describes the amount the winner get from the auction
    */
-  amount: string;
+  amount: Coin;
   /**
    * round defines the round number of auction
    */
@@ -195,7 +205,7 @@ export interface EventAuctionResultAmino {
   /**
    * amount describes the amount the winner get from the auction
    */
-  amount: string;
+  amount: CoinAmino;
   /**
    * round defines the round number of auction
    */
@@ -256,7 +266,8 @@ export interface EventAuctionStartAminoMsg {
 function createBaseParams(): Params {
   return {
     auctionPeriod: BigInt(0),
-    minNextBidIncrementRate: ""
+    minNextBidIncrementRate: "",
+    injBasketMaxCap: ""
   };
 }
 /**
@@ -268,10 +279,10 @@ export const Params = {
   typeUrl: "/injective.auction.v1beta1.Params",
   aminoType: "auction/Params",
   is(o: any): o is Params {
-    return o && (o.$typeUrl === Params.typeUrl || typeof o.auctionPeriod === "bigint" && typeof o.minNextBidIncrementRate === "string");
+    return o && (o.$typeUrl === Params.typeUrl || typeof o.auctionPeriod === "bigint" && typeof o.minNextBidIncrementRate === "string" && typeof o.injBasketMaxCap === "string");
   },
   isAmino(o: any): o is ParamsAmino {
-    return o && (o.$typeUrl === Params.typeUrl || typeof o.auction_period === "bigint" && typeof o.min_next_bid_increment_rate === "string");
+    return o && (o.$typeUrl === Params.typeUrl || typeof o.auction_period === "bigint" && typeof o.min_next_bid_increment_rate === "string" && typeof o.inj_basket_max_cap === "string");
   },
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.auctionPeriod !== BigInt(0)) {
@@ -279,6 +290,9 @@ export const Params = {
     }
     if (message.minNextBidIncrementRate !== "") {
       writer.uint32(18).string(Decimal.fromUserInput(message.minNextBidIncrementRate, 18).atomics);
+    }
+    if (message.injBasketMaxCap !== "") {
+      writer.uint32(26).string(message.injBasketMaxCap);
     }
     return writer;
   },
@@ -295,6 +309,9 @@ export const Params = {
         case 2:
           message.minNextBidIncrementRate = Decimal.fromAtomics(reader.string(), 18).toString();
           break;
+        case 3:
+          message.injBasketMaxCap = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -306,6 +323,7 @@ export const Params = {
     const message = createBaseParams();
     message.auctionPeriod = object.auctionPeriod !== undefined && object.auctionPeriod !== null ? BigInt(object.auctionPeriod.toString()) : BigInt(0);
     message.minNextBidIncrementRate = object.minNextBidIncrementRate ?? "";
+    message.injBasketMaxCap = object.injBasketMaxCap ?? "";
     return message;
   },
   fromAmino(object: ParamsAmino): Params {
@@ -316,12 +334,16 @@ export const Params = {
     if (object.min_next_bid_increment_rate !== undefined && object.min_next_bid_increment_rate !== null) {
       message.minNextBidIncrementRate = object.min_next_bid_increment_rate;
     }
+    if (object.inj_basket_max_cap !== undefined && object.inj_basket_max_cap !== null) {
+      message.injBasketMaxCap = object.inj_basket_max_cap;
+    }
     return message;
   },
   toAmino(message: Params): ParamsAmino {
     const obj: any = {};
     obj.auction_period = message.auctionPeriod !== BigInt(0) ? message.auctionPeriod?.toString() : undefined;
     obj.min_next_bid_increment_rate = message.minNextBidIncrementRate === "" ? undefined : Decimal.fromUserInput(message.minNextBidIncrementRate, 18).atomics;
+    obj.inj_basket_max_cap = message.injBasketMaxCap === "" ? undefined : message.injBasketMaxCap;
     return obj;
   },
   fromAminoMsg(object: ParamsAminoMsg): Params {
@@ -350,7 +372,7 @@ export const Params = {
 function createBaseBid(): Bid {
   return {
     bidder: "",
-    amount: ""
+    amount: Coin.fromPartial({})
   };
 }
 /**
@@ -361,17 +383,17 @@ function createBaseBid(): Bid {
 export const Bid = {
   typeUrl: "/injective.auction.v1beta1.Bid",
   is(o: any): o is Bid {
-    return o && (o.$typeUrl === Bid.typeUrl || typeof o.bidder === "string" && typeof o.amount === "string");
+    return o && (o.$typeUrl === Bid.typeUrl || typeof o.bidder === "string" && Coin.is(o.amount));
   },
   isAmino(o: any): o is BidAmino {
-    return o && (o.$typeUrl === Bid.typeUrl || typeof o.bidder === "string" && typeof o.amount === "string");
+    return o && (o.$typeUrl === Bid.typeUrl || typeof o.bidder === "string" && Coin.isAmino(o.amount));
   },
   encode(message: Bid, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bidder !== "") {
       writer.uint32(10).string(message.bidder);
     }
-    if (message.amount !== "") {
-      writer.uint32(18).string(message.amount);
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -386,7 +408,7 @@ export const Bid = {
           message.bidder = reader.string();
           break;
         case 2:
-          message.amount = reader.string();
+          message.amount = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -398,7 +420,7 @@ export const Bid = {
   fromPartial(object: DeepPartial<Bid>): Bid {
     const message = createBaseBid();
     message.bidder = object.bidder ?? "";
-    message.amount = object.amount ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     return message;
   },
   fromAmino(object: BidAmino): Bid {
@@ -407,14 +429,14 @@ export const Bid = {
       message.bidder = object.bidder;
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount;
+      message.amount = Coin.fromAmino(object.amount);
     }
     return message;
   },
   toAmino(message: Bid): BidAmino {
     const obj: any = {};
     obj.bidder = message.bidder ?? "";
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     return obj;
   },
   fromAminoMsg(object: BidAminoMsg): Bid {
@@ -432,12 +454,17 @@ export const Bid = {
       value: Bid.encode(message).finish()
     };
   },
-  registerTypeUrl() {}
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(Bid.typeUrl)) {
+      return;
+    }
+    Coin.registerTypeUrl();
+  }
 };
 function createBaseLastAuctionResult(): LastAuctionResult {
   return {
     winner: "",
-    amount: "",
+    amount: Coin.fromPartial({}),
     round: BigInt(0)
   };
 }
@@ -449,17 +476,17 @@ function createBaseLastAuctionResult(): LastAuctionResult {
 export const LastAuctionResult = {
   typeUrl: "/injective.auction.v1beta1.LastAuctionResult",
   is(o: any): o is LastAuctionResult {
-    return o && (o.$typeUrl === LastAuctionResult.typeUrl || typeof o.winner === "string" && typeof o.amount === "string" && typeof o.round === "bigint");
+    return o && (o.$typeUrl === LastAuctionResult.typeUrl || typeof o.winner === "string" && Coin.is(o.amount) && typeof o.round === "bigint");
   },
   isAmino(o: any): o is LastAuctionResultAmino {
-    return o && (o.$typeUrl === LastAuctionResult.typeUrl || typeof o.winner === "string" && typeof o.amount === "string" && typeof o.round === "bigint");
+    return o && (o.$typeUrl === LastAuctionResult.typeUrl || typeof o.winner === "string" && Coin.isAmino(o.amount) && typeof o.round === "bigint");
   },
   encode(message: LastAuctionResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.winner !== "") {
       writer.uint32(10).string(message.winner);
     }
-    if (message.amount !== "") {
-      writer.uint32(18).string(message.amount);
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
     if (message.round !== BigInt(0)) {
       writer.uint32(24).uint64(message.round);
@@ -477,7 +504,7 @@ export const LastAuctionResult = {
           message.winner = reader.string();
           break;
         case 2:
-          message.amount = reader.string();
+          message.amount = Coin.decode(reader, reader.uint32());
           break;
         case 3:
           message.round = reader.uint64();
@@ -492,7 +519,7 @@ export const LastAuctionResult = {
   fromPartial(object: DeepPartial<LastAuctionResult>): LastAuctionResult {
     const message = createBaseLastAuctionResult();
     message.winner = object.winner ?? "";
-    message.amount = object.amount ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.round = object.round !== undefined && object.round !== null ? BigInt(object.round.toString()) : BigInt(0);
     return message;
   },
@@ -502,7 +529,7 @@ export const LastAuctionResult = {
       message.winner = object.winner;
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount;
+      message.amount = Coin.fromAmino(object.amount);
     }
     if (object.round !== undefined && object.round !== null) {
       message.round = BigInt(object.round);
@@ -512,7 +539,7 @@ export const LastAuctionResult = {
   toAmino(message: LastAuctionResult): LastAuctionResultAmino {
     const obj: any = {};
     obj.winner = message.winner === "" ? undefined : message.winner;
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     obj.round = message.round !== BigInt(0) ? message.round?.toString() : undefined;
     return obj;
   },
@@ -531,12 +558,17 @@ export const LastAuctionResult = {
       value: LastAuctionResult.encode(message).finish()
     };
   },
-  registerTypeUrl() {}
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(LastAuctionResult.typeUrl)) {
+      return;
+    }
+    Coin.registerTypeUrl();
+  }
 };
 function createBaseEventBid(): EventBid {
   return {
     bidder: "",
-    amount: "",
+    amount: Coin.fromPartial({}),
     round: BigInt(0)
   };
 }
@@ -548,17 +580,17 @@ function createBaseEventBid(): EventBid {
 export const EventBid = {
   typeUrl: "/injective.auction.v1beta1.EventBid",
   is(o: any): o is EventBid {
-    return o && (o.$typeUrl === EventBid.typeUrl || typeof o.bidder === "string" && typeof o.amount === "string" && typeof o.round === "bigint");
+    return o && (o.$typeUrl === EventBid.typeUrl || typeof o.bidder === "string" && Coin.is(o.amount) && typeof o.round === "bigint");
   },
   isAmino(o: any): o is EventBidAmino {
-    return o && (o.$typeUrl === EventBid.typeUrl || typeof o.bidder === "string" && typeof o.amount === "string" && typeof o.round === "bigint");
+    return o && (o.$typeUrl === EventBid.typeUrl || typeof o.bidder === "string" && Coin.isAmino(o.amount) && typeof o.round === "bigint");
   },
   encode(message: EventBid, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bidder !== "") {
       writer.uint32(10).string(message.bidder);
     }
-    if (message.amount !== "") {
-      writer.uint32(18).string(message.amount);
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
     if (message.round !== BigInt(0)) {
       writer.uint32(24).uint64(message.round);
@@ -576,7 +608,7 @@ export const EventBid = {
           message.bidder = reader.string();
           break;
         case 2:
-          message.amount = reader.string();
+          message.amount = Coin.decode(reader, reader.uint32());
           break;
         case 3:
           message.round = reader.uint64();
@@ -591,7 +623,7 @@ export const EventBid = {
   fromPartial(object: DeepPartial<EventBid>): EventBid {
     const message = createBaseEventBid();
     message.bidder = object.bidder ?? "";
-    message.amount = object.amount ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.round = object.round !== undefined && object.round !== null ? BigInt(object.round.toString()) : BigInt(0);
     return message;
   },
@@ -601,7 +633,7 @@ export const EventBid = {
       message.bidder = object.bidder;
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount;
+      message.amount = Coin.fromAmino(object.amount);
     }
     if (object.round !== undefined && object.round !== null) {
       message.round = BigInt(object.round);
@@ -611,7 +643,7 @@ export const EventBid = {
   toAmino(message: EventBid): EventBidAmino {
     const obj: any = {};
     obj.bidder = message.bidder === "" ? undefined : message.bidder;
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     obj.round = message.round !== BigInt(0) ? message.round?.toString() : undefined;
     return obj;
   },
@@ -630,12 +662,17 @@ export const EventBid = {
       value: EventBid.encode(message).finish()
     };
   },
-  registerTypeUrl() {}
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventBid.typeUrl)) {
+      return;
+    }
+    Coin.registerTypeUrl();
+  }
 };
 function createBaseEventAuctionResult(): EventAuctionResult {
   return {
     winner: "",
-    amount: "",
+    amount: Coin.fromPartial({}),
     round: BigInt(0)
   };
 }
@@ -647,17 +684,17 @@ function createBaseEventAuctionResult(): EventAuctionResult {
 export const EventAuctionResult = {
   typeUrl: "/injective.auction.v1beta1.EventAuctionResult",
   is(o: any): o is EventAuctionResult {
-    return o && (o.$typeUrl === EventAuctionResult.typeUrl || typeof o.winner === "string" && typeof o.amount === "string" && typeof o.round === "bigint");
+    return o && (o.$typeUrl === EventAuctionResult.typeUrl || typeof o.winner === "string" && Coin.is(o.amount) && typeof o.round === "bigint");
   },
   isAmino(o: any): o is EventAuctionResultAmino {
-    return o && (o.$typeUrl === EventAuctionResult.typeUrl || typeof o.winner === "string" && typeof o.amount === "string" && typeof o.round === "bigint");
+    return o && (o.$typeUrl === EventAuctionResult.typeUrl || typeof o.winner === "string" && Coin.isAmino(o.amount) && typeof o.round === "bigint");
   },
   encode(message: EventAuctionResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.winner !== "") {
       writer.uint32(10).string(message.winner);
     }
-    if (message.amount !== "") {
-      writer.uint32(18).string(message.amount);
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
     }
     if (message.round !== BigInt(0)) {
       writer.uint32(24).uint64(message.round);
@@ -675,7 +712,7 @@ export const EventAuctionResult = {
           message.winner = reader.string();
           break;
         case 2:
-          message.amount = reader.string();
+          message.amount = Coin.decode(reader, reader.uint32());
           break;
         case 3:
           message.round = reader.uint64();
@@ -690,7 +727,7 @@ export const EventAuctionResult = {
   fromPartial(object: DeepPartial<EventAuctionResult>): EventAuctionResult {
     const message = createBaseEventAuctionResult();
     message.winner = object.winner ?? "";
-    message.amount = object.amount ?? "";
+    message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     message.round = object.round !== undefined && object.round !== null ? BigInt(object.round.toString()) : BigInt(0);
     return message;
   },
@@ -700,7 +737,7 @@ export const EventAuctionResult = {
       message.winner = object.winner;
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = object.amount;
+      message.amount = Coin.fromAmino(object.amount);
     }
     if (object.round !== undefined && object.round !== null) {
       message.round = BigInt(object.round);
@@ -710,7 +747,7 @@ export const EventAuctionResult = {
   toAmino(message: EventAuctionResult): EventAuctionResultAmino {
     const obj: any = {};
     obj.winner = message.winner === "" ? undefined : message.winner;
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     obj.round = message.round !== BigInt(0) ? message.round?.toString() : undefined;
     return obj;
   },
@@ -729,7 +766,12 @@ export const EventAuctionResult = {
       value: EventAuctionResult.encode(message).finish()
     };
   },
-  registerTypeUrl() {}
+  registerTypeUrl() {
+    if (!GlobalDecoderRegistry.registerExistingTypeUrl(EventAuctionResult.typeUrl)) {
+      return;
+    }
+    Coin.registerTypeUrl();
+  }
 };
 function createBaseEventAuctionStart(): EventAuctionStart {
   return {

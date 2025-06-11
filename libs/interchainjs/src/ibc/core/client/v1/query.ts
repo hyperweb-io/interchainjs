@@ -568,6 +568,74 @@ export interface QueryClientParamsResponseAminoMsg {
   value: QueryClientParamsResponseAmino;
 }
 /**
+ * QueryClientCreatorRequest is the request type for the Query/ClientCreator RPC
+ * method.
+ * @name QueryClientCreatorRequest
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.QueryClientCreatorRequest
+ */
+export interface QueryClientCreatorRequest {
+  /**
+   * client unique identifier
+   */
+  clientId: string;
+}
+export interface QueryClientCreatorRequestProtoMsg {
+  typeUrl: "/ibc.core.client.v1.QueryClientCreatorRequest";
+  value: Uint8Array;
+}
+/**
+ * QueryClientCreatorRequest is the request type for the Query/ClientCreator RPC
+ * method.
+ * @name QueryClientCreatorRequestAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.QueryClientCreatorRequest
+ */
+export interface QueryClientCreatorRequestAmino {
+  /**
+   * client unique identifier
+   */
+  client_id: string;
+}
+export interface QueryClientCreatorRequestAminoMsg {
+  type: "cosmos-sdk/QueryClientCreatorRequest";
+  value: QueryClientCreatorRequestAmino;
+}
+/**
+ * QueryClientCreatorResponse is the response type for the Query/ClientCreator RPC
+ * method.
+ * @name QueryClientCreatorResponse
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.QueryClientCreatorResponse
+ */
+export interface QueryClientCreatorResponse {
+  /**
+   * creator of the client
+   */
+  creator: string;
+}
+export interface QueryClientCreatorResponseProtoMsg {
+  typeUrl: "/ibc.core.client.v1.QueryClientCreatorResponse";
+  value: Uint8Array;
+}
+/**
+ * QueryClientCreatorResponse is the response type for the Query/ClientCreator RPC
+ * method.
+ * @name QueryClientCreatorResponseAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.QueryClientCreatorResponse
+ */
+export interface QueryClientCreatorResponseAmino {
+  /**
+   * creator of the client
+   */
+  creator: string;
+}
+export interface QueryClientCreatorResponseAminoMsg {
+  type: "cosmos-sdk/QueryClientCreatorResponse";
+  value: QueryClientCreatorResponseAmino;
+}
+/**
  * QueryUpgradedClientStateRequest is the request type for the
  * Query/UpgradedClientState RPC method
  * @name QueryUpgradedClientStateRequest
@@ -2157,6 +2225,174 @@ export const QueryClientParamsResponse = {
     }
     Params.registerTypeUrl();
   }
+};
+function createBaseQueryClientCreatorRequest(): QueryClientCreatorRequest {
+  return {
+    clientId: ""
+  };
+}
+/**
+ * QueryClientCreatorRequest is the request type for the Query/ClientCreator RPC
+ * method.
+ * @name QueryClientCreatorRequest
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.QueryClientCreatorRequest
+ */
+export const QueryClientCreatorRequest = {
+  typeUrl: "/ibc.core.client.v1.QueryClientCreatorRequest",
+  aminoType: "cosmos-sdk/QueryClientCreatorRequest",
+  is(o: any): o is QueryClientCreatorRequest {
+    return o && (o.$typeUrl === QueryClientCreatorRequest.typeUrl || typeof o.clientId === "string");
+  },
+  isAmino(o: any): o is QueryClientCreatorRequestAmino {
+    return o && (o.$typeUrl === QueryClientCreatorRequest.typeUrl || typeof o.client_id === "string");
+  },
+  encode(message: QueryClientCreatorRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.clientId !== "") {
+      writer.uint32(10).string(message.clientId);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryClientCreatorRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryClientCreatorRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.clientId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryClientCreatorRequest>): QueryClientCreatorRequest {
+    const message = createBaseQueryClientCreatorRequest();
+    message.clientId = object.clientId ?? "";
+    return message;
+  },
+  fromAmino(object: QueryClientCreatorRequestAmino): QueryClientCreatorRequest {
+    const message = createBaseQueryClientCreatorRequest();
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    return message;
+  },
+  toAmino(message: QueryClientCreatorRequest): QueryClientCreatorRequestAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientCreatorRequestAminoMsg): QueryClientCreatorRequest {
+    return QueryClientCreatorRequest.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientCreatorRequest): QueryClientCreatorRequestAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientCreatorRequest",
+      value: QueryClientCreatorRequest.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryClientCreatorRequestProtoMsg): QueryClientCreatorRequest {
+    return QueryClientCreatorRequest.decode(message.value);
+  },
+  toProto(message: QueryClientCreatorRequest): Uint8Array {
+    return QueryClientCreatorRequest.encode(message).finish();
+  },
+  toProtoMsg(message: QueryClientCreatorRequest): QueryClientCreatorRequestProtoMsg {
+    return {
+      typeUrl: "/ibc.core.client.v1.QueryClientCreatorRequest",
+      value: QueryClientCreatorRequest.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseQueryClientCreatorResponse(): QueryClientCreatorResponse {
+  return {
+    creator: ""
+  };
+}
+/**
+ * QueryClientCreatorResponse is the response type for the Query/ClientCreator RPC
+ * method.
+ * @name QueryClientCreatorResponse
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.QueryClientCreatorResponse
+ */
+export const QueryClientCreatorResponse = {
+  typeUrl: "/ibc.core.client.v1.QueryClientCreatorResponse",
+  aminoType: "cosmos-sdk/QueryClientCreatorResponse",
+  is(o: any): o is QueryClientCreatorResponse {
+    return o && (o.$typeUrl === QueryClientCreatorResponse.typeUrl || typeof o.creator === "string");
+  },
+  isAmino(o: any): o is QueryClientCreatorResponseAmino {
+    return o && (o.$typeUrl === QueryClientCreatorResponse.typeUrl || typeof o.creator === "string");
+  },
+  encode(message: QueryClientCreatorResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): QueryClientCreatorResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryClientCreatorResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<QueryClientCreatorResponse>): QueryClientCreatorResponse {
+    const message = createBaseQueryClientCreatorResponse();
+    message.creator = object.creator ?? "";
+    return message;
+  },
+  fromAmino(object: QueryClientCreatorResponseAmino): QueryClientCreatorResponse {
+    const message = createBaseQueryClientCreatorResponse();
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    }
+    return message;
+  },
+  toAmino(message: QueryClientCreatorResponse): QueryClientCreatorResponseAmino {
+    const obj: any = {};
+    obj.creator = message.creator === "" ? undefined : message.creator;
+    return obj;
+  },
+  fromAminoMsg(object: QueryClientCreatorResponseAminoMsg): QueryClientCreatorResponse {
+    return QueryClientCreatorResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: QueryClientCreatorResponse): QueryClientCreatorResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/QueryClientCreatorResponse",
+      value: QueryClientCreatorResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: QueryClientCreatorResponseProtoMsg): QueryClientCreatorResponse {
+    return QueryClientCreatorResponse.decode(message.value);
+  },
+  toProto(message: QueryClientCreatorResponse): Uint8Array {
+    return QueryClientCreatorResponse.encode(message).finish();
+  },
+  toProtoMsg(message: QueryClientCreatorResponse): QueryClientCreatorResponseProtoMsg {
+    return {
+      typeUrl: "/ibc.core.client.v1.QueryClientCreatorResponse",
+      value: QueryClientCreatorResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
 };
 function createBaseQueryUpgradedClientStateRequest(): QueryUpgradedClientStateRequest {
   return {};

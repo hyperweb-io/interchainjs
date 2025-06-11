@@ -544,6 +544,68 @@ export interface MsgUpdateParamsResponseAminoMsg {
   type: "cosmos-sdk/MsgUpdateParamsResponse";
   value: MsgUpdateParamsResponseAmino;
 }
+/**
+ * MsgDeleteClientCreator defines a message to delete the client creator of a client
+ * @name MsgDeleteClientCreator
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.MsgDeleteClientCreator
+ */
+export interface MsgDeleteClientCreator {
+  /**
+   * client identifier
+   */
+  clientId: string;
+  /**
+   * signer address
+   */
+  signer: string;
+}
+export interface MsgDeleteClientCreatorProtoMsg {
+  typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator";
+  value: Uint8Array;
+}
+/**
+ * MsgDeleteClientCreator defines a message to delete the client creator of a client
+ * @name MsgDeleteClientCreatorAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.MsgDeleteClientCreator
+ */
+export interface MsgDeleteClientCreatorAmino {
+  /**
+   * client identifier
+   */
+  client_id: string;
+  /**
+   * signer address
+   */
+  signer: string;
+}
+export interface MsgDeleteClientCreatorAminoMsg {
+  type: "cosmos-sdk/MsgDeleteClientCreator";
+  value: MsgDeleteClientCreatorAmino;
+}
+/**
+ * MsgDeleteClientCreatorResponse defines the Msg/DeleteClientCreator response type.
+ * @name MsgDeleteClientCreatorResponse
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.MsgDeleteClientCreatorResponse
+ */
+export interface MsgDeleteClientCreatorResponse {}
+export interface MsgDeleteClientCreatorResponseProtoMsg {
+  typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreatorResponse";
+  value: Uint8Array;
+}
+/**
+ * MsgDeleteClientCreatorResponse defines the Msg/DeleteClientCreator response type.
+ * @name MsgDeleteClientCreatorResponseAmino
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.MsgDeleteClientCreatorResponse
+ */
+export interface MsgDeleteClientCreatorResponseAmino {}
+export interface MsgDeleteClientCreatorResponseAminoMsg {
+  type: "cosmos-sdk/MsgDeleteClientCreatorResponse";
+  value: MsgDeleteClientCreatorResponseAmino;
+}
 function createBaseMsgCreateClient(): MsgCreateClient {
   return {
     clientState: undefined,
@@ -1827,6 +1889,171 @@ export const MsgUpdateParamsResponse = {
     return {
       typeUrl: "/ibc.core.client.v1.MsgUpdateParamsResponse",
       value: MsgUpdateParamsResponse.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseMsgDeleteClientCreator(): MsgDeleteClientCreator {
+  return {
+    clientId: "",
+    signer: ""
+  };
+}
+/**
+ * MsgDeleteClientCreator defines a message to delete the client creator of a client
+ * @name MsgDeleteClientCreator
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.MsgDeleteClientCreator
+ */
+export const MsgDeleteClientCreator = {
+  typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+  aminoType: "cosmos-sdk/MsgDeleteClientCreator",
+  is(o: any): o is MsgDeleteClientCreator {
+    return o && (o.$typeUrl === MsgDeleteClientCreator.typeUrl || typeof o.clientId === "string" && typeof o.signer === "string");
+  },
+  isAmino(o: any): o is MsgDeleteClientCreatorAmino {
+    return o && (o.$typeUrl === MsgDeleteClientCreator.typeUrl || typeof o.client_id === "string" && typeof o.signer === "string");
+  },
+  encode(message: MsgDeleteClientCreator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.clientId !== "") {
+      writer.uint32(10).string(message.clientId);
+    }
+    if (message.signer !== "") {
+      writer.uint32(18).string(message.signer);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteClientCreator {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDeleteClientCreator();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.clientId = reader.string();
+          break;
+        case 2:
+          message.signer = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<MsgDeleteClientCreator>): MsgDeleteClientCreator {
+    const message = createBaseMsgDeleteClientCreator();
+    message.clientId = object.clientId ?? "";
+    message.signer = object.signer ?? "";
+    return message;
+  },
+  fromAmino(object: MsgDeleteClientCreatorAmino): MsgDeleteClientCreator {
+    const message = createBaseMsgDeleteClientCreator();
+    if (object.client_id !== undefined && object.client_id !== null) {
+      message.clientId = object.client_id;
+    }
+    if (object.signer !== undefined && object.signer !== null) {
+      message.signer = object.signer;
+    }
+    return message;
+  },
+  toAmino(message: MsgDeleteClientCreator): MsgDeleteClientCreatorAmino {
+    const obj: any = {};
+    obj.client_id = message.clientId === "" ? undefined : message.clientId;
+    obj.signer = message.signer === "" ? undefined : message.signer;
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteClientCreatorAminoMsg): MsgDeleteClientCreator {
+    return MsgDeleteClientCreator.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDeleteClientCreator): MsgDeleteClientCreatorAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgDeleteClientCreator",
+      value: MsgDeleteClientCreator.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgDeleteClientCreatorProtoMsg): MsgDeleteClientCreator {
+    return MsgDeleteClientCreator.decode(message.value);
+  },
+  toProto(message: MsgDeleteClientCreator): Uint8Array {
+    return MsgDeleteClientCreator.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDeleteClientCreator): MsgDeleteClientCreatorProtoMsg {
+    return {
+      typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreator",
+      value: MsgDeleteClientCreator.encode(message).finish()
+    };
+  },
+  registerTypeUrl() {}
+};
+function createBaseMsgDeleteClientCreatorResponse(): MsgDeleteClientCreatorResponse {
+  return {};
+}
+/**
+ * MsgDeleteClientCreatorResponse defines the Msg/DeleteClientCreator response type.
+ * @name MsgDeleteClientCreatorResponse
+ * @package ibc.core.client.v1
+ * @see proto type: ibc.core.client.v1.MsgDeleteClientCreatorResponse
+ */
+export const MsgDeleteClientCreatorResponse = {
+  typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreatorResponse",
+  aminoType: "cosmos-sdk/MsgDeleteClientCreatorResponse",
+  is(o: any): o is MsgDeleteClientCreatorResponse {
+    return o && o.$typeUrl === MsgDeleteClientCreatorResponse.typeUrl;
+  },
+  isAmino(o: any): o is MsgDeleteClientCreatorResponseAmino {
+    return o && o.$typeUrl === MsgDeleteClientCreatorResponse.typeUrl;
+  },
+  encode(_: MsgDeleteClientCreatorResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteClientCreatorResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDeleteClientCreatorResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: DeepPartial<MsgDeleteClientCreatorResponse>): MsgDeleteClientCreatorResponse {
+    const message = createBaseMsgDeleteClientCreatorResponse();
+    return message;
+  },
+  fromAmino(_: MsgDeleteClientCreatorResponseAmino): MsgDeleteClientCreatorResponse {
+    const message = createBaseMsgDeleteClientCreatorResponse();
+    return message;
+  },
+  toAmino(_: MsgDeleteClientCreatorResponse): MsgDeleteClientCreatorResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgDeleteClientCreatorResponseAminoMsg): MsgDeleteClientCreatorResponse {
+    return MsgDeleteClientCreatorResponse.fromAmino(object.value);
+  },
+  toAminoMsg(message: MsgDeleteClientCreatorResponse): MsgDeleteClientCreatorResponseAminoMsg {
+    return {
+      type: "cosmos-sdk/MsgDeleteClientCreatorResponse",
+      value: MsgDeleteClientCreatorResponse.toAmino(message)
+    };
+  },
+  fromProtoMsg(message: MsgDeleteClientCreatorResponseProtoMsg): MsgDeleteClientCreatorResponse {
+    return MsgDeleteClientCreatorResponse.decode(message.value);
+  },
+  toProto(message: MsgDeleteClientCreatorResponse): Uint8Array {
+    return MsgDeleteClientCreatorResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgDeleteClientCreatorResponse): MsgDeleteClientCreatorResponseProtoMsg {
+    return {
+      typeUrl: "/ibc.core.client.v1.MsgDeleteClientCreatorResponse",
+      value: MsgDeleteClientCreatorResponse.encode(message).finish()
     };
   },
   registerTypeUrl() {}

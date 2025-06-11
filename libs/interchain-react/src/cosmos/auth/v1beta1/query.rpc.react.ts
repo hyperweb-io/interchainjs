@@ -6,8 +6,6 @@ import { getAccounts, getAccount, getAccountAddressByID, getParams, getModuleAcc
  * 
  * When called from another module, this query might consume a high amount of
  * gas if the pagination field is incorrectly set.
- * 
- * Since: cosmos-sdk 0.43
  * @name useGetAccounts
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.Accounts
@@ -28,8 +26,6 @@ export const useGetAccount = buildUseQuery<QueryAccountRequest, QueryAccountResp
 });
 /**
  * AccountAddressByID returns account address based on account number.
- * 
- * Since: cosmos-sdk 0.46.2
  * @name useGetAccountAddressByID
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.AccountAddressByID
@@ -50,8 +46,6 @@ export const useGetParams = buildUseQuery<QueryParamsRequest, QueryParamsRespons
 });
 /**
  * ModuleAccounts returns all the existing module accounts.
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetModuleAccounts
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.ModuleAccounts
@@ -72,8 +66,6 @@ export const useGetModuleAccountByName = buildUseQuery<QueryModuleAccountByNameR
 });
 /**
  * Bech32Prefix queries bech32Prefix
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetBech32Prefix
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.Bech32Prefix
@@ -84,8 +76,6 @@ export const useGetBech32Prefix = buildUseQuery<Bech32PrefixRequest, Bech32Prefi
 });
 /**
  * AddressBytesToString converts Account Address bytes to string
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetAddressBytesToString
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.AddressBytesToString
@@ -96,8 +86,6 @@ export const useGetAddressBytesToString = buildUseQuery<AddressBytesToStringRequ
 });
 /**
  * AddressStringToBytes converts Address string to bytes
- * 
- * Since: cosmos-sdk 0.46
  * @name useGetAddressStringToBytes
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.AddressStringToBytes
@@ -108,8 +96,6 @@ export const useGetAddressStringToBytes = buildUseQuery<AddressStringToBytesRequ
 });
 /**
  * AccountInfo queries account info which is common to all account types.
- * 
- * Since: cosmos-sdk 0.47
  * @name useGetAccountInfo
  * @package cosmos.auth.v1beta1
  * @see proto service: cosmos.auth.v1beta1.AccountInfo

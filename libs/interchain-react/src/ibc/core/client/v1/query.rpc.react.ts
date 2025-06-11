@@ -1,6 +1,6 @@
 import { buildUseQuery } from "../../../../react-query";
-import { QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryClientParamsRequest, QueryClientParamsResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryVerifyMembershipRequest, QueryVerifyMembershipResponse } from "./query";
-import { getClientState, getClientStates, getConsensusState, getConsensusStates, getConsensusStateHeights, getClientStatus, getClientParams, getUpgradedClientState, getUpgradedConsensusState, getVerifyMembership } from "./query.rpc.func";
+import { QueryClientStateRequest, QueryClientStateResponse, QueryClientStatesRequest, QueryClientStatesResponse, QueryConsensusStateRequest, QueryConsensusStateResponse, QueryConsensusStatesRequest, QueryConsensusStatesResponse, QueryConsensusStateHeightsRequest, QueryConsensusStateHeightsResponse, QueryClientStatusRequest, QueryClientStatusResponse, QueryClientParamsRequest, QueryClientParamsResponse, QueryClientCreatorRequest, QueryClientCreatorResponse, QueryUpgradedClientStateRequest, QueryUpgradedClientStateResponse, QueryUpgradedConsensusStateRequest, QueryUpgradedConsensusStateResponse, QueryVerifyMembershipRequest, QueryVerifyMembershipResponse } from "./query";
+import { getClientState, getClientStates, getConsensusState, getConsensusStates, getConsensusStateHeights, getClientStatus, getClientParams, getClientCreator, getUpgradedClientState, getUpgradedConsensusState, getVerifyMembership } from "./query.rpc.func";
 /**
  * ClientState queries an IBC light client.
  * @name useGetClientState
@@ -72,6 +72,16 @@ export const useGetClientStatus = buildUseQuery<QueryClientStatusRequest, QueryC
 export const useGetClientParams = buildUseQuery<QueryClientParamsRequest, QueryClientParamsResponse>({
   builderQueryFn: getClientParams,
   queryKeyPrefix: "ClientParamsQuery"
+});
+/**
+ * ClientCreator queries the creator of a given client.
+ * @name useGetClientCreator
+ * @package ibc.core.client.v1
+ * @see proto service: ibc.core.client.v1.ClientCreator
+ */
+export const useGetClientCreator = buildUseQuery<QueryClientCreatorRequest, QueryClientCreatorResponse>({
+  builderQueryFn: getClientCreator,
+  queryKeyPrefix: "ClientCreatorQuery"
 });
 /**
  * UpgradedClientState queries an Upgraded IBC light client.
