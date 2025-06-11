@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { keccak256 } from 'ethereum-cryptography/keccak';
 import { secp256k1 } from '@noble/curves/secp256k1';
 import { bytesToHex, hexToBytes } from 'ethereum-cryptography/utils';
@@ -34,9 +33,16 @@ export class SignerFromPrivateKey {
         params: [txHash],
         id: 1,
       };
-      const resp = await axios.post(this.rpcUrl, payload);
-      if (resp.data.result) {
-        return resp.data.result as TransactionReceipt;
+      const resp = await fetch(this.rpcUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+      const responseData = await resp.json();
+      if (responseData.result) {
+        return responseData.result as TransactionReceipt;
       }
       await new Promise(resolve => setTimeout(resolve, 3000));
     }
@@ -85,8 +91,15 @@ export class SignerFromPrivateKey {
       params: [this.getAddress(), 'latest'],
       id: 1
     };
-    const resp = await axios.post(this.rpcUrl, payload);
-    return parseInt(resp.data.result, 16);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    const responseData = await resp.json();
+    return parseInt(responseData.result, 16);
   }
 
   /**
@@ -99,8 +112,15 @@ export class SignerFromPrivateKey {
       params: [],
       id: 1
     };
-    const resp = await axios.post(this.rpcUrl, payload);
-    return parseInt(resp.data.result, 16);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    const responseData = await resp.json();
+    return parseInt(responseData.result, 16);
   }
 
   /**
@@ -113,8 +133,15 @@ export class SignerFromPrivateKey {
       params: [],
       id: 1
     };
-    const resp = await axios.post(this.rpcUrl, payload);
-    return BigInt(resp.data.result);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    const responseData = await resp.json();
+    return BigInt(responseData.result);
   }
 
   public async getBalance(): Promise<bigint> {
@@ -128,11 +155,18 @@ export class SignerFromPrivateKey {
     };
 
     try {
-      const resp = await axios.post(this.rpcUrl, payload);
-      if (resp.data.result) {
-        return BigInt(resp.data.result);
-      } else if (resp.data.error) {
-        throw new Error(JSON.stringify(resp.data.error));
+      const resp = await fetch(this.rpcUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+      const responseData = await resp.json();
+      if (responseData.result) {
+        return BigInt(responseData.result);
+      } else if (responseData.error) {
+        throw new Error(JSON.stringify(responseData.error));
       } else {
         throw new Error('Unknown error from eth_getBalance');
       }
@@ -230,15 +264,22 @@ export class SignerFromPrivateKey {
       params: [rawTxHex],
       id: 1,
     };
-    const resp = await axios.post(this.rpcUrl, sendPayload);
-    if (resp.data.result) {
-      const txHash = resp.data.result as string;
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendPayload)
+    });
+    const responseData = await resp.json();
+    if (responseData.result) {
+      const txHash = responseData.result as string;
       return {
         txHash,
         wait: async () => this.pollForReceipt(txHash),
       };
-    } else if (resp.data.error) {
-      throw new Error(JSON.stringify(resp.data.error));
+    } else if (responseData.error) {
+      throw new Error(JSON.stringify(responseData.error));
     } else {
       throw new Error('Unknown error from eth_sendRawTransaction');
     }
@@ -351,16 +392,23 @@ export class SignerFromPrivateKey {
       params: [typedRawTx],
       id: 1
     };
-    const resp = await axios.post(this.rpcUrl, sendPayload);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendPayload)
+    });
+    const responseData = await resp.json();
 
-    if (resp.data.result) {
-      const txHash = resp.data.result as string;
+    if (responseData.result) {
+      const txHash = responseData.result as string;
       return {
         txHash,
         wait: async () => this.pollForReceipt(txHash),
       };
-    } else if (resp.data.error) {
-      throw new Error(JSON.stringify(resp.data.error));
+    } else if (responseData.error) {
+      throw new Error(JSON.stringify(responseData.error));
     } else {
       throw new Error('Unknown error from eth_sendRawTransaction');
     }
@@ -437,12 +485,19 @@ export class SignerFromPrivateKey {
       id: 1
     };
 
-    const resp = await axios.post(this.rpcUrl, payload);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    const responseData = await resp.json();
 
-    if (resp.data.result) {
-      return BigInt(resp.data.result);
-    } else if (resp.data.error) {
-      throw new Error(JSON.stringify(resp.data.error));
+    if (responseData.result) {
+      return BigInt(responseData.result);
+    } else if (responseData.error) {
+      throw new Error(JSON.stringify(responseData.error));
     } else {
       throw new Error('Unknown error from eth_estimateGas');
     }
@@ -458,8 +513,15 @@ export class SignerFromPrivateKey {
       params: [],
       id: 1
     };
-    const resp = await axios.post(this.rpcUrl, payload);
-    return BigInt(resp.data.result);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    const responseData = await resp.json();
+    return BigInt(responseData.result);
   }
 
   /**
@@ -473,9 +535,16 @@ export class SignerFromPrivateKey {
       params: [1, 'latest', []],
       id: 1
     };
-    const resp = await axios.post(this.rpcUrl, payload);
+    const resp = await fetch(this.rpcUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+    const responseData = await resp.json();
 
-    const baseFeeArray = resp.data.result.baseFeePerGas;
+    const baseFeeArray = responseData.result.baseFeePerGas;
     if (!Array.isArray(baseFeeArray) || baseFeeArray.length === 0) {
       throw new Error(`Invalid feeHistory response: ${JSON.stringify(baseFeeArray)}`);
     }
