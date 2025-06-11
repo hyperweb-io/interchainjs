@@ -9,6 +9,10 @@ interface MetaConfig {
 // Priority configuration for directory and file sorting
 const PRIORITY_CONFIG: Record<string, Record<string, MetaConfig>> = {
   'docs': {
+    'migration-from-cosmjs': {
+      priority: 110,
+      title: 'Migration from CosmJS',
+    },
     'networks': {
       priority: 100,
       title: 'Networks',

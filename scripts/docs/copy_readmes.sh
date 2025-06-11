@@ -17,5 +17,6 @@ done
 
 # Copy root README.md
 cp "${PROJECT_ROOT}/README.md" "${DOCS_DIR}/index.mdx"
+cp "${PROJECT_ROOT}/migration-from-cosmjs.md" "${DOCS_DIR}/migration-from-cosmjs.mdx"
 
 echo "README.md files copied and renamed to index.mdx successfully!"

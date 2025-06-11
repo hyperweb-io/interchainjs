@@ -1,5 +1,6 @@
 {
   "index": "Overview",
+  "migration-from-cosmjs": "Migration from CosmJS",
   "networks": "Networks",
   "libs": "Libraries",
   "packages": "Packages",
