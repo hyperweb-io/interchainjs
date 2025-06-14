@@ -4,3 +4,6 @@
 **/dist_spec
 **/yarn-error.log
 lerna-debug.log
+
+.claude
+CLAUDE.md
