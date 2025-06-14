@@ -5,5 +5,7 @@
 **/yarn-error.log
 lerna-debug.log
 
+dev-docs/architecture-thoughts.md
+
 .claude
 CLAUDE.md
