@@ -137,6 +137,11 @@ export interface TimeoutHeightOption {
   value: bigint;
 }
 
+export interface TimeoutTimestampOption {
+  type: 'absolute';
+  value: Date;
+}
+
 export type TxOptions = {
   /**
    * timeout is the block height after which this transaction will not
@@ -147,6 +152,17 @@ export type TxOptions = {
    * - type `absolute`: this.value = TxBody.timeoutHeight
    */
   timeoutHeight?: TimeoutHeightOption;
+  /**
+   * timeoutTimestamp is the time after which this transaction will not
+   * be processed by the chain; for use with unordered transactions.
+   */
+  timeoutTimestamp?: TimeoutTimestampOption;
+  /**
+   * unordered is set to true when the transaction is not ordered.
+   * Note: this requires the timeoutTimestamp to be set
+   * and the sequence to be set to 0
+   */
+  unordered?: boolean;
   /**
    * extension_options are arbitrary options that can be added by chains
    * when the default options are not sufficient. If any of these are present
