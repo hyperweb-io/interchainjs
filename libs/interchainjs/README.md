@@ -104,8 +104,6 @@ graph LR
     cosmos_signer --> cosmos_amino["Amino Signer"]
     cosmos_signer --> cosmos_direct["Direct Signer"]
 
-    ethereum_signer --> ethereum_eip712["EIP712 Signer"]
-
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
 
