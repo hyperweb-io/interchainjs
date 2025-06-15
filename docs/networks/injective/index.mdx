@@ -53,7 +53,6 @@ console.log(result.hash); // the hash of TxRaw
 
 - **direct signer** from `@interchainjs/injective/signers/direct`
 - **amino signer** from `@interchainjs/injective/signers/amino`
-- **eip712 signer** from `@interchainjs/injective/signers/eip712`
 
 ## Interchain JavaScript Stack ⚛️
 
