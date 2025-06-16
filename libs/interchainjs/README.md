@@ -105,7 +105,7 @@ graph LR
     cosmos_signer --> cosmos_direct["Direct Signer"]
 
     ethereum_signer --> signer_from_from_private_key["Signer From Private Key"]
-    ethereum_signer --> signer_from_from_private_browser["Signer From Browser"]
+    ethereum_signer --> signer_from_from_browser["Signer From Browser"]
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
