@@ -24,8 +24,6 @@
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "test:devnet": "npx jest --preset ts-jest devnet/__tests__/send.icjs.test.ts",
-    "test:ethers": "npx jest --preset ts-jest devnet/__tests__/ethers.test.ts",
-    "test:noethers": "npx jest --preset ts-jest devnet/__tests__/noethers.test.ts",
     "run-ganache": "bash devnet/run-ganache.sh",
     "starship": "starship start --config ./starship/configs/eth-lite.yaml",
     "starship:stop": "starship stop",
