@@ -3,5 +3,6 @@
   "auth": "Auth",
   "signer": "Signer",
   "tutorial": "Tutorial",
-  "wallet": "Wallet"
+  "wallet": "Wallet",
+  "add-network": "Add a Network"
 }
