@@ -5,9 +5,5 @@
 **/yarn-error.log
 lerna-debug.log
 
-dev-docs/architecture-thoughts.md
-dev-docs/code-draft.md
-dev-docs/unisigner-refined.md
-
 .claude
 CLAUDE.md
