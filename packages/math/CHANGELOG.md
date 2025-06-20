@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.16](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/math@1.11.15...@interchainjs/math@1.11.16) (2025-06-20)
+
+**Note:** Version bump only for package @interchainjs/math
+
 ## [1.11.15](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/math@1.11.14...@interchainjs/math@1.11.15) (2025-06-08)
 
 **Note:** Version bump only for package @interchainjs/math
