@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.16](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/react@1.11.15...@interchainjs/react@1.11.16) (2025-06-20)
+
+### Features
+
+- migrate proto, libs to cosmos sdk v53 ([cda82f1](https://github.com/hyperweb-io/interchainjs/commit/cda82f10d2e2f235093e37414a241998175e28c5))
+
 ## [1.11.15](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/react@1.11.14...@interchainjs/react@1.11.15) (2025-06-08)
 
 **Note:** Version bump only for package @interchainjs/react
