@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/encoding",
-  "version": "1.11.17",
+  "version": "1.11.18",
   "description": "Encoding helpers for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>"
@@ -27,9 +27,10 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/math": "1.11.17",
+    "@interchainjs/math": "1.11.18",
     "base64-js": "^1.3.0",
     "bech32": "^1.1.4",
     "readonly-date": "^1.0.0"
-  }
+  },
+  "gitHead": "84b1c910ea79d1d465bf6cce0dd470cf4dfc890b"
 }
