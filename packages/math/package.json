@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/math",
-  "version": "1.11.17",
+  "version": "1.11.18",
   "description": "Math helpers for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>"
@@ -28,5 +28,6 @@
   },
   "dependencies": {
     "bn.js": "^5.2.0"
-  }
+  },
+  "gitHead": "84b1c910ea79d1d465bf6cce0dd470cf4dfc890b"
 }

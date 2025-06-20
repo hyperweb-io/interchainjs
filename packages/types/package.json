@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/types",
-  "version": "1.11.17",
+  "version": "1.11.18",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
@@ -26,5 +26,6 @@
   },
   "dependencies": {
     "decimal.js": "^10.4.3"
-  }
+  },
+  "gitHead": "84b1c910ea79d1d465bf6cce0dd470cf4dfc890b"
 }
