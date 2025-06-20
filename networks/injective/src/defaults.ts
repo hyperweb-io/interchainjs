@@ -11,7 +11,6 @@ import { toDecoder } from '@interchainjs/cosmos/utils';
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
 import { PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys';
 import { EthAccount } from '@interchainjs/cosmos-types/injective/types/v1beta1/account';
-import { Eip712Doc } from '@interchainjs/ethereum/types';
 import { IKey, SignerConfig } from '@interchainjs/types';
 
 import { DomainOptions, EthereumChainId } from './types';
@@ -87,96 +86,4 @@ export const defaultDomainOptions: Required<DomainOptions> = {
   ethereumChainId: EthereumChainId.Injective,
   salt: '0',
   verifyingContract: 'cosmos',
-};
-
-export const defaultEip712Types: Pick<Eip712Doc, 'types' | 'primaryType'> = {
-  primaryType: 'Tx',
-  types: {
-    EIP712Domain: [
-      {
-        name: 'name',
-        type: 'string',
-      },
-      {
-        name: 'version',
-        type: 'string',
-      },
-      {
-        name: 'chainId',
-        type: 'uint256',
-      },
-      {
-        name: 'verifyingContract',
-        type: 'string',
-      },
-      {
-        name: 'salt',
-        type: 'string',
-      },
-    ],
-    Tx: [
-      {
-        name: 'account_number',
-        type: 'string',
-      },
-      {
-        name: 'chain_id',
-        type: 'string',
-      },
-      {
-        name: 'fee',
-        type: 'Fee',
-      },
-      {
-        name: 'memo',
-        type: 'string',
-      },
-      {
-        name: 'msgs',
-        type: 'Msg[]',
-      },
-      {
-        name: 'sequence',
-        type: 'string',
-      },
-      {
-        name: 'timeout_height',
-        type: 'string',
-      },
-    ],
-    Fee: [
-      {
-        name: 'feePayer',
-        type: 'string',
-      },
-      {
-        name: 'amount',
-        type: 'Coin[]',
-      },
-      {
-        name: 'gas',
-        type: 'string',
-      },
-    ],
-    Coin: [
-      {
-        name: 'denom',
-        type: 'string',
-      },
-      {
-        name: 'amount',
-        type: 'string',
-      },
-    ],
-    Msg: [
-      {
-        name: 'type',
-        type: 'string',
-      },
-      {
-        name: 'value',
-        type: 'MsgValue',
-      },
-    ],
-  },
 };
