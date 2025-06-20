@@ -1,3 +1,5 @@
+import { DEFAULT_RESULT_STAGING_KEY } from './base-builder';
+
 /**
  * ISigBuilder is an interface for building signature from document.
  */
@@ -31,6 +33,13 @@ export interface ITxBuilderContext<Signer = unknown> {
    * get staging data.
    */
   getStagingData<TStaging>(key: string): TStaging;
+
+  /**
+   * Set the final result using the default staging key.
+   * This is a convenience method for setting the final result that will be returned by the builder.
+   * @param result - the final result to be returned by the builder
+   */
+  setFinalResult<TResult>(result: TResult): void;
 }
 
 /**
@@ -47,5 +56,9 @@ export class BaseTxBuilderContext<Signer> implements ITxBuilderContext<Signer> {
 
   getStagingData<TStaging>(key: string): TStaging {
     return this.stagingData[key] as TStaging;
+  }
+
+  setFinalResult<TResult>(result: TResult): void {
+    this.setStagingData(DEFAULT_RESULT_STAGING_KEY, result);
   }
 }

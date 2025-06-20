@@ -1,5 +1,6 @@
 export * from './account';
 export * from './auth';
+export * from './base-builder';
 export * from './doc';
 export * from './hdpath';
 export * from './signer';
