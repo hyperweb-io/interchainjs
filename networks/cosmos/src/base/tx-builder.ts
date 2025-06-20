@@ -145,6 +145,8 @@ export abstract class BaseCosmosTxBuilder<SignDoc>
       timeoutHeight: options?.timeoutHeight?.value,
       extensionOptions: options?.extensionOptions,
       nonCriticalExtensionOptions: options?.nonCriticalExtensionOptions,
+      timeoutTimestamp: options?.timeoutTimestamp?.value,
+      unordered: options?.unordered ?? false,
     });
     return {
       txBody,
