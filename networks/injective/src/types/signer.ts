@@ -1,34 +1,21 @@
 import {
-  CosmosSignArgs,
   DocOptions as CosmosDocOptions,
 } from '@interchainjs/cosmos/types';
 import {
   CosmosAminoSigner,
   CosmosDirectSigner,
-  UniCosmosBaseSigner,
 } from '@interchainjs/cosmos/types';
 import {
   BaseWalletAccount,
-  Eip712Data,
-  InjectiveDomain,
-  InjectiveEip712Message,
 } from '@interchainjs/types';
 
 export type InjectiveDirectSigner = CosmosDirectSigner;
 export type InjectiveAminoSigner = CosmosAminoSigner;
-export type InjectiveEip712Signer = UniCosmosBaseSigner<InjectiveEip712Doc>;
 
 export interface InjectiveAccount extends BaseWalletAccount {
   cosmosAddress: string;
   ethereumAddress: string;
 }
-
-export type InjectiveEip712Doc = Eip712Data<
-  InjectiveDomain,
-  InjectiveEip712Message
->;
-
-export type InjectiveEip712SignArgs = CosmosSignArgs<DocOptions>;
 
 export enum EthereumChainId {
   Mainnet = 1,
