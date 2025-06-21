@@ -4,13 +4,11 @@
  * and run the transpile command or yarn proto command to regenerate this bundle.
  */
 
-import { StdFee } from './doc';
-import { DeliverTxResponse } from './rpc';
-
 export interface Any {
   typeUrl: string;
   value: Uint8Array;
 }
+
 export enum WireType {
   Varint = 0,
   Fixed64 = 1,
@@ -130,18 +128,4 @@ export type EncodeObject = Message<any>;
 export interface Message<T> {
   typeUrl: string;
   value: T;
-}
-
-export interface TxRpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
-  signAndBroadcast?(
-    signerAddress: string,
-    messages: EncodeObject[],
-    fee: StdFee | 'auto' | number,
-    memo: string
-  ): Promise<DeliverTxResponse>;
 }
