@@ -1,4 +1,4 @@
-import { IKey } from './auth';
+import { ISignature } from './auth';
 
 /**
  * BaseWalletAccount is a base class for wallet account
@@ -7,15 +7,7 @@ export interface BaseWalletAccount {
   // algorithm used to derive the key
   algo: string;
   // public key
-  publicKey: IKey;
-}
-
-/**
- * SignDocResponse is a response object that contains the signature and the sign doc.
- */
-export interface SignDocResponse<SignDoc, TSig = IKey> {
-  signature: TSig;
-  signDoc: SignDoc;
+  publicKey: ISignature;
 }
 
 /**

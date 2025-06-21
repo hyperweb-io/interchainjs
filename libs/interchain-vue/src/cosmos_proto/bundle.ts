@@ -1,1 +1,0 @@
-export { ScalarType, ScalarTypeAmino, InterfaceDescriptor, InterfaceDescriptorProtoMsg, InterfaceDescriptorAmino, InterfaceDescriptorAminoMsg, ScalarDescriptor, ScalarDescriptorProtoMsg, ScalarDescriptorAmino, ScalarDescriptorAminoMsg } from "./cosmos";

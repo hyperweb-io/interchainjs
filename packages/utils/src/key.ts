@@ -1,4 +1,4 @@
-import { IKey } from '@interchainjs/types';
+import { ISignature } from '@interchainjs/types';
 import { bech32 } from 'bech32';
 
 import {
@@ -12,27 +12,27 @@ import {
   toNumber,
 } from './encoding';
 
-export class Key implements IKey {
+export class BaseSignature implements ISignature {
   constructor(public readonly value: Uint8Array) {}
 
   static from(value: Uint8Array) {
-    return new Key(value);
+    return new BaseSignature(value);
   }
 
   static fromHex(value: string) {
-    return new Key(fromHex(value));
+    return new BaseSignature(fromHex(value));
   }
 
   static fromBase64(value: string) {
-    return new Key(fromBase64(value));
+    return new BaseSignature(fromBase64(value));
   }
 
   static fromBigInt(value: bigint) {
-    return new Key(fromBigInt(value));
+    return new BaseSignature(fromBigInt(value));
   }
 
   static fromNumber(value: number) {
-    return new Key(fromNumber(value));
+    return new BaseSignature(fromNumber(value));
   }
 
   toHex(trimmed: boolean = false) {
@@ -59,11 +59,11 @@ export class Key implements IKey {
     return bech32.encode(prefix, bech32.toWords(this.value), limit);
   }
 
-  slice(start?: number, end?: number): Key {
-    return Key.from(this.value.slice(start, end));
+  slice(start?: number, end?: number): BaseSignature {
+    return BaseSignature.from(this.value.slice(start, end));
   }
 
-  concat(key: Key) {
-    return Key.from(new Uint8Array([...this.value, ...key.value]));
+  concat(signature: BaseSignature) {
+    return BaseSignature.from(new Uint8Array([...this.value, ...signature.value]));
   }
 }
