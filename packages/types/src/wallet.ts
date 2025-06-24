@@ -1,4 +1,4 @@
-import { ISignature } from './auth';
+import { ICryptoBytes } from './auth';
 
 /**
  * BaseWalletAccount is a base class for wallet account
@@ -7,7 +7,7 @@ export interface BaseWalletAccount {
   // algorithm used to derive the key
   algo: string;
   // public key
-  publicKey: ISignature;
+  publicKey: ICryptoBytes;
 }
 
 /**

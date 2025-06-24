@@ -1,4 +1,4 @@
-export interface ISignature {
+export interface ICryptoBytes {
   value: Uint8Array;
   toHex(): string;
   toPrefixedHex(): string;
@@ -6,13 +6,13 @@ export interface ISignature {
   toBigInt(): bigint;
   toNumber(): number;
   toBech32(prefix: string, limit?: number): string;
-  slice(start?: number, end?: number): ISignature;
-  concat(key: ISignature): ISignature;
+  slice(start?: number, end?: number): ICryptoBytes;
+  concat(key: ICryptoBytes): ICryptoBytes;
 }
 
 /**
  * Auth is an interface that represents the authentication method of an account.
- * means around the private key, using the algo, we can get the public key, address, and sign the data.
+ * means based on the private key, using the algo, we can get the public key, address, and sign the data.
  */
 export interface Auth {
   /**
@@ -29,7 +29,7 @@ export interface Auth {
    * @param isCompressed Whether the public key should be compressed.
    * @returns The public key.
    */
-  getPublicKey: (isCompressed?: boolean) => ISignature;
+  getPublicKey: (isCompressed?: boolean) => ICryptoBytes;
 }
 
 /**
@@ -47,7 +47,7 @@ export interface AuthOptions {
  * An account is a safe wrapper representing the auth without exposing the private key.
  */
 export interface IAccount {
-  address: string;
-  publicKey: ISignature;
+  address?: string;
+  publicKey?: ICryptoBytes;
   algo: string;
 }
