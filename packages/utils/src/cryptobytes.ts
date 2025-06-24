@@ -1,4 +1,4 @@
-import { ISignature } from '@interchainjs/types';
+import { ICryptoBytes } from '@interchainjs/types';
 import { bech32 } from 'bech32';
 
 import {
@@ -12,27 +12,27 @@ import {
   toNumber,
 } from './encoding';
 
-export class BaseSignature implements ISignature {
+export class BaseCryptoBytes implements ICryptoBytes {
   constructor(public readonly value: Uint8Array) {}
 
   static from(value: Uint8Array) {
-    return new BaseSignature(value);
+    return new BaseCryptoBytes(value);
   }
 
   static fromHex(value: string) {
-    return new BaseSignature(fromHex(value));
+    return new BaseCryptoBytes(fromHex(value));
   }
 
   static fromBase64(value: string) {
-    return new BaseSignature(fromBase64(value));
+    return new BaseCryptoBytes(fromBase64(value));
   }
 
   static fromBigInt(value: bigint) {
-    return new BaseSignature(fromBigInt(value));
+    return new BaseCryptoBytes(fromBigInt(value));
   }
 
   static fromNumber(value: number) {
-    return new BaseSignature(fromNumber(value));
+    return new BaseCryptoBytes(fromNumber(value));
   }
 
   toHex(trimmed: boolean = false) {
@@ -59,11 +59,11 @@ export class BaseSignature implements ISignature {
     return bech32.encode(prefix, bech32.toWords(this.value), limit);
   }
 
-  slice(start?: number, end?: number): BaseSignature {
-    return BaseSignature.from(this.value.slice(start, end));
+  slice(start?: number, end?: number): BaseCryptoBytes {
+    return BaseCryptoBytes.from(this.value.slice(start, end));
   }
 
-  concat(signature: BaseSignature) {
-    return BaseSignature.from(new Uint8Array([...this.value, ...signature.value]));
+  concat(cryptoBytes: BaseCryptoBytes) {
+    return BaseCryptoBytes.from(new Uint8Array([...this.value, ...cryptoBytes.value]));
   }
 }
