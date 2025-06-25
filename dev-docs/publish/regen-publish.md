@@ -35,7 +35,7 @@ yarn add @cosmology/telescope@latest
 
 **File to modify:** `scripts/codegen.ts`
 
-- Review and update telescope configurations as needed
+- Verify with the maintainer if telescope configuration options need updating
 - Ensure compatibility with the new telescope version
 - Update any deprecated configuration options
 
