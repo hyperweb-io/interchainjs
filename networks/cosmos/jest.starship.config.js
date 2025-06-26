@@ -13,6 +13,7 @@ module.exports = {
     ],
   },
   transformIgnorePatterns: [`/node_modules/*`],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testRegex: '(/starship/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
