@@ -1,0 +1,33 @@
+{
+  "name": "@interchainjs/cosmos-query-client-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for Cosmos Query Client implementation",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:query": "jest query-client.test.ts",
+    "test:event": "jest event-client.test.ts",
+    "test:rpc": "jest rpc-clients.test.ts",
+    "test:protocol": "jest protocol-adapter.test.ts",
+    "test:integration": "jest integration.test.ts",
+    "test:verbose": "jest --verbose",
+    "test:silent": "jest --silent",
+    "test:basic": "node test-runner.js",
+    "verify": "node verify-implementation.js",
+    "pretest": "npm run verify"
+  },
+  "dependencies": {
+    "@interchainjs/cosmos": "workspace:*",
+    "@interchainjs/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  }
+}

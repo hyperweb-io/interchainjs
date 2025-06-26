@@ -4,3 +4,6 @@ export * from './hdpath';
 export * from './signer';
 export * from './telescope';
 export * from './wallet';
+export * from './query';
+export * from './rpc';
+export * from './errors';
