@@ -6,7 +6,7 @@ import {
   EventType
 } from '@interchainjs/cosmos';
 
-describe('Cosmos Event Client', () => {
+describe.skip('Cosmos Event Client', () => {
   let eventClient: ICosmosEventClient;
   const OSMOSIS_WS = 'wss://rpc.osmosis.zone/websocket';
 

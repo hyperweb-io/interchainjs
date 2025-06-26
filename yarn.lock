@@ -1085,6 +1085,16 @@
     bfs-path "^1.0.2"
     cross-fetch "^3.1.5"
 
+"@chain-registry/client@^2.0.0":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@chain-registry/client/-/client-2.0.11.tgz#0c9c17980526c62187e7858478c1b23f996cfd4f"
+  integrity sha512-MwOgequSOah+T8UlgoPieUgJkeP30SbqtluhK8V1PaqQc8yNp+OcYWr2z1ejLvkwaT6xH8/QTLnxRk/WULb0lw==
+  dependencies:
+    "@chain-registry/types" "^2.0.11"
+    "@chain-registry/utils" "^2.0.11"
+    bfs-path "^1.0.2"
+    cross-fetch "^3.1.5"
+
 "@chain-registry/types@^0.17.1":
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/@chain-registry/types/-/types-0.17.1.tgz#0ac7bda6178d3917834578627f232a247fe5def8"
@@ -1097,6 +1107,11 @@
   resolved "https://registry.yarnpkg.com/@chain-registry/types/-/types-0.50.71.tgz#06fe19658f0c5c306a7ce2c92408e0ab7291f342"
   integrity sha512-4Z728AUqB9wQjYYeYLzqA6a65LGeMS31SEmUUG+X8bTzRra2eDwxklq3hxFlRROrZGI0ZofRAFueEPD+B0vRPg==
 
+"@chain-registry/types@^2.0.1", "@chain-registry/types@^2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@chain-registry/types/-/types-2.0.11.tgz#91e5d7afb89edcca599aac4d48cd6cb435eb1f04"
+  integrity sha512-6T/dwbgIRNcmcD6Lc9NVCBbtrrrgbeOMYGW3MdxFmdJ2NS2LgnrHH0/sGd1n0FRdJFN7iC0SFkJU1VppADU3rA==
+
 "@chain-registry/utils@^1.17.0":
   version "1.51.71"
   resolved "https://registry.yarnpkg.com/@chain-registry/utils/-/utils-1.51.71.tgz#0d87a410d027995c1f382a16a9ccc147bf864542"
@@ -1104,6 +1119,16 @@
   dependencies:
     "@chain-registry/types" "^0.50.71"
     bignumber.js "9.1.2"
+    sha.js "^2.4.11"
+
+"@chain-registry/utils@^2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@chain-registry/utils/-/utils-2.0.11.tgz#4f55cd85c2f64cfa59b14acb6938d1fe9a256826"
+  integrity sha512-WkYN1NrRlpiRlaLg6fxhr2I75W1PdPdA4zIDq2ifLIBDP2erAq1NYKUg+wyHFLzfmFRjPNQq6ogIM/90FEaAUw==
+  dependencies:
+    "@chain-registry/types" "^2.0.11"
+    bignumber.js "9.1.2"
+    chain-registry "^2.0.11"
     sha.js "^2.4.11"
 
 "@chain-registry/v2-types@^0.53.115":
@@ -2490,28 +2515,18 @@
     js-yaml "^4.1.0"
     minimist "^1.2.8"
 
-"@starship-ci/cli@^2.9.0":
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-2.14.1.tgz#7ad83508a7865add51bce15473b2cc4f579553fd"
-  integrity sha512-osceNBVmFQSpha08eUiRL+Tm+W4vXD95vzSl5l6m01oflc0ZUTeYa43m06eRcgKW+GHH/vElIX1yhAJQ5FiZhA==
+"@starship-ci/cli@^4.0.0-alpha.0":
+  version "4.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/cli/-/cli-4.0.0-alpha.0.tgz#ed85ee520bf9f47eb4272084d6bc4e383c1df095"
+  integrity sha512-m8bLet108DHlLARGIt9D2VeVZ+4CunbrHmsQcaMaZaaC6HyioawDyIRenhKpUg3hW9axmxYBvZwcoCqoz/hI/g==
   dependencies:
-    "@starship-ci/client" "^2.13.1"
+    "@starship-ci/client" "^4.0.0-alpha.0"
+    "@starship-ci/types" "^4.0.0-alpha.0"
     chalk "^4.1.0"
     deepmerge "^4.3.1"
     inquirerer "^1.9.0"
     js-yaml "^4.1.0"
     minimist "^1.2.8"
-
-"@starship-ci/client@^2.13.1":
-  version "2.13.1"
-  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-2.13.1.tgz#ff75c847adf239a4a1e7534e2d7a7bda8f53255b"
-  integrity sha512-YnvZG3j1HuBPlps5DECWBNQgQjfcl2nIa0P5Mh7FYe+OO/LL/isusaUJs5YkeiA1xZg4gdqpR+Az6lJlAxncLw==
-  dependencies:
-    chalk "^4.1.0"
-    deepmerge "^4.3.1"
-    js-yaml "^4.1.0"
-    mkdirp "3.0.1"
-    shelljs "^0.8.5"
 
 "@starship-ci/client@^3.10.0":
   version "3.10.0"
@@ -2523,6 +2538,26 @@
     js-yaml "^4.1.0"
     mkdirp "3.0.1"
     shelljs "^0.8.5"
+
+"@starship-ci/client@^4.0.0-alpha.0":
+  version "4.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/client/-/client-4.0.0-alpha.0.tgz#2d4c1b67a7fb98d5071ade6398dee3ed5e6eb6ca"
+  integrity sha512-goMn9GKa+WUZdMi7XA8wNvtVsrY0HqId3eGK4IobDUSZ6Rgz6O2rxTr9jV3iXT/e3xhmuVPlxazVpePCjsFtKg==
+  dependencies:
+    "@starship-ci/types" "^4.0.0-alpha.0"
+    axios "^1.6.7"
+    chalk "^4.1.0"
+    deepmerge "^4.3.1"
+    js-yaml "^4.1.0"
+    mkdirp "3.0.1"
+    shelljs "^0.8.5"
+
+"@starship-ci/types@^4.0.0-alpha.0":
+  version "4.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@starship-ci/types/-/types-4.0.0-alpha.0.tgz#3964dfd1c6fca12f1f3710a99f10baeedc42ee59"
+  integrity sha512-X+1HSiOYgd6CCrakCCKmgEEvEW3nje2gs9ZnIJJ2jRdRQRnvCx+xgXFuaEFFK1hOYEqXsfsT5f63OmbQEKPr9Q==
+  dependencies:
+    "@chain-registry/types" "^2.0.1"
 
 "@tanstack/match-sorter-utils@^8.19.4":
   version "8.19.4"
@@ -3239,6 +3274,15 @@ axios@^1.0.0:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@^1.6.7:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.10.0.tgz#af320aee8632eaf2a400b6a1979fa75856f38d54"
+  integrity sha512-/1xYAC4MP/HEG+3duIhFr4ZQXR4sQXOIe+o6sdqzeykGLx6Upp/1p8MHqhINOvGeP7xyNHe7tsiJByc4SSVUxw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 babel-jest@^29.7.0:
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-29.7.0.tgz#f4369919225b684c56085998ac63dbd05be020d5"
@@ -3568,6 +3612,13 @@ case@1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
+
+chain-registry@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/chain-registry/-/chain-registry-2.0.11.tgz#eb2d5d9ee39301c68febf74e77a9952168c29b3a"
+  integrity sha512-MvrvFy/FLTCHrr3aVgosTMTCm/RQe1+476usfMVa04NL/r4pMgjS64J7vA6xnI3fRHJnlkSAtiP/UERS+DanLA==
+  dependencies:
+    "@chain-registry/types" "^2.0.11"
 
 chalk@4.1.0:
   version "4.1.0"
@@ -7002,7 +7053,7 @@ node-fetch@2.6.7:
   dependencies:
     whatwg-url "^5.0.0"
 
-node-fetch@^2.6.7, node-fetch@^2.6.9, node-fetch@^2.7.0:
+node-fetch@^2.6.1, node-fetch@^2.6.7, node-fetch@^2.6.9, node-fetch@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
@@ -8475,16 +8526,6 @@ stack-utils@^2.0.3:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-starshipjs@^2.4.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-2.5.1.tgz#148b473c043f75a625299cec93744a7367efc3fe"
-  integrity sha512-0rO6KlkLDVgEM4wFkwaK2sgQaTtocLfM8fZDoeBa+dbqQ7RDAkbFV7XdEOF3LCP+QQ6XgUlMnHKm+GPyN5QY5w==
-  dependencies:
-    "@chain-registry/client" "1.18.1"
-    bip39 "^3.1.0"
-    js-yaml "^4.1.0"
-    node-fetch "^2.6.9"
-
 starshipjs@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-3.3.0.tgz#9350fd6af1e89356c5a92a074b53f3f9cdc5a716"
@@ -8494,6 +8535,17 @@ starshipjs@^3.3.0:
     bip39 "^3.1.0"
     js-yaml "^4.1.0"
     node-fetch "^2.6.9"
+
+starshipjs@^4.0.0-alpha.0:
+  version "4.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/starshipjs/-/starshipjs-4.0.0-alpha.0.tgz#7dae6d948995d79ba48df73ee2c9f971912e41bb"
+  integrity sha512-mLszDvxe2kTQgQ4yq0sqCBNtVQGVeKoj//iGwgNvmBXnq0SsXMu5kcnpob6oYgB9ByuYFQEQHQZB+sQewEBKoQ==
+  dependencies:
+    "@chain-registry/client" "^2.0.0"
+    "@starship-ci/types" "^4.0.0-alpha.0"
+    bip39 "^3.1.0"
+    js-yaml "^4.1.0"
+    node-fetch "^2.6.1"
 
 string-length@^4.0.1:
   version "4.0.2"
