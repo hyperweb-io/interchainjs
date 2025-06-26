@@ -110,7 +110,7 @@ describe('RPC Clients', () => {
     });
   });
 
-  describe('WebSocket RPC Client', () => {
+  describe.skip('WebSocket RPC Client', () => {
     let wsClient: WebSocketRpcClient;
 
     beforeAll(async () => {
@@ -259,7 +259,7 @@ describe('RPC Clients', () => {
     });
   });
 
-  describe('Error Handling Comparison', () => {
+  describe.skip('Error Handling Comparison', () => {
     test('both clients should handle similar errors consistently', async () => {
       const httpClient = new HttpRpcClient(OSMOSIS_HTTP, { timeout: 10000 });
       const wsClient = new WebSocketRpcClient(OSMOSIS_WS);

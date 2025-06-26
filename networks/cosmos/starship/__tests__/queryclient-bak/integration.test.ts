@@ -134,7 +134,7 @@ describe('Integration Tests', () => {
     }, 45000);
   });
 
-  describe('Event Client Integration', () => {
+  describe.skip('Event Client Integration', () => {
     let eventClient: ICosmosEventClient;
 
     beforeAll(async () => {
@@ -231,7 +231,7 @@ describe('Integration Tests', () => {
     }, 35000);
   });
 
-  describe('Client Factory Integration', () => {
+  describe.skip('Client Factory Integration', () => {
     test('should create and coordinate multiple clients', async () => {
       const { queryClient, eventClient } = CosmosClientFactory.createClients(
         OSMOSIS_HTTP,

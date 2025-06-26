@@ -68,11 +68,13 @@ describe('Cosmos Query Client', () => {
     });
 
     test('getAbciInfo should return ABCI info', async () => {
-      const abciInfo = await queryClient.getAbciInfo();
+      const abciInfo = await queryClient.getAbciInfo() as any;
       
       expect(abciInfo).toBeDefined();
-      expect(abciInfo.data).toBeDefined();
-      expect(abciInfo.version).toBeDefined();
+      expect(abciInfo.response).toBeDefined();
+      expect(abciInfo.response.data).toBeDefined();
+      expect(abciInfo.response.version).toBeDefined();
+      expect(abciInfo.response.lastBlockHeight).toBeDefined();
     });
 
     test('getHealth should return health status', async () => {
@@ -98,35 +100,37 @@ describe('Cosmos Query Client', () => {
 
   describe('Block Query Methods', () => {
     test('getBlock should return latest block when no height specified', async () => {
-      const block = await queryClient.getBlock();
+      const blockResponse = await queryClient.getBlock() as any;
       
-      expect(block).toBeDefined();
-      expect(block.header).toBeDefined();
-      expect(block.data).toBeDefined();
-      expect(block.evidence).toBeDefined();
-      expect(block.lastCommit).toBeDefined();
+      expect(blockResponse).toBeDefined();
+      expect(blockResponse.blockId).toBeDefined();
+      expect(blockResponse.block).toBeDefined();
+      expect(blockResponse.block.header).toBeDefined();
+      expect(blockResponse.block.data).toBeDefined();
+      expect(blockResponse.block.evidence).toBeDefined();
+      expect(blockResponse.block.lastCommit).toBeDefined();
       
-      expect(block.header.chainId).toBe('osmosis-1');
-      expect(block.header.height).toBeDefined();
-      expect(block.header.time).toBeDefined();
-      expect(Array.isArray(block.data.txs)).toBe(true);
+      expect(blockResponse.block.header.chainId).toBe('osmosis-1');
+      expect(blockResponse.block.header.height).toBeDefined();
+      expect(blockResponse.block.header.time).toBeDefined();
+      expect(Array.isArray(blockResponse.block.data.txs)).toBe(true);
     });
 
     test('getBlock should return specific block when height specified', async () => {
       // Get latest block first to determine a valid height
-      const latestBlock = await queryClient.getBlock();
-      const targetHeight = parseInt(latestBlock.header.height) - 100;
+      const latestBlockResponse = await queryClient.getBlock() as any;
+      const targetHeight = parseInt(latestBlockResponse.block.header.height) - 100;
       
-      const block = await queryClient.getBlock(targetHeight);
+      const blockResponse = await queryClient.getBlock(targetHeight) as any;
       
-      expect(block).toBeDefined();
-      expect(block.header.height).toBe(targetHeight.toString());
-      expect(block.header.chainId).toBe('osmosis-1');
+      expect(blockResponse).toBeDefined();
+      expect(blockResponse.block.header.height).toBe(targetHeight.toString());
+      expect(blockResponse.block.header.chainId).toBe('osmosis-1');
     });
 
     test('getBlockResults should return block results', async () => {
-      const latestBlock = await queryClient.getBlock();
-      const targetHeight = parseInt(latestBlock.header.height) - 10;
+      const latestBlockResponse = await queryClient.getBlock() as any;
+      const targetHeight = parseInt(latestBlockResponse.block.header.height) - 10;
       
       const blockResults = await queryClient.getBlockResults(targetHeight);
       
@@ -148,8 +152,8 @@ describe('Cosmos Query Client', () => {
     });
 
     test('getCommit should return block commit', async () => {
-      const latestBlock = await queryClient.getBlock();
-      const targetHeight = parseInt(latestBlock.header.height) - 5;
+      const latestBlockResponse = await queryClient.getBlock() as any;
+      const targetHeight = parseInt(latestBlockResponse.block.header.height) - 5;
       
       const commit = await queryClient.getCommit(targetHeight);
       
@@ -160,8 +164,8 @@ describe('Cosmos Query Client', () => {
     });
 
     test('getBlockchain should return blockchain info', async () => {
-      const latestBlock = await queryClient.getBlock();
-      const latestHeight = parseInt(latestBlock.header.height);
+      const latestBlockResponse = await queryClient.getBlock() as any;
+      const latestHeight = parseInt(latestBlockResponse.block.header.height);
       const minHeight = latestHeight - 10;
       const maxHeight = latestHeight - 5;
       
@@ -323,16 +327,16 @@ describe('Cosmos Query Client', () => {
         queryClient.getHealth(),
         queryClient.getNetInfo(),
         queryClient.getBlock()
-      ]);
+      ]) as any[];
       
       const endTime = Date.now();
       const totalTime = endTime - startTime;
       
       expect(status.nodeInfo.network).toBe('osmosis-1');
-      expect(abciInfo).toBeDefined();
+      expect(abciInfo.response).toBeDefined();
       expect(health).toBeDefined();
       expect(netInfo.listening).toBeDefined();
-      expect(block.header.chainId).toBe('osmosis-1');
+      expect(block.block.header.chainId).toBe('osmosis-1');
       
       // Should complete in reasonable time
       expect(totalTime).toBeLessThan(15000);
