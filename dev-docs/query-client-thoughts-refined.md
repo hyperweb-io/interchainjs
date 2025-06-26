@@ -116,27 +116,78 @@ export enum ProtocolVersion {
 }
 
 export enum RpcMethod {
+  // Basic info
   STATUS = "status",
+  ABCI_INFO = "abci_info",
+  HEALTH = "health",
+  NET_INFO = "net_info",
+  
+  // Block queries
   BLOCK = "block",
+  BLOCK_BY_HASH = "block_by_hash",
   BLOCK_RESULTS = "block_results",
+  BLOCK_SEARCH = "block_search",
+  BLOCKCHAIN = "blockchain",
+  HEADER = "header",
+  HEADER_BY_HASH = "header_by_hash",
+  COMMIT = "commit",
+  
+  // Transaction queries
   TX = "tx",
   TX_SEARCH = "tx_search",
-  BLOCK_SEARCH = "block_search",
-  ABCI_QUERY = "abci_query",
+  CHECK_TX = "check_tx",
+  UNCONFIRMED_TXS = "unconfirmed_txs",
+  NUM_UNCONFIRMED_TXS = "num_unconfirmed_txs",
+  
+  // Chain queries
   VALIDATORS = "validators",
+  CONSENSUS_PARAMS = "consensus_params",
+  CONSENSUS_STATE = "consensus_state",
+  DUMP_CONSENSUS_STATE = "dump_consensus_state",
+  GENESIS = "genesis",
+  GENESIS_CHUNKED = "genesis_chunked",
+  
+  // ABCI queries
+  ABCI_QUERY = "abci_query",
+  
+  // Subscription
   SUBSCRIBE = "subscribe",
-  UNSUBSCRIBE = "unsubscribe"
+  UNSUBSCRIBE = "unsubscribe",
+  UNSUBSCRIBE_ALL = "unsubscribe_all"
 }
 
 export enum ResponseType {
+  // Basic info
   STATUS = "status",
+  ABCI_INFO = "abci_info",
+  HEALTH = "health",
+  NET_INFO = "net_info",
+  
+  // Block queries
   BLOCK = "block",
-  BLOCK_RESULTS = "block_results", 
+  BLOCK_RESULTS = "block_results",
+  BLOCK_SEARCH = "block_search",
+  BLOCKCHAIN = "blockchain",
+  HEADER = "header",
+  COMMIT = "commit",
+  
+  // Transaction queries
   TX = "tx",
   TX_SEARCH = "tx_search",
-  BLOCK_SEARCH = "block_search",
-  ABCI_QUERY = "abci_query",
-  VALIDATORS = "validators"
+  CHECK_TX = "check_tx",
+  UNCONFIRMED_TXS = "unconfirmed_txs",
+  NUM_UNCONFIRMED_TXS = "num_unconfirmed_txs",
+  
+  // Chain queries
+  VALIDATORS = "validators",
+  CONSENSUS_PARAMS = "consensus_params",
+  CONSENSUS_STATE = "consensus_state",
+  DUMP_CONSENSUS_STATE = "dump_consensus_state",
+  GENESIS = "genesis",
+  GENESIS_CHUNKED = "genesis_chunked",
+  
+  // ABCI queries
+  ABCI_QUERY = "abci_query"
 }
 
 export enum EventType {
@@ -185,18 +236,36 @@ import { Block } from '@interchainjs/cosmos-types/tendermint/types/block';
 import { Event } from '@interchainjs/cosmos-types/tendermint/abci/types';
 
 export interface ICosmosQueryClient extends IQueryClient {
+  // Basic info
+  getStatus(): Promise<ChainStatus>;
+  getAbciInfo(): Promise<AbciInfo>;
+  getHealth(): Promise<HealthResult>;
+  getNetInfo(): Promise<NetInfo>;
+
   // Block queries
   getBlock(height?: number): Promise<Block>;
+  getBlockByHash(hash: Uint8Array): Promise<Block>;
   getBlockResults(height?: number): Promise<BlockResults>;
   searchBlocks(params: BlockSearchParams): Promise<SearchBlocksResult>;
+  getBlockchain(minHeight: number, maxHeight: number): Promise<BlockchainInfo>;
+  getHeader(height?: number): Promise<BlockHeader>;
+  getHeaderByHash(hash: Uint8Array): Promise<BlockHeader>;
+  getCommit(height?: number): Promise<Commit>;
 
   // Transaction queries  
-  getTx(hash: Uint8Array): Promise<TxResponse>;
+  getTx(hash: Uint8Array, prove?: boolean): Promise<TxResponse>;
   searchTxs(params: TxSearchParams): Promise<SearchTxsResult>;
+  checkTx(tx: Uint8Array): Promise<CheckTxResult>;
+  getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs>;
+  getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs>;
 
   // Chain queries
-  getStatus(): Promise<ChainStatus>;
-  getValidators(height?: number): Promise<ValidatorSet>;
+  getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet>;
+  getConsensusParams(height?: number): Promise<ConsensusParams>;
+  getConsensusState(): Promise<ConsensusState>;
+  dumpConsensusState(): Promise<ConsensusStateDump>;
+  getGenesis(): Promise<Genesis>;
+  getGenesisChunked(chunk: number): Promise<GenesisChunk>;
 
   // ABCI queries
   queryAbci(params: AbciQueryParams): Promise<AbciQueryResult>;
@@ -364,6 +433,235 @@ export interface BlockId {
     total: number;
     hash: Uint8Array;
   };
+}
+
+// Additional response types for missing APIs
+export interface AbciInfo {
+  data: string;
+  version: string;
+  appVersion: string;
+  lastBlockHeight: string;
+  lastBlockAppHash: Uint8Array;
+}
+
+export interface HealthResult {
+  // Empty object for healthy node
+}
+
+export interface NetInfo {
+  listening: boolean;
+  listeners: string[];
+  nPeers: string;
+  peers: PeerInfo[];
+}
+
+export interface PeerInfo {
+  nodeInfo: {
+    protocolVersion: {
+      p2p: string;
+      block: string;
+      app: string;
+    };
+    id: string;
+    listenAddr: string;
+    network: string;
+    version: string;
+    channels: string;
+    moniker: string;
+    other: {
+      txIndex: string;
+      rpcAddress: string;
+    };
+  };
+  isOutbound: boolean;
+  connectionStatus: {
+    duration: string;
+    sendMonitor: {
+      active: boolean;
+      start: string;
+      duration: string;
+      idle: string;
+      bytes: string;
+      samples: string;
+      instRate: string;
+      curRate: string;
+      avgRate: string;
+      peakRate: string;
+      bytesRem: string;
+      timeRem: string;
+      progress: number;
+    };
+    recvMonitor: {
+      active: boolean;
+      start: string;
+      duration: string;
+      idle: string;
+      bytes: string;
+      samples: string;
+      instRate: string;
+      curRate: string;
+      avgRate: string;
+      peakRate: string;
+      bytesRem: string;
+      timeRem: string;
+      progress: number;
+    };
+    channels: Array<{
+      id: number;
+      sendQueueCapacity: string;
+      sendQueueSize: string;
+      priority: string;
+      recentlySent: string;
+    }>;
+  };
+  remoteIp: string;
+}
+
+export interface BlockchainInfo {
+  lastHeight: string;
+  blockMetas: BlockMeta[];
+}
+
+export interface BlockMeta {
+  blockId: BlockId;
+  blockSize: string;
+  header: BlockHeader;
+  numTxs: string;
+}
+
+export interface Commit {
+  height: string;
+  round: number;
+  blockId: BlockId;
+  signatures: CommitSig[];
+}
+
+export interface CommitSig {
+  blockIdFlag: number;
+  validatorAddress: Uint8Array;
+  timestamp: string;
+  signature: Uint8Array;
+}
+
+export interface CheckTxResult {
+  code: number;
+  data: Uint8Array;
+  log: string;
+  info: string;
+  gasWanted: string;
+  gasUsed: string;
+  events: Event[];
+  codespace: string;
+  sender: string;
+  priority: string;
+  mempoolError: string;
+}
+
+export interface UnconfirmedTxs {
+  nTxs: string;
+  total: string;
+  totalBytes: string;
+  txs: Uint8Array[];
+}
+
+export interface NumUnconfirmedTxs {
+  nTxs: string;
+  total: string;
+  totalBytes: string;
+}
+
+export interface ConsensusParams {
+  block: {
+    maxBytes: string;
+    maxGas: string;
+    timeIotaMs: string;
+  };
+  evidence: {
+    maxAgeNumBlocks: string;
+    maxAgeDuration: string;
+    maxBytes: string;
+  };
+  validator: {
+    pubKeyTypes: string[];
+  };
+  version: {
+    appVersion: string;
+  };
+}
+
+export interface ConsensusState {
+  height: string;
+  round: number;
+  step: number;
+  startTime: string;
+  commitTime: string;
+  validators: {
+    validators: Validator[];
+    proposer: Validator;
+  };
+  proposal: any;
+  proposalBlock: any;
+  proposalBlockParts: any;
+  lockedRound: number;
+  lockedBlock: any;
+  lockedBlockParts: any;
+  validRound: number;
+  validBlock: any;
+  validBlockParts: any;
+  votes: any[];
+  commitRound: number;
+  lastCommit: any;
+  lastValidators: {
+    validators: Validator[];
+    proposer: Validator;
+  };
+  triggeredTimeoutPrecommit: boolean;
+}
+
+export interface ConsensusStateDump {
+  roundState: ConsensusState;
+  peers: Array<{
+    nodeAddress: string;
+    peerState: {
+      height: string;
+      round: number;
+      step: number;
+      startTime: string;
+      proposal: boolean;
+      proposalBlockPartsHeader: any;
+      proposalBlockParts: any;
+      proposalPOLRound: number;
+      proposalPOL: any;
+      prevotes: any;
+      precommits: any;
+      catchupCommitRound: number;
+      catchupCommit: any;
+    };
+  }>;
+}
+
+export interface Genesis {
+  genesisTime: string;
+  chainId: string;
+  initialHeight: string;
+  consensusParams: ConsensusParams;
+  validators: Array<{
+    address: Uint8Array;
+    pubKey: {
+      type: string;
+      value: string;
+    };
+    power: string;
+    name: string;
+  }>;
+  appHash: Uint8Array;
+  appState: any;
+}
+
+export interface GenesisChunk {
+  chunk: number;
+  total: number;
+  data: string;
 }
 
 // Event types for streaming
@@ -802,16 +1100,44 @@ export abstract class BaseCosmosAdapter implements IProtocolAdapter {
 
   getSupportedMethods(): Set<RpcMethod> {
     return new Set([
+      // Basic info
       RpcMethod.STATUS,
+      RpcMethod.ABCI_INFO,
+      RpcMethod.HEALTH,
+      RpcMethod.NET_INFO,
+      
+      // Block queries
       RpcMethod.BLOCK,
+      RpcMethod.BLOCK_BY_HASH,
       RpcMethod.BLOCK_RESULTS,
+      RpcMethod.BLOCK_SEARCH,
+      RpcMethod.BLOCKCHAIN,
+      RpcMethod.HEADER,
+      RpcMethod.HEADER_BY_HASH,
+      RpcMethod.COMMIT,
+      
+      // Transaction queries
       RpcMethod.TX,
       RpcMethod.TX_SEARCH,
-      RpcMethod.BLOCK_SEARCH,
-      RpcMethod.ABCI_QUERY,
+      RpcMethod.CHECK_TX,
+      RpcMethod.UNCONFIRMED_TXS,
+      RpcMethod.NUM_UNCONFIRMED_TXS,
+      
+      // Chain queries
       RpcMethod.VALIDATORS,
+      RpcMethod.CONSENSUS_PARAMS,
+      RpcMethod.CONSENSUS_STATE,
+      RpcMethod.DUMP_CONSENSUS_STATE,
+      RpcMethod.GENESIS,
+      RpcMethod.GENESIS_CHUNKED,
+      
+      // ABCI queries
+      RpcMethod.ABCI_QUERY,
+      
+      // Subscription
       RpcMethod.SUBSCRIBE,
-      RpcMethod.UNSUBSCRIBE
+      RpcMethod.UNSUBSCRIBE,
+      RpcMethod.UNSUBSCRIBE_ALL
     ]);
   }
 
