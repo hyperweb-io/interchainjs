@@ -181,6 +181,7 @@ npm test
 
 **Important Notes**:
 - **Build times can be very long** - Lerna builds all packages sequentially
+- **Test execution can be very slow** - Network tests may take 20+ minutes to complete
 - Consider using `--scope` flag to build specific packages during development
 - Use package names (`@interchainjs/cosmos`) in all imports, not relative paths
 
