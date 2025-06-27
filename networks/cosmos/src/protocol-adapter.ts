@@ -22,10 +22,33 @@ export class TendermintProtocolAdapter implements IProtocolAdapter {
     // Convert camelCase to snake_case for Tendermint/CometBFT
     if (!params) return {};
     
+    // Special handling for blockchain method which expects array parameters
+    if (method === RpcMethod.BLOCKCHAIN) {
+      if (params.minHeight !== undefined && params.maxHeight !== undefined) {
+        return [params.minHeight.toString(), params.maxHeight.toString()];
+      }
+      return [];
+    }
+    
     const encoded: any = {};
     for (const [key, value] of Object.entries(params)) {
       const snakeKey = this.camelToSnake(key);
-      encoded[snakeKey] = value;
+      
+      // Handle hash parameters with 0x prefix
+      if (key === 'hash' && typeof value === 'string' && value.startsWith('0x')) {
+        // Convert hex to base64 for RPC
+        const hexString = value.slice(2); // Remove 0x prefix
+        const bytes = Buffer.from(hexString, 'hex');
+        encoded[snakeKey] = bytes.toString('base64');
+      }
+      // Convert numeric parameters to strings for certain methods
+      else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH) &&
+          (key === 'page' || key === 'perPage') && 
+          typeof value === 'number') {
+        encoded[snakeKey] = value.toString();
+      } else {
+        encoded[snakeKey] = value;
+      }
     }
     return encoded;
   }
