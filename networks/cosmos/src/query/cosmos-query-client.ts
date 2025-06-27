@@ -3,13 +3,26 @@ import { IRpcClient } from '@interchainjs/types';
 import { ICosmosQueryClient } from '../types/cosmos-client-interfaces.js';
 import { RpcMethod, ProtocolInfo } from '../types/protocol.js';
 import { 
-  ChainStatus, Block, BlockResults, TxResponse, ValidatorSet, AbciQueryParams, AbciQueryResult,
-  BlockSearchParams, SearchBlocksResult, TxSearchParams, SearchTxsResult,
-  AbciInfo, HealthResult, NetInfo, BlockchainInfo, BlockHeader, Commit, CheckTxResult,
-  UnconfirmedTxs, NumUnconfirmedTxs, ConsensusParams, ConsensusState, ConsensusStateDump,
-  Genesis, GenesisChunk
+  StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults, 
+  TxResponse, ValidatorsResponse as ValidatorSet, 
+  BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
+  BlockchainResponse as BlockchainInfo, BlockHeader, Commit, 
+  UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
+  GenesisResponse as Genesis, HealthResponse as HealthResult,
+  TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
+  AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
+  AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
+  GenesisChunk, TxEvent, BlockEvent
 } from '../types/responses.js';
+import {
+  AbciQueryParams, BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
+  BlockSearchParams, BroadcastTxParams, CommitParams, ConsensusParamsParams,
+  GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
+  UnconfirmedTxsParams, ValidatorsParams
+} from '../types/requests.js';
 import { IProtocolAdapter } from '../protocol-adapter.js';
+
+
 
 export class CosmosQueryClient implements ICosmosQueryClient {
   constructor(
@@ -56,21 +69,21 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   // Block query methods
   async getBlock(height?: number): Promise<Block> {
-    const params = height ? { height: height.toString() } : {};
+    const params: BlockParams = height ? { height } : {};
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK, params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK, result);
   }
 
   async getBlockByHash(hash: string): Promise<Block> {
-    const params = { hash };
+    const params: BlockByHashParams = { hash };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK_BY_HASH, params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK_BY_HASH, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_BY_HASH, result);
   }
 
   async getBlockResults(height?: number): Promise<BlockResults> {
-    const params = height ? { height: height.toString() } : {};
+    const params: BlockResultsParams = height ? { height } : {};
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK_RESULTS, params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK_RESULTS, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_RESULTS, result);
@@ -83,28 +96,28 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   }
 
   async getBlockchain(minHeight: number, maxHeight: number): Promise<BlockchainInfo> {
-    const params = { minHeight: minHeight.toString(), maxHeight: maxHeight.toString() };
+    const params: BlockchainParams = { minHeight, maxHeight };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCKCHAIN, params);
     const result = await this.rpcClient.call(RpcMethod.BLOCKCHAIN, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.BLOCKCHAIN, result);
   }
 
   async getHeader(height?: number): Promise<BlockHeader> {
-    const params = height ? { height: height.toString() } : {};
+    const params: HeaderParams = height ? { height } : {};
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.HEADER, params);
     const result = await this.rpcClient.call(RpcMethod.HEADER, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.HEADER, result);
   }
 
   async getHeaderByHash(hash: string): Promise<BlockHeader> {
-    const params = { hash };
+    const params: HeaderByHashParams = { hash };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.HEADER_BY_HASH, params);
     const result = await this.rpcClient.call(RpcMethod.HEADER_BY_HASH, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.HEADER_BY_HASH, result);
   }
 
   async getCommit(height?: number): Promise<Commit> {
-    const params = height ? { height: height.toString() } : {};
+    const params: CommitParams = height ? { height } : {};
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.COMMIT, params);
     const result = await this.rpcClient.call(RpcMethod.COMMIT, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.COMMIT, result);
@@ -112,7 +125,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   // Transaction query methods
   async getTx(hash: string, prove?: boolean): Promise<TxResponse> {
-    const params = { hash, prove };
+    const params: TxParams = { hash, prove };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.TX, params);
     const result = await this.rpcClient.call(RpcMethod.TX, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.TX, result);
@@ -132,7 +145,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   }
 
   async getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs> {
-    const params = limit ? { limit: limit.toString() } : {};
+    const params: UnconfirmedTxsParams = limit ? { limit } : {};
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.UNCONFIRMED_TXS, params);
     const result = await this.rpcClient.call(RpcMethod.UNCONFIRMED_TXS, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.UNCONFIRMED_TXS, result);
@@ -145,10 +158,10 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   // Chain query methods
   async getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet> {
-    const params: any = {};
-    if (height) params.height = height.toString();
-    if (page) params.page = page.toString();
-    if (perPage) params.perPage = perPage.toString();
+    const params: ValidatorsParams = {};
+    if (height) params.height = height;
+    if (page) params.page = page;
+    if (perPage) params.perPage = perPage;
     
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.VALIDATORS, params);
     const result = await this.rpcClient.call(RpcMethod.VALIDATORS, encodedParams);
@@ -156,7 +169,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   }
 
   async getConsensusParams(height?: number): Promise<ConsensusParams> {
-    const params = height ? { height: height.toString() } : {};
+    const params: ConsensusParamsParams = height ? { height } : {};
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.CONSENSUS_PARAMS, params);
     const result = await this.rpcClient.call(RpcMethod.CONSENSUS_PARAMS, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.CONSENSUS_PARAMS, result);
@@ -178,7 +191,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   }
 
   async getGenesisChunked(chunk: number): Promise<GenesisChunk> {
-    const params = { chunk: chunk.toString() };
+    const params: GenesisChunkedParams = { chunk };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.GENESIS_CHUNKED, params);
     const result = await this.rpcClient.call(RpcMethod.GENESIS_CHUNKED, encodedParams);
     return this.protocolAdapter.decodeResponse(RpcMethod.GENESIS_CHUNKED, result);
@@ -186,21 +199,9 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   // ABCI query methods
   async queryAbci(params: AbciQueryParams): Promise<AbciQueryResult> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.ABCI_QUERY, {
-      path: params.path,
-      data: this.protocolAdapter.decodeBytes(params.data),
-      height: params.height?.toString(),
-      prove: params.prove
-    });
+    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.ABCI_QUERY, params);
     const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
-    const decoded = this.protocolAdapter.decodeResponse(RpcMethod.ABCI_QUERY, result);
-    
-    // Convert byte fields back to Uint8Array
-    return {
-      ...decoded,
-      key: this.protocolAdapter.encodeBytes(decoded.key || ''),
-      value: this.protocolAdapter.encodeBytes(decoded.value || '')
-    };
+    return this.protocolAdapter.decodeResponse(RpcMethod.ABCI_QUERY, result);
   }
 
   // Protocol info

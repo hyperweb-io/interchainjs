@@ -32,7 +32,8 @@
     "starship:clean": "yarn starship stop",
     "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts",
     "test:rpc": "jest --config ./jest.rpc.config.js --verbose",
-    "test:rpc:watch": "jest --config ./jest.rpc.config.js --watch"
+    "test:rpc:watch": "jest --config ./jest.rpc.config.js --watch",
+    "test:rpc:v2": "jest --config ./jest.rpc.config.js --testPathPattern=query-client-v2.test.ts --verbose"
   },
   "dependencies": {
     "@interchainjs/auth": "1.11.18",

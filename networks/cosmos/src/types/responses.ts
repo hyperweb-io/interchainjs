@@ -1,450 +1,384 @@
-// networks/cosmos/src/types/responses.ts
-import { Event } from '@interchainjs/cosmos-types/tendermint/abci/types';
+/**
+ * Common RPC response types for Cosmos/Tendermint
+ * These are shared across all versions
+ */
 
-// Basic response types
-export interface ChainStatus {
-  nodeInfo: NodeInfo;
-  syncInfo: SyncInfo;
-  validatorInfo: ValidatorInfo;
+// Common types used in responses
+export interface EventAttribute {
+  readonly key: string;
+  readonly value: string;
+  readonly index?: boolean;
+}
+
+export interface Event {
+  readonly type: string;
+  readonly attributes: readonly EventAttribute[];
+}
+
+export interface TxData {
+  readonly code: number;
+  readonly data?: Uint8Array;
+  readonly log?: string;
+  readonly info?: string;
+  readonly gasWanted?: bigint;
+  readonly gasUsed?: bigint;
+  readonly events: readonly Event[];
+  readonly codespace?: string;
+}
+
+export interface BlockId {
+  readonly hash: Uint8Array;
+  readonly parts: {
+    readonly total: number;
+    readonly hash: Uint8Array;
+  };
+}
+
+export interface BlockHeader {
+  readonly version: {
+    readonly block: string;
+    readonly app?: string;
+  };
+  readonly chainId: string;
+  readonly height: number;
+  readonly time: Date;
+  readonly lastBlockId: BlockId;
+  readonly lastCommitHash: Uint8Array;
+  readonly dataHash: Uint8Array;
+  readonly validatorsHash: Uint8Array;
+  readonly nextValidatorsHash: Uint8Array;
+  readonly consensusHash: Uint8Array;
+  readonly appHash: Uint8Array;
+  readonly lastResultsHash: Uint8Array;
+  readonly evidenceHash: Uint8Array;
+  readonly proposerAddress: Uint8Array;
+}
+
+export interface Block {
+  readonly header: BlockHeader;
+  readonly data: {
+    readonly txs: readonly Uint8Array[];
+  };
+  readonly evidence: {
+    readonly evidence: readonly any[];
+  };
+  readonly lastCommit: Commit | null;
+}
+
+export interface Commit {
+  readonly height: number;
+  readonly round: number;
+  readonly blockId: BlockId;
+  readonly signatures: readonly CommitSignature[];
+}
+
+export interface CommitSignature {
+  readonly blockIdFlag: BlockIdFlag;
+  readonly validatorAddress: Uint8Array;
+  readonly timestamp: Date;
+  readonly signature: Uint8Array;
+}
+
+export enum BlockIdFlag {
+  Unknown = 0,
+  Absent = 1,
+  Commit = 2,
+  Nil = 3,
+}
+
+export interface ValidatorPubkey {
+  readonly type: string;
+  readonly value: Uint8Array;
+}
+
+export interface Validator {
+  readonly address: Uint8Array;
+  readonly pubKey: ValidatorPubkey;
+  readonly votingPower: bigint;
+  readonly proposerPriority: bigint;
+}
+
+export interface ValidatorUpdate {
+  readonly pubKey: ValidatorPubkey;
+  readonly power: bigint;
+}
+
+export interface ConsensusParams {
+  readonly block: {
+    readonly maxBytes: bigint;
+    readonly maxGas: bigint;
+    readonly timeIotaMs?: bigint;
+  };
+  readonly evidence: {
+    readonly maxAgeNumBlocks: bigint;
+    readonly maxAgeDuration: bigint;
+    readonly maxBytes?: bigint;
+  };
+  readonly validator: {
+    readonly pubKeyTypes: readonly string[];
+  };
+  readonly version?: {
+    readonly appVersion?: bigint;
+  };
 }
 
 export interface NodeInfo {
-  protocolVersion: {
-    p2p: string;
-    block: string;
-    app: string;
+  readonly protocolVersion: {
+    readonly p2p: string;
+    readonly block: string;
+    readonly app: string;
   };
-  id: string;
-  listenAddr: string;
-  network: string;
-  version: string;
-  channels: string;
-  moniker: string;
-  other: {
-    txIndex: string;
-    rpcAddress: string;
+  readonly id: string;
+  readonly listenAddr: string;
+  readonly network: string;
+  readonly version: string;
+  readonly channels: string;
+  readonly moniker: string;
+  readonly other: {
+    readonly txIndex: string;
+    readonly rpcAddress: string;
   };
 }
 
 export interface SyncInfo {
-  latestBlockHash: string;
-  latestAppHash: string;
-  latestBlockHeight: string;
-  latestBlockTime: string;
-  earliestBlockHash: string;
-  earliestAppHash: string;
-  earliestBlockHeight: string;
-  earliestBlockTime: string;
-  catchingUp: boolean;
-}
-
-export interface ValidatorInfo {
-  address: string;
-  pubKey: {
-    type: string;
-    value: string;
-  };
-  votingPower: string;
-}
-
-export interface BlockHeader {
-  version: {
-    block: string;
-    app?: string;
-  };
-  chainId: string;
-  height: string;
-  time: string;
-  lastBlockId: BlockId;
-  lastCommitHash: string;
-  dataHash: string;
-  validatorsHash: string;
-  nextValidatorsHash: string;
-  consensusHash: string;
-  appHash: string;
-  lastResultsHash: string;
-  evidenceHash: string;
-  proposerAddress: string;
-}
-
-export interface BlockResults {
-  height: string;
-  txsResults: TxResult[];
-  beginBlockEvents: Event[];
-  endBlockEvents: Event[];
-  validatorUpdates: ValidatorUpdate[];
-  consensusParamUpdates: ConsensusParams;
-}
-
-export interface TxResult {
-  code: number;
-  data: Uint8Array;
-  log: string;
-  info: string;
-  gasWanted: string;
-  gasUsed: string;
-  events: Event[];
-  codespace: string;
-}
-
-export interface TxResponse {
-  hash: string;
-  height: string;
-  index: number;
-  txResult: TxResult;
-  tx: string;
-  proof?: TxProof;
-}
-
-export interface TxProof {
-  rootHash: string;
-  data: string;
-  proof: {
-    total: string;
-    index: string;
-    leafHash: string;
-    aunts: string[];
-  };
-}
-
-export interface ValidatorSet {
-  blockHeight: string;
-  validators: Validator[];
-  count: string;
-  total: string;
-}
-
-export interface Validator {
-  address: string;
-  pubKey: {
-    type: string;
-    value: string;
-  };
-  votingPower: string;
-  proposerPriority: string;
-}
-
-export interface ValidatorUpdate {
-  pubKey: {
-    type: string;
-    value: string;
-  };
-  power: string;
-}
-
-export interface AbciQueryParams {
-  path: string;
-  data: Uint8Array;
-  height?: number;
-  prove?: boolean;
-}
-
-export interface AbciQueryResult {
-  code: number;
-  log: string;
-  info: string;
-  index: string;
-  key: Uint8Array;
-  value: Uint8Array;
-  proofOps?: ProofOps;
-  height: string;
-  codespace: string;
-}
-
-export interface ProofOps {
-  ops: ProofOp[];
+  readonly latestBlockHash: Uint8Array;
+  readonly latestAppHash: Uint8Array;
+  readonly latestBlockHeight: number;
+  readonly latestBlockTime: Date;
+  readonly earliestBlockHash: Uint8Array;
+  readonly earliestAppHash: Uint8Array;
+  readonly earliestBlockHeight: number;
+  readonly earliestBlockTime: Date;
+  readonly catchingUp: boolean;
 }
 
 export interface ProofOp {
-  type: string;
-  key: Uint8Array;
-  data: Uint8Array;
+  readonly type: string;
+  readonly key: Uint8Array;
+  readonly data: Uint8Array;
 }
 
-export interface BlockSearchParams {
-  query: string;
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
+export interface QueryProof {
+  readonly ops: readonly ProofOp[];
 }
 
-export interface SearchBlocksResult {
-  blocks: Block[];
-  totalCount: string;
-}
-
-export interface TxSearchParams {
-  query: string;
-  prove?: boolean;
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
-}
-
-export interface SearchTxsResult {
-  txs: TxResponse[];
-  totalCount: string;
-}
-
-export interface Block {
-  header: BlockHeader;
-  data: {
-    txs: string[];
-  };
-  evidence: {
-    evidence: Evidence[];
-  };
-  lastCommit: Commit;
-}
-
-export interface Evidence {
-  type: string;
-  height: string;
-  time: string;
-  totalVotingPower: string;
-}
-
-export interface Commit {
-  height: string;
-  round: number;
-  blockId: BlockId;
-  signatures: CommitSig[];
-}
-
-export interface CommitSig {
-  blockIdFlag: number;
-  validatorAddress: string;
-  timestamp: string;
-  signature: string;
-}
-
-export interface BlockId {
-  hash: string;
-  partSetHeader: {
-    total: number;
-    hash: string;
-  };
-}
-
-// Additional response types for missing APIs
-export interface AbciInfo {
-  data: string;
-  version: string;
-  appVersion: string;
-  lastBlockHeight: string;
-  lastBlockAppHash: string;
-}
-
-export interface HealthResult {
-  // Empty object for healthy node
-}
-
-export interface NetInfo {
-  listening: boolean;
-  listeners: string[];
-  nPeers: string;
-  peers: PeerInfo[];
-}
-
-export interface PeerInfo {
-  nodeInfo: {
-    protocolVersion: {
-      p2p: string;
-      block: string;
-      app: string;
-    };
-    id: string;
-    listenAddr: string;
-    network: string;
-    version: string;
-    channels: string;
-    moniker: string;
-    other: {
-      txIndex: string;
-      rpcAddress: string;
-    };
-  };
-  isOutbound: boolean;
-  connectionStatus: {
-    duration: string;
-    sendMonitor: MonitorInfo;
-    recvMonitor: MonitorInfo;
-    channels: ChannelInfo[];
-  };
-  remoteIp: string;
-}
-
-export interface MonitorInfo {
-  active: boolean;
-  start: string;
-  duration: string;
-  idle: string;
-  bytes: string;
-  samples: string;
-  instRate: string;
-  curRate: string;
-  avgRate: string;
-  peakRate: string;
-  bytesRem: string;
-  timeRem: string;
-  progress: number;
-}
-
-export interface ChannelInfo {
-  id: number;
-  sendQueueCapacity: string;
-  sendQueueSize: string;
-  priority: string;
-  recentlySent: string;
-}
-
-export interface BlockchainInfo {
-  lastHeight: string;
-  blockMetas: BlockMeta[];
+export interface TxProof {
+  readonly rootHash: Uint8Array;
+  readonly data: Uint8Array;
+  readonly proof: QueryProof;
 }
 
 export interface BlockMeta {
-  blockId: BlockId;
-  blockSize: string;
-  header: BlockHeader;
-  numTxs: string;
+  readonly blockId: BlockId;
+  readonly blockSize: number;
+  readonly header: BlockHeader;
+  readonly numTxs: number;
 }
 
-export interface CheckTxResult {
-  code: number;
-  data: string;
-  log: string;
-  info: string;
-  gasWanted: string;
-  gasUsed: string;
-  events: Event[];
-  codespace: string;
-  sender: string;
-  priority: string;
-  mempoolError: string;
+// Common response types
+export interface BlockResponse {
+  readonly blockId: BlockId;
+  readonly block: Block;
 }
 
-export interface UnconfirmedTxs {
-  nTxs: string;
-  total: string;
-  totalBytes: string;
-  txs: string[];
+export interface BlockResultsResponse {
+  readonly height: number;
+  readonly txsResults?: readonly TxData[];
+  readonly beginBlockEvents?: readonly Event[]; // Tendermint 0.34 & 0.37
+  readonly endBlockEvents?: readonly Event[]; // Tendermint 0.34 & 0.37
+  readonly finalizeBlockEvents?: readonly Event[]; // CometBFT 0.38
+  readonly validatorUpdates?: readonly ValidatorUpdate[];
+  readonly consensusParamUpdates?: ConsensusParams;
 }
 
-export interface NumUnconfirmedTxs {
-  nTxs: string;
-  total: string;
-  totalBytes: string;
+export interface BlockSearchResponse {
+  readonly blocks: readonly BlockResponse[];
+  readonly totalCount: number;
 }
 
-export interface ConsensusParams {
-  block: {
-    maxBytes: string;
-    maxGas: string;
-    timeIotaMs: string;
+export interface BlockchainResponse {
+  readonly lastHeight: number;
+  readonly blockMetas: readonly BlockMeta[];
+}
+
+export interface BroadcastTxAsyncResponse {
+  readonly hash: Uint8Array;
+}
+
+export interface BroadcastTxSyncResponse extends TxData {
+  readonly hash: Uint8Array;
+}
+
+export interface CommitResponse {
+  readonly header: BlockHeader;
+  readonly commit: Commit;
+  readonly canonical: boolean;
+}
+
+export interface ConsensusParamsResponse {
+  readonly blockHeight: number;
+  readonly consensusParams: ConsensusParams;
+}
+
+export interface GenesisResponse {
+  readonly genesisTime: Date;
+  readonly chainId: string;
+  readonly initialHeight?: number;
+  readonly consensusParams: ConsensusParams;
+  readonly validators: readonly Validator[];
+  readonly appHash: Uint8Array;
+  readonly appState?: Record<string, unknown>;
+}
+
+export interface HeaderResponse {
+  readonly header: BlockHeader;
+}
+
+export type HealthResponse = null;
+
+export interface StatusResponse {
+  readonly nodeInfo: NodeInfo;
+  readonly syncInfo: SyncInfo;
+  readonly validatorInfo: Validator;
+}
+
+export interface TxResponse {
+  readonly tx: Uint8Array;
+  readonly hash: Uint8Array;
+  readonly height: number;
+  readonly index: number;
+  readonly result: TxData;
+  readonly proof?: TxProof;
+}
+
+export interface TxSearchResponse {
+  readonly txs: readonly TxResponse[];
+  readonly totalCount: number;
+}
+
+export interface UnconfirmedTxsResponse {
+  readonly count: number;
+  readonly total: number;
+  readonly totalBytes: number;
+  readonly txs: readonly Uint8Array[];
+}
+
+export interface ValidatorsResponse {
+  readonly blockHeight: number;
+  readonly validators: readonly Validator[];
+  readonly count: number;
+  readonly total: number;
+}
+
+// Version-specific types combined with optional fields
+export interface AbciInfoResponse {
+  readonly data?: string;
+  readonly lastBlockHeight?: number;
+  readonly lastBlockAppHash?: Uint8Array;
+}
+
+export interface AbciQueryResponse {
+  readonly key: Uint8Array;
+  readonly value: Uint8Array;
+  readonly proof?: QueryProof;
+  readonly height?: number;
+  readonly index?: number;
+  readonly code?: number;
+  readonly codespace: string;
+  readonly log?: string;
+  readonly info: string;
+}
+
+export interface BroadcastTxCommitResponse {
+  readonly height: number;
+  readonly hash: Uint8Array;
+  readonly checkTx: TxData;
+  readonly deliverTx?: TxData; // Tendermint 0.34 & 0.37
+  readonly txResult?: TxData; // CometBFT 0.38
+}
+
+export interface NetInfoResponse {
+  readonly listening: boolean;
+  readonly listeners: readonly string[];
+  readonly nPeers: number;
+  readonly peers: readonly Peer[];
+}
+
+export interface NumUnconfirmedTxsResponse {
+  readonly count?: number; // CometBFT 0.38 & Tendermint 0.37
+  readonly nTxs?: number; // Tendermint 0.34
+  readonly total: number;
+  readonly totalBytes: number;
+}
+
+export interface Peer {
+  readonly nodeInfo: NodeInfo;
+  readonly isOutbound: boolean;
+  readonly connectionStatus: {
+    readonly duration: number;
+    readonly sendMonitor: {
+      readonly active: boolean;
+      readonly start: Date;
+      readonly duration: number;
+      readonly idle: number;
+      readonly bytes: number;
+      readonly samples: number;
+      readonly instRate: number;
+      readonly curRate: number;
+      readonly avgRate: number;
+      readonly peakRate: number;
+      readonly bytesRem: number;
+      readonly timeRem: number;
+      readonly progress: number;
+    };
+    readonly recvMonitor: {
+      readonly active: boolean;
+      readonly start: Date;
+      readonly duration: number;
+      readonly idle: number;
+      readonly bytes: number;
+      readonly samples: number;
+      readonly instRate: number;
+      readonly curRate: number;
+      readonly avgRate: number;
+      readonly peakRate: number;
+      readonly bytesRem: number;
+      readonly timeRem: number;
+      readonly progress: number;
+    };
+    readonly channels: readonly {
+      readonly id: number;
+      readonly sendQueueCapacity: number;
+      readonly sendQueueSize: number;
+      readonly priority: number;
+      readonly recentlySent: number;
+    }[];
   };
-  evidence: {
-    maxAgeNumBlocks: string;
-    maxAgeDuration: string;
-    maxBytes: string;
-  };
-  validator: {
-    pubKeyTypes: string[];
-  };
-  version: {
-    appVersion: string;
-  };
+  readonly remoteIp: string;
 }
 
+// Additional types used in interfaces
 export interface ConsensusState {
-  height: string;
-  round: number;
-  step: number;
-  startTime: string;
-  commitTime: string;
-  validators: {
-    validators: Validator[];
-    proposer: Validator;
-  };
-  proposal: any;
-  proposalBlock: any;
-  proposalBlockParts: any;
-  lockedRound: number;
-  lockedBlock: any;
-  lockedBlockParts: any;
-  validRound: number;
-  validBlock: any;
-  validBlockParts: any;
-  votes: any[];
-  commitRound: number;
-  lastCommit: any;
-  lastValidators: {
-    validators: Validator[];
-    proposer: Validator;
-  };
-  triggeredTimeoutPrecommit: boolean;
+  readonly roundState: any;
+  readonly peers: readonly any[];
 }
 
 export interface ConsensusStateDump {
-  roundState: ConsensusState;
-  peers: Array<{
-    nodeAddress: string;
-    peerState: {
-      height: string;
-      round: number;
-      step: number;
-      startTime: string;
-      proposal: boolean;
-      proposalBlockPartsHeader: any;
-      proposalBlockParts: any;
-      proposalPOLRound: number;
-      proposalPOL: any;
-      prevotes: any;
-      precommits: any;
-      catchupCommitRound: number;
-      catchupCommit: any;
-    };
-  }>;
-}
-
-export interface Genesis {
-  genesisTime: string;
-  chainId: string;
-  initialHeight: string;
-  consensusParams: ConsensusParams;
-  validators: Array<{
-    address: string;
-    pubKey: {
-      type: string;
-      value: string;
-    };
-    power: string;
-    name: string;
-  }>;
-  appHash: string;
-  appState: any;
+  readonly roundState: any;
+  readonly peers: readonly any[];
 }
 
 export interface GenesisChunk {
-  chunk: number;
-  total: number;
-  data: string;
+  readonly chunk: number;
+  readonly total: number;
+  readonly data: string;
 }
 
-// Event types for streaming
 export interface TxEvent {
-  tx: TxResponse;
-  result: TxResult;
+  readonly tx: Uint8Array;
+  readonly result: any;
 }
 
 export interface BlockEvent {
-  block: Block;
-  resultBeginBlock: {
-    events: Event[];
-  };
-  resultEndBlock: {
-    events: Event[];
-    validatorUpdates: ValidatorUpdate[];
-    consensusParamUpdates: ConsensusParams;
-  };
+  readonly block: Block;
 }
