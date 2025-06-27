@@ -1,13 +1,23 @@
 // networks/cosmos/src/types/interfaces.ts
 import { IQueryClient, IEventClient } from '@interchainjs/types';
 import { 
-  ChainStatus, Block, BlockResults, TxResponse, ValidatorSet, AbciQueryParams, AbciQueryResult,
-  BlockSearchParams, SearchBlocksResult, TxSearchParams, SearchTxsResult,
-  AbciInfo, HealthResult, NetInfo, BlockchainInfo, BlockHeader, Commit, CheckTxResult,
-  UnconfirmedTxs, NumUnconfirmedTxs, ConsensusParams, ConsensusState, ConsensusStateDump,
-  Genesis, GenesisChunk, TxEvent, BlockEvent
+  StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults, 
+  TxResponse, ValidatorsResponse as ValidatorSet,
+  BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
+  BlockchainResponse as BlockchainInfo, BlockHeader, Commit,
+  UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
+  GenesisResponse as Genesis, HealthResponse as HealthResult,
+  TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
+  AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
+  AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
+  GenesisChunk, TxEvent, BlockEvent
 } from './responses.js';
+import {
+  AbciQueryParams, BlockSearchParams, TxSearchParams
+} from './requests.js';
 import { ProtocolInfo } from './protocol.js';
+
+
 
 export interface ICosmosQueryClient extends IQueryClient {
   // Basic info
