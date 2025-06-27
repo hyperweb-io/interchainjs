@@ -30,7 +30,9 @@
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
     "starship:all": "yarn starship start",
     "starship:clean": "yarn starship stop",
-    "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts"
+    "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts",
+    "test:rpc": "jest --config ./jest.rpc.config.js --verbose",
+    "test:rpc:watch": "jest --config ./jest.rpc.config.js --watch"
   },
   "dependencies": {
     "@interchainjs/auth": "1.11.18",
