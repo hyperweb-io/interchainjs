@@ -26,9 +26,6 @@ jobs:
           version: 8
           run_install: false
 
-      - name: Install Yarn
-        run: npm install -g yarn
-
       - name: Get pnpm store directory
         shell: bash
         run: |
