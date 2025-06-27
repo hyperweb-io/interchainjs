@@ -3,19 +3,19 @@
 Deploy
 
 ```sh
-yarn starship
+pnpm starship
 ```
 
 Run Tests
 
 ```sh
-yarn starship:test
+pnpm starship:test
 ```
 
 Teardown
 
 ```sh
-yarn starship:stop
+pnpm starship:stop
 ```
 
 Port fording manually if needed
@@ -59,7 +59,7 @@ Note: To make the process easy we have a simple command that will try and instal
 so that you dont have to.
 
 ```bash
-yarn starship setup
+pnpm starship setup
 ```
 
 This command will
@@ -82,7 +82,7 @@ to a kubernetes cluster locally.
 NOTE: Resources constraint on local machine will affect the performance of Starship spinup time
 
 ```bash
-yarn starship setup-kind
+pnpm starship setup-kind
 ```
 
 Run the following command to check connection to a k8s cluster
@@ -98,7 +98,7 @@ Now with the dependencies and a kubernetes cluster in handy, we can proceed with
 Run
 
 ```bash
-yarn starship deploy
+pnpm starship deploy
 ```
 
 We use the config file `configs/config.yaml` as the genesis file to define the topology of the e2e test infra. Change it as required
@@ -136,7 +136,7 @@ Which will
 If you are using kind for your kubernetes cluster, you can delete it with
 
 ```bash
-yarn starship clean-kind
+pnpm starship clean-kind
 ```
 
 ## Related
