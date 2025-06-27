@@ -5,5 +5,9 @@
 **/yarn-error.log
 lerna-debug.log
 
+# pnpm
+.pnpm-store/
+**/node-compile-cache/
+
 .claude
 CLAUDE.md
