@@ -1,0 +1,311 @@
+import { fromBase64, fromHex } from '@interchainjs/encoding';
+import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol.js';
+
+export interface ResponseDecoder {
+  decodeAbciInfo(response: any): any;
+  decodeAbciQuery(response: any): any;
+  decodeBlock(response: any): any;
+  decodeBlockResults(response: any): any;
+  decodeBlockSearch(response: any): any;
+  decodeBlockchain(response: any): any;
+  decodeBroadcastTx(response: any): any;
+  decodeCommit(response: any): any;
+  decodeConsensusParams(response: any): any;
+  decodeConsensusState(response: any): any;
+  decodeGenesis(response: any): any;
+  decodeGenesisChunked(response: any): any;
+  decodeHealth(response: any): any;
+  decodeNetInfo(response: any): any;
+  decodeNumUnconfirmedTxs(response: any): any;
+  decodeStatus(response: any): any;
+  decodeTx(response: any): any;
+  decodeTxSearch(response: any): any;
+  decodeUnconfirmedTxs(response: any): any;
+  decodeValidators(response: any): any;
+}
+
+export interface IProtocolAdapter {
+  getVersion(): ProtocolVersion;
+  getSupportedMethods(): Set<RpcMethod>;
+  getCapabilities(): ProtocolCapabilities;
+  encodeParams(method: RpcMethod, params: any): any;
+  decodeResponse(method: RpcMethod, response: any): any;
+  encodeBytes(data: string): Uint8Array;
+  decodeBytes(data: Uint8Array): string;
+}
+
+export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
+  constructor(protected version: ProtocolVersion) {}
+  protected apiToNumber(value: string | undefined | null): number {
+    if (!value) return 0;
+    const num = parseInt(value, 10);
+    if (Number.isNaN(num)) return 0;
+    return num;
+  }
+
+  protected apiToBigInt(value: string | undefined | null): bigint {
+    if (!value) return BigInt(0);
+    return BigInt(value);
+  }
+
+  protected maybeFromBase64(value: string | undefined | null): Uint8Array | undefined {
+    if (!value) return undefined;
+    return fromBase64(value);
+  }
+
+  protected maybeFromHex(value: string | undefined | null): Uint8Array | undefined {
+    if (!value) return undefined;
+    return fromHex(value);
+  }
+
+  protected decodeTime(timestamp: string): Date {
+    return new Date(timestamp);
+  }
+
+  protected decodeEvent(event: any): any {
+    return {
+      type: event.type || '',
+      attributes: (event.attributes || []).map((attr: any) => ({
+        key: fromBase64(attr.key || ''),
+        value: fromBase64(attr.value || ''),
+        index: attr.index || false
+      }))
+    };
+  }
+
+  protected decodeEvents(events: any[]): any[] {
+    return (events || []).map(e => this.decodeEvent(e));
+  }
+
+  // IProtocolAdapter implementation
+  getVersion(): ProtocolVersion {
+    return this.version;
+  }
+
+  encodeParams(method: RpcMethod, params: any): any {
+    // Convert camelCase to snake_case for Tendermint/CometBFT
+    if (!params) return {};
+    
+    // Special handling for blockchain method which expects array parameters
+    if (method === RpcMethod.BLOCKCHAIN) {
+      if (params.minHeight !== undefined && params.maxHeight !== undefined) {
+        return [params.minHeight.toString(), params.maxHeight.toString()];
+      }
+      return [];
+    }
+    
+    const encoded: any = {};
+    for (const [key, value] of Object.entries(params)) {
+      const snakeKey = this.camelToSnake(key);
+      
+      // Handle hash parameters with 0x prefix
+      if (key === 'hash' && typeof value === 'string' && value.startsWith('0x')) {
+        // Convert hex to base64 for RPC
+        const hexString = value.slice(2); // Remove 0x prefix
+        const bytes = Buffer.from(hexString, 'hex');
+        encoded[snakeKey] = bytes.toString('base64');
+      }
+      // Convert numeric parameters to strings for certain methods
+      else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH) &&
+          (key === 'page' || key === 'perPage') && 
+          typeof value === 'number') {
+        encoded[snakeKey] = value.toString();
+      } else {
+        encoded[snakeKey] = value;
+      }
+    }
+    return encoded;
+  }
+
+  decodeResponse(method: RpcMethod, response: any): any {
+    // Use the version-specific decoder
+    switch (method) {
+      case RpcMethod.ABCI_INFO:
+        return this.decodeAbciInfo(response);
+      case RpcMethod.ABCI_QUERY:
+        return this.decodeAbciQuery(response);
+      case RpcMethod.BLOCK:
+        return this.decodeBlock(response);
+      case RpcMethod.BLOCK_RESULTS:
+        return this.decodeBlockResults(response);
+      case RpcMethod.BLOCK_SEARCH:
+        return this.decodeBlockSearch(response);
+      case RpcMethod.BLOCKCHAIN:
+        return this.decodeBlockchain(response);
+      case RpcMethod.TX:
+        return this.decodeTx(response);
+      case RpcMethod.TX_SEARCH:
+        return this.decodeTxSearch(response);
+      case RpcMethod.VALIDATORS:
+        return this.decodeValidators(response);
+      case RpcMethod.CONSENSUS_PARAMS:
+        return this.decodeConsensusParams(response);
+      case RpcMethod.CONSENSUS_STATE:
+        return this.decodeConsensusState(response);
+      case RpcMethod.STATUS:
+        return this.decodeStatus(response);
+      case RpcMethod.NET_INFO:
+        return this.decodeNetInfo(response);
+      case RpcMethod.GENESIS:
+        return this.decodeGenesis(response);
+      case RpcMethod.GENESIS_CHUNKED:
+        return this.decodeGenesisChunked(response);
+      case RpcMethod.HEALTH:
+        return this.decodeHealth(response);
+      case RpcMethod.UNCONFIRMED_TXS:
+        return this.decodeUnconfirmedTxs(response);
+      case RpcMethod.NUM_UNCONFIRMED_TXS:
+        return this.decodeNumUnconfirmedTxs(response);
+      case RpcMethod.COMMIT:
+        return this.decodeCommit(response);
+      case RpcMethod.CHECK_TX:
+      case RpcMethod.BROADCAST_TX_SYNC:
+      case RpcMethod.BROADCAST_TX_ASYNC:
+      case RpcMethod.BROADCAST_TX_COMMIT:
+        return this.decodeBroadcastTx(response);
+      default:
+        // For unsupported methods, return raw response
+        return response;
+    }
+  }
+
+  encodeBytes(data: string): Uint8Array {
+    // Handle hex strings and base64
+    if (data.startsWith('0x')) {
+      const hex = data.slice(2);
+      const bytes = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < hex.length; i += 2) {
+        bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
+      }
+      return bytes;
+    }
+    
+    // Assume base64
+    const binary = atob(data);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
+  }
+
+  decodeBytes(data: Uint8Array): string {
+    // Convert to hex string
+    return Array.from(data)
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('')
+      .toUpperCase();
+  }
+
+  getSupportedMethods(): Set<RpcMethod> {
+    return new Set([
+      // Basic info
+      RpcMethod.STATUS,
+      RpcMethod.ABCI_INFO,
+      RpcMethod.HEALTH,
+      RpcMethod.NET_INFO,
+      
+      // Block queries
+      RpcMethod.BLOCK,
+      RpcMethod.BLOCK_BY_HASH,
+      RpcMethod.BLOCK_RESULTS,
+      RpcMethod.BLOCK_SEARCH,
+      RpcMethod.BLOCKCHAIN,
+      RpcMethod.HEADER,
+      RpcMethod.HEADER_BY_HASH,
+      RpcMethod.COMMIT,
+      
+      // Transaction queries
+      RpcMethod.TX,
+      RpcMethod.TX_SEARCH,
+      RpcMethod.CHECK_TX,
+      RpcMethod.UNCONFIRMED_TXS,
+      RpcMethod.NUM_UNCONFIRMED_TXS,
+      
+      // Chain queries
+      RpcMethod.VALIDATORS,
+      RpcMethod.CONSENSUS_PARAMS,
+      RpcMethod.CONSENSUS_STATE,
+      RpcMethod.DUMP_CONSENSUS_STATE,
+      RpcMethod.GENESIS,
+      RpcMethod.GENESIS_CHUNKED,
+      
+      // ABCI queries
+      RpcMethod.ABCI_QUERY,
+      
+      // Subscription
+      RpcMethod.SUBSCRIBE,
+      RpcMethod.UNSUBSCRIBE,
+      RpcMethod.UNSUBSCRIBE_ALL
+    ]);
+  }
+
+  getCapabilities(): ProtocolCapabilities {
+    return {
+      streaming: true,
+      subscriptions: true,
+      blockByHash: this.supportsBlockByHash(),
+      headerQueries: this.supportsHeaderQueries(),
+      consensusQueries: this.supportsConsensusQueries()
+    };
+  }
+
+  private supportsBlockByHash(): boolean {
+    return this.version === ProtocolVersion.COMET_38 || this.version === ProtocolVersion.COMET_100;
+  }
+
+  private supportsHeaderQueries(): boolean {
+    return this.version === ProtocolVersion.COMET_38 || this.version === ProtocolVersion.COMET_100;
+  }
+
+  private supportsConsensusQueries(): boolean {
+    return true; // All versions support basic consensus queries
+  }
+
+  private camelToSnake(str: string): string {
+    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+  }
+
+  private snakeToCamel(str: string): string {
+    return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+  }
+
+  private convertKeysToCamelCase(obj: any): any {
+    if (obj === null || typeof obj !== 'object') {
+      return obj;
+    }
+
+    if (Array.isArray(obj)) {
+      return obj.map(item => this.convertKeysToCamelCase(item));
+    }
+
+    const converted: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const camelKey = this.snakeToCamel(key);
+      converted[camelKey] = this.convertKeysToCamelCase(value);
+    }
+    return converted;
+  }
+
+  // Abstract methods that must be implemented by version-specific adapters
+  abstract decodeAbciInfo(response: any): any;
+  abstract decodeAbciQuery(response: any): any;
+  abstract decodeBlock(response: any): any;
+  abstract decodeBlockResults(response: any): any;
+  abstract decodeBlockSearch(response: any): any;
+  abstract decodeBlockchain(response: any): any;
+  abstract decodeBroadcastTx(response: any): any;
+  abstract decodeCommit(response: any): any;
+  abstract decodeConsensusParams(response: any): any;
+  abstract decodeConsensusState(response: any): any;
+  abstract decodeGenesis(response: any): any;
+  abstract decodeGenesisChunked(response: any): any;
+  abstract decodeHealth(response: any): any;
+  abstract decodeNetInfo(response: any): any;
+  abstract decodeNumUnconfirmedTxs(response: any): any;
+  abstract decodeStatus(response: any): any;
+  abstract decodeTx(response: any): any;
+  abstract decodeTxSearch(response: any): any;
+  abstract decodeUnconfirmedTxs(response: any): any;
+  abstract decodeValidators(response: any): any;
+}
