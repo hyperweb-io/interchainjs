@@ -1,13 +1,13 @@
-export { BaseAdapter, ResponseDecoder, IProtocolAdapter } from './base.js';
-export { Tendermint34Adapter } from './tendermint34.js';
-export { Tendermint37Adapter } from './tendermint37.js';
-export { Comet38Adapter } from './comet38.js';
+export { BaseAdapter, ResponseDecoder, IProtocolAdapter } from './base';
+export { Tendermint34Adapter } from './tendermint34';
+export { Tendermint37Adapter } from './tendermint37';
+export { Comet38Adapter } from './comet38';
 
-import { IProtocolAdapter } from './base.js';
-import { ProtocolVersion, ProtocolInfo } from '../types/protocol.js';
-import { Tendermint34Adapter } from './tendermint34.js';
-import { Tendermint37Adapter } from './tendermint37.js';
-import { Comet38Adapter } from './comet38.js';
+import { IProtocolAdapter } from './base';
+import { ProtocolVersion, ProtocolInfo } from '../types/protocol';
+import { Tendermint34Adapter } from './tendermint34';
+import { Tendermint37Adapter } from './tendermint37';
+import { Comet38Adapter } from './comet38';
 
 export function createProtocolAdapter(version?: ProtocolVersion): IProtocolAdapter {
   switch (version) {

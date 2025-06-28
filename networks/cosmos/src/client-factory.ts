@@ -1,10 +1,10 @@
 // networks/cosmos/src/client-factory.ts
-import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint } from './rpc/index.js';
-import { CosmosQueryClient } from './query/index.js';
-import { CosmosEventClient } from './event/index.js';
-import { createProtocolAdapter, IProtocolAdapter } from './adapters/index.js';
-import { ICosmosQueryClient, ICosmosEventClient } from './types/cosmos-client-interfaces.js';
-import { ProtocolVersion } from './types/protocol.js';
+import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint } from './rpc/index';
+import { CosmosQueryClient } from './query/index';
+import { CosmosEventClient } from './event/index';
+import { createProtocolAdapter, IProtocolAdapter } from './adapters/index';
+import { ICosmosQueryClient, ICosmosEventClient } from './types/cosmos-client-interfaces';
+import { ProtocolVersion } from './types/protocol';
 
 export interface ClientOptions {
   protocolVersion?: ProtocolVersion;

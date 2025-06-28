@@ -1,7 +1,7 @@
 // networks/cosmos/src/query/cosmos-query-client.ts
 import { IRpcClient } from '@interchainjs/types';
-import { ICosmosQueryClient } from '../types/cosmos-client-interfaces.js';
-import { RpcMethod, ProtocolInfo } from '../types/protocol.js';
+import { ICosmosQueryClient } from '../types/cosmos-client-interfaces';
+import { RpcMethod, ProtocolInfo } from '../types/protocol';
 import { 
   StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults, 
   TxResponse, ValidatorsResponse as ValidatorSet, 
@@ -13,14 +13,14 @@ import {
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
   GenesisChunk, TxEvent, BlockEvent
-} from '../types/responses.js';
+} from '../types/responses';
 import {
   AbciQueryParams, BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, CommitParams, ConsensusParamsParams,
   GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
   UnconfirmedTxsParams, ValidatorsParams
-} from '../types/requests.js';
-import { IProtocolAdapter } from '../adapters/base.js';
+} from '../types/requests';
+import { IProtocolAdapter } from '../adapters/base';
 
 
 

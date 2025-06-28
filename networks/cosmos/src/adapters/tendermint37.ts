@@ -1,6 +1,6 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
-import { BaseAdapter } from './base.js';
-import { ProtocolVersion } from '../types/protocol.js';
+import { BaseAdapter } from './base';
+import { ProtocolVersion } from '../types/protocol';
 
 export class Tendermint37Adapter extends BaseAdapter {
   constructor() {

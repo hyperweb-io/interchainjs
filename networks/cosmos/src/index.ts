@@ -1,10 +1,10 @@
 // networks/cosmos/src/index.ts
-export * from './types/index.js';
-export * from './rpc/index.js';
-export * from './query/index.js';
-export * from './event/index.js';
-export { IProtocolAdapter, createProtocolAdapter, getProtocolInfo } from './adapters/index.js';
-export * from './client-factory.js';
+export * from './types/index';
+export * from './rpc/index';
+export * from './query/index';
+export * from './event/index';
+export { IProtocolAdapter, createProtocolAdapter, getProtocolInfo } from './adapters/index';
+export * from './client-factory';
 
 // Re-export common error types for convenience
 export {
