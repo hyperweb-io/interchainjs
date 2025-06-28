@@ -29,6 +29,9 @@ export enum RpcMethod {
   CHECK_TX = "check_tx",
   UNCONFIRMED_TXS = "unconfirmed_txs",
   NUM_UNCONFIRMED_TXS = "num_unconfirmed_txs",
+  BROADCAST_TX_SYNC = "broadcast_tx_sync",
+  BROADCAST_TX_ASYNC = "broadcast_tx_async",
+  BROADCAST_TX_COMMIT = "broadcast_tx_commit",
   
   // Chain queries
   VALIDATORS = "validators",

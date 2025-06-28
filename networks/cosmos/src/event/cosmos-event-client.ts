@@ -3,7 +3,7 @@ import { IRpcClient, SubscriptionError } from '@interchainjs/types';
 import { ICosmosEventClient } from '../types/cosmos-client-interfaces.js';
 import { RpcMethod, EventType } from '../types/protocol.js';
 import { Block, BlockHeader, TxEvent, BlockEvent } from '../types/responses.js';
-import { IProtocolAdapter } from '../protocol-adapter.js';
+import { IProtocolAdapter } from '../adapters/base.js';
 
 export class CosmosEventClient implements ICosmosEventClient {
   private activeSubscriptions = new Set<string>();

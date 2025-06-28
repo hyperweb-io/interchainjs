@@ -20,7 +20,7 @@ import {
   GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
   UnconfirmedTxsParams, ValidatorsParams
 } from '../types/requests.js';
-import { IProtocolAdapter } from '../protocol-adapter.js';
+import { IProtocolAdapter } from '../adapters/base.js';
 
 
 

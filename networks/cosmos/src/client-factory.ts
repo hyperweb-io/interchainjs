@@ -2,7 +2,7 @@
 import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint } from './rpc/index.js';
 import { CosmosQueryClient } from './query/index.js';
 import { CosmosEventClient } from './event/index.js';
-import { createProtocolAdapter, IProtocolAdapter } from './protocol-adapter.js';
+import { createProtocolAdapter, IProtocolAdapter } from './adapters/index.js';
 import { ICosmosQueryClient, ICosmosEventClient } from './types/cosmos-client-interfaces.js';
 import { ProtocolVersion } from './types/protocol.js';
 
@@ -21,14 +21,74 @@ export interface WebSocketClientOptions extends ClientOptions {
 }
 
 export class CosmosClientFactory {
+  private static async detectProtocolAdapter(
+    endpoint: string | HttpEndpoint
+  ): Promise<IProtocolAdapter> {
+    // Use a simple client to detect version
+    const tempClient = new HttpRpcClient(endpoint);
+    await tempClient.connect();
+
+    try {
+      const response = await tempClient.call('status') as any;
+      const version = response.node_info.version;
+
+      if (version.startsWith('0.34.')) {
+        return createProtocolAdapter(ProtocolVersion.TENDERMINT_34);
+      } else if (version.startsWith('0.37.')) {
+        return createProtocolAdapter(ProtocolVersion.TENDERMINT_37);
+      } else if (version.startsWith('0.38.') || version.startsWith('1.0.')) {
+        return createProtocolAdapter(ProtocolVersion.COMET_38);
+      } else {
+        // Fallback to oldest supported version
+        return createProtocolAdapter(ProtocolVersion.TENDERMINT_34);
+      }
+    } finally {
+      await tempClient.disconnect();
+    }
+  }
+
+  private static async getProtocolAdapter(
+    endpoint: string | HttpEndpoint,
+    providedVersion?: ProtocolVersion
+  ): Promise<IProtocolAdapter> {
+    const detectedAdapter = await this.detectProtocolAdapter(endpoint);
+    
+    if (providedVersion) {
+      const providedAdapter = createProtocolAdapter(providedVersion);
+      const detectedVersion = detectedAdapter.getVersion();
+      const providedVersionValue = providedAdapter.getVersion();
+      
+      if (detectedVersion !== providedVersionValue) {
+        console.warn(
+          `Protocol version mismatch: provided version '${providedVersionValue}' does not match detected version '${detectedVersion}'. Using detected version.`
+        );
+      }
+    }
+    
+    return detectedAdapter;
+  }
+
+  private static convertToHttpEndpoint(endpoint: string | WebSocketEndpoint): string | HttpEndpoint {
+    if (typeof endpoint === 'string') {
+      // Convert ws:// or wss:// to http:// or https://
+      return endpoint.replace(/^ws(s)?:/, 'http$1:');
+    } else {
+      // Convert WebSocketEndpoint to HttpEndpoint
+      return {
+        url: endpoint.url.replace(/^ws(s)?:/, 'http$1:'),
+        timeout: 10000, // Default timeout for detection
+        headers: {}
+      };
+    }
+  }
   /**
    * Create a Cosmos query client using HTTP transport
    */
-  static createQueryClient(
+  static async createQueryClient(
     endpoint: string | HttpEndpoint,
     options: ClientOptions = {}
-  ): ICosmosQueryClient {
-    const protocolAdapter = createProtocolAdapter(options.protocolVersion);
+  ): Promise<ICosmosQueryClient> {
+    const protocolAdapter = await this.getProtocolAdapter(endpoint, options.protocolVersion);
     const rpcClient = new HttpRpcClient(endpoint, {
       timeout: options.timeout,
       headers: options.headers
@@ -40,11 +100,13 @@ export class CosmosClientFactory {
   /**
    * Create a Cosmos event client using WebSocket transport
    */
-  static createEventClient(
+  static async createEventClient(
     endpoint: string | WebSocketEndpoint,
     options: WebSocketClientOptions = {}
-  ): ICosmosEventClient {
-    const protocolAdapter = createProtocolAdapter(options.protocolVersion);
+  ): Promise<ICosmosEventClient> {
+    // For WebSocket, we need to convert the endpoint to HTTP for detection
+    const httpEndpoint = this.convertToHttpEndpoint(endpoint);
+    const protocolAdapter = await this.getProtocolAdapter(httpEndpoint, options.protocolVersion);
     const rpcClient = new WebSocketRpcClient(endpoint, {
       reconnect: options.reconnect
     });
@@ -55,12 +117,12 @@ export class CosmosClientFactory {
   /**
    * Create both query and event clients sharing the same protocol adapter
    */
-  static createClients(
+  static async createClients(
     httpEndpoint: string | HttpEndpoint,
     wsEndpoint: string | WebSocketEndpoint,
     options: WebSocketClientOptions = {}
-  ): { queryClient: ICosmosQueryClient; eventClient: ICosmosEventClient } {
-    const protocolAdapter = createProtocolAdapter(options.protocolVersion);
+  ): Promise<{ queryClient: ICosmosQueryClient; eventClient: ICosmosEventClient }> {
+    const protocolAdapter = await this.getProtocolAdapter(httpEndpoint, options.protocolVersion);
     
     const httpRpcClient = new HttpRpcClient(httpEndpoint, {
       timeout: options.timeout,
@@ -80,11 +142,13 @@ export class CosmosClientFactory {
   /**
    * Create a query client with WebSocket support (for both queries and events)
    */
-  static createUnifiedClient(
+  static async createUnifiedClient(
     endpoint: string | WebSocketEndpoint,
     options: WebSocketClientOptions = {}
-  ): { queryClient: ICosmosQueryClient; eventClient: ICosmosEventClient } {
-    const protocolAdapter = createProtocolAdapter(options.protocolVersion);
+  ): Promise<{ queryClient: ICosmosQueryClient; eventClient: ICosmosEventClient }> {
+    // For WebSocket, we need to convert the endpoint to HTTP for detection
+    const httpEndpoint = this.convertToHttpEndpoint(endpoint);
+    const protocolAdapter = await this.getProtocolAdapter(httpEndpoint, options.protocolVersion);
     const rpcClient = new WebSocketRpcClient(endpoint, {
       reconnect: options.reconnect
     });
@@ -97,16 +161,16 @@ export class CosmosClientFactory {
 }
 
 // Convenience functions
-export function createCosmosQueryClient(
+export async function createCosmosQueryClient(
   endpoint: string,
   options?: ClientOptions
-): ICosmosQueryClient {
+): Promise<ICosmosQueryClient> {
   return CosmosClientFactory.createQueryClient(endpoint, options);
 }
 
-export function createCosmosEventClient(
+export async function createCosmosEventClient(
   endpoint: string,
   options?: WebSocketClientOptions
-): ICosmosEventClient {
+): Promise<ICosmosEventClient> {
   return CosmosClientFactory.createEventClient(endpoint, options);
 }
