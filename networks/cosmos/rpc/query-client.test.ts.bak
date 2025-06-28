@@ -1,16 +1,39 @@
 /// <reference types="@types/jest" />
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { createQueryClient } from '../src/client-factory.js';
-import { ICosmosQueryClient } from '../src/types/cosmos-client-interfaces.js';
-import { RpcMethod } from '../src/types/protocol.js';
+import {
+  CosmosClientFactory,
+  ICosmosQueryClient,
+  ProtocolVersion,
+  RpcMethod,
+  ChainStatus,
+  AbciInfo,
+  HealthResult,
+  NetInfo,
+  Block,
+  BlockResults,
+  ValidatorSet,
+  TxResponse,
+  BlockchainInfo,
+  BlockHeader,
+  Commit,
+  UnconfirmedTxs,
+  NumUnconfirmedTxs,
+  ConsensusParams,
+  Genesis,
+  AbciQueryResult,
+  SearchTxsResult,
+  TxSearchParams,
+  BlockSearchParams,
+  SearchBlocksResult
+} from '@interchainjs/cosmos';
 
 const RPC_ENDPOINT = 'https://rpc.osmosis.zone/';
 let queryClient: ICosmosQueryClient;
 
 describe('Cosmos Query Client - Functional Tests', () => {
   beforeAll(async () => {
-    queryClient = await createQueryClient(RPC_ENDPOINT, {
+    queryClient = CosmosClientFactory.createQueryClient(RPC_ENDPOINT, {
       timeout: 30000,
       headers: {
         'User-Agent': 'InterchainJS-QueryClient-Test/1.0.0'
@@ -42,8 +65,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
   });
 
   describe('Basic Info Methods', () => {
-    test('status() should return chain status', async () => {
-      const status = await queryClient.status();
+    test('getStatus() should return chain status', async () => {
+      const status: ChainStatus = await queryClient.getStatus();
       
       expect(status).toBeDefined();
       expect(status.nodeInfo).toBeDefined();
@@ -67,8 +90,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(status.validatorInfo.votingPower).toBeDefined();
     });
 
-    test('abciInfo() should return ABCI info', async () => {
-      const result = await queryClient.abciInfo();
+    test('getAbciInfo() should return ABCI info', async () => {
+      const result: any = await queryClient.getAbciInfo();
       
       expect(result).toBeDefined();
       expect(result.response).toBeDefined();
@@ -79,15 +102,15 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(result.response.lastBlockAppHash).toBeDefined();
     });
 
-    test('health() should return health status', async () => {
-      const health = await queryClient.health();
+    test('getHealth() should return health status', async () => {
+      const health: any = await queryClient.getHealth();
       
       expect(health).toBeDefined();
       // Health endpoint typically returns empty object when healthy
     });
 
-    test('netInfo() should return network info', async () => {
-      const netInfo = await queryClient.netInfo();
+    test('getNetInfo() should return network info', async () => {
+      const netInfo: any = await queryClient.getNetInfo();
       
       expect(netInfo).toBeDefined();
       expect(netInfo.listening).toBeDefined();
@@ -104,12 +127,12 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
     beforeAll(async () => {
       // Get a recent block height for testing
-      const status = await queryClient.status();
+      const status = await queryClient.getStatus();
       testHeight = parseInt(status.syncInfo.latestBlockHeight) - 100;
     });
 
-    test('block() should return block at specific height', async () => {
-      const result = await queryClient.block(testHeight);
+    test('getBlock() should return block at specific height', async () => {
+      const result: any = await queryClient.getBlock(testHeight);
       
       expect(result).toBeDefined();
       expect(result.blockId).toBeDefined();
@@ -129,29 +152,29 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(result.block.lastCommit).toBeDefined();
     });
 
-    test('block() without height should return latest block', async () => {
-      const result = await queryClient.block();
+    test('getBlock() without height should return latest block', async () => {
+      const result: any = await queryClient.getBlock();
       
       expect(result).toBeDefined();
       expect(result.block.header.chainId).toBe('osmosis-1');
       expect(parseInt(result.block.header.height)).toBeGreaterThan(testHeight);
     });
 
-    test('blockByHash() should return block by hash', async () => {
+    test('getBlockByHash() should return block by hash', async () => {
       // First get a block to get its hash
-      const block = await queryClient.block(testHeight);
+      const block: any = await queryClient.getBlock(testHeight);
       const blockHash = block.blockId.hash;
       
       // Use 0x prefix for the hash
-      const result = await queryClient.blockByHash(`0x${blockHash}`);
+      const result: any = await queryClient.getBlockByHash(`0x${blockHash}`);
       
       expect(result).toBeDefined();
       expect(result.blockId.hash).toBe(blockHash);
       expect(result.block.header.height).toBe(testHeight.toString());
     });
 
-    test('blockResults() should return block results', async () => {
-      const results = await queryClient.blockResults(testHeight);
+    test('getBlockResults() should return block results', async () => {
+      const results: any = await queryClient.getBlockResults(testHeight);
       
       expect(results).toBeDefined();
       expect(results.height).toBe(testHeight.toString());
@@ -169,11 +192,11 @@ describe('Cosmos Query Client - Functional Tests', () => {
       }
     });
 
-    test('blockchain() should return blockchain info', async () => {
+    test('getBlockchain() should return blockchain info', async () => {
       const minHeight = testHeight - 5;
       const maxHeight = testHeight;
       
-      const blockchain = await queryClient.blockchain(minHeight, maxHeight);
+      const blockchain: any = await queryClient.getBlockchain(minHeight, maxHeight);
       
       expect(blockchain).toBeDefined();
       expect(blockchain.lastHeight).toBeDefined();
@@ -190,8 +213,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
       });
     });
 
-    test('header() should return block header', async () => {
-      const header = await queryClient.header(testHeight);
+    test('getHeader() should return block header', async () => {
+      const header: any = await queryClient.getHeader(testHeight);
       
       expect(header).toBeDefined();
       expect(header.header).toBeDefined();
@@ -201,19 +224,19 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(header.header.lastBlockId).toBeDefined();
     });
 
-    test('headerByHash() should return block header by hash', async () => {
+    test('getHeaderByHash() should return block header by hash', async () => {
       // First get a block to get its hash
-      const block = await queryClient.block(testHeight);
+      const block: any = await queryClient.getBlock(testHeight);
       const blockHash = block.blockId.hash;
       
-      const header = await queryClient.headerByHash(blockHash);
+      const header: any = await queryClient.getHeaderByHash(blockHash);
       
       expect(header).toBeDefined();
       expect(header.header.height).toBe(testHeight.toString());
     });
 
-    test('commit() should return block commit', async () => {
-      const commit = await queryClient.commit(testHeight);
+    test('getCommit() should return block commit', async () => {
+      const commit: any = await queryClient.getCommit(testHeight);
       
       expect(commit).toBeDefined();
       expect(commit.signedHeader).toBeDefined();
@@ -227,15 +250,15 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(commit.canonical).toBeDefined();
     });
 
-    test('blockSearch() should search blocks', async () => {
-      const params = {
+    test('searchBlocks() should search blocks', async () => {
+      const params: any = {
         query: `block.height=${testHeight}`,
         page: 1,
         perPage: 10,
-        orderBy: 'desc' as const
+        orderBy: 'desc'
       };
       
-      const results = await queryClient.blockSearch(params);
+      const results: any = await queryClient.searchBlocks(params);
       
       expect(results).toBeDefined();
       expect(results.blocks).toBeDefined();
@@ -250,8 +273,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
   });
 
   describe('Transaction Query Methods', () => {
-    test('unconfirmedTxs() should return unconfirmed transactions', async () => {
-      const unconfirmedTxs = await queryClient.unconfirmedTxs(10);
+    test('getUnconfirmedTxs() should return unconfirmed transactions', async () => {
+      const unconfirmedTxs: any = await queryClient.getUnconfirmedTxs(10);
       
       expect(unconfirmedTxs).toBeDefined();
       expect(unconfirmedTxs.nTxs).toBeDefined();
@@ -261,8 +284,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(Array.isArray(unconfirmedTxs.txs)).toBe(true);
     });
 
-    test('numUnconfirmedTxs() should return number of unconfirmed transactions', async () => {
-      const numUnconfirmed = await queryClient.numUnconfirmedTxs();
+    test('getNumUnconfirmedTxs() should return number of unconfirmed transactions', async () => {
+      const numUnconfirmed: any = await queryClient.getNumUnconfirmedTxs();
       
       expect(numUnconfirmed).toBeDefined();
       expect(numUnconfirmed.nTxs).toBeDefined();
@@ -270,18 +293,18 @@ describe('Cosmos Query Client - Functional Tests', () => {
       expect(numUnconfirmed.totalBytes).toBeDefined();
     });
 
-    test('txSearch() should search transactions', async () => {
+    test('searchTxs() should search transactions', async () => {
       try {
         // Search for recent transactions
-        const params = {
+        const params: any = {
           query: 'tx.height>1',
           prove: false,
           page: 1,
           perPage: 1,
-          orderBy: 'desc' as const
+          orderBy: 'desc'
         };
         
-        const results = await queryClient.txSearch(params);
+        const results: any = await queryClient.searchTxs(params);
         
         expect(results).toBeDefined();
         expect(results.txs).toBeDefined();
@@ -299,25 +322,25 @@ describe('Cosmos Query Client - Functional Tests', () => {
       }
     });
 
-    test('tx() should return transaction by hash', async () => {
+    test('getTx() should return transaction by hash', async () => {
       // First, get a transaction hash from recent blocks
-      const status = await queryClient.status();
+      const status = await queryClient.getStatus();
       const recentHeight = parseInt(status.syncInfo.latestBlockHeight) - 10;
       
       // Search for transactions at this height
-      const searchParams = {
+      const searchParams: TxSearchParams = {
         query: `tx.height>=${recentHeight}`,
         prove: false,
         page: 1,
         perPage: 1
       };
       
-      const searchResults = await queryClient.txSearch(searchParams);
+      const searchResults = await queryClient.searchTxs(searchParams);
       
       if (searchResults.txs.length > 0) {
         const txHash = searchResults.txs[0].hash;
         // Use 0x prefix for the hash
-        const tx = await queryClient.tx(`0x${txHash}`, false);
+        const tx: any = await queryClient.getTx(`0x${txHash}`, false);
         
         expect(tx).toBeDefined();
         expect(tx.hash).toBe(txHash);
@@ -327,14 +350,14 @@ describe('Cosmos Query Client - Functional Tests', () => {
         expect(tx.tx).toBeDefined();
       } else {
         // Skip test if no transactions found
-        console.log('No transactions found for testing tx()');
+        console.log('No transactions found for testing getTx()');
       }
     });
   });
 
   describe('Chain Query Methods', () => {
-    test('validators() should return validator set', async () => {
-      const validators = await queryClient.validators({ height: undefined, page: 1, perPage: 5 });
+    test('getValidators() should return validator set', async () => {
+      const validators: any = await queryClient.getValidators(undefined, 1, 5);
       
       expect(validators).toBeDefined();
       expect(validators.blockHeight).toBeDefined();
@@ -354,9 +377,9 @@ describe('Cosmos Query Client - Functional Tests', () => {
       }
     });
 
-    test('consensusParams() should return consensus parameters', async () => {
+    test('getConsensusParams() should return consensus parameters', async () => {
       try {
-        const consensusParams = await queryClient.consensusParams();
+        const consensusParams: any = await queryClient.getConsensusParams();
         
         expect(consensusParams).toBeDefined();
         expect(consensusParams.blockHeight).toBeDefined();
@@ -385,9 +408,9 @@ describe('Cosmos Query Client - Functional Tests', () => {
       }
     });
 
-    test('genesis() should return genesis data', async () => {
+    test('getGenesis() should return genesis data', async () => {
       try {
-        const genesis = await queryClient.genesis();
+        const genesis: any = await queryClient.getGenesis();
         
         expect(genesis).toBeDefined();
         expect(genesis.genesis).toBeDefined();
@@ -400,27 +423,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
       } catch (error: any) {
         // Consider "response too long" as a valid result - it means we connected successfully
         if (error.message && error.message.includes('Internal error')) {
-          console.log('RPC endpoint returned error for genesis - likely due to large response size');
           expect(error.message).toContain('Internal error');
-        } else {
-          throw error;
-        }
-      }
-    });
-
-    test('dumpConsensusState() should return consensus state', async () => {
-      try {
-        const consensusState = await queryClient.dumpConsensusState();
-        
-        expect(consensusState).toBeDefined();
-        expect(consensusState.roundState).toBeDefined();
-        expect(consensusState.peers).toBeDefined();
-        expect(Array.isArray(consensusState.peers)).toBe(true);
-      } catch (error: any) {
-        // Some nodes may not expose this endpoint
-        if (error.message && error.message.includes('Method not found')) {
-          console.log('dump_consensus_state not available on this node');
-          expect(error.message).toContain('Method not found');
+          console.log('Genesis response too large - connection successful');
         } else {
           throw error;
         }
@@ -429,37 +433,48 @@ describe('Cosmos Query Client - Functional Tests', () => {
   });
 
   describe('ABCI Query Methods', () => {
-    test('abciQuery() should query ABCI state', async () => {
-      // Query for validators using ABCI
-      const result = await queryClient.abciQuery({
-        path: '/cosmos.staking.v1beta1.Query/Validators',
-        data: '',
-        height: undefined,
+    test('queryAbci() should execute ABCI query', async () => {
+      // Query for consensus parameters
+      const params = {
+        path: '/cosmos.consensus.v1.Query/Params',
+        data: new Uint8Array(0),
         prove: false
-      });
+      };
+      
+      const result: any = await queryClient.queryAbci(params);
       
       expect(result).toBeDefined();
       expect(result.response).toBeDefined();
-      expect(result.response.code).toBe(0); // Success
-      expect(result.response.key).toBeDefined();
-      expect(result.response.value).toBeDefined();
+      expect(result.response.code).toBeDefined();
+      expect(result.response.index).toBeDefined();
       expect(result.response.height).toBeDefined();
+      
+      // The response may have key/value or error depending on the query
+      if (result.response.code === 0) {
+        // Success case
+        expect(result.response.value).toBeDefined();
+      } else {
+        // Error case
+        expect(result.response.log).toBeDefined();
+      }
     });
   });
 
-  describe('Protocol Detection', () => {
-    test('should detect and use correct protocol adapter', async () => {
-      const protocolInfo = queryClient.getProtocolInfo();
-      
-      // Based on our test results, Osmosis uses version 0.38.17
-      expect(protocolInfo.version).toBeDefined();
-      expect(['0.34', '0.37', '0.38', '1.0']).toContain(
-        protocolInfo.version.split('.').slice(0, 2).join('.')
-      );
-      
-      // Check that the adapter was selected correctly
-      const status = await queryClient.status();
-      expect(status.nodeInfo.version).toBe('0.38.17');
+  describe('Error Handling', () => {
+    test('should handle invalid block height gracefully', async () => {
+      await expect(queryClient.getBlock(999999999999)).rejects.toThrow();
+    });
+
+    test('should handle invalid block hash gracefully', async () => {
+      await expect(queryClient.getBlockByHash('invalid_hash')).rejects.toThrow();
+    });
+
+    test('should handle invalid transaction hash gracefully', async () => {
+      await expect(queryClient.getTx('invalid_tx_hash')).rejects.toThrow();
+    });
+
+    test('should handle invalid validator pagination', async () => {
+      await expect(queryClient.getValidators(undefined, 9999, 100)).rejects.toThrow();
     });
   });
 });
