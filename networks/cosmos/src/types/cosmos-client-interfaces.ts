@@ -11,11 +11,11 @@ import {
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
   GenesisChunk, TxEvent, BlockEvent
-} from './responses.js';
+} from './responses';
 import {
   AbciQueryParams, BlockSearchParams, TxSearchParams
-} from './requests.js';
-import { ProtocolInfo } from './protocol.js';
+} from './requests';
+import { ProtocolInfo } from './protocol';
 
 
 

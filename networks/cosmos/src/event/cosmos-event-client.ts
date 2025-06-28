@@ -1,9 +1,9 @@
 // networks/cosmos/src/event/cosmos-event-client.ts
 import { IRpcClient, SubscriptionError } from '@interchainjs/types';
-import { ICosmosEventClient } from '../types/cosmos-client-interfaces.js';
-import { RpcMethod, EventType } from '../types/protocol.js';
-import { Block, BlockHeader, TxEvent, BlockEvent } from '../types/responses.js';
-import { IProtocolAdapter } from '../adapters/base.js';
+import { ICosmosEventClient } from '../types/cosmos-client-interfaces';
+import { RpcMethod, EventType } from '../types/protocol';
+import { Block, BlockHeader, TxEvent, BlockEvent } from '../types/responses';
+import { IProtocolAdapter } from '../adapters/base';
 
 export class CosmosEventClient implements ICosmosEventClient {
   private activeSubscriptions = new Set<string>();

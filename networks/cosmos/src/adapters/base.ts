@@ -1,5 +1,5 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
-import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol.js';
+import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
 
 export interface ResponseDecoder {
   decodeAbciInfo(response: any): any;

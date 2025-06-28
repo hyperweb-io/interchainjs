@@ -1,2 +1,2 @@
 // networks/cosmos/src/query/index.ts
-export * from './cosmos-query-client.js';
+export * from './cosmos-query-client';
