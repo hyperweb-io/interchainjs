@@ -216,12 +216,35 @@ export class Tendermint34Adapter extends BaseAdapter {
 
   decodeConsensusState(response: any): any {
     const data = response.round_state || response;
-    return this.transformKeys(data);
+    const transformed = this.transformKeys(data);
+    
+    // Parse the "height/round/step" string into separate properties
+    if (transformed['height/round/step']) {
+      const heightRoundStep = transformed['height/round/step'];
+      const parts = heightRoundStep.split('/');
+      if (parts.length === 3) {
+        transformed.height = parseInt(parts[0], 10);
+        transformed.round = parseInt(parts[1], 10);
+        transformed.step = parseInt(parts[2], 10);
+      }
+      delete transformed['height/round/step'];
+    }
+    
+    return {
+      roundState: transformed
+    };
   }
 
   decodeDumpConsensusState(response: any): any {
     const data = response.result || response;
-    return this.transformKeys(data);
+    const transformed = this.transformKeys(data);
+    
+    // Ensure height is a number in roundState
+    if (transformed.roundState && transformed.roundState.height) {
+      transformed.roundState.height = this.apiToNumber(transformed.roundState.height);
+    }
+    
+    return transformed;
   }
 
   decodeGenesis(response: any): any {
@@ -342,7 +365,7 @@ export class Tendermint34Adapter extends BaseAdapter {
       blockHeight: this.apiToNumber(data.block_height),
       validators: (data.validators || []).map((v: any) => ({
         address: fromHex(v.address || ''),
-        pubkey: this.decodePubkey(v.pub_key),
+        pubKey: this.decodePubkey(v.pub_key),
         votingPower: this.apiToBigInt(v.voting_power),
         proposerPriority: v.proposer_priority ? 
           this.apiToNumber(v.proposer_priority) : undefined
