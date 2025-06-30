@@ -12,8 +12,10 @@ export interface ResponseDecoder {
   decodeCommit(response: any): any;
   decodeConsensusParams(response: any): any;
   decodeConsensusState(response: any): any;
+  decodeDumpConsensusState(response: any): any;
   decodeGenesis(response: any): any;
   decodeGenesisChunked(response: any): any;
+  decodeHeader(response: any): any;
   decodeHealth(response: any): any;
   decodeNetInfo(response: any): any;
   decodeNumUnconfirmedTxs(response: any): any;
@@ -36,6 +38,33 @@ export interface IProtocolAdapter {
 
 export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
   constructor(protected version: ProtocolVersion) {}
+  
+  // Recursive snake_case to camelCase transformation
+  protected toCamelCase(str: string): string {
+    return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+  }
+
+  protected transformKeys(obj: any): any {
+    if (obj === null || obj === undefined) {
+      return obj;
+    }
+    
+    if (Array.isArray(obj)) {
+      return obj.map(item => this.transformKeys(item));
+    }
+    
+    if (typeof obj === 'object') {
+      const transformed: any = {};
+      for (const [key, value] of Object.entries(obj)) {
+        const camelKey = this.toCamelCase(key);
+        transformed[camelKey] = this.transformKeys(value);
+      }
+      return transformed;
+    }
+    
+    return obj;
+  }
+  
   protected apiToNumber(value: string | undefined | null): number {
     if (!value) return 0;
     const num = parseInt(value, 10);
@@ -212,6 +241,11 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
         return this.decodeConsensusParams(response);
       case RpcMethod.CONSENSUS_STATE:
         return this.decodeConsensusState(response);
+      case RpcMethod.DUMP_CONSENSUS_STATE:
+        return this.decodeDumpConsensusState(response);
+      case RpcMethod.HEADER:
+      case RpcMethod.HEADER_BY_HASH:
+        return this.decodeHeader(response);
       case RpcMethod.STATUS:
         return this.decodeStatus(response);
       case RpcMethod.NET_INFO:
@@ -368,8 +402,10 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
   abstract decodeCommit(response: any): any;
   abstract decodeConsensusParams(response: any): any;
   abstract decodeConsensusState(response: any): any;
+  abstract decodeDumpConsensusState(response: any): any;
   abstract decodeGenesis(response: any): any;
   abstract decodeGenesisChunked(response: any): any;
+  abstract decodeHeader(response: any): any;
   abstract decodeHealth(response: any): any;
   abstract decodeNetInfo(response: any): any;
   abstract decodeNumUnconfirmedTxs(response: any): any;

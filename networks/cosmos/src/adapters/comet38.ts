@@ -44,7 +44,7 @@ export class Comet38Adapter extends BaseAdapter {
     const blockData = response.block || response;
     return {
       blockId: this.decodeBlockId(response.block_id),
-      header: this.decodeHeader(blockData.header),
+      header: this.decodeHeaderData(blockData.header),
       lastCommit: blockData.last_commit?.block_id?.hash ? 
         this.decodeCommitData(blockData.last_commit) : null,
       data: {
@@ -65,7 +65,7 @@ export class Comet38Adapter extends BaseAdapter {
     };
   }
 
-  private decodeHeader(data: any): any {
+  private decodeHeaderData(data: any): any {
     return {
       version: {
         block: this.apiToNumber(data.version?.block),
@@ -85,6 +85,12 @@ export class Comet38Adapter extends BaseAdapter {
       evidenceHash: fromHex(data.evidence_hash || ''),
       proposerAddress: fromHex(data.proposer_address || '')
     };
+  }
+
+  // Public method for header RPC response
+  decodeHeader(response: any): any {
+    const headerData = response.header || response;
+    return this.decodeHeaderData(headerData);
   }
 
   private decodeCommitData(data: any): any {
@@ -161,7 +167,7 @@ export class Comet38Adapter extends BaseAdapter {
       blockMetas: (data.block_metas || []).map((meta: any) => ({
         blockId: this.decodeBlockId(meta.block_id),
         blockSize: this.apiToNumber(meta.block_size),
-        header: this.decodeHeader(meta.header),
+        header: this.decodeHeaderData(meta.header),
         numTxs: this.apiToNumber(meta.num_txs)
       }))
     };
@@ -181,13 +187,9 @@ export class Comet38Adapter extends BaseAdapter {
 
   decodeCommit(response: any): any {
     const data = response.result || response;
-    return {
-      signedHeader: {
-        header: this.decodeHeader(data.signed_header?.header),
-        commit: this.decodeCommitData(data.signed_header?.commit)
-      },
-      canonical: data.canonical || false
-    };
+    // Flatten the commit structure - tests expect direct properties
+    const commitData = data.signed_header?.commit || data.commit || data;
+    return this.decodeCommitData(commitData);
   }
 
   decodeConsensusParams(response: any): any {
@@ -215,7 +217,13 @@ export class Comet38Adapter extends BaseAdapter {
   }
 
   decodeConsensusState(response: any): any {
-    return response;
+    const data = response.round_state || response;
+    return this.transformKeys(data);
+  }
+
+  decodeDumpConsensusState(response: any): any {
+    const data = response.result || response;
+    return this.transformKeys(data);
   }
 
   decodeGenesis(response: any): any {

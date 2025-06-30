@@ -1,7 +1,7 @@
 /// <reference types="@types/jest" />
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { createCosmosQueryClient, ICosmosQueryClient, RpcMethod } from '../src/index';
+import { createCosmosQueryClient, ICosmosQueryClient, RpcMethod } from '../dist/index';
 
 const RPC_ENDPOINT = 'https://rpc.osmosis.zone/';
 let queryClient: ICosmosQueryClient;
