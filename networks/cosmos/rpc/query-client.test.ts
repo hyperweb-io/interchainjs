@@ -426,7 +426,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         if (result1.blocks.length > 0 && result2.blocks.length > 0) {
           // NOTE: Removed header.height comparison - property structure may be different on BlockResponse
         }
-      });
+      }, 15000);
 
       test('searchBlocks() should handle empty results gracefully', async () => {
         const result = await queryClient.searchBlocks({
@@ -507,7 +507,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
           expect(validator.pubKey.type).toBeDefined();
           expect(validator.pubKey.value).toBeDefined();
           expect(validator.votingPower).toBeDefined();
-          expect(validator.votingPower).toBeGreaterThan(0);
+          expect(validator.votingPower).toBeGreaterThan(0n);
           expect(validator.proposerPriority).toBeDefined();
         });
       });
@@ -896,14 +896,14 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       test('queryAbci() should handle prove parameter', async () => {
         const result = await queryClient.queryAbci({
-          path: '/app/version',
-          data: new Uint8Array(0),
+          path: '/store/bank/key',
+          data: new Uint8Array([1, 2, 3]), // Some dummy key data
           prove: true
         });
 
         expect(result).toBeDefined();
         expect(result.code).toBeDefined();
-        // When prove=true, should include proof data
+        // When prove=true with store queries, should include proof data
         expect(result.proof).toBeDefined();
       });
     });

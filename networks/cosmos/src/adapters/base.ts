@@ -203,6 +203,11 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
         const bytes = Buffer.from(hexString, 'hex');
         encoded[snakeKey] = bytes.toString('base64');
       }
+      // Handle Uint8Array data (especially for ABCI queries)
+      else if (value instanceof Uint8Array) {
+        // Convert Uint8Array to hex string for RPC
+        encoded[snakeKey] = this.decodeBytes(value);
+      }
       // Convert numeric parameters to strings for certain methods
       else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH ||
                 method === RpcMethod.VALIDATORS) &&
