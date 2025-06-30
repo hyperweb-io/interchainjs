@@ -4,9 +4,10 @@ module.exports = {
   testEnvironment: 'node',
   testMatch: ['<rootDir>/rpc/**/*.test.ts'],
   moduleNameMapper: {
-    '^@interchainjs/cosmos$': '<rootDir>/src/index.ts',
     '^(\\.{1,2}/.*)\\.js$': '$1'
   },
+  moduleDirectories: ['node_modules', '<rootDir>'],
+  modulePaths: ['<rootDir>/dist'],
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
