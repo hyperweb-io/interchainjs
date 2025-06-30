@@ -44,13 +44,13 @@ export class Comet38Adapter extends BaseAdapter {
     const blockData = response.block || response;
     return {
       blockId: this.decodeBlockId(response.block_id),
-      block: {
-        header: this.decodeHeader(blockData.header),
-        lastCommit: blockData.last_commit?.block_id?.hash ? 
-          this.decodeCommitData(blockData.last_commit) : null,
-        txs: (blockData.data?.txs || []).map((tx: string) => fromBase64(tx)),
-        evidence: blockData.evidence?.evidence || []
-      }
+      header: this.decodeHeader(blockData.header),
+      lastCommit: blockData.last_commit?.block_id?.hash ? 
+        this.decodeCommitData(blockData.last_commit) : null,
+      data: {
+        txs: (blockData.data?.txs || []).map((tx: string) => fromBase64(tx))
+      },
+      evidence: blockData.evidence?.evidence || []
     };
   }
 
@@ -276,7 +276,10 @@ export class Comet38Adapter extends BaseAdapter {
   decodeStatus(response: any): any {
     const data = response.result || response;
     return {
-      nodeInfo: data.node_info,
+      nodeInfo: {
+        ...data.node_info,
+        protocolVersion: data.node_info?.protocol_version
+      },
       syncInfo: {
         latestBlockHash: fromHex(data.sync_info?.latest_block_hash || ''),
         latestAppHash: fromHex(data.sync_info?.latest_app_hash || ''),
@@ -290,7 +293,7 @@ export class Comet38Adapter extends BaseAdapter {
       },
       validatorInfo: data.validator_info ? {
         address: fromHex(data.validator_info.address || ''),
-        pubkey: this.decodePubkey(data.validator_info.pub_key),
+        pubKey: this.decodePubkey(data.validator_info.pub_key),
         votingPower: this.apiToBigInt(data.validator_info.voting_power)
       } : undefined
     };

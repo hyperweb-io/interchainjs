@@ -94,6 +94,13 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       return [];
     }
     
+    // Convert height to string for block-related methods
+    if ((method === RpcMethod.BLOCK || method === RpcMethod.BLOCK_RESULTS ||
+         method === RpcMethod.COMMIT || method === RpcMethod.HEADER) &&
+        params.height !== undefined && typeof params.height === "number") {
+      params = { ...params, height: params.height.toString() };
+    }
+    
     const encoded: any = {};
     for (const [key, value] of Object.entries(params)) {
       const snakeKey = this.camelToSnake(key);
