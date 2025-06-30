@@ -50,7 +50,26 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
 
   protected maybeFromBase64(value: string | undefined | null): Uint8Array | undefined {
     if (!value) return undefined;
-    return fromBase64(value);
+    return this.safeFromBase64(value);
+  }
+
+  protected safeFromBase64(value: string): Uint8Array {
+    if (!value) return new Uint8Array(0);
+    
+    // Fix base64 padding if needed
+    let paddedValue = value;
+    const remainder = value.length % 4;
+    if (remainder > 0) {
+      paddedValue = value + '='.repeat(4 - remainder);
+    }
+    
+    try {
+      return fromBase64(paddedValue);
+    } catch (error) {
+      // If base64 decoding fails, return empty array
+      console.warn(`Failed to decode base64 value: ${value}`, error);
+      return new Uint8Array(0);
+    }
   }
 
   protected maybeFromHex(value: string | undefined | null): Uint8Array | undefined {
@@ -66,11 +85,36 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
     return {
       type: event.type || '',
       attributes: (event.attributes || []).map((attr: any) => ({
-        key: fromBase64(attr.key || ''),
-        value: fromBase64(attr.value || ''),
+        key: this.decodeEventAttribute(attr.key || ''),
+        value: this.decodeEventAttribute(attr.value || ''),
         index: attr.index || false
       }))
     };
+  }
+
+  protected decodeEventAttribute(value: string): Uint8Array {
+    if (!value) return new Uint8Array(0);
+    
+    // Check if the value looks like base64 and has proper length
+    const isBase64Like = /^[A-Za-z0-9+/]*={0,2}$/.test(value) && value.length % 4 === 0;
+    
+    if (isBase64Like) {
+      try {
+        // Try to decode as base64 first
+        const decoded = this.safeFromBase64(value);
+        // If it decodes successfully and produces readable text, use it
+        const text = new TextDecoder().decode(decoded);
+        // If the decoded text contains mostly printable characters, it's likely base64
+        if (text.length > 0 && /^[\x20-\x7E\s]*$/.test(text)) {
+          return decoded;
+        }
+      } catch (e) {
+        // Fall through to treat as plain text
+      }
+    }
+    
+    // Treat as plain text string
+    return new TextEncoder().encode(value);
   }
 
   protected decodeEvents(events: any[]): any[] {
@@ -91,7 +135,7 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       if (params.minHeight !== undefined && params.maxHeight !== undefined) {
         return [params.minHeight.toString(), params.maxHeight.toString()];
       }
-      return [];
+      return {}; // Return empty object instead of empty array when no params
     }
     
     // Convert height to string for block-related methods
@@ -99,6 +143,24 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
          method === RpcMethod.COMMIT || method === RpcMethod.HEADER) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
+    }
+    
+    // Convert height to string for validator and consensus methods
+    if ((method === RpcMethod.VALIDATORS || method === RpcMethod.CONSENSUS_PARAMS) &&
+        params.height !== undefined && typeof params.height === "number") {
+      params = { ...params, height: params.height.toString() };
+    }
+    
+    // Convert height to string for ABCI query method
+    if (method === RpcMethod.ABCI_QUERY &&
+        params.height !== undefined && typeof params.height === "number") {
+      params = { ...params, height: params.height.toString() };
+    }
+    
+    // Convert limit to string for unconfirmed_txs method
+    if (method === RpcMethod.UNCONFIRMED_TXS &&
+        params.limit !== undefined && typeof params.limit === "number") {
+      params = { ...params, limit: params.limit.toString() };
     }
     
     const encoded: any = {};
@@ -113,7 +175,8 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
         encoded[snakeKey] = bytes.toString('base64');
       }
       // Convert numeric parameters to strings for certain methods
-      else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH) &&
+      else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH ||
+                method === RpcMethod.VALIDATORS) &&
           (key === 'page' || key === 'perPage') && 
           typeof value === 'number') {
         encoded[snakeKey] = value.toString();

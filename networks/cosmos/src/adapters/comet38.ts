@@ -114,14 +114,14 @@ export class Comet38Adapter extends BaseAdapter {
       validatorUpdates: (data.validator_updates || []).map((v: any) => this.decodeValidatorUpdate(v)),
       consensusParamUpdates: data.consensus_param_updates ? 
         this.decodeConsensusParams(data.consensus_param_updates) : undefined,
-      appHash: fromBase64(data.app_hash || '')
+      appHash: this.safeFromBase64(data.app_hash || '')
     };
   }
 
   private decodeTxResult(data: any): any {
     return {
       code: data.code || 0,
-      data: data.data ? fromBase64(data.data) : undefined,
+      data: data.data ? this.safeFromBase64(data.data) : undefined,
       log: data.log || '',
       info: data.info || '',
       gasWanted: this.apiToNumber(data.gas_wanted),
@@ -306,10 +306,10 @@ export class Comet38Adapter extends BaseAdapter {
       height: this.apiToNumber(data.height),
       index: data.index || 0,
       txResult: this.decodeTxResult(data.tx_result),
-      tx: fromBase64(data.tx || ''),
+      tx: this.safeFromBase64(data.tx || ''),
       proof: data.proof ? {
         rootHash: fromHex(data.proof.root_hash || ''),
-        data: fromBase64(data.proof.data || ''),
+        data: this.safeFromBase64(data.proof.data || ''),
         proof: data.proof.proof
       } : undefined
     };
