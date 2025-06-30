@@ -299,6 +299,7 @@ export class Comet38Adapter extends BaseAdapter {
   decodeNumUnconfirmedTxs(response: any): any {
     const data = response.result || response;
     return {
+      count: this.apiToNumber(data.n_txs || data.count), // Add count field
       total: this.apiToNumber(data.total),
       totalBytes: this.apiToNumber(data.total_bytes)
     };
@@ -357,7 +358,7 @@ export class Comet38Adapter extends BaseAdapter {
   decodeUnconfirmedTxs(response: any): any {
     const data = response.result || response;
     return {
-      count: this.apiToNumber(data.count),
+      count: this.apiToNumber(data.n_txs || data.count), // Handle both field names
       total: this.apiToNumber(data.total),
       totalBytes: this.apiToNumber(data.total_bytes),
       txs: (data.txs || []).map((tx: string) => fromBase64(tx))
