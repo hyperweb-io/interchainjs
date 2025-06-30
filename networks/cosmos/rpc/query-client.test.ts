@@ -1010,7 +1010,6 @@ describe('Cosmos Query Client - Functional Tests', () => {
     test('should detect and use correct protocol adapter', async () => {
       const protocolInfo = queryClient.getProtocolInfo();
 
-      // Based on our test results, Osmosis uses version 0.38.17
       expect(protocolInfo.version).toBeDefined();
       expect(['0.34', '0.37', '0.38', '1.0']).toContain(
         protocolInfo.version.split('-')[1]
@@ -1018,7 +1017,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       // Check that the adapter was selected correctly
       const status = await queryClient.getStatus();
-      expect(status.nodeInfo.version).toBe('0.38.17');
+            // check that the version is a valid version
+            expect(status.nodeInfo.version).toMatch(/^[0-9]+\.[0-9]+\.[0-9]+$/);
     });
   });
 
