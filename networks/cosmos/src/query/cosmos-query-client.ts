@@ -95,7 +95,15 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_SEARCH, result);
   }
 
-  async getBlockchain(minHeight: number, maxHeight: number): Promise<BlockchainInfo> {
+  async getBlockchain(minHeight?: number, maxHeight?: number): Promise<BlockchainInfo> {
+    // If no parameters provided, get recent blocks (last 20 blocks)
+    if (minHeight === undefined || maxHeight === undefined) {
+      const status = await this.getStatus();
+      const currentHeight = status.syncInfo.latestBlockHeight;
+      minHeight = Math.max(1, currentHeight - 19); // Get last 20 blocks
+      maxHeight = currentHeight;
+    }
+    
     const params: BlockchainParams = { minHeight, maxHeight };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCKCHAIN, params);
     const result = await this.rpcClient.call(RpcMethod.BLOCKCHAIN, encodedParams);

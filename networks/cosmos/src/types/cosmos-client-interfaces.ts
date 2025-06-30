@@ -31,7 +31,7 @@ export interface ICosmosQueryClient extends IQueryClient {
   getBlockByHash(hash: string): Promise<Block>;
   getBlockResults(height?: number): Promise<BlockResults>;
   searchBlocks(params: BlockSearchParams): Promise<SearchBlocksResult>;
-  getBlockchain(minHeight: number, maxHeight: number): Promise<BlockchainInfo>;
+  getBlockchain(minHeight?: number, maxHeight?: number): Promise<BlockchainInfo>;
   getHeader(height?: number): Promise<BlockHeader>;
   getHeaderByHash(hash: string): Promise<BlockHeader>;
   getCommit(height?: number): Promise<Commit>;
