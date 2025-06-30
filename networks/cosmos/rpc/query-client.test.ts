@@ -1,7 +1,7 @@
 /// <reference types="@types/jest" />
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { createCosmosQueryClient, ICosmosQueryClient, RpcMethod } from '../dist/index';
+import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
 
 const RPC_ENDPOINT = 'https://rpc.osmosis.zone/';
 let queryClient: ICosmosQueryClient;
@@ -550,7 +550,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
             const status = await queryClient.getStatus();
             const height = status.syncInfo.latestBlockHeight - 10;
             const result = await queryClient.getConsensusParams(height);
-            
+
             expect(result).toBeDefined();
             expect(result.block).toBeDefined();
             expect(result.evidence).toBeDefined();
@@ -586,7 +586,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
             const status = await queryClient.getStatus();
             const height = status.syncInfo.latestBlockHeight - 10;
             const result = await queryClient.getConsensusParams(height);
-            
+
             expect(result.block).toBeDefined();
             expect(result.block.maxBytes).toBeDefined();
             expect(result.block.maxBytes).toBeGreaterThan(0);
@@ -780,7 +780,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         // Allow for small differences due to mempool changes during concurrent calls
         const totalDiff = Math.abs(unconfirmedResult.total - numResult.total);
         const bytesDiff = Math.abs(unconfirmedResult.totalBytes - numResult.totalBytes);
-        
+
         expect(totalDiff).toBeLessThanOrEqual(10); // Allow up to 10 tx difference for busy networks
         expect(bytesDiff).toBeLessThanOrEqual(20000); // Allow up to 20KB difference for busy networks
       });
@@ -807,7 +807,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         // Allow for larger differences due to active mempool on busy networks
         const totalDiff = Math.abs(result1.total - result2.total);
         const bytesDiff = Math.abs(result1.totalBytes - result2.totalBytes);
-        
+
         expect(totalDiff).toBeLessThanOrEqual(10); // Allow up to 10 tx difference
         expect(bytesDiff).toBeLessThanOrEqual(50000); // Allow up to 50KB difference for busy networks
       });
@@ -834,7 +834,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         // Basic validation that the response makes sense
         expect(result.total).toBeGreaterThanOrEqual(0);
         expect(result.totalBytes).toBeGreaterThanOrEqual(0);
-        
+
         // If there are transactions, totalBytes should be > 0
         if (result.total > 0) {
           expect(result.totalBytes).toBeGreaterThan(0);
