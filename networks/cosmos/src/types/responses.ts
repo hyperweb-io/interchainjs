@@ -305,8 +305,8 @@ export interface NetInfoResponse {
 }
 
 export interface NumUnconfirmedTxsResponse {
-  readonly count?: number; // CometBFT 0.38 & Tendermint 0.37
-  readonly nTxs?: number; // Tendermint 0.34
+  readonly count: number; // Normalized from n_txs or count field
+  readonly nTxs?: number; // Tendermint 0.34 (deprecated, use count)
   readonly total: number;
   readonly totalBytes: number;
 }

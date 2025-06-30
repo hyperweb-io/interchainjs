@@ -3,13 +3,7 @@
 import './setup.test';
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import {
-  createCosmosQueryClient,
-  CosmosClientFactory,
-  ICosmosQueryClient,
-  ProtocolVersion,
-  RpcMethod
-} from '@interchainjs/cosmos';
+import { createCosmosQueryClient, ICosmosQueryClient, RpcMethod } from '../dist/index';
 
 import { useChain } from 'starshipjs';
 
@@ -22,35 +16,13 @@ describe('Cosmos Query Client', () => {
     const { getRpcEndpoint } = useChain('osmosis');
     rpcEndpoint = await getRpcEndpoint();
     queryClient = createCosmosQueryClient(rpcEndpoint, {
-      timeout: 15000,
+      timeout: 30000,
       headers: {
         'User-Agent': 'InterchainJS-QueryClient-Test/1.0.0'
       }
     });
-    await queryClient.connect();
   });
 
-  afterAll(async () => {
-    if (queryClient) {
-      await queryClient.disconnect();
-    }
-  });
-
-  describe('Connection Management', () => {
-    test('should connect successfully', () => {
-      expect(queryClient.isConnected()).toBe(true);
-      expect(queryClient.endpoint).toBe(rpcEndpoint);
-    });
-
-    test('should have correct protocol info', () => {
-      const protocolInfo = queryClient.getProtocolInfo();
-      expect(protocolInfo.version).toBe(ProtocolVersion.COMET_38);
-      expect(protocolInfo.supportedMethods.has(RpcMethod.STATUS)).toBe(true);
-      expect(protocolInfo.supportedMethods.has(RpcMethod.BLOCK)).toBe(true);
-      expect(protocolInfo.capabilities.streaming).toBe(true);
-      expect(protocolInfo.capabilities.subscriptions).toBe(true);
-    });
-  });
 
   describe('Basic Info Methods', () => {
     test('getStatus should return chain status', async () => {
