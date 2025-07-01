@@ -9,6 +9,9 @@ export interface ResponseDecoder {
   decodeBlockSearch(response: any): any;
   decodeBlockchain(response: any): any;
   decodeBroadcastTx(response: any): any;
+  decodeBroadcastTxSync?(response: any): any;
+  decodeBroadcastTxAsync?(response: any): any;
+  decodeBroadcastTxCommit?(response: any): any;
   decodeCommit(response: any): any;
   decodeConsensusParams(response: any): any;
   decodeConsensusState(response: any): any;
@@ -203,10 +206,17 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
         const bytes = Buffer.from(hexString, 'hex');
         encoded[snakeKey] = bytes.toString('base64');
       }
-      // Handle Uint8Array data (especially for ABCI queries)
+      // Handle Uint8Array data (especially for ABCI queries and broadcast)
       else if (value instanceof Uint8Array) {
-        // Convert Uint8Array to hex string for RPC
-        encoded[snakeKey] = this.decodeBytes(value);
+        // For broadcast methods, encode as base64
+        if ((method === RpcMethod.BROADCAST_TX_SYNC || 
+             method === RpcMethod.BROADCAST_TX_ASYNC || 
+             method === RpcMethod.BROADCAST_TX_COMMIT) && key === 'tx') {
+          encoded[snakeKey] = Buffer.from(value).toString('base64');
+        } else {
+          // Convert Uint8Array to hex string for RPC
+          encoded[snakeKey] = this.decodeBytes(value);
+        }
       }
       // Convert numeric parameters to strings for certain methods
       else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH ||
@@ -268,10 +278,13 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       case RpcMethod.COMMIT:
         return this.decodeCommit(response);
       case RpcMethod.CHECK_TX:
-      case RpcMethod.BROADCAST_TX_SYNC:
-      case RpcMethod.BROADCAST_TX_ASYNC:
-      case RpcMethod.BROADCAST_TX_COMMIT:
         return this.decodeBroadcastTx(response);
+      case RpcMethod.BROADCAST_TX_SYNC:
+        return (this as any).decodeBroadcastTxSync ? (this as any).decodeBroadcastTxSync(response) : this.decodeBroadcastTx(response);
+      case RpcMethod.BROADCAST_TX_ASYNC:
+        return (this as any).decodeBroadcastTxAsync ? (this as any).decodeBroadcastTxAsync(response) : this.decodeBroadcastTx(response);
+      case RpcMethod.BROADCAST_TX_COMMIT:
+        return (this as any).decodeBroadcastTxCommit ? (this as any).decodeBroadcastTxCommit(response) : this.decodeBroadcastTx(response);
       default:
         // For unsupported methods, return raw response
         return response;

@@ -10,10 +10,11 @@ import {
   TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
-  GenesisChunk, TxEvent, BlockEvent
+  GenesisChunk, TxEvent, BlockEvent,
+  BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
 import {
-  AbciQueryParams, BlockSearchParams, TxSearchParams
+  AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
 } from './requests';
 import { ProtocolInfo } from './protocol';
 
@@ -42,6 +43,11 @@ export interface ICosmosQueryClient extends IQueryClient {
   checkTx(tx: string): Promise<CheckTxResult>;
   getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs>;
   getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs>;
+
+  // Transaction broadcast
+  broadcastTxSync(params: BroadcastTxParams): Promise<BroadcastTxSyncResponse>;
+  broadcastTxAsync(params: BroadcastTxParams): Promise<BroadcastTxAsyncResponse>;
+  broadcastTxCommit(params: BroadcastTxParams): Promise<BroadcastTxCommitResponse>;
 
   // Chain queries
   getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet>;
