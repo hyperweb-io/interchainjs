@@ -1,6 +1,11 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
+import { 
+  BroadcastTxAsyncResponse, 
+  BroadcastTxSyncResponse, 
+  BroadcastTxCommitResponse 
+} from '../types/responses';
 
 export class Tendermint37Adapter extends BaseAdapter {
   constructor() {
@@ -377,6 +382,56 @@ export class Tendermint37Adapter extends BaseAdapter {
       })),
       count: this.apiToNumber(data.count),
       total: this.apiToNumber(data.total)
+    };
+  }
+
+  // Broadcast methods
+  decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse {
+    // In Tendermint 0.37, async response is the same as sync response
+    return this.decodeBroadcastTxSync(response);
+  }
+
+  decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse {
+    const result = response.result || response;
+    return {
+      code: this.apiToNumber(result.code || 0),
+      data: result.data ? fromBase64(result.data) : undefined,
+      log: result.log || '',
+      info: result.info || '',
+      gasWanted: this.apiToBigInt(result.gas_wanted || '0'),
+      gasUsed: this.apiToBigInt(result.gas_used || '0'),
+      events: result.events || [],
+      codespace: result.codespace || '',
+      hash: fromHex(result.hash)
+    };
+  }
+
+  decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse {
+    const result = response.result || response;
+    return {
+      height: this.apiToNumber(result.height),
+      hash: fromHex(result.hash),
+      checkTx: {
+        code: this.apiToNumber(result.check_tx?.code || 0),
+        data: result.check_tx?.data ? fromBase64(result.check_tx.data) : undefined,
+        log: result.check_tx?.log || '',
+        info: result.check_tx?.info || '',
+        gasWanted: this.apiToBigInt(result.check_tx?.gas_wanted || '0'),
+        gasUsed: this.apiToBigInt(result.check_tx?.gas_used || '0'),
+        events: result.check_tx?.events || [],
+        codespace: result.check_tx?.codespace || ''
+      },
+      // Tendermint 0.37 uses deliver_tx instead of tx_result
+      deliverTx: result.deliver_tx ? {
+        code: this.apiToNumber(result.deliver_tx.code || 0),
+        data: result.deliver_tx.data ? fromBase64(result.deliver_tx.data) : undefined,
+        log: result.deliver_tx.log || '',
+        info: result.deliver_tx.info || '',
+        gasWanted: this.apiToBigInt(result.deliver_tx.gas_wanted || '0'),
+        gasUsed: this.apiToBigInt(result.deliver_tx.gas_used || '0'),
+        events: result.deliver_tx.events || [],
+        codespace: result.deliver_tx.codespace || ''
+      } : undefined
     };
   }
 }
