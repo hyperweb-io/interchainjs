@@ -185,6 +185,39 @@ export class Comet38Adapter extends BaseAdapter {
     };
   }
 
+  decodeBroadcastTxAsync(response: any): any {
+    const data = response.result || response;
+    return {
+      hash: fromHex(data.hash || '')
+    };
+  }
+
+  decodeBroadcastTxSync(response: any): any {
+    const data = response.result || response;
+    return {
+      code: data.code || 0,
+      data: data.data ? this.safeFromBase64(data.data) : undefined,
+      log: data.log || '',
+      info: data.info || '',
+      gasWanted: data.gas_wanted ? this.apiToBigInt(data.gas_wanted) : undefined,
+      gasUsed: data.gas_used ? this.apiToBigInt(data.gas_used) : undefined,
+      events: this.decodeEvents(data.events),
+      codespace: data.codespace || '',
+      hash: fromHex(data.hash || '')
+    };
+  }
+
+  decodeBroadcastTxCommit(response: any): any {
+    const data = response.result || response;
+    return {
+      height: this.apiToNumber(data.height),
+      hash: fromHex(data.hash || ''),
+      checkTx: this.decodeTxResult(data.check_tx),
+      deliverTx: data.deliver_tx ? this.decodeTxResult(data.deliver_tx) : undefined,
+      txResult: data.tx_result ? this.decodeTxResult(data.tx_result) : undefined
+    };
+  }
+
   decodeCommit(response: any): any {
     const data = response.result || response;
     // Flatten the commit structure - tests expect direct properties

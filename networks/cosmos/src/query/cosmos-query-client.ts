@@ -12,7 +12,8 @@ import {
   TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
-  GenesisChunk, TxEvent, BlockEvent
+  GenesisChunk, TxEvent, BlockEvent,
+  BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from '../types/responses';
 import {
   AbciQueryParams, BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
@@ -162,6 +163,25 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   async getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs> {
     const result = await this.rpcClient.call(RpcMethod.NUM_UNCONFIRMED_TXS);
     return this.protocolAdapter.decodeResponse(RpcMethod.NUM_UNCONFIRMED_TXS, result);
+  }
+
+  // Transaction broadcast methods
+  async broadcastTxSync(params: BroadcastTxParams): Promise<BroadcastTxSyncResponse> {
+    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BROADCAST_TX_SYNC, params);
+    const result = await this.rpcClient.call(RpcMethod.BROADCAST_TX_SYNC, encodedParams);
+    return this.protocolAdapter.decodeResponse(RpcMethod.BROADCAST_TX_SYNC, result);
+  }
+
+  async broadcastTxAsync(params: BroadcastTxParams): Promise<BroadcastTxAsyncResponse> {
+    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BROADCAST_TX_ASYNC, params);
+    const result = await this.rpcClient.call(RpcMethod.BROADCAST_TX_ASYNC, encodedParams);
+    return this.protocolAdapter.decodeResponse(RpcMethod.BROADCAST_TX_ASYNC, result);
+  }
+
+  async broadcastTxCommit(params: BroadcastTxParams): Promise<BroadcastTxCommitResponse> {
+    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BROADCAST_TX_COMMIT, params);
+    const result = await this.rpcClient.call(RpcMethod.BROADCAST_TX_COMMIT, encodedParams);
+    return this.protocolAdapter.decodeResponse(RpcMethod.BROADCAST_TX_COMMIT, result);
   }
 
   // Chain query methods
