@@ -5,6 +5,10 @@ export * from './query/index';
 export * from './event/index';
 export { IProtocolAdapter, createProtocolAdapter, getProtocolInfo } from './adapters/index';
 export * from './client-factory';
+export * from './workflows';
+
+// Export signers
+export * from './signers';
 
 // Re-export common error types for convenience
 export {
