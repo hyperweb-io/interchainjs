@@ -3,6 +3,15 @@ import { bytecode, abi } from '../../contracts/usdt/contract.json'
 import { ContractEncoder, AbiFunctionItem } from '@interchainjs/ethereum/utils/ContractEncoder';
 import { WebSocketContractMonitor } from '@interchainjs/ethereum/providers/WebSocketContractMonitor';
 
+// Define the Transfer event type
+interface TransferEvent {
+  params: {
+    from: string;
+    to: string;
+    value: bigint;
+  };
+}
+
 // RPC endpoint for your local/test environment.
 // E.g., Hardhat node: http://127.0.0.1:8545
 // or a testnet node: https://goerli.infura.io/v3/...
@@ -295,7 +304,7 @@ describe('sending Tests', () => {
     // Create a promise that will be resolved when we receive the Transfer event
     const transferPromise = new Promise<void>((resolve) => {
       // Subscribe to Transfer events
-      monitor.on('Transfer', (event) => {
+      monitor.on('Transfer', (event: TransferEvent) => {
         console.log('Received Transfer event:', event);
 
         // Verify the event data - using params instead of returnValues

@@ -3,7 +3,15 @@
   "compilerOptions": {
     "outDir": "dist/esm",
     "rootDir": "src/",
-    "declaration": false
+    "declaration": false,
+    "strict": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "noImplicitAny": false,
+    "alwaysStrict": false
   },
   "include": ["**/*.ts"],
   "exclude": ["dist", "node_modules", "**/*.spec.*", "google/protobuf/descriptor.ts"]

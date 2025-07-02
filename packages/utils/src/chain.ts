@@ -5,7 +5,11 @@ import { Chain } from '@chain-registry/v2-types';
  * get chain by chain id from chain registry
  */
 export function getChainById(chainId: string): Chain {
-  return chains?.find((c) => c.chainId === chainId);
+  const chain = chains?.find((c) => c.chainId === chainId);
+  if (!chain) {
+    throw new Error(`Cannot find chain with chainId: ${chainId}`);
+  }
+  return chain;
 }
 
 /**

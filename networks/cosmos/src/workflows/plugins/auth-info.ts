@@ -1,4 +1,4 @@
-import { AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { AuthInfo, Fee, SignerInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { 
    
@@ -25,8 +25,8 @@ export class AuthInfoPlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: AuthInfoInput
   ): Promise<void> {
-    const signerInfo = ctx.getStagingData(STAGING_KEYS.SIGNER_INFO);
-    const protobufFee = ctx.getStagingData('protobuf_fee');
+    const signerInfo = ctx.getStagingData(STAGING_KEYS.SIGNER_INFO) as SignerInfo;
+    const protobufFee = ctx.getStagingData('protobuf_fee') as Fee;
 
     // Create auth info
     const authInfo = AuthInfo.fromPartial({

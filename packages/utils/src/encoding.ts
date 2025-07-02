@@ -25,7 +25,11 @@ export function fromHex(str: string): Uint8Array {
 export function toHex(bytes: Uint8Array, trimmed: boolean = false): string {
   const hexString = Buffer.from(bytes).toString('hex');
   if (trimmed) {
-    const nonZeroIndex = hexString.match(/[1-9a-f]/i).index;
+    const match = hexString.match(/[1-9a-f]/i);
+    if (!match) {
+      return '0'; // Return '0' if all bytes are zero
+    }
+    const nonZeroIndex = match.index!;
     const trimmedHexString = hexString.slice(nonZeroIndex);
     return trimmedHexString;
   }
