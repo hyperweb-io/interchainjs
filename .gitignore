@@ -7,3 +7,5 @@ lerna-debug.log
 
 .claude
 CLAUDE.md
+
+.cert/
