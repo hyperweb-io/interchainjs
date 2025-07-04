@@ -14,8 +14,9 @@ import {
   BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
 import {
-  AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
+  BlockSearchParams, TxSearchParams, BroadcastTxParams
 } from './requests';
+import { AbciQueryParams } from './requests/common/abci';
 import { ProtocolInfo } from './protocol';
 
 

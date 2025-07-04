@@ -6,6 +6,15 @@ import {
   createAbciInfoResponse,
   createAbciQueryResponse
 } from '../types/responses';
+import {
+  AbciQueryParams,
+  EncodedAbciQueryParams,
+  encodeAbciQueryParams
+} from '../types/requests/common/abci';
+
+export interface RequestEncoder {
+  encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
+}
 
 export interface ResponseDecoder {
   decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
@@ -45,9 +54,9 @@ export interface IProtocolAdapter {
   decodeBytes(data: Uint8Array): string;
 }
 
-export interface ICosmosProtocolAdapter extends IProtocolAdapter, ResponseDecoder {}
+export interface ICosmosProtocolAdapter extends IProtocolAdapter, RequestEncoder, ResponseDecoder {}
 
-export abstract class BaseAdapter implements ResponseDecoder, ICosmosProtocolAdapter {
+export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, ICosmosProtocolAdapter {
   constructor(protected version: ProtocolVersion) {}
   
   // Recursive snake_case to camelCase transformation
@@ -170,6 +179,18 @@ export abstract class BaseAdapter implements ResponseDecoder, ICosmosProtocolAda
     // Convert camelCase to snake_case for Tendermint/CometBFT
     if (!params) return {};
     
+    // Special handling for ABCI query using codec
+    if (method === RpcMethod.ABCI_QUERY) {
+      const encoded = this.encodeAbciQuery(params as AbciQueryParams);
+      // Convert to snake_case for RPC
+      return {
+        path: encoded.path,
+        data: encoded.data,
+        height: encoded.height,
+        prove: encoded.prove
+      };
+    }
+    
     // Special handling for blockchain method which expects array parameters
     if (method === RpcMethod.BLOCKCHAIN) {
       if (params.minHeight !== undefined && params.maxHeight !== undefined) {
@@ -191,11 +212,7 @@ export abstract class BaseAdapter implements ResponseDecoder, ICosmosProtocolAda
       params = { ...params, height: params.height.toString() };
     }
     
-    // Convert height to string for ABCI query method
-    if (method === RpcMethod.ABCI_QUERY &&
-        params.height !== undefined && typeof params.height === "number") {
-      params = { ...params, height: params.height.toString() };
-    }
+
     
     // Convert limit to string for unconfirmed_txs method
     if (method === RpcMethod.UNCONFIRMED_TXS &&
@@ -428,6 +445,10 @@ export abstract class BaseAdapter implements ResponseDecoder, ICosmosProtocolAda
     const resp = response as Record<string, unknown>;
     const data = (resp.response || resp) as Record<string, unknown>;
     return createAbciQueryResponse(data) as T;
+  }
+
+  encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams {
+    return encodeAbciQueryParams(params);
   }
 
   // Abstract methods that must be implemented by version-specific adapters

@@ -16,11 +16,12 @@ import {
   BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from '../types/responses';
 import {
-  AbciQueryParams, BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
+  BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, CommitParams, ConsensusParamsParams,
   GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
   UnconfirmedTxsParams, ValidatorsParams
 } from '../types/requests';
+import { AbciQueryParams } from '../types/requests/common/abci';
 import { ICosmosProtocolAdapter } from '../adapters/base';
 
 
@@ -227,7 +228,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   // ABCI query methods
   async queryAbci(params: AbciQueryParams): Promise<AbciQueryResult> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.ABCI_QUERY, params);
+    const encodedParams = this.protocolAdapter.encodeAbciQuery(params);
     const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
     return this.protocolAdapter.decodeAbciQuery(result);
   }

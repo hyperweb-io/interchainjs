@@ -3,6 +3,8 @@
  * These are shared across all versions
  */
 
+import type { AbciQueryParams } from './requests/common/abci';
+
 export enum Method {
   AbciInfo = "abci_info",
   AbciQuery = "abci_query",
@@ -33,12 +35,7 @@ export enum Method {
 }
 
 // Common request parameter types
-export interface AbciQueryParams {
-  path: string;
-  data: Uint8Array;
-  height?: number;
-  prove?: boolean;
-}
+// AbciQueryParams is now imported from './requests/common/abci'
 
 export interface BlockParams {
   height?: number;

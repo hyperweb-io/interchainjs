@@ -111,6 +111,31 @@ export const ensureString = (value: unknown): string => {
 };
 
 /**
+ * Ensure value is a number
+ */
+export const ensureNumber = (value: unknown): number => {
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string') {
+    const num = Number(value);
+    if (isNaN(num)) throw new Error(`Invalid number: ${value}`);
+    return num;
+  }
+  throw new Error(`Expected number, got ${typeof value}`);
+};
+
+/**
+ * Ensure value is a boolean
+ */
+export const ensureBoolean = (value: unknown): boolean => {
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'string') {
+    if (value.toLowerCase() === 'true') return true;
+    if (value.toLowerCase() === 'false') return false;
+  }
+  throw new Error(`Expected boolean, got ${typeof value}`);
+};
+
+/**
  * Create a converter that maps values using a lookup table
  */
 export function createEnumConverter<T>(enumMap: Record<string, T>): (value: unknown) => T | undefined {
