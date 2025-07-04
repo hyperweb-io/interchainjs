@@ -55,7 +55,7 @@ export const AbciQueryResponseCodec = createCodec<AbciQueryResponse>({
   key: base64ToBytes,
   value: base64ToBytes,
   proof: {
-    source: 'proofOps',
+    source: 'proof_ops',
     converter: (value: unknown) => value ? QueryProofCodec.create(value) : undefined
   },
   height: apiToNumber,

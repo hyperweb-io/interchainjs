@@ -45,7 +45,9 @@ export interface IProtocolAdapter {
   decodeBytes(data: Uint8Array): string;
 }
 
-export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
+export interface ICosmosProtocolAdapter extends IProtocolAdapter, ResponseDecoder {}
+
+export abstract class BaseAdapter implements ResponseDecoder, ICosmosProtocolAdapter {
   constructor(protected version: ProtocolVersion) {}
   
   // Recursive snake_case to camelCase transformation

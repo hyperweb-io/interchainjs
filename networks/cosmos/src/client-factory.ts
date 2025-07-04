@@ -2,7 +2,7 @@
 import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint } from './rpc/index';
 import { CosmosQueryClient } from './query/index';
 import { CosmosEventClient } from './event/index';
-import { createProtocolAdapter, IProtocolAdapter } from './adapters/index';
+import { createProtocolAdapter, ICosmosProtocolAdapter } from './adapters/index';
 import { ICosmosQueryClient, ICosmosEventClient } from './types/cosmos-client-interfaces';
 import { ProtocolVersion } from './types/protocol';
 
@@ -23,7 +23,7 @@ export interface WebSocketClientOptions extends ClientOptions {
 export class CosmosClientFactory {
   private static async detectProtocolAdapter(
     endpoint: string | HttpEndpoint
-  ): Promise<IProtocolAdapter> {
+  ): Promise<ICosmosProtocolAdapter> {
     // Use a simple client to detect version
     const tempClient = new HttpRpcClient(endpoint);
     await tempClient.connect();
@@ -50,7 +50,7 @@ export class CosmosClientFactory {
   private static async getProtocolAdapter(
     endpoint: string | HttpEndpoint,
     providedVersion?: ProtocolVersion
-  ): Promise<IProtocolAdapter> {
+  ): Promise<ICosmosProtocolAdapter> {
     const detectedAdapter = await this.detectProtocolAdapter(endpoint);
     
     if (providedVersion) {

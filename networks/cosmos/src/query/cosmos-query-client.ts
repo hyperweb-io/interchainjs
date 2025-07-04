@@ -21,14 +21,14 @@ import {
   GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
   UnconfirmedTxsParams, ValidatorsParams
 } from '../types/requests';
-import { IProtocolAdapter } from '../adapters/base';
+import { ICosmosProtocolAdapter } from '../adapters/base';
 
 
 
 export class CosmosQueryClient implements ICosmosQueryClient {
   constructor(
     private rpcClient: IRpcClient,
-    private protocolAdapter: IProtocolAdapter
+    private protocolAdapter: ICosmosProtocolAdapter
   ) {}
 
   get endpoint(): string {
@@ -55,7 +55,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getAbciInfo(): Promise<AbciInfo> {
     const result = await this.rpcClient.call(RpcMethod.ABCI_INFO);
-    return this.protocolAdapter.decodeResponse(RpcMethod.ABCI_INFO, result);
+    return this.protocolAdapter.decodeAbciInfo(result);
   }
 
   async getHealth(): Promise<HealthResult> {
@@ -229,7 +229,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   async queryAbci(params: AbciQueryParams): Promise<AbciQueryResult> {
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.ABCI_QUERY, params);
     const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.ABCI_QUERY, result);
+    return this.protocolAdapter.decodeAbciQuery(result);
   }
 
   // Protocol info

@@ -28,6 +28,43 @@ Successfully refactored ABCI response types to use a codec pattern with automati
 3. **Refactored adapters** to use common decode methods from base class
 4. **Updated naming convention** from camelCase to PascalCase for codec instances
 5. **Compared with CosmJS** to validate approach and identify improvements
+6. **Updated query client** to use specific decode methods instead of generic `decodeResponse`
+7. **Created ICosmosProtocolAdapter interface** that extends IProtocolAdapter with Cosmos-specific methods
+
+## Interface Design
+
+The refactoring introduced a cleaner interface hierarchy by combining existing interfaces:
+
+```typescript
+// Response decoder interface with all decode methods
+export interface ResponseDecoder {
+  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
+  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
+  decodeBlock(response: any): any;
+  decodeBlockResults(response: any): any;
+  // ... other decode methods
+}
+
+// Base protocol adapter interface
+export interface IProtocolAdapter {
+  getVersion(): ProtocolVersion;
+  getSupportedMethods(): Set<RpcMethod>;
+  getCapabilities(): ProtocolCapabilities;
+  encodeParams(method: RpcMethod, params: any): any;
+  decodeResponse(method: RpcMethod, response: any): any;
+  encodeBytes(data: string): Uint8Array;
+  decodeBytes(data: Uint8Array): string;
+}
+
+// Cosmos-specific protocol adapter combines both interfaces
+export interface ICosmosProtocolAdapter extends IProtocolAdapter, ResponseDecoder {}
+```
+
+This design:
+- Eliminates duplication by reusing the existing `ResponseDecoder` interface
+- Provides better type safety in the query client
+- Maintains clear separation between generic protocol operations and response decoding
+- Makes it easy to extend for other blockchain protocols
 
 ## Naming Convention
 
