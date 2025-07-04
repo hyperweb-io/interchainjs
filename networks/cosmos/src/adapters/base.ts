@@ -1,9 +1,10 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
+import { AbciInfoResponse, AbciQueryResponse } from '../types/responses';
 
 export interface ResponseDecoder {
-  decodeAbciInfo(response: any): any;
-  decodeAbciQuery(response: any): any;
+  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
+  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
   decodeBlock(response: any): any;
   decodeBlockResults(response: any): any;
   decodeBlockSearch(response: any): any;
@@ -410,8 +411,8 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
   }
 
   // Abstract methods that must be implemented by version-specific adapters
-  abstract decodeAbciInfo(response: any): any;
-  abstract decodeAbciQuery(response: any): any;
+  abstract decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
+  abstract decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
   abstract decodeBlock(response: any): any;
   abstract decodeBlockResults(response: any): any;
   abstract decodeBlockSearch(response: any): any;

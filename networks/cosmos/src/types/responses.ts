@@ -3,6 +3,30 @@
  * These are shared across all versions
  */
 
+// Import types that have been moved to separate files
+import { 
+  ProofOp, 
+  QueryProof,
+  AbciInfoResponse,
+  AbciQueryResponse,
+  createAbciInfoResponse,
+  createAbciQueryResponse,
+  createProofOp,
+  createQueryProof
+} from './responses/abci';
+
+// Re-export for backward compatibility
+export { 
+  ProofOp, 
+  QueryProof,
+  AbciInfoResponse,
+  AbciQueryResponse,
+  createAbciInfoResponse,
+  createAbciQueryResponse,
+  createProofOp,
+  createQueryProof
+};
+
 // Common types used in responses
 export interface EventAttribute {
   readonly key: string;
@@ -152,15 +176,7 @@ export interface SyncInfo {
   readonly catchingUp: boolean;
 }
 
-export interface ProofOp {
-  readonly type: string;
-  readonly key: Uint8Array;
-  readonly data: Uint8Array;
-}
 
-export interface QueryProof {
-  readonly ops: readonly ProofOp[];
-}
 
 export interface TxProof {
   readonly rootHash: Uint8Array;
@@ -271,23 +287,6 @@ export interface ValidatorsResponse {
 }
 
 // Version-specific types combined with optional fields
-export interface AbciInfoResponse {
-  readonly data?: string;
-  readonly lastBlockHeight?: number;
-  readonly lastBlockAppHash?: Uint8Array;
-}
-
-export interface AbciQueryResponse {
-  readonly key: Uint8Array;
-  readonly value: Uint8Array;
-  readonly proof?: QueryProof;
-  readonly height?: number;
-  readonly index?: number;
-  readonly code?: number;
-  readonly codespace: string;
-  readonly log?: string;
-  readonly info: string;
-}
 
 export interface BroadcastTxCommitResponse {
   readonly height: number;

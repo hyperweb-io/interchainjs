@@ -4,45 +4,55 @@ import { ProtocolVersion } from '../types/protocol';
 import { 
   BroadcastTxAsyncResponse, 
   BroadcastTxSyncResponse, 
-  BroadcastTxCommitResponse 
+  BroadcastTxCommitResponse,
+  AbciInfoResponse,
+  AbciQueryResponse,
+  createAbciInfoResponse,
+  createAbciQueryResponse,
+  createProofOp,
+  createQueryProof
 } from '../types/responses';
 
 export class Tendermint37Adapter extends BaseAdapter {
   constructor() {
     super(ProtocolVersion.TENDERMINT_37);
   }
-  decodeAbciInfo(response: any): any {
-    const data = response.response || response;
-    return {
-      data: data.data,
-      lastBlockHeight: this.apiToNumber(data.last_block_height),
-      lastBlockAppHash: this.maybeFromBase64(data.last_block_app_hash)
-    };
+  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.response || resp) as Record<string, unknown>;
+    return createAbciInfoResponse({
+      data: data.data as string | undefined,
+      lastBlockHeight: this.apiToNumber(data.last_block_height as string | null | undefined),
+      lastBlockAppHash: this.maybeFromBase64(data.last_block_app_hash as string | null | undefined)
+    }) as T;
   }
 
-  decodeAbciQuery(response: any): any {
-    const data = response.response || response;
-    return {
-      key: fromBase64(data.key || ''),
-      value: fromBase64(data.value || ''),
+  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.response || resp) as Record<string, unknown>;
+    return createAbciQueryResponse({
+      key: fromBase64((data.key as string) || ''),
+      value: fromBase64((data.value as string) || ''),
       proof: data.proofOps ? this.decodeQueryProof(data.proofOps) : undefined,
-      height: this.apiToNumber(data.height),
-      code: this.apiToNumber(data.code),
-      codespace: data.codespace || '',
-      log: data.log || '',
-      info: data.info || '',
-      index: this.apiToNumber(data.index)
-    };
+      height: this.apiToNumber(data.height as string | null | undefined),
+      code: this.apiToNumber(data.code as string | null | undefined),
+      codespace: (data.codespace as string) || '',
+      log: (data.log as string) || '',
+      info: (data.info as string) || '',
+      index: this.apiToNumber(data.index as string | null | undefined)
+    }) as T;
   }
 
-  private decodeQueryProof(data: any): any {
-    return {
-      ops: (data.ops || []).map((op: any) => ({
-        type: op.type,
-        key: fromBase64(op.key),
-        data: fromBase64(op.data)
+  private decodeQueryProof(data: unknown): ReturnType<typeof createQueryProof> {
+    const proofData = data as Record<string, unknown>;
+    const ops = (proofData.ops || []) as Array<Record<string, unknown>>;
+    return createQueryProof({
+      ops: ops.map((op) => createProofOp({
+        type: op.type as string,
+        key: fromBase64(op.key as string),
+        data: fromBase64(op.data as string)
       }))
-    };
+    });
   }
 
   decodeBlock(response: any): any {
