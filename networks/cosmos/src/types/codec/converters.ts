@@ -136,6 +136,19 @@ export const ensureBoolean = (value: unknown): boolean => {
 };
 
 /**
+ * Ensure value is a Date
+ */
+export const ensureDate = (value: unknown): Date => {
+  if (value instanceof Date) return value;
+  if (typeof value === 'string' || typeof value === 'number') {
+    const date = new Date(value);
+    if (isNaN(date.getTime())) throw new Error(`Invalid date: ${value}`);
+    return date;
+  }
+  throw new Error(`Expected date, got ${typeof value}`);
+};
+
+/**
  * Create a converter that maps values using a lookup table
  */
 export function createEnumConverter<T>(enumMap: Record<string, T>): (value: unknown) => T | undefined {

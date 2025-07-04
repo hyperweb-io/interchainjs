@@ -320,17 +320,19 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         for (let i = 0; i < 50; i++) {
           result = await queryClient.getBlockResults(heightWithTxs - i);
-          if (result.txsResults.length > 0) {
+          if (result?.txsResults && result.txsResults.length > 0) {
             heightWithTxs = heightWithTxs - i;
             break;
           }
         }
 
-        expect(result.height).toBe(heightWithTxs);
-        expect(result.txsResults.length).toBeGreaterThan(0);
+        expect(result).toBeDefined();
+        expect(result!.height).toBe(heightWithTxs);
+        expect(result!.txsResults).toBeDefined();
+        expect(result!.txsResults!.length).toBeGreaterThan(0);
 
         // Check transaction result structure
-        const firstTx = result.txsResults[0];
+        const firstTx = result!.txsResults![0];
         expect(firstTx.code).toBeDefined();
         expect(firstTx.gasWanted).toBeDefined();
         expect(firstTx.gasUsed).toBeDefined();
@@ -345,15 +347,17 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         for (let i = 0; i < 50; i++) {
           result = await queryClient.getBlockResults(heightWithoutTxs - i);
-          if (result.txsResults.length === 0) {
+          if (result?.txsResults && result.txsResults.length === 0) {
             heightWithoutTxs = heightWithoutTxs - i;
             break;
           }
         }
 
-        expect(result.height).toBe(heightWithoutTxs);
-        expect(result.txsResults.length).toBe(0);
-        expect(result.finalizeBlockEvents).toBeDefined();
+        expect(result).toBeDefined();
+        expect(result!.height).toBe(heightWithoutTxs);
+        expect(result!.txsResults).toBeDefined();
+        expect(result!.txsResults!.length).toBe(0);
+        expect(result!.finalizeBlockEvents).toBeDefined();
       });
 
       test('getBlockResults() should have valid app hash', async () => {

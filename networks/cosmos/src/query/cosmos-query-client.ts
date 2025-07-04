@@ -17,11 +17,12 @@ import {
 } from '../types/responses';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
-  BlockSearchParams, BroadcastTxParams, CommitParams, ConsensusParamsParams,
+  BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
   GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
   UnconfirmedTxsParams, ValidatorsParams
 } from '../types/requests';
 import { AbciQueryParams } from '../types/requests/common/abci';
+import { CommitParams } from '../types/requests/common/commit';
 import { ICosmosProtocolAdapter } from '../adapters/base';
 
 
@@ -128,9 +129,10 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getCommit(height?: number): Promise<Commit> {
     const params: CommitParams = height ? { height } : {};
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.COMMIT, params);
+    const encodedParams = this.protocolAdapter.encodeCommit(params);
     const result = await this.rpcClient.call(RpcMethod.COMMIT, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.COMMIT, result);
+    const response = this.protocolAdapter.decodeCommit(result);
+    return response.signedHeader.commit;
   }
 
   // Transaction query methods

@@ -186,12 +186,7 @@ export class Comet38Adapter extends BaseAdapter {
     };
   }
 
-  decodeCommit(response: any): any {
-    const data = response.result || response;
-    // Flatten the commit structure - tests expect direct properties
-    const commitData = data.signed_header?.commit || data.commit || data;
-    return this.decodeCommitData(commitData);
-  }
+
 
   decodeConsensusParams(response: any): any {
     const data = response.consensus_params || response;

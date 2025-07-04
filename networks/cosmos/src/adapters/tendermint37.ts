@@ -157,16 +157,7 @@ export class Tendermint37Adapter extends BaseAdapter {
     };
   }
 
-  decodeCommit(response: any): any {
-    const data = response.result || response;
-    return {
-      signedHeader: {
-        header: this.decodeHeaderData(data.signed_header?.header),
-        commit: this.decodeCommitData(data.signed_header?.commit)
-      },
-      canonical: data.canonical || false
-    };
-  }
+
 
   decodeConsensusParams(response: any): any {
     const data = response.consensus_params || response;

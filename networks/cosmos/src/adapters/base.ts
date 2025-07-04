@@ -7,13 +7,23 @@ import {
   createAbciQueryResponse
 } from '../types/responses';
 import {
+  CommitResponse,
+  createCommitResponse
+} from '../types/responses/common/commit';
+import {
   AbciQueryParams,
   EncodedAbciQueryParams,
   encodeAbciQueryParams
 } from '../types/requests/common/abci';
+import {
+  CommitParams,
+  EncodedCommitParams,
+  encodeCommitParams
+} from '../types/requests/common/commit';
 
 export interface RequestEncoder {
   encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
+  encodeCommit(params: CommitParams): EncodedCommitParams;
 }
 
 export interface ResponseDecoder {
@@ -27,7 +37,7 @@ export interface ResponseDecoder {
   decodeBroadcastTxSync?(response: any): any;
   decodeBroadcastTxAsync?(response: any): any;
   decodeBroadcastTxCommit?(response: any): any;
-  decodeCommit(response: any): any;
+  decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T;
   decodeConsensusParams(response: any): any;
   decodeConsensusState(response: any): any;
   decodeDumpConsensusState(response: any): any;
@@ -191,6 +201,12 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       };
     }
     
+    // Special handling for commit using codec
+    if (method === RpcMethod.COMMIT) {
+      const encoded = this.encodeCommit(params as CommitParams);
+      return encoded;
+    }
+    
     // Special handling for blockchain method which expects array parameters
     if (method === RpcMethod.BLOCKCHAIN) {
       if (params.minHeight !== undefined && params.maxHeight !== undefined) {
@@ -201,7 +217,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     
     // Convert height to string for block-related methods
     if ((method === RpcMethod.BLOCK || method === RpcMethod.BLOCK_RESULTS ||
-         method === RpcMethod.COMMIT || method === RpcMethod.HEADER) &&
+         method === RpcMethod.HEADER) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
     }
@@ -451,13 +467,21 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeAbciQueryParams(params);
   }
 
+  encodeCommit(params: CommitParams): EncodedCommitParams {
+    return encodeCommitParams(params);
+  }
+
   // Abstract methods that must be implemented by version-specific adapters
   abstract decodeBlock(response: any): any;
   abstract decodeBlockResults(response: any): any;
   abstract decodeBlockSearch(response: any): any;
   abstract decodeBlockchain(response: any): any;
   abstract decodeBroadcastTx(response: any): any;
-  abstract decodeCommit(response: any): any;
+  decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createCommitResponse(data) as T;
+  }
   abstract decodeConsensusParams(response: any): any;
   abstract decodeConsensusState(response: any): any;
   abstract decodeDumpConsensusState(response: any): any;
