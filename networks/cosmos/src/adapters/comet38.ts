@@ -1,55 +1,11 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
-import {
-  AbciInfoResponse,
-  AbciQueryResponse,
-  createAbciInfoResponse,
-  createAbciQueryResponse,
-  createProofOp,
-  createQueryProof
-} from '../types/responses';
+// No response imports needed since ABCI methods are now in base class
 
 export class Comet38Adapter extends BaseAdapter {
   constructor() {
     super(ProtocolVersion.COMET_38);
-  }
-  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T {
-    const resp = response as Record<string, unknown>;
-    const data = (resp.response || resp) as Record<string, unknown>;
-    return createAbciInfoResponse({
-      data: data.data as string | undefined,
-      lastBlockHeight: this.apiToNumber(data.last_block_height as string | null | undefined),
-      lastBlockAppHash: this.maybeFromBase64(data.last_block_app_hash as string | null | undefined)
-    }) as T;
-  }
-
-  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T {
-    const resp = response as Record<string, unknown>;
-    const data = (resp.response || resp) as Record<string, unknown>;
-    return createAbciQueryResponse({
-      key: fromBase64((data.key as string) || ''),
-      value: fromBase64((data.value as string) || ''),
-      proof: data.proofOps ? this.decodeQueryProof(data.proofOps) : undefined,
-      height: this.apiToNumber(data.height as string | null | undefined),
-      code: this.apiToNumber(data.code as string | null | undefined),
-      codespace: (data.codespace as string) || '',
-      log: (data.log as string) || '',
-      info: (data.info as string) || '',
-      index: this.apiToNumber(data.index as string | null | undefined)
-    }) as T;
-  }
-
-  private decodeQueryProof(data: unknown): ReturnType<typeof createQueryProof> {
-    const proofData = data as Record<string, unknown>;
-    const ops = (proofData.ops || []) as Array<Record<string, unknown>>;
-    return createQueryProof({
-      ops: ops.map((op) => createProofOp({
-        type: op.type as string,
-        key: fromBase64(op.key as string),
-        data: fromBase64(op.data as string)
-      }))
-    });
   }
 
   decodeBlock(response: any): any {

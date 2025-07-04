@@ -1,6 +1,11 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
-import { AbciInfoResponse, AbciQueryResponse } from '../types/responses';
+import { 
+  AbciInfoResponse, 
+  AbciQueryResponse,
+  createAbciInfoResponse,
+  createAbciQueryResponse
+} from '../types/responses';
 
 export interface ResponseDecoder {
   decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
@@ -410,9 +415,20 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
     return converted;
   }
 
+  // Common decode methods that work across all versions
+  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.response || resp) as Record<string, unknown>;
+    return createAbciInfoResponse(data) as T;
+  }
+
+  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.response || resp) as Record<string, unknown>;
+    return createAbciQueryResponse(data) as T;
+  }
+
   // Abstract methods that must be implemented by version-specific adapters
-  abstract decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
-  abstract decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
   abstract decodeBlock(response: any): any;
   abstract decodeBlockResults(response: any): any;
   abstract decodeBlockSearch(response: any): any;

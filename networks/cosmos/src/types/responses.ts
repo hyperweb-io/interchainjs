@@ -10,10 +10,8 @@ import {
   AbciInfoResponse,
   AbciQueryResponse,
   createAbciInfoResponse,
-  createAbciQueryResponse,
-  createProofOp,
-  createQueryProof
-} from './responses/abci';
+  createAbciQueryResponse
+} from './responses/common/abci';
 
 // Re-export for backward compatibility
 export { 
@@ -22,9 +20,7 @@ export {
   AbciInfoResponse,
   AbciQueryResponse,
   createAbciInfoResponse,
-  createAbciQueryResponse,
-  createProofOp,
-  createQueryProof
+  createAbciQueryResponse
 };
 
 // Common types used in responses
