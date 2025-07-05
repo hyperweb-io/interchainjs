@@ -22,7 +22,7 @@ export interface CodecConfig {
  */
 export abstract class BaseCodec<T> {
   protected abstract config: CodecConfig;
-  
+
   /**
    * Create an instance of T from unknown data
    */
@@ -30,28 +30,28 @@ export abstract class BaseCodec<T> {
     if (!data || typeof data !== 'object') {
       throw new Error('Invalid data: expected object');
     }
-    
+
     const record = data as Record<string, unknown>;
-    const instance: any = {};
-    
+    const instance: Record<string, unknown> = {};
+
     for (const [propName, propConfig] of Object.entries(this.config)) {
       const config = this.normalizeConfig(propConfig);
       const sourceName = config.source || propName;
       const value = record[sourceName];
-      
+
       if (value === undefined) {
         if (config.required) {
           throw new Error(`Missing required property: ${sourceName}`);
         }
         continue;
       }
-      
+
       instance[propName] = config.converter ? config.converter(value) : value;
     }
-    
+
     return instance as T;
   }
-  
+
   /**
    * Create an array of T from unknown data
    */
@@ -59,10 +59,10 @@ export abstract class BaseCodec<T> {
     if (!Array.isArray(data)) {
       throw new Error('Invalid data: expected array');
     }
-    
+
     return data.map(item => this.create(item));
   }
-  
+
   /**
    * Normalize property config to always return PropertyConfig object
    */
