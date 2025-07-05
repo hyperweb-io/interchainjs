@@ -42,3 +42,21 @@ export interface BlockMeta {
   };
   num_txs: string;
 }
+
+const BlockMetaCodec = createCodec<BlockMeta>({
+  block_id: {
+    source: 'block_id',
+    converter: (value: any) => ({
+      hash: value?.hash || '',
+      parts: {
+        total: ensureNumber(value?.parts?.total),
+        hash: value?.parts?.hash || ''
+      }
+    })
+  },
+  block_size: { source: 'block_size' },
+  header: { source: 'header' },
+  num_txs: { source: 'num_txs' }
+});
+
+export { BlockMetaCodec };

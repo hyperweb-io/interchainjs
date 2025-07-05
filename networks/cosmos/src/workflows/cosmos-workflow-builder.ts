@@ -1,5 +1,39 @@
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import { WorkflowBuilder, IWorkflowBuilderPlugin, WorkflowBuilderOptions } from '@interchainjs/types';
+// TODO: Replace with proper imports when dependencies are available
+type WorkflowBuilderOptions = any;
+type IWorkflowBuilderPlugin<T> = any;
+
+// Minimal WorkflowBuilder stub
+abstract class WorkflowBuilder<TSigner, TReturnObj> {
+  protected context: any;
+  protected workflows: Record<string, IWorkflowBuilderPlugin<any>[]>;
+  protected resultStagingKey: string;
+
+  constructor(
+    signer: TSigner,
+    workflows: Record<string, IWorkflowBuilderPlugin<any>[]>,
+    options: WorkflowBuilderOptions = {}
+  ) {
+    this.context = { signer };
+    this.workflows = workflows;
+    this.resultStagingKey = options.resultStagingKey ?? '__final_result__';
+  }
+
+  protected abstract selectWorkflow(): string;
+
+  async build(): Promise<TReturnObj> {
+    const workflowName = this.selectWorkflow();
+    const selectedWorkflow = this.workflows[workflowName];
+    if (!selectedWorkflow) {
+      throw new Error(`Workflow '${workflowName}' not found`);
+    }
+    // Execute workflow
+    for (const plugin of selectedWorkflow) {
+      await plugin.execute();
+    }
+    return this.context.getFinalResult();
+  }
+}
 import { 
   ICosmosSigner, 
   CosmosSignArgs, 

@@ -27,9 +27,9 @@ export class TxRawAssemblyPlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: TxRawAssemblyInput
   ): Promise<void> {
-    const bodyBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.TX_BODY_BYTES);
-    const authInfoBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.AUTH_INFO_BYTES);
-    const signature = ctx.getStagingData<{ value: Uint8Array }>(STAGING_KEYS.SIGNATURE);
+    const bodyBytes = ctx.getStagingData(STAGING_KEYS.TX_BODY_BYTES) as Uint8Array;
+    const authInfoBytes = ctx.getStagingData(STAGING_KEYS.AUTH_INFO_BYTES) as Uint8Array;
+    const signature = ctx.getStagingData(STAGING_KEYS.SIGNATURE) as { value: Uint8Array };
 
     // Create final TxRaw
     const txRaw: CosmosTx = TxRaw.fromPartial({

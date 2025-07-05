@@ -8,8 +8,7 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber, ensureBoolean } from '../../../codec/converters';
-// TODO: Replace with proper types when dependencies are available
-type toHex = any;
+import { toHex } from '@interchainjs/utils';
 import { EncodedAbciQueryParams } from './encoded-abci-query-params';
 
 // Request parameter types

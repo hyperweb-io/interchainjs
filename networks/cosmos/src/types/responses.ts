@@ -15,8 +15,16 @@ import {
 
 import {
   BlockHeader,
-  HeaderResponse
+  HeaderResponse,
+  BlockId
 } from './responses/common/header';
+
+import {
+  Commit,
+  CommitSignature,
+  BlockIdFlag,
+  CommitResponse
+} from './responses/common/commit';
 
 // Re-export for backward compatibility
 export { 
@@ -27,7 +35,12 @@ export {
   createAbciInfoResponse,
   createAbciQueryResponse,
   BlockHeader,
-  HeaderResponse
+  HeaderResponse,
+  BlockId,
+  Commit,
+  CommitSignature,
+  BlockIdFlag,
+  CommitResponse
 };
 
 // Common types used in responses
@@ -53,13 +66,7 @@ export interface TxData {
   readonly codespace?: string;
 }
 
-export interface BlockId {
-  readonly hash: Uint8Array;
-  readonly parts: {
-    readonly total: number;
-    readonly hash: Uint8Array;
-  };
-}
+
 
 // BlockHeader is now imported from common/header module
 
@@ -74,26 +81,7 @@ export interface Block {
   readonly lastCommit: Commit | null;
 }
 
-export interface Commit {
-  readonly height: number;
-  readonly round: number;
-  readonly blockId: BlockId;
-  readonly signatures: readonly CommitSignature[];
-}
 
-export interface CommitSignature {
-  readonly blockIdFlag: BlockIdFlag;
-  readonly validatorAddress: Uint8Array;
-  readonly timestamp: Date;
-  readonly signature: Uint8Array;
-}
-
-export enum BlockIdFlag {
-  Unknown = 0,
-  Absent = 1,
-  Commit = 2,
-  Nil = 3,
-}
 
 export interface ValidatorPubkey {
   readonly type: string;
@@ -204,11 +192,7 @@ export interface BlockchainResponse {
 
 
 
-export interface CommitResponse {
-  readonly header: BlockHeader;
-  readonly commit: Commit;
-  readonly canonical: boolean;
-}
+
 
 export interface ConsensusParamsResponse {
   readonly blockHeight: number;

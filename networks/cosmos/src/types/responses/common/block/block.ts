@@ -19,11 +19,21 @@ export interface Block {
   readonly lastCommit: Commit | null;
 }
 
+// Helper codec for bytes conversion
+const BytesCodec = {
+  create: (data: unknown) => ensureBytes(data)
+};
+
+// Helper codec for any type
+const AnyCodec = {
+  create: (data: unknown) => data
+};
+
 // BlockData codec
 export const BlockDataCodec = createCodec<{ readonly txs: readonly Uint8Array[] }>({
   txs: {
     source: 'txs',
-    converter: createArrayConverter(ensureBytes)
+    converter: createArrayConverter(BytesCodec)
   }
 });
 
@@ -31,7 +41,7 @@ export const BlockDataCodec = createCodec<{ readonly txs: readonly Uint8Array[] 
 export const BlockEvidenceCodec = createCodec<{ readonly evidence: readonly unknown[] }>({
   evidence: {
     source: 'evidence',
-    converter: createArrayConverter((v: any) => v)
+    converter: createArrayConverter(AnyCodec)
   }
 });
 

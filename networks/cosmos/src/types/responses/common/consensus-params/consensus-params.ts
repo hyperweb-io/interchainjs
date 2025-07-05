@@ -17,3 +17,10 @@ export interface ConsensusParams {
   readonly validator?: ValidatorParams;
   readonly version?: VersionParams;
 }
+
+export const ConsensusParamsCodec = createCodec<ConsensusParams>({
+  block: { source: 'block' },
+  evidence: { source: 'evidence' },
+  validator: { source: 'validator' },
+  version: { source: 'version' }
+});

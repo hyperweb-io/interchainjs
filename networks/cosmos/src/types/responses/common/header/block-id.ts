@@ -4,7 +4,6 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber, ensureString, ensureBytes, ensureDate } from '../../../codec/converters';
-import { BlockIdCodec } from '../header/block-id';
 
 export interface BlockId {
   readonly hash: Uint8Array;
@@ -13,6 +12,14 @@ export interface BlockId {
     readonly hash: Uint8Array;
   };
 }
+
+export const BlockIdCodec = createCodec<BlockId>({
+  hash: ensureBytes,
+  parts: (value: any) => ({
+    total: ensureNumber(value?.total),
+    hash: ensureBytes(value?.hash)
+  })
+});
 
 // Factory functions
 export function createBlockId(data: any): BlockId {

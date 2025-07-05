@@ -3,7 +3,7 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureNumber, ensureBigInt, ensureBoolean, ensureBytes, ensureDate, base64ToBytes } from '../../../codec/converters';
+import { ensureNumber, ensureBigInt, ensureBoolean, ensureBytes, ensureDate, base64ToBytes, ensureString } from '../../../codec/converters';
 
 // Response types
 export interface NodeInfo {
@@ -23,3 +23,14 @@ export interface NodeInfo {
     readonly rpcAddress: string;
   };
 }
+
+export const NodeInfoCodec = createCodec<NodeInfo>({
+  protocol_version: { source: 'protocol_version' },
+  id: { source: 'id', converter: ensureString },
+  listen_addr: { source: 'listen_addr', converter: ensureString },
+  network: { source: 'network', converter: ensureString },
+  version: { source: 'version', converter: ensureString },
+  channels: { source: 'channels', converter: ensureString },
+  moniker: { source: 'moniker', converter: ensureString },
+  other: { source: 'other' }
+});

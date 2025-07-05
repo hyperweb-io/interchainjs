@@ -27,9 +27,9 @@ export class DirectSignDocPlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: DirectSignDocInput
   ): Promise<void> {
-    const bodyBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.TX_BODY_BYTES);
-    const authInfoBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.AUTH_INFO_BYTES);
-    const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
+    const bodyBytes = ctx.getStagingData(STAGING_KEYS.TX_BODY_BYTES) as Uint8Array;
+    const authInfoBytes = ctx.getStagingData(STAGING_KEYS.AUTH_INFO_BYTES) as Uint8Array;
+    const options = ctx.getStagingData(STAGING_KEYS.OPTIONS) as any;
 
     // Get chain ID and account number
     const chainId = options?.chainId ?? await ctx.getSigner().getChainId();

@@ -4,7 +4,7 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber } from '../../../codec/converters';
-import { TxResponseCodec } from '../tx/tx-response';
+import { TxResponse, TxResponseCodec } from '../tx/tx-response';
 
 // Types
 export interface TxSearchResponse {

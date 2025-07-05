@@ -10,3 +10,8 @@ export interface BlockVersion {
   readonly block: number;
   readonly app: number;
 }
+
+export const BlockVersionCodec = createCodec<BlockVersion>({
+  block: ensureNumber,
+  app: ensureNumber
+});

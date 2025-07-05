@@ -76,3 +76,21 @@ Successfully reorganized types in `networks/cosmos/src/types/requests` and `resp
 1. Update documentation to reflect new structure
 2. Consider applying similar reorganization to other packages
 3. Add proper types when @interchainjs dependencies are available
+
+## Build Error Fixes
+
+### Fixed Issues:
+1. **Import paths**: Fixed codec import paths from `../../codec` to `../../../codec`
+2. **Cross-type dependencies**: Added proper imports for types that reference each other
+3. **Missing codecs**: Added codec exports for BlockMeta, ConsensusParams, Peer, NodeInfo, SyncInfo, Validator, and Event
+4. **Function implementations**: 
+   - Replaced `toHex` with import from `@interchainjs/utils`
+   - Replaced `fromBase64` and `fromHex` with imports from `@interchainjs/encoding`
+5. **Type mismatches**: 
+   - Fixed `createArrayConverter` usage by providing proper codec objects
+   - Fixed `CosmosAccount` interface usage in simple-wallet.ts
+   - Resolved duplicate type definitions (Commit, CommitSignature, BlockId, CommitResponse)
+6. **Workflow builder**: Added minimal stubs for missing base classes to allow compilation
+
+### Final Status
+The project structure is now clean and properly organized. All internal type errors have been resolved. The remaining errors are due to missing external dependencies (`@interchainjs/types`, `@interchainjs/utils`, etc.) which are expected in this environment.

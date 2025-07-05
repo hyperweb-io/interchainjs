@@ -23,7 +23,7 @@ export class SignaturePlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: SignatureInput
   ): Promise<void> {
-    const signDocBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.SIGN_DOC_BYTES);
+    const signDocBytes = ctx.getStagingData(STAGING_KEYS.SIGN_DOC_BYTES) as Uint8Array;
 
     // Sign the document bytes
     const signature = await ctx.getSigner().signArbitrary(signDocBytes);

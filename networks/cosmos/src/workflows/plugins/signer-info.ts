@@ -23,7 +23,7 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
     params: SignerInfoInput
   ): Promise<void> {
     // Get sequence from options or query
-    const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
+    const options = ctx.getStagingData(STAGING_KEYS.OPTIONS) as any;
     const sequence = options?.sequence ?? 
       await ctx.getSigner().getSequence(await ctx.getSigner().getAddress());
 

@@ -30,10 +30,10 @@ export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: AminoSignDocInput
   ): Promise<void> {
-    const messages = ctx.getStagingData<readonly CosmosMessage[]>(STAGING_KEYS.MESSAGES);
-    const fee = ctx.getStagingData<any>(STAGING_KEYS.FEE);
-    const memo = ctx.getStagingData<string>(STAGING_KEYS.MEMO) || '';
-    const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
+    const messages = ctx.getStagingData(STAGING_KEYS.MESSAGES) as readonly CosmosMessage[];
+    const fee = ctx.getStagingData(STAGING_KEYS.FEE) as any;
+    const memo = (ctx.getStagingData(STAGING_KEYS.MEMO) as string) || '';
+    const options = ctx.getStagingData(STAGING_KEYS.OPTIONS) as any;
 
     // Get chain ID, account number, and sequence
     const chainId = options?.chainId ?? await ctx.getSigner().getChainId();

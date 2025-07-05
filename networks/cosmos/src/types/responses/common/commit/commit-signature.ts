@@ -4,9 +4,7 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber, ensureDate } from '../../../codec/converters';
-// TODO: Replace with proper types when dependencies are available
-type fromBase64 = any;
-type fromHex = any;
+import { fromBase64, fromHex } from '@interchainjs/encoding';
 
 // BlockIdFlag enum
 export enum BlockIdFlag {
