@@ -1,11 +1,30 @@
 import { createCodec } from '../../codec';
 import { ensureNumber, ensureBytes, ensureString } from '../../codec/converters';
 
-// Type definitions for removed imports
-type Event = any;
-const EventCodec = {
-  create: (data: any) => data
-};
+// Type definitions for Event
+export interface Event {
+  type: string;
+  attributes: Array<{
+    key: string;
+    value: string;
+    index?: boolean;
+  }>;
+}
+
+const EventCodec = createCodec<Event>({
+  type: { source: 'type' },
+  attributes: { 
+    source: 'attributes',
+    converter: (attrs: unknown) => {
+      const attrArray = attrs as any[] || [];
+      return attrArray.map(attr => ({
+        key: attr.key,
+        value: attr.value,
+        index: attr.index
+      }));
+    }
+  }
+});
 
 // Types
 export interface TxResult {
