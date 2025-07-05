@@ -1,7 +1,7 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
-import { 
-  AbciInfoResponse, 
+import {
+  AbciInfoResponse,
   AbciQueryResponse,
   createAbciInfoResponse,
   createAbciQueryResponse
@@ -217,7 +217,7 @@ export interface ICosmosProtocolAdapter extends IProtocolAdapter, RequestEncoder
 
 export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, ICosmosProtocolAdapter {
   constructor(protected version: ProtocolVersion) {}
-  
+
   // Recursive snake_case to camelCase transformation
   protected toCamelCase(str: string): string {
     return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
@@ -227,11 +227,11 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     if (obj === null || obj === undefined) {
       return obj;
     }
-    
+
     if (Array.isArray(obj)) {
       return obj.map(item => this.transformKeys(item));
     }
-    
+
     if (typeof obj === 'object') {
       const transformed: any = {};
       for (const [key, value] of Object.entries(obj)) {
@@ -240,10 +240,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       }
       return transformed;
     }
-    
+
     return obj;
   }
-  
+
   protected apiToNumber(value: string | undefined | null): number {
     if (!value) return 0;
     const num = parseInt(value, 10);
@@ -263,14 +263,14 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
   protected safeFromBase64(value: string): Uint8Array {
     if (!value) return new Uint8Array(0);
-    
+
     // Fix base64 padding if needed
     let paddedValue = value;
     const remainder = value.length % 4;
     if (remainder > 0) {
       paddedValue = value + '='.repeat(4 - remainder);
     }
-    
+
     try {
       return fromBase64(paddedValue);
     } catch (error) {
@@ -302,10 +302,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
   protected decodeEventAttribute(value: string): Uint8Array {
     if (!value) return new Uint8Array(0);
-    
+
     // Check if the value looks like base64 and has proper length
     const isBase64Like = /^[A-Za-z0-9+/]*={0,2}$/.test(value) && value.length % 4 === 0;
-    
+
     if (isBase64Like) {
       try {
         // Try to decode as base64 first
@@ -320,7 +320,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         // Fall through to treat as plain text
       }
     }
-    
+
     // Treat as plain text string
     return new TextEncoder().encode(value);
   }
@@ -337,7 +337,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   encodeParams(method: RpcMethod, params: any): any {
     // Convert camelCase to snake_case for Tendermint/CometBFT
     if (!params) return {};
-    
+
     // Special handling for ABCI query using codec
     if (method === RpcMethod.ABCI_QUERY) {
       const encoded = this.encodeAbciQuery(params as AbciQueryParams);
@@ -349,25 +349,25 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         prove: encoded.prove
       };
     }
-    
+
     // Special handling for commit using codec
     if (method === RpcMethod.COMMIT) {
       const encoded = this.encodeCommit(params as CommitParams);
       return encoded;
     }
-    
+
     // Special handling for block_by_hash using codec
     if (method === RpcMethod.BLOCK_BY_HASH) {
       const encoded = this.encodeBlockByHash(params as BlockByHashParams);
       return encoded;
     }
-    
+
     // Special handling for block_results using codec
     if (method === RpcMethod.BLOCK_RESULTS) {
       const encoded = this.encodeBlockResults(params as BlockResultsParams);
       return encoded;
     }
-    
+
     // Special handling for blockchain using codec
     if (method === RpcMethod.BLOCKCHAIN) {
       const encoded = this.encodeBlockchain(params as BlockchainParams);
@@ -377,107 +377,107 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       }
       return {}; // Return empty object instead of empty array when no params
     }
-    
+
     // Convert height to string for block-related methods
     if ((method === RpcMethod.BLOCK || method === RpcMethod.HEADER) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
     }
-    
+
     // Convert height to string for validator and consensus methods
     if ((method === RpcMethod.VALIDATORS || method === RpcMethod.CONSENSUS_PARAMS) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
     }
-    
+
     // Special handling for consensus_state using codec
     if (method === RpcMethod.CONSENSUS_STATE) {
       const encoded = this.encodeConsensusState(params as ConsensusStateParams);
       return encoded;
     }
-    
+
     // Special handling for dump_consensus_state using codec
     if (method === RpcMethod.DUMP_CONSENSUS_STATE) {
       const encoded = this.encodeDumpConsensusState(params as DumpConsensusStateParams);
       return encoded;
     }
-    
+
     // Special handling for genesis using codec
     if (method === RpcMethod.GENESIS) {
       const encoded = this.encodeGenesis(params as GenesisParams);
       return encoded;
     }
-    
+
     // Special handling for genesis_chunked using codec
     if (method === RpcMethod.GENESIS_CHUNKED) {
       const encoded = this.encodeGenesisChunked(params as GenesisChunkedParams);
       return encoded;
     }
-    
+
     // Special handling for header_by_hash using codec
     if (method === RpcMethod.HEADER_BY_HASH) {
       const encoded = this.encodeHeaderByHash(params as HeaderByHashParams);
       return encoded;
     }
-    
+
     // Special handling for unconfirmed_txs using codec
     if (method === RpcMethod.UNCONFIRMED_TXS) {
       const encoded = this.encodeUnconfirmedTxs(params as UnconfirmedTxsParams);
       return encoded;
     }
-    
+
     // Special handling for validators using codec
     if (method === RpcMethod.VALIDATORS) {
       const encoded = this.encodeValidators(params as ValidatorsParams);
       return encoded;
     }
-    
+
     // Special handling for tx using codec
     if (method === RpcMethod.TX) {
       const encoded = this.encodeTx(params as TxParams);
       return encoded;
     }
-    
+
     // Special handling for tx_search using codec
     if (method === RpcMethod.TX_SEARCH) {
       const encoded = this.encodeTxSearch(params as TxSearchParams);
       return encoded;
     }
-    
+
     // Special handling for block_search using codec
     if (method === RpcMethod.BLOCK_SEARCH) {
       const encoded = this.encodeBlockSearch(params as BlockSearchParams);
       return encoded;
     }
-    
+
     // Special handling for broadcast_tx_sync using codec
     if (method === RpcMethod.BROADCAST_TX_SYNC) {
       const encoded = this.encodeBroadcastTxSync(params as BroadcastTxSyncParams);
       return encoded;
     }
-    
+
     // Special handling for broadcast_tx_async using codec
     if (method === RpcMethod.BROADCAST_TX_ASYNC) {
       const encoded = this.encodeBroadcastTxAsync(params as BroadcastTxAsyncParams);
       return encoded;
     }
-    
+
     // Special handling for broadcast_tx_commit using codec
     if (method === RpcMethod.BROADCAST_TX_COMMIT) {
       const encoded = this.encodeBroadcastTxCommit(params as BroadcastTxCommitParams);
       return encoded;
     }
-    
+
     // Special handling for check_tx using codec
     if (method === RpcMethod.CHECK_TX) {
       const encoded = this.encodeCheckTx(params as CheckTxParams);
       return encoded;
     }
-    
+
     const encoded: any = {};
     for (const [key, value] of Object.entries(params)) {
       const snakeKey = this.camelToSnake(key);
-      
+
       // Handle hash parameters with 0x prefix
       if (key === 'hash' && typeof value === 'string' && value.startsWith('0x')) {
         // Convert hex to base64 for RPC
@@ -573,7 +573,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       }
       return bytes;
     }
-    
+
     // Assume base64
     const binary = atob(data);
     const bytes = new Uint8Array(binary.length);
@@ -598,7 +598,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       RpcMethod.ABCI_INFO,
       RpcMethod.HEALTH,
       RpcMethod.NET_INFO,
-      
+
       // Block queries
       RpcMethod.BLOCK,
       RpcMethod.BLOCK_BY_HASH,
@@ -608,14 +608,14 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       RpcMethod.HEADER,
       RpcMethod.HEADER_BY_HASH,
       RpcMethod.COMMIT,
-      
+
       // Transaction queries
       RpcMethod.TX,
       RpcMethod.TX_SEARCH,
       RpcMethod.CHECK_TX,
       RpcMethod.UNCONFIRMED_TXS,
       RpcMethod.NUM_UNCONFIRMED_TXS,
-      
+
       // Chain queries
       RpcMethod.VALIDATORS,
       RpcMethod.CONSENSUS_PARAMS,
@@ -623,10 +623,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       RpcMethod.DUMP_CONSENSUS_STATE,
       RpcMethod.GENESIS,
       RpcMethod.GENESIS_CHUNKED,
-      
+
       // ABCI queries
       RpcMethod.ABCI_QUERY,
-      
+
       // Subscription
       RpcMethod.SUBSCRIBE,
       RpcMethod.UNSUBSCRIBE,
