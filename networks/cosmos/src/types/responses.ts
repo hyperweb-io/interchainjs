@@ -13,6 +13,11 @@ import {
   createAbciQueryResponse
 } from './responses/common/abci';
 
+import {
+  BlockHeader,
+  HeaderResponse
+} from './responses/common/header';
+
 // Re-export for backward compatibility
 export { 
   ProofOp, 
@@ -20,7 +25,9 @@ export {
   AbciInfoResponse,
   AbciQueryResponse,
   createAbciInfoResponse,
-  createAbciQueryResponse
+  createAbciQueryResponse,
+  BlockHeader,
+  HeaderResponse
 };
 
 // Common types used in responses
@@ -54,25 +61,7 @@ export interface BlockId {
   };
 }
 
-export interface BlockHeader {
-  readonly version: {
-    readonly block: string;
-    readonly app?: string;
-  };
-  readonly chainId: string;
-  readonly height: number;
-  readonly time: Date;
-  readonly lastBlockId: BlockId;
-  readonly lastCommitHash: Uint8Array;
-  readonly dataHash: Uint8Array;
-  readonly validatorsHash: Uint8Array;
-  readonly nextValidatorsHash: Uint8Array;
-  readonly consensusHash: Uint8Array;
-  readonly appHash: Uint8Array;
-  readonly lastResultsHash: Uint8Array;
-  readonly evidenceHash: Uint8Array;
-  readonly proposerAddress: Uint8Array;
-}
+// BlockHeader is now imported from common/header module
 
 export interface Block {
   readonly header: BlockHeader;
@@ -236,9 +225,7 @@ export interface GenesisResponse {
   readonly appState?: Record<string, unknown>;
 }
 
-export interface HeaderResponse {
-  readonly header: BlockHeader;
-}
+// HeaderResponse is now imported from common/header module
 
 export type HealthResponse = null;
 
