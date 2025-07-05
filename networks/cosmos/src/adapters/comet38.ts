@@ -5,30 +5,21 @@ import {
   BlockResponse,
   createBlockResponse
 } from '../types/responses/common/block';
-import {
-  BlockResultsResponse,
-  createBlockResultsResponse
-} from '../types/responses/common/block-results';
-import {
-  BlockchainResponse,
-  createBlockchainResponse
-} from '../types/responses/common/blockchain';
-import {
-  ConsensusStateResponse,
-  createConsensusStateResponse
-} from '../types/responses/common/consensus-state';
-import {
-  DumpConsensusStateResponse,
-  createDumpConsensusStateResponse
-} from '../types/responses/common/dump-consensus-state';
-import {
-  GenesisResponse,
-  createGenesisResponse
-} from '../types/responses/common/genesis';
-import {
-  UnconfirmedTxsResponse,
-  createUnconfirmedTxsResponse
-} from '../types/responses/common/unconfirmed-txs';
+// Type definitions for removed imports
+type BlockResultsResponse = any;
+type BlockchainResponse = any;
+type ConsensusStateResponse = any;
+type DumpConsensusStateResponse = any;
+type GenesisResponse = any;
+type UnconfirmedTxsResponse = any;
+
+// Dummy creator functions
+const createBlockResultsResponse = (data: any): any => data;
+const createBlockchainResponse = (data: any): any => data;
+const createConsensusStateResponse = (data: any): any => data;
+const createDumpConsensusStateResponse = (data: any): any => data;
+const createGenesisResponse = (data: any): any => data;
+const createUnconfirmedTxsResponse = (data: any): any => data;
 import {
   TxResponse,
   createTxResponse

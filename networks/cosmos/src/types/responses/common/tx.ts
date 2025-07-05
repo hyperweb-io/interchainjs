@@ -1,6 +1,11 @@
 import { createCodec } from '../../codec';
 import { ensureNumber, ensureBytes, ensureString } from '../../codec/converters';
-import { Event, EventCodec } from './event';
+
+// Type definitions for removed imports
+type Event = any;
+const EventCodec = {
+  create: (data: any) => data
+};
 
 // Types
 export interface TxResult {

@@ -1,6 +1,11 @@
 import { createCodec } from '../../codec';
 import { ensureNumber } from '../../codec/converters';
-import { BlockMeta, BlockMetaCodec } from './blockchain';
+
+// Type definitions for removed imports
+type BlockMeta = any;
+const BlockMetaCodec = {
+  create: (data: any) => data
+};
 
 // Types
 export interface BlockSearchResponse {
