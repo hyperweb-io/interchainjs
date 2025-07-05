@@ -929,15 +929,21 @@ Use this checklist for each method you refactor:
 - [ ] Identified all version differences
 - [ ] Cross-referenced with tendermint-rpc package
 - [ ] Documented expected behavior for each version
+- [ ] Checked encoding format (hex vs base64) for binary fields
 
 ### Implementation
 - [ ] Created request types and encoder (if applicable)
 - [ ] Created response types and codecs
+- [ ] Used correct import path: `../../codec/base` for createCodec
 - [ ] Added proper type converters with error handling
+- [ ] Used `base64ToBytes` for base64-encoded fields (e.g., pubkeys)
 - [ ] Handled all edge cases (null, undefined, empty)
+- [ ] Exported codecs with `export const` syntax
+- [ ] Avoided duplicate exports in the same file
 - [ ] Updated base adapter with encode/decode methods
 - [ ] Updated client method to use new encode/decode
 - [ ] Removed version-specific implementations (if appropriate)
+- [ ] Handled special cases (e.g., health returns null)
 
 ### Testing
 - [ ] Created debug test script
@@ -969,7 +975,7 @@ After refactoring a method:
 
 ## Summary of Key Learnings
 
-From refactoring `abciInfo`, `abciQuery`, and `getCommit`, we learned:
+From refactoring `abciInfo`, `abciQuery`, `getCommit`, and Phase 1/2 methods, we learned:
 
 1. **Version differences are critical** - Always check before assuming uniformity
 2. **Default values matter** - Missing fields in older versions need sensible defaults
@@ -977,6 +983,12 @@ From refactoring `abciInfo`, `abciQuery`, and `getCommit`, we learned:
 4. **Response extraction varies** - Some methods need deep object traversal
 5. **Edge cases are common** - Null values, empty arrays, and missing fields happen frequently
 6. **Testing across versions is essential** - What works for one version may fail for another
+7. **Import paths matter** - Use `../../codec/base` not `../../codec` for createCodec
+8. **Export syntax is crucial** - Always use `export const` for codec declarations
+9. **Base64 vs Hex encoding** - RPC responses often use base64 for pubkeys, use `base64ToBytes` not `ensureBytes`
+10. **Special cases exist** - Some methods like `health` return null and don't need codecs
+11. **Multiple types per file** - Files like `abci.ts` may contain multiple response types
+12. **Avoid duplicate exports** - Don't export the same symbol twice in a file
 
 ### Important Reminders
 

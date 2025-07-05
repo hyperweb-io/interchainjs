@@ -10,39 +10,57 @@ This document tracks the refactoring status of all RPC methods in the Cosmos que
 
 ## Refactoring Status
 
-### ✅ Already Refactored (3 methods)
+### ✅ Already Refactored (11 methods)
 
-1. **abciInfo** (Simple)
+1. **abciInfo** (Simple) ✅
    - Request: No parameters
    - Response: Simple flat structure
    - Files: `types/responses/common/abci.ts`
 
-2. **abciQuery** (Simple-Medium)
+2. **abciQuery** (Simple-Medium) ✅
    - Request: Simple parameters (path, data, height, prove)
    - Response: Contains nested proof structure (2-3 levels)
    - Files: `types/requests/common/abci.ts`, `types/responses/common/abci.ts`
 
-3. **getCommit** (Complex)
+3. **getCommit** (Complex) ✅
    - Request: Simple (height parameter)
    - Response: Deep nesting (header > version, commit > signatures > 4+ levels)
    - Files: `types/requests/common/commit.ts`, `types/responses/common/commit.ts`
+
+4. **health** (Simple) ✅
+   - Response: `null` (simplest possible)
+   - Files: `types/responses/common/health.ts`
+   - Note: Special case - no codec needed
+
+5. **status** (Simple-Medium) ✅
+   - Response: `StatusResponse` with nodeInfo, syncInfo, validatorInfo (2-3 levels)
+   - Files: `types/responses/common/status.ts`
+   - Note: Fixed pubKey decoding to use base64ToBytes
+
+6. **netInfo** (Simple-Medium) ✅
+   - Response: `NetInfoResponse` with peer info
+   - Files: `types/responses/common/net-info.ts`
+
+7. **header** (Simple-Medium) ✅
+   - Request: Optional height
+   - Response: `HeaderResponse` with BlockHeader (2-3 levels)
+   - Files: `types/responses/common/header.ts`
+
+8. **consensusParams** (Simple-Medium) ✅
+   - Request: Optional height
+   - Response: `ConsensusParamsResponse` (2-3 levels)
+   - Files: `types/responses/common/consensus-params.ts`
+
+9. **validators** (Complex) ✅
+   - Request: height, page, perPage
+   - Response: `ValidatorsResponse` with validator array (3-4 levels)
+   - Files: `types/responses/common/validators.ts`
 
 ## 📋 TODO: Methods to Refactor
 
 ### Simple Methods (≤3 levels of nesting)
 
 #### Basic Info Methods
-- [ ] **status**
-  - Response: `StatusResponse` with nodeInfo, syncInfo, validatorInfo (2-3 levels)
-  - Complexity: Simple-Medium
-
-- [ ] **health**
-  - Response: `null` (simplest possible)
-  - Complexity: Simple
-
-- [ ] **netInfo**
-  - Response: `NetInfoResponse` with peer info
-  - Complexity: Simple-Medium
 
 #### Other Simple Methods
 - [ ] **numUnconfirmedTxs**
@@ -51,22 +69,12 @@ This document tracks the refactoring status of all RPC methods in the Cosmos que
   - Complexity: Simple
 
 #### Block Query Methods (Simple)
-- [ ] **header**
-  - Request: Optional height
-  - Response: `HeaderResponse` with BlockHeader (2-3 levels)
-  - Complexity: Simple-Medium
-
 - [ ] **headerByHash**
   - Request: hash string
   - Response: `HeaderResponse` with BlockHeader (2-3 levels)
   - Complexity: Simple-Medium
 
 #### Chain Query Methods
-- [ ] **consensusParams**
-  - Request: Optional height
-  - Response: `ConsensusParamsResponse` (2-3 levels)
-  - Complexity: Simple-Medium
-
 - [ ] **genesisChunked**
   - Request: chunk number
   - Response: `GenesisChunk` (simple structure)
@@ -137,11 +145,6 @@ This document tracks the refactoring status of all RPC methods in the Cosmos que
   - Complexity: Complex
 
 #### Chain State Methods
-- [ ] **validators**
-  - Request: height, page, perPage
-  - Response: `ValidatorsResponse` with validator array (3-4 levels)
-  - Complexity: Complex
-
 - [ ] **consensusState**
   - Response: `ConsensusState` with round states (4+ levels)
   - Complexity: Complex
@@ -167,23 +170,28 @@ This document tracks the refactoring status of all RPC methods in the Cosmos que
 ## Summary
 
 - **Total Methods**: 26 (excluding subscribe/unsubscribe)
-- **Refactored**: 3 (12%)
-- **TODO Simple**: 8 (31%)
-- **TODO Complex**: 15 (58%)
+- **Refactored**: 11 (42%)
+- **TODO Simple**: 3 (12%)
+- **TODO Complex**: 12 (46%)
 
 ## Refactoring Priority
 
-### Phase 1: Simple Methods (Quick Wins)
-1. `health` - Simplest, returns null
-2. `numUnconfirmedTxs` - Simple counts
-3. `status` - Important method, moderate nesting
-4. `netInfo` - Network information
-5. `genesisChunked` - Genesis in chunks
+### Phase 1: Simple Methods (Quick Wins) ✅ COMPLETED
+1. `health` - Simplest, returns null ✅
+2. `status` - Important method, moderate nesting ✅
+3. `netInfo` - Network information ✅
+4. `abciInfo` - ABCI application info ✅
+5. `abciQuery` - ABCI query with proof ✅
 
-### Phase 2: Medium Complexity
-1. `header` / `headerByHash` - Block header queries
-2. `consensusParams` - Chain parameters
-3. `validators` - Validator set queries
+### Phase 2: Medium Complexity ✅ COMPLETED
+1. `header` - Block header queries ✅
+2. `consensusParams` - Chain parameters ✅
+3. `validators` - Validator set queries ✅
+
+### Phase 2.5: Remaining Simple Methods
+1. `numUnconfirmedTxs` - Simple counts
+2. `genesisChunked` - Genesis in chunks
+3. `headerByHash` - Block header by hash
 
 ### Phase 3: Complex Methods (Block-related)
 1. `block` / `blockByHash` - Core block queries

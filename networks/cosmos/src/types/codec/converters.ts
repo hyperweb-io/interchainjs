@@ -149,6 +149,36 @@ export const ensureDate = (value: unknown): Date => {
 };
 
 /**
+ * Ensure value is a bigint
+ */
+export const ensureBigInt = (value: unknown): bigint => {
+  if (typeof value === 'bigint') return value;
+  if (typeof value === 'string' || typeof value === 'number') {
+    try {
+      return BigInt(value);
+    } catch (e) {
+      throw new Error(`Invalid bigint: ${value}`);
+    }
+  }
+  throw new Error(`Expected bigint, got ${typeof value}`);
+};
+
+/**
+ * Ensure value is a Uint8Array (converts from hex string if needed)
+ */
+export const ensureBytes = (value: unknown): Uint8Array => {
+  if (value instanceof Uint8Array) return value;
+  if (typeof value === 'string') {
+    try {
+      return fromHex(value);
+    } catch (e) {
+      throw new Error(`Invalid hex string: ${value}`);
+    }
+  }
+  throw new Error(`Expected Uint8Array or hex string, got ${typeof value}`);
+};
+
+/**
  * Create a converter that maps values using a lookup table
  */
 export function createEnumConverter<T>(enumMap: Record<string, T>): (value: unknown) => T | undefined {

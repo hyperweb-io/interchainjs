@@ -60,10 +60,7 @@ export class Tendermint34Adapter extends BaseAdapter {
   }
 
   // Public method for header RPC response
-  decodeHeader(response: any): any {
-    const headerData = response.header || response;
-    return this.decodeHeaderData(headerData);
-  }
+
 
   private decodeCommitData(data: any): any {
     return {
@@ -159,23 +156,7 @@ export class Tendermint34Adapter extends BaseAdapter {
 
 
 
-  decodeConsensusParams(response: any): any {
-    const data = response.consensus_params || response;
-    return {
-      block: data.block ? {
-        maxBytes: this.apiToNumber(data.block.max_bytes),
-        maxGas: this.apiToNumber(data.block.max_gas)
-      } : undefined,
-      evidence: data.evidence ? {
-        maxAgeNumBlocks: this.apiToNumber(data.evidence.max_age_num_blocks),
-        maxAgeDuration: this.apiToNumber(data.evidence.max_age_duration)
-      } : undefined,
-      validator: data.validator ? {
-        pubKeyTypes: data.validator.pub_key_types || []
-      } : undefined,
-      version: data.version || undefined
-    };
-  }
+
 
   decodeConsensusState(response: any): any {
     const data = response.round_state || response;
@@ -229,65 +210,12 @@ export class Tendermint34Adapter extends BaseAdapter {
     };
   }
 
-  decodeGenesisChunked(response: any): any {
-    const data = response.result || response;
-    return {
-      chunk: this.apiToNumber(data.chunk),
-      total: this.apiToNumber(data.total),
-      data: data.data || ''
-    };
-  }
 
-  decodeHealth(response: any): any {
-    return response;
-  }
 
-  decodeNetInfo(response: any): any {
-    const data = response.result || response;
-    return {
-      listening: data.listening || false,
-      listeners: data.listeners || [],
-      nPeers: this.apiToNumber(data.n_peers),
-      peers: (data.peers || []).map((peer: any) => ({
-        nodeInfo: peer.node_info,
-        isOutbound: peer.is_outbound || false,
-        connectionStatus: peer.connection_status,
-        remoteIp: peer.remote_ip || ''
-      }))
-    };
-  }
 
-  decodeNumUnconfirmedTxs(response: any): any {
-    const data = response.result || response;
-    return {
-      count: this.apiToNumber(data.n_txs || data.count), // Add count field
-      total: this.apiToNumber(data.total),
-      totalBytes: this.apiToNumber(data.total_bytes)
-    };
-  }
 
-  decodeStatus(response: any): any {
-    const data = response.result || response;
-    return {
-      nodeInfo: data.node_info,
-      syncInfo: {
-        latestBlockHash: fromHex(data.sync_info?.latest_block_hash || ''),
-        latestAppHash: fromHex(data.sync_info?.latest_app_hash || ''),
-        latestBlockHeight: this.apiToNumber(data.sync_info?.latest_block_height),
-        latestBlockTime: this.decodeTime(data.sync_info?.latest_block_time),
-        earliestBlockHash: fromHex(data.sync_info?.earliest_block_hash || ''),
-        earliestAppHash: fromHex(data.sync_info?.earliest_app_hash || ''),
-        earliestBlockHeight: this.apiToNumber(data.sync_info?.earliest_block_height),
-        earliestBlockTime: this.decodeTime(data.sync_info?.earliest_block_time),
-        catchingUp: data.sync_info?.catching_up || false
-      },
-      validatorInfo: data.validator_info ? {
-        address: fromHex(data.validator_info.address || ''),
-        pubkey: this.decodePubkey(data.validator_info.pub_key),
-        votingPower: this.apiToBigInt(data.validator_info.voting_power)
-      } : undefined
-    };
-  }
+
+
 
   decodeTx(response: any): any {
     const data = response.result || response;
@@ -323,21 +251,7 @@ export class Tendermint34Adapter extends BaseAdapter {
     };
   }
 
-  decodeValidators(response: any): any {
-    const data = response.result || response;
-    return {
-      blockHeight: this.apiToNumber(data.block_height),
-      validators: (data.validators || []).map((v: any) => ({
-        address: fromHex(v.address || ''),
-        pubKey: this.decodePubkey(v.pub_key),
-        votingPower: this.apiToBigInt(v.voting_power),
-        proposerPriority: v.proposer_priority ? 
-          this.apiToNumber(v.proposer_priority) : undefined
-      })),
-      count: this.apiToNumber(data.count),
-      total: this.apiToNumber(data.total)
-    };
-  }
+
 
   // Broadcast methods
   decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse {

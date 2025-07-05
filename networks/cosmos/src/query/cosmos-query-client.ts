@@ -52,7 +52,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   // Basic info methods
   async getStatus(): Promise<ChainStatus> {
     const result = await this.rpcClient.call(RpcMethod.STATUS);
-    return this.protocolAdapter.decodeResponse(RpcMethod.STATUS, result);
+    return this.protocolAdapter.decodeStatus(result);
   }
 
   async getAbciInfo(): Promise<AbciInfo> {
@@ -62,12 +62,12 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getHealth(): Promise<HealthResult> {
     const result = await this.rpcClient.call(RpcMethod.HEALTH);
-    return this.protocolAdapter.decodeResponse(RpcMethod.HEALTH, result);
+    return this.protocolAdapter.decodeHealth(result);
   }
 
   async getNetInfo(): Promise<NetInfo> {
     const result = await this.rpcClient.call(RpcMethod.NET_INFO);
-    return this.protocolAdapter.decodeResponse(RpcMethod.NET_INFO, result);
+    return this.protocolAdapter.decodeNetInfo(result);
   }
 
   // Block query methods
@@ -165,7 +165,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs> {
     const result = await this.rpcClient.call(RpcMethod.NUM_UNCONFIRMED_TXS);
-    return this.protocolAdapter.decodeResponse(RpcMethod.NUM_UNCONFIRMED_TXS, result);
+    return this.protocolAdapter.decodeNumUnconfirmedTxs(result);
   }
 
   // Transaction broadcast methods
@@ -225,7 +225,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     const params: GenesisChunkedParams = { chunk };
     const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.GENESIS_CHUNKED, params);
     const result = await this.rpcClient.call(RpcMethod.GENESIS_CHUNKED, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.GENESIS_CHUNKED, result);
+    return this.protocolAdapter.decodeGenesisChunked(result);
   }
 
   // ABCI query methods

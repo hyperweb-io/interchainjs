@@ -11,6 +11,38 @@ import {
   createCommitResponse
 } from '../types/responses/common/commit';
 import {
+  HealthResponse,
+  createHealthResponse
+} from '../types/responses/common/health';
+import {
+  NumUnconfirmedTxsResponse,
+  createNumUnconfirmedTxsResponse
+} from '../types/responses/common/num-unconfirmed-txs';
+import {
+  StatusResponse,
+  createStatusResponse
+} from '../types/responses/common/status';
+import {
+  NetInfoResponse,
+  createNetInfoResponse
+} from '../types/responses/common/net-info';
+import {
+  GenesisChunkedResponse,
+  createGenesisChunkedResponse
+} from '../types/responses/common/genesis-chunked';
+import {
+  HeaderResponse,
+  createHeaderResponse
+} from '../types/responses/common/header';
+import {
+  ConsensusParamsResponse,
+  createConsensusParamsResponse
+} from '../types/responses/common/consensus-params';
+import {
+  ValidatorsResponse,
+  createValidatorsResponse
+} from '../types/responses/common/validators';
+import {
   AbciQueryParams,
   EncodedAbciQueryParams,
   encodeAbciQueryParams
@@ -42,12 +74,12 @@ export interface ResponseDecoder {
   decodeConsensusState(response: any): any;
   decodeDumpConsensusState(response: any): any;
   decodeGenesis(response: any): any;
-  decodeGenesisChunked(response: any): any;
+  decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T;
   decodeHeader(response: any): any;
-  decodeHealth(response: any): any;
-  decodeNetInfo(response: any): any;
-  decodeNumUnconfirmedTxs(response: any): any;
-  decodeStatus(response: any): any;
+  decodeHealth<T extends HealthResponse = HealthResponse>(response: unknown): T;
+  decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T;
+  decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T;
+  decodeStatus<T extends StatusResponse = StatusResponse>(response: unknown): T;
   decodeTx(response: any): any;
   decodeTxSearch(response: any): any;
   decodeUnconfirmedTxs(response: any): any;
@@ -482,18 +514,42 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = (resp.result || resp) as Record<string, unknown>;
     return createCommitResponse(data) as T;
   }
-  abstract decodeConsensusParams(response: any): any;
+  decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createConsensusParamsResponse(data) as T;
+  }
   abstract decodeConsensusState(response: any): any;
   abstract decodeDumpConsensusState(response: any): any;
   abstract decodeGenesis(response: any): any;
-  abstract decodeGenesisChunked(response: any): any;
-  abstract decodeHeader(response: any): any;
-  abstract decodeHealth(response: any): any;
-  abstract decodeNetInfo(response: any): any;
-  abstract decodeNumUnconfirmedTxs(response: any): any;
-  abstract decodeStatus(response: any): any;
+  decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createGenesisChunkedResponse(data) as T;
+  }
+  decodeHeader<T extends HeaderResponse = HeaderResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createHeaderResponse(data) as T;
+  }
+  decodeHealth<T extends HealthResponse = HealthResponse>(response: unknown): T {
+    // Health endpoint returns null when healthy, or throws error
+    return createHealthResponse(response) as T;
+  }
+  decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createNetInfoResponse(data) as T;
+  }
+  decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createNumUnconfirmedTxsResponse(data) as T;
+  }
+  decodeStatus<T extends StatusResponse = StatusResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createStatusResponse(data) as T;
+  }
   abstract decodeTx(response: any): any;
   abstract decodeTxSearch(response: any): any;
   abstract decodeUnconfirmedTxs(response: any): any;
-  abstract decodeValidators(response: any): any;
+  decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createValidatorsResponse(data) as T;
+  }
 }
