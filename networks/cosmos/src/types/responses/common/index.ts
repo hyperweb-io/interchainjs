@@ -65,6 +65,13 @@ export {
   createValidatorsResponse
 } from './validators';
 
+export {
+  Block,
+  BlockResponse,
+  createBlock,
+  createBlockResponse
+} from './block';
+
 // Export codecs for advanced usage
 export {
   ProofOpCodec,
@@ -109,3 +116,8 @@ export {
   ValidatorInfoCodec,
   ValidatorsResponseCodec
 } from './validators';
+
+export {
+  BlockCodec,
+  BlockResponseCodec
+} from './block';

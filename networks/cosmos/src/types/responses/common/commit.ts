@@ -1,15 +1,7 @@
 import { createCodec } from '../../codec/base';
 import { ensureNumber, ensureDate } from '../../codec/converters';
 import { fromBase64, fromHex } from '@interchainjs/encoding';
-
-// Response types
-export interface BlockId {
-  readonly hash: Uint8Array;
-  readonly parts: {
-    readonly total: number;
-    readonly hash: Uint8Array;
-  };
-}
+import { BlockId, BlockIdCodec, BlockHeader, BlockHeaderCodec } from './header';
 
 export interface CommitSignature {
   readonly blockIdFlag: BlockIdFlag;
@@ -32,26 +24,6 @@ export interface Commit {
   readonly signatures: readonly CommitSignature[];
 }
 
-export interface BlockHeader {
-  readonly version: {
-    readonly block: number;
-    readonly app: number;
-  };
-  readonly chainId: string;
-  readonly height: number;
-  readonly time: Date;
-  readonly lastBlockId: BlockId;
-  readonly lastCommitHash: Uint8Array;
-  readonly dataHash: Uint8Array;
-  readonly validatorsHash: Uint8Array;
-  readonly nextValidatorsHash: Uint8Array;
-  readonly consensusHash: Uint8Array;
-  readonly appHash: Uint8Array;
-  readonly lastResultsHash: Uint8Array;
-  readonly evidenceHash: Uint8Array;
-  readonly proposerAddress: Uint8Array;
-}
-
 export interface CommitResponse {
   readonly signedHeader: {
     readonly header: BlockHeader;
@@ -61,17 +33,6 @@ export interface CommitResponse {
 }
 
 // Codecs
-export const BlockIdCodec = createCodec<BlockId>({
-  hash: { source: 'hash', converter: (v: any) => fromHex(v) },
-  parts: {
-    source: 'parts',
-    converter: (v: any) => ({
-      total: ensureNumber(v?.total || 0),
-      hash: fromHex(v?.hash || '')
-    })
-  }
-});
-
 export const CommitSignatureCodec = createCodec<CommitSignature>({
   blockIdFlag: { source: 'block_id_flag', converter: (v: any) => v || 0 },
   validatorAddress: { source: 'validator_address', converter: (v: any) => v ? fromHex(v) : new Uint8Array() },
@@ -86,29 +47,6 @@ export const CommitCodec = createCodec<Commit>({
   signatures: { source: 'signatures', converter: (v: any) => (v || []).map((sig: any) => CommitSignatureCodec.create(sig)) }
 });
 
-export const BlockHeaderCodec = createCodec<BlockHeader>({
-  version: {
-    source: 'version',
-    converter: (v: any) => ({
-      block: ensureNumber(v?.block || 0),
-      app: ensureNumber(v?.app || 0)
-    })
-  },
-  chainId: { source: 'chain_id' },
-  height: { source: 'height', converter: ensureNumber },
-  time: { source: 'time', converter: ensureDate },
-  lastBlockId: { source: 'last_block_id', converter: (v: any) => BlockIdCodec.create(v) },
-  lastCommitHash: { source: 'last_commit_hash', converter: (v: any) => fromHex(v) },
-  dataHash: { source: 'data_hash', converter: (v: any) => fromHex(v) },
-  validatorsHash: { source: 'validators_hash', converter: (v: any) => fromHex(v) },
-  nextValidatorsHash: { source: 'next_validators_hash', converter: (v: any) => fromHex(v) },
-  consensusHash: { source: 'consensus_hash', converter: (v: any) => fromHex(v) },
-  appHash: { source: 'app_hash', converter: (v: any) => fromHex(v) },
-  lastResultsHash: { source: 'last_results_hash', converter: (v: any) => fromHex(v) },
-  evidenceHash: { source: 'evidence_hash', converter: (v: any) => fromHex(v) },
-  proposerAddress: { source: 'proposer_address', converter: (v: any) => fromHex(v) }
-});
-
 export const CommitResponseCodec = createCodec<CommitResponse>({
   signedHeader: {
     source: 'signed_header',
@@ -121,9 +59,7 @@ export const CommitResponseCodec = createCodec<CommitResponse>({
 });
 
 // Creator functions
-export function createBlockId(data: any): BlockId {
-  return BlockIdCodec.create(data);
-}
+
 
 export function createCommitSignature(data: any): CommitSignature {
   return CommitSignatureCodec.create(data);
@@ -131,10 +67,6 @@ export function createCommitSignature(data: any): CommitSignature {
 
 export function createCommit(data: any): Commit {
   return CommitCodec.create(data);
-}
-
-export function createBlockHeader(data: any): BlockHeader {
-  return BlockHeaderCodec.create(data);
 }
 
 export function createCommitResponse(data: any): CommitResponse {

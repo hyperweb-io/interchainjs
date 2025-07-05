@@ -1,7 +1,8 @@
 import { Tendermint34Adapter } from '../tendermint34';
 import { Tendermint37Adapter } from '../tendermint37';
 import { fromHex, fromBase64 } from '@interchainjs/encoding';
-import { Event, EventAttribute, BroadcastTxSyncResponse } from '../../types/responses';
+import { Event, EventAttribute } from '../../types/responses';
+import { BroadcastTxSyncResponse } from '../../types/responses/common/broadcast-tx-sync';
 
 describe('Tendermint Broadcast Methods', () => {
   describe('Tendermint34Adapter', () => {

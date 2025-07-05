@@ -213,13 +213,7 @@ export interface BlockchainResponse {
   readonly blockMetas: readonly BlockMeta[];
 }
 
-export interface BroadcastTxAsyncResponse {
-  readonly hash: Uint8Array;
-}
 
-export interface BroadcastTxSyncResponse extends TxData {
-  readonly hash: Uint8Array;
-}
 
 export interface CommitResponse {
   readonly header: BlockHeader;
@@ -284,13 +278,7 @@ export interface ValidatorsResponse {
 
 // Version-specific types combined with optional fields
 
-export interface BroadcastTxCommitResponse {
-  readonly height: number;
-  readonly hash: Uint8Array;
-  readonly checkTx: TxData;
-  readonly deliverTx?: TxData; // Tendermint 0.34 & 0.37
-  readonly txResult?: TxData; // CometBFT 0.38
-}
+
 
 export interface NetInfoResponse {
   readonly listening: boolean;

@@ -1,6 +1,62 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
+import {
+  BlockResponse,
+  createBlockResponse
+} from '../types/responses/common/block';
+import {
+  BlockResultsResponse,
+  createBlockResultsResponse
+} from '../types/responses/common/block-results';
+import {
+  BlockchainResponse,
+  createBlockchainResponse
+} from '../types/responses/common/blockchain';
+import {
+  ConsensusStateResponse,
+  createConsensusStateResponse
+} from '../types/responses/common/consensus-state';
+import {
+  DumpConsensusStateResponse,
+  createDumpConsensusStateResponse
+} from '../types/responses/common/dump-consensus-state';
+import {
+  GenesisResponse,
+  createGenesisResponse
+} from '../types/responses/common/genesis';
+import {
+  UnconfirmedTxsResponse,
+  createUnconfirmedTxsResponse
+} from '../types/responses/common/unconfirmed-txs';
+import {
+  TxResponse,
+  createTxResponse
+} from '../types/responses/common/tx';
+import {
+  TxSearchResponse,
+  createTxSearchResponse
+} from '../types/responses/common/tx-search';
+import {
+  BlockSearchResponse,
+  createBlockSearchResponse
+} from '../types/responses/common/block-search';
+import {
+  BroadcastTxSyncResponse,
+  createBroadcastTxSyncResponse
+} from '../types/responses/common/broadcast-tx-sync';
+import {
+  BroadcastTxAsyncResponse,
+  createBroadcastTxAsyncResponse
+} from '../types/responses/common/broadcast-tx-async';
+import {
+  BroadcastTxCommitResponse,
+  createBroadcastTxCommitResponse
+} from '../types/responses/common/broadcast-tx-commit';
+import {
+  CheckTxResponse,
+  createCheckTxResponse
+} from '../types/responses/common/check-tx';
 // No response imports needed since ABCI methods are now in base class
 
 export class Comet38Adapter extends BaseAdapter {
@@ -8,18 +64,8 @@ export class Comet38Adapter extends BaseAdapter {
     super(ProtocolVersion.COMET_38);
   }
 
-  decodeBlock(response: any): any {
-    const blockData = response.block || response;
-    return {
-      blockId: this.decodeBlockId(response.block_id),
-      header: this.decodeHeaderData(blockData.header),
-      lastCommit: blockData.last_commit?.block_id?.hash ? 
-        this.decodeCommitData(blockData.last_commit) : null,
-      data: {
-        txs: (blockData.data?.txs || []).map((tx: string) => fromBase64(tx))
-      },
-      evidence: blockData.evidence?.evidence || []
-    };
+  decodeBlock(response: any): BlockResponse {
+    return createBlockResponse(response);
   }
 
   private decodeBlockId(data: any): any {
@@ -75,17 +121,8 @@ export class Comet38Adapter extends BaseAdapter {
     };
   }
 
-  decodeBlockResults(response: any): any {
-    const data = response.result || response;
-    return {
-      height: this.apiToNumber(data.height),
-      txsResults: (data.txs_results || []).map((tx: any) => this.decodeTxResult(tx)),
-      finalizeBlockEvents: this.decodeEvents(data.finalize_block_events),
-      validatorUpdates: (data.validator_updates || []).map((v: any) => this.decodeValidatorUpdate(v)),
-      consensusParamUpdates: data.consensus_param_updates ? 
-        this.decodeConsensusParams(data.consensus_param_updates) : undefined,
-      appHash: this.safeFromBase64(data.app_hash || '')
-    };
+  decodeBlockResults(response: any): BlockResultsResponse {
+    return createBlockResultsResponse(response);
   }
 
   private decodeTxResult(data: any): any {
@@ -116,25 +153,13 @@ export class Comet38Adapter extends BaseAdapter {
     };
   }
 
-  decodeBlockSearch(response: any): any {
+  decodeBlockSearch(response: any): BlockSearchResponse {
     const data = response.result || response;
-    return {
-      totalCount: this.apiToNumber(data.total_count),
-      blocks: (data.blocks || []).map((block: any) => this.decodeBlock(block))
-    };
+    return createBlockSearchResponse(data);
   }
 
-  decodeBlockchain(response: any): any {
-    const data = response.result || response;
-    return {
-      lastHeight: this.apiToNumber(data.last_height),
-      blockMetas: (data.block_metas || []).map((meta: any) => ({
-        blockId: this.decodeBlockId(meta.block_id),
-        blockSize: this.apiToNumber(meta.block_size),
-        header: this.decodeHeaderData(meta.header),
-        numTxs: this.apiToNumber(meta.num_txs)
-      }))
-    };
+  decodeBlockchain(response: any): BlockchainResponse {
+    return createBlockchainResponse(response);
   }
 
   decodeBroadcastTx(response: any): any {
@@ -149,133 +174,63 @@ export class Comet38Adapter extends BaseAdapter {
     };
   }
 
-  decodeBroadcastTxAsync(response: any): any {
+
+
+
+
+
+
+  decodeConsensusState(response: any): ConsensusStateResponse {
+    return createConsensusStateResponse(response);
+  }
+
+  decodeDumpConsensusState(response: any): DumpConsensusStateResponse {
+    return createDumpConsensusStateResponse(response);
+  }
+
+  decodeGenesis(response: any): GenesisResponse {
+    return createGenesisResponse(response);
+  }
+
+
+
+
+
+
+
+  decodeTx(response: any): TxResponse {
     const data = response.result || response;
-    return {
-      hash: fromHex(data.hash || '')
-    };
+    return createTxResponse(data);
   }
 
-  decodeBroadcastTxSync(response: any): any {
+  decodeTxSearch(response: any): TxSearchResponse {
     const data = response.result || response;
-    return {
-      code: data.code || 0,
-      data: data.data ? this.safeFromBase64(data.data) : undefined,
-      log: data.log || '',
-      info: data.info || '',
-      gasWanted: data.gas_wanted ? this.apiToBigInt(data.gas_wanted) : undefined,
-      gasUsed: data.gas_used ? this.apiToBigInt(data.gas_used) : undefined,
-      events: this.decodeEvents(data.events),
-      codespace: data.codespace || '',
-      hash: fromHex(data.hash || '')
-    };
+    return createTxSearchResponse(data);
   }
 
-  decodeBroadcastTxCommit(response: any): any {
+  decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse {
     const data = response.result || response;
-    return {
-      height: this.apiToNumber(data.height),
-      hash: fromHex(data.hash || ''),
-      checkTx: this.decodeTxResult(data.check_tx),
-      deliverTx: data.deliver_tx ? this.decodeTxResult(data.deliver_tx) : undefined,
-      txResult: data.tx_result ? this.decodeTxResult(data.tx_result) : undefined
-    };
+    return createUnconfirmedTxsResponse(data);
   }
 
-
-
-
-
-  decodeConsensusState(response: any): any {
-    const data = response.round_state || response;
-    const transformed = this.transformKeys(data);
-    
-    // Parse the "height/round/step" string into separate properties
-    if (transformed['height/round/step']) {
-      const heightRoundStep = transformed['height/round/step'];
-      const parts = heightRoundStep.split('/');
-      if (parts.length === 3) {
-        transformed.height = parseInt(parts[0], 10);
-        transformed.round = parseInt(parts[1], 10);
-        transformed.step = parseInt(parts[2], 10);
-      }
-      delete transformed['height/round/step'];
-    }
-    
-    return {
-      roundState: transformed
-    };
-  }
-
-  decodeDumpConsensusState(response: any): any {
+  decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse {
     const data = response.result || response;
-    const transformed = this.transformKeys(data);
-    
-    // Ensure height is a number in roundState
-    if (transformed.roundState && transformed.roundState.height) {
-      transformed.roundState.height = this.apiToNumber(transformed.roundState.height);
-    }
-    
-    return transformed;
+    return createBroadcastTxSyncResponse(data);
   }
 
-  decodeGenesis(response: any): any {
-    const data = response.genesis || response;
-    return {
-      genesisTime: this.decodeTime(data.genesis_time),
-      chainId: data.chain_id || '',
-      initialHeight: this.apiToNumber(data.initial_height),
-      consensusParams: data.consensus_params ? 
-        this.decodeConsensusParams(data.consensus_params) : undefined,
-      validators: (data.validators || []).map((v: any) => ({
-        address: fromHex(v.address || ''),
-        pubkey: this.decodePubkey(v.pub_key),
-        power: this.apiToBigInt(v.power),
-        name: v.name || ''
-      })),
-      appHash: fromBase64(data.app_hash || ''),
-      appState: data.app_state || {}
-    };
-  }
-
-
-
-
-
-
-
-  decodeTx(response: any): any {
+  decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse {
     const data = response.result || response;
-    return {
-      hash: fromHex(data.hash || ''),
-      height: this.apiToNumber(data.height),
-      index: data.index || 0,
-      txResult: this.decodeTxResult(data.tx_result),
-      tx: this.safeFromBase64(data.tx || ''),
-      proof: data.proof ? {
-        rootHash: fromHex(data.proof.root_hash || ''),
-        data: this.safeFromBase64(data.proof.data || ''),
-        proof: data.proof.proof
-      } : undefined
-    };
+    return createBroadcastTxAsyncResponse(data);
   }
 
-  decodeTxSearch(response: any): any {
+  decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse {
     const data = response.result || response;
-    return {
-      totalCount: this.apiToNumber(data.total_count),
-      txs: (data.txs || []).map((tx: any) => this.decodeTx(tx))
-    };
+    return createBroadcastTxCommitResponse(data);
   }
 
-  decodeUnconfirmedTxs(response: any): any {
+  decodeCheckTx(response: any): CheckTxResponse {
     const data = response.result || response;
-    return {
-      count: this.apiToNumber(data.n_txs || data.count), // Handle both field names
-      total: this.apiToNumber(data.total),
-      totalBytes: this.apiToNumber(data.total_bytes),
-      txs: (data.txs || []).map((tx: string) => fromBase64(tx))
-    };
+    return createCheckTxResponse(data);
   }
 
 }

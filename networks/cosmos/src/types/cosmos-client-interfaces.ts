@@ -11,8 +11,17 @@ import {
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
   GenesisChunk, TxEvent, BlockEvent,
-  BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
+
 } from './responses';
+import {
+  BroadcastTxSyncResponse
+} from './responses/common/broadcast-tx-sync';
+import {
+  BroadcastTxAsyncResponse
+} from './responses/common/broadcast-tx-async';
+import {
+  BroadcastTxCommitResponse
+} from './responses/common/broadcast-tx-commit';
 import {
   BlockSearchParams, TxSearchParams, BroadcastTxParams
 } from './requests';

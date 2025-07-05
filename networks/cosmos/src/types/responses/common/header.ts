@@ -1,4 +1,4 @@
-import { createCodec } from '../../codec';
+import { createCodec } from '../../codec/base';
 import { ensureNumber, ensureString, ensureBytes, ensureDate } from '../../codec/converters';
 
 // Types
@@ -9,7 +9,7 @@ export interface BlockVersion {
 
 export interface BlockId {
   readonly hash: Uint8Array;
-  readonly parts?: {
+  readonly parts: {
     readonly total: number;
     readonly hash: Uint8Array;
   };
@@ -46,11 +46,10 @@ const BlockIdCodec = createCodec<BlockId>({
   hash: { source: 'hash', converter: ensureBytes },
   parts: {
     source: 'parts',
-    required: false,
-    converter: (value: any) => value ? {
-      total: ensureNumber(value.total),
-      hash: ensureBytes(value.hash)
-    } : undefined
+    converter: (value: any) => ({
+      total: ensureNumber(value?.total || 0),
+      hash: ensureBytes(value?.hash || '')
+    })
   }
 });
 
@@ -85,6 +84,14 @@ export const HeaderResponseCodec = createCodec<HeaderResponse>({
 });
 
 // Factory functions
+export function createBlockId(data: any): BlockId {
+  return BlockIdCodec.create(data);
+}
+
+export function createBlockHeader(data: any): BlockHeader {
+  return BlockHeaderCodec.create(data);
+}
+
 export function createHeaderResponse(data: any): HeaderResponse {
   return HeaderResponseCodec.create(data);
 }

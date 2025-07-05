@@ -13,8 +13,17 @@ import {
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
   GenesisChunk, TxEvent, BlockEvent,
-  BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
+
 } from '../types/responses';
+import {
+  BroadcastTxSyncResponse
+} from '../types/responses/common/broadcast-tx-sync';
+import {
+  BroadcastTxAsyncResponse
+} from '../types/responses/common/broadcast-tx-async';
+import {
+  BroadcastTxCommitResponse
+} from '../types/responses/common/broadcast-tx-commit';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
