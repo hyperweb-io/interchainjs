@@ -71,6 +71,10 @@ export type CosmosTx = TxRaw;
 // Cosmos account interface
 export interface CosmosAccount extends IAccount {
   address: string;
+  // These are inherited from IAccount but we need to declare them explicitly
+  // when @interchainjs/types is not available
+  publicKey?: ICryptoBytes;
+  algo: string;
 }
 
 // Cosmos signer interface

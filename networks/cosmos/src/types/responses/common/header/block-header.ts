@@ -27,7 +27,7 @@ export interface BlockHeader {
 }
 
 export const BlockHeaderCodec = createCodec<BlockHeader>({
-  version: BlockVersionCodec,
+  version: (value: any) => BlockVersionCodec.create(value),
   chainId: ensureString,
   height: ensureNumber,
   time: ensureDate,

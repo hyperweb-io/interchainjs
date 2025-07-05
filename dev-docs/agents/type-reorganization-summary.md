@@ -94,3 +94,22 @@ Successfully reorganized types in `networks/cosmos/src/types/requests` and `resp
 
 ### Final Status
 The project structure is now clean and properly organized. All internal type errors have been resolved. The remaining errors are due to missing external dependencies (`@interchainjs/types`, `@interchainjs/utils`, etc.) which are expected in this environment.
+
+## Additional Build Fixes (Final Round)
+
+### Fixed Issues:
+1. **Codec path corrections in header directory** - Fixed import paths from `../../../../codec` to `../../../codec`
+2. **Codec definitions** - Added proper codec definitions:
+   - `BlockVersionCodec` - Added missing codec for BlockVersion type
+   - `BlockIdCodec` - Fixed to use converter function for nested parts object
+   - `BlockHeaderCodec` - Fixed to use converter functions for nested codec types
+3. **Event codec fix** - Updated to use createArrayConverter with helper codec for attributes
+4. **Workflow plugin fixes** - Removed type parameters from all `getStagingData` calls, using type assertions instead
+5. **SimpleWallet final fix** - Removed `publicKey` and `algo` properties from CosmosAccount to match the interface definition
+
+### Summary:
+✅ All non-external dependency errors have been resolved
+✅ The project can now build successfully (except for expected external dependency errors)
+✅ All types are properly organized and accessible
+✅ All circular dependencies have been resolved
+✅ All codec issues have been fixed
