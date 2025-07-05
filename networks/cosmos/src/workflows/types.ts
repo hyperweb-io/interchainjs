@@ -1,17 +1,17 @@
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import { 
-  AuthInfo, 
-  Fee, 
-  SignDoc, 
-  SignerInfo, 
-  TxBody, 
-  TxRaw 
+import {
+  AuthInfo,
+  Fee,
+  SignDoc,
+  SignerInfo,
+  TxBody,
+  TxRaw
 } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
-import { 
-  IUniSigner, 
-  Message, 
-  StdFee, 
+import {
+  IUniSigner,
+  Message,
+  StdFee,
   StdSignDoc,
   IWorkflowBuilderContext,
   IAccount,
@@ -19,7 +19,7 @@ import {
 } from '@interchainjs/types';
 
 // Cosmos-specific message types
-export interface CosmosMessage<T = any> {
+export interface CosmosMessage<T = unknown> {
   typeUrl: string;
   value: T;
 }
@@ -103,7 +103,7 @@ export interface ICosmosWorkflowBuilderContext extends IWorkflowBuilderContext<I
 // Staging keys for data sharing between plugins
 export const STAGING_KEYS = {
   MESSAGES: 'messages',
-  FEE: 'fee', 
+  FEE: 'fee',
   MEMO: 'memo',
   OPTIONS: 'options',
   TX_BODY: 'tx_body',
