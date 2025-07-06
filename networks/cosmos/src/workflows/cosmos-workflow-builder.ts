@@ -15,7 +15,8 @@ import {
   AuthInfoPlugin,
   DirectSignDocPlugin,
   AminoSignDocPlugin,
-  SignaturePlugin,
+  DirectSignaturePlugin,
+  AminoSignaturePlugin,
   TxRawAssemblyPlugin
 } from './plugins';
 
@@ -89,7 +90,7 @@ export class CosmosWorkflowBuilder extends WorkflowBuilder<ICosmosSigner, Cosmos
         new FeeCalculationPlugin(),
         new AuthInfoPlugin(),
         new DirectSignDocPlugin(),
-        new SignaturePlugin(),
+        new DirectSignaturePlugin(),
         new TxRawAssemblyPlugin(),
       ],
       amino: [
@@ -99,7 +100,7 @@ export class CosmosWorkflowBuilder extends WorkflowBuilder<ICosmosSigner, Cosmos
         new FeeCalculationPlugin(),
         new AuthInfoPlugin(),
         new AminoSignDocPlugin(),
-        new SignaturePlugin(),
+        new AminoSignaturePlugin(),
         new TxRawAssemblyPlugin(),
       ],
     };
