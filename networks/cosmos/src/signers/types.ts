@@ -1,6 +1,7 @@
-import { ICryptoBytes, IAccount } from '@interchainjs/types';
+import { ICryptoBytes, IAccount, StdSignDoc } from '@interchainjs/types';
 import { ICosmosSigner, CosmosSignArgs, CosmosAccount } from '../workflows/types';
 import { CosmosQueryClient } from '../query/cosmos-query-client';
+import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 
 /**
  * Base configuration for Cosmos signers
@@ -16,6 +17,113 @@ export interface CosmosSignerConfig {
   gasPrice?: string | number;
   /** Gas multiplier for fee calculation */
   gasMultiplier?: number;
+}
+
+/**
+ * Authentication interface for private key-based signing
+ */
+export interface Auth {
+  /**
+   * The algorithm of the authentication method.
+   */
+  readonly algo: string;
+  /**
+   * The HD path of the authentication method.
+   */
+  readonly hdPath: string;
+  /**
+   * The private key in hex format
+   */
+  readonly privateKey: string;
+}
+
+/**
+ * Account data returned by offline signers
+ */
+export interface AccountData {
+  /** Account address */
+  address: string;
+  /** Algorithm used for signing */
+  algo: string;
+  /** Public key bytes */
+  pubkey: Uint8Array;
+}
+
+/**
+ * Response from direct signing
+ */
+export interface DirectSignResponse {
+  /**
+   * The sign doc that was signed.
+   * This may be different from the input signDoc when the signer modifies it as part of the signing process.
+   */
+  signed: SignDoc;
+  /** Signature bytes */
+  signature: Uint8Array;
+}
+
+/**
+ * Response from amino signing
+ */
+export interface AminoSignResponse {
+  /**
+   * The sign doc that was signed.
+   * This may be different from the input signDoc when the signer modifies it as part of the signing process.
+   */
+  signed: StdSignDoc;
+  /** Signature bytes */
+  signature: Uint8Array;
+}
+
+/**
+ * Offline signer interface for signing without exposing private keys
+ */
+export interface OfflineSigner {
+  /**
+   * Get all accounts this signer holds
+   */
+  getAccounts(): Promise<readonly AccountData[]>;
+}
+
+/**
+ * Offline signer that can sign direct (protobuf) messages
+ */
+export interface OfflineDirectSigner extends OfflineSigner {
+  /**
+   * Sign a transaction in direct mode
+   */
+  signDirect(signerAddress: string, signDoc: SignDoc): Promise<DirectSignResponse>;
+}
+
+/**
+ * Offline signer that can sign amino (JSON) messages
+ */
+export interface OfflineAminoSigner extends OfflineSigner {
+  /**
+   * Sign a transaction in amino mode
+   */
+  signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<AminoSignResponse>;
+}
+
+/**
+ * Type guard to check if an object is an Auth
+ */
+export function isAuth(obj: any): obj is Auth {
+  return obj && typeof obj.algo === 'string' && typeof obj.privateKey === 'string';
+}
+
+/**
+ * Type guard to check if an object is an OfflineDirectSigner
+ */
+export function isOfflineDirectSigner(obj: any): obj is OfflineDirectSigner {
+  return obj && typeof obj.signDirect === 'function' && typeof obj.getAccounts === 'function';
+}
+
+/**
+ * Type guard to check if an object is an OfflineAminoSigner
+ */
+export function isOfflineAminoSigner(obj: any): obj is OfflineAminoSigner {
+  return obj && typeof obj.signAmino === 'function' && typeof obj.getAccounts === 'function';
 }
 
 /**

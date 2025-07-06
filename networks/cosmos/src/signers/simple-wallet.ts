@@ -5,7 +5,7 @@ import { ripemd160 } from '@noble/hashes/ripemd160';
 import { fromHex, toHex, BaseCryptoBytes } from '@interchainjs/utils';
 import { fromBech32, toBech32 } from '@interchainjs/encoding';
 import { CosmosAccount } from '../workflows/types';
-import { CosmosWallet } from './types';
+import { CosmosWallet, Auth } from './types';
 
 /**
  * Simple wallet implementation for testing and development
@@ -16,11 +16,13 @@ export class SimpleWallet implements CosmosWallet {
   private publicKey: Uint8Array;
   private addressPrefix: string;
   private _account?: CosmosAccount;
+  private hdPath: string;
 
-  constructor(privateKeyHex: string, addressPrefix: string = 'cosmos') {
+  constructor(privateKeyHex: string, addressPrefix: string = 'cosmos', hdPath: string = "m/44'/118'/0'/0/0") {
     this.privateKey = fromHex(privateKeyHex);
     this.publicKey = secp256k1.getPublicKey(this.privateKey, true); // compressed
     this.addressPrefix = addressPrefix;
+    this.hdPath = hdPath;
   }
 
   /**
@@ -31,9 +33,9 @@ export class SimpleWallet implements CosmosWallet {
       const address = this.getAddress();
       this._account = {
         address,
-        publicKey: BaseCryptoBytes.from(this.publicKey),
+        pubkey: this.publicKey,
         algo: 'secp256k1'
-      };
+      } as CosmosAccount;
     }
     return this._account;
   }
@@ -44,7 +46,7 @@ export class SimpleWallet implements CosmosWallet {
   async signArbitrary(data: Uint8Array): Promise<ICryptoBytes> {
     const hash = sha256(data);
     const signature = secp256k1.sign(hash, this.privateKey);
-    
+
     return BaseCryptoBytes.from(signature.toCompactRawBytes());
   }
 
@@ -72,7 +74,7 @@ export class SimpleWallet implements CosmosWallet {
    * Create wallet from mnemonic (simplified implementation)
    */
   static fromMnemonic(
-    mnemonic: string, 
+    mnemonic: string,
     addressPrefix: string = 'cosmos',
     derivationPath: string = "m/44'/118'/0'/0/0"
   ): SimpleWallet {
@@ -87,7 +89,7 @@ export class SimpleWallet implements CosmosWallet {
    * Create wallet from private key
    */
   static fromPrivateKey(
-    privateKeyHex: string, 
+    privateKeyHex: string,
     addressPrefix: string = 'cosmos'
   ): SimpleWallet {
     return new SimpleWallet(privateKeyHex, addressPrefix);
@@ -114,5 +116,23 @@ export class SimpleWallet implements CosmosWallet {
    */
   getPublicKeyHex(): string {
     return toHex(this.publicKey);
+  }
+
+  /**
+   * Convert to Auth interface
+   */
+  toAuth(): Auth {
+    return {
+      algo: 'secp256k1',
+      hdPath: this.hdPath,
+      privateKey: this.getPrivateKeyHex()
+    };
+  }
+
+  /**
+   * Create SimpleWallet from Auth
+   */
+  static fromAuth(auth: Auth, addressPrefix: string = 'cosmos'): SimpleWallet {
+    return new SimpleWallet(auth.privateKey, addressPrefix, auth.hdPath);
   }
 }

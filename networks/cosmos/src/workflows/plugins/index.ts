@@ -5,5 +5,6 @@ export * from './fee-calculation';
 export * from './auth-info';
 export * from './direct-sign-doc';
 export * from './amino-sign-doc';
-export * from './signature';
+export * from './direct-signature';
+export * from './amino-signature';
 export * from './tx-raw-assembly';

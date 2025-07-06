@@ -13,9 +13,12 @@ import {
   CosmosWallet, 
   CosmosBroadcastOptions, 
   CosmosBroadcastResponse,
-  CosmosSignedTransaction 
+  CosmosSignedTransaction,
+  Auth,
+  OfflineSigner
 } from './types';
 import { toBase64, fromBase64, toHex, fromHex } from '@interchainjs/utils';
+import { WalletAdapter } from './wallet-adapter';
 
 /**
  * Base implementation for Cosmos signers
@@ -24,10 +27,19 @@ import { toBase64, fromBase64, toHex, fromHex } from '@interchainjs/utils';
 export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   protected wallet: CosmosWallet;
   protected config: CosmosSignerConfig;
+  protected authOrSigner: Auth | OfflineSigner;
 
-  constructor(wallet: CosmosWallet, config: CosmosSignerConfig) {
-    this.wallet = wallet;
+  constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
+    this.authOrSigner = authOrSigner;
+    this.wallet = WalletAdapter.fromAuthOrSigner(authOrSigner, config.addressPrefix);
     this.config = config;
+  }
+
+  /**
+   * Get the underlying auth or offline signer
+   */
+  getAuthOrSigner(): Auth | OfflineSigner {
+    return this.authOrSigner;
   }
 
   // IUniSigner interface methods

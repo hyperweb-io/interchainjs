@@ -1,7 +1,7 @@
-import { ICryptoBytes } from '@interchainjs/types';
+import { ICryptoBytes, StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { TxRaw, SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { 
   CosmosSignArgs, 
   EncodedMessage 
@@ -11,8 +11,11 @@ import { BaseCosmosSignerImpl } from './base-signer';
 import { 
   CosmosSignerConfig, 
   CosmosWallet, 
-  CosmosSignedTransaction 
+  CosmosSignedTransaction,
+  Auth,
+  OfflineSigner
 } from './types';
+import { WalletAdapter } from './wallet-adapter';
 
 /**
  * Direct (protobuf) signer for Cosmos transactions
@@ -21,8 +24,8 @@ import {
 export class DirectSigner extends BaseCosmosSignerImpl {
   private _encodedPublicKey?: EncodedMessage;
 
-  constructor(wallet: CosmosWallet, config: CosmosSignerConfig) {
-    super(wallet, config);
+  constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
+    super(authOrSigner, config);
   }
 
   /**
@@ -39,7 +42,7 @@ export class DirectSigner extends BaseCosmosSignerImpl {
     const account = await this.getAccount();
     const address = account.address;
 
-    // Prepare signing options with chain-specific information
+    // Prepare signing options
     const signingOptions = {
       chainId: this.config.chainId,
       accountNumber: await this.getAccountNumber(address),
@@ -77,6 +80,8 @@ export class DirectSigner extends BaseCosmosSignerImpl {
     return signedTx;
   }
 
+
+
   /**
    * Get the encoded public key
    */
@@ -100,19 +105,19 @@ export class DirectSigner extends BaseCosmosSignerImpl {
   /**
    * Static factory method for convenience
    */
-  static create(wallet: CosmosWallet, config: CosmosSignerConfig): DirectSigner {
-    return new DirectSigner(wallet, config);
+  static create(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig): DirectSigner {
+    return new DirectSigner(authOrSigner, config);
   }
 
   /**
    * Static method to sign a transaction directly
    */
   static async signTransaction(
-    wallet: CosmosWallet,
+    authOrSigner: Auth | OfflineSigner,
     config: CosmosSignerConfig,
     args: CosmosSignArgs
   ): Promise<CosmosSignedTransaction> {
-    const signer = new DirectSigner(wallet, config);
+    const signer = new DirectSigner(authOrSigner, config);
     return signer.sign(args);
   }
 }
