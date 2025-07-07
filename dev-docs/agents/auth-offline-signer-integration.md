@@ -61,6 +61,16 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
       const signDoc = ctx.getStagingData<SignDoc>(STAGING_KEYS.SIGN_DOC);
       const account = await signer.getAccount();
       const response = await authOrSigner.signDirect(account.address, signDoc);
+      
+      // Update staging data with values from the response
+      // The offline signer might have modified the transaction
+      if (response.signed.bodyBytes) {
+        ctx.setStagingData(STAGING_KEYS.TX_BODY_BYTES, response.signed.bodyBytes);
+      }
+      if (response.signed.authInfoBytes) {
+        ctx.setStagingData(STAGING_KEYS.AUTH_INFO_BYTES, response.signed.authInfoBytes);
+      }
+      
       ctx.setStagingData(STAGING_KEYS.SIGNATURE, BaseCryptoBytes.from(response.signature));
     }
   }
@@ -88,6 +98,35 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
       const signDoc = ctx.getStagingData<StdSignDoc>(STAGING_KEYS.SIGN_DOC);
       const account = await signer.getAccount();
       const response = await authOrSigner.signAmino(account.address, signDoc);
+      
+      // Update fee if it was modified by the offline signer
+      if (response.signed.fee) {
+        // Convert StdFee to Fee protobuf and update auth info
+        const fee: Fee = {
+          amount: response.signed.fee.amount.map(coin => ({
+            denom: coin.denom,
+            amount: coin.amount
+          })),
+          gasLimit: BigInt(response.signed.fee.gas),
+          payer: '',
+          granter: ''
+        };
+        ctx.setStagingData(STAGING_KEYS.FEE, fee);
+        
+        // Recalculate auth info with the new fee
+        const signerInfo = ctx.getStagingData<SignerInfo>(STAGING_KEYS.SIGNER_INFO);
+        const authInfo: AuthInfo = {
+          signerInfos: [signerInfo],
+          fee,
+          tip: undefined
+        };
+        
+        // Update auth info and its bytes
+        ctx.setStagingData(STAGING_KEYS.AUTH_INFO, authInfo);
+        const authInfoBytes = AuthInfo.encode(authInfo).finish();
+        ctx.setStagingData(STAGING_KEYS.AUTH_INFO_BYTES, authInfoBytes);
+      }
+      
       ctx.setStagingData(STAGING_KEYS.SIGNATURE, BaseCryptoBytes.from(response.signature));
     }
   }
@@ -147,13 +186,20 @@ The signing logic is handled by separate signature plugins in the workflow:
 
 1. **DirectSignaturePlugin**: Used in the direct workflow
    - For Auth: Uses `signArbitrary` to sign the serialized sign doc bytes
-   - For OfflineDirectSigner: Calls `signDirect` with the SignDoc object
+   - For OfflineDirectSigner: 
+     - Calls `signDirect` with the SignDoc object
+     - Updates `TX_BODY_BYTES` and `AUTH_INFO_BYTES` in staging data from the response
+     - This allows the offline signer to modify the transaction if needed
 
 2. **AminoSignaturePlugin**: Used in the amino workflow
    - For Auth: Uses `signArbitrary` to sign the serialized sign doc bytes
-   - For OfflineAminoSigner: Calls `signAmino` with the StdSignDoc object
+   - For OfflineAminoSigner: 
+     - Calls `signAmino` with the StdSignDoc object
+     - If the fee was modified, recalculates and updates the auth info
+     - Updates `FEE`, `AUTH_INFO`, and `AUTH_INFO_BYTES` in staging data
+     - This ensures the final transaction uses the fee approved by the user
 
-This separation ensures that each workflow uses the appropriate signing method and provides better type safety.
+This separation ensures that each workflow uses the appropriate signing method and properly handles any modifications made by the offline signer.
 
 ### Type Safety
 

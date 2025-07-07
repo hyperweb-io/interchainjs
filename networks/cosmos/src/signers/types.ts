@@ -132,10 +132,7 @@ export function isOfflineAminoSigner(obj: any): obj is OfflineAminoSigner {
 export interface CosmosWallet {
   /** Get the account information */
   getAccount(): Promise<CosmosAccount>;
-  
-  /** Sign arbitrary data */
-  signArbitrary(data: Uint8Array): Promise<ICryptoBytes>;
-  
+
   /** Get the public key in encoded format */
   getPublicKey(): Promise<{ typeUrl: string; value: Uint8Array }>;
 }
