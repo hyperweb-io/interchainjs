@@ -13,9 +13,6 @@ export * from './signers';
 // Export wallets
 export * from './wallets/secp256k1hd';
 
-// Re-export for backward compatibility with simple-wallet
-export { Secp256k1HDWallet as SimpleWallet } from './wallets/secp256k1hd';
-
 // Re-export common error types for convenience
 export {
   QueryClientError,
