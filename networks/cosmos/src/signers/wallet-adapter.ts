@@ -5,11 +5,11 @@ import { ripemd160 } from '@noble/hashes/ripemd160';
 import { fromHex, toHex, BaseCryptoBytes } from '@interchainjs/utils';
 import { fromBech32, toBech32 } from '@interchainjs/encoding';
 import { CosmosAccount } from '../workflows/types';
-import { 
-  CosmosWallet, 
-  Auth, 
-  OfflineSigner, 
-  AccountData 
+import {
+  CosmosWallet,
+  Auth,
+  OfflineSigner,
+  AccountData
 } from './types';
 
 /**
@@ -27,7 +27,7 @@ export class WalletAdapter implements CosmosWallet {
     addressPrefix: string = 'cosmos'
   ) {
     this.addressPrefix = addressPrefix;
-    
+
     if ('privateKey' in authOrSigner) {
       this.auth = authOrSigner;
     } else {
@@ -55,7 +55,7 @@ export class WalletAdapter implements CosmosWallet {
         const privateKey = fromHex(this.auth.privateKey);
         const publicKey = secp256k1.getPublicKey(privateKey, true); // compressed
         const address = this.getAddressFromPublicKey(publicKey);
-        
+
         this._account = {
           address,
           algo: this.auth.algo
@@ -66,7 +66,7 @@ export class WalletAdapter implements CosmosWallet {
         if (accounts.length === 0) {
           throw new Error('No accounts found in offline signer');
         }
-        
+
         // Use the first account
         this._accountData = accounts[0];
         this._account = {
@@ -77,24 +77,8 @@ export class WalletAdapter implements CosmosWallet {
         throw new Error('No auth or offline signer provided');
       }
     }
-    
-    return this._account;
-  }
 
-  /**
-   * Sign arbitrary data
-   */
-  async signArbitrary(data: Uint8Array): Promise<ICryptoBytes> {
-    if (this.auth) {
-      // Sign with private key
-      const privateKey = fromHex(this.auth.privateKey);
-      const hash = sha256(data);
-      const signature = secp256k1.sign(hash, privateKey);
-      return BaseCryptoBytes.from(signature.toCompactRawBytes());
-    } else {
-      // OfflineSigner doesn't support arbitrary signing
-      throw new Error('Arbitrary signing not supported with OfflineSigner');
-    }
+    return this._account;
   }
 
   /**
@@ -104,7 +88,7 @@ export class WalletAdapter implements CosmosWallet {
     // Get public key based on the source
     let publicKey: Uint8Array;
     let algo: string;
-    
+
     if (this.auth) {
       const privateKey = fromHex(this.auth.privateKey);
       publicKey = secp256k1.getPublicKey(privateKey, true); // compressed
@@ -122,7 +106,7 @@ export class WalletAdapter implements CosmosWallet {
         throw new Error('Unable to get public key');
       }
     }
-    
+
     // Determine the type URL based on the algorithm
     let typeUrl: string;
     switch (algo) {
@@ -135,7 +119,7 @@ export class WalletAdapter implements CosmosWallet {
       default:
         throw new Error(`Unsupported algorithm: ${algo}`);
     }
-    
+
     return {
       typeUrl,
       value: publicKey

@@ -41,6 +41,17 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
       const account = await signer.getAccount();
       
       const response = await authOrSigner.signDirect(account.address, signDoc);
+      
+      // Update staging data with values from the response
+      // The offline signer might have modified the transaction
+      if (response.signed.bodyBytes) {
+        ctx.setStagingData(STAGING_KEYS.TX_BODY_BYTES, response.signed.bodyBytes);
+      }
+      if (response.signed.authInfoBytes) {
+        ctx.setStagingData(STAGING_KEYS.AUTH_INFO_BYTES, response.signed.authInfoBytes);
+      }
+      
+      // Store the signature
       const signature = BaseCryptoBytes.from(response.signature);
       ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
     } else {

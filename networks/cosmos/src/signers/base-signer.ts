@@ -6,7 +6,8 @@ import {
   CosmosSignArgs, 
   CosmosAccount, 
   EncodedMessage,
-  CosmosMessage
+  CosmosMessage,
+  CosmosSignOptions
 } from '../workflows/types';
 import { 
   CosmosSignerConfig, 
@@ -15,10 +16,15 @@ import {
   CosmosBroadcastResponse,
   CosmosSignedTransaction,
   Auth,
-  OfflineSigner
+  OfflineSigner,
+  isAuth
 } from './types';
-import { toBase64, fromBase64, toHex, fromHex } from '@interchainjs/utils';
+import { toBase64, fromBase64, toHex, fromHex, BaseCryptoBytes } from '@interchainjs/utils';
 import { WalletAdapter } from './wallet-adapter';
+import { sha256 } from '@noble/hashes/sha256';
+import { sha512 } from '@noble/hashes/sha512';
+import { secp256k1 } from '@noble/curves/secp256k1';
+import { ed25519 } from '@noble/curves/ed25519';
 
 /**
  * Base implementation for Cosmos signers
@@ -47,8 +53,49 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
     return this.wallet.getAccount();
   }
 
-  async signArbitrary(data: Uint8Array): Promise<ICryptoBytes> {
-    return this.wallet.signArbitrary(data);
+  async signArbitrary(data: Uint8Array, options?: CosmosSignOptions): Promise<ICryptoBytes> {
+    // If we have an Auth (private key), handle signing directly in the signer
+    if (isAuth(this.authOrSigner)) {
+      const auth = this.authOrSigner as Auth;
+      
+      // Apply hash function based on configuration
+      let dataToSign = data;
+      const hashConfig = options?.sign?.hash;
+      
+      if (hashConfig !== 'none') {
+        if (typeof hashConfig === 'function') {
+          dataToSign = hashConfig(data);
+        } else if (hashConfig === 'sha512') {
+          dataToSign = sha512(data);
+        } else {
+          // Default to sha256
+          dataToSign = sha256(data);
+        }
+      }
+      
+      // Get the signing function based on the algorithm
+      const privateKey = fromHex(auth.privateKey);
+      let signature: Uint8Array;
+      
+      switch (auth.algo) {
+        case 'secp256k1': {
+          const sig = secp256k1.sign(dataToSign, privateKey);
+          signature = sig.toCompactRawBytes();
+          break;
+        }
+        case 'ed25519': {
+          signature = ed25519.sign(dataToSign, privateKey);
+          break;
+        }
+        default:
+          throw new Error(`Unsupported signing algorithm: ${auth.algo}`);
+      }
+      
+      return BaseCryptoBytes.from(signature);
+    } else {
+      // For OfflineSigner, we can't handle arbitrary signing
+      throw new Error('Arbitrary signing not supported with OfflineSigner');
+    }
   }
 
   abstract sign(args: CosmosSignArgs): Promise<CosmosSignedTransaction>;

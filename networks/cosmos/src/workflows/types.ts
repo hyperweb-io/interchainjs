@@ -60,6 +60,9 @@ export interface CosmosSignOptions {
     value: Date;
   };
   unordered?: boolean;
+  sign?: {
+    hash?: 'sha256' | 'sha512' | 'none' | ((data: Uint8Array) => Uint8Array);
+  };
   extensionOptions?: Any[];
   nonCriticalExtensionOptions?: Any[];
 }

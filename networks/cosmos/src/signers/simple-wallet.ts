@@ -41,16 +41,6 @@ export class SimpleWallet implements CosmosWallet {
   }
 
   /**
-   * Sign arbitrary data
-   */
-  async signArbitrary(data: Uint8Array): Promise<ICryptoBytes> {
-    const hash = sha256(data);
-    const signature = secp256k1.sign(hash, this.privateKey);
-
-    return BaseCryptoBytes.from(signature.toCompactRawBytes());
-  }
-
-  /**
    * Get the public key in encoded format
    */
   async getPublicKey(): Promise<{ typeUrl: string; value: Uint8Array }> {
