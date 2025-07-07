@@ -5,11 +5,11 @@ export interface ISigningClient {
   /**
    * register converters
    */
-  addConverters?: (converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+  addConverters?: (converters: (AminoConverter)[]) => void;
   /**
    * register encoders
    */
-  addEncoders?: (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+  addEncoders?: (encoders: (Encoder)[]) => void;
   /**
    * sign and broadcast
    */
@@ -21,15 +21,15 @@ export interface ISigningClient {
   ) => Promise<TxResponse>;
 }
 
-export interface Encoder {
-  typeUrl: string;
-  fromPartial: (data: any) => any;
-  encode: (data: any) => Uint8Array;
+export interface Encoder<T = any> {
+  readonly typeUrl: string;
+  fromPartial: (object: any) => T | any;
+  encode: (message: T, writer?: any) => any;
 }
 
-export interface AminoConverter {
-  typeUrl: string;
-  aminoType: string;
-  fromAmino: (data: any) => any;
-  toAmino: (data: any) => any;
+export interface AminoConverter<T = any> {
+  readonly typeUrl: string;
+  readonly aminoType?: string;
+  fromAmino?: (amino: any) => T;
+  toAmino?: (message: T) => any;
 }

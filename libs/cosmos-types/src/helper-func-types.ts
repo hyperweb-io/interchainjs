@@ -76,17 +76,4 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
   };
 }
 
-export interface Encoder {
-  typeUrl: string;
-  fromPartial: (data: any) => any;
-  encode: (data: any) => Uint8Array;
-}
-
-export interface AminoConverter {
-  typeUrl: string;
-  aminoType: string;
-  fromAmino: (data: any) => any;
-  toAmino: (data: any) => any;
-}
-
 export type EndpointOrRpc = string | HttpEndpoint | Rpc;

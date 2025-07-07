@@ -16,12 +16,13 @@ import {
   OfflineSigner
 } from './types';
 import { WalletAdapter } from './wallet-adapter';
+import { ISigningClient } from '../types/signing-client';
 
 /**
  * Direct (protobuf) signer for Cosmos transactions
  * Uses SIGN_MODE_DIRECT for protobuf-based signing
  */
-export class DirectSigner extends BaseCosmosSignerImpl {
+export class DirectSigner extends BaseCosmosSignerImpl implements ISigningClient {
   private _encodedPublicKey?: EncodedMessage;
 
   constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
@@ -120,4 +121,6 @@ export class DirectSigner extends BaseCosmosSignerImpl {
     const signer = new DirectSigner(authOrSigner, config);
     return signer.sign(args);
   }
+
+
 }
