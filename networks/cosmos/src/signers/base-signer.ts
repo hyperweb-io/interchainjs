@@ -1,6 +1,7 @@
-import { ICryptoBytes } from '@interchainjs/types';
+import { ICryptoBytes, StdFee, Message } from '@interchainjs/types';
 import { TxBody, SignerInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
+import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
 import { 
   ICosmosSigner, 
   CosmosSignArgs, 
@@ -19,6 +20,7 @@ import {
   OfflineSigner,
   isAuth
 } from './types';
+import { ISigningClient, AminoConverter, Encoder } from '../types/signing-client';
 import { toBase64, fromBase64, toHex, fromHex, BaseCryptoBytes } from '@interchainjs/utils';
 import { WalletAdapter } from './wallet-adapter';
 import { sha256 } from '@noble/hashes/sha256';
@@ -34,6 +36,7 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   protected wallet: CosmosWallet;
   protected config: CosmosSignerConfig;
   protected authOrSigner: Auth | OfflineSigner;
+  protected encoders: Encoder[] = [];
 
   constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
     this.authOrSigner = authOrSigner;
@@ -160,12 +163,64 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
     return result;
   }
 
+  /**
+   * Sign and broadcast with function overloading
+   * Supports both base class signature and ISigningClient signature
+   */
   async signAndBroadcast(
-    args: CosmosSignArgs, 
-    options: CosmosBroadcastOptions = {}
-  ): Promise<CosmosBroadcastResponse> {
-    const signed = await this.sign(args);
-    return this.broadcast(signed, options);
+    args: CosmosSignArgs,
+    options?: CosmosBroadcastOptions
+  ): Promise<CosmosBroadcastResponse>;
+
+  async signAndBroadcast(
+    signerAddress: string,
+    messages: readonly Message<any>[],
+    fee: StdFee | 'auto',
+    memo?: string
+  ): Promise<TxResponse>;
+
+  async signAndBroadcast(
+    argsOrSignerAddress: CosmosSignArgs | string,
+    messagesOrOptions?: CosmosBroadcastOptions | readonly Message<any>[],
+    fee?: StdFee | 'auto',
+    memo?: string
+  ): Promise<CosmosBroadcastResponse | TxResponse> {
+    if (typeof argsOrSignerAddress === 'string') {
+      // ISigningClient interface: individual parameters
+      const signerAddress = argsOrSignerAddress;
+      const messages = messagesOrOptions as readonly Message<any>[];
+      
+      // Verify signer address matches
+      const account = await this.getAccount();
+      if (signerAddress !== account.address) {
+        throw new Error('Signer address does not match');
+      }
+
+      // Convert Message<any>[] to CosmosMessage[]
+      const cosmosMessages = messages.map(msg => ({
+        typeUrl: msg.typeUrl,
+        value: msg.value
+      }));
+
+      const cosmosSignArgs: CosmosSignArgs = {
+        messages: cosmosMessages,
+        fee: fee === 'auto' ? undefined : fee as StdFee,
+        memo: memo || ''
+      };
+
+      // Sign and broadcast the transaction
+      const signed = await this.sign(cosmosSignArgs);
+      const response = await this.broadcast(signed, {});
+
+      // Convert CosmosBroadcastResponse to TxResponse for ISigningClient
+      return this.convertToTxResponse(response);
+    } else {
+      // Base class interface: CosmosSignArgs
+      const args = argsOrSignerAddress;
+      const options = (messagesOrOptions as CosmosBroadcastOptions) || {};
+      const signed = await this.sign(args);
+      return this.broadcast(signed, options);
+    }
   }
 
   async broadcastArbitrary(
@@ -319,6 +374,46 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   ): (options?: CosmosBroadcastOptions) => Promise<CosmosBroadcastResponse> {
     return async (options: CosmosBroadcastOptions = {}) => {
       return this.broadcastArbitrary(txBytes, options);
+    };
+  }
+
+  // ISigningClient implementation methods
+
+  /**
+   * Register encoders
+   */
+  addEncoders(encoders: Encoder[]): void {
+    // Create a Set of existing typeUrls for quick lookup
+    const existingTypeUrls = new Set(this.encoders.map(e => e.typeUrl));
+    
+    // Filter out encoders with duplicate typeUrls
+    const newEncoders = encoders.filter(encoder => !existingTypeUrls.has(encoder.typeUrl));
+    
+    // Add only the unique encoders
+    this.encoders.push(...newEncoders);
+  }
+
+  /**
+   * Convert CosmosBroadcastResponse to TxResponse
+   */
+  protected convertToTxResponse(response: any): TxResponse {
+    // Extract the raw response data
+    const rawResponse = response.rawResponse || response;
+
+    return {
+      height: BigInt(response.height || rawResponse.height || 0),
+      txhash: response.transactionHash || rawResponse.hash || '',
+      codespace: rawResponse.codespace || '',
+      code: response.code || rawResponse.code || 0,
+      data: rawResponse.data || '',
+      rawLog: rawResponse.raw_log || rawResponse.rawLog || '',
+      logs: rawResponse.logs || [],
+      info: rawResponse.info || '',
+      gasWanted: BigInt(response.gasWanted || rawResponse.gas_wanted || rawResponse.gasWanted || 0),
+      gasUsed: BigInt(response.gasUsed || rawResponse.gas_used || rawResponse.gasUsed || 0),
+      tx: rawResponse.tx || undefined,
+      timestamp: rawResponse.timestamp || '',
+      events: response.events || rawResponse.events || []
     };
   }
 }

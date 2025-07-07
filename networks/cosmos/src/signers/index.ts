@@ -8,8 +8,6 @@ export * from './base-signer';
 export * from './direct-signer';
 export * from './amino-signer';
 
-// Export wallet implementations
-export * from './simple-wallet';
 export * from './wallet-adapter';
 
 // Re-export workflow types for convenience

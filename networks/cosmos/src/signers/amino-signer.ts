@@ -16,13 +16,15 @@ import {
   OfflineSigner
 } from './types';
 import { WalletAdapter } from './wallet-adapter';
+import { ISigningClient, AminoConverter } from '../types/signing-client';
 
 /**
  * Amino (JSON) signer for Cosmos transactions
  * Uses SIGN_MODE_LEGACY_AMINO_JSON for JSON-based signing
  */
-export class AminoSigner extends BaseCosmosSignerImpl {
+export class AminoSigner extends BaseCosmosSignerImpl implements ISigningClient {
   private _encodedPublicKey?: EncodedMessage;
+  private converters: AminoConverter[] = [];
 
   constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
     super(authOrSigner, config);
@@ -119,5 +121,21 @@ export class AminoSigner extends BaseCosmosSignerImpl {
   ): Promise<CosmosSignedTransaction> {
     const signer = new AminoSigner(authOrSigner, config);
     return signer.sign(args);
+  }
+
+  // ISigningClient implementation
+
+  /**
+   * Register amino converters
+   */
+  addConverters(converters: AminoConverter[]): void {
+    // Create a Set of existing typeUrls for quick lookup
+    const existingTypeUrls = new Set(this.converters.map(c => c.typeUrl));
+    
+    // Filter out converters with duplicate typeUrls
+    const newConverters = converters.filter(converter => !existingTypeUrls.has(converter.typeUrl));
+    
+    // Add only the unique converters
+    this.converters.push(...newConverters);
   }
 }
