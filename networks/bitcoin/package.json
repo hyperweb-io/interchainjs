@@ -1,0 +1,33 @@
+{
+  "name": "@interchainjs/bitcoin",
+  "version": "1.11.11",
+  "description": "Bitcoin signing utilities",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "author": "Hyperweb <developers@hyperweb.io>",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperweb-io/interchainjs"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rimraf dist/**",
+    "prepare": "npm run build",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@interchainjs/auth": "1.11.11",
+    "@interchainjs/crypto": "1.11.11",
+    "@interchainjs/types": "1.11.11",
+    "@interchainjs/utils": "1.11.11"
+  }
+}
