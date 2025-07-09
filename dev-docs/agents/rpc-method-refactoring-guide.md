@@ -309,27 +309,32 @@ encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams {
 #### 4.1 Update Method Implementation
 - [ ] Change from generic `encodeParams` to specific encoder method
 - [ ] Change from generic `decodeResponse` to specific decoder method
-- [ ] Update imports to use direct paths (not through index files)
+- [ ] Update imports to use the appropriate index files (e.g., `from '../types/requests/common/abci'`)
+- [ ] Use proper typed parameters instead of inline objects
 
-Before:
+Before (what queryAbci would have looked like before refactoring):
 ```typescript
-async getBlock(height?: number): Promise<Block> {
-  const params: BlockParams = height ? { height } : {};
-  const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK, params);
-  const result = await this.rpcClient.call(RpcMethod.BLOCK, encodedParams);
-  return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK, result);
+async queryAbci(params: AbciQueryParams): Promise<AbciQueryResult> {
+  const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.ABCI_QUERY, params);
+  const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
+  return this.protocolAdapter.decodeResponse(RpcMethod.ABCI_QUERY, result);
 }
 ```
 
-After:
+After (current refactored queryAbci method):
 ```typescript
-async getBlock(height?: number): Promise<Block> {
-  const params: BlockParams = height ? { height } : {};
-  const encodedParams = this.protocolAdapter.encodeBlock(params);
-  const result = await this.rpcClient.call(RpcMethod.BLOCK, encodedParams);
-  return this.protocolAdapter.decodeBlock(result);
+async queryAbci(params: AbciQueryParams): Promise<AbciQueryResult> {
+  const encodedParams = this.protocolAdapter.encodeAbciQuery(params);
+  const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
+  return this.protocolAdapter.decodeAbciQuery(result);
 }
 ```
+
+Key changes:
+- Uses specific `encodeAbciQuery()` instead of generic `encodeParams()`
+- Uses specific `decodeAbciQuery()` instead of generic `decodeResponse()`
+- No need to pass `RpcMethod` to encode/decode functions
+- Cleaner, more type-safe code
 
 ### Phase 5: Testing and Validation
 
