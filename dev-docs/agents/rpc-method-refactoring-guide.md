@@ -51,48 +51,122 @@ This document provides detailed work items and steps for refactoring RPC methods
 
 #### 1.2 Create Type Organization
 - [ ] Determine if types should go in `common/` or version-specific folders
-- [ ] Create new file structure if needed:
+- [ ] Create new file structure if needed, there'll be one request or response type and it's codec and creator function per file:
   ```
   types/
   ├── requests/
   │   └── common/
-  │       └── [method-name].ts
+  │       └── [method-category-name]
+  │           └── [request-type-name].ts
   └── responses/
       └── common/
-          └── [method-name].ts
+          └── [method-category-name]
+              └── [response-type-name].ts
   ```
 
 ### Phase 2: Response Type Refactoring
 
 #### 2.1 Create Response Codec
-- [ ] Create response type file in `/types/responses/common/[method-name].ts`
+- [ ] Create response type file in `/types/responses/[common/version-folder]/[method-category-name]/[response-type-name].ts`
 - [ ] Define TypeScript interfaces for the response
+- [ ] Check for nested objects and create separate interfaces/codecs for them
 - [ ] Create codec using `createCodec()` factory function
 - [ ] Implement creator functions that use the codec internally
 - [ ] Add proper type conversions (string→number, base64→Uint8Array, etc.)
+- [ ] Handle nested object conversions using `createNestedConverter` or inline converters
 
-Example structure:
+Example using AbciQuery response:
+
 ```typescript
-// Define interfaces
-export interface MyResponse {
-  field1: string;
-  field2: number;
-  field3?: Uint8Array;
+// /types/responses/common/abci/proof-op.ts
+import { createCodec } from '../../../codec';
+import { ensureString, base64ToBytes } from '../../../codec/converters';
+
+export interface ProofOp {
+  readonly type: string;
+  readonly key: Uint8Array;
+  readonly data: Uint8Array;
 }
 
-// Create codec
-export const MyResponseCodec = createCodec<RawMyResponse, MyResponse>({
-  decode: {
-    field1: identity,
-    field2: toNumber,
-    field3: toUint8Array
-  }
+export const ProofOpCodec = createCodec<ProofOp>({
+  type: ensureString,
+  key: base64ToBytes,
+  data: base64ToBytes
 });
 
-// Create helper function
-export function createMyResponse(data: unknown): MyResponse {
-  return MyResponseCodec.decode(data);
+export function createProofOp(data: unknown): ProofOp {
+  return ProofOpCodec.create(data);
 }
+```
+
+```typescript
+// /types/responses/common/abci/query-proof.ts
+import { createCodec } from '../../../codec';
+import { createArrayConverter } from '../../../codec/converters';
+import { createProofOp } from './proof-op';
+
+export interface QueryProof {
+  readonly ops: readonly ProofOp[];
+}
+
+export const QueryProofCodec = createCodec<QueryProof>({
+  ops: createArrayConverter({ create: createProofOp })
+});
+
+export function createQueryProof(data: unknown): QueryProof {
+  return QueryProofCodec.create(data);
+}
+```
+
+```typescript
+// /types/responses/common/abci/abci-query-response.ts
+import { createCodec } from '../../../codec';
+import { 
+  apiToNumber, 
+  ensureString, 
+  apiToBigInt, 
+  maybeBase64ToBytes 
+} from '../../../codec/converters';
+import { createQueryProof } from './query-proof';
+
+export interface AbciQueryResponse {
+  readonly code?: number;
+  readonly log?: string;
+  readonly info?: string;
+  readonly index?: bigint;
+  readonly key?: Uint8Array;
+  readonly value?: Uint8Array;
+  readonly proofOps?: QueryProof;
+  readonly height?: bigint;
+  readonly codespace?: string;
+}
+
+export const AbciQueryResponseCodec = createCodec<AbciQueryResponse>({
+  code: apiToNumber,
+  log: ensureString,
+  info: ensureString,
+  index: apiToBigInt,
+  key: maybeBase64ToBytes,
+  value: maybeBase64ToBytes,
+  proofOps: {
+    source: 'proof_ops',
+    converter: (v) => v ? createQueryProof(v) : undefined
+  },
+  height: apiToBigInt,
+  codespace: ensureString
+});
+
+export function createAbciQueryResponse(data: unknown): AbciQueryResponse {
+  return AbciQueryResponseCodec.create(data);
+}
+```
+
+```typescript
+// /types/responses/common/abci/index.ts
+export * from './proof-op';
+export * from './query-proof';
+export * from './abci-query-response';
+export * from './abci-info-response';
 ```
 
 #### 2.2 Add Decoder to ResponseDecoder Interface
@@ -323,7 +397,7 @@ export function encodeBlockParams(params: BlockParams): EncodedBlockParams {
 // In RequestEncoder interface
 encodeBlock(params: BlockParams): EncodedBlockParams;
 
-// In ResponseDecoder interface  
+// In ResponseDecoder interface
 decodeBlock<T extends Block = Block>(response: unknown): T;
 
 // In BaseAdapter
@@ -411,26 +485,160 @@ Note: The response codec automatically handles the decode operation, while reque
 
 ### Handling Nested Types
 
-For complex nested structures:
+Nested objects are very common in RPC responses and require special attention. Here's a comprehensive guide:
+
+#### 1. Identify Nested Structures
+Before creating codecs, analyze the response structure:
+- Single nested objects (e.g., `block.header`)
+- Arrays of objects (e.g., `validators[]`)
+- Deeply nested structures (e.g., `block.header.version`)
+- Optional nested objects (may be null/undefined)
+
+#### 2. Create Codecs Bottom-Up
+Always create codecs for the deepest nested types first:
 
 ```typescript
-// For nested objects
-const nestedFieldConverter = createNestedConverter({
-  create: (data) => createNestedType(data)
+// Step 1: Deepest nested type
+export interface BlockVersion {
+  readonly block: bigint;
+  readonly app?: bigint;
+}
+
+export const BlockVersionCodec = createCodec<BlockVersion>({
+  block: apiToBigInt,
+  app: apiToBigInt
 });
 
-// For arrays of objects
-const arrayFieldConverter = createArrayConverter({
-  create: (data) => createItemType(data)
-});
+// Step 2: Parent type that uses the nested type
+export interface BlockHeader {
+  readonly version: BlockVersion;
+  readonly chainId: string;
+  readonly height: bigint;
+  // ... other fields
+}
 
-// Use in codec
-export const ComplexCodec = createCodec<Raw, Processed>({
-  decode: {
-    nestedField: nestedFieldConverter,
-    arrayField: arrayFieldConverter
+export const BlockHeaderCodec = createCodec<BlockHeader>({
+  version: (v) => createBlockVersion(v),
+  chainId: {
+    source: 'chain_id',
+    converter: ensureString
+  },
+  height: apiToBigInt
+});
+```
+
+#### 3. Handling Arrays of Nested Objects
+
+```typescript
+// For arrays, use createArrayConverter
+export interface ValidatorsResponse {
+  readonly blockHeight: bigint;
+  readonly validators: readonly ValidatorInfo[];
+}
+
+export const ValidatorsResponseCodec = createCodec<ValidatorsResponse>({
+  blockHeight: {
+    source: 'block_height',
+    converter: apiToBigInt
+  },
+  validators: createArrayConverter({ create: createValidatorInfo })
+});
+```
+
+#### 4. Optional Nested Objects
+
+```typescript
+// Handle optional nested objects with inline converter
+export const ResponseCodec = createCodec<Response>({
+  optionalNested: {
+    source: 'optional_nested',
+    converter: (v) => v ? createNestedType(v) : undefined
   }
 });
+```
+
+#### 5. Common Patterns for Nested Objects
+
+```typescript
+// Pattern 1: Direct nested object conversion
+nestedField: (v) => createNestedType(v)
+
+// Pattern 2: Optional nested object
+optionalField: (v) => v ? createNestedType(v) : undefined
+
+// Pattern 3: Array of nested objects
+arrayField: createArrayConverter({ create: createNestedType })
+
+// Pattern 4: Nested with source mapping
+nestedField: {
+  source: 'nested_field',
+  converter: (v) => createNestedType(v)
+}
+
+// Pattern 5: Deeply nested access (use with caution)
+deepValue: {
+  source: 'parent.child.value',
+  converter: apiToNumber
+}
+```
+
+#### 6. Error Handling for Nested Types
+
+```typescript
+// Safe nested object creation with validation
+export function createNestedType(data: unknown): NestedType {
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid nested data: expected object');
+  }
+  return NestedTypeCodec.create(data);
+}
+
+// For optional nested objects, handle gracefully
+converter: (v) => {
+  try {
+    return v ? createNestedType(v) : undefined;
+  } catch (e) {
+    console.warn('Failed to parse nested type:', e);
+    return undefined;
+  }
+}
+```
+
+#### 7. File Organization for Nested Types
+
+When dealing with complex nested structures, organize files logically:
+
+```
+types/responses/common/block/
+├── index.ts           # Re-exports all types
+├── block.ts           # Main Block type and codec
+├── block-header.ts    # BlockHeader type and codec
+├── block-id.ts        # BlockId type and codec
+├── block-version.ts   # BlockVersion type and codec
+└── block-response.ts  # BlockResponse wrapper type
+```
+
+Each file should:
+1. Define its interface
+2. Create its codec
+3. Export the creator function
+4. Import and use nested type creators as needed
+
+Example file structure:
+```typescript
+// block-version.ts
+export interface BlockVersion { ... }
+export const BlockVersionCodec = createCodec<BlockVersion>({ ... });
+export function createBlockVersion(data: unknown): BlockVersion { ... }
+
+// block-header.ts
+import { createBlockVersion } from './block-version';
+export interface BlockHeader { ... }
+export const BlockHeaderCodec = createCodec<BlockHeader>({
+  version: (v) => createBlockVersion(v),
+  // ... other fields
+});
+export function createBlockHeader(data: unknown): BlockHeader { ... }
 ```
 
 ## Version-Specific Considerations
