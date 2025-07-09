@@ -191,47 +191,118 @@ decodeMyMethod<T extends MyResponse = MyResponse>(response: unknown): T {
 ### Phase 3: Request Type Refactoring
 
 #### 3.1 Create Request Codec
-- [ ] Create request type file in `/types/requests/common/[method-name].ts`
+- [ ] Create request type files in `/types/requests/common/[method-name]/`
 - [ ] Define TypeScript interfaces for parameters
-- [ ] Create encoded parameter interface
-- [ ] Create codec for parameter encoding
+- [ ] Create encoded parameter interface (how it's sent to RPC)
+- [ ] Check for nested objects in request parameters
+- [ ] Create codec for parameter encoding using `encode` configuration
 - [ ] Add necessary converters (ensureString, ensureNumber, etc.)
+- [ ] Handle optional parameters properly
 
-Example structure:
+Example using AbciQuery request:
+
 ```typescript
-export interface MyMethodParams {
-  param1: string;
-  param2?: number;
-  param3?: boolean;
+// /types/requests/common/abci/abci-query-params.ts
+import { createCodec } from '../../../codec';
+import { ensureNumber, ensureBoolean } from '../../../codec/converters';
+import { toHex } from '@interchainjs/utils';
+import { EncodedAbciQueryParams } from './encoded-abci-query-params';
+
+export interface AbciQueryParams {
+  readonly path: string;
+  readonly data: Uint8Array;
+  readonly height?: number;
+  readonly prove?: boolean;
 }
 
-export interface EncodedMyMethodParams {
-  param1: string;
-  param2?: string;  // numbers encoded as strings
-  param3?: boolean;
-}
-
-export const MyMethodParamsCodec = createCodec<MyMethodParams, EncodedMyMethodParams>({
-  encode: {
-    param1: ensureString,
-    param2: (v) => v != null ? String(v) : undefined,
-    param3: ensureBoolean
+// Codec for encoding ABCI query parameters
+export const AbciQueryParamsCodec = createCodec<EncodedAbciQueryParams>({
+  path: (value: unknown) => String(value),
+  data: {
+    converter: (value: unknown) => {
+      if (value instanceof Uint8Array) {
+        return toHex(value);
+      }
+      throw new Error('data must be Uint8Array');
+    }
+  },
+  height: {
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) return undefined;
+      return String(ensureNumber(value));
+    }
+  },
+  prove: {
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) return undefined;
+      return ensureBoolean(value);
+    }
   }
 });
 
-export function encodeMyMethodParams(params: MyMethodParams): EncodedMyMethodParams {
-  return MyMethodParamsCodec.encode(params);
+// Creator function that encodes the parameters
+export function encodeAbciQueryParams(params: AbciQueryParams): EncodedAbciQueryParams {
+  return AbciQueryParamsCodec.create(params);
 }
 ```
 
+```typescript
+// /types/requests/common/abci/encoded-abci-query-params.ts
+export interface EncodedAbciQueryParams {
+  readonly path: string;
+  readonly data: string;  // hex string
+  readonly height?: string;  // string number
+  readonly prove?: boolean;
+}
+```
+
+```typescript
+// /types/requests/common/abci/index.ts
+export * from './abci-query-params';
+export * from './encoded-abci-query-params';
+```
+
+Key differences from response codecs:
+- Request codec is created on the `EncodedAbciQueryParams` type (the output type)
+- Uses `codec.create()` instead of `codec.encode()` for the encoding function
+- Converters handle the transformation from input types to encoded types
+- Numbers are typically encoded as strings for RPC
+- Binary data is hex-encoded using `toHex()` from `@interchainjs/utils`
+- Optional fields need explicit null/undefined checks to avoid sending undefined values
+
+**Note**: Some methods don't have parameters (e.g., `getAbciInfo`, `getHealth`). Skip Phase 3 for these methods and proceed directly to Phase 4.
+
 #### 3.2 Add Encoder to RequestEncoder Interface
-- [ ] Add method signature to `RequestEncoder` interface
+- [ ] Add method signature to `RequestEncoder` interface in `/adapters/base.ts`
 - [ ] Use proper parameter and return types
+- [ ] Follow naming convention: `encodeMethodName`
+
+Example:
+```typescript
+// In RequestEncoder interface
+export interface RequestEncoder {
+  encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
+  // Add your new method here:
+  encodeBlock(params: BlockParams): EncodedBlockParams;
+}
+```
 
 #### 3.3 Implement Encoder in BaseAdapter
 - [ ] Add implementation in `BaseAdapter` class
 - [ ] Use the encoder function from the codec
-- [ ] Update `encodeParams` to delegate to specific encoder
+- [ ] Import the encoding function from the request types
+
+Example:
+```typescript
+// In BaseAdapter class
+import { encodeAbciQueryParams } from '../types/requests/common/abci';
+
+encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams {
+  return encodeAbciQueryParams(params);
+}
+```
+
+**Note**: We do NOT update `encodeParams` anymore. The refactored code uses specific encoder methods directly, and `encodeParams` will eventually be removed. Each refactored method bypasses `encodeParams` entirely.
 
 ### Phase 4: Update Query Client
 
@@ -280,9 +351,9 @@ async getBlock(height?: number): Promise<Block> {
 ### Phase 6: Cleanup
 
 #### 6.1 Remove Old Code
-- [ ] Remove method-specific logic from `encodeParams`
-- [ ] Remove method-specific logic from `decodeResponse`
+- [ ] Remove method-specific logic from `decodeResponse` (if all methods are refactored)
 - [ ] Remove unused imports
+- [ ] Do NOT modify `encodeParams` - it will be removed entirely once all methods are refactored
 
 #### 6.2 Documentation
 - [ ] Add JSDoc comments to new methods
@@ -472,16 +543,22 @@ export const MyResponseCodec = createCodec<MyResponse>({
   field3: converter3
 });
 
-// For request encoding (with separate encode/decode configs)
-export const MyParamsCodec = createCodec<MyParams, EncodedMyParams>({
-  encode: {
-    field1: ensureString,
-    field2: (v) => v != null ? String(v) : undefined
+// For request encoding
+export const MyParamsCodec = createCodec<EncodedMyParams>({
+  field1: (value: unknown) => String(value),
+  field2: {
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) return undefined;
+      return String(value);
+    }
   }
 });
 ```
 
-Note: The response codec automatically handles the decode operation, while request codecs explicitly specify encode configuration.
+Note: 
+- Response codecs are created on the output type and use `codec.create()` for decoding
+- Request codecs are also created on the output type (encoded params) and use `codec.create()` for encoding
+- Both use the same pattern but with different converter functions (decode vs encode)
 
 ### Handling Nested Types
 
