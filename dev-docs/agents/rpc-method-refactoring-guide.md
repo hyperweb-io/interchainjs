@@ -424,79 +424,147 @@ Key changes:
 5. **Performance**: Reduced runtime type checking
 6. **Extensibility**: Easy to add new fields or change conversions
 
-## Example: Complete Refactoring of getBlock
+## Example: Complete Refactoring of queryAbci
 
-### Step 1: Create Response Types and Codec
+Here's a complete example using the already well-refactored `queryAbci` method:
+
+### Step 1: Response Types Created
 ```typescript
-// types/responses/common/block.ts
-export interface Block {
-  blockId: BlockId;
-  block: BlockData;
+// /types/responses/common/abci/proof-op.ts
+import { createCodec } from '../../../codec';
+import { ensureString, base64ToBytes } from '../../../codec/converters';
+
+export interface ProofOp {
+  readonly type: string;
+  readonly key: Uint8Array;
+  readonly data: Uint8Array;
 }
 
-export const BlockCodec = createCodec<RawBlock, Block>({
-  decode: {
-    blockId: (v) => createBlockId(v),
-    block: (v) => createBlockData(v)
-  }
+export const ProofOpCodec = createCodec<ProofOp>({
+  type: ensureString,
+  key: base64ToBytes,
+  data: base64ToBytes
 });
 
-export function createBlock(data: unknown): Block {
-  return BlockCodec.decode(data);
+export function createProofOp(data: unknown): ProofOp {
+  return ProofOpCodec.create(data);
+}
+
+// /types/responses/common/abci/abci-query-response.ts
+export interface AbciQueryResponse {
+  readonly code?: number;
+  readonly log?: string;
+  readonly info?: string;
+  readonly index?: bigint;
+  readonly key?: Uint8Array;
+  readonly value?: Uint8Array;
+  readonly proofOps?: QueryProof;
+  readonly height?: bigint;
+  readonly codespace?: string;
+}
+
+export const AbciQueryResponseCodec = createCodec<AbciQueryResponse>({
+  code: apiToNumber,
+  log: ensureString,
+  info: ensureString,
+  index: apiToBigInt,
+  key: maybeBase64ToBytes,
+  value: maybeBase64ToBytes,
+  proofOps: {
+    source: 'proof_ops',
+    converter: (v) => v ? createQueryProof(v) : undefined
+  },
+  height: apiToBigInt,
+  codespace: ensureString
+});
+
+export function createAbciQueryResponse(data: unknown): AbciQueryResponse {
+  return AbciQueryResponseCodec.create(data);
 }
 ```
 
-### Step 2: Create Request Types and Codec
+### Step 2: Request Types Created
 ```typescript
-// types/requests/common/block.ts
-export interface BlockParams {
-  height?: number;
+// /types/requests/common/abci/abci-query-params.ts
+import { createCodec } from '../../../codec';
+import { ensureNumber, ensureBoolean } from '../../../codec/converters';
+import { toHex } from '@interchainjs/utils';
+import { EncodedAbciQueryParams } from './encoded-abci-query-params';
+
+export interface AbciQueryParams {
+  readonly path: string;
+  readonly data: Uint8Array;
+  readonly height?: number;
+  readonly prove?: boolean;
 }
 
-export interface EncodedBlockParams {
-  height?: string;
-}
-
-export const BlockParamsCodec = createCodec<BlockParams, EncodedBlockParams>({
-  encode: {
-    height: (v) => v != null ? String(v) : undefined
+export const AbciQueryParamsCodec = createCodec<EncodedAbciQueryParams>({
+  path: (value: unknown) => String(value),
+  data: {
+    converter: (value: unknown) => {
+      if (value instanceof Uint8Array) {
+        return toHex(value);
+      }
+      throw new Error('data must be Uint8Array');
+    }
+  },
+  height: {
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) return undefined;
+      return String(ensureNumber(value));
+    }
+  },
+  prove: {
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) return undefined;
+      return ensureBoolean(value);
+    }
   }
 });
 
-export function encodeBlockParams(params: BlockParams): EncodedBlockParams {
-  return BlockParamsCodec.encode(params);
+export function encodeAbciQueryParams(params: AbciQueryParams): EncodedAbciQueryParams {
+  return AbciQueryParamsCodec.create(params);
 }
 ```
 
-### Step 3: Update Interfaces and BaseAdapter
+### Step 3: Interfaces and Adapter Updated
 ```typescript
-// In RequestEncoder interface
-encodeBlock(params: BlockParams): EncodedBlockParams;
-
 // In ResponseDecoder interface
-decodeBlock<T extends Block = Block>(response: unknown): T;
+decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
+
+// In RequestEncoder interface  
+encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
 
 // In BaseAdapter
-encodeBlock(params: BlockParams): EncodedBlockParams {
-  return encodeBlockParams(params);
+import { encodeAbciQueryParams } from '../types/requests/common/abci';
+import { createAbciQueryResponse } from '../types/responses/common/abci';
+
+encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams {
+  return encodeAbciQueryParams(params);
 }
 
-decodeBlock<T extends Block = Block>(response: unknown): T {
-  const resp = response as Record<string, unknown>;
-  const data = (resp.response || resp) as Record<string, unknown>;
-  return createBlock(data) as T;
+decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T {
+  const res = response as any;
+  return createAbciQueryResponse(res.response || res) as T;
 }
 ```
 
-### Step 4: Update Query Client
+### Step 4: Query Client Updated
 ```typescript
-async getBlock(height?: number): Promise<Block> {
-  const params: BlockParams = height ? { height } : {};
-  const encodedParams = this.protocolAdapter.encodeBlock(params);
-  const result = await this.rpcClient.call(RpcMethod.BLOCK, encodedParams);
-  return this.protocolAdapter.decodeBlock(result);
+// Final refactored method in cosmos-query-client.ts
+async queryAbci(params: AbciQueryParams): Promise<AbciQueryResult> {
+  const encodedParams = this.protocolAdapter.encodeAbciQuery(params);
+  const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
+  return this.protocolAdapter.decodeAbciQuery(result);
 }
 ```
+
+This example demonstrates:
+- Proper file organization with nested types in separate files
+- Codec creation for both request and response types
+- Handling of nested objects (ProofOp, QueryProof)
+- Type conversions (base64→Uint8Array, number→string, etc.)
+- Clean separation of concerns between encoding/decoding logic
 
 ## Available Converter Functions
 
