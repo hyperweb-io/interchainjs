@@ -1,32 +1,206 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
+import {
+  AbciInfoResponse,
+  AbciQueryResponse,
+  createAbciInfoResponse,
+  createAbciQueryResponse
+} from '../types/responses';
+import {
+  CommitResponse,
+  createCommitResponse
+} from '../types/responses/common/commit';
+import {
+  HealthResponse,
+  createHealthResponse
+} from '../types/responses/common/health';
+import {
+  NumUnconfirmedTxsResponse,
+  createNumUnconfirmedTxsResponse
+} from '../types/responses/common/num-unconfirmed-txs';
+import {
+  StatusResponse,
+  createStatusResponse
+} from '../types/responses/common/status';
+import {
+  NetInfoResponse,
+  createNetInfoResponse
+} from '../types/responses/common/net-info';
+import {
+  GenesisChunkedResponse,
+  createGenesisChunkedResponse
+} from '../types/responses/common/genesis-chunked';
+import {
+  HeaderResponse,
+  createHeaderResponse
+} from '../types/responses/common/header';
+import {
+  ConsensusParamsResponse,
+  createConsensusParamsResponse
+} from '../types/responses/common/consensus-params';
+import {
+  ValidatorsResponse,
+  createValidatorsResponse
+} from '../types/responses/common/validators';
+import {
+  BlockResponse
+} from '../types/responses/common/block';
+import {
+  AbciQueryParams,
+  EncodedAbciQueryParams,
+  encodeAbciQueryParams
+} from '../types/requests/common/abci';
+import {
+  CommitParams,
+  EncodedCommitParams,
+  encodeCommitParams
+} from '../types/requests/common/commit';
+import {
+  GenesisChunkedParams,
+  EncodedGenesisChunkedParams,
+  encodeGenesisChunkedParams
+} from '../types/requests/common/genesis-chunked';
+import {
+  TxResponse,
+  createTxResponse
+} from '../types/responses/common/tx';
+import {
+  TxSearchResponse,
+  createTxSearchResponse
+} from '../types/responses/common/tx-search';
+import {
+  BlockSearchResponse,
+  createBlockSearchResponse
+} from '../types/responses/common/block-search';
+import {
+  BroadcastTxSyncResponse,
+  createBroadcastTxSyncResponse
+} from '../types/responses/common/broadcast-tx-sync';
+import {
+  BroadcastTxAsyncResponse,
+  createBroadcastTxAsyncResponse
+} from '../types/responses/common/broadcast-tx-async';
+import {
+  BroadcastTxCommitResponse,
+  createBroadcastTxCommitResponse
+} from '../types/responses/common/broadcast-tx-commit';
+import {
+  CheckTxResponse,
+  createCheckTxResponse
+} from '../types/responses/common/check-tx';
+
+// Type definitions for removed imports
+type BlockByHashParams = any;
+type EncodedBlockByHashParams = any;
+type BlockResultsParams = any;
+type EncodedBlockResultsParams = any;
+type BlockResultsResponse = any;
+type BlockchainParams = any;
+type EncodedBlockchainParams = any;
+type BlockchainResponse = any;
+type ConsensusStateParams = any;
+type EncodedConsensusStateParams = any;
+type ConsensusStateResponse = any;
+type DumpConsensusStateParams = any;
+type EncodedDumpConsensusStateParams = any;
+type DumpConsensusStateResponse = any;
+type GenesisParams = any;
+type EncodedGenesisParams = any;
+type GenesisResponse = any;
+type HeaderParams = any;
+type EncodedHeaderParams = any;
+type HeaderByHashParams = any;
+type EncodedHeaderByHashParams = any;
+type UnconfirmedTxsParams = any;
+type EncodedUnconfirmedTxsParams = any;
+type UnconfirmedTxsResponse = any;
+type ValidatorsParams = any;
+type EncodedValidatorsParams = any;
+type TxParams = any;
+type EncodedTxParams = any;
+type TxSearchParams = any;
+type EncodedTxSearchParams = any;
+type BlockSearchParams = any;
+type EncodedBlockSearchParams = any;
+type BroadcastTxSyncParams = any;
+type EncodedBroadcastTxSyncParams = any;
+type BroadcastTxAsyncParams = any;
+type EncodedBroadcastTxAsyncParams = any;
+type BroadcastTxCommitParams = any;
+type EncodedBroadcastTxCommitParams = any;
+type CheckTxParams = any;
+type EncodedCheckTxParams = any;
+
+// Dummy encoder functions
+const encodeBlockByHashParams = (params: any): any => params;
+const encodeBlockResultsParams = (params: any): any => params;
+const encodeBlockchainParams = (params: any): any => params;
+const encodeConsensusStateParams = (params: any): any => params;
+const encodeDumpConsensusStateParams = (params: any): any => params;
+const encodeGenesisParams = (params: any): any => params;
+const encodeHeaderParams = (params: any): any => params;
+const encodeHeaderByHashParams = (params: any): any => params;
+const encodeUnconfirmedTxsParams = (params: any): any => params;
+const encodeValidatorsParams = (params: any): any => params;
+const encodeTxParams = (params: any): any => params;
+const encodeTxSearchParams = (params: any): any => params;
+const encodeBlockSearchParams = (params: any): any => params;
+const encodeBroadcastTxSyncParams = (params: any): any => params;
+const encodeBroadcastTxAsyncParams = (params: any): any => params;
+const encodeBroadcastTxCommitParams = (params: any): any => params;
+const encodeCheckTxParams = (params: any): any => params;
+const createUnconfirmedTxsResponse = (data: any): any => data;
+
+export interface RequestEncoder {
+  encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
+  encodeCommit(params: CommitParams): EncodedCommitParams;
+  encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams;
+  encodeBlockResults(params: BlockResultsParams): EncodedBlockResultsParams;
+  encodeBlockchain(params: BlockchainParams): EncodedBlockchainParams;
+  encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams;
+  encodeDumpConsensusState(params: DumpConsensusStateParams): EncodedDumpConsensusStateParams;
+  encodeGenesis(params: GenesisParams): EncodedGenesisParams;
+  encodeGenesisChunked(params: GenesisChunkedParams): EncodedGenesisChunkedParams;
+  encodeHeader(params: HeaderParams): EncodedHeaderParams;
+  encodeHeaderByHash(params: HeaderByHashParams): EncodedHeaderByHashParams;
+  encodeUnconfirmedTxs(params: UnconfirmedTxsParams): EncodedUnconfirmedTxsParams;
+  encodeValidators(params: ValidatorsParams): EncodedValidatorsParams;
+  encodeTx(params: TxParams): EncodedTxParams;
+  encodeTxSearch(params: TxSearchParams): EncodedTxSearchParams;
+  encodeBlockSearch(params: BlockSearchParams): EncodedBlockSearchParams;
+  encodeBroadcastTxSync(params: BroadcastTxSyncParams): EncodedBroadcastTxSyncParams;
+  encodeBroadcastTxAsync(params: BroadcastTxAsyncParams): EncodedBroadcastTxAsyncParams;
+  encodeBroadcastTxCommit(params: BroadcastTxCommitParams): EncodedBroadcastTxCommitParams;
+  encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams;
+}
 
 export interface ResponseDecoder {
-  decodeAbciInfo(response: any): any;
-  decodeAbciQuery(response: any): any;
-  decodeBlock(response: any): any;
-  decodeBlockResults(response: any): any;
-  decodeBlockSearch(response: any): any;
-  decodeBlockchain(response: any): any;
+  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
+  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
+  decodeBlock(response: any): BlockResponse;
+  decodeBlockResults(response: any): BlockResultsResponse;
+  decodeBlockSearch(response: any): BlockSearchResponse;
+  decodeBlockchain(response: any): BlockchainResponse;
   decodeBroadcastTx(response: any): any;
-  decodeBroadcastTxSync?(response: any): any;
-  decodeBroadcastTxAsync?(response: any): any;
-  decodeBroadcastTxCommit?(response: any): any;
-  decodeCommit(response: any): any;
+  decodeBroadcastTxSync?(response: any): BroadcastTxSyncResponse;
+  decodeBroadcastTxAsync?(response: any): BroadcastTxAsyncResponse;
+  decodeBroadcastTxCommit?(response: any): BroadcastTxCommitResponse;
+  decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T;
   decodeConsensusParams(response: any): any;
-  decodeConsensusState(response: any): any;
-  decodeDumpConsensusState(response: any): any;
-  decodeGenesis(response: any): any;
-  decodeGenesisChunked(response: any): any;
-  decodeHeader(response: any): any;
-  decodeHealth(response: any): any;
-  decodeNetInfo(response: any): any;
-  decodeNumUnconfirmedTxs(response: any): any;
-  decodeStatus(response: any): any;
-  decodeTx(response: any): any;
-  decodeTxSearch(response: any): any;
-  decodeUnconfirmedTxs(response: any): any;
+  decodeConsensusState(response: any): ConsensusStateResponse;
+  decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
+  decodeGenesis(response: any): GenesisResponse;
+  decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T;
+  decodeHeader(response: any): HeaderResponse;
+  decodeHealth<T extends HealthResponse = HealthResponse>(response: unknown): T;
+  decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T;
+  decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T;
+  decodeStatus<T extends StatusResponse = StatusResponse>(response: unknown): T;
+  decodeTx(response: any): TxResponse;
+  decodeTxSearch(response: any): TxSearchResponse;
+  decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
   decodeValidators(response: any): any;
+  decodeCheckTx?(response: any): CheckTxResponse;
 }
 
 export interface IProtocolAdapter {
@@ -39,9 +213,11 @@ export interface IProtocolAdapter {
   decodeBytes(data: Uint8Array): string;
 }
 
-export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
+export interface ICosmosProtocolAdapter extends IProtocolAdapter, RequestEncoder, ResponseDecoder {}
+
+export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, ICosmosProtocolAdapter {
   constructor(protected version: ProtocolVersion) {}
-  
+
   // Recursive snake_case to camelCase transformation
   protected toCamelCase(str: string): string {
     return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
@@ -51,11 +227,11 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
     if (obj === null || obj === undefined) {
       return obj;
     }
-    
+
     if (Array.isArray(obj)) {
       return obj.map(item => this.transformKeys(item));
     }
-    
+
     if (typeof obj === 'object') {
       const transformed: any = {};
       for (const [key, value] of Object.entries(obj)) {
@@ -64,10 +240,10 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       }
       return transformed;
     }
-    
+
     return obj;
   }
-  
+
   protected apiToNumber(value: string | undefined | null): number {
     if (!value) return 0;
     const num = parseInt(value, 10);
@@ -87,14 +263,14 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
 
   protected safeFromBase64(value: string): Uint8Array {
     if (!value) return new Uint8Array(0);
-    
+
     // Fix base64 padding if needed
     let paddedValue = value;
     const remainder = value.length % 4;
     if (remainder > 0) {
       paddedValue = value + '='.repeat(4 - remainder);
     }
-    
+
     try {
       return fromBase64(paddedValue);
     } catch (error) {
@@ -126,10 +302,10 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
 
   protected decodeEventAttribute(value: string): Uint8Array {
     if (!value) return new Uint8Array(0);
-    
+
     // Check if the value looks like base64 and has proper length
     const isBase64Like = /^[A-Za-z0-9+/]*={0,2}$/.test(value) && value.length % 4 === 0;
-    
+
     if (isBase64Like) {
       try {
         // Try to decode as base64 first
@@ -144,7 +320,7 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
         // Fall through to treat as plain text
       }
     }
-    
+
     // Treat as plain text string
     return new TextEncoder().encode(value);
   }
@@ -161,44 +337,147 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
   encodeParams(method: RpcMethod, params: any): any {
     // Convert camelCase to snake_case for Tendermint/CometBFT
     if (!params) return {};
-    
-    // Special handling for blockchain method which expects array parameters
+
+    // Special handling for ABCI query using codec
+    if (method === RpcMethod.ABCI_QUERY) {
+      const encoded = this.encodeAbciQuery(params as AbciQueryParams);
+      // Convert to snake_case for RPC
+      return {
+        path: encoded.path,
+        data: encoded.data,
+        height: encoded.height,
+        prove: encoded.prove
+      };
+    }
+
+    // Special handling for commit using codec
+    if (method === RpcMethod.COMMIT) {
+      const encoded = this.encodeCommit(params as CommitParams);
+      return encoded;
+    }
+
+    // Special handling for block_by_hash using codec
+    if (method === RpcMethod.BLOCK_BY_HASH) {
+      const encoded = this.encodeBlockByHash(params as BlockByHashParams);
+      return encoded;
+    }
+
+    // Special handling for block_results using codec
+    if (method === RpcMethod.BLOCK_RESULTS) {
+      const encoded = this.encodeBlockResults(params as BlockResultsParams);
+      return encoded;
+    }
+
+    // Special handling for blockchain using codec
     if (method === RpcMethod.BLOCKCHAIN) {
-      if (params.minHeight !== undefined && params.maxHeight !== undefined) {
-        return [params.minHeight.toString(), params.maxHeight.toString()];
+      const encoded = this.encodeBlockchain(params as BlockchainParams);
+      // Convert to array format for RPC
+      if (encoded.minHeight !== undefined && encoded.maxHeight !== undefined) {
+        return [encoded.minHeight, encoded.maxHeight];
       }
       return {}; // Return empty object instead of empty array when no params
     }
-    
+
     // Convert height to string for block-related methods
-    if ((method === RpcMethod.BLOCK || method === RpcMethod.BLOCK_RESULTS ||
-         method === RpcMethod.COMMIT || method === RpcMethod.HEADER) &&
+    if ((method === RpcMethod.BLOCK || method === RpcMethod.HEADER) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
     }
-    
+
     // Convert height to string for validator and consensus methods
     if ((method === RpcMethod.VALIDATORS || method === RpcMethod.CONSENSUS_PARAMS) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
     }
-    
-    // Convert height to string for ABCI query method
-    if (method === RpcMethod.ABCI_QUERY &&
-        params.height !== undefined && typeof params.height === "number") {
-      params = { ...params, height: params.height.toString() };
+
+    // Special handling for consensus_state using codec
+    if (method === RpcMethod.CONSENSUS_STATE) {
+      const encoded = this.encodeConsensusState(params as ConsensusStateParams);
+      return encoded;
     }
-    
-    // Convert limit to string for unconfirmed_txs method
-    if (method === RpcMethod.UNCONFIRMED_TXS &&
-        params.limit !== undefined && typeof params.limit === "number") {
-      params = { ...params, limit: params.limit.toString() };
+
+    // Special handling for dump_consensus_state using codec
+    if (method === RpcMethod.DUMP_CONSENSUS_STATE) {
+      const encoded = this.encodeDumpConsensusState(params as DumpConsensusStateParams);
+      return encoded;
     }
-    
+
+    // Special handling for genesis using codec
+    if (method === RpcMethod.GENESIS) {
+      const encoded = this.encodeGenesis(params as GenesisParams);
+      return encoded;
+    }
+
+    // Special handling for genesis_chunked using codec
+    if (method === RpcMethod.GENESIS_CHUNKED) {
+      const encoded = this.encodeGenesisChunked(params as GenesisChunkedParams);
+      return encoded;
+    }
+
+    // Special handling for header_by_hash using codec
+    if (method === RpcMethod.HEADER_BY_HASH) {
+      const encoded = this.encodeHeaderByHash(params as HeaderByHashParams);
+      return encoded;
+    }
+
+    // Special handling for unconfirmed_txs using codec
+    if (method === RpcMethod.UNCONFIRMED_TXS) {
+      const encoded = this.encodeUnconfirmedTxs(params as UnconfirmedTxsParams);
+      return encoded;
+    }
+
+    // Special handling for validators using codec
+    if (method === RpcMethod.VALIDATORS) {
+      const encoded = this.encodeValidators(params as ValidatorsParams);
+      return encoded;
+    }
+
+    // Special handling for tx using codec
+    if (method === RpcMethod.TX) {
+      const encoded = this.encodeTx(params as TxParams);
+      return encoded;
+    }
+
+    // Special handling for tx_search using codec
+    if (method === RpcMethod.TX_SEARCH) {
+      const encoded = this.encodeTxSearch(params as TxSearchParams);
+      return encoded;
+    }
+
+    // Special handling for block_search using codec
+    if (method === RpcMethod.BLOCK_SEARCH) {
+      const encoded = this.encodeBlockSearch(params as BlockSearchParams);
+      return encoded;
+    }
+
+    // Special handling for broadcast_tx_sync using codec
+    if (method === RpcMethod.BROADCAST_TX_SYNC) {
+      const encoded = this.encodeBroadcastTxSync(params as BroadcastTxSyncParams);
+      return encoded;
+    }
+
+    // Special handling for broadcast_tx_async using codec
+    if (method === RpcMethod.BROADCAST_TX_ASYNC) {
+      const encoded = this.encodeBroadcastTxAsync(params as BroadcastTxAsyncParams);
+      return encoded;
+    }
+
+    // Special handling for broadcast_tx_commit using codec
+    if (method === RpcMethod.BROADCAST_TX_COMMIT) {
+      const encoded = this.encodeBroadcastTxCommit(params as BroadcastTxCommitParams);
+      return encoded;
+    }
+
+    // Special handling for check_tx using codec
+    if (method === RpcMethod.CHECK_TX) {
+      const encoded = this.encodeCheckTx(params as CheckTxParams);
+      return encoded;
+    }
+
     const encoded: any = {};
     for (const [key, value] of Object.entries(params)) {
       const snakeKey = this.camelToSnake(key);
-      
+
       // Handle hash parameters with 0x prefix
       if (key === 'hash' && typeof value === 'string' && value.startsWith('0x')) {
         // Convert hex to base64 for RPC
@@ -208,23 +487,15 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       }
       // Handle Uint8Array data (especially for ABCI queries and broadcast)
       else if (value instanceof Uint8Array) {
-        // For broadcast methods, encode as base64
-        if ((method === RpcMethod.BROADCAST_TX_SYNC || 
-             method === RpcMethod.BROADCAST_TX_ASYNC || 
-             method === RpcMethod.BROADCAST_TX_COMMIT) && key === 'tx') {
+        // For tx field in broadcast methods, encode as base64
+        if (key === 'tx') {
           encoded[snakeKey] = Buffer.from(value).toString('base64');
         } else {
           // Convert Uint8Array to hex string for RPC
           encoded[snakeKey] = this.decodeBytes(value);
         }
       }
-      // Convert numeric parameters to strings for certain methods
-      else if ((method === RpcMethod.BLOCK_SEARCH || method === RpcMethod.TX_SEARCH ||
-                method === RpcMethod.VALIDATORS) &&
-          (key === 'page' || key === 'perPage') && 
-          typeof value === 'number') {
-        encoded[snakeKey] = value.toString();
-      } else {
+      else {
         encoded[snakeKey] = value;
       }
     }
@@ -239,6 +510,7 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       case RpcMethod.ABCI_QUERY:
         return this.decodeAbciQuery(response);
       case RpcMethod.BLOCK:
+      case RpcMethod.BLOCK_BY_HASH:
         return this.decodeBlock(response);
       case RpcMethod.BLOCK_RESULTS:
         return this.decodeBlockResults(response);
@@ -278,13 +550,13 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       case RpcMethod.COMMIT:
         return this.decodeCommit(response);
       case RpcMethod.CHECK_TX:
-        return this.decodeBroadcastTx(response);
+        return this.decodeCheckTx(response);
       case RpcMethod.BROADCAST_TX_SYNC:
-        return (this as any).decodeBroadcastTxSync ? (this as any).decodeBroadcastTxSync(response) : this.decodeBroadcastTx(response);
+        return this.decodeBroadcastTxSync(response);
       case RpcMethod.BROADCAST_TX_ASYNC:
-        return (this as any).decodeBroadcastTxAsync ? (this as any).decodeBroadcastTxAsync(response) : this.decodeBroadcastTx(response);
+        return this.decodeBroadcastTxAsync(response);
       case RpcMethod.BROADCAST_TX_COMMIT:
-        return (this as any).decodeBroadcastTxCommit ? (this as any).decodeBroadcastTxCommit(response) : this.decodeBroadcastTx(response);
+        return this.decodeBroadcastTxCommit(response);
       default:
         // For unsupported methods, return raw response
         return response;
@@ -301,7 +573,7 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       }
       return bytes;
     }
-    
+
     // Assume base64
     const binary = atob(data);
     const bytes = new Uint8Array(binary.length);
@@ -326,7 +598,7 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       RpcMethod.ABCI_INFO,
       RpcMethod.HEALTH,
       RpcMethod.NET_INFO,
-      
+
       // Block queries
       RpcMethod.BLOCK,
       RpcMethod.BLOCK_BY_HASH,
@@ -336,14 +608,14 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       RpcMethod.HEADER,
       RpcMethod.HEADER_BY_HASH,
       RpcMethod.COMMIT,
-      
+
       // Transaction queries
       RpcMethod.TX,
       RpcMethod.TX_SEARCH,
       RpcMethod.CHECK_TX,
       RpcMethod.UNCONFIRMED_TXS,
       RpcMethod.NUM_UNCONFIRMED_TXS,
-      
+
       // Chain queries
       RpcMethod.VALIDATORS,
       RpcMethod.CONSENSUS_PARAMS,
@@ -351,10 +623,10 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
       RpcMethod.DUMP_CONSENSUS_STATE,
       RpcMethod.GENESIS,
       RpcMethod.GENESIS_CHUNKED,
-      
+
       // ABCI queries
       RpcMethod.ABCI_QUERY,
-      
+
       // Subscription
       RpcMethod.SUBSCRIBE,
       RpcMethod.UNSUBSCRIBE,
@@ -409,27 +681,150 @@ export abstract class BaseAdapter implements ResponseDecoder, IProtocolAdapter {
     return converted;
   }
 
+  // Common decode methods that work across all versions
+  decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.response || resp) as Record<string, unknown>;
+    return createAbciInfoResponse(data) as T;
+  }
+
+  decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.response || resp) as Record<string, unknown>;
+    return createAbciQueryResponse(data) as T;
+  }
+
+  encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams {
+    return encodeAbciQueryParams(params);
+  }
+
+  encodeCommit(params: CommitParams): EncodedCommitParams {
+    return encodeCommitParams(params);
+  }
+
+  encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams {
+    return encodeBlockByHashParams(params);
+  }
+
+  encodeBlockResults(params: BlockResultsParams): EncodedBlockResultsParams {
+    return encodeBlockResultsParams(params);
+  }
+
+  encodeBlockchain(params: BlockchainParams): EncodedBlockchainParams {
+    return encodeBlockchainParams(params);
+  }
+
+  encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams {
+    return encodeConsensusStateParams(params);
+  }
+
+  encodeDumpConsensusState(params: DumpConsensusStateParams): EncodedDumpConsensusStateParams {
+    return encodeDumpConsensusStateParams(params);
+  }
+
+  encodeGenesis(params: GenesisParams): EncodedGenesisParams {
+    return encodeGenesisParams(params);
+  }
+
+  encodeGenesisChunked(params: GenesisChunkedParams): EncodedGenesisChunkedParams {
+    return encodeGenesisChunkedParams(params);
+  }
+
+  encodeHeader(params: HeaderParams): EncodedHeaderParams {
+    return encodeHeaderParams(params);
+  }
+
+  encodeHeaderByHash(params: HeaderByHashParams): EncodedHeaderByHashParams {
+    return encodeHeaderByHashParams(params);
+  }
+
+  encodeUnconfirmedTxs(params: UnconfirmedTxsParams): EncodedUnconfirmedTxsParams {
+    return encodeUnconfirmedTxsParams(params);
+  }
+
+  encodeValidators(params: ValidatorsParams): EncodedValidatorsParams {
+    return encodeValidatorsParams(params);
+  }
+
+  encodeTx(params: TxParams): EncodedTxParams {
+    return encodeTxParams(params);
+  }
+
+  encodeTxSearch(params: TxSearchParams): EncodedTxSearchParams {
+    return encodeTxSearchParams(params);
+  }
+
+  encodeBlockSearch(params: BlockSearchParams): EncodedBlockSearchParams {
+    return encodeBlockSearchParams(params);
+  }
+
+  encodeBroadcastTxSync(params: BroadcastTxSyncParams): EncodedBroadcastTxSyncParams {
+    return encodeBroadcastTxSyncParams(params);
+  }
+
+  encodeBroadcastTxAsync(params: BroadcastTxAsyncParams): EncodedBroadcastTxAsyncParams {
+    return encodeBroadcastTxAsyncParams(params);
+  }
+
+  encodeBroadcastTxCommit(params: BroadcastTxCommitParams): EncodedBroadcastTxCommitParams {
+    return encodeBroadcastTxCommitParams(params);
+  }
+
+  encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams {
+    return encodeCheckTxParams(params);
+  }
+
   // Abstract methods that must be implemented by version-specific adapters
-  abstract decodeAbciInfo(response: any): any;
-  abstract decodeAbciQuery(response: any): any;
-  abstract decodeBlock(response: any): any;
-  abstract decodeBlockResults(response: any): any;
-  abstract decodeBlockSearch(response: any): any;
-  abstract decodeBlockchain(response: any): any;
+  abstract decodeBlock(response: any): BlockResponse;
+  abstract decodeBlockResults(response: any): BlockResultsResponse;
+  abstract decodeBlockSearch(response: any): BlockSearchResponse;
+  abstract decodeBlockchain(response: any): BlockchainResponse;
   abstract decodeBroadcastTx(response: any): any;
-  abstract decodeCommit(response: any): any;
-  abstract decodeConsensusParams(response: any): any;
-  abstract decodeConsensusState(response: any): any;
-  abstract decodeDumpConsensusState(response: any): any;
-  abstract decodeGenesis(response: any): any;
-  abstract decodeGenesisChunked(response: any): any;
-  abstract decodeHeader(response: any): any;
-  abstract decodeHealth(response: any): any;
-  abstract decodeNetInfo(response: any): any;
-  abstract decodeNumUnconfirmedTxs(response: any): any;
-  abstract decodeStatus(response: any): any;
-  abstract decodeTx(response: any): any;
-  abstract decodeTxSearch(response: any): any;
-  abstract decodeUnconfirmedTxs(response: any): any;
-  abstract decodeValidators(response: any): any;
+  decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createCommitResponse(data) as T;
+  }
+  decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createConsensusParamsResponse(data) as T;
+  }
+  abstract decodeConsensusState(response: any): ConsensusStateResponse;
+  abstract decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
+  abstract decodeGenesis(response: any): GenesisResponse;
+  decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createGenesisChunkedResponse(data) as T;
+  }
+  decodeHeader<T extends HeaderResponse = HeaderResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createHeaderResponse(data) as T;
+  }
+  decodeHealth<T extends HealthResponse = HealthResponse>(response: unknown): T {
+    // Health endpoint returns null when healthy, or throws error
+    return createHealthResponse(response) as T;
+  }
+  decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createNetInfoResponse(data) as T;
+  }
+  decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createNumUnconfirmedTxsResponse(data) as T;
+  }
+  decodeStatus<T extends StatusResponse = StatusResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createStatusResponse(data) as T;
+  }
+  abstract decodeTx(response: any): TxResponse;
+  abstract decodeTxSearch(response: any): TxSearchResponse;
+  abstract decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
+  abstract decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse;
+  abstract decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse;
+  abstract decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse;
+  abstract decodeCheckTx(response: any): CheckTxResponse;
+  decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createValidatorsResponse(data) as T;
+  }
 }

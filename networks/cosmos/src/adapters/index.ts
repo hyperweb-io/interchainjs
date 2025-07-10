@@ -1,15 +1,15 @@
-export { BaseAdapter, ResponseDecoder, IProtocolAdapter } from './base';
+export { BaseAdapter, ResponseDecoder, IProtocolAdapter, ICosmosProtocolAdapter } from './base';
 export { Tendermint34Adapter } from './tendermint34';
 export { Tendermint37Adapter } from './tendermint37';
 export { Comet38Adapter } from './comet38';
 
-import { IProtocolAdapter } from './base';
+import { IProtocolAdapter, ICosmosProtocolAdapter } from './base';
 import { ProtocolVersion, ProtocolInfo } from '../types/protocol';
 import { Tendermint34Adapter } from './tendermint34';
 import { Tendermint37Adapter } from './tendermint37';
 import { Comet38Adapter } from './comet38';
 
-export function createProtocolAdapter(version?: ProtocolVersion): IProtocolAdapter {
+export function createProtocolAdapter(version?: ProtocolVersion): ICosmosProtocolAdapter {
   switch (version) {
     case ProtocolVersion.TENDERMINT_34:
       return new Tendermint34Adapter();
