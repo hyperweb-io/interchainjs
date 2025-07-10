@@ -43,7 +43,8 @@ import {
   createValidatorsResponse
 } from '../types/responses/common/validators';
 import {
-  BlockResponse
+  BlockResponse,
+  createBlockResponse
 } from '../types/responses/common/block';
 import {
   AbciQueryParams,
@@ -184,7 +185,7 @@ export interface RequestEncoder {
 export interface ResponseDecoder {
   decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
   decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
-  decodeBlock(response: unknown): BlockResponse;
+  decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T;
   decodeBlockResults(response: any): BlockResultsResponse;
   decodeBlockSearch(response: any): BlockSearchResponse;
   decodeBlockchain(response: any): BlockchainResponse;
@@ -776,8 +777,11 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeCheckTxParams(params);
   }
 
+  decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T {
+    return createBlockResponse(response) as T;
+  }
+
   // Abstract methods that must be implemented by version-specific adapters
-  abstract decodeBlock(response: unknown): BlockResponse;
   abstract decodeBlockResults(response: any): BlockResultsResponse;
   abstract decodeBlockSearch(response: any): BlockSearchResponse;
   abstract decodeBlockchain(response: any): BlockchainResponse;

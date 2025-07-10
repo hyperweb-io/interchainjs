@@ -17,11 +17,13 @@ These methods have been successfully refactored and their checklists serve as ex
 - [abci-query-check-list.md](./abci-query-check-list.md) ✅ - `queryAbci()` - Excellent parameter encoding example
 - [commit-check-list.md](./commit-check-list.md) ✅ - `getCommit()` - Optional parameter with response extraction
 
+### Block-Related Methods
+- [block-check-list.md](./block-check-list.md) ✅ - `getBlock(height?: number)` - Shared response types with block-by-hash
+- [block-by-hash-check-list.md](./block-by-hash-check-list.md) ✅ - `getBlockByHash(hash: string)` - Reuses block response types
+
 ## Methods Requiring Refactoring
 
 ### Block-Related Methods
-- [block-check-list.md](./block-check-list.md) - `getBlock(height?: number)`
-- [block-by-hash-check-list.md](./block-by-hash-check-list.md) - `getBlockByHash(hash: string)`
 - [block-results-check-list.md](./block-results-check-list.md) - `getBlockResults(height?: number)`
 - [search-blocks-check-list.md](./search-blocks-check-list.md) - `searchBlocks(params: BlockSearchParams)`
 - [blockchain-check-list.md](./blockchain-check-list.md) - `getBlockchain(minHeight?: number, maxHeight?: number)`

@@ -2,8 +2,7 @@ import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
 import {
-  BlockResponse,
-  createBlockResponse
+  BlockResponse
 } from '../types/responses/common/block';
 // Type definitions for removed imports
 type BlockResultsResponse = any;
@@ -54,9 +53,7 @@ export class Tendermint37Adapter extends BaseAdapter {
     super(ProtocolVersion.TENDERMINT_37);
   }
 
-  decodeBlock(response: unknown): BlockResponse {
-    return createBlockResponse(response);
-  }
+
 
   private decodeBlockId(data: any): any {
     if (!data) return null;
