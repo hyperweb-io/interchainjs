@@ -18,13 +18,13 @@ export interface SyncInfo {
 }
 
 export const SyncInfoCodec = createCodec<SyncInfo>({
-  latest_block_hash: { source: 'latest_block_hash', converter: ensureBytes },
-  latest_app_hash: { source: 'latest_app_hash', converter: ensureBytes },
-  latest_block_height: { source: 'latest_block_height', converter: ensureNumber },
-  latest_block_time: { source: 'latest_block_time', converter: ensureDate },
-  earliest_block_hash: { source: 'earliest_block_hash', converter: ensureBytes },
-  earliest_app_hash: { source: 'earliest_app_hash', converter: ensureBytes },
-  earliest_block_height: { source: 'earliest_block_height', converter: ensureNumber },
-  earliest_block_time: { source: 'earliest_block_time', converter: ensureDate },
-  catching_up: { source: 'catching_up', converter: ensureBoolean }
+  latestBlockHash: { source: 'latest_block_hash', converter: base64ToBytes },
+  latestAppHash: { source: 'latest_app_hash', converter: base64ToBytes },
+  latestBlockHeight: { source: 'latest_block_height', converter: ensureNumber },
+  latestBlockTime: { source: 'latest_block_time', converter: ensureDate },
+  earliestBlockHash: { source: 'earliest_block_hash', converter: base64ToBytes },
+  earliestAppHash: { source: 'earliest_app_hash', converter: base64ToBytes },
+  earliestBlockHeight: { source: 'earliest_block_height', converter: ensureNumber },
+  earliestBlockTime: { source: 'earliest_block_time', converter: ensureDate },
+  catchingUp: { source: 'catching_up', converter: ensureBoolean }
 });

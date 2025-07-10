@@ -17,8 +17,8 @@ export interface Validator {
 }
 
 export const ValidatorCodec = createCodec<Validator>({
-  address: { source: 'address', converter: ensureBytes },
-  pub_key: { source: 'pub_key' },
-  voting_power: { source: 'voting_power', converter: ensureBigInt },
-  proposer_priority: { source: 'proposer_priority', converter: ensureNumber }
+  address: { converter: ensureBytes },
+  pubKey: { source: 'pub_key' },
+  votingPower: { source: 'voting_power', converter: ensureBigInt },
+  proposerPriority: { source: 'proposer_priority', converter: ensureBigInt }
 });

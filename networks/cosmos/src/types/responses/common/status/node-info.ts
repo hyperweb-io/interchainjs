@@ -25,12 +25,24 @@ export interface NodeInfo {
 }
 
 export const NodeInfoCodec = createCodec<NodeInfo>({
-  protocol_version: { source: 'protocol_version' },
-  id: { source: 'id', converter: ensureString },
-  listen_addr: { source: 'listen_addr', converter: ensureString },
-  network: { source: 'network', converter: ensureString },
-  version: { source: 'version', converter: ensureString },
-  channels: { source: 'channels', converter: ensureString },
-  moniker: { source: 'moniker', converter: ensureString },
-  other: { source: 'other' }
+  protocolVersion: { 
+    source: 'protocol_version',
+    converter: (value: any) => ({
+      p2p: ensureString(value?.p2p),
+      block: ensureString(value?.block),
+      app: ensureString(value?.app)
+    })
+  },
+  id: ensureString,
+  listenAddr: { source: 'listen_addr', converter: ensureString },
+  network: ensureString,
+  version: ensureString,
+  channels: ensureString,
+  moniker: ensureString,
+  other: { 
+    converter: (value: any) => ({
+      txIndex: ensureString(value?.tx_index),
+      rpcAddress: ensureString(value?.rpc_address)
+    })
+  }
 });

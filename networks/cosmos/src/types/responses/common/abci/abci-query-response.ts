@@ -31,8 +31,8 @@ export interface AbciQueryResponse {
 }
 
 export const AbciQueryResponseCodec = createCodec<AbciQueryResponse>({
-  key: base64ToBytes,
-  value: base64ToBytes,
+  key: { converter: (value: unknown) => value ? base64ToBytes(value) : new Uint8Array() },
+  value: { converter: (value: unknown) => value ? base64ToBytes(value) : new Uint8Array() },
   proof: {
     source: 'proof_ops',
     converter: (value: unknown) => value ? QueryProofCodec.create(value) : undefined
@@ -40,9 +40,9 @@ export const AbciQueryResponseCodec = createCodec<AbciQueryResponse>({
   height: apiToNumber,
   index: apiToNumber,
   code: apiToNumber,
-  codespace: ensureString,
-  log: ensureString,
-  info: ensureString
+  codespace: { converter: (value: unknown) => ensureString(value || '') },
+  log: { converter: (value: unknown) => ensureString(value || '') },
+  info: { converter: (value: unknown) => ensureString(value || '') }
 });
 
 export function createAbciQueryResponse(data: unknown): AbciQueryResponse {

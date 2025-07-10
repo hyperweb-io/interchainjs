@@ -3,7 +3,7 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
 
-const RPC_ENDPOINT = 'https://rpc.osmosis.zone/';
+const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;
 
 describe('Cosmos Query Client - Functional Tests', () => {
@@ -25,7 +25,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       expect(status).toBeDefined();
       expect(status.nodeInfo).toBeDefined();
-      expect(status.nodeInfo.network).toBe('osmosis-1');
+      expect(status.nodeInfo.network).toBe('cosmoshub-4');
       expect(status.nodeInfo.version).toBeDefined();
       expect(status.nodeInfo.protocolVersion).toBeDefined();
       expect(status.nodeInfo.protocolVersion.p2p).toBeDefined();
@@ -49,7 +49,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
       const result = await queryClient.getAbciInfo();
 
       expect(result).toBeDefined();
-      expect(result.data).toBe('OsmosisApp');
+      expect(result.data).toBe('GaiaApp');
       expect(result.lastBlockHeight).toBeDefined();
       expect(result.lastBlockHeight).toBeGreaterThan(0);
       expect(result.lastBlockAppHash).toBeDefined();
