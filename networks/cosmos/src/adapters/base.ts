@@ -786,7 +786,9 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
   // Abstract methods that must be implemented by version-specific adapters
   decodeBlockResults<T extends BlockResultsResponse = BlockResultsResponse>(response: unknown): T {
-    return createBlockResultsResponse(response) as T;
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createBlockResultsResponse(data) as T;
   }
   abstract decodeBlockSearch(response: any): BlockSearchResponse;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {

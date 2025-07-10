@@ -32,13 +32,15 @@ export interface BlockResultsResponse {
   readonly validatorUpdates?: readonly ValidatorUpdate[];
   /** Consensus parameter updates */
   readonly consensusParamUpdates?: ConsensusParams;
+  /** Application hash after executing the block */
+  readonly appHash?: Uint8Array;
 }
 
 export const BlockResultsResponseCodec = createCodec<BlockResultsResponse>({
   height: apiToNumber,
   txsResults: {
     source: 'txs_results',
-    converter: (v) => v ? createArrayConverter({ create: createTxData })(v) : undefined
+    converter: (v) => v ? createArrayConverter({ create: createTxData })(v) : []
   },
   beginBlockEvents: {
     source: 'begin_block_events',
@@ -59,6 +61,10 @@ export const BlockResultsResponseCodec = createCodec<BlockResultsResponse>({
   consensusParamUpdates: {
     source: 'consensus_param_updates',
     converter: (v) => v ? createConsensusParams(v) : undefined
+  },
+  appHash: {
+    source: 'app_hash',
+    converter: (v) => v ? Uint8Array.from(Buffer.from(v as string, 'base64')) : undefined
   }
 });
 

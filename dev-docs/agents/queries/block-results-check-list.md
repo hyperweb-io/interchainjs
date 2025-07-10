@@ -42,10 +42,10 @@
 - [x] Update imports to use index files
 
 ### Phase 5: Testing and Validation
-- [ ] Run TypeScript compiler for type checking
-- [ ] Test with actual RPC responses
-- [ ] Verify transaction result arrays are properly decoded
-- [ ] Check edge cases (blocks with no transactions)
+- [x] Run TypeScript compiler for type checking
+- [x] Test with actual RPC responses
+- [x] Verify transaction result arrays are properly decoded
+- [x] Check edge cases (blocks with no transactions)
 
 ### Phase 6: Cleanup
 - [x] Remove `BLOCK_RESULTS` case from `decodeResponse` switch statement
@@ -57,3 +57,7 @@
 - Contains arrays of transaction results with events
 - May have validator updates and consensus parameter changes
 - Gas usage fields need proper number conversion
+- Added `appHash` field to BlockResultsResponse interface and codec
+- Fixed response extraction in base.ts to handle wrapped responses (`resp.result || resp`)
+- Empty blocks return empty array for `txs_results`, not null
+- Uses `finalize_block_events` for CometBFT (not begin/end block events)
