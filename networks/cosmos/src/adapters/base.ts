@@ -2,10 +2,10 @@ import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
 import {
   AbciInfoResponse,
-  AbciQueryResponse,
-  createAbciInfoResponse,
-  createAbciQueryResponse
+  AbciQueryResponse
 } from '../types/responses';
+import { createAbciInfoResponse } from '../types/responses/common/abci/abci-info-response';
+import { createAbciQueryResponse } from '../types/responses/common/abci/abci-query-response';
 import {
   CommitResponse,
   createCommitResponse

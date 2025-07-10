@@ -8,10 +8,10 @@ import { fromBase64, fromHex } from '@interchainjs/encoding';
 
 // BlockIdFlag enum
 export enum BlockIdFlag {
-  BLOCK_ID_FLAG_UNKNOWN = 0,
-  BLOCK_ID_FLAG_ABSENT = 1,
-  BLOCK_ID_FLAG_COMMIT = 2,
-  BLOCK_ID_FLAG_NIL = 3
+  Unknown = 0,
+  Absent = 1,
+  Commit = 2,
+  Nil = 3
 }
 
 export interface CommitSignature {
