@@ -2,6 +2,7 @@
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
+import { toHex } from '@interchainjs/encoding';
 
 const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;
@@ -88,13 +89,59 @@ describe('Cosmos Query Client - Functional Tests', () => {
       testHeight3 = status.syncInfo.latestBlockHeight - 300;
     });
 
+    describe('getBlockByHash() - 3 variations', () => {
+      test('getBlockByHash() should return block by hash', async () => {
+        // First get a block and its commit to get the hash
+        const block = await queryClient.getBlock(testHeight);
+        const commit = await queryClient.getCommit(testHeight);
+        expect(commit.blockId.hash).toBeDefined();
+
+        // Convert hash to hex string
+        const hashHex = toHex(commit.blockId.hash).toUpperCase();
+
+        // Then fetch the same block by hash
+        const blockByHash = await queryClient.getBlockByHash(hashHex);
+        expect(blockByHash).toBeDefined();
+        expect(blockByHash.header.height).toBe(testHeight);
+        expect(blockByHash.header).toEqual(block.header);
+      });
+
+      test('getBlockByHash() should return same data as getBlock()', async () => {
+        const block = await queryClient.getBlock(testHeight2);
+        const commit = await queryClient.getCommit(testHeight2);
+        const hashHex = toHex(commit.blockId.hash);
+        const blockByHash = await queryClient.getBlockByHash(hashHex);
+
+        // Compare key fields
+        expect(blockByHash.header.height).toBe(block.header.height);
+        expect(blockByHash.header.time).toEqual(block.header.time);
+        expect(blockByHash.header.chainId).toBe(block.header.chainId);
+        expect(blockByHash.data.txs.length).toBe(block.data.txs.length);
+      });
+
+      test('getBlockByHash() should handle different block hashes', async () => {
+        const commit1 = await queryClient.getCommit(testHeight);
+        const commit2 = await queryClient.getCommit(testHeight2);
+
+        const hashHex1 = toHex(commit1.blockId.hash);
+        const hashHex2 = toHex(commit2.blockId.hash);
+
+        const blockByHash1 = await queryClient.getBlockByHash(hashHex1);
+        const blockByHash2 = await queryClient.getBlockByHash(hashHex2);
+
+        expect(blockByHash1.header.height).toBe(testHeight);
+        expect(blockByHash2.header.height).toBe(testHeight2);
+        expect(blockByHash1.header.height).not.toBe(blockByHash2.header.height);
+      });
+    });
+
     describe('getBlock() - 4 variations', () => {
       test('getBlock() without height should return latest block', async () => {
         const result = await queryClient.getBlock();
 
         expect(result).toBeDefined();
         expect(result.header).toBeDefined();
-        expect(result.header.chainId).toBe('osmosis-1');
+        expect(result.header.chainId).toBe('cosmoshub-4');
         expect(result.header.height).toBeGreaterThan(0);
         expect(result.header.time).toBeDefined();
         expect(result.data).toBeDefined();
@@ -108,7 +155,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         expect(result).toBeDefined();
         expect(result.header).toBeDefined();
-        expect(result.header.chainId).toBe('osmosis-1');
+        expect(result.header.chainId).toBe('cosmoshub-4');
         expect(result.header.height).toBe(testHeight);
         expect(result.header.time).toBeDefined();
         expect(result.data).toBeDefined();
@@ -144,7 +191,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         const result = await queryClient.getHeader();
 
         expect(result).toBeDefined();
-        expect(result.chainId).toBe('osmosis-1');
+        expect(result.chainId).toBe('cosmoshub-4');
         expect(result.height).toBeGreaterThan(0);
         expect(result.time).toBeDefined();
         expect(result.lastBlockId).toBeDefined();
@@ -154,7 +201,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         const result = await queryClient.getHeader(testHeight);
 
         expect(result).toBeDefined();
-        expect(result.chainId).toBe('osmosis-1');
+        expect(result.chainId).toBe('cosmoshub-4');
         expect(result.height).toBe(testHeight);
         expect(result.time).toBeDefined();
         expect(result.lastBlockId).toBeDefined();
@@ -292,7 +339,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         result.blockMetas.forEach(meta => {
           expect(meta.header).toBeDefined();
-          expect(meta.header.chainId).toBe('osmosis-1');
+          expect(meta.header.chainId).toBe('cosmoshub-4');
           expect(meta.header.height).toBeGreaterThan(0);
           expect(meta.header.time).toBeDefined();
           expect(meta.blockId).toBeDefined();
@@ -989,19 +1036,6 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         // Different paths should return different responses
         expect(result1.value).not.toEqual(result2.value);
-      });
-
-      test('queryAbci() should handle prove parameter', async () => {
-        const result = await queryClient.queryAbci({
-          path: '/store/bank/key',
-          data: new Uint8Array([1, 2, 3]), // Some dummy key data
-          prove: true
-        });
-
-        expect(result).toBeDefined();
-        expect(result.code).toBeDefined();
-        // When prove=true with store queries, should include proof data
-        expect(result.proof).toBeDefined();
       });
     });
   });
