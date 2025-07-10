@@ -6,7 +6,7 @@ import {
   StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults,
   TxResponse, ValidatorsResponse as ValidatorSet,
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
-  BlockchainResponse as BlockchainInfo, BlockHeader, Commit,
+  BlockchainResponse, BlockHeader, Commit,
   UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
   GenesisResponse as Genesis, HealthResponse as HealthResult,
   TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
@@ -109,7 +109,17 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_SEARCH, result);
   }
 
-  async getBlockchain(minHeight?: number, maxHeight?: number): Promise<BlockchainInfo> {
+  /**
+   * Get blockchain metadata for a range of blocks
+   * @param minHeight - Minimum block height (inclusive)
+   * @param maxHeight - Maximum block height (inclusive)
+   * @returns Blockchain metadata including block headers
+   * @remarks
+   * - If no parameters are provided, returns the last 20 blocks
+   * - The response includes block metadata but not full block data
+   * - Heights must be valid: minHeight <= maxHeight and both > 0
+   */
+  async getBlockchain(minHeight?: number, maxHeight?: number): Promise<BlockchainResponse> {
     // If no parameters provided, get recent blocks (last 20 blocks)
     if (minHeight === undefined || maxHeight === undefined) {
       const status = await this.getStatus();
@@ -119,9 +129,9 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     }
 
     const params: BlockchainParams = { minHeight, maxHeight };
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCKCHAIN, params);
+    const encodedParams = this.protocolAdapter.encodeBlockchain(params);
     const result = await this.rpcClient.call(RpcMethod.BLOCKCHAIN, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BLOCKCHAIN, result);
+    return this.protocolAdapter.decodeBlockchain(result);
   }
 
   async getHeader(height?: number): Promise<BlockHeader> {

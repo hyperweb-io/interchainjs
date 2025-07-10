@@ -2,3 +2,4 @@
 export * from './common/abci';
 export * from './common/commit';
 export * from './common/genesis-chunked';
+export * from './common/blockchain';

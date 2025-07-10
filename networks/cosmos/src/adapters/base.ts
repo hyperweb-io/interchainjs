@@ -44,7 +44,9 @@ import {
 } from '../types/responses/common/validators';
 import {
   BlockResponse,
-  createBlockResponse
+  createBlockResponse,
+  BlockchainResponse,
+  createBlockchainResponse
 } from '../types/responses/common/block';
 import {
   AbciQueryParams,
@@ -69,6 +71,11 @@ import {
   EncodedBlockByHashParams,
   encodeBlockByHashParams
 } from '../types/requests/common/block';
+import {
+  BlockchainParams,
+  EncodedBlockchainParams,
+  encodeBlockchainParams
+} from '../types/requests/common/blockchain';
 import {
   TxResponse,
   createTxResponse
@@ -102,9 +109,8 @@ import {
 type BlockResultsParams = any;
 type EncodedBlockResultsParams = any;
 type BlockResultsResponse = any;
-type BlockchainParams = any;
-type EncodedBlockchainParams = any;
-type BlockchainResponse = any;
+
+
 type ConsensusStateParams = any;
 type EncodedConsensusStateParams = any;
 type ConsensusStateResponse = any;
@@ -141,7 +147,7 @@ type EncodedCheckTxParams = any;
 // Dummy encoder functions
 // Placeholder functions are removed - using proper imports now
 const encodeBlockResultsParams = (params: any): any => params;
-const encodeBlockchainParams = (params: any): any => params;
+
 const encodeConsensusStateParams = (params: any): any => params;
 const encodeDumpConsensusStateParams = (params: any): any => params;
 const encodeGenesisParams = (params: any): any => params;
@@ -164,7 +170,7 @@ export interface RequestEncoder {
   encodeBlock(params: BlockParams): EncodedBlockParams;
   encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams;
   encodeBlockResults(params: BlockResultsParams): EncodedBlockResultsParams;
-  encodeBlockchain(params: BlockchainParams): EncodedBlockchainParams;
+  encodeBlockchain(params: BlockchainParams): any;
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams;
   encodeDumpConsensusState(params: DumpConsensusStateParams): EncodedDumpConsensusStateParams;
   encodeGenesis(params: GenesisParams): EncodedGenesisParams;
@@ -188,7 +194,7 @@ export interface ResponseDecoder {
   decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T;
   decodeBlockResults(response: any): BlockResultsResponse;
   decodeBlockSearch(response: any): BlockSearchResponse;
-  decodeBlockchain(response: any): BlockchainResponse;
+  decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
   decodeBroadcastTx(response: any): any;
   decodeBroadcastTxSync?(response: any): BroadcastTxSyncResponse;
   decodeBroadcastTxAsync?(response: any): BroadcastTxAsyncResponse;
@@ -370,15 +376,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       return encoded;
     }
 
-    // Special handling for blockchain using codec
-    if (method === RpcMethod.BLOCKCHAIN) {
-      const encoded = this.encodeBlockchain(params as BlockchainParams);
-      // Convert to array format for RPC
-      if (encoded.minHeight !== undefined && encoded.maxHeight !== undefined) {
-        return [encoded.minHeight, encoded.maxHeight];
-      }
-      return {}; // Return empty object instead of empty array when no params
-    }
+
 
     // Convert height to string for block-related methods
     if ((method === RpcMethod.BLOCK || method === RpcMethod.HEADER) &&
@@ -515,8 +513,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeBlockResults(response);
       case RpcMethod.BLOCK_SEARCH:
         return this.decodeBlockSearch(response);
-      case RpcMethod.BLOCKCHAIN:
-        return this.decodeBlockchain(response);
       case RpcMethod.TX:
         return this.decodeTx(response);
       case RpcMethod.TX_SEARCH:
@@ -713,8 +709,13 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeBlockResultsParams(params);
   }
 
-  encodeBlockchain(params: BlockchainParams): EncodedBlockchainParams {
-    return encodeBlockchainParams(params);
+  encodeBlockchain(params: BlockchainParams): any {
+    const encoded = encodeBlockchainParams(params);
+    // Convert to array format for RPC
+    if (encoded.minHeight !== undefined && encoded.maxHeight !== undefined) {
+      return [encoded.minHeight, encoded.maxHeight];
+    }
+    return {}; // Return empty object instead of empty array when no params
   }
 
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams {
@@ -784,7 +785,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   // Abstract methods that must be implemented by version-specific adapters
   abstract decodeBlockResults(response: any): BlockResultsResponse;
   abstract decodeBlockSearch(response: any): BlockSearchResponse;
-  abstract decodeBlockchain(response: any): BlockchainResponse;
+  abstract decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
   abstract decodeBroadcastTx(response: any): any;
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T {
     const resp = response as Record<string, unknown>;

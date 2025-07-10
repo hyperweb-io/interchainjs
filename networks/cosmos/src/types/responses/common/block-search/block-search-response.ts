@@ -5,8 +5,8 @@
 import { createCodec } from '../../../codec';
 import { ensureNumber } from '../../../codec/converters';
 
-// Import dependencies from same module
-import { BlockMeta, BlockMetaCodec } from './block-meta';
+// Import dependencies from block module
+import { BlockMeta, BlockMetaCodec } from '../block/block-meta';
 
 // Types
 export interface BlockSearchResponse {

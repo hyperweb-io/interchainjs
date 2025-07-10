@@ -2,11 +2,12 @@ import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
 import {
-  BlockResponse
+  BlockResponse,
+  BlockchainResponse,
+  createBlockchainResponse
 } from '../types/responses/common/block';
 // Type definitions for removed imports
 type BlockResultsResponse = any;
-type BlockchainResponse = any;
 type ConsensusStateResponse = any;
 type DumpConsensusStateResponse = any;
 type GenesisResponse = any;
@@ -14,7 +15,7 @@ type UnconfirmedTxsResponse = any;
 
 // Dummy creator functions
 const createBlockResultsResponse = (data: any): any => data;
-const createBlockchainResponse = (data: any): any => data;
+
 const createConsensusStateResponse = (data: any): any => data;
 const createDumpConsensusStateResponse = (data: any): any => data;
 const createGenesisResponse = (data: any): any => data;
@@ -68,8 +69,8 @@ export class Tendermint34Adapter extends BaseAdapter {
     return createBlockSearchResponse(data);
   }
 
-  decodeBlockchain(response: any): BlockchainResponse {
-    return createBlockchainResponse(response);
+  decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {
+    return createBlockchainResponse(response) as T;
   }
 
   decodeBroadcastTx(response: any): any {
