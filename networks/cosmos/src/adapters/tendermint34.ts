@@ -55,91 +55,13 @@ export class Tendermint34Adapter extends BaseAdapter {
 
 
 
-  private decodeBlockId(data: any): any {
-    if (!data) return null;
-    return {
-      hash: fromHex(data.hash || ''),
-      parts: {
-        total: data.parts?.total || 0,
-        hash: fromHex(data.parts?.hash || '')
-      }
-    };
-  }
 
-  private decodeHeaderData(data: any): any {
-    return {
-      version: {
-        block: this.apiToNumber(data.version?.block),
-        app: this.apiToNumber(data.version?.app)
-      },
-      chainId: data.chain_id || '',
-      height: this.apiToNumber(data.height),
-      time: this.decodeTime(data.time),
-      lastBlockId: this.decodeBlockId(data.last_block_id),
-      lastCommitHash: fromHex(data.last_commit_hash || ''),
-      dataHash: fromHex(data.data_hash || ''),
-      validatorsHash: fromHex(data.validators_hash || ''),
-      nextValidatorsHash: fromHex(data.next_validators_hash || ''),
-      consensusHash: fromHex(data.consensus_hash || ''),
-      appHash: fromHex(data.app_hash || ''),
-      lastResultsHash: fromHex(data.last_results_hash || ''),
-      evidenceHash: fromHex(data.evidence_hash || ''),
-      proposerAddress: fromHex(data.proposer_address || '')
-    };
-  }
-
-  // Public method for header RPC response
-
-
-  private decodeCommitData(data: any): any {
-    return {
-      height: this.apiToNumber(data.height),
-      round: data.round || 0,
-      blockId: this.decodeBlockId(data.block_id),
-      signatures: (data.signatures || []).map((sig: any) => this.decodeCommitSignature(sig))
-    };
-  }
-
-  private decodeCommitSignature(data: any): any {
-    return {
-      blockIdFlag: data.block_id_flag || 0,
-      validatorAddress: data.validator_address ? fromHex(data.validator_address) : undefined,
-      timestamp: this.decodeTime(data.timestamp),
-      signature: data.signature ? fromBase64(data.signature) : null
-    };
-  }
 
   decodeBlockResults(response: any): BlockResultsResponse {
     return createBlockResultsResponse(response);
   }
 
-  private decodeTxResult(data: any): any {
-    return {
-      code: data.code || 0,
-      data: data.data ? fromBase64(data.data) : undefined,
-      log: data.log || '',
-      info: data.info || '',
-      gasWanted: this.apiToNumber(data.gas_wanted),
-      gasUsed: this.apiToNumber(data.gas_used),
-      events: this.decodeEvents(data.events),
-      codespace: data.codespace || ''
-    };
-  }
 
-  private decodeValidatorUpdate(data: any): any {
-    return {
-      pubkey: this.decodePubkey(data.pub_key),
-      votingPower: this.apiToBigInt(data.power)
-    };
-  }
-
-  private decodePubkey(data: any): any {
-    if (!data) return null;
-    return {
-      type: data.type || '',
-      value: fromBase64(data.value || '')
-    };
-  }
 
   decodeBlockSearch(response: any): BlockSearchResponse {
     const data = response.result || response;

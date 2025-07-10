@@ -7,7 +7,7 @@
 export type HealthResponse = null;
 
 // Creator function
-export function createHealthResponse(data: any): HealthResponse {
+export function createHealthResponse(data: unknown): HealthResponse {
   // Health endpoint returns null when healthy
   return null;
 }

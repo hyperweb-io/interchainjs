@@ -4,9 +4,6 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber, ensureDate } from '../../../codec/converters';
-// TODO: Replace with proper types when dependencies are available
-type fromBase64 = any;
-type fromHex = any;
 
 // Import dependencies from same module
 import { Commit, CommitCodec } from '../commit/commit';
@@ -24,14 +21,17 @@ export interface CommitResponse {
 export const CommitResponseCodec = createCodec<CommitResponse>({
   signedHeader: {
     source: 'signed_header',
-    converter: (v: any) => ({
-      header: BlockHeaderCodec.create(v?.header),
-      commit: CommitCodec.create(v?.commit)
-    })
+    converter: (v: unknown) => {
+      const value = v as Record<string, unknown> | undefined;
+      return {
+        header: BlockHeaderCodec.create(value?.header),
+        commit: CommitCodec.create(value?.commit)
+      };
+    }
   },
-  canonical: { source: 'canonical', converter: (v: any) => v || false }
+  canonical: { source: 'canonical', converter: (v: unknown) => !!v }
 });
 
-export function createCommitResponse(data: any): CommitResponse {
+export function createCommitResponse(data: unknown): CommitResponse {
   return CommitResponseCodec.create(data);
 }

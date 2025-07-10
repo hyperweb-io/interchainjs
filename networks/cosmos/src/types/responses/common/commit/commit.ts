@@ -4,9 +4,6 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber, ensureDate } from '../../../codec/converters';
-// TODO: Replace with proper types when dependencies are available
-type fromBase64 = any;
-type fromHex = any;
 
 // Import dependencies from same module
 import { CommitSignature, CommitSignatureCodec } from './commit-signature';
@@ -22,11 +19,14 @@ export interface Commit {
 
 export const CommitCodec = createCodec<Commit>({
   height: { source: 'height', converter: ensureNumber },
-  round: { source: 'round', converter: (v: any) => v || 0 },
-  blockId: { source: 'block_id', converter: (v: any) => BlockIdCodec.create(v) },
-  signatures: { source: 'signatures', converter: (v: any) => (v || []).map((sig: any) => CommitSignatureCodec.create(sig)) }
+  round: { source: 'round', converter: (v: unknown) => ensureNumber(v ?? 0) },
+  blockId: { source: 'block_id', converter: (v: unknown) => BlockIdCodec.create(v) },
+  signatures: { source: 'signatures', converter: (v: unknown) => {
+    const arr = v as unknown[] | undefined;
+    return (arr || []).map((sig: unknown) => CommitSignatureCodec.create(sig));
+  }}
 });
 
-export function createCommit(data: any): Commit {
+export function createCommit(data: unknown): Commit {
   return CommitCodec.create(data);
 }

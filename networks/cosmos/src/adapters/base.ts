@@ -811,15 +811,18 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return createHealthResponse(response) as T;
   }
   decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T {
-    const data = (response as any).result || response;
+    const responseData = response as { result?: unknown };
+    const data = responseData.result || response;
     return createNetInfoResponse(data) as T;
   }
   decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T {
-    const data = (response as any).result || response;
+    const responseData = response as { result?: unknown };
+    const data = responseData.result || response;
     return createNumUnconfirmedTxsResponse(data) as T;
   }
   decodeStatus<T extends StatusResponse = StatusResponse>(response: unknown): T {
-    const data = (response as any).result || response;
+    const responseData = response as { result?: unknown };
+    const data = responseData.result || response;
     return createStatusResponse(data) as T;
   }
   abstract decodeTx(response: any): TxResponse;

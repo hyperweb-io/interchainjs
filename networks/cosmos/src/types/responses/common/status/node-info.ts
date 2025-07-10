@@ -27,11 +27,14 @@ export interface NodeInfo {
 export const NodeInfoCodec = createCodec<NodeInfo>({
   protocolVersion: { 
     source: 'protocol_version',
-    converter: (value: any) => ({
-      p2p: ensureString(value?.p2p),
-      block: ensureString(value?.block),
-      app: ensureString(value?.app)
-    })
+    converter: (value: unknown) => {
+      const v = value as Record<string, unknown> | undefined;
+      return {
+        p2p: ensureString(v?.p2p),
+        block: ensureString(v?.block),
+        app: ensureString(v?.app)
+      };
+    }
   },
   id: ensureString,
   listenAddr: { source: 'listen_addr', converter: ensureString },
@@ -40,9 +43,12 @@ export const NodeInfoCodec = createCodec<NodeInfo>({
   channels: ensureString,
   moniker: ensureString,
   other: { 
-    converter: (value: any) => ({
-      txIndex: ensureString(value?.tx_index),
-      rpcAddress: ensureString(value?.rpc_address)
-    })
+    converter: (value: unknown) => {
+      const v = value as Record<string, unknown> | undefined;
+      return {
+        txIndex: ensureString(v?.tx_index),
+        rpcAddress: ensureString(v?.rpc_address)
+      };
+    }
   }
 });

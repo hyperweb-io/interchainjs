@@ -17,15 +17,21 @@ export interface NetInfoResponse {
 
 export const NetInfoResponseCodec = createCodec<NetInfoResponse>({
   listening: { source: 'listening', converter: ensureBoolean },
-  listeners: { source: 'listeners', converter: (value: any) => value || [] },
+  listeners: { source: 'listeners', converter: (value: unknown) => {
+    const arr = value as string[] | undefined;
+    return arr || [];
+  }},
   nPeers: { source: 'n_peers', converter: ensureNumber },
   peers: { 
     source: 'peers',
-    converter: (value: any) => (value || []).map((peer: any) => PeerCodec.create(peer))
+    converter: (value: unknown) => {
+      const arr = value as unknown[] | undefined;
+      return (arr || []).map((peer: unknown) => PeerCodec.create(peer));
+    }
   }
 });
 
 // Creator function
-export function createNetInfoResponse(data: any): NetInfoResponse {
+export function createNetInfoResponse(data: unknown): NetInfoResponse {
   return NetInfoResponseCodec.create(data);
 }

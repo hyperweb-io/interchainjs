@@ -23,15 +23,21 @@ export interface CommitSignature {
 
 // Codecs
 export const CommitSignatureCodec = createCodec<CommitSignature>({
-  blockIdFlag: { source: 'block_id_flag', converter: (v: any) => v || 0 },
-  validatorAddress: { source: 'validator_address', converter: (v: any) => v ? fromHex(v) : new Uint8Array() },
+  blockIdFlag: { source: 'block_id_flag', converter: (v: unknown) => ensureNumber(v ?? 0) },
+  validatorAddress: { source: 'validator_address', converter: (v: unknown) => {
+    const str = v as string | undefined;
+    return str ? fromHex(str) : new Uint8Array();
+  }},
   timestamp: { source: 'timestamp', converter: ensureDate },
-  signature: { source: 'signature', converter: (v: any) => v ? fromBase64(v) : new Uint8Array() }
+  signature: { source: 'signature', converter: (v: unknown) => {
+    const str = v as string | undefined;
+    return str ? fromBase64(str) : new Uint8Array();
+  }}
 });
 
 // Creator functions
 
 
-export function createCommitSignature(data: any): CommitSignature {
+export function createCommitSignature(data: unknown): CommitSignature {
   return CommitSignatureCodec.create(data);
 }

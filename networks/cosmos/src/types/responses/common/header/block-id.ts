@@ -15,13 +15,16 @@ export interface BlockId {
 
 export const BlockIdCodec = createCodec<BlockId>({
   hash: ensureBytes,
-  parts: (value: any) => ({
-    total: ensureNumber(value?.total),
-    hash: ensureBytes(value?.hash)
-  })
+  parts: (value: unknown) => {
+    const v = value as Record<string, unknown> | undefined;
+    return {
+      total: ensureNumber(v?.total),
+      hash: ensureBytes(v?.hash)
+    };
+  }
 });
 
 // Factory functions
-export function createBlockId(data: any): BlockId {
+export function createBlockId(data: unknown): BlockId {
   return BlockIdCodec.create(data);
 }

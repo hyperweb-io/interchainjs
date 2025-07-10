@@ -18,14 +18,14 @@ export interface BlockResponse {
 export const BlockResponseCodec = createCodec<BlockResponse>({
   blockId: {
     source: 'block_id',
-    converter: (value: any) => BlockIdCodec.create(value)
+    converter: (value: unknown) => BlockIdCodec.create(value)
   },
   block: {
     source: 'block',
-    converter: (value: any) => BlockCodec.create(value)
+    converter: (value: unknown) => BlockCodec.create(value)
   }
 });
 
-export function createBlockResponse(data: any): BlockResponse {
+export function createBlockResponse(data: unknown): BlockResponse {
   return BlockResponseCodec.create(data);
 }

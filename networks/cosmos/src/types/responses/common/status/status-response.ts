@@ -19,19 +19,19 @@ export interface StatusResponse {
 export const StatusResponseCodec = createCodec<StatusResponse>({
   nodeInfo: { 
     source: 'node_info',
-    converter: (value: any) => NodeInfoCodec.create(value)
+    converter: (value: unknown) => NodeInfoCodec.create(value)
   },
   syncInfo: { 
     source: 'sync_info',
-    converter: (value: any) => SyncInfoCodec.create(value)
+    converter: (value: unknown) => SyncInfoCodec.create(value)
   },
   validatorInfo: { 
     source: 'validator_info',
-    converter: (value: any) => ValidatorCodec.create(value || {})
+    converter: (value: unknown) => ValidatorCodec.create(value || {})
   }
 });
 
 // Creator function
-export function createStatusResponse(data: any): StatusResponse {
+export function createStatusResponse(data: unknown): StatusResponse {
   return StatusResponseCodec.create(data);
 }
