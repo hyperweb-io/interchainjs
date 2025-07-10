@@ -1,0 +1,8 @@
+/**
+ * Block request types exports
+ */
+
+export * from './block-params';
+export * from './encoded-block-params';
+export * from './block-by-hash-params';
+export * from './encoded-block-by-hash-params';

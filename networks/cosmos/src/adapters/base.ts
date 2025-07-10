@@ -61,6 +61,14 @@ import {
   encodeGenesisChunkedParams
 } from '../types/requests/common/genesis-chunked';
 import {
+  BlockParams,
+  EncodedBlockParams,
+  encodeBlockParams,
+  BlockByHashParams,
+  EncodedBlockByHashParams,
+  encodeBlockByHashParams
+} from '../types/requests/common/block';
+import {
   TxResponse,
   createTxResponse
 } from '../types/responses/common/tx';
@@ -90,8 +98,6 @@ import {
 } from '../types/responses/common/check-tx';
 
 // Type definitions for removed imports
-type BlockByHashParams = any;
-type EncodedBlockByHashParams = any;
 type BlockResultsParams = any;
 type EncodedBlockResultsParams = any;
 type BlockResultsResponse = any;
@@ -132,7 +138,7 @@ type CheckTxParams = any;
 type EncodedCheckTxParams = any;
 
 // Dummy encoder functions
-const encodeBlockByHashParams = (params: any): any => params;
+// Placeholder functions are removed - using proper imports now
 const encodeBlockResultsParams = (params: any): any => params;
 const encodeBlockchainParams = (params: any): any => params;
 const encodeConsensusStateParams = (params: any): any => params;
@@ -154,6 +160,7 @@ const createUnconfirmedTxsResponse = (data: any): any => data;
 export interface RequestEncoder {
   encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
   encodeCommit(params: CommitParams): EncodedCommitParams;
+  encodeBlock(params: BlockParams): EncodedBlockParams;
   encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams;
   encodeBlockResults(params: BlockResultsParams): EncodedBlockResultsParams;
   encodeBlockchain(params: BlockchainParams): EncodedBlockchainParams;
@@ -177,7 +184,7 @@ export interface RequestEncoder {
 export interface ResponseDecoder {
   decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
   decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
-  decodeBlock(response: any): BlockResponse;
+  decodeBlock(response: unknown): BlockResponse;
   decodeBlockResults(response: any): BlockResultsResponse;
   decodeBlockSearch(response: any): BlockSearchResponse;
   decodeBlockchain(response: any): BlockchainResponse;
@@ -356,12 +363,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       return encoded;
     }
 
-    // Special handling for block_by_hash using codec
-    if (method === RpcMethod.BLOCK_BY_HASH) {
-      const encoded = this.encodeBlockByHash(params as BlockByHashParams);
-      return encoded;
-    }
-
     // Special handling for block_results using codec
     if (method === RpcMethod.BLOCK_RESULTS) {
       const encoded = this.encodeBlockResults(params as BlockResultsParams);
@@ -509,9 +510,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeAbciInfo(response);
       case RpcMethod.ABCI_QUERY:
         return this.decodeAbciQuery(response);
-      case RpcMethod.BLOCK:
-      case RpcMethod.BLOCK_BY_HASH:
-        return this.decodeBlock(response);
       case RpcMethod.BLOCK_RESULTS:
         return this.decodeBlockResults(response);
       case RpcMethod.BLOCK_SEARCH:
@@ -702,6 +700,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeCommitParams(params);
   }
 
+  encodeBlock(params: BlockParams): EncodedBlockParams {
+    return encodeBlockParams(params);
+  }
+
   encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams {
     return encodeBlockByHashParams(params);
   }
@@ -775,7 +777,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   }
 
   // Abstract methods that must be implemented by version-specific adapters
-  abstract decodeBlock(response: any): BlockResponse;
+  abstract decodeBlock(response: unknown): BlockResponse;
   abstract decodeBlockResults(response: any): BlockResultsResponse;
   abstract decodeBlockSearch(response: any): BlockSearchResponse;
   abstract decodeBlockchain(response: any): BlockchainResponse;

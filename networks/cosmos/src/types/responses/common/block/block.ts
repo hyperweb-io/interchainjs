@@ -3,7 +3,7 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureBytes, ensureNumber, createArrayConverter } from '../../../codec/converters';
+import { ensureBytes, ensureNumber, createArrayConverter, base64ToBytes } from '../../../codec/converters';
 import { BlockHeader, BlockHeaderCodec } from '../header/block-header';
 import { Commit, CommitCodec } from '../commit/commit';
 
@@ -19,9 +19,9 @@ export interface Block {
   readonly lastCommit: Commit | null;
 }
 
-// Helper codec for bytes conversion
+// Helper codec for bytes conversion (base64 for txs)
 const BytesCodec = {
-  create: (data: unknown) => ensureBytes(data)
+  create: (data: unknown) => base64ToBytes(data)
 };
 
 // Helper codec for any type
@@ -48,23 +48,23 @@ export const BlockEvidenceCodec = createCodec<{ readonly evidence: readonly unkn
 export const BlockCodec = createCodec<Block>({
   header: {
     source: 'header',
-    converter: (value: any) => BlockHeaderCodec.create(value)
+    converter: (value: unknown) => BlockHeaderCodec.create(value)
   },
   data: {
     source: 'data',
-    converter: (value: any) => BlockDataCodec.create(value || { txs: [] })
+    converter: (value: unknown) => BlockDataCodec.create(value || { txs: [] })
   },
   evidence: {
     source: 'evidence',
-    converter: (value: any) => BlockEvidenceCodec.create(value || { evidence: [] })
+    converter: (value: unknown) => BlockEvidenceCodec.create(value || { evidence: [] })
   },
   lastCommit: {
     source: 'last_commit',
-    converter: (value: any) => value ? CommitCodec.create(value) : null
+    converter: (value: unknown) => value ? CommitCodec.create(value) : null
   }
 });
 
 // Factory functions
-export function createBlock(data: any): Block {
+export function createBlock(data: unknown): Block {
   return BlockCodec.create(data);
 }

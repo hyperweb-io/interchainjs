@@ -27,22 +27,55 @@ export interface BlockHeader {
 }
 
 export const BlockHeaderCodec = createCodec<BlockHeader>({
-  version: (value: any) => BlockVersionCodec.create(value),
-  chainId: ensureString,
+  version: (value: unknown) => BlockVersionCodec.create(value),
+  chainId: {
+    source: 'chain_id',
+    converter: ensureString
+  },
   height: ensureNumber,
   time: ensureDate,
-  lastBlockId: (value: any) => value ? BlockIdCodec.create(value) : null,
-  lastCommitHash: ensureBytes,
-  dataHash: ensureBytes,
-  validatorsHash: ensureBytes,
-  nextValidatorsHash: ensureBytes,
-  consensusHash: ensureBytes,
-  appHash: ensureBytes,
-  lastResultsHash: ensureBytes,
-  evidenceHash: ensureBytes,
-  proposerAddress: ensureBytes
+  lastBlockId: {
+    source: 'last_block_id',
+    converter: (value: unknown) => value ? BlockIdCodec.create(value) : null
+  },
+  lastCommitHash: {
+    source: 'last_commit_hash',
+    converter: ensureBytes
+  },
+  dataHash: {
+    source: 'data_hash',
+    converter: ensureBytes
+  },
+  validatorsHash: {
+    source: 'validators_hash',
+    converter: ensureBytes
+  },
+  nextValidatorsHash: {
+    source: 'next_validators_hash',
+    converter: ensureBytes
+  },
+  consensusHash: {
+    source: 'consensus_hash',
+    converter: ensureBytes
+  },
+  appHash: {
+    source: 'app_hash',
+    converter: ensureBytes
+  },
+  lastResultsHash: {
+    source: 'last_results_hash',
+    converter: ensureBytes
+  },
+  evidenceHash: {
+    source: 'evidence_hash',
+    converter: ensureBytes
+  },
+  proposerAddress: {
+    source: 'proposer_address',
+    converter: ensureBytes
+  }
 });
 
-export function createBlockHeader(data: any): BlockHeader {
+export function createBlockHeader(data: unknown): BlockHeader {
   return BlockHeaderCodec.create(data);
 }

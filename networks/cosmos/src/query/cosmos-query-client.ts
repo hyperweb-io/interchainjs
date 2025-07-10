@@ -82,16 +82,18 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   // Block query methods
   async getBlock(height?: number): Promise<Block> {
     const params: BlockParams = height ? { height } : {};
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK, params);
+    const encodedParams = this.protocolAdapter.encodeBlock(params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK, result);
+    const blockResponse = this.protocolAdapter.decodeBlock(result);
+    return blockResponse.block;
   }
 
   async getBlockByHash(hash: string): Promise<Block> {
     const params: BlockByHashParams = { hash };
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK_BY_HASH, params);
+    const encodedParams = this.protocolAdapter.encodeBlockByHash(params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK_BY_HASH, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_BY_HASH, result);
+    const blockResponse = this.protocolAdapter.decodeBlock(result);
+    return blockResponse.block;
   }
 
   async getBlockResults(height?: number): Promise<BlockResults> {

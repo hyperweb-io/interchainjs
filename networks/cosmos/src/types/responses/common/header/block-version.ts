@@ -7,11 +7,11 @@ import { ensureNumber, ensureString, ensureBytes, ensureDate } from '../../../co
 
 // Types
 export interface BlockVersion {
-  readonly block: number;
-  readonly app: number;
+  readonly block: string;
+  readonly app?: string;
 }
 
 export const BlockVersionCodec = createCodec<BlockVersion>({
-  block: ensureNumber,
-  app: ensureNumber
+  block: (value: unknown) => String(ensureNumber(value)),
+  app: (value: unknown) => value === undefined || value === null ? undefined : String(ensureNumber(value))
 });

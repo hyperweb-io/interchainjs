@@ -54,7 +54,7 @@ export class Tendermint34Adapter extends BaseAdapter {
     super(ProtocolVersion.TENDERMINT_34);
   }
 
-  decodeBlock(response: any): BlockResponse {
+  decodeBlock(response: unknown): BlockResponse {
     return createBlockResponse(response);
   }
 

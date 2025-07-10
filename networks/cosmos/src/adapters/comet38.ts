@@ -55,7 +55,7 @@ export class Comet38Adapter extends BaseAdapter {
     super(ProtocolVersion.COMET_38);
   }
 
-  decodeBlock(response: any): BlockResponse {
+  decodeBlock(response: unknown): BlockResponse {
     return createBlockResponse(response);
   }
 

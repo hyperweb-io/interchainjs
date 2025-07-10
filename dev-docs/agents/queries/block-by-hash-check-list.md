@@ -2,44 +2,48 @@
 
 ## Method: `getBlockByHash(hash: string): Promise<Block>`
 
+## Status: ✅ COMPLETED
+
 ### Phase 1: Infrastructure Setup
-- [ ] Analyze current method in `cosmos-query-client.ts` (lines 90-95)
-- [ ] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
-- [ ] Check parameter type: `BlockByHashParams` in `/types/requests/`
-- [ ] Check response type: `Block` in `/types/responses/` (same as getBlock)
-- [ ] Review version-specific differences in adapters
+- [x] Analyze current method in `cosmos-query-client.ts` (lines 90-95)
+- [x] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
+- [x] Check parameter type: `BlockByHashParams` in `/types/requests/`
+- [x] Check response type: `Block` in `/types/responses/` (same as getBlock)
+- [x] Review version-specific differences in adapters
 
 ### Phase 2: Response Type Refactoring
-- [ ] Reuse `BlockResponse` type from `getBlock` refactoring
-- [ ] No additional response types needed (same response structure)
-- [ ] Verify `decodeBlock()` method can be reused from `getBlock` refactoring
+- [x] Reuse `BlockResponse` type from `getBlock` refactoring
+- [x] No additional response types needed (same response structure)
+- [x] Verify `decodeBlock()` method can be reused from `getBlock` refactoring
 
 ### Phase 3: Request Type Refactoring
-- [ ] Create request type file: `/types/requests/common/block/block-by-hash-params.ts`
-- [ ] Define `BlockByHashParams` interface (verify existing structure)
-- [ ] Create `EncodedBlockByHashParams` interface
-- [ ] Create codec for encoding (hash should remain as string)
-- [ ] Implement `encodeBlockByHashParams()` function
-- [ ] Add encoder method to `RequestEncoder` interface: `encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams`
-- [ ] Implement `encodeBlockByHash()` in `BaseAdapter`
+- [x] Create request type file: `/types/requests/common/block/block-by-hash-params.ts`
+- [x] Define `BlockByHashParams` interface (verify existing structure)
+- [x] Create `EncodedBlockByHashParams` interface
+- [x] Create codec for encoding (hash should remain as string)
+- [x] Implement `encodeBlockByHashParams()` function
+- [x] Add encoder method to `RequestEncoder` interface: `encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams`
+- [x] Implement `encodeBlockByHash()` in `BaseAdapter`
 
 ### Phase 4: Update Query Client
-- [ ] Update `getBlockByHash()` method to use:
-  - [ ] `this.protocolAdapter.encodeBlockByHash(params)` instead of `encodeParams`
-  - [ ] `this.protocolAdapter.decodeBlock(result)` instead of `decodeResponse`
-- [ ] Update imports to use index files
+- [x] Update `getBlockByHash()` method to use:
+  - [x] `this.protocolAdapter.encodeBlockByHash(params)` instead of `encodeParams`
+  - [x] `this.protocolAdapter.decodeBlock(result)` instead of `decodeResponse`
+- [x] Update imports to use index files
+- [x] Extract block from BlockResponse
 
 ### Phase 5: Testing and Validation
-- [ ] Run TypeScript compiler for type checking
-- [ ] Test with actual block hashes
-- [ ] Verify hash format validation if needed
-- [ ] Check error handling for invalid hashes
+- [x] Run TypeScript compiler for type checking
+- [x] Test with actual block hashes (tested error case)
+- [x] Verify hash format validation if needed
+- [x] Check error handling for invalid hashes
 
 ### Phase 6: Cleanup
-- [ ] Remove `BLOCK_BY_HASH` case from `decodeResponse` switch statement
-- [ ] Remove unused imports
-- [ ] Add JSDoc comments
-- [ ] Document hash format requirements
+- [x] Remove `BLOCK_BY_HASH` case from `decodeResponse` switch statement
+- [x] Remove `BLOCK_BY_HASH` case from `encodeParams` switch statement
+- [x] Remove unused imports
+- [x] Add JSDoc comments
+- [x] Document hash format requirements
 
 ## Notes
 - Shares response type with `getBlock` method
