@@ -785,7 +785,9 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   // Abstract methods that must be implemented by version-specific adapters
   abstract decodeBlockResults(response: any): BlockResultsResponse;
   abstract decodeBlockSearch(response: any): BlockSearchResponse;
-  abstract decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
+  decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {
+    return createBlockchainResponse(response) as T;
+  }
   abstract decodeBroadcastTx(response: any): any;
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T {
     const resp = response as Record<string, unknown>;
@@ -829,9 +831,18 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   abstract decodeTx(response: any): TxResponse;
   abstract decodeTxSearch(response: any): TxSearchResponse;
   abstract decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
-  abstract decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse;
-  abstract decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse;
-  abstract decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse;
+  decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse {
+    const data = response.result || response;
+    return createBroadcastTxSyncResponse(data);
+  }
+  decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse {
+    const data = response.result || response;
+    return createBroadcastTxAsyncResponse(data);
+  }
+  decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse {
+    const data = response.result || response;
+    return createBroadcastTxCommitResponse(data);
+  }
   abstract decodeCheckTx(response: any): CheckTxResponse;
   decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T {
     const data = (response as any).result || response;

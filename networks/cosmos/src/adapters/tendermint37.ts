@@ -2,9 +2,7 @@ import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
 import {
-  BlockResponse,
-  BlockchainResponse,
-  createBlockchainResponse
+  BlockResponse
 } from '../types/responses/common/block';
 // Type definitions for removed imports
 type BlockResultsResponse = any;
@@ -32,18 +30,7 @@ import {
   BlockSearchResponse,
   createBlockSearchResponse
 } from '../types/responses/common/block-search';
-import {
-  BroadcastTxSyncResponse,
-  createBroadcastTxSyncResponse
-} from '../types/responses/common/broadcast-tx-sync';
-import {
-  BroadcastTxAsyncResponse,
-  createBroadcastTxAsyncResponse
-} from '../types/responses/common/broadcast-tx-async';
-import {
-  BroadcastTxCommitResponse,
-  createBroadcastTxCommitResponse
-} from '../types/responses/common/broadcast-tx-commit';
+
 import {
   CheckTxResponse,
   createCheckTxResponse
@@ -69,9 +56,7 @@ export class Tendermint37Adapter extends BaseAdapter {
     return createBlockSearchResponse(data);
   }
 
-  decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {
-    return createBlockchainResponse(response) as T;
-  }
+
 
   decodeBroadcastTx(response: any): any {
     const data = response.result || response;
@@ -126,20 +111,7 @@ export class Tendermint37Adapter extends BaseAdapter {
 
 
 
-  decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse {
-    const data = response.result || response;
-    return createBroadcastTxSyncResponse(data);
-  }
 
-  decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse {
-    const data = response.result || response;
-    return createBroadcastTxAsyncResponse(data);
-  }
-
-  decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse {
-    const data = response.result || response;
-    return createBroadcastTxCommitResponse(data);
-  }
 
   decodeCheckTx(response: any): CheckTxResponse {
     const data = response.result || response;
