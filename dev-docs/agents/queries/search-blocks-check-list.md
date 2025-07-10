@@ -20,6 +20,7 @@
   - [ ] Number conversion for totalCount
 - [ ] Implement `createBlockSearchResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeBlockSearch()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

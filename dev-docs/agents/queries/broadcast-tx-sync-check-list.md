@@ -24,6 +24,7 @@
   - [ ] String handling for log and hash
 - [ ] Implement `createBroadcastTxSyncResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBroadcastTxSync<T extends BroadcastTxSyncResponse = BroadcastTxSyncResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeBroadcastTxSync()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

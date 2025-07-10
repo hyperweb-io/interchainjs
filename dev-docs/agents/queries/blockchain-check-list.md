@@ -21,6 +21,7 @@
   - [ ] Handle block metadata structure (header info without full block data)
 - [ ] Implement `createBlockchainResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeBlockchain()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

@@ -24,6 +24,7 @@
   - [ ] String handling for log and hash
 - [ ] Implement `createBroadcastTxAsyncResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeBroadcastTxAsync()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

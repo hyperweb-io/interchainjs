@@ -28,6 +28,7 @@
   - [ ] Event array handling
 - [ ] Implement `createCheckTxResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeCheckTx()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

@@ -20,6 +20,7 @@
   - [ ] Number conversion for totalCount
 - [ ] Implement `createTxSearchResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeTxSearch<T extends TxSearchResponse = TxSearchResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeTxSearch()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

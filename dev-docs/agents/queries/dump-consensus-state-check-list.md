@@ -21,6 +21,7 @@
   - [ ] May need flexible handling for debug data
 - [ ] Implement `createConsensusStateDumpResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeDumpConsensusState<T extends ConsensusStateDumpResponse = ConsensusStateDumpResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeDumpConsensusState()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

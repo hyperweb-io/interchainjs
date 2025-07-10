@@ -26,6 +26,7 @@
   - [ ] Array handling for pubKeyTypes
 - [ ] Implement `createConsensusParamsResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeConsensusParams()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

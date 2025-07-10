@@ -29,6 +29,7 @@
   - [ ] PubKey structure handling
 - [ ] Implement `createValidatorsResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeValidators()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

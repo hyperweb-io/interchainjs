@@ -25,6 +25,7 @@
   - [ ] Height conversion to number
 - [ ] Implement `createBroadcastTxCommitResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBroadcastTxCommit<T extends BroadcastTxCommitResponse = BroadcastTxCommitResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeBroadcastTxCommit()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

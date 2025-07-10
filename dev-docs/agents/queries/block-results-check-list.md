@@ -23,6 +23,7 @@
   - [ ] Number conversions for gas and heights
 - [ ] Implement `createBlockResultsResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBlockResults<T extends BlockResultsResponse = BlockResultsResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeBlockResults()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

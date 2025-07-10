@@ -22,6 +22,7 @@
   - [ ] Array handling for txs (strings remain as base64)
 - [ ] Implement `createUnconfirmedTxsResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeUnconfirmedTxs<T extends UnconfirmedTxsResponse = UnconfirmedTxsResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeUnconfirmedTxs()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

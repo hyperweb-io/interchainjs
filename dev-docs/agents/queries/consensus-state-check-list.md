@@ -26,6 +26,7 @@
   - [ ] Complex nested object handling
 - [ ] Implement `createConsensusStateResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeConsensusState()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

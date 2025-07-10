@@ -29,6 +29,7 @@
   - [ ] Array converter for validators
 - [ ] Implement `createGenesisResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeGenesis<T extends GenesisResponse = GenesisResponse>(response: unknown): T`
+- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
 - [ ] Implement `decodeGenesis()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring

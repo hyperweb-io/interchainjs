@@ -24,6 +24,7 @@
 - [ ] Implement `createBlockResponse()` function
 - [ ] Add decoder method to `ResponseDecoder` interface: `decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T`
 - [ ] Implement `decodeBlock()` in `BaseAdapter`
+- [ ] Use generics for flexibility: `decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T`
 
 ### Phase 3: Request Type Refactoring
 - [ ] Create request type file: `/types/requests/common/block/block-params.ts`
