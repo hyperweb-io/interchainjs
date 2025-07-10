@@ -102,6 +102,19 @@ export const apiToDate = (value: unknown): Date | undefined => {
 };
 
 /**
+ * Convert timestamp string to Date
+ */
+export const timestampToDate = (value: unknown): Date => {
+  if (value instanceof Date) return value;
+  if (typeof value === 'string' || typeof value === 'number') {
+    const date = new Date(value);
+    if (isNaN(date.getTime())) throw new Error(`Invalid timestamp: ${value}`);
+    return date;
+  }
+  throw new Error(`Expected timestamp, got ${typeof value}`);
+};
+
+/**
  * Ensure value is a string
  */
 export const ensureString = (value: unknown): string => {
