@@ -28,3 +28,7 @@ export const EventCodec = createCodec<Event>({
     converter: createArrayConverter(EventAttributeCodec)
   }
 });
+
+export function createEvent(data: unknown): Event {
+  return EventCodec.create(data);
+}

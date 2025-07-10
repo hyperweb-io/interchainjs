@@ -46,7 +46,9 @@ import {
   BlockResponse,
   createBlockResponse,
   BlockchainResponse,
-  createBlockchainResponse
+  createBlockchainResponse,
+  BlockResultsResponse,
+  createBlockResultsResponse
 } from '../types/responses/common/block';
 import {
   AbciQueryParams,
@@ -69,7 +71,10 @@ import {
   encodeBlockParams,
   BlockByHashParams,
   EncodedBlockByHashParams,
-  encodeBlockByHashParams
+  encodeBlockByHashParams,
+  BlockResultsParams,
+  EncodedBlockResultsParams,
+  encodeBlockResultsParams
 } from '../types/requests/common/block';
 import {
   BlockchainParams,
@@ -106,9 +111,6 @@ import {
 } from '../types/responses/common/check-tx';
 
 // Type definitions for removed imports
-type BlockResultsParams = any;
-type EncodedBlockResultsParams = any;
-type BlockResultsResponse = any;
 
 
 type ConsensusStateParams = any;
@@ -146,7 +148,7 @@ type EncodedCheckTxParams = any;
 
 // Dummy encoder functions
 // Placeholder functions are removed - using proper imports now
-const encodeBlockResultsParams = (params: any): any => params;
+
 
 const encodeConsensusStateParams = (params: any): any => params;
 const encodeDumpConsensusStateParams = (params: any): any => params;
@@ -192,7 +194,7 @@ export interface ResponseDecoder {
   decodeAbciInfo<T extends AbciInfoResponse = AbciInfoResponse>(response: unknown): T;
   decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
   decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T;
-  decodeBlockResults(response: any): BlockResultsResponse;
+  decodeBlockResults<T extends BlockResultsResponse = BlockResultsResponse>(response: unknown): T;
   decodeBlockSearch(response: any): BlockSearchResponse;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
   decodeBroadcastTx(response: any): any;
@@ -509,10 +511,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeAbciInfo(response);
       case RpcMethod.ABCI_QUERY:
         return this.decodeAbciQuery(response);
-      case RpcMethod.BLOCK_RESULTS:
-        return this.decodeBlockResults(response);
       case RpcMethod.BLOCK_SEARCH:
         return this.decodeBlockSearch(response);
+      case RpcMethod.BLOCK_RESULTS:
+        return this.decodeBlockResults(response);
       case RpcMethod.TX:
         return this.decodeTx(response);
       case RpcMethod.TX_SEARCH:
@@ -783,7 +785,9 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   }
 
   // Abstract methods that must be implemented by version-specific adapters
-  abstract decodeBlockResults(response: any): BlockResultsResponse;
+  decodeBlockResults<T extends BlockResultsResponse = BlockResultsResponse>(response: unknown): T {
+    return createBlockResultsResponse(response) as T;
+  }
   abstract decodeBlockSearch(response: any): BlockSearchResponse;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {
     return createBlockchainResponse(response) as T;

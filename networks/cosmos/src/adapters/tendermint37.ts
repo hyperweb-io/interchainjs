@@ -2,17 +2,17 @@ import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { BaseAdapter } from './base';
 import { ProtocolVersion } from '../types/protocol';
 import {
-  BlockResponse
+  BlockResponse,
+  BlockResultsResponse,
+  createBlockResultsResponse
 } from '../types/responses/common/block';
 // Type definitions for removed imports
-type BlockResultsResponse = any;
 type ConsensusStateResponse = any;
 type DumpConsensusStateResponse = any;
 type GenesisResponse = any;
 type UnconfirmedTxsResponse = any;
 
 // Dummy creator functions
-const createBlockResultsResponse = (data: any): any => data;
 
 const createConsensusStateResponse = (data: any): any => data;
 const createDumpConsensusStateResponse = (data: any): any => data;
@@ -45,9 +45,7 @@ export class Tendermint37Adapter extends BaseAdapter {
 
 
 
-  decodeBlockResults(response: any): BlockResultsResponse {
-    return createBlockResultsResponse(response);
-  }
+
 
 
 

@@ -3,28 +3,14 @@
  * These are shared across all versions
  */
 
+// Import TxData for dummy interfaces that haven't been refactored yet
+import { TxData } from './responses/common/block/tx-data';
+
 // Common types used in responses
-export interface EventAttribute {
-  readonly key: string;
-  readonly value: string;
-  readonly index?: boolean;
-}
 
-export interface Event {
-  readonly type: string;
-  readonly attributes: readonly EventAttribute[];
-}
 
-export interface TxData {
-  readonly code: number;
-  readonly data?: Uint8Array;
-  readonly log?: string;
-  readonly info?: string;
-  readonly gasWanted?: bigint;
-  readonly gasUsed?: bigint;
-  readonly events: readonly Event[];
-  readonly codespace?: string;
-}
+
+
 
 export interface BlockId {
   readonly hash: Uint8Array;
@@ -98,10 +84,7 @@ export interface Validator {
   readonly proposerPriority: bigint;
 }
 
-export interface ValidatorUpdate {
-  readonly pubKey: ValidatorPubkey;
-  readonly power: bigint;
-}
+
 
 export interface ConsensusParams {
   readonly block: {
@@ -181,15 +164,7 @@ export interface BlockResponse {
   readonly block: Block;
 }
 
-export interface BlockResultsResponse {
-  readonly height: number;
-  readonly txsResults?: readonly TxData[];
-  readonly beginBlockEvents?: readonly Event[]; // Tendermint 0.34 & 0.37
-  readonly endBlockEvents?: readonly Event[]; // Tendermint 0.34 & 0.37
-  readonly finalizeBlockEvents?: readonly Event[]; // CometBFT 0.38
-  readonly validatorUpdates?: readonly ValidatorUpdate[];
-  readonly consensusParamUpdates?: ConsensusParams;
-}
+
 
 export interface BlockSearchResponse {
   readonly blocks: readonly BlockResponse[];
@@ -205,9 +180,7 @@ export interface BroadcastTxAsyncResponse {
   readonly hash: Uint8Array;
 }
 
-export interface BroadcastTxSyncResponse extends TxData {
-  readonly hash: Uint8Array;
-}
+
 
 export interface CommitResponse {
   readonly header: BlockHeader;

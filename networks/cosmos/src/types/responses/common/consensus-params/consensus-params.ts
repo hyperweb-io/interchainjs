@@ -24,3 +24,7 @@ export const ConsensusParamsCodec = createCodec<ConsensusParams>({
   validator: { source: 'validator' },
   version: { source: 'version' }
 });
+
+export function createConsensusParams(data: unknown): ConsensusParams {
+  return ConsensusParamsCodec.create(data);
+}

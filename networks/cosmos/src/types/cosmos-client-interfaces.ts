@@ -1,18 +1,21 @@
 // networks/cosmos/src/types/interfaces.ts
 import { IQueryClient, IEventClient } from '@interchainjs/types';
 import { 
-  StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults, 
+  StatusResponse as ChainStatus, Block,
   TxResponse, ValidatorsResponse as ValidatorSet,
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
   BlockchainResponse as BlockchainInfo, BlockHeader, Commit,
   UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
   GenesisResponse as Genesis, HealthResponse as HealthResult,
-  TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
+  NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
   GenesisChunk, TxEvent, BlockEvent,
-  BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
+  BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
+import { BlockResultsResponse as BlockResults } from './responses/common/block/block-results-response';
+import { TxData as CheckTxResult } from './responses/common/block/tx-data';
+import { BroadcastTxSyncResponse } from './responses/common/broadcast-tx-sync/broadcast-tx-sync-response';
 import {
   AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
 } from './requests';

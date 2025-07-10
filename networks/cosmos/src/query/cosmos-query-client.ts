@@ -3,13 +3,13 @@ import { IRpcClient } from '@interchainjs/types';
 import { ICosmosQueryClient } from '../types/cosmos-client-interfaces';
 import { RpcMethod, ProtocolInfo } from '../types/protocol';
 import {
-  StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults,
+  StatusResponse as ChainStatus, Block,
   TxResponse, ValidatorsResponse as ValidatorSet,
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
   BlockchainResponse, BlockHeader, Commit,
   UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
   GenesisResponse as Genesis, HealthResponse as HealthResult,
-  TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
+  NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
   GenesisChunk, TxEvent, BlockEvent,
@@ -24,6 +24,8 @@ import {
 import {
   BroadcastTxCommitResponse
 } from '../types/responses/common/broadcast-tx-commit';
+import { BlockResultsResponse as BlockResults } from '../types/responses/common/block/block-results-response';
+import { TxData as CheckTxResult } from '../types/responses/common/block/tx-data';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
@@ -98,9 +100,9 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getBlockResults(height?: number): Promise<BlockResults> {
     const params: BlockResultsParams = height ? { height } : {};
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK_RESULTS, params);
+    const encodedParams = this.protocolAdapter.encodeBlockResults(params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK_RESULTS, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_RESULTS, result);
+    return this.protocolAdapter.decodeBlockResults(result);
   }
 
   async searchBlocks(params: BlockSearchParams): Promise<SearchBlocksResult> {
