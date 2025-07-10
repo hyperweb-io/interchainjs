@@ -8,9 +8,17 @@ import { ensureNumber } from '../../../codec/converters';
 // Import dependencies from block module
 import { BlockMeta, BlockMetaCodec } from '../block/block-meta';
 
-// Types
+/**
+ * Response from block search RPC method
+ */
 export interface BlockSearchResponse {
+  /**
+   * Array of block metadata matching the search query
+   */
   readonly blocks: readonly BlockMeta[];
+  /**
+   * Total number of blocks matching the query (for pagination)
+   */
   readonly totalCount: number;
 }
 
@@ -23,7 +31,11 @@ export const BlockSearchResponseCodec = createCodec<BlockSearchResponse>({
   totalCount: { source: 'total_count', converter: ensureNumber }
 });
 
-// Factory functions
+/**
+ * Creates a BlockSearchResponse from raw RPC data
+ * @param data - Raw response data from RPC
+ * @returns Typed BlockSearchResponse object
+ */
 export function createBlockSearchResponse(data: any): BlockSearchResponse {
   return BlockSearchResponseCodec.create(data);
 }

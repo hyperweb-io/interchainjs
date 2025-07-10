@@ -105,10 +105,23 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     return this.protocolAdapter.decodeBlockResults(result);
   }
 
+  /**
+   * Search for blocks matching the given query
+   * @param params - Search parameters including query string and pagination options
+   * @returns Search results with matching blocks and total count
+   * @example
+   * ```typescript
+   * const results = await client.searchBlocks({
+   *   query: "block.height >= 100 AND block.height <= 200",
+   *   page: 1,
+   *   perPage: 10
+   * });
+   * ```
+   */
   async searchBlocks(params: BlockSearchParams): Promise<SearchBlocksResult> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BLOCK_SEARCH, params);
+    const encodedParams = this.protocolAdapter.encodeBlockSearch(params);
     const result = await this.rpcClient.call(RpcMethod.BLOCK_SEARCH, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BLOCK_SEARCH, result);
+    return this.protocolAdapter.decodeBlockSearch(result);
   }
 
   /**

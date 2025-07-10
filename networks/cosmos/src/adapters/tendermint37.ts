@@ -49,9 +49,9 @@ export class Tendermint37Adapter extends BaseAdapter {
 
 
 
-  decodeBlockSearch(response: any): BlockSearchResponse {
+  decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T {
     const data = response.result || response;
-    return createBlockSearchResponse(data);
+    return createBlockSearchResponse(data) as T;
   }
 
 

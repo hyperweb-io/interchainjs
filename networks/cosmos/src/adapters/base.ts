@@ -74,7 +74,10 @@ import {
   encodeBlockByHashParams,
   BlockResultsParams,
   EncodedBlockResultsParams,
-  encodeBlockResultsParams
+  encodeBlockResultsParams,
+  BlockSearchParams,
+  EncodedBlockSearchParams,
+  encodeBlockSearchParams
 } from '../types/requests/common/block';
 import {
   BlockchainParams,
@@ -135,8 +138,7 @@ type TxParams = any;
 type EncodedTxParams = any;
 type TxSearchParams = any;
 type EncodedTxSearchParams = any;
-type BlockSearchParams = any;
-type EncodedBlockSearchParams = any;
+
 type BroadcastTxSyncParams = any;
 type EncodedBroadcastTxSyncParams = any;
 type BroadcastTxAsyncParams = any;
@@ -159,7 +161,6 @@ const encodeUnconfirmedTxsParams = (params: any): any => params;
 const encodeValidatorsParams = (params: any): any => params;
 const encodeTxParams = (params: any): any => params;
 const encodeTxSearchParams = (params: any): any => params;
-const encodeBlockSearchParams = (params: any): any => params;
 const encodeBroadcastTxSyncParams = (params: any): any => params;
 const encodeBroadcastTxAsyncParams = (params: any): any => params;
 const encodeBroadcastTxCommitParams = (params: any): any => params;
@@ -195,7 +196,7 @@ export interface ResponseDecoder {
   decodeAbciQuery<T extends AbciQueryResponse = AbciQueryResponse>(response: unknown): T;
   decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T;
   decodeBlockResults<T extends BlockResultsResponse = BlockResultsResponse>(response: unknown): T;
-  decodeBlockSearch(response: any): BlockSearchResponse;
+  decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
   decodeBroadcastTx(response: any): any;
   decodeBroadcastTxSync?(response: any): BroadcastTxSyncResponse;
@@ -446,11 +447,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       return encoded;
     }
 
-    // Special handling for block_search using codec
-    if (method === RpcMethod.BLOCK_SEARCH) {
-      const encoded = this.encodeBlockSearch(params as BlockSearchParams);
-      return encoded;
-    }
+
 
     // Special handling for broadcast_tx_sync using codec
     if (method === RpcMethod.BROADCAST_TX_SYNC) {
@@ -511,8 +508,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeAbciInfo(response);
       case RpcMethod.ABCI_QUERY:
         return this.decodeAbciQuery(response);
-      case RpcMethod.BLOCK_SEARCH:
-        return this.decodeBlockSearch(response);
       case RpcMethod.BLOCK_RESULTS:
         return this.decodeBlockResults(response);
       case RpcMethod.TX:
@@ -600,7 +595,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       RpcMethod.BLOCK,
       RpcMethod.BLOCK_BY_HASH,
       RpcMethod.BLOCK_RESULTS,
-      RpcMethod.BLOCK_SEARCH,
       RpcMethod.BLOCKCHAIN,
       RpcMethod.HEADER,
       RpcMethod.HEADER_BY_HASH,
@@ -790,7 +784,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = (resp.result || resp) as Record<string, unknown>;
     return createBlockResultsResponse(data) as T;
   }
-  abstract decodeBlockSearch(response: any): BlockSearchResponse;
+  abstract decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {
     return createBlockchainResponse(response) as T;
   }
