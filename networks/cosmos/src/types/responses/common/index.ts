@@ -10,6 +10,7 @@ export * from './broadcast-tx-commit';
 export * from './broadcast-tx-sync';
 export * from './commit';
 export * from './consensus-params';
+export * from './consensus-state';
 export * from './genesis-chunked';
 export * from './header';
 export * from './health';

@@ -5,7 +5,7 @@
 ### Phase 1: Infrastructure Setup
 - [x] Analyze current method in `cosmos-query-client.ts` (lines 161-166)
 - [x] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
-- [x] Check parameter type: inline object `{ tx }` 
+- [x] Check parameter type: inline object `{ tx }`
 - [x] Check response type: `CheckTxResult` in `/types/responses/`
 - [x] Review version-specific differences in adapters
 
@@ -53,6 +53,7 @@
 - [x] Test with valid transaction data
 - [x] Test with invalid transaction data
 - [x] Verify error codes and messages are properly decoded
+- [ ] under networks/cosmos, in test:rpc, make sure we create some test cases based on debug scripts and pass them all.
 
 ### Phase 6: Cleanup
 - [x] Remove `CHECK_TX` case from `decodeResponse` switch statement

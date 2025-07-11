@@ -39,6 +39,10 @@ import {
   createConsensusParamsResponse
 } from '../types/responses/common/consensus-params';
 import {
+  ConsensusStateResponse,
+  createConsensusStateResponse
+} from '../types/responses/common/consensus-state';
+import {
   ValidatorsResponse,
   createValidatorsResponse
 } from '../types/responses/common/validators';
@@ -118,6 +122,16 @@ import {
   encodeValidatorsParams
 } from '../types/requests/common/validators';
 import {
+  ConsensusParamsParams,
+  EncodedConsensusParamsParams,
+  encodeConsensusParamsParams
+} from '../types/requests/common/consensus';
+import {
+  ConsensusStateParams,
+  EncodedConsensusStateParams,
+  encodeConsensusStateParams
+} from '../types/requests/common/consensus-state';
+import {
   CheckTxParams,
   EncodedCheckTxParams,
   encodeCheckTxParams
@@ -126,9 +140,6 @@ import {
 // Type definitions for removed imports
 
 
-type ConsensusStateParams = any;
-type EncodedConsensusStateParams = any;
-type ConsensusStateResponse = any;
 type DumpConsensusStateParams = any;
 type EncodedDumpConsensusStateParams = any;
 type DumpConsensusStateResponse = any;
@@ -159,7 +170,6 @@ type EncodedBroadcastTxCommitParams = any;
 // Placeholder functions are removed - using proper imports now
 
 
-const encodeConsensusStateParams = (params: any): any => params;
 const encodeDumpConsensusStateParams = (params: any): any => params;
 const encodeGenesisParams = (params: any): any => params;
 const encodeHeaderParams = (params: any): any => params;
@@ -181,6 +191,7 @@ export interface RequestEncoder {
   encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams;
   encodeBlockResults(params: BlockResultsParams): EncodedBlockResultsParams;
   encodeBlockchain(params: BlockchainParams): any;
+  encodeConsensusParams(params: ConsensusParamsParams): EncodedConsensusParamsParams;
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams;
   encodeDumpConsensusState(params: DumpConsensusStateParams): EncodedDumpConsensusStateParams;
   encodeGenesis(params: GenesisParams): EncodedGenesisParams;
@@ -211,7 +222,7 @@ export interface ResponseDecoder {
   decodeBroadcastTxCommit?(response: any): BroadcastTxCommitResponse;
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T;
   decodeConsensusParams(response: any): any;
-  decodeConsensusState(response: any): ConsensusStateResponse;
+  decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T;
   decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
   decodeGenesis(response: any): GenesisResponse;
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T;
@@ -400,11 +411,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       params = { ...params, height: params.height.toString() };
     }
 
-    // Special handling for consensus_state using codec
-    if (method === RpcMethod.CONSENSUS_STATE) {
-      const encoded = this.encodeConsensusState(params as ConsensusStateParams);
-      return encoded;
-    }
+
 
     // Special handling for dump_consensus_state using codec
     if (method === RpcMethod.DUMP_CONSENSUS_STATE) {
@@ -523,8 +530,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeTxSearch(response);
       case RpcMethod.CONSENSUS_PARAMS:
         return this.decodeConsensusParams(response);
-      case RpcMethod.CONSENSUS_STATE:
-        return this.decodeConsensusState(response);
+
       case RpcMethod.DUMP_CONSENSUS_STATE:
         return this.decodeDumpConsensusState(response);
       case RpcMethod.HEADER:
@@ -716,6 +722,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return {}; // Return empty object instead of empty array when no params
   }
 
+  encodeConsensusParams(params: ConsensusParamsParams): EncodedConsensusParamsParams {
+    return encodeConsensusParamsParams(params);
+  }
+
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams {
     return encodeConsensusStateParams(params);
   }
@@ -806,10 +816,11 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return createCommitResponse(data) as T;
   }
   decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T {
-    const data = (response as any).result || response;
-    return createConsensusParamsResponse(data) as T;
+    return createConsensusParamsResponse(response) as T;
   }
-  abstract decodeConsensusState(response: any): ConsensusStateResponse;
+  decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T {
+    return createConsensusStateResponse(response) as T;
+  }
   abstract decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
   abstract decodeGenesis(response: any): GenesisResponse;
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T {

@@ -6,9 +6,15 @@
 export { BlockSearchResponse } from './responses/common/block-search';
 export { ValidatorsResponse } from './responses/common/validators';
 export { CheckTxResponse } from './responses/common/tx';
+export { ConsensusParams, ConsensusParamsResponse } from './responses/common/consensus-params';
+export { ConsensusStateResponse } from './responses/common/consensus-state';
 
 // Import TxData for dummy interfaces that haven't been refactored yet
 import { TxData } from './responses/common/block/tx-data';
+// Import ConsensusStateResponse for type alias
+import { ConsensusStateResponse } from './responses/common/consensus-state';
+// Import ConsensusParams for GenesisResponse
+import { ConsensusParams } from './responses/common/consensus-params/consensus-params';
 
 // Common types used in responses
 
@@ -90,24 +96,7 @@ export interface Validator {
 
 
 
-export interface ConsensusParams {
-  readonly block: {
-    readonly maxBytes: bigint;
-    readonly maxGas: bigint;
-    readonly timeIotaMs?: bigint;
-  };
-  readonly evidence: {
-    readonly maxAgeNumBlocks: bigint;
-    readonly maxAgeDuration: bigint;
-    readonly maxBytes?: bigint;
-  };
-  readonly validator: {
-    readonly pubKeyTypes: readonly string[];
-  };
-  readonly version?: {
-    readonly appVersion?: bigint;
-  };
-}
+
 
 export interface NodeInfo {
   readonly protocolVersion: {
@@ -185,10 +174,7 @@ export interface CommitResponse {
   readonly canonical: boolean;
 }
 
-export interface ConsensusParamsResponse {
-  readonly blockHeight: number;
-  readonly consensusParams: ConsensusParams;
-}
+
 
 export interface GenesisResponse {
   readonly genesisTime: Date;
@@ -321,10 +307,7 @@ export interface Peer {
 }
 
 // Additional types used in interfaces
-export interface ConsensusState {
-  readonly roundState: any;
-  readonly peers: readonly any[];
-}
+
 
 export interface ConsensusStateDump {
   readonly roundState: any;
@@ -345,3 +328,6 @@ export interface TxEvent {
 export interface BlockEvent {
   readonly block: Block;
 }
+
+// Type aliases for backward compatibility
+export type ConsensusState = ConsensusStateResponse;

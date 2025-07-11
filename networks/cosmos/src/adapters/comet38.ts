@@ -7,14 +7,12 @@ import {
   createBlockResultsResponse
 } from '../types/responses/common/block';
 // Type definitions for removed imports
-type ConsensusStateResponse = any;
 type DumpConsensusStateResponse = any;
 type GenesisResponse = any;
 type UnconfirmedTxsResponse = any;
 
 // Dummy creator functions
 
-const createConsensusStateResponse = (data: any): any => data;
 const createDumpConsensusStateResponse = (data: any): any => data;
 const createGenesisResponse = (data: any): any => data;
 const createUnconfirmedTxsResponse = (data: any): any => data;
@@ -66,9 +64,7 @@ export class Comet38Adapter extends BaseAdapter {
 
 
 
-  decodeConsensusState(response: any): ConsensusStateResponse {
-    return createConsensusStateResponse(response);
-  }
+
 
   decodeDumpConsensusState(response: any): DumpConsensusStateResponse {
     return createDumpConsensusStateResponse(response);

@@ -250,14 +250,18 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getConsensusParams(height?: number): Promise<ConsensusParams> {
     const params: ConsensusParamsParams = height ? { height } : {};
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.CONSENSUS_PARAMS, params);
+    const encodedParams = this.protocolAdapter.encodeConsensusParams(params);
     const result = await this.rpcClient.call(RpcMethod.CONSENSUS_PARAMS, encodedParams);
-    return this.protocolAdapter.decodeConsensusParams(result);
+    const response = this.protocolAdapter.decodeConsensusParams(result);
+    return response.consensusParams;
   }
 
   async getConsensusState(): Promise<ConsensusState> {
     const result = await this.rpcClient.call(RpcMethod.CONSENSUS_STATE);
-    return this.protocolAdapter.decodeResponse(RpcMethod.CONSENSUS_STATE, result);
+    if (!this.protocolAdapter) {
+      throw new Error('Protocol adapter is not initialized');
+    }
+    return this.protocolAdapter.decodeConsensusState(result);
   }
 
   async dumpConsensusState(): Promise<ConsensusStateDump> {
