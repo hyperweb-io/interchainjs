@@ -53,10 +53,14 @@
 ### Phase 5: Testing and Validation
 - [x] Run TypeScript compiler for type checking
 - [x] Build completed successfully (validators-related code has no errors)
+- [x] Fixed readonly property assignment issue in cosmos-query-client.ts
+- [x] Full project build passes without errors
 - [ ] Test with specific heights
 - [ ] Test pagination parameters
 - [ ] Verify validator data is properly decoded
 - [ ] Check voting power as bigint
+- [ ] under networks/cosmos, make sure test:rpc are passing
+
 
 ### Phase 6: Cleanup
 - [x] Remove `VALIDATORS` case from `decodeResponse` switch statement

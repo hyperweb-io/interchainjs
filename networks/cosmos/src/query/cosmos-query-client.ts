@@ -235,10 +235,11 @@ export class CosmosQueryClient implements ICosmosQueryClient {
    * @returns Promise resolving to validator set with block height, validators array, count and total
    */
   async getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet> {
-    const params: ValidatorsParams = {};
-    if (height) params.height = height;
-    if (page) params.page = page;
-    if (perPage) params.perPage = perPage;
+    const params: ValidatorsParams = {
+      ...(height !== undefined && { height }),
+      ...(page !== undefined && { page }),
+      ...(perPage !== undefined && { perPage })
+    };
 
     const encodedParams = this.protocolAdapter.encodeValidators(params);
     const result = await this.rpcClient.call(RpcMethod.VALIDATORS, encodedParams);
