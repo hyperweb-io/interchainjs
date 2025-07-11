@@ -53,7 +53,7 @@
 - [x] Test with valid transaction data
 - [x] Test with invalid transaction data
 - [x] Verify error codes and messages are properly decoded
-- [ ] under networks/cosmos, in test:rpc, make sure we create some test cases based on debug scripts and pass them all.
+- [x] under networks/cosmos, in test:rpc, make sure we create some test cases based on debug scripts and pass them all.
 
 ### Phase 6: Cleanup
 - [x] Remove `CHECK_TX` case from `decodeResponse` switch statement

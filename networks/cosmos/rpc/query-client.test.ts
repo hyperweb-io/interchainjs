@@ -1038,6 +1038,76 @@ describe('Cosmos Query Client - Functional Tests', () => {
         expect(result1.value).not.toEqual(result2.value);
       });
     });
+
+    describe('checkTx() - 5 variations', () => {
+      test('checkTx() with valid base64 transaction should return response', async () => {
+        // This is a dummy transaction for testing - it will fail validation but should return a proper response
+        const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
+        
+        const result = await queryClient.checkTx(validTx);
+
+        expect(result).toBeDefined();
+        expect(result.code).toBeDefined();
+        expect(typeof result.code).toBe('number');
+        // The transaction will fail validation, so code should be non-zero
+        expect(result.code).toBeGreaterThan(0);
+        expect(result.log).toBeDefined();
+        expect(typeof result.log).toBe('string');
+      });
+
+      test('checkTx() should return gas estimation', async () => {
+        const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
+        
+        const result = await queryClient.checkTx(validTx);
+
+        expect(result.gasWanted).toBeDefined();
+        expect(typeof result.gasWanted).toBe('bigint');
+        expect(result.gasUsed).toBeDefined();
+        expect(typeof result.gasUsed).toBe('bigint');
+      });
+
+      test('checkTx() with empty string should return error', async () => {
+        const result = await queryClient.checkTx('');
+
+        expect(result).toBeDefined();
+        expect(result.code).toBeDefined();
+        expect(result.code).toBeGreaterThan(0); // Error code
+        expect(result.log).toBeDefined();
+      });
+
+      test('checkTx() with malformed base64 should handle gracefully', async () => {
+        // Valid base64 but not a valid transaction
+        const malformedTx = btoa('This is not a valid transaction');
+        
+        const result = await queryClient.checkTx(malformedTx);
+
+        expect(result).toBeDefined();
+        expect(result.code).toBeDefined();
+        expect(result.code).toBeGreaterThan(0); // Error code
+        expect(result.log).toBeDefined();
+        expect(result.log).toContain('error'); // Should contain error message
+      });
+
+      test('checkTx() should handle optional fields properly', async () => {
+        const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
+        
+        const result = await queryClient.checkTx(validTx);
+
+        // Check optional fields
+        if (result.data) {
+          expect(result.data).toBeInstanceOf(Uint8Array);
+        }
+        if (result.info) {
+          expect(typeof result.info).toBe('string');
+        }
+        if (result.codespace) {
+          expect(typeof result.codespace).toBe('string');
+        }
+        if (result.events) {
+          expect(Array.isArray(result.events)).toBe(true);
+        }
+      });
+    });
   });
 
   describe('Protocol Detection', () => {
