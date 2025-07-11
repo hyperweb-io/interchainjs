@@ -220,7 +220,7 @@ export interface ResponseDecoder {
   decodeDumpConsensusState<T extends ConsensusStateDumpResponse = ConsensusStateDumpResponse>(response: unknown): T;
   decodeGenesis<T extends GenesisResponse = GenesisResponse>(response: unknown): T;
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T;
-  decodeHeader(response: any): HeaderResponse;
+  decodeHeader<T extends HeaderResponse = HeaderResponse>(response: unknown): T;
   decodeHealth<T extends HealthResponse = HealthResponse>(response: unknown): T;
   decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T;
   decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T;

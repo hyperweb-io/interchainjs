@@ -16,10 +16,10 @@ export interface HeaderResponse {
 export const HeaderResponseCodec = createCodec<HeaderResponse>({
   header: { 
     source: 'header',
-    converter: (value: any) => BlockHeaderCodec.create(value || {})
+    converter: (value: unknown) => BlockHeaderCodec.create(value || {})
   }
 });
 
-export function createHeaderResponse(data: any): HeaderResponse {
+export function createHeaderResponse(data: unknown): HeaderResponse {
   return HeaderResponseCodec.create(data);
 }
