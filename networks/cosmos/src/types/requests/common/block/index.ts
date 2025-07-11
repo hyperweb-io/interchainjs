@@ -10,3 +10,5 @@ export * from './block-results-params';
 export * from './encoded-block-results-params';
 export * from './block-search-params';
 export * from './encoded-block-search-params';
+export * from './header-params';
+export * from './header-by-hash-params';

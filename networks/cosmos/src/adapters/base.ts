@@ -89,7 +89,13 @@ import {
   encodeBlockResultsParams,
   BlockSearchParams,
   EncodedBlockSearchParams,
-  encodeBlockSearchParams
+  encodeBlockSearchParams,
+  HeaderParams,
+  EncodedHeaderParams,
+  encodeHeaderParams,
+  HeaderByHashParams,
+  EncodedHeaderByHashParams,
+  encodeHeaderByHashParams
 } from '../types/requests/common/block';
 import {
   BlockchainParams,
@@ -146,10 +152,6 @@ import {
 } from '../types/requests/common/tx';
 
 // Type definitions for removed imports
-type HeaderParams = any;
-type EncodedHeaderParams = any;
-type HeaderByHashParams = any;
-type EncodedHeaderByHashParams = any;
 type UnconfirmedTxsParams = any;
 type EncodedUnconfirmedTxsParams = any;
 type UnconfirmedTxsResponse = any;
@@ -168,10 +170,6 @@ type EncodedBroadcastTxCommitParams = any;
 
 // Dummy encoder functions
 // Placeholder functions are removed - using proper imports now
-
-
-const encodeHeaderParams = (params: any): any => params;
-const encodeHeaderByHashParams = (params: any): any => params;
 const encodeUnconfirmedTxsParams = (params: any): any => params;
 
 const encodeTxParams = (params: any): any => params;
@@ -396,7 +394,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
 
     // Convert height to string for block-related methods
-    if ((method === RpcMethod.BLOCK || method === RpcMethod.HEADER) &&
+    if ((method === RpcMethod.BLOCK) &&
         params.height !== undefined && typeof params.height === "number") {
       params = { ...params, height: params.height.toString() };
     }
@@ -416,11 +414,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
 
 
-    // Special handling for header_by_hash using codec
-    if (method === RpcMethod.HEADER_BY_HASH) {
-      const encoded = this.encodeHeaderByHash(params as HeaderByHashParams);
-      return encoded;
-    }
+
 
     // Special handling for unconfirmed_txs using codec
     if (method === RpcMethod.UNCONFIRMED_TXS) {
@@ -517,9 +511,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeConsensusParams(response);
 
 
-      case RpcMethod.HEADER:
-      case RpcMethod.HEADER_BY_HASH:
-        return this.decodeHeader(response);
+
       case RpcMethod.STATUS:
         return this.decodeStatus(response);
       case RpcMethod.NET_INFO:
@@ -589,8 +581,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       RpcMethod.BLOCK_BY_HASH,
       RpcMethod.BLOCK_RESULTS,
       RpcMethod.BLOCKCHAIN,
-      RpcMethod.HEADER,
-      RpcMethod.HEADER_BY_HASH,
       RpcMethod.COMMIT,
 
       // Transaction queries

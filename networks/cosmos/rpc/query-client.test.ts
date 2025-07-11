@@ -234,6 +234,68 @@ describe('Cosmos Query Client - Functional Tests', () => {
       });
     });
 
+    describe('getHeaderByHash() - 5 variations', () => {
+      test('getHeaderByHash() should return header for valid hash', async () => {
+        // First get a block to get its hash
+        const block = await queryClient.getBlock(testHeight);
+        const blockHash = toHex(block.blockId.hash);
+        
+        const result = await queryClient.getHeaderByHash(blockHash);
+        
+        expect(result).toBeDefined();
+        expect(result.chainId).toBe('cosmoshub-4');
+        expect(result.height).toBe(testHeight);
+        expect(result.time).toBeDefined();
+        expect(result.lastBlockId).toBeDefined();
+      });
+
+      test('getHeaderByHash() should match getHeader() for same block', async () => {
+        // Get block to get its hash
+        const block = await queryClient.getBlock(testHeight);
+        const blockHash = toHex(block.blockId.hash);
+        
+        const headerByHash = await queryClient.getHeaderByHash(blockHash);
+        const headerByHeight = await queryClient.getHeader(testHeight);
+        
+        expect(headerByHash.height).toBe(headerByHeight.height);
+        expect(headerByHash.chainId).toBe(headerByHeight.chainId);
+        expect(headerByHash.time).toEqual(headerByHeight.time);
+        expect(headerByHash.validatorsHash).toEqual(headerByHeight.validatorsHash);
+      });
+
+      test('getHeaderByHash() with different hashes should return different headers', async () => {
+        const block1 = await queryClient.getBlock(testHeight);
+        const block2 = await queryClient.getBlock(testHeight2);
+        const hash1 = toHex(block1.blockId.hash);
+        const hash2 = toHex(block2.blockId.hash);
+        
+        const result1 = await queryClient.getHeaderByHash(hash1);
+        const result2 = await queryClient.getHeaderByHash(hash2);
+        
+        expect(result1.height).toBe(testHeight);
+        expect(result2.height).toBe(testHeight2);
+        expect(result1.time).not.toEqual(result2.time);
+      });
+
+      test('getHeaderByHash() should handle uppercase and lowercase hashes', async () => {
+        const block = await queryClient.getBlock(testHeight);
+        const hashLower = toHex(block.blockId.hash).toLowerCase();
+        const hashUpper = hashLower.toUpperCase();
+        
+        const resultLower = await queryClient.getHeaderByHash(hashLower);
+        const resultUpper = await queryClient.getHeaderByHash(hashUpper);
+        
+        expect(resultLower.height).toBe(resultUpper.height);
+        expect(resultLower.time).toEqual(resultUpper.time);
+      });
+
+      test('getHeaderByHash() should throw error for invalid hash', async () => {
+        const invalidHash = 'invalid_hash_12345';
+        
+        await expect(queryClient.getHeaderByHash(invalidHash)).rejects.toThrow();
+      });
+    });
+
     describe('getCommit() - 5 variations', () => {
       test('getCommit() without height should return latest commit', async () => {
         const result = await queryClient.getCommit();

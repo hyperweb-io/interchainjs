@@ -78,13 +78,7 @@ export interface CommitParams {
 
 
 
-export interface HeaderParams {
-  height?: number;
-}
 
-export interface HeaderByHashParams {
-  hash: string;
-}
 
 export interface TxParams {
   hash: string;
@@ -169,12 +163,12 @@ export interface GenesisRequest {
 
 export interface HeaderRequest {
   method: Method.Header;
-  params?: HeaderParams;
+  params?: any; // HeaderParams moved to common/block
 }
 
 export interface HeaderByHashRequest {
   method: Method.HeaderByHash;
-  params: HeaderByHashParams;
+  params: any; // HeaderByHashParams moved to common/block
 }
 
 export interface HealthRequest {

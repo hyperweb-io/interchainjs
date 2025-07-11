@@ -36,9 +36,10 @@ import { CheckTxResponse } from '../types/responses';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
-  HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
+  TxParams, TxSearchParams,
   UnconfirmedTxsParams
 } from '../types/requests';
+import { HeaderParams, HeaderByHashParams } from '../types/requests/common/block';
 import { AbciQueryParams } from '../types/requests/common/abci';
 import { CommitParams } from '../types/requests/common/commit';
 import { ValidatorsParams } from '../types/requests/common/validators';
@@ -158,18 +159,29 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     return this.protocolAdapter.decodeBlockchain(result);
   }
 
+  /**
+   * Get block header by height
+   * @param {number} [height] - Optional block height. If not provided, returns the latest header
+   * @returns {Promise<BlockHeader>} The block header containing metadata like chain ID, height, time, and various hashes
+   */
   async getHeader(height?: number): Promise<BlockHeader> {
     const params: HeaderParams = height ? { height } : {};
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.HEADER, params);
+    const encodedParams = this.protocolAdapter.encodeHeader(params);
     const result = await this.rpcClient.call(RpcMethod.HEADER, encodedParams);
-    return this.protocolAdapter.decodeHeader(result).header as any;
+    return this.protocolAdapter.decodeHeader(result).header;
   }
 
+  /**
+   * Get block header by hash
+   * @param {string} hash - The block hash in hexadecimal format (case-insensitive)
+   * @returns {Promise<BlockHeader>} The block header containing metadata like chain ID, height, time, and various hashes
+   * @throws {Error} If the hash is invalid or block not found
+   */
   async getHeaderByHash(hash: string): Promise<BlockHeader> {
     const params: HeaderByHashParams = { hash };
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.HEADER_BY_HASH, params);
+    const encodedParams = this.protocolAdapter.encodeHeaderByHash(params);
     const result = await this.rpcClient.call(RpcMethod.HEADER_BY_HASH, encodedParams);
-    return this.protocolAdapter.decodeHeader(result).header as any;
+    return this.protocolAdapter.decodeHeader(result).header;
   }
 
   async getCommit(height?: number): Promise<Commit> {
