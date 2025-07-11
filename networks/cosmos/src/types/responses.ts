@@ -3,6 +3,8 @@
  * These are shared across all versions
  */
 
+export { BlockSearchResponse } from './responses/common/block-search';
+
 // Import TxData for dummy interfaces that haven't been refactored yet
 import { TxData } from './responses/common/block/tx-data';
 
@@ -162,13 +164,6 @@ export interface BlockMeta {
 export interface BlockResponse {
   readonly blockId: BlockId;
   readonly block: Block;
-}
-
-
-
-export interface BlockSearchResponse {
-  readonly blocks: readonly BlockResponse[];
-  readonly totalCount: number;
 }
 
 export interface BlockchainResponse {

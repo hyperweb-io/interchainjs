@@ -26,7 +26,10 @@ export interface BlockSearchResponse {
 export const BlockSearchResponseCodec = createCodec<BlockSearchResponse>({
   blocks: { 
     source: 'blocks',
-    converter: (value: any) => (value || []).map((block: any) => BlockMetaCodec.create(block))
+    converter: (value: unknown) => {
+      if (!Array.isArray(value)) return [];
+      return value.map((block: unknown) => BlockMetaCodec.create(block));
+    }
   },
   totalCount: { source: 'total_count', converter: ensureNumber }
 });
@@ -36,6 +39,6 @@ export const BlockSearchResponseCodec = createCodec<BlockSearchResponse>({
  * @param data - Raw response data from RPC
  * @returns Typed BlockSearchResponse object
  */
-export function createBlockSearchResponse(data: any): BlockSearchResponse {
+export function createBlockSearchResponse(data: unknown): BlockSearchResponse {
   return BlockSearchResponseCodec.create(data);
 }

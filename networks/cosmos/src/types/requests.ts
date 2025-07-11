@@ -3,6 +3,9 @@
  * These are shared across all versions
  */
 
+import { BlockSearchParams } from './requests/common/block';
+export { BlockSearchParams } from './requests/common/block';
+
 export enum Method {
   AbciInfo = "abci_info",
   AbciQuery = "abci_query",
@@ -55,13 +58,6 @@ export interface BlockchainParams {
 
 export interface BlockResultsParams {
   height?: number;
-}
-
-export interface BlockSearchParams {
-  query: string;
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
 }
 
 export interface BroadcastTxParams {
