@@ -55,11 +55,11 @@
 - [x] Build completed successfully (validators-related code has no errors)
 - [x] Fixed readonly property assignment issue in cosmos-query-client.ts
 - [x] Full project build passes without errors
-- [ ] Test with specific heights
-- [ ] Test pagination parameters
-- [ ] Verify validator data is properly decoded
-- [ ] Check voting power as bigint
-- [ ] under networks/cosmos, make sure test:rpc are passing
+- [x] Test with specific heights
+- [x] Test pagination parameters
+- [x] Verify validator data is properly decoded
+- [x] Check voting power as bigint
+- [x] under networks/cosmos, make sure test:rpc are passing
 
 
 ### Phase 6: Cleanup
@@ -75,3 +75,7 @@
 - Pagination supported for large validator sets
 - Voting power and proposer priority use bigint
 - Public keys have type and value fields
+
+## Improvements Made
+- Fixed encoding issue where perPage parameter was not being properly converted to per_page in the RPC request
+- The codec was designed for decoding but was being used for encoding, so we implemented a manual encoding function

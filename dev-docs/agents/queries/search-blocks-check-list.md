@@ -51,7 +51,7 @@
 - [x] Test with various search queries (created test script)
 - [x] Verify pagination works correctly (parameters properly encoded)
 - [x] Check ordering functionality (orderBy parameter handled)
-- [ ] under networks/cosmos, test:rpc remain 1 test not passing
+- [x] under networks/cosmos, test:rpc all tests passing
 
 ### Phase 6: Cleanup
 - [x] Remove `BLOCK_SEARCH` case from `decodeResponse` switch statement
@@ -73,3 +73,4 @@
 - Improved type casting in decoder method
 - Removed old BlockSearchParams type from legacy requests.ts file
 - Added import for BlockSearchParams in requests.ts to maintain compatibility
+- Fixed encoding issue where perPage and orderBy parameters were not being properly converted to per_page and order_by in the RPC request
