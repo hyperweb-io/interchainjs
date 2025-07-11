@@ -5,7 +5,9 @@
 
 export { BlockSearchResponse } from './responses/common/block-search';
 export { ValidatorsResponse } from './responses/common/validators';
-export { CheckTxResponse } from './responses/common/tx';
+export { CheckTxResponse, TxResponse } from './responses/common/tx';
+export { TxSearchResponse } from './responses/common/tx-search';
+export { UnconfirmedTxsResponse } from './responses/common/unconfirmed-txs';
 export { ConsensusParams, ConsensusParamsResponse } from './responses/common/consensus-params';
 export { ConsensusStateResponse } from './responses/common/consensus-state';
 
@@ -190,26 +192,7 @@ export interface StatusResponse {
   readonly validatorInfo: Validator;
 }
 
-export interface TxResponse {
-  readonly tx: Uint8Array;
-  readonly hash: Uint8Array;
-  readonly height: number;
-  readonly index: number;
-  readonly result: TxData;
-  readonly proof?: TxProof;
-}
 
-export interface TxSearchResponse {
-  readonly txs: readonly TxResponse[];
-  readonly totalCount: number;
-}
-
-export interface UnconfirmedTxsResponse {
-  readonly count: number;
-  readonly total: number;
-  readonly totalBytes: number;
-  readonly txs: readonly Uint8Array[];
-}
 
 // Version-specific types combined with optional fields
 export interface AbciInfoResponse {

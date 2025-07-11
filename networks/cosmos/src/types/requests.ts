@@ -5,11 +5,11 @@
 
 import { BlockSearchParams } from './requests/common/block';
 import { ValidatorsParams } from './requests/common/validators';
-import { CheckTxParams } from './requests/common/tx';
+import { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams } from './requests/common/tx';
 import { ConsensusParamsParams } from './requests/common/consensus';
 export { BlockSearchParams } from './requests/common/block';
 export { ValidatorsParams } from './requests/common/validators';
-export { CheckTxParams } from './requests/common/tx';
+export { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams } from './requests/common/tx';
 export { ConsensusParamsParams } from './requests/common/consensus';
 
 export enum Method {
@@ -80,22 +80,7 @@ export interface CommitParams {
 
 
 
-export interface TxParams {
-  hash: string;
-  prove?: boolean;
-}
 
-export interface TxSearchParams {
-  query: string;
-  prove?: boolean;
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
-}
-
-export interface UnconfirmedTxsParams {
-  limit?: number;
-}
 
 // Common request types
 export interface AbciInfoRequest {

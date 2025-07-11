@@ -236,9 +236,9 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
     describe('getHeaderByHash() - 5 variations', () => {
       test('getHeaderByHash() should return header for valid hash', async () => {
-        // First get a block to get its hash
-        const block = await queryClient.getBlock(testHeight);
-        const blockHash = toHex(block.blockId.hash);
+        // Get the next block to get the hash of the test block from lastBlockId
+        const nextBlock = await queryClient.getBlock(testHeight + 1);
+        const blockHash = toHex(nextBlock.header.lastBlockId.hash);
         
         const result = await queryClient.getHeaderByHash(blockHash);
         
@@ -250,9 +250,9 @@ describe('Cosmos Query Client - Functional Tests', () => {
       });
 
       test('getHeaderByHash() should match getHeader() for same block', async () => {
-        // Get block to get its hash
-        const block = await queryClient.getBlock(testHeight);
-        const blockHash = toHex(block.blockId.hash);
+        // Get the next block to get the hash of the test block from lastBlockId
+        const nextBlock = await queryClient.getBlock(testHeight + 1);
+        const blockHash = toHex(nextBlock.header.lastBlockId.hash);
         
         const headerByHash = await queryClient.getHeaderByHash(blockHash);
         const headerByHeight = await queryClient.getHeader(testHeight);
@@ -264,10 +264,10 @@ describe('Cosmos Query Client - Functional Tests', () => {
       });
 
       test('getHeaderByHash() with different hashes should return different headers', async () => {
-        const block1 = await queryClient.getBlock(testHeight);
-        const block2 = await queryClient.getBlock(testHeight2);
-        const hash1 = toHex(block1.blockId.hash);
-        const hash2 = toHex(block2.blockId.hash);
+        const nextBlock1 = await queryClient.getBlock(testHeight + 1);
+        const nextBlock2 = await queryClient.getBlock(testHeight2 + 1);
+        const hash1 = toHex(nextBlock1.header.lastBlockId.hash);
+        const hash2 = toHex(nextBlock2.header.lastBlockId.hash);
         
         const result1 = await queryClient.getHeaderByHash(hash1);
         const result2 = await queryClient.getHeaderByHash(hash2);
@@ -278,8 +278,8 @@ describe('Cosmos Query Client - Functional Tests', () => {
       });
 
       test('getHeaderByHash() should handle uppercase and lowercase hashes', async () => {
-        const block = await queryClient.getBlock(testHeight);
-        const hashLower = toHex(block.blockId.hash).toLowerCase();
+        const nextBlock = await queryClient.getBlock(testHeight + 1);
+        const hashLower = toHex(nextBlock.header.lastBlockId.hash).toLowerCase();
         const hashUpper = hashLower.toUpperCase();
         
         const resultLower = await queryClient.getHeaderByHash(hashLower);

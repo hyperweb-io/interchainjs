@@ -195,15 +195,15 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   // Transaction query methods
   async getTx(hash: string, prove?: boolean): Promise<TxResponse> {
     const params: TxParams = { hash, prove };
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.TX, params);
+    const encodedParams = this.protocolAdapter.encodeTx(params);
     const result = await this.rpcClient.call(RpcMethod.TX, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.TX, result);
+    return this.protocolAdapter.decodeTx(result);
   }
 
   async searchTxs(params: TxSearchParams): Promise<SearchTxsResult> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.TX_SEARCH, params);
+    const encodedParams = this.protocolAdapter.encodeTxSearch(params);
     const result = await this.rpcClient.call(RpcMethod.TX_SEARCH, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.TX_SEARCH, result);
+    return this.protocolAdapter.decodeTxSearch(result);
   }
 
   async checkTx(tx: string): Promise<CheckTxResponse> {
@@ -215,9 +215,9 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs> {
     const params: UnconfirmedTxsParams = limit ? { limit } : {};
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.UNCONFIRMED_TXS, params);
+    const encodedParams = this.protocolAdapter.encodeUnconfirmedTxs(params);
     const result = await this.rpcClient.call(RpcMethod.UNCONFIRMED_TXS, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.UNCONFIRMED_TXS, result);
+    return this.protocolAdapter.decodeUnconfirmedTxs(result);
   }
 
   async getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs> {

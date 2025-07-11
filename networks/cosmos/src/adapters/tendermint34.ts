@@ -6,21 +6,7 @@ import {
   BlockResultsResponse,
   createBlockResultsResponse
 } from '../types/responses/common/block';
-// Type definitions for removed imports
 
-type UnconfirmedTxsResponse = any;
-
-// Dummy creator functions
-
-const createUnconfirmedTxsResponse = (data: any): any => data;
-import {
-  TxResponse,
-  createTxResponse
-} from '../types/responses/common/tx';
-import {
-  TxSearchResponse,
-  createTxSearchResponse
-} from '../types/responses/common/tx-search';
 
 
 
@@ -71,20 +57,7 @@ export class Tendermint34Adapter extends BaseAdapter {
 
 
 
-  decodeTx(response: any): TxResponse {
-    const data = response.result || response;
-    return createTxResponse(data);
-  }
 
-  decodeTxSearch(response: any): TxSearchResponse {
-    const data = response.result || response;
-    return createTxSearchResponse(data);
-  }
-
-  decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse {
-    const data = response.result || response;
-    return createUnconfirmedTxsResponse(data);
-  }
 
 
 

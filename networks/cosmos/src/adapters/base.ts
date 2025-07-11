@@ -111,6 +111,10 @@ import {
   createTxSearchResponse
 } from '../types/responses/common/tx-search';
 import {
+  UnconfirmedTxsResponse,
+  createUnconfirmedTxsResponse
+} from '../types/responses/common/unconfirmed-txs';
+import {
   BlockSearchResponse,
   createBlockSearchResponse
 } from '../types/responses/common/block-search';
@@ -148,17 +152,17 @@ import {
 import {
   CheckTxParams,
   EncodedCheckTxParams,
-  encodeCheckTxParams
+  encodeCheckTxParams,
+  TxParams,
+  EncodedTxParams,
+  encodeTxParams,
+  TxSearchParams,
+  EncodedTxSearchParams,
+  encodeTxSearchParams,
+  UnconfirmedTxsParams,
+  EncodedUnconfirmedTxsParams,
+  encodeUnconfirmedTxsParams
 } from '../types/requests/common/tx';
-
-// Type definitions for removed imports
-type UnconfirmedTxsParams = any;
-type EncodedUnconfirmedTxsParams = any;
-type UnconfirmedTxsResponse = any;
-type TxParams = any;
-type EncodedTxParams = any;
-type TxSearchParams = any;
-type EncodedTxSearchParams = any;
 
 type BroadcastTxSyncParams = any;
 type EncodedBroadcastTxSyncParams = any;
@@ -168,17 +172,13 @@ type BroadcastTxCommitParams = any;
 type EncodedBroadcastTxCommitParams = any;
 
 
-// Dummy encoder functions
-// Placeholder functions are removed - using proper imports now
-const encodeUnconfirmedTxsParams = (params: any): any => params;
-
-const encodeTxParams = (params: any): any => params;
-const encodeTxSearchParams = (params: any): any => params;
+// Dummy encoder functions for broadcast methods
+// These will be refactored later
 const encodeBroadcastTxSyncParams = (params: any): any => params;
 const encodeBroadcastTxAsyncParams = (params: any): any => params;
 const encodeBroadcastTxCommitParams = (params: any): any => params;
 
-const createUnconfirmedTxsResponse = (data: any): any => data;
+
 
 export interface RequestEncoder {
   encodeAbciQuery(params: AbciQueryParams): EncodedAbciQueryParams;
@@ -225,9 +225,9 @@ export interface ResponseDecoder {
   decodeNetInfo<T extends NetInfoResponse = NetInfoResponse>(response: unknown): T;
   decodeNumUnconfirmedTxs<T extends NumUnconfirmedTxsResponse = NumUnconfirmedTxsResponse>(response: unknown): T;
   decodeStatus<T extends StatusResponse = StatusResponse>(response: unknown): T;
-  decodeTx(response: any): TxResponse;
-  decodeTxSearch(response: any): TxSearchResponse;
-  decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
+  decodeTx<T extends TxResponse = TxResponse>(response: unknown): T;
+  decodeTxSearch<T extends TxSearchResponse = TxSearchResponse>(response: unknown): T;
+  decodeUnconfirmedTxs<T extends UnconfirmedTxsResponse = UnconfirmedTxsResponse>(response: unknown): T;
   decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T;
   decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T;
 }
@@ -823,9 +823,23 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = responseData.result || response;
     return createStatusResponse(data) as T;
   }
-  abstract decodeTx(response: any): TxResponse;
-  abstract decodeTxSearch(response: any): TxSearchResponse;
-  abstract decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
+  decodeTx<T extends TxResponse = TxResponse>(response: unknown): T {
+    const responseData = response as { result?: unknown };
+    const data = responseData.result || response;
+    return createTxResponse(data) as T;
+  }
+  
+  decodeTxSearch<T extends TxSearchResponse = TxSearchResponse>(response: unknown): T {
+    const responseData = response as { result?: unknown };
+    const data = responseData.result || response;
+    return createTxSearchResponse(data) as T;
+  }
+  
+  decodeUnconfirmedTxs<T extends UnconfirmedTxsResponse = UnconfirmedTxsResponse>(response: unknown): T {
+    const responseData = response as { result?: unknown };
+    const data = responseData.result || response;
+    return createUnconfirmedTxsResponse(data) as T;
+  }
   decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse {
     const data = response.result || response;
     return createBroadcastTxSyncResponse(data);
