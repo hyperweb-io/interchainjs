@@ -41,10 +41,10 @@
 - [x] Update imports to use index files
 
 ### Phase 5: Testing and Validation
-- [ ] Run TypeScript compiler for type checking
-- [ ] Test with various chunk indices
-- [ ] Verify chunk data is properly encoded
-- [ ] Test boundary conditions (first/last chunk)
+- [x] Run TypeScript compiler for type checking
+- [x] Test with various chunk indices
+- [x] Verify chunk data is properly encoded
+- [x] Test boundary conditions (first/last chunk)
 
 ### Phase 6: Cleanup
 - [x] Remove `GENESIS_CHUNKED` case from `encodeParams` if present

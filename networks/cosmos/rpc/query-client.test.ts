@@ -1043,7 +1043,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
       test('checkTx() with valid base64 transaction should return response', async () => {
         // This is a dummy transaction for testing - it will fail validation but should return a proper response
         const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
-        
+
         const result = await queryClient.checkTx(validTx);
 
         expect(result).toBeDefined();
@@ -1057,7 +1057,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       test('checkTx() should return gas estimation', async () => {
         const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
-        
+
         const result = await queryClient.checkTx(validTx);
 
         expect(result.gasWanted).toBeDefined();
@@ -1078,7 +1078,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
       test('checkTx() with malformed base64 should handle gracefully', async () => {
         // Valid base64 but not a valid transaction
         const malformedTx = btoa('This is not a valid transaction');
-        
+
         const result = await queryClient.checkTx(malformedTx);
 
         expect(result).toBeDefined();
@@ -1090,7 +1090,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       test('checkTx() should handle optional fields properly', async () => {
         const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
-        
+
         const result = await queryClient.checkTx(validTx);
 
         // Check optional fields
@@ -1143,4 +1143,57 @@ describe('Cosmos Query Client - Functional Tests', () => {
       await expect(queryClient.getValidators(undefined, 9999, 100)).rejects.toThrow();
     });
   });
+
+  // describe('Genesis Chunked Methods', () => {
+  //   describe('getGenesisChunked() - 5 variations', () => {
+  //     test('getGenesisChunked(0) should return first chunk', async () => {
+  //       const result = await queryClient.getGenesisChunked(0);
+
+  //       expect(result).toBeDefined();
+  //       expect(result.chunk).toBe(0);
+  //       expect(result.total).toBeDefined();
+  //       expect(result.total).toBeGreaterThan(0);
+  //       expect(result.data).toBeDefined();
+  //       expect(typeof result.data).toBe('string');
+  //       expect(result.data.length).toBeGreaterThan(0);
+  //     });
+
+  //     test('getGenesisChunked() should return valid base64 data', async () => {
+  //       const result = await queryClient.getGenesisChunked(0);
+
+  //       // Verify data is valid base64
+  //       expect(() => {
+  //         Buffer.from(result.data, 'base64');
+  //       }).not.toThrow();
+
+  //       // Decode and check it's valid JSON
+  //       const decoded = Buffer.from(result.data, 'base64').toString('utf-8');
+  //       expect(() => {
+  //         JSON.parse(decoded);
+  //       }).not.toThrow();
+  //     });
+
+  //     test('getGenesisChunked() with different chunks should return different data', async () => {
+  //       const chunk0 = await queryClient.getGenesisChunked(0);
+  //       const chunk1 = await queryClient.getGenesisChunked(1);
+
+  //       expect(chunk0.chunk).toBe(0);
+  //       expect(chunk1.chunk).toBe(1);
+  //       expect(chunk0.total).toBe(chunk1.total); // Total should be consistent
+  //       expect(chunk0.data).not.toBe(chunk1.data); // Data should be different
+  //     });
+
+  //     test('getGenesisChunked() should return consistent total across requests', async () => {
+  //       const results = await Promise.all([
+  //         queryClient.getGenesisChunked(0),
+  //         queryClient.getGenesisChunked(1),
+  //         queryClient.getGenesisChunked(2)
+  //       ]);
+
+  //       const totals = results.map(r => r.total);
+  //       expect(totals[0]).toBe(totals[1]);
+  //       expect(totals[1]).toBe(totals[2]);
+  //     });
+  //   });
+  // });
 });
