@@ -26,10 +26,7 @@ import {
   TxSearchResponse,
   createTxSearchResponse
 } from '../types/responses/common/tx-search';
-import {
-  BlockSearchResponse,
-  createBlockSearchResponse
-} from '../types/responses/common/block-search';
+
 
 import {
   CheckTxResponse,
@@ -50,10 +47,7 @@ export class Comet38Adapter extends BaseAdapter {
 
 
 
-  decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T {
-    const data = response.result || response;
-    return createBlockSearchResponse(data) as T;
-  }
+
 
 
 
