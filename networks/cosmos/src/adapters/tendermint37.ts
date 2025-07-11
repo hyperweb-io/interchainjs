@@ -28,10 +28,7 @@ import {
 } from '../types/responses/common/tx-search';
 
 
-import {
-  CheckTxResponse,
-  createCheckTxResponse
-} from '../types/responses/common/check-tx';
+
 
 export class Tendermint37Adapter extends BaseAdapter {
   constructor() {
@@ -105,8 +102,5 @@ export class Tendermint37Adapter extends BaseAdapter {
 
 
 
-  decodeCheckTx(response: any): CheckTxResponse {
-    const data = response.result || response;
-    return createCheckTxResponse(data);
-  }
+
 }

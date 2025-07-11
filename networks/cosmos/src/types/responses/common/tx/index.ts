@@ -6,3 +6,4 @@ export * from './event';
 export * from './tx-result';
 export * from './tx-proof';
 export * from './tx-response';
+export * from './check-tx-response';

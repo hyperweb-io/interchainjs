@@ -8,7 +8,6 @@ export * from './block-search';
 export * from './broadcast-tx-async';
 export * from './broadcast-tx-commit';
 export * from './broadcast-tx-sync';
-export * from './check-tx';
 export * from './commit';
 export * from './consensus-params';
 export * from './genesis-chunked';

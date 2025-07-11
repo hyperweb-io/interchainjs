@@ -28,10 +28,7 @@ import {
 } from '../types/responses/common/tx-search';
 
 
-import {
-  CheckTxResponse,
-  createCheckTxResponse
-} from '../types/responses/common/check-tx';
+
 // No response imports needed since ABCI methods are now in base class
 
 export class Comet38Adapter extends BaseAdapter {
@@ -104,9 +101,6 @@ export class Comet38Adapter extends BaseAdapter {
 
 
 
-  decodeCheckTx(response: any): CheckTxResponse {
-    const data = response.result || response;
-    return createCheckTxResponse(data);
-  }
+
 
 }

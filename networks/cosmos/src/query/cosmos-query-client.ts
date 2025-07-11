@@ -25,7 +25,9 @@ import {
   BroadcastTxCommitResponse
 } from '../types/responses/common/broadcast-tx-commit';
 import { BlockResultsResponse as BlockResults } from '../types/responses/common/block/block-results-response';
-import { TxData as CheckTxResult } from '../types/responses/common/block/tx-data';
+import { TxData } from '../types/responses/common/block/tx-data';
+import { CheckTxParams } from '../types/requests';
+import { CheckTxResponse } from '../types/responses';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
@@ -186,11 +188,11 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     return this.protocolAdapter.decodeResponse(RpcMethod.TX_SEARCH, result);
   }
 
-  async checkTx(tx: string): Promise<CheckTxResult> {
-    const params = { tx };
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.CHECK_TX, params);
+  async checkTx(tx: string): Promise<CheckTxResponse> {
+    const params: CheckTxParams = { tx };
+    const encodedParams = this.protocolAdapter.encodeCheckTx(params);
     const result = await this.rpcClient.call(RpcMethod.CHECK_TX, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.CHECK_TX, result);
+    return this.protocolAdapter.decodeCheckTx(result);
   }
 
   async getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs> {

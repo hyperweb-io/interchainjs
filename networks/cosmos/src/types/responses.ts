@@ -5,6 +5,7 @@
 
 export { BlockSearchResponse } from './responses/common/block-search';
 export { ValidatorsResponse } from './responses/common/validators';
+export { CheckTxResponse } from './responses/common/tx';
 
 // Import TxData for dummy interfaces that haven't been refactored yet
 import { TxData } from './responses/common/block/tx-data';

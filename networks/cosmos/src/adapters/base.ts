@@ -111,12 +111,17 @@ import {
 import {
   CheckTxResponse,
   createCheckTxResponse
-} from '../types/responses/common/check-tx';
+} from '../types/responses/common/tx';
 import {
   ValidatorsParams,
   EncodedValidatorsParams,
   encodeValidatorsParams
 } from '../types/requests/common/validators';
+import {
+  CheckTxParams,
+  EncodedCheckTxParams,
+  encodeCheckTxParams
+} from '../types/requests/common/tx';
 
 // Type definitions for removed imports
 
@@ -148,8 +153,7 @@ type BroadcastTxAsyncParams = any;
 type EncodedBroadcastTxAsyncParams = any;
 type BroadcastTxCommitParams = any;
 type EncodedBroadcastTxCommitParams = any;
-type CheckTxParams = any;
-type EncodedCheckTxParams = any;
+
 
 // Dummy encoder functions
 // Placeholder functions are removed - using proper imports now
@@ -167,7 +171,7 @@ const encodeTxSearchParams = (params: any): any => params;
 const encodeBroadcastTxSyncParams = (params: any): any => params;
 const encodeBroadcastTxAsyncParams = (params: any): any => params;
 const encodeBroadcastTxCommitParams = (params: any): any => params;
-const encodeCheckTxParams = (params: any): any => params;
+
 const createUnconfirmedTxsResponse = (data: any): any => data;
 
 export interface RequestEncoder {
@@ -220,7 +224,7 @@ export interface ResponseDecoder {
   decodeTxSearch(response: any): TxSearchResponse;
   decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
   decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T;
-  decodeCheckTx?(response: any): CheckTxResponse;
+  decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T;
 }
 
 export interface IProtocolAdapter {
@@ -542,8 +546,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeNumUnconfirmedTxs(response);
       case RpcMethod.COMMIT:
         return this.decodeCommit(response);
-      case RpcMethod.CHECK_TX:
-        return this.decodeCheckTx(response);
       case RpcMethod.BROADCAST_TX_SYNC:
         return this.decodeBroadcastTxSync(response);
       case RpcMethod.BROADCAST_TX_ASYNC:
@@ -604,7 +606,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       // Transaction queries
       RpcMethod.TX,
       RpcMethod.TX_SEARCH,
-      RpcMethod.CHECK_TX,
       RpcMethod.UNCONFIRMED_TXS,
       RpcMethod.NUM_UNCONFIRMED_TXS,
 
@@ -853,7 +854,9 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = response.result || response;
     return createBroadcastTxCommitResponse(data);
   }
-  abstract decodeCheckTx(response: any): CheckTxResponse;
+  decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T {
+    return createCheckTxResponse(response) as T;
+  }
   /**
    * Decode validators response from RPC
    * @param response - Raw RPC response

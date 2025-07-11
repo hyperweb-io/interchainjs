@@ -3,64 +3,73 @@
 ## Method: `checkTx(tx: string): Promise<CheckTxResult>`
 
 ### Phase 1: Infrastructure Setup
-- [ ] Analyze current method in `cosmos-query-client.ts` (lines 161-166)
-- [ ] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
-- [ ] Check parameter type: inline object `{ tx }` 
-- [ ] Check response type: `CheckTxResult` in `/types/responses/`
-- [ ] Review version-specific differences in adapters
+- [x] Analyze current method in `cosmos-query-client.ts` (lines 161-166)
+- [x] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
+- [x] Check parameter type: inline object `{ tx }` 
+- [x] Check response type: `CheckTxResult` in `/types/responses/`
+- [x] Review version-specific differences in adapters
 
 ### Phase 2: Response Type Refactoring
-- [ ] Create response type file: `/types/responses/common/tx/check-tx-response.ts`
-- [ ] Define TypeScript interface for `CheckTxResponse`
-- [ ] Handle fields:
-  - [ ] `code` number (0 for success)
-  - [ ] `data` optional Uint8Array
-  - [ ] `log` optional string
-  - [ ] `info` optional string
-  - [ ] `gasWanted` optional number
-  - [ ] `gasUsed` optional number
-  - [ ] `events` optional array
-  - [ ] `codespace` optional string
-- [ ] Create codec using `createCodec()` with proper converters:
-  - [ ] Number conversions for code and gas fields
-  - [ ] Base64 to Uint8Array for data
-  - [ ] String conversions for log/info
-  - [ ] Event array handling
-- [ ] Implement `createCheckTxResponse()` function
-- [ ] Add decoder method to `ResponseDecoder` interface: `decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T`
-- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
-- [ ] Implement `decodeCheckTx()` in `BaseAdapter`
+- [x] Create response type file: `/types/responses/common/tx/check-tx-response.ts`
+- [x] Define TypeScript interface for `CheckTxResponse`
+- [x] Handle fields:
+  - [x] `code` number (0 for success)
+  - [x] `data` optional Uint8Array
+  - [x] `log` optional string
+  - [x] `info` optional string
+  - [x] `gasWanted` optional number
+  - [x] `gasUsed` optional number
+  - [x] `events` optional array
+  - [x] `codespace` optional string
+- [x] Create codec using `createCodec()` with proper converters:
+  - [x] Number conversions for code and gas fields
+  - [x] Base64 to Uint8Array for data
+  - [x] String conversions for log/info
+  - [x] Event array handling
+- [x] Implement `createCheckTxResponse()` function
+- [x] Add decoder method to `ResponseDecoder` interface: `decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T`
+- [x] Use generics for flexibility in decoder method (see pattern in completed methods)
+- [x] Implement `decodeCheckTx()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring
-- [ ] Create request type file: `/types/requests/common/tx/check-tx-params.ts`
-- [ ] Define `CheckTxParams` interface with:
-  - [ ] `tx` string (base64 encoded transaction)
-- [ ] Create `EncodedCheckTxParams` interface (likely same structure)
-- [ ] Create codec for encoding (minimal changes)
-- [ ] Implement `encodeCheckTxParams()` function
-- [ ] Add encoder method to `RequestEncoder` interface: `encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams`
-- [ ] Implement `encodeCheckTx()` in `BaseAdapter`
+- [x] Create request type file: `/types/requests/common/tx/check-tx-params.ts`
+- [x] Define `CheckTxParams` interface with:
+  - [x] `tx` string (base64 encoded transaction)
+- [x] Create `EncodedCheckTxParams` interface (likely same structure)
+- [x] Create codec for encoding (minimal changes)
+- [x] Implement `encodeCheckTxParams()` function
+- [x] Add encoder method to `RequestEncoder` interface: `encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams`
+- [x] Implement `encodeCheckTx()` in `BaseAdapter`
 
 ### Phase 4: Update Query Client
-- [ ] Update `checkTx()` method to use:
-  - [ ] Create proper `CheckTxParams` object instead of inline
-  - [ ] `this.protocolAdapter.encodeCheckTx(params)` instead of `encodeParams`
-  - [ ] `this.protocolAdapter.decodeCheckTx(result)` instead of `decodeResponse`
-- [ ] Update imports to use index files
+- [x] Update `checkTx()` method to use:
+  - [x] Create proper `CheckTxParams` object instead of inline
+  - [x] `this.protocolAdapter.encodeCheckTx(params)` instead of `encodeParams`
+  - [x] `this.protocolAdapter.decodeCheckTx(result)` instead of `decodeResponse`
+- [x] Update imports to use index files
 
 ### Phase 5: Testing and Validation
-- [ ] Run TypeScript compiler for type checking
-- [ ] Test with valid transaction data
-- [ ] Test with invalid transaction data
-- [ ] Verify error codes and messages are properly decoded
+- [x] Run TypeScript compiler for type checking
+- [x] Test with valid transaction data
+- [x] Test with invalid transaction data
+- [x] Verify error codes and messages are properly decoded
 
 ### Phase 6: Cleanup
-- [ ] Remove `CHECK_TX` case from `decodeResponse` switch statement
-- [ ] Remove unused imports
-- [ ] Add JSDoc comments
-- [ ] Document expected transaction format
+- [x] Remove `CHECK_TX` case from `decodeResponse` switch statement
+- [x] Remove unused imports
+- [x] Add JSDoc comments
+- [x] Document expected transaction format
 
 ## Notes
 - Used to validate transactions without broadcasting
 - Transaction should be base64 encoded
 - Returns validation result with gas estimation
+
+## Improvements Made
+- Successfully refactored checkTx method to use the new codec pattern
+- Created proper request and response types with appropriate converters
+- Fixed import issues by using @interchainjs/encoding for fromBase64
+- Fixed codec usage by using .create() method instead of .decode() for encoding
+- Removed duplicate implementations from version-specific adapters
+- Updated cosmos-client-interfaces.ts to use CheckTxResponse type
+- All TypeScript errors resolved and project builds successfully

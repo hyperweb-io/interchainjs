@@ -5,8 +5,10 @@
 
 import { BlockSearchParams } from './requests/common/block';
 import { ValidatorsParams } from './requests/common/validators';
+import { CheckTxParams } from './requests/common/tx';
 export { BlockSearchParams } from './requests/common/block';
 export { ValidatorsParams } from './requests/common/validators';
+export { CheckTxParams } from './requests/common/tx';
 
 export enum Method {
   AbciInfo = "abci_info",

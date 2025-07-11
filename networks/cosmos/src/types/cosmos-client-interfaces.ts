@@ -14,7 +14,7 @@ import {
   BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
 import { BlockResultsResponse as BlockResults } from './responses/common/block/block-results-response';
-import { TxData as CheckTxResult } from './responses/common/block/tx-data';
+import { CheckTxResponse } from './responses';
 import { BroadcastTxSyncResponse } from './responses/common/broadcast-tx-sync/broadcast-tx-sync-response';
 import {
   AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
@@ -43,7 +43,7 @@ export interface ICosmosQueryClient extends IQueryClient {
   // Transaction queries  
   getTx(hash: string, prove?: boolean): Promise<TxResponse>;
   searchTxs(params: TxSearchParams): Promise<SearchTxsResult>;
-  checkTx(tx: string): Promise<CheckTxResult>;
+  checkTx(tx: string): Promise<CheckTxResponse>;
   getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs>;
   getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs>;
 
