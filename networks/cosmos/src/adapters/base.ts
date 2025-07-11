@@ -144,9 +144,6 @@ import {
 // Type definitions for removed imports
 
 
-type DumpConsensusStateParams = any;
-type EncodedDumpConsensusStateParams = any;
-
 type GenesisParams = any;
 type EncodedGenesisParams = any;
 type GenesisResponse = any;
@@ -174,7 +171,6 @@ type EncodedBroadcastTxCommitParams = any;
 // Placeholder functions are removed - using proper imports now
 
 
-const encodeDumpConsensusStateParams = (params: any): any => params;
 const encodeGenesisParams = (params: any): any => params;
 const encodeHeaderParams = (params: any): any => params;
 const encodeHeaderByHashParams = (params: any): any => params;
@@ -197,7 +193,6 @@ export interface RequestEncoder {
   encodeBlockchain(params: BlockchainParams): any;
   encodeConsensusParams(params: ConsensusParamsParams): EncodedConsensusParamsParams;
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams;
-  encodeDumpConsensusState(params: DumpConsensusStateParams): EncodedDumpConsensusStateParams;
   encodeGenesis(params: GenesisParams): EncodedGenesisParams;
   encodeGenesisChunked(params: GenesisChunkedParams): EncodedGenesisChunkedParams;
   encodeHeader(params: HeaderParams): EncodedHeaderParams;
@@ -416,12 +411,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     }
 
 
-
-    // Special handling for dump_consensus_state using codec
-    if (method === RpcMethod.DUMP_CONSENSUS_STATE) {
-      const encoded = this.encodeDumpConsensusState(params as DumpConsensusStateParams);
-      return encoded;
-    }
 
     // Special handling for genesis using codec
     if (method === RpcMethod.GENESIS) {
@@ -731,10 +720,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams {
     return encodeConsensusStateParams(params);
-  }
-
-  encodeDumpConsensusState(params: DumpConsensusStateParams): EncodedDumpConsensusStateParams {
-    return encodeDumpConsensusStateParams(params);
   }
 
   encodeGenesis(params: GenesisParams): EncodedGenesisParams {

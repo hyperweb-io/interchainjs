@@ -36,27 +36,36 @@ export interface RoundState {
 
 export const RoundStateCodec = createCodec<RoundState>({
   height: {
-    source: 'height/round/step',
-    converter: (value: unknown) => {
-      if (typeof value !== 'string') return 0;
-      const parts = value.split('/');
-      return parseInt(parts[0], 10) || 0;
+    converter: (value: unknown, data: any) => {
+      // Handle both formats: separate fields or combined "height/round/step"
+      if (data && typeof data['height/round/step'] === 'string') {
+        const parts = data['height/round/step'].split('/');
+        return parseInt(parts[0], 10) || 0;
+      }
+      if (typeof value === 'string') {
+        return parseInt(value, 10) || 0;
+      }
+      return ensureNumber(value);
     }
   },
   round: {
-    source: 'height/round/step',
-    converter: (value: unknown) => {
-      if (typeof value !== 'string') return 0;
-      const parts = value.split('/');
-      return parseInt(parts[1], 10) || 0;
+    converter: (value: unknown, data: any) => {
+      // Handle both formats: separate fields or combined "height/round/step"
+      if (data && typeof data['height/round/step'] === 'string') {
+        const parts = data['height/round/step'].split('/');
+        return parseInt(parts[1], 10) || 0;
+      }
+      return ensureNumber(value);
     }
   },
   step: {
-    source: 'height/round/step',
-    converter: (value: unknown) => {
-      if (typeof value !== 'string') return 0;
-      const parts = value.split('/');
-      return parseInt(parts[2], 10) || 0;
+    converter: (value: unknown, data: any) => {
+      // Handle both formats: separate fields or combined "height/round/step"
+      if (data && typeof data['height/round/step'] === 'string') {
+        const parts = data['height/round/step'].split('/');
+        return parseInt(parts[2], 10) || 0;
+      }
+      return ensureNumber(value);
     }
   },
   startTime: { source: 'start_time', converter: ensureString },

@@ -3,13 +3,11 @@
  */
 
 import { createCodec } from '../../../codec';
-import { createArrayConverter } from '../../../codec/converters';
 import { RoundState, createRoundState } from './round-state';
-import { PeerState, createPeerState } from './peer-state';
 
 export interface ConsensusStateResponse {
   readonly roundState: RoundState;
-  readonly peers?: readonly PeerState[];
+  readonly peers?: undefined; // Always undefined for regular consensus_state
 }
 
 export const ConsensusStateResponseCodec = createCodec<ConsensusStateResponse>({
@@ -18,10 +16,7 @@ export const ConsensusStateResponseCodec = createCodec<ConsensusStateResponse>({
     converter: (value: unknown) => createRoundState(value)
   },
   peers: {
-    converter: (value: unknown) => {
-      if (!value || !Array.isArray(value)) return undefined;
-      return value.map(v => createPeerState(v));
-    }
+    converter: () => undefined // Always return undefined
   }
 });
 
