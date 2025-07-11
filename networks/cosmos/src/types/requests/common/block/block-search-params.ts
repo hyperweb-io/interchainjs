@@ -64,21 +64,10 @@ export const BlockSearchParamsCodec = createCodec<EncodedBlockSearchParams>({
  * @returns The encoded parameters with numbers converted to strings
  */
 export function encodeBlockSearchParams(params: BlockSearchParams): EncodedBlockSearchParams {
-  const encoded: EncodedBlockSearchParams = {
-    query: params.query
-  };
-  
-  if (params.page !== undefined) {
-    encoded.page = String(params.page);
-  }
-  
-  if (params.perPage !== undefined) {
-    encoded.per_page = String(params.perPage);
-  }
-  
-  if (params.orderBy !== undefined) {
-    encoded.order_by = params.orderBy;
-  }
-  
-  return encoded;
+  return {
+    query: params.query,
+    ...(params.page !== undefined && { page: String(params.page) }),
+    ...(params.perPage !== undefined && { per_page: String(params.perPage) }),
+    ...(params.orderBy !== undefined && { order_by: params.orderBy })
+  } as EncodedBlockSearchParams;
 }

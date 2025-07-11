@@ -38,19 +38,9 @@ export const ValidatorsParamsCodec = createCodec<EncodedValidatorsParams>({
 
 // Creator function that encodes the parameters
 export function encodeValidatorsParams(params: ValidatorsParams): EncodedValidatorsParams {
-  const encoded: EncodedValidatorsParams = {};
-  
-  if (params.height !== undefined) {
-    encoded.height = String(params.height);
-  }
-  
-  if (params.page !== undefined) {
-    encoded.page = String(params.page);
-  }
-  
-  if (params.perPage !== undefined) {
-    encoded.per_page = String(params.perPage);
-  }
-  
-  return encoded;
+  return {
+    ...(params.height !== undefined && { height: String(params.height) }),
+    ...(params.page !== undefined && { page: String(params.page) }),
+    ...(params.perPage !== undefined && { per_page: String(params.perPage) })
+  } as EncodedValidatorsParams;
 }

@@ -4,7 +4,9 @@
  */
 
 import { BlockSearchParams } from './requests/common/block';
+import { ValidatorsParams } from './requests/common/validators';
 export { BlockSearchParams } from './requests/common/block';
+export { ValidatorsParams } from './requests/common/validators';
 
 export enum Method {
   AbciInfo = "abci_info",
@@ -211,7 +213,10 @@ export interface UnconfirmedTxsRequest {
   params?: UnconfirmedTxsParams;
 }
 
-
+export interface ValidatorsRequest {
+  method: Method.Validators;
+  params?: ValidatorsParams;
+}
 
 export type Request =
   | AbciInfoRequest
@@ -236,4 +241,5 @@ export type Request =
   | StatusRequest
   | TxRequest
   | TxSearchRequest
-  | UnconfirmedTxsRequest;
+  | UnconfirmedTxsRequest
+  | ValidatorsRequest;
