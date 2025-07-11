@@ -221,7 +221,7 @@ export interface ResponseDecoder {
   decodeBroadcastTxAsync?(response: any): BroadcastTxAsyncResponse;
   decodeBroadcastTxCommit?(response: any): BroadcastTxCommitResponse;
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T;
-  decodeConsensusParams(response: any): any;
+  decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T;
   decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T;
   decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
   decodeGenesis(response: any): GenesisResponse;
