@@ -6,7 +6,7 @@ import { createCodec } from '../../../codec';
 import { ensureNumber, ensureString } from '../../../codec/converters';
 
 // Import dependencies from same module
-import { ConsensusParams, ConsensusParamsCodec } from './consensus-params';
+import { ConsensusParams, createConsensusParams } from './consensus-params';
 
 export interface ConsensusParamsResponse {
   readonly blockHeight: number;
@@ -17,7 +17,7 @@ export const ConsensusParamsResponseCodec = createCodec<ConsensusParamsResponse>
   blockHeight: { source: 'block_height', converter: ensureNumber },
   consensusParams: { 
     source: 'consensus_params',
-    converter: (value: any) => ConsensusParamsCodec.create(value || {})
+    converter: createConsensusParams
   }
 });
 

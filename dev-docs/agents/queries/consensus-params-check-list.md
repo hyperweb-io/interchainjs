@@ -51,6 +51,11 @@
 - [x] Test without height (latest)
 - [x] Verify all consensus parameters are decoded
 - [x] Check version-specific differences
+- [x] Fixed snake_case to camelCase transformation for all nested params:
+  - [x] BlockParams: max_bytes → maxBytes, max_gas → maxGas, time_iota_ms → timeIotaMs
+  - [x] EvidenceParams: max_age_num_blocks → maxAgeNumBlocks, max_age_duration → maxAgeDuration, max_bytes → maxBytes
+  - [x] ValidatorParams: pub_key_types → pubKeyTypes
+  - [x] VersionParams: app → appVersion
 
 ### Phase 6: Cleanup
 - [x] Remove `CONSENSUS_PARAMS` case from `decodeResponse` switch statement
