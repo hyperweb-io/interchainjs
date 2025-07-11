@@ -43,6 +43,10 @@ import {
   createConsensusStateResponse
 } from '../types/responses/common/consensus-state';
 import {
+  ConsensusStateDumpResponse,
+  createConsensusStateDumpResponse
+} from '../types/responses/common/consensus';
+import {
   ValidatorsResponse,
   createValidatorsResponse
 } from '../types/responses/common/validators';
@@ -142,7 +146,7 @@ import {
 
 type DumpConsensusStateParams = any;
 type EncodedDumpConsensusStateParams = any;
-type DumpConsensusStateResponse = any;
+
 type GenesisParams = any;
 type EncodedGenesisParams = any;
 type GenesisResponse = any;
@@ -223,7 +227,7 @@ export interface ResponseDecoder {
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T;
   decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T;
   decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T;
-  decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
+  decodeDumpConsensusState<T extends ConsensusStateDumpResponse = ConsensusStateDumpResponse>(response: unknown): T;
   decodeGenesis(response: any): GenesisResponse;
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T;
   decodeHeader(response: any): HeaderResponse;
@@ -531,8 +535,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
       case RpcMethod.CONSENSUS_PARAMS:
         return this.decodeConsensusParams(response);
 
-      case RpcMethod.DUMP_CONSENSUS_STATE:
-        return this.decodeDumpConsensusState(response);
+
       case RpcMethod.HEADER:
       case RpcMethod.HEADER_BY_HASH:
         return this.decodeHeader(response);
@@ -821,7 +824,11 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T {
     return createConsensusStateResponse(response) as T;
   }
-  abstract decodeDumpConsensusState(response: any): DumpConsensusStateResponse;
+  decodeDumpConsensusState<T extends ConsensusStateDumpResponse = ConsensusStateDumpResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createConsensusStateDumpResponse(data) as T;
+  }
   abstract decodeGenesis(response: any): GenesisResponse;
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T {
     const data = (response as any).result || response;

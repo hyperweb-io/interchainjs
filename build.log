@@ -1,0 +1,528 @@
+! Corepack is about to download https://registry.yarnpkg.com/yarn/-/yarn-1.22.19.tgz
+? Do you want to continue? [Y/n] 
+yarn run v1.22.19
+$ lerna run build --stream
+lerna notice cli v6.6.2
+lerna info versioning independent
+lerna WARN EWORKSPACES Workspaces exist in the root package.json, but Lerna is not configured to use them.
+lerna WARN EWORKSPACES To fix this and have Lerna use workspaces to resolve packages, set `useWorkspaces: true` in lerna.json.
+
+ >  Lerna (powered by Nx)   Running target build for 18 projects:
+
+    - @interchainjs/cosmos-types
+    - injective-react
+    - injective-vue
+    - injectivejs
+    - @interchainjs/react
+    - @interchainjs/vue
+    - interchainjs
+    - @interchainjs/cosmos
+    - @interchainjs/ethereum
+    - @interchainjs/injective
+    - @interchainjs/amino
+    - @interchainjs/auth
+    - @interchainjs/crypto
+    - @interchainjs/encoding
+    - @interchainjs/math
+    - @interchainjs/pubkey
+    - @interchainjs/types
+    - @interchainjs/utils
+
+ 
+
+> @interchainjs/types:build
+
+
+> @interchainjs/math:build
+
+(node:3327) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+@interchainjs/math: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/types: [2K[1G@interchainjs/types: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/math: > @interchainjs/math@1.11.18 clean
+@interchainjs/math: > rimraf dist/**
+@interchainjs/types: > @interchainjs/types@1.11.18 clean
+@interchainjs/types: > rimraf dist/**
+@interchainjs/types: src/builders/BaseWorkflowBuilderPlugin.ts(3,23): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/types: src/builders/BaseWorkflowBuilderPlugin.ts(3,23): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/math: > @interchainjs/math@1.11.18 copy
+@interchainjs/math: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+@interchainjs/types: > @interchainjs/types@1.11.18 copy
+@interchainjs/types: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> @interchainjs/encoding:build
+
+
+> @interchainjs/utils:build
+
+@interchainjs/utils: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/encoding: [2K[1G@interchainjs/encoding: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/utils: > @interchainjs/utils@1.11.18 clean
+@interchainjs/utils: > rimraf dist/**
+@interchainjs/encoding: > @interchainjs/encoding@1.11.18 clean
+@interchainjs/encoding: > rimraf dist/**
+@interchainjs/encoding: src/utils.ts(3,33): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/utils: src/cryptobytes.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/utils: src/endpoint.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/utils: src/price.ts(1,23): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/utils: src/rpc.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/encoding: src/utils.ts(3,33): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/utils: src/cryptobytes.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/utils: src/endpoint.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/utils: src/price.ts(1,23): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/utils: src/rpc.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/encoding: > @interchainjs/encoding@1.11.18 copy
+@interchainjs/encoding: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+@interchainjs/utils: > @interchainjs/utils@1.11.18 copy
+@interchainjs/utils: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> @interchainjs/cosmos-types:build
+
+
+> @interchainjs/auth:build
+
+
+> @interchainjs/crypto:build
+
+
+> @interchainjs/ethereum:build
+
+@interchainjs/ethereum: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/auth: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/cosmos-types: [2K[1G@interchainjs/cosmos-types: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/crypto: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/ethereum: > @interchainjs/ethereum@1.11.18 clean
+@interchainjs/ethereum: > rimraf dist/**
+@interchainjs/auth: > @interchainjs/auth@1.11.18 clean
+@interchainjs/auth: > rimraf dist/**
+@interchainjs/crypto: > @interchainjs/crypto@1.11.18 clean
+@interchainjs/crypto: > rimraf dist/**
+@interchainjs/cosmos-types: > @interchainjs/cosmos-types@1.11.18 clean
+@interchainjs/cosmos-types: > rimraf dist/**
+@interchainjs/auth: src/utils.ts(1,26): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/crypto: src/bip39.ts(1,24): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/crypto: src/libsodium.ts(6,30): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/crypto: src/pbkdf2.ts(1,24): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/crypto: src/secp256k1.ts(1,32): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/crypto: src/slip10.ts(1,34): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/crypto: src/slip10.ts(2,32): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/crypto: src/slip10.ts(40,31): error TS2554: Expected 0 arguments, but got 1.
+@interchainjs/crypto: src/slip10.ts(44,31): error TS2554: Expected 0 arguments, but got 1.
+@interchainjs/crypto: src/slip10.ts(48,17): error TS2339: Property 'data' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(116,75): error TS2339: Property 'toBytesBigEndian' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(127,23): error TS2339: Property 'toBytesBigEndian' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(181,58): error TS2339: Property 'toBytesBigEndian' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(215,22): error TS2339: Property 'toNumber' does not exist on type 'Slip10RawIndex'.
+@interchainjs/auth: src/utils.ts(1,26): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/auth: > @interchainjs/auth@1.11.18 copy
+@interchainjs/auth: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+@interchainjs/ethereum: > @interchainjs/ethereum@1.11.18 copy
+@interchainjs/ethereum: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+@interchainjs/cosmos-types: src/cosmos/base/v1beta1/coin.ts(3,25): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/cosmos/gov/v1beta1/gov.ts(6,25): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/cosmos/staking/v1beta1/staking.ts(9,25): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/extern.ts(8,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/helper-func-types.ts(8,55): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/helper-func-types.ts(13,32): error TS2307: Cannot find module '@interchainjs/cosmos/types/signing-client' or its corresponding type declarations.
+@interchainjs/crypto: src/bip39.ts(1,24): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/crypto: src/libsodium.ts(6,30): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/crypto: src/pbkdf2.ts(1,24): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/crypto: src/secp256k1.ts(1,32): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/crypto: src/slip10.ts(1,34): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/crypto: src/slip10.ts(2,32): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/crypto: src/slip10.ts(40,31): error TS2554: Expected 0 arguments, but got 1.
+@interchainjs/crypto: src/slip10.ts(44,31): error TS2554: Expected 0 arguments, but got 1.
+@interchainjs/crypto: src/slip10.ts(48,17): error TS2339: Property 'data' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(116,75): error TS2339: Property 'toBytesBigEndian' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(127,23): error TS2339: Property 'toBytesBigEndian' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(181,58): error TS2339: Property 'toBytesBigEndian' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: src/slip10.ts(215,22): error TS2339: Property 'toNumber' does not exist on type 'Slip10RawIndex'.
+@interchainjs/crypto: > @interchainjs/crypto@1.11.18 copy
+@interchainjs/crypto: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> @interchainjs/amino:build
+
+@interchainjs/amino: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/amino: > @interchainjs/amino@1.11.18 clean
+@interchainjs/amino: > rimraf dist/**
+@interchainjs/cosmos-types: src/cosmos/base/v1beta1/coin.ts(3,25): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/cosmos/gov/v1beta1/gov.ts(6,25): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/cosmos/staking/v1beta1/staking.ts(9,25): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/extern.ts(8,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/helper-func-types.ts(8,55): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos-types: src/helper-func-types.ts(13,32): error TS2307: Cannot find module '@interchainjs/cosmos/types/signing-client' or its corresponding type declarations.
+@interchainjs/cosmos-types: > @interchainjs/cosmos-types@1.11.18 copy
+@interchainjs/cosmos-types: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> @interchainjs/cosmos:build
+
+@interchainjs/amino: src/addresses.ts(3,35): error TS2307: Cannot find module '@interchainjs/crypto' or its corresponding type declarations.
+@interchainjs/amino: src/addresses.ts(4,38): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/coins.ts(1,33): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(1,76): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(2,24): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(3,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(205,27): error TS2769: No overload matches this call.
+@interchainjs/amino:   The last overload gave the following error.
+@interchainjs/amino:     Argument of type 'unknown[]' is not assignable to parameter of type 'ArrayBuffer | ArrayLike<number>'.
+@interchainjs/amino:       Type 'unknown[]' is not assignable to type 'ArrayLike<number>'.
+@interchainjs/amino:         'number' index signatures are incompatible.
+@interchainjs/amino:           Type 'unknown' is not assignable to type 'number'.
+@interchainjs/amino: src/multisig.ts(1,23): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/multisig.ts(2,24): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/paths.ts(1,40): error TS2307: Cannot find module '@interchainjs/crypto' or its corresponding type declarations.
+@interchainjs/amino: src/signature.ts(2,38): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/signdoc.ts(2,24): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/signdoc.ts(3,24): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/wallet.ts(7,8): error TS2307: Cannot find module '@interchainjs/crypto' or its corresponding type declarations.
+@interchainjs/amino: src/wallet.ts(8,25): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/cosmos: > @interchainjs/cosmos@1.11.18 clean
+@interchainjs/cosmos: > rimraf dist/**
+@interchainjs/amino: src/addresses.ts(3,35): error TS2307: Cannot find module '@interchainjs/crypto' or its corresponding type declarations.
+@interchainjs/amino: src/addresses.ts(4,38): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/coins.ts(1,33): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(1,76): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(2,24): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(3,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/amino: src/encoding.ts(205,27): error TS2769: No overload matches this call.
+@interchainjs/amino:   The last overload gave the following error.
+@interchainjs/amino:     Argument of type 'unknown[]' is not assignable to parameter of type 'ArrayBuffer | ArrayLike<number>'.
+@interchainjs/amino:       Type 'unknown[]' is not assignable to type 'ArrayLike<number>'.
+@interchainjs/amino:         'number' index signatures are incompatible.
+@interchainjs/amino:           Type 'unknown' is not assignable to type 'number'.
+@interchainjs/amino: src/multisig.ts(1,23): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/multisig.ts(2,24): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/paths.ts(1,40): error TS2307: Cannot find module '@interchainjs/crypto' or its corresponding type declarations.
+@interchainjs/amino: src/signature.ts(2,38): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/signdoc.ts(2,24): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: src/signdoc.ts(3,24): error TS2307: Cannot find module '@interchainjs/math' or its corresponding type declarations.
+@interchainjs/amino: src/wallet.ts(7,8): error TS2307: Cannot find module '@interchainjs/crypto' or its corresponding type declarations.
+@interchainjs/amino: src/wallet.ts(8,25): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/amino: > @interchainjs/amino@1.11.18 copy
+@interchainjs/amino: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> @interchainjs/pubkey:build
+
+@interchainjs/pubkey: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/pubkey: > @interchainjs/pubkey@1.11.18 clean
+@interchainjs/pubkey: > rimraf dist/**
+@interchainjs/cosmos: src/adapters/base.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/adapters/comet38.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/adapters/tendermint34.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/adapters/tendermint37.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/event/cosmos-event-client.ts(2,47): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/index.ts(28,8): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/query/cosmos-query-client.ts(2,28): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/rpc/http-client.ts(2,90): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/rpc/websocket-client.ts(2,114): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(1,42): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(2,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(3,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(4,23): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(1,47): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(2,41): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(3,21): error TS2307: Cannot find module '@interchainjs/cosmos-types/google/protobuf/any' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(4,28): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(24,71): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(1,42): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(2,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(3,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(4,32): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/types.ts(1,52): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/types.ts(4,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/wallet-adapter.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/wallet-adapter.ts(5,49): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/wallet-adapter.ts(6,38): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/codec/converters.ts(5,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/codec/pubkey.ts(1,28): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/cosmos-client-interfaces.ts(2,44): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/abci/abci-query-params.ts(11,23): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/abci/encoded-abci-query-params.ts(11,23): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/block/block-by-hash-params.ts(8,25): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/block/block-by-hash-params.ts(9,26): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/responses/common/commit/commit-signature.ts(7,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/responses/common/tx/check-tx-response.ts(7,28): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/signing-client.ts(1,36): error TS2307: Cannot find module '@interchainjs/cosmos-types' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/signing-client.ts(2,50): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(4,32): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(5,26): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(8,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(9,28): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/amino-workflow.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/amino-workflow.ts(24,25): error TS2339: Property 'build' does not exist on type 'CosmosWorkflowBuilder'.
+@interchainjs/cosmos: src/workflows/context.ts(1,40): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/context.ts(16,15): error TS2339: Property 'signer' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/context.ts(19,17): error TS2339: Property 'signer' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(2,81): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(59,24): error TS2339: Property 'workflows' does not exist on type 'CosmosWorkflowBuilder'.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(59,67): error TS2339: Property 'setContext' does not exist on type 'unknown'.
+@interchainjs/cosmos: src/workflows/direct-workflow.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/direct-workflow.ts(24,25): error TS2339: Property 'build' does not exist on type 'CosmosWorkflowBuilder'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(11,26): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(33,26): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(34,21): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(35,22): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(36,25): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(46,52): error TS7006: Parameter 'msg' implicitly has an 'any' type.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(68,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(69,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(8,28): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(9,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(10,43): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(36,32): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(38,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(41,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(42,36): error TS2339: Property 'getAccount' does not exist on type 'ICosmosSigner'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(50,50): error TS7006: Parameter 'coin' implicitly has an 'any' type.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(58,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(61,32): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(69,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(71,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(76,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(28,28): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(29,29): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(41,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(42,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(1,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(30,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(31,31): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(32,25): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(51,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(52,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(8,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(9,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(35,32): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(37,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(40,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(41,36): error TS2339: Property 'getAccount' does not exist on type 'ICosmosSigner'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(48,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(51,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(56,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(1,21): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(67,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(68,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(54,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(56,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(59,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(62,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(1,24): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(59,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(60,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(1,28): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(26,25): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(41,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(1,23): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(30,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(31,31): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(32,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(42,9): error TS2339: Property 'setFinalResult' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/types.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/types.ts(9,8): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/types.ts(10,21): error TS2307: Cannot find module '@interchainjs/cosmos-types/google/protobuf/any' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/types.ts(19,8): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/pubkey: > @interchainjs/pubkey@1.11.18 copy
+@interchainjs/pubkey: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+@interchainjs/cosmos: src/adapters/base.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/adapters/comet38.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/adapters/tendermint34.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/adapters/tendermint37.ts(1,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/event/cosmos-event-client.ts(2,47): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/index.ts(28,8): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/query/cosmos-query-client.ts(2,28): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/rpc/http-client.ts(2,90): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/rpc/websocket-client.ts(2,114): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(1,42): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(2,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(3,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/amino-signer.ts(4,23): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(1,47): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(2,41): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(3,21): error TS2307: Cannot find module '@interchainjs/cosmos-types/google/protobuf/any' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(4,28): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/base-signer.ts(24,71): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(1,42): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(2,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(3,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/direct-signer.ts(4,32): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/types.ts(1,52): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/types.ts(4,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/wallet-adapter.ts(1,30): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/wallet-adapter.ts(5,49): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/signers/wallet-adapter.ts(6,38): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/codec/converters.ts(5,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/codec/pubkey.ts(1,28): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/cosmos-client-interfaces.ts(2,44): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/abci/abci-query-params.ts(11,23): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/abci/encoded-abci-query-params.ts(11,23): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/block/block-by-hash-params.ts(8,25): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/requests/common/block/block-by-hash-params.ts(9,26): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/responses/common/commit/commit-signature.ts(7,37): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/responses/common/tx/check-tx-response.ts(7,28): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/signing-client.ts(1,36): error TS2307: Cannot find module '@interchainjs/cosmos-types' or its corresponding type declarations.
+@interchainjs/cosmos: src/types/signing-client.ts(2,50): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(4,32): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(5,26): error TS2307: Cannot find module '@interchainjs/encoding' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(8,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/wallets/secp256k1hd.ts(9,28): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/amino-workflow.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/amino-workflow.ts(24,25): error TS2339: Property 'build' does not exist on type 'CosmosWorkflowBuilder'.
+@interchainjs/cosmos: src/workflows/context.ts(1,40): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/context.ts(16,15): error TS2339: Property 'signer' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/context.ts(19,17): error TS2339: Property 'signer' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(2,81): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(59,24): error TS2339: Property 'workflows' does not exist on type 'CosmosWorkflowBuilder'.
+@interchainjs/cosmos: src/workflows/cosmos-workflow-builder.ts(59,67): error TS2339: Property 'setContext' does not exist on type 'unknown'.
+@interchainjs/cosmos: src/workflows/direct-workflow.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/direct-workflow.ts(24,25): error TS2339: Property 'build' does not exist on type 'CosmosWorkflowBuilder'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(11,26): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(33,26): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(34,21): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(35,22): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(36,25): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(46,52): error TS7006: Parameter 'msg' implicitly has an 'any' type.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(68,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-sign-doc.ts(69,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(8,28): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(9,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(10,43): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(36,32): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(38,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(41,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(42,36): error TS2339: Property 'getAccount' does not exist on type 'ICosmosSigner'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(50,50): error TS7006: Parameter 'coin' implicitly has an 'any' type.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(58,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(61,32): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(69,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(71,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/amino-signature.ts(76,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(28,28): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(29,29): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(41,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/auth-info.ts(42,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(1,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(30,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(31,31): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(32,25): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(51,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-sign-doc.ts(52,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(8,25): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(9,33): error TS2307: Cannot find module '@interchainjs/utils' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(35,32): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(37,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(40,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(41,36): error TS2339: Property 'getAccount' does not exist on type 'ICosmosSigner'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(48,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(51,13): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/direct-signature.ts(56,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(1,21): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(67,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/fee-calculation.ts(68,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(1,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(54,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(56,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(59,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/input-validation.ts(62,11): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(1,24): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(59,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/message-encoding.ts(60,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(1,28): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(26,25): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/signer-info.ts(41,9): error TS2339: Property 'setStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(1,23): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(2,43): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(30,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(31,31): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(32,27): error TS2339: Property 'getStagingData' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/plugins/tx-raw-assembly.ts(42,9): error TS2339: Property 'setFinalResult' does not exist on type 'CosmosWorkflowBuilderContext'.
+@interchainjs/cosmos: src/workflows/types.ts(1,26): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/types.ts(9,8): error TS2307: Cannot find module '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/types.ts(10,21): error TS2307: Cannot find module '@interchainjs/cosmos-types/google/protobuf/any' or its corresponding type declarations.
+@interchainjs/cosmos: src/workflows/types.ts(19,8): error TS2307: Cannot find module '@interchainjs/types' or its corresponding type declarations.
+@interchainjs/cosmos: > @interchainjs/cosmos@1.11.18 copy
+@interchainjs/cosmos: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> interchainjs:build
+
+
+> injective-react:build
+
+
+> injective-vue:build
+
+
+> injectivejs:build
+
+
+> @interchainjs/react:build
+
+
+> @interchainjs/vue:build
+
+interchainjs: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/react: [2K[1G@interchainjs/react: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+injectivejs: [2K[1Ginjectivejs: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/vue: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+injective-vue: [2K[1Ginjective-vue: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+injective-react: [2K[1Ginjective-react: [2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+interchainjs: > interchainjs@1.11.18 clean
+interchainjs: > rimraf dist/**
+@interchainjs/vue: > @interchainjs/vue@1.11.18 clean
+@interchainjs/vue: > rimraf dist/**
+@interchainjs/react: > @interchainjs/react@1.11.18 clean
+@interchainjs/react: > rimraf dist/**
+injectivejs: > injectivejs@1.11.18 clean
+injectivejs: > rimraf dist/**
+injective-vue: > injective-vue@1.11.18 clean
+injective-vue: > rimraf dist/**
+injective-react: > injective-react@1.11.18 clean
+injective-react: > rimraf dist/**
+@interchainjs/vue: > @interchainjs/vue@1.11.18 copy
+@interchainjs/vue: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+injective-vue: > injective-vue@1.11.18 copy
+injective-vue: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+injective-react: > injective-react@1.11.18 copy
+injective-react: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+@interchainjs/react: > @interchainjs/react@1.11.18 copy
+@interchainjs/react: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+injectivejs: > injectivejs@1.11.18 copy
+injectivejs: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+interchainjs: > interchainjs@1.11.18 copy
+interchainjs: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+> @interchainjs/injective:build
+
+@interchainjs/injective: [2K[1G[2m$ npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy[22m
+@interchainjs/injective: > @interchainjs/injective@1.11.18 clean
+@interchainjs/injective: > rimraf dist/**
+@interchainjs/injective: > @interchainjs/injective@1.11.18 copy
+@interchainjs/injective: > copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist
+
+ 
+
+ >  Lerna (powered by Nx)   Successfully ran target build for 18 projects
+
+
+Done in 82.83s.

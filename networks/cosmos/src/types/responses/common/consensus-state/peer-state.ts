@@ -8,13 +8,13 @@ import { PeerRoundState, createPeerRoundState } from './peer-round-state';
 
 export interface PeerState {
   readonly nodeAddress: string;
-  readonly peerRoundState?: PeerRoundState;
+  readonly peerState?: PeerRoundState;
 }
 
 export const PeerStateCodec = createCodec<PeerState>({
   nodeAddress: { source: 'node_address', converter: ensureString },
-  peerRoundState: {
-    source: 'peer_round_state',
+  peerState: {
+    source: 'peer_state',
     converter: (value: unknown) => value ? createPeerRoundState(value) : undefined
   }
 });

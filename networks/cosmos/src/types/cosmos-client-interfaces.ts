@@ -9,13 +9,14 @@ import {
   GenesisResponse as Genesis, HealthResponse as HealthResult,
   NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
-  AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
+  AbciQueryResponse as AbciQueryResult, ConsensusState,
   GenesisChunk, TxEvent, BlockEvent,
   BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
 import { BlockResultsResponse as BlockResults } from './responses/common/block/block-results-response';
 import { CheckTxResponse } from './responses';
 import { BroadcastTxSyncResponse } from './responses/common/broadcast-tx-sync/broadcast-tx-sync-response';
+import { ConsensusStateDumpResponse } from './responses/common/consensus';
 import {
   AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
 } from './requests';
@@ -56,7 +57,7 @@ export interface ICosmosQueryClient extends IQueryClient {
   getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet>;
   getConsensusParams(height?: number): Promise<ConsensusParams>;
   getConsensusState(): Promise<ConsensusState>;
-  dumpConsensusState(): Promise<ConsensusStateDump>;
+  dumpConsensusState(): Promise<ConsensusStateDumpResponse>;
   getGenesis(): Promise<Genesis>;
   getGenesisChunked(chunk: number): Promise<GenesisChunk>;
 

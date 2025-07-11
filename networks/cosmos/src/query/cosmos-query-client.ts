@@ -11,13 +11,16 @@ import {
   GenesisResponse as Genesis, HealthResponse as HealthResult,
   NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
-  AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
+  AbciQueryResponse as AbciQueryResult, ConsensusState,
   GenesisChunk, TxEvent, BlockEvent,
 
 } from '../types/responses';
 import {
   BroadcastTxSyncResponse
 } from '../types/responses/common/broadcast-tx-sync';
+import {
+  ConsensusStateDumpResponse
+} from '../types/responses/common/consensus';
 import {
   BroadcastTxAsyncResponse
 } from '../types/responses/common/broadcast-tx-async';
@@ -264,9 +267,9 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     return this.protocolAdapter.decodeConsensusState(result);
   }
 
-  async dumpConsensusState(): Promise<ConsensusStateDump> {
+  async dumpConsensusState(): Promise<ConsensusStateDumpResponse> {
     const result = await this.rpcClient.call(RpcMethod.DUMP_CONSENSUS_STATE);
-    return this.protocolAdapter.decodeResponse(RpcMethod.DUMP_CONSENSUS_STATE, result);
+    return this.protocolAdapter.decodeDumpConsensusState(result);
   }
 
   async getGenesis(): Promise<Genesis> {

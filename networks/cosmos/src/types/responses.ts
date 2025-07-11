@@ -309,10 +309,7 @@ export interface Peer {
 // Additional types used in interfaces
 
 
-export interface ConsensusStateDump {
-  readonly roundState: any;
-  readonly peers: readonly any[];
-}
+
 
 export interface GenesisChunk {
   readonly chunk: number;
