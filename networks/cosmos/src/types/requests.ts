@@ -101,12 +101,6 @@ export interface UnconfirmedTxsParams {
   limit?: number;
 }
 
-export interface ValidatorsParams {
-  height?: number;
-  page?: number;
-  perPage?: number;
-}
-
 // Common request types
 export interface AbciInfoRequest {
   method: Method.AbciInfo;
@@ -217,10 +211,7 @@ export interface UnconfirmedTxsRequest {
   params?: UnconfirmedTxsParams;
 }
 
-export interface ValidatorsRequest {
-  method: Method.Validators;
-  params?: ValidatorsParams;
-}
+
 
 export type Request =
   | AbciInfoRequest
@@ -245,5 +236,4 @@ export type Request =
   | StatusRequest
   | TxRequest
   | TxSearchRequest
-  | UnconfirmedTxsRequest
-  | ValidatorsRequest;
+  | UnconfirmedTxsRequest;

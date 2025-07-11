@@ -4,6 +4,7 @@
  */
 
 export { BlockSearchResponse } from './responses/common/block-search';
+export { ValidatorsResponse } from './responses/common/validators';
 
 // Import TxData for dummy interfaces that haven't been refactored yet
 import { TxData } from './responses/common/block/tx-data';
@@ -229,13 +230,6 @@ export interface UnconfirmedTxsResponse {
   readonly total: number;
   readonly totalBytes: number;
   readonly txs: readonly Uint8Array[];
-}
-
-export interface ValidatorsResponse {
-  readonly blockHeight: number;
-  readonly validators: readonly Validator[];
-  readonly count: number;
-  readonly total: number;
 }
 
 // Version-specific types combined with optional fields

@@ -30,10 +30,11 @@ import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
   GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
-  UnconfirmedTxsParams, ValidatorsParams
+  UnconfirmedTxsParams
 } from '../types/requests';
 import { AbciQueryParams } from '../types/requests/common/abci';
 import { CommitParams } from '../types/requests/common/commit';
+import { ValidatorsParams } from '../types/requests/common/validators';
 import { ICosmosProtocolAdapter } from '../adapters/base';
 
 
@@ -226,13 +227,20 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   }
 
   // Chain query methods
+  /**
+   * Get validators at a specific height with optional pagination
+   * @param height - Block height to query validators at (optional, defaults to latest)
+   * @param page - Page number for pagination (optional)
+   * @param perPage - Number of validators per page (optional)
+   * @returns Promise resolving to validator set with block height, validators array, count and total
+   */
   async getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet> {
     const params: ValidatorsParams = {};
     if (height) params.height = height;
     if (page) params.page = page;
     if (perPage) params.perPage = perPage;
 
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.VALIDATORS, params);
+    const encodedParams = this.protocolAdapter.encodeValidators(params);
     const result = await this.rpcClient.call(RpcMethod.VALIDATORS, encodedParams);
     return this.protocolAdapter.decodeValidators(result);
   }

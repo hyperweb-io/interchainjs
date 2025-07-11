@@ -112,6 +112,11 @@ import {
   CheckTxResponse,
   createCheckTxResponse
 } from '../types/responses/common/check-tx';
+import {
+  ValidatorsParams,
+  EncodedValidatorsParams,
+  encodeValidatorsParams
+} from '../types/requests/common/validators';
 
 // Type definitions for removed imports
 
@@ -132,8 +137,6 @@ type EncodedHeaderByHashParams = any;
 type UnconfirmedTxsParams = any;
 type EncodedUnconfirmedTxsParams = any;
 type UnconfirmedTxsResponse = any;
-type ValidatorsParams = any;
-type EncodedValidatorsParams = any;
 type TxParams = any;
 type EncodedTxParams = any;
 type TxSearchParams = any;
@@ -158,7 +161,7 @@ const encodeGenesisParams = (params: any): any => params;
 const encodeHeaderParams = (params: any): any => params;
 const encodeHeaderByHashParams = (params: any): any => params;
 const encodeUnconfirmedTxsParams = (params: any): any => params;
-const encodeValidatorsParams = (params: any): any => params;
+
 const encodeTxParams = (params: any): any => params;
 const encodeTxSearchParams = (params: any): any => params;
 const encodeBroadcastTxSyncParams = (params: any): any => params;
@@ -216,7 +219,7 @@ export interface ResponseDecoder {
   decodeTx(response: any): TxResponse;
   decodeTxSearch(response: any): TxSearchResponse;
   decodeUnconfirmedTxs(response: any): UnconfirmedTxsResponse;
-  decodeValidators(response: any): any;
+  decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T;
   decodeCheckTx?(response: any): CheckTxResponse;
 }
 
@@ -514,8 +517,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeTx(response);
       case RpcMethod.TX_SEARCH:
         return this.decodeTxSearch(response);
-      case RpcMethod.VALIDATORS:
-        return this.decodeValidators(response);
       case RpcMethod.CONSENSUS_PARAMS:
         return this.decodeConsensusParams(response);
       case RpcMethod.CONSENSUS_STATE:
@@ -742,6 +743,11 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeUnconfirmedTxsParams(params);
   }
 
+  /**
+   * Encode validators query parameters
+   * @param params - Parameters including optional height, page, and perPage
+   * @returns Encoded parameters with numbers converted to strings
+   */
   encodeValidators(params: ValidatorsParams): EncodedValidatorsParams {
     return encodeValidatorsParams(params);
   }
@@ -848,6 +854,11 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return createBroadcastTxCommitResponse(data);
   }
   abstract decodeCheckTx(response: any): CheckTxResponse;
+  /**
+   * Decode validators response from RPC
+   * @param response - Raw RPC response
+   * @returns Decoded validators response with proper type conversions
+   */
   decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T {
     const data = (response as any).result || response;
     return createValidatorsResponse(data) as T;
