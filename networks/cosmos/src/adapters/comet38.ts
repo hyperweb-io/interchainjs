@@ -8,13 +8,10 @@ import {
 } from '../types/responses/common/block';
 // Type definitions for removed imports
 
-type GenesisResponse = any;
 type UnconfirmedTxsResponse = any;
 
 // Dummy creator functions
 
-
-const createGenesisResponse = (data: any): any => data;
 const createUnconfirmedTxsResponse = (data: any): any => data;
 import {
   TxResponse,
@@ -68,9 +65,7 @@ export class Comet38Adapter extends BaseAdapter {
 
 
 
-  decodeGenesis(response: any): GenesisResponse {
-    return createGenesisResponse(response);
-  }
+
 
 
 

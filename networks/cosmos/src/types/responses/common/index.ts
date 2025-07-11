@@ -12,6 +12,7 @@ export * from './commit';
 export * from './consensus';
 export * from './consensus-params';
 export * from './consensus-state';
+export * from './genesis';
 export * from './genesis-chunked';
 export * from './header';
 export * from './health';

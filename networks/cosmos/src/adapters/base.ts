@@ -31,6 +31,10 @@ import {
   createGenesisChunkedResponse
 } from '../types/responses/common/genesis-chunked';
 import {
+  GenesisResponse,
+  createGenesisResponse
+} from '../types/responses/common/genesis';
+import {
   HeaderResponse,
   createHeaderResponse
 } from '../types/responses/common/header';
@@ -142,11 +146,6 @@ import {
 } from '../types/requests/common/tx';
 
 // Type definitions for removed imports
-
-
-type GenesisParams = any;
-type EncodedGenesisParams = any;
-type GenesisResponse = any;
 type HeaderParams = any;
 type EncodedHeaderParams = any;
 type HeaderByHashParams = any;
@@ -171,7 +170,6 @@ type EncodedBroadcastTxCommitParams = any;
 // Placeholder functions are removed - using proper imports now
 
 
-const encodeGenesisParams = (params: any): any => params;
 const encodeHeaderParams = (params: any): any => params;
 const encodeHeaderByHashParams = (params: any): any => params;
 const encodeUnconfirmedTxsParams = (params: any): any => params;
@@ -193,7 +191,6 @@ export interface RequestEncoder {
   encodeBlockchain(params: BlockchainParams): any;
   encodeConsensusParams(params: ConsensusParamsParams): EncodedConsensusParamsParams;
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams;
-  encodeGenesis(params: GenesisParams): EncodedGenesisParams;
   encodeGenesisChunked(params: GenesisChunkedParams): EncodedGenesisChunkedParams;
   encodeHeader(params: HeaderParams): EncodedHeaderParams;
   encodeHeaderByHash(params: HeaderByHashParams): EncodedHeaderByHashParams;
@@ -223,7 +220,7 @@ export interface ResponseDecoder {
   decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T;
   decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T;
   decodeDumpConsensusState<T extends ConsensusStateDumpResponse = ConsensusStateDumpResponse>(response: unknown): T;
-  decodeGenesis(response: any): GenesisResponse;
+  decodeGenesis<T extends GenesisResponse = GenesisResponse>(response: unknown): T;
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T;
   decodeHeader(response: any): HeaderResponse;
   decodeHealth<T extends HealthResponse = HealthResponse>(response: unknown): T;
@@ -412,17 +409,12 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
 
 
-    // Special handling for genesis using codec
+    // Special handling for genesis (no parameters)
     if (method === RpcMethod.GENESIS) {
-      const encoded = this.encodeGenesis(params as GenesisParams);
-      return encoded;
+      return undefined;
     }
 
-    // Special handling for genesis_chunked using codec
-    if (method === RpcMethod.GENESIS_CHUNKED) {
-      const encoded = this.encodeGenesisChunked(params as GenesisChunkedParams);
-      return encoded;
-    }
+
 
     // Special handling for header_by_hash using codec
     if (method === RpcMethod.HEADER_BY_HASH) {
@@ -722,10 +714,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeConsensusStateParams(params);
   }
 
-  encodeGenesis(params: GenesisParams): EncodedGenesisParams {
-    return encodeGenesisParams(params);
-  }
-
   encodeGenesisChunked(params: GenesisChunkedParams): EncodedGenesisChunkedParams {
     return encodeGenesisChunkedParams(params);
   }
@@ -814,7 +802,10 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = (resp.result || resp) as Record<string, unknown>;
     return createConsensusStateDumpResponse(data) as T;
   }
-  abstract decodeGenesis(response: any): GenesisResponse;
+  decodeGenesis<T extends GenesisResponse = GenesisResponse>(response: unknown): T {
+    const data = (response as any).result || response;
+    return createGenesisResponse(data) as T;
+  }
   decodeGenesisChunked<T extends GenesisChunkedResponse = GenesisChunkedResponse>(response: unknown): T {
     const data = (response as any).result || response;
     return createGenesisChunkedResponse(data) as T;

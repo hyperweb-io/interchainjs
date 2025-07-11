@@ -8,16 +8,18 @@ import {
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
   BlockchainResponse, BlockHeader, Commit,
   UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
-  GenesisResponse as Genesis, HealthResponse as HealthResult,
+  HealthResponse as HealthResult,
   NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState,
-  GenesisChunk, TxEvent, BlockEvent,
+  TxEvent, BlockEvent,
 
 } from '../types/responses';
 import {
   BroadcastTxSyncResponse
 } from '../types/responses/common/broadcast-tx-sync';
+import { GenesisResponse as Genesis } from '../types/responses/common/genesis';
+import { GenesisChunkedResponse as GenesisChunk } from '../types/responses/common/genesis-chunked';
 import {
   ConsensusStateDumpResponse
 } from '../types/responses/common/consensus';
@@ -34,12 +36,13 @@ import { CheckTxResponse } from '../types/responses';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
   BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
-  GenesisChunkedParams, HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
+  HeaderParams, HeaderByHashParams, TxParams, TxSearchParams,
   UnconfirmedTxsParams
 } from '../types/requests';
 import { AbciQueryParams } from '../types/requests/common/abci';
 import { CommitParams } from '../types/requests/common/commit';
 import { ValidatorsParams } from '../types/requests/common/validators';
+import { GenesisChunkedParams } from '../types/requests/common/genesis-chunked';
 import { ICosmosProtocolAdapter } from '../adapters/base';
 
 
@@ -274,12 +277,12 @@ export class CosmosQueryClient implements ICosmosQueryClient {
 
   async getGenesis(): Promise<Genesis> {
     const result = await this.rpcClient.call(RpcMethod.GENESIS);
-    return this.protocolAdapter.decodeResponse(RpcMethod.GENESIS, result);
+    return this.protocolAdapter.decodeGenesis(result);
   }
 
   async getGenesisChunked(chunk: number): Promise<GenesisChunk> {
     const params: GenesisChunkedParams = { chunk };
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.GENESIS_CHUNKED, params);
+    const encodedParams = this.protocolAdapter.encodeGenesisChunked(params);
     const result = await this.rpcClient.call(RpcMethod.GENESIS_CHUNKED, encodedParams);
     return this.protocolAdapter.decodeGenesisChunked(result);
   }

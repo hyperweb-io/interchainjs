@@ -76,9 +76,7 @@ export interface CommitParams {
 
 
 
-export interface GenesisChunkedParams {
-  chunk: number;
-}
+
 
 export interface HeaderParams {
   height?: number;
@@ -169,11 +167,6 @@ export interface GenesisRequest {
   method: Method.Genesis;
 }
 
-export interface GenesisChunkedRequest {
-  method: Method.GenesisChunked;
-  params: GenesisChunkedParams;
-}
-
 export interface HeaderRequest {
   method: Method.Header;
   params?: HeaderParams;
@@ -234,7 +227,6 @@ export type Request =
   | CommitRequest
   | ConsensusParamsRequest
   | GenesisRequest
-  | GenesisChunkedRequest
   | HeaderRequest
   | HeaderByHashRequest
   | HealthRequest

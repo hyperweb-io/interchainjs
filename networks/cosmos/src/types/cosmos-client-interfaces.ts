@@ -6,17 +6,19 @@ import {
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
   BlockchainResponse as BlockchainInfo, BlockHeader, Commit,
   UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
-  GenesisResponse as Genesis, HealthResponse as HealthResult,
+  HealthResponse as HealthResult,
   NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState,
-  GenesisChunk, TxEvent, BlockEvent,
+  TxEvent, BlockEvent,
   BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
 import { BlockResultsResponse as BlockResults } from './responses/common/block/block-results-response';
 import { CheckTxResponse } from './responses';
 import { BroadcastTxSyncResponse } from './responses/common/broadcast-tx-sync/broadcast-tx-sync-response';
 import { ConsensusStateDumpResponse } from './responses/common/consensus';
+import { GenesisResponse as Genesis } from './responses/common/genesis';
+import { GenesisChunkedResponse as GenesisChunk } from './responses/common/genesis-chunked';
 import {
   AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
 } from './requests';

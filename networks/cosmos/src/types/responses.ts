@@ -176,15 +176,7 @@ export interface CommitResponse {
 
 
 
-export interface GenesisResponse {
-  readonly genesisTime: Date;
-  readonly chainId: string;
-  readonly initialHeight?: number;
-  readonly consensusParams: ConsensusParams;
-  readonly validators: readonly Validator[];
-  readonly appHash: Uint8Array;
-  readonly appState?: Record<string, unknown>;
-}
+
 
 export interface HeaderResponse {
   readonly header: BlockHeader;
@@ -311,11 +303,7 @@ export interface Peer {
 
 
 
-export interface GenesisChunk {
-  readonly chunk: number;
-  readonly total: number;
-  readonly data: string;
-}
+
 
 export interface TxEvent {
   readonly tx: Uint8Array;

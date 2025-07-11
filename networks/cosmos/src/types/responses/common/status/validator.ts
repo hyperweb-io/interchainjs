@@ -22,3 +22,7 @@ export const ValidatorCodec = createCodec<Validator>({
   votingPower: { source: 'voting_power', converter: ensureBigInt },
   proposerPriority: { source: 'proposer_priority', converter: ensureBigInt }
 });
+
+export function createValidator(data: unknown): Validator {
+  return ValidatorCodec.create(data);
+}
