@@ -36,12 +36,7 @@ export interface RoundState {
 
 export const RoundStateCodec = createCodec<RoundState>({
   height: {
-    converter: (value: unknown, data: any) => {
-      // Handle both formats: separate fields or combined "height/round/step"
-      if (data && typeof data['height/round/step'] === 'string') {
-        const parts = data['height/round/step'].split('/');
-        return parseInt(parts[0], 10) || 0;
-      }
+    converter: (value: unknown) => {
       if (typeof value === 'string') {
         return parseInt(value, 10) || 0;
       }
@@ -49,22 +44,12 @@ export const RoundStateCodec = createCodec<RoundState>({
     }
   },
   round: {
-    converter: (value: unknown, data: any) => {
-      // Handle both formats: separate fields or combined "height/round/step"
-      if (data && typeof data['height/round/step'] === 'string') {
-        const parts = data['height/round/step'].split('/');
-        return parseInt(parts[1], 10) || 0;
-      }
+    converter: (value: unknown) => {
       return ensureNumber(value);
     }
   },
   step: {
-    converter: (value: unknown, data: any) => {
-      // Handle both formats: separate fields or combined "height/round/step"
-      if (data && typeof data['height/round/step'] === 'string') {
-        const parts = data['height/round/step'].split('/');
-        return parseInt(parts[2], 10) || 0;
-      }
+    converter: (value: unknown) => {
       return ensureNumber(value);
     }
   },
@@ -100,5 +85,23 @@ export const RoundStateCodec = createCodec<RoundState>({
 });
 
 export function createRoundState(data: unknown): RoundState {
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid round state data');
+  }
+  
+  const record = data as Record<string, unknown>;
+  
+  // Check if we have the special "height/round/step" format
+  if (typeof record['height/round/step'] === 'string') {
+    const parts = record['height/round/step'].split('/');
+    const modifiedData = {
+      ...record,
+      height: parts[0],
+      round: parts[1],
+      step: parts[2]
+    };
+    return RoundStateCodec.create(modifiedData);
+  }
+  
   return RoundStateCodec.create(data);
 }
