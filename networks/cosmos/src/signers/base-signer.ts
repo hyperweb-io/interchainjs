@@ -307,10 +307,10 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
         if (txResponse) {
           return {
             height: txResponse.height,
-            gasUsed: txResponse.result.gasUsed,
-            gasWanted: txResponse.result.gasWanted,
-            code: txResponse.result.code,
-            events: txResponse.result.events
+            gasUsed: txResponse.txResult.gasUsed,
+            gasWanted: txResponse.txResult.gasWanted,
+            code: txResponse.txResult.code,
+            events: txResponse.txResult.events
           };
         }
       } catch (error) {

@@ -38,6 +38,7 @@
   "dependencies": {
     "@interchainjs/auth": "1.11.18",
     "@interchainjs/cosmos-types": "1.11.18",
+    "@interchainjs/encoding": "1.11.18",
     "@interchainjs/types": "1.11.18",
     "@interchainjs/utils": "1.11.18",
     "@noble/curves": "^1.1.0",

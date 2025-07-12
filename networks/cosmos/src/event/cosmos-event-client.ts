@@ -2,7 +2,9 @@
 import { IRpcClient, SubscriptionError } from '@interchainjs/types';
 import { ICosmosEventClient } from '../types/cosmos-client-interfaces';
 import { RpcMethod, EventType } from '../types/protocol';
-import { Block, BlockHeader, TxEvent, BlockEvent } from '../types/responses';
+import { Block } from '../types/responses/common/block/block';
+import { BlockHeader } from '../types/responses/common/header/block-header';
+import { TxEvent, BlockEvent } from '../types/responses/common/event';
 import { IProtocolAdapter } from '../adapters/base';
 
 export class CosmosEventClient implements ICosmosEventClient {
