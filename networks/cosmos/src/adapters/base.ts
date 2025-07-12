@@ -167,10 +167,10 @@ import {
 } from '../types/requests/common/tx';
 
 // Import broadcast types from the common tx module
-import { 
-  BroadcastTxParams, 
+import {
+  BroadcastTxParams,
   EncodedBroadcastTxParams,
-  encodeBroadcastTxParams 
+  encodeBroadcastTxParams
 } from '../types/requests/common/tx';
 
 
@@ -181,7 +181,7 @@ export interface RequestEncoder {
   encodeBlock(params: BlockParams): EncodedBlockParams;
   encodeBlockByHash(params: BlockByHashParams): EncodedBlockByHashParams;
   encodeBlockResults(params: BlockResultsParams): EncodedBlockResultsParams;
-  encodeBlockchain(params: BlockchainParams): any;
+  encodeBlockchain(params: BlockchainParams): EncodedBlockchainParams;
   encodeConsensusParams(params: ConsensusParamsParams): EncodedConsensusParamsParams;
   encodeConsensusState(params: ConsensusStateParams): EncodedConsensusStateParams;
   encodeGenesisChunked(params: GenesisChunkedParams): EncodedGenesisChunkedParams;
@@ -205,7 +205,6 @@ export interface ResponseDecoder {
   decodeBlockResults<T extends BlockResultsResponse = BlockResultsResponse>(response: unknown): T;
   decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
-  decodeBroadcastTx(response: any): any;
   decodeBroadcastTxSync<T extends BroadcastTxSyncResponse = BroadcastTxSyncResponse>(response: unknown): T;
   decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T;
   decodeBroadcastTxCommit<T extends BroadcastTxCommitResponse = BroadcastTxCommitResponse>(response: unknown): T;
@@ -766,7 +765,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T {
     return createBlockchainResponse(response) as T;
   }
-  abstract decodeBroadcastTx(response: any): any;
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T {
     const resp = response as Record<string, unknown>;
     const data = (resp.result || resp) as Record<string, unknown>;
@@ -819,13 +817,13 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = responseData.result || response;
     return createTxResponse(data) as T;
   }
-  
+
   decodeTxSearch<T extends TxSearchResponse = TxSearchResponse>(response: unknown): T {
     const responseData = response as { result?: unknown };
     const data = responseData.result || response;
     return createTxSearchResponse(data) as T;
   }
-  
+
   decodeUnconfirmedTxs<T extends UnconfirmedTxsResponse = UnconfirmedTxsResponse>(response: unknown): T {
     const responseData = response as { result?: unknown };
     const data = responseData.result || response;
@@ -836,13 +834,13 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = (resp.result || resp) as Record<string, unknown>;
     return createBroadcastTxSyncResponse(data) as T;
   }
-  
+
   decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T {
     const resp = response as Record<string, unknown>;
     const data = (resp.result || resp) as Record<string, unknown>;
     return createBroadcastTxAsyncResponse(data) as T;
   }
-  
+
   decodeBroadcastTxCommit<T extends BroadcastTxCommitResponse = BroadcastTxCommitResponse>(response: unknown): T {
     const resp = response as Record<string, unknown>;
     const data = (resp.result || resp) as Record<string, unknown>;
