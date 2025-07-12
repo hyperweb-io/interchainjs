@@ -1,9 +1,11 @@
 import { fromBase64, fromHex } from '@interchainjs/encoding';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
 import {
-  AbciInfoResponse,
+  AbciInfoResponse
+} from '../types/responses/common/abci/abci-info-response';
+import {
   AbciQueryResponse
-} from '../types/responses';
+} from '../types/responses/common/abci/abci-query-response';
 import { createAbciInfoResponse } from '../types/responses/common/abci/abci-info-response';
 import { createAbciQueryResponse } from '../types/responses/common/abci/abci-query-response';
 import {

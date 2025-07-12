@@ -2,19 +2,24 @@
 import { IRpcClient } from '@interchainjs/types';
 import { ICosmosQueryClient } from '../types/cosmos-client-interfaces';
 import { RpcMethod, ProtocolInfo } from '../types/protocol';
-import {
-  StatusResponse as ChainStatus, Block,
-  TxResponse, ValidatorsResponse as ValidatorSet,
-  BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
-  BlockchainResponse, BlockHeader, Commit,
-  UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
-  HealthResponse as HealthResult,
-  NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
-  AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
-  AbciQueryResponse as AbciQueryResult, ConsensusState,
-  TxEvent, BlockEvent,
-
-} from '../types/responses';
+import { StatusResponse as ChainStatus } from '../types/responses/common/status';
+import { Block } from '../types/responses/common/block/block';
+import { TxResponse } from '../types/responses/common/tx';
+import { ValidatorsResponse as ValidatorSet } from '../types/responses/common/validators';
+import { BlockSearchResponse as SearchBlocksResult } from '../types/responses/common/block-search';
+import { TxSearchResponse as SearchTxsResult } from '../types/responses/common/tx-search';
+import { BlockchainResponse } from '../types/responses/common/block/blockchain-response';
+import { BlockHeader } from '../types/responses/common/header/block-header';
+import { Commit } from '../types/responses/common/commit/commit';
+import { UnconfirmedTxsResponse as UnconfirmedTxs } from '../types/responses/common/unconfirmed-txs';
+import { ConsensusParams } from '../types/responses/common/consensus-params/consensus-params';
+import { HealthResponse as HealthResult } from '../types/responses/common/health';
+import { NumUnconfirmedTxsResponse as NumUnconfirmedTxs } from '../types/responses/common/num-unconfirmed-txs';
+import { AbciInfoResponse as AbciInfo } from '../types/responses/common/abci/abci-info-response';
+import { NetInfoResponse as NetInfo } from '../types/responses/common/net-info';
+import { AbciQueryResponse as AbciQueryResult } from '../types/responses/common/abci/abci-query-response';
+import { ConsensusStateResponse as ConsensusState } from '../types/responses/common/consensus-state';
+import { TxEvent, BlockEvent } from '../types/responses/common/event';
 import {
   BroadcastTxSyncResponse
 } from '../types/responses/common/broadcast-tx-sync';
@@ -31,14 +36,11 @@ import {
 } from '../types/responses/common/broadcast-tx-commit';
 import { BlockResultsResponse as BlockResults } from '../types/responses/common/block/block-results-response';
 import { TxData } from '../types/responses/common/block/tx-data';
-import { CheckTxParams } from '../types/requests';
-import { CheckTxResponse } from '../types/responses';
-import {
-  BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
-  BlockSearchParams, ConsensusParamsParams,
-  TxParams, TxSearchParams,
-  UnconfirmedTxsParams
-} from '../types/requests';
+import { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams } from '../types/requests/common/tx';
+import { CheckTxResponse } from '../types/responses/common/tx';
+import { BlockParams, BlockByHashParams, BlockResultsParams, BlockSearchParams } from '../types/requests/common/block';
+import { BlockchainParams } from '../types/requests/common/blockchain';
+import { ConsensusParamsParams } from '../types/requests/common/consensus';
 import { HeaderParams, HeaderByHashParams } from '../types/requests/common/block';
 import { AbciQueryParams } from '../types/requests/common/abci';
 import { CommitParams } from '../types/requests/common/commit';

@@ -6,16 +6,18 @@ import { createCodec } from '../../../codec';
 import { ensureNumber, ensureBytes, ensureString, ensureBoolean, createArrayConverter } from '../../../codec/converters';
 
 // Type definitions for Event
-export interface Event {
-  type: string;
-  attributes: Array<{
-    key: string;
-    value: string;
-    index?: boolean;
-  }>;
+export interface EventAttribute {
+  key: string;
+  value: string;
+  index?: boolean;
 }
 
-const EventAttributeCodec = createCodec<{key: string; value: string; index?: boolean}>({
+export interface Event {
+  type: string;
+  attributes: Array<EventAttribute>;
+}
+
+const EventAttributeCodec = createCodec<EventAttribute>({
   key: ensureString,
   value: ensureString,
   index: ensureBoolean

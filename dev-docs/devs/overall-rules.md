@@ -6,6 +6,6 @@
 - also check dev-docs/agents and dev-docs/devs to get the clue of exist solutions
 
 - build under the root, do yarn and yarn build, if there're errors, do it again, it should be ok.
-- if you install deps and rebuild, the time executing can be 20 mins
+- if you install deps and rebuild, the time executing can be 20 mins, while you also check for any interaction happening in the process, just in case it hangs forever.
 - if you test, the time executing can be 20 mins
 - you don't try to commit the code to the git, I'll do that myself

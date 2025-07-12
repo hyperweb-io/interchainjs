@@ -2,7 +2,7 @@ import { CosmosQueryClient } from '../cosmos-query-client';
 import { HttpRpcClient } from '../../rpc/http-client';
 import { Comet38Adapter } from '../../adapters/comet38';
 import { RpcMethod } from '../../types/protocol';
-import { BroadcastTxParams } from '../../types/requests';
+import { BroadcastTxParams } from '../../types/requests/common/tx';
 
 describe('CosmosQueryClient Broadcast Methods', () => {
   let client: CosmosQueryClient;
