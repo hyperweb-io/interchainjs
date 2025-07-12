@@ -1,15 +1,22 @@
+/// <reference types="@types/jest" />
+
+import './setup.test';
+
+import { useChain } from 'starshipjs';
+
 import { CosmosQueryClient } from '../../src/query/cosmos-query-client';
 import { HttpRpcClient } from '../../src/rpc/http-client';
 import { Comet38Adapter } from '../../src/adapters/comet38';
 import { BroadcastTxParams } from '../../src/types/requests';
-import { toBase64 } from '@interchainjs/encoding';
 
 describe('Broadcast Integration Tests', () => {
   let client: CosmosQueryClient;
-  const rpcUrl = process.env.COSMOS_RPC_URL || 'http://localhost:26657';
+  let rpcEndpoint: string;
 
-  beforeAll(() => {
-    const rpcClient = new HttpRpcClient(rpcUrl);
+  beforeAll(async () => {
+    const { getRpcEndpoint } = useChain('osmosis');
+    rpcEndpoint = await getRpcEndpoint();
+    const rpcClient = new HttpRpcClient(rpcEndpoint);
     const adapter = new Comet38Adapter();
     client = new CosmosQueryClient(rpcClient, adapter);
   });
@@ -39,17 +46,17 @@ describe('Broadcast Integration Tests', () => {
 
       try {
         const result = await client.broadcastTxAsync(params);
-        
+
         // The transaction will likely fail due to invalid signature, but we're testing the RPC call works
         expect(result).toBeDefined();
         expect(result.hash).toBeDefined();
         expect(result.hash).toBeInstanceOf(Uint8Array);
         expect(result.hash.length).toBeGreaterThan(0);
       } catch (error: any) {
-        // If the RPC endpoint is not available, skip the test
+        // If the RPC endpoint is not available, log the error and still fail the test
         if (error.message?.includes('ECONNREFUSED') || error.message?.includes('fetch')) {
           console.log('Skipping test - RPC endpoint not available');
-          return;
+          throw error;
         }
         throw error;
       }
@@ -61,7 +68,7 @@ describe('Broadcast Integration Tests', () => {
 
       try {
         const result = await client.broadcastTxSync(params);
-        
+
         expect(result).toBeDefined();
         expect(result.hash).toBeDefined();
         expect(result.hash).toBeInstanceOf(Uint8Array);
@@ -69,7 +76,7 @@ describe('Broadcast Integration Tests', () => {
         expect(typeof result.code).toBe('number');
         expect(result.codespace).toBeDefined();
         expect(typeof result.codespace).toBe('string');
-        
+
         // The transaction will fail, but we should get proper error info
         if (result.code !== 0) {
           expect(result.log).toBeDefined();
@@ -78,7 +85,7 @@ describe('Broadcast Integration Tests', () => {
       } catch (error: any) {
         if (error.message?.includes('ECONNREFUSED') || error.message?.includes('fetch')) {
           console.log('Skipping test - RPC endpoint not available');
-          return;
+          throw error;
         }
         throw error;
       }
@@ -90,18 +97,18 @@ describe('Broadcast Integration Tests', () => {
 
       try {
         const result = await client.broadcastTxCommit(params);
-        
+
         expect(result).toBeDefined();
         expect(result.height).toBeDefined();
-        expect(typeof result.height).toBe('number');
+        expect(typeof result.height).toBe('bigint');
         expect(result.hash).toBeDefined();
         expect(result.hash).toBeInstanceOf(Uint8Array);
-        
+
         // Check checkTx result
         expect(result.checkTx).toBeDefined();
         expect(result.checkTx.code).toBeDefined();
         expect(typeof result.checkTx.code).toBe('number');
-        
+
         // Check deliverTx or txResult (depending on version)
         if (result.txResult) {
           expect(result.txResult.code).toBeDefined();
@@ -113,7 +120,7 @@ describe('Broadcast Integration Tests', () => {
       } catch (error: any) {
         if (error.message?.includes('ECONNREFUSED') || error.message?.includes('fetch')) {
           console.log('Skipping test - RPC endpoint not available');
-          return;
+          throw error;
         }
         throw error;
       }
@@ -125,14 +132,14 @@ describe('Broadcast Integration Tests', () => {
 
       try {
         const result = await client.broadcastTxAsync(params);
-        
+
         // Even with invalid tx, we should get a hash back
         expect(result.hash).toBeDefined();
         expect(result.hash).toBeInstanceOf(Uint8Array);
       } catch (error: any) {
         if (error.message?.includes('ECONNREFUSED') || error.message?.includes('fetch')) {
           console.log('Skipping test - RPC endpoint not available');
-          return;
+          throw error;
         }
         throw error;
       }
