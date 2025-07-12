@@ -3,7 +3,7 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureNumber, ensureBytes, ensureString } from '../../../codec/converters';
+import { ensureNumber, ensureBytes, ensureBytesFromBase64, ensureString } from '../../../codec/converters';
 
 // Import dependencies from same module
 import { Event, EventCodec } from './event';
@@ -23,7 +23,7 @@ export interface TxResult {
 // Codecs
 export const TxResultCodec = createCodec<TxResult>({
   code: { source: 'code', converter: ensureNumber },
-  data: { source: 'data', converter: ensureBytes, required: false },
+  data: { source: 'data', converter: ensureBytesFromBase64, required: false },
   log: { source: 'log', converter: ensureString },
   info: { source: 'info', converter: ensureString },
   gasWanted: { source: 'gas_wanted', converter: ensureNumber },

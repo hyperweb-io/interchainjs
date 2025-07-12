@@ -172,20 +172,7 @@ export interface StatusRequest {
   method: Method.Status;
 }
 
-export interface TxRequest {
-  method: Method.Tx;
-  params: TxParams;
-}
 
-export interface TxSearchRequest {
-  method: Method.TxSearch;
-  params: TxSearchParams;
-}
-
-export interface UnconfirmedTxsRequest {
-  method: Method.UnconfirmedTxs;
-  params?: UnconfirmedTxsParams;
-}
 
 export interface ValidatorsRequest {
   method: Method.Validators;
@@ -212,7 +199,4 @@ export type Request =
   | NetInfoRequest
   | NumUnconfirmedTxsRequest
   | StatusRequest
-  | TxRequest
-  | TxSearchRequest
-  | UnconfirmedTxsRequest
   | ValidatorsRequest;

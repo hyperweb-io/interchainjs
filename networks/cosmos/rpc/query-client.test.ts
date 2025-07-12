@@ -2,7 +2,13 @@
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
-import { toHex } from '@interchainjs/encoding';
+
+// Simple toHex implementation for tests
+const toHex = (bytes: Uint8Array): string => {
+  return Array.from(bytes)
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+};
 
 const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;

@@ -13,10 +13,39 @@ export interface UnconfirmedTxsResponse {
 }
 
 export const UnconfirmedTxsResponseCodec = createCodec<UnconfirmedTxsResponse>({
-  count: ensureNumber,
-  total: ensureNumber,
-  totalBytes: { source: 'total_bytes', converter: ensureNumber },
-  txs: createArrayConverter({ create: ensureString })
+  count: {
+    source: 'n_txs',
+    converter: (value: unknown) => {
+      // If count is not provided, calculate from txs array length
+      if (value === undefined || value === null) {
+        return 0;
+      }
+      return ensureNumber(value);
+    }
+  },
+  total: {
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) {
+        return 0;
+      }
+      return ensureNumber(value);
+    }
+  },
+  totalBytes: { 
+    source: 'total_bytes', 
+    converter: (value: unknown) => {
+      if (value === undefined || value === null) {
+        return 0;
+      }
+      return ensureNumber(value);
+    }
+  },
+  txs: {
+    converter: (value: unknown) => {
+      if (!Array.isArray(value)) return [];
+      return value.map(tx => ensureString(tx));
+    }
+  }
 });
 
 export function createUnconfirmedTxsResponse(data: unknown): UnconfirmedTxsResponse {

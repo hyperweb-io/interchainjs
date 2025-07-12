@@ -192,6 +192,27 @@ export const ensureBytes = (value: unknown): Uint8Array => {
 };
 
 /**
+ * Convert API value to Uint8Array (handles base64 strings)
+ */
+export const ensureBytesFromBase64 = (value: unknown): Uint8Array => {
+  if (value instanceof Uint8Array) return value;
+  if (typeof value === 'string') {
+    // Handle empty string
+    if (value === '') return new Uint8Array();
+    try {
+      return fromBase64(value);
+    } catch (e) {
+      throw new Error(`Invalid base64 string: ${value}`);
+    }
+  }
+  // Handle null/undefined/empty object
+  if (!value || (typeof value === 'object' && Object.keys(value).length === 0)) {
+    return new Uint8Array();
+  }
+  throw new Error(`Expected Uint8Array or base64 string, got ${typeof value}`);
+};
+
+/**
  * Create a converter that maps values using a lookup table
  */
 export function createEnumConverter<T>(enumMap: Record<string, T>): (value: unknown) => T | undefined {

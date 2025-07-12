@@ -28,15 +28,13 @@ export const TxSearchParamsCodec = createCodec<EncodedTxSearchParams>({
       return String(ensureNumber(value));
     }
   },
-  perPage: {
-    source: 'per_page',
+  per_page: {
     converter: (value: unknown) => {
       if (value === undefined || value === null) return undefined;
       return String(ensureNumber(value));
     }
   },
-  orderBy: {
-    source: 'order_by',
+  order_by: {
     converter: (value: unknown) => {
       if (value === undefined || value === null) return undefined;
       return ensureString(value);
@@ -45,5 +43,12 @@ export const TxSearchParamsCodec = createCodec<EncodedTxSearchParams>({
 });
 
 export function encodeTxSearchParams(params: TxSearchParams): EncodedTxSearchParams {
-  return TxSearchParamsCodec.create(params);
+  // Manual encoding to handle field name mapping
+  return {
+    query: params.query,
+    ...(params.prove !== undefined && { prove: params.prove }),
+    ...(params.page !== undefined && { page: String(params.page) }),
+    ...(params.perPage !== undefined && { per_page: String(params.perPage) }),
+    ...(params.orderBy !== undefined && { order_by: params.orderBy })
+  };
 }

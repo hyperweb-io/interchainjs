@@ -503,10 +503,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeAbciQuery(response);
       case RpcMethod.BLOCK_RESULTS:
         return this.decodeBlockResults(response);
-      case RpcMethod.TX:
-        return this.decodeTx(response);
-      case RpcMethod.TX_SEARCH:
-        return this.decodeTxSearch(response);
+
       case RpcMethod.CONSENSUS_PARAMS:
         return this.decodeConsensusParams(response);
 
@@ -522,8 +519,7 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
         return this.decodeGenesisChunked(response);
       case RpcMethod.HEALTH:
         return this.decodeHealth(response);
-      case RpcMethod.UNCONFIRMED_TXS:
-        return this.decodeUnconfirmedTxs(response);
+
       case RpcMethod.NUM_UNCONFIRMED_TXS:
         return this.decodeNumUnconfirmedTxs(response);
       case RpcMethod.COMMIT:
