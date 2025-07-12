@@ -2,13 +2,7 @@
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
-
-// Simple toHex implementation for tests
-const toHex = (bytes: Uint8Array): string => {
-  return Array.from(bytes)
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
-};
+import { toHex } from '@interchainjs/encoding';
 
 const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;
@@ -245,9 +239,9 @@ describe('Cosmos Query Client - Functional Tests', () => {
         // Get the next block to get the hash of the test block from lastBlockId
         const nextBlock = await queryClient.getBlock(testHeight + 1);
         const blockHash = toHex(nextBlock.header.lastBlockId.hash);
-        
+
         const result = await queryClient.getHeaderByHash(blockHash);
-        
+
         expect(result).toBeDefined();
         expect(result.chainId).toBe('cosmoshub-4');
         expect(result.height).toBe(testHeight);
@@ -259,10 +253,10 @@ describe('Cosmos Query Client - Functional Tests', () => {
         // Get the next block to get the hash of the test block from lastBlockId
         const nextBlock = await queryClient.getBlock(testHeight + 1);
         const blockHash = toHex(nextBlock.header.lastBlockId.hash);
-        
+
         const headerByHash = await queryClient.getHeaderByHash(blockHash);
         const headerByHeight = await queryClient.getHeader(testHeight);
-        
+
         expect(headerByHash.height).toBe(headerByHeight.height);
         expect(headerByHash.chainId).toBe(headerByHeight.chainId);
         expect(headerByHash.time).toEqual(headerByHeight.time);
@@ -274,10 +268,10 @@ describe('Cosmos Query Client - Functional Tests', () => {
         const nextBlock2 = await queryClient.getBlock(testHeight2 + 1);
         const hash1 = toHex(nextBlock1.header.lastBlockId.hash);
         const hash2 = toHex(nextBlock2.header.lastBlockId.hash);
-        
+
         const result1 = await queryClient.getHeaderByHash(hash1);
         const result2 = await queryClient.getHeaderByHash(hash2);
-        
+
         expect(result1.height).toBe(testHeight);
         expect(result2.height).toBe(testHeight2);
         expect(result1.time).not.toEqual(result2.time);
@@ -287,17 +281,17 @@ describe('Cosmos Query Client - Functional Tests', () => {
         const nextBlock = await queryClient.getBlock(testHeight + 1);
         const hashLower = toHex(nextBlock.header.lastBlockId.hash).toLowerCase();
         const hashUpper = hashLower.toUpperCase();
-        
+
         const resultLower = await queryClient.getHeaderByHash(hashLower);
         const resultUpper = await queryClient.getHeaderByHash(hashUpper);
-        
+
         expect(resultLower.height).toBe(resultUpper.height);
         expect(resultLower.time).toEqual(resultUpper.time);
       });
 
       test('getHeaderByHash() should throw error for invalid hash', async () => {
         const invalidHash = 'invalid_hash_12345';
-        
+
         await expect(queryClient.getHeaderByHash(invalidHash)).rejects.toThrow();
       });
     });
