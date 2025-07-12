@@ -3,7 +3,7 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureNumber, ensureBytes, ensureBytesFromBase64, ensureString } from '../../../codec/converters';
+import { ensureNumber, ensureBytes, ensureBytesFromBase64, ensureString, apiToBigInt } from '../../../codec/converters';
 
 // Import dependencies from same module
 import { Event, EventCodec } from './event';
@@ -14,8 +14,8 @@ export interface TxResult {
   readonly data?: Uint8Array;
   readonly log: string;
   readonly info: string;
-  readonly gasWanted: number;
-  readonly gasUsed: number;
+  readonly gasWanted?: bigint;
+  readonly gasUsed?: bigint;
   readonly events: readonly Event[];
   readonly codespace: string;
 }
@@ -26,8 +26,14 @@ export const TxResultCodec = createCodec<TxResult>({
   data: { source: 'data', converter: ensureBytesFromBase64, required: false },
   log: { source: 'log', converter: ensureString },
   info: { source: 'info', converter: ensureString },
-  gasWanted: { source: 'gas_wanted', converter: ensureNumber },
-  gasUsed: { source: 'gas_used', converter: ensureNumber },
+  gasWanted: { 
+    source: 'gas_wanted',
+    converter: (v) => v ? apiToBigInt(v) : undefined
+  },
+  gasUsed: { 
+    source: 'gas_used',
+    converter: (v) => v ? apiToBigInt(v) : undefined
+  },
   events: { 
     source: 'events',
     converter: (value: any) => (value || []).map((e: any) => EventCodec.create(e))

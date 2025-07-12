@@ -3,7 +3,8 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureNumber } from '../../../codec/converters';
+import { ensureNumber, ensureString, maybeBase64ToBytes, apiToBigInt } from '../../../codec/converters';
+import { fromHex } from '@interchainjs/utils';
 
 // Types
 export interface BroadcastTxSyncResponse {
@@ -11,17 +12,32 @@ export interface BroadcastTxSyncResponse {
   readonly data?: Uint8Array;
   readonly log?: string;
   readonly hash: Uint8Array;
+  readonly gasWanted?: bigint;
+  readonly gasUsed?: bigint;
 }
 
 // Codecs
 export const BroadcastTxSyncResponseCodec = createCodec<BroadcastTxSyncResponse>({
-  code: { source: 'code', converter: ensureNumber },
-  data: { source: 'data' },
-  log: { source: 'log' },
-  hash: { source: 'hash' }
+  code: ensureNumber,
+  data: maybeBase64ToBytes,
+  log: ensureString,
+  hash: {
+    converter: (value: unknown) => {
+      const hexStr = ensureString(value);
+      return fromHex(hexStr);
+    }
+  },
+  gasWanted: {
+    source: 'gas_wanted',
+    converter: (v) => v ? apiToBigInt(v) : undefined
+  },
+  gasUsed: {
+    source: 'gas_used',
+    converter: (v) => v ? apiToBigInt(v) : undefined
+  }
 });
 
 // Factory functions
-export function createBroadcastTxSyncResponse(data: any): BroadcastTxSyncResponse {
+export function createBroadcastTxSyncResponse(data: unknown): BroadcastTxSyncResponse {
   return BroadcastTxSyncResponseCodec.create(data);
 }

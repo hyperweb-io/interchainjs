@@ -117,7 +117,7 @@ describe('CosmosQueryClient Broadcast Methods', () => {
         RpcMethod.BROADCAST_TX_COMMIT,
         { tx: 'AQIDBAU=' }
       );
-      expect(result.height).toBe(12345);
+      expect(result.height).toBe(12345n);
       expect(result.hash).toEqual(new Uint8Array([171, 205, 239, 18, 52, 86, 120, 144]));
       expect(result.checkTx.code).toBe(0);
       expect(result.checkTx.log).toBe('check passed');

@@ -164,19 +164,12 @@ import {
   encodeUnconfirmedTxsParams
 } from '../types/requests/common/tx';
 
-type BroadcastTxSyncParams = any;
-type EncodedBroadcastTxSyncParams = any;
-type BroadcastTxAsyncParams = any;
-type EncodedBroadcastTxAsyncParams = any;
-type BroadcastTxCommitParams = any;
-type EncodedBroadcastTxCommitParams = any;
-
-
-// Dummy encoder functions for broadcast methods
-// These will be refactored later
-const encodeBroadcastTxSyncParams = (params: any): any => params;
-const encodeBroadcastTxAsyncParams = (params: any): any => params;
-const encodeBroadcastTxCommitParams = (params: any): any => params;
+// Import broadcast types from the common tx module
+import { 
+  BroadcastTxParams, 
+  EncodedBroadcastTxParams,
+  encodeBroadcastTxParams 
+} from '../types/requests/common/tx';
 
 
 
@@ -197,9 +190,9 @@ export interface RequestEncoder {
   encodeTx(params: TxParams): EncodedTxParams;
   encodeTxSearch(params: TxSearchParams): EncodedTxSearchParams;
   encodeBlockSearch(params: BlockSearchParams): EncodedBlockSearchParams;
-  encodeBroadcastTxSync(params: BroadcastTxSyncParams): EncodedBroadcastTxSyncParams;
-  encodeBroadcastTxAsync(params: BroadcastTxAsyncParams): EncodedBroadcastTxAsyncParams;
-  encodeBroadcastTxCommit(params: BroadcastTxCommitParams): EncodedBroadcastTxCommitParams;
+  encodeBroadcastTxSync(params: BroadcastTxParams): EncodedBroadcastTxParams;
+  encodeBroadcastTxAsync(params: BroadcastTxParams): EncodedBroadcastTxParams;
+  encodeBroadcastTxCommit(params: BroadcastTxParams): EncodedBroadcastTxParams;
   encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams;
 }
 
@@ -211,9 +204,9 @@ export interface ResponseDecoder {
   decodeBlockSearch<T extends BlockSearchResponse = BlockSearchResponse>(response: unknown): T;
   decodeBlockchain<T extends BlockchainResponse = BlockchainResponse>(response: unknown): T;
   decodeBroadcastTx(response: any): any;
-  decodeBroadcastTxSync?(response: any): BroadcastTxSyncResponse;
-  decodeBroadcastTxAsync?(response: any): BroadcastTxAsyncResponse;
-  decodeBroadcastTxCommit?(response: any): BroadcastTxCommitResponse;
+  decodeBroadcastTxSync<T extends BroadcastTxSyncResponse = BroadcastTxSyncResponse>(response: unknown): T;
+  decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T;
+  decodeBroadcastTxCommit<T extends BroadcastTxCommitResponse = BroadcastTxCommitResponse>(response: unknown): T;
   decodeCommit<T extends CommitResponse = CommitResponse>(response: unknown): T;
   decodeConsensusParams<T extends ConsensusParamsResponse = ConsensusParamsResponse>(response: unknown): T;
   decodeConsensusState<T extends ConsensusStateResponse = ConsensusStateResponse>(response: unknown): T;
@@ -444,19 +437,19 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
     // Special handling for broadcast_tx_sync using codec
     if (method === RpcMethod.BROADCAST_TX_SYNC) {
-      const encoded = this.encodeBroadcastTxSync(params as BroadcastTxSyncParams);
+      const encoded = this.encodeBroadcastTxSync(params as BroadcastTxParams);
       return encoded;
     }
 
     // Special handling for broadcast_tx_async using codec
     if (method === RpcMethod.BROADCAST_TX_ASYNC) {
-      const encoded = this.encodeBroadcastTxAsync(params as BroadcastTxAsyncParams);
+      const encoded = this.encodeBroadcastTxAsync(params as BroadcastTxParams);
       return encoded;
     }
 
     // Special handling for broadcast_tx_commit using codec
     if (method === RpcMethod.BROADCAST_TX_COMMIT) {
-      const encoded = this.encodeBroadcastTxCommit(params as BroadcastTxCommitParams);
+      const encoded = this.encodeBroadcastTxCommit(params as BroadcastTxParams);
       return encoded;
     }
 
@@ -737,16 +730,16 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     return encodeBlockSearchParams(params);
   }
 
-  encodeBroadcastTxSync(params: BroadcastTxSyncParams): EncodedBroadcastTxSyncParams {
-    return encodeBroadcastTxSyncParams(params);
+  encodeBroadcastTxSync(params: BroadcastTxParams): EncodedBroadcastTxParams {
+    return encodeBroadcastTxParams(params);
   }
 
-  encodeBroadcastTxAsync(params: BroadcastTxAsyncParams): EncodedBroadcastTxAsyncParams {
-    return encodeBroadcastTxAsyncParams(params);
+  encodeBroadcastTxAsync(params: BroadcastTxParams): EncodedBroadcastTxParams {
+    return encodeBroadcastTxParams(params);
   }
 
-  encodeBroadcastTxCommit(params: BroadcastTxCommitParams): EncodedBroadcastTxCommitParams {
-    return encodeBroadcastTxCommitParams(params);
+  encodeBroadcastTxCommit(params: BroadcastTxParams): EncodedBroadcastTxParams {
+    return encodeBroadcastTxParams(params);
   }
 
   encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams {
@@ -836,17 +829,22 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
     const data = responseData.result || response;
     return createUnconfirmedTxsResponse(data) as T;
   }
-  decodeBroadcastTxSync(response: any): BroadcastTxSyncResponse {
-    const data = response.result || response;
-    return createBroadcastTxSyncResponse(data);
+  decodeBroadcastTxSync<T extends BroadcastTxSyncResponse = BroadcastTxSyncResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createBroadcastTxSyncResponse(data) as T;
   }
-  decodeBroadcastTxAsync(response: any): BroadcastTxAsyncResponse {
-    const data = response.result || response;
-    return createBroadcastTxAsyncResponse(data);
+  
+  decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createBroadcastTxAsyncResponse(data) as T;
   }
-  decodeBroadcastTxCommit(response: any): BroadcastTxCommitResponse {
-    const data = response.result || response;
-    return createBroadcastTxCommitResponse(data);
+  
+  decodeBroadcastTxCommit<T extends BroadcastTxCommitResponse = BroadcastTxCommitResponse>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.result || resp) as Record<string, unknown>;
+    return createBroadcastTxCommitResponse(data) as T;
   }
   decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T {
     return createCheckTxResponse(response) as T;

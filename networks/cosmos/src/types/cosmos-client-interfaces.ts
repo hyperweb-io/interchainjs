@@ -20,8 +20,9 @@ import { ConsensusStateDumpResponse } from './responses/common/consensus';
 import { GenesisResponse as Genesis } from './responses/common/genesis';
 import { GenesisChunkedResponse as GenesisChunk } from './responses/common/genesis-chunked';
 import {
-  AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
+  AbciQueryParams, BlockSearchParams, TxSearchParams
 } from './requests';
+import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
 
 

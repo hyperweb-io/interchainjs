@@ -5,11 +5,11 @@
 
 import { BlockSearchParams } from './requests/common/block';
 import { ValidatorsParams } from './requests/common/validators';
-import { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams } from './requests/common/tx';
+import { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams, BroadcastTxParams } from './requests/common/tx';
 import { ConsensusParamsParams } from './requests/common/consensus';
 export { BlockSearchParams } from './requests/common/block';
 export { ValidatorsParams } from './requests/common/validators';
-export { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams } from './requests/common/tx';
+export { CheckTxParams, TxParams, TxSearchParams, UnconfirmedTxsParams, BroadcastTxParams } from './requests/common/tx';
 export { ConsensusParamsParams } from './requests/common/consensus';
 
 export enum Method {
@@ -66,9 +66,7 @@ export interface BlockResultsParams {
   height?: number;
 }
 
-export interface BroadcastTxParams {
-  tx: Uint8Array;
-}
+
 
 export interface CommitParams {
   height?: number;

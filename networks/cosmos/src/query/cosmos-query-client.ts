@@ -35,7 +35,7 @@ import { CheckTxParams } from '../types/requests';
 import { CheckTxResponse } from '../types/responses';
 import {
   BlockParams, BlockByHashParams, BlockchainParams, BlockResultsParams,
-  BlockSearchParams, BroadcastTxParams, ConsensusParamsParams,
+  BlockSearchParams, ConsensusParamsParams,
   TxParams, TxSearchParams,
   UnconfirmedTxsParams
 } from '../types/requests';
@@ -43,6 +43,7 @@ import { HeaderParams, HeaderByHashParams } from '../types/requests/common/block
 import { AbciQueryParams } from '../types/requests/common/abci';
 import { CommitParams } from '../types/requests/common/commit';
 import { ValidatorsParams } from '../types/requests/common/validators';
+import { BroadcastTxParams } from '../types/requests/common/tx';
 import { GenesisChunkedParams } from '../types/requests/common/genesis-chunked';
 import { ICosmosProtocolAdapter } from '../adapters/base';
 
@@ -228,22 +229,21 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   // Transaction broadcast methods
   // @ts-ignore - Type override for unchecked query
   async broadcastTxSync(params: BroadcastTxParams): Promise<BroadcastTxSyncResponse> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BROADCAST_TX_SYNC, params);
+    const encodedParams = this.protocolAdapter.encodeBroadcastTxSync(params);
     const result = await this.rpcClient.call(RpcMethod.BROADCAST_TX_SYNC, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BROADCAST_TX_SYNC, result) as any;
+    return this.protocolAdapter.decodeBroadcastTxSync(result);
   }
 
   async broadcastTxAsync(params: BroadcastTxParams): Promise<BroadcastTxAsyncResponse> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BROADCAST_TX_ASYNC, params);
+    const encodedParams = this.protocolAdapter.encodeBroadcastTxAsync(params);
     const result = await this.rpcClient.call(RpcMethod.BROADCAST_TX_ASYNC, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BROADCAST_TX_ASYNC, result) as any;
+    return this.protocolAdapter.decodeBroadcastTxAsync(result);
   }
 
-  // @ts-ignore - Type override for unchecked query
   async broadcastTxCommit(params: BroadcastTxParams): Promise<BroadcastTxCommitResponse> {
-    const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.BROADCAST_TX_COMMIT, params);
+    const encodedParams = this.protocolAdapter.encodeBroadcastTxCommit(params);
     const result = await this.rpcClient.call(RpcMethod.BROADCAST_TX_COMMIT, encodedParams);
-    return this.protocolAdapter.decodeResponse(RpcMethod.BROADCAST_TX_COMMIT, result) as any;
+    return this.protocolAdapter.decodeBroadcastTxCommit(result);
   }
 
   // Chain query methods

@@ -10,6 +10,9 @@ export { TxSearchResponse } from './responses/common/tx-search';
 export { UnconfirmedTxsResponse } from './responses/common/unconfirmed-txs';
 export { ConsensusParams, ConsensusParamsResponse } from './responses/common/consensus-params';
 export { ConsensusStateResponse } from './responses/common/consensus-state';
+export { BroadcastTxSyncResponse } from './responses/common/broadcast-tx-sync';
+export { BroadcastTxAsyncResponse } from './responses/common/broadcast-tx-async';
+export { BroadcastTxCommitResponse } from './responses/common/broadcast-tx-commit';
 
 // Import TxData for dummy interfaces that haven't been refactored yet
 import { TxData } from './responses/common/block/tx-data';
@@ -164,9 +167,7 @@ export interface BlockchainResponse {
   readonly blockMetas: readonly BlockMeta[];
 }
 
-export interface BroadcastTxAsyncResponse {
-  readonly hash: Uint8Array;
-}
+
 
 
 
@@ -213,13 +214,7 @@ export interface AbciQueryResponse {
   readonly info: string;
 }
 
-export interface BroadcastTxCommitResponse {
-  readonly height: number;
-  readonly hash: Uint8Array;
-  readonly checkTx: TxData;
-  readonly deliverTx?: TxData; // Tendermint 0.34 & 0.37
-  readonly txResult?: TxData; // CometBFT 0.38
-}
+
 
 export interface NetInfoResponse {
   readonly listening: boolean;

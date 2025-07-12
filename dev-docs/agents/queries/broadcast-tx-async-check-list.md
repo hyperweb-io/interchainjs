@@ -3,52 +3,52 @@
 ## Method: `broadcastTxAsync(params: BroadcastTxParams): Promise<BroadcastTxAsyncResponse>`
 
 ### Phase 1: Infrastructure Setup
-- [ ] Analyze current method in `cosmos-query-client.ts` (lines 187-191)
-- [ ] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
-- [ ] Check parameter type: `BroadcastTxParams` in `/types/requests/` (shared with sync)
-- [ ] Check response type: `BroadcastTxAsyncResponse` in `/types/responses/`
-- [ ] Review version-specific differences in adapters
+- [x] Analyze current method in `cosmos-query-client.ts` (lines 187-191)
+- [x] Confirm it uses `encodeParams` and `decodeResponse` (needs refactoring)
+- [x] Check parameter type: `BroadcastTxParams` in `/types/requests/` (shared with sync)
+- [x] Check response type: `BroadcastTxAsyncResponse` in `/types/responses/`
+- [x] Review version-specific differences in adapters
 
 ### Phase 2: Response Type Refactoring
-- [ ] Check if response type already exists in `/types/responses/common/broadcast-tx-async/`
-- [ ] If not, create: `/types/responses/common/tx/broadcast-tx-async-response.ts`
-- [ ] Define TypeScript interface for `BroadcastTxAsyncResponse`
-- [ ] Handle fields:
-  - [ ] `code` number (0 for success)
-  - [ ] `data` optional Uint8Array
-  - [ ] `log` optional string
-  - [ ] `hash` string (transaction hash)
-- [ ] Create codec using `createCodec()` with proper converters:
-  - [ ] Number conversion for code
-  - [ ] Base64 to Uint8Array for data
-  - [ ] String handling for log and hash
-- [ ] Implement `createBroadcastTxAsyncResponse()` function
-- [ ] Add decoder method to `ResponseDecoder` interface: `decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T`
-- [ ] Use generics for flexibility in decoder method (see pattern in completed methods)
-- [ ] Implement `decodeBroadcastTxAsync()` in `BaseAdapter`
+- [x] Check if response type already exists in `/types/responses/common/broadcast-tx-async/`
+- [x] If not, create: `/types/responses/common/tx/broadcast-tx-async-response.ts`
+- [x] Define TypeScript interface for `BroadcastTxAsyncResponse`
+- [x] Handle fields:
+  - [x] `code` number (0 for success)
+  - [x] `data` optional Uint8Array
+  - [x] `log` optional string
+  - [x] `hash` string (transaction hash)
+- [x] Create codec using `createCodec()` with proper converters:
+  - [x] Number conversion for code
+  - [x] Base64 to Uint8Array for data
+  - [x] String handling for log and hash
+- [x] Implement `createBroadcastTxAsyncResponse()` function
+- [x] Add decoder method to `ResponseDecoder` interface: `decodeBroadcastTxAsync<T extends BroadcastTxAsyncResponse = BroadcastTxAsyncResponse>(response: unknown): T`
+- [x] Use generics for flexibility in decoder method (see pattern in completed methods)
+- [x] Implement `decodeBroadcastTxAsync()` in `BaseAdapter`
 
 ### Phase 3: Request Type Refactoring
-- [ ] Reuse `BroadcastTxParams` from broadcast-tx-sync refactoring
-- [ ] Add encoder method to `RequestEncoder` interface: `encodeBroadcastTxAsync(params: BroadcastTxParams): EncodedBroadcastTxParams`
-- [ ] Implement `encodeBroadcastTxAsync()` in `BaseAdapter` (can reuse logic)
+- [x] Reuse `BroadcastTxParams` from broadcast-tx-sync refactoring
+- [x] Add encoder method to `RequestEncoder` interface: `encodeBroadcastTxAsync(params: BroadcastTxParams): EncodedBroadcastTxParams`
+- [x] Implement `encodeBroadcastTxAsync()` in `BaseAdapter` (can reuse logic)
 
 ### Phase 4: Update Query Client
-- [ ] Update `broadcastTxAsync()` method to use:
-  - [ ] `this.protocolAdapter.encodeBroadcastTxAsync(params)` instead of `encodeParams`
-  - [ ] `this.protocolAdapter.decodeBroadcastTxAsync(result)` instead of `decodeResponse`
-- [ ] Update imports to use index files
+- [x] Update `broadcastTxAsync()` method to use:
+  - [x] `this.protocolAdapter.encodeBroadcastTxAsync(params)` instead of `encodeParams`
+  - [x] `this.protocolAdapter.decodeBroadcastTxAsync(result)` instead of `decodeResponse`
+- [x] Update imports to use index files
 
 ### Phase 5: Testing and Validation
-- [ ] Run TypeScript compiler for type checking
-- [ ] Test with valid transaction broadcast
-- [ ] Verify immediate return behavior
-- [ ] Confirm transaction hash is returned
+- [x] Run TypeScript compiler for type checking
+- [x] Test with valid transaction broadcast
+- [x] Verify immediate return behavior
+- [x] Confirm transaction hash is returned
 
 ### Phase 6: Cleanup
-- [ ] Remove `BROADCAST_TX_ASYNC` case from `decodeResponse` switch statement
-- [ ] Remove unused imports
-- [ ] Add JSDoc comments
-- [ ] Document async broadcast behavior
+- [x] Remove `BROADCAST_TX_ASYNC` case from `decodeResponse` switch statement
+- [x] Remove unused imports
+- [x] Add JSDoc comments
+- [x] Document async broadcast behavior
 
 ## Notes
 - Async mode returns immediately without waiting

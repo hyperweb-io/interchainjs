@@ -3,7 +3,8 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureNumber } from '../../../codec/converters';
+import { apiToBigInt, ensureString } from '../../../codec/converters';
+import { fromHex } from '@interchainjs/utils';
 
 // Import dependencies from same module
 import { CheckTxResult, CheckTxResultCodec } from './check-tx-result';
@@ -22,21 +23,26 @@ export interface BroadcastTxCommitResponse {
 export const BroadcastTxCommitResponseCodec = createCodec<BroadcastTxCommitResponse>({
   checkTx: { 
     source: 'check_tx',
-    converter: (value: any) => CheckTxResultCodec.create(value)
+    converter: (value: unknown) => CheckTxResultCodec.create(value)
   },
   deliverTx: { 
     source: 'deliver_tx',
-    converter: (value: any) => value ? DeliverTxResultCodec.create(value) : undefined
+    converter: (value: unknown) => value ? DeliverTxResultCodec.create(value) : undefined
   },
   txResult: {
     source: 'tx_result',
-    converter: (value: any) => value ? TxResultCodec.create(value) : undefined
+    converter: (value: unknown) => value ? TxResultCodec.create(value) : undefined
   },
-  hash: { source: 'hash' },
-  height: { source: 'height' }
+  hash: {
+    converter: (value: unknown) => {
+      const hexStr = ensureString(value);
+      return fromHex(hexStr);
+    }
+  },
+  height: apiToBigInt
 });
 
 // Factory functions
-export function createBroadcastTxCommitResponse(data: any): BroadcastTxCommitResponse {
+export function createBroadcastTxCommitResponse(data: unknown): BroadcastTxCommitResponse {
   return BroadcastTxCommitResponseCodec.create(data);
 }

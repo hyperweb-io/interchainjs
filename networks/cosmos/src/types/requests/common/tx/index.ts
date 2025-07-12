@@ -5,3 +5,5 @@ export * from './tx-search-params';
 export * from './encoded-tx-search-params';
 export * from './unconfirmed-txs-params';
 export * from './encoded-unconfirmed-txs-params';
+export * from './broadcast-tx-params';
+export * from './encoded-broadcast-tx-params';

@@ -3,7 +3,8 @@
  */
 
 import { createCodec } from '../../../codec';
-import { ensureNumber } from '../../../codec/converters';
+import { ensureNumber, ensureString, maybeBase64ToBytes } from '../../../codec/converters';
+import { fromHex } from '@interchainjs/utils';
 
 // Types
 export interface BroadcastTxAsyncResponse {
@@ -15,13 +16,18 @@ export interface BroadcastTxAsyncResponse {
 
 // Codecs
 export const BroadcastTxAsyncResponseCodec = createCodec<BroadcastTxAsyncResponse>({
-  code: { source: 'code', converter: ensureNumber },
-  data: { source: 'data' },
-  log: { source: 'log' },
-  hash: { source: 'hash' }
+  code: ensureNumber,
+  data: maybeBase64ToBytes,
+  log: ensureString,
+  hash: {
+    converter: (value: unknown) => {
+      const hexStr = ensureString(value);
+      return fromHex(hexStr);
+    }
+  }
 });
 
 // Factory functions
-export function createBroadcastTxAsyncResponse(data: any): BroadcastTxAsyncResponse {
+export function createBroadcastTxAsyncResponse(data: unknown): BroadcastTxAsyncResponse {
   return BroadcastTxAsyncResponseCodec.create(data);
 }
