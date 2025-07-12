@@ -1,21 +1,28 @@
 // networks/cosmos/src/types/interfaces.ts
 import { IQueryClient, IEventClient } from '@interchainjs/types';
 import { 
-  StatusResponse as ChainStatus, Block, BlockResultsResponse as BlockResults, 
+  StatusResponse as ChainStatus, Block,
   TxResponse, ValidatorsResponse as ValidatorSet,
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
   BlockchainResponse as BlockchainInfo, BlockHeader, Commit,
   UnconfirmedTxsResponse as UnconfirmedTxs, ConsensusParams,
-  GenesisResponse as Genesis, HealthResponse as HealthResult,
-  TxData as CheckTxResult, NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
+  HealthResponse as HealthResult,
+  NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
-  AbciQueryResponse as AbciQueryResult, ConsensusState, ConsensusStateDump,
-  GenesisChunk, TxEvent, BlockEvent,
-  BroadcastTxSyncResponse, BroadcastTxAsyncResponse, BroadcastTxCommitResponse
+  AbciQueryResponse as AbciQueryResult, ConsensusState,
+  TxEvent, BlockEvent,
+  BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
+import { BlockResultsResponse as BlockResults } from './responses/common/block/block-results-response';
+import { CheckTxResponse } from './responses';
+import { BroadcastTxSyncResponse } from './responses/common/broadcast-tx-sync/broadcast-tx-sync-response';
+import { ConsensusStateDumpResponse } from './responses/common/consensus';
+import { GenesisResponse as Genesis } from './responses/common/genesis';
+import { GenesisChunkedResponse as GenesisChunk } from './responses/common/genesis-chunked';
 import {
-  AbciQueryParams, BlockSearchParams, TxSearchParams, BroadcastTxParams
+  AbciQueryParams, BlockSearchParams, TxSearchParams
 } from './requests';
+import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
 
 
@@ -40,7 +47,7 @@ export interface ICosmosQueryClient extends IQueryClient {
   // Transaction queries  
   getTx(hash: string, prove?: boolean): Promise<TxResponse>;
   searchTxs(params: TxSearchParams): Promise<SearchTxsResult>;
-  checkTx(tx: string): Promise<CheckTxResult>;
+  checkTx(tx: string): Promise<CheckTxResponse>;
   getUnconfirmedTxs(limit?: number): Promise<UnconfirmedTxs>;
   getNumUnconfirmedTxs(): Promise<NumUnconfirmedTxs>;
 
@@ -53,7 +60,7 @@ export interface ICosmosQueryClient extends IQueryClient {
   getValidators(height?: number, page?: number, perPage?: number): Promise<ValidatorSet>;
   getConsensusParams(height?: number): Promise<ConsensusParams>;
   getConsensusState(): Promise<ConsensusState>;
-  dumpConsensusState(): Promise<ConsensusStateDump>;
+  dumpConsensusState(): Promise<ConsensusStateDumpResponse>;
   getGenesis(): Promise<Genesis>;
   getGenesisChunked(chunk: number): Promise<GenesisChunk>;
 

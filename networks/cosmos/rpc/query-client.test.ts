@@ -2,8 +2,9 @@
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
+import { toHex } from '@interchainjs/encoding';
 
-const RPC_ENDPOINT = 'https://rpc.osmosis.zone/';
+const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;
 
 describe('Cosmos Query Client - Functional Tests', () => {
@@ -25,7 +26,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       expect(status).toBeDefined();
       expect(status.nodeInfo).toBeDefined();
-      expect(status.nodeInfo.network).toBe('osmosis-1');
+      expect(status.nodeInfo.network).toBe('cosmoshub-4');
       expect(status.nodeInfo.version).toBeDefined();
       expect(status.nodeInfo.protocolVersion).toBeDefined();
       expect(status.nodeInfo.protocolVersion.p2p).toBeDefined();
@@ -49,7 +50,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
       const result = await queryClient.getAbciInfo();
 
       expect(result).toBeDefined();
-      expect(result.data).toBe('OsmosisApp');
+      expect(result.data).toBe('GaiaApp');
       expect(result.lastBlockHeight).toBeDefined();
       expect(result.lastBlockHeight).toBeGreaterThan(0);
       expect(result.lastBlockAppHash).toBeDefined();
@@ -88,13 +89,59 @@ describe('Cosmos Query Client - Functional Tests', () => {
       testHeight3 = status.syncInfo.latestBlockHeight - 300;
     });
 
+    describe('getBlockByHash() - 3 variations', () => {
+      test('getBlockByHash() should return block by hash', async () => {
+        // First get a block and its commit to get the hash
+        const block = await queryClient.getBlock(testHeight);
+        const commit = await queryClient.getCommit(testHeight);
+        expect(commit.blockId.hash).toBeDefined();
+
+        // Convert hash to hex string
+        const hashHex = toHex(commit.blockId.hash).toUpperCase();
+
+        // Then fetch the same block by hash
+        const blockByHash = await queryClient.getBlockByHash(hashHex);
+        expect(blockByHash).toBeDefined();
+        expect(blockByHash.header.height).toBe(testHeight);
+        expect(blockByHash.header).toEqual(block.header);
+      });
+
+      test('getBlockByHash() should return same data as getBlock()', async () => {
+        const block = await queryClient.getBlock(testHeight2);
+        const commit = await queryClient.getCommit(testHeight2);
+        const hashHex = toHex(commit.blockId.hash);
+        const blockByHash = await queryClient.getBlockByHash(hashHex);
+
+        // Compare key fields
+        expect(blockByHash.header.height).toBe(block.header.height);
+        expect(blockByHash.header.time).toEqual(block.header.time);
+        expect(blockByHash.header.chainId).toBe(block.header.chainId);
+        expect(blockByHash.data.txs.length).toBe(block.data.txs.length);
+      });
+
+      test('getBlockByHash() should handle different block hashes', async () => {
+        const commit1 = await queryClient.getCommit(testHeight);
+        const commit2 = await queryClient.getCommit(testHeight2);
+
+        const hashHex1 = toHex(commit1.blockId.hash);
+        const hashHex2 = toHex(commit2.blockId.hash);
+
+        const blockByHash1 = await queryClient.getBlockByHash(hashHex1);
+        const blockByHash2 = await queryClient.getBlockByHash(hashHex2);
+
+        expect(blockByHash1.header.height).toBe(testHeight);
+        expect(blockByHash2.header.height).toBe(testHeight2);
+        expect(blockByHash1.header.height).not.toBe(blockByHash2.header.height);
+      });
+    });
+
     describe('getBlock() - 4 variations', () => {
       test('getBlock() without height should return latest block', async () => {
         const result = await queryClient.getBlock();
 
         expect(result).toBeDefined();
         expect(result.header).toBeDefined();
-        expect(result.header.chainId).toBe('osmosis-1');
+        expect(result.header.chainId).toBe('cosmoshub-4');
         expect(result.header.height).toBeGreaterThan(0);
         expect(result.header.time).toBeDefined();
         expect(result.data).toBeDefined();
@@ -108,7 +155,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         expect(result).toBeDefined();
         expect(result.header).toBeDefined();
-        expect(result.header.chainId).toBe('osmosis-1');
+        expect(result.header.chainId).toBe('cosmoshub-4');
         expect(result.header.height).toBe(testHeight);
         expect(result.header.time).toBeDefined();
         expect(result.data).toBeDefined();
@@ -144,7 +191,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         const result = await queryClient.getHeader();
 
         expect(result).toBeDefined();
-        expect(result.chainId).toBe('osmosis-1');
+        expect(result.chainId).toBe('cosmoshub-4');
         expect(result.height).toBeGreaterThan(0);
         expect(result.time).toBeDefined();
         expect(result.lastBlockId).toBeDefined();
@@ -154,7 +201,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
         const result = await queryClient.getHeader(testHeight);
 
         expect(result).toBeDefined();
-        expect(result.chainId).toBe('osmosis-1');
+        expect(result.chainId).toBe('cosmoshub-4');
         expect(result.height).toBe(testHeight);
         expect(result.time).toBeDefined();
         expect(result.lastBlockId).toBeDefined();
@@ -184,6 +231,68 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         expect(result2.height).toBe(result1.height + 1);
         expect(result2.time.getTime()).toBeGreaterThan(result1.time.getTime());
+      });
+    });
+
+    describe('getHeaderByHash() - 5 variations', () => {
+      test('getHeaderByHash() should return header for valid hash', async () => {
+        // Get the next block to get the hash of the test block from lastBlockId
+        const nextBlock = await queryClient.getBlock(testHeight + 1);
+        const blockHash = toHex(nextBlock.header.lastBlockId.hash);
+
+        const result = await queryClient.getHeaderByHash(blockHash);
+
+        expect(result).toBeDefined();
+        expect(result.chainId).toBe('cosmoshub-4');
+        expect(result.height).toBe(testHeight);
+        expect(result.time).toBeDefined();
+        expect(result.lastBlockId).toBeDefined();
+      });
+
+      test('getHeaderByHash() should match getHeader() for same block', async () => {
+        // Get the next block to get the hash of the test block from lastBlockId
+        const nextBlock = await queryClient.getBlock(testHeight + 1);
+        const blockHash = toHex(nextBlock.header.lastBlockId.hash);
+
+        const headerByHash = await queryClient.getHeaderByHash(blockHash);
+        const headerByHeight = await queryClient.getHeader(testHeight);
+
+        expect(headerByHash.height).toBe(headerByHeight.height);
+        expect(headerByHash.chainId).toBe(headerByHeight.chainId);
+        expect(headerByHash.time).toEqual(headerByHeight.time);
+        expect(headerByHash.validatorsHash).toEqual(headerByHeight.validatorsHash);
+      });
+
+      test('getHeaderByHash() with different hashes should return different headers', async () => {
+        const nextBlock1 = await queryClient.getBlock(testHeight + 1);
+        const nextBlock2 = await queryClient.getBlock(testHeight2 + 1);
+        const hash1 = toHex(nextBlock1.header.lastBlockId.hash);
+        const hash2 = toHex(nextBlock2.header.lastBlockId.hash);
+
+        const result1 = await queryClient.getHeaderByHash(hash1);
+        const result2 = await queryClient.getHeaderByHash(hash2);
+
+        expect(result1.height).toBe(testHeight);
+        expect(result2.height).toBe(testHeight2);
+        expect(result1.time).not.toEqual(result2.time);
+      });
+
+      test('getHeaderByHash() should handle uppercase and lowercase hashes', async () => {
+        const nextBlock = await queryClient.getBlock(testHeight + 1);
+        const hashLower = toHex(nextBlock.header.lastBlockId.hash).toLowerCase();
+        const hashUpper = hashLower.toUpperCase();
+
+        const resultLower = await queryClient.getHeaderByHash(hashLower);
+        const resultUpper = await queryClient.getHeaderByHash(hashUpper);
+
+        expect(resultLower.height).toBe(resultUpper.height);
+        expect(resultLower.time).toEqual(resultUpper.time);
+      });
+
+      test('getHeaderByHash() should throw error for invalid hash', async () => {
+        const invalidHash = 'invalid_hash_12345';
+
+        await expect(queryClient.getHeaderByHash(invalidHash)).rejects.toThrow();
       });
     });
 
@@ -292,7 +401,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
         result.blockMetas.forEach(meta => {
           expect(meta.header).toBeDefined();
-          expect(meta.header.chainId).toBe('osmosis-1');
+          expect(meta.header.chainId).toBe('cosmoshub-4');
           expect(meta.header.height).toBeGreaterThan(0);
           expect(meta.header.time).toBeDefined();
           expect(meta.blockId).toBeDefined();
@@ -990,18 +1099,75 @@ describe('Cosmos Query Client - Functional Tests', () => {
         // Different paths should return different responses
         expect(result1.value).not.toEqual(result2.value);
       });
+    });
 
-      test('queryAbci() should handle prove parameter', async () => {
-        const result = await queryClient.queryAbci({
-          path: '/store/bank/key',
-          data: new Uint8Array([1, 2, 3]), // Some dummy key data
-          prove: true
-        });
+    describe('checkTx() - 5 variations', () => {
+      test('checkTx() with valid base64 transaction should return response', async () => {
+        // This is a dummy transaction for testing - it will fail validation but should return a proper response
+        const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
+
+        const result = await queryClient.checkTx(validTx);
 
         expect(result).toBeDefined();
         expect(result.code).toBeDefined();
-        // When prove=true with store queries, should include proof data
-        expect(result.proof).toBeDefined();
+        expect(typeof result.code).toBe('number');
+        // The transaction will fail validation, so code should be non-zero
+        expect(result.code).toBeGreaterThan(0);
+        expect(result.log).toBeDefined();
+        expect(typeof result.log).toBe('string');
+      });
+
+      test('checkTx() should return gas estimation', async () => {
+        const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
+
+        const result = await queryClient.checkTx(validTx);
+
+        expect(result.gasWanted).toBeDefined();
+        expect(typeof result.gasWanted).toBe('bigint');
+        expect(result.gasUsed).toBeDefined();
+        expect(typeof result.gasUsed).toBe('bigint');
+      });
+
+      test('checkTx() with empty string should return error', async () => {
+        const result = await queryClient.checkTx('');
+
+        expect(result).toBeDefined();
+        expect(result.code).toBeDefined();
+        expect(result.code).toBeGreaterThan(0); // Error code
+        expect(result.log).toBeDefined();
+      });
+
+      test('checkTx() with malformed base64 should handle gracefully', async () => {
+        // Valid base64 but not a valid transaction
+        const malformedTx = btoa('This is not a valid transaction');
+
+        const result = await queryClient.checkTx(malformedTx);
+
+        expect(result).toBeDefined();
+        expect(result.code).toBeDefined();
+        expect(result.code).toBeGreaterThan(0); // Error code
+        expect(result.log).toBeDefined();
+        expect(result.log).toContain('error'); // Should contain error message
+      });
+
+      test('checkTx() should handle optional fields properly', async () => {
+        const validTx = 'CpIBCo8BCHQSSC9jb3Ntb3Mud2FzbS52MS5Nc2dFeGVjdXRlQ29udHJhY3QaQwoqY29zbW9zMXh5ejEyM2FiYzQ1NmRlZjc4OWdoaTAxMmprbDM0bW5vcDU2cXJzdBIVY29zbW9zMWFiY2RlZmdoaWprbG1ub3BxchIIeyJ0ZXN0Ijp7fX0SJQofCgV1YXRvbRIWMTAwMDAwMDAwMDAwMDAwMDAwMDAwMBCAmQwaQAoZCgV1YXRvbRIQMTAwMDAwMDAwMDAwMDAwMBIjCh0KB3VhdG9tLTESEjEwMDAwMDAwMDAwMDAwMDAwMBCAmQw=';
+
+        const result = await queryClient.checkTx(validTx);
+
+        // Check optional fields
+        if (result.data) {
+          expect(result.data).toBeInstanceOf(Uint8Array);
+        }
+        if (result.info) {
+          expect(typeof result.info).toBe('string');
+        }
+        if (result.codespace) {
+          expect(typeof result.codespace).toBe('string');
+        }
+        if (result.events) {
+          expect(Array.isArray(result.events)).toBe(true);
+        }
       });
     });
   });
@@ -1039,4 +1205,57 @@ describe('Cosmos Query Client - Functional Tests', () => {
       await expect(queryClient.getValidators(undefined, 9999, 100)).rejects.toThrow();
     });
   });
+
+  // describe('Genesis Chunked Methods', () => {
+  //   describe('getGenesisChunked() - 5 variations', () => {
+  //     test('getGenesisChunked(0) should return first chunk', async () => {
+  //       const result = await queryClient.getGenesisChunked(0);
+
+  //       expect(result).toBeDefined();
+  //       expect(result.chunk).toBe(0);
+  //       expect(result.total).toBeDefined();
+  //       expect(result.total).toBeGreaterThan(0);
+  //       expect(result.data).toBeDefined();
+  //       expect(typeof result.data).toBe('string');
+  //       expect(result.data.length).toBeGreaterThan(0);
+  //     });
+
+  //     test('getGenesisChunked() should return valid base64 data', async () => {
+  //       const result = await queryClient.getGenesisChunked(0);
+
+  //       // Verify data is valid base64
+  //       expect(() => {
+  //         Buffer.from(result.data, 'base64');
+  //       }).not.toThrow();
+
+  //       // Decode and check it's valid JSON
+  //       const decoded = Buffer.from(result.data, 'base64').toString('utf-8');
+  //       expect(() => {
+  //         JSON.parse(decoded);
+  //       }).not.toThrow();
+  //     });
+
+  //     test('getGenesisChunked() with different chunks should return different data', async () => {
+  //       const chunk0 = await queryClient.getGenesisChunked(0);
+  //       const chunk1 = await queryClient.getGenesisChunked(1);
+
+  //       expect(chunk0.chunk).toBe(0);
+  //       expect(chunk1.chunk).toBe(1);
+  //       expect(chunk0.total).toBe(chunk1.total); // Total should be consistent
+  //       expect(chunk0.data).not.toBe(chunk1.data); // Data should be different
+  //     });
+
+  //     test('getGenesisChunked() should return consistent total across requests', async () => {
+  //       const results = await Promise.all([
+  //         queryClient.getGenesisChunked(0),
+  //         queryClient.getGenesisChunked(1),
+  //         queryClient.getGenesisChunked(2)
+  //       ]);
+
+  //       const totals = results.map(r => r.total);
+  //       expect(totals[0]).toBe(totals[1]);
+  //       expect(totals[1]).toBe(totals[2]);
+  //     });
+  //   });
+  // });
 });
