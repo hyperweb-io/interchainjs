@@ -3,7 +3,6 @@ import { sha256 } from '@noble/hashes/sha256';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { fromHex, toHex } from '@interchainjs/utils';
 import { toBech32 } from '@interchainjs/encoding';
-import { CosmosAccount } from '../workflows/types';
 import { CosmosWallet, Auth, AccountData, DirectSignResponse, AminoSignResponse, OfflineDirectSigner, OfflineAminoSigner } from '../signers/types';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { StdSignDoc } from '@interchainjs/types';
@@ -20,7 +19,7 @@ export class Secp256k1HDWallet implements CosmosWallet, OfflineDirectSigner, Off
   private publicKey: Uint8Array;
   private addressPrefix: string;
   private hdPath: string;
-  private _account?: CosmosAccount;
+  private _account?: AccountData;
 
   constructor(privateKey: Uint8Array, addressPrefix: string = 'cosmos', hdPath: string = "m/44'/118'/0'/0/0") {
     this.privateKey = privateKey;
@@ -32,7 +31,7 @@ export class Secp256k1HDWallet implements CosmosWallet, OfflineDirectSigner, Off
   /**
    * Get account information
    */
-  async getAccount(): Promise<CosmosAccount> {
+  async getAccount(): Promise<AccountData> {
     if (!this._account) {
       const address = this.getAddress();
       this._account = {

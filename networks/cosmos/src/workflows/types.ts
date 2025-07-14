@@ -16,7 +16,7 @@ import {
   IWorkflowBuilderContext,
   ICryptoBytes
 } from '@interchainjs/types';
-import { Auth, OfflineSigner } from '../signers';
+import { Auth, OfflineSigner, AccountData } from '../signers';
 
 // Cosmos-specific message types
 export interface CosmosMessage<T = any> {
@@ -72,17 +72,11 @@ export type CosmosAminoDoc = StdSignDoc;
 export type CosmosTx = TxRaw;
 
 // Cosmos account interface
-// TODO: This should extend IAccount but currently has incompatible types
-// IAccount expects address: IAddress, but cosmos uses address: string
-export interface CosmosAccount {
-  address: string;
-  pubkey: Uint8Array;
-  algo: string;
-}
+// CosmosAccount removed - using AccountData from signers/types.ts instead
 
 // Cosmos signer interface
 export interface ICosmosSigner extends IUniSigner<
-  CosmosAccount, // account type
+  AccountData, // account type
   CosmosSignArgs, // sign args
   any, // broadcast options
   any // broadcast response

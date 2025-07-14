@@ -14,7 +14,6 @@ export * from './wallet-adapter';
 export {
   ICosmosSigner,
   CosmosSignArgs,
-  CosmosAccount,
   CosmosMessage,
   EncodedMessage,
   CosmosSignOptions

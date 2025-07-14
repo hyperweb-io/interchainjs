@@ -1,5 +1,5 @@
 import { ICryptoBytes, IAccount, StdSignDoc } from '@interchainjs/types';
-import { ICosmosSigner, CosmosSignArgs, CosmosAccount } from '../workflows/types';
+import { ICosmosSigner, CosmosSignArgs } from '../workflows/types';
 import { CosmosQueryClient } from '../query/cosmos-query-client';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 
@@ -131,7 +131,7 @@ export function isOfflineAminoSigner(obj: any): obj is OfflineAminoSigner {
  */
 export interface CosmosWallet {
   /** Get the account information */
-  getAccount(): Promise<CosmosAccount>;
+  getAccount(): Promise<AccountData>;
 
   /** Get the public key in encoded format */
   getPublicKey(): Promise<{ typeUrl: string; value: Uint8Array }>;
