@@ -42,11 +42,11 @@ export interface Auth {
  */
 export interface AccountData {
   /** Account address */
-  address: string;
+  readonly address: string;
   /** Algorithm used for signing */
-  algo: string;
+  readonly algo: string;
   /** Public key bytes */
-  pubkey: Uint8Array;
+  readonly pubkey: Uint8Array;
 }
 
 /**

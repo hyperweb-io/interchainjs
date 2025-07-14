@@ -14,7 +14,6 @@ import {
   StdFee,
   StdSignDoc,
   IWorkflowBuilderContext,
-  IAccount,
   ICryptoBytes
 } from '@interchainjs/types';
 import { Auth, OfflineSigner } from '../signers';
@@ -73,8 +72,12 @@ export type CosmosAminoDoc = StdSignDoc;
 export type CosmosTx = TxRaw;
 
 // Cosmos account interface
-export interface CosmosAccount extends IAccount {
+// TODO: This should extend IAccount but currently has incompatible types
+// IAccount expects address: IAddress, but cosmos uses address: string
+export interface CosmosAccount {
   address: string;
+  pubkey: Uint8Array;
+  algo: string;
 }
 
 // Cosmos signer interface

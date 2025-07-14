@@ -39,7 +39,7 @@ export class Secp256k1HDWallet implements CosmosWallet, OfflineDirectSigner, Off
         address,
         pubkey: this.publicKey,
         algo: 'secp256k1'
-      } as CosmosAccount;
+      };
     }
     return this._account;
   }
