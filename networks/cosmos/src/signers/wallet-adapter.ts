@@ -4,7 +4,7 @@ import { sha256 } from '@noble/hashes/sha256';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { fromHex, toHex, BaseCryptoBytes } from '@interchainjs/utils';
 import { fromBech32, toBech32 } from '@interchainjs/encoding';
-import { CosmosAccount } from '../workflows/types';
+
 import {
   CosmosWallet,
   Auth,
@@ -19,8 +19,7 @@ export class WalletAdapter implements CosmosWallet {
   private auth?: Auth;
   private offlineSigner?: OfflineSigner;
   private addressPrefix: string;
-  private _account?: CosmosAccount;
-  private _accountData?: AccountData;
+  private _account?: AccountData;
 
   private constructor(
     authOrSigner: Auth | OfflineSigner,
@@ -48,7 +47,7 @@ export class WalletAdapter implements CosmosWallet {
   /**
    * Get account information
    */
-  async getAccount(): Promise<CosmosAccount> {
+  async getAccount(): Promise<AccountData> {
     if (!this._account) {
       if (this.auth) {
         // Create account from Auth
@@ -58,8 +57,9 @@ export class WalletAdapter implements CosmosWallet {
 
         this._account = {
           address,
-          algo: this.auth.algo
-        } as CosmosAccount;
+          algo: this.auth.algo,
+          pubkey: publicKey
+        };
       } else if (this.offlineSigner) {
         // Get account from OfflineSigner
         const accounts = await this.offlineSigner.getAccounts();
@@ -68,11 +68,7 @@ export class WalletAdapter implements CosmosWallet {
         }
 
         // Use the first account
-        this._accountData = accounts[0];
-        this._account = {
-          address: this._accountData.address,
-          algo: this._accountData.algo
-        } as CosmosAccount;
+        this._account = accounts[0];
       } else {
         throw new Error('No auth or offline signer provided');
       }
@@ -93,15 +89,15 @@ export class WalletAdapter implements CosmosWallet {
       const privateKey = fromHex(this.auth.privateKey);
       publicKey = secp256k1.getPublicKey(privateKey, true); // compressed
       algo = this.auth.algo;
-    } else if (this._accountData) {
-      publicKey = this._accountData.pubkey;
-      algo = this._accountData.algo;
+    } else if (this._account) {
+      publicKey = this._account.pubkey;
+      algo = this._account.algo;
     } else {
       // Ensure account is loaded
       await this.getAccount();
-      if (this._accountData) {
-        publicKey = this._accountData.pubkey;
-        algo = this._accountData.algo;
+      if (this._account) {
+        publicKey = this._account.pubkey;
+        algo = this._account.algo;
       } else {
         throw new Error('Unable to get public key');
       }

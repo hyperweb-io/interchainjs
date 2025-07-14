@@ -156,8 +156,8 @@ export interface IWallet {
 
 // Update IAccount interface to match the new structure
 export interface IAccount {
-  readonly publicKey: IPublicKey;
-  readonly address: IAddress;
+  readonly pubkey: Uint8Array;
+  readonly address: string;
   readonly hdPath?: IHDPath;
   readonly algo: string;        // Algorithm name for reference
 }

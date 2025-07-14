@@ -5,7 +5,6 @@ import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/
 import { 
   ICosmosSigner, 
   CosmosSignArgs, 
-  CosmosAccount, 
   EncodedMessage,
   CosmosMessage,
   CosmosSignOptions
@@ -18,7 +17,8 @@ import {
   CosmosSignedTransaction,
   Auth,
   OfflineSigner,
-  isAuth
+  isAuth,
+  AccountData
 } from './types';
 import { ISigningClient, AminoConverter, Encoder } from '../types/signing-client';
 import { toBase64, fromBase64, toHex, fromHex, BaseCryptoBytes } from '@interchainjs/utils';
@@ -52,7 +52,7 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   }
 
   // IUniSigner interface methods
-  async getAccount(): Promise<CosmosAccount> {
+  async getAccount(): Promise<AccountData> {
     return this.wallet.getAccount();
   }
 

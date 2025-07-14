@@ -39,8 +39,8 @@ export class Wallet implements IWallet {
     );
 
     return {
-      publicKey,
-      address,
+      pubkey: publicKey.value.value,
+      address: address.value,
       hdPath: privateKey.hdPath,
       algo: typeof privateKey.config.algo === 'string'
         ? privateKey.config.algo
