@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import { IAccount, ICryptoBytes } from './auth';
+import { ICryptoBytes, IAccount } from './auth';
 
 /**
  * HttpEndpoint is a type that represents an HTTP endpoint.
