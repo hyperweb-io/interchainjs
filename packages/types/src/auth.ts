@@ -146,18 +146,14 @@ export interface IWallet {
 
   // Methods
   toAccounts(): IAccount[];              // Get all accounts (public info only)
-  getAccount(index: number): IAccount;   // Get specific account
-  sign(keyIndex: number, data: Uint8Array): Promise<ICryptoBytes>;
-
-  // Key management
-  addPrivateKey(privateKey: IPrivateKey): void;
-  removePrivateKey(index: number): void;
+  getAccountByIndex(index: number): IAccount;   // Get specific account
+  signByIndex(keyIndex: number, data: Uint8Array): Promise<ICryptoBytes>;
 }
 
 // Update IAccount interface to match the new structure
 export interface IAccount {
   readonly pubkey: Uint8Array;
-  readonly address: string;
+  readonly address?: string;
   readonly hdPath?: IHDPath;
   readonly algo: string;        // Algorithm name for reference
 }
