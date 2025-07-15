@@ -23,10 +23,10 @@ export class Wallet implements IWallet {
   }
 
   toAccounts(): IAccount[] {
-    return this._privateKeys.map((privateKey, index) => this.getAccount(index));
+    return this._privateKeys.map((privateKey, index) => this.getAccountByIndex(index));
   }
 
-  getAccount(index: number): IAccount {
+  getAccountByIndex(index: number): IAccount {
     if (index < 0 || index >= this._privateKeys.length) {
       throw new Error(`Invalid key index: ${index}`);
     }
@@ -48,24 +48,12 @@ export class Wallet implements IWallet {
     };
   }
 
-  async sign(keyIndex: number, data: Uint8Array): Promise<ICryptoBytes> {
+  async signByIndex(keyIndex: number, data: Uint8Array): Promise<ICryptoBytes> {
     if (keyIndex < 0 || keyIndex >= this._privateKeys.length) {
       throw new Error(`Invalid key index: ${keyIndex}`);
     }
 
     return this._privateKeys[keyIndex].sign(data);
-  }
-
-  addPrivateKey(privateKey: IPrivateKey): void {
-    this._privateKeys.push(privateKey);
-  }
-
-  removePrivateKey(index: number): void {
-    if (index < 0 || index >= this._privateKeys.length) {
-      throw new Error(`Invalid key index: ${index}`);
-    }
-
-    this._privateKeys.splice(index, 1);
   }
 
   static async fromMnemonic(
@@ -79,10 +67,6 @@ export class Wallet implements IWallet {
       config.privateKeyConfig
     );
 
-    return new Wallet(privateKeys, config);
-  }
-
-  static create(privateKeys: IPrivateKey[], config: IWalletConfig): IWallet {
     return new Wallet(privateKeys, config);
   }
 }
