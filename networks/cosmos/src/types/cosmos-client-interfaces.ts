@@ -24,6 +24,7 @@ import {
 } from './requests';
 import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
+import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
 
 
 
@@ -66,6 +67,12 @@ export interface ICosmosQueryClient extends IQueryClient {
 
   // ABCI queries
   queryAbci(params: AbciQueryParams): Promise<AbciQueryResult>;
+
+  // Rpc interface for helper functions
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+
+  // Account queries
+  getBaseAccount(address: string): Promise<BaseAccount | null>;
 
   // Protocol info
   getProtocolInfo(): ProtocolInfo;

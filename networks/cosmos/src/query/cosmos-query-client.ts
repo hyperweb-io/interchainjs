@@ -48,6 +48,9 @@ import { ValidatorsParams } from '../types/requests/common/validators';
 import { BroadcastTxParams } from '../types/requests/common/tx';
 import { GenesisChunkedParams } from '../types/requests/common/genesis-chunked';
 import { ICosmosProtocolAdapter } from '../adapters/base';
+import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
+import { BinaryReader } from '@interchainjs/cosmos-types/binary';
+import { getAccount } from '@interchainjs/cosmos-types';
 
 
 
@@ -306,6 +309,62 @@ export class CosmosQueryClient implements ICosmosQueryClient {
     const encodedParams = this.protocolAdapter.encodeAbciQuery(params);
     const result = await this.rpcClient.call(RpcMethod.ABCI_QUERY, encodedParams);
     return this.protocolAdapter.decodeAbciQuery(result);
+  }
+
+  /**
+   * Rpc interface method for helper functions
+   * @param service - The service name (e.g., "cosmos.auth.v1beta1.Query")
+   * @param method - The method name (e.g., "Accounts" or "Account")
+   * @param data - The encoded request data as Uint8Array
+   * @returns Promise resolving to the response data as Uint8Array
+   */
+  async request(service: string, method: string, data: Uint8Array): Promise<Uint8Array> {
+    const path = `/${service}/${method}`;
+    const result = await this.queryAbci({ path, data });
+    return result.value;
+  }
+
+  // Account queries
+  async getBaseAccount(address: string): Promise<BaseAccount | null> {
+    try {
+      const response = await getAccount(this, { address });
+
+      if (!response.account) {
+        return null;
+      }
+
+      const { typeUrl, value } = response.account;
+
+      // If it's a BaseAccount, decode it directly
+      if (typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
+        return BaseAccount.decode(value);
+      }
+
+      // For other account types, decode the first field as BaseAccount
+      // This pattern applies to vesting accounts and other wrapper types
+      const reader = new BinaryReader(value);
+      let baseAccount: BaseAccount | null = null;
+
+      // Read the first field (tag 1) as BaseAccount
+      while (reader.pos < reader.len) {
+        const tag = reader.uint32();
+        const fieldNumber = tag >>> 3;
+
+        if (fieldNumber === 1) {
+          // First field should be BaseAccount
+          baseAccount = BaseAccount.decode(reader, reader.uint32());
+          break;
+        } else {
+          // Skip other fields
+          reader.skipType(tag & 7);
+        }
+      }
+
+      return baseAccount;
+    } catch (error) {
+      console.warn(`Failed to get base account for address ${address}:`, error);
+      return null;
+    }
   }
 
   // Protocol info

@@ -1,7 +1,6 @@
-import { ICryptoBytes, IAccount, StdSignDoc } from '@interchainjs/types';
-import { ICosmosSigner, CosmosSignArgs } from '../workflows/types';
-import { CosmosQueryClient } from '../query/cosmos-query-client';
+import { ICryptoBytes, StdSignDoc } from '@interchainjs/types';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { ICosmosQueryClient } from '../types';
 
 /**
  * Base configuration for Cosmos signers
@@ -10,7 +9,7 @@ export interface CosmosSignerConfig {
   /** Chain ID for the network */
   chainId: string;
   /** Query client for chain interactions */
-  queryClient: CosmosQueryClient;
+  queryClient: ICosmosQueryClient;
   /** Address prefix (e.g., 'cosmos', 'osmo') */
   addressPrefix?: string;
   /** Gas price for fee calculation */
