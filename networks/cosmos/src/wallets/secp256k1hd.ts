@@ -20,10 +20,6 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
     super(privateKeys, config);
   }
 
-  async getAccountByIndex(index: number): Promise<IAccount> {
-    const accounts = await this.getAccounts();
-    return accounts[index] as IAccount;
-  }
 
   /**
    * Get all accounts (for offline signer interface)
@@ -32,7 +28,7 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
     const accounts = await super.getAccounts();
     return accounts.map((account: IAccount) => ({
       address: account.address!,
-      algo: account.algo,
+      algo: account.algo as string,
       pubkey: account.pubkey
     }));
   }
@@ -73,11 +69,15 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
       throw new Error(`Address ${signerAddress} not found in wallet`);
     }
 
-    // Serialize the sign doc to canonical JSON
+    // Serialize the sign doc to canonical JSON and hash it
     const signBytes = new TextEncoder().encode(this.serializeSignDoc(signDoc));
 
-    // Sign using BaseWallet's signByIndex method
-    const signatureResult = await this.signByIndex(signBytes, accountIndex);
+    // Hash the message using SHA256 (standard for Cosmos amino signing)
+    const { Sha256 } = await import('@interchainjs/crypto');
+    const hash = new Sha256(signBytes).digest();
+
+    // Sign the hash using BaseWallet's signByIndex method
+    const signatureResult = await this.signByIndex(hash, accountIndex);
 
     return {
       signed: signDoc,
@@ -118,19 +118,27 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
   static async fromMnemonic(
     mnemonic: string,
     hdPaths: IHDPath[],
-    config: IWalletConfig
+    config?: IWalletConfig,
   ): Promise<Secp256k1HDWallet> {
     if (!bip39.validateMnemonic(mnemonic)) {
       throw new Error('Invalid mnemonic');
     }
 
+    const addressPrefix = config?.addressPrefix || 'cosmos';
+
+    const presetCosmosConfig = createCosmosConfig(addressPrefix);
+
+    const walletConfig = config ?? presetCosmosConfig;
+    const privateKeyConfig = walletConfig.privateKeyConfig ?? presetCosmosConfig.privateKeyConfig;
+    const prefix = addressPrefix || walletConfig.addressPrefix || presetCosmosConfig.addressPrefix;
+
     // Use PrivateKey.fromMnemonic to create private keys
     const privateKeys = await PrivateKey.fromMnemonic(
       mnemonic,
       hdPaths,
-      config.privateKeyConfig
+      privateKeyConfig
     );
 
-    return new Secp256k1HDWallet(privateKeys, config.addressPrefix);
+    return new Secp256k1HDWallet(privateKeys, prefix);
   }
 }
