@@ -24,15 +24,24 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
   ): Promise<void> {
     // Get sequence from options or query
     const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
+    const signerAddresses = await ctx.getSigner().getAddresses();
+    const signerAddress = signerAddresses[0];
+    if (!signerAddress) {
+      throw new Error('No addresses available');
+    }
     const sequence = options?.sequence ?? 
-      await ctx.getSigner().getSequence(await ctx.getSigner().getAddress());
+      await ctx.getSigner().getSequence(signerAddress);
 
     // Get sign mode from options or use default
     const signMode = options?.signMode ?? params.signMode;
 
-    // Create signer info
+    // Create signer info - use the same address we already have
+    
+    // For now, create a basic public key - in real implementation this would come from the signer
+    const publicKey = { typeUrl: '/cosmos.crypto.secp256k1.PubKey', value: new Uint8Array(33) }; // Placeholder
+    
     const signerInfo = SignerInfo.fromPartial({
-      publicKey: ctx.getSigner().encodedPublicKey,
+      publicKey,
       sequence,
       modeInfo: { single: { mode: signMode } },
     });

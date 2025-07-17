@@ -20,24 +20,6 @@ export interface CosmosSignerConfig {
 }
 
 /**
- * Authentication interface for private key-based signing
- */
-export interface Auth {
-  /**
-   * The algorithm of the authentication method.
-   */
-  readonly algo: string;
-  /**
-   * The HD path of the authentication method.
-   */
-  readonly hdPath: string;
-  /**
-   * The private key in hex format
-   */
-  readonly privateKey: string;
-}
-
-/**
  * Account data returned by offline signers
  */
 export interface AccountData {
@@ -106,13 +88,6 @@ export interface OfflineAminoSigner extends OfflineSigner {
 }
 
 /**
- * Type guard to check if an object is an Auth
- */
-export function isAuth(obj: any): obj is Auth {
-  return obj && typeof obj.algo === 'string' && typeof obj.privateKey === 'string';
-}
-
-/**
  * Type guard to check if an object is an OfflineDirectSigner
  */
 export function isOfflineDirectSigner(obj: any): obj is OfflineDirectSigner {
@@ -124,17 +99,6 @@ export function isOfflineDirectSigner(obj: any): obj is OfflineDirectSigner {
  */
 export function isOfflineAminoSigner(obj: any): obj is OfflineAminoSigner {
   return obj && typeof obj.signAmino === 'function' && typeof obj.getAccounts === 'function';
-}
-
-/**
- * Wallet interface for key management
- */
-export interface CosmosWallet {
-  /** Get the account information */
-  getAccount(): Promise<AccountData>;
-
-  /** Get the public key in encoded format */
-  getPublicKey(): Promise<{ typeUrl: string; value: Uint8Array }>;
 }
 
 /**

@@ -7,26 +7,23 @@ import {
   EncodedMessage 
 } from '../workflows/types';
 import { AminoWorkflow } from '../workflows/amino-workflow';
-import { BaseCosmosSignerImpl } from './base-signer';
+import { BaseCosmosSigner } from './base-signer';
 import { 
   CosmosSignerConfig, 
-  CosmosWallet, 
   CosmosSignedTransaction,
-  Auth,
   OfflineSigner
 } from './types';
-import { WalletAdapter } from './wallet-adapter';
 import { ISigningClient, AminoConverter } from '../types/signing-client';
 
 /**
  * Amino (JSON) signer for Cosmos transactions
  * Uses SIGN_MODE_LEGACY_AMINO_JSON for JSON-based signing
  */
-export class AminoSigner extends BaseCosmosSignerImpl implements ISigningClient {
+export class AminoSigner extends BaseCosmosSigner implements ISigningClient {
   private _encodedPublicKey?: EncodedMessage;
   private converters: AminoConverter[] = [];
 
-  constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
+  constructor(authOrSigner: OfflineSigner, config: CosmosSignerConfig) {
     super(authOrSigner, config);
   }
 
@@ -36,17 +33,27 @@ export class AminoSigner extends BaseCosmosSignerImpl implements ISigningClient 
   async sign(args: CosmosSignArgs): Promise<CosmosSignedTransaction> {
     // Ensure we have the encoded public key
     if (!this._encodedPublicKey) {
-      const pubKey = await this.wallet.getPublicKey();
-      this._encodedPublicKey = pubKey;
+      const accounts = await this.getAccounts();
+      const account = accounts[0];
+      if (!account) {
+        throw new Error('No accounts available');
+      }
+      // In a real implementation, we'd get the public key from the account
+      // For now, we'll use a placeholder
+      this._encodedPublicKey = { typeUrl: '/cosmos.crypto.secp256k1.PubKey', value: account.pubkey };
     }
 
     // Get account information
-    const account = await this.getAccount();
+    const accounts = await this.getAccounts();
+    const account = accounts[0];
+    if (!account) {
+      throw new Error('No accounts available');
+    }
     const address = account.address;
 
     // Prepare signing options
     const signingOptions = {
-      chainId: this.config.chainId,
+      chainId: await this.getChainId(),
       accountNumber: await this.getAccountNumber(address),
       sequence: await this.getSequence(address),
       signMode: SignMode.SIGN_MODE_LEGACY_AMINO_JSON,
@@ -99,15 +106,19 @@ export class AminoSigner extends BaseCosmosSignerImpl implements ISigningClient 
    */
   async initializePublicKey(): Promise<void> {
     if (!this._encodedPublicKey) {
-      const pubKey = await this.wallet.getPublicKey();
-      this._encodedPublicKey = pubKey;
+      const accounts = await this.getAccounts();
+      const account = accounts[0];
+      if (!account) {
+        throw new Error('No accounts available');
+      }
+      this._encodedPublicKey = { typeUrl: '/cosmos.crypto.secp256k1.PubKey', value: account.pubkey };
     }
   }
 
   /**
    * Static factory method for convenience
    */
-  static create(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig): AminoSigner {
+  static create(authOrSigner: OfflineSigner, config: CosmosSignerConfig): AminoSigner {
     return new AminoSigner(authOrSigner, config);
   }
 
@@ -115,7 +126,7 @@ export class AminoSigner extends BaseCosmosSignerImpl implements ISigningClient 
    * Static method to sign a transaction directly
    */
   static async signTransaction(
-    authOrSigner: Auth | OfflineSigner,
+    authOrSigner: OfflineSigner,
     config: CosmosSignerConfig,
     args: CosmosSignArgs
   ): Promise<CosmosSignedTransaction> {

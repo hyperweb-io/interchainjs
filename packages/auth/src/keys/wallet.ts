@@ -8,7 +8,7 @@ import {
 } from '@interchainjs/types';
 import { PrivateKey } from './private-key';
 
-export class Wallet implements IWallet {
+export class BaseWallet implements IWallet {
   private _privateKeys: IPrivateKey[];
 
   constructor(
@@ -22,11 +22,11 @@ export class Wallet implements IWallet {
     return [...this._privateKeys]; // Return a copy to prevent external modification
   }
 
-  toAccounts(): IAccount[] {
-    return this._privateKeys.map((privateKey, index) => this.getAccountByIndex(index));
+  async getAccounts(): Promise<readonly IAccount[]> {
+    return Promise.all(this._privateKeys.map((_, index) => this.getAccountByIndex(index)));
   }
 
-  getAccountByIndex(index: number): IAccount {
+  async getAccountByIndex(index: number): Promise<IAccount> {
     if (index < 0 || index >= this._privateKeys.length) {
       throw new Error(`Invalid key index: ${index}`);
     }
@@ -48,7 +48,8 @@ export class Wallet implements IWallet {
     };
   }
 
-  async signByIndex(keyIndex: number, data: Uint8Array): Promise<ICryptoBytes> {
+  async signByIndex(data: Uint8Array, index?: number): Promise<ICryptoBytes> {
+    const keyIndex = index || 0;
     if (keyIndex < 0 || keyIndex >= this._privateKeys.length) {
       throw new Error(`Invalid key index: ${keyIndex}`);
     }
@@ -67,6 +68,6 @@ export class Wallet implements IWallet {
       config.privateKeyConfig
     );
 
-    return new Wallet(privateKeys, config);
+    return new BaseWallet(privateKeys, config);
   }
 }

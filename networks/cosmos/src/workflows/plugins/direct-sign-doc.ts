@@ -33,8 +33,13 @@ export class DirectSignDocPlugin extends BaseWorkflowBuilderPlugin<
 
     // Get chain ID and account number
     const chainId = options?.chainId ?? await ctx.getSigner().getChainId();
+    const addresses = await ctx.getSigner().getAddresses();
+    const address = addresses[0];
+    if (!address) {
+      throw new Error('No addresses available');
+    }
     const accountNumber = options?.accountNumber ?? 
-      await ctx.getSigner().getAccountNumber(await ctx.getSigner().getAddress());
+      await ctx.getSigner().getAccountNumber(address);
 
     // Create sign document
     const signDoc: CosmosDirectDoc = SignDoc.fromPartial({
