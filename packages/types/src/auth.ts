@@ -43,9 +43,9 @@ export interface IAddressConfig {
 
 // Wallet configuration combines all configs
 export interface IWalletConfig {
-  privateKeyConfig: IPrivateKeyConfig;
+  privateKeyConfig?: IPrivateKeyConfig;
   publicKeyConfig?: IPublicKeyConfig;  // Optional, only for compression setting
-  addressConfig: IAddressConfig;
+  addressConfig?: IAddressConfig;
   addressPrefix?: string;
 }
 

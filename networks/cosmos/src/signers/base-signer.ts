@@ -144,10 +144,6 @@ export abstract class BaseCosmosSigner implements ICosmosSigner {
     memo?: string
   ): Promise<TxResponse>;
 
-  // signArbitrary(bytes)
-  // signDoc(amino or direct)(StdDoc, StdSignDoc)
-  // sign(messages)(CosmosMessage[])
-
   async signAndBroadcast(
     argsOrSignerAddress: CosmosSignArgs | string,
     messagesOrOptions?: CosmosBroadcastOptions | readonly Message<any>[],
@@ -227,21 +223,43 @@ export abstract class BaseCosmosSigner implements ICosmosSigner {
   }
 
   async getChainId(): Promise<string> {
-    return this.config.chainId;
+    // First, try to return from config (fastest)
+    if (this.config.chainId) {
+      return this.config.chainId;
+    }
+
+    // Fallback: get from query client (network verification)
+    try {
+      const status = await this.config.queryClient.getStatus();
+      if (status && status.nodeInfo && status.nodeInfo.network) {
+        return status.nodeInfo.network;
+      }
+    } catch (error) {
+      console.warn('Failed to get chain ID from query client:', error);
+    }
+
+    // Fallback: get from latest block header
+    try {
+      const header = await this.config.queryClient.getHeader();
+      if (header && header.chainId) {
+        return header.chainId;
+      }
+    } catch (error) {
+      console.warn('Failed to get chain ID from header:', error);
+    }
+
+    // Final fallback: throw error if no method works
+    throw new Error('Unable to determine chain ID from any available source');
   }
 
   async getAccountNumber(address: string): Promise<bigint> {
-    // Query account information from the chain
+    // Use the getBaseAccount method for proper account querying
     try {
-      const accountQuery = await this.config.queryClient.queryAbci({
-        path: `/cosmos/auth/v1beta1/accounts/${address}`,
-        data: new Uint8Array(),
-        prove: false
-      });
-
-      // Parse the account response (this would need proper protobuf decoding)
-      // For now, return a default value
-      // TODO: Implement proper account querying with protobuf decoding
+      const baseAccount = await this.config.queryClient.getBaseAccount(address);
+      if (baseAccount) {
+        return baseAccount.accountNumber;
+      }
+      console.warn('Account not found, using default account number');
       return BigInt(0);
     } catch (error) {
       console.warn('Failed to get account number, using default:', error);
@@ -250,17 +268,13 @@ export abstract class BaseCosmosSigner implements ICosmosSigner {
   }
 
   async getSequence(address: string): Promise<bigint> {
-    // Query account information from the chain
+    // Use the getBaseAccount method for proper account querying
     try {
-      const accountQuery = await this.config.queryClient.queryAbci({
-        path: `/cosmos/auth/v1beta1/accounts/${address}`,
-        data: new Uint8Array(),
-        prove: false
-      });
-
-      // Parse the account response (this would need proper protobuf decoding)
-      // For now, return a default value
-      // TODO: Implement proper account querying with protobuf decoding
+      const baseAccount = await this.config.queryClient.getBaseAccount(address);
+      if (baseAccount) {
+        return baseAccount.sequence;
+      }
+      console.warn('Account not found, using default sequence');
       return BigInt(0);
     } catch (error) {
       console.warn('Failed to get sequence, using default:', error);
