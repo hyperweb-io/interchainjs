@@ -89,8 +89,8 @@ export interface ICosmosSigner extends IUniSigner<
   getSequence(address: string): Promise<bigint>;
   addEncoders(encoders: Encoder[]): void;
   getEncoder(typeUrl: string): Encoder;
-  addConverters(converters: AminoConverter[]): void;
-  getConverterFromTypeUrl(typeUrl: string): AminoConverter;
+  addConverters?(converters: AminoConverter[]): void;
+  getConverterFromTypeUrl?(typeUrl: string): AminoConverter;
   simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<SimulationResponse>;
 }
 

@@ -120,6 +120,16 @@ kubectl get nodes 2>/dev/null || echo "Kubernetes cluster not accessible"
 | `yarn starship:debug` | Run tests in debug mode | Variable |
 | `yarn starship:watch` | Run tests in watch mode | Continuous |
 | `yarn starship:clean` | Stop and clean environment | 2-5 min |
+| `yarn starship:local` | Start with local configuration | 20-30 min |
+
+### Command Execution Methods:
+```bash
+# Method 1: Using yarn workspace (from any directory)
+yarn workspace @interchainjs/cosmos run starship:all
+
+# Method 2: Using direct path (from project root)
+cd networks/cosmos && yarn starship:all
+```
 
 ### From `/workspace/networks/injective/`:
 | Command | Purpose |
@@ -136,11 +146,21 @@ kubectl get nodes 2>/dev/null || echo "Kubernetes cluster not accessible"
 
 ## Quick Start Guide
 
-### Standard Startup (OpenHands/Docker)
+### Standard Startup (Containerized Environment)
 ```bash
-cd /workspace/networks/cosmos
-export KUBECONFIG=/workspace/.cert/config
-yarn starship:all
+# Method 1: Using yarn workspace (recommended)
+yarn workspace @interchainjs/cosmos run starship:all
+
+# Method 2: Using direct path
+cd networks/cosmos && yarn starship:all
+
+# Method 3: Using absolute path (if needed)
+cd /Users/zhizhen/Projects/cosmology-tech/src/cosmology-tech/agents/interchainjs/networks/cosmos && yarn starship:all
+```
+
+### Environment Variables (if needed)
+```bash
+export KUBECONFIG=/Users/zhizhen/.kube/config  # Default for local development
 ```
 
 ### Native Development Startup
@@ -157,9 +177,10 @@ yarn starship:all
 
 ### Containerized Development Environment ✅
 - **Docker**: Running in containerized environment, Docker Desktop cluster available
-- **KUBECONFIG**: Auto-detected at `/workspace/.cert/config`
+- **KUBECONFIG**: Auto-detected from existing Docker Desktop setup
 - **Timeout**: Extended timeouts recommended for kubectl/helm operations
-- **Performance**: Initial starship startup: 20-30 minutes
+- **Performance**: Initial starship startup: 2-4 minutes (faster than expected)
+- **Status**: Successfully tested with cosmos-2 and osmosis-1 chains
 
 ### Native Development Environment
 - **Cluster Options**: Docker Desktop, kind, or remote cluster

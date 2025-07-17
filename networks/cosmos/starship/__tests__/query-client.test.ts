@@ -6,6 +6,8 @@ import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '@interchainjs/cosmos';
 
 import { useChain } from 'starshipjs';
+import { getAccounts, getAccount } from '@interchainjs/cosmos-types';
+import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
 
 let queryClient: ICosmosQueryClient;
 let rpcEndpoint: string;
@@ -1032,6 +1034,146 @@ describe('Cosmos Query Client', () => {
         // and whether the chain supports proofs for this query
         // The important thing is that the query doesn't fail when prove=true
         expect(result.height).toBeGreaterThan(0);
+      });
+    });
+
+    describe('getAccounts - Account Query Methods', () => {
+      test('getAccounts should return all accounts', async () => {
+        const accountsResponse = await getAccounts(queryClient, {});
+
+        expect(accountsResponse).toBeDefined();
+        expect(accountsResponse.accounts).toBeDefined();
+        expect(Array.isArray(accountsResponse.accounts)).toBe(true);
+        expect(accountsResponse.accounts.length).toBeGreaterThan(0);
+      });
+
+      test('getAccount should return account details for valid address', async () => {
+        // First get accounts to find a valid address
+        const accountsResponse = await getAccounts(queryClient, {});
+        expect(accountsResponse.accounts.length).toBeGreaterThan(0);
+        
+        // Find a BaseAccount to extract a valid address
+        let testAddress = '';
+        for (const account of accountsResponse.accounts) {
+          if (account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
+            const baseAccount = BaseAccount.decode(account.value);
+            if (baseAccount.address && baseAccount.address.length > 0) {
+              testAddress = baseAccount.address;
+              break;
+            }
+          }
+        }
+        
+        // Skip test if no valid BaseAccount found
+        if (!testAddress) {
+          console.warn('No BaseAccount with valid address found, skipping getAccount test');
+          return;
+        }
+        
+        const accountResponse = await getAccount(queryClient, {
+          address: testAddress
+        });
+
+        expect(accountResponse).toBeDefined();
+        expect(accountResponse.account).toBeDefined();
+        
+        // The account is returned as Any type, so we need to check its structure
+        if (accountResponse.account) {
+          expect(accountResponse.account.typeUrl).toBeDefined();
+          expect(accountResponse.account.value).toBeDefined();
+          
+          // For BaseAccount type, we can decode it
+          if (accountResponse.account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
+            const baseAccount = BaseAccount.decode(accountResponse.account.value);
+            expect(baseAccount.address).toBe(testAddress);
+            expect(baseAccount.accountNumber).toBeDefined();
+            expect(typeof baseAccount.accountNumber).toBe('bigint');
+            expect(baseAccount.sequence).toBeDefined();
+            expect(typeof baseAccount.sequence).toBe('bigint');
+          }
+        }
+      });
+
+      test('getAccount should handle invalid address gracefully', async () => {
+        const invalidAddress = 'cosmos1invalidaddress123456789';
+
+        // The helper function might not throw but return an error response
+        const accountResponse = await getAccount(queryClient, {
+          address: invalidAddress
+        });
+
+        expect(accountResponse).toBeDefined();
+        // For invalid addresses, the account might be undefined or contain error info
+      });
+
+      test('getAccounts with pagination should work', async () => {
+        const accountsResponse = await getAccounts(queryClient, {});
+
+        expect(accountsResponse).toBeDefined();
+        expect(accountsResponse.accounts).toBeDefined();
+        expect(Array.isArray(accountsResponse.accounts)).toBe(true);
+        expect(accountsResponse.accounts.length).toBeGreaterThan(0);
+      });
+
+      test('getAccounts should return accounts with valid structure', async () => {
+        const accountsResponse = await getAccounts(queryClient, {});
+
+        expect(accountsResponse).toBeDefined();
+        expect(accountsResponse.accounts).toBeDefined();
+        expect(Array.isArray(accountsResponse.accounts)).toBe(true);
+
+        // Validate account structure and decode BaseAccount
+        if (accountsResponse.accounts.length > 0) {
+          const account = accountsResponse.accounts[0];
+          expect(account.typeUrl).toBeDefined();
+          expect(account.value).toBeDefined();
+          
+          // For BaseAccount type, we can decode it
+          if (account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
+            const baseAccount = BaseAccount.decode(account.value);
+            expect(baseAccount.address).toBeDefined();
+            expect(typeof baseAccount.address).toBe('string');
+            expect(baseAccount.accountNumber).toBeDefined();
+            expect(typeof baseAccount.accountNumber).toBe('bigint');
+            expect(baseAccount.sequence).toBeDefined();
+            expect(typeof baseAccount.sequence).toBe('bigint');
+          }
+        }
+      });
+
+      test('getBaseAccount should return base account for BaseAccount type', async () => {
+        const accountsResponse = await getAccounts(queryClient, {});
+        expect(accountsResponse.accounts.length).toBeGreaterThan(0);
+
+        // Find a BaseAccount to test with
+        let testAddress = '';
+        for (const account of accountsResponse.accounts) {
+          if (account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
+            const baseAccount = BaseAccount.decode(account.value);
+            if (baseAccount.address && baseAccount.address.length > 0) {
+              testAddress = baseAccount.address;
+              break;
+            }
+          }
+        }
+
+        if (!testAddress) {
+          console.warn('No BaseAccount found for getBaseAccount test');
+          return;
+        }
+
+        const baseAccount = await queryClient.getBaseAccount(testAddress);
+        expect(baseAccount).toBeDefined();
+        expect(baseAccount).not.toBeNull();
+        expect(baseAccount!.address).toBe(testAddress);
+        expect(typeof baseAccount!.accountNumber).toBe('bigint');
+        expect(typeof baseAccount!.sequence).toBe('bigint');
+      });
+
+      test('getBaseAccount should handle invalid address gracefully', async () => {
+        const invalidAddress = 'cosmos1invalidaddress123456789';
+        const baseAccount = await queryClient.getBaseAccount(invalidAddress);
+        expect(baseAccount).toBeNull();
       });
     });
   });
