@@ -16,7 +16,9 @@ import {
   IWorkflowBuilderContext,
   ICryptoBytes
 } from '@interchainjs/types';
-import { Auth, OfflineSigner, AccountData } from '../signers';
+import { AccountData } from '../signers';
+import { AminoConverter, Encoder } from '../types/signing-client';
+import { SimulationResponse } from '@interchainjs/cosmos-types';
 
 // Cosmos-specific message types
 export interface CosmosMessage<T = any> {
@@ -81,20 +83,15 @@ export interface ICosmosSigner extends IUniSigner<
   any, // broadcast options
   any // broadcast response
 > {
-  getAuthOrSigner(): Auth | OfflineSigner;
-  getAddress(): Promise<string>;
+  getAddresses(): Promise<string[]>;
   getChainId(): Promise<string>;
   getAccountNumber(address: string): Promise<bigint>;
   getSequence(address: string): Promise<bigint>;
-  signArbitrary(data: Uint8Array): Promise<ICryptoBytes>;
-  getEncoder(typeUrl: string): { encode: (value: any) => Uint8Array };
-  getConverterFromTypeUrl(typeUrl: string): {
-    aminoType: string;
-    toAmino: (value: any) => any;
-    fromAmino: (value: any) => any;
-  };
-  simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<{ gasInfo: { gasUsed: bigint } }>;
-  get encodedPublicKey(): EncodedMessage;
+  addEncoders(encoders: Encoder[]): void;
+  getEncoder(typeUrl: string): Encoder;
+  addConverters(converters: AminoConverter[]): void;
+  getConverterFromTypeUrl(typeUrl: string): AminoConverter;
+  simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<SimulationResponse>;
 }
 
 // Workflow builder context for cosmos

@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js';
 import { ICryptoBytes, IAccount } from './auth';
+import { sign } from 'crypto';
 
 /**
  * HttpEndpoint is a type that represents an HTTP endpoint.
@@ -38,10 +39,10 @@ export interface IUniSigner<
   TBroadcastResponse extends IBroadcastResult = IBroadcastResult,
 > {
   // Account management
-  getAccount(): Promise<TAccount>;
+  getAccounts(): Promise<readonly TAccount[]>;
 
   // Core signing methods
-  signArbitrary(data: Uint8Array): Promise<ICryptoBytes>;
+  signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes>;
 
   // Transaction flow
   sign(args: TSignArgs): Promise<ISigned<TBroadcastOpts, TBroadcastResponse>>;

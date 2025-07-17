@@ -4,7 +4,7 @@ import {
   STAGING_KEYS
 } from '../types';
 import { CosmosWorkflowBuilderContext } from '../context';
-import { isAuth, isOfflineDirectSigner } from '../../signers/types';
+import { isOfflineDirectSigner } from '../../signers/types';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 
@@ -28,34 +28,10 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
     params: SignatureInput
   ): Promise<void> {
     const signer = ctx.getSigner();
-    const authOrSigner = signer.getAuthOrSigner();
     
-    if (isAuth(authOrSigner)) {
-      // Auth path: sign bytes directly
-      const signDocBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.SIGN_DOC_BYTES);
-      const signature = await signer.signArbitrary(signDocBytes);
-      ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
-    } else if (isOfflineDirectSigner(authOrSigner)) {
-      // OfflineDirectSigner path: use signDirect with SignDoc
-      const signDoc = ctx.getStagingData<SignDoc>(STAGING_KEYS.SIGN_DOC);
-      const account = await signer.getAccount();
-      
-      const response = await authOrSigner.signDirect(account.address, signDoc);
-      
-      // Update staging data with values from the response
-      // The offline signer might have modified the transaction
-      if (response.signed.bodyBytes) {
-        ctx.setStagingData(STAGING_KEYS.TX_BODY_BYTES, response.signed.bodyBytes);
-      }
-      if (response.signed.authInfoBytes) {
-        ctx.setStagingData(STAGING_KEYS.AUTH_INFO_BYTES, response.signed.authInfoBytes);
-      }
-      
-      // Store the signature
-      const signature = BaseCryptoBytes.from(response.signature);
-      ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
-    } else {
-      throw new Error('Signer does not support direct signing');
-    }
+    // Always use signArbitrary for the cosmos signer interface
+    const signDocBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.SIGN_DOC_BYTES);
+    const signature = await signer.signArbitrary(signDocBytes);
+    ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
   }
 }

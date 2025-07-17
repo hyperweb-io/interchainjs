@@ -1,28 +1,27 @@
-import { ICryptoBytes, StdFee, Message } from '@interchainjs/types';
+import { ICryptoBytes, StdFee, Message, IWallet, isIWallet } from '@interchainjs/types';
 import { TxBody, SignerInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
-import { 
-  ICosmosSigner, 
-  CosmosSignArgs, 
+import {
+  ICosmosSigner,
+  CosmosSignArgs,
   EncodedMessage,
   CosmosMessage,
   CosmosSignOptions
 } from '../workflows/types';
-import { 
-  CosmosSignerConfig, 
-  CosmosWallet, 
-  CosmosBroadcastOptions, 
+import {
+  CosmosSignerConfig,
+  CosmosBroadcastOptions,
   CosmosBroadcastResponse,
   CosmosSignedTransaction,
-  Auth,
   OfflineSigner,
-  isAuth,
-  AccountData
+  AccountData,
+  isOfflineAminoSigner,
+  isOfflineDirectSigner
 } from './types';
 import { ISigningClient, AminoConverter, Encoder } from '../types/signing-client';
+import { SimulationResponse } from '@interchainjs/cosmos-types';
 import { toBase64, fromBase64, toHex, fromHex, BaseCryptoBytes } from '@interchainjs/utils';
-import { WalletAdapter } from './wallet-adapter';
 import { sha256 } from '@noble/hashes/sha256';
 import { sha512 } from '@noble/hashes/sha512';
 import { secp256k1 } from '@noble/curves/secp256k1';
@@ -32,83 +31,49 @@ import { ed25519 } from '@noble/curves/ed25519';
  * Base implementation for Cosmos signers
  * Provides common functionality for both Amino and Direct signers
  */
-export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
-  protected wallet: CosmosWallet;
+export abstract class BaseCosmosSigner implements ICosmosSigner {
   protected config: CosmosSignerConfig;
-  protected authOrSigner: Auth | OfflineSigner;
+  protected auth: OfflineSigner | IWallet;
   protected encoders: Encoder[] = [];
 
-  constructor(authOrSigner: Auth | OfflineSigner, config: CosmosSignerConfig) {
-    this.authOrSigner = authOrSigner;
-    this.wallet = WalletAdapter.fromAuthOrSigner(authOrSigner, config.addressPrefix);
+  constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig) {
+    this.auth = auth;
     this.config = config;
   }
 
-  /**
-   * Get the underlying auth or offline signer
-   */
-  getAuthOrSigner(): Auth | OfflineSigner {
-    return this.authOrSigner;
-  }
-
   // IUniSigner interface methods
-  async getAccount(): Promise<AccountData> {
-    return this.wallet.getAccount();
+  async getAccounts(): Promise<readonly AccountData[]> {
+    if (isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth)) {
+      return this.auth.getAccounts();
+    } else if (isIWallet(this.auth)) {
+      return (await this.auth.getAccounts()).map(account => ({
+        address: account.address!,
+        pubkey: account.pubkey,
+        algo: account.algo
+      }));
+    } else {
+      throw new Error('Invalid auth type');
+    }
   }
 
-  async signArbitrary(data: Uint8Array, options?: CosmosSignOptions): Promise<ICryptoBytes> {
-    // If we have an Auth (private key), handle signing directly in the signer
-    if (isAuth(this.authOrSigner)) {
-      const auth = this.authOrSigner as Auth;
-      
-      // Apply hash function based on configuration
-      let dataToSign = data;
-      const hashConfig = options?.sign?.hash;
-      
-      if (hashConfig !== 'none') {
-        if (typeof hashConfig === 'function') {
-          dataToSign = hashConfig(data);
-        } else if (hashConfig === 'sha512') {
-          dataToSign = sha512(data);
-        } else {
-          // Default to sha256
-          dataToSign = sha256(data);
-        }
-      }
-      
-      // Get the signing function based on the algorithm
-      const privateKey = fromHex(auth.privateKey);
-      let signature: Uint8Array;
-      
-      switch (auth.algo) {
-        case 'secp256k1': {
-          const sig = secp256k1.sign(dataToSign, privateKey);
-          signature = sig.toCompactRawBytes();
-          break;
-        }
-        case 'ed25519': {
-          signature = ed25519.sign(dataToSign, privateKey);
-          break;
-        }
-        default:
-          throw new Error(`Unsupported signing algorithm: ${auth.algo}`);
-      }
-      
-      return BaseCryptoBytes.from(signature);
+  async signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes> {
+    if (isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth)) {
+      throw new Error('Offline signers do not support signArbitrary');
+    } else if (isIWallet(this.auth)) {
+      return this.auth.signByIndex(data, index);
     } else {
-      // For OfflineSigner, we can't handle arbitrary signing
-      throw new Error('Arbitrary signing not supported with OfflineSigner');
+      throw new Error('Invalid auth type');
     }
   }
 
   abstract sign(args: CosmosSignArgs): Promise<CosmosSignedTransaction>;
 
   async broadcast(
-    signed: CosmosSignedTransaction, 
+    signed: CosmosSignedTransaction,
     options: CosmosBroadcastOptions = {}
   ): Promise<CosmosBroadcastResponse> {
     const { mode = 'sync', checkTx = true, timeout = 30000 } = options;
-    
+
     let response;
     switch (mode) {
       case 'sync':
@@ -149,7 +114,7 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
     if (mode === 'commit') {
       const commitResponse = response as any;
       result.height = commitResponse.height;
-      
+
       // Handle both deliverTx (Tendermint 0.34 & 0.37) and txResult (CometBFT 0.38)
       const txData = commitResponse.deliverTx || commitResponse.txResult;
       if (txData) {
@@ -179,6 +144,10 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
     memo?: string
   ): Promise<TxResponse>;
 
+  // signArbitrary(bytes)
+  // signDoc(amino or direct)(StdDoc, StdSignDoc)
+  // sign(messages)(CosmosMessage[])
+
   async signAndBroadcast(
     argsOrSignerAddress: CosmosSignArgs | string,
     messagesOrOptions?: CosmosBroadcastOptions | readonly Message<any>[],
@@ -189,10 +158,11 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
       // ISigningClient interface: individual parameters
       const signerAddress = argsOrSignerAddress;
       const messages = messagesOrOptions as readonly Message<any>[];
-      
+
       // Verify signer address matches
-      const account = await this.getAccount();
-      if (signerAddress !== account.address) {
+      const accounts = await this.getAccounts();
+      const account = accounts.find(acc => acc.address === signerAddress);
+      if (!account) {
         throw new Error('Signer address does not match');
       }
 
@@ -224,11 +194,11 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   }
 
   async broadcastArbitrary(
-    data: Uint8Array, 
+    data: Uint8Array,
     options: CosmosBroadcastOptions = {}
   ): Promise<CosmosBroadcastResponse> {
     const { mode = 'sync' } = options;
-    
+
     let response;
     switch (mode) {
       case 'sync':
@@ -251,9 +221,9 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   }
 
   // ICosmosSigner specific methods
-  async getAddress(): Promise<string> {
-    const account = await this.getAccount();
-    return account.address;
+  async getAddresses(): Promise<string[]> {
+    const accounts = await this.getAccounts();
+    return accounts.map(acc => acc.address);
   }
 
   async getChainId(): Promise<string> {
@@ -268,7 +238,7 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
         data: new Uint8Array(),
         prove: false
       });
-      
+
       // Parse the account response (this would need proper protobuf decoding)
       // For now, return a default value
       // TODO: Implement proper account querying with protobuf decoding
@@ -287,7 +257,7 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
         data: new Uint8Array(),
         prove: false
       });
-      
+
       // Parse the account response (this would need proper protobuf decoding)
       // For now, return a default value
       // TODO: Implement proper account querying with protobuf decoding
@@ -300,7 +270,7 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
 
   private async waitForTransaction(hash: string, timeout: number = 30000): Promise<any> {
     const startTime = Date.now();
-    
+
     while (Date.now() - startTime < timeout) {
       try {
         const txResponse = await this.config.queryClient.getTx(hash);
@@ -316,33 +286,32 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
       } catch (error) {
         // Transaction not found yet, continue waiting
       }
-      
+
       // Wait 1 second before trying again
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    
+
     throw new Error(`Transaction ${hash} not found within timeout period`);
   }
 
-  getEncoder(typeUrl: string): { encode: (value: any) => Uint8Array } {
+  getEncoder(typeUrl: string): Encoder {
     // This would typically use a registry of encoders
     // For now, return a basic implementation
     return {
+      typeUrl,
       encode: (value: any) => {
         // TODO: Implement proper message encoding based on typeUrl
         return new Uint8Array();
-      }
+      },
+      fromPartial: (value: any) => value
     };
   }
 
-  getConverterFromTypeUrl(typeUrl: string): {
-    aminoType: string;
-    toAmino: (value: any) => any;
-    fromAmino: (value: any) => any;
-  } {
+  getConverterFromTypeUrl(typeUrl: string): AminoConverter {
     // This would typically use a registry of converters
     // For now, return a basic implementation
     return {
+      typeUrl,
       aminoType: typeUrl.replace(/^\//, ''),
       toAmino: (value: any) => value,
       fromAmino: (value: any) => value
@@ -350,14 +319,15 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   }
 
   async simulateByTxBody(
-    txBody: TxBody, 
+    txBody: TxBody,
     signerInfos: SignerInfo[]
-  ): Promise<{ gasInfo: { gasUsed: bigint } }> {
+  ): Promise<SimulationResponse> {
     // TODO: Implement transaction simulation
     // This would typically involve creating a simulation transaction and querying the chain
     return {
       gasInfo: {
-        gasUsed: BigInt(200000) // Default gas estimate
+        gasUsed: BigInt(200000), // Default gas estimate
+        gasWanted: BigInt(200000)
       }
     };
   }
@@ -385,12 +355,21 @@ export abstract class BaseCosmosSignerImpl implements ICosmosSigner {
   addEncoders(encoders: Encoder[]): void {
     // Create a Set of existing typeUrls for quick lookup
     const existingTypeUrls = new Set(this.encoders.map(e => e.typeUrl));
-    
+
     // Filter out encoders with duplicate typeUrls
     const newEncoders = encoders.filter(encoder => !existingTypeUrls.has(encoder.typeUrl));
-    
+
     // Add only the unique encoders
     this.encoders.push(...newEncoders);
+  }
+
+  /**
+   * Register converters (required by ICosmosSigner interface)
+   * Base implementation - subclasses can override if they use amino converters
+   */
+  addConverters(converters: AminoConverter[]): void {
+    // Base class doesn't use amino converters
+    // This is a no-op implementation to satisfy the interface
   }
 
   /**

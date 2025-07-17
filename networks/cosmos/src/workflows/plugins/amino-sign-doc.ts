@@ -37,10 +37,15 @@ export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
 
     // Get chain ID, account number, and sequence
     const chainId = options?.chainId ?? await ctx.getSigner().getChainId();
+    const addresses = await ctx.getSigner().getAddresses();
+    const address = addresses[0];
+    if (!address) {
+      throw new Error('No addresses available');
+    }
     const accountNumber = options?.accountNumber ?? 
-      await ctx.getSigner().getAccountNumber(await ctx.getSigner().getAddress());
+      await ctx.getSigner().getAccountNumber(address);
     const sequence = options?.sequence ?? 
-      await ctx.getSigner().getSequence(await ctx.getSigner().getAddress());
+      await ctx.getSigner().getSequence(address);
 
     // Convert messages to amino format
     const aminoMsgs: AminoMessage[] = messages.map(msg => {

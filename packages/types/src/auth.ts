@@ -12,38 +12,6 @@ export interface ICryptoBytes {
   concat(key: ICryptoBytes): ICryptoBytes;
 }
 
-/**
- * Auth is an interface that represents the authentication method of an account.
- * means based on the private key, using the algo, we can get the public key, address, and sign the data.
- */
-export interface Auth {
-  /**
-   * The algorithm of the authentication method.
-   */
-  readonly algo?: string;
-  /**
-   * The HD path of the authentication method.
-   */
-  readonly hdPath?: string;
-
-  /**
-   * Get the public key of the authentication method.
-   * @param isCompressed Whether the public key should be compressed.
-   * @returns The public key.
-   */
-  getPublicKey: (isCompressed?: boolean) => ICryptoBytes;
-}
-
-/**
- * AuthOptions is an interface that represents the options for creating an authentication method.
- */
-export interface AuthOptions {
-  /**
-   * The password for the BIP39 mnemonic.
-   */
-  bip39Password?: string;
-}
-
 // Algorithm interface for key operations
 export interface IAlgo {
   name: string;
@@ -145,9 +113,13 @@ export interface IWallet {
   readonly config: IWalletConfig;
 
   // Methods
-  toAccounts(): IAccount[];              // Get all accounts (public info only)
-  getAccountByIndex(index: number): IAccount;   // Get specific account
-  signByIndex(keyIndex: number, data: Uint8Array): Promise<ICryptoBytes>;
+  getAccounts(): Promise<readonly IAccount[]>;              // Get all accounts (public info only)
+  getAccountByIndex(index: number): Promise<IAccount>;   // Get specific account
+  signByIndex(data: Uint8Array, index?: number): Promise<ICryptoBytes>;
+}
+
+export function isIWallet(obj: any): obj is IWallet {
+  return obj && typeof obj.toAccounts === 'function' && typeof obj.getAccountByIndex === 'function' && typeof obj.signByIndex === 'function';
 }
 
 // Update IAccount interface to match the new structure
