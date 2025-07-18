@@ -1,5 +1,5 @@
 // networks/cosmos/src/types/interfaces.ts
-import { IQueryClient, IEventClient } from '@interchainjs/types';
+import { IQueryClient } from '@interchainjs/types';
 import { 
   StatusResponse as ChainStatus, Block,
   TxResponse, ValidatorsResponse as ValidatorSet,
@@ -10,7 +10,6 @@ import {
   NumUnconfirmedTxsResponse as NumUnconfirmedTxs,
   AbciInfoResponse as AbciInfo, NetInfoResponse as NetInfo,
   AbciQueryResponse as AbciQueryResult, ConsensusState,
-  TxEvent, BlockEvent,
   BroadcastTxAsyncResponse, BroadcastTxCommitResponse
 } from './responses';
 import { BlockResultsResponse as BlockResults } from './responses/common/block/block-results-response';
@@ -25,6 +24,7 @@ import {
 import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
+import { ICosmosEventClient } from '../event/cosmos-event-client';
 
 
 
@@ -78,10 +78,3 @@ export interface ICosmosQueryClient extends IQueryClient {
   getProtocolInfo(): ProtocolInfo;
 }
 
-export interface ICosmosEventClient extends IEventClient {
-  // Event streams
-  subscribeToBlocks(): AsyncIterable<Block>;
-  subscribeToBlockHeaders(): AsyncIterable<BlockHeader>;
-  subscribeToTxs(query?: string): AsyncIterable<TxEvent>;
-  subscribeToValidatorSetUpdates(): AsyncIterable<BlockEvent>;
-}

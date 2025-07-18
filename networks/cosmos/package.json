@@ -33,7 +33,9 @@
     "test:token": "jest --preset ts-jest ./starship/__tests__/token.test.ts",
     "test:rpc": "jest --config ./jest.rpc.config.js --verbose",
     "test:rpc:watch": "jest --config ./jest.rpc.config.js --watch",
-    "test:rpc:v2": "jest --config ./jest.rpc.config.js --testPathPattern=query-client-v2.test.ts --verbose"
+    "test:rpc:v2": "jest --config ./jest.rpc.config.js --testPathPattern=query-client-v2.test.ts --verbose",
+    "starship:events:test": "jest --config=jest.starship.events.config.js --verbose",
+    "starship:events:debug": "node --inspect-brk ./node_modules/.bin/jest --config=jest.starship.events.config.js --runInBand --verbose"
   },
   "dependencies": {
 

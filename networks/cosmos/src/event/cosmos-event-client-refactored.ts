@@ -1,18 +1,20 @@
 // networks/cosmos/src/event/cosmos-event-client-refactored.ts
 import { IRpcClient, SubscriptionError } from '@interchainjs/types';
-import { ICosmosProtocolAdapter } from '../adapters/base';
+import { IProtocolAdapter } from '../adapters/base';
 import { RpcMethod } from '../types/protocol';
 import { SubscribeParams } from '../types/requests/common/events';
-import { NewBlockEvent } from '../types/responses/common/block/block-event';
-import { TxEvent } from '../types/responses/common/tx/tx-event';
-import { ValidatorSetUpdateEvent } from '../types/responses/common/validators/validator-set-update-event';
-import { HeaderEvent } from '../types/responses/common/header/header-event';
+import {
+  NewBlockEvent,
+  TxEvent,
+  ValidatorSetUpdateEvent,
+  BlockHeaderEvent
+} from '../types/responses/common/events';
 
 export interface ICosmosEventClient {
   subscribeToNewBlocks(): AsyncIterable<NewBlockEvent>;
   subscribeToTxs(query?: string): AsyncIterable<TxEvent>;
   subscribeToValidatorSetUpdates(): AsyncIterable<ValidatorSetUpdateEvent>;
-  subscribeToBlockHeaders(): AsyncIterable<HeaderEvent>;
+  subscribeToBlockHeaders(): AsyncIterable<BlockHeaderEvent>;
   unsubscribeFromAll(): Promise<void>;
 }
 
@@ -21,7 +23,7 @@ export class CosmosEventClient implements ICosmosEventClient {
 
   constructor(
     private rpcClient: IRpcClient,
-    private protocolAdapter: ICosmosProtocolAdapter
+    private protocolAdapter: IProtocolAdapter
   ) {}
 
   subscribeToNewBlocks(): AsyncIterable<NewBlockEvent> {

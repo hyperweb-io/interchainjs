@@ -19,7 +19,6 @@ import { AbciInfoResponse as AbciInfo } from '../types/responses/common/abci/abc
 import { NetInfoResponse as NetInfo } from '../types/responses/common/net-info';
 import { AbciQueryResponse as AbciQueryResult } from '../types/responses/common/abci/abci-query-response';
 import { ConsensusStateResponse as ConsensusState } from '../types/responses/common/consensus-state';
-import { TxEvent, BlockEvent } from '../types/responses/common/event';
 import {
   BroadcastTxSyncResponse
 } from '../types/responses/common/broadcast-tx-sync';

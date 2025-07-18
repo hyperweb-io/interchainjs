@@ -9,3 +9,4 @@ export * from './blockchain-response';
 export * from './block-results-response';
 export * from './tx-data';
 export * from './validator-update';
+export * from './block-event';

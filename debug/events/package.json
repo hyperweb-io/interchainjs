@@ -1,0 +1,15 @@
+{
+  "name": "debug-events",
+  "version": "1.0.0",
+  "description": "Debug scripts for testing events on starship environment",
+  "main": "test-starship-events.js",
+  "scripts": {
+    "test": "node test-starship-events.js",
+    "query": "node test-starship-events.js --query-only"
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "axios": "^1.6.0"
+  },
+  "type": "commonjs"
+}

@@ -65,6 +65,27 @@ import {
   createBlockResultsResponse
 } from '../types/responses/common/block';
 import {
+  NewBlockEvent,
+  createNewBlockEvent
+} from '../types/responses/common/block/block-event';
+import {
+  TxEvent,
+  createTxEvent
+} from '../types/responses/common/tx/tx-event';
+import {
+  ValidatorSetUpdateEvent,
+  createValidatorSetUpdateEvent
+} from '../types/responses/common/validators/validator-set-update-event';
+import {
+  HeaderEvent,
+  createHeaderEvent
+} from '../types/responses/common/header/header-event';
+import {
+  SubscribeParams,
+  EncodedSubscribeParams,
+  encodeSubscribeParams
+} from '../types/requests/common/events';
+import {
   AbciQueryParams,
   EncodedAbciQueryParams,
   encodeAbciQueryParams
@@ -196,6 +217,7 @@ export interface RequestEncoder {
   encodeBroadcastTxAsync(params: BroadcastTxParams): EncodedBroadcastTxParams;
   encodeBroadcastTxCommit(params: BroadcastTxParams): EncodedBroadcastTxParams;
   encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams;
+  encodeSubscribe(params: SubscribeParams): EncodedSubscribeParams;
 }
 
 export interface ResponseDecoder {
@@ -224,6 +246,10 @@ export interface ResponseDecoder {
   decodeUnconfirmedTxs<T extends UnconfirmedTxsResponse = UnconfirmedTxsResponse>(response: unknown): T;
   decodeValidators<T extends ValidatorsResponse = ValidatorsResponse>(response: unknown): T;
   decodeCheckTx<T extends CheckTxResponse = CheckTxResponse>(response: unknown): T;
+  decodeNewBlockEvent<T extends NewBlockEvent = NewBlockEvent>(response: unknown): T;
+  decodeTxEvent<T extends TxEvent = TxEvent>(response: unknown): T;
+  decodeValidatorSetUpdateEvent<T extends ValidatorSetUpdateEvent = ValidatorSetUpdateEvent>(response: unknown): T;
+  decodeBlockHeaderEvent<T extends BlockHeaderEvent = BlockHeaderEvent>(response: unknown): T;
 }
 
 export interface IProtocolAdapter {
@@ -745,6 +771,34 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
   encodeCheckTx(params: CheckTxParams): EncodedCheckTxParams {
     return encodeCheckTxParams(params);
+  }
+
+  encodeSubscribe(params: SubscribeParams): EncodedSubscribeParams {
+    return encodeSubscribeParams(params);
+  }
+
+  decodeNewBlockEvent<T extends NewBlockEvent = NewBlockEvent>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.data || resp) as Record<string, unknown>;
+    return createNewBlockEvent(data) as T;
+  }
+
+  decodeTxEvent<T extends TxEvent = TxEvent>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.data || resp) as Record<string, unknown>;
+    return createTxEvent(data) as T;
+  }
+
+  decodeValidatorSetUpdateEvent<T extends ValidatorSetUpdateEvent = ValidatorSetUpdateEvent>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.data || resp) as Record<string, unknown>;
+    return createValidatorSetUpdateEvent(data) as T;
+  }
+
+  decodeBlockHeaderEvent<T extends HeaderEvent = HeaderEvent>(response: unknown): T {
+    const resp = response as Record<string, unknown>;
+    const data = (resp.data || resp) as Record<string, unknown>;
+    return createHeaderEvent(data) as T;
   }
 
   decodeBlock<T extends BlockResponse = BlockResponse>(response: unknown): T {
