@@ -1,5 +1,5 @@
 import { ICryptoBytes, StdFee, Message, IWallet, isIWallet } from '@interchainjs/types';
-import { TxBody, SignerInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { Tx, TxBody, SignerInfo, AuthInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
 import {
@@ -31,7 +31,7 @@ import { ed25519 } from '@noble/curves/ed25519';
  * Base implementation for Cosmos signers
  * Provides common functionality for both Amino and Direct signers
  */
-export abstract class BaseCosmosSigner implements ICosmosSigner {
+export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient {
   protected config: CosmosSignerConfig;
   protected auth: OfflineSigner | IWallet;
   protected encoders: Encoder[] = [];
@@ -321,29 +321,68 @@ export abstract class BaseCosmosSigner implements ICosmosSigner {
     };
   }
 
-  getConverterFromTypeUrl(typeUrl: string): AminoConverter {
-    // This would typically use a registry of converters
-    // For now, return a basic implementation
-    return {
-      typeUrl,
-      aminoType: typeUrl.replace(/^\//, ''),
-      toAmino: (value: any) => value,
-      fromAmino: (value: any) => value
-    };
-  }
-
   async simulateByTxBody(
     txBody: TxBody,
     signerInfos: SignerInfo[]
   ): Promise<SimulationResponse> {
-    // TODO: Implement transaction simulation
-    // This would typically involve creating a simulation transaction and querying the chain
-    return {
-      gasInfo: {
-        gasUsed: BigInt(200000), // Default gas estimate
-        gasWanted: BigInt(200000)
+    try {
+      // Build AuthInfo with signerInfos and empty fee for simulation
+      const authInfo = AuthInfo.fromPartial({
+        signerInfos: signerInfos,
+        fee: {
+          amount: [], // Empty for simulation
+          gasLimit: BigInt(0), // Will be determined by simulation
+        },
+      });
+
+      // Build the complete transaction
+      const tx = Tx.fromPartial({
+        body: txBody,
+        authInfo: authInfo,
+        signatures: [], // Empty signatures for simulation
+      });
+
+      // Encode transaction to bytes
+      const txBytes = Tx.encode(tx).finish();
+
+      // Create simulation request
+      const simulateRequest = {
+        txBytes: txBytes,
+      };
+
+      // Use getSimulate from cosmos-types service
+      const { getSimulate } = require('@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.func');
+      const response = await getSimulate(this.config.queryClient, simulateRequest);
+
+      // Map response to SimulationResponse
+      if (response.gasInfo) {
+        return {
+          gasInfo: {
+            gasUsed: response.gasInfo.gasUsed || BigInt(0),
+            gasWanted: response.gasInfo.gasWanted || BigInt(0),
+          },
+          result: response.result,
+        };
       }
-    };
+
+      // Fallback if no gas info
+      return {
+        gasInfo: {
+          gasUsed: BigInt(200000),
+          gasWanted: BigInt(200000),
+        },
+      };
+    } catch (error) {
+      console.warn('Transaction simulation failed, using fallback gas estimate:', error);
+      
+      // Return fallback with higher gas estimate for safety
+      return {
+        gasInfo: {
+          gasUsed: BigInt(300000),
+          gasWanted: BigInt(300000),
+        },
+      };
+    }
   }
 
   get encodedPublicKey(): EncodedMessage {
@@ -375,15 +414,6 @@ export abstract class BaseCosmosSigner implements ICosmosSigner {
 
     // Add only the unique encoders
     this.encoders.push(...newEncoders);
-  }
-
-  /**
-   * Register converters (required by ICosmosSigner interface)
-   * Base implementation - subclasses can override if they use amino converters
-   */
-  addConverters(converters: AminoConverter[]): void {
-    // Base class doesn't use amino converters
-    // This is a no-op implementation to satisfy the interface
   }
 
   /**
