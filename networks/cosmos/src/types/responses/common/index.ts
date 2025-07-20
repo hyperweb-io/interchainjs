@@ -12,7 +12,6 @@ export * from './commit';
 export * from './consensus';
 export * from './consensus-params';
 export * from './consensus-state';
-export * from './event';
 export * from './genesis';
 export * from './genesis-chunked';
 export * from './header';

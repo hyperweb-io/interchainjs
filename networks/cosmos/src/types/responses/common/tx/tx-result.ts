@@ -40,3 +40,7 @@ export const TxResultCodec = createCodec<TxResult>({
   },
   codespace: { source: 'codespace', converter: ensureString }
 });
+
+export function createTxResult(data: unknown): TxResult {
+  return TxResultCodec.create(data);
+}

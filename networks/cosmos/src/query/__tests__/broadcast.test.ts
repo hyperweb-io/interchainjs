@@ -168,14 +168,14 @@ describe('CosmosQueryClient Broadcast Methods', () => {
   describe('parameter encoding', () => {
     it('should encode tx as base64 for broadcast methods', () => {
       const tx = new Uint8Array([255, 128, 64, 32, 16]);
-      
-      const syncParams = adapter.encodeParams(RpcMethod.BROADCAST_TX_SYNC, { tx });
+
+      const syncParams = adapter.encodeBroadcastTxSync({ tx });
       expect(syncParams.tx).toBe('/4BAIBA=');
 
-      const asyncParams = adapter.encodeParams(RpcMethod.BROADCAST_TX_ASYNC, { tx });
+      const asyncParams = adapter.encodeBroadcastTxAsync({ tx });
       expect(asyncParams.tx).toBe('/4BAIBA=');
 
-      const commitParams = adapter.encodeParams(RpcMethod.BROADCAST_TX_COMMIT, { tx });
+      const commitParams = adapter.encodeBroadcastTxCommit({ tx });
       expect(commitParams.tx).toBe('/4BAIBA=');
     });
   });

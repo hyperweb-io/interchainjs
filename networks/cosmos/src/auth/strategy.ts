@@ -1,7 +1,10 @@
 import { IAddressStrategy } from '@interchainjs/types';
-import bech32 from 'bech32';
 import { sha256 } from '@noble/hashes/sha256';
 import { ripemd160 } from '@noble/hashes/ripemd160';
+
+// Use require to avoid TypeScript issues with bech32
+declare var require: any;
+const bech32 = require('bech32');
 
 export const COSMOS_ADDRESS_STRATEGY: IAddressStrategy = {
   name: 'cosmos',

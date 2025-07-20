@@ -24,8 +24,18 @@ import {
 import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
 import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
-import { ICosmosEventClient } from '../event/cosmos-event-client';
+import { NewBlockEvent } from './responses/common/block/block-event';
+import { TxEvent } from './responses/common/tx/tx-event';
+import { ValidatorSetUpdateEvent } from './responses/common/validators/validator-set-update-event';
+import { HeaderEvent } from './responses/common/header/header-event';
 
+export interface ICosmosEventClient {
+  subscribeToNewBlocks(): AsyncIterable<NewBlockEvent>;
+  subscribeToTxs(query?: string): AsyncIterable<TxEvent>;
+  subscribeToValidatorSetUpdates(): AsyncIterable<ValidatorSetUpdateEvent>;
+  subscribeToBlockHeaders(): AsyncIterable<HeaderEvent>;
+  unsubscribeFromAll(): Promise<void>;
+}
 
 
 export interface ICosmosQueryClient extends IQueryClient {

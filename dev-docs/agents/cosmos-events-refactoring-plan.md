@@ -116,6 +116,8 @@ networks/cosmos/src/events/
 ### Phase 3: Testing (Medium Priority)
 
 #### 3.1 Create E2E Tests
+- [ ] Create e2e tests under networks/cosmos/starship/__tests__
+- [ ] Use starship utils for testing, e.g.:     const { getRpcEndpoint } = useChain('osmosis'); // to get the RPC endpoint, and then create a ws endpoint from it
 - [ ] Test NewBlockEvent subscription with starship
 - [ ] Test TxEvent subscription with real transactions
 - [ ] Test ValidatorSetUpdateEvent with governance actions
@@ -161,10 +163,10 @@ networks/cosmos/src/events/
 ```typescript
 class CosmosEventClient {
   async* subscribeToEvents<TEvent>(
-    eventType: string, 
+    eventType: string,
     filter?: unknown
   ): AsyncIterable<TEvent>
-  
+
   async* subscribeToBlocks(): AsyncIterable<Block>
   async* subscribeToBlockHeaders(): AsyncIterable<BlockHeader>
   async* subscribeToTxs(query?: string): AsyncIterable<TxEvent>
@@ -272,16 +274,16 @@ describe('CosmosEventClient E2E', () => {
   it('should subscribe to NewBlock events', async () => {
     const client = new CosmosEventClient(rpcClient, adapter);
     const blocks = client.subscribeToNewBlocks();
-    
+
     const block = await blocks.next();
     expect(block.value).toBeInstanceOf(NewBlockEvent);
     expect(block.value.height).toBeGreaterThan(0n);
   });
-  
+
   it('should subscribe to Tx events with query', async () => {
     const client = new CosmosEventClient(rpcClient, adapter);
     const txs = client.subscribeToTxs({ query: "message.action='send'" });
-    
+
     const tx = await txs.next();
     expect(tx.value).toBeInstanceOf(TxEvent);
     expect(tx.value.hash).toBeDefined();

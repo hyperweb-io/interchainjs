@@ -249,15 +249,13 @@ export interface ResponseDecoder {
   decodeNewBlockEvent<T extends NewBlockEvent = NewBlockEvent>(response: unknown): T;
   decodeTxEvent<T extends TxEvent = TxEvent>(response: unknown): T;
   decodeValidatorSetUpdateEvent<T extends ValidatorSetUpdateEvent = ValidatorSetUpdateEvent>(response: unknown): T;
-  decodeBlockHeaderEvent<T extends BlockHeaderEvent = BlockHeaderEvent>(response: unknown): T;
+  decodeBlockHeaderEvent<T extends HeaderEvent = HeaderEvent>(response: unknown): T;
 }
 
 export interface IProtocolAdapter {
   getVersion(): ProtocolVersion;
   getSupportedMethods(): Set<RpcMethod>;
   getCapabilities(): ProtocolCapabilities;
-  encodeParams(method: RpcMethod, params: any): any;
-  decodeResponse(method: RpcMethod, response: any): any;
   encodeBytes(data: string): Uint8Array;
   decodeBytes(data: Uint8Array): string;
 }
@@ -381,179 +379,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   // IProtocolAdapter implementation
   getVersion(): ProtocolVersion {
     return this.version;
-  }
-
-  encodeParams(method: RpcMethod, params: any): any {
-    // Convert camelCase to snake_case for Tendermint/CometBFT
-    if (!params) return {};
-
-    // Special handling for ABCI query using codec
-    if (method === RpcMethod.ABCI_QUERY) {
-      const encoded = this.encodeAbciQuery(params as AbciQueryParams);
-      // Convert to snake_case for RPC
-      return {
-        path: encoded.path,
-        data: encoded.data,
-        height: encoded.height,
-        prove: encoded.prove
-      };
-    }
-
-    // Special handling for commit using codec
-    if (method === RpcMethod.COMMIT) {
-      const encoded = this.encodeCommit(params as CommitParams);
-      return encoded;
-    }
-
-    // Special handling for block_results using codec
-    if (method === RpcMethod.BLOCK_RESULTS) {
-      const encoded = this.encodeBlockResults(params as BlockResultsParams);
-      return encoded;
-    }
-
-
-
-    // Convert height to string for block-related methods
-    if ((method === RpcMethod.BLOCK) &&
-        params.height !== undefined && typeof params.height === "number") {
-      params = { ...params, height: params.height.toString() };
-    }
-
-    // Convert height to string for validator and consensus methods
-    if ((method === RpcMethod.VALIDATORS || method === RpcMethod.CONSENSUS_PARAMS) &&
-        params.height !== undefined && typeof params.height === "number") {
-      params = { ...params, height: params.height.toString() };
-    }
-
-
-
-    // Special handling for genesis (no parameters)
-    if (method === RpcMethod.GENESIS) {
-      return undefined;
-    }
-
-
-
-
-
-    // Special handling for unconfirmed_txs using codec
-    if (method === RpcMethod.UNCONFIRMED_TXS) {
-      const encoded = this.encodeUnconfirmedTxs(params as UnconfirmedTxsParams);
-      return encoded;
-    }
-
-    // Special handling for validators using codec
-    if (method === RpcMethod.VALIDATORS) {
-      const encoded = this.encodeValidators(params as ValidatorsParams);
-      return encoded;
-    }
-
-    // Special handling for tx using codec
-    if (method === RpcMethod.TX) {
-      const encoded = this.encodeTx(params as TxParams);
-      return encoded;
-    }
-
-    // Special handling for tx_search using codec
-    if (method === RpcMethod.TX_SEARCH) {
-      const encoded = this.encodeTxSearch(params as TxSearchParams);
-      return encoded;
-    }
-
-
-
-    // Special handling for broadcast_tx_sync using codec
-    if (method === RpcMethod.BROADCAST_TX_SYNC) {
-      const encoded = this.encodeBroadcastTxSync(params as BroadcastTxParams);
-      return encoded;
-    }
-
-    // Special handling for broadcast_tx_async using codec
-    if (method === RpcMethod.BROADCAST_TX_ASYNC) {
-      const encoded = this.encodeBroadcastTxAsync(params as BroadcastTxParams);
-      return encoded;
-    }
-
-    // Special handling for broadcast_tx_commit using codec
-    if (method === RpcMethod.BROADCAST_TX_COMMIT) {
-      const encoded = this.encodeBroadcastTxCommit(params as BroadcastTxParams);
-      return encoded;
-    }
-
-    // Special handling for check_tx using codec
-    if (method === RpcMethod.CHECK_TX) {
-      const encoded = this.encodeCheckTx(params as CheckTxParams);
-      return encoded;
-    }
-
-    const encoded: any = {};
-    for (const [key, value] of Object.entries(params)) {
-      const snakeKey = this.camelToSnake(key);
-
-      // Handle hash parameters with 0x prefix
-      if (key === 'hash' && typeof value === 'string' && value.startsWith('0x')) {
-        // Convert hex to base64 for RPC
-        const hexString = value.slice(2); // Remove 0x prefix
-        const bytes = Buffer.from(hexString, 'hex');
-        encoded[snakeKey] = bytes.toString('base64');
-      }
-      // Handle Uint8Array data (especially for ABCI queries and broadcast)
-      else if (value instanceof Uint8Array) {
-        // For tx field in broadcast methods, encode as base64
-        if (key === 'tx') {
-          encoded[snakeKey] = Buffer.from(value).toString('base64');
-        } else {
-          // Convert Uint8Array to hex string for RPC
-          encoded[snakeKey] = this.decodeBytes(value);
-        }
-      }
-      else {
-        encoded[snakeKey] = value;
-      }
-    }
-    return encoded;
-  }
-
-  decodeResponse(method: RpcMethod, response: any): any {
-    // Use the version-specific decoder
-    switch (method) {
-      case RpcMethod.ABCI_INFO:
-        return this.decodeAbciInfo(response);
-      case RpcMethod.ABCI_QUERY:
-        return this.decodeAbciQuery(response);
-      case RpcMethod.BLOCK_RESULTS:
-        return this.decodeBlockResults(response);
-
-      case RpcMethod.CONSENSUS_PARAMS:
-        return this.decodeConsensusParams(response);
-
-
-
-      case RpcMethod.STATUS:
-        return this.decodeStatus(response);
-      case RpcMethod.NET_INFO:
-        return this.decodeNetInfo(response);
-      case RpcMethod.GENESIS:
-        return this.decodeGenesis(response);
-      case RpcMethod.GENESIS_CHUNKED:
-        return this.decodeGenesisChunked(response);
-      case RpcMethod.HEALTH:
-        return this.decodeHealth(response);
-
-      case RpcMethod.NUM_UNCONFIRMED_TXS:
-        return this.decodeNumUnconfirmedTxs(response);
-      case RpcMethod.COMMIT:
-        return this.decodeCommit(response);
-      case RpcMethod.BROADCAST_TX_SYNC:
-        return this.decodeBroadcastTxSync(response);
-      case RpcMethod.BROADCAST_TX_ASYNC:
-        return this.decodeBroadcastTxAsync(response);
-      case RpcMethod.BROADCAST_TX_COMMIT:
-        return this.decodeBroadcastTxCommit(response);
-      default:
-        // For unsupported methods, return raw response
-        return response;
-    }
   }
 
   encodeBytes(data: string): Uint8Array {

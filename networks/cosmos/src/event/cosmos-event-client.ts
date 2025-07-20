@@ -37,7 +37,7 @@ export class CosmosEventClient implements ICosmosEventClient {
     return this.subscribeToEventsInternal('ValidatorSetUpdates');
   }
 
-  subscribeToBlockHeaders(): AsyncIterable<BlockHeaderEvent> {
+  subscribeToBlockHeaders(): AsyncIterable<HeaderEvent> {
     return this.subscribeToEventsInternal('NewBlockHeader');
   }
 

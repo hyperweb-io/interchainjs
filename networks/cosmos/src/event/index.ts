@@ -1,2 +1,2 @@
 // networks/cosmos/src/event/index.ts
-export * from './cosmos-event-client';
+export { CosmosEventClient } from './cosmos-event-client';
