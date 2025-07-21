@@ -45,8 +45,15 @@ export class CosmosEventClient implements ICosmosEventClient {
     eventType: string,
     params?: SubscribeParams
   ): AsyncIterable<T> {
+    // Auto-connect if not connected
     if (!this.rpcClient.isConnected()) {
-      throw new SubscriptionError('RPC client not connected');
+      if (this.rpcClient.connect) {
+        await this.rpcClient.connect();
+      }
+      
+      if (!this.rpcClient.isConnected()) {
+        throw new SubscriptionError('RPC client not connected');
+      }
     }
 
     const subscriptionKey = `${eventType}_${JSON.stringify(params)}`;

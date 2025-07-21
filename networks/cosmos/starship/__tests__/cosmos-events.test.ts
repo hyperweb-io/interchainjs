@@ -1,29 +1,30 @@
-/**
- * E2E tests for the refactored Cosmos event system
- * Tests all event types with the starship environment
- */
+/// <reference types="@types/jest" />
 
-import { CosmosEventClient } from '../../src/event/cosmos-event-client';
+import './setup.test';
+
+import { useChain } from 'starshipjs';
+
+import { ICosmosEventClient } from '../../src/types/cosmos-client-interfaces';
 import { CosmosClientFactory } from '../../src/client-factory';
-const getRpcEndpoint = () => 'http://localhost:26657';
 import { NewBlockEvent } from '../../src/types/responses/common/block/block-event';
 import { TxEvent } from '../../src/types/responses/common/tx/tx-event';
 import { ValidatorSetUpdateEvent } from '../../src/types/responses/common/validators/validator-set-update-event';
 import { HeaderEvent } from '../../src/types/responses/common/header/header-event';
 
 describe('CosmosEventClient E2E Tests', () => {
-  let eventClient: CosmosEventClient;
+  let eventClient: ICosmosEventClient;
   let cleanup: () => Promise<void>;
 
   beforeAll(async () => {
-    const rpcEndpoint = getRpcEndpoint();
+    const { getRpcEndpoint } = useChain('osmosis');
+    const rpcEndpoint = await getRpcEndpoint();
     const wsEndpoint = rpcEndpoint.replace(/^http/, 'ws');
-    
+
     const { eventClient: client } = await CosmosClientFactory.createClients(
       rpcEndpoint,
       wsEndpoint
     );
-    
+
     eventClient = client;
     cleanup = () => eventClient.unsubscribeFromAll();
   });
@@ -38,10 +39,10 @@ describe('CosmosEventClient E2E Tests', () => {
   describe('NewBlockEvent subscription', () => {
     it('should subscribe to new block events', async () => {
       const blocks = eventClient.subscribeToNewBlocks();
-      
+
       const blockPromise = new Promise<NewBlockEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for block event')), 30000);
-        
+
         (async () => {
           for await (const block of blocks) {
             clearTimeout(timeout);
@@ -52,7 +53,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const block = await blockPromise;
-      
+
       expect(block).toBeDefined();
       expect(block.block).toBeDefined();
       expect(block.block.header).toBeDefined();
@@ -68,10 +69,10 @@ describe('CosmosEventClient E2E Tests', () => {
   describe('TxEvent subscription', () => {
     it('should subscribe to transaction events', async () => {
       const txs = eventClient.subscribeToTxs();
-      
+
       const txPromise = new Promise<TxEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for tx event')), 30000);
-        
+
         (async () => {
           for await (const tx of txs) {
             clearTimeout(timeout);
@@ -82,7 +83,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const tx = await txPromise;
-      
+
       expect(tx).toBeDefined();
       expect(tx.hash).toBeDefined();
       expect(typeof tx.hash).toBe('string');
@@ -97,10 +98,10 @@ describe('CosmosEventClient E2E Tests', () => {
 
     it('should subscribe to transaction events with query filter', async () => {
       const txs = eventClient.subscribeToTxs("tm.event='Tx'");
-      
+
       const txPromise = new Promise<TxEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for tx event with query')), 30000);
-        
+
         (async () => {
           for await (const tx of txs) {
             clearTimeout(timeout);
@@ -111,7 +112,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const tx = await txPromise;
-      
+
       expect(tx).toBeDefined();
       expect(tx.hash).toBeDefined();
     });
@@ -120,10 +121,10 @@ describe('CosmosEventClient E2E Tests', () => {
   describe('BlockHeaderEvent subscription', () => {
     it('should subscribe to block header events', async () => {
       const headers = eventClient.subscribeToBlockHeaders();
-      
+
       const headerPromise = new Promise<HeaderEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for header event')), 30000);
-        
+
         (async () => {
           for await (const header of headers) {
             clearTimeout(timeout);
@@ -134,7 +135,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const header = await headerPromise;
-      
+
       expect(header).toBeDefined();
       expect(header.header).toBeDefined();
       expect(typeof header.height).toBe('number');
@@ -146,7 +147,7 @@ describe('CosmosEventClient E2E Tests', () => {
   describe('ValidatorSetUpdateEvent subscription', () => {
     it('should subscribe to validator set update events', async () => {
       const validatorUpdates = eventClient.subscribeToValidatorSetUpdates();
-      
+
       const validatorUpdatePromise = new Promise<ValidatorSetUpdateEvent>((resolve, reject) => {
         const timeout = setTimeout(() => {
           // If no validator updates occur, this is expected behavior
@@ -157,7 +158,7 @@ describe('CosmosEventClient E2E Tests', () => {
             time: new Date()
           } as ValidatorSetUpdateEvent);
         }, 10000);
-        
+
         (async () => {
           for await (const update of validatorUpdates) {
             clearTimeout(timeout);
@@ -168,7 +169,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const update = await validatorUpdatePromise;
-      
+
       expect(update).toBeDefined();
       expect(update.validatorUpdates).toBeDefined();
       expect(Array.isArray(update.validatorUpdates)).toBe(true);
@@ -182,10 +183,10 @@ describe('CosmosEventClient E2E Tests', () => {
     it('should handle multiple concurrent subscriptions', async () => {
       const blocks = eventClient.subscribeToNewBlocks();
       const txs = eventClient.subscribeToTxs();
-      
+
       const blockPromise = new Promise<NewBlockEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for block')), 30000);
-        
+
         (async () => {
           for await (const block of blocks) {
             clearTimeout(timeout);
@@ -197,7 +198,7 @@ describe('CosmosEventClient E2E Tests', () => {
 
       const txPromise = new Promise<TxEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for tx')), 30000);
-        
+
         (async () => {
           for await (const tx of txs) {
             clearTimeout(timeout);
@@ -208,7 +209,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const [block, tx] = await Promise.all([blockPromise, txPromise]);
-      
+
       expect(block).toBeDefined();
       expect(tx).toBeDefined();
     });
@@ -216,12 +217,12 @@ describe('CosmosEventClient E2E Tests', () => {
     it('should properly unsubscribe from all subscriptions', async () => {
       const blocks = eventClient.subscribeToNewBlocks();
       const txs = eventClient.subscribeToTxs();
-      
+
       // Start subscriptions - just verify they can be created
-      
+
       // Unsubscribe from all
       await eventClient.unsubscribeFromAll();
-      
+
       // Verify we can start new subscriptions after cleanup
       const newBlocks = eventClient.subscribeToNewBlocks();
       expect(newBlocks).toBeDefined();
@@ -231,10 +232,10 @@ describe('CosmosEventClient E2E Tests', () => {
   describe('Type safety verification', () => {
     it('should return properly typed NewBlockEvent objects', async () => {
       const blocks = eventClient.subscribeToNewBlocks();
-      
+
       const blockPromise = new Promise<NewBlockEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for block')), 30000);
-        
+
         (async () => {
           for await (const block of blocks) {
             clearTimeout(timeout);
@@ -245,7 +246,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const block = await blockPromise;
-      
+
       // Type safety checks
       expect(block.block.header.chainId).toBeDefined();
       expect(typeof block.block.header.chainId).toBe('string');
@@ -254,10 +255,10 @@ describe('CosmosEventClient E2E Tests', () => {
 
     it('should return properly typed TxEvent objects', async () => {
       const txs = eventClient.subscribeToTxs();
-      
+
       const txPromise = new Promise<TxEvent>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error('Timeout waiting for tx')), 30000);
-        
+
         (async () => {
           for await (const tx of txs) {
             clearTimeout(timeout);
@@ -268,7 +269,7 @@ describe('CosmosEventClient E2E Tests', () => {
       });
 
       const tx = await txPromise;
-      
+
       // Type safety checks
       expect(typeof tx.hash).toBe('string');
       expect(typeof tx.height).toBe('number');
