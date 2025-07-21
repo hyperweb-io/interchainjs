@@ -2,6 +2,7 @@ import { ICryptoBytes, StdFee, Message, IWallet, isIWallet } from '@interchainjs
 import { Tx, TxBody, SignerInfo, AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
+import { TxResponse as QueryTxResponse } from '../types';
 import {
   CosmosSignerConfig,
   CosmosBroadcastOptions,
@@ -72,27 +73,12 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     const broadcastResponse: CosmosBroadcastResponse = {
       transactionHash: response.transactionHash,
       rawResponse: response.rawResponse,
-      txResponse: response.rawResponse as any, // Type assertion for compatibility
+      broadcastResponse: response.broadcastResponse,
       wait: async (waitTimeoutMs?: number, waitPollIntervalMs?: number) => {
         const timeout = waitTimeoutMs ?? timeoutMs;
         const poll = waitPollIntervalMs ?? pollIntervalMs;
-        
-        const txResult = await this.waitForTransaction(response.transactionHash, timeout, poll);
-        return {
-          height: txResult.height,
-          txhash: response.transactionHash,
-          codespace: '',
-          code: txResult.code,
-          data: '',
-          rawLog: '',
-          logs: [],
-          info: '',
-          gasWanted: txResult.gasWanted,
-          gasUsed: txResult.gasUsed,
-          tx: undefined,
-          timestamp: '',
-          events: txResult.events
-        };
+
+        return await this.waitForTransaction(response.transactionHash, timeout, poll);
       }
     };
 
@@ -113,14 +99,14 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     messages: readonly Message<any>[],
     fee: StdFee | 'auto',
     memo?: string
-  ): Promise<TxResponse>;
+  ): Promise<CosmosBroadcastResponse>;
 
   async signAndBroadcast(
     argsOrSignerAddress: CosmosSignArgs | string,
     messagesOrOptions?: CosmosBroadcastOptions | readonly Message<any>[],
     fee?: StdFee | 'auto',
     memo?: string
-  ): Promise<CosmosBroadcastResponse | TxResponse> {
+  ): Promise<CosmosBroadcastResponse> {
     if (typeof argsOrSignerAddress === 'string') {
       // ISigningClient interface: individual parameters
       const signerAddress = argsOrSignerAddress;
@@ -150,7 +136,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
       const response = await this.broadcast(signed, {});
 
       // Convert CosmosBroadcastResponse to TxResponse for ISigningClient
-      return this.convertToTxResponse(response);
+      return response;
     } else {
       // Base class interface: CosmosSignArgs
       const args = argsOrSignerAddress;
@@ -184,13 +170,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     return {
       transactionHash: toHex(response.hash),
       rawResponse: response,
-      txResponse: response,
+      broadcastResponse: response,
       wait: async (timeoutMs?: number, pollIntervalMs?: number) => {
         const txResult = await this.waitForTransaction(toHex(response.hash), timeoutMs || 30000, pollIntervalMs || 3000);
-        return this.convertToTxResponse({
-          transactionHash: toHex(response.hash),
-          rawResponse: txResult
-        });
+        return txResult;
       }
     };
   }
@@ -261,20 +244,14 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     }
   }
 
-  private async waitForTransaction(hash: string, timeoutMs: number = 30000, pollIntervalMs = 3000): Promise<any> {
+  private async waitForTransaction(hash: string, timeoutMs: number = 30000, pollIntervalMs = 3000): Promise<TxResponse> {
     const startTime = Date.now();
 
     while (Date.now() - startTime < timeoutMs) {
       try {
         const txResponse = await this.config.queryClient.getTx(hash);
         if (txResponse) {
-          return {
-            height: txResponse.height,
-            gasUsed: txResponse.txResult.gasUsed,
-            gasWanted: txResponse.txResult.gasWanted,
-            code: txResponse.txResult.code,
-            events: txResponse.txResult.events
-          };
+          return this.convertToTxResponse(txResponse);
         }
       } catch (error) {
         // Transaction not found yet, continue waiting
@@ -375,25 +352,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   /**
    * Convert CosmosBroadcastResponse to TxResponse
    */
-  protected convertToTxResponse(response: any): TxResponse {
-    // Extract the raw response data
-    const rawResponse = response.rawResponse || response;
-    const txResult = response.txResult || rawResponse.txResult || {};
-
-    return {
-      height: BigInt(rawResponse.height || 0),
-      txhash: response.transactionHash || rawResponse.hash || '',
-      codespace: rawResponse.codespace || txResult.codespace || '',
-      code: rawResponse.code || txResult.code || 0,
-      data: rawResponse.data || '',
-      rawLog: rawResponse.rawLog || rawResponse.raw_log || txResult.log || '',
-      logs: rawResponse.logs || txResult.logs || [],
-      info: rawResponse.info || txResult.info || '',
-      gasWanted: BigInt(rawResponse.gasWanted || rawResponse.gas_wanted || txResult.gasWanted || 0),
-      gasUsed: BigInt(rawResponse.gasUsed || rawResponse.gas_used || txResult.gasUsed || 0),
-      tx: rawResponse.tx || undefined,
-      timestamp: rawResponse.timestamp || '',
-      events: rawResponse.events || txResult.events || []
-    };
+  protected convertToTxResponse(response: QueryTxResponse): TxResponse {
+    throw new Error('implement convertToTxResponse later');
   }
 }

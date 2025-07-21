@@ -33,10 +33,11 @@ export interface Price {
  * @template TBroadcastResponse - response type after broadcasting a transaction
  */
 export interface IUniSigner<
+  TTxResp = unknown,
   TAccount extends IAccount = IAccount,
   TSignArgs = unknown,
   TBroadcastOpts = unknown,
-  TBroadcastResponse extends IBroadcastResult = IBroadcastResult,
+  TBroadcastResponse extends IBroadcastResult<TTxResp> = IBroadcastResult<TTxResp>,
 > {
   // Account management
   getAccounts(): Promise<readonly TAccount[]>;
@@ -53,7 +54,7 @@ export interface IUniSigner<
   broadcastArbitrary(data: Uint8Array, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
 }
 
-interface ISigned<BroadcastOpts, BroadcastResponse> {
+export interface ISigned<BroadcastOpts, BroadcastResponse> {
   // Signature details
   signature: ICryptoBytes;
 
@@ -61,10 +62,14 @@ interface ISigned<BroadcastOpts, BroadcastResponse> {
   broadcast(options?: BroadcastOpts): Promise<BroadcastResponse>;
 }
 
-interface IBroadcastResult {
+export interface IBroadcastResult<TxResp = unknown> {
   // Common fields
   transactionHash: string;  // Universal transaction identifier
 
   // Chain-specific data preserved
   rawResponse: unknown;    // Original chain response
+
+  broadcastResponse: unknown;
+
+  wait: () => Promise<TxResp>;
 }

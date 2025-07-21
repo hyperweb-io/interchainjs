@@ -1,4 +1,4 @@
-import { ICryptoBytes, IUniSigner, StdFee, StdSignDoc } from '@interchainjs/types';
+import { IBroadcastResult, ICryptoBytes, IUniSigner, StdFee, StdSignDoc } from '@interchainjs/types';
 import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
 import { AminoConverter, Encoder } from '../types/signing-client';
@@ -121,13 +121,13 @@ export interface CosmosBroadcastOptions {
 /**
  * Broadcast response
  */
-export interface CosmosBroadcastResponse {
+export interface CosmosBroadcastResponse extends IBroadcastResult<TxResponse> {
   /** Transaction hash */
   transactionHash: string;
   /** Raw response from the chain */
   rawResponse: unknown;
 
-  txResponse: BroadcastTxSyncResponse | BroadcastTxAsyncResponse | BroadcastTxCommitResponse;
+  broadcastResponse: BroadcastTxSyncResponse | BroadcastTxAsyncResponse | BroadcastTxCommitResponse;
 
   /** Wait for the transaction to be delivered in a block */
   wait: (timeoutMs?: number, pollIntervalMs?: number) => Promise<TxResponse>;
@@ -155,6 +155,7 @@ export interface CosmosSignArgs {
 
 // Cosmos signer interface
 export interface ICosmosSigner extends IUniSigner<
+  TxResponse,
   AccountData, // account type
   CosmosSignArgs, // sign args
   CosmosBroadcastOptions, // broadcast options

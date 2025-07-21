@@ -1,5 +1,5 @@
 import { StdFee, TxResponse } from "@interchainjs/cosmos-types";
-import { Message, TelescopeGeneratedCodec } from "@interchainjs/types";
+import { Message, IBroadcastResult } from "@interchainjs/types";
 
 export interface ISigningClient {
   /**
@@ -18,7 +18,7 @@ export interface ISigningClient {
     message: readonly Message<any>[],
     fee: StdFee | "auto",
     memo?: string
-  ) => Promise<TxResponse>;
+  ) => Promise<IBroadcastResult>;
 }
 
 export interface Encoder<T = any> {
