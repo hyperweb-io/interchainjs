@@ -19,7 +19,7 @@ import {
 import { AccountData } from '../signers';
 import { AminoConverter, Encoder } from '../types/signing-client';
 import { SimulationResponse } from '@interchainjs/cosmos-types';
-import { CosmosAminoDoc, CosmosDirectDoc, CosmosMessage, CosmosSignOptions, EncodedMessage, ICosmosSigner } from '../signers/types';
+import { CosmosAminoDoc, CosmosDirectDoc, CosmosMessage, DocOptions, EncodedMessage, ICosmosSigner } from '../signers/types';
 
 
 // Workflow builder context for cosmos
@@ -49,14 +49,14 @@ export const STAGING_KEYS = {
 export interface MessageEncodingInput {
   messages: readonly CosmosMessage[];
   memo?: string;
-  options?: CosmosSignOptions;
+  options?: DocOptions;
 }
 
 export interface FeeCalculationInput {
   fee?: StdFee;
   txBody: TxBody;
   signerInfos: SignerInfo[];
-  options?: CosmosSignOptions;
+  options?: DocOptions;
 }
 
 export interface SignerInfoInput {
