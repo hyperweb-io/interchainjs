@@ -19,80 +19,8 @@ import {
 import { AccountData } from '../signers';
 import { AminoConverter, Encoder } from '../types/signing-client';
 import { SimulationResponse } from '@interchainjs/cosmos-types';
+import { CosmosAminoDoc, CosmosDirectDoc, CosmosMessage, CosmosSignOptions, EncodedMessage, ICosmosSigner } from '../signers/types';
 
-// Cosmos-specific message types
-export interface CosmosMessage<T = any> {
-  typeUrl: string;
-  value: T;
-}
-
-export interface EncodedMessage {
-  typeUrl: string;
-  value: Uint8Array;
-}
-
-export interface AminoMessage {
-  type: string;
-  value: any;
-}
-
-// Cosmos signing arguments
-export interface CosmosSignArgs {
-  messages: readonly CosmosMessage[];
-  fee?: StdFee;
-  memo?: string;
-  options?: CosmosSignOptions;
-}
-
-// Cosmos signing options
-export interface CosmosSignOptions {
-  chainId?: string;
-  accountNumber?: bigint;
-  sequence?: bigint;
-  signMode?: SignMode;
-  multiplier?: number;
-  gasPrice?: string | number;
-  timeoutHeight?: {
-    type: 'relative' | 'absolute';
-    value: bigint;
-  };
-  timeoutTimestamp?: {
-    type: 'absolute';
-    value: Date;
-  };
-  unordered?: boolean;
-  sign?: {
-    hash?: 'sha256' | 'sha512' | 'none' | ((data: Uint8Array) => Uint8Array);
-  };
-  extensionOptions?: Any[];
-  nonCriticalExtensionOptions?: Any[];
-}
-
-// Document types
-export type CosmosDirectDoc = SignDoc;
-export type CosmosAminoDoc = StdSignDoc;
-export type CosmosTx = TxRaw;
-
-// Cosmos account interface
-// CosmosAccount removed - using AccountData from signers/types.ts instead
-
-// Cosmos signer interface
-export interface ICosmosSigner extends IUniSigner<
-  AccountData, // account type
-  CosmosSignArgs, // sign args
-  any, // broadcast options
-  any // broadcast response
-> {
-  getAddresses(): Promise<string[]>;
-  getChainId(): Promise<string>;
-  getAccountNumber(address: string): Promise<bigint>;
-  getSequence(address: string): Promise<bigint>;
-  addEncoders(encoders: Encoder[]): void;
-  getEncoder(typeUrl: string): Encoder;
-  addConverters?(converters: AminoConverter[]): void;
-  getConverterFromTypeUrl?(typeUrl: string): AminoConverter;
-  simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<SimulationResponse>;
-}
 
 // Workflow builder context for cosmos
 export interface ICosmosWorkflowBuilderContext extends IWorkflowBuilderContext<ICosmosSigner> {

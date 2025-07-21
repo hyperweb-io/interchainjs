@@ -9,11 +9,11 @@ export * from './direct-signer';
 export * from './amino-signer';
 
 
-// Re-export workflow types for convenience
+// Re-export signers types for convenience
 export {
   ICosmosSigner,
   CosmosSignArgs,
   CosmosMessage,
   EncodedMessage,
   CosmosSignOptions
-} from '../workflows/types';
+} from './types';

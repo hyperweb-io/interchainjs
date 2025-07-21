@@ -1,5 +1,6 @@
 import { WorkflowBuilderContext } from '@interchainjs/types';
-import { ICosmosSigner, ICosmosWorkflowBuilderContext } from './types';
+import { ICosmosSigner } from '../signers/types';
+import { ICosmosWorkflowBuilderContext } from './types';
 
 /**
  * Cosmos-specific workflow builder context

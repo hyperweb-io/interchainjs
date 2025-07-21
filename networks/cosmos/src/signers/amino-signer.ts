@@ -5,12 +5,13 @@ import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { 
   CosmosSignArgs, 
   EncodedMessage 
-} from '../workflows/types';
+} from './types';
 import { AminoWorkflow } from '../workflows/amino-workflow';
 import { BaseCosmosSigner } from './base-signer';
 import { 
   CosmosSignerConfig, 
   CosmosSignedTransaction,
+  CosmosBroadcastOptions,
   OfflineSigner
 } from './types';
 import { ISigningClient, AminoConverter } from '../types/signing-client';
@@ -83,7 +84,7 @@ export class AminoSigner extends BaseCosmosSigner implements ISigningClient {
     const signedTx: CosmosSignedTransaction = {
       signature,
       txBytes,
-      broadcast: this.createBroadcastFunction(txBytes)
+      broadcast: (options?: CosmosBroadcastOptions) => this.broadcast(signedTx, options)
     };
 
     return signedTx;

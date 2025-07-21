@@ -1,10 +1,7 @@
 import { TxBody } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { 
-  MessageEncodingInput, 
-  STAGING_KEYS,
-  EncodedMessage
-} from '../types';
+import { MessageEncodingInput, STAGING_KEYS } from '../types';
+import { EncodedMessage } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 
 /**

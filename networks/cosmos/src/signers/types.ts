@@ -1,6 +1,8 @@
-import { ICryptoBytes, StdSignDoc } from '@interchainjs/types';
-import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { ICosmosQueryClient } from '../types';
+import { ICryptoBytes, IUniSigner, StdFee, StdSignDoc } from '@interchainjs/types';
+import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
+import { AminoConverter, Encoder } from '../types/signing-client';
+import { Any, SignMode, SimulationResponse, TxResponse } from '@interchainjs/cosmos-types';
 
 /**
  * Base configuration for Cosmos signers
@@ -106,10 +108,14 @@ export function isOfflineAminoSigner(obj: any): obj is OfflineAminoSigner {
 export interface CosmosBroadcastOptions {
   /** Broadcast mode: sync, async, or commit */
   mode?: 'sync' | 'async' | 'commit';
-  /** Whether to check transaction result */
-  checkTx?: boolean;
-  /** Timeout for transaction confirmation (in ms) */
-  timeout?: number;
+  /**
+   * timeout in milliseconds for checking on chain for tx result.(in ms)
+   */
+  timeoutMs?: number;
+  /**
+   * polling interval in milliseconds for checking on chain for tx result.(in ms)
+   */
+  pollIntervalMs?: number;
 }
 
 /**
@@ -118,21 +124,13 @@ export interface CosmosBroadcastOptions {
 export interface CosmosBroadcastResponse {
   /** Transaction hash */
   transactionHash: string;
-  /** Block height where transaction was included */
-  height?: number;
-  /** Gas used by the transaction */
-  gasUsed?: bigint;
-  /** Gas wanted by the transaction */
-  gasWanted?: bigint;
-  /** Transaction result code (0 = success) */
-  code?: number;
   /** Raw response from the chain */
   rawResponse: unknown;
-  /** Transaction events */
-  events?: Array<{
-    type: string;
-    attributes: Array<{ key: string; value: string }>;
-  }>;
+
+  txResponse: BroadcastTxSyncResponse | BroadcastTxAsyncResponse | BroadcastTxCommitResponse;
+
+  /** Wait for the transaction to be delivered in a block */
+  wait: (timeoutMs?: number, pollIntervalMs?: number) => Promise<TxResponse>;
 }
 
 /**
@@ -146,3 +144,75 @@ export interface CosmosSignedTransaction {
   /** Broadcast function */
   broadcast(options?: CosmosBroadcastOptions): Promise<CosmosBroadcastResponse>;
 }
+
+// Cosmos signing arguments
+export interface CosmosSignArgs {
+  messages: readonly CosmosMessage[];
+  fee?: StdFee;
+  memo?: string;
+  options?: CosmosSignOptions;
+}
+
+// Cosmos signer interface
+export interface ICosmosSigner extends IUniSigner<
+  AccountData, // account type
+  CosmosSignArgs, // sign args
+  CosmosBroadcastOptions, // broadcast options
+  CosmosBroadcastResponse // broadcast response
+> {
+  getAddresses(): Promise<string[]>;
+  getChainId(): Promise<string>;
+  getAccountNumber(address: string): Promise<bigint>;
+  getSequence(address: string): Promise<bigint>;
+  addEncoders(encoders: Encoder[]): void;
+  getEncoder(typeUrl: string): Encoder;
+  addConverters?(converters: AminoConverter[]): void;
+  getConverterFromTypeUrl?(typeUrl: string): AminoConverter;
+  simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<SimulationResponse>;
+}
+
+// Cosmos-specific message types
+export interface CosmosMessage<T = any> {
+  typeUrl: string;
+  value: T;
+}
+
+export interface EncodedMessage {
+  typeUrl: string;
+  value: Uint8Array;
+}
+
+export interface AminoMessage {
+  type: string;
+  value: any;
+}
+
+
+// Cosmos signing options
+export interface CosmosSignOptions {
+  chainId?: string;
+  accountNumber?: bigint;
+  sequence?: bigint;
+  signMode?: SignMode;
+  multiplier?: number;
+  gasPrice?: string | number;
+  timeoutHeight?: {
+    type: 'relative' | 'absolute';
+    value: bigint;
+  };
+  timeoutTimestamp?: {
+    type: 'absolute';
+    value: Date;
+  };
+  unordered?: boolean;
+  sign?: {
+    hash?: 'sha256' | 'sha512' | 'none' | ((data: Uint8Array) => Uint8Array);
+  };
+  extensionOptions?: Any[];
+  nonCriticalExtensionOptions?: Any[];
+}
+
+// Document types
+export type CosmosDirectDoc = SignDoc;
+export type CosmosAminoDoc = StdSignDoc;
+export type CosmosTx = TxRaw;

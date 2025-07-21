@@ -2,10 +2,10 @@ import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/s
 import { WorkflowBuilder, IWorkflowBuilderPlugin, WorkflowBuilderOptions } from '@interchainjs/types';
 import { 
   ICosmosSigner, 
-  CosmosSignArgs, 
-  CosmosTx,
-  ICosmosWorkflowBuilderContext
-} from './types';
+  CosmosSignArgs
+} from '../signers/types';
+import { ICosmosWorkflowBuilderContext } from './types';
+import { CosmosTx } from '../signers/types';
 import { CosmosWorkflowBuilderContext } from './context';
 import {
   InputValidationPlugin,
