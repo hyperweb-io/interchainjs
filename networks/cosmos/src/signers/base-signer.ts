@@ -19,6 +19,7 @@ import {
 import { ISigningClient, Encoder } from '../types/signing-client';
 import { getSimulate, SimulationResponse } from '@interchainjs/cosmos-types';
 import { toHex } from '@interchainjs/utils';
+import deepmerge from 'deepmerge';
 
 /**
  * Base implementation for Cosmos signers
@@ -120,15 +121,16 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
       }
 
       // Convert Message<any>[] to CosmosMessage[]
-      const cosmosMessages = messages.map(msg => ({
-        typeUrl: msg.typeUrl,
-        value: msg.value
-      }));
+      const cosmosMessages = messages;
 
       const cosmosSignArgs: CosmosSignArgs = {
         messages: cosmosMessages,
         fee: fee === 'auto' ? undefined : fee as StdFee,
-        memo: memo || ''
+        memo: memo || '',
+        options: {
+          signerAddress: signerAddress,
+          ...this.config
+        }
       };
 
       // Sign and broadcast the transaction
@@ -140,6 +142,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     } else {
       // Base class interface: CosmosSignArgs
       const args = argsOrSignerAddress;
+      args.options = deepmerge(this.config, args.options || {});
       const options = (messagesOrOptions as CosmosBroadcastOptions) || {};
       const signed = await this.sign(args);
       return this.broadcast(signed, options);
@@ -317,11 +320,6 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
         gasWanted: BigInt(0),
       },
     };
-  }
-
-  get encodedPublicKey(): EncodedMessage {
-    // This should be implemented by subclasses or cached from wallet
-    throw new Error('encodedPublicKey must be implemented by subclass');
   }
 
   // ISigningClient implementation methods

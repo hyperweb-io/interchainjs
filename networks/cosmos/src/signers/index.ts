@@ -15,5 +15,5 @@ export {
   CosmosSignArgs,
   CosmosMessage,
   EncodedMessage,
-  CosmosSignOptions
+  DocOptions
 } from './types';

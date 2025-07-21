@@ -1,7 +1,7 @@
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
 import { WorkflowBuilder, IWorkflowBuilderPlugin, WorkflowBuilderOptions } from '@interchainjs/types';
-import { 
-  ICosmosSigner, 
+import {
+  ICosmosSigner,
   CosmosSignArgs
 } from '../signers/types';
 import { ICosmosWorkflowBuilderContext } from './types';
@@ -43,18 +43,18 @@ export class CosmosWorkflowBuilder extends WorkflowBuilder<ICosmosSigner, Cosmos
     options: CosmosWorkflowBuilderOptions = {}
   ) {
     const { preferredSignMode = SignMode.SIGN_MODE_DIRECT, ...builderOptions } = options;
-    
+
     // Create workflows
     const workflows = CosmosWorkflowBuilder.createWorkflows(signArgs);
-    
+
     super(signer, workflows, builderOptions);
-    
+
     this.signArgs = signArgs;
     this.preferredSignMode = preferredSignMode;
-    
+
     // Override context with cosmos-specific context
     this.context = new CosmosWorkflowBuilderContext(signer);
-    
+
     // Re-set context for all plugins
     Object.values(this.workflows).flat().forEach(plugin => plugin.setContext(this.context));
   }
@@ -64,8 +64,8 @@ export class CosmosWorkflowBuilder extends WorkflowBuilder<ICosmosSigner, Cosmos
    */
   protected selectWorkflow(): string {
     // Check if sign mode is specified in options
-    const signMode = this.signArgs.options?.signMode ?? this.preferredSignMode;
-    
+    const signMode = this.preferredSignMode || SignMode.SIGN_MODE_DIRECT;
+
     switch (signMode) {
       case SignMode.SIGN_MODE_DIRECT:
         return 'direct';

@@ -1,23 +1,17 @@
-import { IBroadcastResult, ICryptoBytes, IUniSigner, StdFee, StdSignDoc } from '@interchainjs/types';
+import { IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
 import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
 import { AminoConverter, Encoder } from '../types/signing-client';
 import { Any, SignMode, SimulationResponse, TxResponse } from '@interchainjs/cosmos-types';
 
+export type CosmosSignerConfig = EndpointOptions & DocOptions;
+
 /**
  * Base configuration for Cosmos signers
  */
-export interface CosmosSignerConfig {
-  /** Chain ID for the network */
-  chainId: string;
+export interface EndpointOptions {
   /** Query client for chain interactions */
   queryClient: ICosmosQueryClient;
-  /** Address prefix (e.g., 'cosmos', 'osmo') */
-  addressPrefix?: string;
-  /** Gas price for fee calculation */
-  gasPrice?: string | number;
-  /** Gas multiplier for fee calculation */
-  gasMultiplier?: number;
 }
 
 /**
@@ -150,7 +144,7 @@ export interface CosmosSignArgs {
   messages: readonly CosmosMessage[];
   fee?: StdFee;
   memo?: string;
-  options?: CosmosSignOptions;
+  options?: DocOptions;
 }
 
 // Cosmos signer interface
@@ -188,30 +182,65 @@ export interface AminoMessage {
   value: any;
 }
 
+export type DocOptions = FeeOptions & SignOptions & TxOptions;
 
-// Cosmos signing options
-export interface CosmosSignOptions {
+export interface FeeOptions {
+  multiplier?: number;
+  gasPrice?: Price | string | 'average' | 'high' | 'low';
+}
+
+export interface SignOptions {
   chainId?: string;
   accountNumber?: bigint;
   sequence?: bigint;
-  signMode?: SignMode;
-  multiplier?: number;
-  gasPrice?: string | number;
-  timeoutHeight?: {
-    type: 'relative' | 'absolute';
-    value: bigint;
-  };
-  timeoutTimestamp?: {
-    type: 'absolute';
-    value: Date;
-  };
-  unordered?: boolean;
-  sign?: {
-    hash?: 'sha256' | 'sha512' | 'none' | ((data: Uint8Array) => Uint8Array);
-  };
-  extensionOptions?: Any[];
-  nonCriticalExtensionOptions?: Any[];
+  signerAddress?: string;
+  addressPrefix?: string;
 }
+
+export interface TimeoutHeightOption {
+  type: 'relative' | 'absolute';
+  value: bigint;
+}
+
+export interface TimeoutTimestampOption {
+  type: 'absolute';
+  value: Date;
+}
+
+export type TxOptions = {
+  /**
+   * timeout is the block height after which this transaction will not
+   * be processed by the chain.
+   * Note: this value only identical to the `timeoutHeight` field in the `TxBody` structure
+   * when type is `absolute`.
+   * - type `relative`: latestBlockHeight + this.value = TxBody.timeoutHeight
+   * - type `absolute`: this.value = TxBody.timeoutHeight
+   */
+  timeoutHeight?: TimeoutHeightOption;
+  /**
+   * timeoutTimestamp is the time after which this transaction will not
+   * be processed by the chain; for use with unordered transactions.
+   */
+  timeoutTimestamp?: TimeoutTimestampOption;
+  /**
+   * unordered is set to true when the transaction is not ordered.
+   * Note: this requires the timeoutTimestamp to be set
+   * and the sequence to be set to 0
+   */
+  unordered?: boolean;
+  /**
+   * extension_options are arbitrary options that can be added by chains
+   * when the default options are not sufficient. If any of these are present
+   * and can't be handled, the transaction will be rejected
+   */
+  extensionOptions?: Any[];
+  /**
+   * extension_options are arbitrary options that can be added by chains
+   * when the default options are not sufficient. If any of these are present
+   * and can't be handled, they will be ignored
+   */
+  nonCriticalExtensionOptions?: Any[];
+};
 
 // Document types
 export type CosmosDirectDoc = SignDoc;
