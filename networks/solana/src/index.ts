@@ -7,6 +7,7 @@ export { DirectSigner, OfflineSigner } from './signer';
 export { SolanaSigningClient } from './signing-client';
 export { PhantomSigner, getPhantomWallet, isPhantomInstalled } from './phantom-signer';
 export { PhantomSigningClient } from './phantom-client';
+export { WebSocketConnection } from './websocket-connection';
 
 export * from './types';
 

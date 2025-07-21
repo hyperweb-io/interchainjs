@@ -49,6 +49,57 @@ export interface Connection {
   rpcEndpoint: string;
 }
 
+export interface WebSocketNotification<T> {
+  method: string;
+  params: {
+    subscription: number;
+    result: T;
+  };
+}
+
+export interface AccountNotification {
+  context: {
+    slot: number;
+  };
+  value: AccountInfo | null;
+}
+
+export interface ProgramNotification {
+  context: {
+    slot: number;
+  };
+  value: {
+    account: AccountInfo;
+    pubkey: string;
+  };
+}
+
+export interface LogsNotification {
+  context: {
+    slot: number;
+  };
+  value: {
+    signature: string;
+    err: any;
+    logs: string[];
+  };
+}
+
+export interface WebSocketSubscriptionResponse {
+  jsonrpc: string;
+  id: string;
+  result: number;
+}
+
+export interface WebSocketErrorResponse {
+  jsonrpc: string;
+  id: string;
+  error: {
+    code: number;
+    message: string;
+  };
+}
+
 export class PublicKey {
   private _bn: BN;
 
