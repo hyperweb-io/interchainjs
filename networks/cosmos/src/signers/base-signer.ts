@@ -265,16 +265,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   }
 
   getEncoder(typeUrl: string): Encoder {
-    // This would typically use a registry of encoders
-    // For now, return a basic implementation
-    return {
-      typeUrl,
-      encode: () => {
-        // TODO: Implement proper message encoding based on typeUrl
-        return new Uint8Array();
-      },
-      fromPartial: (value: any) => value
-    };
+    return this.encoders.find(encoder => encoder.typeUrl === typeUrl);
   }
 
   async simulateByTxBody(
@@ -350,9 +341,37 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   }
 
   /**
-   * Convert CosmosBroadcastResponse to TxResponse
+   * Convert QueryTxResponse to TxResponse
+   * Transforms transaction query response into standard TxResponse format
    */
-  protected convertToTxResponse(response: QueryTxResponse): TxResponse {
-    throw new Error('implement convertToTxResponse later');
+  protected convertToTxResponse(response: QueryTxResponse): TxResponse | null {
+    if (!response) return null;
+
+    try {
+      // Create the Cosmos SDK TxResponse format
+      const result: TxResponse = {
+        height: BigInt(response.height || 0),
+        txhash: Buffer.from(response.hash).toString('hex').toUpperCase(),
+        codespace: response.txResult?.codespace || '',
+        code: response.txResult?.code || 0,
+        data: response.txResult?.data ? Buffer.from(response.txResult.data).toString('base64') : '',
+        rawLog: response.txResult?.log || '',
+        logs: [], // TODO: Convert events to proper log format
+        info: response.txResult?.info || '',
+        gasWanted: response.txResult?.gasWanted || BigInt(0),
+        gasUsed: response.txResult?.gasUsed || BigInt(0),
+        tx: {
+          typeUrl: '/cosmos.tx.v1beta1.Tx',
+          value: response.tx,
+        },
+        timestamp: '', // This should be populated by the caller
+        events: response.txResult?.events ? response.txResult.events as any[] : [],
+      };
+
+      return result;
+    } catch (error) {
+      console.error('Error converting QueryTxResponse to TxResponse:', error);
+      return null;
+    }
   }
 }
