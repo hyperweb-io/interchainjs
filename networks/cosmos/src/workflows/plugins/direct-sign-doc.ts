@@ -1,11 +1,10 @@
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { 
-   
   DirectSignDocInput, 
-  STAGING_KEYS,
-  CosmosDirectDoc
+  STAGING_KEYS
 } from '../types';
+import { CosmosDirectDoc } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 
 /**

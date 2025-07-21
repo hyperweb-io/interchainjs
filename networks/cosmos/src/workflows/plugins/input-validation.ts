@@ -1,8 +1,6 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { 
-  CosmosSignArgs,
-  STAGING_KEYS
-} from '../types';
+import { CosmosSignArgs } from '../../signers/types';
+import { STAGING_KEYS } from '../types';
 import { CosmosWorkflowBuilderContext } from '../context';
 
 /**

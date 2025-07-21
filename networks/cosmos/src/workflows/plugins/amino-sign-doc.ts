@@ -1,12 +1,14 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { 
-   
-  AminoSignDocInput, 
+import {
+
+  AminoSignDocInput,
   STAGING_KEYS,
+} from '../types';
+import {
   CosmosAminoDoc,
   CosmosMessage,
   AminoMessage
-} from '../types';
+} from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { fromUtf8 } from '@interchainjs/utils';
 
@@ -42,9 +44,9 @@ export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
     if (!address) {
       throw new Error('No addresses available');
     }
-    const accountNumber = options?.accountNumber ?? 
+    const accountNumber = options?.accountNumber ??
       await ctx.getSigner().getAccountNumber(address);
-    const sequence = options?.sequence ?? 
+    const sequence = options?.sequence ??
       await ctx.getSigner().getSequence(address);
 
     // Convert messages to amino format

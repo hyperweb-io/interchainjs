@@ -5,12 +5,13 @@ import { TxRaw, SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx'
 import { 
   CosmosSignArgs, 
   EncodedMessage 
-} from '../workflows/types';
+} from './types';
 import { DirectWorkflow } from '../workflows/direct-workflow';
 import { BaseCosmosSigner } from './base-signer';
 import { 
   CosmosSignerConfig, 
   CosmosSignedTransaction,
+  CosmosBroadcastOptions,
   OfflineSigner
 } from './types';
 import { ISigningClient } from '../types/signing-client';
@@ -80,7 +81,7 @@ export class DirectSigner extends BaseCosmosSigner implements ISigningClient {
     const signedTx: CosmosSignedTransaction = {
       signature,
       txBytes,
-      broadcast: this.createBroadcastFunction(txBytes)
+      broadcast: (options?: CosmosBroadcastOptions) => this.broadcast(signedTx, options)
     };
 
     return signedTx;

@@ -1,11 +1,10 @@
 import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { 
-   
   TxRawAssemblyInput, 
-  STAGING_KEYS,
-  CosmosTx
+  STAGING_KEYS
 } from '../types';
+import { CosmosTx } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 
 /**

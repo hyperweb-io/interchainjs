@@ -1,14 +1,7 @@
 import { ICryptoBytes, StdFee, Message, IWallet, isIWallet } from '@interchainjs/types';
-import { Tx, TxBody, SignerInfo, AuthInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { Tx, TxBody, SignerInfo, AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
-import {
-  ICosmosSigner,
-  CosmosSignArgs,
-  EncodedMessage,
-  CosmosMessage,
-  CosmosSignOptions
-} from '../workflows/types';
 import {
   CosmosSignerConfig,
   CosmosBroadcastOptions,
@@ -17,15 +10,14 @@ import {
   OfflineSigner,
   AccountData,
   isOfflineAminoSigner,
-  isOfflineDirectSigner
+  isOfflineDirectSigner,
+  ICosmosSigner,
+  CosmosSignArgs,
+  EncodedMessage
 } from './types';
-import { ISigningClient, AminoConverter, Encoder } from '../types/signing-client';
-import { SimulationResponse } from '@interchainjs/cosmos-types';
-import { toBase64, fromBase64, toHex, fromHex, BaseCryptoBytes } from '@interchainjs/utils';
-import { sha256 } from '@noble/hashes/sha256';
-import { sha512 } from '@noble/hashes/sha512';
-import { secp256k1 } from '@noble/curves/secp256k1';
-import { ed25519 } from '@noble/curves/ed25519';
+import { ISigningClient, Encoder } from '../types/signing-client';
+import { getSimulate, SimulationResponse } from '@interchainjs/cosmos-types';
+import { toHex } from '@interchainjs/utils';
 
 /**
  * Base implementation for Cosmos signers
@@ -72,60 +64,39 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     signed: CosmosSignedTransaction,
     options: CosmosBroadcastOptions = {}
   ): Promise<CosmosBroadcastResponse> {
-    const { mode = 'sync', checkTx = true, timeout = 30000 } = options;
+    const { mode = 'sync', timeoutMs = 30000, pollIntervalMs = 3000 } = options;
 
-    let response;
-    switch (mode) {
-      case 'sync':
-        response = await this.config.queryClient.broadcastTxSync({ tx: signed.txBytes });
-        break;
-      case 'async':
-        response = await this.config.queryClient.broadcastTxAsync({ tx: signed.txBytes });
-        break;
-      case 'commit':
-        response = await this.config.queryClient.broadcastTxCommit({ tx: signed.txBytes });
-        break;
-      default:
-        throw new Error(`Unsupported broadcast mode: ${mode}`);
-    }
+    const response = await this.broadcastArbitrary(signed.txBytes, { mode });
 
-    const result: CosmosBroadcastResponse = {
-      transactionHash: toHex(response.hash),
-      rawResponse: response
+    // Create the broadcast response with wait function
+    const broadcastResponse: CosmosBroadcastResponse = {
+      transactionHash: response.transactionHash,
+      rawResponse: response.rawResponse,
+      txResponse: response.rawResponse as any, // Type assertion for compatibility
+      wait: async (waitTimeoutMs?: number, waitPollIntervalMs?: number) => {
+        const timeout = waitTimeoutMs ?? timeoutMs;
+        const poll = waitPollIntervalMs ?? pollIntervalMs;
+        
+        const txResult = await this.waitForTransaction(response.transactionHash, timeout, poll);
+        return {
+          height: txResult.height,
+          txhash: response.transactionHash,
+          codespace: '',
+          code: txResult.code,
+          data: '',
+          rawLog: '',
+          logs: [],
+          info: '',
+          gasWanted: txResult.gasWanted,
+          gasUsed: txResult.gasUsed,
+          tx: undefined,
+          timestamp: '',
+          events: txResult.events
+        };
+      }
     };
 
-    // For sync and async modes, optionally check transaction result
-    if (checkTx && (mode === 'sync' || mode === 'async')) {
-      try {
-        // Wait for transaction to be included in a block
-        const txResult = await this.waitForTransaction(toHex(response.hash), timeout);
-        result.height = txResult.height;
-        result.gasUsed = BigInt(txResult.gasUsed || 0);
-        result.gasWanted = BigInt(txResult.gasWanted || 0);
-        result.code = txResult.code;
-        result.events = txResult.events;
-      } catch (error) {
-        // If we can't get the transaction result, still return the hash
-        console.warn('Failed to get transaction result:', error);
-      }
-    }
-
-    // For commit mode, extract additional information
-    if (mode === 'commit') {
-      const commitResponse = response as any;
-      result.height = commitResponse.height;
-
-      // Handle both deliverTx (Tendermint 0.34 & 0.37) and txResult (CometBFT 0.38)
-      const txData = commitResponse.deliverTx || commitResponse.txResult;
-      if (txData) {
-        result.gasUsed = BigInt(txData.gasUsed || 0);
-        result.gasWanted = BigInt(txData.gasWanted || 0);
-        result.code = txData.code;
-        result.events = txData.events;
-      }
-    }
-
-    return result;
+    return broadcastResponse;
   }
 
   /**
@@ -212,7 +183,15 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
 
     return {
       transactionHash: toHex(response.hash),
-      rawResponse: response
+      rawResponse: response,
+      txResponse: response,
+      wait: async (timeoutMs?: number, pollIntervalMs?: number) => {
+        const txResult = await this.waitForTransaction(toHex(response.hash), timeoutMs || 30000, pollIntervalMs || 3000);
+        return this.convertToTxResponse({
+          transactionHash: toHex(response.hash),
+          rawResponse: txResult
+        });
+      }
     };
   }
 
@@ -282,10 +261,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     }
   }
 
-  private async waitForTransaction(hash: string, timeout: number = 30000): Promise<any> {
+  private async waitForTransaction(hash: string, timeoutMs: number = 30000, pollIntervalMs = 3000): Promise<any> {
     const startTime = Date.now();
 
-    while (Date.now() - startTime < timeout) {
+    while (Date.now() - startTime < timeoutMs) {
       try {
         const txResponse = await this.config.queryClient.getTx(hash);
         if (txResponse) {
@@ -302,7 +281,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
       }
 
       // Wait 1 second before trying again
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, pollIntervalMs));
     }
 
     throw new Error(`Transaction ${hash} not found within timeout period`);
@@ -313,7 +292,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     // For now, return a basic implementation
     return {
       typeUrl,
-      encode: (value: any) => {
+      encode: () => {
         // TODO: Implement proper message encoding based on typeUrl
         return new Uint8Array();
       },
@@ -325,79 +304,56 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     txBody: TxBody,
     signerInfos: SignerInfo[]
   ): Promise<SimulationResponse> {
-    try {
-      // Build AuthInfo with signerInfos and empty fee for simulation
-      const authInfo = AuthInfo.fromPartial({
-        signerInfos: signerInfos,
-        fee: {
-          amount: [], // Empty for simulation
-          gasLimit: BigInt(0), // Will be determined by simulation
-        },
-      });
+    // Build AuthInfo with signerInfos and empty fee for simulation
+    const authInfo = AuthInfo.fromPartial({
+      signerInfos: signerInfos,
+      fee: {
+        amount: [], // Empty for simulation
+        gasLimit: BigInt(0), // Will be determined by simulation
+      },
+    });
 
-      // Build the complete transaction
-      const tx = Tx.fromPartial({
-        body: txBody,
-        authInfo: authInfo,
-        signatures: [], // Empty signatures for simulation
-      });
+    // Build the complete transaction
+    const tx = Tx.fromPartial({
+      body: txBody,
+      authInfo: authInfo,
+      signatures: [], // Empty signatures for simulation
+    });
 
-      // Encode transaction to bytes
-      const txBytes = Tx.encode(tx).finish();
+    // Encode transaction to bytes
+    const txBytes = Tx.encode(tx).finish();
 
-      // Create simulation request
-      const simulateRequest = {
-        txBytes: txBytes,
-      };
+    // Create simulation request
+    const simulateRequest = {
+      txBytes: txBytes,
+    };
 
-      // Use getSimulate from cosmos-types service
-      const { getSimulate } = require('@interchainjs/cosmos-types/cosmos/tx/v1beta1/service.rpc.func');
-      const response = await getSimulate(this.config.queryClient, simulateRequest);
+    // Use getSimulate from cosmos-types service
+    const response = await getSimulate(this.config.queryClient, simulateRequest);
 
-      // Map response to SimulationResponse
-      if (response.gasInfo) {
-        return {
-          gasInfo: {
-            gasUsed: response.gasInfo.gasUsed || BigInt(0),
-            gasWanted: response.gasInfo.gasWanted || BigInt(0),
-          },
-          result: response.result,
-        };
-      }
-
-      // Fallback if no gas info
+    // Map response to SimulationResponse
+    if (response.gasInfo) {
       return {
         gasInfo: {
-          gasUsed: BigInt(200000),
-          gasWanted: BigInt(200000),
+          gasUsed: response.gasInfo.gasUsed || BigInt(0),
+          gasWanted: response.gasInfo.gasWanted || BigInt(0),
         },
-      };
-    } catch (error) {
-      console.warn('Transaction simulation failed, using fallback gas estimate:', error);
-      
-      // Return fallback with higher gas estimate for safety
-      return {
-        gasInfo: {
-          gasUsed: BigInt(300000),
-          gasWanted: BigInt(300000),
-        },
+        result: response.result,
       };
     }
+
+    // Return empty gas info if no gas info in response
+    return {
+      gasInfo: {
+        gasUsed: BigInt(0),
+        gasWanted: BigInt(0),
+      },
+    };
   }
 
   get encodedPublicKey(): EncodedMessage {
     // This should be implemented by subclasses or cached from wallet
     throw new Error('encodedPublicKey must be implemented by subclass');
-  }
-
-  // Helper methods
-
-  protected createBroadcastFunction(
-    txBytes: Uint8Array
-  ): (options?: CosmosBroadcastOptions) => Promise<CosmosBroadcastResponse> {
-    return async (options: CosmosBroadcastOptions = {}) => {
-      return this.broadcastArbitrary(txBytes, options);
-    };
   }
 
   // ISigningClient implementation methods
@@ -422,21 +378,22 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   protected convertToTxResponse(response: any): TxResponse {
     // Extract the raw response data
     const rawResponse = response.rawResponse || response;
+    const txResult = response.txResult || rawResponse.txResult || {};
 
     return {
-      height: BigInt(response.height || rawResponse.height || 0),
+      height: BigInt(rawResponse.height || 0),
       txhash: response.transactionHash || rawResponse.hash || '',
-      codespace: rawResponse.codespace || '',
-      code: response.code || rawResponse.code || 0,
+      codespace: rawResponse.codespace || txResult.codespace || '',
+      code: rawResponse.code || txResult.code || 0,
       data: rawResponse.data || '',
-      rawLog: rawResponse.raw_log || rawResponse.rawLog || '',
-      logs: rawResponse.logs || [],
-      info: rawResponse.info || '',
-      gasWanted: BigInt(response.gasWanted || rawResponse.gas_wanted || rawResponse.gasWanted || 0),
-      gasUsed: BigInt(response.gasUsed || rawResponse.gas_used || rawResponse.gasUsed || 0),
+      rawLog: rawResponse.rawLog || rawResponse.raw_log || txResult.log || '',
+      logs: rawResponse.logs || txResult.logs || [],
+      info: rawResponse.info || txResult.info || '',
+      gasWanted: BigInt(rawResponse.gasWanted || rawResponse.gas_wanted || txResult.gasWanted || 0),
+      gasUsed: BigInt(rawResponse.gasUsed || rawResponse.gas_used || txResult.gasUsed || 0),
       tx: rawResponse.tx || undefined,
       timestamp: rawResponse.timestamp || '',
-      events: response.events || rawResponse.events || []
+      events: rawResponse.events || txResult.events || []
     };
   }
 }
