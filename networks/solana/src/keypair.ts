@@ -1,5 +1,6 @@
 import { PublicKey } from './types';
 import * as nacl from 'tweetnacl';
+import * as bs58 from 'bs58';
 
 export class Keypair {
   private _keypair: nacl.SignKeyPair;
@@ -30,6 +31,11 @@ export class Keypair {
     }
     const keypair = nacl.sign.keyPair.fromSeed(seed);
     return new Keypair(keypair);
+  }
+
+  static fromBase58(base58PrivateKey: string): Keypair {
+    const decoded = bs58.decode(base58PrivateKey);
+    return Keypair.fromSecretKey(decoded);
   }
 
   get publicKey(): PublicKey {

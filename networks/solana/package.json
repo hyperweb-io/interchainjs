@@ -8,7 +8,8 @@
     "build": "tsc",
     "test": "jest",
     "clean": "rm -rf dist",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test:ws": "jest src/__tests__/websocket.test.ts"
   },
   "keywords": [
     "solana",
@@ -20,10 +21,12 @@
   "license": "MIT",
   "dependencies": {
     "@types/bn.js": "^5.2.0",
+    "@types/ws": "^8.18.1",
     "bn.js": "^5.2.2",
     "bs58": "^5.0.0",
     "buffer": "^6.0.3",
-    "tweetnacl": "^1.0.3"
+    "tweetnacl": "^1.0.3",
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
