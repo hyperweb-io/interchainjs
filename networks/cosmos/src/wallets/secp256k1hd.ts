@@ -12,8 +12,9 @@ registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
 
 /**
  * HD Wallet implementation for secp256k1
- * This class provides compatibility with simple-wallet.ts functionality
- * while using proper HD derivation
+ * Extends BaseWallet for consistent wallet behavior across networks
+ * Implements IWallet, OfflineDirectSigner, and OfflineAminoSigner interfaces
+ * Uses proper HD derivation with configurable derivation paths
  */
 export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDirectSigner, OfflineAminoSigner {
   constructor(privateKeys: IPrivateKey[], config?: IWalletConfig) {
@@ -112,11 +113,10 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
   }
 
   /**
-   * Create wallet from mnemonic with single derivation path
+   * Create wallet from mnemonic with derivation paths from config
    * @param mnemonic BIP39 mnemonic phrase
-   * @param addressPrefix Bech32 address prefix (default: 'cosmos')
-   * @param hdPath HD derivation path (default: "m/44'/118'/0'/0/0")
-   * @returns Secp256k1HDWallet instance
+   * @param config Wallet configuration including derivation paths and address prefix
+   * @returns Promise<Secp256k1HDWallet> instance
    */
   static async fromMnemonic(
     mnemonic: string,

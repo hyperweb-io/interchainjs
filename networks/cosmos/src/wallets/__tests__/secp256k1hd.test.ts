@@ -26,7 +26,7 @@ describe('Secp256k1HDWallet', () => {
   describe('fromMnemonic', () => {
     it('should create wallet from valid mnemonic with single HD path', async () => {
       const hdPath = HDPath.cosmos(0, 0, 0);
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [hdPath], );
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: hdPath.toString(), prefix: 'cosmos' }] });
 
       expect(wallet).toBeInstanceOf(Secp256k1HDWallet);
       const accounts = await wallet.getAccounts();
@@ -43,7 +43,7 @@ describe('Secp256k1HDWallet', () => {
         HDPath.cosmos(0, 0, 2)
       ];
 
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, hdPaths);
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: hdPaths.map(path => ({ hdPath: path.toString(), prefix: 'cosmos' })) });
 
       const accounts = await wallet.getAccounts();
       expect(accounts).toHaveLength(3);
@@ -56,13 +56,13 @@ describe('Secp256k1HDWallet', () => {
       const hdPath = HDPath.cosmos(0, 0, 0);
 
       await expect(
-        Secp256k1HDWallet.fromMnemonic(invalidMnemonic, [hdPath])
+        Secp256k1HDWallet.fromMnemonic(invalidMnemonic, { derivations: [{ hdPath: hdPath.toString(), prefix: 'cosmos' }] })
       ).rejects.toThrow('Invalid mnemonic');
     });
 
     it('should use custom address prefix', async () => {
       const hdPath = HDPath.cosmos(0, 0, 0);
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [hdPath], { addressPrefix: 'osmo' });
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: hdPath.toString(), prefix: 'osmo' }] });
 
       const accounts = await wallet.getAccounts();
       expect(accounts[0].address).toBe(EXPECTED_ADDRESSES.osmosis.path0);
@@ -73,9 +73,9 @@ describe('Secp256k1HDWallet', () => {
       const cosmosPath = HDPath.cosmos(0, 0, 0);
       const ethPath = HDPath.eth(0, 0, 0);
 
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [cosmosPath], );
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: cosmosPath.toString(), prefix: 'cosmos' }] });
 
-      const ethWallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [ethPath], );
+      const ethWallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: ethPath.toString(), prefix: 'cosmos' }] });
 
       const cosmosAccounts = await wallet.getAccounts();
       const ethAccounts = await ethWallet.getAccounts();
@@ -87,7 +87,7 @@ describe('Secp256k1HDWallet', () => {
   describe('getAccounts', () => {
     beforeEach(async () => {
       const hdPath = HDPath.cosmos(0, 0, 0);
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [hdPath], );
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: hdPath.toString(), prefix: 'cosmos' }] });
     });
 
     it('should return accounts in correct format', async () => {
@@ -104,7 +104,7 @@ describe('Secp256k1HDWallet', () => {
     });
 
     it('should return empty array for wallet with no accounts', async () => {
-      const emptyWallet = new Secp256k1HDWallet([], 'cosmos');
+      const emptyWallet = new Secp256k1HDWallet([], { derivations: [] });
       const accounts = await emptyWallet.getAccounts();
       expect(accounts).toEqual([]);
     });
@@ -113,7 +113,7 @@ describe('Secp256k1HDWallet', () => {
   describe('signDirect', () => {
     beforeEach(async () => {
       const hdPath = HDPath.cosmos(0, 0, 0);
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [hdPath], );
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: hdPath.toString(), prefix: 'cosmos' }] });
     });
 
     it('should sign transaction with valid address', async () => {
@@ -153,7 +153,7 @@ describe('Secp256k1HDWallet', () => {
   describe('signAmino', () => {
     beforeEach(async () => {
       const hdPath = HDPath.cosmos(0, 0, 0);
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, [hdPath], );
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: [{ hdPath: hdPath.toString(), prefix: 'cosmos' }] });
     });
 
     it('should sign amino transaction with valid address', async () => {
@@ -201,7 +201,7 @@ describe('Secp256k1HDWallet', () => {
         HDPath.cosmos(0, 0, 1),
         HDPath.cosmos(0, 0, 2)
       ];
-      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, hdPaths);
+      wallet = await Secp256k1HDWallet.fromMnemonic(TEST_MNEMONIC, { derivations: hdPaths.map(path => ({ hdPath: path.toString(), prefix: 'cosmos' })) });
     });
 
     it('should get account by valid index', async () => {
@@ -247,9 +247,9 @@ describe('Secp256k1HDWallet', () => {
       const path2 = HDPath.cosmos(0, 0, 1);
       const path3 = HDPath.cosmos(1, 0, 0);
 
-      const wallet1 = await Secp256k1HDWallet.fromMnemonic(mnemonic, [path1]);
-      const wallet2 = await Secp256k1HDWallet.fromMnemonic(mnemonic, [path2]);
-      const wallet3 = await Secp256k1HDWallet.fromMnemonic(mnemonic, [path3]);
+      const wallet1 = await Secp256k1HDWallet.fromMnemonic(mnemonic, { derivations: [{ hdPath: path1.toString(), prefix: 'cosmos' }] });
+      const wallet2 = await Secp256k1HDWallet.fromMnemonic(mnemonic, { derivations: [{ hdPath: path2.toString(), prefix: 'cosmos' }] });
+      const wallet3 = await Secp256k1HDWallet.fromMnemonic(mnemonic, { derivations: [{ hdPath: path3.toString(), prefix: 'cosmos' }] });
 
       const addr1 = (await wallet1.getAccounts())[0].address;
       const addr2 = (await wallet2.getAccounts())[0].address;
