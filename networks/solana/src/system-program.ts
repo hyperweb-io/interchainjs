@@ -1,7 +1,7 @@
 import { PublicKey, TransactionInstruction } from "./types";
 
 export class SystemProgram {
-  static readonly programId = new PublicKey(new Uint8Array(32)); // All zeros - System Program ID
+  static readonly programId = new PublicKey('11111111111111111111111111111111'); // System Program ID
 
   static transfer(params: {
     fromPubkey: PublicKey;

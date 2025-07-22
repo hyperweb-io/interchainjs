@@ -9,7 +9,9 @@
     "test": "jest",
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
-    "test:ws": "jest src/__tests__/websocket.test.ts"
+    "test:ws": "jest src/__tests__/websocket.test.ts",
+    "test:spl": "jest src/__tests__/token.test.ts",
+    "test:integration": "jest src/__tests__/integration.test.ts"
   },
   "keywords": [
     "solana",

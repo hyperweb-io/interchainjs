@@ -9,6 +9,14 @@ export { PhantomSigner, getPhantomWallet, isPhantomInstalled } from './phantom-s
 export { PhantomSigningClient } from './phantom-client';
 export { WebSocketConnection } from './websocket-connection';
 
+// SPL Token exports
+export { TokenProgram } from './token-program';
+export { TokenInstructions } from './token-instructions';
+export { AssociatedTokenAccount } from './associated-token-account';
+export { TokenMath } from './token-math';
+export * from './token-types';
+export * from './token-constants';
+
 export * from './types';
 
 // Constants

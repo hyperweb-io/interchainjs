@@ -1,5 +1,15 @@
 import { PublicKey, AccountInfo, RpcResponse } from './types';
 import { Transaction } from './transaction';
+import { TokenProgram } from './token-program';
+import { 
+  TokenAccount, 
+  TokenMint, 
+  ParsedTokenAccount,
+  TokenLargestAccount,
+  TokenSupply,
+  TokenBalance
+} from './token-types';
+import { TOKEN_PROGRAM_ID } from './token-constants';
 
 export interface ConnectionConfig {
   endpoint: string;
@@ -139,5 +149,163 @@ export class Connection {
       { commitment: this.commitment },
     ]);
     return result;
+  }
+
+  // SPL Token Methods
+  
+  /**
+   * Get parsed token account information
+   */
+  async getParsedTokenAccountsByOwner(
+    ownerAddress: PublicKey,
+    filter?: { mint?: PublicKey; programId?: PublicKey }
+  ): Promise<ParsedTokenAccount[]> {
+    const filterParam = filter?.mint
+      ? { mint: filter.mint.toString() }
+      : filter?.programId
+        ? { programId: filter.programId.toString() }
+        : { programId: TOKEN_PROGRAM_ID.toString() };
+
+    const result = await this.rpcRequest<RpcResponse<ParsedTokenAccount[]>>('getTokenAccountsByOwner', [
+      ownerAddress.toString(),
+      filterParam,
+      {
+        encoding: 'jsonParsed',
+        commitment: this.commitment,
+      },
+    ]);
+    
+    return result.value;
+  }
+
+  /**
+   * Get token account balance
+   */
+  async getTokenAccountBalance(tokenAccount: PublicKey): Promise<{ amount: string; decimals: number; uiAmount: number }> {
+    const result = await this.rpcRequest<RpcResponse<{ amount: string; decimals: number; uiAmount: number }>>('getTokenAccountBalance', [
+      tokenAccount.toString(),
+      { commitment: this.commitment },
+    ]);
+    
+    return result.value;
+  }
+
+  /**
+   * Get token supply information
+   */
+  async getTokenSupply(mint: PublicKey): Promise<TokenSupply> {
+    const result = await this.rpcRequest<RpcResponse<TokenSupply>>('getTokenSupply', [
+      mint.toString(),
+      { commitment: this.commitment },
+    ]);
+    
+    return result.value;
+  }
+
+  /**
+   * Get token largest accounts
+   */
+  async getTokenLargestAccounts(mint: PublicKey): Promise<TokenLargestAccount[]> {
+    const result = await this.rpcRequest<RpcResponse<TokenLargestAccount[]>>('getTokenLargestAccounts', [
+      mint.toString(),
+      { commitment: this.commitment },
+    ]);
+    
+    return result.value;
+  }
+
+  /**
+   * Parse token mint account data from raw account info
+   */
+  async getTokenMintInfo(mint: PublicKey): Promise<TokenMint | null> {
+    const accountInfo = await this.getAccountInfo(mint);
+    
+    if (!accountInfo || !accountInfo.data) {
+      return null;
+    }
+    
+    // Decode base64 data - accountInfo.data is [data, encoding] format
+    const buffer = Buffer.from(accountInfo.data[0], 'base64');
+    
+    try {
+      return TokenProgram.parseMintData(buffer);
+    } catch (error) {
+      console.error('Error parsing mint data:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Parse token account data from raw account info
+   */
+  async getTokenAccountInfo(tokenAccount: PublicKey): Promise<TokenAccount | null> {
+    const accountInfo = await this.getAccountInfo(tokenAccount);
+    
+    if (!accountInfo || !accountInfo.data) {
+      return null;
+    }
+    
+    // Decode base64 data - accountInfo.data is [data, encoding] format
+    const buffer = Buffer.from(accountInfo.data[0], 'base64');
+    
+    try {
+      return TokenProgram.parseAccountData(buffer);
+    } catch (error) {
+      console.error('Error parsing token account data:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Get all token accounts for a specific mint
+   */
+  async getTokenAccountsByMint(mint: PublicKey): Promise<ParsedTokenAccount[]> {
+    const result = await this.rpcRequest<RpcResponse<ParsedTokenAccount[]>>('getProgramAccounts', [
+      TOKEN_PROGRAM_ID.toString(),
+      {
+        encoding: 'jsonParsed',
+        commitment: this.commitment,
+        filters: [
+          {
+            dataSize: 165, // Token account size
+          },
+          {
+            memcmp: {
+              offset: 0,
+              bytes: mint.toString(),
+            },
+          },
+        ],
+      },
+    ]);
+    
+    return result.value;
+  }
+
+  /**
+   * Get token balances for a transaction
+   */
+  async getTokenBalances(signature: string): Promise<{
+    preTokenBalances: TokenBalance[];
+    postTokenBalances: TokenBalance[];
+  }> {
+    const result = await this.rpcRequest<{
+      meta: {
+        preTokenBalances: TokenBalance[];
+        postTokenBalances: TokenBalance[];
+      };
+    }>('getTransaction', [
+      signature,
+      {
+        encoding: 'jsonParsed',
+        commitment: this.commitment,
+        maxSupportedTransactionVersion: 0,
+      },
+    ]);
+    
+    return {
+      preTokenBalances: result.meta.preTokenBalances || [],
+      postTokenBalances: result.meta.postTokenBalances || [],
+    };
   }
 }
