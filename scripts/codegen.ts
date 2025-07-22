@@ -127,6 +127,7 @@ telescope({
           "cosmos/auth/v1beta1/query.proto",
           "cosmos/bank/v1beta1/bank.proto",
           "cosmos/bank/v1beta1/query.proto",
+          "cosmos/bank/v1beta1/tx.proto",
           "cosmos/gov/v1beta1/gov.proto",
           "cosmos/gov/v1beta1/query.proto",
           "cosmos/staking/v1beta1/staking.proto",

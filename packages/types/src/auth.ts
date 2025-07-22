@@ -1,4 +1,5 @@
 import { IHDPath } from './hdpath';
+import { AddrDerivation } from './wallet';
 
 export interface ICryptoBytes {
   value: Uint8Array;
@@ -46,7 +47,7 @@ export interface IWalletConfig {
   privateKeyConfig?: IPrivateKeyConfig;
   publicKeyConfig?: IPublicKeyConfig;  // Optional, only for compression setting
   addressConfig?: IAddressConfig;
-  addressPrefix?: string;
+  derivations: AddrDerivation[],
 }
 
 // Address generation strategies

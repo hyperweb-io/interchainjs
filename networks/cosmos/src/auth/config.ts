@@ -1,4 +1,4 @@
-import { IWalletConfig } from '@interchainjs/types';
+import { AddrDerivation, HDPath, IWalletConfig } from '@interchainjs/types';
 
 /**
  * Creates a wallet configuration for Cosmos chains
@@ -6,7 +6,9 @@ import { IWalletConfig } from '@interchainjs/types';
  * @param passphrase - Optional passphrase for key derivation
  * @returns Wallet configuration object
  */
-export function createCosmosConfig(prefix: string = 'cosmos', passphrase?: string): IWalletConfig {
+export function createCosmosConfig(derivations: AddrDerivation[] = [], passphrase?: string): IWalletConfig {
+  const addrDerivation = derivations.length > 0 ? derivations : [{ hdPath: HDPath.cosmos().toString(), prefix: 'cosmos' }];
+
   return {
     privateKeyConfig: {
       algo: 'secp256k1',
@@ -18,6 +20,6 @@ export function createCosmosConfig(prefix: string = 'cosmos', passphrase?: strin
     addressConfig: {
       strategy: 'cosmos'
     },
-    addressPrefix: prefix
+    derivations: addrDerivation
   };
 }

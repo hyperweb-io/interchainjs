@@ -1,4 +1,4 @@
-import { IWalletConfig, IAddressStrategy } from '@interchainjs/types';
+import { IWalletConfig, IAddressStrategy, AddrDerivation } from '@interchainjs/types';
 
 /**
  * Creates a generic wallet configuration
@@ -10,7 +10,7 @@ export function createWalletConfig(options: {
   passphrase?: string;
   compressed?: boolean;
   strategy: IAddressStrategy | string;
-  addressPrefix?: string;
+  derivations: AddrDerivation[];
 }): IWalletConfig {
   return {
     privateKeyConfig: {
@@ -23,6 +23,6 @@ export function createWalletConfig(options: {
     addressConfig: {
       strategy: options.strategy
     },
-    addressPrefix: options.addressPrefix
+    derivations: options.derivations
   };
 }

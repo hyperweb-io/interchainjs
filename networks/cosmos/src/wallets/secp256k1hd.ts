@@ -1,10 +1,11 @@
 import { AccountData, DirectSignResponse, AminoSignResponse, OfflineDirectSigner, OfflineAminoSigner } from '../signers/types';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { StdSignDoc, IPrivateKey, IHDPath, IWalletConfig, IWallet, IAccount } from '@interchainjs/types';
+import { StdSignDoc, IPrivateKey, IHDPath, IWalletConfig, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
 import * as bip39 from 'bip39';
 import { BaseWallet, PrivateKey, registerAddressStrategy } from '@interchainjs/auth';
 import { createCosmosConfig } from '../auth/config';
 import { COSMOS_ADDRESS_STRATEGY } from '../auth/strategy';
+import deepmerge from 'deepmerge';
 
 // Register the cosmos address strategy
 registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
@@ -15,8 +16,10 @@ registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
  * while using proper HD derivation
  */
 export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDirectSigner, OfflineAminoSigner {
-  constructor(privateKeys: IPrivateKey[], addressPrefix: string = 'cosmos') {
-    const config = createCosmosConfig(addressPrefix);
+  constructor(privateKeys: IPrivateKey[], config?: IWalletConfig) {
+    const preset = createCosmosConfig(config?.derivations, config?.privateKeyConfig?.passphrase);
+    config = deepmerge(preset, config || {});
+
     super(privateKeys, config);
   }
 
@@ -117,21 +120,19 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
    */
   static async fromMnemonic(
     mnemonic: string,
-    hdPaths: IHDPath[],
-    config?: IWalletConfig,
+    config?: IWalletConfig
   ): Promise<Secp256k1HDWallet> {
     if (!bip39.validateMnemonic(mnemonic)) {
       throw new Error('Invalid mnemonic');
     }
+    const presetCosmosConfig = createCosmosConfig(config?.derivations, config?.privateKeyConfig?.passphrase);
 
-    const addressPrefix = config?.addressPrefix || 'cosmos';
+    const walletConfig = deepmerge(presetCosmosConfig, config || {});
+    const privateKeyConfig = walletConfig.privateKeyConfig;
 
-    const presetCosmosConfig = createCosmosConfig(addressPrefix);
-
-    const walletConfig = config ?? presetCosmosConfig;
-    const privateKeyConfig = walletConfig.privateKeyConfig ?? presetCosmosConfig.privateKeyConfig;
-    const prefix = addressPrefix || walletConfig.addressPrefix || presetCosmosConfig.addressPrefix;
-
+    const hdPaths = config.derivations.map(
+      (derivation: AddrDerivation) => HDPath.fromString(derivation.hdPath)
+    );
     // Use PrivateKey.fromMnemonic to create private keys
     const privateKeys = await PrivateKey.fromMnemonic(
       mnemonic,
@@ -139,6 +140,6 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
       privateKeyConfig
     );
 
-    return new Secp256k1HDWallet(privateKeys, prefix);
+    return new Secp256k1HDWallet(privateKeys, walletConfig);
   }
 }

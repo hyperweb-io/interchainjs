@@ -5,6 +5,8 @@ import {
   IAccount,
   ICryptoBytes,
   IHDPath,
+  AddrDerivation,
+  HDPath,
 } from '@interchainjs/types';
 import { PrivateKey } from './private-key';
 
@@ -35,7 +37,7 @@ export class BaseWallet implements IWallet {
     const publicKey = privateKey.toPublicKey(this.config.publicKeyConfig);
     const address = publicKey.toAddress!(
       this.config.addressConfig,
-      this.config.addressPrefix
+      this.config.derivations[index].prefix
     );
 
     return {
@@ -59,9 +61,15 @@ export class BaseWallet implements IWallet {
 
   static async fromMnemonic(
     mnemonic: string,
-    hdPaths: IHDPath[],
-    config: IWalletConfig
+    config?: IWalletConfig
   ): Promise<IWallet> {
+    if(!config?.derivations || config?.derivations.length === 0) {
+      throw new Error("Wallet configuration must include at least one derivation path.");
+    }
+
+    const hdPaths = config.derivations.map(
+      (derivation: AddrDerivation) => HDPath.fromString(derivation.hdPath)
+    );
     const privateKeys = await PrivateKey.fromMnemonic(
       mnemonic,
       hdPaths,
