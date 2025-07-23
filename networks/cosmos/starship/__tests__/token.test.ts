@@ -1,3 +1,5 @@
+/// <reference types="@types/jest" />
+
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';

@@ -51,10 +51,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   }
 
   async signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes> {
-    if (isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth)) {
-      throw new Error('Offline signers do not support signArbitrary');
-    } else if (isIWallet(this.auth)) {
+    if (isIWallet(this.auth)) {
       return this.auth.signByIndex(data, index);
+    } else if (isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth)) {
+      throw new Error('Offline signers do not support signArbitrary');
     } else {
       throw new Error('Invalid auth type');
     }
