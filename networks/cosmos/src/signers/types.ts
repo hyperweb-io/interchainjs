@@ -164,6 +164,21 @@ export interface ICosmosSigner extends IUniSigner<
   addConverters?(converters: AminoConverter[]): void;
   getConverterFromTypeUrl?(typeUrl: string): AminoConverter;
   simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<SimulationResponse>;
+  
+  // Offline signer detection methods
+  isOfflineSigner(): boolean;
+  isOfflineAminoSigner(): boolean;
+  isOfflineDirectSigner(): boolean;
+  
+  // Offline signing methods
+  signDirect(signerAddress: string, signDoc: SignDoc): Promise<{
+    signed: SignDoc;
+    signature: Uint8Array;
+  }>;
+  signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<{
+    signed: StdSignDoc;
+    signature: Uint8Array;
+  }>;
 }
 
 // Cosmos-specific message types

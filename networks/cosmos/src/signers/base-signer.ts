@@ -1,5 +1,5 @@
-import { ICryptoBytes, StdFee, Message, IWallet, isIWallet } from '@interchainjs/types';
-import { Tx, TxBody, SignerInfo, AuthInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { ICryptoBytes, StdFee, Message, IWallet, isIWallet, StdSignDoc } from '@interchainjs/types';
+import { Tx, TxBody, SignerInfo, AuthInfo, SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
 import { TxResponse as QueryTxResponse } from '../types';
@@ -323,6 +323,63 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   }
 
   // ISigningClient implementation methods
+
+  /**
+   * Check if this signer is an offline signer
+   */
+  isOfflineSigner(): boolean {
+    return isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth);
+  }
+
+  /**
+   * Check if this signer is an offline amino signer
+   */
+  isOfflineAminoSigner(): boolean {
+    return isOfflineAminoSigner(this.auth);
+  }
+
+  /**
+   * Check if this signer is an offline direct signer
+   */
+  isOfflineDirectSigner(): boolean {
+    return isOfflineDirectSigner(this.auth);
+  }
+
+  /**
+   * Sign using offline direct signer
+   */
+  async signDirect(signerAddress: string, signDoc: SignDoc): Promise<{
+    signed: SignDoc;
+    signature: Uint8Array;
+  }> {
+    if (!isOfflineDirectSigner(this.auth)) {
+      throw new Error('Signer does not support direct signing');
+    }
+    
+    const response = await this.auth.signDirect(signerAddress, signDoc);
+    return {
+      signed: response.signed,
+      signature: response.signature,
+    };
+  }
+
+  /**
+   * Sign using offline amino signer
+   */
+  async signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<{
+    signed: StdSignDoc;
+    signature: Uint8Array;
+  }> {
+    if (!isOfflineAminoSigner(this.auth)) {
+      throw new Error('Signer does not support amino signing');
+    }
+    
+    const response = await this.auth.signAmino(signerAddress, signDoc);
+    return {
+      signed: response.signed,
+      signature: response.signature,
+    };
+  }
 
   /**
    * Register encoders
