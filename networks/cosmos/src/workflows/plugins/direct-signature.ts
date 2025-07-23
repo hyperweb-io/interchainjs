@@ -28,10 +28,20 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
     params: SignatureInput
   ): Promise<void> {
     const signer = ctx.getSigner();
+    const signDoc = ctx.getStagingData<SignDoc>(STAGING_KEYS.SIGN_DOC);
     
-    // Always use signArbitrary for the cosmos signer interface
-    const signDocBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.SIGN_DOC_BYTES);
-    const signature = await signer.signArbitrary(signDocBytes);
-    ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
+    // Handle offline signers (DirectSigner) which have signDirect method
+    if (isOfflineDirectSigner(signer)) {
+      const accounts = await signer.getAccounts();
+      const account = accounts[0]; // Use first account
+      
+      const signatureResult = await signer.signDirect(account.address, signDoc);
+      ctx.setStagingData(STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(signatureResult.signature));
+    } else {
+      // Fallback to signArbitrary for other interfaces
+      const signDocBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.SIGN_DOC_BYTES);
+      const signature = await signer.signArbitrary(signDocBytes);
+      ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
+    }
   }
 }

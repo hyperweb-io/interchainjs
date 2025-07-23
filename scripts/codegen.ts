@@ -174,19 +174,19 @@ telescope({
     process.exit(1);
   });
 
-// // interchainjs
-// telescope({
-//   protoDirs: [join(__dirname, '../protos/interchainjs')],
-//   outPath: join(__dirname, '../libs/interchainjs/src'),
-//   options: options.options
-// })
-//   .then(() => {
-//     console.log('✨ all done!');
-//   })
-//   .catch((e) => {
-//     console.error(e);
-//     process.exit(1);
-//   });
+// interchainjs
+telescope({
+  protoDirs: [join(__dirname, '../protos/interchainjs')],
+  outPath: join(__dirname, '../libs/interchainjs/src'),
+  options: options.options
+})
+  .then(() => {
+    console.log('✨ all done!');
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
 
 // // interchain-vue
 // telescope({

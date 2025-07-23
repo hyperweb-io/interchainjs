@@ -3,13 +3,14 @@ import './setup.test';
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
-import { CosmosQueryClient, DirectSigner, HttpRpcClient, OfflineDirectSigner } from '@interchainjs/cosmos';
+import { CosmosQueryClient, AminoSigner, DirectSigner, HttpRpcClient, OfflineDirectSigner } from '@interchainjs/cosmos';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { send } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx.rpc.func";
 import { useChain } from 'starshipjs';
 import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
+import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
+import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -48,6 +49,7 @@ describe('Token transfers', () => {
         }))
       }
     );
+    protoSigner = wallet;
     const accounts = await protoSigner.getAccounts();
     address = accounts[0].address;
     address2 = accounts[1].address;
@@ -56,9 +58,14 @@ describe('Token transfers', () => {
   });
 
   it('send osmosis token to address', async () => {
-    const signer = new DirectSigner(wallet, {
-      queryClient: client
+    // Use wallet directly as it implements OfflineDirectSigner interface
+    const signer: DirectSigner = new DirectSigner(wallet, {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
     });
+
+    signer.addEncoders([MsgSend]);
 
     const fee = {
       amount: [
@@ -75,18 +82,42 @@ describe('Token transfers', () => {
       denom,
     };
 
-    // Transfer uosmo tokens from faceut
-    await send(
-      signer,
-      address,
-      { fromAddress: address, toAddress: address2, amount: [token] },
-      fee,
-      'send tokens test'
-    );
+    try {
+      console.log('Debug: address =', address);
+      console.log('Debug: address2 =', address2);
+      console.log('Debug: token =', token);
+      console.log('Debug: denom =', denom);
+      console.log('Debug: commonPrefix =', commonPrefix);
 
-    const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+      // Create a proper MsgSend message - don't encode it manually
+      const msgSend = MsgSend.fromPartial({
+        fromAddress: address,
+        toAddress: address2,
+        amount: [token]
+      });
 
-    expect(balance!.amount).toEqual(token.amount);
-    expect(balance!.denom).toEqual(denom);
-  }, 10000);
+      console.log('Debug: msgSend =', msgSend);
+
+      // Create message with proper type
+      const message = {
+        typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+        value: msgSend
+      };
+
+      // Sign and broadcast the transaction
+      const result = await signer.signAndBroadcast(address, [message], fee, 'send tokens test');
+      console.log('Transaction result:', result);
+
+      // Wait for transaction to be confirmed
+      await result.wait();
+
+      const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+
+      expect(balance!.amount).toEqual(token.amount);
+      expect(balance!.denom).toEqual(denom);
+    } catch (error) {
+      console.error('Error sending tokens:', error);
+      throw error;
+    }
+  }, 30000);
 });
