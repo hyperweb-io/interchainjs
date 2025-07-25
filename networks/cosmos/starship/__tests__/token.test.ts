@@ -87,14 +87,12 @@ describe('Token transfers', () => {
 
     try {
 
-      // Create a proper MsgSend message - don't encode it manually
+      // Create a proper MsgSend message - use correct field names
       const msgSend = MsgSend.fromPartial({
         fromAddress: address,
         toAddress: address2,
         amount: [token]
       });
-
-      console.log('Debug: msgSend =', msgSend);
 
       // Create message with proper type
       const message = {

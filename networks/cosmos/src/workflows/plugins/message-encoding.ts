@@ -33,10 +33,21 @@ export class MessageEncodingPlugin extends BaseWorkflowBuilderPlugin<
     }
 
     // Encode messages
-    const encodedMessages: EncodedMessage[] = messages.map(({ typeUrl, value }) => ({
-      typeUrl,
-      value: ctx.getSigner().getEncoder(typeUrl).encode(value),
-    }));
+    const encodedMessages: EncodedMessage[] = messages.map(({ typeUrl, value }) => {
+      // Get encoder for this type
+      const encoder = ctx.getSigner().getEncoder(typeUrl);
+      if (!encoder) {
+        throw new Error(`No encoder found for type: ${typeUrl}`);
+      }
+      
+      // Ensure value is properly encoded
+      const encodedValue = encoder.encode(value);
+      
+      return {
+        typeUrl,
+        value: encodedValue,
+      };
+    });
 
     // Create TxBody
     const txBody = TxBody.fromPartial({
