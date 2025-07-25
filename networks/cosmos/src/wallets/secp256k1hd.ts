@@ -1,6 +1,7 @@
 import { AccountData, DirectSignResponse, AminoSignResponse, OfflineDirectSigner, OfflineAminoSigner } from '../signers/types';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { StdSignDoc, IPrivateKey, IHDPath, IWalletConfig, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
+import { StdSignDoc, IPrivateKey, IHDPath, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
+import { ICosmosWalletConfig } from './types';
 import * as bip39 from 'bip39';
 import { BaseWallet, PrivateKey, registerAddressStrategy } from '@interchainjs/auth';
 import { createCosmosConfig } from '../auth/config';
@@ -17,11 +18,14 @@ registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
  * Uses proper HD derivation with configurable derivation paths
  */
 export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDirectSigner, OfflineAminoSigner {
-  constructor(privateKeys: IPrivateKey[], config?: IWalletConfig) {
+  private cosmosConfig: ICosmosWalletConfig;
+
+  constructor(privateKeys: IPrivateKey[], config?: ICosmosWalletConfig) {
     const preset = createCosmosConfig(config?.derivations, config?.privateKeyConfig?.passphrase);
     config = deepmerge(preset, config || {});
 
     super(privateKeys, config);
+    this.cosmosConfig = config;
   }
 
 
@@ -52,8 +56,17 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
     // Serialize the sign doc
     const signBytes = SignDoc.encode(signDoc).finish();
 
-    // Sign using BaseWallet's signByIndex method
-    const signatureResult = await this.signByIndex(signBytes, accountIndex);
+    // Apply hashing based on configuration
+    let messageToSign: Uint8Array;
+    if (this.cosmosConfig.hashSignDoc) {
+      // Use the configured hash function
+      messageToSign = this.cosmosConfig.hashSignDoc(signBytes);
+    } else {
+      messageToSign = signBytes;
+    }
+
+    // Sign the message using BaseWallet's signByIndex method
+    const signatureResult = await this.signByIndex(messageToSign, accountIndex);
 
     return {
       signed: signDoc,
@@ -73,15 +86,20 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
       throw new Error(`Address ${signerAddress} not found in wallet`);
     }
 
-    // Serialize the sign doc to canonical JSON and hash it
+    // Serialize the sign doc to canonical JSON
     const signBytes = new TextEncoder().encode(this.serializeSignDoc(signDoc));
 
-    // Hash the message using SHA256 (standard for Cosmos amino signing)
-    const { Sha256 } = await import('@interchainjs/crypto');
-    const hash = new Sha256(signBytes).digest();
+    // Apply hashing based on configuration
+    let messageToSign: Uint8Array;
+    if (this.cosmosConfig.hashSignDoc) {
+      // Use the configured hash function
+      messageToSign = this.cosmosConfig.hashSignDoc(signBytes);
+    } else {
+      messageToSign = signBytes;
+    }
 
-    // Sign the hash using BaseWallet's signByIndex method
-    const signatureResult = await this.signByIndex(hash, accountIndex);
+    // Sign the message using BaseWallet's signByIndex method
+    const signatureResult = await this.signByIndex(messageToSign, accountIndex);
 
     return {
       signed: signDoc,
@@ -120,7 +138,7 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
    */
   static async fromMnemonic(
     mnemonic: string,
-    config?: IWalletConfig
+    config?: ICosmosWalletConfig
   ): Promise<Secp256k1HDWallet> {
     if (!bip39.validateMnemonic(mnemonic)) {
       throw new Error('Invalid mnemonic');
