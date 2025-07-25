@@ -1,7 +1,7 @@
 import { SignerInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { PubKey } from '@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { 
-   
   SignerInfoInput, 
   STAGING_KEYS
 } from '../types';
@@ -22,23 +22,34 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: SignerInfoInput
   ): Promise<void> {
-    // Get sequence from options or query
     const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
     const signerAddresses = await ctx.getSigner().getAddresses();
     const signerAddress = signerAddresses[0];
     if (!signerAddress) {
       throw new Error('No addresses available');
     }
+    
     const sequence = options?.sequence ?? 
       await ctx.getSigner().getSequence(signerAddress);
 
     // Get sign mode from options or use default
     const signMode = options?.signMode ?? params.signMode;
 
-    // Create signer info - use the same address we already have
+    // Get the actual public key from the signer
+    const accounts = await ctx.getSigner().getAccounts();
+    const account = accounts[0];
+    if (!account || !account.pubkey) {
+      throw new Error('No public key available for account');
+    }
     
-    // For now, create a basic public key - in real implementation this would come from the signer
-    const publicKey = { typeUrl: '/cosmos.crypto.secp256k1.PubKey', value: new Uint8Array(33) }; // Placeholder
+    // Encode the public key using the Cosmos PubKey format
+    const pubKey = PubKey.fromPartial({ key: account.pubkey });
+    const pubKeyBytes = PubKey.encode(pubKey).finish();
+    
+    const publicKey = {
+      typeUrl: '/cosmos.crypto.secp256k1.PubKey',
+      value: pubKeyBytes
+    };
     
     const signerInfo = SignerInfo.fromPartial({
       publicKey,

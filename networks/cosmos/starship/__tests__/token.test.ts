@@ -9,9 +9,9 @@ import { CosmosQueryClient, AminoSigner, DirectSigner, HttpRpcClient, OfflineDir
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+
 import { useChain } from 'starshipjs';
 import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
-import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
@@ -36,8 +36,8 @@ describe('Token transfers', () => {
     const rpcClient = new HttpRpcClient(rpcEndpoint);
     const adapter = new Comet38Adapter();
     client = new CosmosQueryClient(rpcClient, adapter);
+    
     denom = (await getCoin()).base;
-
     commonPrefix = chainInfo?.chain?.bech32_prefix;
 
     const mnemonic = generateMnemonic();
@@ -69,6 +69,7 @@ describe('Token transfers', () => {
 
     signer.addEncoders([MsgSend]);
 
+
     const fee = {
       amount: [
         {
@@ -85,11 +86,6 @@ describe('Token transfers', () => {
     };
 
     try {
-      console.log('Debug: address =', address);
-      console.log('Debug: address2 =', address2);
-      console.log('Debug: token =', token);
-      console.log('Debug: denom =', denom);
-      console.log('Debug: commonPrefix =', commonPrefix);
 
       // Create a proper MsgSend message - don't encode it manually
       const msgSend = MsgSend.fromPartial({
@@ -106,7 +102,6 @@ describe('Token transfers', () => {
         value: msgSend
       };
 
-      // Sign and broadcast the transaction
       const result = await signer.signAndBroadcast(address, [message], fee, 'send tokens test');
       console.log('Transaction result:', result);
 
