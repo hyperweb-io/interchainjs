@@ -63,10 +63,6 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
       // Fallback to signArbitrary for other interfaces
       const signDocBytes = ctx.getStagingData<Uint8Array>(DIRECT_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES);
 
-      console.log('[TX-DEBUG] DirectSignaturePlugin - Using signArbitrary fallback:', {
-        signDocBytesLength: signDocBytes?.length || 0
-      });
-
       const signature = await signer.signArbitrary(signDocBytes);
       ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, signature);
     }
