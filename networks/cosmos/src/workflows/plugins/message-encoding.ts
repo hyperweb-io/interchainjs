@@ -1,27 +1,44 @@
 import { TxBody } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { MessageEncodingInput, STAGING_KEYS } from '../types';
-import { EncodedMessage } from '../../signers/types';
+import { EncodedMessage, CosmosMessage, DocOptions } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
+import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
+
+/**
+ * Staging keys created by MessageEncodingPlugin
+ */
+export const MESSAGE_ENCODING_STAGING_KEYS = {
+  TX_BODY: 'tx_body',
+  TX_BODY_BYTES: 'tx_body_bytes'
+} as const;
+
+/**
+ * Input parameters for MessageEncodingPlugin
+ */
+export interface MessageEncodingParams {
+  messages: readonly CosmosMessage[];
+  memo?: string;
+  options?: DocOptions;
+}
 
 /**
  * Plugin to encode messages into TxBody
  */
 export class MessageEncodingPlugin extends BaseWorkflowBuilderPlugin<
-  MessageEncodingInput,
+  MessageEncodingParams,
   CosmosWorkflowBuilderContext
 > {
   constructor() {
     super([
-      STAGING_KEYS.MESSAGES,
-      { dependency: STAGING_KEYS.MEMO, optional: true },
-      { dependency: STAGING_KEYS.OPTIONS, optional: true }
+      INPUT_VALIDATION_STAGING_KEYS.MESSAGES,
+      { dependency: INPUT_VALIDATION_STAGING_KEYS.MEMO, optional: true },
+      { dependency: INPUT_VALIDATION_STAGING_KEYS.OPTIONS, optional: true }
     ]);
   }
 
   protected async onBuild(
     ctx: CosmosWorkflowBuilderContext,
-    params: MessageEncodingInput
+    params: MessageEncodingParams
   ): Promise<void> {
     const { messages, memo, options } = params;
 
@@ -69,7 +86,7 @@ export class MessageEncodingPlugin extends BaseWorkflowBuilderPlugin<
     const txBodyBytes = TxBody.encode(txBody).finish();
 
     // Store in staging
-    ctx.setStagingData(STAGING_KEYS.TX_BODY, txBody);
-    ctx.setStagingData(STAGING_KEYS.TX_BODY_BYTES, txBodyBytes);
+    ctx.setStagingData(MESSAGE_ENCODING_STAGING_KEYS.TX_BODY, txBody);
+    ctx.setStagingData(MESSAGE_ENCODING_STAGING_KEYS.TX_BODY_BYTES, txBodyBytes);
   }
 }

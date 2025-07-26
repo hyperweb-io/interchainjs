@@ -1,9 +1,4 @@
-import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import {
-
-  AminoSignDocInput,
-  STAGING_KEYS,
-} from '../types';
+import { BaseWorkflowBuilderPlugin, StdFee } from '@interchainjs/types';
 import {
   CosmosAminoDoc,
   CosmosMessage,
@@ -11,38 +6,59 @@ import {
 } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { fromUtf8 } from '@interchainjs/utils';
+import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
+import { FEE_CALCULATION_STAGING_KEYS } from './fee-calculation';
+
+/**
+ * Staging keys created by AminoSignDocPlugin
+ */
+export const AMINO_SIGN_DOC_STAGING_KEYS = {
+  SIGN_DOC: 'sign_doc',
+  SIGN_DOC_BYTES: 'sign_doc_bytes'
+} as const;
+
+/**
+ * Input parameters for AminoSignDocPlugin
+ */
+export interface AminoSignDocParams {
+  messages: readonly CosmosMessage[];
+  fee: StdFee;
+  memo: string;
+  chainId: string;
+  accountNumber: string;
+  sequence: string;
+}
 
 /**
  * Plugin to build amino (JSON) sign document
  */
 export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
-  AminoSignDocInput,
+  AminoSignDocParams,
   CosmosWorkflowBuilderContext
 > {
   constructor() {
     super([
-      STAGING_KEYS.MESSAGES,
-      STAGING_KEYS.FEE,
-      { dependency: STAGING_KEYS.MEMO, optional: true },
-      { dependency: STAGING_KEYS.OPTIONS, optional: true }
+      INPUT_VALIDATION_STAGING_KEYS.MESSAGES,
+      FEE_CALCULATION_STAGING_KEYS.FEE,
+      { dependency: INPUT_VALIDATION_STAGING_KEYS.MEMO, optional: true },
+      { dependency: INPUT_VALIDATION_STAGING_KEYS.OPTIONS, optional: true }
     ]);
   }
 
   protected async onBuild(
     ctx: CosmosWorkflowBuilderContext,
-    params: AminoSignDocInput
+    params: AminoSignDocParams
   ): Promise<void> {
-    const messages = ctx.getStagingData<readonly CosmosMessage[]>(STAGING_KEYS.MESSAGES);
-    const fee = ctx.getStagingData<any>(STAGING_KEYS.FEE);
-    const memo = ctx.getStagingData<string>(STAGING_KEYS.MEMO) || '';
-    const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
+    const messages = ctx.getStagingData<readonly CosmosMessage[]>(INPUT_VALIDATION_STAGING_KEYS.MESSAGES);
+    const fee = ctx.getStagingData<any>(FEE_CALCULATION_STAGING_KEYS.FEE);
+    const memo = ctx.getStagingData<string>(INPUT_VALIDATION_STAGING_KEYS.MEMO) || '';
+    const options = ctx.getStagingData<any>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
 
     // Get chain ID, account number, and sequence
     const chainId = options?.chainId ?? await ctx.getSigner().getChainId();
-    const addresses = await ctx.getSigner().getAddresses();
-    const address = addresses[0];
+    const address = options?.signerAddress;
     if (!address) {
-      throw new Error('No addresses available');
+      throw new Error('No signer address provided in options');
     }
     const accountNumber = options?.accountNumber ??
       await ctx.getSigner().getAccountNumber(address);
@@ -72,8 +88,8 @@ export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
     const signDocBytes = this.encodeStdSignDoc(signDoc);
 
     // Store in staging
-    ctx.setStagingData(STAGING_KEYS.SIGN_DOC, signDoc);
-    ctx.setStagingData(STAGING_KEYS.SIGN_DOC_BYTES, signDocBytes);
+    ctx.setStagingData(AMINO_SIGN_DOC_STAGING_KEYS.SIGN_DOC, signDoc);
+    ctx.setStagingData(AMINO_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES, signDocBytes);
   }
 
   /**

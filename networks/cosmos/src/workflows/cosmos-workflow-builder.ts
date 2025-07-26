@@ -4,7 +4,6 @@ import {
   ICosmosSigner,
   CosmosSignArgs
 } from '../signers/types';
-import { ICosmosWorkflowBuilderContext } from './types';
 import { CosmosTx } from '../signers/types';
 import { CosmosWorkflowBuilderContext } from './context';
 import {

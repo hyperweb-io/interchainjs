@@ -1,13 +1,32 @@
-import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { CosmosSignArgs } from '../../signers/types';
-import { STAGING_KEYS } from '../types';
+import { BaseWorkflowBuilderPlugin, StdFee } from '@interchainjs/types';
+import { CosmosSignArgs, CosmosMessage, DocOptions } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
+
+/**
+ * Staging keys created by InputValidationPlugin
+ */
+export const INPUT_VALIDATION_STAGING_KEYS = {
+  MESSAGES: 'messages',
+  FEE: 'fee',
+  MEMO: 'memo',
+  OPTIONS: 'options'
+} as const;
+
+/**
+ * Input parameters for InputValidationPlugin
+ */
+export interface InputValidationParams {
+  messages: readonly CosmosMessage[];
+  fee?: StdFee;
+  memo?: string;
+  options?: DocOptions;
+}
 
 /**
  * Plugin to validate and stage input parameters
  */
 export class InputValidationPlugin extends BaseWorkflowBuilderPlugin<
-  CosmosSignArgs,
+  InputValidationParams,
   CosmosWorkflowBuilderContext
 > {
   private signArgs: CosmosSignArgs;
@@ -19,7 +38,7 @@ export class InputValidationPlugin extends BaseWorkflowBuilderPlugin<
 
   protected async onBuild(
     ctx: CosmosWorkflowBuilderContext,
-    params: CosmosSignArgs
+    params: InputValidationParams
   ): Promise<void> {
     const { messages, fee, memo, options } = this.signArgs;
 
@@ -49,15 +68,15 @@ export class InputValidationPlugin extends BaseWorkflowBuilderPlugin<
     }
 
     // Stage all inputs
-    ctx.setStagingData(STAGING_KEYS.MESSAGES, messages);
+    ctx.setStagingData(INPUT_VALIDATION_STAGING_KEYS.MESSAGES, messages);
     if (fee) {
-      ctx.setStagingData(STAGING_KEYS.FEE, fee);
+      ctx.setStagingData(INPUT_VALIDATION_STAGING_KEYS.FEE, fee);
     }
     if (memo) {
-      ctx.setStagingData(STAGING_KEYS.MEMO, memo);
+      ctx.setStagingData(INPUT_VALIDATION_STAGING_KEYS.MEMO, memo);
     }
     if (options) {
-      ctx.setStagingData(STAGING_KEYS.OPTIONS, options);
+      ctx.setStagingData(INPUT_VALIDATION_STAGING_KEYS.OPTIONS, options);
     }
   }
 }

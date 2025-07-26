@@ -3,8 +3,7 @@ export * from './direct-workflow';
 export * from './amino-workflow';
 export * from './cosmos-workflow-builder';
 
-// Types and context
-export * from './types';
+// Context (includes types)
 export * from './context';
 
 // Plugins
