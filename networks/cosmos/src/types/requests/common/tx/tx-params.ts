@@ -12,7 +12,16 @@ export interface TxParams {
 }
 
 export const TxParamsCodec = createCodec<EncodedTxParams>({
-  hash: ensureString,
+  hash: {
+    converter: (value: unknown) => {
+      const hashStr = ensureString(value);
+      // Convert hex hash to base64 for RPC compatibility
+      // Remove 0x prefix if present
+      const cleanHex = hashStr.startsWith('0x') ? hashStr.slice(2) : hashStr;
+      const hashBytes = Buffer.from(cleanHex, 'hex');
+      return hashBytes.toString('base64');
+    }
+  },
   prove: {
     converter: (value: unknown) => {
       if (value === undefined || value === null) return undefined;

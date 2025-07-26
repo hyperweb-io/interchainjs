@@ -33,11 +33,11 @@ export class HttpRpcClient implements IRpcClient {
   }
 
   async call<TRequest, TResponse>(
-    method: string, 
+    method: string,
     params?: TRequest
   ): Promise<TResponse> {
     const request = createJsonRpcRequest(method, params);
-    
+
     try {
       const controller = new AbortController();
       const timeout = this.getTimeout();
@@ -57,7 +57,7 @@ export class HttpRpcClient implements IRpcClient {
       }
 
       const jsonResponse = await response.json();
-      
+
       if (jsonResponse.error) {
         throw new NetworkError(`RPC Error: ${jsonResponse.error.message}`, jsonResponse.error);
       }
@@ -89,7 +89,7 @@ export class HttpRpcClient implements IRpcClient {
     const defaultHeaders = { 'Content-Type': 'application/json' };
     const configHeaders = typeof this.endpointConfig === 'object' ? this.endpointConfig.headers || {} : {};
     const optionHeaders = this.options.headers || {};
-    
+
     return { ...defaultHeaders, ...configHeaders, ...optionHeaders };
   }
 

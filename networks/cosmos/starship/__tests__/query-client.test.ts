@@ -960,6 +960,159 @@ describe('Cosmos Query Client', () => {
         }
       });
     });
+
+    describe('getTx() - 5 variations', () => {
+      test('getTx() should return transaction for valid hash', async () => {
+        // First find a transaction using searchTxs
+        const searchResult = await queryClient.searchTxs({
+          query: `tx.height >= ${testHeight} AND tx.height <= ${testHeight + 50}`,
+          page: 1,
+          perPage: 1
+        });
+
+        // Skip test if no transactions found
+        if (searchResult.txs.length === 0) {
+          console.warn('No transactions found for getTx test, skipping...');
+          return;
+        }
+
+        const foundTx = searchResult.txs[0];
+        const txHash = Buffer.from(foundTx.hash).toString('hex').toUpperCase();
+
+        // Now get the transaction by hash
+        const result = await queryClient.getTx(txHash);
+
+        expect(result).toBeDefined();
+        expect(result.hash).toBeDefined();
+        expect(result.hash).toBeInstanceOf(Uint8Array);
+        expect(Buffer.from(result.hash).toString('hex').toUpperCase()).toBe(txHash);
+        expect(result.height).toBe(foundTx.height);
+        expect(result.index).toBe(foundTx.index);
+        expect(result.tx).toBeDefined();
+        expect(result.tx).toBeInstanceOf(Uint8Array);
+        expect(result.txResult).toBeDefined();
+      });
+
+      test('getTx() should return valid transaction structure', async () => {
+        // Find a transaction to test with
+        const searchResult = await queryClient.searchTxs({
+          query: `tx.height >= ${testHeight} AND tx.height <= ${testHeight + 50}`,
+          page: 1,
+          perPage: 1
+        });
+
+        if (searchResult.txs.length === 0) {
+          console.warn('No transactions found for getTx structure test, skipping...');
+          return;
+        }
+
+        const foundTx = searchResult.txs[0];
+        const txHash = Buffer.from(foundTx.hash).toString('hex');
+
+        const result = await queryClient.getTx(txHash);
+
+        // Validate TxResponse structure
+        expect(result.hash).toBeInstanceOf(Uint8Array);
+        expect(typeof result.height).toBe('number');
+        expect(result.height).toBeGreaterThan(0);
+        expect(typeof result.index).toBe('number');
+        expect(result.index).toBeGreaterThanOrEqual(0);
+        expect(result.tx).toBeInstanceOf(Uint8Array);
+        expect(result.tx.length).toBeGreaterThan(0);
+
+        // Validate TxResult structure
+        expect(result.txResult).toBeDefined();
+        expect(typeof result.txResult.code).toBe('number');
+        expect(typeof result.txResult.log).toBe('string');
+        expect(typeof result.txResult.info).toBe('string');
+        expect(typeof result.txResult.codespace).toBe('string');
+        expect(Array.isArray(result.txResult.events)).toBe(true);
+
+        // Gas fields should be bigint if present
+        if (result.txResult.gasWanted !== undefined) {
+          expect(typeof result.txResult.gasWanted).toBe('bigint');
+        }
+        if (result.txResult.gasUsed !== undefined) {
+          expect(typeof result.txResult.gasUsed).toBe('bigint');
+        }
+      });
+
+      test('getTx() should handle different transaction hashes', async () => {
+        // Find multiple transactions to test with
+        const searchResult = await queryClient.searchTxs({
+          query: `tx.height >= ${testHeight} AND tx.height <= ${testHeight + 100}`,
+          page: 1,
+          perPage: 2
+        });
+
+        if (searchResult.txs.length < 2) {
+          console.warn('Not enough transactions found for multiple hash test, skipping...');
+          return;
+        }
+
+        const tx1Hash = Buffer.from(searchResult.txs[0].hash).toString('hex');
+        const tx2Hash = Buffer.from(searchResult.txs[1].hash).toString('hex');
+
+        const result1 = await queryClient.getTx(tx1Hash);
+        const result2 = await queryClient.getTx(tx2Hash);
+
+        // Results should be different
+        expect(Buffer.from(result1.hash).toString('hex')).not.toBe(Buffer.from(result2.hash).toString('hex'));
+        expect(result1.height !== result2.height || result1.index !== result2.index).toBe(true);
+      });
+
+      test('getTx() should handle case-insensitive hashes', async () => {
+        // Find a transaction to test with
+        const searchResult = await queryClient.searchTxs({
+          query: `tx.height >= ${testHeight} AND tx.height <= ${testHeight + 50}`,
+          page: 1,
+          perPage: 1
+        });
+
+        if (searchResult.txs.length === 0) {
+          console.warn('No transactions found for case-insensitive hash test, skipping...');
+          return;
+        }
+
+        const foundTx = searchResult.txs[0];
+        const txHashUpper = Buffer.from(foundTx.hash).toString('hex').toUpperCase();
+        const txHashLower = txHashUpper.toLowerCase();
+
+        const resultUpper = await queryClient.getTx(txHashUpper);
+        const resultLower = await queryClient.getTx(txHashLower);
+
+        // Both should return the same transaction
+        expect(Buffer.from(resultUpper.hash).toString('hex')).toBe(Buffer.from(resultLower.hash).toString('hex'));
+        expect(resultUpper.height).toBe(resultLower.height);
+        expect(resultUpper.index).toBe(resultLower.index);
+      });
+
+      test('getTx() should match searchTxs results', async () => {
+        // Find a transaction using searchTxs
+        const searchResult = await queryClient.searchTxs({
+          query: `tx.height >= ${testHeight} AND tx.height <= ${testHeight + 50}`,
+          page: 1,
+          perPage: 1
+        });
+
+        if (searchResult.txs.length === 0) {
+          console.warn('No transactions found for consistency test, skipping...');
+          return;
+        }
+
+        const foundTx = searchResult.txs[0];
+        const txHash = Buffer.from(foundTx.hash).toString('hex');
+
+        // Get the same transaction using getTx
+        const getTxResult = await queryClient.getTx(txHash);
+
+        // Key fields should match
+        expect(Buffer.from(getTxResult.hash).toString('hex')).toBe(Buffer.from(foundTx.hash).toString('hex'));
+        expect(getTxResult.height).toBe(foundTx.height);
+        expect(getTxResult.index).toBe(foundTx.index);
+        expect(getTxResult.tx).toEqual(foundTx.tx);
+      });
+    });
   });
 
   describe('ABCI Query Methods', () => {
@@ -1051,7 +1204,7 @@ describe('Cosmos Query Client', () => {
         // First get accounts to find a valid address
         const accountsResponse = await getAccounts(queryClient, {});
         expect(accountsResponse.accounts.length).toBeGreaterThan(0);
-        
+
         // Find a BaseAccount to extract a valid address
         let testAddress = '';
         for (const account of accountsResponse.accounts) {
@@ -1063,25 +1216,25 @@ describe('Cosmos Query Client', () => {
             }
           }
         }
-        
+
         // Skip test if no valid BaseAccount found
         if (!testAddress) {
           console.warn('No BaseAccount with valid address found, skipping getAccount test');
           return;
         }
-        
+
         const accountResponse = await getAccount(queryClient, {
           address: testAddress
         });
 
         expect(accountResponse).toBeDefined();
         expect(accountResponse.account).toBeDefined();
-        
+
         // The account is returned as Any type, so we need to check its structure
         if (accountResponse.account) {
           expect(accountResponse.account.typeUrl).toBeDefined();
           expect(accountResponse.account.value).toBeDefined();
-          
+
           // For BaseAccount type, we can decode it
           if (accountResponse.account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
             const baseAccount = BaseAccount.decode(accountResponse.account.value);
@@ -1127,7 +1280,7 @@ describe('Cosmos Query Client', () => {
           const account = accountsResponse.accounts[0];
           expect(account.typeUrl).toBeDefined();
           expect(account.value).toBeDefined();
-          
+
           // For BaseAccount type, we can decode it
           if (account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
             const baseAccount = BaseAccount.decode(account.value);

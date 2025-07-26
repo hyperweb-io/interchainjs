@@ -69,24 +69,8 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     signed: CosmosSignedTransaction,
     options: CosmosBroadcastOptions = {}
   ): Promise<CosmosBroadcastResponse> {
-    const { mode = 'sync', timeoutMs = 30000, pollIntervalMs = 3000 } = options;
-
-    const response = await this.broadcastArbitrary(signed.txBytes, { mode });
-
-    // Create the broadcast response with wait function
-    const broadcastResponse: CosmosBroadcastResponse = {
-      transactionHash: response.transactionHash,
-      rawResponse: response.rawResponse,
-      broadcastResponse: response.broadcastResponse,
-      wait: async (waitTimeoutMs?: number, waitPollIntervalMs?: number) => {
-        const timeout = waitTimeoutMs ?? timeoutMs;
-        const poll = waitPollIntervalMs ?? pollIntervalMs;
-
-        return await this.waitForTransaction(response.transactionHash, timeout, poll);
-      }
-    };
-
-    return broadcastResponse;
+    // Delegate to broadcastArbitrary to avoid duplicate logic
+    return this.broadcastArbitrary(signed.txBytes, options);
   }
 
   /**
@@ -173,12 +157,39 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
         throw new Error(`Unsupported broadcast mode: ${mode}`);
     }
 
+    // Helper function to check if broadcast was successful
+    const isBroadcastSuccessful = (response: any): boolean => {
+      // For commit mode, check both checkTx and deliverTx/txResult
+      if (mode === 'commit') {
+        const checkTxSuccess = response.checkTx?.code === 0;
+        const deliverTxSuccess = response.deliverTx?.code === 0 || response.txResult?.code === 0;
+        return checkTxSuccess && deliverTxSuccess;
+      }
+      // For sync and async modes, check the main code field
+      return response.code === 0;
+    };
+
+    const transactionHash = toHex(response.hash);
+    const wasSuccessful = isBroadcastSuccessful(response);
+
     return {
-      transactionHash: toHex(response.hash),
+      transactionHash,
       rawResponse: response,
       broadcastResponse: response,
       wait: async (timeoutMs?: number, pollIntervalMs?: number) => {
-        const txResult = await this.waitForTransaction(toHex(response.hash), timeoutMs || 30000, pollIntervalMs || 3000);
+        // Only allow waiting if the broadcast was successful
+        if (!wasSuccessful) {
+          // Create appropriate error message based on broadcast mode
+          let errorCode = 'unknown';
+          if (mode === 'commit') {
+            errorCode = `checkTx: ${(response as any).checkTx?.code}, deliverTx/txResult: ${(response as any).deliverTx?.code || (response as any).txResult?.code}`;
+          } else {
+            errorCode = String((response as any).code || 'unknown');
+          }
+          throw new Error(`Cannot wait for transaction ${transactionHash}: broadcast failed with code ${errorCode}`);
+        }
+
+        const txResult = await this.waitForTransaction(transactionHash, timeoutMs || 30000, pollIntervalMs || 3000);
         return txResult;
       }
     };
