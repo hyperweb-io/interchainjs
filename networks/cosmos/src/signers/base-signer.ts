@@ -1,4 +1,5 @@
 import { ICryptoBytes, StdFee, Message, IWallet, isIWallet, StdSignDoc } from '@interchainjs/types';
+import { BaseCryptoBytes } from '@interchainjs/utils';
 import { Tx, TxBody, SignerInfo, AuthInfo, SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
@@ -20,6 +21,8 @@ import { ISigningClient, Encoder } from '../types/signing-client';
 import { getSimulate, SimulationResponse } from '@interchainjs/cosmos-types';
 import { toHex } from '@interchainjs/utils';
 import deepmerge from 'deepmerge';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * Base implementation for Cosmos signers
@@ -258,6 +261,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
         }
       } catch (error) {
         // Transaction not found yet, continue waiting
+        console.log(error);
       }
 
       // Wait 1 second before trying again
@@ -355,7 +359,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     if (!isOfflineDirectSigner(this.auth)) {
       throw new Error('Signer does not support direct signing');
     }
-    
+
     const response = await this.auth.signDirect(signerAddress, signDoc);
     return {
       signed: response.signed,
@@ -373,7 +377,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     if (!isOfflineAminoSigner(this.auth)) {
       throw new Error('Signer does not support amino signing');
     }
-    
+
     const response = await this.auth.signAmino(signerAddress, signDoc);
     return {
       signed: response.signed,

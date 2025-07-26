@@ -25,6 +25,8 @@ export class MessageEncodingPlugin extends BaseWorkflowBuilderPlugin<
   ): Promise<void> {
     const { messages, memo, options } = params;
 
+
+
     // Validate timeout height
     if (options?.timeoutHeight?.type === 'relative') {
       throw new Error(
@@ -39,10 +41,13 @@ export class MessageEncodingPlugin extends BaseWorkflowBuilderPlugin<
       if (!encoder) {
         throw new Error(`No encoder found for type: ${typeUrl}`);
       }
-      
+
       // Ensure value is properly encoded
-      const encodedValue = encoder.encode(value);
-      
+      const encodedWriter = encoder.encode(value);
+
+      // Call finish() to get the actual Uint8Array
+      const encodedValue = encodedWriter.finish();
+
       return {
         typeUrl,
         value: encodedValue,

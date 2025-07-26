@@ -86,7 +86,7 @@ export class CosmosWorkflowBuilder extends WorkflowBuilder<ICosmosSigner, Cosmos
       direct: [
         new InputValidationPlugin(signArgs),
         new MessageEncodingPlugin(),
-        new SignerInfoPlugin(),
+        new SignerInfoPlugin(SignMode.SIGN_MODE_DIRECT),
         new FeeCalculationPlugin(),
         new AuthInfoPlugin(),
         new DirectSignDocPlugin(),
@@ -96,7 +96,7 @@ export class CosmosWorkflowBuilder extends WorkflowBuilder<ICosmosSigner, Cosmos
       amino: [
         new InputValidationPlugin(signArgs),
         new MessageEncodingPlugin(),
-        new SignerInfoPlugin(),
+        new SignerInfoPlugin(SignMode.SIGN_MODE_LEGACY_AMINO_JSON),
         new FeeCalculationPlugin(),
         new AuthInfoPlugin(),
         new AminoSignDocPlugin(),

@@ -1,6 +1,6 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { 
-  SignatureInput, 
+import {
+  SignatureInput,
   STAGING_KEYS
 } from '../types';
 import { CosmosWorkflowBuilderContext } from '../context';
@@ -28,17 +28,34 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
   ): Promise<void> {
     const signer = ctx.getSigner();
     const signDoc = ctx.getStagingData<SignDoc>(STAGING_KEYS.SIGN_DOC);
-    
+
+
+
     // Handle offline signers which have signDirect method
     if (signer.isOfflineDirectSigner()) {
       const accounts = await signer.getAccounts();
       const account = accounts[0]; // Use first account
-      
+
       const signatureResult = await signer.signDirect(account.address, signDoc);
-      ctx.setStagingData(STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(signatureResult.signature));
+
+      // Check if signature includes recovery parameter and remove it if needed
+      let signature = signatureResult.signature;
+      if (signature.length === 65) {
+        // Remove recovery parameter (last byte) to get standard 64-byte signature
+        signature = signature.slice(0, 64);
+      }
+
+      // Store both the signature and the signed document
+      ctx.setStagingData(STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(signature));
+      ctx.setStagingData('SIGNED_DOC', signatureResult.signed);
     } else {
       // Fallback to signArbitrary for other interfaces
       const signDocBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.SIGN_DOC_BYTES);
+
+      console.log('[TX-DEBUG] DirectSignaturePlugin - Using signArbitrary fallback:', {
+        signDocBytesLength: signDocBytes?.length || 0
+      });
+
       const signature = await signer.signArbitrary(signDocBytes);
       ctx.setStagingData(STAGING_KEYS.SIGNATURE, signature);
     }

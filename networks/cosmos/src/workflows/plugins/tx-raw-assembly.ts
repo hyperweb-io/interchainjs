@@ -1,7 +1,7 @@
 import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { 
-  TxRawAssemblyInput, 
+import {
+  TxRawAssemblyInput,
   STAGING_KEYS
 } from '../types';
 import { CosmosTx } from '../../signers/types';
@@ -26,9 +26,15 @@ export class TxRawAssemblyPlugin extends BaseWorkflowBuilderPlugin<
     ctx: CosmosWorkflowBuilderContext,
     params: TxRawAssemblyInput
   ): Promise<void> {
-    const bodyBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.TX_BODY_BYTES);
-    const authInfoBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.AUTH_INFO_BYTES);
+    // Try to get signed document first (from DirectSignaturePlugin)
+    const signedDoc = ctx.getStagingData<any>('SIGNED_DOC');
+
+    // Use signed document's bytes if available, otherwise fall back to original
+    const bodyBytes = signedDoc?.bodyBytes || ctx.getStagingData<Uint8Array>(STAGING_KEYS.TX_BODY_BYTES);
+    const authInfoBytes = signedDoc?.authInfoBytes || ctx.getStagingData<Uint8Array>(STAGING_KEYS.AUTH_INFO_BYTES);
     const signature = ctx.getStagingData<{ value: Uint8Array }>(STAGING_KEYS.SIGNATURE);
+
+
 
     // Create final TxRaw
     const txRaw: CosmosTx = TxRaw.fromPartial({
@@ -36,6 +42,8 @@ export class TxRawAssemblyPlugin extends BaseWorkflowBuilderPlugin<
       authInfoBytes,
       signatures: [signature.value],
     });
+
+
 
     // Store as final result
     ctx.setFinalResult(txRaw);

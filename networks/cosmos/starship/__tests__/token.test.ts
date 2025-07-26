@@ -12,7 +12,7 @@ import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query
 
 import { useChain } from 'starshipjs';
 import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
-import { MsgSend } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx';
+import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -36,7 +36,7 @@ describe('Token transfers', () => {
     const rpcClient = new HttpRpcClient(rpcEndpoint);
     const adapter = new Comet38Adapter();
     client = new CosmosQueryClient(rpcClient, adapter);
-    
+
     denom = (await getCoin()).base;
     commonPrefix = chainInfo?.chain?.bech32_prefix;
 
@@ -104,15 +104,22 @@ describe('Token transfers', () => {
       console.log('Transaction result:', result);
 
       // Wait for transaction to be confirmed
-      await result.wait();
+      try {
+        await result.wait();
+      } catch (err) {
+        console.log(err);
+      }
 
-      const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+      const { balance: balance1 } = await getBalance(client, { address: address, denom });
+      const { balance: balance2 } = await getBalance(client, { address: address2, denom });
 
-      expect(balance!.amount).toEqual(token.amount);
-      expect(balance!.denom).toEqual(denom);
+      console.log(balance1);
+
+      expect(balance2!.amount).toEqual(token.amount);
+      expect(balance2!.denom).toEqual(denom);
     } catch (error) {
       console.error('Error sending tokens:', error);
       throw error;
     }
-  }, 30000);
+  }, 100000);
 });

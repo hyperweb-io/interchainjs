@@ -1,7 +1,7 @@
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
-import { 
-  DirectSignDocInput, 
+import {
+  DirectSignDocInput,
   STAGING_KEYS
 } from '../types';
 import { CosmosDirectDoc } from '../../signers/types';
@@ -30,6 +30,8 @@ export class DirectSignDocPlugin extends BaseWorkflowBuilderPlugin<
     const authInfoBytes = ctx.getStagingData<Uint8Array>(STAGING_KEYS.AUTH_INFO_BYTES);
     const options = ctx.getStagingData<any>(STAGING_KEYS.OPTIONS);
 
+
+
     // Get chain ID and account number
     const chainId = options?.chainId ?? await ctx.getSigner().getChainId();
     const addresses = await ctx.getSigner().getAddresses();
@@ -37,8 +39,13 @@ export class DirectSignDocPlugin extends BaseWorkflowBuilderPlugin<
     if (!address) {
       throw new Error('No addresses available');
     }
-    const accountNumber = options?.accountNumber ?? 
+
+
+
+    const accountNumber = options?.accountNumber ??
       await ctx.getSigner().getAccountNumber(address);
+
+
 
     // Create sign document
     const signDoc: CosmosDirectDoc = SignDoc.fromPartial({
@@ -48,8 +55,12 @@ export class DirectSignDocPlugin extends BaseWorkflowBuilderPlugin<
       accountNumber,
     });
 
+
+
     // Encode sign document to bytes
     const signDocBytes = SignDoc.encode(signDoc).finish();
+
+
 
     // Store in staging
     ctx.setStagingData(STAGING_KEYS.SIGN_DOC, signDoc);
