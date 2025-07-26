@@ -2,6 +2,7 @@ import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseCryptoBytes } from '@interchainjs/utils';
+import { Secp256k1 } from '@interchainjs/crypto';
 import { CosmosDirectDoc, CosmosAminoDoc } from '../../signers/types';
 import { DIRECT_SIGN_DOC_STAGING_KEYS } from './direct-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
@@ -52,15 +53,11 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       const signatureResult = await signer.signDirect(signerAddress, signDoc);
 
-      // Check if signature includes recovery parameter and remove it if needed
-      let signature = signatureResult.signature;
-      if (signature.length === 65) {
-        // Remove recovery parameter (last byte) to get standard 64-byte signature
-        signature = signature.slice(0, 64);
-      }
+      // Ensure signature is in compact form (64 bytes) by removing recovery parameter if present
+      const compactSignature = Secp256k1.trimRecoveryByte(signatureResult.signature);
 
       // Store both the signature and the signed document
-      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(signature));
+      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(compactSignature));
       ctx.setStagingData('SIGNED_DOC', signatureResult.signed);
     } else {
       // Fallback to signArbitrary for other interfaces

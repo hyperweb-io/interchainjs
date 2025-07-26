@@ -22,7 +22,9 @@ describe('Token transfers', () => {
   let protoSigner: OfflineDirectSigner,
     denom: string,
     address: string,
-    address2: string;
+    address2: string,
+    address3: string,
+    address4: string;
   let commonPrefix: string,
     chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
@@ -41,11 +43,11 @@ describe('Token transfers', () => {
     commonPrefix = chainInfo?.chain?.bech32_prefix;
 
     const mnemonic = generateMnemonic();
-    // Initialize wallet
+    // Initialize wallet with 4 accounts for testing
     wallet = await Secp256k1HDWallet.fromMnemonic(
       mnemonic,
       {
-        derivations: [0, 1].map((i) => ({
+        derivations: [0, 1, 2, 3].map((i) => ({
           prefix: commonPrefix,
           hdPath: HDPath.cosmos(0, 0, i).toString(),
         }))
@@ -53,13 +55,17 @@ describe('Token transfers', () => {
     );
     protoSigner = wallet;
     const accounts = await protoSigner.getAccounts();
-    address = accounts[0].address;
-    address2 = accounts[1].address;
+    address = accounts[0].address;   // For direct mode test
+    address2 = accounts[1].address;  // Recipient for direct mode test
+    address3 = accounts[2].address;  // For amino mode test
+    address4 = accounts[3].address;  // Recipient for amino mode test
 
+    // Fund both sender addresses
     await creditFromFaucet(address);
+    await creditFromFaucet(address3);
   });
 
-  it('send osmosis token to address', async () => {
+  it('direct mode: send osmosis token to address', async () => {
     // Use wallet directly as it implements OfflineDirectSigner interface
     const signer: DirectSigner = new DirectSigner(wallet, {
       queryClient: client,
@@ -101,7 +107,6 @@ describe('Token transfers', () => {
       };
 
       const result = await signer.signAndBroadcast(address, [message], fee, 'send tokens test');
-      console.log('Transaction result:', result);
 
       // Wait for transaction to be confirmed
       try {
@@ -110,15 +115,72 @@ describe('Token transfers', () => {
         console.log(err);
       }
 
-      const { balance: balance1 } = await getBalance(client, { address: address, denom });
       const { balance: balance2 } = await getBalance(client, { address: address2, denom });
-
-      console.log(balance1);
 
       expect(balance2!.amount).toEqual(token.amount);
       expect(balance2!.denom).toEqual(denom);
     } catch (error) {
       console.error('Error sending tokens:', error);
+      throw error;
+    }
+  }, 100000);
+
+  it('amino mode: send osmosis token to address', async () => {
+    // Use wallet as OfflineAminoSigner - Secp256k1HDWallet implements both interfaces
+    const aminoSigner: AminoSigner = new AminoSigner(wallet, {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
+    });
+
+    // Add encoders and converters for MsgSend
+    aminoSigner.addEncoders([MsgSend]);
+    aminoSigner.addConverters([MsgSend]);
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const token = {
+      amount: '10000000',
+      denom,
+    };
+
+    try {
+      // Create a proper MsgSend message - use different addresses for amino test
+      const msgSend = MsgSend.fromPartial({
+        fromAddress: address3,  // Use different sender address
+        toAddress: address4,    // Use different recipient address
+        amount: [token]
+      });
+
+      // Create message with proper type
+      const message = {
+        typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+        value: msgSend
+      };
+
+      const result = await aminoSigner.signAndBroadcast(address3, [message], fee, 'amino send tokens test');
+
+      // Wait for transaction to be confirmed
+      try {
+        await result.wait();
+      } catch (err) {
+        console.log(err);
+      }
+
+      const { balance: balance4 } = await getBalance(client, { address: address4, denom });
+
+      expect(balance4!.amount).toEqual(token.amount);
+      expect(balance4!.denom).toEqual(denom);
+    } catch (error) {
+      console.error('Error sending tokens in amino mode:', error);
       throw error;
     }
   }, 100000);

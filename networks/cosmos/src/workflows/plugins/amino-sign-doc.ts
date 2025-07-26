@@ -68,6 +68,13 @@ export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
     // Convert messages to amino format
     const aminoMsgs: AminoMessage[] = messages.map(msg => {
       const converter = ctx.getSigner().getConverterFromTypeUrl(msg.typeUrl);
+      if (!converter) {
+        throw new Error(`No amino converter found for type: ${msg.typeUrl}`);
+      }
+      if (!converter.toAmino) {
+        throw new Error(`Converter for ${msg.typeUrl} does not have toAmino method`);
+      }
+
       return {
         type: converter.aminoType,
         value: converter.toAmino(msg.value)

@@ -263,6 +263,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
 
   private async waitForTransaction(hash: string, timeoutMs: number = 30000, pollIntervalMs = 3000): Promise<TxResponse> {
     const startTime = Date.now();
+    let retryTimes = 1;
 
     while (Date.now() - startTime < timeoutMs) {
       try {
@@ -271,12 +272,16 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
           return this.convertToTxResponse(txResponse);
         }
       } catch (error) {
-        // Transaction not found yet, continue waiting
-        console.log(error);
+        // Transaction not found yet, continue waiting, output error log every 4 times
+        if (retryTimes % 4 === 0) {
+          console.log(`Transaction ${hash} not found yet, retrying ${retryTimes} times...`);
+          console.log(error);
+        }
       }
 
-      // Wait 1 second before trying again
+      // Wait before trying again
       await new Promise(resolve => setTimeout(resolve, pollIntervalMs));
+      retryTimes++;
     }
 
     throw new Error(`Transaction ${hash} not found within timeout period`);

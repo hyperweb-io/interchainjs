@@ -2,6 +2,7 @@ import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
+import { Secp256k1 } from '@interchainjs/crypto';
 import { CosmosDirectDoc, CosmosAminoDoc } from '../../signers/types';
 import { AMINO_SIGN_DOC_STAGING_KEYS } from './amino-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
@@ -51,7 +52,11 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
       }
 
       const signatureResult = await signer.signAmino(signerAddress, signDoc);
-      ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(signatureResult.signature));
+
+      // Ensure signature is in compact form (64 bytes) by removing recovery parameter if present
+      const compactSignature = Secp256k1.trimRecoveryByte(signatureResult.signature);
+
+      ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(compactSignature));
     } else {
       // Fallback to signArbitrary for other interfaces
       const signDocBytes = ctx.getStagingData<Uint8Array>(AMINO_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES);
