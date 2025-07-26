@@ -3,9 +3,10 @@ import { CosmosWorkflowBuilderContext } from '../context';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { Secp256k1 } from '@interchainjs/crypto';
-import { CosmosDirectDoc, CosmosAminoDoc } from '../../signers/types';
+import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { DIRECT_SIGN_DOC_STAGING_KEYS } from './direct-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
+import { resolveHashFunction } from '@interchainjs/auth';
 
 /**
  * Staging keys created by DirectSignaturePlugin
@@ -42,10 +43,20 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
   ): Promise<void> {
     const signer = ctx.getSigner();
     const signDoc = ctx.getStagingData<SignDoc>(DIRECT_SIGN_DOC_STAGING_KEYS.SIGN_DOC);
-    const options = ctx.getStagingData<any>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
+    const options = ctx.getStagingData<CosmosSignerConfig>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
 
     // Handle offline signers which have signDirect method
-    if (signer.isOfflineDirectSigner()) {
+    if (signer.isIWallet()) {
+      let signDocBytes = ctx.getStagingData<Uint8Array>(DIRECT_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES);
+
+      if (options.message.hash) {
+        const hashFn = resolveHashFunction(options.message.hash, 'sha256');
+        signDocBytes = hashFn(signDocBytes);
+      }
+
+      const signature = await signer.signArbitrary(signDocBytes);
+      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, signature);
+    } else if (signer.isOfflineDirectSigner()) {
       const signerAddress = options?.signerAddress;
       if (!signerAddress) {
         throw new Error('No signer address provided in options');
@@ -60,11 +71,7 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
       ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(compactSignature));
       ctx.setStagingData('SIGNED_DOC', signatureResult.signed);
     } else {
-      // Fallback to signArbitrary for other interfaces
-      const signDocBytes = ctx.getStagingData<Uint8Array>(DIRECT_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES);
-
-      const signature = await signer.signArbitrary(signDocBytes);
-      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, signature);
+      throw new Error("Unsupported signer type for direct signing");
     }
   }
 }

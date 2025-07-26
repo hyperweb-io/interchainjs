@@ -53,7 +53,7 @@ describe('Token transfers', () => {
         }))
       }
     );
-    protoSigner = wallet;
+    protoSigner = await wallet.toOfflineDirectSigner();
     const accounts = await protoSigner.getAccounts();
     address = accounts[0].address;   // For direct mode test
     address2 = accounts[1].address;  // Recipient for direct mode test
@@ -67,7 +67,7 @@ describe('Token transfers', () => {
 
   it('direct mode: send osmosis token to address', async () => {
     // Use wallet directly as it implements OfflineDirectSigner interface
-    const signer: DirectSigner = new DirectSigner(wallet, {
+    const signer: DirectSigner = new DirectSigner(protoSigner, {
       queryClient: client,
       chainId: 'osmosis-1',
       addressPrefix: commonPrefix

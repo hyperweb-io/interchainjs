@@ -3,9 +3,10 @@ import { CosmosWorkflowBuilderContext } from '../context';
 import { StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { Secp256k1 } from '@interchainjs/crypto';
-import { CosmosDirectDoc, CosmosAminoDoc } from '../../signers/types';
+import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { AMINO_SIGN_DOC_STAGING_KEYS } from './amino-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
+import { resolveHashFunction } from '@interchainjs/auth';
 
 /**
  * Staging keys created by AminoSignaturePlugin
@@ -42,10 +43,18 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
   ): Promise<void> {
     const signer = ctx.getSigner();
     const signDoc = ctx.getStagingData<StdSignDoc>(AMINO_SIGN_DOC_STAGING_KEYS.SIGN_DOC);
-    const options = ctx.getStagingData<any>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
+    const options = ctx.getStagingData<CosmosSignerConfig>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
 
     // Handle offline signers which have signAmino method
-    if (signer.isOfflineAminoSigner()) {
+    if (signer.isIWallet()) {
+      let signDocBytes = ctx.getStagingData<Uint8Array>(AMINO_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES);
+      if (options.message.hash) {
+        const hashFn = resolveHashFunction(options.message.hash, 'sha256');
+        signDocBytes = hashFn(signDocBytes);
+      }
+      const signature = await signer.signArbitrary(signDocBytes);
+      ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, signature);
+    } else if (signer.isOfflineAminoSigner()) {
       const signerAddress = options?.signerAddress;
       if (!signerAddress) {
         throw new Error('No signer address provided in options');
@@ -58,10 +67,7 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(compactSignature));
     } else {
-      // Fallback to signArbitrary for other interfaces
-      const signDocBytes = ctx.getStagingData<Uint8Array>(AMINO_SIGN_DOC_STAGING_KEYS.SIGN_DOC_BYTES);
-      const signature = await signer.signArbitrary(signDocBytes);
-      ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, signature);
+      throw new Error("Unsupported signer type for amino signing");
     }
   }
 }

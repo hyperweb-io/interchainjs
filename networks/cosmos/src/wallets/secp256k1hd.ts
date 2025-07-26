@@ -3,7 +3,7 @@ import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { StdSignDoc, IPrivateKey, IHDPath, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from './types';
 import * as bip39 from 'bip39';
-import { BaseWallet, PrivateKey, registerAddressStrategy } from '@interchainjs/auth';
+import { BaseWallet, PrivateKey, registerAddressStrategy, resolveHashFunction } from '@interchainjs/auth';
 import { createCosmosConfig } from '../auth/config';
 import { COSMOS_ADDRESS_STRATEGY } from '../auth/strategy';
 import deepmerge from 'deepmerge';
@@ -58,9 +58,10 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
 
     // Apply hashing based on configuration
     let messageToSign: Uint8Array;
-    if (this.cosmosConfig.hashSignDoc) {
+    if (this.cosmosConfig?.message.hash) {
+      const hashFn = resolveHashFunction(this.cosmosConfig?.message.hash);
       // Use the configured hash function
-      messageToSign = this.cosmosConfig.hashSignDoc(signBytes);
+      messageToSign = hashFn(signBytes);
     } else {
       messageToSign = signBytes;
     }
@@ -91,9 +92,10 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
 
     // Apply hashing based on configuration
     let messageToSign: Uint8Array;
-    if (this.cosmosConfig.hashSignDoc) {
+    if (this.cosmosConfig?.message.hash) {
+      const hashFn = resolveHashFunction(this.cosmosConfig?.message.hash);
       // Use the configured hash function
-      messageToSign = this.cosmosConfig.hashSignDoc(signBytes);
+      messageToSign = hashFn(signBytes);
     } else {
       messageToSign = signBytes;
     }
@@ -159,5 +161,21 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
     );
 
     return new Secp256k1HDWallet(privateKeys, walletConfig);
+  }
+
+  async toOfflineDirectSigner(): Promise<OfflineDirectSigner> {
+    const accouts = await this.getAccounts();
+    return {
+      getAccounts: async () => accouts,
+      signDirect: async (signerAddress: string, signDoc: SignDoc) => this.signDirect(signerAddress, signDoc)
+    }
+  }
+
+  async toOfflineAminoSigner(): Promise<OfflineAminoSigner> {
+    const accouts = await this.getAccounts();
+    return {
+      getAccounts: async () => accouts,
+      signAmino: async (signerAddress: string, signDoc: StdSignDoc) => this.signAmino(signerAddress, signDoc)
+    }
   }
 }

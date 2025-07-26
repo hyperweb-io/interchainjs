@@ -1,4 +1,4 @@
-import { IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
+import { HashFunction, IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
 import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
 import { AminoConverter, Encoder } from '../types/signing-client';
@@ -164,12 +164,13 @@ export interface ICosmosSigner extends IUniSigner<
   addConverters?(converters: AminoConverter[]): void;
   getConverterFromTypeUrl?(typeUrl: string): AminoConverter;
   simulateByTxBody(txBody: TxBody, signerInfos: SignerInfo[]): Promise<SimulationResponse>;
-  
+
   // Offline signer detection methods
+  isIWallet(): boolean;
   isOfflineSigner(): boolean;
   isOfflineAminoSigner(): boolean;
   isOfflineDirectSigner(): boolean;
-  
+
   // Offline signing methods
   signDirect(signerAddress: string, signDoc: SignDoc): Promise<{
     signed: SignDoc;
@@ -210,6 +211,9 @@ export interface SignOptions {
   sequence?: bigint;
   signerAddress?: string;
   addressPrefix?: string;
+  message?: {
+    hash: string | HashFunction;
+  }
 }
 
 export interface TimeoutHeightOption {

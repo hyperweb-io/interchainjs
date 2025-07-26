@@ -1,4 +1,4 @@
-import { ICryptoBytes, StdSignDoc } from '@interchainjs/types';
+import { ICryptoBytes, IWallet, StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
 import { TxRaw, SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
@@ -22,7 +22,7 @@ import deepmerge from 'deepmerge';
  * Uses SIGN_MODE_DIRECT for protobuf-based signing
  */
 export class DirectSigner extends BaseCosmosSigner implements ISigningClient {
-  constructor(authOrSigner: OfflineSigner, config: CosmosSignerConfig) {
+  constructor(authOrSigner: OfflineSigner | IWallet, config: CosmosSignerConfig) {
     super(authOrSigner, config);
   }
 

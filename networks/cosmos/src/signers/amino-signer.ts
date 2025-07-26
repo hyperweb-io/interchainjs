@@ -1,4 +1,4 @@
-import { ICryptoBytes, StdSignDoc } from '@interchainjs/types';
+import { ICryptoBytes, IWallet, StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
 import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
@@ -24,7 +24,7 @@ import deepmerge from 'deepmerge';
 export class AminoSigner extends BaseCosmosSigner implements ISigningClient {
   private converters: AminoConverter[] = [];
 
-  constructor(authOrSigner: OfflineSigner, config: CosmosSignerConfig) {
+  constructor(authOrSigner: OfflineSigner | IWallet, config: CosmosSignerConfig) {
     super(authOrSigner, config);
   }
 

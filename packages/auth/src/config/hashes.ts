@@ -16,11 +16,18 @@ export const PRESET_HASHES: Record<string, HashFunction> = {
 };
 
 // Internal helper to resolve hash function
-export function resolveHashFunction(hashFn?: HashFunction | string): HashFunction | undefined {
-  if (!hashFn) return undefined;
+export function resolveHashFunction(hashFn?: HashFunction | string, defaultFn?: HashFunction | string): HashFunction | undefined {
+  if (!hashFn) {
+    if (!defaultFn) return undefined;
+    return resolveHashFunction(defaultFn);
+  }
   if (typeof hashFn === 'string') {
     if (!PRESET_HASHES[hashFn]) {
-      throw new Error(`Unknown hash function: ${hashFn}`);
+      if (defaultFn) {
+        return resolveHashFunction(defaultFn);
+      } else {
+        throw new Error(`Unknown hash function: ${hashFn}`);
+      }
     }
     return PRESET_HASHES[hashFn];
   }

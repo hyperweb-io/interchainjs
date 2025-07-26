@@ -344,6 +344,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
 
   // ISigningClient implementation methods
 
+  isIWallet(): boolean {
+    return isIWallet(this.auth);
+  }
+
   /**
    * Check if this signer is an offline signer
    */

@@ -1,6 +1,5 @@
 import { AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from '../wallets/types';
-import { Sha256 } from '@interchainjs/crypto';
 
 /**
  * Creates a wallet configuration for Cosmos chains
@@ -23,9 +22,8 @@ export function createCosmosConfig(derivations: AddrDerivation[] = [], passphras
       strategy: 'cosmos'
     },
     derivations: addrDerivation,
-    hashSignDoc: (bytes: Uint8Array) => {
-      // Default SHA256 hashing for Cosmos
-      return new Sha256(bytes).digest();
+    message: {
+      hash: 'sha256'
     }
   };
 }
