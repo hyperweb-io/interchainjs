@@ -11,6 +11,7 @@ import { getRpcClient } from "./extern";
 import { isRpc, Rpc } from "./helpers";
 import { TelescopeGeneratedCodec, StdFee } from "./types";
 import { ISigningClient } from "@interchainjs/cosmos/types/signing-client";
+import { TxResponse } from "@interchainjs/cosmos";
 
 export interface QueryBuilderOptions<TReq, TRes> {
   encode: (request: TReq, writer?: BinaryWriter) => BinaryWriter
@@ -62,7 +63,7 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
     message: TMsg | TMsg[],
     fee: StdFee | 'auto',
     memo: string
-  ): Promise<IBroadcastResult> => {
+  ): Promise<IBroadcastResult<TxResponse>> => {
     if (!client) throw new Error("SigningClient is not initialized");
 
     //register all related encoders and converters
@@ -78,7 +79,7 @@ export function buildTx<TMsg>(opts: TxBuilderOptions) {
         typeUrl: opts.msg.typeUrl,
         value: message,
       }];
-    return client.signAndBroadcast!(signerAddress, data, fee, memo);
+    return await client.signAndBroadcast!(signerAddress, data, fee, memo) as IBroadcastResult<TxResponse>;
   };
 }
 
