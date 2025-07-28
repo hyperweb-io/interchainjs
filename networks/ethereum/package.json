@@ -28,7 +28,11 @@
     "starship": "starship start --config ./starship/configs/eth-lite.yaml",
     "starship:stop": "starship stop",
     "starship:test": "npx jest --preset ts-jest starship/__tests__/token.test.ts",
-    "test:utils": "npx jest --preset ts-jest starship/__tests__/utils.test.ts"
+    "test:utils": "npx jest --preset ts-jest starship/__tests__/utils.test.ts",
+    "test:query": "jest --config ./jest.query.config.js --verbose",
+    "test:query:watch": "jest --config ./jest.query.config.js --watch",
+    "debug:collect-data": "ts-node debug/collect-test-data.ts",
+    "debug:test-rpc": "ts-node debug/test-rpc-calls.ts"
   },
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",

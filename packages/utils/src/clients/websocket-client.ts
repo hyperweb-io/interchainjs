@@ -1,4 +1,4 @@
-// networks/cosmos/src/rpc/websocket-client.ts
+// packages/utils/src/clients/websocket-client.ts
 import { IRpcClient, createJsonRpcRequest, NetworkError, TimeoutError, ConnectionError, SubscriptionError } from '@interchainjs/types';
 
 export interface ReconnectOptions {
@@ -83,15 +83,15 @@ export class WebSocketRpcClient implements IRpcClient {
   }
 
   isConnected(): boolean {
-    return this.connected && this.socket?.readyState === WebSocket.OPEN;
+    return this.connected;
   }
 
   async call<TRequest, TResponse>(
-    method: string, 
+    method: string,
     params?: TRequest
   ): Promise<TResponse> {
-    if (!this.isConnected()) {
-      throw new ConnectionError('WebSocket not connected');
+    if (!this.connected || !this.socket) {
+      throw new ConnectionError('WebSocket is not connected');
     }
 
     return new Promise((resolve, reject) => {
@@ -118,51 +118,54 @@ export class WebSocketRpcClient implements IRpcClient {
     });
   }
 
-  async* subscribe<TEvent>(
-    method: string, 
-    params?: Record<string, unknown>
-  ): AsyncIterable<TEvent> {
-    if (!this.isConnected()) {
-      throw new ConnectionError('WebSocket not connected');
+  async *subscribe<TEvent>(method: string, params?: unknown): AsyncIterable<TEvent> {
+    if (!this.connected || !this.socket) {
+      throw new ConnectionError('WebSocket is not connected');
     }
 
-    const subscriptionId = `sub_${++this.messageId}`;
+    const subscriptionId = (++this.messageId).toString();
+    const request = createJsonRpcRequest(method, params, subscriptionId);
+
+    // Send subscription request
+    this.socket.send(JSON.stringify(request));
+
+    // Create async iterator for subscription events
     const eventQueue: TEvent[] = [];
-    let resolver: ((value: IteratorResult<TEvent>) => void) | null = null;
-    let isActive = true;
+    let resolveNext: ((value: IteratorResult<TEvent>) => void) | null = null;
+    let isComplete = false;
 
     // Set up subscription handler
     this.subscriptions.set(subscriptionId, (data: TEvent) => {
-      if (!isActive) return;
-      
-      if (resolver) {
-        resolver({ value: data, done: false });
-        resolver = null;
+      if (resolveNext) {
+        resolveNext({ value: data, done: false });
+        resolveNext = null;
       } else {
         eventQueue.push(data);
       }
     });
 
     try {
-      // Send subscription request
-      await this.call(method, { ...(params || {}), subscription_id: subscriptionId });
-
-      // Return async iterator
-      while (isActive) {
+      while (!isComplete) {
         if (eventQueue.length > 0) {
           yield eventQueue.shift()!;
         } else {
-          await new Promise<void>((resolve) => {
-            resolver = (result) => {
-              if (!result.done) {
-                resolve();
+          yield await new Promise<TEvent>((resolve, reject) => {
+            if (!this.connected) {
+              reject(new ConnectionError('WebSocket disconnected during subscription'));
+              return;
+            }
+            resolveNext = (result) => {
+              if (result.done) {
+                isComplete = true;
+                reject(new SubscriptionError('Subscription ended'));
+              } else {
+                resolve(result.value);
               }
             };
           });
         }
       }
     } finally {
-      isActive = false;
       this.subscriptions.delete(subscriptionId);
     }
   }
@@ -170,18 +173,7 @@ export class WebSocketRpcClient implements IRpcClient {
   private handleMessage(data: string): void {
     try {
       const message = JSON.parse(data);
-
-      // Handle subscription events
-      if (message.method === 'subscription' && message.params) {
-        const subscriptionId = message.params.subscription_id;
-        const handler = this.subscriptions.get(subscriptionId);
-        if (handler) {
-          handler(message.params.result);
-        }
-        return;
-      }
-
-      // Handle RPC responses
+      
       if (message.id && this.pendingRequests.has(message.id)) {
         const pending = this.pendingRequests.get(message.id)!;
         this.pendingRequests.delete(message.id);
@@ -191,6 +183,12 @@ export class WebSocketRpcClient implements IRpcClient {
           pending.reject(new NetworkError(`RPC Error: ${message.error.message}`, message.error));
         } else {
           pending.resolve(message.result);
+        }
+      } else if (message.method && this.subscriptions.has(message.params?.subscription)) {
+        // Handle subscription event
+        const handler = this.subscriptions.get(message.params.subscription);
+        if (handler) {
+          handler(message.params.result);
         }
       }
     } catch (error: any) {
@@ -208,17 +206,20 @@ export class WebSocketRpcClient implements IRpcClient {
     }
     this.pendingRequests.clear();
 
-    // TODO: Implement reconnection logic based on reconnectOptions
-    if (this.reconnectOptions.maxRetries && this.reconnectOptions.maxRetries > 0) {
-      // Implement exponential backoff reconnection
-      console.log('WebSocket disconnected, reconnection not implemented yet');
-    }
+    // TODO: Implement reconnection logic if needed
   }
 
   private getWebSocketUrl(): string {
     const url = typeof this.endpointConfig === 'string' ? this.endpointConfig : this.endpointConfig.url;
+    
     // Convert HTTP URLs to WebSocket URLs
-    return url.replace(/^http/, 'ws').replace(/\/$/, '') + '/websocket';
+    if (url.startsWith('http://')) {
+      return url.replace('http://', 'ws://');
+    } else if (url.startsWith('https://')) {
+      return url.replace('https://', 'wss://');
+    }
+    
+    return url;
   }
 
   private getProtocols(): string[] | undefined {

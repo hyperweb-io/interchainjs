@@ -1,4 +1,4 @@
-// networks/cosmos/src/rpc/http-client.ts
+// packages/utils/src/clients/http-client.ts
 import { IRpcClient, createJsonRpcRequest, NetworkError, TimeoutError, ParseError } from '@interchainjs/types';
 
 export interface HttpEndpoint {

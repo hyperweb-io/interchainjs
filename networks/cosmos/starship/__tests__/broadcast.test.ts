@@ -5,7 +5,7 @@ import './setup.test';
 import { useChain } from 'starshipjs';
 
 import { CosmosQueryClient } from '../../src/query/cosmos-query-client';
-import { HttpRpcClient } from '../../src/rpc/http-client';
+import { HttpRpcClient } from '../../../../packages/utils/src/clients';
 import { Comet38Adapter } from '../../src/adapters/comet38';
 import { BroadcastTxParams } from '../../src/types/requests';
 

@@ -1,5 +1,5 @@
 // networks/cosmos/src/client-factory.ts
-import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint } from './rpc/index';
+import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint } from '@interchainjs/utils';
 import { CosmosQueryClient } from './query/index';
 import { CosmosEventClient } from './event/index';
 import { createProtocolAdapter, IProtocolAdapter, ICosmosProtocolAdapter } from './adapters/index';
@@ -52,19 +52,19 @@ export class CosmosClientFactory {
     providedVersion?: ProtocolVersion
   ): Promise<ICosmosProtocolAdapter> {
     const detectedAdapter = await this.detectProtocolAdapter(endpoint);
-    
+
     if (providedVersion) {
       const providedAdapter = createProtocolAdapter(providedVersion);
       const detectedVersion = detectedAdapter.getVersion();
       const providedVersionValue = providedAdapter.getVersion();
-      
+
       if (detectedVersion !== providedVersionValue) {
         console.warn(
           `Protocol version mismatch: provided version '${providedVersionValue}' does not match detected version '${detectedVersion}'. Using detected version.`
         );
       }
     }
-    
+
     return detectedAdapter;
   }
 
@@ -93,7 +93,7 @@ export class CosmosClientFactory {
       timeout: options.timeout,
       headers: options.headers
     });
-    
+
     return new CosmosQueryClient(rpcClient, protocolAdapter) as any;
   }
 
@@ -110,7 +110,7 @@ export class CosmosClientFactory {
     const rpcClient = new WebSocketRpcClient(endpoint, {
       reconnect: options.reconnect
     });
-    
+
     return new CosmosEventClient(rpcClient, protocolAdapter);
   }
 
@@ -123,16 +123,16 @@ export class CosmosClientFactory {
     options: WebSocketClientOptions = {}
   ): Promise<{ queryClient: ICosmosQueryClient; eventClient: ICosmosEventClient }> {
     const protocolAdapter = await this.getProtocolAdapter(httpEndpoint, options.protocolVersion);
-    
+
     const httpRpcClient = new HttpRpcClient(httpEndpoint, {
       timeout: options.timeout,
       headers: options.headers
     });
-    
+
     const wsRpcClient = new WebSocketRpcClient(wsEndpoint, {
       reconnect: options.reconnect
     });
-    
+
     return {
       queryClient: new CosmosQueryClient(httpRpcClient, protocolAdapter) as any,
       eventClient: new CosmosEventClient(wsRpcClient, protocolAdapter)
@@ -152,7 +152,7 @@ export class CosmosClientFactory {
     const rpcClient = new WebSocketRpcClient(endpoint, {
       reconnect: options.reconnect
     });
-    
+
     return {
       queryClient: new CosmosQueryClient(rpcClient, protocolAdapter) as any,
       eventClient: new CosmosEventClient(rpcClient, protocolAdapter)

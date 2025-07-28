@@ -1,8 +1,10 @@
 // networks/cosmos/src/index.ts
 export * from './types/index';
-export * from './rpc/index';
 export * from './query/index';
 export * from './event/index';
+
+// Re-export shared RPC clients for convenience
+export { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint, ReconnectOptions } from '@interchainjs/utils';
 export { IProtocolAdapter, createProtocolAdapter, getProtocolInfo } from './adapters/index';
 export * from './client-factory';
 export * from './workflows';

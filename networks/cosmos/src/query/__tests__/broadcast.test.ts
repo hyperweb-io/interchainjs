@@ -1,5 +1,5 @@
 import { CosmosQueryClient } from '../cosmos-query-client';
-import { HttpRpcClient } from '../../rpc/http-client';
+import { HttpRpcClient } from '../../../../../packages/utils/src/clients';
 import { Comet38Adapter } from '../../adapters/comet38';
 import { RpcMethod } from '../../types/protocol';
 import { BroadcastTxParams } from '../../types/requests/common/tx';
@@ -168,7 +168,7 @@ describe('CosmosQueryClient Broadcast Methods', () => {
   describe('parameter encoding', () => {
     it('should encode tx as base64 for broadcast methods', () => {
       const tx = new Uint8Array([255, 128, 64, 32, 16]);
-      
+
       const syncParams = adapter.encodeParams(RpcMethod.BROADCAST_TX_SYNC, { tx });
       expect(syncParams.tx).toBe('/4BAIBA=');
 

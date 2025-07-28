@@ -11,3 +11,4 @@ export * from "./rpc";
 export * from "./logs";
 export * from "./events";
 export * from "./case";
+export * from "./clients";

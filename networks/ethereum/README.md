@@ -50,6 +50,186 @@ npm install @interchainjs/ethereum
 
 ## Usage
 
+### Query Client
+
+The Ethereum Query Client provides a comprehensive interface for querying Ethereum blockchain data using JSON-RPC.
+
+#### Basic Setup
+
+```typescript
+import { createEthereumQueryClient } from "@interchainjs/ethereum";
+
+// Create a query client
+const queryClient = await createEthereumQueryClient("https://eth.llamarpc.com");
+
+// Or with options
+const queryClient = await createEthereumQueryClient("https://eth.llamarpc.com", {
+  timeout: 30000,
+  headers: {
+    'User-Agent': 'MyApp/1.0.0'
+  }
+});
+```
+
+#### Basic Information
+
+```typescript
+// Get chain ID
+const chainId = await queryClient.getChainId();
+console.log("Chain ID:", chainId); // 1 for mainnet
+
+// Get latest block number
+const blockNumber = await queryClient.getBlockNumber();
+console.log("Latest block:", blockNumber);
+
+// Check sync status
+const syncing = await queryClient.isSyncing();
+console.log("Syncing:", syncing);
+```
+
+#### Block Queries
+
+```typescript
+// Get latest block
+const latestBlock = await queryClient.getLatestBlock();
+console.log("Latest block hash:", latestBlock.hash);
+
+// Get block by number
+const block = await queryClient.getBlockByNumber(18000000);
+console.log("Block timestamp:", block.timestamp);
+
+// Get block by hash
+const blockByHash = await queryClient.getBlockByHash("0x95b198e154acbfc64109dfd22d8224fe927fd8dfdedfae01587674482ba4baf3");
+console.log("Block number:", blockByHash.number);
+
+// Get transaction count in block
+const txCount = await queryClient.getBlockTransactionCount(18000000);
+console.log("Transaction count:", txCount);
+```
+
+#### Transaction Queries
+
+```typescript
+// Get transaction details
+const tx = await queryClient.getTransaction("0x16e199673891df518e25db2ef5320155da82a3dd71a677e7d84363251885d133");
+console.log("From:", tx.from, "To:", tx.to, "Value:", tx.value);
+
+// Get transaction receipt
+const receipt = await queryClient.getTransactionReceipt("0x16e199673891df518e25db2ef5320155da82a3dd71a677e7d84363251885d133");
+console.log("Status:", receipt.status, "Gas used:", receipt.gasUsed);
+
+// Get account nonce
+const nonce = await queryClient.getTransactionCount("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
+console.log("Nonce:", nonce);
+```
+
+#### Account and Balance Queries
+
+```typescript
+// Get account balance
+const balance = await queryClient.getBalance("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
+console.log("Balance:", balance.toString(), "wei");
+
+// Get contract code
+const code = await queryClient.getCode("0xdAC17F958D2ee523a2206206994597C13D831ec7");
+console.log("Contract code length:", code.length);
+
+// Get storage value
+const storage = await queryClient.getStorageAt("0xdAC17F958D2ee523a2206206994597C13D831ec7", "0x0");
+console.log("Storage at slot 0:", storage);
+```
+
+#### Gas and Fee Queries
+
+```typescript
+// Get current gas price
+const gasPrice = await queryClient.getGasPrice();
+console.log("Gas price:", gasPrice.toString(), "wei");
+
+// Get max priority fee (EIP-1559)
+const priorityFee = await queryClient.getMaxPriorityFeePerGas();
+console.log("Priority fee:", priorityFee.toString(), "wei");
+
+// Get fee history
+const feeHistory = await queryClient.getFeeHistory(4, 'latest', [25, 50, 75]);
+console.log("Base fees:", feeHistory.baseFeePerGas);
+
+// Estimate gas for transaction
+const gasEstimate = await queryClient.estimateGas({
+  from: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+  to: "0x0000000000000000000000000000000000000000",
+  value: "0x1"
+});
+console.log("Gas estimate:", gasEstimate.toString());
+```
+
+#### Event Logs and Filters
+
+```typescript
+// Get logs
+const logs = await queryClient.getLogs({
+  fromBlock: 18000000,
+  toBlock: 18000100,
+  address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+  topics: ["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"] // Transfer event
+});
+console.log("Found", logs.length, "Transfer events");
+
+// Create and manage filters
+const filterId = await queryClient.newFilter({
+  fromBlock: 'latest',
+  toBlock: 'latest'
+});
+
+const filterLogs = await queryClient.getFilterLogs(filterId);
+console.log("Filter logs:", filterLogs.length);
+
+// Clean up filter
+await queryClient.uninstallFilter(filterId);
+```
+
+#### WebSocket Support
+
+```typescript
+import { EthereumClientFactory } from "@interchainjs/ethereum";
+
+// Create WebSocket query client for real-time updates
+const wsQueryClient = await EthereumClientFactory.createWebSocketQueryClient("wss://eth.llamarpc.com");
+
+// Use the same interface as HTTP client
+const latestBlock = await wsQueryClient.getLatestBlock();
+console.log("Latest block via WebSocket:", latestBlock.number);
+```
+
+#### Error Handling
+
+```typescript
+try {
+  const block = await queryClient.getBlockByNumber(999999999999);
+} catch (error) {
+  console.error("Block not found:", error.message);
+}
+
+try {
+  const tx = await queryClient.getTransaction("0xinvalid");
+} catch (error) {
+  console.error("Invalid transaction hash:", error.message);
+}
+```
+
+#### Connection Management
+
+```typescript
+// Check connection status
+console.log("Connected:", queryClient.isConnected());
+
+// Get endpoint
+console.log("Endpoint:", queryClient.endpoint);
+
+// Disconnect when done
+await queryClient.disconnect();
+```
+
 ### Using a Private Key
 
 #### Import and Construct Signer
