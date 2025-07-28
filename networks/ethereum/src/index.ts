@@ -21,6 +21,9 @@ export * from './signers';
 // Export auth
 export * from './auth';
 
+// Export wallets
+export * from './wallets';
+
 // Re-export common error types for convenience
 export {
   QueryClientError,

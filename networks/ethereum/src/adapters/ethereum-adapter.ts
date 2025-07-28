@@ -40,7 +40,7 @@ import {
  * Handles encoding/decoding for Ethereum JSON-RPC calls
  */
 export class EthereumAdapter implements IEthereumProtocolAdapter {
-  
+
   // Encoding methods
   encodeBlockByNumberParams(params: BlockByNumberParams): unknown[] {
     return [
@@ -72,7 +72,7 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
 
   encodeEstimateGasParams(params: EstimateGasParams): unknown[] {
     const txParams: any = {};
-    
+
     if (params.transaction.from) txParams.from = normalizeAddress(params.transaction.from);
     if (params.transaction.to) txParams.to = normalizeAddress(params.transaction.to);
     if (params.transaction.value) txParams.value = params.transaction.value;
@@ -81,18 +81,18 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (params.transaction.gasPrice) txParams.gasPrice = params.transaction.gasPrice;
     if (params.transaction.maxFeePerGas) txParams.maxFeePerGas = params.transaction.maxFeePerGas;
     if (params.transaction.maxPriorityFeePerGas) txParams.maxPriorityFeePerGas = params.transaction.maxPriorityFeePerGas;
-    
+
     const result = [txParams];
     if (params.blockTag) {
       result.push(normalizeBlockTag(params.blockTag));
     }
-    
+
     return result;
   }
 
   encodeLogFilter(filter: LogFilter): unknown {
     const encoded: any = {};
-    
+
     if (filter.fromBlock !== undefined) {
       encoded.fromBlock = normalizeBlockTag(filter.fromBlock);
     }
@@ -112,20 +112,20 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (filter.blockHash !== undefined) {
       encoded.blockHash = normalizeHash(filter.blockHash);
     }
-    
+
     return encoded;
   }
 
-  encodeFeeHistoryParams(params: FeeHistoryParams): unknown[] {
-    const result = [
+  encodeFeeHistoryParams(params: FeeHistoryParams): (string | number[])[] {
+    const result: (string | number[])[] = [
       '0x' + params.blockCount.toString(16),
       normalizeBlockTag(params.newestBlock)
     ];
-    
+
     if (params.rewardPercentiles) {
       result.push(params.rewardPercentiles);
     }
-    
+
     return result;
   }
 
@@ -134,7 +134,7 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (!response || typeof response !== 'object') {
       throw new Error('Invalid block response');
     }
-    
+
     const block = response as any;
     return {
       number: ensureString(block.number),
@@ -169,7 +169,7 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (!response || typeof response !== 'object') {
       throw new Error('Invalid transaction response');
     }
-    
+
     const tx = response as any;
     return {
       hash: ensureString(tx.hash),
@@ -200,7 +200,7 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (!response || typeof response !== 'object') {
       throw new Error('Invalid transaction receipt response');
     }
-    
+
     const receipt = response as any;
     return {
       transactionHash: ensureString(receipt.transactionHash),
@@ -261,7 +261,7 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (!Array.isArray(response)) {
       throw new Error('Invalid logs response');
     }
-    
+
     return response.map(log => this.decodeLog(log));
   }
 
@@ -269,7 +269,7 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (!response || typeof response !== 'object') {
       throw new Error('Invalid fee history response');
     }
-    
+
     const feeHistory = response as any;
     return {
       baseFeePerGas: feeHistory.baseFeePerGas || [],
@@ -283,11 +283,11 @@ export class EthereumAdapter implements IEthereumProtocolAdapter {
     if (typeof response === 'boolean') {
       return response;
     }
-    
+
     if (!response || typeof response !== 'object') {
       throw new Error('Invalid sync status response');
     }
-    
+
     const syncStatus = response as any;
     return {
       startingBlock: ensureString(syncStatus.startingBlock),

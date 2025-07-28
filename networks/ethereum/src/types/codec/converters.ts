@@ -102,11 +102,11 @@ export function normalizeBlockTag(blockTag: BlockTag): string {
     }
     throw new Error(`Invalid block tag: ${blockTag}`);
   }
-  
+
   if (typeof blockTag === 'number') {
     return numberToHex(blockTag);
   }
-  
+
   throw new Error(`Invalid block tag type: ${typeof blockTag}`);
 }
 
@@ -163,6 +163,6 @@ export function safeJsonParse<T>(json: string): T {
   try {
     return JSON.parse(json);
   } catch (error) {
-    throw new Error(`Failed to parse JSON: ${error.message}`);
+    throw new Error(`Failed to parse JSON: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
