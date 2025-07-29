@@ -36,7 +36,10 @@
     "test:wallet:debug": "node debug-test.js",
     "test:wallet:simple": "node simple-wallet-test.mjs",
     "debug:collect-data": "ts-node debug/collect-test-data.ts",
-    "debug:test-rpc": "ts-node debug/test-rpc-calls.ts"
+    "debug:test-rpc": "ts-node debug/test-rpc-calls.ts",
+    "test:signers": "jest --config ./jest.signer.config.js --verbose",
+    "test:signers:watch": "jest --config ./jest.signer.config.js --watch",
+    "test:signers:coverage": "jest --config ./jest.signer.config.js --coverage"
   },
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",
