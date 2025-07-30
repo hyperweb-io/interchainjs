@@ -70,7 +70,17 @@ export class LegacyEthereumSigner extends BaseEthereumSigner implements ILegacyE
     options?: { gasMultiplier?: number; gasPrice?: bigint }
   ): Promise<EthereumSignedTransaction> {
     const gasPrice = options?.gasPrice || await this.getGasPrice();
-    const estimatedGas = await this.estimateGas(transaction);
+
+    // Get the signer address if not provided
+    const fromAddress = signerAddress || (await this.getAddresses())[0];
+
+    // Add the from field for gas estimation
+    const transactionWithFrom = {
+      ...transaction,
+      from: fromAddress
+    };
+
+    const estimatedGas = await this.estimateGas(transactionWithFrom);
 
     const legacyTransaction: TransactionParams & { gasPrice: string; gas: string } = {
       ...transaction,

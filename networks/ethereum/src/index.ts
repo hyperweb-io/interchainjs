@@ -24,6 +24,12 @@ export * from './auth';
 // Export wallets
 export * from './wallets';
 
+// Export utils
+export * from './utils';
+
+// Export providers
+export * from './providers';
+
 // Re-export common error types for convenience
 export {
   QueryClientError,

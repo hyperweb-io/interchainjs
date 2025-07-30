@@ -52,7 +52,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
   // Basic Info Methods
   async getChainId(): Promise<number> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_CHAIN_ID);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_CHAIN_ID, []);
       return this.protocolAdapter.decodeChainId(result);
     } catch (error) {
       this.handleError('getChainId', error);
@@ -61,7 +61,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async getNetworkVersion(): Promise<string> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.NET_VERSION);
+      const result = await this.rpcClient.call(EthereumRpcMethod.NET_VERSION, []);
       return this.protocolAdapter.decodeNetworkVersion(result);
     } catch (error) {
       this.handleError('getNetworkVersion', error);
@@ -70,7 +70,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async getProtocolVersion(): Promise<string> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_PROTOCOL_VERSION);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_PROTOCOL_VERSION, []);
       return this.protocolAdapter.decodeProtocolVersion(result);
     } catch (error) {
       this.handleError('getProtocolVersion', error);
@@ -79,7 +79,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async isSyncing(): Promise<boolean | SyncStatus> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_SYNCING);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_SYNCING, []);
       return this.protocolAdapter.decodeSyncStatus(result);
     } catch (error) {
       this.handleError('isSyncing', error);
@@ -88,7 +88,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async getBlockNumber(): Promise<number> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_BLOCK_NUMBER);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_BLOCK_NUMBER, []);
       return this.protocolAdapter.decodeBlockNumber(result);
     } catch (error) {
       this.handleError('getBlockNumber', error);
@@ -130,12 +130,12 @@ export class EthereumQueryClient implements IEthereumQueryClient {
   async getBlockTransactionCount(blockNumber?: BlockTag): Promise<number> {
     try {
       const blockTag = blockNumber ?? 'latest';
-      const encodedParams = this.protocolAdapter.encodeBlockByNumberParams({ 
-        blockNumber: blockTag, 
-        includeTransactions: false 
+      const encodedParams = this.protocolAdapter.encodeBlockByNumberParams({
+        blockNumber: blockTag,
+        includeTransactions: false
       });
       const result = await this.rpcClient.call(
-        EthereumRpcMethod.ETH_GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER, 
+        EthereumRpcMethod.ETH_GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
         [encodedParams[0]] // Only need the block number
       );
       return this.protocolAdapter.decodeBlockTransactionCount(result);
@@ -147,7 +147,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
   async getBlockTransactionCountByHash(hash: string): Promise<number> {
     try {
       const result = await this.rpcClient.call(
-        EthereumRpcMethod.ETH_GET_BLOCK_TRANSACTION_COUNT_BY_HASH, 
+        EthereumRpcMethod.ETH_GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
         [hash]
       );
       return this.protocolAdapter.decodeBlockTransactionCount(result);
@@ -243,7 +243,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
   // Gas/Fee Methods
   async getGasPrice(): Promise<bigint> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_GAS_PRICE);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_GAS_PRICE, []);
       const gasPriceHex = this.protocolAdapter.decodeGasPrice(result);
       return BigInt(gasPriceHex);
     } catch (error) {
@@ -253,7 +253,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async getMaxPriorityFeePerGas(): Promise<bigint> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_MAX_PRIORITY_FEE_PER_GAS);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_MAX_PRIORITY_FEE_PER_GAS, []);
       const feeHex = this.protocolAdapter.decodeGasPrice(result); // Reuse gas price decoder
       return BigInt(feeHex);
     } catch (error) {
@@ -295,7 +295,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async newBlockFilter(): Promise<string> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_NEW_BLOCK_FILTER);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_NEW_BLOCK_FILTER, []);
       return this.protocolAdapter.decodeFilterId(result);
     } catch (error) {
       this.handleError('newBlockFilter', error);
@@ -304,7 +304,7 @@ export class EthereumQueryClient implements IEthereumQueryClient {
 
   async newPendingTransactionFilter(): Promise<string> {
     try {
-      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_NEW_PENDING_TRANSACTION_FILTER);
+      const result = await this.rpcClient.call(EthereumRpcMethod.ETH_NEW_PENDING_TRANSACTION_FILTER, []);
       return this.protocolAdapter.decodeFilterId(result);
     } catch (error) {
       this.handleError('newPendingTransactionFilter', error);

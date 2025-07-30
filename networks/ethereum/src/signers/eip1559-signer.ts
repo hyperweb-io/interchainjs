@@ -53,7 +53,16 @@ export class EIP1559EthereumSigner extends BaseEthereumSigner implements IEIP155
     const adjustedPriorityFee = BigInt(Math.ceil(Number(maxPriorityFeePerGas) * priorityMultiplier));
     const maxFeePerGas = BigInt(Math.ceil(Number(gasPrice) * feeMultiplier)) + adjustedPriorityFee;
 
-    const gas = transaction.gas ? BigInt(transaction.gas) : await this.estimateGas(transaction);
+    // Get the signer address if not provided
+    const fromAddress = signerAddress || (await this.getAddresses())[0];
+
+    // Add the from field for gas estimation
+    const transactionWithFrom = {
+      ...transaction,
+      from: fromAddress
+    };
+
+    const gas = transaction.gas ? BigInt(transaction.gas) : await this.estimateGas(transactionWithFrom);
 
     const eip1559Transaction: TransactionParams & {
       maxFeePerGas: string;
