@@ -21,6 +21,7 @@ import { ISigningClient, Encoder } from '../types/signing-client';
 import { getSimulate, SimulationResponse } from '@interchainjs/cosmos-types';
 import { toHex } from '@interchainjs/utils';
 import deepmerge from 'deepmerge';
+import { createCosmosSignerConfig } from './config';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -35,7 +36,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
 
   constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig) {
     this.auth = auth;
-    this.config = config;
+    this.config = createCosmosSignerConfig(config);
   }
 
   // ICosmosSigner interface methods

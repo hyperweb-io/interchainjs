@@ -1,6 +1,9 @@
 // Export types
 export * from './types';
 
+// Export configuration
+export * from './config';
+
 // Export base signer
 export * from './base-signer';
 

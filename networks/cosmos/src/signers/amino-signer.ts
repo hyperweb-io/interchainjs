@@ -15,7 +15,7 @@ import {
   OfflineSigner
 } from './types';
 import { ISigningClient, AminoConverter } from '../types/signing-client';
-import deepmerge from 'deepmerge';
+import { mergeSignerOptions } from './config';
 
 /**
  * Amino (JSON) signer for Cosmos transactions
@@ -38,12 +38,12 @@ export class AminoSigner extends BaseCosmosSigner implements ISigningClient {
       throw new Error('Signer address does not match');
     }
 
-    // Create the direct workflow
+    // Create the amino workflow
     const workflow = new AminoWorkflow(this, {
       messages: args.messages,
       fee: args.fee,
       memo: args.memo || '',
-      options: deepmerge(this.config, args.options || {}),
+      options: mergeSignerOptions(this.config, args.options || {}),
     });
 
     // Build and sign the transaction

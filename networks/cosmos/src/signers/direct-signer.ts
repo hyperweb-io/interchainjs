@@ -15,7 +15,7 @@ import {
   OfflineSigner
 } from './types';
 import { ISigningClient } from '../types/signing-client';
-import deepmerge from 'deepmerge';
+import { mergeSignerOptions } from './config';
 
 /**
  * Direct (protobuf) signer for Cosmos transactions
@@ -41,7 +41,7 @@ export class DirectSigner extends BaseCosmosSigner implements ISigningClient {
       messages: args.messages,
       fee: args.fee,
       memo: args.memo || '',
-      options: deepmerge(this.config, args.options || {}),
+      options: mergeSignerOptions(this.config, args.options || {}),
     });
 
     // Build and sign the transaction
