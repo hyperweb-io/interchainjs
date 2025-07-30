@@ -1,2 +1,2 @@
-export { INJECTIVE_ADDRESS_STRATEGY } from './strategy';
-export { createInjectiveConfig } from './config';
+export { INJECTIVE_ETH_ADDRESS_STRATEGY } from './strategy';
+export { createInjectiveEthConfig } from './config';

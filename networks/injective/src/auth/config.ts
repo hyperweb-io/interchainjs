@@ -1,11 +1,12 @@
+import { ICosmosWalletConfig } from '@interchainjs/cosmos/wallets/types';
 import { AddrDerivation, HDPath, IWalletConfig } from '@interchainjs/types';
 
 /**
- * Creates a wallet configuration for Injective
+ * Creates a wallet configuration for Injective with Ethereum-style address derivation
  * @param passphrase - Optional passphrase for key derivation
  * @returns Wallet configuration object
  */
-export function createInjectiveConfig(derivations: AddrDerivation[] = [], passphrase?: string): IWalletConfig {
+export function createInjectiveEthConfig(derivations: AddrDerivation[] = [], passphrase?: string): ICosmosWalletConfig {
   const addrDerivation = derivations.length > 0 ? derivations : [{ hdPath: HDPath.cosmos().toString(), prefix: 'inj' }];
 
   return {
@@ -14,11 +15,14 @@ export function createInjectiveConfig(derivations: AddrDerivation[] = [], passph
       passphrase
     },
     publicKeyConfig: {
-      compressed: true
+      compressed: false  // Ethereum-style uses uncompressed keys
     },
     addressConfig: {
-      strategy: 'injective'
+      strategy: 'injective-eth'
     },
-    derivations: addrDerivation
+    derivations: addrDerivation,
+    message: {
+      hash: 'keccak256'
+    }
   };
 }
