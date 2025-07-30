@@ -9,6 +9,7 @@ import {
 import { BaseEthereumSigner } from './base-signer';
 import { TransactionParams } from '../types/requests';
 import { EIP1559Workflow } from '../workflows/eip1559-workflow';
+import { mergeEthereumSignerOptions } from './config';
 
 /**
  * EIP-1559 Ethereum signer for modern transactions
@@ -23,11 +24,14 @@ export class EIP1559EthereumSigner extends BaseEthereumSigner implements IEIP155
    * Sign an EIP-1559 transaction using maxFeePerGas and maxPriorityFeePerGas
    */
   async sign(args: EIP1559TransactionSignArgs): Promise<EthereumSignedTransaction> {
+    // Merge signer config with operation-specific options
+    const mergedOptions = mergeEthereumSignerOptions(this.config, args.options || {});
+
     // Convert to generic EthereumSignArgs for workflow
     const signArgs: EthereumSignArgs = {
       transaction: args.transaction,
       signerAddress: args.signerAddress,
-      options: args.options
+      options: mergedOptions
     };
 
     // Use the EIP-1559 workflow to build and sign the transaction

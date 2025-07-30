@@ -13,6 +13,7 @@ import {
 } from './types';
 import { TransactionParams } from '../types/requests';
 import { TransactionReceipt } from '../types/responses';
+import { createEthereumSignerConfig } from './config';
 
 /**
  * Base implementation for Ethereum signers
@@ -24,7 +25,7 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
 
   constructor(auth: IWallet, config: EthereumSignerConfig) {
     this.auth = auth;
-    this.config = config;
+    this.config = createEthereumSignerConfig(config);
   }
 
   // IUniSigner interface methods

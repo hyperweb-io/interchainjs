@@ -9,6 +9,7 @@ import {
 import { BaseEthereumSigner } from './base-signer';
 import { TransactionParams } from '../types/requests';
 import { LegacyWorkflow } from '../workflows/legacy-workflow';
+import { mergeEthereumSignerOptions } from './config';
 
 /**
  * Legacy Ethereum signer for pre-EIP-1559 transactions
@@ -23,11 +24,14 @@ export class LegacyEthereumSigner extends BaseEthereumSigner implements ILegacyE
    * Sign a legacy transaction using gasPrice
    */
   async sign(args: LegacyTransactionSignArgs): Promise<EthereumSignedTransaction> {
+    // Merge signer config with operation-specific options
+    const mergedOptions = mergeEthereumSignerOptions(this.config, args.options || {});
+
     // Convert to generic EthereumSignArgs for workflow
     const signArgs: EthereumSignArgs = {
       transaction: args.transaction,
       signerAddress: args.signerAddress,
-      options: args.options
+      options: mergedOptions
     };
 
     // Use the legacy workflow to build and sign the transaction
