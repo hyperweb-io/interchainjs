@@ -38,16 +38,22 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     this.config = config;
   }
 
-  // IUniSigner interface methods
+  // ICosmosSigner interface methods
   async getAccounts(): Promise<readonly AccountData[]> {
     if (isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth)) {
       return this.auth.getAccounts();
     } else if (isIWallet(this.auth)) {
-      return (await this.auth.getAccounts()).map(account => ({
-        address: account.address!,
-        pubkey: account.pubkey,
-        algo: account.algo
-      }));
+      return (await this.auth.getAccounts()).map(account => {
+        const pubkey = account.getPublicKey();
+        return {
+          address: account.address!,
+          pubkey: pubkey.value.value,
+          algo: account.algo,
+          getPublicKey: () => {
+            return pubkey;
+          }
+        }
+      });
     } else {
       throw new Error('Invalid auth type');
     }

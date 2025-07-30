@@ -212,6 +212,28 @@ describe('Secp256k1HDWallet', () => {
       expect(account1.address).toBe(EXPECTED_ADDRESSES.cosmos.path1);
     });
 
+    it('should return IAccount with getPublicKey method', async () => {
+      const account = await wallet.getAccountByIndex(0);
+
+      // Test that getPublicKey method exists and returns IPublicKey
+      expect(typeof account.getPublicKey).toBe('function');
+
+      const publicKey = account.getPublicKey();
+      expect(publicKey).toBeDefined();
+      expect(publicKey.value).toBeDefined();
+      expect(publicKey.value.value).toBeInstanceOf(Uint8Array);
+      expect(publicKey.algo).toBe('secp256k1');
+      expect(typeof publicKey.compressed).toBe('boolean');
+
+      // Test with compression parameter
+      const compressedKey = account.getPublicKey(true);
+      const uncompressedKey = account.getPublicKey(false);
+
+      expect(compressedKey.compressed).toBe(true);
+      expect(uncompressedKey.compressed).toBe(false);
+      expect(compressedKey.value.value.length).toBeLessThan(uncompressedKey.value.value.length);
+    });
+
     it('should throw error for invalid index', async () => {
       await expect(wallet.getAccountByIndex(999))
         .rejects.toThrow();

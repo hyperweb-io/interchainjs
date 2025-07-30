@@ -1,6 +1,6 @@
 import { AccountData, DirectSignResponse, AminoSignResponse, OfflineDirectSigner, OfflineAminoSigner } from '../signers/types';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { StdSignDoc, IPrivateKey, IHDPath, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
+import { StdSignDoc, IPrivateKey, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from './types';
 import * as bip39 from 'bip39';
 import { BaseWallet, PrivateKey, registerAddressStrategy, resolveHashFunction } from '@interchainjs/auth';
@@ -17,7 +17,7 @@ registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
  * Implements IWallet, OfflineDirectSigner, and OfflineAminoSigner interfaces
  * Uses proper HD derivation with configurable derivation paths
  */
-export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDirectSigner, OfflineAminoSigner {
+export class Secp256k1HDWallet extends BaseWallet implements IWallet {
   private cosmosConfig: ICosmosWalletConfig;
 
   constructor(privateKeys: IPrivateKey[], config?: ICosmosWalletConfig) {
@@ -30,15 +30,21 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
 
 
   /**
-   * Get all accounts (for offline signer interface)
+   * Get all accounts as AccountData (for offline signer interface)
    */
-  async getAccounts(): Promise<readonly AccountData[]> {
+  async getAccountsData(): Promise<readonly AccountData[]> {
     const accounts = await super.getAccounts();
-    return accounts.map((account: IAccount) => ({
-      address: account.address!,
-      algo: account.algo as string,
-      pubkey: account.pubkey
-    }));
+    return accounts.map((account: IAccount) => {
+      const pubkey = account.getPublicKey();
+      return {
+        address: account.address!,
+        pubkey: pubkey.value.value,
+        algo: account.algo,
+        getPublicKey: () => {
+          return pubkey;
+        }
+      }
+    });
   }
 
   /**
@@ -164,17 +170,17 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet, OfflineDir
   }
 
   async toOfflineDirectSigner(): Promise<OfflineDirectSigner> {
-    const accouts = await this.getAccounts();
+    const accounts = await this.getAccountsData();
     return {
-      getAccounts: async () => accouts,
+      getAccounts: async () => accounts,
       signDirect: async (signerAddress: string, signDoc: SignDoc) => this.signDirect(signerAddress, signDoc)
     }
   }
 
   async toOfflineAminoSigner(): Promise<OfflineAminoSigner> {
-    const accouts = await this.getAccounts();
+    const accounts = await this.getAccountsData();
     return {
-      getAccounts: async () => accouts,
+      getAccounts: async () => accounts,
       signAmino: async (signerAddress: string, signDoc: StdSignDoc) => this.signAmino(signerAddress, signDoc)
     }
   }

@@ -1,4 +1,4 @@
-import { HashFunction, IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
+import { HashFunction, IAccount, IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
 import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
 import { AminoConverter, Encoder } from '../types/signing-client';
@@ -17,7 +17,7 @@ export interface EndpointOptions {
 /**
  * Account data returned by offline signers
  */
-export interface AccountData {
+export interface AccountData extends IAccount {
   /** Account address */
   readonly address: string;
   /** Algorithm used for signing */

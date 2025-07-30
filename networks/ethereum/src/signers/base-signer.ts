@@ -30,11 +30,17 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
   // IUniSigner interface methods
   async getAccounts(): Promise<readonly EthereumAccountData[]> {
     const accounts = await this.auth.getAccounts();
-    return accounts.map(account => ({
-      address: account.address!,
-      pubkey: account.pubkey,
-      algo: account.algo
-    }));
+    return accounts.map(account => {
+      const pubkey = account.getPublicKey();
+      return {
+        address: account.address!,
+        pubkey: pubkey.value.value,
+        algo: account.algo,
+        getPublicKey: () => {
+          return pubkey;
+        }
+      }
+    });
   }
 
   async signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes> {

@@ -125,7 +125,7 @@ export function isIWallet(obj: any): obj is IWallet {
 
 // Update IAccount interface to match the new structure
 export interface IAccount {
-  readonly pubkey: Uint8Array;
+  getPublicKey(isCompressed?: boolean): IPublicKey;
   readonly address?: string;
   readonly hdPath?: IHDPath;
   readonly algo: string;        // Algorithm name for reference

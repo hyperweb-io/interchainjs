@@ -4,11 +4,11 @@ import {
   IPrivateKey,
   IAccount,
   ICryptoBytes,
-  IHDPath,
   AddrDerivation,
   HDPath,
 } from '@interchainjs/types';
 import { PrivateKey } from './private-key';
+import { Account } from './account';
 
 export class BaseWallet implements IWallet {
   private _privateKeys: IPrivateKey[];
@@ -40,14 +40,12 @@ export class BaseWallet implements IWallet {
       this.config.derivations[index].prefix
     );
 
-    return {
-      pubkey: publicKey.value.value,
-      address: address.value,
-      hdPath: privateKey.hdPath,
-      algo: typeof privateKey.config.algo === 'string'
-        ? privateKey.config.algo
-        : privateKey.config.algo.name
-    };
+    return new Account(
+      privateKey,
+      this.config,
+      address.value,
+      privateKey.hdPath
+    );
   }
 
   async signByIndex(data: Uint8Array, index?: number): Promise<ICryptoBytes> {
