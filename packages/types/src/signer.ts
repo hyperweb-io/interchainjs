@@ -73,3 +73,16 @@ export interface IBroadcastResult<TxResp = unknown> {
 
   wait: () => Promise<TxResp>;
 }
+
+export type DeliverTxResponse = IBroadcastResult;
+
+export interface Attribute {
+  key: string;
+  value: string;
+  index?: boolean;
+}
+
+export interface Event {
+  type: string;
+  attributes: readonly Attribute[];
+}

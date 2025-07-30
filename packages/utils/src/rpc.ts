@@ -1,9 +1,24 @@
-import { HttpEndpoint } from '@interchainjs/types';
+import { HttpEndpoint, Rpc } from '@interchainjs/types';
 import { toHttpEndpoint } from './endpoint';
 import { fromBase64, toBase64, toHex } from './encoding';
 import { randomId } from './random';
 
 export { getPrefix } from './chain';
+
+/**
+ * create rpc client for query
+ */
+export function createQueryRpc(endpoint: string | HttpEndpoint): Rpc {
+  return {
+    request: async (
+      service: string,
+      method: string,
+      data: Uint8Array
+    ): Promise<Uint8Array> => {
+      return abciQuery(toHttpEndpoint(endpoint), `/${service}/${method}`, data);
+    },
+  };
+}
 
 /**
  * helper function for abci query

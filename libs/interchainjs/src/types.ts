@@ -7,6 +7,14 @@
 import { IBinaryReader, IBinaryWriter } from "./binary";
 import { Any } from "./google/protobuf/any";
 
+import { HttpEndpoint } from "@interchainjs/types";
+
+
+import { DeliverTxResponse, Event, Attribute } from "@interchainjs/types";
+
+export { DeliverTxResponse }
+
+
 export type ProtoMsg = Omit<Any, "typeUrl"> & { typeUrl: any };
 
 export interface IAminoMsg<Amino> {
@@ -85,4 +93,17 @@ export interface StdFee {
 }
 
 
+export interface TxRpc {
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>;
+  signAndBroadcast?(
+    signerAddress: string,
+    messages: EncodeObject[],
+    fee: StdFee | "auto" | number,
+    memo: string
+  ): Promise<DeliverTxResponse>;
+}
 

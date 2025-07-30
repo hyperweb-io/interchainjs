@@ -33,3 +33,10 @@ export interface AminoConverter<T = any> {
   fromAmino?: (amino: any) => T;
   toAmino?: (message: T) => any;
 }
+
+export function isISigningClient(client: unknown): client is ISigningClient {
+  return client !== null && client !== undefined
+    && typeof (client as ISigningClient).signAndBroadcast === 'function'
+    && (!(client as ISigningClient).addConverters || typeof (client as ISigningClient).addConverters === 'function')
+    && (!(client as ISigningClient).addEncoders || typeof (client as ISigningClient).addEncoders === 'function');
+}

@@ -4,13 +4,13 @@
     * and run the transpile command or npm scripts command that is used to regenerate this bundle.
   */
  
-export * from "./tendermint/bundle";
-export * from "./injective/bundle";
-export * from "./ibc/bundle";
-export * from "./google/bundle";
-export * from "./cosmwasm/bundle";
 export * from "./cosmos_proto/bundle";
 export * from "./cosmos/bundle";
+export * from "./cosmwasm/bundle";
+export * from "./google/bundle";
+export * from "./ibc/bundle";
+export * from "./injective/bundle";
+export * from "./tendermint/bundle";
 export * from "./extern";
 export * from "./helper-func-types";
 export * from "./varint";

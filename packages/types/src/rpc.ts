@@ -28,8 +28,8 @@ export interface JsonRpcResponse {
 
 // Utility function for creating JSON-RPC requests
 export function createJsonRpcRequest(
-  method: string, 
-  params?: unknown, 
+  method: string,
+  params?: unknown,
   id?: string
 ): JsonRpcRequest {
   return {
@@ -38,4 +38,12 @@ export function createJsonRpcRequest(
     method,
     params: params || {}
   };
+}
+
+export interface Rpc {
+  request(
+    service: string,
+    method: string,
+    data: Uint8Array
+  ): Promise<Uint8Array>;
 }

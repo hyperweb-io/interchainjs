@@ -99,10 +99,10 @@ export const options: TelescopeInput = {
   }
 };
 
-// rimraf(join(__dirname, '../libs/cosmos-types/src'));
-// rimraf(join(__dirname, '../libs/interchainjs/src'));
-// rimraf(join(__dirname, '../libs/interchain-vue/src'));
-// rimraf(join(__dirname, '../libs/interchain-react/src'));
+rimraf(join(__dirname, '../libs/cosmos-types/src'));
+rimraf(join(__dirname, '../libs/interchainjs/src'));
+rimraf(join(__dirname, '../libs/interchain-vue/src'));
+rimraf(join(__dirname, '../libs/interchain-react/src'));
 // rimraf(join(__dirname, '../libs/injectivejs/src'));
 // rimraf(join(__dirname, '../libs/injective-vue/src'));
 // rimraf(join(__dirname, '../libs/injective-react/src'));
@@ -188,45 +188,45 @@ telescope({
     process.exit(1);
   });
 
-// // interchain-vue
-// telescope({
-//   protoDirs: [join(__dirname, '../protos/interchainjs')],
-//   outPath: join(__dirname, '../libs/interchain-vue/src'),
-//   options: deepmerge(options.options, {
-//     "helperFunctions": {
-//       "hooks": {
-//         "vue": true
-//       }
-//     },
-//   }),
-// })
-//   .then(() => {
-//     console.log('✨ all done!');
-//   })
-//   .catch((e) => {
-//     console.error(e);
-//     process.exit(1);
-//   });
+// interchain-vue
+telescope({
+  protoDirs: [join(__dirname, '../protos/interchainjs')],
+  outPath: join(__dirname, '../libs/interchain-vue/src'),
+  options: deepmerge(options.options, {
+    "helperFunctions": {
+      "hooks": {
+        "vue": true
+      }
+    },
+  }),
+})
+  .then(() => {
+    console.log('✨ all done!');
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
 
-// // interchain-react
-// telescope({
-//   protoDirs: [join(__dirname, '../protos/interchainjs')],
-//   outPath: join(__dirname, '../libs/interchain-react/src'),
-//   options: deepmerge(options.options, {
-//     "helperFunctions": {
-//       "hooks": {
-//         "react": true
-//       }
-//     },
-//   }),
-// })
-//   .then(() => {
-//     console.log('✨ all done!');
-//   })
-//   .catch((e) => {
-//     console.error(e);
-//     process.exit(1);
-//   });
+// interchain-react
+telescope({
+  protoDirs: [join(__dirname, '../protos/interchainjs')],
+  outPath: join(__dirname, '../libs/interchain-react/src'),
+  options: deepmerge(options.options, {
+    "helperFunctions": {
+      "hooks": {
+        "react": true
+      }
+    },
+  }),
+})
+  .then(() => {
+    console.log('✨ all done!');
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
 
 // // injectivejs
 // telescope({
