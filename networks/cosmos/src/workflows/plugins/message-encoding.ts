@@ -62,8 +62,10 @@ export class MessageEncodingPlugin extends BaseWorkflowBuilderPlugin<
       // Ensure value is properly encoded
       const encodedWriter = encoder.encode(value);
 
-      // Call finish() to get the actual Uint8Array
-      const encodedValue = encodedWriter.finish();
+      // Call finish() to get the actual Uint8Array, or use encodedWriter directly if it's already a Uint8Array
+      const encodedValue = typeof encodedWriter?.finish === 'function'
+        ? encodedWriter.finish()
+        : encodedWriter;
 
       return {
         typeUrl,

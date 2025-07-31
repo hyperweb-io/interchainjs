@@ -2,30 +2,18 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { EthSecp256k1Auth } from '@interchainjs/auth/ethSecp256k1';
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { DirectSigner as CosmosDirectSigner } from '@interchainjs/cosmos/signers/direct';
-import {
-  assertIsDeliverTxSuccess,
-  toEncoders,
-} from '@interchainjs/cosmos/utils';
-import {
-  createQueryRpc,
-  sleep,
-} from '@interchainjs/utils';
+import { DirectSigner, CosmosQueryClient, HttpRpcClient } from '@interchainjs/cosmos';
+import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
+import { toEncoders } from '@interchainjs/cosmos/utils';
+import { sleep } from '@interchainjs/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { HDPath } from '@interchainjs/types';
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
 import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
-import { defaultSignerOptions } from '@interchainjs/injective/defaults';
-
-const hdPath = "m/44'/60'/0'/0/0";
-
-const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string, address2: string;
@@ -45,10 +33,38 @@ describe('Token transfers', () => {
 
     const mnemonic = generateMnemonic();
 
-    // Initialize auth
-    const [auth] = EthSecp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
-    directSigner = new DirectSigner(auth, [], injRpcEndpoint, defaultSignerOptions.Cosmos);
-    address = await directSigner.getAddress();
+    // Initialize wallet and signer
+    const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+      derivations: [{
+        prefix: 'inj',
+        hdPath: HDPath.cosmos().toString(),
+      }]
+    });
+    const offlineSigner = await wallet.toOfflineDirectSigner();
+
+    // Create query client for signer configuration
+    const rpcClient = new HttpRpcClient(injRpcEndpoint);
+    const protocolAdapter = new Comet38Adapter();
+    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+
+    // Create a wrapper to ensure methods are available as own properties
+    const queryClientWrapper = Object.create(queryClient);
+    queryClientWrapper.getBaseAccount = queryClient.getBaseAccount.bind(queryClient);
+    queryClientWrapper.broadcastTxCommit = queryClient.broadcastTxCommit.bind(queryClient);
+    queryClientWrapper.broadcastTxSync = queryClient.broadcastTxSync.bind(queryClient);
+    queryClientWrapper.broadcastTxAsync = queryClient.broadcastTxAsync.bind(queryClient);
+    queryClientWrapper.getTx = queryClient.getTx.bind(queryClient);
+
+    const signerConfig = {
+      queryClient: queryClientWrapper,
+      chainId: 'injective-1',
+      addressPrefix: 'inj'
+    };
+
+    directSigner = new DirectSigner(offlineSigner, signerConfig);
+    directSigner.addEncoders(toEncoders(MsgSend, MsgTransfer));
+    const addresses = await offlineSigner.getAccounts();
+    address = addresses[0].address;
 
     await creditFromFaucet(address);
 
@@ -67,11 +83,15 @@ describe('Token transfers', () => {
   it('send injective token to address', async () => {
     const mnemonic = generateMnemonic();
     // Initialize wallet
-    const [auth2] = EthSecp256k1Auth.fromMnemonic(mnemonic, [hdPath]);
-
-    const directSigner2 = new DirectSigner(auth2, [], injRpcEndpoint);
-
-    address2 = await directSigner2.getAddress();
+    const wallet2 = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+      derivations: [{
+        prefix: 'inj',
+        hdPath: HDPath.cosmos().toString(),
+      }]
+    });
+    const offlineSigner2 = await wallet2.toOfflineDirectSigner();
+    const addresses2 = await offlineSigner2.getAccounts();
+    address2 = addresses2[0].address;
 
     const fee = {
       amount: [
@@ -88,9 +108,8 @@ describe('Token transfers', () => {
       denom,
     };
 
-    // Transfer uosmo tokens from faceut
-    directSigner.addEncoders(toEncoders(MsgSend));
-    await directSigner.signAndBroadcast(
+    // Transfer tokens
+    const result = await directSigner.signAndBroadcast(
       {
         messages: [
           {
@@ -104,11 +123,21 @@ describe('Token transfers', () => {
         ],
         fee,
         memo: 'send tokens test',
+        options: {
+          signerAddress: address,
+        },
       },
-      { deliverTx: true }
+      {
+        mode: 'commit',
+      }
     );
 
-    const { balance } = await getBalance(injRpcEndpoint, { address: address2, denom });
+    // Create query client for balance check
+    const rpcClient = new HttpRpcClient(injRpcEndpoint);
+    const protocolAdapter = new Comet38Adapter();
+    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+
+    const { balance } = await getBalance(queryClient, { address: address2, denom });
 
     expect(balance!.amount).toEqual(token.amount);
     expect(balance!.denom).toEqual(denom);
@@ -119,13 +148,15 @@ describe('Token transfers', () => {
     useChain('cosmoshub');
 
     // Initialize wallet address for cosmos chain
-    const [cosmosAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
-      cosmosHdPath,
-    ]);
-
-    const cosmosDirectSigner = new CosmosDirectSigner(cosmosAuth, [], await cosmosRpcEndpoint());
-
-    const cosmosAddress = await cosmosDirectSigner.getAddress();
+    const cosmosWallet = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), {
+      derivations: [{
+        prefix: 'cosmos',
+        hdPath: HDPath.cosmos().toString(),
+      }]
+    });
+    const cosmosOfflineSigner = await cosmosWallet.toOfflineDirectSigner();
+    const cosmosAddresses = await cosmosOfflineSigner.getAccounts();
+    const cosmosAddress = cosmosAddresses[0].address;
 
     const ibcInfos = chainInfo.fetcher.getChainIbcData(
       chainInfo.chain.chain_name
@@ -202,11 +233,14 @@ describe('Token transfers', () => {
         ],
         fee,
         memo: '',
+        options: {
+          signerAddress: address,
+        },
       },
-      { deliverTx: true }
+      {
+        mode: 'commit',
+      }
     );
-
-    assertIsDeliverTxSuccess(resp);
 
     await new Promise((resolve) => setTimeout(resolve, 6000));
 

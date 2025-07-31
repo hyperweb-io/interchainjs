@@ -18,6 +18,9 @@ export * from './wallets/secp256k1hd';
 // Export auth
 export * from './auth';
 
+// Export utils
+export * from './utils';
+
 // Re-export common error types for convenience
 export {
   QueryClientError,
