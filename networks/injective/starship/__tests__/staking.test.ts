@@ -8,7 +8,6 @@ import { toEncoders, toConverters } from '@interchainjs/cosmos/utils';
 import {
   sleep,
 } from '@interchainjs/utils';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { CosmosQueryClient, HttpRpcClient } from '@interchainjs/cosmos';
 import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
@@ -21,6 +20,8 @@ import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Sig
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { createInjectiveSignerConfig } from '../../src/signers/config';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
 
@@ -44,11 +45,12 @@ describe('Staking tokens testing', () => {
     const mnemonic = generateMnemonic();
     injRpcEndpoint = await getRpcEndpoint();
 
-    // Initialize wallet and signer - try standard Cosmos wallet for better pubkey compatibility
+    // Use standard Cosmos wallet for compatibility with Injective testnet in Starship
+    // The testnet expects standard Cosmos addresses, not Ethereum-style addresses
     wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
       derivations: [{
         prefix: 'inj',
-        hdPath: HDPath.cosmos().toString(), // Use cosmos HD path instead of ethereum
+        hdPath: HDPath.cosmos().toString(), // Use cosmos HD path for compatibility
       }]
     });
     const offlineSigner = await wallet.toOfflineDirectSigner();
@@ -67,11 +69,14 @@ describe('Staking tokens testing', () => {
     queryClientWrapper.broadcastTxAsync = queryClient.broadcastTxAsync.bind(queryClient);
     queryClientWrapper.getTx = queryClient.getTx.bind(queryClient);
 
-    const signerConfig = {
+    // Use Injective-specific signer configuration with proper defaults
+    const baseSignerConfig = {
       queryClient: queryClientWrapper,
       chainId: 'injective-1',
       addressPrefix: 'inj'
     };
+
+    const signerConfig = createInjectiveSignerConfig(baseSignerConfig);
 
     directSigner = new DirectSigner(offlineSigner, signerConfig);
     directSigner.addEncoders(toEncoders(MsgDelegate));
@@ -101,7 +106,6 @@ describe('Staking tokens testing', () => {
       denom,
     });
 
-    console.log('Balance check:', { address, denom, balance });
     expect(parseInt(balance!.amount)).toBeGreaterThan(0);
     // We'll check if balance is sufficient for delegation in the staking test
   }, 10000);
@@ -170,33 +174,25 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-    console.log('About to delegate:', { address, validatorAddress, msgDelegate, fee });
-
-    try {
-      const result = await directSigner.signAndBroadcast(
-        {
-          messages: [
-            {
-              typeUrl: MsgDelegate.typeUrl,
-              value: msgDelegate,
-            },
-          ],
-          fee,
-          memo: 'Stake tokens to genesis validator',
-          options: {
-            signerAddress: address,
+    const result = await directSigner.signAndBroadcast(
+      {
+        messages: [
+          {
+            typeUrl: MsgDelegate.typeUrl,
+            value: msgDelegate,
           },
+        ],
+        fee,
+        memo: 'Stake tokens to genesis validator',
+        options: {
+          signerAddress: address,
         },
-        {
-          mode: 'commit',
-        }
-      );
-      console.log('Delegation result:', result);
-      await result.wait();
-    } catch (err) {
-      console.log('Delegation error:', err);
-      throw err;
-    }
+      },
+      {
+        mode: 'commit',
+      }
+    );
+    await result.wait();
 
     // Verify the delegation was successful by checking the delegation amount
     const { delegationResponse } = await getDelegation(queryClient, {
