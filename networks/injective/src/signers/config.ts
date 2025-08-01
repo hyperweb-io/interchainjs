@@ -1,3 +1,4 @@
+import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from './signature-processor';
 import { InjectiveDocOptions, InjectiveSignerConfig } from './types';
 import deepmerge from 'deepmerge';
 
@@ -18,7 +19,7 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<InjectiveDocOptions> = {
 
   // Signature format options - Injective-specific signature processing
   signature: {
-    format: 'compact' // Default to compact format for Cosmos compatibility
+    format: PRESET_INJECTIVE_SIGNATURE_FORMATS['compact']
   },
 
   // TxOptions - Transaction-level defaults

@@ -25,6 +25,7 @@ import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from '../../src';
 
 describe('Staking tokens testing', () => {
   let directSigner: DirectSigner, aminoSigner: AminoSigner, denom: string, address: string;
@@ -48,7 +49,7 @@ describe('Staking tokens testing', () => {
 
     // Use standard Cosmos wallet for testnet compatibility
     // The Injective testnet in Starship expects standard Cosmos addresses
-    wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+    wallet = await EthSecp256k1HDWallet.fromMnemonic(mnemonic, {
       derivations: [{
         prefix: 'inj',
         hdPath: HDPath.cosmos().toString(), // Use cosmos HD path for compatibility
@@ -83,7 +84,7 @@ describe('Staking tokens testing', () => {
       ...DEFAULT_INJECTIVE_SIGNER_CONFIG,
       ...baseSignerConfig,
       signature: {
-        format: 'compact' // Use standard compact format for testnet compatibility
+        format: PRESET_INJECTIVE_SIGNATURE_FORMATS['compact']
       }
     });
 
