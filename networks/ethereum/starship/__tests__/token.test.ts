@@ -67,14 +67,36 @@ const getReceiverBalance = async () => {
 describe('sending Tests', () => {
   let senderAddress: string;
   let receiverAddress: string;
+  let usdtAddress: string;
 
   beforeAll(async () => {
+    // Initialize query client
     await initQueryClient();
+
+    // Get addresses
     senderAddress = await getSenderAddress();
     receiverAddress = await getReceiverAddress();
-  });
 
-  let usdtAddress: string
+    // Deploy USDT contract for tests that need it
+    try {
+      // console.log('Deploying USDT contract...');
+      const signedTx = await legacySenderSigner.sendContractTransaction(
+        '', // Empty address for deployment
+        bytecode,
+        0n, // No ETH value
+        senderAddress
+      );
+
+      // Broadcast the signed transaction
+      const deployResponse = await legacySenderSigner.broadcast(signedTx);
+      const receipt = await deployResponse.wait();
+      usdtAddress = receipt.contractAddress;
+      // console.log('Deployed USDT contract address:', usdtAddress);
+    } catch (e) {
+      console.error('Error deploying contract in beforeAll:', e);
+      throw e;
+    }
+  }, 120000); // Increase timeout for deployment
 
   const usdt = new ContractEncoder(abi as AbiFunctionItem[]);
 
@@ -121,15 +143,15 @@ describe('sending Tests', () => {
     const beforeSenderBalance = await getSenderBalance();
     const beforeReceiverBalance = await getReceiverBalance();
 
-    console.log('Sender balance before:', beforeSenderBalance.toString());
-    console.log('Receiver balance before:', beforeReceiverBalance.toString());
+    // console.log('Sender balance before:', beforeSenderBalance.toString());
+    // console.log('Receiver balance before:', beforeReceiverBalance.toString());
 
     // 2) Prepare transaction fields
     const valueWei = 10000000000000000n; // 0.01 ETH
 
     // 3) Print Sender's Balance Before Sending
-    const currentSenderBalance = await getSenderBalance();
-    console.log('Sender balance right before sending:', currentSenderBalance.toString());
+    // const currentSenderBalance = await getSenderBalance();
+    // console.log('Sender balance right before sending:', currentSenderBalance.toString());
 
     // 4) Send transaction using legacy signer
     const senderAddr = await getSenderAddress();
@@ -143,7 +165,7 @@ describe('sending Tests', () => {
     const broadcastResponse = await legacySenderSigner.broadcast(signedTx);
 
     expect(broadcastResponse.transactionHash).toMatch(/^0x[0-9a-fA-F]+$/);
-    console.log('sending txHash:', broadcastResponse.transactionHash);
+    // console.log('sending txHash:', broadcastResponse.transactionHash);
 
     const receipt = await broadcastResponse.wait();
     expect(receipt.status).toBe('0x1'); // '0x1' indicates success
@@ -174,13 +196,13 @@ describe('sending Tests', () => {
     const beforeSenderBalance = await getSenderBalance();
     const beforeReceiverBalance = await getReceiverBalance();
 
-    console.log('Sender balance before:', beforeSenderBalance.toString());
-    console.log('Receiver balance before:', beforeReceiverBalance.toString());
+    // console.log('Sender balance before:', beforeSenderBalance.toString());
+    // console.log('Receiver balance before:', beforeReceiverBalance.toString());
 
     const valueWei = 10000000000000000n; // 0.01 ETH
 
-    const currentSenderBalance = await getSenderBalance();
-    console.log('Sender balance right before sending:', currentSenderBalance.toString());
+    // const currentSenderBalance = await getSenderBalance();
+    // console.log('Sender balance right before sending:', currentSenderBalance.toString());
 
     // Send transaction using EIP-1559 signer
     const senderAddr = await getSenderAddress();
@@ -194,7 +216,7 @@ describe('sending Tests', () => {
     const broadcastResponse = await eip1559SenderSigner.broadcast(signedTx);
 
     expect(broadcastResponse.transactionHash).toMatch(/^0x[0-9a-fA-F]+$/);
-    console.log('EIP-1559 sending txHash:', broadcastResponse.transactionHash);
+    // console.log('EIP-1559 sending txHash:', broadcastResponse.transactionHash);
 
     const receipt = await broadcastResponse.wait();
     expect(receipt.status).toBe('0x1');
@@ -202,43 +224,22 @@ describe('sending Tests', () => {
     const afterSenderBalance = await getSenderBalance();
     const afterReceiverBalance = await getReceiverBalance();
 
-    console.log('Sender balance after:', afterSenderBalance.toString());
-    console.log('Receiver balance after:', afterReceiverBalance.toString());
+    // console.log('Sender balance after:', afterSenderBalance.toString());
+    // console.log('Receiver balance after:', afterReceiverBalance.toString());
 
     const senderDelta = beforeSenderBalance - afterSenderBalance;
     const receiverDelta = afterReceiverBalance - beforeReceiverBalance;
 
-    console.log('Sender delta:', senderDelta.toString());
-    console.log('Receiver delta:', receiverDelta.toString());
+    // console.log('Sender delta:', senderDelta.toString());
+    // console.log('Receiver delta:', receiverDelta.toString());
 
     expect(receiverDelta).toBe(valueWei);
 
     expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
   }, 60000);
 
-  // return
   it('should transfer USDT to receiver and verify balance increments by the transfer amount', async () => {
-    // return
-    // Deploy USDT contract using legacy signer
-    try {
-      const senderAddr = await getSenderAddress();
-      const signedTx = await legacySenderSigner.sendContractTransaction(
-        '', // Empty address for deployment
-        bytecode,
-        0n, // No ETH value
-        senderAddr
-      );
-
-      // Broadcast the signed transaction
-      const deployResponse = await legacySenderSigner.broadcast(signedTx);
-      const receipt = await deployResponse.wait();
-      usdtAddress = receipt.contractAddress;
-      // console.log('Deployed USDT contract address:', usdtAddress);
-    } catch (e) {
-      console.error('Error deploying contract:', e);
-      throw e;
-    }
-
+    // Contract is already deployed in beforeAll
     const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
     // console.log('Before transfer, receiver USDT balance:', beforeReceiverBalance.toString());
 
@@ -282,42 +283,20 @@ describe('sending Tests', () => {
     expect(signature).toMatch(/^0x[0-9a-fA-F]+$/);
     expect(signature.length).toBe(132); // 0x + 130 hex chars (65 bytes)
 
-    console.log('Message:', message);
-    console.log('Signature:', signature);
-    console.log('Verified for signer address:', true);
+    // console.log('Message:', message);
+    // console.log('Signature:', signature);
+    // console.log('Verified for signer address:', true);
   }, 10000);
 
   it('should monitor USDT Transfer events via WebSocket', async () => {
-    // Skip the test if USDT contract is not deployed yet
-    if (!usdtAddress) {
-      console.log('Deploying USDT contract for WebSocket test...');
-      try {
-        const senderAddr = await getSenderAddress();
-        const signedTx = await legacySenderSigner.sendContractTransaction(
-          '', // Empty address for deployment
-          bytecode,
-          0n, // No ETH value
-          senderAddr
-        );
-
-        // Broadcast the signed transaction
-        const deployResponse = await legacySenderSigner.broadcast(signedTx);
-        const receipt = await deployResponse.wait();
-        usdtAddress = receipt.contractAddress;
-        console.log('Deployed USDT contract address for WebSocket test:', usdtAddress);
-      } catch (e) {
-        console.error('Error deploying contract for WebSocket test:', e);
-        throw e;
-      }
-    }
-
+    // Contract is already deployed in beforeAll
     // Create a WebSocket monitor for the USDT contract
     const monitor = new WebSocketContractMonitor(usdtAddress, abi, WS_URL);
 
     // Connect to WebSocket provider
     try {
       await monitor.connect();
-      console.log('Connected to WebSocket provider');
+      // console.log('Connected to WebSocket provider');
     } catch (e) {
       console.error('Failed to connect to WebSocket, skipping test:', e);
       return; // Skip the test if WebSocket connection fails
@@ -348,7 +327,7 @@ describe('sending Tests', () => {
     // Transfer some tokens
     const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
 
-    console.log('Sending USDT transfer to trigger event...');
+    // console.log('Sending USDT transfer to trigger event...');
     const dataHex = usdt.transfer(receiverAddress, transferAmount);
 
     // Send USDT transfer transaction
@@ -365,7 +344,7 @@ describe('sending Tests', () => {
 
     // Wait for transaction confirmation
     await transferResponse.wait();
-    console.log('Transfer transaction confirmed:', transferResponse.transactionHash);
+    // console.log('Transfer transaction confirmed:', transferResponse.transactionHash);
 
     // Wait for the event (with timeout)
     const timeoutPromise = new Promise<void>(resolve => setTimeout(resolve, 5000));
@@ -373,6 +352,6 @@ describe('sending Tests', () => {
 
     // Close the WebSocket connection
     await monitor.close();
-    console.log('WebSocket connection closed');
+    // console.log('WebSocket connection closed');
   }, 60000); // Increased timeout to 60s for WebSocket operations
 });

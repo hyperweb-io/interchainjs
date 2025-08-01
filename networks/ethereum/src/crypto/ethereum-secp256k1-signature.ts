@@ -1,5 +1,6 @@
 import { ICryptoBytes } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
+import { hexToBytes } from 'ethereum-cryptography/utils';
 
 /**
  * Utility function to trim leading null bytes from a Uint8Array
@@ -14,6 +15,14 @@ function trimLeadingNullBytes(inData: Uint8Array): Uint8Array {
     }
   }
   return inData.slice(numberOfLeadingNullBytes);
+}
+
+/**
+ * Helper method to convert values to padded hex strings
+ */
+function toHexPadded(value: number | bigint): string {
+  const hex = value.toString(16);
+  return hex.length % 2 === 0 ? hex : '0' + hex;
 }
 
 /**
@@ -179,16 +188,19 @@ export class EthereumSecp256k1Signature implements ICryptoBytes {
 
   /**
    * Get the signature in the format expected by Ethereum transactions
-   * For legacy transactions: v = chainId * 2 + 35 + recovery
+   * For legacy transactions: v = chainId * 2 + 35 + recovery (encoded as bytes)
    * For EIP-1559 transactions: v = recovery (0 or 1)
+   * R and S values are trimmed of leading zeros for proper RLP encoding
    */
-  public toEthereumFormat(chainId?: number): { r: Uint8Array; s: Uint8Array; v: number | Uint8Array } {
-    const r = this.r(32);
-    const s = this.s(32);
+  public toEthereumFormat(chainId?: number): { r: Uint8Array; s: Uint8Array; v: Uint8Array } {
+    // Trim leading zeros from R and S for proper RLP encoding
+    const r = trimLeadingNullBytes(this.r(32));
+    const s = trimLeadingNullBytes(this.s(32));
 
     if (chainId !== undefined) {
       // Legacy transaction format (EIP-155)
-      const v = chainId * 2 + 35 + this.recovery;
+      const vNumber = chainId * 2 + 35 + this.recovery;
+      const v = hexToBytes(toHexPadded(vNumber));
       return { r, s, v };
     } else {
       // EIP-1559 format - v is just the recovery bit
@@ -235,7 +247,7 @@ export class EthereumSecp256k1Signature implements ICryptoBytes {
 
     const bytes = new Uint8Array(65);
     for (let i = 0; i < 65; i++) {
-      bytes[i] = parseInt(cleanHex.substr(i * 2, 2), 16);
+      bytes[i] = parseInt(cleanHex.substring(i * 2, i * 2 + 2), 16);
     }
 
     return EthereumSecp256k1Signature.fromFixedLength(bytes);

@@ -1,5 +1,7 @@
-// Export configuration
+// Export Injective-specific configuration and types
 export * from './config';
+export * from './types';
+export * from './signature-processor';
 
 // Re-export commonly used types from Cosmos for convenience
 export {

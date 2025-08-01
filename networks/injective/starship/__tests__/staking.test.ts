@@ -20,8 +20,9 @@ import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Sig
 import { useChain } from 'starshipjs';
 
 import { generateMnemonic } from '../src';
+import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
-import { createInjectiveSignerConfig } from '../../src/signers/config';
+import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
 
@@ -45,8 +46,8 @@ describe('Staking tokens testing', () => {
     const mnemonic = generateMnemonic();
     injRpcEndpoint = await getRpcEndpoint();
 
-    // Use standard Cosmos wallet for compatibility with Injective testnet in Starship
-    // The testnet expects standard Cosmos addresses, not Ethereum-style addresses
+    // Use standard Cosmos wallet for testnet compatibility
+    // The Injective testnet in Starship expects standard Cosmos addresses
     wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
       derivations: [{
         prefix: 'inj',
@@ -76,7 +77,15 @@ describe('Staking tokens testing', () => {
       addressPrefix: 'inj'
     };
 
-    const signerConfig = createInjectiveSignerConfig(baseSignerConfig);
+    // Merge with DEFAULT_INJECTIVE_SIGNER_CONFIG for complete configuration
+    // Override signature format to use standard Cosmos format for testnet compatibility
+    const signerConfig = createInjectiveSignerConfig({
+      ...DEFAULT_INJECTIVE_SIGNER_CONFIG,
+      ...baseSignerConfig,
+      signature: {
+        format: 'compact' // Use standard compact format for testnet compatibility
+      }
+    });
 
     directSigner = new DirectSigner(offlineSigner, signerConfig);
     directSigner.addEncoders(toEncoders(MsgDelegate));

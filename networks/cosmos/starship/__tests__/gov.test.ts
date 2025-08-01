@@ -90,7 +90,9 @@ describe('Governance tests for osmosis', () => {
       addressPrefix: commonPrefix
     });
 
-    aminoSigner = new AminoSigner(aminoWallet, {
+    // Use wallet's amino signer interface
+    const aminoOfflineSigner = await aminoWallet.toOfflineAminoSigner();
+    aminoSigner = new AminoSigner(aminoOfflineSigner, {
       queryClient: client,
       chainId: 'osmosis-1',
       addressPrefix: commonPrefix
@@ -209,7 +211,7 @@ describe('Governance tests for osmosis', () => {
       const txResult = await result.wait();
 
       // Get proposal id from log events - check different possible structures
-      let events = (txResult as any).events || txResult.txResult?.events;
+      let events = (txResult as any).events || (txResult as any).txResult?.events;
 
       if (!events) {
         console.log('No events found in result:', txResult);

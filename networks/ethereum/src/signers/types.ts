@@ -5,12 +5,14 @@ import {
   IAccount,
   IWallet
 } from '@interchainjs/types';
+import { EthereumSignatureFormatFunction } from '../config';
 import { IEthereumQueryClient } from '../types/ethereum-client-interfaces';
 import {
   EthereumTransaction,
   TransactionReceipt
 } from '../types/responses';
 import { TransactionParams } from '../types/requests';
+import { EthereumSecp256k1Signature } from '../crypto';
 
 /**
  * Ethereum signer configuration
@@ -24,6 +26,8 @@ export interface EndpointOptions {
   /** Query client for chain interactions */
   queryClient: IEthereumQueryClient;
 }
+
+
 
 /**
  * Transaction configuration options
@@ -39,6 +43,11 @@ export interface TransactionOptions {
   maxPriorityFeePerGas?: bigint;
   /** Chain ID override (if not provided, will be queried) */
   chainId?: number;
+  /** Signature configuration options */
+  signature?: {
+    /** Signature format configuration */
+    format?: EthereumSignatureFormatFunction | string;
+  };
 }
 
 /**
@@ -120,7 +129,7 @@ export interface EthereumBroadcastResponse extends IBroadcastResult<TransactionR
  */
 export interface EthereumSignedTransaction {
   /** Transaction signature */
-  signature: ICryptoBytes;
+  signature: EthereumSecp256k1Signature;
   /** Serialized transaction bytes */
   txBytes: Uint8Array;
   /** Raw transaction hex string */

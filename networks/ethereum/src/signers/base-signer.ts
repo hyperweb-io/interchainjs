@@ -25,7 +25,11 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
 
   constructor(auth: IWallet, config: EthereumSignerConfig) {
     this.auth = auth;
+    // Store the original queryClient to avoid deepmerge issues
+    const originalQueryClient = config.queryClient;
     this.config = createEthereumSignerConfig(config);
+    // Restore the original queryClient to preserve its prototype chain
+    this.config.queryClient = originalQueryClient;
   }
 
   // IUniSigner interface methods

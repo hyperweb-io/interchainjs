@@ -36,7 +36,11 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
 
   constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig) {
     this.auth = auth;
+    // Store the original queryClient to avoid deepmerge issues
+    const originalQueryClient = config.queryClient;
     this.config = createCosmosSignerConfig(config);
+    // Restore the original queryClient to preserve its prototype chain
+    this.config.queryClient = originalQueryClient;
   }
 
   // ICosmosSigner interface methods

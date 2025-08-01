@@ -25,6 +25,7 @@ export class WebSocketContractMonitor {
   private socket: WebSocket | null = null;
   private eventHandlers: Map<string, (event: ContractEvent) => void> = new Map();
   private connected = false;
+  private isClosing = false;
 
   constructor(contractAddress: string, abi: AbiFunctionItem[], wsUrl: string) {
     this.contractAddress = contractAddress;
@@ -39,10 +40,10 @@ export class WebSocketContractMonitor {
     return new Promise((resolve, reject) => {
       try {
         this.socket = new WebSocket(this.wsUrl);
-        
+
         this.socket.onopen = () => {
           this.connected = true;
-          console.log('WebSocket connected');
+          // console.log('WebSocket connected');
           resolve();
         };
 
@@ -52,7 +53,10 @@ export class WebSocketContractMonitor {
 
         this.socket.onclose = () => {
           this.connected = false;
-          console.log('WebSocket disconnected');
+          // Only log if we're not intentionally closing
+          if (!this.isClosing) {
+            console.log('WebSocket disconnected');
+          }
         };
 
         this.socket.onerror = (error) => {
@@ -70,6 +74,7 @@ export class WebSocketContractMonitor {
    * Close WebSocket connection
    */
   async close(): Promise<void> {
+    this.isClosing = true;
     if (this.socket) {
       this.socket.close();
       this.socket = null;
@@ -82,7 +87,7 @@ export class WebSocketContractMonitor {
    */
   on(eventName: string, handler: (event: ContractEvent) => void): this {
     this.eventHandlers.set(eventName, handler);
-    
+
     // Subscribe to logs for this contract
     if (this.connected && this.socket) {
       const subscribeMessage = {
@@ -97,10 +102,10 @@ export class WebSocketContractMonitor {
           }
         ]
       };
-      
+
       this.socket.send(JSON.stringify(subscribeMessage));
     }
-    
+
     return this;
   }
 
@@ -110,11 +115,11 @@ export class WebSocketContractMonitor {
   private handleMessage(data: string): void {
     try {
       const message = JSON.parse(data);
-      
+
       if (message.method === 'eth_subscription' && message.params) {
         const log = message.params.result;
         const event = this.parseLogToEvent(log);
-        
+
         // Find matching event handler
         for (const [eventName, handler] of this.eventHandlers) {
           if (this.isEventMatch(eventName, log)) {
@@ -136,7 +141,7 @@ export class WebSocketContractMonitor {
     if (eventName === 'Transfer') {
       return '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
     }
-    
+
     // For other events, return a placeholder
     return '0x0000000000000000000000000000000000000000000000000000000000000000';
   }
@@ -155,12 +160,12 @@ export class WebSocketContractMonitor {
   private parseLogToEvent(log: any): ContractEvent {
     // Simple parsing for Transfer event
     const params: Record<string, any> = {};
-    
+
     if (log.topics && log.topics.length >= 3) {
       // Transfer event has indexed parameters: from, to
       params.from = '0x' + log.topics[1].slice(26); // Remove padding
       params.to = '0x' + log.topics[2].slice(26); // Remove padding
-      
+
       // Value is in data (non-indexed)
       if (log.data && log.data !== '0x') {
         params.value = BigInt(log.data);

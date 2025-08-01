@@ -2,11 +2,10 @@ import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BaseCryptoBytes } from '@interchainjs/utils';
-import { Secp256k1 } from '@interchainjs/crypto';
 import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { DIRECT_SIGN_DOC_STAGING_KEYS } from './direct-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
-import { resolveHashFunction } from '@interchainjs/auth';
+import { resolveHashFunction, resolveSignatureFormat } from '@interchainjs/auth';
 
 /**
  * Staging keys created by DirectSignaturePlugin
@@ -64,11 +63,18 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       const signatureResult = await signer.signDirect(signerAddress, signDoc);
 
-      // Ensure signature is in compact form (64 bytes) by removing recovery parameter if present
-      const compactSignature = Secp256k1.trimRecoveryByte(signatureResult.signature);
+      // Determine signature format - use configured format or default to compact
+      const formatFn = resolveSignatureFormat(options?.signature?.format, 'compact');
+
+      let processedSignature: Uint8Array;
+      if (formatFn) {
+        processedSignature = formatFn(signatureResult.signature);
+      } else {
+        processedSignature = signatureResult.signature;
+      }
 
       // Store both the signature and the signed document
-      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(compactSignature));
+      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(processedSignature));
       ctx.setStagingData('SIGNED_DOC', signatureResult.signed);
     } else {
       throw new Error("Unsupported signer type for direct signing");

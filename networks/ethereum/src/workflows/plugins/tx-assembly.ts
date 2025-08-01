@@ -1,7 +1,7 @@
-import { BaseWorkflowBuilderPlugin, ICryptoBytes } from '@interchainjs/types';
+import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { EthereumWorkflowBuilderContext } from '../context';
 import { EthereumTransactionType, EthereumSignedTransaction } from '../../signers/types';
-import { EthereumSecp256k1Signature, createEthereumSignature } from '../../crypto';
+import { EthereumSecp256k1Signature } from '../../crypto';
 import { keccak256 } from 'ethereum-cryptography/keccak';
 import { hexToBytes, bytesToHex } from 'ethereum-cryptography/utils';
 import * as rlp from 'rlp';
@@ -26,10 +26,8 @@ export interface TxAssemblyParams {
   unsignedTxArray: any[];
   transactionType: EthereumTransactionType;
   chainId: number;
-  r: Uint8Array;
-  s: Uint8Array;
   v: number | Uint8Array;
-  signature: ICryptoBytes;
+  signature: EthereumSecp256k1Signature;
 }
 
 /**
@@ -44,8 +42,6 @@ export class TxAssemblyPlugin extends BaseWorkflowBuilderPlugin<
       TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY,
       INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE,
       TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID,
-      SIGNATURE_STAGING_KEYS.R,
-      SIGNATURE_STAGING_KEYS.S,
       SIGNATURE_STAGING_KEYS.V,
       SIGNATURE_STAGING_KEYS.SIGNATURE
     ]);
@@ -59,10 +55,12 @@ export class TxAssemblyPlugin extends BaseWorkflowBuilderPlugin<
     const unsignedTxArray = ctx.getStagingData<any[]>(TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY);
     const transactionType = ctx.getStagingData<EthereumTransactionType>(INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE);
     const chainId = ctx.getStagingData<number>(TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID);
-    const r = ctx.getStagingData<Uint8Array>(SIGNATURE_STAGING_KEYS.R);
-    const s = ctx.getStagingData<Uint8Array>(SIGNATURE_STAGING_KEYS.S);
     const v = ctx.getStagingData<number | Uint8Array>(SIGNATURE_STAGING_KEYS.V);
-    const signature = ctx.getStagingData<ICryptoBytes>(SIGNATURE_STAGING_KEYS.SIGNATURE);
+    const signature = ctx.getStagingData<EthereumSecp256k1Signature>(SIGNATURE_STAGING_KEYS.SIGNATURE);
+
+    // Extract r and s from signature object
+    const r = signature.r(32);
+    const s = signature.s(32);
 
     let signedTxArray: any[];
     let serializedTx: Uint8Array;
@@ -99,12 +97,9 @@ export class TxAssemblyPlugin extends BaseWorkflowBuilderPlugin<
     // Calculate transaction hash
     const txHash = '0x' + bytesToHex(keccak256(serializedTx));
 
-    // Create Ethereum-specific signature object
-    const ethSignature = createEthereumSignature(signature);
-
     // Create the signed transaction result
     const signedTx: EthereumSignedTransaction = {
-      signature: ethSignature,
+      signature: signature,
       txBytes: serializedTx,
       rawTx,
       txHash,

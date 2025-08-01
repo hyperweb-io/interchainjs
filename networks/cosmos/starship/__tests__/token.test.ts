@@ -123,8 +123,9 @@ describe('Token transfers', () => {
   }, 100000);
 
   it('amino mode: send osmosis token to address', async () => {
-    // Use wallet as OfflineAminoSigner - Secp256k1HDWallet implements both interfaces
-    const aminoSigner: AminoSigner = new AminoSigner(wallet, {
+    // Use wallet.toOfflineAminoSigner() to get proper offline signer with cached account data
+    const aminoOfflineSigner = await wallet.toOfflineAminoSigner();
+    const aminoSigner: AminoSigner = new AminoSigner(aminoOfflineSigner, {
       queryClient: client,
       chainId: 'osmosis-1',
       addressPrefix: commonPrefix

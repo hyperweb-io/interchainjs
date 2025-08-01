@@ -1,11 +1,11 @@
-import { DocOptions, CosmosSignerConfig, EndpointOptions } from '@interchainjs/cosmos/signers/types';
+import { InjectiveDocOptions, InjectiveSignerConfig } from './types';
 import deepmerge from 'deepmerge';
 
 /**
  * Default configuration for Injective signers
  * Provides Injective-specific defaults for fee calculation, signing options, and transaction options
  */
-export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
+export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<InjectiveDocOptions> = {
   // FeeOptions - Gas and fee calculation defaults for Injective
   multiplier: 1.5, // Higher gas multiplier for Injective due to EVM compatibility
   gasPrice: 'average', // Use average gas price from network
@@ -14,6 +14,11 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
   addressPrefix: 'inj', // Injective address prefix
   message: {
     hash: 'keccak256' // Injective uses keccak256 for Ethereum compatibility
+  },
+
+  // Signature format options - Injective-specific signature processing
+  signature: {
+    format: 'compact' // Default to compact format for Cosmos compatibility
   },
 
   // TxOptions - Transaction-level defaults
@@ -27,7 +32,7 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
  * @param userConfig - User-provided configuration (must include required EndpointOptions)
  * @returns Complete CosmosSignerConfig with Injective defaults applied
  */
-export function createInjectiveSignerConfig(userConfig: CosmosSignerConfig): CosmosSignerConfig {
+export function createInjectiveSignerConfig(userConfig: InjectiveSignerConfig): InjectiveSignerConfig {
   // Ensure required EndpointOptions are present
   if (!userConfig.queryClient) {
     throw new Error('queryClient is required in signer configuration');
@@ -36,10 +41,10 @@ export function createInjectiveSignerConfig(userConfig: CosmosSignerConfig): Cos
   // Deep merge user config with Injective defaults, giving priority to user config
   return deepmerge(DEFAULT_INJECTIVE_SIGNER_CONFIG, userConfig, {
     // Custom merge function to handle arrays properly
-    arrayMerge: (destinationArray, sourceArray) => sourceArray,
+    arrayMerge: (_destinationArray, sourceArray) => sourceArray,
     // Clone to avoid mutations
     clone: true
-  }) as CosmosSignerConfig;
+  }) as InjectiveSignerConfig;
 }
 
 /**
@@ -50,11 +55,11 @@ export function createInjectiveSignerConfig(userConfig: CosmosSignerConfig): Cos
  * @returns Merged configuration for the operation
  */
 export function mergeInjectiveSignerOptions(
-  baseConfig: CosmosSignerConfig, 
-  operationOptions: Partial<DocOptions> = {}
-): DocOptions {
+  baseConfig: InjectiveSignerConfig,
+  operationOptions: Partial<InjectiveDocOptions> = {}
+): InjectiveDocOptions {
   return deepmerge(baseConfig, operationOptions, {
-    arrayMerge: (destinationArray, sourceArray) => sourceArray,
+    arrayMerge: (_destinationArray, sourceArray) => sourceArray,
     clone: true
-  }) as DocOptions;
+  }) as InjectiveDocOptions;
 }

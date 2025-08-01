@@ -3,18 +3,20 @@
 import './setup.test';
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { createCosmosQueryClient, ICosmosQueryClient } from '@interchainjs/cosmos';
+import { CosmosQueryClient, DirectSigner, HttpRpcClient } from '@interchainjs/cosmos';
 import { useChain } from 'starshipjs';
-import { getAccounts } from '@interchainjs/cosmos-types';
-import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
-import { DirectSigner } from '@interchainjs/cosmos';
 import { TxBody, SignerInfo, ModeInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { HDPath } from '@interchainjs/types';
+import { generateMnemonic } from '../src/utils';
+import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
 
-let queryClient: ICosmosQueryClient;
+let queryClient: CosmosQueryClient;
 let rpcEndpoint: string;
 let testAddress: string;
 let testSigner: DirectSigner;
+let wallet: Secp256k1HDWallet;
 
 /**
  * Test suite for getAccountNumber and getSequence methods
@@ -23,52 +25,43 @@ let testSigner: DirectSigner;
 describe('Signer Account Methods', () => {
 
   beforeAll(async () => {
-    const { getRpcEndpoint } = useChain('osmosis');
+    const { getRpcEndpoint, chainInfo, creditFromFaucet } = useChain('osmosis');
     rpcEndpoint = await getRpcEndpoint();
-    
-    queryClient = await createCosmosQueryClient(rpcEndpoint, {
-      timeout: 30000,
-      headers: {
-        'User-Agent': 'InterchainJS-Signer-Test/1.0.0'
-      }
-    });
 
-    // Get test address from chain accounts
-    const accountsResponse = await getAccounts(queryClient, {});
-    expect(accountsResponse.accounts.length).toBeGreaterThan(0);
-    
-    // Find a BaseAccount to extract a valid address
-    for (const account of accountsResponse.accounts) {
-      if (account.typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
-        const baseAccount = BaseAccount.decode(account.value);
-        if (baseAccount.address && baseAccount.address.startsWith('osmo')) {
-          testAddress = baseAccount.address;
-          break;
-        }
+    // Create query client like the working tests do
+    const rpcClient = new HttpRpcClient(rpcEndpoint);
+    const protocolAdapter = new Comet38Adapter();
+    queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+
+    // Create a real wallet instead of a mock
+    const mnemonic = generateMnemonic();
+    const commonPrefix = chainInfo?.chain?.bech32_prefix || 'osmo';
+
+    wallet = await Secp256k1HDWallet.fromMnemonic(
+      mnemonic,
+      {
+        derivations: [{
+          prefix: commonPrefix,
+          hdPath: HDPath.cosmos(0, 0, 0).toString(),
+        }]
       }
-    }
-    
-    // Fallback to wallet address if no BaseAccount found
-    if (!testAddress) {
-      console.warn('No BaseAccount found, using wallet address');
-      testAddress = 'osmo1qypqxpq9qcrsszg2pvxq6rs0zqg3yyc5lzv7xu';
-    }
-    
+    );
+
+    // Get the offline signer and address
+    const protoSigner = await wallet.toOfflineDirectSigner();
+    const accounts = await protoSigner.getAccounts();
+    testAddress = accounts[0].address;
+
     console.log(`Test address: ${testAddress}`);
 
-    // Create test signer
-    const mockOfflineSigner = {
-      getAccounts: async () => [{
-        address: testAddress,
-        pubkey: new Uint8Array(33), // Mock public key
-        algo: 'secp256k1' as const
-      }]
-    };
+    // Fund the test address so it exists on chain
+    await creditFromFaucet(testAddress);
 
-    testSigner = new DirectSigner(mockOfflineSigner, {
+    // Create test signer with real wallet
+    testSigner = new DirectSigner(protoSigner, {
       queryClient,
       chainId: 'osmosis-1',
-      addressPrefix: 'osmo'
+      addressPrefix: commonPrefix
     });
   });
 
@@ -106,13 +99,13 @@ describe('Signer Account Methods', () => {
     test('should simulate realistic transaction and return accurate gas estimate', async () => {
       // Create a properly encoded MsgSend message for real simulation
       // Use the actual test address from the chain for the from_address
-      
+
       // Use the established test address and a known valid to address
-      
+
       // Create a working MsgSend encoded bytes
       // This is a properly encoded MsgSend with:
       // from_address: osmo1qjtcxl86z0zua2egcsz4ncff2gzlcndz2jeczk
-      // to_address: osmo1qypqxpq9qcrsszg2pvxq6rs0zqg3yyc5lzv7xu  
+      // to_address: osmo1qypqxpq9qcrsszg2pvxq6rs0zqg3yyc5lzv7xu
       // amount: 100uosmo
       const msgSendBytes = new Uint8Array([
         0x0a, 0x2d, 0x6f, 0x73, 0x6d, 0x6f, 0x31, 0x71, 0x6a, 0x74, 0x63, 0x78, 0x6c, 0x38, 0x36, 0x7a,
@@ -123,7 +116,7 @@ describe('Signer Account Methods', () => {
         0x79, 0x79, 0x63, 0x35, 0x6c, 0x7a, 0x76, 0x37, 0x78, 0x75, 0x1a, 0x0c, 0x0a, 0x05, 0x75, 0x6f,
         0x73, 0x6d, 0x6f, 0x12, 0x03, 0x31, 0x30, 0x30
       ]);
-      
+
       const testMessage = Any.fromPartial({
         typeUrl: '/cosmos.bank.v1beta1.MsgSend',
         value: msgSendBytes
@@ -138,7 +131,7 @@ describe('Signer Account Methods', () => {
       // Create realistic SignerInfo with actual sequence
       const baseAccount = await queryClient.getBaseAccount(testAddress);
       const sequence = baseAccount?.sequence || BigInt(0);
-      
+
       const signerInfo = SignerInfo.fromPartial({
         publicKey: Any.fromPartial({
           typeUrl: '/cosmos.crypto.secp256k1.PubKey',
@@ -155,7 +148,7 @@ describe('Signer Account Methods', () => {
       try {
         console.log('🔍 Testing simulation with realistic transaction...');
         simulation = await testSigner.simulateByTxBody(txBody, [signerInfo]);
-        
+
         console.log('✅ Simulation successful:', {
           gasUsed: simulation.gasInfo.gasUsed.toString(),
           gasWanted: simulation.gasInfo.gasWanted.toString(),
@@ -165,15 +158,15 @@ describe('Signer Account Methods', () => {
         console.error('❌ Simulation failed:', error);
         throw error;
       }
-      
+
       expect(simulation).toBeDefined();
       expect(simulation.gasInfo).toBeDefined();
-      
+
       const gasUsed = simulation.gasInfo.gasUsed;
       const gasWanted = simulation.gasInfo.gasWanted;
-      
+
       console.log(`Final result: gasUsed=${gasUsed}, gasWanted=${gasWanted}`);
-      
+
       // The method now returns actual simulation results or zero values
       // Test behavior depends on actual chain state and message validity
       expect(simulation.gasInfo).toBeDefined();
@@ -189,7 +182,7 @@ describe('Signer Account Methods', () => {
 
       const baseAccount = await queryClient.getBaseAccount(testAddress);
       const sequence = baseAccount?.sequence || BigInt(0);
-      
+
       const signerInfo = SignerInfo.fromPartial({
         publicKey: Any.fromPartial({
           typeUrl: '/cosmos.crypto.secp256k1.PubKey',
@@ -202,15 +195,15 @@ describe('Signer Account Methods', () => {
       });
 
       const simulation = await testSigner.simulateByTxBody(emptyTxBody, [signerInfo]);
-      
+
       expect(simulation).toBeDefined();
       expect(simulation.gasInfo).toBeDefined();
-      
+
       const gasUsed = simulation.gasInfo.gasUsed;
-      
+
       // Empty transaction will return actual simulation results (likely 0 or minimal)
       expect(typeof gasUsed).toBe('bigint');
-      
+
       console.log(`Empty transaction result: gasUsed=${gasUsed}`);
     });
 
@@ -227,7 +220,7 @@ describe('Signer Account Methods', () => {
 
       const baseAccount = await queryClient.getBaseAccount(testAddress);
       const sequence = baseAccount?.sequence || BigInt(0);
-      
+
       const signerInfo = SignerInfo.fromPartial({
         publicKey: Any.fromPartial({
           typeUrl: '/cosmos.crypto.secp256k1.PubKey',
@@ -240,15 +233,15 @@ describe('Signer Account Methods', () => {
       });
 
       const simulation = await testSigner.simulateByTxBody(txBody, [signerInfo]);
-      
+
       expect(simulation).toBeDefined();
       expect(simulation.gasInfo).toBeDefined();
-      
+
       const gasUsed = simulation.gasInfo.gasUsed;
-      
+
       // Invalid message will return actual simulation results (likely 0)
       expect(typeof gasUsed).toBe('bigint');
-      
+
       console.log(`Invalid message result: gasUsed=${gasUsed}`);
     });
   });

@@ -1,4 +1,5 @@
 import { HashFunction, IAccount, IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
+import { SignatureFormatFunction } from '@interchainjs/auth';
 import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
 import { AminoConverter, Encoder } from '../types/signing-client';
@@ -205,6 +206,8 @@ export interface FeeOptions {
   gasPrice?: Price | string | 'average' | 'high' | 'low';
 }
 
+
+
 export interface SignOptions {
   chainId?: string;
   accountNumber?: bigint;
@@ -213,7 +216,11 @@ export interface SignOptions {
   addressPrefix?: string;
   message?: {
     hash: string | HashFunction;
-  }
+  };
+  signature?: {
+    /** Signature format configuration */
+    format?: SignatureFormatFunction | string;
+  };
 }
 
 export interface TimeoutHeightOption {

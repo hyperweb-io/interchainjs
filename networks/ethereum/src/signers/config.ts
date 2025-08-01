@@ -8,14 +8,14 @@ import deepmerge from 'deepmerge';
 export const DEFAULT_ETHEREUM_SIGNER_CONFIG: Partial<TransactionOptions> = {
   // Gas calculation defaults
   gasMultiplier: 1.5, // 50% gas multiplier for safety margin
-  
+
   // Legacy transaction defaults (pre-EIP-1559)
   gasPrice: BigInt('20000000000'), // 20 gwei default gas price
-  
+
   // EIP-1559 transaction defaults
   maxFeePerGas: BigInt('30000000000'), // 30 gwei max fee per gas
   maxPriorityFeePerGas: BigInt('2000000000'), // 2 gwei priority fee
-  
+
   // Chain ID will be auto-detected from query client if not provided
   chainId: undefined
 };
@@ -32,10 +32,18 @@ export function createEthereumSignerConfig(userConfig: EthereumSignerConfig): Et
   }
 
   // Deep merge user config with defaults, giving priority to user config
+  // Use customMerge to preserve queryClient object without cloning
   return deepmerge(DEFAULT_ETHEREUM_SIGNER_CONFIG, userConfig, {
     // Custom merge function to handle arrays properly
     arrayMerge: (destinationArray, sourceArray) => sourceArray,
-    // Clone to avoid mutations
+    // Custom merge to preserve queryClient object
+    customMerge: (key) => {
+      if (key === 'queryClient') {
+        // Don't merge queryClient, just use the source value directly
+        return (target, source) => source;
+      }
+    },
+    // Clone to avoid mutations, but queryClient will be preserved by customMerge
     clone: true
   }) as EthereumSignerConfig;
 }
@@ -48,7 +56,7 @@ export function createEthereumSignerConfig(userConfig: EthereumSignerConfig): Et
  * @returns Merged configuration for the operation
  */
 export function mergeEthereumSignerOptions(
-  baseConfig: EthereumSignerConfig, 
+  baseConfig: EthereumSignerConfig,
   operationOptions: Partial<TransactionOptions> = {}
 ): TransactionOptions {
   return deepmerge(baseConfig, operationOptions, {
@@ -69,7 +77,7 @@ export const NETWORK_DEFAULTS = {
     maxPriorityFeePerGas: BigInt('2000000000'), // 2 gwei
     gasMultiplier: 1.2
   },
-  
+
   // Ethereum Goerli Testnet
   goerli: {
     chainId: 5,
@@ -78,7 +86,7 @@ export const NETWORK_DEFAULTS = {
     maxPriorityFeePerGas: BigInt('1000000000'), // 1 gwei
     gasMultiplier: 1.5
   },
-  
+
   // Ethereum Sepolia Testnet
   sepolia: {
     chainId: 11155111,
@@ -87,7 +95,7 @@ export const NETWORK_DEFAULTS = {
     maxPriorityFeePerGas: BigInt('1000000000'), // 1 gwei
     gasMultiplier: 1.5
   },
-  
+
   // Polygon Mainnet
   polygon: {
     chainId: 137,
@@ -96,7 +104,7 @@ export const NETWORK_DEFAULTS = {
     maxPriorityFeePerGas: BigInt('30000000000'), // 30 gwei
     gasMultiplier: 1.3
   },
-  
+
   // Arbitrum One
   arbitrum: {
     chainId: 42161,
@@ -118,14 +126,14 @@ export function createNetworkSignerConfig(
   userConfig: EthereumSignerConfig
 ): EthereumSignerConfig {
   const networkDefaults = NETWORK_DEFAULTS[network];
-  
+
   // First merge network defaults with global defaults
   const configWithNetworkDefaults = deepmerge(
     DEFAULT_ETHEREUM_SIGNER_CONFIG,
     networkDefaults,
     { clone: true }
   );
-  
+
   // Then merge with user config
   return createEthereumSignerConfig(
     deepmerge(configWithNetworkDefaults, userConfig, { clone: true }) as EthereumSignerConfig
