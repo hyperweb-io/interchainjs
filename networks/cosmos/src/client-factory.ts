@@ -104,14 +104,11 @@ export class CosmosClientFactory {
     endpoint: string | WebSocketEndpoint,
     options: WebSocketClientOptions = {}
   ): Promise<ICosmosEventClient> {
-    // For WebSocket, we need to convert the endpoint to HTTP for detection
-    const httpEndpoint = this.convertToHttpEndpoint(endpoint);
-    const protocolAdapter = await this.getProtocolAdapter(httpEndpoint, options.protocolVersion);
     const rpcClient = new WebSocketRpcClient(endpoint, {
       reconnect: options.reconnect
     });
 
-    return new CosmosEventClient(rpcClient, protocolAdapter);
+    return new CosmosEventClient(rpcClient);
   }
 
   /**
@@ -135,7 +132,7 @@ export class CosmosClientFactory {
 
     return {
       queryClient: new CosmosQueryClient(httpRpcClient, protocolAdapter) as any,
-      eventClient: new CosmosEventClient(wsRpcClient, protocolAdapter)
+      eventClient: new CosmosEventClient(wsRpcClient)
     };
   }
 
@@ -155,7 +152,7 @@ export class CosmosClientFactory {
 
     return {
       queryClient: new CosmosQueryClient(rpcClient, protocolAdapter) as any,
-      eventClient: new CosmosEventClient(rpcClient, protocolAdapter)
+      eventClient: new CosmosEventClient(rpcClient)
     };
   }
 }

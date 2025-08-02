@@ -5,18 +5,16 @@ import { RpcMethod, EventType } from '../types/protocol';
 import { Block } from '../types/responses/common/block/block';
 import { BlockHeader } from '../types/responses/common/header/block-header';
 import { TxEvent, BlockEvent } from '../types/responses/common/event';
-import { IProtocolAdapter } from '../adapters/base';
 
 export class CosmosEventClient implements ICosmosEventClient {
   private activeSubscriptions = new Set<string>();
 
   constructor(
-    private rpcClient: IRpcClient,
-    private protocolAdapter: IProtocolAdapter
+    private rpcClient: IRpcClient
   ) {}
 
   async* subscribeToEvents<TEvent>(
-    eventType: string, 
+    eventType: string,
     filter?: unknown
   ): AsyncIterable<TEvent> {
     if (!this.rpcClient.isConnected()) {
@@ -24,7 +22,7 @@ export class CosmosEventClient implements ICosmosEventClient {
     }
 
     const subscriptionKey = `${eventType}_${JSON.stringify(filter)}`;
-    
+
     if (this.activeSubscriptions.has(subscriptionKey)) {
       throw new SubscriptionError(`Already subscribed to ${eventType}`);
     }
@@ -33,10 +31,12 @@ export class CosmosEventClient implements ICosmosEventClient {
 
     try {
       const params = { query: this.buildQuery(eventType, filter) };
-      const encodedParams = this.protocolAdapter.encodeParams(RpcMethod.SUBSCRIBE, params);
-      
+      // For SUBSCRIBE, just pass params directly since they're already in the correct format
+      const encodedParams = params;
+
       for await (const event of this.rpcClient.subscribe<any>(RpcMethod.SUBSCRIBE, encodedParams)) {
-        const decoded = this.protocolAdapter.decodeResponse(RpcMethod.SUBSCRIBE, event);
+        // For SUBSCRIBE, return the raw response as no specific decoding is needed
+        const decoded = event;
         yield decoded as TEvent;
       }
     } finally {
@@ -84,7 +84,7 @@ export class CosmosEventClient implements ICosmosEventClient {
 
   private buildQuery(eventType: string, filter?: unknown): string {
     let query = `tm.event='${eventType}'`;
-    
+
     if (filter && typeof filter === 'object') {
       const filterObj = filter as Record<string, any>;
       for (const [key, value] of Object.entries(filterObj)) {
@@ -95,7 +95,7 @@ export class CosmosEventClient implements ICosmosEventClient {
         query += ` AND ${key}='${value}'`;
       }
     }
-    
+
     return query;
   }
 }
