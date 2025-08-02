@@ -13,6 +13,8 @@ import { useChain } from 'starshipjs';
 import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
 import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
 import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+import { transfer } from "interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
 import * as bip39 from 'bip39';
 
 describe('Token transfers', () => {
@@ -128,29 +130,25 @@ describe('Token transfers', () => {
       denom,
     };
 
-    // Transfer tokens
-    const result = await directSigner.signAndBroadcast(
+    // Transfer tokens using helper function
+    const result = await send(
+      directSigner,
+      address,
       {
-        messages: [
-          {
-            typeUrl: MsgSend.typeUrl,
-            value: {
-              fromAddress: address,
-              toAddress: address2,
-              amount: [token],
-            },
-          },
-        ],
-        fee,
-        memo: 'send tokens test',
-        options: {
-          signerAddress: address,
-        },
+        fromAddress: address,
+        toAddress: address2,
+        amount: [token],
       },
-      {
-        mode: 'commit',
-      }
+      fee,
+      'send tokens test'
     );
+
+    // Wait for transaction to be confirmed
+    try {
+      await result.wait();
+    } catch (err) {
+      console.log(err);
+    }
 
     // Create query client for balance check
     const rpcClient = new HttpRpcClient(injRpcEndpoint);
@@ -232,37 +230,30 @@ describe('Token transfers', () => {
       amount: '10000000',
     };
 
-    // send ibc tokens
-    directSigner.addEncoders(toEncoders(MsgTransfer));
-    const resp = await directSigner.signAndBroadcast(
-      {
-        messages: [
-          {
-            typeUrl: MsgTransfer.typeUrl,
-            value: MsgTransfer.fromPartial({
-              sourcePort,
-              sourceChannel,
-              token,
-              sender: address,
-              receiver: cosmosAddress,
-              timeoutHeight: undefined,
-              timeoutTimestamp: BigInt(timeoutTime),
-              memo: 'test transfer',
-            }),
-          },
-        ],
-        fee,
-        memo: '',
-        options: {
-          signerAddress: address,
-        },
-      },
-      {
-        mode: 'commit',
-      }
+    // send ibc tokens using helper function
+    const resp = await transfer(
+      directSigner,
+      address,
+      MsgTransfer.fromPartial({
+        sourcePort,
+        sourceChannel,
+        token,
+        sender: address,
+        receiver: cosmosAddress,
+        timeoutHeight: undefined,
+        timeoutTimestamp: BigInt(timeoutTime),
+        memo: 'test transfer',
+      }),
+      fee,
+      ''
     );
 
-    await new Promise((resolve) => setTimeout(resolve, 6000));
+    // Wait for transaction to be confirmed
+    try {
+      await resp.wait();
+    } catch (err) {
+      console.log(err);
+    }
 
     const { balances } = await getAllBalances(await cosmosRpcEndpoint(), {
       address: cosmosAddress,

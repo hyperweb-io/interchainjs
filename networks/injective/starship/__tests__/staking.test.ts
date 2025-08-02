@@ -23,6 +23,7 @@ import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
 import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 import * as bip39 from 'bip39';
 
 
@@ -43,7 +44,7 @@ describe('Staking tokens testing', () => {
       useChain('injective'));
     denom = (await getCoin()).base;
     injRpcEndpoint = await getRpcEndpoint();
-    
+
     const mnemonic = bip39.generateMnemonic();
 
     // Use EthSecp256k1HDWallet with Ethereum HD path for Injective compatibility
@@ -197,23 +198,12 @@ describe('Staking tokens testing', () => {
     };
 
 
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [
-          {
-            typeUrl: MsgDelegate.typeUrl,
-            value: msgDelegate,
-          },
-        ],
-        fee,
-        memo: 'Stake tokens to genesis validator',
-        options: {
-          signerAddress: address,
-        },
-      },
-      {
-        mode: 'commit',
-      }
+    const result = await delegate(
+      directSigner,
+      address,
+      msgDelegate,
+      fee,
+      'Stake tokens to genesis validator'
     );
     await result.wait();
 
