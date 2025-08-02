@@ -114,11 +114,11 @@ graph LR
 
 This guide will walk you through the process of installing and setting up interchainjs for your project.
 
-You can install interchainjs using Yarn:
+You can install interchainjs using pnpm:
 
 ```bash
-yarn add interchainjs
-yarn add @interchainjs/cosmos
+pnpm add interchainjs
+pnpm add @interchainjs/cosmos
 ```
 
 or npm

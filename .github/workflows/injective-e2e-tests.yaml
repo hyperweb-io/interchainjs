@@ -15,13 +15,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: "yarn"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build Project
-        run: yarn build
+        run: pnpm build
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
@@ -30,4 +48,4 @@ jobs:
           config: networks/injective/starship/configs/config.workflow.yaml
 
       - name: Run E2E Tests
-        run: cd ./networks/injective && yarn starship:test
+        run: cd ./networks/injective && pnpm starship:test
