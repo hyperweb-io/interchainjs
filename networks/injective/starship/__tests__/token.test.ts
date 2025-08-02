@@ -8,12 +8,12 @@ import { toEncoders } from '@interchainjs/cosmos/utils';
 import { sleep } from '@interchainjs/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
-import { HDPath } from '@interchainjs/types';
 import { useChain } from 'starshipjs';
 
-import { generateMnemonic } from '../src';
+import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
+import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
 import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import * as bip39 from 'bip39';
 
 describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string, address2: string;
@@ -31,13 +31,13 @@ describe('Token transfers', () => {
 
     injRpcEndpoint = await getRpcEndpoint();
 
-    const mnemonic = generateMnemonic();
+    const mnemonic = bip39.generateMnemonic();
 
-    // Initialize wallet and signer
-    const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+    // Use EthSecp256k1HDWallet with Ethereum HD path for Injective compatibility
+    const wallet = await EthSecp256k1HDWallet.fromMnemonic(mnemonic, {
       derivations: [{
         prefix: 'inj',
-        hdPath: HDPath.cosmos().toString(),
+        hdPath: "m/44'/60'/0'/0/0", // Ethereum-style HD path for Injective
       }]
     });
     const offlineSigner = await wallet.toOfflineDirectSigner();
@@ -55,11 +55,26 @@ describe('Token transfers', () => {
     queryClientWrapper.broadcastTxAsync = queryClient.broadcastTxAsync.bind(queryClient);
     queryClientWrapper.getTx = queryClient.getTx.bind(queryClient);
 
-    const signerConfig = {
+    // Use Injective-specific signer configuration with proper defaults
+    let actualChainId = 'injective-1'; // default fallback
+    try {
+      const status = await queryClient.getStatus();
+      actualChainId = status.nodeInfo.network;
+    } catch (e) {
+      console.log('Could not get chainId, using default:', actualChainId);
+    }
+
+    const baseSignerConfig = {
       queryClient: queryClientWrapper,
-      chainId: 'injective-1',
+      chainId: actualChainId,
       addressPrefix: 'inj'
     };
+
+    // Merge with DEFAULT_INJECTIVE_SIGNER_CONFIG for complete configuration
+    const signerConfig = createInjectiveSignerConfig({
+      ...DEFAULT_INJECTIVE_SIGNER_CONFIG,
+      ...baseSignerConfig
+    });
 
     directSigner = new DirectSigner(offlineSigner, signerConfig);
     directSigner.addEncoders(toEncoders(MsgSend, MsgTransfer));
@@ -72,7 +87,12 @@ describe('Token transfers', () => {
   });
 
   it('check address has tokens', async () => {
-    const { balance } = await getBalance(injRpcEndpoint, {
+    // Create query client for balance check
+    const rpcClient = new HttpRpcClient(injRpcEndpoint);
+    const protocolAdapter = new Comet38Adapter();
+    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+
+    const { balance } = await getBalance(queryClient, {
       address: address,
       denom,
     });
@@ -81,12 +101,12 @@ describe('Token transfers', () => {
   }, 200000);
 
   it('send injective token to address', async () => {
-    const mnemonic = generateMnemonic();
-    // Initialize wallet
-    const wallet2 = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+    const mnemonic = bip39.generateMnemonic();
+    // Initialize wallet with EthSecp256k1HDWallet and Ethereum HD path
+    const wallet2 = await EthSecp256k1HDWallet.fromMnemonic(mnemonic, {
       derivations: [{
         prefix: 'inj',
-        hdPath: HDPath.cosmos().toString(),
+        hdPath: "m/44'/60'/0'/0/0", // Ethereum-style HD path for Injective
       }]
     });
     const offlineSigner2 = await wallet2.toOfflineDirectSigner();
@@ -147,11 +167,11 @@ describe('Token transfers', () => {
     const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
     useChain('cosmoshub');
 
-    // Initialize wallet address for cosmos chain
-    const cosmosWallet = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), {
+    // Initialize wallet address for cosmos chain - use standard Cosmos wallet for Cosmos chain
+    const cosmosWallet = await EthSecp256k1HDWallet.fromMnemonic(bip39.generateMnemonic(), {
       derivations: [{
         prefix: 'cosmos',
-        hdPath: HDPath.cosmos().toString(),
+        hdPath: "m/44'/118'/0'/0/0", // Standard Cosmos HD path for Cosmos chain
       }]
     });
     const cosmosOfflineSigner = await cosmosWallet.toOfflineDirectSigner();
@@ -195,7 +215,7 @@ describe('Token transfers', () => {
 
     // Transfer injective tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
-    const timeoutTime = currentTime + 3000 * 1000000000; // 5 minutes
+    const timeoutTime = currentTime + 3600 * 1000000000; // 5 minutes
 
     const fee = {
       amount: [
