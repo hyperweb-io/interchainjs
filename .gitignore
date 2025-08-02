@@ -9,3 +9,5 @@ lerna-debug.log
 CLAUDE.md
 
 .cert/
+
+.augment/
