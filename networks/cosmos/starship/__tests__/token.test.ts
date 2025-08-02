@@ -15,6 +15,8 @@ import { useChain } from 'starshipjs';
 import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 import { getAllBalances, MsgTransfer, transfer } from 'interchainjs';
+// @ts-ignore
+import WebSocket from 'ws';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -121,6 +123,166 @@ describe('Token transfers', () => {
       throw error;
     }
   }, 100000);
+
+  it('monitor osmosis token transfer via WebSocket events', async () => {
+    // Initialize the signer for this test (similar to direct mode test)
+    signer = new DirectSigner(protoSigner, {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
+    });
+
+    // Convert HTTP RPC endpoint to WebSocket endpoint
+    const rpcEndpoint = await getRpcEndpoint();
+    const wsEndpoint = rpcEndpoint.replace('http', 'ws') + '/websocket';
+
+    // Use raw WebSocket approach (similar to the old test) to work around WebSocket client issues
+    const ws = new WebSocket(wsEndpoint);
+
+    let eventReceived = false;
+    let receivedEvent: any = null;
+
+    // Set up WebSocket connection and subscription
+    const wsConnectionPromise = new Promise<void>((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        reject(new Error('Timeout waiting for WebSocket connection'));
+      }, 10000);
+
+      ws.on('open', () => {
+        clearTimeout(timeoutId);
+        console.log('Raw WebSocket connected');
+
+        // Subscribe to Tx events for the recipient address
+        const subscribeMsg = {
+          jsonrpc: '2.0',
+          id: 'tx-subscribe',
+          method: 'subscribe',
+          params: {
+            query: `tm.event='Tx' AND transfer.recipient='${address2}'`
+          }
+        };
+
+        console.log('Sending subscription message:', JSON.stringify(subscribeMsg));
+        ws.send(JSON.stringify(subscribeMsg));
+
+        // Wait a bit for subscription to be processed, then resolve
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+
+      ws.on('error', (error) => {
+        clearTimeout(timeoutId);
+        console.error('WebSocket error:', error);
+        reject(error);
+      });
+    });
+
+    // Set up message handler for subscription events
+    ws.on('message', (data) => {
+      try {
+        const response = JSON.parse(data.toString());
+        console.log('Received WebSocket message:', response);
+
+        // Check if this is a subscription event with transaction data
+        if (response.result && response.result.events && !eventReceived) {
+          console.log('Found transaction event!');
+          eventReceived = true;
+          receivedEvent = response;
+        }
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
+    });
+
+    // Wait for WebSocket to be ready and subscription to be set up
+    await wsConnectionPromise;
+
+    // Setup fees and token for the transaction
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const token = {
+      amount: '5000000', // Different amount to distinguish from other tests
+      denom,
+    };
+
+    try {
+      // Send the transaction using the existing signer
+      console.log('Sending transaction from', address, 'to', address2, 'amount:', token.amount);
+      const msgSend = MsgSend.fromPartial({
+        fromAddress: address,
+        toAddress: address2,
+        amount: [token]
+      });
+
+      const result = await send(signer, address, msgSend, fee, 'websocket test transaction');
+      console.log('Transaction sent, waiting for event...');
+
+      // Wait for the WebSocket event (with a timeout)
+      const txEventPromise = new Promise<any>((resolve) => {
+        const checkInterval = setInterval(() => {
+          if (eventReceived) {
+            clearInterval(checkInterval);
+            resolve(receivedEvent);
+          }
+        }, 100);
+
+        // Timeout after 20 seconds
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          resolve(null);
+        }, 20000);
+      });
+
+      const txEvent = await txEventPromise;
+
+      // Verify WebSocket event was received
+      expect(txEvent).not.toBeNull();
+      expect(txEvent).toBeDefined();
+
+      // Verify the event structure (similar to old test)
+      expect(txEvent.result).toBeDefined();
+      expect(txEvent.result.events).toBeDefined();
+
+      // Verify transfer event details
+      const events = txEvent.result.events;
+      expect(events['transfer.recipient']).toContain(address2);
+      expect(events['transfer.amount']).toContain(`${token.amount}${denom}`);
+      expect(events['tm.event']).toContain('Tx');
+
+      // Verify the transaction was successful by checking balance
+      const { balance } = await getBalance(client, { address: address2, denom });
+
+      // The balance should include the transferred amount
+      // Note: We can't predict the exact final balance since other tests may have run
+      // but we can verify the balance is at least the amount we transferred
+      expect(BigInt(balance!.amount)).toBeGreaterThanOrEqual(BigInt(token.amount));
+      expect(balance!.denom).toEqual(denom);
+
+    } catch (error) {
+      console.error('Error in WebSocket monitoring test:', error);
+      throw error;
+    } finally {
+      // Clean up the WebSocket connection
+      try {
+        if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+          ws.close();
+        }
+        // Wait a bit for the connection to close
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      } catch (cleanupError) {
+        console.warn('Error during cleanup:', cleanupError);
+      }
+    }
+  }, 30000);
 
   it('amino mode: send osmosis token to address', async () => {
     // Use wallet.toOfflineAminoSigner() to get proper offline signer with cached account data
