@@ -7,7 +7,7 @@ import { AddrDerivation, HDPath, IWalletConfig } from '@interchainjs/types';
  * @returns Wallet configuration object
  */
 export function createInjectiveEthConfig(derivations: AddrDerivation[] = [], passphrase?: string): ICosmosWalletConfig {
-  const addrDerivation = derivations.length > 0 ? derivations : [{ hdPath: HDPath.cosmos().toString(), prefix: 'inj' }];
+  const addrDerivation = derivations.length > 0 ? derivations : [{ hdPath: HDPath.eth().toString(), prefix: 'inj' }];
 
   return {
     privateKeyConfig: {
@@ -15,7 +15,7 @@ export function createInjectiveEthConfig(derivations: AddrDerivation[] = [], pas
       passphrase
     },
     publicKeyConfig: {
-      compressed: false  // Ethereum-style uses uncompressed keys
+      compressed: true  // Use compressed keys for Cosmos-compatible signing
     },
     addressConfig: {
       strategy: 'injective-eth'

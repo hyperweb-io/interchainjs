@@ -47,7 +47,7 @@ export class EthSecp256k1HDWallet extends Secp256k1HDWallet {
 
     const hdPaths = config?.derivations?.map(
       (derivation: AddrDerivation) => HDPath.fromString(derivation.hdPath)
-    ) || [HDPath.cosmos(0, 0, 0)];
+    ) || [HDPath.eth(0, 0, 0)];
 
     // Use PrivateKey.fromMnemonic to create private keys
     const privateKeys = await PrivateKey.fromMnemonic(
