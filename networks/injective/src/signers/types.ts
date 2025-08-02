@@ -1,7 +1,8 @@
 import {
   CosmosSignerConfig,
   DocOptions,
-  SignOptions as CosmosSignOptions
+  SignOptions as CosmosSignOptions,
+  EncodedMessage
 } from '@interchainjs/cosmos/signers/types';
 import { SignatureFormatFunction } from '@interchainjs/auth';
 
@@ -41,6 +42,8 @@ export interface InjectiveDocOptions extends Omit<DocOptions, 'signature'> {
   message?: {
     hash: string | ((data: Uint8Array) => Uint8Array);
   };
+  /** Public key encoding function */
+  encodePublicKey?: (publicKey: Uint8Array) => EncodedMessage;
 }
 
 /**

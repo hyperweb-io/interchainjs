@@ -1,6 +1,21 @@
 import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from './signature-processor';
 import { InjectiveDocOptions, InjectiveSignerConfig } from './types';
 import deepmerge from 'deepmerge';
+import { PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys';
+import { EncodedMessage } from '@interchainjs/cosmos/signers/types';
+
+/**
+ * Encode public key for Injective
+ * Uses the Injective-specific public key type URL
+ */
+export const encodeInjectivePublicKey = (publicKey: Uint8Array): EncodedMessage => {
+  return {
+    typeUrl: '/injective.crypto.v1beta1.ethsecp256k1.PubKey',
+    value: Secp256k1PubKey.encode(
+      Secp256k1PubKey.fromPartial({ key: publicKey })
+    ).finish(),
+  };
+};
 
 /**
  * Default configuration for Injective signers
@@ -25,7 +40,10 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<InjectiveDocOptions> = {
   // TxOptions - Transaction-level defaults
   unordered: false, // Ordered transactions by default
   extensionOptions: [], // No extension options by default
-  nonCriticalExtensionOptions: [] // No non-critical extension options by default
+  nonCriticalExtensionOptions: [], // No non-critical extension options by default
+  
+  // Public key encoding - Injective specific
+  encodePublicKey: encodeInjectivePublicKey
 };
 
 /**

@@ -59,16 +59,20 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
       throw new Error(`No public key available for account: ${signerAddress}`);
     }
 
-
-
-    // Encode the public key using the Cosmos PubKey format
-    const pubKey = PubKey.fromPartial({ key: account.pubkey });
-    const pubKeyBytes = PubKey.encode(pubKey).finish();
-
-    const publicKey = {
-      typeUrl: '/cosmos.crypto.secp256k1.PubKey',
-      value: pubKeyBytes
-    };
+    // Check if there's a custom encodePublicKey function in options
+    let publicKey: EncodedMessage;
+    if (options?.encodePublicKey && typeof options.encodePublicKey === 'function') {
+      // Use custom public key encoding (e.g., for Injective)
+      publicKey = options.encodePublicKey(account.pubkey);
+    } else {
+      // Default Cosmos public key encoding
+      const pubKey = PubKey.fromPartial({ key: account.pubkey });
+      const pubKeyBytes = PubKey.encode(pubKey).finish();
+      publicKey = {
+        typeUrl: '/cosmos.crypto.secp256k1.PubKey',
+        value: pubKeyBytes
+      };
+    }
 
     const signerInfo = SignerInfo.fromPartial({
       publicKey,
