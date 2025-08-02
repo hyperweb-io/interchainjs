@@ -35,6 +35,8 @@ import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/si
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
 import { getProposal, getVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
 import { getValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+import { submitProposal, vote } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
 import * as bip39 from 'bip39';
 
 
@@ -237,17 +239,14 @@ describe('Governance tests for injective', () => {
     // Stake 1/5 of the tokens
     // eslint-disable-next-line no-undef
     const delegationAmount = (BigInt(balance!.amount) / BigInt(5)).toString();
-    const msg = {
-      typeUrl: MsgDelegate.typeUrl,
-      value: MsgDelegate.fromPartial({
-        delegatorAddress: testingOfflineAddress,
-        validatorAddress: validatorAddress,
-        amount: {
-          amount: delegationAmount,
-          denom: balance!.denom,
-        },
-      }),
-    };
+    const msgDelegate = MsgDelegate.fromPartial({
+      delegatorAddress: testingOfflineAddress,
+      validatorAddress: validatorAddress,
+      amount: {
+        amount: delegationAmount,
+        denom: balance!.denom,
+      },
+    });
 
     const fee = {
       amount: [
@@ -259,18 +258,12 @@ describe('Governance tests for injective', () => {
       gas: '550000',
     };
 
-    const result = await aminoSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-        options: {
-          signerAddress: testingOfflineAddress,
-        },
-      },
-      {
-        mode: 'commit',
-      }
+    const result = await delegate(
+      aminoSigner,
+      testingOfflineAddress,
+      msgDelegate,
+      fee,
+      ''
     );
     await result.wait();
   }, 200000);
@@ -295,23 +288,19 @@ describe('Governance tests for injective', () => {
       description: 'Test text proposal for the e2e testing',
     });
 
-    // Stake half of the tokens
-    const msg = {
-      typeUrl: MsgSubmitProposal.typeUrl,
-      value: MsgSubmitProposal.fromPartial({
-        proposer: directAddress,
-        initialDeposit: [
-          {
-            amount: '100000000000000000000',
-            denom: denom,
-          },
-        ],
-        content: {
-          typeUrl: '/cosmos.gov.v1beta1.TextProposal',
-          value: TextProposal.encode(contentMsg).finish(),
+    const msgSubmitProposal = MsgSubmitProposal.fromPartial({
+      proposer: directAddress,
+      initialDeposit: [
+        {
+          amount: '100000000000000000000',
+          denom: denom,
         },
-      }),
-    };
+      ],
+      content: {
+        typeUrl: '/cosmos.gov.v1beta1.TextProposal',
+        value: TextProposal.encode(contentMsg).finish(),
+      },
+    });
 
     const fee = {
       amount: [
@@ -323,18 +312,12 @@ describe('Governance tests for injective', () => {
       gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-        options: {
-          signerAddress: directAddress,
-        },
-      },
-      {
-        mode: 'commit',
-      }
+    const result = await submitProposal(
+      directSigner,
+      directAddress,
+      msgSubmitProposal,
+      fee,
+      ''
     );
 
     await result.wait();
@@ -362,14 +345,11 @@ describe('Governance tests for injective', () => {
 
   it('vote on proposal using direct', async () => {
     // Vote on proposal from direct address
-    const msg = {
-      typeUrl: MsgVote.typeUrl,
-      value: MsgVote.fromPartial({
-        proposalId: BigInt(proposalId),
-        voter: directAddress,
-        option: VoteOption.VOTE_OPTION_YES,
-      }),
-    };
+    const msgVote = MsgVote.fromPartial({
+      proposalId: BigInt(proposalId),
+      voter: directAddress,
+      option: VoteOption.VOTE_OPTION_YES,
+    });
 
     const fee = {
       amount: [
@@ -381,18 +361,12 @@ describe('Governance tests for injective', () => {
       gas: '550000',
     };
 
-    const result = await directSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-        options: {
-          signerAddress: directAddress,
-        },
-      },
-      {
-        mode: 'commit',
-      }
+    const result = await vote(
+      directSigner,
+      directAddress,
+      msgVote,
+      fee,
+      ''
     );
 
     await result.wait();
@@ -418,14 +392,11 @@ describe('Governance tests for injective', () => {
 
   it('vote on proposal using amino', async () => {
     // Vote on proposal from amino address
-    const msg = {
-      typeUrl: MsgVote.typeUrl,
-      value: MsgVote.fromPartial({
-        proposalId: BigInt(proposalId),
-        voter: aminoAddress,
-        option: VoteOption.VOTE_OPTION_NO,
-      }),
-    };
+    const msgVote = MsgVote.fromPartial({
+      proposalId: BigInt(proposalId),
+      voter: aminoAddress,
+      option: VoteOption.VOTE_OPTION_NO,
+    });
 
     const fee = {
       amount: [
@@ -437,18 +408,12 @@ describe('Governance tests for injective', () => {
       gas: '550000',
     };
 
-    const result = await aminoSigner.signAndBroadcast(
-      {
-        messages: [msg],
-        fee,
-        memo: '',
-        options: {
-          signerAddress: aminoAddress,
-        },
-      },
-      {
-        mode: 'commit',
-      }
+    const result = await vote(
+      aminoSigner,
+      aminoAddress,
+      msgVote,
+      fee,
+      ''
     );
 
     await result.wait();
