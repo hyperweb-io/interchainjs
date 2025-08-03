@@ -2,7 +2,6 @@ export { BaseAccount, ModuleAccount, ModuleCredential, Params } from "./auth/v1b
 export { QueryAccountsRequest, QueryAccountsResponse, QueryAccountRequest, QueryAccountResponse, QueryParamsRequest, QueryParamsResponse, QueryModuleAccountsRequest, QueryModuleAccountsResponse, QueryModuleAccountByNameRequest, QueryModuleAccountByNameResponse, Bech32PrefixRequest, Bech32PrefixResponse, AddressBytesToStringRequest, AddressBytesToStringResponse, AddressStringToBytesRequest, AddressStringToBytesResponse, QueryAccountAddressByIDRequest, QueryAccountAddressByIDResponse, QueryAccountInfoRequest, QueryAccountInfoResponse } from "./auth/v1beta1/query";
 export { Params as CosmosBankV1beta1Params, SendEnabled, Input, Output, Supply, DenomUnit, Metadata } from "./bank/v1beta1/bank";
 export { QueryBalanceRequest, QueryBalanceResponse, QueryAllBalancesRequest, QueryAllBalancesResponse, QuerySpendableBalancesRequest, QuerySpendableBalancesResponse, QuerySpendableBalanceByDenomRequest, QuerySpendableBalanceByDenomResponse, QueryTotalSupplyRequest, QueryTotalSupplyResponse, QuerySupplyOfRequest, QuerySupplyOfResponse, QueryParamsRequest as CosmosBankV1beta1QueryParamsRequest, QueryParamsResponse as CosmosBankV1beta1QueryParamsResponse, QueryDenomsMetadataRequest, QueryDenomsMetadataResponse, QueryDenomMetadataRequest, QueryDenomMetadataResponse, QueryDenomMetadataByQueryStringRequest, QueryDenomMetadataByQueryStringResponse, QueryDenomOwnersRequest, DenomOwner, QueryDenomOwnersResponse, QueryDenomOwnersByQueryRequest, QueryDenomOwnersByQueryResponse, QuerySendEnabledRequest, QuerySendEnabledResponse } from "./bank/v1beta1/query";
-export * from "./bank/v1beta1/tx";
 export * from "./base/abci/v1beta1/abci";
 export * from "./base/query/v1beta1/pagination";
 export * from "./base/v1beta1/coin";
@@ -23,4 +22,3 @@ export { getBalance, getAllBalances, getSpendableBalances, getSpendableBalanceBy
 export { getProposal, getProposals, getVote, getVotes, getParams as getParamsCosmosGovV1beta1, getDeposit, getDeposits, getTallyResult } from "./gov/v1beta1/query.rpc.func";
 export { getValidators, getValidator, getValidatorDelegations, getValidatorUnbondingDelegations, getDelegation, getUnbondingDelegation, getDelegatorDelegations, getDelegatorUnbondingDelegations, getRedelegations, getDelegatorValidators, getDelegatorValidator, getHistoricalInfo, getPool, getParams as getParamsCosmosStakingV1beta1 } from "./staking/v1beta1/query.rpc.func";
 export * from "./tx/v1beta1/service.rpc.func";
-export * from "./bank/v1beta1/tx.rpc.func";
