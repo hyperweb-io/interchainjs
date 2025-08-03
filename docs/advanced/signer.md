@@ -1,254 +1,246 @@
 # Signer
 
-The main purpose of the `@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/injective` is to offer developers a way to have different `Signer` implementations on different types of Blockchains. All of these `Signer`s are implementing [`UniSigner` interface](#unisigner-interface) and extending the same `BaseSigner` class which with `Auth` object being utilized in construction.
+The signer packages (`@interchainjs/cosmos`, `@interchainjs/ethereum`, `@interchainjs/injective`) provide high-level transaction signing and broadcasting capabilities for different blockchain networks. All signers implement the [`IUniSigner` interface](#iunisigner-interface) and extend network-specific base classes, allowing them to work with both `IWallet` implementations and `OfflineSigner` interfaces.
 
-Class diagram:
+## Architecture Overview
 
 ```mermaid
 classDiagram
-    class UniSigner {
+    class IUniSigner {
         <<interface>>
-        IKey publicKey
-        AddressResponse getAddress()
-        IKey | Promise~IKey~ signArbitrary(Uint8Array data)
-        SignDocResponse~Doc~ | Promise~SignDocResponse~Doc~~ signDoc(Doc doc)
-        Promise~BroadcastResponse~ broadcastArbitrary(Uint8Array data, BroadcastOptions options)
-        Promise~SignResponse~Tx, Doc, BroadcastResponse~~ sign(SignArgs args)
-        Promise~BroadcastResponse~ signAndBroadcast(SignArgs args, BroadcastOptions options)
-        Promise~BroadcastResponse~ broadcast(Tx tx, BroadcastOptions options)
+        +getAccounts() Promise~TAccount[]~
+        +signArbitrary(data: Uint8Array, index?: number) Promise~ICryptoBytes~
+        +sign(args: TSignArgs) Promise~ISigned~
+        +broadcast(signed: ISigned, options?: TBroadcastOpts) Promise~TBroadcastResponse~
+        +signAndBroadcast(args: TSignArgs, options?: TBroadcastOpts) Promise~TBroadcastResponse~
+        +broadcastArbitrary(data: Uint8Array, options?: TBroadcastOpts) Promise~TBroadcastResponse~
     }
 
-    class BaseSigner {
-        <<abstract>>
-        +Auth auth
-        +SignerConfig config
-    }
-
-    class CosmosDocSigner {
-        +ISigBuilder txBuilder
-        +CosmosDocSigner(Auth auth, SignerConfig config)
-        +abstract ISigBuilder getTxBuilder()
-        +Promise~SignDocResponse~ signDoc(SignDoc doc)
-    }
-
-    class CosmosBaseSigner {
+    class BaseCosmosSigner {
+        +CosmosSignerConfig config
+        +OfflineSigner | IWallet auth
         +Encoder[] encoders
-        +string prefix
-        +IAccount account
-        +BaseCosmosTxBuilder txBuilder
-        +CosmosBaseSigner(Auth auth, Encoder[] encoders, string|HttpEndpoint endpoint, SignerOptions options)
-        +abstract Promise~IAccount~ getAccount()
-        +abstract BaseCosmosTxBuilder getTxBuilder()
-        +Promise~string~ getPrefix()
-        +Promise~string~ getAddress()
-        +void setEndpoint(string|HttpEndpoint endpoint)
-        +QueryClient get queryClient()
-        +Promise~SignResponse~ sign(CosmosSignArgs args)
-        +Promise~BroadcastResponse~ broadcast(TxRaw txRaw, BroadcastOptions options)
-        +Promise~BroadcastResponse~ broadcastArbitrary(Uint8Array message, BroadcastOptions options)
-        +Promise~BroadcastResponse~ signAndBroadcast(CosmosSignArgs args, BroadcastOptions options)
-        +Promise~SimulateResponse~ simulate(CosmosSignArgs args)
+        +getAccounts() Promise~AccountData[]~
+        +signArbitrary(data: Uint8Array, index?: number) Promise~ICryptoBytes~
+        +abstract sign(args: CosmosSignArgs) Promise~CosmosSignedTransaction~
+        +broadcast(signed: CosmosSignedTransaction, options?: CosmosBroadcastOptions) Promise~CosmosBroadcastResponse~
+        +signAndBroadcast(args: CosmosSignArgs, options?: CosmosBroadcastOptions) Promise~CosmosBroadcastResponse~
+        +broadcastArbitrary(data: Uint8Array, options?: CosmosBroadcastOptions) Promise~CosmosBroadcastResponse~
     }
 
     class DirectSigner {
-        +auth: Auth
-        +encoders: Encoder[]
-        +endpoint: string | HttpEndpoint
-        +options: SignerOptions
-        +static fromWallet(signer: OfflineDirectSigner, encoders: Encoder[], endpoint?: string | HttpEndpoint, options?: SignerOptions): Promise~DirectSigner~
-        +static fromWalletToSigners(signer: OfflineDirectSigner, encoders: Encoder[], endpoint?: string | HttpEndpoint, options?: SignerOptions): Promise~DirectSigner[]~
+        +DirectWorkflow workflow
+        +constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig)
+        +sign(args: CosmosSignArgs) Promise~CosmosSignedTransaction~
     }
 
     class AminoSigner {
-        +auth: Auth
-        +encoders: Encoder[]
-        +endpoint: string | HttpEndpoint
-        +options: SignerOptions
-        +static fromWallet(signer: OfflineDirectSigner, encoders: Encoder[], endpoint?: string | HttpEndpoint, options?: SignerOptions): Promise~DirectSigner~
-        +static fromWalletToSigners(signer: OfflineDirectSigner, encoders: Encoder[], endpoint?: string | HttpEndpoint, options?: SignerOptions): Promise~DirectSigner[]~
+        +AminoWorkflow workflow
+        +constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig)
+        +sign(args: CosmosSignArgs) Promise~CosmosSignedTransaction~
     }
 
-    class ISigBuilder {
-        <<interface>>
-        +buildSignature(doc: Doc): Sig | Promise<Sig>
+    class BaseEthereumSigner {
+        +EthereumSignerConfig config
+        +IWallet auth
+        +getAccounts() Promise~EthereumAccountData[]~
+        +signArbitrary(data: Uint8Array, index?: number) Promise~ICryptoBytes~
+        +abstract sign(args: EthereumSignArgs) Promise~EthereumSignedTransaction~
+        +broadcast(signed: EthereumSignedTransaction, options?: EthereumBroadcastOptions) Promise~EthereumBroadcastResponse~
     }
 
-    class ITxBuilder {
-        <<interface>>
-        +buildSignedTxDoc(args: SignArgs): Promise<SignResp>
+    class LegacySigner {
+        +constructor(auth: IWallet, config: EthereumSignerConfig)
+        +sign(args: LegacyTransactionSignArgs) Promise~EthereumSignedTransaction~
     }
 
-    class BaseCosmosTxBuilder {
-        +SignMode signMode
-        +BaseCosmosTxBuilderContext ctx
-        +buildDoc(args: CosmosSignArgs, txRaw: Partial~TxRaw~): Promise~SignDoc~
-        +buildDocBytes(doc: SignDoc): Promise~Uint8Array~
-        +buildTxRaw(args: CosmosSignArgs): Promise~Partial~TxRaw~
-        +buildTxBody(args: CosmosSignArgs): Promise~TxBody~
-        +buildSignerInfo(publicKey: EncodedMessage, sequence: bigint, signMode: SignMode): Promise~SignerInfo~
-        +buildAuthInfo(signerInfos: SignerInfo[], fee: Fee): Promise~AuthInfo~
-        +getFee(fee: StdFee, txBody: TxBody, signerInfos: SignerInfo[], options: DocOptions): Promise~StdFee~
-        +buildSignedTxDoc(args: CosmosSignArgs): Promise~CosmosCreateDocResponse~SignDoc~~
+    class Eip1559Signer {
+        +constructor(auth: IWallet, config: EthereumSignerConfig)
+        +sign(args: Eip1559TransactionSignArgs) Promise~EthereumSignedTransaction~
     }
 
-    BaseSigner <|-- CosmosDocSigner
-    CosmosDocSigner <|-- CosmosBaseSigner
-    CosmosBaseSigner <|-- DirectSigner
-    CosmosBaseSigner <|-- AminoSigner
-    UniSigner <|.. CosmosBaseSigner
+    IUniSigner <|.. BaseCosmosSigner
+    IUniSigner <|.. BaseEthereumSigner
+    BaseCosmosSigner <|-- DirectSigner
+    BaseCosmosSigner <|-- AminoSigner
+    BaseEthereumSigner <|-- LegacySigner
+    BaseEthereumSigner <|-- Eip1559Signer
 
-    BaseCosmosTxBuilder --|> ITxBuilder
-
-    CosmosDocSigner *-- ISigBuilder
-    CosmosBaseSigner *-- ITxBuilder
-
-    style UniSigner fill:#f9f,stroke:#333,stroke-width:2px
-    style ISigBuilder fill:#f9f,stroke:#333,stroke-width:2px
-    style ITxBuilder fill:#f9f,stroke:#333,stroke-width:2px
+    style IUniSigner fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-Workflow:
+## Transaction Workflow
 
 ```mermaid
 graph TD
-    A[Signer.sign] --> B[Create partial TxRaw by buildTxRaw]
-    B --> C[Call buildDoc]
-    C --> E[Sign the document by signDoc]
-    E -- isDocAuth --> F[auth.signDoc]
-    E -- isByteAuth --> G[txBuilder.buildSignature]
-    F --> H[Create signed TxRaw]
-    G --> H[Create signed TxRaw]
-    H --> I[Return CosmosCreateDocResponse]
-    I --> J[End]
+    A[Signer.sign] --> B[Workflow.sign]
+    B --> C[Build Transaction Body]
+    C --> D[Get Account Info]
+    D --> E[Create Sign Document]
+    E --> F{Auth Type?}
+    F -->|IWallet| G[wallet.signByIndex]
+    F -->|OfflineSigner| H[offlineSigner.signDirect/signAmino]
+    G --> I[Create Signed Transaction]
+    H --> I[Create Signed Transaction]
+    I --> J[Return ISigned with broadcast capability]
 ```
 
-```ts
-import { UniSigner } from "@interchainjs/types";
-import { BaseSigner } from "@interchainjs/types";
-```
+## Core Concepts
 
-Need to note that there are 2 type parameters that indicates 2 types of document involved in signing and broadcasting process for interface `UniSigner`:
+The signer layer provides a unified interface for transaction signing and broadcasting across different blockchain networks. Key concepts include:
 
-- `SignDoc` is the document type as the signing target to get signature
-- `Tx` is the signed transaction type to broadcast
+- **Network Abstraction**: The `IUniSigner` interface provides consistent methods regardless of the underlying blockchain
+- **Flexible Authentication**: Signers work with both `IWallet` (direct key access) and `OfflineSigner` (external wallet) authentication
+- **Transaction Lifecycle**: Complete transaction flow from message creation to broadcasting and confirmation
+- **Type Safety**: Generic type parameters ensure type safety for network-specific transaction formats
 
-The `Signer` class is a way to sign and broadcast transactions on blockchains with ease. With it, you can just pass a Message that you want to be packed in a transaction and the transaction will be prepared, signed and broadcasted.
+## Signer + IWallet
 
-## Signer + Auth
+IWallet implementations provide direct access to private keys for full cryptographic control. This approach is ideal for development, testing, and applications that manage their own key security.
 
-As we know, `Auth` object can be used to sign any piece of binary data (See [details](/docs/auth.md)). However, combining with the `*Signer` class allows you to sign human-readable messages or transactions using one function call.
+### Usage with IWallet
 
-### Usage
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { HDPath } from '@interchainjs/types';
 
-```ts
-import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
-import { toEncoder } from "@interchainjs/cosmos/utils";
-import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
-import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
-import {
-  HDPath
-} from '@interchainjs/types';
-
-
-const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
-    // use cosmos hdpath built by HDPath
-    // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
-    HDPath.cosmos().toString(),
-]);
-const signer = new DirectSigner(auth, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
-```
-
-## Signer + Wallet
-
-`Wallet` object can also be used to sign documents (See [details](/docs/auth.md#auth-vs-wallet)). However, some sign document is still not human-readable (i.e. for `DirectSigner`, the `SignDoc` type is an object with binary data types)
-
-However, combining with the `Signer` class allows you to sign human-readable messages or transactions using one function call.
-
-### Usage
-
-```ts
-import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
-import { DirectWallet, SignDoc } from "@interchainjs/cosmos/types";
-import { toEncoder } from "@interchainjs/cosmos/utils";
-import { MsgSend } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/tx";
-import { HDPath } from "@interchainjs/types";
-
-const directWallet = Secp256k1HDWallet.fromMnemonic("<MNEMONIC_WORDS>", [
-  {
-    // bech32_prefix
+// Create wallet from mnemonic
+const wallet = await Secp256k1HDWallet.fromMnemonic(
+  "<MNEMONIC_WORDS>",
+  [{
     prefix: "cosmos",
-    // use cosmos hdpath built by HDPath
-    // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
-    hdPath: HDPath.cosmos().toString(),
-  },
-]);
-const signer = await DirectSigner.fromWallet(wallet, [toEncoder(MsgSend)], <RPC_ENDPOINT>);
+    hdPath: HDPath.cosmos(0, 0, 0).toString(), // m/44'/118'/0'/0/0
+  }]
+);
+
+// Create signer with wallet
+const signer = new DirectSigner(wallet, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
 ```
 
-> Tips: `interchainjs` also provides helper methods to easily construct `Wallet` for each `Signer`. See [details](/docs/wallet.md#easy-to-construct-wallet).
+## Signer + OfflineSigner
 
-## UniSigner Interface
+OfflineSigner interfaces provide secure integration with external wallets without exposing private keys. This approach is ideal for production applications that need to integrate with user wallets.
 
-There are 3 main signing methods in `UniSigner`
+### Usage with OfflineSigner
 
-```ts
-/** you can import { UniSigner } from "@interchainjs/types" */
-export interface UniSigner<SignDoc, Tx> {
-  ...
-  signArbitrary(data: Uint8Array): IKey;
-  signDoc: (doc: SignDoc) => Promise<SignDocResponse<SignDoc>>;
-  sign(
-    messages: unknown,
-    ...args: unknown[]
-  ): Promise<SignResponse<SignDoc, Tx>>;
-  ...
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+
+// Get offline signer from external wallet (e.g., Keplr)
+await window.keplr.enable(chainId);
+const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+// Create signer with offline signer
+const signer = new DirectSigner(offlineSigner, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+```
+
+### Benefits of OfflineSigner
+
+- **Enhanced Security**: Private keys remain in the external wallet
+- **User Control**: Users maintain full control over their keys
+- **Standard Integration**: Works with popular wallets like Keplr, Leap, and hardware wallets
+
+## IUniSigner Interface
+
+The `IUniSigner` interface provides a universal API for transaction signing and broadcasting across different blockchain networks:
+
+```typescript
+/** Import from @interchainjs/types */
+export interface IUniSigner<
+  TTxResp = unknown,
+  TAccount extends IAccount = IAccount,
+  TSignArgs = unknown,
+  TBroadcastOpts = unknown,
+  TBroadcastResponse extends IBroadcastResult<TTxResp> = IBroadcastResult<TTxResp>,
+> {
+  // Account management
+  getAccounts(): Promise<readonly TAccount[]>;
+
+  // Core signing methods
+  signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes>;
+
+  // Transaction flow
+  sign(args: TSignArgs): Promise<ISigned<TBroadcastOpts, TBroadcastResponse>>;
+  broadcast(signed: ISigned<TBroadcastOpts, TBroadcastResponse>, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
+  signAndBroadcast(args: TSignArgs, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
+
+  // Raw broadcast (for pre-signed transactions)
+  broadcastArbitrary(data: Uint8Array, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
 }
 ```
 
-- `signArbitrary`, derived from `Auth` object, is usually used to request signatures that don't need to be efficiently processed on-chain. It's often used for signature challenges that are authenticated on a web server, such as sign-in with Ethereum/Cosmos.
-- `signDoc`, derived from `Wallet` object, is usually used to request signatures that are efficient to process on-chain. The `doc` argument varies among different signing modes and networks.
-- `sign` is used to sign human-readable message, to facilidate signing process with an user interface.
+### Key Methods
 
-> Tips: These 3 signing methods correspond to 3 levels of signing type: [Auth vs. Wallet vs. Signer](/docs/auth-wallet-signer.md).
+- **`getAccounts()`**: Returns all accounts managed by this signer
+- **`signArbitrary()`**: Signs arbitrary binary data for authentication purposes (e.g., login challenges)
+- **`sign()`**: Signs transaction arguments and returns a signed transaction with broadcast capability
+- **`broadcast()`**: Broadcasts a previously signed transaction to the network
+- **`signAndBroadcast()`**: Combines signing and broadcasting in a single operation
+- **`broadcastArbitrary()`**: Broadcasts raw transaction bytes to the network
 
-## Types
+> The interface uses generic type parameters to ensure type safety while maintaining network compatibility.
 
-> Tips about the headers:
->
-> - **Class**: the Class implements the Interface
-> - **SignDoc**: document structure for signing
-> - **Transaction**: document structure for broadcasting (abbr. `Tx`)
-> - **Wallet**: interface for web3 wallets
-> - **WalletAccount**: interface for web3 wallets account
+## Network-Specific Implementations
 
-### CosmosDirectSigner
+### Cosmos Network
 
-- **Class**: `import { DirectSigner } from "@interchainjs/cosmos/signers/direct"`
-- **SignDoc**: CosmosDirectDoc
-- **Transaction**: CosmosTx
-- **Wallet**: Secp256k1HDWallet
-- **WalletAccount**: CosmosAccount
+#### DirectSigner
+- **Import**: `import { DirectSigner } from '@interchainjs/cosmos'`
+- **Signing Mode**: SIGN_MODE_DIRECT (protobuf)
+- **Sign Args**: `CosmosSignArgs`
+- **Transaction**: `TxRaw`
+- **Wallet**: `Secp256k1HDWallet`
+- **Account**: `AccountData`
 
-### CosmosAminoSigner
+#### AminoSigner
+- **Import**: `import { AminoSigner } from '@interchainjs/cosmos'`
+- **Signing Mode**: SIGN_MODE_LEGACY_AMINO_JSON
+- **Sign Args**: `CosmosSignArgs`
+- **Transaction**: `TxRaw`
+- **Wallet**: `Secp256k1HDWallet`
+- **Account**: `AccountData`
 
-- **Class**: `import { AminoSigner } from "@interchainjs/cosmos/signers/amino"`
-- **SignDoc**: CosmosAminoDoc
-- **Transaction**: CosmosTx
-- **Wallet**: Secp256k1HDWallet
-- **WalletAccount**: CosmosAccount
+### Ethereum Network
 
-### InjectiveDirectSigner
+#### LegacySigner
+- **Import**: `import { LegacySigner } from '@interchainjs/ethereum'`
+- **Transaction Type**: Legacy Ethereum transactions
+- **Sign Args**: `LegacyTransactionSignArgs`
+- **Transaction**: `EthereumTransaction`
+- **Wallet**: `Secp256k1HDWallet`
+- **Account**: `EthereumAccountData`
 
-- **Class**: `import { DirectSigner } from "@interchainjs/injective/direct"`
-- **SignDoc**: CosmosDirectDoc
-- **Transaction**: CosmosTx
-- **Wallet**:
-- **WalletAccount**: InjectiveAccount
+#### Eip1559Signer
+- **Import**: `import { Eip1559Signer } from '@interchainjs/ethereum'`
+- **Transaction Type**: EIP-1559 transactions with dynamic fees
+- **Sign Args**: `Eip1559TransactionSignArgs`
+- **Transaction**: `EthereumTransaction`
+- **Wallet**: `Secp256k1HDWallet`
+- **Account**: `EthereumAccountData`
 
-### InjectiveAminoSigner
+### Injective Network
 
-- **Class**: `import { AminoSigner } from "@interchainjs/injective/amino"`
-- **SignDoc**: CosmosAminoDoc
-- **Transaction**: CosmosTx
-- **Wallet**:
-- **WalletAccount**: InjectiveAccount
+#### DirectSigner
+- **Import**: `import { DirectSigner } from '@interchainjs/injective'`
+- **Signing Mode**: SIGN_MODE_DIRECT (Cosmos-compatible)
+- **Sign Args**: `InjectiveSignArgs`
+- **Transaction**: `TxRaw`
+- **Wallet**: `EthSecp256k1HDWallet`
+- **Account**: `AccountData`
+
+#### AminoSigner
+- **Import**: `import { AminoSigner } from '@interchainjs/injective'`
+- **Signing Mode**: SIGN_MODE_LEGACY_AMINO_JSON (Cosmos-compatible)
+- **Sign Args**: `InjectiveSignArgs`
+- **Transaction**: `TxRaw`
+- **Wallet**: `EthSecp256k1HDWallet`
+- **Account**: `AccountData`

@@ -230,78 +230,106 @@ console.log("Endpoint:", queryClient.endpoint);
 await queryClient.disconnect();
 ```
 
-### Using a Private Key
+### Using Ethereum Signers
 
-#### Import and Construct Signer
+#### Creating Signers
+
+InterchainJS provides modern Ethereum signers that implement the `IUniSigner` interface:
 
 ```typescript
-import { SignerFromPrivateKey } from "@interchainjs/ethereum/signers/SignerFromPrivateKey";
-const signer = new SignerFromPrivateKey(privateKey, RPC_URL);
+import { LegacyEthereumSigner, EIP1559EthereumSigner } from '@interchainjs/ethereum';
+import { Secp256k1HDWallet } from '@interchainjs/ethereum';
+import { EthereumQueryClient } from '@interchainjs/ethereum';
+import { HttpRpcClient } from '@interchainjs/utils/clients';
+import { EthereumAdapter } from '@interchainjs/ethereum';
+
+// Create wallet from private key
+const wallet = Secp256k1HDWallet.fromPrivateKey('0x...');
+
+// Or create from mnemonic
+const wallet = await Secp256k1HDWallet.fromMnemonic('your mnemonic phrase here');
+
+// Create query client
+const rpcClient = new HttpRpcClient('https://eth.llamarpc.com');
+const adapter = new EthereumAdapter();
+const queryClient = new EthereumQueryClient(rpcClient, adapter);
+
+// Create signers
+const legacySigner = new LegacyEthereumSigner(wallet, { queryClient });
+const eip1559Signer = new EIP1559EthereumSigner(wallet, { queryClient });
 ```
 
 #### Get Address, Balance, and Nonce
 
 ```typescript
-// Get the address and current balance
-type Address = string
-const address: Address = signer.getAddress()
-console.log("Address:", address)
+// Get addresses
+const addresses = await legacySigner.getAddresses();
+const address = addresses[0];
+console.log("Address:", address);
 
-const balance: bigint = await signer.getBalance()
-console.log("Balance (wei):", balance)
+// Get balance using query client
+const balance = await queryClient.getBalance(address);
+console.log("Balance (wei):", balance);
 
-// Get the current nonce
-const nonce: number = await signer.getNonce()
-console.log("Nonce:", nonce)
+// Get nonce using query client
+const nonce = await queryClient.getTransactionCount(address);
+console.log("Nonce:", nonce);
 ```
 
 #### Send Legacy and EIP-1559 Transactions
 
 ```typescript
-// Send a legacy transaction with automatic gas limit
-const { txHash: legacyHash, wait: legacyWait } = await signer.sendLegacyTransactionAutoGasLimit(
-  recipientAddress,
-  1000000000000000n, // 0.001 ETH
-  '0x'
-)
-const legacyReceipt = await legacyWait()
-console.log("Legacy tx receipt:", legacyReceipt)
+// Send a legacy transaction
+const legacyResult = await legacySigner.signAndBroadcast({
+  transaction: {
+    to: recipientAddress,
+    value: '1000000000000000', // 0.001 ETH in wei
+    gasPrice: '20000000000', // 20 gwei
+    gas: '21000'
+  }
+});
+console.log("Legacy tx hash:", legacyResult.transactionHash);
 
-// Send an EIP-1559 transaction with automatic gas settings
-const { txHash: eipHash, wait: eipWait } = await signer.sendEIP1559TransactionAutoGasLimit(
-  recipientAddress,
-  1000000000000000n // 0.001 ETH
-)
-const eipReceipt = await eipWait()
-console.log("EIP-1559 tx receipt:", eipReceipt)
+// Send an EIP-1559 transaction
+const eip1559Result = await eip1559Signer.signAndBroadcast({
+  transaction: {
+    to: recipientAddress,
+    value: '1000000000000000', // 0.001 ETH in wei
+    maxFeePerGas: '30000000000', // 30 gwei
+    maxPriorityFeePerGas: '2000000000', // 2 gwei
+    gas: '21000'
+  }
+});
+console.log("EIP-1559 tx hash:", eip1559Result.transactionHash);
+
+// Wait for transaction confirmation
+const receipt = await eip1559Result.wait();
+console.log("Transaction receipt:", receipt);
 ```
 
 #### Sign and Verify a Personal Message
 
 ```typescript
-// Sign and verify a personal message
-const message: string = "Hello, Ethereum!"
-const signature: string = signer.personalSign(message)
-console.log("Signature:", signature)
+// Sign a personal message
+const message = "Hello, Ethereum!";
+const signature = await legacySigner.signPersonalMessage(message, address);
+console.log("Signature:", signature);
 
-const isValid: boolean = SignerFromPrivateKey.verifyPersonalSignature(
-  message,
-  signature,
-  address
-)
-console.log("Signature valid:", isValid)
-}
+// Verify the signature
+const isValid = await legacySigner.verifyPersonalMessage(message, signature, address);
+console.log("Signature valid:", isValid);
 ```
 
 #### Estimate Gas for a Transaction
 
 ```typescript
-// Estimate gas for an arbitrary transaction
-const estimatedGas: bigint = await signer.estimateGas(
-  recipientAddress,
-  500000000000000000n, // 0.5 ETH
-  "0x" // optional data
-);
+// Estimate gas for a transaction using query client
+const estimatedGas = await queryClient.estimateGas({
+  to: recipientAddress,
+  value: '500000000000000000', // 0.5 ETH in wei
+  from: address,
+  data: '0x' // optional data
+});
 console.log("Estimated gas:", estimatedGas.toString());
 ```
 
@@ -430,8 +458,15 @@ console.log(toChecksumAddress(lower));
 
 ## Implementations
 
-- **SignerFromPrivateKey** from `@interchainjs/ethereum/signers/SignerFromPrivateKey`
-- **SignerFromBrowser** from `@interchainjs/ethereum/signers/SignerFromBrowser`
+- **LegacyEthereumSigner**: Pre-EIP-1559 transactions using `gasPrice` (`@interchainjs/ethereum`)
+- **EIP1559EthereumSigner**: EIP-1559 transactions with dynamic fees (`@interchainjs/ethereum`)
+- **Secp256k1HDWallet**: HD wallet implementation for Ethereum networks (`@interchainjs/ethereum`)
+- **EthereumQueryClient**: Query client for Ethereum RPC endpoints (`@interchainjs/ethereum`)
+
+### Legacy Support
+
+- **SignerFromPrivateKey**: Original implementation (maintained for backward compatibility)
+- **SignerFromBrowser**: Browser wallet integration (maintained for backward compatibility)
 
 
 ## Interchain JavaScript Stack ⚛️

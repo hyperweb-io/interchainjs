@@ -50,78 +50,286 @@ npm install @interchainjs/ethereum
 
 ## Usage
 
-### Using a Private Key
+### Query Client
 
-#### Import and Construct Signer
+The Ethereum Query Client provides a comprehensive interface for querying Ethereum blockchain data using JSON-RPC.
+
+#### Basic Setup
 
 ```typescript
-import { SignerFromPrivateKey } from "@interchainjs/ethereum/signers/SignerFromPrivateKey";
-const signer = new SignerFromPrivateKey(privateKey, RPC_URL);
+import { createEthereumQueryClient } from "@interchainjs/ethereum";
+
+// Create a query client
+const queryClient = await createEthereumQueryClient("https://eth.llamarpc.com");
+
+// Or with options
+const queryClient = await createEthereumQueryClient("https://eth.llamarpc.com", {
+  timeout: 30000,
+  headers: {
+    'User-Agent': 'MyApp/1.0.0'
+  }
+});
+```
+
+#### Basic Information
+
+```typescript
+// Get chain ID
+const chainId = await queryClient.getChainId();
+console.log("Chain ID:", chainId); // 1 for mainnet
+
+// Get latest block number
+const blockNumber = await queryClient.getBlockNumber();
+console.log("Latest block:", blockNumber);
+
+// Check sync status
+const syncing = await queryClient.isSyncing();
+console.log("Syncing:", syncing);
+```
+
+#### Block Queries
+
+```typescript
+// Get latest block
+const latestBlock = await queryClient.getLatestBlock();
+console.log("Latest block hash:", latestBlock.hash);
+
+// Get block by number
+const block = await queryClient.getBlockByNumber(18000000);
+console.log("Block timestamp:", block.timestamp);
+
+// Get block by hash
+const blockByHash = await queryClient.getBlockByHash("0x95b198e154acbfc64109dfd22d8224fe927fd8dfdedfae01587674482ba4baf3");
+console.log("Block number:", blockByHash.number);
+
+// Get transaction count in block
+const txCount = await queryClient.getBlockTransactionCount(18000000);
+console.log("Transaction count:", txCount);
+```
+
+#### Transaction Queries
+
+```typescript
+// Get transaction details
+const tx = await queryClient.getTransaction("0x16e199673891df518e25db2ef5320155da82a3dd71a677e7d84363251885d133");
+console.log("From:", tx.from, "To:", tx.to, "Value:", tx.value);
+
+// Get transaction receipt
+const receipt = await queryClient.getTransactionReceipt("0x16e199673891df518e25db2ef5320155da82a3dd71a677e7d84363251885d133");
+console.log("Status:", receipt.status, "Gas used:", receipt.gasUsed);
+
+// Get account nonce
+const nonce = await queryClient.getTransactionCount("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
+console.log("Nonce:", nonce);
+```
+
+#### Account and Balance Queries
+
+```typescript
+// Get account balance
+const balance = await queryClient.getBalance("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
+console.log("Balance:", balance.toString(), "wei");
+
+// Get contract code
+const code = await queryClient.getCode("0xdAC17F958D2ee523a2206206994597C13D831ec7");
+console.log("Contract code length:", code.length);
+
+// Get storage value
+const storage = await queryClient.getStorageAt("0xdAC17F958D2ee523a2206206994597C13D831ec7", "0x0");
+console.log("Storage at slot 0:", storage);
+```
+
+#### Gas and Fee Queries
+
+```typescript
+// Get current gas price
+const gasPrice = await queryClient.getGasPrice();
+console.log("Gas price:", gasPrice.toString(), "wei");
+
+// Get max priority fee (EIP-1559)
+const priorityFee = await queryClient.getMaxPriorityFeePerGas();
+console.log("Priority fee:", priorityFee.toString(), "wei");
+
+// Get fee history
+const feeHistory = await queryClient.getFeeHistory(4, 'latest', [25, 50, 75]);
+console.log("Base fees:", feeHistory.baseFeePerGas);
+
+// Estimate gas for transaction
+const gasEstimate = await queryClient.estimateGas({
+  from: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+  to: "0x0000000000000000000000000000000000000000",
+  value: "0x1"
+});
+console.log("Gas estimate:", gasEstimate.toString());
+```
+
+#### Event Logs and Filters
+
+```typescript
+// Get logs
+const logs = await queryClient.getLogs({
+  fromBlock: 18000000,
+  toBlock: 18000100,
+  address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+  topics: ["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"] // Transfer event
+});
+console.log("Found", logs.length, "Transfer events");
+
+// Create and manage filters
+const filterId = await queryClient.newFilter({
+  fromBlock: 'latest',
+  toBlock: 'latest'
+});
+
+const filterLogs = await queryClient.getFilterLogs(filterId);
+console.log("Filter logs:", filterLogs.length);
+
+// Clean up filter
+await queryClient.uninstallFilter(filterId);
+```
+
+#### WebSocket Support
+
+```typescript
+import { EthereumClientFactory } from "@interchainjs/ethereum";
+
+// Create WebSocket query client for real-time updates
+const wsQueryClient = await EthereumClientFactory.createWebSocketQueryClient("wss://eth.llamarpc.com");
+
+// Use the same interface as HTTP client
+const latestBlock = await wsQueryClient.getLatestBlock();
+console.log("Latest block via WebSocket:", latestBlock.number);
+```
+
+#### Error Handling
+
+```typescript
+try {
+  const block = await queryClient.getBlockByNumber(999999999999);
+} catch (error) {
+  console.error("Block not found:", error.message);
+}
+
+try {
+  const tx = await queryClient.getTransaction("0xinvalid");
+} catch (error) {
+  console.error("Invalid transaction hash:", error.message);
+}
+```
+
+#### Connection Management
+
+```typescript
+// Check connection status
+console.log("Connected:", queryClient.isConnected());
+
+// Get endpoint
+console.log("Endpoint:", queryClient.endpoint);
+
+// Disconnect when done
+await queryClient.disconnect();
+```
+
+### Using Ethereum Signers
+
+#### Creating Signers
+
+InterchainJS provides modern Ethereum signers that implement the `IUniSigner` interface:
+
+```typescript
+import { LegacyEthereumSigner, EIP1559EthereumSigner } from '@interchainjs/ethereum';
+import { Secp256k1HDWallet } from '@interchainjs/ethereum';
+import { EthereumQueryClient } from '@interchainjs/ethereum';
+import { HttpRpcClient } from '@interchainjs/utils/clients';
+import { EthereumAdapter } from '@interchainjs/ethereum';
+
+// Create wallet from private key
+const wallet = Secp256k1HDWallet.fromPrivateKey('0x...');
+
+// Or create from mnemonic
+const wallet = await Secp256k1HDWallet.fromMnemonic('your mnemonic phrase here');
+
+// Create query client
+const rpcClient = new HttpRpcClient('https://eth.llamarpc.com');
+const adapter = new EthereumAdapter();
+const queryClient = new EthereumQueryClient(rpcClient, adapter);
+
+// Create signers
+const legacySigner = new LegacyEthereumSigner(wallet, { queryClient });
+const eip1559Signer = new EIP1559EthereumSigner(wallet, { queryClient });
 ```
 
 #### Get Address, Balance, and Nonce
 
 ```typescript
-// Get the address and current balance
-type Address = string
-const address: Address = signer.getAddress()
-console.log("Address:", address)
+// Get addresses
+const addresses = await legacySigner.getAddresses();
+const address = addresses[0];
+console.log("Address:", address);
 
-const balance: bigint = await signer.getBalance()
-console.log("Balance (wei):", balance)
+// Get balance using query client
+const balance = await queryClient.getBalance(address);
+console.log("Balance (wei):", balance);
 
-// Get the current nonce
-const nonce: number = await signer.getNonce()
-console.log("Nonce:", nonce)
+// Get nonce using query client
+const nonce = await queryClient.getTransactionCount(address);
+console.log("Nonce:", nonce);
 ```
 
 #### Send Legacy and EIP-1559 Transactions
 
 ```typescript
-// Send a legacy transaction with automatic gas limit
-const { txHash: legacyHash, wait: legacyWait } = await signer.sendLegacyTransactionAutoGasLimit(
-  recipientAddress,
-  1000000000000000n, // 0.001 ETH
-  '0x'
-)
-const legacyReceipt = await legacyWait()
-console.log("Legacy tx receipt:", legacyReceipt)
+// Send a legacy transaction
+const legacyResult = await legacySigner.signAndBroadcast({
+  transaction: {
+    to: recipientAddress,
+    value: '1000000000000000', // 0.001 ETH in wei
+    gasPrice: '20000000000', // 20 gwei
+    gas: '21000'
+  }
+});
+console.log("Legacy tx hash:", legacyResult.transactionHash);
 
-// Send an EIP-1559 transaction with automatic gas settings
-const { txHash: eipHash, wait: eipWait } = await signer.sendEIP1559TransactionAutoGasLimit(
-  recipientAddress,
-  1000000000000000n // 0.001 ETH
-)
-const eipReceipt = await eipWait()
-console.log("EIP-1559 tx receipt:", eipReceipt)
+// Send an EIP-1559 transaction
+const eip1559Result = await eip1559Signer.signAndBroadcast({
+  transaction: {
+    to: recipientAddress,
+    value: '1000000000000000', // 0.001 ETH in wei
+    maxFeePerGas: '30000000000', // 30 gwei
+    maxPriorityFeePerGas: '2000000000', // 2 gwei
+    gas: '21000'
+  }
+});
+console.log("EIP-1559 tx hash:", eip1559Result.transactionHash);
+
+// Wait for transaction confirmation
+const receipt = await eip1559Result.wait();
+console.log("Transaction receipt:", receipt);
 ```
 
 #### Sign and Verify a Personal Message
 
 ```typescript
-// Sign and verify a personal message
-const message: string = "Hello, Ethereum!"
-const signature: string = signer.personalSign(message)
-console.log("Signature:", signature)
+// Sign a personal message
+const message = "Hello, Ethereum!";
+const signature = await legacySigner.signPersonalMessage(message, address);
+console.log("Signature:", signature);
 
-const isValid: boolean = SignerFromPrivateKey.verifyPersonalSignature(
-  message,
-  signature,
-  address
-)
-console.log("Signature valid:", isValid)
-}
+// Verify the signature
+const isValid = await legacySigner.verifyPersonalMessage(message, signature, address);
+console.log("Signature valid:", isValid);
 ```
 
 #### Estimate Gas for a Transaction
 
 ```typescript
-// Estimate gas for an arbitrary transaction
-const estimatedGas: bigint = await signer.estimateGas(
-  recipientAddress,
-  500000000000000000n, // 0.5 ETH
-  "0x" // optional data
-);
+// Estimate gas for a transaction using query client
+const estimatedGas = await queryClient.estimateGas({
+  to: recipientAddress,
+  value: '500000000000000000', // 0.5 ETH in wei
+  from: address,
+  data: '0x' // optional data
+});
 console.log("Estimated gas:", estimatedGas.toString());
 ```
 
@@ -250,8 +458,15 @@ console.log(toChecksumAddress(lower));
 
 ## Implementations
 
-- **SignerFromPrivateKey** from `@interchainjs/ethereum/signers/SignerFromPrivateKey`
-- **SignerFromBrowser** from `@interchainjs/ethereum/signers/SignerFromBrowser`
+- **LegacyEthereumSigner**: Pre-EIP-1559 transactions using `gasPrice` (`@interchainjs/ethereum`)
+- **EIP1559EthereumSigner**: EIP-1559 transactions with dynamic fees (`@interchainjs/ethereum`)
+- **Secp256k1HDWallet**: HD wallet implementation for Ethereum networks (`@interchainjs/ethereum`)
+- **EthereumQueryClient**: Query client for Ethereum RPC endpoints (`@interchainjs/ethereum`)
+
+### Legacy Support
+
+- **SignerFromPrivateKey**: Original implementation (maintained for backward compatibility)
+- **SignerFromBrowser**: Browser wallet integration (maintained for backward compatibility)
 
 
 ## Interchain JavaScript Stack ⚛️

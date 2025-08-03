@@ -34,7 +34,7 @@
   </a>
 </p>
 
-Authentication/Wallet for web3 accounts.
+Foundational cryptographic capabilities for blockchain applications, providing wallet implementations and account management across different cryptographic algorithms.
 
 ## Usage
 
@@ -42,45 +42,98 @@ Authentication/Wallet for web3 accounts.
 npm install @interchainjs/auth
 ```
 
-Taking `secp256k1` as example.
+### Creating HD Wallets
 
-```ts
-import { Secp256k1Auth } from "@interchainjs/auth/secp256k1";
+The auth package provides HD (Hierarchical Deterministic) wallet implementations:
 
-const [directAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
-  "m/44'/118'/0'/0/0",
-]);
-const signature = auth.sign(Uint8Array.from([1, 2, 3]));
-console.log(signature.toHex());
+```typescript
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
+import { HDPath } from '@interchainjs/types';
+import { generateMnemonic } from '@interchainjs/crypto';
+
+// Generate a mnemonic
+const mnemonic = generateMnemonic();
+
+// Create wallet with HD derivation
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+  derivations: [{
+    prefix: "cosmos",
+    hdPath: HDPath.cosmos(0, 0, 0).toString(), // m/44'/118'/0'/0/0
+  }]
+});
+
+// Get accounts
+const accounts = await wallet.getAccounts();
+console.log('Address:', accounts[0].address);
+
+// Sign arbitrary data
+const signature = await wallet.signByIndex(Uint8Array.from([1, 2, 3]), 0);
+console.log('Signature:', signature.toHex());
 ```
 
-It's easy to derive _cosmos/injective/ethereum_ network HD path (taking `cosmos` as example)
+### Working with Different Networks
 
-```ts
-import { HDPath } from "@interchainjs/types";
+The auth package supports multiple blockchain networks with appropriate HD paths:
 
-// derive with Cosmos default HD path "m/44'/118'/0'/0/0"
-const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
-  // use cosmos hdpath built by HDPath
-  // we can get cosmos hdpath "m/44'/118'/0'/0/0" by this:
-  HDPath.cosmos().toString(),
-]);
-// is identical to
-const [auth] = Secp256k1Auth.fromMnemonic("<MNEMONIC_WORDS>", [
-  "m/44'/118'/0'/0/0",
-]);
+```typescript
+import { HDPath } from '@interchainjs/types';
+
+// Cosmos networks (m/44'/118'/0'/0/0)
+const cosmosPath = HDPath.cosmos(0, 0, 0).toString();
+
+// Ethereum networks (m/44'/60'/0'/0/0)
+const ethereumPath = HDPath.ethereum(0, 0, 0).toString();
+
+// Create wallet for multiple networks
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+  derivations: [
+    { prefix: "cosmos", hdPath: cosmosPath },
+    { prefix: "osmo", hdPath: cosmosPath },
+    // Add more derivations as needed
+  ]
+});
 ```
 
-`Auth` objected can be utilized by different signers. See
+### Integration with Signers
 
-- [@interchainjs/cosmos](/networks/cosmos/README.md)
-- [@interchainjs/ethereum](/networks/ethereum/README.md)
-- [@interchainjs/injective](/networks/injective/README.md)
+Wallets from the auth package integrate seamlessly with network-specific signers:
+
+- [@interchainjs/cosmos](/networks/cosmos/README.md) - Cosmos ecosystem signers
+- [@interchainjs/ethereum](/networks/ethereum/README.md) - Ethereum signers
+- [@interchainjs/injective](/networks/injective/README.md) - Injective Protocol signers
+
+## Core Interfaces
+
+### IWallet Interface
+
+The primary interface for managing cryptographic accounts:
+
+- `getAccounts()`: Returns all accounts managed by this wallet
+- `getAccountByIndex(index)`: Gets a specific account by its index
+- `signByIndex(data, index)`: Signs arbitrary binary data using the specified account
+
+### IAccount Interface
+
+Represents a single cryptographic account:
+
+- `address`: The blockchain address for this account
+- `algo`: The cryptographic algorithm used (e.g., 'secp256k1')
+- `getPublicKey()`: Returns the public key for this account
+
+### IPrivateKey Interface
+
+Handles private key operations:
+
+- `toPublicKey()`: Derives the corresponding public key
+- `sign(data)`: Signs binary data and returns a cryptographic signature
+- `fromMnemonic()`: Static method to derive private keys from mnemonic phrases
 
 ## Implementations
 
-- **secp256k1 auth** from `@interchainjs/auth/secp256k1`
-- **ethSecp256k1 auth** from `@interchainjs/auth/ethSecp256k1`
+- **Secp256k1HDWallet**: HD wallet for Cosmos-based networks
+- **EthSecp256k1HDWallet**: HD wallet for Ethereum-style addresses (used by Injective)
+- **BaseWallet**: Base implementation of IWallet interface
+- **PrivateKey**: Core private key implementation with HD derivation support
 
 ## Interchain JavaScript Stack ⚛️
 
