@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/types@1.11.18...@interchainjs/types@1.12.0) (2025-08-03)
+
+### Bug Fixes
+
+- fix build errors for signers and wallets ([a41e3fc](https://github.com/hyperweb-io/interchainjs/commit/a41e3fce100c57e2332a1e4c50f6d7bb291fca20))
+
 ## [1.11.18](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/types@1.11.17...@interchainjs/types@1.11.18) (2025-06-20)
 
 **Note:** Version bump only for package @interchainjs/types
