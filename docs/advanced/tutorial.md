@@ -2,6 +2,8 @@
 
 This tutorial demonstrates how to use and extend signers in the InterchainJS ecosystem. We'll cover both using existing signers and implementing custom signers for different blockchain networks.
 
+> **For Network Implementers**: If you're looking to implement support for a new blockchain network, see the [Network Implementation Guide](./network-implementation-guide.md) for comprehensive architectural patterns and design principles.
+
 ## Using Existing Signers
 
 InterchainJS provides ready-to-use signers for major blockchain networks. These signers implement the `IUniSigner` interface and can work with both `IWallet` implementations and `OfflineSigner` interfaces.
@@ -432,3 +434,94 @@ describe('CustomNetworkSigner', () => {
 ```
 
 This approach ensures your custom signers are robust, maintainable, and compatible with the InterchainJS ecosystem.
+
+## Implementing New Blockchain Networks
+
+If you're implementing support for an entirely new blockchain network (not just a custom signer), you'll need to implement the full stack of components. This is a more comprehensive undertaking that involves:
+
+### Required Components
+
+1. **Query Client**: For reading blockchain state
+2. **Protocol Adapter**: For handling network-specific data formats
+3. **Signers**: For transaction signing and broadcasting
+4. **Wallets**: For key management and address derivation
+5. **Configuration**: For network-specific settings
+
+### Implementation Approach
+
+For comprehensive guidance on implementing a new blockchain network, including:
+
+- **Architectural patterns** and design principles
+- **Directory structure** and organization
+- **Query client architecture** with adapters and factories
+- **Transaction signing workflows** with plugin systems
+- **Wallet architecture** with strategy patterns
+- **Error handling** and testing strategies
+- **Configuration management** patterns
+
+See the [Network Implementation Guide](./network-implementation-guide.md).
+
+### Quick Start for New Networks
+
+1. **Study existing implementations**: Look at `networks/cosmos`, `networks/ethereum`, and `networks/injective` for patterns
+2. **Follow the directory structure**: Use the recommended structure from the implementation guide
+3. **Start with interfaces**: Define your network-specific interfaces first
+4. **Implement incrementally**: Start with query client, then wallets, then signers
+5. **Test thoroughly**: Use the testing patterns from the implementation guide
+
+### Getting Help
+
+- Review existing network implementations for patterns
+- Check the [Network Implementation Guide](./network-implementation-guide.md) for detailed guidance
+- Look at the [Auth vs. Wallet vs. Signer](./auth-wallet-signer.md) guide for architectural understanding
+- See the [Workflow Builder and Plugins Guide](./workflow-builder-and-plugins.md) for transaction workflow implementation
+- Examine the [Types Package](../packages/types/index.mdx) for core interfaces
+
+## Advanced Workflow Implementation
+
+For developers implementing custom transaction workflows or extending the plugin-based transaction building system:
+
+### When to Use Workflow Builders
+
+Consider using the workflow builder architecture when:
+
+- **Complex Transaction Logic**: Your transactions require multiple processing steps
+- **Multiple Signing Modes**: You need to support different signing approaches (direct, amino, multisig)
+- **Conditional Processing**: Transaction building varies based on context or signer capabilities
+- **Extensible Architecture**: You want to allow easy addition of new features or processing steps
+- **Testing Requirements**: You need to test transaction building logic in isolation
+
+### Workflow Implementation Guide
+
+For comprehensive guidance on implementing workflow-based transaction builders:
+
+- **Architecture Overview**: Understanding the plugin-based system
+- **Builder Implementation**: Creating custom transaction builders
+- **Plugin Development**: Implementing modular processing steps
+- **Workflow Selection**: Choosing workflows based on context
+- **Best Practices**: File organization, testing, and maintenance
+
+See the [Workflow Builder and Plugins Guide](./workflow-builder-and-plugins.md) for detailed implementation guidance.
+
+### Integration with Signers
+
+Workflow builders integrate seamlessly with the signer architecture:
+
+```typescript
+class CustomSigner implements IUniSigner<Account, SignArgs, BroadcastOpts, BroadcastResponse> {
+  private builder: CustomTransactionBuilder;
+
+  constructor(wallet: IWallet, options: SignerOptions) {
+    // Create workflow builder for transaction processing
+    this.builder = new CustomTransactionBuilder(this, options.signingMode);
+  }
+
+  async signAndBroadcast(args: SignArgs, options?: BroadcastOpts): Promise<BroadcastResponse> {
+    // Use workflow builder to process transaction
+    const transaction = await this.builder.buildTransaction(args);
+
+    // Broadcast using network-specific logic
+    return this.broadcast(transaction, options);
+  }
+}
+```
