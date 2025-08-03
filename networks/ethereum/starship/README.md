@@ -95,6 +95,59 @@ Run
 yarn starship:test
 ```
 
+### Available Tests
+
+The test suite includes comprehensive end-to-end tests covering Ethereum functionality including native ETH transfers, smart contract interactions, and utility functions:
+
+#### Token Transfer Tests (`token.test.ts`)
+
+Comprehensive testing of Ethereum token transfers and smart contract interactions:
+
+- **ETH Transfers (Legacy)**: Tests native ETH transfers using legacy transaction format
+- **ETH Transfers (EIP-1559)**: Tests native ETH transfers using EIP-1559 transaction format with dynamic fees
+- **Smart Contract Deployment**: Tests deploying ERC-20 USDT contract to the test network
+- **ERC-20 Token Transfers**: Tests transferring ERC-20 tokens between accounts
+- **Personal Message Signing**: Tests signing arbitrary messages using personal_sign
+- **WebSocket Event Monitoring**: Tests real-time monitoring of smart contract events
+- **Key Scenarios**:
+  - Sending ETH between accounts with balance verification and gas fee calculation
+  - Deploying USDT smart contract and verifying deployment success
+  - Transferring USDT tokens and verifying balance changes
+  - Signing personal messages and validating signature format
+  - Monitoring Transfer events via WebSocket for real-time contract interaction tracking
+  - Testing both legacy and EIP-1559 transaction types for compatibility
+
+**Network-Specific Considerations**:
+
+- Uses local Hardhat node (http://127.0.0.1:8545) for testing
+- Tests with pre-funded accounts using deterministic private keys
+- Includes WebSocket testing (ws://127.0.0.1:8546) for event monitoring
+- Validates proper gas estimation and fee calculation for different transaction types
+- Tests contract interaction patterns including deployment, method calls, and event listening
+
+#### Utility Function Tests (`utils.test.ts`)
+
+Tests core Ethereum utility functions for address validation and data encoding:
+
+- **Address Validation**: Tests Ethereum address format validation and checksum verification
+- **Address Conversion**: Tests conversion between different address formats (lowercase, uppercase, checksum)
+- **Data Encoding**: Tests UTF-8 to hex encoding and decoding functions
+- **Error Handling**: Tests proper error handling for invalid inputs
+- **Key Scenarios**:
+  - Validating checksummed, lowercase, and uppercase Ethereum addresses
+  - Detecting invalid checksum addresses and rejecting them
+  - Converting addresses to proper checksum format
+  - Encoding UTF-8 strings to hexadecimal representation
+  - Decoding hex strings back to UTF-8 with proper error handling
+  - Testing edge cases like invalid hex strings and malformed addresses
+
+**Testing Patterns**:
+
+- Comprehensive address format testing including EIP-55 checksum validation
+- Bidirectional encoding/decoding tests to ensure data integrity
+- Error boundary testing for malformed inputs
+- Validation of utility function reliability for production use
+
 ## 5. Stop the infra
 
 The tests should be ideompotent, so the tests can be run multiple times (which is recommeded), since the time to spinup is still high (around 5 to 10 mins).
