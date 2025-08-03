@@ -1,0 +1,39 @@
+import { buildUseVueMutation } from "../../../vue-query";
+import { MsgSubmitProposal, MsgVote, MsgVoteWeighted, MsgDeposit } from "./tx";
+import { submitProposal, vote, voteWeighted, deposit } from "./tx.rpc.func";
+/**
+ * SubmitProposal defines a method to create new proposal given a content.
+ * @name useSubmitProposal
+ * @package cosmos.gov.v1beta1
+ * @see proto service: cosmos.gov.v1beta1.SubmitProposal
+ */
+export const useSubmitProposal = buildUseVueMutation<MsgSubmitProposal, Error>({
+  builderMutationFn: submitProposal
+});
+/**
+ * Vote defines a method to add a vote on a specific proposal.
+ * @name useVote
+ * @package cosmos.gov.v1beta1
+ * @see proto service: cosmos.gov.v1beta1.Vote
+ */
+export const useVote = buildUseVueMutation<MsgVote, Error>({
+  builderMutationFn: vote
+});
+/**
+ * VoteWeighted defines a method to add a weighted vote on a specific proposal.
+ * @name useVoteWeighted
+ * @package cosmos.gov.v1beta1
+ * @see proto service: cosmos.gov.v1beta1.VoteWeighted
+ */
+export const useVoteWeighted = buildUseVueMutation<MsgVoteWeighted, Error>({
+  builderMutationFn: voteWeighted
+});
+/**
+ * Deposit defines a method to add deposit on a specific proposal.
+ * @name useDeposit
+ * @package cosmos.gov.v1beta1
+ * @see proto service: cosmos.gov.v1beta1.Deposit
+ */
+export const useDeposit = buildUseVueMutation<MsgDeposit, Error>({
+  builderMutationFn: deposit
+});
