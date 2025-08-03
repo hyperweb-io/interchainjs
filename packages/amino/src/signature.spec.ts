@@ -26,7 +26,7 @@ describe("signature", () => {
       const signature = fromBase64(
         "1nUcIH0CLT0/nQ0mBTDrT6kMG20NY/PsH7P2gc4bpYNGLEYjBmdWevXUJouSE/9A/60QG9cYeqyTe5kFDeIPxQ==",
       );
-      expect(() => encodeSecp256k1Signature(pubkey, signature)).toThrowError(
+      expect(() => encodeSecp256k1Signature(pubkey, signature)).toThrow(
         /public key must be compressed secp256k1/i,
       );
     });
@@ -39,7 +39,7 @@ describe("signature", () => {
         ),
         99,
       ]);
-      expect(() => encodeSecp256k1Signature(pubkey, signature)).toThrowError(
+      expect(() => encodeSecp256k1Signature(pubkey, signature)).toThrow(
         /signature must be 64 bytes long/i,
       );
     });

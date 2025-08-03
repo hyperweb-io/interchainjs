@@ -552,7 +552,7 @@ describe("Secp256k1", () => {
   describe("compressPubkey", () => {
     it("throws for a pubkey with invalid length", () => {
       const pubkey = fromHex("aa".repeat(32));
-      expect(() => Secp256k1.compressPubkey(pubkey)).toThrowError(/invalid pubkey length/i);
+      expect(() => Secp256k1.compressPubkey(pubkey)).toThrow(/invalid pubkey length/i);
     });
 
     it("returns a compressed pubkey unchanged", () => {
@@ -573,7 +573,7 @@ describe("Secp256k1", () => {
   describe("uncompressPubkey", () => {
     it("throws for a pubkey with invalid length", () => {
       const pubkey = fromHex("aa".repeat(32));
-      expect(() => Secp256k1.uncompressPubkey(pubkey)).toThrowError(/invalid pubkey length/i);
+      expect(() => Secp256k1.uncompressPubkey(pubkey)).toThrow(/invalid pubkey length/i);
     });
 
     it("returns an uncompressPubkey pubkey unchanged", () => {
@@ -597,7 +597,7 @@ describe("Secp256k1", () => {
   describe("trimRecoveryByte", () => {
     it("throws for a signature with invalid length", () => {
       const signature = fromHex("aa".repeat(66));
-      expect(() => Secp256k1.trimRecoveryByte(signature)).toThrowError(/invalid signature length/i);
+      expect(() => Secp256k1.trimRecoveryByte(signature)).toThrow(/invalid signature length/i);
     });
 
     it("returns a trimmed signature", () => {

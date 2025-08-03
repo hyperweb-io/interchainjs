@@ -35,7 +35,7 @@ describe("encoding", () => {
       const pubkey = fromBase64(
         "BE8EGB7ro1ORuFhjOnZcSgwYlpe0DSFjVNUIkNNQxwKQE7WHpoHoNswYeoFkuYpYSKK4mzFzMV/dB0DVAy4lnNU=",
       );
-      expect(() => encodeSecp256k1Pubkey(pubkey)).toThrowError(/public key must be compressed secp256k1/i);
+      expect(() => encodeSecp256k1Pubkey(pubkey)).toThrow(/public key must be compressed secp256k1/i);
     });
   });
 
@@ -49,10 +49,10 @@ describe("encoding", () => {
     });
 
     it("throws for wrong pubkey lengths", () => {
-      expect(() => encodeEd25519Pubkey(Random.getBytes(31))).toThrowError(
+      expect(() => encodeEd25519Pubkey(Random.getBytes(31))).toThrow(
         /ed25519 public key must be 32 bytes long/i,
       );
-      expect(() => encodeEd25519Pubkey(Random.getBytes(64))).toThrowError(
+      expect(() => encodeEd25519Pubkey(Random.getBytes(64))).toThrow(
         /ed25519 public key must be 32 bytes long/i,
       );
     });
@@ -129,7 +129,7 @@ describe("encoding", () => {
         },
       });
 
-      expect(() => decodeAminoPubkey(fromHex("22C1F7E20705"))).toThrowError(/expecting 0x08 prefix/i);
+      expect(() => decodeAminoPubkey(fromHex("22C1F7E20705"))).toThrow(/expecting 0x08 prefix/i);
     });
   });
 
