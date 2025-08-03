@@ -3,48 +3,31 @@
 Deploy
 
 ```sh
-yarn starship
+# setup helm/starship
+yarn starship setup
+
+# deploy starship, the command will wait until all pods are running
+yarn starship:all
+
+# sanity check
+yarn starship get-pods
 ```
 
 Run Tests
 
 ```sh
+# test
 yarn starship:test
 ```
 
 Teardown
 
 ```sh
-yarn starship:stop
-```
+# stop port forwarding (done by clean() too)
+# yarn starship stop-ports
 
-Port fording manually if needed
-```sh
-kubectl port-forward pods/ethereum-1337-0 8545:8545
-```
-
-Get chain id from node
-```sh
-curl -X POST -H "Content-Type: application/json" \
-  --data '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' \
-  http://localhost:8545/
-```
-
-Get balance:
-```sh
-curl -X POST \
-  -H "Content-Type: application/json" \
-  --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x7e5f4552091a69125d5dfcb7b8c2659029395bdf", "latest"],"id":1}' \
-  http://localhost:8545
-```
-
-use ws to get latest block height:
-```sh
-wscat -c ws://127.0.0.1:8546
-```
-and then paste:
-```
-{"jsonrpc": "2.0", "id": 1, "method": "eth_subscribe", "params": ["newHeads"]}
+# stop ports and delete & remove helm chart
+yarn starship:clean
 ```
 
 ## 1. Installation
@@ -82,12 +65,6 @@ to a kubernetes cluster locally.
 NOTE: Resources constraint on local machine will affect the performance of Starship spinup time
 
 ```bash
-yarn starship setup-kind
-```
-
-Run the following command to check connection to a k8s cluster
-
-```bash
 kubectl get pods
 ```
 
@@ -98,7 +75,9 @@ Now with the dependencies and a kubernetes cluster in handy, we can proceed with
 Run
 
 ```bash
-yarn starship deploy
+yarn starship:all
+# or
+yarn starship start
 ```
 
 We use the config file `configs/config.yaml` as the genesis file to define the topology of the e2e test infra. Change it as required
@@ -113,7 +92,7 @@ our end-to-end tests.
 Run
 
 ```bash
-npm run starship:test
+yarn starship:test
 ```
 
 ## 5. Stop the infra
@@ -123,21 +102,13 @@ The tests should be ideompotent, so the tests can be run multiple times (which i
 Once the state of the mini-cosmos is corrupted, you can stop the deployments with
 
 ```bash
-npm run starship clean
+yarn starship:clean
 ```
 
 Which will
 
 - Stop port-forwarding the traffic to your local
 - Delete all the helm charts deployed
-
-## 6. Cleanup kind (optional)
-
-If you are using kind for your kubernetes cluster, you can delete it with
-
-```bash
-yarn starship clean-kind
-```
 
 ## Related
 
@@ -146,8 +117,8 @@ Checkout these related projects:
 - [@cosmology/telescope](https://github.com/hyperweb-io/telescope) Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules.
 - [@cosmwasm/ts-codegen](https://github.com/CosmWasm/ts-codegen) Convert your CosmWasm smart contracts into dev-friendly TypeScript classes.
 - [chain-registry](https://github.com/hyperweb-io/chain-registry) Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application.
-- [interchain-kit](https://github.com/hyperweb-io/interchain-kit) Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.
-- [create-interchain-app](https://github.com/hyperweb-io/create-interchain-app) Set up a modern Cosmos app by running one command.
+- [cosmos-kit](https://github.com/hyperweb-io/cosmos-kit) Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.
+- [create-cosmos-app](https://github.com/hyperweb-io/create-cosmos-app) Set up a modern Cosmos app by running one command.
 - [interchain-ui](https://github.com/hyperweb-io/interchain-ui) The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit.
 - [starship](https://github.com/hyperweb-io/starship) Unified Testing and Development for the Interchain.
 

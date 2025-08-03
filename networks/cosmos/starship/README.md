@@ -6,22 +6,11 @@ Deploy
 # setup helm/starship
 yarn starship setup
 
+# deploy starship, the command will wait until all pods are running
+yarn starship:all
+
 # sanity check
 yarn starship get-pods
-
-# deploy starship
-yarn starship deploy
-
-# wait til STATUS=Running
-yarn starship wait-for-pods
-or
-watch yarn starship get-pods
-
-# port forwarding
-yarn starship start-ports
-
-# check pids
-yarn starship port-pids
 ```
 
 Run Tests
@@ -29,9 +18,6 @@ Run Tests
 ```sh
 # test
 yarn starship:test
-
-# watch
-yarn starship:watch
 ```
 
 Teardown
@@ -41,7 +27,7 @@ Teardown
 # yarn starship stop-ports
 
 # stop ports and delete & remove helm chart
-yarn starship clean
+yarn starship:clean
 ```
 
 ## 1. Installation
@@ -79,12 +65,6 @@ to a kubernetes cluster locally.
 NOTE: Resources constraint on local machine will affect the performance of Starship spinup time
 
 ```bash
-yarn starship setup-kind
-```
-
-Run the following command to check connection to a k8s cluster
-
-```bash
 kubectl get pods
 ```
 
@@ -95,7 +75,9 @@ Now with the dependencies and a kubernetes cluster in handy, we can proceed with
 Run
 
 ```bash
-yarn starship deploy
+yarn starship:all
+# or
+yarn starship start
 ```
 
 We use the config file `configs/config.yaml` as the genesis file to define the topology of the e2e test infra. Change it as required
@@ -110,7 +92,7 @@ our end-to-end tests.
 Run
 
 ```bash
-npm run starship:test
+yarn starship:test
 ```
 
 ## 5. Stop the infra
@@ -120,21 +102,13 @@ The tests should be ideompotent, so the tests can be run multiple times (which i
 Once the state of the mini-cosmos is corrupted, you can stop the deployments with
 
 ```bash
-npm run starship clean
+yarn starship:clean
 ```
 
 Which will
 
 - Stop port-forwarding the traffic to your local
 - Delete all the helm charts deployed
-
-## 6. Cleanup kind (optional)
-
-If you are using kind for your kubernetes cluster, you can delete it with
-
-```bash
-yarn starship clean-kind
-```
 
 ## Related
 
