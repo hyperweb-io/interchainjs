@@ -1,4 +1,8 @@
-export * from './accounts/inj-account';
+// Export auth
+export * from './auth';
+
+// Export wallets
 export * from './wallets/ethSecp256k1hd';
-export * from './defaults';
-export * from './utils';
+
+// Export signers
+export * from './signers';

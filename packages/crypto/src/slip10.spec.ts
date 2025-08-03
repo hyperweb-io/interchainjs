@@ -14,8 +14,8 @@ describe("Slip10", () => {
   it("has working slip10CurveFromString()", () => {
     expect(slip10CurveFromString("Bitcoin seed")).toEqual(Slip10Curve.Secp256k1);
     expect(slip10CurveFromString("ed25519 seed")).toEqual(Slip10Curve.Ed25519);
-    expect(() => slip10CurveFromString("something else")).toThrowError(/unknown curve/i);
-    expect(() => slip10CurveFromString("")).toThrowError(/unknown curve/i);
+    expect(() => slip10CurveFromString("something else")).toThrow(/unknown curve/i);
+    expect(() => slip10CurveFromString("")).toThrow(/unknown curve/i);
   });
 
   describe("Test vector 1 for secp256k1", () => {
@@ -408,9 +408,9 @@ describe("Slip10", () => {
     });
 
     it("throws for broken start", () => {
-      expect(() => stringToPath("")).toThrowError(/must start with 'm'/);
-      expect(() => stringToPath("M")).toThrowError(/must start with 'm'/);
-      expect(() => stringToPath("/1/1")).toThrowError(/must start with 'm'/);
+      expect(() => stringToPath("")).toThrow(/must start with 'm'/);
+      expect(() => stringToPath("M")).toThrow(/must start with 'm'/);
+      expect(() => stringToPath("/1/1")).toThrow(/must start with 'm'/);
     });
 
     it("works for normal components", () => {
@@ -427,21 +427,21 @@ describe("Slip10", () => {
     });
 
     it("errors for syntax error in component", () => {
-      expect(() => stringToPath("m/ 1/1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m/-1/1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m//1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m/1*/1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m/1/1/1 ")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m/1''/1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m/1 '/1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath("m/'/1/1")).toThrowError(/syntax error/i);
-      expect(() => stringToPath('m/1"/1/1')).toThrowError(/syntax error/i);
+      expect(() => stringToPath("m/ 1/1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m/-1/1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m//1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m/1*/1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m/1/1/1 ")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m/1''/1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m/1 '/1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath("m/'/1/1")).toThrow(/syntax error/i);
+      expect(() => stringToPath('m/1"/1/1')).toThrow(/syntax error/i);
     });
 
     it("errors for value too high", () => {
-      expect(() => stringToPath("m/2147483648/1/1")).toThrowError(/value too high/i);
-      expect(() => stringToPath("m/1/9007199254740991/1")).toThrowError(/value too high/i);
-      expect(() => stringToPath("m/1/1/9007199254740992")).toThrowError(/not in int53 range/i);
+      expect(() => stringToPath("m/2147483648/1/1")).toThrow(/value too high/i);
+      expect(() => stringToPath("m/1/9007199254740991/1")).toThrow(/value too high/i);
+      expect(() => stringToPath("m/1/1/9007199254740992")).toThrow(/not in int53 range/i);
     });
 
     it("works for hardened components", () => {

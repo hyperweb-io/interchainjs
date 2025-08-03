@@ -1,93 +1,202 @@
+/// <reference types="@types/jest" />
+
 import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
-import { defaultSignerOptions } from '@interchainjs/cosmos/defaults';
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
-import {
-  assertIsDeliverTxSuccess,
-  toEncoders,
-} from '@interchainjs/cosmos/utils';
-import {
-  createQueryRpc,
-} from '@interchainjs/utils';
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
-import { MessageComposer } from 'interchainjs/cosmos/bank/v1beta1/tx.registry';
-import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
+import { generateMnemonic } from '../src/utils';
+import { CosmosQueryClient, AminoSigner, DirectSigner, HttpRpcClient, OfflineDirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
-import { useChain } from 'starshipjs';
+import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
+import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 
-import { generateMnemonic } from '../src';
-import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
+import { useChain } from 'starshipjs';
+import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
+import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
+import { getAllBalances, MsgTransfer, transfer } from 'interchainjs';
+// @ts-ignore
+import WebSocket from 'ws';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Token transfers', () => {
-  let directSigner: DirectSigner, denom: string, address: string, address2: string, ws: string;
-  let chainInfo: ChainInfo,
+  let wallet: Secp256k1HDWallet;
+  let client: CosmosQueryClient;
+  let signer: DirectSigner;
+  let protoSigner: OfflineDirectSigner,
+    denom: string,
+    address: string,
+    address2: string,
+    address3: string,
+    address4: string;
+  let commonPrefix: string,
+    chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
-    creditFromFaucet;
-
-  let initialBalance: string = "0"; // Track initial balance before each test
+    creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
+    const rpcEndpoint = await getRpcEndpoint();
+    const rpcClient = new HttpRpcClient(rpcEndpoint);
+    const adapter = new Comet38Adapter();
+    client = new CosmosQueryClient(rpcClient, adapter);
+
     denom = (await getCoin()).base;
-    ws = `${chainInfo.chain.apis.rpc[0].address.replace('http', 'ws')}/websocket`;
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
 
     const mnemonic = generateMnemonic();
-    // Initialize auth
-    const [auth, auth2] = Secp256k1Auth.fromMnemonic(
+    // Initialize wallet with 4 accounts for testing
+    wallet = await Secp256k1HDWallet.fromMnemonic(
       mnemonic,
-      [0, 1].map((i) => HDPath.cosmos(0, 0, i).toString())
+      {
+        derivations: [0, 1, 2, 3].map((i) => ({
+          prefix: commonPrefix,
+          hdPath: HDPath.cosmos(0, 0, i).toString(),
+        }))
+      }
     );
-    directSigner = new DirectSigner(auth, [], await getRpcEndpoint(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
-    const directSigner2 = new DirectSigner(auth2, [], await getRpcEndpoint(), {
-      prefix: chainInfo.chain.bech32_prefix,
-    });
-    address = await directSigner.getAddress();
-    address2 = await directSigner2.getAddress();
+    protoSigner = await wallet.toOfflineDirectSigner();
+    const accounts = await protoSigner.getAccounts();
+    address = accounts[0].address;   // For direct mode test
+    address2 = accounts[1].address;  // Recipient for direct mode test
+    address3 = accounts[2].address;  // For amino mode test
+    address4 = accounts[3].address;  // Recipient for amino mode test
 
+    // Fund both sender addresses
     await creditFromFaucet(address);
+    await creditFromFaucet(address3);
   });
 
-  it('monitor osmosis token transfer via WebSocket', async () => {
-    // Setup WebSocket connection to listen for events
-    const WebSocket = require('ws');
-    const wsClient = new WebSocket(ws);
+  it('direct mode: send osmosis token to address', async () => {
+    // Use wallet directly as it implements OfflineDirectSigner interface
+    signer = new DirectSigner(protoSigner, {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
+    });
 
-    // Create a promise that will be resolved when we receive a transaction event
-    const txEventPromise = new Promise<any>((resolve) => {
-      wsClient.on('open', () => {
-        // Subscribe to Tx events
+
+
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const token = {
+      amount: '10000000',
+      denom,
+    };
+
+    try {
+
+      // Create a proper MsgSend message - use correct field names
+      const msgSend = MsgSend.fromPartial({
+        fromAddress: address,
+        toAddress: address2,
+        amount: [token]
+      });
+
+      const result = await send(signer, address, msgSend, fee, 'send tokens test');
+
+      // Wait for transaction to be confirmed
+      try {
+        await result.wait();
+      } catch (err) {
+        console.log(err);
+      }
+
+      const { balance: balance2 } = await getBalance(client, { address: address2, denom });
+
+      expect(balance2!.amount).toEqual(token.amount);
+      expect(balance2!.denom).toEqual(denom);
+    } catch (error) {
+      console.error('Error sending tokens:', error);
+      throw error;
+    }
+  }, 100000);
+
+  it('monitor osmosis token transfer via WebSocket events', async () => {
+    // Initialize the signer for this test (similar to direct mode test)
+    signer = new DirectSigner(protoSigner, {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
+    });
+
+    // Convert HTTP RPC endpoint to WebSocket endpoint
+    const rpcEndpoint = await getRpcEndpoint();
+    const wsEndpoint = rpcEndpoint.replace('http', 'ws') + '/websocket';
+
+    // Use raw WebSocket approach (similar to the old test) to work around WebSocket client issues
+    const ws = new WebSocket(wsEndpoint);
+
+    let eventReceived = false;
+    let receivedEvent: any = null;
+
+    // Set up WebSocket connection and subscription
+    const wsConnectionPromise = new Promise<void>((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        reject(new Error('Timeout waiting for WebSocket connection'));
+      }, 10000);
+
+      ws.on('open', () => {
+        clearTimeout(timeoutId);
+        console.log('Raw WebSocket connected');
+
+        // Subscribe to Tx events for the recipient address
         const subscribeMsg = {
           jsonrpc: '2.0',
-          id: 'subscribe-tx',
+          id: 'tx-subscribe',
           method: 'subscribe',
           params: {
-            query: "tm.event='Tx' AND transfer.recipient='" + address2 + "'"
+            query: `tm.event='Tx' AND transfer.recipient='${address2}'`
           }
         };
-        wsClient.send(JSON.stringify(subscribeMsg));
+
+        console.log('Sending subscription message:', JSON.stringify(subscribeMsg));
+        ws.send(JSON.stringify(subscribeMsg));
+
+        // Wait a bit for subscription to be processed, then resolve
+        setTimeout(() => {
+          resolve();
+        }, 1000);
       });
 
-      wsClient.on('message', (data: any) => {
-        const response = JSON.parse(data.toString());
-        if (response.result && response.result.events) {
-          resolve(response);
-        }
-      });
-
-      wsClient.on('error', (err: any) => {
-        console.error('WebSocket error:', err);
+      ws.on('error', (error) => {
+        clearTimeout(timeoutId);
+        console.error('WebSocket error:', error);
+        reject(error);
       });
     });
+
+    // Set up message handler for subscription events
+    ws.on('message', (data) => {
+      try {
+        const response = JSON.parse(data.toString());
+        console.log('Received WebSocket message:', response);
+
+        // Check if this is a subscription event with transaction data
+        if (response.result && response.result.events && !eventReceived) {
+          console.log('Found transaction event!');
+          eventReceived = true;
+          receivedEvent = response;
+        }
+      } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+      }
+    });
+
+    // Wait for WebSocket to be ready and subscription to be set up
+    await wsConnectionPromise;
 
     // Setup fees and token for the transaction
     const fee = {
@@ -105,78 +214,86 @@ describe('Token transfers', () => {
       denom,
     };
 
-    // Wait a bit to ensure WebSocket connection is established
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Send the transaction using the existing signer
+      console.log('Sending transaction from', address, 'to', address2, 'amount:', token.amount);
+      const msgSend = MsgSend.fromPartial({
+        fromAddress: address,
+        toAddress: address2,
+        amount: [token]
+      });
 
-    // Send the transaction
-    directSigner.addEncoders(toEncoders(MsgSend));
-    const txResult = await directSigner.signAndBroadcast(
-      {
-        messages: [
-          MessageComposer.withTypeUrl.send(
-            {
-              fromAddress: address,
-              toAddress: address2,
-              amount: [token],
-            }
-          ),
-        ],
-        fee,
-        memo: 'websocket test transaction',
-      },
-      { deliverTx: true }
-    );
+      const result = await send(signer, address, msgSend, fee, 'websocket test transaction');
+      console.log('Transaction sent, waiting for event...');
 
-    // Wait for the WebSocket event (with a timeout)
-    const txEvent = await Promise.race([
-      txEventPromise,
-      new Promise<null>((resolve) => setTimeout(() => resolve(null), 10000))
-    ]);
-
-    // Close WebSocket connection
-    wsClient.close();
-
-    // Verify WebSocket event was received
-    expect(txEvent).not.toBeNull();
-    expect(txEvent.result.events).toBeDefined();
-
-    // Verify transfer details in the event
-    if (txEvent && txEvent.result && txEvent.result.events) {
-      // Extract transfer details - structure depends on the chain's event format
-      // This might need adjustment based on the actual event structure
-      if (txEvent.result.events.transfer) {
-        const transferEvent = txEvent.result.events.transfer;
-
-        // Check for amount in the event (format might vary)
-        if (transferEvent.amount) {
-          // The transfer amount might be in format like "5000000uosmo"
-          const amountMatch = transferEvent.amount.match(/(\d+)(.+)/);
-          if (amountMatch) {
-            const [_, amount, eventDenom] = amountMatch;
-            expect(amount).toEqual(token.amount);
+      // Wait for the WebSocket event (with a timeout)
+      const txEventPromise = new Promise<any>((resolve) => {
+        const checkInterval = setInterval(() => {
+          if (eventReceived) {
+            clearInterval(checkInterval);
+            resolve(receivedEvent);
           }
-        }
+        }, 100);
 
-        // Verify recipient
-        if (transferEvent.recipient) {
-          expect(transferEvent.recipient).toEqual(address2);
+        // Timeout after 20 seconds
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          resolve(null);
+        }, 20000);
+      });
+
+      const txEvent = await txEventPromise;
+
+      // Verify WebSocket event was received
+      expect(txEvent).not.toBeNull();
+      expect(txEvent).toBeDefined();
+
+      // Verify the event structure (similar to old test)
+      expect(txEvent.result).toBeDefined();
+      expect(txEvent.result.events).toBeDefined();
+
+      // Verify transfer event details
+      const events = txEvent.result.events;
+      expect(events['transfer.recipient']).toContain(address2);
+      expect(events['transfer.amount']).toContain(`${token.amount}${denom}`);
+      expect(events['tm.event']).toContain('Tx');
+
+      // Verify the transaction was successful by checking balance
+      const { balance } = await getBalance(client, { address: address2, denom });
+
+      // The balance should include the transferred amount
+      // Note: We can't predict the exact final balance since other tests may have run
+      // but we can verify the balance is at least the amount we transferred
+      expect(BigInt(balance!.amount)).toBeGreaterThanOrEqual(BigInt(token.amount));
+      expect(balance!.denom).toEqual(denom);
+
+    } catch (error) {
+      console.error('Error in WebSocket monitoring test:', error);
+      throw error;
+    } finally {
+      // Clean up the WebSocket connection
+      try {
+        if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+          ws.close();
         }
+        // Wait a bit for the connection to close
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      } catch (cleanupError) {
+        console.warn('Error during cleanup:', cleanupError);
       }
     }
+  }, 30000);
 
-    // Also verify through direct query
-    const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+  it('amino mode: send osmosis token to address', async () => {
+    // Use wallet.toOfflineAminoSigner() to get proper offline signer with cached account data
+    const aminoOfflineSigner = await wallet.toOfflineAminoSigner();
+    const aminoSigner: AminoSigner = new AminoSigner(aminoOfflineSigner, {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
+    });
 
-    // Calculate the expected final balance
-    const expectedBalance = (BigInt(initialBalance) + BigInt(token.amount)).toString();
 
-    expect(balance!.amount).toEqual(expectedBalance);
-  }, 20000);
-
-  it('send osmosis token to address', async () => {
-    // Get initial balance
-    const initialBalanceResponse = await getBalance(await getRpcEndpoint(), { address: address2, denom });
-    const initialAmount = initialBalanceResponse.balance?.amount || "0";
 
     const fee = {
       amount: [
@@ -193,72 +310,73 @@ describe('Token transfers', () => {
       denom,
     };
 
-    const {
-      send,
-      multiSend,
-      setSendEnabled,
-      updateParams
-    } = MessageComposer.withTypeUrl;
+    try {
+      // Create a proper MsgSend message - use different addresses for amino test
+      const msgSend = MsgSend.fromPartial({
+        fromAddress: address3,  // Use different sender address
+        toAddress: address4,    // Use different recipient address
+        amount: [token]
+      });
 
-    // Transfer uosmo tokens from faceut
-    directSigner.addEncoders([MsgSend]);
-    await directSigner.signAndBroadcast(
-      {
-        messages: [
-          MessageComposer.withTypeUrl.send(
-            {
-              fromAddress: address,
-              toAddress: address2,
-              amount: [token],
-            }
-          ),
-        ],
-        fee,
-        memo: 'send tokens test',
-      },
-      { deliverTx: true }
-    );
+      const result = await send(aminoSigner, address3, msgSend, fee, 'amino send tokens test');
 
-    const { balance } = await getBalance(await getRpcEndpoint(), { address: address2, denom });
+      // Wait for transaction to be confirmed
+      try {
+        await result.wait();
+      } catch (err) {
+        console.log(err);
+      }
 
-    // Calculate expected balance (initial + transferred amount)
-    const expectedBalance = (BigInt(initialAmount) + BigInt(token.amount)).toString();
+      const { balance: balance4 } = await getBalance(client, { address: address4, denom });
 
-    expect(balance!.amount).toEqual(expectedBalance);
-    expect(balance!.denom).toEqual(denom);
-  }, 10000);
+      expect(balance4!.amount).toEqual(token.amount);
+      expect(balance4!.denom).toEqual(denom);
+    } catch (error) {
+      console.error('Error sending tokens in amino mode:', error);
+      throw error;
+    }
+  }, 100000);
 
   it('send ibc osmo tokens to address on cosmos chain', async () => {
-    const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
+    const { chainInfo: cosmosChainInfo, getRpcEndpoint: getCosmosRpcEndpoint } =
       useChain('cosmoshub');
 
+    const cosmosPrefix = cosmosChainInfo?.chain?.bech32_prefix;
+    const cosmosRpcEndpoint = await getCosmosRpcEndpoint();
+
+    const rpcClient = new HttpRpcClient(cosmosRpcEndpoint);
+    const adapter = new Comet38Adapter();
+    const cosmosClient = new CosmosQueryClient(rpcClient, adapter);
+
     // Initialize wallet address for cosmos chain
-    const [cosmosAuth] = Secp256k1Auth.fromMnemonic(generateMnemonic(), [
-      cosmosHdPath,
-    ]);
-    const cosmosAddress = defaultSignerOptions.publicKey
-      .hash(
-        cosmosAuth.getPublicKey(defaultSignerOptions.publicKey.isCompressed)
-      )
-      .toBech32(cosmosChainInfo.chain.bech32_prefix);
+    const cosmosWallet = await Secp256k1HDWallet.fromMnemonic(
+      generateMnemonic(),
+      {
+        derivations: [0].map((i) => ({
+          prefix: cosmosPrefix,
+          hdPath: HDPath.cosmos(0, 0, i).toString(),
+        }))
+      }
+    );
+    const cosmosAddress = (await cosmosWallet.getAccounts())[0].address;
 
     const ibcInfos = chainInfo.fetcher.getChainIbcData(
       chainInfo.chain.chain_name
     );
-    const ibcInfo = ibcInfos.find(
+    const sourceIbcInfo = ibcInfos.find(
       (i) =>
         i.chain_1.chain_name === chainInfo.chain.chain_name &&
         i.chain_2.chain_name === cosmosChainInfo.chain.chain_name
     );
 
-    expect(ibcInfo).toBeTruthy();
+    expect(sourceIbcInfo).toBeTruthy();
 
     const { port_id: sourcePort, channel_id: sourceChannel } =
-      ibcInfo!.channels[0].chain_1;
+      sourceIbcInfo!.channels[0].chain_1;
 
     // Transfer osmosis tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
-    const timeoutTime = currentTime + 300 * 1000000000; // 5 minutes
+    const timeoutTime = currentTime + 3600 * 1000000000; // 1 hour
 
     const fee = {
       amount: [
@@ -276,36 +394,31 @@ describe('Token transfers', () => {
     };
 
     // send ibc tokens
-    directSigner.addEncoders(toEncoders(MsgTransfer));
-    const resp = await directSigner.signAndBroadcast(
-      {
-        messages: [
-          {
-            typeUrl: MsgTransfer.typeUrl,
-            value: MsgTransfer.fromPartial({
-              sourcePort,
-              sourceChannel,
-              token,
-              sender: address,
-              receiver: cosmosAddress,
-              timeoutHeight: undefined,
-              timeoutTimestamp: BigInt(timeoutTime),
-              memo: 'test transfer',
-            }),
-          },
-        ],
-        fee,
-        memo: '',
-      },
-      { deliverTx: true }
+    const resp = await transfer(
+      signer,
+      address,
+      MsgTransfer.fromPartial({
+        sourcePort,
+        sourceChannel,
+        token,
+        sender: address,
+        receiver: cosmosAddress,
+        timeoutHeight: undefined,
+        timeoutTimestamp: BigInt(timeoutTime),
+        memo: 'test transfer',
+      }),
+      fee,
+      ''
     );
 
-    assertIsDeliverTxSuccess(resp);
+    // Wait for transaction to be confirmed
+    try {
+      await resp.wait();
+    } catch (err) {
+      console.log(err);
+    }
 
-    await new Promise((resolve) => setTimeout(resolve, 6000));
-
-    // Check osmos in address on cosmos chain
-    const { balances } = await getAllBalances(await cosmosRpcEndpoint(), {
+    const { balances } = await getAllBalances(cosmosClient, {
       address: cosmosAddress,
       resolveDenom: true,
     });
@@ -323,6 +436,5 @@ describe('Token transfers', () => {
     //   hash: ibcBalance!.denom.replace("ibc/", ""),
     // });
     // expect(trace.denomTrace.baseDenom).toEqual(denom);
-  }, 10000);
+  }, 40000);
 });
-

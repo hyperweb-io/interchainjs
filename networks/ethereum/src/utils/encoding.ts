@@ -1,11 +1,30 @@
-export function utf8ToHex(input: string): string {
-  return Buffer.from(input, 'utf8').toString('hex');
+import { fromUtf8, toUtf8, fromHex, toHex } from '@interchainjs/utils';
+
+/**
+ * Convert a UTF-8 string to hex (without 0x prefix)
+ */
+export function utf8ToHex(str: string): string {
+  const bytes = fromUtf8(str);
+  return toHex(bytes);
 }
 
-export function hexToUtf8(input: string): string {
-  const hexString = input.startsWith('0x') ? input.slice(2) : input;
-  if (!/^[0-9a-fA-F]+$/.test(hexString) || hexString.length % 2 !== 0) {
-    throw new Error(`Invalid hex string: ${input}`);
+/**
+ * Convert a hex string to UTF-8 string
+ */
+export function hexToUtf8(hex: string): string {
+  // Remove 0x prefix if present
+  const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex;
+  
+  // Validate hex string
+  if (!/^[a-fA-F0-9]*$/.test(cleanHex)) {
+    throw new Error(`Invalid hex string: ${hex}`);
   }
-  return Buffer.from(hexString, 'hex').toString('utf8');
+
+  // Ensure even length
+  if (cleanHex.length % 2 !== 0) {
+    throw new Error(`Invalid hex string: ${hex}`);
+  }
+
+  const bytes = fromHex(cleanHex);
+  return toUtf8(bytes);
 }

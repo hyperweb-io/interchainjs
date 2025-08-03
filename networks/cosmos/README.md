@@ -44,106 +44,137 @@ Transaction codec and client to communicate with any cosmos blockchain.
 npm install @interchainjs/cosmos
 ```
 
-Example for signing client here:
+### Using DirectSigner
 
-```ts
-import { SigningClient as CosmosSigningClient } from "@interchainjs/cosmos/signing-client";
+Create and use signers for transaction signing and broadcasting:
 
-const signingClient = await CosmosSigningClient.connectWithSigner(
-  await getRpcEndpoint(),
-  new DirectGenericOfflineSigner(directSigner),
-  {
-    registry: [
-      // as many as possible encoders registered here.
-      MsgDelegate,
-      MsgSend,
-    ],
-    broadcast: {
-      checkTx: true,
-    },
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
+import { HDPath } from '@interchainjs/types';
+
+// Method 1: Using HD Wallet
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+  derivations: [{
+    prefix: "cosmos",
+    hdPath: HDPath.cosmos(0, 0, 0).toString(),
+  }]
+});
+
+const signer = new DirectSigner(wallet, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+
+// Sign and broadcast transaction
+const result = await signer.signAndBroadcast({
+  messages: [{
+    typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+    value: {
+      fromAddress: 'cosmos1...',
+      toAddress: 'cosmos1...',
+      amount: [{ denom: 'uatom', amount: '1000000' }]
+    }
+  }],
+  fee: {
+    amount: [{ denom: 'uatom', amount: '5000' }],
+    gas: '200000'
   }
-);
+});
 
-// sign and broadcast
-const result = await signingClient.signAndBroadcast(<MESSAGE>[]);
-console.log(result.hash); // the hash of TxRaw
+console.log('Transaction hash:', result.transactionHash);
 ```
 
-Or use the tree shakable helper functions (**Most Recommended**) we generate in interchainjs libs:
+### Using with External Wallets
 
-```ts
-import { SigningClient as CosmosSigningClient } from "@interchainjs/cosmos/signing-client";
-import { submitProposal } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+For integration with browser wallets like Keplr:
 
-const signingClient = await CosmosSigningClient.connectWithSigner(
-  await getRpcEndpoint(),
-  new DirectGenericOfflineSigner(directSigner),
-  {
-    // no registry needed here anymore
-    // registry: [
-    // ],
-    broadcast: {
-      checkTx: true,
-    },
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+
+// Get offline signer from Keplr
+await window.keplr.enable(chainId);
+const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+// Create signer with offline signer
+const signer = new DirectSigner(offlineSigner, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+
+// Use the same signing interface
+const result = await signer.signAndBroadcast({
+  messages: [/* your messages */],
+  fee: { amount: [{ denom: 'uatom', amount: '5000' }], gas: '200000' }
+});
+```
+
+### Using AminoSigner
+
+For legacy compatibility, you can use the AminoSigner:
+
+```typescript
+import { AminoSigner } from '@interchainjs/cosmos';
+
+// Create amino signer (same wallet can be used)
+const aminoSigner = new AminoSigner(wallet, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+
+// Same signing interface
+const result = await aminoSigner.signAndBroadcast({
+  messages: [{
+    typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+    value: {
+      fromAddress: 'cosmos1...',
+      toAddress: 'cosmos1...',
+      amount: [{ denom: 'uatom', amount: '1000000' }]
+    }
+  }],
+  fee: {
+    amount: [{ denom: 'uatom', amount: '5000' }],
+    gas: '200000'
   }
-);
-
-// Necessary typeurl and codecs will be registered automatically in the helper functions. Meaning users don't have to register them all at once.
-const result = await submitProposal(
-  signingClient,
-  directAddress,
-  {
-    proposer: directAddress,
-    initialDeposit: [
-      {
-        amount: "1000000",
-        denom: denom,
-      },
-    ],
-    content: {
-      typeUrl: "/cosmos.gov.v1beta1.TextProposal",
-      value: TextProposal.encode(contentMsg).finish(),
-    },
-  },
-  fee,
-  "submit proposal"
-);
-console.log(result.hash); // the hash of TxRaw
+});
 ```
 
-Examples for direct and amino signers here:
+### Key Features
 
-```ts
-import { DirectSigner } from "@interchainjs/cosmos/signers/direct";
+- **Unified Interface**: Both signers implement `IUniSigner` with identical methods
+- **Flexible Authentication**: Works with both direct wallets and external wallets
+- **Type Safety**: Full TypeScript support with proper type inference
+- **Network Compatibility**: Designed specifically for Cosmos SDK-based networks
 
-// const signer = new DirectSigner(<AUTH>, <ENCODER>[], <RPC_ENDPOINT>); // **ONLY** rpc endpoint is supported for now
-const signer = new DirectSigner(
-  directAuth,
-  // as many as possible encoders registered here.
-  [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
-  rpcEndpoint,
-  { prefix: chainInfo.chain.bech32_prefix }
-);
-const aminoSigner = new AminoSigner(
-  aminoAuth,
-  // as many as possible encoders registered here.
-  [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
-  // as many as possible converters registered here.
-  [MsgDelegate, TextProposal, MsgSubmitProposal, MsgVote],
-  rpcEndpoint,
-  { prefix: chainInfo.chain.bech32_prefix }
-);
-const result = await signer.signAndBroadcast(<MESSAGE>[]);
-console.log(result.hash); // the hash of TxRaw
-```
+For more information:
+- See [@interchainjs/auth](/packages/auth/README.md) for wallet creation
+- See [@interchainjs/cosmos-types](/libs/cosmos-types/README.md) for message types
 
-- See [@interchainjs/auth](/packages/auth/README.md) to construct `<AUTH>`
-- See [@interchainjs/cosmos-types](/networks/cosmos-msgs/README.md) to construct `<ENCODER>`s and `<CONVERTER>`s, and also different message types.
+## For Developers
+
+### Understanding the Architecture
+
+To understand how the Cosmos network implementation fits into the broader InterchainJS architecture:
+
+- [Auth vs. Wallet vs. Signer](../../docs/advanced/auth-wallet-signer.md) - Understanding the three-layer architecture
+- [Tutorial](../../docs/advanced/tutorial.md) - Using and extending signers
+
+### Implementing Custom Networks
+
+If you're implementing support for a new Cosmos-based network or want to understand the architectural patterns used in this implementation:
+
+- [Network Implementation Guide](../../docs/advanced/network-implementation-guide.md) - Comprehensive guide for implementing blockchain network support
+- [Workflow Builder and Plugins Guide](../../docs/advanced/workflow-builder-and-plugins.md) - Plugin-based transaction workflow architecture used by Cosmos signers
 
 ## Implementations
 
-- **direct signer** from `@interchainjs/cosmos/signers/direct`
-- **amino signer** from `@interchainjs/cosmos/signers/amino`
+- **DirectSigner**: Protobuf-based signing for optimal performance (`@interchainjs/cosmos`)
+- **AminoSigner**: JSON-based signing for legacy compatibility (`@interchainjs/cosmos`)
+- **Secp256k1HDWallet**: HD wallet implementation for Cosmos networks (`@interchainjs/cosmos`)
+- **CosmosQueryClient**: Query client for Cosmos RPC endpoints (`@interchainjs/cosmos`)
 
 ## Interchain JavaScript Stack ⚛️
 

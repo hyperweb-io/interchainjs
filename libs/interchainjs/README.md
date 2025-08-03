@@ -548,55 +548,69 @@ import {
 
 Here are the docs on [creating signers](https://github.com/hyperweb-io/interchain-kit/blob/main/packages/core/README.md) in interchain-kit that can be used with Keplr and other wallets.
 
-### Initializing the Signing Client
-
-Use SigningClient.connectWithSigner to get your `SigningClient`:
-
-```js
-import { SigningClient } from "@interchainjs/cosmos/signing-client";
-
-const signingClient = await SigningClient.connectWithSigner(
-  await getRpcEndpoint(),
-  new AminoGenericOfflineSigner(aminoOfflineSigner)
-);
-```
-
 ### Creating Signers
 
-To broadcast messages, you can create signers with a variety of options:
+InterchainJS provides modern signers that implement the `IUniSigner` interface for consistent signing across networks:
 
-- [interchain-kit](https://github.com/hyperweb-io/interchain-kit/) (recommended)
-- [keplr](https://docs.keplr.app/api/cosmjs.html)
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
+import { HDPath } from '@interchainjs/types';
+
+// Method 1: Using HD Wallet (for development/testing)
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+  derivations: [{
+    prefix: "cosmos",
+    hdPath: HDPath.cosmos(0, 0, 0).toString(),
+  }]
+});
+
+const signer = new DirectSigner(wallet, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+
+// Method 2: Using External Wallets (for production)
+await window.keplr.enable(chainId);
+const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+const signer = new DirectSigner(offlineSigner, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+```
+
+For wallet integration, we recommend:
+
+- [interchain-kit](https://github.com/hyperweb-io/interchain-kit/) (recommended for production)
+- [keplr](https://docs.keplr.app/api/cosmjs.html) (direct integration)
 
 ### Broadcasting Messages
 
-When you have your `signing client`, you can broadcast messages:
+With your signer, you can sign and broadcast messages using the unified interface:
 
-```js
+```typescript
 const msg = {
-  typeUrl: MsgSend.typeUrl,
-  value: MsgSend.fromPartial({
-    amount: [
-      {
-        denom: "uatom",
-        amount: "1000",
-      },
-    ],
-    toAddress: address,
-    fromAddress: address,
-  }),
+  typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+  value: {
+    fromAddress: 'cosmos1...',
+    toAddress: 'cosmos1...',
+    amount: [{ denom: 'uatom', amount: '1000000' }]
+  }
 };
 
-const fee: StdFee = {
-  amount: [
-    {
-      denom: "uatom",
-      amount: "1000",
-    },
-  ],
-  gas: "86364",
-};
-const response = await signingClient.signAndBroadcast(address, [msg], fee);
+const result = await signer.signAndBroadcast({
+  messages: [msg],
+  fee: {
+    amount: [{ denom: 'uatom', amount: '5000' }],
+    gas: '200000'
+  },
+  memo: 'Transfer via InterchainJS'
+});
+
+console.log('Transaction hash:', result.transactionHash);
 ```
 
 ### All In One Example

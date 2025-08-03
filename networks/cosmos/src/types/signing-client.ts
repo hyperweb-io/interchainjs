@@ -1,52 +1,15 @@
-import { AminoConverter, Encoder, Message, SignerOptions } from '../types/signer';
-import { BroadcastOptions, DeliverTxResponse, Price, StdFee, TelescopeGeneratedCodec } from '@interchainjs/types';
-import { Event, TelescopeGeneratedType } from '@interchainjs/types';
-
-export type EncodeObject = Message;
-
-export type TypeUrl = string;
-
-export type Registry = Array<[TypeUrl, TelescopeGeneratedType<any, any, any>] | TelescopeGeneratedType<any, any, any>>;
-
-export interface SigningOptions {
-  registry?: Registry;
-  gasPrice?: Price | string;
-  broadcast?: BroadcastOptions;
-  signerOptions?: SignerOptions;
-}
-
-export interface SignerData {
-  accountNumber: bigint;
-  sequence: bigint;
-  chainId: string;
-}
-
-export interface MsgData {
-  msgType: string;
-  data: Uint8Array;
-}
-
-export interface SequenceResponse {
-  accountNumber: bigint;
-  sequence: bigint;
-}
-
-export function isISigningClient(client: unknown): client is ISigningClient {
-  return client !== null && client !== undefined
-    && typeof (client as ISigningClient).signAndBroadcast === 'function'
-    && (!(client as ISigningClient).addConverters || typeof (client as ISigningClient).addConverters === 'function')
-    && (!(client as ISigningClient).addEncoders || typeof (client as ISigningClient).addEncoders === 'function');
-}
+import { StdFee, TxResponse } from "@interchainjs/cosmos-types";
+import { Message, IBroadcastResult } from "@interchainjs/types";
 
 export interface ISigningClient {
   /**
    * register converters
    */
-  addConverters?: (converters: (AminoConverter | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+  addConverters?: (converters: (AminoConverter)[]) => void;
   /**
    * register encoders
    */
-  addEncoders?: (encoders: (Encoder | TelescopeGeneratedCodec<any, any, any>)[]) => void;
+  addEncoders?: (encoders: (Encoder)[]) => void;
   /**
    * sign and broadcast
    */
@@ -55,5 +18,25 @@ export interface ISigningClient {
     message: readonly Message<any>[],
     fee: StdFee | "auto",
     memo?: string
-  ) => Promise<DeliverTxResponse>;
+  ) => Promise<IBroadcastResult>;
+}
+
+export interface Encoder<T = any> {
+  readonly typeUrl: string;
+  fromPartial: (object: any) => T | any;
+  encode: (message: T, writer?: any) => any;
+}
+
+export interface AminoConverter<T = any> {
+  readonly typeUrl: string;
+  readonly aminoType?: string;
+  fromAmino?: (amino: any) => T;
+  toAmino?: (message: T) => any;
+}
+
+export function isISigningClient(client: unknown): client is ISigningClient {
+  return client !== null && client !== undefined
+    && typeof (client as ISigningClient).signAndBroadcast === 'function'
+    && (!(client as ISigningClient).addConverters || typeof (client as ISigningClient).addConverters === 'function')
+    && (!(client as ISigningClient).addEncoders || typeof (client as ISigningClient).addEncoders === 'function');
 }

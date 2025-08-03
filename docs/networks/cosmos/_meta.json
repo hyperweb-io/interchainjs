@@ -1,4 +1,6 @@
 {
   "index": "Overview",
+  "rpc": "Rpc",
+  "src": "Src",
   "starship": "Starship"
 }

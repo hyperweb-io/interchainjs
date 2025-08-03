@@ -1,58 +1,99 @@
 # Auth vs. Wallet vs. Signer: A Comparison
 
-This document aims to provide an overview and comparison of `Auth`, `Wallet`, and `Signer`, three types commonly used for encryption and signing purposes in different networks. Each type serves a specific purpose and has its own characteristics and functionalities.
+This document provides an overview and comparison of `Auth`, `Wallet`, and `Signer`, three core abstractions used for cryptographic operations and transaction signing in the InterchainJS ecosystem. Each serves a specific purpose in the signing workflow and has distinct characteristics and functionalities.
 
 ```mermaid
 graph LR
-    subgraph AuthType[Auth]
-        ByteAuth --> |privateKey| PrivateKey
-        PrivateKey --> |sign| SignedTx
-        OfflineSigner[Hide PrivateKey] --> DocAuth
-        DocAuth --> |signDoc| SignedTx
+    subgraph AuthLayer[Auth Layer]
+        IWallet --> |getAccounts| IAccount[Account]
+        IWallet --> |signByIndex| Signature
+        OfflineSigner --> |signDirect/signAmino| SignedDoc
     end
 
-    Wallet --> |accounts| IAccount[Account]
-    Wallet --> |toOfflineSigner| OfflineSigner
+    subgraph SignerLayer[Signer Layer]
+        IUniSigner --> |getAccounts| AccountData
+        IUniSigner --> |sign| ISigned
+        IUniSigner --> |signAndBroadcast| BroadcastResponse
+        IUniSigner --> |signArbitrary| ICryptoBytes
+    end
 
-    Signer --> |prefix| Prefix
-    Signer --> |account| Account
-    Signer --> |encoders| Encoder
-    Signer --> |signAndBroadCast| SignAndBroadCast
-
-    Account --> |auth| Auth
+    AuthLayer --> SignerLayer
+    IAccount --> |address/publicKey| SignerLayer
 
 ```
 
-## 1. Auth
+## 1. Auth Layer
 
-`Auth` is a common implementation of an encryption algorithm that can be utilized across different networks. It provides a signing method to sign binary data. The primary features and characteristics of `Auth` are as follows:
+The Auth layer provides the foundational cryptographic capabilities for account management and signing operations. It consists of two main abstractions:
 
-- **Encryption Algorithm**: `Auth` implements an encryption algorithm that is compatible and usable across various networks.
+### IWallet Interface
 
-- **Signing Binary Data**: `Auth` offers a method to sign binary data, which can be used for verifying the integrity and authenticity of the data.
+`IWallet` is the primary interface for managing cryptographic accounts and performing low-level signing operations:
 
-- **Network Agnostic**: Auth is designed to work with different networks, making it a versatile solution for encryption and signing needs.
+- **Account Management**: Provides access to multiple accounts through `getAccounts()` and `getAccountByIndex()`
+- **Direct Signing**: Offers `signByIndex()` method to sign arbitrary binary data using a specific account
+- **Network Agnostic**: Designed to work across different blockchain networks with configurable address derivation strategies
 
-## 2. Wallet
+### OfflineSigner Interface
 
-`Wallet` is a wrapper built upon `Auth`, providing additional functionalities and convenience, particularly for Web3 usage. `Wallet` extends the capabilities of `Auth` and introduces the following aspects:
+`OfflineSigner` provides a secure way to sign transactions without exposing private keys:
 
-- **Signing Network and Document**: In addition to signing binary data, `Wallet` provides a signing method specifically designed for signing network-related information and sign mode specified documents.
+- **External Wallet Integration**: Designed for integration with external wallets like Keplr, Leap, or hardware wallets
+- **Document Signing**: Supports both Direct (protobuf) and Amino (JSON) signing modes through `OfflineDirectSigner` and `OfflineAminoSigner`
+- **Privacy Preservation**: Keeps private keys secure within the external wallet while providing signing capabilities
 
-- **Web3 Integration**: `Wallet` is tailored for Web3 usage, making it compatible with blockchain and decentralized applications.
+## 2. Wallet Implementations
 
-- **Enhanced Functionality**: `Wallet` encompasses the features of `Auth` while incorporating additional functionalities to facilitate secure interactions with Web3 wallets.
+Wallet implementations provide concrete realizations of the `IWallet` interface, offering HD (Hierarchical Deterministic) key derivation and network-specific address generation:
 
-## 3. Signer
+### Secp256k1HDWallet
 
-`Signer` is a class that can be constructed from `Auth` or `Wallet`. It focuses on providing a signing method specifically for directly signing human-readable messages. Key aspects of `Signer` include:
+The primary wallet implementation for secp256k1 cryptography:
 
-- **Signing Human-Readable Messages**: `Signer` offers a dedicated signing method for signing messages that are in a human-readable format, such as plain text or structured data.
+- **HD Key Derivation**: Supports BIP-32/BIP-44 hierarchical deterministic key derivation from mnemonic phrases
+- **Multi-Account Support**: Can manage multiple accounts with different derivation paths
+- **Network Compatibility**: Works across Cosmos, Ethereum, and Injective networks with appropriate address strategies
+- **Offline Signer Conversion**: Can be converted to `OfflineDirectSigner` or `OfflineAminoSigner` for external wallet compatibility
 
-- **Flexible Construction**: `Signer` can be constructed using either `Auth` or `Wallet`, allowing users to choose their preferred underlying implementation based on their specific requirements.
+### Network-Specific Variants
 
-- **Message-Level Security**: `Signer` emphasizes the signing of human-readable messages, making it suitable for use cases where secure communication and message integrity are essential.
+- **Cosmos**: `Secp256k1HDWallet` with bech32 address encoding
+- **Ethereum**: `Secp256k1HDWallet` with keccak256 hashing and hex address format
+- **Injective**: `EthSecp256k1HDWallet` with Ethereum-style addresses but Cosmos transaction format
 
-In summary, `Auth` serves as a fundamental implementation of an encryption algorithm, providing a signing method for binary data. `Wallet`, built upon `Auth`, extends its capabilities by introducing network and document-specific signing methods, tailored for Web3 usage. `Signer`, the top-level layer, contains the code for structured data signing and focuses on dedicated methods for directly signing human-readable messages, which offers flexibility and message-level security.
+## 3. Signer Layer
 
-The hierarchical relationship between `Auth`, `Wallet`, and `Signer` positions Auth as the foundation, Wallet as the middle layer, and Signer as the top layer with the highest-level functionality for structured data signing. However, the specific choice among `Auth`, `Wallet`, or `Signer` depends on specific requirements and use cases, ensuring the appropriate level of encryption, signing, and security for various network-related operations.
+The Signer layer provides the highest-level abstraction for transaction signing and broadcasting, implementing the `IUniSigner` interface. Signers can be constructed from either `IWallet` implementations or `OfflineSigner` interfaces.
+
+### IUniSigner Interface
+
+The universal signer interface provides a consistent API across all blockchain networks:
+
+- **Account Management**: `getAccounts()` returns account information including addresses and public keys
+- **Transaction Workflow**: `sign()` creates signed transactions, `broadcast()` submits them to the network, and `signAndBroadcast()` combines both operations
+- **Arbitrary Signing**: `signArbitrary()` signs raw binary data for authentication purposes
+- **Network Abstraction**: Generic type parameters allow network-specific customization while maintaining a unified interface
+
+### Network-Specific Implementations
+
+- **Cosmos Signers**: `DirectSigner` and `AminoSigner` for protobuf and JSON signing modes
+- **Ethereum Signers**: `LegacySigner` and `Eip1559Signer` for different transaction types
+- **Injective Signers**: Cosmos-compatible signers with Ethereum-style address derivation
+
+### Construction Patterns
+
+Signers can be constructed in multiple ways:
+
+1. **From IWallet**: Direct construction with full private key access
+2. **From OfflineSigner**: Construction for external wallet integration
+3. **Configuration-based**: Using network-specific configuration objects
+
+## Summary
+
+The three-layer architecture provides clear separation of concerns:
+
+- **Auth Layer**: Foundational cryptographic operations and account management
+- **Wallet Layer**: HD key derivation and network-specific address generation
+- **Signer Layer**: High-level transaction signing and broadcasting with network abstraction
+
+This design allows developers to choose the appropriate abstraction level based on their security requirements, from low-level cryptographic control to high-level transaction management, while maintaining compatibility across different blockchain networks.

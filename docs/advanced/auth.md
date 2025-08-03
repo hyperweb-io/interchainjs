@@ -1,122 +1,172 @@
 # Auth
 
-The main purpose of the `@interchainjs/auth` is to offer developers a way to have different wallet algorithm implementations on Blockchain, including `secp256k1`, `ethSecp256k1`, etc. All of these algorithms implementations are exposing the same `Auth` interface which means that `Signer`s can just use these methods without the need to know the underlying implementation for specific algorithms as they are abstracted away.
+The `@interchainjs/auth` package provides foundational cryptographic capabilities for blockchain applications, offering wallet implementations and account management across different cryptographic algorithms including `secp256k1` and `ethSecp256k1`. The package exposes consistent interfaces that allow signers to work with different algorithms without needing to know the underlying implementation details.
 
 ```mermaid
 classDiagram
-    class Auth {
+    class IWallet {
         <<interface>>
-        +string algo
-        +string hdPath
-        +IKey getPublicKey(isCompressed: boolean)
+        +getAccounts() Promise~IAccount[]~
+        +getAccountByIndex(index: number) Promise~IAccount~
+        +signByIndex(data: Uint8Array, index?: number) Promise~ICryptoBytes~
     }
 
-    class ByteAuth {
-        <<interface>>
-        +ISignatureWraper~Sig~ sign(data: Uint8Array)
+    class BaseWallet {
+        +IPrivateKey[] privateKeys
+        +IWalletConfig config
+        +getAccounts() Promise~IAccount[]~
+        +getAccountByIndex(index: number) Promise~IAccount~
+        +signByIndex(data: Uint8Array, index?: number) Promise~ICryptoBytes~
     }
 
-    class DocAuth {
+    class IAccount {
         <<interface>>
         +string address
-        +SignDocResponse~Doc~ signDoc(doc: Doc)
-    }
-
-    ByteAuth --|> Auth
-    DocAuth --|> Auth
-    BaseDocAuth ..|> DocAuth
-
-    class BaseDocAuth {
-        <<abstract>>
-        +abstract Promise~SignDocResponse~ signDoc(doc: Doc)
-    }
-
-    class AminoDocAuth {
-        +Promise~SignDocResponse~ signDoc(doc: StdSignDoc)
-        +static Promise~AminoDocAuth[]~ fromOfflineSigner(offlineSigner: OfflineAminoSigner)
-    }
-
-    class DirectDocAuth {
-        +Promise~SignDocResponse~ signDoc(doc: SignDoc)
-        +static Promise~DirectDocAuth[]~ fromOfflineSigner(offlineSigner: OfflineDirectSigner)
-    }
-
-    BaseDocAuth <|-- AminoDocAuth
-    BaseDocAuth <|-- DirectDocAuth
-
-    class Secp256k1Auth {
-        +Key privateKey
         +string algo
-        +string hdPath
-        +Secp256k1Auth(privateKey: Uint8Array | HDKey | Key, hdPath?: string)
-        +static Secp256k1Auth[] fromMnemonic(mnemonic: string, hdPaths: string[], options?: AuthOptions)
-        +Key getPublicKey(isCompressed?: boolean)
-        +ISignatureWraper~RecoveredSignatureType~ sign(data: Uint8Array)
+        +getPublicKey() IPublicKey
     }
 
-    Secp256k1Auth ..|> ByteAuth
+    class Account {
+        +IPrivateKey privateKey
+        +IWalletConfig walletConfig
+        +string address
+        +IHDPath hdPath
+        +string algo
+        +getPublicKey() IPublicKey
+    }
 
-    style Auth fill:#f9f,stroke:#333,stroke-width:2px
-    style ByteAuth fill:#f9f,stroke:#333,stroke-width:2px
-    style DocAuth fill:#f9f,stroke:#333,stroke-width:2px
+    class IPrivateKey {
+        <<interface>>
+        +IPrivateKeyConfig config
+        +IHDPath hdPath
+        +toPublicKey(config?: IPublicKeyConfig) IPublicKey
+        +sign(data: Uint8Array) Promise~ICryptoBytes~
+    }
+
+    class PrivateKey {
+        +Uint8Array value
+        +IPrivateKeyConfig config
+        +IHDPath hdPath
+        +toPublicKey(config?: IPublicKeyConfig) IPublicKey
+        +sign(data: Uint8Array) Promise~ICryptoBytes~
+        +static fromMnemonic(mnemonic: string, hdPaths: IHDPath[], config?: IPrivateKeyConfig) Promise~PrivateKey[]~
+    }
+
+    IWallet <|.. BaseWallet
+    IAccount <|.. Account
+    IPrivateKey <|.. PrivateKey
+    BaseWallet *-- IPrivateKey
+    Account *-- IPrivateKey
+
+    style IWallet fill:#f9f,stroke:#333,stroke-width:2px
+    style IAccount fill:#f9f,stroke:#333,stroke-width:2px
+    style IPrivateKey fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-To start, you have to make an instance of the `*Auth` (i.e. `Secp256k1Auth`) class which gives you the ability to use different algorithms out of the box.
+## Core Interfaces
 
-Usually it can be instantiated from constructor or static methods.
+### IWallet Interface
 
-- `fromMnemonic` makes an instance from a mnemonic words string. This instance can both `sign`.
+The `IWallet` interface provides the primary abstraction for managing cryptographic accounts:
 
-Let's have a look at the properties and methods that `Auth` interface exposes and what they mean:
+- `getAccounts()`: Returns all accounts managed by this wallet
+- `getAccountByIndex(index)`: Gets a specific account by its index
+- `signByIndex(data, index)`: Signs arbitrary binary data using the specified account
 
-- `algo` implies the algorithm name, i.e. `secp256k1`, `ed25519`.
-- `getPublicKey` gets the public key. This method returns the compressed or uncompressed public key according to the value of argument `isCompressed`.
-- `sign` signs binary data that can be any piece of information or message that needs to be digitally signed, and returns a `Signature` typed object. Note: this method itself usually does not inherently involve any hash method.
+### IAccount Interface
 
-It's important to note that for a specific cryptographic algorithms, the corresponding `*Auth` class implements `Auth` interface in a way that can be universally applied on different networks. That's why `sign` method usually don't apply any hash function to the targeted message data. Those various hashing processes will be configured in different `Signer`s. That is:
+The `IAccount` interface represents a single cryptographic account:
 
-- `*Auth` classes differs across algorithms but independent of networks
-- `*Signer` classes differs across networks but independent of algorithms
+- `address`: The blockchain address for this account
+- `algo`: The cryptographic algorithm used (e.g., 'secp256k1')
+- `getPublicKey()`: Returns the public key for this account
 
-See [usage example](/docs/signer.md#signer--auth).
+### IPrivateKey Interface
 
-## ByteAuth vs. DocAuth
+The `IPrivateKey` interface handles private key operations:
 
-### ByteAuth
+- `toPublicKey()`: Derives the corresponding public key
+- `sign(data)`: Signs binary data and returns a cryptographic signature
+- `fromMnemonic()`: Static method to derive private keys from mnemonic phrases
 
-`ByteAuth` is an interface that extends the `Auth` interface and represents an authentication method that can sign arbitrary bytes. It is typically used for signing arbitrary data using specific algorithms like `secp256k1` or `eth_secp256k1`. The `sign` method in `ByteAuth` takes a `Uint8Array` of data and returns a signature wrapped in an `ISignatureWraper`.
+## Usage Patterns
 
-### DocAuth
+### Creating Wallets from Mnemonic
 
-`DocAuth` is an interface that extends the `Auth` interface and represents an authentication method that can sign documents using offline signers. It is a wrapper for offline signers and is usually used by signers built from offline signers. The `signDoc` method in `DocAuth` takes a document of a specific type and returns a `SignDocResponse`. The `DocAuth` interface also includes an `address` property that represents the address associated with the authentication method.
+```typescript
+import { PrivateKey, BaseWallet } from '@interchainjs/auth';
+import { HDPath } from '@interchainjs/types';
 
-## Auth vs. Wallet
+// Create private keys from mnemonic
+const mnemonic = "your twelve word mnemonic phrase here";
+const hdPaths = [HDPath.cosmos(0, 0, 0)]; // m/44'/118'/0'/0/0
+const privateKeys = await PrivateKey.fromMnemonic(mnemonic, hdPaths);
 
-Both `Auth` and `Wallet` are interfaces that contains `sign` method.
-
-```ts
-/** you can import { Auth, Wallet } from "@interchainjs/types" */
-
-export interface Auth {
-  ...,
-  sign: (data: Uint8Array) => Signature;
-}
-
-export interface Wallet<Account, SignDoc> {
-  ...,
-  async signDirect(
-    signerAddress: string,
-    signDoc: CosmosDirectDoc
-  ): Promise<DirectSignResponse>;
-  async signAmino(
-    signerAddress: string,
-    signDoc: CosmosAminoDoc
-  ): Promise<AminoSignResponse>;
-}
+// Create wallet with configuration
+const wallet = new BaseWallet(privateKeys, config);
 ```
 
-As we can see above, the signing target of `Wallet` is can be any type (usually we set it as the sign document type) while in `Auth` it's limited to binary data.
+The auth layer is designed to be:
 
-For each `Signer` it always has a specific type of sign document type as the signing target to get signature (i.e. for `AminoSigner` it's `StdSignDoc` and for `DirectSigner` it's `SignDoc`). And for some Web3 wallet, they only expose signing methods of the sign document rather than the generalized binary data. Under this circumstance, users are still abled to construct a `Signer` object via the `fromWallet` static method. This is why `Wallet` interface is created.
+- **Algorithm Agnostic**: Works with different cryptographic algorithms (secp256k1, ed25519, etc.)
+- **Network Independent**: Can be used across different blockchain networks
+- **Configurable**: Supports different address derivation strategies and signature formats
 
-See [usage example](/docs/signer.md#signer--wallet).
+See [usage examples](/docs/advanced/signer.md#signer--auth) for integration with signers.
+
+## Wallet vs. OfflineSigner
+
+### IWallet Implementations
+
+`IWallet` implementations provide direct access to private keys and full cryptographic control:
+
+- **Direct Key Access**: Can sign arbitrary data and perform any cryptographic operation
+- **Multi-Account Management**: Manages multiple accounts with different derivation paths
+- **Network Flexibility**: Can be configured for different blockchain networks
+
+### OfflineSigner Interfaces
+
+`OfflineSigner` interfaces provide secure signing without exposing private keys:
+
+- **External Wallet Integration**: Designed for browser wallets like Keplr, Leap, or hardware wallets
+- **Limited Scope**: Only supports specific document signing (Direct or Amino modes)
+- **Enhanced Security**: Private keys remain in the external wallet environment
+
+## Integration with Signers
+
+The auth layer integrates seamlessly with the signer layer:
+
+### IWallet Integration
+
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+
+// Create wallet
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, derivations);
+
+// Use with signer
+const signer = new DirectSigner(wallet, config);
+```
+
+### OfflineSigner Integration
+
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+
+// Get offline signer from external wallet (e.g., Keplr)
+const offlineSigner = await window.keplr.getOfflineSigner(chainId);
+
+// Use with signer
+const signer = new DirectSigner(offlineSigner, config);
+```
+
+### Flexibility Benefits
+
+- **Development**: Use `IWallet` for full control during development and testing
+- **Production**: Use `OfflineSigner` for secure integration with user wallets
+- **Compatibility**: Both approaches work with the same signer interfaces
+
+This design allows developers to choose the appropriate security model while maintaining consistent APIs across different usage scenarios.
+
+See [signer documentation](/docs/advanced/signer.md) for detailed integration examples.

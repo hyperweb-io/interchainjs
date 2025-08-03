@@ -14,22 +14,22 @@ describe("coins", () => {
     });
 
     it("throws for non-safe-integer values", () => {
-      expect(() => coin(1.23, "utoken")).toThrowError(/Given amount is not a safe integer/i);
-      expect(() => coin(NaN, "utoken")).toThrowError(/Given amount is not a safe integer/i);
-      expect(() => coin(Number.POSITIVE_INFINITY, "utoken")).toThrowError(
+      expect(() => coin(1.23, "utoken")).toThrow(/Given amount is not a safe integer/i);
+      expect(() => coin(NaN, "utoken")).toThrow(/Given amount is not a safe integer/i);
+      expect(() => coin(Number.POSITIVE_INFINITY, "utoken")).toThrow(
         /Given amount is not a safe integer/i,
       );
-      expect(() => coin(Number.MAX_SAFE_INTEGER + 1, "utoken")).toThrowError(
+      expect(() => coin(Number.MAX_SAFE_INTEGER + 1, "utoken")).toThrow(
         /Given amount is not a safe integer/i,
       );
     });
 
     it("throws for negative values", () => {
-      expect(() => coin(-1, "utoken")).toThrowError(/Given amount is not a safe integer/i);
-      expect(() => coin(Number.MIN_SAFE_INTEGER, "utoken")).toThrowError(
+      expect(() => coin(-1, "utoken")).toThrow(/Given amount is not a safe integer/i);
+      expect(() => coin(Number.MIN_SAFE_INTEGER, "utoken")).toThrow(
         /Given amount is not a safe integer/i,
       );
-      expect(() => coin(Number.NEGATIVE_INFINITY, "utoken")).toThrowError(
+      expect(() => coin(Number.NEGATIVE_INFINITY, "utoken")).toThrow(
         /Given amount is not a safe integer/i,
       );
     });
@@ -48,13 +48,13 @@ describe("coins", () => {
     });
 
     it("throws for invalid amount strings", () => {
-      expect(() => coin("-1", "utoken")).toThrowError(/Invalid unsigned integer string format/i);
-      expect(() => coin("0x01", "utoken")).toThrowError(/Invalid unsigned integer string format/i);
-      expect(() => coin("NaN", "utoken")).toThrowError(/Invalid unsigned integer string format/i);
-      expect(() => coin("1.0", "utoken")).toThrowError(/Invalid unsigned integer string format/i);
-      expect(() => coin("1 ", "utoken")).toThrowError(/Invalid unsigned integer string format/i);
-      expect(() => coin(" 1", "utoken")).toThrowError(/Invalid unsigned integer string format/i);
-      expect(() => coin("1.1827350506e+26", "utoken")).toThrowError(
+      expect(() => coin("-1", "utoken")).toThrow(/Invalid unsigned integer string format/i);
+      expect(() => coin("0x01", "utoken")).toThrow(/Invalid unsigned integer string format/i);
+      expect(() => coin("NaN", "utoken")).toThrow(/Invalid unsigned integer string format/i);
+      expect(() => coin("1.0", "utoken")).toThrow(/Invalid unsigned integer string format/i);
+      expect(() => coin("1 ", "utoken")).toThrow(/Invalid unsigned integer string format/i);
+      expect(() => coin(" 1", "utoken")).toThrow(/Invalid unsigned integer string format/i);
+      expect(() => coin("1.1827350506e+26", "utoken")).toThrow(
         /Invalid unsigned integer string format/i,
       );
     });
@@ -221,24 +221,24 @@ describe("coins", () => {
 
     it("throws for invalid inputs", () => {
       // denom missing
-      expect(() => parseCoins("3456")).toThrowError(/invalid coin string/i);
+      expect(() => parseCoins("3456")).toThrow(/invalid coin string/i);
 
       // amount missing
-      expect(() => parseCoins("ucosm")).toThrowError(/invalid coin string/i);
+      expect(() => parseCoins("ucosm")).toThrow(/invalid coin string/i);
 
       // denom starting with slash
-      expect(() => parseCoins("3456/ibc")).toThrowError(/invalid coin string/i);
+      expect(() => parseCoins("3456/ibc")).toThrow(/invalid coin string/i);
 
       // denom too short
-      expect(() => parseCoins("3456a")).toThrowError(/invalid coin string/i);
-      expect(() => parseCoins("3456aa")).toThrowError(/invalid coin string/i);
+      expect(() => parseCoins("3456a")).toThrow(/invalid coin string/i);
+      expect(() => parseCoins("3456aa")).toThrow(/invalid coin string/i);
 
       // denom too long
       expect(() =>
         parseCoins(
           "3456abcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgha",
         ),
-      ).toThrowError(/invalid coin string/i);
+      ).toThrow(/invalid coin string/i);
     });
   });
 
@@ -271,7 +271,7 @@ describe("coins", () => {
         amount: "20000",
         denom: "ucosm",
       };
-      expect(() => addCoins(balance1, balance2)).toThrowError(
+      expect(() => addCoins(balance1, balance2)).toThrow(
         /Trying to add two coins with different denoms/i,
       );
     });
