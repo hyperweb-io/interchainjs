@@ -41,7 +41,7 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<InjectiveDocOptions> = {
   unordered: false, // Ordered transactions by default
   extensionOptions: [], // No extension options by default
   nonCriticalExtensionOptions: [], // No non-critical extension options by default
-  
+
   // Public key encoding - Injective specific
   encodePublicKey: encodeInjectivePublicKey
 };
@@ -57,13 +57,19 @@ export function createInjectiveSignerConfig(userConfig: InjectiveSignerConfig): 
     throw new Error('queryClient is required in signer configuration');
   }
 
+  const queryClient = userConfig.queryClient;
+
   // Deep merge user config with Injective defaults, giving priority to user config
-  return deepmerge(DEFAULT_INJECTIVE_SIGNER_CONFIG, userConfig, {
+  const mergedConfig = deepmerge(DEFAULT_INJECTIVE_SIGNER_CONFIG, userConfig, {
     // Custom merge function to handle arrays properly
     arrayMerge: (_destinationArray, sourceArray) => sourceArray,
     // Clone to avoid mutations
     clone: true
   }) as InjectiveSignerConfig;
+
+  mergedConfig.queryClient = queryClient;
+
+  return mergedConfig;
 }
 
 /**
