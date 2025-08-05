@@ -59,7 +59,7 @@ describe('Token transfers', () => {
   });
 
   it('send osmosis token to address', async () => {
-    // Use getSigner function with wallet (like in the working networks/cosmos test)
+    // Use getSigner function with wallet (this should now work with the fixed SignerInfoPlugin)
     const signer = getSigner<DirectSigner>(wallet, {
       preferredSignType: 'direct',
       signerOptions: {
