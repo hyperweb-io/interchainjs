@@ -3,7 +3,7 @@
   * DO NOT MODIFY BY HAND. Instead, download the latest proto files for your chain
     * and run the transpile command or npm scripts command that is used to regenerate this bundle.
   */
- 
+
 export * from "./cosmos_proto/bundle";
 export * from "./cosmos/bundle";
 export * from "./cosmwasm/bundle";
@@ -18,3 +18,4 @@ export * from "./utf8";
 export * from "./binary";
 export * from "./types";
 export * from "./registry";
+export * from "./interchain/core";

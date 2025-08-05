@@ -66,14 +66,6 @@ describe('Staking tokens testing', () => {
 
     // Query client is properly configured with all required methods
 
-    // Create a wrapper to ensure methods are available as own properties
-    const queryClientWrapper = Object.create(queryClient);
-    queryClientWrapper.getBaseAccount = queryClient.getBaseAccount.bind(queryClient);
-    queryClientWrapper.broadcastTxCommit = queryClient.broadcastTxCommit.bind(queryClient);
-    queryClientWrapper.broadcastTxSync = queryClient.broadcastTxSync.bind(queryClient);
-    queryClientWrapper.broadcastTxAsync = queryClient.broadcastTxAsync.bind(queryClient);
-    queryClientWrapper.getTx = queryClient.getTx.bind(queryClient);
-
     // Use Injective-specific signer configuration with proper defaults
     let actualChainId = 'injective-1'; // default fallback
     try {
@@ -84,7 +76,7 @@ describe('Staking tokens testing', () => {
     }
 
     const baseSignerConfig = {
-      queryClient: queryClientWrapper,
+      queryClient,
       chainId: actualChainId,
       addressPrefix: 'inj'
     };
@@ -97,8 +89,6 @@ describe('Staking tokens testing', () => {
       ...DEFAULT_INJECTIVE_SIGNER_CONFIG,
       ...baseSignerConfig
     });
-
-
 
     directSigner = new DirectSigner(offlineSigner, signerConfig);
     directSigner.addEncoders(toEncoders(MsgDelegate));

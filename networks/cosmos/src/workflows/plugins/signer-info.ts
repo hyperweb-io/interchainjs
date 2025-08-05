@@ -55,7 +55,36 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
     // Get the actual public key from the signer
     const accounts = await ctx.getSigner().getAccounts();
     const account = accounts.find(acc => acc.address === signerAddress);
-    if (!account || !account.pubkey) {
+    if (!account) {
+      throw new Error(`No account found for address: ${signerAddress}`);
+    }
+
+    // Get public key bytes - handle both AccountData (with pubkey property) and IAccount (with getPublicKey method)
+    let pubkeyBytes: Uint8Array;
+    if ('pubkey' in account && account.pubkey) {
+      // AccountData from OfflineSigner - has direct pubkey property
+      pubkeyBytes = account.pubkey;
+    } else if ('getPublicKey' in account && typeof account.getPublicKey === 'function') {
+      // IAccount from IWallet - use getPublicKey method
+      try {
+        const publicKeyObj = account.getPublicKey();
+        if (!publicKeyObj || !publicKeyObj.value) {
+          throw new Error(`No public key available for account: ${signerAddress}`);
+        }
+        // Convert ICryptoBytes to Uint8Array
+        if (publicKeyObj.value instanceof Uint8Array) {
+          pubkeyBytes = publicKeyObj.value;
+        } else if (typeof publicKeyObj.value === 'object' && 'toBytes' in publicKeyObj.value) {
+          pubkeyBytes = (publicKeyObj.value as any).toBytes();
+        } else {
+          // Try to convert from hex if it's a string
+          const hexStr = publicKeyObj.toHex();
+          pubkeyBytes = new Uint8Array(Buffer.from(hexStr, 'hex'));
+        }
+      } catch (error) {
+        throw new Error(`Failed to get public key for account ${signerAddress}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    } else {
       throw new Error(`No public key available for account: ${signerAddress}`);
     }
 
@@ -63,10 +92,10 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
     let publicKey: EncodedMessage;
     if (options?.encodePublicKey && typeof options.encodePublicKey === 'function') {
       // Use custom public key encoding (e.g., for Injective)
-      publicKey = options.encodePublicKey(account.pubkey);
+      publicKey = options.encodePublicKey(pubkeyBytes);
     } else {
       // Default Cosmos public key encoding
-      const pubKey = PubKey.fromPartial({ key: account.pubkey });
+      const pubKey = PubKey.fromPartial({ key: pubkeyBytes });
       const pubKeyBytes = PubKey.encode(pubKey).finish();
       publicKey = {
         typeUrl: '/cosmos.crypto.secp256k1.PubKey',

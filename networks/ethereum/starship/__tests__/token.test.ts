@@ -272,6 +272,138 @@ describe('sending Tests', () => {
     expect(delta).toBe(transferAmount);
   }, 60000);
 
+  it('should send ETH from sender to receiver using signAndBroadcast (legacy)', async () => {
+    // Check initial balances
+    const beforeSenderBalance = await getSenderBalance();
+    const beforeReceiverBalance = await getReceiverBalance();
+
+    const valueWei = 10000000000000000n; // 0.01 ETH
+
+    // Get gas parameters using query client directly
+    const gasPrice = await queryClient.getGasPrice();
+    const gasLimit = await queryClient.estimateGas({
+      from: senderAddress,
+      to: receiverAddress,
+      value: '0x' + valueWei.toString(16),
+      data: '0x'
+    });
+
+    // Use signAndBroadcast with explicit transaction parameters
+    const broadcastResponse = await legacySenderSigner.signAndBroadcast({
+      transaction: {
+        to: receiverAddress,
+        value: '0x' + valueWei.toString(16),
+        gasPrice: '0x' + gasPrice.toString(16),
+        gas: '0x' + gasLimit.toString(16),
+        data: '0x'
+      },
+      signerAddress: senderAddress
+    });
+
+    expect(broadcastResponse.transactionHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    const receipt = await broadcastResponse.wait();
+    expect(receipt.status).toBe('0x1'); // '0x1' indicates success
+
+    // Check final balances
+    const afterSenderBalance = await getSenderBalance();
+    const afterReceiverBalance = await getReceiverBalance();
+
+    const senderDelta = beforeSenderBalance - afterSenderBalance;
+    const receiverDelta = afterReceiverBalance - beforeReceiverBalance;
+
+    // The receiver should gain exactly "valueWei"
+    expect(receiverDelta).toBe(valueWei);
+
+    // The sender should lose at least "valueWei" (plus gas fees)
+    expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
+  }, 60000);
+
+  it('should send ETH from sender to receiver using signAndBroadcast (EIP-1559)', async () => {
+    const beforeSenderBalance = await getSenderBalance();
+    const beforeReceiverBalance = await getReceiverBalance();
+
+    const valueWei = 10000000000000000n; // 0.01 ETH
+
+    // Get gas parameters using query client directly
+    const maxPriorityFeePerGas = await queryClient.getMaxPriorityFeePerGas();
+    const gasPrice = await queryClient.getGasPrice();
+    const maxFeePerGas = gasPrice + maxPriorityFeePerGas; // Simple fee calculation
+    const gasLimit = await queryClient.estimateGas({
+      from: senderAddress,
+      to: receiverAddress,
+      value: '0x' + valueWei.toString(16),
+      data: '0x'
+    });
+
+    // Use signAndBroadcast with explicit EIP-1559 transaction parameters
+    const broadcastResponse = await eip1559SenderSigner.signAndBroadcast({
+      transaction: {
+        to: receiverAddress,
+        value: '0x' + valueWei.toString(16),
+        maxFeePerGas: '0x' + maxFeePerGas.toString(16),
+        maxPriorityFeePerGas: '0x' + maxPriorityFeePerGas.toString(16),
+        gas: '0x' + gasLimit.toString(16),
+        type: '0x2',
+        data: '0x'
+      },
+      signerAddress: senderAddress
+    });
+
+    expect(broadcastResponse.transactionHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    const receipt = await broadcastResponse.wait();
+    expect(receipt.status).toBe('0x1');
+
+    const afterSenderBalance = await getSenderBalance();
+    const afterReceiverBalance = await getReceiverBalance();
+
+    const senderDelta = beforeSenderBalance - afterSenderBalance;
+    const receiverDelta = afterReceiverBalance - beforeReceiverBalance;
+
+    expect(receiverDelta).toBe(valueWei);
+    expect(senderDelta).toBeGreaterThanOrEqual(valueWei);
+  }, 60000);
+
+  it('should transfer USDT using signAndBroadcast and verify balance increments', async () => {
+    // Contract is already deployed in beforeAll
+    const beforeReceiverBalance = await getUSDTBalance(receiverAddress);
+
+    const transferAmount = 1_000_000_000_000_000_000n; // 1 USDT
+    const dataHex = usdt.transfer(receiverAddress, transferAmount);
+
+    // Get gas parameters using query client directly
+    const gasPrice = await queryClient.getGasPrice();
+    const gasLimit = await queryClient.estimateGas({
+      from: senderAddress,
+      to: usdtAddress,
+      value: '0x0',
+      data: dataHex
+    });
+
+    // Use signAndBroadcast for USDT transfer
+    const transferResponse = await legacySenderSigner.signAndBroadcast({
+      transaction: {
+        to: usdtAddress,
+        value: '0x0',
+        gasPrice: '0x' + gasPrice.toString(16),
+        gas: '0x' + gasLimit.toString(16),
+        data: dataHex
+      },
+      signerAddress: senderAddress
+    });
+
+    expect(transferResponse.transactionHash).toMatch(/^0x[0-9a-fA-F]+$/);
+
+    const receipt = await transferResponse.wait();
+    expect(receipt.status).toBe('0x1');
+
+    const afterReceiverBalance = await getUSDTBalance(receiverAddress);
+
+    const delta = afterReceiverBalance - beforeReceiverBalance;
+    expect(delta).toBe(transferAmount);
+  }, 60000);
+
   it('should sign a message using personalSign and verify the signature', async () => {
     // Plain text message to sign
     const message = 'Hello, Ethereum!';
