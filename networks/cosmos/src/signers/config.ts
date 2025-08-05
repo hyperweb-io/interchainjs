@@ -33,13 +33,19 @@ export function createCosmosSignerConfig(userConfig: CosmosSignerConfig): Cosmos
     throw new Error('queryClient is required in signer configuration');
   }
 
+  const queryClient = userConfig.queryClient;
+
   // Deep merge user config with defaults, giving priority to user config
-  return deepmerge(DEFAULT_COSMOS_SIGNER_CONFIG, userConfig, {
+  const mergedConfig = deepmerge(DEFAULT_COSMOS_SIGNER_CONFIG, userConfig, {
     // Custom merge function to handle arrays properly
     arrayMerge: (destinationArray, sourceArray) => sourceArray,
     // Clone to avoid mutations
     clone: true
   }) as CosmosSignerConfig;
+
+  mergedConfig.queryClient = queryClient;
+
+  return mergedConfig;
 }
 
 /**
@@ -50,7 +56,7 @@ export function createCosmosSignerConfig(userConfig: CosmosSignerConfig): Cosmos
  * @returns Merged configuration for the operation
  */
 export function mergeSignerOptions(
-  baseConfig: CosmosSignerConfig, 
+  baseConfig: CosmosSignerConfig,
   operationOptions: Partial<DocOptions> = {}
 ): DocOptions {
   return deepmerge(baseConfig, operationOptions, {

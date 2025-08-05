@@ -10,6 +10,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  interchainjs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository 📝
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Set Up Starship Infrastructure
+        id: starship-infra
+        uses: hyperweb-io/starship-action@0.5.5
+        with:
+          config: libs/interchainjs/starship/configs/config.workflow.yaml
+
+      - name: Run E2E Tests
+        run: cd ./libs/interchainjs && yarn starship:test
+
   networks-cosmos:
     runs-on: ubuntu-latest
 
