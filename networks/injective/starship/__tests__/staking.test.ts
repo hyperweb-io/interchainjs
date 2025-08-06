@@ -9,8 +9,7 @@ import {
   sleep,
 } from '@interchainjs/utils';
 
-import { CosmosQueryClient, HttpRpcClient } from '@interchainjs/cosmos';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
+import { ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
 import {
   BondStatus,
   bondStatusToJSON,
@@ -59,9 +58,7 @@ describe('Staking tokens testing', () => {
     const offlineSigner = await wallet.toOfflineDirectSigner();
 
     // Create query client for signer configuration
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
 
     // Query client is properly configured with all required methods
@@ -109,9 +106,7 @@ describe('Staking tokens testing', () => {
 
   it('check address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address,
@@ -141,9 +136,7 @@ describe('Staking tokens testing', () => {
 
   it('stake tokens to genesis validator', async () => {
     // Create query client for validator query
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     // First get the validator address
     const { validators } = await getValidators(queryClient, {
@@ -219,9 +212,7 @@ describe('Staking tokens testing', () => {
 
   it('query delegation', async () => {
     // Create query client for delegation query
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { delegationResponse } = await getDelegation(queryClient, {
       delegatorAddr: address,

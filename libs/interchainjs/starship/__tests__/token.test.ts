@@ -10,14 +10,13 @@ import { getBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
 import { useChain } from 'starshipjs';
 import { getSigner, GetSignerOptions } from '../../src/interchain/core/getSigner';
-import { DirectSigner, HttpRpcClient } from '@interchainjs/cosmos';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
-import { CosmosQueryClient } from '@interchainjs/cosmos';
+import { DirectSigner } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
 
 describe('Token transfers', () => {
   let wallet: Secp256k1HDWallet;
-  let client: CosmosQueryClient;
+  let client: ICosmosQueryClient;
   let protoSigner: OfflineDirectSigner,
     denom: string,
     address: string,
@@ -32,9 +31,7 @@ describe('Token transfers', () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
     const rpcEndpoint = await getRpcEndpoint();
-    const rpcClient = new HttpRpcClient(rpcEndpoint);
-    const adapter = new Comet38Adapter();
-    client = new CosmosQueryClient(rpcClient, adapter);
+    client = await createCosmosQueryClient(rpcEndpoint);
 
     denom = (await getCoin()).base;
     commonPrefix = chainInfo?.chain?.bech32_prefix;

@@ -4,21 +4,17 @@ import './setup.test';
 
 import { useChain } from 'starshipjs';
 
-import { CosmosQueryClient } from '../../src/query/cosmos-query-client';
-import { HttpRpcClient } from '../../../../packages/utils/src/clients';
-import { Comet38Adapter } from '../../src/adapters/comet38';
+import { ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { BroadcastTxParams } from '../../src/types/requests';
 
 describe('Broadcast Integration Tests', () => {
-  let client: CosmosQueryClient;
+  let client: ICosmosQueryClient;
   let rpcEndpoint: string;
 
   beforeAll(async () => {
     const { getRpcEndpoint } = useChain('osmosis');
     rpcEndpoint = await getRpcEndpoint();
-    const rpcClient = new HttpRpcClient(rpcEndpoint);
-    const adapter = new Comet38Adapter();
-    client = new CosmosQueryClient(rpcClient, adapter);
+    client = await createCosmosQueryClient(rpcEndpoint);
   });
 
   describe('Broadcast Methods', () => {
