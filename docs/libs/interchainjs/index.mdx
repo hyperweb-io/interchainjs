@@ -111,8 +111,8 @@ graph LR
     cosmos_signer --> cosmos_amino["Amino Signer"]
     cosmos_signer --> cosmos_direct["Direct Signer"]
 
-    ethereum_signer --> signer_from_from_private_key["Signer From Private Key"]
-    ethereum_signer --> signer_from_from_browser["Signer From Browser"]
+    ethereum_signer --> eip1559_signer["EIP-1559 Signer"]
+    ethereum_signer --> legacy_signer["Legacy Signer"]
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
