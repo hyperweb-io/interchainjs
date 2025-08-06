@@ -6,10 +6,9 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
 import { useChain } from 'starshipjs';
-import { CosmosQueryClient, DirectSigner, HttpRpcClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
 
 import {
   BondStatus,
@@ -27,7 +26,7 @@ const cosmosHdPath = "m/44'/118'/0'/0/0";
 describe('Staking tokens testing', () => {
   let wallet: Secp256k1HDWallet, denom: string, address: string;
   let signer: DirectSigner;
-  let client: CosmosQueryClient;
+  let client: ICosmosQueryClient;
   let commonPrefix: string,
     chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
@@ -47,9 +46,7 @@ describe('Staking tokens testing', () => {
 
     // Set up query client
     const rpcEndpoint = await getRpcEndpoint();
-    const rpcClient = new HttpRpcClient(rpcEndpoint);
-    const adapter = new Comet38Adapter();
-    client = new CosmosQueryClient(rpcClient, adapter);
+    client = await createCosmosQueryClient(rpcEndpoint);
 
     const mnemonic = generateMnemonic();
     // Initialize wallet

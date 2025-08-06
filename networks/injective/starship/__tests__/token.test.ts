@@ -2,8 +2,7 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { DirectSigner, CosmosQueryClient, HttpRpcClient } from '@interchainjs/cosmos';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
+import { DirectSigner, ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { toEncoders } from '@interchainjs/cosmos/utils';
 import { sleep } from '@interchainjs/utils';
 import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
@@ -45,9 +44,7 @@ describe('Token transfers', () => {
     const offlineSigner = await wallet.toOfflineDirectSigner();
 
     // Create query client for signer configuration
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     // Use Injective-specific signer configuration with proper defaults
     let actualChainId = 'injective-1'; // default fallback
@@ -82,9 +79,7 @@ describe('Token transfers', () => {
 
   it('check address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: address,
@@ -143,9 +138,7 @@ describe('Token transfers', () => {
     }
 
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, { address: address2, denom });
 

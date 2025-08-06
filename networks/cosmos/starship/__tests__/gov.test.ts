@@ -4,10 +4,9 @@ import './setup.test';
 
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
-import { CosmosQueryClient, DirectSigner, AminoSigner, HttpRpcClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
 import {
   ProposalStatus,
   TextProposal,
@@ -43,7 +42,7 @@ describe('Governance tests for osmosis', () => {
     aminoAddress: string;
   let directSigner: DirectSigner,
     aminoSigner: AminoSigner;
-  let client: CosmosQueryClient;
+  let client: ICosmosQueryClient;
   let commonPrefix: string,
     chainInfo,
     getCoin: () => Promise<Asset>,
@@ -62,9 +61,7 @@ describe('Governance tests for osmosis', () => {
 
     // Set up query client
     const rpcEndpoint = await getRpcEndpoint();
-    const rpcClient = new HttpRpcClient(rpcEndpoint);
-    const adapter = new Comet38Adapter();
-    client = new CosmosQueryClient(rpcClient, adapter);
+    client = await createCosmosQueryClient(rpcEndpoint);
 
     // Initialize wallets
     directWallet = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), {

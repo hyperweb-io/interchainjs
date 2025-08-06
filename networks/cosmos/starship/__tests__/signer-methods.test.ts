@@ -3,16 +3,15 @@
 import './setup.test';
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { CosmosQueryClient, DirectSigner, HttpRpcClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { useChain } from 'starshipjs';
 import { TxBody, SignerInfo, ModeInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { generateMnemonic } from '../src/utils';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
 
-let queryClient: CosmosQueryClient;
+let queryClient: ICosmosQueryClient;
 let rpcEndpoint: string;
 let testAddress: string;
 let testSigner: DirectSigner;
@@ -28,10 +27,8 @@ describe('Signer Account Methods', () => {
     const { getRpcEndpoint, chainInfo, creditFromFaucet } = useChain('osmosis');
     rpcEndpoint = await getRpcEndpoint();
 
-    // Create query client like the working tests do
-    const rpcClient = new HttpRpcClient(rpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    // Create query client using the standardized method
+    queryClient = await createCosmosQueryClient(rpcEndpoint);
 
     // Create a real wallet instead of a mock
     const mnemonic = generateMnemonic();

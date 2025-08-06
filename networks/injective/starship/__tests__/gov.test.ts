@@ -3,8 +3,7 @@
 import './setup.test';
 
 import { Asset } from '@chain-registry/types';
-import { AminoSigner, DirectSigner, CosmosQueryClient, HttpRpcClient } from '@interchainjs/cosmos';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
+import { AminoSigner, DirectSigner, ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
 import {
   toConverters,
   toEncoders,
@@ -90,9 +89,7 @@ describe('Governance tests for injective', () => {
     aminoOfflineSigner = await aminoWallet.toOfflineAminoSigner();
 
     // Create query client for signer configuration
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     // Use Injective-specific signer configuration with proper defaults
     let actualChainId = 'injective-1'; // default fallback
@@ -146,9 +143,7 @@ describe('Governance tests for injective', () => {
 
   it('check direct address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: directAddress,
@@ -160,9 +155,7 @@ describe('Governance tests for injective', () => {
 
   it('check amino address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: aminoAddress,
@@ -174,9 +167,7 @@ describe('Governance tests for injective', () => {
 
   it('check direct offline address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: directOfflineAddress,
@@ -188,9 +179,7 @@ describe('Governance tests for injective', () => {
 
   it('check amino offline address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: aminoOfflineAddress,
@@ -219,9 +208,7 @@ describe('Governance tests for injective', () => {
 
   it('stake tokens to genesis validator', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: testingOfflineAddress,
@@ -262,9 +249,7 @@ describe('Governance tests for injective', () => {
 
   it('check direct address has tokens', async () => {
     // Create query client for balance check
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { balance } = await getBalance(queryClient, {
       address: testingOfflineAddress,
@@ -324,9 +309,7 @@ describe('Governance tests for injective', () => {
 
   it('query proposal', async () => {
     // Create query client for proposal query
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const result = await getProposal(queryClient, {
       proposalId: BigInt(proposalId),
@@ -366,9 +349,7 @@ describe('Governance tests for injective', () => {
 
   it('verify direct vote', async () => {
     // Create query client for vote query
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { vote } = await getVote(queryClient, {
       proposalId: BigInt(proposalId),
@@ -413,9 +394,7 @@ describe('Governance tests for injective', () => {
 
   it('verify amino vote', async () => {
     // Create query client for vote query
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { vote } = await getVote(queryClient, {
       proposalId: BigInt(proposalId),
@@ -431,9 +410,7 @@ describe('Governance tests for injective', () => {
 
   it('verify proposal passed', async () => {
     // Create query client for proposal query
-    const rpcClient = new HttpRpcClient(injRpcEndpoint);
-    const protocolAdapter = new Comet38Adapter();
-    const queryClient = new CosmosQueryClient(rpcClient, protocolAdapter);
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
     const { proposal } = await getProposal(queryClient, {
       proposalId: BigInt(proposalId),

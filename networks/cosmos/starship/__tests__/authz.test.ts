@@ -2,10 +2,9 @@ import "./setup.test";
 
 import { generateMnemonic } from "../src/utils";
 import { useChain } from 'starshipjs';
-import { CosmosQueryClient, DirectSigner, HttpRpcClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { Secp256k1HDWallet } from "@interchainjs/cosmos/wallets/secp256k1hd";
 import { HDPath } from '@interchainjs/types';
-import { Comet38Adapter } from '@interchainjs/cosmos/adapters';
 
 import {
   GenericAuthorization,
@@ -31,7 +30,7 @@ describe("Authz testing", () => {
   let wallet2: Secp256k1HDWallet, address2: string;
   let wallet3: Secp256k1HDWallet, address3: string;
   let signer1: DirectSigner, signer2: DirectSigner;
-  let client: CosmosQueryClient;
+  let client: ICosmosQueryClient;
   let commonPrefix: string, chainInfo, getCoin, getRpcEndpoint: () => Promise<string>, creditFromFaucet;
   let expiration: Date;
 
@@ -45,9 +44,7 @@ describe("Authz testing", () => {
 
     // Set up query client
     const rpcEndpoint = await getRpcEndpoint();
-    const rpcClient = new HttpRpcClient(rpcEndpoint);
-    const adapter = new Comet38Adapter();
-    client = new CosmosQueryClient(rpcClient, adapter);
+    client = await createCosmosQueryClient(rpcEndpoint);
 
     // Initialize wallets
     wallet1 = await Secp256k1HDWallet.fromMnemonic(generateMnemonic(), {
