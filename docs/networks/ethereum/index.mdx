@@ -468,6 +468,22 @@ console.log(toChecksumAddress(lower));
 - **SignerFromPrivateKey**: Original implementation (maintained for backward compatibility)
 - **SignerFromBrowser**: Browser wallet integration (maintained for backward compatibility)
 
+## For Developers
+
+### Understanding the Architecture
+
+To understand how the Ethereum network implementation fits into the broader InterchainJS architecture:
+
+- [Auth vs. Wallet vs. Signer](../../docs/advanced/auth-wallet-signer.md) - Understanding the three-layer architecture
+- [Tutorial](../../docs/advanced/tutorial.md) - Using and extending signers
+
+### Implementing Custom Networks
+
+If you're implementing support for a new Ethereum-compatible network or want to understand the architectural patterns used in this implementation:
+
+- [Network Implementation Guide](../../docs/advanced/network-implementation-guide.md) - Comprehensive guide for implementing blockchain network support
+- [Workflow Builder and Plugins Guide](../../docs/advanced/workflow-builder-and-plugins.md) - Plugin-based transaction workflow architecture for extensible transaction building
+
 
 ## Interchain JavaScript Stack ⚛️
 

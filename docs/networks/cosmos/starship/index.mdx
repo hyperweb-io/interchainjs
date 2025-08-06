@@ -6,22 +6,11 @@ Deploy
 # setup helm/starship
 yarn starship setup
 
+# deploy starship, the command will wait until all pods are running
+yarn starship:all
+
 # sanity check
 yarn starship get-pods
-
-# deploy starship
-yarn starship deploy
-
-# wait til STATUS=Running
-yarn starship wait-for-pods
-or
-watch yarn starship get-pods
-
-# port forwarding
-yarn starship start-ports
-
-# check pids
-yarn starship port-pids
 ```
 
 Run Tests
@@ -29,9 +18,6 @@ Run Tests
 ```sh
 # test
 yarn starship:test
-
-# watch
-yarn starship:watch
 ```
 
 Teardown
@@ -41,7 +27,7 @@ Teardown
 # yarn starship stop-ports
 
 # stop ports and delete & remove helm chart
-yarn starship clean
+yarn starship:clean
 ```
 
 ## 1. Installation
@@ -79,12 +65,6 @@ to a kubernetes cluster locally.
 NOTE: Resources constraint on local machine will affect the performance of Starship spinup time
 
 ```bash
-yarn starship setup-kind
-```
-
-Run the following command to check connection to a k8s cluster
-
-```bash
 kubectl get pods
 ```
 
@@ -95,7 +75,9 @@ Now with the dependencies and a kubernetes cluster in handy, we can proceed with
 Run
 
 ```bash
-yarn starship deploy
+yarn starship:all
+# or
+yarn starship start
 ```
 
 We use the config file `configs/config.yaml` as the genesis file to define the topology of the e2e test infra. Change it as required
@@ -110,8 +92,123 @@ our end-to-end tests.
 Run
 
 ```bash
-npm run starship:test
+yarn starship:test
 ```
+
+### Available Tests
+
+The test suite includes comprehensive end-to-end tests covering various Cosmos SDK functionalities:
+
+#### Authorization Tests (`authz.test.ts`)
+
+Tests the Cosmos authz module functionality for delegating permissions between accounts:
+
+- **Grant Authorization**: Tests granting `SendAuthorization` with spending limits and `GenericAuthorization` for specific message types
+- **Execute Authorized Actions**: Tests executing transactions on behalf of another account using granted permissions
+- **Revoke Authorization**: Tests revoking previously granted authorizations
+- **Key Scenarios**:
+  - Granting limited send authorization with spending caps
+  - Granting generic authorization for voting
+  - Executing send transactions through authorization
+  - Verifying authorization limits are enforced
+  - Cleaning up authorizations by revoking them
+
+#### Staking Tests (`staking.test.ts`)
+
+Tests Cosmos staking operations including delegation and validator interactions:
+
+- **Validator Discovery**: Queries and selects active validators for delegation
+- **Token Delegation**: Tests delegating tokens to validators using different signing modes
+- **Delegation Verification**: Verifies delegation amounts and validator assignments
+- **Key Scenarios**:
+  - Querying bonded validators and selecting by stake amount
+  - Delegating tokens using default, direct, and amino signing modes
+  - Verifying delegation balances match expected amounts
+  - Testing multiple delegation transactions to the same validator
+
+#### Token Transfer Tests (`token.test.ts`)
+
+Comprehensive testing of token transfers within and across chains:
+
+- **Direct Mode Transfers**: Tests token transfers using direct (protobuf) signing
+- **Amino Mode Transfers**: Tests token transfers using amino (JSON) signing
+- **WebSocket Event Monitoring**: Tests real-time transaction event monitoring via WebSocket
+- **IBC Transfers**: Tests cross-chain token transfers using IBC protocol
+- **Key Scenarios**:
+  - Sending OSMO tokens between accounts with balance verification
+  - Monitoring transfer events in real-time using WebSocket subscriptions
+  - Cross-chain IBC transfers from Osmosis to Cosmos Hub
+  - Verifying IBC token receipt and denomination tracing
+
+#### Governance Tests (`gov.test.ts`)
+
+Tests Cosmos governance functionality including proposals and voting:
+
+- **Proposal Submission**: Tests submitting text proposals to the governance module
+- **Voting Process**: Tests voting on proposals with different vote options
+- **Proposal Status Tracking**: Tests querying proposal status and vote tallies
+- **Validator Delegation**: Tests staking tokens to gain voting power
+- **Key Scenarios**:
+  - Submitting governance proposals with proper deposits
+  - Voting on proposals using different signers and vote options
+  - Tracking proposal lifecycle from submission to completion
+  - Verifying vote recording and tally calculations
+
+#### Broadcast Tests (`broadcast.test.ts`)
+
+Tests different transaction broadcasting methods and RPC functionality:
+
+- **Async Broadcasting**: Tests `broadcastTxAsync` for fire-and-forget transactions
+- **Sync Broadcasting**: Tests `broadcastTxSync` for immediate response transactions
+- **Commit Broadcasting**: Tests `broadcastTxCommit` for confirmed transactions
+- **Error Handling**: Tests proper error responses for invalid transactions
+- **Key Scenarios**:
+  - Testing different broadcast modes with various transaction types
+  - Verifying proper RPC response formats
+  - Handling invalid transactions and signature errors
+  - Testing broadcast method performance characteristics
+
+#### Query Client Tests (`query-client.test.ts`)
+
+Tests the Cosmos query client functionality and RPC endpoint interactions:
+
+- **RPC Connectivity**: Tests connection to Cosmos RPC endpoints
+- **Query Methods**: Tests various query methods for different modules
+- **Adapter Functionality**: Tests protocol adapters for different Cosmos versions
+- **Error Handling**: Tests proper error handling for failed queries
+- **Key Scenarios**:
+  - Testing query client initialization and connection
+  - Verifying query responses match expected formats
+  - Testing different RPC adapter implementations
+  - Handling network errors and timeouts gracefully
+
+#### Signer Method Tests (`signer-methods.test.ts`)
+
+Tests different signing methods and signer configurations:
+
+- **Direct Signing**: Tests protobuf-based transaction signing
+- **Amino Signing**: Tests JSON-based legacy transaction signing
+- **Signer Configuration**: Tests various signer configuration options
+- **Multi-Signature**: Tests multi-signature transaction workflows
+- **Key Scenarios**:
+  - Comparing direct vs amino signing results
+  - Testing signer configuration with different parameters
+  - Verifying signature formats and compatibility
+  - Testing multi-signature transaction creation and signing
+
+#### Setup Tests (`setup.test.ts`)
+
+Infrastructure and environment setup tests:
+
+- **Environment Validation**: Tests that the Starship environment is properly configured
+- **Chain Connectivity**: Tests connectivity to all configured chains
+- **Account Funding**: Tests faucet functionality for test account funding
+- **Service Health**: Tests that all required services are running and accessible
+- **Key Scenarios**:
+  - Verifying Starship pods are running and healthy
+  - Testing RPC endpoint accessibility
+  - Validating test account creation and funding
+  - Ensuring proper chain configuration and genesis state
 
 ## 5. Stop the infra
 
@@ -120,7 +217,7 @@ The tests should be ideompotent, so the tests can be run multiple times (which i
 Once the state of the mini-cosmos is corrupted, you can stop the deployments with
 
 ```bash
-npm run starship clean
+yarn starship:clean
 ```
 
 Which will
@@ -128,19 +225,11 @@ Which will
 - Stop port-forwarding the traffic to your local
 - Delete all the helm charts deployed
 
-## 6. Cleanup kind (optional)
-
-If you are using kind for your kubernetes cluster, you can delete it with
-
-```bash
-yarn starship clean-kind
-```
-
 ## Related
 
 Checkout these related projects:
 
-- [@cosmology/telescope](https://github.com/hyperweb-io/telescope) Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules.
+- [@hyperweb/telescope](https://github.com/hyperweb-io/telescope) Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules.
 - [@cosmwasm/ts-codegen](https://github.com/CosmWasm/ts-codegen) Convert your CosmWasm smart contracts into dev-friendly TypeScript classes.
 - [chain-registry](https://github.com/hyperweb-io/chain-registry) Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application.
 - [cosmos-kit](https://github.com/hyperweb-io/cosmos-kit) Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.

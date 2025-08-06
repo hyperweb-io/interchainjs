@@ -1,5 +1,5 @@
-import { TelescopeInput } from '@cosmology/telescope';
-import telescope from '@cosmology/telescope';
+import { TelescopeInput } from '@hyperweb/telescope';
+import telescope from '@hyperweb/telescope';
 import { join } from 'path';
 import { rimrafSync as rimraf } from 'rimraf';
 import deepmerge from 'deepmerge';
