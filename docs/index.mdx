@@ -244,6 +244,27 @@ Then an authz example website will be created and users can take a look how sign
 
 ---
 
+## Developer Documentation
+
+### For Contributors and Network Implementers
+
+- **[Network Implementation Guide](./docs/advanced/network-implementation-guide.md)** - Comprehensive guide for implementing new blockchain network support
+- **[Workflow Builder and Plugins Guide](./docs/advanced/workflow-builder-and-plugins.md)** - Plugin-based transaction workflow architecture
+- **[Auth vs. Wallet vs. Signer](./docs/advanced/auth-wallet-signer.md)** - Understanding the three-layer architecture
+- **[Tutorial](./docs/advanced/tutorial.md)** - Using and extending signers in the InterchainJS ecosystem
+
+### Architecture and Design
+
+InterchainJS follows a modular, three-layer architecture that separates concerns and enables flexible blockchain integration:
+
+1. **Auth Layer**: Cryptographic operations and key management
+2. **Wallet Layer**: Account management and address derivation
+3. **Signer Layer**: Transaction building, signing, and broadcasting
+
+This separation allows for maximum flexibility while maintaining type safety and consistent interfaces across different blockchain networks.
+
+---
+
 ## Interchain JavaScript Stack ⚛️
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem
