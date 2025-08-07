@@ -219,68 +219,133 @@ export class PublicKey {
       return false;
     }
 
-    // Ultra-simple but correct curve check based on Solana's actual implementation
-    // Most random 32-byte hashes are NOT valid Ed25519 points, so we're very conservative
+    try {
+      // Ed25519 uses the twisted Edwards curve equation: -x² + y² = 1 + dx²y² 
+      // where d = -121665/121666 mod p, and p = 2^255 - 19
+      
+      // Extract the y-coordinate and sign bit
+      const yBytes = new Uint8Array(point);
+      const signBit = (yBytes[31] & 0x80) !== 0;
+      yBytes[31] &= 0x7f; // Clear the sign bit
+      
+      // Convert y-coordinate to BigInt (little-endian)
+      let y = BigInt(0);
+      for (let i = 0; i < 32; i++) {
+        y += BigInt(yBytes[i]) << BigInt(8 * i);
+      }
 
-    // The identity point (all zeros) is definitely on the curve
-    if (point.every(b => b === 0)) {
+      // Ed25519 field prime: p = 2^255 - 19
+      const p = (BigInt(1) << BigInt(255)) - BigInt(19);
+      
+      // Check if y >= p (invalid field element)
+      if (y >= p) {
+        return false;
+      }
+
+      // Ed25519 curve parameter: d = -121665/121666 mod p
+      // Precomputed: d = 37095705934669439343138083508754565189542113879843219016388785533085940283555
+      const d = BigInt('37095705934669439343138083508754565189542113879843219016388785533085940283555');
+
+      // Calculate x² from the curve equation: x² = (y² - 1) / (d * y² + 1)
+      const y_squared = (y * y) % p;
+      const numerator = (y_squared - BigInt(1) + p) % p; // Ensure positive
+      const denominator = (d * y_squared + BigInt(1)) % p;
+
+      // Check if denominator is zero (invalid point)
+      if (denominator === BigInt(0)) {
+        return false;
+      }
+
+      // Calculate modular inverse of denominator
+      const denominatorInv = this.modInverse(denominator, p);
+      if (denominatorInv === null) {
+        return false;
+      }
+
+      const x_squared = (numerator * denominatorInv) % p;
+
+      // Check if x² is a quadratic residue (has a square root)
+      if (!this.isQuadraticResidue(x_squared, p)) {
+        return false;
+      }
+
+      // Calculate x from x²
+      const x = this.modSqrt(x_squared, p);
+      if (x === null) {
+        return false;
+      }
+
+      // Check if the sign bit matches the computed x coordinate's parity
+      const computedSignBit = (x & BigInt(1)) !== BigInt(0);
+      if (signBit !== computedSignBit) {
+        // Try the negative x
+        const negX = (p - x) % p;
+        const negSignBit = (negX & BigInt(1)) !== BigInt(0);
+        if (signBit !== negSignBit) {
+          return false;
+        }
+      }
+
       return true;
-    }
-
-    // All 0xFF bytes is not a valid point
-    if (point.every(b => b === 0xff)) {
+    } catch (error) {
+      // If any computation fails, assume not on curve
       return false;
     }
+  }
 
-    // For Solana PDA generation, the vast majority of SHA256 hashes
-    // are not valid Ed25519 points. We use the simplest possible check:
-    // assume the point is NOT on the curve unless it has very specific patterns
+  // Helper function to compute modular inverse using extended Euclidean algorithm
+  private static modInverse(a: bigint, m: bigint): bigint | null {
+    if (a < 0) a = (a % m + m) % m;
+    
+    const originalM = m;
+    let [oldR, r] = [a, m];
+    let [oldS, s] = [BigInt(1), BigInt(0)];
 
-    // Check if the Y coordinate (with sign bit cleared) is >= field prime
-    const yBytes = [...point];
-    yBytes[31] &= 0x7f; // Clear sign bit
-
-    // Quick check: if the last byte (after clearing sign bit) is >= 0x7f, 
-    // it's very likely >= field prime
-    if (yBytes[31] >= 0x7f) {
-      return false; // Definitely not on curve
+    while (r !== BigInt(0)) {
+      const quotient = oldR / r;
+      [oldR, r] = [r, oldR - quotient * r];
+      [oldS, s] = [s, oldS - quotient * s];
     }
 
-    // For PDA generation, we want to be very conservative and assume
-    // most hashes are NOT on the curve. Only specific patterns suggest "on curve"
+    if (oldR > BigInt(1)) return null; // No inverse exists
+    if (oldS < 0) oldS += originalM;
 
-    // Check for very specific patterns that might indicate a valid point:
-    // 1. Very low values (close to zero)
-    const sum = point.reduce((a, b) => a + b, 0);
-    if (sum < 100) { // Very low sum suggests structured data
-      return true;
-    }
+    return oldS;
+  }
 
-    // 2. Very high values (close to field prime)
-    if (sum > 8000) { // Very high sum suggests structured data  
-      return true;
-    }
+  // Helper function to check if a number is a quadratic residue modulo p
+  private static isQuadraticResidue(n: bigint, p: bigint): boolean {
+    if (n === BigInt(0)) return true;
+    // Use Legendre symbol: n^((p-1)/2) mod p should be 1
+    const exponent = (p - BigInt(1)) / BigInt(2);
+    return this.modPow(n, exponent, p) === BigInt(1);
+  }
 
-    // 3. Patterns in bytes (suggesting structure rather than random hash)
-    let consecutivePatterns = 0;
-    for (let i = 1; i < 32; i++) {
-      if (point[i] === point[i - 1]) {
-        consecutivePatterns++;
+  // Helper function for modular square root using Tonelli-Shanks algorithm
+  private static modSqrt(n: bigint, p: bigint): bigint | null {
+    if (n === BigInt(0)) return BigInt(0);
+    if (!this.isQuadraticResidue(n, p)) return null;
+
+    // For p = 2^255 - 19, we can use the fact that p ≡ 3 (mod 4)
+    // So sqrt(n) = n^((p+1)/4) mod p
+    const exponent = (p + BigInt(1)) / BigInt(4);
+    return this.modPow(n, exponent, p);
+  }
+
+  // Helper function for modular exponentiation
+  private static modPow(base: bigint, exponent: bigint, modulus: bigint): bigint {
+    let result = BigInt(1);
+    base = base % modulus;
+    
+    while (exponent > BigInt(0)) {
+      if (exponent & BigInt(1)) {
+        result = (result * base) % modulus;
       }
+      exponent = exponent >> BigInt(1);
+      base = (base * base) % modulus;
     }
-
-    // If there are many consecutive identical bytes, it might be structured
-    if (consecutivePatterns > 3) {
-      return true;
-    }
-
-    // For all other cases (the vast majority), assume it's not on the curve
-    // This gives us the behavior we want for PDA generation
-    return false;
+    
+    return result;
   }
 
-  // Keep the old method for backwards compatibility
-  private static isOnCurve(hash: Buffer): boolean {
-    return this.isOnEd25519Curve(hash);
-  }
 }

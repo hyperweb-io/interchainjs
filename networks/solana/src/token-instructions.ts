@@ -150,7 +150,7 @@ export class TokenInstructions {
 
     const keys = [
       { pubkey: source, isSigner: false, isWritable: true },
-      { pubkey: mint, isSigner: false, isWritable: false },
+      { pubkey: mint, isSigner: false, isWritable: true },
       { pubkey: destination, isSigner: false, isWritable: true },
       { pubkey: owner, isSigner: multiSigners.length === 0, isWritable: false },
     ];

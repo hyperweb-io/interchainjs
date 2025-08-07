@@ -564,6 +564,7 @@ describe('SPL Token Creation & Minting Tests', () => {
     it('should transfer tokens from payer to recipient', async () => {
       const transferAmount = 500000n; // 0.5 tokens with 6 decimals
       console.log(`Transferring ${TokenMath.rawToUiAmount(transferAmount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL} tokens...`);
+      console.log('=== TRANSFER TEST START ===');
 
       // Debug: Check if recipient ATA was already created
       console.log('=== TRANSFER TEST DEBUG ===');
@@ -606,6 +607,30 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Use the fresh calculations for the transfer
       const sourceAccount = freshPayerATA;
       const destinationAccount = freshRecipientATA;
+
+      // Debug: Verify account ownership before transfer
+      const sourceAccountInfo = await connection.getAccountInfo(sourceAccount);
+      const destAccountInfo = await connection.getAccountInfo(destinationAccount);
+      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
+
+      console.log('=== ACCOUNT VERIFICATION ===');
+      console.log(`Source account owner: ${sourceAccountInfo?.owner}`);
+      console.log(`Destination account owner: ${destAccountInfo?.owner}`);
+      console.log(`Mint account owner: ${mintAccountInfo?.owner}`);
+      console.log(`Expected Token Program ID: ${TOKEN_PROGRAM_ID.toString()}`);
+      console.log(`Source account exists: ${sourceAccountInfo !== null}`);
+      console.log(`Destination account exists: ${destAccountInfo !== null}`);
+      console.log(`Mint account exists: ${mintAccountInfo !== null}`);
+
+      if (!sourceAccountInfo || sourceAccountInfo.owner !== TOKEN_PROGRAM_ID.toString()) {
+        throw new Error(`Source account ${sourceAccount.toString()} is not a valid token account - Owner: ${sourceAccountInfo?.owner}`);
+      }
+      if (!destAccountInfo || destAccountInfo.owner !== TOKEN_PROGRAM_ID.toString()) {
+        throw new Error(`Destination account ${destinationAccount.toString()} is not a valid token account - Owner: ${destAccountInfo?.owner}`);
+      }
+      if (!mintAccountInfo || mintAccountInfo.owner !== TOKEN_PROGRAM_ID.toString()) {
+        throw new Error(`Mint account ${customMintAddress.toString()} is not a valid token mint - Owner: ${mintAccountInfo?.owner}`);
+      }
 
       // Create transfer instruction
       const transferInstruction = TokenInstructions.transferChecked({
