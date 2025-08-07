@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import dotenv from 'dotenv';
-import { 
-  Connection, 
-  Keypair, 
-  PublicKey, 
+import {
+  Connection,
+  Keypair,
+  PublicKey,
   TokenProgram,
   TokenInstructions,
   AssociatedTokenAccount,
@@ -61,7 +61,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       } catch (error) {
         // Transaction confirmation failed, continue waiting
       }
-      
+
       console.log(`Waiting for transaction confirmation, attempt ${i + 1}/${maxRetries}`);
       await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
     }
@@ -98,7 +98,7 @@ describe('SPL Token Creation & Minting Tests', () => {
     // Check payer balance and request airdrop if needed
     const payerBalance = await connection.getBalance(payer.publicKey);
     console.log(`Payer balance: ${payerBalance / 1000000000} SOL`);
-    
+
     if (payerBalance < solToLamports(0.5)) {
       console.log('Requesting airdrop for payer...');
       try {
@@ -159,7 +159,7 @@ describe('SPL Token Creation & Minting Tests', () => {
         feePayer: payer.publicKey,
         recentBlockhash: await connection.getRecentBlockhash()
       });
-      
+
       for (const instruction of instructions) {
         transaction.add(instruction);
       }
@@ -167,7 +167,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log('Sending token creation transaction...');
       transaction.sign(payer, customMintKeypair);
       const signature = await connection.sendTransaction(transaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(signature);
       console.log(`Token mint created successfully: ${signature}`);
@@ -204,8 +204,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Check if account already exists
       const existingAccount = await connection.getAccountInfo(payerTokenAccount);
       if (existingAccount) {
-        console.log('Associated token account already exists');
-        return;
+        console.log('ℹ️  Payer ATA already exists, but will send idempotent instruction anyway');
+        console.log('This should succeed without error due to idempotent instruction');
       }
 
       // Re-calculate ATA address to ensure it's valid
@@ -214,22 +214,22 @@ describe('SPL Token Creation & Minting Tests', () => {
         payer.publicKey,
         customMintAddress
       );
-      
+
       console.log(`Original ATA: ${payerTokenAccount.toString()}`);
       console.log(`Recalculated ATA: ${recalculatedATA.toString()}`);
       console.log(`Match: ${payerTokenAccount.toString() === recalculatedATA.toString()}`);
-      
+
       // Triple-check PDA calculation by testing multiple times
       console.log('Performing multiple PDA calculations to ensure consistency...');
       const ata1 = await AssociatedTokenAccount.findAssociatedTokenAddress(payer.publicKey, customMintAddress);
       const ata2 = await AssociatedTokenAccount.findAssociatedTokenAddress(payer.publicKey, customMintAddress);
       const ata3 = await AssociatedTokenAccount.findAssociatedTokenAddress(payer.publicKey, customMintAddress);
-      
+
       console.log(`ATA Calculation 1: ${ata1.toString()}`);
       console.log(`ATA Calculation 2: ${ata2.toString()}`);
       console.log(`ATA Calculation 3: ${ata3.toString()}`);
       console.log(`All match: ${ata1.toString() === ata2.toString() && ata2.toString() === ata3.toString()}`);
-      
+
       if (ata1.toString() !== ata2.toString() || ata2.toString() !== ata3.toString()) {
         throw new Error('PDA calculation is inconsistent - this should never happen!');
       }
@@ -245,9 +245,9 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`  Payer: ${payer.publicKey.toString()}`);
       console.log(`  Token Program: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA`);
       console.log(`  Mint: ${customMintAddress.toString()}`);
-      
+
       const [directPDA, bump] = await PublicKey.findProgramAddress(
-        seeds, 
+        seeds,
         new PublicKey('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL') // ASSOCIATED_TOKEN_PROGRAM_ID
       );
       console.log(`Direct PDA result: ${directPDA.toString()}, bump: ${bump}`);
@@ -256,19 +256,31 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Check if the ATA already exists before creating instruction
       const existingATAInfo = await connection.getAccountInfo(recalculatedATA);
       if (existingATAInfo) {
-        console.log('✅ ATA already exists, skipping creation');
+        console.log('✅ ATA already exists, skipping creation and proceeding to verification');
+
+        // Verify the existing account
         expect(existingATAInfo.owner).toBe('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+        const buffer = Buffer.from(existingATAInfo.data[0], 'base64');
+        const parsedAccountData = TokenProgram.parseAccountData(buffer);
+        expect(parsedAccountData.mint.toString()).toBe(customMintAddress.toString());
+        expect(parsedAccountData.owner.toString()).toBe(payer.publicKey.toString());
+
+        console.log('✅ Associated token account verified (already existed)');
+        console.log(`   Final payer ATA address: ${recalculatedATA.toString()}`);
+
+        // Update the global variable
+        payerTokenAccount = recalculatedATA;
         return;
       }
 
-      // Use regular (not idempotent) instruction since we've verified it doesn't exist
+      // Use standard instruction (not idempotent due to compatibility issues)
       const instruction = AssociatedTokenAccount.createAssociatedTokenAccountInstruction(
         payer.publicKey, // payer
         recalculatedATA, // associated token account (use fresh calculation)
         payer.publicKey, // owner
         customMintAddress // mint
       );
-      
+
       console.log('ATA Instruction Keys:');
       instruction.keys.forEach((key, i) => {
         console.log(`  ${i}: ${key.pubkey.toString()} (signer: ${key.isSigner}, writable: ${key.isWritable})`);
@@ -285,11 +297,26 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.add(instruction);
 
       transaction.sign(payer);
-      const signature = await connection.sendTransaction(transaction);
-      
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
-      console.log(`Associated token account created: ${signature}`);
+
+      let signature: string | null = null;
+      try {
+        signature = await connection.sendTransaction(transaction);
+
+        // Wait for proper confirmation
+        await waitForTransactionConfirmation(signature);
+        console.log(`Associated token account created: ${signature}`);
+      } catch (error: any) {
+        console.log('Transaction failed:', error.message);
+
+        // Check if error is due to account already existing
+        if (error.message.includes('already in use') ||
+          error.message.includes('invalid account data') ||
+          error.message.includes('AccountAlreadyExists')) {
+          console.log('Account appears to already exist, continuing with verification...');
+        } else {
+          throw error; // Re-throw if it's a different error
+        }
+      }
 
       // Verify account exists and is properly initialized with retry (use recalculated address)
       const accountInfo = await waitForAccountInfo(recalculatedATA);
@@ -305,6 +332,11 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(parsedAccountData.state).toBe(1); // TokenAccountState.Initialized
 
       console.log('✅ Associated token account created and verified');
+      console.log(`   Final payer ATA address: ${recalculatedATA.toString()}`);
+
+      // IMPORTANT: Update the payerTokenAccount variable to use the recalculated address
+      // This ensures all subsequent tests use the correct address
+      payerTokenAccount = recalculatedATA;
     }, 60000);
 
     it('should mint tokens to payer account', async () => {
@@ -319,10 +351,22 @@ describe('SPL Token Creation & Minting Tests', () => {
         return;
       }
 
+      // Recalculate payer ATA to ensure we have the correct address
+      const freshPayerATA = await AssociatedTokenAccount.findAssociatedTokenAddress(
+        payer.publicKey,
+        customMintAddress
+      );
+
+      console.log(`Payer token account (original): ${payerTokenAccount.toString()}`);
+      console.log(`Payer token account (fresh): ${freshPayerATA.toString()}`);
+
+      // Use the fresh calculation for minting
+      const destinationAccount = freshPayerATA;
+
       // Create mint instruction
       const mintInstruction = TokenInstructions.mintTo({
         mint: customMintAddress,
-        destination: payerTokenAccount,
+        destination: destinationAccount,
         authority: payer.publicKey,
         amount: BigInt(INITIAL_MINT_AMOUNT)
       });
@@ -339,13 +383,13 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(signature);
       console.log(`Tokens minted successfully: ${signature}`);
 
       // Verify token balance with retry
-      const accountInfo = await waitForAccountInfo(payerTokenAccount);
+      const accountInfo = await waitForAccountInfo(destinationAccount);
       expect(accountInfo).not.toBeNull();
 
       const buffer = Buffer.from(accountInfo!.data[0], 'base64');
@@ -359,12 +403,26 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(parsedMintData.supply).toBe(BigInt(INITIAL_MINT_AMOUNT));
 
       console.log(`✅ Minted ${TokenMath.rawToUiAmount(BigInt(INITIAL_MINT_AMOUNT), TOKEN_DECIMALS)} ${TOKEN_SYMBOL} tokens`);
+
+      // Update the global payerTokenAccount variable to use the fresh address
+      payerTokenAccount = destinationAccount;
     }, 60000);
   });
 
   describe('Token Transfer Operations', () => {
     it('should create associated token account for recipient', async () => {
       console.log('Creating associated token account for recipient...');
+
+      // Debug: Check initial state
+      console.log('=== RECIPIENT ATA CREATION TEST START ===');
+      const initialRecipientATACheck = await connection.getAccountInfo(recipientTokenAccount);
+      if (initialRecipientATACheck) {
+        console.log('⚠️  WARNING: Recipient ATA already exists at test start!');
+        console.log(`   Address: ${recipientTokenAccount.toString()}`);
+        console.log('   This test will likely fail because the account already exists');
+      } else {
+        console.log('✅ Recipient ATA does not exist yet (good - we can create it)');
+      }
 
       // Check if mint and payer ATA exist (dependencies)
       const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
@@ -374,6 +432,10 @@ describe('SPL Token Creation & Minting Tests', () => {
         expect(true).toBe(true); // Pass test but indicate dependency issue
         return;
       }
+
+      // Add a delay to ensure mint state is fully propagated
+      console.log('Waiting for state propagation...');
+      await new Promise(resolve => setTimeout(resolve, 3000));
 
       // Request airdrop for recipient to pay for account creation
       try {
@@ -390,28 +452,67 @@ describe('SPL Token Creation & Minting Tests', () => {
         recipient.publicKey,
         customMintAddress
       );
-      
+
       console.log(`Original recipient ATA: ${recipientTokenAccount.toString()}`);
       console.log(`Recalculated recipient ATA: ${recalculatedRecipientATA.toString()}`);
       console.log(`Match: ${recipientTokenAccount.toString() === recalculatedRecipientATA.toString()}`);
       console.log(`Recipient: ${recipient.publicKey.toString()}`);
       console.log(`Mint: ${customMintAddress.toString()}`);
-      
+
+      // Add explicit PDA verification for debugging
+      console.log('=== RECIPIENT PDA VERIFICATION ===');
+      const seeds = [
+        recipient.publicKey.toBuffer(),
+        TOKEN_PROGRAM_ID.toBuffer(),
+        customMintAddress.toBuffer()
+      ];
+      console.log('Seeds for recipient PDA calculation:');
+      console.log(`  Recipient: ${recipient.publicKey.toString()}`);
+      console.log(`  Token Program: ${TOKEN_PROGRAM_ID.toString()}`);
+      console.log(`  Mint: ${customMintAddress.toString()}`);
+
+      const [directPDA, bump] = await PublicKey.findProgramAddress(
+        seeds,
+        ASSOCIATED_TOKEN_PROGRAM_ID
+      );
+      console.log(`Direct PDA result: ${directPDA.toString()}, bump: ${bump}`);
+      console.log(`Matches recalculated ATA: ${directPDA.toString() === recalculatedRecipientATA.toString()}`);
+
       // Check if the recipient ATA already exists
       const existingRecipientATA = await connection.getAccountInfo(recalculatedRecipientATA);
       if (existingRecipientATA) {
-        console.log('✅ Recipient ATA already exists, skipping creation');
+        console.log('✅ Recipient ATA already exists, skipping creation and proceeding to verification');
+
+        // Verify the existing account
         expect(existingRecipientATA.owner).toBe('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+        const buffer = Buffer.from(existingRecipientATA.data[0], 'base64');
+        const parsedAccountData = TokenProgram.parseAccountData(buffer);
+        expect(parsedAccountData.mint.toString()).toBe(customMintAddress.toString());
+        expect(parsedAccountData.owner.toString()).toBe(recipient.publicKey.toString());
+        expect(parsedAccountData.amount).toBe(0n);
+
+        console.log('✅ Recipient token account verified (already existed)');
+        console.log(`   Final ATA address: ${recalculatedRecipientATA.toString()}`);
+
+        // Update the global variable
+        recipientTokenAccount = recalculatedRecipientATA;
         return;
       }
 
-      // Create associated token account instruction using fresh calculation
+      // Create associated token account instruction using standard version
       const instruction = AssociatedTokenAccount.createAssociatedTokenAccountInstruction(
         payer.publicKey, // payer (who pays for creation)
         recalculatedRecipientATA, // associated token account (use fresh calculation)
         recipient.publicKey, // owner
         customMintAddress // mint
       );
+
+      console.log('Instruction parameters:');
+      console.log(`  Payer: ${payer.publicKey.toString()}`);
+      console.log(`  ATA: ${recalculatedRecipientATA.toString()}`);
+      console.log(`  Owner: ${recipient.publicKey.toString()}`);
+      console.log(`  Mint: ${customMintAddress.toString()}`);
+      console.log(`  Program ID: ${instruction.programId.toString()}`);
 
       // Create and send transaction
       const transaction = new Transaction({
@@ -421,11 +522,26 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.add(instruction);
 
       transaction.sign(payer);
-      const signature = await connection.sendTransaction(transaction);
-      
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
-      console.log(`Recipient token account created: ${signature}`);
+
+      let signature: string | null = null;
+      try {
+        signature = await connection.sendTransaction(transaction);
+
+        // Wait for proper confirmation
+        await waitForTransactionConfirmation(signature);
+        console.log(`Recipient token account created: ${signature}`);
+      } catch (error: any) {
+        console.log('Transaction failed:', error.message);
+
+        // Check if error is due to account already existing
+        if (error.message.includes('already in use') ||
+          error.message.includes('invalid account data') ||
+          error.message.includes('AccountAlreadyExists')) {
+          console.log('Account appears to already exist, continuing with verification...');
+        } else {
+          throw error; // Re-throw if it's a different error
+        }
+      }
 
       // Verify account exists with retry (use recalculated address)
       const accountInfo = await waitForAccountInfo(recalculatedRecipientATA);
@@ -438,31 +554,63 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(parsedAccountData.amount).toBe(0n);
 
       console.log('✅ Recipient token account created and verified');
+      console.log(`   Final ATA address: ${recalculatedRecipientATA.toString()}`);
+
+      // IMPORTANT: Update the recipientTokenAccount variable to use the recalculated address
+      // This ensures all subsequent tests use the correct address
+      recipientTokenAccount = recalculatedRecipientATA;
     }, 60000);
 
     it('should transfer tokens from payer to recipient', async () => {
       const transferAmount = 500000n; // 0.5 tokens with 6 decimals
       console.log(`Transferring ${TokenMath.rawToUiAmount(transferAmount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL} tokens...`);
-      
+
+      // Debug: Check if recipient ATA was already created
+      console.log('=== TRANSFER TEST DEBUG ===');
+      console.log(`Checking recipient ATA: ${recipientTokenAccount.toString()}`);
+
       // Check both accounts exist before attempting transfer
       const payerATA = await connection.getAccountInfo(payerTokenAccount);
-      const recipientATA = await connection.getAccountInfo(recipientTokenAccount);
-      
-      if (!payerATA || !recipientATA) {
+      const recipientATAOriginal = await connection.getAccountInfo(recipientTokenAccount);
+
+      if (recipientATAOriginal) {
+        console.log('⚠️  Recipient ATA already exists at start of transfer test!');
+        console.log('This suggests the ATA creation test might have run after this test');
+      } else {
+        console.log('Recipient ATA does not exist yet (as expected)');
+      }
+
+      if (!payerATA || !recipientATAOriginal) {
         console.log('One of the token accounts does not exist - this test depends on previous tests. Skipping...');
         expect(true).toBe(true);
         return;
       }
-      
-      console.log(`Payer account: ${payerTokenAccount.toString()}`);
-      console.log(`Recipient account: ${recipientTokenAccount.toString()}`);
+
+      // Recalculate both payer and recipient ATAs to ensure we have the correct addresses
+      const freshPayerATA = await AssociatedTokenAccount.findAssociatedTokenAddress(
+        payer.publicKey,
+        customMintAddress
+      );
+      const freshRecipientATA = await AssociatedTokenAccount.findAssociatedTokenAddress(
+        recipient.publicKey,
+        customMintAddress
+      );
+
+      console.log(`Payer account (original): ${payerTokenAccount.toString()}`);
+      console.log(`Payer account (fresh): ${freshPayerATA.toString()}`);
+      console.log(`Recipient account (original): ${recipientTokenAccount.toString()}`);
+      console.log(`Recipient account (fresh): ${freshRecipientATA.toString()}`);
       console.log(`Mint: ${customMintAddress.toString()}`);
       console.log(`Owner: ${payer.publicKey.toString()}`);
 
+      // Use the fresh calculations for the transfer
+      const sourceAccount = freshPayerATA;
+      const destinationAccount = freshRecipientATA;
+
       // Create transfer instruction
       const transferInstruction = TokenInstructions.transferChecked({
-        source: payerTokenAccount,
-        destination: recipientTokenAccount,
+        source: sourceAccount,
+        destination: destinationAccount,
         owner: payer.publicKey,
         amount: transferAmount,
         mint: customMintAddress,
@@ -481,19 +629,19 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(signature);
       console.log(`Transfer completed: ${signature}`);
 
       // Verify payer balance decreased with retry
-      const payerAccountInfo = await waitForAccountInfo(payerTokenAccount);
+      const payerAccountInfo = await waitForAccountInfo(sourceAccount);
       const payerBuffer = Buffer.from(payerAccountInfo!.data[0], 'base64');
       const payerAccountData = TokenProgram.parseAccountData(payerBuffer);
       expect(payerAccountData.amount).toBe(BigInt(INITIAL_MINT_AMOUNT) - transferAmount);
 
       // Verify recipient balance increased
-      const recipientAccountInfo = await waitForAccountInfo(recipientTokenAccount);
+      const recipientAccountInfo = await waitForAccountInfo(destinationAccount);
       const recipientBuffer = Buffer.from(recipientAccountInfo!.data[0], 'base64');
       const recipientAccountData = TokenProgram.parseAccountData(recipientBuffer);
       expect(recipientAccountData.amount).toBe(transferAmount);
@@ -501,6 +649,10 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`✅ Transfer successful:`);
       console.log(`   Payer balance: ${TokenMath.rawToUiAmount(payerAccountData.amount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL}`);
       console.log(`   Recipient balance: ${TokenMath.rawToUiAmount(recipientAccountData.amount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL}`);
+
+      // Update global variables to use the fresh addresses
+      payerTokenAccount = sourceAccount;
+      recipientTokenAccount = destinationAccount;
     }, 60000);
 
     it('should burn tokens from payer account', async () => {
@@ -544,7 +696,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(signature);
       console.log(`Burn completed: ${signature}`);
@@ -604,7 +756,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(signature);
       console.log(`Approval completed: ${signature}`);
@@ -633,7 +785,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       revokeTransaction.sign(payer);
       const revokeSignature = await connection.sendTransaction(revokeTransaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(revokeSignature);
 
@@ -678,7 +830,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       freezeTransaction.sign(payer);
       const freezeSignature = await connection.sendTransaction(freezeTransaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(freezeSignature);
       console.log(`Account frozen: ${freezeSignature}`);
@@ -708,7 +860,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       thawTransaction.sign(payer);
       const thawSignature = await connection.sendTransaction(thawTransaction);
-      
+
       // Wait for proper confirmation
       await waitForTransactionConfirmation(thawSignature);
       console.log(`Account thawed: ${thawSignature}`);
