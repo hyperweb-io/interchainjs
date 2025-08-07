@@ -9,4 +9,5 @@ lerna-debug.log
 CLAUDE.md
 
 .cert/
-**/.env.local
+
+.augment/
