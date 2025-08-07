@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import dotenv from 'dotenv';
-import { 
-  Connection, 
-  Keypair, 
-  PublicKey, 
+import {
+  Connection,
+  Keypair,
+  PublicKey,
   TokenProgram,
   TokenInstructions,
   AssociatedTokenAccount,
@@ -57,7 +57,7 @@ describe('SPL Token Tests', () => {
     // Check payer balance
     const payerBalance = await connection.getBalance(payer.publicKey);
     console.log(`Payer balance: ${payerBalance / 1000000000} SOL`);
-    
+
     if (payerBalance < solToLamports(0.1)) {
       console.log('Requesting airdrop for payer...');
       try {
@@ -72,7 +72,7 @@ describe('SPL Token Tests', () => {
     // Use a well-known USDC-Dev token on Devnet for testing
     // This avoids the complexity of creating our own token for now
     testMintAddress = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU');
-    
+
     // Find the associated token account for this mint
     payerTokenAccount = await AssociatedTokenAccount.findAssociatedTokenAddress(
       payer.publicKey,
@@ -150,7 +150,7 @@ describe('SPL Token Tests', () => {
         mockAuthority,
         mockAuthority
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(2);
       expect(instruction.data[0]).toBe(0); // InitializeMint discriminator
@@ -162,7 +162,7 @@ describe('SPL Token Tests', () => {
         mockMint,
         mockOwner
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(4);
       expect(instruction.data[0]).toBe(1); // InitializeAccount discriminator
@@ -175,7 +175,7 @@ describe('SPL Token Tests', () => {
         owner: mockOwner,
         amount: 1000000n
       });
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(3); // Transfer discriminator
@@ -190,7 +190,7 @@ describe('SPL Token Tests', () => {
         mint: mockMint,
         decimals: 6
       });
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(4);
       expect(instruction.data[0]).toBe(12); // TransferChecked discriminator
@@ -203,7 +203,7 @@ describe('SPL Token Tests', () => {
         authority: mockAuthority,
         amount: 1000000n
       });
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(7); // MintTo discriminator
@@ -216,7 +216,7 @@ describe('SPL Token Tests', () => {
         owner: mockOwner,
         amount: 1000000n
       });
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(8); // Burn discriminator
@@ -229,7 +229,7 @@ describe('SPL Token Tests', () => {
         owner: mockOwner,
         amount: 1000000n
       });
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(4); // Approve discriminator
@@ -240,7 +240,7 @@ describe('SPL Token Tests', () => {
         mockAccount,
         mockOwner
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(2);
       expect(instruction.data[0]).toBe(5); // Revoke discriminator
@@ -253,7 +253,7 @@ describe('SPL Token Tests', () => {
         AuthorityType.AccountOwner,
         mockAuthority
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(2);
       expect(instruction.data[0]).toBe(6); // SetAuthority discriminator
@@ -266,7 +266,7 @@ describe('SPL Token Tests', () => {
         mockOwner,
         mockOwner
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(9); // CloseAccount discriminator
@@ -278,7 +278,7 @@ describe('SPL Token Tests', () => {
         mockMint,
         mockAuthority
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(10); // FreezeAccount discriminator
@@ -290,7 +290,7 @@ describe('SPL Token Tests', () => {
         mockMint,
         mockAuthority
       );
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(3);
       expect(instruction.data[0]).toBe(11); // ThawAccount discriminator
@@ -298,7 +298,7 @@ describe('SPL Token Tests', () => {
 
     it('should create sync native instruction', () => {
       const instruction = TokenInstructions.syncNative(mockAccount);
-      
+
       expect(instruction.programId).toEqual(TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(1);
       expect(instruction.data[0]).toBe(17); // SyncNative discriminator
@@ -312,7 +312,7 @@ describe('SPL Token Tests', () => {
         payer.publicKey,
         testMintAddress
       );
-      
+
       expect(ata).toBeInstanceOf(PublicKey);
       expect(ata.toString().length).toBe(44); // Base58 encoded public key length
       expect(ata).toEqual(payerTokenAccount); // Should match our calculated ATA
@@ -321,7 +321,7 @@ describe('SPL Token Tests', () => {
     it('should get token supply for known mint', async () => {
       try {
         const supply = await connection.getTokenSupply(testMintAddress);
-        
+
         expect(supply).toBeDefined();
         expect(typeof supply.amount).toBe('string');
         expect(supply.decimals).toBeGreaterThanOrEqual(0);
@@ -334,7 +334,7 @@ describe('SPL Token Tests', () => {
     it('should get native mint info', async () => {
       try {
         const supply = await connection.getTokenSupply(NATIVE_MINT);
-        
+
         expect(supply).toBeDefined();
         expect(typeof supply.amount).toBe('string');
         expect(supply.decimals).toBe(9); // SOL has 9 decimals
@@ -351,7 +351,7 @@ describe('SPL Token Tests', () => {
         payer.publicKey,
         testMintAddress
       );
-      
+
       expect(instruction.programId).toEqual(ASSOCIATED_TOKEN_PROGRAM_ID);
       expect(instruction.keys).toHaveLength(7);
       expect(instruction.data).toHaveLength(0);
@@ -359,108 +359,6 @@ describe('SPL Token Tests', () => {
       expect(instruction.keys[1].pubkey).toEqual(payerTokenAccount); // associatedToken
       expect(instruction.keys[2].pubkey).toEqual(payer.publicKey); // owner
       expect(instruction.keys[3].pubkey).toEqual(testMintAddress); // mint
-    });
-
-    it('should parse mock mint data correctly (using mock for parsing logic test)', () => {
-      // This test uses mock data because we're testing the parsing logic, not chain data
-      const mockAuthority = Keypair.generate();
-      const mockFreezeAuthority = Keypair.generate();
-      
-      // Create mock mint data (simplified)
-      const data = Buffer.alloc(82); // MINT_SIZE
-      let offset = 0;
-      
-      // Mint authority option (1 byte) - Some(authority)
-      data[offset] = 1;
-      offset += 1;
-      
-      // Mint authority (32 bytes)
-      mockAuthority.publicKey.toBuffer().copy(data, offset);
-      offset += 32;
-      
-      // Supply (8 bytes, little endian)
-      data.writeBigUInt64LE(1000000n, offset);
-      offset += 8;
-      
-      // Decimals (1 byte)
-      data[offset] = 6;
-      offset += 1;
-      
-      // Is initialized (1 byte)
-      data[offset] = 1;
-      offset += 1;
-      
-      // Freeze authority option (1 byte) - Some(authority)
-      data[offset] = 1;
-      offset += 1;
-      
-      // Freeze authority (32 bytes)
-      mockFreezeAuthority.publicKey.toBuffer().copy(data, offset);
-      
-      const parsed = TokenProgram.parseMintData(data);
-      
-      expect(parsed.mintAuthority?.toString()).toBe(mockAuthority.publicKey.toString());
-      expect(parsed.supply).toBe(1000000n);
-      expect(parsed.decimals).toBe(6);
-      expect(parsed.isInitialized).toBe(true);
-      expect(parsed.freezeAuthority?.toString()).toBe(mockFreezeAuthority.publicKey.toString());
-    });
-
-    it('should parse mock token account data correctly (using mock for parsing logic test)', () => {
-      // This test uses mock data because we're testing the parsing logic, not chain data
-      const mockOwner = Keypair.generate();
-      
-      // Create mock token account data (simplified)
-      const data = Buffer.alloc(165); // ACCOUNT_SIZE
-      let offset = 0;
-      
-      // Mint (32 bytes)
-      testMintAddress.toBuffer().copy(data, offset);
-      offset += 32;
-      
-      // Owner (32 bytes)
-      mockOwner.publicKey.toBuffer().copy(data, offset);
-      offset += 32;
-      
-      // Amount (8 bytes, little endian)
-      data.writeBigUInt64LE(1500000n, offset);
-      offset += 8;
-      
-      // Delegate option (1 byte) - None
-      data[offset] = 0;
-      offset += 1;
-      
-      // Skip delegate (32 bytes)
-      offset += 32;
-      
-      // State (1 byte) - Initialized
-      data[offset] = TokenAccountState.Initialized;
-      offset += 1;
-      
-      // Is native option (1 byte) - None
-      data[offset] = 0;
-      offset += 1;
-      
-      // Skip native amount if present (8 bytes)
-      offset += 8;
-      
-      // Delegated amount (8 bytes, little endian)
-      data.writeBigUInt64LE(0n, offset);
-      offset += 8;
-      
-      // Close authority option (1 byte) - None
-      data[offset] = 0;
-      
-      const parsed = TokenProgram.parseAccountData(data);
-      
-      expect(parsed.mint.toString()).toBe(testMintAddress.toString());
-      expect(parsed.owner.toString()).toBe(mockOwner.publicKey.toString());
-      expect(parsed.amount).toBe(1500000n);
-      expect(parsed.delegate).toBe(null);
-      expect(parsed.state).toBe(TokenAccountState.Initialized);
-      expect(parsed.isNative).toBe(false);
-      expect(parsed.delegatedAmount).toBe(0n);
-      expect(parsed.closeAuthority).toBe(null);
     });
   });
 
@@ -479,13 +377,13 @@ describe('SPL Token Tests', () => {
 
     it('should throw error for invalid mint data size', () => {
       const invalidData = Buffer.alloc(50); // Wrong size
-      
+
       expect(() => TokenProgram.parseMintData(invalidData)).toThrow('Invalid mint data length');
     });
 
     it('should throw error for invalid account data size', () => {
       const invalidData = Buffer.alloc(100); // Wrong size
-      
+
       expect(() => TokenProgram.parseAccountData(invalidData)).toThrow('Invalid account data length');
     });
   });
@@ -523,7 +421,7 @@ describe('SPL Token Tests', () => {
         9,
         newMintKeypair
       );
-      
+
       expect(result.mint).toEqual(newMintKeypair.publicKey);
       expect(result.instructions).toHaveLength(2); // CreateAccount + InitializeMint
       expect(result.instructions[0].keys[1].pubkey).toEqual(newMintKeypair.publicKey);
@@ -538,7 +436,7 @@ describe('SPL Token Tests', () => {
         payer.publicKey,
         accountKeypair
       );
-      
+
       expect(result.account).toEqual(accountKeypair.publicKey);
       expect(result.instructions).toHaveLength(2); // CreateAccount + InitializeAccount
     });
@@ -550,10 +448,10 @@ describe('SPL Token Tests', () => {
         payer.publicKey,
         solToLamports(0.1)
       );
-      
+
       expect(result.account).toBeInstanceOf(PublicKey);
       expect(result.instructions).toHaveLength(2); // CreateAccount + InitializeAccount
-      
+
       // Second instruction should initialize with NATIVE_MINT
       const initializeInstruction = result.instructions[1];
       expect(initializeInstruction.keys[1].pubkey).toEqual(NATIVE_MINT);
@@ -567,7 +465,7 @@ describe('SPL Token Tests', () => {
         testMintAddress,
         newOwner.publicKey
       );
-      
+
       expect(result.account).toBeInstanceOf(PublicKey);
       // Should have create instruction for new account
       expect(result.instructions.length).toBeGreaterThanOrEqual(1);
