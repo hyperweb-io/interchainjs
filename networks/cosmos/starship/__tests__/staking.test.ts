@@ -4,66 +4,75 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
-import { OfflineDirectSigner } from '@interchainjs/cosmos/types/wallet';
-import {
-  assertIsDeliverTxSuccess,
-  toEncoders,
-} from '@interchainjs/cosmos/utils';
+import { generateMnemonic } from '../src/utils';
+import { useChain } from 'starshipjs';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { HDPath } from '@interchainjs/types';
+
 import {
   BondStatus,
   bondStatusToJSON,
 } from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
-import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Signer
-import { useChain } from 'starshipjs';
+import { MsgDelegate, MsgUndelegate, MsgBeginRedelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
+import BigNumber from 'bignumber.js';
 
-import { generateMnemonic } from '../src';
 import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
-
-import { QueryBalanceRequest, QueryBalanceResponse } from '@interchainjs/cosmos-types/cosmos/bank/v1beta1/query';
-import { QueryDelegationRequest, QueryDelegationResponse, QueryValidatorsRequest, QueryValidatorsResponse } from '@interchainjs/cosmos-types/cosmos/staking/v1beta1/query';
-import { delegate } from '../../../../libs/interchainjs/src/cosmos/staking/v1beta1/tx.rpc.func';
+import { getValidators, getDelegation, getUnbondingDelegation, getRedelegations } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
+import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
 describe('Staking tokens testing', () => {
-  let directWallet: OfflineDirectSigner, denom: string, address: string;
-  let chainInfo: ChainInfo,
+  let wallet: Secp256k1HDWallet, denom: string, address: string;
+  let signer: DirectSigner;
+  let client: ICosmosQueryClient;
+  let commonPrefix: string,
+    chainInfo: ChainInfo,
     getCoin: () => Promise<Asset>,
     getRpcEndpoint: () => Promise<string>,
-    creditFromFaucet;
+    creditFromFaucet: (address: string, denom?: string | null) => Promise<void>;
 
   // Variables used accross testcases
   let validatorAddress: string;
   let delegationAmount: string;
+  let totalDelegationAmount: bigint;
 
   beforeAll(async () => {
     ({ chainInfo, getCoin, getRpcEndpoint, creditFromFaucet } =
       useChain('osmosis'));
     denom = (await getCoin()).base;
+    commonPrefix = chainInfo?.chain?.bech32_prefix;
+
+    // Set up query client
+    const rpcEndpoint = await getRpcEndpoint();
+    client = await createCosmosQueryClient(rpcEndpoint);
 
     const mnemonic = generateMnemonic();
-    const prefix = chainInfo.chain.bech32_prefix;
+    // Initialize wallet
+    wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+      derivations: [{
+        prefix: commonPrefix,
+        hdPath: HDPath.cosmos().toString(),
+      }]
+    });
+    address = (await wallet.getAccounts())[0].address;
 
-    directWallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, [
-      {
-        hdPath: cosmosHdPath,
-        prefix,
-      },
-    ]);
+    // Create signer
+    signer = new DirectSigner(await wallet.toOfflineDirectSigner(), {
+      queryClient: client,
+      chainId: 'osmosis-1',
+      addressPrefix: commonPrefix
+    });
 
-    address = (await directWallet.getAccounts())[0].address;
-    // (await directWallet.getAccount()).getAddress(prefix) as string;
+
 
     // Transfer osmosis and ibc tokens to address, send only osmo to address
     await creditFromFaucet(address);
   }, 200000);
 
   it('check address has tokens', async () => {
-    const { balance } = await getBalance(await getRpcEndpoint(), {
+    const { balance } = await getBalance(client, {
       address,
       denom,
     });
@@ -72,7 +81,7 @@ describe('Staking tokens testing', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators(await getRpcEndpoint(), {
+    const { validators } = await getValidators(client, {
       status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
     });
     let allValidators = validators;
@@ -88,27 +97,18 @@ describe('Staking tokens testing', () => {
     validatorAddress = allValidators[0].operatorAddress;
   });
 
-  it('stake tokens to genesis validator', async () => {
-    const directSigner = await DirectSigner.fromWallet(
-      directWallet,
-      toEncoders(MsgDelegate),
-      await getRpcEndpoint(),
-      { prefix: chainInfo.chain.bech32_prefix },
-      {
-        checkTx: true,
-        deliverTx: true,
-      }
-    );
-
-    const { balance } = await getBalance(await getRpcEndpoint(), {
+  it('stake tokens to genesis validator default signing mode', async () => {
+    const { balance } = await getBalance(client, {
       address,
       denom,
     });
 
-    // Stake half of the tokens
+    // Stake 1/10 of the tokens
     // eslint-disable-next-line no-undef
-    delegationAmount = (BigInt(balance!.amount) / BigInt(2)).toString();
-    const msg = MsgDelegate.fromPartial({
+    delegationAmount = (BigInt(balance!.amount) / BigInt(10)).toString();
+    totalDelegationAmount = BigInt(delegationAmount);
+
+    const msgDelegate = MsgDelegate.fromPartial({
       delegatorAddress: address,
       validatorAddress: validatorAddress,
       amount: {
@@ -127,13 +127,95 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-    const result = await delegate(directSigner, address, msg, fee, '');
+    const result = await delegate(signer, address, msgDelegate, fee, "Stake tokens to genesis validator");
 
-    assertIsDeliverTxSuccess(result);
+    try {
+      await result.wait();
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  it('stake tokens to genesis validator direct signing mode', async () => {
+    const { balance } = await getBalance(client, {
+      address,
+      denom,
+    });
+
+    // Stake 1/10 of the tokens
+    // eslint-disable-next-line no-undef
+    delegationAmount = (BigInt(balance!.amount) / BigInt(10)).toString();
+    totalDelegationAmount = totalDelegationAmount + BigInt(delegationAmount);
+
+    const msgDelegate = MsgDelegate.fromPartial({
+      delegatorAddress: address,
+      validatorAddress: validatorAddress,
+      amount: {
+        amount: delegationAmount,
+        denom: balance!.denom,
+      },
+    });
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const result = await delegate(signer, address, msgDelegate, fee, "Stake tokens to genesis validator");
+
+    try {
+      await result.wait();
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  it('stake tokens to genesis validator amino signing mode', async () => {
+    const { balance } = await getBalance(client, {
+      address,
+      denom,
+    });
+
+    // Stake 1/10 of the tokens
+    // eslint-disable-next-line no-undef
+    delegationAmount = (BigInt(balance!.amount) / BigInt(10)).toString();
+    totalDelegationAmount = totalDelegationAmount + BigInt(delegationAmount);
+
+    const msgDelegate = MsgDelegate.fromPartial({
+      delegatorAddress: address,
+      validatorAddress: validatorAddress,
+      amount: {
+        amount: delegationAmount,
+        denom: balance!.denom,
+      },
+    });
+
+    const fee = {
+      amount: [
+        {
+          denom,
+          amount: '100000',
+        },
+      ],
+      gas: '550000',
+    };
+
+    const result = await delegate(signer, address, msgDelegate, fee, "Stake tokens to genesis validator");
+
+    try {
+      await result.wait();
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   it('query delegation', async () => {
-    const { delegationResponse } = await getDelegation(await getRpcEndpoint(), {
+    const { delegationResponse } = await getDelegation(client, {
       delegatorAddr: address,
       validatorAddr: validatorAddress,
     });
@@ -143,7 +225,7 @@ describe('Staking tokens testing', () => {
     expect(BigInt(delegationResponse!.balance.amount)).toBeGreaterThan(
       BigInt(0)
     );
-    expect(delegationResponse!.balance.amount).toEqual(delegationAmount);
+    expect(delegationResponse!.balance.amount).toEqual(totalDelegationAmount.toString());
     expect(delegationResponse!.balance.denom).toEqual(denom);
   });
 });

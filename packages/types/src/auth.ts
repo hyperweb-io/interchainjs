@@ -1,8 +1,7 @@
-import { SignDocResponse } from './wallet';
+import { IHDPath } from './hdpath';
+import { AddrDerivation } from './wallet';
 
-export type Algo = 'secp256k1' | 'eth_secp256k1';
-
-export interface IKey {
+export interface ICryptoBytes {
   value: Uint8Array;
   toHex(): string;
   toPrefixedHex(): string;
@@ -10,138 +9,124 @@ export interface IKey {
   toBigInt(): bigint;
   toNumber(): number;
   toBech32(prefix: string, limit?: number): string;
-  slice(start?: number, end?: number): IKey;
-  concat(key: IKey): IKey;
+  slice(start?: number, end?: number): ICryptoBytes;
+  concat(key: ICryptoBytes): ICryptoBytes;
 }
 
-/**
- * Auth is an interface that represents the authentication method of an account.
- */
-export interface Auth {
-  /**
-   * The algorithm of the authentication method.
-   */
-  readonly algo?: string;
-  /**
-   * The HD path of the authentication method.
-   */
-  readonly hdPath?: string;
-
-  /**
-   * Get the public key of the authentication method.
-   * @param isCompressed Whether the public key should be compressed.
-   * @returns The public key.
-   */
-  getPublicKey: (isCompressed?: boolean) => IKey;
+// Algorithm interface for key operations
+export interface IAlgo {
+  name: string;
+  makeKeypair(privateKey: Uint8Array): { privkey: Uint8Array; pubkey: Uint8Array };
+  compress(pubkey: Uint8Array): Uint8Array;
+  uncompress(pubkey: Uint8Array): Uint8Array;
+  sign(message: Uint8Array, privateKey: Uint8Array): Promise<Uint8Array>;
+  verify(signature: Uint8Array, message: Uint8Array, pubkey: Uint8Array): Promise<boolean>;
 }
 
-/**
- * ByteAuth is an interface that represents the authentication method of an account that can sign bytes.
- * Use some specific algorithm like secp256k1, eth_secp256k1 to implement this interface.
- * This interface is usually used by signAbitrary method.
- * @template Sig The type of the signature.
- */
-export interface ByteAuth<Sig> extends Auth {
-  /**
-   * Sign the data in bytes.
-   * @param data The data in bytes to sign.
-   * @returns The signature.
-   */
-  sign: (data: Uint8Array) => ISignatureWraper<Sig>;
+// Hash function type
+export type HashFunction = (data: Uint8Array) => Uint8Array;
+
+// Private key specific configuration
+export interface IPrivateKeyConfig {
+  algo: IAlgo | string;  // Accept both IAlgo instance or preset string
+  passphrase?: string;   // BIP39 passphrase
 }
 
-/**
- * Check if the authentication object is a ByteAuth.
- * @param auth The object to check
- * @returns Whether the object is a ByteAuth.
- */
-export function isByteAuth<Sig>(auth: Auth): auth is ByteAuth<Sig> {
-  return 'sign' in auth;
+// Public key specific configuration
+export interface IPublicKeyConfig {
+  compressed?: boolean;  // Only compression can be configured
 }
 
-/**
- * DocAuth is an interface that represents the authentication method of an account that can sign a document using OfflineSigners.
- * DocAuth is actually a wrapper for offline signers.
- * DocAuth is usually used by signers built from offline signers.
- * @template TDoc The type of the doc.
- * @template TArgs The type of the args.
- * @template TAddr The type of the address.
- */
-export interface DocAuth<TDoc, TArgs = unknown, TAddr = string, TSig = IKey, TResp = SignDocResponse<TDoc, TSig>> extends Auth {
-  address: TAddr;
-  signDoc(doc: TDoc, args?: TArgs): TResp | Promise<TResp>;
+// Address specific configuration
+export interface IAddressConfig {
+  strategy: IAddressStrategy | string;  // Required: e.g., 'cosmos', 'ethereum', or custom strategy
 }
 
-/**
- * Check if the authentication object is a DocAuth.
- * @param auth The object to check
- * @returns Whether the object is a DocAuth.
- */
-export function isDocAuth<TDoc, TArgs = unknown, TAddr = string>(auth: Auth): auth is DocAuth<TDoc, TArgs, TAddr> {
-  return 'signDoc' in auth;
+// Wallet configuration combines all configs
+export interface IWalletConfig {
+  privateKeyConfig?: IPrivateKeyConfig;
+  publicKeyConfig?: IPublicKeyConfig;  // Optional, only for compression setting
+  addressConfig?: IAddressConfig;
+  derivations: AddrDerivation[],
 }
 
-/**
- * AuthOptions is an interface that represents the options for creating an authentication method.
- */
-export interface AuthOptions {
-  /**
-   * The password for the BIP39 mnemonic.
-   */
-  bip39Password?: string;
+// Address generation strategies
+export interface IAddressStrategy {
+  name: string;
+  // Process public key bytes before hashing
+  preprocessPublicKey?(pubKeyBytes: Uint8Array, compressed: boolean, algo: IAlgo): Uint8Array;
+  // Hash the processed bytes
+  hash(bytes: Uint8Array): Uint8Array;
+  // Encode the hashed bytes
+  encode(hashedBytes: Uint8Array, prefix?: string): string;
+  // Decode address to bytes
+  decode(address: string): { bytes: Uint8Array; prefix?: string };
+  // Apply checksum (optional)
+  checksum?(address: string): string;
+  // Validate checksum (optional)
+  validateChecksum?(address: string): boolean;
+  // Extract prefix from address
+  extractPrefix(address: string): string | undefined;
 }
 
-/**
- * Base class for Doc Auth.
- */
-export abstract class BaseDocAuth<TSigner, TDoc, TArgs = unknown, TAddr = string, TSig = IKey, TResp = SignDocResponse<TDoc, TSig>> implements DocAuth<TDoc, TArgs, TAddr, TSig, TResp> {
-  constructor(
-    public readonly offlineSigner: TSigner,
-    public readonly address: TAddr,
-    public readonly algo?: string,
-    public readonly pubkey?: Uint8Array,
-  ) {
-  }
+// Core Interfaces
 
-  abstract getPublicKey(): IKey;
-  abstract signDoc(doc: TDoc, args?: TArgs): Promise<TResp>;
+export interface IPrivateKey {
+  // Core properties
+  readonly value: ICryptoBytes;  // Using cryptobytes.ts as abstracted key
+  readonly hdPath?: IHDPath;     // Using hdpath.ts as abstracted HD path
+  readonly config: IPrivateKeyConfig;   // Configuration for crypto operations
+
+  // Methods
+  toPublicKey(config?: IPublicKeyConfig): IPublicKey;  // Can override config
+  sign(data: Uint8Array): Promise<ICryptoBytes>;
+  toHex(): string;
+  toBase64(): string;
 }
 
-/**
- * ISignatureWraper is an interface that wraps the signature and provides methods to convert the signature to different formats.
- */
-export interface ISignatureWraper<Sig> {
-  signature: Sig;
-  toCompact(): IKey;
+export interface IPublicKey {
+  // Core properties
+  readonly value: ICryptoBytes;
+  readonly algo: IAlgo | string;  // Algorithm is inherited from private key
+  readonly compressed: boolean;
+
+  // Methods
+  toAddress?(config: IAddressConfig, prefix?: string): IAddress;  // Optional - not all chains have addresses
+  verify(data: Uint8Array, signature: ICryptoBytes): Promise<boolean>;
+  toHex(): string;
+  toBase64(): string;
 }
 
-/**
- * IAccount is an interface that represents an account based on an authentication object.
- */
-export interface IAccount<TAddr = string> {
-  /**
-   * The public key of the account.
-   */
-  publicKey: IKey;
-  /**
-   * The address of the account.
-   */
-  address: TAddr;
-  /**
-   * auth is the authentication method of the account.
-   */
-  auth: Auth;
-  /**
-   * toAccountData converts the account to an AccountData object.
-   */
-  toAccountData(): AccountData;
+export interface IAddress {
+  // Core properties
+  readonly value: string;      // The address string
+  readonly prefix?: string;    // Address prefix (e.g., 'cosmos', 'osmo', '0x')
+  readonly config: IAddressConfig;
+
+  // Methods
+  toBytes(): ICryptoBytes;     // Raw bytes without encoding
+  isValid(): boolean;          // Validate address format and checksum
 }
 
-/**
- * AccountData is an interface that represents the public data of an account.
- */
-export interface AccountData {
-  address: string;
-  algo?: Algo;
-  pubkey?: Uint8Array;
+export interface IWallet {
+  // Core properties
+  readonly privateKeys: IPrivateKey[];
+  readonly config: IWalletConfig;
+
+  // Methods
+  getAccounts(): Promise<readonly IAccount[]>;              // Get all accounts (public info only)
+  getAccountByIndex(index: number): Promise<IAccount>;   // Get specific account
+  signByIndex(data: Uint8Array, index?: number): Promise<ICryptoBytes>;
+}
+
+export function isIWallet(obj: any): obj is IWallet {
+  return obj && typeof obj.toAccounts === 'function' && typeof obj.getAccountByIndex === 'function' && typeof obj.signByIndex === 'function';
+}
+
+// Update IAccount interface to match the new structure
+export interface IAccount {
+  getPublicKey(isCompressed?: boolean): IPublicKey;
+  readonly address?: string;
+  readonly hdPath?: IHDPath;
+  readonly algo: string;        // Algorithm name for reference
 }

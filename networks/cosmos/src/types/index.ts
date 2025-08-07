@@ -1,6 +1,6 @@
-export * from './docAuth';
-export * from './query';
-export * from './rpc';
-export * from './signer';
-export * from './wallet';
-export * from './signing-client';
+// networks/cosmos/src/types/index.ts
+export * from './protocol';
+export * from './requests';
+export * from './responses';
+export * from './cosmos-client-interfaces';
+export * from './codec';

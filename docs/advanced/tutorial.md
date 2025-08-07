@@ -1,474 +1,527 @@
 # Tutorial
 
-In this tutorial, we'll explore how to implement signers using the InterchainJS library. We'll focus on both Cosmos signers and non-Cosmos signers, covering the necessary steps to create, configure, and use them effectively.
+This tutorial demonstrates how to use and extend signers in the InterchainJS ecosystem. We'll cover both using existing signers and implementing custom signers for different blockchain networks.
 
-## Implementing Signers
+> **For Network Implementers**: If you're looking to implement support for a new blockchain network, see the [Network Implementation Guide](./network-implementation-guide.md) for comprehensive architectural patterns and design principles.
 
-Implementing signers involves creating classes that adhere to specific interfaces provided by InterchainJS. This ensures that your signers are compatible with the rest of the library and can handle transactions appropriately.
+## Using Existing Signers
 
-### Overview
+InterchainJS provides ready-to-use signers for major blockchain networks. These signers implement the `IUniSigner` interface and can work with both `IWallet` implementations and `OfflineSigner` interfaces.
 
-Signers are responsible for authorizing transactions by providing cryptographic signatures. They can be categorized into two main types:
+### Quick Start with Cosmos
+
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
+import { HDPath } from '@interchainjs/types';
+
+// Create wallet from mnemonic
+const wallet = await Secp256k1HDWallet.fromMnemonic(
+  "your twelve word mnemonic phrase here",
+  {
+    derivations: [{
+      prefix: "cosmos",
+      hdPath: HDPath.cosmos(0, 0, 0).toString(),
+    }]
+  }
+);
 
-- **Cosmos Signers**: Utilize standard interfaces and base classes tailored for the Cosmos ecosystem.
-- **Non-Cosmos Signers**: Require custom implementation of interfaces due to the lack of predefined base classes.
+// Create signer
+const signer = new DirectSigner(wallet, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
 
-### General Steps to Implement Signers
+// Sign and broadcast transaction
+const result = await signer.signAndBroadcast({
+  messages: [/* your messages */],
+  fee: { amount: [{ denom: 'uatom', amount: '1000' }], gas: '200000' }
+});
+```
 
-1. **Define Signer Interfaces**: Outline the methods and properties your signer needs based on the transaction types it will handle.
-2. **Choose Authentication Method**: Decide whether to use `ByteAuth`, `DocAuth`, or both, depending on the signing requirements.
-3. **Implement Auth Classes**: Create classes for authentication that implement the necessary interfaces.
-4. **Extend Base Signer Classes** (if available): For Cosmos signers, extend the provided base classes to streamline development.
-5. **Build Transaction Builders**: Implement methods to construct transaction documents and serialize them for signing.
-6. **Instantiate Signers**: Create instances of your signer classes with the appropriate authentication mechanisms.
-7. **Test Your Signer**: Ensure your signer correctly signs transactions and interacts with the network as expected.
+## Implementing Custom Signers
 
-Proceed to the next sections for detailed guidance on implementing Cosmos and non-Cosmos signers.
+When implementing custom signers, you'll need to understand the core interfaces and patterns used in InterchainJS.
 
-### Cosmos Signers
+### Core Interfaces
 
-When working with Cosmos signers, InterchainJS offers a suite of base classes that significantly streamline the development process. These classes provide foundational implementations of common functionalities required for signing transactions on the Cosmos network. By extending these base classes, you can inherit methods for message encoding, transaction building, and signature handling without rewriting boilerplate code.
+#### IUniSigner Interface
 
-Utilizing these base classes not only accelerates development but also ensures that your signer adheres to the standard practices and interfaces expected within the Cosmos ecosystem. This leads to better compatibility and easier integration with other tools and services that interact with Cosmos-based blockchains.
+All signers implement the `IUniSigner` interface, which provides a consistent API across different blockchain networks:
 
-#### Steps to Implement Cosmos Signers
+```typescript
+interface IUniSigner<
+  TTxResp = unknown,
+  TAccount extends IAccount = IAccount,
+  TSignArgs = unknown,
+  TBroadcastOpts = unknown,
+  TBroadcastResponse extends IBroadcastResult<TTxResp> = IBroadcastResult<TTxResp>,
+> {
+  // Account management
+  getAccounts(): Promise<readonly TAccount[]>;
 
-1. **Extend the Signer Type Based on `UniSigner`**:
+  // Core signing methods
+  signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes>;
 
-   1.1 **Determine the Types Used in the Signing Process**:
+  // Transaction flow
+  sign(args: TSignArgs): Promise<ISigned<TBroadcastOpts, TBroadcastResponse>>;
+  broadcast(signed: ISigned<TBroadcastOpts, TBroadcastResponse>, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
+  signAndBroadcast(args: TSignArgs, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
 
-   - `@template SignArgs`: Arguments for the `sign` method.
-   - `@template Tx`: Transaction type.
-   - `@template Doc`: Sign document type.
-   - `@template AddressResponse`: Address type.
-   - `@template BroadcastResponse`: Response type after broadcasting a transaction.
-   - `@template BroadcastOpts`: Options for broadcasting a transaction.
-   - `@template SignDocResp`: Response type after signing a document.
+  // Raw broadcast (for pre-signed transactions)
+  broadcastArbitrary(data: Uint8Array, options?: TBroadcastOpts): Promise<TBroadcastResponse>;
+}
+```
 
-   For example, in the Cosmos Amino signing process:
+#### Authentication Patterns
 
-   ```typescript
-   SignArgs = CosmosSignArgs = {
-     messages: Message[];
-     fee?: StdFee;
-     memo?: string;
-     options?: Option;
-   };
+Signers can be constructed with two types of authentication:
 
-   Tx = TxRaw; // cosmos.tx.v1beta1.TxRaw
+1. **IWallet**: Direct access to private keys for full control
+2. **OfflineSigner**: External wallet integration for enhanced security
 
-   Doc = StdSignDoc;
+## Implementing Cosmos-Compatible Signers
 
-   AddressResponse = string;
+When implementing signers for Cosmos-based networks, you can extend the existing base classes:
 
-   BroadcastResponse = { hash: string };
-   ```
+### Step 1: Extend BaseCosmosSigner
 
-   1.2 **Define the `CosmosAminoSigner` Interface**:
+For Cosmos-compatible networks, extend the `BaseCosmosSigner` class:
 
-   ```typescript
-   export type CosmosAminoSigner = UniSigner<
-     CosmosSignArgs,
-     TxRaw,
-     StdSignDoc,
-     string,
-     BroadcastResponse
-   >;
-   ```
+```typescript
+import { BaseCosmosSigner } from '@interchainjs/cosmos/signers/base-signer';
+import { IUniSigner, IWallet } from '@interchainjs/types';
+import {
+  CosmosSignArgs,
+  CosmosSignedTransaction,
+  CosmosBroadcastOptions,
+  CosmosBroadcastResponse,
+  OfflineSigner
+} from '@interchainjs/cosmos/signers/types';
 
-2. **Choose Between `ByteAuth` or `DocAuth` for Handling Signatures**:
+export class CustomCosmosSigner extends BaseCosmosSigner {
+  constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig) {
+    super(auth, config);
+  }
 
-   #### ByteAuth
+  async sign(args: CosmosSignArgs): Promise<CosmosSignedTransaction> {
+    // Implement custom signing logic
+    // Use this.workflow to handle the signing process
+    return this.workflow.sign(args);
+  }
+}
+```
 
-   `ByteAuth` offers flexibility by allowing the signing of arbitrary byte arrays using algorithms like `secp256k1` or `eth_secp256k1`, making it suitable for low-level or protocol-agnostic use cases.
+### Step 2: Choose Authentication Method
 
-   Implement the `ByteAuth` interface:
+Decide between `IWallet` (direct key access) or `OfflineSigner` (external wallet) based on your security requirements:
 
-   ```typescript
-   export class Secp256k1Auth implements ByteAuth<RecoveredSignatureType> {
-     // Implementation details...
-   }
-   ```
+#### Using IWallet
 
-   #### DocAuth
+```typescript
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
 
-   `DocAuth` is tailored for signing structured documents like `AminoSignDoc`, providing a streamlined workflow for blockchain transactions with offline signers, while also ensuring compatibility with the Cosmos SDK's predefined document formats.
+// Create wallet
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, config);
 
-   ##### Generic Offline Signer
+// Use with custom signer
+const signer = new CustomCosmosSigner(wallet, signerConfig);
+```
 
-   A generic offline signer is needed to wrap an offline signer and create a standard interface:
+#### Using OfflineSigner
 
-   ```typescript
-   export interface IAminoGenericOfflineSigner
-     extends IGenericOfflineSigner<
-       string,
-       CosmosAminoDoc,
-       AminoSignResponse,
-       IAminoGenericOfflineSignArgs,
-       AccountData
-     > {}
-
-   export class AminoGenericOfflineSigner
-     implements IAminoGenericOfflineSigner
-   {
-     constructor(public offlineSigner: OfflineAminoSigner) {}
-
-     readonly signMode: string = SIGN_MODE.AMINO;
-
-     getAccounts(): Promise<readonly AccountData[]> {
-       return this.offlineSigner.getAccounts();
-     }
-
-     sign({ signerAddress, signDoc }: IAminoGenericOfflineSignArgs) {
-       return this.offlineSigner.signAmino(signerAddress, signDoc);
-     }
-   }
-   ```
-
-   For details of `ByteAuth` and `DocAuth`, please see [the authentication documentation](/docs/auth.md#ByteAuth).
-
-3. **Implement the Transaction Builder**:
-
-   3.1 **Extend `BaseCosmosTxBuilder` and Set the Sign Mode**:
-
-   ```typescript
-   export class AminoTxBuilder extends BaseCosmosTxBuilder<CosmosAminoDoc> {
-     constructor(
-       protected ctx: BaseCosmosTxBuilderContext<
-         AminoSignerBase<CosmosAminoDoc>
-       >
-     ) {
-       // Set the sign mode
-       super(SignMode.SIGN_MODE_LEGACY_AMINO_JSON, ctx);
-     }
-   }
-   ```
-
-   3.2 **Implement Methods to Build and Serialize Documents**:
-
-   ```typescript
-   // Build the signing document
-   async buildDoc({
-     messages,
-     fee,
-     memo,
-     options,
-   }: CosmosSignArgs): Promise<CosmosAminoDoc> {
-     // Implementation details...
-   }
-
-   // Serialize the signing document
-   async buildDocBytes(doc: CosmosAminoDoc): Promise<Uint8Array> {
-     // Implementation details...
-   }
-   ```
-
-   3.3 **Sync Information from Signed Documents**:
-
-   ```typescript
-   async syncSignedDoc(
-     txRaw: TxRaw,
-     signResp: SignDocResponse<CosmosAminoDoc>
-   ): Promise<TxRaw> {
-     // Implementation details...
-   }
-   ```
-
-4. **Implement the `AminoSigner`**:
-
-   The signer is initiated by an `Auth` or offline signer. If an offline signer is supported, a static method `fromWallet` should be implemented to convert it to a `DocAuth`.
-
-   ```typescript
-   export class AminoSigner
-     extends AminoSignerBase<CosmosAminoDoc>
-     implements CosmosAminoSigner
-   {
-     // Initiated by an Auth, ByteAuth, or DocAuth
-     constructor(
-       auth: Auth,
-       encoders: Encoder[],
-       converters: AminoConverter[],
-       endpoint?: string | HttpEndpoint,
-       options?: SignerOptions
-     ) {
-       super(auth, encoders, converters, endpoint, options);
-     }
-
-     // Get the transaction builder
-     getTxBuilder(): BaseCosmosTxBuilder<CosmosAminoDoc> {
-       return new AminoTxBuilder(new BaseCosmosTxBuilderContext(this));
-     }
-
-     // Get account information
-     async getAccount() {
-       // Implementation details...
-     }
-
-     // Create AminoSigner from a wallet (returns the first account by default)
-     static async fromWallet(
-       signer: OfflineAminoSigner | IAminoGenericOfflineSigner,
-       encoders: Encoder[],
-       converters: AminoConverter[],
-       endpoint?: string | HttpEndpoint,
-       options?: SignerOptions
-     ) {
-       // Implementation details...
-     }
-
-     // Create AminoSigners from a wallet (returns all accounts)
-     static async fromWalletToSigners(
-       signer: OfflineAminoSigner | IAminoGenericOfflineSigner,
-       encoders: Encoder[],
-       converters: AminoConverter[],
-       endpoint?: string | HttpEndpoint,
-       options?: SignerOptions
-     ) {
-       // Implementation details...
-     }
-   }
-   ```
-
-### Non-Cosmos Signers
-
-For non-Cosmos signers, there are fewer base classes available for the signing process. Developers need to implement the required interfaces themselves, ensuring compatibility with their specific blockchain or protocol.
-
-#### Steps to Implement Non-Cosmos Signers
-
-1. **Extend the Signer Type Based on `UniSigner`**:
-
-   1.1 **Determine the Types Used in the Signing Process**:
-
-   - `@template SignArgs`: Arguments for the `sign` method.
-   - `@template Tx`: Transaction type.
-   - `@template Doc`: Sign document type.
-   - `@template AddressResponse`: Address type.
-   - `@template BroadcastResponse`: Response type after broadcasting a transaction.
-   - `@template BroadcastOpts`: Options for broadcasting a transaction.
-   - `@template SignDocResp`: Response type after signing a document.
-
-   For example, in the EIP-712 signing process:
-
-   ```typescript
-   SignArgs = TransactionRequest;
-
-   Tx = string; // Serialized signed transaction as a hex string.
-
-   Doc = TransactionRequest;
-
-   AddressResponse = string;
-
-   BroadcastResponse = TransactionResponse;
-
-   BroadcastOpts = unknown;
-
-   SignDocResp = string; // Signature string of the signed document.
-   ```
-
-   1.2 **Define the `UniEip712Signer` Interface**:
-
-   ```typescript
-   import { UniSigner } from "@interchainjs/types";
-   import { TransactionRequest, TransactionResponse } from "ethers";
-
-   export type UniEip712Signer = UniSigner<
-     TransactionRequest,
-     string,
-     TransactionRequest,
-     string,
-     TransactionResponse,
-     unknown,
-     string
-   >;
-   ```
-
-2. **Handle Authentication for Getting Signatures**
-
-   2.1 **Implement the `Eip712DocAuth` Class**
-
-   - **Purpose**: The `Eip712DocAuth` class extends `BaseDocAuth` to handle authentication and signing of documents using the EIP-712 standard in Ethereum.
-
-   - **Constructor Parameters**:
-
-     - `offlineSigner: IEthereumGenericOfflineSigner`: An interface for the Ethereum offline signer.
-     - `address: string`: The Ethereum address associated with the signer.
-
-   - **Static Method**:
-
-     - `fromOfflineSigner(offlineSigner: IEthereumGenericOfflineSigner)`: Asynchronously creates an instance of `Eip712DocAuth` by retrieving the account address from the offline signer.
-
-   - **Methods**:
-     - `getPublicKey(): IKey`: Throws an error because, in EIP-712 signing, the public key is not typically required.
-     - `signDoc(doc: TransactionRequest): Promise<string>`: Uses the `offlineSigner` to sign the transaction request document and returns the signature as a string.
-
-   ```typescript
-   import { BaseDocAuth, IKey, SignDocResponse } from "@interchainjs/types";
-   import { IEthereumGenericOfflineSigner } from "./wallet";
-   import { TransactionRequest } from "ethers";
-
-   // Eip712DocAuth Class: Extends BaseDocAuth to provide authentication and document signing capabilities specific to EIP-712.
-   export class Eip712DocAuth extends BaseDocAuth<
-     IEthereumGenericOfflineSigner,
-     TransactionRequest,
-     unknown,
-     string,
-     string,
-     string
-   > {
-     // Calls the parent BaseDocAuth constructor with the provided offlineSigner and address.
-     constructor(
-       offlineSigner: IEthereumGenericOfflineSigner,
-       address: string
-     ) {
-       super(offlineSigner, address);
-     }
-
-     // Retrieves the accounts from the offlineSigner and creates a new instance of Eip712DocAuth with the first account's address.
-     static async fromOfflineSigner(
-       offlineSigner: IEthereumGenericOfflineSigner
-     ) {
-       const [account] = await offlineSigner.getAccounts();
-
-       return new Eip712DocAuth(offlineSigner, account);
-     }
-
-     // Throws an error because EIP-712 does not require a public key for signing operations.
-     getPublicKey(): IKey {
-       throw new Error("For EIP712, public key is not needed");
-     }
-
-     // Calls the sign method of the offlineSigner to sign the TransactionRequest document and returns a promise that resolves to the signature string.
-     signDoc(doc: TransactionRequest): Promise<string> {
-       return this.offlineSigner.sign(doc);
-     }
-   }
-   ```
-
-   By implementing the `Eip712DocAuth` class as shown, you can handle authentication and document signing for Ethereum transactions using the EIP-712 standard.
-
-3. **Implement the Signer**:
-
-   Let's take Eip712Signer as an example:
-
-   3.1 **Define the `Eip712Signer` Class**
-
-   - **Purpose**: The `Eip712Signer` class implements the `UniEip712Signer` interface to provide signing and broadcasting capabilities for Ethereum transactions using the EIP-712 standard.
-
-   - **Constructor Parameters**:
-
-     - `auth: Auth`: An authentication object, expected to be an instance of `Eip712DocAuth`.
-     - `endpoint: string`: The JSON-RPC endpoint URL of the Ethereum node.
-
-   - **Properties**:
-
-     - `provider: Provider`: An Ethereum provider connected to the specified endpoint.
-     - `docAuth: Eip712DocAuth`: An instance of `Eip712DocAuth` for document authentication and signing.
-
-   - **Static Methods**:
-
-     - `static async fromWallet(signer: IEthereumGenericOfflineSigner, endpoint?: string)`: Creates an instance of `Eip712Signer` from an offline signer and an optional endpoint.
-
-   ```typescript
-   import {
-     IKey,
-     SignDocResponse,
-     SignResponse,
-     BroadcastOptions,
-     Auth,
-     isDocAuth,
-     HttpEndpoint,
-   } from "@interchainjs/types";
-   import {
-     JsonRpcProvider,
-     Provider,
-     TransactionRequest,
-     TransactionResponse,
-   } from "ethers";
-   import { UniEip712Signer } from "../types";
-   import { Eip712DocAuth } from "../types/docAuth";
-   import { IEthereumGenericOfflineSigner } from "../types/wallet";
-
-   // Eip712Signer Class: Implements the UniEip712Signer interface to handle signing and broadcasting Ethereum transactions using EIP-712.
-   export class Eip712Signer implements UniEip712Signer {
-     provider: Provider;
-     docAuth: Eip712DocAuth;
-
-     // Constructor: Initializes the provider and docAuth properties.
-     constructor(auth: Auth, public endpoint: string) {
-       this.provider = new JsonRpcProvider(endpoint);
-       this.docAuth = auth as Eip712DocAuth;
-     }
-
-     // Creates an Eip712Signer from a wallet.
-     // If there are multiple accounts in the wallet, it will return the first one by default.
-     static async fromWallet(
-       signer: IEthereumGenericOfflineSigner,
-       endpoint?: string
-     ) {
-       const auth = await Eip712DocAuth.fromOfflineSigner(signer);
-
-       return new Eip712Signer(auth, endpoint);
-     }
-
-     // Retrieves the Ethereum address from the docAuth instance.
-     async getAddress(): Promise<string> {
-       return this.docAuth.address;
-     }
-
-     // Not supported in this implementation; throws an error.
-     signArbitrary(data: Uint8Array): IKey | Promise<IKey> {
-       throw new Error("Method not supported.");
-     }
-
-     // Uses docAuth.signDoc to sign the TransactionRequest document.
-     async signDoc(doc: TransactionRequest): Promise<string> {
-       return this.docAuth.signDoc(doc);
-     }
-
-     // Not supported in this implementation; throws an error.
-     broadcastArbitrary(
-       data: Uint8Array,
-       options?: unknown
-     ): Promise<TransactionResponse> {
-       throw new Error("Method not supported.");
-     }
-
-     // Calls signDoc to get the signed transaction (tx).
-     // Returns a SignResponse object containing the signed transaction, original document, and a broadcast function.
-     async sign(
-       args: TransactionRequest
-     ): Promise<
-       SignResponse<
-         string,
-         TransactionRequest,
-         TransactionResponse,
-         BroadcastOptions
-       >
-     > {
-       const result = await this.signDoc(args);
-
-       return {
-         tx: result,
-         doc: args,
-         broadcast: async () => {
-           return this.provider.broadcastTransaction(result);
-         },
-       };
-     }
-
-     // Calls signDoc to sign the transaction and broadcasts it using provider.broadcastTransaction.
-     async signAndBroadcast(
-       args: TransactionRequest
-     ): Promise<TransactionResponse> {
-       const result = await this.signDoc(args);
-
-       return this.provider.broadcastTransaction(result);
-     }
-
-     // Broadcasts a signed transaction (hex string) using provider.broadcastTransaction.
-     broadcast(tx: string): Promise<TransactionResponse> {
-       return this.provider.broadcastTransaction(tx);
-     }
-   }
-   ```
-
-   By implementing the `Eip712Signer` class as shown, you can facilitate Ethereum transaction signing and broadcasting in applications that require EIP-712 compliance.
+```typescript
+// Get from external wallet
+const offlineSigner = await window.keplr.getOfflineSigner(chainId);
+
+// Use with custom signer
+const signer = new CustomCosmosSigner(offlineSigner, signerConfig);
+```
+
+### Step 3: Implement Custom Workflow (Optional)
+
+If you need custom transaction building logic, you can implement a custom workflow:
+
+```typescript
+import { DirectWorkflow } from '@interchainjs/cosmos/workflows/direct-workflow';
+
+export class CustomWorkflow extends DirectWorkflow {
+  async sign(args: CosmosSignArgs): Promise<CosmosSignedTransaction> {
+    // Custom pre-processing
+    const processedArgs = this.preprocessArgs(args);
+
+    // Use parent implementation
+    const result = await super.sign(processedArgs);
+
+    // Custom post-processing
+    return this.postprocessResult(result);
+  }
+
+  private preprocessArgs(args: CosmosSignArgs): CosmosSignArgs {
+    // Add custom logic here
+    return args;
+  }
+
+  private postprocessResult(result: CosmosSignedTransaction): CosmosSignedTransaction {
+    // Add custom logic here
+    return result;
+  }
+}
+```
+
+### Step 4: Complete Signer Implementation
+
+```typescript
+export class CustomCosmosSigner extends BaseCosmosSigner {
+  private customWorkflow: CustomWorkflow;
+
+  constructor(auth: OfflineSigner | IWallet, config: CosmosSignerConfig) {
+    super(auth, config);
+    this.customWorkflow = new CustomWorkflow(this);
+  }
+
+  async sign(args: CosmosSignArgs): Promise<CosmosSignedTransaction> {
+    return this.customWorkflow.sign(args);
+  }
+
+  // Add any custom methods specific to your network
+  async customNetworkMethod(): Promise<any> {
+    // Implementation specific to your blockchain
+  }
+}
+```
+
+## Implementing Non-Cosmos Signers
+
+For networks that don't have existing base classes, you need to implement the `IUniSigner` interface directly. Here's how to create a custom signer for a new blockchain network:
+
+### Step 1: Define Network-Specific Types
+
+First, define the types specific to your blockchain network:
+
+```typescript
+// Define your network's transaction types
+export interface CustomSignArgs {
+  messages: CustomMessage[];
+  fee?: CustomFee;
+  memo?: string;
+  options?: CustomOptions;
+}
+
+export interface CustomSignedTransaction {
+  txBytes: Uint8Array;
+  signature: ICryptoBytes;
+  // Add any network-specific fields
+}
+
+export interface CustomBroadcastOptions {
+  mode?: 'sync' | 'async' | 'commit';
+  // Add network-specific options
+}
+
+export interface CustomBroadcastResponse extends IBroadcastResult {
+  // Add network-specific response fields
+}
+
+export interface CustomAccountData extends IAccount {
+  // Add network-specific account fields
+}
+```
+
+### Step 2: Implement the Base Signer
+
+```typescript
+import { IUniSigner, IWallet, ICryptoBytes } from '@interchainjs/types';
+
+export class CustomNetworkSigner implements IUniSigner<
+  unknown, // TTxResp
+  CustomAccountData, // TAccount
+  CustomSignArgs, // TSignArgs
+  CustomBroadcastOptions, // TBroadcastOpts
+  CustomBroadcastResponse // TBroadcastResponse
+> {
+  constructor(
+    private wallet: IWallet,
+    private config: CustomSignerConfig
+  ) {}
+
+  async getAccounts(): Promise<readonly CustomAccountData[]> {
+    const accounts = await this.wallet.getAccounts();
+    return accounts.map(account => ({
+      ...account,
+      // Add custom account fields
+    })) as CustomAccountData[];
+  }
+
+  async signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes> {
+    return this.wallet.signByIndex(data, index);
+  }
+
+  async sign(args: CustomSignArgs): Promise<ISigned<CustomBroadcastOptions, CustomBroadcastResponse>> {
+    // 1. Build transaction
+    const txBytes = await this.buildTransaction(args);
+
+    // 2. Sign transaction
+    const signature = await this.wallet.signByIndex(txBytes, 0);
+
+    // 3. Create signed transaction
+    const signedTx: CustomSignedTransaction = {
+      txBytes,
+      signature
+    };
+
+    // 4. Return ISigned with broadcast capability
+    return {
+      signature,
+      broadcast: async (options?: CustomBroadcastOptions) => {
+        return this.broadcastArbitrary(txBytes, options);
+      }
+    };
+  }
+
+  async broadcast(
+    signed: ISigned<CustomBroadcastOptions, CustomBroadcastResponse>,
+    options?: CustomBroadcastOptions
+  ): Promise<CustomBroadcastResponse> {
+    return signed.broadcast(options);
+  }
+
+  async signAndBroadcast(
+    args: CustomSignArgs,
+    options?: CustomBroadcastOptions
+  ): Promise<CustomBroadcastResponse> {
+    const signed = await this.sign(args);
+    return this.broadcast(signed, options);
+  }
+
+  async broadcastArbitrary(
+    data: Uint8Array,
+    options?: CustomBroadcastOptions
+  ): Promise<CustomBroadcastResponse> {
+    // Implement network-specific broadcasting logic
+    const response = await this.config.queryClient.broadcastTx(data, options);
+
+    return {
+      transactionHash: response.hash,
+      rawResponse: response,
+      broadcastResponse: response,
+      wait: async () => {
+        // Implement transaction confirmation logic
+        return this.config.queryClient.waitForTx(response.hash);
+      }
+    };
+  }
+
+  private async buildTransaction(args: CustomSignArgs): Promise<Uint8Array> {
+    // Implement network-specific transaction building logic
+    // This will vary significantly based on your blockchain's transaction format
+    throw new Error('buildTransaction must be implemented');
+  }
+}
+```
+
+### Step 3: Usage Example
+
+Here's how to use your custom signer:
+
+```typescript
+import { Secp256k1HDWallet } from '@interchainjs/auth';
+
+// Create wallet for your custom network
+const wallet = await Secp256k1HDWallet.fromMnemonic(
+  "your mnemonic phrase",
+  {
+    derivations: [{
+      prefix: "custom",
+      hdPath: "m/44'/999'/0'/0/0", // Use your network's coin type
+    }]
+  }
+);
+
+// Create custom signer
+const signer = new CustomNetworkSigner(wallet, {
+  chainId: 'custom-network-1',
+  queryClient: customQueryClient,
+  // Add other network-specific configuration
+});
+
+// Use the signer
+const result = await signer.signAndBroadcast({
+  messages: [
+    {
+      type: 'custom/MsgTransfer',
+      value: {
+        from: 'custom1...',
+        to: 'custom1...',
+        amount: '1000000'
+      }
+    }
+  ],
+  fee: {
+    amount: '1000',
+    gas: '200000'
+  }
+});
+
+console.log('Transaction hash:', result.transactionHash);
+```
+
+## Best Practices
+
+### 1. Error Handling
+
+Always implement proper error handling in your signers:
+
+```typescript
+async sign(args: CustomSignArgs): Promise<ISigned<CustomBroadcastOptions, CustomBroadcastResponse>> {
+  try {
+    // Validate arguments
+    this.validateSignArgs(args);
+
+    // Build and sign transaction
+    const txBytes = await this.buildTransaction(args);
+    const signature = await this.wallet.signByIndex(txBytes, 0);
+
+    return {
+      signature,
+      broadcast: async (options?: CustomBroadcastOptions) => {
+        return this.broadcastArbitrary(txBytes, options);
+      }
+    };
+  } catch (error) {
+    throw new Error(`Failed to sign transaction: ${error.message}`);
+  }
+}
+```
+
+### 2. Configuration Management
+
+Use configuration objects to make your signers flexible:
+
+```typescript
+export interface CustomSignerConfig {
+  chainId: string;
+  queryClient: CustomQueryClient;
+  gasPrice?: string;
+  timeout?: number;
+  // Add other configuration options
+}
+```
+
+### 3. Testing
+
+Always test your signers thoroughly:
+
+```typescript
+describe('CustomNetworkSigner', () => {
+  let signer: CustomNetworkSigner;
+  let mockWallet: IWallet;
+  let mockConfig: CustomSignerConfig;
+
+  beforeEach(() => {
+    // Setup mocks and test instances
+  });
+
+  it('should sign transactions correctly', async () => {
+    // Test signing functionality
+  });
+
+  it('should broadcast transactions correctly', async () => {
+    // Test broadcasting functionality
+  });
+});
+```
+
+This approach ensures your custom signers are robust, maintainable, and compatible with the InterchainJS ecosystem.
+
+## Implementing New Blockchain Networks
+
+If you're implementing support for an entirely new blockchain network (not just a custom signer), you'll need to implement the full stack of components. This is a more comprehensive undertaking that involves:
+
+### Required Components
+
+1. **Query Client**: For reading blockchain state
+2. **Protocol Adapter**: For handling network-specific data formats
+3. **Signers**: For transaction signing and broadcasting
+4. **Wallets**: For key management and address derivation
+5. **Configuration**: For network-specific settings
+
+### Implementation Approach
+
+For comprehensive guidance on implementing a new blockchain network, including:
+
+- **Architectural patterns** and design principles
+- **Directory structure** and organization
+- **Query client architecture** with adapters and factories
+- **Transaction signing workflows** with plugin systems
+- **Wallet architecture** with strategy patterns
+- **Error handling** and testing strategies
+- **Configuration management** patterns
+
+See the [Network Implementation Guide](./network-implementation-guide.md).
+
+### Quick Start for New Networks
+
+1. **Study existing implementations**: Look at `networks/cosmos`, `networks/ethereum`, and `networks/injective` for patterns
+2. **Follow the directory structure**: Use the recommended structure from the implementation guide
+3. **Start with interfaces**: Define your network-specific interfaces first
+4. **Implement incrementally**: Start with query client, then wallets, then signers
+5. **Test thoroughly**: Use the testing patterns from the implementation guide
+
+### Getting Help
+
+- Review existing network implementations for patterns
+- Check the [Network Implementation Guide](./network-implementation-guide.md) for detailed guidance
+- Look at the [Auth vs. Wallet vs. Signer](./auth-wallet-signer.md) guide for architectural understanding
+- See the [Workflow Builder and Plugins Guide](./workflow-builder-and-plugins.md) for transaction workflow implementation
+- Examine the [Types Package](../packages/types/index.mdx) for core interfaces
+
+## Advanced Workflow Implementation
+
+For developers implementing custom transaction workflows or extending the plugin-based transaction building system:
+
+### When to Use Workflow Builders
+
+Consider using the workflow builder architecture when:
+
+- **Complex Transaction Logic**: Your transactions require multiple processing steps
+- **Multiple Signing Modes**: You need to support different signing approaches (direct, amino, multisig)
+- **Conditional Processing**: Transaction building varies based on context or signer capabilities
+- **Extensible Architecture**: You want to allow easy addition of new features or processing steps
+- **Testing Requirements**: You need to test transaction building logic in isolation
+
+### Workflow Implementation Guide
+
+For comprehensive guidance on implementing workflow-based transaction builders:
+
+- **Architecture Overview**: Understanding the plugin-based system
+- **Builder Implementation**: Creating custom transaction builders
+- **Plugin Development**: Implementing modular processing steps
+- **Workflow Selection**: Choosing workflows based on context
+- **Best Practices**: File organization, testing, and maintenance
+
+See the [Workflow Builder and Plugins Guide](./workflow-builder-and-plugins.md) for detailed implementation guidance.
+
+### Integration with Signers
+
+Workflow builders integrate seamlessly with the signer architecture:
+
+```typescript
+class CustomSigner implements IUniSigner<Account, SignArgs, BroadcastOpts, BroadcastResponse> {
+  private builder: CustomTransactionBuilder;
+
+  constructor(wallet: IWallet, options: SignerOptions) {
+    // Create workflow builder for transaction processing
+    this.builder = new CustomTransactionBuilder(this, options.signingMode);
+  }
+
+  async signAndBroadcast(args: SignArgs, options?: BroadcastOpts): Promise<BroadcastResponse> {
+    // Use workflow builder to process transaction
+    const transaction = await this.builder.buildTransaction(args);
+
+    // Broadcast using network-specific logic
+    return this.broadcast(transaction, options);
+  }
+}
+```

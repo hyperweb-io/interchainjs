@@ -1,26 +1,36 @@
-// Main exports
-export * from './signing-client';
-export * from './defaults';
+// networks/cosmos/src/index.ts
+export * from './types/index';
+export * from './query/index';
+export * from './event/index';
 
-// Types
-export * from './types';
+// Re-export shared RPC clients for convenience
+export { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint, ReconnectOptions } from '@interchainjs/utils';
+export { IProtocolAdapter, createProtocolAdapter, getProtocolInfo } from './adapters/index';
+export * from './client-factory';
+export * from './workflows';
 
-// Signers
-export * from './signers/amino';
-export * from './signers/direct';
+// Export signers
+export * from './signers';
 
-// Base
-export * from './base';
-
-// Utils
-export * from './utils';
-
-// Query
-export * from './query/rpc';
-
-// Wallets
+// Export wallets
 export * from './wallets/secp256k1hd';
 
-// Builder
-export * from './builder/amino-tx-builder';
-export * from './builder/direct-tx-builder';
+// Export auth
+export * from './auth';
+
+// Export utils
+export * from './utils';
+
+// Re-export common error types for convenience
+export {
+  QueryClientError,
+  NetworkError,
+  TimeoutError,
+  ConnectionError,
+  ParseError,
+  InvalidResponseError,
+  SubscriptionError,
+  ProtocolError,
+  ErrorCode,
+  ErrorCategory
+} from '@interchainjs/types';

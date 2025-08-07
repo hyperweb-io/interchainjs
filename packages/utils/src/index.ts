@@ -1,7 +1,7 @@
 export * from './asserts';
 export * from './encoding';
 export * from './endpoint';
-export * from './key';
+export * from './cryptobytes';
 export * from './price';
 export * from './random';
 export * from "./arrays";
@@ -11,3 +11,4 @@ export * from "./rpc";
 export * from "./logs";
 export * from "./events";
 export * from "./case";
+export * from "./clients";

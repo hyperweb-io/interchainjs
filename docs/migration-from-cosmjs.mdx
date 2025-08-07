@@ -22,147 +22,168 @@ npm install @interchainjs/cosmos @interchainjs/auth @interchainjs/cosmos-types
 
 ## 3. Updated Wallet Generation
 
-In the new SDK, you can generate a wallet using our own methods rather than relying on CosmJS. For example, the unit tests use:
-- Secp256k1Auth.fromMnemonic – to derive authentication objects from the mnemonic.
-- HDPath – to derive the correct HD paths for Cosmos.
+InterchainJS provides modern wallet generation using HD (Hierarchical Deterministic) wallets with full TypeScript support:
 
-Below is a sample code snippet illustrating the updated wallet generation:
-``` typescript
-// Import wallet and HD path utilities from the SDK packages
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
+### Method 1: Using Secp256k1HDWallet (Recommended)
+
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
 import { HDPath } from '@interchainjs/types';
-// Import the DirectSigner from our SDK
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
-import { Bip39, Random } from '@interchainjs/crypto';
-import { toEncoders } from '@interchainjs/cosmos/utils';
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
+import { generateMnemonic } from '@interchainjs/crypto';
 
 (async () => {
-  // Generate a mnemonic using the SDK utility
-  const mnemonic = Bip39.encode(Random.getBytes(16)).toString();
+  // Generate a mnemonic
+  const mnemonic = generateMnemonic();
 
-  // Derive authentication objects (wallet accounts) using the SDK's Secp256k1Auth
-  // Here we derive the first account using the standard Cosmos HD path.
-  const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [
-    HDPath.cosmos(0, 0, 0).toString(),
-  ]);
-
-  // Prepare any encoders required for your message types
-  const encoders:Encoder[] = toEncoders(MsgSend);
-
-  // Define your RPC endpoint (ensure it points to a working Cosmos RPC node)
-  const rpcEndpoint = 'http://your-rpc-endpoint:26657';
-
-  // Create a DirectSigner instance using the auth object and your RPC endpoint.
-  // The options object can include chain-specific settings (like the bech32 prefix).
-  const signer = new DirectSigner(auth, encoders, rpcEndpoint, {
-    prefix: 'cosmos', // Replace with your chain's prefix if different
+  // Create wallet with HD derivation
+  const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+    derivations: [{
+      prefix: "cosmos",
+      hdPath: HDPath.cosmos(0, 0, 0).toString(), // m/44'/118'/0'/0/0
+    }]
   });
 
-  // Retrieve the wallet address from the signer
-  const address = await signer.getAddress();
-  console.log('Wallet address:', address);
+  // Create signer with wallet
+  const signer = new DirectSigner(wallet, {
+    chainId: 'cosmoshub-4',
+    queryClient: queryClient,
+    addressPrefix: 'cosmos'
+  });
 
-  // ----- Transaction Example -----
-  // Build your transaction message (e.g., a bank MsgSend). Refer to @interchainjs/cosmos-types for details.
-  const msg = {
-    // Example message object; adjust fields according to your chain and message type
-    // For instance, if using bank.MsgSend, you would populate:
-    typeUrl: '/cosmos.bank.v1beta1.MsgSend',
-    value: { fromAddress: address, toAddress: address, amount: [{ denom: 'uatom', amount: '1' }] }
-  };
+  // Get accounts
+  const accounts = await signer.getAccounts();
+  console.log('Wallet address:', accounts[0].address);
 
-  // Sign and broadcast the transaction.
-  // The signAndBroadcast method handles building the transaction and sending it over RPC.
-  const result = await signer.signAndBroadcast([msg]);
-  console.log('Transaction hash:', result.hash);
+  // Sign and broadcast transaction
+  const result = await signer.signAndBroadcast({
+    messages: [{
+      typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+      value: {
+        fromAddress: accounts[0].address,
+        toAddress: 'cosmos1...',
+        amount: [{ denom: 'uatom', amount: '1000000' }]
+      }
+    }],
+    fee: {
+      amount: [{ denom: 'uatom', amount: '5000' }],
+      gas: '200000'
+    },
+    memo: 'Migration example'
+  });
+
+  console.log('Transaction hash:', result.transactionHash);
 })();
 ```
-Key Points:
-- No CosmJS Dependency: The wallet is generated entirely using Bip39 and Secp256k1Auth.fromMnemonic.
-- HDPath Usage: The HD path is derived using HDPath.cosmos(0, 0, 0).toString(), which follows the Cosmos standard.
-- DirectSigner: Instantiated with the auth object and a set of encoders (which you can populate based on your message types).
+
+### Method 2: Using External Wallets (Keplr, Leap, etc.)
+
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+
+(async () => {
+  // Enable Keplr for the chain
+  await window.keplr.enable(chainId);
+
+  // Get offline signer from Keplr
+  const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+  // Create signer with offline signer
+  const signer = new DirectSigner(offlineSigner, {
+    chainId: 'cosmoshub-4',
+    queryClient: queryClient,
+    addressPrefix: 'cosmos'
+  });
+
+  // Use the same signing interface
+  const result = await signer.signAndBroadcast({
+    messages: [/* your messages */],
+    fee: { amount: [{ denom: 'uatom', amount: '5000' }], gas: '200000' }
+  });
+})();
+```
+
+### Key Improvements:
+- **No CosmJS Dependency**: Complete wallet generation using InterchainJS
+- **Unified Interface**: Same `IUniSigner` interface for both wallet types
+- **Type Safety**: Full TypeScript support with proper type inference
+- **Flexible Authentication**: Support both direct wallets and external wallet integration
 
 
 ## 4. Signer Usage & Transaction Construction
 
-### Direct Signer Usage
+### Direct Signer (Protobuf) Usage
 
-Using the new DirectSigner to sign and broadcast transactions now follows this pattern:
+The DirectSigner uses protobuf serialization for optimal performance:
 
-``` typescript
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
-// (Wallet generation code as shown above is assumed to have been run)
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
 
-// Build your transaction message (e.g., a bank message)
+// Assuming wallet/signer creation from previous examples
+const signer = new DirectSigner(wallet, config);
+
+// Build transaction message
 const msg = {
-  // Construct your message based on the schema from @interchainjs/cosmos-types
+  typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+  value: {
+    fromAddress: 'cosmos1...',
+    toAddress: 'cosmos1...',
+    amount: [{ denom: 'uatom', amount: '1000000' }]
+  }
 };
 
-// Optionally, set fee and memo information
-const fee = {
-  amount: [
-    {
-      denom: 'uatom',
-      amount: '5000',
-    },
-  ],
-  gas: '200000',
-};
-
-// Sign and broadcast the transaction
-const result = await signer.signAndBroadcast([msg], {
-  fee,
-  memo: 'migration transaction test',
+// Sign and broadcast
+const result = await signer.signAndBroadcast({
+  messages: [msg],
+  fee: {
+    amount: [{ denom: 'uatom', amount: '5000' }],
+    gas: '200000'
+  },
+  memo: 'InterchainJS transaction'
 });
-console.log('Transaction hash:', result.hash);
+
+console.log('Transaction hash:', result.transactionHash);
 ```
 
-### Amino Signer Usage
+### Amino Signer (JSON) Usage
 
-If you need Amino signing for legacy compatibility, the process is analogous:
+The AminoSigner uses JSON serialization for legacy compatibility:
 
-``` typescript
-import { AminoSigner } from '@interchainjs/cosmos/signers/amino';
-import { toEncoders, toConverters } from '@interchainjs/cosmos/utils';
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
+```typescript
+import { AminoSigner } from '@interchainjs/cosmos';
 
-(async () => {
-  const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [
-    HDPath.cosmos(0, 0, 0).toString(),
-  ]);
-  const rpcEndpoint = 'http://your-rpc-endpoint:26657';
+// Create amino signer (same wallet can be used)
+const aminoSigner = new AminoSigner(wallet, config);
 
-  // Create an AminoSigner instance
-  const aminoSigner = new AminoSigner(
-    auth,
-    toEncoders(MsgSend),
-    toConverters(MsgSend),
-    rpcEndpoint,
-    { prefix: 'cosmos' }
-  );
+// Same message structure
+const msg = {
+  typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+  value: {
+    fromAddress: 'cosmos1...',
+    toAddress: 'cosmos1...',
+    amount: [{ denom: 'uatom', amount: '1000000' }]
+  }
+};
 
-  // Build your message and set fee/memo if needed
-  const msg = {
-    // Your message fields here
-  };
+// Same signing interface
+const result = await aminoSigner.signAndBroadcast({
+  messages: [msg],
+  fee: {
+    amount: [{ denom: 'uatom', amount: '5000' }],
+    gas: '200000'
+  },
+  memo: 'Amino transaction'
+});
 
-  const fee = {
-    amount: [
-      {
-        denom: 'uatom',
-        amount: '5000',
-      },
-    ],
-    gas: '200000',
-  };
-
-  const result = await aminoSigner.signAndBroadcast({
-    messages: [msg], fee
-  });
-  console.log('Transaction hash:', result.hash);
-})();
+console.log('Transaction hash:', result.transactionHash);
 ```
+
+### Key Benefits
+
+- **Unified Interface**: Both signers implement `IUniSigner` with identical methods
+- **Flexible Authentication**: Works with both direct wallets and external wallets
+- **Type Safety**: Full TypeScript support with proper type inference
+- **Consistent API**: Same method signatures across all networks
 
 ## 5. CosmJS Code Comparison
 To highlight the migration improvements, here is a side-by-side comparison of the previous CosmJS implementation versus the new InterchainJS approach.
@@ -182,17 +203,22 @@ import { makeCosmoshubPath } from "@cosmjs/crypto";
 })();
 ```
 #### InterchainJS Implementation:
-``` typescript
-import { Secp256k1Auth } from '@interchainjs/auth/secp256k1';
+```typescript
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
 import { HDPath } from '@interchainjs/types';
-import { Bip39, Random } from '@interchainjs/crypto';
+import { generateMnemonic } from '@interchainjs/crypto';
 
 (async () => {
-  const mnemonic = Bip39.encode(Random.getBytes(16)).toString();
-  const [auth] = Secp256k1Auth.fromMnemonic(mnemonic, [
-    HDPath.cosmos(0, 0, 0).toString(),
-  ]);
-  console.log("Wallet address:", await auth.getAddress());
+  const mnemonic = generateMnemonic();
+  const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+    derivations: [{
+      prefix: "cosmos",
+      hdPath: HDPath.cosmos(0, 0, 0).toString(),
+    }]
+  });
+
+  const accounts = await wallet.getAccounts();
+  console.log("Wallet address:", accounts[0].address);
 })();
 ```
 ### Transaction Signing and Broadcasting
@@ -210,7 +236,7 @@ import { makeCosmoshubPath } from "@cosmjs/crypto";
   const [account] = await wallet.getAccounts();
   const rpcEndpoint = 'http://your-rpc-endpoint:26657';
   const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, wallet);
-  
+
   const msg = {
     // Construct your message here
   };
@@ -219,31 +245,42 @@ import { makeCosmoshubPath } from "@cosmjs/crypto";
     gas: '200000',
   };
   const memo = "CosmJS transaction test";
-  
+
   const result = await client.signAndBroadcast(account.address, [msg], fee, memo);
   console.log("Transaction hash:", result.transactionHash);
 })();
 ```
 #### InterchainJS Implementation:
-``` typescript
-import { DirectSigner } from '@interchainjs/cosmos/signers/direct';
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
 
 (async () => {
-  // Assume wallet generation using InterchainJS methods as shown earlier has been completed.
-  
-  const msg = {
-    // Construct your message here using @interchainjs/cosmos-types
-  };
-  const fee = {
-    amount: [{ denom: 'uatom', amount: '5000' }],
-    gas: '200000',
-  };
-  const memo = "InterchainJS transaction test";
-  
-  const result = await signer.signAndBroadcast({
-    messages: [msg], fee, memo
+  // Assume wallet generation using InterchainJS methods as shown earlier
+  const signer = new DirectSigner(wallet, {
+    chainId: 'cosmoshub-4',
+    queryClient: queryClient,
+    addressPrefix: 'cosmos'
   });
-  console.log("Transaction hash:", result.hash);
+
+  const msg = {
+    typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+    value: {
+      fromAddress: 'cosmos1...',
+      toAddress: 'cosmos1...',
+      amount: [{ denom: 'uatom', amount: '1000000' }]
+    }
+  };
+
+  const result = await signer.signAndBroadcast({
+    messages: [msg],
+    fee: {
+      amount: [{ denom: 'uatom', amount: '5000' }],
+      gas: '200000'
+    },
+    memo: "InterchainJS transaction test"
+  });
+
+  console.log("Transaction hash:", result.transactionHash);
 })();
 ```
 
@@ -277,8 +314,14 @@ import { HDPath } from '@interchainjs/types';
 
 ## 6. Conclusion
 
-This updated migration guide demonstrates how to generate wallets and sign transactions using the new InterchainJS SDK without any dependency on CosmJS. By leveraging built-in utilities such as Secp256k1Auth.fromMnemonic, and HDPath, your application can fully transition to a modern, modular, and lightweight approach to interacting with Cosmos blockchains.
+This migration guide demonstrates how to transition from CosmJS to InterchainJS using modern HD wallets and the unified `IUniSigner` interface. The new architecture provides better type safety, modular design, and consistent APIs across different blockchain networks.
 
-For further details, refer to the GitHub repository README and unit tests (e.g., [token.test.ts](../networks/cosmos/starship/__tests__/token.test.ts)).
+Key benefits of the migration:
+- **Unified Interface**: Same API across all supported networks
+- **Better Type Safety**: Full TypeScript support with proper inference
+- **Modular Design**: Import only what you need
+- **Modern Architecture**: Clean separation of concerns
 
-Happy migrating!
+For more examples and detailed documentation, refer to the [InterchainJS documentation](https://docs.hyperweb.io/interchain-js/) and unit tests in the repository.
+
+Happy migrating! 🚀

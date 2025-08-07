@@ -13,4 +13,13 @@ module.exports = {
   },
   transformIgnorePatterns: [`/node_modules/*`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  haste: {
+    enableSymlinks: false,
+    throwOnModuleCollision: false,
+  },
+  modulePathIgnorePatterns: [
+    '<rootDir>/packages/.*/dist/',
+    '<rootDir>/networks/.*/dist/',
+    '<rootDir>/libs/.*/dist/',
+  ],
 };

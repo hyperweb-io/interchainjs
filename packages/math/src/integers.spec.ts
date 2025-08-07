@@ -24,20 +24,20 @@ describe("Integers", () => {
       });
 
       it("throws for invalid input length", () => {
-        expect(() => Uint32.fromBytes([])).toThrowError(/Invalid input length/);
-        expect(() => Uint32.fromBytes([0, 0, 0])).toThrowError(/Invalid input length/);
-        expect(() => Uint32.fromBytes([0, 0, 0, 0, 0])).toThrowError(/Invalid input length/);
+        expect(() => Uint32.fromBytes([])).toThrow(/Invalid input length/);
+        expect(() => Uint32.fromBytes([0, 0, 0])).toThrow(/Invalid input length/);
+        expect(() => Uint32.fromBytes([0, 0, 0, 0, 0])).toThrow(/Invalid input length/);
       });
 
       it("throws for invalid values", () => {
-        expect(() => Uint32.fromBytes([0, 0, 0, -1])).toThrowError(/Invalid value in byte/);
-        expect(() => Uint32.fromBytes([0, 0, 0, 1.5])).toThrowError(/Invalid value in byte/);
-        expect(() => Uint32.fromBytes([0, 0, 0, 256])).toThrowError(/Invalid value in byte/);
-        expect(() => Uint32.fromBytes([0, 0, 0, NaN])).toThrowError(/Invalid value in byte/);
-        expect(() => Uint32.fromBytes([0, 0, 0, Number.NEGATIVE_INFINITY])).toThrowError(
+        expect(() => Uint32.fromBytes([0, 0, 0, -1])).toThrow(/Invalid value in byte/);
+        expect(() => Uint32.fromBytes([0, 0, 0, 1.5])).toThrow(/Invalid value in byte/);
+        expect(() => Uint32.fromBytes([0, 0, 0, 256])).toThrow(/Invalid value in byte/);
+        expect(() => Uint32.fromBytes([0, 0, 0, NaN])).toThrow(/Invalid value in byte/);
+        expect(() => Uint32.fromBytes([0, 0, 0, Number.NEGATIVE_INFINITY])).toThrow(
           /Invalid value in byte/,
         );
-        expect(() => Uint32.fromBytes([0, 0, 0, Number.POSITIVE_INFINITY])).toThrowError(
+        expect(() => Uint32.fromBytes([0, 0, 0, Number.POSITIVE_INFINITY])).toThrow(
           /Invalid value in byte/,
         );
       });
@@ -72,15 +72,15 @@ describe("Integers", () => {
       });
 
       it("throws for invalid string values", () => {
-        expect(() => Uint32.fromString(" 1")).toThrowError(/invalid string format/i);
-        expect(() => Uint32.fromString("-1")).toThrowError(/invalid string format/i);
-        expect(() => Uint32.fromString("+1")).toThrowError(/invalid string format/i);
-        expect(() => Uint32.fromString("1e6")).toThrowError(/invalid string format/i);
+        expect(() => Uint32.fromString(" 1")).toThrow(/invalid string format/i);
+        expect(() => Uint32.fromString("-1")).toThrow(/invalid string format/i);
+        expect(() => Uint32.fromString("+1")).toThrow(/invalid string format/i);
+        expect(() => Uint32.fromString("1e6")).toThrow(/invalid string format/i);
       });
 
       it("throws for string values exceeding uint32", () => {
-        expect(() => Uint32.fromString("4294967296")).toThrowError(/input not in uint32 range/i);
-        expect(() => Uint32.fromString("99999999999999999999")).toThrowError(/input not in uint32 range/i);
+        expect(() => Uint32.fromString("4294967296")).toThrow(/input not in uint32 range/i);
+        expect(() => Uint32.fromString("99999999999999999999")).toThrow(/input not in uint32 range/i);
       });
     });
 
@@ -96,18 +96,18 @@ describe("Integers", () => {
     });
 
     it("throws for invald numbers", () => {
-      expect(() => new Uint32(NaN)).toThrowError(/not a number/);
+      expect(() => new Uint32(NaN)).toThrow(/not a number/);
 
-      expect(() => new Uint32(1.1)).toThrowError(/not an integer/i);
-      expect(() => new Uint32(Number.NEGATIVE_INFINITY)).toThrowError(/not an integer/i);
-      expect(() => new Uint32(Number.POSITIVE_INFINITY)).toThrowError(/not an integer/i);
+      expect(() => new Uint32(1.1)).toThrow(/not an integer/i);
+      expect(() => new Uint32(Number.NEGATIVE_INFINITY)).toThrow(/not an integer/i);
+      expect(() => new Uint32(Number.POSITIVE_INFINITY)).toThrow(/not an integer/i);
     });
 
     it("throws for values out of range", () => {
-      expect(() => new Uint32(-1)).toThrowError(/not in uint32 range/);
-      expect(() => new Uint32(4294967296)).toThrowError(/not in uint32 range/);
-      expect(() => new Uint32(Number.MIN_SAFE_INTEGER)).toThrowError(/not in uint32 range/);
-      expect(() => new Uint32(Number.MAX_SAFE_INTEGER)).toThrowError(/not in uint32 range/);
+      expect(() => new Uint32(-1)).toThrow(/not in uint32 range/);
+      expect(() => new Uint32(4294967296)).toThrow(/not in uint32 range/);
+      expect(() => new Uint32(Number.MIN_SAFE_INTEGER)).toThrow(/not in uint32 range/);
+      expect(() => new Uint32(Number.MAX_SAFE_INTEGER)).toThrow(/not in uint32 range/);
     });
 
     it("can convert to number", () => {
@@ -193,16 +193,16 @@ describe("Integers", () => {
     });
 
     it("throws for invald numbers", () => {
-      expect(() => new Int53(NaN)).toThrowError(/not a number/);
+      expect(() => new Int53(NaN)).toThrow(/not a number/);
 
-      expect(() => new Int53(1.1)).toThrowError(/not an integer/i);
-      expect(() => new Int53(Number.NEGATIVE_INFINITY)).toThrowError(/not an integer/i);
-      expect(() => new Int53(Number.POSITIVE_INFINITY)).toThrowError(/not an integer/i);
+      expect(() => new Int53(1.1)).toThrow(/not an integer/i);
+      expect(() => new Int53(Number.NEGATIVE_INFINITY)).toThrow(/not an integer/i);
+      expect(() => new Int53(Number.POSITIVE_INFINITY)).toThrow(/not an integer/i);
     });
 
     it("throws for values out of range", () => {
-      expect(() => new Int53(Number.MIN_SAFE_INTEGER - 1)).toThrowError(/not in int53 range/);
-      expect(() => new Int53(Number.MAX_SAFE_INTEGER + 1)).toThrowError(/not in int53 range/);
+      expect(() => new Int53(Number.MIN_SAFE_INTEGER - 1)).toThrow(/not in int53 range/);
+      expect(() => new Int53(Number.MAX_SAFE_INTEGER + 1)).toThrow(/not in int53 range/);
     });
 
     it("can convert to number", () => {
@@ -257,12 +257,12 @@ describe("Integers", () => {
     });
 
     it("throws for invalid string format", () => {
-      expect(() => Int53.fromString(" 0")).toThrowError(/invalid string format/i);
-      expect(() => Int53.fromString("+0")).toThrowError(/invalid string format/i);
-      expect(() => Int53.fromString("1e6")).toThrowError(/invalid string format/i);
+      expect(() => Int53.fromString(" 0")).toThrow(/invalid string format/i);
+      expect(() => Int53.fromString("+0")).toThrow(/invalid string format/i);
+      expect(() => Int53.fromString("1e6")).toThrow(/invalid string format/i);
 
-      expect(() => Int53.fromString("9007199254740992")).toThrowError(/input not in int53 range/i);
-      expect(() => Int53.fromString("-9007199254740992")).toThrowError(/input not in int53 range/i);
+      expect(() => Int53.fromString("9007199254740992")).toThrow(/input not in int53 range/i);
+      expect(() => Int53.fromString("-9007199254740992")).toThrow(/input not in int53 range/i);
     });
   });
 
@@ -280,24 +280,24 @@ describe("Integers", () => {
     });
 
     it("throws for invald numbers", () => {
-      expect(() => new Uint53(NaN)).toThrowError(/not a number/);
+      expect(() => new Uint53(NaN)).toThrow(/not a number/);
 
-      expect(() => new Uint53(1.1)).toThrowError(/not an integer/i);
-      expect(() => new Uint53(Number.NEGATIVE_INFINITY)).toThrowError(/not an integer/i);
-      expect(() => new Uint53(Number.POSITIVE_INFINITY)).toThrowError(/not an integer/i);
+      expect(() => new Uint53(1.1)).toThrow(/not an integer/i);
+      expect(() => new Uint53(Number.NEGATIVE_INFINITY)).toThrow(/not an integer/i);
+      expect(() => new Uint53(Number.POSITIVE_INFINITY)).toThrow(/not an integer/i);
     });
 
     it("throws for values out of range", () => {
-      expect(() => new Uint53(Number.MIN_SAFE_INTEGER - 1)).toThrowError(/not in int53 range/);
-      expect(() => new Uint53(Number.MAX_SAFE_INTEGER + 1)).toThrowError(/not in int53 range/);
+      expect(() => new Uint53(Number.MIN_SAFE_INTEGER - 1)).toThrow(/not in int53 range/);
+      expect(() => new Uint53(Number.MAX_SAFE_INTEGER + 1)).toThrow(/not in int53 range/);
     });
 
     it("throws for negative inputs", () => {
-      expect(() => new Uint53(-1)).toThrowError(/is negative/);
-      expect(() => new Uint53(-42)).toThrowError(/is negative/);
-      expect(() => new Uint53(-2147483648)).toThrowError(/is negative/);
-      expect(() => new Uint53(-2147483649)).toThrowError(/is negative/);
-      expect(() => new Uint53(-9007199254740991)).toThrowError(/is negative/);
+      expect(() => new Uint53(-1)).toThrow(/is negative/);
+      expect(() => new Uint53(-42)).toThrow(/is negative/);
+      expect(() => new Uint53(-2147483648)).toThrow(/is negative/);
+      expect(() => new Uint53(-2147483649)).toThrow(/is negative/);
+      expect(() => new Uint53(-9007199254740991)).toThrow(/is negative/);
     });
 
     it("can convert to number", () => {
@@ -340,14 +340,14 @@ describe("Integers", () => {
     });
 
     it("throws for invalid string format", () => {
-      expect(() => Uint53.fromString(" 0")).toThrowError(/invalid string format/i);
-      expect(() => Uint53.fromString("+0")).toThrowError(/invalid string format/i);
-      expect(() => Uint53.fromString("1e6")).toThrowError(/invalid string format/i);
+      expect(() => Uint53.fromString(" 0")).toThrow(/invalid string format/i);
+      expect(() => Uint53.fromString("+0")).toThrow(/invalid string format/i);
+      expect(() => Uint53.fromString("1e6")).toThrow(/invalid string format/i);
 
-      expect(() => Uint53.fromString("-9007199254740992")).toThrowError(/input not in int53 range/i);
-      expect(() => Uint53.fromString("9007199254740992")).toThrowError(/input not in int53 range/i);
+      expect(() => Uint53.fromString("-9007199254740992")).toThrow(/input not in int53 range/i);
+      expect(() => Uint53.fromString("9007199254740992")).toThrow(/input not in int53 range/i);
 
-      expect(() => Uint53.fromString("-1")).toThrowError(/input is negative/i);
+      expect(() => Uint53.fromString("-1")).toThrow(/input is negative/i);
     });
   });
 
@@ -364,27 +364,27 @@ describe("Integers", () => {
       });
 
       it("throws for wrong number of bytes", () => {
-        expect(() => Uint64.fromBytes([])).toThrowError(/invalid input length/i);
-        expect(() => Uint64.fromBytes([0x00])).toThrowError(/invalid input length/i);
-        expect(() => Uint64.fromBytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])).toThrowError(
+        expect(() => Uint64.fromBytes([])).toThrow(/invalid input length/i);
+        expect(() => Uint64.fromBytes([0x00])).toThrow(/invalid input length/i);
+        expect(() => Uint64.fromBytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])).toThrow(
           /invalid input length/i,
         );
-        expect(() => Uint64.fromBytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])).toThrowError(
+        expect(() => Uint64.fromBytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])).toThrow(
           /invalid input length/i,
         );
       });
 
       it("throws for wrong byte value", () => {
-        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, 256])).toThrowError(/invalid value in byte/i);
-        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, -1])).toThrowError(/invalid value in byte/i);
-        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, 1.5])).toThrowError(/invalid value in byte/i);
-        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, Number.NEGATIVE_INFINITY])).toThrowError(
+        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, 256])).toThrow(/invalid value in byte/i);
+        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, -1])).toThrow(/invalid value in byte/i);
+        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, 1.5])).toThrow(/invalid value in byte/i);
+        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, Number.NEGATIVE_INFINITY])).toThrow(
           /invalid value in byte/i,
         );
-        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, Number.POSITIVE_INFINITY])).toThrowError(
+        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, Number.POSITIVE_INFINITY])).toThrow(
           /invalid value in byte/i,
         );
-        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, Number.NaN])).toThrowError(
+        expect(() => Uint64.fromBytes([0, 0, 0, 0, 0, 0, 0, Number.NaN])).toThrow(
           /invalid value in byte/i,
         );
       });
@@ -423,15 +423,15 @@ describe("Integers", () => {
       });
 
       it("throws for invalid string values", () => {
-        expect(() => Uint64.fromString(" 1")).toThrowError(/invalid string format/i);
-        expect(() => Uint64.fromString("-1")).toThrowError(/invalid string format/i);
-        expect(() => Uint64.fromString("+1")).toThrowError(/invalid string format/i);
-        expect(() => Uint64.fromString("1e6")).toThrowError(/invalid string format/i);
+        expect(() => Uint64.fromString(" 1")).toThrow(/invalid string format/i);
+        expect(() => Uint64.fromString("-1")).toThrow(/invalid string format/i);
+        expect(() => Uint64.fromString("+1")).toThrow(/invalid string format/i);
+        expect(() => Uint64.fromString("1e6")).toThrow(/invalid string format/i);
       });
 
       it("throws for string values exceeding uint64", () => {
-        expect(() => Uint64.fromString("18446744073709551616")).toThrowError(/input exceeds uint64 range/i);
-        expect(() => Uint64.fromString("99999999999999999999")).toThrowError(/input exceeds uint64 range/i);
+        expect(() => Uint64.fromString("18446744073709551616")).toThrow(/input exceeds uint64 range/i);
+        expect(() => Uint64.fromString("99999999999999999999")).toThrow(/input exceeds uint64 range/i);
       });
     });
 
@@ -447,21 +447,21 @@ describe("Integers", () => {
 
       it("throws when constructed from wrong numbers", () => {
         // not a number
-        expect(() => Uint64.fromNumber(Number.NaN)).toThrowError(/input is not a number/i);
+        expect(() => Uint64.fromNumber(Number.NaN)).toThrow(/input is not a number/i);
 
         // not an integer
-        expect(() => Uint64.fromNumber(1.1)).toThrowError(/input is not an integer/i);
-        expect(() => Uint64.fromNumber(Number.NEGATIVE_INFINITY)).toThrowError(/input is not an integer/i);
-        expect(() => Uint64.fromNumber(Number.POSITIVE_INFINITY)).toThrowError(/input is not an integer/i);
+        expect(() => Uint64.fromNumber(1.1)).toThrow(/input is not an integer/i);
+        expect(() => Uint64.fromNumber(Number.NEGATIVE_INFINITY)).toThrow(/input is not an integer/i);
+        expect(() => Uint64.fromNumber(Number.POSITIVE_INFINITY)).toThrow(/input is not an integer/i);
 
         // not a safe integer
-        expect(() => Uint64.fromNumber(Number.MAX_SAFE_INTEGER + 1)).toThrowError(
+        expect(() => Uint64.fromNumber(Number.MAX_SAFE_INTEGER + 1)).toThrow(
           /input is not a safe integer/i,
         );
 
         // negative integer
-        expect(() => Uint64.fromNumber(-1)).toThrowError(/input is negative/i);
-        expect(() => Uint64.fromNumber(Number.MIN_SAFE_INTEGER)).toThrowError(/input is negative/i);
+        expect(() => Uint64.fromNumber(-1)).toThrow(/input is negative/i);
+        expect(() => Uint64.fromNumber(Number.MIN_SAFE_INTEGER)).toThrow(/input is negative/i);
       });
     });
 
@@ -532,12 +532,12 @@ describe("Integers", () => {
       {
         // value too large for 53 bit integer
         const a = Uint64.fromBytes([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
-        expect(() => a.toNumber()).toThrowError(/number can only safely store up to 53 bits/i);
+        expect(() => a.toNumber()).toThrow(/number can only safely store up to 53 bits/i);
       }
       {
         // Number.MAX_SAFE_INTEGER + 1
         const a = Uint64.fromBytes([0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
-        expect(() => a.toNumber()).toThrowError(/number can only safely store up to 53 bits/i);
+        expect(() => a.toNumber()).toThrow(/number can only safely store up to 53 bits/i);
       }
     });
 

@@ -33,13 +33,13 @@ describe("Decimal", () => {
     });
 
     it("throws for atomics that are not non-negative integers", () => {
-      expect(() => Decimal.fromAtomics("0xAA", 0)).toThrowError(
+      expect(() => Decimal.fromAtomics("0xAA", 0)).toThrow(
         "Invalid string format. Only non-negative integers in decimal representation supported.",
       );
-      expect(() => Decimal.fromAtomics("", 0)).toThrowError(
+      expect(() => Decimal.fromAtomics("", 0)).toThrow(
         "Invalid string format. Only non-negative integers in decimal representation supported.",
       );
-      expect(() => Decimal.fromAtomics("-1", 0)).toThrowError(
+      expect(() => Decimal.fromAtomics("-1", 0)).toThrow(
         "Invalid string format. Only non-negative integers in decimal representation supported.",
       );
     });
@@ -47,55 +47,55 @@ describe("Decimal", () => {
 
   describe("fromUserInput", () => {
     it("throws helpful error message for invalid characters", () => {
-      expect(() => Decimal.fromUserInput(" 13", 5)).toThrowError(/invalid character at position 1/i);
-      expect(() => Decimal.fromUserInput("1,3", 5)).toThrowError(/invalid character at position 2/i);
-      expect(() => Decimal.fromUserInput("13-", 5)).toThrowError(/invalid character at position 3/i);
-      expect(() => Decimal.fromUserInput("13/", 5)).toThrowError(/invalid character at position 3/i);
-      expect(() => Decimal.fromUserInput("13\\", 5)).toThrowError(/invalid character at position 3/i);
+      expect(() => Decimal.fromUserInput(" 13", 5)).toThrow(/invalid character at position 1/i);
+      expect(() => Decimal.fromUserInput("1,3", 5)).toThrow(/invalid character at position 2/i);
+      expect(() => Decimal.fromUserInput("13-", 5)).toThrow(/invalid character at position 3/i);
+      expect(() => Decimal.fromUserInput("13/", 5)).toThrow(/invalid character at position 3/i);
+      expect(() => Decimal.fromUserInput("13\\", 5)).toThrow(/invalid character at position 3/i);
     });
 
     it("throws for more than one separator", () => {
-      expect(() => Decimal.fromUserInput("1.3.5", 5)).toThrowError(/more than one separator found/i);
-      expect(() => Decimal.fromUserInput("1..3", 5)).toThrowError(/more than one separator found/i);
-      expect(() => Decimal.fromUserInput("..", 5)).toThrowError(/more than one separator found/i);
+      expect(() => Decimal.fromUserInput("1.3.5", 5)).toThrow(/more than one separator found/i);
+      expect(() => Decimal.fromUserInput("1..3", 5)).toThrow(/more than one separator found/i);
+      expect(() => Decimal.fromUserInput("..", 5)).toThrow(/more than one separator found/i);
     });
 
     it("throws for separator only", () => {
-      expect(() => Decimal.fromUserInput(".", 5)).toThrowError(/fractional part missing/i);
+      expect(() => Decimal.fromUserInput(".", 5)).toThrow(/fractional part missing/i);
     });
 
     it("throws for more fractional digits than supported", () => {
-      expect(() => Decimal.fromUserInput("44.123456", 5)).toThrowError(
+      expect(() => Decimal.fromUserInput("44.123456", 5)).toThrow(
         /got more fractional digits than supported/i,
       );
-      expect(() => Decimal.fromUserInput("44.1", 0)).toThrowError(
+      expect(() => Decimal.fromUserInput("44.1", 0)).toThrow(
         /got more fractional digits than supported/i,
       );
     });
 
     it("throws for fractional digits that are not non-negative integers", () => {
       // no integer
-      expect(() => Decimal.fromUserInput("1", Number.NaN)).toThrowError(
+      expect(() => Decimal.fromUserInput("1", Number.NaN)).toThrow(
         /fractional digits is not an integer/i,
       );
-      expect(() => Decimal.fromUserInput("1", Number.POSITIVE_INFINITY)).toThrowError(
+      expect(() => Decimal.fromUserInput("1", Number.POSITIVE_INFINITY)).toThrow(
         /fractional digits is not an integer/i,
       );
-      expect(() => Decimal.fromUserInput("1", Number.NEGATIVE_INFINITY)).toThrowError(
+      expect(() => Decimal.fromUserInput("1", Number.NEGATIVE_INFINITY)).toThrow(
         /fractional digits is not an integer/i,
       );
-      expect(() => Decimal.fromUserInput("1", 1.78945544484)).toThrowError(
+      expect(() => Decimal.fromUserInput("1", 1.78945544484)).toThrow(
         /fractional digits is not an integer/i,
       );
 
       // negative
-      expect(() => Decimal.fromUserInput("1", -1)).toThrowError(/fractional digits must not be negative/i);
-      expect(() => Decimal.fromUserInput("1", Number.MIN_SAFE_INTEGER)).toThrowError(
+      expect(() => Decimal.fromUserInput("1", -1)).toThrow(/fractional digits must not be negative/i);
+      expect(() => Decimal.fromUserInput("1", Number.MIN_SAFE_INTEGER)).toThrow(
         /fractional digits must not be negative/i,
       );
 
       // exceeds supported range
-      expect(() => Decimal.fromUserInput("1", 101)).toThrowError(/fractional digits must not exceed 100/i);
+      expect(() => Decimal.fromUserInput("1", 101)).toThrow(/fractional digits must not exceed 100/i);
     });
 
     it("returns correct value", () => {
@@ -162,8 +162,8 @@ describe("Decimal", () => {
       expect(Decimal.zero(2).atomics).toEqual("0");
       expect(Decimal.zero(30).atomics).toEqual("0");
 
-      expect(() => Decimal.zero(NaN)).toThrowError(/Fractional digits is not an integer/i);
-      expect(() => Decimal.zero(1.2)).toThrowError(/Fractional digits is not an integer/i);
+      expect(() => Decimal.zero(NaN)).toThrow(/Fractional digits is not an integer/i);
+      expect(() => Decimal.zero(1.2)).toThrow(/Fractional digits is not an integer/i);
     });
   });
 
@@ -184,8 +184,8 @@ describe("Decimal", () => {
       expect(Decimal.one(2).atomics).toEqual("100");
       expect(Decimal.one(30).atomics).toEqual("1000000000000000000000000000000");
 
-      expect(() => Decimal.one(NaN)).toThrowError(/Fractional digits is not an integer/i);
-      expect(() => Decimal.one(1.2)).toThrowError(/Fractional digits is not an integer/i);
+      expect(() => Decimal.one(NaN)).toThrow(/Fractional digits is not an integer/i);
+      expect(() => Decimal.one(1.2)).toThrow(/Fractional digits is not an integer/i);
     });
   });
 
@@ -294,13 +294,13 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => zero.plus(Decimal.fromUserInput("1", 1))).toThrowError(/do not match/i);
-      expect(() => zero.plus(Decimal.fromUserInput("1", 2))).toThrowError(/do not match/i);
-      expect(() => zero.plus(Decimal.fromUserInput("1", 3))).toThrowError(/do not match/i);
-      expect(() => zero.plus(Decimal.fromUserInput("1", 4))).toThrowError(/do not match/i);
+      expect(() => zero.plus(Decimal.fromUserInput("1", 1))).toThrow(/do not match/i);
+      expect(() => zero.plus(Decimal.fromUserInput("1", 2))).toThrow(/do not match/i);
+      expect(() => zero.plus(Decimal.fromUserInput("1", 3))).toThrow(/do not match/i);
+      expect(() => zero.plus(Decimal.fromUserInput("1", 4))).toThrow(/do not match/i);
 
-      expect(() => zero.plus(Decimal.fromUserInput("1", 6))).toThrowError(/do not match/i);
-      expect(() => zero.plus(Decimal.fromUserInput("1", 7))).toThrowError(/do not match/i);
+      expect(() => zero.plus(Decimal.fromUserInput("1", 6))).toThrow(/do not match/i);
+      expect(() => zero.plus(Decimal.fromUserInput("1", 7))).toThrow(/do not match/i);
     });
   });
 
@@ -335,20 +335,20 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => Decimal.fromUserInput("1", 1).minus(zero)).toThrowError(/do not match/i);
-      expect(() => Decimal.fromUserInput("1", 2).minus(zero)).toThrowError(/do not match/i);
-      expect(() => Decimal.fromUserInput("1", 3).minus(zero)).toThrowError(/do not match/i);
-      expect(() => Decimal.fromUserInput("1", 4).minus(zero)).toThrowError(/do not match/i);
+      expect(() => Decimal.fromUserInput("1", 1).minus(zero)).toThrow(/do not match/i);
+      expect(() => Decimal.fromUserInput("1", 2).minus(zero)).toThrow(/do not match/i);
+      expect(() => Decimal.fromUserInput("1", 3).minus(zero)).toThrow(/do not match/i);
+      expect(() => Decimal.fromUserInput("1", 4).minus(zero)).toThrow(/do not match/i);
 
-      expect(() => Decimal.fromUserInput("1", 6).minus(zero)).toThrowError(/do not match/i);
-      expect(() => Decimal.fromUserInput("1", 7).minus(zero)).toThrowError(/do not match/i);
+      expect(() => Decimal.fromUserInput("1", 6).minus(zero)).toThrow(/do not match/i);
+      expect(() => Decimal.fromUserInput("1", 7).minus(zero)).toThrow(/do not match/i);
     });
 
     it("throws for negative results", () => {
       const one = Decimal.fromUserInput("1", 5);
-      expect(() => Decimal.fromUserInput("0", 5).minus(one)).toThrowError(/must not be negative/i);
-      expect(() => Decimal.fromUserInput("0.5", 5).minus(one)).toThrowError(/must not be negative/i);
-      expect(() => Decimal.fromUserInput("0.98765", 5).minus(one)).toThrowError(/must not be negative/i);
+      expect(() => Decimal.fromUserInput("0", 5).minus(one)).toThrow(/must not be negative/i);
+      expect(() => Decimal.fromUserInput("0.5", 5).minus(one)).toThrow(/must not be negative/i);
+      expect(() => Decimal.fromUserInput("0.98765", 5).minus(one)).toThrow(/must not be negative/i);
     });
   });
 
@@ -465,13 +465,13 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => zero.equals(Decimal.fromUserInput("1", 1))).toThrowError(/do not match/i);
-      expect(() => zero.equals(Decimal.fromUserInput("1", 2))).toThrowError(/do not match/i);
-      expect(() => zero.equals(Decimal.fromUserInput("1", 3))).toThrowError(/do not match/i);
-      expect(() => zero.equals(Decimal.fromUserInput("1", 4))).toThrowError(/do not match/i);
+      expect(() => zero.equals(Decimal.fromUserInput("1", 1))).toThrow(/do not match/i);
+      expect(() => zero.equals(Decimal.fromUserInput("1", 2))).toThrow(/do not match/i);
+      expect(() => zero.equals(Decimal.fromUserInput("1", 3))).toThrow(/do not match/i);
+      expect(() => zero.equals(Decimal.fromUserInput("1", 4))).toThrow(/do not match/i);
 
-      expect(() => zero.equals(Decimal.fromUserInput("1", 6))).toThrowError(/do not match/i);
-      expect(() => zero.equals(Decimal.fromUserInput("1", 7))).toThrowError(/do not match/i);
+      expect(() => zero.equals(Decimal.fromUserInput("1", 6))).toThrow(/do not match/i);
+      expect(() => zero.equals(Decimal.fromUserInput("1", 7))).toThrow(/do not match/i);
     });
   });
 
@@ -507,13 +507,13 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 1))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 2))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 3))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 4))).toThrowError(/do not match/i);
+      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 1))).toThrow(/do not match/i);
+      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 2))).toThrow(/do not match/i);
+      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 3))).toThrow(/do not match/i);
+      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 4))).toThrow(/do not match/i);
 
-      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 6))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 7))).toThrowError(/do not match/i);
+      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 6))).toThrow(/do not match/i);
+      expect(() => zero.isLessThan(Decimal.fromUserInput("1", 7))).toThrow(/do not match/i);
     });
   });
 
@@ -549,13 +549,13 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 1))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 2))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 3))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 4))).toThrowError(/do not match/i);
+      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 1))).toThrow(/do not match/i);
+      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 2))).toThrow(/do not match/i);
+      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 3))).toThrow(/do not match/i);
+      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 4))).toThrow(/do not match/i);
 
-      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 6))).toThrowError(/do not match/i);
-      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 7))).toThrowError(/do not match/i);
+      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 6))).toThrow(/do not match/i);
+      expect(() => zero.isLessThanOrEqual(Decimal.fromUserInput("1", 7))).toThrow(/do not match/i);
     });
   });
 
@@ -591,13 +591,13 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 1))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 2))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 3))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 4))).toThrowError(/do not match/i);
+      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 1))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 2))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 3))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 4))).toThrow(/do not match/i);
 
-      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 6))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 7))).toThrowError(/do not match/i);
+      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 6))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThan(Decimal.fromUserInput("1", 7))).toThrow(/do not match/i);
     });
   });
 
@@ -633,13 +633,13 @@ describe("Decimal", () => {
 
     it("throws for different fractional digits", () => {
       const zero = Decimal.fromUserInput("0", 5);
-      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 1))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 2))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 3))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 4))).toThrowError(/do not match/i);
+      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 1))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 2))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 3))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 4))).toThrow(/do not match/i);
 
-      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 6))).toThrowError(/do not match/i);
-      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 7))).toThrowError(/do not match/i);
+      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 6))).toThrow(/do not match/i);
+      expect(() => zero.isGreaterThanOrEqual(Decimal.fromUserInput("1", 7))).toThrow(/do not match/i);
     });
   });
 });

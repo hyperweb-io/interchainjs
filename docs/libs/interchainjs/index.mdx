@@ -55,6 +55,13 @@ npm install interchainjs
 - [Connecting with Wallets and Signing Messages](#connecting-with-wallets-and-signing-messages)
   - [Initializing the Signing Client](#initializing-the-signing-client)
   - [Creating Signers](#creating-signers)
+  - [getSigner Factory Function](#getsigner-factory-function)
+    - [How It Works](#how-it-works)
+    - [Supported Signer Types](#supported-signer-types)
+    - [Configuration Options](#configuration-options)
+    - [Usage Examples](#usage-examples)
+    - [Error Handling](#error-handling)
+    - [Best Practices](#best-practices)
   - [Broadcasting Messages](#broadcasting-messages)
   - [All In One Example](#all-in-one-example)
 - [Amino Helpers](#amino-helpers)
@@ -104,8 +111,8 @@ graph LR
     cosmos_signer --> cosmos_amino["Amino Signer"]
     cosmos_signer --> cosmos_direct["Direct Signer"]
 
-    ethereum_signer --> signer_from_from_private_key["Signer From Private Key"]
-    ethereum_signer --> signer_from_from_browser["Signer From Browser"]
+    ethereum_signer --> eip1559_signer["EIP-1559 Signer"]
+    ethereum_signer --> legacy_signer["Legacy Signer"]
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
@@ -548,55 +555,447 @@ import {
 
 Here are the docs on [creating signers](https://github.com/hyperweb-io/interchain-kit/blob/main/packages/core/README.md) in interchain-kit that can be used with Keplr and other wallets.
 
-### Initializing the Signing Client
-
-Use SigningClient.connectWithSigner to get your `SigningClient`:
-
-```js
-import { SigningClient } from "@interchainjs/cosmos/signing-client";
-
-const signingClient = await SigningClient.connectWithSigner(
-  await getRpcEndpoint(),
-  new AminoGenericOfflineSigner(aminoOfflineSigner)
-);
-```
-
 ### Creating Signers
 
-To broadcast messages, you can create signers with a variety of options:
+InterchainJS provides modern signers that implement the `IUniSigner` interface for consistent signing across networks:
 
-- [interchain-kit](https://github.com/hyperweb-io/interchain-kit/) (recommended)
-- [keplr](https://docs.keplr.app/api/cosmjs.html)
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
+import { HDPath } from '@interchainjs/types';
+
+// Method 1: Using HD Wallet (for development/testing)
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+  derivations: [{
+    prefix: "cosmos",
+    hdPath: HDPath.cosmos(0, 0, 0).toString(),
+  }]
+});
+
+const signer = new DirectSigner(wallet, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+
+// Method 2: Using External Wallets (for production)
+await window.keplr.enable(chainId);
+const offlineSigner = window.keplr.getOfflineSigner(chainId);
+
+const signer = new DirectSigner(offlineSigner, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
+```
+
+For wallet integration, we recommend:
+
+- [interchain-kit](https://github.com/hyperweb-io/interchain-kit/) (recommended for production)
+- [keplr](https://docs.keplr.app/api/cosmjs.html) (direct integration)
+
+## getSigner Factory Function
+
+The `getSigner` function is a powerful factory utility that provides a unified interface for creating signers across different blockchain networks. It abstracts away the complexity of signer instantiation and configuration, making it easy to work with multiple networks through a consistent API.
+
+### How It Works
+
+The `getSigner` function creates appropriate signer instances based on your preferred signing method and network type. It supports Cosmos-based networks (including Injective) and Ethereum networks, with automatic configuration merging and comprehensive error handling.
+
+```typescript
+import { getSigner } from '@interchainjs/interchain/core';
+import { DirectSigner } from '@interchainjs/cosmos';
+
+const signer = getSigner<DirectSigner>(wallet, {
+  preferredSignType: 'direct',
+  signerOptions: {
+    queryClient: cosmosQueryClient,
+    chainId: 'cosmoshub-4',
+    addressPrefix: 'cosmos'
+  }
+});
+```
+
+### Supported Signer Types
+
+The `getSigner` function supports four main signer types:
+
+| Signer Type | Network | Description | Wallet Support |
+|-------------|---------|-------------|----------------|
+| `'amino'` | Cosmos | Legacy Amino signing for Cosmos networks | IWallet, OfflineSigner |
+| `'direct'` | Cosmos | Modern Protobuf signing for Cosmos networks | IWallet, OfflineSigner |
+| `'legacy'` | Ethereum | Legacy Ethereum transactions (pre-EIP-1559) | IWallet only |
+| `'eip1559'` | Ethereum | Modern Ethereum transactions with EIP-1559 | IWallet only |
+
+**Important**: Ethereum signers (`legacy` and `eip1559`) only work with `IWallet` implementations and do not support `OfflineSigner` interfaces.
+
+### Configuration Options
+
+Each signer type accepts specific configuration options that are automatically merged with sensible defaults:
+
+#### Cosmos Signers (`amino`, `direct`)
+
+```typescript
+interface CosmosSignerOptions {
+  // Required
+  queryClient: CosmosQueryClient;
+
+  // Optional with defaults
+  chainId?: string;
+  addressPrefix?: string;        // Default: 'cosmos'
+  multiplier?: number;           // Default: 1.3 (30% gas buffer)
+  gasPrice?: string | number;    // Default: 'average'
+
+  // Advanced options
+  message?: {
+    hash?: string | HashFunction; // Default: 'sha256'
+  };
+  signature?: {
+    format?: SignatureFormatFunction | string;
+  };
+  unordered?: boolean;           // Default: false
+  extensionOptions?: Any[];
+  nonCriticalExtensionOptions?: Any[];
+}
+```
+
+#### Ethereum Signers (`legacy`, `eip1559`)
+
+```typescript
+interface EthereumSignerOptions {
+  // Required
+  queryClient: EthereumQueryClient;
+
+  // Optional with defaults
+  gasMultiplier?: number;        // Default: 1.5 (50% gas buffer)
+  chainId?: number;              // Auto-detected if not provided
+
+  // Legacy transaction options
+  gasPrice?: bigint;             // Default: 20 gwei
+
+  // EIP-1559 transaction options
+  maxFeePerGas?: bigint;         // Default: 30 gwei
+  maxPriorityFeePerGas?: bigint; // Default: 2 gwei
+
+  // Advanced options
+  signature?: {
+    format?: EthereumSignatureFormatFunction | string;
+  };
+}
+```
+
+### Usage Examples
+
+#### Basic Cosmos Direct Signer
+
+```typescript
+import { getSigner } from '@interchainjs/interchain/core';
+import { DirectSigner } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+
+// Create wallet
+const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
+  derivations: [{
+    prefix: "cosmos",
+    hdPath: HDPath.cosmos(0, 0, 0).toString()
+  }]
+});
+
+// Create signer with minimal configuration
+const signer = getSigner<DirectSigner>(wallet, {
+  preferredSignType: 'direct',
+  signerOptions: {
+    queryClient: cosmosQueryClient,
+    chainId: 'cosmoshub-4',
+    addressPrefix: 'cosmos'
+  }
+});
+```
+
+#### Cosmos Amino Signer with Custom Configuration
+
+```typescript
+import { AminoSigner } from '@interchainjs/cosmos';
+
+const aminoSigner = getSigner<AminoSigner>(wallet, {
+  preferredSignType: 'amino',
+  signerOptions: {
+    queryClient: cosmosQueryClient,
+    chainId: 'osmosis-1',
+    addressPrefix: 'osmo',
+    multiplier: 1.5,              // 50% gas buffer
+    gasPrice: '0.025uosmo',       // Custom gas price
+    message: {
+      hash: 'sha256'              // Explicit hash function
+    }
+  }
+});
+```
+
+#### Using with External Wallets (Keplr)
+
+```typescript
+// Enable Keplr for the chain
+await window.keplr.enable('cosmoshub-4');
+const offlineSigner = window.keplr.getOfflineSigner('cosmoshub-4');
+
+const signer = getSigner<DirectSigner>(offlineSigner, {
+  preferredSignType: 'direct',
+  signerOptions: {
+    queryClient: cosmosQueryClient,
+    chainId: 'cosmoshub-4',
+    addressPrefix: 'cosmos'
+  }
+});
+```
+
+#### Ethereum Legacy Signer
+
+```typescript
+import { LegacyEthereumSigner } from '@interchainjs/ethereum';
+import { EthSecp256k1HDWallet } from '@interchainjs/ethereum/wallets/ethsecp256k1hd';
+
+const ethWallet = await EthSecp256k1HDWallet.fromMnemonic(mnemonic);
+
+const ethSigner = getSigner<LegacyEthereumSigner>(ethWallet, {
+  preferredSignType: 'legacy',
+  signerOptions: {
+    queryClient: ethereumQueryClient,
+    gasMultiplier: 1.2,
+    gasPrice: BigInt('25000000000') // 25 gwei
+  }
+});
+```
+
+#### Ethereum EIP-1559 Signer
+
+```typescript
+import { EIP1559EthereumSigner } from '@interchainjs/ethereum';
+
+const eip1559Signer = getSigner<EIP1559EthereumSigner>(ethWallet, {
+  preferredSignType: 'eip1559',
+  signerOptions: {
+    queryClient: ethereumQueryClient,
+    maxFeePerGas: BigInt('40000000000'),         // 40 gwei
+    maxPriorityFeePerGas: BigInt('3000000000'), // 3 gwei
+    gasMultiplier: 1.3
+  }
+});
+```
+
+#### Multi-Network Example
+
+```typescript
+// Create signers for different networks
+const cosmosDirectSigner = getSigner<DirectSigner>(cosmosWallet, {
+  preferredSignType: 'direct',
+  signerOptions: {
+    queryClient: cosmosQueryClient,
+    chainId: 'cosmoshub-4',
+    addressPrefix: 'cosmos'
+  }
+});
+
+const osmosisAminoSigner = getSigner<AminoSigner>(cosmosWallet, {
+  preferredSignType: 'amino',
+  signerOptions: {
+    queryClient: osmosisQueryClient,
+    chainId: 'osmosis-1',
+    addressPrefix: 'osmo'
+  }
+});
+
+const ethereumSigner = getSigner<EIP1559EthereumSigner>(ethWallet, {
+  preferredSignType: 'eip1559',
+  signerOptions: {
+    queryClient: ethereumQueryClient,
+    chainId: 1 // Ethereum mainnet
+  }
+});
+```
+
+### Error Handling
+
+The `getSigner` function provides comprehensive error handling with descriptive error messages:
+
+#### Common Error Scenarios
+
+```typescript
+try {
+  const signer = getSigner<DirectSigner>(wallet, options);
+} catch (error) {
+  if (error.message.includes('walletOrSigner is required')) {
+    // Handle missing wallet
+    console.error('Wallet instance is required');
+  } else if (error.message.includes('options are required')) {
+    // Handle missing options
+    console.error('Configuration options are required');
+  } else if (error.message.includes('signerOptions are required')) {
+    // Handle missing signer options
+    console.error('Signer configuration is required');
+  } else if (error.message.includes('Unsupported sign type')) {
+    // Handle invalid signer type
+    console.error('Invalid signer type specified');
+  } else if (error.message.includes('queryClient is required')) {
+    // Handle missing query client
+    console.error('Query client is required in configuration');
+  } else if (error.message.includes('Ethereum signers require IWallet')) {
+    // Handle Ethereum signer with OfflineSigner
+    console.error('Ethereum signers only work with IWallet, not OfflineSigner');
+  } else if (error.message.includes('@interchainjs/cosmos is installed')) {
+    // Handle missing dependencies
+    console.error('Missing required package: @interchainjs/cosmos');
+  } else if (error.message.includes('@interchainjs/ethereum is installed')) {
+    // Handle missing dependencies
+    console.error('Missing required package: @interchainjs/ethereum');
+  }
+}
+```
+
+#### Validation Best Practices
+
+```typescript
+// Validate inputs before calling getSigner
+function createSigner(wallet: IWallet | OfflineSigner, type: SignerType, options: any) {
+  // Check wallet
+  if (!wallet) {
+    throw new Error('Wallet is required');
+  }
+
+  // Check for Ethereum signer compatibility
+  if ((type === 'legacy' || type === 'eip1559') && !('privateKeys' in wallet)) {
+    throw new Error('Ethereum signers require IWallet implementation');
+  }
+
+  // Check required options
+  if (!options?.queryClient) {
+    throw new Error('Query client is required');
+  }
+
+  return getSigner(wallet, {
+    preferredSignType: type,
+    signerOptions: options
+  });
+}
+```
+
+### Best Practices
+
+#### 1. Use TypeScript Generics
+
+Always specify the expected signer type for better type safety:
+
+```typescript
+// Good: Type-safe with autocompletion
+const signer = getSigner<DirectSigner>(wallet, options);
+
+// Avoid: No type safety
+const signer = getSigner(wallet, options);
+```
+
+#### 2. Handle Network-Specific Requirements
+
+```typescript
+// Cosmos networks: Support both IWallet and OfflineSigner
+const cosmosSigner = getSigner<DirectSigner>(walletOrOfflineSigner, {
+  preferredSignType: 'direct',
+  signerOptions: cosmosOptions
+});
+
+// Ethereum networks: Only IWallet supported
+if ('privateKeys' in wallet) {
+  const ethSigner = getSigner<LegacyEthereumSigner>(wallet, {
+    preferredSignType: 'legacy',
+    signerOptions: ethereumOptions
+  });
+}
+```
+
+#### 3. Configuration Management
+
+```typescript
+// Create reusable configuration objects
+const cosmosConfig = {
+  queryClient: cosmosQueryClient,
+  chainId: 'cosmoshub-4',
+  addressPrefix: 'cosmos',
+  multiplier: 1.3
+};
+
+const osmosisConfig = {
+  queryClient: osmosisQueryClient,
+  chainId: 'osmosis-1',
+  addressPrefix: 'osmo',
+  gasPrice: '0.025uosmo'
+};
+
+// Use configurations
+const cosmosSigner = getSigner<DirectSigner>(wallet, {
+  preferredSignType: 'direct',
+  signerOptions: cosmosConfig
+});
+```
+
+#### 4. Error Recovery
+
+```typescript
+async function createSignerWithFallback(wallet: IWallet, primaryConfig: any, fallbackConfig: any) {
+  try {
+    return getSigner<DirectSigner>(wallet, {
+      preferredSignType: 'direct',
+      signerOptions: primaryConfig
+    });
+  } catch (error) {
+    console.warn('Primary configuration failed, trying fallback:', error.message);
+    return getSigner<AminoSigner>(wallet, {
+      preferredSignType: 'amino',
+      signerOptions: fallbackConfig
+    });
+  }
+}
+```
+
+#### 5. Testing Considerations
+
+```typescript
+// Use minimal configuration for tests
+const testSigner = getSigner<DirectSigner>(testWallet, {
+  preferredSignType: 'direct',
+  signerOptions: {
+    queryClient: mockQueryClient
+    // Other options will use defaults
+  }
+});
+
+// Verify signer functionality
+const accounts = await testSigner.getAccounts();
+expect(accounts.length).toBeGreaterThan(0);
+```
 
 ### Broadcasting Messages
 
-When you have your `signing client`, you can broadcast messages:
+With your signer, you can sign and broadcast messages using the unified interface:
 
-```js
+```typescript
 const msg = {
-  typeUrl: MsgSend.typeUrl,
-  value: MsgSend.fromPartial({
-    amount: [
-      {
-        denom: "uatom",
-        amount: "1000",
-      },
-    ],
-    toAddress: address,
-    fromAddress: address,
-  }),
+  typeUrl: '/cosmos.bank.v1beta1.MsgSend',
+  value: {
+    fromAddress: 'cosmos1...',
+    toAddress: 'cosmos1...',
+    amount: [{ denom: 'uatom', amount: '1000000' }]
+  }
 };
 
-const fee: StdFee = {
-  amount: [
-    {
-      denom: "uatom",
-      amount: "1000",
-    },
-  ],
-  gas: "86364",
-};
-const response = await signingClient.signAndBroadcast(address, [msg], fee);
+const result = await signer.signAndBroadcast({
+  messages: [msg],
+  fee: {
+    amount: [{ denom: 'uatom', amount: '5000' }],
+    gas: '200000'
+  },
+  memo: 'Transfer via InterchainJS'
+});
+
+console.log('Transaction hash:', result.transactionHash);
 ```
 
 ### All In One Example

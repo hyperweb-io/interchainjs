@@ -17,7 +17,7 @@ describe("Secp256k1Signature", () => {
       const data = fromHex(
         "000000000000000000000000000000000000000000000000000000000000223300000000000000000000000000000000000000000000000000000000000000aa01",
       );
-      expect(() => Secp256k1Signature.fromFixedLength(data)).toThrowError(/got invalid data length/i);
+      expect(() => Secp256k1Signature.fromFixedLength(data)).toThrow(/got invalid data length/i);
     });
   });
 
@@ -49,11 +49,11 @@ describe("Secp256k1Signature", () => {
       new Uint8Array([0x22, 0x33, 0x44]),
       new Uint8Array([0xaa, 0xbb]),
     );
-    expect(() => signature.r(0)).toThrowError(/length too small to hold parameter r/i);
-    expect(() => signature.r(1)).toThrowError(/length too small to hold parameter r/i);
-    expect(() => signature.r(2)).toThrowError(/length too small to hold parameter r/i);
-    expect(() => signature.s(0)).toThrowError(/length too small to hold parameter s/i);
-    expect(() => signature.s(1)).toThrowError(/length too small to hold parameter s/i);
+    expect(() => signature.r(0)).toThrow(/length too small to hold parameter r/i);
+    expect(() => signature.r(1)).toThrow(/length too small to hold parameter r/i);
+    expect(() => signature.r(2)).toThrow(/length too small to hold parameter r/i);
+    expect(() => signature.s(0)).toThrow(/length too small to hold parameter s/i);
+    expect(() => signature.s(1)).toThrow(/length too small to hold parameter s/i);
   });
 
   it("throws for r with leading 0", () => {
@@ -63,7 +63,7 @@ describe("Secp256k1Signature", () => {
           fromHex("00F25B86E1D8A11D72475B3ED273B0781C7D7F6F9E1DAE0DD5D3EE9B84F3FAB891"),
           new Uint8Array([0xaa]),
         ),
-    ).toThrowError(/unsigned integer r must be encoded as unpadded big endian./i);
+    ).toThrow(/unsigned integer r must be encoded as unpadded big endian./i);
   });
 
   it("throws for s with leading 0", () => {
@@ -73,7 +73,7 @@ describe("Secp256k1Signature", () => {
           new Uint8Array([0xaa]),
           fromHex("00F25B86E1D8A11D72475B3ED273B0781C7D7F6F9E1DAE0DD5D3EE9B84F3FAB891"),
         ),
-    ).toThrowError(/unsigned integer s must be encoded as unpadded big endian./i);
+    ).toThrow(/unsigned integer s must be encoded as unpadded big endian./i);
   });
 
   it("can be encoded as fixed length", () => {
@@ -139,23 +139,23 @@ describe("ExtendedSecp256k1Signature", () => {
   });
 
   it("throws for recovery param out of range", () => {
-    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), Number.NaN)).toThrowError(
+    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), Number.NaN)).toThrow(
       /the recovery parameter must be an integer/i,
     );
     expect(
       () => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), Number.NEGATIVE_INFINITY),
-    ).toThrowError(/the recovery parameter must be an integer/i);
+    ).toThrow(/the recovery parameter must be an integer/i);
     expect(
       () => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), Number.POSITIVE_INFINITY),
-    ).toThrowError(/the recovery parameter must be an integer/i);
-    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), 1.1)).toThrowError(
+    ).toThrow(/the recovery parameter must be an integer/i);
+    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), 1.1)).toThrow(
       /the recovery parameter must be an integer/i,
     );
 
-    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), -1)).toThrowError(
+    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), -1)).toThrow(
       /the recovery parameter must be one of 0, 1, 2, 3/i,
     );
-    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), 5)).toThrowError(
+    expect(() => new ExtendedSecp256k1Signature(fromHex("aa"), fromHex("bb"), 5)).toThrow(
       /the recovery parameter must be one of 0, 1, 2, 3/i,
     );
   });

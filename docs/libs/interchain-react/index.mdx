@@ -143,31 +143,25 @@ const result = await delegate(
 
 By importing only the specific helpers you need, you ensure that your application bundle remains as small and efficient as possible.
 
-#### Example: Working with keplr using interchainjs-react helper hooks
-```ts
-import { SigningClient } from "@interchainjs/cosmos/signing-client";
-import { DirectGenericOfflineSigner } from "@interchainjs/cosmos/types/wallet";
+#### Example: Working with Keplr using InterchainJS React helper hooks
+```typescript
+import { DirectSigner } from '@interchainjs/cosmos';
 import { defaultContext } from '@tanstack/react-query';
 import { useSend } from '@interchainjs/react/cosmos/bank/v1beta1/tx.rpc.react';
 
 // Get Keplr offline signer
-const keplrOfflineSigner = window.keplr.getOfflineSigner(chainId);
-const offlineSigner = new DirectGenericOfflineSigner(keplrOfflineSigner);
+await window.keplr.enable(chainId);
+const offlineSigner = window.keplr.getOfflineSigner(chainId);
 
-// Create signing client
-const signingClient = await SigningClient.connectWithSigner(
-  rpcEndpoint,
-  offlineSigner,
-  {
-    broadcast: {
-      checkTx: true,
-      deliverTx: true
-    }
-  }
-);
+// Create signer
+const signer = new DirectSigner(offlineSigner, {
+  chainId: 'cosmoshub-4',
+  queryClient: queryClient,
+  addressPrefix: 'cosmos'
+});
 
 const {mutate: send} = useSend({
-  clientResolver: signingClient,
+  clientResolver: signer,
   options: {
     context: defaultContext
   }
@@ -217,13 +211,11 @@ send(
 )
 ```
 
-#### Example: Working with keplr using the signing client
-```ts
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx'
-
-// signingClient is the same as in the code above
-signingClient.addEncoders([MsgSend])
-signingClient.addConverters([MsgSend])
+#### Example: Working with Keplr using the signer directly
+```typescript
+// signer is the same as in the code above
+const accounts = await signer.getAccounts();
+const senderAddress = accounts[0].address;
 
 const transferMsg = {
   typeUrl: "/cosmos.bank.v1beta1.MsgSend",
@@ -234,12 +226,11 @@ const transferMsg = {
   }
 };
 
-const result = await signingClient.signAndBroadcast(
-  senderAddress,
-  [transferMsg],
+const result = await signer.signAndBroadcast({
+  messages: [transferMsg],
   fee,
-  form.memo || "Transfer ATOM via InterchainJS"
-);
+  memo: form.memo || "Transfer ATOM via InterchainJS"
+});
 console.log(result.transactionHash);
 ```
 
