@@ -439,7 +439,7 @@ export class TokenProgram {
     const amount = view.getBigUint64(offset, true);
     offset += 8;
 
-    // Delegate option (4 bytes, little endian)
+    // Delegate COption<Pubkey> (4 bytes discriminator + 32 bytes pubkey = 36 bytes total)
     const delegateOption = view.getUint32(offset, true);
     offset += 4;
 
@@ -448,23 +448,28 @@ export class TokenProgram {
       // Delegate (32 bytes)
       delegate = new PublicKey(data.subarray(offset, offset + 32));
     }
-    offset += 32;
+    offset += 32; // Always skip 32 bytes whether delegate exists or not
 
     // State (1 byte)
     const state: TokenAccountState = data[offset];
     offset += 1;
 
-    // Is native option (4 bytes, little endian)
+    // Is native COption<u64> (4 bytes discriminator + 8 bytes u64 = 12 bytes total)
     const isNativeOption = view.getUint32(offset, true);
     offset += 4;
 
     const isNative = isNativeOption === 1;
+    let nativeAmount = 0n;
+    if (isNative) {
+      nativeAmount = view.getBigUint64(offset, true);
+    }
+    offset += 8; // Always skip 8 bytes whether native amount exists or not
 
-    // Delegated amount (8 bytes, little endian) - immediately after is_native option
+    // Delegated amount (8 bytes, little endian)
     const delegatedAmount = view.getBigUint64(offset, true);
     offset += 8;
 
-    // Close authority option (4 bytes, little endian)
+    // Close authority COption<Pubkey> (4 bytes discriminator + 32 bytes pubkey = 36 bytes total)
     const closeAuthorityOption = view.getUint32(offset, true);
     offset += 4;
 
@@ -473,6 +478,7 @@ export class TokenProgram {
       // Close authority (32 bytes)
       closeAuthority = new PublicKey(data.subarray(offset, offset + 32));
     }
+    // Note: always skip 32 bytes for close authority whether it exists or not
 
     return {
       mint,

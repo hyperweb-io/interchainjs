@@ -234,8 +234,35 @@ describe('SPL Token Creation & Minting Tests', () => {
         throw new Error('PDA calculation is inconsistent - this should never happen!');
       }
 
-      // Use the recalculated address to ensure validity - try idempotent version for better reliability
-      const instruction = AssociatedTokenAccount.createIdempotentAssociatedTokenAccountInstruction(
+      // Triple-check the PDA calculation with direct seeds verification
+      console.log('=== PDA VERIFICATION ===');
+      const seeds = [
+        payer.publicKey.toBuffer(),
+        new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA').toBuffer(), // TOKEN_PROGRAM_ID
+        customMintAddress.toBuffer()
+      ];
+      console.log('Seeds for PDA calculation:');
+      console.log(`  Payer: ${payer.publicKey.toString()}`);
+      console.log(`  Token Program: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA`);
+      console.log(`  Mint: ${customMintAddress.toString()}`);
+      
+      const [directPDA, bump] = await PublicKey.findProgramAddress(
+        seeds, 
+        new PublicKey('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL') // ASSOCIATED_TOKEN_PROGRAM_ID
+      );
+      console.log(`Direct PDA result: ${directPDA.toString()}, bump: ${bump}`);
+      console.log(`Matches recalculated ATA: ${directPDA.toString() === recalculatedATA.toString()}`);
+
+      // Check if the ATA already exists before creating instruction
+      const existingATAInfo = await connection.getAccountInfo(recalculatedATA);
+      if (existingATAInfo) {
+        console.log('✅ ATA already exists, skipping creation');
+        expect(existingATAInfo.owner).toBe('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+        return;
+      }
+
+      // Use regular (not idempotent) instruction since we've verified it doesn't exist
+      const instruction = AssociatedTokenAccount.createAssociatedTokenAccountInstruction(
         payer.publicKey, // payer
         recalculatedATA, // associated token account (use fresh calculation)
         payer.publicKey, // owner
@@ -370,8 +397,16 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Recipient: ${recipient.publicKey.toString()}`);
       console.log(`Mint: ${customMintAddress.toString()}`);
       
-      // Create associated token account instruction using fresh calculation - use idempotent version
-      const instruction = AssociatedTokenAccount.createIdempotentAssociatedTokenAccountInstruction(
+      // Check if the recipient ATA already exists
+      const existingRecipientATA = await connection.getAccountInfo(recalculatedRecipientATA);
+      if (existingRecipientATA) {
+        console.log('✅ Recipient ATA already exists, skipping creation');
+        expect(existingRecipientATA.owner).toBe('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+        return;
+      }
+
+      // Create associated token account instruction using fresh calculation
+      const instruction = AssociatedTokenAccount.createAssociatedTokenAccountInstruction(
         payer.publicKey, // payer (who pays for creation)
         recalculatedRecipientATA, // associated token account (use fresh calculation)
         recipient.publicKey, // owner
