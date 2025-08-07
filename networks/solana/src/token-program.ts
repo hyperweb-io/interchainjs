@@ -460,12 +460,7 @@ export class TokenProgram {
 
     const isNative = isNativeOption === 1;
 
-    // Skip native amount if present (8 bytes)
-    if (isNative) {
-      offset += 8;
-    }
-
-    // Delegated amount (8 bytes, little endian)
+    // Delegated amount (8 bytes, little endian) - immediately after is_native option
     const delegatedAmount = view.getBigUint64(offset, true);
     offset += 8;
 
