@@ -45,7 +45,7 @@ export class AssociatedTokenAccount {
     programId: PublicKey = TOKEN_PROGRAM_ID,
     associatedTokenProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID
   ): TransactionInstruction {
-    const systemProgramId = SystemProgram.programId;
+    const systemProgramId = new PublicKey('11111111111111111111111111111111');
     const rentSysvarId = new PublicKey('SysvarRent111111111111111111111111111111111');
 
     return {
@@ -59,7 +59,7 @@ export class AssociatedTokenAccount {
         { pubkey: rentSysvarId, isSigner: false, isWritable: false },
       ],
       programId: associatedTokenProgramId,
-      data: new Uint8Array(0), // No instruction data needed
+      data: new Uint8Array(0), // Create instruction (no data)
     };
   }
 

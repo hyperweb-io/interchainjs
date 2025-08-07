@@ -364,6 +364,7 @@ export class TokenProgram {
 
   /**
    * Parse token mint account data
+   * Real Solana format: mintAuthorityOption(4) + mintAuthority(32) + supply(8) + decimals(1) + isInitialized(1) + freezeAuthorityOption(4) + freezeAuthority(32)
    */
   static parseMintData(data: Buffer): TokenMint {
     if (data.length !== MINT_SIZE) {
@@ -373,16 +374,16 @@ export class TokenProgram {
     const view = new DataView(data.buffer, data.byteOffset, data.byteLength);
     let offset = 0;
 
-    // Mint authority option (1 byte)
-    const mintAuthorityOption = data[offset];
-    offset += 1;
+    // Mint authority option (4 bytes, little endian) - 0 = None, 1 = Some
+    const mintAuthorityOption = view.getUint32(offset, true);
+    offset += 4;
 
     let mintAuthority: PublicKey | null = null;
     if (mintAuthorityOption === 1) {
       // Mint authority (32 bytes)
       mintAuthority = new PublicKey(data.subarray(offset, offset + 32));
-      offset += 32;
     }
+    offset += 32; // Always skip 32 bytes regardless of option
 
     // Supply (8 bytes, little endian)
     const supply = view.getBigUint64(offset, true);
@@ -396,9 +397,9 @@ export class TokenProgram {
     const isInitialized = data[offset] === 1;
     offset += 1;
 
-    // Freeze authority option (1 byte)
-    const freezeAuthorityOption = data[offset];
-    offset += 1;
+    // Freeze authority option (4 bytes, little endian) - 0 = None, 1 = Some
+    const freezeAuthorityOption = view.getUint32(offset, true);
+    offset += 4;
 
     let freezeAuthority: PublicKey | null = null;
     if (freezeAuthorityOption === 1) {
@@ -438,9 +439,9 @@ export class TokenProgram {
     const amount = view.getBigUint64(offset, true);
     offset += 8;
 
-    // Delegate option (1 byte)
-    const delegateOption = data[offset];
-    offset += 1;
+    // Delegate option (4 bytes, little endian)
+    const delegateOption = view.getUint32(offset, true);
+    offset += 4;
 
     let delegate: PublicKey | null = null;
     if (delegateOption === 1) {
@@ -453,9 +454,9 @@ export class TokenProgram {
     const state: TokenAccountState = data[offset];
     offset += 1;
 
-    // Is native option (1 byte)
-    const isNativeOption = data[offset];
-    offset += 1;
+    // Is native option (4 bytes, little endian)
+    const isNativeOption = view.getUint32(offset, true);
+    offset += 4;
 
     const isNative = isNativeOption === 1;
 
@@ -468,9 +469,9 @@ export class TokenProgram {
     const delegatedAmount = view.getBigUint64(offset, true);
     offset += 8;
 
-    // Close authority option (1 byte)
-    const closeAuthorityOption = data[offset];
-    offset += 1;
+    // Close authority option (4 bytes, little endian)
+    const closeAuthorityOption = view.getUint32(offset, true);
+    offset += 4;
 
     let closeAuthority: PublicKey | null = null;
     if (closeAuthorityOption === 1) {

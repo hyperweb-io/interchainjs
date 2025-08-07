@@ -122,15 +122,20 @@ export class Connection {
 
   async confirmTransaction(signature: string): Promise<boolean> {
     try {
-      const result = await this.rpcRequest<RpcResponse<Array<{ confirmations: number | null } | null>>>('getSignatureStatuses', [
-        [signature],
-        { searchTransactionHistory: true },
+      // Use getTransaction to check if the transaction exists and succeeded
+      const result = await this.rpcRequest<any>('getTransaction', [
+        signature,
+        {
+          encoding: 'json',
+          commitment: 'finalized',
+          maxSupportedTransactionVersion: 0,
+        },
       ]);
       
-      const status = result.value[0];
-      return status !== null && status.confirmations !== null;
+      // If transaction exists and has no error, it's confirmed
+      return result && !result.meta?.err;
     } catch (error) {
-      console.error('Error confirming transaction:', error);
+      // Transaction not found yet or other error
       return false;
     }
   }
