@@ -1,11 +1,11 @@
 {
   "name": "@interchainjs/solana",
-  "version": "0.0.1",
-  "description": "Solana SDK for InterchainJS",
+  "version": "1.13.0",
+  "description": "Transaction codec and client to communicate with Solana blockchain",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "test": "jest",
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
