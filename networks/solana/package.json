@@ -2,8 +2,20 @@
   "name": "@interchainjs/solana",
   "version": "1.13.1-beta.2",
   "description": "Solana SDK for InterchainJS",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "module": "esm/index.js",
+  "types": "index.d.ts",
+  "author": "Hyperweb <developers@hyperweb.io>",
+  "homepage": "https://github.com/hyperweb-io/interchainjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperweb-io/interchainjs"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "scripts": {
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "test": "jest",
@@ -20,12 +32,6 @@
     "typescript",
     "sdk"
   ],
-  "author": "",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public",
-    "directory": "dist"
-  },
   "dependencies": {
     "@types/bn.js": "^5.2.0",
     "@types/ws": "^8.18.1",
