@@ -1,0 +1,49 @@
+{
+  "name": "@interchainjs/solana",
+  "version": "0.0.1",
+  "description": "Solana SDK for InterchainJS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "test:ws": "jest src/__tests__/websocket.test.ts",
+    "test:token": "jest src/__tests__/token.test.ts",
+    "test:spl": "jest src/__tests__/spl.test.ts",
+    "test:integration": "jest src/__tests__/integration.test.ts"
+  },
+  "keywords": [
+    "solana",
+    "blockchain",
+    "typescript",
+    "sdk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/bn.js": "^5.2.0",
+    "@types/ws": "^8.18.1",
+    "bn.js": "^5.2.2",
+    "bs58": "^5.0.0",
+    "buffer": "^6.0.3",
+    "tweetnacl": "^1.0.3",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.13",
+    "dotenv": "^16.4.5",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
+  }
+}
