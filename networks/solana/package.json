@@ -22,6 +22,10 @@
   ],
   "author": "",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "dependencies": {
     "@types/bn.js": "^5.2.0",
     "@types/ws": "^8.18.1",
