@@ -9,11 +9,9 @@ import { EthereumWorkflowBuilderContext } from './context';
 import {
   InputValidationPlugin,
   SignerInfoPlugin,
-  TransactionBuildingPlugin,
   LegacyTransactionBuildingPlugin,
   Eip1559TransactionBuildingPlugin,
   SignaturePlugin,
-  TxAssemblyPlugin,
   LegacyTxAssemblyPlugin,
   Eip1559TxAssemblyPlugin
 } from './plugins';

@@ -167,15 +167,23 @@ None of the above undermines the overall structure (which follows the same build
   - Selecting the appropriate plugin at the workflow level (like Cosmos uses separate DirectSignature/AminoSignature plugins)
   - This improves readability, testability, and reduces accidental cross‑variant coupling
 
+- Variant branching in transaction-building
+  - Observation: TransactionBuilding logic differed for legacy vs. EIP‑1559 and initially mixed with network queries.
+  - Improve by:
+    - Splitting TransactionBuilding into LegacyTransactionBuildingPlugin and Eip1559TransactionBuildingPlugin
+    - Selecting the appropriate plugin at the workflow level (mirrors Cosmos’ split for Direct/Amino)
+    - Keeping all chainId/nonce/account lookups inside a dedicated SignerInfoPlugin
 
 ---
 
 ## 4) Implementation Guidelines for New Networks (for AI agents and developers)
 
 Step‑by‑step approach
+
 1) Model the signing variants
    - Enumerate signing modes (e.g., direct vs. amino, legacy vs. EIP‑1559)
    - Decide how the builder’s selectWorkflow() will choose among them (config, args, auto‑detect)
+
 2) Define types and interfaces
    - SignArgs/Options types (use Partial where optional)
    - Signer interface additions (e.g., getChainId, getSequence/nonce), or provide typed query clients in context
@@ -202,6 +210,7 @@ Step‑by‑step approach
    - Smoke test a full builder workflow per signing variant (build() returns a final result; verify key staging keys along the way)
 
 Common pitfalls to avoid
+
 - Calling signer/query methods that aren’t in the interface (avoid as any)
 - Conflating multiple responsibilities in one plugin
 - Using string literals for staging keys
@@ -225,9 +234,9 @@ Common pitfalls to avoid
 ---
 
 ## Quick Reference: What “Good” Looks Like
+
 - Builder: small, typed selectWorkflow(), clear workflows per variant
 - Context: network‑specific, exposes typed getSigner()
 - Plugins: focused, typed, constants for keys, use retrieveParams(), no any
 - Data flow: dependencies in, outputs out; final assembly sets final result
 - Tests: unit tests per plugin + smoke tests per workflow
-
