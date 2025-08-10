@@ -32,6 +32,8 @@ export interface TxAssemblyParams {
 
 /**
  * Plugin to assemble final signed transaction from components
+ * Anti-pattern note: branching per variant here is tolerated but recommended
+ * to be split into variant-specific plugins selected at the workflow level.
  */
 export class TxAssemblyPlugin extends BaseWorkflowBuilderPlugin<
   TxAssemblyParams,
@@ -41,10 +43,14 @@ export class TxAssemblyPlugin extends BaseWorkflowBuilderPlugin<
     super([
       TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY,
       INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE,
-      TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID,
+      // CHAIN_ID staged by signer-info but not needed directly here
       SIGNATURE_STAGING_KEYS.V,
       SIGNATURE_STAGING_KEYS.SIGNATURE
     ]);
+  }
+
+  protected afterRetrieveParams(params: Record<string, unknown>): TxAssemblyParams {
+    return params as unknown as TxAssemblyParams;
   }
 
   protected async onBuild(
@@ -52,11 +58,7 @@ export class TxAssemblyPlugin extends BaseWorkflowBuilderPlugin<
     params: TxAssemblyParams
   ): Promise<void> {
     const signer = ctx.getSigner();
-    const unsignedTxArray = ctx.getStagingData<any[]>(TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY);
-    const transactionType = ctx.getStagingData<EthereumTransactionType>(INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE);
-    const chainId = ctx.getStagingData<number>(TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID);
-    const v = ctx.getStagingData<number | Uint8Array>(SIGNATURE_STAGING_KEYS.V);
-    const signature = ctx.getStagingData<EthereumSecp256k1Signature>(SIGNATURE_STAGING_KEYS.SIGNATURE);
+    const { unsignedTxArray, transactionType, v, signature } = params;
 
     // Extract r and s from signature object
     const r = signature.r(32);

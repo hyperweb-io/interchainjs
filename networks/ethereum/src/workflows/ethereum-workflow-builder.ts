@@ -8,9 +8,14 @@ import {
 import { EthereumWorkflowBuilderContext } from './context';
 import {
   InputValidationPlugin,
+  SignerInfoPlugin,
   TransactionBuildingPlugin,
+  LegacyTransactionBuildingPlugin,
+  Eip1559TransactionBuildingPlugin,
   SignaturePlugin,
-  TxAssemblyPlugin
+  TxAssemblyPlugin,
+  LegacyTxAssemblyPlugin,
+  Eip1559TxAssemblyPlugin
 } from './plugins';
 
 /**
@@ -109,15 +114,17 @@ export class EthereumWorkflowBuilder extends WorkflowBuilder<IEthereumSigner, Et
     return {
       legacy: [
         new InputValidationPlugin(signArgs),
-        new TransactionBuildingPlugin(),
+        new SignerInfoPlugin(),
+        new LegacyTransactionBuildingPlugin(),
         new SignaturePlugin(),
-        new TxAssemblyPlugin(),
+        new LegacyTxAssemblyPlugin(),
       ],
       eip1559: [
         new InputValidationPlugin(signArgs),
-        new TransactionBuildingPlugin(),
+        new SignerInfoPlugin(),
+        new Eip1559TransactionBuildingPlugin(),
         new SignaturePlugin(),
-        new TxAssemblyPlugin(),
+        new Eip1559TxAssemblyPlugin(),
       ],
     };
   }

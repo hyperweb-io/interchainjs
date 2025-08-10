@@ -1,18 +1,16 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { EthereumWorkflowBuilderContext } from '../context';
-import { EthereumTransactionType } from '../../signers/types';
+import { EthereumTransactionType, TransactionOptions } from '../../signers/types';
 import { TransactionParams } from '../../types/requests';
 import { hexToBytes } from 'ethereum-cryptography/utils';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
+import { SIGNER_INFO_STAGING_KEYS } from './signer-info';
 
 /**
  * Staging keys created by TransactionBuildingPlugin
  */
 export const TRANSACTION_BUILDING_STAGING_KEYS = {
   UNSIGNED_TX_ARRAY: 'unsigned_tx_array',
-  CHAIN_ID: 'chain_id',
-  NONCE: 'nonce',
-  ACCOUNT_ADDRESS: 'account_address'
 } as const;
 
 /**
@@ -36,34 +34,32 @@ export class TransactionBuildingPlugin extends BaseWorkflowBuilderPlugin<
     super([
       INPUT_VALIDATION_STAGING_KEYS.TRANSACTION,
       INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE,
-      { dependency: INPUT_VALIDATION_STAGING_KEYS.SIGNER_ADDRESS, optional: true },
-      { dependency: INPUT_VALIDATION_STAGING_KEYS.OPTIONS, optional: true }
+      SIGNER_INFO_STAGING_KEYS.CHAIN_ID,
+      SIGNER_INFO_STAGING_KEYS.NONCE,
+      SIGNER_INFO_STAGING_KEYS.ACCOUNT_ADDRESS,
     ]);
+  }
+
+  protected afterRetrieveParams(params: Record<string, unknown>): TransactionBuildingParams {
+    return {
+      transaction: params.transaction as TransactionParams,
+      transactionType: params.transactionType as EthereumTransactionType,
+      signerAddress: params.signerAddress as string | undefined,
+      options: params.options as Partial<TransactionOptions> | undefined,
+    };
   }
 
   protected async onBuild(
     ctx: EthereumWorkflowBuilderContext,
     params: TransactionBuildingParams
   ): Promise<void> {
-    const signer = ctx.getSigner();
-    const transaction = ctx.getStagingData<TransactionParams>(INPUT_VALIDATION_STAGING_KEYS.TRANSACTION);
-    const transactionType = ctx.getStagingData<EthereumTransactionType>(INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE);
-    const signerAddress = ctx.getStagingData<string>(INPUT_VALIDATION_STAGING_KEYS.SIGNER_ADDRESS);
-    const options = ctx.getStagingData<any>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
+    const { transaction, transactionType } = params;
 
-    // Get account information
-    const accounts = await signer.getAccounts();
-    const account = signerAddress
-      ? accounts.find(acc => acc.address.toLowerCase() === signerAddress.toLowerCase())
-      : accounts[0];
-
-    if (!account) {
-      throw new Error(signerAddress ? `Account with address ${signerAddress} not found` : 'No accounts available');
-    }
-
-    // Get chain information
-    const chainId = options?.chainId || await (signer as any).getChainId();
-    const nonce = transaction.nonce ? parseInt(transaction.nonce, 16) : await (signer as any).getNonce(account.address);
+    // Fetch staged info
+    const chainId = ctx.getStagingData<number>(SIGNER_INFO_STAGING_KEYS.CHAIN_ID);
+    const nonce = ctx.getStagingData<number>(SIGNER_INFO_STAGING_KEYS.NONCE);
+    // Note: account address is staged for downstream plugins that may need it
+    // const accountAddress = ctx.getStagingData<string>(SIGNER_INFO_STAGING_KEYS.ACCOUNT_ADDRESS);
 
     // Parse transaction values
     const gasLimit = BigInt(transaction.gas);
@@ -121,9 +117,6 @@ export class TransactionBuildingPlugin extends BaseWorkflowBuilderPlugin<
 
     // Store data in staging
     ctx.setStagingData(TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY, unsignedTxArray);
-    ctx.setStagingData(TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID, chainId);
-    ctx.setStagingData(TRANSACTION_BUILDING_STAGING_KEYS.NONCE, nonce);
-    ctx.setStagingData(TRANSACTION_BUILDING_STAGING_KEYS.ACCOUNT_ADDRESS, account.address);
   }
 
   /**

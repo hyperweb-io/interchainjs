@@ -154,6 +154,10 @@ export interface IEthereumSigner extends IUniSigner<
   /** Get Ethereum addresses */
   getAddresses(): Promise<string[]>;
 
+  /** Network/query helpers */
+  getChainId(): Promise<number>;
+  getNonce(address: string): Promise<number>;
+
   /** Sign a personal message */
   signPersonalMessage(message: string, address?: string): Promise<string>;
 

@@ -1,6 +1,6 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { EthereumWorkflowBuilderContext } from '../context';
-import { EthereumSignArgs, EthereumTransactionType } from '../../signers/types';
+import { EthereumSignArgs, EthereumTransactionType, TransactionOptions } from '../../signers/types';
 import { TransactionParams } from '../../types/requests';
 
 /**
@@ -19,7 +19,7 @@ export const INPUT_VALIDATION_STAGING_KEYS = {
 export interface InputValidationParams {
   transaction: TransactionParams;
   signerAddress?: string;
-  options?: any;
+  options?: Partial<TransactionOptions>;
 }
 
 /**

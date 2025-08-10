@@ -124,12 +124,12 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
     return accounts.map(account => account.address);
   }
 
-  // Protected helper methods that delegate to query client
-  protected async getChainId(): Promise<number> {
+  // Network/query helpers that delegate to query client
+  async getChainId(): Promise<number> {
     return this.config.queryClient.getChainId();
   }
 
-  protected async getNonce(address: string): Promise<number> {
+  async getNonce(address: string): Promise<number> {
     return this.config.queryClient.getTransactionCount(address, 'latest');
   }
 
