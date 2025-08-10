@@ -39,7 +39,7 @@ export class PhantomSigningClient {
     });
 
     const phantomSigner = new PhantomSigner();
-    
+
     if (!phantomSigner.isAvailable) {
       throw new Error('Phantom wallet not found. Please install Phantom wallet extension.');
     }
@@ -76,7 +76,7 @@ export class PhantomSigningClient {
     memo?: string;
   }): Promise<string> {
     const { recipient, amount } = params;
-    
+
     if (!this.phantomSigner.isConnected) {
       throw new Error('Phantom wallet not connected');
     }
@@ -85,9 +85,9 @@ export class PhantomSigningClient {
       if (typeof window === 'undefined') {
         throw new Error('Phantom wallet only works in browser environment');
       }
-      
+
       const provider = (window as any).solana;
-      
+
       if (!provider) {
         throw new Error('Phantom wallet not found');
       }
@@ -108,36 +108,36 @@ export class PhantomSigningClient {
 
       console.log('Phantom provider found:', !!provider);
       console.log('Provider methods:', Object.keys(provider || {}));
-      
+
       // Use the most direct approach: signAndSendTransaction with proper Solana Web3.js format
       if (provider.signAndSendTransaction) {
         try {
           console.log('Using Phantom signAndSendTransaction directly');
-          
+
           // Create a transaction object that closely mimics Solana Web3.js Transaction
           const phantomTransaction = {
             // Required serialize method - return the full transaction with empty signatures
             serialize: () => {
               // Create a version without signatures for Phantom to sign
               const messageBytes = transaction.serializeMessage();
-              
+
               // Create full transaction format: [signature_count] + [signatures] + [message]
               const signatureCountBytes = new Uint8Array([1]); // 1 signature
               const emptySignature = new Uint8Array(64); // 64 zero bytes for signature
-              
+
               const fullTx = new Uint8Array(signatureCountBytes.length + emptySignature.length + messageBytes.length);
               fullTx.set(signatureCountBytes, 0);
               fullTx.set(emptySignature, signatureCountBytes.length);
               fullTx.set(messageBytes, signatureCountBytes.length + emptySignature.length);
-              
+
               return fullTx;
             },
-            
+
             // Additional required properties
             recentBlockhash: transaction.recentBlockhash,
             feePayer: this.phantomSigner.publicKey.toString(),
-            signatures: [{ signature: null, publicKey: this.phantomSigner.publicKey.toString() }],
-            
+            signatures: [{ signature: null as Uint8Array | null, publicKey: this.phantomSigner.publicKey.toString() }],
+
             // Instructions in expected format
             instructions: [{
               keys: [
@@ -156,26 +156,26 @@ export class PhantomSigningClient {
               data: bs58.encode(transferInstruction.data),
             }],
           };
-          
+
           console.log('Sending transaction via Phantom signAndSendTransaction');
           const result = await provider.signAndSendTransaction(phantomTransaction);
           console.log('Transfer successful:', result);
-          
+
           return result.signature || result;
         } catch (directError) {
           console.error('Direct signAndSendTransaction failed:', directError);
           console.log('Trying alternative approach...');
         }
       }
-      
+
       // Try using signTransaction + manual send approach
       if (provider.signTransaction) {
         try {
           console.log('Using signTransaction method with manual send');
-          
+
           // Create a simpler transaction object for signing only
           const messageToSign = transaction.serializeMessage();
-          
+
           const transactionForSigning = {
             serialize: () => {
               // For signing, we need to return just the message without signatures
@@ -203,13 +203,13 @@ export class PhantomSigningClient {
               data: bs58.encode(ix.data),
             })),
           };
-          
+
           console.log('Requesting signature from Phantom...');
-          
+
           // Get the signed transaction from Phantom
           const signedTransaction = await provider.signTransaction(transactionForSigning);
           console.log('Transaction signed by Phantom');
-          
+
           // Extract the signature and send via our RPC
           let signedTxBytes;
           if (signedTransaction.serialize && typeof signedTransaction.serialize === 'function') {
@@ -219,13 +219,13 @@ export class PhantomSigningClient {
           } else {
             throw new Error('Unable to extract signed transaction bytes');
           }
-          
+
           console.log('Sending signed transaction via RPC...');
-          
+
           // Send the signed transaction via our RPC client
           const signature = await this.connection.sendRawTransaction(signedTxBytes);
           console.log('Transaction sent successfully:', signature);
-          
+
           return signature;
         } catch (signError) {
           console.error('signTransaction approach failed:', signError);
@@ -234,10 +234,10 @@ export class PhantomSigningClient {
         }
       } else if (provider.signAndSendTransaction) {
         console.log('Falling back to signAndSendTransaction method');
-        
+
         // Create a simplified transaction for signAndSendTransaction
         const messageBuffer = transaction.serializeMessage();
-        
+
         const phantomTransaction = {
           serialize: () => messageBuffer,
           recentBlockhash: transaction.recentBlockhash,
@@ -252,11 +252,11 @@ export class PhantomSigningClient {
             data: bs58.encode(ix.data),
           })),
         };
-        
+
         const result = await provider.signAndSendTransaction(phantomTransaction);
         return result.signature || result;
       }
-      
+
       // If we reach here, no method worked
       throw new Error('Phantom wallet does not support any of the required transaction methods');
     } catch (error) {
@@ -268,18 +268,18 @@ export class PhantomSigningClient {
     // Create a minimal transaction object that Phantom can understand
     // Since Phantom expects to work with serialized transactions,
     // we'll provide the serialized format
-    
+
     const serializedTransaction = transaction.serialize();
-    
+
     // Create a mock transaction object with the essential methods
     return {
       // Provide the serialized transaction data
       serialize: () => serializedTransaction,
-      
+
       // Transaction properties
       recentBlockhash: transaction.recentBlockhash,
       feePayer: transaction.feePayer?.toString(),
-      
+
       // For compatibility, provide instructions in a simplified format
       instructions: transaction.instructions.map(ix => ({
         keys: ix.keys.map(key => ({
@@ -318,17 +318,17 @@ export class PhantomSigningClient {
 
     transaction.recentBlockhash = await this.connection.getRecentBlockhash();
     transaction.feePayer = this.phantomSigner.publicKey;
-    
+
     const solanaWeb3Transaction = this.convertToSolanaTransaction(transaction);
-    
+
     try {
       if (typeof window === 'undefined') {
         throw new Error('Phantom wallet only works in browser environment');
       }
-      
+
       const provider = (window as any).solana;
       const signedTx = await provider.signAndSendTransaction(solanaWeb3Transaction);
-      
+
       return signedTx.signature;
     } catch (error) {
       throw new Error(`Transaction failed: ${(error as Error).message}`);
