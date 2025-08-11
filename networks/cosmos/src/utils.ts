@@ -1,11 +1,7 @@
-import { Bip39, Random } from '@interchainjs/crypto';
+import { generateMnemonic } from '@interchainjs/crypto';
 import { AminoConverter, Encoder } from './types/signing-client';
 import { TelescopeGeneratedCodec } from '@interchainjs/types';
 import { assertEmpty } from '@interchainjs/utils';
-
-export function generateMnemonic(): string {
-  return Bip39.encode(Random.getBytes(16)).toString();
-}
 
 /**
  * from telescope generated codec to AminoConverter

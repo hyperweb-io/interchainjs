@@ -3,13 +3,9 @@ import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { StdSignDoc, IPrivateKey, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from './types';
 import * as bip39 from 'bip39';
-import { BaseWallet, PrivateKey, registerAddressStrategy, resolveHashFunction } from '@interchainjs/auth';
+import { BaseWallet, PrivateKey, resolveHashFunction } from '@interchainjs/auth';
 import { createCosmosConfig } from '../auth/config';
-import { COSMOS_ADDRESS_STRATEGY } from '../auth/strategy';
 import deepmerge from 'deepmerge';
-
-// Register the cosmos address strategy
-registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
 
 /**
  * HD Wallet implementation for secp256k1

@@ -19,17 +19,27 @@ export * from './token-constants';
 
 export * from './types';
 
-// Constants
-export const LAMPORTS_PER_SOL = 1000000000;
-export const DEVNET_ENDPOINT = 'https://api.devnet.solana.com';
-export const TESTNET_ENDPOINT = 'https://api.testnet.solana.com';
-export const MAINNET_ENDPOINT = 'https://api.mainnet-beta.solana.com';
-
-// Utility functions
-export function lamportsToSol(lamports: number): number {
-  return lamports / LAMPORTS_PER_SOL;
-}
-
-export function solToLamports(sol: number): number {
-  return Math.round(sol * LAMPORTS_PER_SOL);
-}
+// Re-export Solana constants and utilities from local utils
+export {
+  LAMPORTS_PER_SOL,
+  SOLANA_DEVNET_ENDPOINT as DEVNET_ENDPOINT,
+  SOLANA_TESTNET_ENDPOINT as TESTNET_ENDPOINT,
+  SOLANA_MAINNET_ENDPOINT as MAINNET_ENDPOINT,
+  lamportsToSol,
+  solToLamports,
+  solToLamportsBigInt,
+  lamportsToSolString,
+  isValidLamports,
+  isValidSol,
+  SOLANA_ACCOUNT_SIZES,
+  SOLANA_RENT_EXEMPT_BALANCES,
+  SOLANA_PROGRAM_IDS,
+  SOLANA_TRANSACTION_LIMITS,
+  SOLANA_TIMING,
+  calculateRentExemption,
+  formatSolanaAddress,
+  isValidSolanaAddress,
+  encodeSolanaCompactLength,
+  decodeSolanaCompactLength,
+  concatUint8Arrays
+} from './utils';

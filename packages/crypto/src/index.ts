@@ -1,3 +1,5 @@
+import { Bip39 } from "./bip39";
+import { Random } from "./random";
 export { Bip39, EnglishMnemonic } from "./bip39";
 export { HashFunction } from "./hash";
 export { Hmac } from "./hmac";
@@ -26,3 +28,9 @@ export {
   Slip10Result,
   stringToPath,
 } from "./slip10";
+
+
+// Convenience helper to generate a BIP39 mnemonic from secure random entropy
+export function generateMnemonic(entropyLength: number = 16): string {
+  return Bip39.encode(Random.getBytes(entropyLength)).toString();
+}

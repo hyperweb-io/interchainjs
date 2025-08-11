@@ -2,13 +2,9 @@ import { IPrivateKey, AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from '@interchainjs/cosmos/wallets/types';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import * as bip39 from 'bip39';
-import { PrivateKey, registerAddressStrategy } from '@interchainjs/auth';
+import { PrivateKey } from '@interchainjs/auth';
 import { createInjectiveEthConfig } from '../auth/config';
-import { INJECTIVE_ETH_ADDRESS_STRATEGY } from '../auth/strategy';
 import deepmerge from 'deepmerge';
-
-// Register the injective ethereum address strategy
-registerAddressStrategy(INJECTIVE_ETH_ADDRESS_STRATEGY);
 
 /**
  * HD Wallet implementation for secp256k1 with Ethereum-style address derivation for Injective

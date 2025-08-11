@@ -2,35 +2,20 @@
  * Common converter functions for API response transformation
  */
 
-import { fromBase64, fromHex } from '@interchainjs/encoding';
+import { fromBase64, fromHex, apiToNumber as encApiToNumber, apiToBigInt as encApiToBigInt } from '@interchainjs/encoding';
 
-/**
- * Convert API value to number (handles string numbers)
- */
-export const apiToNumber = (value: unknown): number | undefined => {
-  if (value === null || value === undefined) return undefined;
-  if (typeof value === 'number') return value;
-  if (typeof value === 'string') {
-    const num = parseInt(value, 10);
-    return isNaN(num) ? undefined : num;
-  }
-  return undefined;
+// Create wrapper functions that match the expected signatures for backward compatibility
+export const apiToNumber = (value: unknown): number => {
+  return encApiToNumber(value as string | number | undefined | null);
 };
 
-/**
- * Convert API value to bigint (handles string numbers)
- */
 export const apiToBigInt = (value: unknown): bigint | undefined => {
   if (value === null || value === undefined) return undefined;
-  if (typeof value === 'bigint') return value;
-  if (typeof value === 'string' || typeof value === 'number') {
-    try {
-      return BigInt(value);
-    } catch {
-      return undefined;
-    }
+  try {
+    return encApiToBigInt(value as string | number | undefined | null);
+  } catch {
+    return undefined;
   }
-  return undefined;
 };
 
 /**

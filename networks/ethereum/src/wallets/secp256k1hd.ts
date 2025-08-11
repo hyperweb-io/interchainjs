@@ -1,13 +1,9 @@
 import { IPrivateKey, IWallet, AddrDerivation, HDPath } from '@interchainjs/types';
 import { IEthereumWalletConfig } from './types';
 import * as bip39 from 'bip39';
-import { BaseWallet, PrivateKey, registerAddressStrategy } from '@interchainjs/auth';
+import { BaseWallet, PrivateKey } from '@interchainjs/auth';
 import { createEthereumConfig } from '../auth/config';
-import { ETHEREUM_ADDRESS_STRATEGY } from '../auth/strategy';
 import deepmerge from 'deepmerge';
-
-// Register the ethereum address strategy
-registerAddressStrategy(ETHEREUM_ADDRESS_STRATEGY);
 
 /**
  * HD Wallet implementation for secp256k1 on Ethereum
