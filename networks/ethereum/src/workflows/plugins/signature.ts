@@ -7,6 +7,7 @@ import { keccak256 } from 'ethereum-cryptography/keccak';
 import * as rlp from 'rlp';
 import { TRANSACTION_BUILDING_STAGING_KEYS } from './transaction-building';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
+import { SIGNER_INFO_STAGING_KEYS } from './signer-info';
 
 /**
  * Staging keys created by SignaturePlugin
@@ -37,7 +38,7 @@ export class SignaturePlugin extends BaseWorkflowBuilderPlugin<
     super([
       TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY,
       INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE,
-      TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID,
+      SIGNER_INFO_STAGING_KEYS.CHAIN_ID,
       INPUT_VALIDATION_STAGING_KEYS.OPTIONS
     ]);
   }
@@ -49,7 +50,7 @@ export class SignaturePlugin extends BaseWorkflowBuilderPlugin<
     const signer = ctx.getSigner();
     const unsignedTxArray = ctx.getStagingData<any[]>(TRANSACTION_BUILDING_STAGING_KEYS.UNSIGNED_TX_ARRAY);
     const transactionType = ctx.getStagingData<EthereumTransactionType>(INPUT_VALIDATION_STAGING_KEYS.TRANSACTION_TYPE);
-    const chainId = ctx.getStagingData<number>(TRANSACTION_BUILDING_STAGING_KEYS.CHAIN_ID);
+    const chainId = ctx.getStagingData<number>(SIGNER_INFO_STAGING_KEYS.CHAIN_ID);
     const options = ctx.getStagingData<TransactionOptions>(INPUT_VALIDATION_STAGING_KEYS.OPTIONS);
 
     let msgHash: Uint8Array;
