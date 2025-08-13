@@ -33,22 +33,29 @@
   },
   "dependencies": {
     "@ethersproject/transactions": "^5.7.0",
+    "@interchainjs/auth": "1.13.1-beta.3",
     "@interchainjs/cosmos": "1.13.1-beta.3",
     "@interchainjs/cosmos-types": "1.13.1-beta.3",
+    "@interchainjs/crypto": "1.13.1-beta.3",
     "@interchainjs/ethereum": "1.13.1-beta.3",
     "@interchainjs/types": "1.13.1-beta.3",
     "@interchainjs/utils": "1.13.1-beta.3",
     "@noble/hashes": "^1.3.1",
     "bech32": "^2.0.0",
+    "bignumber.js": "^9.1.0",
+    "bip39": "^3.1.0",
     "decimal.js": "^10.4.3",
+    "deepmerge": "4.2.2",
     "interchainjs": "1.13.1-beta.3"
   },
   "keywords": [
     "injective"
   ],
   "devDependencies": {
-    "bech32": "^2.0.0",
-    "dotenv": "^16.4.5"
+    "@chain-registry/client": "1.18.1",
+    "@chain-registry/types": "^2.0.42",
+    "dotenv": "^16.4.5",
+    "starshipjs": "^2.4.0"
   },
   "gitHead": "84b1c910ea79d1d465bf6cce0dd470cf4dfc890b"
 }
