@@ -25,6 +25,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@interchainjs/cosmos": "1.13.1-beta.3",
     "@interchainjs/math": "1.13.1-beta.3",
     "@interchainjs/types": "1.13.1-beta.3",
     "@interchainjs/utils": "1.13.1-beta.3"
