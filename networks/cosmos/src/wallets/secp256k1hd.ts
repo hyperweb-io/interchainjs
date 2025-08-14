@@ -3,7 +3,7 @@ import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { StdSignDoc, IPrivateKey, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from './types';
 import * as bip39 from 'bip39';
-import { BaseWallet, PrivateKey, registerAddressStrategy, resolveHashFunction } from '@interchainjs/auth';
+import { BaseWallet, PrivateKey, registerAddressStrategy, resolveHashFunction, resolveSignatureFormat } from '@interchainjs/auth';
 import { createCosmosConfig } from '../auth/config';
 import { COSMOS_ADDRESS_STRATEGY } from '../auth/strategy';
 import { encodeSecp256k1Signature } from '@interchainjs/amino';
@@ -80,8 +80,12 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet {
     const account = accounts[accountIndex];
     const publicKey = account.getPublicKey();
 
+    // Apply compact signature format to remove recovery byte (65 bytes -> 64 bytes)
+    const formatFn = resolveSignatureFormat('compact');
+    const compactSignature = formatFn ? formatFn(signatureResult.value) : signatureResult.value;
+
     // Create the signature object with pub_key and signature fields
-    const signature = encodeSecp256k1Signature(publicKey.value.value, signatureResult.value);
+    const signature = encodeSecp256k1Signature(publicKey.value.value, compactSignature);
 
     return {
       signed: signDoc,
@@ -121,8 +125,12 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet {
     const account = accounts[accountIndex];
     const publicKey = account.getPublicKey();
 
+    // Apply compact signature format to remove recovery byte (65 bytes -> 64 bytes)
+    const formatFn = resolveSignatureFormat('compact');
+    const compactSignature = formatFn ? formatFn(signatureResult.value) : signatureResult.value;
+
     // Create the signature object with pub_key and signature fields
-    const signature = encodeSecp256k1Signature(publicKey.value.value, signatureResult.value);
+    const signature = encodeSecp256k1Signature(publicKey.value.value, compactSignature);
 
     return {
       signed: signDoc,
