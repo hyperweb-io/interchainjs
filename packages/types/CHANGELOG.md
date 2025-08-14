@@ -15,6 +15,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @interchainjs/types
 
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/types@1.15.0...@interchainjs/types@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package @interchainjs/types
+
 # [1.15.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/types@1.14.1...@interchainjs/types@1.15.0) (2025-08-14)
 
 **Note:** Version bump only for package @interchainjs/types
