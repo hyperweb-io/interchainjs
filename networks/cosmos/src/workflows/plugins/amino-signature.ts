@@ -1,7 +1,7 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { StdSignDoc } from '@interchainjs/types';
-import { BaseCryptoBytes } from '@interchainjs/utils';
+import { BaseCryptoBytes, fromBase64 } from '@interchainjs/utils';
 import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { AMINO_SIGN_DOC_STAGING_KEYS } from './amino-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
@@ -61,14 +61,22 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       const signatureResult = await signer.signAmino(signerAddress, signDoc);
 
+      // Convert signature to Uint8Array if it's a string (base64)
+      let signatureBytes: Uint8Array;
+      if (typeof signatureResult.signature === 'string') {
+        signatureBytes = fromBase64(signatureResult.signature);
+      } else {
+        signatureBytes = signatureResult.signature;
+      }
+
       // Determine signature format - use configured format or default to compact
       const formatFn = resolveSignatureFormat(options?.signature?.format, 'compact');
 
       let processedSignature: Uint8Array;
       if (formatFn) {
-        processedSignature = formatFn(signatureResult.signature);
+        processedSignature = formatFn(signatureBytes);
       } else {
-        processedSignature = signatureResult.signature;
+        processedSignature = signatureBytes;
       }
 
       ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(processedSignature));

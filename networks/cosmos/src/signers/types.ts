@@ -36,8 +36,8 @@ export interface DirectSignResponse {
    * This may be different from the input signDoc when the signer modifies it as part of the signing process.
    */
   signed: SignDoc;
-  /** Signature bytes */
-  signature: Uint8Array;
+  /** Signature bytes or base64 string */
+  signature: Uint8Array | string;
 }
 
 /**
@@ -49,8 +49,8 @@ export interface AminoSignResponse {
    * This may be different from the input signDoc when the signer modifies it as part of the signing process.
    */
   signed: StdSignDoc;
-  /** Signature bytes */
-  signature: Uint8Array;
+  /** Signature bytes or base64 string */
+  signature: Uint8Array | string;
 }
 
 /**
@@ -173,14 +173,8 @@ export interface ICosmosSigner extends IUniSigner<
   isOfflineDirectSigner(): boolean;
 
   // Offline signing methods
-  signDirect(signerAddress: string, signDoc: SignDoc): Promise<{
-    signed: SignDoc;
-    signature: Uint8Array;
-  }>;
-  signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<{
-    signed: StdSignDoc;
-    signature: Uint8Array;
-  }>;
+  signDirect(signerAddress: string, signDoc: SignDoc): Promise<DirectSignResponse>;
+  signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<AminoSignResponse>;
 }
 
 // Cosmos-specific message types
