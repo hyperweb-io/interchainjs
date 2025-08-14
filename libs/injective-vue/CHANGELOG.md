@@ -7,6 +7,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package injective-vue
 
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.15.0...injective-vue@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package injective-vue
+
 # [1.15.0](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.14.1...injective-vue@1.15.0) (2025-08-14)
 
 **Note:** Version bump only for package injective-vue
