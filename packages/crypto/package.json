@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/crypto",
-  "version": "1.13.8",
+  "version": "1.14.0",
   "description": "Cryptography resources for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>",
@@ -28,9 +28,9 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/encoding": "1.13.8",
-    "@interchainjs/math": "1.13.8",
-    "@interchainjs/utils": "1.13.8",
+    "@interchainjs/encoding": "1.14.0",
+    "@interchainjs/math": "1.14.0",
+    "@interchainjs/utils": "1.14.0",
     "@noble/hashes": "^1",
     "bn.js": "^5.2.0",
     "elliptic": "^6.5.4",
@@ -40,5 +40,5 @@
     "@types/elliptic": "^6.4.18",
     "@types/libsodium-wrappers-sumo": "^0.7.8"
   },
-  "gitHead": "ed369216d742eeb31030c580baf887762a9e16f5"
+  "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3"
 }
