@@ -57,5 +57,6 @@
     "setupFiles": [
       "<rootDir>/jest.setup.js"
     ]
-  }
+  },
+  "gitHead": "ed369216d742eeb31030c580baf887762a9e16f5"
 }
