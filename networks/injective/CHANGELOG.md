@@ -11,6 +11,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @interchainjs/injective
 
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/injective@1.15.0...@interchainjs/injective@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package @interchainjs/injective
+
 # [1.15.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/injective@1.14.1...@interchainjs/injective@1.15.0) (2025-08-14)
 
 **Note:** Version bump only for package @interchainjs/injective
