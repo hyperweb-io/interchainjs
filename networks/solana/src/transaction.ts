@@ -1,5 +1,6 @@
 import { PublicKey, TransactionInstruction, TransactionMessage } from './types';
 import { Keypair } from './keypair';
+import { encodeSolanaCompactLength, concatUint8Arrays } from './utils';
 import * as bs58 from 'bs58';
 
 export class Transaction {
@@ -7,7 +8,7 @@ export class Transaction {
     signature: Uint8Array | null;
     publicKey: PublicKey;
   }> = [];
-  
+
   feePayer?: PublicKey;
   instructions: TransactionInstruction[] = [];
   recentBlockhash?: string;
@@ -40,14 +41,14 @@ export class Transaction {
       isSigner: boolean;
       isWritable: boolean;
     }> = [];
-    
+
     // Add fee payer first (always signer and writable)
     accountMetas.push({
       pubkey: this.feePayer,
       isSigner: true,
       isWritable: true,
     });
-    
+
     // Add accounts from instructions
     for (const instruction of this.instructions) {
       for (const key of instruction.keys) {
@@ -64,7 +65,7 @@ export class Transaction {
           });
         }
       }
-      
+
       // Add program ID (never signer, never writable)
       const programExists = accountMetas.find(meta => meta.pubkey.equals(instruction.programId));
       if (!programExists) {
@@ -75,16 +76,16 @@ export class Transaction {
         });
       }
     }
-    
+
     // Sort accounts: signers first, then non-signers
     accountMetas.sort((a, b) => {
       if (a.isSigner && !b.isSigner) return -1;
       if (!a.isSigner && b.isSigner) return 1;
       return 0;
     });
-    
+
     const accountKeys = accountMetas.map(meta => meta.pubkey);
-    
+
     return {
       accountKeys,
       recentBlockhash: this.recentBlockhash,
@@ -95,21 +96,21 @@ export class Transaction {
   serializeMessage(): Uint8Array {
     const message = this.compileMessage();
     const buffers: Uint8Array[] = [];
-    
+
     // Collect account metadata for header calculation
     const accountMetas: Array<{
       pubkey: PublicKey;
       isSigner: boolean;
       isWritable: boolean;
     }> = [];
-    
+
     // Add fee payer first (always signer and writable)
     accountMetas.push({
       pubkey: this.feePayer!,
       isSigner: true,
       isWritable: true,
     });
-    
+
     // Add accounts from instructions
     for (const instruction of message.instructions) {
       for (const key of instruction.keys) {
@@ -126,7 +127,7 @@ export class Transaction {
           });
         }
       }
-      
+
       // Add program ID (never signer, never writable)
       const programExists = accountMetas.find(meta => meta.pubkey.equals(instruction.programId));
       if (!programExists) {
@@ -137,19 +138,19 @@ export class Transaction {
         });
       }
     }
-    
+
     // Sort accounts: signers first, then non-signers
     accountMetas.sort((a, b) => {
       if (a.isSigner && !b.isSigner) return -1;
       if (!a.isSigner && b.isSigner) return 1;
       return 0;
     });
-    
+
     // Calculate header values
     let numRequiredSignatures = 0;
     let numReadonlySignedAccounts = 0;
     let numReadonlyUnsignedAccounts = 0;
-    
+
     for (const meta of accountMetas) {
       if (meta.isSigner) {
         numRequiredSignatures++;
@@ -162,31 +163,31 @@ export class Transaction {
         }
       }
     }
-    
+
     // Header: 3 bytes
     const header = new Uint8Array(3);
     header[0] = numRequiredSignatures;
     header[1] = numReadonlySignedAccounts;
     header[2] = numReadonlyUnsignedAccounts;
     buffers.push(header);
-    
+
     // Account keys length (compact-u16)
     const accountKeysLengthBuffer = this.encodeLength(accountMetas.length);
     buffers.push(accountKeysLengthBuffer);
-    
+
     // Account keys (32 bytes each)
     for (const meta of accountMetas) {
       buffers.push(meta.pubkey.toBuffer());
     }
-    
+
     // Recent blockhash (32 bytes)
     const recentBlockhashBuffer = new Uint8Array(bs58.decode(message.recentBlockhash));
     buffers.push(recentBlockhashBuffer);
-    
+
     // Instructions length (compact-u16)
     const instructionsLengthBuffer = this.encodeLength(message.instructions.length);
     buffers.push(instructionsLengthBuffer);
-    
+
     // Instructions
     for (const instruction of message.instructions) {
       // Program ID index
@@ -194,11 +195,11 @@ export class Transaction {
       const programIdBuffer = new Uint8Array(1);
       programIdBuffer[0] = programIdIndex;
       buffers.push(programIdBuffer);
-      
+
       // Accounts length (compact-u16)
       const accountsLengthBuffer = this.encodeLength(instruction.keys.length);
       buffers.push(accountsLengthBuffer);
-      
+
       // Account indices
       for (const key of instruction.keys) {
         const keyIndex = accountMetas.findIndex(meta => meta.pubkey.equals(key.pubkey));
@@ -206,44 +207,27 @@ export class Transaction {
         accountBuffer[0] = keyIndex;
         buffers.push(accountBuffer);
       }
-      
+
       // Data length (compact-u16)
       const dataLengthBuffer = this.encodeLength(instruction.data.length);
       buffers.push(dataLengthBuffer);
-      
+
       // Data
       buffers.push(instruction.data);
     }
-    
-    return this.concatUint8Arrays(buffers);
+
+    return concatUint8Arrays(buffers);
   }
-  
+
   private encodeLength(length: number): Uint8Array {
-    if (length < 0x80) {
-      const buffer = new Uint8Array(1);
-      buffer[0] = length;
-      return buffer;
-    } else if (length < 0x4000) {
-      const buffer = new Uint8Array(2);
-      const view = new DataView(buffer.buffer);
-      view.setUint16(0, length | 0x8000, true);
-      return buffer;
-    } else if (length < 0x200000) {
-      const buffer = new Uint8Array(3);
-      const view = new DataView(buffer.buffer);
-      buffer[0] = (length & 0x7f) | 0x80;
-      view.setUint16(1, (length >> 7) | 0x8000, true);
-      return buffer;
-    } else {
-      throw new Error('Length too large for compact encoding');
-    }
+    return encodeSolanaCompactLength(length);
   }
 
   sign(...signers: Keypair[]): void {
     const message = this.serializeMessage();
-    
+
     this.signatures = [];
-    
+
     for (const signer of signers) {
       const signature = signer.sign(message);
       this.signatures.push({
@@ -256,12 +240,12 @@ export class Transaction {
   serialize(): Uint8Array {
     const message = this.serializeMessage();
     const buffers: Uint8Array[] = [];
-    
+
     // Signature count (compact-u16)
     const signatureCount = this.signatures.length;
     const signatureCountBuffer = this.encodeLength(signatureCount);
     buffers.push(signatureCountBuffer);
-    
+
     // Signatures (64 bytes each)
     for (const sig of this.signatures) {
       if (sig.signature) {
@@ -270,25 +254,14 @@ export class Transaction {
         buffers.push(new Uint8Array(64)); // Empty signature
       }
     }
-    
+
     // Message
     buffers.push(message);
-    
-    return this.concatUint8Arrays(buffers);
+
+    return concatUint8Arrays(buffers);
   }
 
-  private concatUint8Arrays(arrays: Uint8Array[]): Uint8Array {
-    const totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0);
-    const result = new Uint8Array(totalLength);
-    let offset = 0;
-    
-    for (const arr of arrays) {
-      result.set(arr, offset);
-      offset += arr.length;
-    }
-    
-    return result;
-  }
+  // concatUint8Arrays method moved to local utils
 
   static from(buffer: Uint8Array): Transaction {
     const transaction = new Transaction();

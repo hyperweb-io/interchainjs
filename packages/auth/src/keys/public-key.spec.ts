@@ -5,8 +5,7 @@ import { PublicKey } from './public-key';
 import { registerAddressStrategy } from '../strategies';
 import { createCosmosConfig } from '../../../../networks/cosmos/src/auth/config';
 import { createEthereumConfig } from '../../../../networks/ethereum/src/auth/config';
-import { COSMOS_ADDRESS_STRATEGY } from '../../../../networks/cosmos/src/auth/strategy';
-import { ETHEREUM_ADDRESS_STRATEGY } from '../../../../networks/ethereum/src/auth/strategy';
+import { COSMOS_ADDRESS_STRATEGY, ETHEREUM_ADDRESS_STRATEGY } from '../strategies';
 
 describe('PublicKey', () => {
   const testMnemonic = 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about';

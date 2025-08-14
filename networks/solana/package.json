@@ -36,6 +36,8 @@
     "sdk"
   ],
   "dependencies": {
+    "@interchainjs/math": "1.13.1-beta.3",
+    "@interchainjs/utils": "1.13.1-beta.3",
     "@types/bn.js": "^5.2.0",
     "@types/ws": "^8.18.1",
     "bn.js": "^5.2.2",

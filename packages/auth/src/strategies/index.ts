@@ -38,3 +38,10 @@ export function resolveAddressStrategy(strategy: IAddressStrategy | string): IAd
   }
   return strategy;
 }
+export * from './built-in';
+
+// Auto-register common strategies (backwards compatible)
+import { COSMOS_ADDRESS_STRATEGY, ETHEREUM_ADDRESS_STRATEGY, INJECTIVE_ETH_ADDRESS_STRATEGY } from './built-in';
+registerAddressStrategy(COSMOS_ADDRESS_STRATEGY);
+registerAddressStrategy(ETHEREUM_ADDRESS_STRATEGY);
+registerAddressStrategy(INJECTIVE_ETH_ADDRESS_STRATEGY);

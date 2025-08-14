@@ -5,9 +5,7 @@ import { registerAddressStrategy } from '../strategies';
 import { createCosmosConfig } from '../../../../networks/cosmos/src/auth/config';
 import { createEthereumConfig } from '../../../../networks/ethereum/src/auth/config';
 import { createInjectiveEthConfig } from '../../../../networks/injective/src/auth/config';
-import { COSMOS_ADDRESS_STRATEGY } from '../../../../networks/cosmos/src/auth/strategy';
-import { ETHEREUM_ADDRESS_STRATEGY } from '../../../../networks/ethereum/src/auth/strategy';
-import { INJECTIVE_ETH_ADDRESS_STRATEGY } from '../../../../networks/injective/src/auth/strategy';
+import { COSMOS_ADDRESS_STRATEGY, ETHEREUM_ADDRESS_STRATEGY, INJECTIVE_ETH_ADDRESS_STRATEGY } from '../strategies';
 
 describe('Address', () => {
   const testMnemonic = 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about';

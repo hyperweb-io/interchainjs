@@ -2,13 +2,12 @@ import './setup.test';
 
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
-import { generateMnemonic } from '../src/utils';
 import { OfflineDirectSigner } from '@interchainjs/cosmos';
 import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { getBalance } from "interchainjs/cosmos/bank/v1beta1/query.rpc.func";
 import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
-import { useChain } from 'starshipjs';
+import { generateMnemonic, useChain } from 'starshipjs';
 import { getSigner, GetSignerOptions } from '../../src/interchain/core/getSigner';
 import { DirectSigner } from '@interchainjs/cosmos';
 import { ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';

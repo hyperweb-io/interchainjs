@@ -5,3 +5,4 @@ export { fromHex, toHex } from "./hex";
 export { fromRfc3339, toRfc3339 } from "./rfc3339";
 export { fromUtf8, toUtf8 } from "./utf8";
 export { toAccAddress, longify, decodeCosmosSdkDecFromProto } from "./utils";
+export { apiToNumber, apiToBigInt, safeFromBase64, maybeFromBase64, maybeFromHex } from './api';

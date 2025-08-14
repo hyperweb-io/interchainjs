@@ -1,4 +1,5 @@
-import { fromBase64, fromHex } from '@interchainjs/encoding';
+import { apiToNumber as encApiToNumber, apiToBigInt as encApiToBigInt, maybeFromBase64 as encMaybeFromBase64, safeFromBase64 as encSafeFromBase64, maybeFromHex as encMaybeFromHex } from '@interchainjs/encoding';
+import { snakeToCamel, snakeCaseRecursive } from '@interchainjs/utils';
 import { RpcMethod, ProtocolVersion, ProtocolInfo, ProtocolCapabilities } from '../types/protocol';
 import {
   AbciInfoResponse
@@ -239,72 +240,17 @@ export interface ICosmosProtocolAdapter extends IProtocolAdapter, RequestEncoder
 export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, ICosmosProtocolAdapter {
   constructor(protected version: ProtocolVersion) {}
 
-  // Recursive snake_case to camelCase transformation
-  protected toCamelCase(str: string): string {
-    return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
-  }
-
+  // Use shared utilities from @interchainjs/utils
   protected transformKeys(obj: any): any {
-    if (obj === null || obj === undefined) {
-      return obj;
-    }
-
-    if (Array.isArray(obj)) {
-      return obj.map(item => this.transformKeys(item));
-    }
-
-    if (typeof obj === 'object') {
-      const transformed: any = {};
-      for (const [key, value] of Object.entries(obj)) {
-        const camelKey = this.toCamelCase(key);
-        transformed[camelKey] = this.transformKeys(value);
-      }
-      return transformed;
-    }
-
-    return obj;
+    return snakeCaseRecursive(obj);
   }
 
-  protected apiToNumber(value: string | undefined | null): number {
-    if (!value) return 0;
-    const num = parseInt(value, 10);
-    if (Number.isNaN(num)) return 0;
-    return num;
-  }
+  protected apiToNumber(value: string | undefined | null): number { return encApiToNumber(value as any); }
+  protected apiToBigInt(value: string | undefined | null): bigint { return encApiToBigInt(value as any); }
+  protected maybeFromBase64(value: string | undefined | null): Uint8Array | undefined { return encMaybeFromBase64(value as any); }
+  protected safeFromBase64(value: string): Uint8Array { return encSafeFromBase64(value); }
+  protected maybeFromHex(value: string | undefined | null): Uint8Array | undefined { return encMaybeFromHex(value as any); }
 
-  protected apiToBigInt(value: string | undefined | null): bigint {
-    if (!value) return BigInt(0);
-    return BigInt(value);
-  }
-
-  protected maybeFromBase64(value: string | undefined | null): Uint8Array | undefined {
-    if (!value) return undefined;
-    return this.safeFromBase64(value);
-  }
-
-  protected safeFromBase64(value: string): Uint8Array {
-    if (!value) return new Uint8Array(0);
-
-    // Fix base64 padding if needed
-    let paddedValue = value;
-    const remainder = value.length % 4;
-    if (remainder > 0) {
-      paddedValue = value + '='.repeat(4 - remainder);
-    }
-
-    try {
-      return fromBase64(paddedValue);
-    } catch (error) {
-      // If base64 decoding fails, return empty array
-      console.warn(`Failed to decode base64 value: ${value}`, error);
-      return new Uint8Array(0);
-    }
-  }
-
-  protected maybeFromHex(value: string | undefined | null): Uint8Array | undefined {
-    if (!value) return undefined;
-    return fromHex(value);
-  }
 
   protected decodeTime(timestamp: string): Date {
     return new Date(timestamp);
@@ -442,31 +388,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
 
   private supportsConsensusQueries(): boolean {
     return true; // All versions support basic consensus queries
-  }
-
-  private camelToSnake(str: string): string {
-    return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
-  }
-
-  private snakeToCamel(str: string): string {
-    return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
-  }
-
-  private convertKeysToCamelCase(obj: any): any {
-    if (obj === null || typeof obj !== 'object') {
-      return obj;
-    }
-
-    if (Array.isArray(obj)) {
-      return obj.map(item => this.convertKeysToCamelCase(item));
-    }
-
-    const converted: any = {};
-    for (const [key, value] of Object.entries(obj)) {
-      const camelKey = this.snakeToCamel(key);
-      converted[camelKey] = this.convertKeysToCamelCase(value);
-    }
-    return converted;
   }
 
   // Common decode methods that work across all versions
