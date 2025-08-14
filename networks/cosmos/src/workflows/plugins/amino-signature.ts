@@ -11,7 +11,8 @@ import { resolveHashFunction, resolveSignatureFormat } from '@interchainjs/auth'
  * Staging keys created by AminoSignaturePlugin
  */
 export const AMINO_SIGNATURE_STAGING_KEYS = {
-  SIGNATURE: 'signature'
+  SIGNATURE: 'signature',
+  SIGNED_STD_DOC: 'signed_std_doc'
 } as const;
 
 /**
@@ -85,6 +86,8 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
       }
 
       ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(processedSignature));
+      // Store the signed StdSignDoc for use in amino assembly plugin
+      ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNED_STD_DOC, signatureResult.signed);
     } else {
       throw new Error("Unsupported signer type for amino signing");
     }
