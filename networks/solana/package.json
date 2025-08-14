@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/solana",
-  "version": "1.15.0",
+  "version": "1.13.6",
   "description": "Solana SDK for InterchainJS",
   "main": "index.js",
   "module": "esm/index.js",
