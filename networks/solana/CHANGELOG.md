@@ -11,6 +11,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @interchainjs/solana
 
+## [1.13.5](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.14.2...@interchainjs/solana@1.13.5) (2025-08-14)
+
+**Note:** Version bump only for package @interchainjs/solana
+
 ## [1.14.2](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.14.1...@interchainjs/solana@1.14.2) (2025-08-14)
 
 **Note:** Version bump only for package @interchainjs/solana
