@@ -6,6 +6,7 @@ import * as bip39 from 'bip39';
 import { BaseWallet, PrivateKey, registerAddressStrategy, resolveHashFunction } from '@interchainjs/auth';
 import { createCosmosConfig } from '../auth/config';
 import { COSMOS_ADDRESS_STRATEGY } from '../auth/strategy';
+import { encodeSecp256k1Signature } from '@interchainjs/amino';
 import deepmerge from 'deepmerge';
 
 // Register the cosmos address strategy
@@ -75,9 +76,16 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet {
     // Sign the message using BaseWallet's signByIndex method
     const signatureResult = await this.signByIndex(messageToSign, accountIndex);
 
+    // Get the public key for the account
+    const account = accounts[accountIndex];
+    const publicKey = account.getPublicKey();
+
+    // Create the signature object with pub_key and signature fields
+    const signature = encodeSecp256k1Signature(publicKey.value.value, signatureResult.value);
+
     return {
       signed: signDoc,
-      signature: signatureResult.value
+      signature
     };
   }
 
@@ -109,9 +117,16 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet {
     // Sign the message using BaseWallet's signByIndex method
     const signatureResult = await this.signByIndex(messageToSign, accountIndex);
 
+    // Get the public key for the account
+    const account = accounts[accountIndex];
+    const publicKey = account.getPublicKey();
+
+    // Create the signature object with pub_key and signature fields
+    const signature = encodeSecp256k1Signature(publicKey.value.value, signatureResult.value);
+
     return {
       signed: signDoc,
-      signature: signatureResult.value
+      signature
     };
   }
 

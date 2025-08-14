@@ -63,12 +63,17 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       const signatureResult = await signer.signDirect(signerAddress, signDoc);
 
-      // Convert signature to Uint8Array if it's a string (base64)
+      // Extract signature bytes from the signature object
       let signatureBytes: Uint8Array;
-      if (typeof signatureResult.signature === 'string') {
+      if (typeof signatureResult.signature === 'object' && 'signature' in signatureResult.signature) {
+        // New signature object structure with pub_key and signature fields
+        signatureBytes = fromBase64(signatureResult.signature.signature);
+      } else if (typeof signatureResult.signature === 'string') {
+        // Legacy base64 string format
         signatureBytes = fromBase64(signatureResult.signature);
       } else {
-        signatureBytes = signatureResult.signature;
+        // Legacy Uint8Array format
+        signatureBytes = signatureResult.signature as Uint8Array;
       }
 
       // Determine signature format - use configured format or default to compact
