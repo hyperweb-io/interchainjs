@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/solana",
-  "version": "1.14.2",
+  "version": "1.13.4",
   "description": "Solana SDK for InterchainJS",
   "main": "index.js",
   "module": "esm/index.js",
@@ -58,5 +58,5 @@
       "<rootDir>/jest.setup.js"
     ]
   },
-  "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3"
+  "gitHead": "f9ab48be2c593268d87cb1883481c3abc66f504f"
 }
