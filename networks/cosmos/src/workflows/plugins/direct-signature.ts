@@ -1,7 +1,7 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BaseCryptoBytes } from '@interchainjs/utils';
+import { BaseCryptoBytes, fromBase64 } from '@interchainjs/utils';
 import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { DIRECT_SIGN_DOC_STAGING_KEYS } from './direct-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
@@ -63,14 +63,22 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       const signatureResult = await signer.signDirect(signerAddress, signDoc);
 
+      // Convert signature to Uint8Array if it's a string (base64)
+      let signatureBytes: Uint8Array;
+      if (typeof signatureResult.signature === 'string') {
+        signatureBytes = fromBase64(signatureResult.signature);
+      } else {
+        signatureBytes = signatureResult.signature;
+      }
+
       // Determine signature format - use configured format or default to compact
       const formatFn = resolveSignatureFormat(options?.signature?.format, 'compact');
 
       let processedSignature: Uint8Array;
       if (formatFn) {
-        processedSignature = formatFn(signatureResult.signature);
+        processedSignature = formatFn(signatureBytes);
       } else {
-        processedSignature = signatureResult.signature;
+        processedSignature = signatureBytes;
       }
 
       // Store both the signature and the signed document
