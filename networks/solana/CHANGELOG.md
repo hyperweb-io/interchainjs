@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.1](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.15.0...@interchainjs/solana@1.16.1) (2025-08-14)
+
+### Features
+
+- restore networks/solana directory ([6a4726f](https://github.com/hyperweb-io/interchainjs/commit/6a4726fe0f70c98100075acf735254f1252775f9))
+
 ## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.15.0...@interchainjs/solana@1.13.6) (2025-08-14)
 
 **Note:** Version bump only for package @interchainjs/solana
