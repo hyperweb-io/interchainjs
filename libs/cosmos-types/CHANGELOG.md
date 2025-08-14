@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos-types@1.14.1...@interchainjs/cosmos-types@1.15.0) (2025-08-14)
+
+**Note:** Version bump only for package @interchainjs/cosmos-types
+
 ## [1.14.1](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos-types@1.14.0...@interchainjs/cosmos-types@1.14.1) (2025-08-14)
 
 **Note:** Version bump only for package @interchainjs/cosmos-types
