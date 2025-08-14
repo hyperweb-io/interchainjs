@@ -11,7 +11,8 @@ import { resolveHashFunction, resolveSignatureFormat } from '@interchainjs/auth'
  * Staging keys created by DirectSignaturePlugin
  */
 export const DIRECT_SIGNATURE_STAGING_KEYS = {
-  SIGNATURE: 'signature'
+  SIGNATURE: 'signature',
+  SIGNED_DOC: 'signed_doc'
 } as const;
 
 /**
@@ -88,7 +89,7 @@ export class DirectSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       // Store both the signature and the signed document
       ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(processedSignature));
-      ctx.setStagingData('SIGNED_DOC', signatureResult.signed);
+      ctx.setStagingData(DIRECT_SIGNATURE_STAGING_KEYS.SIGNED_DOC, signatureResult.signed);
     } else {
       throw new Error("Unsupported signer type for direct signing");
     }
