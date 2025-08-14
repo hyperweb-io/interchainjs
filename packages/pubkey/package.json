@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/pubkey",
-  "version": "1.16.2",
+  "version": "1.16.3",
   "description": "Pubkey helpers for blockchain projects",
   "contributors": [
     "IOV SAS <admin@iov.one>"
@@ -27,11 +27,11 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/amino": "1.16.2",
-    "@interchainjs/cosmos-types": "1.16.2",
-    "@interchainjs/encoding": "1.16.2",
-    "@interchainjs/math": "1.16.2",
-    "@interchainjs/types": "1.16.2"
+    "@interchainjs/amino": "1.16.3",
+    "@interchainjs/cosmos-types": "1.16.3",
+    "@interchainjs/encoding": "1.16.3",
+    "@interchainjs/math": "1.16.3",
+    "@interchainjs/types": "1.16.3"
   },
   "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3"
 }
