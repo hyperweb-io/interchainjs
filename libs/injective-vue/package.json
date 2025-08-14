@@ -1,6 +1,6 @@
 {
   "name": "injective-vue",
-  "version": "1.13.6",
+  "version": "1.16.0",
   "description": "injective-vue is a JavaScript library providing vue hooks for interacting with injective sdk.",
   "main": "index.js",
   "module": "esm/index.js",
@@ -25,13 +25,13 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "1.13.6",
-    "@interchainjs/cosmos-types": "1.13.6",
-    "@interchainjs/encoding": "1.13.6",
-    "@interchainjs/math": "1.13.6",
-    "@interchainjs/pubkey": "1.13.6",
-    "@interchainjs/types": "1.13.6",
-    "@interchainjs/utils": "1.13.6",
+    "@interchainjs/cosmos": "1.16.0",
+    "@interchainjs/cosmos-types": "1.16.0",
+    "@interchainjs/encoding": "1.16.0",
+    "@interchainjs/math": "1.16.0",
+    "@interchainjs/pubkey": "1.16.0",
+    "@interchainjs/types": "1.16.0",
+    "@interchainjs/utils": "1.16.0",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3"
   },
