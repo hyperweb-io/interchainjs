@@ -43,7 +43,7 @@ jobs:
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: ./networks/cosmos/starship/configs/starship-devnet-action.yaml
+        uses: ./networks/cosmos/starship/configs/starship-devnet-action
         with:
           config: networks/injective/starship/configs/config.workflow.yaml
 
