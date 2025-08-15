@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - apply-pnpm-1.16
   pull_request:
     branches:
       - main
