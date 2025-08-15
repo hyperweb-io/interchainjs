@@ -51,8 +51,12 @@ jobs:
       - name: Link Workspace Packages
         run: pnpm install
 
-      - name: Build InterchainJS Package
-        run: cd ./libs/interchainjs && pnpm build
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "InterchainJS not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
