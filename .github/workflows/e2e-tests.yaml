@@ -95,7 +95,7 @@ jobs:
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.5
+        uses: ./networks/cosmos/starship/configs/starship-devnet-action.yaml
         with:
           config: networks/cosmos/starship/configs/config.workflow.yaml
 
