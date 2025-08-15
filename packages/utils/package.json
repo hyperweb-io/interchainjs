@@ -19,9 +19,9 @@
     "test": "jest --config ./jest.config.js --verbose --bail",
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
-    "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "prepare": "pnpm run build",
+    "build": "pnpm run clean; tsc; tsc -p tsconfig.esm.json; pnpm run copy",
+    "build:dev": "pnpm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; pnpm run copy",
     "lint": "eslint . --fix"
   },
   "dependencies": {
