@@ -41,6 +41,9 @@ jobs:
       - name: Build Project
         run: pnpm build
 
+      - name: Link Workspace Packages
+        run: pnpm install
+
       - name: Set Up Starship Infrastructure
         id: starship-infra
         uses: ./networks/cosmos/starship/configs/starship-devnet-action
