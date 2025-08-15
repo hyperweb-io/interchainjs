@@ -3,7 +3,7 @@
 import './setup.test';
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { createCosmosQueryClient, ICosmosQueryClient } from '@interchainjs/cosmos';
+import { createCosmosQueryClient, ICosmosQueryClient } from '../../src';
 
 import { useChain } from 'starshipjs';
 import { getAccounts, getAccount } from '@interchainjs/cosmos-types';

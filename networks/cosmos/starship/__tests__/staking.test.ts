@@ -6,8 +6,8 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
 import { useChain } from 'starshipjs';
-import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '../../src';
+import { Secp256k1HDWallet } from '../../src/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 
 import {

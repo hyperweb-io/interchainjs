@@ -3,11 +3,11 @@
 import './setup.test';
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '../../src';
 import { useChain } from 'starshipjs';
 import { TxBody, SignerInfo, ModeInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
 import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { Secp256k1HDWallet } from '../../src/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { generateMnemonic } from '../src/utils';
 

@@ -4,8 +4,8 @@ import './setup.test';
 
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
-import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient } from '../../src';
+import { Secp256k1HDWallet } from '../../src/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import {
   ProposalStatus,

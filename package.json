@@ -29,7 +29,6 @@
     "@noble/hashes": "^1.4.0",
     "@starship-ci/cli": "^2.9.0",
     "@types/jest": "^29.5.11",
-    "@types/minimatch": "^6.0.0",
     "@types/node": "^20.12.7",
     "@types/ws": "^8.5.8",
     "@typescript-eslint/eslint-plugin": "^7.10.0",

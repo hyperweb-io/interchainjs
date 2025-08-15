@@ -51,8 +51,12 @@ jobs:
       - name: Link Workspace Packages
         run: pnpm install
 
-      - name: Build Ethereum Package
-        run: cd ./networks/ethereum && pnpm build
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
 
       - name: Verify Package Links
         run: |
@@ -60,8 +64,11 @@ jobs:
           ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
           echo "Checking if interchainjs package is built..."
           ls -la libs/interchainjs/dist/ || echo "InterchainJS not built"
-          echo "Checking if ethereum package is built..."
+          echo "Checking if network packages are built..."
           ls -la networks/ethereum/dist/ || echo "Ethereum package not built"
+          ls -la networks/cosmos/dist/ || echo "Cosmos package not built"
+          ls -la networks/solana/dist/ || echo "Solana package not built"
+          ls -la networks/injective/dist/ || echo "Injective package not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra

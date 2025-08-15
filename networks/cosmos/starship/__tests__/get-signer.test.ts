@@ -3,9 +3,9 @@
 import './setup.test';
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient } from '../../src';
 import { useChain } from 'starshipjs';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { Secp256k1HDWallet } from '../../src/wallets/secp256k1hd';
 import { HDPath } from '@interchainjs/types';
 import { generateMnemonic } from '../src/utils';
 import { getSigner, GetSignerOptions } from '../../../../libs/interchainjs/src/interchain/core/getSigner';
