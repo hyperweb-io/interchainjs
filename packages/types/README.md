@@ -39,7 +39,7 @@ Core TypeScript interfaces and types for the InterchainJS ecosystem.
 ## Usage
 
 ```sh
-npm install @interchainjs/types
+pnpm add @interchainjs/types
 ```
 
 ## Core Interfaces

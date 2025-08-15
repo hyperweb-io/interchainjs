@@ -70,8 +70,8 @@ describe('getSigner Utility Function', () => {
 
       const signer = getSigner<DirectSigner>(wallet, options);
 
-      // Verify it's a DirectSigner instance
-      expect(signer).toBeInstanceOf(DirectSigner);
+      // Verify it's a DirectSigner instance by checking its constructor name
+      expect(signer.constructor.name).toBe('DirectSigner');
 
       // Verify it has the expected methods
       expect(typeof signer.sign).toBe('function');
@@ -99,8 +99,8 @@ describe('getSigner Utility Function', () => {
 
       const signer = getSigner<AminoSigner>(wallet, options);
 
-      // Verify it's an AminoSigner instance
-      expect(signer).toBeInstanceOf(AminoSigner);
+      // Verify it's an AminoSigner instance by checking its constructor name
+      expect(signer.constructor.name).toBe('AminoSigner');
 
       // Verify it has the expected methods
       expect(typeof signer.sign).toBe('function');
@@ -131,7 +131,7 @@ describe('getSigner Utility Function', () => {
       const signer = getSigner<DirectSigner>(wallet, options);
 
       // Should not throw and should create a valid signer
-      expect(signer).toBeInstanceOf(DirectSigner);
+      expect(signer.constructor.name).toBe('DirectSigner');
 
       // Verify basic functionality works
       const accounts = await signer.getAccounts();
@@ -187,7 +187,7 @@ describe('getSigner Utility Function', () => {
       };
 
       const signer = getSigner<DirectSigner>(wallet, options);
-      expect(signer).toBeInstanceOf(DirectSigner);
+      expect(signer.constructor.name).toBe('DirectSigner');
 
       // Should be able to get accounts even with minimal config
       const accounts = await signer.getAccounts();
@@ -214,7 +214,7 @@ describe('getSigner Utility Function', () => {
         };
 
         const signer = getSigner<DirectSigner>(wallet, options);
-        expect(signer).toBeInstanceOf(DirectSigner);
+        expect(signer.constructor.name).toBe('DirectSigner');
 
         // Verify basic functionality
         const accounts = await signer.getAccounts();

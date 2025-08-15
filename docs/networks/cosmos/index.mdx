@@ -41,7 +41,7 @@ Transaction codec and client to communicate with any cosmos blockchain.
 ## Usage
 
 ```sh
-npm install @interchainjs/cosmos
+pnpm add @interchainjs/cosmos
 ```
 
 ### Using DirectSigner

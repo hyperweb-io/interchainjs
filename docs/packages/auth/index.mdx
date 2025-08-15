@@ -39,7 +39,7 @@ Foundational cryptographic capabilities for blockchain applications, providing w
 ## Usage
 
 ```sh
-npm install @interchainjs/auth
+pnpm add @interchainjs/auth
 ```
 
 ### Creating HD Wallets

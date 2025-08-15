@@ -33,7 +33,7 @@ Transaction codec and client to communicate with any injective blockchain.
 ## Usage
 
 ```sh
-npm install @interchainjs/injective
+pnpm add @interchainjs/injective
 ```
 
 ### Using DirectSigner

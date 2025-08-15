@@ -7,11 +7,11 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR/../.."
 
 # Run the TypeScript script using ts-node
-# Check if ts-node is installed
-if command -v npx &> /dev/null; then
-  npx ts-node "$SCRIPT_DIR/generate_meta_json.ts"
+# Check if pnpm is installed
+if command -v pnpm &> /dev/null; then
+  pnpm exec ts-node "$SCRIPT_DIR/generate_meta_json.ts"
 else
-  echo "Error: npx not found. Please install Node.js and npm."
+  echo "Error: pnpm not found. Please install pnpm."
   exit 1
 fi
 
