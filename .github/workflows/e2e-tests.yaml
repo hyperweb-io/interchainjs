@@ -51,12 +51,17 @@ jobs:
       - name: Link Workspace Packages
         run: pnpm install
 
+      - name: Build Ethereum Package
+        run: cd ./networks/ethereum && pnpm build
+
       - name: Verify Package Links
         run: |
           echo "Checking if @interchainjs/amino is available..."
           ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
           echo "Checking if interchainjs package is built..."
           ls -la libs/interchainjs/dist/ || echo "InterchainJS not built"
+          echo "Checking if ethereum package is built..."
+          ls -la networks/ethereum/dist/ || echo "Ethereum package not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
