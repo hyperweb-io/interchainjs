@@ -4,30 +4,30 @@ Deploy
 
 ```sh
 # setup helm/starship
-yarn starship setup
+pnpm starship setup
 
 # deploy starship, the command will wait until all pods are running
-yarn starship:all
+pnpm starship:all
 
 # sanity check
-yarn starship get-pods
+pnpm starship get-pods
 ```
 
 Run Tests
 
 ```sh
 # test
-yarn starship:test
+pnpm starship:test
 ```
 
 Teardown
 
 ```sh
 # stop port forwarding (done by clean() too)
-# yarn starship stop-ports
+# pnpm starship stop-ports
 
 # stop ports and delete & remove helm chart
-yarn starship:clean
+pnpm starship:clean
 ```
 
 ## 1. Installation
@@ -42,7 +42,7 @@ Note: To make the process easy we have a simple command that will try and instal
 so that you dont have to.
 
 ```bash
-yarn starship setup
+pnpm starship setup
 ```
 
 This command will
@@ -75,9 +75,9 @@ Now with the dependencies and a kubernetes cluster in handy, we can proceed with
 Run
 
 ```bash
-yarn starship:all
+pnpm starship:all
 # or
-yarn starship start
+pnpm starship start
 ```
 
 We use the config file `configs/config.yaml` as the genesis file to define the topology of the e2e test infra. Change it as required
@@ -92,7 +92,7 @@ our end-to-end tests.
 Run
 
 ```bash
-yarn starship:test
+pnpm starship:test
 ```
 
 ### Available Tests
@@ -217,7 +217,7 @@ The tests should be ideompotent, so the tests can be run multiple times (which i
 Once the state of the mini-cosmos is corrupted, you can stop the deployments with
 
 ```bash
-yarn starship:clean
+pnpm starship:clean
 ```
 
 Which will

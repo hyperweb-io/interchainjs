@@ -4,44 +4,44 @@ Deploy
 
 ```sh
 # setup helm/starship
-yarn starship setup
+pnpm starship setup
 
 # sanity check
-yarn starship get-pods
+pnpm starship get-pods
 
 # deploy starship
-yarn starship deploy
+pnpm starship deploy
 
 # wait til STATUS=Running
-yarn starship wait-for-pods
+pnpm starship wait-for-pods
 or
-watch yarn starship get-pods
+watch pnpm starship get-pods
 
 # port forwarding
-yarn starship start-ports
+pnpm starship start-ports
 
 # check pids
-yarn starship port-pids
+pnpm starship port-pids
 ```
 
 Run Tests
 
 ```sh
 # test
-yarn starship:test
+pnpm starship:test
 
 # watch
-yarn starship:watch
+pnpm starship:watch
 ```
 
 Teardown
 
 ```sh
 # stop port forwarding (done by clean() too)
-# yarn starship stop-ports
+# pnpm starship stop-ports
 
 # stop ports and delete & remove helm chart
-yarn starship clean
+pnpm starship clean
 ```
 
 ## 1. Installation
@@ -56,7 +56,7 @@ Note: To make the process easy we have a simple command that will try and instal
 so that you dont have to.
 
 ```bash
-yarn starship setup
+pnpm starship setup
 ```
 
 This command will
@@ -79,7 +79,7 @@ to a kubernetes cluster locally.
 NOTE: Resources constraint on local machine will affect the performance of Starship spinup time
 
 ```bash
-yarn starship setup-kind
+pnpm starship setup-kind
 ```
 
 Run the following command to check connection to a k8s cluster
@@ -95,7 +95,7 @@ Now with the dependencies and a kubernetes cluster in handy, we can proceed with
 Run
 
 ```bash
-yarn starship deploy
+pnpm starship deploy
 ```
 
 We use the config file `configs/config.yaml` as the genesis file to define the topology of the e2e test infra. Change it as required
@@ -110,7 +110,7 @@ our end-to-end tests.
 Run
 
 ```bash
-npm run starship:test
+pnpm starship:test
 ```
 
 ## 5. Stop the infra
@@ -120,7 +120,7 @@ The tests should be ideompotent, so the tests can be run multiple times (which i
 Once the state of the mini-cosmos is corrupted, you can stop the deployments with
 
 ```bash
-npm run starship clean
+pnpm starship:clean
 ```
 
 Which will
@@ -133,7 +133,7 @@ Which will
 If you are using kind for your kubernetes cluster, you can delete it with
 
 ```bash
-yarn starship clean-kind
+pnpm starship clean-kind
 ```
 
 ## Related

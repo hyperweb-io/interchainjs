@@ -37,7 +37,7 @@
 ## install
 
 ```sh
-npm install injectivejs
+pnpm add injectivejs
 ```
 
 ## Table of contents
@@ -576,8 +576,8 @@ signingClient.addConverters(aminoTypes);
 When first cloning the repo:
 
 ```shell
-yarn
-yarn build:dev
+pnpm install
+pnpm build:dev
 ```
 
 ### Codegen
@@ -585,7 +585,7 @@ yarn build:dev
 Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/inj.telescope.json` and configure the settings for bundling your SDK and contracts into `injectivejs`:
 
 ```shell
-yarn codegen
+pnpm codegen
 ```
 
 ### Publishing
@@ -593,8 +593,8 @@ yarn codegen
 Build the types and then publish:
 
 ```shell
-yarn build
-yarn publish
+pnpm build
+pnpm publish
 ```
 
 ## Interchain JavaScript Stack ⚛️

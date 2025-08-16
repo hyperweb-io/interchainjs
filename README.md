@@ -114,11 +114,11 @@ graph LR
 
 This guide will walk you through the process of installing and setting up interchainjs for your project.
 
-You can install interchainjs using Yarn:
+You can install interchainjs using pnpm:
 
 ```bash
-yarn add interchainjs
-yarn add @interchainjs/cosmos
+pnpm add interchainjs
+pnpm add @interchainjs/cosmos
 ```
 
 or npm
@@ -126,6 +126,13 @@ or npm
 ```bash
 npm i interchainjs
 npm i @interchainjs/cosmos
+```
+
+or yarn
+
+```bash
+yarn add interchainjs
+yarn add @interchainjs/cosmos
 ```
 
 ## Quick Start
@@ -207,7 +214,7 @@ const result = await signer.signAndBroadcast({
 The easiest way to get started is by using the create-interchain-app tool, which sets up a complete project with all necessary dependencies:
 
 ```bash
-npm install -g create-interchain-app
+pnpm install -g create-interchain-app
 
 cia --example authz
 ```
