@@ -16,4 +16,7 @@ module.exports = {
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testRegex: '/starship/__tests__/.*\\.(test|spec)\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleNameMapper: {
+    '^@interchainjs/cosmos$': '<rootDir>/src/index.ts',
+  },
 };
