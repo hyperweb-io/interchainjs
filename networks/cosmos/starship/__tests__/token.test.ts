@@ -112,7 +112,7 @@ describe('Token transfers', () => {
         console.log(err);
       }
 
-      const { balance: balance2 } = await getBalance(endpoint, { address: address2, denom });
+      const { balance: balance2 } = await getBalance(client, { address: address2, denom });
 
       expect(balance2!.amount).toEqual(token.amount);
       expect(balance2!.denom).toEqual(denom);
