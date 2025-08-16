@@ -18,7 +18,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '^@interchainjs/cosmos$': '<rootDir>/src/index.ts',
-    '^@interchainjs/cosmos/utils$': '<rootDir>/src/utils/index.ts',
+    '^@interchainjs/cosmos/utils$': '<rootDir>/src/utils.ts',
     '^@interchainjs/cosmos/types/signing-client$': '<rootDir>/src/types/signing-client.ts',
   },
 };
