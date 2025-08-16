@@ -171,6 +171,7 @@ telescope({
   protoDirs: [join(__dirname, '../protos/interchainjs')],
   outPath: join(__dirname, '../libs/cosmos-types/src'),
   options: deepmerge(options.options, {
+    "isGeneratingCosmosTypes": true,
     "prototypes": {
       "enableRegistryLoader": false,
       "enableMessageComposer": false,

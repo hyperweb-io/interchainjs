@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@chain-registry/client": "1.18.1",
-    "@cosmology/telescope": "^1.12.19",
+    "@hyperweb/telescope": "^1.17.1",
     "@noble/hashes": "^1.4.0",
     "@starship-ci/cli": "^2.9.0",
     "@types/jest": "^29.5.11",
