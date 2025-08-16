@@ -20,5 +20,6 @@ module.exports = {
     '^@interchainjs/cosmos$': '<rootDir>/src/index.ts',
     '^@interchainjs/cosmos/utils$': '<rootDir>/src/utils.ts',
     '^@interchainjs/cosmos/types/signing-client$': '<rootDir>/src/types/signing-client.ts',
+    '^@interchainjs/amino$': '<rootDir>/../../packages/amino/src/index.ts',
   },
 };
