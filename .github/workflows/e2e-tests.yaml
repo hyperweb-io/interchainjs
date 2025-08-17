@@ -48,31 +48,9 @@ jobs:
       - name: Build Project
         run: pnpm build
 
-      - name: Link Workspace Packages
-        run: pnpm install
-
-      - name: Build Network Packages
-        run: |
-          cd ./networks/ethereum && pnpm build
-          cd ../cosmos && pnpm build
-          cd ../solana && pnpm build
-          cd ../injective && pnpm build
-
-      - name: Verify Package Links
-        run: |
-          echo "Checking if @interchainjs/amino is available..."
-          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
-          echo "Checking if interchainjs package is built..."
-          ls -la libs/interchainjs/dist/ || echo "InterchainJS not built"
-          echo "Checking if network packages are built..."
-          ls -la networks/ethereum/dist/ || echo "Ethereum package not built"
-          ls -la networks/cosmos/dist/ || echo "Cosmos package not built"
-          ls -la networks/solana/dist/ || echo "Solana package not built"
-          ls -la networks/injective/dist/ || echo "Injective package not built"
-
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: ./networks/cosmos/starship/configs/starship-devnet-action
+        uses: hyperweb-io/starship-action@0.5.5
         with:
           config: libs/interchainjs/starship/configs/config.workflow.yaml
 
@@ -116,12 +94,9 @@ jobs:
       - name: Build Project
         run: pnpm build
 
-      - name: Link Workspace Packages
-        run: pnpm install
-
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: ./networks/cosmos/starship/configs/starship-devnet-action
+        uses: hyperweb-io/starship-action@0.5.5
         with:
           config: networks/cosmos/starship/configs/config.workflow.yaml
 
@@ -165,12 +140,9 @@ jobs:
       - name: Build Project
         run: pnpm build
 
-      - name: Link Workspace Packages
-        run: pnpm install
-
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: ./networks/cosmos/starship/configs/starship-devnet-action
+        uses: hyperweb-io/starship-action@0.5.9
         with:
           config: networks/ethereum/starship/configs/eth-lite.yaml
 
