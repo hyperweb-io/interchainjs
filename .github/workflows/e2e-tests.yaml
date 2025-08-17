@@ -48,9 +48,12 @@ jobs:
       - name: Build Project
         run: pnpm build
 
+      - name: Link Workspace Packages
+        run: pnpm install
+
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.5
+        uses: ./libs/interchainjs/starship/configs/starship-devnet-action
         with:
           config: libs/interchainjs/starship/configs/config.workflow.yaml
 
@@ -94,9 +97,12 @@ jobs:
       - name: Build Project
         run: pnpm build
 
+      - name: Link Workspace Packages
+        run: pnpm install
+
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.5
+        uses: ./networks/cosmos/starship/configs/starship-devnet-action
         with:
           config: networks/cosmos/starship/configs/config.workflow.yaml
 
@@ -140,9 +146,12 @@ jobs:
       - name: Build Project
         run: pnpm build
 
+      - name: Link Workspace Packages
+        run: pnpm install
+
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.9
+        uses: ./networks/ethereum/starship/configs/starship-devnet-action
         with:
           config: networks/ethereum/starship/configs/eth-lite.yaml
 
