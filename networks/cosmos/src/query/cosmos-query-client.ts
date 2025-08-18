@@ -327,7 +327,13 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   // Account queries
   async getBaseAccount(address: string): Promise<BaseAccount | null> {
     try {
-      const response = await getAccount(this, { address });
+      // Create a plain RPC object so getAccount can mutate it
+      const rpc = {
+        request: (service: string, method: string, data: Uint8Array) =>
+          this.request(service, method, data),
+      };
+
+      const response = await getAccount(rpc, { address });
 
       if (!response.account) {
         return null;
