@@ -1,7 +1,8 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { BaseCryptoBytes, fromBase64 } from '@interchainjs/utils';
+import { BaseCryptoBytes } from '@interchainjs/utils';
+import { fromBase64 } from '@interchainjs/encoding/base64';
 import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { DIRECT_SIGN_DOC_STAGING_KEYS } from './direct-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';

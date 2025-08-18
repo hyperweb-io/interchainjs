@@ -3,6 +3,7 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
 import { toHex } from '@interchainjs/encoding';
+import { toBase64 } from '@interchainjs/encoding/base64';
 
 const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;
@@ -1292,7 +1293,7 @@ describe('Cosmos Query Client - Functional Tests', () => {
 
       test('checkTx() with malformed base64 should handle gracefully', async () => {
         // Valid base64 but not a valid transaction
-        const malformedTx = btoa('This is not a valid transaction');
+        const malformedTx = toBase64(new TextEncoder().encode('This is not a valid transaction'));
 
         const result = await queryClient.checkTx(malformedTx);
 
