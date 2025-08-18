@@ -51,6 +51,20 @@ jobs:
       - name: Link Workspace Packages
         run: pnpm install
 
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
+
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "interchainjs not built"
+
       - name: Set Up Starship Infrastructure
         id: starship-infra
         uses: ./libs/interchainjs/starship/configs/starship-devnet-action
@@ -100,6 +114,20 @@ jobs:
       - name: Link Workspace Packages
         run: pnpm install
 
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
+
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "interchainjs not built"
+
       - name: Set Up Starship Infrastructure
         id: starship-infra
         uses: ./networks/cosmos/starship/configs/starship-devnet-action
@@ -148,6 +176,20 @@ jobs:
 
       - name: Link Workspace Packages
         run: pnpm install
+
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
+
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "interchainjs not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
