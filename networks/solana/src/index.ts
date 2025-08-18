@@ -1,23 +1,20 @@
-export { PublicKey } from './types';
-export { Keypair } from './keypair';
-export { Transaction } from './transaction';
-export { SystemProgram } from './system-program';
-export { Connection } from './connection';
-export { DirectSigner, OfflineSigner } from './signer';
-export { SolanaSigningClient } from './signing-client';
-export { PhantomSigner, getPhantomWallet, isPhantomInstalled } from './phantom-signer';
-export { PhantomSigningClient } from './phantom-client';
-export { WebSocketConnection } from './websocket-connection';
+// Legacy exports for backward compatibility
+export { PublicKey } from './types/legacy';
+export { Keypair } from './signing/keypair';
+export { Transaction } from './types/transaction';
+export { SystemProgram } from './adapters/system-program';
 
-// SPL Token exports
-export { TokenProgram } from './token-program';
-export { TokenInstructions } from './token-instructions';
-export { AssociatedTokenAccount } from './associated-token-account';
-export { TokenMath } from './token-math';
-export * from './token-types';
-export * from './token-constants';
+// New refactored exports
+export * from './adapters';
+export * from './communication/rpc';
+export * from './communication/query';
+export * from './communication/event';
+export * from './signing';
+export * from './wallets/implementations';
+export * from './config';
+export * from './errors';
 
-export * from './types';
+// Additional exports are now included in the main module exports above
 
 // Re-export Solana constants and utilities from local utils
 export {
@@ -42,4 +39,4 @@ export {
   encodeSolanaCompactLength,
   decodeSolanaCompactLength,
   concatUint8Arrays
-} from './utils';
+} from './config/constants';
