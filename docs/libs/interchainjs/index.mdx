@@ -39,7 +39,7 @@ A single, universal signing interface for any network. Birthed from the intercha
 ## install
 
 ```sh
-npm install interchainjs
+pnpm add interchainjs
 ```
 
 ## Table of Contents
@@ -1093,8 +1093,8 @@ The `@interchainjs/pubkey` package provides utilities for working with pubkeys. 
 When first cloning the repo:
 
 ```shell
-yarn
-yarn build:dev
+pnpm install
+pnpm build:dev
 ```
 
 ### Codegen
@@ -1102,7 +1102,7 @@ yarn build:dev
 Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/interchainjs.telescope.json` and configure the settings for bundling your SDK and contracts into `interchainjs`:
 
 ```shell
-yarn codegen
+pnpm codegen
 ```
 
 ## Interchain JavaScript Stack ⚛️

@@ -17,7 +17,7 @@ Replace CosmJS with @interchainjs/cosmos to sign, build, and broadcast transacti
 
 Remove CosmJS dependencies, then install the new SDK and its related packages:
 ``` shell
-npm install @interchainjs/cosmos @interchainjs/auth @interchainjs/cosmos-types
+pnpm add @interchainjs/cosmos @interchainjs/auth @interchainjs/cosmos-types
 ```
 
 ## 3. Updated Wallet Generation

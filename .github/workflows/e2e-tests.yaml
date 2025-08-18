@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - apply-pnpm-1.16
   pull_request:
     branches:
       - main
@@ -21,22 +22,57 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: "yarn"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
 
       - name: Build Project
-        run: yarn build
+        run: pnpm build
+
+      - name: Link Workspace Packages
+        run: pnpm install
+
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
+
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "interchainjs not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.5
+        uses: ./libs/interchainjs/starship/configs/starship-devnet-action
         with:
           config: libs/interchainjs/starship/configs/config.workflow.yaml
 
       - name: Run E2E Tests
-        run: cd ./libs/interchainjs && yarn starship:test
+        run: cd ./libs/interchainjs && pnpm starship:test
 
   networks-cosmos:
     runs-on: ubuntu-latest
@@ -49,22 +85,57 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: "yarn"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
 
       - name: Build Project
-        run: yarn build
+        run: pnpm build
+
+      - name: Link Workspace Packages
+        run: pnpm install
+
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
+
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "interchainjs not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.5
+        uses: ./networks/cosmos/starship/configs/starship-devnet-action
         with:
           config: networks/cosmos/starship/configs/config.workflow.yaml
 
       - name: Run E2E Tests
-        run: cd ./networks/cosmos && yarn starship:test
+        run: cd ./networks/cosmos && pnpm starship:test
 
   networks-ethereum:
     runs-on: ubuntu-latest
@@ -77,19 +148,54 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: "yarn"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
 
       - name: Build Project
-        run: yarn build
+        run: pnpm build
+
+      - name: Link Workspace Packages
+        run: pnpm install
+
+      - name: Build Network Packages
+        run: |
+          cd ./networks/ethereum && pnpm build
+          cd ../cosmos && pnpm build
+          cd ../solana && pnpm build
+          cd ../injective && pnpm build
+
+      - name: Verify Package Links
+        run: |
+          echo "Checking if @interchainjs/amino is available..."
+          ls -la node_modules/@interchainjs/ || echo "No @interchainjs packages found"
+          echo "Checking if interchainjs package is built..."
+          ls -la libs/interchainjs/dist/ || echo "interchainjs not built"
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
-        uses: hyperweb-io/starship-action@0.5.9
+        uses: ./networks/ethereum/starship/configs/starship-devnet-action
         with:
           config: networks/ethereum/starship/configs/eth-lite.yaml
 
       - name: Run E2E Tests
-        run: cd ./networks/ethereum && yarn starship:test && yarn test:utils
+        run: cd ./networks/ethereum && pnpm starship:test && pnpm test:utils

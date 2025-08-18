@@ -43,7 +43,7 @@ Transaction codec and client to communicate with the Ethereum blockchain.
 ## Installation
 
 ```sh
-npm install @interchainjs/ethereum
+pnpm add @interchainjs/ethereum
 ```
 
 ---

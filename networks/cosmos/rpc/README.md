@@ -51,13 +51,13 @@ The tests in `query-client.test.ts` validate all query-client related functions 
 
 ```bash
 # Run all RPC tests
-npm run test:rpc
+pnpm test:rpc
 
 # Run tests in watch mode
-npm run test:rpc:watch
+pnpm test:rpc:watch
 
 # Run specific test file
-npx jest --config ./jest.rpc.config.js rpc/query-client.test.ts
+pnpm exec jest --config ./jest.rpc.config.js rpc/query-client.test.ts
 ```
 
 ## Test Configuration

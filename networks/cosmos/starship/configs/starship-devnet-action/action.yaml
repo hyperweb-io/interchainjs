@@ -1,0 +1,199 @@
+name: "Starship Devnet"
+description: "Run mini cosmos ecosystem via devnet"
+branding:
+  color: blue
+  icon: anchor
+
+inputs:
+  config:
+    description: "Path to the config file"
+    required: true
+  cli-version:
+    description: "Version of @starship-ci/cli to use: default: 3.10.0"
+    required: false
+    default: "3.10.0"
+  kubeconfig:
+    description: "Kubeconfig file for remote cluster, if set, will be used instead of creating kind cluster"
+    required: false
+    default: ""
+  chart:
+    description: "Name of  the help chart to use. Recommended: use default (default: starship/devnet)"
+    required: false
+    default: "starship/devnet"
+  repo:
+    description: "Helm repo to fetch the chart from (default: https://hyperweb-io.github.io/starship)"
+    required: false
+    default: "https://hyperweb-io.github.io/starship"
+  namespace:
+    description: "Kubernetes namespace to deploy helm charts on (default: ci-{github.repository}-{github.workflow}-{github.ref} )"
+    required: false
+    default: ""
+  timeout:
+    description: "Timeout for helm install (default: 10m)"
+    required: false
+    default: "10m"
+
+outputs:
+  namespace:
+    description: "Kubernetes namespace to which helm charts were deployed"
+    value: ${{ steps.set-namespace.outputs.namespace }}
+
+runs:
+  using: composite
+  steps:
+    - name: Create pnpm-lock.yaml and package.json file if not exists
+      if: inputs.cli-version != '0.0.0' # Skip if cli-version is 0.0.0, expected to be used for local testing
+      run: |
+        if [ ! -f $GITHUB_WORKSPACE/pnpm-lock.yaml ]; then
+          echo 'Creating temporary pnpm-lock.yaml file'
+          echo '' > $GITHUB_WORKSPACE/pnpm-lock.yaml
+        fi
+        if [ ! -f $GITHUB_WORKSPACE/package.json ]; then
+          echo 'Creating temporary package.json file'
+          echo '{}' > $GITHUB_WORKSPACE/package.json
+        fi
+      shell: bash
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      if: inputs.cli-version != '0.0.0' # Skip if cli-version is 0.0.0, expected to be used for local testing
+      with:
+        node-version: "20.x"
+        cache: "pnpm"
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      if: inputs.cli-version != '0.0.0' # Skip if cli-version is 0.0.0, expected to be used for local testing
+      with:
+        version: 8
+        run_install: false
+
+    - name: Setup helm
+      uses: azure/setup-helm@v3
+      with:
+        version: v3.10.0
+
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: v1.28.0
+
+    - name: Setup kind cluster
+      if: ${{ inputs.kubeconfig == '' }}
+      uses: helm/kind-action@v1.8.0
+      with:
+        cluster_name: kind-starship
+
+    - name: Create kubeconfig file
+      if: ${{ inputs.kubeconfig != '' }}
+      run: |
+        mkdir -p ~/.kube
+        # If input looks like a file path and exists, copy it
+        if [ -f ${{ inputs.kubeconfig }} ]; then
+          echo "Copying kubeconfig from ${{ inputs.kubeconfig }} to ~/.kube/config"
+          cp -n ${{ inputs.kubeconfig }} ~/.kube/config
+        else
+          # Otherwise treat as content
+          echo "Input appears to be direct kubeconfig content, writing to $HOME/.kube/config"
+          echo "${{ inputs.kubeconfig }}" > ~/.kube/config
+        fi
+      shell: bash
+
+    - name: Set namespace
+      id: set-namespace
+      run: |
+        namespace="ci-${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}"
+        if [ -n "$INPUT_NAMESPACE" ]; then
+          namespace="$INPUT_NAMESPACE"
+        fi
+        namespace="${namespace// /-}"
+        namespace="${namespace//\//-}"
+        namespace=$(awk '{print tolower($0)}' <<< $namespace)
+        (( ${#namespace} > 62 )) && namespace="$(echo $namespace | cut -c1-59)$((RANDOM%1000))"
+        namespace=$(echo $namespace | cut -c1-60)
+        echo "Setting namespace to $namespace"
+        echo "namespace=$namespace" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        INPUT_NAMESPACE: ${{ inputs.namespace }}
+
+    - name: Setup starshipjs client
+      if: inputs.cli-version != '0.0.0' # Skip if cli-version is 0.0.0, expected to be used for local testing
+      run: |
+        pnpm add -g @starship-ci/cli@${{ inputs.cli-version }}
+      shell: bash
+
+    - name: Verify starship cli
+      run: |
+        starship --version
+      shell: bash
+
+    - name: Setup starship helm repo
+      run: |
+        starship setup \
+          --config ${{ inputs.config }} \
+          --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
+          --chart ${{ inputs.chart }}
+      shell: bash
+
+    - name: Helm install
+      id: helm-install-1
+      continue-on-error: true
+      run: |
+        starship stop --config ${{ inputs.config }} --namespace ${{ steps.set-namespace.outputs.namespace }} || true
+        sleep 5
+        starship start \
+          --config ${{ inputs.config }} \
+          --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
+          --chart ${{ inputs.chart }} \
+          --timeout ${{ inputs.timeout }}
+      shell: bash
+
+    - name: Logs
+      if: always()
+      run: |
+        kubectl get pods -n $NAMESPACE
+        for i in `kubectl get po -n $NAMESPACE -o json | jq -r '.items[].metadata.name'`; do
+          echo "==================================================="
+          echo "Logs for $i"
+          kubectl describe pods $i -n $NAMESPACE
+          kubectl logs $i -n $NAMESPACE --all-containers --tail=10000
+          echo "==================================================="
+        done
+      env:
+        VALUES_FILE: ${{ inputs.config }}
+        NAMESPACE: ${{ steps.set-namespace.outputs.namespace }}
+      shell: bash
+
+    - name: Helm install again
+      id: helm-install-2
+      if: steps.helm-install-1.outcome == 'failure'
+      continue-on-error: true
+      run: |
+        starship stop --config ${{ inputs.config }} --namespace ${{ steps.set-namespace.outputs.namespace }} || true
+        sleep 5
+        kubectl get pods --namespace ${{ steps.set-namespace.outputs.namespace }}
+        starship start \
+          --config ${{ inputs.config }} \
+          --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
+          --chart ${{ inputs.chart }} \
+          --timeout ${{ inputs.timeout }}
+      shell: bash
+
+    - name: Helm install again, 3rd time is the charm
+      id: helm-install-3
+      if: steps.helm-install-2.outcome == 'failure'
+      run: |
+        starship stop --config ${{ inputs.config }} --namespace ${{ steps.set-namespace.outputs.namespace }} || true
+        sleep 5
+        kubectl get pods --namespace ${{ steps.set-namespace.outputs.namespace }}
+        starship start \
+          --config ${{ inputs.config }} \
+          --namespace ${{ steps.set-namespace.outputs.namespace }} \
+          --repoUrl ${{ inputs.repo }} \
+          --chart ${{ inputs.chart }} \
+          --timeout ${{ inputs.timeout }}
+      shell: bash

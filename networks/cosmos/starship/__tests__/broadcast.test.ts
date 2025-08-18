@@ -4,7 +4,7 @@ import './setup.test';
 
 import { useChain } from 'starshipjs';
 
-import { ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
+import { ICosmosQueryClient, createCosmosQueryClient } from '../../src';
 import { BroadcastTxParams } from '../../src/types/requests';
 
 describe('Broadcast Integration Tests', () => {
