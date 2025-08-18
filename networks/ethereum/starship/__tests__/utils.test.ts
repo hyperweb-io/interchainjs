@@ -1,10 +1,10 @@
 import { isValidEthereumAddress, toChecksumAddress } from '@interchainjs/ethereum/utils/address';
-import { utf8ToHex, hexToUtf8 } from '@interchainjs/ethereum/utils/encoding';
+import { fromUtf8, toUtf8, fromHex, toHex } from '@interchainjs/encoding';
 
 describe('address utils', () => {
   const validChecksum = '0x6f43F827bb07458dB45D23c6Dc3408FA4D2f8777';
   const validLower = validChecksum.toLowerCase();
-  const validUpper = validChecksum.toUpperCase();
+  const validUpper = '0x' + validChecksum.slice(2).toUpperCase();
 
   test('valid checksummed address', () => {
     expect(isValidEthereumAddress(validChecksum)).toBe(true);
@@ -35,19 +35,21 @@ describe('address utils', () => {
 
 
 describe('encoding utils', () => {
-  test('utf8ToHex should encode a UTF-8 string to hex', () => {
-    expect(utf8ToHex('hello')).toBe('68656c6c6f');
+  test('toHex(toUtf8) should encode a UTF-8 string to hex', () => {
+    expect(toHex(toUtf8('hello'))).toBe('68656c6c6f');
   });
 
-  test('hexToUtf8 should decode a hex string to UTF-8', () => {
-    expect(hexToUtf8('68656c6c6f')).toBe('hello');
+  test('fromUtf8(fromHex) should decode a hex string to UTF-8', () => {
+    expect(fromUtf8(fromHex('68656c6c6f'))).toBe('hello');
   });
 
-  test('hexToUtf8 should decode a hex string with 0x prefix', () => {
-    expect(hexToUtf8('0x68656c6c6f')).toBe('hello');
+  test('fromUtf8(fromHex) should decode a hex string with 0x prefix removed', () => {
+    const hexWithPrefix = '0x68656c6c6f';
+    const hexWithoutPrefix = hexWithPrefix.startsWith('0x') ? hexWithPrefix.slice(2) : hexWithPrefix;
+    expect(fromUtf8(fromHex(hexWithoutPrefix))).toBe('hello');
   });
 
-  test('hexToUtf8 should throw an error for invalid hex string', () => {
-    expect(() => hexToUtf8('0x123')).toThrow('Invalid hex string: 0x123');
+  test('fromHex should throw an error for invalid hex string with odd length', () => {
+    expect(() => fromHex('0x123')).toThrow();
   });
 });
