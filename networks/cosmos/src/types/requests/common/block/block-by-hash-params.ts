@@ -6,7 +6,7 @@ import { createCodec } from '../../../codec';
 import { ensureString } from '../../../codec/converters';
 import { EncodedBlockByHashParams } from './encoded-block-by-hash-params';
 import { fromHex } from '@interchainjs/encoding';
-import { toBase64 } from '@interchainjs/encoding';
+import { toBase64 } from '@interchainjs/encoding/base64';
 
 export interface BlockByHashParams {
   readonly hash: string;

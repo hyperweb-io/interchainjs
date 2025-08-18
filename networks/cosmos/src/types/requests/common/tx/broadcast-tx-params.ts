@@ -3,7 +3,7 @@
  */
 
 import { createCodec } from '../../../codec';
-import { toBase64 } from '@interchainjs/utils';
+import { toBase64 } from '@interchainjs/encoding/base64';
 import { EncodedBroadcastTxParams } from './encoded-broadcast-tx-params';
 
 export interface BroadcastTxParams {

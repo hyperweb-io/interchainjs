@@ -16,7 +16,8 @@ import {
   BondStatus,
   bondStatusToJSON,
 } from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { fromBase64, toUtf8 } from '@interchainjs/utils';
+import { fromBase64 } from '@interchainjs/encoding/base64';
+import { toUtf8 } from '@interchainjs/utils';
 import { BigNumber } from 'bignumber.js';
 import { useChain } from 'starshipjs';
 

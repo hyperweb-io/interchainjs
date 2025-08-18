@@ -2,7 +2,8 @@
  * Common converter functions for API response transformation
  */
 
-import { fromBase64, fromHex, apiToNumber as encApiToNumber, apiToBigInt as encApiToBigInt } from '@interchainjs/encoding';
+import { fromHex, apiToNumber as encApiToNumber, apiToBigInt as encApiToBigInt } from '@interchainjs/encoding';
+import { fromBase64 } from '@interchainjs/encoding/base64';
 
 // Create wrapper functions that match the expected signatures for backward compatibility
 export const apiToNumber = (value: unknown): number => {
