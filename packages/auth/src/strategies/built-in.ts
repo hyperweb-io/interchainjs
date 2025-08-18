@@ -1,5 +1,5 @@
 import { IAddressStrategy, IAlgo } from '@interchainjs/types';
-import * as bech32 from 'bech32';
+import { bech32 } from 'bech32';
 import { sha256 } from '@noble/hashes/sha256';
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import { keccak_256 } from '@noble/hashes/sha3';
