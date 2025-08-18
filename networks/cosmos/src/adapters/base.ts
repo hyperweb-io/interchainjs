@@ -231,8 +231,6 @@ export interface IProtocolAdapter {
   getVersion(): ProtocolVersion;
   getSupportedMethods(): Set<RpcMethod>;
   getCapabilities(): ProtocolCapabilities;
-  encodeBytes(data: string): Uint8Array;
-  decodeBytes(data: Uint8Array): string;
 }
 
 export interface ICosmosProtocolAdapter extends IProtocolAdapter, RequestEncoder, ResponseDecoder {}
@@ -299,34 +297,6 @@ export abstract class BaseAdapter implements RequestEncoder, ResponseDecoder, IC
   // IProtocolAdapter implementation
   getVersion(): ProtocolVersion {
     return this.version;
-  }
-
-  encodeBytes(data: string): Uint8Array {
-    // Handle hex strings and base64
-    if (data.startsWith('0x')) {
-      const hex = data.slice(2);
-      const bytes = new Uint8Array(hex.length / 2);
-      for (let i = 0; i < hex.length; i += 2) {
-        bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
-      }
-      return bytes;
-    }
-
-    // Assume base64
-    const binary = atob(data);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-    return bytes;
-  }
-
-  decodeBytes(data: Uint8Array): string {
-    // Convert to hex string
-    return Array.from(data)
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('')
-      .toUpperCase();
   }
 
   getSupportedMethods(): Set<RpcMethod> {
