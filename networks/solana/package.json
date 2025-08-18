@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/solana",
-  "version": "1.13.1-beta.3",
+  "version": "1.16.3",
   "description": "Solana SDK for InterchainJS",
   "main": "index.js",
   "module": "esm/index.js",
@@ -18,10 +18,11 @@
   },
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
+    "clean": "rm -rf dist",
+    "prepare": "npm run build",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "test": "jest",
-    "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "test:ws": "jest src/__tests__/websocket.test.ts",
     "test:token": "jest src/__tests__/token.test.ts",
@@ -59,5 +60,6 @@
     "setupFiles": [
       "<rootDir>/jest.setup.js"
     ]
-  }
+  },
+  "gitHead": "f9ab48be2c593268d87cb1883481c3abc66f504f"
 }

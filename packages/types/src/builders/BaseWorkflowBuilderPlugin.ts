@@ -1,6 +1,5 @@
 import { IWorkflowBuilderPlugin } from "./IWorkflowBuilderPlugin";
 import { IWorkflowBuilderContext } from "./IWorkflowBuilderContext";
-import { camel } from "@interchainjs/utils";
 
 /**
  * Type for dependency configuration
@@ -134,3 +133,7 @@ export abstract class BaseWorkflowBuilderPlugin<
     await this.onBuild(this.getContext(), params);
   }
 }
+
+export function camel(str: string) {
+  return str.replace(/[_-]([a-zA-Z])/g, (_, letter) => letter.toUpperCase());
+};

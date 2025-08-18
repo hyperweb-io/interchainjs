@@ -8,3 +8,5 @@ export * from './amino-sign-doc';
 export * from './direct-signature';
 export * from './amino-signature';
 export * from './tx-raw-assembly';
+export * from './tx-raw-assembly-direct';
+export * from './tx-raw-assembly-amino';

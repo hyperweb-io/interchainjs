@@ -1,7 +1,7 @@
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { StdSignDoc } from '@interchainjs/types';
-import { BaseCryptoBytes } from '@interchainjs/utils';
+import { BaseCryptoBytes, fromBase64 } from '@interchainjs/utils';
 import { CosmosDirectDoc, CosmosAminoDoc, CosmosSignerConfig } from '../../signers/types';
 import { AMINO_SIGN_DOC_STAGING_KEYS } from './amino-sign-doc';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
@@ -11,7 +11,8 @@ import { resolveHashFunction, resolveSignatureFormat } from '@interchainjs/auth'
  * Staging keys created by AminoSignaturePlugin
  */
 export const AMINO_SIGNATURE_STAGING_KEYS = {
-  SIGNATURE: 'signature'
+  SIGNATURE: 'signature',
+  SIGNED_STD_DOC: 'signed_std_doc'
 } as const;
 
 /**
@@ -61,17 +62,32 @@ export class AminoSignaturePlugin extends BaseWorkflowBuilderPlugin<
 
       const signatureResult = await signer.signAmino(signerAddress, signDoc);
 
+      // Extract signature bytes from the signature object
+      let signatureBytes: Uint8Array;
+      if (typeof signatureResult.signature === 'object' && 'signature' in signatureResult.signature) {
+        // New signature object structure with pub_key and signature fields
+        signatureBytes = fromBase64(signatureResult.signature.signature);
+      } else if (typeof signatureResult.signature === 'string') {
+        // Legacy base64 string format
+        signatureBytes = fromBase64(signatureResult.signature);
+      } else {
+        // Legacy Uint8Array format
+        signatureBytes = signatureResult.signature as Uint8Array;
+      }
+
       // Determine signature format - use configured format or default to compact
       const formatFn = resolveSignatureFormat(options?.signature?.format, 'compact');
 
       let processedSignature: Uint8Array;
       if (formatFn) {
-        processedSignature = formatFn(signatureResult.signature);
+        processedSignature = formatFn(signatureBytes);
       } else {
-        processedSignature = signatureResult.signature;
+        processedSignature = signatureBytes;
       }
 
       ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNATURE, new BaseCryptoBytes(processedSignature));
+      // Store the signed StdSignDoc for use in amino assembly plugin
+      ctx.setStagingData(AMINO_SIGNATURE_STAGING_KEYS.SIGNED_STD_DOC, signatureResult.signed);
     } else {
       throw new Error("Unsupported signer type for amino signing");
     }

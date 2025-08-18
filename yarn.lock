@@ -1135,6 +1135,11 @@
   resolved "https://registry.yarnpkg.com/@chain-registry/types/-/types-2.0.13.tgz#5f1ceb19337aad93186d599e490fa6ec2bb913b5"
   integrity sha512-gfx45go8omcFri3s6BavspQyWb9McWW9WYagLobTDMWGB9kksmmIq3OzOzDodAvkf0q97yj3Z822Y8TMlOc6bg==
 
+"@chain-registry/types@^2.0.42":
+  version "2.0.42"
+  resolved "https://registry.yarnpkg.com/@chain-registry/types/-/types-2.0.42.tgz#9d86692fcc400d13246ab08085ff40ac040566a7"
+  integrity sha512-ozPgnok3kmtABQSUH4UussJdpygrdwA0uQJdnDhiVPczQ6OH5UQSvpX5UXDfNiutRkTztp7h/TA1DSQQbiQo1g==
+
 "@chain-registry/utils@^1.17.0":
   version "1.51.163"
   resolved "https://registry.yarnpkg.com/@chain-registry/utils/-/utils-1.51.163.tgz#0175c80d84f38e0f0c21bc993537c2ace5f8cc42"
@@ -1541,6 +1546,29 @@
     rimraf "5.0.0"
     yaml "^2.3.4"
 
+"@interchainjs/math@1.13.1-beta.3":
+  version "1.13.1-beta.3"
+  resolved "https://registry.npmjs.org/@interchainjs/math/-/math-1.13.1-beta.3.tgz#209cc8be60eaae2f46332a51ce766a59f6a9fb98"
+  integrity sha512-O4MiItSmqM+UAOaIjliaUbgD+L6HjobQVQZCkuPvbeg7zPtBSRZ4Vvjm45espLEqGMRFeRGgAtgYhON9iWdqVQ==
+  dependencies:
+    bn.js "^5.2.0"
+
+"@interchainjs/types@1.13.1-beta.3":
+  version "1.13.1-beta.3"
+  resolved "https://registry.npmjs.org/@interchainjs/types/-/types-1.13.1-beta.3.tgz#311a7a4d0525ff9aabb5cee4fe23ed668bfb3805"
+  integrity sha512-k6BuaIhQ+FuXIQzJI0h12My1G1MpMc1pJ3hGji9+cMy4/49GQbuRKCjq/M6tWjLJs0nAy90cRHECdD1U20p7IA==
+  dependencies:
+    decimal.js "^10.4.3"
+
+"@interchainjs/utils@1.13.1-beta.3":
+  version "1.13.1-beta.3"
+  resolved "https://registry.npmjs.org/@interchainjs/utils/-/utils-1.13.1-beta.3.tgz#7ae639339553128b09bac4fc73b59e87ac30e099"
+  integrity sha512-mTmvCrntgfeAPqLDr/q+gyAqZU3td8SJgSz8arptL5cKKhsUPlAkdlPFHCDqbjIgBlLYgXN2pl66NcXr/YTGTA==
+  dependencies:
+    "@interchainjs/types" "1.13.1-beta.3"
+    bech32 "^2.0.0"
+    decimal.js "^10.4.3"
+
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@isaacs/cliui/-/cliui-8.0.2.tgz#b37667b7bc181c168782259bab42474fbf52b550"
@@ -1843,7 +1871,7 @@
     "@jest/types" "30.0.1"
     jest-mock "30.0.2"
 
-"@jest/globals@30.0.5":
+"@jest/globals@30.0.5", "@jest/globals@^30.0.0":
   version "30.0.5"
   resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-30.0.5.tgz#ca70e0ac08ab40417cf8cd92bcb76116c2ccca63"
   integrity sha512-7oEJT19WW4oe6HR7oLRvHxwlJk2gev0U9px3ufs8sX9PoD1Eza68KF0/tlN7X0dq/WVsBScXQGgCldA1V9Y/jA==
@@ -1853,7 +1881,7 @@
     "@jest/types" "30.0.5"
     jest-mock "30.0.5"
 
-"@jest/globals@^29.7.0":
+"@jest/globals@^29.5.0", "@jest/globals@^29.7.0":
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-29.7.0.tgz#8d9290f9ec47ff772607fa864ca1d5a2efae1d4d"
   integrity sha512-mpiz3dutLbkW2MNFubUGUEVLkTGiqW6yLVTA+JbP6fI6J5iL9Y0Nlg8k95pcF8ctKwCS7WVxteBs29hhfAotzQ==
@@ -4087,6 +4115,11 @@ bignumber.js@9.1.2:
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.2.tgz#b7c4242259c008903b13707983b5f4bbd31eda0c"
   integrity sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==
+
+bignumber.js@^9.1.0:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.3.1.tgz#759c5aaddf2ffdc4f154f7b493e1c8770f88c4d7"
+  integrity sha512-Ko0uX15oIUS7wJ3Rb30Fs6SkVbLmPBAKdlm7q9+ak9bbIeFf0MwuBsQV6z7+X768/cHsfg+WlysDWJcmthjsjQ==
 
 bin-links@^4.0.1:
   version "4.0.4"

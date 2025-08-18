@@ -132,8 +132,11 @@ describe('Secp256k1HDWallet', () => {
       expect(result).toHaveProperty('signed');
       expect(result).toHaveProperty('signature');
       expect(result.signed).toEqual(signDoc);
-      expect(result.signature).toBeInstanceOf(Uint8Array);
-      expect(result.signature.length).toBe(65); // secp256k1 signature with recovery byte
+      expect(result.signature).toHaveProperty('pub_key');
+      expect(result.signature).toHaveProperty('signature');
+      expect(result.signature.pub_key).toHaveProperty('type', 'tendermint/PubKeySecp256k1');
+      expect(result.signature.pub_key).toHaveProperty('value');
+      expect(typeof result.signature.signature).toBe('string');
     });
 
     it('should throw error for invalid address', async () => {
@@ -174,8 +177,11 @@ describe('Secp256k1HDWallet', () => {
       expect(result).toHaveProperty('signed');
       expect(result).toHaveProperty('signature');
       expect(result.signed).toEqual(signDoc);
-      expect(result.signature).toBeInstanceOf(Uint8Array);
-      expect(result.signature.length).toBe(65);
+      expect(result.signature).toHaveProperty('pub_key');
+      expect(result.signature).toHaveProperty('signature');
+      expect(result.signature.pub_key).toHaveProperty('type', 'tendermint/PubKeySecp256k1');
+      expect(result.signature.pub_key).toHaveProperty('value');
+      expect(typeof result.signature.signature).toBe('string');
     });
 
     it('should throw error for invalid address', async () => {

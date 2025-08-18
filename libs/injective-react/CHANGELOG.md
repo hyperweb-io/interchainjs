@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.3](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.16.2...injective-react@1.16.3) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.16.2](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.16.1...injective-react@1.16.2) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.16.1](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.16.0...injective-react@1.16.1) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+# [1.16.0](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.15.0...injective-react@1.16.0) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.15.0...injective-react@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.15.0...injective-react@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.15.0...injective-react@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.15.0...injective-react@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+# [1.15.0](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.14.1...injective-react@1.15.0) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.14.1](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.14.0...injective-react@1.14.1) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+# [1.14.0](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.8...injective-react@1.14.0) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.8](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.7...injective-react@1.13.8) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.7](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.7...injective-react@1.13.7) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.7](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.6...injective-react@1.13.7) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.5](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.6...injective-react@1.13.5) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.6](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.5...injective-react@1.13.6) (2025-08-14)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.5](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.4...injective-react@1.13.5) (2025-08-13)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.4](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.3...injective-react@1.13.4) (2025-08-13)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.3](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.2...injective-react@1.13.3) (2025-08-13)
+
+**Note:** Version bump only for package injective-react
+
+## [1.13.2](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.1-beta.3...injective-react@1.13.2) (2025-08-13)
+
+**Note:** Version bump only for package injective-react
+
 ## [1.13.1-beta.3](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.13.1-beta.2...injective-react@1.13.1-beta.3) (2025-08-10)
 
 **Note:** Version bump only for package injective-react

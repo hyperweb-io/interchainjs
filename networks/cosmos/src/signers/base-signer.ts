@@ -15,7 +15,9 @@ import {
   isOfflineDirectSigner,
   ICosmosSigner,
   CosmosSignArgs,
-  EncodedMessage
+  EncodedMessage,
+  DirectSignResponse,
+  AminoSignResponse
 } from './types';
 import { ISigningClient, Encoder } from '../types/signing-client';
 import { getSimulate, SimulationResponse } from '@interchainjs/cosmos-types';
@@ -383,10 +385,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   /**
    * Sign using offline direct signer
    */
-  async signDirect(signerAddress: string, signDoc: SignDoc): Promise<{
-    signed: SignDoc;
-    signature: Uint8Array;
-  }> {
+  async signDirect(signerAddress: string, signDoc: SignDoc): Promise<DirectSignResponse> {
     if (!isOfflineDirectSigner(this.auth)) {
       throw new Error('Signer does not support direct signing');
     }
@@ -401,10 +400,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
   /**
    * Sign using offline amino signer
    */
-  async signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<{
-    signed: StdSignDoc;
-    signature: Uint8Array;
-  }> {
+  async signAmino(signerAddress: string, signDoc: StdSignDoc): Promise<AminoSignResponse> {
     if (!isOfflineAminoSigner(this.auth)) {
       throw new Error('Signer does not support amino signing');
     }
