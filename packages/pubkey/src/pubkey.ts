@@ -14,7 +14,7 @@ import { Uint53 } from "@interchainjs/math";
 import {
   CosmosCryptoEd25519PubKey as CosmosCryptoEd25519Pubkey,
   LegacyAminoPubKey,
-  PubKey as CosmosCryptoSecp256k1Pubkey,
+  CosmosCryptoSecp256k1PubKey as CosmosCryptoSecp256k1Pubkey,
   Any
 } from "@interchainjs/cosmos-types";
 

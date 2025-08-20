@@ -1,7 +1,7 @@
 import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from './signature-processor';
 import { InjectiveDocOptions, InjectiveSignerConfig } from './types';
 import deepmerge from 'deepmerge';
-import { PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types';
+import { CosmosCryptoSecp256k1PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types';
 import { EncodedMessage } from '@interchainjs/cosmos';
 
 /**
