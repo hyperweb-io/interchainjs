@@ -9,7 +9,6 @@ export * from "./injective/bundle";
 export * from "./google/bundle";
 export * from "./cosmos_proto/bundle";
 export * from "./cosmos/bundle";
-export * from "./extern";
 export * from "./helper-func-types";
 export * from "./varint";
 export * from "./utf8";

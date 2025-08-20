@@ -9,6 +9,14 @@
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperweb-io/interchainjs/tree/main/packages/pubkey"
