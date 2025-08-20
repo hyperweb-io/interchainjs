@@ -1,5 +1,5 @@
 import { AccountData, DirectSignResponse, AminoSignResponse, OfflineDirectSigner, OfflineAminoSigner } from '../signers/types';
-import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignDoc } from '@interchainjs/cosmos-types';
 import { StdSignDoc, IPrivateKey, IWallet, IAccount, AddrDerivation, HDPath } from '@interchainjs/types';
 import { ICosmosWalletConfig } from './types';
 import * as bip39 from 'bip39';

@@ -16,4 +16,4 @@ export {
   CosmosBroadcastResponse,
   OfflineSigner,
   AccountData
-} from '@interchainjs/cosmos/signers/types';
+} from '@interchainjs/cosmos';

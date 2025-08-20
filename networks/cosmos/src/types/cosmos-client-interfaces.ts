@@ -1,6 +1,6 @@
 // networks/cosmos/src/types/interfaces.ts
 import { IQueryClient, IEventClient } from '@interchainjs/types';
-import { 
+import {
   StatusResponse as ChainStatus, Block,
   TxResponse, ValidatorsResponse as ValidatorSet,
   BlockSearchResponse as SearchBlocksResult, TxSearchResponse as SearchTxsResult,
@@ -24,7 +24,7 @@ import {
 } from './requests';
 import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
-import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
+import { BaseAccount } from '@interchainjs/cosmos-types';
 
 
 
@@ -45,7 +45,7 @@ export interface ICosmosQueryClient extends IQueryClient {
   getHeaderByHash(hash: string): Promise<BlockHeader>;
   getCommit(height?: number): Promise<Commit>;
 
-  // Transaction queries  
+  // Transaction queries
   getTx(hash: string, prove?: boolean): Promise<TxResponse>;
   searchTxs(params: TxSearchParams): Promise<SearchTxsResult>;
   checkTx(tx: string): Promise<CheckTxResponse>;

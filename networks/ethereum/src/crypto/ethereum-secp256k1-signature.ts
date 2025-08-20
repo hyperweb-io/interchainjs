@@ -1,7 +1,7 @@
 import { ICryptoBytes } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { hexToBytes } from 'ethereum-cryptography/utils';
-import { toBase64 } from '@interchainjs/encoding/base64';
+import { toBase64 } from '@interchainjs/encoding';
 
 /**
  * Utility function to trim leading null bytes from a Uint8Array

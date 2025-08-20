@@ -1,4 +1,4 @@
-import { ICosmosWalletConfig } from '@interchainjs/cosmos/wallets/types';
+import { ICosmosWalletConfig } from '@interchainjs/cosmos';
 import { AddrDerivation, HDPath, IWalletConfig } from '@interchainjs/types';
 
 /**

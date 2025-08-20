@@ -1,4 +1,4 @@
-import { isValidEthereumAddress, toChecksumAddress } from '@interchainjs/ethereum/utils/address';
+import { isValidEthereumAddress, toChecksumAddress } from '@interchainjs/ethereum';
 import { fromUtf8, toUtf8, fromHex, toHex } from '@interchainjs/encoding';
 
 describe('address utils', () => {

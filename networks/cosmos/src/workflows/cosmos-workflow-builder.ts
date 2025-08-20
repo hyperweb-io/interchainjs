@@ -1,4 +1,4 @@
-import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
+import { SignMode } from '@interchainjs/cosmos-types';
 import { WorkflowBuilder, IWorkflowBuilderPlugin, WorkflowBuilderOptions } from '@interchainjs/types';
 import {
   ICosmosSigner,

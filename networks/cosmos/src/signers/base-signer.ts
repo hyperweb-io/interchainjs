@@ -1,8 +1,6 @@
 import { ICryptoBytes, StdFee, Message, IWallet, isIWallet, StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
-import { Tx, TxBody, SignerInfo, AuthInfo, SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { Any } from '@interchainjs/cosmos-types/google/protobuf/any';
-import { TxResponse } from '@interchainjs/cosmos-types/cosmos/base/abci/v1beta1/abci';
+import { Tx, TxBody, SignerInfo, AuthInfo, SignDoc, Any, TxResponse } from '@interchainjs/cosmos-types';
 import { TxResponse as QueryTxResponse } from '../types';
 import {
   CosmosSignerConfig,

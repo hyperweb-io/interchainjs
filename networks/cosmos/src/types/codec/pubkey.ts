@@ -1,4 +1,4 @@
-import { fromBase64 } from '@interchainjs/encoding/base64';
+import { fromBase64 } from '@interchainjs/encoding';
 
 export interface DecodedPubkey {
   readonly type: string;

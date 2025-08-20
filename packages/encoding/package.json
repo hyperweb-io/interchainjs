@@ -15,11 +15,6 @@
       "require": "./index.js",
       "types": "./index.d.ts"
     },
-    "./base64": {
-      "import": "./esm/base64.js",
-      "require": "./base64.js",
-      "types": "./base64.d.ts"
-    },
     "./package.json": "./package.json"
   },
   "repository": {

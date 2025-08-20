@@ -1,4 +1,4 @@
-import { TxBody } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { TxBody } from '@interchainjs/cosmos-types';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { EncodedMessage, CosmosMessage, DocOptions } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';

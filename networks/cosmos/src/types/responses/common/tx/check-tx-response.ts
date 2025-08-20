@@ -4,7 +4,7 @@
 
 import { createCodec } from '../../../codec';
 import { ensureNumber, ensureBigInt } from '../../../codec/converters';
-import { fromBase64 } from '@interchainjs/encoding/base64';
+import { fromBase64 } from '@interchainjs/encoding';
 
 // Types
 export interface CheckTxResponse {

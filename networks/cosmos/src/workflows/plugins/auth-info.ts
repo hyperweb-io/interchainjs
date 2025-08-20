@@ -1,4 +1,4 @@
-import { AuthInfo, SignerInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { AuthInfo, SignerInfo, Fee } from '@interchainjs/cosmos-types';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosWorkflowBuilderContext } from '../context';
 import { SIGNER_INFO_STAGING_KEYS } from './signer-info';

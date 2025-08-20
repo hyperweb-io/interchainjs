@@ -17,7 +17,7 @@ export * from './getSigner';
  *
  * ```typescript
  * import { getSigner } from '@interchainjs/interchain/core';
- * import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+ * import { Secp256k1HDWallet } from '@interchainjs/cosmos';
  * import { CosmosQueryClient } from '@interchainjs/cosmos';
  *
  * // Create a Cosmos Direct signer

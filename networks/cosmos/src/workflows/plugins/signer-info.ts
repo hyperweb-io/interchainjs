@@ -1,6 +1,4 @@
-import { SignerInfo } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
-import { PubKey } from '@interchainjs/cosmos-types/cosmos/crypto/secp256k1/keys';
-import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
+import { SignerInfo, PubKey, SignMode } from '@interchainjs/cosmos-types';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { EncodedMessage } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';

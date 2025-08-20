@@ -1,6 +1,6 @@
 import { IPrivateKey, AddrDerivation, HDPath } from '@interchainjs/types';
-import { ICosmosWalletConfig } from '@interchainjs/cosmos/wallets/types';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { ICosmosWalletConfig } from '@interchainjs/cosmos';
+import { Secp256k1HDWallet } from '@interchainjs/cosmos';
 import * as bip39 from 'bip39';
 import { PrivateKey } from '@interchainjs/auth';
 import { createInjectiveEthConfig } from '../auth/config';

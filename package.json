@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@chain-registry/client": "1.18.1",
-    "@hyperweb/telescope": "^1.17.2",
+    "@hyperweb/telescope": "^1.17.3",
     "@noble/hashes": "^1.4.0",
     "@starship-ci/cli": "^2.9.0",
     "@types/jest": "^30.0.0",

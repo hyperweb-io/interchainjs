@@ -1,4 +1,4 @@
-import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignDoc } from '@interchainjs/cosmos-types';
 import { BaseWorkflowBuilderPlugin } from '@interchainjs/types';
 import { CosmosDirectDoc } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';
