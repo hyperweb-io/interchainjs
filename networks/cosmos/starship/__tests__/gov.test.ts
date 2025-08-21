@@ -14,7 +14,8 @@ import {
   MsgDelegate,
   MsgSubmitProposal,
   MsgVote,
-  getBalance
+  getBalance,
+  getVote
 } from 'interchainjs';
 // Using built-in Buffer for base64 and utf8 conversion
 const fromBase64 = (str: string) => Buffer.from(str, 'base64');
@@ -24,11 +25,6 @@ import { useChain } from 'starshipjs';
 
 import { waitUntil } from '../src';
 import { getProposal, getValidators, delegate, submitProposal, vote } from 'interchainjs';
-
-// Note: getVote function might have a different name in the exports, using client.query directly
-const getVote = async (client: any, params: any) => {
-  return await client.query.cosmos.gov.v1beta1.vote(params);
-};
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 

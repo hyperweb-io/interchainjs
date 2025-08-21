@@ -125,6 +125,7 @@ export const options: TelescopeInput = {
         // Gov module v1beta1
         { package: "cosmos.gov.v1beta1", name: "getProposal" },
         { package: "cosmos.gov.v1beta1", name: "getProposals" },
+        { package: "cosmos.gov.v1beta1", name: "getVote" },
         { package: "cosmos.gov.v1beta1", name: "vote" },
         { package: "cosmos.gov.v1beta1", name: "deposit" },
         { package: "cosmos.gov.v1beta1", name: "submitProposal" },

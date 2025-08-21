@@ -167,7 +167,7 @@ export { getParams as getParamsCosmosParamsV1beta1, getSubspaces } from "./param
 export { getBalance as getBalanceCosmosNftV1beta1, getOwner, getSupply, getNFTs, getNFT, getClass, getClasses } from "./nft/v1beta1/query.rpc.func";
 export { getParams as getParamsCosmosMintV1beta1, getInflation, getAnnualProvisions } from "./mint/v1beta1/query.rpc.func";
 export { getGroupInfo, getGroupPolicyInfo, getGroupMembers, getGroupsByAdmin, getGroupPoliciesByGroup, getGroupPoliciesByAdmin, getProposal as getProposalCosmosGroupV1, getProposalsByGroupPolicy, getVoteByProposalVoter, getVotesByProposal, getVotesByVoter, getGroupsByMember, getTallyResult as getTallyResultCosmosGroupV1, getGroups } from "./group/v1/query.rpc.func";
-export { getProposal, getProposals, getVote as getVoteCosmosGovV1beta1, getVotes as getVotesCosmosGovV1beta1, getParams as getParamsCosmosGovV1beta1, getDeposit, getDeposits, getTallyResult } from "./gov/v1beta1/query.rpc.func";
+export { getProposal, getProposals, getVote, getVotes as getVotesCosmosGovV1beta1, getParams as getParamsCosmosGovV1beta1, getDeposit, getDeposits, getTallyResult } from "./gov/v1beta1/query.rpc.func";
 export { getConstitution, getProposal as getProposalCosmosGovV1, getProposals as getProposalsCosmosGovV1, getVote as getVoteCosmosGovV1, getVotes as getVotesCosmosGovV1, getParams as getParamsCosmosGovV1, getDeposit as getDepositCosmosGovV1, getDeposits as getDepositsCosmosGovV1, getTallyResult as getTallyResultCosmosGovV1 } from "./gov/v1/query.rpc.func";
 export * from "./feegrant/v1beta1/query.rpc.func";
 export * from "./evidence/v1beta1/query.rpc.func";
