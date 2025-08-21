@@ -4,26 +4,24 @@ import './setup.test';
 
 import { Asset } from '@chain-registry/types';
 import { DirectSigner, AminoSigner } from '@interchainjs/cosmos';
-import { toEncoders, toConverters } from '@interchainjs/cosmos/utils';
+import { toEncoders, toConverters } from '@interchainjs/cosmos';
 import {
   sleep,
 } from '@interchainjs/utils';
 
 import { ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
-import {
-  BondStatus,
-  bondStatusToJSON,
-} from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
+import { MsgDelegate } from 'interchainjs';
 import { BigNumber } from 'bignumber.js'; // Using `fromWallet` to construct Signer
 import { useChain } from 'starshipjs';
 
 import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
 import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
-import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { getValidators, getDelegation } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
-import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
+import { getBalance } from "@interchainjs/cosmos-types";
+import { getValidators, getDelegation } from "@interchainjs/cosmos-types";
+import { delegate } from "interchainjs";
 import * as bip39 from 'bip39';
+
+
 
 
 describe('Staking tokens testing', () => {
@@ -54,14 +52,10 @@ describe('Staking tokens testing', () => {
       }]
     });
 
-
     const offlineSigner = await wallet.toOfflineDirectSigner();
 
     // Create query client for signer configuration
     const queryClient = await createCosmosQueryClient(injRpcEndpoint);
-
-
-    // Query client is properly configured with all required methods
 
     // Use Injective-specific signer configuration with proper defaults
     let actualChainId = 'injective-1'; // default fallback
@@ -78,10 +72,7 @@ describe('Staking tokens testing', () => {
       addressPrefix: 'inj'
     };
 
-
-
     // Merge with DEFAULT_INJECTIVE_SIGNER_CONFIG for complete configuration
-    // Override signature format to use compact format for compatibility
     const signerConfig = createInjectiveSignerConfig({
       ...DEFAULT_INJECTIVE_SIGNER_CONFIG,
       ...baseSignerConfig
@@ -94,10 +85,9 @@ describe('Staking tokens testing', () => {
     aminoSigner = new AminoSigner(offlineSigner, signerConfig);
     aminoSigner.addEncoders(toEncoders(MsgDelegate));
     aminoSigner.addConverters(toConverters(MsgDelegate));
+
     const addresses = await offlineSigner.getAccounts();
     address = addresses[0].address;
-
-
 
     // Transfer tokens to address
     await creditFromFaucet(address);
@@ -118,9 +108,13 @@ describe('Staking tokens testing', () => {
   }, 10000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators(injRpcEndpoint, {
-      status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
+    // Create query client for validator query
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
+
+    const { validators } = await getValidators(queryClient, {
+      status: "BOND_STATUS_BONDED",
     });
+
     let allValidators = validators;
     if (validators.length > 1) {
       allValidators = validators.sort((a, b) =>
@@ -138,19 +132,22 @@ describe('Staking tokens testing', () => {
     // Create query client for validator query
     const queryClient = await createCosmosQueryClient(injRpcEndpoint);
 
-    // First get the validator address
-    const { validators } = await getValidators(queryClient, {
-      status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
-    });
-    let allValidators = validators;
-    if (validators.length > 1) {
-      allValidators = validators.sort((a, b) =>
-        new BigNumber(b.tokens).minus(new BigNumber(a.tokens)).toNumber()
-      );
-    }
+    // First get the validator address (with fallback if not set from previous test)
+    if (!validatorAddress) {
+      const { validators } = await getValidators(queryClient, {
+        status: "BOND_STATUS_BONDED",
+      });
 
-    expect(allValidators.length).toBeGreaterThan(0);
-    validatorAddress = allValidators[0].operatorAddress;
+      let allValidators = validators;
+      if (validators.length > 1) {
+        allValidators = validators.sort((a, b) =>
+          new BigNumber(b.tokens).minus(new BigNumber(a.tokens)).toNumber()
+        );
+      }
+
+      expect(allValidators.length).toBeGreaterThan(0);
+      validatorAddress = allValidators[0].operatorAddress;
+    }
 
     const { balance } = await getBalance(queryClient, {
       address,
@@ -180,7 +177,6 @@ describe('Staking tokens testing', () => {
       gas: '550000',
     };
 
-
     const result = await delegate(
       directSigner,
       address,
@@ -195,8 +191,6 @@ describe('Staking tokens testing', () => {
       delegatorAddr: address,
       validatorAddr: validatorAddress,
     });
-
-
 
     // Check that delegation exists and has a reasonable amount
     expect(delegationResponse?.balance?.amount).toBeDefined();
