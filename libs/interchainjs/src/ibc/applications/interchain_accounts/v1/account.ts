@@ -9,6 +9,7 @@ import { DeepPartial } from "../../../../helpers";
  * @see proto type: ibc.applications.interchain_accounts.v1.InterchainAccount
  */
 export interface InterchainAccount {
+  $typeUrl?: "/ibc.applications.interchain_accounts.v1.InterchainAccount";
   baseAccount?: BaseAccount;
   accountOwner: string;
 }
@@ -32,6 +33,7 @@ export interface InterchainAccountAminoMsg {
 }
 function createBaseInterchainAccount(): InterchainAccount {
   return {
+    $typeUrl: "/ibc.applications.interchain_accounts.v1.InterchainAccount",
     baseAccount: undefined,
     accountOwner: ""
   };

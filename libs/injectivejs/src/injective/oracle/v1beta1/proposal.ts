@@ -8,6 +8,7 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * @see proto type: injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal
  */
 export interface GrantBandOraclePrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal";
   title: string;
   description: string;
   relayers: string[];
@@ -36,6 +37,7 @@ export interface GrantBandOraclePrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal
  */
 export interface RevokeBandOraclePrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal";
   title: string;
   description: string;
   relayers: string[];
@@ -64,6 +66,7 @@ export interface RevokeBandOraclePrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal
  */
 export interface GrantPriceFeederPrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal";
   title: string;
   description: string;
   base: string;
@@ -96,6 +99,7 @@ export interface GrantPriceFeederPrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.GrantProviderPrivilegeProposal
  */
 export interface GrantProviderPrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal";
   title: string;
   description: string;
   provider: string;
@@ -126,6 +130,7 @@ export interface GrantProviderPrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.RevokeProviderPrivilegeProposal
  */
 export interface RevokeProviderPrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal";
   title: string;
   description: string;
   provider: string;
@@ -156,6 +161,7 @@ export interface RevokeProviderPrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal
  */
 export interface RevokePriceFeederPrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal";
   title: string;
   description: string;
   base: string;
@@ -188,6 +194,7 @@ export interface RevokePriceFeederPrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal
  */
 export interface AuthorizeBandOracleRequestProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal";
   title: string;
   description: string;
   request: BandOracleRequest;
@@ -216,6 +223,7 @@ export interface AuthorizeBandOracleRequestProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.UpdateBandOracleRequestProposal
  */
 export interface UpdateBandOracleRequestProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal";
   title: string;
   description: string;
   deleteRequestIds: bigint[];
@@ -246,6 +254,7 @@ export interface UpdateBandOracleRequestProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.EnableBandIBCProposal
  */
 export interface EnableBandIBCProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.EnableBandIBCProposal";
   title: string;
   description: string;
   bandIbcParams: BandIBCParams;
@@ -274,6 +283,7 @@ export interface EnableBandIBCProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal
  */
 export interface GrantStorkPublisherPrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal";
   title: string;
   description: string;
   storkPublishers: string[];
@@ -302,6 +312,7 @@ export interface GrantStorkPublisherPrivilegeProposalAminoMsg {
  * @see proto type: injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal
  */
 export interface RevokeStorkPublisherPrivilegeProposal {
+  $typeUrl?: "/injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal";
   title: string;
   description: string;
   storkPublishers: string[];
@@ -326,6 +337,7 @@ export interface RevokeStorkPublisherPrivilegeProposalAminoMsg {
 }
 function createBaseGrantBandOraclePrivilegeProposal(): GrantBandOraclePrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.GrantBandOraclePrivilegeProposal",
     title: "",
     description: "",
     relayers: []
@@ -440,6 +452,7 @@ export const GrantBandOraclePrivilegeProposal = {
 };
 function createBaseRevokeBandOraclePrivilegeProposal(): RevokeBandOraclePrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.RevokeBandOraclePrivilegeProposal",
     title: "",
     description: "",
     relayers: []
@@ -554,6 +567,7 @@ export const RevokeBandOraclePrivilegeProposal = {
 };
 function createBaseGrantPriceFeederPrivilegeProposal(): GrantPriceFeederPrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.GrantPriceFeederPrivilegeProposal",
     title: "",
     description: "",
     base: "",
@@ -692,6 +706,7 @@ export const GrantPriceFeederPrivilegeProposal = {
 };
 function createBaseGrantProviderPrivilegeProposal(): GrantProviderPrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.GrantProviderPrivilegeProposal",
     title: "",
     description: "",
     provider: "",
@@ -818,6 +833,7 @@ export const GrantProviderPrivilegeProposal = {
 };
 function createBaseRevokeProviderPrivilegeProposal(): RevokeProviderPrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.RevokeProviderPrivilegeProposal",
     title: "",
     description: "",
     provider: "",
@@ -944,6 +960,7 @@ export const RevokeProviderPrivilegeProposal = {
 };
 function createBaseRevokePriceFeederPrivilegeProposal(): RevokePriceFeederPrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.RevokePriceFeederPrivilegeProposal",
     title: "",
     description: "",
     base: "",
@@ -1082,6 +1099,7 @@ export const RevokePriceFeederPrivilegeProposal = {
 };
 function createBaseAuthorizeBandOracleRequestProposal(): AuthorizeBandOracleRequestProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.AuthorizeBandOracleRequestProposal",
     title: "",
     description: "",
     request: BandOracleRequest.fromPartial({})
@@ -1195,6 +1213,7 @@ export const AuthorizeBandOracleRequestProposal = {
 };
 function createBaseUpdateBandOracleRequestProposal(): UpdateBandOracleRequestProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.UpdateBandOracleRequestProposal",
     title: "",
     description: "",
     deleteRequestIds: [],
@@ -1331,6 +1350,7 @@ export const UpdateBandOracleRequestProposal = {
 };
 function createBaseEnableBandIBCProposal(): EnableBandIBCProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.EnableBandIBCProposal",
     title: "",
     description: "",
     bandIbcParams: BandIBCParams.fromPartial({})
@@ -1444,6 +1464,7 @@ export const EnableBandIBCProposal = {
 };
 function createBaseGrantStorkPublisherPrivilegeProposal(): GrantStorkPublisherPrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.GrantStorkPublisherPrivilegeProposal",
     title: "",
     description: "",
     storkPublishers: []
@@ -1558,6 +1579,7 @@ export const GrantStorkPublisherPrivilegeProposal = {
 };
 function createBaseRevokeStorkPublisherPrivilegeProposal(): RevokeStorkPublisherPrivilegeProposal {
   return {
+    $typeUrl: "/injective.oracle.v1beta1.RevokeStorkPublisherPrivilegeProposal",
     title: "",
     description: "",
     storkPublishers: []

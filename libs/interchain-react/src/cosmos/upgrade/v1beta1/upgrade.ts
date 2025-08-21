@@ -104,6 +104,7 @@ export interface PlanAminoMsg {
  * @deprecated
  */
 export interface SoftwareUpgradeProposal {
+  $typeUrl?: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal";
   /**
    * title of the proposal
    */
@@ -160,6 +161,7 @@ export interface SoftwareUpgradeProposalAminoMsg {
  * @deprecated
  */
 export interface CancelSoftwareUpgradeProposal {
+  $typeUrl?: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal";
   /**
    * title of the proposal
    */
@@ -370,6 +372,7 @@ export const Plan = {
 };
 function createBaseSoftwareUpgradeProposal(): SoftwareUpgradeProposal {
   return {
+    $typeUrl: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
     title: "",
     description: "",
     plan: Plan.fromPartial({})
@@ -488,6 +491,7 @@ export const SoftwareUpgradeProposal = {
 };
 function createBaseCancelSoftwareUpgradeProposal(): CancelSoftwareUpgradeProposal {
   return {
+    $typeUrl: "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal",
     title: "",
     description: ""
   };

@@ -13,6 +13,7 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * @see proto type: cosmos.feegrant.v1beta1.BasicAllowance
  */
 export interface BasicAllowance {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.BasicAllowance";
   /**
    * spend_limit specifies the maximum amount of coins that can be spent
    * by this allowance and will be updated as coins are spent. If it is
@@ -59,6 +60,7 @@ export interface BasicAllowanceAminoMsg {
  * @see proto type: cosmos.feegrant.v1beta1.PeriodicAllowance
  */
 export interface PeriodicAllowance {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.PeriodicAllowance";
   /**
    * basic specifies a struct of `BasicAllowance`
    */
@@ -132,6 +134,7 @@ export interface PeriodicAllowanceAminoMsg {
  * @see proto type: cosmos.feegrant.v1beta1.AllowedMsgAllowance
  */
 export interface AllowedMsgAllowance {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance";
   /**
    * allowance can be any of basic and periodic fee allowance.
    */
@@ -227,6 +230,7 @@ export interface GrantAminoMsg {
 }
 function createBaseBasicAllowance(): BasicAllowance {
   return {
+    $typeUrl: "/cosmos.feegrant.v1beta1.BasicAllowance",
     spendLimit: [],
     expiration: undefined
   };
@@ -332,6 +336,7 @@ export const BasicAllowance = {
 };
 function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
+    $typeUrl: "/cosmos.feegrant.v1beta1.PeriodicAllowance",
     basic: BasicAllowance.fromPartial({}),
     period: Duration.fromPartial({}),
     periodSpendLimit: [],
@@ -476,6 +481,7 @@ export const PeriodicAllowance = {
 };
 function createBaseAllowedMsgAllowance(): AllowedMsgAllowance {
   return {
+    $typeUrl: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance",
     allowance: undefined,
     allowedMessages: []
   };

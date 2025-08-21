@@ -76,6 +76,7 @@ export interface AllocationAminoMsg {
  * @see proto type: ibc.applications.transfer.v1.TransferAuthorization
  */
 export interface TransferAuthorization {
+  $typeUrl?: "/ibc.applications.transfer.v1.TransferAuthorization";
   /**
    * port and channel amounts
    */
@@ -246,6 +247,7 @@ export const Allocation = {
 };
 function createBaseTransferAuthorization(): TransferAuthorization {
   return {
+    $typeUrl: "/ibc.applications.transfer.v1.TransferAuthorization",
     allocations: []
   };
 }

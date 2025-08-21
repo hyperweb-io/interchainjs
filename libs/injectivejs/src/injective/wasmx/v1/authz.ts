@@ -10,6 +10,7 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * @see proto type: injective.wasmx.v1.ContractExecutionCompatAuthorization
  */
 export interface ContractExecutionCompatAuthorization {
+  $typeUrl?: "/injective.wasmx.v1.ContractExecutionCompatAuthorization";
   /**
    * Grants for contract executions
    */
@@ -38,6 +39,7 @@ export interface ContractExecutionCompatAuthorizationAminoMsg {
 }
 function createBaseContractExecutionCompatAuthorization(): ContractExecutionCompatAuthorization {
   return {
+    $typeUrl: "/injective.wasmx.v1.ContractExecutionCompatAuthorization",
     grants: []
   };
 }

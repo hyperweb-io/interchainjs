@@ -48,6 +48,7 @@ export function exchangeTypeToJSON(object: ExchangeType): string {
  * @see proto type: injective.exchange.v1beta1.SpotMarketParamUpdateProposal
  */
 export interface SpotMarketParamUpdateProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal";
   title: string;
   description: string;
   marketId: string;
@@ -182,6 +183,7 @@ export interface ExchangeEnableProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.BatchExchangeModificationProposal
  */
 export interface BatchExchangeModificationProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.BatchExchangeModificationProposal";
   title: string;
   description: string;
   spotMarketParamUpdateProposals: SpotMarketParamUpdateProposal[];
@@ -234,6 +236,7 @@ export interface BatchExchangeModificationProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.SpotMarketLaunchProposal
  */
 export interface SpotMarketLaunchProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.SpotMarketLaunchProposal";
   title: string;
   description: string;
   /**
@@ -348,6 +351,7 @@ export interface SpotMarketLaunchProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.PerpetualMarketLaunchProposal
  */
 export interface PerpetualMarketLaunchProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal";
   title: string;
   description: string;
   /**
@@ -496,6 +500,7 @@ export interface PerpetualMarketLaunchProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal
  */
 export interface BinaryOptionsMarketLaunchProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal";
   title: string;
   description: string;
   /**
@@ -644,6 +649,7 @@ export interface BinaryOptionsMarketLaunchProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal
  */
 export interface ExpiryFuturesMarketLaunchProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal";
   title: string;
   description: string;
   /**
@@ -800,6 +806,7 @@ export interface ExpiryFuturesMarketLaunchProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal
  */
 export interface DerivativeMarketParamUpdateProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal";
   title: string;
   description: string;
   marketId: string;
@@ -960,6 +967,7 @@ export interface AdminInfoAminoMsg {
  * @see proto type: injective.exchange.v1beta1.MarketForcedSettlementProposal
  */
 export interface MarketForcedSettlementProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.MarketForcedSettlementProposal";
   title: string;
   description: string;
   marketId: string;
@@ -990,6 +998,7 @@ export interface MarketForcedSettlementProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.UpdateDenomDecimalsProposal
  */
 export interface UpdateDenomDecimalsProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal";
   title: string;
   description: string;
   denomDecimals: DenomDecimals[];
@@ -1018,6 +1027,7 @@ export interface UpdateDenomDecimalsProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal
  */
 export interface BinaryOptionsMarketParamUpdateProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal";
   title: string;
   description: string;
   marketId: string;
@@ -1252,6 +1262,7 @@ export interface OracleParamsAminoMsg {
  * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal
  */
 export interface TradingRewardCampaignLaunchProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal";
   title: string;
   description: string;
   campaignInfo?: TradingRewardCampaignInfo;
@@ -1282,6 +1293,7 @@ export interface TradingRewardCampaignLaunchProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal
  */
 export interface TradingRewardCampaignUpdateProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal";
   title: string;
   description: string;
   campaignInfo?: TradingRewardCampaignInfo;
@@ -1346,6 +1358,7 @@ export interface RewardPointUpdateAminoMsg {
  * @see proto type: injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal
  */
 export interface TradingRewardPendingPointsUpdateProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal";
   title: string;
   description: string;
   pendingPoolTimestamp: bigint;
@@ -1376,6 +1389,7 @@ export interface TradingRewardPendingPointsUpdateProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.FeeDiscountProposal
  */
 export interface FeeDiscountProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.FeeDiscountProposal";
   title: string;
   description: string;
   schedule?: FeeDiscountSchedule;
@@ -1404,6 +1418,7 @@ export interface FeeDiscountProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.BatchCommunityPoolSpendProposal
  */
 export interface BatchCommunityPoolSpendProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal";
   title: string;
   description: string;
   proposals: CommunityPoolSpendProposal[];
@@ -1434,6 +1449,7 @@ export interface BatchCommunityPoolSpendProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal
  */
 export interface AtomicMarketOrderFeeMultiplierScheduleProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal";
   title: string;
   description: string;
   marketFeeMultipliers: MarketFeeMultiplier[];
@@ -1464,6 +1480,7 @@ export interface AtomicMarketOrderFeeMultiplierScheduleProposalAminoMsg {
  * @see proto type: injective.exchange.v1beta1.DenomMinNotionalProposal
  */
 export interface DenomMinNotionalProposal {
+  $typeUrl?: "/injective.exchange.v1beta1.DenomMinNotionalProposal";
   title: string;
   description: string;
   denomMinNotionals: DenomMinNotional[];
@@ -1488,6 +1505,7 @@ export interface DenomMinNotionalProposalAminoMsg {
 }
 function createBaseSpotMarketParamUpdateProposal(): SpotMarketParamUpdateProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.SpotMarketParamUpdateProposal",
     title: "",
     description: "",
     marketId: "",
@@ -1839,6 +1857,7 @@ export const ExchangeEnableProposal = {
 };
 function createBaseBatchExchangeModificationProposal(): BatchExchangeModificationProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.BatchExchangeModificationProposal",
     title: "",
     description: "",
     spotMarketParamUpdateProposals: [],
@@ -2111,6 +2130,7 @@ export const BatchExchangeModificationProposal = {
 };
 function createBaseSpotMarketLaunchProposal(): SpotMarketLaunchProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.SpotMarketLaunchProposal",
     title: "",
     description: "",
     ticker: "",
@@ -2346,6 +2366,7 @@ export const SpotMarketLaunchProposal = {
 };
 function createBasePerpetualMarketLaunchProposal(): PerpetualMarketLaunchProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.PerpetualMarketLaunchProposal",
     title: "",
     description: "",
     ticker: "",
@@ -2617,6 +2638,7 @@ export const PerpetualMarketLaunchProposal = {
 };
 function createBaseBinaryOptionsMarketLaunchProposal(): BinaryOptionsMarketLaunchProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketLaunchProposal",
     title: "",
     description: "",
     ticker: "",
@@ -2897,6 +2919,7 @@ export const BinaryOptionsMarketLaunchProposal = {
 };
 function createBaseExpiryFuturesMarketLaunchProposal(): ExpiryFuturesMarketLaunchProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.ExpiryFuturesMarketLaunchProposal",
     title: "",
     description: "",
     ticker: "",
@@ -3180,6 +3203,7 @@ export const ExpiryFuturesMarketLaunchProposal = {
 };
 function createBaseDerivativeMarketParamUpdateProposal(): DerivativeMarketParamUpdateProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.DerivativeMarketParamUpdateProposal",
     title: "",
     description: "",
     marketId: "",
@@ -3549,6 +3573,7 @@ export const AdminInfo = {
 };
 function createBaseMarketForcedSettlementProposal(): MarketForcedSettlementProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.MarketForcedSettlementProposal",
     title: "",
     description: "",
     marketId: "",
@@ -3673,6 +3698,7 @@ export const MarketForcedSettlementProposal = {
 };
 function createBaseUpdateDenomDecimalsProposal(): UpdateDenomDecimalsProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.UpdateDenomDecimalsProposal",
     title: "",
     description: "",
     denomDecimals: []
@@ -3788,6 +3814,7 @@ export const UpdateDenomDecimalsProposal = {
 };
 function createBaseBinaryOptionsMarketParamUpdateProposal(): BinaryOptionsMarketParamUpdateProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.BinaryOptionsMarketParamUpdateProposal",
     title: "",
     description: "",
     marketId: "",
@@ -4279,6 +4306,7 @@ export const OracleParams = {
 };
 function createBaseTradingRewardCampaignLaunchProposal(): TradingRewardCampaignLaunchProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignLaunchProposal",
     title: "",
     description: "",
     campaignInfo: undefined,
@@ -4407,6 +4435,7 @@ export const TradingRewardCampaignLaunchProposal = {
 };
 function createBaseTradingRewardCampaignUpdateProposal(): TradingRewardCampaignUpdateProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.TradingRewardCampaignUpdateProposal",
     title: "",
     description: "",
     campaignInfo: undefined,
@@ -4636,6 +4665,7 @@ export const RewardPointUpdate = {
 };
 function createBaseTradingRewardPendingPointsUpdateProposal(): TradingRewardPendingPointsUpdateProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.TradingRewardPendingPointsUpdateProposal",
     title: "",
     description: "",
     pendingPoolTimestamp: BigInt(0),
@@ -4763,6 +4793,7 @@ export const TradingRewardPendingPointsUpdateProposal = {
 };
 function createBaseFeeDiscountProposal(): FeeDiscountProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.FeeDiscountProposal",
     title: "",
     description: "",
     schedule: undefined
@@ -4876,6 +4907,7 @@ export const FeeDiscountProposal = {
 };
 function createBaseBatchCommunityPoolSpendProposal(): BatchCommunityPoolSpendProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.BatchCommunityPoolSpendProposal",
     title: "",
     description: "",
     proposals: []
@@ -4991,6 +5023,7 @@ export const BatchCommunityPoolSpendProposal = {
 };
 function createBaseAtomicMarketOrderFeeMultiplierScheduleProposal(): AtomicMarketOrderFeeMultiplierScheduleProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.AtomicMarketOrderFeeMultiplierScheduleProposal",
     title: "",
     description: "",
     marketFeeMultipliers: []
@@ -5108,6 +5141,7 @@ export const AtomicMarketOrderFeeMultiplierScheduleProposal = {
 };
 function createBaseDenomMinNotionalProposal(): DenomMinNotionalProposal {
   return {
+    $typeUrl: "/injective.exchange.v1beta1.DenomMinNotionalProposal",
     title: "",
     description: "",
     denomMinNotionals: []

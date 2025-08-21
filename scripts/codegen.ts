@@ -83,7 +83,7 @@ export const options: TelescopeInput = {
         "fromProto": false,
         "toProto": false,
       },
-      "addTypeUrlToDecoders": false,
+      "addTypeUrlToDecoders": true,
       "addTypeUrlToObjects": true,
       "addAminoTypeToObjects": true,
       "typingsFormat": {

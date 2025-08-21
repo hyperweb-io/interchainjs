@@ -10,6 +10,7 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers"
  * @see proto type: injective.types.v1beta1.EthAccount
  */
 export interface EthAccount {
+  $typeUrl?: "/injective.types.v1beta1.EthAccount";
   baseAccount?: BaseAccount;
   codeHash: Uint8Array;
 }
@@ -34,6 +35,7 @@ export interface EthAccountAminoMsg {
 }
 function createBaseEthAccount(): EthAccount {
   return {
+    $typeUrl: "/injective.types.v1beta1.EthAccount",
     baseAccount: undefined,
     codeHash: new Uint8Array()
   };

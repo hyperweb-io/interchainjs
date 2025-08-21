@@ -129,10 +129,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgGrant = MsgGrant.fromPartial({
@@ -180,10 +180,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgGrant = MsgGrant.fromPartial({
@@ -225,10 +225,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgGrant = MsgGrant.fromPartial({
@@ -270,10 +270,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgExec = MsgExec.fromPartial({
@@ -315,10 +315,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgRevoke = MsgRevoke.fromPartial({
@@ -355,10 +355,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgRevoke = MsgRevoke.fromPartial({
@@ -387,10 +387,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "500000",
+          amount: "100000",
         },
       ],
-      gas: "1000000",
+      gas: "550000",
     };
 
     const msgRevoke = MsgRevoke.fromPartial({

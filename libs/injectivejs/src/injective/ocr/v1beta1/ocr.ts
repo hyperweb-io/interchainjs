@@ -374,6 +374,7 @@ export interface ContractConfigAminoMsg {
  * @see proto type: injective.ocr.v1beta1.SetConfigProposal
  */
 export interface SetConfigProposal {
+  $typeUrl?: "/injective.ocr.v1beta1.SetConfigProposal";
   title: string;
   description: string;
   config?: FeedConfig;
@@ -520,6 +521,7 @@ export interface FeedPropertiesAminoMsg {
  * @see proto type: injective.ocr.v1beta1.SetBatchConfigProposal
  */
 export interface SetBatchConfigProposal {
+  $typeUrl?: "/injective.ocr.v1beta1.SetBatchConfigProposal";
   title: string;
   description: string;
   /**
@@ -1713,6 +1715,7 @@ export const ContractConfig = {
 };
 function createBaseSetConfigProposal(): SetConfigProposal {
   return {
+    $typeUrl: "/injective.ocr.v1beta1.SetConfigProposal",
     title: "",
     description: "",
     config: undefined
@@ -2021,6 +2024,7 @@ export const FeedProperties = {
 };
 function createBaseSetBatchConfigProposal(): SetBatchConfigProposal {
   return {
+    $typeUrl: "/injective.ocr.v1beta1.SetBatchConfigProposal",
     title: "",
     description: "",
     signers: [],
