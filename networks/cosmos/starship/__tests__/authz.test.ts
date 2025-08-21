@@ -3,25 +3,25 @@ import "./setup.test";
 import { generateMnemonic } from "../src/utils";
 import { useChain } from 'starshipjs';
 import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { Secp256k1HDWallet } from "@interchainjs/cosmos/wallets/secp256k1hd";
+import { Secp256k1HDWallet } from "@interchainjs/cosmos";
 import { HDPath } from '@interchainjs/types';
 
 import {
   GenericAuthorization,
   Grant,
-} from "interchainjs/cosmos/authz/v1beta1/authz";
+} from "interchainjs";
 import {
   MsgExec,
   MsgGrant,
   MsgRevoke,
-} from "interchainjs/cosmos/authz/v1beta1/tx";
-import { SendAuthorization } from "interchainjs/cosmos/bank/v1beta1/authz";
-import { MsgVote } from "interchainjs/cosmos/gov/v1beta1/tx";
-import { MsgSend } from "interchainjs/cosmos/bank/v1beta1/tx";
+} from "interchainjs";
+import { SendAuthorization } from "interchainjs";
+import { MsgVote } from "interchainjs";
+import { MsgSend } from "interchainjs";
 
-import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { getGranteeGrants } from "interchainjs/cosmos/authz/v1beta1/query.rpc.func";
-import { grant, exec, revoke } from "interchainjs/cosmos/authz/v1beta1/tx.rpc.func";
+import { getBalance } from "@interchainjs/cosmos-types";
+import { getGranteeGrants } from "interchainjs";
+import { grant, exec, revoke } from "interchainjs";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -129,10 +129,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgGrant = MsgGrant.fromPartial({
@@ -180,10 +180,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgGrant = MsgGrant.fromPartial({
@@ -225,10 +225,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgGrant = MsgGrant.fromPartial({
@@ -270,10 +270,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgExec = MsgExec.fromPartial({
@@ -315,10 +315,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgRevoke = MsgRevoke.fromPartial({
@@ -355,10 +355,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgRevoke = MsgRevoke.fromPartial({
@@ -387,10 +387,10 @@ describe("Authz testing", () => {
       amount: [
         {
           denom,
-          amount: "100000",
+          amount: "500000",
         },
       ],
-      gas: "550000",
+      gas: "1000000",
     };
 
     const msgRevoke = MsgRevoke.fromPartial({
