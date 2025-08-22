@@ -5,15 +5,11 @@ import './setup.test';
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
-import { ICosmosQueryClient, AminoSigner, DirectSigner, OfflineDirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { ICosmosQueryClient, AminoSigner, DirectSigner, OfflineDirectSigner, createCosmosQueryClient, Secp256k1HDWallet } from '@interchainjs/cosmos';
 import { HDPath } from '@interchainjs/types';
-import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
+import { getBalance, send, MsgSend, getAllBalances, MsgTransfer, transfer } from 'interchainjs';
 
 import { useChain } from 'starshipjs';
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
-import { getAllBalances, MsgTransfer, transfer } from 'interchainjs';
 // @ts-ignore
 import WebSocket from 'ws';
 

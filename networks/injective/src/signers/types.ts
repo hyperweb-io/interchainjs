@@ -3,7 +3,7 @@ import {
   DocOptions,
   SignOptions as CosmosSignOptions,
   EncodedMessage
-} from '@interchainjs/cosmos/signers/types';
+} from '@interchainjs/cosmos';
 import { SignatureFormatFunction } from '@interchainjs/auth';
 
 
@@ -70,13 +70,13 @@ export {
   AccountData,
   DirectSignResponse,
   AminoSignResponse
-} from '@interchainjs/cosmos/signers/types';
+} from '@interchainjs/cosmos';
 
 /**
  * Type alias for Injective signer interface
  * Uses the same interface as Cosmos since Injective is Cosmos-compatible
  */
-export type IInjectiveSigner = import('@interchainjs/cosmos/signers/types').ICosmosSigner;
+export type IInjectiveSigner = import('@interchainjs/cosmos').ICosmosSigner;
 
 /**
  * Injective sign arguments
@@ -84,7 +84,7 @@ export type IInjectiveSigner = import('@interchainjs/cosmos/signers/types').ICos
  */
 export interface InjectiveSignArgs {
   /** Messages to sign */
-  messages: readonly import('@interchainjs/cosmos/signers/types').CosmosMessage[];
+  messages: readonly import('@interchainjs/cosmos').CosmosMessage[];
   /** Transaction fee */
   fee?: import('@interchainjs/types').StdFee;
   /** Transaction memo */

@@ -15,6 +15,7 @@ import { fromBase64, toBase64, toUtf8, fromUtf8 } from "@interchainjs/encoding";
  * @deprecated
  */
 export interface StoreCodeProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.StoreCodeProposal";
   /**
    * Title is a short summary
    */
@@ -123,6 +124,7 @@ export interface StoreCodeProposalAminoMsg {
  * @deprecated
  */
 export interface InstantiateContractProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.InstantiateContractProposal";
   /**
    * Title is a short summary
    */
@@ -219,6 +221,7 @@ export interface InstantiateContractProposalAminoMsg {
  * @deprecated
  */
 export interface InstantiateContract2Proposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.InstantiateContract2Proposal";
   /**
    * Title is a short summary
    */
@@ -333,6 +336,7 @@ export interface InstantiateContract2ProposalAminoMsg {
  * @deprecated
  */
 export interface MigrateContractProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.MigrateContractProposal";
   /**
    * Title is a short summary
    */
@@ -405,6 +409,7 @@ export interface MigrateContractProposalAminoMsg {
  * @deprecated
  */
 export interface SudoContractProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.SudoContractProposal";
   /**
    * Title is a short summary
    */
@@ -469,6 +474,7 @@ export interface SudoContractProposalAminoMsg {
  * @deprecated
  */
 export interface ExecuteContractProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.ExecuteContractProposal";
   /**
    * Title is a short summary
    */
@@ -549,6 +555,7 @@ export interface ExecuteContractProposalAminoMsg {
  * @deprecated
  */
 export interface UpdateAdminProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.UpdateAdminProposal";
   /**
    * Title is a short summary
    */
@@ -613,6 +620,7 @@ export interface UpdateAdminProposalAminoMsg {
  * @deprecated
  */
 export interface ClearAdminProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.ClearAdminProposal";
   /**
    * Title is a short summary
    */
@@ -669,6 +677,7 @@ export interface ClearAdminProposalAminoMsg {
  * @deprecated
  */
 export interface PinCodesProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.PinCodesProposal";
   /**
    * Title is a short summary
    */
@@ -725,6 +734,7 @@ export interface PinCodesProposalAminoMsg {
  * @deprecated
  */
 export interface UnpinCodesProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.UnpinCodesProposal";
   /**
    * Title is a short summary
    */
@@ -823,6 +833,7 @@ export interface AccessConfigUpdateAminoMsg {
  * @deprecated
  */
 export interface UpdateInstantiateConfigProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal";
   /**
    * Title is a short summary
    */
@@ -881,6 +892,7 @@ export interface UpdateInstantiateConfigProposalAminoMsg {
  * @deprecated
  */
 export interface StoreAndInstantiateContractProposal {
+  $typeUrl?: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal";
   /**
    * Title is a short summary
    */
@@ -1012,6 +1024,7 @@ export interface StoreAndInstantiateContractProposalAminoMsg {
 }
 function createBaseStoreCodeProposal(): StoreCodeProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal",
     title: "",
     description: "",
     runAs: "",
@@ -1202,6 +1215,7 @@ export const StoreCodeProposal = {
 };
 function createBaseInstantiateContractProposal(): InstantiateContractProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.InstantiateContractProposal",
     title: "",
     description: "",
     runAs: "",
@@ -1382,6 +1396,7 @@ export const InstantiateContractProposal = {
 };
 function createBaseInstantiateContract2Proposal(): InstantiateContract2Proposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.InstantiateContract2Proposal",
     title: "",
     description: "",
     runAs: "",
@@ -1586,6 +1601,7 @@ export const InstantiateContract2Proposal = {
 };
 function createBaseMigrateContractProposal(): MigrateContractProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.MigrateContractProposal",
     title: "",
     description: "",
     contract: "",
@@ -1727,6 +1743,7 @@ export const MigrateContractProposal = {
 };
 function createBaseSudoContractProposal(): SudoContractProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.SudoContractProposal",
     title: "",
     description: "",
     contract: "",
@@ -1856,6 +1873,7 @@ export const SudoContractProposal = {
 };
 function createBaseExecuteContractProposal(): ExecuteContractProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.ExecuteContractProposal",
     title: "",
     description: "",
     runAs: "",
@@ -2012,6 +2030,7 @@ export const ExecuteContractProposal = {
 };
 function createBaseUpdateAdminProposal(): UpdateAdminProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.UpdateAdminProposal",
     title: "",
     description: "",
     newAdmin: "",
@@ -2141,6 +2160,7 @@ export const UpdateAdminProposal = {
 };
 function createBaseClearAdminProposal(): ClearAdminProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal",
     title: "",
     description: "",
     contract: ""
@@ -2258,6 +2278,7 @@ export const ClearAdminProposal = {
 };
 function createBasePinCodesProposal(): PinCodesProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal",
     title: "",
     description: "",
     codeIds: []
@@ -2386,6 +2407,7 @@ export const PinCodesProposal = {
 };
 function createBaseUnpinCodesProposal(): UnpinCodesProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal",
     title: "",
     description: "",
     codeIds: []
@@ -2615,6 +2637,7 @@ export const AccessConfigUpdate = {
 };
 function createBaseUpdateInstantiateConfigProposal(): UpdateInstantiateConfigProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.UpdateInstantiateConfigProposal",
     title: "",
     description: "",
     accessConfigUpdates: []
@@ -2735,6 +2758,7 @@ export const UpdateInstantiateConfigProposal = {
 };
 function createBaseStoreAndInstantiateContractProposal(): StoreAndInstantiateContractProposal {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.StoreAndInstantiateContractProposal",
     title: "",
     description: "",
     runAs: "",

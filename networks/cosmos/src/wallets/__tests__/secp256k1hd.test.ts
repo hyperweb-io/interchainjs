@@ -1,6 +1,6 @@
 import { Secp256k1HDWallet } from '../secp256k1hd';
 import { HDPath } from '@interchainjs/types';
-import { SignDoc } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignDoc } from '@interchainjs/cosmos-types';
 import { StdSignDoc } from '@interchainjs/types';
 
 // Test mnemonic for consistent testing

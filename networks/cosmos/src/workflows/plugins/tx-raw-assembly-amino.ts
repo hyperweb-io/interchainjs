@@ -1,4 +1,4 @@
-import { TxRaw, AuthInfo, Fee } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { TxRaw, AuthInfo, Fee } from '@interchainjs/cosmos-types';
 import { BaseWorkflowBuilderPlugin, StdSignDoc } from '@interchainjs/types';
 import { CosmosTx } from '../../signers/types';
 import { CosmosWorkflowBuilderContext } from '../context';

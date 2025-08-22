@@ -5,7 +5,7 @@ import { EthereumAdapter } from '../../src/adapters';
 import { Secp256k1HDWallet } from '../../src/wallets';
 import { PrivateKey } from '@interchainjs/auth';
 import { createEthereumConfig } from '../../src/auth/config';
-import { HttpRpcClient } from '@interchainjs/utils/clients';
+import { HttpRpcClient } from '@interchainjs/utils';
 import { bytecode, abi } from '../../contracts/usdt/contract.json'
 import { ContractEncoder, AbiFunctionItem } from '../../src/utils/ContractEncoder';
 import { WebSocketContractMonitor } from '../../src/providers/WebSocketContractMonitor';

@@ -15,6 +15,7 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * @see proto type: cosmos.authz.v1beta1.GenericAuthorization
  */
 export interface GenericAuthorization {
+  $typeUrl?: "/cosmos.authz.v1beta1.GenericAuthorization";
   /**
    * Msg, identified by it's type URL, to grant unrestricted permissions to execute
    */
@@ -155,6 +156,7 @@ export interface GrantQueueItemAminoMsg {
 }
 function createBaseGenericAuthorization(): GenericAuthorization {
   return {
+    $typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization",
     msg: ""
   };
 }

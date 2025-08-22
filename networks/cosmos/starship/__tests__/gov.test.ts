@@ -4,34 +4,27 @@ import './setup.test';
 
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
-import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient, Secp256k1HDWallet } from '@interchainjs/cosmos';
 import { HDPath } from '@interchainjs/types';
 import {
   ProposalStatus,
   TextProposal,
   VoteOption,
-} from 'interchainjs/cosmos/gov/v1beta1/gov';
-import {
   BondStatus,
-  bondStatusToJSON,
-} from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { fromBase64 } from '@interchainjs/encoding/base64';
-import { toUtf8 } from '@interchainjs/utils';
+  MsgDelegate,
+  MsgSubmitProposal,
+  MsgVote,
+  getBalance,
+  getVote
+} from 'interchainjs';
+// Using built-in Buffer for base64 and utf8 conversion
+const fromBase64 = (str: string) => Buffer.from(str, 'base64');
+const toUtf8 = (data: Uint8Array) => Buffer.from(data).toString('utf8');
 import { BigNumber } from 'bignumber.js';
 import { useChain } from 'starshipjs';
 
 import { waitUntil } from '../src';
-
-import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
-import { MsgSubmitProposal, MsgVote } from 'interchainjs/cosmos/gov/v1beta1/tx';
-
-import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { getProposal, getVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
-import { getValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
-import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-import { submitProposal, vote } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+import { getProposal, getValidators, delegate, submitProposal, vote } from 'interchainjs';
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -120,7 +113,7 @@ describe('Governance tests for osmosis', () => {
 
   it('query validator address', async () => {
     const { validators } = await getValidators(client, {
-      status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
+      status: "BOND_STATUS_BONDED",
     });
     let allValidators = validators;
     if (validators.length > 1) {

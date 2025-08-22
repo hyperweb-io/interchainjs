@@ -1,7 +1,6 @@
 import { ICryptoBytes, IWallet, StdSignDoc } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
-import { SignMode } from '@interchainjs/cosmos-types/cosmos/tx/signing/v1beta1/signing';
-import { TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignMode, TxRaw } from '@interchainjs/cosmos-types';
 import {
   CosmosSignArgs,
   EncodedMessage

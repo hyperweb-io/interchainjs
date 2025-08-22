@@ -51,6 +51,7 @@ export function fundingModeToJSON(object: FundingMode): string {
  * @see proto type: injective.wasmx.v1.ContractRegistrationRequestProposal
  */
 export interface ContractRegistrationRequestProposal {
+  $typeUrl?: "/injective.wasmx.v1.ContractRegistrationRequestProposal";
   title: string;
   description: string;
   contractRegistrationRequest: ContractRegistrationRequest;
@@ -79,6 +80,7 @@ export interface ContractRegistrationRequestProposalAminoMsg {
  * @see proto type: injective.wasmx.v1.BatchContractRegistrationRequestProposal
  */
 export interface BatchContractRegistrationRequestProposal {
+  $typeUrl?: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal";
   title: string;
   description: string;
   contractRegistrationRequests: ContractRegistrationRequest[];
@@ -107,6 +109,7 @@ export interface BatchContractRegistrationRequestProposalAminoMsg {
  * @see proto type: injective.wasmx.v1.BatchContractDeregistrationProposal
  */
 export interface BatchContractDeregistrationProposal {
+  $typeUrl?: "/injective.wasmx.v1.BatchContractDeregistrationProposal";
   title: string;
   description: string;
   contracts: string[];
@@ -135,6 +138,7 @@ export interface BatchContractDeregistrationProposalAminoMsg {
  * @see proto type: injective.wasmx.v1.ContractRegistrationRequest
  */
 export interface ContractRegistrationRequest {
+  $typeUrl?: "/injective.wasmx.v1.ContractRegistrationRequest";
   /**
    * Unique Identifier for contract instance to be registered.
    */
@@ -231,6 +235,7 @@ export interface ContractRegistrationRequestAminoMsg {
  * @see proto type: injective.wasmx.v1.BatchStoreCodeProposal
  */
 export interface BatchStoreCodeProposal {
+  $typeUrl?: "/injective.wasmx.v1.BatchStoreCodeProposal";
   title: string;
   description: string;
   proposals: StoreCodeProposal[];
@@ -255,6 +260,7 @@ export interface BatchStoreCodeProposalAminoMsg {
 }
 function createBaseContractRegistrationRequestProposal(): ContractRegistrationRequestProposal {
   return {
+    $typeUrl: "/injective.wasmx.v1.ContractRegistrationRequestProposal",
     title: "",
     description: "",
     contractRegistrationRequest: ContractRegistrationRequest.fromPartial({})
@@ -368,6 +374,7 @@ export const ContractRegistrationRequestProposal = {
 };
 function createBaseBatchContractRegistrationRequestProposal(): BatchContractRegistrationRequestProposal {
   return {
+    $typeUrl: "/injective.wasmx.v1.BatchContractRegistrationRequestProposal",
     title: "",
     description: "",
     contractRegistrationRequests: []
@@ -483,6 +490,7 @@ export const BatchContractRegistrationRequestProposal = {
 };
 function createBaseBatchContractDeregistrationProposal(): BatchContractDeregistrationProposal {
   return {
+    $typeUrl: "/injective.wasmx.v1.BatchContractDeregistrationProposal",
     title: "",
     description: "",
     contracts: []
@@ -597,6 +605,7 @@ export const BatchContractDeregistrationProposal = {
 };
 function createBaseContractRegistrationRequest(): ContractRegistrationRequest {
   return {
+    $typeUrl: "/injective.wasmx.v1.ContractRegistrationRequest",
     contractAddress: "",
     gasLimit: BigInt(0),
     gasPrice: BigInt(0),
@@ -773,6 +782,7 @@ export const ContractRegistrationRequest = {
 };
 function createBaseBatchStoreCodeProposal(): BatchStoreCodeProposal {
   return {
+    $typeUrl: "/injective.wasmx.v1.BatchStoreCodeProposal",
     title: "",
     description: "",
     proposals: []

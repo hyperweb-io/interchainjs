@@ -1,7 +1,7 @@
 /// <reference types="@types/jest" />
 
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { HttpRpcClient } from '@interchainjs/utils/clients';
+import { HttpRpcClient } from '@interchainjs/utils';
 import { EthereumQueryClient } from '../ethereum-query-client';
 import { EthereumAdapter } from '../../adapters/ethereum-adapter';
 import { IEthereumQueryClient } from '../../types/ethereum-client-interfaces';

@@ -142,6 +142,7 @@ export interface OutputAminoMsg {
  * @deprecated
  */
 export interface Supply {
+  $typeUrl?: "/cosmos.bank.v1beta1.Supply";
   total: Coin[];
 }
 export interface SupplyProtoMsg {
@@ -716,6 +717,7 @@ export const Output = {
 };
 function createBaseSupply(): Supply {
   return {
+    $typeUrl: "/cosmos.bank.v1beta1.Supply",
     total: []
   };
 }

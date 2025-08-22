@@ -1,6 +1,6 @@
 import { EthSecp256k1HDWallet } from '../ethSecp256k1hd';
 import { HDPath } from '@interchainjs/types';
-import { Secp256k1HDWallet as CosmosSecp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { Secp256k1HDWallet as CosmosSecp256k1HDWallet } from '@interchainjs/cosmos';
 
 // Test mnemonic for consistent testing
 const TEST_MNEMONIC = 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art';

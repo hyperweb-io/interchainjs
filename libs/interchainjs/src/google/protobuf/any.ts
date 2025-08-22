@@ -91,6 +91,7 @@ import { DeepPartial } from "../../helpers";
  * @see proto type: google.protobuf.Any
  */
 export interface Any {
+  $typeUrl?: "/google.protobuf.Any" | string;
   /**
    * A URL/resource name that uniquely identifies the type of the serialized
    * protocol buffer message. This string must contain at least
@@ -264,6 +265,7 @@ export interface AnyAminoMsg {
 }
 function createBaseAny(): Any {
   return {
+    $typeUrl: "/google.protobuf.Any",
     typeUrl: "",
     value: new Uint8Array()
   };

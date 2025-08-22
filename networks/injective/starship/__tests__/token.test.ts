@@ -3,18 +3,18 @@ import './setup.test';
 import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { DirectSigner, ICosmosQueryClient, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { toEncoders } from '@interchainjs/cosmos/utils';
+import { toEncoders } from '@interchainjs/cosmos';
 import { sleep } from '@interchainjs/utils';
-import { MsgSend } from 'interchainjs/cosmos/bank/v1beta1/tx';
-import { MsgTransfer } from 'interchainjs/ibc/applications/transfer/v1/tx';
+import { MsgSend, MsgTransfer } from 'interchainjs';
 import { useChain } from 'starshipjs';
 
 import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
 import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
-import { getAllBalances, getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { send } from "interchainjs/cosmos/bank/v1beta1/tx.rpc.func";
-import { transfer } from "interchainjs/ibc/applications/transfer/v1/tx.rpc.func";
+import { getAllBalances, getBalance } from "@interchainjs/cosmos-types";
+import { send, transfer } from "interchainjs";
 import * as bip39 from 'bip39';
+
+
 
 describe('Token transfers', () => {
   let directSigner: DirectSigner, denom: string, address: string, address2: string;
@@ -172,27 +172,6 @@ describe('Token transfers', () => {
 
     expect(ibcInfo).toBeTruthy();
 
-    // const { chainInfo: cosmosChainInfo, getRpcEndpoint: cosmosRpcEndpoint } =
-    //   useChain('cosmoshub');
-
-    // const { getRpcEndpoint: osmosisRpcEndpoint } = useChain('injective');
-
-    // // Initialize wallet address for cosmos chain
-    // const [auth3] = EthSecp256k1Auth.fromMnemonic(generateMnemonic(), [hdPath]);
-    // const signer3 = new DirectSigner(auth3, [], injRpcEndpoint);
-    // const address3 = await signer3.getAddress();
-
-    // const ibcInfos = chainInfo.fetcher.getChainIbcData(
-    //   chainInfo.chain.chain_name
-    // );
-    // const ibcInfo = ibcInfos.find(
-    //   (i) =>
-    //     i.chain_1.chain_name === chainInfo.chain.chain_name &&
-    //     i.chain_2.chain_name === cosmosChainInfo.chain.chain_name
-    // );
-
-    // expect(ibcInfo).toBeTruthy();
-
     const { port_id: sourcePort, channel_id: sourceChannel } =
       ibcInfo!.channels[0].chain_1;
 
@@ -240,7 +219,10 @@ describe('Token transfers', () => {
       console.log(err);
     }
 
-    const { balances } = await getAllBalances(await cosmosRpcEndpoint(), {
+    // Create query client for cosmos chain
+    const cosmosQueryClient = await createCosmosQueryClient(await cosmosRpcEndpoint());
+
+    const { balances } = await getAllBalances(cosmosQueryClient, {
       address: cosmosAddress,
       resolveDenom: true,
     });

@@ -6,20 +6,22 @@ import { ChainInfo } from '@chain-registry/client';
 import { Asset } from '@chain-registry/types';
 import { generateMnemonic } from '../src/utils';
 import { useChain } from 'starshipjs';
-import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
-import { Secp256k1HDWallet } from '@interchainjs/cosmos/wallets/secp256k1hd';
+import { ICosmosQueryClient, DirectSigner, createCosmosQueryClient, Secp256k1HDWallet } from '@interchainjs/cosmos';
 import { HDPath } from '@interchainjs/types';
 
 import {
   BondStatus,
-  bondStatusToJSON,
-} from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { MsgDelegate, MsgUndelegate, MsgBeginRedelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
+  MsgDelegate,
+  MsgUndelegate,
+  MsgBeginRedelegate,
+  getBalance,
+  getValidators,
+  getDelegation,
+  getUnbondingDelegation,
+  getRedelegations,
+  delegate
+} from 'interchainjs';
 import BigNumber from 'bignumber.js';
-
-import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { getValidators, getDelegation, getUnbondingDelegation, getRedelegations } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
-import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
 
 const cosmosHdPath = "m/44'/118'/0'/0/0";
 
@@ -82,7 +84,7 @@ describe('Staking tokens testing', () => {
 
   it('query validator address', async () => {
     const { validators } = await getValidators(client, {
-      status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
+      status: "BOND_STATUS_BONDED",
     });
     let allValidators = validators;
     if (validators.length > 1) {

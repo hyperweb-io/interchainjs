@@ -3,7 +3,7 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import { createCosmosQueryClient, ICosmosQueryClient } from '../dist/index';
 import { toHex } from '@interchainjs/encoding';
-import { toBase64 } from '@interchainjs/encoding/base64';
+import { toBase64 } from '@interchainjs/encoding';
 
 const RPC_ENDPOINT = 'https://cosmos-rpc.polkachu.com/';
 let queryClient: ICosmosQueryClient;

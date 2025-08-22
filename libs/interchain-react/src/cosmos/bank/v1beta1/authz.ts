@@ -10,6 +10,7 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * @see proto type: cosmos.bank.v1beta1.SendAuthorization
  */
 export interface SendAuthorization {
+  $typeUrl?: "/cosmos.bank.v1beta1.SendAuthorization";
   spendLimit: Coin[];
   /**
    * allow_list specifies an optional list of addresses to whom the grantee can send tokens on behalf of the
@@ -42,6 +43,7 @@ export interface SendAuthorizationAminoMsg {
 }
 function createBaseSendAuthorization(): SendAuthorization {
   return {
+    $typeUrl: "/cosmos.bank.v1beta1.SendAuthorization",
     spendLimit: [],
     allowList: []
   };

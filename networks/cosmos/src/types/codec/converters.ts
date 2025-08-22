@@ -3,7 +3,7 @@
  */
 
 import { fromHex, apiToNumber as encApiToNumber, apiToBigInt as encApiToBigInt } from '@interchainjs/encoding';
-import { fromBase64 } from '@interchainjs/encoding/base64';
+import { fromBase64 } from '@interchainjs/encoding';
 
 // Create wrapper functions that match the expected signatures for backward compatibility
 export const apiToNumber = (value: unknown): number => {

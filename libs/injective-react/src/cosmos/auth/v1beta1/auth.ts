@@ -11,6 +11,7 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers"
  * @see proto type: cosmos.auth.v1beta1.BaseAccount
  */
 export interface BaseAccount {
+  $typeUrl?: "/cosmos.auth.v1beta1.BaseAccount";
   address: string;
   pubKey?: Any;
   accountNumber: bigint;
@@ -45,6 +46,7 @@ export interface BaseAccountAminoMsg {
  * @see proto type: cosmos.auth.v1beta1.ModuleAccount
  */
 export interface ModuleAccount {
+  $typeUrl?: "/cosmos.auth.v1beta1.ModuleAccount";
   baseAccount?: BaseAccount;
   name: string;
   permissions: string[];
@@ -146,6 +148,7 @@ export interface ParamsAminoMsg {
 }
 function createBaseBaseAccount(): BaseAccount {
   return {
+    $typeUrl: "/cosmos.auth.v1beta1.BaseAccount",
     address: "",
     pubKey: undefined,
     accountNumber: BigInt(0),
@@ -273,6 +276,7 @@ export const BaseAccount = {
 };
 function createBaseModuleAccount(): ModuleAccount {
   return {
+    $typeUrl: "/cosmos.auth.v1beta1.ModuleAccount",
     baseAccount: undefined,
     name: "",
     permissions: []

@@ -1,6 +1,6 @@
 export * from "./version/types";
-export { BlockIDFlag, ValidatorSet, Validator, SimpleValidator } from "./types/validator";
-export { SignedMsgType, PartSetHeader, Part, BlockID, Header, Data, Vote, Commit, CommitSig, ExtendedCommit, ExtendedCommitSig, Proposal, SignedHeader, LightBlock, BlockMeta, TxProof } from "./types/types";
+export { BlockIDFlag, ValidatorSet, Validator as TendermintTypesValidator, SimpleValidator } from "./types/validator";
+export { SignedMsgType, PartSetHeader, Part, BlockID, Header, Data, Vote as TendermintTypesVote, Commit, CommitSig, ExtendedCommit, ExtendedCommitSig, Proposal as TendermintTypesProposal, SignedHeader, LightBlock, BlockMeta, TxProof } from "./types/types";
 export * from "./types/params";
 export * from "./types/evidence";
 export * from "./types/block";

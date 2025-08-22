@@ -1,6 +1,6 @@
 import { HashFunction, IAccount, IBroadcastResult, ICryptoBytes, IUniSigner, Price, StdFee, StdSignDoc } from '@interchainjs/types';
 import { SignatureFormatFunction } from '@interchainjs/auth';
-import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types/cosmos/tx/v1beta1/tx';
+import { SignDoc, SignerInfo, TxBody, TxRaw } from '@interchainjs/cosmos-types';
 import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncResponse, EncodedBroadcastTxParams, ICosmosQueryClient } from '../types';
 import { AminoConverter, Encoder } from '../types/signing-client';
 import { Any, SignMode, SimulationResponse, TxResponse } from '@interchainjs/cosmos-types';

@@ -13,7 +13,7 @@ export * from './adapters/index';
 export * from './client-factory';
 
 // Re-export shared RPC clients for convenience
-export { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint, ReconnectOptions } from '@interchainjs/utils/clients';
+export { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint, ReconnectOptions } from '@interchainjs/utils';
 
 // Export signers
 export * from './signers';

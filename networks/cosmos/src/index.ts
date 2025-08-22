@@ -13,7 +13,7 @@ export * from './workflows';
 export * from './signers';
 
 // Export wallets
-export * from './wallets/secp256k1hd';
+export * from './wallets';
 
 // Export auth
 export * from './auth';

@@ -13,6 +13,7 @@ import { toUtf8, fromUtf8 } from "@interchainjs/encoding";
  * @see proto type: cosmwasm.wasm.v1.StoreCodeAuthorization
  */
 export interface StoreCodeAuthorization {
+  $typeUrl?: "/cosmwasm.wasm.v1.StoreCodeAuthorization";
   /**
    * Grants for code upload
    */
@@ -47,6 +48,7 @@ export interface StoreCodeAuthorizationAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.ContractExecutionAuthorization
  */
 export interface ContractExecutionAuthorization {
+  $typeUrl?: "/cosmwasm.wasm.v1.ContractExecutionAuthorization";
   /**
    * Grants for contract executions
    */
@@ -81,6 +83,7 @@ export interface ContractExecutionAuthorizationAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.ContractMigrationAuthorization
  */
 export interface ContractMigrationAuthorization {
+  $typeUrl?: "/cosmwasm.wasm.v1.ContractMigrationAuthorization";
   /**
    * Grants for contract migrations
    */
@@ -230,6 +233,7 @@ export interface ContractGrantAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.MaxCallsLimit
  */
 export interface MaxCallsLimit {
+  $typeUrl?: "/cosmwasm.wasm.v1.MaxCallsLimit";
   /**
    * Remaining number that is decremented on each execution
    */
@@ -264,6 +268,7 @@ export interface MaxCallsLimitAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.MaxFundsLimit
  */
 export interface MaxFundsLimit {
+  $typeUrl?: "/cosmwasm.wasm.v1.MaxFundsLimit";
   /**
    * Amounts is the maximal amount of tokens transferable to the contract.
    */
@@ -299,6 +304,7 @@ export interface MaxFundsLimitAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.CombinedLimit
  */
 export interface CombinedLimit {
+  $typeUrl?: "/cosmwasm.wasm.v1.CombinedLimit";
   /**
    * Remaining number that is decremented on each execution
    */
@@ -342,7 +348,9 @@ export interface CombinedLimitAminoMsg {
  * @package cosmwasm.wasm.v1
  * @see proto type: cosmwasm.wasm.v1.AllowAllMessagesFilter
  */
-export interface AllowAllMessagesFilter {}
+export interface AllowAllMessagesFilter {
+  $typeUrl?: "/cosmwasm.wasm.v1.AllowAllMessagesFilter";
+}
 export interface AllowAllMessagesFilterProtoMsg {
   typeUrl: "/cosmwasm.wasm.v1.AllowAllMessagesFilter";
   value: Uint8Array;
@@ -369,6 +377,7 @@ export interface AllowAllMessagesFilterAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.AcceptedMessageKeysFilter
  */
 export interface AcceptedMessageKeysFilter {
+  $typeUrl?: "/cosmwasm.wasm.v1.AcceptedMessageKeysFilter";
   /**
    * Messages is the list of unique keys
    */
@@ -405,6 +414,7 @@ export interface AcceptedMessageKeysFilterAminoMsg {
  * @see proto type: cosmwasm.wasm.v1.AcceptedMessagesFilter
  */
 export interface AcceptedMessagesFilter {
+  $typeUrl?: "/cosmwasm.wasm.v1.AcceptedMessagesFilter";
   /**
    * Messages is the list of raw contract messages
    */
@@ -434,6 +444,7 @@ export interface AcceptedMessagesFilterAminoMsg {
 }
 function createBaseStoreCodeAuthorization(): StoreCodeAuthorization {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.StoreCodeAuthorization",
     grants: []
   };
 }
@@ -527,6 +538,7 @@ export const StoreCodeAuthorization = {
 };
 function createBaseContractExecutionAuthorization(): ContractExecutionAuthorization {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.ContractExecutionAuthorization",
     grants: []
   };
 }
@@ -620,6 +632,7 @@ export const ContractExecutionAuthorization = {
 };
 function createBaseContractMigrationAuthorization(): ContractMigrationAuthorization {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.ContractMigrationAuthorization",
     grants: []
   };
 }
@@ -928,6 +941,7 @@ export const ContractGrant = {
 };
 function createBaseMaxCallsLimit(): MaxCallsLimit {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.MaxCallsLimit",
     remaining: BigInt(0)
   };
 }
@@ -1018,6 +1032,7 @@ export const MaxCallsLimit = {
 };
 function createBaseMaxFundsLimit(): MaxFundsLimit {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.MaxFundsLimit",
     amounts: []
   };
 }
@@ -1111,6 +1126,7 @@ export const MaxFundsLimit = {
 };
 function createBaseCombinedLimit(): CombinedLimit {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.CombinedLimit",
     callsRemaining: BigInt(0),
     amounts: []
   };
@@ -1216,7 +1232,9 @@ export const CombinedLimit = {
   }
 };
 function createBaseAllowAllMessagesFilter(): AllowAllMessagesFilter {
-  return {};
+  return {
+    $typeUrl: "/cosmwasm.wasm.v1.AllowAllMessagesFilter"
+  };
 }
 /**
  * AllowAllMessagesFilter is a wildcard to allow any type of contract payload
@@ -1295,6 +1313,7 @@ export const AllowAllMessagesFilter = {
 };
 function createBaseAcceptedMessageKeysFilter(): AcceptedMessageKeysFilter {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.AcceptedMessageKeysFilter",
     keys: []
   };
 }
@@ -1388,6 +1407,7 @@ export const AcceptedMessageKeysFilter = {
 };
 function createBaseAcceptedMessagesFilter(): AcceptedMessagesFilter {
   return {
+    $typeUrl: "/cosmwasm.wasm.v1.AcceptedMessagesFilter",
     messages: []
   };
 }

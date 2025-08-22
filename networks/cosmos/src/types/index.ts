@@ -4,3 +4,4 @@ export * from './requests';
 export * from './responses';
 export * from './cosmos-client-interfaces';
 export * from './codec';
+export * from './signing-client';

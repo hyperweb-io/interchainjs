@@ -8,6 +8,7 @@ import { GlobalDecoderRegistry } from "../../../registry";
  * @see proto type: cosmos.params.v1beta1.ParameterChangeProposal
  */
 export interface ParameterChangeProposal {
+  $typeUrl?: "/cosmos.params.v1beta1.ParameterChangeProposal";
   title: string;
   description: string;
   changes: ParamChange[];
@@ -65,6 +66,7 @@ export interface ParamChangeAminoMsg {
 }
 function createBaseParameterChangeProposal(): ParameterChangeProposal {
   return {
+    $typeUrl: "/cosmos.params.v1beta1.ParameterChangeProposal",
     title: "",
     description: "",
     changes: []

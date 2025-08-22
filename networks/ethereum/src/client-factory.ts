@@ -1,6 +1,6 @@
 // networks/ethereum/src/client-factory.ts
 
-import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint, ReconnectOptions } from '@interchainjs/utils/clients';
+import { HttpRpcClient, WebSocketRpcClient, HttpEndpoint, WebSocketEndpoint, ReconnectOptions } from '@interchainjs/utils';
 import { EthereumQueryClient } from './query';
 import { EthereumAdapter } from './adapters';
 import { IEthereumQueryClient } from './types/ethereum-client-interfaces';

@@ -7,7 +7,7 @@ import { createCosmosQueryClient, ICosmosQueryClient } from '@interchainjs/cosmo
 
 import { useChain } from 'starshipjs';
 import { getAccounts, getAccount } from '@interchainjs/cosmos-types';
-import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
+import { BaseAccount } from '@interchainjs/cosmos-types';
 
 let queryClient: ICosmosQueryClient;
 let rpcEndpoint: string;

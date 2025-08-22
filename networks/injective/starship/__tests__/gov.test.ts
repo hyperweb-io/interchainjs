@@ -7,7 +7,7 @@ import { AminoSigner, DirectSigner, ICosmosQueryClient, createCosmosQueryClient 
 import {
   toConverters,
   toEncoders,
-} from '@interchainjs/cosmos/utils';
+} from '@interchainjs/cosmos';
 import {
   sleep,
 } from '@interchainjs/utils';
@@ -15,27 +15,23 @@ import {
   ProposalStatus,
   TextProposal,
   VoteOption,
-} from 'interchainjs/cosmos/gov/v1beta1/gov';
+} from 'interchainjs';
 import {
   MsgSubmitProposal,
   MsgVote,
-} from 'interchainjs/cosmos/gov/v1beta1/tx';
-import {
-  BondStatus,
-  bondStatusToJSON,
-} from 'interchainjs/cosmos/staking/v1beta1/staking';
-import { MsgDelegate } from 'interchainjs/cosmos/staking/v1beta1/tx';
+} from 'interchainjs';
+import { MsgDelegate } from 'interchainjs';
 import { BigNumber } from 'bignumber.js';
 import { useChain } from 'starshipjs';
 
 import { EthSecp256k1HDWallet } from '../../src/wallets/ethSecp256k1hd';
 import { createInjectiveSignerConfig, DEFAULT_INJECTIVE_SIGNER_CONFIG } from '../../src/signers/config';
-import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos/signers/types';
-import { getBalance } from "@interchainjs/cosmos-types/cosmos/bank/v1beta1/query.rpc.func";
-import { getProposal, getVote } from "@interchainjs/cosmos-types/cosmos/gov/v1beta1/query.rpc.func";
-import { getValidators } from "@interchainjs/cosmos-types/cosmos/staking/v1beta1/query.rpc.func";
-import { delegate } from "interchainjs/cosmos/staking/v1beta1/tx.rpc.func";
-import { submitProposal, vote } from "interchainjs/cosmos/gov/v1beta1/tx.rpc.func";
+import { OfflineAminoSigner, OfflineDirectSigner } from '@interchainjs/cosmos';
+import { getBalance } from "@interchainjs/cosmos-types";
+import { getProposal, getVote } from "@interchainjs/cosmos-types";
+import { getValidators } from "@interchainjs/cosmos-types";
+import { delegate } from "interchainjs";
+import { submitProposal, vote } from "interchainjs";
 import * as bip39 from 'bip39';
 
 
@@ -47,7 +43,6 @@ describe('Governance tests for injective', () => {
     directOfflineSigner: OfflineDirectSigner,
     aminoOfflineSigner: OfflineAminoSigner,
     denom: string,
-    commonPrefix: string,
     directAddress: string,
     aminoAddress: string,
     directOfflineAddress: string,
@@ -68,8 +63,6 @@ describe('Governance tests for injective', () => {
       useChain('injective'));
     denom = (await getCoin()).base;
     injRpcEndpoint = await getRpcEndpoint();
-
-    commonPrefix = chainInfo?.chain?.bech32_prefix;
 
     // Initialize wallet and signers with EthSecp256k1HDWallet and Ethereum HD path
     const directWallet = await EthSecp256k1HDWallet.fromMnemonic(bip39.generateMnemonic(), {
@@ -190,9 +183,13 @@ describe('Governance tests for injective', () => {
   }, 200000);
 
   it('query validator address', async () => {
-    const { validators } = await getValidators(injRpcEndpoint, {
-      status: bondStatusToJSON(BondStatus.BOND_STATUS_BONDED),
+    // Create query client for validator query
+    const queryClient = await createCosmosQueryClient(injRpcEndpoint);
+
+    const { validators } = await getValidators(queryClient, {
+      status: "BOND_STATUS_BONDED",
     });
+
     let allValidators = validators;
     if (validators.length > 1) {
       allValidators = validators.sort((a, b) =>
@@ -214,6 +211,23 @@ describe('Governance tests for injective', () => {
       address: testingOfflineAddress,
       denom,
     });
+
+    // Ensure we have a validator address
+    if (!validatorAddress) {
+      try {
+        const queryClient = await createCosmosQueryClient(injRpcEndpoint);
+        const { validators } = await getValidators(queryClient, {
+          status: "BOND_STATUS_BONDED",
+        });
+        if (validators.length > 0) {
+          validatorAddress = validators[0].operatorAddress;
+        } else {
+          throw new Error('No bonded validators found');
+        }
+      } catch (error) {
+        throw error;
+      }
+    }
 
     // Stake 1/5 of the tokens
     // eslint-disable-next-line no-undef

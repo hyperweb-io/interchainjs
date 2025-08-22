@@ -48,8 +48,7 @@ import { ValidatorsParams } from '../types/requests/common/validators';
 import { BroadcastTxParams } from '../types/requests/common/tx';
 import { GenesisChunkedParams } from '../types/requests/common/genesis-chunked';
 import { ICosmosProtocolAdapter } from '../adapters/base';
-import { BaseAccount } from '@interchainjs/cosmos-types/cosmos/auth/v1beta1/auth';
-import { BinaryReader } from '@interchainjs/cosmos-types/binary';
+import { BaseAccount, BinaryReader } from '@interchainjs/cosmos-types';
 import { getAccount } from '@interchainjs/cosmos-types';
 
 
