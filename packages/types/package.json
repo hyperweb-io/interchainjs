@@ -10,6 +10,11 @@
       "require": "./index.js",
       "types": "./index.d.ts"
     },
+    "./*": {
+      "import": "./esm/*.js",
+      "require": "./*.js",
+      "types": "./*.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "author": "Hyperweb <developers@hyperweb.io>",
