@@ -1,9 +1,9 @@
 import { DEFAULT_INJECTIVE_SIGNER_CONFIG, createInjectiveSignerConfig } from '../config';
-import { InjectiveSignatureProcessor, BytesUtils } from '../signature-processor';
+import { InjectiveSignatureProcessor, BytesUtils, PRESET_INJECTIVE_SIGNATURE_FORMATS } from '../signature-processor';
 
 describe('Injective Config Integration with BytesUtils', () => {
   it('should use compact format by default in config', () => {
-    expect(DEFAULT_INJECTIVE_SIGNER_CONFIG.signature?.format).toBe('compact');
+    expect(DEFAULT_INJECTIVE_SIGNER_CONFIG.signature?.format).toBe(PRESET_INJECTIVE_SIGNATURE_FORMATS['compact']);
   });
 
   it('should process signature using BytesUtils when compact format is specified in config', () => {
@@ -32,7 +32,7 @@ describe('Injective Config Integration with BytesUtils', () => {
   it('should use BytesUtils when creating signer config with compact format', () => {
     const userConfig = {
       chainId: 'injective-1',
-      queryClient: {}, // Mock query client
+      queryClient: {} as any, // Mock query client
       signature: {
         format: 'compact' as const
       }
