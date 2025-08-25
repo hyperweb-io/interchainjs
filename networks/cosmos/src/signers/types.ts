@@ -216,6 +216,8 @@ export interface SignOptions {
     /** Signature format configuration */
     format?: SignatureFormatFunction | string;
   };
+    /** Public key encoding function */
+  encodePublicKey?: (publicKey: Uint8Array) => EncodedMessage;
 }
 
 export interface TimeoutHeightOption {

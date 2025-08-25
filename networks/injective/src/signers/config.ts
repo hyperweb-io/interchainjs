@@ -1,8 +1,7 @@
 import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from './signature-processor';
-import { InjectiveDocOptions, InjectiveSignerConfig } from './types';
 import deepmerge from 'deepmerge';
 import { CosmosCryptoSecp256k1PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types';
-import { EncodedMessage } from '@interchainjs/cosmos';
+import { EncodedMessage, DocOptions, CosmosSignerConfig } from '@interchainjs/cosmos';
 
 /**
  * Encode public key for Injective
@@ -21,7 +20,7 @@ export const encodeInjectivePublicKey = (publicKey: Uint8Array): EncodedMessage 
  * Default configuration for Injective signers
  * Provides Injective-specific defaults for fee calculation, signing options, and transaction options
  */
-export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<InjectiveDocOptions> = {
+export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
   // FeeOptions - Gas and fee calculation defaults for Injective
   multiplier: 1.5, // Higher gas multiplier for Injective due to EVM compatibility
   gasPrice: 'average', // Use average gas price from network
@@ -51,7 +50,7 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<InjectiveDocOptions> = {
  * @param userConfig - User-provided configuration (must include required EndpointOptions)
  * @returns Complete CosmosSignerConfig with Injective defaults applied
  */
-export function createInjectiveSignerConfig(userConfig: InjectiveSignerConfig): InjectiveSignerConfig {
+export function createInjectiveSignerConfig(userConfig: CosmosSignerConfig): CosmosSignerConfig {
   // Ensure required EndpointOptions are present
   if (!userConfig.queryClient) {
     throw new Error('queryClient is required in signer configuration');
@@ -65,7 +64,7 @@ export function createInjectiveSignerConfig(userConfig: InjectiveSignerConfig): 
     arrayMerge: (_destinationArray, sourceArray) => sourceArray,
     // Clone to avoid mutations
     clone: true
-  }) as InjectiveSignerConfig;
+  }) as CosmosSignerConfig;
 
   mergedConfig.queryClient = queryClient;
 
@@ -80,11 +79,11 @@ export function createInjectiveSignerConfig(userConfig: InjectiveSignerConfig): 
  * @returns Merged configuration for the operation
  */
 export function mergeInjectiveSignerOptions(
-  baseConfig: InjectiveSignerConfig,
-  operationOptions: Partial<InjectiveDocOptions> = {}
-): InjectiveDocOptions {
+  baseConfig: CosmosSignerConfig,
+  operationOptions: Partial<DocOptions> = {}
+): DocOptions {
   return deepmerge(baseConfig, operationOptions, {
     arrayMerge: (_destinationArray, sourceArray) => sourceArray,
     clone: true
-  }) as InjectiveDocOptions;
+  }) as DocOptions;
 }
