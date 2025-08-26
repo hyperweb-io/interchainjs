@@ -5,6 +5,7 @@ import { CosmosWorkflowBuilderContext } from '../context';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
 import { MESSAGE_ENCODING_STAGING_KEYS } from './message-encoding';
 import { SIGNER_INFO_STAGING_KEYS } from './signer-info';
+import { Price } from '@interchainjs/types';
 
 /**
  * Staging keys created by FeeCalculationPlugin
@@ -63,11 +64,32 @@ export class FeeCalculationPlugin extends BaseWorkflowBuilderPlugin<
       const gasLimit = BigInt(Math.ceil(Number(gasUsed) * multiplier));
 
       // Default gas price (this should be configurable)
-      const gasPrice = params.options?.gasPrice ?? '0.025';
-      const amount = BigInt(Math.ceil(Number(gasLimit) * Number(gasPrice)));
+      let denom = "uatom";
+      let gasPriceValue: string;
+
+      if (params.options?.gasPrice &&
+        typeof params.options.gasPrice === 'object' &&
+        'amount' in params.options.gasPrice &&
+        'denom' in params.options.gasPrice &&
+        typeof (params.options.gasPrice as any).denom === 'string' &&
+        (params.options.gasPrice as any).amount) {
+        // type Price
+        const price = params.options.gasPrice as Price;
+        denom = price.denom;
+        gasPriceValue = price.amount.toString();
+      } else if (typeof params.options?.gasPrice === 'string' &&
+        !isNaN(Number(params.options.gasPrice))) {
+        // type string (number only)
+        gasPriceValue = params.options.gasPrice;
+      } else {
+        // 'average' | 'high' | 'low' | undefined
+        gasPriceValue = '0.025';
+      }
+
+      const amount = BigInt(Math.ceil(Number(gasLimit) * Number(gasPriceValue)));
 
       finalFee = {
-        amount: [{ denom: 'uatom', amount: amount.toString() }],
+        amount: [{ denom, amount: amount.toString() }],
         gas: gasLimit.toString(),
       };
     }
