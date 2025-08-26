@@ -15,17 +15,20 @@ export interface PhantomClientConfig {
     checkTx?: boolean;
     timeout?: number;
   };
+  provider?: any;
 }
 
 export class PhantomSigningClient {
   private connection: Connection;
   private phantomSigner: PhantomSigner;
   private config: PhantomClientConfig;
+  private provider?: any;
 
   constructor(connection: Connection, phantomSigner: PhantomSigner, config: PhantomClientConfig = {}) {
     this.connection = connection;
     this.phantomSigner = phantomSigner;
     this.config = config;
+    this.provider = config.provider;
   }
 
   static async connectWithPhantom(
@@ -57,6 +60,10 @@ export class PhantomSigningClient {
     return this.phantomSigner.isConnected;
   }
 
+  private getProvider(): any {
+    return this.provider || (typeof window !== 'undefined' ? (window as any).solana : null);
+  }
+
   async disconnect(): Promise<void> {
     await this.phantomSigner.disconnect();
   }
@@ -86,7 +93,7 @@ export class PhantomSigningClient {
         throw new Error('Phantom wallet only works in browser environment');
       }
 
-      const provider = (window as any).solana;
+      const provider = this.getProvider();
 
       if (!provider) {
         throw new Error('Phantom wallet not found');
@@ -326,7 +333,7 @@ export class PhantomSigningClient {
         throw new Error('Phantom wallet only works in browser environment');
       }
 
-      const provider = (window as any).solana;
+      const provider = this.getProvider();
       const signedTx = await provider.signAndSendTransaction(solanaWeb3Transaction);
 
       return signedTx.signature;
