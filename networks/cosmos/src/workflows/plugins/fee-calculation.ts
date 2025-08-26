@@ -20,7 +20,7 @@ export const FEE_CALCULATION_STAGING_KEYS = {
 export interface FeeCalculationParams {
   fee?: StdFee;
   txBody: TxBody;
-  signerInfos: SignerInfo[];
+  signerInfo: SignerInfo;
   options?: DocOptions;
 }
 
@@ -50,7 +50,7 @@ export class FeeCalculationPlugin extends BaseWorkflowBuilderPlugin<
     if (!finalFee) {
       const { gasInfo } = await ctx.getSigner().simulateByTxBody(
         params.txBody,
-        [params.signerInfos[0]]
+        [params.signerInfo]
       );
 
       if (!gasInfo) {
