@@ -40,7 +40,8 @@
     "test:ws": "jest src/__tests__/websocket.test.ts",
     "test:token": "jest src/__tests__/token.test.ts",
     "test:spl": "jest src/__tests__/spl.test.ts",
-    "test:integration": "jest src/__tests__/integration.test.ts"
+    "test:integration": "jest src/__tests__/integration.test.ts",
+    "starship:start": "starship start --config starship/configs/config.yaml"
   },
   "keywords": [
     "solana",
