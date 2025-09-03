@@ -41,6 +41,7 @@
     "test:token": "jest starship/__tests__/token.test.ts",
     "test:spl": "jest starship/__tests__/spl.test.ts",
     "test:integration": "jest starship/__tests__/integration.test.ts",
+    "test:keypair": "jest starship/__tests__/keypair.test.ts",
     "starship:start": "npx @starship-ci/cli@3.14.1 start --config starship/configs/config.yaml",
     "starship:stop": "npx @starship-ci/cli@3.14.1 stop --config starship/configs/config.yaml"
   },

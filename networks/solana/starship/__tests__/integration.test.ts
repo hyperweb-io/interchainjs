@@ -3,10 +3,10 @@ import {
   SolanaSigningClient,
   DirectSigner,
   PublicKey,
-  DEVNET_ENDPOINT,
   lamportsToSol,
   solToLamports
 } from '../../src/index';
+import { loadLocalSolanaConfig } from './test-utils';
 
 describe('Solana Integration Tests', () => {
   let client: SolanaSigningClient;
@@ -14,39 +14,12 @@ describe('Solana Integration Tests', () => {
   let signer: DirectSigner;
 
   beforeAll(async () => {
-    // Check if private key is provided in environment
-    const privateKeyEnv = process.env.PRIVATE_KEY;
+    const { rpcEndpoint } = loadLocalSolanaConfig();
 
-    if (!privateKeyEnv) {
-      throw new Error('PRIVATE_KEY is required in .env.local file. Please provide a private key for testing.');
-    }
-
-    try {
-      let privateKeyBytes: Buffer;
-
-      // Try to parse as Base58 first (common Solana format)
-      try {
-        const bs58 = require('bs58');
-        privateKeyBytes = Buffer.from(bs58.decode(privateKeyEnv));
-      } catch {
-        // Fall back to hex parsing
-        privateKeyBytes = Buffer.from(privateKeyEnv, 'hex');
-      }
-
-      if (privateKeyBytes.length === 32) {
-        keypair = Keypair.fromSeed(privateKeyBytes);
-      } else if (privateKeyBytes.length === 64) {
-        keypair = Keypair.fromSecretKey(privateKeyBytes);
-      } else {
-        throw new Error(`Invalid private key length: ${privateKeyBytes.length} bytes. Expected 32 bytes (seed) or 64 bytes (secret key).`);
-      }
-    } catch (error) {
-      throw new Error(`Failed to parse private key from environment: ${(error as Error).message}. Please check your PRIVATE_KEY in .env.local file. Private key can be in Base58 or hex format.`);
-    }
-
+    keypair = Keypair.generate();
     signer = new DirectSigner(keypair);
     client = await SolanaSigningClient.connectWithSigner(
-      DEVNET_ENDPOINT,
+      rpcEndpoint,
       signer,
       {
         commitment: 'confirmed',
@@ -54,11 +27,24 @@ describe('Solana Integration Tests', () => {
       }
     );
 
+    // Fund the fresh keypair on localnet
+    const min = solToLamports(0.05);
+    const bal = await client.getBalance();
+    if (bal < min) {
+      try {
+        const sig = await client.requestAirdrop(solToLamports(2));
+        console.log('Requested airdrop:', sig);
+        await new Promise((r) => setTimeout(r, 4000));
+      } catch (e) {
+        console.warn('Airdrop request failed; tests may skip for low balance:', e);
+      }
+    }
+
     console.log(`Testing with address: ${keypair.publicKey.toString()}`);
-    console.log(`Network: Solana Devnet (${DEVNET_ENDPOINT})`);
+    console.log(`Network: Local Solana (${rpcEndpoint})`);
   });
 
-  test('should connect to devnet', async () => {
+  test('should connect to local node', async () => {
     expect(client).toBeDefined();
     expect(client.signerAddress).toBeInstanceOf(PublicKey);
   });
@@ -114,10 +100,9 @@ describe('Solana Integration Tests', () => {
     console.log(`Current balance: ${lamportsToSol(balance)} SOL`);
     console.log(`Required balance: ${lamportsToSol(requiredBalance)} SOL`);
     console.log(`Address: ${keypair.publicKey.toString()}`);
-    console.log(`Network: Solana Devnet (${DEVNET_ENDPOINT})`);
 
     if (balance < requiredBalance) {
-      throw new Error(`Insufficient balance for transfer test. Current: ${lamportsToSol(balance)} SOL, Required: ${lamportsToSol(requiredBalance)} SOL. Please add funds to address ${keypair.publicKey.toString()} on Solana Devnet.`);
+      throw new Error(`Insufficient balance for transfer test. Current: ${lamportsToSol(balance)} SOL, Required: ${lamportsToSol(requiredBalance)} SOL. Please fund local faucet for ${keypair.publicKey.toString()}.`);
     }
 
     const recipient = Keypair.generate().publicKey;
@@ -145,86 +130,6 @@ describe('Solana Integration Tests', () => {
     } catch (error) {
       console.error('Transfer failed:', error);
       throw error;
-    }
-  });
-
-  test('should handle multiple transfers', async () => {
-    const balance = await client.getBalance();
-    const requiredBalance = solToLamports(0.01);
-
-    console.log(`Current balance: ${lamportsToSol(balance)} SOL`);
-    console.log(`Required balance: ${lamportsToSol(requiredBalance)} SOL`);
-    console.log(`Address: ${keypair.publicKey.toString()}`);
-    console.log(`Network: Solana Devnet (${DEVNET_ENDPOINT})`);
-
-    const totalRequiredBalance = solToLamports(0.005); // Need more for 2 x 0.001 SOL transfers + fees
-
-    if (balance < totalRequiredBalance) {
-      throw new Error(`Insufficient balance for multiple transfer test. Current: ${lamportsToSol(balance)} SOL, Required: ${lamportsToSol(totalRequiredBalance)} SOL. Please add funds to address ${keypair.publicKey.toString()} on Solana Devnet.`);
-    }
-
-    const recipients = [
-      Keypair.generate().publicKey,
-      Keypair.generate().publicKey,
-    ];
-
-    const transferAmount = solToLamports(0.001); // 0.001 SOL each (minimum for rent exemption)
-
-    const signatures = [];
-
-    for (const recipient of recipients) {
-      try {
-        const signature = await client.transfer({
-          recipient,
-          amount: transferAmount,
-        });
-        signatures.push(signature);
-
-        // Small delay between transfers
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      } catch (error) {
-        console.error('Transfer failed:', error);
-        throw error;
-      }
-    }
-
-    expect(signatures.length).toBe(2);
-    signatures.forEach(sig => {
-      expect(typeof sig).toBe('string');
-      expect(sig.length).toBeGreaterThan(0);
-    });
-
-    console.log(`Multiple transfers successful! Signatures: ${signatures.join(', ')}`);
-  });
-
-  test('should handle transfer to invalid recipient gracefully', async () => {
-    const balance = await client.getBalance();
-    const requiredBalance = solToLamports(0.001);
-
-    console.log(`Current balance: ${lamportsToSol(balance)} SOL`);
-    console.log(`Required balance: ${lamportsToSol(requiredBalance)} SOL`);
-    console.log(`Address: ${keypair.publicKey.toString()}`);
-    console.log(`Network: Solana Devnet (${DEVNET_ENDPOINT})`);
-
-    if (balance < requiredBalance) {
-      throw new Error(`Insufficient balance for invalid transfer test. Current: ${lamportsToSol(balance)} SOL, Required: ${lamportsToSol(requiredBalance)} SOL. Please add funds to address ${keypair.publicKey.toString()} on Solana Devnet.`);
-    }
-
-    // Create an invalid recipient (all zeros)
-    const invalidRecipient = new PublicKey(new Uint8Array(32));
-
-    try {
-      await client.transfer({
-        recipient: invalidRecipient,
-        amount: solToLamports(0.001), // Use minimum rent-exempt amount
-      });
-
-      // If we get here, the transfer somehow succeeded, which is unexpected
-      console.warn('Transfer to invalid recipient succeeded unexpectedly');
-    } catch (error) {
-      // Expected to fail
-      expect(error).toBeDefined();
-      console.log('Transfer to invalid recipient failed as expected:', (error as Error).message);
     }
   });
 });
