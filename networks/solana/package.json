@@ -41,7 +41,8 @@
     "test:token": "jest src/__tests__/token.test.ts",
     "test:spl": "jest src/__tests__/spl.test.ts",
     "test:integration": "jest src/__tests__/integration.test.ts",
-    "starship:start": "starship start --config starship/configs/config.yaml"
+    "starship:start": "npx @starship-ci/cli@3.14.1 start --config starship/configs/config.yaml",
+    "starship:stop": "npx @starship-ci/cli@3.14.1 stop --config starship/configs/config.yaml"
   },
   "keywords": [
     "solana",

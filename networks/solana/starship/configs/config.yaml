@@ -4,21 +4,27 @@ version: 1.10.0
 chains:
   - id: solana
     name: solana
-    numValidators: 2
+    numValidators: 1
     ports:
       rpc: 8899
       ws: 8900
       exposer: 8001
       faucet: 9900
     resources:
-      cpu: 2000m
-      memory: 2048Mi
+      cpu: "2.0"
+      memory: "4Gi"
+      
+registry:
+  enabled: true
+  ports:
+    rest: 8081
+    grpc: 9091
 
 # Additional service optimization for CI
 exposer:
   resources:
-    cpu: 100m
-    memory: 100Mi
+    cpu: 1000m
+    memory: 1000Mi
 
 faucet:
   resources:
