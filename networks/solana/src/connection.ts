@@ -29,6 +29,9 @@ export class Connection {
   }
 
   private async rpcRequest<T>(method: string, params: any[] = []): Promise<T> {
+    // Implement request timeout via AbortController to avoid hanging tests
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), this.timeout);
     const response = await fetch(this.endpoint, {
       method: 'POST',
       headers: {
@@ -40,7 +43,8 @@ export class Connection {
         method,
         params,
       }),
-    });
+      signal: controller.signal,
+    }).finally(() => clearTimeout(timer));
 
     if (!response.ok) {
       throw new Error(`RPC request failed: ${response.statusText}`);

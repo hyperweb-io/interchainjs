@@ -20,11 +20,14 @@ describe('SPL Token Tests', () => {
   let connection: Connection;
   let payer: Keypair;
   let payerAtaForNative: PublicKey;
+  // Use a deterministic mock mint address for instruction-building tests
+  const testMintAddress = new PublicKey('11111111111111111111111111111112');
 
   beforeAll(async () => {
     const { rpcEndpoint } = loadLocalSolanaConfig();
     // Setup connection
-    connection = new Connection({ endpoint: rpcEndpoint });
+    // Use a short RPC timeout to keep tests snappy if local node isn't running
+    connection = new Connection({ endpoint: rpcEndpoint, timeout: 3000 });
 
     // Create a fresh payer and fund via local faucet
     payer = await createFundedKeypair(connection, solToLamports(1), solToLamports(2));

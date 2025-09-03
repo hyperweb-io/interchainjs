@@ -7,6 +7,25 @@ import { MAX_DECIMALS } from './token-constants';
  */
 export class TokenMath extends BaseTokenMath {
   /**
+   * Convert UI amount to raw token amount with Solana-specific decimal bounds
+   */
+  static uiAmountToRaw(uiAmount: number | string, decimals: number): bigint {
+    if (decimals < 0 || decimals > MAX_DECIMALS) {
+      throw new Error(`Invalid decimals: ${decimals}. Must be between 0 and ${MAX_DECIMALS}`);
+    }
+    return super.uiAmountToRaw(uiAmount, decimals);
+  }
+
+  /**
+   * Convert raw token amount to UI amount with Solana-specific decimal bounds
+   */
+  static rawToUiAmount(rawAmount: bigint, decimals: number, precision?: number): string {
+    if (decimals < 0 || decimals > MAX_DECIMALS) {
+      throw new Error(`Invalid decimals: ${decimals}. Must be between 0 and ${MAX_DECIMALS}`);
+    }
+    return super.rawToUiAmount(rawAmount, decimals, precision);
+  }
+  /**
    * Override getMaxAmount to use Solana-specific MAX_DECIMALS
    * @param decimals - Number of decimals
    * @returns Maximum token amount as bigint
