@@ -1,5 +1,5 @@
-import { Keypair } from '../keypair';
-import { PublicKey } from '../types';
+import { Keypair } from '../../src/keypair';
+import { PublicKey } from '../../src/types';
 
 describe('Keypair', () => {
   test('should generate a new keypair', () => {
@@ -12,7 +12,7 @@ describe('Keypair', () => {
   test('should create keypair from secret key', () => {
     const originalKeypair = Keypair.generate();
     const secretKey = originalKeypair.secretKey;
-    
+
     const restoredKeypair = Keypair.fromSecretKey(secretKey);
     expect(restoredKeypair.publicKey.toString()).toBe(originalKeypair.publicKey.toString());
   });
@@ -20,20 +20,20 @@ describe('Keypair', () => {
   test('should create keypair from seed', () => {
     const seed = new Uint8Array(32);
     seed.fill(1);
-    
+
     const keypair1 = Keypair.fromSeed(seed);
     const keypair2 = Keypair.fromSeed(seed);
-    
+
     expect(keypair1.publicKey.toString()).toBe(keypair2.publicKey.toString());
   });
 
   test('should sign and verify messages', () => {
     const keypair = Keypair.generate();
     const message = new Uint8Array([1, 2, 3, 4, 5]);
-    
+
     const signature = keypair.sign(message);
     const isValid = keypair.verify(message, signature);
-    
+
     expect(isValid).toBe(true);
   });
 
@@ -41,10 +41,10 @@ describe('Keypair', () => {
     const keypair = Keypair.generate();
     const message = new Uint8Array([1, 2, 3, 4, 5]);
     const wrongMessage = new Uint8Array([1, 2, 3, 4, 6]);
-    
+
     const signature = keypair.sign(message);
     const isValid = keypair.verify(wrongMessage, signature);
-    
+
     expect(isValid).toBe(false);
   });
 
