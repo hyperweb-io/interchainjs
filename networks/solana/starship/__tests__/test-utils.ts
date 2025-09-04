@@ -32,6 +32,55 @@ export function loadLocalSolanaConfig(): LocalSolanaConfig {
   };
 }
 
+/**
+ * Wait for the local Solana RPC to be ready after a fresh start.
+ * This mitigates first-run flakiness where slots/health are not yet available.
+ */
+export async function waitForRpcReady(timeoutMs: number = 20000): Promise<void> {
+  const { rpcEndpoint } = loadLocalSolanaConfig();
+  const start = Date.now();
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  // Small helper to make a JSON-RPC call directly
+  const rpcCall = async (method: string, params: any[] = [], reqTimeout = 3000): Promise<any> => {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), reqTimeout);
+    try {
+      const res = await fetch(rpcEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 'health', method, params }),
+        signal: controller.signal,
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(t);
+    }
+  };
+
+  // First try getHealth until it returns "ok"
+  while (Date.now() - start < timeoutMs) {
+    const health = await rpcCall('getHealth');
+    if (typeof health?.result === 'string' && health.result.toLowerCase() === 'ok') {
+      return; // RPC is healthy
+    }
+
+    // Fallback: check if slot has advanced beyond 0
+    const slotResp = await rpcCall('getSlot');
+    const slot = typeof slotResp?.result === 'number' ? slotResp.result : NaN;
+    if (!Number.isNaN(slot) && slot > 0) {
+      return;
+    }
+
+    await sleep(500);
+  }
+  // If we timed out, continue anyway — tests will handle errors as needed.
+}
+
 export async function confirmWithBackoff(connection: Connection, signature: string, maxMs = 30000): Promise<boolean> {
   const start = Date.now();
   let delay = 500;
