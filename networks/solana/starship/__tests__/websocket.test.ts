@@ -63,19 +63,25 @@ describe('WebSocketConnection', () => {
     }, TEST_TIMEOUT);
 
     it('should handle invalid endpoint gracefully', async () => {
-      const invalidWs = new WebSocketConnection({
-        endpoint: 'wss://invalid-endpoint.com',
-        timeout: 3000,
-        maxReconnectAttempts: 0, // Disable reconnection for this test
-      });
+      // Silence expected error logs for this negative test only
+      const errSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      try {
+        const invalidWs = new WebSocketConnection({
+          endpoint: 'wss://invalid-endpoint.com',
+          timeout: 3000,
+          maxReconnectAttempts: 0, // Disable reconnection for this test
+        });
 
-      await expect(invalidWs.connect()).rejects.toThrow();
+        await expect(invalidWs.connect()).rejects.toThrow();
 
-      // Ensure cleanup
-      invalidWs.disconnect();
+        // Ensure cleanup
+        invalidWs.disconnect();
 
-      // Wait for any pending operations to complete
-      await new Promise(resolve => setTimeout(resolve, 1000));
+        // Wait for any pending operations to complete
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      } finally {
+        errSpy.mockRestore();
+      }
     });
   });
 
