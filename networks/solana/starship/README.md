@@ -31,7 +31,7 @@ lsof -i :8899
 - If nothing is listening, manually start port-forwarding:
 
 ```bash
-bash networks/solana/starship/port-forward.sh
+bash starship/port-forward.sh
 ```
 
 - Once forwarding is up, re-run the health check:
