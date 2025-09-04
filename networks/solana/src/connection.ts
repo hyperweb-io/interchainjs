@@ -125,21 +125,48 @@ export class Connection {
   }
 
   async confirmTransaction(signature: string): Promise<boolean> {
+    // Prefer getSignatureStatuses for faster, commitment-aware confirmation
     try {
-      // Use getTransaction to check if the transaction exists and succeeded
+      const statusResp = await this.rpcRequest<{ value: Array<any> }>('getSignatureStatuses', [
+        [signature],
+        { searchTransactionHistory: true },
+      ]);
+
+      const status = statusResp?.value?.[0];
+      if (!status) return false;
+      if (status.err) return false;
+
+      // If confirmationStatus exists, use it directly
+      if (typeof status.confirmationStatus === 'string') {
+        if (this.commitment === 'processed') return true;
+        if (this.commitment === 'confirmed') {
+          return status.confirmationStatus === 'confirmed' || status.confirmationStatus === 'finalized';
+        }
+        // finalized
+        return status.confirmationStatus === 'finalized';
+      }
+
+      // Fallback to confirmations count semantics
+      // confirmations === null means rooted/finalized
+      const confirmations: number | null = status.confirmations ?? null;
+      if (this.commitment === 'processed') return true;
+      if (this.commitment === 'confirmed') return confirmations === null || (typeof confirmations === 'number' && confirmations >= 1);
+      // finalized
+      return confirmations === null;
+    } catch {}
+
+    // Fallback to getTransaction if statuses call fails
+    try {
       const result = await this.rpcRequest<any>('getTransaction', [
         signature,
         {
           encoding: 'json',
-          commitment: 'finalized',
+          commitment: this.commitment,
           maxSupportedTransactionVersion: 0,
         },
       ]);
-      
-      // If transaction exists and has no error, it's confirmed
       return result && !result.meta?.err;
-    } catch (error) {
-      // Transaction not found yet or other error
+    } catch {
       return false;
     }
   }

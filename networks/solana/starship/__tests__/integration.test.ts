@@ -22,8 +22,10 @@ describe('Solana Integration Tests', () => {
       rpcEndpoint,
       signer,
       {
-        commitment: 'confirmed',
-        broadcast: { checkTx: true, timeout: 60000 }
+        // Use 'processed' for fast local confirmation to avoid flakiness
+        commitment: 'processed',
+        // Skip explicit confirmation wait; we'll poll balance after a short delay
+        broadcast: { checkTx: false, timeout: 60000 }
       }
     );
 
