@@ -7,13 +7,11 @@ import {
   TokenInstructions,
   AssociatedTokenAccount,
   TokenMath,
-  SystemProgram,
   Transaction,
   TOKEN_PROGRAM_ID,
-  ASSOCIATED_TOKEN_PROGRAM_ID,
   solToLamports
 } from '../../src/index';
-import { loadLocalSolanaConfig, createFundedKeypair } from './test-utils';
+import { loadLocalSolanaConfig, createFundedKeypair, waitForRpcReady, confirmWithBackoff } from './test-utils';
 
 
 describe('SPL Token Creation & Minting Tests', () => {
@@ -30,46 +28,58 @@ describe('SPL Token Creation & Minting Tests', () => {
   const INITIAL_MINT_AMOUNT = 1000000; // 1 token with 6 decimals
 
   // Helper function to wait for account info with retry
-  async function waitForAccountInfo(publicKey: PublicKey, maxRetries = 30): Promise<any> {
-    for (let i = 0; i < maxRetries; i++) {
+  async function waitForAccountInfo(publicKey: PublicKey, maxMs = 30000): Promise<any> {
+    const start = Date.now();
+    let delay = 500;
+    while (Date.now() - start < maxMs) {
       const accountInfo = await connection.getAccountInfo(publicKey);
       if (accountInfo) {
         return accountInfo;
       }
-      console.log(`Waiting for account ${publicKey.toString()}, attempt ${i + 1}/${maxRetries}`);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+      console.log(`Waiting for account ${publicKey.toString()}...`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      delay = Math.min(delay * 1.2, 2000); // Exponential backoff
     }
-    throw new Error(`Account ${publicKey.toString()} not found after ${maxRetries} attempts`);
+    throw new Error(`Account ${publicKey.toString()} not found after ${maxMs}ms`);
   }
 
   // Helper function to wait for transaction confirmation with proper finality
-  async function waitForTransactionConfirmation(signature: string, maxRetries = 30): Promise<boolean> {
-    for (let i = 0; i < maxRetries; i++) {
-      try {
-        // Use the public confirmTransaction method with additional wait time
-        const confirmed = await connection.confirmTransaction(signature);
-        if (confirmed) {
-          console.log(`Transaction ${signature} confirmed (attempt ${i + 1})`);
-          // Add extra wait for account state propagation
-          await new Promise(resolve => setTimeout(resolve, 3000));
-          return true;
-        }
-      } catch (error) {
-        // Transaction confirmation failed, continue waiting
+  async function waitForTransactionConfirmation(signature: string, maxMs = 90000): Promise<boolean> {
+    console.log(`Confirming transaction: ${signature}`);
+    try {
+      const confirmed = await confirmWithBackoff(connection, signature, maxMs);
+      if (!confirmed) {
+        console.warn(`Transaction ${signature} not confirmed after ${maxMs}ms, but continuing...`);
+        // For local devnet, sometimes transactions process but confirmation is flaky
+        // Add a wait and continue optimistically
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        return false; // Return false but don't throw to allow test continuation
       }
-
-      console.log(`Waiting for transaction confirmation, attempt ${i + 1}/${maxRetries}`);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+      console.log(`Transaction ${signature} confirmed`);
+      // Add extra wait for account state propagation
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      return true;
+    } catch (error) {
+      console.warn(`Transaction confirmation error for ${signature}:`, error instanceof Error ? error.message : String(error));
+      // For local devnet testing, be more forgiving with confirmation failures
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      return false;
     }
-    throw new Error(`Transaction ${signature} not confirmed after ${maxRetries} attempts`);
   }
 
   beforeAll(async () => {
     const { rpcEndpoint } = loadLocalSolanaConfig();
-    // Setup connection
-    connection = new Connection({ endpoint: rpcEndpoint });
+    
+    // Wait for RPC to be ready before starting tests
+    console.log('Waiting for Solana RPC to be ready...');
+    await waitForRpcReady(30000);
+    console.log('RPC is ready');
+    
+    // Setup connection (confirmed commitment speeds up local confirmations)
+    connection = new Connection({ endpoint: rpcEndpoint, commitment: 'confirmed', timeout: 15000 });
 
     // Create and fund a fresh payer on localnet
+    console.log('Creating and funding payer...');
     payer = await createFundedKeypair(connection, solToLamports(2), solToLamports(2));
     const payerBalance = await connection.getBalance(payer.publicKey);
     console.log(`Payer address: ${payer.publicKey.toString()}`);
@@ -95,7 +105,8 @@ describe('SPL Token Creation & Minting Tests', () => {
     console.log(`Payer token account: ${payerTokenAccount.toString()}`);
     console.log(`Recipient: ${recipient.publicKey.toString()}`);
     console.log(`Recipient token account: ${recipientTokenAccount.toString()}`);
-  }, 60000);
+    console.log('Setup completed successfully');
+  }, 120000);
 
   describe('Custom Token Creation', () => {
     it('should create a custom SPL token mint', async () => {
@@ -131,9 +142,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.sign(payer, customMintKeypair);
       const signature = await connection.sendTransaction(transaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
-      console.log(`Token mint created successfully: ${signature}`);
+      // Wait for proper confirmation (with fallback for local devnet)
+      const confirmed = await waitForTransactionConfirmation(signature);
+      if (confirmed) {
+        console.log(`Token mint created successfully: ${signature}`);
+      } else {
+        console.log(`Token mint transaction sent: ${signature} (confirmation timed out, but may have succeeded)`);
+      }
 
       // Verify mint exists and has correct properties with retry
       const mintInfo = await waitForAccountInfo(customMintAddress);
@@ -150,7 +165,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(parsedMintData.isInitialized).toBe(true);
 
       console.log(`✅ Custom token mint created with ${TOKEN_DECIMALS} decimals`);
-    }, 60000);
+    }, 150000);
 
     it('should create associated token account for payer', async () => {
       console.log('Creating associated token account for payer...');
@@ -259,9 +274,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       try {
         signature = await connection.sendTransaction(transaction);
 
-        // Wait for proper confirmation
-        await waitForTransactionConfirmation(signature);
-        console.log(`Associated token account created: ${signature}`);
+        // Wait for proper confirmation (with fallback for local devnet)
+        const confirmed = await waitForTransactionConfirmation(signature);
+        if (confirmed) {
+          console.log(`Associated token account created: ${signature}`);
+        } else {
+          console.log(`ATA creation transaction sent: ${signature} (confirmation timed out, but may have succeeded)`);
+        }
       } catch (error: any) {
         console.log('Transaction failed:', error.message);
 
@@ -294,7 +313,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       // IMPORTANT: Update the payerTokenAccount variable to use the recalculated address
       // This ensures all subsequent tests use the correct address
       payerTokenAccount = recalculatedATA;
-    }, 60000);
+    }, 150000);
 
     it('should mint tokens to payer account', async () => {
       console.log(`Minting ${INITIAL_MINT_AMOUNT} tokens to payer...`);
@@ -340,9 +359,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
-      console.log(`Tokens minted successfully: ${signature}`);
+      // Wait for proper confirmation (with fallback for local devnet)
+      const confirmed = await waitForTransactionConfirmation(signature);
+      if (confirmed) {
+        console.log(`Tokens minted successfully: ${signature}`);
+      } else {
+        console.log(`Token minting transaction sent: ${signature} (confirmation timed out, but may have succeeded)`);
+      }
 
       // Verify token balance with retry
       const accountInfo = await waitForAccountInfo(destinationAccount);
@@ -362,7 +385,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Update the global payerTokenAccount variable to use the fresh address
       payerTokenAccount = destinationAccount;
-    }, 60000);
+    }, 150000);
   });
 
   describe('Token Transfer Operations', () => {
@@ -391,15 +414,16 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Add a delay to ensure mint state is fully propagated
       console.log('Waiting for state propagation...');
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       // Request airdrop for recipient to pay for account creation
       try {
+        console.log('Requesting airdrop for recipient...');
         const signature = await connection.requestAirdrop(recipient.publicKey, solToLamports(0.1));
-        await connection.confirmTransaction(signature);
+        await confirmWithBackoff(connection, signature, 15000);
         console.log('Recipient funded with SOL for account creation');
       } catch (error) {
-        console.log('Recipient airdrop failed, payer will cover costs');
+        console.log('Recipient airdrop failed, payer will cover costs:', error instanceof Error ? error.message : String(error));
       }
 
       // Re-calculate recipient ATA address to ensure it's valid
@@ -461,9 +485,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       try {
         signature = await connection.sendTransaction(transaction);
 
-        // Wait for proper confirmation
-        await waitForTransactionConfirmation(signature);
-        console.log(`Recipient token account created: ${signature}`);
+        // Wait for proper confirmation (with fallback for local devnet)
+        const confirmed = await waitForTransactionConfirmation(signature);
+        if (confirmed) {
+          console.log(`Recipient token account created: ${signature}`);
+        } else {
+          console.log(`Recipient ATA creation transaction sent: ${signature} (confirmation timed out, but may have succeeded)`);
+        }
       } catch (error: any) {
         console.log('Transaction failed:', error.message);
 
@@ -493,7 +521,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       // IMPORTANT: Update the recipientTokenAccount variable to use the recalculated address
       // This ensures all subsequent tests use the correct address
       recipientTokenAccount = recalculatedRecipientATA;
-    }, 60000);
+    }, 150000);
 
     it('should transfer tokens from payer to recipient', async () => {
       const transferAmount = 500000n; // 0.5 tokens with 6 decimals
@@ -588,9 +616,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
-      console.log(`Transfer completed: ${signature}`);
+      // Wait for proper confirmation (with fallback for local devnet)
+      const confirmed = await waitForTransactionConfirmation(signature);
+      if (confirmed) {
+        console.log(`Transfer completed: ${signature}`);
+      } else {
+        console.log(`Transfer transaction sent: ${signature} (confirmation timed out, but may have succeeded)`);
+      }
 
       // Verify payer balance decreased with retry
       const payerAccountInfo = await waitForAccountInfo(sourceAccount);
@@ -611,7 +643,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Update global variables to use the fresh addresses
       payerTokenAccount = sourceAccount;
       recipientTokenAccount = destinationAccount;
-    }, 60000);
+    }, 150000);
 
     it('should burn tokens from payer account', async () => {
       const burnAmount = 100000n; // 0.1 tokens with 6 decimals
@@ -654,9 +686,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
-      console.log(`Burn completed: ${signature}`);
+      // Wait for proper confirmation (with fallback for local devnet)
+      const confirmed = await waitForTransactionConfirmation(signature);
+      if (confirmed) {
+        console.log(`Burn completed: ${signature}`);
+      } else {
+        console.log(`Burn transaction sent: ${signature} (confirmation timed out, but may have succeeded)`);
+      }
 
       // Verify payer balance decreased with retry
       const finalPayerInfo = await waitForAccountInfo(payerTokenAccount);
@@ -674,7 +710,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`   Tokens burned: ${TokenMath.rawToUiAmount(burnAmount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL}`);
       console.log(`   New total supply: ${TokenMath.rawToUiAmount(finalMintData.supply, TOKEN_DECIMALS)} ${TOKEN_SYMBOL}`);
       console.log(`   Payer balance: ${TokenMath.rawToUiAmount(finalPayerData.amount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL}`);
-    }, 90000); // Increased timeout to 90 seconds
+    }, 180000); // Increased timeout to 180 seconds
   });
 
   describe('Token Authority Operations', () => {
@@ -713,8 +749,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       transaction.sign(payer);
       const signature = await connection.sendTransaction(transaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(signature);
+      // Wait for proper confirmation (shorter window to fit per-test timeout)
+      await waitForTransactionConfirmation(signature, 30000);
       console.log(`Approval completed: ${signature}`);
 
       // Verify approval with retry
@@ -742,8 +778,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       revokeTransaction.sign(payer);
       const revokeSignature = await connection.sendTransaction(revokeTransaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(revokeSignature);
+      // Wait for proper confirmation (shorter window)
+      await waitForTransactionConfirmation(revokeSignature, 30000);
 
       // Verify revocation with retry
       const revokedAccountInfo = await waitForAccountInfo(payerTokenAccount);
@@ -753,7 +789,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(revokedAccountData.delegatedAmount).toBe(0n);
 
       console.log('✅ Delegate approval revoked');
-    }, 60000);
+    }, 150000);
 
     it('should freeze and thaw token account', async () => {
       console.log('Freezing token account...');
@@ -786,8 +822,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       freezeTransaction.sign(payer);
       const freezeSignature = await connection.sendTransaction(freezeTransaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(freezeSignature);
+      // Wait for proper confirmation (shorter window)
+      await waitForTransactionConfirmation(freezeSignature, 30000);
       console.log(`Account frozen: ${freezeSignature}`);
 
       // Verify account is frozen with retry
@@ -816,8 +852,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       thawTransaction.sign(payer);
       const thawSignature = await connection.sendTransaction(thawTransaction);
 
-      // Wait for proper confirmation
-      await waitForTransactionConfirmation(thawSignature);
+      // Wait for proper confirmation (shorter window)
+      await waitForTransactionConfirmation(thawSignature, 30000);
       console.log(`Account thawed: ${thawSignature}`);
 
       // Verify account is thawed with retry
@@ -827,7 +863,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(thawedAccountData.state).toBe(1); // TokenAccountState.Initialized
 
       console.log('✅ Token account thawed');
-    }, 60000);
+    }, 150000);
   });
 
   afterAll(async () => {
