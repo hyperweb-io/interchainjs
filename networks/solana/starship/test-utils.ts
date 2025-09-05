@@ -11,7 +11,7 @@ export interface LocalSolanaConfig {
 
 // Read ports from networks/solana/starship/configs/config.yaml without external deps
 export function loadLocalSolanaConfig(): LocalSolanaConfig {
-  const configPath = path.join(__dirname, '../configs/config.yaml');
+  const configPath = path.join(__dirname, './configs/config.yaml');
   const content = fs.readFileSync(configPath, 'utf-8');
   const doc = parseYaml(content) as any;
 
