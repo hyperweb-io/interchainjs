@@ -1,6 +1,9 @@
 name: Run Solana Unit Tests
 
 on:
+  push:
+    branches:
+      - sonala
   workflow_dispatch:
 
 jobs:
@@ -31,4 +34,3 @@ jobs:
 
       - name: Run Solana Unit Tests
         run: cd ./networks/solana && yarn test
-
