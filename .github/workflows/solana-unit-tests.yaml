@@ -32,10 +32,10 @@ jobs:
         with:
           config: networks/solana/starship/configs/config.yaml
 
-      - name: Wait for Solana RPC (port-forward then health check)
+      - name: Port-forward and run Solana unit tests
         run: |
           set -euxo pipefail
-          # Try to discover the Starship namespace from action outputs or by scanning pods
+          # Discover namespace
           NS="${{ steps.starship-infra.outputs.namespace }}"
           if [ -z "${NS}" ]; then
             NS=$(kubectl get pods -A -o jsonpath='{range .items[*]}{.metadata.namespace}{" "}{.metadata.name}{"\n"}{end}' | awk '/solana-genesis/{print $1; exit}' || true)
@@ -46,16 +46,18 @@ jobs:
           kubectl get pods -A -o wide || true
           if [ -n "${NS}" ]; then
             kubectl get pods -n "$NS" -o wide || true
-            # Wait up to 5 minutes for solana-genesis to be Ready
             (kubectl wait --for=condition=Ready pod -l app=solana-genesis -n "$NS" --timeout=300s || \
              kubectl wait --for=condition=Ready pod -l app.kubernetes.io/name=solana-genesis -n "$NS" --timeout=300s) || true
           fi
 
-          # Always attempt port-forward as soon as pods are (likely) up
+          # Start port-forward and keep this step alive while tests run
           if [ -n "${NS}" ]; then
-            NS="$NS" bash networks/solana/starship/port-forward.sh || true
+            NS="$NS" bash networks/solana/starship/port-forward.sh &
+            PF_SUPERVISOR_PID=$!
+            # Clean up on exit
+            trap 'echo "Stopping port-forward"; kill -9 ${PF_SUPERVISOR_PID} >/dev/null 2>&1 || true; pkill -f "kubectl -n ${NS} port-forward" || true' EXIT
           else
-            echo "Could not determine namespace for port-forward (will still try health checks)" >&2
+            echo "Could not determine namespace for port-forward" >&2
           fi
 
           echo "Waiting for RPC health on 127.0.0.1:8899 ..."
@@ -68,11 +70,11 @@ jobs:
           done
 
           if [ "$ok" -ne 1 ]; then
-            echo "RPC still not healthy after retries" >&2
+            echo "RPC not healthy; dumping diagnostics" >&2
             kubectl get pods -A -o wide || true
             if [ -n "${NS}" ]; then kubectl describe pods -n "$NS" || true; fi
             exit 1
           fi
 
-      - name: Run Solana Unit Tests
-        run: cd ./networks/solana && yarn test
+          cd ./networks/solana
+          yarn test
