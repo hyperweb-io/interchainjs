@@ -11,8 +11,8 @@ chains:
       exposer: 8001
       faucet: 9900
     resources:
-      cpu: "2.0"
-      memory: "4Gi"
+      cpu: "1.0"
+      memory: "2Gi"
       
 registry:
   enabled: true
@@ -23,8 +23,8 @@ registry:
 # Additional service optimization for CI
 exposer:
   resources:
-    cpu: 1000m
-    memory: 1000Mi
+    cpu: 100m
+    memory: 100Mi
 
 faucet:
   resources:
