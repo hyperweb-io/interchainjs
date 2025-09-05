@@ -1,0 +1,34 @@
+name: Run Solana Unit Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  networks-solana:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository 📝
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Set Up Starship Infrastructure
+        id: starship-infra
+        uses: hyperweb-io/starship-action@0.5.9
+        with:
+          config: networks/solana/starship/configs/config.yaml
+
+      - name: Run Solana Unit Tests
+        run: cd ./networks/solana && yarn test
+
