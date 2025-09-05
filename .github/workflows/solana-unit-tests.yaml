@@ -3,7 +3,7 @@ name: Run Solana Unit Tests
 on:
   push:
     branches:
-      - sonala
+      - solana
   workflow_dispatch:
 
 jobs:
