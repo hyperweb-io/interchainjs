@@ -32,5 +32,60 @@ jobs:
         with:
           config: networks/solana/starship/configs/config.yaml
 
+      - name: Wait for Solana RPC (with port-forward fallback)
+        run: |
+          set -euxo pipefail
+          # Try to discover the Starship namespace from action outputs or by scanning pods
+          NS="${{ steps.starship-infra.outputs.namespace }}"
+          if [ -z "${NS}" ]; then
+            NS=$(kubectl get pods -A -o jsonpath='{range .items[*]}{.metadata.namespace}{" "}{.metadata.name}{"\n"}{end}' | awk '/solana-genesis/{print $1; exit}' || true)
+          fi
+          echo "Using namespace: ${NS:-<unknown>}"
+
+          echo "Checking pods status..."
+          kubectl get pods -A -o wide || true
+          if [ -n "${NS}" ]; then
+            kubectl get pods -n "$NS" -o wide || true
+            # Wait up to 5 minutes for solana-genesis to be Ready
+            (kubectl wait --for=condition=Ready pod -l app=solana-genesis -n "$NS" --timeout=300s || \
+             kubectl wait --for=condition=Ready pod -l app.kubernetes.io/name=solana-genesis -n "$NS" --timeout=300s) || true
+          fi
+
+          echo "Waiting for RPC health on 127.0.0.1:8899 ..."
+          ok=0
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8899/health | grep -qi ok; then
+              ok=1; break
+            fi
+            sleep 5
+          done
+
+          if [ "$ok" -ne 1 ]; then
+            echo "RPC not reachable; attempting port-forward fallback..."
+            if [ -z "${NS}" ]; then
+              NS=$(kubectl get pods -A -o jsonpath='{range .items[*]}{.metadata.namespace}{" "}{.metadata.name}{"\n"}{end}' | awk '/solana-genesis/{print $1; exit}' || true)
+            fi
+            if [ -n "${NS}" ]; then
+              NS="$NS" bash networks/solana/starship/port-forward.sh || true
+            else
+              echo "Could not determine namespace for port-forward" >&2
+            fi
+
+            # Re-check for another 2 minutes
+            for i in $(seq 1 24); do
+              if curl -fsS http://127.0.0.1:8899/health | grep -qi ok; then
+                ok=1; break
+              fi
+              sleep 5
+            done
+          fi
+
+          if [ "$ok" -ne 1 ]; then
+            echo "RPC still not healthy after retries" >&2
+            kubectl get pods -A -o wide || true
+            if [ -n "${NS}" ]; then kubectl describe pods -n "$NS" || true; fi
+            exit 1
+          fi
+
       - name: Run Solana Unit Tests
         run: cd ./networks/solana && yarn test
