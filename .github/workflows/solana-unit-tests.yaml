@@ -77,4 +77,4 @@ jobs:
           fi
 
           cd ./networks/solana
-          yarn test
+          yarn test --runInBand
