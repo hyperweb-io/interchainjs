@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
-import { Connection, Keypair, PublicKey } from '../../src/index';
+import { Connection, Keypair, PublicKey } from '../src/index';
 
 export interface LocalSolanaConfig {
   rpcEndpoint: string;
@@ -88,7 +88,7 @@ export async function confirmWithBackoff(connection: Connection, signature: stri
     try {
       const ok = await connection.confirmTransaction(signature);
       if (ok) return true;
-    } catch {}
+    } catch { }
     await new Promise((r) => setTimeout(r, delay));
     delay = Math.min(delay * 1.5, 2000);
   }

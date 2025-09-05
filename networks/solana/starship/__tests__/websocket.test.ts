@@ -1,7 +1,7 @@
 import { WebSocketConnection } from '../../src/websocket-connection';
 import { PublicKey } from '../../src/types';
 import { Keypair } from '../../src/keypair';
-import { loadLocalSolanaConfig, waitForRpcReady } from './test-utils';
+import { loadLocalSolanaConfig, waitForRpcReady } from '../test-utils';
 
 // Test configuration (local)
 const { wsEndpoint: LOCAL_WS_ENDPOINT } = loadLocalSolanaConfig();
@@ -64,7 +64,7 @@ describe('WebSocketConnection', () => {
 
     it('should handle invalid endpoint gracefully', async () => {
       // Silence expected error logs for this negative test only
-      const errSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const errSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
       try {
         const invalidWs = new WebSocketConnection({
           endpoint: 'wss://invalid-endpoint.com',

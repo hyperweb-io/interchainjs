@@ -14,7 +14,7 @@ import {
   AuthorityType,
   solToLamports
 } from '../../src/index';
-import { loadLocalSolanaConfig, createFundedKeypair } from './test-utils';
+import { loadLocalSolanaConfig, createFundedKeypair } from '../test-utils';
 
 describe('SPL Token Tests', () => {
   let connection: Connection;

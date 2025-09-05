@@ -11,7 +11,7 @@ import {
   TOKEN_PROGRAM_ID,
   solToLamports
 } from '../../src/index';
-import { loadLocalSolanaConfig, createFundedKeypair, waitForRpcReady, confirmWithBackoff } from './test-utils';
+import { loadLocalSolanaConfig, createFundedKeypair, waitForRpcReady, confirmWithBackoff } from '../test-utils';
 
 
 describe('SPL Token Creation & Minting Tests', () => {
@@ -69,12 +69,12 @@ describe('SPL Token Creation & Minting Tests', () => {
 
   beforeAll(async () => {
     const { rpcEndpoint } = loadLocalSolanaConfig();
-    
+
     // Wait for RPC to be ready before starting tests
     console.log('Waiting for Solana RPC to be ready...');
     await waitForRpcReady(30000);
     console.log('RPC is ready');
-    
+
     // Setup connection (confirmed commitment speeds up local confirmations)
     connection = new Connection({ endpoint: rpcEndpoint, commitment: 'confirmed', timeout: 15000 });
 

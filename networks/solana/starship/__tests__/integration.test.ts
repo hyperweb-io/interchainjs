@@ -6,7 +6,7 @@ import {
   lamportsToSol,
   solToLamports
 } from '../../src/index';
-import { loadLocalSolanaConfig } from './test-utils';
+import { loadLocalSolanaConfig } from '../test-utils';
 
 describe('Solana Integration Tests', () => {
   let client: SolanaSigningClient;
