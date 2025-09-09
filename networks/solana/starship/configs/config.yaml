@@ -11,9 +11,9 @@ chains:
       exposer: 8001
       faucet: 9900
     resources:
-      cpu: "1.0"
-      memory: "2Gi"
-      
+      cpu: "1500m"
+      memory: "4Gi"
+
 registry:
   enabled: true
   ports:
