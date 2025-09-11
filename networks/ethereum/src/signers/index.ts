@@ -4,6 +4,7 @@ export * from './config';
 export * from './base-signer';
 export * from './legacy-signer';
 export * from './eip1559-signer';
+export * from './SignerFromBrowser';
 
 // Workflows
 export * from '../workflows';
