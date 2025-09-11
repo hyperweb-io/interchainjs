@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/ethereum@1.17.3...@interchainjs/ethereum@1.17.4) (2025-09-11)
+
+### Features
+
+- **ethereum:** add EIP-1193 browser signer (window.ethereum) for ETH and ABI contract calls ([81047b1](https://github.com/hyperweb-io/interchainjs/commit/81047b1bdcca99a651961cc9e93769ab1dd0ed4d))
+
 ## [1.17.3](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/ethereum@1.17.2...@interchainjs/ethereum@1.17.3) (2025-08-26)
 
 **Note:** Version bump only for package @interchainjs/ethereum

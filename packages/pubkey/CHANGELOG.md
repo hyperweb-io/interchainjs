@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/pubkey@1.17.3...@interchainjs/pubkey@1.17.4) (2025-09-11)
+
+**Note:** Version bump only for package @interchainjs/pubkey
+
 ## [1.17.3](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/pubkey@1.17.2...@interchainjs/pubkey@1.17.3) (2025-08-26)
 
 **Note:** Version bump only for package @interchainjs/pubkey

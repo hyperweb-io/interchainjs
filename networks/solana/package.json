@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/solana",
-  "version": "1.17.3",
+  "version": "1.17.4",
   "description": "Solana SDK for InterchainJS",
   "main": "index.js",
   "module": "esm/index.js",
@@ -49,8 +49,8 @@
     "sdk"
   ],
   "dependencies": {
-    "@interchainjs/math": "1.17.3",
-    "@interchainjs/utils": "1.17.3",
+    "@interchainjs/math": "1.17.4",
+    "@interchainjs/utils": "1.17.4",
     "@types/bn.js": "^5.2.0",
     "@types/ws": "^8.18.1",
     "bn.js": "^5.2.2",
