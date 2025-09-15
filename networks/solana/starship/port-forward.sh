@@ -49,9 +49,20 @@ start_pf() {
   # Health check: wait for local port to open
   local ok=0
   for _ in $(seq 1 $CHECK_RETRIES); do
-    if nc -z 127.0.0.1 "$local_port" >/dev/null 2>&1; then
-      ok=1
-      break
+    # Prefer nc if available; otherwise use bash's /dev/tcp
+    if command -v nc >/dev/null 2>&1; then
+      if nc -z 127.0.0.1 "$local_port" >/dev/null 2>&1; then
+        ok=1
+        break
+      fi
+    else
+      if (exec 3<>/dev/tcp/127.0.0.1/"$local_port") 2>/dev/null; then
+        # Close the FD we just opened
+        exec 3>&-
+        exec 3<&-
+        ok=1
+        break
+      fi
     fi
     sleep "$SLEEP_BETWEEN"
   done

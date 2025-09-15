@@ -76,5 +76,27 @@ jobs:
             exit 1
           fi
 
+          echo "Waiting for WS port on 127.0.0.1:8900 ..."
+          ws_ok=0
+          for i in $(seq 1 60); do
+            if command -v nc >/dev/null 2>&1; then
+              if nc -z 127.0.0.1 8900 >/dev/null 2>&1; then ws_ok=1; break; fi
+            else
+              if (exec 3<>/dev/tcp/127.0.0.1/8900) 2>/dev/null; then exec 3>&- 3<&-; ws_ok=1; break; fi
+            fi
+            sleep 2
+          done
+          if [ "$ws_ok" -ne 1 ]; then
+            echo "WebSocket port 8900 not reachable; dumping diagnostics" >&2
+            if command -v ss >/dev/null 2>&1; then ss -ltnp || true; fi
+            if command -v lsof >/dev/null 2>&1; then lsof -iTCP -sTCP:LISTEN || true; fi
+            kubectl get svc -A -o wide || true
+            if [ -n "${NS}" ]; then
+              kubectl get pods -n "$NS" -o wide || true
+              kubectl describe pod "$POD_NAME" -n "$NS" || true
+            fi
+            exit 1
+          fi
+
           cd ./networks/solana
           yarn test --runInBand
