@@ -52,7 +52,7 @@ jobs:
 
           # Start port-forward and keep this step alive while tests run
           if [ -n "${NS}" ]; then
-            NS="$NS" bash networks/solana/starship/port-forward.sh &
+            PORTS_ENV_FILE="networks/solana/starship/.pf-env" NS="$NS" bash networks/solana/starship/port-forward.sh &
             PF_SUPERVISOR_PID=$!
             # Clean up on exit
             trap 'echo "Stopping port-forward"; kill -9 ${PF_SUPERVISOR_PID} >/dev/null 2>&1 || true; pkill -f "kubectl -n ${NS} port-forward" || true' EXIT
@@ -60,10 +60,28 @@ jobs:
             echo "Could not determine namespace for port-forward" >&2
           fi
 
-          echo "Waiting for RPC health on 127.0.0.1:8899 ..."
+          # Load dynamic ports from port-forward script if provided
+          PF_ENV="networks/solana/starship/.pf-env"
+          for i in $(seq 1 50); do
+            if [ -f "$PF_ENV" ]; then
+              # shellcheck disable=SC1090
+              . "$PF_ENV" || true
+              break
+            fi
+            sleep 0.2
+          done
+
+          RPC_PORT="${SOLANA_RPC_PORT:-8899}"
+          WS_PORT="${SOLANA_WS_PORT:-8900}"
+          export SOLANA_RPC_PORT="$RPC_PORT"
+          export SOLANA_WS_PORT="$WS_PORT"
+          export SOLANA_RPC_ENDPOINT="http://127.0.0.1:${RPC_PORT}"
+          export SOLANA_WS_ENDPOINT="ws://127.0.0.1:${WS_PORT}"
+
+          echo "Waiting for RPC health on 127.0.0.1:${RPC_PORT} ..."
           ok=0
           for i in $(seq 1 60); do
-            if curl -fsS http://127.0.0.1:8899/health | grep -qi ok; then
+            if curl -fsS "http://127.0.0.1:${RPC_PORT}/health" | grep -qi ok; then
               ok=1; break
             fi
             sleep 5
@@ -76,18 +94,18 @@ jobs:
             exit 1
           fi
 
-          echo "Waiting for WS port on 127.0.0.1:8900 ..."
+          echo "Waiting for WS port on 127.0.0.1:${WS_PORT} ..."
           ws_ok=0
           for i in $(seq 1 60); do
             if command -v nc >/dev/null 2>&1; then
-              if nc -z 127.0.0.1 8900 >/dev/null 2>&1; then ws_ok=1; break; fi
+              if nc -z 127.0.0.1 "${WS_PORT}" >/dev/null 2>&1; then ws_ok=1; break; fi
             else
-              if (exec 3<>/dev/tcp/127.0.0.1/8900) 2>/dev/null; then exec 3>&- 3<&-; ws_ok=1; break; fi
+              if (exec 3<>/dev/tcp/127.0.0.1/"${WS_PORT}") 2>/dev/null; then exec 3>&- 3<&-; ws_ok=1; break; fi
             fi
             sleep 2
           done
           if [ "$ws_ok" -ne 1 ]; then
-            echo "WebSocket port 8900 not reachable; dumping diagnostics" >&2
+            echo "WebSocket port ${WS_PORT} not reachable; dumping diagnostics" >&2
             if command -v ss >/dev/null 2>&1; then ss -ltnp || true; fi
             if command -v lsof >/dev/null 2>&1; then lsof -iTCP -sTCP:LISTEN || true; fi
             kubectl get svc -A -o wide || true
