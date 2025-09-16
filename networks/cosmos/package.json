@@ -33,8 +33,9 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
+    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
+    "fix-esm": "tsc-esm-fix --target=dist/esm",
     "lint": "eslint . --fix",
     "starship": "starship --config ./starship/configs/config.yaml",
     "starship:local": "starship --config ./starship/configs/config.local.yaml",
@@ -69,7 +70,8 @@
     "@chain-registry/types": "^2.0.42",
     "@jest/globals": "^30.0.0",
     "interchainjs": "1.17.4",
-    "starshipjs": "^2.4.0"
+    "starshipjs": "^2.4.0",
+    "tsc-esm-fix": "^3.1.2"
   },
   "keywords": [
     "cosmos",
