@@ -93,3 +93,25 @@ jobs:
 
       - name: Run E2E Tests
         run: cd ./networks/ethereum && yarn starship:test && yarn test:utils
+        
+  networks-bitcoin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository 📝
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Run Tests
+        run: cd ./networks/bitcoin && yarn jest
