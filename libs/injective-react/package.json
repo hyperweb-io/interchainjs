@@ -32,10 +32,11 @@
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "fix-esm": "tsc-esm-fix --target=dist/esm"
   },
   "dependencies": {
     "@interchainjs/cosmos": "1.17.4",
@@ -49,7 +50,8 @@
     "decimal.js": "^10.4.3"
   },
   "devDependencies": {
-    "@tanstack/react-query": "4.29.1"
+    "@tanstack/react-query": "4.29.1",
+    "tsc-esm-fix": "^3.1.2"
   },
   "peerDependencies": {
     "@tanstack/react-query": "4.29.1"

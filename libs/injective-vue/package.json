@@ -32,10 +32,11 @@
   "scripts": {
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "fix-esm": "tsc-esm-fix --target=dist/esm"
   },
   "dependencies": {
     "@interchainjs/cosmos": "1.17.4",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@tanstack/vue-query": "^5.62.7",
+    "tsc-esm-fix": "^3.1.2",
     "vue": "^3.5.13"
   },
   "peerDependencies": {

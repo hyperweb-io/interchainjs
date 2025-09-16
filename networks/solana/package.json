@@ -33,14 +33,15 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rm -rf dist",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "test": "jest",
     "dev": "tsc --watch",
     "test:ws": "jest src/__tests__/websocket.test.ts",
     "test:token": "jest src/__tests__/token.test.ts",
     "test:spl": "jest src/__tests__/spl.test.ts",
-    "test:integration": "jest src/__tests__/integration.test.ts"
+    "test:integration": "jest src/__tests__/integration.test.ts",
+    "fix-esm": "tsc-esm-fix --target=dist/esm"
   },
   "keywords": [
     "solana",
@@ -65,6 +66,7 @@
     "dotenv": "^16.4.5",
     "jest": "^30.0.4",
     "ts-jest": "^29.4.0",
+    "tsc-esm-fix": "^3.1.2",
     "typescript": "^5.8.3"
   },
   "jest": {
