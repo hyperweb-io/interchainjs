@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.5](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.4...@interchainjs/cosmos@1.17.5) (2025-09-16)
+
+### Bug Fixes
+
+- gas auto ([d972f3d](https://github.com/hyperweb-io/interchainjs/commit/d972f3dcb199b4d1ef912cf0d6fe11ffb7d09780))
+
 ## [1.17.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.3...@interchainjs/cosmos@1.17.4) (2025-09-11)
 
 ### Bug Fixes
