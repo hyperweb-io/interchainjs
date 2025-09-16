@@ -93,7 +93,8 @@ jobs:
             kubectl get svc -A -o wide || true
             if [ -n "${NS}" ]; then
               kubectl get pods -n "$NS" -o wide || true
-              kubectl describe pod "$POD_NAME" -n "$NS" || true
+              (kubectl describe pods -l app=solana-genesis -n "$NS" || \
+               kubectl describe pods -l app.kubernetes.io/name=solana-genesis -n "$NS") || true
             fi
             exit 1
           fi

@@ -21,13 +21,15 @@ export function loadLocalSolanaConfig(): LocalSolanaConfig {
   const ports = solana?.ports || {};
 
   const host = process.env.SOLANA_HOST || '127.0.0.1';
-  const rpcPort = Number(ports.rpc ?? 8899);
-  const wsPort = Number(ports.ws ?? 8900);
+  const rpcPort = Number(process.env.SOLANA_RPC_PORT || (ports.rpc ?? 8899));
+  const wsPort = Number(process.env.SOLANA_WS_PORT || (ports.ws ?? 8900));
+  const rpcEndpoint = process.env.SOLANA_RPC_ENDPOINT || `http://${host}:${rpcPort}`;
+  const wsEndpoint = process.env.SOLANA_WS_ENDPOINT || `ws://${host}:${wsPort}`;
   const faucetPort = ports.faucet !== undefined ? Number(ports.faucet) : undefined;
 
   return {
-    rpcEndpoint: `http://${host}:${rpcPort}`,
-    wsEndpoint: `ws://${host}:${wsPort}`,
+    rpcEndpoint,
+    wsEndpoint,
     faucetPort,
   };
 }

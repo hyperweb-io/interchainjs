@@ -110,9 +110,10 @@ log "Using pod:       $POD_NAME"
 
 success=0
 
-# ---- Pod Ports ----
-start_pf "pods/$POD_NAME" "8899:8899" && ((success++))  # Solana RPC
-start_pf "pods/$POD_NAME" "8900:8900" && ((success++))  # Solana WS
+# ---- Pod/Service Ports (with fallback) ----
+# Try pod first; if it fails, fall back to service/solana-genesis
+( start_pf "pods/$POD_NAME" "8899:8899" || start_pf "service/solana-genesis" "8899:8899" ) && ((success++))  # Solana RPC
+( start_pf "pods/$POD_NAME" "8900:8900" || start_pf "service/solana-genesis" "8900:8900" ) && ((success++))  # Solana WS
 start_pf "pods/$POD_NAME" "8001:8001" && ((success++))  # Exposer
 start_pf "pods/$POD_NAME" "9900:9900" && ((success++))  # Faucet
 
