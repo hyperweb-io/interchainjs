@@ -6,6 +6,7 @@ NS="${NS:-default}"   # Override with --ns
 POD_NAME=""           # Override with --pod
 SLEEP_BETWEEN=0.2
 CHECK_RETRIES=25      # 25 * 0.2s = 5s
+WS_CHECK_RETRIES=50   # 50 * 0.2s = 10s (WebSocket may take longer)
 PORTS_ENV_FILE="${PORTS_ENV_FILE:-$(dirname "$0")/.pf-env}"
 
 usage() {
@@ -41,6 +42,7 @@ start_pf() {
   local mapping="$2"  # <local>:<remote>
   local local_port="${mapping%%:*}"
   local remote_port="${mapping##*:}"
+  local retries="${3:-$CHECK_RETRIES}"  # Optional custom retry count
 
   free_port "$local_port"
 
@@ -53,7 +55,7 @@ start_pf() {
 
   # Health check: wait for local port to open
   local ok=0
-  for _ in $(seq 1 $CHECK_RETRIES); do
+  for _ in $(seq 1 "$retries"); do
     # Prefer nc if available; otherwise use bash's /dev/tcp
     if command -v nc >/dev/null 2>&1; then
       if nc -z 127.0.0.1 "$local_port" >/dev/null 2>&1; then
@@ -73,7 +75,7 @@ start_pf() {
   done
 
   if [[ $ok -eq 1 ]]; then
-    log "Forwarded $target  (local $mapping)"
+    log "✓ Forwarded $target → 127.0.0.1:$mapping"
     # Record ports to env file for consumers (e.g., CI step/tests)
     case "$remote_port" in
       8899)
@@ -87,7 +89,7 @@ start_pf() {
     esac
     return 0
   else
-    err "Failed to forward $target  (local $mapping); killing pid $pf_pid"
+    err "✗ Failed to forward $target → 127.0.0.1:$mapping after ${retries} retries; killing pid $pf_pid"
     kill -9 "$pf_pid" >/dev/null 2>&1 || true
     # Surface port-forward logs to help debugging
     if [[ -f "$log_file" ]]; then
@@ -99,12 +101,18 @@ start_pf() {
   fi
 }
 
+# Start WebSocket port-forward with longer timeout
+start_ws_pf() {
+  start_pf "$1" "$2" "$WS_CHECK_RETRIES"
+}
+
 # Try a list of local ports for a given remote port and record the first success
 start_pf_any() {
   local target="$1"
   local remote_port="$2"
   shift 2
   local candidate
+  log "Trying alternate ports for $target:$remote_port → $*"
   for candidate in "$@"; do
     if start_pf "$target" "${candidate}:${remote_port}"; then
       return 0
@@ -154,15 +162,23 @@ success=0
 # Try pod first; if it fails, fall back to service/solana-genesis
 ( start_pf "pods/$POD_NAME" "8899:8899" || start_pf "service/solana-genesis" "8899:8899" ) && ((success++))  # Solana RPC
 
-# WebSocket: try default 8900 locally; if bind fails, try alternates and record selected port
-if start_pf "pods/$POD_NAME" "8900:8900" || start_pf "service/solana-genesis" "8900:8900"; then
+# WebSocket: prefer pod over service for headless services
+# Try pod first, then try alternates if it fails
+log "Setting up WebSocket port-forward (8900) with extended timeout..."
+if start_ws_pf "pods/$POD_NAME" "8900:8900"; then
+  log "✓ WebSocket port-forward established on default port 8900"
+  ((success++))
+elif start_pf_any "pods/$POD_NAME" 8900 8910 18900 19000 29000; then
+  log "✓ WebSocket port-forward established on alternate port"
+  ((success++))
+elif start_ws_pf "service/solana-genesis" "8900:8900"; then
+  log "✓ WebSocket port-forward established via service on port 8900"
+  ((success++))
+elif start_pf_any "service/solana-genesis" 8900 8910 18900 19000 29000; then
+  log "✓ WebSocket port-forward established via service on alternate port"
   ((success++))
 else
-  # Try alternate local ports mapping to remote 8900
-  if start_pf_any "pods/$POD_NAME" 8900 8910 18900 19000 29000 || \
-     start_pf_any "service/solana-genesis" 8900 8910 18900 19000 29000; then
-    ((success++))
-  fi
+  err "✗ Failed to establish WebSocket port-forward on any port"
 fi
 start_pf "pods/$POD_NAME" "8001:8001" && ((success++))  # Exposer
 start_pf "pods/$POD_NAME" "9900:9900" && ((success++))  # Faucet
