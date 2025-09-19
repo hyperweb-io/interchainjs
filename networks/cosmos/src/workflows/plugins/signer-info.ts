@@ -60,8 +60,13 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
     // Get public key bytes - handle both AccountData (with pubkey property) and IAccount (with getPublicKey method)
     let pubkeyBytes: Uint8Array;
     if ('pubkey' in account && account.pubkey) {
-      // AccountData from OfflineSigner - has direct pubkey property
-      pubkeyBytes = account.pubkey;
+      if (account.pubkey instanceof Uint8Array) {
+        pubkeyBytes = account.pubkey;
+      } else {
+        // Convert object with numeric keys to Uint8Array
+        const values = Object.values(account.pubkey) as number[];
+        pubkeyBytes = new Uint8Array(values);
+      }
     } else if ('getPublicKey' in account && typeof account.getPublicKey === 'function') {
       // IAccount from IWallet - use getPublicKey method
       try {
