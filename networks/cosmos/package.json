@@ -50,10 +50,12 @@
     "test:rpc:v2": "jest --config ./jest.rpc.config.js --testPathPattern=query-client-v2.test.ts --verbose"
   },
   "dependencies": {
+    "@interchainjs/amino": "1.17.5",
     "@interchainjs/auth": "1.17.5",
     "@interchainjs/cosmos-types": "1.17.5",
     "@interchainjs/crypto": "1.17.5",
     "@interchainjs/encoding": "1.17.5",
+    "@interchainjs/pubkey": "1.17.5",
     "@interchainjs/types": "1.17.5",
     "@interchainjs/utils": "1.17.5",
     "@noble/curves": "^1.1.0",

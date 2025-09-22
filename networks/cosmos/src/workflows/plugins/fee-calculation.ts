@@ -6,7 +6,7 @@ import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
 import { MESSAGE_ENCODING_STAGING_KEYS } from './message-encoding';
 import { SIGNER_INFO_STAGING_KEYS } from './signer-info';
 import { Price } from '@interchainjs/types';
-import Decimal from 'decimal.js';
+import { calculateFee } from '../../utils/fee';
 
 /**
  * Staging keys created by FeeCalculationPlugin
@@ -64,25 +64,23 @@ export class FeeCalculationPlugin extends BaseWorkflowBuilderPlugin<
       const multiplier = params.options?.multiplier ?? 1.5;
       const gasLimit = BigInt(Math.ceil(Number(gasUsed) * multiplier));
 
-      // Default gas price ( Price | 'average' | 'high' | 'low' | undefined)
-      let denom = "uatom";
-      let gasPriceValue = new Decimal('0.025');
+      // Resolve gas price to a concrete string value
+      let gasPriceString = "0.025uatom"; // Default fallback
 
-      // ex) 123.123uatom -> gasPriceValue: "123.123", denom: "uatom")
       if (typeof params.options?.gasPrice === 'string') {
-        const numberMatch = params.options.gasPrice.match(/^(\d+(?:\.\d+)?)(.*)$/);
-        if (numberMatch && numberMatch.length === 3) {
-          gasPriceValue = new Decimal(numberMatch[1]);
-          denom = numberMatch[2];
+        // Handle concrete gas price strings like "0.025uatom" or abstract values like "average"
+        if (params.options.gasPrice.match(/^(\d+(?:\.\d+)?)(.*)$/)) {
+          // It's a concrete gas price string, use it directly
+          gasPriceString = params.options.gasPrice;
+        } else {
+          // It's an abstract value like "average", "high", "low" - keep default for now
+          // TODO: In the future, this could be resolved from chain registry or network config
+          gasPriceString = "0.025uatom";
         }
       }
 
-      const amount = gasPriceValue.mul(gasLimit.toString()).ceil();
-
-      finalFee = {
-        amount: [{ denom, amount: amount.toString() }],
-        gas: gasLimit.toString(),
-      };
+      // Use the new calculateFee utility for consistent fee calculation
+      finalFee = calculateFee(gasLimit, gasPriceString);
     }
 
     // Convert to protobuf Fee
