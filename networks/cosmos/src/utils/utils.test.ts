@@ -1,4 +1,4 @@
-import { accountFromAny, Account } from "./utils";
+import { accountFromAny, Account } from ".";
 import {
   BaseAccount,
   ModuleAccount,
@@ -295,3 +295,4 @@ describe("accountFromAny", () => {
     });
   });
 });
+

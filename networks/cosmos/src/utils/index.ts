@@ -1,5 +1,5 @@
 import { generateMnemonic } from '@interchainjs/crypto';
-import { AminoConverter, Encoder } from './types/signing-client';
+import { AminoConverter, Encoder } from '../types/signing-client';
 import { TelescopeGeneratedCodec } from '@interchainjs/types';
 import { assertEmpty } from '@interchainjs/utils';
 import { Pubkey } from "@interchainjs/amino";
@@ -229,3 +229,10 @@ export function toEncoders(
 ): Encoder[] {
   return generatedArray.map((generated) => toEncoder(generated));
 }
+
+// Re-export selected utilities used by starship tests, if needed
+export { generateMnemonic };
+
+// Re-export fee helpers
+export * from './fee';
+
