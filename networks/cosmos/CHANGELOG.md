@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.5...@interchainjs/cosmos@1.17.6) (2025-09-22)
+
+### Bug Fixes
+
+- pubkey is Object case ([2424133](https://github.com/hyperweb-io/interchainjs/commit/2424133eaa249a02ca55d6e0d7e2df33b22cb00e))
+
 ## [1.17.5](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.4...@interchainjs/cosmos@1.17.5) (2025-09-16)
 
 ### Bug Fixes
