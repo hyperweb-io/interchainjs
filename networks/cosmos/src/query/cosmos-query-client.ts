@@ -48,8 +48,10 @@ import { ValidatorsParams } from '../types/requests/common/validators';
 import { BroadcastTxParams } from '../types/requests/common/tx';
 import { GenesisChunkedParams } from '../types/requests/common/genesis-chunked';
 import { ICosmosProtocolAdapter } from '../adapters/base';
-import { BaseAccount, BinaryReader } from '@interchainjs/cosmos-types';
+import { BaseAccount } from '@interchainjs/cosmos-types';
 import { getAccount } from '@interchainjs/cosmos-types';
+import { accountFromAny } from '../utils';
+import { encodePubkey } from '@interchainjs/pubkey';
 
 
 
@@ -338,34 +340,16 @@ export class CosmosQueryClient implements ICosmosQueryClient {
         return null;
       }
 
-      const { typeUrl, value } = response.account;
+      // Use the new accountFromAny function to parse the account
+      const account = accountFromAny(response.account);
 
-      // If it's a BaseAccount, decode it directly
-      if (typeUrl === '/cosmos.auth.v1beta1.BaseAccount') {
-        return BaseAccount.decode(value);
-      }
-
-      // For other account types, decode the first field as BaseAccount
-      // This pattern applies to vesting accounts and other wrapper types
-      const reader = new BinaryReader(value);
-      let baseAccount: BaseAccount | null = null;
-
-      // Read the first field (tag 1) as BaseAccount
-      while (reader.pos < reader.len) {
-        const tag = reader.uint32();
-        const fieldNumber = tag >>> 3;
-
-        if (fieldNumber === 1) {
-          // First field should be BaseAccount
-          baseAccount = BaseAccount.decode(reader, reader.uint32());
-          break;
-        } else {
-          // Skip other fields
-          reader.skipType(tag & 7);
-        }
-      }
-
-      return baseAccount;
+      // Convert the standardized Account back to BaseAccount format
+      return {
+        address: account.address,
+        pubKey: account.pubkey ? encodePubkey(account.pubkey) : undefined,
+        accountNumber: BigInt(account.accountNumber),
+        sequence: BigInt(account.sequence),
+      };
     } catch (error) {
       console.warn(`Failed to get base account for address ${address}:`, error);
       return null;
