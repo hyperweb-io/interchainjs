@@ -36,7 +36,7 @@
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "dev": "tsc --watch",
-    "starship:start": "npx @starship-ci/cli@3.14.1 start --config starship/configs/config.yaml",
+    "starship:start": "npx @starship-ci/cli@3.14.1 start --config starship/configs/config.yaml && bash starship/port-forward.sh",
     "starship:stop": "npx @starship-ci/cli@3.14.1 stop --config starship/configs/config.yaml",
     "test": "jest",
     "test:keypair": "jest starship/__tests__/keypair.test.ts",

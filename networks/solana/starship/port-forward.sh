@@ -47,10 +47,8 @@ start_pf() {
   free_port "$local_port"
 
   # Start in background
-  # Capture logs for troubleshooting in CI
   mkdir -p "$(dirname "$PORTS_ENV_FILE")"
-  local log_file="$(dirname "$PORTS_ENV_FILE")/pf_${local_port}.log"
-  kubectl -n "$NS" port-forward "$target" "$mapping" >"$log_file" 2>&1 &
+  kubectl -n "$NS" port-forward "$target" "$mapping" >/dev/null 2>&1 &
   local pf_pid=$!
 
   # Health check: wait for local port to open
@@ -91,12 +89,6 @@ start_pf() {
   else
     err "✗ Failed to forward $target → 127.0.0.1:$mapping after ${retries} retries; killing pid $pf_pid"
     kill -9 "$pf_pid" >/dev/null 2>&1 || true
-    # Surface port-forward logs to help debugging
-    if [[ -f "$log_file" ]]; then
-      err "---- port-forward log ($log_file) ----"
-      tail -n +1 "$log_file" >&2 || true
-      err "---- end log ----"
-    fi
     return 1
   fi
 }

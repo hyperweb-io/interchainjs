@@ -10,4 +10,7 @@ CLAUDE.md
 
 .cert/
 
+# Runtime-generated port-forward environment files
+**/.pf-env
+
 .augment/
