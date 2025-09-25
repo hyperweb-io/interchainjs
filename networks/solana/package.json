@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/solana",
-  "version": "1.17.3",
+  "version": "1.17.6",
   "description": "Solana SDK for InterchainJS",
   "main": "index.js",
   "module": "esm/index.js",
@@ -33,7 +33,7 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rm -rf dist",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "dev": "tsc --watch",
     "starship:start": "npx @starship-ci/cli@3.14.1 start --config starship/configs/config.yaml && bash starship/port-forward.sh",
@@ -43,7 +43,8 @@
     "test:token": "jest starship/__tests__/token.test.ts",
     "test:ws": "jest starship/__tests__/websocket.test.ts",
     "test:integration": "jest starship/__tests__/integration.test.ts",
-    "test:spl": "jest starship/__tests__/spl.test.ts"
+    "test:spl": "jest starship/__tests__/spl.test.ts",
+    "fix-esm": "tsc-esm-fix --target=dist/esm"
   },
   "keywords": [
     "solana",
@@ -52,8 +53,8 @@
     "sdk"
   ],
   "dependencies": {
-    "@interchainjs/math": "1.17.3",
-    "@interchainjs/utils": "1.17.3",
+    "@interchainjs/math": "1.17.6",
+    "@interchainjs/utils": "1.17.6",
     "@types/bn.js": "^5.2.0",
     "@types/ws": "^8.18.1",
     "bn.js": "^5.2.2",
@@ -68,6 +69,7 @@
     "dotenv": "^16.4.5",
     "jest": "^30.0.4",
     "ts-jest": "^29.4.0",
+    "tsc-esm-fix": "^3.1.2",
     "typescript": "^5.8.3"
   },
   "jest": {

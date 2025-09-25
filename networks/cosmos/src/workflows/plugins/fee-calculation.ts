@@ -5,6 +5,8 @@ import { CosmosWorkflowBuilderContext } from '../context';
 import { INPUT_VALIDATION_STAGING_KEYS } from './input-validation';
 import { MESSAGE_ENCODING_STAGING_KEYS } from './message-encoding';
 import { SIGNER_INFO_STAGING_KEYS } from './signer-info';
+import { Price } from '@interchainjs/types';
+import { calculateFee } from '../../utils/fee';
 
 /**
  * Staging keys created by FeeCalculationPlugin
@@ -20,7 +22,7 @@ export const FEE_CALCULATION_STAGING_KEYS = {
 export interface FeeCalculationParams {
   fee?: StdFee;
   txBody: TxBody;
-  signerInfos: SignerInfo[];
+  signerInfo: SignerInfo;
   options?: DocOptions;
 }
 
@@ -50,7 +52,7 @@ export class FeeCalculationPlugin extends BaseWorkflowBuilderPlugin<
     if (!finalFee) {
       const { gasInfo } = await ctx.getSigner().simulateByTxBody(
         params.txBody,
-        [params.signerInfos[0]]
+        [params.signerInfo]
       );
 
       if (!gasInfo) {
@@ -62,14 +64,23 @@ export class FeeCalculationPlugin extends BaseWorkflowBuilderPlugin<
       const multiplier = params.options?.multiplier ?? 1.5;
       const gasLimit = BigInt(Math.ceil(Number(gasUsed) * multiplier));
 
-      // Default gas price (this should be configurable)
-      const gasPrice = params.options?.gasPrice ?? '0.025';
-      const amount = BigInt(Math.ceil(Number(gasLimit) * Number(gasPrice)));
+      // Resolve gas price to a concrete string value
+      let gasPriceString = "0.025uatom"; // Default fallback
 
-      finalFee = {
-        amount: [{ denom: 'uatom', amount: amount.toString() }],
-        gas: gasLimit.toString(),
-      };
+      if (typeof params.options?.gasPrice === 'string') {
+        // Handle concrete gas price strings like "0.025uatom" or abstract values like "average"
+        if (params.options.gasPrice.match(/^(\d+(?:\.\d+)?)(.*)$/)) {
+          // It's a concrete gas price string, use it directly
+          gasPriceString = params.options.gasPrice;
+        } else {
+          // It's an abstract value like "average", "high", "low" - keep default for now
+          // TODO: In the future, this could be resolved from chain registry or network config
+          gasPriceString = "0.025uatom";
+        }
+      }
+
+      // Use the new calculateFee utility for consistent fee calculation
+      finalFee = calculateFee(gasLimit, gasPriceString);
     }
 
     // Convert to protobuf Fee

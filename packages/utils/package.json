@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "1.17.3",
+  "version": "1.17.6",
   "author": "Hyperweb <developers@hyperweb.io>",
   "main": "index.js",
   "module": "esm/index.js",
@@ -33,12 +33,13 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
+    "fix-esm": "tsc-esm-fix --target=dist/esm",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/types": "1.17.3",
+    "@interchainjs/types": "1.17.6",
     "bech32": "^2.0.0",
     "decimal.js": "^10.4.3"
   },

@@ -80,12 +80,9 @@ export class Secp256k1HDWallet extends BaseWallet implements IWallet {
     const formatFn = resolveSignatureFormat('compact');
     const compactSignature = formatFn ? formatFn(signatureResult.value) : signatureResult.value;
 
-    // Create the signature object with pub_key and signature fields
-    const signature = encodeSecp256k1Signature(publicKey.value.value, compactSignature);
-
     return {
       signed: signDoc,
-      signature
+      signature: compactSignature
     };
   }
 

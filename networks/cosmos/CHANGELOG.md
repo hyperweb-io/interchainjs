@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.5...@interchainjs/cosmos@1.17.6) (2025-09-22)
+
+### Bug Fixes
+
+- pubkey is Object case ([2424133](https://github.com/hyperweb-io/interchainjs/commit/2424133eaa249a02ca55d6e0d7e2df33b22cb00e))
+
+## [1.17.5](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.4...@interchainjs/cosmos@1.17.5) (2025-09-16)
+
+### Bug Fixes
+
+- gas auto ([d972f3d](https://github.com/hyperweb-io/interchainjs/commit/d972f3dcb199b4d1ef912cf0d6fe11ffb7d09780))
+
+## [1.17.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.3...@interchainjs/cosmos@1.17.4) (2025-09-11)
+
+### Bug Fixes
+
+- calculate gasprice ([d06ae0b](https://github.com/hyperweb-io/interchainjs/commit/d06ae0b62f7a5ec6a10f2b585d0755f7ecec804b))
+- empty signature ([d807d3d](https://github.com/hyperweb-io/interchainjs/commit/d807d3debb89c7420d894550d5ae59508dff8907))
+- FeeCalculationParams's signerInfo ([95c2920](https://github.com/hyperweb-io/interchainjs/commit/95c2920fdb251d7ac6d2431d718c6d92d3360412))
+- sign direct ([833bab7](https://github.com/hyperweb-io/interchainjs/commit/833bab7c8c0641bd9c9606aec48389c8010c6c8f))
+
 ## [1.17.3](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.2...@interchainjs/cosmos@1.17.3) (2025-08-26)
 
 **Note:** Version bump only for package @interchainjs/cosmos

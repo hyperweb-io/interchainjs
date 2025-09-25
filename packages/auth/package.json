@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/auth",
-  "version": "1.17.3",
+  "version": "1.17.6",
   "description": "Authentication for web3 accounts",
   "main": "index.js",
   "module": "esm/index.js",
@@ -33,15 +33,16 @@
     "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
+    "fix-esm": "tsc-esm-fix --target=dist/esm",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "test": "jest --config ./jest.config.js --verbose --bail"
   },
   "dependencies": {
-    "@interchainjs/crypto": "1.17.3",
-    "@interchainjs/types": "1.17.3",
-    "@interchainjs/utils": "1.17.3",
+    "@interchainjs/crypto": "1.17.6",
+    "@interchainjs/types": "1.17.6",
+    "@interchainjs/utils": "1.17.6",
     "@noble/curves": "^1.1.0",
     "@noble/hashes": "^1.3.1",
     "@scure/bip32": "^1.0.10",
@@ -52,7 +53,8 @@
   "devDependencies": {
     "@jest/globals": "^30.0.0",
     "@types/elliptic": "^6.4.18",
-    "@types/libsodium-wrappers-sumo": "^0.7.8"
+    "@types/libsodium-wrappers-sumo": "^0.7.8",
+    "tsc-esm-fix": "^3.1.2"
   },
   "keywords": [
     "cryptography",
