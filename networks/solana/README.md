@@ -2,6 +2,44 @@
 
 A comprehensive TypeScript SDK for Solana blockchain interaction, part of the InterchainJS ecosystem. This SDK provides a modern, type-safe interface for building Solana applications with full SPL token support and wallet integration.
 
+## 🆕 New Query Client Architecture
+
+This package now includes a new query client architecture that follows the InterchainJS patterns established in the Cosmos implementation:
+
+### Request Object Pattern
+
+All RPC methods now use dedicated request objects instead of individual parameters:
+
+```typescript
+import { createSolanaQueryClient, SolanaProtocolVersion } from '@interchainjs/solana';
+import { GetHealthRequest, GetVersionRequest } from '@interchainjs/solana';
+
+// Create client with new architecture
+const client = await createSolanaQueryClient('https://api.mainnet-beta.solana.com', {
+  protocolVersion: SolanaProtocolVersion.SOLANA_1_18
+});
+
+// Methods that don't need parameters have optional request objects
+const health = await client.getHealth(); // Simplified - no request needed
+const version = await client.getVersion(); // Simplified - no request needed
+
+// Or use explicit request objects (maintains consistency)
+const healthRequest: GetHealthRequest = {};
+const healthExplicit = await client.getHealth(healthRequest);
+
+const versionRequest: GetVersionRequest = {};
+const versionExplicit = await client.getVersion(versionRequest);
+```
+
+### Features
+
+- **Type-Safe**: Strongly typed interfaces for all Solana RPC methods
+- **User-Friendly**: Optional request parameters for methods that don't need input
+- **Consistent**: Request object pattern across all methods
+- **Extensible**: Easy to add new RPC methods following the same pattern
+- **Protocol Adapters**: Version-specific adapters with encoding/decoding
+- **Auto-Detection**: Automatic protocol version detection
+
 ## Installation
 
 ```bash
