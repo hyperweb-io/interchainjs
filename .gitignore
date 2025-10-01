@@ -5,6 +5,8 @@
 **/yarn-error.log
 lerna-debug.log
 
+.vscode/settings.json
+
 .claude
 CLAUDE.md
 
