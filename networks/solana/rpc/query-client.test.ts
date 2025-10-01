@@ -300,7 +300,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('getEpochInfo() should return current epoch information', async () => {
       if (skipIfNoConnection()) return;
 
-      const epochInfo = await (queryClient as any).getEpochInfo();
+      const epochInfo = await queryClient.getEpochInfo();
       console.log('Epoch info response:', epochInfo);
       expect(epochInfo).toBeDefined();
       expect(typeof epochInfo.epoch).toBe('number');
@@ -313,7 +313,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('getMinimumBalanceForRentExemption() should return required lamports as bigint', async () => {
       if (skipIfNoConnection()) return;
 
-      const minRent = await (queryClient as any).getMinimumBalanceForRentExemption({ dataLength: 0 });
+      const minRent = await queryClient.getMinimumBalanceForRentExemption({ dataLength: 0 });
       console.log('Minimum balance for rent exemption (0 bytes):', minRent);
       expect(typeof minRent).toBe('bigint');
       expect(minRent).toBeGreaterThanOrEqual(0n);
@@ -322,7 +322,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('getClusterNodes() should return cluster node information', async () => {
       if (skipIfNoConnection()) return;
 
-      const nodes = await (queryClient as any).getClusterNodes();
+      const nodes = await queryClient.getClusterNodes();
       console.log('Cluster nodes response (first 3):', nodes.slice(0, 3));
       expect(Array.isArray(nodes)).toBe(true);
       if (nodes.length > 0) {
@@ -334,7 +334,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('getVoteAccounts() should return vote account sets', async () => {
       if (skipIfNoConnection()) return;
 
-      const votes = await (queryClient as any).getVoteAccounts();
+      const votes = await queryClient.getVoteAccounts();
       console.log('Vote accounts counts:', { current: votes.current.length, delinquent: votes.delinquent.length });
       expect(votes).toBeDefined();
       expect(Array.isArray(votes.current)).toBe(true);
@@ -349,7 +349,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('getTransactionCount() should return transaction count as bigint', async () => {
       if (skipIfNoConnection()) return;
 
-      const txCount = await (queryClient as any).getTransactionCount();
+      const txCount = await queryClient.getTransactionCount();
       console.log('Transaction count:', txCount);
       expect(typeof txCount).toBe('bigint');
       expect(txCount).toBeGreaterThanOrEqual(0n);
@@ -359,7 +359,7 @@ describe('Solana Query Client - Integration Tests', () => {
       test('getSignatureStatuses() with empty signatures list', async () => {
         if (skipIfNoConnection()) return;
 
-        const res = await (queryClient as any).getSignatureStatuses({ signatures: [] });
+        const res = await queryClient.getSignatureStatuses({ signatures: [] });
         console.log('Signature statuses response:', res);
         expect(res).toBeDefined();
         expect(res.context).toBeDefined();
@@ -372,7 +372,7 @@ describe('Solana Query Client - Integration Tests', () => {
         if (skipIfNoConnection()) return;
 
         try {
-          await (queryClient as any).getTransaction({ signature: '1'.repeat(88) });
+          await queryClient.getTransaction({ signature: '1'.repeat(88) });
           // If it does not throw, ensure it returns null (unlikely)
         } catch (e) {
           console.log('Expected error from getTransaction with invalid signature');
@@ -384,7 +384,7 @@ describe('Solana Query Client - Integration Tests', () => {
         if (skipIfNoConnection()) return;
 
         try {
-          const sig = await (queryClient as any).requestAirdrop({
+          const sig = await queryClient.requestAirdrop({
             pubkey: 'Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS',
             lamports: 1000000n
           });
@@ -400,7 +400,7 @@ describe('Solana Query Client - Integration Tests', () => {
       test('getSignaturesForAddress() should return recent signatures', async () => {
         if (skipIfNoConnection()) return;
 
-        const res = await (queryClient as any).getSignaturesForAddress({
+        const res = await queryClient.getSignaturesForAddress({
           address: '11111111111111111111111111111112',
           options: { limit: 2 }
         });
@@ -418,7 +418,7 @@ describe('Solana Query Client - Integration Tests', () => {
 
         try {
           // Minimal base64 just for invocation; real compiled messages will differ
-          const feeRes = await (queryClient as any).getFeeForMessage({ message: 'Ag==' });
+          const feeRes = await queryClient.getFeeForMessage({ message: 'Ag==' });
           console.log('Fee for message:', feeRes);
           expect(typeof feeRes.value).toBe('number');
         } catch (e) {
@@ -572,20 +572,20 @@ describe('Solana Query Client - Integration Tests', () => {
       const end = start + 5;
 
       // getBlocks range
-      const blocks = await (queryClient as any).getBlocks({ startSlot: start, endSlot: end });
+      const blocks = await queryClient.getBlocks({ startSlot: start, endSlot: end });
       console.log('Blocks range:', blocks);
       expect(Array.isArray(blocks)).toBe(true);
 
       if (blocks.length > 0) {
         const slotNum = blocks[0];
         // getBlockTime for a known slot
-        const blockTime = await (queryClient as any).getBlockTime({ slot: slotNum });
+        const blockTime = await queryClient.getBlockTime({ slot: slotNum });
         console.log('Block time for slot', slotNum, ':', blockTime);
         expect(blockTime === null || typeof blockTime === 'number').toBe(true);
 
         // getBlock details (shape depends on node/options); just ensure no crash
         try {
-          const block = await (queryClient as any).getBlock({ slot: slotNum });
+          const block = await queryClient.getBlock({ slot: slotNum });
           console.log('Block(details) keys:', block && typeof block === 'object' ? Object.keys(block as any).slice(0, 5) : block);
           expect(block).toBeDefined();
         } catch (e) {
@@ -596,11 +596,11 @@ describe('Solana Query Client - Integration Tests', () => {
       }
 
       // Leaders
-      const leader = await (queryClient as any).getSlotLeader();
+      const leader = await queryClient.getSlotLeader();
       console.log('Current slot leader:', leader);
       expect(typeof leader).toBe('string');
 
-      const leaders = await (queryClient as any).getSlotLeaders({ startSlot: start, limit: 5 });
+      const leaders = await queryClient.getSlotLeaders({ startSlot: start, limit: 5 });
       console.log('Next slot leaders (5):', leaders.slice(0, 3));
       expect(Array.isArray(leaders)).toBe(true);
     });
@@ -609,14 +609,14 @@ describe('Solana Query Client - Integration Tests', () => {
   describe('Network Performance & Economics', () => {
     test('getInflationGovernor() should return inflation governor parameters', async () => {
       if (skipIfNoConnection()) return;
-      const gov = await (queryClient as any).getInflationGovernor();
+      const gov = await queryClient.getInflationGovernor();
       console.log('Inflation governor:', gov);
       expect(gov && typeof gov).toBe('object');
     });
 
     test('getInflationRate() should return current inflation rate', async () => {
       if (skipIfNoConnection()) return;
-      const rate = await (queryClient as any).getInflationRate();
+      const rate = await queryClient.getInflationRate();
       console.log('Inflation rate:', rate);
       expect(rate && typeof rate).toBe('object');
       if ((rate as any).total !== undefined) {
@@ -627,7 +627,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('getInflationReward() should return rewards for addresses (may be null)', async () => {
       if (skipIfNoConnection()) return;
       const addresses = ['11111111111111111111111111111112'];
-      const rewards = await (queryClient as any).getInflationReward({ addresses });
+      const rewards = await queryClient.getInflationReward({ addresses });
       console.log('Inflation rewards:', rewards);
       expect(Array.isArray(rewards)).toBe(true);
       expect(rewards.length).toBe(addresses.length);
@@ -638,7 +638,7 @@ describe('Solana Query Client - Integration Tests', () => {
 
     test('getRecentPerformanceSamples() should return recent performance samples', async () => {
       if (skipIfNoConnection()) return;
-      const samples = await (queryClient as any).getRecentPerformanceSamples({ limit: 5 });
+      const samples = await queryClient.getRecentPerformanceSamples({ limit: 5 });
       console.log('Recent performance samples (len):', samples.length, 'first:', samples[0]);
       expect(Array.isArray(samples)).toBe(true);
       expect(samples.length).toBeLessThanOrEqual(5);
@@ -649,7 +649,7 @@ describe('Solana Query Client - Integration Tests', () => {
 
     test('getStakeMinimumDelegation() should return minimum stake delegation (bigint)', async () => {
       if (skipIfNoConnection()) return;
-      const min = await (queryClient as any).getStakeMinimumDelegation();
+      const min = await queryClient.getStakeMinimumDelegation();
       console.log('Stake minimum delegation:', min);
       expect(typeof min).toBe('bigint');
       expect(min).toBeGreaterThanOrEqual(0n);
@@ -715,14 +715,14 @@ describe('Solana Query Client - Integration Tests', () => {
   describe('Batch 4 - Network & System Methods', () => {
     test('getEpochSchedule() returns schedule info', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getEpochSchedule();
+      const res = await queryClient.getEpochSchedule();
       console.log('Epoch schedule:', res);
       expect(res && typeof res).toBe('object');
     });
 
     test('getGenesisHash() returns a non-empty string', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getGenesisHash();
+      const res = await queryClient.getGenesisHash();
       console.log('Genesis hash:', res);
       expect(typeof res).toBe('string');
       expect(res.length).toBeGreaterThan(0);
@@ -730,7 +730,7 @@ describe('Solana Query Client - Integration Tests', () => {
 
     test('getIdentity() returns node identity pubkey string', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getIdentity();
+      const res = await queryClient.getIdentity();
       console.log('Identity:', res);
       expect(typeof res).toBe('string');
       expect(res.length).toBeGreaterThan(0);
@@ -738,14 +738,14 @@ describe('Solana Query Client - Integration Tests', () => {
 
     test('getLeaderSchedule() returns schedule map or null', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getLeaderSchedule();
+      const res = await queryClient.getLeaderSchedule();
       console.log('Leader schedule (keys sample):', res && typeof res === 'object' ? Object.keys(res).slice(0, 3) : res);
       expect(res === null || typeof res === 'object').toBe(true);
     });
 
     test('getFirstAvailableBlock() returns a number', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getFirstAvailableBlock();
+      const res = await queryClient.getFirstAvailableBlock();
       console.log('First available block:', res);
       expect(typeof res).toBe('number');
       expect(res).toBeGreaterThanOrEqual(0);
@@ -753,28 +753,28 @@ describe('Solana Query Client - Integration Tests', () => {
 
     test('getMaxRetransmitSlot() returns number or null', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getMaxRetransmitSlot();
+      const res = await queryClient.getMaxRetransmitSlot();
       console.log('Max retransmit slot:', res);
       expect(res === null || typeof res === 'number').toBe(true);
     });
 
     test('getMaxShredInsertSlot() returns number or null', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getMaxShredInsertSlot();
+      const res = await queryClient.getMaxShredInsertSlot();
       console.log('Max shred insert slot:', res);
       expect(res === null || typeof res === 'number').toBe(true);
     });
 
     test('getHighestSnapshotSlot() returns object', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getHighestSnapshotSlot();
+      const res = await queryClient.getHighestSnapshotSlot();
       console.log('Highest snapshot slot:', res);
       expect(res && typeof res).toBe('object');
     });
 
     test('minimumLedgerSlot() returns a number', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).minimumLedgerSlot();
+      const res = await queryClient.minimumLedgerSlot();
       console.log('Minimum ledger slot:', res);
       expect(typeof res).toBe('number');
       expect(res).toBeGreaterThanOrEqual(0);
@@ -786,7 +786,7 @@ describe('Solana Query Client - Integration Tests', () => {
       if (skipIfNoConnection()) return;
       const currentSlot = await queryClient.getSlot();
       const start = Number(currentSlot > 20n ? currentSlot - 20n : currentSlot);
-      const res = await (queryClient as any).getBlocksWithLimit({ startSlot: start, limit: 3 });
+      const res = await queryClient.getBlocksWithLimit({ startSlot: start, limit: 3 });
       console.log('Blocks with limit (3):', res);
       expect(Array.isArray(res)).toBe(true);
     });
@@ -794,7 +794,7 @@ describe('Solana Query Client - Integration Tests', () => {
     test('isBlockhashValid() checks the latest blockhash', async () => {
       if (skipIfNoConnection()) return;
       const latest = await queryClient.getLatestBlockhash();
-      const res = await (queryClient as any).isBlockhashValid({ blockhash: latest.value.blockhash });
+      const res = await queryClient.isBlockhashValid({ blockhash: latest.value.blockhash });
       console.log('Is latest blockhash valid:', res);
       expect(typeof res).toBe('boolean');
     });
@@ -803,21 +803,21 @@ describe('Solana Query Client - Integration Tests', () => {
       if (skipIfNoConnection()) return;
       const currentSlot = await queryClient.getSlot();
       const slot = Number(currentSlot);
-      const res = await (queryClient as any).getBlockCommitment({ slot });
+      const res = await queryClient.getBlockCommitment({ slot });
       console.log('Block commitment:', res);
       expect(res && typeof res).toBe('object');
     });
 
     test('getBlockProduction() returns production stats', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getBlockProduction();
+      const res = await queryClient.getBlockProduction();
       console.log('Block production:', res);
       expect(res && typeof res).toBe('object');
     });
 
     test('getRecentPrioritizationFees() returns recent fee samples', async () => {
       if (skipIfNoConnection()) return;
-      const res = await (queryClient as any).getRecentPrioritizationFees();
+      const res = await queryClient.getRecentPrioritizationFees();
       console.log('Recent prioritization fees (len):', Array.isArray(res) ? res.length : res);
       expect(Array.isArray(res)).toBe(true);
     });

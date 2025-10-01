@@ -1,7 +1,7 @@
 import {
   Keypair,
   SolanaSigningClient,
-  DirectSigner,
+  SolanaSigner,
   PublicKey,
   lamportsToSol,
   solToLamports
@@ -11,13 +11,17 @@ import { loadLocalSolanaConfig } from '../test-utils';
 describe('Solana Integration Tests', () => {
   let client: SolanaSigningClient;
   let keypair: Keypair;
-  let signer: DirectSigner;
+  let signer: SolanaSigner;
 
   beforeAll(async () => {
     const { rpcEndpoint } = loadLocalSolanaConfig();
 
     keypair = Keypair.generate();
-    signer = new DirectSigner(keypair);
+    signer = new SolanaSigner(keypair, {
+      rpcEndpoint,
+      commitment: 'processed',
+      skipPreflight: true
+    });
     client = await SolanaSigningClient.connectWithSigner(
       rpcEndpoint,
       signer,

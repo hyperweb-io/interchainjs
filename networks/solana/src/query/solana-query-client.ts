@@ -452,4 +452,15 @@ export class SolanaQueryClient implements ISolanaQueryClient {
     const withContext = request.options?.withContext || false;
     return this.protocolAdapter.decodeProgramAccounts(result, withContext);
   }
+
+  // --- Transaction submission helpers ---
+  async sendTransactionBase64(
+    txBase64: string,
+    options: { skipPreflight?: boolean; preflightCommitment?: string; maxRetries?: number; encoding?: 'base64' }
+  ): Promise<string> {
+    const params = [txBase64, options];
+    const result = await this.rpcClient.call(SolanaRpcMethod.SEND_TRANSACTION, params);
+    // RPC client returns the signature string directly
+    return result as unknown as string;
+  }
 }
