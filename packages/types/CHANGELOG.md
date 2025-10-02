@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.7](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/types@1.17.6...@interchainjs/types@1.17.7) (2025-10-02)
+
+**Note:** Version bump only for package @interchainjs/types
+
 ## [1.17.6](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/types@1.17.5...@interchainjs/types@1.17.6) (2025-09-22)
 
 **Note:** Version bump only for package @interchainjs/types
