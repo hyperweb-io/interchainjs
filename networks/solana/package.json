@@ -56,7 +56,7 @@
     "sdk"
   ],
   "dependencies": {
-    "@interchainjs/types": "1.17.6",
+    "@interchainjs/types": "1.17.8",
     "@interchainjs/math": "1.17.8",
     "@interchainjs/utils": "1.17.8",
     "@types/bn.js": "^5.2.0",
