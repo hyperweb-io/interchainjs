@@ -71,6 +71,43 @@ describe("accountFromAny", () => {
         sequence: 7,
       });
     });
+
+    it("should use custom pubkey decoder when decodePubkey fails", () => {
+      const customTypeUrl = "/custom.crypto.v1.CustomPubKey";
+      const fallbackPubkey = testPubkey;
+
+      const baseAccount: BaseAccount = {
+        address: testAddress,
+        pubKey: {
+          typeUrl: customTypeUrl,
+          value: Uint8Array.from([1, 2, 3]),
+        },
+        accountNumber: testAccountNumber,
+        sequence: testSequence,
+      };
+
+      const accountAny: Any = {
+        typeUrl: "/cosmos.auth.v1beta1.BaseAccount",
+        value: BaseAccount.encode(baseAccount).finish(),
+      };
+
+      const decoder = jest.fn().mockReturnValue(fallbackPubkey);
+
+      const result = accountFromAny(accountAny, {
+        pubkeyDecoders: {
+          [customTypeUrl]: decoder,
+        },
+      });
+
+      expect(decoder).toHaveBeenCalledTimes(1);
+      expect(decoder).toHaveBeenCalledWith(expect.objectContaining({ typeUrl: customTypeUrl }));
+      expect(result).toEqual({
+        address: testAddress,
+        pubkey: fallbackPubkey,
+        accountNumber: 42,
+        sequence: 7,
+      });
+    });
   });
 
   describe("Wrapper account types using binary parsing", () => {
@@ -295,4 +332,3 @@ describe("accountFromAny", () => {
     });
   });
 });
-
