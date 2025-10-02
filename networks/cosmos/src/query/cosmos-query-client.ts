@@ -48,9 +48,8 @@ import { ValidatorsParams } from '../types/requests/common/validators';
 import { BroadcastTxParams } from '../types/requests/common/tx';
 import { GenesisChunkedParams } from '../types/requests/common/genesis-chunked';
 import { ICosmosProtocolAdapter } from '../adapters/base';
-import { BaseAccount } from '@interchainjs/cosmos-types';
-import { getAccount } from '@interchainjs/cosmos-types';
-import { accountFromAny } from '../utils';
+import { BaseAccount, getAccount } from '@interchainjs/cosmos-types';
+import { accountFromAny, type PubkeyDecoderMap } from '../utils';
 import { encodePubkey } from '@interchainjs/pubkey';
 
 
@@ -326,7 +325,10 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   }
 
   // Account queries
-  async getBaseAccount(address: string): Promise<BaseAccount | null> {
+  async getBaseAccount(
+    address: string,
+    opts?: { readonly pubkeyDecoders?: PubkeyDecoderMap }
+  ): Promise<BaseAccount | null> {
     try {
       // Create a plain RPC object so getAccount can mutate it
       const rpc = {
@@ -341,7 +343,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
       }
 
       // Use the new accountFromAny function to parse the account
-      const account = accountFromAny(response.account);
+      const account = accountFromAny(response.account, opts);
 
       // Convert the standardized Account back to BaseAccount format
       return {
