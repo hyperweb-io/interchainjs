@@ -155,7 +155,8 @@ export interface ICosmosSigner extends IUniSigner<
   AccountData, // account type
   CosmosSignArgs, // sign args
   CosmosBroadcastOptions, // broadcast options
-  CosmosBroadcastResponse // broadcast response
+  CosmosBroadcastResponse, // broadcast response
+  ICosmosQueryClient // query client
 > {
   getAddresses(): Promise<string[]>;
   getChainId(): Promise<string>;

@@ -32,6 +32,12 @@ export interface Account {
   readonly sequence: number;
 }
 
+export type PubkeyDecoderMap = Record<string, (pubkey: Any) => Pubkey>;
+
+export type AccountFromAnyOptions = {
+  readonly pubkeyDecoders?: PubkeyDecoderMap;
+};
+
 /**
  * Extracts a BaseAccount from simple wrapper account types using binary parsing.
  * This handles simple wrapper account types like ModuleAccount that contain
@@ -86,13 +92,14 @@ function extractBaseAccountFromWrapper(value: Uint8Array): BaseAccount | null {
  * @returns A standardized Account object
  * @throws Error if the account type is not supported
  */
-export function accountFromAny(accountAny: Any): Account {
+export function accountFromAny(accountAny: Any, opts?: AccountFromAnyOptions): Account {
+  const pubkeyDecoders = opts?.pubkeyDecoders;
   switch (accountAny.typeUrl) {
     case "/cosmos.auth.v1beta1.BaseAccount": {
       const baseAccount = BaseAccount.decode(accountAny.value);
       return {
         address: baseAccount.address,
-        pubkey: decodeOptionalPubkey(baseAccount.pubKey),
+        pubkey: decodeOptionalPubkey(baseAccount.pubKey, pubkeyDecoders),
         accountNumber: Number(baseAccount.accountNumber),
         sequence: Number(baseAccount.sequence),
       };
@@ -107,7 +114,7 @@ export function accountFromAny(accountAny: Any): Account {
 
       return {
         address: baseAccount.address,
-        pubkey: decodeOptionalPubkey(baseAccount.pubKey),
+        pubkey: decodeOptionalPubkey(baseAccount.pubKey, pubkeyDecoders),
         accountNumber: Number(baseAccount.accountNumber),
         sequence: Number(baseAccount.sequence),
       };
@@ -122,7 +129,7 @@ export function accountFromAny(accountAny: Any): Account {
 
       return {
         address: baseAccount.address,
-        pubkey: decodeOptionalPubkey(baseAccount.pubKey),
+        pubkey: decodeOptionalPubkey(baseAccount.pubKey, pubkeyDecoders),
         accountNumber: Number(baseAccount.accountNumber),
         sequence: Number(baseAccount.sequence),
       };
@@ -137,7 +144,7 @@ export function accountFromAny(accountAny: Any): Account {
 
       return {
         address: baseAccount.address,
-        pubkey: decodeOptionalPubkey(baseAccount.pubKey),
+        pubkey: decodeOptionalPubkey(baseAccount.pubKey, pubkeyDecoders),
         accountNumber: Number(baseAccount.accountNumber),
         sequence: Number(baseAccount.sequence),
       };
@@ -152,7 +159,7 @@ export function accountFromAny(accountAny: Any): Account {
 
       return {
         address: baseAccount.address,
-        pubkey: decodeOptionalPubkey(baseAccount.pubKey),
+        pubkey: decodeOptionalPubkey(baseAccount.pubKey, pubkeyDecoders),
         accountNumber: Number(baseAccount.accountNumber),
         sequence: Number(baseAccount.sequence),
       };
@@ -164,7 +171,7 @@ export function accountFromAny(accountAny: Any): Account {
       if (baseAccount) {
         return {
           address: baseAccount.address,
-          pubkey: decodeOptionalPubkey(baseAccount.pubKey),
+          pubkey: decodeOptionalPubkey(baseAccount.pubKey, pubkeyDecoders),
           accountNumber: Number(baseAccount.accountNumber),
           sequence: Number(baseAccount.sequence),
         };
@@ -235,4 +242,3 @@ export { generateMnemonic };
 
 // Re-export fee helpers
 export * from './fee';
-

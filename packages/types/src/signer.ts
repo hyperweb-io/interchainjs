@@ -1,5 +1,6 @@
 import Decimal from 'decimal.js';
 import { ICryptoBytes, IAccount } from './auth';
+import { IQueryClient } from './query';
 import { sign } from 'crypto';
 
 /**
@@ -38,7 +39,11 @@ export interface IUniSigner<
   TSignArgs = unknown,
   TBroadcastOpts = unknown,
   TBroadcastResponse extends IBroadcastResult<TTxResp> = IBroadcastResult<TTxResp>,
+  TQueryClient extends IQueryClient = IQueryClient,
 > {
+  // Query interface used for chain reads and broadcasting
+  queryClient: TQueryClient;
+
   // Account management
   getAccounts(): Promise<readonly TAccount[]>;
 

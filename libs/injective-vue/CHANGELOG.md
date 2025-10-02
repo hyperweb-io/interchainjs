@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.8](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.17.7...injective-vue@1.17.8) (2025-10-02)
+
+**Note:** Version bump only for package injective-vue
+
+## [1.17.7](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.17.6...injective-vue@1.17.7) (2025-10-02)
+
+**Note:** Version bump only for package injective-vue
+
 ## [1.17.6](https://github.com/hyperweb-io/interchainjs/compare/injective-vue@1.17.5...injective-vue@1.17.6) (2025-09-22)
 
 **Note:** Version bump only for package injective-vue

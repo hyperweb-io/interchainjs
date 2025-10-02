@@ -108,12 +108,23 @@ export function decodePubkey(pubkey: Any): Pubkey {
  * This supports single pubkeys such as Cosmos ed25519 and secp256k1 keys
  * as well as multisig threshold pubkeys.
  */
-export function decodeOptionalPubkey(pubkey: Any | null | undefined): Pubkey | null {
+export function decodeOptionalPubkey(
+  pubkey: Any | null | undefined,
+  pubkeyDecoders?: Record<string, (pubkey: Any) => Pubkey>
+): Pubkey | null {
   if (!pubkey) return null;
   if (pubkey.typeUrl) {
     if (pubkey.value.length) {
       // both set
-      return decodePubkey(pubkey);
+      try {
+        return decodePubkey(pubkey);
+      } catch (error) {
+        const decoder = pubkeyDecoders?.[pubkey.typeUrl];
+        if (decoder) {
+          return decoder(pubkey);
+        }
+        throw error;
+      }
     } else {
       throw new Error(`Pubkey is an Any with type URL '${pubkey.typeUrl}' but an empty value`);
     }

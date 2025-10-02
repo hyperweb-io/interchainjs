@@ -25,6 +25,7 @@ import {
 import { BroadcastTxParams } from './requests/common/tx';
 import { ProtocolInfo } from './protocol';
 import { BaseAccount } from '@interchainjs/cosmos-types';
+import type { PubkeyDecoderMap } from '../utils';
 
 
 
@@ -72,7 +73,10 @@ export interface ICosmosQueryClient extends IQueryClient {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 
   // Account queries
-  getBaseAccount(address: string): Promise<BaseAccount | null>;
+  getBaseAccount(
+    address: string,
+    opts?: { readonly pubkeyDecoders?: PubkeyDecoderMap }
+  ): Promise<BaseAccount | null>;
 
   // Protocol info
   getProtocolInfo(): ProtocolInfo;

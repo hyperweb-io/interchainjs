@@ -55,7 +55,9 @@ interface IUniSigner<
   TSignArgs = unknown,
   TBroadcastOpts = unknown,
   TBroadcastResponse extends IBroadcastResult<TTxResp> = IBroadcastResult<TTxResp>,
+  TQueryClient extends IQueryClient = IQueryClient,
 > {
+  queryClient: TQueryClient;
   getAccounts(): Promise<readonly TAccount[]>;
   signArbitrary(data: Uint8Array, index?: number): Promise<ICryptoBytes>;
   sign(args: TSignArgs): Promise<ISigned<TBroadcastOpts, TBroadcastResponse>>;
