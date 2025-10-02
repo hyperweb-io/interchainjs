@@ -43,6 +43,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     this.config.queryClient = originalQueryClient;
   }
 
+  get queryClient() {
+    return this.config.queryClient;
+  }
+
   // ICosmosSigner interface methods
   async getAccounts(): Promise<readonly AccountData[]> {
     if (isOfflineAminoSigner(this.auth) || isOfflineDirectSigner(this.auth)) {
@@ -319,7 +323,7 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     const tx = Tx.fromPartial({
       body: txBody,
       authInfo: authInfo,
-      signatures: new Uint8Array([0]), // Empty signatures for simulation
+      signatures: [new Uint8Array(0)], // Empty signatures for simulation
     });
 
     // Encode transaction to bytes

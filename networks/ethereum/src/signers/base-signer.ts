@@ -32,6 +32,10 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
     this.config.queryClient = originalQueryClient;
   }
 
+  get queryClient() {
+    return this.config.queryClient;
+  }
+
   // IUniSigner interface methods
   async getAccounts(): Promise<readonly EthereumAccountData[]> {
     const accounts = await this.auth.getAccounts();

@@ -456,7 +456,14 @@ The signer interface provides a consistent API across different networks:
 
 ```typescript
 // Universal signer interface
-interface IUniSigner<TAccount, TSignArgs, TBroadcastOpts, TBroadcastResponse> {
+interface IUniSigner<
+  TAccount,
+  TSignArgs,
+  TBroadcastOpts,
+  TBroadcastResponse,
+  TQueryClient extends IQueryClient = IQueryClient
+> {
+  queryClient: TQueryClient;
   // Account management
   getAccounts(): Promise<readonly TAccount[]>;
 
@@ -476,10 +483,10 @@ interface ISigned<TBroadcastOpts, TBroadcastResponse> {
 }
 
 // Network-specific signer implementation
-class NetworkSigner implements IUniSigner<NetworkAccount, NetworkSignArgs, NetworkBroadcastOpts, NetworkBroadcastResponse> {
+class NetworkSigner implements IUniSigner<NetworkAccount, NetworkSignArgs, NetworkBroadcastOpts, NetworkBroadcastResponse, IQueryClient> {
   constructor(
     private wallet: IWallet,
-    private queryClient: IQueryClient,
+    public readonly queryClient: IQueryClient,
     private config: NetworkSignerConfig
   ) {}
 

@@ -230,6 +230,75 @@ console.log("Endpoint:", queryClient.endpoint);
 await queryClient.disconnect();
 ```
 
+### Frontend: window.ethereum (Browser Wallet)
+
+Use the injected EIP-1193 provider (e.g., MetaMask) to send ETH and execute contract functions by ABI.
+
+```typescript
+import { SignerFromBrowser } from "@interchainjs/ethereum";
+
+// Initialize with injected provider
+const signer = new SignerFromBrowser(window.ethereum);
+
+// Request accounts (prompts the wallet)
+const [address] = await signer.getAddresses(true);
+console.log("Connected address:", address);
+
+// 1) Send ETH
+const { transactionHash, wait } = await signer.send({
+  to: "0xRecipient...",
+  // value accepts bigint | number | string; converted to 0x hex automatically
+  value: 1000000000000000n // 0.001 ETH
+});
+console.log("ETH tx:", transactionHash);
+const receipt = await wait();
+console.log("ETH receipt:", receipt.status);
+
+// 2) Read contract function (by ABI)
+// Example: ERC20 balanceOf(address)
+const erc20Abi = [
+  {
+    name: "balanceOf",
+    type: "function",
+    inputs: [{ name: "owner", type: "address" }],
+    outputs: [{ name: "balance", type: "uint256" }]
+  }
+];
+const tokenAddress = "0xToken...";
+const balance = await signer.readContract<bigint>({
+  address: tokenAddress,
+  abi: erc20Abi,
+  functionName: "balanceOf",
+  params: [address]
+});
+console.log("Token balance:", balance.toString());
+
+// 3) Write contract function (by ABI)
+// Example: ERC20 transfer(address,uint256) returns (bool)
+const transferAbi = [
+  {
+    name: "transfer",
+    type: "function",
+    inputs: [
+      { name: "to", type: "address" },
+      { name: "amount", type: "uint256" }
+    ],
+    outputs: [{ name: "ok", type: "bool" }]
+  }
+];
+const { transactionHash: txHash2, wait: wait2 } = await signer.writeContract({
+  address: tokenAddress,
+  abi: transferAbi,
+  functionName: "transfer",
+  params: ["0xRecipient...", 1000000000000000000n] // 1 token (18 decimals)
+  // Optional gas options:
+  // gas, gasPrice, maxFeePerGas, maxPriorityFeePerGas, nonce, chainId
+});
+console.log("transfer tx:", txHash2);
+const transferReceipt = await wait2();
+console.log("transfer status:", transferReceipt.status);
+```
+
 ### Using Ethereum Signers
 
 #### Creating Signers
@@ -466,7 +535,7 @@ console.log(toChecksumAddress(lower));
 ### Legacy Support
 
 - **SignerFromPrivateKey**: Original implementation (maintained for backward compatibility)
-- **SignerFromBrowser**: Browser wallet integration (maintained for backward compatibility)
+- **SignerFromBrowser**: Browser wallet integration via `window.ethereum` (EIP-1193)
 
 ## For Developers
 

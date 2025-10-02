@@ -149,7 +149,8 @@ export interface IEthereumSigner extends IUniSigner<
   EthereumAccountData,
   EthereumSignArgs,
   EthereumBroadcastOptions,
-  EthereumBroadcastResponse
+  EthereumBroadcastResponse,
+  IEthereumQueryClient
 > {
   /** Get Ethereum addresses */
   getAddresses(): Promise<string[]>;
