@@ -166,6 +166,10 @@ export interface ISolanaQueryClient extends IQueryClient {
   requestAirdrop(request: RequestAirdropRequest): Promise<AirdropResponse>;
   getSignaturesForAddress(request: GetSignaturesForAddressRequest): Promise<SignaturesForAddressResponse>;
   getFeeForMessage(request: GetFeeForMessageRequest): Promise<FeeForMessageResponse>;
+  sendTransactionBase64(
+    txBase64: string,
+    options: { skipPreflight?: boolean; preflightCommitment?: string; maxRetries?: number; encoding?: 'base64' }
+  ): Promise<string>;
 
   // Token Methods
   getTokenAccountsByOwner(request: GetTokenAccountsByOwnerRequest): Promise<TokenAccountsByOwnerResponse>;

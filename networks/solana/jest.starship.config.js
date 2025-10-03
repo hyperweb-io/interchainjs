@@ -20,4 +20,5 @@ module.exports = {
   },
   testRegex: '/starship/__tests__/.*\\.(test|spec)\\.(ts|js)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  watchman: false,
 };

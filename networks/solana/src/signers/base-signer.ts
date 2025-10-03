@@ -2,8 +2,10 @@ import { ICryptoBytes, IWallet, isIWallet } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import { PublicKey } from '../types';
 import { Keypair } from '../keypair';
-import { createSolanaQueryClient } from '../client-factory';
 import { ISolanaQueryClient } from '../types/solana-client-interfaces';
+import { GetLatestBlockhashRequest } from '../types/requests/block';
+import { GetSignatureStatusesRequest } from '../types/requests/transaction';
+import { SolanaCommitment } from '../types/requests/base';
 import {
   ISolanaSigner,
   SolanaAccount,
@@ -24,11 +26,23 @@ import {
 export abstract class BaseSolanaSigner implements ISolanaSigner {
   protected config: SolanaSignerConfig;
   protected auth: IWallet | Keypair;
-  private queryClientPromise?: Promise<ISolanaQueryClient>;
+  private readonly queryClientInstance: ISolanaQueryClient;
 
   constructor(auth: IWallet | Keypair, config: SolanaSignerConfig) {
     this.auth = auth;
-    this.config = config;
+    if (!config?.queryClient) {
+      throw new Error('queryClient is required in signer configuration');
+    }
+
+    this.queryClientInstance = config.queryClient;
+    this.config = {
+      ...config,
+      queryClient: this.queryClientInstance
+    };
+  }
+
+  get queryClient(): ISolanaQueryClient {
+    return this.queryClientInstance;
   }
 
   async getAccounts(): Promise<readonly SolanaAccount[]> {
@@ -100,7 +114,7 @@ export abstract class BaseSolanaSigner implements ISolanaSigner {
     data: Uint8Array,
     options: SolanaBroadcastOptions = {}
   ): Promise<SolanaBroadcastResponse> {
-    const client = await this.getQueryClient();
+    const client = this.queryClient;
 
     // Convert transaction bytes to base64 for RPC
     const txBase64 = Buffer.from(data).toString('base64');
@@ -113,20 +127,7 @@ export abstract class BaseSolanaSigner implements ISolanaSigner {
     };
 
     try {
-      const signature = await (client as any).sendTransactionBase64?.(txBase64, rpcOptions);
-      if (!signature) {
-        // Fallback generic call via query client if helper is not present
-        const raw = await (client as any).rpcClient?.call?.('sendTransaction', [txBase64, rpcOptions]);
-        if (!raw) throw new Error('No response from sendTransaction');
-        return {
-          signature: raw,
-          transactionHash: raw,
-          rawResponse: raw,
-          broadcastResponse: raw,
-          wait: async () => this.waitForTransaction(raw)
-        };
-      }
-
+      const signature = await client.sendTransactionBase64(txBase64, rpcOptions);
       return {
         signature,
         transactionHash: signature,
@@ -151,13 +152,17 @@ export abstract class BaseSolanaSigner implements ISolanaSigner {
    * Wait for transaction confirmation
    */
   private async waitForTransaction(signature: string): Promise<SolanaTransactionResponse> {
-    const client = await this.getQueryClient();
+    const client = this.queryClient;
     const maxAttempts = 30;
     const delayMs = 1000;
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const statuses = await client.getSignatureStatuses({ signatures: [signature], searchTransactionHistory: true } as any);
+        const request: GetSignatureStatusesRequest = {
+          signatures: [signature],
+          options: { searchTransactionHistory: true }
+        };
+        const statuses = await client.getSignatureStatuses(request);
         const status = statuses.value?.[0];
         if (status) {
           if (status.confirmationStatus === 'confirmed' || status.confirmationStatus === 'finalized') {
@@ -183,16 +188,27 @@ export abstract class BaseSolanaSigner implements ISolanaSigner {
    * Get recent blockhash for transactions
    */
   public async getRecentBlockhash(): Promise<string> {
-    const client = await this.getQueryClient();
-    const res = await client.getLatestBlockhash({ commitment: this.config.commitment || 'processed' } as any);
+    const client = this.queryClient;
+    const commitmentOption = this.normalizeCommitment(this.config.commitment);
+    const request: GetLatestBlockhashRequest = commitmentOption
+      ? { options: { commitment: commitmentOption } }
+      : {};
+    const res = await client.getLatestBlockhash(request);
     return res.value.blockhash;
   }
 
-  private async getQueryClient(): Promise<ISolanaQueryClient> {
-    if (!this.queryClientPromise) {
-      this.queryClientPromise = createSolanaQueryClient(this.config.rpcEndpoint, {});
+  private normalizeCommitment(commitment?: string): SolanaCommitment | undefined {
+    if (!commitment) {
+      return undefined;
     }
-    return this.queryClientPromise;
-  }
 
+    switch (commitment) {
+      case SolanaCommitment.PROCESSED:
+      case SolanaCommitment.CONFIRMED:
+      case SolanaCommitment.FINALIZED:
+        return commitment;
+      default:
+        return undefined;
+    }
+  }
 }

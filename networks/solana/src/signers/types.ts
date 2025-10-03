@@ -1,5 +1,6 @@
 import { IUniSigner, IAccount, IBroadcastResult, ICryptoBytes, ISigned } from '@interchainjs/types';
 import { PublicKey } from '../types';
+import { ISolanaQueryClient } from '../types/solana-client-interfaces';
 
 /**
  * Solana account data structure
@@ -102,7 +103,8 @@ export interface ISolanaSigner extends IUniSigner<
   SolanaAccount,
   SolanaSignArgs,
   SolanaBroadcastOptions,
-  SolanaBroadcastResponse
+  SolanaBroadcastResponse,
+  ISolanaQueryClient
 > {
   /**
    * Get the public key for a specific account index
@@ -135,14 +137,9 @@ export interface ISolanaSigner extends IUniSigner<
  */
 export interface SolanaSignerConfig {
   /**
-   * RPC endpoint URL
+   * Query client for Solana RPC interactions
    */
-  rpcEndpoint: string;
-
-  /**
-   * WebSocket endpoint URL (optional)
-   */
-  wsEndpoint?: string;
+  queryClient: ISolanaQueryClient;
 
   /**
    * Default commitment level
