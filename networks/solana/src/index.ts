@@ -11,6 +11,7 @@ export * from './workflows';
 export * from './keypair';
 export * from './transaction';
 export * from './utils';
+export * from './helpers';
 
 // Re-export shared RPC clients for convenience
 export { HttpRpcClient, HttpEndpoint } from '@interchainjs/utils';

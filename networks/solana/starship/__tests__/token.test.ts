@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import {
-  Connection,
+  createSolanaQueryClient,
   Keypair,
   PublicKey,
   TokenProgram,
@@ -12,25 +12,128 @@ import {
   NATIVE_MINT,
   TokenAccountState,
   AuthorityType,
-  solToLamports
+  solToLamports,
+  SolanaCommitment,
+  SolanaProtocolVersion
 } from '../../src/index';
-import { loadLocalSolanaConfig, createFundedKeypair } from '../test-utils';
+import type { ISolanaQueryClient } from '../../src/types';
+import { loadLocalSolanaConfig } from '../test-utils';
 
 describe('SPL Token Tests', () => {
-  let connection: Connection;
+  let client: ISolanaQueryClient;
   let payer: Keypair;
   let payerAtaForNative: PublicKey;
   // Use a deterministic mock mint address for instruction-building tests
   const testMintAddress = new PublicKey('11111111111111111111111111111112');
 
+  const DEFAULT_COMMITMENT = SolanaCommitment.CONFIRMED;
+
+  async function rpcGetBalance(
+    publicKey: PublicKey,
+    commitment: SolanaCommitment = DEFAULT_COMMITMENT
+  ): Promise<bigint> {
+    const response = await client.getBalance({
+      pubkey: publicKey.toString(),
+      options: { commitment }
+    });
+    return response.value;
+  }
+
+  async function rpcRequestAirdrop(
+    publicKey: PublicKey,
+    lamports: number,
+    commitment: SolanaCommitment = SolanaCommitment.FINALIZED
+  ): Promise<string> {
+    return client.requestAirdrop({
+      pubkey: publicKey.toString(),
+      lamports,
+      options: { commitment }
+    });
+  }
+
+  async function confirmWithBackoff(signature: string, maxMs = 30000): Promise<boolean> {
+    const start = Date.now();
+    let delay = 500;
+
+    while (Date.now() - start < maxMs) {
+      try {
+        const statuses = await client.getSignatureStatuses({
+          signatures: [signature],
+          options: { searchTransactionHistory: true }
+        });
+        const status = statuses.value?.[0];
+        if (status) {
+          const confirmation = status.confirmationStatus;
+          if (confirmation === 'confirmed' || confirmation === 'finalized') {
+            return true;
+          }
+        }
+      } catch {
+        // Ignore RPC errors and retry
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      delay = Math.min(delay * 1.5, 2000);
+    }
+
+    return false;
+  }
+
+  async function ensureAirdrop(
+    publicKey: PublicKey,
+    minLamports: number,
+    airdropAmountLamports: number = minLamports
+  ): Promise<void> {
+    const minLamportsBigInt = BigInt(minLamports);
+    let balance = await rpcGetBalance(publicKey);
+    if (balance >= minLamportsBigInt) {
+      return;
+    }
+
+    try {
+      const signature = await rpcRequestAirdrop(publicKey, airdropAmountLamports);
+      const confirmed = await confirmWithBackoff(signature, 20000);
+      if (!confirmed) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    } catch (error) {
+      console.warn('Airdrop skipped: local RPC/faucet unavailable. Continuing without funding.');
+    }
+
+    const deadline = Date.now() + 20000;
+    while (Date.now() < deadline) {
+      balance = await rpcGetBalance(publicKey, SolanaCommitment.CONFIRMED);
+      if (balance >= minLamportsBigInt) {
+        return;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+
+    throw new Error(`Failed to fund account ${publicKey.toString()} via airdrop`);
+  }
+
+  async function createFundedKeypair(
+    minLamports: number,
+    airdropAmountLamports: number = minLamports
+  ): Promise<Keypair> {
+    const keypair = Keypair.generate();
+    await ensureAirdrop(keypair.publicKey, minLamports, airdropAmountLamports);
+    return keypair;
+  }
+
   beforeAll(async () => {
     const { rpcEndpoint } = loadLocalSolanaConfig();
-    // Setup connection
-    // Use a short RPC timeout to keep tests snappy if local node isn't running
-    connection = new Connection({ endpoint: rpcEndpoint, timeout: 3000 });
 
-    // Create a fresh payer and fund via local faucet
-    payer = await createFundedKeypair(connection, solToLamports(1), solToLamports(2));
+    client = await createSolanaQueryClient(rpcEndpoint, {
+      timeout: 3000,
+      protocolVersion: SolanaProtocolVersion.SOLANA_1_18
+    });
+    await client.connect();
+
+    payer = await createFundedKeypair(solToLamports(1), solToLamports(2));
+    const payerBalance = await rpcGetBalance(payer.publicKey, DEFAULT_COMMITMENT);
+    console.log(`Payer address: ${payer.publicKey.toString()}`);
+    console.log(`Payer balance: ${Number(payerBalance) / 1e9} SOL`);
 
     // Derive ATA for native mint (wrapped SOL) purely off-chain
     payerAtaForNative = await AssociatedTokenAccount.findAssociatedTokenAddress(
@@ -276,11 +379,14 @@ describe('SPL Token Tests', () => {
 
     it('should try to get native mint info (skip if unsupported)', async () => {
       try {
-        const supply = await connection.getTokenSupply(NATIVE_MINT);
+        const supply = await client.getTokenSupply({
+          mint: NATIVE_MINT.toString(),
+          options: { commitment: DEFAULT_COMMITMENT }
+        });
         expect(supply).toBeDefined();
-        expect(typeof supply.amount).toBe('string');
+        expect(typeof supply.value.amount).toBe('string');
         // Decimals for wrapped SOL are 9 when available
-        expect(supply.decimals).toBeGreaterThanOrEqual(0);
+        expect(supply.value.decimals).toBeGreaterThanOrEqual(0);
       } catch (error) {
         console.log('Native mint supply not available on local RPC; skipping check');
       }
@@ -355,14 +461,14 @@ describe('SPL Token Tests', () => {
   describe('High-Level Operations Tests', () => {
     it('should create proper mint instructions', async () => {
       const newMintKeypair = Keypair.generate();
-      const result = await TokenProgram.createMint(
-        connection,
+      const result = await TokenProgram.createMint({
         payer,
-        payer.publicKey,
-        payer.publicKey,
-        9,
-        newMintKeypair
-      );
+        mintAuthority: payer.publicKey,
+        freezeAuthority: payer.publicKey,
+        decimals: 9,
+        mintKeypair: newMintKeypair,
+        queryClient: client
+      });
 
       expect(result.mint).toEqual(newMintKeypair.publicKey);
       expect(result.instructions).toHaveLength(2); // CreateAccount + InitializeMint
@@ -371,25 +477,25 @@ describe('SPL Token Tests', () => {
 
     it('should create proper token account instructions', async () => {
       const accountKeypair = Keypair.generate();
-      const result = await TokenProgram.createAccount(
-        connection,
+      const result = await TokenProgram.createAccount({
         payer,
-        testMintAddress,
-        payer.publicKey,
-        accountKeypair
-      );
+        mint: testMintAddress,
+        owner: payer.publicKey,
+        accountKeypair,
+        queryClient: client
+      });
 
       expect(result.account).toEqual(accountKeypair.publicKey);
       expect(result.instructions).toHaveLength(2); // CreateAccount + InitializeAccount
     });
 
     it('should create wrapped native account instructions', async () => {
-      const result = await TokenProgram.createWrappedNativeAccount(
-        connection,
+      const result = await TokenProgram.createWrappedNativeAccount({
         payer,
-        payer.publicKey,
-        solToLamports(0.1)
-      );
+        owner: payer.publicKey,
+        amount: solToLamports(0.1),
+        queryClient: client
+      });
 
       expect(result.account).toBeInstanceOf(PublicKey);
       expect(result.instructions).toHaveLength(2); // CreateAccount + InitializeAccount
@@ -401,12 +507,12 @@ describe('SPL Token Tests', () => {
 
     it('should get or create associated token account instructions', async () => {
       const newOwner = Keypair.generate();
-      const result = await TokenProgram.getOrCreateAssociatedTokenAccount(
-        connection,
+      const result = await TokenProgram.getOrCreateAssociatedTokenAccount({
         payer,
-        testMintAddress,
-        newOwner.publicKey
-      );
+        mint: testMintAddress,
+        owner: newOwner.publicKey,
+        queryClient: client
+      });
 
       expect(result.account).toBeInstanceOf(PublicKey);
       // Should have create instruction for new account
@@ -415,6 +521,9 @@ describe('SPL Token Tests', () => {
   });
 
   afterAll(async () => {
+    if (client) {
+      await client.disconnect();
+    }
     console.log('SPL Token tests completed successfully!');
     console.log('');
     console.log('## Test Summary:');

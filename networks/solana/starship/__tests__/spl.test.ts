@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
+import bs58 from 'bs58';
 import {
-  Connection,
+  createSolanaQueryClient,
   Keypair,
   PublicKey,
   TokenProgram,
@@ -9,13 +10,17 @@ import {
   TokenMath,
   Transaction,
   TOKEN_PROGRAM_ID,
-  solToLamports
+  solToLamports,
+  SolanaCommitment,
+  SolanaEncoding,
+  SolanaProtocolVersion
 } from '../../src/index';
-import { loadLocalSolanaConfig, createFundedKeypair, waitForRpcReady, confirmWithBackoff } from '../test-utils';
+import type { ISolanaQueryClient } from '../../src/types';
+import { loadLocalSolanaConfig, waitForRpcReady } from '../test-utils';
 
 
 describe('SPL Token Creation & Minting Tests', () => {
-  let connection: Connection;
+  let client: ISolanaQueryClient;
   let payer: Keypair;
   let customMintKeypair: Keypair;
   let customMintAddress: PublicKey;
@@ -27,17 +32,163 @@ describe('SPL Token Creation & Minting Tests', () => {
   const TOKEN_SYMBOL = 'TEST';
   const INITIAL_MINT_AMOUNT = 1000000; // 1 token with 6 decimals
 
+  const DEFAULT_COMMITMENT = SolanaCommitment.CONFIRMED;
+
+  async function rpcGetAccountInfo(
+    publicKey: PublicKey,
+    commitment: SolanaCommitment = DEFAULT_COMMITMENT
+  ) {
+    const response = await client.getAccountInfo({
+      pubkey: publicKey.toString(),
+      options: { commitment, encoding: SolanaEncoding.BASE64 }
+    });
+    return response.value;
+  }
+
+  async function rpcGetBalance(
+    publicKey: PublicKey,
+    commitment: SolanaCommitment = SolanaCommitment.PROCESSED
+  ): Promise<bigint> {
+    const response = await client.getBalance({
+      pubkey: publicKey.toString(),
+      options: { commitment }
+    });
+    return response.value;
+  }
+
+  async function rpcRequestAirdrop(
+    publicKey: PublicKey,
+    lamports: number,
+    commitment: SolanaCommitment = SolanaCommitment.FINALIZED
+  ): Promise<string> {
+    return client.requestAirdrop({
+      pubkey: publicKey.toString(),
+      lamports,
+      options: { commitment }
+    });
+  }
+
+  async function rpcGetRecentBlockhash(
+    commitment: SolanaCommitment = SolanaCommitment.PROCESSED
+  ): Promise<string> {
+    const response = await client.getLatestBlockhash({ options: { commitment } });
+    return response.value.blockhash;
+  }
+
+  async function rpcSendTransaction(
+    transaction: Transaction,
+    signers: Keypair[]
+  ): Promise<string> {
+    transaction.sign(...signers);
+    const serialized = transaction.serialize();
+    const base64 = Buffer.from(serialized).toString('base64');
+    return client.sendTransactionBase64(base64, {
+      skipPreflight: false,
+      preflightCommitment: DEFAULT_COMMITMENT,
+      encoding: 'base64'
+    });
+  }
+
+  async function confirmWithBackoff(signature: string, maxMs = 30000): Promise<boolean> {
+    const start = Date.now();
+    let delay = 500;
+
+    while (Date.now() - start < maxMs) {
+      try {
+        const statuses = await client.getSignatureStatuses({
+          signatures: [signature],
+          options: { searchTransactionHistory: true }
+        });
+        const status = statuses.value?.[0];
+        if (status) {
+          const confirmation = status.confirmationStatus;
+          if (confirmation === 'confirmed' || confirmation === 'finalized') {
+            return true;
+          }
+        }
+      } catch {
+        // Ignore RPC errors and retry
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      delay = Math.min(delay * 1.5, 2000);
+    }
+
+    return false;
+  }
+
+  async function ensureAirdrop(
+    publicKey: PublicKey,
+    minLamports: number,
+    airdropAmountLamports: number = minLamports
+  ): Promise<void> {
+    const minLamportsBigInt = BigInt(minLamports);
+    let balance = await rpcGetBalance(publicKey);
+    if (balance >= minLamportsBigInt) {
+      return;
+    }
+
+    try {
+      const signature = await rpcRequestAirdrop(publicKey, airdropAmountLamports);
+      const confirmed = await confirmWithBackoff(signature, 20000);
+      if (!confirmed) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    } catch (error) {
+      console.warn('Airdrop skipped: local RPC/faucet unavailable. Continuing without funding.');
+    }
+
+    const deadline = Date.now() + 20000;
+    while (Date.now() < deadline) {
+      balance = await rpcGetBalance(publicKey, SolanaCommitment.CONFIRMED);
+      if (balance >= minLamportsBigInt) {
+        return;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+
+    throw new Error(`Failed to fund account ${publicKey.toString()} via airdrop`);
+  }
+
+  async function createFundedKeypair(
+    minLamports: number,
+    airdropAmountLamports: number = minLamports
+  ): Promise<Keypair> {
+    const keypair = Keypair.generate();
+    await ensureAirdrop(keypair.publicKey, minLamports, airdropAmountLamports);
+    return keypair;
+  }
+
+  function accountDataToBuffer(data: Uint8Array | unknown): Buffer {
+    if (data instanceof Uint8Array) {
+      return Buffer.from(data);
+    }
+    if (Buffer.isBuffer(data)) {
+      return data;
+    }
+    if (Array.isArray(data) && data.length === 2 && typeof data[0] === 'string') {
+      const [raw, encoding] = data as [string, string];
+      if (encoding === 'base64' || encoding === 'base64+zstd') {
+        return Buffer.from(raw, 'base64');
+      }
+      if (encoding === 'base58') {
+        return Buffer.from(bs58.decode(raw));
+      }
+    }
+    throw new Error('Unsupported account data format');
+  }
+
   // Helper function to wait for account info with retry
-  async function waitForAccountInfo(publicKey: PublicKey, maxMs = 30000): Promise<any> {
+  async function waitForAccountInfo(publicKey: PublicKey, maxMs = 30000) {
     const start = Date.now();
     let delay = 500;
     while (Date.now() - start < maxMs) {
-      const accountInfo = await connection.getAccountInfo(publicKey);
+      const accountInfo = await rpcGetAccountInfo(publicKey, DEFAULT_COMMITMENT);
       if (accountInfo) {
         return accountInfo;
       }
       console.log(`Waiting for account ${publicKey.toString()}...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
       delay = Math.min(delay * 1.2, 2000); // Exponential backoff
     }
     throw new Error(`Account ${publicKey.toString()} not found after ${maxMs}ms`);
@@ -47,7 +198,7 @@ describe('SPL Token Creation & Minting Tests', () => {
   async function waitForTransactionConfirmation(signature: string, maxMs = 90000): Promise<boolean> {
     console.log(`Confirming transaction: ${signature}`);
     try {
-      const confirmed = await confirmWithBackoff(connection, signature, maxMs);
+      const confirmed = await confirmWithBackoff(signature, maxMs);
       if (!confirmed) {
         console.warn(`Transaction ${signature} not confirmed after ${maxMs}ms, but continuing...`);
         // For local devnet, sometimes transactions process but confirmation is flaky
@@ -75,15 +226,19 @@ describe('SPL Token Creation & Minting Tests', () => {
     await waitForRpcReady(30000);
     console.log('RPC is ready');
 
-    // Setup connection (confirmed commitment speeds up local confirmations)
-    connection = new Connection({ endpoint: rpcEndpoint, commitment: 'confirmed', timeout: 15000 });
+    // Setup query client using the refactored Solana adapter
+    client = await createSolanaQueryClient(rpcEndpoint, {
+      timeout: 15000,
+      protocolVersion: SolanaProtocolVersion.SOLANA_1_18
+    });
+    await client.connect();
 
     // Create and fund a fresh payer on localnet
     console.log('Creating and funding payer...');
-    payer = await createFundedKeypair(connection, solToLamports(2), solToLamports(2));
-    const payerBalance = await connection.getBalance(payer.publicKey);
+    payer = await createFundedKeypair(solToLamports(2), solToLamports(2));
+    const payerBalance = await rpcGetBalance(payer.publicKey);
     console.log(`Payer address: ${payer.publicKey.toString()}`);
-    console.log(`Payer balance: ${payerBalance / 1e9} SOL`);
+    console.log(`Payer balance: ${Number(payerBalance) / 1e9} SOL`);
 
     // Generate keypairs for custom token and recipient
     customMintKeypair = Keypair.generate();
@@ -115,14 +270,14 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Expected mint matches keypair: ${customMintAddress.toString() === customMintKeypair.publicKey.toString()}`);
 
       // Create mint instructions using the SAME keypair from beforeAll
-      const { instructions, mint } = await TokenProgram.createMint(
-        connection,
+      const { instructions, mint } = await TokenProgram.createMint({
         payer,
-        payer.publicKey, // mint authority
-        payer.publicKey, // freeze authority
-        TOKEN_DECIMALS,
-        customMintKeypair // Use the SAME keypair from beforeAll
-      );
+        mintAuthority: payer.publicKey,
+        freezeAuthority: payer.publicKey,
+        decimals: TOKEN_DECIMALS,
+        mintKeypair: customMintKeypair,
+        queryClient: client
+      });
 
       expect(mint).toEqual(customMintAddress);
       expect(instructions).toHaveLength(2);
@@ -131,7 +286,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
 
       for (const instruction of instructions) {
@@ -139,8 +294,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       }
 
       console.log('Sending token creation transaction...');
-      transaction.sign(payer, customMintKeypair);
-      const signature = await connection.sendTransaction(transaction);
+      const signature = await rpcSendTransaction(transaction, [payer, customMintKeypair]);
 
       // Wait for proper confirmation (with fallback for local devnet)
       const confirmed = await waitForTransactionConfirmation(signature);
@@ -156,7 +310,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(mintInfo!.owner).toEqual(TOKEN_PROGRAM_ID.toString());
 
       // Parse mint data to verify properties
-      const buffer = Buffer.from(mintInfo!.data[0], 'base64');
+      const buffer = accountDataToBuffer(mintInfo!.data);
       const parsedMintData = TokenProgram.parseMintData(buffer);
       expect(parsedMintData.decimals).toBe(TOKEN_DECIMALS);
       expect(parsedMintData.mintAuthority?.toString()).toBe(payer.publicKey.toString());
@@ -171,7 +325,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log('Creating associated token account for payer...');
 
       // Check if mint exists first (might not exist if running individual test)
-      const mintAccountCheck = await connection.getAccountInfo(customMintAddress);
+      const mintAccountCheck = await rpcGetAccountInfo(customMintAddress);
       if (!mintAccountCheck) {
         console.log('Mint not found - this test depends on mint creation test. Skipping...');
         expect(mintAccountCheck).toBeNull(); // This will make the test pass but show it was skipped due to dependency
@@ -180,7 +334,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Mint verified: ${customMintAddress.toString()}`);
 
       // Check if account already exists
-      const existingAccount = await connection.getAccountInfo(payerTokenAccount);
+      const existingAccount = await rpcGetAccountInfo(payerTokenAccount);
       if (existingAccount) {
         console.log('ℹ️  Payer ATA already exists, but will send idempotent instruction anyway');
         console.log('This should succeed without error due to idempotent instruction');
@@ -232,13 +386,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Matches recalculated ATA: ${directPDA.toString() === recalculatedATA.toString()}`);
 
       // Check if the ATA already exists before creating instruction
-      const existingATAInfo = await connection.getAccountInfo(recalculatedATA);
+      const existingATAInfo = await rpcGetAccountInfo(recalculatedATA);
       if (existingATAInfo) {
         console.log('✅ ATA already exists, skipping creation and proceeding to verification');
 
         // Verify the existing account
         expect(existingATAInfo.owner).toBe('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-        const buffer = Buffer.from(existingATAInfo.data[0], 'base64');
+        const buffer = accountDataToBuffer(existingATAInfo.data);
         const parsedAccountData = TokenProgram.parseAccountData(buffer);
         expect(parsedAccountData.mint.toString()).toBe(customMintAddress.toString());
         expect(parsedAccountData.owner.toString()).toBe(payer.publicKey.toString());
@@ -264,15 +418,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       transaction.add(instruction);
 
-      transaction.sign(payer);
-
       let signature: string | null = null;
       try {
-        signature = await connection.sendTransaction(transaction);
+        signature = await rpcSendTransaction(transaction, [payer]);
 
         // Wait for proper confirmation (with fallback for local devnet)
         const confirmed = await waitForTransactionConfirmation(signature);
@@ -300,7 +452,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       expect(accountInfo!.owner).toEqual(TOKEN_PROGRAM_ID.toString());
 
       // Parse account data to verify properties
-      const buffer = Buffer.from(accountInfo!.data[0], 'base64');
+      const buffer = accountDataToBuffer(accountInfo!.data);
       const parsedAccountData = TokenProgram.parseAccountData(buffer);
       expect(parsedAccountData.mint.toString()).toBe(customMintAddress.toString());
       expect(parsedAccountData.owner.toString()).toBe(payer.publicKey.toString());
@@ -319,8 +471,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Minting ${INITIAL_MINT_AMOUNT} tokens to payer...`);
 
       // Check if both mint and ATA exist (dependencies)
-      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
-      const ataAccountInfo = await connection.getAccountInfo(payerTokenAccount);
+      const mintAccountInfo = await rpcGetAccountInfo(customMintAddress);
+      const ataAccountInfo = await rpcGetAccountInfo(payerTokenAccount);
       if (!mintAccountInfo || !ataAccountInfo) {
         console.log('Mint or ATA not found - this test depends on previous tests. Skipping...');
         expect(true).toBe(true); // Pass test but indicate dependency issue
@@ -352,12 +504,11 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       transaction.add(mintInstruction);
 
-      transaction.sign(payer);
-      const signature = await connection.sendTransaction(transaction);
+      const signature = await rpcSendTransaction(transaction, [payer]);
 
       // Wait for proper confirmation (with fallback for local devnet)
       const confirmed = await waitForTransactionConfirmation(signature);
@@ -371,13 +522,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       const accountInfo = await waitForAccountInfo(destinationAccount);
       expect(accountInfo).not.toBeNull();
 
-      const buffer = Buffer.from(accountInfo!.data[0], 'base64');
+      const buffer = accountDataToBuffer(accountInfo!.data);
       const parsedAccountData = TokenProgram.parseAccountData(buffer);
       expect(parsedAccountData.amount).toBe(BigInt(INITIAL_MINT_AMOUNT));
 
       // Verify mint supply increased
       const mintInfo = await waitForAccountInfo(customMintAddress);
-      const mintBuffer = Buffer.from(mintInfo!.data[0], 'base64');
+      const mintBuffer = accountDataToBuffer(mintInfo!.data);
       const parsedMintData = TokenProgram.parseMintData(mintBuffer);
       expect(parsedMintData.supply).toBe(BigInt(INITIAL_MINT_AMOUNT));
 
@@ -394,7 +545,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Debug: Check initial state
       console.log('=== RECIPIENT ATA CREATION TEST START ===');
-      const initialRecipientATACheck = await connection.getAccountInfo(recipientTokenAccount);
+      const initialRecipientATACheck = await rpcGetAccountInfo(recipientTokenAccount);
       if (initialRecipientATACheck) {
         console.log('⚠️  WARNING: Recipient ATA already exists at test start!');
         console.log(`   Address: ${recipientTokenAccount.toString()}`);
@@ -404,8 +555,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       }
 
       // Check if mint and payer ATA exist (dependencies)
-      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
-      const payerATAInfo = await connection.getAccountInfo(payerTokenAccount);
+      const mintAccountInfo = await rpcGetAccountInfo(customMintAddress);
+      const payerATAInfo = await rpcGetAccountInfo(payerTokenAccount);
       if (!mintAccountInfo || !payerATAInfo) {
         console.log('Mint or payer ATA not found - this test depends on previous tests. Skipping...');
         expect(true).toBe(true); // Pass test but indicate dependency issue
@@ -419,8 +570,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Request airdrop for recipient to pay for account creation
       try {
         console.log('Requesting airdrop for recipient...');
-        const signature = await connection.requestAirdrop(recipient.publicKey, solToLamports(0.1));
-        await confirmWithBackoff(connection, signature, 15000);
+        const signature = await rpcRequestAirdrop(recipient.publicKey, solToLamports(0.1));
+        await confirmWithBackoff(signature, 15000);
         console.log('Recipient funded with SOL for account creation');
       } catch (error) {
         console.log('Recipient airdrop failed, payer will cover costs:', error instanceof Error ? error.message : String(error));
@@ -442,13 +593,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Skip extra recipient PDA verification; derived ATA above is sufficient
 
       // Check if the recipient ATA already exists
-      const existingRecipientATA = await connection.getAccountInfo(recalculatedRecipientATA);
+      const existingRecipientATA = await rpcGetAccountInfo(recalculatedRecipientATA);
       if (existingRecipientATA) {
         console.log('✅ Recipient ATA already exists, skipping creation and proceeding to verification');
 
         // Verify the existing account
         expect(existingRecipientATA.owner).toBe('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-        const buffer = Buffer.from(existingRecipientATA.data[0], 'base64');
+        const buffer = accountDataToBuffer(existingRecipientATA.data);
         const parsedAccountData = TokenProgram.parseAccountData(buffer);
         expect(parsedAccountData.mint.toString()).toBe(customMintAddress.toString());
         expect(parsedAccountData.owner.toString()).toBe(recipient.publicKey.toString());
@@ -475,15 +626,13 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       transaction.add(instruction);
 
-      transaction.sign(payer);
-
       let signature: string | null = null;
       try {
-        signature = await connection.sendTransaction(transaction);
+        signature = await rpcSendTransaction(transaction, [payer]);
 
         // Wait for proper confirmation (with fallback for local devnet)
         const confirmed = await waitForTransactionConfirmation(signature);
@@ -509,7 +658,7 @@ describe('SPL Token Creation & Minting Tests', () => {
       const accountInfo = await waitForAccountInfo(recalculatedRecipientATA);
       expect(accountInfo).not.toBeNull();
 
-      const buffer = Buffer.from(accountInfo!.data[0], 'base64');
+      const buffer = accountDataToBuffer(accountInfo!.data);
       const parsedAccountData = TokenProgram.parseAccountData(buffer);
       expect(parsedAccountData.mint.toString()).toBe(customMintAddress.toString());
       expect(parsedAccountData.owner.toString()).toBe(recipient.publicKey.toString());
@@ -533,8 +682,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Checking recipient ATA: ${recipientTokenAccount.toString()}`);
 
       // Check both accounts exist before attempting transfer
-      const payerATA = await connection.getAccountInfo(payerTokenAccount);
-      const recipientATAOriginal = await connection.getAccountInfo(recipientTokenAccount);
+      const payerATA = await rpcGetAccountInfo(payerTokenAccount);
+      const recipientATAOriginal = await rpcGetAccountInfo(recipientTokenAccount);
 
       if (recipientATAOriginal) {
         console.log('⚠️  Recipient ATA already exists at start of transfer test!');
@@ -571,9 +720,9 @@ describe('SPL Token Creation & Minting Tests', () => {
       const destinationAccount = freshRecipientATA;
 
       // Debug: Verify account ownership before transfer
-      const sourceAccountInfo = await connection.getAccountInfo(sourceAccount);
-      const destAccountInfo = await connection.getAccountInfo(destinationAccount);
-      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
+      const sourceAccountInfo = await rpcGetAccountInfo(sourceAccount);
+      const destAccountInfo = await rpcGetAccountInfo(destinationAccount);
+      const mintAccountInfo = await rpcGetAccountInfo(customMintAddress);
 
       console.log('=== ACCOUNT VERIFICATION ===');
       console.log(`Source account owner: ${sourceAccountInfo?.owner}`);
@@ -609,12 +758,11 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       transaction.add(transferInstruction);
 
-      transaction.sign(payer);
-      const signature = await connection.sendTransaction(transaction);
+      const signature = await rpcSendTransaction(transaction, [payer]);
 
       // Wait for proper confirmation (with fallback for local devnet)
       const confirmed = await waitForTransactionConfirmation(signature);
@@ -626,13 +774,13 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Verify payer balance decreased with retry
       const payerAccountInfo = await waitForAccountInfo(sourceAccount);
-      const payerBuffer = Buffer.from(payerAccountInfo!.data[0], 'base64');
+      const payerBuffer = accountDataToBuffer(payerAccountInfo!.data);
       const payerAccountData = TokenProgram.parseAccountData(payerBuffer);
       expect(payerAccountData.amount).toBe(BigInt(INITIAL_MINT_AMOUNT) - transferAmount);
 
       // Verify recipient balance increased
       const recipientAccountInfo = await waitForAccountInfo(destinationAccount);
-      const recipientBuffer = Buffer.from(recipientAccountInfo!.data[0], 'base64');
+      const recipientBuffer = accountDataToBuffer(recipientAccountInfo!.data);
       const recipientAccountData = TokenProgram.parseAccountData(recipientBuffer);
       expect(recipientAccountData.amount).toBe(transferAmount);
 
@@ -650,8 +798,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Burning ${TokenMath.rawToUiAmount(burnAmount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL} tokens...`);
 
       // Check if mint and payer ATA exist (dependencies)
-      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
-      const payerATAInfo = await connection.getAccountInfo(payerTokenAccount);
+      const mintAccountInfo = await rpcGetAccountInfo(customMintAddress);
+      const payerATAInfo = await rpcGetAccountInfo(payerTokenAccount);
       if (!mintAccountInfo || !payerATAInfo) {
         console.log('Mint or payer ATA not found - this test depends on previous tests. Skipping...');
         expect(true).toBe(true); // Pass test but indicate dependency issue
@@ -660,10 +808,10 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Get initial balances with retry
       const initialPayerInfo = await waitForAccountInfo(payerTokenAccount);
-      const initialPayerBuffer = Buffer.from(initialPayerInfo!.data[0], 'base64');
+      const initialPayerBuffer = accountDataToBuffer(initialPayerInfo!.data);
       const initialPayerData = TokenProgram.parseAccountData(initialPayerBuffer);
       const initialMintInfo = await waitForAccountInfo(customMintAddress);
-      const initialMintBuffer = Buffer.from(initialMintInfo!.data[0], 'base64');
+      const initialMintBuffer = accountDataToBuffer(initialMintInfo!.data);
       const initialMintData = TokenProgram.parseMintData(initialMintBuffer);
 
       // Create burn instruction
@@ -679,12 +827,11 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       transaction.add(burnInstruction);
 
-      transaction.sign(payer);
-      const signature = await connection.sendTransaction(transaction);
+      const signature = await rpcSendTransaction(transaction, [payer]);
 
       // Wait for proper confirmation (with fallback for local devnet)
       const confirmed = await waitForTransactionConfirmation(signature);
@@ -696,13 +843,13 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Verify payer balance decreased with retry
       const finalPayerInfo = await waitForAccountInfo(payerTokenAccount);
-      const finalPayerBuffer = Buffer.from(finalPayerInfo!.data[0], 'base64');
+      const finalPayerBuffer = accountDataToBuffer(finalPayerInfo!.data);
       const finalPayerData = TokenProgram.parseAccountData(finalPayerBuffer);
       expect(finalPayerData.amount).toBe(initialPayerData.amount - burnAmount);
 
       // Verify total supply decreased
       const finalMintInfo = await waitForAccountInfo(customMintAddress);
-      const finalMintBuffer = Buffer.from(finalMintInfo!.data[0], 'base64');
+      const finalMintBuffer = accountDataToBuffer(finalMintInfo!.data);
       const finalMintData = TokenProgram.parseMintData(finalMintBuffer);
       expect(finalMintData.supply).toBe(initialMintData.supply - burnAmount);
 
@@ -721,8 +868,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log(`Approving delegate to spend ${TokenMath.rawToUiAmount(approveAmount, TOKEN_DECIMALS)} ${TOKEN_SYMBOL} tokens...`);
 
       // Check if mint and payer ATA exist (dependencies)
-      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
-      const payerATAInfo = await connection.getAccountInfo(payerTokenAccount);
+      const mintAccountInfo = await rpcGetAccountInfo(customMintAddress);
+      const payerATAInfo = await rpcGetAccountInfo(payerTokenAccount);
       if (!mintAccountInfo || !payerATAInfo) {
         console.log('Mint or payer ATA not found - this test depends on previous tests. Skipping...');
         expect(true).toBe(true); // Pass test but indicate dependency issue
@@ -742,12 +889,11 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send transaction
       const transaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       transaction.add(approveInstruction);
 
-      transaction.sign(payer);
-      const signature = await connection.sendTransaction(transaction);
+      const signature = await rpcSendTransaction(transaction, [payer]);
 
       // Wait for proper confirmation (shorter window to fit per-test timeout)
       await waitForTransactionConfirmation(signature, 30000);
@@ -755,7 +901,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Verify approval with retry
       const accountInfo = await waitForAccountInfo(payerTokenAccount);
-      const accountBuffer = Buffer.from(accountInfo!.data[0], 'base64');
+      const accountBuffer = accountDataToBuffer(accountInfo!.data);
       const accountData = TokenProgram.parseAccountData(accountBuffer);
       expect(accountData.delegate?.toString()).toBe(delegate.publicKey.toString());
       expect(accountData.delegatedAmount).toBe(approveAmount);
@@ -771,19 +917,18 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       const revokeTransaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       revokeTransaction.add(revokeInstruction);
 
-      revokeTransaction.sign(payer);
-      const revokeSignature = await connection.sendTransaction(revokeTransaction);
+      const revokeSignature = await rpcSendTransaction(revokeTransaction, [payer]);
 
       // Wait for proper confirmation (shorter window)
       await waitForTransactionConfirmation(revokeSignature, 30000);
 
       // Verify revocation with retry
       const revokedAccountInfo = await waitForAccountInfo(payerTokenAccount);
-      const revokedAccountBuffer = Buffer.from(revokedAccountInfo!.data[0], 'base64');
+      const revokedAccountBuffer = accountDataToBuffer(revokedAccountInfo!.data);
       const revokedAccountData = TokenProgram.parseAccountData(revokedAccountBuffer);
       expect(revokedAccountData.delegate).toBe(null);
       expect(revokedAccountData.delegatedAmount).toBe(0n);
@@ -795,8 +940,8 @@ describe('SPL Token Creation & Minting Tests', () => {
       console.log('Freezing token account...');
 
       // Check if mint and payer ATA exist (dependencies)
-      const mintAccountInfo = await connection.getAccountInfo(customMintAddress);
-      const payerATAInfo = await connection.getAccountInfo(payerTokenAccount);
+      const mintAccountInfo = await rpcGetAccountInfo(customMintAddress);
+      const payerATAInfo = await rpcGetAccountInfo(payerTokenAccount);
       if (!mintAccountInfo || !payerATAInfo) {
         console.log('Mint or payer ATA not found - this test depends on previous tests. Skipping...');
         expect(true).toBe(true); // Pass test but indicate dependency issue
@@ -815,12 +960,11 @@ describe('SPL Token Creation & Minting Tests', () => {
       // Create and send freeze transaction
       const freezeTransaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       freezeTransaction.add(freezeInstruction);
 
-      freezeTransaction.sign(payer);
-      const freezeSignature = await connection.sendTransaction(freezeTransaction);
+      const freezeSignature = await rpcSendTransaction(freezeTransaction, [payer]);
 
       // Wait for proper confirmation (shorter window)
       await waitForTransactionConfirmation(freezeSignature, 30000);
@@ -828,7 +972,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Verify account is frozen with retry
       const frozenAccountInfo = await waitForAccountInfo(payerTokenAccount);
-      const frozenAccountBuffer = Buffer.from(frozenAccountInfo!.data[0], 'base64');
+      const frozenAccountBuffer = accountDataToBuffer(frozenAccountInfo!.data);
       const frozenAccountData = TokenProgram.parseAccountData(frozenAccountBuffer);
       expect(frozenAccountData.state).toBe(2); // TokenAccountState.Frozen
 
@@ -845,12 +989,11 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       const thawTransaction = new Transaction({
         feePayer: payer.publicKey,
-        recentBlockhash: await connection.getRecentBlockhash()
+        recentBlockhash: await rpcGetRecentBlockhash()
       });
       thawTransaction.add(thawInstruction);
 
-      thawTransaction.sign(payer);
-      const thawSignature = await connection.sendTransaction(thawTransaction);
+      const thawSignature = await rpcSendTransaction(thawTransaction, [payer]);
 
       // Wait for proper confirmation (shorter window)
       await waitForTransactionConfirmation(thawSignature, 30000);
@@ -858,7 +1001,7 @@ describe('SPL Token Creation & Minting Tests', () => {
 
       // Verify account is thawed with retry
       const thawedAccountInfo = await waitForAccountInfo(payerTokenAccount);
-      const thawedAccountBuffer = Buffer.from(thawedAccountInfo!.data[0], 'base64');
+      const thawedAccountBuffer = accountDataToBuffer(thawedAccountInfo!.data);
       const thawedAccountData = TokenProgram.parseAccountData(thawedAccountBuffer);
       expect(thawedAccountData.state).toBe(1); // TokenAccountState.Initialized
 
@@ -867,6 +1010,9 @@ describe('SPL Token Creation & Minting Tests', () => {
   });
 
   afterAll(async () => {
+    if (client) {
+      await client.disconnect();
+    }
     console.log('\n🎉 SPL Token Creation & Minting Tests completed successfully!');
     console.log('');
     console.log('## Test Summary:');
