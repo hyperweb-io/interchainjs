@@ -3,6 +3,16 @@ import * as path from 'path';
 import { parse as parseYaml } from 'yaml';
 import { Connection, Keypair, PublicKey } from '../src/index';
 
+type LegacyConnection = Connection & {
+  confirmTransaction(signature: string): Promise<boolean>;
+  getBalance(publicKey: PublicKey): Promise<number | bigint>;
+  requestAirdrop(publicKey: PublicKey, lamports: number): Promise<string>;
+};
+
+function getLegacyConnection(connection: Connection): LegacyConnection {
+  return connection as unknown as LegacyConnection;
+}
+
 export interface LocalSolanaConfig {
   rpcEndpoint: string;
   wsEndpoint: string;
@@ -84,11 +94,12 @@ export async function waitForRpcReady(timeoutMs: number = 20000): Promise<void> 
 }
 
 export async function confirmWithBackoff(connection: Connection, signature: string, maxMs = 30000): Promise<boolean> {
+  const rpcConnection = getLegacyConnection(connection);
   const start = Date.now();
   let delay = 500;
   while (Date.now() - start < maxMs) {
     try {
-      const ok = await connection.confirmTransaction(signature);
+      const ok = await rpcConnection.confirmTransaction(signature);
       if (ok) return true;
     } catch { }
     await new Promise((r) => setTimeout(r, delay));
@@ -103,12 +114,14 @@ export async function ensureAirdrop(
   minLamports: number,
   airdropAmountLamports: number = minLamports
 ): Promise<void> {
-  const balance = await connection.getBalance(publicKey);
-  if (balance >= minLamports) return;
+  const rpcConnection = getLegacyConnection(connection);
+  const balance = await rpcConnection.getBalance(publicKey);
+  const numericBalance = typeof balance === 'bigint' ? Number(balance) : balance;
+  if (numericBalance >= minLamports) return;
 
   // Try airdrop, but don't fail tests if local RPC/faucet is unavailable
   try {
-    const sig = await connection.requestAirdrop(publicKey, airdropAmountLamports);
+    const sig = await rpcConnection.requestAirdrop(publicKey, airdropAmountLamports);
     const confirmed = await confirmWithBackoff(connection, sig, 20000);
     if (!confirmed) {
       // Last chance: wait a bit and recheck balance

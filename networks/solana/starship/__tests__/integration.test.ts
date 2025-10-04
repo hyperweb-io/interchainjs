@@ -1,131 +1,270 @@
 import {
   Keypair,
-  SolanaSigningClient,
-  DirectSigner,
   PublicKey,
-  lamportsToSol,
-  solToLamports
-} from '../../src/index';
+  SolanaSigner,
+  createSolanaQueryClient,
+  SolanaCommitment,
+  SolanaProtocolVersion,
+  type ISolanaQueryClient,
+  type SolanaSignArgs
+} from '../../src';
 import { loadLocalSolanaConfig } from '../test-utils';
 
+const LAMPORTS_PER_SOL = 1_000_000_000;
+const SYSTEM_PROGRAM_ID = '11111111111111111111111111111111';
+
+function solToLamports(sol: number): number {
+  return Math.round(sol * LAMPORTS_PER_SOL);
+}
+
+function lamportsToSol(lamports: bigint | number): number {
+  const value = typeof lamports === 'bigint' ? Number(lamports) : lamports;
+  return value / LAMPORTS_PER_SOL;
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getBalanceLamports(
+  client: ISolanaQueryClient,
+  address: PublicKey | string
+): Promise<bigint> {
+  const pubkey = typeof address === 'string' ? address : address.toString();
+  const response = await client.getBalance({ pubkey });
+  return response.value;
+}
+
+async function waitForBalanceAtLeast(
+  client: ISolanaQueryClient,
+  address: PublicKey,
+  expectedLamports: bigint,
+  attempts = 15,
+  delayMs = 1500
+): Promise<bigint> {
+  let latest = await getBalanceLamports(client, address);
+  for (let i = 0; i < attempts; i++) {
+    if (latest >= expectedLamports) {
+      return latest;
+    }
+    await sleep(delayMs);
+    latest = await getBalanceLamports(client, address);
+  }
+  return latest;
+}
+
+async function waitForSignatureConfirmation(
+  client: ISolanaQueryClient,
+  signature: string,
+  attempts = 15,
+  delayMs = 1500
+): Promise<boolean> {
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const statusResponse = await client.getSignatureStatuses({
+        signatures: [signature],
+        options: { searchTransactionHistory: true }
+      });
+      const status = statusResponse.value?.[0];
+      if (status?.confirmationStatus === 'processed' || status?.confirmationStatus === 'confirmed' || status?.confirmationStatus === 'finalized') {
+        return true;
+      }
+    } catch {
+      // Ignore transient RPC errors and retry
+    }
+    await sleep(delayMs);
+  }
+  return false;
+}
+
+function createTransferInstruction(
+  from: PublicKey,
+  to: PublicKey,
+  lamports: bigint
+): SolanaSignArgs['instructions'][number] {
+  const data = Buffer.alloc(12);
+  data.writeUInt32LE(2, 0);
+  data.writeBigUInt64LE(lamports, 4);
+
+  return {
+    programId: new PublicKey(SYSTEM_PROGRAM_ID),
+    keys: [
+      { pubkey: from, isSigner: true, isWritable: true },
+      { pubkey: to, isSigner: false, isWritable: true }
+    ],
+    data: new Uint8Array(data)
+  };
+}
+
 describe('Solana Integration Tests', () => {
-  let client: SolanaSigningClient;
+  let client: ISolanaQueryClient;
+  let signer: SolanaSigner;
   let keypair: Keypair;
-  let signer: DirectSigner;
+  let signerAddress: PublicKey;
 
   beforeAll(async () => {
     const { rpcEndpoint } = loadLocalSolanaConfig();
 
     keypair = Keypair.generate();
-    signer = new DirectSigner(keypair);
-    client = await SolanaSigningClient.connectWithSigner(
-      rpcEndpoint,
-      signer,
-      {
-        // Use 'processed' for fast local confirmation to avoid flakiness
-        commitment: 'processed',
-        // Skip explicit confirmation wait; we'll poll balance after a short delay
-        broadcast: { checkTx: false, timeout: 60000 }
-      }
-    );
+    signerAddress = keypair.publicKey;
 
-    // Fund the fresh keypair on localnet
-    const min = solToLamports(0.05);
-    const bal = await client.getBalance();
-    if (bal < min) {
+    client = await createSolanaQueryClient(rpcEndpoint, {
+      timeout: 60000,
+      protocolVersion: SolanaProtocolVersion.SOLANA_1_18
+    });
+    await client.connect();
+
+    signer = new SolanaSigner(keypair, {
+      queryClient: client,
+      commitment: SolanaCommitment.PROCESSED,
+      skipPreflight: true,
+      maxRetries: 3
+    });
+
+    const minLamports = BigInt(solToLamports(0.05));
+    const currentBalance = await getBalanceLamports(client, signerAddress);
+    if (currentBalance < minLamports) {
       try {
-        const sig = await client.requestAirdrop(solToLamports(2));
-        console.log('Requested airdrop:', sig);
-        await new Promise((r) => setTimeout(r, 4000));
-      } catch (e) {
-        console.warn('Airdrop request failed; tests may skip for low balance:', e);
+        const signature = await client.requestAirdrop({
+          pubkey: signerAddress.toString(),
+          lamports: solToLamports(2),
+          options: { commitment: SolanaCommitment.PROCESSED }
+        });
+        console.log('Requested airdrop:', signature);
+        await waitForSignatureConfirmation(client, signature);
+        await waitForBalanceAtLeast(client, signerAddress, minLamports);
+      } catch (error) {
+        console.warn('Airdrop request failed; tests may skip for low balance:', error);
       }
     }
 
-    console.log(`Testing with address: ${keypair.publicKey.toString()}`);
+    console.log(`Testing with address: ${signerAddress.toString()}`);
     console.log(`Network: Local Solana (${rpcEndpoint})`);
   });
 
-  test('should connect to local node', async () => {
+  afterAll(async () => {
+    if (client) {
+      await client.disconnect();
+    }
+  });
+
+  test('should connect to local node', () => {
     expect(client).toBeDefined();
-    expect(client.signerAddress).toBeInstanceOf(PublicKey);
+    expect(signerAddress).toBeInstanceOf(PublicKey);
+    expect(client.isConnected()).toBe(true);
   });
 
   test('should get balance', async () => {
-    const balance = await client.getBalance();
-    expect(typeof balance).toBe('number');
-    expect(balance).toBeGreaterThanOrEqual(0);
+    const balanceLamports = await getBalanceLamports(client, signerAddress);
+    const balanceNumber = Number(balanceLamports);
+    expect(typeof balanceNumber).toBe('number');
+    expect(balanceNumber).toBeGreaterThanOrEqual(0);
 
-    console.log(`Account balance: ${lamportsToSol(balance)} SOL`);
+    console.log(`Account balance: ${lamportsToSol(balanceLamports)} SOL`);
   });
 
   test('should request airdrop if balance is low', async () => {
-    const initialBalance = await client.getBalance();
+    const initialBalance = await getBalanceLamports(client, signerAddress);
+    const thresholdLamports = BigInt(solToLamports(0.1));
 
-    if (initialBalance < solToLamports(0.1)) {
+    if (initialBalance < thresholdLamports) {
       console.log('Balance is low, requesting airdrop...');
 
       try {
-        const signature = await client.requestAirdrop(solToLamports(0.5));
+        const lamports = solToLamports(0.5);
+        const signature = await client.requestAirdrop({
+          pubkey: signerAddress.toString(),
+          lamports,
+          options: { commitment: SolanaCommitment.PROCESSED }
+        });
         expect(signature).toBeTruthy();
         expect(typeof signature).toBe('string');
 
-        // Wait a bit for the airdrop to process
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        await waitForSignatureConfirmation(client, signature);
 
-        const newBalance = await client.getBalance();
+        const newBalance = await waitForBalanceAtLeast(
+          client,
+          signerAddress,
+          initialBalance + BigInt(lamports)
+        );
+
         expect(newBalance).toBeGreaterThan(initialBalance);
 
         console.log(`Airdrop successful! New balance: ${lamportsToSol(newBalance)} SOL`);
       } catch (error) {
         console.warn('Airdrop failed:', error);
-        // Don't fail the test if airdrop fails (rate limiting, etc.)
       }
     }
   });
 
   test('should get account info', async () => {
-    const accountInfo = await client.getAccountInfo(client.signerAddress);
+    const accountInfoResponse = await client.getAccountInfo({
+      pubkey: signerAddress.toString()
+    });
+
+    const accountInfo = accountInfoResponse.value;
 
     if (accountInfo) {
       expect(accountInfo).toHaveProperty('lamports');
       expect(accountInfo).toHaveProperty('owner');
       expect(accountInfo).toHaveProperty('executable');
-      expect(typeof accountInfo.lamports).toBe('number');
+      expect(typeof Number(accountInfo.lamports)).toBe('number');
     }
   });
 
   test('should transfer SOL', async () => {
-    const balance = await client.getBalance();
-    const requiredBalance = solToLamports(0.01);
+    const balanceLamports = await getBalanceLamports(client, signerAddress);
+    const requiredLamports = BigInt(solToLamports(0.01));
 
-    console.log(`Current balance: ${lamportsToSol(balance)} SOL`);
-    console.log(`Required balance: ${lamportsToSol(requiredBalance)} SOL`);
-    console.log(`Address: ${keypair.publicKey.toString()}`);
+    console.log(`Current balance: ${lamportsToSol(balanceLamports)} SOL`);
+    console.log(`Required balance: ${lamportsToSol(requiredLamports)} SOL`);
+    console.log(`Address: ${signerAddress.toString()}`);
 
-    if (balance < requiredBalance) {
-      throw new Error(`Insufficient balance for transfer test. Current: ${lamportsToSol(balance)} SOL, Required: ${lamportsToSol(requiredBalance)} SOL. Please fund local faucet for ${keypair.publicKey.toString()}.`);
+    if (balanceLamports < requiredLamports) {
+      throw new Error(
+        `Insufficient balance for transfer test. Current: ${lamportsToSol(balanceLamports)} SOL, Required: ${lamportsToSol(requiredLamports)} SOL. Please fund local faucet for ${signerAddress.toString()}.`
+      );
     }
 
     const recipient = Keypair.generate().publicKey;
-    const transferAmount = solToLamports(0.001); // 0.001 SOL
+    const transferLamportsValue = solToLamports(0.001);
+    const transferLamports = BigInt(transferLamportsValue);
 
-    const initialRecipientBalance = await client.getBalance(recipient);
+    const initialRecipientBalance = await getBalanceLamports(client, recipient);
+
+    const transferInstruction = createTransferInstruction(
+      signerAddress,
+      recipient,
+      transferLamports
+    );
+
+    const signArgs: SolanaSignArgs = {
+      instructions: [transferInstruction],
+      feePayer: signerAddress
+    };
 
     try {
-      const signature = await client.transfer({
-        recipient,
-        amount: transferAmount,
+      const broadcastResult = await signer.signAndBroadcast(signArgs, {
+        commitment: SolanaCommitment.PROCESSED
       });
 
+      const { signature } = broadcastResult;
       expect(signature).toBeTruthy();
       expect(typeof signature).toBe('string');
 
-      // Wait for transaction to be processed
-      await new Promise(resolve => setTimeout(resolve, 5000));
+      try {
+        await broadcastResult.wait();
+      } catch (awaitError) {
+        console.warn('Wait for confirmation failed:', awaitError);
+      }
 
-      const finalRecipientBalance = await client.getBalance(recipient);
-      expect(finalRecipientBalance).toBe(initialRecipientBalance + transferAmount);
+      const finalRecipientBalance = await waitForBalanceAtLeast(
+        client,
+        recipient,
+        initialRecipientBalance + transferLamports
+      );
+
+      expect(finalRecipientBalance).toBe(initialRecipientBalance + transferLamports);
 
       console.log(`Transfer successful! Signature: ${signature}`);
       console.log(`Recipient balance: ${lamportsToSol(finalRecipientBalance)} SOL`);
@@ -136,5 +275,4 @@ describe('Solana Integration Tests', () => {
   });
 });
 
-// Set timeout for integration tests
 jest.setTimeout(120000);
