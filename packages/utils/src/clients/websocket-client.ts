@@ -25,6 +25,7 @@ export class WebSocketRpcClient implements IRpcClient {
   private messageId = 0;
   private pendingRequests = new Map<string, PendingRequest>();
   private subscriptions = new Map<string, (data: any) => void>();
+  private subscriptionAckMap = new WeakMap<AsyncIterableIterator<unknown>, Promise<string>>();
   private reconnectOptions: ReconnectOptions;
 
   constructor(
@@ -118,56 +119,147 @@ export class WebSocketRpcClient implements IRpcClient {
     });
   }
 
-  async *subscribe<TEvent>(method: string, params?: unknown): AsyncIterable<TEvent> {
+  subscribe<TEvent>(method: string, params?: unknown): AsyncIterable<TEvent> {
     if (!this.connected || !this.socket) {
       throw new ConnectionError('WebSocket is not connected');
     }
 
-    const subscriptionId = (++this.messageId).toString();
-    const request = createJsonRpcRequest(method, params, subscriptionId);
+    const requestId = (++this.messageId).toString();
+    const request = createJsonRpcRequest(method, params, requestId);
 
-    // Send subscription request
-    this.socket.send(JSON.stringify(request));
-
-    // Create async iterator for subscription events
     const eventQueue: TEvent[] = [];
-    let resolveNext: ((value: IteratorResult<TEvent>) => void) | null = null;
+    const pendingQueue: Array<{ resolve: (value: { value: TEvent; done: boolean }) => void; reject: (error: Error) => void }> = [];
     let isComplete = false;
+    let subscriptionId: string | null = null;
 
-    // Set up subscription handler
-    this.subscriptions.set(subscriptionId, (data: TEvent) => {
-      if (resolveNext) {
-        resolveNext({ value: data, done: false });
-        resolveNext = null;
+    const onEvent = (data: TEvent) => {
+      if (isComplete) {
+        return;
+      }
+
+      if (pendingQueue.length > 0) {
+        const { resolve } = pendingQueue.shift()!;
+        resolve({ value: data, done: false });
       } else {
         eventQueue.push(data);
+      }
+    };
+
+    const failPending = (error: Error) => {
+      while (pendingQueue.length > 0) {
+        const { reject } = pendingQueue.shift()!;
+        reject(error);
+      }
+    };
+
+    let timeout: NodeJS.Timeout | null = null;
+
+    const subscriptionIdPromise = new Promise<string>((resolve, reject) => {
+      timeout = setTimeout(() => {
+        this.pendingRequests.delete(requestId);
+        const timeoutError = new TimeoutError(`Subscription ${method} timed out`);
+        failPending(timeoutError);
+        reject(timeoutError);
+      }, 30000);
+
+      this.pendingRequests.set(requestId, {
+        resolve: (value: any) => {
+          try {
+            const normalized = this.normalizeSubscriptionId(value);
+            subscriptionId = normalized;
+            this.subscriptions.set(normalized, onEvent);
+            resolve(normalized);
+          } catch (err) {
+            const normalizedError = err instanceof Error ? err : new NetworkError(String(err));
+            failPending(normalizedError);
+            reject(normalizedError);
+          }
+        },
+        reject: (error: Error) => {
+          const normalizedError = error instanceof Error ? error : new NetworkError(String(error));
+          failPending(normalizedError);
+          reject(normalizedError);
+        },
+        timeout: timeout!
+      });
+    }).finally(() => {
+      if (timeout) {
+        clearTimeout(timeout);
       }
     });
 
     try {
-      while (!isComplete) {
-        if (eventQueue.length > 0) {
-          yield eventQueue.shift()!;
-        } else {
-          yield await new Promise<TEvent>((resolve, reject) => {
+      this.socket.send(JSON.stringify(request));
+    } catch (error: any) {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      this.pendingRequests.delete(requestId);
+      const networkError = new NetworkError(`Failed to send request: ${error.message}`, error);
+      failPending(networkError);
+      throw networkError;
+    }
+
+    const iterator = (async function* (this: WebSocketRpcClient): AsyncIterableIterator<TEvent> {
+      try {
+        await subscriptionIdPromise;
+
+        while (!isComplete) {
+          if (eventQueue.length > 0) {
+            yield eventQueue.shift()!;
+            continue;
+          }
+
+          const nextValue = await new Promise<{ value: TEvent; done: boolean }>((resolve, reject) => {
+            pendingQueue.push({ resolve, reject });
+
             if (!this.connected) {
-              reject(new ConnectionError('WebSocket disconnected during subscription'));
-              return;
+              const disconnectError = new ConnectionError('WebSocket disconnected during subscription');
+              failPending(disconnectError);
             }
-            resolveNext = (result) => {
-              if (result.done) {
-                isComplete = true;
-                reject(new SubscriptionError('Subscription ended'));
-              } else {
-                resolve(result.value);
-              }
-            };
           });
+
+          if (nextValue.done) {
+            isComplete = true;
+            break;
+          }
+
+          yield nextValue.value;
+        }
+      } finally {
+        isComplete = true;
+        pendingQueue.length = 0;
+        if (subscriptionId) {
+          this.subscriptions.delete(subscriptionId);
         }
       }
-    } finally {
-      this.subscriptions.delete(subscriptionId);
+    }).call(this);
+
+    this.subscriptionAckMap.set(iterator, subscriptionIdPromise);
+
+    return iterator;
+  }
+
+  getSubscriptionId(iterable: AsyncIterable<unknown>): Promise<string> | undefined {
+    return this.subscriptionAckMap.get(iterable as AsyncIterableIterator<unknown>);
+  }
+
+  private normalizeSubscriptionId(value: unknown): string {
+    if (typeof value === 'string') {
+      return value;
     }
+    if (typeof value === 'number') {
+      return value.toString();
+    }
+
+    if (value && typeof value === 'object' && 'result' in (value as any)) {
+      const result = (value as any).result;
+      if (typeof result === 'string' || typeof result === 'number') {
+        return String(result);
+      }
+    }
+
+    throw new NetworkError('Received invalid subscription identifier');
   }
 
   private handleMessage(data: string): void {

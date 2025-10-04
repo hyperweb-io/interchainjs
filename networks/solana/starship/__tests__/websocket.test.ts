@@ -1,283 +1,120 @@
-import { WebSocketConnection } from '../../src/websocket-connection';
-import { PublicKey } from '../../src/types';
+import { WebSocketRpcClient } from '@interchainjs/utils';
+import { SubscriptionError } from '@interchainjs/types';
+import { SolanaEventClient } from '../../src/events';
 import { Keypair } from '../../src/keypair';
+import { PublicKey } from '../../src/types';
 import { loadLocalSolanaConfig, waitForRpcReady } from '../test-utils';
 
-// Test configuration (local)
 const { wsEndpoint: LOCAL_WS_ENDPOINT } = loadLocalSolanaConfig();
-const TEST_TIMEOUT = 20000; // 20 seconds for network tests
-const CONNECTION_TIMEOUT = 8000; // 8 seconds for connection
+const TEST_TIMEOUT = 20000;
 
-// Test helper to wait for a condition
-const waitFor = (condition: () => boolean, timeout = 5000): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const start = Date.now();
-    const check = () => {
-      if (condition()) {
-        resolve();
-      } else if (Date.now() - start > timeout) {
-        reject(new Error('Timeout waiting for condition'));
-      } else {
-        setTimeout(check, 100);
-      }
-    };
-    check();
-  });
+const waitFor = async (condition: () => boolean, timeout = 5000): Promise<void> => {
+  const start = Date.now();
+  while (Date.now() - start < timeout) {
+    if (condition()) return;
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+  throw new Error('Timeout waiting for condition');
 };
 
-describe('WebSocketConnection', () => {
-  let wsConnection: WebSocketConnection;
+describe('SolanaEventClient', () => {
+  let wsClient: WebSocketRpcClient;
+  let eventClient: SolanaEventClient;
   let testKeypair: Keypair;
 
   beforeAll(async () => {
-    // Always use a freshly generated keypair for local tests
     testKeypair = Keypair.generate();
-    // Ensure local validator is ready to avoid first-run flakiness
     await waitForRpcReady(20000);
   });
 
   beforeEach(() => {
-    wsConnection = new WebSocketConnection({
-      endpoint: LOCAL_WS_ENDPOINT,
-      timeout: CONNECTION_TIMEOUT,
-      reconnectInterval: 2000,
-      maxReconnectAttempts: 2, // Reduce for faster tests
+    wsClient = new WebSocketRpcClient(LOCAL_WS_ENDPOINT, {
+      reconnect: {
+        maxRetries: 2,
+        retryDelay: 500,
+        exponentialBackoff: false,
+      },
     });
+    eventClient = new SolanaEventClient(wsClient);
   });
 
   afterEach(async () => {
-    if (wsConnection) {
-      wsConnection.disconnect();
-      // Wait for cleanup to prevent async operations after test completion
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    if (eventClient) {
+      await eventClient.disconnect();
     }
   });
 
-  describe('Connection Management', () => {
-    it('should connect to local WebSocket', async () => {
-      await wsConnection.connect();
-
-      await waitFor(() => wsConnection.isConnectionOpen(), 5000);
-      expect(wsConnection.isConnectionOpen()).toBe(true);
-      expect(wsConnection.getSubscriptionCount()).toBe(0);
+  describe('Account subscriptions', () => {
+    it('creates and removes account subscription', async () => {
+      const subscription = await eventClient.subscribeToAccount(testKeypair.publicKey);
+      expect(typeof subscription.id).toBe('string');
+      await subscription.unsubscribe();
     }, TEST_TIMEOUT);
 
-    it('should handle invalid endpoint gracefully', async () => {
-      // Silence expected error logs for this negative test only
-      const errSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
-      try {
-        const invalidWs = new WebSocketConnection({
-          endpoint: 'wss://invalid-endpoint.com',
-          timeout: 3000,
-          maxReconnectAttempts: 0, // Disable reconnection for this test
-        });
-
-        await expect(invalidWs.connect()).rejects.toThrow();
-
-        // Ensure cleanup
-        invalidWs.disconnect();
-
-        // Wait for any pending operations to complete
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      } finally {
-        errSpy.mockRestore();
-      }
-    });
-  });
-
-  describe('Account Subscriptions', () => {
-    beforeEach(async () => {
-      await wsConnection.connect();
-      await waitFor(() => wsConnection.isConnectionOpen());
-    });
-
-    it('should subscribe to account updates', async () => {
-      const accountPubkey = testKeypair.publicKey;
-
-      const subscriptionId = await wsConnection.subscribeToAccount(
-        accountPubkey,
-        (accountData) => {
-          console.log('Received account notification:', accountData);
-          expect(accountData).toBeDefined();
-          if (accountData && typeof accountData === 'object' && 'context' in accountData) {
-            // Slot can be 0 on very first startup; readiness check should avoid it,
-            // but accept 0 defensively to remove startup flakiness.
-            expect((accountData as any).context.slot).toBeGreaterThanOrEqual(0);
-          }
-        },
-        'confirmed'
-      );
-
-      expect(typeof subscriptionId).toBe('number');
-      // Some local validators may start numbering from 0 on first run.
-      expect(subscriptionId).toBeGreaterThanOrEqual(0);
-      expect(wsConnection.getSubscriptionCount()).toBe(1);
-
-      // Wait a bit for potential notifications
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Unsubscribe
-      const unsubscribeResult = await wsConnection.unsubscribeFromAccount(subscriptionId);
-      expect(unsubscribeResult).toBe(true);
-      expect(wsConnection.getSubscriptionCount()).toBe(0);
-    }, TEST_TIMEOUT);
-
-    // Removed redundant multiple-account-only test; covered by concurrent subscriptions below
-  });
-
-  describe('Program Subscriptions', () => {
-    beforeEach(async () => {
-      await wsConnection.connect();
-      await waitFor(() => wsConnection.isConnectionOpen());
-    });
-
-    it('should subscribe to program account updates', async () => {
-      // Use System Program ID (commonly used)
-      const systemProgramId = new PublicKey('11111111111111111111111111111112');
-
-      const subscriptionId = await wsConnection.subscribeToProgram(
-        systemProgramId,
-        (programData) => {
-          console.log('Received program notification:', programData);
-          expect(programData).toBeDefined();
-        },
-        'confirmed'
-      );
-
-      expect(typeof subscriptionId).toBe('number');
-      expect(subscriptionId).toBeGreaterThanOrEqual(0);
-      expect(wsConnection.getSubscriptionCount()).toBe(1);
-
-      // Unsubscribe
-      const unsubscribeResult = await wsConnection.unsubscribeFromProgram(subscriptionId);
-      expect(unsubscribeResult).toBe(true);
-      expect(wsConnection.getSubscriptionCount()).toBe(0);
-    }, TEST_TIMEOUT);
-  });
-
-  describe('Logs Subscriptions', () => {
-    beforeEach(async () => {
-      await wsConnection.connect();
-      await waitFor(() => wsConnection.isConnectionOpen());
-    });
-
-    it('should subscribe to transaction logs', async () => {
-      const systemProgramId = '11111111111111111111111111111112';
-
-      const subscriptionId = await wsConnection.subscribeToLogs(
-        { mentions: [systemProgramId] },
-        (logsData) => {
-          console.log('Received logs notification:', logsData);
-          expect(logsData).toBeDefined();
-          if (logsData && typeof logsData === 'object' && 'value' in logsData) {
-            expect((logsData as any).value).toBeDefined();
-          }
-        },
-        'confirmed'
-      );
-
-      expect(typeof subscriptionId).toBe('number');
-      expect(subscriptionId).toBeGreaterThanOrEqual(0);
-      expect(wsConnection.getSubscriptionCount()).toBe(1);
-
-      // Wait a bit for potential log notifications
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Unsubscribe
-      const unsubscribeResult = await wsConnection.unsubscribeFromLogs(subscriptionId);
-      expect(unsubscribeResult).toBe(true);
-      expect(wsConnection.getSubscriptionCount()).toBe(0);
-    }, TEST_TIMEOUT);
-  });
-
-  describe('Error Handling', () => {
-    it('should throw error when subscribing without connection', async () => {
-      const accountPubkey = testKeypair.publicKey;
+    it('prevents duplicate account subscriptions', async () => {
+      const subscription = await eventClient.subscribeToAccount(testKeypair.publicKey, {
+        commitment: 'confirmed',
+      });
 
       await expect(
-        wsConnection.subscribeToAccount(accountPubkey, () => { })
-      ).rejects.toThrow('WebSocket not connected');
-    });
+        eventClient.subscribeToAccount(testKeypair.publicKey, { commitment: 'confirmed' })
+      ).rejects.toThrow(SubscriptionError);
 
-    it('should handle network disconnection', async () => {
-      await wsConnection.connect();
-      await waitFor(() => wsConnection.isConnectionOpen());
-
-      // Simulate network disconnection by closing the connection
-      wsConnection.disconnect();
-      await waitFor(() => !wsConnection.isConnectionOpen());
-
-      expect(wsConnection.isConnectionOpen()).toBe(false);
+      await subscription.unsubscribe();
     }, TEST_TIMEOUT);
   });
 
-  describe('Subscription Management', () => {
-    beforeEach(async () => {
-      await wsConnection.connect();
-      await waitFor(() => wsConnection.isConnectionOpen());
-    });
-
-    it('should manage multiple concurrent subscriptions', async () => {
-      const account1 = testKeypair.publicKey;
-      const account2 = Keypair.generate().publicKey;
-      const programId = new PublicKey('11111111111111111111111111111112');
-      const systemProgramId = '11111111111111111111111111111112';
-
-      // Create multiple subscriptions
-      const accountSub1 = await wsConnection.subscribeToAccount(account1, () => { });
-      const accountSub2 = await wsConnection.subscribeToAccount(account2, () => { });
-      const programSub = await wsConnection.subscribeToProgram(programId, () => { });
-      const logsSub = await wsConnection.subscribeToLogs({ mentions: [systemProgramId] }, () => { });
-
-      expect(wsConnection.getSubscriptionCount()).toBe(4);
-
-      // Unsubscribe all
-      await wsConnection.unsubscribeFromAccount(accountSub1);
-      await wsConnection.unsubscribeFromAccount(accountSub2);
-      await wsConnection.unsubscribeFromProgram(programSub);
-      await wsConnection.unsubscribeFromLogs(logsSub);
-
-      expect(wsConnection.getSubscriptionCount()).toBe(0);
+  describe('Program and log subscriptions', () => {
+    it('creates program subscription handles cleanup', async () => {
+      const systemProgramId = new PublicKey('11111111111111111111111111111112');
+      const subscription = await eventClient.subscribeToProgram(systemProgramId);
+      expect(subscription.method).toBe('programSubscribe');
+      await subscription.unsubscribe();
     }, TEST_TIMEOUT);
 
-    it('should handle subscription cleanup on disconnect', async () => {
-      const accountPubkey = testKeypair.publicKey;
-
-      await wsConnection.subscribeToAccount(accountPubkey, () => { });
-      expect(wsConnection.getSubscriptionCount()).toBe(1);
-
-      wsConnection.disconnect();
-      await waitFor(() => !wsConnection.isConnectionOpen());
-
-      // Subscriptions should be cleaned up
-      expect(wsConnection.getSubscriptionCount()).toBe(0);
+    it('creates logs subscription handles cleanup', async () => {
+      const subscription = await eventClient.subscribeToLogs('all');
+      expect(subscription.method).toBe('logsSubscribe');
+      await subscription.unsubscribe();
     }, TEST_TIMEOUT);
   });
 
-  // Removed flaky real-time notification wait; covered by subscription tests above
-});
-
-// Environment and setup tests
-describe('WebSocket Test Environment', () => {
-  it('should be able to create and manage keypairs', () => {
-    const keypair = Keypair.generate();
-    expect(keypair).toBeDefined();
-    expect(keypair.publicKey).toBeInstanceOf(PublicKey);
-    expect(keypair.secretKey).toBeDefined();
-    expect(keypair.secretKey.length).toBe(64);
+  describe('Slot stream', () => {
+    it('creates slot subscription and unsubscribes cleanly', async () => {
+      const subscription = await eventClient.subscribeToSlot();
+      expect(subscription.method).toBe('slotSubscribe');
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      await subscription.unsubscribe();
+    }, TEST_TIMEOUT);
   });
 
-  it('should validate WebSocket connection configuration', () => {
-    const config = {
-      endpoint: LOCAL_WS_ENDPOINT,
-      timeout: 5000,
-      reconnectInterval: 1000,
-      maxReconnectAttempts: 3,
-    };
+  describe('Subscription management', () => {
+    it('unsubscribes from all active subscriptions', async () => {
+      const first = await eventClient.subscribeToAccount(testKeypair.publicKey);
+      const second = await eventClient.subscribeToLogs('all');
 
-    expect(config.endpoint.startsWith('ws://') || config.endpoint.startsWith('wss://')).toBe(true);
-    expect(config.timeout).toBeGreaterThan(0);
-    expect(config.reconnectInterval).toBeGreaterThan(0);
-    expect(config.maxReconnectAttempts).toBeGreaterThanOrEqual(0);
+      await eventClient.unsubscribeFromAll();
+
+      await expect(first.unsubscribe()).resolves.toBeUndefined();
+      await expect(second.unsubscribe()).resolves.toBeUndefined();
+    }, TEST_TIMEOUT);
+
+    it('handles disconnect after subscriptions', async () => {
+      const accountSub = await eventClient.subscribeToAccount(testKeypair.publicKey);
+      const slotSub = await eventClient.subscribeToSlot();
+
+      await eventClient.disconnect();
+
+      await expect(accountSub.unsubscribe()).resolves.toBeUndefined();
+      await expect(slotSub.unsubscribe()).resolves.toBeUndefined();
+    }, TEST_TIMEOUT);
+  });
+
+  describe('Connection failures', () => {
+    it('throws when subscribing with invalid endpoint', async () => {
+      const badClient = new SolanaEventClient(new WebSocketRpcClient('ws://127.0.0.1:0'));
+      await expect(badClient.subscribeToAccount(testKeypair.publicKey)).rejects.toThrow();
+      await badClient.disconnect();
+    }, TEST_TIMEOUT);
   });
 });

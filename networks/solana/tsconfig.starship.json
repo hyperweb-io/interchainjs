@@ -7,5 +7,5 @@
       "@interchainjs/*": ["../../packages/*/src"]
     }
   },
-  "include": ["src/**/*.ts", "starship/**/*.ts"]
+  "include": ["src/**/*.ts", "starship/**/*.ts", "../../packages/**/*.ts"]
 }

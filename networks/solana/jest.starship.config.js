@@ -16,6 +16,7 @@ module.exports = {
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   transformIgnorePatterns: ['/node_modules/'],
   moduleNameMapper: {
+    '^@interchainjs/utils$': '<rootDir>/../../packages/utils/src/index.ts',
     '^@interchainjs/(.*)$': '<rootDir>/../../packages/$1/src',
   },
   testRegex: '/starship/__tests__/.*\\.(test|spec)\\.(ts|js)$',

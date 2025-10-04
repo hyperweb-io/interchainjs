@@ -12,6 +12,7 @@ export * from './keypair';
 export * from './transaction';
 export * from './utils';
 export * from './helpers';
+export * from './events';
 
 // Re-export shared RPC clients for convenience
 export { HttpRpcClient, HttpEndpoint } from '@interchainjs/utils';
@@ -20,5 +21,9 @@ export { HttpRpcClient, HttpEndpoint } from '@interchainjs/utils';
 export {
   createSolanaQueryClient,
   SolanaClientFactory,
-  type SolanaClientOptions
+  type SolanaClientOptions,
+  createSolanaEventClient,
+  createSolanaClients,
+  createSolanaUnifiedClient,
+  type SolanaWebSocketClientOptions
 } from './client-factory';
