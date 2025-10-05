@@ -4,3 +4,6 @@ export * from './logs-notification';
 export * from './slot-notification';
 export * from './root-notification';
 export * from './signature-notification';
+export * from './block-notification';
+export * from './slots-updates-notification';
+export * from './vote-notification';

@@ -1,20 +1,28 @@
 import { IRpcClient, SubscriptionError } from '@interchainjs/types';
 import {
   AccountNotification,
+  BlockNotification,
   LogsNotification,
   ProgramNotification,
   RootNotification,
   SignatureNotification,
   SlotNotification,
+  SlotsUpdatesNotification,
+  VoteNotification,
   createAccountNotification,
+  createBlockNotification,
   createLogsNotification,
   createProgramNotification,
   createRootNotification,
   createSignatureNotification,
-  createSlotNotification
+  createSlotNotification,
+  createSlotsUpdatesNotification,
+  createVoteNotification
 } from '../types/responses/events';
 import {
   AccountSubscribeOptions,
+  BlockSubscribeFilter,
+  BlockSubscribeOptions,
   ISolanaEventClient,
   LogsSubscribeFilter,
   LogsSubscribeOptions,
@@ -33,7 +41,7 @@ interface ActiveSubscriptionRecord {
 
 type Decoder<TRaw, TEvent> = (data: TRaw) => TEvent;
 
-type SubscriptionParams = unknown;
+type SubscriptionParams = readonly unknown[];
 
 export class SolanaEventClient implements ISolanaEventClient {
   private readonly activeSubscriptions = new Map<string, ActiveSubscriptionRecord>();
@@ -44,7 +52,10 @@ export class SolanaEventClient implements ISolanaEventClient {
     logsSubscribe: 'logsUnsubscribe',
     signatureSubscribe: 'signatureUnsubscribe',
     slotSubscribe: 'slotUnsubscribe',
-    rootSubscribe: 'rootUnsubscribe'
+    rootSubscribe: 'rootUnsubscribe',
+    blockSubscribe: 'blockUnsubscribe',
+    slotsUpdatesSubscribe: 'slotsUpdatesUnsubscribe',
+    voteSubscribe: 'voteUnsubscribe'
   };
 
   constructor(private readonly rpcClient: IRpcClient) {}
@@ -166,6 +177,31 @@ export class SolanaEventClient implements ISolanaEventClient {
     });
   }
 
+  async subscribeToBlock(
+    filter: BlockSubscribeFilter,
+    options?: BlockSubscribeOptions
+  ): Promise<SolanaSubscription<BlockNotification>> {
+    const normalizedFilter = this.normalizeBlockFilter(filter);
+    const params: SubscriptionParams = [
+      normalizedFilter,
+      this.compactObject({
+        commitment: options?.commitment ?? 'finalized',
+        encoding: options?.encoding,
+        transactionDetails: options?.transactionDetails,
+        maxSupportedTransactionVersion: options?.maxSupportedTransactionVersion,
+        showRewards: options?.showRewards
+      })
+    ];
+
+    return this.createSubscription({
+      method: 'blockSubscribe',
+      unsubscribeMethod: 'blockUnsubscribe',
+      params,
+      key: this.createSubscriptionKey('blockSubscribe', params),
+      decoder: createBlockNotification
+    });
+  }
+
   async subscribeToSlot(): Promise<SolanaSubscription<SlotNotification>> {
     const params: SubscriptionParams = [];
     return this.createSubscription({
@@ -185,6 +221,28 @@ export class SolanaEventClient implements ISolanaEventClient {
       params,
       key: this.createSubscriptionKey('rootSubscribe', params),
       decoder: createRootNotification
+    });
+  }
+
+  async subscribeToSlotsUpdates(): Promise<SolanaSubscription<SlotsUpdatesNotification>> {
+    const params: SubscriptionParams = [];
+    return this.createSubscription({
+      method: 'slotsUpdatesSubscribe',
+      unsubscribeMethod: 'slotsUpdatesUnsubscribe',
+      params,
+      key: this.createSubscriptionKey('slotsUpdatesSubscribe', params),
+      decoder: createSlotsUpdatesNotification
+    });
+  }
+
+  async subscribeToVote(): Promise<SolanaSubscription<VoteNotification>> {
+    const params: SubscriptionParams = [];
+    return this.createSubscription({
+      method: 'voteSubscribe',
+      unsubscribeMethod: 'voteUnsubscribe',
+      params,
+      key: this.createSubscriptionKey('voteSubscribe', params),
+      decoder: createVoteNotification
     });
   }
 
@@ -361,6 +419,16 @@ export class SolanaEventClient implements ISolanaEventClient {
     }
 
     throw new SubscriptionError('Invalid logs subscription filter');
+  }
+
+  private normalizeBlockFilter(filter: BlockSubscribeFilter): { readonly mentionsAccountOrProgram: string } {
+    const target = filter?.mentionsAccountOrProgram;
+    if (!target) {
+      throw new SubscriptionError('Block subscription requires mentionsAccountOrProgram filter');
+    }
+
+    const pubkey = this.normalizePubkey(target);
+    return { mentionsAccountOrProgram: pubkey };
   }
 
   private compactObject<T extends Record<string, unknown>>(obj: T): T {

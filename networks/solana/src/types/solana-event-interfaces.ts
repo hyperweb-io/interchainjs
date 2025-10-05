@@ -1,11 +1,14 @@
 import { IEventClient } from '@interchainjs/types';
 import {
   AccountNotification,
+  BlockNotification,
   LogsNotification,
   ProgramNotification,
   RootNotification,
   SignatureNotification,
-  SlotNotification
+  SlotNotification,
+  SlotsUpdatesNotification,
+  VoteNotification
 } from './responses/events';
 
 export type CommitmentLevel = 'processed' | 'confirmed' | 'finalized';
@@ -39,6 +42,18 @@ export interface SignatureSubscribeOptions {
   readonly enableReceivedNotification?: boolean;
 }
 
+export interface BlockSubscribeFilter {
+  readonly mentionsAccountOrProgram: string | { toString(): string };
+}
+
+export interface BlockSubscribeOptions {
+  readonly commitment?: CommitmentLevel;
+  readonly encoding?: 'json' | 'jsonParsed' | 'base64' | 'base58';
+  readonly transactionDetails?: 'full' | 'signatures' | 'none';
+  readonly maxSupportedTransactionVersion?: number;
+  readonly showRewards?: boolean;
+}
+
 export interface SolanaSubscription<TEvent> extends AsyncIterable<TEvent> {
   readonly id: string;
   readonly method: string;
@@ -61,12 +76,20 @@ export interface ISolanaEventClient extends IEventClient {
     options?: LogsSubscribeOptions
   ): Promise<SolanaSubscription<LogsNotification>>;
 
+  subscribeToBlock(
+    filter: BlockSubscribeFilter,
+    options?: BlockSubscribeOptions
+  ): Promise<SolanaSubscription<BlockNotification>>;
+
   subscribeToSlot(): Promise<SolanaSubscription<SlotNotification>>;
   subscribeToRoot(): Promise<SolanaSubscription<RootNotification>>;
   subscribeToSignature(
     signature: string,
     options?: SignatureSubscribeOptions
   ): Promise<SolanaSubscription<SignatureNotification>>;
+
+  subscribeToSlotsUpdates(): Promise<SolanaSubscription<SlotsUpdatesNotification>>;
+  subscribeToVote(): Promise<SolanaSubscription<VoteNotification>>;
 
   disconnect(): Promise<void>;
 }
