@@ -265,20 +265,26 @@ export class WebSocketRpcClient implements IRpcClient {
   private handleMessage(data: string): void {
     try {
       const message = JSON.parse(data);
-      
-      if (message.id && this.pendingRequests.has(message.id)) {
-        const pending = this.pendingRequests.get(message.id)!;
-        this.pendingRequests.delete(message.id);
-        clearTimeout(pending.timeout);
 
-        if (message.error) {
-          pending.reject(new NetworkError(`RPC Error: ${message.error.message}`, message.error));
-        } else {
-          pending.resolve(message.result);
+      if (message?.id !== undefined && message?.id !== null) {
+        const requestId = String(message.id);
+        if (this.pendingRequests.has(requestId)) {
+          const pending = this.pendingRequests.get(requestId)!;
+          this.pendingRequests.delete(requestId);
+          clearTimeout(pending.timeout);
+
+          if (message.error) {
+            pending.reject(new NetworkError(`RPC Error: ${message.error.message}`, message.error));
+          } else {
+            pending.resolve(message.result);
+          }
+          return;
         }
-      } else if (message.method && this.subscriptions.has(message.params?.subscription)) {
-        // Handle subscription event
-        const handler = this.subscriptions.get(message.params.subscription);
+      }
+
+      const subscriptionId = message?.params?.subscription;
+      if (message?.method && subscriptionId !== undefined && subscriptionId !== null) {
+        const handler = this.subscriptions.get(String(subscriptionId));
         if (handler) {
           handler(message.params.result);
         }
