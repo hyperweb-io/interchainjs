@@ -1,4 +1,4 @@
-import { IRpcClient, SubscriptionError } from '@interchainjs/types';
+import { IRpcClient, NetworkError, SubscriptionError } from '@interchainjs/types';
 import {
   AccountNotification,
   BlockNotification,
@@ -346,8 +346,18 @@ export class SolanaEventClient implements ISolanaEventClient {
           await this.rpcClient.call(unsubscribeMethod, [formattedId]);
         }
       } catch (error: unknown) {
-        cleanup();
-        throw new SubscriptionError(`Failed to unsubscribe from ${method}`, error instanceof Error ? error : undefined);
+        const isInvalidSubscriptionId =
+          error instanceof NetworkError &&
+          typeof error.message === 'string' &&
+          error.message.includes('Invalid subscription id');
+
+        if (!isInvalidSubscriptionId) {
+          cleanup();
+          throw new SubscriptionError(
+            `Failed to unsubscribe from ${method}`,
+            error instanceof Error ? error : undefined
+          );
+        }
       } finally {
         await closeIterator();
         cleanup();
