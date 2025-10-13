@@ -14,6 +14,9 @@ export interface SolanaClientOptions {
   protocolVersion?: SolanaProtocolVersion;
   timeout?: number;
   headers?: Record<string, string>;
+  retries?: number;
+  retryDelayMs?: number;
+  maxRetryDelayMs?: number;
 }
 
 export interface SolanaWebSocketClientOptions extends SolanaClientOptions {
@@ -73,7 +76,10 @@ export class SolanaClientFactory {
   ): Promise<ISolanaQueryClient> {
     const rpcClient = new HttpRpcClient(endpoint, {
       timeout: options.timeout,
-      headers: options.headers
+      headers: options.headers,
+      retries: options.retries,
+      retryDelayMs: options.retryDelayMs,
+      maxRetryDelayMs: options.maxRetryDelayMs
     });
 
     const adapter = await this.getProtocolAdapter(endpoint, options);
@@ -101,7 +107,10 @@ export class SolanaClientFactory {
 
     const httpRpcClient = new HttpRpcClient(httpEndpoint, {
       timeout: options.timeout,
-      headers: options.headers
+      headers: options.headers,
+      retries: options.retries,
+      retryDelayMs: options.retryDelayMs,
+      maxRetryDelayMs: options.maxRetryDelayMs
     });
 
     const wsRpcClient = new WebSocketRpcClient(wsEndpoint, {

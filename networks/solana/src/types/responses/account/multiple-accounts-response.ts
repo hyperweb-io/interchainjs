@@ -5,7 +5,7 @@ interface AccountInfo {
   readonly owner: string;
   readonly data: Uint8Array | unknown; // Can be binary data or jsonParsed
   readonly executable: boolean;
-  readonly rentEpoch: number;
+  readonly rentEpoch: bigint;
 }
 
 // Context wrapper for RPC response
@@ -44,7 +44,13 @@ const AccountInfoCodec = createCodec<AccountInfo>({
     converter: ensureBoolean
   },
   rentEpoch: {
-    converter: ensureNumber
+    converter: (value: unknown) => {
+      const bigintValue = apiToBigInt(value);
+      if (bigintValue === undefined) {
+        throw new Error('rentEpoch is required');
+      }
+      return bigintValue;
+    }
   }
 });
 

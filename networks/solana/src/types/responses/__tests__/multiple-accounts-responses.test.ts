@@ -40,14 +40,14 @@ describe('MultipleAccountsResponse', () => {
             executable: false,
             lamports: 88849814690250n,
             owner: '11111111111111111111111111111111',
-            rentEpoch: 18446744073709551615
+            rentEpoch: 18446744073709551615n
           },
           {
             data: new Uint8Array(),
             executable: false,
             lamports: 998763433n,
             owner: '2WRuhE4GJFoE23DYzp2ij6ZnuQ8p9mJeU6gDgfsjR4or',
-            rentEpoch: 18446744073709551615
+            rentEpoch: 18446744073709551615n
           }
         ]
       });
@@ -84,7 +84,7 @@ describe('MultipleAccountsResponse', () => {
             executable: false,
             lamports: 88849814690250n,
             owner: '11111111111111111111111111111111',
-            rentEpoch: 18446744073709551615
+            rentEpoch: 18446744073709551615n
           },
           null
         ]

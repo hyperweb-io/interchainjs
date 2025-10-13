@@ -178,6 +178,11 @@ export const decodeAccountData = (value: unknown): Uint8Array | unknown => {
   }
   
   // Handle jsonParsed or other formats - return as-is
+  if (typeof value === 'string') {
+    // Default encoding when not specified is base64
+    return base64ToBytes(value);
+  }
+
   return value;
 };
 

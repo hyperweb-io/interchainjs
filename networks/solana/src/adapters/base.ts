@@ -984,9 +984,21 @@ export abstract class BaseSolanaAdapter implements RequestEncoder, ResponseDecod
     return this.decodeBlocks(response);
   }
   decodeIsBlockhashValid(response: unknown): boolean {
-    const resp = response as any; const result = resp?.result ?? resp;
-    if (typeof result !== 'boolean') throw new Error('Invalid isBlockhashValid response');
-    return result;
+    const resp = response as any;
+    const result = resp?.result ?? resp;
+
+    if (typeof result === 'boolean') {
+      return result;
+    }
+
+    if (result && typeof result === 'object') {
+      const value = (result as any).value;
+      if (typeof value === 'boolean') {
+        return value;
+      }
+    }
+
+    throw new Error('Invalid isBlockhashValid response');
   }
   decodeHighestSnapshotSlot(response: unknown): HighestSnapshotSlotResponse {
     const resp = response as any; const result = resp?.result ?? resp;

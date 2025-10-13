@@ -13,25 +13,24 @@ export interface GetBlockHeightRequest {
   options?: GetBlockHeightOptions;
 }
 
-export interface EncodedGetBlockHeightRequest {
-  commitment?: string;
-  minContextSlot?: number;
-}
+export type EncodedGetBlockHeightRequest = [GetBlockHeightOptions?];
 
-export function encodeGetBlockHeightRequest(request?: GetBlockHeightRequest): EncodedGetBlockHeightRequest | undefined {
-  if (!request?.options) {
-    return undefined;
-  }
+export function encodeGetBlockHeightRequest(request?: GetBlockHeightRequest): EncodedGetBlockHeightRequest {
+  const params: EncodedGetBlockHeightRequest = [];
 
-  const encoded: EncodedGetBlockHeightRequest = {};
+  const encoded: GetBlockHeightOptions = {};
 
-  if (request.options.commitment !== undefined) {
+  if (request?.options?.commitment !== undefined) {
     encoded.commitment = request.options.commitment;
   }
 
-  if (request.options.minContextSlot !== undefined) {
+  if (request?.options?.minContextSlot !== undefined) {
     encoded.minContextSlot = request.options.minContextSlot;
   }
 
-  return Object.keys(encoded).length > 0 ? encoded : undefined;
+  if (Object.keys(encoded).length > 0) {
+    params.push(encoded);
+  }
+
+  return params;
 }

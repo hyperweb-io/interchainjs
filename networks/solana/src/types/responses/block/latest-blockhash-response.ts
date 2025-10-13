@@ -2,11 +2,11 @@
  * LatestBlockhash response types and codec
  */
 
-import { createCodec, ensureString, ensureNumber } from '../../codec';
+import { createCodec, ensureString, apiToBigInt, ensureNumber } from '../../codec';
 
 export interface LatestBlockhashResponse {
   readonly blockhash: string;
-  readonly lastValidBlockHeight: number;
+  readonly lastValidBlockHeight: bigint;
 }
 
 // Context wrapper for RPC response
@@ -23,7 +23,13 @@ export const LatestBlockhashCodec = createCodec<LatestBlockhashResponse>({
     converter: ensureString
   },
   lastValidBlockHeight: {
-    converter: ensureNumber
+    converter: (value: unknown) => {
+      const bigintValue = apiToBigInt(value);
+      if (bigintValue === undefined) {
+        throw new Error('lastValidBlockHeight is required');
+      }
+      return bigintValue;
+    }
   }
 });
 
