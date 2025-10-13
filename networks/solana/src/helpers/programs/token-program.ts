@@ -273,6 +273,27 @@ export const TokenProgram = {
     return TokenInstructions.revoke(account, owner, multiSigners, programId);
   },
 
+  setAuthority(
+    account: PublicKey,
+    currentAuthority: PublicKey,
+    authorityType: AuthorityType,
+    newAuthority: PublicKey | null,
+    multiSigners: PublicKey[] = [],
+    programId: PublicKey = TOKEN_PROGRAM_ID
+  ): TransactionInstruction {
+    return TokenInstructions.setAuthority(account, currentAuthority, authorityType, newAuthority, multiSigners, programId);
+  },
+
+  closeAccount(
+    account: PublicKey,
+    destination: PublicKey,
+    owner: PublicKey,
+    multiSigners: PublicKey[] = [],
+    programId: PublicKey = TOKEN_PROGRAM_ID
+  ): TransactionInstruction {
+    return TokenInstructions.closeAccount(account, destination, owner, multiSigners, programId);
+  },
+
   freezeAccount(
     account: PublicKey,
     mint: PublicKey,
@@ -291,6 +312,10 @@ export const TokenProgram = {
     programId: PublicKey = TOKEN_PROGRAM_ID
   ): TransactionInstruction {
     return TokenInstructions.thawAccount(account, mint, freezeAuthority, multiSigners, programId);
+  },
+
+  syncNative(account: PublicKey, programId: PublicKey = TOKEN_PROGRAM_ID): TransactionInstruction {
+    return TokenInstructions.syncNative(account, programId);
   },
 
   async createWrappedNativeAccount(
