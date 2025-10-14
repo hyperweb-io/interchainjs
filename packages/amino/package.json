@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/amino",
-  "version": "1.17.8",
+  "version": "1.18.0",
   "description": "Helpers for Amino based signing.",
   "contributors": [
     "Simon Warta <webmaster128@users.noreply.github.com>"
@@ -41,10 +41,10 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/crypto": "1.17.8",
-    "@interchainjs/encoding": "1.17.8",
-    "@interchainjs/math": "1.17.8",
-    "@interchainjs/utils": "1.17.8"
+    "@interchainjs/crypto": "1.18.0",
+    "@interchainjs/encoding": "1.18.0",
+    "@interchainjs/math": "1.18.0",
+    "@interchainjs/utils": "1.18.0"
   },
   "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3",
   "devDependencies": {

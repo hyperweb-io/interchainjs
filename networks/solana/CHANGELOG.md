@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.17.8...@interchainjs/solana@1.18.0) (2025-10-14)
+
+### Features
+
+- **solana-tests:** make SPL token tests pass without local node ([10b9997](https://github.com/hyperweb-io/interchainjs/commit/10b99979dc4398f8fbfa5785d31ea3523d918050))
+- **solana:** stabilize local integration test confirmations ([af1cf03](https://github.com/hyperweb-io/interchainjs/commit/af1cf034401f9b30ba6d94ead7100df0c66700a6))
+
 ## [1.17.8](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.17.7...@interchainjs/solana@1.17.8) (2025-10-02)
 
 **Note:** Version bump only for package @interchainjs/solana
