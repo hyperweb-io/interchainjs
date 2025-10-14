@@ -12,7 +12,7 @@ import {
   createEthereumSignerConfig,
   EthereumSignerConfig
 } from '@interchainjs/ethereum';
-import { Keypair, SolanaSigner, SolanaSignerConfig } from '@interchainjs/solana';
+import { SolanaSigner, SolanaSignerConfig } from '@interchainjs/solana';
 
 // Exported signer type constants
 export const COSMOS_AMINO = 'cosmos_amino' as const;
@@ -52,7 +52,7 @@ export interface GetSignerOptions {
  * based on the preferred sign type and configuration options.
  *
  * @template T - The specific signer type that extends IUniSigner
- * @param walletOrSigner - Wallet instance, OfflineSigner, or Solana Keypair for signing
+ * @param walletOrSigner - Wallet instance or OfflineSigner for signing (Solana Keypair implements IWallet)
  * @param options - Configuration options including preferredSignType and signer-specific settings
  * @returns Configured signer instance of type T
  * @throws Error if the sign type is unsupported or required dependencies are missing
@@ -98,7 +98,7 @@ export interface GetSignerOptions {
  *   }
  * });
  *
- * // Create a Solana signer using a Keypair
+ * // Create a Solana signer using any IWallet (Solana Keypair implements IWallet)
  * const solanaSigner = getSigner<SolanaSigner>(myKeypair, {
  *   preferredSignType: SOLANA_STD,
  *   signerOptions: {
@@ -109,7 +109,7 @@ export interface GetSignerOptions {
  * ```
  */
 export function getSigner<T extends IUniSigner>(
-  walletOrSigner: IWallet | OfflineSigner | Keypair,
+  walletOrSigner: IWallet | OfflineSigner,
   options: GetSignerOptions
 ): T {
   // Validate required parameters
@@ -177,7 +177,7 @@ function createDirectSigner(walletOrSigner: IWallet | OfflineSigner, signerOptio
  * Creates a Solana signer instance
  */
 function createSolanaSigner(
-  walletOrSigner: IWallet | OfflineSigner | Keypair,
+  walletOrSigner: IWallet | OfflineSigner,
   signerOptions: unknown
 ): SolanaSigner {
   const config = signerOptions as SolanaSignerConfig;
@@ -185,16 +185,11 @@ function createSolanaSigner(
   if (!config?.queryClient) {
     throw new Error('Failed to create Solana signer: queryClient is required in signerOptions');
   }
-
-  if (walletOrSigner instanceof Keypair) {
-    return new SolanaSigner(walletOrSigner, config);
-  }
-
   if (isWalletAuth(walletOrSigner)) {
     return new SolanaSigner(walletOrSigner, config);
   }
 
-  throw new Error('Failed to create Solana signer: walletOrSigner must be a Solana Keypair or IWallet');
+  throw new Error('Failed to create Solana signer: walletOrSigner must implement IWallet');
 }
 
 /**
