@@ -73,6 +73,7 @@ npm install interchainjs
 - [Supported Networks](#supported-networks)
   - [Cosmos Network](#cosmos-network)
   - [Injective Network](#injective-network)
+  - [Solana Network](#solana-network)
   - [Ethereum Network](#ethereum-network)
 - [Developing](#developing)
   - [Codegen](#codegen)
@@ -90,7 +91,7 @@ At its core, InterchainJS provides a **flexible adapter pattern** that abstracts
 
 InterchainJS sits at the foundation of the **[Interchain JavaScript Stack](https://hyperweb.io/stack)**, a set of tools that work together like nested building blocks:
 
-- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Ethereum (EIP-712), and beyond.
+- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Solana, Ethereum (EIP-712), and beyond.
 - **[Interchain Kit](https://hyperweb.io/stack/interchain-kit)** → Wallet adapters that connect dApps to multiple blockchain networks.
 - **[Interchain UI](https://hyperweb.io/stack/interchain-ui)** → A flexible UI component library for seamless app design.
 - **[Create Interchain App](https://hyperweb.io/stack/create-interchain-app)** → A developer-friendly starter kit for cross-chain applications.
@@ -105,6 +106,7 @@ The diagram below illustrates how InterchainJS connects different signer types t
 graph LR
     signers --> cosmos_signer["Cosmos Network"]
     signers --> injective_signer["Injective Network"]
+    signers --> solana_signer["Solana Network"]
     signers --> ethereum_signer["Ethereum Network"]
     signers --> implement_signer["ANY Network"]
 
@@ -116,6 +118,8 @@ graph LR
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
+
+    solana_signer --> solana_std["Standard Signer"]
 
     implement_signer --> any_signer["Any Signer"]
 
@@ -150,6 +154,7 @@ The following resources provide comprehensive guidance for developers working wi
 | **Create Interchain App**    | [Create Interchain App](https://github.com/hyperweb-io/create-interchain-app) |
 | **Building a Custom Signer** | [Building a Custom Signer](/docs/building-a-custom-signer.md)                 |
 | **Advanced Documentation**   | [View Docs](/docs/)                                                           |
+| **Solana Network Guide**     | [@interchainjs/solana](/networks/solana/README.md)                            |
 
 ### RPC Clients
 
@@ -603,11 +608,11 @@ The `getSigner` function is a powerful factory utility that provides a unified i
 The `getSigner` function creates appropriate signer instances based on your preferred signing method and network type. It supports Cosmos-based networks (including Injective) and Ethereum networks, with automatic configuration merging and comprehensive error handling.
 
 ```typescript
-import { getSigner } from '@interchainjs/interchain/core';
+import { getSigner, COSMOS_DIRECT } from '@interchainjs/interchain/core';
 import { DirectSigner } from '@interchainjs/cosmos';
 
 const signer = getSigner<DirectSigner>(wallet, {
-  preferredSignType: 'direct',
+  preferredSignType: COSMOS_DIRECT,
   signerOptions: {
     queryClient: cosmosQueryClient,
     chainId: 'cosmoshub-4',
@@ -618,22 +623,23 @@ const signer = getSigner<DirectSigner>(wallet, {
 
 ### Supported Signer Types
 
-The `getSigner` function supports four main signer types:
+The `getSigner` function supports five main signer types:
 
 | Signer Type | Network | Description | Wallet Support |
 |-------------|---------|-------------|----------------|
-| `'amino'` | Cosmos | Legacy Amino signing for Cosmos networks | IWallet, OfflineSigner |
-| `'direct'` | Cosmos | Modern Protobuf signing for Cosmos networks | IWallet, OfflineSigner |
-| `'legacy'` | Ethereum | Legacy Ethereum transactions (pre-EIP-1559) | IWallet only |
-| `'eip1559'` | Ethereum | Modern Ethereum transactions with EIP-1559 | IWallet only |
+| `'cosmos_amino'` | Cosmos | Legacy Amino signing for Cosmos networks | IWallet, OfflineSigner |
+| `'cosmos_direct'` | Cosmos | Modern Protobuf signing for Cosmos networks | IWallet, OfflineSigner |
+| `'solana_std'` | Solana | Standard Solana transaction workflow signer | IWallet, Keypair |
+| `'ethereum_legacy'` | Ethereum | Legacy Ethereum transactions (pre-EIP-1559) | IWallet only |
+| `'ethereum_eip1559'` | Ethereum | Modern Ethereum transactions with EIP-1559 | IWallet only |
 
-**Important**: Ethereum signers (`legacy` and `eip1559`) only work with `IWallet` implementations and do not support `OfflineSigner` interfaces.
+**Important**: Ethereum signers (`ethereum_legacy` and `ethereum_eip1559`) only work with `IWallet` implementations and do not support `OfflineSigner` interfaces.
 
 ### Configuration Options
 
 Each signer type accepts specific configuration options that are automatically merged with sensible defaults:
 
-#### Cosmos Signers (`amino`, `direct`)
+#### Cosmos Signers (`cosmos_amino`, `cosmos_direct`)
 
 ```typescript
 interface CosmosSignerOptions {
@@ -659,7 +665,25 @@ interface CosmosSignerOptions {
 }
 ```
 
-#### Ethereum Signers (`legacy`, `eip1559`)
+#### Ethereum Signers (`ethereum_legacy`, `ethereum_eip1559`)
+
+#### Solana Signers (`solana_std`)
+
+Solana signers require an `ISolanaQueryClient` and either a Solana `Keypair` or an `IWallet` implementation that exposes Solana-compatible accounts. Configuration options include:
+
+Pair the signer with the request-object query clients created via `createSolanaQueryClient` for consistent RPC typing. See the full Solana workflows in `/networks/solana/README.md`.
+
+```typescript
+interface SolanaSignerOptions {
+  // Required
+  queryClient: ISolanaQueryClient;
+
+  // Optional defaults
+  commitment?: string;     // Default: 'processed'
+  skipPreflight?: boolean; // Default: false
+  maxRetries?: number;     // Default: 3
+}
+```
 
 ```typescript
 interface EthereumSignerOptions {
@@ -703,7 +727,7 @@ const wallet = await Secp256k1HDWallet.fromMnemonic(mnemonic, {
 
 // Create signer with minimal configuration
 const signer = getSigner<DirectSigner>(wallet, {
-  preferredSignType: 'direct',
+  preferredSignType: 'cosmos_direct',
   signerOptions: {
     queryClient: cosmosQueryClient,
     chainId: 'cosmoshub-4',
@@ -718,7 +742,7 @@ const signer = getSigner<DirectSigner>(wallet, {
 import { AminoSigner } from '@interchainjs/cosmos';
 
 const aminoSigner = getSigner<AminoSigner>(wallet, {
-  preferredSignType: 'amino',
+  preferredSignType: 'cosmos_amino',
   signerOptions: {
     queryClient: cosmosQueryClient,
     chainId: 'osmosis-1',
@@ -740,13 +764,51 @@ await window.keplr.enable('cosmoshub-4');
 const offlineSigner = window.keplr.getOfflineSigner('cosmoshub-4');
 
 const signer = getSigner<DirectSigner>(offlineSigner, {
-  preferredSignType: 'direct',
+  preferredSignType: 'cosmos_direct',
   signerOptions: {
     queryClient: cosmosQueryClient,
     chainId: 'cosmoshub-4',
     addressPrefix: 'cosmos'
   }
 });
+```
+
+#### Solana Standard Signer
+
+```typescript
+import { getSigner, SOLANA_STD } from '@interchainjs/interchain/core';
+import {
+  createSolanaQueryClient,
+  DEVNET_ENDPOINT,
+  Keypair,
+  PublicKey,
+  SolanaSigner,
+  SystemProgram,
+  solToLamports
+} from '@interchainjs/solana';
+
+const queryClient = await createSolanaQueryClient(DEVNET_ENDPOINT);
+const wallet = Keypair.generate();
+
+const solanaSigner = getSigner<SolanaSigner>(wallet, {
+  preferredSignType: SOLANA_STD,
+  signerOptions: {
+    queryClient,
+    commitment: 'confirmed'
+  }
+});
+
+const result = await solanaSigner.signAndBroadcast({
+  instructions: [
+    SystemProgram.transfer({
+      fromPubkey: wallet.publicKey,
+      toPubkey: new PublicKey('11111111111111111111111111111112'),
+      lamports: solToLamports(0.05)
+    })
+  ]
+});
+
+console.log('Transaction signature:', result.signature);
 ```
 
 #### Ethereum Legacy Signer
@@ -758,7 +820,7 @@ import { EthSecp256k1HDWallet } from '@interchainjs/ethereum/wallets/ethsecp256k
 const ethWallet = await EthSecp256k1HDWallet.fromMnemonic(mnemonic);
 
 const ethSigner = getSigner<LegacyEthereumSigner>(ethWallet, {
-  preferredSignType: 'legacy',
+  preferredSignType: 'ethereum_legacy',
   signerOptions: {
     queryClient: ethereumQueryClient,
     gasMultiplier: 1.2,
@@ -773,7 +835,7 @@ const ethSigner = getSigner<LegacyEthereumSigner>(ethWallet, {
 import { EIP1559EthereumSigner } from '@interchainjs/ethereum';
 
 const eip1559Signer = getSigner<EIP1559EthereumSigner>(ethWallet, {
-  preferredSignType: 'eip1559',
+  preferredSignType: 'ethereum_eip1559',
   signerOptions: {
     queryClient: ethereumQueryClient,
     maxFeePerGas: BigInt('40000000000'),         // 40 gwei
@@ -788,7 +850,7 @@ const eip1559Signer = getSigner<EIP1559EthereumSigner>(ethWallet, {
 ```typescript
 // Create signers for different networks
 const cosmosDirectSigner = getSigner<DirectSigner>(cosmosWallet, {
-  preferredSignType: 'direct',
+  preferredSignType: 'cosmos_direct',
   signerOptions: {
     queryClient: cosmosQueryClient,
     chainId: 'cosmoshub-4',
@@ -797,7 +859,7 @@ const cosmosDirectSigner = getSigner<DirectSigner>(cosmosWallet, {
 });
 
 const osmosisAminoSigner = getSigner<AminoSigner>(cosmosWallet, {
-  preferredSignType: 'amino',
+  preferredSignType: 'cosmos_amino',
   signerOptions: {
     queryClient: osmosisQueryClient,
     chainId: 'osmosis-1',
@@ -806,7 +868,7 @@ const osmosisAminoSigner = getSigner<AminoSigner>(cosmosWallet, {
 });
 
 const ethereumSigner = getSigner<EIP1559EthereumSigner>(ethWallet, {
-  preferredSignType: 'eip1559',
+  preferredSignType: 'ethereum_eip1559',
   signerOptions: {
     queryClient: ethereumQueryClient,
     chainId: 1 // Ethereum mainnet
@@ -863,7 +925,7 @@ function createSigner(wallet: IWallet | OfflineSigner, type: SignerType, options
   }
 
   // Check for Ethereum signer compatibility
-  if ((type === 'legacy' || type === 'eip1559') && !('privateKeys' in wallet)) {
+  if ((type === 'ethereum_legacy' || type === 'ethereum_eip1559') && !('privateKeys' in wallet)) {
     throw new Error('Ethereum signers require IWallet implementation');
   }
 
@@ -898,14 +960,14 @@ const signer = getSigner(wallet, options);
 ```typescript
 // Cosmos networks: Support both IWallet and OfflineSigner
 const cosmosSigner = getSigner<DirectSigner>(walletOrOfflineSigner, {
-  preferredSignType: 'direct',
+  preferredSignType: 'cosmos_direct',
   signerOptions: cosmosOptions
 });
 
 // Ethereum networks: Only IWallet supported
 if ('privateKeys' in wallet) {
   const ethSigner = getSigner<LegacyEthereumSigner>(wallet, {
-    preferredSignType: 'legacy',
+    preferredSignType: 'ethereum_legacy',
     signerOptions: ethereumOptions
   });
 }
@@ -931,7 +993,7 @@ const osmosisConfig = {
 
 // Use configurations
 const cosmosSigner = getSigner<DirectSigner>(wallet, {
-  preferredSignType: 'direct',
+  preferredSignType: 'cosmos_direct',
   signerOptions: cosmosConfig
 });
 ```
@@ -942,13 +1004,13 @@ const cosmosSigner = getSigner<DirectSigner>(wallet, {
 async function createSignerWithFallback(wallet: IWallet, primaryConfig: any, fallbackConfig: any) {
   try {
     return getSigner<DirectSigner>(wallet, {
-      preferredSignType: 'direct',
+      preferredSignType: 'cosmos_direct',
       signerOptions: primaryConfig
     });
   } catch (error) {
     console.warn('Primary configuration failed, trying fallback:', error.message);
     return getSigner<AminoSigner>(wallet, {
-      preferredSignType: 'amino',
+      preferredSignType: 'cosmos_amino',
       signerOptions: fallbackConfig
     });
   }
@@ -960,7 +1022,7 @@ async function createSignerWithFallback(wallet: IWallet, primaryConfig: any, fal
 ```typescript
 // Use minimal configuration for tests
 const testSigner = getSigner<DirectSigner>(testWallet, {
-  preferredSignType: 'direct',
+  preferredSignType: 'cosmos_direct',
   signerOptions: {
     queryClient: mockQueryClient
     // Other options will use defaults
@@ -1077,6 +1139,17 @@ The `@interchainjs/pubkey` package provides utilities for working with pubkeys. 
 | Feature          | Package                                                  |
 | ---------------- | -------------------------------------------------------- |
 | **Transactions** | [@interchainjs/injective](/networks/injective/README.md) |
+
+---
+
+### Solana Network
+
+Leverage the request-object query client with automatic protocol detection and the `solana_std` signer for wallet-friendly workflows.
+
+| Feature                      | Package                                                  |
+| ---------------------------- | -------------------------------------------------------- |
+| **Query & Transactions**     | [@interchainjs/solana](/networks/solana/README.md)       |
+| **Standard Signer (`solana_std`)** | [Solana Signer Guide](#solana-signers-solana_std) |
 
 ---
 

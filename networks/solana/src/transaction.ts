@@ -1,4 +1,4 @@
-import { PublicKey, TransactionInstruction, TransactionMessage } from './types';
+import { PublicKey, TransactionInstruction, TransactionMessage } from './types/solana-types';
 import { Keypair } from './keypair';
 import { encodeSolanaCompactLength, concatUint8Arrays } from './utils';
 import * as bs58 from 'bs58';
@@ -260,8 +260,6 @@ export class Transaction {
 
     return concatUint8Arrays(buffers);
   }
-
-  // concatUint8Arrays method moved to local utils
 
   static from(buffer: Uint8Array): Transaction {
     const transaction = new Transaction();

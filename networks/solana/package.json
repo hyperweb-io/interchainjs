@@ -35,12 +35,18 @@
     "prepare": "npm run build",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
     "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
-    "test": "jest",
     "dev": "tsc --watch",
-    "test:ws": "jest src/__tests__/websocket.test.ts",
-    "test:token": "jest src/__tests__/token.test.ts",
-    "test:spl": "jest src/__tests__/spl.test.ts",
-    "test:integration": "jest src/__tests__/integration.test.ts",
+    "starship:start": "npx @starship-ci/cli@3.14.1 start --config starship/configs/config.yaml && bash starship/port-forward.sh",
+    "starship:stop": "npx @starship-ci/cli@3.14.1 stop --config starship/configs/config.yaml",
+    "starship:all": "yarn starship:start",
+    "starship:clean": "yarn starship:stop",
+    "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
+    "test": "jest",
+    "test:keypair": "jest starship/__tests__/keypair.test.ts",
+    "test:token": "jest starship/__tests__/token.test.ts",
+    "test:ws": "jest starship/__tests__/websocket.test.ts",
+    "test:integration": "jest starship/__tests__/integration.test.ts",
+    "test:spl": "jest starship/__tests__/spl.test.ts",
     "fix-esm": "tsc-esm-fix --target=dist/esm"
   },
   "keywords": [
@@ -50,6 +56,7 @@
     "sdk"
   ],
   "dependencies": {
+    "@interchainjs/types": "1.17.8",
     "@interchainjs/math": "1.17.8",
     "@interchainjs/utils": "1.17.8",
     "@types/bn.js": "^5.2.0",
@@ -68,13 +75,6 @@
     "ts-jest": "^29.4.0",
     "tsc-esm-fix": "^3.1.2",
     "typescript": "^5.8.3"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "setupFiles": [
-      "<rootDir>/jest.setup.js"
-    ]
   },
   "gitHead": "f9ab48be2c593268d87cb1883481c3abc66f504f"
 }

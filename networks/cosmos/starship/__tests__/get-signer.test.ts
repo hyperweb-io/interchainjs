@@ -7,7 +7,12 @@ import { ICosmosQueryClient, DirectSigner, AminoSigner, createCosmosQueryClient,
 import { useChain } from 'starshipjs';
 import { HDPath } from '@interchainjs/types';
 import { generateMnemonic } from '../src/utils';
-import { getSigner, GetSignerOptions } from '../../../../libs/interchainjs/src/interchain/core/getSigner';
+import {
+  getSigner,
+  GetSignerOptions,
+  COSMOS_DIRECT,
+  COSMOS_AMINO
+} from '../../../../libs/interchainjs/src/interchain/core/getSigner';
 
 let queryClient: ICosmosQueryClient;
 let rpcEndpoint: string;
@@ -58,7 +63,7 @@ describe('getSigner Utility Function', () => {
   describe('Cosmos Signers', () => {
     test('should return DirectSigner for direct sign type', async () => {
       const options: GetSignerOptions = {
-        preferredSignType: 'direct',
+        preferredSignType: COSMOS_DIRECT,
         signerOptions: {
           queryClient,
           chainId: 'osmosis-1',
@@ -87,7 +92,7 @@ describe('getSigner Utility Function', () => {
 
     test('should return AminoSigner for amino sign type', async () => {
       const options: GetSignerOptions = {
-        preferredSignType: 'amino',
+        preferredSignType: COSMOS_AMINO,
         signerOptions: {
           queryClient,
           chainId: 'osmosis-1',
@@ -116,7 +121,7 @@ describe('getSigner Utility Function', () => {
 
     test('should pass through additional configuration options', async () => {
       const options: GetSignerOptions = {
-        preferredSignType: 'direct',
+        preferredSignType: COSMOS_DIRECT,
         signerOptions: {
           queryClient,
           chainId: 'osmosis-1',
@@ -148,12 +153,12 @@ describe('getSigner Utility Function', () => {
         }
       };
 
-      expect(() => getSigner(wallet, options)).toThrow('Unsupported sign type: unsupported');
+      expect(() => getSigner(wallet, options)).toThrow(/Unsupported sign type: unsupported/);
     });
 
     test('should throw error when required options are missing', () => {
       const options = {
-        preferredSignType: 'direct' as const,
+        preferredSignType: COSMOS_DIRECT,
         signerOptions: {
           // Missing queryClient
           chainId: 'osmosis-1'
@@ -165,7 +170,7 @@ describe('getSigner Utility Function', () => {
 
     test('should handle missing wallet gracefully', () => {
       const options = {
-        preferredSignType: 'direct' as const,
+        preferredSignType: COSMOS_DIRECT,
         signerOptions: {
           queryClient,
           chainId: 'osmosis-1'
@@ -179,7 +184,7 @@ describe('getSigner Utility Function', () => {
   describe('Configuration Validation', () => {
     test('should work with minimal required configuration', async () => {
       const options: GetSignerOptions = {
-        preferredSignType: 'direct',
+        preferredSignType: COSMOS_DIRECT,
         signerOptions: {
           queryClient
         }
@@ -204,7 +209,7 @@ describe('getSigner Utility Function', () => {
 
       for (const testCase of testCases) {
         const options: GetSignerOptions = {
-          preferredSignType: 'direct',
+          preferredSignType: COSMOS_DIRECT,
           signerOptions: {
             queryClient,
             chainId: 'osmosis-1',
@@ -225,7 +230,7 @@ describe('getSigner Utility Function', () => {
   describe('Signer Functionality', () => {
     test('should create functional signers that can query chain state', async () => {
       const directSigner = getSigner<DirectSigner>(wallet, {
-        preferredSignType: 'direct',
+        preferredSignType: COSMOS_DIRECT,
         signerOptions: {
           queryClient,
           chainId: 'osmosis-1',
@@ -234,7 +239,7 @@ describe('getSigner Utility Function', () => {
       } as GetSignerOptions);
 
       const aminoSigner = getSigner<AminoSigner>(wallet, {
-        preferredSignType: 'amino',
+        preferredSignType: COSMOS_AMINO,
         signerOptions: {
           queryClient,
           chainId: 'osmosis-1',

@@ -1,0 +1,32 @@
+name: starship-solana-devnet
+version: 1.10.0
+
+chains:
+  - id: solana
+    name: solana
+    numValidators: 1
+    ports:
+      rpc: 8899
+      ws: 8900
+      exposer: 8001
+      faucet: 9900
+    resources:
+      cpu: "1500m"
+      memory: "4Gi"
+
+registry:
+  enabled: true
+  ports:
+    rest: 8081
+    grpc: 9091
+
+# Additional service optimization for CI
+exposer:
+  resources:
+    cpu: 100m
+    memory: 100Mi
+
+faucet:
+  resources:
+    cpu: 200m
+    memory: 200Mi

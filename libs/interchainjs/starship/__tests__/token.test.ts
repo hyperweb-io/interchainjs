@@ -8,7 +8,7 @@ import { getBalance } from '../../src/cosmos/bank/v1beta1/query.rpc.func';
 import { send } from '../../src/cosmos/bank/v1beta1/tx.rpc.func';
 import { MsgSend } from '../../src/cosmos/bank/v1beta1/tx';
 import { generateMnemonic, useChain } from 'starshipjs';
-import { getSigner, GetSignerOptions } from '../../src/interchain/core/getSigner';
+import { getSigner, GetSignerOptions, COSMOS_DIRECT } from '../../src/interchain/core/getSigner';
 
 describe('Token transfers', () => {
   let wallet: Secp256k1HDWallet;
@@ -54,7 +54,7 @@ describe('Token transfers', () => {
   it('send osmosis token to address', async () => {
     // Use getSigner function with wallet (this should now work with the fixed SignerInfoPlugin)
     const signer = getSigner<DirectSigner>(wallet, {
-      preferredSignType: 'direct',
+      preferredSignType: COSMOS_DIRECT,
       signerOptions: {
         queryClient: client,
         chainId: 'osmosis-1',

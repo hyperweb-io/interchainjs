@@ -16,13 +16,20 @@ export * from './getSigner';
  * ### Usage Examples
  *
  * ```typescript
- * import { getSigner } from '@interchainjs/interchain/core';
+ * import {
+ *   getSigner,
+ *   COSMOS_DIRECT,
+ *   COSMOS_AMINO,
+ *   ETHEREUM_LEGACY,
+ *   ETHEREUM_EIP1559,
+ *   SOLANA_STD
+ * } from '@interchainjs/interchain/core';
  * import { Secp256k1HDWallet } from '@interchainjs/cosmos';
  * import { CosmosQueryClient } from '@interchainjs/cosmos';
  *
  * // Create a Cosmos Direct signer
  * const directSigner = getSigner(myWallet, {
- *   preferredSignType: 'direct',
+ *   preferredSignType: COSMOS_DIRECT,
  *   signerOptions: {
  *     queryClient: cosmosQueryClient,
  *     chainId: 'cosmoshub-4',
@@ -33,7 +40,7 @@ export * from './getSigner';
  *
  * // Create a Cosmos Amino signer
  * const aminoSigner = getSigner(myWallet, {
- *   preferredSignType: 'amino',
+ *   preferredSignType: COSMOS_AMINO,
  *   signerOptions: {
  *     queryClient: cosmosQueryClient,
  *     chainId: 'osmosis-1',
@@ -43,7 +50,7 @@ export * from './getSigner';
  *
  * // Create an Ethereum Legacy signer
  * const legacySigner = getSigner(myWallet, {
- *   preferredSignType: 'legacy',
+ *   preferredSignType: ETHEREUM_LEGACY,
  *   signerOptions: {
  *     queryClient: ethereumQueryClient,
  *     gasMultiplier: 1.2,
@@ -53,7 +60,7 @@ export * from './getSigner';
  *
  * // Create an Ethereum EIP-1559 signer
  * const eip1559Signer = getSigner(myWallet, {
- *   preferredSignType: 'eip1559',
+ *   preferredSignType: ETHEREUM_EIP1559,
  *   signerOptions: {
  *     queryClient: ethereumQueryClient,
  *     maxFeePerGas: BigInt('30000000000'), // 30 gwei
@@ -64,10 +71,11 @@ export * from './getSigner';
  *
  * ### Supported Signer Types
  *
- * - **`'amino'`**: Cosmos Amino (JSON) signer for legacy compatibility
- * - **`'direct'`**: Cosmos Direct (protobuf) signer for modern transactions
- * - **`'legacy'`**: Ethereum Legacy signer for pre-EIP-1559 transactions
- * - **`'eip1559'`**: Ethereum EIP-1559 signer for modern transactions with priority fees
+ * - **`'cosmos_amino'`** (`COSMOS_AMINO`): Cosmos Amino (JSON) signer for legacy compatibility
+ * - **`'cosmos_direct'`** (`COSMOS_DIRECT`): Cosmos Direct (protobuf) signer for modern transactions
+ * - **`'solana_std'`** (`SOLANA_STD`): Solana signer that works with `Keypair` or `IWallet` for web3 workflows
+ * - **`'ethereum_legacy'`** (`ETHEREUM_LEGACY`): Ethereum Legacy signer for pre-EIP-1559 transactions
+ * - **`'ethereum_eip1559'`** (`ETHEREUM_EIP1559`): Ethereum EIP-1559 signer for modern transactions with priority fees
  *
  * ### Error Handling
  *

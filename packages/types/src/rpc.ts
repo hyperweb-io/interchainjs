@@ -32,11 +32,12 @@ export function createJsonRpcRequest(
   params?: unknown,
   id?: string
 ): JsonRpcRequest {
+  const normalizedParams = params === undefined ? [] : params;
   return {
     jsonrpc: '2.0',
     id: id || Math.random().toString(36).substring(7),
     method,
-    params: params || {}
+    params: normalizedParams
   };
 }
 
