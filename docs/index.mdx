@@ -46,6 +46,7 @@ A single, universal signing interface for any network. Birthed from the intercha
 - [Supported Networks](#supported-networks)
   - [Cosmos Network](#cosmos-network)
   - [Injective Network](#injective-network)
+  - [Solana Network](#solana-network)
   - [Ethereum Network](#ethereum-network)
 - [Interchain JavaScript Stack ⚛️](#interchain-javascript-stack-️)
 - [Credits](#credits)
@@ -61,7 +62,7 @@ At its core, InterchainJS provides a **flexible adapter pattern** that abstracts
 
 InterchainJS sits at the foundation of the **[Interchain JavaScript Stack](https://hyperweb.io/stack)**, a set of tools that work together like nested building blocks:
 
-- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Ethereum (EIP-712), and beyond.
+- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Solana, Ethereum (EIP-712), and beyond.
 - **[Interchain Kit](https://hyperweb.io/stack/interchain-kit)** → Wallet adapters that connect dApps to multiple blockchain networks.
 - **[Interchain UI](https://hyperweb.io/stack/interchain-ui)** → A flexible UI component library for seamless app design.
 - **[Create Interchain App](https://hyperweb.io/stack/create-interchain-app)** → A developer-friendly starter kit for cross-chain applications.
@@ -76,6 +77,7 @@ The diagram below illustrates how InterchainJS connects different signer types t
 graph LR
     signers --> cosmos_signer["Cosmos Network"]
     signers --> injective_signer["Injective Network"]
+    signers --> solana_signer["Solana Network"]
     signers --> ethereum_signer["Ethereum Network"]
     signers --> implement_signer["ANY Network"]
 
@@ -87,6 +89,8 @@ graph LR
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
+
+    solana_signer --> solana_std["Standard Signer"]
 
     implement_signer --> any_signer["Any Signer"]
 
@@ -233,6 +237,17 @@ Then an authz example website will be created and users can take a look how sign
 | Feature          | Package                                                  |
 | ---------------- | -------------------------------------------------------- |
 | **Transactions** | [@interchainjs/injective](https://docs.hyperweb.io/interchain-js/networks/injective) |
+
+---
+
+### Solana Network
+
+Build on the request-object query client with automatic protocol detection and wallet-aware workflows.
+
+| Feature                      | Package                                                  |
+| ---------------------------- | -------------------------------------------------------- |
+| **Query & Transactions**     | [@interchainjs/solana](https://docs.hyperweb.io/interchain-js/networks/solana) |
+| **Standard Signer (`solana_std`)** | [Solana Signer Guide](./libs/interchainjs/README.md#solana-signers-solana_std) |
 
 ---
 

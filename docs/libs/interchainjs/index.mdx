@@ -73,6 +73,7 @@ npm install interchainjs
 - [Supported Networks](#supported-networks)
   - [Cosmos Network](#cosmos-network)
   - [Injective Network](#injective-network)
+  - [Solana Network](#solana-network)
   - [Ethereum Network](#ethereum-network)
 - [Developing](#developing)
   - [Codegen](#codegen)
@@ -90,7 +91,7 @@ At its core, InterchainJS provides a **flexible adapter pattern** that abstracts
 
 InterchainJS sits at the foundation of the **[Interchain JavaScript Stack](https://hyperweb.io/stack)**, a set of tools that work together like nested building blocks:
 
-- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Ethereum (EIP-712), and beyond.
+- **[InterchainJS](https://hyperweb.io/stack/interchainjs)** → Powers signing across Cosmos, Solana, Ethereum (EIP-712), and beyond.
 - **[Interchain Kit](https://hyperweb.io/stack/interchain-kit)** → Wallet adapters that connect dApps to multiple blockchain networks.
 - **[Interchain UI](https://hyperweb.io/stack/interchain-ui)** → A flexible UI component library for seamless app design.
 - **[Create Interchain App](https://hyperweb.io/stack/create-interchain-app)** → A developer-friendly starter kit for cross-chain applications.
@@ -105,6 +106,7 @@ The diagram below illustrates how InterchainJS connects different signer types t
 graph LR
     signers --> cosmos_signer["Cosmos Network"]
     signers --> injective_signer["Injective Network"]
+    signers --> solana_signer["Solana Network"]
     signers --> ethereum_signer["Ethereum Network"]
     signers --> implement_signer["ANY Network"]
 
@@ -116,6 +118,8 @@ graph LR
 
     injective_signer --> injective_amino["Amino Signer"]
     injective_signer --> injective_direct["Direct Signer"]
+
+    solana_signer --> solana_std["Standard Signer"]
 
     implement_signer --> any_signer["Any Signer"]
 
@@ -150,6 +154,7 @@ The following resources provide comprehensive guidance for developers working wi
 | **Create Interchain App**    | [Create Interchain App](https://github.com/hyperweb-io/create-interchain-app) |
 | **Building a Custom Signer** | [Building a Custom Signer](/docs/building-a-custom-signer.md)                 |
 | **Advanced Documentation**   | [View Docs](/docs/)                                                           |
+| **Solana Network Guide**     | [@interchainjs/solana](/networks/solana/README.md)                            |
 
 ### RPC Clients
 
@@ -666,6 +671,8 @@ interface CosmosSignerOptions {
 
 Solana signers require an `ISolanaQueryClient` and either a Solana `Keypair` or an `IWallet` implementation that exposes Solana-compatible accounts. Configuration options include:
 
+Pair the signer with the request-object query clients created via `createSolanaQueryClient` for consistent RPC typing. See the full Solana workflows in `/networks/solana/README.md`.
+
 ```typescript
 interface SolanaSignerOptions {
   // Required
@@ -764,6 +771,44 @@ const signer = getSigner<DirectSigner>(offlineSigner, {
     addressPrefix: 'cosmos'
   }
 });
+```
+
+#### Solana Standard Signer
+
+```typescript
+import { getSigner, SOLANA_STD } from '@interchainjs/interchain/core';
+import {
+  createSolanaQueryClient,
+  DEVNET_ENDPOINT,
+  Keypair,
+  PublicKey,
+  SolanaSigner,
+  SystemProgram,
+  solToLamports
+} from '@interchainjs/solana';
+
+const queryClient = await createSolanaQueryClient(DEVNET_ENDPOINT);
+const wallet = Keypair.generate();
+
+const solanaSigner = getSigner<SolanaSigner>(wallet, {
+  preferredSignType: SOLANA_STD,
+  signerOptions: {
+    queryClient,
+    commitment: 'confirmed'
+  }
+});
+
+const result = await solanaSigner.signAndBroadcast({
+  instructions: [
+    SystemProgram.transfer({
+      fromPubkey: wallet.publicKey,
+      toPubkey: new PublicKey('11111111111111111111111111111112'),
+      lamports: solToLamports(0.05)
+    })
+  ]
+});
+
+console.log('Transaction signature:', result.signature);
 ```
 
 #### Ethereum Legacy Signer
@@ -1094,6 +1139,17 @@ The `@interchainjs/pubkey` package provides utilities for working with pubkeys. 
 | Feature          | Package                                                  |
 | ---------------- | -------------------------------------------------------- |
 | **Transactions** | [@interchainjs/injective](/networks/injective/README.md) |
+
+---
+
+### Solana Network
+
+Leverage the request-object query client with automatic protocol detection and the `solana_std` signer for wallet-friendly workflows.
+
+| Feature                      | Package                                                  |
+| ---------------------------- | -------------------------------------------------------- |
+| **Query & Transactions**     | [@interchainjs/solana](/networks/solana/README.md)       |
+| **Standard Signer (`solana_std`)** | [Solana Signer Guide](#solana-signers-solana_std) |
 
 ---
 
