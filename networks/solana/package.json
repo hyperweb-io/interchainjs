@@ -76,12 +76,5 @@
     "tsc-esm-fix": "^3.1.2",
     "typescript": "^5.8.3"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "setupFiles": [
-      "<rootDir>/jest.setup.js"
-    ]
-  },
   "gitHead": "f9ab48be2c593268d87cb1883481c3abc66f504f"
 }
