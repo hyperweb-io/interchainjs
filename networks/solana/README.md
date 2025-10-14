@@ -40,6 +40,48 @@ const versionExplicit = await client.getVersion(versionRequest);
 - **Protocol Adapters**: Version-specific adapters with encoding/decoding
 - **Auto-Detection**: Automatic protocol version detection
 
+## InterchainJS Integration
+
+Use the InterchainJS core `getSigner` factory with the `solana_std` signer type to wire Solana wallets or keypairs into the standard workflow.
+
+```typescript
+import { getSigner, SOLANA_STD } from '@interchainjs/interchain/core';
+import {
+  createSolanaQueryClient,
+  DEVNET_ENDPOINT,
+  Keypair,
+  PublicKey,
+  SolanaSigner,
+  SystemProgram,
+  solToLamports
+} from '@interchainjs/solana';
+
+const queryClient = await createSolanaQueryClient(DEVNET_ENDPOINT);
+const keypair = Keypair.generate();
+
+const solanaSigner = getSigner<SolanaSigner>(keypair, {
+  preferredSignType: SOLANA_STD,
+  signerOptions: {
+    queryClient,
+    commitment: 'confirmed'
+  }
+});
+
+const response = await solanaSigner.signAndBroadcast({
+  instructions: [
+    SystemProgram.transfer({
+      fromPubkey: keypair.publicKey,
+      toPubkey: new PublicKey('11111111111111111111111111111112'),
+      lamports: solToLamports(0.05)
+    })
+  ]
+});
+
+console.log('Signature:', response.signature);
+```
+
+Any `IWallet`-compatible authentication method—including browser wallets like `PhantomSigner` or an in-memory `Keypair`—can be supplied to the factory.
+
 ## Installation
 
 ```bash
