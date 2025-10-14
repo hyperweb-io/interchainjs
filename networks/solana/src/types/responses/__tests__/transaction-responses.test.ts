@@ -15,19 +15,19 @@ describe('Transaction Response Codecs', () => {
       const data = 12345;
       const result = createTransactionCountResponse(data);
 
-      expect(result).toBe(12345);
+      expect(result).toBe(12345n);
     });
 
     it('should create transaction count response from string', () => {
       const data = "12345";
       const result = createTransactionCountResponse(data);
 
-      expect(result).toBe(12345);
+      expect(result).toBe(12345n);
     });
 
     it('should return 0 for null/undefined data', () => {
-      expect(createTransactionCountResponse(null)).toBe(0);
-      expect(createTransactionCountResponse(undefined)).toBe(0);
+      expect(createTransactionCountResponse(null)).toBe(0n);
+      expect(createTransactionCountResponse(undefined)).toBe(0n);
     });
   });
 

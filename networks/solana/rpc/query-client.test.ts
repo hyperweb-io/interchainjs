@@ -44,10 +44,7 @@ const CLIENT_OPTIONS = {
   timeout: 30000,
   headers: {
     'User-Agent': 'InterchainJS-SolanaQueryClient-Test/1.0.0'
-  },
-  retries: 1,
-  retryDelayMs: 500,
-  maxRetryDelayMs: 5000
+  }
 };
 
 async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {

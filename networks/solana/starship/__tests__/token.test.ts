@@ -373,7 +373,7 @@ describe('SPL Token Tests', () => {
       );
 
       expect(ata).toBeInstanceOf(PublicKey);
-      expect(ata.toString().length).toBe(44); // Base58 encoded public key length
+      expect(ata.toBuffer()).toHaveLength(32); // Public keys are 32 bytes
       expect(ata).toEqual(payerAtaForNative);
     });
 

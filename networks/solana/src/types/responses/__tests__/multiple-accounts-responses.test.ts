@@ -14,7 +14,7 @@ describe('MultipleAccountsResponse', () => {
             executable: false,
             lamports: 88849814690250,
             owner: '11111111111111111111111111111111',
-            rentEpoch: 18446744073709551615,
+            rentEpoch: '18446744073709551615',
             space: 0
           },
           {
@@ -22,7 +22,7 @@ describe('MultipleAccountsResponse', () => {
             executable: false,
             lamports: 998763433,
             owner: '2WRuhE4GJFoE23DYzp2ij6ZnuQ8p9mJeU6gDgfsjR4or',
-            rentEpoch: 18446744073709551615,
+            rentEpoch: '18446744073709551615',
             space: 0
           }
         ]
@@ -65,7 +65,7 @@ describe('MultipleAccountsResponse', () => {
             executable: false,
             lamports: 88849814690250,
             owner: '11111111111111111111111111111111',
-            rentEpoch: 18446744073709551615,
+            rentEpoch: '18446744073709551615',
             space: 0
           },
           null // Non-existent account

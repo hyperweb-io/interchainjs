@@ -6,14 +6,13 @@ import { createSolanaQueryClient } from '../client-factory';
 import { GetHealthRequest, GetVersionRequest } from '../types/requests';
 import { SolanaProtocolVersion } from '../types/protocol';
 
-// Mock HttpRpcClient for integration tests
-jest.mock('@interchainjs/utils', () => ({
-  HttpRpcClient: jest.fn().mockImplementation((endpoint, _options) => ({
+function defaultHttpRpcClientImplementation(endpoint: any, _options: any) {
+  return {
     endpoint: typeof endpoint === 'string' ? endpoint : endpoint.url,
     connect: jest.fn(),
     disconnect: jest.fn(),
     isConnected: jest.fn().mockReturnValue(true),
-    call: jest.fn().mockImplementation((method, _params) => {
+    call: jest.fn().mockImplementation((method: string) => {
       switch (method) {
         case 'getHealth':
           return Promise.resolve('ok');
@@ -26,8 +25,23 @@ jest.mock('@interchainjs/utils', () => ({
           return Promise.reject(new Error(`Unknown method: ${method}`));
       }
     })
-  }))
+  };
+}
+
+// Mock HttpRpcClient for integration tests
+jest.mock('@interchainjs/utils', () => ({
+  HttpRpcClient: jest.fn().mockImplementation(defaultHttpRpcClientImplementation)
 }));
+
+const resetHttpRpcClientMock = () => {
+  const { HttpRpcClient } = require('@interchainjs/utils');
+  HttpRpcClient.mockImplementation(defaultHttpRpcClientImplementation);
+};
+
+afterEach(() => {
+  jest.clearAllMocks();
+  resetHttpRpcClientMock();
+});
 
 describe('Solana Integration Tests', () => {
   const testEndpoint = 'https://api.mainnet-beta.solana.com';
@@ -94,6 +108,8 @@ describe('Solana Integration Tests', () => {
     it('should handle errors gracefully', async () => {
       // Mock error response
       const { HttpRpcClient } = require('@interchainjs/utils');
+      const originalImplementation = defaultHttpRpcClientImplementation;
+
       HttpRpcClient.mockImplementation((endpoint: any, _options: any) => ({
         endpoint: typeof endpoint === 'string' ? endpoint : endpoint.url,
         connect: jest.fn().mockResolvedValue(undefined),
@@ -102,12 +118,16 @@ describe('Solana Integration Tests', () => {
         call: jest.fn().mockRejectedValue(new Error('Network error'))
       }));
 
-      const client = await createSolanaQueryClient(testEndpoint, {
-        protocolVersion: SolanaProtocolVersion.SOLANA_1_18
-      });
+      try {
+        const client = await createSolanaQueryClient(testEndpoint, {
+          protocolVersion: SolanaProtocolVersion.SOLANA_1_18
+        });
 
-      const healthRequest: GetHealthRequest = {};
-      await expect(client.getHealth(healthRequest)).rejects.toThrow('Network error');
+        const healthRequest: GetHealthRequest = {};
+        await expect(client.getHealth(healthRequest)).rejects.toThrow('Network error');
+      } finally {
+        HttpRpcClient.mockImplementation(originalImplementation);
+      }
     });
   });
 
