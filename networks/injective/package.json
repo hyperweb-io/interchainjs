@@ -17,7 +17,7 @@
     },
     "./package.json": "./package.json"
   },
-  "author": "Hyperweb <developers@hyperweb.io>",
+  "author": "Hyperweb <developers@interweb.co>",
   "homepage": "https://github.com/hyperweb-io/interchainjs",
   "repository": {
     "type": "git",

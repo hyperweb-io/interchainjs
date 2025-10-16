@@ -1,7 +1,7 @@
 {
   "name": "@interchainjs/utils",
   "version": "1.18.0",
-  "author": "Hyperweb <developers@hyperweb.io>",
+  "author": "Hyperweb <developers@interweb.co>",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
