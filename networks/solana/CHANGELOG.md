@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.18.0...@interchainjs/solana@1.19.0) (2025-12-11)
+
+**Note:** Version bump only for package @interchainjs/solana
+
+
+
+
+
 # [1.18.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/solana@1.17.8...@interchainjs/solana@1.18.0) (2025-10-14)
 
 ### Features

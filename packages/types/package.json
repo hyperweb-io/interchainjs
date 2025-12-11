@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/types",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
