@@ -4,7 +4,7 @@
   "private": true,
   "description": "universal signing client for blockchain networks",
   "repository": "git@github.com:hyperweb-io/interchainjs.git",
-  "author": "Hyperweb <developers@interweb.co>",
+  "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "publishConfig": {
     "access": "restricted"
