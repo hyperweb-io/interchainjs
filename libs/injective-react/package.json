@@ -1,6 +1,6 @@
 {
   "name": "injective-react",
-  "version": "1.19.0",
+  "version": "1.19.1",
   "description": "injective-react is a JavaScript library providing react query hooks for interacting with injective sdk.",
   "main": "index.js",
   "module": "esm/index.js",
@@ -39,7 +39,7 @@
     "fix-esm": "tsc-esm-fix --target=dist/esm"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "^1.19.0",
+    "@interchainjs/cosmos": "^1.19.1",
     "@interchainjs/cosmos-types": "^1.19.0",
     "@interchainjs/encoding": "1.18.0",
     "@interchainjs/math": "1.18.0",
