@@ -45,7 +45,7 @@ export class SignerInfoPlugin extends BaseWorkflowBuilderPlugin<
     }
 
     const sequence = options?.sequence ??
-      await ctx.getSigner().getSequence(signerAddress);
+      await ctx.getSigner().getSequence(signerAddress, options);
 
     // Get sign mode from options or use default
     const signMode = options?.signMode ?? params.signMode ?? this.defaultSignMode;

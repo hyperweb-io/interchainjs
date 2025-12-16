@@ -2,6 +2,7 @@ import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from './signature-processor';
 import deepmerge from 'deepmerge';
 import { CosmosCryptoSecp256k1PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types';
 import { EncodedMessage, DocOptions, CosmosSignerConfig } from '@interchainjs/cosmos';
+import { Any } from '@interchainjs/types';
 
 /**
  * Encode public key for Injective
@@ -43,6 +44,12 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
 
   // Public key encoding - Injective specific
   encodePublicKey: encodeInjectivePublicKey
+  pubkeyDecoders: {
+    '/injective.crypto.v1beta1.ethsecp256k1.PubKey': (pubkey: Any): Secp256k1PubKey => {
+      const { key } = Secp256k1PubKey.decode(pubkey.value);
+      return Secp256k1PubKey.fromPartial({ key });
+    }
+  }
 };
 
 /**
