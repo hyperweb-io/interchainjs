@@ -61,9 +61,9 @@ export class AminoSignDocPlugin extends BaseWorkflowBuilderPlugin<
       throw new Error('No signer address provided in options');
     }
     const accountNumber = options?.accountNumber ??
-      await ctx.getSigner().getAccountNumber(address);
+      await ctx.getSigner().getAccountNumber(address, options);
     const sequence = options?.sequence ??
-      await ctx.getSigner().getSequence(address);
+      await ctx.getSigner().getSequence(address, options);
 
     // Convert messages to amino format
     const aminoMsgs: AminoMessage[] = messages.map(msg => {

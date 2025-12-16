@@ -15,7 +15,8 @@ import {
   CosmosSignArgs,
   EncodedMessage,
   DirectSignResponse,
-  AminoSignResponse
+  AminoSignResponse,
+  DocOptions
 } from './types';
 import { ISigningClient, Encoder } from '../types/signing-client';
 import { getSimulate, SimulationResponse } from '@interchainjs/cosmos-types';
@@ -246,10 +247,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     throw new Error('Unable to determine chain ID from any available source');
   }
 
-  async getAccountNumber(address: string): Promise<bigint> {
+  async getAccountNumber(address: string, opts?: DocOptions): Promise<bigint> {
     // Use the getBaseAccount method for proper account querying
     try {
-      const baseAccount = await this.config.queryClient.getBaseAccount(address);
+      const baseAccount = await this.config.queryClient.getBaseAccount(address, opts);
       if (baseAccount) {
         return baseAccount.accountNumber;
       }
@@ -261,10 +262,10 @@ export abstract class BaseCosmosSigner implements ICosmosSigner, ISigningClient 
     }
   }
 
-  async getSequence(address: string): Promise<bigint> {
+  async getSequence(address: string, opts?: DocOptions): Promise<bigint> {
     // Use the getBaseAccount method for proper account querying
     try {
-      const baseAccount = await this.config.queryClient.getBaseAccount(address);
+      const baseAccount = await this.config.queryClient.getBaseAccount(address, opts);
       if (baseAccount) {
         return baseAccount.sequence;
       }

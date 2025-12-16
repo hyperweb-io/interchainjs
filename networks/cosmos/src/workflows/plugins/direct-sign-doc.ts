@@ -57,7 +57,7 @@ export class DirectSignDocPlugin extends BaseWorkflowBuilderPlugin<
     }
 
     const accountNumber = options?.accountNumber ??
-      await ctx.getSigner().getAccountNumber(address);
+      await ctx.getSigner().getAccountNumber(address, options);
 
 
 

@@ -51,6 +51,7 @@ import { ICosmosProtocolAdapter } from '../adapters/base';
 import { BaseAccount, getAccount } from '@interchainjs/cosmos-types';
 import { accountFromAny, type PubkeyDecoderMap } from '../utils';
 import { encodePubkey } from '@interchainjs/pubkey';
+import { EncodedMessage } from '../signers';
 
 
 
@@ -327,7 +328,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
   // Account queries
   async getBaseAccount(
     address: string,
-    opts?: { readonly pubkeyDecoders?: PubkeyDecoderMap }
+    opts?: { readonly pubkeyDecoders?: PubkeyDecoderMap, encodePublicKey?: (publicKey: Uint8Array) => EncodedMessage }
   ): Promise<BaseAccount | null> {
     try {
       // Create a plain RPC object so getAccount can mutate it
@@ -348,7 +349,7 @@ export class CosmosQueryClient implements ICosmosQueryClient {
       // Convert the standardized Account back to BaseAccount format
       return {
         address: account.address,
-        pubKey: account.pubkey ? encodePubkey(account.pubkey) : undefined,
+        pubKey: account.pubkey ? opts?.encodePublicKey ? opts.encodePublicKey(account.pubkey.value) : encodePubkey(account.pubkey) : undefined,
         accountNumber: BigInt(account.accountNumber),
         sequence: BigInt(account.sequence),
       };

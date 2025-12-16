@@ -5,6 +5,7 @@ import { BroadcastTxAsyncResponse, BroadcastTxCommitResponse, BroadcastTxSyncRes
 import { AminoConverter, Encoder } from '../types/signing-client';
 import { Any, SignMode, SimulationResponse, TxResponse } from '@interchainjs/cosmos-types';
 import { StdSignature } from '@interchainjs/amino';
+import { AccountFromAnyOptions } from '../utils';
 
 export type CosmosSignerConfig = EndpointOptions & DocOptions;
 
@@ -160,8 +161,8 @@ export interface ICosmosSigner extends IUniSigner<
 > {
   getAddresses(): Promise<string[]>;
   getChainId(): Promise<string>;
-  getAccountNumber(address: string): Promise<bigint>;
-  getSequence(address: string): Promise<bigint>;
+  getAccountNumber(address: string, opts?: DocOptions): Promise<bigint>;
+  getSequence(address: string, opts?: DocOptions): Promise<bigint>;
   addEncoders(encoders: Encoder[]): void;
   getEncoder(typeUrl: string): Encoder;
   addConverters?(converters: AminoConverter[]): void;
@@ -195,7 +196,7 @@ export interface AminoMessage {
   value: any;
 }
 
-export type DocOptions = FeeOptions & SignOptions & TxOptions;
+export type DocOptions = FeeOptions & SignOptions & TxOptions & AccountFromAnyOptions;
 
 export interface FeeOptions {
   multiplier?: number;
