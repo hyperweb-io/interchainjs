@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/utils",
-  "version": "1.19.0",
+  "version": "1.19.1",
   "author": "Constructive <developers@constructive.io>",
   "main": "index.js",
   "module": "esm/index.js",
@@ -39,7 +39,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@interchainjs/types": "^1.19.0",
+    "@interchainjs/types": "^1.19.1",
     "bech32": "^2.0.0",
     "decimal.js": "^10.4.3"
   },
