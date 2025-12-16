@@ -56,7 +56,7 @@
     "cosmjs",
     "wallet"
   ],
-  "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3",
+  "gitHead": "74dec3776f908660a4450aac3cf948b875f14562",
   "devDependencies": {
     "tsc-esm-fix": "^3.1.2"
   }
