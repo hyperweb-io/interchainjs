@@ -3,32 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.3](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.19.2...@interchainjs/cosmos@1.19.3) (2025-12-30)
+
+### Bug Fixes
+
+- set signerAddress ([a44b213](https://github.com/hyperweb-io/interchainjs/commit/a44b213e9d75a3f42078185654c297125a4245bf))
+
 ## [1.19.2](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.19.1...@interchainjs/cosmos@1.19.2) (2025-12-16)
 
 **Note:** Version bump only for package @interchainjs/cosmos
 
-
-
-
-
 ## [1.19.1](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.19.0...@interchainjs/cosmos@1.19.1) (2025-12-16)
-
 
 ### Bug Fixes
 
-* decode custom pubkey in BaseAccount ([791667f](https://github.com/hyperweb-io/interchainjs/commit/791667fc3c7487a5add8e62d363a28edd54ccb40))
-
-
-
-
+- decode custom pubkey in BaseAccount ([791667f](https://github.com/hyperweb-io/interchainjs/commit/791667fc3c7487a5add8e62d363a28edd54ccb40))
 
 # [1.19.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.18.0...@interchainjs/cosmos@1.19.0) (2025-12-11)
 
 **Note:** Version bump only for package @interchainjs/cosmos
-
-
-
-
 
 # [1.18.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.17.8...@interchainjs/cosmos@1.18.0) (2025-10-14)
 
