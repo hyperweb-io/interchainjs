@@ -35,6 +35,11 @@ export class DirectSigner extends BaseCosmosSigner implements ISigningClient {
       throw new Error('Signer address does not match');
     }
 
+    if (!!!args.options?.signerAddress) {
+      args.options.signerAddress = account.address;
+    }
+    
+
     // Create the direct workflow
     const workflow = new DirectWorkflow(this, {
       messages: args.messages,
