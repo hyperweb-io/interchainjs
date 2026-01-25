@@ -1,4 +1,5 @@
 import { abciQuery } from './rpc';
+import { ProtocolError, AbciError } from '@interchainjs/types';
 
 // Mock fetch globally
 const mockFetch = jest.fn();
@@ -13,17 +14,18 @@ describe('abciQuery', () => {
     mockFetch.mockReset();
   });
 
-  it('should throw on JSON-RPC error', async () => {
+  it('should throw ProtocolError on JSON-RPC error', async () => {
     mockFetch.mockResolvedValue({
       json: () => Promise.resolve({
-        error: 'Internal error',
+        error: { code: -32600, message: 'Invalid Request' },
       }),
     });
 
-    await expect(abciQuery(endpoint, path, data)).rejects.toThrow('Request Error: Internal error');
+    await expect(abciQuery(endpoint, path, data)).rejects.toThrow(ProtocolError);
+    await expect(abciQuery(endpoint, path, data)).rejects.toThrow('JSON-RPC error');
   });
 
-  it('should throw on non-zero ABCI response code', async () => {
+  it('should throw AbciError on non-zero ABCI response code', async () => {
     mockFetch.mockResolvedValue({
       json: () => Promise.resolve({
         result: {
@@ -36,12 +38,19 @@ describe('abciQuery', () => {
       }),
     });
 
-    await expect(abciQuery(endpoint, path, data)).rejects.toThrow(
-      'ABCI Error (code 11): out of gas in location: ReadFlat; gasWanted: 0, gasUsed: 1000'
-    );
+    await expect(abciQuery(endpoint, path, data)).rejects.toThrow(AbciError);
+
+    try {
+      await abciQuery(endpoint, path, data);
+    } catch (e) {
+      expect(e).toBeInstanceOf(AbciError);
+      const abciError = e as AbciError;
+      expect(abciError.abciCode).toBe(11);
+      expect(abciError.log).toBe('out of gas in location: ReadFlat; gasWanted: 0, gasUsed: 1000');
+    }
   });
 
-  it('should throw with generic message when ABCI error has no log', async () => {
+  it('should throw AbciError with generic message when ABCI error has no log', async () => {
     mockFetch.mockResolvedValue({
       json: () => Promise.resolve({
         result: {
@@ -54,7 +63,15 @@ describe('abciQuery', () => {
       }),
     });
 
-    await expect(abciQuery(endpoint, path, data)).rejects.toThrow('ABCI Error (code 5): Unknown error');
+    await expect(abciQuery(endpoint, path, data)).rejects.toThrow(AbciError);
+
+    try {
+      await abciQuery(endpoint, path, data);
+    } catch (e) {
+      const abciError = e as AbciError;
+      expect(abciError.abciCode).toBe(5);
+      expect(abciError.log).toBe('Unknown error');
+    }
   });
 
   it('should return decoded value on success (code 0)', async () => {
@@ -74,5 +91,21 @@ describe('abciQuery', () => {
 
     const result = await abciQuery(endpoint, path, data);
     expect(result).toEqual(new Uint8Array([4, 5, 6]));
+  });
+
+  it('should preserve instanceof Error for backward compatibility', async () => {
+    mockFetch.mockResolvedValue({
+      json: () => Promise.resolve({
+        result: {
+          response: {
+            code: 11,
+            log: 'test error',
+            value: '',
+          },
+        },
+      }),
+    });
+
+    await expect(abciQuery(endpoint, path, data)).rejects.toThrow(Error);
   });
 });

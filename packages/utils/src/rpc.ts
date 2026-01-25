@@ -1,4 +1,4 @@
-import { HttpEndpoint, Rpc } from '@interchainjs/types';
+import { HttpEndpoint, Rpc, ProtocolError, AbciError, ParseError } from '@interchainjs/types';
 import { toHttpEndpoint } from './endpoint';
 import { fromBase64, toBase64, toHex } from './encoding';
 import { randomId } from './random';
@@ -48,20 +48,25 @@ export async function abciQuery(
   const resp = await fetch(endpoint.url, req);
   const json = await resp.json();
   if (json['error'] != void 0) {
-    throw new Error(`Request Error: ${json['error']}`);
+    throw new ProtocolError(`JSON-RPC error: ${JSON.stringify(json['error'])}`);
   }
   const response = json['result']['response'];
 
   // Check ABCI response code - non-zero indicates an error
   if (response['code'] !== 0) {
-    throw new Error(`ABCI Error (code ${response['code']}): ${response['log'] || 'Unknown error'}`);
+    const log = response['log'] || 'Unknown error';
+    throw new AbciError(
+      `ABCI query failed (code ${response['code']}): ${log}`,
+      response['code'],
+      log
+    );
   }
 
   try {
     const result = fromBase64(response['value']);
     return result;
   } catch (error) {
-    throw new Error(`Request Error: ${response['log'] || 'Failed to decode response'}`);
+    throw new ParseError(`Failed to decode ABCI response: ${response['log'] || 'invalid base64'}`);
   }
 }
 
