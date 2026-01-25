@@ -50,11 +50,18 @@ export async function abciQuery(
   if (json['error'] != void 0) {
     throw new Error(`Request Error: ${json['error']}`);
   }
+  const response = json['result']['response'];
+
+  // Check ABCI response code - non-zero indicates an error
+  if (response['code'] !== 0) {
+    throw new Error(`ABCI Error (code ${response['code']}): ${response['log'] || 'Unknown error'}`);
+  }
+
   try {
-    const result = fromBase64(json['result']['response']['value']);
+    const result = fromBase64(response['value']);
     return result;
   } catch (error) {
-    throw new Error(`Request Error: ${json['result']['response']['log']}`);
+    throw new Error(`Request Error: ${response['log'] || 'Failed to decode response'}`);
   }
 }
 
