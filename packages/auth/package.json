@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/auth",
-  "version": "1.19.1",
+  "version": "1.19.2",
   "description": "Authentication for web3 accounts",
   "main": "index.js",
   "module": "esm/index.js",
@@ -40,7 +40,7 @@
     "test": "jest --config ./jest.config.js --verbose --bail"
   },
   "dependencies": {
-    "@interchainjs/crypto": "^1.19.1",
+    "@interchainjs/crypto": "^1.19.2",
     "@interchainjs/types": "^1.19.1",
     "@interchainjs/utils": "^1.19.1",
     "@noble/curves": "^1.1.0",
