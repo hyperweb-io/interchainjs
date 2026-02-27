@@ -48,11 +48,11 @@
     "@noble/hashes": "^1",
     "bn.js": "^5.2.0",
     "elliptic": "^6.5.4",
-    "libsodium-wrappers-sumo": "^0.7.11"
+    "libsodium-wrappers-sumo": "^0.8.2"
   },
   "devDependencies": {
     "@types/elliptic": "^6.4.18",
-    "@types/libsodium-wrappers-sumo": "^0.7.8",
+    "@types/libsodium-wrappers-sumo": "^0.8.2",
     "tsc-esm-fix": "^3.1.2"
   },
   "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3"
