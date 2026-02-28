@@ -6,7 +6,8 @@ export enum ErrorCode {
   PARSE_ERROR = "PARSE_ERROR",
   INVALID_RESPONSE = "INVALID_RESPONSE",
   SUBSCRIPTION_ERROR = "SUBSCRIPTION_ERROR",
-  PROTOCOL_ERROR = "PROTOCOL_ERROR"
+  PROTOCOL_ERROR = "PROTOCOL_ERROR",
+  ABCI_ERROR = "ABCI_ERROR"
 }
 
 export enum ErrorCategory {
@@ -62,4 +63,24 @@ export class SubscriptionError extends QueryClientError {
 export class ProtocolError extends QueryClientError {
   readonly code = ErrorCode.PROTOCOL_ERROR;
   readonly category = ErrorCategory.PROTOCOL;
+}
+
+/**
+ * Error thrown when an ABCI query returns a non-zero response code.
+ * This indicates the chain application rejected the query (e.g., simulation failure,
+ * invalid transaction, out of gas during execution).
+ */
+export class AbciError extends QueryClientError {
+  readonly code = ErrorCode.ABCI_ERROR;
+  readonly category = ErrorCategory.SERVER;
+
+  constructor(
+    message: string,
+    /** The ABCI response code (non-zero indicates error) */
+    public readonly abciCode: number,
+    /** The log message from the ABCI response */
+    public readonly log: string
+  ) {
+    super(message);
+  }
 }
