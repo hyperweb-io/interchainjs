@@ -121,8 +121,8 @@ This guide will walk you through the process of installing and setting up interc
 You can install interchainjs using Yarn:
 
 ```bash
-yarn add interchainjs
-yarn add @interchainjs/cosmos
+pnpm add interchainjs
+pnpm add @interchainjs/cosmos
 ```
 
 or npm

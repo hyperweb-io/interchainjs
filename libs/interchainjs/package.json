@@ -30,39 +30,37 @@
     "directory": "dist"
   },
   "scripts": {
-    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "rimraf dist/**",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "makage build",
+    "build:dev": "makage build",
     "lint": "eslint . --fix",
     "starship": "starship --config ./starship/configs/config.yaml",
     "starship:local": "starship --config ./starship/configs/config.local.yaml",
     "starship:test": "jest --config ./jest.starship.config.js --verbose --bail",
     "starship:debug": "jest --config ./jest.starship.config.js --runInBand --verbose --bail",
     "starship:watch": "jest --watch --config ./jest.starship.config.js",
-    "starship:all": "yarn starship start",
-    "starship:clean": "yarn starship stop",
-    "prepare": "npm run build",
-    "fix-esm": "tsc-esm-fix --target=dist/esm"
+    "starship:all": "pnpm starship start",
+    "starship:clean": "pnpm starship stop",
+    "prepack": "makage build"
   },
   "dependencies": {
-    "@interchainjs/cosmos": "^1.19.4",
-    "@interchainjs/cosmos-types": "^1.19.1",
-    "@interchainjs/crypto": "^1.19.2",
-    "@interchainjs/encoding": "^1.18.1",
-    "@interchainjs/ethereum": "^1.19.2",
-    "@interchainjs/math": "^1.18.1",
-    "@interchainjs/pubkey": "^1.19.2",
-    "@interchainjs/types": "^1.19.1",
-    "@interchainjs/utils": "^1.19.1",
+    "@interchainjs/cosmos": "workspace:*",
+    "@interchainjs/cosmos-types": "workspace:*",
+    "@interchainjs/crypto": "workspace:*",
+    "@interchainjs/encoding": "workspace:*",
+    "@interchainjs/ethereum": "workspace:*",
+    "@interchainjs/math": "workspace:*",
+    "@interchainjs/pubkey": "workspace:*",
+    "@interchainjs/solana": "workspace:^",
+    "@interchainjs/types": "workspace:*",
+    "@interchainjs/utils": "workspace:*",
     "@noble/hashes": "^1.3.1",
     "decimal.js": "^10.4.3"
   },
   "devDependencies": {
     "@chain-registry/client": "1.18.1",
     "@chain-registry/types": "^2.0.42",
-    "starshipjs": "^2.4.0",
-    "tsc-esm-fix": "^3.1.2"
+    "makage": "^0.1.12",
+    "starshipjs": "^2.4.0"
   },
   "keywords": [
     "cosmos",
@@ -70,6 +68,5 @@
     "transaction",
     "cosmjs",
     "wallet"
-  ],
-  "gitHead": "74dec3776f908660a4450aac3cf948b875f14562"
+  ]
 }

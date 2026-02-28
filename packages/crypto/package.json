@@ -33,27 +33,24 @@
   },
   "scripts": {
     "test": "jest --config ./jest.config.js --verbose --bail",
-    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "rimraf dist/**",
-    "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
-    "fix-esm": "tsc-esm-fix --target=dist/esm",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
-    "lint": "eslint . --fix"
+    "build": "makage build",
+    "build:dev": "makage build",
+    "lint": "eslint . --fix",
+    "prepack": "makage build"
   },
   "dependencies": {
-    "@interchainjs/encoding": "^1.18.1",
-    "@interchainjs/math": "^1.18.1",
-    "@interchainjs/utils": "^1.19.1",
+    "@interchainjs/encoding": "workspace:*",
+    "@interchainjs/math": "workspace:*",
+    "@interchainjs/utils": "workspace:*",
     "@noble/hashes": "^1",
     "bn.js": "^5.2.0",
     "elliptic": "^6.5.4",
     "libsodium-wrappers-sumo": "^0.8.2"
   },
   "devDependencies": {
+    "@types/bn.js": "^5.2.0",
     "@types/elliptic": "^6.4.18",
     "@types/libsodium-wrappers-sumo": "^0.8.2",
-    "tsc-esm-fix": "^3.1.2"
-  },
-  "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3"
+    "makage": "^0.1.12"
+  }
 }

@@ -1,15 +1,8 @@
 {
   "lerna": "6",
   "conventionalCommits": true,
-  "npmClient": "yarn",
-  "npmClientArgs": [
-    "--no-lockfile"
-  ],
-  "packages": [
-    "packages/*",
-    "networks/*",
-    "libs/*"
-  ],
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
   "version": "independent",
   "registry": "https://registry.npmjs.org",
   "command": {

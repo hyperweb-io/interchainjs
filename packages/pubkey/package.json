@@ -32,23 +32,19 @@
   },
   "scripts": {
     "test": "jest --config ./jest.config.js --verbose --bail",
-    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "rimraf dist/**",
-    "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
-    "fix-esm": "tsc-esm-fix --target=dist/esm",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
-    "lint": "eslint . --fix"
+    "build": "makage build",
+    "build:dev": "makage build",
+    "lint": "eslint . --fix",
+    "prepack": "makage build"
   },
   "dependencies": {
-    "@interchainjs/amino": "^1.19.2",
-    "@interchainjs/cosmos-types": "^1.19.1",
-    "@interchainjs/encoding": "^1.18.1",
-    "@interchainjs/math": "^1.18.1",
-    "@interchainjs/types": "^1.19.1"
+    "@interchainjs/amino": "workspace:*",
+    "@interchainjs/cosmos-types": "workspace:*",
+    "@interchainjs/encoding": "workspace:*",
+    "@interchainjs/math": "workspace:*",
+    "@interchainjs/types": "workspace:*"
   },
-  "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3",
   "devDependencies": {
-    "tsc-esm-fix": "^3.1.2"
+    "makage": "^0.1.12"
   }
 }

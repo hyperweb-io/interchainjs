@@ -1166,8 +1166,8 @@ Leverage the request-object query client with automatic protocol detection and t
 When first cloning the repo:
 
 ```shell
-yarn
-yarn build:dev
+pnpm install
+pnpm run build:dev
 ```
 
 ### Codegen
@@ -1175,7 +1175,7 @@ yarn build:dev
 Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/interchainjs.telescope.json` and configure the settings for bundling your SDK and contracts into `interchainjs`:
 
 ```shell
-yarn codegen
+pnpm run codegen
 ```
 
 ## Interchain JavaScript Stack ⚛️

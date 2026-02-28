@@ -4,7 +4,7 @@ This guide describes how to use `.augment/solana-sandbox.sh` to run local Solana
 
 ## Prerequisites
 - Install the Solana CLI (provides `solana-test-validator`, `solana-keygen`, `solana`). On macOS you can run `brew install solana`.
-- Ensure repository dependencies are installed (`yarn install`).
+- Ensure repository dependencies are installed (`pnpm install`).
 
 ## Starting the sandbox validator
 
@@ -39,7 +39,7 @@ The validator replies with `ok` when it is ready to serve requests. Investigate 
 With the sandbox running, execute the Starship integration test directly from the Solana workspace:
 
 ```bash
-yarn --cwd networks/solana test:integration
+pnpm --filter networks/solana test:integration
 ```
 
 This test now pins the protocol adapter to `SolanaProtocolVersion.SOLANA_1_18` and requests balances using `commitment: processed`, so it matches the sandbox behaviour. The test suite will airdrop funds to a throwaway keypair, perform a transfer, and assert balances via RPC.

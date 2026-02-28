@@ -30,26 +30,23 @@
     "directory": "dist"
   },
   "scripts": {
-    "copy": "copyfiles -f ../../LICENSE-MIT ../../LICENSE-Apache README.md package.json dist",
-    "clean": "rimraf dist/**",
-    "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run fix-esm; npm run copy",
-    "build:dev": "npm run clean; tsc --declarationMap; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "makage build",
+    "build:dev": "makage build",
     "lint": "eslint . --fix",
-    "fix-esm": "tsc-esm-fix --target=dist/esm"
+    "prepack": "makage build"
   },
   "dependencies": {
-    "@interchainjs/math": "^1.18.1",
-    "@interchainjs/types": "^1.19.1",
-    "@interchainjs/utils": "^1.19.1"
+    "@interchainjs/encoding": "workspace:^",
+    "@interchainjs/math": "workspace:*",
+    "@interchainjs/types": "workspace:*",
+    "@interchainjs/utils": "workspace:*"
   },
   "keywords": [
     "cosmos",
     "blockchain",
     "query"
   ],
-  "gitHead": "25cc22e03504ea6164707192deb0f3c6f572fad3",
   "devDependencies": {
-    "tsc-esm-fix": "^3.1.2"
+    "makage": "^0.1.12"
   }
 }
