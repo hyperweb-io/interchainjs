@@ -1,6 +1,6 @@
 import { ICryptoBytes, IWallet } from '@interchainjs/types';
 import { keccak256 } from 'ethereum-cryptography/keccak';
-import { secp256k1 } from '@noble/curves/secp256k1';
+import { secp256k1 } from '@noble/curves/secp256k1.js';
 import { hexToBytes, bytesToHex } from 'ethereum-cryptography/utils';
 import {
   EthereumSignerConfig,
