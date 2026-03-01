@@ -1,6 +1,6 @@
 import { PRESET_INJECTIVE_SIGNATURE_FORMATS } from './signature-processor';
 import deepmerge from 'deepmerge';
-import { CosmosCryptoSecp256k1PubKey as Secp256k1PubKey } from '@interchainjs/cosmos-types';
+import { CosmosCryptoSecp256k1PubKey } from '@interchainjs/cosmos-types';
 import { EncodedMessage, DocOptions, CosmosSignerConfig } from '@interchainjs/cosmos';
 import { Any } from '@interchainjs/types';
 
@@ -11,8 +11,8 @@ import { Any } from '@interchainjs/types';
 export const encodeInjectivePublicKey = (publicKey: Uint8Array): EncodedMessage => {
   return {
     typeUrl: '/injective.crypto.v1beta1.ethsecp256k1.PubKey',
-    value: Secp256k1PubKey.encode(
-      Secp256k1PubKey.fromPartial({ key: publicKey })
+    value: CosmosCryptoSecp256k1PubKey.encode(
+      CosmosCryptoSecp256k1PubKey.fromPartial({ key: publicKey })
     ).finish(),
   };
 };
@@ -45,9 +45,12 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
   // Public key encoding - Injective specific
   encodePublicKey: encodeInjectivePublicKey,
   pubkeyDecoders: {
-    '/injective.crypto.v1beta1.ethsecp256k1.PubKey': (pubkey: Any): Secp256k1PubKey => {
-      const { key } = Secp256k1PubKey.decode(pubkey.value);
-      return Secp256k1PubKey.fromPartial({ key });
+    '/injective.crypto.v1beta1.ethsecp256k1.PubKey': (pubkey: Any) => {
+      const { key } = CosmosCryptoSecp256k1PubKey.decode(pubkey.value);
+      return {
+        type: 'tendermint/PubKeySecp256k1',
+        value: Buffer.from(key).toString('base64'),
+      };
     }
   }
 };
