@@ -8,7 +8,7 @@ export class EthereumAddressValidator implements AddressValidator {
   private toEIP55Checksum(address: string): string {
     const addr = address.toLowerCase().replace('0x', '');
     // keccak256 of ascii lowercase hex
-    const { keccak_256 } = require('@noble/hashes/sha3');
+    const { keccak_256 } = require('@noble/hashes/sha3.js');
     const { toHex } = require('./encoding');
     const hash = toHex(keccak_256(Buffer.from(addr, 'utf8')));
     let checksumAddress = '0x';

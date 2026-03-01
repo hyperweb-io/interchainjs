@@ -3,7 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.tsx?$': [
+    '^.+\\.[jt]sx?$': [
       'ts-jest',
       {
         babelConfig: false,
@@ -11,9 +11,16 @@ module.exports = {
       },
     ],
   },
-  transformIgnorePatterns: [`/node_modules/*`],
+  transformIgnorePatterns: [`node_modules/(?!(.pnpm|@noble/hashes|@noble/curves|@scure/bip32|@scure/base|bech32))`],
   modulePathIgnorePatterns: [
     '<rootDir>/dist/',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleNameMapper: {
+    '^@interchainjs/types$': '<rootDir>/../types/src',
+    '^@interchainjs/utils$': '<rootDir>/../utils/src',
+    '^@interchainjs/crypto$': '<rootDir>/../crypto/src',
+    '^@interchainjs/encoding$': '<rootDir>/../encoding/src',
+    '^@interchainjs/math$': '<rootDir>/../math/src',
+  },
 };

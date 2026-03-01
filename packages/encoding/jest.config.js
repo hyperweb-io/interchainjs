@@ -3,7 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.tsx?$': [
+    '^.+\\.[jt]sx?$': [
       'ts-jest',
       {
         babelConfig: false,
@@ -11,7 +11,7 @@ module.exports = {
       },
     ],
   },
-  transformIgnorePatterns: [`/node_modules/*`],
+  transformIgnorePatterns: [`node_modules/(?!(.pnpm|bech32))`],
   modulePathIgnorePatterns: [
     '<rootDir>/dist/',
   ],

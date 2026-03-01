@@ -1,8 +1,8 @@
 import { IAddressStrategy, IAlgo } from '@interchainjs/types';
 import { bech32 } from 'bech32';
-import { sha256 } from '@noble/hashes/sha256';
-import { ripemd160 } from '@noble/hashes/ripemd160';
-import { keccak_256 } from '@noble/hashes/sha3';
+import { sha256 } from '@noble/hashes/sha2.js';
+import { ripemd160 } from '@noble/hashes/legacy.js';
+import { keccak_256 } from '@noble/hashes/sha3.js';
 import { toHex, fromHex } from '@interchainjs/utils';
 
 export const COSMOS_ADDRESS_STRATEGY: IAddressStrategy = {

@@ -15,7 +15,7 @@ import {
 } from '@interchainjs/types';
 import { BaseCryptoBytes } from '@interchainjs/utils';
 import * as nacl from 'tweetnacl';
-import * as bs58 from 'bs58';
+import bs58 from 'bs58';
 import { PublicKey } from './types/solana-types';
 
 const DEFAULT_SOLANA_DERIVATION = "m/44'/501'/0'/0/0";

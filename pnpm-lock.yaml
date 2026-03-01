@@ -813,6 +813,9 @@ importers:
       '@interchainjs/types':
         specifier: workspace:*
         version: link:../types/dist
+      '@noble/hashes':
+        specifier: ^2.0.1
+        version: 2.0.1
       bech32:
         specifier: ^2.0.0
         version: 2.0.0

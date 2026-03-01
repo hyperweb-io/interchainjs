@@ -2,28 +2,31 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  globals: {
-    'ts-jest': {
-      tsconfig: {
-        moduleResolution: 'node',
-        allowJs: true,
-        esModuleInterop: true,
-        skipLibCheck: true,
-        strict: false,
+  transform: {
+    '^.+\\.[jt]sx?$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          moduleResolution: 'node',
+          allowJs: true,
+          esModuleInterop: true,
+          skipLibCheck: true,
+          strict: false,
+        },
+        isolatedModules: true,
       },
-      isolatedModules: true,
-    }
+    ],
   },
-  transformIgnorePatterns: [`/node_modules/*`],
+  transformIgnorePatterns: [`node_modules/(?!(.pnpm|@noble/hashes|@noble/curves|@scure/bip32|@scure/base))`],
   modulePathIgnorePatterns: [
     '<rootDir>/dist/',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
-    '^@interchainjs/types$': '<rootDir>/../types/dist',
-    '^@interchainjs/utils$': '<rootDir>/../utils/dist',
-    '^@interchainjs/crypto$': '<rootDir>/../crypto/dist',
-    '^@interchainjs/encoding$': '<rootDir>/../encoding/dist',
-    '^@interchainjs/math$': '<rootDir>/../math/dist',
+    '^@interchainjs/types$': '<rootDir>/../types/src',
+    '^@interchainjs/utils$': '<rootDir>/../utils/src',
+    '^@interchainjs/crypto$': '<rootDir>/../crypto/src',
+    '^@interchainjs/encoding$': '<rootDir>/../encoding/src',
+    '^@interchainjs/math$': '<rootDir>/../math/src',
   },
 };
