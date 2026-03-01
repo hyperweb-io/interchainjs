@@ -9,6 +9,7 @@ module.exports = {
       {
         babelConfig: false,
         tsconfig: 'tsconfig.json',
+        diagnostics: false,
       },
     ],
   },

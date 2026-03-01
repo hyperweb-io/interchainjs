@@ -23,14 +23,8 @@
       src="https://github.com/hyperweb-io/interchainjs/actions/workflows/run-tests.yaml/badge.svg"
     />
   </a>
-  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-MIT">
+  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE">
     <img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg" />
-  </a>
-  <a href="https://github.com/hyperweb-io/interchainjs/blob/main/LICENSE-Apache">
-    <img
-      height="20"
-      src="https://img.shields.io/badge/license-Apache-blue.svg"
-    />
   </a>
 </p>
 
@@ -1166,8 +1160,8 @@ Leverage the request-object query client with automatic protocol detection and t
 When first cloning the repo:
 
 ```shell
-yarn
-yarn build:dev
+pnpm install
+pnpm run build:dev
 ```
 
 ### Codegen
@@ -1175,7 +1169,7 @@ yarn build:dev
 Contract schemas live in `./contracts`, and protos in `./proto`. Look inside of `scripts/interchainjs.telescope.json` and configure the settings for bundling your SDK and contracts into `interchainjs`:
 
 ```shell
-yarn codegen
+pnpm run codegen
 ```
 
 ## Interchain JavaScript Stack ⚛️

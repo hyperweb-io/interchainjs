@@ -2,7 +2,7 @@
 
 ## Mandatory Test Harness
 
-When you run the websocket suite you **must** launch it through the Python wrapper below. Running `yarn --cwd networks/solana test:ws` directly will hang indefinitely—never execute the Jest command on its own.
+When you run the websocket suite you **must** launch it through the Python wrapper below. Running `pnpm --filter @interchainjs/solana run test:ws` directly will hang indefinitely—never execute the Jest command on its own.
 
 ## Python Wrapper (180s Timeout)
 
@@ -14,7 +14,7 @@ import subprocess
 import sys
 
 CMD = [
-    "yarn", "--cwd", "networks/solana", "test:ws",
+    "pnpm", "--filter", "@interchainjs/solana", "run", "test:ws",
     "--runInBand", "--detectOpenHandles", "--testTimeout=120000"
 ]
 WRAPPER_TIMEOUT = 180  # seconds

@@ -9,25 +9,17 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "workspaces": [
-    "packages/*",
-    "networks/*",
-    "libs/*"
-  ],
   "scripts": {
     "codegen": "ts-node ./scripts/codegen.ts",
     "proto": "telescope download --config ./scripts/.protod.config.json && telescope download --config ./scripts/.injective.protod.config.json",
-    "test": "lerna run test --stream",
-    "clean": "lerna run clean",
+    "test": "pnpm -r --stream run test",
+    "clean": "pnpm -r run clean",
     "clean:codegen": "rimraf libs/*/src",
     "clean:modules": "find . -name 'node_modules' -type d -prune -print | xargs rm -rf",
-    "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --stream",
-    "build:dev": "lerna run build:dev --stream; yarn symlink",
-    "lint": "lerna run lint --parallel",
-    "symlink": "symlink-workspace --logLevel error",
-    "postinstall": "yarn symlink",
-    "doc": "yarn doc:clean; ./scripts/docs/copy_readmes.sh; ./scripts/docs/generate_meta_json.sh",
+    "build": "pnpm -r --stream --filter './packages/*' --filter './libs/cosmos-types' --filter '@interchainjs/solana' --filter '@interchainjs/ethereum' run build && pnpm --filter '@interchainjs/cosmos' run build && pnpm --filter 'interchainjs' run build && pnpm --filter '@interchainjs/injective' run build && pnpm -r --stream --filter '!@interchainjs/cosmos' --filter '!interchainjs' run build",
+    "build:dev": "pnpm -r --stream --filter './packages/*' --filter './libs/cosmos-types' --filter '@interchainjs/solana' --filter '@interchainjs/ethereum' run build:dev && pnpm --filter '@interchainjs/cosmos' run build:dev && pnpm --filter 'interchainjs' run build:dev && pnpm --filter '@interchainjs/injective' run build:dev && pnpm -r --stream --filter '!@interchainjs/cosmos' --filter '!interchainjs' run build:dev",
+    "lint": "pnpm -r --parallel run lint",
+    "doc": "pnpm run doc:clean; ./scripts/docs/copy_readmes.sh; ./scripts/docs/generate_meta_json.sh",
     "doc:reverse": "./scripts/docs/reverse_copy_readmes.sh",
     "doc:clean": "rimraf ./docs/libs; rimraf ./docs/networks; rimraf ./docs/packages; rimraf ./docs/_meta.json; rimraf ./docs/index.mdx; rimraf ./docs/migration-from-cosmjs.mdx;"
   },
@@ -41,7 +33,6 @@
     "@types/ws": "^8.5.8",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
-    "copyfiles": "^2.4.1",
     "deepmerge": "4.2.2",
     "del-cli": "^5.1.0",
     "eslint": "8.38.0",
@@ -58,13 +49,11 @@
     "source-map-support": "^0.5.19",
     "starshipjs": "^2.4.0",
     "strip-ansi": "5.2.0",
-    "symlink-workspace": "^1.9.0",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.1.6",
     "ws": "^8.14.0"
   },
-  "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71",
   "dependencies": {
     "@scure/bip32": "^1.7.0",
     "bip39": "^3.1.0"

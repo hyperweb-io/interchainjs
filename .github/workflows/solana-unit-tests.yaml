@@ -11,20 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository 📝
+      - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '9.15.4'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Project
-        run: yarn build
+        run: pnpm run build
 
       - name: Set Up Starship Infrastructure
         id: starship-infra
@@ -144,4 +149,4 @@ jobs:
           fi
 
           cd ./networks/solana
-          yarn test --runInBand
+          pnpm run test --runInBand

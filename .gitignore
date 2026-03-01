@@ -3,6 +3,7 @@
 **/dist
 **/dist_spec
 **/yarn-error.log
+**/pnpm-debug.log
 lerna-debug.log
 
 .vscode/settings.json
