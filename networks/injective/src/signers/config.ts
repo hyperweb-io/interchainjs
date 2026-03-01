@@ -43,7 +43,7 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
   nonCriticalExtensionOptions: [], // No non-critical extension options by default
 
   // Public key encoding - Injective specific
-  encodePublicKey: encodeInjectivePublicKey
+  encodePublicKey: encodeInjectivePublicKey,
   pubkeyDecoders: {
     '/injective.crypto.v1beta1.ethsecp256k1.PubKey': (pubkey: Any): Secp256k1PubKey => {
       const { key } = Secp256k1PubKey.decode(pubkey.value);
