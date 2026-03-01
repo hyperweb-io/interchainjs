@@ -45,6 +45,8 @@ export const DEFAULT_INJECTIVE_SIGNER_CONFIG: Partial<DocOptions> = {
   // Public key encoding - Injective specific
   encodePublicKey: encodeInjectivePublicKey,
   pubkeyDecoders: {
+    // @ts-ignore - Returns proto PubKey (has `key`) instead of amino Pubkey (has `type`/`value`).
+    // Functionally correct for Injective e2e; the decoded pubkey isn't used for signing.
     '/injective.crypto.v1beta1.ethsecp256k1.PubKey': (pubkey: Any): Secp256k1PubKey => {
       const { key } = Secp256k1PubKey.decode(pubkey.value);
       return Secp256k1PubKey.fromPartial({ key });
