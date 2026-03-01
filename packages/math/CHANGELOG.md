@@ -3,13 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/math@1.18.1...@interchainjs/math@1.19.0) (2026-03-01)
+
+### Features
+
+- migrate from yarn to pnpm with makage + dist/ publishing ([0474a2e](https://github.com/hyperweb-io/interchainjs/commit/0474a2eb7969890c4fb0d5b4012efd12d4791351))
+
 ## [1.18.1](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/math@1.18.0...@interchainjs/math@1.18.1) (2025-12-16)
 
 **Note:** Version bump only for package @interchainjs/math
-
-
-
-
 
 # [1.18.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/math@1.17.8...@interchainjs/math@1.18.0) (2025-10-14)
 

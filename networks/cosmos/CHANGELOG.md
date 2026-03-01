@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.19.4...@interchainjs/cosmos@1.20.0) (2026-03-01)
+
+### Bug Fixes
+
+- add diagnostics:false to cosmos starship jest config + add @jest/globals to solana ([cfaa48a](https://github.com/hyperweb-io/interchainjs/commit/cfaa48a0a44b5291cab8b98a1cbae51ade0e73b1))
+
+### Features
+
+- migrate from yarn to pnpm with makage + dist/ publishing ([0474a2e](https://github.com/hyperweb-io/interchainjs/commit/0474a2eb7969890c4fb0d5b4012efd12d4791351))
+
 ## [1.19.4](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/cosmos@1.19.3...@interchainjs/cosmos@1.19.4) (2026-02-27)
 
 **Note:** Version bump only for package @interchainjs/cosmos

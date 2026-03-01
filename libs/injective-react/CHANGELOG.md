@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.19.4...injective-react@1.20.0) (2026-03-01)
+
+### Features
+
+- migrate from yarn to pnpm with makage + dist/ publishing ([0474a2e](https://github.com/hyperweb-io/interchainjs/commit/0474a2eb7969890c4fb0d5b4012efd12d4791351))
+
 ## [1.19.4](https://github.com/hyperweb-io/interchainjs/compare/injective-react@1.19.3...injective-react@1.19.4) (2026-02-27)
 
 **Note:** Version bump only for package injective-react
