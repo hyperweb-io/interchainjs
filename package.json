@@ -19,6 +19,8 @@
     "build": "pnpm -r --stream --filter './packages/*' --filter './libs/cosmos-types' --filter '@interchainjs/solana' --filter '@interchainjs/ethereum' run build && pnpm --filter '@interchainjs/cosmos' run build && pnpm --filter 'interchainjs' run build && pnpm --filter '@interchainjs/injective' run build && pnpm -r --stream --filter '!@interchainjs/cosmos' --filter '!interchainjs' run build",
     "build:dev": "pnpm -r --stream --filter './packages/*' --filter './libs/cosmos-types' --filter '@interchainjs/solana' --filter '@interchainjs/ethereum' run build:dev && pnpm --filter '@interchainjs/cosmos' run build:dev && pnpm --filter 'interchainjs' run build:dev && pnpm --filter '@interchainjs/injective' run build:dev && pnpm -r --stream --filter '!@interchainjs/cosmos' --filter '!interchainjs' run build:dev",
     "lint": "pnpm -r --parallel run lint",
+    "internal:deps": "makage update-workspace",
+    "deps": "pnpm up -r -i -L",
     "doc": "pnpm run doc:clean; ./scripts/docs/copy_readmes.sh; ./scripts/docs/generate_meta_json.sh",
     "doc:reverse": "./scripts/docs/reverse_copy_readmes.sh",
     "doc:clean": "rimraf ./docs/libs; rimraf ./docs/networks; rimraf ./docs/packages; rimraf ./docs/_meta.json; rimraf ./docs/index.mdx; rimraf ./docs/migration-from-cosmjs.mdx;"
@@ -41,7 +43,8 @@
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "eslint-plugin-unused-imports": "^4.0.0",
     "jest": "^30.0.3",
-    "lerna": "^6",
+    "lerna": "^8.2.3",
+    "makage": "^0.1.12",
     "prettier": "2.8.7",
     "rimraf": "4.4.1",
     "ses": "^0.11.0",
