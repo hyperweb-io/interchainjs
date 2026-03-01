@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/ethereum@1.20.0...@interchainjs/ethereum@1.21.0) (2026-03-01)
+
+**Note:** Version bump only for package @interchainjs/ethereum
+
 # [1.20.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/ethereum@1.19.2...@interchainjs/ethereum@1.20.0) (2026-03-01)
 
 ### Features

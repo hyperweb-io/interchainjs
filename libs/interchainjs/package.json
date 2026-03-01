@@ -1,6 +1,6 @@
 {
   "name": "interchainjs",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "description": "InterchainJS is a JavaScript library for interacting with Cosmos SDK based blockchains.",
   "main": "index.js",
   "module": "esm/index.js",

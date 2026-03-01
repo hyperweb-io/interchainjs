@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/encoding@1.19.0...@interchainjs/encoding@1.20.0) (2026-03-01)
+
+**Note:** Version bump only for package @interchainjs/encoding
+
 # [1.19.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/encoding@1.18.1...@interchainjs/encoding@1.19.0) (2026-03-01)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "@interchainjs/ethereum",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "description": "Transaction codec and client to communicate with ethereum blockchain",
   "main": "index.js",
   "module": "esm/index.js",

@@ -1,6 +1,6 @@
 {
   "name": "injective-react",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "description": "injective-react is a JavaScript library providing react query hooks for interacting with injective sdk.",
   "main": "index.js",
   "module": "esm/index.js",
