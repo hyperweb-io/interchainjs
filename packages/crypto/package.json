@@ -6,7 +6,7 @@
     "IOV SAS <admin@iov.one>",
     "Simon Warta"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",

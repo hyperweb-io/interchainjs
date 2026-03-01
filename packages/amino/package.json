@@ -5,7 +5,7 @@
   "contributors": [
     "Simon Warta <webmaster128@users.noreply.github.com>"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",

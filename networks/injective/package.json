@@ -29,7 +29,7 @@
     "directory": "dist"
   },
   "scripts": {
-    "build": "rm -rf dist && (tsc -p tsconfig.json || true) && (tsc -p tsconfig.esm.json || true) && cp ../../LICENSE-MIT dist/ && cp ../../LICENSE-Apache dist/ && cp package.json dist/ && cp README.md dist/",
+    "build": "rm -rf dist && (tsc -p tsconfig.json || true) && (tsc -p tsconfig.esm.json || true) && cp ../../LICENSE dist/ && cp package.json dist/ && cp README.md dist/",
     "build:dev": "makage build",
     "lint": "eslint . --fix",
     "starship": "starship --config ./starship/configs/config.yaml",
