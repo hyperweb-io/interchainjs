@@ -42,7 +42,7 @@
     "@interchainjs/encoding": "workspace:*",
     "@interchainjs/math": "workspace:*",
     "@interchainjs/utils": "workspace:*",
-    "@noble/hashes": "^1",
+    "@noble/hashes": "^2.0.1",
     "bn.js": "^5.2.0",
     "elliptic": "^6.5.4",
     "libsodium-wrappers-sumo": "^0.8.2"
