@@ -30,7 +30,7 @@ describe('Token transfers', () => {
     client = await createCosmosQueryClient(rpcEndpoint);
 
     denom = (await getCoin()).base;
-    commonPrefix = chainInfo?.chain?.bech32_prefix;
+    commonPrefix = chainInfo?.chain?.bech32Prefix;
 
     const mnemonic = generateMnemonic();
     // Initialize wallet
