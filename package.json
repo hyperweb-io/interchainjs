@@ -24,16 +24,16 @@
     "doc:clean": "rimraf ./docs/libs; rimraf ./docs/networks; rimraf ./docs/packages; rimraf ./docs/_meta.json; rimraf ./docs/index.mdx; rimraf ./docs/migration-from-cosmjs.mdx;"
   },
   "devDependencies": {
-    "@chain-registry/client": "1.18.1",
-    "@hyperweb/telescope": "^1.17.4",
-    "@noble/hashes": "^1.4.0",
+    "@chain-registry/client": "2.0.163",
+    "@hyperweb/telescope": "^2.2.0",
+    "@noble/hashes": "^2.0.1",
     "@starship-ci/cli": "^2.9.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.12.7",
     "@types/ws": "^8.5.8",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
-    "deepmerge": "4.2.2",
+    "deepmerge": "4.3.1",
     "del-cli": "^5.1.0",
     "eslint": "8.38.0",
     "eslint-config-prettier": "^9.1.0",
@@ -55,7 +55,7 @@
     "ws": "^8.14.0"
   },
   "dependencies": {
-    "@scure/bip32": "^1.7.0",
+    "@scure/bip32": "^2.0.1",
     "bip39": "^3.1.0"
   }
 }

@@ -208,11 +208,11 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
         recoveryBit = v - 27;
       }
 
-      signatureObj = secp256k1.Signature.fromCompact(new Uint8Array([...r, ...s])).addRecoveryBit(recoveryBit);
+      signatureObj = secp256k1.Signature.fromBytes(new Uint8Array([...r, ...s]), 'compact').addRecoveryBit(recoveryBit);
 
       // Recover public key
-      const recoveredPubkey = signatureObj.recoverPublicKey(messageHash);
-      const pubkeyBytes = recoveredPubkey.toRawBytes(false); // Uncompressed format (65 bytes)
+            const recoveredPubkey = signatureObj.recoverPublicKey(messageHash);
+            const pubkeyBytes = recoveredPubkey.toBytes(false); // Uncompressed format (65 bytes)
 
       // Derive address from public key
       const pubNoPrefix = pubkeyBytes.slice(1); // Remove 0x04 prefix
@@ -264,11 +264,11 @@ export abstract class BaseEthereumSigner implements IEthereumSigner {
       for (let recovery = 0; recovery <= 3; recovery++) {
         try {
           // Create signature object with this recovery value
-          const signatureObj = secp256k1.Signature.fromCompact(new Uint8Array([...r, ...s])).addRecoveryBit(recovery);
+          const signatureObj = secp256k1.Signature.fromBytes(new Uint8Array([...r, ...s]), 'compact').addRecoveryBit(recovery);
 
           // Recover public key
-          const recoveredPubkey = signatureObj.recoverPublicKey(msgHash);
-          const pubkeyBytes = recoveredPubkey.toRawBytes(false); // Uncompressed format (65 bytes)
+                    const recoveredPubkey = signatureObj.recoverPublicKey(msgHash);
+                    const pubkeyBytes = recoveredPubkey.toBytes(false); // Uncompressed format (65 bytes)
 
           // Derive address from public key
           const pubNoPrefix = pubkeyBytes.slice(1); // Remove 0x04 prefix
