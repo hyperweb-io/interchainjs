@@ -1,5 +1,5 @@
 import BN from 'bn.js';
-import * as bs58 from 'bs58';
+import bs58 from 'bs58';
 
 export interface PublicKeyInitData {
   _bn: BN;

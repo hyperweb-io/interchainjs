@@ -1,6 +1,6 @@
 import { assert } from "@interchainjs/utils";
 import { pbkdf2Async as noblePbkdf2Async } from "@noble/hashes/pbkdf2";
-import { sha512 as nobleSha512 } from "@noble/hashes/sha512";
+import { sha512 as nobleSha512 } from "@noble/hashes/sha2";
 
 /**
  * Returns the Node.js crypto module when available and `undefined`

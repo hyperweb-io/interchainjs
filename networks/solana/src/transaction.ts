@@ -1,7 +1,7 @@
 import { PublicKey, TransactionInstruction, TransactionMessage } from './types/solana-types';
 import { Keypair } from './keypair';
 import { encodeSolanaCompactLength, concatUint8Arrays } from './utils';
-import * as bs58 from 'bs58';
+import bs58 from 'bs58';
 
 export class Transaction {
   signatures: Array<{

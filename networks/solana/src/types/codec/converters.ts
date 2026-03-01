@@ -3,7 +3,7 @@
  */
 
 import { fromBase64, toBase64, apiToNumber as encApiToNumber, apiToBigInt as encApiToBigInt } from '@interchainjs/encoding';
-import * as bs58 from 'bs58';
+import bs58 from 'bs58';
 
 // Re-export common converters from @interchainjs/encoding for consistency
 export const apiToNumber = (value: unknown): number => {

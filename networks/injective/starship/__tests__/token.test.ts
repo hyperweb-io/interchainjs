@@ -161,19 +161,19 @@ describe('Token transfers', () => {
     const cosmosAddresses = await cosmosOfflineSigner.getAccounts();
     const cosmosAddress = cosmosAddresses[0].address;
 
-    const ibcInfos = chainInfo.fetcher.getChainIbcData(
-      chainInfo.chain.chain_name
-    );
-    const ibcInfo = ibcInfos.find(
-      (i) =>
-        i.chain_1.chain_name === chainInfo.chain.chain_name &&
-        i.chain_2.chain_name === cosmosChainInfo.chain.chain_name
-    );
+        const ibcInfos = chainInfo.fetcher.getChainIbcData(
+          chainInfo.chain.chainName
+        );
+        const ibcInfo = ibcInfos.find(
+          (i) =>
+            i.chain1.chainName === chainInfo.chain.chainName &&
+            i.chain2.chainName === cosmosChainInfo.chain.chainName
+        );
 
-    expect(ibcInfo).toBeTruthy();
+        expect(ibcInfo).toBeTruthy();
 
-    const { port_id: sourcePort, channel_id: sourceChannel } =
-      ibcInfo!.channels[0].chain_1;
+        const { portId: sourcePort, channelId: sourceChannel } =
+          ibcInfo!.channels[0].chain1;
 
     // Transfer injective tokens via IBC to cosmos chain
     const currentTime = Math.floor(Date.now()) * 1000000;
