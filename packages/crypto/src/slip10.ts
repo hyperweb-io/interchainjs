@@ -1,7 +1,7 @@
-import { fromHex, toAscii } from "@interchainjs/encoding";
+import { toAscii } from "@interchainjs/encoding";
 import { Uint32, Uint53 } from "@interchainjs/math";
+import { secp256k1 } from "@noble/curves/secp256k1.js";
 import BN from "bn.js";
-import elliptic from "elliptic";
 
 import { Hmac } from "./hmac";
 import { Sha512 } from "./sha";
@@ -77,8 +77,6 @@ export class Slip10RawIndex extends Uint32 {
  */
 export type HdPath = readonly Slip10RawIndex[];
 
-const secp256k1 = new elliptic.ec("secp256k1");
-
 // Universal private key derivation accoring to
 // https://github.com/satoshilabs/slips/blob/master/slip-0010.md
 export class Slip10 {
@@ -123,7 +121,7 @@ export class Slip10 {
         // Calculate I = HMAC-SHA512(Key = c_par, Data = ser_P(point(k_par)) || ser_32(i)).
         // where the functions point() and ser_p() are defined in BIP-0032
         const data = new Uint8Array([
-          ...Slip10.serializedPoint(curve, new BN(parentPrivkey)),
+          ...Slip10.serializedPoint(curve, parentPrivkey),
           ...rawIndex.toBytesBigEndian(),
         ]);
         i = new Hmac(Sha512, parentChainCode).update(data).digest();
@@ -138,10 +136,10 @@ export class Slip10 {
    *
    * @see https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
    */
-  private static serializedPoint(curve: Slip10Curve, p: BN): Uint8Array {
+  private static serializedPoint(curve: Slip10Curve, privkey: Uint8Array): Uint8Array {
     switch (curve) {
       case Slip10Curve.Secp256k1:
-        return fromHex(secp256k1.g.mul(p).encodeCompressed("hex"));
+        return secp256k1.getPublicKey(privkey, true);
       default:
         throw new Error("curve not supported");
     }

@@ -1,17 +1,14 @@
 import { IAlgo } from '@interchainjs/types';
 import { Secp256k1, Ed25519, Secp256k1Signature } from '@interchainjs/crypto';
-import elliptic from 'elliptic';
+import { secp256k1 } from '@noble/curves/secp256k1.js';
 import sodium from 'libsodium-wrappers-sumo';
-
-const secp256k1 = new elliptic.ec('secp256k1');
 
 // Secp256k1 algorithm implementation
 export const Secp256k1Algo: IAlgo = {
   name: 'secp256k1',
   makeKeypair: (privateKey: Uint8Array) => {
     // Synchronous version of Secp256k1.makeKeypair
-    const keyPair = secp256k1.keyFromPrivate(privateKey);
-    const pubkey = new Uint8Array(keyPair.getPublic(false, 'array')); // uncompressed
+    const pubkey = secp256k1.getPublicKey(privateKey, false); // uncompressed
     return { privkey: privateKey, pubkey };
   },
   compress: (pubkey: Uint8Array) => {

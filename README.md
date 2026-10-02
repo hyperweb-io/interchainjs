@@ -222,7 +222,7 @@ Then an authz example website will be created and users can take a look how sign
 | ---------------------------- | ------------------------------------------------------------- |
 | **Transactions**             | [@interchainjs/cosmos](https://docs.hyperweb.io/interchain-js/networks/cosmos)            |
 | **Cosmos Types**             | [@interchainjs/cosmos-types](https://docs.hyperweb.io/interchain-js/libs/cosmos-types) |
-| **Migration from `@cosmjs`** | [Migration Guide](https://docs.hyperweb.io/interchain-js/advanced/migration-from-cosmjs.mdx)             |
+| **Migration from `@cosmjs`** | [Migration Guide](https://docs.hyperweb.io/interchain-js/advanced/migration-from-cosmjs)             |
 
 ---
 
