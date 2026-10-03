@@ -43,7 +43,6 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@ethersproject/transactions": "^5.7.0",
     "@interchainjs/auth": "workspace:*",
     "@interchainjs/cosmos": "workspace:*",
     "@interchainjs/cosmos-types": "workspace:*",

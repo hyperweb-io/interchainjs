@@ -42,14 +42,13 @@
     "@interchainjs/encoding": "workspace:*",
     "@interchainjs/math": "workspace:*",
     "@interchainjs/utils": "workspace:*",
+    "@noble/curves": "^1.9.7",
     "@noble/hashes": "^1",
     "bn.js": "^5.2.0",
-    "elliptic": "^6.5.4",
     "libsodium-wrappers-sumo": "^0.8.2"
   },
   "devDependencies": {
     "@types/bn.js": "^5.2.0",
-    "@types/elliptic": "^6.4.18",
     "@types/libsodium-wrappers-sumo": "^0.8.2",
     "makage": "^0.1.12"
   }
