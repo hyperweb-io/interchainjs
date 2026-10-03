@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/crypto@1.21.0...@interchainjs/crypto@1.22.0) (2026-10-03)
+
+### Bug Fixes
+
+- **crypto:** replace elliptic with @noble/curves for secp256k1; CI on Node 22; fix migration link ([3176892](https://github.com/hyperweb-io/interchainjs/commit/3176892b389710500cb7c1408ecd4e36f37555cf))
+
 # [1.21.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/crypto@1.20.0...@interchainjs/crypto@1.21.0) (2026-03-01)
 
 **Note:** Version bump only for package @interchainjs/crypto

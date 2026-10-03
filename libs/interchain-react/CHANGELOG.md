@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/react@1.21.0...@interchainjs/react@1.22.0) (2026-10-03)
+
+**Note:** Version bump only for package @interchainjs/react
+
 # [1.21.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/react@1.20.0...@interchainjs/react@1.21.0) (2026-03-01)
 
 **Note:** Version bump only for package @interchainjs/react

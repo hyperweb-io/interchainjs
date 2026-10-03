@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/utils@1.21.0...@interchainjs/utils@1.22.0) (2026-10-03)
+
+### Bug Fixes
+
+- **utils:** retry HttpRpcClient calls on HTTP 429, honoring Retry-After ([0b72927](https://github.com/hyperweb-io/interchainjs/commit/0b72927aed81b8316f528656c0252ab6a4e5d00c))
+
 # [1.21.0](https://github.com/hyperweb-io/interchainjs/compare/@interchainjs/utils@1.20.0...@interchainjs/utils@1.21.0) (2026-03-01)
 
 **Note:** Version bump only for package @interchainjs/utils
